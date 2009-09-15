@@ -42,32 +42,32 @@ $wgHooks['gwPage'][] = 'pfpGatewayPage';
 */
 function pfpGatewayValue(&$values) {
   
-  $values['payflow'] = array(
-    'gateway' => "payflow",
-    'display_name' => "Credit Card",
-    'form_value' => "payflow",
-    'currencies' => array(
-      'GBP' => "GBP: British Pound",
-      'EUR' => "EUR: Euro",
-      'USD' => "USD: U.S. Dollar",
-      'AUD' => "AUD: Australian Dollar",
-      'CAD' => "CAD: Canadian Dollar",
-      'CHF' => "CHF: Swiss Franc",
-      'CZK' => "CZK: Czech Koruna",
-      'DKK' => "DKK: Danish Krone",
-      'HKD' => "HKD: Hong Kong Dollar",
-      'HUF' => "HUF: Hungarian Forint",
-      'JPY' => "JPY: Japanese Yen",
-      'NZD' => "NZD: New Zealand Dollar",
-      'NOK' => "NOK: Norwegian Krone",
-      'PLN' => "PLN: Polish Zloty",
-      'SGD' => "SGD: Singapore Dollar",
-      'SEK' => "SEK: Swedish Krona",
-      'ILS' => "ILS: Isreali Shekel",
-      ),
-    );
+        $values['payflow'] = array(
+                'gateway' => "payflow",
+                'display_name' => "Credit Card",
+                'form_value' => "payflow",
+                'currencies' => array(
+                        'GBP' => "GBP: British Pound",
+                        'EUR' => "EUR: Euro",
+                        'USD' => "USD: U.S. Dollar",
+                        'AUD' => "AUD: Australian Dollar",
+                        'CAD' => "CAD: Canadian Dollar",
+                        'CHF' => "CHF: Swiss Franc",
+                        'CZK' => "CZK: Czech Koruna",
+                        'DKK' => "DKK: Danish Krone",
+                        'HKD' => "HKD: Hong Kong Dollar",
+                        'HUF' => "HUF: Hungarian Forint",
+                        'JPY' => "JPY: Japanese Yen",
+                        'NZD' => "NZD: New Zealand Dollar",
+                        'NOK' => "NOK: Norwegian Krone",
+                        'PLN' => "PLN: Polish Zloty",
+                        'SGD' => "SGD: Singapore Dollar",
+                        'SEK' => "SEK: Swedish Krona",
+                        'ILS' => "ILS: Isreali Shekel",
+                ),
+          );
 
-  return true;
+        return true;
 }
 
 /*
@@ -78,9 +78,10 @@ function pfpGatewayValue(&$values) {
 * the result might look like this: http://www.yourdomain.com/index.php?title=Special:PayflowPro&amount=75.00&currency_code=USD&payment_method=payflow
 */
 function pfpGatewayPage(&$url) {
-  global $wgScript;
+        
+        global $wgScript;
   
-  $url['payflow'] = $wgScript. "?title=Special:PayflowProGateway";
+        $url['payflow'] = $wgScript. "?title=Special:PayflowProGateway";
   
-  return true;
+        return true;
 }

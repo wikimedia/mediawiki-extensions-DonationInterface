@@ -13,4 +13,4 @@ EOT;
 $dir = dirname(__FILE__) . '/';
  
 $wgAutoloadClasses['donate_interface'] = $dir . 'donate_interface.php'; # Tell MediaWiki to load the extension body.
-$wgExtensionMessagesFiles['donate_interface'] = $dir . 'donate_interface.i18n.php';
+

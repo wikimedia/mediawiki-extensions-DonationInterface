@@ -6,40 +6,45 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 	$wgExtensionFunctions[] = 'efDonateSetup';
 }
 
+$dir = dirname(__FILE__) . '/';
+$wgExtensionMessagesFiles['donate_interface'] = $dir . 'donate_interface.i18n.php';
+
 /*
 * Create <donate /> tag to include landing page donation form
 */
 function efDonateSetup(&$parser) {
 	global $wgParser, $wgOut, $wgRequest;
 	
+	//load extension messages
+	wfLoadExtensionMessages( 'donate_interface' );
+	
 	$parser->disableCache();
 				
 	$wgParser->setHook( 'donate', 'efDonateRender' );
 	
-	
 	// if form has been submitted, assign data and redirect user to chosen payment gateway
 	if ($_POST['process'] == "_yes_") { 
 	 //find out which amount option was chosen for amount, redefined buttons or text box
-	 if (isset($_POST['amount'])) {
-		  $amount = number_format($wgRequest->getText('amount'), 2);
+                if (isset($_POST['amount'])) {
+		      $amount = number_format($wgRequest->getText('amount'), 2);
 		} else { $amount = number_format($wgRequest->getText('amount2'), 2, '.', ''); }	 
 	 
 	 // create	array of user input
 	 $userInput = array (
-	   'currency' => $wgRequest->getText('currency_code'),
-	   'amount' => $amount,
-	   'payment_method' => $wgRequest->getText('payment_method')
+                'currency' => $wgRequest->getText('currency_code'),
+                'amount' => $amount,
+                'payment_method' => $wgRequest->getText('payment_method')
 	 );
 	 
-  // ask payment processor extensions for their URL/page title
-  wfRunHooks('gwPage', array(&$url));
+        // ask payment processor extensions for their URL/page title
+        wfRunHooks('gwPage', array(&$url));
 	
 	// send user to correct page for payment  
-  redirectToProcessorPage($userInput, $url);
+        redirectToProcessorPage($userInput, $url);
   
-  }// end if form has been submitted
+        }// end if form has been submitted
   
-  return true;
+        return true;
 }
 
 
@@ -51,17 +56,17 @@ function efDonateSetup(&$parser) {
 *   
 */
 function efDonateRender( $input, $args, &$parser) {
-  global $wgOut;
+        global $wgOut;
   
-	 $parser->disableCache();
+        $parser->disableCache();
     
-    //add javascript validation to <head>
-    $parser->mOutput->addHeadItem('<script type="text/javascript" language="javascript" src="/extensions/donate_interface/validate_donation.js"></script>');
+        //add javascript validation to <head>
+        $parser->mOutput->addHeadItem('<script type="text/javascript" language="javascript" src="/extensions/donate_interface/validate_donation.js"></script>');
     
-    //display form to gather data from user
-    $output = createOutput();
+        //display form to gather data from user
+        $output = createOutput();
       
-  return $output;
+        return $output;
 }
 
 /*
@@ -72,56 +77,66 @@ function efDonateRender( $input, $args, &$parser) {
 */
 function createOutput() {
 
-  //get payment method gateway value and name from each gateway and create menu of options
-  $values = '';
-  wfRunHooks('gwValue', array(&$values)); 
+        //get payment method gateway value and name from each gateway and create menu of options
+        $values = '';
+        wfRunHooks('gwValue', array(&$values)); 
   
 	foreach($values as $current) {
-		  $optionMenu .= '<option value='. $current['form_value'] . '>'. $current['display_name'] .'</option>';
-  }
+		  $gatewayMenu .= XML::option($current['display_name'], $current['form_value']);
+        }
   
-  //get available currencies
-  //NOTE: currently all available currencies are accepted by all developed gateways
-  //the next version will include gateway/currency checking 
-  //and inform user of gateways that aren't an option for that currency
-  foreach($values as $key) {
-    $currencies = $key['currencies'];
-  }
+        //get available currencies
+        //NOTE: currently all available currencies are accepted by all developed gateways
+        //the next version will include gateway/currency checking 
+        //and inform user of gateways that aren't an option for that currency
+        foreach($values as $key) {
+                $currencies = $key['currencies'];
+        }
  
-  foreach($currencies as $key => $value) {
-    $currencyMenu .= '<option value='. $key .'>'. $value .'</option>';
-  }
-	
-	// form markup
-  $output ='<form method="post"  action="" name="donate" onsubmit="return validateForm(this)">
-    <div>Please choose a payment method, amount, and currency. (Other ways to give, including check or mail, can be <a href="/wiki/Donate/WaysToGive/en" title="Donate/WaysToGive/en">found here</a>.)</div>
-    <div>Donation Amount: </div>
-    <div id="amount_box">
-     <input type="hidden" name="title" value="Special:PayflowPro" />
-    <input type="radio" name="amount" id="input_amount_3" value="100" />
-    <label for="input_amount_3">$100</label> 
-    <input type="radio" name="amount" id="input_amount_2"  value="75" />
-    <label for="input_amount_2">$75</label>
-    <input type="radio" name="amount" id="input_amount_1" value="30" />
-    <label for="input_amount_1">$30</label>
-    <label for="input_amount_other">Other: </label> <input type="text" name="amount2" size="5"  />
-    <!-- currency menu -->
-    <p>Select Currency</p>
-    <select name="currency_code" id="input_currency_code" size="1">
-    <option value="USD" selected="selected">USD: U.S. Dollar</option>
-    <option value="XXX">-------</option>
-    '. $currencyMenu .'
-    </select></div>
-    <div>Payment method:
-    <select name="payment_method" id="select_payment_method">
-    '.$optionMenu.'
-    </select></div>
-    <input type="hidden" name="process" value="_yes_" />
-    <br />
-    <input class="red-input-button" type="submit" value="DONATE"/>
-    </form>';
+        foreach($currencies as $value => $fullName) {
+                $currencyMenu .= XML::option($fullName, $value);
+        }
     
-    return $output;
+        $output = XML::openElement('form', array('name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => 'return validateForm(this)')) .
+                XML::openElement('div', array('id' => 'mw-donation-intro')) .
+                XML::element('p', array('class' => 'mw-donation-intro-text'), wfMsg('donation-intro')) .
+                XML::closeElement('div');
+        
+        $amount = array(
+                XML::radioLabel('$100', 'amount', '100', 'input_amount_3', FALSE, array("")),
+                XML::radioLabel('$75', 'amount', '75', 'input_amount_2', FALSE, array("")),
+                XML::radioLabel('$30', 'amount', '30', 'input_amount_1', FALSE, array("")),
+                XML::inputLabel('Other Amount: ', "amount2", "input_amount_other", "5"),
+        );
+        
+        $amountFields = "<table><tr>";
+                foreach($amount as $value) {
+                        $amountFields .= '<td>' . $value . '</td>';
+                }
+        $amountFields .= '</tr></table>';
+        
+        $output .= XML::fieldset(wfMsg( 'donor-amount' ), $amountFields,  array('class' => "mw-donation-amount"));
+        
+        $currencyFields = XML::openElement('select', array('name' => "currency_code", 'id' => "input_currency_code")) .
+                '<option value="USD" selected="selected">USD: U.S. Dollar</option>' . 
+                '<option value="XXX">-------</option>' . 
+                $currencyMenu .
+                XML::closeElement('select');
+        
+        $output .= XML::fieldset(wfMsg( 'donor-currency' ), $currencyFields,  array('class' => "mw-donation-currency"));
+        
+        $gatewayFields = XML::openElement('select', array('name' => "payment_method", 'id' => "select_payment_method")) . 
+                $gatewayMenu .
+                XML::closeElement('select');
+        
+        $output .= XML::fieldset(wfMsg( 'donor-gateway' ), $gatewayFields,  array('class' => "mw-donation-gateway")) .
+                XML::hidden('process', '_yes_') .
+                XML::submitButton("Donate");
+        
+    
+        $output .= XML::closeElement('form');
+    
+        return $output;
 }
 
 
@@ -133,9 +148,9 @@ function createOutput() {
 * matches the form value (also supplied by the gateway)
 */
 function redirectToProcessorPage($userInput, $url) {
-  global $wgOut;
+        global $wgOut;
   
-  $chosenGateway = $userInput['payment_method'];
+        $chosenGateway = $userInput['payment_method'];
 
 	 $wgOut->redirect($url[$chosenGateway].'&amount='.$userInput['amount'].'&currency_code='.$userInput['currency']);
 
