@@ -20,7 +20,7 @@ $wgExtensionCredits['specialpage'][] = array(
 
 $dir = dirname(__FILE__) . '/';
 
-$wgExtensionMessagesFiles['PaypalGateway'] = $dir . 'paypal_gateway.il8n.php';
+$wgExtensionMessagesFiles['PaypalGateway'] = $dir . 'paypal_gateway.i18n.php';
 
 /** 
 * Hooks required to interface with the donation extension (include <donate> on page)

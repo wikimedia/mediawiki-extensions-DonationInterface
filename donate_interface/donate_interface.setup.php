@@ -1,4 +1,4 @@
-<?php
+testing<?php
 
 # Alert the user that this is not a valid entry point to MediaWiki if they try to access the special pages file directly.
 if (!defined('MEDIAWIKI')) {
@@ -13,4 +13,3 @@ EOT;
 $dir = dirname(__FILE__) . '/';
  
 $wgAutoloadClasses['donate_interface'] = $dir . 'donate_interface.php'; # Tell MediaWiki to load the extension body.
-

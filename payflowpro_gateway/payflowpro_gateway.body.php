@@ -17,7 +17,7 @@ class PayflowProGateway extends SpecialPage {
 		
 		        //create token if one doesn't already exist
 		        $token = $wgUser->editToken('mrxc877668DwQQ');
-		
+		       
 		        // Declare form post variables 
 		        $data = array(
 		                'amount'         => '',
@@ -35,20 +35,25 @@ class PayflowProGateway extends SpecialPage {
 		                'cvv'            => '',
 		                'currency'       => '',
 		                'payment_method' => '',
+		                'order_id'       => '',
+		                'numAttempt'     => '',
+		                'token'          => $token,
 		        );
 		  
 		        $error[] = '';
 		
 		        //find out if amount was a radio button or textbox, set amount
 		        if (isset($_REQUEST['amount'])) {
-		                $amount = number_format($wgRequest->getText('amount'), 2);
+		                $amount = $wgRequest->getText('amount');
 		        } else if (isset($_REQUEST['amount2'])) { 
 		                $amount = number_format($wgRequest->getText('amount2'), 2, '.', ''); 
 		        } else { 
-		                $wgOut->addHTML("This page is only accessible from the donation page"); 
+		                $wgOut->addHTML(wfMsg( 'pfp-accessible' )); 
 		                return;
 		        }
- 
+           
+            //track the number of attempts the user has made
+            $numAttempt = ($wgRequest->getText('numAttempt') == '') ? '0' : $wgRequest->getText('numAttempt');
 		        // Populate from data  
 		        $data = array(  
 		                'amount'         => $amount,
@@ -67,20 +72,24 @@ class PayflowProGateway extends SpecialPage {
 		                'cvv'            => $wgRequest->getText('cvv'),
 		                'currency'       => $wgRequest->getText('currency_code'),
 		                'payment_method' => $wgRequest->getText('payment_method'),
-		                'token'          => $wgRequest->getVal('token'),
-		                'test_string'    => $wgRequest->getText('process') //for showing payflow string during testing
+		                'order-id'       => NULL, //will be set with $payflow_data
+		                'numAttempt'     => $numAttempt,
+		                'test_string'    => $wgRequest->getText('process'), //for showing payflow string during testing
 		      );
-		
 		
 		      // Get array of default account values necessary for Payflow 
 		      require_once('includes/payflowUser.inc');
 		
 		      $payflow_data = payflowUser();
+		      
+		      //assign this order ID to the $data array as well
+		      $data['order_id'] = $payflow_data['order_id'];
 		
           // Check form for errors and display 
           // match token
           $success = $wgUser->matchEditToken($token, 'mrxc877668DwQQ');
-		
+		      
+		      
 		      if ($success) {
                   if ($data['payment_method'] == "processed") {
                           // Check form for errors and redisplay with messages
@@ -88,6 +97,8 @@ class PayflowProGateway extends SpecialPage {
                                   $this->displayForm($data, $error);
                           } else {
                                   // The submitted data is valid, so process it
+                                  //increase the count of attempts
+                                  ++$data['numAttempt'];
                                   $this->processTransaction($data, $payflow_data);
                           }
                   } else {
@@ -111,9 +122,13 @@ class PayflowProGateway extends SpecialPage {
           require_once('includes/stateAbbreviations.inc');
 		      require_once('includes/countryCodes.inc');
 		
-		      global $wgOut;		
-		
-		      $form = wfMsg('form-message');
+		      global $wgOut;	
+		   
+		      $form = XML::openElement('div', array('id' => 'mw-creditcard')) .
+		              XML::openElement('div', array('id' => 'mw-creditcard-intro')) .
+		              XML::tags('p', array('class' => 'mw-creditcard-intro-msg'), wfMsg( 'pfp-form-message' )) .
+		              XML::tags('p', array('class' => 'mw-creditcard-intro-msg'), wfMsg( 'pfp-form-message-2' )) .
+                  XML::closeElement('div');
 		      
 		      //show error messages if they exist
 		      if (!empty($error)) {
@@ -137,22 +152,22 @@ class PayflowProGateway extends SpecialPage {
           //Form 
           $form .= XML::openElement('div', array('id' => 'mw-creditcard-form')) . 
                   XML::openElement('form', array('name' => "payment", 'method' => "post", 'action' => "")) .
-                  XML::element('legend', array('class' => 'mw-creditcard-amount'), 'Donation Amount: '.$data['amount']) .
+                  XML::element('legend', array('class' => 'mw-creditcard-amount'), wfMsg( 'pfp-amount-legend' ) .$data['amount']) .
                   XML::hidden('amount', $data['amount']);
           
           $donorInput = array(
-                  XML::inputLabel('Email Address: ', "email", "email", "30", $data['email'], array('maxlength' => "150")),
-                  XML::inputLabel('First Name: ', "fname", "fname", "20", $data['fname'], array('maxlength' => "35")),
-                  XML::inputLabel('Middle Name: ', "mname", "mname", "20", $data['mname'], array('maxlength' => "35")),
-                  XML::inputLabel('Last Name: ', "lname", "lname", "20", $data['lname'], array('maxlength' => "35")),
-                  XML::inputLabel('Street: ', "street", "street", "30", $data['street'], array('maxlength' => "100")),
-                  XML::inputLabel('City: ', "city", "city", "20", $data['city'], array('maxlength' => "35")),
-                  XML::label("State: ", "state") .
+                  XML::inputLabel(wfMsg( 'pfp-donor-email' ), "email", "email", "30", $data['email'], array('maxlength' => "150")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-fname' ), "fname", "fname", "20", $data['fname'], array('maxlength' => "35")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-mname' ), "mname", "mname", "20", $data['mname'], array('maxlength' => "35")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-lname' ), "lname", "lname", "20", $data['lname'], array('maxlength' => "35")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-street' ), "street", "street", "30", $data['street'], array('maxlength' => "100")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-city' ), "city", "city", "20", $data['city'], array('maxlength' => "35")),
+                  XML::label(wfMsg( 'pfp-donor-state' ), "state") .
                   XML::openElement('select', array('name' => "state", 'id' => "state", 'value' => $data['state'])) .
                   statesMenuXML() . 
                   XML::closeElement('select'),
-                  XML::inputLabel('Postal Code: ', "zip", "zip", "15", $data['zip'], array('maxlength' => "18")),
-                  XML::label("Country/Region: ", "country") .
+                  XML::inputLabel(wfMsg( 'pfp-donor-postal' ), "zip", "zip", "15", $data['zip'], array('maxlength' => "18")),
+                  XML::label(wfMsg( 'pfp-donor-country' ), "country") .
                   XML::openElement('select', array('name' => "country", 'id' => "country", 'value' => $data['country'])) .
                   $countryMenu . 
                   XML::closeElement('select')
@@ -164,7 +179,7 @@ class PayflowProGateway extends SpecialPage {
                   $donorField .= '<p>' . $value . '</p>';
           }  
           
-          $form .= XML::fieldset(wfMsg( 'donor-info' ), $donorField,  array('class' => "mw-creditcard-donor"));
+          $form .= XML::fieldset(wfMsg( 'pfp-donor-legend' ), $donorField,  array('class' => "mw-creditcard-donor"));
 		        
 		      $cardOptions = array(
 		              'visa'       => "Visa",
@@ -177,7 +192,7 @@ class PayflowProGateway extends SpecialPage {
 		      }
 		        
 		      $cardInput = 
-		                XML::label("Credit Card: ", "card") .
+		                XML::label(wfMsg( 'pfp-donor-card' ), "card") .
                                 XML::openElement('select', array('name' => "card", 'id' => "card")) .
                                 $cardOptionsMenu .
                                 XML::closeElement('select');
@@ -189,7 +204,7 @@ class PayflowProGateway extends SpecialPage {
           }
 		          
 		      $expMosMenu = 
-		                XML::label("Expiration Date: ", "expiration") .
+		                XML::label(wfMsg( 'pfp-donor-expiration' ), "expiration") .
                                 XML::openElement('select', array('name' => "mos", 'id' => "mos")) .
                                 $expMos .
                                 XML::closeElement('select');
@@ -206,34 +221,34 @@ class PayflowProGateway extends SpecialPage {
                   XML::closeElement('select');
              
           $cardInput = array(
-                  XML::label("Credit Card: ", "card") .
+                  XML::label(wfMsg( 'pfp-donor-card' ), "card") .
                   XML::openElement('select', array('name' => "card", 'id' => "card")) .
                   $cardOptionsMenu .
                   XML::closeElement('select'),
-                  XML::inputLabel('Card Number: ', "card_num", "card_num", "30", '', array('maxlength' => "100")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-card-num' ), "card_num", "card_num", "30", '', array('maxlength' => "100")),
                   $expMosMenu . $expYrMenu,
-                  XML::inputLabel('Security Code: ', "cvv", "cvv", "5", '', array('maxlength' => "10")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-security' ), "cvv", "cvv", "5", '', array('maxlength' => "10")),
           );
             
           foreach($cardInput as $value) {
                   $cardField .= '<p>' . $value . '</p>';
           } 
             
-          $form .= XML::fieldset(wfMsg( 'card-info' ), $cardField,  array('class' => "mw-creditcard-card")) .
+          $form .= XML::fieldset(wfMsg( 'pfp-card-legend' ), $cardField,  array('class' => "mw-creditcard-card")) .
                   XML::hidden('process', 'CreditCard') .
                   XML::hidden('payment_method', 'processed') .
                   XML::hidden('token', $data['token']) .
                   XML::hidden('currency_code', $data['currency']) . 
                   XML::hidden('orderid', $data['order_id']) .
+                  XML::hidden('numAttempt', $data['numAttempt']) .
                   XML::submitButton("Donate") . 
                   XML::closeElement('form') .
                   XML::closeElement('div');
                
-          
-          $wgOut->addHTML( $form ); 
-          $wgOut->addHTML('</div>');
-		      $wgOut->addHTML('<p class="mw-creditcard-submessage">This donation is being made in ' .$data['currency'] . '</p>'); 
-          
+           
+          $form .= XML::closeElement('div') . 
+		              XML::Element('p', array('class' => "mw-creditcard-submessage"), wfMsg( 'pfp-donor-currency-msg' ) .$data['currency']); 
+          $wgOut->addHTML( $form );
   }
 	
 	
@@ -267,7 +282,7 @@ class PayflowProGateway extends SpecialPage {
                   if ($value == '') {
                           //ignore fields that are not required
 	                       if ($msg[$key]) {
-	                               $error[$key] = "**Please enter your " . $msg[$key] . "**<br />";
+	                               $error[$key] = "**" . wfMsg( 'pfp-error-msg' ) . $msg[$key] . "**<br />";
 	                               $error_result = '1';
 	                       }
                   }
@@ -278,7 +293,7 @@ class PayflowProGateway extends SpecialPage {
 	         
 	         //create error message (supercedes empty field message)
 	         if (!$isEmail) {
-	                   $error['email'] = "**Please enter a valid email address**";
+	                   $error['email'] = wfMsg ( 'pfp-error-msg-email' );
 	                   $error_result = '1';
 	         }
 	           
@@ -292,7 +307,7 @@ class PayflowProGateway extends SpecialPage {
 	                         //if the pattern doesn't match
 	                         if (!preg_match($pattern,$data['card_num'])) {
 	                                 $error_result = '1';
-	                                 $error['card'] = "**Please enter a correct card number for American Express.**";
+	                                 $error['card'] = wfMsg( 'pfp-error-msg-amex' );
 	                         }
 	                         
 	                         break;
@@ -304,7 +319,7 @@ class PayflowProGateway extends SpecialPage {
 	                         //if pattern doesn't match
 	                         if (!preg_match($pattern,$data['card_num'])) {
 	                           $error_result = '1';
-	                           $error['card'] = "**Please enter a correct card number for Mastercard.**";
+	                           $error['card'] = wfMsg( 'pfp-error-msg-mc' );
 	                         }
 	                         
 	                         break;
@@ -316,7 +331,7 @@ class PayflowProGateway extends SpecialPage {
                           //if pattern doesn't match
 	                         if (!preg_match($pattern,$data['card_num'])) {
 	                                 $error_result = '1';
-	                                 $error['card'] = "**Please enter a correct card number for Visa.**";
+	                                 $error['card'] = wfMsg( 'pfp-error-msg-visa' );
 	                         }
 	                         
 	                       break;
@@ -340,6 +355,8 @@ class PayflowProGateway extends SpecialPage {
           /* Create name-value pair query string */
           $payflow_query = "TRXTYPE=$payflow_data[trxtype]&TENDER=$payflow_data[tender]&USER=$payflow_data[user]&VENDOR=$payflow_data[vendor]&PARTNER=$payflow_data[partner]&PWD=$payflow_data[password]&ACCT=$data[card_num]&EXPDATE=$data[expiration]&AMT=$data[amount]&FIRSTNAME=$data[fname]&LASTNAME=$data[lname]&STREET=$data[street]&ZIP=$data[zip]&INVNUM=$payflow_data[order_id]&CVV2=$data[cvv]&CURRENCY=$data[currency]&VERBOSITY=$payflow_data[verbosity]&CUSTIP=$payflow_data[user_ip]"; 
           
+          //NOTE: for testing
+          //var_dump($payflow_query);
           
           // assign header data necessary for the curl_setopt() function
           $user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -406,6 +423,9 @@ class PayflowProGateway extends SpecialPage {
   private function getResults($data, $result) {
           global $wgOut;
           
+          //NOTE for testing
+          //var_dump($result);
+          
           //prepare NVP response for sorting and outputting 
           $responseArray = array();
           
@@ -421,41 +441,142 @@ class PayflowProGateway extends SpecialPage {
                   $result = substr($result,$valuepos+1,strlen($result));
           }
           
-          // errors fall into three categories, "try again please", "sorry it didn't work out", and "approved"
-          // try again errors have not yet been developed 
-          //   they will most likely return false and the form is displayed again with the error message (counted)
-          // declines and approvals are displayed with data
+          //errors fall into three categories, "try again please", "sorry it didn't work out", and "approved"
+          //get the result code for response array
           $resultCode = $responseArray['RESULT'];
-          $responseMsg = "There was an problem processing the transaction.  Please try again or contact us.";
-          $errorReturn = "0";
           
+          //initialize response message
+          $tryAgainResponse = '';
+          $responseMsg = '';
           
-          //declines and approval
-          if ($resultCode == '0') { 
-                  $responseMsg = "Your transaction has been approved.  Thank you for your donation!";
-                  $errorReturn = "1";
-          } else if ($resultCode == "12" ) {
-                  $responseMsg = "Your transaction has been declined.  Please contact your credit card company for further information.";
-                 $errorReturn = "1";
-          } else if ($resultCode == '13') { 
-                  $responseMsg = "Voice authorization is required.  Please contact us to continue the donation process.";
-                  $errorReturn = "1";   
+          //interpret result code, return
+          //approved (1), denied (2), try again (3), general error (4)
+          $errorCode = $this->getResponseMsg($resultCode, $responseMsg);
+         
+          //if approved, display results and send transaction to the queue
+          if ($errorCode == '1') {      
+                  $this->displayApprovedResults($data, $responseArray, $responseMsg);
+          //give user a second chance to enter incorrect data
+          } else if (($errorCode == '3') && ($data['numAttempt'] < '2')) {
+                  //pass responseMsg as an array key as required by displayForm
+                  $tryAgainResponse[$responseMsg] = $responseMsg;
+                  $this->displayForm($data, $tryAgainResponse);
+          // if declined or if user has already made two attempts, decline
+          } else if (($errorCode == '2') || ($data['numAttempt'] >= '2')) { 
+                  $this->displayDeclinedResults($responseMsg);
           }
-          
-          //try again please
-          
-          //Development of this functionality is pending testing on live test site and further clarification from Paypal 
-          /*
-          if ($responseCode == '23' || $responseCode == '24') {
-            $responseMsg = "Your credit card number or expiration date is incorrect.  Please try again.";
-            $errorReturn = "1";
-          } else if ()
-          */
-          
-          $this->displayResults($data, $responseMsg);
-          
+                  
   }// end display results
   
+  /**
+   * Interpret response code, return 
+   * 1 if approved
+   * 2 if declined
+   * 3 if invalid data was submitted by user
+   * 4 all other errors
+   */
+   function getResponseMsg($resultCode, &$responseMsg) {
+          $responseMsg = wfMsg( 'pfp-response-default' );
+          $errorCode = "0";
+          
+          switch ($resultCode) {
+                  case '0':
+                          $responseMsg = wfMsg( 'pfp-response-0' );
+                          $errorCode = "1";
+                          break;
+                  case '126':
+                          $responseMsg = wfMsg( 'pfp-response-126' );
+                          $errorCode = "1";
+                          break;
+                  case '12':
+                          $responseMsg = wfMsg( 'pfp-response-12' );
+                          $errorCode = "2";
+                          break;
+                  case '13':
+                          $responseMsg = wfMsg( 'pfp-response-13' );
+                          $errorCode = "2";
+                          break;
+                  case '114':
+                          $responseMsg = wfMsg( 'pfp-response-114' );
+                          $errorCode = "2";
+                          break;
+                  case '4':
+                          $responseMsg = wfMsg( 'pfp-response-4' );
+                          $errorCode = "3";
+                          break;
+                  case '23':
+                          $responseMsg = wfMsg( 'pfp-response-23' );
+                          $errorCode = "3";
+                          break;
+                  case '24':
+                          $responseMsg = wfMsg( 'pfp-response-24' );
+                          $errorCode = "3";
+                          break;
+                  case '112':
+                          $responseMsg = wfMsg( 'pfp-response-112' );
+                          $errorCode = "3";
+                          break;
+                  case '125':
+                          $responseMsg = wfMsg( 'pfp-response-125' );
+                          $errorCode = "3";
+                          break;
+                  default:
+                          $responseMsg = wfMsg( 'pfp-response-default' );
+                          $errorCode = "4";
+                  
+          }
+         
+          return $errorCode;
+} 
+   
+  /*
+   * Display response message to user with submitted user-supplied data
+   *
+   * @params
+   * $data array of posted data from form
+   * $responseMsg message supplied by getResults function
+   *
+   */
+  function displayApprovedResults($data, $responseArray, $responseMsg) {
+          global $wgOut;
+          $transaction = '';
+          
+          require_once('includes/countryCodes.inc');
+          
+          // display response message
+          $wgOut->addHTML('<h3 class="response_message">' . $responseMsg . "</h3>");
+     
+          
+          //translate country code into text 
+		      $countries = countryCodes();
+          
+          $rows = array(
+                  'title' => array(wfMsg( 'pfp-post-transaction' )), 
+                  'amount' => array(wfMsg( 'pfp-donor-amount' ), $data['amount']),
+                  'email' => array(wfMsg( 'pfp-donor-email' ), $data['email']),
+                  'name' => array(wfMsg( 'pfp-donor-name' ), $data['fname'], $data['mname'], $data['lname']),
+                  'address' => array(wfMsg( 'pfp-donor-address' ), $data['street'], $data['city'], $data['state'], $data['zip'],$countries[$data['country']]),
+          );
+          
+          //if we want to show the response
+          $wgOut->addHTML(XML::buildTable($rows, array('class' => 'submitted-response')));
+          
+          //push to ActiveMQ server 
+          // include response message
+          $transaction['response'] = $responseMsg;
+          // include date
+          $transaction['date'] = date('r');
+          // send both the country as text and the three digit ISO code
+          $transaction['country_name'] = $countries[$data['country']];
+          $transaction['country_code'] = $data['country'];
+          //put all data into one array
+          $transaction += array_merge($data, $responseArray);  
+          
+          // hook to call stomp functions    
+          wfRunHooks('gwStomp', array(&$transaction));
+          
+          
+  }       
   
   /*
    * Display response message to user with submitted user-supplied data
@@ -465,39 +586,18 @@ class PayflowProGateway extends SpecialPage {
    * $responseMsg message supplied by getResults function
    *
    */
-  function displayResults($data, $responseMsg) {
+  function displayDeclinedResults($responseMsg) {
           global $wgOut;
           
-          require_once('includes/countryCodes.inc');
-          
+          //general decline message
+          $declinedDefault = wfMsg( 'php-response-declined' );
+                  
           // display response message
-          $wgOut->addHTML('<h3 class="response_message">' . $responseMsg . "</h3>");
-          
-          //translate country code into text 
-		      $countries = countryCodes();
-          
-          $rows = array(
-                  'title' => array('Transaction Details'), 
-                  'amount' => array('Amount: ', $data['amount']),
-                  'email' => array('Email: ', $data['email']),
-                  'name' => array('Name: ', $data['fname'], $data['mname'], $data['lname']),
-                  'address' => array('Address: ', $data['street'], $data['city'], $data['state'], $data['zip'],$countries[$data['country']]),
-          );
-          
-          //if we want to show the response
-          $wgOut->addHTML(XML::buildTable($rows, array('class' => 'submitted-response')));
-          
-          //if we want to push it to the ActiveMQ server
-          //IN DEVELOPMENT 
-          /*
-          $transaction['response'] = $responseMsg;
-          
-          $transaction = array_merge($data, $transaction);  
-              
-          wfRunHooks('gwStomp', array(&$transaction));
-          */
+          $wgOut->addHTML('<h3 class="response_message">' . $declinedDefault . $responseMsg . "</h3>");
+               
           
   }       
+
   
   
 } // end class
