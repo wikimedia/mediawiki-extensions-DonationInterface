@@ -103,7 +103,7 @@ function createOutput() {
     
         $output = XML::openElement('form', array('name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => 'return validateForm(this)')) .
                 XML::openElement('div', array('id' => 'mw-donation-intro')) .
-                XML::element('p', array('class' => 'mw-donation-intro-text'), wfMsg('donation-intro')) .
+                XML::element('p', array('class' => 'mw-donation-intro-text'), wfMsg('donor-intro')) .
                 XML::closeElement('div');
         
         $amount = array(
