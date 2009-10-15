@@ -247,7 +247,7 @@ class PayflowProGateway extends SpecialPage {
                
            
           $form .= XML::closeElement('div') . 
-		              XML::Element('p', array('class' => "mw-creditcard-submessage"), wfMsg( 'pfp-donor-currency-msg' ) .$data['currency']); 
+		              XML::Element('p', array('class' => "mw-creditcard-submessage"), wfMsg( 'pfp-donor-currency-msg', $data['currency'] ) ); 
           $wgOut->addHTML( $form );
   }
 	
@@ -282,7 +282,7 @@ class PayflowProGateway extends SpecialPage {
                   if ($value == '') {
                           //ignore fields that are not required
 	                       if ($msg[$key]) {
-	                               $error[$key] = "**" . wfMsg( 'pfp-error-msg' ) . $msg[$key] . "**<br />";
+	                               $error[$key] = "**" . wfMsg( 'pfp-error-msg', $msg[$key] ) . "**<br />";
 	                               $error_result = '1';
 	                       }
                   }

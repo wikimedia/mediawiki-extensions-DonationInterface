@@ -12,11 +12,10 @@ $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'Paypal Gateway',
 	'author' => 'Four Kitchens',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:PaypalGateway',
-	'description' => 'Registers paypal as a donation payment',
+	'description' => 'Registers PayPal as a donation mechanism',
 	'descriptionmsg' => 'paypal_gateway-desc',
 	'version' => '1.0.0',
 );
-
 
 $dir = dirname(__FILE__) . '/';
 

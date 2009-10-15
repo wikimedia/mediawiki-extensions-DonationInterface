@@ -9,6 +9,15 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 $dir = dirname(__FILE__) . '/';
 $wgExtensionMessagesFiles['donate_interface'] = $dir . 'donate_interface.i18n.php';
 
+$wgExtensionCredits['specialpage'][] = array(
+	'path'           => __FILE__,
+	'name'           => 'DonateInterface',
+	//'author'         => array( 'diana' ), // FIXME: Committer does not have details in http://svn.wikimedia.org/viewvc/mediawiki/USERINFO/
+	'description'    => 'Donate interface',
+	//'descriptionmsg' => 'donor-desc', // FIXME: need description in donate_interface.i18n.php
+	'url'            => 'http://www.mediawiki.org/wiki/Extension:DonateInterface',
+);
+
 /*
 * Create <donate /> tag to include landing page donation form
 */

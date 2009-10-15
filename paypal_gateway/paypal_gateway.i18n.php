@@ -8,5 +8,6 @@
 $messages = array();
  
 $messages['en'] = array( 
-	'paypalgateway' => 'Paypal Gateway',
+	// 'paypalgateway' => 'Paypal gateway', // FIXME: remove? Appears to be unused.
+	'paypal_gateway-desc' => 'Registers PayPal as a donation mechanism',
 );
