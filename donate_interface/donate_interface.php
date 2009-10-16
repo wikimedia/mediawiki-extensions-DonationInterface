@@ -193,8 +193,8 @@ function redirectToProcessorPage($userInput, $url) {
 
     $chosenGateway = $userInput['payment_method'];
 
-    $wgOut->redirect( $wgPaymentGatewayHost . $url[$chosenGateway]. '&amount='. $userInput['amount']. 
-	                   '&currency_code='. $userInput['currency']);
+    $wgOut->redirect( $wgPaymentGatewayHost . $url[$chosenGateway] . '&amount=' . $userInput['amount'] . 
+	                   '&currency_code=' . $userInput['currency'] );
 }
 
 /**
