@@ -93,6 +93,8 @@ function createOutput() {
         //get payment method gateway value and name from each gateway and create menu of options
         $values = '';
         wfRunHooks('gwValue', array(&$values)); 
+	
+	$gatewayMenu = '';
   
 	foreach($values as $current) {
 		  $gatewayMenu .= XML::option($current['display_name'], $current['form_value']);
@@ -105,6 +107,8 @@ function createOutput() {
         foreach($values as $key) {
                 $currencies = $key['currencies'];
         }
+
+	$currencyMenu = '';
  
         foreach($currencies as $value => $fullName) {
                 $currencyMenu .= XML::option($fullName, $value);
@@ -185,11 +189,12 @@ function createOutput() {
 * matches the form value (also supplied by the gateway)
 */
 function redirectToProcessorPage($userInput, $url) {
-    global $wgOut;
+    global $wgOut,$wgPaymentGatewayHost;
 
     $chosenGateway = $userInput['payment_method'];
 
-    $wgOut->redirect($url[$chosenGateway].'&amount='.$userInput['amount'].'&currency_code='.$userInput['currency']);
+    $wgOut->redirect( $wgPaymentGatewayHost . $url[$chosenGateway]. '&amount='. $userInput['amount']. 
+	                   '&currency_code='. $userInput['currency']);
 }
 
 /**
