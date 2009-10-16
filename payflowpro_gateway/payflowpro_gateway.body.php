@@ -14,6 +14,8 @@ class PayflowProGateway extends SpecialPage {
             $wgParser->disableCache();
   
 		        $this->setHeaders();
+		        
+		        $wgOut->addHeadItem('validatescript', '<script type="text/javascript" language="javascript" src="/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>');
 		
 		        //create token if one doesn't already exist
 		        $token = $wgUser->editToken('mrxc877668DwQQ');
@@ -151,13 +153,13 @@ class PayflowProGateway extends SpecialPage {
 		      
           //Form 
           $form .= XML::openElement('div', array('id' => 'mw-creditcard-form')) . 
-                  XML::openElement('form', array('name' => "payment", 'method' => "post", 'action' => "")) .
+                  XML::openElement('form', array('name' => "payment", 'method' => "post", 'action' => "", 'onsubmit' => 'return validate_form(this)')) .
                   XML::element('legend', array('class' => 'mw-creditcard-amount'), wfMsg( 'pfp-amount-legend' ) .$data['amount']) .
                   XML::hidden('amount', $data['amount']);
           
           $donorInput = array(
                   XML::inputLabel(wfMsg( 'pfp-donor-email' ), "email", "email", "30", $data['email'], array('maxlength' => "150")),
-                  XML::inputLabel(wfMsg( 'pfp-donor-fname' ), "fname", "fname", "20", $data['fname'], array('maxlength' => "35")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-fname' ), "fname", "fname", "20", $data['fname'], array('maxlength' => "35", 'class' => 'required')),
                   XML::inputLabel(wfMsg( 'pfp-donor-mname' ), "mname", "mname", "20", $data['mname'], array('maxlength' => "35")),
                   XML::inputLabel(wfMsg( 'pfp-donor-lname' ), "lname", "lname", "20", $data['lname'], array('maxlength' => "35")),
                   XML::inputLabel(wfMsg( 'pfp-donor-street' ), "street", "street", "30", $data['street'], array('maxlength' => "100")),
@@ -565,7 +567,7 @@ class PayflowProGateway extends SpecialPage {
           // include response message
           $transaction['response'] = $responseMsg;
           // include date
-          $transaction['date'] = date('r');
+          $transaction['date'] = time();
           // send both the country as text and the three digit ISO code
           $transaction['country_name'] = $countries[$data['country']];
           $transaction['country_code'] = $data['country'];
