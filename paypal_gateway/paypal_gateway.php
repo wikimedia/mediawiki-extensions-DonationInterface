@@ -36,32 +36,32 @@ $wgHooks['gwPage'][] = 'paypalGatewayPage';
 */
 function paypalGatewayValue(&$values) {
   
-  $values['paypal'] = array(
-    'gateway' => "paypal",
-    'display_name' => "Paypal",
-    'form_value' => "paypal",
-    'currencies' => array(
-      'GBP' => "GBP: British Pound",
-      'EUR' => "EUR: Euro",
-      'USD' => "USD: U.S. Dollar",
-      'AUD' => "AUD: Australian Dollar",
-      'CAD' => "CAD: Canadian Dollar",
-      'CHF' => "CHF: Swiss Franc",
-      'CZK' => "CZK: Czech Koruna",
-      'DKK' => "DKK: Danish Krone",
-      'HKD' => "HKD: Hong Kong Dollar",
-      'HUF' => "HUF: Hungarian Forint",
-      'JPY' => "JPY: Japanese Yen",
-      'NZD' => "NZD: New Zealand Dollar",
-      'NOK' => "NOK: Norwegian Krone",
-      'PLN' => "PLN: Polish Zloty",
-      'SGD' => "SGD: Singapore Dollar",
-      'SEK' => "SEK: Swedish Krona",
-      'ILS' => "ILS: Israeli Shekel",
-      ),
-    );
-
-  return true;
+        $values['paypal'] = array(
+                'gateway' => "paypal",
+                'display_name' => "Paypal",
+                'form_value' => "paypal",
+                'currencies' => array(
+                  'GBP' => "GBP: British Pound",
+                  'EUR' => "EUR: Euro",
+                  'USD' => "USD: U.S. Dollar",
+                  'AUD' => "AUD: Australian Dollar",
+                  'CAD' => "CAD: Canadian Dollar",
+                  'CHF' => "CHF: Swiss Franc",
+                  'CZK' => "CZK: Czech Koruna",
+                  'DKK' => "DKK: Danish Krone",
+                  'HKD' => "HKD: Hong Kong Dollar",
+                  'HUF' => "HUF: Hungarian Forint",
+                  'JPY' => "JPY: Japanese Yen",
+                  'NZD' => "NZD: New Zealand Dollar",
+                  'NOK' => "NOK: Norwegian Krone",
+                  'PLN' => "PLN: Polish Zloty",
+                  'SGD' => "SGD: Singapore Dollar",
+                  'SEK' => "SEK: Swedish Krona",
+                  'ILS' => "ILS: Israeli Shekel",
+                  ),
+                );
+        
+        return true;
 }
 
 /*
@@ -72,10 +72,15 @@ function paypalGatewayValue(&$values) {
 * It is set in the LocalSettings.php file
 */
 function paypalGatewayPage(&$url) {
-  // Business email address set in LocalSettings.php
-  global $wgPaypalEmail;
-    
-  $url['paypal'] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=". urlencode($wgPaypalEmail) ."&lc=US&no_note=1&no_shipping=1&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
-    
-  return true;
+        // Business email address set in LocalSettings.php
+        global $wgPaypalEmail;
+         
+        // to go directly to Paypal, will be used for this extension in general 
+        //$url['paypal'] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=". urlencode($wgPaypalEmail) ."&lc=US&no_note=1&no_shipping=1&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
+        
+        //specifically for WikiMedia, goes to processor page
+        //TODO: Fix for language specific pages!!
+        $url['paypal'] = "http://wikimediafoundation.org/wiki/Special:ContributionTracking/";    
+        
+        return true;
 }

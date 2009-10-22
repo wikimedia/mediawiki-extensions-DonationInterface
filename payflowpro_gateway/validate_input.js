@@ -4,7 +4,7 @@ function validate_form( form )
 {
   var msg = [ 'email address', 'first name', 'last name', 'street address', 'city', 'state', 'zip code', 'credit card number', 'the CVV from the back of your card' ];
   
-  var fields = ["email","fname","lname","street","city","state","zip","card_num","cvv"],
+  var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv"],
       numFields = fields.length,
       i,
       output = '';
@@ -19,8 +19,8 @@ function validate_form( form )
   }
   
   // validate email address
-  var apos=form.email.value.indexOf("@");
-  var dotpos=form.email.value.lastIndexOf(".");
+  var apos=form.emailAdd.value.indexOf("@");
+  var dotpos=form.emailAdd.value.lastIndexOf(".");
   
   if (apos<1||dotpos-apos<2)
   {

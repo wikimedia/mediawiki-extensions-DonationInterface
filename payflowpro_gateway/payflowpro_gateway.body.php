@@ -39,6 +39,14 @@ class PayflowProGateway extends SpecialPage {
 		                'payment_method' => '',
 		                'order_id'       => '',
 		                'numAttempt'     => '',
+		                'referrer'       => '',
+                    'utm_source'     => '',
+                    'utm_medium'     => '',
+                    'utm_campaign'   => '',
+                    'language'       => '',
+                    'comment'        => '',
+                    'anonymous'      => '',
+                    'optout'         => '',
 		                'token'          => $token,
 		        );
 		  
@@ -59,7 +67,7 @@ class PayflowProGateway extends SpecialPage {
 		        // Populate from data  
 		        $data = array(  
 		                'amount'         => $amount,
-		                'email'          => $wgRequest->getText('email'),
+		                'email'          => $wgRequest->getText('emailAdd'),
 		                'fname'          => $wgRequest->getText('fname'),
 		                'mname'          => $wgRequest->getText('mname'),
 		                'lname'          => $wgRequest->getText('lname'),
@@ -76,6 +84,14 @@ class PayflowProGateway extends SpecialPage {
 		                'payment_method' => $wgRequest->getText('payment_method'),
 		                'order-id'       => NULL, //will be set with $payflow_data
 		                'numAttempt'     => $numAttempt,
+		                'referrer'       => $wgRequest->getText('referrer'),
+                    'utm_source'     => $wgRequest->getText('utm_source'),
+                    'utm_medium'     => $wgRequest->getText('utm_medium'),
+                    'utm_campaign'   => $wgRequest->getText('utm_campaign'),
+                    'language'       => $wgRequest->getText('language'),
+                    'comment'        => $wgRequest->getText('comment'),
+                    'anonymous'      => $wgRequest->getText('comment-option'),
+                    'optout'         => $wgRequest->getText('email'),
 		                'test_string'    => $wgRequest->getText('process'), //for showing payflow string during testing
 		      );
 		
@@ -131,19 +147,17 @@ class PayflowProGateway extends SpecialPage {
 		              XML::tags('p', array('class' => 'mw-creditcard-intro-msg'), wfMsg( 'pfp-form-message' )) .
 		              XML::tags('p', array('class' => 'mw-creditcard-intro-msg'), wfMsg( 'pfp-form-message-2' )) .
                   XML::closeElement('div');
-		      
-		      //show error messages if they exist
-		      if (!empty($error)) {
-		              //add styling
-		              $form .= '<div class="creditcard_error">';
-		              
-		              foreach($error as $key) {
-		                      $form .= '<p class="creditcard_error_msg">'.$key.'</p>';
-		              }
-		              
-		              $form .= '</div>';
-		      }
-		      
+                  
+          //add hidden fields
+          $form .= XML::hidden("utm_source", $data['utm_source']) .
+                XML::hidden("utm_medium", $data['utm_medium']) . 
+                XML::hidden("utm_campaign", $data['utm_campaign']) .
+                XML::hidden("language", $data['language']) .
+                XML::hidden("referrer", $data['referrer']) .
+                XML::hidden("comment", $data['comment']) .
+                XML::hidden("comment-option", $data['anonymous']) .
+                XML::hidden("email", $data['optout']);
+		      		      
 		      //create drop down of countries
 		      $countries = countryCodes();
 		      
@@ -158,21 +172,21 @@ class PayflowProGateway extends SpecialPage {
                   XML::hidden('amount', $data['amount']);
           
           $donorInput = array(
-                  XML::inputLabel(wfMsg( 'pfp-donor-email' ), "email", "email", "30", $data['email'], array('maxlength' => "150")),
-                  XML::inputLabel(wfMsg( 'pfp-donor-fname' ), "fname", "fname", "20", $data['fname'], array('maxlength' => "35", 'class' => 'required')),
+                  XML::inputLabel(wfMsg( 'pfp-donor-email' ), "emailAdd", "emailAdd", "30", $data['email'], array('maxlength' => "150")) . '<span class="creditcard_error_msg">'. "  " . $error['emailAdd'].'</span>',
+                  XML::inputLabel(wfMsg( 'pfp-donor-fname' ), "fname", "fname", "20", $data['fname'], array('maxlength' => "35", 'class' => 'required'))  . '<span class="creditcard_error_msg">'. "  " . $error['fname'].'</span>',
                   XML::inputLabel(wfMsg( 'pfp-donor-mname' ), "mname", "mname", "20", $data['mname'], array('maxlength' => "35")),
-                  XML::inputLabel(wfMsg( 'pfp-donor-lname' ), "lname", "lname", "20", $data['lname'], array('maxlength' => "35")),
-                  XML::inputLabel(wfMsg( 'pfp-donor-street' ), "street", "street", "30", $data['street'], array('maxlength' => "100")),
-                  XML::inputLabel(wfMsg( 'pfp-donor-city' ), "city", "city", "20", $data['city'], array('maxlength' => "35")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-lname' ), "lname", "lname", "20", $data['lname'], array('maxlength' => "35")) . '<span class="creditcard_error_msg">'. "  " . $error['lname'].'</span>',
+                  XML::inputLabel(wfMsg( 'pfp-donor-street' ), "street", "street", "30", $data['street'], array('maxlength' => "100"))  . '<span class="creditcard_error_msg">'. "  " . $error['street'].'</span>',
+                  XML::inputLabel(wfMsg( 'pfp-donor-city' ), "city", "city", "20", $data['city'], array('maxlength' => "35"))  . '<span class="creditcard_error_msg">'. "  " . $error['city'].'</span>',
                   XML::label(wfMsg( 'pfp-donor-state' ), "state") .
                   XML::openElement('select', array('name' => "state", 'id' => "state", 'value' => $data['state'])) .
                   statesMenuXML() . 
-                  XML::closeElement('select'),
-                  XML::inputLabel(wfMsg( 'pfp-donor-postal' ), "zip", "zip", "15", $data['zip'], array('maxlength' => "18")),
+                  XML::closeElement('select')  . '<span class="creditcard_error_msg">'. "  " . $error['state'].'</span>',
+                  XML::inputLabel(wfMsg( 'pfp-donor-postal' ), "zip", "zip", "15", $data['zip'], array('maxlength' => "18"))  . '<span class="creditcard_error_msg">'. "  " . $error['zip'].'</span>',
                   XML::label(wfMsg( 'pfp-donor-country' ), "country") .
                   XML::openElement('select', array('name' => "country", 'id' => "country", 'value' => $data['country'])) .
                   $countryMenu . 
-                  XML::closeElement('select')
+                  XML::closeElement('select')  . '<span class="creditcard_error_msg">'. "  " . $error['country'].'</span>'
           );
             
           $donorField = "";
@@ -227,9 +241,9 @@ class PayflowProGateway extends SpecialPage {
                   XML::openElement('select', array('name' => "card", 'id' => "card")) .
                   $cardOptionsMenu .
                   XML::closeElement('select'),
-                  XML::inputLabel(wfMsg( 'pfp-donor-card-num' ), "card_num", "card_num", "30", '', array('maxlength' => "100")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-card-num' ), "card_num", "card_num", "30", '', array('maxlength' => "100"))  . '<span class="creditcard_error_msg">'. "  " . $error['card_num'].'</span>'  . '<span class="creditcard_error_msg">'. "  " . $error['card'].'</span>',
                   $expMosMenu . $expYrMenu,
-                  XML::inputLabel(wfMsg( 'pfp-donor-security' ), "cvv", "cvv", "5", '', array('maxlength' => "10")),
+                  XML::inputLabel(wfMsg( 'pfp-donor-security' ), "cvv", "cvv", "5", '', array('maxlength' => "10")) . '<span class="creditcard_error_msg">'. "  " . $error['cvv'].'</span>',
           );
             
           foreach($cardInput as $value) {
@@ -267,7 +281,7 @@ class PayflowProGateway extends SpecialPage {
 	        //does not include fields that are not required
 	        $msg = array(  
 		              'amount'     => "donation amount",
-		              'email'      => "email address",
+		              'emailAdd'      => "email address",
 		              'fname'      => "first name",
 		              'lname'      => "last name",
 		              'street'     => "street address",
@@ -295,7 +309,7 @@ class PayflowProGateway extends SpecialPage {
 	         
 	         //create error message (supercedes empty field message)
 	         if (!$isEmail) {
-	                   $error['email'] = wfMsg ( 'pfp-error-msg-email' );
+	                   $error['emailAdd'] = wfMsg ( 'pfp-error-msg-email' );
 	                   $error_result = '1';
 	         }
 	           

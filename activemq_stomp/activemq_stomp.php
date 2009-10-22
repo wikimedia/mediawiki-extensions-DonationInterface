@@ -9,12 +9,12 @@ EOT;
 }
  
 $wgExtensionCredits['other'][] = array(
-	'name' => 'ActiveMQ - PHP STOMP',
-	'author' => 'Four Kitchens',
-	'url' => '',
-	'description' => 'Interface to send donation data to ActiveMQ server',
-	'descriptionmsg' => 'activemq_stomp-desc',
-	'version' => '1.0.0',
+	     'name' => 'ActiveMQ - PHP STOMP',
+	     'author' => 'Four Kitchens',
+	     'url' => '',
+	     'description' => 'Interface to send donation data to ActiveMQ server',
+	     'descriptionmsg' => 'activemq_stomp-desc',
+	     'version' => '1.0.0',
 );
 
 
@@ -24,9 +24,9 @@ $wgAutoloadClasses['activemq_stomp'] = $dir . 'activemq_stomp.php'; # Tell Media
 #$wgExtensionMessagesFiles['ActiveMQSTOMP'] = $dir . 'activemq_stomp.il8n.php';
 
 if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-	$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
+	     $wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
 } else { // Otherwise do things the old fashioned way
-	$wgExtensionFunctions[] = 'efStompSetup';
+	     $wgExtensionFunctions[] = 'efStompSetup';
 }
 
 
@@ -34,24 +34,24 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 * Create <donate /> tag to include landing page donation form
 */
 function efStompSetup(&$parser) {
-	global $wgParser, $wgOut;
-	
-	$parser->disableCache();
-				
-	$wgParser->setHook( 'stomp', 'efStompTest' );
-  
-  return true;
+	     global $wgParser, $wgOut;
+	     
+	     $parser->disableCache();
+	     			
+	     $wgParser->setHook( 'stomp', 'efStompTest' );
+       
+       return true;
 }
 
 function efStompTest($input, $args, &$parser) {
   
-  $parser->disableCache();
-  
-  $output = "STOMP Test page";
-  
-  wfRunHooks('gwStomp', array(&$transaction));
-  
-  return $output;
+        $parser->disableCache();
+        
+        $output = "STOMP Test page";
+        
+        wfRunHooks('gwStomp', array(&$transaction));
+        
+        return $output;
 }
 
 /** 
@@ -65,52 +65,29 @@ $wgHooks['gwStomp'][] = 'sendSTOMP';
 * Hook to send transaction information to ActiveMQ server
 */
 function sendSTOMP($transaction) {
-  global $wgOut;
-  global $wgStompServer;
-  //var_dump($wgStompServer);
-  
-  // include a library
-  require_once("Stomp.php");
-    
-  $message = json_encode(createQueueMessage($transaction));
-  
-  // make a connection
-  $con = new Stomp($wgStompServer);
-  
-  // connect
-  $con->connect();
-  
-  // send a message to the queue
-  $result = $con->send("/queue/test", $message, array('persistent' => 'true'));
-  
-  // TODO: Add back up logging if no result!
-  
-  $con->disconnect();
-    
-  /* NOTE: For receiving messages - saved for later development
-  
-  // subscribe to the queue
-  
-  $con->subscribe("/queue/test");
-  
-  // receive a message from the queue
-  $msg = $con->readFrame();
-
-  // do what you want with the message
-  if ( $msg->body === "string") {
-    echo "Worked!!\n";
-    $wgOut->addHTML("WORKED");
-    // mark the message as received in the queue
-    $con->ack($msg);
-  } else {
-      echo "Failed\n";
-      $wgOut->addHTML("FAILED");
-  }
-*/
-  // disconnect
-  
-
-  return true;
+        global $wgOut;
+        global $wgStompServer;
+        //var_dump($wgStompServer);
+        
+        // include a library
+        require_once("Stomp.php");
+          
+        $message = json_encode(createQueueMessage($transaction));
+        
+        // make a connection
+        $con = new Stomp($wgStompServer);
+        
+        // connect
+        $con->connect();
+        
+        // send a message to the queue
+        $result = $con->send("/queue/test", $message, array('persistent' => 'true'));
+        
+        // TODO: Add back up logging if no result!
+        
+        $con->disconnect();
+        
+        return true;
 }
 
 /**
@@ -135,9 +112,14 @@ function createQueueMessage($transaction) {
         // edit this array to include/ignore transaction data sent to the server
         $message = array( 
                 'contribution_tracking_id' => $transaction['order_id'],
-                'optout'                 => 1, //TODO: include once created on donation page
-                'anonymous'              => 0, //TODO: include once created on donation page
-                'comment'                => '', //TODO: include once created on donation page
+                'optout'                 => $transaction['optout'],
+                'anonymous'              => $transaction['anonymous'],
+                'comment'                => $transaction['comment'],
+                'utm_source'             => $transaction['utm_source'],
+                'utm_medium'             => $transaction['utm_medium'],
+                'utm_campaign'           => $transaction['utm_campaign'],
+                'language'               => $transaction['language'],
+                'referrer'               => $transaction['referrer'],
                 'email'                  => $transaction['email'],
                 'first_name'             => $transaction['fname'],
                 'middle_name'            => $transaction['mname'],
@@ -164,4 +146,3 @@ function createQueueMessage($transaction) {
  
         return $message;
 }
-
