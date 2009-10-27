@@ -55,7 +55,8 @@ function efDonateSetup( &$parser ) {
 	);
 
 	// if form has been submitted, assign data and redirect user to chosen payment gateway
-	if ( $_POST['process'] == '_yes_' ) {
+	if ( isset( $_POST['process'] ) ) {
+		if ( $_POST['process'] == '_yes_' ) {
 		// find out which amount option was chosen for amount, redefined buttons or text box
 		if( isset( $_POST['amount'] ) ) {
 			$amount = number_format( $wgRequest->getText( 'amount' ), 2 );
@@ -83,7 +84,8 @@ function efDonateSetup( &$parser ) {
 
 		// send user to correct page for payment  
 		redirectToProcessorPage( $userInput, $url );
-	} // end if form has been submitted
+		} // end if form has been submitted
+	}
 
 	return true;
 }
@@ -270,14 +272,14 @@ function redirectToProcessorPage( $userInput, $url ) {
 	$chosenGateway = $userInput['payment_method'];
 
 	$wgOut->redirect(
-		$url[$chosenGateway] . '&amount=' . $userInput['amount'] .
-		'&currency_code=' . $userInput['currency'] . '&gateway=' .
-		$userInput['payment_method'] . '&referrer=' . $userInput['referrer'] .
-		'&utm_source=' . $userInput['utm_source'] . '&utm_medium=' .
-		$userInput['utm_medium'] . '&utm_campaign=' . $userInput['utm_campaign'] .
-		'&language=' . $userInput['language'] . '&comment=' .
-		$userInput['comment'] . '&comment-option=' . $userInput['comment-option'] .
-		'&email=' . $userInput['email']
+		$wgPaymentGatewayHost . $url[$chosenGateway] . '&amount=' . 
+		$userInput['amount'] . '&currency_code=' . $userInput['currency'] .
+	       	'&gateway=' . $userInput['payment_method'] . '&referrer=' . 
+		$userInput['referrer'] . '&utm_source=' . $userInput['utm_source'] .
+	       	'&utm_medium=' . $userInput['utm_medium'] . '&utm_campaign=' . 
+		$userInput['utm_campaign'] .'&language=' . $userInput['language'] . 
+		'&comment=' . $userInput['comment'] . '&comment-option=' . 
+		$userInput['comment-option'] .'&email=' . $userInput['email']
 	);
 }
 
