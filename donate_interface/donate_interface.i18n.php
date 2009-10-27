@@ -2,12 +2,14 @@
 /**
  * Internationalization file for the Donation Interface extension
  *
- * @addtogroup Extensions
-*/
+ * @file
+ * @ingroup Extensions
+ */
 
 $messages = array();
- 
-$messages['en'] = array( 
+
+/** English */
+$messages['en'] = array(
 	'donate_interface' => 'Support Wikimedia',
 	'donate-desc' => 'Donation landing page that integrates gateway extensions',
 	'donor-intro' => 'Please choose a payment method, amount, and currency.',
@@ -22,5 +24,5 @@ $messages['en'] = array(
 	'donor-email-agreement' => "I agree to receive future Wikimedia Foundation newsletters or emails.
 We will never sell or trade your information.
 Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>here</a>",
-       'donor-comment-title' => 'Public Comment',
+	'donor-comment-title' => 'Public Comment',
 );
