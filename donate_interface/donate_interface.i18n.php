@@ -24,5 +24,5 @@ $messages['en'] = array(
 	'donor-email-agreement' => "I agree to receive future Wikimedia Foundation newsletters or emails.
 We will never sell or trade your information.
 Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>here</a>",
-	'donor-comment-title' => 'Public Comment',
+	'donor-comment-title' => 'Public comment',
 );
