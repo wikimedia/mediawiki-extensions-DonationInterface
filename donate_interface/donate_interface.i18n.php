@@ -31,6 +31,6 @@ Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wik
 	'donate_interface-big-amount-value' => '100',
 	'donate_interface-medium-amount-value' => '75',
 	'donate_interface-small-amount-value' => '30',
-	'donate_interface-amount-error' => '**Please enter a correct amount**',
+	'donate_interface-amount-error' => '**Please enter a valid amount**',
 	'donate_interface-processing-error' => 'There has been an error processing your request. No processor are available.',
 );
