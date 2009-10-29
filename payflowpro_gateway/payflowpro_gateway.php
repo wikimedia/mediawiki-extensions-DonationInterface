@@ -26,6 +26,16 @@ $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n
 $wgExtensionAliasesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.alias.php';
 $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway'; # Let MediaWiki know about your new special page.
 
+// set defaults, these should be assigned in LocalSettings.php
+$wgPayflowProURL = 'https://payflowpro.paypal.com';
+$wgPayflowProTestingURL = 'https://pilot-payflowpro.paypal.com'; // Payflow testing URL
+
+$wgPayflowProPartnerID = ''; //PayPal or original authorized reseller
+$wgPayflowProVendorID = ''; // paypal merchant login ID
+$wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
+$wgPayflowProPassword = ''; //merchant login password
+
+
 
 /** 
 * Hooks required to interface with the donation extension (include <donate> on page)
@@ -33,8 +43,8 @@ $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway'; # Let MediaWiki know
 * gwValue supplies the value of the form option, the name that appears on the form
 * and the currencies supported by the gateway in the $values array
 */
-$wgHooks['gwValue'][] = 'pfpGatewayValue';
-$wgHooks['gwPage'][] = 'pfpGatewayPage';
+$wgHooks['DonationInterface_Value'][] = 'pfpGatewayValue';
+$wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
 
 /*
 * Hook to register form value and display name of this gateway

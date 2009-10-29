@@ -21,7 +21,9 @@ $wgExtensionCredits['other'][] = array(
 $dir = dirname(__FILE__) . '/';
  
 $wgAutoloadClasses['activemq_stomp'] = $dir . 'activemq_stomp.php'; # Tell MediaWiki to load the extension body.
-#$wgExtensionMessagesFiles['ActiveMQSTOMP'] = $dir . 'activemq_stomp.il8n.php';
+
+//default variables that should be set in LocalSettings
+$wgStompServer = "";
 
 if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 	     $wgHooks['ParserFirstCallInit'][] = 'efStompSetup';

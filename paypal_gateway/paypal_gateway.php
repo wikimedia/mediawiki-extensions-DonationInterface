@@ -21,14 +21,17 @@ $dir = dirname(__FILE__) . '/';
 
 $wgExtensionMessagesFiles['PaypalGateway'] = $dir . 'paypal_gateway.i18n.php';
 
+//default variables that should be set in LocalSettings
+$wgPaypalEmail = "";
+
 /** 
 * Hooks required to interface with the donation extension (include <donate> on page)
 *
 * gwValue supplies the value of the form option, the name that appears on the form
 * and the currencies supported by the gateway in the $values array
 */
-$wgHooks['gwValue'][] = 'paypalGatewayValue';
-$wgHooks['gwPage'][] = 'paypalGatewayPage';
+$wgHooks['DonationInterface_Value'][] = 'paypalGatewayValue';
+$wgHooks['DonationInterface_Page'][] = 'paypalGatewayPage';
 
 /*
 * Hook to register form value and display name of this gateway
