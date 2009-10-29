@@ -21,7 +21,7 @@ $messages['en'] = array(
 	'donor-comment-message' => 'Have a thought to share with the world? Put up to 200 characters here:',
 	'donor-comment-label' => 'Comment:',
 	'donor-anon-message' => 'Please list my name (next to my comment) on the public donor list.',
-	'donor-email-agreement' => "I agree to receive future Wikimedia Foundation newsletters or emails.
+	'donor-email-agreement' => "I agree to receive future Wikimedia Foundation newsletters or e-mails.
 We will never sell or trade your information.
 Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>here</a>",
 	'donor-comment-title' => 'Public comment',
