@@ -56,5 +56,5 @@ Please contact us to continue your transaction.', // This will not apply to Wiki
 Please try again later.',
 	'php-response-declined' => 'Your transaction has been declined.',
 	'payflowpro_gateway-post-transaction' => 'Transaction details',
-  'payflowpro_gateway-submit-button' => "Donate",
+	'payflowpro_gateway-submit-button' => 'Donate',
 );
