@@ -9,10 +9,10 @@ $messages = array();
 
 $messages['en'] = array(
 	'payflowprogateway' => 'Support Wikimedia',
-	'payflowpro_gateway-desc' => 'Paypal Payflow Pro credit card processing',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'pfp-accessible' => 'This page is only accessible from the donation page.',
 	'pfp-form-message' => 'Contribute with your credit card.
-There are <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">other ways to give, including Paypal, check, or mail</a>.',
+There are <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">other ways to give, including PayPal, check, or mail</a>.',
 	'pfp-form-message-2' => 'To change amount or currency, return to <a href="/index.php?title=Donate">the donation page</a>',
 	'pfp-donor-legend' => 'Donor information',
 	'pfp-card-legend' => 'Credit card information',
