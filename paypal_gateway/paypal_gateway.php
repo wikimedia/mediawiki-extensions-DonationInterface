@@ -82,8 +82,7 @@ function paypalGatewayPage(&$url) {
         //$url['paypal'] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=". urlencode($wgPaypalEmail) ."&lc=US&no_note=1&no_shipping=1&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
         
         //specifically for WikiMedia, goes to processor page
-        //TODO: Fix for language specific pages!!
-        $url['paypal'] = "http://wikimediafoundation.org/wiki/Special:ContributionTracking/";    
+        $url['paypal'] = "http://wikimediafoundation.org/wiki/Special:ContributionTracking/?";    
         
         return true;
 }
