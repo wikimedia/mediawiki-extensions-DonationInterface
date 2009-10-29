@@ -45,7 +45,7 @@ Thank you for your donation!',
 	'pfp-response-126' => 'Your transaction is pending approval.',
 	'pfp-response-12' => 'Please contact your credit card company for further information.',
 	'pfp-response-13' => 'Your transaction requires voice authorization.
-Please contact us to continue your transaction.', // This will not apply to WikiMedia accounts
+Please contact us to continue your transaction.', // This will not apply to Wikimedia accounts
 	'pfp-response-114' => 'Please contact your credit card company for further information.',
 	'pfp-response-23' => 'Your credit card number or expiration date is incorrect.',
 	'pfp-response-4' => 'Invalid amount.',
