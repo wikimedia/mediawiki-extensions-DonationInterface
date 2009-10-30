@@ -69,7 +69,6 @@ $wgHooks['gwStomp'][] = 'sendSTOMP';
 function sendSTOMP($transaction) {
         global $wgOut;
         global $wgStompServer;
-        //var_dump($wgStompServer);
         
         // include a library
         require_once("Stomp.php");
@@ -85,7 +84,9 @@ function sendSTOMP($transaction) {
         // send a message to the queue
         $result = $con->send("/queue/test", $message, array('persistent' => 'true'));
         
-        // TODO: Add back up logging if no result!
+        if (!$result) {
+                wfDebugLog('activemq_stomp', 'Send to Q failed for this message: ' . $message);
+}
         
         $con->disconnect();
         

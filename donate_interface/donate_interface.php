@@ -118,8 +118,11 @@ function fnDonateCreateOutput() {
     }
   
     //get available currencies
+ 
     foreach($values as $key) {
-      $currencies = $key['currencies'];
+      if (isset($key['currencies'])) {
+        $currencies = $key['currencies'];
+      } else { $currencies = array( 'USD' => "USD: U.S. Dollar" ); }
     }
 
 	$currencyMenu = '';
@@ -223,18 +226,18 @@ function fnDonateCreateOutput() {
 function fnDonateRedirectToProcessorPage($userInput, $url) {
   global $wgOut,$wgPaymentGatewayHost;
         
-  $chosenGateway = $userInput['payment_method'];
+  $chosenGateway = $userInput['gateway'];
 
+  $redirectionData = wfArrayToCGI( $userInput );
+  
+	//$wgOut->redirect(
+		//$wgPaymentGatewayHost . $url[$chosenGateway] . $redirectionData
+	//); 
+	
 	$wgOut->redirect(
-		$wgPaymentGatewayHost . $url[$chosenGateway] . '&amount=' . 
-		$userInput['amount'] . '&currency_code=' . $userInput['currency'] .
-	       	'&gateway=' . $userInput['payment_method'] . '&referrer=' . 
-		$userInput['referrer'] . '&utm_source=' . $userInput['utm_source'] .
-	       	'&utm_medium=' . $userInput['utm_medium'] . '&utm_campaign=' . 
-		$userInput['utm_campaign'] .'&language=' . $userInput['language'] . 
-		'&comment=' . $userInput['comment'] . '&comment-option=' . 
-		$userInput['comment-option'] .'&email=' . $userInput['email']
-	);
+		$url[$chosenGateway] . '&' . $redirectionData
+	); 
+
 }
 
 /**
@@ -306,9 +309,9 @@ function fnProcessDonateForm( $output, $article, $title, $user, $request, $wiki 
     
   // declare variables used to hold post data
   $userInput = array (
-      'currency' => 'USD',
+      'currency_code' => 'USD',
       'amount' => '0.00',
-      'payment_method' => '',
+      'gateway' => '',
       'referrer' => '',
       'utm_source' => '',
       'utm_medium' => '',
@@ -333,9 +336,9 @@ function fnProcessDonateForm( $output, $article, $title, $user, $request, $wiki 
 	 
   // create	array of user input from post data
   $userInput = array (
-        'currency' => $wgRequest->getText( 'currency_code', 'USD' ),
+        'currency_code' => $wgRequest->getText( 'currency_code', 'USD' ),
         'amount' => $amount,
-        'payment_method' => $wgRequest->getText( 'payment_method', 'payflow' ),
+        'gateway' => $wgRequest->getText( 'payment_method', 'payflow' ),
         'referrer' => $wgRequest->getText( 'referrer', '' ),
         'utm_source' => $wgRequest->getText( 'utm_source', '' ),
         'utm_medium' => $wgRequest->getText( 'utm_medium', '' ),
