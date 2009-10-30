@@ -26,11 +26,32 @@ $messages['af'] = array(
 	'paypal_gateway-desc' => "Registreer PayPal as 'n skenkingsmeganisme",
 );
 
+/** Arabic (العربية)
+ * @author OsamaK
+ */
+$messages['ar'] = array(
+	'paypal_gateway-desc' => 'تسجل PayPal كآلية تبرع',
+);
+
+/** French (Français)
+ * @author PieRRoMaN
+ */
+$messages['fr'] = array(
+	'paypal_gateway-desc' => 'Inscrit PayPal comme mécanisme de donation',
+);
+
 /** Swiss German (Alemannisch)
  * @author Als-Holder
  */
 $messages['gsw'] = array(
 	'paypal_gateway-desc' => 'Regischtriert PayPal as Spänd-Inschtrumänt',
+);
+
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'paypal_gateway-desc' => 'Registruje PayPal jako darjenski mechanizm',
 );
 
 /** Hungarian (Magyar)
@@ -45,6 +66,13 @@ $messages['hu'] = array(
  */
 $messages['ja'] = array(
 	'paypal_gateway-desc' => 'PayPal を寄付のための方法として登録する',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'paypal_gateway-desc' => 'Registréiert PayPal als Mechanismus fir Donen',
 );
 
 /** Macedonian (Македонски)
@@ -66,5 +94,12 @@ $messages['nl'] = array(
  */
 $messages['ru'] = array(
 	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Vinhtantran
+ */
+$messages['vi'] = array(
+	'paypal_gateway-desc' => 'Đăng ký PayPal làm cơ chế quyên góp',
 );
 
