@@ -1,30 +1,30 @@
 <?php
 
 # Alert the user that this is not a valid entry point to MediaWiki if they try to access the special pages file directly.
-if (!defined('MEDIAWIKI')) {
-        echo <<<EOT
-To install my extension, put the following line in LocalSettings.php:
+if( !defined( 'MEDIAWIKI' ) ) {
+	echo <<<EOT
+To install PayflowPro Gateway extension, put the following line in LocalSettings.php:
 require_once( "\$IP/extensions/payflowpro_gateway/payflowpro_gateway.php" );
 EOT;
-        exit( 1 );
+	exit( 1 );
 }
- 
+
+// Extension credits that will show up on Special:Version
 $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'PayflowPro Gateway',
 	'author' => 'Four Kitchens',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:PayflowProGateway',
+	'version' => '1.0.0',
 	'description' => 'Integrates Paypal Payflow Pro credit card processing',
 	'descriptionmsg' => 'payflowpro_gateway-desc',
-	'version' => '1.0.0',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:PayflowProGateway',
 );
- 
+
+// Set up the new special page
 $dir = dirname(__FILE__) . '/';
-
-
-$wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php'; # Tell MediaWiki to load the extension body.
+$wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n.php';
 $wgExtensionAliasesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.alias.php';
-$wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway'; # Let MediaWiki know about your new special page.
+$wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
 
 // set defaults, these should be assigned in LocalSettings.php
 $wgPayflowProURL = 'https://payflowpro.paypal.com';
@@ -35,63 +35,60 @@ $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
 $wgPayflowProPassword = ''; //merchant login password
 
-
-
 /** 
-* Hooks required to interface with the donation extension (include <donate> on page)
-*
-* gwValue supplies the value of the form option, the name that appears on the form
-* and the currencies supported by the gateway in the $values array
-*/
+ * Hooks required to interface with the donation extension (include <donate> on page)
+ *
+ * gwValue supplies the value of the form option, the name that appears on the form
+ * and the currencies supported by the gateway in the $values array
+ */
 $wgHooks['DonationInterface_Value'][] = 'pfpGatewayValue';
 $wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
 
-/*
-* Hook to register form value and display name of this gateway
-* also supplies currencies supported by this gateway
-*/
-function pfpGatewayValue(&$values) {
-  
-        $values['payflow'] = array(
-                'gateway' => "payflow",
-                'display_name' => "Credit Card",
-                'form_value' => "payflow",
-                'currencies' => array(
-                        'GBP' => "GBP: British Pound",
-                        'EUR' => "EUR: Euro",
-                        'USD' => "USD: U.S. Dollar",
-                        'AUD' => "AUD: Australian Dollar",
-                        'CAD' => "CAD: Canadian Dollar",
-                        'CHF' => "CHF: Swiss Franc",
-                        'CZK' => "CZK: Czech Koruna",
-                        'DKK' => "DKK: Danish Krone",
-                        'HKD' => "HKD: Hong Kong Dollar",
-                        'HUF' => "HUF: Hungarian Forint",
-                        'JPY' => "JPY: Japanese Yen",
-                        'NZD' => "NZD: New Zealand Dollar",
-                        'NOK' => "NOK: Norwegian Krone",
-                        'PLN' => "PLN: Polish Zloty",
-                        'SGD' => "SGD: Singapore Dollar",
-                        'SEK' => "SEK: Swedish Krona",
-                        'ILS' => "ILS: Isreali Shekel",
-                ),
-          );
+/**
+ * Hook to register form value and display name of this gateway
+ * also supplies currencies supported by this gateway
+ */
+function pfpGatewayValue( &$values ) {
 
-        return true;
+	$values['payflow'] = array(
+		'gateway' => 'payflow',
+		'display_name' => 'Credit Card',
+		'form_value' => 'payflow',
+		'currencies' => array(
+			'GBP' => 'GBP: British Pound',
+			'EUR' => 'EUR: Euro',
+			'USD' => 'USD: U.S. Dollar',
+			'AUD' => 'AUD: Australian Dollar',
+			'CAD' => 'CAD: Canadian Dollar',
+			'CHF' => 'CHF: Swiss Franc',
+			'CZK' => 'CZK: Czech Koruna'
+			'DKK' => 'DKK: Danish Krone',
+			'HKD' => 'HKD: Hong Kong Dollar',
+			'HUF' => 'HUF: Hungarian Forint',
+			'JPY' => 'JPY: Japanese Yen',
+			'NZD' => 'NZD: New Zealand Dollar',
+			'NOK' => 'NOK: Norwegian Krone',
+			'PLN' => 'PLN: Polish Zloty',
+			'SGD' => 'SGD: Singapore Dollar',
+			'SEK' => 'SEK: Swedish Krona',
+			'ILS' => 'ILS: Isreali Shekel',
+		),
+	);
+
+	return true;
 }
 
-/*
-*  Hook to supply the page address of the payment gateway
-*
-* The user will redirected here with supplied data with input data appended (GET).
-* For example, if $url[$key] = index.php?title=Special:PayflowPro
-* the result might look like this: http://www.yourdomain.com/index.php?title=Special:PayflowPro&amount=75.00&currency_code=USD&payment_method=payflow
-*/
-function pfpGatewayPage(&$url) {
-        
-        global $wgScript;
-  
-        $url['payflow'] = $wgScript. "?title=Special:PayflowProGateway";
-  
-        return true;
+/**
+ *  Hook to supply the page address of the payment gateway
+ *
+ * The user will redirected here with supplied data with input data appended (GET).
+ * For example, if $url[$key] = index.php?title=Special:PayflowPro
+ * the result might look like this: http://www.yourdomain.com/index.php?title=Special:PayflowPro&amount=75.00&currency_code=USD&payment_method=payflow
+ */
+function pfpGatewayPage( &$url ) {
+	global $wgScript;
+
+	$url['payflow'] = $wgScript . '?title=Special:PayflowProGateway';
+
+	return true;
 }

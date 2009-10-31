@@ -1,12 +1,14 @@
 <?php
 /**
- * Internationalization file for the Donation Interface - Payflowerpro - extension
+ * Internationalization file for the Donation Interface - PayflowPro - extension
  *
- * @addtogroup Extensions
-*/
+ * @file
+ * @ingroup Extensions
+ */
 
 $messages = array();
 
+/** English */
 $messages['en'] = array(
 	'payflowprogateway' => 'Support Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
