@@ -35,11 +35,32 @@ $messages['ar'] = array(
 	'paypal_gateway-desc' => 'تسجل PayPal كآلية تبرع',
 );
 
+/** Breton (Brezhoneg)
+ * @author Fulup
+ */
+$messages['br'] = array(
+	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon',
+);
+
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'paypal_gateway-desc' => 'Registrěrujo PayPal ako pósćiwański mechanizm',
+);
+
 /** French (Français)
  * @author PieRRoMaN
  */
 $messages['fr'] = array(
 	'paypal_gateway-desc' => 'Inscrit PayPal comme mécanisme de donation',
+);
+
+/** Galician (Galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'paypal_gateway-desc' => 'Rexistra o PayPal como un mecanismo de doazón',
 );
 
 /** Swiss German (Alemannisch)
@@ -91,6 +112,13 @@ $messages['nl'] = array(
 	'paypal_gateway-desc' => 'Registreert PayPal als een donateursinstrument',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'paypal_gateway-desc' => 'A registra PayPal com un mecanism ëd donassion',
+);
+
 /** Russian (Русский)
  * @author Александр Сигачёв
  */
@@ -103,5 +131,12 @@ $messages['ru'] = array(
  */
 $messages['vi'] = array(
 	'paypal_gateway-desc' => 'Đăng ký PayPal làm cơ chế quyên góp',
+);
+
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Bencmq
+ */
+$messages['zh-hans'] = array(
+	'paypal_gateway-desc' => '将PayPal注册为捐助方式',
 );
 

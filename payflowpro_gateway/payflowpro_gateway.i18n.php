@@ -191,6 +191,57 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-donor-name' => 'Імя:',
 );
 
+/** German (Deutsch)
+ * @author Tbleher
+ */
+$messages['de'] = array(
+	'payflowpro_gateway-donor-city' => 'Stadt:',
+	'payflowpro_gateway-donor-postal' => 'Postleitzahl:',
+	'payflowpro_gateway-donor-card' => 'Kreditkarte:',
+);
+
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'payflowprogateway' => 'Wikimediju pódprěś',
+	'payflowpro_gateway-accessible' => 'Toś ten bok jo jano wót bok darow pśistupny.',
+	'payflowpro_gateway-donor-legend' => 'Informacije wó darje',
+	'payflowpro_gateway-card-legend' => 'Informacije wó kreditowej kórśe',
+	'payflowpro_gateway-amount-legend' => 'Pósćiwańska suma:',
+	'payflowpro_gateway-donor-amount' => 'Suma:',
+	'payflowpro_gateway-donor-email' => 'E-mailowa adresa:',
+	'payflowpro_gateway-donor-fname' => 'Pśedmě:',
+	'payflowpro_gateway-donor-mname' => 'Druge mě:',
+	'payflowpro_gateway-donor-lname' => 'Familijowe mě:',
+	'payflowpro_gateway-donor-name' => 'Mě:',
+	'payflowpro_gateway-donor-street' => 'Droga:',
+	'payflowpro_gateway-donor-city' => 'Město:',
+	'payflowpro_gateway-donor-state' => 'Stat:',
+	'payflowpro_gateway-donor-postal' => 'Postowa licba:',
+	'payflowpro_gateway-donor-country' => 'Kraj/Region:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kreditowa kórta:',
+	'payflowpro_gateway-donor-card-num' => 'Kórtowy numer:',
+	'payflowpro_gateway-donor-expiration' => 'Datum spadnjenja:',
+	'payflowpro_gateway-donor-security' => 'Wěstotny kod:',
+	'payflowpro_gateway-donor-submit' => 'Pósćiś',
+	'payflowpro_gateway-donor-currency-msg' => 'Toś ten dar jo se cynił w $1',
+	'payflowpro_gateway-error-msg' => 'Pšosym wupołni pólo: $1',
+	'payflowpro_gateway-error-msg-email' => ' **Pšosym zapódaj płaśiwu e-mailowu adresu**',
+	'payflowpro_gateway-error-msg-amex' => ' **Pšosym zapódaj korektne kórtowe cysło za American Express.**',
+	'payflowpro_gateway-error-msg-mc' => ' **Pšosym zapódaj korektne kórtowe cysło za Mastercard.**',
+	'payflowpro_gateway-error-msg-visa' => ' **Pšosym zapódaj korektne kórtowe cysło za Visa.**',
+	'payflowpro_gateway-response-0' => 'Twója transakcija jo se pśizwóliła.
+Źěkujomy s za twój dar!',
+	'payflowpro_gateway-response-126' => 'Twója transakcija caka na pśizwólenje.',
+	'payflowpro_gateway-response-23' => 'Cysło twójeje kreditoweje kórty abo datum spadnjenja jo wopak.',
+	'payflowpro_gateway-response-4' => 'Njepłaśiwa suma.',
+	'php-response-declined' => 'Twója transakcija jo se wótpokazała.',
+	'payflowpro_gateway-post-transaction' => 'Drobnostki transakcije',
+	'payflowpro_gateway-submit-button' => 'Pósćiś',
+);
+
 /** French (Français)
  * @author PieRRoMaN
  */
@@ -451,6 +502,8 @@ $messages['lb'] = array(
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
 	'payflowpro_gateway-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'payflowpro_gateway-amount-legend' => 'Betrag vum Don:',
+	'payflowpro_gateway-donor-amount' => 'Betrag:',
+	'payflowpro_gateway-donor-email' => 'E-Mailadress:',
 	'payflowpro_gateway-donor-fname' => 'Virnumm:',
 	'payflowpro_gateway-donor-lname' => 'Familjennumm:',
 	'payflowpro_gateway-donor-name' => 'Numm:',
@@ -462,6 +515,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-donor-address' => 'Adress:',
 	'payflowpro_gateway-donor-card' => 'Kreditkaart',
 	'payflowpro_gateway-donor-card-num' => 'Nummer vun der Kaart:',
+	'payflowpro_gateway-donor-expiration' => 'Datum vun der Expiratioun:',
 	'payflowpro_gateway-donor-security' => 'Sécherheetscode:',
 	'payflowpro_gateway-donor-submit' => 'Maacht en Don',
 	'payflowpro_gateway-donor-currency-msg' => 'Dësen don gëtt an $1 gemaach',
@@ -471,6 +525,10 @@ Merci fir Ären Don!',
 	'payflowpro_gateway-response-12' => "Kontaktéiert d'Firma vun Ärer Krditkaart fir weider Informatiounen.",
 	'payflowpro_gateway-response-114' => "Kontaktéiert d'Firma vun Ärer Kreditkaart fir méi Informatiounen.",
 	'payflowpro_gateway-response-4' => 'Net valabele Betrag.',
+	'payflowpro_gateway-response-112' => 'Är Adress oder CVV-Nummer (Sécherheetscode) ass net richteg.',
+	'payflowpro_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
+Probéiert et w.e.g. spéider nach eng Kéier.',
+	'payflowpro_gateway-post-transaction' => 'Detailer vun der Transaktioun',
 	'payflowpro_gateway-submit-button' => 'Maacht en Don',
 );
 
@@ -689,5 +747,60 @@ Xin hãy thử lại vào lần sau.',
 	'php-response-declined' => 'Giao dịch của bạn đã bị từ chối.',
 	'payflowpro_gateway-post-transaction' => 'Chi tiết giao dịch',
 	'payflowpro_gateway-submit-button' => 'Đóng góp',
+);
+
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Bencmq
+ */
+$messages['zh-hans'] = array(
+	'payflowprogateway' => '支持维基媒体',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro信用卡处理',
+	'payflowpro_gateway-accessible' => '本页只能从资助页面访问',
+	'payflowpro_gateway-form-message' => '用您的信用卡捐助。
+此外还可以通过<a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/zh-hans">其他途径捐助，包括PayPal，支票或邮件</a>。',
+	'payflowpro_gateway-form-message-2' => '要更改数额或币种，请返回<a href="/index.php?title=Donate">资助页面</a>',
+	'payflowpro_gateway-donor-legend' => '捐助人信息',
+	'payflowpro_gateway-card-legend' => '信用卡信息',
+	'payflowpro_gateway-amount-legend' => '捐助数额：',
+	'payflowpro_gateway-donor-amount' => '总额：',
+	'payflowpro_gateway-donor-email' => '电子邮箱地址：',
+	'payflowpro_gateway-donor-fname' => '名：',
+	'payflowpro_gateway-donor-mname' => '中间名：',
+	'payflowpro_gateway-donor-lname' => '姓：',
+	'payflowpro_gateway-donor-name' => '姓名：',
+	'payflowpro_gateway-donor-street' => '街道',
+	'payflowpro_gateway-donor-city' => '城市：',
+	'payflowpro_gateway-donor-state' => '州或省：',
+	'payflowpro_gateway-donor-postal' => '邮编：',
+	'payflowpro_gateway-donor-country' => '国家/地区：',
+	'payflowpro_gateway-donor-address' => '地址：',
+	'payflowpro_gateway-donor-card' => '信用卡：',
+	'payflowpro_gateway-donor-card-num' => '信用卡号码：',
+	'payflowpro_gateway-donor-expiration' => '到期日：',
+	'payflowpro_gateway-donor-security' => '安全码：',
+	'payflowpro_gateway-donor-submit' => '捐助',
+	'payflowpro_gateway-donor-currency-msg' => '这笔捐款使用的币种是$1',
+	'payflowpro_gateway-error-msg' => '请输入您的$1',
+	'payflowpro_gateway-error-msg-email' => '**请输入有效的电子邮件地址**',
+	'payflowpro_gateway-error-msg-amex' => '**请输入正确的美国运通（American Express）信用卡安全码。**',
+	'payflowpro_gateway-error-msg-mc' => '**请输入正确的万事达卡（Mastercard）安全码。**',
+	'payflowpro_gateway-error-msg-visa' => '**请输入正确的维萨卡（Visa）安全码。**',
+	'payflowpro_gateway-response-0' => '您的交易已经成功。
+感谢您的捐助！',
+	'payflowpro_gateway-response-126' => '您的交易正在等待确认中。',
+	'payflowpro_gateway-response-12' => '请向您的信用卡公司咨询更多信息。',
+	'payflowpro_gateway-response-13' => '您的交易需要语音授权。
+请联系我们以完成您的这笔交易。',
+	'payflowpro_gateway-response-114' => '请向您的信用卡公司咨询更多信息。',
+	'payflowpro_gateway-response-23' => '您的信用卡号码或有效期有误。',
+	'payflowpro_gateway-response-4' => '无效的数额。',
+	'payflowpro_gateway-response-24' => '您的信用卡号或有效期有误。',
+	'payflowpro_gateway-response-112' => '您的地址或CVV码（安全码）有误。',
+	'payflowpro_gateway-response-125' => '反欺诈系统拒绝了您的捐献。',
+	'payflowpro_gateway-response-default' => '在处理交易的过程中出错。
+请稍后再试。',
+	'php-response-declined' => '您的交易被拒绝。',
+	'payflowpro_gateway-post-transaction' => '交易详情',
+	'payflowpro_gateway-submit-button' => '捐助',
 );
 
