@@ -246,7 +246,7 @@ $messages['hu'] = array(
 	'donate_interface-other-amount' => 'Más összeg',
 	'donate_interface-currency' => 'Pénznem:',
 	'donate_interface-gateway' => 'Fizetési mód:',
-	'donate_interface-submit-button' => 'Elküldöm az adományt',
+	'donate_interface-submit-button' => 'Adomány elküldése',
 	'donate_interface-comment-message' => 'Van olyan gondolatod, amit meg szeretnél osztani a világgal? Próbáld meg elmondani itt (maximum 200 karakterben):',
 	'donate_interface-comment-label' => 'Megjegyzés:',
 	'donate_interface-anon-message' => 'A nevem szerepelhet (a megjegyzés mellett) az adományozók nyilvános listáján.',
@@ -254,6 +254,29 @@ $messages['hu'] = array(
 A személyes adatokat soha nem adjuk el, és nem adjuk ki harmadik félnek.
 Az adományozási adatvédelmi irányelvek <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>itt</a> olvashatóak.",
 	'donate_interface-comment-title' => 'Nyilvános megjegyzés',
+);
+
+/** Indonesian (Bahasa Indonesia)
+ * @author IvanLanin
+ */
+$messages['id'] = array(
+	'donate_interface' => 'Dukung Wikimedia',
+	'donate_interface-desc' => 'Halaman awal donasi yang mengintegrasikan ekstensi gerbang',
+	'donate_interface-intro' => 'Silakan pilih metode pembayaran, nilai, dan mata uang.',
+	'donate_interface-amount' => 'Nilai donasi:',
+	'donate_interface-other-amount' => 'Jumlah lain',
+	'donate_interface-currency' => 'Mata uang:',
+	'donate_interface-gateway' => 'Metode pembayaran:',
+	'donate_interface-submit-button' => 'Donasikan',
+	'donate_interface-comment-message' => 'Ada suatu pikiran untuk dibagi dengan dunia? Masukkan maksimum 200 karakter di sini:',
+	'donate_interface-comment-label' => 'Komentar:',
+	'donate_interface-anon-message' => 'Daftarkan nama saya (di sebelah komentar saya) pada daftar donor publik.',
+	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala atau surel dari Wikimedia Foundation di masa datang.
+Kami tidak akan pernah menjual atau memperdagangkan informasi Anda.
+Kebijakan privasi donor kami dapat ditemukan <a title="Donasi/Privasi Donor" href=\'/wiki/Donate/Donor_Privacy\'>di sini</a>',
+	'donate_interface-comment-title' => 'Komentar publik',
+	'donate_interface-amount-error' => '**Harap masukkan nilai yang valid**',
+	'donate_interface-processing-error' => 'Terjadi kesalahan dalam pemrosesan permintaan Anda. Tidak ada pemroses yang tersedia.',
 );
 
 /** Japanese (日本語)

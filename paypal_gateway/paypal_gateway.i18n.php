@@ -84,6 +84,13 @@ $messages['hu'] = array(
 	'paypal_gateway-desc' => 'PayPal regisztrálása mint adakozási mód',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author IvanLanin
+ */
+$messages['id'] = array(
+	'paypal_gateway-desc' => 'Mendaftarkan PayPal sebagai suatu mekanisme donasi',
+);
+
 /** Japanese (日本語)
  * @author Fryed-peach
  */
