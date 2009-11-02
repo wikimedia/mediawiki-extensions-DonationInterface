@@ -49,6 +49,13 @@ $messages['dsb'] = array(
 	'paypal_gateway-desc' => 'Registrěrujo PayPal ako pósćiwański mechanizm',
 );
 
+/** Spanish (Español)
+ * @author Locos epraix
+ */
+$messages['es'] = array(
+	'paypal_gateway-desc' => 'Registra PayPal como mecanismo de donación',
+);
+
 /** French (Français)
  * @author PieRRoMaN
  */

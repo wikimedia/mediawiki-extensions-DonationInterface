@@ -36,11 +36,13 @@ Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wik
 );
 
 /** Message documentation (Message documentation)
+ * @author EugeneZelenko
  * @author Fryed-peach
  * @author Siebrand
  */
 $messages['qqq'] = array(
 	'donate_interface-desc' => '{{desc}}',
+	'donate_interface-currency' => '{{Identical|Currency}}',
 	'donate_interface-submit-button' => '{{Identical|Donate}}',
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
 );
@@ -87,6 +89,15 @@ $messages['ar'] = array(
 	'donate_interface-comment-title' => 'تعليق عام',
 	'donate_interface-amount-error' => '**من فضلك أدخل مقدارًا صالحًا**',
 	'donate_interface-processing-error' => 'ثمة خطأ أثناء معالجة طلبك. لا معالج متوفر.',
+);
+
+/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+ * @author EugeneZelenko
+ */
+$messages['be-tarask'] = array(
+	'donate_interface-currency' => 'Валюта:',
+	'donate_interface-submit-button' => 'Ахвяраваць',
+	'donate_interface-comment-label' => 'Камэнтар:',
 );
 
 /** German (Deutsch)
@@ -210,6 +221,8 @@ $messages['gsw'] = array(
 Mir wäre dyy Information nie vercahufe oder dermit handle.
 Unsri Spände-Richtlinie cha mer <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>do</a> aaluege",
 	'donate_interface-comment-title' => 'Effentligi Aamerkig',
+	'donate_interface-amount-error' => '**Bitte gib e giltige Betrag yy**',
+	'donate_interface-processing-error' => 'S het e Fähler gee bim Verarbeite vu Dyyre Aafrog. S isch kei Prozässor verfiegbar.',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -375,7 +388,7 @@ Zie ook ons <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>do
  */
 $messages['pms'] = array(
 	'donate_interface' => 'Giuté Wikimedia',
-	'donate_interface-desc' => "Pàgina d'ariv ëd le donassion che a ìntegra j'estension dël gateway",
+	'donate_interface-desc' => "Pàgina d'ariv ëd le donassion che a ìntegra ij mòdoj ëd pagament",
 	'donate_interface-intro' => 'Për piasì sern manera ëd pagament, total, e la moneda.',
 	'donate_interface-amount' => 'Total ëd la donassion:',
 	'donate_interface-other-amount' => 'Àutr total',
@@ -390,7 +403,7 @@ Noiàutri i vendroma mai ni i passroma vòste anformassion.
 Nòsta polìtica ës riservatëssa dij donator a peul esse trovà <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ambelessì</a>",
 	'donate_interface-comment-title' => 'Coment pùblich',
 	'donate_interface-amount-error' => '**Për piasì anseriss un total bon**',
-	'donate_interface-processing-error' => "A l'é stàit-ie n'eror an processand toa arcesta. Pa gnun processor disponibij.",
+	'donate_interface-processing-error' => "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
 );
 
 /** Russian (Русский)

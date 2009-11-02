@@ -70,7 +70,9 @@ $messages['qqq'] = array(
 	'payflowpro_gateway-desc' => '{{desc}}',
 	'payflowpro_gateway-donor-email' => '{{Identical|E-mail address}}',
 	'payflowpro_gateway-donor-name' => '{{Identical|Name}}',
+	'payflowpro_gateway-donor-street' => '{{Identical|Street}}',
 	'payflowpro_gateway-donor-city' => '{{Identical|City}}',
+	'payflowpro_gateway-donor-state' => '{{Identical|State}}',
 	'payflowpro_gateway-donor-address' => '{{Identical|Address}}',
 	'payflowpro_gateway-donor-submit' => '{{Identical|Donate}}',
 	'payflowpro_gateway-donor-currency-msg' => '* $1 is 3 letter currency code',
@@ -193,8 +195,17 @@ $messages['ar'] = array(
  */
 $messages['be-tarask'] = array(
 	'payflowpro_gateway-donor-email' => 'Адрас электроннай пошты:',
+	'payflowpro_gateway-donor-fname' => 'Імя:',
+	'payflowpro_gateway-donor-mname' => 'Імя па бацьку:',
+	'payflowpro_gateway-donor-lname' => 'Прозьвішча:',
 	'payflowpro_gateway-donor-name' => 'Імя:',
+	'payflowpro_gateway-donor-street' => 'Вуліца:',
 	'payflowpro_gateway-donor-city' => 'Горад:',
+	'payflowpro_gateway-donor-state' => 'Штат:',
+	'payflowpro_gateway-donor-postal' => 'Паштовы індэкс:',
+	'payflowpro_gateway-donor-address' => 'Адрас:',
+	'payflowpro_gateway-donor-submit' => 'Ахвяраваць',
+	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
 );
 
 /** German (Deutsch)
@@ -423,6 +434,7 @@ Bitte nimm Kontakt zuen is uf go Dyy Transaktio wyterfiere.',
 Bitte versuech s speter nonemol.',
 	'php-response-declined' => 'Dyy Transaktion isch abbroche wore.',
 	'payflowpro_gateway-post-transaction' => 'Transaktions-Detail',
+	'payflowpro_gateway-submit-button' => 'Spände',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -638,12 +650,14 @@ $messages['lb'] = array(
 	'payflowprogateway' => 'Ënnerstetzt Wikimedia',
 	'payflowpro_gateway-desc' => 'Behandele vun der Kreditkaart PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
+	'payflowpro_gateway-form-message-2' => "Fir de Betrag oder d'Währung z'änneren gitt w.e.g. zréck op <a href=\"/index.php?title=Donate\">d'Säit vum Don</a>",
 	'payflowpro_gateway-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'payflowpro_gateway-card-legend' => "Informatiounen iwwert d'Kreditkaart",
 	'payflowpro_gateway-amount-legend' => 'Betrag vum Don:',
 	'payflowpro_gateway-donor-amount' => 'Betrag:',
 	'payflowpro_gateway-donor-email' => 'E-Mailadress:',
 	'payflowpro_gateway-donor-fname' => 'Virnumm:',
+	'payflowpro_gateway-donor-mname' => 'Zweete Virnumm:',
 	'payflowpro_gateway-donor-lname' => 'Familjennumm:',
 	'payflowpro_gateway-donor-name' => 'Numm:',
 	'payflowpro_gateway-donor-street' => 'Strooss:',
