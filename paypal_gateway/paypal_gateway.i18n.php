@@ -91,6 +91,13 @@ $messages['hu'] = array(
 	'paypal_gateway-desc' => 'PayPal regisztrálása mint adakozási mód',
 );
 
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'paypal_gateway-desc' => 'Registra PayPal como mechanismo de donation',
+);
+
 /** Indonesian (Bahasa Indonesia)
  * @author IvanLanin
  */
@@ -126,11 +133,25 @@ $messages['nl'] = array(
 	'paypal_gateway-desc' => 'Registreert PayPal als een donateursinstrument',
 );
 
+/** Occitan (Occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'paypal_gateway-desc' => 'Inscritz PayPal coma mecanisme de donacion',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Dragonòt
  */
 $messages['pms'] = array(
 	'paypal_gateway-desc' => 'A registra PayPal com un mecanism ëd donassion',
+);
+
+/** Tarandíne (Tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'paypal_gateway-desc' => "PayPal reggistrate cumme 'nu meccanisme de donazziune",
 );
 
 /** Russian (Русский)

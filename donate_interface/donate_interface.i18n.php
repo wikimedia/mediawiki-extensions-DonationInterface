@@ -267,6 +267,8 @@ $messages['hu'] = array(
 A személyes adatokat soha nem adjuk el, és nem adjuk ki harmadik félnek.
 Az adományozási adatvédelmi irányelvek <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>itt</a> olvashatóak.",
 	'donate_interface-comment-title' => 'Nyilvános megjegyzés',
+	'donate_interface-amount-error' => '** Légyszíves érvényes mennyiséget adj meg **',
+	'donate_interface-processing-error' => 'Hiba történt a kérés feldolgozása közben. Nincs szabad kapacitás.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -311,6 +313,8 @@ $messages['ja'] = array(
 私たちは決してあなたの情報を売ったり取引したりはしません。
 寄付者に関する個人情報保護方針は<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>こちら</a>にあります",
 	'donate_interface-comment-title' => '公開コメント',
+	'donate_interface-amount-error' => '**有効な金額を入力してください**',
+	'donate_interface-processing-error' => 'あなたの要求を処理している際にエラーが発生しました。No processor are available.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -380,6 +384,29 @@ Zie ook ons <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>do
 	'donate_interface-comment-title' => 'Publieke opmerking',
 	'donate_interface-amount-error' => '**Voer alstublieft een geldig bedrag in**',
 	'donate_interface-processing-error' => 'Er is een fout opgetreden bij het verwerken van uw verzoek. Er is geen verwerkingsdienst beschikbaar.',
+);
+
+/** Occitan (Occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'donate_interface' => 'Sosténer Wikimedia',
+	'donate_interface-desc' => "Pagina d'aterrissatge pels dons qu'intègra los moduls de pagament",
+	'donate_interface-intro' => 'Causissètz un mejan de pagament, un montant e una devisa.',
+	'donate_interface-amount' => 'Montant del don :',
+	'donate_interface-other-amount' => 'Autre montant',
+	'donate_interface-currency' => 'Devisa :',
+	'donate_interface-gateway' => 'Mejan de pagament :',
+	'donate_interface-submit-button' => 'Far un don',
+	'donate_interface-comment-message' => 'Volètz transmetre una pensada al monde ? Notatz fins a 200 caractèrs çaiaprèp :',
+	'donate_interface-comment-label' => 'Comentari :',
+	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.',
+	'donate_interface-email-agreement' => 'Accèpti de recebre de corrièls o letras d\'informacions de la part de Wikimedia Foundation.
+Vòstras donadas seràn pas jamai vendudas o escambiadas.
+Nòstra politica de respièch de la vida privada dels donators se tròba <a title="Donate/Donor Privacy" href="/wiki/Donate/Donor_Privacy">aicí</a>',
+	'donate_interface-comment-title' => 'Comentari public',
+	'donate_interface-amount-error' => '**Picatz un montant valid**',
+	'donate_interface-processing-error' => "Una error s'es producha al moment del tractament de vòstra requèsta. Cap de processor es pas disponible.",
 );
 
 /** Piedmontese (Piemontèis)

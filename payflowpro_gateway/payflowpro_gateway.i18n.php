@@ -68,6 +68,7 @@ Please try again later.',
  */
 $messages['qqq'] = array(
 	'payflowpro_gateway-desc' => '{{desc}}',
+	'payflowpro_gateway-donor-amount' => '{{Identical|Amount}}',
 	'payflowpro_gateway-donor-email' => '{{Identical|E-mail address}}',
 	'payflowpro_gateway-donor-name' => '{{Identical|Name}}',
 	'payflowpro_gateway-donor-street' => '{{Identical|Street}}',
@@ -194,6 +195,7 @@ $messages['ar'] = array(
  * @author EugeneZelenko
  */
 $messages['be-tarask'] = array(
+	'payflowpro_gateway-donor-amount' => 'Сума:',
 	'payflowpro_gateway-donor-email' => 'Адрас электроннай пошты:',
 	'payflowpro_gateway-donor-fname' => 'Імя:',
 	'payflowpro_gateway-donor-mname' => 'Імя па бацьку:',
@@ -204,6 +206,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-donor-state' => 'Штат:',
 	'payflowpro_gateway-donor-postal' => 'Паштовы індэкс:',
 	'payflowpro_gateway-donor-address' => 'Адрас:',
+	'payflowpro_gateway-donor-card' => 'Крэдытная картка:',
 	'payflowpro_gateway-donor-submit' => 'Ахвяраваць',
 	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
 );
@@ -493,12 +496,14 @@ Prošu spytajće pozdźišo hišće raz.',
 );
 
 /** Hungarian (Magyar)
+ * @author Dani
  * @author Glanthor Reviol
  */
 $messages['hu'] = array(
 	'payflowprogateway' => 'Támogasd a Wikimédiát',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro hitelkártya feldolgozása',
 	'payflowpro_gateway-accessible' => 'Ez a lap csak az adományozás lapról érhető el.',
+	'payflowpro_gateway-donor-legend' => 'Adományozói információk',
 	'payflowpro_gateway-card-legend' => 'Hitelkártya információk',
 	'payflowpro_gateway-amount-legend' => 'Adomány nagysága:',
 	'payflowpro_gateway-donor-amount' => 'Összeg:',
@@ -518,19 +523,70 @@ $messages['hu'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Lejárat dátuma:',
 	'payflowpro_gateway-donor-security' => 'Biztonsági kód:',
 	'payflowpro_gateway-donor-submit' => 'Adomány elküldése',
+	'payflowpro_gateway-donor-currency-msg' => 'Az adomány pénzneme: $1',
 	'payflowpro_gateway-error-msg-email' => '** Kérlek érvényes e-mail címet adj meg **',
 	'payflowpro_gateway-error-msg-amex' => '** Kérlek helyes American Express kártyaszámot adj meg. **',
 	'payflowpro_gateway-error-msg-mc' => '** Kérlek helyes Mastercard kártyaszámot adj meg. **',
 	'payflowpro_gateway-error-msg-visa' => '** Kérlek helyes Visa kártyaszámot adj meg. **',
 	'payflowpro_gateway-response-0' => 'A tranzakció elfogadva.
 Köszönjük az adományt!',
+	'payflowpro_gateway-response-126' => 'A tranzakciód elfogadásra vár.',
+	'payflowpro_gateway-response-12' => 'További információért lépj kapcsolatba a bankkártyát kibocsátó céggel.',
 	'payflowpro_gateway-response-114' => 'További információkért vedd fel a kapcsolatot a hitelkártya kibocsátójával.',
 	'payflowpro_gateway-response-23' => 'A hitelkártyaszám vagy a lejárati dátum helytelen.',
 	'payflowpro_gateway-response-4' => 'Érvénytelen összeg.',
+	'payflowpro_gateway-response-24' => 'A bankkártyád száma vagy lejárati dátuma érvénytelen.',
 	'payflowpro_gateway-response-112' => 'A cím vagy a CVV szám (biztonsági kód) helytelen.',
+	'payflowpro_gateway-response-125' => 'A tranzakciódat visszautasította a Fraud Prevention Services.',
+	'payflowpro_gateway-response-default' => 'Hiba történt a tranzakció feldolgozásakor.
+Később próbáld meg újra.',
 	'php-response-declined' => 'A tranzakció elutasítva.',
 	'payflowpro_gateway-post-transaction' => 'Tranzakció részletei',
 	'payflowpro_gateway-submit-button' => 'Adomány elküldése',
+);
+
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'payflowprogateway' => 'Supporta Wikimedia',
+	'payflowpro_gateway-desc' => 'Processamento per carta de credito PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Iste pagina es solmente accessibile ab le pagina de donation.',
+	'payflowpro_gateway-form-message' => 'Contribue con tu carta de credito.
+Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere modos de donar, como PayPal, cheque o posta</a>.',
+	'payflowpro_gateway-form-message-2' => 'Pro cambiar le quantitate o le moneta, retorna al <a href="/index.php?title=Donate">pagina de donation</a>',
+	'payflowpro_gateway-donor-legend' => 'Informationes del donator',
+	'payflowpro_gateway-card-legend' => 'Informationes del carta de credito',
+	'payflowpro_gateway-amount-legend' => 'Amonta del donation:',
+	'payflowpro_gateway-donor-email' => 'Adresse de e-mail:',
+	'payflowpro_gateway-donor-fname' => 'Prenomine:',
+	'payflowpro_gateway-donor-mname' => 'Secunde prenomine:',
+	'payflowpro_gateway-donor-lname' => 'Nomine de familia:',
+	'payflowpro_gateway-donor-name' => 'Nomine:',
+	'payflowpro_gateway-donor-street' => 'Strata:',
+	'payflowpro_gateway-donor-city' => 'Citate:',
+	'payflowpro_gateway-donor-postal' => 'Codice postal:',
+	'payflowpro_gateway-donor-country' => 'Pais/Region:',
+	'payflowpro_gateway-donor-address' => 'Adresse:',
+	'payflowpro_gateway-donor-card' => 'Carta de credito:',
+	'payflowpro_gateway-donor-card-num' => 'Numero del carta:',
+	'payflowpro_gateway-donor-expiration' => 'Data de expiration:',
+	'payflowpro_gateway-donor-security' => 'Codice de securitate:',
+	'payflowpro_gateway-donor-submit' => 'Donar',
+	'payflowpro_gateway-donor-currency-msg' => 'Iste donation es facite in $1',
+	'payflowpro_gateway-error-msg' => 'Per favor entra tu $1',
+	'payflowpro_gateway-error-msg-email' => '**Per favor entra un adresse de e-mail valide**',
+	'payflowpro_gateway-error-msg-amex' => '**Per favor entra un numero correcte de carta American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Per favor entra un numero correcte de carta Mastercard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Per favor entra un numero correcte de carta Visa.**',
+	'payflowpro_gateway-response-0' => 'Le transaction ha essite approbate.
+Gratias pro tu donation!',
+	'payflowpro_gateway-response-126' => 'Le transaction attende approbation.',
+	'payflowpro_gateway-response-12' => 'Per favor contacta tu compania de carta de credito pro ulterior informationes.',
+	'payflowpro_gateway-response-23' => 'Le numero de carta de credito o le data de expiration es incorrecte.',
+	'payflowpro_gateway-response-4' => 'Amonta invalide.',
+	'payflowpro_gateway-response-24' => 'Le numero de carta de credito o le data de expiration es incorrecte.',
+	'payflowpro_gateway-response-112' => 'Le adresse o le numero CVV (codice de securitate) es incorrecte.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -650,6 +706,8 @@ $messages['lb'] = array(
 	'payflowprogateway' => 'Ënnerstetzt Wikimedia',
 	'payflowpro_gateway-desc' => 'Behandele vun der Kreditkaart PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
+	'payflowpro_gateway-form-message' => 'Maacht en Don mat Ärer Kreditkaart.
+Et gëtt <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">aner Méiglechkeete fir eppes ze ginn, PayPal, Scheck oder Mail</a>.',
 	'payflowpro_gateway-form-message-2' => "Fir de Betrag oder d'Währung z'änneren gitt w.e.g. zréck op <a href=\"/index.php?title=Donate\">d'Säit vum Don</a>",
 	'payflowpro_gateway-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'payflowpro_gateway-card-legend' => "Informatiounen iwwert d'Kreditkaart",
@@ -673,11 +731,20 @@ $messages['lb'] = array(
 	'payflowpro_gateway-donor-submit' => 'Maacht en Don',
 	'payflowpro_gateway-donor-currency-msg' => 'Dësen don gëtt an $1 gemaach',
 	'payflowpro_gateway-error-msg' => 'Gitt w.e.g. Är(e) $1 an',
+	'payflowpro_gateway-error-msg-email' => '**Gitt w.e.g eng valabel E-Mailadress an**',
+	'payflowpro_gateway-error-msg-amex' => '**Gitt w.e.g. eng korrekt Kaartenummer fir American Express an**',
+	'payflowpro_gateway-error-msg-mc' => '**Gitt w.e.g. eng korrekt Nummer fir Mastercard an**',
+	'payflowpro_gateway-error-msg-visa' => '**Gitt w.e.g. eng korrekt Nummer fir Visa an**',
 	'payflowpro_gateway-response-0' => 'Är Transaktioun gouf kzeptéiert.
 Merci fir Ären Don!',
+	'payflowpro_gateway-response-126' => 'Är Transaktiun muss nach akzeptéiert ginn.',
 	'payflowpro_gateway-response-12' => "Kontaktéiert d'Firma vun Ärer Krditkaart fir weider Informatiounen.",
+	'payflowpro_gateway-response-13' => 'Är Transaktioun muss duerch STëmmenerkennung autoriséiert ginn.
+Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
 	'payflowpro_gateway-response-114' => "Kontaktéiert d'Firma vun Ärer Kreditkaart fir méi Informatiounen.",
+	'payflowpro_gateway-response-23' => "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
 	'payflowpro_gateway-response-4' => 'Net valabele Betrag.',
+	'payflowpro_gateway-response-24' => "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
 	'payflowpro_gateway-response-112' => 'Är Adress oder CVV-Nummer (Sécherheetscode) ass net richteg.',
 	'payflowpro_gateway-response-125' => "Är Transaktioun gouf net vun de Servicer, déi sech ëm d'Verhënnerung vun der Fraude bekëmmeren, akzeptéiert.",
 	'payflowpro_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
@@ -850,6 +917,13 @@ $messages['ru'] = array(
 	'php-response-declined' => 'Ваша транзакция была отклонена.',
 	'payflowpro_gateway-post-transaction' => 'Сведения о транзакции',
 	'payflowpro_gateway-submit-button' => 'Пожертвовать',
+);
+
+/** Ukrainian (Українська)
+ * @author Prima klasy4na
+ */
+$messages['uk'] = array(
+	'payflowpro_gateway-donor-amount' => 'Сума:',
 );
 
 /** Vietnamese (Tiếng Việt)
