@@ -61,7 +61,7 @@ function pfpGatewayValue( &$values ) {
 			'AUD' => 'AUD: Australian Dollar',
 			'CAD' => 'CAD: Canadian Dollar',
 			'CHF' => 'CHF: Swiss Franc',
-			'CZK' => 'CZK: Czech Koruna'
+			'CZK' => 'CZK: Czech Koruna',
 			'DKK' => 'DKK: Danish Krone',
 			'HKD' => 'HKD: Hong Kong Dollar',
 			'HUF' => 'HUF: Hungarian Forint',
