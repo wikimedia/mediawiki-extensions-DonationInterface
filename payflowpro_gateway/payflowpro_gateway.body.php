@@ -271,7 +271,32 @@ class PayflowProGateway extends UnlistedSpecialPage {
 					Xml::Element( 'p', array( 'class' => 'mw-creditcard-submessage' ),
 						wfMsg( 'payflowpro_gateway-donor-currency-msg', $data['currency'] )
 					);
-		$wgOut->addHTML( $form );
+		// Theming
+		global $wgDonationInterfaceTomasSkin;
+
+		if ( $wgDonationInterfaceTomasSkin ) {
+				$language = 'en';
+				$wgOut->addWikiText( '{{Template:2008/Donate-header/' . $language . '}}' );
+				$wgOut->addWikiText( '<skin>Tomas</skin>' );
+				$form = XML::openElement( 'div', array( 'id' => 'liquid-round', 'style' => 'width:600px;' ) ) . 
+					   XML::openElement( 'div', array( 'class' => 'rightside' ) ) . 
+					   XML::openElement( 'div', array( 'class' => 'top' ) ) . 
+					   XML::element( 'span' ) . 
+					   XML::closeElement( 'div' ) . 
+					   XML::openElement( 'div', array( 'class' => 'bottom' )  ) . 
+					   XML::openElement( 'div', array( 'class' => 'bottom-right' ) ) . 
+					   XML::openElement( 'div', array( 'class' => 'center-content' ) ) . 
+					   $form .
+					   XML::closeElement( 'div' ) . 
+					   XML::closeElement( 'div' ) . 
+					   XML::closeElement( 'div' ) . 
+					   XML::closeElement( 'div' ) . 
+	   				   XML::closeElement( 'div' );		
+					   $wgOut->addHTML( $form );
+					   $wgOut->addWikiText( '{{Template:2008/Donate-footer/' . $language . '}}' );
+		} else {
+			$wgOut->addHTML( $form );
+	    }
 	}
 
 	/**
