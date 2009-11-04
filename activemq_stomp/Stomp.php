@@ -510,9 +510,9 @@ class Stomp
      */
     public function readFrame ()
     {
-        if (!$this->hasFrameToRead()) {
+        /* if (!$this->hasFrameToRead()) {
             return false;
-        }
+        } */
         
         $rb = 1024;
         $data = '';
