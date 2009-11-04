@@ -36,7 +36,7 @@ function efDonateSetup( &$parser ) {
   global $wgHooks;
 	
   //load extension messages
-  wfLoadExtensionMessages( 'donate_interface' );
+  wfLoadExtensionMessages( 'DonateInterface' );
 
   $parser->disableCache();
 
