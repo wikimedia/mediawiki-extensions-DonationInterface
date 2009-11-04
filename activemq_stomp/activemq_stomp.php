@@ -68,8 +68,9 @@ $wgHooks['gwStomp'][] = 'sendSTOMP';
 */
 function sendSTOMP($transaction) {
         global $wgOut;
-        global $wgStompServer;
+        global $wgStompServer, $wgStompQueueName;
         
+        $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'test';
         // include a library
         require_once("Stomp.php");
           
@@ -82,7 +83,7 @@ function sendSTOMP($transaction) {
         $con->connect();
         
         // send a message to the queue
-        $result = $con->send("/queue/test", $message, array('persistent' => 'true'));
+        $result = $con->send("/queue/$queueName", $message, array('persistent' => 'true'));
         
         if (!$result) {
                 wfDebugLog('activemq_stomp', 'Send to Q failed for this message: ' . $message);
