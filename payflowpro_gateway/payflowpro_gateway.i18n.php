@@ -211,13 +211,77 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
 );
 
+/** Breton (Brezhoneg)
+ * @author Fohanno
+ */
+$messages['br'] = array(
+	'payflowpro_gateway-donor-amount' => 'Sammad :',
+	'payflowpro_gateway-donor-email' => "Chomlec'h postel :",
+	'payflowpro_gateway-donor-fname' => 'Anv bihan :',
+	'payflowpro_gateway-donor-lname' => 'Anv :',
+	'payflowpro_gateway-donor-name' => 'Anv :',
+	'payflowpro_gateway-donor-street' => 'Straed :',
+	'payflowpro_gateway-donor-city' => 'Kêr :',
+	'payflowpro_gateway-donor-state' => 'Stad :',
+	'payflowpro_gateway-donor-postal' => 'Kod post :',
+	'payflowpro_gateway-donor-country' => 'Bro/Rannvro :',
+	'payflowpro_gateway-donor-address' => "Chomlec'h :",
+	'payflowpro_gateway-response-4' => 'Sammad direizh.',
+);
+
 /** German (Deutsch)
  * @author Tbleher
  */
 $messages['de'] = array(
+	'payflowprogateway' => 'Wikimedia unterstützen',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro Kreditkartenabwicklung',
+	'payflowpro_gateway-accessible' => 'Diese Seiten kann nur über die Spendenseite erreicht werden.',
+	'payflowpro_gateway-form-message' => 'Spenden Sie mit Ihrer Kreditkarte.
+Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">andere Wege zum Spenden, inklusive PayPal, Scheck oder Überweisung</a>.',
+	'payflowpro_gateway-form-message-2' => 'Um den Betrag oder die Währung zu ändern, kehren Sie zur <a href="/index.php?title=Donate">Spendenseite</a> zurück.',
+	'payflowpro_gateway-donor-legend' => 'Spender-Information',
+	'payflowpro_gateway-card-legend' => 'Kreditkarten-Information',
+	'payflowpro_gateway-amount-legend' => 'Spendenbetrag',
+	'payflowpro_gateway-donor-amount' => 'Betrag:',
+	'payflowpro_gateway-donor-email' => 'E-Mail-Adresse:',
+	'payflowpro_gateway-donor-fname' => 'Vorname:',
+	'payflowpro_gateway-donor-mname' => '2. Vorname:',
+	'payflowpro_gateway-donor-lname' => 'Nachname:',
+	'payflowpro_gateway-donor-name' => 'Name:',
+	'payflowpro_gateway-donor-street' => 'Straße:',
 	'payflowpro_gateway-donor-city' => 'Stadt:',
+	'payflowpro_gateway-donor-state' => 'Bundesland:',
 	'payflowpro_gateway-donor-postal' => 'Postleitzahl:',
+	'payflowpro_gateway-donor-country' => 'Land:',
+	'payflowpro_gateway-donor-address' => 'Anschrift:',
 	'payflowpro_gateway-donor-card' => 'Kreditkarte:',
+	'payflowpro_gateway-donor-card-num' => 'Kreditkartennummer:',
+	'payflowpro_gateway-donor-expiration' => 'gültig bis:',
+	'payflowpro_gateway-donor-security' => 'Sicherheitscode:',
+	'payflowpro_gateway-donor-submit' => 'Spenden',
+	'payflowpro_gateway-donor-currency-msg' => 'Die Spende wird in $1 vorgenommen',
+	'payflowpro_gateway-error-msg' => 'Das folgende Feld muss ausgefüllt sein: $1',
+	'payflowpro_gateway-error-msg-email' => '** Bitte geben Sie eine gültige E-Mail-Adresse ein **',
+	'payflowpro_gateway-error-msg-amex' => '** Bitte geben Sie eine korrekte American Express-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-mc' => '** Bitte geben Sie eine korrekte Mastercard-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-visa' => '** Bitte geben Sie eine korrekte Visa-Kartennummer ein **',
+	'payflowpro_gateway-response-0' => 'Ihre Transaktion wurde durchgeführt.
+Vielen Dank für Ihre Spende.',
+	'payflowpro_gateway-response-126' => 'Füre Ihre Transaktion wird auf eine Freigabe gewartet.',
+	'payflowpro_gateway-response-12' => 'Bitte nehmen Sie mit Ihrer kartenausgebenden Kreditinstitut Kontakt auf.',
+	'payflowpro_gateway-response-13' => 'Ihre Transaktion benötigt eine manuelle Bearbeitung.
+Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
+	'payflowpro_gateway-response-114' => 'Bitte nehmen Sie mit ihrem kartenausgebenden Kreditinstitut Kontakt auf.',
+	'payflowpro_gateway-response-23' => 'Ihre Kreditkartennummer oder das Gültigkeitsdatum ist falsch.',
+	'payflowpro_gateway-response-4' => 'Ungültiger Betrag.',
+	'payflowpro_gateway-response-24' => 'Ihre Kreditkartennummer oder das Gültigkeitsdatum ist falsch.',
+	'payflowpro_gateway-response-112' => 'Ihre Anschrift oder der Sicherheitscode (CVV) ist falsch.',
+	'payflowpro_gateway-response-125' => 'Ihre Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
+	'payflowpro_gateway-response-default' => 'Es ist ein Verarbeitungsfehler aufgetreten.
+Bitte versuchen Sie es später noch einmal.',
+	'php-response-declined' => 'Ihre Transaktion wurde abgewiesen.',
+	'payflowpro_gateway-post-transaction' => 'Transaktions-Details',
+	'payflowpro_gateway-submit-button' => 'Spenden',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -862,6 +926,61 @@ Probeer het later nog een keer.',
 	'php-response-declined' => 'Uw transactie is geweigerd.',
 	'payflowpro_gateway-post-transaction' => 'Transactiedetails',
 	'payflowpro_gateway-submit-button' => 'Doneren',
+);
+
+/** Occitan (Occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'payflowprogateway' => 'Sostenètz Wikimedia',
+	'payflowpro_gateway-desc' => 'Tractament par carta de credit PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Aquesta pagina es pas accessibla que dempuèi la pagina de donacion.',
+	'payflowpro_gateway-form-message' => 'Contribuissètz amb vòstre carta de credit.
+I a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/oc">d\'autres mejans de donar, notadament PayPal, per chèc o per corrièr postal</a>.',
+	'payflowpro_gateway-form-message-2' => 'Per cambiar lo montant o la devisa, tornatz a <a href="/index.php?title=Donate">la pagina de donacion</a>',
+	'payflowpro_gateway-donor-legend' => 'Informacions sul donator',
+	'payflowpro_gateway-card-legend' => 'Informacions sus la carta de credit',
+	'payflowpro_gateway-amount-legend' => 'Montant del don :',
+	'payflowpro_gateway-donor-amount' => 'Montant :',
+	'payflowpro_gateway-donor-email' => 'Adreça electronica :',
+	'payflowpro_gateway-donor-fname' => 'Pichon nom :',
+	'payflowpro_gateway-donor-mname' => 'Segond pichon nom :',
+	'payflowpro_gateway-donor-lname' => "Nom d'ostal :",
+	'payflowpro_gateway-donor-name' => 'Nom :',
+	'payflowpro_gateway-donor-street' => 'Carrièra :',
+	'payflowpro_gateway-donor-city' => 'Vila :',
+	'payflowpro_gateway-donor-state' => 'Estat :',
+	'payflowpro_gateway-donor-postal' => 'Còde postal :',
+	'payflowpro_gateway-donor-country' => 'País / Region :',
+	'payflowpro_gateway-donor-address' => 'Adreça :',
+	'payflowpro_gateway-donor-card' => 'Carta de credit :',
+	'payflowpro_gateway-donor-card-num' => 'Numèro de carta :',
+	'payflowpro_gateway-donor-expiration' => "Data d'expiracion :",
+	'payflowpro_gateway-donor-security' => 'Còde de seguretat :',
+	'payflowpro_gateway-donor-submit' => 'Far un don',
+	'payflowpro_gateway-donor-currency-msg' => 'Aqueste don es efectuat en $1',
+	'payflowpro_gateway-error-msg' => 'Picatz vòstre $1',
+	'payflowpro_gateway-error-msg-email' => '**Picatz una adreça de corrièl valida**',
+	'payflowpro_gateway-error-msg-amex' => '**Picatz un numèro de carta American Express corrècte.**',
+	'payflowpro_gateway-error-msg-mc' => '**Picatz un numèro de carta Mastercard corrècte.**',
+	'payflowpro_gateway-error-msg-visa' => '**Picatz un numèro de carta Visa corrècte.**',
+	'payflowpro_gateway-response-0' => 'Vòstre transaccion es estada aprovada.
+Mercés per vòstre don !',
+	'payflowpro_gateway-response-126' => "Vòstra transaccion es en cors d'aprovacion.",
+	'payflowpro_gateway-response-12' => "Contactatz lo provesidor de vòstra carta de credit per mai d'entresenhas.",
+	'payflowpro_gateway-response-13' => 'Vòstra transaccion requerís una autorizacion vocala.
+Contactatz-nos per perseguir vòstra transaccion.',
+	'payflowpro_gateway-response-114' => "Contactatz lo provesidor de vòstra carta de credit per mai d'entresenhas.",
+	'payflowpro_gateway-response-23' => "La data d'expiracion de vòstre numèro de carta de credit es incorrècte.",
+	'payflowpro_gateway-response-4' => 'Montant invalid.',
+	'payflowpro_gateway-response-24' => "Vòstre numèro de carta de credit o data d'expiracion es incorrècte(a).",
+	'payflowpro_gateway-response-112' => 'Vòstra adreça o numèro CVV (còde de seguretat) es incorrècte(a).',
+	'payflowpro_gateway-response-125' => 'Vòstra transaccion es estada refusada pels Servicis de prevencion de las fraudas.',
+	'payflowpro_gateway-response-default' => "Una error s'es producha al moment del tractament de vòstra transaccion.
+Tornatz ensajar mai tard.",
+	'php-response-declined' => 'Vòstra transaccion es estada refusada.',
+	'payflowpro_gateway-post-transaction' => 'Detalhs de la transaccion',
+	'payflowpro_gateway-submit-button' => 'Far un don',
 );
 
 /** Russian (Русский)

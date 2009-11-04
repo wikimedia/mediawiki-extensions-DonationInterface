@@ -35,11 +35,23 @@ $messages['ar'] = array(
 	'paypal_gateway-desc' => 'تسجل PayPal كآلية تبرع',
 );
 
+/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+ * @author EugeneZelenko
+ */
+$messages['be-tarask'] = array(
+	'paypal_gateway-desc' => 'Рэгіструе PayPal у якасьці сэрвісу ахвяраваньняў',
+);
+
 /** Breton (Brezhoneg)
  * @author Fulup
  */
 $messages['br'] = array(
 	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon',
+);
+
+/** German (Deutsch) */
+$messages['de'] = array(
+	'paypal_gateway-desc' => 'Registriert PayPal als Spendensystem',
 );
 
 /** Lower Sorbian (Dolnoserbski)

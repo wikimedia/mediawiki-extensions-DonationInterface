@@ -100,13 +100,42 @@ $messages['be-tarask'] = array(
 	'donate_interface-comment-label' => 'Камэнтар:',
 );
 
+/** Breton (Brezhoneg)
+ * @author Fohanno
+ */
+$messages['br'] = array(
+	'donate_interface' => 'Skoazellañ Wikimedia',
+);
+
+/** Bosnian (Bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'donate_interface-comment-label' => 'Komentar:',
+	'donate_interface-comment-title' => 'Javni komentar',
+);
+
 /** German (Deutsch)
  * @author Tbleher
  */
 $messages['de'] = array(
+	'donate_interface' => 'Unterstützen Sie Wikimedia',
+	'donate_interface-desc' => 'Spenden-landing page, die Gateway-Erweiterungen integriert',
+	'donate_interface-intro' => 'Bitte wählen Sie eine Zahlungsmethode, einen Betrag und die Währung.',
+	'donate_interface-amount' => 'Spendenbetrag',
+	'donate_interface-other-amount' => 'Anderer Betrag',
 	'donate_interface-currency' => 'Währung:',
+	'donate_interface-gateway' => 'Zahlungsmethode',
+	'donate_interface-submit-button' => 'Spenden',
+	'donate_interface-comment-message' => 'Haben Sie einen Gedanken, den Sie mit der Welt teilen möchten? Er darf bis zu 200 Zeichen lang sein:',
 	'donate_interface-comment-label' => 'Kommentar:',
+	'donate_interface-anon-message' => 'Mein Name darf (zusammen mit meinem Kommentar) in der öffentlichen Spenderliste genannt werden.',
+	'donate_interface-email-agreement' => "Ich stimme zu, in Zukunft Newsletter oder E-Mails der Wikimedia Foundation erhalten zu wollen.
+Wir werden Ihre Informationen weder verkaufen noch damit handeln.
+Unsere Datenschutzbestimmungen finden Sie <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hier</a>",
+	'donate_interface-comment-title' => 'Öffentlicher Kommentar:',
 	'donate_interface-amount-error' => '**Bitte gib einen gültigen Betrag ein**',
+	'donate_interface-processing-error' => 'Es gab einen Verarbeitungsfehler Ihrer Anfrage. Es ist kein Prozess verfügbar.',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -295,6 +324,7 @@ Kebijakan privasi donor kami dapat ditemukan <a title="Donasi/Privasi Donor" hre
 );
 
 /** Japanese (日本語)
+ * @author Aotake
  * @author Fryed-peach
  */
 $messages['ja'] = array(
@@ -314,7 +344,7 @@ $messages['ja'] = array(
 寄付者に関する個人情報保護方針は<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>こちら</a>にあります",
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '**有効な金額を入力してください**',
-	'donate_interface-processing-error' => 'あなたの要求を処理している際にエラーが発生しました。No processor are available.',
+	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。使用できるプロセッサはありません。',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
