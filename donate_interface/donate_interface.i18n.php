@@ -176,6 +176,7 @@ Naše pšawidła priwatnosći za dary namakajoš <a title='Donate/Donor Privacy'
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Pšosym zapódaj płaśiwu sumu**',
 	'donate_interface-processing-error' => 'Pśi pśeźěłowanju twójogo napšašowanja jo zmólka nastała. Procesor njestoj k dispoziciji.',
+	'donate_interface-EUR' => 'EUR: Euro',
 );
 
 /** Finnish (Suomi)
@@ -223,6 +224,23 @@ Notre politique de respect de la vie privée des donateurs se trouve <a title="D
 	'donate_interface-comment-title' => 'Commentaire public',
 	'donate_interface-amount-error' => '**Veuillez entrer un montant valide**',
 	'donate_interface-processing-error' => "Une erreur est survenue lors du traitement de votre requête. Aucun processeur n'est disponible.",
+	'donate_interface-GBP' => 'GBP : livre sterling',
+	'donate_interface-EUR' => 'EUR : euro',
+	'donate_interface-USD' => 'USD : dollar américain',
+	'donate_interface-AUD' => 'AUD : dollar australien',
+	'donate_interface-CAD' => 'CAD : dollar canadien',
+	'donate_interface-CHF' => 'CHF : franc suisse',
+	'donate_interface-CZK' => 'CZK : couronne tchèque',
+	'donate_interface-DKK' => 'DKK : couronne danoise',
+	'donate_interface-HKD' => 'HKD : dollar de Hong Kong',
+	'donate_interface-HUF' => 'HUF : forint hongrois',
+	'donate_interface-JPY' => 'JPY : yen japonais',
+	'donate_interface-NZD' => 'NZD : dollar néo-zélandais',
+	'donate_interface-NOK' => 'NOK : couronne norvégienne',
+	'donate_interface-PLN' => 'PLN : złoty polonais',
+	'donate_interface-SGD' => 'SGD : dollar de Singapour',
+	'donate_interface-SEK' => 'SEK : couronne suédoise',
+	'donate_interface-ILS' => 'ILS : shekel israélien',
 );
 
 /** Galician (Galego)
@@ -292,6 +310,23 @@ Naše prawidła priwatnosće za dary namakaš <a title='Darić/Priwatnosć za da
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Prošu zapodaj płaćiwu sumu**',
 	'donate_interface-processing-error' => 'Zmylk je při předźěłowanju twojeho naprašowanja wustupił. Procesor k dispoziciji njesteji.',
+	'donate_interface-GBP' => 'GBP: Britiski punt',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: US-dolar',
+	'donate_interface-AUD' => 'AUD: Awstralski dolar',
+	'donate_interface-CAD' => 'CAD: Kanadiski dolar',
+	'donate_interface-CHF' => 'CHF: Šwicarski franc',
+	'donate_interface-CZK' => 'CZK: Čěska króna',
+	'donate_interface-DKK' => 'DKK: Danska króna',
+	'donate_interface-HKD' => 'HKD: Hong Kong dolar',
+	'donate_interface-HUF' => 'HUF: Madźarski forint',
+	'donate_interface-JPY' => 'JPY: Japanski yen',
+	'donate_interface-NZD' => 'NZD: Nowoseelandski dolar',
+	'donate_interface-NOK' => 'NOK: Norwegska króna',
+	'donate_interface-PLN' => 'PLN: Pólski złoty',
+	'donate_interface-SGD' => 'SGD: Singapurski dolar',
+	'donate_interface-SEK' => 'SEK: Šwedska króna',
+	'donate_interface-ILS' => 'ILS: Israelski šekel',
 );
 
 /** Hungarian (Magyar)
@@ -315,6 +350,14 @@ Az adományozási adatvédelmi irányelvek <a title='Donate/Donor Privacy' href=
 	'donate_interface-comment-title' => 'Nyilvános megjegyzés',
 	'donate_interface-amount-error' => '** Légyszíves érvényes mennyiséget adj meg **',
 	'donate_interface-processing-error' => 'Hiba történt a kérés feldolgozása közben. Nincs szabad kapacitás.',
+);
+
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'donate_interface' => 'Supportar Wikimedia',
+	'donate_interface-desc' => 'Pagina de arrivata pro donationes que integra le extensiones de pagamento',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -361,7 +404,7 @@ $messages['ja'] = array(
 寄付者に関する個人情報保護方針は<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>こちら</a>にあります",
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '**有効な金額を入力してください**',
-	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。使用できるプロセッサはありません。',
+	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。処理サービスが利用できません。',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -408,6 +451,24 @@ $messages['mk'] = array(
 	'donate_interface-comment-title' => 'Јавен коментар',
 	'donate_interface-amount-error' => '**Внесете важечки износ**',
 	'donate_interface-processing-error' => 'Се појави грешка при обработката на вашето барање. Нема достапни преработувачи.',
+);
+
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'donate_interface' => 'വിക്കിമീഡിയയ്ക്ക് പിന്തുണയേകുക',
+	'donate_interface-intro' => 'ദയവായി താങ്കളുടെ പണമടയ്ക്കൽ രീതി, തുക, നാണയം എന്നിവ തിരഞ്ഞെടുക്കുക.',
+	'donate_interface-amount' => 'സംഭാവന ചെയ്യുന്ന തുക:',
+	'donate_interface-other-amount' => 'മറ്റ് തുക:',
+	'donate_interface-currency' => 'നാണയം:',
+	'donate_interface-gateway' => 'പണമടയ്ക്കൽ രീതി:',
+	'donate_interface-submit-button' => 'സംഭാവന ചെയ്യുക',
+	'donate_interface-comment-message' => 'ലോകവുമായി പങ്കുവെയ്ക്കാൻ ഒരു ചിന്ത താങ്കൾക്കുണ്ടോ? 200 അക്ഷരങ്ങളിൽ കവിയാതെ ഇവിടെ ചേർക്കുക:',
+	'donate_interface-email-agreement' => "വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഭാവി വാർത്താപത്രികകളോ ഇമെയിലുകളോ സ്വീകരിക്കാൻ സന്തോഷമേയുള്ളു.
+ഞങ്ങൾ താങ്കളെ കുറിച്ചുള്ള വിവരങ്ങൾ ഒരിക്കലും മറിച്ചുകൊടുക്കുന്നതല്ല.
+സംഭാവകരുടെ സ്വകാര്യതയെ കുറിച്ചുള്ള നയങ്ങൾ <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ഇവിടെ</a> കാണാവുന്നതാണ്.",
+	'donate_interface-amount-error' => '**ദയവായി സാധുവായ തുക നൽകുക**',
 );
 
 /** Dutch (Nederlands)

@@ -138,6 +138,13 @@ $messages['mk'] = array(
 	'paypal_gateway-desc' => 'Го регистрира PayPal како механизам за донирање',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'paypal_gateway-desc' => 'സംഭാവനയ്ക്കുള്ള മാർഗ്ഗമായി പേപാൽ രജിസ്റ്റർ ചെയ്യുക',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
