@@ -40,7 +40,7 @@ There are <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">oth
 	'payflowpro_gateway-error-msg' => 'Please enter your $1',
 	'payflowpro_gateway-error-msg-email' => '**Please enter a valid e-mail address**',
 	'payflowpro_gateway-error-msg-amex' => '**Please enter a correct card number for American Express.**',
-	'payflowpro_gateway-error-msg-mc' => '**Please enter a correct card number for Mastercard.**',
+	'payflowpro_gateway-error-msg-mc' => '**Please enter a correct card number for MasterCard.**',
 	'payflowpro_gateway-error-msg-visa' => '**Please enter a correct card number for Visa.**',
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',
