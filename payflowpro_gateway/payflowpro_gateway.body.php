@@ -438,7 +438,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$headers[] = 'X-VPS-Request-ID:' . $payflow_data['order_id'];
 
 		$ch = curl_init();
-		$paypalPostTo = isset ( $wgDonationTestingMode ) ? 'testing' : 'paypal'; 
+		$paypalPostTo = isset ( $wgDonationTestingMode ) ? 'testingurl' : 'paypalurl'; 
 		curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
