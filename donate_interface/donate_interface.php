@@ -130,7 +130,7 @@ function fnDonateCreateOutput() {
     $currencyMenu .= Xml::option( $fullName, $value );
   }
     
-  $output = Xml::openElement( 'form', array( 'name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => '' )) .
+  $output = Xml::openElement( 'form', array( 'name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => 'return DonateValidateForm(this)' )) .
         Xml::openElement( 'div', array('id' => 'mw-donation-intro' )) .
         Xml::element( 'p', array( 'class' => 'mw-donation-intro-text' ), wfMsg( 'donate_interface-intro' )) .
         Xml::closeElement( 'div' );
