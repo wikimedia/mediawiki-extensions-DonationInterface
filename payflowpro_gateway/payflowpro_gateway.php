@@ -89,6 +89,6 @@ function pfpGatewayPage( &$url ) {
 	global $wgScript;
 
 	$url['payflow'] = 'https://payments.wikimedia.org/index.php' . '?title=Special:PayflowProGateway';
-
+	
 	return true;
 }

@@ -33,6 +33,23 @@ Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wik
 	'donate_interface-small-amount-value' => '30',
 	'donate_interface-amount-error' => '**Please enter a valid amount**',
 	'donate_interface-processing-error' => 'There has been an error processing your request. No processor are available.',
+	'donate_interface-GBP' => 'GBP: British Pound',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: U.S. Dollar',
+	'donate_interface-AUD' => 'AUD: Australian Dollar',
+	'donate_interface-CAD' => 'CAD: Canadian Dollar',
+	'donate_interface-CHF' => 'CHF: Swiss Franc',
+	'donate_interface-CZK' => 'CZK: Czech Koruna',
+	'donate_interface-DKK' => 'DKK: Danish Krone',
+	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
+	'donate_interface-HUF' => 'HUF: Hungarian Forint',
+	'donate_interface-JPY' => 'JPY: Japanese Yen',
+	'donate_interface-NZD' => 'NZD: New Zealand Dollar',
+	'donate_interface-NOK' => 'NOK: Norwegian Krone',
+	'donate_interface-PLN' => 'PLN: Polish Zloty',
+	'donate_interface-SGD' => 'SGD: Singapore Dollar',
+	'donate_interface-SEK' => 'SEK: Swedish Krona',
+	'donate_interface-ILS' => 'ILS: Isreali Shekel',
 );
 
 /** Message documentation (Message documentation)
