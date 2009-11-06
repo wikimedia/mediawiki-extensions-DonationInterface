@@ -49,7 +49,7 @@ Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wik
 	'donate_interface-PLN' => 'PLN: Polish Zloty',
 	'donate_interface-SGD' => 'SGD: Singapore Dollar',
 	'donate_interface-SEK' => 'SEK: Swedish Krona',
-	'donate_interface-ILS' => 'ILS: Isreali Shekel',
+	'donate_interface-ILS' => 'ILS: Israeli Shekel',
 );
 
 /** Message documentation (Message documentation)
