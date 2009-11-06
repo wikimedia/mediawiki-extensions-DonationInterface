@@ -110,9 +110,16 @@ $messages['ar'] = array(
 
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
+ * @author Jim-by
  */
 $messages['be-tarask'] = array(
+	'donate_interface' => 'Падтрымайце фундацыю «Вікімэдыя»',
+	'donate_interface-desc' => 'Старонка збору ахвяраваньняў, якая інтэгруе пашырэньні-шлюзы',
+	'donate_interface-intro' => 'Калі ласка, выберыце мэтад плацяжу, суму і валюту.',
+	'donate_interface-amount' => 'Сума ахвяраваньня:',
+	'donate_interface-other-amount' => 'Іншая сума',
 	'donate_interface-currency' => 'Валюта:',
+	'donate_interface-gateway' => 'Мэтад плацяжу:',
 	'donate_interface-submit-button' => 'Ахвяраваць',
 	'donate_interface-comment-label' => 'Камэнтар:',
 );
@@ -176,7 +183,23 @@ Naše pšawidła priwatnosći za dary namakajoš <a title='Donate/Donor Privacy'
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Pšosym zapódaj płaśiwu sumu**',
 	'donate_interface-processing-error' => 'Pśi pśeźěłowanju twójogo napšašowanja jo zmólka nastała. Procesor njestoj k dispoziciji.',
+	'donate_interface-GBP' => 'GBP. Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: US-dollar',
+	'donate_interface-AUD' => 'AUD: Awstralski dollar',
+	'donate_interface-CAD' => 'CAD: Kanadiski dollar',
+	'donate_interface-CHF' => 'CHF: Šwicarski franc',
+	'donate_interface-CZK' => 'CZK: Česka krona',
+	'donate_interface-DKK' => 'DKK: Dańska krona',
+	'donate_interface-HKD' => 'HKD: Hong Kong dollar',
+	'donate_interface-HUF' => 'HUF: Hungorski forint',
+	'donate_interface-JPY' => 'JPY: Japański yen',
+	'donate_interface-NZD' => 'NZD: Nowoseelandski dollar',
+	'donate_interface-NOK' => 'NOK: Norwegska krona',
+	'donate_interface-PLN' => 'PLN: Pólski złoty',
+	'donate_interface-SGD' => 'SGD: Singapurski dollar',
+	'donate_interface-SEK' => 'SEK: Šwedska krona',
+	'donate_interface-ILS' => 'ILS: Israelski šekel',
 );
 
 /** Finnish (Suomi)
@@ -264,6 +287,23 @@ Podes atopar <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>a
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-amount-error' => '**Por favor, escribe unha cantidade válida**',
 	'donate_interface-processing-error' => 'Houbo un erro ao procesar a túa solicitude. Non hai ningún procesador dispoñible.',
+	'donate_interface-GBP' => 'GBP: libra esterlina',
+	'donate_interface-EUR' => 'EUR: euro',
+	'donate_interface-USD' => 'USD: dólar estadounidense',
+	'donate_interface-AUD' => 'AUD: dólar australiano',
+	'donate_interface-CAD' => 'CAD: dólar canadense',
+	'donate_interface-CHF' => 'CHF: franco suízo',
+	'donate_interface-CZK' => 'CZK: coroa checa',
+	'donate_interface-DKK' => 'DKK: coroa dinamarquesa',
+	'donate_interface-HKD' => 'HKD: dólar de Hong Kong',
+	'donate_interface-HUF' => 'HUF: florín húngaro',
+	'donate_interface-JPY' => 'JPY: ien xaponés',
+	'donate_interface-NZD' => 'NZD: dólar neocelandés',
+	'donate_interface-NOK' => 'NOK: coroa norueguesa',
+	'donate_interface-PLN' => 'PLN: złoty polaco',
+	'donate_interface-SGD' => 'SGD: dólar de Singapur',
+	'donate_interface-SEK' => 'SEK: coroa sueca',
+	'donate_interface-ILS' => 'ILS: sheqel israelí',
 );
 
 /** Swiss German (Alemannisch)
@@ -287,6 +327,23 @@ Unsri Spände-Richtlinie cha mer <a title='Donate/Donor Privacy' href='/wiki/Don
 	'donate_interface-comment-title' => 'Effentligi Aamerkig',
 	'donate_interface-amount-error' => '**Bitte gib e giltige Betrag yy**',
 	'donate_interface-processing-error' => 'S het e Fähler gee bim Verarbeite vu Dyyre Aafrog. S isch kei Prozässor verfiegbar.',
+	'donate_interface-GBP' => 'GBP: Britischi Pfund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikanischi Dollar',
+	'donate_interface-AUD' => 'AUD: Auschtralischi Dollar',
+	'donate_interface-CAD' => 'CAD: Kanadischi Dollar',
+	'donate_interface-CHF' => 'CHF: Schwyzer Franke',
+	'donate_interface-CZK' => 'CZK: Tschechischi Chrone',
+	'donate_interface-DKK' => 'DKK: Dänischi Chrone',
+	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
+	'donate_interface-HUF' => 'HUF: Ungarischi Forint',
+	'donate_interface-JPY' => 'JPY: Japanischi Yen',
+	'donate_interface-NZD' => 'NZD: Nejseeländischi Dollar',
+	'donate_interface-NOK' => 'NOK: Norwegischi Chrone',
+	'donate_interface-PLN' => 'PLN: Polnischi Zloty',
+	'donate_interface-SGD' => 'SGD: Singapur Dollar',
+	'donate_interface-SEK' => 'SEK: Schwedischi Chrone',
+	'donate_interface-ILS' => 'ILS: Israelischi Shekel',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -381,6 +438,23 @@ Kebijakan privasi donor kami dapat ditemukan <a title="Donasi/Privasi Donor" hre
 	'donate_interface-comment-title' => 'Komentar publik',
 	'donate_interface-amount-error' => '**Harap masukkan nilai yang valid**',
 	'donate_interface-processing-error' => 'Terjadi kesalahan dalam pemrosesan permintaan Anda. Tidak ada pemroses yang tersedia.',
+	'donate_interface-GBP' => 'GBP: Pound Britania',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolar A.S.',
+	'donate_interface-AUD' => 'AUD: Dolar Australia',
+	'donate_interface-CAD' => 'CAD: Dolar Kanada',
+	'donate_interface-CHF' => 'CHF: Franc Swiss',
+	'donate_interface-CZK' => 'CZK: Koruna Ceko',
+	'donate_interface-DKK' => 'DKK: Kroner Denmark',
+	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
+	'donate_interface-HUF' => 'HUF: Forint Hongaria',
+	'donate_interface-JPY' => 'JPY: Yen Jepang',
+	'donate_interface-NZD' => 'NZD: Dolar Selandia Baru',
+	'donate_interface-NOK' => 'NOK: Krone Norwegia',
+	'donate_interface-PLN' => 'PLN: Polandia Zloty',
+	'donate_interface-SGD' => 'SGD: Dolar Singapura',
+	'donate_interface-SEK' => 'SEK: Krona Swedia',
+	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
 /** Japanese (日本語)
@@ -492,6 +566,23 @@ Zie ook ons <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>do
 	'donate_interface-comment-title' => 'Publieke opmerking',
 	'donate_interface-amount-error' => '**Voer alstublieft een geldig bedrag in**',
 	'donate_interface-processing-error' => 'Er is een fout opgetreden bij het verwerken van uw verzoek. Er is geen verwerkingsdienst beschikbaar.',
+	'donate_interface-GBP' => 'GBP: Britse pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikaanse dollar',
+	'donate_interface-AUD' => 'AUD: Australische dollar',
+	'donate_interface-CAD' => 'CAD: Canadese dollar',
+	'donate_interface-CHF' => 'CHF: Zwitserse frank',
+	'donate_interface-CZK' => 'CZK: Tsjechische kroon',
+	'donate_interface-DKK' => 'DKK: Deense kroon',
+	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
+	'donate_interface-HUF' => 'HUF: Hongaarse forint',
+	'donate_interface-JPY' => 'JPY: Japanse yen',
+	'donate_interface-NZD' => 'NZD: Nieuwzeelandse dollar',
+	'donate_interface-NOK' => 'NOK: Noorse kroon',
+	'donate_interface-PLN' => 'PLN: Poolse zloty',
+	'donate_interface-SGD' => 'SGD: Singaporese dollar',
+	'donate_interface-SEK' => 'SEK: Zweedse kroon',
+	'donate_interface-ILS' => 'ILS: Israelische shekel',
 );
 
 /** Occitan (Occitan)
@@ -562,6 +653,44 @@ $messages['ru'] = array(
 	'donate_interface-comment-title' => 'Общедоступный комментарий',
 	'donate_interface-amount-error' => '** Пожалуйста, введите корректную сумму **',
 	'donate_interface-processing-error' => 'При обработке вашего запроса возникла ошибка. Нет доступных процессоров.',
+);
+
+/** Turkish (Türkçe)
+ * @author Joseph
+ */
+$messages['tr'] = array(
+	'donate_interface' => "Wikimedia'yı destekleyin",
+	'donate_interface-intro' => 'Lütfen bir ödeme şekli, miktarı ve para birimi seçin.',
+	'donate_interface-amount' => 'Bağış miktarı:',
+	'donate_interface-other-amount' => 'Diğer miktar',
+	'donate_interface-currency' => 'Para birimi:',
+	'donate_interface-gateway' => 'Ödeme şekli:',
+	'donate_interface-submit-button' => 'Bağışla',
+	'donate_interface-comment-message' => 'Dünya ile paylaşacak bir düşünceniz mi var? Buraya 200 karaktere kadar yazabilirsiniz:',
+	'donate_interface-comment-label' => 'Yorum:',
+	'donate_interface-anon-message' => 'Lütfen adımı (yorumumun yanına) umumi bağışçı listesinde listeleyin.',
+	'donate_interface-email-agreement' => "İleride Wikimedi Foundation haber postalarını ya da e-postalarını almayı kabul ediyorum.
+Bilgilerinizi asla satmayız ya da ticaret yapmayız.
+Bağışçı gizlilik poltikamız <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>burada</a> bulunabilir.",
+	'donate_interface-comment-title' => 'Umumi yorum',
+	'donate_interface-amount-error' => '**Lütfen geçerli bir yorum girin**',
+	'donate_interface-GBP' => 'GBP: İngiliz Sterlini',
+	'donate_interface-EUR' => 'EUR: Avro',
+	'donate_interface-USD' => 'USD: Amerikan Doları',
+	'donate_interface-AUD' => 'AUD: Avustralya Doları',
+	'donate_interface-CAD' => 'CAD: Kanada Doları',
+	'donate_interface-CHF' => 'CHF: İsviçre Frankı',
+	'donate_interface-CZK' => 'CZK: Çek Kronu',
+	'donate_interface-DKK' => 'DKK: Danimarka Kronu',
+	'donate_interface-HKD' => 'HKD: Hong Kong Doları',
+	'donate_interface-HUF' => 'HUF: Macar Forinti',
+	'donate_interface-JPY' => 'JPY: Japon Yeni',
+	'donate_interface-NZD' => 'NZD: Yeni Zelanda Doları',
+	'donate_interface-NOK' => 'NOK: Norveç Kronu',
+	'donate_interface-PLN' => 'PLN: Leh Zlotisi',
+	'donate_interface-SGD' => 'SGD: Singapur Doları',
+	'donate_interface-SEK' => 'SEK: İsveç Kronu',
+	'donate_interface-ILS' => 'ILS: İsrail Şekeli',
 );
 
 /** Vietnamese (Tiếng Việt)

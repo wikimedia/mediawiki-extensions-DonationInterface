@@ -232,6 +232,18 @@ $messages['be-tarask'] = array(
 Дзякуй за Вашае ахвяраваньне!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакцыя чакае пацьверджаньня.',
 	'payflowpro_gateway-response-12' => 'Калі ласка, зьвяжыцеся з Вашай крэдытнай кампаніяй для дадатковай інфармацыі.',
+	'payflowpro_gateway-response-13' => 'Вашая транзакцыя патрабуе галасавой аўтарызацыі.
+Калі ласка, скантактуйцеся з намі каб працягнуць транзакцыю.',
+	'payflowpro_gateway-response-114' => 'Калі ласка, скантактуйцеся з Вашай крэдытнай кампаніяй для дадатковай інфармацыі.',
+	'payflowpro_gateway-response-23' => 'Нумар Вашай крэдытнай карткі альбо тэрмін сканчэньня яе дзеяньня зьяўляецца няслушным.',
+	'payflowpro_gateway-response-4' => 'Няслушная сума.',
+	'payflowpro_gateway-response-24' => 'Нумар Вашай крэдытнай карткі альбо тэрмін сканчэньня яе дзеяньня зьяўляецца няслушным.',
+	'payflowpro_gateway-response-112' => 'Ваш адрас альбо нумар код бясьпекі зьяўляецца няслушным.',
+	'payflowpro_gateway-response-125' => 'Ваша транзакцыя была адмененая Службай прадухіленьня махлярстваў.',
+	'payflowpro_gateway-response-default' => 'Пад час апрацоўкі Вашай транзакцыі ўзьнікла памылка.
+Калі ласка, паспрабуйце ізноў пазьней.',
+	'php-response-declined' => 'Ваша транзакцыя была адменена.',
+	'payflowpro_gateway-post-transaction' => 'Падрабязнасьці пра транзакцыю',
 	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
 );
 
@@ -563,7 +575,7 @@ Su tež <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">druhe
 	'payflowpro_gateway-error-msg' => 'Prošu wupjelń polo: $1',
 	'payflowpro_gateway-error-msg-email' => ' **Prošu zapodaj płaćiwu e-mejlowu adresu**',
 	'payflowpro_gateway-error-msg-amex' => ' **Prošu zapodaj prawe kartowe čisło za American Express.**',
-	'payflowpro_gateway-error-msg-mc' => ' **Prošu zapodaj prawe kartowe čisło za Mastercard.**',
+	'payflowpro_gateway-error-msg-mc' => ' **Prošu zapodaj prawe kartowe čisło za MasterCard.**',
 	'payflowpro_gateway-error-msg-visa' => ' **Prošu zapodaj prawe kartowe čisło za Visa.**',
 	'payflowpro_gateway-response-0' => 'Waša transakcija bu schwalena.
 Dźakujemy so za waš dar!',
@@ -592,6 +604,8 @@ $messages['hu'] = array(
 	'payflowprogateway' => 'Támogasd a Wikimédiát',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro hitelkártya feldolgozása',
 	'payflowpro_gateway-accessible' => 'Ez a lap csak az adományozás lapról érhető el.',
+	'payflowpro_gateway-form-message' => 'Közreműködés a hitelkártyád segítségével.
+Ne feledd, <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">számos más módon adakozhatsz, például PayPalon, csekkel vagy levélen keresztül is</a>.',
 	'payflowpro_gateway-form-message-2' => 'Az összeg vagy a pénznem megváltoztatásához lépj vissza <a href="/index.php?title=Donate">az adományozási lapra</a>',
 	'payflowpro_gateway-donor-legend' => 'Adományozói információk',
 	'payflowpro_gateway-card-legend' => 'Hitelkártya információk',
@@ -617,7 +631,7 @@ $messages['hu'] = array(
 	'payflowpro_gateway-error-msg' => 'A következő mező kitöltése kötelező: $1',
 	'payflowpro_gateway-error-msg-email' => '** Kérlek érvényes e-mail címet adj meg **',
 	'payflowpro_gateway-error-msg-amex' => '** Kérlek helyes American Express kártyaszámot adj meg. **',
-	'payflowpro_gateway-error-msg-mc' => '** Kérlek helyes Mastercard kártyaszámot adj meg. **',
+	'payflowpro_gateway-error-msg-mc' => '** Kérlek, helyes MasterCard kártyaszámot adj meg. **',
 	'payflowpro_gateway-error-msg-visa' => '** Kérlek helyes Visa kártyaszámot adj meg. **',
 	'payflowpro_gateway-response-0' => 'A tranzakció elfogadva.
 Köszönjük az adományt!',
@@ -1108,6 +1122,61 @@ $messages['ru'] = array(
 	'php-response-declined' => 'Ваша транзакция была отклонена.',
 	'payflowpro_gateway-post-transaction' => 'Сведения о транзакции',
 	'payflowpro_gateway-submit-button' => 'Пожертвовать',
+);
+
+/** Turkish (Türkçe)
+ * @author Joseph
+ */
+$messages['tr'] = array(
+	'payflowprogateway' => "Wikimedia'yı destekleyin",
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredi kartı işlemi',
+	'payflowpro_gateway-accessible' => 'Bu sayfa sadece bağış sayfasından erişilebilirdir.',
+	'payflowpro_gateway-form-message' => 'Kredi kartınızla katkıda bulunun.
+<a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">Vermenin başka yolları da vardır, PayPal, çek, ya da posta gibi</a>.',
+	'payflowpro_gateway-form-message-2' => 'Miktarı ya da para birimini değiştirmek için <a href="/index.php?title=Donate">bağış sayfasına</a> geri dönün',
+	'payflowpro_gateway-donor-legend' => 'Bağışçı bilgisi',
+	'payflowpro_gateway-card-legend' => 'Kredi kartı bilgisi',
+	'payflowpro_gateway-amount-legend' => 'Bağış miktarı:',
+	'payflowpro_gateway-donor-amount' => 'Miktar:',
+	'payflowpro_gateway-donor-email' => 'E-posta adresi:',
+	'payflowpro_gateway-donor-fname' => 'İlk ad:',
+	'payflowpro_gateway-donor-mname' => 'Orta ad:',
+	'payflowpro_gateway-donor-lname' => 'Soyisim:',
+	'payflowpro_gateway-donor-name' => 'İsim:',
+	'payflowpro_gateway-donor-street' => 'Cadde:',
+	'payflowpro_gateway-donor-city' => 'Şehir:',
+	'payflowpro_gateway-donor-state' => 'Eyalet:',
+	'payflowpro_gateway-donor-postal' => 'Posta kodu:',
+	'payflowpro_gateway-donor-country' => 'Ülke/Bölge:',
+	'payflowpro_gateway-donor-address' => 'Adres:',
+	'payflowpro_gateway-donor-card' => 'Kredi kartı:',
+	'payflowpro_gateway-donor-card-num' => 'Kart numarası:',
+	'payflowpro_gateway-donor-expiration' => 'Son kullanma tarihi:',
+	'payflowpro_gateway-donor-security' => 'Güvenlik kodu:',
+	'payflowpro_gateway-donor-submit' => 'Bağışla',
+	'payflowpro_gateway-donor-currency-msg' => 'Bu bağış $1 para biriminde yapılıyor',
+	'payflowpro_gateway-error-msg' => 'Şu alan gereklidir: $1',
+	'payflowpro_gateway-error-msg-email' => '**Lütfen geçerli bir e-posta adresi girin**',
+	'payflowpro_gateway-error-msg-amex' => '**Lütfen American Express için doğru bir kart numarası girin.**',
+	'payflowpro_gateway-error-msg-mc' => '**Lütfen MasterCard için doğru bir kart numarası girin.**',
+	'payflowpro_gateway-error-msg-visa' => '**Lütfen Visa için doğru bir kart numarası girin.**',
+	'payflowpro_gateway-response-0' => 'İşleminiz onaylandı.
+Bağışınız için teşekkürler!',
+	'payflowpro_gateway-response-126' => 'İşleminiz onay bekliyor.',
+	'payflowpro_gateway-response-12' => 'Daha fazla bilgi için lütfen kredi kartı şirketinizle irtibata geçin.',
+	'payflowpro_gateway-response-13' => 'İşleminiz ses yetkilendirmesi istiyor.
+İşleminize devam edebilmek için lütfen bizimle irtibata geçin.',
+	'payflowpro_gateway-response-114' => 'Daha fazla bilgi için lütfen kredi kartı şirketinizle irtibata geçin.',
+	'payflowpro_gateway-response-23' => 'Kredi kartı numaranız ya da son kullanma tarihi doğru değil.',
+	'payflowpro_gateway-response-4' => 'Geçersiz miktar.',
+	'payflowpro_gateway-response-24' => 'Kredi kartı numaranız ya da son kullanma tarihi doğru değil.',
+	'payflowpro_gateway-response-112' => 'Adresiniz ya da CVV numaranız (güvenlik kodu) doğru değil.',
+	'payflowpro_gateway-response-125' => 'İşleminiz Fraud Prevention Services tarafından reddedildi.',
+	'payflowpro_gateway-response-default' => 'İşleminiz işlenirken bir hata oluştu.
+Lütfen daha sonra tekrar deneyin.',
+	'php-response-declined' => 'İşleminiz reddedildi.',
+	'payflowpro_gateway-post-transaction' => 'İşlem detayları',
+	'payflowpro_gateway-submit-button' => 'Bağışla',
 );
 
 /** Ukrainian (Українська)

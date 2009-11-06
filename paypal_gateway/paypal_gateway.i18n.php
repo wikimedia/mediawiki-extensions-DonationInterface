@@ -166,6 +166,13 @@ $messages['pms'] = array(
 	'paypal_gateway-desc' => 'A registra PayPal com un mecanism ëd donassion',
 );
 
+/** Portuguese (Português)
+ * @author Hamilton Abreu
+ */
+$messages['pt'] = array(
+	'paypal_gateway-desc' => 'Regista o PayPal como mecanismo de contribuições monetárias',
+);
+
 /** Tarandíne (Tarandíne)
  * @author Joetaras
  */
@@ -178,6 +185,13 @@ $messages['roa-tara'] = array(
  */
 $messages['ru'] = array(
 	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований',
+);
+
+/** Turkish (Türkçe)
+ * @author Joseph
+ */
+$messages['tr'] = array(
+	'paypal_gateway-desc' => "Bir bağış düzeneği olarak PayPal'ı kaydeder",
 );
 
 /** Vietnamese (Tiếng Việt)
