@@ -817,6 +817,11 @@ $messages['ja'] = array(
 	'payflowpro_gateway-submit-button' => '寄付',
 );
 
+/** Ripoarisch (Ripoarisch) */
+$messages['ksh'] = array(
+	'payflowpro_gateway-donor-currency-msg' => 'Di Spende es en $1 jemaat woode.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -1184,6 +1189,55 @@ Lütfen daha sonra tekrar deneyin.',
  */
 $messages['uk'] = array(
 	'payflowpro_gateway-donor-amount' => 'Сума:',
+);
+
+/** Vèneto (Vèneto)
+ * @author Candalua
+ */
+$messages['vec'] = array(
+	'payflowprogateway' => 'Juta Wikimedia',
+	'payflowpro_gateway-form-message' => 'Contribuissi co la to carta de credito.
+Ghe xe anca <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.',
+	'payflowpro_gateway-donor-legend' => 'Informassion sul donator',
+	'payflowpro_gateway-card-legend' => 'Informassion su la carta de credito',
+	'payflowpro_gateway-amount-legend' => 'Inporto de la donassion:',
+	'payflowpro_gateway-donor-amount' => 'Inporto:',
+	'payflowpro_gateway-donor-email' => 'Indirisso e-mail:',
+	'payflowpro_gateway-donor-fname' => 'Nome de batezo:',
+	'payflowpro_gateway-donor-mname' => 'Secondo nome:',
+	'payflowpro_gateway-donor-lname' => 'Cognome:',
+	'payflowpro_gateway-donor-name' => 'Nome:',
+	'payflowpro_gateway-donor-street' => 'Via:',
+	'payflowpro_gateway-donor-city' => 'Sità:',
+	'payflowpro_gateway-donor-state' => 'Stato:',
+	'payflowpro_gateway-donor-postal' => 'Còdese postal:',
+	'payflowpro_gateway-donor-country' => 'Paese/Region:',
+	'payflowpro_gateway-donor-address' => 'Indirisso:',
+	'payflowpro_gateway-donor-card' => 'Carta de credito:',
+	'payflowpro_gateway-donor-card-num' => 'Nùmaro de carta:',
+	'payflowpro_gateway-donor-expiration' => 'Data de scadensa:',
+	'payflowpro_gateway-donor-security' => 'Còdese de sicuressa;',
+	'payflowpro_gateway-donor-submit' => 'Dona',
+	'payflowpro_gateway-donor-currency-msg' => 'Sta donassion la vien fata in $1',
+	'payflowpro_gateway-error-msg' => 'Par piaser inserissi el to $1',
+	'payflowpro_gateway-error-msg-email' => '**Par piaser, inserissi un indirisso e-mail valido**',
+	'payflowpro_gateway-error-msg-amex' => '**Par piaser, inserissi un nùmaro de carta de credito American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Par piaser, inserissi un nùmaro de carta de credito MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Par piaser, inserissi un nùmaro de carta de credito Visa.**',
+	'payflowpro_gateway-response-0' => 'La to transazion la xe stà aprovà.
+Grassie de la to donassion!',
+	'payflowpro_gateway-response-126' => 'La to transazion la xe drio spetar de vegner aprovà.',
+	'payflowpro_gateway-response-12' => 'Par piaser, parla co la to conpagnia de carte de credito par savérghene piassè.',
+	'payflowpro_gateway-response-13' => 'La to transazion la richiede na autorisassion a voce.
+Par piaser ciàmene par continuar la transazion.',
+	'payflowpro_gateway-response-23' => 'El to nùmaro de carta de credito o la data de scadensa i xe sbajà.',
+	'payflowpro_gateway-response-4' => 'Inporto mia valido.',
+	'payflowpro_gateway-response-24' => 'El to nùmaro de carta de credito o la data de scadensa i xe sbajà.',
+	'payflowpro_gateway-response-default' => 'Ghe xe stà un eror durante el tratamento de la to transazion.
+Par piaser, ripròa de novo tra un tocheto.',
+	'php-response-declined' => 'La to transazion la xe stà rifiutà.',
+	'payflowpro_gateway-post-transaction' => 'Detaji de la transazion',
+	'payflowpro_gateway-submit-button' => 'Dona',
 );
 
 /** Vietnamese (Tiếng Việt)

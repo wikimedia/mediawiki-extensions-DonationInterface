@@ -693,6 +693,44 @@ Bağışçı gizlilik poltikamız <a title='Donate/Donor Privacy' href='/wiki/Do
 	'donate_interface-ILS' => 'ILS: İsrail Şekeli',
 );
 
+/** Vèneto (Vèneto)
+ * @author Candalua
+ */
+$messages['vec'] = array(
+	'donate_interface' => 'Juta Wikimedia',
+	'donate_interface-intro' => "Par piaser, siegli el metodo par pagar, l'inporto e el to scheo.",
+	'donate_interface-amount' => 'Inporto de la donassion:',
+	'donate_interface-other-amount' => 'Altro inporto',
+	'donate_interface-currency' => 'Scheo:',
+	'donate_interface-gateway' => 'Come paghito:',
+	'donate_interface-submit-button' => 'Dona',
+	'donate_interface-comment-message' => 'Gheto un pensiero da condivìdar col mondo? Buta zò massimo 200 carateri qua drento:',
+	'donate_interface-comment-label' => 'Comento:',
+	'donate_interface-anon-message' => 'Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori.',
+	'donate_interface-email-agreement' => "Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.
+Le to informassion no le vegnarà mai vendùe o scanbià.
+La nostra politica de rispeto de la riservatessa la se cata <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>qua</a>",
+	'donate_interface-comment-title' => 'Comento publico',
+	'donate_interface-amount-error' => '**Par piaser, inserissi un inporto valido**',
+	'donate_interface-GBP' => 'GBP: Sterlina britànega',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolaro merican',
+	'donate_interface-AUD' => 'AUD: Dolaro australian',
+	'donate_interface-CAD' => 'CAD: Dolaro canadese',
+	'donate_interface-CHF' => 'CHF: Franco svìssaro',
+	'donate_interface-CZK' => 'CZK: Corona ceca',
+	'donate_interface-DKK' => 'DKK: Corona danese',
+	'donate_interface-HKD' => 'HKD: Dolaro de Hong Kong',
+	'donate_interface-HUF' => 'HUF: Fiorin ongarese',
+	'donate_interface-JPY' => 'JPY: Yen zaponese',
+	'donate_interface-NZD' => 'NZD: Dolaro neozelandese',
+	'donate_interface-NOK' => 'NOK: Corona norvegese',
+	'donate_interface-PLN' => 'PLN: Zloty polaco',
+	'donate_interface-SGD' => 'SGD: Dolaro de Singapor',
+	'donate_interface-SEK' => 'SEK: Corona svedese',
+	'donate_interface-ILS' => 'ILS: Shekel israelian',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Vinhtantran
  */
