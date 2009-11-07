@@ -1196,8 +1196,11 @@ $messages['uk'] = array(
  */
 $messages['vec'] = array(
 	'payflowprogateway' => 'Juta Wikimedia',
+	'payflowpro_gateway-desc' => 'Tratamento de carte de credito PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Sta pagina la se pol védar sol che da la pagina de donassion.',
 	'payflowpro_gateway-form-message' => 'Contribuissi co la to carta de credito.
 Ghe xe anca <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.',
+	'payflowpro_gateway-form-message-2' => 'Par canbiar l\'inporto o el scheo, torna indrìo a la <a href="/index.php?title=Donate">pagina de donassion</a>',
 	'payflowpro_gateway-donor-legend' => 'Informassion sul donator',
 	'payflowpro_gateway-card-legend' => 'Informassion su la carta de credito',
 	'payflowpro_gateway-amount-legend' => 'Inporto de la donassion:',
@@ -1230,9 +1233,12 @@ Grassie de la to donassion!',
 	'payflowpro_gateway-response-12' => 'Par piaser, parla co la to conpagnia de carte de credito par savérghene piassè.',
 	'payflowpro_gateway-response-13' => 'La to transazion la richiede na autorisassion a voce.
 Par piaser ciàmene par continuar la transazion.',
+	'payflowpro_gateway-response-114' => 'Par piaser, ciama la to conpagnia de carte de credito par savérghene piassè.',
 	'payflowpro_gateway-response-23' => 'El to nùmaro de carta de credito o la data de scadensa i xe sbajà.',
 	'payflowpro_gateway-response-4' => 'Inporto mia valido.',
 	'payflowpro_gateway-response-24' => 'El to nùmaro de carta de credito o la data de scadensa i xe sbajà.',
+	'payflowpro_gateway-response-112' => 'El to indirisso o el nùmaro CVV (còdese de sicuressa) i xe sbajà.',
+	'payflowpro_gateway-response-125' => 'La to transazion la xe stà rifiutà dal Servissio de Prevension da le Frodi.',
 	'payflowpro_gateway-response-default' => 'Ghe xe stà un eror durante el tratamento de la to transazion.
 Par piaser, ripròa de novo tra un tocheto.',
 	'php-response-declined' => 'La to transazion la xe stà rifiutà.',

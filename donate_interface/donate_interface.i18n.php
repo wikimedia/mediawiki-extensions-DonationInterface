@@ -415,6 +415,21 @@ Az adományozási adatvédelmi irányelvek <a title='Donate/Donor Privacy' href=
 $messages['ia'] = array(
 	'donate_interface' => 'Supportar Wikimedia',
 	'donate_interface-desc' => 'Pagina de arrivata pro donationes que integra le extensiones de pagamento',
+	'donate_interface-intro' => 'Per favor selige un methodo de pagamento, amonta e moneta.',
+	'donate_interface-amount' => 'Amonta del donation:',
+	'donate_interface-other-amount' => 'Altere amonta',
+	'donate_interface-currency' => 'Moneta:',
+	'donate_interface-gateway' => 'Methodo de pagamento:',
+	'donate_interface-submit-button' => 'Donar',
+	'donate_interface-comment-message' => 'Vole tu transmitter un pensata al mundo? Scribe usque a 200 characteres hic:',
+	'donate_interface-comment-label' => 'Commento:',
+	'donate_interface-anon-message' => 'Mentiona mi nomine (juxta mi commento) in le lista public de donatores.',
+	'donate_interface-email-agreement' => "Io accepta de reciper futur bulletines de novas o e-mails del Fundation Wikimedia.
+Nos nunquam vendera o excambiara tu informationes.
+Nostre politica de confidentialitate de donatores se trova <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hic</a>",
+	'donate_interface-comment-title' => 'Commento public',
+	'donate_interface-amount-error' => '**Per favor entra un amonta valide**',
+	'donate_interface-processing-error' => 'Un error occurreva durante le tractamento de tu requesta. Nulle processator es disponibile.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -479,6 +494,44 @@ $messages['ja'] = array(
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '**有効な金額を入力してください**',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。処理サービスが利用できません。',
+	'donate_interface-GBP' => 'GBP: イギリス・ポンド',
+	'donate_interface-EUR' => 'EUR: ユーロ',
+	'donate_interface-USD' => 'USD: アメリカ合衆国ドル',
+	'donate_interface-AUD' => 'AUD: オーストラリア・ドル',
+	'donate_interface-CAD' => 'CAD: カナダ・ドル',
+	'donate_interface-CHF' => 'CHF: スイス・フラン',
+	'donate_interface-CZK' => 'CZK: チェコ・コルナ',
+	'donate_interface-DKK' => 'DKK: デンマーク・クローネ',
+	'donate_interface-HKD' => 'HKD: 香港ドル',
+	'donate_interface-HUF' => 'HUF: ハンガリー・フォリント',
+	'donate_interface-JPY' => 'JPY: 日本円',
+	'donate_interface-NZD' => 'NZD: ニュージーランド・ドル',
+	'donate_interface-NOK' => 'NOK: ノルウェー・クローネ',
+	'donate_interface-PLN' => 'PLN: ポーランド・ズウォティ',
+	'donate_interface-SGD' => 'SGD: シンガポール・ドル',
+	'donate_interface-SEK' => 'SEK: スウェーデン・クローナ',
+	'donate_interface-ILS' => 'ILS: イスラエル・シェケル',
+);
+
+/** Korean (한국어)
+ * @author Kwj2772
+ */
+$messages['ko'] = array(
+	'donate_interface-gateway' => '지불 방법:',
+	'donate_interface-GBP' => 'GBP: 영국 파운드',
+	'donate_interface-EUR' => 'EUR: 유로',
+	'donate_interface-USD' => 'USD: 미국 달러',
+	'donate_interface-AUD' => 'AUD: 호주 달러',
+	'donate_interface-CAD' => 'CAD: 캐나다 달러',
+	'donate_interface-CHF' => 'CHF: 스위스 프랑',
+	'donate_interface-CZK' => 'CZK: 체코 코루나',
+	'donate_interface-DKK' => 'DKK: 덴마크 크로네',
+	'donate_interface-HKD' => 'HKD: 홍콩 달러',
+	'donate_interface-HUF' => 'HUF: 헝가리 포린트',
+	'donate_interface-JPY' => 'JPY: 일본 엔',
+	'donate_interface-NZD' => 'NZD: 뉴질랜드 달러',
+	'donate_interface-NOK' => 'NOK: 노르웨이 크로네',
+	'donate_interface-PLN' => 'PLN: 폴란드 즐로티',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -502,6 +555,23 @@ Eis Richtlinnen iwwer de Respekt vun der Privatsphär fannt Dir  <a title='Donat
 	'donate_interface-comment-title' => 'Ëffentlech Bemierkung',
 	'donate_interface-amount-error' => '**Gitt w.e.g. e valabele Betrag an**',
 	'donate_interface-processing-error' => 'Et gouf e Feeler beim behandele vun Ärer Ufro. Et ass kee Prozesseur disponibel.',
+	'donate_interface-GBP' => 'GBP: Britesched Pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: U.S. Dollar',
+	'donate_interface-AUD' => 'AUD: Australeschen Dollar',
+	'donate_interface-CAD' => 'CAD: Kanadeschen Dollar',
+	'donate_interface-CHF' => 'CHF: Schwäizer Frang',
+	'donate_interface-CZK' => 'CZK: Tschechesch Kroun',
+	'donate_interface-DKK' => 'DKK: Dänesch Kroun',
+	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
+	'donate_interface-HUF' => 'HUF: Ungaresche Forint',
+	'donate_interface-JPY' => 'JPY: Japanesche Yen',
+	'donate_interface-NZD' => 'NZD: Neiséiland Dollar',
+	'donate_interface-NOK' => 'NOK: Norwegesch Kroun',
+	'donate_interface-PLN' => 'PLN: Polnesche Zloty',
+	'donate_interface-SGD' => 'SGD: Singapur Dollar',
+	'donate_interface-SEK' => 'SEK: Schwedesch Kroun',
+	'donate_interface-ILS' => 'ILS: Israelesche Shekel',
 );
 
 /** Macedonian (Македонски)
@@ -606,6 +676,23 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
 	'donate_interface-comment-title' => 'Comentari public',
 	'donate_interface-amount-error' => '**Picatz un montant valid**',
 	'donate_interface-processing-error' => "Una error s'es producha al moment del tractament de vòstra requèsta. Cap de processor es pas disponible.",
+	'donate_interface-GBP' => 'GBP : liura sterling',
+	'donate_interface-EUR' => 'EUR : èuro',
+	'donate_interface-USD' => 'USD : dolar american',
+	'donate_interface-AUD' => 'AUD : dolar australian',
+	'donate_interface-CAD' => 'CAD : dolar canadian',
+	'donate_interface-CHF' => 'CHF : franc soís',
+	'donate_interface-CZK' => 'CZK : corona chèca',
+	'donate_interface-DKK' => 'DKK : corona danesa',
+	'donate_interface-HKD' => "HKD : dolar d'Hong Kong",
+	'donate_interface-HUF' => 'HUF : forint ongrés',
+	'donate_interface-JPY' => 'JPY : yen japonés',
+	'donate_interface-NZD' => 'NZD : dolar neozelandés',
+	'donate_interface-NOK' => 'NOK : corona norvegiana',
+	'donate_interface-PLN' => 'PLN : złoty polonés',
+	'donate_interface-SGD' => 'SGD : dolar de Singapor',
+	'donate_interface-SEK' => 'SEK : corona suedesa',
+	'donate_interface-ILS' => 'ILS : shekel israelian',
 );
 
 /** Piedmontese (Piemontèis)

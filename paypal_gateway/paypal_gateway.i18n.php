@@ -194,6 +194,13 @@ $messages['tr'] = array(
 	'paypal_gateway-desc' => "Bir bağış düzeneği olarak PayPal'ı kaydeder",
 );
 
+/** Vèneto (Vèneto)
+ * @author Candalua
+ */
+$messages['vec'] = array(
+	'paypal_gateway-desc' => 'Registra PayPal come mecanismo de donassion',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Vinhtantran
  */
