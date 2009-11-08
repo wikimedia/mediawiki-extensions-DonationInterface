@@ -321,6 +321,31 @@ Bitte versuchen Sie es später noch einmal.',
 	'payflowpro_gateway-submit-button' => 'Spenden',
 );
 
+/** Zazaki (Zazaki)
+ * @author Xoser
+ */
+$messages['diq'] = array(
+	'payflowpro_gateway-card-legend' => 'Enformasyonê Kard ê Krediti',
+	'payflowpro_gateway-amount-legend' => 'Cend panet ti dano:',
+	'payflowpro_gateway-donor-amount' => 'Cend ponet:',
+	'payflowpro_gateway-donor-email' => 'Adresê emaili',
+	'payflowpro_gateway-donor-fname' => 'Name:',
+	'payflowpro_gateway-donor-mname' => 'Nameyê miyani:',
+	'payflowpro_gateway-donor-lname' => 'Nameyê peni:',
+	'payflowpro_gateway-donor-name' => 'Name:',
+	'payflowpro_gateway-donor-street' => 'Cagde',
+	'payflowpro_gateway-donor-city' => 'Saristan:',
+	'payflowpro_gateway-donor-state' => 'Eyalet:',
+	'payflowpro_gateway-donor-postal' => 'Kodê postayi:',
+	'payflowpro_gateway-donor-country' => 'Dewlet/Mintiqa:',
+	'payflowpro_gateway-donor-address' => 'Adres:',
+	'payflowpro_gateway-donor-card' => 'Kardê krediti:',
+	'payflowpro_gateway-donor-card-num' => 'Amarê Kardi:',
+	'payflowpro_gateway-donor-expiration' => 'Wextê qediyayisi:',
+	'payflowpro_gateway-donor-security' => 'Kodê pawitisi:',
+	'payflowpro_gateway-donor-submit' => 'Bexs',
+);
+
 /** Lower Sorbian (Dolnoserbski)
  * @author Michawiki
  */
@@ -374,6 +399,45 @@ Pšosym wopytaj pózdźej hyšći raz.',
 	'php-response-declined' => 'Twója transakcija jo se wótpokazała.',
 	'payflowpro_gateway-post-transaction' => 'Drobnostki transakcije',
 	'payflowpro_gateway-submit-button' => 'Pósćiś',
+);
+
+/** Finnish (Suomi)
+ * @author Str4nd
+ */
+$messages['fi'] = array(
+	'payflowprogateway' => 'Tue Wikimediaa',
+	'payflowpro_gateway-donor-legend' => 'Lahjoittajan tiedot',
+	'payflowpro_gateway-card-legend' => 'Luottokortin tiedot',
+	'payflowpro_gateway-amount-legend' => 'Lahjoitusmäärä',
+	'payflowpro_gateway-donor-amount' => 'Määrä',
+	'payflowpro_gateway-donor-email' => 'Sähköpostiosoite',
+	'payflowpro_gateway-donor-fname' => 'Etunimi',
+	'payflowpro_gateway-donor-mname' => 'Toiset etunimet',
+	'payflowpro_gateway-donor-lname' => 'Sukunimi',
+	'payflowpro_gateway-donor-name' => 'Nimi',
+	'payflowpro_gateway-donor-street' => 'Katu',
+	'payflowpro_gateway-donor-city' => 'Kaupunki',
+	'payflowpro_gateway-donor-state' => 'Osavaltio',
+	'payflowpro_gateway-donor-postal' => 'Postinumero',
+	'payflowpro_gateway-donor-country' => 'Maa',
+	'payflowpro_gateway-donor-address' => 'Osoite',
+	'payflowpro_gateway-donor-card' => 'Luottokortti',
+	'payflowpro_gateway-donor-card-num' => 'Kortin numero',
+	'payflowpro_gateway-donor-expiration' => 'Vanhenemispäivä',
+	'payflowpro_gateway-donor-security' => 'Turvakoodi',
+	'payflowpro_gateway-donor-submit' => 'Lahjoita',
+	'payflowpro_gateway-donor-currency-msg' => 'Tämä lahjoitus tehdään rahayksikössä $1',
+	'payflowpro_gateway-error-msg' => 'Seuraava kenttä vaaditaan: $1',
+	'payflowpro_gateway-error-msg-email' => '**Syötä oikea sähköpostiosoite**',
+	'payflowpro_gateway-error-msg-amex' => '**Syötä oikea luottokortin numero American Expressille.**',
+	'payflowpro_gateway-error-msg-mc' => '**Syötä oikea luottokortin numero MasterCardille.**',
+	'payflowpro_gateway-error-msg-visa' => '**Syötä oikea luottokortin numero Visalle.**',
+	'payflowpro_gateway-response-12' => 'Lisätietoja saat luottokorttiyhtiöltäsi.',
+	'payflowpro_gateway-response-23' => 'Luottokorttisi numero tai vanhenemisaika on väärä.',
+	'payflowpro_gateway-response-4' => 'Virheellinen määrä.',
+	'payflowpro_gateway-response-24' => 'Luottokorttisi numero tai vanhenemisaika on väärä.',
+	'payflowpro_gateway-response-112' => 'Osoitteesi tai CVV-numerosi (turvakoodi) on väärä.',
+	'payflowpro_gateway-submit-button' => 'Lahjoita',
 );
 
 /** French (Français)
@@ -465,7 +529,7 @@ Existen outros <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/gl
 	'payflowpro_gateway-error-msg' => 'Por favor, introduce o teu $1',
 	'payflowpro_gateway-error-msg-email' => '**Por favor, escribe un enderezo de correo electrónico válido**',
 	'payflowpro_gateway-error-msg-amex' => '**Por favor, escribe un número de tarxeta American Express correcto.**',
-	'payflowpro_gateway-error-msg-mc' => '**Por favor, escribe un número de tarxeta Mastercard correcto.**',
+	'payflowpro_gateway-error-msg-mc' => '**Por favor, escribe un número de tarxeta MasterCard correcto.**',
 	'payflowpro_gateway-error-msg-visa' => '**Por favor, escribe un número de tarxeta Visa correcto.**',
 	'payflowpro_gateway-response-0' => 'A túa transacción foi aprobada.
 Grazas pola doazón!',
@@ -938,6 +1002,8 @@ $messages['mk'] = array(
 $messages['ml'] = array(
 	'payflowprogateway' => 'വിക്കിമീഡിയയെ പിന്തുണയ്ക്കുക',
 	'payflowpro_gateway-accessible' => 'സംഭാവനാ താളിൽ നിന്നുമാത്രമേ ഈ താൾ ലഭ്യമാവുകയുള്ളു.',
+	'payflowpro_gateway-form-message' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് ഉപയോഗിച്ച് സംഭാവന ചെയ്യുക.
+<a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">പേപാൽ, ചെക്ക്, എഴുത്തുകൾ തുടങ്ങിയ മറ്റു മാർഗ്ഗങ്ങളും ഉപയോഗിക്കാവുന്നതാണ്</a>.',
 	'payflowpro_gateway-form-message-2' => 'തുകയോ നാണയമോ മാറ്റാനായി <a href="/index.php?title=Donate">സംഭാവനാ താളിലേയ്ക്ക്</a> തിരിച്ചുപോവുക',
 	'payflowpro_gateway-donor-legend' => 'സംഭാവന ചെയ്യുന്നയാളുടെ വിവരങ്ങൾ',
 	'payflowpro_gateway-card-legend' => 'ക്രെഡിറ്റ് കാർഡ് വിവരങ്ങൾ',
@@ -956,11 +1022,27 @@ $messages['ml'] = array(
 	'payflowpro_gateway-donor-address' => 'വിലാസം:',
 	'payflowpro_gateway-donor-card' => 'ക്രെഡിറ്റ് കാർഡ്:',
 	'payflowpro_gateway-donor-card-num' => 'കാർഡ് നമ്പർ:',
+	'payflowpro_gateway-donor-expiration' => 'കാലാവധി തീരുന്ന തീയതി:',
+	'payflowpro_gateway-donor-security' => 'സുരക്ഷാ കോഡ്:',
 	'payflowpro_gateway-donor-submit' => 'സംഭാവന ചെയ്യുക',
 	'payflowpro_gateway-donor-currency-msg' => 'ഈ സംഭാവന $1 ആയി നൽകിയിരിക്കുന്നു',
 	'payflowpro_gateway-error-msg' => 'ദയവായി താങ്കളുടെ $1 നൽകുക',
 	'payflowpro_gateway-error-msg-email' => '**ദയവായി സാധുവായ ഇമെയിൽ വിലാസം നൽകുക**',
+	'payflowpro_gateway-error-msg-amex' => '**ദയവായി അമേരിക്കൻ എക്സ്‌‌പ്രസ്സിന്റെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
+	'payflowpro_gateway-error-msg-mc' => '**ദയവായി മാസ്റ്റർ കാർഡിന്റെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
+	'payflowpro_gateway-error-msg-visa' => '**ദയവായി വീസയുടെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
+	'payflowpro_gateway-response-0' => 'താങ്കളുടെ ഇടപാട് അംഗീകരിക്കപ്പെട്ടിരിക്കുന്നു.
+താങ്കളുടെ സംഭാവനയ്ക്ക് നന്ദി!',
+	'payflowpro_gateway-response-126' => 'താങ്കളുടെ ഇടപാടിനുള്ള അംഗീകരണം പരിശോധിക്കുന്നു.',
+	'payflowpro_gateway-response-12' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
+	'payflowpro_gateway-response-114' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
+	'payflowpro_gateway-response-23' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് നമ്പരോ അതിന്റെ സാധുത തീരുന്ന തീയതിയോ തെറ്റാണ്.',
 	'payflowpro_gateway-response-4' => 'തുക അസാധുവാണ്.',
+	'payflowpro_gateway-response-24' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് നമ്പരോ അതിന്റെ സാധുത തീരുന്ന തീയതിയോ തെറ്റാണ്.',
+	'payflowpro_gateway-response-default' => 'താങ്കളുടെ ഇടപാട് കൈകാര്യം ചെയ്തുകൊണ്ടിരിക്കെ പിഴവുണ്ടായിരിക്കുന്നു.
+ദയവായി പിന്നീട് ശ്രമിക്കുക.',
+	'php-response-declined' => 'താങ്കളുടെ ഇടപാട് നിരസിക്കപ്പെട്ടിരിക്കുന്നു.',
+	'payflowpro_gateway-post-transaction' => 'ഇടപാടിന്റെ വിവരങ്ങൾ',
 	'payflowpro_gateway-submit-button' => 'സംഭാവന ചെയ്യുക',
 );
 
@@ -1072,6 +1154,17 @@ Tornatz ensajar mai tard.",
 	'php-response-declined' => 'Vòstra transaccion es estada refusada.',
 	'payflowpro_gateway-post-transaction' => 'Detalhs de la transaccion',
 	'payflowpro_gateway-submit-button' => 'Far un don',
+);
+
+/** Deitsch (Deitsch)
+ * @author Xqt
+ */
+$messages['pdc'] = array(
+	'payflowpro_gateway-donor-name' => 'Naame:',
+	'payflowpro_gateway-donor-street' => 'Schtrooss:',
+	'payflowpro_gateway-donor-city' => 'Schtadt:',
+	'payflowpro_gateway-donor-state' => 'Schtaat:',
+	'payflowpro_gateway-donor-country' => 'Land/Gegend:',
 );
 
 /** Russian (Русский)

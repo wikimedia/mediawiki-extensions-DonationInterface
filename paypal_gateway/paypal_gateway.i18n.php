@@ -68,6 +68,13 @@ $messages['es'] = array(
 	'paypal_gateway-desc' => 'Registra PayPal como mecanismo de donación',
 );
 
+/** Finnish (Suomi)
+ * @author Str4nd
+ */
+$messages['fi'] = array(
+	'paypal_gateway-desc' => 'Rekisteröi PayPalin lahjoitusmekanismina.',
+);
+
 /** French (Français)
  * @author PieRRoMaN
  */
@@ -122,6 +129,13 @@ $messages['id'] = array(
  */
 $messages['ja'] = array(
 	'paypal_gateway-desc' => 'PayPal を寄付のための方法として登録する',
+);
+
+/** Ripoarisch (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'paypal_gateway-desc' => 'Deiht <i lang="en">PayPal</i> als ene Wääsch för Spände enndraare.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
