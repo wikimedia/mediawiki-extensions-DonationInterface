@@ -32,7 +32,8 @@ Our donor privacy policy can be found <a title='Donate/Donor Privacy' href='/wik
 	'donate_interface-medium-amount-value' => '75',
 	'donate_interface-small-amount-value' => '30',
 	'donate_interface-amount-error' => '**Please enter a valid amount**',
-	'donate_interface-processing-error' => 'There has been an error processing your request. No processor are available.',
+	'donate_interface-processing-error' => 'There has been an error processing your request.
+No processors are available.',
 	'donate_interface-GBP' => 'GBP: British Pound',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
