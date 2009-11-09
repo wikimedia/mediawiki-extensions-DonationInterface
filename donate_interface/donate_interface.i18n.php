@@ -154,8 +154,12 @@ $messages['cy'] = array(
 	'donate_interface-comment-message' => "Oes gennych rywbeth i'w ddweud wrth y byd? Gallwch ysgrifennu hyd at 200 llythyren yma:",
 	'donate_interface-comment-label' => 'Sylw:',
 	'donate_interface-anon-message' => 'Rhowch fy enw (wrth ymyl fy sylw) ar y rhestr gyhoeddus o roddwyr.',
+	'donate_interface-email-agreement' => "Rwyn cytuno i dderbyn cylchlythyron neu e-byst oddi wrth Sefydliad Wikimedia.
+Ni fyddwn byth yn gwerthu gwybodaeth amdanoch nac yn ei masnachu.
+Gallwch ddarllen ein polisi preifatrwydd ar gyfer noddwyr <a title='Donate/Donor Privacy' href='wiki/Donate/Donor_Privacy'>yma</a>.",
 	'donate_interface-comment-title' => 'Sylw cyhoeddus',
 	'donate_interface-amount-error' => '**Byddwch gystal  gosod swm dilys**',
+	'donate_interface-processing-error' => 'Cafwyd gwall wrth drin eich cais. Nid oes prosesydd ar gael.',
 	'donate_interface-GBP' => 'GBP: Punt Prydain',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Doler U.D.A.',
@@ -167,6 +171,12 @@ $messages['cy'] = array(
 	'donate_interface-HKD' => 'HKD: Doler Hong Kong',
 	'donate_interface-HUF' => 'HUF: Fforint Hwngari',
 	'donate_interface-JPY' => 'JPY: Yen Japan',
+	'donate_interface-NZD' => 'NZD: Doler Seland Newydd',
+	'donate_interface-NOK' => 'NOK: Krone Norwy',
+	'donate_interface-PLN' => 'PLN: Zloty Gwlad Pwyl',
+	'donate_interface-SGD' => 'SGD: Doler Singapôr',
+	'donate_interface-SEK' => 'SEK: Krona Sweden',
+	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
 /** German (Deutsch)
@@ -213,10 +223,23 @@ Unsere Datenschutzbestimmungen finden Sie <a title='Donate/Donor Privacy' href='
  * @author Xoser
  */
 $messages['diq'] = array(
+	'donate_interface' => 'Wikipediya rê destek bide',
+	'donate_interface-desc' => 'Pelê bexş kerdişi ke extensiyonê gatewayi de keno.',
+	'donate_interface-intro' => 'Ma rica keno yew mebluga, dowiz u hacetê bexşi weçine.',
+	'donate_interface-amount' => 'Meblugayê bexşi:',
 	'donate_interface-other-amount' => 'Miktarê bini',
 	'donate_interface-currency' => 'Dowiz:',
 	'donate_interface-gateway' => 'Ti seni dano:',
+	'donate_interface-submit-button' => 'Bexş',
+	'donate_interface-comment-message' => 'Eka yew fiqirê tu est? Tiya de 200 karekteran de binuse:',
 	'donate_interface-comment-label' => 'Xulase:',
+	'donate_interface-anon-message' => 'Ez rica keno nameyê mi listeyê bexş dayogan de binuse (bin xulaseyê mi).',
+	'donate_interface-email-agreement' => "Ez wazenê ke Dernegê Wikimediyayi ra emailan bigeri. 
+Ma ti ra yew çik niroşenê ya zi enformasyon tu çew ra ni dano. 
+Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>here</a>",
+	'donate_interface-comment-title' => 'Xulasayê şari',
+	'donate_interface-amount-error' => '**Ma rica keno yew meblugayê raşti binuse**',
+	'donate_interface-processing-error' => 'Yew gelet biyo. Eka processor çini yo.',
 	'donate_interface-GBP' => 'GBP: Poundê Ingilizi',
 	'donate_interface-EUR' => 'EUR: Ewro',
 	'donate_interface-USD' => 'USD: Dolarê Emerikayi',
@@ -936,6 +959,23 @@ $messages['ru'] = array(
 	'donate_interface-comment-title' => 'Общедоступный комментарий',
 	'donate_interface-amount-error' => '** Пожалуйста, введите корректную сумму **',
 	'donate_interface-processing-error' => 'При обработке вашего запроса возникла ошибка. Нет доступных процессоров.',
+	'donate_interface-GBP' => 'GBP: британский фунт стерлингов',
+	'donate_interface-EUR' => 'EUR: евро',
+	'donate_interface-USD' => 'USD: доллар США',
+	'donate_interface-AUD' => 'AUD: австралийский доллар',
+	'donate_interface-CAD' => 'CAD: канадский доллар',
+	'donate_interface-CHF' => 'CHF: швейцарский франк',
+	'donate_interface-CZK' => 'CZK: чешская крона',
+	'donate_interface-DKK' => 'DKK: датская крона',
+	'donate_interface-HKD' => 'HKD: гонконгский доллар',
+	'donate_interface-HUF' => 'HUF: венгерский форинт',
+	'donate_interface-JPY' => 'JPY: японская йена',
+	'donate_interface-NZD' => 'NZD: новозеландский доллар',
+	'donate_interface-NOK' => 'NOK: норвежская крона',
+	'donate_interface-PLN' => 'PLN: польский злотый',
+	'donate_interface-SGD' => 'SGD: сингапурский доллар',
+	'donate_interface-SEK' => 'SEK: шведская крона',
+	'donate_interface-ILS' => 'ILS: израильский шекель',
 );
 
 /** Turkish (Türkçe)

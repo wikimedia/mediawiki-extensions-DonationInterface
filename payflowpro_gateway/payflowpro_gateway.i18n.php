@@ -265,6 +265,38 @@ $messages['br'] = array(
 	'payflowpro_gateway-response-4' => 'Sammad direizh.',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'payflowprogateway' => 'Cefnogwch Wikimedia',
+	'payflowpro_gateway-desc' => 'Prosesu cerdyn credyd gyda PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => "Dim ond o'r dudalen rhoi arian y gellir dod at y dudalen hon.",
+	'payflowpro_gateway-donor-legend' => 'Gwybodaeth am y rhoddwr',
+	'payflowpro_gateway-card-legend' => 'Gwybodaeth am y cerdyn credyd',
+	'payflowpro_gateway-amount-legend' => 'Swm y rhodd:',
+	'payflowpro_gateway-donor-amount' => 'Swm:',
+	'payflowpro_gateway-donor-email' => 'Cyfeiriad e-bost:',
+	'payflowpro_gateway-donor-fname' => 'Enw cyntaf:',
+	'payflowpro_gateway-donor-mname' => 'Ail enw:',
+	'payflowpro_gateway-donor-lname' => 'Cyfenw:',
+	'payflowpro_gateway-donor-name' => 'Enw:',
+	'payflowpro_gateway-donor-street' => 'Stryd:',
+	'payflowpro_gateway-donor-city' => 'Tref:',
+	'payflowpro_gateway-donor-state' => 'Sir/Rhanbarth:',
+	'payflowpro_gateway-donor-postal' => 'Cod post:',
+	'payflowpro_gateway-donor-country' => 'Gwlad:',
+	'payflowpro_gateway-donor-address' => 'Cyfeiriad:',
+	'payflowpro_gateway-donor-card' => 'Cerdyn credyd:',
+	'payflowpro_gateway-donor-card-num' => 'Rhif y cerdyn:',
+	'payflowpro_gateway-donor-expiration' => 'Dyddiad dod i ben:',
+	'payflowpro_gateway-donor-security' => 'Cod diogelwch:',
+	'payflowpro_gateway-donor-submit' => 'Rhoi',
+	'payflowpro_gateway-donor-currency-msg' => 'Telir y rhodd hon mewn $1',
+	'payflowpro_gateway-post-transaction' => 'Manylion y taliad',
+	'payflowpro_gateway-submit-button' => 'Rhoi',
+);
+
 /** German (Deutsch)
  * @author Tbleher
  * @author Umherirrender
@@ -325,6 +357,12 @@ Bitte versuchen Sie es später noch einmal.',
  * @author Xoser
  */
 $messages['diq'] = array(
+	'payflowprogateway' => 'Wikimediya rê destek bide',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro prosesa kardê krediyi',
+	'payflowpro_gateway-accessible' => 'Ena pela teyna pelê bexş kerdişi ra a beno.',
+	'payflowpro_gateway-form-message' => 'Pê kardê krediyê xo bexş bike',
+	'payflowpro_gateway-form-message-2' => 'Eka ti wazenê dowiz ya zi bexş xo bivurne,  <a href="/index.php?title=Donate">the donation page</a> ra peyser şi',
+	'payflowpro_gateway-donor-legend' => 'Enformasyonê bexş dayogi',
 	'payflowpro_gateway-card-legend' => 'Enformasyonê Kard ê Krediti',
 	'payflowpro_gateway-amount-legend' => 'Cend panet ti dano:',
 	'payflowpro_gateway-donor-amount' => 'Cend ponet:',
@@ -344,6 +382,29 @@ $messages['diq'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Wextê qediyayisi:',
 	'payflowpro_gateway-donor-security' => 'Kodê pawitisi:',
 	'payflowpro_gateway-donor-submit' => 'Bexs',
+	'payflowpro_gateway-donor-currency-msg' => 'Bexş ti ya $1 de teslim biyo',
+	'payflowpro_gateway-error-msg' => 'Rica keno $1 de bike',
+	'payflowpro_gateway-error-msg-email' => '**Yew adresê email ê raşti binuse**',
+	'payflowpro_gateway-error-msg-amex' => '**Ma rica keno yew numrayê kard ê kredi ê Amerikan Expresi raşti binuse**',
+	'payflowpro_gateway-error-msg-mc' => '**Ma rica keno yew numrayê kard ê kredi ê MasterCard raşti binuse**',
+	'payflowpro_gateway-error-msg-visa' => '**Ma rica keno yew numrayê kard ê kredi ê Visa raşti binuse**',
+	'payflowpro_gateway-response-0' => 'Transactionê ti testiq biyo.
+Bexşê ti ra ma zaf teşkur kenê!',
+	'payflowpro_gateway-response-126' => 'Transactionê ti ho testiq beno.',
+	'payflowpro_gateway-response-12' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
+	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o. 
+Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
+	'payflowpro_gateway-response-114' => 'Ma rica keno bankê xo ra kontak bike ser kardê kredi xo.',
+	'payflowpro_gateway-response-23' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
+	'payflowpro_gateway-response-4' => 'Meblagê raşti.',
+	'payflowpro_gateway-response-24' => 'Numreyê kard ê kredi tu ya zi wextê kard ê kredi raşt niyo.',
+	'payflowpro_gateway-response-112' => 'Numreyê CVV kardê kredi tu ya zi adresê tu raşt niyo.',
+	'payflowpro_gateway-response-125' => 'Fraud Prevention Services trasaktion tu kebul nikena.',
+	'payflowpro_gateway-response-default' => 'Transaction tu de yew gelet biyo.
+Ma rica kenê reyna dest bi bike.',
+	'php-response-declined' => 'Transactionê tu kebul nibiyo.',
+	'payflowpro_gateway-post-transaction' => 'Detayê Transaksiyoni',
+	'payflowpro_gateway-submit-button' => 'Bexş',
 );
 
 /** Lower Sorbian (Dolnoserbski)

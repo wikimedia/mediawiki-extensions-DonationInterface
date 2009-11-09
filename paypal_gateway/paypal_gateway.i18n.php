@@ -49,9 +49,23 @@ $messages['br'] = array(
 	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon',
 );
 
+/** Bosnian (Bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'paypal_gateway-desc' => 'Registruje PayPal kao mehanizam za donacije',
+);
+
 /** German (Deutsch) */
 $messages['de'] = array(
 	'paypal_gateway-desc' => 'Registriert PayPal als Spendensystem',
+);
+
+/** Zazaki (Zazaki)
+ * @author Xoser
+ */
+$messages['diq'] = array(
+	'paypal_gateway-desc' => 'PayPal xo qeyd keno',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -206,6 +220,13 @@ $messages['ru'] = array(
  */
 $messages['tr'] = array(
 	'paypal_gateway-desc' => "Bir bağış düzeneği olarak PayPal'ı kaydeder",
+);
+
+/** Ukrainian (Українська)
+ * @author Prima klasy4na
+ */
+$messages['uk'] = array(
+	'paypal_gateway-desc' => 'Реєструє PayPal в якості механізму для здійснення пожертв',
 );
 
 /** Vèneto (Vèneto)
