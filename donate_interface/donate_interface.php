@@ -27,13 +27,13 @@ $dir = dirname( __FILE__ ) . '/';
 $wgExtensionMessagesFiles['DonateInterface'] = $dir . 'donate_interface.i18n.php';
 
 $wgHooks['ParserFirstCallInit'][] = 'efDonateSetup';
-$wgHooks['MediaWikiPerformAction'][] = 'fnProcessDonateForm';
+$wgHooks['DonationInterface_DisplayForm'][] = 'fnProcessDonationForm';
 
 /**
  * Create <donate /> tag to include landing page donation form
  */
 function efDonateSetup( &$parser ) {
-  global $wgHooks;
+  global $wgHooks, $wgRequest;
 	
   //load extension messages
   wfLoadExtensionMessages( 'DonateInterface' );
@@ -41,13 +41,14 @@ function efDonateSetup( &$parser ) {
   $parser->disableCache();
 
   $parser->setHook( 'donate', 'efDonateRender' );
-	       
+     
 	 //process form
-	 wfRunHooks( 'MediaWikiPerformAction', array( $output, 
-$article, $title, $user, $request, $this));
+	 wfRunHooks( 'DonationInterface_DisplayForm' );
 
   return true;
 }
+
+
 
 /**
  * Function called by the <donate> parser tag
@@ -61,7 +62,8 @@ function efDonateRender( $input, $args, &$parser ) {
   $parser->disableCache();
         
   // if chapter exists for user's country, redirect
-  $chapter = fnDonateChapterRedirect();
+  //not currently in use - in place for adding it when ready
+  //$chapter = fnDonateChapterRedirect();
         
   // add JavaScript validation to <head>
   $wgOut->addScriptFile( $wgScriptPath . '/extensions/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
@@ -139,7 +141,8 @@ function fnDonateCreateOutput() {
         Xml::hidden( 'utm_medium', $utm_medium ) . 
         Xml::hidden( 'utm_campaign', $utm_campaign ) .
         Xml::hidden( 'language', $language ) .
-        Xml::hidden( 'referrer', $referrer );
+        Xml::hidden( 'referrer', $referrer ) .
+        XML::hidden('process', '_yes_');
         
   $amount = array(
         Xml::radioLabel(wfMsg( 'donate_interface-big-amount-display' ), 'amount', wfMsg( 'donate_interface-big-amount-value' ), 'input_amount_3', false  ),
@@ -234,8 +237,8 @@ function fnDonateRedirectToProcessorPage($userInput, $url) {
 	
 	$wgOut->redirect(
 		$url[$chosenGateway] . '&' . $redirectionData
-	); 
-
+	);
+	
 }
 
 /**
@@ -302,7 +305,7 @@ function fnDonateChapterRedirect() {
 
 }
   
-function fnProcessDonateForm( $output, $article, $title, $user, $request, $wiki ) {
+function fnProcessDonationForm( ) {
   global $wgRequest, $wgOut;
     
   // declare variables used to hold post data
@@ -320,8 +323,8 @@ function fnProcessDonateForm( $output, $article, $title, $user, $request, $wiki 
       'email' => '',
 	 );
 
-	// if form has been submitted, assign data and redirect user to chosen payment gateway
-	if ( $wgRequest->wasPosted() ) { 
+	// if form has been submitted, assign data and redirect user to chosen payment gateway 
+	if ($_POST['process'] == "_yes_") {
     //find out which amount option was chosen for amount, redefined buttons or text box
     if ( isset($_POST['amount']) && preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount')) ) {
 		  $amount = number_format( $wgRequest->getText('amount'), 2 );
@@ -351,7 +354,7 @@ function fnProcessDonateForm( $output, $article, $title, $user, $request, $wiki 
   $url = '';
     
   if ( wfRunHooks('DonationInterface_Page', array(&$url)) ) {
-	
+ 			  
 	   // send user to correct page for payment  
     fnDonateRedirectToProcessorPage( $userInput, $url );
     

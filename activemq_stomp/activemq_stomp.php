@@ -71,6 +71,7 @@ function sendSTOMP($transaction) {
         global $wgStompServer, $wgStompQueueName;
         
         $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'test';
+        
         // include a library
         require_once("Stomp.php");
           

@@ -19,8 +19,27 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgRequest, $wgOut, $wgUser, $wgScriptPath;
 
 		$this->setHeaders();
+		
+		//$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+		
+		$scriptVars = array(
+			'payflowproGatewayErrorMsgJs' => wfMsg( 'payflowpro_gateway-error-msg-js' ),
+			'payflowproGatewayErrorMsgEmail' => wfMsg( 'payflowpro_gateway-error-msg-email' ),
+			'payflowproGatewayErrorMsgAmount' => wfMsg( 'payflowpro_gateway-error-msg-amount' ),
+			'payflowproGatewayErrorMsgEmailAdd' => wfMsg( 'payflowpro_gateway-error-msg-emailAdd' ),
+			'payflowproGatewayErrorMsgFname' => wfMsg( 'payflowpro_gateway-error-msg-fname' ),
+			'payflowproGatewayErrorMsgLname' => wfMsg( 'payflowpro_gateway-error-msg-lname' ),
+			'payflowproGatewayErrorMsgStreet' => wfMsg( 'payflowpro_gateway-error-msg-street' ),
+			'payflowproGatewayErrorMsgCity' => wfMsg( 'payflowpro_gateway-error-msg-city' ),
+			'payflowproGatewayErrorMsgState' => wfMsg( 'payflowpro_gateway-error-msg-state' ),
+			'payflowproGatewayErrorMsgZip' => wfMsg( 'payflowpro_gateway-error-msg-zip' ),
+			'payflowproGatewayErrorMsgCardNum' => wfMsg( 'payflowpro_gateway-error-msg-card_num' ),
+			'payflowproGatewayErrorMsgExpiration' => wfMsg( 'payflowpro_gateway-error-msg-expiration' ),
+			'payflowproGatewayErrorMsgCvv' => wfMsg( 'payflowpro_gateway-error-msg-cvv' ),
+		);
+		
 
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+    //$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 
 		// create token if one doesn't already exist
 		$token = $wgUser->editToken( 'mrxc877668DwQQ' );
@@ -61,14 +80,17 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		if( isset( $_REQUEST['amount'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount' ) ) ) {
 			$amount = $wgRequest->getText( 'amount' );
 		} elseif( isset( $_REQUEST['amount2'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount2' ) ) ) { 
-			$amount = number_format( $wgRequest->getText( 'amount2' ), 2, '.', '' );
+				$amount = number_format( $wgRequest->getText( 'amount2' ), 2, '.', '' );
+			} elseif( isset( $_REQUEST['amount'] ) ) { 
+				$amount = '0.00';
 		} else {
-			$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
-			return;
+				$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
+				return;
 		}
-
+		
 		// track the number of attempts the user has made
 		$numAttempt = ( $wgRequest->getText( 'numAttempt' ) == '' ) ? '0' : $wgRequest->getText( 'numAttempt' );
+		
 		// Populate from data
 		$data = array(
 			'amount' => $amount,
@@ -87,7 +109,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'cvv' => $wgRequest->getText( 'cvv' ),
 			'currency' => $wgRequest->getText( 'currency_code' ),
 			'payment_method' => $wgRequest->getText( 'payment_method' ),
-			'order-id' => null, //will be set with $payflow_data
+			'order_id' => null, //will be set with $payflow_data
 			'numAttempt' => $numAttempt,
 			'referrer' => $wgRequest->getText( 'referrer' ),
 			'utm_source' => $wgRequest->getText( 'utm_source' ),
@@ -99,6 +121,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'optout' => $wgRequest->getText( 'email' ),
 			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
 		);
+		
 
 		// Get array of default account values necessary for Payflow 
 		require_once( 'includes/payflowUser.inc' );
@@ -128,7 +151,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				//Display form for the first time
 				$this->fnPayflowDisplayForm($data, $error);
 			}
-		}
+		} 
+
 	}
 
 	/**
@@ -144,24 +168,14 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		require_once( 'includes/countryCodes.inc' );
 
 		global $wgOut, $wgLang;
-
+		
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
 			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message-2' ) ) .
 			Xml::closeElement( 'div' );
 
-		// add hidden fields
-		$form .= Xml::hidden( 'utm_source', $data['utm_source'] ) .
-				Xml::hidden( 'utm_medium', $data['utm_medium'] ) .
-				Xml::hidden( 'utm_campaign', $data['utm_campaign'] ) .
-				Xml::hidden( 'language', $data['language'] ) .
-				Xml::hidden( 'referrer', $data['referrer'] ) .
-				Xml::hidden( 'comment', $data['comment'] ) .
-				Xml::hidden( 'comment-option', $data['anonymous'] ) .
-				Xml::hidden( 'email', $data['optout'] );
-
-		// create drop down of countries
+				// create drop down of countries
 		$countries = countryCodes();
 
 		foreach( $countries as $value => $fullName ) {
@@ -170,11 +184,20 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// Form
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-					Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) ) .
-					Xml::element( 'legend', array( 'class' => 'mw-creditcard-amount' ), wfMsg( 'payflowpro_gateway-amount-legend' ) . $data['amount'] ) .
-					Xml::hidden( 'amount', $data['amount'] );
+					Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) );
+		
+		// add hidden fields			
+		$form .= Xml::hidden( 'utm_source', $data['utm_source'] ) .
+				Xml::hidden( 'utm_medium', $data['utm_medium'] ) .
+				Xml::hidden( 'utm_campaign', $data['utm_campaign'] ) .
+				Xml::hidden( 'language', $data['language'] ) .
+				Xml::hidden( 'referrer', $data['referrer'] ) .
+				Xml::hidden( 'comment', $data['comment'] ) .
+				Xml::hidden( 'comment-option', $data['anonymous'] ) .
+				Xml::hidden( 'email', $data['optout'] ); 
 
 		$donorInput = array(
+			Xml::inputLabel(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', 'input_amount_other', '7', $data['amount'] ) . '<span class="creditcard_error_msg">' . '  ' . $error['invalidamount'] . '</span>',
 			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd', 'emailAdd', '30', $data['email'], array( 'maxlength' => '64' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['emailAdd'] . '</span>',
 			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname', 'fname', '20', $data['fname'], array( 'maxlength' => '15', 'class' => 'required' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['fname'] . '</span>',
 			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname', 'mname', '20', $data['mname'], array( 'maxlength' => '15' ) ),
@@ -272,7 +295,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 						wfMsg( 'payflowpro_gateway-donor-currency-msg', $data['currency'] )
 					);
 		// Theming
-		global $wgDonationInterfaceTomasSkin;
+		/*global $wgDonationInterfaceTomasSkin;
 
 		if ( $wgDonationInterfaceTomasSkin ) {
 				$language = 'en';
@@ -297,6 +320,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		} else {
 			$wgOut->addHTML( $form );
 	    }
+	    */
+	    $wgOut->addHTML( $form );
 	}
 
 	/**
@@ -304,6 +329,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	private function fnPayflowValidateForm( $data, &$error ) {
 		global $wgOut;
+		
+		$error = '';
 
 		// begin with no errors
 		$error_result = '0';
@@ -311,17 +338,17 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// create the human-speak message for required fields
 		// does not include fields that are not required
 		$msg = array(  
-			'amount' => 'donation amount',
-			'emailAdd' => 'email address',
-			'fname' => 'first name',
-			'lname' => 'last name',
-			'street' => 'street address',
-			'city' => 'city',
-			'state' => 'state',
-			'zip' => 'zip code',
-			'card_num' => 'credit card number',
-			'expiration' => "card's expiration date",
-			'cvv' => 'the CVV from the back of your card',
+			'amount' => wfMsg( 'payflowpro_gateway-error-msg-amount' ),
+			'emailAdd' => wfMsg( 'payflowpro_gateway-error-msg-emailAdd' ),
+			'fname' => wfMsg( 'payflowpro_gateway-error-msg-fname' ),
+			'lname' => wfMsg( 'payflowpro_gateway-error-msg-lname' ),
+			'street' => wfMsg( 'payflowpro_gateway-error-msg-street' ),
+			'city' => wfMsg( 'payflowpro_gateway-error-msg-city' ),
+			'state' => wfMsg( 'payflowpro_gateway-error-msg-state' ),
+			'zip' => wfMsg( 'payflowpro_gateway-error-msg-zip' ),
+			'card_num' => wfMsg( 'payflowpro_gateway-error-msg-card_num' ),
+			'expiration' => wfMsg( 'payflowpro_gateway-error-msg-expiration' ),
+			'cvv' => wfMsg( 'payflowpro_gateway-error-msg-cvv' ),
 		);
 
 		// find all empty fields and create message  
@@ -334,7 +361,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				}
 			}
 		}
-
+		
+		//check amount
+		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data['amount'] ) || $data['amount'] == "0.00" ) {
+			$error['invalidamount'] = wfMsg( 'payflowpro_gateway-error-msg-invalid-amount' );
+			$error_result = '1';
+		}
+			
 		// is email address valid?
 		$isEmail = User::isValidEmailAddr( $data['email'] );
 
@@ -343,15 +376,15 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$error['emailAdd'] = wfMsg( 'payflowpro_gateway-error-msg-email' );
 			$error_result = '1';
 		}
-
+		
 		// validate that credit card number entered is correct for the brand
 		switch( $data['card'] ) {
 			case 'american':
 				// pattern for Amex
-				$pattern = "/^3[47][0-9]{13}$/";
+				$pattern = '/^3[47][0-9]{13}$/';
 
 				// if the pattern doesn't match
-				if( !preg_match( $pattern, $data['card_num'] ) ) {
+				if( !preg_match( $pattern, $data['card_num']  ) ) {
 					$error_result = '1';
 					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-amex' );
 				}
@@ -360,7 +393,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 			case 'mastercard':
 				// pattern for Mastercard
-				$pattern = "/^5[1-5][0-9]{14}$/";
+				$pattern = '/^5[1-5][0-9]{14}$/';
 
 				// if pattern doesn't match
 				if( !preg_match( $pattern, $data['card_num'] ) ) {
@@ -372,7 +405,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 			case 'visa':
 				// pattern for Visa
-				$pattern = "/^4[0-9]{12}(?:[0-9]{3})?$/";
+				$pattern = '/^4[0-9]{12}(?:[0-9]{3})?$/';
 
 				// if pattern doesn't match
 				if( !preg_match( $pattern, $data['card_num'] ) ) {
@@ -381,8 +414,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				}
 
 				break;
+				
 		} // end switch
-
+		
 		return $error_result;
 	}
 
@@ -398,24 +432,24 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// create payflow query string, include string lengths
 		$queryArray = array(
-			'TRXTYPE' => $payflow_data[trxtype],
-			'TENDER'  => $payflow_data[tender],
-			'USER'  => $payflow_data[user],
-			'VENDOR' => $payflow_data[vendor],
-			'PARTNER' => $payflow_data[partner],
-			'PWD' => $payflow_data[password],
-			'ACCT'  => $data[card_num],
-			'EXPDATE' => $data[expiration],
-			'AMT' => $data[amount],
-			'FIRSTNAME' => $data[fname],
-			'LASTNAME' => $data[lname],
-			'STREET' => $data[street],
-			'ZIP' => $data[zip],
-			'INVNUM' => $payflow_data[order_id],
-			'CVV2' => $data[cvv],
-			'CURRENCY' => $data[currency],
-			'VERBOSITY' => $payflow_data[verbosity],
-			'CUSTIP' => $payflow_data[user_ip],
+			'TRXTYPE' => $payflow_data['trxtype'],
+			'TENDER'  => $payflow_data['tender'],
+			'USER'  => $payflow_data['user'],
+			'VENDOR' => $payflow_data['vendor'],
+			'PARTNER' => $payflow_data['partner'],
+			'PWD' => $payflow_data['password'],
+			'ACCT'  => $data['card_num'],
+			'EXPDATE' => $data['expiration'],
+			'AMT' => $data['amount'],
+			'FIRSTNAME' => $data['fname'],
+			'LASTNAME' => $data['lname'],
+			'STREET' => $data['street'],
+			'ZIP' => $data['zip'],
+			'INVNUM' => $payflow_data['order_id'],
+			'CVV2' => $data['cvv'],
+			'CURRENCY' => $data['currency'],
+			'VERBOSITY' => $payflow_data['verbosity'],
+			'CUSTIP' => $payflow_data['user_ip'],
 		);
 
 		foreach( $queryArray as $name => $value ) {
@@ -436,10 +470,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$headers[] = 'Content-Length : ' . strlen( $payflow_query );
 		$headers[] = 'X-VPS-Client-Timeout: 45';
 		$headers[] = 'X-VPS-Request-ID:' . $payflow_data['order_id'];
-
 		$ch = curl_init();
 		$paypalPostTo = isset ( $wgDonationTestingMode ) ? 'testingurl' : 'paypalurl'; 
-		curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
+		//curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
+		curl_setopt($ch, CURLOPT_URL, $payflow_data['testingurl']);
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
 		curl_setopt( $ch, CURLOPT_HEADER, 1 );
@@ -528,13 +562,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			// give user a second chance to enter incorrect data
 		} elseif( ( $errorCode == '3' ) && ( $data['numAttempt'] < '2' ) ) {
 			// pass responseMsg as an array key as required by displayForm
-			$tryAgainResponse[$responseMsg] = $responseMsg;
-			$this->fnPayflowDisplayForm( $data, $tryAgainResponse );
+				$tryAgainResponse[$responseMsg] = $responseMsg;
+				$this->fnPayflowDisplayForm( $data, $tryAgainResponse );
 			// if declined or if user has already made two attempts, decline
 		} elseif( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '2' ) ) {
-			$this->fnPayflowDisplayDeclinedResults( $responseMsg );
+				$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 		} elseif( ( $errorCode == '4' ) ) {
-			$this->fnPayflowDisplayOtherResults( $responseMsg );
+				$this->fnPayflowDisplayOtherResults( $responseMsg );
 		}
 
 	}// end display results
@@ -608,8 +642,16 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	function fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg ) {
 		global $wgOut;
 		$transaction = '';
+		$tracked = '';
 
 		require_once( 'includes/countryCodes.inc' );
+		
+		//save data to the contribution tracking database
+		if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
+			$when = time();
+			wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
+		}
+		
 
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
@@ -638,6 +680,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$transaction['country_code'] = $data['country'];
 		// put all data into one array
 		$transaction += array_merge( $data, $responseArray );
+		
+		//enable if we need this to get the Civi data to display correctly
+		$transaction['optout'] = ($transaction['optout'] == "1") ? '0' : '1';
+		$transaction['anonymous'] = ($transaction['anonymous'] == "1") ? '0' : '1';
 
 		// hook to call stomp functions
 		wfRunHooks( 'gwStomp', array( &$transaction ) );
@@ -672,5 +718,39 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
 	}
+	
+	function fnPayflowSaveContributionTracking( $data ) {
+			$db = payflowGatewayConnection();
+			
+			if (!$db) { return true ; }
 
+			$ts = $db->timestamp();
+
+		$tracked_contribution = array(
+			'note' => $data['comment'],
+			'referrer' => $data['referrer'],
+			'anonymous' => $data['anonymous'],
+			'utm_source' => $data['utm_source'],
+			'utm_medium' => $data['utm_medium'],
+			'utm_campaign' => $data['utm_campaign'],
+			'optout' => $data['optout'],
+			'language' => $data['language'],
+			'ts' => $ts,
+		);
+		
+		// Make all empty strings NULL
+		foreach ($tracked_contribution as $key => $value) {
+			if ($value === '') {
+				$tracked_contribution[$key] = NULL;
+			}
+		}
+		
+		// Store the contribution data
+		if ($db->insert( 'contribution_tracking', $tracked_contribution ) ) {
+		 return true;
+		} else { return false; }
+		
+	}
+	
+	
 } // end class

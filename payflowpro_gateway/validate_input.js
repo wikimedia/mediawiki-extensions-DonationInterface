@@ -1,16 +1,18 @@
 //<![CDATA[
 
 function validate_form( form ) {
-	var msg = [ 'email address', 'first name', 'last name', 'street address', 'city', 'state', 'zip code', 'credit card number', 'the CVV from the back of your card' ];
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
 
 	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv"],
 		numFields = fields.length,
 		i,
-		output = '';
+		output = '',
+		currField = '';
 
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
-			output += 'Please include a value for ' + msg[i] + '.\r\n';
+			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+			output += payflowproGatewayErrorMsgJs + currField + '.\r\n';
 		}
 	}
 
@@ -19,7 +21,7 @@ function validate_form( form ) {
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += 'Please include a valid email address';
+		output += payflowproGatewayErrorMsgEmail;
 	}
 
 	if( output ) {
