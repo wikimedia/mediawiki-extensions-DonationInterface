@@ -936,6 +936,33 @@ Nòsta polìtica ës riservatëssa dij donator a peul esse trovà <a title='Dona
 	'donate_interface-comment-title' => 'Coment pùblich',
 	'donate_interface-amount-error' => '**Për piasì anseriss un total bon**',
 	'donate_interface-processing-error' => "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
+	'donate_interface-GBP' => 'GBP: Sterlin-e anglèise',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dòlar U.S.',
+	'donate_interface-AUD' => 'AUD: Dòlar Australian',
+	'donate_interface-CAD' => 'CAD: Dòlar Canadèis',
+	'donate_interface-CHF' => 'CHF: Franch Svìsser',
+	'donate_interface-CZK' => 'CZK: Coron-a Ceca',
+	'donate_interface-DKK' => 'DKK: Coron-a Danèisa',
+	'donate_interface-HKD' => "HKD: Dòlar d'Hong Kong",
+	'donate_interface-HUF' => 'HUF: Fiorin Ungherèis',
+	'donate_interface-JPY' => 'JPY: Yen Giaponèis',
+	'donate_interface-NZD' => 'NZD: Dòlar Neo-Zelandèis',
+	'donate_interface-NOK' => 'NOK: Coron-a Norvegèisa',
+	'donate_interface-PLN' => 'PLN: Zloty Polonèis',
+	'donate_interface-SGD' => 'SGD: Dòlar ëd Singapor',
+	'donate_interface-SEK' => 'SEK: Coron-a Svedèisa',
+	'donate_interface-ILS' => 'ILS: Shekel Israelian',
+);
+
+/** Portuguese (Português)
+ * @author Malafaya
+ */
+$messages['pt'] = array(
+	'donate_interface-submit-button' => 'Doar',
+	'donate_interface-comment-label' => 'Comentário:',
+	'donate_interface-comment-title' => 'Comentário público',
+	'donate_interface-EUR' => 'EUR: Euro',
 );
 
 /** Russian (Русский)
@@ -976,6 +1003,19 @@ $messages['ru'] = array(
 	'donate_interface-SGD' => 'SGD: сингапурский доллар',
 	'donate_interface-SEK' => 'SEK: шведская крона',
 	'donate_interface-ILS' => 'ILS: израильский шекель',
+);
+
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'donate_interface-other-amount' => 'ఇతర మొత్తం',
+	'donate_interface-gateway' => 'చెల్లింపు పద్ధతి:',
+	'donate_interface-comment-label' => 'వ్యాఖ్య:',
+	'donate_interface-comment-title' => 'బహిరంగ వ్యాఖ్య',
+	'donate_interface-EUR' => 'EUR: యూరో',
+	'donate_interface-USD' => 'USD: అమెరికా డాలర్',
+	'donate_interface-CAD' => 'CAD: కెనడా డాలర్',
 );
 
 /** Turkish (Türkçe)
@@ -1055,6 +1095,7 @@ La nostra politica de rispeto de la riservatessa la se cata <a title='Donate/Don
 );
 
 /** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
  * @author Vinhtantran
  */
 $messages['vi'] = array(
@@ -1075,6 +1116,23 @@ Quy định quyền riêng tư đối với người đóng góp của chúng t�
 	'donate_interface-comment-title' => 'Lời nhắn công khai',
 	'donate_interface-amount-error' => '**Xin hãy nhập vào số tiền hợp lệ**',
 	'donate_interface-processing-error' => 'Có lỗi khi xử lý yêu cầu. Hiện tại không có bộ xử lý nào.',
+	'donate_interface-GBP' => 'GBP: Bảng Anh',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Đô la Mỹ',
+	'donate_interface-AUD' => 'AUD: Đô la Úc',
+	'donate_interface-CAD' => 'CAD: Đô la Canada',
+	'donate_interface-CHF' => 'CHF: Franc Thụy Sĩ',
+	'donate_interface-CZK' => 'CZK: Koruna Séc',
+	'donate_interface-DKK' => 'DKK: Krone Đan Mạch',
+	'donate_interface-HKD' => 'HKD: Đô la Hồng Kông',
+	'donate_interface-HUF' => 'HUF: Forint Hungary',
+	'donate_interface-JPY' => 'JPY: Yên Nhật',
+	'donate_interface-NZD' => 'NZD: Đô la New Zealand',
+	'donate_interface-NOK' => 'NOK: Krone Na Uy',
+	'donate_interface-PLN' => 'PLN: Zloty Ba Lan',
+	'donate_interface-SGD' => 'SGD: Đô la Singapore',
+	'donate_interface-SEK' => 'SEK: Krona Thụy Điển',
+	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
 /** Simplified Chinese (‪中文(简体)‬)

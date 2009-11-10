@@ -285,6 +285,9 @@ $messages['cy'] = array(
 	'payflowprogateway' => 'Cefnogwch Wikimedia',
 	'payflowpro_gateway-desc' => 'Prosesu cerdyn credyd gyda PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "Dim ond o'r dudalen rhoi arian y gellir dod at y dudalen hon.",
+	'payflowpro_gateway-form-message' => 'Cyfrannwch atom yma trwy ddefnyddio\'ch cerdyn credyd.
+Mae <a
+href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ffyrdd eraill o roi i gael, megis PayPal, siec, neu drwy\'r post</a>..',
 	'payflowpro_gateway-donor-legend' => 'Gwybodaeth am y rhoddwr',
 	'payflowpro_gateway-card-legend' => 'Gwybodaeth am y cerdyn credyd',
 	'payflowpro_gateway-amount-legend' => 'Swm y rhodd:',
@@ -1109,10 +1112,14 @@ $messages['ml'] = array(
 താങ്കളുടെ സംഭാവനയ്ക്ക് നന്ദി!',
 	'payflowpro_gateway-response-126' => 'താങ്കളുടെ ഇടപാടിനുള്ള അംഗീകരണം പരിശോധിക്കുന്നു.',
 	'payflowpro_gateway-response-12' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
+	'payflowpro_gateway-response-13' => 'ഈ ഇടപാടിനു താങ്കളുടെ ശബ്ദത്തിലുള്ള സാധൂകരണമാവശ്യമാണ്.
+ദയവായി ഇടപാട് പൂർത്തീകരിക്കാൻ ഞങ്ങളെ ബന്ധപ്പെടുക.',
 	'payflowpro_gateway-response-114' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
 	'payflowpro_gateway-response-23' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് നമ്പരോ അതിന്റെ സാധുത തീരുന്ന തീയതിയോ തെറ്റാണ്.',
 	'payflowpro_gateway-response-4' => 'തുക അസാധുവാണ്.',
 	'payflowpro_gateway-response-24' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് നമ്പരോ അതിന്റെ സാധുത തീരുന്ന തീയതിയോ തെറ്റാണ്.',
+	'payflowpro_gateway-response-112' => 'താങ്കളുടെ വിലാസം അഥവാ CVV സംഖ്യ (സുരക്ഷാ കോഡ്) തെറ്റാണ്.',
+	'payflowpro_gateway-response-125' => 'കബളിപ്പിക്കൽ തടയൽ സൗകര്യം ഉപയോഗിച്ച് താങ്കളുടെ ഇടപാട് നിരാകരിച്ചിരിക്കുന്നു.',
 	'payflowpro_gateway-response-default' => 'താങ്കളുടെ ഇടപാട് കൈകാര്യം ചെയ്തുകൊണ്ടിരിക്കെ പിഴവുണ്ടായിരിക്കുന്നു.
 ദയവായി പിന്നീട് ശ്രമിക്കുക.',
 	'php-response-declined' => 'താങ്കളുടെ ഇടപാട് നിരസിക്കപ്പെട്ടിരിക്കുന്നു.',
@@ -1241,6 +1248,19 @@ $messages['pdc'] = array(
 	'payflowpro_gateway-donor-country' => 'Land/Gegend:',
 );
 
+/** Portuguese (Português)
+ * @author Malafaya
+ */
+$messages['pt'] = array(
+	'payflowpro_gateway-donor-legend' => 'Informação do doador',
+	'payflowpro_gateway-donor-name' => 'Nome:',
+	'payflowpro_gateway-donor-city' => 'Cidade:',
+	'payflowpro_gateway-donor-state' => 'Estado:',
+	'payflowpro_gateway-donor-address' => 'Endereço:',
+	'payflowpro_gateway-error-msg' => 'Por favor, introduza $1',
+	'payflowpro_gateway-submit-button' => 'Doar',
+);
+
 /** Russian (Русский)
  * @author Александр Сигачёв
  */
@@ -1294,6 +1314,25 @@ $messages['ru'] = array(
 	'php-response-declined' => 'Ваша транзакция была отклонена.',
 	'payflowpro_gateway-post-transaction' => 'Сведения о транзакции',
 	'payflowpro_gateway-submit-button' => 'Пожертвовать',
+);
+
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'payflowpro_gateway-donor-legend' => 'దాత సమాచారం',
+	'payflowpro_gateway-card-legend' => 'క్రెడిట్ కార్డు సమాచారం',
+	'payflowpro_gateway-donor-email' => 'ఈ-మెయిల్ చిరునామా:',
+	'payflowpro_gateway-donor-fname' => 'మొదటి పేరు:',
+	'payflowpro_gateway-donor-lname' => 'ఇంటి పేరు:',
+	'payflowpro_gateway-donor-name' => 'పేరు:',
+	'payflowpro_gateway-donor-street' => 'వీధి:',
+	'payflowpro_gateway-donor-city' => 'నగరం:',
+	'payflowpro_gateway-donor-state' => 'రాష్ట్రం:',
+	'payflowpro_gateway-donor-country' => 'దేశం/ప్రాంతం:',
+	'payflowpro_gateway-donor-address' => 'చిరునామా:',
+	'payflowpro_gateway-response-4' => 'తప్పుడు మొత్తం.',
+	'payflowpro_gateway-post-transaction' => 'లావాదేవీ వివరాలు',
 );
 
 /** Turkish (Türkçe)
