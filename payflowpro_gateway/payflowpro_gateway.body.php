@@ -20,7 +20,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		$this->setHeaders();
 		
-		//$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 		
 		$scriptVars = array(
 			'payflowproGatewayErrorMsgJs' => wfMsg( 'payflowpro_gateway-error-msg-js' ),
@@ -39,7 +39,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		);
 		
 
-    //$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+    $wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 
 		// create token if one doesn't already exist
 		$token = $wgUser->editToken( 'mrxc877668DwQQ' );
@@ -81,7 +81,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$amount = $wgRequest->getText( 'amount' );
 		} elseif( isset( $_REQUEST['amount2'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount2' ) ) ) { 
 				$amount = number_format( $wgRequest->getText( 'amount2' ), 2, '.', '' );
-			} elseif( isset( $_REQUEST['amount'] ) ) { 
+		} elseif( isset( $_REQUEST['amount'] ) ) { 
 				$amount = '0.00';
 		} else {
 				$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
@@ -166,136 +166,187 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	private function fnPayflowDisplayForm( $data, &$error ) {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
-
+	
 		global $wgOut, $wgLang;
-		
-		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
-			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
-			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
-			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message-2' ) ) .
-			Xml::closeElement( 'div' );
 
-				// create drop down of countries
+		// create drop down of countries
 		$countries = countryCodes();
 
 		foreach( $countries as $value => $fullName ) {
-			$countryMenu .= Xml::option( $fullName, $value );
+			if ( $value == $data['country'] ) {
+				$countryMenu .= Xml::option( $fullName, $value, true );
+			} else {
+				$countryMenu .= Xml::option( $fullName, $value, false ); }
 		}
-
-		// Form
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-					Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) );
 		
-		// add hidden fields			
-		$form .= Xml::hidden( 'utm_source', $data['utm_source'] ) .
-				Xml::hidden( 'utm_medium', $data['utm_medium'] ) .
-				Xml::hidden( 'utm_campaign', $data['utm_campaign'] ) .
-				Xml::hidden( 'language', $data['language'] ) .
-				Xml::hidden( 'referrer', $data['referrer'] ) .
-				Xml::hidden( 'comment', $data['comment'] ) .
-				Xml::hidden( 'comment-option', $data['anonymous'] ) .
-				Xml::hidden( 'email', $data['optout'] ); 
-
-		$donorInput = array(
-			Xml::inputLabel(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', 'input_amount_other', '7', $data['amount'] ) . '<span class="creditcard_error_msg">' . '  ' . $error['invalidamount'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd', 'emailAdd', '30', $data['email'], array( 'maxlength' => '64' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['emailAdd'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname', 'fname', '20', $data['fname'], array( 'maxlength' => '15', 'class' => 'required' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['fname'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname', 'mname', '20', $data['mname'], array( 'maxlength' => '15' ) ),
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-lname' ), 'lname', 'lname', '20', $data['lname'], array( 'maxlength' => '15' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['lname'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-street' ), 'street', 'street', '30', $data['street'], array( 'maxlength' => '30' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['street'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-city' ), 'city', 'city', '20', $data['city'], array( 'maxlength' => '20' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['city'] . '</span>',
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) .
-			Xml::openElement( 'select', array( 'name' => 'state', 'id' => 'state', 'value' => $data['state'] ) ) .
-			statesMenuXML() .
-			Xml::closeElement( 'select' ) . '<span class="creditcard_error_msg">' . '  ' . $error['state'] . '</span>',
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip', 'zip', '15', $data['zip'], array( 'maxlength' => '9' ) ) . '<span class="creditcard_error_msg">' . '  ' . $error['zip'] . '</span>',
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) .
-			Xml::openElement( 'select', array( 'name' => 'country', 'id' => 'country', 'value' => $data['country'] ) ) .
-			$countryMenu .
-			Xml::closeElement( 'select' )  . '<span class="creditcard_error_msg">' . '  ' . $error['country'] . '</span>'
-		);
-
-		$donorField = '';
-
-		foreach( $donorInput as $value ) {
-			$donorField .= '<p>' . $value . '</p>';
-		}
-
-		$form .= Xml::fieldset( wfMsg( 'payflowpro_gateway-donor-legend' ), $donorField, array( 'class' => 'mw-creditcard-donor' ) );
-
+		//common HTML tags for table
+		$endCell = '</td><td>';
+		$endRow = '</td></tr> <tr><td style="text-align:right;">';
+		
+		//create drop down of credit card types
 		$cardOptions = array(
-			'visa' => 'Visa',
-			'mastercard' => 'Mastercard',
-			'american' => 'American Express',
+			'visa' => wfMsg( 'payflow_gateway-card-name-visa' ),
+			'mastercard' => wfMsg( 'payflow_gateway-card-name-mc' ),
+			'american' => wfMsg( 'payflow_gateway-card-name-amex' ),
+			'discover' => wfMsg( 'payflow_gateway-card-name-discover' ),
 		);
 
 		foreach( $cardOptions as $value => $fullName ) {
 			$cardOptionsMenu .= Xml::option( $fullName, $value );
 		}
-
-		$cardInput =
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
-			Xml::openElement( 'select', array( 'name' => 'card', 'id' => 'card' ) ) .
-			$cardOptionsMenu .
-			Xml::closeElement( 'select' );
-
+		
+		//create expiration month menu
 		$expMos = '';
 
 		for( $i = 1; $i < 13; $i++ ) {
 			$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ) );
 		}
-
-		$expMosMenu =
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) .
-			Xml::openElement( 'select', array( 'name' => 'mos', 'id' => 'mos' ) ) .
-			$expMos .
-			Xml::closeElement( 'select' );
-
+		
+		//create expiration year menu
 		$expYr = '';
   
 		for( $i = 0; $i < 11; $i++ ) {
 			$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i );
 		}
+		
+		$states = statesMenuXML();
+		
+		$stateMenu = '';
 
-		$expYrMenu =
-			Xml::openElement( 'select', array( 'name' => 'year', 'id' => 'year' ) ) .
-			$expYr .
-			Xml::closeElement( 'select' );
+		foreach( $states as $value => $fullName ) {
+		if ( $value == $data['state'] ) {
+			$stateMenu .= Xml::option( $fullName, $value, true );
+		} else $stateMenu .= Xml::option( $fullName, $value, false );
+	}
 
-		$cardInput = array(
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
+		
+		// intro text
+		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
+			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
+			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
+			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message-2' ) ) .
+			Xml::closeElement( 'div' );
+		
+		// open form	
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
+			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) );
+		
+		// donor amount and name			
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow_table' ) ).
+			'<tr><td style="text-align:right;">' .
+			Xml::label(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', array( 'maxlength' => '10' ) ) . 
+			$endCell .
+			Xml::input( 'amount', '7', $data['amount'], array( 'id' => 'amount' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['invalidamount'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) .
+			$endCell . 
+			Xml::input( 'emailAdd', '30', $data['email'], array( 'maxlength' => '64', 'id' => 'emailAdd' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['emailAdd'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname' ) .
+			$endCell .
+			Xml::input( 'fname', '20', $data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['fname'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname' ) .
+			$endCell .
+			Xml::input( 'mname', '20', $data['mname'], array( 'maxlength' => '15', 'id' => 'mname' ) ) .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-lname' ), 'lname' ) .
+			$endCell .
+			Xml::input( 'lname', '20', $data['lname'], array( 'maxlength' => '15', 'id' => 'lname' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['lname'] . '</span>' .
+			$endRow;
+			 
+		//donor address
+		$form .= Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) .
+			 $endCell .
+			Xml::openElement( 'select', array( 'name' => 'country', 'id' => 'country', 'onchange' => 'return disableStates( this )' ) ) .
+			$countryMenu .
+			Xml::closeElement( 'select' )  .
+			'<span class="creditcard_error_msg">' . '  ' . $error['country'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-street' ), 'street' ) .
+			$endCell .
+			Xml::input( 'street', '30', $data['street'], array( 'maxlength' => '30', 'id' => 'street' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['street'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-city' ), 'city' ) .
+			$endCell .
+			Xml::input( 'city', '20', $data['city'], array( 'maxlength' => '20', 'id' => 'city' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['city'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) .
+			$endCell .
+			Xml::openElement( 'select', array( 'name' => 'state', 'id' => 'state' ) ) .
+			$stateMenu .
+			Xml::closeElement( 'select' ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['state'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) .
+			$endCell .
+			Xml::input( 'zip', '15', $data['zip'], array( 'maxlength' => '9', 'id' => 'zip' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['zip'] . '</span>' .
+			$endRow;
+			
+		// credit card info
+		$form .= Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
+			$endCell .
 			Xml::openElement( 'select', array( 'name' => 'card', 'id' => 'card' ) ) .
 			$cardOptionsMenu .
-			Xml::closeElement( 'select'),
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num', 'card_num', '30', '', array( 'maxlength' => '100' ) ) .
+			Xml::closeElement( 'select') .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) .
+			$endCell .
+			Xml::input( 'card_num', '30', '', array( 'maxlength' => '100', 'id' => 'card_num' ) ) .
 			'<span class="creditcard_error_msg">' . '  ' . $error['card_num'] . '</span>' .
-			'<span class="creditcard_error_msg">' . '  ' . $error['card'] . '</span>',
-			$expMosMenu . $expYrMenu,
-			Xml::inputLabel( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv', 'cvv', '5', '', array( 'maxlength' => '10' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['cvv'] . '</span>',
-		);
-
-		foreach( $cardInput as $value ) {
-			$cardField .= '<p>' . $value . '</p>';
-		} 
-
-		$form .= Xml::fieldset( wfMsg( 'payflowpro_gateway-card-legend' ), $cardField, array( 'class' => 'mw-creditcard-card' ) ) .
-				Xml::hidden( 'process', 'CreditCard' ) .
-				Xml::hidden( 'payment_method', 'processed' ) .
-				Xml::hidden( 'token', $data['token'] ) .
-				Xml::hidden( 'currency_code', $data['currency'] ) .
-				Xml::hidden( 'orderid', $data['order_id'] ) .
-				Xml::hidden( 'numAttempt', $data['numAttempt'] ) .
-				Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ) ) .
-				Xml::closeElement( 'form' ) .
-				Xml::closeElement( 'div' );
+			'</tr><tr><td></td><td>' .
+			'<span class="creditcard_error_msg">' . '  ' . $error['card'] . '</span>' .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) .
+			$endCell .
+			Xml::openElement( 'select', array( 'name' => 'mos', 'id' => 'expiration' ) ) .
+			$expMos .
+			Xml::closeElement( 'select' ) .
+			Xml::openElement( 'select', array( 'name' => 'year', 'id' => 'year' ) ) .
+			$expYr .
+			Xml::closeElement( 'select' ) .
+			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
+			$endCell .
+			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv' ) ) .
+			'<span class="creditcard_error_msg">' . '  ' . $error['cvv'] . '</span>' .
+			'</td></tr>' .
+			Xml::closeElement( 'table' ); 
+		
+		// add hidden fields			
+		$form .= Xml::hidden( 'utm_source', $data['utm_source'] ) .
+			Xml::hidden( 'utm_medium', $data['utm_medium'] ) .
+			Xml::hidden( 'utm_campaign', $data['utm_campaign'] ) .
+			Xml::hidden( 'language', $data['language'] ) .
+			Xml::hidden( 'referrer', $data['referrer'] ) .
+			Xml::hidden( 'comment', $data['comment'] ) .
+			Xml::hidden( 'comment-option', $data['anonymous'] ) .
+			Xml::hidden( 'email', $data['optout'] ) .
+			Xml::hidden( 'process', 'CreditCard' ) .
+			Xml::hidden( 'payment_method', 'processed' ) .
+			Xml::hidden( 'token', $data['token'] ) .
+			Xml::hidden( 'currency_code', $data['currency'] ) .
+			Xml::hidden( 'orderid', $data['order_id'] ) .
+			Xml::hidden( 'numAttempt', $data['numAttempt'] );
+				
+		// submit button and close form
+		$form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ) ) .
+			Xml::closeElement( 'form' ) .
+			Xml::closeElement( 'div' );
 
 		$form .= Xml::closeElement( 'div' ) . 
-					Xml::Element( 'p', array( 'class' => 'mw-creditcard-submessage' ),
-						wfMsg( 'payflowpro_gateway-donor-currency-msg', $data['currency'] )
-					);
+			Xml::Element( 'p', array( 'class' => 'mw-creditcard-submessage' ),
+						wfMsg( 'payflowpro_gateway-donor-currency-msg', $data['currency'] ) );
+		
 		// Theming
-		/*global $wgDonationInterfaceTomasSkin;
+		global $wgDonationInterfaceTomasSkin;
 
 		if ( $wgDonationInterfaceTomasSkin ) {
 				$language = 'en';
@@ -314,14 +365,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 					   XML::closeElement( 'div' ) . 
 					   XML::closeElement( 'div' ) . 
 					   XML::closeElement( 'div' ) . 
-	   				   XML::closeElement( 'div' );		
+	   				 XML::closeElement( 'div' );		
 					   $wgOut->addHTML( $form );
 					   $wgOut->addWikiText( '{{Template:2008/Donate-footer/' . $language . '}}' );
 		} else {
 			$wgOut->addHTML( $form );
-	    }
-	    */
-	    $wgOut->addHTML( $form );
+	  }
 	}
 
 	/**
@@ -414,6 +463,20 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				}
 
 				break;
+				
+			case 'discover':
+				// pattern for Visa
+				$pattern = '/^6(?:011|5[0-9]{2})[0-9]{12}$/';
+
+				// if pattern doesn't match
+				if( !preg_match( $pattern, $data['card_num'] ) ) {
+					$error_result = '1';
+					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-discover' );
+				}
+
+				break;
+				
+				
 				
 		} // end switch
 		

@@ -16,6 +16,15 @@ function validate_form( form ) {
 		}
 	}
 
+	//disable states if country is not US
+	if ( document.payment.country.value != '840' ) {
+		document.payment.state.disabled = true;
+		document.payment.state.value = 'XX';
+	} else {
+		document.payment.state.disabled = false;
+		document.payment.state.value = document.payment.state.value;
+	}
+
 	// validate email address
 	var apos = form.emailAdd.value.indexOf("@");
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
@@ -29,6 +38,19 @@ function validate_form( form ) {
 		return false;
 	}  
 
+	return true;
+}
+
+function disableStates( form ) {
+	
+	if ( document.payment.country.value != '840' ) {
+		document.payment.state.disabled = true;
+		document.payment.state.value = 'XX';
+	} else {
+		document.payment.state.disabled = false;
+		document.payment.state.value = '';
+	}
+	
 	return true;
 }
 

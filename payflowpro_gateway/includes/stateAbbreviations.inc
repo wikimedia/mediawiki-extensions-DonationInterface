@@ -60,12 +60,6 @@ function statesMenuXML() {
 		'WV' => 'West Virginia',
 		'WY' => 'Wyoming'
 	);
-
-	$stateMenu = '';
-
-	foreach( $states as $value => $fullName ) {
-		$stateMenu .= Xml::option( $fullName, $value );
-	}
-
-	return $stateMenu;
+	
+	return $states;
 }
