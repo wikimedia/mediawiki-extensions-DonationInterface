@@ -75,6 +75,13 @@ $messages['dsb'] = array(
 	'paypal_gateway-desc' => 'Registrěrujo PayPal ako pósćiwański mechanizm',
 );
 
+/** Esperanto (Esperanto)
+ * @author Yekrats
+ */
+$messages['eo'] = array(
+	'paypal_gateway-desc' => 'Registras Paypal-on kiel donacilo',
+);
+
 /** Spanish (Español)
  * @author Locos epraix
  */
@@ -178,6 +185,13 @@ $messages['ml'] = array(
  */
 $messages['nl'] = array(
 	'paypal_gateway-desc' => 'Registreert PayPal als een donateursinstrument',
+);
+
+/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+ * @author Gunnernett
+ */
+$messages['nn'] = array(
+	'paypal_gateway-desc' => 'Registrerer PayPal som ein mogleg stad å gje gåver',
 );
 
 /** Occitan (Occitan)
