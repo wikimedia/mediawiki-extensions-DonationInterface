@@ -160,6 +160,47 @@ $messages['bs'] = array(
 	'donate_interface-comment-title' => 'Javni komentar',
 );
 
+/** Czech (Česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'donate_interface' => 'Podpora nadace Wikimedia',
+	'donate_interface-desc' => 'Cílová stránka pro přispěvatele, sjednocující rozhraní k platebním branám',
+	'donate_interface-intro' => 'Zvolte si způsob platby, částku a měnu.',
+	'donate_interface-amount' => 'Výše příspěvku:',
+	'donate_interface-other-amount' => 'Jiná částka',
+	'donate_interface-currency' => 'Měna:',
+	'donate_interface-gateway' => 'Způsob platby:',
+	'donate_interface-submit-button' => 'Přispět',
+	'donate_interface-comment-message' => 'Chcete se podělit o nějakou myšlenku se světem? Napište sem nejvýše 200 znaků:',
+	'donate_interface-comment-label' => 'Komentář:',
+	'donate_interface-anon-message' => 'Uveďte mé jméno (spolu s mým komentářem) na veřejném seznamu dárců.',
+	'donate_interface-email-agreement' => "Souhlasím, aby mi byly zasílány novinky a e-maily od Wikimedia Foundation.
+Vaše údaje nikdy nikomu neprodáme.
+Můžete si přečíst naše <a href='/wiki/Donate/Donor_Privacy'>pravidla ochrany soukromí dárců</a>.",
+	'donate_interface-comment-title' => 'Veřejný komentář',
+	'donate_interface-amount-error' => '**Zadejte platnou částku**',
+	'donate_interface-processing-error' => 'Při zpracovávání vašeho příspěvku došlo k chybě.
+Není dostupný žádný platební procesor.',
+	'donate_interface-GBP' => 'GBP: Britská libra',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Americký dolar',
+	'donate_interface-AUD' => 'AUD: Australský dolar',
+	'donate_interface-CAD' => 'CAD: Kanadský dolar',
+	'donate_interface-CHF' => 'CHF: Švýcarský frank',
+	'donate_interface-CZK' => 'CZK: Česká koruna',
+	'donate_interface-DKK' => 'DKK: Dánská koruna',
+	'donate_interface-HKD' => 'HKD: Hongkongský dolar',
+	'donate_interface-HUF' => 'HUF: Maďarský forint',
+	'donate_interface-JPY' => 'JPY: Japonský jen',
+	'donate_interface-NZD' => 'NZD: Novozélandský dolar',
+	'donate_interface-NOK' => 'NOK: Norská koruna',
+	'donate_interface-PLN' => 'PLN: Polský zlotý',
+	'donate_interface-SGD' => 'SGD: Singapurský dolar',
+	'donate_interface-SEK' => 'SEK: Švédská koruna',
+	'donate_interface-ILS' => 'ILS: Izraelský šekel',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */
@@ -358,6 +399,29 @@ Neniu procesoro estas atingebla.',
 	'donate_interface-SGD' => 'Singapura dolaro',
 	'donate_interface-SEK' => 'SEK: Sveda krono',
 	'donate_interface-ILS' => 'ILS: Israela ŝekelo',
+);
+
+/** Spanish (Español)
+ * @author Translationista
+ */
+$messages['es'] = array(
+	'donate_interface-comment-label' => 'Comentario:',
+	'donate_interface-anon-message' => 'Por favor, incluid mi nombre (al lado de mi comentario) en el listado de donantes públicos.',
+	'donate_interface-GBP' => 'GBP: Libra esterlina',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dólar estadounidense',
+	'donate_interface-AUD' => 'AUD: Dólar australiano',
+	'donate_interface-CAD' => 'CAD: Dólar canadiense',
+	'donate_interface-CHF' => 'CHF: Franco suizo',
+	'donate_interface-CZK' => 'CZK: Corona checa',
+	'donate_interface-DKK' => 'DKK: Corona danesa',
+	'donate_interface-HKD' => 'HKD: Dólar de de Hong Kong',
+	'donate_interface-HUF' => 'HUF: Forinto húngaro',
+	'donate_interface-JPY' => 'JPY: Yen japonés',
+	'donate_interface-NZD' => 'NZD: Dólar de Nueva Zelanda',
+	'donate_interface-NOK' => 'NOK: Corona noruega',
+	'donate_interface-SGD' => 'SGD: Dólar de Singapur',
+	'donate_interface-SEK' => 'SEK: Corona sueca',
 );
 
 /** Finnish (Suomi)
@@ -838,9 +902,12 @@ $messages['ml'] = array(
 	'donate_interface-gateway' => 'പണമടയ്ക്കൽ രീതി:',
 	'donate_interface-submit-button' => 'സംഭാവന ചെയ്യുക',
 	'donate_interface-comment-message' => 'ലോകവുമായി പങ്കുവെയ്ക്കാൻ ഒരു ചിന്ത താങ്കൾക്കുണ്ടോ? 200 അക്ഷരങ്ങളിൽ കവിയാതെ ഇവിടെ ചേർക്കുക:',
+	'donate_interface-comment-label' => 'അഭിപ്രായം:',
+	'donate_interface-anon-message' => 'എന്റെ പേര് (എന്റെ അഭിപ്രായത്തിനു സമീപത്തായി) പൊതു സംഭാവകരുടെ പട്ടികയിൽ ദയവായി ചേർക്കുക.',
 	'donate_interface-email-agreement' => "വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഭാവി വാർത്താപത്രികകളോ ഇമെയിലുകളോ സ്വീകരിക്കാൻ സന്തോഷമേയുള്ളു.
 ഞങ്ങൾ താങ്കളെ കുറിച്ചുള്ള വിവരങ്ങൾ ഒരിക്കലും മറിച്ചുകൊടുക്കുന്നതല്ല.
 സംഭാവകരുടെ സ്വകാര്യതയെ കുറിച്ചുള്ള നയങ്ങൾ <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ഇവിടെ</a> കാണാവുന്നതാണ്.",
+	'donate_interface-comment-title' => 'പൊതു കുറിപ്പ്',
 	'donate_interface-amount-error' => '**ദയവായി സാധുവായ തുക നൽകുക**',
 	'donate_interface-GBP' => 'GPB: ബ്രിട്ടീഷ് പൗണ്ട്',
 	'donate_interface-EUR' => 'EUR: യൂറോ',
@@ -1095,11 +1162,12 @@ Nenhuma das plataformas está disponível.',
 );
 
 /** Russian (Русский)
+ * @author Kaganer
  * @author Prima klasy4na
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
-	'donate_interface' => 'Поддержка Викимедиа',
+	'donate_interface' => 'Поддержим Фонд Викимедиа!',
 	'donate_interface-desc' => 'Страница сбора пожертвований, интегрирующая расширения-шлюзы',
 	'donate_interface-intro' => 'Пожалуйста, выберите способ оплаты, сумму и валюту.',
 	'donate_interface-amount' => 'Сумма пожертвования:',
@@ -1150,9 +1218,11 @@ $messages['te'] = array(
 
 /** Turkish (Türkçe)
  * @author Joseph
+ * @author Vito Genovese
  */
 $messages['tr'] = array(
 	'donate_interface' => "Wikimedia'yı destekleyin",
+	'donate_interface-desc' => 'Ağ geçidi uzantılarını entegre eden bağış sayfası',
 	'donate_interface-intro' => 'Lütfen bir ödeme şekli, miktarı ve para birimi seçin.',
 	'donate_interface-amount' => 'Bağış miktarı:',
 	'donate_interface-other-amount' => 'Diğer miktar',
@@ -1167,6 +1237,8 @@ Bilgilerinizi asla satmayız ya da ticaret yapmayız.
 Bağışçı gizlilik poltikamız <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>burada</a> bulunabilir.",
 	'donate_interface-comment-title' => 'Umumi yorum',
 	'donate_interface-amount-error' => '**Lütfen geçerli bir yorum girin**',
+	'donate_interface-processing-error' => 'İsteğinizin işlenmesinde bir hata oluştu.
+Uygun işlemci bulunmuyor.',
 	'donate_interface-GBP' => 'GBP: İngiliz Sterlini',
 	'donate_interface-EUR' => 'EUR: Avro',
 	'donate_interface-USD' => 'USD: Amerikan Doları',

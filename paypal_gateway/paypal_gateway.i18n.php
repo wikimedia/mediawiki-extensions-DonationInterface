@@ -56,6 +56,13 @@ $messages['bs'] = array(
 	'paypal_gateway-desc' => 'Registruje PayPal kao mehanizam za donacije',
 );
 
+/** Czech (Česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'paypal_gateway-desc' => 'Zaregistruje PayPal jako příspěvkový prostředek',
+);
+
 /** German (Deutsch) */
 $messages['de'] = array(
 	'paypal_gateway-desc' => 'Registriert PayPal als Spendensystem',
