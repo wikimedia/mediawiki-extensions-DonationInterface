@@ -5,7 +5,7 @@
  */
 function statesMenuXML() {
 	$states = array(
-		''   => 'Select a State',
+		'YY'   => 'Select a State',
 		'XX' => 'Outside the U.S.',
 		'AK' => 'Alaska',
 		'AL' => 'Alabama',

@@ -122,7 +122,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
 		);
 		
-
 		// Get array of default account values necessary for Payflow 
 		require_once( 'includes/payflowUser.inc' );
 
@@ -139,15 +138,15 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			if( $data['payment_method'] == 'processed' ) {
 				// Check form for errors and redisplay with messages
 				$form_errors = $this->fnPayflowValidateForm( $data, $error );
-				if( $form_errors ) {
-					$this->fnPayflowDisplayForm( $data, $error );
+					if( $form_errors ) {
+						$this->fnPayflowDisplayForm( $data, $error );
+					} else {
+						// The submitted data is valid, so process it
+						//increase the count of attempts
+						++$data['numAttempt'];
+						$this->fnPayflowProcessTransaction( $data, $payflow_data );
+					}
 				} else {
-					// The submitted data is valid, so process it
-					//increase the count of attempts
-					++$data['numAttempt'];
-					$this->fnPayflowProcessTransaction( $data, $payflow_data );
-				}
-			} else {
 				//Display form for the first time
 				$this->fnPayflowDisplayForm($data, $error);
 			}
@@ -217,8 +216,30 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		if ( $value == $data['state'] ) {
 			$stateMenu .= Xml::option( $fullName, $value, true );
 		} else $stateMenu .= Xml::option( $fullName, $value, false );
-	}
+		}
+		
+		//currencies
+		//get available currencies
+		$currencies = $this->fnPayflowReturnCurrencies();
+		
+		$currencyMenu = '';
 
+  	foreach( $currencies as $value => $fullName ) {
+    	$currencyMenu .= Xml::option( $fullName, $value );
+  	}
+  	
+  	// Build currency options
+  	$default_currency = $data['currency'];
+        
+  	$currency_options = '';
+  	
+    foreach ( $currencies as $code => $name ) {
+      $selected = '';
+        if ( $code == $default_currency ) {
+          $selected = ' selected="selected"';
+        }
+      $currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
+    }
 		
 		// intro text
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
@@ -239,6 +260,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::input( 'amount', '7', $data['amount'], array( 'id' => 'amount' ) ) .
 			'<span class="creditcard_error_msg">' . '  ' . $error['invalidamount'] . '</span>' .
 			$endRow .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-currency-label' ), 'currency_code' ) .
+			$endCell .
+			Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" )) .
+      $currency_options . 
+      Xml::closeElement( 'select' ) .
+      $endRow . 
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) .
 			$endCell . 
 			Xml::input( 'emailAdd', '30', $data['email'], array( 'maxlength' => '64', 'id' => 'emailAdd' ) ) .
@@ -288,10 +315,14 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endCell .
 			Xml::input( 'zip', '15', $data['zip'], array( 'maxlength' => '9', 'id' => 'zip' ) ) .
 			'<span class="creditcard_error_msg">' . '  ' . $error['zip'] . '</span>' .
-			$endRow;
+			'</td></tr>' .
+			Xml::closeElement( 'table' ) .
+			'<br />';
 			
 		// credit card info
-		$form .= Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow_table' ) ).
+			'<tr><td style="text-align:right;">' .
+			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
 			$endCell .
 			Xml::openElement( 'select', array( 'name' => 'card', 'id' => 'card' ) ) .
 			$cardOptionsMenu .
@@ -316,6 +347,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
 			$endCell .
 			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv' ) ) .
+			'<a href="javascript:PopupCVV();">' . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
 			'<span class="creditcard_error_msg">' . '  ' . $error['cvv'] . '</span>' .
 			'</td></tr>' .
 			Xml::closeElement( 'table' ); 
@@ -402,7 +434,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// find all empty fields and create message  
 		foreach( $data as $key => $value ) {
-			if( $value == '' ) {
+			if( $value == '' || $data['state'] == 'YY' ) {
 				// ignore fields that are not required
 				if( $msg[$key] ) {
 					$error[$key] = "**" . wfMsg( 'payflowpro_gateway-error-msg', $msg[$key] ) . "**<br />";
@@ -813,6 +845,31 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		 return true;
 		} else { return false; }
 		
+	}
+	
+	function fnPayflowReturnCurrencies() {
+	
+		$payflowCurrencies = array(
+			'GBP' => 'GBP: British Pound',
+			'EUR' => 'EUR: Euro',
+			'USD' => 'USD: U.S. Dollar',
+			'AUD' => 'AUD: Australian Dollar',
+			'CAD' => 'CAD: Canadian Dollar',
+			'CHF' => 'CHF: Swiss Franc',
+			'CZK' => 'CZK: Czech Koruna',
+			'DKK' => 'DKK: Danish Krone',
+			'HKD' => 'HKD: Hong Kong Dollar',
+			'HUF' => 'HUF: Hungarian Forint',
+			'JPY' => 'JPY: Japanese Yen',
+			'NZD' => 'NZD: New Zealand Dollar',
+			'NOK' => 'NOK: Norwegian Krone',
+			'PLN' => 'PLN: Polish Zloty',
+			'SGD' => 'SGD: Singapore Dollar',
+			'SEK' => 'SEK: Swedish Krona',
+			'ILS' => 'ILS: Isreali Shekel',
+		);	
+		
+		return $payflowCurrencies;
 	}
 	
 	

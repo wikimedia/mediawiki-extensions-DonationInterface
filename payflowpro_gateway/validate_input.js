@@ -15,15 +15,12 @@ function validate_form( form ) {
 			output += payflowproGatewayErrorMsgJs + currField + '.\r\n';
 		}
 	}
-
-	//disable states if country is not US
+	
+	//set state to "outside us"
 	if ( document.payment.country.value != '840' ) {
-		document.payment.state.disabled = true;
-		document.payment.state.value = 'XX';
-	} else {
-		document.payment.state.disabled = false;
-		document.payment.state.value = document.payment.state.value;
+			document.payment.state.value = 'XX';
 	}
+
 
 	// validate email address
 	var apos = form.emailAdd.value.indexOf("@");
@@ -37,21 +34,37 @@ function validate_form( form ) {
 		alert( output );
 		return false;
 	}  
-
+	
 	return true;
 }
+
 
 function disableStates( form ) {
-	
-	if ( document.payment.country.value != '840' ) {
-		document.payment.state.disabled = true;
-		document.payment.state.value = 'XX';
-	} else {
-		document.payment.state.disabled = false;
-		document.payment.state.value = '';
-	}
-	
-	return true;
+
+		if ( document.payment.country.value != '840' ) {
+			document.payment.state.value = 'XX';
+		} else {
+			document.payment.state.value = 'YY';
+		}
+
+		return true;
 }
+
+var cvv;
+
+function PopupCVV() {
+	cvv = window.open("", 'cvvhelp','scrollbars=yes,resizable=yes,width=200,height=200,left=200,top=100');
+	cvv.document.write('<p>TEXT GOES HERE</p>'); 
+	cvv.focus();
+}
+
+function CloseCVV() {
+	if (cvv) {
+		if (!cvv.closed) cvv.close();
+		cvv = null;
+	}
+}
+
+window.onfocus = CloseCVV; 
 
 //]]>
