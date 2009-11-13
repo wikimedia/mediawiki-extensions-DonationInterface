@@ -236,6 +236,13 @@ $messages['ru'] = array(
 	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований',
 );
 
+/** Serbian Cyrillic ekavian (Српски (ћирилица))
+ * @author Михајло Анђелковић
+ */
+$messages['sr-ec'] = array(
+	'paypal_gateway-desc' => 'Региструје PayPal као механизам за донације',
+);
+
 /** Turkish (Türkçe)
  * @author Joseph
  */

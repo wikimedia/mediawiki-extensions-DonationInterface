@@ -788,6 +788,35 @@ $messages['ja'] = array(
 	'donate_interface-ILS' => 'ILS: イスラエル・シェケル',
 );
 
+/** Georgian (ქართული)
+ * @author Temuri rajavi
+ */
+$messages['ka'] = array(
+	'donate_interface' => 'მხარი დაუჭირე ვიკიმედიას',
+	'donate_interface-currency' => 'ვალუტა:',
+	'donate_interface-gateway' => 'გადახდის მეთოდი:',
+	'donate_interface-submit-button' => 'შემოწე',
+	'donate_interface-comment-label' => 'კომენტარი:',
+	'donate_interface-comment-title' => 'საჯარო კომენტარი',
+	'donate_interface-GBP' => 'GBP: ბრიტანული გირვანქა სტერლინგი',
+	'donate_interface-EUR' => 'EUR: ევრო',
+	'donate_interface-USD' => 'USD: აშშ დოლარი',
+	'donate_interface-AUD' => 'AUD: ავსტრალიური დოლარი',
+	'donate_interface-CAD' => 'CAD: კანადური დოლარი',
+	'donate_interface-CHF' => 'CHF: შვეიცარიული ფრანკი',
+	'donate_interface-CZK' => 'CZK: ჩეხური კრონა',
+	'donate_interface-DKK' => 'DKK: დანიური კრონა',
+	'donate_interface-HKD' => 'HKD: ჰონგკონგის დოლარი',
+	'donate_interface-HUF' => 'HUF: უნგრული ფორინტი',
+	'donate_interface-JPY' => 'JPY: იაპონური იენი',
+	'donate_interface-NZD' => 'NZD: ახალი ზელანდიის დოლარი',
+	'donate_interface-NOK' => 'NOK: ნორვეგიული კრონა',
+	'donate_interface-PLN' => 'PLN: პოლონური ზლოტი',
+	'donate_interface-SGD' => 'SGD: სინგაპურის დოლარი',
+	'donate_interface-SEK' => 'SEK: შვედური კრონა',
+	'donate_interface-ILS' => 'ILS: ისრაელის შეკელი',
+);
+
 /** Korean (한국어)
  * @author Kwj2772
  */
