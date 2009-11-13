@@ -12,7 +12,7 @@ function validate_form( form ) {
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
 			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
-			output += payflowproGatewayErrorMsgJs + currField + '.\r\n';
+			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
 		}
 	}
 	
