@@ -103,12 +103,14 @@ Please try again later.',
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Hamilton Abreu
+ * @author Lloffiwr
  * @author Siebrand
  */
 $messages['qqq'] = array(
 	'payflowprogateway' => '{{Identical|Support Wikimedia}}',
 	'payflowpro_gateway-desc' => '{{desc}}',
 	'payflowpro_gateway-donor-amount' => '{{Identical|Amount}}',
+	'payflowpro_gateway-donor-currency-label' => '{{Identical|Currency}}',
 	'payflowpro_gateway-donor-email' => '{{Identical|E-mail address}}',
 	'payflowpro_gateway-donor-name' => '{{Identical|Name}}',
 	'payflowpro_gateway-donor-street' => '{{Identical|Street}}',
@@ -117,7 +119,42 @@ $messages['qqq'] = array(
 	'payflowpro_gateway-donor-address' => '{{Identical|Address}}',
 	'payflowpro_gateway-donor-submit' => '{{Identical|Donate}}',
 	'payflowpro_gateway-donor-currency-msg' => '* $1 is 3 letter currency code',
-	'payflowpro_gateway-error-msg' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required: $1".}}',
+	'payflowpro_gateway-error-msg' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required: $1".}}
+
+$1 is any one of a number of messages which are the names of fields, as follows:
+*{{msg-mw|Payflowpro gateway-error-msg-amount}}
+*{{msg-mw|Payflowpro gateway-error-msg-emailAdd}}
+*{{msg-mw|Payflowpro gateway-error-msg-fname}}
+*{{msg-mw|Payflowpro gateway-error-msg-lname}}
+*{{msg-mw|Payflowpro gateway-error-msg-street}}
+*{{msg-mw|Payflowpro gateway-error-msg-city}}
+*{{msg-mw|Payflowpro gateway-error-msg-state}}
+*{{msg-mw|Payflowpro gateway-error-msg-zip}}
+*{{msg-mw|Payflowpro gateway-error-msg-card_num}}
+*{{msg-mw|Payflowpro gateway-error-msg-expiration}}
+*{{msg-mw|Payflowpro gateway-error-msg-cvv}}
+
+An alternative to \'field\' in the translation could be \'information\'.
+
+This is an error message which appears if one or more of the above fields is left empty.',
+	'payflowpro_gateway-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
+
+This message comes before any one of a number of messages which are the names of fields, as follows:
+*{{msg-mw|Payflowpro gateway-error-msg-amount}}
+*{{msg-mw|Payflowpro gateway-error-msg-emailAdd}}
+*{{msg-mw|Payflowpro gateway-error-msg-fname}}
+*{{msg-mw|Payflowpro gateway-error-msg-lname}}
+*{{msg-mw|Payflowpro gateway-error-msg-street}}
+*{{msg-mw|Payflowpro gateway-error-msg-city}}
+*{{msg-mw|Payflowpro gateway-error-msg-state}}
+*{{msg-mw|Payflowpro gateway-error-msg-zip}}
+*{{msg-mw|Payflowpro gateway-error-msg-card_num}}
+*{{msg-mw|Payflowpro gateway-error-msg-expiration}}
+*{{msg-mw|Payflowpro gateway-error-msg-cvv}}
+
+An alternative to 'field' in the translation could be 'information'.
+
+This is an error message which appears if one or more of the above fields is left empty.",
 	'payflowpro_gateway-error-msg-emailAdd' => '{{Identical|E-mail address}}',
 	'payflowpro_gateway-error-msg-street' => '{{Identical|Street}}',
 	'payflowpro_gateway-error-msg-city' => '{{Identical|City}}',
@@ -138,7 +175,9 @@ Daar is <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ander
 	'payflowpro_gateway-donor-legend' => 'Skenker-inligting',
 	'payflowpro_gateway-card-legend' => 'Kredietkaart-inligting',
 	'payflowpro_gateway-amount-legend' => 'Bedrag:',
+	'payflowpro_gateway-cvv-link' => 'Voorbeeld',
 	'payflowpro_gateway-donor-amount' => 'Bedrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Geldeenheid:',
 	'payflowpro_gateway-donor-email' => 'E-posadres:',
 	'payflowpro_gateway-donor-fname' => 'Voornaam:',
 	'payflowpro_gateway-donor-mname' => 'Tussenvoegsel:',
@@ -192,6 +231,23 @@ Probeer asseblief later weer.",
 	'php-response-declined' => 'U transaksie is afgekeur.',
 	'payflowpro_gateway-post-transaction' => 'Transaksiebesonderhede',
 	'payflowpro_gateway-submit-button' => 'Skenk',
+	'donate_interface-GBP' => 'GBP: Britse pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikaanse dollar',
+	'donate_interface-AUD' => 'AUD: Australiese dollar',
+	'donate_interface-CAD' => 'CAD: Kanadese dollar',
+	'donate_interface-CHF' => 'CHF: Switserse frank',
+	'donate_interface-CZK' => 'CZK: Tsjeggiese kroon',
+	'donate_interface-DKK' => 'DKK: Deense kroon',
+	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
+	'donate_interface-HUF' => 'HUF: Hongaarse forint',
+	'donate_interface-JPY' => 'JPY: Japannese jen',
+	'donate_interface-NZD' => 'NZD: Nieu-Seelandse dollar',
+	'donate_interface-NOK' => 'NOK: Noorse kroon',
+	'donate_interface-PLN' => 'PLN: Poolse zloty',
+	'donate_interface-SGD' => 'SGD: Singaporese dollar',
+	'donate_interface-SEK' => 'SEK: Sweedse kroon',
+	'donate_interface-ILS' => 'ILS: Israeliese shekel',
 );
 
 /** Arabic (العربية)
@@ -598,7 +654,9 @@ $messages['diq'] = array(
 	'payflowpro_gateway-donor-legend' => 'Enformasyonê bexş dayogi',
 	'payflowpro_gateway-card-legend' => 'Enformasyonê Kard ê Krediti',
 	'payflowpro_gateway-amount-legend' => 'Cend panet ti dano:',
+	'payflowpro_gateway-cvv-link' => 'Mevaci',
 	'payflowpro_gateway-donor-amount' => 'Cend ponet:',
+	'payflowpro_gateway-donor-currency-label' => 'Dowiz:',
 	'payflowpro_gateway-donor-email' => 'Adresê emaili',
 	'payflowpro_gateway-donor-fname' => 'Name:',
 	'payflowpro_gateway-donor-mname' => 'Nameyê miyani:',
@@ -771,7 +829,9 @@ Estas <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/eo">aliaj r
 	'payflowpro_gateway-donor-legend' => 'Informoj pri la donacanto',
 	'payflowpro_gateway-card-legend' => 'Informoj pri la kreditkarto',
 	'payflowpro_gateway-amount-legend' => 'Donaca monsumo:',
+	'payflowpro_gateway-cvv-link' => 'Ekzemplo',
 	'payflowpro_gateway-donor-amount' => 'Monsumo:',
+	'payflowpro_gateway-donor-currency-label' => 'Monunuo',
 	'payflowpro_gateway-donor-email' => 'Retpoŝtadreso:',
 	'payflowpro_gateway-donor-fname' => 'Antaŭnomo:',
 	'payflowpro_gateway-donor-mname' => 'Meza nomo:',
@@ -916,6 +976,56 @@ Por favor contáctanos para continuar la transacción.',
 	'donate_interface-SEK' => 'SEK: Corona sueca',
 );
 
+/** Basque (Euskara)
+ * @author An13sa
+ */
+$messages['eu'] = array(
+	'payflowprogateway' => 'Wikimedia lagundu',
+	'payflowpro_gateway-card-legend' => 'Kreditu txartelaren informazioa',
+	'payflowpro_gateway-amount-legend' => 'Dohaintza kopurua:',
+	'payflowpro_gateway-cvv-link' => 'Adibidea',
+	'payflowpro_gateway-donor-amount' => 'Kopurua:',
+	'payflowpro_gateway-donor-currency-label' => 'Txanpona:',
+	'payflowpro_gateway-donor-email' => 'E-posta helbidea:',
+	'payflowpro_gateway-donor-name' => 'Izena:',
+	'payflowpro_gateway-donor-street' => 'Kalea:',
+	'payflowpro_gateway-donor-city' => 'Hiria:',
+	'payflowpro_gateway-donor-state' => 'Estatua:',
+	'payflowpro_gateway-donor-postal' => 'Posta kodea:',
+	'payflowpro_gateway-donor-country' => 'Herrialdea/Lurraldea:',
+	'payflowpro_gateway-donor-address' => 'Helbidea:',
+	'payflowpro_gateway-donor-card' => 'Kreditu txartela:',
+	'payflowpro_gateway-donor-card-num' => 'Txartel zenbakia:',
+	'payflowpro_gateway-donor-expiration' => 'Iraungipen data:',
+	'payflowpro_gateway-donor-security' => 'Segurtasun kodea:',
+	'payflowpro_gateway-donor-submit' => 'Dohaintza egin',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-posta helbidea',
+	'payflowpro_gateway-error-msg-street' => 'kalearen helbidea',
+	'payflowpro_gateway-error-msg-city' => 'hiria',
+	'payflowpro_gateway-error-msg-state' => 'estatua',
+	'payflowpro_gateway-error-msg-zip' => 'posta kodea',
+	'payflowpro_gateway-error-msg-card_num' => 'kreditu txartel zenbakia',
+	'payflowpro_gateway-response-4' => 'Kopuru okerra.',
+	'payflowpro_gateway-submit-button' => 'Dohaintza egin',
+	'donate_interface-GBP' => 'GBP: Britainiar libra',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Estatubatuar dolar',
+	'donate_interface-AUD' => 'AUD: Australiar dolar',
+	'donate_interface-CAD' => 'CAD: Kanadiar dolar',
+	'donate_interface-CHF' => 'CHF: Suitzar libera',
+	'donate_interface-CZK' => 'CZK: Txekiar koruna',
+	'donate_interface-DKK' => 'DKK: Daniar koroa',
+	'donate_interface-HKD' => 'HKD: Hongkongdar dolar',
+	'donate_interface-HUF' => 'HUF: Hungariar florin',
+	'donate_interface-JPY' => 'JPY: Japoniar yen',
+	'donate_interface-NZD' => 'NZD: Zeelandaberritar dolar',
+	'donate_interface-NOK' => 'NOK: Norvegiar koroa',
+	'donate_interface-PLN' => 'PLN: Poloniar zloty',
+	'donate_interface-SGD' => 'SGD: Singapurtar dolar',
+	'donate_interface-SEK' => 'SEK: Suediar koroa',
+	'donate_interface-ILS' => 'ILS: Israeldar shekel',
+);
+
 /** Finnish (Suomi)
  * @author Str4nd
  */
@@ -986,7 +1096,9 @@ Il y a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d\'aut
 	'payflowpro_gateway-donor-legend' => 'Informations sur le donateur',
 	'payflowpro_gateway-card-legend' => 'Informations sur la carte de crédit',
 	'payflowpro_gateway-amount-legend' => 'Montant du don :',
+	'payflowpro_gateway-cvv-link' => 'Exemple',
 	'payflowpro_gateway-donor-amount' => 'Montant :',
+	'payflowpro_gateway-donor-currency-label' => 'Devise :',
 	'payflowpro_gateway-donor-email' => 'Adresse de courriel :',
 	'payflowpro_gateway-donor-fname' => 'Prénom :',
 	'payflowpro_gateway-donor-mname' => 'Deuxième prénom :',
@@ -1072,7 +1184,9 @@ Existen outros <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/gl
 	'payflowpro_gateway-donor-legend' => 'Información do doante',
 	'payflowpro_gateway-card-legend' => 'Información da tarxeta de crédito',
 	'payflowpro_gateway-amount-legend' => 'Importe da doazón:',
+	'payflowpro_gateway-cvv-link' => 'Exemplo',
 	'payflowpro_gateway-donor-amount' => 'Cantidade:',
+	'payflowpro_gateway-donor-currency-label' => 'Moeda:',
 	'payflowpro_gateway-donor-email' => 'Enderezo de correo electrónico:',
 	'payflowpro_gateway-donor-fname' => 'Nome:',
 	'payflowpro_gateway-donor-mname' => 'Segundo nome:',
@@ -1244,7 +1358,9 @@ Su tež <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">druhe
 	'payflowpro_gateway-donor-legend' => 'Darjenske informacije',
 	'payflowpro_gateway-card-legend' => 'Informacije kreditneje karty',
 	'payflowpro_gateway-amount-legend' => 'Darjenska suma:',
+	'payflowpro_gateway-cvv-link' => 'Přikład',
 	'payflowpro_gateway-donor-amount' => 'Suma:',
+	'payflowpro_gateway-donor-currency-label' => 'Měna:',
 	'payflowpro_gateway-donor-email' => 'E-mejlowa adresa:',
 	'payflowpro_gateway-donor-fname' => 'Předmjeno:',
 	'payflowpro_gateway-donor-mname' => 'Druhe mjeno:',
@@ -1417,7 +1533,9 @@ Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere 
 	'payflowpro_gateway-donor-legend' => 'Informationes del donator',
 	'payflowpro_gateway-card-legend' => 'Informationes del carta de credito',
 	'payflowpro_gateway-amount-legend' => 'Amonta del donation:',
+	'payflowpro_gateway-cvv-link' => 'Exemplo',
 	'payflowpro_gateway-donor-amount' => 'Amonta:',
+	'payflowpro_gateway-donor-currency-label' => 'Moneta:',
 	'payflowpro_gateway-donor-email' => 'Adresse de e-mail:',
 	'payflowpro_gateway-donor-fname' => 'Prenomine:',
 	'payflowpro_gateway-donor-mname' => 'Secunde prenomine:',
@@ -1589,7 +1707,9 @@ $messages['ja'] = array(
 	'payflowpro_gateway-donor-legend' => '寄付者情報',
 	'payflowpro_gateway-card-legend' => 'クレジットカード情報',
 	'payflowpro_gateway-amount-legend' => '寄付金額:',
+	'payflowpro_gateway-cvv-link' => '例',
 	'payflowpro_gateway-donor-amount' => '金額:',
+	'payflowpro_gateway-donor-currency-label' => '通貨:',
 	'payflowpro_gateway-donor-email' => '電子メールアドレス:',
 	'payflowpro_gateway-donor-fname' => 'ファーストネーム:',
 	'payflowpro_gateway-donor-mname' => 'ミドルネーム:',
@@ -1723,7 +1843,9 @@ Et gëtt <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">aner
 	'payflowpro_gateway-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'payflowpro_gateway-card-legend' => "Informatiounen iwwert d'Kreditkaart",
 	'payflowpro_gateway-amount-legend' => 'Betrag vum Don:',
+	'payflowpro_gateway-cvv-link' => 'Beispill',
 	'payflowpro_gateway-donor-amount' => 'Betrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Währung:',
 	'payflowpro_gateway-donor-email' => 'E-Mailadress:',
 	'payflowpro_gateway-donor-fname' => 'Virnumm:',
 	'payflowpro_gateway-donor-mname' => 'Zweete Virnumm:',
@@ -1894,7 +2016,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-donor-legend' => 'സംഭാവന ചെയ്യുന്നയാളുടെ വിവരങ്ങൾ',
 	'payflowpro_gateway-card-legend' => 'ക്രെഡിറ്റ് കാർഡ് വിവരങ്ങൾ',
 	'payflowpro_gateway-amount-legend' => 'സംഭാവന തുക:',
-	'payflowpro_gateway-cvv-link' => '  ഉദാഹരണം',
+	'payflowpro_gateway-cvv-link' => 'ഉദാഹരണം',
 	'payflowpro_gateway-donor-amount' => 'തുക:',
 	'payflowpro_gateway-donor-currency-label' => 'നാണയം:',
 	'payflowpro_gateway-donor-email' => 'ഇമെയിൽ വിലാസം:',
@@ -1982,7 +2104,9 @@ Er zijn <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ander
 	'payflowpro_gateway-donor-legend' => 'Donateursinformatie',
 	'payflowpro_gateway-card-legend' => 'Creditcardinformatie',
 	'payflowpro_gateway-amount-legend' => 'Bedrag:',
+	'payflowpro_gateway-cvv-link' => 'Voorbeeld',
 	'payflowpro_gateway-donor-amount' => 'Bedrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Munteenheid:',
 	'payflowpro_gateway-donor-email' => 'E-mailadres:',
 	'payflowpro_gateway-donor-fname' => 'Voornaam:',
 	'payflowpro_gateway-donor-mname' => 'Tussenvoegsel:',
@@ -2061,6 +2185,71 @@ Probeer het later nog een keer.',
 $messages['nn'] = array(
 	'donate_interface-GBP' => 'GBP: Britiske pund',
 	'donate_interface-NOK' => 'NOK: Norske kroner',
+);
+
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Finnrind
+ */
+$messages['no'] = array(
+	'payflowprogateway' => 'Støtt Wikimedia',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkortbehandling',
+	'payflowpro_gateway-accessible' => 'Denne siden er bare tilgjengelig fra giversiden.',
+	'payflowpro_gateway-form-message' => 'Bidra gjennom ditt kredittkort.
+Det er <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb"> andre måter å gi på, inklusive PayPal, sjekk eller post</a>.',
+	'payflowpro_gateway-form-message-2' => 'For å endre beløp eller valuta, gå til <a href="/index.php?title=Donate">giversiden</a>',
+	'payflowpro_gateway-donor-legend' => 'Giverinformasjon',
+	'payflowpro_gateway-card-legend' => 'Kredittkortinformasjon',
+	'payflowpro_gateway-amount-legend' => 'Gavebeløp:',
+	'payflowpro_gateway-cvv-link' => 'Eksempel',
+	'payflowpro_gateway-donor-amount' => 'Beløp:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'E-postadresse:',
+	'payflowpro_gateway-donor-fname' => 'Fornavn:',
+	'payflowpro_gateway-donor-mname' => 'Mellomnavn:',
+	'payflowpro_gateway-donor-lname' => 'Etternavn:',
+	'payflowpro_gateway-donor-name' => 'Navn:',
+	'payflowpro_gateway-donor-street' => 'Gate:',
+	'payflowpro_gateway-donor-city' => 'By:',
+	'payflowpro_gateway-donor-state' => 'Stat:',
+	'payflowpro_gateway-donor-postal' => 'Postnummer:',
+	'payflowpro_gateway-donor-country' => 'Land/region:',
+	'payflowpro_gateway-donor-address' => 'Adresse:',
+	'payflowpro_gateway-donor-card' => 'Kredittkort:',
+	'payflowpro_gateway-donor-card-num' => 'Kortnummer:',
+	'payflowpro_gateway-donor-expiration' => 'Utløpsdato:',
+	'payflowpro_gateway-donor-security' => 'Sikkerhetskode:',
+	'payflowpro_gateway-donor-submit' => 'Gi',
+	'payflowpro_gateway-donor-currency-msg' => 'Dette gaven blir gitt i $1',
+	'payflowpro_gateway-error-msg' => 'Dette feltet må fylles ut: $1',
+	'payflowpro_gateway-error-msg-js' => 'Dette feltet må fylles ut',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Vennligst oppgi et gyldig beløp**',
+	'payflowpro_gateway-error-msg-email' => '**Vennligst oppgi en gyldig e-postadresse**',
+	'payflowpro_gateway-error-msg-amex' => '**Vennligst oppgi et gyldig kortnummer for American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Vennligst oppgi et gyldig kortnummer for MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Vennligst oppgi et gyldig kortnummer for Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Vennligst oppgi et gyldig kortnummer for Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'gavebeløp',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-postadresse',
+	'payflowpro_gateway-error-msg-fname' => 'fornavn',
+	'payflowpro_gateway-error-msg-lname' => 'etternavn',
+	'payflowpro_gateway-error-msg-street' => 'gateadresse',
+	'payflowpro_gateway-error-msg-city' => 'by',
+	'payflowpro_gateway-error-msg-state' => 'stat',
+	'payflowpro_gateway-error-msg-zip' => 'postkode',
+	'payflowpro_gateway-error-msg-card_num' => 'kredittkortnummer',
+	'payflowpro_gateway-error-msg-expiration' => 'kortets utløpsdato',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV fra baksiden av kortet ditt',
+	'payflowpro_gateway-response-0' => 'Transaksjonen din har blitt godkjent.
+Takk for din gave!',
+	'payflowpro_gateway-response-126' => 'Transaksjonen din venter på godkjenning.',
+	'payflowpro_gateway-response-12' => 'Kontakt kredittkortselskapet ditt for mer informasjon.',
+	'payflowpro_gateway-response-13' => 'Transaksjonen din krever stemmeautorisasjon.
+Kontakt oss for å fortsette din transaksjon.',
+	'payflowpro_gateway-response-114' => 'Vennligst kontakt kredittkortselskapet ditt for mer informasjon.',
+	'payflowpro_gateway-response-23' => 'Ditt kredittkortnummer eller utløpsdato er ikke korrekt.',
+	'payflowpro_gateway-response-4' => 'Ugyldig beløp.',
+	'payflowpro_gateway-response-24' => 'Ditt kredittkortnummer eller utløpsdato er ikke korrekt.',
+	'payflowpro_gateway-response-112' => 'Din adresse eller CVV nummer (sikkerhetskode) er ikke korrekt.',
 );
 
 /** Occitan (Occitan)
@@ -2171,6 +2360,69 @@ $messages['pdc'] = array(
 $messages['pl'] = array(
 	'payflowprogateway' => 'Pomóż Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal obsługa kart kredytowych Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Strona dostępna jest wyłącznie ze strony darowizn.',
+	'payflowpro_gateway-form-message' => 'Darowizna wpłacana kartą kredytową.
+Istnieją <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pl">inne sposoby złożenia darowizny jak PayPal, czek bankowy czy pocztą.</a>',
+	'payflowpro_gateway-form-message-2' => 'Aby zmienić kwotę lub walutę powróć do <a href="/index.php?title=Donate">strony składania darowizn</a>',
+	'payflowpro_gateway-donor-legend' => 'Informacje o darczyńcach',
+	'payflowpro_gateway-card-legend' => 'Informacje o karcie kredytowej',
+	'payflowpro_gateway-amount-legend' => 'Kwota darowizny',
+	'payflowpro_gateway-cvv-link' => 'Przykład',
+	'payflowpro_gateway-donor-amount' => 'Kwota',
+	'payflowpro_gateway-donor-currency-label' => 'Waluta',
+	'payflowpro_gateway-donor-email' => 'Adres e-mail',
+	'payflowpro_gateway-donor-fname' => 'Imię',
+	'payflowpro_gateway-donor-mname' => 'Drugie imię',
+	'payflowpro_gateway-donor-lname' => 'Nazwisko',
+	'payflowpro_gateway-donor-name' => 'Imię i nazwisko',
+	'payflowpro_gateway-donor-street' => 'Ulica',
+	'payflowpro_gateway-donor-city' => 'Miasto',
+	'payflowpro_gateway-donor-state' => 'Województwo',
+	'payflowpro_gateway-donor-postal' => 'Kod pocztowy',
+	'payflowpro_gateway-donor-country' => 'Kraj lub region',
+	'payflowpro_gateway-donor-address' => 'Adres',
+	'payflowpro_gateway-donor-card' => 'Karta kredytowa',
+	'payflowpro_gateway-donor-card-num' => 'Numer karty',
+	'payflowpro_gateway-donor-expiration' => 'Data ważności',
+	'payflowpro_gateway-donor-security' => 'Kod zabezpieczający',
+	'payflowpro_gateway-donor-submit' => 'Wpłacam',
+	'payflowpro_gateway-donor-currency-msg' => 'Darowizna składana jest w $1',
+	'payflowpro_gateway-error-msg' => 'Musisz podać $1',
+	'payflowpro_gateway-error-msg-js' => 'Podaj',
+	'payflowpro_gateway-error-msg-invalid-amount' => '** Podaj poprawną kwotę **',
+	'payflowpro_gateway-error-msg-email' => '** Wpisz prawidłowy adres e-mail **',
+	'payflowpro_gateway-error-msg-amex' => '** Podaj poprawny numer karty American Express. **',
+	'payflowpro_gateway-error-msg-mc' => '** Podaj poprawny numer karty MasterCard. **',
+	'payflowpro_gateway-error-msg-visa' => '** Podaj poprawny numer karty Visa. **',
+	'payflowpro_gateway-error-msg-discover' => '** Podaj poprawny numer karty Discover. **',
+	'payflowpro_gateway-error-msg-amount' => 'kwotę darowizny',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adres e-mail',
+	'payflowpro_gateway-error-msg-fname' => 'imię',
+	'payflowpro_gateway-error-msg-lname' => 'nazwisko',
+	'payflowpro_gateway-error-msg-street' => 'ulicę',
+	'payflowpro_gateway-error-msg-city' => 'miasto',
+	'payflowpro_gateway-error-msg-state' => 'województwo',
+	'payflowpro_gateway-error-msg-zip' => 'kod pocztowy',
+	'payflowpro_gateway-error-msg-card_num' => 'numer karty kredytowej',
+	'payflowpro_gateway-error-msg-expiration' => 'datę ważności karty',
+	'payflowpro_gateway-error-msg-cvv' => 'kod CVV umieszczony z tyłu karty',
+	'payflowpro_gateway-response-0' => 'Transakcja została przeprowadzona.
+Dziękujemy za wsparcie!',
+	'payflowpro_gateway-response-126' => 'Transakcja oczekuje na potwierdzenie.',
+	'payflowpro_gateway-response-12' => 'Skontaktuj się z wystawcą karty aby uzyskać dokładniejszą informację.',
+	'payflowpro_gateway-response-13' => 'Transakcja wymaga autoryzacji głosowej.
+Skontaktuj się z nami w celu kontynuowania transakcji.',
+	'payflowpro_gateway-response-114' => 'Skontaktuj się z wystawcą karty, aby uzyskać szczegółowe informacje.',
+	'payflowpro_gateway-response-23' => 'Numer karty kredytowej lub data ważności są nieprawidłowe.',
+	'payflowpro_gateway-response-4' => 'Nieprawidłowa kwota.',
+	'payflowpro_gateway-response-24' => 'Numer karty kredytowej lub data ważności są nieprawidłowe.',
+	'payflowpro_gateway-response-112' => 'Adres lub kod zabezpieczający CVV są nieprawidłowe.',
+	'payflowpro_gateway-response-125' => 'Transakcja została odrzucona przez system zapobiegania nadużyciom.',
+	'payflowpro_gateway-response-default' => 'Wystąpił błąd podczas przeprowadzania transakcji.
+Spróbuj ponownie później.',
+	'php-response-declined' => 'Transakcja została odrzucona.',
+	'payflowpro_gateway-post-transaction' => 'Szczegóły transakcji',
+	'payflowpro_gateway-submit-button' => 'Wpłacam',
 	'donate_interface-GBP' => 'GBP — funt brytyjski',
 	'donate_interface-EUR' => 'EUR — euro',
 	'donate_interface-USD' => 'USD — dolar amerykański',
@@ -2423,7 +2675,9 @@ $messages['tr'] = array(
 	'payflowpro_gateway-donor-legend' => 'Bağışçı bilgisi',
 	'payflowpro_gateway-card-legend' => 'Kredi kartı bilgisi',
 	'payflowpro_gateway-amount-legend' => 'Bağış miktarı:',
+	'payflowpro_gateway-cvv-link' => 'Örnek',
 	'payflowpro_gateway-donor-amount' => 'Miktar:',
+	'payflowpro_gateway-donor-currency-label' => 'Para birimi:',
 	'payflowpro_gateway-donor-email' => 'E-posta adresi:',
 	'payflowpro_gateway-donor-fname' => 'İlk ad:',
 	'payflowpro_gateway-donor-mname' => 'Orta ad:',
@@ -2625,7 +2879,9 @@ Cũng có <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">nh�
 	'payflowpro_gateway-donor-legend' => 'Thông tin người tặng',
 	'payflowpro_gateway-card-legend' => 'Thông tin thẻ tín dụng',
 	'payflowpro_gateway-amount-legend' => 'Số tiền gửi tặng:',
+	'payflowpro_gateway-cvv-link' => 'Ví dụ',
 	'payflowpro_gateway-donor-amount' => 'Số tiền:',
+	'payflowpro_gateway-donor-currency-label' => 'Đơn vị tiền tệ:',
 	'payflowpro_gateway-donor-email' => 'Địa chỉ thư điện tử:',
 	'payflowpro_gateway-donor-fname' => 'Tên:',
 	'payflowpro_gateway-donor-mname' => 'Họ lót:',
@@ -2644,14 +2900,31 @@ Cũng có <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">nh�
 	'payflowpro_gateway-donor-submit' => 'Quyên góp',
 	'payflowpro_gateway-donor-currency-msg' => 'Lần quyên góp này được trả bằng $1',
 	'payflowpro_gateway-error-msg' => 'Xin nhập $1 của bạn',
+	'payflowpro_gateway-error-msg-js' => 'Xin hãy nhập',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Xin hãy nhập số tiền hợp lệ**',
 	'payflowpro_gateway-error-msg-email' => '**Xin nhập vào một địa chỉ thư điện tử hợp lệ**',
 	'payflowpro_gateway-error-msg-amex' => '**Xin nhập vào số thẻ đúng dành cho American Express.**',
 	'payflowpro_gateway-error-msg-mc' => '**Xin nhập vào số thẻ đúng dành cho Mastercard.**',
 	'payflowpro_gateway-error-msg-visa' => '**Xin nhập vào số thẻ đúng dành cho Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Xin hãy nhập số thẻ Discover đúng.**',
+	'payflowpro_gateway-error-msg-amount' => 'số tiền góp',
+	'payflowpro_gateway-error-msg-emailAdd' => 'địa chỉ thư điện tử',
+	'payflowpro_gateway-error-msg-fname' => 'tên',
+	'payflowpro_gateway-error-msg-lname' => 'họ',
+	'payflowpro_gateway-error-msg-street' => 'số nhà và đường phố',
+	'payflowpro_gateway-error-msg-city' => 'thành phố',
+	'payflowpro_gateway-error-msg-state' => 'tiểu bang',
+	'payflowpro_gateway-error-msg-zip' => 'mã bưu điện',
+	'payflowpro_gateway-error-msg-card_num' => 'số thẻ tín dụng',
+	'payflowpro_gateway-error-msg-expiration' => 'ngày hết hạn của thẻ',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV trên mặt trái của thẻ',
 	'payflowpro_gateway-response-0' => 'Giao dịch của bạn đã được chứng nhận.
 Cảm ơn sự đóng góp của bạn!',
 	'payflowpro_gateway-response-126' => 'Giao dịch của bạn đang chờ được chứng nhận.',
 	'payflowpro_gateway-response-12' => 'Xin liên hệ với công ty thẻ tín dụng của bạn để biết thêm chi tiết.',
+	'payflowpro_gateway-response-13' => 'Giao dịch này cần xác nhận bằng điện thoại.
+Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao dịch.',
+	'payflowpro_gateway-response-114' => 'Xin hãy liên lạc công ty thẻ tín dụng để biết thêm thông tin.',
 	'payflowpro_gateway-response-23' => 'Số thẻ tín dụng của bạn hoặc ngày hết hạn không đúng.',
 	'payflowpro_gateway-response-4' => 'Số tiền không hợp lệ.',
 	'payflowpro_gateway-response-24' => 'Số thẻ tín dụng hoặc ngày hết hạn không đúng.',
