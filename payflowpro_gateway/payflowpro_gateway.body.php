@@ -347,7 +347,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
 			$endCell .
 			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv' ) ) .
-			'<a href="javascript:PopupCVV();">' . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
+			'<a href="javascript:PopupCVV();">' . wfMsg( 'word-separator' ) . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
 			'<span class="creditcard_error_msg">' . '  ' . $error['cvv'] . '</span>' .
 			'</td></tr>' .
 			Xml::closeElement( 'table' ); 
