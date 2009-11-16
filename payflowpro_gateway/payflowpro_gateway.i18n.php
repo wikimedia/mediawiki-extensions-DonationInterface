@@ -878,6 +878,14 @@ Pšosym wopytaj pózdźej hyšći raz.',
 	'php-response-declined' => 'Twója transakcija jo se wótpokazała.',
 	'payflowpro_gateway-post-transaction' => 'Drobnostki transakcije',
 	'payflowpro_gateway-submit-button' => 'Pósćiś',
+	'payflowpro_gateway-cvv-explain' => '<h4>Co jo CVV?</h4>
+<p>Cardholder Verification Value (CVV) - toś te tśiměstnowe abo styriměstnowe numery pomagaju zawěsćiś, až kórta jo napšawdu we wobsejźeństwje mějucego kórty, mjaztym až pósćiwa on-line. To pomaga njeawtorizěrowanemu abo wobšudnemu wužywanjoju zajźowaś.</p>
+<h4>Visa, Mastercard</h4>
+<p>Tśiměstnowy kod jo na slěznym boku wašeje kórty, w pódpismowem wobcerku.
+Typiski pódpismowy wobcerk změjo rědy numerow, ale jano slědne tśi městna twórje CVV-kod.</p>
+<h4>Amex</h4>
+<p>Kod jo PŚECEJ WUŠEJ naśišćanego (wusoko stajonego) kontowego numera na prědnem boku kórty.
+Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</p><br />',
 	'donate_interface-GBP' => 'GBP. Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: US-dollar',
@@ -1327,6 +1335,14 @@ Por favor, inténteo de novo máis tarde.',
 	'php-response-declined' => 'A túa transacción foi rexeitada.',
 	'payflowpro_gateway-post-transaction' => 'Detalles da transacción',
 	'payflowpro_gateway-submit-button' => 'Doar',
+	'payflowpro_gateway-cvv-explain' => "<h4>Que é o CVV?</h4>
+<p>O código de seguridade CVV (''Cardholder Verification Value''; en galego, ''código de verificación da tarxeta'') é un número de tres ou catro díxitos que axuda a garantir que a tarxeta física está en posesión do titular da mesma no momento da doazón en liña, o que prevén o uso non autorizado ou fraudulento.</p>
+<h4>Visa, MasterCard</h4>
+<p>O código de 3 díxitos aparece na parte traseira da túa tarxeta de crédito, dentro da área da sinatura.
+Normalmente, a zona da sinatura ten unha serie de números, pero só os tres últimos díxitos conforman o código de seguridade.</p>
+<h4>Amex</h4>
+<p>O código está SEMPRE situado por riba do número de conta en relevo na cara frontal da tarxeta.
+Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
 	'donate_interface-GBP' => 'GBP: libra esterlina',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: dólar estadounidense',
@@ -1359,7 +1375,9 @@ S het au <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">andr
 	'payflowpro_gateway-donor-legend' => 'Spänderinformation',
 	'payflowpro_gateway-card-legend' => 'Kreditcharteninformation',
 	'payflowpro_gateway-amount-legend' => 'Betrag:',
+	'payflowpro_gateway-cvv-link' => 'Byschpel',
 	'payflowpro_gateway-donor-amount' => 'Betrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Währig:',
 	'payflowpro_gateway-donor-email' => 'E-Mailadräss:',
 	'payflowpro_gateway-donor-fname' => 'Vorname:',
 	'payflowpro_gateway-donor-mname' => 'Zweiter Vorname:',
@@ -1413,6 +1431,14 @@ Bitte versuech s speter nonemol.',
 	'php-response-declined' => 'Dyy Transaktion isch abbroche wore.',
 	'payflowpro_gateway-post-transaction' => 'Transaktions-Detail',
 	'payflowpro_gateway-submit-button' => 'Spände',
+	'payflowpro_gateway-cvv-explain' => '<h4>Was isch CVV?</h4>
+<p>Dr Cardholder Verification Value (CVV) isch e drej- oder vierstellige Sicherheitscode, wu mer dermit cha bstetige, ass d Charte wirkli im Bsitz vum Spänder isch isch go Missbruch verhindere.</p>
+<h4>Visa, Mastercard</h4>
+<p>Dr 3-stellig Code isch uf dr Rucksyte vu Dyyre Charte aagee innerhalb vu dr Unterschriftechäschtli.
+Normalerwyys het s im Unterschriftechäschtli e paar Zahle, aber nume di letschte drej Ziffere ghere zum CVV-Code.</p>
+<h4>Amex</h4>
+<p>Dr Code stoht ALLIWYYL IBER dr in d Oberflechi vu dr Charte yyprägte Kontonummere .
+In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber dr Kontonummere. </p><br />',
 	'donate_interface-GBP' => 'GBP: Britischi Pfund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikanischi Dollar',
@@ -1501,6 +1527,14 @@ Prošu spytajće pozdźišo hišće raz.',
 	'php-response-declined' => 'Twoja transakcija bu wotpokazana.',
 	'payflowpro_gateway-post-transaction' => 'Podrobnosće transakcije',
 	'payflowpro_gateway-submit-button' => 'Darić',
+	'payflowpro_gateway-cvv-explain' => '<h4>Što je CVV?</h4>
+<p>Cardholder Verification Value (CVV) - tute třiměstnowe abo štyriměstnowe ličby pomhaja zawěsćić, zo karta je woprawdźe we wobsedźenstwje mějićela karty, hdyž so on-line dari. To pomha njeawtorizowane abo wobšudne wužiwanje wotwobarać.</p>
+<h4>Visa, Mastercard</h4>
+<p>Třiměstnowy kod je na zadnim boku wašeje karty, w podpisowym wobłuku.
+Typisce podpismowy wobłuk změje rjady ličbow, ale jenož poslednje tři městna tworja CVV-kod.</p>
+<h4>Amex</h4>
+<p>Kod je PŘECO WYŠE zaćišćaneho (wysokostajeneho) kontoweho čisła na prědnim boku karty.
+Druhdy kod je na lěwym boku karty, ale je přeco wyše kontoweho čisła.</p><br />',
 	'donate_interface-GBP' => 'GBP: Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: US-dolar',
@@ -1679,6 +1713,14 @@ Per favor reproba plus tarde.',
 	'php-response-declined' => 'Le transaction ha essite refusate.',
 	'payflowpro_gateway-post-transaction' => 'Detalios del transaction',
 	'payflowpro_gateway-submit-button' => 'Donar',
+	'payflowpro_gateway-cvv-explain' => '<h4>Que es CVV?</h4>
+<p>Cardholder Verification Value (CVV). Iste numeros de tres o quatro digitos adjuta a assecurar que le carta physic es in le possession del titular durante le donation in linea, lo que adjuta a impedir le uso non autorisate o fraudulente.</p>
+<h4>Visa, Mastercard</h4>
+<p>Le codice a 3 digitos se trova al reverso de tu carta, intra le area de signatura.
+Typicamente le pannello de signatura habera un serie de numeros, ma solmente le ultime tres digitos constitue le codice CVV.</p>
+<h4>Amex</h4>
+<p>Le codice es SEMPRE situate SUPRA le numero de conto in relievo super le facie del carta.
+In alcun exemplares, le codice se trova al sinistra del carta, ma es sempre supra le numero de conto.</p><br />',
 	'donate_interface-GBP' => 'GBP: libra sterling',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: dollar statounitese',
@@ -1767,6 +1809,14 @@ Silakan coba lagi nanti.',
 	'php-response-declined' => 'Transaksi Anda telah ditolak.',
 	'payflowpro_gateway-post-transaction' => 'Detail transaksi',
 	'payflowpro_gateway-submit-button' => 'Donasikan',
+	'payflowpro_gateway-cvv-explain' => '<h4>Apakah CVV itu?</h4>
+<p>Cardholder Verification Value (CVV) adalah tiga atau empat digit nomor yang membantu memastikan bahwa kartu fisik dimiliki pemegang kartu sewaktu menyumbang secara daring dan juga membantu untuk mencegah penggunaan tanpa izin atau penipuan.</p>
+<h4>Visa, Mastercard</h4>
+<p>Kode 3 digit ini terletak di bagian belakang kartu Anda, dalam area tanda tangan.
+Umumnya panel tanda tangan akan memiliki serangkaian angka, tetapi hanya tiga digit terakhir yang merupakan kode CVV.</p>
+<h4>Amex</h4>
+<p>Kode ini SELALU terletak DI ATAS nomor rekening yang timbul (terangkat) di muka kartu.
+Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di atas nomor rekening.</p><br />',
 	'donate_interface-GBP' => 'GBP: Pound Britania',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolar A.S.',
@@ -1784,6 +1834,17 @@ Silakan coba lagi nanti.',
 	'donate_interface-SGD' => 'SGD: Dolar Singapura',
 	'donate_interface-SEK' => 'SEK: Krona Swedia',
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
+);
+
+/** Ido (Ido)
+ * @author Malafaya
+ */
+$messages['io'] = array(
+	'payflowpro_gateway-cvv-link' => 'Exemplo',
+	'payflowpro_gateway-donor-name' => 'Nomo:',
+	'payflowpro_gateway-donor-city' => 'Urbo:',
+	'payflowpro_gateway-submit-button' => 'Donacez',
+	'donate_interface-EUR' => 'EUR: Euro',
 );
 
 /** Japanese (日本語)
@@ -1855,6 +1916,12 @@ $messages['ja'] = array(
 	'php-response-declined' => 'あなたの取引は拒否されました。',
 	'payflowpro_gateway-post-transaction' => '取引詳細',
 	'payflowpro_gateway-submit-button' => '寄付',
+	'payflowpro_gateway-cvv-explain' => '<h4>カード照合値とは何ですか?</h4>
+<p>カード保有者照合値 (CVV) あるいはセキュリティーコードは、3桁もしくは4桁の数値で、オンラインでの寄付時にカードがその本来の所有者に物理的に所持されていることを保証し、無許可あるいは詐欺的な使用を防ぐ助けとなります。</p>
+<h4>VISA、マスターカード</h4>
+<p>この3桁の数値はカード裏面の署名欄内に記載されています。おそらく署名欄には何桁にもなる数値が載っていますが、最後の3桁のみがカード照合値になります。</p>
+<h4>アメリカン・エキスプレス</h4>
+<p>この数値は常にカード表面の、浮き彫りになった会員番号の上部に記載されています。場合によっては、カード左側に記載されていることもありますが、常に会員番号の上部にあります。</p><br />',
 	'donate_interface-GBP' => 'GBP: イギリス・ポンド',
 	'donate_interface-EUR' => 'EUR: ユーロ',
 	'donate_interface-USD' => 'USD: アメリカ合衆国ドル',
@@ -2130,6 +2197,10 @@ $messages['ml'] = array(
 	'payflowpro_gateway-donor-security' => 'സുരക്ഷാ കോഡ്:',
 	'payflowpro_gateway-donor-submit' => 'സംഭാവന ചെയ്യുക',
 	'payflowpro_gateway-donor-currency-msg' => 'ഈ സംഭാവന $1 ആയി നൽകിയിരിക്കുന്നു',
+	'payflow_gateway-card-name-amex' => 'അമേരിക്കൻ എക്സ്‌‌പ്രസ്',
+	'payflow_gateway-card-name-visa' => 'വീസ',
+	'payflow_gateway-card-name-mc' => 'മാസ്റ്റർകാർഡ്',
+	'payflow_gateway-card-name-discover' => 'ഡിസ്കവർ',
 	'payflowpro_gateway-error-msg' => 'ദയവായി താങ്കളുടെ $1 നൽകുക',
 	'payflowpro_gateway-error-msg-js' => 'ദയവായി താങ്കൾ നൽകുക',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**ദയവായി സാധുവായ ഒരു തുക നൽകുക**',
@@ -2186,6 +2257,7 @@ $messages['ml'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author Als-Holder
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -2254,6 +2326,14 @@ Probeer het later nog een keer.',
 	'php-response-declined' => 'Uw transactie is geweigerd.',
 	'payflowpro_gateway-post-transaction' => 'Transactiedetails',
 	'payflowpro_gateway-submit-button' => 'Doneren',
+	'payflowpro_gateway-cvv-explain' => '<h4>Wat is CVV?</h4>
+<p>CVV staat voor Cardholder Verification Value (Kaarhouder verificatiewaarde). Dit getal van drie of vier cijfers zorgt ervoor dat te controleren is of de kaart echt in handen is van degene die online een donatie doet en helpt ongeoorloofd of frauduleus gebruik te voorkomen.</p>
+<h4>Visa, Mastercard</h4>
+<p>De driecijferige code staat op de achterkant van uw kaart, in hetzelfde gebied als uw handtekening.
+Meestal staan er meer cijfers in dat gebied, maar alleen de drie laatste cijfers zijn de CVV-code.</p>
+<h4>Amex</h4>
+<p>De code staat altijd direct boven het kaartnummer aan de voorkant van de kaart.
+In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staat altijd boven het kaartnummer.</p><br />',
 	'donate_interface-GBP' => 'GBP: Britse pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
@@ -2593,11 +2673,13 @@ $messages['pt'] = array(
 	'payflowpro_gateway-accessible' => 'Esta página só é acessível a partir da página de donativos.',
 	'payflowpro_gateway-form-message' => 'Contribua por cartão de crédito.
 Existem <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras formas de contribuir, incluindo por PayPal, cheque ou correio</a>.',
-	'payflowpro_gateway-form-message-2' => 'Para alterar o montante ou a moeda, volte à <a href="/index.php?title=Donate">página de donativos</a>',
+	'payflowpro_gateway-form-message-2' => 'Para alterar o montante ou a divisa, volte à <a href="/index.php?title=Donate">página de donativos</a>',
 	'payflowpro_gateway-donor-legend' => 'Informação do benfeitor',
 	'payflowpro_gateway-card-legend' => 'Informação do cartão de crédito',
 	'payflowpro_gateway-amount-legend' => 'Montante do donativo:',
+	'payflowpro_gateway-cvv-link' => 'Exemplo',
 	'payflowpro_gateway-donor-amount' => 'Montante:',
+	'payflowpro_gateway-donor-currency-label' => 'Divisa:',
 	'payflowpro_gateway-donor-email' => 'Endereço de correio electrónico:',
 	'payflowpro_gateway-donor-fname' => 'Primeiro nome:',
 	'payflowpro_gateway-donor-mname' => 'Outros nomes:',
@@ -2614,7 +2696,7 @@ Existem <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outra
 	'payflowpro_gateway-donor-expiration' => 'Data de expiração:',
 	'payflowpro_gateway-donor-security' => 'Código de segurança (CVV, 3 dígitos no verso):',
 	'payflowpro_gateway-donor-submit' => 'Fazer donativo',
-	'payflowpro_gateway-donor-currency-msg' => 'Este donativo está a ser feito na moeda $1',
+	'payflowpro_gateway-donor-currency-msg' => 'Este donativo está a ser feito na divisa $1',
 	'payflowpro_gateway-error-msg' => 'Por favor, introduza o $1',
 	'payflowpro_gateway-error-msg-js' => 'Por favor introduza',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Por favor, introduza um montante válido**',
@@ -2651,6 +2733,14 @@ Po favor, tente novamente mais tarde.',
 	'php-response-declined' => 'A transacção foi recusada.',
 	'payflowpro_gateway-post-transaction' => 'Detalhes da transacção',
 	'payflowpro_gateway-submit-button' => 'Fazer donativo',
+	'payflowpro_gateway-cvv-explain' => "<h4>O que é o CVV?</h4>
+<p>O CVV ''(Cardholder Verification Value'' ou Código de Verificação do Cartão), é formado por três ou quatro algarismos e pretende assegurar que o cartão físico está na posse do seu detentor ao fazer donativos ''online'', o que ajuda na prevenção do seu uso não autorizado ou fraudulento.</p>
+<h4>Visa, Mastercard</h4>
+<p>O código de 3 algarismos está no verso do cartão, na zona da assinatura.
+Normalmente, a zona da assinatura contém vários números mas só os últimos 3 algarismos formam o código CVV.</p>
+<h4>Amex</h4>
+<p>O código está SEMPRE localizado ACIMA do número de conta (saliente) na face do cartão.
+Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
 	'donate_interface-GBP' => 'GBP: Libra Esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar dos E.U.A.',
@@ -2683,7 +2773,9 @@ $messages['ru'] = array(
 	'payflowpro_gateway-donor-legend' => 'Сведения о жертвователе',
 	'payflowpro_gateway-card-legend' => 'Информация о кредитной карте',
 	'payflowpro_gateway-amount-legend' => 'Сумма пожертвования:',
+	'payflowpro_gateway-cvv-link' => 'Пример',
 	'payflowpro_gateway-donor-amount' => 'Сумма:',
+	'payflowpro_gateway-donor-currency-label' => 'Валюта:',
 	'payflowpro_gateway-donor-email' => 'Адрес электронной почты:',
 	'payflowpro_gateway-donor-fname' => 'Имя:',
 	'payflowpro_gateway-donor-mname' => 'Среднее имя или отчество:',
@@ -2737,6 +2829,12 @@ $messages['ru'] = array(
 	'php-response-declined' => 'Ваша транзакция была отклонена.',
 	'payflowpro_gateway-post-transaction' => 'Сведения о транзакции',
 	'payflowpro_gateway-submit-button' => 'Пожертвовать',
+	'payflowpro_gateway-cvv-explain' => '<h4>Что такое CVV?</h4>
+<p>Код безопасности (CVV, Cardholder Verification Value) состоит из трёх или четырёх цифр и служит для подтверждения того, что карточка физически находится в распоряжении лица, осуществляющего платёж. Помогает предотвратить несанкционированное использование и мошенничество.</p>
+<h4>Visa, Mastercard</h4>
+<p>Трёхзначный код находится на обратной стороне карты, внутри области для подписи. Обычно, в области подписи располагается целый ряд цифр, но только последние три цифры составляют код CVV.</p>
+<h4>Amex</h4>
+<p>Код ВСЕГДА расположен НАД тиснёным (выпуклым) номером счёта, на лицевой стороне карты. В некоторых случаях этот код расположен на левой стороне карты, но всегда выше номера счёта.</p><br />',
 	'donate_interface-GBP' => 'GBP: британский фунт стерлингов',
 	'donate_interface-EUR' => 'EUR: евро',
 	'donate_interface-USD' => 'USD: доллар США',
@@ -3142,6 +3240,12 @@ Xin hãy thử lại vào lần sau.',
 	'php-response-declined' => 'Giao dịch của bạn đã bị từ chối.',
 	'payflowpro_gateway-post-transaction' => 'Chi tiết giao dịch',
 	'payflowpro_gateway-submit-button' => 'Đóng góp',
+	'payflowpro_gateway-cvv-explain' => '<h4>What is CVV?</h4>
+<p>Giá trị Kiểm tra Người cầm thẻ (<i>Cardholder Verification Value</i>, CVV) là số 3–4 chữ số giúp xác nhận rằng người dùng có thẻ thật trong tây vào lúc quyên góp trực tuyến để tránh vụ sử dụng trái phép hoặc giả mạo thẻ.</p>
+<h4>Visa, MasterCard</h4>
+<p>Mã số 3 chữ số nằm trên mặt trái của thẻ, trong hộp chữ ký. Hộp chữ ký thường có một loạt số, nhưng chỉ mã số CVV chỉ bao gồm 3 chữ số cuối cùng.</p>
+<h4>American Express</h4>
+<p>Mã số <strong>lúc nào</strong> cũng nằm <strong>ở trên</strong> số tài khoản in nổi trên mặt phải. Đôi khi mã số nằm vào bên trái của mặt phải nhưng vẫn còn nằm ở trên số tài khoản.</p><br />',
 	'donate_interface-GBP' => 'GBP: Bảng Anh',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Đô la Mỹ',
