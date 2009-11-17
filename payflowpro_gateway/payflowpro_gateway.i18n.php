@@ -790,6 +790,12 @@ Ma rica kenê reyna dest bi bike.',
 	'php-response-declined' => 'Transactionê tu kebul nibiyo.',
 	'payflowpro_gateway-post-transaction' => 'Detayê Transaksiyoni',
 	'payflowpro_gateway-submit-button' => 'Bexş',
+	'payflowpro_gateway-cvv-explain' => '<h4> CVV çîyo?</h4>
+<p>Cardholder Verification Value (CVV) hîrê ya zi çehar amaran yeno pero û ma ra yardim kenê ke ma hin zanê ena kard ke şima pe bexş ken kardê şima yo; bê enê amaran ma sehte kardan ra sistemê xo pawenê.</p>
+<h4>Visa, Mastercard</h4>
+<p>Hîrê amar kodî ho paştê kard ê tu de ca geno, zerrê ca yê imzayî de. Normal de cayê imzayî seriyanê amaran est ê, feqat teyna hirê amaran ke tewr penî de înan CVV yo.</p>
+<h4>Amex</h4>
+<p>Ena kod rîyê kard de ser amarê hesab tu de ca geno. Feqat tay kardan de hê hêt cewt de ca geno, labela enê kardan zaf niyo.</p><br />',
 	'donate_interface-GBP' => 'GBP: Poundê Ingilizi',
 	'donate_interface-EUR' => 'EUR: Ewro',
 	'donate_interface-USD' => 'USD: Dolarê Emerikayi',
@@ -1247,6 +1253,14 @@ Veuillez réessayer plus tard.',
 	'php-response-declined' => 'Votre transaction a été déclinée.',
 	'payflowpro_gateway-post-transaction' => 'Détails de la transaction',
 	'payflowpro_gateway-submit-button' => 'Faire un don',
+	'payflowpro_gateway-cvv-explain' => "<h4>Qu'est-ce que CVV ?</h4>
+<p>La valeur de vérification de carte (CVV) est constituée de trois ou quatre chiffres qui permettent d'assurer que le détenteur de la carte physique a celle-ci en sa possession lorsqu'il effectue un paiement en ligne, ce qui améliore la prévention contre les usages frauduleux ou non autorisés.</p>
+<h4>Visa, Mastercard</h4>
+<p>Le code à trois chiffres est situé au verso de votre carte, dans la zone réservée à la signature.
+Typiquement, la barre pour la signature contient une série de nombres, mais seuls les trois derniers chiffres constituent le code CVV.</p>
+<h4>Amex</h4>
+<p>Le code est TOUJOURS suité AU-DESSUS du numéro de compte surélevé au recto de la carte.
+Dans certains cas, le code est situé sur le côté gauche de la carte, mais il est toujours au-dessus du numéro de compte.</p><br />",
 	'donate_interface-GBP' => 'GBP : livre sterling',
 	'donate_interface-EUR' => 'EUR : euro',
 	'donate_interface-USD' => 'USD : dollar américain',
@@ -2146,6 +2160,14 @@ $messages['mk'] = array(
 	'php-response-declined' => 'Плаќањето беше одбиено.',
 	'payflowpro_gateway-post-transaction' => 'Податоци за плаќањето',
 	'payflowpro_gateway-submit-button' => 'Донирајте',
+	'payflowpro_gateway-cvv-explain' => '<h4>Што е CVV?</h4>
+<p>Кодот за потврдување на имателот (Cardholder Verification Value, CCV) се состои од трицифрен или четирицифрен број кој служи како осигурување дека картичката е во физичка сопственост на имателот додека се врши донацијата. Ова спречува неовластени манипулации.</p>
+<h4>Visa, Mastercard</h4>
+<p>3-цифрениот код се наоѓа на опачината на картичката, во рамките на полето со потпис.
+Полето со потпис има ниоза бројки, но само последните 3 цифри го сочинуваат CVV кодот.</p>
+<h4>Amex</h4>
+<p>Кодот СЕКОГАШ се наоѓа НАД испапчениот број на сметката на лицето на картичката.
+Во некои случаи, кодот е сместен на левата страна од картичката, но секогаш е над бројот на картичката.</p><br />',
 	'donate_interface-GBP' => 'GBP: Британска фунта',
 	'donate_interface-EUR' => 'EUR: Евро',
 	'donate_interface-USD' => 'USD: Американски долар',
@@ -2462,7 +2484,9 @@ I a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/oc">d\'autres
 	'payflowpro_gateway-donor-legend' => 'Informacions sul donator',
 	'payflowpro_gateway-card-legend' => 'Informacions sus la carta de credit',
 	'payflowpro_gateway-amount-legend' => 'Montant del don :',
+	'payflowpro_gateway-cvv-link' => 'Exemple',
 	'payflowpro_gateway-donor-amount' => 'Montant :',
+	'payflowpro_gateway-donor-currency-label' => 'Devisa :',
 	'payflowpro_gateway-donor-email' => 'Adreça electronica :',
 	'payflowpro_gateway-donor-fname' => 'Pichon nom :',
 	'payflowpro_gateway-donor-mname' => 'Segond pichon nom :',
@@ -2487,6 +2511,7 @@ I a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/oc">d\'autres
 	'payflowpro_gateway-error-msg-amex' => '**Picatz un numèro de carta American Express corrècte.**',
 	'payflowpro_gateway-error-msg-mc' => '**Picatz un numèro de carta Mastercard corrècte.**',
 	'payflowpro_gateway-error-msg-visa' => '**Picatz un numèro de carta Visa corrècte.**',
+	'payflowpro_gateway-error-msg-discover' => '**Picatz un numèro de carta Discover corrècte.**',
 	'payflowpro_gateway-error-msg-amount' => 'Montant del don',
 	'payflowpro_gateway-error-msg-emailAdd' => 'Adreça de corrièl',
 	'payflowpro_gateway-error-msg-fname' => 'Pichon nom',
@@ -2515,6 +2540,14 @@ Tornatz ensajar mai tard.",
 	'php-response-declined' => 'Vòstra transaccion es estada refusada.',
 	'payflowpro_gateway-post-transaction' => 'Detalhs de la transaccion',
 	'payflowpro_gateway-submit-button' => 'Far un don',
+	'payflowpro_gateway-cvv-explain' => "<h4>Qu'es aquò CVV ?</h4>
+<p>La valor de verificacion de carta (CVV) es constituida de tres o quatre chifras que permeton d'assegurar que lo detentor de la carta fisica a aquesta en sa possession quand efectua un pagament en linha, çò que melhora la prevencion contra los usatges frauduloses o pas autorizats.</p>
+<h4>Visa, Mastercard</h4>
+<p>Lo còde de tres chifras es situat al verso de vòstra carta, dins la zòna reservada a la signatura.
+Tipicament, la barra per la signatura conten una seria de nombres, mas solas las tres darrièras chifras constituisson lo còde CVV.</p>
+<h4>Amex</h4>
+<p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
+Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
 	'donate_interface-GBP' => 'GBP : liura sterling',
 	'donate_interface-EUR' => 'EUR : èuro',
 	'donate_interface-USD' => 'USD : dolar american',
