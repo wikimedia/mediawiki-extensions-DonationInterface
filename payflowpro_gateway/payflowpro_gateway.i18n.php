@@ -59,7 +59,7 @@ There are <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">oth
 	'payflowpro_gateway-error-msg-street' => 'street address',
 	'payflowpro_gateway-error-msg-city' => 'city',
 	'payflowpro_gateway-error-msg-state' => 'state',
-	'payflowpro_gateway-error-msg-zip' => 'zip code',
+	'payflowpro_gateway-error-msg-zip' => 'postal code',
 	'payflowpro_gateway-error-msg-card_num' => 'credit card number',
 	'payflowpro_gateway-error-msg-expiration' => "card's expiration date",
 	'payflowpro_gateway-error-msg-cvv' => 'CVV from the back of your card',
@@ -85,7 +85,7 @@ Please try again later.',
 <h4>Visa, Mastercard</h4>
 <p>The 3-digit code is located on the back of your card, inside the signature area.
 Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>The code is ALWAYS located ABOVE the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
 	'donate_interface-GBP' => 'GBP: British Pound',
