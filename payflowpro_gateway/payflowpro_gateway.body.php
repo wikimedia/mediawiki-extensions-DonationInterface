@@ -780,9 +780,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		//enable if we need this to get the Civi data to display correctly
 		$transaction['optout'] = ($transaction['optout'] == "1") ? '0' : '1';
 		$transaction['anonymous'] = ($transaction['anonymous'] == "1") ? '0' : '1';
-
+		var_dump($transaction);
 		// hook to call stomp functions
-		wfRunHooks( 'gwStomp', array( &$transaction ) );
+		//wfRunHooks( 'gwStomp', array( &$transaction ) );
 	}
 
 	/**
@@ -815,7 +815,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
 	}
 	
-	function fnPayflowSaveContributionTracking( $data ) {
+	function fnPayflowSaveContributionTracking( &$data ) {
 			$db = payflowGatewayConnection();
 			
 			if (!$db) { return true ; }
@@ -843,7 +843,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// Store the contribution data
 		if ($db->insert( 'contribution_tracking', $tracked_contribution ) ) {
-		 return true;
+			$data['contribution_tracking_id'] = $db->insertId();
+		 	return true;
 		} else { return false; }
 		
 	}
