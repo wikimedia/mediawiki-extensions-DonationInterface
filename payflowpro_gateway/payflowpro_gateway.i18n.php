@@ -117,6 +117,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 $messages['qqq'] = array(
 	'payflowprogateway' => '{{Identical|Support Wikimedia}}',
 	'payflowpro_gateway-desc' => '{{desc}}',
+	'payflowpro_gateway-cvv-link' => '{{Identical|Example}}',
 	'payflowpro_gateway-donor-amount' => '{{Identical|Amount}}',
 	'payflowpro_gateway-donor-currency-label' => '{{Identical|Currency}}',
 	'payflowpro_gateway-donor-email' => '{{Identical|E-mail address}}',
@@ -127,9 +128,9 @@ $messages['qqq'] = array(
 	'payflowpro_gateway-donor-address' => '{{Identical|Address}}',
 	'payflowpro_gateway-donor-submit' => '{{Identical|Donate}}',
 	'payflowpro_gateway-donor-currency-msg' => '* $1 is 3 letter currency code',
-	'payflowpro_gateway-error-msg' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required: $1".}}
+	'payflowpro_gateway-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
 
-$1 is any one of a number of messages which are the names of fields, as follows:
+\$1 is any one of a number of messages which are the names of fields, as follows:
 *{{msg-mw|Payflowpro gateway-error-msg-amount}}
 *{{msg-mw|Payflowpro gateway-error-msg-emailAdd}}
 *{{msg-mw|Payflowpro gateway-error-msg-fname}}
@@ -142,9 +143,9 @@ $1 is any one of a number of messages which are the names of fields, as follows:
 *{{msg-mw|Payflowpro gateway-error-msg-expiration}}
 *{{msg-mw|Payflowpro gateway-error-msg-cvv}}
 
-An alternative to \'field\' in the translation could be \'information\'.
+An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.
 
-This is an error message which appears if one or more of the above fields is left empty.',
+This is an error message which appears if one or more of the above fields is left empty.",
 	'payflowpro_gateway-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
@@ -359,6 +360,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-donor-legend' => 'Зьвесткі пра ахвяравальніка',
 	'payflowpro_gateway-card-legend' => 'Інфармацыя пра крэдытную картку',
 	'payflowpro_gateway-amount-legend' => 'Сума ахвяраваньня:',
+	'payflowpro_gateway-cvv-link' => 'Прыклад',
 	'payflowpro_gateway-donor-amount' => 'Сума:',
 	'payflowpro_gateway-donor-currency-label' => 'Валюта:',
 	'payflowpro_gateway-donor-email' => 'Адрас электроннай пошты:',
@@ -379,10 +381,24 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-donor-submit' => 'Ахвяраваць',
 	'payflowpro_gateway-donor-currency-msg' => 'Гэтае ахвяраваньне робіцца ў $1',
 	'payflowpro_gateway-error-msg' => 'Калі ласка, увядзіце $1',
+	'payflowpro_gateway-error-msg-js' => 'Калі ласка, увядзіце',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Калі ласка, увядзіце слушную суму**',
 	'payflowpro_gateway-error-msg-email' => '**Калі ласка, увядзіце слушны адрас электроннай пошты**',
 	'payflowpro_gateway-error-msg-amex' => '**Калі ласка, увядзіце слушны нумар карткі American Express.**',
 	'payflowpro_gateway-error-msg-mc' => '**Калі ласка, увядзіце слушны код карткі MasterCard.**',
 	'payflowpro_gateway-error-msg-visa' => '**Калі ласка, увядзіце слушны код карткі Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Калі ласка, увядзіце слушны нумар карткі Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'сума ахвяраваньня',
+	'payflowpro_gateway-error-msg-emailAdd' => 'адрас электроннай пошты',
+	'payflowpro_gateway-error-msg-fname' => 'імя',
+	'payflowpro_gateway-error-msg-lname' => 'прозьвішча',
+	'payflowpro_gateway-error-msg-street' => 'вуліца',
+	'payflowpro_gateway-error-msg-city' => 'горад',
+	'payflowpro_gateway-error-msg-state' => 'штат',
+	'payflowpro_gateway-error-msg-zip' => 'паштовы індэкс',
+	'payflowpro_gateway-error-msg-card_num' => 'нумар крэдытнай карткі',
+	'payflowpro_gateway-error-msg-expiration' => 'дата сканчэньня дзеяньня карткі',
+	'payflowpro_gateway-error-msg-cvv' => 'код бясьпекі з адваротнага боку Вашай карткі',
 	'payflowpro_gateway-response-0' => 'Ваша транзакцыя была зацьверджаная.
 Дзякуй за Вашае ахвяраваньне!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакцыя чакае пацьверджаньня.',
@@ -400,6 +416,20 @@ $messages['be-tarask'] = array(
 	'php-response-declined' => 'Ваша транзакцыя была адменена.',
 	'payflowpro_gateway-post-transaction' => 'Падрабязнасьці пра транзакцыю',
 	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
+	'payflowpro_gateway-cvv-explain' => '<h4>Што такое код бясьпекі?</h4>
+<p>Код бясьпекі складаецца з трох ці чатырох лічбаў, якія дапамагаюць упэўніцца, што картка фізычна знаходзіцца ў асобы, якая ажыцьцяўляе плацёж, і прадухіляе неаўтарызаванае і махлярскае выкарыстаньне карткі.</p>
+<h4>Visa, Mastercard</h4>
+<p>Трохлічбавы код, які знаходзіцца на адваротным баку Вашай карткі ў полі подпісу.
+Звычайна ў полі подпісу знаходзіцца радок лічбаў, але толькі апошнія тры зьяўляюцца кодам бясьпекі.</p>
+<h4>American Express</h4>
+<p>Код ЗАЎСЁДЫ знаходзіцца НАД цісьнёным (выпуклым) нумарам рахунку на тварным баку карткі.
+У некаторых выпадках, код знаходзіцца ў левым баку карткі, але заўсёды над нумарам рахунку.</p><br />',
+	'donate_interface-GBP' => 'GBP: брытанскі фунт',
+	'donate_interface-EUR' => 'EUR: эўра',
+	'donate_interface-USD' => 'USD: даляр ЗША',
+	'donate_interface-AUD' => 'AUD: аўстралійскі даляр',
+	'donate_interface-CAD' => 'CAD: канадзкі даляр',
+	'donate_interface-CHF' => 'CHF: швайцарскі франк',
 );
 
 /** Breton (Brezhoneg)
@@ -499,16 +529,27 @@ $messages['bs'] = array(
 	'payflowpro_gateway-donor-legend' => 'Donatorske informacije',
 	'payflowpro_gateway-card-legend' => 'Informacije o kreditnoj kartici',
 	'payflowpro_gateway-amount-legend' => 'Iznos donacije:',
+	'payflowpro_gateway-cvv-link' => 'Primjer',
 	'payflowpro_gateway-donor-amount' => 'Iznos:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'E-mail adresa:',
 	'payflowpro_gateway-donor-fname' => 'Ime:',
 	'payflowpro_gateway-donor-mname' => 'Srednje ime:',
 	'payflowpro_gateway-donor-lname' => 'Prezime:',
+	'payflowpro_gateway-donor-name' => 'Ime:',
 	'payflowpro_gateway-donor-street' => 'Ulica:',
 	'payflowpro_gateway-donor-city' => 'Grad:',
 	'payflowpro_gateway-donor-state' => 'Pokrajina:',
 	'payflowpro_gateway-donor-postal' => 'Poštanski broj:',
 	'payflowpro_gateway-donor-country' => 'Država/Regija:',
 	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kreditna kartica:',
+	'payflowpro_gateway-donor-card-num' => 'Broj kartice:',
+	'payflowpro_gateway-donor-expiration' => 'Datum isteka:',
+	'payflowpro_gateway-donor-security' => 'Sigurnosni kod:',
+	'payflowpro_gateway-donor-submit' => 'Doniranje',
+	'payflowpro_gateway-error-msg' => 'Molimo unesite Vaše $1',
+	'payflowpro_gateway-error-msg-js' => 'Molimo unesite Vaše',
 );
 
 /** Czech (Česky)
@@ -610,6 +651,7 @@ href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ffyrdd eraill o 
 	'payflowpro_gateway-donor-legend' => 'Gwybodaeth am y rhoddwr',
 	'payflowpro_gateway-card-legend' => 'Gwybodaeth am y cerdyn credyd',
 	'payflowpro_gateway-amount-legend' => 'Swm y rhodd:',
+	'payflowpro_gateway-cvv-link' => 'Enghraifft',
 	'payflowpro_gateway-donor-amount' => 'Swm:',
 	'payflowpro_gateway-donor-email' => 'Cyfeiriad e-bost:',
 	'payflowpro_gateway-donor-fname' => 'Enw cyntaf:',
@@ -628,6 +670,27 @@ href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ffyrdd eraill o 
 	'payflowpro_gateway-donor-security' => 'Cod diogelwch:',
 	'payflowpro_gateway-donor-submit' => 'Rhoi',
 	'payflowpro_gateway-donor-currency-msg' => 'Telir y rhodd hon mewn $1',
+	'payflowpro_gateway-error-msg' => "Rhaid rhoi'r wybodaeth ganlynol: $1",
+	'payflowpro_gateway-error-msg-js' => "Rhaid rhoi'r wybodaeth ganlynol:",
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Gofalwch osod swm dilys**',
+	'payflowpro_gateway-error-msg-email' => '**Gofalwch osod cyfeiriad e-bost dilys**',
+	'payflowpro_gateway-error-msg-amex' => '**Gofalwch osod rhif cywir ar gyfer cerdyn American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Gofalwch osod rhif cywir ar gyfer cerdyn MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Gofalwch osod rhif cywir ar gyfer cerdyn Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Gofalwch osod rhif cywir ar gyfer cerdyn Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'swm y rhodd',
+	'payflowpro_gateway-error-msg-emailAdd' => 'cyfeiriad e-bost',
+	'payflowpro_gateway-error-msg-fname' => 'enw cyntaf',
+	'payflowpro_gateway-error-msg-lname' => 'enw olaf',
+	'payflowpro_gateway-error-msg-street' => 'stryd',
+	'payflowpro_gateway-error-msg-city' => 'tref',
+	'payflowpro_gateway-error-msg-state' => 'sir/rhanbarth',
+	'payflowpro_gateway-error-msg-zip' => 'cod post',
+	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
+	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
+	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
+	'payflowpro_gateway-response-114' => "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
+	'payflowpro_gateway-response-4' => 'Swm annilys.',
 	'payflowpro_gateway-post-transaction' => 'Manylion y taliad',
 	'payflowpro_gateway-submit-button' => 'Rhoi',
 	'donate_interface-GBP' => 'GBP: Punt Prydain',
@@ -650,6 +713,7 @@ href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">ffyrdd eraill o 
 );
 
 /** German (Deutsch)
+ * @author Lyzzy
  * @author Tbleher
  * @author Umherirrender
  */
@@ -663,7 +727,9 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-donor-legend' => 'Spender-Information',
 	'payflowpro_gateway-card-legend' => 'Kreditkarten-Information',
 	'payflowpro_gateway-amount-legend' => 'Spendenbetrag:',
+	'payflowpro_gateway-cvv-link' => 'Beispiel',
 	'payflowpro_gateway-donor-amount' => 'Betrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Währung:',
 	'payflowpro_gateway-donor-email' => 'E-Mail-Adresse:',
 	'payflowpro_gateway-donor-fname' => 'Vorname:',
 	'payflowpro_gateway-donor-mname' => '2. Vorname:',
@@ -682,10 +748,22 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-donor-submit' => 'Spenden',
 	'payflowpro_gateway-donor-currency-msg' => 'Die Spende wird in $1 vorgenommen',
 	'payflowpro_gateway-error-msg' => 'Das folgende Feld muss ausgefüllt sein: $1',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Bitte einen gültigen Betrag eingeben*',
 	'payflowpro_gateway-error-msg-email' => '** Bitte geben Sie eine gültige E-Mail-Adresse ein **',
 	'payflowpro_gateway-error-msg-amex' => '** Bitte geben Sie eine korrekte American-Express-Kartennummer ein **',
 	'payflowpro_gateway-error-msg-mc' => '** Bitte geben Sie eine korrekte Mastercard-Kartennummer ein **',
 	'payflowpro_gateway-error-msg-visa' => '** Bitte geben Sie eine korrekte Visa-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-amount' => 'Spendenbetrag',
+	'payflowpro_gateway-error-msg-emailAdd' => 'E-Mail-Adresse',
+	'payflowpro_gateway-error-msg-fname' => 'Vorname',
+	'payflowpro_gateway-error-msg-lname' => 'Nachname',
+	'payflowpro_gateway-error-msg-street' => 'Straße',
+	'payflowpro_gateway-error-msg-city' => 'Ort',
+	'payflowpro_gateway-error-msg-state' => 'Staat',
+	'payflowpro_gateway-error-msg-zip' => 'Postleitzahl',
+	'payflowpro_gateway-error-msg-card_num' => 'Kreditkartennummer',
+	'payflowpro_gateway-error-msg-expiration' => 'Gültig bis',
+	'payflowpro_gateway-error-msg-cvv' => 'Prüfnummer',
 	'payflowpro_gateway-response-0' => 'Ihre Transaktion wurde durchgeführt.
 Vielen Dank für Ihre Spende.',
 	'payflowpro_gateway-response-126' => 'Für Ihre Transaktion wird auf eine Freigabe gewartet.',
@@ -794,7 +872,7 @@ Ma rica kenê reyna dest bi bike.',
 <p>Cardholder Verification Value (CVV) hîrê ya zi çehar amaran yeno pero û ma ra yardim kenê ke ma hin zanê ena kard ke şima pe bexş ken kardê şima yo; bê enê amaran ma sehte kardan ra sistemê xo pawenê.</p>
 <h4>Visa, Mastercard</h4>
 <p>Hîrê amar kodî ho paştê kard ê tu de ca geno, zerrê ca yê imzayî de. Normal de cayê imzayî seriyanê amaran est ê, feqat teyna hirê amaran ke tewr penî de înan CVV yo.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Ena kod rîyê kard de ser amarê hesab tu de ca geno. Feqat tay kardan de hê hêt cewt de ca geno, labela enê kardan zaf niyo.</p><br />',
 	'donate_interface-GBP' => 'GBP: Poundê Ingilizi',
 	'donate_interface-EUR' => 'EUR: Ewro',
@@ -889,7 +967,7 @@ Pšosym wopytaj pózdźej hyšći raz.',
 <h4>Visa, Mastercard</h4>
 <p>Tśiměstnowy kod jo na slěznym boku wašeje kórty, w pódpismowem wobcerku.
 Typiski pódpismowy wobcerk změjo rědy numerow, ale jano slědne tśi městna twórje CVV-kod.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Kod jo PŚECEJ WUŠEJ naśišćanego (wusoko stajonego) kontowego numera na prědnem boku kórty.
 Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</p><br />',
 	'donate_interface-GBP' => 'GBP. Britiski punt',
@@ -1258,7 +1336,7 @@ Veuillez réessayer plus tard.',
 <h4>Visa, Mastercard</h4>
 <p>Le code à trois chiffres est situé au verso de votre carte, dans la zone réservée à la signature.
 Typiquement, la barre pour la signature contient une série de nombres, mais seuls les trois derniers chiffres constituent le code CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Le code est TOUJOURS suité AU-DESSUS du numéro de compte surélevé au recto de la carte.
 Dans certains cas, le code est situé sur le côté gauche de la carte, mais il est toujours au-dessus du numéro de compte.</p><br />",
 	'donate_interface-GBP' => 'GBP : livre sterling',
@@ -1354,7 +1432,7 @@ Por favor, inténteo de novo máis tarde.',
 <h4>Visa, MasterCard</h4>
 <p>O código de 3 díxitos aparece na parte traseira da túa tarxeta de crédito, dentro da área da sinatura.
 Normalmente, a zona da sinatura ten unha serie de números, pero só os tres últimos díxitos conforman o código de seguridade.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>O código está SEMPRE situado por riba do número de conta en relevo na cara frontal da tarxeta.
 Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
 	'donate_interface-GBP' => 'GBP: libra esterlina',
@@ -1450,7 +1528,7 @@ Bitte versuech s speter nonemol.',
 <h4>Visa, Mastercard</h4>
 <p>Dr 3-stellig Code isch uf dr Rucksyte vu Dyyre Charte aagee innerhalb vu dr Unterschriftechäschtli.
 Normalerwyys het s im Unterschriftechäschtli e paar Zahle, aber nume di letschte drej Ziffere ghere zum CVV-Code.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Dr Code stoht ALLIWYYL IBER dr in d Oberflechi vu dr Charte yyprägte Kontonummere .
 In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber dr Kontonummere. </p><br />',
 	'donate_interface-GBP' => 'GBP: Britischi Pfund',
@@ -1546,7 +1624,7 @@ Prošu spytajće pozdźišo hišće raz.',
 <h4>Visa, Mastercard</h4>
 <p>Třiměstnowy kod je na zadnim boku wašeje karty, w podpisowym wobłuku.
 Typisce podpismowy wobłuk změje rjady ličbow, ale jenož poslednje tři městna tworja CVV-kod.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Kod je PŘECO WYŠE zaćišćaneho (wysokostajeneho) kontoweho čisła na prědnim boku karty.
 Druhdy kod je na lěwym boku karty, ale je přeco wyše kontoweho čisła.</p><br />',
 	'donate_interface-GBP' => 'GBP: Britiski punt',
@@ -1638,7 +1716,7 @@ Később próbáld meg újra.',
 	'php-response-declined' => 'A tranzakció elutasítva.',
 	'payflowpro_gateway-post-transaction' => 'Tranzakció részletei',
 	'payflowpro_gateway-submit-button' => 'Adomány elküldése',
-	'payflowpro_gateway-cvv-explain' => '<h4>Mi a CVV?</h4><p>A Cardholder Verification Value (CVV) három- vagy négyjegyű számok biztosítják azt, hogy a kártya fizikailag is a kártyatulajdonosnál van online adományozás közben, így megakadályozva az engedély nélküli vagy tisztességtelen használatot.</p><h4>Visa, Mastercard</h4><p>A háromjegyű kód a kártya hátulján található, az aláírásra kijelölt területen belül. Az aláírásra kijelölt terület általában egy számsorozatot tartalmaz, de ennek csak az utolsó három számjegye a CVV-kód.</p><h4>Amex</h4><p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
+	'payflowpro_gateway-cvv-explain' => '<h4>Mi a CVV?</h4><p>A Cardholder Verification Value (CVV) három- vagy négyjegyű számok biztosítják azt, hogy a kártya fizikailag is a kártyatulajdonosnál van online adományozás közben, így megakadályozva az engedély nélküli vagy tisztességtelen használatot.</p><h4>Visa, Mastercard</h4><p>A háromjegyű kód a kártya hátulján található, az aláírásra kijelölt területen belül. Az aláírásra kijelölt terület általában egy számsorozatot tartalmaz, de ennek csak az utolsó három számjegye a CVV-kód.</p><h4>American Express</h4><p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
 	'donate_interface-GBP' => 'GBP: brit font',
 	'donate_interface-EUR' => 'EUR: euró',
 	'donate_interface-USD' => 'USD: amerikai dollár',
@@ -1732,7 +1810,7 @@ Per favor reproba plus tarde.',
 <h4>Visa, Mastercard</h4>
 <p>Le codice a 3 digitos se trova al reverso de tu carta, intra le area de signatura.
 Typicamente le pannello de signatura habera un serie de numeros, ma solmente le ultime tres digitos constitue le codice CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Le codice es SEMPRE situate SUPRA le numero de conto in relievo super le facie del carta.
 In alcun exemplares, le codice se trova al sinistra del carta, ma es sempre supra le numero de conto.</p><br />',
 	'donate_interface-GBP' => 'GBP: libra sterling',
@@ -1828,7 +1906,7 @@ Silakan coba lagi nanti.',
 <h4>Visa, Mastercard</h4>
 <p>Kode 3 digit ini terletak di bagian belakang kartu Anda, dalam area tanda tangan.
 Umumnya panel tanda tangan akan memiliki serangkaian angka, tetapi hanya tiga digit terakhir yang merupakan kode CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Kode ini SELALU terletak DI ATAS nomor rekening yang timbul (terangkat) di muka kartu.
 Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di atas nomor rekening.</p><br />',
 	'donate_interface-GBP' => 'GBP: Pound Britania',
@@ -1998,9 +2076,43 @@ $messages['ko'] = array(
 	'donate_interface-PLN' => 'PLN: 폴란드 즐로티',
 );
 
-/** Ripoarisch (Ripoarisch) */
+/** Ripoarisch (Ripoarisch)
+ * @author Purodha
+ */
 $messages['ksh'] = array(
+	'payflowprogateway' => 'Donn Wikimedia ongerschtöze',
+	'payflowpro_gateway-cvv-link' => 'Beijshpell',
+	'payflowpro_gateway-donor-amount' => 'Bedraach:',
+	'payflowpro_gateway-donor-address' => 'Addräß:',
+	'payflowpro_gateway-donor-submit' => 'Schpände',
 	'payflowpro_gateway-donor-currency-msg' => 'Di Spende es en $1 jemaat woode.',
+	'payflowpro_gateway-error-msg-amount' => 'Bedraach',
+	'payflowpro_gateway-error-msg-emailAdd' => 'Addräß för de e-mail',
+	'payflowpro_gateway-error-msg-fname' => 'Vörnahme',
+	'payflowpro_gateway-error-msg-lname' => 'Nohnaame',
+	'payflowpro_gateway-error-msg-street' => 'Schrohß un Nommer',
+	'payflowpro_gateway-error-msg-city' => 'Schtadt',
+	'payflowpro_gateway-error-msg-state' => 'Schtaat',
+	'payflowpro_gateway-error-msg-zip' => 'Poßleizahl',
+	'payflowpro_gateway-post-transaction' => 'Einzelheijte',
+	'payflowpro_gateway-submit-button' => 'Schpände',
+	'donate_interface-GBP' => 'GBP: Änglesche Pongk',
+	'donate_interface-EUR' => 'EUR: Euros',
+	'donate_interface-USD' => 'USD:  Dollars uß de USA',
+	'donate_interface-AUD' => 'AUD: Austraalesche Dollars',
+	'donate_interface-CAD' => 'CAD: Kanaadesche Dollars',
+	'donate_interface-CHF' => 'CHF: Schweizer Frangke',
+	'donate_interface-CZK' => 'CZK: Tschesche-Kruune',
+	'donate_interface-DKK' => 'DKK: Dänesche Kruhne',
+	'donate_interface-HKD' => 'HKD:  Dollars uß Hong Kong',
+	'donate_interface-HUF' => 'HUF: Unnjarresche Forint',
+	'donate_interface-JPY' => 'JPY: Japaanesche Yen',
+	'donate_interface-NZD' => 'NZD: Dollars uß Neusesland',
+	'donate_interface-NOK' => 'NOK: Norweejesche Kruhne',
+	'donate_interface-PLN' => 'PLN: Zloty uß Poole',
+	'donate_interface-SGD' => 'SGD:  Dollars uß Singjapuhr',
+	'donate_interface-SEK' => 'SEK: Schweedesch Kruhne',
+	'donate_interface-ILS' => "ILS: Ißra'eelesch Scheekel",
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -2072,6 +2184,14 @@ Probéiert et w.e.g. spéider nach eng Kéier.',
 	'php-response-declined' => 'Är Transactioun gouf net akzeptéiert.',
 	'payflowpro_gateway-post-transaction' => 'Detailer vun der Transaktioun',
 	'payflowpro_gateway-submit-button' => 'Maacht en Don',
+	'payflowpro_gateway-cvv-explain' => "<h4>Wat ass CVV?</h4>
+<p>Cardholder Verification Value (CVV) dëst sinn Zuele mat 3 oder 4 Stellen déi sécherstellen datt déi physesch Kaart, den Ament vum Online-Don, am Besëtz vun deem ass deen op der Kaart dropsteet. Dëst hëlleft de Mëssbrauch vu Kreditkaarten ze reduzéieren.</p>
+<h4>Visa, Mastercard</h4>
+<p>Den 3-stellege Code is steet hannen op Ärer Kaart, am Feld wou och d'Ënnerschrëft dran ass.
+Nrmalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëmmen déi lescht 3 Stellen sti fir den CVV-Code.</p>
+<h4>American Express</h4>
+<p>De Code steet ËMMER IWWER der ervirgehuewener Kontosnummer op der fiischter Säit vun der Kaart.
+Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
 	'donate_interface-GBP' => 'GBP: Britesched Pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
@@ -2165,7 +2285,7 @@ $messages['mk'] = array(
 <h4>Visa, Mastercard</h4>
 <p>3-цифрениот код се наоѓа на опачината на картичката, во рамките на полето со потпис.
 Полето со потпис има ниоза бројки, но само последните 3 цифри го сочинуваат CVV кодот.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Кодот СЕКОГАШ се наоѓа НАД испапчениот број на сметката на лицето на картичката.
 Во некои случаи, кодот е сместен на левата страна од картичката, но секогаш е над бројот на картичката.</p><br />',
 	'donate_interface-GBP' => 'GBP: Британска фунта',
@@ -2353,7 +2473,7 @@ Probeer het later nog een keer.',
 <h4>Visa, Mastercard</h4>
 <p>De driecijferige code staat op de achterkant van uw kaart, in hetzelfde gebied als uw handtekening.
 Meestal staan er meer cijfers in dat gebied, maar alleen de drie laatste cijfers zijn de CVV-code.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>De code staat altijd direct boven het kaartnummer aan de voorkant van de kaart.
 In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staat altijd boven het kaartnummer.</p><br />',
 	'donate_interface-GBP' => 'GBP: Britse pond',
@@ -2545,7 +2665,7 @@ Tornatz ensajar mai tard.",
 <h4>Visa, Mastercard</h4>
 <p>Lo còde de tres chifras es situat al verso de vòstra carta, dins la zòna reservada a la signatura.
 Tipicament, la barra per la signatura conten una seria de nombres, mas solas las tres darrièras chifras constituisson lo còde CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
 	'donate_interface-GBP' => 'GBP : liura sterling',
@@ -2771,7 +2891,7 @@ Po favor, tente novamente mais tarde.',
 <h4>Visa, Mastercard</h4>
 <p>O código de 3 algarismos está no verso do cartão, na zona da assinatura.
 Normalmente, a zona da assinatura contém vários números mas só os últimos 3 algarismos formam o código CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>O código está SEMPRE localizado ACIMA do número de conta (saliente) na face do cartão.
 Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
 	'donate_interface-GBP' => 'GBP: Libra Esterlina',
@@ -2866,7 +2986,7 @@ $messages['ru'] = array(
 <p>Код безопасности (CVV, Cardholder Verification Value) состоит из трёх или четырёх цифр и служит для подтверждения того, что карточка физически находится в распоряжении лица, осуществляющего платёж. Помогает предотвратить несанкционированное использование и мошенничество.</p>
 <h4>Visa, Mastercard</h4>
 <p>Трёхзначный код находится на обратной стороне карты, внутри области для подписи. Обычно, в области подписи располагается целый ряд цифр, но только последние три цифры составляют код CVV.</p>
-<h4>Amex</h4>
+<h4>American Express</h4>
 <p>Код ВСЕГДА расположен НАД тиснёным (выпуклым) номером счёта, на лицевой стороне карты. В некоторых случаях этот код расположен на левой стороне карты, но всегда выше номера счёта.</p><br />',
 	'donate_interface-GBP' => 'GBP: британский фунт стерлингов',
 	'donate_interface-EUR' => 'EUR: евро',
@@ -2973,6 +3093,48 @@ $messages['si'] = array(
 	'donate_interface-SGD' => 'සිංඩො: සිංගප්පූරු ඩොලර්',
 	'donate_interface-SEK' => 'ස්වීක්‍රො: ස්වීඩන ක්‍රෝන',
 	'donate_interface-ILS' => 'ඊශ්‍රාෂෙ: ඊශ්‍රායෙල ෂෙකෙල්',
+);
+
+/** Swedish (Svenska)
+ * @author Boivie
+ */
+$messages['sv'] = array(
+	'payflowpro_gateway-form-message' => 'Bidra med ditt kreditkort.
+Det finns <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">andra sätt att ge, inklusive PayPal, check, eller mejl</a>.',
+	'payflowpro_gateway-amount-legend' => 'Gåvobelopp:',
+	'payflowpro_gateway-donor-amount' => 'Belopp:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'Epostadress:',
+	'payflowpro_gateway-donor-fname' => 'Förnamn:',
+	'payflowpro_gateway-donor-mname' => 'Mellannamn:',
+	'payflowpro_gateway-donor-lname' => 'Efternamn:',
+	'payflowpro_gateway-donor-street' => 'Gata:',
+	'payflowpro_gateway-donor-city' => 'Stad:',
+	'payflowpro_gateway-donor-state' => 'Delstat:',
+	'payflowpro_gateway-donor-postal' => 'Postnummer:',
+	'payflowpro_gateway-donor-country' => 'Land/region:',
+	'payflowpro_gateway-donor-card' => 'Kreditkort:',
+	'payflowpro_gateway-donor-card-num' => 'Kortnummer:',
+	'payflowpro_gateway-donor-expiration' => 'Giltighetsdatum:',
+	'payflowpro_gateway-donor-security' => 'Säkerhetskod:',
+	'payflowpro_gateway-donor-submit' => 'Donera',
+	'donate_interface-GBP' => 'GBP: Brittiska pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA-dollar',
+	'donate_interface-AUD' => 'AUD: Australiska dollar',
+	'donate_interface-CAD' => 'CAD: Canadensiska dollar',
+	'donate_interface-CHF' => 'CHF: Schweiziska franc',
+	'donate_interface-CZK' => 'CZK: Tjeckiska koruna',
+	'donate_interface-DKK' => 'DKK: Danska kronor',
+	'donate_interface-HKD' => 'HKD: Hongkongdollar',
+	'donate_interface-HUF' => 'HUF: Ungerska forint',
+	'donate_interface-JPY' => 'JPY: Japanska yen',
+	'donate_interface-NZD' => 'NZD: Nyzeeländska dollar',
+	'donate_interface-NOK' => 'NOK: Norska kronor',
+	'donate_interface-PLN' => 'PLN: Polska złoty',
+	'donate_interface-SGD' => 'SGD: Singaporiansk dollar',
+	'donate_interface-SEK' => 'SEK: Svenska kronor',
+	'donate_interface-ILS' => 'ILS: Israeliska shekel',
 );
 
 /** Telugu (తెలుగు)
