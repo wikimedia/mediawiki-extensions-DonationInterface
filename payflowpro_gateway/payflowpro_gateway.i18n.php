@@ -14,7 +14,7 @@ $messages['en'] = array(
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'payflowpro_gateway-accessible' => 'This page is only accessible from the donation page.',
 	'payflowpro_gateway-form-message' => 'Contribute with your credit card.
-There are <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/en">other ways to give, including PayPal, check, or mail</a>.',
+There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
 	'payflowpro_gateway-form-message-2' => 'To change amount or currency, return to <a href="/index.php?title=Donate">the donation page</a>',
 	'payflowpro_gateway-donor-legend' => 'Donor information',
 	'payflowpro_gateway-card-legend' => 'Credit card information',
