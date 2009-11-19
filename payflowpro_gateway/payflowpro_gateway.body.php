@@ -535,7 +535,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * 						include in string (i.e. Vendor, password)
 	 */
 	private function fnPayflowProcessTransaction( $data, $payflow_data ) {
-		global $wgOut;
+		global $wgOut, $wgDonationTestingMode;
 
 		// create payflow query string, include string lengths
 		$queryArray = array(
