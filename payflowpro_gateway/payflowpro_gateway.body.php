@@ -370,7 +370,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::hidden( 'process', 'CreditCard' ) .
 			Xml::hidden( 'payment_method', 'processed' ) .
 			Xml::hidden( 'token', $data['token'] ) .
-			Xml::hidden( 'currency_code', $data['currency'] ) .
 			Xml::hidden( 'orderid', $data['order_id'] ) .
 			Xml::hidden( 'numAttempt', $data['numAttempt'] );
 				
