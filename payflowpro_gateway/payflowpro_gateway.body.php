@@ -824,6 +824,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	}
 	
 	function fnPayflowSaveContributionTracking( &$data ) {
+			$data['optout'] = ($data['optout'] == "1") ? '0' : '1';
+			$data['anonymous'] = ($data['anonymous'] == "1") ? '0' : '1';
+
 			$db = payflowGatewayConnection();
 			
 			if (!$db) { return true ; }
