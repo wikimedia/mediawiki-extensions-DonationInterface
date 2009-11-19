@@ -30,6 +30,8 @@ $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
 $wgPayflowProURL = 'https://payflowpro.paypal.com';
 $wgPayflowProTestingURL = 'https://pilot-payflowpro.paypal.com'; // Payflow testing URL
 
+$wgPayFlowProGatewayCSSVersion = 1;
+
 $wgPayflowProPartnerID = ''; //PayPal or original authorized reseller
 $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR

@@ -88,6 +88,9 @@ Typically the signature panel will have a series of numbers, but only the last t
 <h4>American Express</h4>
 <p>The code is ALWAYS located ABOVE the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
+        'payflowpro_gateway-question-comment' => 'Wikipedia is a project of the Wikimedia Foundation. Questions or comments? Contact the Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gatewa-donate-click' => 'After clicking "Donate", your credit card information will be processed.',
+	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>',
 	'donate_interface-GBP' => 'GBP: British Pound',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',

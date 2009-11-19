@@ -16,11 +16,17 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser, $wgScriptPath;
+		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, $wgPayFlowProGatewayCSSVersion;
 
 		$this->setHeaders();
 		
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
+				     $wgScriptPath . 
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+
+		$wgOut->addExtensionStyle( 
+			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?" . 
+			$wgPayFlowProGatewayCSSVersion);
 		
 		$scriptVars = array(
 			'payflowproGatewayErrorMsgJs' => wfMsg( 'payflowpro_gateway-error-msg-js' ),
@@ -246,7 +252,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
 			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
-			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message-2' ) ) .
 			Xml::closeElement( 'div' );
 		
 		// open form	
@@ -254,12 +259,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) );
 		
 		// donor amount and name			
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow_table' ) ).
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) ).
 			'<tr><td style="text-align:right;">' .
 			Xml::label(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', array( 'maxlength' => '10' ) ) . 
 			$endCell .
 			Xml::input( 'amount', '7', $data['amount'], array( 'id' => 'amount' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['invalidamount'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['invalidamount'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-currency-label' ), 'currency_code' ) .
 			$endCell .
@@ -270,21 +275,21 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) .
 			$endCell . 
 			Xml::input( 'emailAdd', '30', $data['email'], array( 'maxlength' => '64', 'id' => 'emailAdd' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['emailAdd'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['emailAdd'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname' ) .
 			$endCell .
-			Xml::input( 'fname', '20', $data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['fname'] . '</span>' .
+			Xml::input( 'fname', '30', $data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
+			'<span class="creditcard-error-msg">' . '  ' . $error['fname'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname' ) .
 			$endCell .
-			Xml::input( 'mname', '20', $data['mname'], array( 'maxlength' => '15', 'id' => 'mname' ) ) .
+			Xml::input( 'mname', '30', $data['mname'], array( 'maxlength' => '15', 'id' => 'mname' ) ) .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-lname' ), 'lname' ) .
 			$endCell .
-			Xml::input( 'lname', '20', $data['lname'], array( 'maxlength' => '15', 'id' => 'lname' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['lname'] . '</span>' .
+			Xml::input( 'lname', '30', $data['lname'], array( 'maxlength' => '15', 'id' => 'lname' ) ) .
+			'<span class="creditcard-error-msg">' . '  ' . $error['lname'] . '</span>' .
 			$endRow;
 			 
 		//donor address
@@ -293,35 +298,35 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::openElement( 'select', array( 'name' => 'country', 'id' => 'country', 'onchange' => 'return disableStates( this )' ) ) .
 			$countryMenu .
 			Xml::closeElement( 'select' )  .
-			'<span class="creditcard_error_msg">' . '  ' . $error['country'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['country'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-street' ), 'street' ) .
 			$endCell .
 			Xml::input( 'street', '30', $data['street'], array( 'maxlength' => '30', 'id' => 'street' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['street'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['street'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-city' ), 'city' ) .
 			$endCell .
-			Xml::input( 'city', '20', $data['city'], array( 'maxlength' => '20', 'id' => 'city' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['city'] . '</span>' .
+			Xml::input( 'city', '30', $data['city'], array( 'maxlength' => '20', 'id' => 'city' ) ) .
+			'<span class="creditcard-error-msg">' . '  ' . $error['city'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) .
 			$endCell .
 			Xml::openElement( 'select', array( 'name' => 'state', 'id' => 'state' ) ) .
 			$stateMenu .
 			Xml::closeElement( 'select' ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['state'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['state'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) .
 			$endCell .
-			Xml::input( 'zip', '15', $data['zip'], array( 'maxlength' => '9', 'id' => 'zip' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['zip'] . '</span>' .
+			Xml::input( 'zip', '30', $data['zip'], array( 'maxlength' => '9', 'id' => 'zip' ) ) .
+			'<span class="creditcard-error-msg">' . '  ' . $error['zip'] . '</span>' .
 			'</td></tr>' .
 			Xml::closeElement( 'table' ) .
 			'<br />';
 			
 		// credit card info
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow_table' ) ).
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) ).
 			'<tr><td style="text-align:right;">' .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
 			$endCell .
@@ -332,9 +337,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) .
 			$endCell .
 			Xml::input( 'card_num', '30', '', array( 'maxlength' => '100', 'id' => 'card_num' ) ) .
-			'<span class="creditcard_error_msg">' . '  ' . $error['card_num'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['card_num'] . '</span>' .
 			'</tr><tr><td></td><td>' .
-			'<span class="creditcard_error_msg">' . '  ' . $error['card'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['card'] . '</span>' .
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) .
 			$endCell .
@@ -349,7 +354,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endCell .
 			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv' ) ) .
 			'<a href="javascript:PopupCVV();">' . wfMsg( 'word-separator' ) . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
-			'<span class="creditcard_error_msg">' . '  ' . $error['cvv'] . '</span>' .
+			'<span class="creditcard-error-msg">' . '  ' . $error['cvv'] . '</span>' .
 			'</td></tr>' .
 			Xml::closeElement( 'table' ); 
 		
@@ -370,13 +375,19 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::hidden( 'numAttempt', $data['numAttempt'] );
 				
 		// submit button and close form
-		$form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ) ) .
+		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage' ) ) .
+			wfMsg( 'payflowpro_gatewa-donate-click' ) . 
+			Xml::tags( 'div', array( 'id' => 'mw-donate-submit-button' ), 	
+				Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ) ) ) .
+			Xml::tags( 'p', array( 'class' => '' ), 
+				wfMsg( 'payflowpro_gateway-credit-storage-processing' ) ) .
+			Xml::tags( 'p', array( 'class' => ''), 
+				wfMsg( 'payflowpro_gateway-question-comment' ) ) .
 			Xml::closeElement( 'form' ) .
+			Xml::closeElement( 'div' ) .
 			Xml::closeElement( 'div' );
 
-		$form .= Xml::closeElement( 'div' ) . 
-			Xml::Element( 'p', array( 'class' => 'mw-creditcard-submessage' ),
-						wfMsg( 'payflowpro_gateway-donor-currency-msg', $data['currency'] ) );
+		$form .= Xml::closeElement( 'div' );
 		
 		// Theming
 		global $wgDonationInterfaceTomasSkin;
@@ -568,8 +579,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$headers[] = 'X-VPS-Request-ID:' . $payflow_data['order_id'];
 		$ch = curl_init();
 		$paypalPostTo = isset ( $wgDonationTestingMode ) ? 'testingurl' : 'paypalurl'; 
-		//curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
-		curl_setopt($ch, CURLOPT_URL, $payflow_data['testingurl']);
+		curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
 		curl_setopt( $ch, CURLOPT_HEADER, 1 );
@@ -780,9 +790,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		//enable if we need this to get the Civi data to display correctly
 		$transaction['optout'] = ($transaction['optout'] == "1") ? '0' : '1';
 		$transaction['anonymous'] = ($transaction['anonymous'] == "1") ? '0' : '1';
-		var_dump($transaction);
 		// hook to call stomp functions
-		//wfRunHooks( 'gwStomp', array( &$transaction ) );
+		wfRunHooks( 'gwStomp', array( &$transaction ) );
 	}
 
 	/**
