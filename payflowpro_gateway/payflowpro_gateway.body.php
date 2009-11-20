@@ -375,7 +375,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				
 		// submit button and close form
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gatewa-donate-click' ) . 
+			wfMsg( 'payflowpro_gateway-donate-click' ) . 
 			Xml::tags( 'div', array( 'id' => 'mw-donate-submit-button' ), 	
 				Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ) ) ) .
 			Xml::tags( 'p', array( 'class' => '' ), 

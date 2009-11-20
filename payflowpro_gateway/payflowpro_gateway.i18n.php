@@ -88,9 +88,9 @@ Typically the signature panel will have a series of numbers, but only the last t
 <h4>American Express</h4>
 <p>The code is ALWAYS located ABOVE the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
-        'payflowpro_gateway-question-comment' => 'Wikipedia is a project of the Wikimedia Foundation. Questions or comments? Contact the Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'After clicking "Donate", your credit card information will be processed.',
-	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>',
+	'payflowpro_gateway-question-comment' => 'Wikipedia is a project of the Wikimedia Foundation. Questions or comments? Contact the Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'After clicking "{{int:payflowpro_gateway-donor-submit}}", your credit card information will be processed.',
+	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>.',
 	'donate_interface-GBP' => 'GBP: British Pound',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
@@ -884,7 +884,7 @@ $messages['diq'] = array(
 Bexşê ti ra ma zaf teşkur kenê!',
 	'payflowpro_gateway-response-126' => 'Transactionê ti ho testiq beno.',
 	'payflowpro_gateway-response-12' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
-	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o. 
+	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o.
 Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
 	'payflowpro_gateway-response-114' => 'Ma rica keno bankê xo ra kontak bike ser kardê kredi xo.',
 	'payflowpro_gateway-response-23' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
@@ -1078,7 +1078,7 @@ Estas <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/eo">aliaj r
 Dankon pro via donaco!',
 	'payflowpro_gateway-response-126' => 'Via pago atendas aprobon.',
 	'payflowpro_gateway-response-12' => 'Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.',
-	'payflowpro_gateway-response-13' => 'Via pago postulas voĉan rajtigon. 
+	'payflowpro_gateway-response-13' => 'Via pago postulas voĉan rajtigon.
 Bonvolu kontakti nin por plufari vian pagon.',
 	'payflowpro_gateway-response-114' => 'Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.',
 	'payflowpro_gateway-response-23' => 'Via kreditkarta numero aŭ validlimdato estas malĝusta.',
@@ -2134,7 +2134,7 @@ $messages['ksh'] = array(
 	'payflowpro_gateway-desc' => 'Met <i lang="en">PayPal Payflow Pro</i> vun Kredditkaate afhallde.',
 	'payflowpro_gateway-accessible' => 'Heh di Sigg es bloß vun de Schpändesigg uß zo han.',
 	'payflowpro_gateway-form-message' => 'Donn met Dinge Kreddittkaat beidraare.
-Mer han och 
+Mer han och
 <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annder Wääje, jät ze jävve, derbei <i lang="en">PayPal</i>, Scheck, un <i lang="en">e-mail</i></a>.',
 	'payflowpro_gateway-form-message-2' => 'Öm dä Bedraach udder de Zoot Jeld ze ändere, jangk retuur op di <a href="/index.php?title=Donate">Sigg övver et Schpände</a>.',
 	'payflowpro_gateway-donor-legend' => 'Enfommazjuhne övver der Schpänder',
