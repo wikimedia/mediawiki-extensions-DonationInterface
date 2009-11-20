@@ -430,8 +430,8 @@ $messages['be-tarask'] = array(
 <p>Код ЗАЎСЁДЫ знаходзіцца НАД цісьнёным (выпуклым) нумарам рахунку на тварным баку карткі.
 У некаторых выпадках, код знаходзіцца ў левым баку карткі, але заўсёды над нумарам рахунку.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Вікіпэдыя — праект фундацыі «Вікімэдыя». Маеце пытаньні альбо камэнтары? Зьвяжыцеся з фундацыяй «Вікімэдыя»: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Апрацоўка інфармацыі па Вашай крэдытнай картцы пачнецца пасьля націску на кнопку «Ахвяраваць».',
-	'payflowpro_gateway-credit-storage-processing' => 'Мы не захоўваем інфармацыю пра Вашыя крэдытныя карткі, а Вашыя асабістыя зьвесткі знаходзяцца пад абаронай нашай <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">палітыкі прыватнасьці</a>',
+	'payflowpro_gateway-donate-click' => 'Апрацоўка інфармацыі па Вашай крэдытнай картцы пачнецца пасьля націску на кнопку «{{int:payflowpro_gateway-donor-submit}}».',
+	'payflowpro_gateway-credit-storage-processing' => 'Мы не захоўваем інфармацыю пра Вашыя крэдытныя карткі, а Вашыя асабістыя зьвесткі знаходзяцца пад абаронай нашай <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">палітыкі прыватнасьці</a>.',
 	'donate_interface-GBP' => 'GBP: брытанскі фунт',
 	'donate_interface-EUR' => 'EUR: эўра',
 	'donate_interface-USD' => 'USD: даляр ЗША',
@@ -648,6 +648,9 @@ U podpisu zpravidla bývá několik sad čísel, ale jen tři poslední číslic
 <h4>American Express</h4>
 <p>Kód je VŽDY umístěn NAD vyraženým (embosovaným) číslem účtu na lícové straně karty.
 Někdy bývá kód umístěn na levé straně karty, ale vždy je nad číslem účtu.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedie je projekt nadace Wikimedia Foundation. Otázky či připomínky? Napište Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Jakmile kliknete na „{{int:payflowpro_gateway-donor-submit}}“, budou vámi zadané údaje o kreditní kartě zpracovány.',
+	'payflowpro_gateway-credit-storage-processing' => 'Údaje o vaší kreditní kartě neuchováváme a na veškeré osobní údaje se vztahují naše <a href="http://wikimediafoundation.org/wiki/Ochrana_osobn%C3%ADch_%C3%BAdaj%C5%AF">pravidla ochrany soukromí</a>.',
 	'donate_interface-GBP' => 'GBP: Britská libra',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Americký dolar',
@@ -718,8 +721,12 @@ href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ffyrdd eraill o roi i
 	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
 	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
 	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
+	'payflowpro_gateway-response-12' => "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
 	'payflowpro_gateway-response-114' => "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
 	'payflowpro_gateway-response-4' => 'Swm annilys.',
+	'payflowpro_gateway-response-default' => "Cafwyd gwall wrth brosesu'ch taliad.
+Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
+	'php-response-declined' => 'Gwrthodwyd eich taliad.',
 	'payflowpro_gateway-post-transaction' => 'Manylion y taliad',
 	'payflowpro_gateway-submit-button' => 'Rhoi',
 	'donate_interface-GBP' => 'GBP: Punt Prydain',
@@ -1000,8 +1007,8 @@ Typiski pódpismowy wobcerk změjo rědy numerow, ale jano slědne tśi městna 
 <p>Kod jo PŚECEJ WUŠEJ naśišćanego (wusoko stajonego) kontowego numera na prědnem boku kórty.
 Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedija jo projekt załožby Wikimedia Foundation. Pšašanja abo komentary? Staj se ze załožbu Wikimedia Foundation do zwiska: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Pó kliknjenju na "Pósćiś", budu se informacije twójeje kreditneje kórty pśeźěłowaś.',
-	'payflowpro_gateway-credit-storage-processing' => 'Njeskładujomy informacije twójeje kreditneje kórty a twóje wósobinske daty pódlaže našym <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">pšawidłam priwatnosći</a>',
+	'payflowpro_gateway-donate-click' => 'Pó kliknjenju na "Pósćiś", budu se informacije twójeje kreditneje kórty pśeźěłowaś.',
+	'payflowpro_gateway-credit-storage-processing' => 'Njeskładujomy informacije twójeje kreditneje kórty a twóje wósobinske daty pódlaže našym <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">pšawidłam priwatnosći</a>.',
 	'donate_interface-GBP' => 'GBP. Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: US-dollar',
@@ -1471,8 +1478,8 @@ Normalmente, a zona da sinatura ten unha serie de números, pero só os tres úl
 <p>O código está SEMPRE situado por riba do número de conta en relevo na cara frontal da tarxeta.
 Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
 	'payflowpro_gateway-question-comment' => 'A Wikipedia é un proxecto da Fundación Wikimedia. Tes algunha pregunta ou comentario? Ponte en contacto coa Fundación Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Despois de premeres en "Doar", procesarase a información da túa tarxeta de crédito.',
-	'payflowpro_gateway-credit-storage-processing' => 'Non gardamos información da túa tarxeta de crédito e os teus datos persoais están suxeitos á nosa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de protección de datos</a>',
+	'payflowpro_gateway-donate-click' => 'Despois de premeres en "Doar", procesarase a información da túa tarxeta de crédito.',
+	'payflowpro_gateway-credit-storage-processing' => 'Non gardamos información da túa tarxeta de crédito e os teus datos persoais están suxeitos á nosa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de protección de datos</a>.',
 	'donate_interface-GBP' => 'GBP: libra esterlina',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: dólar estadounidense',
@@ -1569,6 +1576,9 @@ Normalerwyys het s im Unterschriftechäschtli e paar Zahle, aber nume di letscht
 <h4>American Express</h4>
 <p>Dr Code stoht ALLIWYYL IBER dr in d Oberflechi vu dr Charte yyprägte Kontonummere .
 In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber dr Kontonummere. </p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia isch e Projäkt vu dr Wikimedia Foundation. Froge oder Kommentar? Nimm Kontakt uf zue dr Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Wänn du uf „Spände“ druckt hesch, wäre d Date vu Dyyre Kreditcharte verarbeitet.',
+	'payflowpro_gateway-credit-storage-processing' => 'Mir dien d Date vu Dyyre Kreditcharte nit spychere un fir Dyyni persenlige Date hän mer unsri <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Dateschutz-Richtlinie</a>.',
 	'donate_interface-GBP' => 'GBP: Britischi Pfund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikanischi Dollar',
@@ -1666,8 +1676,8 @@ Typisce podpismowy wobłuk změje rjady ličbow, ale jenož poslednje tři měst
 <p>Kod je PŘECO WYŠE zaćišćaneho (wysokostajeneho) kontoweho čisła na prědnim boku karty.
 Druhdy kod je na lěwym boku karty, ale je přeco wyše kontoweho čisła.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedija je projekt załožby Wikimedia foundation. Prašenja abo komentary? Staj so ze załožbu Wikimedia Foundation do zwiska: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Po kliknjenju na "Darić" budu so twoje informacije kreditneje karty předźěłować.',
-	'payflowpro_gateway-credit-storage-processing' => 'Njeskładujemy informacije twojeje kreditneje karty a twoje wosobinske daty podleža našim <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">prawidłam priwatnośce</a>',
+	'payflowpro_gateway-donate-click' => 'Po kliknjenju na "{{int:payflowpro_gateway-donor-submit}}" budu so twoje informacije kreditneje karty předźěłować.',
+	'payflowpro_gateway-credit-storage-processing' => 'Njeskładujemy informacije twojeje kreditneje karty a twoje wosobinske daty podleža našim <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">prawidłam priwatnośce</a>.',
 	'donate_interface-GBP' => 'GBP: Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: US-dolar',
@@ -1759,7 +1769,7 @@ Később próbáld meg újra.',
 	'payflowpro_gateway-submit-button' => 'Adomány elküldése',
 	'payflowpro_gateway-cvv-explain' => '<h4>Mi a CVV?</h4><p>A Cardholder Verification Value (CVV) három- vagy négyjegyű számok biztosítják azt, hogy a kártya fizikailag is a kártyatulajdonosnál van online adományozás közben, így megakadályozva az engedély nélküli vagy tisztességtelen használatot.</p><h4>Visa, Mastercard</h4><p>A háromjegyű kód a kártya hátulján található, az aláírásra kijelölt területen belül. Az aláírásra kijelölt terület általában egy számsorozatot tartalmaz, de ennek csak az utolsó három számjegye a CVV-kód.</p><h4>American Express</h4><p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
 	'payflowpro_gateway-question-comment' => 'A Wikipédia a Wikimédia Alapítvány projektje. Kérdéseid vagy megjegyzéseid vannak? A következő címen léphetsz kapcsolatba velünk: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Az „Adományozás” gombra való kattintás után a bankkártya-adataid fel lesznek dolgozva.',
+	'payflowpro_gateway-donate-click' => 'Az „Adományozás” gombra való kattintás után a bankkártya-adataid fel lesznek dolgozva.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nem tárolunk a bankkártyáddal kapcsolatos információkat, és a személyes adataidat a <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Jogi nyilatkozatban</a> leírtak szerint kezeljük.',
 	'donate_interface-GBP' => 'GBP: brit font',
 	'donate_interface-EUR' => 'EUR: euró',
@@ -1858,8 +1868,8 @@ Typicamente le pannello de signatura habera un serie de numeros, ma solmente le 
 <p>Le codice es SEMPRE situate SUPRA le numero de conto in relievo super le facie del carta.
 In alcun exemplares, le codice se trova al sinistra del carta, ma es sempre supra le numero de conto.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia es un projecto del Fundation Wikimedia. Questiones o commentos? Contacta le Fundation Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Post cliccar "Donar", le informationes de tu carta de credito essera processate.',
-	'payflowpro_gateway-credit-storage-processing' => 'Nos non retene le informationes de tu carta de credito, e tu datos personal es subjecte a nostre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politica de confidentialitate</a>',
+	'payflowpro_gateway-donate-click' => 'Post cliccar "Donar", le informationes de tu carta de credito essera processate.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nos non retene le informationes de tu carta de credito, e tu datos personal es subjecte a nostre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politica de confidentialitate</a>.',
 	'donate_interface-GBP' => 'GBP: libra sterling',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: dollar statounitese',
@@ -1957,8 +1967,8 @@ Umumnya panel tanda tangan akan memiliki serangkaian angka, tetapi hanya tiga di
 <p>Kode ini SELALU terletak DI ATAS nomor rekening yang timbul (terangkat) di muka kartu.
 Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di atas nomor rekening.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia adalah suatu proyek dari Wikimedia Foundation. Pertanyaan atau komentar? Hubungi Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Setelah mengeklik "Donate", informasi kartu kredit Anda akan diproses.',
-	'payflowpro_gateway-credit-storage-processing' => 'Kami tidak menyimpan informasi kartu kredit dan data pribadi Anda sesuai dengan <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">kebijakan privasi</a> kami',
+	'payflowpro_gateway-donate-click' => 'Setelah mengeklik "Donate", informasi kartu kredit Anda akan diproses.',
+	'payflowpro_gateway-credit-storage-processing' => 'Kami tidak menyimpan informasi kartu kredit dan data pribadi Anda sesuai dengan <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">kebijakan privasi</a> kami.',
 	'donate_interface-GBP' => 'GBP: Pound Britania',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolar A.S.',
@@ -2064,6 +2074,9 @@ $messages['ja'] = array(
 <p>この3桁の数値はカード裏面の署名欄内に記載されています。おそらく署名欄には何桁にもなる数値が載っていますが、最後の3桁のみがカード照合値になります。</p>
 <h4>アメリカン・エキスプレス</h4>
 <p>この数値は常にカード表面の、浮き彫りになった会員番号の上部に記載されています。場合によっては、カード左側に記載されていることもありますが、常に会員番号の上部にあります。</p><br />',
+	'payflowpro_gateway-question-comment' => 'ウィキペディアはウィキメディア財団のプロジェクトです。質問や意見がある場合はウィキメディア財団に連絡してください: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => '「{{int:payflowpro_gateway-donor-submit}}」をクリックした後にあなたのクレジットカード情報は処理されます。',
+	'payflowpro_gateway-credit-storage-processing' => '我々はあなたのクレジットカード情報を保管せず、またあなたの個人情報は<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">個人情報保護方針</a>の対象です',
 	'donate_interface-GBP' => 'GBP: イギリス・ポンド',
 	'donate_interface-EUR' => 'EUR: ユーロ',
 	'donate_interface-USD' => 'USD: アメリカ合衆国ドル',
@@ -2134,7 +2147,7 @@ $messages['ksh'] = array(
 	'payflowpro_gateway-desc' => 'Met <i lang="en">PayPal Payflow Pro</i> vun Kredditkaate afhallde.',
 	'payflowpro_gateway-accessible' => 'Heh di Sigg es bloß vun de Schpändesigg uß zo han.',
 	'payflowpro_gateway-form-message' => 'Donn met Dinge Kreddittkaat beidraare.
-Mer han och
+Mer han och 
 <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annder Wääje, jät ze jävve, derbei <i lang="en">PayPal</i>, Scheck, un <i lang="en">e-mail</i></a>.',
 	'payflowpro_gateway-form-message-2' => 'Öm dä Bedraach udder de Zoot Jeld ze ändere, jangk retuur op di <a href="/index.php?title=Donate">Sigg övver et Schpände</a>.',
 	'payflowpro_gateway-donor-legend' => 'Enfommazjuhne övver der Schpänder',
@@ -2203,9 +2216,9 @@ Versöhk et schpääder noch ens.',
 <h4>Beij <i lang="en">American Express</i> Kaate</h4>
 <p>Dä Koode es emmer övver dä enjeschtanß Nommer vum Kaatekonto vörre op dä Kaat, di esu noh bovve eruß schteiht. Jelääjentlesch es dä Koode lenks op dä Kaat ävver emmer övver däm Kaatekonto sing Nommer.</p><br />',
 	'payflowpro_gateway-question-comment' => 'De Wikipedia es e Projäk fun de Wikimedia Schtefftung. Häs De Froore udder Aanmärkunge? Dann donn Desch aan de Wikimedia Schtefftung wende: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Wann De op „{{int:Payflowpro gateway-submit-button}}“ jekleck häs, wääde Ding Kredittkaatedaate beärbeit.',
+	'payflowpro_gateway-donate-click' => 'Wann De op „{{int:Payflowpro gateway-submit-button}}“ jekleck häs, wääde Ding Kredittkaatedaate beärbeit.',
 	'payflowpro_gateway-credit-storage-processing' => 'Mer sellver donn Ding Kreddittkaetdaate nit faßhallde, un för Ding päsöönlesch Daate ham_mer uns
-<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Rääjelle för der Daateschotz un de Jeheimhaldung</a>',
+<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Rääjelle för der Daateschotz un de Jeheimhaldung</a>.',
 	'donate_interface-GBP' => 'GBP: Änglesche Pongk',
 	'donate_interface-EUR' => 'EUR: Euros',
 	'donate_interface-USD' => 'USD:  Dollars uß de USA',
@@ -2399,8 +2412,8 @@ $messages['mk'] = array(
 <p>Кодот СЕКОГАШ се наоѓа НАД испапчениот број на сметката на лицето на картичката.
 Во некои случаи, кодот е сместен на левата страна од картичката, но секогаш е над бројот на картичката.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Википедија е проект на фондацијата Wikimedia. Имате прашања или коментари? Контактирајте ја фондацијата Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Откако ќе кликнете на „Донирајте“, ќе бидат обработени податоците од вашата кредитна картичка.',
-	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од вашата кредитна картичка, а пак вашите лични податоци подлежат на нашите<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">правила за приватност</a>',
+	'payflowpro_gateway-donate-click' => 'Откако ќе кликнете на „Донирајте“, ќе бидат обработени податоците од вашата кредитна картичка.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од вашата кредитна картичка, а пак вашите лични податоци подлежат на нашите<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">правила за приватност</a>.',
 	'donate_interface-GBP' => 'GBP: Британска фунта',
 	'donate_interface-EUR' => 'EUR: Евро',
 	'donate_interface-USD' => 'USD: Американски долар',
@@ -2492,6 +2505,8 @@ $messages['ml'] = array(
 	'php-response-declined' => 'താങ്കളുടെ ഇടപാട് നിരസിക്കപ്പെട്ടിരിക്കുന്നു.',
 	'payflowpro_gateway-post-transaction' => 'ഇടപാടിന്റെ വിവരങ്ങൾ',
 	'payflowpro_gateway-submit-button' => 'സംഭാവന ചെയ്യുക',
+	'payflowpro_gateway-question-comment' => 'വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഒരു പദ്ധതിയാണ് വിക്കിപീഡിയ. എന്തെങ്കിലും ചോദ്യങ്ങളോ അഭിപ്രായങ്ങളോ ഉണ്ടെങ്കിൽ വിക്കിമീഡിയ ഫൗണ്ടേഷനുമായി ബന്ധപ്പെടുക:<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-credit-storage-processing' => 'ഞങ്ങൾ താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് വിവരങ്ങൾ സൂക്ഷിച്ചു വെയ്ക്കില്ല, താങ്കളുടെ സ്വകാര്യ വിവരങ്ങൾ ഞങ്ങളുടെ <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">സ്വകാര്യതാനയത്തിൽ</a> പെടുന്നു.',
 	'donate_interface-GBP' => 'GPB: ബ്രിട്ടീഷ് പൗണ്ട്',
 	'donate_interface-EUR' => 'EUR: യൂറോ',
 	'donate_interface-USD' => 'USD: യു.എസ്. ഡോളർ',
@@ -2589,6 +2604,9 @@ Meestal staan er meer cijfers in dat gebied, maar alleen de drie laatste cijfers
 <h4>American Express</h4>
 <p>De code staat altijd direct boven het kaartnummer aan de voorkant van de kaart.
 In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staat altijd boven het kaartnummer.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia is een project van de Wikimedia Foundation. Als u vragen of opmerkingen hebt, neem dat contact op met de Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Uw creditkaartinformatie wordt verwerkt zodra u op "{{int:payflowpro_gateway-donor-submit}}" klikt.',
+	'payflowpro_gateway-credit-storage-processing' => 'We slaan uw creditkaartgegevens niet op en uw persoonlijke gegevens vallen onder ons <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacybeleid</a>.',
 	'donate_interface-GBP' => 'GBP: Britse pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
@@ -3007,6 +3025,9 @@ Normalmente, a zona da assinatura contém vários números mas só os últimos 3
 <h4>American Express</h4>
 <p>O código está SEMPRE localizado ACIMA do número de conta (saliente) na face do cartão.
 Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
+	'payflowpro_gateway-question-comment' => 'A Wikipédia é um projecto da Wikimedia Foundation. Tem perguntas ou comentários? Contacte a Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Após clicar "Fazer donativo", a informação do seu cartão de crédito será processada.',
+	'payflowpro_gateway-credit-storage-processing' => 'Não armazenamos informação do seu cartão de crédito e ou seus dados particulares estão sujeitos à nossa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de privacidade</a>.',
 	'donate_interface-GBP' => 'GBP: Libra Esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar dos E.U.A.',
@@ -3102,8 +3123,8 @@ $messages['ru'] = array(
 <h4>American Express</h4>
 <p>Код ВСЕГДА расположен НАД тиснёным (выпуклым) номером счёта, на лицевой стороне карты. В некоторых случаях этот код расположен на левой стороне карты, но всегда выше номера счёта.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Википедия является проектом Фонда Викимедиа. Имеются вопросы, замечания? Свяжитесь с Фондом Викимедиа: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'После нажатия кнопки «Пожертвовать» будет обработана информация о вашей кредитной карте.',
-	'payflowpro_gateway-credit-storage-processing' => 'Мы не храним информацию о вашей кредитной карте, в отношении ваших личных данных действует <a href="http://wikimediafoundation.org/wiki/Политика_конфиденциальности">политика конфиденциальности</a>',
+	'payflowpro_gateway-donate-click' => 'После нажатия кнопки «Пожертвовать» будет обработана информация о вашей кредитной карте.',
+	'payflowpro_gateway-credit-storage-processing' => 'Мы не храним информацию о вашей кредитной карте, в отношении ваших личных данных действует <a href="http://wikimediafoundation.org/wiki/Политика_конфиденциальности">политика конфиденциальности</a>.',
 	'donate_interface-GBP' => 'GBP: британский фунт стерлингов',
 	'donate_interface-EUR' => 'EUR: евро',
 	'donate_interface-USD' => 'USD: доллар США',
