@@ -680,11 +680,13 @@ $messages['cy'] = array(
 	'payflowpro_gateway-form-message' => 'Cyfrannwch atom yma trwy ddefnyddio\'ch cerdyn credyd.
 Mae <a
 href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ffyrdd eraill o roi i gael, megis PayPal, siec, neu drwy\'r post</a>..',
+	'payflowpro_gateway-form-message-2' => 'Os ydych am newid y swm neu\'r math o arian breiniol, ewch yn ôl at y <a href="/index.php?title=Donate">dudalen rhoi</a>.',
 	'payflowpro_gateway-donor-legend' => 'Gwybodaeth am y rhoddwr',
 	'payflowpro_gateway-card-legend' => 'Gwybodaeth am y cerdyn credyd',
 	'payflowpro_gateway-amount-legend' => 'Swm y rhodd:',
 	'payflowpro_gateway-cvv-link' => 'Enghraifft',
 	'payflowpro_gateway-donor-amount' => 'Swm:',
+	'payflowpro_gateway-donor-currency-label' => 'Math yr arian breiniol:',
 	'payflowpro_gateway-donor-email' => 'Cyfeiriad e-bost:',
 	'payflowpro_gateway-donor-fname' => 'Enw cyntaf:',
 	'payflowpro_gateway-donor-mname' => 'Ail enw:',
@@ -721,14 +723,34 @@ href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ffyrdd eraill o roi i
 	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
 	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
 	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
+	'payflowpro_gateway-response-0' => 'Cadarnhawyd eich taliad.
+Diolch am roi!',
+	'payflowpro_gateway-response-126' => "Mae'ch taliad yn disgwyl cadarnhad.",
 	'payflowpro_gateway-response-12' => "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
+	'payflowpro_gateway-response-13' => "Mae angen awdurdodi'ch taliad â'ch llais.
+Cysylltwch â ni er mwyn parhau gyda'ch taliad.",
 	'payflowpro_gateway-response-114' => "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
+	'payflowpro_gateway-response-23' => "Mae manylion naill ai rhif eich cerdyn neu'r dyddiad y daw i ben yn anghywir.",
 	'payflowpro_gateway-response-4' => 'Swm annilys.',
+	'payflowpro_gateway-response-24' => "Mae manylion naill ai rhif eich cerdyn neu'r dyddiad y daw i ben yn anghywir.",
+	'payflowpro_gateway-response-112' => "Mae manylion naill ai'ch cyfeiriad neu rhif CVV eich cerdyn (y cod diogelwch) yn anghywir.",
+	'payflowpro_gateway-response-125' => 'Gwrthodwyd eich taliad gan y Gwasanaethau Atal Twyll.',
 	'payflowpro_gateway-response-default' => "Cafwyd gwall wrth brosesu'ch taliad.
 Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
 	'php-response-declined' => 'Gwrthodwyd eich taliad.',
 	'payflowpro_gateway-post-transaction' => 'Manylion y taliad',
 	'payflowpro_gateway-submit-button' => 'Rhoi',
+	'payflowpro_gateway-cvv-explain' => "<h4>Beth yw CVV?</h4>
+<p>\"Cardholder Verification Value\" (CVV) yw'r enw ar y cod o 3 neu 4 o rifau ar gerdyn credyd. Maent yn cyfrannu at sicrhau bod y cerdyn ei hun ym meddiant ei berchennog tra'n rhoi ar-lein, a thrwy hynny yn cynorthwyo i rwystro defnyddio'r cerdyn trwy dwyll neu heb ganiatâd.</p>
+<h4>Visa, Mastercard</h4>
+<p>Fe welwch y cod 3 digid o hyd ar gefn eich cerdyn, tu mewn i flwch y llofnod.
+Fel arfer mae rhes o rifau yn y blwch arwyddo, ond y tri digid olaf yn unig sydd yn y cod CVV.</p>
+<h4>American Express</h4>
+<p>Mae'r cod BOB AMSER i'w weld UWCHBEN rhif y cyfrif sydd mewn ysgrif boglynnog ar du blaen y cerdyn.
+Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhif y cyfrif.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Un o brosiectau Sefydliad Wikimedia yw Wicipedia. Oes cwestiynau neu sylwadau gennych? Cysylltwch â Sefydliad Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Caiff manylion eich cerdyn credyd eu prosesu wedi i chi bwyso\'r botwm "{{int:payflowpro_gateway-donor-submit}}".',
+	'payflowpro_gateway-credit-storage-processing' => 'Nid ydym yn cadw manylion eich cerdyn credyd, ac mae\'ch data personol yn cael ei drin yn ôl gofynion ein <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">polisi preifatrwydd</a>.',
 	'donate_interface-GBP' => 'GBP: Punt Prydain',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Doler U.D.A.',
@@ -2315,6 +2337,9 @@ Nrmalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëm
 <h4>American Express</h4>
 <p>De Code steet ËMMER IWWER der ervirgehuewener Kontosnummer op der fiischter Säit vun der Kaart.
 Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Wikipedia ass e Projet vun der Wikimedia Foundation. Froen oder Bemierkungen? Kontaktéiert d\'Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Nodeems Dir op "{{int:payflowpro_gateway-donor-submit}}" geklickt hutt gin d\'Informatioune vun Ärer Kreditkaart verschafft.',
+	'payflowpro_gateway-credit-storage-processing' => 'Mir späicheren d\'Informatioune vun Ärer Kreditkaart net, an Är perséinlech Daten ënner leien eisen <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Dateschutz Richtlinnen</a>.',
 	'donate_interface-GBP' => 'GBP: Britesched Pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
@@ -2630,8 +2655,54 @@ In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staa
  * @author Gunnernett
  */
 $messages['nn'] = array(
+	'payflowprogateway' => 'Støtt Wikimedia',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkorthandsaming',
+	'payflowpro_gateway-accessible' => 'Denne sida er berre tilgjengeleg frå sida for gåver.',
+	'payflowpro_gateway-form-message' => 'Gje gjennom kredittkortet ditt.
+Det er <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb"> andre måtar å gje på, som til dømes PayPal, sjekk eller post</a>.',
+	'payflowpro_gateway-card-legend' => 'Kredittkortinformasjon',
+	'payflowpro_gateway-amount-legend' => 'Gåvebeløp:',
+	'payflowpro_gateway-cvv-link' => 'Døme',
+	'payflowpro_gateway-donor-email' => 'E-postadresse',
+	'payflowpro_gateway-donor-mname' => 'Mellomnamn:',
+	'payflowpro_gateway-donor-lname' => 'Etternamn:',
+	'payflowpro_gateway-donor-name' => 'Namn:',
+	'payflowpro_gateway-donor-city' => 'By:',
+	'payflowpro_gateway-donor-state' => 'Delstat:',
+	'payflowpro_gateway-donor-postal' => 'Postnummer:',
+	'payflowpro_gateway-donor-card' => 'Kredittkort:',
+	'payflowpro_gateway-error-msg' => 'Dette feltet må fyllast ut: $1',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-postadresse',
+	'payflowpro_gateway-error-msg-fname' => 'førenamn',
+	'payflowpro_gateway-error-msg-lname' => 'etternamn',
+	'payflowpro_gateway-error-msg-zip' => 'postnummer',
+	'payflowpro_gateway-error-msg-card_num' => 'kredittkortnummer',
+	'payflowpro_gateway-error-msg-expiration' => 'kortet sin utløpsdato',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV frå baksida av kortet ditt',
+	'payflowpro_gateway-response-0' => 'Overføringa di har vorte godkjend.
+Takk for gåva di!',
+	'payflowpro_gateway-response-126' => 'Pengeoverføringa di ventar på godkjenning',
+	'payflowpro_gateway-response-23' => 'Kredittkortnummeret ditt eller utløpsdatoen er ikkje rett.',
+	'payflowpro_gateway-response-125' => 'Overføringa di har vorte avvist av tenesta som skal hindra svindel.',
+	'payflowpro_gateway-submit-button' => 'Gje',
+	'payflowpro_gateway-donate-click' => 'Etter å ha klikka  "{{int:payflowpro_gateway-donor-submit}}", vil kredittinformasjonen din verta gjennomgått.',
+	'payflowpro_gateway-credit-storage-processing' => 'Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">retningsliner for personvern</a>.',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA-dollar',
+	'donate_interface-AUD' => 'AUD: Australske dollar',
+	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
+	'donate_interface-CHF' => 'CHF: Sveitsiske franc',
+	'donate_interface-CZK' => 'CZK: Tsjekkiske koruna',
+	'donate_interface-DKK' => 'DKK: Danske kroner',
+	'donate_interface-HKD' => 'HKD: Hongkongdollar',
+	'donate_interface-HUF' => 'HUF: Ungarske forintar',
+	'donate_interface-JPY' => 'JPY: Japanske yen',
 	'donate_interface-NOK' => 'NOK: Norske kroner',
+	'donate_interface-PLN' => 'PLN: Polske zloty',
+	'donate_interface-SGD' => 'SGD: Singapore Dollar',
+	'donate_interface-SEK' => 'SEK: Svenske kroner',
+	'donate_interface-ILS' => 'ILS: Israelske shekel',
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
@@ -3026,7 +3097,7 @@ Normalmente, a zona da assinatura contém vários números mas só os últimos 3
 <p>O código está SEMPRE localizado ACIMA do número de conta (saliente) na face do cartão.
 Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
 	'payflowpro_gateway-question-comment' => 'A Wikipédia é um projecto da Wikimedia Foundation. Tem perguntas ou comentários? Contacte a Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Após clicar "Fazer donativo", a informação do seu cartão de crédito será processada.',
+	'payflowpro_gateway-donate-click' => 'Após clicar "{{int:payflowpro_gateway-donor-submit}}", a informação do seu cartão de crédito será processada.',
 	'payflowpro_gateway-credit-storage-processing' => 'Não armazenamos informação do seu cartão de crédito e ou seus dados particulares estão sujeitos à nossa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de privacidade</a>.',
 	'donate_interface-GBP' => 'GBP: Libra Esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -3045,6 +3116,37 @@ Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.<
 	'donate_interface-SGD' => 'SGD: Dólar de Singapura',
 	'donate_interface-SEK' => 'SEK: Coroa Sueca',
 	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
+);
+
+/** Tarandíne (Tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'payflowprogateway' => 'Aiute Uicchipèdie',
+	'payflowpro_gateway-cvv-link' => 'Esembie',
+	'payflowpro_gateway-donor-email' => 'Indirizze e-mail:',
+	'payflowpro_gateway-error-msg-city' => 'cetate',
+	'payflowpro_gateway-error-msg-state' => 'state',
+	'payflowpro_gateway-error-msg-zip' => "codece d'avviamende postale",
+	'payflowpro_gateway-response-4' => 'Importe invalide.',
+	'payflowpro_gateway-submit-button' => 'Dduène',
+	'donate_interface-GBP' => "GBP: Sterline 'nglese",
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dollaro americane',
+	'donate_interface-AUD' => 'AUD: Dollaro australiane',
+	'donate_interface-CAD' => 'CAD: Dollaro canadese',
+	'donate_interface-CHF' => 'CHF: Franghe svizzere',
+	'donate_interface-CZK' => 'CZK: Corone ceche',
+	'donate_interface-DKK' => 'DKK: Corone danese',
+	'donate_interface-HKD' => 'HKD: Dollaro de Hong Kong',
+	'donate_interface-HUF' => 'HUF: Fiorine ungherese',
+	'donate_interface-JPY' => 'JPY: Yen giapponese',
+	'donate_interface-NZD' => 'NZD: Dollaro neo zelandese',
+	'donate_interface-NOK' => 'NOK: Corone norveggese',
+	'donate_interface-PLN' => 'PLN: Zloty pulacche',
+	'donate_interface-SGD' => 'SGD: Dollaro de Singapore',
+	'donate_interface-SEK' => 'SEK: Corone svedese',
+	'donate_interface-ILS' => 'ILS: Shekel isdraegliane',
 );
 
 /** Russian (Русский)
@@ -3366,6 +3468,17 @@ Lütfen daha sonra tekrar deneyin.',
 	'php-response-declined' => 'İşleminiz reddedildi.',
 	'payflowpro_gateway-post-transaction' => 'İşlem detayları',
 	'payflowpro_gateway-submit-button' => 'Bağışla',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV nedir?</h4>
+<p>Kartsahibi Doğrulama Değeri (CVV) bu üç veya dört haneli numaralar yetkisiz veya sahte kullanımı önlemeye yardımcı olmak için fiziksel kartın bağış yapılırken kartsahibinin mülkünde olduğuna emin olmaya yardımcı olur.</p>
+<h4>Visa, Mastercard</h4>
+<p>3-haneli kod kartın arkasında, imza alanındadır.
+Genellikle imza alanında bir seri numara vardır, ancak sadece son üç hane CVV kodudur.</p>
+<h4>American Express</h4>
+<p>Kod HER ZAMAN kartın yüzündeki kabartmalı (yükseltilmiş) hesap numarasının ÜSTÜNDEDİR.
+Bazı durumlarda, kod kartın sol tarafındadır, ama her zaman hesap numarasının üstündedir.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia, Wikimedia Vakfı\'nın bir projesidir. Soru veya yorum? Wikimedia Vakfı ile irtibat kurun: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => '"{{int:payflowpro_gateway-donor-submit}}" düğmesine tıkladıktan sonra, kredi kartı bilginiz işlenecektir.',
+	'payflowpro_gateway-credit-storage-processing' => 'Kredi kartı bilginizi saklamıyoruz, ve kişisel veriniz <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">gizlilik ilkemize</a> tabidir.',
 	'donate_interface-GBP' => 'GBP: İngiliz Sterlini',
 	'donate_interface-EUR' => 'EUR: Avro',
 	'donate_interface-USD' => 'USD: Amerikan Doları',
