@@ -913,7 +913,7 @@ $messages['diq'] = array(
 Bexşê ti ra ma zaf teşkur kenê!',
 	'payflowpro_gateway-response-126' => 'Transactionê ti ho testiq beno.',
 	'payflowpro_gateway-response-12' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
-	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o.
+	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o. 
 Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
 	'payflowpro_gateway-response-114' => 'Ma rica keno bankê xo ra kontak bike ser kardê kredi xo.',
 	'payflowpro_gateway-response-23' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
@@ -932,6 +932,11 @@ Ma rica kenê reyna dest bi bike.',
 <p>Hîrê amar kodî ho paştê kard ê tu de ca geno, zerrê ca yê imzayî de. Normal de cayê imzayî seriyanê amaran est ê, feqat teyna hirê amaran ke tewr penî de înan CVV yo.</p>
 <h4>American Express</h4>
 <p>Ena kod rîyê kard de ser amarê hesab tu de ca geno. Feqat tay kardan de hê hêt cewt de ca geno, labela enê kardan zaf niyo.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipediya, yew projeyê Wikimediya yo.  Persê tu ya zi tevsiyeyê tu? Derneqa Wikimediya rê contek bike: 
+<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Key ti klik ken "{{int:payflowpro_gateway-donor-submit}}", enformasyonê kardê kredi tu proses beno.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ma enformasyonê kardê kredi tu qeyd nikeno u enformasyonê tu şexsi ser ena pollitika ma de guriyenê 
+<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>.',
 	'donate_interface-GBP' => 'GBP: Poundê Ingilizi',
 	'donate_interface-EUR' => 'EUR: Ewro',
 	'donate_interface-USD' => 'USD: Dolarê Emerikayi',
@@ -1214,6 +1219,52 @@ Por favor contáctanos para continuar la transacción.',
 	'donate_interface-NOK' => 'NOK: Corona noruega',
 	'donate_interface-SGD' => 'SGD: Dólar de Singapur',
 	'donate_interface-SEK' => 'SEK: Corona sueca',
+);
+
+/** Estonian (Eesti)
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'payflowprogateway' => 'Wikimedia toetamine',
+	'payflowpro_gateway-form-message' => 'Anneta krediitkaardiga. Samuti on võimalik  <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annetada PayPali abil, tšekiga või e-kirja teel</a>.',
+	'payflowpro_gateway-amount-legend' => 'Annetatav summa:',
+	'payflowpro_gateway-cvv-link' => 'Näide',
+	'payflowpro_gateway-donor-currency-label' => 'Vääring:',
+	'payflowpro_gateway-donor-email' => 'E-postiaadress:',
+	'payflowpro_gateway-donor-fname' => 'Eesnimi:',
+	'payflowpro_gateway-donor-mname' => 'Teine nimi:',
+	'payflowpro_gateway-donor-lname' => 'Perekonnanimi:',
+	'payflowpro_gateway-donor-street' => 'Tänav:',
+	'payflowpro_gateway-donor-city' => 'Linn:',
+	'payflowpro_gateway-donor-state' => 'Osariik:',
+	'payflowpro_gateway-donor-postal' => 'Sihtnumber:',
+	'payflowpro_gateway-donor-country' => 'Maa:',
+	'payflowpro_gateway-donor-card' => 'Krediitkaart:',
+	'payflowpro_gateway-donor-card-num' => 'Krediitkaardinumber:',
+	'payflowpro_gateway-donor-expiration' => 'Aegumiskuupäev:',
+	'payflowpro_gateway-donor-security' => 'Turvakood:',
+	'payflowpro_gateway-donor-submit' => 'Anneta',
+	'payflowpro_gateway-submit-button' => 'Anneta',
+	'payflowpro_gateway-question-comment' => 'Vikipeedia on Wikimedia Foundationi projekt. Küsimusi või kommentaare? Võta ühendust Wikimedia Foundationiga: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Kui oled klõpsanud "{{int:payflowpro_gateway-donor-submit}}", lähevad su krediitkaardiandmed käiku.',
+	'payflowpro_gateway-credit-storage-processing' => 'Me ei talleta sinu krediitkaardiandmeid ja sinu isiklike andmete kasutamine on piiratud meie <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privaatsuspõhimõtetega</a>.',
+	'donate_interface-GBP' => 'GBP: Suurbritannia naelsterling',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA dollar',
+	'donate_interface-AUD' => 'AUD: Austraalia dollar',
+	'donate_interface-CAD' => 'CAD: Kanada dollar',
+	'donate_interface-CHF' => 'CHF: Šveitsi frank',
+	'donate_interface-CZK' => 'CZK: Tšehhi kroon',
+	'donate_interface-DKK' => 'DKK: Taani kroon',
+	'donate_interface-HKD' => 'HKD: Hongkongi dollar',
+	'donate_interface-HUF' => 'HUF: Ungari forint',
+	'donate_interface-JPY' => 'JPY: Jaapani jeen',
+	'donate_interface-NZD' => 'NZD: Uus-Meremaa dollar',
+	'donate_interface-NOK' => 'NOK: Norra kroon',
+	'donate_interface-PLN' => 'PLN: Poola zlott',
+	'donate_interface-SGD' => 'SGD: Singapuri dollar',
+	'donate_interface-SEK' => 'SEK: Rootsi kroon',
+	'donate_interface-ILS' => 'ILS: Iisraeli uus seekel',
 );
 
 /** Basque (Euskara)
@@ -2975,6 +3026,17 @@ Spróbuj ponownie później.',
 	'php-response-declined' => 'Transakcja została odrzucona.',
 	'payflowpro_gateway-post-transaction' => 'Szczegóły transakcji',
 	'payflowpro_gateway-submit-button' => 'Wpłacam',
+	'payflowpro_gateway-cvv-explain' => '<h4>Co to jest CVV?</h4>
+<p>Kod CVV to trzy lub cztery cyfry, których sprawdzenie jest metodą na zweryfikowanie fizycznego posiadania karty przez osobę dokonującą wpłaty. Uniemożliwia nieautoryzowane lub nieuprawnione użycie karty.</p>
+<h4>Visa, Mastercard</h4>
+<p>3-cyfrowy kod znajduje się na odwrocie karty, w środku miejsca przeznaczonego na podpis.
+Zazwyczaj w miejscu podpisu znajduje się długi ciąg cyfr, ale tylko trzy ostatnie z ich tworzą kod CVV.</p>
+<h4>American Express</h4>
+<p>Kod zawsze znajduje się powyżej wytłoczonych (wypukłych) cyfr numeru konta na frotowej stronie karty.
+W niektórych przypadkach, kod znajduje się po lewej stronie karty, ale zawsze powyżej numeru rachunku bankowego.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia jest projektem Fundacji Wikimedia. Pytania lub komentarze? Kontakt z Fundacją Wikimedia <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Po kliknięciu „{{int:payflowpro_gateway-donor-submit}}” zostaną przetworzone informacje o karcie kredytowej.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nie przechowujemy informacji o karcie kredytowej ani danych osobowych zgodnie z naszą <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">polityką prywatności.</a>',
 	'donate_interface-GBP' => 'GBP — funt brytyjski',
 	'donate_interface-EUR' => 'EUR — euro',
 	'donate_interface-USD' => 'USD — dolar amerykański',
@@ -3596,6 +3658,17 @@ Par piaser, ripròa de novo tra un tocheto.',
 	'php-response-declined' => 'La to transazion la xe stà rifiutà.',
 	'payflowpro_gateway-post-transaction' => 'Detaji de la transazion',
 	'payflowpro_gateway-submit-button' => 'Dona',
+	'payflowpro_gateway-cvv-explain' => "<h4>Coss'èlo sto CVV?</h4>
+<p>El xe un còdese de tri o quatro cifre, che ne juta a èssar sicuri che la carta la sia fisicamente in man del proprietario, co uno el xe in vià donar schei in rete, in modo da evitar che qualcheduni te ciava i schei.</p>
+<h4>Visa, Mastercard</h4>
+<p>El còdese xe longo 3 cifre, e te lo cati sul dedrìo de la to carta, in do che xe la firma.
+De solito in tel spassio de la firma se cata na serie de nùmari, ma solo i ultimi tri i forma el CVV.</p>
+<h4>American Express</h4>
+<p>El còdese te lo cati sempre de sora del nùmaro de carta (in rilievo), sul davanti de la carta.
+Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sora del nùmaro de carta.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Wikipedia el xe un projeto de la Fondassion Wikimedia. Domande o comenti? Scrìveghe a la Fondassion Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Strucando "{{int:payflowpro_gateway-donor-submit}}", le informassion su la to carta de credito le vegnarà elaborà.',
+	'payflowpro_gateway-credit-storage-processing' => 'Noantri no se salvémo mia i dati de la to carta de credito, e i to dati personali i xe sogeti a la nostra <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">polìtega de riservadessa</a>.',
 	'donate_interface-GBP' => 'GBP: Sterlina britànega',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolaro merican',
