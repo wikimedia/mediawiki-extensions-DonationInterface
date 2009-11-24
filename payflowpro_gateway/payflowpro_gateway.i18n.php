@@ -859,6 +859,7 @@ Bitte versuchen Sie es später noch einmal.',
 );
 
 /** Zazaki (Zazaki)
+ * @author Mirzali
  * @author Xoser
  */
 $messages['diq'] = array(
@@ -932,11 +933,10 @@ Ma rica kenê reyna dest bi bike.',
 <p>Hîrê amar kodî ho paştê kard ê tu de ca geno, zerrê ca yê imzayî de. Normal de cayê imzayî seriyanê amaran est ê, feqat teyna hirê amaran ke tewr penî de înan CVV yo.</p>
 <h4>American Express</h4>
 <p>Ena kod rîyê kard de ser amarê hesab tu de ca geno. Feqat tay kardan de hê hêt cewt de ca geno, labela enê kardan zaf niyo.</p><br />',
-	'payflowpro_gateway-question-comment' => 'Wikipediya, yew projeyê Wikimediya yo.  Persê tu ya zi tevsiyeyê tu? Derneqa Wikimediya rê contek bike: 
+	'payflowpro_gateway-question-comment' => 'Wikipediya yew procey dezgeyê Wikimedyawo.  Persê to ya zi tewsiyê to? Ebe dezgey Wikimedya irtıbat kewe: 
 <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Key ti klik ken "{{int:payflowpro_gateway-donor-submit}}", enformasyonê kardê kredi tu proses beno.',
-	'payflowpro_gateway-credit-storage-processing' => 'Ma enformasyonê kardê kredi tu qeyd nikeno u enformasyonê tu şexsi ser ena pollitika ma de guriyenê 
-<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>.',
+	'payflowpro_gateway-donate-click' => 'Klik ra tepiya "{{int:payflowpro_gateway-donor-submit}}", mıameley enformasyonê karta krediyê şıma beno.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ma melumatê karta krediyê şıma qeyd nêkenime, u melumatê şımawo şexsi bınê idarey <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">privacy policy</a>ê ma dero.',
 	'donate_interface-GBP' => 'GBP: Poundê Ingilizi',
 	'donate_interface-EUR' => 'EUR: Ewro',
 	'donate_interface-USD' => 'USD: Dolarê Emerikayi',
@@ -1112,7 +1112,7 @@ Estas <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/eo">aliaj r
 Dankon pro via donaco!',
 	'payflowpro_gateway-response-126' => 'Via pago atendas aprobon.',
 	'payflowpro_gateway-response-12' => 'Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.',
-	'payflowpro_gateway-response-13' => 'Via pago postulas voĉan rajtigon.
+	'payflowpro_gateway-response-13' => 'Via pago postulas voĉan rajtigon. 
 Bonvolu kontakti nin por plufari vian pagon.',
 	'payflowpro_gateway-response-114' => 'Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.',
 	'payflowpro_gateway-response-23' => 'Via kreditkarta numero aŭ validlimdato estas malĝusta.',
@@ -1125,6 +1125,7 @@ Bonvolu provi denove pli poste.',
 	'php-response-declined' => 'Via pago estis malaprobita.',
 	'payflowpro_gateway-post-transaction' => 'Pagdetaloj',
 	'payflowpro_gateway-submit-button' => 'Donacu',
+	'payflowpro_gateway-credit-storage-processing' => 'Ni ne tenos informon pri via kreditkaro, kaj via personaj datenoj estas regulita de nia <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">regularo pri privateco</a>.',
 	'donate_interface-GBP' => 'GBP: Brita pundo',
 	'donate_interface-EUR' => 'EUR: Eŭro',
 	'donate_interface-USD' => 'USD: Usona dolaro',
@@ -3764,6 +3765,9 @@ Xin hãy thử lại vào lần sau.',
 <p>Mã số 3 chữ số nằm trên mặt trái của thẻ, trong hộp chữ ký. Hộp chữ ký thường có một loạt số, nhưng chỉ mã số CVV chỉ bao gồm 3 chữ số cuối cùng.</p>
 <h4>American Express</h4>
 <p>Mã số <strong>lúc nào</strong> cũng nằm <strong>ở trên</strong> số tài khoản in nổi trên mặt phải. Đôi khi mã số nằm vào bên trái của mặt phải nhưng vẫn còn nằm ở trên số tài khoản.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia là một dự án trực thuộc Wikimedia Foundation. Có thắc mắc hay gợi ý? Hãy liên lạc với Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Sau khi nhấn chuột vào “{{int:payflowpro_gateway-donor-submit}}”, thông tin thẻ tín dụng của bạn sẽ được xử lý.',
+	'payflowpro_gateway-credit-storage-processing' => 'Chúng tôi không lưu giữ thông tin thẻ tín dụng của bạn, và dữ liệu cá nhân của bạn được sử dụng theo <a href="http://wikimediafoundation.org/wiki/Quy_%C4%91%E1%BB%8Bnh_quy%E1%BB%81n_ri%C3%AAng_t%C6%B0?uselang=vi">quy định quyền riêng tư</a>.',
 	'donate_interface-GBP' => 'GBP: Bảng Anh',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Đô la Mỹ',
