@@ -772,6 +772,7 @@ Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhi
 
 /** German (Deutsch)
  * @author Lyzzy
+ * @author Metalhead64
  * @author Tbleher
  * @author Umherirrender
  */
@@ -806,11 +807,13 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-donor-submit' => 'Spenden',
 	'payflowpro_gateway-donor-currency-msg' => 'Die Spende wird in $1 vorgenommen',
 	'payflowpro_gateway-error-msg' => 'Das folgende Feld muss ausgefüllt sein: $1',
+	'payflowpro_gateway-error-msg-js' => 'Das folgende Feld wird benötigt:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Bitte einen gültigen Betrag eingeben*',
 	'payflowpro_gateway-error-msg-email' => '** Bitte geben Sie eine gültige E-Mail-Adresse ein **',
 	'payflowpro_gateway-error-msg-amex' => '** Bitte geben Sie eine korrekte American-Express-Kartennummer ein **',
 	'payflowpro_gateway-error-msg-mc' => '** Bitte geben Sie eine korrekte Mastercard-Kartennummer ein **',
 	'payflowpro_gateway-error-msg-visa' => '** Bitte geben Sie eine korrekte Visa-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-discover' => '**Bitte gib eine korrekte Kreditkartennummer für Discover an.**',
 	'payflowpro_gateway-error-msg-amount' => 'Spendenbetrag',
 	'payflowpro_gateway-error-msg-emailAdd' => 'E-Mail-Adresse',
 	'payflowpro_gateway-error-msg-fname' => 'Vorname',
@@ -839,6 +842,9 @@ Bitte versuchen Sie es später noch einmal.',
 	'php-response-declined' => 'Ihre Transaktion wurde abgewiesen.',
 	'payflowpro_gateway-post-transaction' => 'Transaktions-Details',
 	'payflowpro_gateway-submit-button' => 'Spenden',
+	'payflowpro_gateway-question-comment' => 'Wikipedia ist ein Projekt der Wikimedia Foundation. Fragen oder Kommentare? Kontaktiere die Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Nach dem Klick auf „{{int:payflowpro_gateway-donor-submit}}“ werden deine Kreditkarteninformationen verarbeitet.',
+	'payflowpro_gateway-credit-storage-processing' => 'Wir speichern nicht deine Kreditkarteninformationen, und deine persönlichen Daten unterliegen unserer <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Datenschutzerklärung</a>.',
 	'donate_interface-GBP' => 'GBP: Britisches Pfund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: US-Dollar',
@@ -1552,8 +1558,8 @@ Normalmente, a zona da sinatura ten unha serie de números, pero só os tres úl
 <p>O código está SEMPRE situado por riba do número de conta en relevo na cara frontal da tarxeta.
 Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
 	'payflowpro_gateway-question-comment' => 'A Wikipedia é un proxecto da Fundación Wikimedia. Tes algunha pregunta ou comentario? Ponte en contacto coa Fundación Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Despois de premeres en "Doar", procesarase a información da túa tarxeta de crédito.',
-	'payflowpro_gateway-credit-storage-processing' => 'Non gardamos información da túa tarxeta de crédito e os teus datos persoais están suxeitos á nosa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de protección de datos</a>.',
+	'payflowpro_gateway-donate-click' => 'Despois de premeres en "{{int:payflowpro_gateway-donor-submit}}", procesarase a información da túa tarxeta de crédito.',
+	'payflowpro_gateway-credit-storage-processing' => 'Non gardamos información da túa tarxeta de crédito, e os teus datos persoais están suxeitos á nosa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de protección de datos</a>.',
 	'donate_interface-GBP' => 'GBP: libra esterlina',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: dólar estadounidense',
@@ -2601,6 +2607,105 @@ $messages['ml'] = array(
 	'donate_interface-SGD' => 'SGD: സിങ്കപ്പൂർ ഡോളർ',
 	'donate_interface-SEK' => 'SEK: സ്വീഡിഷ് ക്രോണ',
 	'donate_interface-ILS' => 'ILS: ഇസ്രയേലി ഷെക്കെൽ',
+);
+
+/** Nedersaksisch (Nedersaksisch)
+ * @author Servien
+ */
+$messages['nds-nl'] = array(
+	'payflowprogateway' => 'Steun Wikimedia',
+	'payflowpro_gateway-desc' => 'Kredietkaortverwarking via PayPal PayFlow Pro',
+	'payflowpro_gateway-accessible' => 'Disse pagina ku-j allinnig bekieken via de doneteurspagina.',
+	'payflowpro_gateway-form-message' => 'Draag bie mit de kredietkaorte.
+Der bin oek <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aandere menieren um geld te geven, zoas PayPal, cheque, of netpos</a>.',
+	'payflowpro_gateway-form-message-2' => 'Um \'t bedrag of de munteenheid te wiezigen, gao-j weerumme naor de <a href="/index.php?title=Donate">doneteurspagina</a>.',
+	'payflowpro_gateway-donor-legend' => 'Doneteursinfermasie',
+	'payflowpro_gateway-card-legend' => 'Kredietkaortgegevens',
+	'payflowpro_gateway-amount-legend' => 'Bedrag:',
+	'payflowpro_gateway-cvv-link' => 'Veurbeeld',
+	'payflowpro_gateway-donor-amount' => 'Bedrag:',
+	'payflowpro_gateway-donor-currency-label' => 'Munteenheid:',
+	'payflowpro_gateway-donor-email' => 'Netposadres',
+	'payflowpro_gateway-donor-fname' => 'Veurnaam:',
+	'payflowpro_gateway-donor-mname' => 'Tussenvoegsel:',
+	'payflowpro_gateway-donor-lname' => 'Achternaam:',
+	'payflowpro_gateway-donor-name' => 'Naam:',
+	'payflowpro_gateway-donor-street' => 'Straote:',
+	'payflowpro_gateway-donor-city' => 'Plaose:',
+	'payflowpro_gateway-donor-state' => 'Staot:',
+	'payflowpro_gateway-donor-postal' => 'Poscode:',
+	'payflowpro_gateway-donor-country' => 'Laand:',
+	'payflowpro_gateway-donor-address' => 'Adres:',
+	'payflowpro_gateway-donor-card' => 'Kredietkaorte:',
+	'payflowpro_gateway-donor-card-num' => 'Nummer van de kaorte:',
+	'payflowpro_gateway-donor-expiration' => 'Vervaldaotum:',
+	'payflowpro_gateway-donor-security' => 'Beveiligingscode:',
+	'payflowpro_gateway-donor-submit' => 'Geld geven',
+	'payflowpro_gateway-donor-currency-msg' => 'Disse donasie is in $1',
+	'payflowpro_gateway-error-msg' => 'Vul joew $1 in',
+	'payflowpro_gateway-error-msg-js' => "'t Volgende veld mu-j invullen:",
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Vul een bedrag in**',
+	'payflowpro_gateway-error-msg-email' => '**Vul een geldig netposadres in**',
+	'payflowpro_gateway-error-msg-amex' => '**Vul een geldig nummer in van joew American Express-kaorte**',
+	'payflowpro_gateway-error-msg-mc' => '**Vul een geldig nummer in van joew Mastercard**',
+	'payflowpro_gateway-error-msg-visa' => '**Vul een geldig nummer in van joew Visakaorte**',
+	'payflowpro_gateway-error-msg-discover' => '**Vul een geldig nummer in van joew Discoverkaorte**',
+	'payflowpro_gateway-error-msg-amount' => 'bedrag',
+	'payflowpro_gateway-error-msg-emailAdd' => 'netposadres',
+	'payflowpro_gateway-error-msg-fname' => 'veurnaam',
+	'payflowpro_gateway-error-msg-lname' => 'achternaam',
+	'payflowpro_gateway-error-msg-street' => 'adres',
+	'payflowpro_gateway-error-msg-city' => 'plaose',
+	'payflowpro_gateway-error-msg-state' => 'staot',
+	'payflowpro_gateway-error-msg-zip' => 'poscode',
+	'payflowpro_gateway-error-msg-card_num' => 'kredietkaortnummer',
+	'payflowpro_gateway-error-msg-expiration' => 'vervaldaotum van de kredietkaorte',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV - beveiligingscode - van de achterkaante van joew kredietkaorte',
+	'payflowpro_gateway-response-0' => 'Joew storting is goed-ekeurd!
+Bedank veur de centen!',
+	'payflowpro_gateway-response-126' => 'Joew storting wach op goedkeuring.',
+	'payflowpro_gateway-response-12' => 'Neem kontak op mit de kredietkaortmaotschappieje veur meer infermasie.',
+	'payflowpro_gateway-response-13' => 'Veur disse storting mu-j mondelinge toestemming geven.
+Neem kontak op mit ons veur de storting.',
+	'payflowpro_gateway-response-114' => 'Neem kontak op mit de kredietkaortmaotschappieje veur meer infermasie.',
+	'payflowpro_gateway-response-23' => "'t Nummer van disse kredietkaorte is vervuilen of verkeerd.",
+	'payflowpro_gateway-response-4' => 'Ongeldig bedrag.',
+	'payflowpro_gateway-response-24' => "'t Nummer van de kredietkaorte is vervuilen of verkeerd.",
+	'payflowpro_gateway-response-112' => 'Joew adres of CVV-nummer (beveiligingscode) is verkeerd.',
+	'payflowpro_gateway-response-125' => 'Joew storting is of-ewezen deur Fraud Prevention Services.',
+	'payflowpro_gateway-response-default' => "Der gung wat fout mit de storting.
+Prebeer 't laoter weer.",
+	'php-response-declined' => 'Joew storting is of-ewezen.',
+	'payflowpro_gateway-post-transaction' => 'Gegevens van de storting',
+	'payflowpro_gateway-submit-button' => 'Geld geven',
+	'payflowpro_gateway-cvv-explain' => "<h4>Wat is CVV?</h4>
+<p>CVV steet veur Cardholder Verification Value (kaorthouwer bevestigingsweerde). Dit getal van dree of vier ciefers zörg derveur da-w nao kunnen kieken of de kaorte ech in hanen is van de persoon dee 't geld geef en helpt fraude te veurkoemen.</p>
+<h4>Visa, Mastercard</h4>
+<p>De code mit dree ciefers steet op de achterkaante van de kaorte, in 'tzelfde gebied as de haandtekening.
+Meestentieds staon der meer ciefers in dat gebied, mar allinnig de leste dree ciefers bin de CVV-code.</p>
+<h4>American Express</h4>
+<p>De code steet altied drek boven 't nummer an de veurkaante van de kaorte.
+In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet altied boven 't nummer van de kaorte.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Wikipedie is a prejek van de Wikimedia Foundation. A-j vragen of opmarkingen hebben, dan mu-j effen kontak opnemen mit de Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Naoda-j op "{{int:payflowpro_gateway-donor-submit}}" klikken, wönnen joew kredietkaortgegevens verwark.',
+	'payflowpro_gateway-credit-storage-processing' => 'Joew kredietkaortgevens wönnen neet op-esleugen, en joew persoonlijke infermasie vuilt onder ons <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">gegevensbeleid</a>.',
+	'donate_interface-GBP' => 'GBP: Britse pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikaanse dollar',
+	'donate_interface-AUD' => 'AUD: Australische dollar',
+	'donate_interface-CAD' => 'CAD: Kannedese dollar',
+	'donate_interface-CHF' => 'CHF: Zwitserse frank',
+	'donate_interface-CZK' => 'CZK: Tsjechische krone',
+	'donate_interface-DKK' => 'DKK: Deense krone',
+	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
+	'donate_interface-HUF' => 'HUF: Hongaarse forint',
+	'donate_interface-JPY' => 'JPY: Jepanse yen',
+	'donate_interface-NZD' => 'NZD: Niej-Zeelaanse dollar',
+	'donate_interface-NOK' => 'NOK: Noorse krone',
+	'donate_interface-PLN' => 'PLN: Poolse zloty',
+	'donate_interface-SGD' => 'SGD: Singapoerse dollar',
+	'donate_interface-SEK' => 'SEK: Zweedse krone',
+	'donate_interface-ILS' => 'ILS: Israëlische sjekel',
 );
 
 /** Dutch (Nederlands)
