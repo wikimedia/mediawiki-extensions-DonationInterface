@@ -521,7 +521,17 @@ Klaskit en-dro a-benn ur pennadig.',
 	'php-response-declined' => "Dinac'het eo bet an treuzgread.",
 	'payflowpro_gateway-post-transaction' => 'Munudoù an treuzgread',
 	'payflowpro_gateway-submit-button' => 'Ober un donezon',
+	'payflowpro_gateway-cvv-explain' => "<h4>Petra eo ?</h4>
+<p>Talvoudenn wiriañ ar gartenn (CVV) eo an 3 pe 4 sifr a dalvez da wiriañ emañ mat ar gartenn gant perc'henn ar gartenn fizikel pa sav ur paeamant enlinenn, ar pezh zo un doare da zizarbenn an implijoù flodek pe diaotre.</p>
+<h4>Visa, Mastercard</h4>
+<p>Emañ ar c'hod 3 sifr e tu gin ar gartenn en takad miret evit ar sinadur.
+Un heuliad sifroù a ya d'ober ar varrenn sinañ met n'eus nemet an 3 sifr diwezhañ a ya d'ober ar c'hod CVV.</p>
+<h4>American Express</h4>
+<p>ATAV emañ ar c'hod A-US d'an niverenn-gont  dreistlec'hiet war tu mat ar gartenn.
+A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niverenn-gont.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Ur raktres eus Diazezadur Wikimedia eo Wikipedia. Goulennoù pe soñjoù ? Kit e daremrped gant Diazezadur Wikimedia : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Goude bezañ kliket war   "{{int:payflowpro_gateway-donor-submit}}", e vo kemeret e kont titouroù ho kartenn-gred.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ne viromp ket roadennoù ho kartenn-gred ha gwarezet eo an titouroù personel a resevomp dre hor <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politikerezh pevrezded</a>.',
 	'donate_interface-GBP' => 'GBP : Lur saoz',
 	'donate_interface-EUR' => 'EUR : Euro',
 	'donate_interface-USD' => 'USD : Dollar SUA',
@@ -2596,6 +2606,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-post-transaction' => 'ഇടപാടിന്റെ വിവരങ്ങൾ',
 	'payflowpro_gateway-submit-button' => 'സംഭാവന ചെയ്യുക',
 	'payflowpro_gateway-question-comment' => 'വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഒരു പദ്ധതിയാണ് വിക്കിപീഡിയ. എന്തെങ്കിലും ചോദ്യങ്ങളോ അഭിപ്രായങ്ങളോ ഉണ്ടെങ്കിൽ വിക്കിമീഡിയ ഫൗണ്ടേഷനുമായി ബന്ധപ്പെടുക:<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => '"{{int:payflowpro_gateway-donor-submit}}" ഞെക്കുമ്പോൾ, താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് വിവരങ്ങൾ ഉപയോഗപ്പെടുത്തുന്നതാണ്.',
 	'payflowpro_gateway-credit-storage-processing' => 'ഞങ്ങൾ താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് വിവരങ്ങൾ സൂക്ഷിച്ചു വെയ്ക്കില്ല, താങ്കളുടെ സ്വകാര്യ വിവരങ്ങൾ ഞങ്ങളുടെ <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">സ്വകാര്യതാനയത്തിൽ</a> പെടുന്നു.',
 	'donate_interface-GBP' => 'GPB: ബ്രിട്ടീഷ് പൗണ്ട്',
 	'donate_interface-EUR' => 'EUR: യൂറോ',
