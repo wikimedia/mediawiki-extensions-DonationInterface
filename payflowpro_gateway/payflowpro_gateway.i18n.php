@@ -66,6 +66,7 @@ There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other wa
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',
 	'payflowpro_gateway-response-126' => 'Your transaction is pending approval.',
+	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile. For your own security, your donation is currently under review, and we will notify you through the provided e-mail address if we cannot finalize your donation. Please e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
 	'payflowpro_gateway-response-12' => 'Please contact your credit card company for further information.',
 	'payflowpro_gateway-response-13' => 'Your transaction requires voice authorization.
 Please contact us to continue your transaction.', // This will not apply to Wikimedia accounts
@@ -78,6 +79,7 @@ Please contact us to continue your transaction.', // This will not apply to Wiki
 	'payflowpro_gateway-response-default' => 'There was an error processing your transaction.
 Please try again later.',
 	'php-response-declined' => 'Your transaction has been declined.',
+	'payflowpro_gateway-thankyou' => 'Thank you for your donation!',
 	'payflowpro_gateway-post-transaction' => 'Transaction details',
 	'payflowpro_gateway-submit-button' => 'Donate',
 	'payflowpro_gateway-cvv-explain' => '<h4>What is CVV?</h4>

@@ -674,6 +674,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 		} elseif( ( $errorCode == '4' ) ) {
 				$this->fnPayflowDisplayOtherResults( $responseMsg );
+		} elseif( ( $errorCode == '5' ) ) {
+				$this->fnPayflowDisplayPending( $responseMsg );
 		}
 
 	}// end display results
@@ -696,7 +698,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				break;
 			case '126':
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-126' );
-				$errorCode = '1';
+				$errorCode = '5';
 				break;
 			case '12':
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-12' );
@@ -822,6 +824,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
 	}
+
+	function fnPayflowDisplayPending( $responseMsg ) {
+		global $wgOut;
+
+		// display response message
+		$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
+	}
 	
 	function fnPayflowSaveContributionTracking( &$data ) {
 			$data['optout'] = ($data['optout'] == "1") ? '0' : '1';
@@ -854,7 +863,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// Store the contribution data
 		if ($db->insert( 'contribution_tracking', $tracked_contribution ) ) {
-			$data['contribution_tracking_id'] = $db->insertId();
+		//	$data['contribution_tracking_id'] = $db->insertId();
 		 	return true;
 		} else { return false; }
 		
