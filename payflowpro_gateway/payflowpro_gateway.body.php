@@ -256,7 +256,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// open form	
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)' ) );
+			Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] ) .
+			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 		
 		// donor amount and name			
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) ).
@@ -336,7 +337,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) .
 			$endCell .
-			Xml::input( 'card_num', '30', '', array( 'maxlength' => '100', 'id' => 'card_num' ) ) .
+			Xml::input( 'card_num', '30', '', array( 'maxlength' => '100', 'id' => 'card_num', 'autocomplete' => 'off' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $error['card_num'] . '</span>' .
 			'</tr><tr><td></td><td>' .
 			'<span class="creditcard-error-msg">' . '  ' . $error['card'] . '</span>' .
@@ -352,7 +353,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
 			$endCell .
-			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv' ) ) .
+			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
 			'<a href="javascript:PopupCVV();">' . wfMsg( 'word-separator' ) . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
 			'<span class="creditcard-error-msg">' . '  ' . $error['cvv'] . '</span>' .
 			'</td></tr>' .
@@ -665,9 +666,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		if( $errorCode == '1' ) {
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
 			// give user a second chance to enter incorrect data
-		} elseif( ( $errorCode == '3' ) && ( $data['numAttempt'] < '2' ) ) {
+		} elseif( ( $errorCode == '3' ) && ( $data['numAttempt'] < '3' ) ) {
 			// pass responseMsg as an array key as required by displayForm
-				$tryAgainResponse[$responseMsg] = $responseMsg;
+				$tryAgainResponse['retryMsg'] = $responseMsg;
 				$this->fnPayflowDisplayForm( $data, $tryAgainResponse );
 			// if declined or if user has already made two attempts, decline
 		} elseif( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '2' ) ) {
