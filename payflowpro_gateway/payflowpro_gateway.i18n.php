@@ -1030,6 +1030,7 @@ Su <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">druge pósćiwa
 	'payflowpro_gateway-response-0' => 'Twója transakcija jo se pśizwóliła.
 Źěkujomy s za twój dar!',
 	'payflowpro_gateway-response-126' => 'Twója transakcija caka na pśizwólenje.',
+	'payflowpro_gateway-response-126-2' => 'Někotare z informacijow, kótarež sćo pódał, njewótpowěduju profiloju wašeje kredtineje kórty. Za wašu wěstotu waš dar pśekontrolěrujo se tuchylu, a buźomy was informěrowaś pśez pódanu e-mailowu adresu, jolic njamóžomy wašo pósćiwanje dokóńcyś. Pšosym pósćelśo e-mail na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, jolic maśo pšašanja. Źěkujomy se!',
 	'payflowpro_gateway-response-12' => 'Pšosym staj se ze swójim pśedewześim kreditoweje kórty za dalšne informacije do zwiska.',
 	'payflowpro_gateway-response-13' => 'Twója transakcija pomina se głosowu awtorizaciju.
 Pšosym staj se z nami do zwiska, aby z transakciju pókšacował.',
@@ -1042,6 +1043,7 @@ Pšosym staj se z nami do zwiska, aby z transakciju pókšacował.',
 	'payflowpro_gateway-response-default' => 'Pśi pśeźěłowanju twójeje transakcije jo zmólka nastała.
 Pšosym wopytaj pózdźej hyšći raz.',
 	'php-response-declined' => 'Twója transakcija jo se wótpokazała.',
+	'payflowpro_gateway-thankyou' => 'Źěkujomy se za waš dar!',
 	'payflowpro_gateway-post-transaction' => 'Drobnostki transakcije',
 	'payflowpro_gateway-submit-button' => 'Pósćiś',
 	'payflowpro_gateway-cvv-explain' => '<h4>Co jo CVV?</h4>
@@ -1455,6 +1457,7 @@ Il y a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d\'aut
 	'payflowpro_gateway-response-0' => 'Votre transaction a été approuvée.
 Merci pour votre don !',
 	'payflowpro_gateway-response-126' => "Votre transaction est en cours d'approbation.",
+	'payflowpro_gateway-response-126-2' => 'Certaines informations que vous avez fournies ne correspondent pas au profil de votre carte bancaire. Pour votre propre sécurité, votre don est actuellement en cours de vérification, et nous vous préviendrons via l\'adresse de courriel que vous avez fournie si nous ne parvenons à finaliser votre don. Pour toute question, n\'hésitez pas à adresser un courriel à <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Merci !',
 	'payflowpro_gateway-response-12' => "Veuillez contacter le fournisseur de votre carte de crédit pour plus d'information.",
 	'payflowpro_gateway-response-13' => 'Votre transaction requiert une autorisation vocale.
 Veuillez nous contacter pour poursuivre votre transaction.',
@@ -1467,6 +1470,7 @@ Veuillez nous contacter pour poursuivre votre transaction.',
 	'payflowpro_gateway-response-default' => 'Une erreur est survenue lors du traitement de votre transaction.
 Veuillez réessayer plus tard.',
 	'php-response-declined' => 'Votre transaction a été déclinée.',
+	'payflowpro_gateway-thankyou' => 'Merci pour votre don !',
 	'payflowpro_gateway-post-transaction' => 'Détails de la transaction',
 	'payflowpro_gateway-submit-button' => 'Faire un don',
 	'payflowpro_gateway-cvv-explain' => "<h4>Qu'est-ce que CVV ?</h4>
@@ -1478,7 +1482,7 @@ Typiquement, la barre pour la signature contient une série de nombres, mais seu
 <p>Le code est TOUJOURS suité AU-DESSUS du numéro de compte surélevé au recto de la carte.
 Dans certains cas, le code est situé sur le côté gauche de la carte, mais il est toujours au-dessus du numéro de compte.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Wikipédia est un projet de la Wikimedia Foundation. Des questions ou des commentaires ? Contactez la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gatewa-donate-click' => 'Après avoir cliqué sur le bouton « Faire un don », les informations de votre carte de crédit seront traitées.',
+	'payflowpro_gateway-donate-click' => 'Après avoir cliqué sur le bouton « Faire un don », les informations de votre carte de crédit seront traitées.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nous ne sauvegardons pas les données de votre carte de crédit et vos informations personnelles sont sujettes à notre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politique de confidentialité</a>.',
 	'donate_interface-GBP' => 'GBP : livre sterling',
 	'donate_interface-EUR' => 'EUR : euro',
@@ -1653,6 +1657,7 @@ S het au <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andri Meg
 	'payflowpro_gateway-response-0' => 'Dyy Transaktion isch uusgfiert wore.
 Dankschen fir Dyy Spände!',
 	'payflowpro_gateway-response-126' => 'Dyy Transaktion isch no hängig.',
+	'payflowpro_gateway-response-126-2' => 'E Teil vu dr Informatione, wu Du aagee hesch, passe nit zue Dyym Kreditcharte-Profil. Zue Dyyre eigene Sicherheit wird Dyy Spände zur Zyt iberprieft, un mir mälden is bi Dir iber d E-Mail-Adräss, wu du aagee hesch, wänn mer Dyy Spände nit chenne abschließe. Bitte schryb e Mail an <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, wänn Du FRoge hesch. Dankschen!',
 	'payflowpro_gateway-response-12' => 'Bitte nimm Kontakt uf zue Dyyre Charte-Firma fir meh Informatione.',
 	'payflowpro_gateway-response-13' => 'Fir Dyy Transaktion brucht s e Stimmeerchännig.
 Bitte nimm Kontakt zuen is uf go Dyy Transaktio wyterfiere.',
@@ -1665,6 +1670,7 @@ Bitte nimm Kontakt zuen is uf go Dyy Transaktio wyterfiere.',
 	'payflowpro_gateway-response-default' => 'S het e Fähler gee bi dr Uusfierig vu Dyyre Transaktion.
 Bitte versuech s speter nonemol.',
 	'php-response-declined' => 'Dyy Transaktion isch abbroche wore.',
+	'payflowpro_gateway-thankyou' => 'Dankschen fir Dyyni Spände!',
 	'payflowpro_gateway-post-transaction' => 'Transaktions-Detail',
 	'payflowpro_gateway-submit-button' => 'Spände',
 	'payflowpro_gateway-cvv-explain' => '<h4>Was isch CVV?</h4>
@@ -1752,6 +1758,7 @@ Su tež <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">druhe mó�
 	'payflowpro_gateway-response-0' => 'Waša transakcija bu schwalena.
 Dźakujemy so za waš dar!',
 	'payflowpro_gateway-response-126' => 'Waša transakcija hišće na schwalenje čaka.',
+	'payflowpro_gateway-response-126-2' => 'Někotre z informacijow, kotrež sće podał, njewotpowěduja profilej wašeje kreditneje karty. Za wašu wěstotu so dar tuchwilu přepruwuje, a zdźělimy wam přez podatu e-mejlowu adresu, jeli njemóžemy waše darjenje dokónčić. Prošu pósćelće e-mejl na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, jeli maće prašenja. Dźakujemy so!',
 	'payflowpro_gateway-response-12' => 'Prošu stajće so ze swojim předewzaćom kreditneje karty za dalše informacije do zwiska.',
 	'payflowpro_gateway-response-13' => 'Waša transakcija wužaduje hłosowu awtorizaciju.
 Prošu stajće so z nami do zwiska, zo byšće ze swoju transakciju pokročował.',
@@ -1764,6 +1771,7 @@ Prošu stajće so z nami do zwiska, zo byšće ze swoju transakciju pokročował
 	'payflowpro_gateway-response-default' => 'Při předźěłowanju wašeje transakcije je zmylk wustupił.
 Prošu spytajće pozdźišo hišće raz.',
 	'php-response-declined' => 'Twoja transakcija bu wotpokazana.',
+	'payflowpro_gateway-thankyou' => 'Dźakujemy so za waš dar!',
 	'payflowpro_gateway-post-transaction' => 'Podrobnosće transakcije',
 	'payflowpro_gateway-submit-button' => 'Darić',
 	'payflowpro_gateway-cvv-explain' => '<h4>Što je CVV?</h4>
