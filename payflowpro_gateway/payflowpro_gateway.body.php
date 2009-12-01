@@ -671,7 +671,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$tryAgainResponse['retryMsg'] = $responseMsg;
 				$this->fnPayflowDisplayForm( $data, $tryAgainResponse );
 			// if declined or if user has already made two attempts, decline
-		} elseif( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '2' ) ) {
+		} elseif( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
 				$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 		} elseif( ( $errorCode == '4' ) ) {
 				$this->fnPayflowDisplayOtherResults( $responseMsg );
