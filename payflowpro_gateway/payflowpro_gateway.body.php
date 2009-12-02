@@ -256,7 +256,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// open form	
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-			Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] ) .
+			Xml::element( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] ) .
 			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 		
 		// donor amount and name			
@@ -792,6 +792,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		//enable if we need this to get the Civi data to display correctly
 		$transaction['optout'] = ($transaction['optout'] == "1") ? '0' : '1';
 		$transaction['anonymous'] = ($transaction['anonymous'] == "1") ? '0' : '1';
+	
 		// hook to call stomp functions
 		wfRunHooks( 'gwStomp', array( &$transaction ) );
 	}
