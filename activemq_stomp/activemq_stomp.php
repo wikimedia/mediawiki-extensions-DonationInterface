@@ -116,7 +116,7 @@ function createQueueMessage($transaction) {
         // specifically designed to match the CiviCRM API that will handle it
         // edit this array to include/ignore transaction data sent to the server
         $message = array( 
-                'contribution_tracking_id' => $transaction['order_id'],
+                'contribution_tracking_id' => $transaction['contribution_tracking_id'],
                 'optout'                 => $transaction['optout'],
                 'anonymous'              => $transaction['anonymous'],
                 'comment'                => $transaction['comment'],
