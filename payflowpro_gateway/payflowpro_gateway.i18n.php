@@ -66,7 +66,7 @@ There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other wa
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',
 	'payflowpro_gateway-response-126' => 'Your transaction is pending approval.',
-	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile. For your own security, your donation is currently under review, and we will notify you through the provided e-mail address if we cannot finalize your donation. Please e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
+	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided e-mail address if we cannot finalize your donation. Please e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
 	'payflowpro_gateway-response-12' => 'Please contact your credit card company for further information.',
 	'payflowpro_gateway-response-13' => 'Your transaction requires voice authorization.
 Please contact us to continue your transaction.', // This will not apply to Wikimedia accounts
@@ -84,12 +84,12 @@ Please try again later.',
 	'payflowpro_gateway-post-transaction' => 'Transaction details',
 	'payflowpro_gateway-submit-button' => 'Donate',
 	'payflowpro_gateway-cvv-explain' => '<h4>What is CVV?</h4>
-<p>Cardholder Verification Value (CVV) these three or four digit numbers help ensure that the physical card is in the cardholder’s possession while donating online that helps to prevent unauthorized or fraudulent use.</p>
+<p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorized or fraudulent use.</p>
 <h4>Visa, Mastercard</h4>
 <p>The 3-digit code is located on the back of your card, inside the signature area.
 Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
 <h4>American Express</h4>
-<p>The code is ALWAYS located ABOVE the embossed (raised) account number on the face of the card.
+<p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia is a project of the Wikimedia Foundation. Questions or comments? Contact the Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'After clicking "{{int:payflowpro_gateway-donor-submit}}", your credit card information will be processed.',
