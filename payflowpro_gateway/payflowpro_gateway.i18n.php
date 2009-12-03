@@ -410,6 +410,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-response-0' => 'Ваша транзакцыя была зацьверджаная.
 Дзякуй за Вашае ахвяраваньне!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакцыя чакае пацьверджаньня.',
+	'payflowpro_gateway-response-126-2' => 'Некаторая інфармацыя, якую Вы падалі, не супадае з профілем Вашай крэдытнай карткі, альбо Вы зрабілі занадта вялікае ахвяраваньне. Для Вашай бясьпекі, Вашае ахвяраваньне ў цяперашні момант разглядаецца і мы паведамім Вам па электроннай пошце, калі мы ня зможам яго апрацаваць. Калі ласка лістуйце на адрас <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, калі Вы маеце пытаньні. Дзякуй!',
 	'payflowpro_gateway-response-12' => 'Калі ласка, зьвяжыцеся з Вашай крэдытнай кампаніяй для дадатковай інфармацыі.',
 	'payflowpro_gateway-response-13' => 'Вашая транзакцыя патрабуе галасавой аўтарызацыі.
 Калі ласка, скантактуйцеся з намі каб працягнуць транзакцыю.',
@@ -419,9 +420,11 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-response-24' => 'Нумар Вашай крэдытнай карткі альбо тэрмін сканчэньня яе дзеяньня зьяўляецца няслушным.',
 	'payflowpro_gateway-response-112' => 'Ваш адрас альбо нумар код бясьпекі зьяўляецца няслушным.',
 	'payflowpro_gateway-response-125' => 'Ваша транзакцыя была адмененая Службай прадухіленьня махлярстваў.',
+	'payflowpro_gateway-response-125-2' => 'Вашая крэдытная картка ня можа быць пацьверджана. Калі ласка, упэўніцеся што ўся пададзеная інфармацыя супадае з профілем Вашай крэдытнай карткі, альбо паспрабуйце іншую крэдытную картку. Вы можаце паспрабаваць адзін з <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">іншых спосабаў ахвяраваньня</a>, альбо зьвязацца з намі праз <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Дзякуй за Вашую падтрымку.',
 	'payflowpro_gateway-response-default' => 'Пад час апрацоўкі Вашай транзакцыі ўзьнікла памылка.
 Калі ласка, паспрабуйце ізноў пазьней.',
 	'php-response-declined' => 'Ваша транзакцыя была адменена.',
+	'payflowpro_gateway-thankyou' => 'Дзякуй за Вашае ахвяраваньне!',
 	'payflowpro_gateway-post-transaction' => 'Падрабязнасьці пра транзакцыю',
 	'payflowpro_gateway-submit-button' => 'Ахвяраваць',
 	'payflowpro_gateway-cvv-explain' => '<h4>Што такое код бясьпекі?</h4>
@@ -430,7 +433,7 @@ $messages['be-tarask'] = array(
 <p>Трохлічбавы код, які знаходзіцца на адваротным баку Вашай карткі ў полі подпісу.
 Звычайна ў полі подпісу знаходзіцца радок лічбаў, але толькі апошнія тры зьяўляюцца кодам бясьпекі.</p>
 <h4>American Express</h4>
-<p>Код ЗАЎСЁДЫ знаходзіцца НАД цісьнёным (выпуклым) нумарам рахунку на тварным баку карткі.
+<p>Код <i>заўсёды</i> знаходзіцца <i>над</i> цісьнёным (выпуклым) нумарам рахунку на тварным баку карткі.
 У некаторых выпадках, код знаходзіцца ў левым баку карткі, але заўсёды над нумарам рахунку.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Вікіпэдыя — праект фундацыі «Вікімэдыя». Маеце пытаньні альбо камэнтары? Зьвяжыцеся з фундацыяй «Вікімэдыя»: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Апрацоўка інфармацыі па Вашай крэдытнай картцы пачнецца пасьля націску на кнопку «{{int:payflowpro_gateway-donor-submit}}».',
@@ -1963,6 +1966,7 @@ Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere 
 	'payflowpro_gateway-response-0' => 'Le transaction ha essite approbate.
 Gratias pro tu donation!',
 	'payflowpro_gateway-response-126' => 'Le transaction attende approbation.',
+	'payflowpro_gateway-response-126-2' => 'Alcun information que tu forniva non correspondeva al profilo de tu carta de credito, o alteremente tu faceva un donation multo grande. Pro tu proprie securitate, tu donation es actualmente sub revision, e nos te notificara al adresse de e-mail fornite si nos non pote finalisar tu donation. Per favor invia e-mail a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> si tu ha questiones. Gratias!',
 	'payflowpro_gateway-response-12' => 'Per favor contacta tu compania de carta de credito pro ulterior informationes.',
 	'payflowpro_gateway-response-13' => 'Iste transaction require un autorisation vocal.
 Per favor contacta nos pro continuar le transaction.',
@@ -1972,19 +1976,21 @@ Per favor contacta nos pro continuar le transaction.',
 	'payflowpro_gateway-response-24' => 'Le numero de carta de credito o le data de expiration es incorrecte.',
 	'payflowpro_gateway-response-112' => 'Le adresse o le numero CVV (codice de securitate) es incorrecte.',
 	'payflowpro_gateway-response-125' => 'Le transaction ha essite refusate per Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Le validation de tu carta de credito non ha succedite. Per favor verifica que tote le informationes fornite corresponde al profilo de tu carta de credito, o proba un altere carta. Tu pote tamben usar un de nostre <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altere modos de donar</a> o contactar nos a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Gratias pro tu supporto.',
 	'payflowpro_gateway-response-default' => 'Un error occurreva durante le tractamento de tu transaction.
 Per favor reproba plus tarde.',
 	'php-response-declined' => 'Le transaction ha essite refusate.',
+	'payflowpro_gateway-thankyou' => 'Gratias pro tu donation!',
 	'payflowpro_gateway-post-transaction' => 'Detalios del transaction',
 	'payflowpro_gateway-submit-button' => 'Donar',
 	'payflowpro_gateway-cvv-explain' => '<h4>Que es CVV?</h4>
-<p>Cardholder Verification Value (CVV). Iste numeros de tres o quatro digitos adjuta a assecurar que le carta physic es in le possession del titular durante le donation in linea, lo que adjuta a impedir le uso non autorisate o fraudulente.</p>
+<p>Cardholder Verification Value (CVV): Iste numeros de tres o quatro digitos adjuta a assecurar que le carta physic es in le possession del titular. Isto adjuta a impedir le uso non autorisate o fraudulente.</p>
 <h4>Visa, Mastercard</h4>
 <p>Le codice a 3 digitos se trova al reverso de tu carta, intra le area de signatura.
-Typicamente le pannello de signatura habera un serie de numeros, ma solmente le ultime tres digitos constitue le codice CVV.</p>
+Typicamente le pannello de signatura ha un serie de numeros, ma solmente le ultime tres digitos constitue le codice CVV.</p>
 <h4>American Express</h4>
-<p>Le codice es SEMPRE situate SUPRA le numero de conto in relievo super le facie del carta.
-In alcun exemplares, le codice se trova al sinistra del carta, ma es sempre supra le numero de conto.</p><br />',
+<p>Le codice es <i>sempre</i> situate <i>supra</i> le numero de conto in relievo super le facie del carta.
+In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le numero de conto.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia es un projecto del Fundation Wikimedia. Questiones o commentos? Contacta le Fundation Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Post cliccar "Donar", le informationes de tu carta de credito essera processate.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nos non retene le informationes de tu carta de credito, e tu datos personal es subjecte a nostre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politica de confidentialitate</a>.',
@@ -2432,12 +2438,12 @@ Probéiert et w.e.g. spéider nach eng Kéier.',
 	'payflowpro_gateway-post-transaction' => 'Detailer vun der Transaktioun',
 	'payflowpro_gateway-submit-button' => 'Maacht en Don',
 	'payflowpro_gateway-cvv-explain' => "<h4>Wat ass CVV?</h4>
-<p>Cardholder Verification Value (CVV) dëst sinn Zuele mat 3 oder 4 Stellen déi sécherstellen datt déi physesch Kaart, den Ament vum Online-Don, am Besëtz vun deem ass deen op der Kaart dropsteet. Dëst hëlleft de Mëssbrauch vu Kreditkaarten ze reduzéieren.</p>
+<p>Cardholder Verification Value (CVV): Dëst sinn Zuele mat 3 oder 4 Zifferen déi sécherstellen datt déi physesch Kaart, den Ament vum Online-Don, am Besëtz vun deem ass deen op der Kaart dropsteet. Dëst hëlleft de Mëssbrauch vu Kreditkaarten ze reduzéieren.</p>
 <h4>Visa, Mastercard</h4>
-<p>Den 3-stellege Code is steet hannen op Ärer Kaart, am Feld wou och d'Ënnerschrëft dran ass.
-Nrmalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëmmen déi lescht 3 Stellen sti fir den CVV-Code.</p>
+<p>Den 3-stellege Code steet hannen op Ärer Kaart, am Feld wou och d'Ënnerschrëft dran ass.
+Normalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëmmen déi lescht 3 Stellen sti fir den CVV-Code.</p>
 <h4>American Express</h4>
-<p>De Code steet ËMMER IWWER der ervirgehuewener Kontosnummer op der fiischter Säit vun der Kaart.
+<p>De Code steet <i>ëmmer iwwer</i> der agestantzter (ervirgehuewener) Kontosnummer op der viischter Säit vun der Kaart.
 Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Wikipedia ass e Projet vun der Wikimedia Foundation. Froen oder Bemierkungen? Kontaktéiert d\'Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Nodeems Dir op "{{int:payflowpro_gateway-donor-submit}}" geklickt hutt gin d\'Informatioune vun Ärer Kreditkaart verschafft.',
@@ -2814,6 +2820,7 @@ Er zijn <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere man
 	'payflowpro_gateway-response-0' => 'Uw transactie is goedgekeurd.
 Dank u wel voor uw donatie!',
 	'payflowpro_gateway-response-126' => 'Uw transactie wacht op goedkeuring.',
+	'payflowpro_gateway-response-126-2' => 'Enige informatie die u hebt opgegeven komt niet overeen met het profiel van uw creditcard, of u hebt een zeer grote donatie geprobeerd te maken. Voor uw eigen veiligheid wordt uw donatie op dit moment gecontroleerd en we stellen u via het opgegeven e-mailadres op de hoogte als we uw donatie niet kunnen afronden. Neem alstublieft contact op via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> als u vragen hebt. Dank u wel!',
 	'payflowpro_gateway-response-12' => 'Neem alstublieft contact op met uw creditcardmaatschappij voor meer informatie.',
 	'payflowpro_gateway-response-13' => 'Voor uw transactie is mondelinge toestemming vereist.
 Neem alstublieft contact met ons op voor uw transactie.',
@@ -2823,6 +2830,7 @@ Neem alstublieft contact met ons op voor uw transactie.',
 	'payflowpro_gateway-response-24' => 'Het opgegeven creditcardnummer of de vervaldatum is onjuist.',
 	'payflowpro_gateway-response-112' => 'Uw adres of CVV-nummer (veiligheidscode) is onjuist.',
 	'payflowpro_gateway-response-125' => 'Uw transactie is geweigers door Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk uw creditcard te valideren. Controleer alstublieft of alle gegevens die u hebt opgegeven overeenkomen met uw creditkaartprofiel, of probeer te doneren met een andere creditkaart. U kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank u wel voor uw steun.',
 	'payflowpro_gateway-response-default' => 'Er is een fout opgetreden bij het verwerken van uw transactie.
 Probeer het later nog een keer.',
 	'php-response-declined' => 'Uw transactie is geweigerd.',
@@ -3293,7 +3301,7 @@ Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras fo
 	'payflowpro_gateway-response-0' => 'A transacção foi aprovada.
 Obrigado pelo seu donativo!',
 	'payflowpro_gateway-response-126' => 'A transacção foi submetida para aprovação.',
-	'payflowpro_gateway-response-126-2' => 'Alguma da informação que forneceu não corresponde ao perfil do seu cartão de crédito. Por segurança, o seu donativo está presentemente sob análise. Se não pudermos finalizar o seu donativo, será enviada uma notificação para o correio electrónico fornecido. Em caso de dúvidas contacte-nos, por favor, no endereço <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Obrigado!',
+	'payflowpro_gateway-response-126-2' => 'Alguma da informação que forneceu não corresponde ao perfil do seu cartão de crédito, ou então fez um donativo de montante muito significativo. Por segurança, o seu donativo está presentemente sob análise. Se não pudermos finalizar o processo, será enviada uma notificação para o correio electrónico fornecido. Em caso de dúvidas contacte-nos, por favor, no endereço <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Obrigado!',
 	'payflowpro_gateway-response-12' => 'Por favor, contacte o emissor do seu cartão de crédito para mais informação.',
 	'payflowpro_gateway-response-13' => 'A transacção requer autorização por viva voz.
 Por favor, contacte-nos para continuar a transacção.',
@@ -3303,6 +3311,7 @@ Por favor, contacte-nos para continuar a transacção.',
 	'payflowpro_gateway-response-24' => 'O número do cartão ou a data de expiração estão incorrectos.',
 	'payflowpro_gateway-response-112' => 'O endereço ou o código de segurança (CVV) estão incorrectos.',
 	'payflowpro_gateway-response-125' => 'A transacção foi recusada pela Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Não foi possível validar o seu cartão de crédito. Por favor, verifique que toda a informação fornecida coincide com o perfil do seu cartão de crédito. Pode também usar um dos nossos <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">outros métodos para fazer donativos</a> ou contactar-nos no endereço <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Obrigado pelo seu apoio.',
 	'payflowpro_gateway-response-default' => 'Ocorreu um erro no processamento desta transacção.
 Po favor, tente novamente mais tarde.',
 	'php-response-declined' => 'A transacção foi recusada.',
@@ -3310,13 +3319,13 @@ Po favor, tente novamente mais tarde.',
 	'payflowpro_gateway-post-transaction' => 'Detalhes da transacção',
 	'payflowpro_gateway-submit-button' => 'Fazer donativo',
 	'payflowpro_gateway-cvv-explain' => "<h4>O que é o CVV?</h4>
-<p>O CVV ''(Cardholder Verification Value'' ou Código de Verificação do Cartão), é formado por três ou quatro algarismos e pretende assegurar que o cartão físico está na posse do seu detentor ao fazer donativos ''online'', o que ajuda na prevenção do seu uso não autorizado ou fraudulento.</p>
+<p>CVV ''(Cardholder Verification Value'' ou Código de Verificação do Cartão): É formado por três ou quatro algarismos e pretende assegurar que o cartão físico está na posse do seu detentor. Isto ajuda na prevenção do uso não autorizado ou fraudulento.</p>
 <h4>Visa, Mastercard</h4>
 <p>O código de 3 algarismos está no verso do cartão, na zona da assinatura.
-Normalmente, a zona da assinatura contém vários números mas só os últimos 3 algarismos formam o código CVV.</p>
+Tipicamente, a zona da assinatura contém vários números mas só os 3 últimos algarismos formam o código CVV.</p>
 <h4>American Express</h4>
-<p>O código está SEMPRE localizado ACIMA do número de conta (saliente) na face do cartão.
-Por vezes aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
+<p>O código está <i>sempre</i> localizado <i>acima</i> do número de conta (saliente) na face do cartão.
+Por vezes o código aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
 	'payflowpro_gateway-question-comment' => 'A Wikipédia é um projecto da Wikimedia Foundation. Tem perguntas ou comentários? Contacte a Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Após clicar "{{int:payflowpro_gateway-donor-submit}}", a informação do seu cartão de crédito será processada.',
 	'payflowpro_gateway-credit-storage-processing' => 'Não armazenamos informação do seu cartão de crédito e ou seus dados particulares estão sujeitos à nossa <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de privacidade</a>.',
@@ -3608,6 +3617,7 @@ Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra s�
 $messages['te'] = array(
 	'payflowpro_gateway-donor-legend' => 'దాత సమాచారం',
 	'payflowpro_gateway-card-legend' => 'క్రెడిట్ కార్డు సమాచారం',
+	'payflowpro_gateway-cvv-link' => 'ఉదాహరణ',
 	'payflowpro_gateway-donor-email' => 'ఈ-మెయిల్ చిరునామా:',
 	'payflowpro_gateway-donor-fname' => 'మొదటి పేరు:',
 	'payflowpro_gateway-donor-lname' => 'ఇంటి పేరు:',
@@ -3617,6 +3627,9 @@ $messages['te'] = array(
 	'payflowpro_gateway-donor-state' => 'రాష్ట్రం:',
 	'payflowpro_gateway-donor-country' => 'దేశం/ప్రాంతం:',
 	'payflowpro_gateway-donor-address' => 'చిరునామా:',
+	'payflowpro_gateway-error-msg-lname' => 'ఇంటి పేరు',
+	'payflowpro_gateway-error-msg-city' => 'నగరం',
+	'payflowpro_gateway-error-msg-state' => 'రాష్ట్రం',
 	'payflowpro_gateway-response-4' => 'తప్పుడు మొత్తం.',
 	'payflowpro_gateway-post-transaction' => 'లావాదేవీ వివరాలు',
 	'donate_interface-EUR' => 'EUR: యూరో',
@@ -3820,15 +3833,16 @@ Par piaser ciàmene par continuar la transazion.',
 	'payflowpro_gateway-response-default' => 'Ghe xe stà un eror durante el tratamento de la to transazion.
 Par piaser, ripròa de novo tra un tocheto.',
 	'php-response-declined' => 'La to transazion la xe stà rifiutà.',
+	'payflowpro_gateway-thankyou' => 'Grassie par la to donassion!',
 	'payflowpro_gateway-post-transaction' => 'Detaji de la transazion',
 	'payflowpro_gateway-submit-button' => 'Dona',
 	'payflowpro_gateway-cvv-explain' => "<h4>Coss'èlo sto CVV?</h4>
-<p>El xe un còdese de tri o quatro cifre, che ne juta a èssar sicuri che la carta la sia fisicamente in man del proprietario, co uno el xe in vià donar schei in rete, in modo da evitar che qualcheduni te ciava i schei.</p>
+<p>El xe un còdese de tri o quatro cifre, che ne juta a èssar sicuri che la carta la sia fisicamente in man del proprietario, in modo da evitar che qualcheduni te ciava i schei.</p>
 <h4>Visa, Mastercard</h4>
 <p>El còdese xe longo 3 cifre, e te lo cati sul dedrìo de la to carta, in do che xe la firma.
 De solito in tel spassio de la firma se cata na serie de nùmari, ma solo i ultimi tri i forma el CVV.</p>
 <h4>American Express</h4>
-<p>El còdese te lo cati sempre de sora del nùmaro de carta (in rilievo), sul davanti de la carta.
+<p>El còdese te lo cati <i>sempre</i> de sora del nùmaro de carta (in rilievo), sul davanti de la carta.
 Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sora del nùmaro de carta.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Wikipedia el xe un projeto de la Fondassion Wikimedia. Domande o comenti? Scrìveghe a la Fondassion Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Strucando "{{int:payflowpro_gateway-donor-submit}}", le informassion su la to carta de credito le vegnarà elaborà.',
@@ -3920,6 +3934,7 @@ Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao d�
 	'payflowpro_gateway-response-default' => 'Có lỗi khi xử lý giao dịch của bạn.
 Xin hãy thử lại vào lần sau.',
 	'php-response-declined' => 'Giao dịch của bạn đã bị từ chối.',
+	'payflowpro_gateway-thankyou' => 'Cảm ơn sự quyên góp của bạn!',
 	'payflowpro_gateway-post-transaction' => 'Chi tiết giao dịch',
 	'payflowpro_gateway-submit-button' => 'Đóng góp',
 	'payflowpro_gateway-cvv-explain' => '<h4>What is CVV?</h4>
