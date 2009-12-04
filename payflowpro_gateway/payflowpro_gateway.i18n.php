@@ -586,6 +586,11 @@ $messages['bs'] = array(
 	'payflowpro_gateway-donor-submit' => 'Doniranje',
 	'payflowpro_gateway-error-msg' => 'Molimo unesite Vaše $1',
 	'payflowpro_gateway-error-msg-js' => 'Molimo unesite Vaše',
+	'payflowpro_gateway-error-msg-fname' => 'ime',
+	'payflowpro_gateway-error-msg-lname' => 'prezime',
+	'payflowpro_gateway-error-msg-city' => 'grad',
+	'payflowpro_gateway-error-msg-zip' => 'poštanski broj',
+	'payflowpro_gateway-response-4' => 'Nevaljan iznos.',
 );
 
 /** Czech (Česky)
@@ -951,6 +956,7 @@ Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
 	'payflowpro_gateway-response-default' => 'Transaction tu de yew gelet biyo.
 Ma rica kenê reyna dest bi bike.',
 	'php-response-declined' => 'Transactionê tu kebul nibiyo.',
+	'payflowpro_gateway-thankyou' => 'Seba beğşê xo weş u war be!',
 	'payflowpro_gateway-post-transaction' => 'Detayê Transaksiyoni',
 	'payflowpro_gateway-submit-button' => 'Bexş',
 	'payflowpro_gateway-cvv-explain' => '<h4> CVV çîyo?</h4>
@@ -2325,6 +2331,7 @@ Mer han och
 	'payflowpro_gateway-response-0' => 'Ding Zahlung es beschtäätesch woode.
 Mer donn uns bedangke för Ding Schpänd!',
 	'payflowpro_gateway-response-126' => 'Ding Zahlung moß noch beschtäätesch wääde.',
+	'payflowpro_gateway-response-126-2' => 'Ene Aandeil vun dämm, wat De aanjejovve häß, paß nit met Dinge Kreditkaate-Daate zosamme, udder Do häs en unjewöhlesch jruuße Spende jemaat. Dröm es för Ding eije Sescherheit, Ding Spende em Momang en der Pröövung. Mer lohße Desch wesse, falls mer Ding Spend nit annämme künne udder dörve, dann kriß De en <i lang="en">e-mail</i> aan Ding aanjejovve Addräß. Donn selver en <i lang="en">e-mail</i> aan <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> schecke, wann Der jät unklohr es. Häzlijjen Dank!',
 	'payflowpro_gateway-response-12' => 'Donn Desch aan Ding Kreddittkaate-Fermma wände, öm mieh doh drövver ze wesse ze krijje.',
 	'payflowpro_gateway-response-13' => 'Ding Zahlung moß met Dinge Schtemm beschtäätesch wääde.
 Donn Desch aan uns wände, öm heh met wigger ze maache.',
@@ -2334,13 +2341,15 @@ Donn Desch aan uns wände, öm heh met wigger ze maache.',
 	'payflowpro_gateway-response-24' => 'De Nommer vun Dinge Kreddittkaat udder et Dattum, wann se ußleuf, es verkeeht.',
 	'payflowpro_gateway-response-112' => 'Ding Addräß udder de <i lang="en">CVV</i> Nommer (Sescherheitskood) vun Dinge Kreddittkaat, es verkeeht.',
 	'payflowpro_gateway-response-125' => 'Ding Zahlung es afjelehnt woode, vun einem vun dä Deenste, di Betuppereije verhendere well.',
+	'payflowpro_gateway-response-125-2' => 'Ding Kreditkaat kunnt nit beschtäätesch wääde. Bes esu joot un donn all de Enfommazjuhne nohluure, of dat, wat De aanjejovve has och esu op Dinge Kaat dropschteiht un schtemmp, udder versöhk et met en ander Kaat. Do kanns och eine vun unser <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ander Müjjeleschkeijte ze jävve</a>, udder donn uns en e-mail schriive noh <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Mer bedanke uns för Ding Ongerschtözung.',
 	'payflowpro_gateway-response-default' => 'Et es ene Fähler opjetrodde beim Övverdraare udder Affärbeide vu Dinge Zahlung.
 Versöhk et schpääder noch ens.',
 	'php-response-declined' => 'Ding Zahlung es affjeleht woode.',
+	'payflowpro_gateway-thankyou' => 'Merci för Ding Jaaf!',
 	'payflowpro_gateway-post-transaction' => 'Einzelheijte vun dä Zahlung',
 	'payflowpro_gateway-submit-button' => 'Schpände!',
 	'payflowpro_gateway-cvv-explain' => '<h4>Wat es dä <i lang="en">CVV</i>?</h4>
-<p><i lang="en">Cardholder Verification Value (CVV)</i> es en Zahl met dreij udder vier Zeffere, di hellef met, dat ene Schpänder sing Kaat en der Handl hält, wann hä onlain spende deiht. Se sull jäje Betuppereije schöze.</p>
+<p><i lang="en">Cardholder Verification Value (CVV)</i>: Dat es en Zahl met dreij udder vier Zeffere, di hellef met, dat mer sing Kaat en der Handl hält, wann se bruche deiht. Se sull jäje Betuppereije schöze.</p>
 <h4>Beij <i lang="en">Visa</i>, un <i lang="en">Mastercard</i> Kaate</h4>
 <p>Dä Koode uß dreij Zeffere eß up dä henger Sigg vun Dinge Kaat, em Feld för de Ongerschreff. Dermiehts schtonn doh en Aanzahl Nommere, bloß de letzte dreij sen dä <i lang="en">CVV</i> Kood.</p>
 <h4>Beij <i lang="en">American Express</i> Kaate</h4>
