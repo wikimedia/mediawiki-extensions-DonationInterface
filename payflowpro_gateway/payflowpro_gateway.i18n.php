@@ -174,6 +174,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-error-msg-street' => '{{Identical|Street}}',
 	'payflowpro_gateway-error-msg-city' => '{{Identical|City}}',
 	'payflowpro_gateway-error-msg-state' => '{{Identical|State}}',
+	'payflowpro_gateway-response-126-2' => "Here is a description of '[http://www.earlytorise.com/2009/06/12/it%E2%80%99s-good-to-know-your-credit-card-%E2%80%9Cprofile%E2%80%9D.html credit card profile]'.",
 	'payflowpro_gateway-submit-button' => '{{Identical|Donate}}',
 );
 
@@ -266,6 +267,7 @@ Probeer asseblief later weer.",
 );
 
 /** Arabic (العربية)
+ * @author Meno25
  * @author OsamaK
  * @author ترجمان05
  */
@@ -299,6 +301,9 @@ $messages['ar'] = array(
 	'payflowpro_gateway-donor-security' => 'الرمز الأمني:',
 	'payflowpro_gateway-donor-submit' => 'تبرّع',
 	'payflowpro_gateway-donor-currency-msg' => 'يتم إجراء هذا التبرع ب$1',
+	'payflow_gateway-card-name-amex' => 'أمريكان إكسبريس',
+	'payflow_gateway-card-name-visa' => 'فيزا',
+	'payflow_gateway-card-name-mc' => 'ماستر كارد',
 	'payflowpro_gateway-error-msg' => 'من فضلك أدخل $1',
 	'payflowpro_gateway-error-msg-js' => 'من فضلك أدخل:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**من فضلك أدخل مقدارًا صحيحًا**',
@@ -763,15 +768,16 @@ Cysylltwch â ni er mwyn parhau gyda'ch taliad.",
 	'payflowpro_gateway-response-default' => "Cafwyd gwall wrth brosesu'ch taliad.
 Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
 	'php-response-declined' => 'Gwrthodwyd eich taliad.',
+	'payflowpro_gateway-thankyou' => 'Diolch am eich rhodd!',
 	'payflowpro_gateway-post-transaction' => 'Manylion y taliad',
 	'payflowpro_gateway-submit-button' => 'Rhoi',
 	'payflowpro_gateway-cvv-explain' => "<h4>Beth yw CVV?</h4>
-<p>\"Cardholder Verification Value\" (CVV) yw'r enw ar y cod o 3 neu 4 o rifau ar gerdyn credyd. Maent yn cyfrannu at sicrhau bod y cerdyn ei hun ym meddiant ei berchennog tra'n rhoi ar-lein, a thrwy hynny yn cynorthwyo i rwystro defnyddio'r cerdyn trwy dwyll neu heb ganiatâd.</p>
+<p>\"Cardholder Verification Value\" (CVV) yw'r enw ar y cod o 3 neu 4 o rifau ar gerdyn credyd. Maent yn cyfrannu at sicrhau bod y cerdyn ei hun ym meddiant ei berchennog tra'n rhoi ar-lein, a thrwy hynny yn cynorthwyo i rwystro cam-ddefnyddio'r cerdyn trwy dwyll neu heb ganiatâd.</p>
 <h4>Visa, Mastercard</h4>
 <p>Fe welwch y cod 3 digid o hyd ar gefn eich cerdyn, tu mewn i flwch y llofnod.
 Fel arfer mae rhes o rifau yn y blwch arwyddo, ond y tri digid olaf yn unig sydd yn y cod CVV.</p>
 <h4>American Express</h4>
-<p>Mae'r cod BOB AMSER i'w weld UWCHBEN rhif y cyfrif sydd mewn ysgrif boglynnog ar du blaen y cerdyn.
+<p>Mae'r cod <i>bob amser</i> i'w weld <i>uwchben</> rhif y cyfrif sydd mewn ysgrif boglynnog ar du blaen y cerdyn.
 Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhif y cyfrif.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Un o brosiectau Sefydliad Wikimedia yw Wicipedia. Oes cwestiynau neu sylwadau gennych? Cysylltwch â Sefydliad Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Caiff manylion eich cerdyn credyd eu prosesu wedi i chi bwyso\'r botwm "{{int:payflowpro_gateway-donor-submit}}".',
@@ -853,6 +859,7 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-response-0' => 'Ihre Transaktion wurde durchgeführt.
 Vielen Dank für Ihre Spende.',
 	'payflowpro_gateway-response-126' => 'Für Ihre Transaktion wird auf eine Freigabe gewartet.',
+	'payflowpro_gateway-response-126-2' => 'Einige Informationen stimmen nicht mit deinem Kreditkartenprofil überein oder die Spende ist zu hoch. Zu deiner eigenen Sicherheit befindet sich deine Spende unter Prüfung und wir informieren dich durch die angegebene E-Mail-Adresse, falls wir deine Spende nicht abschließen können. Bitte schicke uns bei Fragen eine E-Mail an <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank!',
 	'payflowpro_gateway-response-12' => 'Bitte nehmen Sie mit Ihrer kartenausgebenden Kreditinstitut Kontakt auf.',
 	'payflowpro_gateway-response-13' => 'Ihre Transaktion benötigt eine manuelle Bearbeitung.
 Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
@@ -862,9 +869,11 @@ Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
 	'payflowpro_gateway-response-24' => 'Ihre Kreditkartennummer oder das Gültigkeitsdatum ist falsch.',
 	'payflowpro_gateway-response-112' => 'Ihre Anschrift oder der Sicherheitscode (CVV) ist falsch.',
 	'payflowpro_gateway-response-125' => 'Ihre Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
+	'payflowpro_gateway-response-125-2' => 'Deine Kreditkarte kann nicht geprüft werden. Bitte bestätige, dass alle Informationen mit deinem Kreditkartenprofil übereinstimmen oder versuche es mit einer anderen Karte. Du kannst auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
 	'payflowpro_gateway-response-default' => 'Es ist ein Verarbeitungsfehler aufgetreten.
 Bitte versuchen Sie es später noch einmal.',
 	'php-response-declined' => 'Ihre Transaktion wurde abgewiesen.',
+	'payflowpro_gateway-thankyou' => 'Vielen Dank für deine Spende!',
 	'payflowpro_gateway-post-transaction' => 'Transaktions-Details',
 	'payflowpro_gateway-submit-button' => 'Spenden',
 	'payflowpro_gateway-question-comment' => 'Wikipedia ist ein Projekt der Wikimedia Foundation. Fragen oder Kommentare? Kontaktiere die Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
@@ -944,6 +953,7 @@ $messages['diq'] = array(
 	'payflowpro_gateway-response-0' => 'Transactionê ti testiq biyo.
 Bexşê ti ra ma zaf teşkur kenê!',
 	'payflowpro_gateway-response-126' => 'Transactionê ti ho testiq beno.',
+	'payflowpro_gateway-response-126-2' => 'Tayê melumato ke to dayo, ebe karta krediyê profili ra yewbini nêgêno, ya zi to meblağo de gırd da. Seba emniyetê xo, beğşê to nıka qontrol beno, u ma ebe email adresa daiye ra to rê rışenime eke beğşê to qebul nêbi. Kerem ke, persê to ke estê be <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> ra ma rê email bırışe. Weş u war be!',
 	'payflowpro_gateway-response-12' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
 	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o. 
 Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
@@ -953,6 +963,7 @@ Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
 	'payflowpro_gateway-response-24' => 'Numreyê kard ê kredi tu ya zi wextê kard ê kredi raşt niyo.',
 	'payflowpro_gateway-response-112' => 'Numreyê CVV kardê kredi tu ya zi adresê tu raşt niyo.',
 	'payflowpro_gateway-response-125' => 'Fraud Prevention Services trasaktion tu kebul nikena.',
+	'payflowpro_gateway-response-125-2' => 'Karta krediyê to nêşaye tesdiq bo. Kerem ke, melumato ke pêro dayo be karta krediyê profiliê to yewbini gêno wa qontrol ke, ya zi karta de bine bıcerrebne. Tı şena yewê da ê ma <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">be raya bine dayış</a> bıgurênê ya zi ma de be <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> temas kewe. Seba beğşê xo weş u war be!',
 	'payflowpro_gateway-response-default' => 'Transaction tu de yew gelet biyo.
 Ma rica kenê reyna dest bi bike.',
 	'php-response-declined' => 'Transactionê tu kebul nibiyo.',
@@ -1069,7 +1080,7 @@ Typiski pódpismowy wobcerk změjo rědy numerow, ale jano slědne tśi městna 
 <p>Kod jo <i>pśecej wušej</i> naśišćanego (wusoko stajonego) kontowego numera na prědnem boku kórty.
 Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedija jo projekt załožby Wikimedia Foundation. Pšašanja abo komentary? Staj se ze załožbu Wikimedia Foundation do zwiska: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Pó kliknjenju na "Pósćiś", budu se informacije twójeje kreditneje kórty pśeźěłowaś.',
+	'payflowpro_gateway-donate-click' => 'Pó kliknjenju na "{{int:payflowpro_gateway-donor-submit}}", budu se informacije twójeje kreditneje kórty pśeźěłowaś.',
 	'payflowpro_gateway-credit-storage-processing' => 'Njeskładujomy informacije twójeje kreditneje kórty a twóje wósobinske daty pódlaže našym <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">pšawidłam priwatnosći</a>.',
 	'donate_interface-GBP' => 'GBP. Britiski punt',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -1416,6 +1427,7 @@ $messages['fi'] = array(
 );
 
 /** French (Français)
+ * @author Cedric31
  * @author IAlex
  * @author PieRRoMaN
  */
@@ -2444,6 +2456,7 @@ Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
 	'payflowpro_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
 Probéiert et w.e.g. spéider nach eng Kéier.',
 	'php-response-declined' => 'Är Transactioun gouf net akzeptéiert.',
+	'payflowpro_gateway-thankyou' => 'Merci fir Ären Don!',
 	'payflowpro_gateway-post-transaction' => 'Detailer vun der Transaktioun',
 	'payflowpro_gateway-submit-button' => 'Maacht en Don',
 	'payflowpro_gateway-cvv-explain' => "<h4>Wat ass CVV?</h4>
@@ -2499,7 +2512,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-donor-name' => 'Име:',
 	'payflowpro_gateway-donor-street' => 'Улица:',
 	'payflowpro_gateway-donor-city' => 'Град:',
-	'payflowpro_gateway-donor-state' => 'Покраина:',
+	'payflowpro_gateway-donor-state' => 'Сојуз. држава:',
 	'payflowpro_gateway-donor-postal' => 'Поштенски број:',
 	'payflowpro_gateway-donor-country' => 'Земја/Регион:',
 	'payflowpro_gateway-donor-address' => 'Адреса:',
@@ -2637,6 +2650,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-response-0' => 'താങ്കളുടെ ഇടപാട് അംഗീകരിക്കപ്പെട്ടിരിക്കുന്നു.
 താങ്കളുടെ സംഭാവനയ്ക്ക് നന്ദി!',
 	'payflowpro_gateway-response-126' => 'താങ്കളുടെ ഇടപാടിനുള്ള അംഗീകരണം പരിശോധിക്കുന്നു.',
+	'payflowpro_gateway-response-126-2' => 'താങ്കൾ നൽകിയ ചില വിവരങ്ങൾ താങ്കളുടെ ക്രെഡിറ്റ് കാർഡിലെ വിവരങ്ങളുമായി ഒത്തുപോകുന്നില്ല, അല്ലെങ്കിൽ താങ്കൾ വളരെ വലിയൊരു സംഭാവനയാണ് ചെയ്തിരിക്കുന്നത്. താങ്കളുടെ സുരക്ഷയ്ക്കായി, താങ്കളുടെ സംഭാവന പരിശോധിച്ചുകൊണ്ടിരിക്കുന്നു, താങ്കളുടെ സംഭാവന സ്വീകരിക്കാൻ സാധിക്കുകയില്ലെങ്കിൽ താങ്കൾ നൽകിയ ഇമെയിൽ വിലാസം വഴി താങ്കളെ അക്കാര്യം അറിയിക്കുന്നതാണ്. താങ്കൾക്കെന്തെങ്കിലും ചോദിക്കാനുണ്ടെങ്കിൽ ദയവായി <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> എന്ന വിലാസത്തിൽ ചോദിക്കുക. നന്ദി!',
 	'payflowpro_gateway-response-12' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
 	'payflowpro_gateway-response-13' => 'ഈ ഇടപാടിനു താങ്കളുടെ ശബ്ദത്തിലുള്ള സാധൂകരണമാവശ്യമാണ്.
 ദയവായി ഇടപാട് പൂർത്തീകരിക്കാൻ ഞങ്ങളെ ബന്ധപ്പെടുക.',
@@ -2646,6 +2660,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-response-24' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് നമ്പരോ അതിന്റെ സാധുത തീരുന്ന തീയതിയോ തെറ്റാണ്.',
 	'payflowpro_gateway-response-112' => 'താങ്കളുടെ വിലാസം അഥവാ CVV സംഖ്യ (സുരക്ഷാ കോഡ്) തെറ്റാണ്.',
 	'payflowpro_gateway-response-125' => 'കബളിപ്പിക്കൽ തടയൽ സൗകര്യം ഉപയോഗിച്ച് താങ്കളുടെ ഇടപാട് നിരാകരിച്ചിരിക്കുന്നു.',
+	'payflowpro_gateway-response-125-2' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡിന്റെ സാധുത കണ്ടെത്താനായില്ല. ദയവായി താങ്കൾ നൽകിയ വിവരങ്ങൾ താങ്കളുടെ ക്രെഡിറ്റ് കാർഡിലേതുമായി ഒത്തുപോകുന്നുണ്ടോയെന്നു നോക്കുക, അല്ലെങ്കിൽ മറ്റൊരു കാർഡ് ഉപയോഗിക്കുക. താങ്കൾക്ക് ഇതേ കാര്യത്തിന് <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">മറ്റു മാർഗ്ഗങ്ങൾ</a> ഉപയോഗിക്കാവുന്നതാണ് അല്ലെങ്കിൽ ഞങ്ങളെ ബന്ധപ്പെടുക <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. താങ്കളുടെ പിന്തുണയ്ക്ക് നന്ദി.',
 	'payflowpro_gateway-response-default' => 'താങ്കളുടെ ഇടപാട് കൈകാര്യം ചെയ്തുകൊണ്ടിരിക്കെ പിഴവുണ്ടായിരിക്കുന്നു.
 ദയവായി പിന്നീട് ശ്രമിക്കുക.',
 	'php-response-declined' => 'താങ്കളുടെ ഇടപാട് നിരസിക്കപ്പെട്ടിരിക്കുന്നു.',
@@ -3073,6 +3088,7 @@ I a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/oc">d\'autres
 	'payflowpro_gateway-response-0' => 'Vòstre transaccion es estada aprovada.
 Mercés per vòstre don !',
 	'payflowpro_gateway-response-126' => "Vòstra transaccion es en cors d'aprovacion.",
+	'payflowpro_gateway-response-126-2' => "D'unas informacions qu'avètz provesidas correspondon pas al perfil de vòstra carta bancària, o alara avètz fach un don fòrça elevat. Per vòstra pròpria seguretat, vòstre don es actualament en cors de verificacion, e vos avisarem via l'adreça de corrièl qu'avètz provesida se capitam pas finalizar vòstre don. Per tota question, trantalhetz pas a adreçar un corrièl a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Mercés !",
 	'payflowpro_gateway-response-12' => "Contactatz lo provesidor de vòstra carta de credit per mai d'entresenhas.",
 	'payflowpro_gateway-response-13' => 'Vòstra transaccion requerís una autorizacion vocala.
 Contactatz-nos per perseguir vòstra transaccion.',
@@ -3082,19 +3098,24 @@ Contactatz-nos per perseguir vòstra transaccion.',
 	'payflowpro_gateway-response-24' => "Vòstre numèro de carta de credit o data d'expiracion es incorrècte(a).",
 	'payflowpro_gateway-response-112' => 'Vòstra adreça o numèro CVV (còde de seguretat) es incorrècte(a).',
 	'payflowpro_gateway-response-125' => 'Vòstra transaccion es estada refusada pels Servicis de prevencion de las fraudas.',
+	'payflowpro_gateway-response-125-2' => 'Vòstra carta bancària a pas pogut èsser validada. Verificatz que las informacions provesidas correspondon al perfil de vòstra carta bancària, o ensajatz amb una autra carta. Podètz tanben utilizar d\'<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">autras solucions per far un don</a> o nos contactar a l\'adreça <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vos mercejam per vòstre sosten.',
 	'payflowpro_gateway-response-default' => "Una error s'es producha al moment del tractament de vòstra transaccion.
 Tornatz ensajar mai tard.",
 	'php-response-declined' => 'Vòstra transaccion es estada refusada.',
+	'payflowpro_gateway-thankyou' => 'Mercés plan per vòstre don !',
 	'payflowpro_gateway-post-transaction' => 'Detalhs de la transaccion',
 	'payflowpro_gateway-submit-button' => 'Far un don',
 	'payflowpro_gateway-cvv-explain' => "<h4>Qu'es aquò CVV ?</h4>
-<p>La valor de verificacion de carta (CVV) es constituida de tres o quatre chifras que permeton d'assegurar que lo detentor de la carta fisica a aquesta en sa possession quand efectua un pagament en linha, çò que melhora la prevencion contra los usatges frauduloses o pas autorizats.</p>
+<p>La valor de verificacion de carta (CVV) : Aquelas tres o quatre chifras permeton d'assegurar que lo detentor de la carta fisica a aquesta en sa possession quand efectua un pagament en linha ; aquò melhora la prevencion contra los usatges frauduloses o pas autorizats.</p>
 <h4>Visa, Mastercard</h4>
 <p>Lo còde de tres chifras es situat al verso de vòstra carta, dins la zòna reservada a la signatura.
 Tipicament, la barra per la signatura conten una seria de nombres, mas solas las tres darrièras chifras constituisson lo còde CVV.</p>
 <h4>American Express</h4>
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
+	'payflowpro_gateway-question-comment' => 'Wikipèdia es un projècte de la Wikimedia Foundation. De questions o de comentaris ? Contactatz la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.',
+	'payflowpro_gateway-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">politica de confidencialitat</a>.',
 	'donate_interface-GBP' => 'GBP : liura sterling',
 	'donate_interface-EUR' => 'EUR : èuro',
 	'donate_interface-USD' => 'USD : dolar american',
