@@ -46,7 +46,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		);
 		
 
-    $wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 
 		// create token if one doesn't already exist
 		$token = $wgUser->editToken( 'mrxc877668DwQQ' );
@@ -175,6 +175,14 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	
 		global $wgOut, $wgLang;
 
+		// save contrib tracking id early to track abondonment
+		if ( $data[ 'numAttempt' ] == 0 ) {
+			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
+				$when = time();
+				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
+			}
+		}
+
 		// create drop down of countries
 		$countries = countryCodes();
 
@@ -231,22 +239,22 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		$currencyMenu = '';
 
-  	foreach( $currencies as $value => $fullName ) {
-    	$currencyMenu .= Xml::option( $fullName, $value );
-  	}
+  		foreach( $currencies as $value => $fullName ) {
+    			$currencyMenu .= Xml::option( $fullName, $value );
+  		}
   	
-  	// Build currency options
-  	$default_currency = $data['currency'];
+  		// Build currency options
+  		$default_currency = $data['currency'];
         
-  	$currency_options = '';
+  		$currency_options = '';
   	
-    foreach ( $currencies as $code => $name ) {
-      $selected = '';
-        if ( $code == $default_currency ) {
-          $selected = ' selected="selected"';
-        }
-      $currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
-    }
+  		foreach ( $currencies as $code => $name ) {
+      			$selected = '';
+        		if ( $code == $default_currency ) {
+        			  $selected = ' selected="selected"';
+        		}
+      		$currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
+    		}
 		
 		// intro text
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
@@ -270,9 +278,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-currency-label' ), 'currency_code' ) .
 			$endCell .
 			Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" )) .
-      $currency_options . 
-      Xml::closeElement( 'select' ) .
-      $endRow . 
+		      	$currency_options . 
+      			Xml::closeElement( 'select' ) .
+     			$endRow . 
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) .
 			$endCell . 
 			Xml::input( 'emailAdd', '30', $data['email'], array( 'maxlength' => '64', 'id' => 'emailAdd' ) ) .
@@ -663,6 +671,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$errorCode = $this->fnPayflowGetResponseMsg( $resultCode, $responseMsg );
 
 		// if approved, display results and send transaction to the queue
+
 		if( $errorCode == '1' ) {
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
 			// give user a second chance to enter incorrect data
@@ -698,7 +707,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$errorCode = '1';
 				break;
 			case '126':
-				$responseMsg = wfMsg( 'payflowpro_gateway-response-126' );
+				$responseMsg = wfMsg( 'payflowpro_gateway-response-126-2' );
 				$errorCode = '5';
 				break;
 			case '12':
@@ -730,7 +739,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$errorCode = '3';
 				break;
 			case '125':
-				$responseMsg = wfMsg( 'payflowpro_gateway-response-125' );
+				$responseMsg = wfMsg( 'payflowpro_gateway-response-125-2' );
 				$errorCode = '3';
 				break;
 			default:
@@ -754,13 +763,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		require_once( 'includes/countryCodes.inc' );
 		
-		//save data to the contribution tracking database
-		if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
-			$when = time();
-			wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
-		}
-		
-
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
 
@@ -826,23 +828,26 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
 	}
-
 	function fnPayflowDisplayPending( $responseMsg ) {
 		global $wgOut;
 
+		$thankyou = wfMsg( 'payflowpro_gateway-thankyou' );
+
 		// display response message
-		$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
+		$wgOut->addHTML( '<h2 class="response_message">' . $thankyou . '</h2>' );
+		$wgOut->addHTML( '<p>' . $responseMsg );
+
 	}
 	
 	function fnPayflowSaveContributionTracking( &$data ) {
-			$data['optout'] = ($data['optout'] == "1") ? '0' : '1';
-			$data['anonymous'] = ($data['anonymous'] == "1") ? '0' : '1';
+		$data['optout'] = ($data['optout'] == "1") ? '0' : '1';
+		$data['anonymous'] = ($data['anonymous'] == "1") ? '0' : '1';
 
-			$db = payflowGatewayConnection();
+		$db = payflowGatewayConnection();
 			
-			if (!$db) { return true ; }
+		if (!$db) { return true ; }
 
-			$ts = $db->timestamp();
+		$ts = $db->timestamp();
 
 		$tracked_contribution = array(
 			'note' => $data['comment'],
@@ -865,7 +870,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// Store the contribution data
 		if ($db->insert( 'contribution_tracking', $tracked_contribution ) ) {
-		//	$data['contribution_tracking_id'] = $db->insertId();
+			$data['contribution_tracking_id'] = $db->insertId();
 		 	return true;
 		} else { return false; }
 		
