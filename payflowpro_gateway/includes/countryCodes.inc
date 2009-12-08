@@ -217,7 +217,7 @@ function countryCodes() {
 		'760' => 'Syrian Arab Republic',
 		'762' => 'Tajikistan',
 		'834' => 'Tanzania, United Republic of',
-		'158' => 'Taiwan, Province of China',
+		'158' => 'Taiwan',
 		'764' => 'Thailand',
 		'768' => 'Togo',
 		'772' => 'Tokelau',
