@@ -7,8 +7,11 @@ function statesMenuXML() {
 	$states = array(
 		'YY'   => 'Select a State',
 		'XX' => 'Outside the U.S.',
+		'AA' => 'Armed Forces Americas (except Canada)',
+		'AE' => 'Armed Forces Africa',
 		'AK' => 'Alaska',
 		'AL' => 'Alabama',
+		'AP' => 'Armed Forces Pacific',
 		'AR' => 'Arkansas',
 		'AZ' => 'Arizona',
 		'CA' => 'California',
