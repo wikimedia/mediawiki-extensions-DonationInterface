@@ -194,7 +194,7 @@ function countryCodes() {
 		'678' => 'Sao Tome and Principe',
 		'682' => 'Saudi Arabia',
 		'686' => 'Senegal',
-		'891' => 'Serbia',
+		'688' => 'Serbia',
 		'690' => 'Seychelles',
 		'694' => 'Sierra Leone',
 		'702' => 'Singapore',
