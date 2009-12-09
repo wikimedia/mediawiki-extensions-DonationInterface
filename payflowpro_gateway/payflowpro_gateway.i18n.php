@@ -1530,6 +1530,14 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'donate_interface-ILS' => 'ILS : shekel israélien',
 );
 
+/** Irish (Gaeilge)
+ * @author Kwekubo
+ */
+$messages['ga'] = array(
+	'payflowprogateway' => 'Tacaigh le Wikimedia',
+	'payflowpro_gateway-desc' => 'Próiseáil chárta creidmheasa PayPal Payflow Pro',
+);
+
 /** Galician (Galego)
  * @author Toliño
  */
@@ -1892,6 +1900,7 @@ Ne feledd, <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">számos
 	'payflowpro_gateway-response-0' => 'A tranzakció elfogadva.
 Köszönjük az adományt!',
 	'payflowpro_gateway-response-126' => 'A tranzakciód elfogadásra vár.',
+	'payflowpro_gateway-response-126-2' => 'Néhány megadott információ nem egyezik a kártyádéval, vagy túl nagy ajándékot szerettél volna adni. Saját biztonságod érdekében az adományodat ellenőrizni fogjuk, és a megadott e-mail címen értesítünk, ha nem sikerül végrehajtani. Kérdéseidet a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> címre küldheted el. Köszönjük!',
 	'payflowpro_gateway-response-12' => 'További információért lépj kapcsolatba a bankkártyát kibocsátó céggel.',
 	'payflowpro_gateway-response-13' => 'A tranzakcióhoz szóbeli megerősítés szükséges.
 Kérünk vedd fel velünk a kapcsolatot a tranzakció folytatásához.',
@@ -1901,12 +1910,19 @@ Kérünk vedd fel velünk a kapcsolatot a tranzakció folytatásához.',
 	'payflowpro_gateway-response-24' => 'A bankkártyád száma vagy lejárati dátuma érvénytelen.',
 	'payflowpro_gateway-response-112' => 'A cím vagy a CVV-szám (biztonsági kód) helytelen.',
 	'payflowpro_gateway-response-125' => 'A tranzakciódat visszautasította a Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'A bankkártyád érvényességét nem sikerült ellenőrizni. Erősítsd meg, hogy az összes megadott információ megegyezik a bankkártyádéval, vagy próbálkozz egy másikkal. Használhatsz egy <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">másik módszert is az adományozásra</a>, vagy értesítsd minket a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> címen. Köszönjük a támogatásodat!',
 	'payflowpro_gateway-response-default' => 'Hiba történt a tranzakció feldolgozásakor.
 Később próbáld meg újra.',
 	'php-response-declined' => 'A tranzakció elutasítva.',
+	'payflowpro_gateway-thankyou' => 'Köszönjük az adományodat!',
 	'payflowpro_gateway-post-transaction' => 'Tranzakció részletei',
 	'payflowpro_gateway-submit-button' => 'Adomány elküldése',
-	'payflowpro_gateway-cvv-explain' => '<h4>Mi a CVV?</h4><p>A Cardholder Verification Value (CVV) három- vagy négyjegyű számok biztosítják azt, hogy a kártya fizikailag is a kártyatulajdonosnál van online adományozás közben, így megakadályozva az engedély nélküli vagy tisztességtelen használatot.</p><h4>Visa, Mastercard</h4><p>A háromjegyű kód a kártya hátulján található, az aláírásra kijelölt területen belül. Az aláírásra kijelölt terület általában egy számsorozatot tartalmaz, de ennek csak az utolsó három számjegye a CVV-kód.</p><h4>American Express</h4><p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
+	'payflowpro_gateway-cvv-explain' => '<h4>Mi a CVV?</h4>
+<p>A Cardholder Verification Value (CVV) három- vagy négyjegyű számok biztosítják azt, hogy a kártya fizikailag is a kártyatulajdonosnál van online adományozás közben, így megakadályozva az engedély nélküli vagy tisztességtelen használatot.</p>
+<h4>Visa, Mastercard</h4>
+<p>A háromjegyű kód a kártya hátulján található, az aláírásra kijelölt területen belül. Az aláírásra kijelölt terület általában egy számsorozatot tartalmaz, de ennek csak az utolsó három számjegye a CVV-kód.</p>
+<h4>American Express</h4>
+<p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
 	'payflowpro_gateway-question-comment' => 'A Wikipédia a Wikimédia Alapítvány projektje. Kérdéseid vagy megjegyzéseid vannak? A következő címen léphetsz kapcsolatba velünk: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Az „Adományozás” gombra való kattintás után a bankkártya-adataid fel lesznek dolgozva.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nem tárolunk a bankkártyáddal kapcsolatos információkat, és a személyes adataidat a <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Jogi nyilatkozatban</a> leírtak szerint kezeljük.',
@@ -2245,9 +2261,11 @@ $messages['ja'] = array(
 );
 
 /** Georgian (ქართული)
+ * @author BRUTE
  * @author Temuri rajavi
  */
 $messages['ka'] = array(
+	'payflowpro_gateway-cvv-link' => 'მაგალითი',
 	'donate_interface-GBP' => 'GBP: ბრიტანული გირვანქა სტერლინგი',
 	'donate_interface-EUR' => 'EUR: ევრო',
 	'donate_interface-USD' => 'USD: აშშ დოლარი',
@@ -2444,6 +2462,7 @@ Et gëtt <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aner Méi
 	'payflowpro_gateway-response-0' => 'Är Transaktioun gouf kzeptéiert.
 Merci fir Ären Don!',
 	'payflowpro_gateway-response-126' => 'Är Transaktiun muss nach akzeptéiert ginn.',
+	'payflowpro_gateway-response-126-2' => 'En Deel vun den Informatiounen déi Dir uginn hutt stëmmt net mat dem Profil vun Ärer Kreditkaart iwwereneen, oder Dir hutt e ganz groussen Don gemaach. Fir Är eege Sécherheet gëtt Ären Don elo iwwerpréift a mir informéieren Iech iwwer d\'E-Mailadress déi Dir uginn hutt wa mir Ären Don net ofschléisse kënnen. Schéckt eis w.e.g. e Mail op <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> wann Dir Froen hutt. Merci!',
 	'payflowpro_gateway-response-12' => "Kontaktéiert d'Firma vun Ärer Krditkaart fir weider Informatiounen.",
 	'payflowpro_gateway-response-13' => 'Är Transaktioun muss duerch STëmmenerkennung autoriséiert ginn.
 Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
@@ -2453,6 +2472,7 @@ Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
 	'payflowpro_gateway-response-24' => "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
 	'payflowpro_gateway-response-112' => 'Är Adress oder CVV-Nummer (Sécherheetscode) ass net richteg.',
 	'payflowpro_gateway-response-125' => "Är Transaktioun gouf net vun de Servicer, déi sech ëm d'Verhënnerung vun der Fraude bekëmmeren, akzeptéiert.",
+	'payflowpro_gateway-response-125-2' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all déi Informatiounen déi Dir uginn hutt mat dem Profil vun Ärer Kreditkaart iwwereneestëmmt oder probéiert mat enger anerer Kaart. Dir kënnt och op eng vun eisen anere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Manéiere fir ze spenden</a> benotzen oder eis iwwer <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kontaktéieren. Merci fir Är Ënnerstetzung.',
 	'payflowpro_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
 Probéiert et w.e.g. spéider nach eng Kéier.',
 	'php-response-declined' => 'Är Transactioun gouf net akzeptéiert.',
@@ -2643,7 +2663,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-error-msg-street' => 'വിലാസം തെരുവ്',
 	'payflowpro_gateway-error-msg-city' => 'പട്ടണം',
 	'payflowpro_gateway-error-msg-state' => 'സംസ്ഥാനം',
-	'payflowpro_gateway-error-msg-zip' => 'സിപ് അല്ലങ്കിൽ പിൻകോഡ്',
+	'payflowpro_gateway-error-msg-zip' => 'സിപ് അല്ലെങ്കിൽ പിൻകോഡ്',
 	'payflowpro_gateway-error-msg-card_num' => 'ക്രെഡിറ്റ് കാർഡ് നമ്പർ',
 	'payflowpro_gateway-error-msg-expiration' => 'കാർഡിന്റെ കാലാവധി തീരുന്ന തീയതി',
 	'payflowpro_gateway-error-msg-cvv' => 'കാർഡിന്റെ പിന്നിൽ നിന്നും CVV',
@@ -3645,9 +3665,13 @@ Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra s�
  * @author Veeven
  */
 $messages['te'] = array(
+	'payflowprogateway' => 'వికీమీడియాకి తోడ్పడండి',
 	'payflowpro_gateway-donor-legend' => 'దాత సమాచారం',
 	'payflowpro_gateway-card-legend' => 'క్రెడిట్ కార్డు సమాచారం',
+	'payflowpro_gateway-amount-legend' => 'విరాళపు మొత్తం:',
 	'payflowpro_gateway-cvv-link' => 'ఉదాహరణ',
+	'payflowpro_gateway-donor-amount' => 'మొత్తం:',
+	'payflowpro_gateway-donor-currency-label' => 'మారక ద్రవ్యం:',
 	'payflowpro_gateway-donor-email' => 'ఈ-మెయిల్ చిరునామా:',
 	'payflowpro_gateway-donor-fname' => 'మొదటి పేరు:',
 	'payflowpro_gateway-donor-lname' => 'ఇంటి పేరు:',
@@ -3657,10 +3681,15 @@ $messages['te'] = array(
 	'payflowpro_gateway-donor-state' => 'రాష్ట్రం:',
 	'payflowpro_gateway-donor-country' => 'దేశం/ప్రాంతం:',
 	'payflowpro_gateway-donor-address' => 'చిరునామా:',
+	'payflowpro_gateway-error-msg-emailAdd' => 'ఈ-మెయిలు చిరునామా',
+	'payflowpro_gateway-error-msg-fname' => 'మొదటి పేరు',
 	'payflowpro_gateway-error-msg-lname' => 'ఇంటి పేరు',
+	'payflowpro_gateway-error-msg-street' => 'వీధి చిరునామా',
 	'payflowpro_gateway-error-msg-city' => 'నగరం',
 	'payflowpro_gateway-error-msg-state' => 'రాష్ట్రం',
+	'payflowpro_gateway-response-12' => 'మరింత సమాచారం కొరకు మీ క్రెడిట్ కార్డు కంపెనీని సంప్రదించండి.',
 	'payflowpro_gateway-response-4' => 'తప్పుడు మొత్తం.',
+	'payflowpro_gateway-thankyou' => 'మీ విరాళానికి కృతజ్ఞతలు!',
 	'payflowpro_gateway-post-transaction' => 'లావాదేవీ వివరాలు',
 	'donate_interface-EUR' => 'EUR: యూరో',
 	'donate_interface-USD' => 'USD: అమెరికా డాలర్',
