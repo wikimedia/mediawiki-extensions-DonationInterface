@@ -2289,6 +2289,7 @@ $messages['ka'] = array(
  * @author Kwj2772
  */
 $messages['ko'] = array(
+	'payflowpro_gateway-donor-security' => '보안 코드:',
 	'donate_interface-GBP' => 'GBP: 영국 파운드',
 	'donate_interface-EUR' => 'EUR: 유로',
 	'donate_interface-USD' => 'USD: 미국 달러',
@@ -2511,6 +2512,7 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
 
 /** Macedonian (Македонски)
  * @author Bjankuloski06
+ * @author Brest
  */
 $messages['mk'] = array(
 	'payflowprogateway' => 'Поддржете ја Викимедија',
@@ -2591,7 +2593,7 @@ $messages['mk'] = array(
 <p>Кодот <i>секогаш</i> се наоѓа <i>над</i> испапчениот број на сметката на лицето на картичката.
 Во некои случаи кодот е сместен на левата страна од картичката, но секогаш е над бројот на картичката.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Википедија е проект на фондацијата Wikimedia. Имате прашања или коментари? Контактирајте ја фондацијата Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Откако ќе кликнете на „Донирајте“, ќе бидат обработени податоците од вашата кредитна картичка.',
+	'payflowpro_gateway-donate-click' => 'Откако ќе кликнете на "{{int:payflowpro_gateway-donor-submit}}", ќе бидат обработени податоците од вашата кредитна картичка.',
 	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од вашата кредитна картичка, а пак вашите лични податоци подлежат на нашите<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">правила за приватност</a>.',
 	'donate_interface-GBP' => 'GBP: Британска фунта',
 	'donate_interface-EUR' => 'EUR: Евро',
