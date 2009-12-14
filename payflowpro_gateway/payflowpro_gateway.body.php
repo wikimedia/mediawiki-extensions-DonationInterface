@@ -87,8 +87,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// find out if amount was a radio button or textbox, set amount
 		if( isset( $_REQUEST['amount'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount' ) ) ) {
 			$amount = $wgRequest->getText( 'amount' );
-		} elseif( isset( $_REQUEST['amount2'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount2' ) ) ) { 
-				$amount = number_format( $wgRequest->getText( 'amount2' ), 2, '.', '' );
+		} elseif( isset( $_REQUEST['amountGiven'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amountGiven' ) ) ) { 
+				$amount = number_format( $wgRequest->getText( 'amountGiven' ), 2, '.', '' );
 		} elseif( isset( $_REQUEST['amount'] ) ) { 
 				$amount = '0.00';
 		} else {
