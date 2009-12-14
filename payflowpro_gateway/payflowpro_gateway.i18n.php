@@ -591,10 +591,15 @@ $messages['bs'] = array(
 	'payflowpro_gateway-donor-submit' => 'Doniranje',
 	'payflowpro_gateway-error-msg' => 'Molimo unesite Vaše $1',
 	'payflowpro_gateway-error-msg-js' => 'Molimo unesite Vaše',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Molimo unesite valjani iznos**',
+	'payflowpro_gateway-error-msg-amount' => 'iznos donacije',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-mail adresa',
 	'payflowpro_gateway-error-msg-fname' => 'ime',
 	'payflowpro_gateway-error-msg-lname' => 'prezime',
 	'payflowpro_gateway-error-msg-city' => 'grad',
+	'payflowpro_gateway-error-msg-state' => 'pokrajina',
 	'payflowpro_gateway-error-msg-zip' => 'poštanski broj',
+	'payflowpro_gateway-error-msg-card_num' => 'broj kreditne kartice',
 	'payflowpro_gateway-response-4' => 'Nevaljan iznos.',
 );
 
