@@ -79,6 +79,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'anonymous' => '',
 			'optout' => '',
 			'token' => $token,
+			'contribution_tracking_id' => '',
 		);
 
 		$error[] = '';
@@ -127,6 +128,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'anonymous' => $wgRequest->getText( 'comment-option' ),
 			'optout' => $wgRequest->getText( 'email' ),
 			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
+			'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 		);
 		
 		// Get array of default account values necessary for Payflow 
@@ -380,7 +382,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::hidden( 'payment_method', 'processed' ) .
 			Xml::hidden( 'token', $data['token'] ) .
 			Xml::hidden( 'orderid', $data['order_id'] ) .
-			Xml::hidden( 'numAttempt', $data['numAttempt'] );
+			Xml::hidden( 'numAttempt', $data['numAttempt'] ) .
+			Xml::hidden( 'contribution_tracking_id', $data['contribution_tracking_id'] );
 				
 		// submit button and close form
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage' ) ) .
