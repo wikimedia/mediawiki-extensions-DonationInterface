@@ -148,7 +148,7 @@ function fnDonateCreateOutput() {
         Xml::radioLabel(wfMsg( 'donate_interface-big-amount-display' ), 'amount', wfMsg( 'donate_interface-big-amount-value' ), 'input_amount_3', false  ),
         Xml::radioLabel(wfMsg( 'donate_interface-medium-amount-display' ), 'amount', wfMsg( 'donate_interface-medium-amount-value' ), 'input_amount_2', false ),
         Xml::radioLabel(wfMsg( 'donate_interface-small-amount-display' ), 'amount', wfMsg( 'donate_interface-small-amount-value' ), 'input_amount_1', false ),
-        Xml::inputLabel(wfMsg( 'donate_interface-other-amount' ), 'amount2', 'input_amount_other', '5'),
+        Xml::inputLabel(wfMsg( 'donate_interface-other-amount' ), 'amountGiven', 'input_amount_other', '5'),
   );
         
   $amountFields = '<table><tr>';
@@ -328,8 +328,8 @@ function fnProcessDonationForm( ) {
     //find out which amount option was chosen for amount, redefined buttons or text box
     if ( isset($_POST['amount']) && preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount')) ) {
 		  $amount = number_format( $wgRequest->getText('amount'), 2 );
-    } elseif ( preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount2') )) { 
-        $amount = number_format( $wgRequest->getText('amount2'), 2, '.', '' ); 
+    } elseif ( preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amountGiven') )) { 
+        $amount = number_format( $wgRequest->getText('amountGiven'), 2, '.', '' ); 
     } else {
         $wgOut->addHTML( wfMsg( 'donate_interface-amount-error' ) );
         return true;
