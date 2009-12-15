@@ -175,7 +175,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
 	
-		global $wgOut, $wgLang;
+		global $wgOut, $wgLang, $wgWikipediaForeverTheme;
 
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == 0 ) {
@@ -259,7 +259,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
     		}
 		
 		// intro text
-		if ( $wgWikipediForeverTheme ) {
+		if ( $wgWikipediaForeverTheme ) {
 			$wgOut->addWikiText( '{{2009/Donate-header/' . $data[language] . '}}' );
 		}	
 
