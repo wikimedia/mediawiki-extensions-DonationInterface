@@ -766,7 +766,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	function fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg ) {
 		require_once( 'includes/countryCodes.inc' );
 
-		global $wgOut, $wgThankYouPage;
+		global $wgOut, $wgExternalThankYouPage;
 		$transaction = '';
 		$tracked = '';
 
@@ -784,8 +784,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// hook to call stomp functions
 		wfRunHooks( 'gwStomp', array( &$transaction ) );
 
-		if ( $wgExternalThankYou ) {
-			$wgOut->redirect( $wgThankYouPage . $data[language] );
+		if ( $wgExternalThankYouPage ) {
+			$wgOut->redirect( $wgExternalThankYouPage . "/" . $data[language] );
 		} else {
 			// display response message
 			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
