@@ -3486,6 +3486,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Putnik
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -3493,7 +3494,7 @@ $messages['ru'] = array(
 	'payflowpro_gateway-desc' => 'Обработка кредитных карт PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Эта страница доступна только со страницы сбора пожертвований.',
 	'payflowpro_gateway-form-message' => 'Сделайте пожертвование с вашей кредитной карты.
-Существуют <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ru">другие способы сделать пожертвование, в том числе PayPal, чек, банковский перевод</a>.',
+Существуют <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">другие способы сделать пожертвование, в том числе PayPal, чек, банковский перевод</a>.',
 	'payflowpro_gateway-form-message-2' => 'Чтобы изменить сумму или валюту, вернитесь к <a href="/index.php?title=Donate">странице пожертвований</a>',
 	'payflowpro_gateway-donor-legend' => 'Сведения о жертвователе',
 	'payflowpro_gateway-card-legend' => 'Информация о кредитной карте',
