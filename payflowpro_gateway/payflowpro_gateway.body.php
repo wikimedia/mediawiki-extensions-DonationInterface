@@ -580,10 +580,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		$queryString = implode( '&', $query );
 
-		/* FOR TESTING: This is what the NV pair looks like, with string length included
-		$payflow_query = "TRXTYPE=$payflow_data[trxtype]&TENDER=$payflow_data[tender]&USER=$payflow_data[user]&VENDOR=$payflow_data[vendor]&PARTNER=$payflow_data[partner]&PWD=$payflow_data[password]&ACCT=$data[card_num]&EXPDATE=$data[expiration]&AMT=$data[amount]&FIRSTNAME=$data[fname]&LASTNAME=$data[lname]&STREET=$data[street]&ZIP=$data[zip]&INVNUM=$payflow_data[order_id]&CVV2=$data[cvv]&CURRENCY=$data[currency]&VERBOSITY=$payflow_data[verbosity]&CUSTIP=$payflow_data[user_ip]"; 
-		*/
-
 		$payflow_query = $queryString;
 
 		// assign header data necessary for the curl_setopt() function
@@ -692,7 +688,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		} elseif( ( $errorCode == '4' ) ) {
 				$this->fnPayflowDisplayOtherResults( $responseMsg );
 		} elseif( ( $errorCode == '5' ) ) {
-				$this->fnPayflowDisplayPending( $responseMsg );
+				$this->fnPayflowDisplayPending( $data, $responseArray, $responseMsg );
 		}
 
 	}// end display results
@@ -835,8 +831,25 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
 	}
-	function fnPayflowDisplayPending( $responseMsg ) {
+	
+	function fnPayflowDisplayPending( $data, $responseArray, $responseMsg ) {
 		global $wgOut;
+		
+		$transaction = '';
+
+		// push to ActiveMQ server 
+		// include response message
+		$transaction['response'] = $responseMsg;
+		// include date
+		$transaction['date'] = time();
+		// send both the country as text and the three digit ISO code
+		$transaction['country_name'] = $countries[$data['country']];
+		$transaction['country_code'] = $data['country'];
+		// put all data into one array
+		$transaction += array_merge( $data, $responseArray );
+
+		// hook to call stomp functions
+		wfRunHooks( 'gwPendingStomp', array( &$transaction ) );
 
 		$thankyou = wfMsg( 'payflowpro_gateway-thankyou' );
 

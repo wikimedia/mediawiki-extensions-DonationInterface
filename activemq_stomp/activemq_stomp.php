@@ -61,6 +61,7 @@ function efStompTest($input, $args, &$parser) {
 *
 */
 $wgHooks['gwStomp'][] = 'sendSTOMP';
+$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
 
 
 /*
@@ -88,6 +89,38 @@ function sendSTOMP($transaction) {
         
         if (!$result) {
                 wfDebugLog('activemq_stomp', 'Send to Q failed for this message: ' . $message);
+}
+        
+        $con->disconnect();
+        
+        return true;
+}
+
+/*
+* Hook to send transaction information to ActiveMQ server
+*/
+function sendPendingSTOMP($transaction) {
+        global $wgOut;
+        global $wgStompServer, $wgPendingStompQueueName;
+        
+        $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'pending';
+        
+        // include a library
+        require_once("Stomp.php");
+          
+        $message = json_encode(createQueueMessage($transaction));
+        
+        // make a connection
+        $con = new Stomp($wgStompServer);
+        
+        // connect
+        $con->connect();
+        
+        // send a message to the queue
+        $result = $con->send("/queue/$queueName", $message, array('persistent' => 'true'));
+        
+        if (!$result) {
+                wfDebugLog('activemq_stomp', 'Send to Pending Q failed for this message: ' . $message);
 }
         
         $con->disconnect();

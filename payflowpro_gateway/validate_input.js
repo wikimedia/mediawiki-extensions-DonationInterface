@@ -53,7 +53,6 @@ function disableStates( form ) {
 var cvv;
 
 function PopupCVV() {
-	payflowGatewayCVVExplain = 'ME ME Me';
 	cvv = window.open("", 'cvvhelp','scrollbars=yes,resizable=yes,width=600,height=400,left=200,top=100');
 	cvv.document.write( payflowproGatewayCVVExplain ); 
 	cvv.focus();
