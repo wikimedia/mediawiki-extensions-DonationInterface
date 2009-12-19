@@ -465,6 +465,7 @@ $messages['be-tarask'] = array(
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
+ * @author Y-M D
  */
 $messages['br'] = array(
 	'payflowprogateway' => 'Harpit Wikimedia',
@@ -538,7 +539,7 @@ Klaskit en-dro a-benn ur pennadig.',
 <p>Emañ ar c'hod 3 sifr e tu gin ar gartenn en takad miret evit ar sinadur.
 Un heuliad sifroù a ya d'ober ar varrenn sinañ met n'eus nemet an 3 sifr diwezhañ a ya d'ober ar c'hod CVV.</p>
 <h4>American Express</h4>
-<p>ATAV emañ ar c'hod A-US d'an niverenn-gont  dreistlec'hiet war tu mat ar gartenn.
+<p>ATAV emañ ar c'hod A-US d'an niverenn-gont dreistlec'hiet war tu mat ar gartenn.
 A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niverenn-gont.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Ur raktres eus Diazezadur Wikimedia eo Wikipedia. Goulennoù pe soñjoù ? Kit e daremrped gant Diazezadur Wikimedia : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Goude bezañ kliket war   "{{int:payflowpro_gateway-donor-submit}}", e vo kemeret e kont titouroù ho kartenn-gred.',
@@ -3027,6 +3028,7 @@ Takk for gåva di!',
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Finnrind
+ * @author Nghtwlkr
  */
 $messages['no'] = array(
 	'payflowprogateway' => 'Støtt Wikimedia',
@@ -3092,6 +3094,7 @@ Kontakt oss for å fortsette din transaksjon.',
 	'payflowpro_gateway-response-default' => 'Det oppsto en feil under behandlingen av din transaksjon.
 Vennligst prøv igjen senere.',
 	'php-response-declined' => 'Din transaksjon har blitt avvist.',
+	'payflowpro_gateway-thankyou' => 'Takk for din donasjon!',
 	'payflowpro_gateway-post-transaction' => 'Transaksjonsdetaljer.',
 	'payflowpro_gateway-submit-button' => 'Gi',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
