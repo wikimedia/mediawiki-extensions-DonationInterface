@@ -99,18 +99,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-USD' => 'USD: U.S. Dollar',
 	'donate_interface-AUD' => 'AUD: Australian Dollar',
 	'donate_interface-CAD' => 'CAD: Canadian Dollar',
-	'donate_interface-CHF' => 'CHF: Swiss Franc',
-	'donate_interface-CZK' => 'CZK: Czech Koruna',
-	'donate_interface-DKK' => 'DKK: Danish Krone',
-	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
-	'donate_interface-HUF' => 'HUF: Hungarian Forint',
 	'donate_interface-JPY' => 'JPY: Japanese Yen',
-	'donate_interface-NZD' => 'NZD: New Zealand Dollar',
-	'donate_interface-NOK' => 'NOK: Norwegian Krone',
-	'donate_interface-PLN' => 'PLN: Polish Zloty',
-	'donate_interface-SGD' => 'SGD: Singapore Dollar',
-	'donate_interface-SEK' => 'SEK: Swedish Krona',
-	'donate_interface-ILS' => 'ILS: Israeli Shekel',
 );
 
 /** Message documentation (Message documentation)
