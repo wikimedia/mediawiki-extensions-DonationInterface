@@ -304,6 +304,7 @@ $messages['ar'] = array(
 	'payflow_gateway-card-name-amex' => 'أمريكان إكسبريس',
 	'payflow_gateway-card-name-visa' => 'فيزا',
 	'payflow_gateway-card-name-mc' => 'ماستر كارد',
+	'payflow_gateway-card-name-discover' => 'ديسكفر',
 	'payflowpro_gateway-error-msg' => 'من فضلك أدخل $1',
 	'payflowpro_gateway-error-msg-js' => 'من فضلك أدخل:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**من فضلك أدخل مقدارًا صحيحًا**',
@@ -326,6 +327,7 @@ $messages['ar'] = array(
 	'payflowpro_gateway-response-0' => 'تمت الموافقة على تحويلك.
 شكرا لك على التبرع!',
 	'payflowpro_gateway-response-126' => 'تحويلك ينتظر الموافقة.',
+	'payflowpro_gateway-response-126-2' => 'بعض من المعلومات التي وفرتها لم تطابق ملف بطاقتك الائتمانية، أو أنت قمت بتبرع كبير جدا. لتأمينك، تبرعك حاليا تحت المراجعة، وسنخطرك من خلال عنوان البريد الإلكتروني الموفر لو لم نتمكن من إنهاء تبرعك. من فضلك راسل <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> لو لديك أي أسئلة. شكرا لك!',
 	'payflowpro_gateway-response-12' => 'من فضلك اتصل بشركة بطاقة ائتمانك لمزيد من المعلومات.',
 	'payflowpro_gateway-response-13' => 'يتطلب تحويلك الاستيثاق بالصوت.
 من فضلك اتصل بنا لتكمل تحويلك.',
@@ -335,11 +337,24 @@ $messages['ar'] = array(
 	'payflowpro_gateway-response-24' => 'رقم بطاقة ائتمانك أو تاريخ انتهائها غير صالح.',
 	'payflowpro_gateway-response-112' => 'عنوانك أو رقم CVV (كود الأمان) غير صحيح.',
 	'payflowpro_gateway-response-125' => 'ألغت Fraud Prevention Services تحويلك.',
+	'payflowpro_gateway-response-125-2' => 'بطاقتك الائتمانية لم يمكن التحقق منها. من فضلك تأكد من أن كل المعلومات الموفرة تطابق ملف بطاقتك الائتمانية، أو جرب بطاقة أخرى. يمكنك أيضا استخدام إحدى <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">وسائلنا الاخرى للعطاء</a> أو اتصل بنا في <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. شكرا لدعمك.',
 	'payflowpro_gateway-response-default' => 'ثمة خطأ أثناء تنفيذ التحويل.
 من فضلك حاول مرة أخرى.',
 	'php-response-declined' => 'ألغي تحويلك.',
+	'payflowpro_gateway-thankyou' => 'شكرا لتبرعك!',
 	'payflowpro_gateway-post-transaction' => 'تفاصيل التحويل',
 	'payflowpro_gateway-submit-button' => 'تبرّع',
+	'payflowpro_gateway-cvv-explain' => '<h4>ما هي CVV؟</h4>
+<p>قيمة تحقيق حامل البطاقة (CVV): هذه الارقام ذات الثلاثة أو أربعة أعداد تؤكد أن البطاقة الفعلية في حوزة حامل البطاقة. هذا يساعد في منع الاستخدام غيﻻ المسموح به أو المسئ.</p>
+<h4>فيزا، ماستركارد</h4>
+<p>الكود ثلاثي الأرقام موجود على ظهر بطاقتك، بداخل منطقة التوقيع.
+عادة لوحة التوقيع بها سلسلة من الارقام، لكن فقط آخر ثلاثة أعداد تشكل كود CVV.</p>
+<h4>أمريكان إكسبريس</h4>
+<p>الكود <i>دائما</i> موجود <i>أعلى</i> رقم الحساب المرفوع على وجه البطاقة.
+في بعض الحالات، الكود موجود على الجانب الأيسر للبطاقة، لكن دائما أعلى رقم الحساب.</p><br />',
+	'payflowpro_gateway-question-comment' => 'ويكيبيديا مشروع لمؤسسة ويكيميديا. أسئلة أو تعليقات؟ اتصل بمؤسسة ويكيميديا: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'بعد الضغط على "{{int:payflowpro_gateway-donor-submit}}"، معلومات بطاقتك الائتمانية ستتم معالجتها.',
+	'payflowpro_gateway-credit-storage-processing' => 'نحن لا نخزن معلومات بطاقتك الائتمانية، وبياناتك الشخصية معرضة ل<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.',
 	'donate_interface-GBP' => 'GBP: الجنيه الإسترليني',
 	'donate_interface-EUR' => 'EUR: اليورو',
 	'donate_interface-USD' => 'USD: الدولار الأمريكي',
@@ -460,6 +475,62 @@ $messages['be-tarask'] = array(
 	'donate_interface-SGD' => 'SGD: сынгапурскі даляр',
 	'donate_interface-SEK' => 'SEK: швэдзкая крона',
 	'donate_interface-ILS' => 'ILS: ізраільскі шэкель',
+);
+
+/** Bulgarian (Български)
+ * @author Turin
+ */
+$messages['bg'] = array(
+	'payflowpro_gateway-amount-legend' => 'Сума на дарението:',
+	'payflowpro_gateway-cvv-link' => 'Пример',
+	'payflowpro_gateway-donor-amount' => 'Сума:',
+	'payflowpro_gateway-donor-currency-label' => 'Валута:',
+	'payflowpro_gateway-donor-email' => 'Адрес на е-поща:',
+	'payflowpro_gateway-donor-fname' => 'Име:',
+	'payflowpro_gateway-donor-mname' => 'Средно или бащино име:',
+	'payflowpro_gateway-donor-lname' => 'Фамилия:',
+	'payflowpro_gateway-donor-name' => 'Име:',
+	'payflowpro_gateway-donor-street' => 'Улица:',
+	'payflowpro_gateway-donor-city' => 'Град:',
+	'payflowpro_gateway-donor-state' => 'Държава:',
+	'payflowpro_gateway-donor-postal' => 'Пощенски код:',
+	'payflowpro_gateway-donor-country' => 'Страна или област:',
+	'payflowpro_gateway-donor-address' => 'Адрес:',
+	'payflowpro_gateway-donor-card' => 'Кредитна карта:',
+	'payflowpro_gateway-donor-card-num' => 'Номер на картата:',
+	'payflowpro_gateway-donor-expiration' => 'Дата на изтичане:',
+	'payflowpro_gateway-donor-security' => 'Код за сигурност:',
+	'payflowpro_gateway-donor-submit' => 'Даряване',
+	'payflowpro_gateway-error-msg-amount' => 'сума на дарението',
+	'payflowpro_gateway-error-msg-emailAdd' => 'адрес на е-поща',
+	'payflowpro_gateway-error-msg-fname' => 'име',
+	'payflowpro_gateway-error-msg-lname' => 'фамилия',
+	'payflowpro_gateway-error-msg-street' => 'адрес',
+	'payflowpro_gateway-error-msg-city' => 'град',
+	'payflowpro_gateway-error-msg-state' => 'държава',
+	'payflowpro_gateway-error-msg-zip' => 'пощенски код',
+	'payflowpro_gateway-error-msg-card_num' => 'номер на кредитна карта',
+	'payflowpro_gateway-error-msg-expiration' => 'дата на изтичане на картата',
+	'payflowpro_gateway-error-msg-cvv' => 'CCV от обратната страна на картата',
+	'payflowpro_gateway-thankyou' => 'Благодарим ви за дарението!',
+	'payflowpro_gateway-submit-button' => 'Даряване',
+	'donate_interface-GBP' => 'GBP: британска лира',
+	'donate_interface-EUR' => 'EUR: евро',
+	'donate_interface-USD' => 'USD: американски долар',
+	'donate_interface-AUD' => 'AUD: австралийски долар',
+	'donate_interface-CAD' => 'CAD: канадски долар',
+	'donate_interface-CHF' => 'CHF: швейцарски франк',
+	'donate_interface-CZK' => 'CZK: чешка крона',
+	'donate_interface-DKK' => 'DKK: датска крона',
+	'donate_interface-HKD' => 'HKD: хонгконгски долар',
+	'donate_interface-HUF' => 'HUF: унгарски форинт',
+	'donate_interface-JPY' => 'JPY: японска йена',
+	'donate_interface-NZD' => 'NZD: новозеландски долар',
+	'donate_interface-NOK' => 'NOK: норвежка крона',
+	'donate_interface-PLN' => 'PLN: полска злота',
+	'donate_interface-SGD' => 'SGD: сингапурски долар',
+	'donate_interface-SEK' => 'SEK: шведска крона',
+	'donate_interface-ILS' => 'ILS: израелски шекел',
 );
 
 /** Breton (Brezhoneg)
@@ -664,6 +735,31 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-SGD' => 'SGD: Singapurski dolar',
 	'donate_interface-SEK' => 'SEK: Švedska kruna',
 	'donate_interface-ILS' => 'ILS: Izraelski šekel',
+);
+
+/** Catalan (Català)
+ * @author Solde
+ */
+$messages['ca'] = array(
+	'payflowpro_gateway-donor-street' => 'Adreça:',
+	'payflowpro_gateway-donor-card' => 'Targeta de crèdit:',
+	'payflowpro_gateway-donor-expiration' => 'Data expiració:',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adreça de correu electrònic',
+	'payflowpro_gateway-error-msg-fname' => 'nom',
+	'payflowpro_gateway-error-msg-lname' => 'cognom',
+	'payflowpro_gateway-error-msg-street' => 'adreça',
+	'payflowpro_gateway-error-msg-city' => 'ciutat',
+	'payflowpro_gateway-error-msg-state' => 'estat',
+	'payflowpro_gateway-error-msg-zip' => 'codi postal',
+	'payflowpro_gateway-error-msg-card_num' => 'número de targeta de crèdit',
+	'donate_interface-GBP' => 'GBP: Lliura esterlina',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dòlar americà',
+	'donate_interface-AUD' => 'AUD: Dòlar australià',
+	'donate_interface-CAD' => 'CAD: Dòlar canadenc',
+	'donate_interface-CHF' => 'CHF: Franc suís',
+	'donate_interface-DKK' => 'DKK: Corona danesa',
+	'donate_interface-JPY' => 'JPY: Ien japonès',
 );
 
 /** Czech (Česky)
@@ -1261,6 +1357,7 @@ Bonvolu provi denove pli poste.',
 );
 
 /** Spanish (Español)
+ * @author Crazymadlover
  * @author Translationista
  */
 $messages['es'] = array(
@@ -1318,6 +1415,7 @@ Por favor contáctanos para continuar la transacción.',
 	'payflowpro_gateway-response-4' => 'Cantidad inválida.',
 	'payflowpro_gateway-response-24' => 'La fecha de vencimiento de tu tarjeta de crédito es incorrecta.',
 	'payflowpro_gateway-response-112' => 'Tu dirección o número CVV (código de seguridad) son incorrectos.',
+	'payflowpro_gateway-thankyou' => 'Gracias por tu donación!',
 	'payflowpro_gateway-post-transaction' => 'Detalles de la transacción',
 	'payflowpro_gateway-submit-button' => 'Donar',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
@@ -1338,28 +1436,45 @@ Por favor contáctanos para continuar la transacción.',
 );
 
 /** Estonian (Eesti)
+ * @author Avjoska
  * @author Pikne
  */
 $messages['et'] = array(
 	'payflowprogateway' => 'Wikimedia toetamine',
 	'payflowpro_gateway-form-message' => 'Anneta krediitkaardiga. Samuti on võimalik  <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annetada PayPali abil, tšekiga või e-kirja teel</a>.',
+	'payflowpro_gateway-donor-legend' => 'Annetaja info',
+	'payflowpro_gateway-card-legend' => 'Krediitkaardi info',
 	'payflowpro_gateway-amount-legend' => 'Annetatav summa:',
 	'payflowpro_gateway-cvv-link' => 'Näide',
+	'payflowpro_gateway-donor-amount' => 'Summa:',
 	'payflowpro_gateway-donor-currency-label' => 'Vääring:',
 	'payflowpro_gateway-donor-email' => 'E-postiaadress:',
 	'payflowpro_gateway-donor-fname' => 'Eesnimi:',
 	'payflowpro_gateway-donor-mname' => 'Teine nimi:',
 	'payflowpro_gateway-donor-lname' => 'Perekonnanimi:',
+	'payflowpro_gateway-donor-name' => 'Nimi:',
 	'payflowpro_gateway-donor-street' => 'Tänav:',
 	'payflowpro_gateway-donor-city' => 'Linn:',
 	'payflowpro_gateway-donor-state' => 'Osariik:',
 	'payflowpro_gateway-donor-postal' => 'Sihtnumber:',
 	'payflowpro_gateway-donor-country' => 'Maa:',
+	'payflowpro_gateway-donor-address' => 'Aadress:',
 	'payflowpro_gateway-donor-card' => 'Krediitkaart:',
 	'payflowpro_gateway-donor-card-num' => 'Krediitkaardinumber:',
 	'payflowpro_gateway-donor-expiration' => 'Aegumiskuupäev:',
 	'payflowpro_gateway-donor-security' => 'Turvakood:',
 	'payflowpro_gateway-donor-submit' => 'Anneta',
+	'payflowpro_gateway-error-msg-amount' => 'annetuse summa',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-postiaadress',
+	'payflowpro_gateway-error-msg-fname' => 'eesnimi',
+	'payflowpro_gateway-error-msg-lname' => 'perekonnanimi',
+	'payflowpro_gateway-error-msg-street' => 'tänava aadress',
+	'payflowpro_gateway-error-msg-city' => 'linn',
+	'payflowpro_gateway-error-msg-state' => 'osariik',
+	'payflowpro_gateway-error-msg-zip' => 'sihtnumber',
+	'payflowpro_gateway-error-msg-card_num' => 'krediitkaardi number',
+	'payflowpro_gateway-error-msg-expiration' => 'kaardi aegumistähtaeg',
+	'payflowpro_gateway-thankyou' => 'Täname Sind annetuse eest!',
 	'payflowpro_gateway-submit-button' => 'Anneta',
 	'payflowpro_gateway-question-comment' => 'Vikipeedia on Wikimedia Foundationi projekt. Küsimusi või kommentaare? Võta ühendust Wikimedia Foundationiga: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Kui oled klõpsanud "{{int:payflowpro_gateway-donor-submit}}", lähevad su krediitkaardiandmed käiku.',
@@ -1450,13 +1565,16 @@ $messages['eu'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Crt
  * @author Str4nd
  */
 $messages['fi'] = array(
 	'payflowprogateway' => 'Tue Wikimediaa',
+	'payflowpro_gateway-accessible' => 'Tämä sivu on käytettävissä vain lahjoitussivulta.',
 	'payflowpro_gateway-donor-legend' => 'Lahjoittajan tiedot',
 	'payflowpro_gateway-card-legend' => 'Luottokortin tiedot',
 	'payflowpro_gateway-amount-legend' => 'Lahjoitusmäärä',
+	'payflowpro_gateway-cvv-link' => 'Esimerkki',
 	'payflowpro_gateway-donor-amount' => 'Määrä',
 	'payflowpro_gateway-donor-email' => 'Sähköpostiosoite',
 	'payflowpro_gateway-donor-fname' => 'Etunimi',
@@ -1480,6 +1598,7 @@ $messages['fi'] = array(
 	'payflowpro_gateway-error-msg-amex' => '**Syötä oikea luottokortin numero American Expressille.**',
 	'payflowpro_gateway-error-msg-mc' => '**Syötä oikea luottokortin numero MasterCardille.**',
 	'payflowpro_gateway-error-msg-visa' => '**Syötä oikea luottokortin numero Visalle.**',
+	'payflowpro_gateway-error-msg-emailAdd' => 'sähköpostiosoite',
 	'payflowpro_gateway-error-msg-fname' => 'etunimi',
 	'payflowpro_gateway-error-msg-lname' => 'sukunimi',
 	'payflowpro_gateway-error-msg-street' => 'katuosoite',
@@ -1491,7 +1610,9 @@ $messages['fi'] = array(
 	'payflowpro_gateway-response-4' => 'Virheellinen määrä.',
 	'payflowpro_gateway-response-24' => 'Luottokorttisi numero tai vanhenemisaika on väärä.',
 	'payflowpro_gateway-response-112' => 'Osoitteesi tai CVV-numerosi (turvakoodi) on väärä.',
+	'payflowpro_gateway-thankyou' => 'Kiitos lahjoituksestasi!',
 	'payflowpro_gateway-submit-button' => 'Lahjoita',
+	'payflowpro_gateway-question-comment' => 'Wikipedia on Wikimedia Foundationin hanke. Kysymyksiä tai kommentteja? Ota yhteyttä Wikimedia Foundationiin: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-GBP' => 'GBP: Englannin punta',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Yhdysvaltain dollari',
@@ -2278,6 +2399,8 @@ $messages['ja'] = array(
 	'payflowpro_gateway-donor-security' => 'セキュリティーコード:',
 	'payflowpro_gateway-donor-submit' => '寄付',
 	'payflowpro_gateway-donor-currency-msg' => 'この寄付は$1で行われています',
+	'payflow_gateway-card-name-amex' => 'アメリカン・エキスプレス',
+	'payflow_gateway-card-name-mc' => 'マスターカード',
 	'payflowpro_gateway-error-msg' => 'あなたの$1を入力してください',
 	'payflowpro_gateway-error-msg-js' => '以下の項目を入力してください',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**有効な金額を入力してください**',
@@ -3135,6 +3258,7 @@ Det er <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb"> andre
 	'payflowpro_gateway-response-0' => 'Transaksjonen din har blitt godkjent.
 Takk for din gave!',
 	'payflowpro_gateway-response-126' => 'Transaksjonen din venter på godkjenning.',
+	'payflowpro_gateway-response-126-2' => 'Noen av opplysningene du oppga passet ikke med kredittkortopplysningene, eller du ga en veldig stor gave. For din egen sikkerhet gjennomgås donasjonen din og vi vil varlse deg gjennom den oppgitte e-postadressen om vi ikke kan fullføre donasjonen din. Vennligst send en e-post til <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> om du har noen spørsmål. Takk!',
 	'payflowpro_gateway-response-12' => 'Kontakt kredittkortselskapet ditt for mer informasjon.',
 	'payflowpro_gateway-response-13' => 'Transaksjonen din krever stemmeautorisasjon.
 Kontakt oss for å fortsette din transaksjon.',
@@ -3144,12 +3268,24 @@ Kontakt oss for å fortsette din transaksjon.',
 	'payflowpro_gateway-response-24' => 'Ditt kredittkortnummer eller utløpsdato er ikke korrekt.',
 	'payflowpro_gateway-response-112' => 'Din adresse eller CVV nummer (sikkerhetskode) er ikke korrekt.',
 	'payflowpro_gateway-response-125' => 'Din transaksjon har blitt avvist av Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Kredittkortet ditt kunne i godkjennes. Vennligst sjekk at alle opplysningene stemmer overens med dine kredittkortopplysninger, eller prøv et annet kort. Du kan også bruke en av våre <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">alternative måter</a> eller kontakt oss på <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Takk for din støtte.',
 	'payflowpro_gateway-response-default' => 'Det oppsto en feil under behandlingen av din transaksjon.
 Vennligst prøv igjen senere.',
 	'php-response-declined' => 'Din transaksjon har blitt avvist.',
 	'payflowpro_gateway-thankyou' => 'Takk for din donasjon!',
 	'payflowpro_gateway-post-transaction' => 'Transaksjonsdetaljer.',
 	'payflowpro_gateway-submit-button' => 'Gi',
+	'payflowpro_gateway-cvv-explain' => '<h4>Hva er CVV?</h4>
+<p>Cardholder Verification Value (CVV): Disse tre eller fire sifrene hjelper til med å forsikre om at det fysiske kortet er i kortholders hender. Dette er med på å forhindre uautorisert eller falsk bruk.</p>
+<h4>Visa, Mastercard</h4>
+<p>Den tresifrede koden finnes på baksiden av kortet, inne i signaturområdet.
+Signaturområdet vil som oftest ha en serie tall, men kun de tre siste sifrene utgjør CVV-koden.</p>
+<h4>American Express</h4>
+<p>Koden er <i>alltid</i> plassert <i>over</i> det trykte (uthevede) kontonummeret på fremsiden av kortet.
+I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid over kontonummeret.</p></br >',
+	'payflowpro_gateway-question-comment' => 'Wikipedia er et prosjekt fra Wikimedia-stiftelsen. Spørsmål eller kommentarer? Kontakt Wikimedia-stiftelsen: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Etter å ha klikket «{{int:payflowpro_gateway-donor-submit}}» vil din kredittkortinformasjon bli gjennomgått.',
+	'payflowpro_gateway-credit-storage-processing' => 'Vi lagrer ikke din kredittkortinformasjon, og persondata er underlagt våre <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">retningslinjer for personvern</a>.',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
@@ -3520,6 +3656,76 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
 );
 
+/** Romanian (Română)
+ * @author Firilacroco
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'payflowprogateway' => 'Susţineţi Wikimedia',
+	'payflowpro_gateway-donor-legend' => 'Informaţii despre donator',
+	'payflowpro_gateway-card-legend' => 'Informaţii despre cardul de credit',
+	'payflowpro_gateway-amount-legend' => 'Suma de donaţie:',
+	'payflowpro_gateway-cvv-link' => 'Emeplu',
+	'payflowpro_gateway-donor-amount' => 'Cantitate:',
+	'payflowpro_gateway-donor-currency-label' => 'Valută:',
+	'payflowpro_gateway-donor-email' => 'Adresă de email:',
+	'payflowpro_gateway-donor-fname' => 'Prenume:',
+	'payflowpro_gateway-donor-mname' => 'Al doilea prenume:',
+	'payflowpro_gateway-donor-lname' => 'Nume de familie:',
+	'payflowpro_gateway-donor-name' => 'Nume:',
+	'payflowpro_gateway-donor-street' => 'Strada:',
+	'payflowpro_gateway-donor-city' => 'Oraşul:',
+	'payflowpro_gateway-donor-state' => 'Statul:',
+	'payflowpro_gateway-donor-postal' => 'Cod poştal:',
+	'payflowpro_gateway-donor-country' => 'Ţară/Regiune:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Card de credit:',
+	'payflowpro_gateway-donor-card-num' => 'Număr de card:',
+	'payflowpro_gateway-donor-expiration' => 'Dată de expirare:',
+	'payflowpro_gateway-donor-security' => 'Cod de securitate:',
+	'payflowpro_gateway-donor-submit' => 'Donează',
+	'payflowpro_gateway-error-msg' => 'Următoarea informaţie este necesară: $1',
+	'payflowpro_gateway-error-msg-js' => 'Următoarea informaţie este necesară:',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Vă rugăm introduceţi o sumă valabilă**',
+	'payflowpro_gateway-error-msg-email' => '**Vă rugăm introduceţi o adresă de e-mail valabilă**',
+	'payflowpro_gateway-error-msg-amex' => '**Vă rugăm introduceţi un număr de card corect pentru American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Vă rugăm introduceţi un număr de card corect pentru MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Vă rugăm introduceţi un număr de card corect pentru Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Vă rugăm introduceţi un număr de card corect pentru Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'sumă donaţie',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adresă de email',
+	'payflowpro_gateway-error-msg-fname' => 'prenume',
+	'payflowpro_gateway-error-msg-lname' => 'numele de familie',
+	'payflowpro_gateway-error-msg-street' => 'adresă',
+	'payflowpro_gateway-error-msg-city' => 'oraş',
+	'payflowpro_gateway-error-msg-state' => 'stat',
+	'payflowpro_gateway-error-msg-zip' => 'cod poştal',
+	'payflowpro_gateway-error-msg-card_num' => 'numărul cardului de credit',
+	'payflowpro_gateway-error-msg-expiration' => 'data de expirare a cardului',
+	'payflowpro_gateway-response-0' => 'Tranzacţia dvs a fost aprobată.
+Vă mulţumim pentru donaţie !',
+	'payflowpro_gateway-response-126' => 'Tranzacţia dvs este în curs de aprobare.',
+	'payflowpro_gateway-response-4' => 'Cantitate incorectă.',
+	'payflowpro_gateway-submit-button' => 'Donaţi',
+	'donate_interface-GBP' => 'GBP: Liră sterlină',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolar american',
+	'donate_interface-AUD' => 'AUD: Dolar australian',
+	'donate_interface-CAD' => 'CAD: Dolar canadian',
+	'donate_interface-CHF' => 'CHF: Franc elveţian',
+	'donate_interface-CZK' => 'CZK: Coroană cehă',
+	'donate_interface-DKK' => 'DKK: Coroană daneză',
+	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
+	'donate_interface-HUF' => 'HUF: Forint maghiar',
+	'donate_interface-JPY' => 'JPY: Yen japonez',
+	'donate_interface-NZD' => 'NZD: Dolarul neo-zeelandez',
+	'donate_interface-NOK' => 'NOK: Coroană norvegiană',
+	'donate_interface-PLN' => 'PLN: Zlotul polonez',
+	'donate_interface-SGD' => 'SGD: Dolar singaporez',
+	'donate_interface-SEK' => 'SEK: Coroană suedeză',
+	'donate_interface-ILS' => 'ILS: Sekelul israelian',
+);
+
 /** Tarandíne (Tarandíne)
  * @author Joetaras
  */
@@ -3789,6 +3995,7 @@ Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra s�
  */
 $messages['te'] = array(
 	'payflowprogateway' => 'వికీమీడియాకి తోడ్పడండి',
+	'payflowpro_gateway-accessible' => 'ఈ పేజీ కేవలం విరాళపు పేజీ నుండి మాత్రమే అందుబాటులో ఉంటుంది.',
 	'payflowpro_gateway-donor-legend' => 'దాత సమాచారం',
 	'payflowpro_gateway-card-legend' => 'క్రెడిట్ కార్డు సమాచారం',
 	'payflowpro_gateway-amount-legend' => 'విరాళపు మొత్తం:',
@@ -3805,7 +4012,13 @@ $messages['te'] = array(
 	'payflowpro_gateway-donor-postal' => 'తపాలా కోడు:',
 	'payflowpro_gateway-donor-country' => 'దేశం/ప్రాంతం:',
 	'payflowpro_gateway-donor-address' => 'చిరునామా:',
+	'payflowpro_gateway-donor-card' => 'క్రెడిట్ కార్డు:',
+	'payflowpro_gateway-donor-card-num' => 'కార్డు నెంబరు:',
 	'payflowpro_gateway-donor-expiration' => 'కాలంచెల్లు తేదీ:',
+	'payflowpro_gateway-donor-submit' => 'విరాళమివ్వు',
+	'payflowpro_gateway-error-msg' => 'దయచేసి మీ $1ని ఇవ్వండి',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**దయచేసి సరైన మొత్తాన్ని పేర్కొనండి**',
+	'payflowpro_gateway-error-msg-email' => '**దయచేసి సరైన ఈ-మెయిలు చిరునామాని ఇవ్వండి**',
 	'payflowpro_gateway-error-msg-amount' => 'విరాళపు మొత్తం',
 	'payflowpro_gateway-error-msg-emailAdd' => 'ఈ-మెయిలు చిరునామా',
 	'payflowpro_gateway-error-msg-fname' => 'మొదటి పేరు',
@@ -3813,17 +4026,108 @@ $messages['te'] = array(
 	'payflowpro_gateway-error-msg-street' => 'వీధి చిరునామా',
 	'payflowpro_gateway-error-msg-city' => 'నగరం',
 	'payflowpro_gateway-error-msg-state' => 'రాష్ట్రం',
+	'payflowpro_gateway-error-msg-card_num' => 'క్రెడిట్ కార్డు నెంబరు',
+	'payflowpro_gateway-error-msg-expiration' => 'కార్డు యొక్క కాలపరిమితి తేదీ',
 	'payflowpro_gateway-response-0' => 'మీ లావాదేవీని అనుమతించారు.
 మీ విరాళానికి ధన్యవాదాలు!',
 	'payflowpro_gateway-response-126' => 'మీ లావాదేవీ అనుమతి కోసం వేచివుంది.',
 	'payflowpro_gateway-response-12' => 'మరింత సమాచారం కొరకు మీ క్రెడిట్ కార్డు కంపెనీని సంప్రదించండి.',
+	'payflowpro_gateway-response-114' => 'మరింత సమాచారం కోసం దయచేసి మీ క్రెడిట్ కార్డు కంపెనీని సంప్రదించండి.',
+	'payflowpro_gateway-response-23' => 'మీ క్రెడిట్ కార్డు నంబరు లేదా కాలపరిమితి తేదీ తప్పుగా ఉంది.',
 	'payflowpro_gateway-response-4' => 'తప్పుడు మొత్తం.',
+	'payflowpro_gateway-response-24' => 'మీ క్రెడిట్ కార్డు నెంబరు లేదా కాలపరిమితి తేదీ తప్పు.',
+	'payflowpro_gateway-response-125' => 'మీ లావాదేవీని మోసాల నియంత్రణా సేవలు తిరస్కరించాయి.',
+	'payflowpro_gateway-response-default' => 'మీ లావాదేవీని జరిపించడంలో పొరపాటు దొర్లింది. దయచేసి కాసేపాగి మళ్ళీ ప్రయత్నించండి.',
 	'php-response-declined' => 'మీ లావాదేవీని తిరస్కరించారు.',
 	'payflowpro_gateway-thankyou' => 'మీ విరాళానికి కృతజ్ఞతలు!',
 	'payflowpro_gateway-post-transaction' => 'లావాదేవీ వివరాలు',
+	'payflowpro_gateway-submit-button' => 'విరాళమివ్వు',
+	'payflowpro_gateway-question-comment' => 'వికీపీడియా అనేది వికీమీడియా ఫౌండేషన్ యొక్క ప్రాజెక్టు. సందేశాలు లేదా సూచనలు ఉన్నాయా? వికీమీడియా ఫౌండేషన్ని సంప్రదించండి: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-GBP' => 'GBP: బ్రిటీష్ పౌండ్',
 	'donate_interface-EUR' => 'EUR: యూరో',
 	'donate_interface-USD' => 'USD: అమెరికా డాలర్',
+	'donate_interface-AUD' => 'AUD: ఆస్ట్రేలియా డాలర్',
 	'donate_interface-CAD' => 'CAD: కెనడా డాలర్',
+	'donate_interface-CHF' => 'CHF: స్విస్ ఫ్రాంక్',
+	'donate_interface-DKK' => 'DKK: డానిష్ క్రోన్',
+	'donate_interface-NZD' => 'NZD: న్యూజిలాండ్ డాలర్',
+	'donate_interface-NOK' => 'NOK: నార్వేజియన్ క్రోన్',
+	'donate_interface-SGD' => 'SGD: సింగపూర్ డాలర్',
+);
+
+/** Turkmen (Türkmençe)
+ * @author Hanberke
+ */
+$messages['tk'] = array(
+	'payflowprogateway' => 'Wikimediany goldaň',
+	'payflowpro_gateway-donor-legend' => 'Bagyş ediji hakda maglumat',
+	'payflowpro_gateway-card-legend' => 'Kredit karty maglumaty',
+	'payflowpro_gateway-cvv-link' => 'Mysal',
+	'payflowpro_gateway-donor-amount' => 'Summa:',
+	'payflowpro_gateway-donor-currency-label' => 'Walýuta:',
+	'payflowpro_gateway-donor-email' => 'E-poçta adresi:',
+	'payflowpro_gateway-donor-fname' => 'At:',
+	'payflowpro_gateway-donor-mname' => 'Orta at ýa-da kakasynyň ady:',
+	'payflowpro_gateway-donor-lname' => 'Familiýa:',
+	'payflowpro_gateway-donor-name' => 'At:',
+	'payflowpro_gateway-donor-street' => 'Köçe:',
+	'payflowpro_gateway-donor-city' => 'Şäher:',
+	'payflowpro_gateway-donor-state' => 'Ştat:',
+	'payflowpro_gateway-donor-postal' => 'Poçta indeksi:',
+	'payflowpro_gateway-donor-country' => 'Ýurt/sebit:',
+	'payflowpro_gateway-donor-address' => 'Adres:',
+	'payflowpro_gateway-donor-card' => 'Kredit karty:',
+	'payflowpro_gateway-donor-card-num' => 'Kart belgisi:',
+	'payflowpro_gateway-donor-expiration' => 'Gutarýan möhleti:',
+	'payflowpro_gateway-donor-security' => 'Howpsuzlyk kody:',
+	'payflowpro_gateway-donor-submit' => 'Bagyş et',
+	'payflowpro_gateway-donor-currency-msg' => 'Bu bagyş $1 pul birliginde edilýär',
+	'payflowpro_gateway-error-msg' => 'Şuny ýazyň: $1',
+	'payflowpro_gateway-error-msg-js' => 'Şuny ýazyň:',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Haýyş edýäris, dogry summa ýazyň**',
+	'payflowpro_gateway-error-msg-email' => '**Haýyş edýäris, dogry e-poçta adresi ýazyň**',
+	'payflowpro_gateway-error-msg-amex' => '**Haýyş edýäris, American Express üçin dogry kart belgisi ýazyň**',
+	'payflowpro_gateway-error-msg-mc' => '**Haýyş edýäris, MasterCard üçin dogry kart belgisi ýazyň**',
+	'payflowpro_gateway-error-msg-visa' => '**Haýyş edýäris, Visa üçin dogry kart belgisi ýazyň**',
+	'payflowpro_gateway-error-msg-discover' => '**Haýyş edýäris, Discover üçin dogry kart belgisi ýazyň**',
+	'payflowpro_gateway-error-msg-amount' => 'bagyşlanan summa',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-poçta adresi',
+	'payflowpro_gateway-error-msg-fname' => 'at',
+	'payflowpro_gateway-error-msg-lname' => 'familiýa',
+	'payflowpro_gateway-error-msg-street' => 'köçe adresi',
+	'payflowpro_gateway-error-msg-city' => 'şäher',
+	'payflowpro_gateway-error-msg-state' => 'ştat',
+	'payflowpro_gateway-error-msg-zip' => 'poçta indeksi',
+	'payflowpro_gateway-error-msg-card_num' => 'kredit karty belgisi',
+	'payflowpro_gateway-error-msg-expiration' => 'kartyň gutarýan senesi',
+	'payflowpro_gateway-response-0' => 'Tranzaksiýaňyz tassyklanyldy.
+Bagyşyňyz üçin sag boluň!',
+	'payflowpro_gateway-response-126' => 'Tranzaksiýaňyzyň tassyklamasyna garaşylýar.',
+	'payflowpro_gateway-response-12' => 'Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.',
+	'payflowpro_gateway-response-114' => 'Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.',
+	'payflowpro_gateway-response-23' => 'Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.',
+	'payflowpro_gateway-response-4' => 'Nädogry summa.',
+	'payflowpro_gateway-response-24' => 'Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.',
+	'payflowpro_gateway-thankyou' => 'Bagyşyňyz üçin sag boluň!',
+	'payflowpro_gateway-post-transaction' => 'Geleşik jikme-jiklikleri',
+	'payflowpro_gateway-submit-button' => 'Bagyş et',
+	'donate_interface-GBP' => 'GBP: britan funt sterlingi',
+	'donate_interface-EUR' => 'EUR: ýewro',
+	'donate_interface-USD' => 'USD: ABŞ dollary',
+	'donate_interface-AUD' => 'AUD: awstraliýa dollary',
+	'donate_interface-CAD' => 'CAD: kanada dollary',
+	'donate_interface-CHF' => 'CHF: şweýsar franky',
+	'donate_interface-CZK' => 'CZK: çeh kronasy',
+	'donate_interface-DKK' => 'DKK: daniýa kronasy',
+	'donate_interface-HKD' => 'HKD: gonkong dollary',
+	'donate_interface-HUF' => 'HUF: wenger forinti',
+	'donate_interface-JPY' => 'JPY: ýapon ýenasy',
+	'donate_interface-NZD' => 'NZD: täze zelandiýa dollary',
+	'donate_interface-NOK' => 'NOK: norweg kronasy',
+	'donate_interface-PLN' => 'PLN: polýak zlotyýy',
+	'donate_interface-SGD' => 'SGD: singapur dollary',
+	'donate_interface-SEK' => 'SEK: şwed kronasy',
+	'donate_interface-ILS' => 'ILS: ysraýyl şekeli',
 );
 
 /** Turkish (Türkçe)
