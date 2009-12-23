@@ -904,18 +904,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'USD' => 'USD: U.S. Dollar',
 			'AUD' => 'AUD: Australian Dollar',
 			'CAD' => 'CAD: Canadian Dollar',
-			'CHF' => 'CHF: Swiss Franc',
-			'CZK' => 'CZK: Czech Koruna',
-			'DKK' => 'DKK: Danish Krone',
-			'HKD' => 'HKD: Hong Kong Dollar',
-			'HUF' => 'HUF: Hungarian Forint',
 			'JPY' => 'JPY: Japanese Yen',
-			'NZD' => 'NZD: New Zealand Dollar',
-			'NOK' => 'NOK: Norwegian Krone',
-			'PLN' => 'PLN: Polish Zloty',
-			'SGD' => 'SGD: Singapore Dollar',
-			'SEK' => 'SEK: Swedish Krona',
-			'ILS' => 'ILS: Isreali Shekel',
 		);	
 		
 		return $payflowCurrencies;
