@@ -260,7 +260,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// intro text
 		if ( $wgWikipediaForeverTheme ) {
-			$wgOut->addWikiText( '{{2009/Donate-header/' . $data[language] . '}}' );
+			$wgOut->addWikiText( '{{2009/Donate-header/' . $data['language'] . '}}' );
 		}	
 
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
@@ -781,7 +781,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		wfRunHooks( 'gwStomp', array( &$transaction ) );
 
 		if ( $wgExternalThankYouPage ) {
-			$wgOut->redirect( $wgExternalThankYouPage . "/" . $data[language] );
+			$wgOut->redirect( $wgExternalThankYouPage . "/" . $data['language'] );
 		} else {
 			// display response message
 			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
