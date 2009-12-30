@@ -363,6 +363,13 @@ $messages['ar'] = array(
 	'donate_interface-ILS' => 'ILS: الشاقل الإسرائيلي',
 );
 
+/** Egyptian Spoken Arabic (مصرى)
+ * @author Meno25
+ */
+$messages['arz'] = array(
+	'payflow_gateway-card-name-visa' => 'فيزا',
+);
+
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
@@ -452,18 +459,7 @@ $messages['be-tarask'] = array(
 	'donate_interface-USD' => 'USD: даляр ЗША',
 	'donate_interface-AUD' => 'AUD: аўстралійскі даляр',
 	'donate_interface-CAD' => 'CAD: канадзкі даляр',
-	'donate_interface-CHF' => 'CHF: швайцарскі франк',
-	'donate_interface-CZK' => 'CZK: чэская крона',
-	'donate_interface-DKK' => 'DKK: дацкая крона',
-	'donate_interface-HKD' => 'HKD: ганконгскі даляр',
-	'donate_interface-HUF' => 'HUF: вугорскі форынт',
 	'donate_interface-JPY' => 'JPY: японская ена',
-	'donate_interface-NZD' => 'NZD: новазэляндзкі даляр',
-	'donate_interface-NOK' => 'NOK: нарвэская крона',
-	'donate_interface-PLN' => 'PLN: польскі злоты',
-	'donate_interface-SGD' => 'SGD: сынгапурскі даляр',
-	'donate_interface-SEK' => 'SEK: швэдзкая крона',
-	'donate_interface-ILS' => 'ILS: ізраільскі шэкель',
 );
 
 /** Bulgarian (Български)
@@ -471,6 +467,7 @@ $messages['be-tarask'] = array(
  */
 $messages['bg'] = array(
 	'payflowprogateway' => 'Подкрепете Уикимедия',
+	'payflowpro_gateway-accessible' => 'Тази страница е достъпна само от страницата за дарение.',
 	'payflowpro_gateway-donor-legend' => 'Данни за дарителя',
 	'payflowpro_gateway-card-legend' => 'Данни за кредитна карта',
 	'payflowpro_gateway-amount-legend' => 'Сума на дарението:',
@@ -493,6 +490,7 @@ $messages['bg'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Дата на изтичане:',
 	'payflowpro_gateway-donor-security' => 'Код за сигурност:',
 	'payflowpro_gateway-donor-submit' => 'Даряване',
+	'payflowpro_gateway-donor-currency-msg' => 'Това дарение е в $1',
 	'payflowpro_gateway-error-msg' => 'Въведете $1',
 	'payflowpro_gateway-error-msg-js' => 'Въведете',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Моля, въведете коректна сума**',
@@ -515,6 +513,10 @@ $messages['bg'] = array(
 	'payflowpro_gateway-response-0' => 'Преводът ви е одобрен.
 Благодарим за дарението!',
 	'payflowpro_gateway-response-126' => 'Преводът ви очаква одобрение.',
+	'payflowpro_gateway-response-12' => 'Свържете се с издателя на кредитната ви карта за повече подробности.',
+	'payflowpro_gateway-response-13' => 'Преводът ви изисква гласово потвърждение.
+Свържете се с нас за продължаване на превода.',
+	'payflowpro_gateway-response-114' => 'Свържете се с издателя на кредитната ви карта за повече подробности.',
 	'payflowpro_gateway-response-23' => 'Номерът на кредитната ви карта или датата й на изтичане е неправилна.',
 	'payflowpro_gateway-response-24' => 'Номерът на кредитната ви карта или датата й на изтичане е неправилна.',
 	'payflowpro_gateway-response-112' => 'Адресът ви или номерът CCV (кодът за сигурност) е неправилен.',
@@ -522,6 +524,7 @@ $messages['bg'] = array(
 Опитайте отново по-късно.',
 	'php-response-declined' => 'Преводът ви е отказан.',
 	'payflowpro_gateway-thankyou' => 'Благодарим ви за дарението!',
+	'payflowpro_gateway-post-transaction' => 'Данни за превода',
 	'payflowpro_gateway-submit-button' => 'Даряване',
 	'payflowpro_gateway-question-comment' => 'Уикипедия е проект на Фондация Уикимедия. Имате въпроси или забележки? Свържете се с Фондация Уикимедия: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'След натискане на "{{int:payflowpro_gateway-donor-submit}}", данните от кредитната ви карта ще бъдат обработени.',
@@ -621,18 +624,7 @@ A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niver
 	'donate_interface-USD' => 'USD : Dollar SUA',
 	'donate_interface-AUD' => 'AUD : Dollar aostralian',
 	'donate_interface-CAD' => 'CAD : Dollar kanadian',
-	'donate_interface-CHF' => 'CHF : Lur Suis',
-	'donate_interface-CZK' => 'CZK : Kurunenn Tchek',
-	'donate_interface-DKK' => 'DKK : Kurunenn Danmark',
-	'donate_interface-HKD' => 'HKD : Dollar Hong Kong',
-	'donate_interface-HUF' => 'HUF : Forint Hungaria',
 	'donate_interface-JPY' => 'JPY : Yen Japan',
-	'donate_interface-NZD' => 'NZD : Dollar Zeland-Nevez',
-	'donate_interface-NOK' => 'NOK : Kurunenn Norvegia',
-	'donate_interface-PLN' => 'PLN : Zloty Polonia',
-	'donate_interface-SGD' => 'SGD : Dollar Singapora',
-	'donate_interface-SEK' => 'SEK : Kurunenn Sveden',
-	'donate_interface-ILS' => 'ILS : Shekel israelat',
 );
 
 /** Bosnian (Bosanski)
@@ -738,27 +730,93 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 );
 
 /** Catalan (Català)
+ * @author SMP
  * @author Solde
  */
 $messages['ca'] = array(
+	'payflowprogateway' => 'Doneu suport a Wikimedia',
+	'payflowpro_gateway-desc' => 'Processament de targetes de crèdit amb PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Aquesta pàgina només és accessible des de la pàgina de donatius.',
+	'payflowpro_gateway-form-message' => 'Contribuïu amb la targeta de crèdit.
+Hi ha <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.',
+	'payflowpro_gateway-form-message-2' => 'Per canviar la quantitat o la moneda, torneu a <a href="/index.php?title=Donate">la pàgina de donatius</a>',
+	'payflowpro_gateway-donor-legend' => 'Dades del donant',
+	'payflowpro_gateway-card-legend' => 'Informació de la targeta de crèdit',
+	'payflowpro_gateway-amount-legend' => 'Quantitat del donatiu:',
+	'payflowpro_gateway-cvv-link' => 'Exemple',
+	'payflowpro_gateway-donor-amount' => 'Quantitat:',
+	'payflowpro_gateway-donor-currency-label' => 'Moneda:',
+	'payflowpro_gateway-donor-email' => "Adreça d'e-mail:",
+	'payflowpro_gateway-donor-fname' => 'Nom:',
+	'payflowpro_gateway-donor-mname' => 'Segon nom:',
+	'payflowpro_gateway-donor-lname' => 'Cognoms:',
+	'payflowpro_gateway-donor-name' => 'Nom:',
 	'payflowpro_gateway-donor-street' => 'Adreça:',
+	'payflowpro_gateway-donor-city' => 'Localitat:',
+	'payflowpro_gateway-donor-state' => 'Estat:',
+	'payflowpro_gateway-donor-postal' => 'Codi postal:',
+	'payflowpro_gateway-donor-country' => 'País/Regió:',
+	'payflowpro_gateway-donor-address' => 'Adreça:',
 	'payflowpro_gateway-donor-card' => 'Targeta de crèdit:',
+	'payflowpro_gateway-donor-card-num' => 'Número de targeta:',
 	'payflowpro_gateway-donor-expiration' => 'Data expiració:',
+	'payflowpro_gateway-donor-security' => 'Codi de seguretat:',
+	'payflowpro_gateway-donor-submit' => 'Fes un donatiu',
+	'payflowpro_gateway-donor-currency-msg' => 'Aquest donatiu es fa en $1',
+	'payflowpro_gateway-error-msg' => 'Cal que ompliu la casella «$1».',
+	'payflowpro_gateway-error-msg-js' => 'Cal que ompliu la casella següent:',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Introduïu una quantitat vàlida**',
+	'payflowpro_gateway-error-msg-email' => '**Introduïu una adreça de correu electrònic vàlida**',
+	'payflowpro_gateway-error-msg-amex' => '**Introduïu un número correcte de targeta American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Introduïu un número correcte de targeta MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Introduïu un número correcte de targeta Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Introduïu un número correcte de targeta Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'quantitat del donatiu',
 	'payflowpro_gateway-error-msg-emailAdd' => 'adreça de correu electrònic',
 	'payflowpro_gateway-error-msg-fname' => 'nom',
-	'payflowpro_gateway-error-msg-lname' => 'cognom',
+	'payflowpro_gateway-error-msg-lname' => 'cognoms',
 	'payflowpro_gateway-error-msg-street' => 'adreça',
 	'payflowpro_gateway-error-msg-city' => 'ciutat',
 	'payflowpro_gateway-error-msg-state' => 'estat',
 	'payflowpro_gateway-error-msg-zip' => 'codi postal',
 	'payflowpro_gateway-error-msg-card_num' => 'número de targeta de crèdit',
+	'payflowpro_gateway-error-msg-expiration' => 'data de caducitat de la targeta',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV de la part posterior de la targeta',
+	'payflowpro_gateway-response-0' => 'La transacció ha estat aprovada.
+Gràcies pel donatiu!',
+	'payflowpro_gateway-response-126' => "La transacció està pendent d'aprovació.",
+	'payflowpro_gateway-response-126-2' => 'Part de la informació que ens heu proporcionat no coincideix amb el vostre perfil de targeta de crèdit, o bé heu fet un donatiu molt gran. Per a la vostra pròpia seguretat, el donatiu és objecte d\'examen, i us notificarem a través de l\'adreça de correu electrònic facilitada, si no podem finalitzar el donatiu. Podeu enviar un missatge a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> si teniu alguna pregunta. Gràcies!',
+	'payflowpro_gateway-response-12' => 'Poseu-vos en contacte amb la companyia de la targeta de crèdit per a més informació.',
+	'payflowpro_gateway-response-13' => 'Aquesta operació requereix autorització de veu.
+Poseu-vos en contacte amb nosaltres per continuar amb la transacció.',
+	'payflowpro_gateway-response-114' => 'Poseu-vos en contacte amb la companyia de la targeta de crèdit per a més informació.',
+	'payflowpro_gateway-response-23' => 'La data de caducitat o el número de la targeta de crèdit és incorrecte.',
+	'payflowpro_gateway-response-4' => 'Quantitat no vàlida.',
+	'payflowpro_gateway-response-24' => 'La data de caducitat o el número de targeta de crèdit és incorrecte.',
+	'payflowpro_gateway-response-112' => "L'adreça o el codi de seguretat CVV és incorrecte.",
+	'payflowpro_gateway-response-125' => 'La vostra transacció ha estat rebutjada pel Servei de Prevenció del Frau.',
+	'payflowpro_gateway-response-125-2' => 'No s\'ha pogut validar la vostra targeta de crèdit. Si us plau, verifiqueu que tota la informació facilitada correspongui al vostre perfil de targeta de crèdit, o proveu amb una altra targeta. També podeu usar una altra de les nostres <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">formes de donar</a> o podeu posar-vos en contacte amb nosaltres a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Gràcies pel vostre suport.',
+	'payflowpro_gateway-response-default' => 'Hi ha hagut un error en processar la vostra transacció. Torneu-ho a provar més tard.',
+	'php-response-declined' => 'La vostra transacció ha estat rebutjada.',
+	'payflowpro_gateway-thankyou' => 'Gràcies pel donatiu!',
+	'payflowpro_gateway-post-transaction' => 'Detalls de la transacció',
+	'payflowpro_gateway-submit-button' => 'Fes un donatiu',
+	'payflowpro_gateway-cvv-explain' => "<h4> Què és el CVV? </h4>
+<p>Valor de verificació de titular de la targeta (CVV): Aquest número de tres o quatre dígits assegura que la targeta física està en possessió del titular. Això ajuda a prevenir l'ús no autoritzat o fraudulent. </p>
+<h4>Visa, Mastercard</h4>
+<p>El codi de tres dígits es troba al revers de la targeta, dins de la zona de signatura.
+Habitualment el panell de signatura tindrà una sèrie de números, però només els tres últims dígits formen el codi CVV.</p>
+<h4>American Express</h4>
+<p> El codi <i>sempre</i> es troba <i>per sobre</i> del número de compte en relleu a la cara de la targeta.
+En alguns casos, el codi es troba al costat esquerre, però sempre per damunt del número de compte.</p><br />",
+	'payflowpro_gateway-question-comment' => 'La Viquipèdia és un projecte de la Fundació Wikimedia. Preguntes o comentaris? Comuniqueu-vos amb la Fundació Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Després de fer clic a «{{int:payflowpro_gateway-donor-submit}}» la informació de la targeta de crèdit serà processada.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privacitat</a>.',
 	'donate_interface-GBP' => 'GBP: Lliura esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dòlar americà',
 	'donate_interface-AUD' => 'AUD: Dòlar australià',
 	'donate_interface-CAD' => 'CAD: Dòlar canadenc',
-	'donate_interface-CHF' => 'CHF: Franc suís',
-	'donate_interface-DKK' => 'DKK: Corona danesa',
 	'donate_interface-JPY' => 'JPY: Ien japonès',
 );
 
@@ -1149,18 +1207,7 @@ Ma rica kenê reyna dest bi bike.',
 	'donate_interface-USD' => 'USD: Dolarê Emerikayi',
 	'donate_interface-AUD' => 'AUD: Dolarê Awistralyayi',
 	'donate_interface-CAD' => 'CAD: Dolarê Kanadayi',
-	'donate_interface-CHF' => 'CHF: Frankê isveci',
-	'donate_interface-CZK' => 'CZK: Koranayê Ceki',
-	'donate_interface-DKK' => 'DKK: Kroneyê Dani',
-	'donate_interface-HKD' => 'HKD: Dolarê Hong Kongi',
-	'donate_interface-HUF' => 'HUF: Forintê Macari',
 	'donate_interface-JPY' => 'JPY: Yenê Japoni',
-	'donate_interface-NZD' => 'NZD: Dolarê Zelandeya Newiye',
-	'donate_interface-NOK' => 'NOK: Kroneyê Norweci',
-	'donate_interface-PLN' => 'PLN: Zlotyê Lehi',
-	'donate_interface-SGD' => 'SGD: Dolarê Singapuri',
-	'donate_interface-SEK' => 'SEK: Kronayê Swedi',
-	'donate_interface-ILS' => 'ILS: Shekelê Israili',
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -1251,18 +1298,7 @@ Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</
 	'donate_interface-USD' => 'USD: US-dollar',
 	'donate_interface-AUD' => 'AUD: Awstralski dollar',
 	'donate_interface-CAD' => 'CAD: Kanadiski dollar',
-	'donate_interface-CHF' => 'CHF: Šwicarski franc',
-	'donate_interface-CZK' => 'CZK: Česka krona',
-	'donate_interface-DKK' => 'DKK: Dańska krona',
-	'donate_interface-HKD' => 'HKD: Hong Kong dollar',
-	'donate_interface-HUF' => 'HUF: Hungorski forint',
 	'donate_interface-JPY' => 'JPY: Japański yen',
-	'donate_interface-NZD' => 'NZD: Nowoseelandski dollar',
-	'donate_interface-NOK' => 'NOK: Norwegska krona',
-	'donate_interface-PLN' => 'PLN: Pólski złoty',
-	'donate_interface-SGD' => 'SGD: Singapurski dollar',
-	'donate_interface-SEK' => 'SEK: Šwedska krona',
-	'donate_interface-ILS' => 'ILS: Israelski šekel',
 );
 
 /** Greek (Ελληνικά)
@@ -1513,7 +1549,9 @@ En algunas ocasiones, el código se encuentra en la parte izquierda de la tarjet
  */
 $messages['et'] = array(
 	'payflowprogateway' => 'Wikimedia toetamine',
+	'payflowpro_gateway-accessible' => 'See lehekülg on ligipääsetav ainult annetuslehekülje kaudu.',
 	'payflowpro_gateway-form-message' => 'Anneta krediitkaardiga. Samuti on võimalik  <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annetada PayPali abil, tšekiga või e-kirja teel</a>.',
+	'payflowpro_gateway-form-message-2' => 'Summa või vääringu muutmiseks naase <a href="/index.php?title=Donate">annetusleheküljele</a>.',
 	'payflowpro_gateway-donor-legend' => 'Annetaja info',
 	'payflowpro_gateway-card-legend' => 'Krediitkaardi info',
 	'payflowpro_gateway-amount-legend' => 'Annetatav summa:',
@@ -1536,10 +1574,11 @@ $messages['et'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Aegumiskuupäev:',
 	'payflowpro_gateway-donor-security' => 'Turvakood:',
 	'payflowpro_gateway-donor-submit' => 'Anneta',
+	'payflowpro_gateway-donor-currency-msg' => 'Vääringu, milles annetus tehakse, kood: $1',
 	'payflowpro_gateway-error-msg' => 'Vajalik järgmise rea täitmine:  $1',
 	'payflowpro_gateway-error-msg-js' => 'Järgmised väljad tuleb kindlasti täita:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Palun sisesta sobiv summa**',
-	'payflowpro_gateway-error-msg-email' => '**Palun sisesta õige e-posti aadress**',
+	'payflowpro_gateway-error-msg-email' => '**Palun sisesta õige e-postiaadress**',
 	'payflowpro_gateway-error-msg-amex' => '**Palun sisesta American Expressi kaardi õige number.**',
 	'payflowpro_gateway-error-msg-mc' => '**Palun sisesta MasterCardi õige number.**',
 	'payflowpro_gateway-error-msg-visa' => '**Palun sisesta Visa-kaardi õige number.**',
@@ -1556,11 +1595,18 @@ $messages['et'] = array(
 	'payflowpro_gateway-error-msg-cvv' => 'turvakood',
 	'payflowpro_gateway-response-0' => 'Sinu ülekanne on heakskiidetud. 
 Aitäh annetamast.',
+	'payflowpro_gateway-response-126' => 'Sinu ülekanne ootab heakskiitu.',
+	'payflowpro_gateway-response-12' => 'Lisainfo krediitkaardi väljastanud ettevõttelt.',
+	'payflowpro_gateway-response-114' => 'Lisateave krediitkaardi väljastanud ettevõttelt.',
+	'payflowpro_gateway-response-23' => 'Krediitkaardinumber või aegumiskuupäev on vale.',
 	'payflowpro_gateway-response-4' => 'Vigane summa.',
+	'payflowpro_gateway-response-24' => 'Krediitkaardinumber või aegumiskuupäev on vale.',
+	'payflowpro_gateway-response-112' => 'Aadress või turvakood on vale.',
 	'payflowpro_gateway-response-default' => 'Sinu ülekande töötlemisel tekkis viga.
 Palun ürita hiljem uuesti.',
 	'php-response-declined' => 'Sinu ülekanne on tagasi lükatud.',
 	'payflowpro_gateway-thankyou' => 'Täname Sind annetuse eest!',
+	'payflowpro_gateway-post-transaction' => 'Ülekande üksikasjad',
 	'payflowpro_gateway-submit-button' => 'Anneta',
 	'payflowpro_gateway-question-comment' => 'Vikipeedia on Wikimedia Foundationi projekt. Küsimusi või kommentaare? Võta ühendust Wikimedia Foundationiga: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Kui oled klõpsanud "{{int:payflowpro_gateway-donor-submit}}", lähevad su krediitkaardiandmed käiku.',
@@ -1705,6 +1751,7 @@ Ota yhteyttä jatkaaksesi siirtoa.',
 	'payflowpro_gateway-response-4' => 'Virheellinen määrä.',
 	'payflowpro_gateway-response-24' => 'Luottokorttisi numero tai vanhenemisaika on väärä.',
 	'payflowpro_gateway-response-112' => 'Osoitteesi tai CVV-numerosi (turvakoodi) on väärä.',
+	'payflowpro_gateway-response-125' => 'Petoksenehkäisypalvelu kielsi siirtosi.',
 	'payflowpro_gateway-response-125-2' => 'Luottokorttiasi ei voitu varmentaa. Tarkista, että kaikki antamasi tiedot täsmäävät luottokorttiprofiilisi kanssa, tai kokeile toista korttia. Voit myös käyttää <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">muita lahjoitustapojamme</a> tai ottaa yhteyttä osoitteeseen <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Kiitos tuestasi.',
 	'payflowpro_gateway-response-default' => 'Siirtosi käsittelyssä tapahtui virhe.
 Yritä myöhemmin uudelleen.',
@@ -1821,18 +1868,88 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'donate_interface-USD' => 'USD : dollar américain',
 	'donate_interface-AUD' => 'AUD : dollar australien',
 	'donate_interface-CAD' => 'CAD : dollar canadien',
-	'donate_interface-CHF' => 'CHF : franc suisse',
-	'donate_interface-CZK' => 'CZK : couronne tchèque',
-	'donate_interface-DKK' => 'DKK : couronne danoise',
-	'donate_interface-HKD' => 'HKD : dollar de Hong Kong',
-	'donate_interface-HUF' => 'HUF : forint hongrois',
 	'donate_interface-JPY' => 'JPY : yen japonais',
-	'donate_interface-NZD' => 'NZD : dollar néo-zélandais',
-	'donate_interface-NOK' => 'NOK : couronne norvégienne',
-	'donate_interface-PLN' => 'PLN : złoty polonais',
-	'donate_interface-SGD' => 'SGD : dollar de Singapour',
-	'donate_interface-SEK' => 'SEK : couronne suédoise',
-	'donate_interface-ILS' => 'ILS : shekel israélien',
+);
+
+/** Franco-Provençal (Arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'payflowprogateway' => 'Sotegnéd Wikimedia',
+	'payflowpro_gateway-desc' => 'Trètament per cârta de crèdit PayPal Payflow Pro.',
+	'payflowpro_gateway-accessible' => 'Ceta pâge est accèssibla ren que dês la pâge de donacion.',
+	'payflowpro_gateway-form-message' => 'Contribuâd avouéc voutra cârta de crèdit.
+Y at d’<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ôtros moyens de balyér, notament PayPal, per ch·èque ou ben per pôsta</a>.',
+	'payflowpro_gateway-form-message-2' => 'Por changiér lo montent ou ben la monéya, tornâd a la <a href="/index.php?title=Donate">pâge de donacion</a>',
+	'payflowpro_gateway-donor-legend' => 'Enformacions sur lo donator',
+	'payflowpro_gateway-card-legend' => 'Enformacions sur la cârta de crèdit',
+	'payflowpro_gateway-amount-legend' => 'Montent du don :',
+	'payflowpro_gateway-cvv-link' => 'Ègzemplo',
+	'payflowpro_gateway-donor-amount' => 'Montent :',
+	'payflowpro_gateway-donor-currency-label' => 'Monéya :',
+	'payflowpro_gateway-donor-email' => 'Adrèce èlèctronica :',
+	'payflowpro_gateway-donor-fname' => 'Nom :',
+	'payflowpro_gateway-donor-mname' => 'Second nom :',
+	'payflowpro_gateway-donor-lname' => 'Nom de mêson :',
+	'payflowpro_gateway-donor-name' => 'Nom :',
+	'payflowpro_gateway-donor-street' => 'Rua :',
+	'payflowpro_gateway-donor-city' => 'Vela :',
+	'payflowpro_gateway-donor-state' => 'Ètat :',
+	'payflowpro_gateway-donor-postal' => 'Code postâl :',
+	'payflowpro_gateway-donor-country' => 'Payis / règ·ion :',
+	'payflowpro_gateway-donor-address' => 'Adrèce :',
+	'payflowpro_gateway-donor-card' => 'Cârta de crèdit :',
+	'payflowpro_gateway-donor-card-num' => 'Numerô de cârta :',
+	'payflowpro_gateway-donor-expiration' => 'Dâta d’èxpiracion :',
+	'payflowpro_gateway-donor-security' => 'Code de sècuritât :',
+	'payflowpro_gateway-donor-submit' => 'Balyér',
+	'payflowpro_gateway-donor-currency-msg' => 'Ceti don est fêt en $1',
+	'payflowpro_gateway-error-msg' => 'Volyéd buchiér voutron $1',
+	'payflowpro_gateway-error-msg-js' => 'Volyéd buchiér voutron',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Volyéd buchiér un montent valido**',
+	'payflowpro_gateway-error-msg-email' => '**Volyéd buchiér una adrèce èlèctronica valida**',
+	'payflowpro_gateway-error-msg-amex' => '**Volyéd buchiér un numerô de cârta American Express justo.**',
+	'payflowpro_gateway-error-msg-mc' => '**Volyéd buchiér un numerô de cârta MasterCard justo.**',
+	'payflowpro_gateway-error-msg-visa' => '**Volyéd buchiér un numerô de cârta Visa justo.**',
+	'payflowpro_gateway-error-msg-discover' => '**Volyéd buchiér un numerô de cârta Discover justo.**',
+	'payflowpro_gateway-error-msg-amount' => 'montent du don',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adrèce èlèctronica',
+	'payflowpro_gateway-error-msg-fname' => 'nom',
+	'payflowpro_gateway-error-msg-lname' => 'nom de mêson',
+	'payflowpro_gateway-error-msg-street' => 'adrèce',
+	'payflowpro_gateway-error-msg-city' => 'vela',
+	'payflowpro_gateway-error-msg-state' => 'ètat',
+	'payflowpro_gateway-error-msg-zip' => 'code postâl',
+	'payflowpro_gateway-error-msg-card_num' => 'numerô de cârta de crèdit',
+	'payflowpro_gateway-error-msg-expiration' => 'dâta d’èxpiracion de la cârta',
+	'payflowpro_gateway-error-msg-cvv' => 'lo CVV placiê dèrriér voutra cârta',
+	'payflowpro_gateway-response-0' => 'Voutra transaccion at étâ aprovâ.
+Grant-marci por voutron don !',
+	'payflowpro_gateway-response-126' => 'Voutra transaccion est aprés étre aprovâ.',
+	'payflowpro_gateway-response-12' => 'Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.',
+	'payflowpro_gateway-response-13' => 'Voutra transaccion at fôta d’una ôtorisacion vocala.
+Vos volyéd veriér vers nos por porsiuvre voutra transaccion.',
+	'payflowpro_gateway-response-114' => 'Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.',
+	'payflowpro_gateway-response-23' => 'Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.',
+	'payflowpro_gateway-response-4' => 'Montent envalido.',
+	'payflowpro_gateway-response-24' => 'Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.',
+	'payflowpro_gateway-response-112' => 'Voutra adrèce ou ben lo numerô CVV (code de sècuritât) est fôx.',
+	'payflowpro_gateway-response-125' => 'Voutra transaccion at étâ refusâ per los Sèrviços de prèvencion de les frôdes.',
+	'payflowpro_gateway-response-default' => 'Una èrror est arrevâ pendent lo trètament de voutra transaccion.
+Volyéd tornar èprovar ples târd.',
+	'php-response-declined' => 'Voutra transaccion at étâ refusâ.',
+	'payflowpro_gateway-thankyou' => 'Grant-marci por voutron don !',
+	'payflowpro_gateway-post-transaction' => 'Dètalys de la transaccion',
+	'payflowpro_gateway-submit-button' => 'Balyér',
+	'payflowpro_gateway-question-comment' => 'Vouiquipèdia est un projèt de la Fondacion Wikimedia. Des quèstions ou ben des comentèros ? Veriéd-vos vers la Fondacion Wikimedia : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Aprés avêr clicâ dessus « {{int:payflowpro_gateway-donor-submit}} », les enformacions de voutra cârta de crèdit seront trètâs.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nos encartens pas les balyês de voutra cârta de crèdit et pués voutres enformacions a sè sont somêses a noutra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politica de confidencialitât</a>.',
+	'donate_interface-GBP' => 'GBP : livra stèrlingue',
+	'donate_interface-EUR' => 'EUR : erô',
+	'donate_interface-USD' => 'USD : dolar amèriquen',
+	'donate_interface-AUD' => 'AUD : dolar ôstralien',
+	'donate_interface-CAD' => 'CAD : dolar canadien',
+	'donate_interface-JPY' => 'JPY : yène j·aponês',
 );
 
 /** Irish (Gaeilge)
@@ -1931,18 +2048,7 @@ Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, per
 	'donate_interface-USD' => 'USD: dólar estadounidense',
 	'donate_interface-AUD' => 'AUD: dólar australiano',
 	'donate_interface-CAD' => 'CAD: dólar canadense',
-	'donate_interface-CHF' => 'CHF: franco suízo',
-	'donate_interface-CZK' => 'CZK: coroa checa',
-	'donate_interface-DKK' => 'DKK: coroa dinamarquesa',
-	'donate_interface-HKD' => 'HKD: dólar de Hong Kong',
-	'donate_interface-HUF' => 'HUF: florín húngaro',
 	'donate_interface-JPY' => 'JPY: ien xaponés',
-	'donate_interface-NZD' => 'NZD: dólar neocelandés',
-	'donate_interface-NOK' => 'NOK: coroa norueguesa',
-	'donate_interface-PLN' => 'PLN: złoty polaco',
-	'donate_interface-SGD' => 'SGD: dólar de Singapur',
-	'donate_interface-SEK' => 'SEK: coroa sueca',
-	'donate_interface-ILS' => 'ILS: sheqel israelí',
 );
 
 /** Swiss German (Alemannisch)
@@ -2033,18 +2139,7 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'donate_interface-USD' => 'USD: Amerikanischi Dollar',
 	'donate_interface-AUD' => 'AUD: Auschtralischi Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadischi Dollar',
-	'donate_interface-CHF' => 'CHF: Schwyzer Franke',
-	'donate_interface-CZK' => 'CZK: Tschechischi Chrone',
-	'donate_interface-DKK' => 'DKK: Dänischi Chrone',
-	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
-	'donate_interface-HUF' => 'HUF: Ungarischi Forint',
 	'donate_interface-JPY' => 'JPY: Japanischi Yen',
-	'donate_interface-NZD' => 'NZD: Nejseeländischi Dollar',
-	'donate_interface-NOK' => 'NOK: Norwegischi Chrone',
-	'donate_interface-PLN' => 'PLN: Polnischi Zloty',
-	'donate_interface-SGD' => 'SGD: Singapur Dollar',
-	'donate_interface-SEK' => 'SEK: Schwedischi Chrone',
-	'donate_interface-ILS' => 'ILS: Israelischi Shekel',
 );
 
 /** Hebrew (עברית)
@@ -2211,18 +2306,7 @@ Druhdy kod je na lěwym boku karty, ale je přeco wyše kontoweho čisła.</p><b
 	'donate_interface-USD' => 'USD: US-dolar',
 	'donate_interface-AUD' => 'AUD: Awstralski dolar',
 	'donate_interface-CAD' => 'CAD: Kanadiski dolar',
-	'donate_interface-CHF' => 'CHF: Šwicarski franc',
-	'donate_interface-CZK' => 'CZK: Čěska króna',
-	'donate_interface-DKK' => 'DKK: Danska króna',
-	'donate_interface-HKD' => 'HKD: Hong Kong dolar',
-	'donate_interface-HUF' => 'HUF: Madźarski forint',
 	'donate_interface-JPY' => 'JPY: Japanski yen',
-	'donate_interface-NZD' => 'NZD: Nowoseelandski dolar',
-	'donate_interface-NOK' => 'NOK: Norwegska króna',
-	'donate_interface-PLN' => 'PLN: Pólski złoty',
-	'donate_interface-SGD' => 'SGD: Singapurski dolar',
-	'donate_interface-SEK' => 'SEK: Šwedska króna',
-	'donate_interface-ILS' => 'ILS: Israelski šekel',
 );
 
 /** Hungarian (Magyar)
@@ -2312,18 +2396,7 @@ Később próbáld meg újra.',
 	'donate_interface-USD' => 'USD: amerikai dollár',
 	'donate_interface-AUD' => 'AUD: ausztrál dollár',
 	'donate_interface-CAD' => 'CAD: kanadai dollár',
-	'donate_interface-CHF' => 'CHF: svájci frank',
-	'donate_interface-CZK' => 'CZK: cseh korona',
-	'donate_interface-DKK' => 'DKK: dán korona',
-	'donate_interface-HKD' => 'HKD: hongkongi dollár',
-	'donate_interface-HUF' => 'HUF: magyar forint',
 	'donate_interface-JPY' => 'JPY: japán jen',
-	'donate_interface-NZD' => 'NZD: új-zélandi dollár',
-	'donate_interface-NOK' => 'NOK: norvég korona',
-	'donate_interface-PLN' => 'PLN: lengyen złoty',
-	'donate_interface-SGD' => 'SGD: szingapúri dollár',
-	'donate_interface-SEK' => 'SEK: svéd korona',
-	'donate_interface-ILS' => 'ILS: izraeli sékel',
 );
 
 /** Interlingua (Interlingua)
@@ -2414,18 +2487,7 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'donate_interface-USD' => 'USD: dollar statounitese',
 	'donate_interface-AUD' => 'AUD: dollar australian',
 	'donate_interface-CAD' => 'CAD: dollar canadian',
-	'donate_interface-CHF' => 'CHF: franco suisse',
-	'donate_interface-CZK' => 'CZK: corona tchec',
-	'donate_interface-DKK' => 'DKK: corona danese',
-	'donate_interface-HKD' => 'HKD: dollar de Hong Kong',
-	'donate_interface-HUF' => 'HUF: forint hungare',
 	'donate_interface-JPY' => 'JPY: yen japonese',
-	'donate_interface-NZD' => 'NHZ: dollar neozelandese',
-	'donate_interface-NOK' => 'NOK: corona norvegian',
-	'donate_interface-PLN' => 'PLN: zloty polonese',
-	'donate_interface-SGD' => 'SGD: dollar de Singapore',
-	'donate_interface-SEK' => 'SEK: corona svedese',
-	'donate_interface-ILS' => 'ILS: shekel israelian',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2516,18 +2578,7 @@ Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di ata
 	'donate_interface-USD' => 'USD: Dolar A.S.',
 	'donate_interface-AUD' => 'AUD: Dolar Australia',
 	'donate_interface-CAD' => 'CAD: Dolar Kanada',
-	'donate_interface-CHF' => 'CHF: Franc Swiss',
-	'donate_interface-CZK' => 'CZK: Koruna Ceko',
-	'donate_interface-DKK' => 'DKK: Kroner Denmark',
-	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
-	'donate_interface-HUF' => 'HUF: Forint Hongaria',
 	'donate_interface-JPY' => 'JPY: Yen Jepang',
-	'donate_interface-NZD' => 'NZD: Dolar Selandia Baru',
-	'donate_interface-NOK' => 'NOK: Krone Norwegia',
-	'donate_interface-PLN' => 'PLN: Polandia Zloty',
-	'donate_interface-SGD' => 'SGD: Dolar Singapura',
-	'donate_interface-SEK' => 'SEK: Krona Swedia',
-	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
 /** Ido (Ido)
@@ -2661,18 +2712,7 @@ $messages['ja'] = array(
 	'donate_interface-USD' => 'USD: アメリカ合衆国ドル',
 	'donate_interface-AUD' => 'AUD: オーストラリア・ドル',
 	'donate_interface-CAD' => 'CAD: カナダ・ドル',
-	'donate_interface-CHF' => 'CHF: スイス・フラン',
-	'donate_interface-CZK' => 'CZK: チェコ・コルナ',
-	'donate_interface-DKK' => 'DKK: デンマーク・クローネ',
-	'donate_interface-HKD' => 'HKD: 香港ドル',
-	'donate_interface-HUF' => 'HUF: ハンガリー・フォリント',
 	'donate_interface-JPY' => 'JPY: 日本円',
-	'donate_interface-NZD' => 'NZD: ニュージーランド・ドル',
-	'donate_interface-NOK' => 'NOK: ノルウェー・クローネ',
-	'donate_interface-PLN' => 'PLN: ポーランド・ズウォティ',
-	'donate_interface-SGD' => 'SGD: シンガポール・ドル',
-	'donate_interface-SEK' => 'SEK: スウェーデン・クローナ',
-	'donate_interface-ILS' => 'ILS: イスラエル・シェケル',
 );
 
 /** Georgian (ქართული)
@@ -2843,18 +2883,7 @@ Versöhk et schpääder noch ens.',
 	'donate_interface-USD' => 'USD:  Dollars uß de USA',
 	'donate_interface-AUD' => 'AUD: Austraalesche Dollars',
 	'donate_interface-CAD' => 'CAD: Kanaadesche Dollars',
-	'donate_interface-CHF' => 'CHF: Schweizer Frangke',
-	'donate_interface-CZK' => 'CZK: Tschesche-Kruune',
-	'donate_interface-DKK' => 'DKK: Dänesche Kruhne',
-	'donate_interface-HKD' => 'HKD:  Dollars uß Hong Kong',
-	'donate_interface-HUF' => 'HUF: Unnjarresche Forint',
 	'donate_interface-JPY' => 'JPY: Japaanesche Yen',
-	'donate_interface-NZD' => 'NZD: Dollars uß Neusesland',
-	'donate_interface-NOK' => 'NOK: Norweejesche Kruhne',
-	'donate_interface-PLN' => 'PLN: Zloty uß Poole',
-	'donate_interface-SGD' => 'SGD:  Dollars uß Singjapuhr',
-	'donate_interface-SEK' => 'SEK: Schweedesch Kruhne',
-	'donate_interface-ILS' => "ILS: Ißra'eelesch Scheekel",
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -2945,18 +2974,7 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
 	'donate_interface-USD' => 'USD: U.S. Dollar',
 	'donate_interface-AUD' => 'AUD: Australeschen Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadeschen Dollar',
-	'donate_interface-CHF' => 'CHF: Schwäizer Frang',
-	'donate_interface-CZK' => 'CZK: Tschechesch Kroun',
-	'donate_interface-DKK' => 'DKK: Dänesch Kroun',
-	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
-	'donate_interface-HUF' => 'HUF: Ungaresche Forint',
 	'donate_interface-JPY' => 'JPY: Japanesche Yen',
-	'donate_interface-NZD' => 'NZD: Neiséiland Dollar',
-	'donate_interface-NOK' => 'NOK: Norwegesch Kroun',
-	'donate_interface-PLN' => 'PLN: Polnesche Zloty',
-	'donate_interface-SGD' => 'SGD: Singapur Dollar',
-	'donate_interface-SEK' => 'SEK: Schwedesch Kroun',
-	'donate_interface-ILS' => 'ILS: Israelesche Shekel',
 );
 
 /** Macedonian (Македонски)
@@ -3049,18 +3067,7 @@ $messages['mk'] = array(
 	'donate_interface-USD' => 'USD: Американски долар',
 	'donate_interface-AUD' => 'AUD: Австралиски долар',
 	'donate_interface-CAD' => 'CAD: Канадски долар',
-	'donate_interface-CHF' => 'CHF: Швајцарски франк',
-	'donate_interface-CZK' => 'CZK: Чешка круна',
-	'donate_interface-DKK' => 'DKK: Данска круна',
-	'donate_interface-HKD' => 'HKD: Хонгконшки долар',
-	'donate_interface-HUF' => 'HUF: Унгарски форинт',
 	'donate_interface-JPY' => 'JPY: Јапонски јен',
-	'donate_interface-NZD' => 'NZD: Новозеландски долар',
-	'donate_interface-NOK' => 'NOK: Норвешка круна',
-	'donate_interface-PLN' => 'PLN: Полски злот',
-	'donate_interface-SGD' => 'SGD: Сингапурски долар',
-	'donate_interface-SEK' => 'SEK: Шведска круна',
-	'donate_interface-ILS' => 'ILS: Израелски шекел',
 );
 
 /** Malayalam (മലയാളം)
@@ -3146,18 +3153,7 @@ $messages['ml'] = array(
 	'donate_interface-USD' => 'USD: യു.എസ്. ഡോളർ',
 	'donate_interface-AUD' => 'AUD: ഓസ്ട്രേലിയൻ ഡോളർ',
 	'donate_interface-CAD' => 'CAD: കനേഡിയൻ ഡോളർ',
-	'donate_interface-CHF' => 'CHF: സ്വിസ്സ് ഫ്രാങ്ക്',
-	'donate_interface-CZK' => 'CZK:ചെക്ക് കോറുണ',
-	'donate_interface-DKK' => 'DKK: ഡാനിഷ് ക്രോണേ',
-	'donate_interface-HKD' => 'HKD: ഹോങ്‌‌കോങ് ഡോളർ',
-	'donate_interface-HUF' => 'HUF: ഹംഗേറിയൻ ഫോറിന്റ്',
 	'donate_interface-JPY' => 'JPY: ജാപ്പനീസ് യെൻ',
-	'donate_interface-NZD' => 'NZD: ന്യൂ സീലാൻഡ് ഡോളർ',
-	'donate_interface-NOK' => 'NOK: നോർവീജിയൻ ക്രോണേ',
-	'donate_interface-PLN' => 'PLN: പോളിഷ് സ്ലോറ്റീ',
-	'donate_interface-SGD' => 'SGD: സിങ്കപ്പൂർ ഡോളർ',
-	'donate_interface-SEK' => 'SEK: സ്വീഡിഷ് ക്രോണ',
-	'donate_interface-ILS' => 'ILS: ഇസ്രയേലി ഷെക്കെൽ',
 );
 
 /** Nedersaksisch (Nedersaksisch)
@@ -3245,18 +3241,7 @@ In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet 
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
 	'donate_interface-AUD' => 'AUD: Australische dollar',
 	'donate_interface-CAD' => 'CAD: Kannedese dollar',
-	'donate_interface-CHF' => 'CHF: Zwitserse frank',
-	'donate_interface-CZK' => 'CZK: Tsjechische krone',
-	'donate_interface-DKK' => 'DKK: Deense krone',
-	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
-	'donate_interface-HUF' => 'HUF: Hongaarse forint',
 	'donate_interface-JPY' => 'JPY: Jepanse yen',
-	'donate_interface-NZD' => 'NZD: Niej-Zeelaanse dollar',
-	'donate_interface-NOK' => 'NOK: Noorse krone',
-	'donate_interface-PLN' => 'PLN: Poolse zloty',
-	'donate_interface-SGD' => 'SGD: Singapoerse dollar',
-	'donate_interface-SEK' => 'SEK: Zweedse krone',
-	'donate_interface-ILS' => 'ILS: Israëlische sjekel',
 );
 
 /** Dutch (Nederlands)
@@ -3348,18 +3333,7 @@ In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staa
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
 	'donate_interface-AUD' => 'AUD: Australische dollar',
 	'donate_interface-CAD' => 'CAD: Canadese dollar',
-	'donate_interface-CHF' => 'CHF: Zwitserse frank',
-	'donate_interface-CZK' => 'CZK: Tsjechische kroon',
-	'donate_interface-DKK' => 'DKK: Deense kroon',
-	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
-	'donate_interface-HUF' => 'HUF: Hongaarse forint',
 	'donate_interface-JPY' => 'JPY: Japanse yen',
-	'donate_interface-NZD' => 'NZD: Nieuwzeelandse dollar',
-	'donate_interface-NOK' => 'NOK: Noorse kroon',
-	'donate_interface-PLN' => 'PLN: Poolse zloty',
-	'donate_interface-SGD' => 'SGD: Singaporese dollar',
-	'donate_interface-SEK' => 'SEK: Zweedse kroon',
-	'donate_interface-ILS' => 'ILS: Israelische shekel',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -3403,17 +3377,7 @@ Takk for gåva di!',
 	'donate_interface-USD' => 'USD: USA-dollar',
 	'donate_interface-AUD' => 'AUD: Australske dollar',
 	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
-	'donate_interface-CHF' => 'CHF: Sveitsiske franc',
-	'donate_interface-CZK' => 'CZK: Tsjekkiske koruna',
-	'donate_interface-DKK' => 'DKK: Danske kroner',
-	'donate_interface-HKD' => 'HKD: Hongkongdollar',
-	'donate_interface-HUF' => 'HUF: Ungarske forintar',
 	'donate_interface-JPY' => 'JPY: Japanske yen',
-	'donate_interface-NOK' => 'NOK: Norske kroner',
-	'donate_interface-PLN' => 'PLN: Polske zloty',
-	'donate_interface-SGD' => 'SGD: Singapore Dollar',
-	'donate_interface-SEK' => 'SEK: Svenske kroner',
-	'donate_interface-ILS' => 'ILS: Israelske shekel',
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
@@ -3607,18 +3571,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-USD' => 'USD : dolar american',
 	'donate_interface-AUD' => 'AUD : dolar australian',
 	'donate_interface-CAD' => 'CAD : dolar canadian',
-	'donate_interface-CHF' => 'CHF : franc soís',
-	'donate_interface-CZK' => 'CZK : corona chèca',
-	'donate_interface-DKK' => 'DKK : corona danesa',
-	'donate_interface-HKD' => "HKD : dolar d'Hong Kong",
-	'donate_interface-HUF' => 'HUF : forint ongrés',
 	'donate_interface-JPY' => 'JPY : yen japonés',
-	'donate_interface-NZD' => 'NZD : dolar neozelandés',
-	'donate_interface-NOK' => 'NOK : corona norvegiana',
-	'donate_interface-PLN' => 'PLN : złoty polonés',
-	'donate_interface-SGD' => 'SGD : dolar de Singapor',
-	'donate_interface-SEK' => 'SEK : corona suedesa',
-	'donate_interface-ILS' => 'ILS : shekel israelian',
 );
 
 /** Deitsch (Deitsch)
@@ -3729,18 +3682,7 @@ W niektórych przypadkach, kod znajduje się po lewej stronie karty, ale zawsze 
 	'donate_interface-USD' => 'USD — dolar amerykański',
 	'donate_interface-AUD' => 'AUD — dolar australijski',
 	'donate_interface-CAD' => 'CAD — dolar kanadyjski',
-	'donate_interface-CHF' => 'CHF — frank szwajcarski',
-	'donate_interface-CZK' => 'CZK — korona czeska',
-	'donate_interface-DKK' => 'DKK — korona duńska',
-	'donate_interface-HKD' => 'HKD — dolar Hongkongu',
-	'donate_interface-HUF' => 'HUF — forint węgierski',
 	'donate_interface-JPY' => 'JPY — jen japoński',
-	'donate_interface-NZD' => 'NZD — dolar nowozelandzki',
-	'donate_interface-NOK' => 'NOK — korona norweska',
-	'donate_interface-PLN' => 'PLN — polski złoty',
-	'donate_interface-SGD' => 'SGD — dolar singapurski',
-	'donate_interface-SEK' => 'SEK — korona szwedzka',
-	'donate_interface-ILS' => 'ILS — szekel izraelski',
 );
 
 /** Piedmontese (Piemontèis)
@@ -3924,18 +3866,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-USD' => 'USD: Dólar dos E.U.A.',
 	'donate_interface-AUD' => 'AUD: Dólar Australiano',
 	'donate_interface-CAD' => 'CAD: Dólar Canadiano',
-	'donate_interface-CHF' => 'CHF: Franco Suísso',
-	'donate_interface-CZK' => 'CZK: Coroa Checa',
-	'donate_interface-DKK' => 'DKK: Coroa Dinamarquesa',
-	'donate_interface-HKD' => 'HKD: Dólar de Hong-Kong',
-	'donate_interface-HUF' => 'HUF: Forint (Hungria)',
 	'donate_interface-JPY' => 'JPY: Iene (Japão)',
-	'donate_interface-NZD' => 'NZD: Dólar Neo-Zelandês',
-	'donate_interface-NOK' => 'NOK: Coroa Norueguesa',
-	'donate_interface-PLN' => 'PLN: Zloty (Polónia)',
-	'donate_interface-SGD' => 'SGD: Dólar de Singapura',
-	'donate_interface-SEK' => 'SEK: Coroa Sueca',
-	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
 );
 
 /** Romanian (Română)
@@ -4576,18 +4507,7 @@ Bazı durumlarda, kod kartın sol tarafındadır, ama her zaman hesap numarasın
 	'donate_interface-USD' => 'USD: Amerikan Doları',
 	'donate_interface-AUD' => 'AUD: Avustralya Doları',
 	'donate_interface-CAD' => 'CAD: Kanada Doları',
-	'donate_interface-CHF' => 'CHF: İsviçre Frankı',
-	'donate_interface-CZK' => 'CZK: Çek Kronu',
-	'donate_interface-DKK' => 'DKK: Danimarka Kronu',
-	'donate_interface-HKD' => 'HKD: Hong Kong Doları',
-	'donate_interface-HUF' => 'HUF: Macar Forinti',
 	'donate_interface-JPY' => 'JPY: Japon Yeni',
-	'donate_interface-NZD' => 'NZD: Yeni Zelanda Doları',
-	'donate_interface-NOK' => 'NOK: Norveç Kronu',
-	'donate_interface-PLN' => 'PLN: Leh Zlotisi',
-	'donate_interface-SGD' => 'SGD: Singapur Doları',
-	'donate_interface-SEK' => 'SEK: İsveç Kronu',
-	'donate_interface-ILS' => 'ILS: İsrail Şekeli',
 );
 
 /** Ukrainian (Українська)
@@ -4761,18 +4681,7 @@ Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sor
 	'donate_interface-USD' => 'USD: Dolaro merican',
 	'donate_interface-AUD' => 'AUD: Dolaro australian',
 	'donate_interface-CAD' => 'CAD: Dolaro canadese',
-	'donate_interface-CHF' => 'CHF: Franco svìssaro',
-	'donate_interface-CZK' => 'CZK: Corona ceca',
-	'donate_interface-DKK' => 'DKK: Corona danese',
-	'donate_interface-HKD' => 'HKD: Dolaro de Hong Kong',
-	'donate_interface-HUF' => 'HUF: Fiorin ongarese',
 	'donate_interface-JPY' => 'JPY: Yen zaponese',
-	'donate_interface-NZD' => 'NZD: Dolaro neozelandese',
-	'donate_interface-NOK' => 'NOK: Corona norvegese',
-	'donate_interface-PLN' => 'PLN: Zloty polaco',
-	'donate_interface-SGD' => 'SGD: Dolaro de Singapor',
-	'donate_interface-SEK' => 'SEK: Corona svedese',
-	'donate_interface-ILS' => 'ILS: Shekel israelian',
 );
 
 /** Vietnamese (Tiếng Việt)
