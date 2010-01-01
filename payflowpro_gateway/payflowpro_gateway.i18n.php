@@ -241,18 +241,7 @@ Probeer asseblief later weer.",
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
 	'donate_interface-AUD' => 'AUD: Australiese dollar',
 	'donate_interface-CAD' => 'CAD: Kanadese dollar',
-	'donate_interface-CHF' => 'CHF: Switserse frank',
-	'donate_interface-CZK' => 'CZK: Tsjeggiese kroon',
-	'donate_interface-DKK' => 'DKK: Deense kroon',
-	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
-	'donate_interface-HUF' => 'HUF: Hongaarse forint',
 	'donate_interface-JPY' => 'JPY: Japannese jen',
-	'donate_interface-NZD' => 'NZD: Nieu-Seelandse dollar',
-	'donate_interface-NOK' => 'NOK: Noorse kroon',
-	'donate_interface-PLN' => 'PLN: Poolse zloty',
-	'donate_interface-SGD' => 'SGD: Singaporese dollar',
-	'donate_interface-SEK' => 'SEK: Sweedse kroon',
-	'donate_interface-ILS' => 'ILS: Israeliese shekel',
 );
 
 /** Arabic (العربية)
@@ -349,18 +338,7 @@ $messages['ar'] = array(
 	'donate_interface-USD' => 'USD: الدولار الأمريكي',
 	'donate_interface-AUD' => 'AUD: الدولار الأسترالي',
 	'donate_interface-CAD' => 'CAD: الدولار الكندي',
-	'donate_interface-CHF' => 'CHF: الفرنك السويسري',
-	'donate_interface-CZK' => 'CZK: الكرونا التشيكية',
-	'donate_interface-DKK' => 'DKK: الكرونة الدنمركية',
-	'donate_interface-HKD' => 'HKD: دولار هونغ كونغ',
-	'donate_interface-HUF' => 'HUF: الفورنت الهنغاري',
 	'donate_interface-JPY' => 'JPY: الين الياباني',
-	'donate_interface-NZD' => 'NZD: دولار نيوزيلندا',
-	'donate_interface-NOK' => 'NOK: الكرونة النرويجية',
-	'donate_interface-PLN' => 'PLN: الزلوتي البولندي',
-	'donate_interface-SGD' => 'SGD: دولار سنغافورة',
-	'donate_interface-SEK' => 'SEK: الكرونا السويدية',
-	'donate_interface-ILS' => 'ILS: الشاقل الإسرائيلي',
 );
 
 /** Egyptian Spoken Arabic (مصرى)
@@ -804,18 +782,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-USD' => 'USD: Američki dolar',
 	'donate_interface-AUD' => 'AUD: Australijski dolar',
 	'donate_interface-CAD' => 'CAD: Kanadski dolar',
-	'donate_interface-CHF' => 'CHF: Švicarski franak',
-	'donate_interface-CZK' => 'CZK: Češka kruna',
-	'donate_interface-DKK' => 'DKK: Danska kruna',
-	'donate_interface-HKD' => 'HKD: Honkonški dolar',
-	'donate_interface-HUF' => 'HUF: Mađarska forinta',
 	'donate_interface-JPY' => 'JPY: Japanski jen',
-	'donate_interface-NZD' => 'NZD: Novozelandski dolar',
-	'donate_interface-NOK' => 'NOK: Norveška kruna',
-	'donate_interface-PLN' => 'PLN: Poljski zloti',
-	'donate_interface-SGD' => 'SGD: Singapurski dolar',
-	'donate_interface-SEK' => 'SEK: Švedska kruna',
-	'donate_interface-ILS' => 'ILS: Izraelski šekel',
 );
 
 /** Catalan (Català)
@@ -997,18 +964,7 @@ Někdy bývá kód umístěn na levé straně karty, ale vždy je nad číslem �
 	'donate_interface-USD' => 'USD: Americký dolar',
 	'donate_interface-AUD' => 'AUD: Australský dolar',
 	'donate_interface-CAD' => 'CAD: Kanadský dolar',
-	'donate_interface-CHF' => 'CHF: Švýcarský frank',
-	'donate_interface-CZK' => 'CZK: Česká koruna',
-	'donate_interface-DKK' => 'DKK: Dánská koruna',
-	'donate_interface-HKD' => 'HKD: Hongkongský dolar',
-	'donate_interface-HUF' => 'HUF: Maďarský forint',
 	'donate_interface-JPY' => 'JPY: Japonský jen',
-	'donate_interface-NZD' => 'NZD: Novozélandský dolar',
-	'donate_interface-NOK' => 'NOK: Norská koruna',
-	'donate_interface-PLN' => 'PLN: Polský zlotý',
-	'donate_interface-SGD' => 'SGD: Singapurský dolar',
-	'donate_interface-SEK' => 'SEK: Švédská koruna',
-	'donate_interface-ILS' => 'ILS: Izraelský šekel',
 );
 
 /** Welsh (Cymraeg)
@@ -1202,9 +1158,29 @@ In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch
  * @author Imre
  */
 $messages['de-formal'] = array(
+	'payflowpro_gateway-error-msg-email' => '** Bitte geben Sie eine gültige E-Mail-Adresse ein **',
+	'payflowpro_gateway-error-msg-amex' => '** Bitte geben Sie eine korrekte American-Express-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-mc' => '** Bitte geben Sie eine korrekte Mastercard-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-visa' => '** Bitte geben Sie eine korrekte Visa-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-discover' => '**Bitte geben Sie eine korrekte Kreditkartennummer für Discover an.**',
+	'payflowpro_gateway-response-0' => 'Ihre Transaktion wurde durchgeführt.
+Vielen Dank für Ihre Spende.',
+	'payflowpro_gateway-response-126' => 'Für Ihre Transaktion wird auf eine Freigabe gewartet.',
 	'payflowpro_gateway-response-126-2' => 'Einige Informationen stimmen nicht mit Ihrem Kreditkartenprofil überein oder die Spende ist zu hoch. Zu Ihrer eigenen Sicherheit befindet sich Ihre Spende unter Prüfung und wir informieren Sie über die angegebene E-Mail-Adresse, falls wir Ihre Spende nicht abschließen können. Bitte schicken Sie uns bei Fragen eine E-Mail an <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank!',
 	'payflowpro_gateway-response-12' => 'Bitte nehmen Sie für weitere Informationen mit Ihrem Kreditinstitut Kontakt auf.',
+	'payflowpro_gateway-response-13' => 'Ihre Transaktion benötigt eine manuelle Bearbeitung.
+Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
+	'payflowpro_gateway-response-114' => 'Bitte nehmen Sie mit ihrem kartenausgebenden Kreditinstitut Kontakt auf.',
+	'payflowpro_gateway-response-23' => 'Ihre Kreditkartennummer oder das Ablaufdatum ist falsch.',
+	'payflowpro_gateway-response-24' => 'Ihre Kreditkartennummer oder das Ablaufdatum ist falsch.',
+	'payflowpro_gateway-response-112' => 'Ihre Anschrift oder der Sicherheitscode (CVV) ist falsch.',
+	'payflowpro_gateway-response-125' => 'Ihre Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
+	'payflowpro_gateway-response-125-2' => 'Ihre Kreditkarte kann nicht geprüft werden. Bitte bestätigen Sie, dass alle Informationen mit Ihrem Kreditkartenprofil übereinstimmen oder versuchen Sie es mit einer anderen Karte. Sie können auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktieren Sie uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
+	'payflowpro_gateway-response-default' => 'Es ist ein Verarbeitungsfehler aufgetreten.
+Bitte versuchen Sie es später noch einmal.',
+	'php-response-declined' => 'Ihre Transaktion wurde abgewiesen.',
 	'payflowpro_gateway-thankyou' => 'Vielen Dank für Ihre Spende!',
+	'payflowpro_gateway-question-comment' => 'Wikipedia ist ein Projekt der Wikimedia Foundation. Fragen oder Kommentare? Kontaktieren Sie die Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Nach dem Klick auf „{{int:payflowpro_gateway-donor-submit}}“ werden Ihre Kreditkarteninformationen verarbeitet.',
 	'payflowpro_gateway-credit-storage-processing' => 'Wir speichern nicht Ihre Kreditkarteninformationen und Ihre persönlichen Daten unterliegen unserer <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Datenschutzerklärung</a>.',
 );
@@ -1760,18 +1736,7 @@ $messages['eu'] = array(
 	'donate_interface-USD' => 'USD: Estatubatuar dolar',
 	'donate_interface-AUD' => 'AUD: Australiar dolar',
 	'donate_interface-CAD' => 'CAD: Kanadiar dolar',
-	'donate_interface-CHF' => 'CHF: Suitzar libera',
-	'donate_interface-CZK' => 'CZK: Txekiar koruna',
-	'donate_interface-DKK' => 'DKK: Daniar koroa',
-	'donate_interface-HKD' => 'HKD: Hongkongdar dolar',
-	'donate_interface-HUF' => 'HUF: Hungariar florin',
 	'donate_interface-JPY' => 'JPY: Japoniar yen',
-	'donate_interface-NZD' => 'NZD: Zeelandaberritar dolar',
-	'donate_interface-NOK' => 'NOK: Norvegiar koroa',
-	'donate_interface-PLN' => 'PLN: Poloniar zloty',
-	'donate_interface-SGD' => 'SGD: Singapurtar dolar',
-	'donate_interface-SEK' => 'SEK: Suediar koroa',
-	'donate_interface-ILS' => 'ILS: Israeldar shekel',
 );
 
 /** Finnish (Suomi)
@@ -2838,18 +2803,7 @@ $messages['ka'] = array(
 	'donate_interface-USD' => 'USD: აშშ დოლარი',
 	'donate_interface-AUD' => 'AUD: ავსტრალიური დოლარი',
 	'donate_interface-CAD' => 'CAD: კანადური დოლარი',
-	'donate_interface-CHF' => 'CHF: შვეიცარიული ფრანკი',
-	'donate_interface-CZK' => 'CZK: ჩეხური კრონა',
-	'donate_interface-DKK' => 'DKK: დანიური კრონა',
-	'donate_interface-HKD' => 'HKD: ჰონგკონგის დოლარი',
-	'donate_interface-HUF' => 'HUF: უნგრული ფორინტი',
 	'donate_interface-JPY' => 'JPY: იაპონური იენი',
-	'donate_interface-NZD' => 'NZD: ახალი ზელანდიის დოლარი',
-	'donate_interface-NOK' => 'NOK: ნორვეგიული კრონა',
-	'donate_interface-PLN' => 'PLN: პოლონური ზლოტი',
-	'donate_interface-SGD' => 'SGD: სინგაპურის დოლარი',
-	'donate_interface-SEK' => 'SEK: შვედური კრონა',
-	'donate_interface-ILS' => 'ILS: ისრაელის შეკელი',
 );
 
 /** Kannada (ಕನ್ನಡ)
@@ -2873,15 +2827,7 @@ $messages['ko'] = array(
 	'donate_interface-USD' => 'USD: 미국 달러',
 	'donate_interface-AUD' => 'AUD: 호주 달러',
 	'donate_interface-CAD' => 'CAD: 캐나다 달러',
-	'donate_interface-CHF' => 'CHF: 스위스 프랑',
-	'donate_interface-CZK' => 'CZK: 체코 코루나',
-	'donate_interface-DKK' => 'DKK: 덴마크 크로네',
-	'donate_interface-HKD' => 'HKD: 홍콩 달러',
-	'donate_interface-HUF' => 'HUF: 헝가리 포린트',
 	'donate_interface-JPY' => 'JPY: 일본 엔',
-	'donate_interface-NZD' => 'NZD: 뉴질랜드 달러',
-	'donate_interface-NOK' => 'NOK: 노르웨이 크로네',
-	'donate_interface-PLN' => 'PLN: 폴란드 즐로티',
 );
 
 /** Ripoarisch (Ripoarisch)
@@ -3558,18 +3504,7 @@ I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid ove
 	'donate_interface-USD' => 'USD: U.S. Dollar',
 	'donate_interface-AUD' => 'AUD: Australske dollar',
 	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
-	'donate_interface-CHF' => 'CHF: Sveitsiske franc',
-	'donate_interface-CZK' => 'CZK: Tsjekkiske koruna',
-	'donate_interface-DKK' => 'DKK: Danske kroner',
-	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
-	'donate_interface-HUF' => 'HUF: Ungarske forinter',
 	'donate_interface-JPY' => 'JPY: Japanske yen',
-	'donate_interface-NZD' => 'NZD: New Zealandske dollar',
-	'donate_interface-NOK' => 'NOK: Norske kroner',
-	'donate_interface-PLN' => 'PLN: Polske zloty',
-	'donate_interface-SGD' => 'SGD: Singapore Dollar',
-	'donate_interface-SEK' => 'SEK: Svenske kroner',
-	'donate_interface-ILS' => 'ILS: Israelske shekel',
 );
 
 /** Occitan (Occitan)
@@ -3677,7 +3612,6 @@ $messages['pdc'] = array(
 	'donate_interface-USD' => 'USD: U.S. Dollar',
 	'donate_interface-AUD' => 'AUD: Australische Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadische Dollar',
-	'donate_interface-CHF' => 'CHF: Schweizer Franken',
 );
 
 /** Polish (Polski)
@@ -4188,18 +4122,7 @@ $messages['ru'] = array(
 	'donate_interface-USD' => 'USD: доллар США',
 	'donate_interface-AUD' => 'AUD: австралийский доллар',
 	'donate_interface-CAD' => 'CAD: канадский доллар',
-	'donate_interface-CHF' => 'CHF: швейцарский франк',
-	'donate_interface-CZK' => 'CZK: чешская крона',
-	'donate_interface-DKK' => 'DKK: датская крона',
-	'donate_interface-HKD' => 'HKD: гонконгский доллар',
-	'donate_interface-HUF' => 'HUF: венгерский форинт',
 	'donate_interface-JPY' => 'JPY: японская йена',
-	'donate_interface-NZD' => 'NZD: новозеландский доллар',
-	'donate_interface-NOK' => 'NOK: норвежская крона',
-	'donate_interface-PLN' => 'PLN: польский злотый',
-	'donate_interface-SGD' => 'SGD: сингапурский доллар',
-	'donate_interface-SEK' => 'SEK: шведская крона',
-	'donate_interface-ILS' => 'ILS: израильский шекель',
 );
 
 /** Sinhala (සිංහල)
@@ -4276,18 +4199,7 @@ $messages['si'] = array(
 	'donate_interface-USD' => 'ඇඩො: එ.ජ. ඩොලර්',
 	'donate_interface-AUD' => 'ඔඩො: ඕස්ට්‍රේලියානු ඩොලර්',
 	'donate_interface-CAD' => 'කැඩො: කැනේඩියානු ඩොලර්',
-	'donate_interface-CHF' => 'ස්ෆ්‍රෑ: ස්විස් ෆ්‍රෑන්ක්',
-	'donate_interface-CZK' => 'චෙකො: චෙක් කොරුනා',
-	'donate_interface-DKK' => 'ඩෙකො: ඩෙන්මාර්ක කොරුනා',
-	'donate_interface-HKD' => 'හොංකොංඩො: හොංකොං ඩොලර්',
-	'donate_interface-HUF' => 'හෆො: හන්ගේරියානු ෆොරින්ට්',
 	'donate_interface-JPY' => 'ජයෙ: ජපාන යෙන්',
-	'donate_interface-NZD' => 'නසීඩො: නවසීලන්ත ඩොලර්',
-	'donate_interface-NOK' => 'නෝක්‍රෝ: නෝවීජියානු ක්‍රෝන',
-	'donate_interface-PLN' => 'පෝස්: පෝලන්ත ස්ලොටි',
-	'donate_interface-SGD' => 'සිංඩො: සිංගප්පූරු ඩොලර්',
-	'donate_interface-SEK' => 'ස්වීක්‍රො: ස්වීඩන ක්‍රෝන',
-	'donate_interface-ILS' => 'ඊශ්‍රාෂෙ: ඊශ්‍රායෙල ෂෙකෙල්',
 );
 
 /** Swedish (Svenska)
@@ -4925,18 +4837,7 @@ Xin hãy thử lại vào lần sau.',
 	'donate_interface-USD' => 'USD: Đô la Mỹ',
 	'donate_interface-AUD' => 'AUD: Đô la Úc',
 	'donate_interface-CAD' => 'CAD: Đô la Canada',
-	'donate_interface-CHF' => 'CHF: Franc Thụy Sĩ',
-	'donate_interface-CZK' => 'CZK: Koruna Séc',
-	'donate_interface-DKK' => 'DKK: Krone Đan Mạch',
-	'donate_interface-HKD' => 'HKD: Đô la Hồng Kông',
-	'donate_interface-HUF' => 'HUF: Forint Hungary',
 	'donate_interface-JPY' => 'JPY: Yên Nhật',
-	'donate_interface-NZD' => 'NZD: Đô la New Zealand',
-	'donate_interface-NOK' => 'NOK: Krone Na Uy',
-	'donate_interface-PLN' => 'PLN: Zloty Ba Lan',
-	'donate_interface-SGD' => 'SGD: Đô la Singapore',
-	'donate_interface-SEK' => 'SEK: Krona Thụy Điển',
-	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
 /** Yiddish (ייִדיש)
