@@ -2925,7 +2925,7 @@ Versöhk et schpääder noch ens.',
  * @author Robby
  */
 $messages['lb'] = array(
-	'payflowprogateway' => 'Ënnerstetzt Wikimedia',
+	'payflowprogateway' => 'Ënnerstëtzt Wikimedia',
 	'payflowpro_gateway-desc' => 'Behandele vun der Kreditkaart PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
 	'payflowpro_gateway-form-message' => 'Maacht en Don mat Ärer Kreditkaart.
@@ -2986,7 +2986,7 @@ Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
 	'payflowpro_gateway-response-24' => "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
 	'payflowpro_gateway-response-112' => 'Är Adress oder CVV-Nummer (Sécherheetscode) ass net richteg.',
 	'payflowpro_gateway-response-125' => "Är Transaktioun gouf net vun de Servicer, déi sech ëm d'Verhënnerung vun der Fraude bekëmmeren, akzeptéiert.",
-	'payflowpro_gateway-response-125-2' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all déi Informatiounen déi Dir uginn hutt mat dem Profil vun Ärer Kreditkaart iwwereneestëmmt oder probéiert mat enger anerer Kaart. Dir kënnt och op eng vun eisen anere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Manéiere fir ze spenden</a> benotzen oder eis iwwer <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kontaktéieren. Merci fir Är Ënnerstetzung.',
+	'payflowpro_gateway-response-125-2' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all déi Informatiounen déi Dir uginn hutt mat dem Profil vun Ärer Kreditkaart iwwereneestëmmt oder probéiert mat enger anerer Kaart. Dir kënnt och op eng vun eisen anere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Manéiere fir ze spenden</a> benotzen oder eis iwwer <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kontaktéieren. Merci fir Är Ënnerstëtzung.',
 	'payflowpro_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
 Probéiert et w.e.g. spéider nach eng Kéier.',
 	'php-response-declined' => 'Är Transactioun gouf net akzeptéiert.',
@@ -3931,6 +3931,8 @@ $messages['pt-br'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'número do cartão de crédito',
 	'payflowpro_gateway-response-0' => 'A transação foi aprovada.
 Agradecemos a sua doação!',
+	'payflowpro_gateway-response-12' => 'Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.',
+	'payflowpro_gateway-response-114' => 'Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.',
 	'payflowpro_gateway-response-4' => 'Quantia inválida.',
 	'payflowpro_gateway-response-125' => 'A transação foi recusada pela Fraud Prevention Services.',
 	'payflowpro_gateway-response-default' => 'Ocorreu um erro no processamento desta transação.
