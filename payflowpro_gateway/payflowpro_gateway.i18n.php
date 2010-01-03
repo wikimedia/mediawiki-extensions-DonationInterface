@@ -526,6 +526,7 @@ $messages['be-tarask'] = array(
 );
 
 /** Bulgarian (Български)
+ * @author Spiritia
  * @author Turin
  */
 $messages['bg'] = array(
@@ -595,6 +596,7 @@ $messages['bg'] = array(
 	'payflowpro_gateway-submit-button' => 'Даряване',
 	'payflowpro_gateway-question-comment' => 'Уикипедия е проект на Фондация Уикимедия. Имате въпроси или забележки? Свържете се с Фондация Уикимедия: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'След натискане на "{{int:payflowpro_gateway-donor-submit}}", данните от кредитната ви карта ще бъдат обработени.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ние не пазим информация за вашата кредитна карта. Личните ви данни са обект на защита от нашата <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">политика за личните данни</a>.',
 	'donate_interface-GBP' => 'GBP: британска лира',
 	'donate_interface-EUR' => 'EUR: евро',
 	'donate_interface-USD' => 'USD: американски долар',
