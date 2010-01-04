@@ -4024,6 +4024,7 @@ $messages['roa-tara'] = array(
 	'payflowpro_gateway-donor-amount' => 'Imborte:',
 	'payflowpro_gateway-donor-email' => 'Indirizze e-mail:',
 	'payflowpro_gateway-donor-submit' => 'Done',
+	'payflowpro_gateway-error-msg-emailAdd' => 'indirizze e-mail',
 	'payflowpro_gateway-error-msg-city' => 'cetate',
 	'payflowpro_gateway-error-msg-state' => 'state',
 	'payflowpro_gateway-error-msg-zip' => "codece d'avviamende postale",
