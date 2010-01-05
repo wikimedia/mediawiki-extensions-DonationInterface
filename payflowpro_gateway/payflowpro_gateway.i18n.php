@@ -4039,6 +4039,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Kaganer
  * @author Putnik
  * @author Александр Сигачёв
  */
@@ -4120,7 +4121,7 @@ $messages['ru'] = array(
 <p>Код <i>всегда</i> расположен <i>над</i> тиснёным (выпуклым) номером счёта, на лицевой стороне карты.
 В некоторых случаях этот код расположен на левой стороне карты, но всегда выше номера счёта.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Википедия является проектом Фонда Викимедиа. Имеются вопросы, замечания? Свяжитесь с Фондом Викимедиа: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'После нажатия кнопки «Пожертвовать» будет обработана информация о вашей кредитной карте.',
+	'payflowpro_gateway-donate-click' => 'После нажатия кнопки «{{int:payflowpro_gateway-donor-submit}}» начнётся обработка информации о вашей кредитной карте.',
 	'payflowpro_gateway-credit-storage-processing' => 'Мы не храним информацию о вашей кредитной карте, в отношении ваших личных данных действует <a href="http://wikimediafoundation.org/wiki/Политика_конфиденциальности">политика конфиденциальности</a>.',
 	'donate_interface-GBP' => 'GBP: британский фунт стерлингов',
 	'donate_interface-EUR' => 'EUR: евро',
