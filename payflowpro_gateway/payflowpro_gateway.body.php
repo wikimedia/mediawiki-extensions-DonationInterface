@@ -884,7 +884,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// Make all empty strings NULL
 		foreach ($tracked_contribution as $key => $value) {
 			if ($value === '') {
-				$tracked_contribution[$key] = NULL;
+				$tracked_contribution[$key] = null;
 			}
 		}
 		
