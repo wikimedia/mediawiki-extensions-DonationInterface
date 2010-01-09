@@ -1625,7 +1625,7 @@ $messages['et'] = array(
 	'payflowpro_gateway-cvv-link' => 'Näide',
 	'payflowpro_gateway-donor-amount' => 'Summa:',
 	'payflowpro_gateway-donor-currency-label' => 'Vääring:',
-	'payflowpro_gateway-donor-email' => 'E-postiaadress:',
+	'payflowpro_gateway-donor-email' => 'E-posti aadress:',
 	'payflowpro_gateway-donor-fname' => 'Eesnimi:',
 	'payflowpro_gateway-donor-mname' => 'Teine nimi:',
 	'payflowpro_gateway-donor-lname' => 'Perekonnanimi:',
@@ -1645,12 +1645,12 @@ $messages['et'] = array(
 	'payflowpro_gateway-error-msg' => 'Vajalik järgmise rea täitmine:  $1',
 	'payflowpro_gateway-error-msg-js' => 'Järgmised väljad tuleb kindlasti täita:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Palun sisesta sobiv summa**',
-	'payflowpro_gateway-error-msg-email' => '**Palun sisesta õige e-postiaadress**',
+	'payflowpro_gateway-error-msg-email' => '**Palun sisesta õige e-posti aadress**',
 	'payflowpro_gateway-error-msg-amex' => '**Palun sisesta American Expressi kaardi õige number.**',
 	'payflowpro_gateway-error-msg-mc' => '**Palun sisesta MasterCardi õige number.**',
 	'payflowpro_gateway-error-msg-visa' => '**Palun sisesta Visa-kaardi õige number.**',
 	'payflowpro_gateway-error-msg-amount' => 'annetatav summa',
-	'payflowpro_gateway-error-msg-emailAdd' => 'e-postiaadress',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-posti aadress',
 	'payflowpro_gateway-error-msg-fname' => 'eesnimi',
 	'payflowpro_gateway-error-msg-lname' => 'perekonnanimi',
 	'payflowpro_gateway-error-msg-street' => 'tänav',
@@ -3802,6 +3802,42 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-JPY' => 'JPY: Yen Giaponèis',
 );
 
+/** Pashto (پښتو)
+ * @author Ahmed-Najib-Biabani-Ibrahimkhel
+ */
+$messages['ps'] = array(
+	'payflowprogateway' => 'د ويکيمېډيا ملاتړ وکړی',
+	'payflowpro_gateway-donor-legend' => 'د بسپنګر مالومات',
+	'payflowpro_gateway-card-legend' => 'د کرېډټ کارډ مالومات',
+	'payflowpro_gateway-cvv-link' => 'بېلګه',
+	'payflowpro_gateway-donor-email' => 'برېښليک پته:',
+	'payflowpro_gateway-donor-fname' => 'لومړی نوم:',
+	'payflowpro_gateway-donor-mname' => 'منځوی نوم:',
+	'payflowpro_gateway-donor-lname' => 'وروستی نوم:',
+	'payflowpro_gateway-donor-name' => 'نوم:',
+	'payflowpro_gateway-donor-street' => 'کوڅه:',
+	'payflowpro_gateway-donor-city' => 'ښار:',
+	'payflowpro_gateway-donor-state' => 'ايالت:',
+	'payflowpro_gateway-donor-postal' => 'پوست کوډ:',
+	'payflowpro_gateway-donor-country' => 'هېواد/سيمه:',
+	'payflowpro_gateway-donor-address' => 'پته:',
+	'payflowpro_gateway-donor-card' => 'کرېډټ کارډ:',
+	'payflowpro_gateway-donor-card-num' => 'د کرېډټ کارډ شمېره:',
+	'payflowpro_gateway-donor-expiration' => 'پای نېټه:',
+	'payflowpro_gateway-donor-submit' => 'بسپنه ورکول',
+	'payflowpro_gateway-error-msg-emailAdd' => 'برېښليک پته',
+	'payflowpro_gateway-error-msg-fname' => 'لومړی نوم',
+	'payflowpro_gateway-error-msg-lname' => 'وروستی نوم',
+	'payflowpro_gateway-error-msg-street' => 'د کوڅې پته',
+	'payflowpro_gateway-error-msg-city' => 'ښار',
+	'payflowpro_gateway-error-msg-state' => 'ايالت',
+	'payflowpro_gateway-error-msg-zip' => 'پوست کوډ',
+	'payflowpro_gateway-error-msg-card_num' => 'د کرېډټ کارډ شمېره',
+	'payflowpro_gateway-error-msg-expiration' => 'د کرېډټ کارډ پای نېټه',
+	'payflowpro_gateway-error-msg-cvv' => 'د کرېډټ کارډ د شا CVV',
+	'payflowpro_gateway-submit-button' => 'بسپنه ورکول',
+);
+
 /** Portuguese (Português)
  * @author Hamilton Abreu
  * @author Luckas Blade
@@ -4311,6 +4347,7 @@ $messages['te'] = array(
 	'payflowpro_gateway-response-23' => 'మీ క్రెడిట్ కార్డు నంబరు లేదా కాలపరిమితి తేదీ తప్పుగా ఉంది.',
 	'payflowpro_gateway-response-4' => 'తప్పుడు మొత్తం.',
 	'payflowpro_gateway-response-24' => 'మీ క్రెడిట్ కార్డు నెంబరు లేదా కాలపరిమితి తేదీ తప్పు.',
+	'payflowpro_gateway-response-112' => 'మీ చిరునామా లేదా CVV సంఖ్య (భద్రతా సంకేతం) సరైనది కాదు.',
 	'payflowpro_gateway-response-125' => 'మీ లావాదేవీని మోసాల నియంత్రణా సేవలు తిరస్కరించాయి.',
 	'payflowpro_gateway-response-default' => 'మీ లావాదేవీని జరిపించడంలో పొరపాటు దొర్లింది. దయచేసి కాసేపాగి మళ్ళీ ప్రయత్నించండి.',
 	'php-response-declined' => 'మీ లావాదేవీని తిరస్కరించారు.',
