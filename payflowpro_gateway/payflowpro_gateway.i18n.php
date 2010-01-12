@@ -3112,6 +3112,7 @@ $messages['mk'] = array(
  */
 $messages['ml'] = array(
 	'payflowprogateway' => 'വിക്കിമീഡിയയെ പിന്തുണയ്ക്കുക',
+	'payflowpro_gateway-desc' => 'പേപാൽ പേഫ്ലോ പ്രോ ക്രെഡിറ്റ് കാർഡ് ഉപയുക്തമാക്കുന്നു',
 	'payflowpro_gateway-accessible' => 'സംഭാവനാ താളിൽ നിന്നുമാത്രമേ ഈ താൾ ലഭ്യമാവുകയുള്ളു.',
 	'payflowpro_gateway-form-message' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് ഉപയോഗിച്ച് സംഭാവന ചെയ്യുക.
 <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">പേപാൽ, ചെക്ക്, എഴുത്തുകൾ തുടങ്ങിയ മറ്റു മാർഗ്ഗങ്ങളും ഉപയോഗിക്കാവുന്നതാണ്</a>.',
