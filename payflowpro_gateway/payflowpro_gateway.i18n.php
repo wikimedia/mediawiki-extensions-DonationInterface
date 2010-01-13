@@ -4321,6 +4321,14 @@ Försök igen senare.',
 	'payflowpro_gateway-thankyou' => 'Tack för din donation!',
 	'payflowpro_gateway-post-transaction' => 'Transaktionsdetaljer',
 	'payflowpro_gateway-submit-button' => 'Ge',
+	'payflowpro_gateway-cvv-explain' => '<h4>Vad är CVV?</h4>
+<p>Cardholder Verification Value (CVV): Dessa tre eller fyrsiffriga nummer hjälper till att säkerställa att det fysiska kortet är kortägarens ägo. Detta förhindrar missbruk.</p>
+<h4>Visa, Mastercard</h4>
+<p>Den tresiffriga koden finns på baksidan av kortet i signaturområdet.
+Oftast har signaturområdet en serie tal, men endast de tre sista siffrorna utgör CVV koden.</p>
+<h4>American Express</h4>
+<p>Koden är <i>alltid</i> placerad <i>ovanför</i> den präglade (höjda) kontonumret på framsidan av kortet.
+I vissa fall finns koden på vänstra sidan av koret, men alltid ovanför kontonumret.</p><br />',
 	'donate_interface-GBP' => 'GBP: Brittiska pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: USA-dollar',
