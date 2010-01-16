@@ -4305,6 +4305,7 @@ Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra s�
 	'payflowpro_gateway-response-0' => 'Transaktionen har godkänts.
 Tack för din gåva!',
 	'payflowpro_gateway-response-126' => 'Transaktionen väntar på godkännande.',
+	'payflowpro_gateway-response-126-2' => 'Något av informationen du angav matchade inte din kreditkortsprofil, eller så gav du en väldigt stor gåva. För din egen säkerhet så granskas din donation nu, och vi kommer att meddela till den angivna epost-adressen om vi inte kan slutföra din donation. Vänligen eposta till <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> om du har några frågor. Tack!',
 	'payflowpro_gateway-response-12' => 'Kontakta utställaren av ditt kreditkort för mer information.',
 	'payflowpro_gateway-response-13' => 'Transaktionen kräver röstgodkännande.
 Kontakta oss för att gå vidare med transaktionen.',
@@ -4329,6 +4330,9 @@ Oftast har signaturområdet en serie tal, men endast de tre sista siffrorna utg�
 <h4>American Express</h4>
 <p>Koden är <i>alltid</i> placerad <i>ovanför</i> den präglade (höjda) kontonumret på framsidan av kortet.
 I vissa fall finns koden på vänstra sidan av koret, men alltid ovanför kontonumret.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipedia är ett av Wikimedia Foundations projekt. Frågor eller kommentarer? Kontakta Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Efter att ha klickat "{{int:payflowpro_gateway-donor-submit}}", kommer din kreditkortsinformation hanteras',
+	'payflowpro_gateway-credit-storage-processing' => 'Vi spara inte din kreditkortsinformation, och dina personliga uppgifter är underställda vår <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">integritetspolicy</a>.',
 	'donate_interface-GBP' => 'GBP: Brittiska pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: USA-dollar',
