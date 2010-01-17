@@ -2823,6 +2823,7 @@ $messages['ko'] = array(
 	'payflowpro_gateway-donor-postal' => '우편 번호:',
 	'payflowpro_gateway-donor-address' => '주소:',
 	'payflowpro_gateway-donor-card-num' => '카드 번호:',
+	'payflowpro_gateway-donor-expiration' => '유효 기한:',
 	'payflowpro_gateway-donor-security' => '보안 코드:',
 	'donate_interface-GBP' => 'GBP: 영국 파운드',
 	'donate_interface-EUR' => 'EUR: 유로',
@@ -4247,6 +4248,97 @@ $messages['si'] = array(
 	'donate_interface-AUD' => 'ඔඩො: ඕස්ට්‍රේලියානු ඩොලර්',
 	'donate_interface-CAD' => 'කැඩො: කැනේඩියානු ඩොලර්',
 	'donate_interface-JPY' => 'ජයෙ: ජපාන යෙන්',
+);
+
+/** Slovak (Slovenčina)
+ * @author Helix84
+ */
+$messages['sk'] = array(
+	'payflowprogateway' => 'Podporte nadáciu Wikimedia',
+	'payflowpro_gateway-desc' => 'Spracovanie kreditnej karty PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Táto stránka je prístupná iba zo stránky darov.',
+	'payflowpro_gateway-form-message' => 'Prispejte pomocou kreditnej karty.
+Existujú aj <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ďalšie spôsoby darovania vrátane cez PayPal, šekom alebo poštou</a>.',
+	'payflowpro_gateway-form-message-2' => 'Ak chcete zmeniť sumu alebo menu, vráťte sa na <a href="/index.php?title=Donate">stránku darov</a>',
+	'payflowpro_gateway-donor-legend' => 'Informácie o darcovi',
+	'payflowpro_gateway-card-legend' => 'Informácie o kreditnej karte',
+	'payflowpro_gateway-amount-legend' => 'Darovaná čiastka:',
+	'payflowpro_gateway-cvv-link' => 'Príklad',
+	'payflowpro_gateway-donor-amount' => 'Čiastka:',
+	'payflowpro_gateway-donor-currency-label' => 'Mena:',
+	'payflowpro_gateway-donor-email' => 'Emailová adresa:',
+	'payflowpro_gateway-donor-fname' => 'Meno:',
+	'payflowpro_gateway-donor-mname' => 'Stredné meno:',
+	'payflowpro_gateway-donor-lname' => 'Priezvisko:',
+	'payflowpro_gateway-donor-name' => 'Meno:',
+	'payflowpro_gateway-donor-street' => 'Ulica:',
+	'payflowpro_gateway-donor-city' => 'Mesto:',
+	'payflowpro_gateway-donor-state' => 'Štát:',
+	'payflowpro_gateway-donor-postal' => 'PSČ:',
+	'payflowpro_gateway-donor-country' => 'Krajina/oblasť:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kreditná karta:',
+	'payflowpro_gateway-donor-card-num' => 'Číslo karty:',
+	'payflowpro_gateway-donor-expiration' => 'Dátum expirácie:',
+	'payflowpro_gateway-donor-security' => 'Bezpečnostný kód:',
+	'payflowpro_gateway-donor-submit' => 'Darovať',
+	'payflowpro_gateway-donor-currency-msg' => 'Tento dar je v mene $1',
+	'payflowpro_gateway-error-msg' => 'Prosím, zadajte $1',
+	'payflowpro_gateway-error-msg-js' => 'Prosím, zadajte',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Prosím, zadajte platnú čiastku**',
+	'payflowpro_gateway-error-msg-email' => '**Prosím, zadajte platnú emailovú adresu**',
+	'payflowpro_gateway-error-msg-amex' => '**Prosím, zadajte platné číslo kreditnej karty American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '**Prosím, zadajte platné číslo kreditnej karty MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '**Prosím, zadajte platné číslo kreditnej karty Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Prosím, zadajte platné číslo kreditnej karty Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'čiastku daru',
+	'payflowpro_gateway-error-msg-emailAdd' => 'emailovú adresu',
+	'payflowpro_gateway-error-msg-fname' => 'meno',
+	'payflowpro_gateway-error-msg-lname' => 'priezvisko',
+	'payflowpro_gateway-error-msg-street' => 'adresu',
+	'payflowpro_gateway-error-msg-city' => 'mesto',
+	'payflowpro_gateway-error-msg-state' => 'štát',
+	'payflowpro_gateway-error-msg-zip' => 'poštové smerovacie číslo',
+	'payflowpro_gateway-error-msg-card_num' => 'číslo kreditnej karty',
+	'payflowpro_gateway-error-msg-expiration' => 'dátum expirácie karty',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV zo zadnej strany karty',
+	'payflowpro_gateway-response-0' => 'Vaša transakcia bola schválená.
+Ďakujeme za váš dar!',
+	'payflowpro_gateway-response-126' => 'Vaša transakcia čaká na schválenie.',
+	'payflowpro_gateway-response-126-2' => 'Niektoré z informácií, ktoré ste uviedli sa nezhodovali s tými v profile vašej kreditnej karty alebo ste zadali príliš veľkú čiastku daru. Pre vašu vlastnú bezpečnosť váš dar teraz podlieha kontrole a upozorníme vás na emailovú adresu, ktorú ste poskytli, ak by sme nemohli váš dar dokončiť. V prípade akýchkoľvek otázok prosím píšte na adresu <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Ďakujeme!',
+	'payflowpro_gateway-response-12' => 'Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.',
+	'payflowpro_gateway-response-13' => 'Vaša transakcia vyžaduje overenie hlasom,
+Kontaktujte nás prosím, aby sme mohli pokračovať vo vašej transakcii.',
+	'payflowpro_gateway-response-114' => 'Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.',
+	'payflowpro_gateway-response-23' => 'Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.',
+	'payflowpro_gateway-response-4' => 'Neplatná čiastka.',
+	'payflowpro_gateway-response-24' => 'Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.',
+	'payflowpro_gateway-response-112' => 'Vaša adresa alebo číslo CVV (bezpečnostný kód) nie sú správne.',
+	'payflowpro_gateway-response-125' => 'Vašu transakciu zamietli Služby na ochranu fondov.',
+	'payflowpro_gateway-response-125-2' => 'Vašu kreditnú kartu nebolo možné overiť. Prosím, overte, že všetky uvedené informácie sa zhodujú s uvedenými v profile vašej kreditnej karty alebo skúste inú kartu. Môžete tiež využiť jeden z <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">iných spôsobov darovania</a> alebo nás kontaktovať na adrese <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Ďakujeme za vašu podporu.',
+	'payflowpro_gateway-response-default' => 'Nastala chyba pri spracovaní vašej transakcie.
+Skúste to prosím opäť neskôr.',
+	'php-response-declined' => 'Vaša transakcia bola zamietnutá.',
+	'payflowpro_gateway-thankyou' => 'Ďakujeme za váš dar!',
+	'payflowpro_gateway-post-transaction' => 'Podrobnosti transakcie',
+	'payflowpro_gateway-submit-button' => 'Darovať',
+	'payflowpro_gateway-cvv-explain' => '<h4>Čo je CVV?</h4>
+<p>Cardholder Verification Value (CVV): Tieto tri alebo štyri číslice pomáhajú pri uistení, že kartu fyzicky drží jej vlastník. Tým sa predchádza neoprávnenému alebo podvodnému použitiu.</p>
+<h4>Visa, Mastercard</h4>
+<p>3-číslicový kód sa nachádza na zadnej strane vašej karty v oblasti pre podpis.
+Políčko pre podpis zvyčajne obsahuje postupnosť čísiel, ale iba posledné tri číslice sú kód CVV.</p>
+<h4>American Express</h4>
+<p>Kód sa <i>vždy</i> nachádza <i>nad</i> embosovaným (vyčnievajúcim) číslom karty na jej prednej strane.
+V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad číslom účtu.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Wikipédia je projekt Wikimedia Foundation. Máte otázky alebo komentáre? Kontaktujte Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Po kliknutí na „{{int:payflowpro_gateway-donor-submit}}“ sa informácie o vašej kreditnej karte spracujú.',
+	'payflowpro_gateway-credit-storage-processing' => 'Neukladáme informácie o vašej kreditnej karte a vaše osobné údaje podliehajú našej politike <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">ochrany osobných údajov</a>.',
+	'donate_interface-GBP' => 'GBP: britská libra',
+	'donate_interface-EUR' => 'EUR: euro',
+	'donate_interface-USD' => 'USD: americký dolár',
+	'donate_interface-AUD' => 'AUD: austrálsky dolár',
+	'donate_interface-CAD' => 'CAD: kanadský dolár',
+	'donate_interface-JPY' => 'JPY: japonský jen',
 );
 
 /** Swedish (Svenska)
