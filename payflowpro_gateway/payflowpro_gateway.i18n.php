@@ -3606,11 +3606,14 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
  * @author Xqt
  */
 $messages['pdc'] = array(
+	'payflowpro_gateway-donor-lname' => 'Familie-Naame:',
 	'payflowpro_gateway-donor-name' => 'Naame:',
 	'payflowpro_gateway-donor-street' => 'Schtrooss:',
 	'payflowpro_gateway-donor-city' => 'Schtadt:',
 	'payflowpro_gateway-donor-state' => 'Schtaat:',
 	'payflowpro_gateway-donor-country' => 'Land/Gegend:',
+	'payflowpro_gateway-donor-address' => 'Adress:',
+	'payflowpro_gateway-error-msg-lname' => 'Familie-Naame',
 	'donate_interface-GBP' => 'GBP: Britisch Pfund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
