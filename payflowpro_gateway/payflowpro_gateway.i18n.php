@@ -3198,6 +3198,7 @@ $messages['ml'] = array(
 );
 
 /** Nedersaksisch (Nedersaksisch)
+ * @author Krinkle
  * @author Servien
  */
 $messages['nds-nl'] = array(
@@ -3272,7 +3273,7 @@ Prebeer 't laoter weer.",
 <p>De code mit dree ciefers steet op de achterkaante van de kaorte, in 'tzelfde gebied as de haandtekening.
 Meestentieds staon der meer ciefers in dat gebied, mar allinnig de leste dree ciefers bin de CVV-code.</p>
 <h4>American Express</h4>
-<p>De code steet altied drek boven 't nummer an de veurkaante van de kaorte.
+<p>De code steet <i>altied</i> drek <i>boven</i> 't nummer an de veurkaante van de kaorte.
 In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet altied boven 't nummer van de kaorte.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Wikipedie is a prejek van de Wikimedia Foundation. A-j vragen of opmarkingen hebben, dan mu-j effen kontak opnemen mit de Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Naoda-j op "{{int:payflowpro_gateway-donor-submit}}" klikken, wönnen joew kredietkaortgegevens verwark.',
