@@ -17,7 +17,6 @@ $wgExtensionCredits['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'DonateInterface',
 	//'author' => array( 'diana' ), // FIXME: Committer does not have details in http://svn.wikimedia.org/viewvc/mediawiki/USERINFO/
-	'description' => 'Donate interface',
 	'descriptionmsg' => 'donate_interface-desc', 
 	'url' => 'http://www.mediawiki.org/wiki/Extension:DonateInterface',
 );

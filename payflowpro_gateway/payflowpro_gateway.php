@@ -14,7 +14,6 @@ $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'PayflowPro Gateway',
 	'author' => 'Four Kitchens',
 	'version' => '1.0.0',
-	'description' => 'Integrates Paypal Payflow Pro credit card processing',
 	'descriptionmsg' => 'payflowpro_gateway-desc',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:PayflowProGateway',
 );

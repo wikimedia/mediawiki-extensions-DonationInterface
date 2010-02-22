@@ -7,19 +7,17 @@ require_once( "\$IP/extensions/DonationInterface/activemq_stomp/activemq_stomp.p
 EOT;
   exit( 1 );
 }
- 
+
 $wgExtensionCredits['other'][] = array(
-	     'name' => 'ActiveMQ - PHP STOMP',
-	     'author' => 'Four Kitchens',
-	     'url' => '',
-	     'description' => 'Interface to send donation data to ActiveMQ server',
-	     'descriptionmsg' => 'activemq_stomp-desc',
-	     'version' => '1.0.0',
+	'name' => 'ActiveMQ - PHP STOMP',
+	'author' => 'Four Kitchens',
+	'url' => '',
+	'descriptionmsg' => 'activemq_stomp-desc',
+	'version' => '1.0.0',
 );
 
-
 $dir = dirname(__FILE__) . '/';
- 
+
 $wgAutoloadClasses['activemq_stomp'] = $dir . 'activemq_stomp.php'; # Tell MediaWiki to load the extension body.
 
 //default variables that should be set in LocalSettings
@@ -37,26 +35,26 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 */
 function efStompSetup(&$parser) {
 	     global $wgParser, $wgOut;
-	     
+
 	     $parser->disableCache();
-	     			
+
 	     $wgParser->setHook( 'stomp', 'efStompTest' );
-       
+
        return true;
 }
 
 function efStompTest($input, $args, &$parser) {
-  
+
         $parser->disableCache();
-        
+
         $output = "STOMP Test page";
-        
+
         wfRunHooks('gwStomp', array(&$transaction));
-        
+
         return $output;
 }
 
-/** 
+/**
 * Hook to get user provided and order data
 *
 */
@@ -70,29 +68,29 @@ $wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
 function sendSTOMP($transaction) {
         global $wgOut;
         global $wgStompServer, $wgStompQueueName;
-        
+
         $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'test';
-        
+
         // include a library
         require_once("Stomp.php");
-          
+
         $message = json_encode(createQueueMessage($transaction));
-        
+
         // make a connection
         $con = new Stomp($wgStompServer);
-        
+
         // connect
         $con->connect();
-        
+
         // send a message to the queue
         $result = $con->send("/queue/$queueName", $message, array('persistent' => 'true'));
-        
+
         if (!$result) {
                 wfDebugLog('activemq_stomp', 'Send to Q failed for this message: ' . $message);
 }
-        
+
         $con->disconnect();
-        
+
         return true;
 }
 
@@ -102,29 +100,29 @@ function sendSTOMP($transaction) {
 function sendPendingSTOMP($transaction) {
         global $wgOut;
         global $wgStompServer, $wgPendingStompQueueName;
-        
+
         $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'pending';
-        
+
         // include a library
         require_once("Stomp.php");
-          
+
         $message = json_encode(createQueueMessage($transaction));
-        
+
         // make a connection
         $con = new Stomp($wgStompServer);
-        
+
         // connect
         $con->connect();
-        
+
         // send a message to the queue
         $result = $con->send("/queue/$queueName", $message, array('persistent' => 'true'));
-        
+
         if (!$result) {
                 wfDebugLog('activemq_stomp', 'Send to Pending Q failed for this message: ' . $message);
 }
-        
+
         $con->disconnect();
-        
+
         return true;
 }
 
@@ -143,12 +141,12 @@ function sendPendingSTOMP($transaction) {
  */
 function createQueueMessage($transaction) {
         $message = array();
-  
+
         $timestamp = strtotime($transaction['date']);
-        
+
         // specifically designed to match the CiviCRM API that will handle it
         // edit this array to include/ignore transaction data sent to the server
-        $message = array( 
+        $message = array(
                 'contribution_tracking_id' => $transaction['contribution_tracking_id'],
                 'optout'                 => $transaction['optout'],
                 'anonymous'              => $transaction['anonymous'],
@@ -179,8 +177,8 @@ function createQueueMessage($transaction) {
                 'gross'                  => $transaction['amount'],
                 'net'                    => $transaction['amount'],
                 'date'                   => $transaction['date'],
-  
+
         );
- 
+
         return $message;
 }
