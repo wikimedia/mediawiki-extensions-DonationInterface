@@ -2776,6 +2776,7 @@ $messages['ja'] = array(
  * @author Temuri rajavi
  */
 $messages['ka'] = array(
+	'payflowpro_gateway-card-legend' => 'საკრედიტო ბარათის ინფორმაცია',
 	'payflowpro_gateway-cvv-link' => 'მაგალითი',
 	'payflowpro_gateway-donor-currency-label' => 'ვალუტა',
 	'payflowpro_gateway-donor-email' => 'იმეილის მისამართი:',
