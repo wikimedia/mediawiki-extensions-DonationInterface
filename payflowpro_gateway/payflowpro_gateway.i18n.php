@@ -788,6 +788,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 );
 
 /** Catalan (Català)
+ * @author Aleator
  * @author SMP
  * @author Solde
  */
@@ -869,7 +870,7 @@ Habitualment el panell de signatura tindrà una sèrie de números, però només
 En alguns casos, el codi es troba al costat esquerre, però sempre per damunt del número de compte.</p><br />",
 	'payflowpro_gateway-question-comment' => 'La Viquipèdia és un projecte de la Fundació Wikimedia. Preguntes o comentaris? Comuniqueu-vos amb la Fundació Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Després de fer clic a «{{int:payflowpro_gateway-donor-submit}}» la informació de la targeta de crèdit serà processada.',
-	'payflowpro_gateway-credit-storage-processing' => 'Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privacitat</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privadesa</a>.',
 	'donate_interface-GBP' => 'GBP: Lliura esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dòlar americà',
