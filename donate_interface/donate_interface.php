@@ -41,8 +41,8 @@ function efDonateSetup( &$parser ) {
 
   $parser->setHook( 'donate', 'efDonateRender' );
      
-	 //process form
-	 wfRunHooks( 'DonationInterface_DisplayForm' );
+  //process form
+  wfRunHooks( 'DonationInterface_DisplayForm' );
 
   return true;
 }
@@ -113,9 +113,9 @@ function fnDonateCreateOutput() {
 	
   $gatewayMenu = '';
   
-	foreach($values as $current) {
+  foreach($values as $current) {
     $gatewayMenu .= Xml::option($current['display_name'], $current['form_value']);
-    }
+  }
   
     //get available currencies
  
@@ -322,12 +322,17 @@ function fnProcessDonationForm( ) {
       'email' => '',
 	 );
 
-	// if form has been submitted, assign data and redirect user to chosen payment gateway 
-	if ($_POST['process'] == "_yes_") {
+    // Checking that it was posted is not enough, donate_interface-amount-error
+    // would be shown on previews, anon purges... (bug 22640)
+    if ( ( !$wgRequest->wasPosted() ) || ( $wgRequest->getVal('process') != "_yes_" ) ) {
+        return true;
+    }
+    // if form has been submitted, assign data and redirect user to chosen payment gateway 
+
     //find out which amount option was chosen for amount, redefined buttons or text box
-    if ( isset($_POST['amount']) && preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount')) ) {
+    if ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount') ) ) {
 		  $amount = number_format( $wgRequest->getText('amount'), 2 );
-    } elseif ( preg_match('/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amountGiven') )) { 
+    } elseif ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amountGiven') ) ) { 
         $amount = number_format( $wgRequest->getText('amountGiven'), 2, '.', '' ); 
     } else {
         $wgOut->addHTML( wfMsg( 'donate_interface-amount-error' ) );
@@ -353,15 +358,11 @@ function fnProcessDonationForm( ) {
   $url = '';
     
   if ( wfRunHooks('DonationInterface_Page', array(&$url)) ) {
- 			  
-	   // send user to correct page for payment  
-    fnDonateRedirectToProcessorPage( $userInput, $url );
-    
+      // send user to correct page for payment  
+      fnDonateRedirectToProcessorPage( $userInput, $url );
   } else {
       $wgOut->addHTML( wfMsg( 'donate_interface-processing-error' ) );
-    }
-  
-  }// end if form has been submitted
+  }
     
   return true;
 }
