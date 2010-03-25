@@ -4358,6 +4358,18 @@ V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad
 	'donate_interface-JPY' => 'JPY: japonský jen',
 );
 
+/** Slovenian (Slovenščina)
+ * @author Dbc334
+ */
+$messages['sl'] = array(
+	'donate_interface-GBP' => 'GBP: britanski funt',
+	'donate_interface-EUR' => 'EUR: evro',
+	'donate_interface-USD' => 'USD: ameriški dolar',
+	'donate_interface-AUD' => 'AUD: avstralski dolar',
+	'donate_interface-CAD' => 'CAD: kanadski dolar',
+	'donate_interface-JPY' => 'JPY: japonski jen',
+);
+
 /** Swedish (Svenska)
  * @author Boivie
  * @author Per
