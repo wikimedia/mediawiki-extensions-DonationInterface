@@ -677,13 +677,13 @@ Klaskit en-dro a-benn ur pennadig.',
 	'payflowpro_gateway-thankyou' => 'Trugarez evit ho roadenn !',
 	'payflowpro_gateway-post-transaction' => 'Munudoù an treuzgread',
 	'payflowpro_gateway-submit-button' => 'Ober un donezon',
-	'payflowpro_gateway-cvv-explain' => "<h4>Petra eo ?</h4>
-<p>Talvoudenn wiriañ ar gartenn (CVV) eo an 3 pe 4 sifr a dalvez da wiriañ emañ mat ar gartenn gant perc'henn ar gartenn fizikel pa sav ur paeamant enlinenn, ar pezh zo un doare da zizarbenn an implijoù flodek pe diaotre.</p>
+	'payflowpro_gateway-cvv-explain' => "<h4>Petra eo CVV ?</h4>
+<p>An talvoud gwiriañ kartennoù (CVV) eo an 3 pe 4 sifr a dalvez da wiriañ emañ mat ar gartenn fizikel etre daouarn ar perc'henn anezhi. Sikour a ra da zizarbenn an implijoù flodek pe diaotre.</p>
 <h4>Visa, Mastercard</h4>
-<p>Emañ ar c'hod 3 sifr e tu gin ar gartenn en takad miret evit ar sinadur.
+<p>Emañ ar c'hod 3 sifr e tu gin ar gartenn e diabarzh an takad miret evit ar sinadur.
 Un heuliad sifroù a ya d'ober ar varrenn sinañ met n'eus nemet an 3 sifr diwezhañ a ya d'ober ar c'hod CVV.</p>
 <h4>American Express</h4>
-<p>ATAV emañ ar c'hod A-US d'an niverenn-gont dreistlec'hiet war tu mat ar gartenn.
+<p><i>Atav</i> emañ ar c'hod <i>a-us</i> d'an niverenn-gont dreistlec'hiet war tu mat ar gartenn.
 A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niverenn-gont.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Ur raktres eus Diazezadur Wikimedia eo Wikipedia. Goulennoù pe soñjoù ? Kit e daremrped gant Diazezadur Wikimedia : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Goude bezañ kliket war   "{{int:payflowpro_gateway-donor-submit}}", e vo kemeret e kont titouroù ho kartenn-gred.',
@@ -2815,7 +2815,9 @@ $messages['ka'] = array(
  * @author Nayvik
  */
 $messages['kn'] = array(
+	'payflowpro_gateway-donor-city' => 'ನಗರ:',
 	'payflowpro_gateway-donor-address' => 'ವಿಳಾಸ:',
+	'payflowpro_gateway-error-msg-city' => 'ನಗರ',
 );
 
 /** Korean (한국어)
