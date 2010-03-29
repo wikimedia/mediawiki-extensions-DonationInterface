@@ -2815,6 +2815,7 @@ $messages['ka'] = array(
  * @author Nayvik
  */
 $messages['kn'] = array(
+	'payflowpro_gateway-cvv-link' => 'ಉದಾಹರಣೆ',
 	'payflowpro_gateway-donor-city' => 'ನಗರ:',
 	'payflowpro_gateway-donor-address' => 'ವಿಳಾಸ:',
 	'payflowpro_gateway-error-msg-city' => 'ನಗರ',
