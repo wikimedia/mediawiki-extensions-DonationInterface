@@ -3716,10 +3716,10 @@ Spróbuj ponownie później.',
 	'payflowpro_gateway-cvv-explain' => '<h4>Co to jest CVV?</h4>
 <p>Kod CVV to trzy lub cztery cyfry, których sprawdzenie jest metodą na zweryfikowanie fizycznego posiadania karty przez osobę dokonującą wpłaty. Uniemożliwia nieautoryzowane lub nieuprawnione użycie karty.</p>
 <h4>Visa, Mastercard</h4>
-<p>3-cyfrowy kod znajduje się na odwrocie karty, w środku miejsca przeznaczonego na podpis.
+<p>3-cyfrowy kod znajduje się na odwrocie karty, w polu przeznaczonym na podpis.
 Zazwyczaj w miejscu podpisu znajduje się długi ciąg cyfr, ale tylko trzy ostatnie z ich tworzą kod CVV.</p>
 <h4>American Express</h4>
-<p>Kod zawsze znajduje się powyżej wytłoczonych (wypukłych) cyfr numeru konta na przedniej stronie karty.
+<p>Kod <i>zawsze</i> znajduje się <i>powyżej</i> wytłoczonych (wypukłych) cyfr numeru konta na przedniej stronie karty.
 W niektórych przypadkach, kod znajduje się po lewej stronie karty, ale zawsze powyżej numeru rachunku bankowego.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia jest projektem Fundacji Wikimedia. Pytania lub komentarze? Kontakt z Fundacją Wikimedia <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Po kliknięciu „{{int:payflowpro_gateway-donor-submit}}” zostaną przetworzone informacje o karcie kredytowej.',
