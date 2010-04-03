@@ -2826,6 +2826,9 @@ $messages['kn'] = array(
  */
 $messages['ko'] = array(
 	'payflowpro_gateway-amount-legend' => '기부 금액:',
+	'payflowpro_gateway-donor-amount' => '금액:',
+	'payflowpro_gateway-donor-email' => '이메일 주소:',
+	'payflowpro_gateway-donor-name' => '이름:',
 	'payflowpro_gateway-donor-postal' => '우편 번호:',
 	'payflowpro_gateway-donor-address' => '주소:',
 	'payflowpro_gateway-donor-card-num' => '카드 번호:',
