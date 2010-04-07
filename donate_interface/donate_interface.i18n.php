@@ -1408,6 +1408,45 @@ Quy định quyền riêng tư đối với người đóng góp của chúng t�
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
+/** Cantonese */
+$messages['yue'] = array(
+	'donate_interface' => '支持Wikimedia',
+	'donate_interface-desc' => '捐綫登陸版整合嘅閘道擴展',
+	'donate_interface-intro' => '請揀一種俾錢方法、金額同貨幣。',
+	'donate_interface-amount' => '捐款金額：',
+	'donate_interface-other-amount' => '其它金額',
+	'donate_interface-currency'  => '貨幣：',
+	'donate_interface-gateway' => '俾錢方法：',
+	'donate_interface-submit-button'  => '捐錢',
+	'donate_interface-comment-message' => '同個世界有個諗法？響呢度放唔多過200個字元嘅評論：',
+	'donate_interface-comment-label' => '註解：',
+	'donate_interface-anon-message' => '請列示我個名（響我嘅註解隔離）響個公共捐錢者度。',
+	'donate_interface-email-agreement' => "我同意收未來嘅Wikimedia Foundation嘅新聞紙或者電郵。
+我哋唔會賣或交易你嘅資料。
+我哋嘅捐錢者嘅私隱政策可以響<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>呢度</a>搵到",
+	'donate_interface-comment-title' => '公共註解',
+	'donate_interface-amount-error' => '**請輸入一個有效嘅金額**',
+	'donate_interface-processing-error' => '處理你嘅請求嗰陣出錯。
+冇可以用嘅處理器。',
+	'donate_interface-GBP' => 'GBP: 英鎊',
+	'donate_interface-EUR' => 'EUR: 歐元',
+	'donate_interface-USD' => 'USD: 美元',
+	'donate_interface-AUD' => 'AUD: 澳大利亞元',
+	'donate_interface-CAD' => 'CAD: 加拿大元',
+	'donate_interface-CHF' => 'CHF: 瑞士法郎',
+	'donate_interface-CZK' => 'CZK: 捷克克朗',
+	'donate_interface-DKK' => 'DKK: 丹麥克朗',
+	'donate_interface-HKD' => 'HKD: 港元',
+	'donate_interface-HUF' => 'HUF: 匈牙利福林',
+	'donate_interface-JPY' => 'JPY: 日圓',
+	'donate_interface-NZD' => 'NZD: 新西蘭元',
+	'donate_interface-NOK' => 'NOK: 挪威克朗',
+	'donate_interface-PLN' => 'PLN: 波蘭茲羅提',
+	'donate_interface-SGD' => 'SGD: 新加坡元',
+	'donate_interface-SEK' => 'SEK: 瑞典克朗',
+	'donate_interface-ILS' => 'ILS: 以色列謝克爾',
+);
+
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Bencmq
  */
@@ -1429,5 +1468,74 @@ $messages['zh-hans'] = array(
 	'donate_interface-comment-title' => '公开的评论',
 	'donate_interface-amount-error' => '**请输入有效的数额**',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
+	'donate_interface-GBP' => 'GBP: 英镑',
+	'donate_interface-EUR' => 'EUR: 欧元',
+	'donate_interface-USD' => 'USD: 美元',
+	'donate_interface-AUD' => 'AUD: 澳大利亚元',
+	'donate_interface-CAD' => 'CAD: 加拿大元',
+	'donate_interface-CHF' => 'CHF: 瑞士法郎',
+	'donate_interface-CZK' => 'CZK: 捷克克朗',
+	'donate_interface-DKK' => 'DKK: 丹迈克朗',
+	'donate_interface-HKD' => 'HKD: 港元',
+	'donate_interface-HUF' => 'HUF: 匈牙利福林',
+	'donate_interface-JPY' => 'JPY: 日圆',
+	'donate_interface-NZD' => 'NZD: 新西兰元',
+	'donate_interface-NOK' => 'NOK: 挪威克朗',
+	'donate_interface-PLN' => 'PLN: 波兰兹罗提',
+	'donate_interface-SGD' => 'SGD: 新加坡元',
+	'donate_interface-SEK' => 'SEK: 瑞典克朗',
+	'donate_interface-ILS' => 'ILS: 以色列谢克尔',	
 );
 
+/** Traditional Chinese */
+$messages['zh-hant'] = array(
+	'donate_interface' => '支持Wikimedia',
+	'donate_interface-desc' => '捐款登陸頁面整合的閘道擴展',
+	'donate_interface-intro' => '請選擇一種付款方式、金額以及貨幣。',
+	'donate_interface-amount' => '捐款金額：',
+	'donate_interface-other-amount' => '其它金額',
+	'donate_interface-currency'  => '貨幣：',
+	'donate_interface-gateway' => '付款方式：',
+	'donate_interface-submit-button'  => '捐款',
+	'donate_interface-comment-message' => '跟世界有個想法？在響呢度放唔多過200個字元的評論：',
+	'donate_interface-comment-label' => '註解：',
+	'donate_interface-anon-message' => '請列示我的名字（在我的註解旁邊）於公共捐款者中。',
+	'donate_interface-email-agreement' => "我同意接收未來的Wikimedia Foundation的新聞稿或者電郵。
+我們不會賣或交易您的資料。
+我們捐款者的隱私政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裏</a>找到",
+	'donate_interface-comment-title' => '公共註解',
+	'donate_interface-amount-error' => '**請輸入一個有效的金額**',
+	'donate_interface-processing-error' => '處理您的請求時出錯。
+沒可以用的處理器。',
+	'donate_interface-GBP' => 'GBP: 英鎊',
+	'donate_interface-EUR' => 'EUR: 歐元',
+	'donate_interface-USD' => 'USD: 美元',
+	'donate_interface-AUD' => 'AUD: 澳大利亞元',
+	'donate_interface-CAD' => 'CAD: 加拿大元',
+	'donate_interface-CHF' => 'CHF: 瑞士法郎',
+	'donate_interface-CZK' => 'CZK: 捷克克朗',
+	'donate_interface-DKK' => 'DKK: 丹麥克朗',
+	'donate_interface-HKD' => 'HKD: 港元',
+	'donate_interface-HUF' => 'HUF: 匈牙利福林',
+	'donate_interface-JPY' => 'JPY: 日圓',
+	'donate_interface-NZD' => 'NZD: 新西蘭元',
+	'donate_interface-NOK' => 'NOK: 挪威克朗',
+	'donate_interface-PLN' => 'PLN: 波蘭茲羅提',
+	'donate_interface-SGD' => 'SGD: 新加坡元',
+	'donate_interface-SEK' => 'SEK: 瑞典克朗',
+	'donate_interface-ILS' => 'ILS: 以色列謝克爾',
+);
+
+/** Hong Kong Chinese */
+$messages['zh-hk'] = array(
+	'donate_interface-email-agreement' => "我同意接收未來的Wikimedia Foundation的新聞稿或者電郵。
+我們不會賣或交易您的資料。
+我們捐款者的私隱政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裏</a>找到",
+);
+
+/** Taiwan Chinese */
+$messages['zh-tw'] = array(
+	'donate_interface-email-agreement' => "我同意接收未來的維基媒體的新聞稿或者電郵。
+我們不會賣或交易您的資料。
+我們捐款者的隱私政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裡</a>找到",
+);
