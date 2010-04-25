@@ -1425,6 +1425,23 @@ $messages['el'] = array(
 	'donate_interface-JPY' => 'JPY: Ιαπωνικό Γεν',
 );
 
+/** British English (British English)
+ * @author Reedy
+ */
+$messages['en-gb'] = array(
+	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided e-mail address if we cannot finalise your donation. Please e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
+	'payflowpro_gateway-response-13' => 'Your transaction requires voice authorisation.
+Please contact us to continue your transaction.',
+	'payflowpro_gateway-cvv-explain' => '<h4>What is CVV?</h4>
+<p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorised or fraudulent use.</p>
+<h4>Visa, Mastercard</h4>
+<p>The 3-digit code is located on the back of your card, inside the signature area.
+Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
+<h4>American Express</h4>
+<p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
+In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
+);
+
 /** Esperanto (Esperanto)
  * @author ArnoLagrange
  * @author Yekrats
@@ -1487,7 +1504,7 @@ Dankon pro via donaco!',
 Bonvolu kontakti nin por plufari vian pagon.',
 	'payflowpro_gateway-response-114' => 'Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.',
 	'payflowpro_gateway-response-23' => 'Via kreditkarta numero aŭ validlimdato estas malĝusta.',
-	'payflowpro_gateway-response-4' => 'Nevalida monsumo.',
+	'payflowpro_gateway-response-4' => 'Malvalida monsumo.',
 	'payflowpro_gateway-response-24' => 'Via kreditkarta numero aŭ validlimdato estas malĝusta.',
 	'payflowpro_gateway-response-112' => 'Via adreso aŭ sekureca kodo estas malĝusta.',
 	'payflowpro_gateway-response-125' => 'Via pago estis malaprobita de Kontraŭfraŭdaj Servoj.',
@@ -2888,7 +2905,7 @@ $messages['ko'] = array(
 	'donate_interface-JPY' => 'JPY: 일본 엔',
 );
 
-/** Ripoarisch (Ripoarisch)
+/** Colognian (Ripoarisch)
  * @author Purodha
  */
 $messages['ksh'] = array(
@@ -5274,12 +5291,12 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-thankyou' => '感谢您的捐赠！',
 	'payflowpro_gateway-post-transaction' => '交易详情',
 	'payflowpro_gateway-submit-button' => '捐助',
-	'donate_interface-GBP' => 'GBP：英镑',
-	'donate_interface-EUR' => 'EUR：欧元',
-	'donate_interface-USD' => 'USD：美元',
-	'donate_interface-AUD' => 'AUD：澳大利亚元',
-	'donate_interface-CAD' => 'CAD：加拿大元',
-	'donate_interface-JPY' => 'JPY：日元',
+	'donate_interface-GBP' => 'GBP: 英镑',
+	'donate_interface-EUR' => 'EUR: 欧元',
+	'donate_interface-USD' => 'USD: 美元',
+	'donate_interface-AUD' => 'AUD: 澳大利亚元',
+	'donate_interface-CAD' => 'CAD: 加拿大元',
+	'donate_interface-JPY' => 'JPY: 日圆',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
@@ -5351,11 +5368,11 @@ $messages['zh-hant'] = array(
 	'payflowpro_gateway-thankyou' => '感謝您的捐贈！',
 	'payflowpro_gateway-post-transaction' => '交易詳情',
 	'payflowpro_gateway-submit-button' => '捐助',
-	'donate_interface-GBP' => 'GBP：英鎊',
-	'donate_interface-EUR' => 'EUR：歐元',
-	'donate_interface-USD' => 'USD：美元',
-	'donate_interface-AUD' => 'AUD：澳大利亞元',
-	'donate_interface-CAD' => 'CAD：加拿大元',
-	'donate_interface-JPY' => 'JPY：日元',
+	'donate_interface-GBP' => 'GBP: 英鎊',
+	'donate_interface-EUR' => 'EUR: 歐元',
+	'donate_interface-USD' => 'USD: 美元',
+	'donate_interface-AUD' => 'AUD: 澳大利亞元',
+	'donate_interface-CAD' => 'CAD: 加拿大元',
+	'donate_interface-JPY' => 'JPY: 日圓',
 );
 
