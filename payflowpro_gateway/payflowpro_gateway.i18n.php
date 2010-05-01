@@ -3343,6 +3343,7 @@ Neem kontak op mit ons veur de storting.',
 	'payflowpro_gateway-response-default' => "Der gung wat fout mit de storting.
 Prebeer 't laoter weer.",
 	'php-response-declined' => 'Joew storting is of-ewezen.',
+	'payflowpro_gateway-thankyou' => 'Bedank veur de centen!',
 	'payflowpro_gateway-post-transaction' => 'Gegevens van de storting',
 	'payflowpro_gateway-submit-button' => 'Geld geven',
 	'payflowpro_gateway-cvv-explain' => "<h4>Wat is CVV?</h4>
