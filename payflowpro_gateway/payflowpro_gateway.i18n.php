@@ -2927,9 +2927,43 @@ $messages['ko'] = array(
 	'payflowpro_gateway-error-msg-emailAdd' => '이메일 주소',
 	'payflowpro_gateway-error-msg-fname' => '이름',
 	'payflowpro_gateway-error-msg-lname' => '성',
+	'payflowpro_gateway-error-msg-street' => '도로 주소',
+	'payflowpro_gateway-error-msg-city' => '시/군/구',
+	'payflowpro_gateway-error-msg-state' => '시/도/주',
 	'payflowpro_gateway-error-msg-zip' => '우편 번호',
 	'payflowpro_gateway-error-msg-card_num' => '신용 카드 번호',
 	'payflowpro_gateway-error-msg-expiration' => '카드 유효 기간',
+	'payflowpro_gateway-error-msg-cvv' => '카드 뒷면의 CVV',
+	'payflowpro_gateway-response-0' => '거래가 승인되었습니다.
+당신의 기부에 감사드립니다!',
+	'payflowpro_gateway-response-126' => '거래 승인을 기다리고 있습니다.',
+	'payflowpro_gateway-response-126-2' => '입력하신 정보 중 일부가 당신의 신용 카드 정보와 일치하지 않거나 너무 많은 액수를 입력하였습니다. 당신의 안전을 위해 당신의 기부를 심사히고 있으며 기부를 완료하지 못할 경우 입력하신 이메일 주소로 알려 드릴 것입니다. 질문이 있으시다면 <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>로 이메일을 보내주세요. 감사합니다!',
+	'payflowpro_gateway-response-12' => '자세한 정보를 얻으시려면 신용카드 회사에 문의하십시오.',
+	'payflowpro_gateway-response-13' => '당신의 거래는 음성 확인을 필요로 합니다.
+거래를 계속하려면 연락해주십시오.',
+	'payflowpro_gateway-response-114' => '자세한 정보를 얻으시려면 신용카드 회사에 문의하십시오.',
+	'payflowpro_gateway-response-23' => '당신의 신용 카드 번호나 유효기간이 잘못되었습니다.',
+	'payflowpro_gateway-response-4' => '금액이 잘못되었습니다.',
+	'payflowpro_gateway-response-24' => '당신의 신용 카드 번호나 유효기간이 잘못되었습니다.',
+	'payflowpro_gateway-response-112' => '당신의 주소 또는 CVV 번호(보안 코드)가 잘못되었습니다.',
+	'payflowpro_gateway-response-125' => '당신의 거래가 사기 방지 시스템에 의해 거부되었습니다.',
+	'payflowpro_gateway-response-125-2' => '당신의 신용 카드를 확인할 수 없습니다. 모든 정보가 신용 카드 정보와 일치하는지 확인하거나 다른 카드를 이용해 주십시오. <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">다른 방법으로 기부</a>할 수도 있으며 <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>로 문의할 수도 있습니다. 당신의 후원에 감사드립니다.',
+	'payflowpro_gateway-response-default' => '거래를 처리하는 중에 오류가 발생했습니다.
+잠시 후에 다시 시도해주세요.',
+	'php-response-declined' => '거래가 거부되었습니다.',
+	'payflowpro_gateway-thankyou' => '당신의 기부에 감사드립니다!',
+	'payflowpro_gateway-post-transaction' => '거래 세부 사항',
+	'payflowpro_gateway-submit-button' => '기부하기',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV가 무엇입니까?</h4>
+<p>카드 보유 확인 코드 (CVV): 3-4자리 숫자가 카드가 물리적으로 주인이 소유하고 있음을 확인하는 데 도움이 됩니다. 이는 승인되지 않은 사용이나 사기를 방지하는 데 도임이 됩니다.</p>
+<h4>비자카드, 마스터카드</h4>
+<p>3자리 숫자가 카드 뒷면의 서명란에 적혀 있습니다. 서명 란에 여러 숫자가 있지만 마지막 3자리 숫자만이 CVV 코드입니다.</p>
+<h4>아메리칸 엑스프레스</h4>
+<p>코드는 <i>항상</i> 카드 앞면에 양각된 카드 번호 <i>위에</i> 위치하고 있습니다.
+어떤 경우에는 코드가 카드 왼쪽에 있을 수는 있지만 항상 카드 번호 위에 위치해 있습니다.</p><br />',
+	'payflowpro_gateway-question-comment' => '위키백과는 위키미디어 재단의 프로젝트 중 하나입니다. 질문이나 의견이 있으신가요? 위키미디어 재단에 문의해주세요: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => '"{{int:payflowpro_gateway-donor-submit}}"를 클릭하면, 당신의 신용 카드 정보가 처리될 것입니다.',
+	'payflowpro_gateway-credit-storage-processing' => '우리는 신용 카드 정보를 저장하지 않으며 당신의 개인 정보는 <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">개인정보 정책</a>을 따릅니다.',
 	'donate_interface-GBP' => 'GBP: 영국 파운드',
 	'donate_interface-EUR' => 'EUR: 유로',
 	'donate_interface-USD' => 'USD: 미국 달러',
