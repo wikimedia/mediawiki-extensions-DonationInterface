@@ -662,6 +662,7 @@ $messages['br'] = array(
 	'payflowpro_gateway-response-0' => "Asantet ez eus bet d'an treuzgread.
 Ho trugarekaat evit ho tonezon!",
 	'payflowpro_gateway-response-126' => "O c'hortoz asantiñ d'an treuzgread emeur",
+	'payflowpro_gateway-response-126-2' => "Lod eus an titouroù lakaet ganeoc'h ne glotont ket gant profil ho kartenn-vank, pe neuze hoc'h eus graet ur prof uhel-kaer. Evit ho kwareziñ, emeur bremañ o wiriañ an donezon. Kaset e vo deoc'h keloù dre ar postel merket ganeoc'h ma ne zeuomp ket a-benn d'ober war-dro ho tonezon. Mar fell deoc'h gouzout hiroc'h e c'hallit kas ur postel deomp da <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Trugarez vras !",
 	'payflowpro_gateway-response-12' => "Kit e darempred gant ho kompagnunezh kartenn-gred evit gouzout hiroc'h.",
 	'payflowpro_gateway-response-13' => "Un aotre dre ar vouezh  zo rekis evit an treuzgread.
 Deuit e darempred ganeomp evit kenderc'hel ganti.",
@@ -671,6 +672,7 @@ Deuit e darempred ganeomp evit kenderc'hel ganti.",
 	'payflowpro_gateway-response-24' => 'Fall eo an niverenn kartenn-gred pe an deiziad termen lakaet.',
 	'payflowpro_gateway-response-112' => "Fall eo ar chomlec'h pe an niverenn CVV (kod surentez) lakaet.",
 	'payflowpro_gateway-response-125' => "Dinac'het eo bet an treuzgread gant Servijoù Dizarbenn ar Floderezh.",
+	'payflowpro_gateway-response-125-2' => "N'eus ket bet gallet kadarnaat ho kartenn. Gwiriit mat e klot an titouroù lakaet ganeoc'h gant profil ho kartenn-vank, pe neuze klaskit gant ur gartenn all. Gallout a rit ober gant <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">diskoulmoù all da reiñ, ivez,</a> pe mont e darempred ganeomp dre ar chomlec'h da-heul <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Trugarez deoc'h evit harpañ ac'hanomp.",
 	'payflowpro_gateway-response-default' => 'Ur fazi zo bet e-ser tretiñ ho treuzgread.
 Klaskit en-dro a-benn ur pennadig.',
 	'php-response-declined' => "Dinac'het eo bet an treuzgread.",
