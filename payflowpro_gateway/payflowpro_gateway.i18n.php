@@ -244,6 +244,50 @@ Probeer asseblief later weer.",
 	'donate_interface-JPY' => 'JPY: Japannese jen',
 );
 
+/** Gheg Albanian (Gegë)
+ * @author Mdupont
+ */
+$messages['aln'] = array(
+	'payflowprogateway' => 'Asistenca Wikimedia',
+	'payflowpro_gateway-desc' => 'PayPal kartë krediti të përpunimit Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Kjo faqe është i arritshëm vetëm nga faqja e dhurimit.',
+	'payflowpro_gateway-form-message' => 'Jepni kontributin tuaj me kartë krediti. Ka <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">mënyra të tjera për të dhënë, duke përfshirë PayPal, kontrolloni, ose mail</a> .',
+	'payflowpro_gateway-form-message-2' => 'Për të ndryshuar sasinë ose valutë, të kthehen në <a href="/index.php?title=Donate">faqen donacion</a>',
+	'payflowpro_gateway-donor-legend' => 'informacionin e Donatorëve',
+	'payflowpro_gateway-card-legend' => 'informacion Credit card',
+	'payflowpro_gateway-amount-legend' => 'Shuma Donation:',
+	'payflowpro_gateway-cvv-link' => 'Shembull',
+	'payflowpro_gateway-donor-amount' => 'Shuma:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'E-mail adresa:',
+	'payflowpro_gateway-donor-fname' => 'Emri:',
+	'payflowpro_gateway-donor-mname' => 'Emri Mesme:',
+	'payflowpro_gateway-donor-lname' => 'Mbiemri:',
+	'payflowpro_gateway-donor-name' => 'Emri:',
+	'payflowpro_gateway-donor-street' => 'Rruga:',
+	'payflowpro_gateway-donor-city' => 'Qyteti:',
+	'payflowpro_gateway-donor-state' => 'Shteti:',
+	'payflowpro_gateway-donor-postal' => 'Kodi postar:',
+	'payflowpro_gateway-donor-country' => 'Vendi / Rajoni:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kartë krediti:',
+	'payflowpro_gateway-donor-card-num' => 'Numri Card:',
+	'payflowpro_gateway-donor-expiration' => 'Data e skadimit:',
+	'payflowpro_gateway-donor-security' => 'Kodi i sigurisë:',
+	'payflowpro_gateway-donor-submit' => 'Dhuroj',
+	'payflowpro_gateway-donor-currency-msg' => 'Ky donacion është duke u bërë në $1',
+	'payflowpro_gateway-error-msg' => 'Ju lutemi shkruani tuaj $1',
+	'payflowpro_gateway-error-msg-js' => 'Ju lutemi shkruani tuaj',
+	'payflowpro_gateway-error-msg-invalid-amount' => '** Ju lutem shkruani një sasi të vlefshme **',
+	'payflowpro_gateway-error-msg-email' => '** Ju lutem fusni një adresë të vlefshme e-mail **',
+	'payflowpro_gateway-error-msg-amex' => '** Ju lutem shkruani një numër të saktë për kartën American Express .**',
+	'payflowpro_gateway-error-msg-mc' => '** Ju lutem shkruani një numër të saktë për kartë MasterCard .**',
+	'payflowpro_gateway-error-msg-visa' => '** Ju lutem shkruani një numër të saktë për kartën Visa .**',
+	'payflowpro_gateway-error-msg-discover' => '** Ju lutem shkruani një numër të saktë kartë për Zbuloni .**',
+	'payflowpro_gateway-error-msg-amount' => 'Shuma e dhurimit',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adresë e-mail',
+);
+
 /** Arabic (العربية)
  * @author Meno25
  * @author OsamaK
