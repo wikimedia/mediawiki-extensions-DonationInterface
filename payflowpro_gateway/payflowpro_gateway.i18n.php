@@ -2089,7 +2089,7 @@ $messages['gl'] = array(
 	'payflowpro_gateway-accessible' => 'Esta páxina só é accesible a través da páxina de doazóns.',
 	'payflowpro_gateway-form-message' => 'Contribúe coa túa tarxeta de crédito.
 Existen outros <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/gl">xeitos de doar, incluíndo o PayPal, os cheques ou o correo postal</a>.',
-	'payflowpro_gateway-form-message-2' => 'Para cambiar a cantidade ou a moeda, volta á <a href="/index.php?title=Donate">páxina de doazóns</a>',
+	'payflowpro_gateway-form-message-2' => 'Para cambiar a cantidade ou a moeda, volve á <a href="/index.php?title=Donate">páxina de doazóns</a>',
 	'payflowpro_gateway-donor-legend' => 'Información do doante',
 	'payflowpro_gateway-card-legend' => 'Información da tarxeta de crédito',
 	'payflowpro_gateway-amount-legend' => 'Importe da doazón:',
