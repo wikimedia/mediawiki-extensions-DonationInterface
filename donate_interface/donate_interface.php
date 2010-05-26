@@ -33,9 +33,6 @@ $wgHooks['DonationInterface_DisplayForm'][] = 'fnProcessDonationForm';
  */
 function efDonateSetup( &$parser ) {
   global $wgHooks, $wgRequest;
-	
-  //load extension messages
-  wfLoadExtensionMessages( 'DonateInterface' );
 
   $parser->disableCache();
 

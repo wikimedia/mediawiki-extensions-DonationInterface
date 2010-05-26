@@ -7,7 +7,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	public function __construct() {
 		parent::__construct( 'PayflowProGateway' );
-		wfLoadExtensionMessages( 'PayflowProGateway' );
 	}
 
 	/**
