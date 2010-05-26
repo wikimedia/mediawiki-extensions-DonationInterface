@@ -2880,6 +2880,8 @@ $messages['ja'] = array(
  */
 $messages['ka'] = array(
 	'payflowprogateway' => 'მხარი დაუჭირეთ ვიკიმედიას',
+	'payflowpro_gateway-accessible' => 'ეს გვერდი ხელმისაწვდომია მხოლოდ შემოწირულობის გვერდიდან.',
+	'payflowpro_gateway-donor-legend' => 'ინფორმაცია დონორზე',
 	'payflowpro_gateway-card-legend' => 'საკრედიტო ბარათის ინფორმაცია',
 	'payflowpro_gateway-amount-legend' => 'შემოწირულობის თანხა:',
 	'payflowpro_gateway-cvv-link' => 'მაგალითი',
@@ -2916,6 +2918,7 @@ $messages['ka'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'ბარათის მოქმედების დასრულების თარიღი',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV თქვენი ბარათის უკანა მხრიდან',
 	'payflowpro_gateway-response-23' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
+	'payflowpro_gateway-response-4' => 'არასწორი თანხა.',
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-thankyou' => 'გმადლობთ შეწირვისათვის!',
 	'payflowpro_gateway-submit-button' => 'შეწირულობები',
