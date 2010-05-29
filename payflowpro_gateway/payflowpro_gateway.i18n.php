@@ -4896,6 +4896,97 @@ Soňra gaýtadan synaň.',
 	'donate_interface-JPY' => 'JPY: ýapon ýenasy',
 );
 
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'payflowprogateway' => 'Tangkilikin ang Wikimedia',
+	'payflowpro_gateway-desc' => 'Pagsasagawa ng tarheng pang-utang ng PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Mapupuntahan lamang ang pahinang ito mula sa pahina ng pag-aabuloy.',
+	'payflowpro_gateway-form-message' => 'Mag-abuloy sa pamamagitan ng iyong tarhetang pang-utang.
+May <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">iba pang paraang ng pagbibigay, kabilang ang PayPal, tseke, o liham</a>.',
+	'payflowpro_gateway-form-message-2' => 'Upang mabago ang halaga o karaniwang salapi, bumalik sa <a href="/index.php?title=Donate">pahina ng donasyon</a>',
+	'payflowpro_gateway-donor-legend' => 'Kabatirang pangnag-abuloy',
+	'payflowpro_gateway-card-legend' => 'Kabatirang pangtarhetang pang-utang',
+	'payflowpro_gateway-amount-legend' => 'Halaga ng abuloy:',
+	'payflowpro_gateway-cvv-link' => 'Halimbawa',
+	'payflowpro_gateway-donor-amount' => 'Halaga:',
+	'payflowpro_gateway-donor-currency-label' => 'Salaping umiiral:',
+	'payflowpro_gateway-donor-email' => 'Tirahan ng e-liham:',
+	'payflowpro_gateway-donor-fname' => 'Unang pangalan:',
+	'payflowpro_gateway-donor-mname' => 'Panggitnang pangalan:',
+	'payflowpro_gateway-donor-lname' => 'Apelido:',
+	'payflowpro_gateway-donor-name' => 'Pangalan:',
+	'payflowpro_gateway-donor-street' => 'Kalye:',
+	'payflowpro_gateway-donor-city' => 'Lungsod:',
+	'payflowpro_gateway-donor-state' => 'Estado:',
+	'payflowpro_gateway-donor-postal' => 'Kodigo postal:',
+	'payflowpro_gateway-donor-country' => 'Bansa/Rehiyon:',
+	'payflowpro_gateway-donor-address' => 'Tirahan:',
+	'payflowpro_gateway-donor-card' => 'Tarhetang pang-utang:',
+	'payflowpro_gateway-donor-card-num' => 'Bilang na pangtarheta:',
+	'payflowpro_gateway-donor-expiration' => 'Petsa ng pagtatapos:',
+	'payflowpro_gateway-donor-security' => 'Kodigong pangkaligtasan:',
+	'payflowpro_gateway-donor-submit' => 'Mag-abuloy',
+	'payflowpro_gateway-donor-currency-msg' => 'Ang abuloy na ito ay ginagawa sa $1',
+	'payflowpro_gateway-error-msg' => 'Pakilagay ang iyong $1',
+	'payflowpro_gateway-error-msg-js' => 'Pakilagay ang iyong',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Mangyaring maglagay ng isang tanggap na halaga**',
+	'payflowpro_gateway-error-msg-email' => '**Mangyaring maglagay ng isang tanggap na tirahan ng e-liham**',
+	'payflowpro_gateway-error-msg-amex' => '**Mangyaring maglagay ng isang wastong bilang na pangtarheta para sa American Express .**',
+	'payflowpro_gateway-error-msg-mc' => '**Mangyaring magpasok ng isang wastong bilang na pangtarheta para sa MasterCard .**',
+	'payflowpro_gateway-error-msg-visa' => '**Mangyaring maglagay ng isang tamang bilang na pangtarheta para sa Visa.**',
+	'payflowpro_gateway-error-msg-discover' => '**Mangyaring magpasok ng isang tamang bilang na pangtarheta para sa Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'halaga ng abuloy:',
+	'payflowpro_gateway-error-msg-emailAdd' => 'tirahan ng e-liham',
+	'payflowpro_gateway-error-msg-fname' => 'unang pangalan',
+	'payflowpro_gateway-error-msg-lname' => 'apelido',
+	'payflowpro_gateway-error-msg-street' => 'kalye ng tirahan',
+	'payflowpro_gateway-error-msg-city' => 'lungsod',
+	'payflowpro_gateway-error-msg-state' => 'estado',
+	'payflowpro_gateway-error-msg-zip' => 'kodigo postal',
+	'payflowpro_gateway-error-msg-card_num' => 'bilang na pangtarhetang pang-utang',
+	'payflowpro_gateway-error-msg-expiration' => 'petsa ng wakas ng tarheta',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV mula sa likod ng tarheta mo',
+	'payflowpro_gateway-response-0' => 'Napayagan na ang transaksyon mo.
+Salamat sa abuloy mo!',
+	'payflowpro_gateway-response-126' => 'Naghihintay ng pahintulot ang transaksyon mo.',
+	'payflowpro_gateway-response-126-2' => 'Ilan sa mga kabatirang ibinigay mo ang hindi tumugma sa talaksan ng kasaysayan ng iyong tarhetang pang-utang, o nagbigay ka ng isang napakalaking handog.  Para sa iyong kaligtasan, kasalukuyang sinusuri ang iyong abuloy, at ipagbibigay-alam namin sa pamamagitan ng tirahan ng e-liham kung hindi namin napagpasyahan ang donasyon mo.  Mangyaring magpadala ng e-liham sa <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kung mayroon kang mga katanungan.  Salamat!',
+	'payflowpro_gateway-response-12' => 'Mangyaring makipag-ugnayan sa iyong kumpanya ng tarhetang pang-utang para sa iba pang kabatiran.',
+	'payflowpro_gateway-response-13' => 'Nangangailangan ang transaksyon mo ng pagpapatotoong may tinig.
+Mangyaring makipag-ugnayan sa amin upang maipagpatuloy ang transaksyon mo.',
+	'payflowpro_gateway-response-114' => 'Mangyaring makipag-ugnayang sa iyong kumpanya ng tarhetang pang-utang hinggil sa iba pang kabatiran.',
+	'payflowpro_gateway-response-23' => 'Hindi tama ang iyong bilang na pangtarhetang pang-utang o petsa ng pagwawakas.',
+	'payflowpro_gateway-response-4' => 'Hindi tanggap na dami.',
+	'payflowpro_gateway-response-24' => 'Hindi tama ang iyong bilang na pangtarhetang pang-utang o petsa ng wakas.',
+	'payflowpro_gateway-response-112' => 'Hindi tama ang iyong tirahan o bilang na pang-CVV (kodigong pangkaligtasan).',
+	'payflowpro_gateway-response-125' => 'Tinanggihan ng Palingkuran ng Pag-iwas sa Panloloko ang iyong transaksyon.',
+	'payflowpro_gateway-response-125-2' => 'Hindi mapapatunayan ang iyong tarhetang pang-utang.  Mangyaring patunayan na tumutugma ang lahat ng ibinigay na kabatiran sa iyong talaksan ng kasaysayan na pangtarhetang pang-utang, o sumubok ng ibang tarheta.  Maaari mo ring gamitin ang isa sa aming <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ibang mga paraan ng pagbibigay</a> o makipag-ugnayan sa amin sa href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>.  Salamat sa pagtangkilik mo.',
+	'payflowpro_gateway-response-default' => 'Nagkaroon ng kamalian sa pagsasagawa ng transaksyon mo.
+Mangyaring subukan uli mamaya.',
+	'php-response-declined' => 'Tinanggihan ang iyong transaksyon.',
+	'payflowpro_gateway-thankyou' => 'Salamat sa abuloy mo!',
+	'payflowpro_gateway-post-transaction' => 'Mga detalye ng transaksyon',
+	'payflowpro_gateway-submit-button' => 'Mag-abuloy',
+	'payflowpro_gateway-cvv-explain' => 'h4>Ano ang CVV?</h4>
+<p>Cardholder Verification Value (CVV): Ang tatlo o apat na mga tambilang ng mga bilang na ito ang nakakatulong sa pagtitiyak ang katawan ng tarheta ay talagang hawak ng may-ari ng tarheta.  Nakakatulong ito sa pag-iwas sa paggamit na walang pahintulot o panlilinlang.</p>
+<h4>Visa, Mastercard</h4>
+<p>Nakalagay ang kodigong may 3 tambilang sa likuran ng tarheta mo, sa loob ng pook ng lagda.
+Karaniwang mayroong magkakasunod na mga bilang ang panig ng lagda, subalit ang tatlong huling mga tambilang lang ang bumubuo sa kodigo ng CVV.</p>
+<h4>American Express</h4>
+<p>Ang kodigo ay <i>palaging</i> nakalagay sa <i>ibabaw</i> ng nakalilok (nakaangat) na bilang na pang-akawnt sa ibabaw ng harapan ng tarheta.
+Sa ilang mga pagkakataon, nakalagay ang kodigo sa kaliwang gilid ng tarheta, subalit palaging nasa itaas ng bilang na pang-akawnt.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Ang Wikipedia ay isang proyekto ng Pundasyong Wikimedia.  May mga tanong o puna?  Makipag-ugnayan sa Pundasyong Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Pagkaraang pindutin ang "{{int:payflowpro_gateway-donor-submit}}", isasagawa na ang iyong kabatiran na pangtarheta ng pangungutang.',
+	'payflowpro_gateway-credit-storage-processing' => 'Hindi namin itinatabi ang iyong kabatiran na pangtarhetang pang-utang, at ang iyong datong pansarili ay nasa ilalim ng <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">patakaran sa pagiging pribado</a>.',
+	'donate_interface-GBP' => 'GBP: Libra ng Britanya',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolyar ng Estados Unidos',
+	'donate_interface-AUD' => 'AUD: Dolyar ng Australia',
+	'donate_interface-CAD' => 'CAD: Doyar ng Kanada',
+	'donate_interface-JPY' => 'JPY: Yen ng Hapon',
+);
+
 /** Turkish (Türkçe)
  * @author Joseph
  * @author Vito Genovese
