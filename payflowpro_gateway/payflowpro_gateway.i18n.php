@@ -2903,6 +2903,7 @@ $messages['ka'] = array(
 	'payflowpro_gateway-donor-expiration' => 'მოქმედების დამთავრების თარიღი:',
 	'payflowpro_gateway-donor-security' => 'უსაფრთხოების კოდი:',
 	'payflowpro_gateway-donor-submit' => 'შეწირულობები',
+	'payflowpro_gateway-donor-currency-msg' => 'ეს შეწირულობა მზადდება $1-ში',
 	'payflowpro_gateway-error-msg' => 'გთხოვთ, შეიყვანეთ $1',
 	'payflowpro_gateway-error-msg-js' => 'გთხოვთ, შეიყვანეთ თქვენი',
 	'payflowpro_gateway-error-msg-invalid-amount' => '** გთხოვთ მიუთითოთ სწორი თანხა **',
