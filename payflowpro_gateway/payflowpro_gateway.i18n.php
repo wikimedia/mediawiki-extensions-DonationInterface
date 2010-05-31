@@ -1583,6 +1583,7 @@ Iufoje, la kodo estas lokata maldekstre, sed ĝi ĉiam estas super la kontnumero
 /** Spanish (Español)
  * @author Cbrown1023
  * @author Crazymadlover
+ * @author Diego Grez
  * @author MisterWiki
  * @author Translationista
  */
@@ -4049,6 +4050,8 @@ $messages['ps'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'د کرېډټ کارډ پای نېټه',
 	'payflowpro_gateway-error-msg-cvv' => 'د کرېډټ کارډ د شا CVV',
 	'payflowpro_gateway-submit-button' => 'بسپنه ورکول',
+	'donate_interface-EUR' => 'EUR: اېرو',
+	'donate_interface-USD' => 'USD: امريکايي ډالر',
 );
 
 /** Portuguese (Português)
@@ -4562,6 +4565,36 @@ $messages['sl'] = array(
 	'donate_interface-AUD' => 'AUD: avstralski dolar',
 	'donate_interface-CAD' => 'CAD: kanadski dolar',
 	'donate_interface-JPY' => 'JPY: japonski jen',
+);
+
+/** Serbian Cyrillic ekavian (Српски (ћирилица))
+ * @author Михајло Анђелковић
+ */
+$messages['sr-ec'] = array(
+	'payflowpro_gateway-donor-legend' => 'Информација о донору',
+	'payflowpro_gateway-cvv-link' => 'Пример',
+	'payflowpro_gateway-donor-amount' => 'Износ:',
+	'payflowpro_gateway-donor-currency-label' => 'Валута:',
+	'payflowpro_gateway-donor-email' => 'Адреса електронске поште:',
+	'payflowpro_gateway-donor-fname' => 'Име:',
+	'payflowpro_gateway-donor-mname' => 'Средње име:',
+	'payflowpro_gateway-donor-lname' => 'Презиме:',
+	'payflowpro_gateway-donor-name' => 'Име:',
+	'payflowpro_gateway-donor-street' => 'Улица:',
+	'payflowpro_gateway-donor-city' => 'Град:',
+	'payflowpro_gateway-donor-state' => 'Држава:',
+	'payflowpro_gateway-donor-postal' => 'Поштански код:',
+	'payflowpro_gateway-donor-country' => 'Земља/регија:',
+	'payflowpro_gateway-donor-address' => 'Адреса:',
+	'payflowpro_gateway-donor-card' => 'Кредитна карта:',
+	'payflowpro_gateway-donor-card-num' => 'Број карте:',
+	'payflowpro_gateway-donor-expiration' => 'Датум истека:',
+	'payflowpro_gateway-donor-security' => 'Сигурносни код:',
+	'payflowpro_gateway-donor-submit' => 'Донирај',
+	'payflowpro_gateway-error-msg-emailAdd' => 'адреса електронске поште',
+	'payflowpro_gateway-error-msg-fname' => 'име',
+	'payflowpro_gateway-error-msg-lname' => 'презиме',
+	'payflowpro_gateway-error-msg-street' => 'адреса',
 );
 
 /** Swedish (Svenska)
