@@ -4024,6 +4024,7 @@ $messages['ps'] = array(
 	'payflowpro_gateway-donor-legend' => 'د بسپنګر مالومات',
 	'payflowpro_gateway-card-legend' => 'د کرېډټ کارډ مالومات',
 	'payflowpro_gateway-cvv-link' => 'بېلګه',
+	'payflowpro_gateway-donor-currency-label' => 'د پيسو يوون:',
 	'payflowpro_gateway-donor-email' => 'برېښليک پته:',
 	'payflowpro_gateway-donor-fname' => 'لومړی نوم:',
 	'payflowpro_gateway-donor-mname' => 'منځوی نوم:',
@@ -4595,6 +4596,16 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-error-msg-fname' => 'име',
 	'payflowpro_gateway-error-msg-lname' => 'презиме',
 	'payflowpro_gateway-error-msg-street' => 'адреса',
+	'payflowpro_gateway-error-msg-city' => 'град',
+	'payflowpro_gateway-error-msg-state' => 'држава',
+	'payflowpro_gateway-error-msg-zip' => 'поштански код',
+	'payflowpro_gateway-error-msg-card_num' => 'број кредитне карте',
+	'payflowpro_gateway-submit-button' => 'Донирајте',
+	'donate_interface-EUR' => 'EUR: Евро',
+	'donate_interface-USD' => 'USD: Амерички долар',
+	'donate_interface-AUD' => 'AUD: Аустралијски долар',
+	'donate_interface-CAD' => 'CAD: Канадски долар',
+	'donate_interface-JPY' => 'JPY: Јапански јен',
 );
 
 /** Swedish (Svenska)
