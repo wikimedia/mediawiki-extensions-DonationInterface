@@ -649,6 +649,44 @@ $messages['bg'] = array(
 	'donate_interface-JPY' => 'JPY: японска йена',
 );
 
+/** Bengali (বাংলা)
+ * @author Bellayet
+ */
+$messages['bn'] = array(
+	'payflowpro_gateway-donor-legend' => 'দাতার তথ্য',
+	'payflowpro_gateway-card-legend' => 'ক্রেডিট কার্ডের তথ্য',
+	'payflowpro_gateway-amount-legend' => 'দানের পরিমাণ:',
+	'payflowpro_gateway-cvv-link' => 'উদাহরণ',
+	'payflowpro_gateway-donor-amount' => 'পরিমাণ:',
+	'payflowpro_gateway-donor-currency-label' => 'মুদ্রা:',
+	'payflowpro_gateway-donor-email' => 'ইমেইল ঠিকানা:',
+	'payflowpro_gateway-donor-fname' => 'নামের প্রথমাংশ:',
+	'payflowpro_gateway-donor-mname' => 'নামের মধ্যাংশ:',
+	'payflowpro_gateway-donor-lname' => 'নামের শেষাংশ:',
+	'payflowpro_gateway-donor-name' => 'নাম:',
+	'payflowpro_gateway-donor-street' => 'রাস্তা:',
+	'payflowpro_gateway-donor-city' => 'শহর:',
+	'payflowpro_gateway-donor-state' => 'রাজ্য:',
+	'payflowpro_gateway-donor-postal' => 'পোস্টাল কোড:',
+	'payflowpro_gateway-donor-country' => 'দেশ/অঞ্চল:',
+	'payflowpro_gateway-donor-address' => 'ঠিকানা:',
+	'payflowpro_gateway-donor-card' => 'ক্রেডিট কার্ড:',
+	'payflowpro_gateway-donor-card-num' => 'কার্ড নম্বর:',
+	'payflowpro_gateway-donor-expiration' => 'মেয়াদ উত্তীর্ণের তারিখ:',
+	'payflowpro_gateway-donor-security' => 'নিরাপত্তা কোড:',
+	'payflowpro_gateway-donor-submit' => 'দান করুন',
+	'payflowpro_gateway-error-msg-amount' => 'দানের পরিমাণ',
+	'payflowpro_gateway-error-msg-emailAdd' => 'ই-মেইল ঠিকানা',
+	'payflowpro_gateway-error-msg-fname' => 'নামের প্রথমাংশ',
+	'payflowpro_gateway-error-msg-lname' => 'নামের শেষাংশ',
+	'payflowpro_gateway-error-msg-street' => 'রাস্তার ঠিকানা',
+	'payflowpro_gateway-error-msg-city' => 'শহর',
+	'payflowpro_gateway-error-msg-state' => 'রাজ্য',
+	'payflowpro_gateway-error-msg-zip' => 'পোস্টাল কোড',
+	'payflowpro_gateway-error-msg-card_num' => 'ক্রেডিট কার্ড নম্বর',
+	'payflowpro_gateway-submit-button' => 'দান করুন',
+);
+
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
