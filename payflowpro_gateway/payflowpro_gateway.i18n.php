@@ -4646,6 +4646,44 @@ $messages['sr-ec'] = array(
 	'donate_interface-JPY' => 'JPY: Јапански јен',
 );
 
+/** Serbian Latin ekavian (Srpski (latinica)) */
+$messages['sr-el'] = array(
+	'payflowpro_gateway-donor-legend' => 'Informacija o donoru',
+	'payflowpro_gateway-cvv-link' => 'Primer',
+	'payflowpro_gateway-donor-amount' => 'Iznos:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'Adresa elektronske pošte:',
+	'payflowpro_gateway-donor-fname' => 'Ime:',
+	'payflowpro_gateway-donor-mname' => 'Srednje ime:',
+	'payflowpro_gateway-donor-lname' => 'Prezime:',
+	'payflowpro_gateway-donor-name' => 'Ime:',
+	'payflowpro_gateway-donor-street' => 'Ulica:',
+	'payflowpro_gateway-donor-city' => 'Grad:',
+	'payflowpro_gateway-donor-state' => 'Država:',
+	'payflowpro_gateway-donor-postal' => 'Poštanski kod:',
+	'payflowpro_gateway-donor-country' => 'Zemlja/regija:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kreditna karta:',
+	'payflowpro_gateway-donor-card-num' => 'Broj karte:',
+	'payflowpro_gateway-donor-expiration' => 'Datum isteka:',
+	'payflowpro_gateway-donor-security' => 'Sigurnosni kod:',
+	'payflowpro_gateway-donor-submit' => 'Doniraj',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adresa elektronske pošte',
+	'payflowpro_gateway-error-msg-fname' => 'ime',
+	'payflowpro_gateway-error-msg-lname' => 'prezime',
+	'payflowpro_gateway-error-msg-street' => 'adresa',
+	'payflowpro_gateway-error-msg-city' => 'grad',
+	'payflowpro_gateway-error-msg-state' => 'država',
+	'payflowpro_gateway-error-msg-zip' => 'poštanski kod',
+	'payflowpro_gateway-error-msg-card_num' => 'broj kreditne karte',
+	'payflowpro_gateway-submit-button' => 'Donirajte',
+	'donate_interface-EUR' => 'EUR: Evro',
+	'donate_interface-USD' => 'USD: Američki dolar',
+	'donate_interface-AUD' => 'AUD: Australijski dolar',
+	'donate_interface-CAD' => 'CAD: Kanadski dolar',
+	'donate_interface-JPY' => 'JPY: Japanski jen',
+);
+
 /** Swedish (Svenska)
  * @author Boivie
  * @author Per
@@ -5562,6 +5600,7 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-error-msg-amex' => '**请输入正确的美国运通（American Express）信用卡安全码。**',
 	'payflowpro_gateway-error-msg-mc' => '**请输入正确的万事达卡（Mastercard）安全码。**',
 	'payflowpro_gateway-error-msg-visa' => '**请输入正确的维萨卡（Visa）安全码。**',
+	'payflowpro_gateway-error-msg-discover' => '**请输入正确的维萨卡安全码。**',
 	'payflowpro_gateway-error-msg-amount' => '捐赠金额',
 	'payflowpro_gateway-error-msg-emailAdd' => '电子邮件地址',
 	'payflowpro_gateway-error-msg-fname' => '名',
@@ -5600,6 +5639,7 @@ $messages['zh-hans'] = array(
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
+ * @author Horacewai2
  * @author Liangent
  */
 $messages['zh-hant'] = array(
@@ -5639,6 +5679,7 @@ $messages['zh-hant'] = array(
 	'payflowpro_gateway-error-msg-amex' => '**請輸入正確的美國運通（American Express）信用卡安全碼。**',
 	'payflowpro_gateway-error-msg-mc' => '**請輸入正確的萬事達卡（Mastercard）安全碼。**',
 	'payflowpro_gateway-error-msg-visa' => '**請輸入正確的維薩卡（Visa）安全碼。**',
+	'payflowpro_gateway-error-msg-discover' => '**請輸入正確的維薩卡安全碼。**',
 	'payflowpro_gateway-error-msg-amount' => '捐贈金額',
 	'payflowpro_gateway-error-msg-emailAdd' => '電子郵件地址',
 	'payflowpro_gateway-error-msg-fname' => '名',
