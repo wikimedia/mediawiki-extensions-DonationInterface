@@ -2745,10 +2745,22 @@ Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di ata
  */
 $messages['io'] = array(
 	'payflowpro_gateway-cvv-link' => 'Exemplo',
+	'payflowpro_gateway-donor-amount' => 'Sumo:',
+	'payflowpro_gateway-donor-currency-label' => 'Monetaro:',
 	'payflowpro_gateway-donor-name' => 'Nomo:',
+	'payflowpro_gateway-donor-street' => 'Strado:',
 	'payflowpro_gateway-donor-city' => 'Urbo:',
+	'payflowpro_gateway-donor-state' => 'Stato:',
+	'payflowpro_gateway-donor-address' => 'Adreso:',
+	'payflowpro_gateway-error-msg-city' => 'urbo',
+	'payflowpro_gateway-error-msg-state' => 'stato',
+	'payflowpro_gateway-response-4' => 'Ne-valida sumo.',
 	'payflowpro_gateway-submit-button' => 'Donacez',
+	'donate_interface-GBP' => 'GBP: Britaniana Pundo',
 	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Usana Dolaro',
+	'donate_interface-AUD' => 'AUD: Australiana Dolaro',
+	'donate_interface-CAD' => 'CAD: Kanadana Dolaro',
 );
 
 /** Italian (Italiano)
