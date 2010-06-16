@@ -1622,6 +1622,7 @@ Iufoje, la kodo estas lokata maldekstre, sed ĝi ĉiam estas super la kontnumero
  * @author Cbrown1023
  * @author Crazymadlover
  * @author Diego Grez
+ * @author Drini
  * @author MisterWiki
  * @author Translationista
  */
@@ -1700,11 +1701,11 @@ Por favor intente mas tarde.',
 <p>El código de 3 dígitos se encuentra en la parte trasera de tu tarjeta, dentro del area de firma.
 Típicamente el panel de firma tendra una serie de números, pero sólo los últimos tres dígitos forman el código CVV.</p>
 <h4>American Express</h4>
-<p>El código <i>siempre</i> se encuentra <i>bajo</i> el número de cuenta en relieve en la cara de la tarjeta.
+<p>El código <i>siempre</i> se encuentra <i>sobre</i> el número de cuenta en relieve en la cara de la tarjeta.
 En algunas ocasiones, el código se encuentra en la parte izquierda de la tarjeta, pero esta siempre sobre el número de cuenta.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Wikipedia es un proyecto de la Fundación Wikimedia.  ¿Quieres hacer preguntas o comentarios? Contacta a la Fundación Wikimedia en: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Después de que cliquees "{{int:payflowpro_gateway-donor-submit}}", tu información de tu tarjeta de crédito será procesada.',
-	'payflowpro_gateway-credit-storage-processing' => 'Nosotros no guardamos tu información de tarjeta de créditos, y tus datos personales están sujetos a nuestra <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de privacidad</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Nosotros no guardamos tu información de tarjeta de crédito, y tus datos personales están sujetos a nuestra <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">política de privacidad</a>.',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar estadounidense',
