@@ -4439,6 +4439,23 @@ $messages['ru'] = array(
 	'donate_interface-JPY' => 'JPY: японская йена',
 );
 
+/** Rusyn (русиньскый язык)
+ * @author Gazeb
+ */
+$messages['rue'] = array(
+	'payflowpro_gateway-donor-fname' => 'Мено:',
+	'payflowpro_gateway-donor-mname' => 'Середнє мено:',
+	'payflowpro_gateway-donor-name' => 'Мено:',
+	'payflowpro_gateway-donor-street' => 'Уліця:',
+	'payflowpro_gateway-donor-city' => 'Місто:',
+	'payflowpro_gateway-donor-state' => 'Штат:',
+	'payflowpro_gateway-donor-postal' => 'Поштовый код',
+	'payflowpro_gateway-donor-country' => 'Країна/Реґіон:',
+	'payflowpro_gateway-donor-address' => 'Адреса:',
+	'payflowpro_gateway-donor-card' => 'Кредітна карта:',
+	'payflowpro_gateway-donor-card-num' => 'Чісло карты:',
+);
+
 /** Sinhala (සිංහල)
  * @author චතුනි අලහප්පෙරුම
  */
