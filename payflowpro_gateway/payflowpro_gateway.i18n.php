@@ -4257,6 +4257,7 @@ Por favor tente novamente mais tarde.',
 /** Romanian (Română)
  * @author Cin
  * @author Firilacroco
+ * @author Minisarm
  * @author Stelistcristi
  */
 $messages['ro'] = array(
@@ -4264,7 +4265,7 @@ $messages['ro'] = array(
 	'payflowpro_gateway-accessible' => 'Această pagină este accesibilă doar de la pagina de donații.',
 	'payflowpro_gateway-donor-legend' => 'Informații despre donator',
 	'payflowpro_gateway-card-legend' => 'Informații despre cardul de credit',
-	'payflowpro_gateway-amount-legend' => 'Cantitatea de donație:',
+	'payflowpro_gateway-amount-legend' => 'Suma de donație:',
 	'payflowpro_gateway-cvv-link' => 'Emeplu',
 	'payflowpro_gateway-donor-amount' => 'Cantitate:',
 	'payflowpro_gateway-donor-currency-label' => 'Valută:',
@@ -4292,8 +4293,8 @@ $messages['ro'] = array(
 	'payflowpro_gateway-error-msg-mc' => '**Vă rugăm introduceți un număr de card corect pentru MasterCard.**',
 	'payflowpro_gateway-error-msg-visa' => '**Vă rugăm introduceți un număr de card corect pentru Visa.**',
 	'payflowpro_gateway-error-msg-discover' => '**Vă rugăm introduceți un număr de card corect pentru Discover.**',
-	'payflowpro_gateway-error-msg-amount' => 'cantitatea de donație',
-	'payflowpro_gateway-error-msg-emailAdd' => 'adresa de e-mail',
+	'payflowpro_gateway-error-msg-amount' => 'sumă donație',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adresă de e-mail',
 	'payflowpro_gateway-error-msg-fname' => 'prenume',
 	'payflowpro_gateway-error-msg-lname' => 'numele de familie',
 	'payflowpro_gateway-error-msg-street' => 'adresa străzii',
