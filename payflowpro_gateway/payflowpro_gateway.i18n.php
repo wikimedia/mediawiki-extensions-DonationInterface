@@ -4107,6 +4107,7 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (Português)
+ * @author Giro720
  * @author Hamilton Abreu
  * @author Luckas Blade
  * @author Malafaya
@@ -4141,7 +4142,7 @@ Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras fo
 	'payflowpro_gateway-donor-security' => 'Código de segurança (CVV, 3 dígitos no verso):',
 	'payflowpro_gateway-donor-submit' => 'Fazer donativo',
 	'payflowpro_gateway-donor-currency-msg' => 'Este donativo está a ser feito na divisa $1',
-	'payflowpro_gateway-error-msg' => 'Por favor, introduza o $1',
+	'payflowpro_gateway-error-msg' => 'Por favor, introduza $1',
 	'payflowpro_gateway-error-msg-js' => 'Por favor introduza',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Por favor, introduza um montante válido**',
 	'payflowpro_gateway-error-msg-email' => '**Por favor, introduza um endereço de correio electrónico válido**',
@@ -4200,10 +4201,17 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 );
 
 /** Brazilian Portuguese (Português do Brasil)
+ * @author Giro720
  * @author Luckas Blade
  */
 $messages['pt-br'] = array(
+	'payflowprogateway' => 'Ajude a Wikimedia',
+	'payflowpro_gateway-desc' => 'Processamento de cartões de crédito pela plataforma PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'Esta página só é acessível a partir da página de donativos.',
+	'payflowpro_gateway-form-message' => 'Contribua por cartão de crédito.
+Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras formas de contribuir, incluindo por PayPal, cheque ou correio</a>.',
 	'payflowpro_gateway-form-message-2' => 'Para alterar a quantia ou a unidade monetária, volte à <a href="/index.php?title=Donate">página de doação</a>',
+	'payflowpro_gateway-donor-legend' => 'Dados do doador',
 	'payflowpro_gateway-card-legend' => 'Informação do cartão de crédito',
 	'payflowpro_gateway-amount-legend' => 'Quantia da doação:',
 	'payflowpro_gateway-cvv-link' => 'Exemplo',
@@ -4225,33 +4233,63 @@ $messages['pt-br'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Data de término:',
 	'payflowpro_gateway-donor-security' => 'Código de segurança:',
 	'payflowpro_gateway-donor-submit' => 'Doar',
+	'payflowpro_gateway-donor-currency-msg' => 'Esta doação está se realizando em $1',
+	'payflowpro_gateway-error-msg' => 'Por favor, introduza $1',
+	'payflowpro_gateway-error-msg-js' => 'Por favor introduza',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Por favor digite uma quantia válida**',
 	'payflowpro_gateway-error-msg-email' => '**Por favor digite um endereço de e-mail válido**',
+	'payflowpro_gateway-error-msg-amex' => '**Por favor, introduza um número de cartão American Express correto.**',
+	'payflowpro_gateway-error-msg-mc' => '**Por favor, introduza um número de cartão MasterCard correto.**',
+	'payflowpro_gateway-error-msg-visa' => '**Por favor, introduza um número de cartão Visa correto.**',
+	'payflowpro_gateway-error-msg-discover' => '**Por favor, insira um número de cartão Discover correto.**',
 	'payflowpro_gateway-error-msg-amount' => 'quantia da doação',
 	'payflowpro_gateway-error-msg-emailAdd' => 'endereço de e-mail',
 	'payflowpro_gateway-error-msg-fname' => 'primeiro nome',
 	'payflowpro_gateway-error-msg-lname' => 'último nome',
+	'payflowpro_gateway-error-msg-street' => 'a sua rua e nº',
 	'payflowpro_gateway-error-msg-city' => 'cidade',
 	'payflowpro_gateway-error-msg-state' => 'estado',
 	'payflowpro_gateway-error-msg-zip' => 'código postal',
 	'payflowpro_gateway-error-msg-card_num' => 'número do cartão de crédito',
+	'payflowpro_gateway-error-msg-expiration' => 'a data de expiração do seu cartão',
+	'payflowpro_gateway-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
 	'payflowpro_gateway-response-0' => 'A transação foi aprovada.
 Agradecemos a sua doação!',
+	'payflowpro_gateway-response-126' => 'A transação foi submetida para aprovação.',
+	'payflowpro_gateway-response-126-2' => 'Alguma informação que você forneceu não corresponde ao perfil do seu cartão de crédito, ou então você fez a doação de montante muito significativo. Por segurança, o seu donativo está sob análise no momento. Se não pudermos finalizar o processo, será enviada uma notificação para o e-mail fornecido. Em caso de dúvidas contate-nos, por favor, no endereço <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Obrigado!',
 	'payflowpro_gateway-response-12' => 'Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.',
+	'payflowpro_gateway-response-13' => 'A transação requer autorização por viva voz.
+Por favor, contate-nos para continuar a transação.',
 	'payflowpro_gateway-response-114' => 'Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.',
+	'payflowpro_gateway-response-23' => 'O número do cartão ou a data de expiração estão incorretos.',
 	'payflowpro_gateway-response-4' => 'Quantia inválida.',
+	'payflowpro_gateway-response-24' => 'O número do cartão ou a data de expiração estão incorretos.',
+	'payflowpro_gateway-response-112' => 'O endereço ou o código de segurança (CVV) estão incorretos.',
 	'payflowpro_gateway-response-125' => 'A transação foi recusada pela Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Não foi possível validar o seu cartão de crédito. Por favor, verifique se toda a informação fornecida coincide com o perfil do seu cartão de crédito. Você pode também usar um dos nossos <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">outros métodos para fazer doação</a> ou contatar-nos no endereço <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Obrigado pelo seu apoio.',
 	'payflowpro_gateway-response-default' => 'Ocorreu um erro no processamento desta transação.
 Por favor tente novamente mais tarde.',
 	'php-response-declined' => 'A transação foi recusada.',
 	'payflowpro_gateway-thankyou' => 'Agradecemos a sua doação!',
 	'payflowpro_gateway-post-transaction' => 'Detalhes da transação',
 	'payflowpro_gateway-submit-button' => 'Doar',
+	'payflowpro_gateway-cvv-explain' => "<h4>O que é o CVV?</h4>
+<p>CVV ''(Cardholder Verification Value'' ou Código de Verificação do Cartão): É formado por três ou quatro algarismos e pretende assegurar que o cartão físico está na posse do seu detentor. Isto ajuda na prevenção de seu uso não autorizado ou fraudulento.</p>
+<h4>Visa, Mastercard</h4>
+<p>O código de 3 algarismos está no verso do cartão, na zona da assinatura.
+Tipicamente, a zona da assinatura contém vários números mas só os 3 últimos algarismos formam o código CVV.</p>
+<h4>American Express</h4>
+<p>O código está <i>sempre</i> localizado <i>acima</i> do número de conta (saliente) na face do cartão.
+Por vezes o código aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
+	'payflowpro_gateway-question-comment' => 'A Wikipédia é um projeto da Wikimedia Foundation. Tem perguntas ou comentários? Contate a Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Após clicar "{{int:payflowpro_gateway-donor-submit}}", a informação do seu cartão de crédito será processada.',
+	'payflowpro_gateway-credit-storage-processing' => 'Não armazenamos informação do seu cartão de crédito e ou seus dados particulares estão sujeitos à nossa <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privacidade</a>.',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar americano',
 	'donate_interface-AUD' => 'AUD: Dólar australiano',
 	'donate_interface-CAD' => 'CAD: Dólar canadense',
+	'donate_interface-JPY' => 'JPY: Iene (Japão)',
 );
 
 /** Romanian (Română)
