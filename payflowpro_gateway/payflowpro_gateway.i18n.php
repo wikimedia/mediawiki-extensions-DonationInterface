@@ -3866,6 +3866,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
  * @author Xqt
  */
 $messages['pdc'] = array(
+	'payflowpro_gateway-cvv-link' => 'Beischpiel',
 	'payflowpro_gateway-donor-lname' => 'Familie-Naame:',
 	'payflowpro_gateway-donor-name' => 'Naame:',
 	'payflowpro_gateway-donor-street' => 'Schtrooss:',
