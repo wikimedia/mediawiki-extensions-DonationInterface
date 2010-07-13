@@ -106,7 +106,7 @@ function fnDonateCreateOutput() {
   }
 
   //get payment method gateway value and name from each gateway and create menu of options
-  $values = '';
+  $values = array();
   wfRunHooks('DonationInterface_Value', array(&$values)); 
 	
   $gatewayMenu = '';
@@ -117,10 +117,12 @@ function fnDonateCreateOutput() {
   
     //get available currencies
  
+		$currencies = array( 'USD' => "USD: U.S. Dollar" );
+		//FIXME: It uses the currencies of the last gateway to be loaded. It should probably use the union of currencies, (currencies allowed by any gateway).
     foreach($values as $key) {
       if (isset($key['currencies'])) {
         $currencies = $key['currencies'];
-      } else { $currencies = array( 'USD' => "USD: U.S. Dollar" ); }
+      }
     }
 
 	$currencyMenu = '';
