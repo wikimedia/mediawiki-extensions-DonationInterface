@@ -37,8 +37,6 @@ function efDonateSetup( &$parser ) {
   //load extension messages
   wfLoadExtensionMessages( 'DonateInterface' );
 
-  $parser->disableCache();
-
   $parser->setHook( 'donate', 'efDonateRender' );
      
   //process form
@@ -55,8 +53,8 @@ function efDonateSetup( &$parser ) {
  * Outputs the donation landing page form which collects
  * the donation amount, currency and payment processor type.
  */
-function efDonateRender( $input, $args, &$parser ) {
-	global $wgOut, $wgScriptPath;
+function efDonateRender( $input, $args, $parser ) {
+	global $wgOut, $wgExtensionAssetsPath;
   
   $parser->disableCache();
         
@@ -65,7 +63,7 @@ function efDonateRender( $input, $args, &$parser ) {
   //$chapter = fnDonateChapterRedirect();
         
   // add JavaScript validation to <head>
-  $wgOut->addScriptFile( $wgScriptPath . '/extensions/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
+  $wgOut->addScriptFile( $wgExtensionAssetsPath . '/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
  
   //display form to gather data from user
   $output = fnDonateCreateOutput();
