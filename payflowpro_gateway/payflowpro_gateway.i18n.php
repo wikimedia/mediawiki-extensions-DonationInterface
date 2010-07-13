@@ -4094,6 +4094,7 @@ $messages['ps'] = array(
 	'payflowpro_gateway-donor-card-num' => 'د کرېډټ کارډ شمېره:',
 	'payflowpro_gateway-donor-expiration' => 'پای نېټه:',
 	'payflowpro_gateway-donor-submit' => 'بسپنه ورکول',
+	'payflowpro_gateway-error-msg' => 'لطفاً خپل $1 وليکۍ',
 	'payflowpro_gateway-error-msg-emailAdd' => 'برېښليک پته',
 	'payflowpro_gateway-error-msg-fname' => 'لومړی نوم',
 	'payflowpro_gateway-error-msg-lname' => 'وروستی نوم',
