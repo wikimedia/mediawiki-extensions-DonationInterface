@@ -38,9 +38,6 @@ function efDonateSetup( &$parser ) {
   wfLoadExtensionMessages( 'DonateInterface' );
 
   $parser->setHook( 'donate', 'efDonateRender' );
-     
-  //process form
-  wfRunHooks( 'DonationInterface_DisplayForm' );
 
   return true;
 }
@@ -55,6 +52,7 @@ function efDonateSetup( &$parser ) {
  */
 function efDonateRender( $input, $args, $parser ) {
 	global $wgOut, $wgExtensionAssetsPath;
+	static $formProcessed = false;
   
   $parser->disableCache();
         
@@ -65,6 +63,12 @@ function efDonateRender( $input, $args, $parser ) {
   // add JavaScript validation to <head>
   $wgOut->addScriptFile( $wgExtensionAssetsPath . '/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
  
+	if (!$formProcessed) {
+	  //process form
+  	wfRunHooks( 'DonationInterface_DisplayForm' );
+		$formProcessed = true;
+	}
+
   //display form to gather data from user
   $output = fnDonateCreateOutput();
               
