@@ -3511,6 +3511,7 @@ Der bin oek <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aander
 	'payflowpro_gateway-response-0' => 'Joew storting is goed-ekeurd!
 Bedank veur de centen!',
 	'payflowpro_gateway-response-126' => 'Joew storting wach op goedkeuring.',
+	'payflowpro_gateway-response-126-2' => "Der is wat infermasie da-j op-egeven hemmen, en neet 'tzelfde is as op 't prefiel van joew kredietkaorte, of je hemmen eprebeerd um een alderbarstens grote schenking te doon. Veur joew eigen veiligheid wönnen disse schenking op dit mement nao-ekeken en wie laoten 't joe weten via 't op-egeven netposadres a-w de schenking neet kunnen verwarken. Neem kontak op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> a-j nog vragen hemmen. Bedank!",
 	'payflowpro_gateway-response-12' => 'Neem kontak op mit de kredietkaortmaotschappieje veur meer infermasie.',
 	'payflowpro_gateway-response-13' => 'Veur disse storting mu-j mondelinge toestemming geven.
 Neem kontak op mit ons veur de storting.',
@@ -3520,6 +3521,7 @@ Neem kontak op mit ons veur de storting.',
 	'payflowpro_gateway-response-24' => "'t Nummer van de kredietkaorte is vervuilen of verkeerd.",
 	'payflowpro_gateway-response-112' => 'Joew adres of CVV-nummer (beveiligingscode) is verkeerd.',
 	'payflowpro_gateway-response-125' => 'Joew storting is of-ewezen deur Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Der kon neet bevestig wönnen dat joe kredietkaorte geldig is. Kiek effen nao of alle gegevens dee-j op-egeven hemmen \'tzelfde bin as op \'t kredietkaortprefiel, of prebeer een schenking te doon mit een aandere kredietkaorte, a-j dat hemmen. Je kunnen oek op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aandere menieren geld schenken</a> of kontak mit ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Bedank veur joe steun.',
 	'payflowpro_gateway-response-default' => "Der gung wat fout mit de storting.
 Prebeer 't laoter weer.",
 	'php-response-declined' => 'Joew storting is of-ewezen.',
