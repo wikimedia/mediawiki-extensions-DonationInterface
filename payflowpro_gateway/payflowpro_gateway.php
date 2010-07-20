@@ -4,7 +4,7 @@
 if( !defined( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
 To install PayflowPro Gateway extension, put the following line in LocalSettings.php:
-require_once( "\$IP/extensions/payflowpro_gateway/payflowpro_gateway.php" );
+require_once( "\$IP/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.php" );
 EOT;
 	exit( 1 );
 }
