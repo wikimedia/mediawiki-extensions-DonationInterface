@@ -36,7 +36,8 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 function efStompSetup(&$parser) {
 	     global $wgParser, $wgOut;
 
-	     $parser->disableCache();
+       //redundant and causes Fatal Error
+	     //$parser->disableCache();
 
 	     $wgParser->setHook( 'stomp', 'efStompTest' );
 

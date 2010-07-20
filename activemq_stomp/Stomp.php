@@ -484,6 +484,7 @@ class Stomp
         }
 
         $data = $stompFrame->__toString();
+        
         $r = fwrite($this->_socket, $data, strlen($data));
         if ($r === false || $r == 0) {
             $this->_reconnect();
@@ -510,21 +511,26 @@ class Stomp
      */
     public function readFrame ()
     {
-        /* if (!$this->hasFrameToRead()) {
+        if (!$this->hasFrameToRead()) {
             return false;
-        } */
+        }
         
+        stream_set_timeout($this->_socket, 5);
         $rb = 1024;
         $data = '';
         do {
             $read = fgets($this->_socket, $rb);
-            if ($read === false) {
-                $this->_reconnect();
-                return $this->readFrame();
+            $info = stream_get_meta_data($this->_socket);
+            if ($info['timed_out']) {
+              return FALSE;
             }
+            //if ($read === false) {
+            //    $this->_reconnect();
+            //    return $this->readFrame();
+            //}
             $data .= $read;
             $len = strlen($data);
-        } while (($len < 2 || ! ($data[$len - 2] == "\x00" && $data[$len - 1] == "\n")));
+        } while ($read && ($len < 2 || ! ($data[$len - 2] == "\x00" && $data[$len - 1] == "\n")));
         
         list ($header, $body) = explode("\n\n", $data, 2);
         $header = explode("\n", $header);
@@ -539,6 +545,7 @@ class Stomp
             }
         }
         $frame = new Stomp_Frame($command, $headers, trim($body));
+        
         if (isset($frame->headers['amq-msg-type']) && $frame->headers['amq-msg-type'] == 'MapMessage') {
             require_once 'Stomp/Message/Map.php';
             return new Stomp_Message_Map($frame);
@@ -554,6 +561,8 @@ class Stomp
      */
     public function hasFrameToRead()
     {
+        return TRUE; // http://bugs.php.net/bug.php?id=46024
+        
         $read = array($this->_socket);
         $write = null;
         $except = null;
