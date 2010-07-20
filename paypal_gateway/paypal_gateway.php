@@ -3,7 +3,7 @@
 if( !defined( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
 To install my extension, put the following line in LocalSettings.php:
-require_once( "\$IP/extensions/paypal_gateway/paypal_gateway.php" );
+require_once( "\$IP/extensions/DonationInterface/paypal_gateway/paypal_gateway.php" );
 EOT;
 	exit( 1 );
 }
@@ -20,6 +20,10 @@ $wgExtensionCredits['specialpage'][] = array(
 // Set up i18n
 $dir = dirname( __FILE__ ) . '/';
 $wgExtensionMessagesFiles['PaypalGateway'] = $dir . 'paypal_gateway.i18n.php';
+
+// Set up special page for IPN/ActiveMQ handling (experimental)
+$wgAutoloadClasses['PaypalIPNProcessing'] = $dir . 'SpecialPaypalIPNProcessing.php';
+$wgSpecialPages['PaypalIPNProcessing'] = 'PaypalIPNProcessing';
 
 // default variables that should be set in LocalSettings.php
 $wgPaypalEmail = '';
