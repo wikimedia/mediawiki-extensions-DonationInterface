@@ -2,7 +2,14 @@
 /**
  * Processes pending PayflowPro transactions in a queueing service using Stomp
  *
- * Uses the MediaWiki maintenance system for command line execution.  Requires MW > 1.16
+ * Uses the MediaWiki maintenance system for command line execution.  Requires, at the 
+ * very least, the Maintenance.php file found in Mediawiki > 1.16.  If you are running
+ * MW < 1.16, you can grab a copy of Maintenance.php and place it somewhere accessible 
+ * and run this script with:
+ *   php stompPFPPendingProcessor.php -m "/path/to/Maintenance.php"
+ *
+ * Also note all the other config options that can be passed in via the CLI arguments 
+ * below.
  *
  * This was built to verify pending PayflowPro transactions in an ActiveMQ queue system.  
  * It pulls a transaction out of a 'pending' queue and submits the message to PayflowPro
@@ -32,7 +39,12 @@
  *
  * @author: Arthur Richards <arichards@wikimedia.org>
  */
-require_once( dirname(__FILE__) . "/../../../maintenance/Maintenance.php" );
+
+// add optional Maintenance.php argument for cli (useful for systems < 1.16)
+$opts = getopt( "m:" );
+// if the path is not specified from CLI, default Maintenance.php path
+$maint = ( $opts['m'] ) ? $opts['m'] : dirname(__FILE__) . "/../.././maintenance/Maintenance.php";
+require_once( $maint );
 
 // load necessary stomp files from DonationInterface/active_mq
 //require_once( dirname( __FILE__ ) . "/../extensions/DonationInterface/activemq_stomp/Stomp.php" );
