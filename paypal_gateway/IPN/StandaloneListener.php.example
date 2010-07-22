@@ -1,0 +1,54 @@
+<?php
+/**
+ * This is an example of how you might run the PaypalIPNListener in stand alone mode
+ *
+ * It's just an example, so do what you want.  Note that the contrib_db* config settings
+ * are likely only important to you if you are using CiviCRM with Drupal and taking 
+ * donations via Mediawiki with the ContributionTracking extension installed.  Point being,
+ * it probably doesn't apply to you.  Take a look in PaypalIPNListener.php to see more about
+ * how that stuff might get used.
+ * 
+ * @author Arthur Richards <arichards@wikimedia.org>
+ */
+
+// turn on output buffering so we can capture the output
+ob_start();
+
+// require the actual listener
+require_once( '/path/to/PaypalIPNListener.php' );
+
+// set some configuration variables (for more info, check in PaypalIPNListener.php
+$config = array(
+  'log_level' => 2, //debug
+  'stomp_path' => '/path/to/Stomp.php',
+  'pending_queue' => '/queue/pending_paypal',
+  'verified_queue' => '/queue/verified_paypal',
+  'activemq_stomp_uri' => 'tcp://localhost:61613/',
+  'contrib_db_host' => 'localhost',
+  'contrib_db_username' => 'user',
+  'contrib_db_password' => 'password',
+  'contrib_db_name' => 'drupal',
+);
+
+// define a file where you can log the output from the listener
+$log_file = "out_" . date( 'Ymd' ) . '.log'; //for logging the output
+
+// instantaite the listener with our config options
+$listener = new PaypalIPNProcessor( $config );
+
+// pass some data to the listner, usually this will be posted from PayPal's IPN
+$listener->execute( $_POST );
+
+// shutdown the listener
+unset( $listener );
+
+// get the output from the buffer
+$output = ob_get_clean();
+ob_flush();
+
+// open our log file
+$handle = fopen( $log_file, 'a' );
+
+// write the output to the log file
+fwrite( $handle, $output );
+?>
