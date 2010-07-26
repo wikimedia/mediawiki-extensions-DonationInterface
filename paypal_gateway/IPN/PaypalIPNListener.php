@@ -49,20 +49,35 @@ DEFINE( 'LOG_LEVEL_DEBUG', 2 ); // output lots of info
 
 class PaypalIPNProcessor {
 
-	// set the apropriate logging level
-	$log_level = LOG_LEVEL_INFO;
+	/**
+	 * @var string set the apropriate logging level
+	 */
+	protected $log_level = LOG_LEVEL_INFO;
 	
-	// path to Stomp
-	$stomp_path = "../../activemq_stomp/Stomp.php";
+	/**
+	 * @var string path to Stomp
+	 */
+	protected $stomp_path = "../../activemq_stomp/Stomp.php";
 
-	// path to pending queue
-	$pending_queue = '/queue/pending_paypal';
+	/**
+	 * @var string path to pending queue
+	 */
+	protected $pending_queue = '/queue/pending_paypal';
 
-	// path to the verified queue
-	$verified_queue = '/queue/donations';
+	/**
+	 * @var string path to the verified queue
+	 */
+	protected $verified_queue = '/queue/donations';
 
-  // URI to activeMQ
-	$activemq_stomp_uri = 'tcp://localhost:61613';
+	/**
+	 * @var string  URI to activeMQ
+	 */
+	protected $activemq_stomp_uri = 'tcp://localhost:61613';
+
+	/** 
+	 * @var resource a file system pointer resource (usually made with fopen()) 
+	 */
+	protected $output_handle = NULL;
 
 	/**
 	 * Class constructor, sets configurable parameters
@@ -77,7 +92,13 @@ class PaypalIPNProcessor {
 			unset( $opts[ 'log_level'] );
 		}
 
-		$this->out( "Loading Paypal IPN processor" ); 
+		// prepare the output log file if necessary
+		if ( array_key_exists( 'output_handle', $opts )) {
+			$this->output_handle = $opts[ 'output_handle' ];
+			unset( $opts[ 'output_handle' ] );
+		}
+
+		$this->out( "Loading Paypal IPN processor with log level: " . $this->log_level ); 
 
 		// set parameters
 		foreach ( $opts as $key => $value ) {
@@ -371,7 +392,17 @@ class PaypalIPNProcessor {
 	 * @param $level the Level at which the message should be output.
 	 */
 	protected function out( $msg, $level=LOG_LEVEL_INFO ) {
-		if ( $this->log_level >= $level ) echo date( 'c' ) . ": " . $msg . "\n";
+		$out = NULL;
+
+		// format the output message if the apropriate log level is set
+		if ( $this->log_level >= $level ) $out = date( 'c' ) . ": " . $msg . "\n";
+
+		// if we have an output resource handle, write to the resource.  otherwise, echo
+		if ( $this->output_handle ) {
+			fwrite( $this->output_handle, $out );
+		} else {
+			echo $out;
+		}
 	}
 
 	public function __destruct() {

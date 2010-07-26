@@ -11,8 +11,11 @@
  * @author Arthur Richards <arichards@wikimedia.org>
  */
 
-// turn on output buffering so we can capture the output
-ob_start();
+
+// define a file where you can log the output from the listener
+$log_file = "out_" . date( 'Ymd' ) . '.log';
+// create a file resource pointer
+$output_handle = fopen( $log_file, 'a' );
 
 // require the actual listener
 require_once( '/path/to/PaypalIPNListener.php' );
@@ -28,10 +31,9 @@ $config = array(
   'contrib_db_username' => 'user',
   'contrib_db_password' => 'password',
   'contrib_db_name' => 'drupal',
+  'output_handle' => $output_handle, // filesystem pointer resource for logging output
 );
 
-// define a file where you can log the output from the listener
-$log_file = "out_" . date( 'Ymd' ) . '.log'; //for logging the output
 
 // instantaite the listener with our config options
 $listener = new PaypalIPNProcessor( $config );
@@ -42,13 +44,6 @@ $listener->execute( $_POST );
 // shutdown the listener
 unset( $listener );
 
-// get the output from the buffer
-$output = ob_get_clean();
-ob_flush();
-
-// open our log file
-$handle = fopen( $log_file, 'a' );
-
-// write the output to the log file
-fwrite( $handle, $output );
+// cleanly close the file pointer for output
+fclose( $output_handle );
 ?>
