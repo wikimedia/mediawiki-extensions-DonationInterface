@@ -36,10 +36,10 @@ $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
 $wgPayflowProPassword = ''; //merchant login password
 
-$wgPayflowGatewayDBserver = $wgDBserver;
-$wgPayflowGatewayDBname = $wgDBname;
-$wgPayflowGatewayDBuser = $wgDBuser;
-$wgPayflowGatewayDBpassword = $wgDBpassword;
+$wgPayflowGatewayDBserver =( !isset( $wgPayflowGatewayDBserver )) ? $wgDBserver : $wgPayflowGatewayDBserver;
+$wgPayflowGatewayDBname = ( !isset( $wgPayflowGatewayDBname )) ? $wgDBname : $wgPayflowGatewayDBname;
+$wgPayflowGatewayDBuser = ( !isset( $wgPayflowGatewayDBuser )) ? $wgDBuser : $wgPayflowGatewayDBuser;
+$wgPayflowGatewayDBpassword = ( !isset( $wgPayflowGatewayDBpassword )) ? $wgDBpassword : $wgPayflowGatewayDBpassword;
 
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
