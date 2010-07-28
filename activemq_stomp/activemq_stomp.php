@@ -102,7 +102,7 @@ function sendPendingSTOMP($transaction) {
         global $wgOut;
         global $wgStompServer, $wgPendingStompQueueName;
 
-        $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'pending';
+        $queueName = isset ( $wgPendingStompQueueName ) ? $wgPendingStompQueueName : 'pending';
 
         // include a library
         require_once("Stomp.php");
