@@ -264,8 +264,13 @@ class PaypalIPNProcessor {
 
 		$contribution['street_address'] = $split[0];
 		$contribution['supplemental_address_1'] = $split[1];
-		$contribution['city'] = $post_data['address_city'];
-		$contribution['original_currency'] = $post_data['mc_currency'];
+    $contribution['city'] = $post_data['address_city'];
+    $contribution['state_province'] = $post_data['address_state'];
+    $contribution['country'] = $post_data['address_country_code'];
+    $contribution['postal_code'] = $post_data['address_zip'];
+
+    $contribution['gateway_txn_id'] = $post_data['txn_id'];
+    $contribution['original_currency'] = $post_data['mc_currency'];
 		$contribution['original_gross'] = $post_data['mc_gross'];
 		$contribution['fee'] = $post_data['mc_fee'];  
 		$contribution['gross'] = $post_data['mc_gross']; 
