@@ -1941,6 +1941,7 @@ Joissain tapauksissa numero sijaitsee kortin vasemmalla puolella, mutta se on ai
 /** French (Français)
  * @author Cedric31
  * @author IAlex
+ * @author Peter17
  * @author PieRRoMaN
  */
 $messages['fr'] = array(
@@ -1956,7 +1957,7 @@ Il y a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d\'aut
 	'payflowpro_gateway-cvv-link' => 'Exemple',
 	'payflowpro_gateway-donor-amount' => 'Montant :',
 	'payflowpro_gateway-donor-currency-label' => 'Devise :',
-	'payflowpro_gateway-donor-email' => 'Adresse de courriel :',
+	'payflowpro_gateway-donor-email' => 'Adresse électronique :',
 	'payflowpro_gateway-donor-fname' => 'Prénom :',
 	'payflowpro_gateway-donor-mname' => 'Deuxième prénom :',
 	'payflowpro_gateway-donor-lname' => 'Nom de famille :',
@@ -1982,7 +1983,7 @@ Il y a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d\'aut
 	'payflowpro_gateway-error-msg-visa' => '**Veuillez entrer un numéro de carte Visa correct.**',
 	'payflowpro_gateway-error-msg-discover' => '**Veuillez entrer un numéro de carte Discover correct.**',
 	'payflowpro_gateway-error-msg-amount' => 'montant du don',
-	'payflowpro_gateway-error-msg-emailAdd' => 'adresse de courriel',
+	'payflowpro_gateway-error-msg-emailAdd' => 'adresse électronique',
 	'payflowpro_gateway-error-msg-fname' => 'prénom',
 	'payflowpro_gateway-error-msg-lname' => 'nom de famille',
 	'payflowpro_gateway-error-msg-street' => 'adresse',
