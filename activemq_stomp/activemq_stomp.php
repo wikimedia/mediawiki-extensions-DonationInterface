@@ -23,12 +23,7 @@ $wgAutoloadClasses['activemq_stomp'] = $dir . 'activemq_stomp.php'; # Tell Media
 //default variables that should be set in LocalSettings
 $wgStompServer = "";
 
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-	     $wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
-} else { // Otherwise do things the old fashioned way
-	     $wgExtensionFunctions[] = 'efStompSetup';
-}
-
+$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
 
 /*
 * Create <donate /> tag to include landing page donation form
