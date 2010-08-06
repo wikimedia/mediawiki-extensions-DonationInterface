@@ -1454,6 +1454,7 @@ Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</
 );
 
 /** Greek (Ελληνικά)
+ * @author Crazymadlover
  * @author ZaDiak
  */
 $messages['el'] = array(
@@ -1501,6 +1502,7 @@ $messages['el'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'ημερομηνία λήξης της κάρτας',
 	'payflowpro_gateway-response-126' => 'Εκκρεμεί έγκριση της συναλλαγής σας.',
 	'payflowpro_gateway-response-4' => 'Άκυρο ποσό.',
+	'payflowpro_gateway-submit-button' => 'Δώρησε',
 	'donate_interface-GBP' => 'GBP: Βρετανική λίρα',
 	'donate_interface-EUR' => 'EUR: Ευρώ',
 	'donate_interface-USD' => 'USD: Δολάριο Η.Π.Α.',
