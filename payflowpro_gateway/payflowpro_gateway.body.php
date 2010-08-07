@@ -153,6 +153,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 						// The submitted data is valid, so process it
 						//increase the count of attempts
 						++$data['numAttempt'];
+            wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data )) ;
 						$this->fnPayflowProcessTransaction( $data, $payflow_data );
 					}
 				} else {
