@@ -4,7 +4,7 @@
 if( !defined( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
 To install PayflowPro Gateway extension, put the following line in LocalSettings.php:
-require_once( "\$IP/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.php" );
+require_once( "\$IP/extensions/payflowpro_gateway/payflowpro_gateway.php" );
 EOT;
 	exit( 1 );
 }
@@ -14,6 +14,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'PayflowPro Gateway',
 	'author' => 'Four Kitchens',
 	'version' => '1.0.0',
+	'description' => 'Integrates Paypal Payflow Pro credit card processing',
 	'descriptionmsg' => 'payflowpro_gateway-desc',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:PayflowProGateway',
 );
@@ -24,6 +25,8 @@ $wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n.php';
 $wgExtensionAliasesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.alias.php';
 $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
+$wgAjaxExportList[] = "fnPayflowProofofWork";
+
 
 // set defaults, these should be assigned in LocalSettings.php
 $wgPayflowProURL = 'https://payflowpro.paypal.com';
@@ -36,10 +39,10 @@ $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
 $wgPayflowProPassword = ''; //merchant login password
 
-$wgPayflowGatewayDBserver =( !isset( $wgPayflowGatewayDBserver )) ? $wgDBserver : $wgPayflowGatewayDBserver;
-$wgPayflowGatewayDBname = ( !isset( $wgPayflowGatewayDBname )) ? $wgDBname : $wgPayflowGatewayDBname;
-$wgPayflowGatewayDBuser = ( !isset( $wgPayflowGatewayDBuser )) ? $wgDBuser : $wgPayflowGatewayDBuser;
-$wgPayflowGatewayDBpassword = ( !isset( $wgPayflowGatewayDBpassword )) ? $wgDBpassword : $wgPayflowGatewayDBpassword;
+$wgPayflowGatewayDBserver = ( !$wgPayflowGatewayDBserver ) ? $wgDBserver : $wgPayflowGatewayDBserver;
+$wgPayflowGatewayDBname = ( !$wgPayflowGatewayDBname ) ? $wgDBname : $wgPayflowGatewayDBname;
+$wgPayflowGatewayDBuser = ( !$wgPayflowGatewayDBuser ) ?  $wgDBuser : $wgPayflowGatewayDBuser;
+$wgPayflowGatewayDBpassword = ( !$wgPayflowGatewayDBpassword ) ? $wgDBpassword : $wgPayflowGatewayDBpassword;
 
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
