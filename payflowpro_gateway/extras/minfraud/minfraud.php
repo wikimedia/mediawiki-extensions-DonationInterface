@@ -44,8 +44,8 @@ class MinFraud {
 
 		if ( isset( $wgMinFraudActionRanges )) $this->action_ranges = $wgMinFraudActionRanges;
 
-		$log_file = ( $wgMinFraudLog ) ? $wgMinFraudLog : "/var/log/mw/minfraud";
-		$this->prepare_log_file( $log_file );
+		// prepare the log file if the user has specified one
+		if ( $wgMinFraudLog ) $this->prepare_log_file( $wgMinFraudLog );
 	}
 
 	/**
@@ -59,15 +59,20 @@ class MinFraud {
 		$minfraud_hash = $this->build_query( $data );
 		$this->query_minfraud( $minfraud_hash );
 		$pfp_gateway_object->actions = $this->determine_actions( $this->minfraud_response[ 'riskScore' ] );
-		$log_message = '"'. date('c') . '"';
-		$log_message .= "\t" . '"' . $data[ 'contribution_tracking_id' ] . '"';
-		$log_message .= "\t" . '"' . $data[ 'comment' ] . '"';
-		$log_message .= "\t" . '"' . $data[ 'amount' ] . ' ' . $data[ 'currency' ] . '"';
-		$log_message .= "\t" . '"' . serialize( $minfraud_hash ) . '"';
-		$log_message .= "\t" . '"' . serialize( $this->minfraud_response ) . '"';
-		$log_message .= "\t" . '"' . serialize( $pfp_gateway_object->actions ) . '"';
-		$this->log( $log_message );
-    return TRUE;
+		
+		// log the message if the user has specified a log file
+		if ( $this->log_fh ) {
+			$log_message = '"'. date('c') . '"';
+			$log_message .= "\t" . '"' . $data[ 'contribution_tracking_id' ] . '"';
+			$log_message .= "\t" . '"' . "minFraud query" . '"';
+			$log_message .= "\t" . '"' . $data[ 'comment' ] . '"';
+			$log_message .= "\t" . '"' . $data[ 'amount' ] . ' ' . $data[ 'currency' ] . '"';
+			$log_message .= "\t" . '"' . serialize( $minfraud_hash ) . '"';
+			$log_message .= "\t" . '"' . serialize( $this->minfraud_response ) . '"';
+			$log_message .= "\t" . '"' . serialize( $pfp_gateway_object->actions ) . '"';
+			$this->log( $log_message );
+		}
+		return TRUE;
 	}
 
 	/**

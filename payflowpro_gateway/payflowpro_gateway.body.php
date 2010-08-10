@@ -1,6 +1,20 @@
 <?php
 
 class PayflowProGateway extends UnlistedSpecialPage {
+	
+	/**
+	 * Defines the action(s) to take on a PFP transaction.
+	 *
+	 * Possible values include 'process', 'challenge', 
+	 * 'review', 'reject'.  These values can be set during
+	 * data processing validation, for instance.
+	 *
+	 * Hooks are exposed to handle the differet actions.
+	 *
+	 * Defaults to 'process'.
+	 * @var array
+	 */
+	public $actions = array( 'process' );
 
 	/**
 	 * Constructor - set up the new special page
@@ -16,13 +30,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, $wgPayFlowProGatewayCSSVersion, $wgPayflowCaptcha;
+		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, $wgPayFlowProGatewayCSSVersion;
 
 		$this->setHeaders();
 		
 		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
 				     $wgScriptPath . 
- 			'/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 
 		$wgOut->addExtensionStyle( 
 			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?" . 
@@ -79,11 +93,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'anonymous' => '',
 			'optout' => '',
 			'token' => $token,
-			'contribution_tracking_id' => '', 
-			'powKey' => '',
-			'powRandMatch' => '',
-			'requireCap' => '',
-			
+			'contribution_tracking_id' => '',
 		);
 
 		$error[] = '';
@@ -103,37 +113,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// track the number of attempts the user has made
 		$numAttempt = ( $wgRequest->getText( 'numAttempt' ) == '' ) ? '0' : $wgRequest->getText( 'numAttempt' );
 		
-		/* fraud prevention by showing proof of work 
-		* TODO: Create function to handle this 
-		*/		
-		// process the proof of work script only if this is the first page load
-		$require = '';
-		
-		//if ( $wgRequest->getText( 'powKey' ) == '' ) {
-			require_once( 'includes/challenges.inc' );
-			require_once( 'includes/challenges_inlinejs.inc' );
-			
-			$randomMatch = array();
-			$randomMatch = fnPayflowGetRandMatch();
-			
-			// Get a random anti-fraud challenge/response set
-			$challenge = NULL;
-			$key = NULL;
-			$response = array();
-			
-			$randomChallenge = fnPayflowGetChallenge();
-			
-			// call inline script to process challenge and add to form data
-			if ( $randomChallenge ) {
-				$challenge = $randomChallenge['problem'];
-				$key = $randomChallenge['key'];
-				
-				$challengeScript = fnPayflowGetInlineJSChallenges( $challenge, $key, $randomMatch );
-				
-				$wgOut->addInlineScript( $challengeScript  );
-			}
-		//}	
-				
 		// Populate from data
 		$data = array(
 			'amount' => $amount,
@@ -164,13 +143,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'optout' => $wgRequest->getText( 'email' ),
 			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
 			'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
-			'requireCap' => $wgRequest->getText( 'requireCap' ), //was a capthcha form displayed?
-			'powKey' => $wgRequest->getText( 'powKey' ), //key to proof of work array to match user solution
-			'powResponse' => $wgRequest->getText( 'powResponse' ), //user proof of work solution
-			'powRandMatch' => $wgRequest->getText( 'powRandMatch' ), //random number matching for proof of work test
-			//'powRandMatch' => "47", //Use this to make the POW test fail during testing
 		);
-				
+		
 		// Get array of default account values necessary for Payflow 
 		require_once( 'includes/payflowUser.inc' );
 
@@ -182,30 +156,52 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// Check form for errors and display 
 		// match token
 		$success = $wgUser->matchEditToken( $token, 'mrxc877668DwQQ' );
-				
+
 		if( $success ) {
 			if( $data['payment_method'] == 'processed' ) {
+				//increase the count of attempts
+				++$data['numAttempt'];
+				
 				// Check form for errors and redisplay with messages
 				$form_errors = $this->fnPayflowValidateForm( $data, $error );
-					if( $form_errors ) {
-						$this->fnPayflowDisplayForm( $data, $error );
-					} else {
-						// The submitted data is valid, so process it
-						//increase the count of attempts
-						++$data['numAttempt'];
-						global $wgMinFraud;
-						if ( $wgMinFraud ) {
-							$msg = "\"" . date('c') . "\""  . "\t" . "\"" . $data[ 'contribution_tracking_id' ] . "\"" . "\t" . "\"Trxn sent to Payflow\"";
-							$wgMinFraud->log( $msg );
-						}
+				if( $form_errors ) {
+					$this->fnPayflowDisplayForm( $data, $error );
+				} else { // The submitted form data is valid, so process it
+					// allow any external validators to have their way with the data	
+					wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data ));
+
+					// if the transaction was flagged for review
+					if ( in_array( 'review', $this->actions )) {
+						// expose a hook for external handling of trxns flagged for review
+						wfRunHooks( 'PayflowGatewayReview', array( &$this, $data ));
+					}
+
+					// if the transaction was flagged to be 'challenged'
+					if ( in_array( 'challenge', $this->actions )) {
+						// expose a hook for external handling of trxns flagged for challenge (eg captcha)
+						wfRunHooks( 'PayflowGatewayChallenge', array( &$this, $data ));
+					}
+
+					// if the transaction was flagged for rejection
+					if ( in_array( 'reject', $this->actions )) {
+						// expose a hook for external handling of trxns flagged for rejection
+						wfRunHooks( 'PayflowGatewayReject', array( &$this, $data ));
+
+						$this->fnPayflowDisplayDeclinedResults( '' );
+					}
+
+					// if the transaction was flagged for processing
+					if ( in_array( 'process', $this->actions )) {
+						// expose a hook for external handling of trxns ready for processing
+						wfRunHooks( 'PayflowGatewayProcess', array( &$this, $data ));
 						$this->fnPayflowProcessTransaction( $data, $payflow_data );
 					}
-				} else {
+				}
+			} else {
 				//Display form for the first time
 				$this->fnPayflowDisplayForm($data, $error);
 			}
 		} 
-
 	}
 
 	/**
@@ -219,9 +215,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	private function fnPayflowDisplayForm( $data, &$error ) {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
-		require_once( 'includes/challenges.inc' );
 	
-		global $wgOut, $wgLang, $wgWikipediaForeverTheme, $wgPayflowCaptcha;
+		global $wgOut, $wgLang, $wgWikipediaForeverTheme;
 
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == 0 ) {
@@ -313,11 +308,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
 			Xml::closeElement( 'div' );
-
+		
 		// open form	
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
 			Xml::element( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] ) .
-			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => "return validate_form(this)", 'autocomplete' => 'off' ) );			
+			Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
+		
+		// donor amount and name			
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) ).
 			'<tr><td style="text-align:right;">' .
 			Xml::label(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', array( 'maxlength' => '10' ) ) . 
@@ -432,28 +429,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::hidden( 'orderid', $data['order_id'] ) .
 			Xml::hidden( 'numAttempt', $data['numAttempt'] ) .
 			Xml::hidden( 'contribution_tracking_id', $data['contribution_tracking_id'] );
-		
-		// check to see if proof of work captcha requirement has been met
-		$dummyKey = '';
-		$dummyKey = fnPayflowGetDummyKey();
-		
-		if( $error['requireCap'] == 'complete' || $data['requireCap'] == $dummyKey ) {
-			$form .= Xml::hidden( 'requireCap', $dummyKey );
-		}
-		
-		$form .=	Xml::hidden( 'powKey', $data['powKey']) .
-			Xml::hidden( 'powResponse', $data['powResponse']) .
-			Xml::hidden( 'powRandMatch', $data['powRandMatch']);
-
-		if ( $error['requireCap'] == 'true' ) {
-			$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha')) .
-				$wgPayflowCaptcha->getForm() .
-				'<span class="creditcard-error-msg">' . '  ' . $error['captcha'] . '</span>' .
-				'<span class="creditcard-error-msg">' . '  ' . $error['captchaDo'] . '</span>' .
-				Xml::closeElement( 'div' );
-				$form .= Xml::hidden( 'requireCap', 'true');
-		} 
-  
 				
 		// submit button and close form
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage' ) ) .
@@ -475,7 +450,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * Checks posted form data for errors and returns array of messages
 	 */
 	private function fnPayflowValidateForm( $data, &$error ) {
-		global $wgOut, $wgPayflowCaptcha, $wgMinFraud;
+		global $wgOut;
 		
 		$error = '';
 
@@ -508,7 +483,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				}
 			}
 		}
-		
 		
 		//check amount
 		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data['amount'] ) || $data['amount'] == "0.00" ) {
@@ -578,65 +552,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				
 				
 		} // end switch
-			
-		// check captcha if captcha was required
-		// this is a generic value set if the client has passed captcha already
-		$dummyKey = '';
-		$dummyKey = fnPayflowGetDummyKey();
 		
-		if ( $data['requireCap'] != $dummyKey ) {
-			if ( $data['requireCap'] == 'true' ) {
-				$checkCaptcha = NULL;
-				$checkCaptcha = $wgPayflowCaptcha->passCaptcha();
-			
-				if ( !$checkCaptcha ) {
-					$error['requireCap'] = 'true';
-					$error['captcha'] = wfMsg( 'payflowpro_gateway-error-msg-captcha' );
-					$error_result = '1';
-					if ( $wgMinFraud ) {
-						$msg = "\"" . date( 'c' ) . "\"" . "\t" . "\"" . $data[ 'contribution_tracking_id' ] . "\"" . "\t" . "\"Captcha fail\"";
-						$wgMinFraud->log( $msg );
-					}
-				} else {
-					$error['requireCap'] = 'complete';
-					if ( $wgMinFraud ) {
-						$msg = "\"" . date( 'c' ) . "\"" . "\t" . "\"" . $data[ 'contribution_tracking_id' ] . "\"" . "\t" . "\"Captcha success\"";
-						$wgMinFraud->log( $msg );
-					}
-				}
-			} else  {
-				// run any external validation
-				// this is a terrible place to run this, but we need to abstract captcha stuff before moving
-				wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data ));
-		
-				// check proof of work and require captcha if fails
-				require_once( 'includes/challenges.inc' );
-				$clientKey = array();
-				$response = array();
-				$randMatch == '';
-				$error['requireCap'] = '';
-				
-				// solution to both pow problem and random match are combined: seperate and process
-				$clientKey = explode( '%', $data['powKey'] );
-			
-				// get solution to pow problem to match with client's
-				$response = fnPayflowGetChallenge( $clientKey[0] );
-				// get solution to random number match 
-				$randMatch = fnPayflowGetRandMatch( $data['powRandMatch'] );
-			
-				// if the random number and/or the solution do not match, require captcha
-				if ( $randMatch != $clientKey[1] || $response['response'] != $data['powResponse'] || in_array( 'challenge', $this->actions )) {
-					$error['requireCap'] = 'true';
-					$error['captchaDo'] = wfMsg( 'payflowpro_gateway-error-msg-captcha-please' );
-					$error_result = '1';
-					if ( $wgMinFraud ) {
-						$msg = "\"" . date( 'c' ) . "\"" . "\t" . "\"" . $data[ 'contribution_tracking_id' ] . "\"" . "\t" . "\"Captcha triggered\"";
-						$wgMinFraud->log( $msg );
-					}
-				} 
-			}
-		}
-	
 		return $error_result;
 	}
 
@@ -689,7 +605,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$ch = curl_init();
 		$paypalPostTo = isset ( $wgDonationTestingMode ) ? 'testingurl' : 'paypalurl'; 
 		curl_setopt( $ch, CURLOPT_URL, $payflow_data[ $paypalPostTo ] );
-		//curl_setopt( $ch, CURLOPT_URL, $payflow_data[ 'testingurl' ] );
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
 		curl_setopt( $ch, CURLOPT_HEADER, 1 );
@@ -1009,8 +924,5 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		return $payflowCurrencies;
 	}
 	
-	function fnPayflowProofofWork($challenge, $solution) {
-		return "Mary";
-	}	
 	
 } // end class
