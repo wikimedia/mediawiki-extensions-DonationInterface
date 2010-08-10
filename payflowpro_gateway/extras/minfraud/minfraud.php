@@ -1,6 +1,6 @@
 <?php
 
-class MinFraud {
+class PayflowProGateway_Extras_MinFraud {
 
 	/**
 	 * Full response from minFraud
