@@ -1150,6 +1150,7 @@ Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhi
 
 /** German (Deutsch)
  * @author Imre
+ * @author Kghbln
  * @author Lyzzy
  * @author Metalhead64
  * @author Tbleher
@@ -1159,9 +1160,9 @@ $messages['de'] = array(
 	'payflowprogateway' => 'Wikimedia unterstützen',
 	'payflowpro_gateway-desc' => 'PayPal-Payflow-Pro-Kreditkartenabwicklung',
 	'payflowpro_gateway-accessible' => 'Diese Seite kann nur über die Spendenseite erreicht werden.',
-	'payflowpro_gateway-form-message' => 'Spenden Sie mit Ihrer Kreditkarte.
+	'payflowpro_gateway-form-message' => 'Spende mit deiner Kreditkarte.
 Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">andere Wege zum Spenden, inklusive PayPal, Scheck oder Überweisung</a>.',
-	'payflowpro_gateway-form-message-2' => 'Um den Betrag oder die Währung zu ändern, kehren Sie zur <a href="/index.php?title=Donate">Spendenseite</a> zurück.',
+	'payflowpro_gateway-form-message-2' => 'Um den Betrag oder die Währung zu ändern, kannst du zur <a href="/index.php?title=Donate">Spendenseite</a> zurückkehren.',
 	'payflowpro_gateway-donor-legend' => 'Spender-Information',
 	'payflowpro_gateway-card-legend' => 'Kreditkarten-Information',
 	'payflowpro_gateway-amount-legend' => 'Spendenbetrag:',
@@ -1204,6 +1205,8 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-error-msg-card_num' => 'Kreditkartennummer',
 	'payflowpro_gateway-error-msg-expiration' => 'Gültig bis',
 	'payflowpro_gateway-error-msg-cvv' => 'Prüfnummer',
+	'payflowpro_gateway-error-msg-captcha' => 'Der eingegebene Bestätigungscode ist falsch. Bitte versuche es erneut.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Bitte gebe den Bestätigungscode ein, um zu bestätigen, dass Du ein Mensch und kein Bot bist.',
 	'payflowpro_gateway-response-0' => 'Deine Transaktion wurde durchgeführt.
 Vielen Dank für deine Spende.',
 	'payflowpro_gateway-response-126' => 'Für deine Transaktion wird auf eine Freigabe gewartet.',
@@ -2103,7 +2106,7 @@ Vos volyéd veriér vers nos por porsiuvre voutra transaccion.',
 	'payflowpro_gateway-response-112' => 'Voutra adrèce ou ben lo numerô CVV (code de sècuritât) est fôx.',
 	'payflowpro_gateway-response-125' => 'Voutra transaccion at étâ refusâ per los Sèrviços de prèvencion de les frôdes.',
 	'payflowpro_gateway-response-default' => 'Una èrror est arrevâ pendent lo trètament de voutra transaccion.
-Volyéd tornar èprovar ples târd.',
+Volyéd tornar èprovar pués aprés.',
 	'php-response-declined' => 'Voutra transaccion at étâ refusâ.',
 	'payflowpro_gateway-thankyou' => 'Grant-marci por voutron don !',
 	'payflowpro_gateway-post-transaction' => 'Dètalys de la transaccion',
@@ -3235,6 +3238,8 @@ Et gëtt <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aner Méi
 	'payflowpro_gateway-error-msg-card_num' => 'Nummer vun der Kreditkaart',
 	'payflowpro_gateway-error-msg-expiration' => "Datum op deem d'Kaart ofleeft",
 	'payflowpro_gateway-error-msg-cvv' => 'den CVV deen hannen op Ärer Kaart drop steet',
+	'payflowpro_gateway-error-msg-captcha' => 'De Captcha-Wäert deen Dir aginn hutt ass falsch. Probéiert w.e.g. nach emol.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Fëllt w.e.g. de Captcha-Formulaire aus fir ze weisen datt Dir kee Roboter sidd.',
 	'payflowpro_gateway-response-0' => 'Är Transaktioun gouf kzeptéiert.
 Merci fir Ären Don!',
 	'payflowpro_gateway-response-126' => 'Är Transaktiun muss nach akzeptéiert ginn.',
@@ -3607,6 +3612,8 @@ Er zijn <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere man
 	'payflowpro_gateway-error-msg-card_num' => 'creditcardnummer',
 	'payflowpro_gateway-error-msg-expiration' => 'vervaldatum creditcard',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV - beveiligingscode - van de achterkant van uw creditcard',
+	'payflowpro_gateway-error-msg-captcha' => 'Het antwoord op de vraag is onjuist. Probeer het opnieuw.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Geef een antwoord op de vraag om aan te tonen dat u geen geautomatiseerd proces bent.',
 	'payflowpro_gateway-response-0' => 'Uw transactie is goedgekeurd.
 Dank u wel voor uw donatie!',
 	'payflowpro_gateway-response-126' => 'Uw transactie wacht op goedkeuring.',
@@ -4040,6 +4047,8 @@ A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">àutre mane
 	'payflowpro_gateway-error-msg-card_num' => 'nùmer ëd la carta ëd crédit',
 	'payflowpro_gateway-error-msg-expiration' => 'data scadensa dla carta',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV an sël daré ëd toa carta',
+	'payflowpro_gateway-error-msg-captcha' => "Ël valor dla Captcha ch'it l'has anserì a l'é pa bon.   Për piasì preuva torna.",
+	'payflowpro_gateway-error-msg-captcha-please' => "Për piasì vemp torna la forma dla Captcha për prové ch'it ses pa un trigomiro.",
 	'payflowpro_gateway-response-0' => "Toa transassion a l'é stàita aprovà.
 Mersì për toa donassion!",
 	'payflowpro_gateway-response-126' => "Toa transassion a speta l'aprovassion.",
@@ -4174,6 +4183,8 @@ Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras fo
 	'payflowpro_gateway-error-msg-card_num' => 'o seu número de cartão de crédito',
 	'payflowpro_gateway-error-msg-expiration' => 'a data de expiração do seu cartão',
 	'payflowpro_gateway-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
+	'payflowpro_gateway-error-msg-captcha' => 'O valor Captcha que introduziu está incorrecto. Tente novamente, por favor.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Preencha o formulário Captcha para provar que não é um robô, por favor.',
 	'payflowpro_gateway-response-0' => 'A transacção foi aprovada.
 Obrigado pelo seu donativo!',
 	'payflowpro_gateway-response-126' => 'A transacção foi submetida para aprovação.',
@@ -4453,6 +4464,8 @@ $messages['ru'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'номер кредитной карты',
 	'payflowpro_gateway-error-msg-expiration' => 'дата окончания действия карты',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV с обратной стороны вашей карты',
+	'payflowpro_gateway-error-msg-captcha' => 'Введённое значение Captcha неправильно. Пожалуйста, попробуйте ещё раз.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Пожалуйста, заполните форму Captcha, чтобы доказать, что вы не бот.',
 	'payflowpro_gateway-response-0' => 'Ваша транзакция была санкционирована.
 Спасибо за ваше пожертвование!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакция ожидает санкционирования.',
