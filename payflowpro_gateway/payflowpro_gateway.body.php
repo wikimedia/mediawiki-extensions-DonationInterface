@@ -14,7 +14,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * Defaults to 'process'.
 	 * @var string
 	 */
-	public $action = NULL;
+	public $action = 'process';
 
 	/**
 	 * Holds the information from a Payflow transaction
