@@ -512,7 +512,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		foreach( $data as $key => $value ) {
 			if( $value == '' || $data['state'] == 'YY' ) {
 				// ignore fields that are not required
-				if( $msg[$key] ) {
+				if( isset($msg[$key]) ) {
 					$error[$key] = "**" . wfMsg( 'payflowpro_gateway-error-msg', $msg[$key] ) . "**<br />";
 					$error_result = '1';
 				}
