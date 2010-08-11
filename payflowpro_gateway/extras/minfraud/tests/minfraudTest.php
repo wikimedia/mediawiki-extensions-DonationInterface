@@ -4,7 +4,8 @@ require_once "PHPUnit/Framework.php";
 class minfraudTest extends PHPUnit_Framework_TestCase
 {
 	protected function setUp() {
-		require_once( __FILE__ . '/../../minfraud.php');
+		$dir = dirname( __FILE__ ) . '/';
+		require_once( $dir . '../minfraud.php');
 		global $wgMinFraudLog;
 		$wgMinFraudLog = dirname(__FILE__) . "/test_log";
 		$license_key = 'XBCKSF4gnHA7';
@@ -149,9 +150,9 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 
 	public function testLogging() {
 		global $wgMinFraudLog;
-		$this->fixture->log( "foo" );
+		$this->fixture->log( '', '', "\"foo\"" );
 		$new_fh = fopen( $wgMinFraudLog, 'r' );
-		$this->assertEquals("foo\n", fread( $new_fh, filesize( $wgMinFraudLog ) ));
+		$this->assertEquals('"'.date('c').'"'."\t\"\"\t\"\"\t\"foo\"\n", fread( $new_fh, filesize( $wgMinFraudLog ) ));
 		fclose( $new_fh );
 	}
 
@@ -173,12 +174,12 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		$wgMinFraudSalt = 'salt';
 		$data = array(
 			'action' => '4bd7857c851039d1e07a434800fe752c6bd99aec61c325aef460441be1b95c3ab5236e43c8d06f41d77715dbd3cf94e679b86422ec3204f00ad433501e5005e9',
-			'data_hash' => '8a42092df24db59b67ab2c6408e00553de93e79dc0d77467f5b91501a392cff99922a0b24f9d0cc5853ae874bbc79c20eb22814ce3a912d743d4137b1f795ac3',
+			'data_hash' => '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3',
 			'foo'
 		);
 		$this->assertTrue( $this->fixture->bypass_minfraud( &$this->fixture, &$data ));
 		$this->assertEquals( 'challenge', $this->fixture->action );
-		$this->assertEquals( '8a42092df24db59b67ab2c6408e00553de93e79dc0d77467f5b91501a392cff99922a0b24f9d0cc5853ae874bbc79c20eb22814ce3a912d743d4137b1f795ac3', $data[ 'data_hash' ]);
+		$this->assertEquals( '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3', $data[ 'data_hash' ]);
 
 		$data[] = 'bar';
 		$this->assertFalse( $this->fixture->bypass_minfraud( &$this->fixture, &$data ));

@@ -1,6 +1,11 @@
 <?php
+/**
+ * Validates a transaction against MaxMind's minFraud service
+ */
 
-class PayflowProGateway_Extras_MinFraud {
+$dir = dirname( __FILE__ ) . "/";
+require_once( $dir . "../extras.php" );
+class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 
 	/**
 	 * Full response from minFraud
@@ -15,13 +20,9 @@ class PayflowProGateway_Extras_MinFraud {
 	public $minfraud_license_key = NULL;
 
 	/**
-	 * File handle for log file
-	 * @var public 
-	 */
-	public $log_fh = NULL;
-
-	/**
 	 * User-definable riskScore ranges for actions to take
+	 * 
+ 	 * Overload with $wgMinFraudActionRanges
 	 * @var public array
 	 */
 	public $action_ranges = array(
@@ -32,9 +33,11 @@ class PayflowProGateway_Extras_MinFraud {
 	);
 
 	function __construct( $license_key = NULL ) {
-		require_once( __FILE__ . "/../ccfd/CreditCardFraudDetection.php" );
+		parent::__construct();
+		$dir = dirname( __FILE__ ) .'/';
+		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
 
-		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges, $wgMinFraudLog;
+		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges;
 
 		// set the minfraud license key, go no further if we don't have it
 		if ( !$license_key && !$wgMinFraudLicenseKey ) {
@@ -43,9 +46,6 @@ class PayflowProGateway_Extras_MinFraud {
 		$this->minfraud_license_key = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey; 
 
 		if ( isset( $wgMinFraudActionRanges )) $this->action_ranges = $wgMinFraudActionRanges;
-
-		// prepare the log file if the user has specified one
-		if ( $wgMinFraudLog ) $this->prepare_log_file( $wgMinFraudLog );
 	}
 
 	/**
@@ -63,23 +63,19 @@ class PayflowProGateway_Extras_MinFraud {
 		$this->query_minfraud( $minfraud_hash );
 		$pfp_gateway_object->action = $this->determine_action( $this->minfraud_response[ 'riskScore' ] );
 
-		// reset the data hash and the action
+		// reset the data hash
 		if ( isset( $data[ 'data_hash' ] )) unset( $data[ 'data_hash' ] );
-		if ( isset( $data[ 'action' ] )) unset( $data[ 'action' ] );
-		$data[ 'data_hash' ] = $this->genereate_hash( serialize( $data ));
-		$data[ 'action' ] = $this->genereate_hash( $pfp_gateway_object->action );
+		$data[ 'action' ] = $this->generate_hash( $pfp_gateway_object->action );
+		$data[ 'data_hash' ] = $this->generate_hash( serialize( $data ));
 		
 		// log the message if the user has specified a log file
 		if ( $this->log_fh ) {
-			$log_message = '"'. date('c') . '"';
-			$log_message .= "\t" . '"' . $data[ 'contribution_tracking_id' ] . '"';
-			$log_message .= "\t" . '"' . "minFraud query" . '"';
-			$log_message .= "\t" . '"' . $data[ 'comment' ] . '"';
+			$log_message = '"' . $data[ 'comment' ] . '"';
 			$log_message .= "\t" . '"' . $data[ 'amount' ] . ' ' . $data[ 'currency' ] . '"';
 			$log_message .= "\t" . '"' . serialize( $minfraud_hash ) . '"';
 			$log_message .= "\t" . '"' . serialize( $this->minfraud_response ) . '"';
 			$log_message .= "\t" . '"' . serialize( $pfp_gateway_object->actions ) . '"';
-			$this->log( $log_message );
+			$this->log( $data[ 'contribution_tracking_id' ], 'minFraud query', $log_message );
 		}
 		return TRUE;
 	}
@@ -99,19 +95,21 @@ class PayflowProGateway_Extras_MinFraud {
 	 */
 	public function bypass_minfraud( &$pfp_gateway_object, &$data ) {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
-		if ( isset( $data[ 'data_hash' ] ) && isset( $data[ 'action' ] )) {
+		if ( strlen( $data[ 'data_hash' ] ) > 0 && strlen( $data[ 'action' ] ) > 0 ) {
 			$data_hash = $data[ 'data_hash' ]; // the data hash passed in by the form submission
-			$action_hash = $data[ 'action' ]; // a hash of the action to take passed in by the form submission
-			
+			$num_attempt = $data[ 'numAttempt' ]; // the num_attempt has been increased by one, so we have to adjust slightly
+			$data[ 'numAttempt' ] = $num_attempt - 1;
+
 			// unset these values from the data aray since they are not part of the overall data hash
 			unset( $data[ 'data_hash' ] );
-			unset( $data[ 'action' ] );
 			// compare the data hash to make sure it's legit
 			if ( $this->compare_hash( $data_hash, serialize( $data ))) {
-				$data[ 'data_hash' ] = $data_hash;
+				$data[ 'numAttempt' ] = $num_attempt; // reset the current num attempt
+				$data[ 'data_hash' ] = $this->generate_hash( serialize( $data )); // hash the data array
 
 				// check to see if we have a valid action set for us to bypass minfraud
 				$actions = array( 'process', 'challenge', 'review', 'reject' );
+				$action_hash = $data[ 'action' ]; // a hash of the action to take passed in by the form submission
 				foreach ( $actions as $action ) {
 					if ( $this->compare_hash( $action_hash, $action )) {
 						// set the action that should be taken
@@ -119,6 +117,9 @@ class PayflowProGateway_Extras_MinFraud {
 						return TRUE;
 					}
 				}
+			} else {
+				// log potential tamporing
+				if ( $this->log_fh ) $this->log( $data[ 'contribution_tracking_id'], 'Data hash/action mismatch' );
 			}
 		}
 		return FALSE;
@@ -237,62 +238,5 @@ class PayflowProGateway_Extras_MinFraud {
 				return $action;
 			}
 		}
-	}
-
-	/**
-	 * Prepares a log file
-	 *
-	 * @param string path to log file
-	 * @return resource Pointer for the log file
-	 */
-	protected function prepare_log_file( $log_file ) {
-		$this->log_fh = fopen( $log_file, 'a+' );
-	}
-
-	/**
-	 * Writes message to a log file
-	 *
-	 * If a log file does not exist and could not be created,
-	 * do nothing.
-	 * @fixme Perhaps lack of log file can be handled better,
-	 *	or maybe it doesn't matter?
-	 * @param string The message to log
-	 */
-	public function log( $msg ) {
-		if ( !$this->log_fh ) {
-			return;
-		}
-		$msg .= "\n";
-		fwrite( $this->log_fh, $msg );
-	}
-
-	/**
-	 * Generate a hash of some data
-	 * @param string the data to hash
-	 * @return string The hash of the data
-	 */
-	public function generate_hash( $data ) {
-		global $wgMinFraudSalt;
-		return hash( "sha512", $wgMinFraudSalt . $data );
-	}
-
-	/**
-	 * Compare a hash to the hash of some given data
-	 * @param string $hash A given hash
-	 * @param strin $data The data to hash and compare to $hash
-	 * @return bool
-	 */
-	public function compare_hash( $hash, $data ) {
-		if ( $hash == $this->generate_hash( $data )) {
-			return TRUE;
-		}
-		return FALSE;
-	}
-	
-	/**
-	 * Close the open log file handler if it's open
-	 */
-	public function __destruct() {
-		if ( $this->log_fh ) fclose( $this->log_fh );
 	}
 }
