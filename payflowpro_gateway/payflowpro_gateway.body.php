@@ -3,7 +3,7 @@
 class PayflowProGateway extends UnlistedSpecialPage {
 	
 	/**
-	 * Defines the action(s) to take on a PFP transaction.
+	 * Defines the action to take on a PFP transaction.
 	 *
 	 * Possible values include 'process', 'challenge', 
 	 * 'review', 'reject'.  These values can be set during
@@ -12,9 +12,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * Hooks are exposed to handle the differet actions.
 	 *
 	 * Defaults to 'process'.
-	 * @var array
+	 * @var string
 	 */
-	public $actions = array( 'process' );
+	public $action = NULL;
 
 	/**
 	 * Constructor - set up the new special page
