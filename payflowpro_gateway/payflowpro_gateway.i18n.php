@@ -532,6 +532,8 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'нумар крэдытнай карткі',
 	'payflowpro_gateway-error-msg-expiration' => 'дата сканчэньня дзеяньня карткі',
 	'payflowpro_gateway-error-msg-cvv' => 'код бясьпекі з адваротнага боку Вашай карткі',
+	'payflowpro_gateway-error-msg-captcha' => 'Уведзенае няслушнае значэньне Captcha. Калі ласка, паспрабуйце зноў.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Калі ласка, запоўніце форму Captcha, каб давесьці, што вы ня робат.',
 	'payflowpro_gateway-response-0' => 'Ваша транзакцыя была зацьверджаная.
 Дзякуй за Вашае ахвяраваньне!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакцыя чакае пацьверджаньня.',
@@ -1017,6 +1019,8 @@ Možné jsou <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/cs">
 	'payflowpro_gateway-error-msg-card_num' => 'číslo kreditní karty',
 	'payflowpro_gateway-error-msg-expiration' => 'datum konce platnosti karty',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV umístěný na zadní straně karty',
+	'payflowpro_gateway-error-msg-captcha' => 'Vyplněná hodnota captcha nebyla správná. Zkuste to znovu.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Prosíme vyplňte test captcha kvůli ověření, že nejste bot.',
 	'payflowpro_gateway-response-0' => 'Vaše transakce byla schválena.
 Děkujeme za váš příspěvek!',
 	'payflowpro_gateway-response-126' => 'Čeká se na schválení vaší transakce.',
@@ -1206,7 +1210,7 @@ Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">
 	'payflowpro_gateway-error-msg-expiration' => 'Gültig bis',
 	'payflowpro_gateway-error-msg-cvv' => 'Prüfnummer',
 	'payflowpro_gateway-error-msg-captcha' => 'Der eingegebene Bestätigungscode ist falsch. Bitte versuche es erneut.',
-	'payflowpro_gateway-error-msg-captcha-please' => 'Bitte gebe den Bestätigungscode ein, um zu bestätigen, dass Du ein Mensch und kein Bot bist.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Bitte gib den Bestätigungscode ein, um zu bestätigen, dass du ein Mensch und kein Bot bist.',
 	'payflowpro_gateway-response-0' => 'Deine Transaktion wurde durchgeführt.
 Vielen Dank für deine Spende.',
 	'payflowpro_gateway-response-126' => 'Für deine Transaktion wird auf eine Freigabe gewartet.',
@@ -1419,6 +1423,8 @@ Su <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">druge pósćiwa
 	'payflowpro_gateway-error-msg-card_num' => 'numer kreditneje kórty',
 	'payflowpro_gateway-error-msg-expiration' => 'datum spadnjenja kórty',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV ze slěznego boka twójeje kórty',
+	'payflowpro_gateway-error-msg-captcha' => 'Gódnota Captcha, kótaruž sy zapódał, jo wopaki. Pšosym wopytaj hyšći raz.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Pšosym wupjelni formular Captcha, aby dopokazał, až njejsy bóśik.',
 	'payflowpro_gateway-response-0' => 'Twója transakcija jo se pśizwóliła.
 Źěkujomy s za twój dar!',
 	'payflowpro_gateway-response-126' => 'Twója transakcija caka na pśizwólenje.',
@@ -2182,6 +2188,8 @@ Existen outros <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/gl
 	'payflowpro_gateway-error-msg-card_num' => 'número da tarxeta de crédito',
 	'payflowpro_gateway-error-msg-expiration' => 'data de caducidade da tarxeta',
 	'payflowpro_gateway-error-msg-cvv' => 'número CVV (código de seguridade) da parte traseira da túa tarxeta',
+	'payflowpro_gateway-error-msg-captcha' => 'O valor do Captcha que escribiu é incorrecto. Inténteo de novo.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Encha o formulario do Captcha para demostrar que non é un bot.',
 	'payflowpro_gateway-response-0' => 'A túa transacción foi aprobada.
 Grazas pola doazón!',
 	'payflowpro_gateway-response-126' => 'A túa transacción está pendente de aprobación.',
@@ -2440,6 +2448,8 @@ Su tež <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">druhe mó�
 	'payflowpro_gateway-error-msg-card_num' => 'čisło kreditneje karty',
 	'payflowpro_gateway-error-msg-expiration' => 'datum spadnjenja karty',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV wot zadnjeho boka twojeje karty',
+	'payflowpro_gateway-error-msg-captcha' => 'Hódnota Captcha, kotruž sy zapodał, je wopak. Prošu spytaj hišće raz.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Prošu wupjelń formular Captcha, zo by dopokazał, zo njejsy boćik.',
 	'payflowpro_gateway-response-0' => 'Waša transakcija bu schwalena.
 Dźakujemy so za waš dar!',
 	'payflowpro_gateway-response-126' => 'Waša transakcija hišće na schwalenje čaka.',
@@ -2901,6 +2911,8 @@ $messages['ja'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'クレジットカード番号',
 	'payflowpro_gateway-error-msg-expiration' => 'カードの有効期限',
 	'payflowpro_gateway-error-msg-cvv' => 'カード裏面の照合値',
+	'payflowpro_gateway-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直して下さい。',
+	'payflowpro_gateway-error-msg-captcha-please' => 'ボットでないことを証明するために、Captchaのフォームを記入して下さい。',
 	'payflowpro_gateway-response-0' => 'あなたの取引は承認されました。
 ご寄付ありがとうございます！',
 	'payflowpro_gateway-response-126' => 'あなたの取引は承認待ちです。',
@@ -3332,6 +3344,8 @@ $messages['mk'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'број на кредитната картичка',
 	'payflowpro_gateway-error-msg-expiration' => 'кога истекува картичката',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV бројот од опачината на картичката',
+	'payflowpro_gateway-error-msg-captcha' => 'Внесената вредност во Captcha е неточна. Обидете се повторно.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Пополнете го образецот на Captcha за да докажете дека не сте бот.',
 	'payflowpro_gateway-response-0' => 'Вашето плаќање е одобрено.
 Ви благодариме на донацијата!',
 	'payflowpro_gateway-response-126' => 'Вашето плаќање чека одобрение.',
@@ -3955,6 +3969,8 @@ Istnieją <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pl">inn
 	'payflowpro_gateway-error-msg-card_num' => 'numer karty kredytowej',
 	'payflowpro_gateway-error-msg-expiration' => 'datę ważności karty',
 	'payflowpro_gateway-error-msg-cvv' => 'kod CVV umieszczony z tyłu karty',
+	'payflowpro_gateway-error-msg-captcha' => 'Przepisana przez Ciebie zawartość captcha jest nieprawidłowa. Spróbuj jeszcze raz.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Proszę wypełnić formularz captcha aby udowodnić, że nie jesteś botem.',
 	'payflowpro_gateway-response-0' => 'Transakcja została przeprowadzona.
 Dziękujemy za wsparcie!',
 	'payflowpro_gateway-response-126' => 'Transakcja oczekuje na potwierdzenie.',
@@ -4048,7 +4064,7 @@ A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">àutre mane
 	'payflowpro_gateway-error-msg-expiration' => 'data scadensa dla carta',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV an sël daré ëd toa carta',
 	'payflowpro_gateway-error-msg-captcha' => "Ël valor dla Captcha ch'it l'has anserì a l'é pa bon.   Për piasì preuva torna.",
-	'payflowpro_gateway-error-msg-captcha-please' => "Për piasì vemp torna la forma dla Captcha për prové ch'it ses pa un trigomiro.",
+	'payflowpro_gateway-error-msg-captcha-please' => "Për piasì, ch'a compila torna la casela dla Captcha për prové ch'a l'é pa un trigomiro.",
 	'payflowpro_gateway-response-0' => "Toa transassion a l'é stàita aprovà.
 Mersì për toa donassion!",
 	'payflowpro_gateway-response-126' => "Toa transassion a speta l'aprovassion.",
@@ -4226,6 +4242,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 
 /** Brazilian Portuguese (Português do Brasil)
  * @author Giro720
+ * @author GoEThe
  * @author Luckas Blade
  */
 $messages['pt-br'] = array(
@@ -4277,6 +4294,7 @@ Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras fo
 	'payflowpro_gateway-error-msg-card_num' => 'número do cartão de crédito',
 	'payflowpro_gateway-error-msg-expiration' => 'a data de expiração do seu cartão',
 	'payflowpro_gateway-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
+	'payflowpro_gateway-error-msg-captcha' => 'O valor Captcha que introduziu está incorreto. Tente novamente, por favor.',
 	'payflowpro_gateway-response-0' => 'A transação foi aprovada.
 Agradecemos a sua doação!',
 	'payflowpro_gateway-response-126' => 'A transação foi submetida para aprovação.',
