@@ -64,7 +64,7 @@ There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other wa
 	'payflowpro_gateway-error-msg-expiration' => "card's expiration date",
 	'payflowpro_gateway-error-msg-cvv' => 'CVV from the back of your card',
 	'payflowpro_gateway-error-msg-captcha' => "The Captcha value you entered is incorrect.  Please try again.",
-	'payflowpro_gateway-error-msg-captcha-please' => "Please fill out the Captcha form to prove you are not a bot.",
+	'payflowpro_gateway-error-msg-captcha-please' => "For your credit card security, please type the characters you see above.",
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',
 	'payflowpro_gateway-response-126' => 'Your transaction is pending approval.',
