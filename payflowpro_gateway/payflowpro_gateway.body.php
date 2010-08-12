@@ -462,6 +462,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				wfMsg( 'payflowpro_gateway-question-comment' ) ) .
 			Xml::closeElement( 'form' ) .
 			Xml::closeElement( 'div' ) .
+			Xml::closeElement( 'div' ).
 			Xml::closeElement( 'div' );
 		return $form;
 	}
