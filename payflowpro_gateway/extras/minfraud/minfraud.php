@@ -1,6 +1,19 @@
 <?php
 /**
  * Validates a transaction against MaxMind's minFraud service
+ *
+ * To install:
+ *	require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/minfraud/minfraud.php" );
+ * 
+ * In LocalSettings.php
+ *	$wgPayflowExtraMinFraud = new PayflowProGateway_Extras_MinFraud( '<your minfraud license key>' )
+ *	$wgMinFraudActionRanges = array( //sets the risk score ranges that will cause a particular 'action', these should not overlap
+ *		'process' => array( <min risk score>, <max risk score> ),
+ *		'review' => array( <min risk score>, <max risk score> ),
+ *		'challenge' => ...
+ *		'reject' => ...
+ *	);
+ * $wgHooks["PayflowGatewayValidate"][] = array( $wgPayflowExtraMinFraud, "validate" ); // sets minfraud as a validator for transactions
  */
 
 $dir = dirname( __FILE__ ) . "/";

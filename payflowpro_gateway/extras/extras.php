@@ -1,4 +1,13 @@
 <?php
+/**
+ * An abstract class for payflowprog gateway 'extras'
+ *
+ * To enable logging:
+ *	$wgPayflowGatewayLog = '<path to log file>';
+ *
+ * To make hashing salted (you want to do this):
+ *	$wgPayflowGatewaySalt = '<something hard to guess>';
+ */
 
 abstract class PayflowProGateway_Extras {
 	/**

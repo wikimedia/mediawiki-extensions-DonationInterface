@@ -1,6 +1,15 @@
 <?php
 /**
  * Validates a transaction against MaxMind's minFraud service
+ *
+ * To install:
+ *	require_once( "$IP/extensions/recaptcha/ReCaptcha.php" );
+ *
+ * You will need to get reCaptcha public/private keys (http://www.google.com/recaptcha/whyrecaptcha)
+ * In LocalSettings.php:
+ *	$recaptcha_public_key = '<key>';
+ *  $recaptcha_private_key = '<key>';
+ *  $wgPayflowCaptcha = new $wgCaptchaClass;
  */
 
 require_once( dirname( __FILE__ ) . "/../extras.php" );
