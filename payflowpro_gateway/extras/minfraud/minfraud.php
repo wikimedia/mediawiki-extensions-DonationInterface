@@ -18,6 +18,7 @@
 
 $dir = dirname( __FILE__ ) . "/";
 require_once( $dir . "../extras.php" );
+require_once( $dir . "../../includes/countryCodes.inc" );
 class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 
 	/**
@@ -175,6 +176,9 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		// user's user agent
 		$minfraud_hash[ "user_agent" ] = $_SERVER[ 'HTTP_USER_AGENT' ];
 
+		// fetch the array of country codes
+		$country_codes = countryCodes();
+
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {
 
@@ -185,6 +189,9 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 					break;
 				case "bin": // get just the first 6 digits from CC#
 					$newdata[ $value ] = substr( $data[ $value ], 0, 6 );
+					break;
+				case "country":
+					$newdata[ $value ] = $country_codes[ $data[ $value ]];
 					break;
 				default:
 		          $newdata[ $value ] = $data[ $value ];
