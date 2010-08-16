@@ -1,6 +1,6 @@
 <?php
 /**
- * An abstract class for payflowprog gateway 'extras'
+ * An abstract class for payflowpro gateway 'extras'
  *
  * To enable logging:
  *	$wgPayflowGatewayLog = '<path to log file>';
@@ -23,7 +23,7 @@ abstract class PayflowProGateway_Extras {
 	}
 
 	/**
-	 * Prepared a log file
+	 * Prepare a log file
 	 *
 	 * @param string path to log file
 	 * @return resource Pointer for the log file
@@ -76,7 +76,7 @@ abstract class PayflowProGateway_Extras {
 	}
 
 	/**
-	 * Cloase the open log file handler if it's open
+	 * Close the open log file handler if it's open
 	 */
 	public function __destruct() {
 		if ( $this->log_fh ) fclose( $this->log_fh );

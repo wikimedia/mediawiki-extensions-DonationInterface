@@ -132,7 +132,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 					}
 				}
 			} else {
-				// log potential tamporing
+				// log potential tampering
 				if ( $this->log_fh ) $this->log( $data[ 'contribution_tracking_id'], 'Data hash/action mismatch' );
 			}
 		}
