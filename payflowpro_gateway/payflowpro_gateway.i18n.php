@@ -1866,6 +1866,75 @@ $messages['eu'] = array(
 	'donate_interface-JPY' => 'JPY: Japoniar yen',
 );
 
+/** Persian (فارسی)
+ * @author Ebraminio
+ * @author Wayiran
+ */
+$messages['fa'] = array(
+	'payflowprogateway' => 'حمایت از ویکی‌مدیا',
+	'payflowpro_gateway-desc' => 'پردازش کارت اعتباری PayPal Payflow Pro',
+	'payflowpro_gateway-accessible' => 'این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.',
+	'payflowpro_gateway-donor-legend' => 'اطلاعات هدیه‌کننده',
+	'payflowpro_gateway-card-legend' => 'اطلاعات کارت اعتباری',
+	'payflowpro_gateway-amount-legend' => 'مبلغ اهدایی:',
+	'payflowpro_gateway-cvv-link' => 'مثال',
+	'payflowpro_gateway-donor-amount' => 'مبلغ:',
+	'payflowpro_gateway-donor-currency-label' => 'واحد پول:',
+	'payflowpro_gateway-donor-email' => 'نشانی رایانامه:',
+	'payflowpro_gateway-donor-fname' => 'نام:',
+	'payflowpro_gateway-donor-mname' => 'نام میانی:',
+	'payflowpro_gateway-donor-lname' => 'نام خانوادگی:',
+	'payflowpro_gateway-donor-name' => 'نام:',
+	'payflowpro_gateway-donor-street' => 'خیابان:',
+	'payflowpro_gateway-donor-city' => 'شهر:',
+	'payflowpro_gateway-donor-state' => 'ایالت:',
+	'payflowpro_gateway-donor-postal' => 'کد پستی:',
+	'payflowpro_gateway-donor-country' => 'کشور/منطقه:',
+	'payflowpro_gateway-donor-address' => 'نشانی:',
+	'payflowpro_gateway-donor-card' => 'کارت اعتباری:',
+	'payflowpro_gateway-donor-card-num' => 'شمارهٔ کارت:',
+	'payflowpro_gateway-donor-expiration' => 'تاریخ انقضاء:',
+	'payflowpro_gateway-donor-security' => 'کد امنیتی:',
+	'payflowpro_gateway-donor-submit' => 'اهدا کن',
+	'payflowpro_gateway-donor-currency-msg' => 'این کمک مالی در $1 تهیه شده است',
+	'payflowpro_gateway-error-msg' => 'لطفاً $1 خود را وارد کنید',
+	'payflowpro_gateway-error-msg-js' => 'لطفاً وارد کنید',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**لطفاً یک مبلغ معتبر وارد کنید**',
+	'payflowpro_gateway-error-msg-email' => '**لطفاً یک نشانی رایانامه معتبر وارد کنید**',
+	'payflowpro_gateway-error-msg-amex' => '**لطفاً شمارهٔ کارت صحیح را برای American Express وارد کنید.**',
+	'payflowpro_gateway-error-msg-mc' => '**لطفاً شمارهٔ کارت صحیح را برای مستر کارت وارد کنید.**',
+	'payflowpro_gateway-error-msg-visa' => '**لطفاً شمارهٔ کارت صحیح را برای Visa وارد کنید.**',
+	'payflowpro_gateway-error-msg-discover' => '**لطفاً شمارهٔ کارت صحیح را برای Discover وارد کنید.**',
+	'payflowpro_gateway-error-msg-amount' => 'میزان کمک مالی',
+	'payflowpro_gateway-error-msg-emailAdd' => 'نشانی پست الکترونیک',
+	'payflowpro_gateway-error-msg-fname' => 'نام',
+	'payflowpro_gateway-error-msg-lname' => 'نام خانوادگی',
+	'payflowpro_gateway-error-msg-street' => 'محل خیابان',
+	'payflowpro_gateway-error-msg-city' => 'شهر',
+	'payflowpro_gateway-error-msg-state' => 'ایالت',
+	'payflowpro_gateway-error-msg-zip' => 'نشانی پستی',
+	'payflowpro_gateway-error-msg-card_num' => 'شمارهٔ کارت اعتباری',
+	'payflowpro_gateway-error-msg-expiration' => 'تاریخ انقضای کارت',
+	'payflowpro_gateway-response-0' => 'انتقال وجه شما تایید شده است.
+تشکر از کمک مالی شما!',
+	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تایید است.',
+	'payflowpro_gateway-response-12' => 'لطفاً با شرکت کارت اعتباری برای اطلاعات بیش‌تر تماس بگیرید.',
+	'payflowpro_gateway-response-114' => 'لطفاً با شرکت کارت اعتباری برای اطلاعات بیش‌تر تماس بگیرید.',
+	'payflowpro_gateway-response-23' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
+	'payflowpro_gateway-response-4' => 'مبلغ نامعتبر',
+	'payflowpro_gateway-response-24' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
+	'php-response-declined' => 'انتقال وجه شما رد شده است.',
+	'payflowpro_gateway-thankyou' => 'سپاس از بابت کمک مالی‌تان!',
+	'payflowpro_gateway-post-transaction' => 'جزئیات انتقال وجه',
+	'payflowpro_gateway-submit-button' => 'اهدا کنید',
+	'donate_interface-GBP' => 'GBP: پوند انگلیس',
+	'donate_interface-EUR' => 'EUR: یورو',
+	'donate_interface-USD' => 'USD: دلار آمریکا',
+	'donate_interface-AUD' => 'AUD: دلار استرالیا',
+	'donate_interface-CAD' => 'CAD: دلار کانادا',
+	'donate_interface-JPY' => 'JPY: ین ژاپن',
+);
+
 /** Finnish (Suomi)
  * @author Crt
  * @author Str4nd
@@ -2641,6 +2710,8 @@ Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere 
 	'payflowpro_gateway-error-msg-card_num' => 'le numero de tu carta de credito',
 	'payflowpro_gateway-error-msg-expiration' => 'le data de expiration de tu carta',
 	'payflowpro_gateway-error-msg-cvv' => 'le CVV (codice de securitate) al reverso de tu carta',
+	'payflowpro_gateway-error-msg-captcha' => 'Le valor Captcha que tu entrava es incorrecte. Per favor reproba.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Pro le securitate de tu carta de credito, per favor entra le characteres que tu vide hic supra.',
 	'payflowpro_gateway-response-0' => 'Le transaction ha essite approbate.
 Gratias pro tu donation!',
 	'payflowpro_gateway-response-126' => 'Le transaction attende approbation.',
@@ -2681,6 +2752,7 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author Farras
  * @author IvanLanin
  */
 $messages['id'] = array(
@@ -2732,6 +2804,8 @@ Ada <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">cara lain untu
 	'payflowpro_gateway-error-msg-card_num' => 'nomor kartu kredit',
 	'payflowpro_gateway-error-msg-expiration' => 'tanggal kedaluwarsa kartu',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV di bagian belakang kartu kredit',
+	'payflowpro_gateway-error-msg-captcha' => 'Entri Captcha yang Anda masukkan salah. Silakan coba lagi.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Demi keamanan kartu kredit Anda, mohon ketik ulang karakter di atas.',
 	'payflowpro_gateway-response-0' => 'Transaksi Anda telah disetujui.
 Terima kasih atas sumbangan Anda!',
 	'payflowpro_gateway-response-126' => 'Transaksi Anda menunggu persetujuan.',
@@ -3303,6 +3377,15 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
 	'donate_interface-JPY' => 'JPY: Japanesche Yen',
 );
 
+/** Limburgish (Limburgs)
+ * @author Ooswesthoesbes
+ */
+$messages['li'] = array(
+	'payflowpro_gateway-donor-city' => 'Nieëderzètting:',
+	'payflowpro_gateway-error-msg-city' => 'nieëderzètting',
+	'payflowpro_gateway-submit-button' => 'Gaef',
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  * @author Brest
@@ -3727,6 +3810,7 @@ Takk for gåva di!',
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Finnrind
+ * @author Laaknor
  * @author Nghtwlkr
  */
 $messages['no'] = array(
@@ -3778,6 +3862,7 @@ Det er <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb"> andre
 	'payflowpro_gateway-error-msg-card_num' => 'kredittkortnummer',
 	'payflowpro_gateway-error-msg-expiration' => 'kortets utløpsdato',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV fra baksiden av kortet ditt',
+	'payflowpro_gateway-error-msg-captcha-please' => 'For ditt kredittkorts sikkerhet, skriv inn tegnene du ser over.',
 	'payflowpro_gateway-response-0' => 'Transaksjonen din har blitt godkjent.
 Takk for din gave!',
 	'payflowpro_gateway-response-126' => 'Transaksjonen din venter på godkjenning.',
@@ -4309,6 +4394,7 @@ Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras fo
 	'payflowpro_gateway-error-msg-expiration' => 'a data de expiração do seu cartão',
 	'payflowpro_gateway-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
 	'payflowpro_gateway-error-msg-captcha' => 'O valor Captcha que introduziu está incorreto. Tente novamente, por favor.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Para segurança do seu cartão de crédito, por favor digite os caracteres mostrados acima',
 	'payflowpro_gateway-response-0' => 'A transação foi aprovada.
 Agradecemos a sua doação!',
 	'payflowpro_gateway-response-126' => 'A transação foi submetida para aprovação.',
