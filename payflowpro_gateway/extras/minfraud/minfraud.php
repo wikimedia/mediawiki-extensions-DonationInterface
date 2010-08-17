@@ -86,8 +86,8 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		if ( $this->log_fh ) {
 			$log_message = '"' . addslashes( $data[ 'comment' ] ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $data[ 'amount' ] . ' ' . $data[ 'currency' ] ) . '"';
-			$log_message .= "\t" . '"' . addslashes( serialize( $minfraud_hash )) . '"';
-			$log_message .= "\t" . '"' . addslashes( serialize( $this->minfraud_response )) . '"';
+			$log_message .= "\t" . '"' . addslashes( json_encode( $minfraud_hash )) . '"';
+			$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraud_response )) . '"';
 			$log_message .= "\t" . '"' . addslashes( $pfp_gateway_object->action ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $data[ 'referrer' ] ) . '"';
 			$this->log( $data[ 'contribution_tracking_id' ], 'minFraud query', $log_message );
