@@ -698,19 +698,19 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// prepare NVP response for sorting and outputting 
 		$responseArray = array();
-
-		while( strlen( $result ) ) {
-			// name
-			$namepos = strpos( $result, '=' );
-			$nameval = substr( $result, 0, $namepos );
-			// value
-			$valuepos = strpos( $result, '&' ) ? strpos( $result, '&' ) : strlen( $result );
-			$valueval = substr( $result, $namepos + 1, $valuepos - $namepos - 1 );
-			// decoding the respose
-			$responseArray[$nameval] = $valueval;
-			$result = substr( $result, $valuepos + 1, strlen( $result ) );
+		
+		/**
+		 * The result response string looks like:
+		 *	RESULT=7&PNREF=E79P2C651DC2&RESPMSG=Field format error&HOSTCODE=10747&DUPLICATE=1
+		 * We want to turn this into an array of key value pairs, so explode on '&' and then 
+		 * split up the resulting strings into $key => $value
+		 */
+		$result_arr = explode( "&", $result );
+		foreach ( $result_arr as $result_pair ) {
+			list( $key, $value ) = split( "=", $result_pair );
+			$responseArray[ $key ] = $value;
 		}
-
+		
 		// errors fall into three categories, "try again please", "sorry it didn't work out", and "approved"
 		// get the result code for response array
 		$resultCode = $responseArray['RESULT'];
@@ -724,7 +724,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$errorCode = $this->fnPayflowGetResponseMsg( $resultCode, $responseMsg );
 
 		// if approved, display results and send transaction to the queue
-
 		if( $errorCode == '1' ) {
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
 			// give user a second chance to enter incorrect data
