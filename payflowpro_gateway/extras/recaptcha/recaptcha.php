@@ -38,6 +38,8 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 	 * Display the submission form with the captcha injected into it
 	 */
 	public function display_captcha( &$pfp_gateway_object, &$data, $error=array() ) {
+		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
+
 		global $wgOut, $wgPayflowCaptcha;
 		$form = $pfp_gateway_object->fnPayflowGenerateFormBody( $data, &$error );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
