@@ -17,10 +17,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	public $action = 'process';
 
 	/**
-	 * Holds the information from a Payflow transaction
+	 * Holds the PayflowPro response from a transaction
 	 * @var array
 	 */
-	public $payflow_transaction = NULL;
+	public $payflow_response = array();
 
 	/**
 	 * Constructor - set up the new special page
@@ -710,7 +710,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			list( $key, $value ) = split( "=", $result_pair );
 			$responseArray[ $key ] = $value;
 		}
-		
+	
+		// store the response array as an object property for easy retrival/manipulation elsewhere
+		$this->payflow_response = $responseArray;
+
 		// errors fall into three categories, "try again please", "sorry it didn't work out", and "approved"
 		// get the result code for response array
 		$resultCode = $responseArray['RESULT'];
@@ -828,9 +831,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// hook to call stomp functions
 		wfRunHooks( 'gwStomp', array( &$transaction ) );
-
-		// set the object property for the transaction
-		$this->payflow_transaction = $transaction;
 
 		if ( $wgExternalThankYouPage ) {
 			$wgOut->redirect( $wgExternalThankYouPage . "/" . $data['language'] );
