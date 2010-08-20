@@ -1868,6 +1868,7 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Sahim
  * @author Wayiran
  */
 $messages['fa'] = array(
@@ -1915,6 +1916,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg-zip' => 'نشانی پستی',
 	'payflowpro_gateway-error-msg-card_num' => 'شمارهٔ کارت اعتباری',
 	'payflowpro_gateway-error-msg-expiration' => 'تاریخ انقضای کارت',
+	'payflowpro_gateway-error-msg-cvv' => 'سی‌سی‌وی از پشت کارت شما',
 	'payflowpro_gateway-response-0' => 'انتقال وجه شما تایید شده است.
 تشکر از کمک مالی شما!',
 	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تایید است.',
@@ -1923,6 +1925,8 @@ $messages['fa'] = array(
 	'payflowpro_gateway-response-23' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
 	'payflowpro_gateway-response-4' => 'مبلغ نامعتبر',
 	'payflowpro_gateway-response-24' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
+	'payflowpro_gateway-response-default' => 'برای پردازش تراکنش شما خطا وجود دارد.
+لطفا دوباره تلاش کنید.',
 	'php-response-declined' => 'انتقال وجه شما رد شده است.',
 	'payflowpro_gateway-thankyou' => 'سپاس از بابت کمک مالی‌تان!',
 	'payflowpro_gateway-post-transaction' => 'جزئیات انتقال وجه',
