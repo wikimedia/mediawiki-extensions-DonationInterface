@@ -745,6 +745,8 @@ $messages['br'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'niverenn gartenn-gred',
 	'payflowpro_gateway-error-msg-expiration' => 'deiziad termen ar gartenn',
 	'payflowpro_gateway-error-msg-cvv' => 'ar CVV zo ouzh kein ho kartenn',
+	'payflowpro_gateway-error-msg-captcha' => "Faziek eo an talvoud captcha merket ganeoc'h.  Klaskit en-dro.",
+	'payflowpro_gateway-error-msg-captcha-please' => 'Evit surentez ho kartenn-gred, skrivit an arouezennoù a welit a-us.',
 	'payflowpro_gateway-response-0' => "Asantet ez eus bet d'an treuzgread.
 Ho trugarekaat evit ho tonezon!",
 	'payflowpro_gateway-response-126' => "O c'hortoz asantiñ d'an treuzgread emeur",
@@ -1061,6 +1063,7 @@ Někdy bývá kód umístěn na levé straně karty, ale vždy je nad číslem �
 );
 
 /** Welsh (Cymraeg)
+ * @author Arwel Parry
  * @author Lloffiwr
  */
 $messages['cy'] = array(
@@ -1113,6 +1116,8 @@ href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ffyrdd eraill o roi i
 	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
 	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
 	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
+	'payflowpro_gateway-error-msg-captcha' => "Mae'r blwch Capcha a roddoch yn anghywir. Ceisiwch eto os gwelwch yn dda.",
+	'payflowpro_gateway-error-msg-captcha-please' => 'Am diogelwch eich cerdyn credyd, teipiwch y cymeriadau a welwch uchod.',
 	'payflowpro_gateway-response-0' => 'Cadarnhawyd eich taliad.
 Diolch am roi!',
 	'payflowpro_gateway-response-126' => "Mae'ch taliad yn disgwyl cadarnhad.",
@@ -1917,6 +1922,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'شمارهٔ کارت اعتباری',
 	'payflowpro_gateway-error-msg-expiration' => 'تاریخ انقضای کارت',
 	'payflowpro_gateway-error-msg-cvv' => 'سی‌سی‌وی از پشت کارت شما',
+	'payflowpro_gateway-error-msg-captcha' => 'کپچایی که وارد کرده‌اید نادرست است. دوباره تلاش کنید.',
 	'payflowpro_gateway-response-0' => 'انتقال وجه شما تایید شده است.
 تشکر از کمک مالی شما!',
 	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تایید است.',
@@ -5827,6 +5833,7 @@ $messages['yue'] = array(
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Bencmq
  * @author Liangent
+ * @author Wilsonmess
  */
 $messages['zh-hans'] = array(
 	'payflowprogateway' => '支持维基媒体',
@@ -5877,6 +5884,8 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-error-msg-card_num' => '信用卡号码',
 	'payflowpro_gateway-error-msg-expiration' => '卡失效日期',
 	'payflowpro_gateway-error-msg-cvv' => '你的卡背面的CVV',
+	'payflowpro_gateway-error-msg-captcha' => '您输入的验证码有误，请再次尝试输入。',
+	'payflowpro_gateway-error-msg-captcha-please' => '为了确保您的信用卡的安全，请输入上方所示的字符。',
 	'payflowpro_gateway-response-0' => '您的交易已经成功。
 感谢您的捐助！',
 	'payflowpro_gateway-response-126' => '您的交易正在等待确认中。',
@@ -5889,12 +5898,24 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-response-24' => '您的信用卡号或有效期有误。',
 	'payflowpro_gateway-response-112' => '您的地址或CVV码（安全码）有误。',
 	'payflowpro_gateway-response-125' => '反欺诈系统拒绝了您的捐献。',
+	'payflowpro_gateway-response-125-2' => '无法验证您的信用卡。请确保您所提供的信息与信用卡资料信息相符，或者换一张信用卡再试一次。您可以使用我们其他的<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">捐款方式</a>，或者与<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>联系。再次感谢您的支持。',
 	'payflowpro_gateway-response-default' => '在处理交易的过程中出错。
 请稍后再试。',
 	'php-response-declined' => '您的交易被拒绝。',
 	'payflowpro_gateway-thankyou' => '感谢您的捐赠！',
 	'payflowpro_gateway-post-transaction' => '交易详情',
 	'payflowpro_gateway-submit-button' => '捐助',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV是什么？</h4>
+<p>信用卡安全码（CVV）：卡背后的三至四位数字，用来确认付款人在付款时持有该信用卡。该安全码可以有效地防止未授权的或是不当的支付。</p>
+<h4>Visa及万事达卡</h4>
+<p>CVV为三位数字，平印在信用卡背面的签名区内。
+通常签名区会有多位数字，但CVV仅为最后三位数字。</p>
+<h4>美国运通</h4>
+<p>CVV为四位数字，平印在信用卡正面的卡号上方。
+某些情况下CCV会印制在左侧。但一定是平印在卡号上方。</p><br />',
+	'payflowpro_gateway-question-comment' => '维基百科是维基媒体基金会的一个项目。若有问题或意见，请联系维基媒体基金会：<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => '在点击“{{int:payflowpro_gateway-donor-submit}}”后，我们就会对您提交的信用卡信息进行处理。',
+	'payflowpro_gateway-credit-storage-processing' => '我们不储存您的信用卡信息，并且您的个人信息也会遵循我们的<a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">隐私政策</a>。',
 	'donate_interface-GBP' => 'GBP: 英镑',
 	'donate_interface-EUR' => 'EUR: 欧元',
 	'donate_interface-USD' => 'USD: 美元',
