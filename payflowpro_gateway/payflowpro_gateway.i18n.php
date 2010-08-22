@@ -838,6 +838,8 @@ Ovdje su <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugi na�
 	'payflowpro_gateway-error-msg-card_num' => 'broj kreditne kartice',
 	'payflowpro_gateway-error-msg-expiration' => 'datum isteka kartice',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV sa stražnje strane vaše kartice',
+	'payflowpro_gateway-error-msg-captcha' => 'Vrijednost Captcha koju ste unijeli nije tačna. Molimo pokušajte ponovo.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Zbog sigurnosti vaše kreditne kartice, molimo upišite znakoje koje vidite iznad.',
 	'payflowpro_gateway-response-0' => 'Vaša transakcija je odobrena.
 Hvala Vam za Vašu donaciju!',
 	'payflowpro_gateway-response-126' => 'Vaša transakcija čeka na provjeru.',
@@ -1880,6 +1882,10 @@ $messages['fa'] = array(
 	'payflowprogateway' => 'حمایت از ویکی‌مدیا',
 	'payflowpro_gateway-desc' => 'پردازش کارت اعتباری PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.',
+	'payflowpro_gateway-form-message' => 'شرکت کردن بوسیله کارت اعتباری شما.
+
+آنجا هست <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">راههای دیگر دریافت وجه، شامل استفاده از پای‌پل، علامت‌گذاری و یا رایانامه</a>',
+	'payflowpro_gateway-form-message-2' => 'برای تغییر مقدار یا نرخ، به <a href="/index.php?title=Donate">صفحه اهدا</a> بازگردید.',
 	'payflowpro_gateway-donor-legend' => 'اطلاعات هدیه‌کننده',
 	'payflowpro_gateway-card-legend' => 'اطلاعات کارت اعتباری',
 	'payflowpro_gateway-amount-legend' => 'مبلغ اهدایی:',
@@ -1922,7 +1928,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'شمارهٔ کارت اعتباری',
 	'payflowpro_gateway-error-msg-expiration' => 'تاریخ انقضای کارت',
 	'payflowpro_gateway-error-msg-cvv' => 'سی‌سی‌وی از پشت کارت شما',
-	'payflowpro_gateway-error-msg-captcha' => 'کپچایی که وارد کرده‌اید نادرست است. دوباره تلاش کنید.',
+	'payflowpro_gateway-error-msg-captcha' => 'مقدار کد کپچای که وارد کرده‌اید نادرست است. دوباره تلاش کنید.',
 	'payflowpro_gateway-response-0' => 'انتقال وجه شما تایید شده است.
 تشکر از کمک مالی شما!',
 	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تایید است.',
