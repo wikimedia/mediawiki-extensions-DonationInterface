@@ -3414,9 +3414,36 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
  * @author Ooswesthoesbes
  */
 $messages['li'] = array(
+	'payflowpro_gateway-donor-legend' => 'Gaeversinfo',
+	'payflowpro_gateway-card-legend' => 'Creditcardinfo',
+	'payflowpro_gateway-amount-legend' => 'Bedraag:',
+	'payflowpro_gateway-cvv-link' => 'Veurbeildj',
+	'payflowpro_gateway-donor-amount' => 'Bedraag:',
+	'payflowpro_gateway-donor-currency-label' => 'Möntjeinhed:',
+	'payflowpro_gateway-donor-email' => 'E-pósedrès:',
+	'payflowpro_gateway-donor-fname' => 'Veurnaam:',
+	'payflowpro_gateway-donor-mname' => 'Tösjevoging:',
+	'payflowpro_gateway-donor-lname' => 'Achternaam:',
+	'payflowpro_gateway-donor-name' => 'Naam:',
+	'payflowpro_gateway-donor-street' => 'Straot:',
 	'payflowpro_gateway-donor-city' => 'Nieëderzètting:',
+	'payflowpro_gateway-donor-state' => 'Óngerverdeiling:',
+	'payflowpro_gateway-donor-postal' => 'Póskode:',
+	'payflowpro_gateway-donor-country' => 'Landj:',
+	'payflowpro_gateway-donor-address' => 'Edrès:',
+	'payflowpro_gateway-donor-card' => 'Creditcard:',
+	'payflowpro_gateway-donor-card-num' => 'Kaartnómmer:',
+	'payflowpro_gateway-donor-expiration' => 'Vervaltied:',
+	'payflowpro_gateway-donor-security' => 'Beveiligingskode:',
+	'payflowpro_gateway-donor-submit' => 'Gaef',
 	'payflowpro_gateway-error-msg-city' => 'nieëderzètting',
 	'payflowpro_gateway-submit-button' => 'Gaef',
+	'donate_interface-GBP' => 'GBP: Britsje póndj',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: VS-dóller',
+	'donate_interface-AUD' => 'AUD: Australisje dóller',
+	'donate_interface-CAD' => 'CAD: Kannedese dóller',
+	'donate_interface-JPY' => 'JPY: Japansje yen',
 );
 
 /** Macedonian (Македонски)
