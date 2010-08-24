@@ -1929,20 +1929,37 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'تاریخ انقضای کارت',
 	'payflowpro_gateway-error-msg-cvv' => 'سی‌سی‌وی از پشت کارت شما',
 	'payflowpro_gateway-error-msg-captcha' => 'مقدار کد کپچای که وارد کرده‌اید نادرست است. دوباره تلاش کنید.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'برای امنیت کارت اعتباری‌تان، لطفاً نویسه‌هایی را که در بالا می‌بینید تایپ کنید.',
 	'payflowpro_gateway-response-0' => 'انتقال وجه شما تایید شده است.
 تشکر از کمک مالی شما!',
 	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تایید است.',
+	'payflowpro_gateway-response-126-2' => 'برخی از اطلاعاتی که ارائه کردید با پروندهٔ کارت اعتباری‌تان همخوانی نداشت، یا آنکه هدیهٔ بسیار بزرگی اهداء کردید. برای امنیت خودتان، کمک مالی شما هم‌اکنون در حال بازبینی است، و اگر ما نتوانستیم کمک مالی شما را نهایی کنیم، از طریق رایانشانی (نشانی رایانامه) ارائه‌شده به شما خبر خواهیم داد. اگر سوالی دارید، لطفاً به ما رایانامه‌اش <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> کنید. سپاسگذاریم',
 	'payflowpro_gateway-response-12' => 'لطفاً با شرکت کارت اعتباری برای اطلاعات بیش‌تر تماس بگیرید.',
+	'payflowpro_gateway-response-13' => 'انتقال وجه شما به مجوز صوتی نیاز دارد.
+لطفاً برای ادامهٔ انتقال وجه با ما تماس بگیرید.',
 	'payflowpro_gateway-response-114' => 'لطفاً با شرکت کارت اعتباری برای اطلاعات بیش‌تر تماس بگیرید.',
 	'payflowpro_gateway-response-23' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
 	'payflowpro_gateway-response-4' => 'مبلغ نامعتبر',
 	'payflowpro_gateway-response-24' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
+	'payflowpro_gateway-response-112' => 'نشانی شما یا شمارهٔ CVV (کد امنیتی) نادرست است.',
+	'payflowpro_gateway-response-125' => "انتقال وجه شما توسط ''خدمات جلوگیری از کلاه‌برداری'' رد شده است.",
+	'payflowpro_gateway-response-125-2' => 'کارت اعتباری شما نتوانست تائید اعتبار شود. لطفاً تائید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">دیگر راه‌های ما برای اعطا</a> استفاده کنید یا از طریق <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> با ما تماس بگیرید. از پشتیبانی شما سپاسگذاریم',
 	'payflowpro_gateway-response-default' => 'برای پردازش تراکنش شما خطا وجود دارد.
 لطفا دوباره تلاش کنید.',
 	'php-response-declined' => 'انتقال وجه شما رد شده است.',
 	'payflowpro_gateway-thankyou' => 'سپاس از بابت کمک مالی‌تان!',
 	'payflowpro_gateway-post-transaction' => 'جزئیات انتقال وجه',
 	'payflowpro_gateway-submit-button' => 'اهدا کنید',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV چیست؟</h4>
+<p>عددِ تائیدِ دارندهٔ کارت (CVV): این اعداد سه یا چهار رقمی کمک می‌کند تا مطمئن شویم که کارت فیزیکی در مالکیت صاحب آن است. این به جلوگیری از استفادهٔ غیرمجاز یا کلاه‌بردارانه کمک می‌کند.</p>
+<h4>ویزا، مسترکارت</h4>
+<p>کد سه‌رقمی در پشت کارت شما، در درون بخش امضاء قرار دارد. معمولاً پنل امضا مجموعه‌ای از اعداد را خواهد داشت، اما تنها سه رقم آخر، کد CVV را تشکیل می‌دهند.</p>
+<h4>امریکن اکسپرس</h4>
+<p>این کد <i>همواره</i> در <i>بالای</i> شمارهٔ حساب برجسته‌شده در روی کارت قرار دارد.
+در برخی موارد، کد در سمت چپ کارت قرار دارد، اما همواره در بالای شمارهٔ حساب است.</p><br />',
+	'payflowpro_gateway-question-comment' => 'ویکی‌پدیا پروژه‌ای از بنیاد ویکی‌مدیاست. پرسش‌ها یا نظرها؟ با بنیاد ویکی‌مدیا تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'پس از کلیک بر «{{int:payflowpro_gateway-donor-submit}}»، اطلاعات کارت اعتباری شما پردازش خواهد شد.',
+	'payflowpro_gateway-credit-storage-processing' => 'ما اطلاعات کارت اعتباری شما را ذخیره نمی‌کنیم، و اطلاعات خصوصی شما موضوع <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">سیاست حفظ اسرار</a> ماست.',
 	'donate_interface-GBP' => 'GBP: پوند انگلیس',
 	'donate_interface-EUR' => 'EUR: یورو',
 	'donate_interface-USD' => 'USD: دلار آمریکا',
@@ -5737,6 +5754,18 @@ Xin hãy thử lại vào lần sau.',
 	'donate_interface-AUD' => 'AUD: Đô la Úc',
 	'donate_interface-CAD' => 'CAD: Đô la Canada',
 	'donate_interface-JPY' => 'JPY: Yên Nhật',
+);
+
+/** Volapük (Volapük)
+ * @author Malafaya
+ */
+$messages['vo'] = array(
+	'payflowpro_gateway-cvv-link' => 'Sam',
+	'payflowpro_gateway-donor-name' => 'Nem:',
+	'payflowpro_gateway-donor-street' => 'Süt:',
+	'payflowpro_gateway-donor-city' => 'Zif:',
+	'payflowpro_gateway-donor-state' => 'Tat:',
+	'payflowpro_gateway-donor-address' => 'Ladet:',
 );
 
 /** Yiddish (ייִדיש)
