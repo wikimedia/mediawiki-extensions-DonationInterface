@@ -38,11 +38,20 @@ $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
 $wgPayflowProPassword = ''; //merchant login password
 
+/**
+ * A string or array of strings for making tokens more secure
+ *
+ * Please set this!  If you do not, tokens are easy to get around, which can
+ * potentially leave you and your users vulnerable to CSRF or other forms of
+ * attack.
+ */
+$wgPayflowGatewaySalt = '';
+
 global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname, $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
-$wgPayflowGatewayDBserver = ( !$wgPayflowGatewayDBserver ) ? $wgDBserver : $wgPayflowGatewayDBserver;
-$wgPayflowGatewayDBname = ( !$wgPayflowGatewayDBname ) ? $wgDBname : $wgPayflowGatewayDBname;
-$wgPayflowGatewayDBuser = ( !$wgPayflowGatewayDBuser ) ?  $wgDBuser : $wgPayflowGatewayDBuser;
-$wgPayflowGatewayDBpassword = ( !$wgPayflowGatewayDBpassword ) ? $wgDBpassword : $wgPayflowGatewayDBpassword;
+$wgPayflowGatewayDBserver = $wgDBserver;
+$wgPayflowGatewayDBname = $wgDBname;
+$wgPayflowGatewayDBuser = $wgDBuser;
+$wgPayflowGatewayDBpassword = $wgDBpassword;
 
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;

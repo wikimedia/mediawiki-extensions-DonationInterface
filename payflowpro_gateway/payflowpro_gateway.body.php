@@ -37,7 +37,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	public function execute( $par ) {
 		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, $wgPayFlowProGatewayCSSVersion;
-
+		session_cache_limiter( 'nocache' );
+		$this->fnPayflowEnsureSession();
 		$this->setHeaders();
 		
 		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
@@ -67,42 +68,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
-
-		// create token if one doesn't already exist
-		$token = $wgUser->editToken( 'mrxc877668DwQQ' );
-
-		// Declare form post variables
-		$data = array(
-			'amount' => '',
-			'email' => '',
-			'fname' => '',
-			'mname' => '',
-			'lname' => '',
-			'street' => '',
-			'city' => '',
-			'state' => '',
-			'zip' => '',
-			'country' => '',
-			'card_num' => '',
-			'expiration' => '',
-			'cvv' => '',
-			'currency' => '',
-			'payment_method' => '',
-			'order_id' => '',
-			'numAttempt' => '',
-			'referrer' => '',
-			'utm_source' => '',
-			'utm_medium' => '',
-			'utm_campaign' => '',
-			'language' => '',
-			'comment' => '',
-			'anonymous' => '',
-			'optout' => '',
-			'token' => $token,
-			'contribution_tracking_id' => '',
-			'data_hash' => '',
-			'action' => '',
-		);
+		// establish the edit token to prevent csrf
+		global $wgPayflowGatewaySalt;
+		$token = $this->fnPayflowEditToken( $wgPayflowGatewaySalt ); //$wgUser->editToken( 'mrxc877668DwQQ' );
 
 		$error[] = '';
 
@@ -120,6 +88,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 		// track the number of attempts the user has made
 		$numAttempt = ( $wgRequest->getText( 'numAttempt' ) == '' ) ? '0' : $wgRequest->getText( 'numAttempt' );
+
 		// Populate from data
 		$data = array(
 			'amount' => $amount,
@@ -149,6 +118,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'anonymous' => $wgRequest->getText( 'comment-option' ),
 			'optout' => $wgRequest->getText( 'email' ),
 			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
+			'token' => $token,
 			'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 			'data_hash' => $wgRequest->getText( 'data_hash' ),
 			'action' => $wgRequest->getText( 'action' ),
@@ -164,9 +134,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// Check form for errors and display 
 		// match token
-		$success = $wgUser->matchEditToken( $token, 'mrxc877668DwQQ' );
-
-		if( $success ) {
+		$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
+		$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
+		if( $token_match ) {
 			if( $data['payment_method'] == 'processed' ) {
 				//increase the count of attempts
 				++$data['numAttempt'];
@@ -197,6 +167,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 						wfRunHooks( 'PayflowGatewayReject', array( &$this, &$data ));
 
 						$this->fnPayflowDisplayDeclinedResults( '' );
+						$this->fnPayflowUnsetEditToken();
 					}
 
 					// if the transaction was flagged for processing
@@ -204,6 +175,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 						// expose a hook for external handling of trxns ready for processing
 						wfRunHooks( 'PayflowGatewayProcess', array( &$this, &$data ));
 						$this->fnPayflowProcessTransaction( $data, $payflow_data );
+						$this->fnPayflowUnsetEditToken();
 					}
 
 					// expose a hook for any post processing
@@ -213,7 +185,11 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				//Display form for the first time
 				$this->fnPayflowDisplayForm($data, $error);
 			}
-		} 
+		} else { 
+			// there's a token mismatch
+			$error['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
+			$this->fnPayflowDisplayForm( $data, $error );
+		}
 	}
 
 	/**
@@ -320,7 +296,20 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
 			Xml::closeElement( 'div' );
-		
+	
+		// provide a place at the top of the form for displaying general messages
+		if ( $error['general'] ) {
+			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
+			if ( is_array( $error['general'] )) {
+				foreach ( $error['general'] as $error_msg ) {
+					$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error_msg );
+				}
+			} else {
+				$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error_msg );
+			}
+			$form .= Xml::closeElement( 'div' );
+		}
+
 		// open form	
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
 			Xml::element( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] ) .
@@ -962,5 +951,79 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		return $payflowCurrencies;
 	}
 	
-	
+	/**
+	 * Establish an 'edit' token to help prevent CSRF, etc
+	 *
+	 * We use this in place of $wgUser->editToken() b/c currently
+	 * $wgUser->editToken() is broken (apparently by design) for 
+	 * anonymous users.  Using $wgUser->editToken() currently exposes 
+	 * a security risk for non-authenticated users.  Until this is 
+	 * resolved in $wgUser, we'll use our own methods for token
+	 * handling.
+	 *
+	 * @var mixed $salt
+	 * @return string
+	 */
+	function fnPayflowEditToken( $salt='' ) {
+		if ( !isset( $_SESSION[ 'payflowEditToken' ] )) {
+			//generate unsalted token to place in the session
+			$token = self::fnPayflowGenerateToken();
+			$_SESSION[ 'payflowEditToken' ] = $token;
+		} else {
+			$token = $_SESSION[ 'payflowEditToken' ];
+		}
+		
+		if ( is_array( $salt )) {
+			$salt = implode( "|", $salt );
+		}
+		return md5( $token . $salt ) . EDIT_TOKEN_SUFFIX;
+	}
+
+	/**
+	 * Generate a token string
+	 * 
+	 * @var mixed $salt
+	 * @return string
+	 */
+	public static function fnPayflowGenerateToken( $salt='' ) {
+		$token = dechex( mt_rand() ) . dechex( mt_rand() );
+		return md5( $token . $salt );
+	}
+
+	/**
+	 * Determine the validity of a token
+	 *
+	 * @var string $val
+	 * @var mixed $salt
+	 * @return bool
+	 */
+	function fnPayflowMatchEditToken( $val, $salt='' ) {
+		// fetch a salted version of the session token
+		$sessionToken = $this->fnPayflowEditToken( $salt );
+		if ( $val != $session_token ) {
+			wfDebug( "PayflowproGateway::fnPayflowMatchEditToken: broken session data\n" );
+		}
+		return $val == $sessionToken;
+	}
+
+	/**
+	 * Unset the payflow edit token from a user's session
+	 */
+	function fnPayflowUnsetEditToken() {
+		unset( $_SESSION[ 'payflowEditToken' ] );
+	}
+
+	/**
+	 * Ensure that we have a session set for the current user
+	 *
+	 * If we do not have a session set for the current user, 
+	 * start the session.
+	 */
+	public function fnPayflowEnsureSession() {
+		// if the session is already started, do nothing
+		if ( session_id() ) return;
+
+		// otherwise, fire it up using global mw function wfSetupSession
+		wfSetupSession();
+	}
 } // end class

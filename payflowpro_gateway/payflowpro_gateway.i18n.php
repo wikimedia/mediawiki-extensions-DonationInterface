@@ -102,6 +102,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-AUD' => 'AUD: Australian Dollar',
 	'donate_interface-CAD' => 'CAD: Canadian Dollar',
 	'donate_interface-JPY' => 'JPY: Japanese Yen',
+	'payflowpro_gateway-token-mismatch' => 'Your session has expired.  Please try filling out and submitting the form again.',
 );
 
 /** Message documentation (Message documentation)
