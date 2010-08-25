@@ -1256,6 +1256,7 @@ In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch
 	'donate_interface-AUD' => 'AUD: Australischer Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadischer Dollar',
 	'donate_interface-JPY' => 'JPY: Japanischer Yen',
+	'payflowpro_gateway-token-mismatch' => 'Deine Sitzung ist inzwischen abgelaufen. Bitte fülle das Formular erneut aus und sende es nochmals ab.',
 );
 
 /** German (formal address) (Deutsch (Sie-Form))
@@ -5518,6 +5519,64 @@ Bazı durumlarda, kod kartın sol tarafındadır, ama her zaman hesap numarasın
 	'donate_interface-AUD' => 'AUD: Avustralya Doları',
 	'donate_interface-CAD' => 'CAD: Kanada Doları',
 	'donate_interface-JPY' => 'JPY: Japon Yeni',
+);
+
+/** Tatar (Cyrillic) (Татарча/Tatarça (Cyrillic))
+ * @author Ильнар
+ */
+$messages['tt-cyrl'] = array(
+	'payflowprogateway' => 'Викимедиа проектына ярдәм итү',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro кредит карталарын куллану',
+	'payflowpro_gateway-accessible' => 'Бу сәхифә бары тик ярдәм җыю битендә генә ачыла.',
+	'payflowpro_gateway-form-message' => 'Үзегезнең  кредит картыгыз ярдәмендә иганә ясагыз.
+Шулай ук <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">иганә ясауның башка төрләре дә бар, моны  PayPal, чек һәм банк күчерелмәсе аша ясап та була</a>.',
+	'payflowpro_gateway-form-message-2' => 'Акчаның күләмен яки акча берәмлеген алмаштыру өчен <a href="/index.php?title=Donate">иганәләр битенә кайтыгыз</a>',
+	'payflowpro_gateway-donor-legend' => 'Иганә турында мәгълүмат',
+	'payflowpro_gateway-card-legend' => 'Крдеит картасы турында мәгълүмат',
+	'payflowpro_gateway-amount-legend' => 'Иганә күләме:',
+	'payflowpro_gateway-cvv-link' => 'Мәсәлән',
+	'payflowpro_gateway-donor-amount' => 'Сумма:',
+	'payflowpro_gateway-donor-currency-label' => 'Акча берәмлеге:',
+	'payflowpro_gateway-donor-email' => 'E-mail юлламагыз:',
+	'payflowpro_gateway-donor-fname' => 'Исем:',
+	'payflowpro_gateway-donor-mname' => 'Әтиегезнең исеме:',
+	'payflowpro_gateway-donor-lname' => 'Фамилиягез:',
+	'payflowpro_gateway-donor-name' => 'Исем:',
+	'payflowpro_gateway-donor-street' => 'Урам:',
+	'payflowpro_gateway-donor-city' => 'Шәһәр:',
+	'payflowpro_gateway-donor-state' => 'Штат:',
+	'payflowpro_gateway-donor-postal' => 'Почта индексы:',
+	'payflowpro_gateway-donor-country' => 'Ил / регион:',
+	'payflowpro_gateway-donor-address' => 'Адрес:',
+	'payflowpro_gateway-donor-card' => 'Кредит картасы:',
+	'payflowpro_gateway-donor-card-num' => 'Карты номеры:',
+	'payflowpro_gateway-donor-expiration' => 'Куллану вакыты:',
+	'payflowpro_gateway-donor-security' => 'Саклану коды:',
+	'payflowpro_gateway-donor-submit' => 'Иганә',
+	'payflowpro_gateway-donor-currency-msg' => 'Бу иганә $1 башкарылачак',
+	'payflowpro_gateway-error-msg' => 'Зинһар, $1 кертегез',
+	'payflowpro_gateway-error-msg-js' => 'Зинһар, исемегезне кертегез',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Зинһар, билгеле бер акча күләмен кертегез**',
+	'payflowpro_gateway-error-msg-email' => '** Зинһар,  электрон почтагызның дөрес юлламасын кертегез**',
+	'payflowpro_gateway-error-msg-amex' => '** Зинһар,  American Express картасының дөрес номерын кертегез. **',
+	'payflowpro_gateway-error-msg-mc' => '** Зинһар,  MasterCard картасының дөрес номерын кертегез. **',
+	'payflowpro_gateway-error-msg-visa' => '** Зинһар,  Visa картасының дөрес номерын кертегез. **',
+	'payflowpro_gateway-error-msg-discover' => '** Зинһар,  Discover картасының дөрес номерын кертегез. **',
+	'payflowpro_gateway-error-msg-amount' => 'иганә күләме',
+	'payflowpro_gateway-error-msg-emailAdd' => 'электрон почта юлламасы',
+	'payflowpro_gateway-error-msg-fname' => 'исем',
+	'payflowpro_gateway-error-msg-lname' => 'фамилия',
+	'payflowpro_gateway-error-msg-street' => 'почта адресы',
+	'payflowpro_gateway-error-msg-city' => 'шәһәр',
+	'payflowpro_gateway-error-msg-state' => 'штат',
+	'payflowpro_gateway-error-msg-zip' => 'индекс',
+	'payflowpro_gateway-error-msg-card_num' => 'кредит картасының номеры',
+	'payflowpro_gateway-error-msg-expiration' => 'картаның бетү вакыты',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV картаның кире ягында',
+	'payflowpro_gateway-error-msg-captcha' => 'Кертелгән Captcha билгеләмәсе дөрес түгел. Зинһар, яңадан кертегез.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Зинһар, бирелгән Captcha формасын турыгыз. бу сезнең бот түгел икәнлегегезне дәлилләү өчен кирәк.',
+	'payflowpro_gateway-response-0' => 'Керткән иганәгез өчен бик зур рәхмәт сезгә!',
+	'payflowpro_gateway-response-126' => 'Сезнең транзакция тикшерүне көтә.',
 );
 
 /** Ukrainian (Українська)
