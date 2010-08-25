@@ -43,7 +43,7 @@
 // add optional Maintenance.php argument for cli (useful for systems < 1.16)
 $opts = getopt( "m:" );
 // if the path is not specified from CLI, default Maintenance.php path
-$maint = ( $opts['m'] ) ? $opts['m'] : dirname(__FILE__) . "/../.././maintenance/Maintenance.php";
+$maint = ( $opts['m'] ) ? $opts['m'] : MW_INSTALL_PATH . "/maintenance/Maintenance.php";
 require_once( $maint );
 
 // load necessary stomp files from DonationInterface/active_mq
