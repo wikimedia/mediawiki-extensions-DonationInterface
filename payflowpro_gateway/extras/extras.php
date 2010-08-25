@@ -1,12 +1,6 @@
 <?php
 /**
  * An abstract class for payflowpro gateway 'extras'
- *
- * To enable logging:
- *	$wgPayflowGatewayLog = '<path to log file>';
- *
- * To make hashing salted (you want to do this):
- *	$wgPayflowGatewaySalt = '<something hard to guess>';
  */
 
 abstract class PayflowProGateway_Extras {
@@ -19,7 +13,7 @@ abstract class PayflowProGateway_Extras {
 	public function __construct() {
 		global $wgPayflowGatewayLog;
 		// prepare the log file if the user has specified one
-		if ( $wgPayflowGatewayLog ) $this->prepare_log_file( $wgPayflowGatewayLog );
+		if ( strlen( $wgPayflowGatewayLog) > 0 ) $this->prepare_log_file( $wgPayflowGatewayLog );
 	}
 
 	/**
