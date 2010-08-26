@@ -35,8 +35,8 @@ $wgPayflowGatewayLog = '';
  * to help prevent CSRF, etc.  PLEASE use this!
  * Declare in LocalSettings.php
  */
-global $wgPayflowGatewaySalt;
-$wgPayflowGatewaySalt = '';
+global $wgPayflowGatewaySalt, $wgSecretKey;
+$wgPayflowGatewaySalt = $wgSecretKey;
 
 /**
  * Your minFraud license key.
