@@ -12,7 +12,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
         die( "This file is part of the Conversion Log for PayflowPro Gateway extension. It is not a valid entry point.\n");
 }
 
-$wgExtensionCredits['validextensionclass'][] = array(
+$wgExtensionCredits['payflowprogateway_extras_conversionLog'][] = array(
         'name' => 'conversion log',
         'author' =>'Arthur Richards', 
         'url' => '', 

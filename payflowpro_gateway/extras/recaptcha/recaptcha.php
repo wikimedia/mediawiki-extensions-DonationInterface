@@ -1,62 +1,33 @@
 <?php
 /**
- * Validates a transaction against MaxMind's minFraud service
+ * Extra to expose a recaptcha for 'challenged' transactions
  *
  * To install:
- *	require_once( "$IP/extensions/recaptcha/ReCaptcha.php" );
- *
- * You will need to get reCaptcha public/private keys (http://www.google.com/recaptcha/whyrecaptcha)
- * In LocalSettings.php:
- *	$recaptcha_public_key = '<key>';
- *  $recaptcha_private_key = '<key>';
- *  $wgPayflowCaptcha = new $wgCaptchaClass;
+ *      require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/recaptcha/recaptcha.php"
  */
 
-require_once( dirname( __FILE__ ) . "/../extras.php" );
-class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
-	/**
-	 * Handle the challenge logic
-	 */
-	public function challenge( &$pfp_gateway_object, &$data ) {
-		// if captcha posted, validate
-		if ( isset( $_POST[ 'recaptcha_response_field' ] )) { 
-			if ( $this->validate_captcha() ){
-				// if validated, update the action and move on
-				$this->log( $data[ 'contribution_tracking_id' ], 'Captcha passed' );
-				$pfp_gateway_object->action = "process";
-				return TRUE;
-			} else {
-				$this->log( $data[ 'contribution_tracking_id' ], 'Captcha failed' );
-			}
-		}
-		// display captcha
-		$this->display_captcha( &$pfp_gateway_object, &$data );
-		return TRUE;
-	}
-
-	/**
-	 * Display the submission form with the captcha injected into it
-	 */
-	public function display_captcha( &$pfp_gateway_object, &$data, $error=array() ) {
-		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
-
-		global $wgOut, $wgPayflowCaptcha;
-		$form = $pfp_gateway_object->fnPayflowGenerateFormBody( $data, &$error );
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
-
-		// get the captcha
-		$form .= $wgPayflowCaptcha->getForm();
-		$form .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please') . '</span>';
-		$form .= Xml::closeElement( 'div' );
-		$form .= $pfp_gateway_object->fnPayflowGenerateFormSubmit( $data, &$error );
-		$wgOut->addHTML( $form );
-	}
-
-	/**
-	 * Wrapper for validating the captcha submission
-	 */
-	public function validate_captcha() {
-		global $wgPayflowCaptcha;
-		return $wgPayflowCaptcha->passCaptcha();
-	}
+if ( !defined( 'MEDIAWIKI' ) ) { 
+        die( "This file is part of the ReCaptcha for PayflowPro Gateway extension. It is not a valid entry point.\n");
 }
+
+$wgExtensionCredits['payflowgateway_extras_recaptcha'][] = array(
+        'name' => 'reCaptcha',
+        'author' =>'Arthur Richards', 
+        'url' => '', 
+        'description' => "This extension exposes a reCpathca for 'challenged' transactions in the Payflowpro Gateway"
+);
+
+/**
+ * Public and Private reCaptcha keys
+ *
+ * These can be obtained at:
+ *   http://www.google.com/recaptcha/whyrecaptcha
+ */
+$wgPayflowRecaptchaPublicKey = '';
+$wgPayflowRecaptchaPrivateKey = '';
+
+$dir = dirname( __FILE__ ) . "/";
+$wgAutoloadClasses['PayflowProGateway_Extras_ReCaptcha'] = $dir . "recaptcha.body.php";
+
+// Set reCpatcha as plugin for 'challenge' action
+$wgHooks["PayflowGatewayChallenge"][] = array( "PayflowProGateway_Extras_ReCaptcha::onChallenge");

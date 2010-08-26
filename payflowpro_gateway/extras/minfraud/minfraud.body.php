@@ -159,7 +159,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		$minfraud_array[ "license_key" ] = $this->minfraud_license_key;
 
 		// user's IP address
-		$minfraud_array[ "i" ] = wfGetIP();
+		$minfraud_array[ "i" ] ='12.12.12.12';// wfGetIP();
 
 		// user's user agent
 		global $wgRequest;
