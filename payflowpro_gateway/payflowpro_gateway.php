@@ -45,7 +45,8 @@ $wgPayflowProPassword = ''; //merchant login password
  * potentially leave you and your users vulnerable to CSRF or other forms of
  * attack.
  */
-$wgPayflowGatewaySalt = '';
+global $wgPayflowGatewaySalt, $wgSecretKey;
+$wgPayflowGatewaySalt = $wgSecretKey;
 
 global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname, $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
 $wgPayflowGatewayDBserver = $wgDBserver;

@@ -29,16 +29,6 @@ global $wgPayflowGatewayLog;
 $wgPayflowGatewayLog = '';
 
 /**
- * Custom string for 'salting' hashes
- *
- * Used to help make hashes harder to predict by potential attackers
- * to help prevent CSRF, etc.  PLEASE use this!
- * Declare in LocalSettings.php
- */
-global $wgPayflowGatewaySalt, $wgSecretKey;
-$wgPayflowGatewaySalt = $wgSecretKey;
-
-/**
  * Your minFraud license key.
  */
 global $wgMinFraudLicenseKey;
