@@ -45,10 +45,8 @@ $wgPayflowProPassword = ''; //merchant login password
  * potentially leave you and your users vulnerable to CSRF or other forms of
  * attack.
  */
-global $wgPayflowGatewaySalt, $wgSecretKey;
 $wgPayflowGatewaySalt = $wgSecretKey;
 
-global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname, $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
 $wgPayflowGatewayDBserver = $wgDBserver;
 $wgPayflowGatewayDBname = $wgDBname;
 $wgPayflowGatewayDBuser = $wgDBuser;
@@ -114,8 +112,6 @@ function pfpGatewayValue( &$values ) {
 function pfpGatewayPage( &$url ) {
 	global $wgScript;
 
-	//$url['payflow'] = 'https://payments.wikimedia.org/index.php' . '?title=Special:PayflowProGateway';
-	//$url['payflow'] = 'http://c2p2.fkbuild.com/index.php?title=Special:PayflowProGateway';
 	$url['payflow'] = $wgScript . "?title=Special:PayflowProGateway";
 	return true;
 }

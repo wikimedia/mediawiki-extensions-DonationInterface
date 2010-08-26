@@ -35,7 +35,6 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		parent::__construct();
 		$dir = dirname( __FILE__ ) .'/';
 		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
-		//require_once( $dir . "../../includes/countryCodes.inc" );
 		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges;
 
 		// set the minfraud license key, go no further if we don't have it
@@ -56,7 +55,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 */
 	public function validate( &$pfp_gateway_object, &$data ) {
 		// see if we can bypass minfraud
-		if ( $this->can_bypass_minfraud( $pfp_gateway_object, &$data )) return TRUE;
+		if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data )) return TRUE;
 
 		$minfraud_query = $this->build_query( $data );
 		$this->query_minfraud( $minfraud_query );

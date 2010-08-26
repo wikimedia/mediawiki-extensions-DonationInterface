@@ -2,7 +2,7 @@
 /**
  * Validates a transaction against MaxMind's minFraud service
  *
- * For more detailf on minFraud, go: http://www.maxmind.com/app/minfraud
+ * For more details on minFraud, go: http://www.maxmind.com/app/minfraud
  *
  * To install:
  *      require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/minfraud/minfraud.php" );
@@ -21,17 +21,8 @@ $wgExtensionCredits['validextensionclass'][] = array(
 );
 
 /**
- * Full path to file to use for logging for Payflowpro Gateway scripts
- *
- * Declare in LocalSettings.php
- */
-global $wgPayflowGatewayLog;
-$wgPayflowGatewayLog = '';
-
-/**
  * Your minFraud license key.
  */
-global $wgMinFraudLicenseKey;
 $wgMinFraudLicenseKey = '';
 
 /**
@@ -50,7 +41,6 @@ $wgMinFraudLicenseKey = '';
  * These are evauluated on a >= or <= basis.  Please refer to minFraud
  * documentation for a thorough explanation of the 'riskScore'.
  */
-global $wgMinFraudActionRanges;
 $wgMinFraudActionRanges = array(
 	'process' => array( 0, 100 ),
 	'review' => array( -1, -1 ),
@@ -60,7 +50,6 @@ $wgMinFraudActionRanges = array(
 
 $dir = dirname( __FILE__ ) . "/";
 require_once( $dir . "../../includes/countryCodes.inc" );
-$wgAutoloadClasses['PayflowProGateway_Extras'] = $dir . "../extras.php";
 $wgAutoloadClasses['PayflowProGateway_Extras_MinFraud'] = $dir . "minfraud.body.php";
 
 /**
