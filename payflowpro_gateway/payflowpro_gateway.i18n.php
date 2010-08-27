@@ -1063,6 +1063,7 @@ Někdy bývá kód umístěn na levé straně karty, ale vždy je nad číslem �
 	'donate_interface-AUD' => 'AUD: Australský dolar',
 	'donate_interface-CAD' => 'CAD: Kanadský dolar',
 	'donate_interface-JPY' => 'JPY: Japonský jen',
+	'payflowpro_gateway-token-mismatch' => 'Platnost vašeho sezení vypršela. Zkuste prosím znovu formulář vyplnit a odeslat.',
 );
 
 /** Welsh (Cymraeg)
@@ -1158,6 +1159,7 @@ Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhi
 	'donate_interface-AUD' => 'AUD: Doler Awstralia',
 	'donate_interface-CAD' => 'CAD: Doler Canada',
 	'donate_interface-JPY' => 'JPY: Yen Japan',
+	'payflowpro_gateway-token-mismatch' => "Daeth eich sesiwn i ben. Rhowch gynnig arall ar lenwi a chyflwyno'r ffurflen.",
 );
 
 /** German (Deutsch)
@@ -1968,6 +1970,7 @@ $messages['fa'] = array(
 	'donate_interface-AUD' => 'AUD: دلار استرالیا',
 	'donate_interface-CAD' => 'CAD: دلار کانادا',
 	'donate_interface-JPY' => 'JPY: ین ژاپن',
+	'payflowpro_gateway-token-mismatch' => 'نشست شما منقضی شده است. لطفا با پر کردن و ارسال فرم، دوباره سعی کنید.',
 );
 
 /** Finnish (Suomi)
@@ -2157,6 +2160,7 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'donate_interface-AUD' => 'AUD : dollar australien',
 	'donate_interface-CAD' => 'CAD : dollar canadien',
 	'donate_interface-JPY' => 'JPY : yen japonais',
+	'payflowpro_gateway-token-mismatch' => 'Votre session a expiré. Veuillez essayer de remplir et d’envoyer à nouveau le formulaire.',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2339,6 +2343,7 @@ Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, per
 	'donate_interface-AUD' => 'AUD: dólar australiano',
 	'donate_interface-CAD' => 'CAD: dólar canadense',
 	'donate_interface-JPY' => 'JPY: ien xaponés',
+	'payflowpro_gateway-token-mismatch' => 'A súa sesión caducou. Intente encher e enviar o formulario de novo.',
 );
 
 /** Swiss German (Alemannisch)
@@ -2432,6 +2437,7 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'donate_interface-AUD' => 'AUD: Auschtralischi Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadischi Dollar',
 	'donate_interface-JPY' => 'JPY: Japanischi Yen',
+	'payflowpro_gateway-token-mismatch' => 'Dyy Sitzig isch abglofe. Bitte fill s Formular nomol uus un schick s nomol ab.',
 );
 
 /** Hebrew (עברית)
@@ -2784,6 +2790,7 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'donate_interface-AUD' => 'AUD: dollar australian',
 	'donate_interface-CAD' => 'CAD: dollar canadian',
 	'donate_interface-JPY' => 'JPY: yen japonese',
+	'payflowpro_gateway-token-mismatch' => 'Tu session ha expirate. Per favor tenta completar e submitter le formulario de novo.',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -3067,6 +3074,7 @@ $messages['ja'] = array(
 	'donate_interface-AUD' => 'AUD: オーストラリア・ドル',
 	'donate_interface-CAD' => 'CAD: カナダ・ドル',
 	'donate_interface-JPY' => 'JPY: 日本円',
+	'payflowpro_gateway-token-mismatch' => 'セッションが期限切れです。もう一度入力して、フォームを送信してください。',
 );
 
 /** Georgian (ქართული)
@@ -3438,7 +3446,17 @@ $messages['li'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Vervaltied:',
 	'payflowpro_gateway-donor-security' => 'Beveiligingskode:',
 	'payflowpro_gateway-donor-submit' => 'Gaef',
+	'payflowpro_gateway-error-msg-amount' => 'bedraag',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-mailadres',
+	'payflowpro_gateway-error-msg-fname' => 'veurnaam',
+	'payflowpro_gateway-error-msg-lname' => 'achternaam',
+	'payflowpro_gateway-error-msg-street' => 'adres',
 	'payflowpro_gateway-error-msg-city' => 'nieëderzètting',
+	'payflowpro_gateway-error-msg-state' => 'staat',
+	'payflowpro_gateway-error-msg-zip' => 'poscode',
+	'payflowpro_gateway-error-msg-card_num' => 'creditcardnummer',
+	'payflowpro_gateway-error-msg-expiration' => 'vervaldatum creditcard',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV - beveiligingscode - van de achterkant van dien creditcard',
 	'payflowpro_gateway-submit-button' => 'Gaef',
 	'donate_interface-GBP' => 'GBP: Britsje póndj',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -3541,6 +3559,7 @@ $messages['mk'] = array(
 	'donate_interface-AUD' => 'AUD: Австралиски долар',
 	'donate_interface-CAD' => 'CAD: Канадски долар',
 	'donate_interface-JPY' => 'JPY: Јапонски јен',
+	'payflowpro_gateway-token-mismatch' => 'Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.',
 );
 
 /** Malayalam (മലയാളം)
@@ -3824,6 +3843,7 @@ In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staa
 	'donate_interface-AUD' => 'AUD: Australische dollar',
 	'donate_interface-CAD' => 'CAD: Canadese dollar',
 	'donate_interface-JPY' => 'JPY: Japanse yen',
+	'payflowpro_gateway-token-mismatch' => 'Uw sessie is verlopen. Vul het formulier opnieuw in en sla het daarna op.',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -4169,6 +4189,7 @@ W niektórych przypadkach, kod znajduje się po lewej stronie karty, ale zawsze 
 	'donate_interface-AUD' => 'AUD – dolar australijski',
 	'donate_interface-CAD' => 'CAD – dolar kanadyjski',
 	'donate_interface-JPY' => 'JPY – jen japoński',
+	'payflowpro_gateway-token-mismatch' => 'Sesja wygasła. Spróbuj jeszcze raz wypełnić i przesłać formularz.',
 );
 
 /** Piedmontese (Piemontèis)
@@ -4263,6 +4284,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-AUD' => 'AUD: Dòlar Australian',
 	'donate_interface-CAD' => 'CAD: Dòlar Canadèis',
 	'donate_interface-JPY' => 'JPY: Yen Giaponèis',
+	'payflowpro_gateway-token-mismatch' => "Toa session a l'é finìa. Për piasì preuva an vempend e spedend torna la forma.",
 );
 
 /** Pashto (پښتو)
@@ -4399,6 +4421,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-AUD' => 'AUD: Dólar Australiano',
 	'donate_interface-CAD' => 'CAD: Dólar Canadiano',
 	'donate_interface-JPY' => 'JPY: Iene (Japão)',
+	'payflowpro_gateway-token-mismatch' => 'A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
@@ -4683,6 +4706,7 @@ $messages['ru'] = array(
 	'donate_interface-AUD' => 'AUD: австралийский доллар',
 	'donate_interface-CAD' => 'CAD: канадский доллар',
 	'donate_interface-JPY' => 'JPY: японская йена',
+	'payflowpro_gateway-token-mismatch' => 'Ваш сеанс истёк. Пожалуйста, заполните форму ещё раз.',
 );
 
 /** Rusyn (русиньскый язык)
