@@ -2516,6 +2516,52 @@ $messages['he'] = array(
 	'donate_interface-JPY' => 'JPY: יין יפני',
 );
 
+/** Croatian (Hrvatski)
+ * @author SpeedyGonsales
+ */
+$messages['hr'] = array(
+	'payflowprogateway' => 'Podržite Wikimediju',
+	'payflowpro_gateway-desc' => 'PayPal PayFlow Pro obrada kreditnih kartica',
+	'payflowpro_gateway-accessible' => 'Ova stranica je dostupna samo iz stranice za donacije.',
+	'payflowpro_gateway-form-message' => 'Doprinesite s Vašom kreditnom karticom. 
+Postoje <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">i drugi načini za pomoć, uključujući PayPal, ček ili poštom</a>.',
+	'payflowpro_gateway-form-message-2' => 'Za promjenu iznosa ili valute, povratak na <a href="/index.php?title=Donate">stranicu donacija</a>',
+	'payflowpro_gateway-donor-legend' => 'Informacija o donatoru',
+	'payflowpro_gateway-card-legend' => 'Informacija o kreditnoj kartici',
+	'payflowpro_gateway-amount-legend' => 'Iznos donacije:',
+	'payflowpro_gateway-cvv-link' => 'Primjer',
+	'payflowpro_gateway-donor-amount' => 'Iznos:',
+	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
+	'payflowpro_gateway-donor-email' => 'E-mail adresa:',
+	'payflowpro_gateway-donor-fname' => 'Ime:',
+	'payflowpro_gateway-donor-mname' => 'Srednje ime:',
+	'payflowpro_gateway-donor-lname' => 'Prezime:',
+	'payflowpro_gateway-donor-name' => 'Ime:',
+	'payflowpro_gateway-donor-street' => 'Ulica:',
+	'payflowpro_gateway-donor-city' => 'Grad:',
+	'payflowpro_gateway-donor-state' => 'Pokrajina / država (SAD):',
+	'payflowpro_gateway-donor-postal' => 'Poštanski broj:',
+	'payflowpro_gateway-donor-country' => 'Država / Regija:',
+	'payflowpro_gateway-donor-address' => 'Adresa:',
+	'payflowpro_gateway-donor-card' => 'Kreditna kartica:',
+	'payflowpro_gateway-donor-card-num' => 'Broj kartice:',
+	'payflowpro_gateway-donor-expiration' => 'Datum isteka:',
+	'payflowpro_gateway-donor-security' => 'Sigurnosni kod:',
+	'payflowpro_gateway-donor-submit' => 'Pošalji',
+	'payflowpro_gateway-donor-currency-msg' => 'Donacija je napravljena u sljedećoj valuti: $1',
+	'payflowpro_gateway-error-msg' => 'Molimo unesite vaše $1',
+	'payflowpro_gateway-error-msg-js' => 'Molimo unesite vaše',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Molim, unesite valjani iznos**',
+	'payflowpro_gateway-error-msg-email' => '**Molim, unesite valjanu e-mail adresu**',
+	'donate_interface-GBP' => 'GBP: britanska funta',
+	'donate_interface-EUR' => 'EUR: euro',
+	'donate_interface-USD' => 'USD: američki dolar',
+	'donate_interface-AUD' => 'AUD: australski dolar',
+	'donate_interface-CAD' => 'CAD: kanadski dolar',
+	'donate_interface-JPY' => 'JPY: japanski jen',
+	'payflowpro_gateway-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ponovo popuniti i podnijeti obrazac.',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
@@ -3446,6 +3492,14 @@ $messages['li'] = array(
 	'payflowpro_gateway-donor-expiration' => 'Vervaltied:',
 	'payflowpro_gateway-donor-security' => 'Beveiligingskode:',
 	'payflowpro_gateway-donor-submit' => 'Gaef',
+	'payflowpro_gateway-error-msg' => 'Veur e.t.b. dien $1 in',
+	'payflowpro_gateway-error-msg-js' => "'t Volgend veld is verplich:",
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Veur e.t.b. e geldig bedraag in**',
+	'payflowpro_gateway-error-msg-email' => '**Veur e.t.b. e geldig e-mailadres in**',
+	'payflowpro_gateway-error-msg-amex' => '**Veur e.t.b. e geldig kaartnómmer veur American Express in**',
+	'payflowpro_gateway-error-msg-mc' => '**Veur e.t.b. e geldig kaartnómmer veur Maastercard in**',
+	'payflowpro_gateway-error-msg-visa' => '**Veur e.t.b. e geldig visakaartnómmer in**',
+	'payflowpro_gateway-error-msg-discover' => '**Veur e.t.b. e geldig kaartnómmer veur discover in**',
 	'payflowpro_gateway-error-msg-amount' => 'bedraag',
 	'payflowpro_gateway-error-msg-emailAdd' => 'e-mailadres',
 	'payflowpro_gateway-error-msg-fname' => 'veurnaam',
@@ -3657,6 +3711,7 @@ $messages['ml'] = array(
 	'donate_interface-AUD' => 'AUD: ഓസ്ട്രേലിയൻ ഡോളർ',
 	'donate_interface-CAD' => 'CAD: കനേഡിയൻ ഡോളർ',
 	'donate_interface-JPY' => 'JPY: ജാപ്പനീസ് യെൻ',
+	'payflowpro_gateway-token-mismatch' => 'താങ്കളുടെ സെഷൻ അവസാനിച്ചിരിക്കുന്നു. ദയവായി ഫോം വീണ്ടും പൂരിപ്പിച്ച് സമർപ്പിക്കുവാൻ ശ്രമിക്കുക.',
 );
 
 /** Nedersaksisch (Nedersaksisch)
@@ -4284,7 +4339,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-AUD' => 'AUD: Dòlar Australian',
 	'donate_interface-CAD' => 'CAD: Dòlar Canadèis',
 	'donate_interface-JPY' => 'JPY: Yen Giaponèis',
-	'payflowpro_gateway-token-mismatch' => "Toa session a l'é finìa. Për piasì preuva an vempend e spedend torna la forma.",
+	'payflowpro_gateway-token-mismatch' => "Soa session a l'é terminà. Për piasì, ch'a preuva a ampinì e a mandé torna ël formolari.",
 );
 
 /** Pashto (پښتو)
@@ -4517,6 +4572,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-AUD' => 'AUD: Dólar australiano',
 	'donate_interface-CAD' => 'CAD: Dólar canadense',
 	'donate_interface-JPY' => 'JPY: Iene (Japão)',
+	'payflowpro_gateway-token-mismatch' => 'A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.',
 );
 
 /** Romanian (Română)
