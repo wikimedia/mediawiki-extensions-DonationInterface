@@ -1120,8 +1120,8 @@ href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ffyrdd eraill o roi i
 	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
 	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
 	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
-	'payflowpro_gateway-error-msg-captcha' => "Mae'r blwch Capcha a roddoch yn anghywir. Ceisiwch eto os gwelwch yn dda.",
-	'payflowpro_gateway-error-msg-captcha-please' => 'Am diogelwch eich cerdyn credyd, teipiwch y cymeriadau a welwch uchod.',
+	'payflowpro_gateway-error-msg-captcha' => "Mae'r hyn a roesoch yn y blwch Captcha yn anghywir. Ceisiwch eto os gwelwch yn dda.",
+	'payflowpro_gateway-error-msg-captcha-please' => 'Er mwyn diogelwch eich cerdyn credyd, teipiwch y nodau a welwch uchod.',
 	'payflowpro_gateway-response-0' => 'Cadarnhawyd eich taliad.
 Diolch am roi!',
 	'payflowpro_gateway-response-126' => "Mae'ch taliad yn disgwyl cadarnhad.",
@@ -2931,6 +2931,7 @@ Dalam beberapa kasus, kode ini terletak di sisi kiri kartu, tetapi selalu di ata
 	'donate_interface-AUD' => 'AUD: Dolar Australia',
 	'donate_interface-CAD' => 'CAD: Dolar Kanada',
 	'donate_interface-JPY' => 'JPY: Yen Jepang',
+	'payflowpro_gateway-token-mismatch' => 'Sesi Anda telah berakhir. Silakan coba mengisi formulir dan mengirimkannya lagi.',
 );
 
 /** Ido (Ido)
@@ -3464,6 +3465,7 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
 	'donate_interface-AUD' => 'AUD: Australeschen Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadeschen Dollar',
 	'donate_interface-JPY' => 'JPY: Japanesche Yen',
+	'payflowpro_gateway-token-mismatch' => 'Är Seance ass ofgelaf. Versich w.e.g. nach eng Kéier auszefëllen an de Formulaire nach emol ze schécken.',
 );
 
 /** Limburgish (Limburgs)
