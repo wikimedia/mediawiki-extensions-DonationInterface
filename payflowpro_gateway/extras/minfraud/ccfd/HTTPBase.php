@@ -35,7 +35,7 @@ class HTTPBase{
   var $wsIpaddrCacheFile;
   var $useDNS;
   var $ipstr;
-  function HTTPBase() {
+  function __construct() {
     $this->isSecure = 0;
     $this->debug = 0;
     $this->timeout = 0;

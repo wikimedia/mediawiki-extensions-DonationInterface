@@ -25,7 +25,7 @@ class CreditCardFraudDetection extends HTTPBase {
   var $numservers;
   var $API_VERSION;
 
-  function CreditCardFraudDetection() {
+  function __construct() {
     $this->HTTPBase();
     $this->isSecure = 1;    // use HTTPS by default
 
