@@ -878,6 +878,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-AUD' => 'AUD: Australijski dolar',
 	'donate_interface-CAD' => 'CAD: Kanadski dolar',
 	'donate_interface-JPY' => 'JPY: Japanski jen',
+	'payflowpro_gateway-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.',
 );
 
 /** Catalan (Català)
