@@ -26,8 +26,8 @@ class LocationVerification extends HTTPBase {
   var $API_VERSION;
 
   function __construct() {
-    $this->HTTPBase();
-    $this->isSecure = 1;    // use HTTPS by default
+    parent::__construct();
+	$this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash
     $this->allowed_fields["i"] = 1;

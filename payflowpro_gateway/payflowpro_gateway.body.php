@@ -68,6 +68,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		
 		// establish the edit token to prevent csrf
 		global $wgPayflowGatewaySalt;
 		$token = $this->fnPayflowEditToken( $wgPayflowGatewaySalt ); //$wgUser->editToken( 'mrxc877668DwQQ' );
@@ -259,9 +260,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$stateMenu = '';
 
 		foreach( $states as $value => $fullName ) {
-		if ( $value == $data['state'] ) {
-			$stateMenu .= Xml::option( $fullName, $value, true );
-		} else $stateMenu .= Xml::option( $fullName, $value, false );
+			if ( $value == $data['state'] ) {
+				$stateMenu .= Xml::option( $fullName, $value, true );
+			} else $stateMenu .= Xml::option( $fullName, $value, false );
 		}
 		
 		//currencies

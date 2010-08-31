@@ -35,6 +35,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		parent::__construct();
 		$dir = dirname( __FILE__ ) .'/';
 		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
+		require_once( $dir . "../../includes/countryCodes.inc" );
 		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges;
 
 		// set the minfraud license key, go no further if we don't have it
@@ -65,8 +66,16 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		if ( isset( $data[ 'data_hash' ] )) unset( $data[ 'data_hash' ] );
 		$data[ 'action' ] = $this->generate_hash( $pfp_gateway_object->action );
 		$data[ 'data_hash' ] = $this->generate_hash( serialize( $data ));
-		
-		// log the message if the user has specified a log file
+	
+		// Write the query/response to the log
+		$this->log_query( $pfp_gateway_object, $data );
+		return TRUE;
+	}
+
+	/**
+	 * Logs a minFraud query and its response
+	 */
+	public function log_query( $pfp_gateway_object, $data ) {
 		if ( $this->log_fh ) {
 			$log_message = '"' . addslashes( $data[ 'comment' ] ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $data[ 'amount' ] . ' ' . $data[ 'currency' ] ) . '"';
@@ -76,7 +85,6 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 			$log_message .= "\t" . '"' . addslashes( $data[ 'referrer' ] ) . '"';
 			$this->log( $data[ 'contribution_tracking_id' ], 'minFraud query', $log_message );
 		}
-		return TRUE;
 	}
 
 	/**
@@ -159,7 +167,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		$minfraud_array[ "license_key" ] = $this->minfraud_license_key;
 
 		// user's IP address
-		$minfraud_array[ "i" ] ='12.12.12.12';// wfGetIP();
+		$minfraud_array[ "i" ] = wfGetIP();
 
 		// user's user agent
 		global $wgRequest;
@@ -244,7 +252,6 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * @return array of actions to be taken
 	 */
 	 public function determine_action( $risk_score ) {
-		$actions = array();
 		foreach ( $this->action_ranges as $action => $range ) {
 			if ( $risk_score >= $range[0] && $risk_score <= $range[1] ) {
 				return $action;

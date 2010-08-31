@@ -48,11 +48,24 @@ $wgMinFraudActionRanges = array(
 	'reject' => array( -1, -1 )
 );
 
+/**
+ * Define whether or not to run minFraud in stand alone mode
+ *
+ * If this is set to run in standalone, these scripts will be
+ * accessed directly via the "PayflowGatewayValidate" hook.
+ * You may not want to run this in standalone mode if you prefer
+ * to use this in conjunction with Custom Filters.  This has the
+ * advantage of sharing minFraud info with other filters.
+ */
+$wgMinFraudStandalone = TRUE;
+
 $dir = dirname( __FILE__ ) . "/";
-require_once( $dir . "../../includes/countryCodes.inc" );
 $wgAutoloadClasses['PayflowProGateway_Extras_MinFraud'] = $dir . "minfraud.body.php";
 
-/**
- * Sets minFraud as a validator for transactions
- */
-$wgHooks["PayflowGatewayValidate"][] = array( 'PayflowProGateway_Extras_MinFraud::onValidate' );
+$wgExtensionFunctions[] = 'efMinFraudSetup';
+
+function efMinFraudSetup() {
+	// if we're in standalone mode, use the PayflowGatewayValidate hook
+	global $wgMinFraudStandalone, $wgHooks;
+	if ( $wgMinFraudStandalone ) $wgHooks["PayflowGatewayValidate"][] = array( 'PayflowProGateway_Extras_MinFraud::onValidate' );
+}

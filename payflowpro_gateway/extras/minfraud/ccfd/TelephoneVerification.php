@@ -5,8 +5,8 @@ class TelephoneVerification extends HTTPBase {
   var $numservers;
   var $API_VERSION;
   function __construct(){
-    $this->HTTPBase();
-    $this->isSecure = 1;    // use HTTPS by default
+    parent::__construct();
+	$this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash
     $this->allowed_fields["l"] = 1;
