@@ -52,6 +52,15 @@ $wgPayflowGatewayDBname = $wgDBname;
 $wgPayflowGatewayDBuser = $wgDBuser;
 $wgPayflowGatewayDBpassword = $wgDBpassword;
 
+/**
+ * A string that can contain wikitext to display at the head of the credit card form
+ *
+ * This string gets run like so: $wg->addHtml( $wg->Parse( $wgpayflowGatewayHeader ))
+ * You can use '@language' as a placeholder token to extract the user's language.
+ * 
+ */
+$wgPayflowGatewayHeader = NULL;
+
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
 	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;

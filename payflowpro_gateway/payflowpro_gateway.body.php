@@ -205,7 +205,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
 	
-		global $wgOut, $wgLang, $wgWikipediaForeverTheme;
+		global $wgOut, $wgLang, $wgPayflowGatewayHeader;
 
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == '0' ) {
@@ -289,8 +289,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
     		}
 		
 		// intro text
-		if ( $wgWikipediaForeverTheme ) {
-			$wgOut->addWikiText( '{{2009/Donate-header/' . $data['language'] . '}}' );
+		if ( $wgPayflowGatewayHeader ) {
+			$header = str_replace( '@language', $data['language'], $wgPayflowGatewayHeader );
+			$wgOut->addHtml( $wgOut->parse( $header ));//'{{2009/Donate-header/' . $data['language'] . '}}' ));
 		}	
 
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .

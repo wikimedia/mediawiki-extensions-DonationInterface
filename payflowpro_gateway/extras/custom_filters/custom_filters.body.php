@@ -55,10 +55,14 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	 * @return string The action to take
 	 */
 	public function determineAction() {
+		// possible risk scores are between 0 and 100
+		if ( $this->risk_score < 0 ) $this->risk_score = 0;
+		if ( $this->risk_score > 100 ) $this->risk_score = 100;
+
 		foreach ( $this->action_ranges as $action => $range ) { 
 		    if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) { 
 				return $action;
-			}   
+			}
 		}
 	}
 

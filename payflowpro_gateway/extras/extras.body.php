@@ -36,6 +36,7 @@ abstract class PayflowProGateway_Extras {
 	 */
 	public function log( $id='', $status='', $data='' ) {
 		if ( !$this->log_fh ) {
+			echo "what log file?";
 			return;
 		}
 		$msg = '"' . date( 'c' ) . '"';
