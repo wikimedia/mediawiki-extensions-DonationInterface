@@ -5924,6 +5924,7 @@ Xin hãy thử lại vào lần sau.',
 	'donate_interface-AUD' => 'AUD: Đô la Úc',
 	'donate_interface-CAD' => 'CAD: Đô la Canada',
 	'donate_interface-JPY' => 'JPY: Yên Nhật',
+	'payflowpro_gateway-token-mismatch' => 'Phiên của bạn đã hết hạn. Xin hãy thử điền và nộp đơn một lần nữa.',
 );
 
 /** Volapük (Volapük)
