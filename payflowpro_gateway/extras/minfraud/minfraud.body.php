@@ -68,14 +68,14 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		$data[ 'data_hash' ] = $this->generate_hash( serialize( $data ));
 	
 		// Write the query/response to the log
-		$this->log_query( $pfp_gateway_object, $data );
+		$this->log_query( $minfraud_query, $pfp_gateway_object, $data );
 		return TRUE;
 	}
 
 	/**
 	 * Logs a minFraud query and its response
 	 */
-	public function log_query( $pfp_gateway_object, $data ) {
+	public function log_query( $minfraud_query, $pfp_gateway_object, $data ) {
 		if ( $this->log_fh ) {
 			$log_message = '"' . addslashes( $data[ 'comment' ] ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $data[ 'amount' ] . ' ' . $data[ 'currency' ] ) . '"';
