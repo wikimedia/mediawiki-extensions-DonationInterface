@@ -91,39 +91,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$numAttempt = ( $wgRequest->getText( 'numAttempt' ) == '' ) ? '0' : $wgRequest->getText( 'numAttempt' );
 
 		// Populate from data
-		$data = array(
-			'amount' => $amount,
-			'email' => $wgRequest->getText( 'emailAdd' ),
-			'fname' => $wgRequest->getText( 'fname' ),
-			'mname' => $wgRequest->getText( 'mname' ),
-			'lname' => $wgRequest->getText( 'lname' ),
-			'street' => $wgRequest->getText( 'street' ),
-			'city' => $wgRequest->getText( 'city' ),
-			'state' => $wgRequest->getText( 'state' ),
-			'zip' => $wgRequest->getText( 'zip' ),
-			'country' => $wgRequest->getText( 'country' ),
-			'card' => $wgRequest->getText( 'card' ),
-			'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
-			'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
-			'cvv' => $wgRequest->getText( 'cvv' ),
-			'currency' => $wgRequest->getText( 'currency_code' ),
-			'payment_method' => $wgRequest->getText( 'payment_method' ),
-			'order_id' => $wgRequest->getText( 'orderid' ), //will be set with $payflow_data
-			'numAttempt' => $numAttempt,
-			'referrer' => $wgRequest->getText( 'referrer' ),
-			'utm_source' => $wgRequest->getText( 'utm_source' ),
-			'utm_medium' => $wgRequest->getText( 'utm_medium' ),
-			'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
-			'language' => $wgRequest->getText( 'language' ),
-			'comment' => $wgRequest->getText( 'comment' ),
-			'anonymous' => $wgRequest->getText( 'comment-option' ),
-			'optout' => $wgRequest->getText( 'email' ),
-			'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
-			'token' => $token,
-			'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
-			'data_hash' => $wgRequest->getText( 'data_hash' ),
-			'action' => $wgRequest->getText( 'action' ),
-		);
+		$data = $this->fnGetFormData( $amount, $numAttempt, $token );
+		
 		
 		// Get array of default account values necessary for Payflow 
 		require_once( 'includes/payflowUser.inc' );
@@ -205,7 +174,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
 	
-		global $wgOut, $wgLang, $wgPayflowGatewayHeader;
+		global $wgOut, $wgLang, $wgPayflowGatewayHeader, $wgPayflowGatewayTest;
 
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == '0' ) {
@@ -238,21 +207,38 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		);
 
 		foreach( $cardOptions as $value => $fullName ) {
-			$cardOptionsMenu .= Xml::option( $fullName, $value );
+			if ( $value == $data[ 'card' ] && $wgPayflowGatewayTest ) {
+				$cardOptionsMenu .= Xml::option( $fullName, $value, true );
+			} else {
+				$cardOptionsMenu .= Xml::option( $fullName, $value, false );
+			}
+		}
+	
+		if ( $data['expiration'] ) {
+			$mo = substr( $data['expiration'], 0, 2);
+			$yr = substr( $data['expiration'], 2, 2);
 		}
 		
 		//create expiration month menu
 		$expMos = '';
 
 		for( $i = 1; $i < 13; $i++ ) {
-			$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ) );
+			if ( $i == $mo && $wgPayflowGatewayTest ) {
+				$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ), true );
+			} else {
+				$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ), false );
+			}
 		}
 		
 		//create expiration year menu
 		$expYr = '';
   
 		for( $i = 0; $i < 11; $i++ ) {
-			$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i );
+			if ( date( 'Y' ) + $i == substr(date('Y'), 0, 2) . $yr && $wgPayflowGatewayTest ) {
+				$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i, true );
+			} else {
+				$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i, false );
+			}
 		}
 		
 		$states = statesMenuXML();
@@ -281,17 +267,17 @@ class PayflowProGateway extends UnlistedSpecialPage {
   		$currency_options = '';
   	
   		foreach ( $currencies as $code => $name ) {
-      			$selected = '';
-        		if ( $code == $default_currency ) {
-        			  $selected = ' selected="selected"';
-        		}
-      		$currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
-    		}
+      		$selected = '';
+        	if ( $code == $default_currency ) {
+				$selected = ' selected="selected"';
+        	}
+			$currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
+    	}
 		
 		// intro text
 		if ( $wgPayflowGatewayHeader ) {
 			$header = str_replace( '@language', $data['language'], $wgPayflowGatewayHeader );
-			$wgOut->addHtml( $wgOut->parse( $header ));//'{{2009/Donate-header/' . $data['language'] . '}}' ));
+			$wgOut->addHtml( $wgOut->parse( $header ));
 		}	
 
 		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
@@ -385,7 +371,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'<br />';
 			
 		// credit card info
+		global $wgScriptPath;
+		$card_num = ( $wgPayflowGatewayTest ) ? $data[ 'card_num' ] : '';
+		$cvv = ( $wgPayflowGatewayTest ) ? $data[ 'cvv' ] : '';
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) ).
+			'<tr><td style="text-align: right;"></td><td>'.
+			Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) .
+			'</td></tr>' .
 			'<tr><td style="text-align:right;">' .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
 			$endCell .
@@ -395,7 +387,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) .
 			$endCell .
-			Xml::input( 'card_num', '30', '', array( 'maxlength' => '100', 'id' => 'card_num', 'autocomplete' => 'off' ) ) .
+			Xml::input( 'card_num', '30', $card_num, array( 'maxlength' => '100', 'id' => 'card_num', 'autocomplete' => 'off' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $error['card_num'] . '</span>' .
 			'</tr><tr><td></td><td>' .
 			'<span class="creditcard-error-msg">' . '  ' . $error['card'] . '</span>' .
@@ -411,7 +403,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$endRow .
 			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
 			$endCell .
-			Xml::input( 'cvv', '5', '', array( 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
+			Xml::input( 'cvv', '5', $cvv, array( 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
 			'<a href="javascript:PopupCVV();">' . wfMsg( 'word-separator' ) . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
 			'<span class="creditcard-error-msg">' . '  ' . $error['cvv'] . '</span>' .
 			'</td></tr>' .
@@ -1027,5 +1019,114 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// otherwise, fire it up using global mw function wfSetupSession
 		wfSetupSession();
+	}
+
+	/**
+	 * Populate the $data array for the credit card form
+	 *
+	 * Provides a way to prepopulate the form with test data using $wgPayflowGatewayTest
+	 * @return array
+	 */
+	public function fnGetFormData( $amount, $numAttempt, $token ) {
+		global $wgPayflowGatewayTest, $wgRequest;
+		if ( !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
+			// define arrays of cc's and cc #s for random selection
+			$cards = array( 'visa', 'mastercard', 'american', 'discover');
+			$card_nums = array(
+				'visa' => array(
+					4111111111111111,
+					4012888888881881,
+					4222222222222
+				),
+				'mastercard' => array(
+					5105105105105100,
+					5555555555554444,
+				),
+				'american' => array(
+					378734493671000,
+					371449635398431,
+					378282246310005
+				),
+				'discover' => array(
+					6011111111111117,
+					6011000990139424
+				),
+			);
+
+			// randomly select a credit cards
+			$card_index = array_rand( $cards );
+
+			// randomly select a credit card #
+			$card_num_index = array_rand( $card_nums[ $cards[ $card_index ]] );
+
+			$data = array(
+				'amount' => $amount,
+				'email' => 'test@example.com',
+				'fname' => 'Tester',
+				'mname' => 'T.',
+				'lname' => 'Testington',
+				'street' => '548 Market St.',
+				'city' => 'San Francisco',
+				'state' => 'CA',
+				'zip' => '94104',
+				'country' => 840,
+				'card' => $cards[ $card_index ],
+				'card_num' => $card_nums[ $cards[ $card_index ]][ $card_num_index ],
+				'expiration' => date( 'my', strtotime( '+1 year 1 month' )),
+				'cvv' => '001',
+				'currency' => 'USD',
+				'payment_method' => $wgRequest->getText( 'payment_method' ),
+				'order_id' => $wgRequest->getText( 'orderid' ),
+				'numAttempt' => $numAttempt,
+				'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
+				'utm_source' => '.Spam.Support.cc',
+				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
+				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
+				'language' => 'en',
+				'comment' => 'This sure is neat',
+				'anonymous' => $wgRequest->getText( 'comment-option' ),
+				'optout' => $wgRequest->getText( 'email' ),
+				'test_string' => $wgRequest->getText( 'process' ),
+				'token' => $token,
+				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
+				'data_hash' => $wgRequest->getText( 'data_hash' ),
+				'action' => $wgRequest->getText( 'action' ),
+			);
+		} else {
+			$data = array(
+				'amount' => $amount,
+				'email' => $wgRequest->getText( 'emailAdd' ),
+				'fname' => $wgRequest->getText( 'fname' ),
+				'mname' => $wgRequest->getText( 'mname' ),
+				'lname' => $wgRequest->getText( 'lname' ),
+				'street' => $wgRequest->getText( 'street' ),
+				'city' => $wgRequest->getText( 'city' ),
+				'state' => $wgRequest->getText( 'state' ),
+				'zip' => $wgRequest->getText( 'zip' ),
+				'country' => $wgRequest->getText( 'country' ),
+				'card' => $wgRequest->getText( 'card' ),
+				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
+				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
+				'cvv' => $wgRequest->getText( 'cvv' ),
+				'currency' => $wgRequest->getText( 'currency_code' ),
+				'payment_method' => $wgRequest->getText( 'payment_method' ),
+				'order_id' => $wgRequest->getText( 'orderid' ), //will be set with $payflow_data
+				'numAttempt' => $numAttempt,
+				'referrer' => $wgRequest->getText( 'referrer' ),
+				'utm_source' => $wgRequest->getText( 'utm_source' ),
+				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
+				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
+				'language' => $wgRequest->getText( 'language' ),
+				'comment' => $wgRequest->getText( 'comment' ),
+				'anonymous' => $wgRequest->getText( 'comment-option' ),
+				'optout' => $wgRequest->getText( 'email' ),
+				'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
+				'token' => $token,
+				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
+				'data_hash' => $wgRequest->getText( 'data_hash' ),
+				'action' => $wgRequest->getText( 'action' ),
+			);
+		}
+		return $data;
 	}
 } // end class

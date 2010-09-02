@@ -38,6 +38,9 @@ $wgPayflowProVendorID = ''; // paypal merchant login ID
 $wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
 $wgPayflowProPassword = ''; //merchant login password
 
+// a boolean to determine if we're in testing mode
+$wgPayflowGatewayTest = FALSE;
+
 /**
  * A string or array of strings for making tokens more secure
  *

@@ -13,8 +13,7 @@ $messages['en'] = array(
 	'payflowprogateway' => 'Support Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'payflowpro_gateway-accessible' => 'This page is only accessible from the donation page.',
-	'payflowpro_gateway-form-message' => 'Contribute with your credit card.
-There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
+	'payflowpro_gateway-form-message' => 'Secure credit card contributions.',
 	'payflowpro_gateway-form-message-2' => 'To change amount or currency, return to <a href="/index.php?title=Donate">the donation page</a>',
 	'payflowpro_gateway-donor-legend' => 'Donor information',
 	'payflowpro_gateway-card-legend' => 'Credit card information',
@@ -93,9 +92,10 @@ Typically the signature panel will have a series of numbers, but only the last t
 <h4>American Express</h4>
 <p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
-	'payflowpro_gateway-question-comment' => 'Wikipedia is a project of the Wikimedia Foundation. Questions or comments? Contact the Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'After clicking "{{int:payflowpro_gateway-donor-submit}}", your credit card information will be processed.',
-	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacy policy</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.<br />
+We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacy policy</a>.',
 	'donate_interface-GBP' => 'GBP: British Pound',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
