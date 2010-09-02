@@ -25,7 +25,7 @@ class PayflowProGateway_Extras_CustomFilters_MinFraud extends PayflowProGateway_
 
 		// Write the query/response to the log
 		// @fixme this will cause the 'action' to be logged even though it's premature here
-		$this->log_query( $pfp_gateway_object, $data );
+		$this->log_query( $minfraud_query, $pfp_gateway_object, $data );
 		return TRUE;
 
 	}
