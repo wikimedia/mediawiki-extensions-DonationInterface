@@ -90,18 +90,14 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// track the number of attempts the user has made
 		$numAttempt = ( $wgRequest->getText( 'numAttempt' ) == '' ) ? '0' : $wgRequest->getText( 'numAttempt' );
 
-		// Populate from data
-		$data = $this->fnGetFormData( $amount, $numAttempt, $token );
-		
-		
 		// Get array of default account values necessary for Payflow 
 		require_once( 'includes/payflowUser.inc' );
 
 		$payflow_data = payflowUser();
 
-		// assign this order ID to the $data array as well
-		if ( strlen( $data['order_id'] ) < 1 ) $data['order_id'] = $payflow_data['order_id'];
-
+		// Populate from data
+		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
+		
 		// Check form for errors and display 
 		// match token
 		$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
@@ -807,6 +803,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// include date
 		$transaction['date'] = time();
 		// send both the country as text and the three digit ISO code
+		$countries = countryCodes();
 		$transaction['country_name'] = $countries[$data['country']];
 		$transaction['country_code'] = $data['country'];
 		// put all data into one array
@@ -1027,9 +1024,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * Provides a way to prepopulate the form with test data using $wgPayflowGatewayTest
 	 * @return array
 	 */
-	public function fnGetFormData( $amount, $numAttempt, $token ) {
+	public function fnGetFormData( $amount, $numAttempt, $token, $order_id ) {
 		global $wgPayflowGatewayTest, $wgRequest;
-		if ( !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
+		if ( $wgRequest->getText( 'email' ) && !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
 			// define arrays of cc's and cc #s for random selection
 			$cards = array( 'visa', 'mastercard', 'american', 'discover');
 			$card_nums = array(
@@ -1076,7 +1073,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'cvv' => '001',
 				'currency' => 'USD',
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
-				'order_id' => $wgRequest->getText( 'orderid' ),
+				'order_id' => $order_id, 
 				'numAttempt' => $numAttempt,
 				'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
 				'utm_source' => '.Spam.Support.cc',
@@ -1110,7 +1107,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'cvv' => $wgRequest->getText( 'cvv' ),
 				'currency' => $wgRequest->getText( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
-				'order_id' => $wgRequest->getText( 'orderid' ), //will be set with $payflow_data
+				'order_id' => $order_id,
 				'numAttempt' => $numAttempt,
 				'referrer' => $wgRequest->getText( 'referrer' ),
 				'utm_source' => $wgRequest->getText( 'utm_source' ),
