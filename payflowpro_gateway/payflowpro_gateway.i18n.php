@@ -713,13 +713,14 @@ $messages['bn'] = array(
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
+ * @author Gwendal
  * @author Y-M D
  */
 $messages['br'] = array(
 	'payflowprogateway' => 'Harpit Wikimedia',
 	'payflowpro_gateway-desc' => 'Treterezh dre gartenn-gred PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "N'haller mont d'ar bajenn-mañ nemet dre pajenn an donezonoù",
-	'payflowpro_gateway-form-message' => 'skoazellit gant ho kartenn-gred.',
+	'payflowpro_gateway-form-message' => 'Skoazell suraet gant ho kartenn-gred.',
 	'payflowpro_gateway-form-message-2' => 'A-benn cheñch ar sammad pe ar moneiz, distroit da <a href="/index.php?title=Donate">bajenn an donezonoù</a>',
 	'payflowpro_gateway-donor-legend' => 'Titouroù war ar madoberour',
 	'payflowpro_gateway-card-legend' => 'Titouroù war ar gartenn-gred',
@@ -793,7 +794,7 @@ Un heuliad sifroù a ya d'ober ar varrenn sinañ met n'eus nemet an 3 sifr diwez
 <h4>American Express</h4>
 <p><i>Atav</i> emañ ar c'hod <i>a-us</i> d'an niverenn-gont dreistlec'hiet war tu mat ar gartenn.
 A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niverenn-gont.</p><br />",
-	'payflowpro_gateway-question-comment' => 'Ur raktres eus Diazezadur Wikimedia eo Wikipedia. Goulennoù pe soñjoù ? Kit e daremrped gant Diazezadur Wikimedia : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Goulennoù pe soñjoù ? Darempred: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Goude bezañ kliket war   "{{int:payflowpro_gateway-donor-submit}}", e vo kemeret e kont titouroù ho kartenn-gred.',
 	'payflowpro_gateway-credit-storage-processing' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Doareoù all zo da reiñ, evel gant PayPal, dre chekenn pe dre lizher</a>.
 Ne viromp ket roadennoù ho kartenn-gred ha gwarezet eo an titouroù personel a resevomp dre hor <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politikerezh pevrezded</a>.',
@@ -1759,6 +1760,7 @@ Nosotros no guardamos tu información de tarjeta de crédito, y tus datos person
 	'donate_interface-AUD' => 'AUD: Dólar australiano',
 	'donate_interface-CAD' => 'CAD: Dólar canadiense',
 	'donate_interface-JPY' => 'JPY: Yen japonés',
+	'payflowpro_gateway-token-mismatch' => 'Tu sesión ha expirado. Intente llenar y enviar el formulario otra vez.',
 );
 
 /** Estonian (Eesti)
@@ -1768,7 +1770,7 @@ Nosotros no guardamos tu información de tarjeta de crédito, y tus datos person
 $messages['et'] = array(
 	'payflowprogateway' => 'Wikimedia toetamine',
 	'payflowpro_gateway-accessible' => 'See lehekülg on ligipääsetav ainult annetuslehekülje kaudu.',
-	'payflowpro_gateway-form-message' => 'Anneta krediitkaardiga. Samuti on võimalik',
+	'payflowpro_gateway-form-message' => 'Turvaline krediitkaardiga annetamine.',
 	'payflowpro_gateway-form-message-2' => 'Summa või vääringu muutmiseks naase <a href="/index.php?title=Donate">annetusleheküljele</a>.',
 	'payflowpro_gateway-donor-legend' => 'Annetaja info',
 	'payflowpro_gateway-card-legend' => 'Krediitkaardi info',
@@ -1826,9 +1828,9 @@ Palun ürita hiljem uuesti.',
 	'payflowpro_gateway-thankyou' => 'Täname Sind annetuse eest!',
 	'payflowpro_gateway-post-transaction' => 'Ülekande üksikasjad',
 	'payflowpro_gateway-submit-button' => 'Anneta',
-	'payflowpro_gateway-question-comment' => 'Vikipeedia on Wikimedia Foundationi projekt. Küsimusi või kommentaare? Võta ühendust Wikimedia Foundationiga: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Küsimusi või kommentaare? Võta ühendust: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Kui oled klõpsanud "{{int:payflowpro_gateway-donor-submit}}", lähevad su krediitkaardiandmed käiku.',
-	'payflowpro_gateway-credit-storage-processing' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annetada PayPali abil, tšekiga või e-kirja teel</a>.
+	'payflowpro_gateway-credit-storage-processing' => 'Samuti on võimalik <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">annetada PayPali abil, tšekiga või e-kirja teel</a>.<br />
 Me ei talleta sinu krediitkaardiandmeid ja sinu isiklike andmete kasutamine on piiratud meie <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privaatsuspõhimõtetega</a>.',
 	'donate_interface-GBP' => 'GBP: Suurbritannia naelsterling',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -4350,10 +4352,10 @@ Normalment l'area ëd firma a l'ha na serie ëd nùmer, ma mach j'ùltime tre gi
 <h4>American Express</h4>
 <p>Ël còdes a l'é <i>sempe</i> posissionà <i>dzora</i> ël nùmer ëd cont stampà (an riliev) an sl'indrit ëd la carta.
 Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é sempe dzora al nùmer ëd cont.</p><br />",
-	'payflowpro_gateway-question-comment' => 'Custion o coment? Contat: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Chestion o coment? Contat: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Apress avèj sgnacà "{{int:payflowpro_gateway-donor-submit}}", toe anformassion ëd la carta ëd crédit a saran processà.',
-	'payflowpro_gateway-credit-storage-processing' => 'A-i son <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.
-Noi i memorisoma pa j\'anformassion ëd toa carta ëd crédit, e ij tò dat përsonaj a son soget a nòstra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">polìtica ëd confidensialità</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'A-i son <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d\'àutre manere ëd fé d\'oferte, comprèis PayPal, s-cianchet, o pòsta</a>.
+Noi i memorisoma pa j\'anformassion ëd soa carta ëd crédit, e ij sò dat përsonaj a son soget a nòstre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">régole ëd confidensialità</a>.',
 	'donate_interface-GBP' => 'GBP: Sterlin-e anglèise',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dòlar U.S.',
