@@ -5200,6 +5200,24 @@ Vi spara inte din kreditkortsinformation, och dina personliga uppgifter är unde
 	'donate_interface-JPY' => 'JPY: Japanska yen',
 );
 
+/** Swahili (Kiswahili) */
+$messages['sw'] = array(
+	'payflowpro_gateway-cvv-link' => 'Mfano',
+	'payflowpro_gateway-donor-amount' => 'Kiwango:',
+	'payflowpro_gateway-donor-currency-label' => 'Fedha:',
+	'payflowpro_gateway-donor-email' => 'Anwani ya meili-e:',
+	'payflowpro_gateway-donor-fname' => 'Jina la Kwanza:',
+	'payflowpro_gateway-donor-name' => 'Jina:',
+	'payflowpro_gateway-donor-city' => 'Jiji:',
+	'payflowpro_gateway-donor-postal' => 'Simbo:',
+	'payflowpro_gateway-donor-address' => 'Anwani:',
+	'payflowpro_gateway-donor-submit' => 'Michango',
+	'payflowpro_gateway-error-msg-emailAdd' => 'anwani ya meili-e',
+	'payflowpro_gateway-error-msg-fname' => 'jina la Kwanza',
+	'payflowpro_gateway-error-msg-zip' => 'simbo',
+	'payflowpro_gateway-submit-button' => 'Michango',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
