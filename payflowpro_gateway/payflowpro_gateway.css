@@ -11,14 +11,54 @@
 }
 
 #mw-donate-submit-button {
-   padding-top: 10px;
+/*   padding-top: 10px;
    padding-bottom: 10px;
-   padding-left: 100px;
+   padding-left: 100px;*/
 }
 
-#payflow-table-cc {
+.payflow-cc-form-section {
+	float: left;
+}
+
+#payflowpro_gateway-personal-info {
+	margin-right: 5em;
+}
+
+#payflowpro_gateway-form-submit {
+	margin-top: 4em;
+}
+
+#payflowpro_gateway-donate-addl-info {
+	margin-top:  4em;
+}
+
+#payflow-table-cc td {
+	text-align: left;
 }
 
 #payflow-table-donor {
 }
 
+#payflow-table-donor label {
+	text-align: left;
+	display: block;
+}
+
+#payflow-table-donor td {
+	text-align: left;
+}
+
+/*
+#payflow-table-donor label {
+	text-align: right;
+	display: block;
+}
+*/
+
+#payflowpro_gateway-donate-addl-info {
+	clear: both;
+}
+
+.payflow-cc-form-section #payflowpro_gateway-form-submit {
+	text-align: left;
+}
