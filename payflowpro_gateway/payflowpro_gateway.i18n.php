@@ -13,7 +13,7 @@ $messages['en'] = array(
 	'payflowprogateway' => 'Support Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'payflowpro_gateway-accessible' => 'This page is only accessible from the donation page.',
-	'payflowpro_gateway-form-message' => '',
+#	'payflowpro_gateway-form-message' => '',
 	'payflowpro_gateway-form-message-2' => 'To change amount or currency, return to <a href="/index.php?title=Donate">the donation page</a>',
 	'payflowpro_gateway-donor-legend' => 'Donor information',
 	'payflowpro_gateway-card-legend' => 'Credit card information',
@@ -103,8 +103,8 @@ We do not store your credit card information, and your personal data is subject 
 	'donate_interface-CAD' => 'CAD: Canadian Dollar',
 	'donate_interface-JPY' => 'JPY: Japanese Yen',
 	'payflowpro_gateway-token-mismatch' => 'Your session has expired.  Please try filling out and submitting the form again.',
-	'payflowpro_gateway-cc-form-header-personal' => 'Personal Information',
-	'payflowpro_gateway-cc-form-header-payment' => 'Payment Information',
+	'payflowpro_gateway-cc-form-header-personal' => 'Personal information',
+	'payflowpro_gateway-cc-form-header-payment' => 'Payment information',
 );
 
 /** Message documentation (Message documentation)
