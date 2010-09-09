@@ -1195,7 +1195,6 @@ $messages['de'] = array(
 	'payflowprogateway' => 'Wikimedia unterstützen',
 	'payflowpro_gateway-desc' => 'PayPal-Payflow-Pro-Kreditkartenabwicklung',
 	'payflowpro_gateway-accessible' => 'Diese Seite kann nur über die Spendenseite erreicht werden.',
-	'payflowpro_gateway-form-message' => 'Sichere Spenden mit Kreditkarte.',
 	'payflowpro_gateway-form-message-2' => 'Um den Betrag oder die Währung zu ändern, kannst du zur <a href="/index.php?title=Donate">Spendenseite</a> zurückkehren.',
 	'payflowpro_gateway-donor-legend' => 'Spender-Information',
 	'payflowpro_gateway-card-legend' => 'Kreditkarten-Information',
@@ -1280,6 +1279,8 @@ Wir speichern deine Kreditkarteninformationen nicht, und deine persönlichen Dat
 	'donate_interface-CAD' => 'CAD: Kanadischer Dollar',
 	'donate_interface-JPY' => 'JPY: Japanischer Yen',
 	'payflowpro_gateway-token-mismatch' => 'Deine Sitzung ist inzwischen abgelaufen. Bitte fülle das Formular erneut aus und sende es nochmals ab.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Persönliche Informationen',
+	'payflowpro_gateway-cc-form-header-payment' => 'Zahlungsinformationen',
 );
 
 /** German (formal address) (Deutsch (Sie-Form))
@@ -2374,7 +2375,6 @@ $messages['gsw'] = array(
 	'payflowprogateway' => 'Wikimedia unterstitze',
 	'payflowpro_gateway-desc' => 'Kreditcharte verwände iber PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Uf die Syte cha mer nume uus zuegryfe vu dr Spändesyte.',
-	'payflowpro_gateway-form-message' => 'Sicheri Spände mit Kreditcharte.',
 	'payflowpro_gateway-form-message-2' => 'Go d Hechi oder d Währig vum Betrag ändere, gang zruck uf <a href="/index.php?title=Donate">d Spändesyte</a>',
 	'payflowpro_gateway-donor-legend' => 'Spänderinformation',
 	'payflowpro_gateway-card-legend' => 'Kreditcharteninformation',
@@ -2459,6 +2459,8 @@ Mir spyychere Dyyni Kreditcharteninformatione nit, un Dyy persenligi Date unterl
 	'donate_interface-CAD' => 'CAD: Kanadischi Dollar',
 	'donate_interface-JPY' => 'JPY: Japanischi Yen',
 	'payflowpro_gateway-token-mismatch' => 'Dyy Sitzig isch abglofe. Bitte fill s Formular nomol uus un schick s nomol ab.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Informatione zue dr Person',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informatione zue dr Zahlig',
 );
 
 /** Hebrew (עברית)
@@ -2772,7 +2774,6 @@ $messages['ia'] = array(
 	'payflowprogateway' => 'Supporta Wikimedia',
 	'payflowpro_gateway-desc' => 'Processamento per carta de credito PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Iste pagina es solmente accessibile ab le pagina de donation.',
-	'payflowpro_gateway-form-message' => 'Contributiones secur con carta de credito.',
 	'payflowpro_gateway-form-message-2' => 'Pro cambiar le quantitate o le moneta, retorna al <a href="/index.php?title=Donate">pagina de donation</a>',
 	'payflowpro_gateway-donor-legend' => 'Informationes del donator',
 	'payflowpro_gateway-card-legend' => 'Informationes del carta de credito',
@@ -2857,6 +2858,8 @@ Nos non retene le informationes de tu carta de credito, e tu datos personal es s
 	'donate_interface-CAD' => 'CAD: dollar canadian',
 	'donate_interface-JPY' => 'JPY: yen japonese',
 	'payflowpro_gateway-token-mismatch' => 'Tu session ha expirate. Per favor tenta completar e submitter le formulario de novo.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Informationes personal',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informationes de pagamento',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -3057,7 +3060,6 @@ $messages['ja'] = array(
 	'payflowprogateway' => 'ウィキメディアを支援する',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro クレジットカード処理',
 	'payflowpro_gateway-accessible' => 'このページは寄付ページからのみ参照できます。',
-	'payflowpro_gateway-form-message' => 'クレジットカードで安全に寄付。',
 	'payflowpro_gateway-form-message-2' => '金額や通貨を変更するには、<a href="/index.php?title=Donate">寄付ページ</a>に戻ってください',
 	'payflowpro_gateway-donor-legend' => '寄付者情報',
 	'payflowpro_gateway-card-legend' => 'クレジットカード情報',
@@ -3142,6 +3144,8 @@ $messages['ja'] = array(
 	'donate_interface-CAD' => 'CAD: カナダ・ドル',
 	'donate_interface-JPY' => 'JPY: 日本円',
 	'payflowpro_gateway-token-mismatch' => 'セッションが期限切れです。もう一度入力して、フォームを送信してください。',
+	'payflowpro_gateway-cc-form-header-personal' => '個人情報',
+	'payflowpro_gateway-cc-form-header-payment' => '支払情報',
 );
 
 /** Georgian (ქართული)
@@ -3551,7 +3555,6 @@ $messages['mk'] = array(
 	'payflowprogateway' => 'Поддржете ја Викимедија',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro обработка на податоците за плаќање со кредитна картичка',
 	'payflowpro_gateway-accessible' => 'До оваа страница се доаѓа само преку страницата за донирање.',
-	'payflowpro_gateway-form-message' => 'Обезбедете придонеси со кредитна картичка.',
 	'payflowpro_gateway-form-message-2' => 'За да го промените износот или валутата, вратете се на <a href="/index.php?title=Donate">страницата за донирање</a>',
 	'payflowpro_gateway-donor-legend' => 'Податоци за дарителот',
 	'payflowpro_gateway-card-legend' => 'Податоци за кредитната картичка',
@@ -3637,6 +3640,8 @@ $messages['mk'] = array(
 	'donate_interface-CAD' => 'CAD: Канадски долар',
 	'donate_interface-JPY' => 'JPY: Јапонски јен',
 	'payflowpro_gateway-token-mismatch' => 'Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Лични податоци',
+	'payflowpro_gateway-cc-form-header-payment' => 'Лични податоци',
 );
 
 /** Malayalam (മലയാളം)
@@ -3837,7 +3842,6 @@ $messages['nl'] = array(
 	'payflowprogateway' => 'Steun Wikimedia',
 	'payflowpro_gateway-desc' => 'Creditcardverwerking via PayPal PayFlow Pro',
 	'payflowpro_gateway-accessible' => 'Deze pagina is alleen toegankelijk via de donateurspagina.',
-	'payflowpro_gateway-form-message' => 'Veilige donaties met creditcard.',
 	'payflowpro_gateway-form-message-2' => 'Keer terug naar de <a href="/index.php?title=Donate">donateurspagina</a> om het bedrag of de valuta te wijzigen.',
 	'payflowpro_gateway-donor-legend' => 'Donateursinformatie',
 	'payflowpro_gateway-card-legend' => 'Creditcardinformatie',
@@ -3922,6 +3926,8 @@ We slaan uw creditkaartgegevens niet op en uw persoonlijke gegevens vallen onder
 	'donate_interface-CAD' => 'CAD: Canadese dollar',
 	'donate_interface-JPY' => 'JPY: Japanse yen',
 	'payflowpro_gateway-token-mismatch' => 'Uw sessie is verlopen. Vul het formulier opnieuw in en sla het daarna op.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Persoonlijke informatie',
+	'payflowpro_gateway-cc-form-header-payment' => 'Betalingsinformatie',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -5883,7 +5889,6 @@ $messages['vi'] = array(
 	'payflowprogateway' => 'Hỗ trợ Wikimedia',
 	'payflowpro_gateway-desc' => 'Xử lý thẻ tín dụng PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Trang này chỉ truy cập được từ trang quyên góp.',
-	'payflowpro_gateway-form-message' => 'Đóng góp an toàn bằng thẻ tín dụng.',
 	'payflowpro_gateway-form-message-2' => 'Để thay đổi số tiền hoặc loại tiền, trở lại <a href="/index.php?title=Donate">trang quyên góp</a>',
 	'payflowpro_gateway-donor-legend' => 'Thông tin người tặng',
 	'payflowpro_gateway-card-legend' => 'Thông tin thẻ tín dụng',
@@ -5964,6 +5969,8 @@ Chúng tôi không lưu giữ thông tin thẻ tín dụng của bạn, và dữ
 	'donate_interface-CAD' => 'CAD: Đô la Canada',
 	'donate_interface-JPY' => 'JPY: Yên Nhật',
 	'payflowpro_gateway-token-mismatch' => 'Phiên của bạn đã hết hạn. Xin hãy thử điền và nộp đơn một lần nữa.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Thông tin cá nhân',
+	'payflowpro_gateway-cc-form-header-payment' => 'Thông tin trả tiền',
 );
 
 /** Volapük (Volapük)
@@ -6084,7 +6091,6 @@ $messages['zh-hans'] = array(
 	'payflowprogateway' => '支持维基媒体',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro信用卡处理',
 	'payflowpro_gateway-accessible' => '本页只能从资助页面访问',
-	'payflowpro_gateway-form-message' => '用您的信用卡捐助。',
 	'payflowpro_gateway-form-message-2' => '要更改数额或币种，请返回<a href="/index.php?title=Donate">资助页面</a>',
 	'payflowpro_gateway-donor-legend' => '捐助人信息',
 	'payflowpro_gateway-card-legend' => '信用卡信息',
