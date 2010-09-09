@@ -166,7 +166,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * 
 	 * See $this->fnPayflowDisplayForm
 	 */
-	public function fnPayflowGenerateFormBody( $data, &$error ) {
+	public function fnPayflowGenerateFormBody( &$data, &$error ) {
 		require_once( 'includes/stateAbbreviations.inc' );
 		require_once( 'includes/countryCodes.inc' );
 	
@@ -416,7 +416,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 *
 	 * See $this->fnPayflowDiplayForm
 	 */
-	public function fnPayflowGenerateFormSubmit( $data, &$error ) {
+	public function fnPayflowGenerateFormSubmit( &$data, &$error ) {
 		// submit button and close form
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )) . 	
