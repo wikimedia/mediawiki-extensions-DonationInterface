@@ -911,7 +911,6 @@ $messages['ca'] = array(
 	'payflowprogateway' => 'Doneu suport a Wikimedia',
 	'payflowpro_gateway-desc' => 'Processament de targetes de crèdit amb PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Aquesta pàgina només és accessible des de la pàgina de donatius.',
-	'payflowpro_gateway-form-message' => 'Contribuïu amb la targeta de crèdit.',
 	'payflowpro_gateway-form-message-2' => 'Per canviar la quantitat o la moneda, torneu a <a href="/index.php?title=Donate">la pàgina de donatius</a>',
 	'payflowpro_gateway-donor-legend' => 'Dades del donant',
 	'payflowpro_gateway-card-legend' => 'Informació de la targeta de crèdit',
@@ -982,9 +981,9 @@ Habitualment el panell de signatura tindrà una sèrie de números, però només
 <h4>American Express</h4>
 <p> El codi <i>sempre</i> es troba <i>per sobre</i> del número de compte en relleu a la cara de la targeta.
 En alguns casos, el codi es troba al costat esquerre, però sempre per damunt del número de compte.</p><br />",
-	'payflowpro_gateway-question-comment' => 'La Viquipèdia és un projecte de la Fundació Wikimedia. Preguntes o comentaris? Comuniqueu-vos amb la Fundació Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Preguntes o comentaris? Contacte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Després de fer clic a «{{int:payflowpro_gateway-donor-submit}}» la informació de la targeta de crèdit serà processada.',
-	'payflowpro_gateway-credit-storage-processing' => 'Hi ha <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.
+	'payflowpro_gateway-credit-storage-processing' => 'Hi ha <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.<br />
 Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privadesa</a>.',
 	'donate_interface-GBP' => 'GBP: Lliura esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -2090,6 +2089,7 @@ Emme tallenna luottokorttitietoja, ja henkilökohtaisia tietojasi suojaavat <a h
 
 /** French (Français)
  * @author Cedric31
+ * @author Grondin
  * @author IAlex
  * @author Peter17
  * @author PieRRoMaN
@@ -2098,7 +2098,6 @@ $messages['fr'] = array(
 	'payflowprogateway' => 'Soutenez Wikimedia',
 	'payflowpro_gateway-desc' => 'Traitement par carte de crédit PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "Cette page n'est accessible que depuis la page de donation.",
-	'payflowpro_gateway-form-message' => 'Contributions sécurisées avec la carte de crédit.',
 	'payflowpro_gateway-form-message-2' => 'Pour changer le montant ou la devise, retournez à <a href="/index.php?title=Donate">la page de donation</a>',
 	'payflowpro_gateway-donor-legend' => 'Informations sur le donateur',
 	'payflowpro_gateway-card-legend' => 'Informations sur la carte de crédit',
@@ -2183,6 +2182,8 @@ Nous ne stockons pas vos informations de carte de crédit et vos données person
 	'donate_interface-CAD' => 'CAD : dollar canadien',
 	'donate_interface-JPY' => 'JPY : yen japonais',
 	'payflowpro_gateway-token-mismatch' => 'Votre session a expiré. Veuillez essayer de remplir et d’envoyer à nouveau le formulaire.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Informations personnelles',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informations de paiement',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2681,12 +2682,12 @@ Njeskładujemy informacije twojeje kreditneje karty a twoje wosobinske daty podl
 /** Hungarian (Magyar)
  * @author Dani
  * @author Glanthor Reviol
+ * @author Misibacsi
  */
 $messages['hu'] = array(
 	'payflowprogateway' => 'Támogasd a Wikimédiát',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro hitelkártya feldolgozása',
 	'payflowpro_gateway-accessible' => 'Ez a lap csak az adományozás lapról érhető el.',
-	'payflowpro_gateway-form-message' => 'Közreműködés a hitelkártyád segítségével.',
 	'payflowpro_gateway-form-message-2' => 'Az összeg vagy a pénznem megváltoztatásához lépj vissza <a href="/index.php?title=Donate">az adományozási lapra</a>',
 	'payflowpro_gateway-donor-legend' => 'Adományozói információk',
 	'payflowpro_gateway-card-legend' => 'Hitelkártya információk',
