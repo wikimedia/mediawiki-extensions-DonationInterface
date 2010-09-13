@@ -815,7 +815,6 @@ $messages['bs'] = array(
 	'payflowprogateway' => 'Podržite Wikimediju',
 	'payflowpro_gateway-desc' => 'Procesiranje kreditnih kartica preko PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ova stranica je dostupna samo sa stranice za donacije.',
-	'payflowpro_gateway-form-message' => 'Doprinosi s vašom sigurnom kreditnom karticom.',
 	'payflowpro_gateway-form-message-2' => 'Da biste promijenili iznos ili valutu, vratite se na <a href="/index.php?title=Donate">stranicu za donacije</a>',
 	'payflowpro_gateway-donor-legend' => 'Donatorske informacije',
 	'payflowpro_gateway-card-legend' => 'Informacije o kreditnoj kartici',
@@ -900,6 +899,8 @@ Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su za
 	'donate_interface-CAD' => 'CAD: Kanadski dolar',
 	'donate_interface-JPY' => 'JPY: Japanski jen',
 	'payflowpro_gateway-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Lične informacije',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informacije o plaćanju',
 );
 
 /** Catalan (Català)
@@ -2542,13 +2543,13 @@ $messages['he'] = array(
 );
 
 /** Croatian (Hrvatski)
+ * @author Herr Mlinka
  * @author SpeedyGonsales
  */
 $messages['hr'] = array(
 	'payflowprogateway' => 'Podržite Wikimediju',
 	'payflowpro_gateway-desc' => 'PayPal PayFlow Pro obrada kreditnih kartica',
 	'payflowpro_gateway-accessible' => 'Ova stranica je dostupna samo iz stranice za donacije.',
-	'payflowpro_gateway-form-message' => 'Doprinesite s Vašom kreditnom karticom.',
 	'payflowpro_gateway-form-message-2' => 'Za promjenu iznosa ili valute, povratak na <a href="/index.php?title=Donate">stranicu donacija</a>',
 	'payflowpro_gateway-donor-legend' => 'Informacija o donatoru',
 	'payflowpro_gateway-card-legend' => 'Informacija o kreditnoj kartici',
@@ -2577,6 +2578,20 @@ $messages['hr'] = array(
 	'payflowpro_gateway-error-msg-js' => 'Molimo unesite vaše',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Molim, unesite valjani iznos**',
 	'payflowpro_gateway-error-msg-email' => '**Molim, unesite valjanu e-mail adresu**',
+	'payflowpro_gateway-error-msg-amex' => '** Molimo, unesite ispravan broj kartice za American Express.**',
+	'payflowpro_gateway-error-msg-mc' => '** Molimo, unesite ispravan broj kartice za MasterCard.**',
+	'payflowpro_gateway-error-msg-visa' => '** Molimo, unesite ispravan broj kartice za Visu.**',
+	'payflowpro_gateway-error-msg-discover' => '** Molimo, unesite ispravan broj kartice za Discover.**',
+	'payflowpro_gateway-error-msg-amount' => 'iznos donacije',
+	'payflowpro_gateway-error-msg-emailAdd' => 'e-mail adresa',
+	'payflowpro_gateway-error-msg-fname' => 'ime',
+	'payflowpro_gateway-error-msg-lname' => 'prezime',
+	'payflowpro_gateway-error-msg-street' => 'Adresa ulice',
+	'payflowpro_gateway-error-msg-city' => 'grad',
+	'payflowpro_gateway-error-msg-state' => 'država',
+	'payflowpro_gateway-error-msg-zip' => 'poštanski broj',
+	'payflowpro_gateway-error-msg-card_num' => 'broj kreditne kartice',
+	'payflowpro_gateway-error-msg-expiration' => 'datum isteka kartice',
 	'donate_interface-GBP' => 'GBP: britanska funta',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: američki dolar',
