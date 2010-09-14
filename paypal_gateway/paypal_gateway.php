@@ -21,10 +21,6 @@ $wgExtensionCredits['specialpage'][] = array(
 $dir = dirname( __FILE__ ) . '/';
 $wgExtensionMessagesFiles['PaypalGateway'] = $dir . 'paypal_gateway.i18n.php';
 
-// Set up special page for IPN/ActiveMQ handling (experimental)
-$wgAutoloadClasses['PaypalIPNProcessing'] = $dir . 'SpecialPaypalIPNProcessing.php';
-$wgSpecialPages['PaypalIPNProcessing'] = 'PaypalIPNProcessing';
-
 // default variables that should be set in LocalSettings.php
 $wgPaypalEmail = '';
 
