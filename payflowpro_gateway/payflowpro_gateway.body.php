@@ -113,24 +113,24 @@ class PayflowProGateway extends UnlistedSpecialPage {
 					$this->fnPayflowDisplayForm( $data, $error );
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data	
-					wfRunHooks( 'PayflowGatewayValidate', array( $this, $data ));
+					wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data ));
 
 					// if the transaction was flagged for review
 					if ( $this->action == 'review' ) {
 						// expose a hook for external handling of trxns flagged for review
-						wfRunHooks( 'PayflowGatewayReview', array( $this, $data ));
+						wfRunHooks( 'PayflowGatewayReview', array( &$this, &$data ));
 					}
 
 					// if the transaction was flagged to be 'challenged'
 					if ( $this->action == 'challenge' ) {
 						// expose a hook for external handling of trxns flagged for challenge (eg captcha)
-						wfRunHooks( 'PayflowGatewayChallenge', array( $this, $data ));
+						wfRunHooks( 'PayflowGatewayChallenge', array( &$this, &$data ));
 					}
 
 					// if the transaction was flagged for rejection
 					if ( $this->action == 'reject' ) {
 						// expose a hook for external handling of trxns flagged for rejection
-						wfRunHooks( 'PayflowGatewayReject', array( $this, $data ));
+						wfRunHooks( 'PayflowGatewayReject', array( &$this, &$data ));
 
 						$this->fnPayflowDisplayDeclinedResults( '' );
 						$this->fnPayflowUnsetEditToken();
@@ -139,13 +139,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 					// if the transaction was flagged for processing
 					if ( $this->action == 'process' ) {
 						// expose a hook for external handling of trxns ready for processing
-						wfRunHooks( 'PayflowGatewayProcess', array( $this, $data ));
+						wfRunHooks( 'PayflowGatewayProcess', array( &$this, &$data ));
 						$this->fnPayflowProcessTransaction( $data, $payflow_data );
 						$this->fnPayflowUnsetEditToken();
 					}
 
 					// expose a hook for any post processing
-					wfRunHooks( 'PayflowGatewayPostProcess', array( $this, $data ));
+					wfRunHooks( 'PayflowGatewayPostProcess', array( &$this, &$data ));
 				}
 			} else {
 				//Display form for the first time

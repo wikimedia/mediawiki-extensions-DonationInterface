@@ -71,7 +71,7 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	 */
 	public function validate() {
 		// expose a hook for custom filters
-		wfRunHooks( 'PayflowGatewayCustomFilter', array( $this ));
+		wfRunHooks( 'PayflowGatewayCustomFilter', array( &$this ));
 		$this->gateway_object->action = $this->determineAction();
 
 		$log_msg = '"' . $this->gateway_object->action . "\"\t\"" . $this->risk_score . "\""; 
