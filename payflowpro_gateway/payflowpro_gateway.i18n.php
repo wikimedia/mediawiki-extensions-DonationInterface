@@ -170,6 +170,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-error-msg-state' => '{{Identical|State}}',
 	'payflowpro_gateway-response-126-2' => "Here is a description of '[http://www.earlytorise.com/2009/06/12/it%E2%80%99s-good-to-know-your-credit-card-%E2%80%9Cprofile%E2%80%9D.html credit card profile]'.",
 	'payflowpro_gateway-submit-button' => '{{Identical|Donate}}',
+	'payflowpro_gateway-cc-form-header-personal' => '{{Identical|Personal information}}',
 );
 
 /** Afrikaans (Afrikaans)
@@ -507,7 +508,6 @@ $messages['be-tarask'] = array(
 	'payflowprogateway' => 'Падтрымаць фундацыю «Вікімэдыя»',
 	'payflowpro_gateway-desc' => 'Апрацоўка крэдытных картак PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Гэта старонка даступна толькі са старонкі ахвяраваньняў.',
-	'payflowpro_gateway-form-message' => 'Бясьпечнае ахвяраваньне з крэдытнай карткі.',
 	'payflowpro_gateway-form-message-2' => 'Каб зьмяніць суму ці валюту, вярніцеся на <a href="/index.php?title=Donate">старонку ахвяраваньняў</a>',
 	'payflowpro_gateway-donor-legend' => 'Зьвесткі пра ахвяравальніка',
 	'payflowpro_gateway-card-legend' => 'Інфармацыя пра крэдытную картку',
@@ -592,6 +592,8 @@ $messages['be-tarask'] = array(
 	'donate_interface-CAD' => 'CAD: канадзкі даляр',
 	'donate_interface-JPY' => 'JPY: японская ена',
 	'payflowpro_gateway-token-mismatch' => 'Вашая сэсія скончылася. Калі ласка, паспрабуйце запоўніць і адправіць форму яшчэ раз.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Асабістыя зьвесткі',
+	'payflowpro_gateway-cc-form-header-payment' => 'Інфармацыя пра аплату',
 );
 
 /** Bulgarian (Български)
@@ -5149,7 +5151,6 @@ $messages['sv'] = array(
 	'payflowprogateway' => 'Stöd Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkortsbearbetning',
 	'payflowpro_gateway-accessible' => 'Denna sida är endast åtkomlig från givarsidan.',
-	'payflowpro_gateway-form-message' => 'Ge ett bidrag med ditt kreditkort.',
 	'payflowpro_gateway-form-message-2' => 'För att ändra belopp eller valuta, gå till <a href="/index.php?title=Donate">givarsidan</a>',
 	'payflowpro_gateway-donor-legend' => 'Givarinformation',
 	'payflowpro_gateway-card-legend' => 'Kreditkortsinformation',
@@ -5193,6 +5194,8 @@ $messages['sv'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'kreditkortsnummer',
 	'payflowpro_gateway-error-msg-expiration' => 'kortets sista giltighetsdatum',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV från baksidan av ditt kort',
+	'payflowpro_gateway-error-msg-captcha' => 'Det Captcha-värdet som du angav är felaktig. Försök igen.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'För ditt kreditkorts säkerhet, skriv de tecken du ser ovan.',
 	'payflowpro_gateway-response-0' => 'Transaktionen har godkänts.
 Tack för din gåva!',
 	'payflowpro_gateway-response-126' => 'Transaktionen väntar på godkännande.',
@@ -5223,14 +5226,17 @@ Oftast har signaturområdet en serie tal, men endast de tre sista siffrorna utg�
 I vissa fall finns koden på vänstra sidan av koret, men alltid ovanför kontonumret.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Frågor eller kommentarer? Kontakt: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Efter att ha klickat "{{int:payflowpro_gateway-donor-submit}}", kommer din kreditkortsinformation hanteras',
-	'payflowpro_gateway-credit-storage-processing' => 'Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra sätt att ge, inklusive PayPal, check, eller mejl</a>.
-Vi spara inte din kreditkortsinformation, och dina personliga uppgifter är underställda vår <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">integritetspolicy</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Det finns <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andra sätt att ge, inklusive PayPal, check, eller mejl</a>.<br />
+Vi sparar inte din kreditkortsinformation, och dina personliga uppgifter är underställda vår <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">integritetspolicy</a>.',
 	'donate_interface-GBP' => 'GBP: Brittiska pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: USA-dollar',
 	'donate_interface-AUD' => 'AUD: Australiska dollar',
 	'donate_interface-CAD' => 'CAD: Canadensiska dollar',
 	'donate_interface-JPY' => 'JPY: Japanska yen',
+	'payflowpro_gateway-token-mismatch' => 'Din sessionstid har gått ut. Försök att fylla i och skicka in formuläret igen.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Personlig information',
+	'payflowpro_gateway-cc-form-header-payment' => 'Betalningsinformation',
 );
 
 /** Swahili (Kiswahili) */
