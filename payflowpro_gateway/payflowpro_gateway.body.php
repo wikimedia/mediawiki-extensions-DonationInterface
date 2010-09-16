@@ -23,6 +23,14 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	public $payflow_response = array();
 
 	/**
+	 * A container for the form class
+	 *
+	 * Used to loard the form object to display the CC form
+	 * @var object
+	 */
+	public $form_class;
+	
+	/**
 	 * Constructor - set up the new special page
 	 */
 	public function __construct() {
@@ -166,8 +174,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 *
 	 * The message at the top of the form can be edited in the payflow_gateway.i18.php file
 	 */
-	public function fnPayflowDisplayForm( $data, &$error ) {
-		global $wgOut, $wgRequest, $wgPayflowGatewayDefaultForm;
+	public function fnPayflowDisplayForm( &$data, &$error ) {
+		global $wgOut;
 		
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == '0' ) {
@@ -177,22 +185,49 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			}
 		}
 	
-		$form_class = ( strlen( $wgRequest->getText( 'form_name' ))) ? $wgRequest->getText( 'form_name' ) : $wgPayflowGatewayDefaultForm;
-		
-		// make sure our form class exists before going on, if not try loading default form class
-		$class_name = "PayflowProGateway_Form_" . $form_class;
-		if ( !class_exists( $class_name )) {
-			$class_name_orig = $class_name;
-			$class_name = "PayflowProGateway_Form_" . $wgPayflowGatewayDefaultForm;
-			if ( !class_exists( $class_name )) {
-				throw new MWException( 'Could not load form ' . $class_name_orig . ' nor default form ' . $class_name );
-			}
-		}
-
-		$form_obj = new $class_name( $data, $error );
+		$form_class = $this->getFormClass();
+		$form_obj = new $form_class( $data, $error );  	
 		$form = $form_obj->generateFormBody();
 		$form .= $form_obj->generateFormSubmit();
 		$wgOut->addHTML( $form );
+	}
+
+	/**
+	 * Set the form class to use to generate the CC form
+	 *
+	 * @param string $class_name The class name of the form to use
+	 */
+	public function setFormClass( $class_name=NULL ) {
+		if ( !$class_name ) {
+			global $wgRequest, $wgPayflowGatewayDefaultForm;
+			$form_class = ( strlen( $wgRequest->getText( 'form_name' ))) ? $wgRequest->getText( 'form_name' ) : $wgPayflowGatewayDefaultForm;
+		
+			// make sure our form class exists before going on, if not try loading default form class
+			$class_name = "PayflowProGateway_Form_" . $form_class;
+			if ( !class_exists( $class_name )) {
+				$class_name_orig = $class_name;
+				$class_name = "PayflowProGateway_Form_" . $wgPayflowGatewayDefaultForm;
+				if ( !class_exists( $class_name )) {
+					throw new MWException( 'Could not load form ' . $class_name_orig . ' nor default form ' . $class_name );
+				}
+			}
+		}
+
+		$this->form_class = $class_name;
+	}
+
+	/**
+	 * Get the currently set form class
+	 *
+	 * Will set the form class if the form class not already set
+	 * Using logic in setFormClass()
+	 * @return string
+	 */
+	public function getFormClass( ) {
+		if ( !isset( $this->form_class )) {
+			$this->setFormClass();
+		}
+		return $this->form_class;
 	}
 
 	/**

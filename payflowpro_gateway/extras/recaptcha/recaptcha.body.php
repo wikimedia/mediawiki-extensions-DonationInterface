@@ -50,7 +50,9 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 		$recap_err = ( $error[ 'recap_err' ] ) ? $error[ 'recap_err' ] : NULL;
 
 		global $wgOut;
-		$form = $pfp_gateway_object->fnPayflowGenerateFormBody( $data, $error );
+		$form_class = $pfp_gateway_object->getFormClass();
+		$form_obj = new $form_class( $data, $error );
+		$form = $form_obj->generateFormBody( $data, $error );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
 
 		// get the captcha
@@ -59,7 +61,7 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 		$form .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $recap_err, $use_ssl );
 		$form .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please') . '</span>';
 		$form .= Xml::closeElement( 'div' );
-		$form .= $pfp_gateway_object->fnPayflowGenerateFormSubmit( $data, $error );
+		$form .= $form_obj->generateFormSubmit( $data, $error );
 		$wgOut->addHTML( $form );
 	}
 

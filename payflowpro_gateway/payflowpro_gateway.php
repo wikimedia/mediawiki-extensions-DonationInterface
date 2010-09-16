@@ -21,6 +21,9 @@ $wgExtensionCredits['specialpage'][] = array(
 // Set up the new special page
 $dir = dirname(__FILE__) . '/';
 $wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form' ] = $dir . 'forms/Form.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumn' ] = $dir . 'forms/TwoColumn.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter' ] = $dir . 'forms/TwoColumnLetter.php';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n.php';
 $wgExtensionAliasesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.alias.php';
 $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
@@ -40,6 +43,11 @@ $wgPayflowProPassword = ''; //merchant login password
 
 // a boolean to determine if we're in testing mode
 $wgPayflowGatewayTest = FALSE;
+
+/**
+ * The default form to use
+ */
+$wgPayflowGatewayDefaultForm = 'TwoColumn';
 
 /**
  * A string or array of strings for making tokens more secure
