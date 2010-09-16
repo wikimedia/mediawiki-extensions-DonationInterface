@@ -276,7 +276,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$wgOut->addHtml( $wgOut->parse( $header ));
 		}	
 
-		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ) .
+		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) );
 			/*Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
 			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
 			Xml::closeElement( 'div' );*/
