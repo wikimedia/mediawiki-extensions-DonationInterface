@@ -192,9 +192,9 @@ abstract class PayflowProGateway_Form {
 
 	public function generateCurrencyDropdown() {
 		$available_currencies = array(
+			'USD' => 'USD: U.S. Dollar',
 			'GBP' => 'GBP: British Pound',
 			'EUR' => 'EUR: Euro',
-			'USD' => 'USD: U.S. Dollar',
 			'AUD' => 'AUD: Australian Dollar',
 			'CAD' => 'CAD: Canadian Dollar',
 			'JPY' => 'JPY: Japanese Yen'
