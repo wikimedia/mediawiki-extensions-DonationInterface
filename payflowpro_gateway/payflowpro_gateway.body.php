@@ -1003,7 +1003,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	function fnPayflowMatchEditToken( $val, $salt='' ) {
 		// fetch a salted version of the session token
 		$sessionToken = $this->fnPayflowEditToken( $salt );
-		if ( $val != $session_token ) {
+		if ( $val != $sessionToken ) {
 			wfDebug( "PayflowproGateway::fnPayflowMatchEditToken: broken session data\n" );
 		}
 		return $val == $sessionToken;
