@@ -191,7 +191,6 @@ abstract class PayflowProGateway_Form {
 	}
 
 	public function generateCurrencyDropdown() {
-		var_dump( $this->form_data );
 		$available_currencies = array(
 			'GBP' => 'GBP: British Pound',
 			'EUR' => 'EUR: Euro',
