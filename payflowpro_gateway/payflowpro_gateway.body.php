@@ -159,306 +159,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Build the submission form sans submit button
-	 *
-	 * This allows for additional form elements/processing to be handled
-	 * by extra modules (eg during 'challenge' action)
-	 * 
-	 * See $this->fnPayflowDisplayForm
-	 */
-	public function fnPayflowGenerateFormBody( &$data, &$error ) {
-		require_once( 'includes/stateAbbreviations.inc' );
-		require_once( 'includes/countryCodes.inc' );
-	
-		global $wgOut, $wgLang, $wgPayflowGatewayHeader, $wgPayflowGatewayTest;
-
-		// save contrib tracking id early to track abondonment
-		if ( $data[ 'numAttempt' ] == '0' ) {
-			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
-				$when = time();
-				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
-			}
-		}
-
-		// create drop down of countries
-		$countries = countryCodes();
-
-		foreach( $countries as $value => $fullName ) {
-			if ( $value == $data['country'] ) {
-				$countryMenu .= Xml::option( $fullName, $value, true );
-			} else {
-				$countryMenu .= Xml::option( $fullName, $value, false ); }
-		}
-		
-		//common HTML tags for table
-		$endCell = '</td><td>';
-		$endRow = '</td></tr> <tr><td>';
-		
-		//create drop down of credit card types
-		$cardOptions = array(
-			'visa' => wfMsg( 'payflow_gateway-card-name-visa' ),
-			'mastercard' => wfMsg( 'payflow_gateway-card-name-mc' ),
-			'american' => wfMsg( 'payflow_gateway-card-name-amex' ),
-			'discover' => wfMsg( 'payflow_gateway-card-name-discover' ),
-		);
-
-		foreach( $cardOptions as $value => $fullName ) {
-			if ( $value == $data[ 'card' ] && $wgPayflowGatewayTest ) {
-				$cardOptionsMenu .= Xml::option( $fullName, $value, true );
-			} else {
-				$cardOptionsMenu .= Xml::option( $fullName, $value, false );
-			}
-		}
-	
-		if ( $data['expiration'] ) {
-			$mo = substr( $data['expiration'], 0, 2);
-			$yr = substr( $data['expiration'], 2, 2);
-		}
-		
-		//create expiration month menu
-		$expMos = '';
-
-		for( $i = 1; $i < 13; $i++ ) {
-			if ( $i == $mo && $wgPayflowGatewayTest ) {
-				$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ), true );
-			} else {
-				$expMos .= Xml::option( $wgLang->getMonthName( $i ), str_pad( $i, 2, '0', STR_PAD_LEFT ), false );
-			}
-		}
-		
-		//create expiration year menu
-		$expYr = '';
-  
-		for( $i = 0; $i < 11; $i++ ) {
-			if ( date( 'Y' ) + $i == substr(date('Y'), 0, 2) . $yr && $wgPayflowGatewayTest ) {
-				$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i, true );
-			} else {
-				$expYr .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i, false );
-			}
-		}
-		
-		$states = statesMenuXML();
-		
-		$stateMenu = '';
-
-		foreach( $states as $value => $fullName ) {
-			if ( $value == $data['state'] ) {
-				$stateMenu .= Xml::option( $fullName, $value, true );
-			} else $stateMenu .= Xml::option( $fullName, $value, false );
-		}
-		
-		//currencies
-		//get available currencies
-		$currencies = $this->fnPayflowReturnCurrencies();
-		
-		$currencyMenu = '';
-
-  		foreach( $currencies as $value => $fullName ) {
-    			$currencyMenu .= Xml::option( $fullName, $value );
-  		}
-  	
-  		// Build currency options
-  		$default_currency = $data['currency'];
-        
-  		$currency_options = '';
-  	
-  		foreach ( $currencies as $code => $name ) {
-      		$selected = '';
-        	if ( $code == $default_currency ) {
-				$selected = ' selected="selected"';
-        	}
-			$currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
-    	}
-		
-		// intro text
-		if ( $wgPayflowGatewayHeader ) {
-			$header = str_replace( '@language', $data['language'], $wgPayflowGatewayHeader );
-			$wgOut->addHtml( $wgOut->parse( $header ));
-		}	
-
-		$form = Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) );
-			/*Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
-			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
-			Xml::closeElement( 'div' );*/
-	
-		// provide a place at the top of the form for displaying general messages
-		if ( $error['general'] ) {
-			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
-			if ( is_array( $error['general'] )) {
-				foreach ( $error['general'] as $error_msg ) {
-					$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error_msg );
-				}
-			} else {
-				$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $error_msg );
-			}
-			$form .= Xml::closeElement( 'div' );
-		}
-
-		// open form	
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-			Xml::element( 'p', array( 'class' => 'creditcard-error-msg' ), $error['retryMsg'] );
-		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-personal-info' ));			;
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-cc-form-header-personal' ));
-		// donor amount and name			
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
-		$form .= '<tr><td>';
-		$form .= Xml::label( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname' ) .
-			$endCell .
-			Xml::input( 'fname', '30', $data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['fname'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname' ) .
-			$endCell .
-			Xml::input( 'mname', '30', $data['mname'], array( 'maxlength' => '15', 'id' => 'mname' ) ) .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-lname' ), 'lname' ) .
-			$endCell .
-			Xml::input( 'lname', '30', $data['lname'], array( 'maxlength' => '15', 'id' => 'lname' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['lname'] . '</span>' .
-			$endRow;
-			 
-		//donor address
-		$form .= Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) .
-			 $endCell .
-			Xml::openElement( 'select', array( 'name' => 'country', 'id' => 'country', 'onchange' => 'return disableStates( this )' ) ) .
-			$countryMenu .
-			Xml::closeElement( 'select' )  .
-			'<span class="creditcard-error-msg">' . '  ' . $error['country'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-street' ), 'street' ) .
-			$endCell .
-			Xml::input( 'street', '30', $data['street'], array( 'maxlength' => '30', 'id' => 'street' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['street'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-city' ), 'city' ) .
-			$endCell .
-			Xml::input( 'city', '30', $data['city'], array( 'maxlength' => '20', 'id' => 'city' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['city'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) .
-			$endCell .
-			Xml::openElement( 'select', array( 'name' => 'state', 'id' => 'state' ) ) .
-			$stateMenu .
-			Xml::closeElement( 'select' ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['state'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) .
-			$endCell .
-			Xml::input( 'zip', '30', $data['zip'], array( 'maxlength' => '9', 'id' => 'zip' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['zip'] . '</span>' .
-			$endRow . 
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) .
-			$endCell . 
-			Xml::input( 'emailAdd', '30', $data['email'], array( 'maxlength' => '64', 'id' => 'emailAdd' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['emailAdd'] . '</span>' .
-			'</td></tr>' .
-			Xml::closeElement( 'table' );
-		$form .= Xml::closeElement( 'div' );
-			
-		// credit card info
-		global $wgScriptPath;
-		$card_num = ( $wgPayflowGatewayTest ) ? $data[ 'card_num' ] : '';
-		$cvv = ( $wgPayflowGatewayTest ) ? $data[ 'cvv' ] : '';
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-payment-info' ));
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-payment' ), wfMsg( 'payflowpro_gateway-cc-form-header-payment' ));
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
-		$form .= '<tr><td>';
-		$form .= Xml::label(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', array( 'maxlength' => '10' ) ) . 
-			$endCell .
-			Xml::input( 'amount', '7', $data['amount'], array( 'id' => 'amount' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['invalidamount'] . '</span>' .
-			Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" )) .
-		      	$currency_options . 
-      			Xml::closeElement( 'select' ) .
-     			$endRow . 
-			'</td><td>' .Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) .
-			$endCell .
-			Xml::openElement( 'select', array( 'name' => 'card', 'id' => 'card' ) ) .
-			$cardOptionsMenu .
-			Xml::closeElement( 'select') .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) .
-			$endCell .
-			Xml::input( 'card_num', '30', $card_num, array( 'maxlength' => '100', 'id' => 'card_num', 'autocomplete' => 'off' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $error['card_num'] . '</span>' .
-			'</tr><tr><td></td><td>' .
-			'<span class="creditcard-error-msg">' . '  ' . $error['card'] . '</span>' .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) .
-			$endCell .
-			Xml::openElement( 'select', array( 'name' => 'mos', 'id' => 'expiration' ) ) .
-			$expMos .
-			Xml::closeElement( 'select' ) .
-			Xml::openElement( 'select', array( 'name' => 'year', 'id' => 'year' ) ) .
-			$expYr .
-			Xml::closeElement( 'select' ) .
-			$endRow .
-			Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) .
-			$endCell .
-			Xml::input( 'cvv', '5', $cvv, array( 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
-			'<a href="javascript:PopupCVV();">' . wfMsg( 'word-separator' ) . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
-			'<span class="creditcard-error-msg">' . '  ' . $error['cvv'] . '</span>' .
-			'</td></tr>' .
-			Xml::closeElement( 'table' ); 
-		
-		return $form;
-	}
-
-	/**
- 	 * Build the submit portion of the submission form
-	 *
-	 * @fixme There is an open div from fnPayflowGenerateFormBody that this closes
-	 * at the end of the method.  This should probably not be the case, but 
-	 * was the only way  I could think of gracefully handling this quickly.
-	 *
-	 * See $this->fnPayflowDiplayForm
-	 */
-	public function fnPayflowGenerateFormSubmit( &$data, &$error ) {
-		// submit button and close form
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )) . 	
-				Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gateway-donate-click' ); 
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), 
-				wfMsg( 'payflowpro_gateway-credit-storage-processing' ) ) .
-			Xml::tags( 'p', array( 'class' => ''), 
-				wfMsg( 'payflowpro_gateway-question-comment' ) );
-		$form .= Xml::closeElement( 'div' );
-
-		// add hidden fields			
-		$form .= Xml::hidden( 'utm_source', $data['utm_source'] ) .
-			Xml::hidden( 'utm_medium', $data['utm_medium'] ) .
-			Xml::hidden( 'utm_campaign', $data['utm_campaign'] ) .
-			Xml::hidden( 'language', $data['language'] ) .
-			Xml::hidden( 'referrer', $data['referrer'] ) .
-			Xml::hidden( 'comment', $data['comment'] ) .
-			Xml::hidden( 'comment-option', $data['anonymous'] ) .
-			Xml::hidden( 'email', $data['optout'] ) .
-			Xml::hidden( 'process', 'CreditCard' ) .
-			Xml::hidden( 'payment_method', 'processed' ) .
-			Xml::hidden( 'token', $data['token'] ) .
-			Xml::hidden( 'orderid', $data['order_id'] ) .
-			Xml::hidden( 'numAttempt', $data['numAttempt'] ) .
-			Xml::hidden( 'contribution_tracking_id', $data['contribution_tracking_id'] ) .
-			Xml::hidden( 'data_hash', $data[ 'data_hash' ] ) .
-			Xml::hidden( 'action', $data[ 'action' ] );
-			
-		$form .= Xml::closeElement( 'form' ) .
-			Xml::closeElement( 'div' ) .
-			Xml::closeElement( 'div' );
-		return $form;
-	}
-
-	/**
 	 * Build and displays form to user
 	 *
 	 * @param $data Array: array of posted user input
@@ -467,9 +167,31 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * The message at the top of the form can be edited in the payflow_gateway.i18.php file
 	 */
 	public function fnPayflowDisplayForm( $data, &$error ) {
-		global $wgOut;
-		$form = $this->fnPayflowGenerateFormBody( $data, $error );
-		$form .= $this->fnPayflowGenerateFormSubmit( $data, $error );
+		global $wgOut, $wgRequest, $wgPayflowGatewayDefaultForm;
+		
+		// save contrib tracking id early to track abondonment
+		if ( $data[ 'numAttempt' ] == '0' ) {
+			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
+				$when = time();
+				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
+			}
+		}
+	
+		$form_class = ( strlen( $wgRequest->getText( 'form_name' ))) ? $wgRequest->getText( 'form_name' ) : $wgPayflowGatewayDefaultForm;
+		
+		// make sure our form class exists before going on, if not try loading default form class
+		$class_name = "PayflowProGateway_Form_" . $form_class;
+		if ( !class_exists( $class_name )) {
+			$class_name_orig = $class_name;
+			$class_name = "PayflowProGateway_Form_" . $wgPayflowGatewayDefaultForm;
+			if ( !class_exists( $class_name )) {
+				throw new MWException( 'Could not load form ' . $class_name_orig . ' nor default form ' . $class_name );
+			}
+		}
+
+		$form_obj = new $class_name( $data, $error );
+		$form = $form_obj->generateFormBody();
+		$form .= $form_obj->generateFormSubmit();
 		$wgOut->addHTML( $form );
 	}
 
@@ -1003,7 +725,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	function fnPayflowMatchEditToken( $val, $salt='' ) {
 		// fetch a salted version of the session token
 		$sessionToken = $this->fnPayflowEditToken( $salt );
-		if ( $val != $sessionToken ) {
+		if ( $val != $session_token ) {
 			wfDebug( "PayflowproGateway::fnPayflowMatchEditToken: broken session data\n" );
 		}
 		return $val == $sessionToken;
