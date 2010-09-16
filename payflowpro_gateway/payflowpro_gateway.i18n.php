@@ -3224,6 +3224,103 @@ $messages['ka'] = array(
 	'donate_interface-JPY' => 'JPY: იაპონური იენი',
 );
 
+/** Khmer (ភាសាខ្មែរ)
+ * @author គីមស៊្រុន
+ */
+$messages['km'] = array(
+	'payflowprogateway' => 'គាំទ្រ​វិគីភីឌា​!',
+	'payflowpro_gateway-donor-legend' => 'ព័ត៌មានអំពីអ្នកបរិច្ចាគ',
+	'payflowpro_gateway-card-legend' => 'ព័ត៌មានអំពីក្រេឌីតកាត',
+	'payflowpro_gateway-amount-legend' => 'ចំនួនទឹកប្រាក់បរិច្ចាគ៖',
+	'payflowpro_gateway-cvv-link' => 'ឧទាហរណ៍',
+	'payflowpro_gateway-donor-amount' => 'ចំនួនទឹកប្រាក់៖',
+	'payflowpro_gateway-donor-currency-label' => 'ឯកតា៖',
+	'payflowpro_gateway-donor-email' => 'អាសយដ្ឋានអ៊ីមែល៖',
+	'payflowpro_gateway-donor-fname' => 'ឈ្មោះ៖',
+	'payflowpro_gateway-donor-mname' => 'ឈ្មោះកណ្ដាល (បើមាន)៖',
+	'payflowpro_gateway-donor-lname' => 'ត្រកូល៖',
+	'payflowpro_gateway-donor-name' => 'ឈ្មោះពេញ៖',
+	'payflowpro_gateway-donor-street' => 'ផ្លូវ៖',
+	'payflowpro_gateway-donor-city' => 'ក្រុង៖',
+	'payflowpro_gateway-donor-state' => 'រដ្ឋ៖',
+	'payflowpro_gateway-donor-postal' => 'កូដប្រីសនីយ៍៖',
+	'payflowpro_gateway-donor-country' => 'ប្រទេស/តំបន់៖',
+	'payflowpro_gateway-donor-address' => 'អាសយដ្ឋាន៖',
+	'payflowpro_gateway-donor-card' => 'ក្រេឌីតកាត៖',
+	'payflowpro_gateway-donor-card-num' => 'លេខកាត៖',
+	'payflowpro_gateway-donor-expiration' => 'កាលបរិច្ឆេទផុតកំណត់៖',
+	'payflowpro_gateway-donor-security' => 'កូដសុវត្ថិភាព៖',
+	'payflowpro_gateway-donor-submit' => 'បរិច្ចាគ',
+	'payflowpro_gateway-donor-currency-msg' => 'ការបរិច្ចាគនេះត្រូវបានធ្វើឡើងជាឯកតា $1',
+	'payflowpro_gateway-error-msg' => 'សូមបំពេញ $1 របស់អ្នក',
+	'payflowpro_gateway-error-msg-js' => 'សូមបំពេញពត៌មានខាងក្រោម៖',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**សូមបំពេញចំនួនទឹកប្រាក់អោយបានត្រឹមត្រូវ**',
+	'payflowpro_gateway-error-msg-email' => '**សូមបំពេញអាសយដ្ឋានអ៊ីមែលអោយបានត្រឹមត្រូវ**',
+	'payflowpro_gateway-error-msg-amex' => '**សូមបំពេញលេខកាត American Express អោយបានត្រឹមត្រូវ។**',
+	'payflowpro_gateway-error-msg-mc' => '**សូមបំពេញលេខកាត MasterCard អោយបានត្រឹមត្រូវ។**',
+	'payflowpro_gateway-error-msg-visa' => '**សូមបំពេញលេខកាត Visa អោយបានត្រឹមត្រូវ។**',
+	'payflowpro_gateway-error-msg-discover' => '**សូមបំពេញលេខកាត Discover អោយបានត្រឹមត្រូវ។**',
+	'payflowpro_gateway-error-msg-amount' => 'ចំនួនទឹកប្រាក់បរិច្ចាគ',
+	'payflowpro_gateway-error-msg-emailAdd' => 'អាសយដ្ឋានអ៊ីមែល',
+	'payflowpro_gateway-error-msg-fname' => 'ឈ្មោះ៖',
+	'payflowpro_gateway-error-msg-lname' => 'ត្រកូល',
+	'payflowpro_gateway-error-msg-street' => 'លេខផ្លូវ',
+	'payflowpro_gateway-error-msg-city' => 'ក្រុង',
+	'payflowpro_gateway-error-msg-state' => 'រដ្ឋ',
+	'payflowpro_gateway-error-msg-zip' => 'កូដប្រីសនីយ៍',
+	'payflowpro_gateway-error-msg-card_num' => 'លេខក្រេឌីតកាត',
+	'payflowpro_gateway-error-msg-expiration' => 'កាលបរិច្ឆេទផុតកំណត់របស់កាត',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV ដែលនៅខាងក្រោយកាតរប​ស់អ្នក',
+	'payflowpro_gateway-error-msg-captcha' => 'តំលៃ Captcha ដែលអ្នកបានបំពេញមិនត្រឹមត្រូវទេ។ សូមសាកល្បងម្ដងទៀត។',
+	'payflowpro_gateway-error-msg-captcha-please' => 'ដើម្បីរក្សាសុវត្ថិភាពក្រេឌីតកាតរបស់អ្នក សូមវាយបំពេញតួអក្សរដែលអ្នកឃើញខាងលើ។',
+	'payflowpro_gateway-response-0' => 'ការទូទាត់ទឹកប្រាស់របស់អ្នកត្រូវបានអនុម័តហើយ។
+
+សូមថ្លែងអំណរគុណសំរាប់ការបរិច្ចាគរបស់អ្នក!',
+	'payflowpro_gateway-response-126' => 'ការទូទាត់ទឹកប្រាក់របស់អ្នកកំពុងសូមការអនុម័ត។',
+	'payflowpro_gateway-response-126-2' => 'ព័ត៌មានមួយចំនួនដែលអ្នកបានផ្ដល់មក មិនត្រូវគ្នានឹងព័ត៌មានរបស់ក្រេឌីតកាតរបស់អ្នកទេ ឬប្រហែលជាទឹកប្រាក់អ្នកអ្នកផ្ដល់មកមានចំនួនច្រើនពេក។ ដើម្បីសុវត្ថិភាព ការបរិច្ចាគរបស់អ្នកនឹងត្រូវពិនិត្យឡើងវិញ ហើយយើងនឹង​ផ្ដល់ដំណឹងទៅអ្នក​តាមរយៈអសយដ្ឋានអ៊ីមែលអ្នកដែលបានផ្ដល់មក ក្នុងករណីដែលយើងបានអាចសំរេចការបរិច្ចាគរបស់អ្នកបានរួចរាល់ទេ។ សូមអ៊ីមែលមកកាន់ <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> ប្រសិនបើអ្នកមានចំងល់ចង់សួរ។ សូមអរគុណ!',
+	'payflowpro_gateway-response-12' => 'សូមទាក់ទងទៅក្រុមហ៊ុនក្រេឌីតកាតរបស់អ្នកសំរាប់ព័ត៌មានបន្ថែម។',
+	'payflowpro_gateway-response-13' => 'ការទូទាត់ទឹកប្រាក់របស់អ្នកតំរូវអោយធ្វើការផ្ទៀតផ្ទាត់តាមសំលេង។
+
+សូមទាក់ទងមកយើងខ្ញុំដើម្បីបន្តការទូទាត់នេះ។',
+	'payflowpro_gateway-response-114' => 'សូមទាក់ទងទៅក្រុមហ៊ុនក្រេឌីតកាតរបស់អ្នកសំរាប់ព័ត៌មានបន្ថែម។',
+	'payflowpro_gateway-response-23' => 'លេខឬកាលបរិច្ឆេទផុតកំណត់របស់ក្រេឌីតកាតរបស់អ្នកមិនត្រឹមត្រូវទេ។',
+	'payflowpro_gateway-response-4' => 'ចំនួនទឹកប្រាក់មិនត្រឹមត្រូវ។',
+	'payflowpro_gateway-response-24' => 'លេខឬកាលបរិច្ឆេទផុតកំណត់របស់ក្រេឌីតកាតរបស់អ្នកមិនត្រឹមត្រូវទេ។',
+	'payflowpro_gateway-response-112' => 'អាសយដ្ឋានឬលេខ CVV (លេខសំងាត់) របស់អ្នកមិនត្រឹមត្រូវទេ។',
+	'payflowpro_gateway-response-125' => 'ការទូទាត់ប្រាក់របស់អ្នកត្រូវបានបដិសេដដោយ Fraud Prevention Services។',
+	'payflowpro_gateway-response-125-2' => 'ក្រេឌីតកាតរបស់អ្នកមិនអាចប្រើប្រាស់បានទេ។ សូមផ្ទៀងផ្ទាត់ថាព័ត៌មានដែលអ្នកបានផ្ដល់មក​ត្រូវគ្នានឹងព័ត៌មានរបស់ក្រេឌីតកាតរបស់អ្នក ឬសាកប្រើកាតផ្សេងពីនេះ។ អ្នកក៏អាចប្រើ<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">វីធីផ្សេងទៀតក្នុងការធ្វើការបរិច្ចាគ</a> ឬទាក់ទងមកយើងខ្ញុំតាមរយៈ <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>។ សូមថ្លែងអំណរគុណដល់ការគាំទ្ររបស់អ្នក។',
+	'payflowpro_gateway-response-default' => 'មានបញ្ហាក្នុងការធ្វើការទូទាត់ទឹកប្រាក់។
+
+សូមសាកល្បងម្ដងទៀតនៅពេលក្រោយ។',
+	'php-response-declined' => 'ការទូទាត់ទឹកប្រាក់របស់អ្នកត្រូវបានបដិសេដ។',
+	'payflowpro_gateway-thankyou' => 'សូមថ្លែងអំណរគុណចំពោះការបរិច្ចាគរបស់អ្នក!',
+	'payflowpro_gateway-post-transaction' => 'ព័ត៌មានលំអិតស្ដីពីការទូទាត់ទឹកប្រាក់',
+	'payflowpro_gateway-submit-button' => 'បរិច្ចាគ',
+	'payflowpro_gateway-cvv-explain' => '<h4>តើ CVV ជាអ្វី?</h4>
+<p>ជាអក្សរកាត់របស់ពាក្យ Cardholder Verification Value (លេខសំរាប់ផ្ទៀងផ្ទាត់ម្ចាស់កម្មសិទ្ធិរបស់កាត)។ វាជាលេខ៣ឬ៤ខ្ទង់ដែលបញ្ជាក់ពីម្ចាស់កម្មសិទ្ធរបស់កាត។ វាជួយការពារការប្រើប្រាស់ដោយ​គ្មានការអនុញ្ញាត ឬពីការលួចលេខកាត។</p>
+<h4>Visa, Mastercard</h4>
+<p>លេខកូដ៣ខ្ទង់ស្ថិតនៅក្នុងប្រអប់ហត្ថលេខា នៅផ្នែកខាងក្រោយរបស់កាត។
+
+ជាទូទៅនៅក្នុងប្រអប់ហត្ថលេខា មានលេខមួយជួរ ក៏ប៉ុន្តែមានតែលេខ៣ខ្ទង់ចុងក្រោយប៉ុណ្ណោះដេលជាលេខកូដ CVV </p>
+<h4>American Express</h4>
+<p>លេខកូដនេះ<i>ជានិច្ចកាល</i>ស្ថិតនៅ<i>ខាងលើ</i>លេខគណនី (លេខផុលឡើង) នៅផ្នែកខាងមុខរបស់កាត។
+
+ក្នុងករណីខ្លះ លេខកូដនេះស្ថិតនៅផ្នែកខាងឆ្វេងរបស់កាត ប៉ុន្ដែវាតែងតែនៅលើលេខគណនីជានិច្ច។</p><br />
+In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
+	'payflowpro_gateway-question-comment' => 'មានសំនួរឬក៏មតិយោបល់? សូមទាក់ទងទៅ៖ <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'បន្ទាប់ពីចុច "{{int:payflowpro_gateway-donor-submit}}" ព័ត៌មានរបស់ក្រេឌីតកាតរបស់អ្នកនឹងត្រូវបានផ្ញើចេញទៅ។',
+	'payflowpro_gateway-credit-storage-processing' => 'មាន<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">វិធីផ្សេងទៀតក្នុងការធ្វើការបរិច្ចាគ ដូចជា PayPal, មូលប្បទានប័ត្រ, ឬ សំបុត្រ</a>។<br />
+យើងខ្ញុំមិនរក្សាទុកព័ត៌មានក្រេឌីតកាតរបស់លោកអ្នកទេ ហើយព័ត៌មានផ្ទាល់ខ្លួនរបស់អ្នកនឹងត្រូវការពារដោយ<a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">គោលការភាពឯកជន</a>របស់យើងខ្ញុំ។',
+	'donate_interface-GBP' => 'GBP៖ ផោនអង់គ្លេស',
+	'donate_interface-EUR' => 'EUR៖ យូរ៉ូ',
+	'donate_interface-USD' => 'USD៖ ដុល្លារអាមេរិក',
+	'donate_interface-AUD' => 'AUD៖ ដុល្លារអូស្ត្រាលី',
+	'donate_interface-CAD' => 'CAD៖ ដុល្លារកាណាដា',
+	'donate_interface-JPY' => 'JPY៖ យ៉េនជប៉ុន',
+	'payflowpro_gateway-cc-form-header-personal' => 'ព័ត៌មានផ្ទាល់ខ្លួន',
+	'payflowpro_gateway-cc-form-header-payment' => 'ព័ត៌មានពីការបង់ប្រាក់',
+);
+
 /** Kannada (ಕನ್ನಡ)
  * @author Nayvik
  */
