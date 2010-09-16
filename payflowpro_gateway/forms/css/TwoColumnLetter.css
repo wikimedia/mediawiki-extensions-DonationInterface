@@ -1,23 +1,33 @@
 .payflow-cc-form-section {
-	float: none;
+        float: none;
 }
 
 #payflowpro_gateway-personal-info {
-	margin-right: 0em;
-	margin-bottom: 3em;
+        margin-right: 0em;
+        margin-bottom: 3em;
 }
 
 #payflowpro_gateway-cc_form_container {
-	width: 100%;
+        width: 100%;
 }
 
 .payflowpro_gateway-cc_form_column {
-	float: left;
+}
+
+#payflowpro_gateway-cc_form_form {
+        width: 50%;
+        float: right;
+        margin-left: 2em;
+        padding-left: 2em;
+        border-left: 1px solid #BBBBBB;
 }
 
 #payflowpro_gateway-cc_form_letter {
-	width: 40%;
-	margin-right: 5em;
-	padding-right: 5em;
-	border-right: 1px solid #BBBBBB;
+        height: 100%;
 }
+
+#payflowpro_gateway-cc_form_letter p {
+        font-size: 1.2em;
+        margin-bottom: 1.2em;
+}
+
