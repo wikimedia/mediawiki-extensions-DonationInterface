@@ -1,9 +1,9 @@
 //<![CDATA[
 
 function validate_form( form ) {
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv', 'Amount' ];
 
-	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv"],
+	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv", "amount" ],
 		numFields = fields.length,
 		i,
 		output = '',

@@ -83,8 +83,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		} elseif( isset( $_REQUEST['amount'] ) ) { 
 				$amount = '0.00';
 		} else {
-				$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
-				return;
+				/*$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
+				return;*/
 		}
 		
 		// track the number of attempts the user has made
