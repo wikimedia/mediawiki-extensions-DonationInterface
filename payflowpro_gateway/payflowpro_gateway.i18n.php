@@ -2748,6 +2748,7 @@ $messages['hu'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'hitelkártyaszám',
 	'payflowpro_gateway-error-msg-expiration' => 'kártya lejárati dátuma',
 	'payflowpro_gateway-error-msg-cvv' => 'a kártya hátulján található CVV-szám',
+	'payflowpro_gateway-error-msg-captcha-please' => 'A bankkártya biztonsága érdekében gépeld be a fentebb látható karaktereket.',
 	'payflowpro_gateway-response-0' => 'A tranzakció elfogadva.
 Köszönjük az adományt!',
 	'payflowpro_gateway-response-126' => 'A tranzakciód elfogadásra vár.',
@@ -2776,14 +2777,16 @@ Később próbáld meg újra.',
 <p>A kód MINDIG a kártya előoldalán található domborított (kiemelkedő) bankszámlaszám FELETT található. Néhány esetben a kód a kártya bal oldalán található, de mindig a bankszámlaszám felett.</p><br />',
 	'payflowpro_gateway-question-comment' => 'A Wikipédia a Wikimédia Alapítvány projektje. Kérdéseid vagy megjegyzéseid vannak? A következő címen léphetsz kapcsolatba velünk: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Az „Adományozás” gombra való kattintás után a bankkártya-adataid fel lesznek dolgozva.',
-	'payflowpro_gateway-credit-storage-processing' => 'Ne feledd, <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">számos más módon adakozhatsz, például PayPalon, csekkel vagy levélen keresztül is</a>.
-Nem tárolunk a bankkártyáddal kapcsolatos információkat, és a személyes adataidat a <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Jogi nyilatkozatban</a> leírtak szerint kezeljük.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ne feledd, <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">számos más módon adakozhatsz, például PayPal, csekk vagy levél segítségével is</a>.
+Nem tároljuk a bankkártyáddal kapcsolatos információkat, a személyes adataidat pedig a <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Jogi nyilatkozatunkban</a> leírtak szerint kezeljük.',
 	'donate_interface-GBP' => 'GBP: brit font',
 	'donate_interface-EUR' => 'EUR: euró',
 	'donate_interface-USD' => 'USD: amerikai dollár',
 	'donate_interface-AUD' => 'AUD: ausztrál dollár',
 	'donate_interface-CAD' => 'CAD: kanadai dollár',
 	'donate_interface-JPY' => 'JPY: japán jen',
+	'payflowpro_gateway-cc-form-header-personal' => 'Személyes információk',
+	'payflowpro_gateway-cc-form-header-payment' => 'Fizetési információk',
 );
 
 /** Interlingua (Interlingua)
