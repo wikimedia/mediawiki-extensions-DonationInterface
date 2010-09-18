@@ -553,8 +553,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-default' );
 				$errorCode = '4';
 		}
-				$responseMsg = wfMsg( 'payflowpro_gateway-response-125-2' );
-				$errorCode = '3';
 
 		return $errorCode;
 	} 
