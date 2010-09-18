@@ -2594,6 +2594,41 @@ $messages['hr'] = array(
 	'payflowpro_gateway-error-msg-zip' => 'poštanski broj',
 	'payflowpro_gateway-error-msg-card_num' => 'broj kreditne kartice',
 	'payflowpro_gateway-error-msg-expiration' => 'datum isteka kartice',
+	'payflowpro_gateway-error-msg-cvv' => 'CVV (sigurnosni kod) sa stražnje strane vaše kartice',
+	'payflowpro_gateway-error-msg-captcha' => 'Captcha kod koji ste unijeli nije točan. Molimo pokušajte opet.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Radi sigurnosti vaše kreditne kartice, molimo upišite znakove koje vidite iznad.',
+	'payflowpro_gateway-response-0' => 'Vaša transakcija je odobrena.
+Hvala Vam za Vašu donaciju!',
+	'payflowpro_gateway-response-126' => 'Vaša transakcija čeka odobrenje.',
+	'payflowpro_gateway-response-126-2' => 'Neke informacije koje ste unijeli ne odgovaraju vašem profilu kreditne kartice, ili ste unijeli veoma veliki poklon. Za vašu sigurnost, vaša donacije je trenutno pod provjerom, obavijestiti ćemo Vas putem navedenog e-maila ako ne uspijemo izvršiti vašu donaciju. Molimo pošaljite e-mail na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> ako imate nekih pitanja. Hvala Vam!',
+	'payflowpro_gateway-response-12' => 'Molimo obratite se vašoj tvrtki koja Vam je izdala kreditnu karticu za daljnje informacije.',
+	'payflowpro_gateway-response-13' => 'Vaša transakcija zahtjeva glasovnu potvrdu.
+Molimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.',
+	'payflowpro_gateway-response-114' => 'Molimo obratite se vašoj tvrtki koja Vam je izdala kreditnu karticu za daljnje informacije.',
+	'payflowpro_gateway-response-23' => 'Broj vaše kreditne kartice ili datum isteka nisu ispravni.',
+	'payflowpro_gateway-response-4' => 'Nevaljan iznos.',
+	'payflowpro_gateway-response-24' => 'Broj vaše kreditne kartice ili datum isteka nisu ispravni.',
+	'payflowpro_gateway-response-112' => 'Vaša adresa ili CVV broj (sigurnosni kod) nisu točni.',
+	'payflowpro_gateway-response-125' => 'Vaša transakcija je odbijena od strane Službe za prevenciju zloupotreba.',
+	'payflowpro_gateway-response-125-2' => 'Vaša kreditna kartica nije mogla biti provjerena. Molimo provjerite da li svi navedeni podaci odgovaraju profilu vaše kreditne kartice ili pokušajte drugu karticu. Također možete koristiti neki od naših <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugih načina za doniranje</a> ili nas kontaktirajte na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Hvala vam za vašu podršku.',
+	'payflowpro_gateway-response-default' => 'Došlo je do pogreške u obradi vaše transakcije.
+Molimo pokušajte kasnije.',
+	'php-response-declined' => 'Vaša transakcija je odbijena.',
+	'payflowpro_gateway-thankyou' => 'Hvala Vam na donaciji!',
+	'payflowpro_gateway-post-transaction' => 'Detalji transakcije',
+	'payflowpro_gateway-submit-button' => 'Doniraj',
+	'payflowpro_gateway-cvv-explain' => '<h4>Što je CVV?</h4>
+<p>Cardholder Verification Value (CVV): Ove tri ili četiri znamenke pomažu pri utvrđivanju da li je vlasnik u fizičkom vlasništvu kartice. Time se pomaže da se spriječi zloupotreba kartice.</p>
+<h4>Visa, Mastercard</h4>
+<p>Kod od 3 znamenke nalazi se na stražnjoj strani vaše kartice, unutar područja za potpis.
+Obično će potpisno područje imati i serijske brojeve, ali samo zadnje tri znamenke čine CVV kod.</p>
+<h4>American Express</h4>
+<p>Kod se <i>uvijek</i> nalazi <i>iznad</i> naglašenog (izrezbarenog) broja računa na prednjoj strani kartice.
+U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek iznad broja računa.</p><br />',
+	'payflowpro_gateway-question-comment' => 'Pitanja ili komentari? Kontaktirajte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'Nakon što kliknete na "{{int:payflowpro_gateway-donor-submit}}", informacije o vašoj kreditnoj kartici biti će obrađene.',
+	'payflowpro_gateway-credit-storage-processing' => 'Postoje i <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini za doniranje, uključujući PayPal, ček ili poštom</a>.<br />
+Mi ne pohranjujemo informacije o vašoj kreditnoj kartici, a vaši osobni podaci su zaštićeni našim <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">pravilima o privatnosti</a>.',
 	'donate_interface-GBP' => 'GBP: britanska funta',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: američki dolar',
@@ -2601,6 +2636,8 @@ $messages['hr'] = array(
 	'donate_interface-CAD' => 'CAD: kanadski dolar',
 	'donate_interface-JPY' => 'JPY: japanski jen',
 	'payflowpro_gateway-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ponovo popuniti i podnijeti obrazac.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Osobni podaci',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informacije o plaćanju',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -6018,9 +6055,9 @@ Noantri no se salvémo mia i dati de la to carta de credito, e i to dati persona
  */
 $messages['vi'] = array(
 	'payflowprogateway' => 'Hỗ trợ Wikimedia',
-	'payflowpro_gateway-desc' => 'Xử lý thẻ tín dụng PayPal Payflow Pro',
+	'payflowpro_gateway-desc' => 'Xử lý thẻ tín dụng dùng PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Trang này chỉ truy cập được từ trang quyên góp.',
-	'payflowpro_gateway-form-message-2' => 'Để thay đổi số tiền hoặc loại tiền, trở lại <a href="/index.php?title=Donate">trang quyên góp</a>',
+	'payflowpro_gateway-form-message-2' => 'Để thay đổi số tiền hoặc loại tiền, trở lại <a href="/index.php?title=Donate/vi&uselang=vi">trang quyên góp</a>',
 	'payflowpro_gateway-donor-legend' => 'Thông tin người tặng',
 	'payflowpro_gateway-card-legend' => 'Thông tin thẻ tín dụng',
 	'payflowpro_gateway-amount-legend' => 'Số tiền gửi tặng:',
@@ -6068,6 +6105,7 @@ $messages['vi'] = array(
 	'payflowpro_gateway-response-0' => 'Giao dịch của bạn đã được chứng nhận.
 Cảm ơn sự đóng góp của bạn!',
 	'payflowpro_gateway-response-126' => 'Giao dịch của bạn đang chờ được chứng nhận.',
+	'payflowpro_gateway-response-126-2' => 'Một số thông tin mà bạn cung cấp không đúng với hồ sơ thẻ tín dụng của bạn, hoặc bạn đã đóng góp rất nhiều tiền. Để bảo vệ tài khoản của bạn, chúng tôi hiện đang xem xét sự đóng góp của bạn. Nếu trường hợp chúng tôi không thể hoàn thành sự đóng góp của bạn, chúng tôi sẽ liên lạc với bạn qua địa chỉ thư điện tử mà bạn cung cấp. Nếu có thắc mắc gì, xin hãy gửi thư điện tử cho <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cám ơn!',
 	'payflowpro_gateway-response-12' => 'Xin liên hệ với công ty thẻ tín dụng của bạn để biết thêm chi tiết.',
 	'payflowpro_gateway-response-13' => 'Giao dịch này cần xác nhận bằng điện thoại.
 Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao dịch.',
@@ -6077,6 +6115,7 @@ Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao d�
 	'payflowpro_gateway-response-24' => 'Số thẻ tín dụng hoặc ngày hết hạn không đúng.',
 	'payflowpro_gateway-response-112' => 'Địa chỉ hoặc mã an ninh của bạn không đúng.',
 	'payflowpro_gateway-response-125' => 'Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.',
+	'payflowpro_gateway-response-125-2' => 'Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Cũng có thể <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi">quyên góp một cách khác</a> hoặc liên lạc với chúng tôi tại <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cám ơn sự hỗ trợ của bạn.',
 	'payflowpro_gateway-response-default' => 'Có lỗi khi xử lý giao dịch của bạn.
 Xin hãy thử lại vào lần sau.',
 	'php-response-declined' => 'Giao dịch của bạn đã bị từ chối.',
