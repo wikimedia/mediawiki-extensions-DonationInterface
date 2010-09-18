@@ -27,6 +27,12 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	);
 
 	/**
+	 * Container for minFraud object
+	 * @var public object
+	 */
+	public $ccfd;
+
+	/**
 	 * For holding an instance of self
 	 */
 	static $instance;

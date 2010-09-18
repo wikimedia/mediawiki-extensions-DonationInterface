@@ -21,7 +21,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form .= parent::generatePersonalFields();
                 $form .= Xml::closeElement( 'table' );
                 $form .= Xml::closeElement( 'div' );
-                $form .= Xml::closeElement( 'div' );
                 $form .= parent::generatePaymentContainerTop();
                 $form .= parent::generatePaymentFields();
                 $form .= Xml::closeElement( 'table' );
@@ -30,7 +29,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
         public function generateFormSubmit() {
                 global $wgRequest, $wgOut;
-                $form .= parent::generateFormSubmit();  
+                $form = parent::generateFormSubmit();  
 
                 $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
 
@@ -40,8 +39,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
                 $form .= Xml::closeElement( 'div' );
                 
-                $form .=Xml::closeElement( 'div' );
+				$form .=Xml::closeElement( 'div' );
+                $form .= Xml::closeElement( 'div' );
                 return $form;
         }
 }
-

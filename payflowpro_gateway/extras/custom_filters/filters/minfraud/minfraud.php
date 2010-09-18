@@ -42,5 +42,5 @@ $wgExtensionFunctions[] = 'efCustomFiltersMinFraudSetup';
 
 function efCustomFiltersMinFraudSetup() {
 	global $wgMinFraudStandalone, $wgHooks;
-	if ( !$wgMinFraudStandalone ) $wgHooks[ 'PayflowGatewayCustomFilter' ][] = array( "PayflowProGateway_Extras_CustomFilters_MinFraud::onValidate" );
+	if ( !$wgMinFraudStandalone ) $wgHooks[ 'PayflowGatewayCustomFilter' ][] = array( "PayflowProGateway_Extras_CustomFilters_MinFraud::onFilter" );
 }

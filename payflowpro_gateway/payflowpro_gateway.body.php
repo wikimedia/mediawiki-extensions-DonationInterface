@@ -31,11 +31,19 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	public $form_class;
 	
 	/**
+	 * An array of form errors
+	 * @var array
+	 */
+	public $errors = array();
+
+	/**
 	 * Constructor - set up the new special page
 	 */
 	public function __construct() {
 		parent::__construct( 'PayflowProGateway' );
 		wfLoadExtensionMessages( 'PayflowProGateway' );
+
+		$this->errors = $this->getPossibleErrors();
 	}
 
 	/**
@@ -81,18 +89,16 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgPayflowGatewaySalt;
 		$token = $this->fnPayflowEditToken( $wgPayflowGatewaySalt ); //$wgUser->editToken( 'mrxc877668DwQQ' );
 
-		$error[] = '';
 
 		// find out if amount was a radio button or textbox, set amount
 		if( isset( $_REQUEST['amount'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount' ) ) ) {
 			$amount = $wgRequest->getText( 'amount' );
 		} elseif( isset( $_REQUEST['amountGiven'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amountGiven' ) ) ) { 
-				$amount = number_format( $wgRequest->getText( 'amountGiven' ), 2, '.', '' );
+			$amount = number_format( $wgRequest->getText( 'amountGiven' ), 2, '.', '' );
 		} elseif( isset( $_REQUEST['amount'] ) ) { 
-				$amount = '0.00';
+			$amount = '0.00';
 		} else {
-				/*$wgOut->addHTML( wfMsg( 'payflowpro_gateway-accessible' ) );
-				return;*/
+			$amount = '0.00';
 		}
 		
 		// track the number of attempts the user has made
@@ -116,9 +122,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				++$data['numAttempt'];
 				
 				// Check form for errors and redisplay with messages
-				$form_errors = $this->fnPayflowValidateForm( $data, $error );
+				$form_errors = $this->fnPayflowValidateForm( $data, $this->errors );
 				if( $form_errors ) {
-					$this->fnPayflowDisplayForm( $data, $error );
+					$this->fnPayflowDisplayForm( $data, $this->errors );
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data	
 					wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data ));
@@ -157,12 +163,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				}
 			} else {
 				//Display form for the first time
-				$this->fnPayflowDisplayForm($data, $error);
+				$this->fnPayflowDisplayForm( $data, $this->errors );
 			}
 		} else { 
 			// there's a token mismatch
-			$error['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
-			$this->fnPayflowDisplayForm( $data, $error );
+			$this->errors['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
+			$this->fnPayflowDisplayForm( $data, $this->errors );
 		}
 	}
 
@@ -236,8 +242,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	private function fnPayflowValidateForm( $data, &$error ) {
 		global $wgOut;
 		
-		$error = '';
-
 		// begin with no errors
 		$error_result = '0';
 
@@ -480,8 +484,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			// give user a second chance to enter incorrect data
 		} elseif( ( $errorCode == '3' ) && ( $data['numAttempt'] < '5' ) ) {
 			// pass responseMsg as an array key as required by displayForm
-				$tryAgainResponse['retryMsg'] = $responseMsg;
-				$this->fnPayflowDisplayForm( $data, $tryAgainResponse );
+				$this->errors['retryMsg'] = $responseMsg;
+				$this->fnPayflowDisplayForm( $data, $this->errors );
 			// if declined or if user has already made two attempts, decline
 		} elseif( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
 				$this->fnPayflowDisplayDeclinedResults( $responseMsg );
@@ -549,6 +553,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-default' );
 				$errorCode = '4';
 		}
+				$responseMsg = wfMsg( 'payflowpro_gateway-response-125-2' );
+				$errorCode = '3';
 
 		return $errorCode;
 	} 
@@ -797,25 +803,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgPayflowGatewayTest, $wgRequest;
 		if ( $wgRequest->getText( 'email' ) && !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
 			// define arrays of cc's and cc #s for random selection
-			$cards = array( 'visa', 'mastercard', 'american', 'discover');
+			$cards = array( 'american' );
 			$card_nums = array(
-				'visa' => array(
-					4111111111111111,
-					4012888888881881,
-					4222222222222
-				),
-				'mastercard' => array(
-					5105105105105100,
-					5555555555554444,
-				),
 				'american' => array(
-					378734493671000,
-					371449635398431,
 					378282246310005
-				),
-				'discover' => array(
-					6011111111111117,
-					6011000990139424
 				),
 			);
 
@@ -894,5 +885,24 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			);
 		}
 		return $data;
+	}
+
+	public function getPossibleErrors() {
+		return array(
+			'general' => '',
+			'retryMsg' => '',
+			'invalidamount' => '',
+			'card_num' => '',
+			'card' => '',
+			'cvv' => '',
+			'fname' => '',
+			'lname' => '',
+			'city' => '',
+			'country' => '',
+			'street' => '',
+			'state' => '',
+			'zip' => '',
+			'emailAdd' => '',
+		);
 	}
 } // end class

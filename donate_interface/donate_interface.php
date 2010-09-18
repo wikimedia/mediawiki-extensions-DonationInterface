@@ -94,11 +94,11 @@ function fnDonateCreateOutput() {
   $utm_source = $wgRequest->getText( 'utm_source' );
   $utm_medium = $wgRequest->getText( 'utm_medium' );
   $utm_campaign = $wgRequest->getText( 'utm_campaign' );
-  $referrer = $_SERVER['HTTP_REFERER'];
+  $referrer = $wgRequest->getHeader('referer');
         
   //get language from URL
-  $url = $_SERVER['REQUEST_URI'];
-        
+  $url = $wgRequest->getRequestURL(); 
+  
   if ($url) {
     $getLang = explode('/', $url);
     $language = substr($getLang[3], 0, 2);

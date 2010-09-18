@@ -113,6 +113,7 @@ abstract class PayflowProGateway_Form {
 		global $wgLang;
 
 		// derive the previously set expiry month, if set
+		$month = NULL;
 		if ( $this->form_data[ 'expiration' ] ) {
 			$month = substr( $this->form_data[ 'expiration' ], 0, 2 );
 		}
@@ -141,6 +142,7 @@ abstract class PayflowProGateway_Form {
 
 	public function generateExpiryYearDropdown() {
 		// derive the previously set expiry year, if set
+		$year = NULL;
 		if ( $this->form_data[ 'expiration' ] ) {
 			$year = substr( $this->form_data[ 'expiration' ], 2, 2 );
 		}

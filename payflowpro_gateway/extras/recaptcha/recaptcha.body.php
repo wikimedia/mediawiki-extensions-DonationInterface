@@ -10,6 +10,12 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 	 */
 	static $instance;
 
+	/**
+	 * Container for the captcha error
+	 * @var string
+	 */
+	public $recap_err;
+
 	public function __construct() {
 		parent::__construct();
 
@@ -20,7 +26,7 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 	/**
 	 * Handle the challenge logic
 	 */
-	public function challenge( &$pfp_gateway_object, &$data, $error=array() ) {
+	public function challenge( &$pfp_gateway_object, &$data ) {
 		// if captcha posted, validate
 		if ( isset( $_POST[ 'recaptcha_response_field' ] )) { 
 			//check the captcha response
@@ -31,37 +37,34 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 				$pfp_gateway_object->action = "process";
 				return TRUE;
 			} else {
-				$error[ 'recap_err' ] = $captcha_resp->error;
+				$this->recap_err = $captcha_resp->error;
 				$this->log( $data[ 'contribution_tracking_id' ], 'Captcha failed' );
 			}
 		}
 		// display captcha
-		$this->display_captcha( $pfp_gateway_object, $data, $error );
+		$this->display_captcha( $pfp_gateway_object, $data  );
 		return TRUE;
 	}
 
 	/**
 	 * Display the submission form with the captcha injected into it
 	 */
-	public function display_captcha( &$pfp_gateway_object, &$data, $error=array() ) {
+	public function display_captcha( &$pfp_gateway_object, &$data ) {
 		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
 		
-		// set the recaptcha error, if we have one.
-		$recap_err = ( $error[ 'recap_err' ] ) ? $error[ 'recap_err' ] : NULL;
-
 		global $wgOut;
 		$form_class = $pfp_gateway_object->getFormClass();
-		$form_obj = new $form_class( $data, $error );
-		$form = $form_obj->generateFormBody( $data, $error );
+		$form_obj = new $form_class( $data, $pfp_gateway_object->errors );
+		$form = $form_obj->generateFormBody( $data, $pfp_gateway_object->errors );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
 
 		// get the captcha
 		global $wgPayflowRecaptchaPublicKey, $wgProto;
 		$use_ssl = ( $wgProto == 'https' ) ? TRUE : FALSE;
-		$form .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $recap_err, $use_ssl );
+		$form .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $this->recap_err, $use_ssl );
 		$form .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please') . '</span>';
 		$form .= Xml::closeElement( 'div' );
-		$form .= $form_obj->generateFormSubmit( $data, $error );
+		$form .= $form_obj->generateFormSubmit( $data, $pfp_gateway_object->errors );
 		$wgOut->addHTML( $form );
 	}
 

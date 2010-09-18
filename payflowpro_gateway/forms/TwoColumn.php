@@ -8,8 +8,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 	
 	public function generateFormBody() {
 		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
-
-		$form .= $this->generateBannerHeader();
+		$form = $this->generateBannerHeader();
 		
 		$form .= $this->generatePersonalContainerTop();
 		$form .= $this->generatePersonalFields();
@@ -35,6 +34,13 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::closeElement( 'div' );
+		// add hidden fields			
+		$hidden_fields = $this->getHiddenFields();
+		foreach ( $hidden_fields as $field => $value ) {
+			$form .= Xml::hidden( $field, $value );
+		}
+			
+		$form .= Xml::closeElement( 'form' );
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
 		$form .= Xml::tags( 'p', array( 'class' => '' ), 
 				wfMsg( 'payflowpro_gateway-credit-storage-processing' ) ) .
@@ -42,15 +48,9 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 				wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' );
 
-		// add hidden fields			
-		$hidden_fields = $this->getHiddenFields();
-		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
-		}
-			
-		$form .= Xml::closeElement( 'form' ) .
-			Xml::closeElement( 'div' ) .
-			Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
 		return $form;
 	}
 
@@ -83,8 +83,9 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		}
 
 		// open form and table
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) ) . 
-			Xml::element( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors['retryMsg'] );
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
+		// Xml::element seems to convert html to htmlentities
+		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-personal-info' ));			;
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-cc-form-header-personal' ));
@@ -95,7 +96,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 
 	protected function generatePersonalFields() {
 		// first name			
-		$form .= '<tr>';
+		$form = '<tr>';
 		$form .= '<td>' . Xml::label( wfMsg( 'payflowpro_gateway-donor-fname' ), 'fname' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['fname'] . '</span></td>';
@@ -161,10 +162,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 
 	protected function generatePaymentContainerTop() {
 		// credit card info
-		global $wgPayflowGatewayTest;
-		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-payment-info' ));
+		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-payment-info' ));
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-payment' ), wfMsg( 'payflowpro_gateway-cc-form-header-payment' ));
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 
@@ -172,9 +170,12 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 	}
 
 	protected function generatePaymentFields() {
-		global $wgScriptPath;	
-		// amount
-		$form .= '<tr>';
+		global $wgScriptPath, $wgPayflowGatewayTest;
+		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
+		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
+
+	// amount
+		$form = '<tr>';
 		$form .= '<td>' . Xml::label(wfMsg( 'payflowpro_gateway-amount-legend' ), 'amount', array( 'maxlength' => '10' ) ) . '</td>'; 
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'id' => 'amount' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['invalidamount'] . '</span>';

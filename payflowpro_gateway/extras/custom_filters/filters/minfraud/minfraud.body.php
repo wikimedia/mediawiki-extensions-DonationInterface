@@ -10,16 +10,16 @@
 class PayflowProGateway_Extras_CustomFilters_MinFraud extends PayflowProGateway_Extras_MinFraud {
 	static $instance;
 
-	public function validate( &$custom_filter_object ) {
+	public function filter( &$custom_filter_object ) {
 		$pfp_gateway_object =& $custom_filter_object->gateway_object;
 		$data =& $custom_filter_object->gateway_data;
 
 		// see if we can bypass minfraud
-        	if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data )) return TRUE;
+       	if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data )) return TRUE;
 
-	        $minfraud_query = $this->build_query( $data );
-	        $this->query_minfraud( $minfraud_query );
-        	$pfp_gateway_object->action = 'Filter';
+        $minfraud_query = $this->build_query( $data );
+        $this->query_minfraud( $minfraud_query );
+       	$pfp_gateway_object->action = 'Filter';
 
 		$custom_filter_object->risk_score += $this->minfraud_response['riskScore'];
 		
@@ -30,8 +30,8 @@ class PayflowProGateway_Extras_CustomFilters_MinFraud extends PayflowProGateway_
 
 	}
 
-	static function onValidate( &$custom_filter_object ) {
-		return self::singleton()->validate( $custom_filter_object );
+	static function onFilter( &$custom_filter_object ) {
+		return self::singleton()->filter( $custom_filter_object );
 	}
 
 	static function singleton() {
