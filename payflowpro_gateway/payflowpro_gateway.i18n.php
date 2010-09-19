@@ -712,6 +712,7 @@ $messages['bn'] = array(
 	'payflowpro_gateway-error-msg-zip' => 'পোস্টাল কোড',
 	'payflowpro_gateway-error-msg-card_num' => 'ক্রেডিট কার্ড নম্বর',
 	'payflowpro_gateway-submit-button' => 'দান করুন',
+	'payflowpro_gateway-cc-form-header-personal' => 'ব্যক্তিগত তথ্য',
 );
 
 /** Breton (Brezhoneg)
@@ -4141,7 +4142,6 @@ $messages['no'] = array(
 	'payflowprogateway' => 'Støtt Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkortbehandling',
 	'payflowpro_gateway-accessible' => 'Denne siden er bare tilgjengelig fra giversiden.',
-	'payflowpro_gateway-form-message' => 'Sikre kredittkortbidrag.',
 	'payflowpro_gateway-form-message-2' => 'For å endre beløp eller valuta, gå til <a href="/index.php?title=Donate">giversiden</a>',
 	'payflowpro_gateway-donor-legend' => 'Giverinformasjon',
 	'payflowpro_gateway-card-legend' => 'Kredittkortinformasjon',
@@ -4226,6 +4226,8 @@ Vi lagrer ikke din kredittkortinformasjon, og persondata er underlagt våre <a h
 	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
 	'donate_interface-JPY' => 'JPY: Japanske yen',
 	'payflowpro_gateway-token-mismatch' => 'Økten din har utløpt. Prøv å fylle ut og sende inn skjemaet på nytt.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Personlig informasjon',
+	'payflowpro_gateway-cc-form-header-payment' => 'Betalingsinformasjon',
 );
 
 /** Occitan (Occitan)
@@ -4530,7 +4532,7 @@ Noi i memorisoma pa j\'anformassion ëd soa carta ëd crédit, e ij sò dat për
 	'donate_interface-JPY' => 'JPY: Yen Giaponèis',
 	'payflowpro_gateway-token-mismatch' => "Soa session a l'é terminà. Për piasì, ch'a preuva a ampinì e a mandé torna ël formolari.",
 	'payflowpro_gateway-cc-form-header-personal' => 'Anformassion përsonaj',
-	'payflowpro_gateway-cc-form-header-payment' => 'Anformassion dij pagament',
+	'payflowpro_gateway-cc-form-header-payment' => 'Anformassion ëd pagament',
 );
 
 /** Pashto (پښتو)
