@@ -80,7 +80,7 @@ Please contact us to continue your transaction.', // This will not apply to Wiki
 	'payflowpro_gateway-response-125-2' => 'Your credit card could not be validated. Please verify that all provided information matches your credit card profile, or try a different card. You can also use one of our <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a> or contact us at <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Thank you for your support.',
 	'payflowpro_gateway-response-default' => 'There was an error processing your transaction.
 Please try again later.',
-	'php-response-declined' => 'Your transaction has been declined.',
+	'php-response-declined' => 'Your transaction could not be accepted.',
 	'payflowpro_gateway-thankyou' => 'Thank you for your donation!',
 	'payflowpro_gateway-post-transaction' => 'Transaction details',
 	'payflowpro_gateway-submit-button' => 'Donate',

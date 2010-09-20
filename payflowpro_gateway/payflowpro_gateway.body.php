@@ -507,7 +507,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	function fnPayflowGetResponseMsg( $resultCode, &$responseMsg ) {
 		$responseMsg = wfMsg( 'payflowpro_gateway-response-default' );
 		$errorCode = '0';
-
+		
 		switch( $resultCode ) {
 			case '0':
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-0' );
@@ -619,7 +619,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$declinedDefault = wfMsg( 'php-response-declined' );
 
 		// display response message
-		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
+		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
 	}
 
 	/**
@@ -634,7 +634,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$declinedDefault = wfMsg( 'php-response-declined' );
 
 		// display response message
-		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . $responseMsg . '</h3>' );
+		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
 	}
 	
 	function fnPayflowDisplayPending( $data, $responseArray, $responseMsg ) {
@@ -648,6 +648,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// include date
 		$transaction['date'] = time();
 		// send both the country as text and the three digit ISO code
+		$countries = countryCodes();
 		$transaction['country_name'] = $countries[$data['country']];
 		$transaction['country_code'] = $data['country'];
 		// put all data into one array
@@ -799,7 +800,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	public function fnGetFormData( $amount, $numAttempt, $token, $order_id ) {
 		global $wgPayflowGatewayTest, $wgRequest;
-		if ( $wgRequest->getText( 'email' ) && !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
+		if ( !$numAttempt && $wgPayflowGatewayTest ) { // if we're in testing mode, prepopulate the form
 			// define arrays of cc's and cc #s for random selection
 			$cards = array( 'american' );
 			$card_nums = array(
