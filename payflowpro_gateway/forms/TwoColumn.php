@@ -24,6 +24,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 	}
 
 	public function generateFormSubmit() {
+		global $wgScriptPath;
 		// submit button and close form
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )) . 	
@@ -41,11 +42,17 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		}
 			
 		$form .= Xml::closeElement( 'form' );
+
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ));
+		$form .= Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" ));	
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
 		$form .= Xml::tags( 'p', array( 'class' => '' ), 
 				wfMsg( 'payflowpro_gateway-credit-storage-processing' ) ) .
 			Xml::tags( 'p', array( 'class' => ''), 
 				wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::closeElement( 'div' );
 
 		$form .= Xml::closeElement( 'div' );

@@ -62,3 +62,8 @@
 .payflow-cc-form-section #payflowpro_gateway-form-submit {
 	text-align: left;
 }
+
+#payflowpro_gateway-donate-addl-info-secure-logos {
+        float: left;
+        margin-right: 2em;
+}
