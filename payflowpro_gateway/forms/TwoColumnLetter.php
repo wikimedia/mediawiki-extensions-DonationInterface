@@ -24,7 +24,9 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form .= parent::generatePaymentContainerTop();
                 $form .= parent::generatePaymentFields();
                 $form .= Xml::closeElement( 'table' );
-                return $form;
+               	$form .= Xml::closeElement( 'div' ); 
+		$form .= $this->generateCommentFields();
+		return $form;
         }
 
         public function generateFormSubmit() {
@@ -39,8 +41,36 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
                 $form .= Xml::closeElement( 'div' );
                 
-				$form .=Xml::closeElement( 'div' );
-                $form .= Xml::closeElement( 'div' );
+		$form .=Xml::closeElement( 'div' );
                 return $form;
         }
+
+	public function generateCommentFields() {
+		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-comment_form' ));
+		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-comments' ), wfMsg( 'donate_interface-comment-title' ));
+		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-comment' ) );
+
+		//comment
+		$form .= '<tr>';
+		$form .= '<td>' . Xml::label( wfMsg('donate_interface-comment-label'), 'comment' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', '', array( 'maxlength' => '200' )) . '</td>';
+		$form .= '</tr>';
+		
+		// anonymous
+		$form .= '<tr>';
+		$form .= '<td>' . Xml::check( 'comment-option', TRUE ) . '</td>';
+		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' );
+		$form .= '</tr>';
+
+		// email agreement
+		$form .= '<tr>';
+		$form .= '<td>' . Xml::check( 'opt', TRUE ) . '</td>';
+		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-email-agreement' ), 'opt' ) . '</td>';
+		$form .= '</tr>';
+
+		$form .= Xml::closeElement( 'table' );
+		$form .= Xml::closeElement( 'div' );	
+		return $form;
+	}
 }

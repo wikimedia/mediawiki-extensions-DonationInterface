@@ -11,7 +11,8 @@ function payflowUser() {
 			$wgPayflowProUserID,
 			$wgPayflowProPassword,
 			$wgPayflowProURL,
-			$wgPayflowProTestingURL;
+			$wgPayflowProTestingURL,
+			$wgPayflowGatewayTest;
 
 	$payflow_data = array(
 		'partner' => $wgPayflowProPartnerID, // PayPal or original authorized reseller
@@ -23,7 +24,7 @@ function payflowUser() {
 		'trxtype' => 'S', // transaction type - all donations are a sale
 		'tender' => 'C', // credit card - all transactions in this case are credit cards
 		'verbosity' => 'MEDIUM', // level of detail in Payflow response
-		'user_ip' => $_SERVER['REMOTE_ADDR'], // current user's IP address
+		'user_ip' => ( $wgPayflowGatewayTest ) ? '12.12.12.12' : wfGetIP(), // current user's IP address
 		'order_id' => (double) microtime() * 1000000 . mt_rand(), // Generate random order number
 	);
 

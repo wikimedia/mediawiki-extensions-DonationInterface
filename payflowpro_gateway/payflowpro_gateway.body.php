@@ -383,7 +383,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$queryString = implode( '&', $query );
 
 		$payflow_query = $queryString;
-
+		
 		// assign header data necessary for the curl_setopt() function
 		$user_agent = Http::userAgent();
 		$headers[] = 'Content-Type: text/namevalue';
@@ -459,7 +459,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		 */
 		$result_arr = explode( "&", $result );
 		foreach ( $result_arr as $result_pair ) {
-			list( $key, $value ) = split( "=", $result_pair );
+			list( $key, $value ) = preg_split( "/=/", $result_pair );
 			$responseArray[ $key ] = $value;
 		}
 	
