@@ -5642,7 +5642,6 @@ $messages['tl'] = array(
 	'payflowprogateway' => 'Tangkilikin ang Wikimedia',
 	'payflowpro_gateway-desc' => 'Pagsasagawa ng tarheng pang-utang ng PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Mapupuntahan lamang ang pahinang ito mula sa pahina ng pag-aabuloy.',
-	'payflowpro_gateway-form-message' => 'Mag-abuloy sa pamamagitan ng iyong tarhetang pang-utang.',
 	'payflowpro_gateway-form-message-2' => 'Upang mabago ang halaga o karaniwang salapi, bumalik sa <a href="/index.php?title=Donate">pahina ng donasyon</a>',
 	'payflowpro_gateway-donor-legend' => 'Kabatirang pangnag-abuloy',
 	'payflowpro_gateway-card-legend' => 'Kabatirang pangtarhetang pang-utang',
@@ -5686,6 +5685,8 @@ $messages['tl'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'bilang na pangtarhetang pang-utang',
 	'payflowpro_gateway-error-msg-expiration' => 'petsa ng wakas ng tarheta',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV mula sa likod ng tarheta mo',
+	'payflowpro_gateway-error-msg-captcha' => 'Hindi tama ang halaga ng Captcha na ipinasok mo.  Pakisubukan uli.',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Para sa kaligtasan ng iyong tarhetang pang-utang, paki makinilya ang mga panitik na nakikita mo sa itaas.',
 	'payflowpro_gateway-response-0' => 'Napayagan na ang transaksyon mo.
 Salamat sa abuloy mo!',
 	'payflowpro_gateway-response-126' => 'Naghihintay ng pahintulot ang transaksyon mo.',
@@ -5714,16 +5715,19 @@ Karaniwang mayroong magkakasunod na mga bilang ang panig ng lagda, subalit ang t
 <h4>American Express</h4>
 <p>Ang kodigo ay <i>palaging</i> nakalagay sa <i>ibabaw</i> ng nakalilok (nakaangat) na bilang na pang-akawnt sa ibabaw ng harapan ng tarheta.
 Sa ilang mga pagkakataon, nakalagay ang kodigo sa kaliwang gilid ng tarheta, subalit palaging nasa itaas ng bilang na pang-akawnt.</p><br />',
-	'payflowpro_gateway-question-comment' => 'Ang Wikipedia ay isang proyekto ng Pundasyong Wikimedia.  May mga tanong o puna?  Makipag-ugnayan sa Pundasyong Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Magtatanong o pupuna?  Makipag-ugnayan sa: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Pagkaraang pindutin ang "{{int:payflowpro_gateway-donor-submit}}", isasagawa na ang iyong kabatiran na pangtarheta ng pangungutang.',
-	'payflowpro_gateway-credit-storage-processing' => 'May <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">iba pang paraang ng pagbibigay, kabilang ang PayPal, tseke, o liham</a>.
-Hindi namin itinatabi ang iyong kabatiran na pangtarhetang pang-utang, at ang iyong datong pansarili ay nasa ilalim ng <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">patakaran sa pagiging pribado</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'May <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">iba pang paraang ng pagbibigay, kabilang ang PayPal, tseke, o liham</a>.<br />
+Hindi namin itinatabi ang iyong kabatiran na pangtarhetang pang-utang, at ang iyong datong pansarili ay nasa ilalim ng <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">patakaran ng pagkapribado</a>.',
 	'donate_interface-GBP' => 'GBP: Libra ng Britanya',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolyar ng Estados Unidos',
 	'donate_interface-AUD' => 'AUD: Dolyar ng Australia',
 	'donate_interface-CAD' => 'CAD: Doyar ng Kanada',
 	'donate_interface-JPY' => 'JPY: Yen ng Hapon',
+	'payflowpro_gateway-token-mismatch' => 'Nagwakas na ang laang oras para sa iyo.  Mangyaring paki subukang punan at ipasang muli ang pormularyo.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Kabatirang pangsarili',
+	'payflowpro_gateway-cc-form-header-payment' => 'Kabatiran sa pagbabayad',
 );
 
 /** Turkish (Türkçe)
