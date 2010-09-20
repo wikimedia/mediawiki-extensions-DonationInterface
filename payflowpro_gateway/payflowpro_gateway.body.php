@@ -352,7 +352,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * 						include in string (i.e. Vendor, password)
 	 */
 	private function fnPayflowProcessTransaction( $data, $payflow_data ) {
-		global $wgOut, $wgDonationTestingMode;
+		global $wgOut, $wgDonationTestingMode, $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy;
 
 		// create payflow query string, include string lengths
 		$queryArray = array(
@@ -404,6 +404,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST,  2 );
 		curl_setopt( $ch, CURLOPT_FORBID_REUSE, true ); 
 		curl_setopt( $ch, CURLOPT_POST, 1 );
+
+		// set proxy settings if necessary
+		if ( $wgPayflowGatewayUseHTTPProxy ) {
+			curl_setopt( $ch, CURLOPT_HTTPPROXYTUNNEL, 1 );
+			curl_setopt( $ch, CURLOPT_PROXY, $wgPayflowGatewayHTTPProxy );
+		}
 
 		// As suggested in the PayPal developer forum sample code, try more than once to get a response
 		// in case there is a general network issue 

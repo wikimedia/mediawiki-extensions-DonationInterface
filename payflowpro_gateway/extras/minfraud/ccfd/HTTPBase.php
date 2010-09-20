@@ -238,6 +238,8 @@ class HTTPBase{
 
   // this function queries a single server
   function querySingleServer($server) {
+    global $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy;
+    
     // check if we using the Secure HTTPS proctol
     if ($this->isSecure == 1) {
       $scheme = "https://";  // Secure HTTPS proctol
@@ -297,6 +299,12 @@ class HTTPBase{
       //this option lets you store the result in a string 
       curl_setopt($ch, CURLOPT_POST,          1);
       curl_setopt($ch, CURLOPT_POSTFIELDS,    $query_string);
+
+      // set proxy settings if necessary
+      if ( $wgPayflowGatewayUseHTTPProxy ) {
+        curl_setopt( $ch, CURLOPT_HTTPPROXYTUNNEL, 1 );
+        curl_setopt( $ch, CURLOPT_PROXY, $wgPayflowGatewayHTTPProxy );
+      }
 
       //get the content
       $content = curl_exec($ch);

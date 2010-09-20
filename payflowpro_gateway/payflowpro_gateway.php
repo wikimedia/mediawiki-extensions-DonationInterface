@@ -72,6 +72,19 @@ $wgPayflowGatewayDBpassword = $wgDBpassword;
  */
 $wgPayflowGatewayHeader = NULL;
 
+/**
+ * Proxy settings
+ * 
+ * If you need to use an HTTP proxy for outgoing traffic,
+ * set wgPayflowGatweayUseHTTPProxy=TRUE and set $wgPayflowGatewayHTTPProxy
+ * to the proxy desination.  
+ *  eg:
+ *  $wgPayflowGatewayUseHTTPProxy=TRUE;
+ *  $wgPayflowGatewayHTTPProxy='192.168.1.1:3128'
+ */
+$wgPayflowGatewayUseHTTPProxy = FALSE;
+$wgPayflowGatewayHTTPProxy = '';
+
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
 	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
