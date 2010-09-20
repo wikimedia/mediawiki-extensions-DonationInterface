@@ -8,6 +8,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
                 // add form-specific css
                 $wgOut->addExtensionStyle( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css');
+	
+		$this->updateHiddenFields();
         }
 
         public function generateFormBody() {
@@ -72,5 +74,17 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= Xml::closeElement( 'table' );
 		$form .= Xml::closeElement( 'div' );	
 		return $form;
+	}
+
+	/**
+	 * Update hidden fields to not set any comment-related fields
+	 */
+	public function updateHiddenFields() {
+		$hidden_fields = $this->getHiddenFields();
+		$not_needed = array( 'comment-option', 'email', 'comment' );
+		foreach ( $not_needed as $field ) {
+			unset( $hidden_fields[ $field ] );
+		}
+		$this->setHiddenFields( $hidden_fields );
 	}
 }
