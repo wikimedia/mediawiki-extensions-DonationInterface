@@ -27,8 +27,9 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		global $wgScriptPath;
 		// submit button and close form
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )) . 	
-				Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )); 	
+		//$form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
+		$form .= Xml::openElement( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'form.submit()'));
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			wfMsg( 'payflowpro_gateway-donate-click' ); 

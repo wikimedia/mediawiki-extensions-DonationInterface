@@ -67,3 +67,22 @@
         float: left;
         margin-right: 2em;
 }
+
+.button-navyblue {
+	background-image:url("http://upload.wikimedia.org/wikipedia/commons/0/06/Button-wavy-blue.png");
+	color:#FFFFFF;
+}
+
+.input-button {
+	background-color:transparent;
+	background-repeat:no-repeat;
+	border:medium none;
+	font-family:helvetica,impact,sans-serif;
+	font-size:1.4em;
+	font-weight:bold;
+	height:44px;
+	margin:0;
+	text-align:center;
+	vertical-align:middle;
+	width:204px;
+}

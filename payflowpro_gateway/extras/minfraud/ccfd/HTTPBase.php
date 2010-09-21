@@ -216,7 +216,7 @@ class HTTPBase{
         while (!feof($fp)) {
           $buf .= fgets($fp, 128);
         }
-        $lines = split("\n", $buf);
+        $lines = preg_split("/\n/", $buf);
         // get the content
         $content = $lines[count($lines)-1];
         //close the connection
@@ -230,7 +230,7 @@ class HTTPBase{
       print "readIpAddressFromWeb found ip addresses: " . $content . "\n";
     }
     // TODO fix regexp so that it checks if it only has IP addresses
-    if (ereg ("([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})",$content)) {
+    if (preg_match("/([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/",$content)) {
       return $content;
     } 
     return "";
@@ -357,7 +357,7 @@ class HTTPBase{
           while (!feof($fp)) {
             $buf .= fgets($fp, 128);
           }
-          $lines = split("\n", $buf);
+          $lines = preg_split("/\n/", $buf);
           // get the content
           $content = $lines[count($lines)-1];
           //close the connection
