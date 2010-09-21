@@ -275,7 +275,6 @@ $messages['aln'] = array(
 	'payflowprogateway' => 'Asistenca Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal kartë krediti të përpunimit Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Kjo faqe është i arritshëm vetëm nga faqja e dhurimit.',
-	'payflowpro_gateway-form-message' => 'Jepni kontributin tuaj me kartë krediti.',
 	'payflowpro_gateway-form-message-2' => 'Për të ndryshuar sasinë ose valutë, të kthehen në <a href="/index.php?title=Donate">faqen donacion</a>',
 	'payflowpro_gateway-donor-legend' => 'informacionin e Donatorëve',
 	'payflowpro_gateway-card-legend' => 'informacion Credit card',
@@ -1314,10 +1313,12 @@ Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
 	'payflowpro_gateway-response-125-2' => 'Ihre Kreditkarte kann nicht geprüft werden. Bitte bestätigen Sie, dass alle Informationen mit Ihrem Kreditkartenprofil übereinstimmen oder versuchen Sie es mit einer anderen Karte. Sie können auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktieren Sie uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
 	'payflowpro_gateway-response-default' => 'Es ist ein Verarbeitungsfehler aufgetreten.
 Bitte versuchen Sie es später noch einmal.',
-	'php-response-declined' => 'Ihre Transaktion wurde abgewiesen.',
+	'php-response-declined' => 'Ihre Transaktion konnte nicht akzeptiert werden.',
 	'payflowpro_gateway-thankyou' => 'Vielen Dank für Ihre Spende!',
 	'payflowpro_gateway-donate-click' => 'Nach dem Klick auf „{{int:payflowpro_gateway-donor-submit}}“ werden Ihre Kreditkarteninformationen verarbeitet.',
-	'payflowpro_gateway-credit-storage-processing' => 'Wir speichern nicht Ihre Kreditkarteninformationen und Ihre persönlichen Daten unterliegen unserer <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">Datenschutzerklärung</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/Ways_to_Give/en">andere Wege zu Spenden, einschließlich PayPal, Scheck oder Überweisung</a>.
+Wir speichern Ihre Kreditkarteninformationen nicht, und Ihre persönlichen Daten unterliegen unseren <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Datenschutzbestimmungen</a>.',
+	'payflowpro_gateway-token-mismatch' => 'Ihre Sitzung ist inzwischen abgelaufen. Bitte füllen Sie das Formular erneut aus und senden Sie es nochmals ab.',
 );
 
 /** Zazaki (Zazaki)
@@ -4082,7 +4083,6 @@ $messages['nn'] = array(
 	'payflowprogateway' => 'Støtt Wikimedia',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkorthandsaming',
 	'payflowpro_gateway-accessible' => 'Denne sida er berre tilgjengeleg frå sida for gåver.',
-	'payflowpro_gateway-form-message' => 'Gje gjennom kredittkortet ditt.',
 	'payflowpro_gateway-card-legend' => 'Kredittkortinformasjon',
 	'payflowpro_gateway-amount-legend' => 'Gåvebeløp:',
 	'payflowpro_gateway-cvv-link' => 'Døme',
@@ -4947,7 +4947,7 @@ $messages['ru'] = array(
 	'payflowpro_gateway-cc-form-header-payment' => 'Информация об оплате',
 );
 
-/** Rusyn (русиньскый язык)
+/** Rusyn (Русиньскый)
  * @author Gazeb
  */
 $messages['rue'] = array(
@@ -5808,7 +5808,6 @@ $messages['tt-cyrl'] = array(
 	'payflowprogateway' => 'Викимедиа проектына ярдәм итү',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro кредит карталарын куллану',
 	'payflowpro_gateway-accessible' => 'Бу сәхифә бары тик ярдәм җыю битендә генә ачыла.',
-	'payflowpro_gateway-form-message' => 'Үзегезнең  кредит картыгыз ярдәмендә иганә ясагыз.',
 	'payflowpro_gateway-form-message-2' => 'Акчаның күләмен яки акча берәмлеген алмаштыру өчен <a href="/index.php?title=Donate">иганәләр битенә кайтыгыз</a>',
 	'payflowpro_gateway-donor-legend' => 'Иганә турында мәгълүмат',
 	'payflowpro_gateway-card-legend' => 'Крдеит картасы турында мәгълүмат',
