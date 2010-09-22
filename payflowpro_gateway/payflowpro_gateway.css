@@ -48,13 +48,6 @@
 	text-align: left;
 }
 
-/*
-#payflow-table-donor label {
-	text-align: right;
-	display: block;
-}
-*/
-
 #payflowpro_gateway-donate-addl-info {
 	clear: both;
 }
@@ -85,4 +78,8 @@
 	text-align:center;
 	vertical-align:middle;
 	width:204px;
+}
+
+#ca-special {
+	display: none;
 }

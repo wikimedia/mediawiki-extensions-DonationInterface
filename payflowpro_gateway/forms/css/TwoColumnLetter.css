@@ -32,3 +32,12 @@
 	float: left;
 	margin-right: 2em;
 }
+
+#payflowpro_gateway-cc_form_letter_inside {	
+	padding-top: .5em;
+}
+
+#payflowpro_gateway-cc_otherways {
+	padding-top: .5em;
+	display: block;
+}

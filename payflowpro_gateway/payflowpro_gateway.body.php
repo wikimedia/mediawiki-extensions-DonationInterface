@@ -57,9 +57,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$this->fnPayflowEnsureSession();
 		$this->setHeaders();
 		
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
-				     $wgScriptPath . 
- 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 
 		$wgOut->addExtensionStyle( 
 			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?" . 
@@ -155,7 +152,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 						// expose a hook for external handling of trxns ready for processing
 						wfRunHooks( 'PayflowGatewayProcess', array( &$this, &$data ));
 						$this->fnPayflowProcessTransaction( $data, $payflow_data );
-						$this->fnPayflowUnsetEditToken();
 					}
 
 					// expose a hook for any post processing
@@ -181,8 +177,13 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * The message at the top of the form can be edited in the payflow_gateway.i18.php file
 	 */
 	public function fnPayflowDisplayForm( &$data, &$error ) {
-		global $wgOut;
+		global $wgOut, $wgScriptPath;
 		
+		// we only want to load this JS if the form is being rendered
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
+				     $wgScriptPath . 
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+
 		// save contrib tracking id early to track abondonment
 		if ( $data[ 'numAttempt' ] == '0' ) {
 			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
@@ -559,7 +560,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-default' );
 				$errorCode = '4';
 		}
-
+		
 		return $errorCode;
 	} 
 
@@ -611,6 +612,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			// if we want to show the response
 			$wgOut->addHTML( Xml::buildTable( $rows, array( 'class' => 'submitted-response' ) ) );
 		}
+		// unset edit token
+		$this->fnPayflowUnsetEditToken();
 	}
 
 	/**
@@ -626,6 +629,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+		
+		// unset edit token
+		$this->fnPayflowUnsetEditToken();
 	}
 
 	/**
@@ -641,6 +647,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// display response message
 		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+		
+		// unset edit token
+		$this->fnPayflowUnsetEditToken();
 	}
 	
 	function fnPayflowDisplayPending( $data, $responseArray, $responseMsg ) {
@@ -669,6 +678,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$wgOut->addHTML( '<h2 class="response_message">' . $thankyou . '</h2>' );
 		$wgOut->addHTML( '<p>' . $responseMsg );
 
+		// unset edit token
+		$this->fnPayflowUnsetEditToken();
 	}
 	
 	function fnPayflowSaveContributionTracking( &$data ) {

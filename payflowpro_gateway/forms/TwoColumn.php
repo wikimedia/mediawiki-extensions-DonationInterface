@@ -29,7 +29,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )); 	
 		//$form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
-		$form .= Xml::openElement( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'form.submit()'));
+		$form .= Xml::openElement( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'form.submit()', 'type' => 'submit'));
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			wfMsg( 'payflowpro_gateway-donate-click' ); 
@@ -50,10 +50,9 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));	
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), 
-				wfMsg( 'payflowpro_gateway-credit-storage-processing' ) ) .
-			Xml::tags( 'p', array( 'class' => ''), 
-				wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
+		$form .= Xml::tags( 'p', array( 'class' => ''), wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::closeElement( 'div' );
 
@@ -210,12 +209,6 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card_num'] . '</span></td>';
 		$form .= '</tr>';
 		
-		// card error
-		$form .= '<tr>';
-		$form .= '<td></td>';
-		$form .= '<td>' . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card'] . '</span></td>';
-		$form .= '</tr>';
-
 		// expiry
 		$form .= '<tr>';
 		$form .= '<td>' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';

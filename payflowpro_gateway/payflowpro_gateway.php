@@ -85,6 +85,28 @@ $wgPayflowGatewayHeader = NULL;
 $wgPayflowGatewayUseHTTPProxy = FALSE;
 $wgPayflowGatewayHTTPProxy = '';
 
+/** 
+ * Hooks required to interface with the donation extension (include <donate> on page)
+ *
+ * gwValue supplies the value of the form option, the name that appears on the form
+ * and the currencies supported by the gateway in the $values array
+ */
+$wgHooks['DonationInterface_Value'][] = 'pfpGatewayValue';
+$wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
+$wgUseAjax = true;
+$wgAjaxExportList[] = 'efPayflowGatewayCheckSession';
+
+/**
+ * Return whether or not payflowEditToken is set in the session
+ */
+function efPayflowGatewayCheckSession() {
+	$token_set = ( isset( $_SESSION[ 'payflowEditToken' ] )) ? 'yes' : 'no';
+	$ajax = new AjaxResponse( $token_set );
+	// if we don't explicitly set the content type, things break
+	$ajax->setContentType( 'text/plain' );
+	return $ajax;
+}
+
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
 	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
@@ -103,14 +125,6 @@ function payflowGatewayConnection() {
 	return $db;
 }
 
-/** 
- * Hooks required to interface with the donation extension (include <donate> on page)
- *
- * gwValue supplies the value of the form option, the name that appears on the form
- * and the currencies supported by the gateway in the $values array
- */
-$wgHooks['DonationInterface_Value'][] = 'pfpGatewayValue';
-$wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
 
 /**
  * Hook to register form value and display name of this gateway

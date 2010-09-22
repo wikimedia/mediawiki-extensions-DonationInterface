@@ -1,5 +1,28 @@
 //<![CDATA[
 
+function addEvent(obj, evType, fn){ 
+	if (obj.addEventListener){ 
+		obj.addEventListener(evType, fn, false); 
+		return true; 
+	} else if (obj.attachEvent){ 
+		var r = obj.attachEvent("on"+evType, fn); 
+		return r; 
+	} else { 
+		return false; 
+	} 
+}
+addEvent( window, 'load', getIfSessionSet );
+
+function getIfSessionSet() {
+	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
+}
+
+function checkSession( request ) {
+	if ( request.responseText == "no" ) {
+		window.location = document.location.href;
+	}
+}
+
 function validate_form( form ) {
 	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv', 'Amount' ];
 
@@ -66,5 +89,4 @@ function CloseCVV() {
 }
 
 window.onfocus = CloseCVV; 
-
 //]]>

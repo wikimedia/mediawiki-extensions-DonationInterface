@@ -2,7 +2,7 @@
 
 class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoColumn {
 
-        public function __construct( &$form_data, &$form_errors ) {
+		public function __construct( &$form_data, &$form_errors ) {
                 global $wgOut, $wgScriptPath;
                 parent::__construct( $form_data, $form_errors );
 
@@ -19,7 +19,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
                 
                 $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
-                $form .= parent::generatePersonalContainerTop();
+				$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-otherways' ));
+				$form .= parent::generatePersonalContainerTop();
                 $form .= parent::generatePersonalFields();
                 $form .= Xml::closeElement( 'table' );
                 $form .= Xml::closeElement( 'div' );
@@ -36,11 +37,12 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
                 $form = parent::generateFormSubmit();  
 
                 $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
-
+				$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
                 $text_template = $wgRequest->getText( 'text_template' );
                 if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $wgRequest->getText( 'language' );
                 
                 $form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
+				$form .= Xml::closeElement( 'div' );
                 $form .= Xml::closeElement( 'div' );
                 
 		$form .=Xml::closeElement( 'div' );
