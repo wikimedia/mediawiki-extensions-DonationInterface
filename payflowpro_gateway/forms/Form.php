@@ -233,7 +233,7 @@ abstract class PayflowProGateway_Form {
 			global $wgRequest;
 
 			$hidden_fields =  array(
-				'utm_source' => $this->form_data[ 'utm_source' ] . $wgRequest->getText( 'utm_source_id' ),
+				'utm_source' => $this->form_data[ 'utm_source' ],
 				'utm_medium' => $this->form_data[ 'utm_medium' ],
 				'utm_campaign' => $this->form_data[ 'utm_campaign' ],
 		 		'language' => $this->form_data[ 'language' ],

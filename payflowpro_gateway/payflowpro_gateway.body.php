@@ -886,7 +886,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'order_id' => $order_id,
 				'numAttempt' => $numAttempt,
 				'referrer' => $wgRequest->getText( 'referrer' ),
-				'utm_source' => $wgRequest->getText( 'utm_source' ),
+				'utm_source' => $this->getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				'language' => $wgRequest->getText( 'language' ),
@@ -920,5 +920,45 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'zip' => '',
 			'emailAdd' => '',
 		);
+	}
+
+	/**
+	 * Get the utm_source string
+	 *
+	 * Checks to see if the utm_source is set properly for the credit card
+	 * form including any cc form variants (identified by utm_source_id).  If
+	 * anything cc form related is out of place for the utm_source, this
+	 * will fix it.
+	 *
+	 * @return string The full utm_source
+	 */
+	public function getUtmSource() {
+		global $wgRequest;
+
+		// fetch whatever was passed in as the utm_source
+		$utm_source = $wgRequest->getText( 'utm_source' );
+		
+		// split the utm_source into its parts for closer examination
+		$source_parts = explode( ".", $utm_source );
+
+		$cc_match = false;
+		$utm_source_id = $wgRequest->getVal( 'utm_source_id' );
+
+		// check the utm_source bits to see if cc has been added yet
+		foreach ( $source_parts as $key => $value ) {
+			if ( preg_match( '/^cc/', $value ) ) {
+				// append utm_source_id if we have it
+				$source_parts[ $key ] = 'cc' . $utm_source_id;
+				$cc_match = true;
+				break;
+			}
+		}
+
+		// if cc hasn't been added yet, add it with the utm_source_id
+		if ( !$cc_match ) {
+			$source_parts[] = 'cc' . $utm_source_id;
+		}
+
+		return implode( ".", $source_parts );
 	}
 } // end class
