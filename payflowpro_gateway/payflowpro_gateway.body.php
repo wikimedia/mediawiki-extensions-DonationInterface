@@ -355,6 +355,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	private function fnPayflowProcessTransaction( $data, $payflow_data ) {
 		global $wgOut, $wgDonationTestingMode, $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy;
 
+		// update contribution tracking
+		$this->updateContributionTracking( $data );
+
 		// create payflow query string, include string lengths
 		$queryArray = array(
 			'TRXTYPE' => $payflow_data['trxtype'],
@@ -892,7 +895,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'language' => $wgRequest->getText( 'language' ),
 				'comment' => $wgRequest->getText( 'comment' ),
 				'anonymous' => $wgRequest->getText( 'comment-option' ),
-				'optout' => $wgRequest->getText( 'email' ),
+				'optout' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ), //for showing payflow string during testing
 				'token' => $token,
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
@@ -960,5 +963,53 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		}
 
 		return implode( ".", $source_parts );
+	}
+
+	public function updateContributionTracking( $data ) {
+		/**
+		 * if we're not coming from the regular cc form, fix optout/anonymous
+		 *
+		 * @fixme This is a bad hack being pushed out for a time-sensitive update
+		 *   and this will only work as expected for a particular configuartion/usecase
+		 *   Overall this is fine, but the $data['optout'] and $data['anonymous']
+		 *   handling is... bad.
+		 */
+		$fix_optouts = false;
+		$source_parts = explode(".", $data[ 'utm_source' ] );
+		foreach ( $source_parts as $value ) {
+			if ( preg_match( "/cc[0-9]/", $value )) {
+				$fix_optouts = true;
+			}
+		}
+		if ( !$fix_optouts ) {
+			return;
+		}
+		
+		$data['optout'] = ($data['optout'] == "1") ? '0' : '1';
+		$data['anonymous'] = ($data['anonymous'] == "1") ? '0' : '1';
+		
+		$db = payflowGatewayConnection();
+			
+		if (!$db) { return true ; }
+
+		$tracked_contribution = array(
+			'note' => $data['comment'],
+			'referrer' => $data['referrer'],
+			'anonymous' => $data['anonymous'],
+			'utm_source' => $data['utm_source'],
+			'utm_medium' => $data['utm_medium'],
+			'utm_campaign' => $data['utm_campaign'],
+			'optout' => $data['optout'],
+			'language' => $data['language'],
+		);
+		
+		// Make all empty strings NULL
+		foreach ($tracked_contribution as $key => $value) {
+			if ($value === '') {
+				$tracked_contribution[$key] = null;
+			}
+		}
+
+		$db->update( 'contribution_tracking', $tracked_contribution, array( 'id' => $data[ 'contribution_tracking_id' ] ));
 	}
 } // end class

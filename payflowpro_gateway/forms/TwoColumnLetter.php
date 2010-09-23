@@ -69,8 +69,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 		// email agreement
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::check( 'opt', TRUE ) . '</td>';
-		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-email-agreement' ), 'opt' ) . '</td>';
+		$form .= '<td>' . Xml::check( 'email-opt', TRUE ) . '</td>';
+		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-email-agreement' ), 'email-opt' ) . '</td>';
 		$form .= '</tr>';
 
 		$form .= Xml::closeElement( 'table' );

@@ -192,7 +192,7 @@ function fnDonateCreateOutput() {
         Xml::checkLabel( wfMsg( 'donate_interface-anon-message' ), 'comment-option', 'input_comment-option', TRUE ) . 
         Xml::closeElement( 'div' ) .
         Xml::openElement( 'div', array( 'id' => 'mw-donation-checkbox' )) .
-        Xml::check( 'email', TRUE ) .
+        Xml::check( 'email-opt', TRUE ) .
         Xml::tags( 'span', array( 'class' => 'mw-email-agreement' ), wfMsg( 'donate_interface-email-agreement' )) .
         Xml::closeElement( 'div' );
         
