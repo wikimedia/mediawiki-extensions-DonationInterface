@@ -888,7 +888,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'order_id' => $order_id,
 				'numAttempt' => $numAttempt,
-				'referrer' => ( $wgRequest->getVal( 'referrer' )) ? $wgReqeust->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
+				'referrer' => ( $wgRequest->getVal( 'referrer' )) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => $this->getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
