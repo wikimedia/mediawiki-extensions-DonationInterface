@@ -268,7 +268,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	}
 
 	static function onValidate( &$pfp_gateway_object, &$data ) {
-		return self::singleton()->validate( &$pfp_gateway_object, &$data );
+		return self::singleton()->validate( $pfp_gateway_object, $data );
 	}
 
 	static function singleton() {
