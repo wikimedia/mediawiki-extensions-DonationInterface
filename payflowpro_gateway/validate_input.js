@@ -61,6 +61,12 @@ function validate_form( form ) {
 	return true;
 }
 
+function submit_form( ccform ) {
+	if ( validate_form( ccform )) {
+		ccform.submit();
+	}
+	return true;
+}
 
 function disableStates( form ) {
 
