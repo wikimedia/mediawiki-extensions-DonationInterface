@@ -965,7 +965,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		return implode( ".", $source_parts );
 	}
 
-	public function updateContributionTracking( $data ) {
+	public function updateContributionTracking( &$data ) {
 		/**
 		 * if we're not coming from the regular cc form, fix optout/anonymous
 		 *
