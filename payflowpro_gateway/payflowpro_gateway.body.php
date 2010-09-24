@@ -180,7 +180,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgOut, $wgScriptPath;
 		
 		// we only want to load this JS if the form is being rendered
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" language="javascript" src="' . 
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
 				     $wgScriptPath . 
  				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 
