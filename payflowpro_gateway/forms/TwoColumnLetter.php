@@ -64,7 +64,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		// anonymous
 		$form .= '<tr>';
 		$form .= '<td>' . Xml::check( 'comment-option', TRUE ) . '</td>';
-		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' );
+		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
 		// email agreement
