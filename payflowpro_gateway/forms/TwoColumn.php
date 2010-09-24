@@ -35,7 +35,6 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 			wfMsg( 'payflowpro_gateway-donate-click' ); 
 		$form .= Xml::closeElement( 'div' );
 		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
 		// add hidden fields			
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
