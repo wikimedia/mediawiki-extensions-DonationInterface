@@ -193,7 +193,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td />';
-		$form .= '<td>' . Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
+		$form .= '<td>' . Xml::tags( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
 		$form .= '</tr>';
 		
 		// credit card type
