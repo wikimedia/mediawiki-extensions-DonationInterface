@@ -45,7 +45,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 				$form .= Xml::closeElement( 'div' );
                 $form .= Xml::closeElement( 'div' );
                 
-		$form .=Xml::closeElement( 'div' );
                 return $form;
         }
 
