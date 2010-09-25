@@ -26,8 +26,9 @@ abstract class PayflowProGateway_Form {
 	 */
 	public $form_errors;
 
-	abstract public function generateFormBody();
+	abstract public function generateFormStart();
 	abstract public function generateFormSubmit();
+	abstract public function generateFormEnd();
 	
 	public function __construct( &$data, &$error ) {
 		global $wgPayflowGatewayTest;
@@ -35,6 +36,26 @@ abstract class PayflowProGateway_Form {
 		$this->test = $wgPayflowGatewayTest;
 		$this->form_data =& $data;
 		$this->form_errors =& $error;
+	}
+	
+	/**
+	 * Generates the donation footer ("There are other ways to give...")
+	 * @returns string of HTML
+	 */
+	public function generateDonationFooter() {
+		global $wgScriptPath;
+		$form = '';
+		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ));
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));	
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
+		$form .= Xml::tags( 'p', array( 'class' => ''), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
+		return $form;
 	}
 	
 	/**

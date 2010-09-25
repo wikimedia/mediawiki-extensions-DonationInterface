@@ -12,41 +12,47 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$this->updateHiddenFields();
         }
 
-        public function generateFormBody() {
-                global $wgOut, $wgRequest;
-                $form = parent::generateBannerHeader();
-                
-                $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
-                
-                $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
-				$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-otherways' ));
-				$form .= parent::generatePersonalContainerTop();
-                $form .= parent::generatePersonalFields();
-                $form .= Xml::closeElement( 'table' );
-                $form .= Xml::closeElement( 'div' );
-                $form .= parent::generatePaymentContainerTop();
-                $form .= parent::generatePaymentFields();
-                $form .= Xml::closeElement( 'table' );
-               	$form .= Xml::closeElement( 'div' ); 
+	public function generateFormStart() {
+		global $wgOut, $wgRequest;
+		$form = parent::generateBannerHeader();
+		
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
+		
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
+		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		$form .= parent::generatePersonalContainer();
+		$form .= parent::generatePaymentContainer();
 		$form .= $this->generateCommentFields();
 		return $form;
-        }
+	}
+        
+	public function generateFormEnd() {
+		global $wgRequest, $wgOut;
+		$form = '';
+		// add hidden fields			
+		$hidden_fields = $this->getHiddenFields();
+		foreach ( $hidden_fields as $field => $value ) {
+			$form .= Xml::hidden( $field, $value );
+		}
+			
+		$form .= Xml::closeElement( 'form' );
 
-        public function generateFormSubmit() {
-                global $wgRequest, $wgOut;
-                $form = parent::generateFormSubmit();  
+		$form .= $this->generateDonationFooter();
 
-                $form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
-				$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
-                $text_template = $wgRequest->getText( 'text_template' );
-                if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $wgRequest->getText( 'language' );
-                
-                $form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
-				$form .= Xml::closeElement( 'div' );
-                $form .= Xml::closeElement( 'div' );
-        		$form .= Xml::closeElement( 'div' );
-                return $form;
-        }
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
+
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
+		$text_template = $wgRequest->getText( 'text_template' );
+		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $wgRequest->getText( 'language' );
+		
+		$form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
+		$form .= Xml::closeElement( 'div' );
+		$form .= Xml::closeElement( 'div' );
+		return $form;
+	}
 
 	public function generateCommentFields() {
 		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-comment_form' ));

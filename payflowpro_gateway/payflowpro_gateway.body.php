@@ -194,8 +194,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	
 		$form_class = $this->getFormClass();
 		$form_obj = new $form_class( $data, $error );  	
-		$form = $form_obj->generateFormBody();
+		$form = $form_obj->generateFormStart();
 		$form .= $form_obj->generateFormSubmit();
+		$form .= $form_obj->generateFormEnd();
 		$wgOut->addHTML( $form );
 	}
 
