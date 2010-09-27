@@ -25,7 +25,11 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 		// a very complex filtering algorithm for sources
 		global $wgCustomFiltersSrcRules;
 		foreach ( $wgCustomFiltersSrcRules as $regex => $risk_score_modifier ) {
-			if( preg_match( "/$regex/", $source )) {
+			/**
+			 * Note that regex pattern does not include delimiters.
+			 * These will need to be included your custom regex patterns.
+			 */
+			if( preg_match( "$regex", $source )) {
 				$this->cfo->risk_score += $risk_score_modifier;
 		
 				// log it

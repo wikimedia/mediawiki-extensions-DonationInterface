@@ -3,18 +3,22 @@
 class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 
 	public function __construct( &$form_data, &$form_errors ) {
+		global $wgOut, $wgScriptPath;
+		
 		parent::__construct( $form_data, $form_errors );
+		
+		// we only want to load this JS if the form is being rendered
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
+				     $wgScriptPath . 
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 	}
 	
 	public function generateFormStart() {
 		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
 		$form = $this->generateBannerHeader();
 		
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); /*.
-			Xml::openElement( 'div', array( 'id' => 'mw-creditcard-intro' ) ) .
-			Xml::tags( 'p', array( 'class' => 'mw-creditcard-intro-msg' ), wfMsg( 'payflowpro_gateway-form-message' ) ) .
-			Xml::closeElement( 'div' );*/
-	
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
+		
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
 			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
@@ -30,6 +34,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 
 		// open form
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
+		
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
@@ -103,13 +108,6 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['fname'] . '</span></td>';
 		$form .= "</tr>";
-
-		/*// middle name
-		$form .= '<tr>';
-		$form .= '<td>' . Xml::label( wfMsg( 'payflowpro_gateway-donor-mname' ), 'mname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'mname', '30', $this->form_data['mname'], array( 'maxlength' => '15', 'id' => 'mname' ) ) . '</td>';
-		$form .= '</tr>';
-		*/
 
 		// last name
 		$form .= '<tr>';

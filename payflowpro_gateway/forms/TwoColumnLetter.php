@@ -2,15 +2,16 @@
 
 class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoColumn {
 
-		public function __construct( &$form_data, &$form_errors ) {
-                global $wgOut, $wgScriptPath;
-                parent::__construct( $form_data, $form_errors );
+	public function __construct( &$form_data, &$form_errors ) {
+		global $wgOut, $wgScriptPath;
+		parent::__construct( $form_data, $form_errors );
 
-                // add form-specific css
-                $wgOut->addExtensionStyle( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css');
+		// add form-specific css
+		$wgOut->addExtensionStyle( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css');
 	
+		// update the list of hidden fields we need to use in this form.
 		$this->updateHiddenFields();
-        }
+	}
 
 	public function generateFormStart() {
 		global $wgOut, $wgRequest;
@@ -20,6 +21,29 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
 		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
+		
+		// provide a place at the top of the form for displaying general messages
+		if ( $this->form_errors['general'] ) {
+			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
+			if ( is_array( $this->form_errors['general'] )) {
+				foreach ( $this->form_errors['general'] as $this->form_errors_msg ) {
+					$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors_msg );
+				}
+			} else {
+				$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors_msg );
+			}
+			$form .= Xml::closeElement( 'div' );
+		}
+
+		// open form
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
+		
+		// Xml::element seems to convert html to htmlentities
+		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
+		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
+		
 		$form .= parent::generatePersonalContainer();
 		$form .= parent::generatePaymentContainer();
 		$form .= $this->generateCommentFields();
@@ -55,6 +79,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	}
 
 	public function generateCommentFields() {
+		global $wgRequest;
+		
 		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-comment_form' ));
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-comments' ), wfMsg( 'donate_interface-comment-title' ));
 		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
@@ -63,18 +89,20 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		//comment
 		$form .= '<tr>';
 		$form .= '<td>' . Xml::label( wfMsg('donate_interface-comment-label'), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', '', array( 'maxlength' => '200' )) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'maxlength' => '200' )) . '</td>';
 		$form .= '</tr>';
 		
 		// anonymous
+		$comment_opt_value = ( $this->form_data[ 'numAttempt' ] ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::check( 'comment-option', TRUE ) . '</td>';
+		$form .= '<td>' . Xml::check( 'comment-option', $comment_opt_value ) . '</td>';
 		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
 		// email agreement
+		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::check( 'email-opt', TRUE ) . '</td>';
+		$form .= '<td>' . Xml::check( 'email-opt', $email_opt_value ) . '</td>';
 		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-email-agreement' ), 'email-opt' ) . '</td>';
 		$form .= '</tr>';
 
@@ -88,10 +116,14 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	 */
 	public function updateHiddenFields() {
 		$hidden_fields = $this->getHiddenFields();
-		$not_needed = array( 'comment-option', 'email', 'comment' );
+
+		// make sure that the below elements are not set in the hidden fields
+		$not_needed = array( 'comment-option', 'email-opt', 'comment' );
+
 		foreach ( $not_needed as $field ) {
 			unset( $hidden_fields[ $field ] );
 		}
+		
 		$this->setHiddenFields( $hidden_fields );
 	}
 }

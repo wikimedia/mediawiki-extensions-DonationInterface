@@ -25,7 +25,11 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 		// a very complex filtering algorithm for referrers
 		global $wgCustomFiltersRefRules;
 		foreach ( $wgCustomFiltersRefRules as $regex => $risk_score_modifier ) {
-			if( preg_match( "/$regex/", $referrer )) {
+			/**
+			 * note that the regex pattern does NOT include delimiters.
+			 * these will need to be included in your custom regex patterns.
+			 */
+			if( preg_match( "$regex", $referrer )) {
 				$this->cfo->risk_score += $risk_score_modifier;
 		
 				// log it
