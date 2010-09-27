@@ -4818,7 +4818,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-CAD' => 'CAD: Dólar canadense',
 	'donate_interface-JPY' => 'JPY: Iene (Japão)',
 	'payflowpro_gateway-token-mismatch' => 'A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.',
-	'payflowpro_gateway-cc-form-header-personal' => 'Informações pessoais',
+	'payflowpro_gateway-cc-form-header-personal' => 'Informações da fatura',
 	'payflowpro_gateway-cc-form-header-payment' => 'Informações do pagamento',
 );
 
