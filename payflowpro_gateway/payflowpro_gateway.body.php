@@ -106,7 +106,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		$payflow_data = payflowUser();
 
-		// Populate from data
+		// Populate form data
 		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
 		
 		// Check form for errors and display 
@@ -593,7 +593,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// put all data into one array
 		$transaction += array_merge( $data, $responseArray );
 		
-		// hook to call stomp functions
+		/**
+		 * hook to call stomp functions
+		 * 
+		 * Sends transaction to Stomp-based queueing service,
+		 * eg ActiveMQ
+		 */
 		wfRunHooks( 'gwStomp', array( $transaction ) );
 
 		if ( $wgExternalThankYouPage ) {
