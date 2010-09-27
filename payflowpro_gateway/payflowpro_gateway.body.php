@@ -185,7 +185,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
 			}
 		}
-	
+
 		$form_class = $this->getFormClass();
 		$form_obj = new $form_class( $data, $error );  	
 		$form = $form_obj->generateFormStart();
@@ -452,7 +452,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	private function fnPayflowGetResults( $data, $result ) {
 		global $wgOut;
-
 		// prepare NVP response for sorting and outputting 
 		$responseArray = array();
 		
@@ -482,7 +481,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// interpret result code, return
 		// approved (1), denied (2), try again (3), general error (4)
 		$errorCode = $this->fnPayflowGetResponseMsg( $resultCode, $responseMsg );
-
 		// if approved, display results and send transaction to the queue
 		if( $errorCode == '1' ) {
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
@@ -871,7 +869,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'order_id' => $order_id, 
 				'numAttempt' => $numAttempt,
 				'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
-				'utm_source' => $wgRequest->getText( 'utm_source', '.Spam.Support.cc' ),
+				'utm_source' => $this->getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				'language' => 'en',

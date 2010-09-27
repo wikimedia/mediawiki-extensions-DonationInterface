@@ -204,7 +204,8 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		$form .= '<tr>';
 		$form .= '<td>' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'maxlength' => '100', 'id' => 'card_num', 'autocomplete' => 'off' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card_num'] . '</span></td>';
+			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card_num'] . '</span>' . 
+			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card'] . '</span></td>';
 		$form .= '</tr>';
 		
 		// expiry
