@@ -691,8 +691,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * (which is opt-out), we need to reverse the values
 	 */
 	function determineOptOut( $data ) {
-		$optout[ 'email' ] = ($data['email-opt'] == "1") ? '0' : '1';
-		$optout[ 'anonymous' ] = ($data['comment-option'] == "1") ? '0' : '1';
+		$optout[ 'email' ] = ( $data[ 'email-opt' ] == "1" ) ? '0' : '1';
+		$optout[ 'anonymous' ] = ( $data[ 'comment-option' ] == "1" ) ? '0' : '1';
 		return $optout;
 	}
 	
@@ -990,24 +990,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	}
 
 	public function updateContributionTracking( &$data ) {
-		/**
-		 * if we're not coming from the regular cc form, fix optout/anonymous
-		 *
-		 * @fixme This is a bad hack being pushed out for a time-sensitive update
-		 *   and this will only work as expected for a particular configuartion/usecase
-		 *   Overall this is fine, but the $data['optout'] and $data['anonymous']
-		 *   handling is... bad.
-		 */
-		$fix_optouts = false;
-		$source_parts = explode(".", $data[ 'utm_source' ] );
-		foreach ( $source_parts as $value ) {
-			if ( preg_match( "/cc[0-9]/", $value )) {
-				$fix_optouts = true;
-			}
-		}
-		if ( !$fix_optouts ) {
+		// ony update contrib tracking if we're coming from a single-step landing page 
+		// which we know with cc# in utm_source
+		if ( !preg_match( "/cc[0-9]/", $data[ 'utm_source' ] )) {
 			return;
 		}
+
 		
 		// determine opt-out settings
 		$optout = $this->determineOptOut( $data );
@@ -1023,7 +1011,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'utm_source' => $data['utm_source'],
 			'utm_medium' => $data['utm_medium'],
 			'utm_campaign' => $data['utm_campaign'],
-			'optout' => $optout[ 'email '],
+			'optout' => $optout[ 'email' ],
 			'language' => $data['language'],
 		);
 		
