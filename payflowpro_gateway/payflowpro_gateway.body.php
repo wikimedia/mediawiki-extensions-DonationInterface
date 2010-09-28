@@ -322,7 +322,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				break;
 				
 			case 'discover':
-				// pattern for Visa
+				// pattern for Discover
 				$pattern = '/^6(?:011|5[0-9]{2})[0-9]{12}$/';
 
 				// if pattern doesn't match
