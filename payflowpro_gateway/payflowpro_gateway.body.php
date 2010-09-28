@@ -352,7 +352,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// update contribution tracking
 		$this->updateContributionTracking( $data );
-
+		
 		// create payflow query string, include string lengths
 		$queryArray = array(
 			'TRXTYPE' => $payflow_data['trxtype'],
@@ -583,6 +583,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$transaction['country_name'] = $countries[$data['country']];
 		$transaction['country_code'] = $data['country'];
 		// put all data into one array
+		$optout = $this->determineOptOut($data);
+		$data[ 'anonymous' ] = $optout[ 'anonymous' ];
+		$data[ 'optout' ] = $optout[ 'optout' ];
 		$transaction += array_merge( $data, $responseArray );
 		
 		/**
@@ -691,7 +694,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * (which is opt-out), we need to reverse the values
 	 */
 	function determineOptOut( $data ) {
-		$optout[ 'email' ] = ( $data[ 'email-opt' ] == "1" ) ? '0' : '1';
+		$optout[ 'optout' ] = ( $data[ 'email-opt' ] == "1" ) ? '0' : '1';
 		$optout[ 'anonymous' ] = ( $data[ 'comment-option' ] == "1" ) ? '0' : '1';
 		return $optout;
 	}
@@ -713,7 +716,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'utm_source' => $data['utm_source'],
 			'utm_medium' => $data['utm_medium'],
 			'utm_campaign' => $data['utm_campaign'],
-			'optout' => $optout[ 'email' ],
+			'optout' => $optout[ 'optout' ],
 			'language' => $data['language'],
 			'ts' => $ts,
 		);
@@ -1011,7 +1014,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'utm_source' => $data['utm_source'],
 			'utm_medium' => $data['utm_medium'],
 			'utm_campaign' => $data['utm_campaign'],
-			'optout' => $optout[ 'email' ],
+			'optout' => $optout[ 'optout' ],
 			'language' => $data['language'],
 		);
 		
