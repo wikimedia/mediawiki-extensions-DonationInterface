@@ -5459,10 +5459,23 @@ $messages['sw'] = array(
 $messages['ta'] = array(
 	'payflowpro_gateway-cvv-link' => 'எடுத்துக்காட்டு',
 	'payflowpro_gateway-donor-amount' => 'தொகை:',
+	'payflowpro_gateway-donor-email' => 'மின்னஞ்சல் முகவரி:',
 	'payflowpro_gateway-donor-fname' => 'முதல் பெயர்:',
 	'payflowpro_gateway-donor-mname' => 'நடுப்பெயர்:',
 	'payflowpro_gateway-donor-lname' => 'அப்பா/குடும்ப பெயர்:',
 	'payflowpro_gateway-donor-name' => 'பெயர்:',
+	'payflowpro_gateway-donor-city' => 'நகரம்:',
+	'payflowpro_gateway-donor-state' => 'மாநிலம்:',
+	'payflowpro_gateway-donor-postal' => 'அஞ்சல் எண்:',
+	'payflowpro_gateway-donor-country' => 'நாடு/மண்டலம்:',
+	'payflowpro_gateway-donor-address' => 'முகவரி:',
+	'payflowpro_gateway-error-msg-emailAdd' => 'மின்னஞ்சல் முகவரி',
+	'payflowpro_gateway-error-msg-fname' => 'முதல் (தங்கள்) பெயர்',
+	'payflowpro_gateway-error-msg-lname' => 'அப்பா/குடும்பப் பெயர்',
+	'payflowpro_gateway-error-msg-street' => 'தெரு முகவரி',
+	'payflowpro_gateway-error-msg-city' => 'நகரம்',
+	'payflowpro_gateway-error-msg-state' => 'மாநிலம்',
+	'payflowpro_gateway-error-msg-zip' => 'அஞ்சல் எண்',
 );
 
 /** Telugu (తెలుగు)
