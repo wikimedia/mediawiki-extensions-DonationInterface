@@ -82,8 +82,13 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		global $wgPayflowGatewayHeader, $wgOut;
 		// intro text
 		if ( $wgPayflowGatewayHeader ) {
-			$header = str_replace( '@language', $this->form_data['language'], $wgPayflowGatewayHeader );
-			$wgOut->addHtml( $wgOut->parse( $header ));
+			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
+			$template = $wgOut->parse( $header );
+			
+			// make sure that we actually have a matching template to display so we don't display the 'redlink'
+			if ( !preg_match( '/redlink\=1/', $template )) {
+				$wgOut->addHtml( $template );
+			}
 		}	
 	}
 

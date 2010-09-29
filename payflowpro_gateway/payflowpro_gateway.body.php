@@ -202,7 +202,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	public function setFormClass( $class_name=NULL ) {
 		if ( !$class_name ) {
 			global $wgRequest, $wgPayflowGatewayDefaultForm;
-			$form_class = ( strlen( $wgRequest->getText( 'form_name' ))) ? $wgRequest->getText( 'form_name' ) : $wgPayflowGatewayDefaultForm;
+			$form_class = $wgRequest->getText( 'form_name', $wgPayflowGatewayDefaultForm );
 		
 			// make sure our form class exists before going on, if not try loading default form class
 			$class_name = "PayflowProGateway_Form_" . $form_class;
@@ -909,7 +909,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'utm_source' => $this->getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
-				'language' => $wgRequest->getText( 'language' ),
+				// try to honr the user-set language (uselang), otherwise the language set in the URL (language)
+				'language' => $wgRequest->getText( 'uselang', $wgRequest->getText( 'language' )), 
 				'comment' => $wgRequest->getText( 'comment' ),
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),

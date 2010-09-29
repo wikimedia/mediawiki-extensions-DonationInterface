@@ -26,16 +26,56 @@ abstract class PayflowProGateway_Form {
 	 */
 	public $form_errors;
 
+	/**
+	 * The full path to CSS for the current form
+	 * @var string
+	 */
+	protected $style_path;
+	
 	abstract public function generateFormStart();
 	abstract public function generateFormSubmit();
 	abstract public function generateFormEnd();
 	
 	public function __construct( &$data, &$error ) {
-		global $wgPayflowGatewayTest;
+		global $wgPayflowGatewayTest, $wgOut;
 
 		$this->test = $wgPayflowGatewayTest;
 		$this->form_data =& $data;
 		$this->form_errors =& $error;
+		
+		/**
+		 *  add form-specific css - the path can be set using $this->setStylePath,
+		 *  which should be called before loading this constructor
+		 */
+		if ( !strlen( $this->getStylePath())) {
+			$this->setStylePath();
+		}
+		$wgOut->addExtensionStyle( $this->getStylePath() );
+	}
+	
+	/**
+	 * Set the path to the CSS file for the form
+	 * 
+	 * This should be a full path, perhaps taking advantage of $wgScriptPath.
+	 * If you do not pass the path to the method, the style path will default
+	 * to the default css in css/Form.css
+	 * @param string $style_path
+	 */
+	public function setStylePath( $style_path=null ) {
+		global $wgScriptPath;
+		if ( !$style_path ) {
+			// load the default form CSS if the style path not explicitly set
+			$style_path = $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/Form.css';
+		}
+		$this->style_path = $style_path;
+	}
+	
+	/**
+	 * Get the path to CSS
+	 * @return String
+	 */
+	public function getStylePath() {
+		return $this->style_path;
 	}
 	
 	/**
@@ -287,6 +327,4 @@ abstract class PayflowProGateway_Form {
 		}
 		return $this->hidden_fields;
 	}
-
-
 }

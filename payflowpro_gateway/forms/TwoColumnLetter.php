@@ -4,11 +4,14 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut, $wgScriptPath;
+		
+		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
+		if ( !strlen( $this->getStylePath())) {
+			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css' );
+		}
+			
 		parent::__construct( $form_data, $form_errors );
-
-		// add form-specific css
-		$wgOut->addExtensionStyle( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css');
-	
+		
 		// update the list of hidden fields we need to use in this form.
 		$this->updateHiddenFields();
 	}
@@ -34,7 +37,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 			} else {
 				$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors_msg );
 			}
-			$form .= Xml::closeElement( 'div' );
+			$form .= Xml::closeElement( 'div' );  // close div#mw-payflow-general-error
 		}
 
 		// open form
@@ -53,28 +56,23 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	public function generateFormEnd() {
 		global $wgRequest, $wgOut;
 		$form = '';
-		// add hidden fields			
-		$hidden_fields = $this->getHiddenFields();
-		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
-		}
-			
-		$form .= Xml::closeElement( 'form' );
-
-		$form .= $this->generateDonationFooter();
-
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
+		
+		$form .= $this->generateFormClose();
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
-		$text_template = $wgRequest->getText( 'text_template' );
-		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $wgRequest->getText( 'language' );
 		
-		$form .= ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
-		$form .= Xml::closeElement( 'div' );
-		$form .= Xml::closeElement( 'div' );
+		$text_template = $wgRequest->getText( 'text_template' );
+		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
+		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
+		
+		$template = ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
+		// if the template doesn't exist, prevent the display of the red link
+		if ( preg_match( '/redlink\=1/', $template )) $template = NULL;
+		$form .= $template;
+		
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter_inside
 		return $form;
 	}
 
@@ -103,7 +101,12 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
 		$form .= '<tr>';
 		$form .= '<td>' . Xml::check( 'email-opt', $email_opt_value ) . '</td>';
-		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-email-agreement' ), 'email-opt' ) . '</td>';
+		$form .= '<td>';
+		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
+		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
+		$form .= wfMsg( 'donate_interface-email-agreement' );
+		$form .= Xml::closeElement( 'label' );
+		$form .= '</td>';
 		$form .= '</tr>';
 
 		$form .= Xml::closeElement( 'table' );
@@ -125,5 +128,26 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		}
 		
 		$this->setHiddenFields( $hidden_fields );
+	}
+	
+	/**
+	 * Generate form closing elements
+	 */
+	public function generateFormClose() {
+		$form = '';
+		// add hidden fields			
+		$hidden_fields = $this->getHiddenFields();
+		foreach ( $hidden_fields as $field => $value ) {
+			$form .= Xml::hidden( $field, $value );
+		}
+			
+		$form .= Xml::closeElement( 'form' ); // close form 'payment'
+
+		$form .= $this->generateDonationFooter();
+
+		$form .= Xml::closeElement( 'div' ); //close div#mw-creditcard
+		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_form
+		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_container
+		return $form;
 	}
 }
