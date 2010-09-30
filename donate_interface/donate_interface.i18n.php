@@ -84,6 +84,23 @@ $messages['af'] = array(
 Ons sal nooit u inligting verkoop of daarmee handel dryf nie.
 Ons priaatheidsbeleid vir skenkers kan <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hier</a> gevind word.",
 	'donate_interface-comment-title' => 'Publieke kommentaar',
+	'donate_interface-GBP' => 'GBP: Britse pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikaanse dollar',
+	'donate_interface-AUD' => 'AUD: Australiese dollar',
+	'donate_interface-CAD' => 'CAD: Kanadese dollar',
+	'donate_interface-CHF' => 'CHF: Switserse frank',
+	'donate_interface-CZK' => 'CZK: Tsjeggiese kroon',
+	'donate_interface-DKK' => 'DKK: Deense kroon',
+	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
+	'donate_interface-HUF' => 'HUF: Hongaarse forint',
+	'donate_interface-JPY' => 'JPY: Japannese jen',
+	'donate_interface-NZD' => 'NZD: Nieu-Seelandse dollar',
+	'donate_interface-NOK' => 'NOK: Noorse kroon',
+	'donate_interface-PLN' => 'PLN: Poolse zloty',
+	'donate_interface-SGD' => 'SGD: Singaporese dollar',
+	'donate_interface-SEK' => 'SEK: Sweedse kroon',
+	'donate_interface-ILS' => 'ILS: Israeliese shekel',
 );
 
 /** Arabic (العربية)
@@ -127,6 +144,18 @@ $messages['ar'] = array(
 	'donate_interface-ILS' => 'ILS: الشاقل الإسرائيلي',
 );
 
+/** Egyptian Spoken Arabic (مصرى)
+ * @author Meno25
+ */
+$messages['arz'] = array(
+	'donate_interface-GBP' => 'GBP: الجنيه الإسترليني',
+	'donate_interface-EUR' => 'EUR: اليورو',
+	'donate_interface-USD' => 'USD: الدولار الأمريكي',
+	'donate_interface-AUD' => 'AUD: الدولار الأسترالي',
+	'donate_interface-CAD' => 'CAD: الدولار الكندي',
+	'donate_interface-JPY' => 'JPY: الين الياباني',
+);
+
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
@@ -141,13 +170,71 @@ $messages['be-tarask'] = array(
 	'donate_interface-gateway' => 'Мэтад плацяжу:',
 	'donate_interface-submit-button' => 'Ахвяраваць',
 	'donate_interface-comment-label' => 'Камэнтар:',
+	'donate_interface-GBP' => 'GBP: брытанскі фунт',
+	'donate_interface-EUR' => 'EUR: эўра',
+	'donate_interface-USD' => 'USD: даляр ЗША',
+	'donate_interface-AUD' => 'AUD: аўстралійскі даляр',
+	'donate_interface-CAD' => 'CAD: канадзкі даляр',
+	'donate_interface-CHF' => 'CHF: швайцарскі франк',
+	'donate_interface-CZK' => 'CZK: чэская крона',
+	'donate_interface-DKK' => 'DKK: дацкая крона',
+	'donate_interface-HKD' => 'HKD: ганконгскі даляр',
+	'donate_interface-HUF' => 'HUF: вугорскі форынт',
+	'donate_interface-JPY' => 'JPY: японская ена',
+	'donate_interface-NZD' => 'NZD: новазэляндзкі даляр',
+	'donate_interface-NOK' => 'NOK: нарвэская крона',
+	'donate_interface-PLN' => 'PLN: польскі злоты',
+	'donate_interface-SGD' => 'SGD: сынгапурскі даляр',
+	'donate_interface-SEK' => 'SEK: швэдзкая крона',
+	'donate_interface-ILS' => 'ILS: ізраільскі шэкель',
+);
+
+/** Bulgarian (Български)
+ * @author Turin
+ */
+$messages['bg'] = array(
+	'donate_interface-GBP' => 'GBP: британска лира',
+	'donate_interface-EUR' => 'EUR: евро',
+	'donate_interface-USD' => 'USD: американски долар',
+	'donate_interface-AUD' => 'AUD: австралийски долар',
+	'donate_interface-CAD' => 'CAD: канадски долар',
+	'donate_interface-CHF' => 'CHF: швейцарски франк',
+	'donate_interface-CZK' => 'CZK: чешка крона',
+	'donate_interface-DKK' => 'DKK: датска крона',
+	'donate_interface-HKD' => 'HKD: хонгконгски долар',
+	'donate_interface-HUF' => 'HUF: унгарски форинт',
+	'donate_interface-JPY' => 'JPY: японска йена',
+	'donate_interface-NZD' => 'NZD: новозеландски долар',
+	'donate_interface-NOK' => 'NOK: норвежка крона',
+	'donate_interface-PLN' => 'PLN: полска злота',
+	'donate_interface-SGD' => 'SGD: сингапурски долар',
+	'donate_interface-SEK' => 'SEK: шведска крона',
+	'donate_interface-ILS' => 'ILS: израелски шекел',
 );
 
 /** Breton (Brezhoneg)
  * @author Fohanno
+ * @author Fulup
  */
 $messages['br'] = array(
 	'donate_interface' => 'Skoazellañ Wikimedia',
+	'donate_interface-GBP' => 'GBP : Lur saoz',
+	'donate_interface-EUR' => 'EUR : Euro',
+	'donate_interface-USD' => 'USD : Dollar SUA',
+	'donate_interface-AUD' => 'AUD : Dollar aostralian',
+	'donate_interface-CAD' => 'CAD : Dollar kanadian',
+	'donate_interface-CHF' => 'CHF : Lur Suis',
+	'donate_interface-CZK' => 'CZK : Kurunenn Tchek',
+	'donate_interface-DKK' => 'DKK : Kurunenn Danmark',
+	'donate_interface-HKD' => 'HKD : Dollar Hong Kong',
+	'donate_interface-HUF' => 'HUF : Forint Hungaria',
+	'donate_interface-JPY' => 'JPY : Yen Japan',
+	'donate_interface-NZD' => 'NZD : Dollar Zeland-Nevez',
+	'donate_interface-NOK' => 'NOK : Kurunenn Norvegia',
+	'donate_interface-PLN' => 'PLN : Zloty Polonia',
+	'donate_interface-SGD' => 'SGD : Dollar Singapora',
+	'donate_interface-SEK' => 'SEK : Kurunenn Sveden',
+	'donate_interface-ILS' => 'ILS : Shekel israelat',
 );
 
 /** Bosnian (Bosanski)
@@ -156,6 +243,37 @@ $messages['br'] = array(
 $messages['bs'] = array(
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-comment-title' => 'Javni komentar',
+	'donate_interface-GBP' => 'GBP: Britanska funta',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Američki dolar',
+	'donate_interface-AUD' => 'AUD: Australijski dolar',
+	'donate_interface-CAD' => 'CAD: Kanadski dolar',
+	'donate_interface-CHF' => 'CHF: Švicarski franak',
+	'donate_interface-CZK' => 'CZK: Češka kruna',
+	'donate_interface-DKK' => 'DKK: Danska kruna',
+	'donate_interface-HKD' => 'HKD: Honkonški dolar',
+	'donate_interface-HUF' => 'HUF: Mađarska forinta',
+	'donate_interface-JPY' => 'JPY: Japanski jen',
+	'donate_interface-NZD' => 'NZD: Novozelandski dolar',
+	'donate_interface-NOK' => 'NOK: Norveška kruna',
+	'donate_interface-PLN' => 'PLN: Poljski zloti',
+	'donate_interface-SGD' => 'SGD: Singapurski dolar',
+	'donate_interface-SEK' => 'SEK: Švedska kruna',
+	'donate_interface-ILS' => 'ILS: Izraelski šekel',
+);
+
+/** Catalan (Català)
+ * @author Solde
+ */
+$messages['ca'] = array(
+	'donate_interface-GBP' => 'GBP: Lliura esterlina',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dòlar americà',
+	'donate_interface-AUD' => 'AUD: Dòlar australià',
+	'donate_interface-CAD' => 'CAD: Dòlar canadenc',
+	'donate_interface-CHF' => 'CHF: Franc suís',
+	'donate_interface-DKK' => 'DKK: Corona danesa',
+	'donate_interface-JPY' => 'JPY: Ien japonès',
 );
 
 /** Czech (Česky)
@@ -358,6 +476,18 @@ Naše pšawidła priwatnosći za dary namakajoš <a title='Donate/Donor Privacy'
 	'donate_interface-ILS' => 'ILS: Israelski šekel',
 );
 
+/** Greek (Ελληνικά)
+ * @author ZaDiak
+ */
+$messages['el'] = array(
+	'donate_interface-GBP' => 'GBP: Βρετανική λίρα',
+	'donate_interface-EUR' => 'EUR: Ευρώ',
+	'donate_interface-USD' => 'USD: Δολάριο Η.Π.Α.',
+	'donate_interface-AUD' => 'AUD: Δολάριο Αυστραλίας',
+	'donate_interface-CAD' => 'CAD: Δολάριο Καναδά',
+	'donate_interface-JPY' => 'JPY: Ιαπωνικό Γεν',
+);
+
 /** Esperanto (Esperanto)
  * @author Yekrats
  */
@@ -420,6 +550,64 @@ $messages['es'] = array(
 	'donate_interface-NOK' => 'NOK: Corona noruega',
 	'donate_interface-SGD' => 'SGD: Dólar de Singapur',
 	'donate_interface-SEK' => 'SEK: Corona sueca',
+);
+
+/** Estonian (Eesti)
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'donate_interface-GBP' => 'GBP: Suurbritannia naelsterling',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA dollar',
+	'donate_interface-AUD' => 'AUD: Austraalia dollar',
+	'donate_interface-CAD' => 'CAD: Kanada dollar',
+	'donate_interface-CHF' => 'CHF: Šveitsi frank',
+	'donate_interface-CZK' => 'CZK: Tšehhi kroon',
+	'donate_interface-DKK' => 'DKK: Taani kroon',
+	'donate_interface-HKD' => 'HKD: Hongkongi dollar',
+	'donate_interface-HUF' => 'HUF: Ungari forint',
+	'donate_interface-JPY' => 'JPY: Jaapani jeen',
+	'donate_interface-NZD' => 'NZD: Uus-Meremaa dollar',
+	'donate_interface-NOK' => 'NOK: Norra kroon',
+	'donate_interface-PLN' => 'PLN: Poola zlott',
+	'donate_interface-SGD' => 'SGD: Singapuri dollar',
+	'donate_interface-SEK' => 'SEK: Rootsi kroon',
+	'donate_interface-ILS' => 'ILS: Iisraeli uus seekel',
+);
+
+/** Basque (Euskara)
+ * @author An13sa
+ */
+$messages['eu'] = array(
+	'donate_interface-GBP' => 'GBP: Britainiar libra',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Estatubatuar dolar',
+	'donate_interface-AUD' => 'AUD: Australiar dolar',
+	'donate_interface-CAD' => 'CAD: Kanadiar dolar',
+	'donate_interface-CHF' => 'CHF: Suitzar libera',
+	'donate_interface-CZK' => 'CZK: Txekiar koruna',
+	'donate_interface-DKK' => 'DKK: Daniar koroa',
+	'donate_interface-HKD' => 'HKD: Hongkongdar dolar',
+	'donate_interface-HUF' => 'HUF: Hungariar florin',
+	'donate_interface-JPY' => 'JPY: Japoniar yen',
+	'donate_interface-NZD' => 'NZD: Zeelandaberritar dolar',
+	'donate_interface-NOK' => 'NOK: Norvegiar koroa',
+	'donate_interface-PLN' => 'PLN: Poloniar zloty',
+	'donate_interface-SGD' => 'SGD: Singapurtar dolar',
+	'donate_interface-SEK' => 'SEK: Suediar koroa',
+	'donate_interface-ILS' => 'ILS: Israeldar shekel',
+);
+
+/** Persian (فارسی)
+ * @author Ebraminio
+ */
+$messages['fa'] = array(
+	'donate_interface-GBP' => 'GBP: پوند انگلیس',
+	'donate_interface-EUR' => 'EUR: یورو',
+	'donate_interface-USD' => 'USD: دلار آمریکا',
+	'donate_interface-AUD' => 'AUD: دلار استرالیا',
+	'donate_interface-CAD' => 'CAD: دلار کانادا',
+	'donate_interface-JPY' => 'JPY: ین ژاپن',
 );
 
 /** Finnish (Suomi)
@@ -504,6 +692,18 @@ Notre politique de respect de la vie privée des donateurs se trouve <a title="D
 	'donate_interface-ILS' => 'ILS : shekel israélien',
 );
 
+/** Franco-Provençal (Arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'donate_interface-GBP' => 'GBP : livra stèrlingue',
+	'donate_interface-EUR' => 'EUR : erô',
+	'donate_interface-USD' => 'USD : dolar amèriquen',
+	'donate_interface-AUD' => 'AUD : dolar ôstralien',
+	'donate_interface-CAD' => 'CAD : dolar canadien',
+	'donate_interface-JPY' => 'JPY : yène j·aponês',
+);
+
 /** Galician (Galego)
  * @author Toliño
  */
@@ -582,6 +782,31 @@ Unsri Spände-Richtlinie cha mer <a title='Donate/Donor Privacy' href='/wiki/Don
 	'donate_interface-SGD' => 'SGD: Singapur Dollar',
 	'donate_interface-SEK' => 'SEK: Schwedischi Chrone',
 	'donate_interface-ILS' => 'ILS: Israelischi Shekel',
+);
+
+/** Hebrew (עברית)
+ * @author YaronSh
+ */
+$messages['he'] = array(
+	'donate_interface-GBP' => 'GBP: לירה שטרלינג',
+	'donate_interface-EUR' => 'EUR: אירו
+�',
+	'donate_interface-USD' => 'USD: דולר אמריקאי',
+	'donate_interface-AUD' => 'AUD: דולר אוסטרלי',
+	'donate_interface-CAD' => 'CAD: דולר קנדי',
+	'donate_interface-JPY' => 'JPY: יין יפני',
+);
+
+/** Croatian (Hrvatski)
+ * @author SpeedyGonsales
+ */
+$messages['hr'] = array(
+	'donate_interface-GBP' => 'GBP: britanska funta',
+	'donate_interface-EUR' => 'EUR: euro',
+	'donate_interface-USD' => 'USD: američki dolar',
+	'donate_interface-AUD' => 'AUD: australski dolar',
+	'donate_interface-CAD' => 'CAD: kanadski dolar',
+	'donate_interface-JPY' => 'JPY: japanski jen',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -745,6 +970,40 @@ Kebijakan privasi donor kami dapat ditemukan <a title="Donasi/Privasi Donor" hre
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
+/** Ido (Ido)
+ * @author Malafaya
+ */
+$messages['io'] = array(
+	'donate_interface-GBP' => 'GBP: Britaniana Pundo',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Usana Dolaro',
+	'donate_interface-AUD' => 'AUD: Australiana Dolaro',
+	'donate_interface-CAD' => 'CAD: Kanadana Dolaro',
+);
+
+/** Italian (Italiano)
+ * @author Aushulz
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'donate_interface-GBP' => 'GBP: Sterlina inglese',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dollaro U.S.',
+	'donate_interface-AUD' => 'AUD: Dollaro australiano',
+	'donate_interface-CAD' => 'CAD: Dollaro canadese',
+	'donate_interface-CHF' => 'CHF: Franco svizzero',
+	'donate_interface-CZK' => 'CZK: Corona ceca',
+	'donate_interface-DKK' => 'DKK: Corona danese',
+	'donate_interface-HKD' => 'HKD: Dollaro di Hong Kong',
+	'donate_interface-HUF' => 'HUF: Fiorino ungherese',
+	'donate_interface-JPY' => 'JPY: Yen giapponese',
+	'donate_interface-NZD' => 'NZD: Dollaro della Nuova Zelanda',
+	'donate_interface-NOK' => 'NOK: Corona norvegese',
+	'donate_interface-PLN' => 'PLN: Zloty polacco',
+	'donate_interface-SGD' => 'SGD: Dollaro di Singapore',
+	'donate_interface-SEK' => 'SEK:Corona svedese',
+);
+
 /** Japanese (日本語)
  * @author Aotake
  * @author Fryed-peach
@@ -815,6 +1074,18 @@ $messages['ka'] = array(
 	'donate_interface-ILS' => 'ILS: ისრაელის შეკელი',
 );
 
+/** Khmer (ភាសាខ្មែរ)
+ * @author គីមស៊្រុន
+ */
+$messages['km'] = array(
+	'donate_interface-GBP' => 'GBP៖ ផោនអង់គ្លេស',
+	'donate_interface-EUR' => 'EUR៖ យូរ៉ូ',
+	'donate_interface-USD' => 'USD៖ ដុល្លារអាមេរិក',
+	'donate_interface-AUD' => 'AUD៖ ដុល្លារអូស្ត្រាលី',
+	'donate_interface-CAD' => 'CAD៖ ដុល្លារកាណាដា',
+	'donate_interface-JPY' => 'JPY៖ យ៉េនជប៉ុន',
+);
+
 /** Korean (한국어)
  * @author Kwj2772
  */
@@ -837,12 +1108,35 @@ $messages['ko'] = array(
 	'donate_interface-PLN' => 'PLN: 폴란드 즐로티',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'donate_interface-GBP' => 'GBP: Änglesche Pongk',
+	'donate_interface-EUR' => 'EUR: Euros',
+	'donate_interface-USD' => 'USD:  Dollars uß de USA',
+	'donate_interface-AUD' => 'AUD: Austraalesche Dollars',
+	'donate_interface-CAD' => 'CAD: Kanaadesche Dollars',
+	'donate_interface-CHF' => 'CHF: Schweizer Frangke',
+	'donate_interface-CZK' => 'CZK: Tschesche-Kruune',
+	'donate_interface-DKK' => 'DKK: Dänesche Kruhne',
+	'donate_interface-HKD' => 'HKD:  Dollars uß Hong Kong',
+	'donate_interface-HUF' => 'HUF: Unnjarresche Forint',
+	'donate_interface-JPY' => 'JPY: Japaanesche Yen',
+	'donate_interface-NZD' => 'NZD: Dollars uß Neusesland',
+	'donate_interface-NOK' => 'NOK: Norweejesche Kruhne',
+	'donate_interface-PLN' => 'PLN: Zloty uß Poole',
+	'donate_interface-SGD' => 'SGD:  Dollars uß Singjapuhr',
+	'donate_interface-SEK' => 'SEK: Schweedesch Kruhne',
+	'donate_interface-ILS' => "ILS: Ißra'eelesch Scheekel",
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
 $messages['lb'] = array(
-	'donate_interface' => 'Ënnerstetzt Wikimedia',
-	'donate_interface-desc' => 'Säit op däer Donë landen déi vun de verschiddene Methode fir ze bezuelen hirkommen',
+	'donate_interface' => 'Ënnerstëtzt Wikimedia',
+	'donate_interface-desc' => 'Säit op där Done landen déi vun de verschiddene Methode fir ze bezuelen hierkommen',
 	'donate_interface-intro' => "Wielt w.e.g eng Method fir ze bezuelen, de Betrag an d'Währung eraus.",
 	'donate_interface-amount' => 'Héicht vum Don:',
 	'donate_interface-other-amount' => 'Anere Betrag',
@@ -877,12 +1171,24 @@ Eis Richtlinnen iwwer de Respekt vun der Privatsphär fannt Dir  <a title='Donat
 	'donate_interface-ILS' => 'ILS: Israelesche Shekel',
 );
 
+/** Limburgish (Limburgs)
+ * @author Ooswesthoesbes
+ */
+$messages['li'] = array(
+	'donate_interface-GBP' => 'GBP: Britsje póndj',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: VS-dóller',
+	'donate_interface-AUD' => 'AUD: Australisje dóller',
+	'donate_interface-CAD' => 'CAD: Kannedese dóller',
+	'donate_interface-JPY' => 'JPY: Japansje yen',
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
 	'donate_interface' => 'Поддржете ја Викимедија',
-	'donate_interface-desc' => 'Страница за донирање која вкучува проширувања за порта',
+	'donate_interface-desc' => 'Страница за донирање која вклучува додатоци за порта',
 	'donate_interface-intro' => 'Одберете начин на плаќање, износ и валута.',
 	'donate_interface-amount' => 'Износ:',
 	'donate_interface-other-amount' => 'Друг износ',
@@ -891,7 +1197,7 @@ $messages['mk'] = array(
 	'donate_interface-submit-button' => 'Донирајте',
 	'donate_interface-comment-message' => 'Сакате да се искажете? Тука пишете до 200 знаци:',
 	'donate_interface-comment-label' => 'Коментар:',
-	'donate_interface-anon-message' => 'Наведете ми го името (заедно со мојот коментар) на јавната листа на дарители.',
+	'donate_interface-anon-message' => 'Наведете ми го името (заедно со мојот коментар) на јавниот список на дарители.',
 	'donate_interface-email-agreement' => "Се согласувам да добивам новини или е-пошта од фондацијата Викимедија.
 Ние никогаш нема да продадеме или размениме информации за вас.
 Нашите правила за приватност на дарителите можете да ги најдете <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>овде</a>",
@@ -955,6 +1261,29 @@ $messages['ml'] = array(
 	'donate_interface-ILS' => 'ILS: ഇസ്രയേലി ഷെക്കെൽ',
 );
 
+/** Nedersaksisch (Nedersaksisch)
+ * @author Servien
+ */
+$messages['nds-nl'] = array(
+	'donate_interface-GBP' => 'GBP: Britse pond',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Amerikaanse dollar',
+	'donate_interface-AUD' => 'AUD: Australische dollar',
+	'donate_interface-CAD' => 'CAD: Kannedese dollar',
+	'donate_interface-CHF' => 'CHF: Zwitserse frank',
+	'donate_interface-CZK' => 'CZK: Tsjechische krone',
+	'donate_interface-DKK' => 'DKK: Deense krone',
+	'donate_interface-HKD' => 'HKD: Hongkongse dollar',
+	'donate_interface-HUF' => 'HUF: Hongaarse forint',
+	'donate_interface-JPY' => 'JPY: Jepanse yen',
+	'donate_interface-NZD' => 'NZD: Niej-Zeelaanse dollar',
+	'donate_interface-NOK' => 'NOK: Noorse krone',
+	'donate_interface-PLN' => 'PLN: Poolse zloty',
+	'donate_interface-SGD' => 'SGD: Singapoerse dollar',
+	'donate_interface-SEK' => 'SEK: Zweedse krone',
+	'donate_interface-ILS' => 'ILS: Israëlische sjekel',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
@@ -1010,7 +1339,44 @@ $messages['nn'] = array(
 	'donate_interface-processing-error' => 'Det har oppstått ein feil i prosesseringa av førespurnaden din. 
 Ingen prosessorar er tilgjengelege.',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA-dollar',
+	'donate_interface-AUD' => 'AUD: Australske dollar',
+	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
+	'donate_interface-CHF' => 'CHF: Sveitsiske franc',
+	'donate_interface-CZK' => 'CZK: Tsjekkiske koruna',
+	'donate_interface-DKK' => 'DKK: Danske kroner',
+	'donate_interface-HKD' => 'HKD: Hongkongdollar',
+	'donate_interface-HUF' => 'HUF: Ungarske forintar',
+	'donate_interface-JPY' => 'JPY: Japanske yen',
 	'donate_interface-NOK' => 'NOK: Norske kroner',
+	'donate_interface-PLN' => 'PLN: Polske zloty',
+	'donate_interface-SGD' => 'SGD: Singapore Dollar',
+	'donate_interface-SEK' => 'SEK: Svenske kroner',
+	'donate_interface-ILS' => 'ILS: Israelske shekel',
+);
+
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Finnrind
+ */
+$messages['no'] = array(
+	'donate_interface-GBP' => 'GBP: Britiske pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: U.S. Dollar',
+	'donate_interface-AUD' => 'AUD: Australske dollar',
+	'donate_interface-CAD' => 'CAD: Kanadiske dollar',
+	'donate_interface-CHF' => 'CHF: Sveitsiske franc',
+	'donate_interface-CZK' => 'CZK: Tsjekkiske koruna',
+	'donate_interface-DKK' => 'DKK: Danske kroner',
+	'donate_interface-HKD' => 'HKD: Hong Kong Dollar',
+	'donate_interface-HUF' => 'HUF: Ungarske forinter',
+	'donate_interface-JPY' => 'JPY: Japanske yen',
+	'donate_interface-NZD' => 'NZD: New Zealandske dollar',
+	'donate_interface-NOK' => 'NOK: Norske kroner',
+	'donate_interface-PLN' => 'PLN: Polske zloty',
+	'donate_interface-SGD' => 'SGD: Singapore Dollar',
+	'donate_interface-SEK' => 'SEK: Svenske kroner',
+	'donate_interface-ILS' => 'ILS: Israelske shekel',
 );
 
 /** Occitan (Occitan)
@@ -1058,7 +1424,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
  */
 $messages['pdc'] = array(
 	'donate_interface-GBP' => 'GBP: Britisch Pfund',
-	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-EUR' => 'EUR: Eiro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
 	'donate_interface-AUD' => 'AUD: Australische Dollar',
 	'donate_interface-CAD' => 'CAD: Kanadische Dollar',
@@ -1086,17 +1452,17 @@ Naszą politykę prywatności dotyczącą darczyńców można odnaleźć <a titl
 	'donate_interface-comment-title' => 'Komentarz publiczny',
 	'donate_interface-amount-error' => '**Proszę wpisać poprawną kwotę**',
 	'donate_interface-processing-error' => 'Wystąpił błąd podczas wykonywania operacji. Brak dostępnego procesora.',
-	'donate_interface-GBP' => 'GBP — funt brytyjski',
-	'donate_interface-EUR' => 'EUR — euro',
-	'donate_interface-USD' => 'USD — dolar amerykański',
-	'donate_interface-AUD' => 'AUD — dolar australijski',
-	'donate_interface-CAD' => 'CAD — dolar kanadyjski',
+	'donate_interface-GBP' => 'GBP – funt brytyjski',
+	'donate_interface-EUR' => 'EUR – euro',
+	'donate_interface-USD' => 'USD – dolar amerykański',
+	'donate_interface-AUD' => 'AUD – dolar australijski',
+	'donate_interface-CAD' => 'CAD – dolar kanadyjski',
 	'donate_interface-CHF' => 'CHF — frank szwajcarski',
 	'donate_interface-CZK' => 'CZK — korona czeska',
 	'donate_interface-DKK' => 'DKK — korona duńska',
 	'donate_interface-HKD' => 'HKD — dolar Hongkongu',
 	'donate_interface-HUF' => 'HUF — forint węgierski',
-	'donate_interface-JPY' => 'JPY — jen japoński',
+	'donate_interface-JPY' => 'JPY – jen japoński',
 	'donate_interface-NZD' => 'NZD — dolar nowozelandzki',
 	'donate_interface-NOK' => 'NOK — korona norweska',
 	'donate_interface-PLN' => 'PLN — polski złoty',
@@ -1146,6 +1512,14 @@ Nòsta polìtica ës riservatëssa dij donator a peul esse trovà <a title='Dona
 	'donate_interface-ILS' => 'ILS: Shekel Israelian',
 );
 
+/** Pashto (پښتو)
+ * @author Ahmed-Najib-Biabani-Ibrahimkhel
+ */
+$messages['ps'] = array(
+	'donate_interface-EUR' => 'EUR: اېرو',
+	'donate_interface-USD' => 'USD: امريکايي ډالر',
+);
+
 /** Portuguese (Português)
  * @author Hamilton Abreu
  * @author Malafaya
@@ -1186,6 +1560,65 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-SGD' => 'SGD: Dólar de Singapura',
 	'donate_interface-SEK' => 'SEK: Coroa Sueca',
 	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
+);
+
+/** Brazilian Portuguese (Português do Brasil)
+ * @author Giro720
+ * @author Luckas Blade
+ */
+$messages['pt-br'] = array(
+	'donate_interface-GBP' => 'GBP: Libra esterlina',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dólar americano',
+	'donate_interface-AUD' => 'AUD: Dólar australiano',
+	'donate_interface-CAD' => 'CAD: Dólar canadense',
+	'donate_interface-JPY' => 'JPY: Iene (Japão)',
+);
+
+/** Romanian (Română)
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'donate_interface-GBP' => 'GBP: Liră sterlină',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolar american',
+	'donate_interface-AUD' => 'AUD: Dolar australian',
+	'donate_interface-CAD' => 'CAD: Dolar canadian',
+	'donate_interface-CHF' => 'CHF: Franc elvețian',
+	'donate_interface-CZK' => 'CZK: Coroană cehă',
+	'donate_interface-DKK' => 'DKK: Coroană daneză',
+	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
+	'donate_interface-HUF' => 'HUF: Forint maghiar',
+	'donate_interface-JPY' => 'JPY: Yen japonez',
+	'donate_interface-NZD' => 'NZD: Dolarul neo-zeelandez',
+	'donate_interface-NOK' => 'NOK: Coroană norvegiană',
+	'donate_interface-PLN' => 'PLN: Zlotul polonez',
+	'donate_interface-SGD' => 'SGD: Dolar singaporez',
+	'donate_interface-SEK' => 'SEK: Coroană suedeză',
+	'donate_interface-ILS' => 'ILS: Sekelul israelian',
+);
+
+/** Tarandíne (Tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'donate_interface-GBP' => "GBP: Sterline 'nglese",
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dollaro americane',
+	'donate_interface-AUD' => 'AUD: Dollaro australiane',
+	'donate_interface-CAD' => 'CAD: Dollaro canadese',
+	'donate_interface-CHF' => 'CHF: Franghe svizzere',
+	'donate_interface-CZK' => 'CZK: Corone ceche',
+	'donate_interface-DKK' => 'DKK: Corone danese',
+	'donate_interface-HKD' => 'HKD: Dollaro de Hong Kong',
+	'donate_interface-HUF' => 'HUF: Fiorine ungherese',
+	'donate_interface-JPY' => 'JPY: Yen giapponese',
+	'donate_interface-NZD' => 'NZD: Dollaro neo zelandese',
+	'donate_interface-NOK' => 'NOK: Corone norveggese',
+	'donate_interface-PLN' => 'PLN: Zloty pulacche',
+	'donate_interface-SGD' => 'SGD: Dollaro de Singapore',
+	'donate_interface-SEK' => 'SEK: Corone svedese',
+	'donate_interface-ILS' => 'ILS: Shekel isdraegliane',
 );
 
 /** Russian (Русский)
@@ -1230,6 +1663,111 @@ $messages['ru'] = array(
 	'donate_interface-ILS' => 'ILS: израильский шекель',
 );
 
+/** Sinhala (සිංහල)
+ * @author චතුනි අලහප්පෙරුම
+ */
+$messages['si'] = array(
+	'donate_interface-GBP' => 'මබ්‍රිප: බ්‍රිතාන්‍ය පවුම්',
+	'donate_interface-EUR' => 'යුරෝ: යුරෝ',
+	'donate_interface-USD' => 'ඇඩො: එ.ජ. ඩොලර්',
+	'donate_interface-AUD' => 'ඔඩො: ඕස්ට්‍රේලියානු ඩොලර්',
+	'donate_interface-CAD' => 'කැඩො: කැනේඩියානු ඩොලර්',
+	'donate_interface-CHF' => 'ස්ෆ්‍රෑ: ස්විස් ෆ්‍රෑන්ක්',
+	'donate_interface-CZK' => 'චෙකො: චෙක් කොරුනා',
+	'donate_interface-DKK' => 'ඩෙකො: ඩෙන්මාර්ක කොරුනා',
+	'donate_interface-HKD' => 'හොංකොංඩො: හොංකොං ඩොලර්',
+	'donate_interface-HUF' => 'හෆො: හන්ගේරියානු ෆොරින්ට්',
+	'donate_interface-JPY' => 'ජයෙ: ජපාන යෙන්',
+	'donate_interface-NZD' => 'නසීඩො: නවසීලන්ත ඩොලර්',
+	'donate_interface-NOK' => 'නෝක්‍රෝ: නෝවීජියානු ක්‍රෝන',
+	'donate_interface-PLN' => 'පෝස්: පෝලන්ත ස්ලොටි',
+	'donate_interface-SGD' => 'සිංඩො: සිංගප්පූරු ඩොලර්',
+	'donate_interface-SEK' => 'ස්වීක්‍රො: ස්වීඩන ක්‍රෝන',
+	'donate_interface-ILS' => 'ඊශ්‍රාෂෙ: ඊශ්‍රායෙල ෂෙකෙල්',
+);
+
+/** Slovak (Slovenčina)
+ * @author Helix84
+ */
+$messages['sk'] = array(
+	'donate_interface-GBP' => 'GBP: britská libra',
+	'donate_interface-EUR' => 'EUR: euro',
+	'donate_interface-USD' => 'USD: americký dolár',
+	'donate_interface-AUD' => 'AUD: austrálsky dolár',
+	'donate_interface-CAD' => 'CAD: kanadský dolár',
+	'donate_interface-JPY' => 'JPY: japonský jen',
+);
+
+/** Slovenian (Slovenščina)
+ * @author Dbc334
+ */
+$messages['sl'] = array(
+	'donate_interface' => 'Podprite Wikimedijo',
+	'donate_interface-amount' => 'Znesek prispevka:',
+	'donate_interface-submit-button' => 'Prispevaj',
+	'donate_interface-amount-error' => '**Prosimo, vnesite veljaven znesek**',
+	'donate_interface-GBP' => 'GBP: britanski funt',
+	'donate_interface-EUR' => 'EUR: evro',
+	'donate_interface-USD' => 'USD: ameriški dolar',
+	'donate_interface-AUD' => 'AUD: avstralski dolar',
+	'donate_interface-CAD' => 'CAD: kanadski dolar',
+	'donate_interface-CHF' => 'CHF: švicarski frank',
+	'donate_interface-CZK' => 'CZK: češka krona',
+	'donate_interface-DKK' => 'DKK: danska krona',
+	'donate_interface-HKD' => 'HKD: hongkonški dolar',
+	'donate_interface-HUF' => 'HUF: madžarski forint',
+	'donate_interface-JPY' => 'JPY: japonski jen',
+	'donate_interface-NZD' => 'NZD: novozelandski dolar',
+	'donate_interface-NOK' => 'NOK: norveška krona',
+	'donate_interface-PLN' => 'PLN: poljski zlot',
+	'donate_interface-SGD' => 'SGD: singapurski dolar',
+	'donate_interface-SEK' => 'SEK: švedska krona',
+	'donate_interface-ILS' => 'ILS: izraelski šekel',
+);
+
+/** Serbian Cyrillic ekavian (Српски (ћирилица))
+ * @author Михајло Анђелковић
+ */
+$messages['sr-ec'] = array(
+	'donate_interface-EUR' => 'EUR: Евро',
+	'donate_interface-USD' => 'USD: Амерички долар',
+	'donate_interface-AUD' => 'AUD: Аустралијски долар',
+	'donate_interface-CAD' => 'CAD: Канадски долар',
+	'donate_interface-JPY' => 'JPY: Јапански јен',
+);
+
+/** Serbian Latin ekavian (Srpski (latinica)) */
+$messages['sr-el'] = array(
+	'donate_interface-EUR' => 'EUR: Evro',
+	'donate_interface-USD' => 'USD: Američki dolar',
+	'donate_interface-AUD' => 'AUD: Australijski dolar',
+	'donate_interface-CAD' => 'CAD: Kanadski dolar',
+	'donate_interface-JPY' => 'JPY: Japanski jen',
+);
+
+/** Swedish (Svenska)
+ * @author Boivie
+ */
+$messages['sv'] = array(
+	'donate_interface-GBP' => 'GBP: Brittiska pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA-dollar',
+	'donate_interface-AUD' => 'AUD: Australiska dollar',
+	'donate_interface-CAD' => 'CAD: Canadensiska dollar',
+	'donate_interface-CHF' => 'CHF: Schweiziska franc',
+	'donate_interface-CZK' => 'CZK: Tjeckiska koruna',
+	'donate_interface-DKK' => 'DKK: Danska kronor',
+	'donate_interface-HKD' => 'HKD: Hongkongdollar',
+	'donate_interface-HUF' => 'HUF: Ungerska forint',
+	'donate_interface-JPY' => 'JPY: Japanska yen',
+	'donate_interface-NZD' => 'NZD: Nyzeeländska dollar',
+	'donate_interface-NOK' => 'NOK: Norska kronor',
+	'donate_interface-PLN' => 'PLN: Polska złoty',
+	'donate_interface-SGD' => 'SGD: Singaporiansk dollar',
+	'donate_interface-SEK' => 'SEK: Svenska kronor',
+	'donate_interface-ILS' => 'ILS: Israeliska shekel',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
@@ -1238,9 +1776,64 @@ $messages['te'] = array(
 	'donate_interface-gateway' => 'చెల్లింపు పద్ధతి:',
 	'donate_interface-comment-label' => 'వ్యాఖ్య:',
 	'donate_interface-comment-title' => 'బహిరంగ వ్యాఖ్య',
+	'donate_interface-GBP' => 'GBP: బ్రిటీష్ పౌండ్',
 	'donate_interface-EUR' => 'EUR: యూరో',
 	'donate_interface-USD' => 'USD: అమెరికా డాలర్',
+	'donate_interface-AUD' => 'AUD: ఆస్ట్రేలియా డాలర్',
 	'donate_interface-CAD' => 'CAD: కెనడా డాలర్',
+	'donate_interface-CHF' => 'CHF: స్విస్ ఫ్రాంక్',
+	'donate_interface-DKK' => 'DKK: డానిష్ క్రోన్',
+	'donate_interface-JPY' => 'JPY: జపనీస్ యెన్',
+	'donate_interface-NZD' => 'NZD: న్యూజిలాండ్ డాలర్',
+	'donate_interface-NOK' => 'NOK: నార్వేజియన్ క్రోన్',
+	'donate_interface-SGD' => 'SGD: సింగపూర్ డాలర్',
+);
+
+/** Thai (ไทย)
+ * @author Woraponboonkerd
+ */
+$messages['th'] = array(
+	'donate_interface-GBP' => 'GBP: ปอนด์อังกฤษ',
+	'donate_interface-EUR' => 'EUR: ยูโร',
+	'donate_interface-USD' => 'USD: ดอลลาร์สหรัฐ',
+	'donate_interface-AUD' => 'AUD: ดอลลาร์ออสเตรเลีย',
+	'donate_interface-CAD' => 'CAD: ดอลลาร์แคนาดา',
+	'donate_interface-JPY' => 'JPY: เยนญี่ปุ่น',
+);
+
+/** Turkmen (Türkmençe)
+ * @author Hanberke
+ */
+$messages['tk'] = array(
+	'donate_interface-GBP' => 'GBP: britan funt sterlingi',
+	'donate_interface-EUR' => 'EUR: ýewro',
+	'donate_interface-USD' => 'USD: ABŞ dollary',
+	'donate_interface-AUD' => 'AUD: awstraliýa dollary',
+	'donate_interface-CAD' => 'CAD: kanada dollary',
+	'donate_interface-CHF' => 'CHF: şweýsar franky',
+	'donate_interface-CZK' => 'CZK: çeh kronasy',
+	'donate_interface-DKK' => 'DKK: daniýa kronasy',
+	'donate_interface-HKD' => 'HKD: gonkong dollary',
+	'donate_interface-HUF' => 'HUF: wenger forinti',
+	'donate_interface-JPY' => 'JPY: ýapon ýenasy',
+	'donate_interface-NZD' => 'NZD: täze zelandiýa dollary',
+	'donate_interface-NOK' => 'NOK: norweg kronasy',
+	'donate_interface-PLN' => 'PLN: polýak zlotyýy',
+	'donate_interface-SGD' => 'SGD: singapur dollary',
+	'donate_interface-SEK' => 'SEK: şwed kronasy',
+	'donate_interface-ILS' => 'ILS: ysraýyl şekeli',
+);
+
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'donate_interface-GBP' => 'GBP: Libra ng Britanya',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolyar ng Estados Unidos',
+	'donate_interface-AUD' => 'AUD: Dolyar ng Australia',
+	'donate_interface-CAD' => 'CAD: Doyar ng Kanada',
+	'donate_interface-JPY' => 'JPY: Yen ng Hapon',
 );
 
 /** Turkish (Türkçe)
@@ -1287,6 +1880,7 @@ Uygun işlemci bulunmuyor.',
 
 /** Ukrainian (Українська)
  * @author Ahonc
+ * @author NickK
  * @author Prima klasy4na
  */
 $messages['uk'] = array(
@@ -1301,7 +1895,7 @@ $messages['uk'] = array(
 	'donate_interface-comment-message' => 'Є думка, щоб поділитися з світом? Наберіть до 200 символів тут:',
 	'donate_interface-comment-label' => 'Коментар:',
 	'donate_interface-anon-message' => "Будь ласка, вкажіть моє ім'я (поряд з моїм коментарем) в загальнодоступному списку донорів.",
-	'donate_interface-email-agreement' => "Я згоден отримувати в майбутньому листи або електронні листи від Фонду Вікімедіа.
+	'donate_interface-email-agreement' => "Я згоден отримувати в майбутньому новини або електронні листи від Фонду Вікімедіа.
 Ми ніколи не продамо і не обміняємо інформацію про вас.
 Нашу політику конфіденційності стосовно донорів можна знайти <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>тут</a>",
 	'donate_interface-comment-title' => 'Загальнодоступний коментар',
@@ -1318,7 +1912,7 @@ $messages['uk'] = array(
 	'donate_interface-DKK' => 'DKK: данська крона',
 	'donate_interface-HKD' => 'HKD: гонконгський долар',
 	'donate_interface-HUF' => 'HUF: угорський форінт',
-	'donate_interface-JPY' => 'JPY: японська ієна',
+	'donate_interface-JPY' => 'JPY: японська єна',
 	'donate_interface-NZD' => 'NZD: новозеландський долар',
 	'donate_interface-NOK' => 'NOK: норвезька крона',
 	'donate_interface-PLN' => 'PLN: польський злотий',
@@ -1406,16 +2000,16 @@ Quy định quyền riêng tư đối với người đóng góp của chúng t�
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
-/** Cantonese */
+/** Cantonese (粵語) */
 $messages['yue'] = array(
 	'donate_interface' => '支持Wikimedia',
 	'donate_interface-desc' => '捐綫登陸版整合嘅閘道擴展',
 	'donate_interface-intro' => '請揀一種俾錢方法、金額同貨幣。',
 	'donate_interface-amount' => '捐款金額：',
 	'donate_interface-other-amount' => '其它金額',
-	'donate_interface-currency'  => '貨幣：',
+	'donate_interface-currency' => '貨幣：',
 	'donate_interface-gateway' => '俾錢方法：',
-	'donate_interface-submit-button'  => '捐錢',
+	'donate_interface-submit-button' => '捐錢',
 	'donate_interface-comment-message' => '同個世界有個諗法？響呢度放唔多過200個字元嘅評論：',
 	'donate_interface-comment-label' => '註解：',
 	'donate_interface-anon-message' => '請列示我個名（響我嘅註解隔離）響個公共捐錢者度。',
@@ -1482,29 +2076,30 @@ $messages['zh-hans'] = array(
 	'donate_interface-PLN' => 'PLN: 波兰兹罗提',
 	'donate_interface-SGD' => 'SGD: 新加坡元',
 	'donate_interface-SEK' => 'SEK: 瑞典克朗',
-	'donate_interface-ILS' => 'ILS: 以色列谢克尔',	
+	'donate_interface-ILS' => 'ILS: 以色列谢克尔',
 );
 
-/** Traditional Chinese */
+/** Traditional Chinese (‪中文(繁體)‬)
+ * @author Liangent
+ */
 $messages['zh-hant'] = array(
-	'donate_interface' => '支持Wikimedia',
-	'donate_interface-desc' => '捐款登陸頁面整合的閘道擴展',
-	'donate_interface-intro' => '請選擇一種付款方式、金額以及貨幣。',
-	'donate_interface-amount' => '捐款金額：',
-	'donate_interface-other-amount' => '其它金額',
-	'donate_interface-currency'  => '貨幣：',
-	'donate_interface-gateway' => '付款方式：',
-	'donate_interface-submit-button'  => '捐款',
-	'donate_interface-comment-message' => '跟世界有個想法？在響呢度放唔多過200個字元的評論：',
-	'donate_interface-comment-label' => '註解：',
-	'donate_interface-anon-message' => '請列示我的名字（在我的註解旁邊）於公共捐款者中。',
-	'donate_interface-email-agreement' => "我同意接收未來的Wikimedia Foundation的新聞稿或者電郵。
-我們不會賣或交易您的資料。
-我們捐款者的隱私政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裏</a>找到",
-	'donate_interface-comment-title' => '公共註解',
-	'donate_interface-amount-error' => '**請輸入一個有效的金額**',
-	'donate_interface-processing-error' => '處理您的請求時出錯。
-沒可以用的處理器。',
+	'donate_interface' => '資助維基媒體',
+	'donate_interface-desc' => '捐款頁面用於整合其他接口插件',
+	'donate_interface-intro' => '請選擇支付方式、數額及幣種。',
+	'donate_interface-amount' => '捐助數額：',
+	'donate_interface-other-amount' => '其它數額',
+	'donate_interface-currency' => '幣種：',
+	'donate_interface-gateway' => '支付方式：',
+	'donate_interface-submit-button' => '捐款',
+	'donate_interface-comment-message' => '有想法希望與世界分享？請在此填寫不超過200字的評論：',
+	'donate_interface-comment-label' => '評論：',
+	'donate_interface-anon-message' => '請在我的評論邊上附上我的名字。',
+	'donate_interface-email-agreement' => "我同意接受維基媒體基金會及維基百科的郵件。
+我們絕不會交易您的個人信息。
+關於我們的捐助人隱私政策請參見<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>此處</a>。",
+	'donate_interface-comment-title' => '公開的評論',
+	'donate_interface-amount-error' => '**請輸入有效的數額**',
+	'donate_interface-processing-error' => '處理您的請求時出錯了。沒有可用的處理器。',
 	'donate_interface-GBP' => 'GBP: 英鎊',
 	'donate_interface-EUR' => 'EUR: 歐元',
 	'donate_interface-USD' => 'USD: 美元',
@@ -1524,16 +2119,17 @@ $messages['zh-hant'] = array(
 	'donate_interface-ILS' => 'ILS: 以色列謝克爾',
 );
 
-/** Hong Kong Chinese */
+/** Chinese (Hong Kong) (‪中文(香港)‬) */
 $messages['zh-hk'] = array(
 	'donate_interface-email-agreement' => "我同意接收未來的Wikimedia Foundation的新聞稿或者電郵。
 我們不會賣或交易您的資料。
 我們捐款者的私隱政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裏</a>找到",
 );
 
-/** Taiwan Chinese */
+/** Chinese (Taiwan) (‪中文(台灣)‬) */
 $messages['zh-tw'] = array(
 	'donate_interface-email-agreement' => "我同意接收未來的維基媒體的新聞稿或者電郵。
 我們不會賣或交易您的資料。
 我們捐款者的隱私政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裡</a>找到",
 );
+
