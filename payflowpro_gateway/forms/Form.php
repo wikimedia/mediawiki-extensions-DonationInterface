@@ -117,7 +117,7 @@ abstract class PayflowProGateway_Form {
 		// generate a dropdown option for each country
 		foreach ( $this->getCountries() as $iso_value => $full_name ) {
 			$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
-			$country_options .= Xml::option( $full_name, $iso_value, $selected );
+			$country_options .= Xml::option( wfMsg( 'payflowpro_gateway-country-dropdown-' . $iso_value ), $iso_value, $selected );
 		}
 
 		// build the actual select
@@ -238,7 +238,7 @@ abstract class PayflowProGateway_Form {
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
-			$state_opts .= Xml::option( $state_name, $value, $selected );
+			$state_opts .= Xml::option( wfMsg( 'payflowpro_gateway-state-dropdown-' . $value ), $value, $selected );
 		}
 
 		$state_menu = Xml::openElement(
