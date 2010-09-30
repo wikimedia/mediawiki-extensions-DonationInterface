@@ -253,3 +253,26 @@ $messages['en'] = array(
 	'payflowpro_gateway-country-dropdown-894' => 'Zambia',
 	'payflowpro_gateway-country-dropdown-716' => 'Zimbabwe',
 );
+
+/** German (Deutsch) */
+$messages['de'] = array(
+	'payflowpro_gateway-country-dropdown-840' => 'USA',
+	'payflowpro_gateway-country-dropdown-036' => 'Australien',
+	'payflowpro_gateway-country-dropdown-040' => 'Österreich',
+	'payflowpro_gateway-country-dropdown-124' => 'Kanada',
+	'payflowpro_gateway-country-dropdown-208' => 'Dänemark',
+	'payflowpro_gateway-country-dropdown-246' => 'Finnland',
+	'payflowpro_gateway-country-dropdown-250' => 'Frankreich',
+	'payflowpro_gateway-country-dropdown-276' => 'Deutschland',
+	'payflowpro_gateway-country-dropdown-380' => 'Italien',
+	'payflowpro_gateway-country-dropdown-440' => 'Litauen',
+	'payflowpro_gateway-country-dropdown-442' => 'Luxemburg',
+	'payflowpro_gateway-country-dropdown-528' => 'Niederlande',
+	'payflowpro_gateway-country-dropdown-616' => 'Polen',
+	'payflowpro_gateway-country-dropdown-643' => 'Russland',
+	'payflowpro_gateway-country-dropdown-710' => 'Südafrika',
+	'payflowpro_gateway-country-dropdown-724' => 'Spanien',
+	'payflowpro_gateway-country-dropdown-756' => 'Schweiz',
+	'payflowpro_gateway-country-dropdown-826' => 'Großbritannien',
+);
+
