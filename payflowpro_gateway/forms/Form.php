@@ -113,11 +113,20 @@ abstract class PayflowProGateway_Form {
 	 */
 	public function generateCountryDropdown() {
 		$country_options = '';
+
+		// create a new array of countries with potentially translated country names for alphabetizing later
+		foreach ( $this->getCountries() as $iso_value => $full_name ) {
+			$countries[ $iso_value ] = wfMsg( 'payflowpro_gateway-country-dropdown-' . $iso_value );
+		}
+		
+		// alphabetically sort the country names
+		// @fixme we should probably set locale and do a locale string sort
+		asort( $countries, SORT_STRING );
 		
 		// generate a dropdown option for each country
-		foreach ( $this->getCountries() as $iso_value => $full_name ) {
+		foreach ( $countries as $iso_value => $full_name ) {
 			$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
-			$country_options .= Xml::option( wfMsg( 'payflowpro_gateway-country-dropdown-' . $iso_value ), $iso_value, $selected );
+			$country_options .= Xml::option( $full_name, $iso_value, $selected );
 		}
 
 		// build the actual select
