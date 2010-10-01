@@ -168,12 +168,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Build and displays form to user
+	 * Build and display form to user
 	 *
 	 * @param $data Array: array of posted user input
 	 * @param $error Array: array of error messages returned by validate_form function
 	 *
-	 * The message at the top of the form can be edited in the payflow_gateway.i18.php file
+	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function fnPayflowDisplayForm( &$data, &$error ) {
 		global $wgOut;	
@@ -187,10 +187,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		}
 
 		$form_class = $this->getFormClass();
-		$form_obj = new $form_class( $data, $error );  	
-		$form = $form_obj->generateFormStart();
-		$form .= $form_obj->generateFormSubmit();
-		$form .= $form_obj->generateFormEnd();
+		$form_obj = new $form_class( $data, $error );
+		$form = $form_obj->getForm();
 		$wgOut->addHTML( $form );
 	}
 

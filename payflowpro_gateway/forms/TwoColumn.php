@@ -13,6 +13,20 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
  				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
 	}
 	
+	/**
+	 * Required method for constructing the entire form
+	 * 
+	 * This can of course be overloaded by a child class.
+	 * @return string The entire form HTML
+	 */
+	public function getForm() {
+		$form = $this->generateFormStart();
+		$form .= $this->getCaptchaHTML();
+		$form .= $this->generateFormSubmit();
+		$form .= $this->generateFormEnd();
+		return $form;
+	}
+	
 	public function generateFormStart() {
 		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
 		$form = $this->generateBannerHeader();

@@ -50,24 +50,29 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 	 * Display the submission form with the captcha injected into it
 	 */
 	public function display_captcha( &$pfp_gateway_object, &$data ) {
-		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
+		global $wgOut, $wgPayflowRecaptchaPublicKey, $wgProto;
 		
-		global $wgOut;
+		// log that a captcha's been triggered
+		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
+				
+		// check if we need to be using HTTPs to communicate with reCaptcha
+		$use_ssl = ( $wgProto == 'https' ) ? TRUE : FALSE;
+		
+		// construct the HTML used to display the captcha
+		$captcha_html = Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
+		$captcha_html .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $this->recap_err, $use_ssl );
+		$captcha_html .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please') . '</span>';
+		$captcha_html .= Xml::closeElement( 'div' ); // close div#mw-donate-captcha
+
+		// load up the form class
 		$form_class = $pfp_gateway_object->getFormClass();
 		$form_obj = new $form_class( $data, $pfp_gateway_object->errors );
-		$form = $form_obj->generateFormStart( $data, $pfp_gateway_object->errors );
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ));
 
-		// get the captcha
-		global $wgPayflowRecaptchaPublicKey, $wgProto;
-		$use_ssl = ( $wgProto == 'https' ) ? TRUE : FALSE;
-		$form .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $this->recap_err, $use_ssl );
-		$form .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please') . '</span>';
-		
-		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-captcha
-		$form .= $form_obj->generateFormSubmit( $data, $pfp_gateway_object->errors );
-		$form .= $form_obj->generateFormEnd( $data, $pfp_gateway_object->errors );
-		$wgOut->addHTML( $form );
+		// set the captcha HTML to use in the form
+		$form_obj->setCaptchaHTML( $captcha_html );
+
+		// output the form
+		$wgOut->addHTML( $form_obj->getForm());
 	}
 
 	/**

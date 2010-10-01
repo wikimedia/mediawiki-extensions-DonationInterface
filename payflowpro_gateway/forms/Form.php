@@ -32,9 +32,22 @@ abstract class PayflowProGateway_Form {
 	 */
 	protected $style_path;
 	
-	abstract public function generateFormStart();
-	abstract public function generateFormSubmit();
-	abstract public function generateFormEnd();
+	/**
+	 * A string to hold the HTML to display a cpatcha
+	 * @var string
+	 */
+	protected $captcha_html;
+	
+	/**
+	 * Required method for returning the full HTML for a form.
+	 * 
+	 * Code invoking forms will expect this method to be set.  Requiring only
+	 * this method allows for flexible form generation inside of child classes
+	 * while also providing a unified method for returning the full HTML for 
+	 * a form.
+	 * @return string The entire form HTML
+	 */
+	abstract function getForm();
 	
 	public function __construct( &$data, &$error ) {
 		global $wgPayflowGatewayTest, $wgOut;
@@ -44,8 +57,9 @@ abstract class PayflowProGateway_Form {
 		$this->form_errors =& $error;
 		
 		/**
-		 *  add form-specific css - the path can be set using $this->setStylePath,
-		 *  which should be called before loading this constructor
+		 *  add form-specific css - the path can be set in child classes 
+		 *  using $this->setStylePath, which should be called before 
+		 *  calling parent::__construct()
 		 */
 		if ( !strlen( $this->getStylePath())) {
 			$this->setStylePath();
@@ -109,6 +123,9 @@ abstract class PayflowProGateway_Form {
 
 	/**
 	 * Generate the menu select of countries
+	 * @fixme It would be great if we could default the country to the user's locale
+	 * @fixme We should also do a locale-based asort on the country dropdown
+	 * 	(see http://us.php.net/asort)
 	 * @return string
 	 */
 	public function generateCountryDropdown() {
@@ -120,7 +137,6 @@ abstract class PayflowProGateway_Form {
 		}
 		
 		// alphabetically sort the country names
-		// @fixme we should probably set locale and do a locale string sort
 		asort( $countries, SORT_STRING );
 		
 		// generate a dropdown option for each country
@@ -237,6 +253,12 @@ abstract class PayflowProGateway_Form {
 		return $expiry_year_menu;
 	}
 
+	/**
+	 * Generates the dropdown for states
+	 * @fixme Alpha sort (ideally locale alpha sort) states in dropdown
+	 * 	AFTER state names are translated
+	 * @return string The entire HTML select element for the state dropdown list
+	 */
 	public function generateStateDropdown() {
 		require_once( dirname( __FILE__ ) . '/../includes/stateAbbreviations.inc' );
 
@@ -262,6 +284,14 @@ abstract class PayflowProGateway_Form {
 		return $state_menu;
 	}
 
+	/**
+	 * Generates the dropdown list for available currencies
+	 * 
+	 * @fixme The list of available currencies should NOT be defined here but rather
+	 * 	be customizable
+	 * @fixme It would be great to default the currency to a locale's currency
+	 * @return string The entire HTML select for the currency dropdown
+	 */
 	public function generateCurrencyDropdown() {
 		$available_currencies = array(
 			'USD' => 'USD: U.S. Dollar',
@@ -335,5 +365,31 @@ abstract class PayflowProGateway_Form {
 			$this->setHiddenFields();
 		}
 		return $this->hidden_fields;
+	}
+	
+	/**
+	 * Get the HTML set to display a captcha
+	 * 
+	 * If $this->captcha_html has no string length, an empty string is returned.
+	 * @return string The HTML to display the captcha or an empty string
+	 */
+	public function getCaptchaHTML() {
+		if ( !strlen( $this->captcha_html )) {
+			return '';
+		}
+		return $this->captcha_html;
+	}
+	
+	/**
+	 * Set a string of HTML used to display a captcha
+	 * 
+	 * This allows for a flexible way of inserting some kind of captcha
+	 * into a form, and for a form to flexibly insert captcha HTML 
+	 * wherever it needs to go.
+	 * 
+	 * @param string The HTML to display the captcha
+	 */
+	public function setCaptchaHTML( $html ) {
+		$this->captcha_html = $html;		
 	}
 }
