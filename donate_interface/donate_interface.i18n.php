@@ -169,7 +169,14 @@ $messages['be-tarask'] = array(
 	'donate_interface-currency' => 'Валюта:',
 	'donate_interface-gateway' => 'Мэтад плацяжу:',
 	'donate_interface-submit-button' => 'Ахвяраваць',
+	'donate_interface-comment-message' => 'Маеце думкі, якімі хочаце падзяліцца са сьветам? Пакіньце тут паведамленьне не болей 200 сымбаляў:',
 	'donate_interface-comment-label' => 'Камэнтар:',
+	'donate_interface-anon-message' => 'Калі ласка, дадайце маё імя ў сьпіс (каля майго камэнтара) у публічным сьпісе ахвяравальнікаў.',
+	'donate_interface-email-agreement' => 'Я згодны атрымліваць у будучыні паведамленьні ці электронныя лісты ад фундацыі «Вікімэдыя».',
+	'donate_interface-comment-title' => 'Публічны камэнтар',
+	'donate_interface-amount-error' => '**Калі ласка, увядзіце слушную суму**',
+	'donate_interface-processing-error' => 'Адбылася памылка падчас апрацоўкі Вашага запыту.
+Няма даступных працэсараў.',
 	'donate_interface-GBP' => 'GBP: брытанскі фунт',
 	'donate_interface-EUR' => 'EUR: эўра',
 	'donate_interface-USD' => 'USD: даляр ЗША',
@@ -215,9 +222,16 @@ $messages['bg'] = array(
 /** Breton (Brezhoneg)
  * @author Fohanno
  * @author Fulup
+ * @author Gwendal
  */
 $messages['br'] = array(
 	'donate_interface' => 'Skoazellañ Wikimedia',
+	'donate_interface-amount' => 'Sammad an donezon :',
+	'donate_interface-other-amount' => 'Sammad all',
+	'donate_interface-gateway' => 'Doare paeañ :',
+	'donate_interface-submit-button' => 'Ober un donezon',
+	'donate_interface-comment-title' => 'Kemenn publik',
+	'donate_interface-amount-error' => '**Merkit ur sammad reizh**',
 	'donate_interface-GBP' => 'GBP : Lur saoz',
 	'donate_interface-EUR' => 'EUR : Euro',
 	'donate_interface-USD' => 'USD : Dollar SUA',
@@ -291,9 +305,7 @@ $messages['cs'] = array(
 	'donate_interface-comment-message' => 'Chcete se podělit o nějakou myšlenku se světem? Napište sem nejvýše 200 znaků:',
 	'donate_interface-comment-label' => 'Komentář:',
 	'donate_interface-anon-message' => 'Uveďte mé jméno (spolu s mým komentářem) na veřejném seznamu dárců.',
-	'donate_interface-email-agreement' => "Souhlasím, aby mi byly zasílány novinky a e-maily od Wikimedia Foundation.
-Vaše údaje nikdy nikomu neprodáme.
-Můžete si přečíst naše <a href='/wiki/Donate/Donor_Privacy'>pravidla ochrany soukromí dárců</a>.",
+	'donate_interface-email-agreement' => 'Souhlasím, aby mi Wikimedia Foundation v budoucnu zasílala novinky a e-maily.',
 	'donate_interface-comment-title' => 'Veřejný komentář',
 	'donate_interface-amount-error' => '**Zadejte platnou částku**',
 	'donate_interface-processing-error' => 'Při zpracovávání vašeho příspěvku došlo k chybě.
@@ -371,9 +383,7 @@ $messages['de'] = array(
 	'donate_interface-comment-message' => 'Haben Sie einen Gedanken, den Sie mit der Welt teilen möchten? Er darf bis zu 200 Zeichen lang sein:',
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-anon-message' => 'Mein Name darf (zusammen mit meinem Kommentar) in der öffentlichen Spenderliste genannt werden.',
-	'donate_interface-email-agreement' => "Ich stimme zu, in Zukunft Newsletter oder E-Mails der Wikimedia Foundation erhalten zu wollen.
-Wir werden Ihre Informationen weder verkaufen noch damit handeln.
-Unsere Datenschutzbestimmungen finden Sie <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hier</a>",
+	'donate_interface-email-agreement' => 'Ich stimme zu, in Zukunft Newsletter oder E-Mails der Wikimedia Foundation erhalten zu wollen.',
 	'donate_interface-comment-title' => 'Öffentlicher Kommentar:',
 	'donate_interface-amount-error' => '**Bitte gib einen gültigen Betrag ein**',
 	'donate_interface-processing-error' => 'Es gab einen Verarbeitungsfehler Ihrer Anfrage. Es ist kein Prozess verfügbar.',
@@ -579,6 +589,16 @@ $messages['et'] = array(
  * @author An13sa
  */
 $messages['eu'] = array(
+	'donate_interface' => 'Lagundu Wikimedia',
+	'donate_interface-intro' => 'Mesedez aukeratu ordainketa era, kopurua, eta txanpon-mota.',
+	'donate_interface-amount' => 'Dohaintza kopurua:',
+	'donate_interface-other-amount' => 'Bestelako kopurua',
+	'donate_interface-currency' => 'Txanpona:',
+	'donate_interface-gateway' => 'Ordainketa era:',
+	'donate_interface-submit-button' => 'Dohaintza egin',
+	'donate_interface-comment-label' => 'Iruzkina:',
+	'donate_interface-comment-title' => 'Iruzkin publikoa',
+	'donate_interface-amount-error' => '**Mesedez idatzi baliozko kopurua**',
 	'donate_interface-GBP' => 'GBP: Britainiar libra',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Estatubatuar dolar',
@@ -719,9 +739,7 @@ $messages['gl'] = array(
 	'donate_interface-comment-message' => 'Tes unha idea que queres compartir co mundo? Escríbea aquí nunha mensaxe de ata 200 caracteres:',
 	'donate_interface-comment-label' => 'Comentario:',
 	'donate_interface-anon-message' => 'Por favor, poñede na lista de doantes públicos o meu nome co meu comentario.',
-	'donate_interface-email-agreement' => "Acepto recibir futuras follas informativas e correos electrónicos da Fundación Wikimedia. 
-Non venderemos nin comercializaremos a túa información.
-Podes atopar <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>aquí</a> a nosa política de protección de datos",
+	'donate_interface-email-agreement' => 'Acepto recibir futuras follas informativas e correos electrónicos da Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-amount-error' => '**Por favor, escribe unha cantidade válida**',
 	'donate_interface-processing-error' => 'Houbo un erro ao procesar a túa solicitude. Non hai ningún procesador dispoñible.',
@@ -759,9 +777,7 @@ $messages['gsw'] = array(
 	'donate_interface-comment-message' => 'Hesch e Gedanke, wu Du mit dr Wält witt teile? Gib do bis zue 200 Zeiche yy:',
 	'donate_interface-comment-label' => 'Aamerkig:',
 	'donate_interface-anon-message' => 'Bitte setz myy Name (näbe myy Aamerkig) uf di effentlig Spänderlischt.',
-	'donate_interface-email-agreement' => "Ich stimm zue, ass ich in Zuechumpft Newsletter oder E-Mails vu dr Wikimedia Foundation newsletters iberchumm.
-Mir wäre dyy Information nie vercahufe oder dermit handle.
-Unsri Spände-Richtlinie cha mer <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>do</a> aaluege",
+	'donate_interface-email-agreement' => 'Ich stimm zue, ass ich in Zuechumpft Newsletter oder E-Mails vu dr Wikimedia Foundation iberchumm.',
 	'donate_interface-comment-title' => 'Effentligi Aamerkig',
 	'donate_interface-amount-error' => '**Bitte gib e giltige Betrag yy**',
 	'donate_interface-processing-error' => 'S het e Fähler gee bim Verarbeite vu Dyyre Aafrog. S isch kei Prozässor verfiegbar.',
@@ -905,9 +921,7 @@ $messages['ia'] = array(
 	'donate_interface-comment-message' => 'Vole tu transmitter un pensata al mundo? Scribe usque a 200 characteres hic:',
 	'donate_interface-comment-label' => 'Commento:',
 	'donate_interface-anon-message' => 'Mentiona mi nomine (juxta mi commento) in le lista public de donatores.',
-	'donate_interface-email-agreement' => "Io accepta de reciper futur bulletines de novas o e-mails del Fundation Wikimedia.
-Nos nunquam vendera o excambiara tu informationes.
-Nostre politica de confidentialitate de donatores se trova <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hic</a>",
+	'donate_interface-email-agreement' => 'Io accepta de reciper futur bulletines de novas o e-mails del Fundation Wikimedia.',
 	'donate_interface-comment-title' => 'Commento public',
 	'donate_interface-amount-error' => '**Per favor entra un amonta valide**',
 	'donate_interface-processing-error' => 'Un error occurreva durante le tractamento de tu requesta. Nulle processator es disponibile.',
@@ -1146,9 +1160,7 @@ $messages['lb'] = array(
 	'donate_interface-comment-message' => 'Wëllt dir der Welt Är iwwerleeunge matdeelen? Schreiwt bis zu 200 Zeechen heihinn:',
 	'donate_interface-comment-label' => 'Bemierkung:',
 	'donate_interface-anon-message' => 'Setzt mäin Numm w.e.g. (niewent menger Bemierkung) op déi ëffentlech Lëscht vun den Donateuren.',
-	'donate_interface-email-agreement' => "Ech sinn domat d'accord fir an Zukunft Newsletteren oder E-Maile vun der Wikimedia Foundation ze kréien.
-Mir wäerten är Informatiounen ni  verkafen oder domat handelen.
-Eis Richtlinnen iwwer de Respekt vun der Privatsphär fannt Dir  <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hei</a>",
+	'donate_interface-email-agreement' => "Ech sinn domat d'accord fir an Zukunft Newsletteren oder E-Maile vun der Wikimedia Foundation ze kréien.",
 	'donate_interface-comment-title' => 'Ëffentlech Bemierkung',
 	'donate_interface-amount-error' => '**Gitt w.e.g. e valabele Betrag an**',
 	'donate_interface-processing-error' => 'Et gouf e Feeler beim behandele vun Ärer Ufro. Et ass kee Prozesseur disponibel.',
@@ -1198,9 +1210,7 @@ $messages['mk'] = array(
 	'donate_interface-comment-message' => 'Сакате да се искажете? Тука пишете до 200 знаци:',
 	'donate_interface-comment-label' => 'Коментар:',
 	'donate_interface-anon-message' => 'Наведете ми го името (заедно со мојот коментар) на јавниот список на дарители.',
-	'donate_interface-email-agreement' => "Се согласувам да добивам новини или е-пошта од фондацијата Викимедија.
-Ние никогаш нема да продадеме или размениме информации за вас.
-Нашите правила за приватност на дарителите можете да ги најдете <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>овде</a>",
+	'donate_interface-email-agreement' => 'Се согласувам да добивам новини или е-пошта од фондацијата Викимедија.',
 	'donate_interface-comment-title' => 'Јавен коментар',
 	'donate_interface-amount-error' => '**Внесете важечки износ**',
 	'donate_interface-processing-error' => 'Се појави грешка при обработката на вашето барање. Нема достапни преработувачи.',
@@ -1237,11 +1247,11 @@ $messages['ml'] = array(
 	'donate_interface-comment-message' => 'ലോകവുമായി പങ്കുവെയ്ക്കാൻ ഒരു ചിന്ത താങ്കൾക്കുണ്ടോ? 200 അക്ഷരങ്ങളിൽ കവിയാതെ ഇവിടെ ചേർക്കുക:',
 	'donate_interface-comment-label' => 'അഭിപ്രായം:',
 	'donate_interface-anon-message' => 'എന്റെ പേര് (എന്റെ അഭിപ്രായത്തിനു സമീപത്തായി) പൊതു സംഭാവകരുടെ പട്ടികയിൽ ദയവായി ചേർക്കുക.',
-	'donate_interface-email-agreement' => "വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഭാവി വാർത്താപത്രികകളോ ഇമെയിലുകളോ സ്വീകരിക്കാൻ സന്തോഷമേയുള്ളു.
-ഞങ്ങൾ താങ്കളെ കുറിച്ചുള്ള വിവരങ്ങൾ ഒരിക്കലും മറിച്ചുകൊടുക്കുന്നതല്ല.
-സംഭാവകരുടെ സ്വകാര്യതയെ കുറിച്ചുള്ള നയങ്ങൾ <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ഇവിടെ</a> കാണാവുന്നതാണ്.",
+	'donate_interface-email-agreement' => 'വിക്കിമീഡിയ ഫൗണ്ടേഷന്റെ ഭാവി വാർത്താപത്രികകളോ ഇമെയിലുകളോ സ്വീകരിക്കാൻ സന്തോഷമേയുള്ളു.',
 	'donate_interface-comment-title' => 'പൊതു കുറിപ്പ്',
 	'donate_interface-amount-error' => '**ദയവായി സാധുവായ തുക നൽകുക**',
+	'donate_interface-processing-error' => 'താങ്കളുടെ ആവശ്യം കൈകാര്യം ചെയ്യുന്നതിനിടയിൽ പിഴവുണ്ടായിരിക്കുന്നു.
+പ്രോസസ്സറുകളൊന്നും ലഭ്യമല്ല.',
 	'donate_interface-GBP' => 'GPB: ബ്രിട്ടീഷ് പൗണ്ട്',
 	'donate_interface-EUR' => 'EUR: യൂറോ',
 	'donate_interface-USD' => 'USD: യു.എസ്. ഡോളർ',
@@ -1285,6 +1295,7 @@ $messages['nds-nl'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author McDutchie
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -1299,9 +1310,7 @@ $messages['nl'] = array(
 	'donate_interface-comment-message' => 'Wilt u een gedachte delen met de wereld? Hieronder kunt u tot tweehonderd karakters kwijt:',
 	'donate_interface-comment-label' => 'Opmerking:',
 	'donate_interface-anon-message' => 'Geef mijn naam weer naast mijn opmerking in de publieke donateurslijst.',
-	'donate_interface-email-agreement' => "Ik ga akkoord met het ontvangen van nieuwsbrieven of e-mails van de Wikimedia Foundation.
-We verkopen of verhandelen uw informatie niet.
-Zie ook ons <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>donateursbeleid</a>.",
+	'donate_interface-email-agreement' => 'Ik ga akkoord met het ontvangen van nieuwsbrieven of e-mails van de Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Publieke opmerking',
 	'donate_interface-amount-error' => '**Voer alstublieft een geldig bedrag in**',
 	'donate_interface-processing-error' => 'Er is een fout opgetreden bij het verwerken van uw verzoek. Er is geen verwerkingsdienst beschikbaar.',
@@ -1446,9 +1455,7 @@ $messages['pl'] = array(
 	'donate_interface-comment-message' => 'Chciałbyś coś przekazać światu? Możesz tutaj wpisać do 200 znaków.',
 	'donate_interface-comment-label' => 'Komentarz',
 	'donate_interface-anon-message' => 'Proszę wymienić mnie (obok mój komentarz) na publicznej liście darczyńców.',
-	'donate_interface-email-agreement' => "Zgadzam się na otrzymywanie w przyszłości od Fundacji Wikimedia biuletynów oraz e-maili. 
-Nigdy nie sprzedamy Twoich danych.
-Naszą politykę prywatności dotyczącą darczyńców można odnaleźć <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>tutaj</a>",
+	'donate_interface-email-agreement' => 'Zgadzam się na otrzymywanie w przyszłości od Fundacji Wikimedia biuletynów oraz e-maili.',
 	'donate_interface-comment-title' => 'Komentarz publiczny',
 	'donate_interface-amount-error' => '**Proszę wpisać poprawną kwotę**',
 	'donate_interface-processing-error' => 'Wystąpił błąd podczas wykonywania operacji. Brak dostępnego procesora.',
@@ -1536,9 +1543,7 @@ $messages['pt'] = array(
 	'donate_interface-comment-message' => 'Quer partilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
 	'donate_interface-comment-label' => 'Comentário:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome (junto ao meu comentário) na lista pública de contribuidores.',
-	'donate_interface-email-agreement' => "Desejo receber futuras ''newsletters'' e mensagens electrónicas da Fundação Wikimedia.
-Os seus dados pessoais em caso nenhum serão vendidos ou comercializados.
-A nossa política de privacidade de benfeitores pode ser consultada <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>aqui</a>.",
+	'donate_interface-email-agreement' => "Concordo em receber futuras ''newsletters'' e mensagens electrónicas da Wikimedia Foundation.",
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => '**Por favor, insira um montante válido**',
 	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
@@ -1638,9 +1643,7 @@ $messages['ru'] = array(
 	'donate_interface-comment-message' => 'Есть что высказать? Здесь можно оставить сообщение до 200 символов:',
 	'donate_interface-comment-label' => 'Комментарий:',
 	'donate_interface-anon-message' => 'Пожалуйста, укажите моё имя (рядом с моим комментарием) в общедоступном списке жертвователей.',
-	'donate_interface-email-agreement' => "Я согласен получать в будущем письма или электронные письма от Фонда Викимедиа.
-Мы никогда не продадим и не обменяем информацию о вас.
-Нашу политику конфиденциальности в отношении жертвователей можно найти <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>здесь</a>",
+	'donate_interface-email-agreement' => 'Я согласен получать электронные письма от Фонда Викимедиа.',
 	'donate_interface-comment-title' => 'Общедоступный комментарий',
 	'donate_interface-amount-error' => '** Пожалуйста, введите корректную сумму **',
 	'donate_interface-processing-error' => 'При обработке вашего запроса возникла ошибка. Нет доступных процессоров.',
@@ -1828,12 +1831,39 @@ $messages['tk'] = array(
  * @author AnakngAraw
  */
 $messages['tl'] = array(
+	'donate_interface' => 'Tangkilikin ang Wikimedia',
+	'donate_interface-desc' => 'Pahinang lapagan ng mga abuloy na nagsasama-sam ng mga dugtong ng daanang-tarangkahan',
+	'donate_interface-intro' => 'Mangyaring pumili ng isang paraan ng pagbabayad, halaga, at salapi.',
+	'donate_interface-amount' => 'Halaga ng abuloy:',
+	'donate_interface-other-amount' => 'Ibang halaga',
+	'donate_interface-currency' => 'Salaping umiiral:',
+	'donate_interface-gateway' => 'Paraan ng pagbabayad:',
+	'donate_interface-submit-button' => 'Mag-abuloy',
+	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais ipamahaga sa mundo? Maglagay ng hanggang sa 200 mga panitik dito:',
+	'donate_interface-comment-label' => 'Puna:',
+	'donate_interface-anon-message' => 'Mangyaring itala ang aking pangalan (katabi ng aking puna) na nasa ibabawa ng talaan ng pangmadlang tagapagkaloob.',
+	'donate_interface-email-agreement' => 'Sumasang-ayon ako upang makatanggap sa hinaharap ng mga balitang-liham o mga e-liham mula sa Pundasyon ng Wikimedia.',
+	'donate_interface-comment-title' => 'Pangmadlang puna',
+	'donate_interface-amount-error' => '**Mangyaring magpasok ng isang tanggap na halaga**',
+	'donate_interface-processing-error' => 'Nagkaroon ng isang kamalian sa pagsasagawa ng iyong kahilingan.
+Walang makukuhang mga tagapagsagawa.',
 	'donate_interface-GBP' => 'GBP: Libra ng Britanya',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolyar ng Estados Unidos',
 	'donate_interface-AUD' => 'AUD: Dolyar ng Australia',
 	'donate_interface-CAD' => 'CAD: Doyar ng Kanada',
+	'donate_interface-CHF' => 'CHF: Pranko ng Suwisa',
+	'donate_interface-CZK' => 'CZK: Korunang Tseko',
+	'donate_interface-DKK' => 'DKK: Kroneng Danes',
+	'donate_interface-HKD' => 'HKD: Dolyar ng Hongkong',
+	'donate_interface-HUF' => 'HUF: Porinto ng Unggarya',
 	'donate_interface-JPY' => 'JPY: Yen ng Hapon',
+	'donate_interface-NZD' => 'NZD: Dolyar ng Bagong Selanda',
+	'donate_interface-NOK' => 'NOK: Krone ng Noruwega',
+	'donate_interface-PLN' => 'PLN: Isloti ng Polonya',
+	'donate_interface-SGD' => 'SGD: Dolyar ng Singgapur',
+	'donate_interface-SEK' => 'SEK: Krona ng Suwesya',
+	'donate_interface-ILS' => 'ILS: Syekel ng Israel',
 );
 
 /** Turkish (Türkçe)
@@ -1882,6 +1912,7 @@ Uygun işlemci bulunmuyor.',
  * @author Ahonc
  * @author NickK
  * @author Prima klasy4na
+ * @author Тест
  */
 $messages['uk'] = array(
 	'donate_interface' => 'Підтримка Вікімедіа',
@@ -1895,9 +1926,7 @@ $messages['uk'] = array(
 	'donate_interface-comment-message' => 'Є думка, щоб поділитися з світом? Наберіть до 200 символів тут:',
 	'donate_interface-comment-label' => 'Коментар:',
 	'donate_interface-anon-message' => "Будь ласка, вкажіть моє ім'я (поряд з моїм коментарем) в загальнодоступному списку донорів.",
-	'donate_interface-email-agreement' => "Я згоден отримувати в майбутньому новини або електронні листи від Фонду Вікімедіа.
-Ми ніколи не продамо і не обміняємо інформацію про вас.
-Нашу політику конфіденційності стосовно донорів можна знайти <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>тут</a>",
+	'donate_interface-email-agreement' => 'Я згоден отримувати в майбутньому листи або повідомлення електронної пошти від Фонду Вікімедіа.',
 	'donate_interface-comment-title' => 'Загальнодоступний коментар',
 	'donate_interface-amount-error' => '**Будь ласка, введіть коректну суму**',
 	'donate_interface-processing-error' => 'Під час обробки вашого запиту виникла помилка.
