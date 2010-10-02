@@ -228,8 +228,10 @@ $messages['br'] = array(
 	'donate_interface' => 'Skoazellañ Wikimedia',
 	'donate_interface-amount' => 'Sammad an donezon :',
 	'donate_interface-other-amount' => 'Sammad all',
+	'donate_interface-currency' => 'Moneiz :',
 	'donate_interface-gateway' => 'Doare paeañ :',
 	'donate_interface-submit-button' => 'Ober un donezon',
+	'donate_interface-comment-label' => 'Evezhiadenn :',
 	'donate_interface-comment-title' => 'Kemenn publik',
 	'donate_interface-amount-error' => '**Merkit ur sammad reizh**',
 	'donate_interface-GBP' => 'GBP : Lur saoz',
@@ -817,12 +819,39 @@ $messages['he'] = array(
  * @author SpeedyGonsales
  */
 $messages['hr'] = array(
+	'donate_interface' => 'Podržite Wikimediju',
+	'donate_interface-desc' => 'Odredišnu stranica donacija koja integrira "gateway" dogradnje',
+	'donate_interface-intro' => 'Molimo vas da izaberete metodu plaćanja, iznos i valutu.',
+	'donate_interface-amount' => 'Iznos donacije:',
+	'donate_interface-other-amount' => 'Drugi iznos',
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Način plaćanja:',
+	'donate_interface-submit-button' => 'Doniraj',
+	'donate_interface-comment-message' => 'Želite li nešto poručiti? Napišite poruku do 200 znakova ovdje:',
+	'donate_interface-comment-label' => 'Komentar:',
+	'donate_interface-anon-message' => 'Molim navedite moje ime (uz moj komentar) na javni popis donatora.',
+	'donate_interface-email-agreement' => 'Slažem se s primanjem obavijesti potem e-pošte od Wikimedia zaklade.',
+	'donate_interface-comment-title' => 'Javni komentar',
+	'donate_interface-amount-error' => '**Molimo unesite valjani iznos**',
+	'donate_interface-processing-error' => 'Došlo je do pogreške u obradi vašeg zahtjeva. 
+Obrađivači zahtjeva nisu dostupni.',
 	'donate_interface-GBP' => 'GBP: britanska funta',
 	'donate_interface-EUR' => 'EUR: euro',
 	'donate_interface-USD' => 'USD: američki dolar',
 	'donate_interface-AUD' => 'AUD: australski dolar',
 	'donate_interface-CAD' => 'CAD: kanadski dolar',
+	'donate_interface-CHF' => 'CHF: švicarski franak',
+	'donate_interface-CZK' => 'CZK: češka kruna',
+	'donate_interface-DKK' => 'DKK: danska kruna',
+	'donate_interface-HKD' => 'HKD: hongkonški dolar',
+	'donate_interface-HUF' => 'HUF: mađarska forinta',
 	'donate_interface-JPY' => 'JPY: japanski jen',
+	'donate_interface-NZD' => 'NZD: novozelandski dolar',
+	'donate_interface-NOK' => 'NOK: norveška kruna',
+	'donate_interface-PLN' => 'PLN: poljski zloti',
+	'donate_interface-SGD' => 'SGD: singapurski dolar',
+	'donate_interface-SEK' => 'SEK: švedska kruna',
+	'donate_interface-ILS' => 'ILS: izraelski šekel',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -1021,6 +1050,7 @@ $messages['it'] = array(
 /** Japanese (日本語)
  * @author Aotake
  * @author Fryed-peach
+ * @author 青子守歌
  */
 $messages['ja'] = array(
 	'donate_interface' => 'ウィキメディアを支援する',
@@ -1034,9 +1064,7 @@ $messages['ja'] = array(
 	'donate_interface-comment-message' => 'なにか伝えたい意見があれば、ここに200文字以内で述べてください:',
 	'donate_interface-comment-label' => 'コメント:',
 	'donate_interface-anon-message' => '自分の名前を公開寄付者一覧（における自分のコメントの横）に掲載されることを望みます。',
-	'donate_interface-email-agreement' => "今後のウィキメディア財団からのニュースレターやメールを受け取ることを希望します。
-私たちは決してあなたの情報を売ったり取引したりはしません。
-寄付者に関する個人情報保護方針は<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>こちら</a>にあります",
+	'donate_interface-email-agreement' => '今後のウィキメディア財団からのニュースレターやメールを受け取ることを希望します。',
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '**有効な金額を入力してください**',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。処理サービスが利用できません。',
@@ -2004,9 +2032,7 @@ $messages['vi'] = array(
 	'donate_interface-comment-message' => 'Có một ý tưởng muốn chia sẻ cho mọi người? Ghi tối đa 200 ký tự ở đây:',
 	'donate_interface-comment-label' => 'Lời nhắn:',
 	'donate_interface-anon-message' => 'Xin liệt kê tên tôi (kế bên lời bình) trên danh sách những người đóng góp công khai.',
-	'donate_interface-email-agreement' => "Tôi đồng ý nhận các bản tin hoặc thư điện tử từ Wikimedia Foundation trong tương lai.
-Chúng tôi sẽ không bao giờ bán hoặc trao đổi thông tin của bạn.
-Quy định quyền riêng tư đối với người đóng góp của chúng tôi có thể xem <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>tại đây</a>",
+	'donate_interface-email-agreement' => 'Tôi đồng ý nhận các bản tin hoặc thư điện tử từ Wikimedia Foundation trong tương lai.',
 	'donate_interface-comment-title' => 'Lời nhắn công khai',
 	'donate_interface-amount-error' => '**Xin hãy nhập vào số tiền hợp lệ**',
 	'donate_interface-processing-error' => 'Có lỗi khi xử lý yêu cầu. Hiện tại không có bộ xử lý nào.',

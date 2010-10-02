@@ -1586,6 +1586,7 @@ Iufoje, la kodo estas lokata maldekstre, sed ĝi ĉiam estas super la kontnumero
 	'payflowpro_gateway-question-comment' => 'Vikipedio estas projekto de la Fondaĵo Wikimedia. Ĉu demandoj aŭ komentoj? Kontaktu la Fondaĵo Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Post klakante "{{int:payflowpro_gateway-donor-submit}}", via kreditkarta informo estos traktata.',
 	'payflowpro_gateway-credit-storage-processing' => 'Ni ne tenos informon pri via kreditkaro, kaj via personaj datenoj estas regulita de nia <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">regularo pri privateco</a>.',
+	'payflowpro_gateway-cc-form-header-payment' => 'Paga informo',
 );
 
 /** Spanish (Español)
