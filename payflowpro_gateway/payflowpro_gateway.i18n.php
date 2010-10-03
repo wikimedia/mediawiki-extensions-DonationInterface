@@ -693,7 +693,7 @@ $messages['br'] = array(
 	'payflowprogateway' => 'Harpit Wikimedia',
 	'payflowpro_gateway-desc' => 'Treterezh dre gartenn-gred PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "N'haller mont d'ar bajenn-mañ nemet dre pajenn an donezonoù",
-	'payflowpro_gateway-form-message' => 'Implijit an daore a-is evit reiñ gant ho kartenn-gred, pe',
+	'payflowpro_gateway-form-message' => 'Implijit ar furmskrid a-is evit ober ur prof gant ho kartenn-gred, pe',
 	'payflowpro_gateway-paypal-button' => 'Ober ur prof gant PayPal',
 	'payflowpro_gateway-form-message-2' => 'A-benn cheñch ar sammad pe ar moneiz, distroit da <a href="/index.php?title=Donate">bajenn an donezonoù</a>',
 	'payflowpro_gateway-donor-legend' => 'Titouroù war ar madoberour',
@@ -768,10 +768,10 @@ Un heuliad sifroù a ya d'ober ar varrenn sinañ met n'eus nemet an 3 sifr diwez
 <h4>American Express</h4>
 <p><i>Atav</i> emañ ar c'hod <i>a-us</i> d'an niverenn-gont dreistlec'hiet war tu mat ar gartenn.
 A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niverenn-gont.</p><br />",
-	'payflowpro_gateway-question-comment' => 'Goulennoù pe soñjoù ? Darempred: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Goulennoù pe soñjoù ? Darempred : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Goude bezañ kliket war   "{{int:payflowpro_gateway-donor-submit}}", e vo kemeret e kont titouroù ho kartenn-gred.',
 	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Doareoù all zo da reiñ, evel gant PayPal, dre chekenn pe dre lizher</a>.',
-	'payflowpro_gateway-credit-storage-processing' => 'Ne viromp ket roadennoù ho kartenn-gred ha gwarezet eo an titouroù personel a resevomp dre hor <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politikerezh pevrezded</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ne viromp ket roadennoù ho kartenn-gred ha gwarezet eo an titouroù personel a resevomp dre hor <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politikerezh prevezded</a>.',
 	'payflowpro_gateway-token-mismatch' => "Ho talc'h a zo deuet d'an termen. Klaskit mar plij da leuniañ ha da gas en-dro ar furmskrid.",
 	'payflowpro_gateway-cc-form-header-personal' => 'Titouroù paeañ',
 	'payflowpro_gateway-cc-form-header-payment' => 'Titouroù paeañ',
@@ -1806,6 +1806,7 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Huji
  * @author Sahim
  * @author Wayiran
  */
@@ -1813,7 +1814,8 @@ $messages['fa'] = array(
 	'payflowprogateway' => 'حمایت از ویکی‌مدیا',
 	'payflowpro_gateway-desc' => 'پردازش کارت اعتباری PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.',
-	'payflowpro_gateway-form-message' => 'شرکت کردن بوسیله کارت اعتباری شما.',
+	'payflowpro_gateway-form-message' => 'از فرم زیر برای کمک مالی با کارت اعتباری استفاده کنید، یا',
+	'payflowpro_gateway-paypal-button' => 'از طریق پی پال کمک مالی کنید',
 	'payflowpro_gateway-form-message-2' => 'برای تغییر مقدار یا نرخ، به <a href="/index.php?title=Donate">صفحه اهدا</a> بازگردید.',
 	'payflowpro_gateway-donor-legend' => 'اطلاعات هدیه‌کننده',
 	'payflowpro_gateway-card-legend' => 'اطلاعات کارت اعتباری',
@@ -1875,7 +1877,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-response-125-2' => 'کارت اعتباری شما نتوانست تائید اعتبار شود. لطفاً تائید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">دیگر راه‌های ما برای اعطا</a> استفاده کنید یا از طریق <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> با ما تماس بگیرید. از پشتیبانی شما سپاسگذاریم',
 	'payflowpro_gateway-response-default' => 'برای پردازش تراکنش شما خطا وجود دارد.
 لطفا دوباره تلاش کنید.',
-	'php-response-declined' => 'انتقال وجه شما رد شده است.',
+	'php-response-declined' => 'انتقال وجه شما مورد قبول نبود.',
 	'payflowpro_gateway-thankyou' => 'سپاس از بابت کمک مالی‌تان!',
 	'payflowpro_gateway-post-transaction' => 'جزئیات انتقال وجه',
 	'payflowpro_gateway-submit-button' => 'اهدا کنید',
@@ -1886,7 +1888,7 @@ $messages['fa'] = array(
 <h4>امریکن اکسپرس</h4>
 <p>این کد <i>همواره</i> در <i>بالای</i> شمارهٔ حساب برجسته‌شده در روی کارت قرار دارد.
 در برخی موارد، کد در سمت چپ کارت قرار دارد، اما همواره در بالای شمارهٔ حساب است.</p><br />',
-	'payflowpro_gateway-question-comment' => 'ویکی‌پدیا پروژه‌ای از بنیاد ویکی‌مدیاست. پرسش‌ها یا نظرها؟ با بنیاد ویکی‌مدیا تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'پرسش یا نظری دارید؟ تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'پس از کلیک بر «{{int:payflowpro_gateway-donor-submit}}»، اطلاعات کارت اعتباری شما پردازش خواهد شد.',
 	'payflowpro_gateway-credit-storage-processing' => 'ما اطلاعات کارت اعتباری شما را ذخیره نمی‌کنیم، و اطلاعات خصوصی شما موضوع <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">سیاست حفظ اسرار</a> ماست.',
 	'payflowpro_gateway-token-mismatch' => 'نشست شما منقضی شده است. لطفا با پر کردن و ارسال فرم، دوباره سعی کنید.',

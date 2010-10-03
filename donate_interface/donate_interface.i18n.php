@@ -226,14 +226,20 @@ $messages['bg'] = array(
  */
 $messages['br'] = array(
 	'donate_interface' => 'Skoazellañ Wikimedia',
+	'donate_interface-desc' => 'Pajenn emgavout evit an donezonoù enni ar modulennoù paeañ',
+	'donate_interface-intro' => 'Dibabit ur mod paeañ, ur sammad hag ur moneiz.',
 	'donate_interface-amount' => 'Sammad an donezon :',
 	'donate_interface-other-amount' => 'Sammad all',
 	'donate_interface-currency' => 'Moneiz :',
 	'donate_interface-gateway' => 'Doare paeañ :',
 	'donate_interface-submit-button' => 'Ober un donezon',
+	'donate_interface-comment-message' => "Kas ur c'hemenn d'ar bed-holl a fell deoc'h ober ? Gallout a rit skrivañ betek 200 arouezenn amañ :",
 	'donate_interface-comment-label' => 'Evezhiadenn :',
+	'donate_interface-anon-message' => 'Lakait ma anv (ouzh ma evezhiadenn) war roll foran an dud o deus roet un dra bennak.',
+	'donate_interface-email-agreement' => "A-du emaon evit degemer kelc'hlizheroù pe posteloù a-berzh Diazezadur Wikimedia.",
 	'donate_interface-comment-title' => 'Kemenn publik',
 	'donate_interface-amount-error' => '**Merkit ur sammad reizh**',
+	'donate_interface-processing-error' => "Ur fazi zo bet e-ser plediñ gant ho koulenn. N'haller ket tizhout prosesor ebet.",
 	'donate_interface-GBP' => 'GBP : Lur saoz',
 	'donate_interface-EUR' => 'EUR : Euro',
 	'donate_interface-USD' => 'USD : Dollar SUA',
@@ -257,8 +263,22 @@ $messages['br'] = array(
  * @author CERminator
  */
 $messages['bs'] = array(
+	'donate_interface' => 'Podržite Wikimediju',
+	'donate_interface-desc' => 'Stranica za doniranje koja se integrira u proširenja gatewaya',
+	'donate_interface-intro' => 'Molimo vas odaberite način plaćanja, iznos i valutu.',
+	'donate_interface-amount' => 'Iznos donacije:',
+	'donate_interface-other-amount' => 'Drugi iznos',
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Način plaćanja:',
+	'donate_interface-submit-button' => 'Doniraj',
+	'donate_interface-comment-message' => 'Imate li mišljenje da podijelite sa svijetom? Unesite do 200 znakova ovdje:',
 	'donate_interface-comment-label' => 'Komentar:',
+	'donate_interface-anon-message' => 'Molim pokažite moje ime (pored mog komentara) na javni spisak donatora.',
+	'donate_interface-email-agreement' => 'Slažem se da dobijam buduća obavještenja od Wikimedia Fondacije ili e-mailove.',
 	'donate_interface-comment-title' => 'Javni komentar',
+	'donate_interface-amount-error' => '**Molimo unesite valjani iznos**',
+	'donate_interface-processing-error' => 'Desila se greška pri obradi vašeg zahtjeva.
+Nisu dostupni procesori.',
 	'donate_interface-GBP' => 'GBP: Britanska funta',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Američki dolar',
@@ -622,8 +642,10 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Huji
  */
 $messages['fa'] = array(
+	'donate_interface' => 'حمایت از ویکی‌مدیا',
 	'donate_interface-GBP' => 'GBP: پوند انگلیس',
 	'donate_interface-EUR' => 'EUR: یورو',
 	'donate_interface-USD' => 'USD: دلار آمریکا',
@@ -1215,6 +1237,12 @@ $messages['lb'] = array(
  * @author Ooswesthoesbes
  */
 $messages['li'] = array(
+	'donate_interface-amount' => 'Bedraag:',
+	'donate_interface-other-amount' => 'Anger bedraag',
+	'donate_interface-currency' => 'Möntjeinhed:',
+	'donate_interface-gateway' => 'Betaalmethode:',
+	'donate_interface-submit-button' => 'Gaef',
+	'donate_interface-comment-label' => 'Ópmèrking:',
 	'donate_interface-GBP' => 'GBP: Britsje póndj',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: VS-dóller',
@@ -1266,6 +1294,7 @@ $messages['mk'] = array(
  */
 $messages['ml'] = array(
 	'donate_interface' => 'വിക്കിമീഡിയയ്ക്ക് പിന്തുണയേകുക',
+	'donate_interface-desc' => 'ഗേറ്റ്‌വേ അനുബന്ധങ്ങളുമായി ചേർന്ന് പ്രവർത്തിക്കുന്ന സംഭാവനാ പ്രധാന താൾ',
 	'donate_interface-intro' => 'ദയവായി താങ്കളുടെ പണമടയ്ക്കൽ രീതി, തുക, നാണയം എന്നിവ തിരഞ്ഞെടുക്കുക.',
 	'donate_interface-amount' => 'സംഭാവന ചെയ്യുന്ന തുക:',
 	'donate_interface-other-amount' => 'മറ്റ് തുക:',
@@ -1395,8 +1424,25 @@ Ingen prosessorar er tilgjengelege.',
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Finnrind
+ * @author Nghtwlkr
  */
 $messages['no'] = array(
+	'donate_interface' => 'Støtt Wikimedia',
+	'donate_interface-desc' => 'Donasjonsdestinasjonsside som integrerer gateway-utvidelser',
+	'donate_interface-intro' => 'Velg en betalingsmåte, beløp og valuta.',
+	'donate_interface-amount' => 'Donasjonsbeløp:',
+	'donate_interface-other-amount' => 'Annet beløp',
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Betalingsmåte:',
+	'donate_interface-submit-button' => 'Doner',
+	'donate_interface-comment-message' => 'Har du en tanke å dele med verden? Skriv inn opp til 200 tegn her:',
+	'donate_interface-comment-label' => 'Kommentar:',
+	'donate_interface-anon-message' => 'List opp navnet mitt (ved siden av kommentaren min) på den offentlige donorlisten.',
+	'donate_interface-email-agreement' => 'Jeg godtar å motta fremtidige nyhetsbrev eller e-poster fra Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Offentlig kommentar',
+	'donate_interface-amount-error' => '**Skriv inn et gyldig beløp**',
+	'donate_interface-processing-error' => 'Det har oppstått en feil ved behandlingen av forespørselen din.
+Ingen prosessorer er tilgjengelige.',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
