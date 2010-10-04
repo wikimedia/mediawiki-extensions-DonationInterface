@@ -1512,6 +1512,7 @@ $messages['eo'] = array(
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkcarta proceso',
 	'payflowpro_gateway-accessible' => 'Ĉi tiu paĝo estas alirebla nur el la donacpaĝo.',
 	'payflowpro_gateway-form-message' => 'Kontribuu per via kreditkarto.',
+	'payflowpro_gateway-paypal-button' => 'Donaci per PayPal',
 	'payflowpro_gateway-form-message-2' => 'Por ŝanĝi monsumon aŭ valuton, bonvolu reiri al <a href="/index.php?title=Donate">la donacpaĝo</a>',
 	'payflowpro_gateway-donor-legend' => 'Informoj pri la donacanto',
 	'payflowpro_gateway-card-legend' => 'Informoj pri la kreditkarto',
@@ -2936,7 +2937,7 @@ Si prega di riprovare più tardi.",
 	'payflowpro_gateway-thankyou' => 'Grazie per la tua donazione!',
 	'payflowpro_gateway-post-transaction' => 'Dettagli della transazione',
 	'payflowpro_gateway-submit-button' => 'Dona',
-	'payflowpro_gateway-question-comment' => 'Wikipedia è un progetto della Wikimedia Foundation. Domande o commenti? Contatta la Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Domande o commenti? Contatta <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 );
 
 /** Japanese (日本語)
@@ -4207,7 +4208,7 @@ $messages['pms'] = array(
 	'payflowprogateway' => 'Sosten-e Wikimedia',
 	'payflowpro_gateway-desc' => 'Tratament ëd le carte ëd crédit PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "Sta pàgina-sì a l'é mach acessìbil da la pàgina ëd donassion",
-	'payflowpro_gateway-form-message' => 'Dòvra ël formolari sota për doné con na carta ëd crédit, o',
+	'payflowpro_gateway-form-message' => "Ch'a deuvra ël formolari sì-sota për doné con na carta ëd crédit, o",
 	'payflowpro_gateway-paypal-button' => 'Fé na donassion con PayPal',
 	'payflowpro_gateway-form-message-2' => 'Për cangé amport o moneda, torna andré a <a href="/index.php?title=Donate">la pàgina dle donassion</a>',
 	'payflowpro_gateway-donor-legend' => 'Anformassion dël donator',
@@ -4284,7 +4285,7 @@ Normalment l'area ëd firma a l'ha na serie ëd nùmer, ma mach j'ùltime tre gi
 Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é sempe dzora al nùmer ëd cont.</p><br />",
 	'payflowpro_gateway-question-comment' => 'Chestion o coment? Contat: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Apress avèj sgnacà "{{int:payflowpro_gateway-donor-submit}}", toe anformassion ëd la carta ëd crédit a saran processà.',
-	'payflowpro_gateway-otherways' => 'A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.',
+	'payflowpro_gateway-otherways' => 'A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d\'àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Noi i memorisoma pa j\'anformassion ëd soa carta ëd crédit, e ij sò dat përsonaj a son soget a nòstre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">régole ëd confidensialità</a>.',
 	'payflowpro_gateway-token-mismatch' => "Soa session a l'é terminà. Për piasì, ch'a preuva a ampinì e a mandé torna ël formolari.",
 	'payflowpro_gateway-cc-form-header-personal' => 'Anformassion dël pagament',
@@ -5658,7 +5659,7 @@ $messages['vec'] = array(
 	'payflowprogateway' => 'Juta Wikimedia',
 	'payflowpro_gateway-desc' => 'Tratamento de carte de credito PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Sta pagina la se pol védar sol che da la pagina de donassion.',
-	'payflowpro_gateway-form-message' => 'Contribuissi co la to carta de credito.',
+	'payflowpro_gateway-form-message' => 'Dòpara el modulo qua soto par donar co la to carta de credito, o',
 	'payflowpro_gateway-form-message-2' => 'Par canbiar l\'inporto o el scheo, torna indrìo a la <a href="/index.php?title=Donate">pagina de donassion</a>',
 	'payflowpro_gateway-donor-legend' => 'Informassion sul donator',
 	'payflowpro_gateway-card-legend' => 'Informassion su la carta de credito',
@@ -5728,7 +5729,7 @@ De solito in tel spassio de la firma se cata na serie de nùmari, ma solo i ulti
 <h4>American Express</h4>
 <p>El còdese te lo cati <i>sempre</i> de sora del nùmaro de carta (in rilievo), sul davanti de la carta.
 Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sora del nùmaro de carta.</p><br />",
-	'payflowpro_gateway-question-comment' => 'Wikipedia el xe un projeto de la Fondassion Wikimedia. Domande o comenti? Scrìveghe a la Fondassion Wikimedia: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Domande o comenti? Scrìveghe a: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Strucando "{{int:payflowpro_gateway-donor-submit}}", le informassion su la to carta de credito le vegnarà elaborà.',
 	'payflowpro_gateway-credit-storage-processing' => 'Noantri no se salvémo mia i dati de la to carta de credito, e i to dati personali i xe sogeti a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">polìtega de riservadessa</a>.',
 );

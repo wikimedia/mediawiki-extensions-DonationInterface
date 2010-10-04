@@ -1051,6 +1051,8 @@ $messages['io'] = array(
  * @author Beta16
  */
 $messages['it'] = array(
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-comment-label' => 'Commenti:',
 	'donate_interface-GBP' => 'GBP: Sterlina inglese',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dollaro U.S.',
@@ -1602,6 +1604,7 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (Português)
+ * @author Giro720
  * @author Hamilton Abreu
  * @author Malafaya
  */
@@ -1627,7 +1630,7 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-USD' => 'USD: Dólar dos E.U.A.',
 	'donate_interface-AUD' => 'AUD: Dólar Australiano',
 	'donate_interface-CAD' => 'CAD: Dólar Canadiano',
-	'donate_interface-CHF' => 'CHF: Franco Suísso',
+	'donate_interface-CHF' => 'CHF: Franco Suíço',
 	'donate_interface-CZK' => 'CZK: Coroa Checa',
 	'donate_interface-DKK' => 'DKK: Coroa Dinamarquesa',
 	'donate_interface-HKD' => 'HKD: Dólar de Hong-Kong',
@@ -1646,12 +1649,39 @@ Nenhuma das plataformas está disponível.',
  * @author Luckas Blade
  */
 $messages['pt-br'] = array(
+	'donate_interface' => 'Ajude a Wikimedia',
+	'donate_interface-desc' => "Página inicial para donativos que integra outras extensões de várias plataformas de pagamento ''(payment gateways)''",
+	'donate_interface-intro' => 'Por favor, escolha um método de pagamento, montante e moeda.',
+	'donate_interface-amount' => 'Montante do donativo:',
+	'donate_interface-other-amount' => 'Outro montante:',
+	'donate_interface-currency' => 'Moeda:',
+	'donate_interface-gateway' => 'Método de pagamento:',
+	'donate_interface-submit-button' => 'Fazer uma doação',
+	'donate_interface-comment-message' => 'Quer compartilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
+	'donate_interface-comment-label' => 'Comentário:',
+	'donate_interface-anon-message' => 'Por favor, listem o meu nome (junto ao meu comentário) na lista pública de contribuidores.',
+	'donate_interface-email-agreement' => "Concordo em receber futuras ''newsletters'' e e-mails da Wikimedia Foundation.",
+	'donate_interface-comment-title' => 'Comentário público',
+	'donate_interface-amount-error' => '**Por favor, insira um montante válido**',
+	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
+Nenhuma das plataformas está disponível.',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar americano',
 	'donate_interface-AUD' => 'AUD: Dólar australiano',
 	'donate_interface-CAD' => 'CAD: Dólar canadense',
+	'donate_interface-CHF' => 'CHF: Franco suíço',
+	'donate_interface-CZK' => 'CZK: Coroa checa',
+	'donate_interface-DKK' => 'DKK: Coroa dinamarquesa',
+	'donate_interface-HKD' => 'HKD: Dólar de Hong-Kong',
+	'donate_interface-HUF' => 'HUF: Forint (Hungria)',
 	'donate_interface-JPY' => 'JPY: Iene (Japão)',
+	'donate_interface-NZD' => 'NZD: Dólar neo-zelandês',
+	'donate_interface-NOK' => 'NOK: Coroa norueguesa',
+	'donate_interface-PLN' => 'PLN: Zloty (Polônia)',
+	'donate_interface-SGD' => 'SGD: Dólar de Singapura',
+	'donate_interface-SEK' => 'SEK: Coroa sueca',
+	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
 );
 
 /** Romanian (Română)
@@ -1849,10 +1879,18 @@ $messages['sv'] = array(
  * @author Veeven
  */
 $messages['te'] = array(
+	'donate_interface' => 'వికీమీడియాకి తోడ్పడండి',
+	'donate_interface-intro' => 'దయచేసి, చెల్లింపు పద్ధతిని, విరాళము మొత్తాన్ని, మరియు మారక ద్రవ్యాన్ని ఎంచుకోండి.',
+	'donate_interface-amount' => 'విరాళపు మొత్తం:',
 	'donate_interface-other-amount' => 'ఇతర మొత్తం',
+	'donate_interface-currency' => 'మారక ద్రవ్యం:',
 	'donate_interface-gateway' => 'చెల్లింపు పద్ధతి:',
+	'donate_interface-submit-button' => 'విరాళమివ్వండి',
+	'donate_interface-comment-message' => 'అందరితో ఏదైనా ఆలోచనని పంచుకోవాలనుకుంటున్నారా? 200 అక్షరాల్లో ఇక్కడ చెప్పండి:',
 	'donate_interface-comment-label' => 'వ్యాఖ్య:',
+	'donate_interface-anon-message' => 'బహిరంగ దాతల జాబితాలో దయచేసి నా పేరుని (నా వ్యాఖ్య ప్రక్కనే) చూపించండి.',
 	'donate_interface-comment-title' => 'బహిరంగ వ్యాఖ్య',
+	'donate_interface-amount-error' => '**దయచేసి సరైన మొత్తాన్ని పేర్కొనండి**',
 	'donate_interface-GBP' => 'GBP: బ్రిటీష్ పౌండ్',
 	'donate_interface-EUR' => 'EUR: యూరో',
 	'donate_interface-USD' => 'USD: అమెరికా డాలర్',
@@ -2038,9 +2076,7 @@ $messages['vec'] = array(
 	'donate_interface-comment-message' => 'Gheto un pensiero da condivìdar col mondo? Buta zò massimo 200 carateri qua drento:',
 	'donate_interface-comment-label' => 'Comento:',
 	'donate_interface-anon-message' => 'Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori.',
-	'donate_interface-email-agreement' => "Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.
-Le to informassion no le vegnarà mai vendùe o scanbià.
-La nostra politica de rispeto de la riservatessa la se cata <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>qua</a>",
+	'donate_interface-email-agreement' => 'Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.',
 	'donate_interface-comment-title' => 'Comento publico',
 	'donate_interface-amount-error' => '**Par piaser, inserissi un inporto valido**',
 	'donate_interface-GBP' => 'GBP: Sterlina britànega',
