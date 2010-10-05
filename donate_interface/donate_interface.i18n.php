@@ -996,6 +996,7 @@ $messages['ia'] = array(
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author Farras
  * @author IvanLanin
  */
 $messages['id'] = array(
@@ -1010,9 +1011,7 @@ $messages['id'] = array(
 	'donate_interface-comment-message' => 'Ada suatu pikiran untuk dibagi dengan dunia? Masukkan maksimum 200 karakter di sini:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Daftarkan nama saya (di sebelah komentar saya) pada daftar donor publik.',
-	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala atau surel dari Wikimedia Foundation di masa datang.
-Kami tidak akan pernah menjual atau memperdagangkan informasi Anda.
-Kebijakan privasi donor kami dapat ditemukan <a title="Donasi/Privasi Donor" href=\'/wiki/Donate/Donor_Privacy\'>di sini</a>',
+	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala atau surel Yayasan Wikimedia di masa mendatang.',
 	'donate_interface-comment-title' => 'Komentar publik',
 	'donate_interface-amount-error' => '**Harap masukkan nilai yang valid**',
 	'donate_interface-processing-error' => 'Terjadi kesalahan dalam pemrosesan permintaan Anda. Tidak ada pemroses yang tersedia.',
@@ -1570,9 +1569,7 @@ $messages['pms'] = array(
 	'donate_interface-comment-message' => 'Has-to un pensé da condivide con ël mond? Buta fin a 200 caràter ambelessì:',
 	'donate_interface-comment-label' => 'Coment:',
 	'donate_interface-anon-message' => 'Për piasì buta mè nòm (daré a mè coment) an sla lista pùblica dij donator.',
-	'donate_interface-email-agreement' => "I son d'acòrdi d'arsèive boletin d'anformassion o mëssagi ëd pòsta eletrònica ëd la Fondassion Wikimedia ant l'avnì.
-Noiàutri i vendroma mai ni i passroma vòste anformassion.
-Nòsta polìtica ës riservatëssa dij donator a peul esse trovà <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ambelessì</a>",
+	'donate_interface-email-agreement' => "I son d'acòrdi d'arsèive boletin d'anformassion o mëssagi ëd pòsta eletrònica ëd la Fondassion Wikimedia ant l'avnì.",
 	'donate_interface-comment-title' => 'Coment pùblich',
 	'donate_interface-amount-error' => '**Për piasì anseriss un total bon**',
 	'donate_interface-processing-error' => "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
