@@ -143,11 +143,13 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
 		$form .= <<<EOT
 <script type="text/javascript">
-if (document.getElementById('fname').value == '') {
+var fname = document.getElementById('fname');
+var lname = document.getElementById('lname');
+if (fname.value == '') {
 	fname.style.color = '#999999';
 	fname.value = 'First';
 }
-if (document.getElementById('lname').value == '') {
+if (lname.value == '') {
 	lname.style.color = '#999999';
 	lname.value = 'Last';
 }
