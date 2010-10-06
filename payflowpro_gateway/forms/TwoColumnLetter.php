@@ -163,7 +163,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= '<td class="paypal-button" colspan="2">';
 		$form .= Xml::tags( 'div',
 				array(),
-				'<img src="'.$scriptPath.'/donate-with-paypal.gif"/>'
+				'<img src="'.$scriptPath.'/donate_with_paypal.gif"/>'
 			);
 		$form .= '</td>';
 		$form .= '</tr>';
