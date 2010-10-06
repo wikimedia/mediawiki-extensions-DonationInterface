@@ -355,7 +355,10 @@ function fnProcessDonationForm( ) {
         'language' => $wgRequest->getText( 'language', 'en' ),
         'comment' => $wgRequest->getText( 'comment', '' ),
         'comment-option' => $wgRequest->getText( 'comment-option', '0' ),
-        'email' => $wgRequest->getText( 'opt', '0' ),
+        'email-opt' => $wgRequest->getText( 'email-opt', 0 ),
+  		'fname' => $wgRequest->getText( 'fname', null ),
+  		'lname' => $wgRequest->getText( 'lname', null ),
+  		'email' => $wgRequest->getText( 'email', null ),
   );
 	 
   // ask payment processor extensions for their URL/page title
