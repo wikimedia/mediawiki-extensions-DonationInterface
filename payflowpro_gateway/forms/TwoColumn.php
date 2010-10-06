@@ -155,11 +155,7 @@ EOT;
 		$form .= "</tr>";
 		
 		// email
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->form_data['email'], array( 'type' => 'text', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['emailAdd'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getEmailField();
 		
 		//comment message
 		$form .= '<tr>';
@@ -194,14 +190,7 @@ EOT;
 		$form .= '</tr>';
 		
 		// amount
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
-		$form .= '<td>' . Xml::radio( 'amount', 250 ) . '250 ' . 
-			Xml::radio( 'amount', 100 ) . '100 ' .
-			Xml::radio( 'amount', 75 ) . '75 ' .
-			Xml::radio( 'amount', 35 ) . '35 ' .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['invalidamount'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getAmountField();
 		
 		// currency
 		$form .= '<tr>';
@@ -229,8 +218,8 @@ EOT;
 
 	protected function generatePaymentFields() {
 		global $wgScriptPath, $wgPayflowGatewayTest;
-		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
+		
+		
 
 		$form = '';
 		
@@ -241,20 +230,10 @@ EOT;
 		$form .= '</tr>';
 		
 		// card number
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card_num'] . '</span>' . 
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['card'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getCardnumberField();
 		
 		// cvv
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
-			' ' . '<a href="javascript:PopupCVV();">' . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['cvv'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getCvvField();
 		
 		// expiry
 		$form .= '<tr>';
@@ -263,18 +242,10 @@ EOT;
 		$form .= '</tr>';
 		
 		// street
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-street' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'maxlength' => '30', 'id' => 'street', 'class' => 'fullwidth' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['street'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getStreetField();
 
 		// city
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-city' ), 'city' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '20', 'id' => 'city', 'class' => 'fullwidth' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['city'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getCityField();
 
 		// state
 		$form .= '<tr>';
@@ -283,11 +254,7 @@ EOT;
 		$form .= '</tr>';
 			
 		// zip
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
-			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['zip'] . '</span></td>';
-		$form .= '</tr>';
+		$form .= $this->getZipField();
 		
 		// country
 		$form .= '<tr>';
@@ -295,6 +262,103 @@ EOT;
 		$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
 	    $form .= '</tr>';
 
+		return $form;
+	}
+	
+	protected function getEmailField() {
+		// email
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['emailAdd'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-email' ), 'emailAdd' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->form_data['email'], array( 'type' => 'text', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getAmountField() {
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
+		$form .= '<td>' . Xml::radio( 'amount', 250 ) . '250 ' . 
+			Xml::radio( 'amount', 100 ) . '100 ' .
+			Xml::radio( 'amount', 75 ) . '75 ' .
+			Xml::radio( 'amount', 35 ) . '35 ' .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getCardnumberField() {
+		global $wgPayflowGatewayTest;
+		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
+		
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getCvvField() {
+		global $wgPayflowGatewayTest;
+		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
+		
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
+			' ' . '<a href="javascript:PopupCVV();">' . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getStreetField() {
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-street' ), 'street' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'maxlength' => '30', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getCityField() {
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-city' ), 'city' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '20', 'id' => 'city', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getZipField() {
+		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
 		return $form;
 	}
 }
