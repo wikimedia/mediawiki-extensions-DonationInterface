@@ -141,7 +141,11 @@ abstract class PayflowProGateway_Form {
 		
 		// generate a dropdown option for each country
 		foreach ( $countries as $iso_value => $full_name ) {
-			$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
+			if ( $this->form_data[ 'country' ] ) {
+				$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
+			} else {
+				$selected = ( $iso_value == 840 ) ? true : false; // Default to United States
+			}
 			$country_options .= Xml::option( $full_name, $iso_value, $selected );
 		}
 
