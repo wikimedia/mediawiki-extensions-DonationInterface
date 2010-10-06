@@ -23,6 +23,7 @@ $dir = dirname(__FILE__) . '/';
 $wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form' ] = $dir . 'forms/Form.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumn' ] = $dir . 'forms/TwoColumn.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnPayPal' ] = $dir . 'forms/TwoColumnPayPal.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter' ] = $dir . 'forms/TwoColumnLetter.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_SingleColumn' ] = $dir . 'forms/SingleColumn.php';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n.php';

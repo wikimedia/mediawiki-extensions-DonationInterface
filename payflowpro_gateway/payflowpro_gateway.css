@@ -28,6 +28,7 @@
 #payflowpro_gateway-form-submit {
 	margin-top: 1em;
 	text-align: center;
+	margin-bottom: 5em;
 }
 
 #payflowpro_gateway-donate-addl-info {
@@ -41,15 +42,11 @@
 #payflow-table-donor {
 }
 
-#payflow-table-donor td.label, #payflow-table-comment td.label {
+#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
 	text-align: right;
 	display: block;
 	padding-right: 1em;
 	width: 90px;
-}
-
-#payflow-table-comment td.comment-field {
-	width: 99%;
 }
 
 #payflow-table-comment td.check-option {

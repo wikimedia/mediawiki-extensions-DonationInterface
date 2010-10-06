@@ -108,6 +108,38 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['emailAdd'] . '</span></td>';
 		$form .= '</tr>';
 		
+		//comment message
+		$form .= '<tr>';
+		$form .= '<td colspan="2">';
+		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
+		$form .= '</td>';
+		$form .= '</tr>';
+		
+		//comment
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
+		$form .= '</tr>';
+		
+		// anonymous
+		$comment_opt_value = ( $this->form_data[ 'numAttempt' ] ) ? $this->form_data[ 'comment-option' ] : true;
+		$form .= '<tr>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
+		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= '</tr>';
+
+		// email agreement
+		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
+		$form .= '<tr>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
+		$form .= ' ';
+		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
+		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
+		$form .= wfMsg( 'donate_interface-email-agreement' );
+		$form .= Xml::closeElement( 'label' );
+		$form .= '</td>';
+		$form .= '</tr>';
+		
 		// amount
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
