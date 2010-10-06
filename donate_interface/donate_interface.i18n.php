@@ -656,6 +656,7 @@ $messages['fa'] = array(
 
 /** Finnish (Suomi)
  * @author Crt
+ * @author Nike
  * @author Olli
  * @author Str4nd
  */
@@ -671,9 +672,7 @@ $messages['fi'] = array(
 	'donate_interface-comment-message' => 'Haluatko kertoa jotain maailmalle? Kirjoita enintään 200 merkkiä:',
 	'donate_interface-comment-label' => 'Kommentti:',
 	'donate_interface-anon-message' => 'Listaa nimeni (kommentin vieressä) julkisella lahjoittajalistalla.',
-	'donate_interface-email-agreement' => "Haluan saada tulevaisuudessa uutiskirjeitä tai sähköpostiviestejä Wikimedia Foundationilta.
-Emme koskaan myy tai kauppaa tietojasi.
-Lahjoittajien yksityisyydensuoja löytyy <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>täältä</a>.",
+	'donate_interface-email-agreement' => 'Haluan saada tulevaisuudessa uutiskirjeitä tai sähköpostiviestejä Wikimedia Foundationilta.',
 	'donate_interface-comment-title' => 'Julkinen kommentti',
 	'donate_interface-amount-error' => '**Syötä kelvollinen määrä**',
 	'donate_interface-processing-error' => 'Tapahtui virhe käsiteltäessä pyyntöäsi. Ei käsittelijää saatavilla.',
@@ -697,6 +696,7 @@ Lahjoittajien yksityisyydensuoja löytyy <a title='Donate/Donor Privacy' href='/
 );
 
 /** French (Français)
+ * @author Peter17
  * @author PieRRoMaN
  */
 $messages['fr'] = array(
@@ -711,9 +711,7 @@ $messages['fr'] = array(
 	'donate_interface-comment-message' => "Vous souhaitez transmettre une pensée au monde ? Notez jusqu'à 200 caractères ci-après :",
 	'donate_interface-comment-label' => 'Commentaire :',
 	'donate_interface-anon-message' => 'Veuillez lister mon nom (à la suite de mon commentaire) dans la liste publique des donateurs.',
-	'donate_interface-email-agreement' => 'J\'accepte de recevoir des futurs courriels ou lettres d\'informations de la part de Wikimedia Foundation.
-Vos données ne seront jamais vendues ou échangées.
-Notre politique de respect de la vie privée des donateurs se trouve <a title="Donate/Donor Privacy" href="/wiki/Donate/Donor_Privacy">ici</a>',
+	'donate_interface-email-agreement' => 'J’accepte de recevoir des futurs courriers électroniques ou lettres d’information de la part de la Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Commentaire public',
 	'donate_interface-amount-error' => '**Veuillez entrer un montant valide**',
 	'donate_interface-processing-error' => "Une erreur est survenue lors du traitement de votre requête. Aucun processeur n'est disponible.",
@@ -1569,7 +1567,7 @@ $messages['pms'] = array(
 	'donate_interface-comment-message' => 'Has-to un pensé da condivide con ël mond? Buta fin a 200 caràter ambelessì:',
 	'donate_interface-comment-label' => 'Coment:',
 	'donate_interface-anon-message' => 'Për piasì buta mè nòm (daré a mè coment) an sla lista pùblica dij donator.',
-	'donate_interface-email-agreement' => "I son d'acòrdi d'arsèive boletin d'anformassion o mëssagi ëd pòsta eletrònica ëd la Fondassion Wikimedia ant l'avnì.",
+	'donate_interface-email-agreement' => "I son d'acòrdi d'arsèive ëd boletin d'anformassion o ëd mëssagi ëd pòsta eletrònica ëd la Fondassion Wikimedia ant l'avnì.",
 	'donate_interface-comment-title' => 'Coment pùblich',
 	'donate_interface-amount-error' => '**Për piasì anseriss un total bon**',
 	'donate_interface-processing-error' => "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
@@ -2132,6 +2130,17 @@ $messages['vi'] = array(
 	'donate_interface-SGD' => 'SGD: Đô la Singapore',
 	'donate_interface-SEK' => 'SEK: Krona Thụy Điển',
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
+);
+
+/** Yiddish (ייִדיש)
+ * @author פוילישער
+ */
+$messages['yi'] = array(
+	'donate_interface-currency' => 'וואַלוטע:',
+	'donate_interface-GBP' => 'GBP: בריטישער פֿונט',
+	'donate_interface-EUR' => 'EUR: איירא',
+	'donate_interface-USD' => 'USD: אמעריקאנער דאלאר',
+	'donate_interface-ILS' => 'ILS: ישראלדיקער שקל',
 );
 
 /** Cantonese (粵語) */
