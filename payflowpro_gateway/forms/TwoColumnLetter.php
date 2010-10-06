@@ -90,7 +90,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 	protected function generateBillingFields() {
 		global $wgScriptPath, $wgPayflowGatewayTest;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway";
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
 		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
 		$form = '';
