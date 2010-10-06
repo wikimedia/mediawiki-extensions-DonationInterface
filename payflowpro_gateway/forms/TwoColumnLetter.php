@@ -90,6 +90,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 	protected function generateBillingFields() {
 		global $wgScriptPath, $wgPayflowGatewayTest;
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway";
 		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
 		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
 		$form = '';
@@ -155,6 +156,16 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= '<td class="label"></td>';
 		$form .= '<td>' . Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
 			' ' . $this->generateCurrencyDropdown() . '</td>';
+		$form .= '</tr>';
+		
+		// PayPal button
+		$form .= '<tr>';
+		$form .= '<td class="paypal-button" colspan="2">';
+		$form .= Xml::tags( 'div',
+				array(),
+				'<img src="'.$scriptPath.'/donate-with-paypal.gif"/>'
+			);
+		$form .= '</td>';
 		$form .= '</tr>';
 		
 		// card logos
