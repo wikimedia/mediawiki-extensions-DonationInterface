@@ -31,9 +31,9 @@ function clearField( field, defaultValue ) {
 }
 
 function validate_form( form ) {
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv', 'Amount' ];
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
 
-	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv", "amount" ],
+	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv" ],
 		numFields = fields.length,
 		i,
 		output = '',

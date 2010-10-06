@@ -115,14 +115,14 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 			Xml::radio( 'amount', 100 ) . '100 ' .
 			Xml::radio( 'amount', 75 ) . '75 ' .
 			Xml::radio( 'amount', 35 ) . '35 ' .
-			Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amount'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "0.00" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		
 		// currency
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-currency-label' ), 'currency' ) . '</td>'; 
-		$form .= '<td>' . $this->generateCurrencyDropdown() . '</td>';
+		$form .= '<td class="label"></td>';
+		$form .= '<td>' . Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
+			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		
 		// card logos
@@ -221,6 +221,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 <script type="text/javascript">
 var fname = document.getElementById('fname');
 var lname = document.getElementById('lname');
+var amountOther = document.getElementById('amountOther');
 if (fname.value == '') {
 	fname.style.color = '#999999';
 	fname.value = 'First';
@@ -228,6 +229,10 @@ if (fname.value == '') {
 if (lname.value == '') {
 	lname.style.color = '#999999';
 	lname.value = 'Last';
+}
+if (amountOther.value == '') {
+	amountOther.style.color = '#999999';
+	amountOther.value = 'Other';
 }
 </script>
 EOT;

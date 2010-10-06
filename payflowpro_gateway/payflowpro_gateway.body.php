@@ -852,6 +852,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 			$data = array(
 				'amount' => ( $amount != "0.00" ) ? $amount : "30.00",
+				'amountOther' => '',
 				'email' => 'test@example.com',
 				'fname' => 'Tester',
 				'mname' => 'T.',
@@ -886,6 +887,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		} else {
 			$data = array(
 				'amount' => $amount,
+				'amountOther' => $wgRequest->getText( 'amountOther' ),
 				'email' => $wgRequest->getText( 'emailAdd' ),
 				'fname' => $wgRequest->getText( 'fname' ),
 				'mname' => $wgRequest->getText( 'mname' ),
