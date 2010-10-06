@@ -7,7 +7,7 @@
 }
 
 .mw-donate-submessage {
-   padding-top: 10px;
+/*   padding-top: 10px; */
 }
 
 #mw-donate-submit-button {
@@ -21,11 +21,13 @@
 }
 
 #payflowpro_gateway-personal-info {
-	margin-right: 5em;
+	margin-right: 4em;
+	margin-bottom: 1em;
 }
 
 #payflowpro_gateway-form-submit {
-	margin-top: 2em;
+	margin-top: 1em;
+	text-align: center;
 }
 
 #payflowpro_gateway-donate-addl-info {
@@ -39,9 +41,19 @@
 #payflow-table-donor {
 }
 
-#payflow-table-donor label {
-	text-align: left;
+#payflow-table-donor td.label, #payflow-table-comment td.label {
+	text-align: right;
 	display: block;
+	padding-right: 1em;
+	width: 90px;
+}
+
+#payflow-table-comment td.comment-field {
+	width: 99%;
+}
+
+#payflow-table-comment td.check-option {
+	padding-left: 3em;
 }
 
 #payflow-table-donor td {
@@ -50,10 +62,6 @@
 
 #payflowpro_gateway-donate-addl-info {
 	clear: both;
-}
-
-.payflow-cc-form-section #payflowpro_gateway-form-submit {
-	text-align: left;
 }
 
 #payflowpro_gateway-donate-addl-info-secure-logos {
@@ -83,3 +91,12 @@
 #ca-special {
 	display: none;
 }
+
+#bodyContent input[type="text"], textarea {
+	border: 1px solid #C0C0C0;
+	padding: 3px;
+}
+
+input#fname { width: 110px; margin-right: 4px; }
+input#lname { width: 132px; }
+input.fullwidth { width: 254px; }

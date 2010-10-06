@@ -23,7 +23,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
-		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal' ));
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
 		
@@ -48,7 +48,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 		
 		$form .= parent::generatePersonalContainer();
-		$form .= parent::generatePaymentContainer();
 		$form .= $this->generateCommentFields();
 		return $form;
 	}
@@ -86,22 +85,22 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 		//comment
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::label( wfMsg('donate_interface-comment-label'), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'maxlength' => '200' )) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
+		$form .= '<td class="comment-field">' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
 		$form .= '</tr>';
 		
 		// anonymous
 		$comment_opt_value = ( $this->form_data[ 'numAttempt' ] ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::check( 'comment-option', $comment_opt_value ) . '</td>';
-		$form .= '<td>' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
+		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
 		// email agreement
 		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
 		$form .= '<tr>';
-		$form .= '<td>' . Xml::check( 'email-opt', $email_opt_value ) . '</td>';
-		$form .= '<td>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
+		$form .= ' ';
 		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
 		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
 		$form .= wfMsg( 'donate_interface-email-agreement' );
@@ -142,8 +141,21 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		}
 			
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
-
-		$form .= $this->generateDonationFooter();
+		$form .= <<<EOT
+<script type="text/javascript">
+var fname = document.getElementById('fname');
+var lname = document.getElementById('lname');
+if (fname.value == '') {
+	fname.style.color = '#999999';
+	fname.value = 'First';
+}
+if (lname.value == '') {
+	lname.style.color = '#999999';
+	lname.value = 'Last';
+}
+</script>
+EOT;
+		//$form .= $this->generateDonationFooter();
 
 		$form .= Xml::closeElement( 'div' ); //close div#mw-creditcard
 		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_form

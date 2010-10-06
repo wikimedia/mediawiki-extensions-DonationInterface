@@ -23,6 +23,13 @@ function checkSession( request ) {
 	}
 }
 
+function clearField( field, defaultValue ) {
+	if (field.value == defaultValue) {
+		field.value = '';
+		field.style.color = 'black';
+	}
+}
+
 function validate_form( form ) {
 	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv', 'Amount' ];
 

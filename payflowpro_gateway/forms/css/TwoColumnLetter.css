@@ -1,7 +1,7 @@
 .payflow-cc-form-section {
         float: none;
         margin-right: 0em;
-        margin-bottom: 3em;
+        margin-bottom: 1em;
 }
 
 #payflowpro_gateway-cc_form_container {
@@ -26,6 +26,14 @@
 #payflowpro_gateway-cc_form_letter p {
         font-size: 1.2em;
         margin-bottom: 1.2em;
+}
+
+#payflowpro_gateway-personal-info {
+	margin-right:0 !important;
+}
+
+#payflowpro_gateway-form-submit {
+	margin-bottom: 5em;
 }
 
 #payflowpro_gateway-donate-addl-info-secure-logos {
