@@ -111,10 +111,10 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		// amount
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
-		$form .= '<td>' . Xml::radio( 'amount', 250 ) . '$250 ' . 
-			Xml::radio( 'amount', 100 ) . '$100 ' .
-			Xml::radio( 'amount', 75 ) . '$75 ' .
-			Xml::radio( 'amount', 35 ) . '$35 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 250 ) . '250 ' . 
+			Xml::radio( 'amount', 100 ) . '100 ' .
+			Xml::radio( 'amount', 75 ) . '75 ' .
+			Xml::radio( 'amount', 35 ) . '35 ' .
 			Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amount'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "0.00" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			'<span class="creditcard-error-msg">' . '  ' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
