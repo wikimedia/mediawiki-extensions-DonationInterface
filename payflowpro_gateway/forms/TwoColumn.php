@@ -32,6 +32,7 @@ class PayflowProGateway_Form_TwoColumn extends PayflowProGateway_Form {
 		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
 		$form = $this->generateBannerHeader();
 		
+		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal' ));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
 		
 		// provide a place at the top of the form for displaying general messages
