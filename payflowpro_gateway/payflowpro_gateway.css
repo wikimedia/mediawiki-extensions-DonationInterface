@@ -69,6 +69,7 @@
 .button-navyblue {
 	background-image:url("https://payments.wikimedia.org/images/0/06/Button-wavy-blue.png");
 	color:#FFFFFF;
+	cursor:pointer;
 }
 
 .input-button {

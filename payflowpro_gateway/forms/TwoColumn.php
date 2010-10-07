@@ -274,8 +274,10 @@ EOT;
 	
 	protected function getAmountField() {
 		$otherChecked = false;
+		$amount = -1;
 		if ( $this->form_data['amount'] != 250 && $this->form_data['amount'] != 100 && $this->form_data['amount'] != 75 && $this->form_data['amount'] != 35 && $this->form_data['amountOther'] > 0 ) {
 			$otherChecked = true;
+			$amount = $this->form_data['amountOther'];
 		}
 		$form = '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
@@ -290,7 +292,7 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', -1, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;

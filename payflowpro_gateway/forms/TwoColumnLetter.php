@@ -1,6 +1,7 @@
 <?php
 
 class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoColumn {
+	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut, $wgScriptPath;
@@ -18,6 +19,9 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 
 	public function generateFormStart() {
 		global $wgOut, $wgRequest;
+		
+		$this->paypal = $wgRequest->getBool( 'paypal', false );
+		
 		$form = parent::generateBannerHeader();
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
@@ -90,6 +94,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	protected function generateBillingFields() {
 		global $wgScriptPath, $wgPayflowGatewayTest, $wgPayflowGatewayPaypalURL;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
+		
 		$form = '';
 		
 		// name	
@@ -133,59 +138,80 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		// amount
 		$form .= $this->getAmountField();
 		
-		// PayPal button
-		// make sure we have a paypal url set to redirect the user to before displaying the button
-		if ( strlen( $wgPayflowGatewayPaypalURL )) {
+		if ( !$this->paypal ) {
+			// PayPal button
+			// make sure we have a paypal url set to redirect the user to before displaying the button
+			if ( strlen( $wgPayflowGatewayPaypalURL )) {
+				$form .= '<tr>';
+				$form .= '<td class="paypal-button" colspan="2">';
+				$form .= Xml::hidden( 'PaypalRedirect', false );
+				$form .= Xml::tags( 'div',
+						array(),
+						'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+					);
+				$form .= '</td>';
+				$form .= '</tr>';
+			}
+			
+			// card logos
 			$form .= '<tr>';
-			$form .= '<td class="paypal-button" colspan="2">';
-			$form .= Xml::hidden( 'PaypalRedirect', false );
-			$form .= Xml::tags( 'div',
-					array(),
-					'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
-				);
-			$form .= '</td>';
+			$form .= '<td />';
+			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
+			$form .= '</tr>';
+			
+			// card number
+			$form .= $this->getCardNumberField();
+			
+			// cvv
+			$form .= $this->getCvvField();
+			
+			// expiry
+			$form .= '<tr>';
+			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
+			$form .= '<td>' . $this->generateExpiryMonthDropdown() . $this->generateExpiryYearDropdown() . '</td>';
+			$form .= '</tr>';
+	
+			// street
+			$form .= $this->getStreetField();
+	
+			// city
+			$form .= $this->getCityField();
+	
+			// state
+			$form .= '<tr>';
+			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) . '</td>';
+			$form .= '<td>' . $this->generateStateDropdown() . ' ' . wfMsg( 'payflowpro_gateway-state-in-us' ) . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['state'] . '</span></td>';
+			$form .= '</tr>';
+				
+			// zip
+			$form .= $this->getZipField();
+			
+			// country
+			$form .= '<tr>';
+			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
+			$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
 			$form .= '</tr>';
 		}
-		
-		// card logos
-		$form .= '<tr>';
-		$form .= '<td />';
-		$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
-		$form .= '</tr>';
-		
-		// card number
-		$form .= $this->getCardNumberField();
-		
-		// cvv
-		$form .= $this->getCvvField();
-		
-		// expiry
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
-		$form .= '<td>' . $this->generateExpiryMonthDropdown() . $this->generateExpiryYearDropdown() . '</td>';
-		$form .= '</tr>';
 
-		// street
-		$form .= $this->getStreetField();
-
-		// city
-		$form .= $this->getCityField();
-
-		// state
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) . '</td>';
-		$form .= '<td>' . $this->generateStateDropdown() . ' ' . wfMsg( 'payflowpro_gateway-state-in-us' ) . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['state'] . '</span></td>';
-		$form .= '</tr>';
-			
-		// zip
-		$form .= $this->getZipField();
+		return $form;
+	}
+	
+	public function generateFormSubmit() {
+		// submit button
+		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )); 	
+		if ( $this->paypal ) {
+			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
+		} else {
+			$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
+			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
+			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
+				wfMsg( 'payflowpro_gateway-donate-click' ); 
+		}
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		
-		// country
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
-		$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
-	    $form .= '</tr>';
-
 		return $form;
 	}
 
