@@ -244,7 +244,7 @@ if (amountOther.value == '') {
 EOT;
 		$form .= $this->generateDonationFooter();
 		if ( $this->paypal ) {
-			$form .= Xml::tags( 'div', array(), '&nbsp;<br/>&nbsp;');
+			$form .= Xml::tags( 'div', array( 'style' => 'margin-bottom: 8em;' ), '&nbsp;');
 		}
 		$form .= Xml::closeElement( 'div' ); //close div#mw-creditcard
 		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_form
