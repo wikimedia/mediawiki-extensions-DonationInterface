@@ -79,12 +79,10 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	
 	protected function generateBillingContainer() {
 		$form = '';
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));			;
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-cc-form-header-personal' ));
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
-		
 		$form .= $this->generateBillingFields();
-		
 		$form .= Xml::closeElement( 'table' ); // close table#payflow-table-donor
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-personal-info
 
