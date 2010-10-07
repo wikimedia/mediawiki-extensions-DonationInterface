@@ -96,6 +96,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$amount = number_format( $wgRequest->getText( 'amountGiven' ), 2, '.', '' );
 		} elseif( isset( $_REQUEST['amount'] ) ) { 
 			$amount = '0.00';
+		} elseif( $wgRequest->getValue( 'amount' ) == '-1' ) {
+			$amount = $wgReuqest->getValue( 'amountOther' );
 		} else {
 			$amount = '0.00';
 		}
@@ -1070,6 +1072,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		 * update contribution tracking
 		 */
 		$this->updateContributionTracking( $data, true );
+		
+		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
 		
 		$output = '<form method="post" name="paypalredirect" action="' . $wgPayflowGatewayPaypalURL . '">';
 		foreach ( $data as $key => $value ) {
