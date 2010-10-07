@@ -44,6 +44,7 @@
 }
 
 #payflow-table-donor {
+	background-color: transparent;
 }
 
 #payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {

@@ -12,7 +12,7 @@
 }
 
 #payflowpro_gateway-cc_form_form {
-        width: 50%;
+        width: 475px;
         float: right;
         margin-left: 2em;
         padding-left: 2em;
@@ -24,7 +24,7 @@
 }
 
 #payflowpro_gateway-cc_form_letter p {
-        font-size: 1em;
+        font-size: 1.125em;
         margin-bottom: 1.2em;
 }
 
