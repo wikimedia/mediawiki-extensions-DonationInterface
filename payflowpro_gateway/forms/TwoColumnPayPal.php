@@ -73,7 +73,7 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoC
 		$form .= '</tr>';
 		
 		// anonymous
-		$fom .= $this->getCommentOptionField();
+		$form .= $this->getCommentOptionField();
 
 		// email agreement
 		$form .= $this->getEmailOptField();
