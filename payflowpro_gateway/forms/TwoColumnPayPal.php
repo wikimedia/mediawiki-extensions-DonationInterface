@@ -50,7 +50,7 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoC
 	}
 
 	protected function generatePersonalFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
+		global $wgScriptPath, $wgPayflowGatewayTest, $wgPayflowGatewayPaypalURL;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
 		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
