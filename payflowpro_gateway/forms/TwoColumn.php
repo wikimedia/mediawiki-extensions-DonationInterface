@@ -148,10 +148,6 @@ EOT;
 	}
 
 	protected function generatePersonalFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway";
-		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
 		$form = '';
 		
 		// name	
@@ -174,23 +170,10 @@ EOT;
 		$form .= '</tr>';
 		
 		// anonymous
-		$comment_opt_value = ( $this->form_data[ 'numAttempt' ] ) ? $this->form_data[ 'comment-option' ] : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentOptionField();
 
 		// email agreement
-		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
-		$form .= ' ';
-		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
-		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
-		$form .= wfMsg( 'donate_interface-email-agreement' );
-		$form .= Xml::closeElement( 'label' );
-		$form .= '</td>';
-		$form .= '</tr>';
+		$form .= $this->getEmailOptField();
 		
 		// amount
 		$form .= $this->getAmountField();
@@ -214,8 +197,6 @@ EOT;
 
 	protected function generatePaymentFields() {
 		global $wgScriptPath, $wgPayflowGatewayTest;
-		
-		
 
 		$form = '';
 		
@@ -381,6 +362,47 @@ EOT;
 		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "First" )', 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
 			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Last" )', 'maxlength' => '15', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
+		return $form;
+	}
+	
+	protected function getCommentOptionField() {
+		global $wgRequest;
+		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
+		$form = '<tr>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
+		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getEmailOptField() {
+		global $wgRequest;
+		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'email-opt' ] : true;
+		$form = '<tr>';
+		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
+		$form .= ' ';
+		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
+		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
+		$form .= wfMsg( 'donate_interface-email-agreement' );
+		$form .= Xml::closeElement( 'label' );
+		$form .= '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getPaypalButton() {
+		global $wgScriptPath;
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
+		
+		$form = '<tr>';
+		$form .= '<td class="paypal-button" colspan="2">';
+		$form .= Xml::hidden( 'PaypalRedirect', false );
+		$form .= Xml::tags( 'div',
+				array(),
+				'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+			);
+		$form .= '</td>';
+		$form .= '</tr>';
 		return $form;
 	}
 }

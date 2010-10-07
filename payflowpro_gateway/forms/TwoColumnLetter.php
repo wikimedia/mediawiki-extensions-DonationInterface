@@ -90,7 +90,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest, $wgPayflowGatewayPaypalURL;
+		global $wgScriptPath, $wgPayflowGatewayPaypalURL;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 		
 		$form = '';
@@ -115,23 +115,10 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= '</tr>';
 		
 		// anonymous
-		$comment_opt_value = ( $this->form_data[ 'numAttempt' ] ) ? $this->form_data[ 'comment-option' ] : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentOptionField();
 
 		// email agreement
-		$email_opt_value = ( $this->form_data[ 'numAttempt' ]) ? $this->form_data[ 'email-opt' ] : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
-		$form .= ' ';
-		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
-		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
-		$form .= wfMsg( 'donate_interface-email-agreement' );
-		$form .= Xml::closeElement( 'label' );
-		$form .= '</td>';
-		$form .= '</tr>';
+		$form .= $this->getEmailOptField();
 		
 		// amount
 		$form .= $this->getAmountField();
@@ -140,15 +127,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 			// PayPal button
 			// make sure we have a paypal url set to redirect the user to before displaying the button
 			if ( strlen( $wgPayflowGatewayPaypalURL )) {
-				$form .= '<tr>';
-				$form .= '<td class="paypal-button" colspan="2">';
-				$form .= Xml::hidden( 'PaypalRedirect', false );
-				$form .= Xml::tags( 'div',
-						array(),
-						'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
-					);
-				$form .= '</td>';
-				$form .= '</tr>';
+				$form .= $this->getPaypalButton();
 			}
 			
 			// card logos
