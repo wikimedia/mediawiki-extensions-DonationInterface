@@ -32,11 +32,13 @@
 #payflowpro_gateway-form-submit {
 	margin-top: 1em;
 	text-align: center;
-	margin-bottom: 5em;
+	margin-bottom: 1em;
 }
 
 #payflowpro_gateway-donate-addl-info {
-	margin-top:  4em;
+	margin-top: 4em;
+	margin-bottom: 2em;
+	clear: both;
 }
 
 #payflow-table-cc td {
@@ -60,10 +62,6 @@
 
 #payflow-table-donor td {
 	text-align: left;
-}
-
-#payflowpro_gateway-donate-addl-info {
-	clear: both;
 }
 
 #payflowpro_gateway-donate-addl-info-secure-logos {
