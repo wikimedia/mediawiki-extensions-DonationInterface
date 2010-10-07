@@ -48,6 +48,22 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoC
 		
 		return $form;
 	}
+	
+	protected function generatePersonalContainer() {
+		global $wgRequest;
+		$form = '';
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));			;
+		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		$sourceId = $wgRequest->getText( 'utm_source_id', 13 );
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
+		
+		$form .= $this->generatePersonalFields();
+		
+		$form .= Xml::closeElement( 'table' ); // close table#payflow-table-donor
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-personal-info
+
+		return $form;
+	}
 
 	protected function generatePersonalFields() {
 		global $wgPayflowGatewayPaypalURL;
