@@ -106,14 +106,17 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoC
 		$form .= $this->getAmountField();
 		
 		// PayPal button
-		$form .= '<tr>';
-		$form .= '<td class="paypal-button" colspan="2">';
-		$form .= Xml::tags( 'div',
-				array(),
-				'<img src="'.$scriptPath.'/donate_with_paypal.gif"/>'
-			);
-		$form .= '</td>';
-		$form .= '</tr>';
+		if ( strlen( $wgPayflowGatewayPaypalURL )) {
+			$form .= '<tr>';
+			$form .= '<td class="paypal-button" colspan="2">';
+			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Xml::tags( 'div',
+					array(),
+					'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+				);
+			$form .= '</td>';
+			$form .= '</tr>';
+		}
 		
 		return $form;
 	}
