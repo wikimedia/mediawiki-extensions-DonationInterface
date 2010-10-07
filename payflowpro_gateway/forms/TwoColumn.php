@@ -402,7 +402,7 @@ EOT;
 				$form .= Xml::hidden( 'PaypalRedirect', false );
 				$form .= Xml::tags( 'div',
 						array(),
-						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" )) . '&nbsp;&nbsp;&nbsp;<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+						'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
 					);
 				$form .= '</td>';
 				$form .= '</tr>';
