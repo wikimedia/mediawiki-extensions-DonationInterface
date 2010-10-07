@@ -127,14 +127,17 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 			// PayPal button
 			// make sure we have a paypal url set to redirect the user to before displaying the button
 			if ( strlen( $wgPayflowGatewayPaypalURL )) {
-				$form .= $this->getPaypalButton();
+				$form .= '<tr>';
+				$form .= '<td class="label"></td>';
+				$form .= '<td class="paypal-button">';
+				$form .= Xml::hidden( 'PaypalRedirect', false );
+				$form .= Xml::tags( 'div',
+						array(),
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" )) . '&nbsp;&nbsp;&nbsp;<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+					);
+				$form .= '</td>';
+				$form .= '</tr>';
 			}
-			
-			// card logos
-			$form .= '<tr>';
-			$form .= '<td />';
-			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
-			$form .= '</tr>';
 			
 			// card number
 			$form .= $this->getCardNumberField();
