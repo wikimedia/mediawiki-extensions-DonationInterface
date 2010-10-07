@@ -89,6 +89,11 @@ $wgPayflowGatewayHeader = NULL;
 $wgPayflowGatewayUseHTTPProxy = FALSE;
 $wgPayflowGatewayHTTPProxy = '';
 
+/**
+ * The URL to redirect a transaction to PayPal
+ */
+$wgPayflowGatewayPaypalURL = '';
+		
 /** 
  * Hooks required to interface with the donation extension (include <donate> on page)
  *

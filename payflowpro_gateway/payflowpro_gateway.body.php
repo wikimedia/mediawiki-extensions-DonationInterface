@@ -52,7 +52,10 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, $wgPayFlowProGatewayCSSVersion;
+		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, 
+			$wgPayFlowProGatewayCSSVersion, $wgPayflowGatewayPaypalURL, 
+			$wgPayflowGatewaySalt;
+		
 		session_cache_limiter( 'nocache' );
 		$this->fnPayflowEnsureSession();
 		$this->setHeaders();
@@ -83,7 +86,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 		
 		// establish the edit token to prevent csrf
-		global $wgPayflowGatewaySalt;
 		$token = $this->fnPayflowEditToken( $wgPayflowGatewaySalt ); //$wgUser->editToken( 'mrxc877668DwQQ' );
 
 
@@ -108,11 +110,23 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		// Populate form data
 		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
+		
 		// Check form for errors and display 
 		// match token
 		$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
 		$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
 		if( $token_match ) {
+			/**
+			 *  handle PayPal redirection 
+			 *  
+			 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
+			 *  and the PaypalRedirect form value must be true
+			 */
+			if ( $wgRequest->getBool( 'PaypalRedirect' )) {
+				$this->paypalRedirect( $data );
+				return;
+			}
+			
 			if( $data['payment_method'] == 'processed' ) {
 				//increase the count of attempts
 				++$data['numAttempt'];
@@ -851,7 +865,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$card_num_index = array_rand( $card_nums[ $cards[ $card_index ]] );
 
 			$data = array(
-				'amount' => ( $amount != "0.00" ) ? $amount : "30.00",
+				'amount' => ( $amount != "0.00" ) ? $amount : "35",
 				'amountOther' => '',
 				'email' => 'test@example.com',
 				'fname' => 'Tester',
@@ -875,7 +889,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				'language' => 'en',
-				'comment' => ($wgRequest->getVal( 'comment' )) ? $wgRequest->getVal( 'comment' ) : 'This sure is neat',
+				'comment' => $wgRequest->getText( 'comment' ),
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ),
@@ -993,10 +1007,16 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		return implode( ".", $source_parts );
 	}
 
-	public function updateContributionTracking( &$data ) {
+	/**
+	 * Update contribution_tracking table
+	 *
+	 * @param array $data Form data
+	 * @param bool $force If set to true, will ensure that contribution tracking is updated
+	 */
+	public function updateContributionTracking( &$data, $force=false ) {
 		// ony update contrib tracking if we're coming from a single-step landing page 
-		// which we know with cc# in utm_source
-		if ( !preg_match( "/cc[0-9]/", $data[ 'utm_source' ] )) {
+		// which we know with cc# in utm_source or if force=true
+		if ( !$force && !preg_match( "/cc[0-9]/", $data[ 'utm_source' ] )) {
 			return;
 		}
 
@@ -1027,5 +1047,38 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		}
 
 		$db->update( 'contribution_tracking', $tracked_contribution, array( 'id' => $data[ 'contribution_tracking_id' ] ));
+	}
+	
+	/**
+	 * Handle redirection of form content to PayPal
+	 * 
+	 * @fixme If we can update contrib tracking table in ContributionTracking
+	 * 	extension, we can probably get rid of this method and just submit the form
+	 *  directly to the paypal URL, and have all processing handled by ContributionTracking
+	 *  This would make this a lot less hack-ish
+	 */
+	public function paypalRedirect( &$data ) {
+		global $wgOut, $wgPayflowGatewayPaypalURL;
+		
+		// if we don't have a URL enabled throw a graceful error to the user		
+		if ( !strlen( $wgPayflowGatewayPaypalURL )) {
+			$this->errors['general'][ 'nopaypal' ] = wfMsg( 'payflow_gateway-error-msg-nopaypal' );
+			return;
+		}
+		
+		/**
+		 * update contribution tracking
+		 */
+		$this->updateContributionTracking( $data, true );
+		
+		$output = '<form method="post" name="paypalredirect" action="' . $wgPayflowGatewayPaypalURL . '">';
+		foreach ( $data as $key => $value ) {
+			$output .= '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '" />';
+		}
+		
+		$wgOut->addHTML( $output );
+
+		// Automatically post the form if the user has Javascript support
+		$wgOut->addHTML( '<script type="text/javascript">document.paypalredirect.submit();</script>' );
 	}
 } // end class

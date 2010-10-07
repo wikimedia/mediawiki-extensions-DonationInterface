@@ -44,6 +44,7 @@ $messages['en'] = array(
 	'payflow_gateway-card-name-visa' => 'Visa',
 	'payflow_gateway-card-name-mc' => 'Mastercard',
 	'payflow_gateway-card-name-discover' => 'Discover',
+	'payflow_gateway-error-msg-nopaypal' => 'Due to a technical error, we cannot send your request to PayPal.  Please try using our regular credit card donation form.',
 	'payflowpro_gateway-error-msg' => 'Please enter your $1',
 	'payflowpro_gateway-error-msg-js' => 'Please enter your',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Please enter a valid amount**',

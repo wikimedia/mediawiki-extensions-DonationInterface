@@ -88,18 +88,12 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
+		global $wgScriptPath, $wgPayflowGatewayTest, $wgPayflowGatewayPaypalURL;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
-		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
 		$form = '';
 		
 		// name	
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-name' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "First" )', 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Last" )', 'maxlength' => '15', 'id' => 'lname' ) ) . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['fname'] . '</span></td>';
-		$form .= "</tr>";
+		$form .= $this->getNameField();
 		
 		// email
 		$form .= $this->getEmailField();
@@ -140,14 +134,18 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		$form .= $this->getAmountField();
 		
 		// PayPal button
-		$form .= '<tr>';
-		$form .= '<td class="paypal-button" colspan="2">';
-		$form .= Xml::tags( 'div',
-				array(),
-				'<img src="'.$scriptPath.'/donate_with_paypal.gif"/>'
-			);
-		$form .= '</td>';
-		$form .= '</tr>';
+		// make sure we have a paypal url set to redirect the user to before displaying the button
+		if ( strlen( $wgPayflowGatewayPaypalURL )) {
+			$form .= '<tr>';
+			$form .= '<td class="paypal-button" colspan="2">';
+			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Xml::tags( 'div',
+					array(),
+					'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+				);
+			$form .= '</td>';
+			$form .= '</tr>';
+		}
 		
 		// card logos
 		$form .= '<tr>';

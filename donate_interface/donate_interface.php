@@ -311,21 +311,6 @@ function fnDonateChapterRedirect() {
 function fnProcessDonationForm( ) {
   global $wgRequest, $wgOut;
     
-  // declare variables used to hold post data
-  $userInput = array (
-      'currency_code' => 'USD',
-      'amount' => '0.00',
-      'gateway' => '',
-      'referrer' => '',
-      'utm_source' => '',
-      'utm_medium' => '',
-      'utm_campaign' => '',
-      'language' => '',
-      'comment' => '',
-      'comment-option' => '',
-      'email' => '',
-	 );
-
     // Checking that it was posted is not enough, donate_interface-amount-error
     // would be shown on previews, anon purges... (bug 22640)
     if ( ( !$wgRequest->wasPosted() ) || ( $wgRequest->getVal('process') != "_yes_" ) ) {
@@ -358,7 +343,7 @@ function fnProcessDonationForm( ) {
         'email-opt' => $wgRequest->getText( 'email-opt', 0 ),
   		'fname' => $wgRequest->getText( 'fname', null ),
   		'lname' => $wgRequest->getText( 'lname', null ),
-  		'email' => $wgRequest->getText( 'email', null ),
+  		'email' => $wgRequest->getText( 'emailAdd', null ),
   );
 	 
   // ask payment processor extensions for their URL/page title
