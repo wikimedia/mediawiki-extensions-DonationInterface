@@ -97,7 +97,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		} elseif( isset( $_REQUEST['amount'] ) ) { 
 			$amount = '0.00';
 		} elseif( $wgRequest->getValue( 'amount' ) == '-1' ) {
-			$amount = $wgReuqest->getValue( 'amountOther' );
+			$amount = $wgRequest->getValue( 'amountOther' );
 		} else {
 			$amount = '0.00';
 		}
