@@ -1068,6 +1068,11 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			return;
 		}
 		
+		// update the utm source to set the payment instrument to pp rather than cc
+		$utm_source_parts = explode( ".", $data[ 'utm_source' ] );
+		$utm_source_parts[2] = 'pp';
+		$data[ 'utm_source' ] = implode( ".", $utm_source_parts );
+		
 		/**
 		 * update contribution tracking
 		 */
