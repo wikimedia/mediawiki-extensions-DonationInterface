@@ -192,13 +192,6 @@ EOT;
 		// amount
 		$form .= $this->getAmountField();
 		
-		// currency
-		$form .= '<tr>';
-		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
-			' ' . $this->generateCurrencyDropdown() . '</td>';
-		$form .= '</tr>';
-		
 		return $form;
 	}
 
@@ -279,16 +272,25 @@ EOT;
 	}
 	
 	protected function getAmountField() {
+		$otherChecked = false;
+		if ( $this->form_data['amount'] != 250 && $this->form_data['amount'] != 100 && $this->form_data['amount'] != 75 && $this->form_data['amount'] != 35 && $this->form_data['amountOther'] > 0 ) {
+			$otherChecked = true;
+		}
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
-		$form .= '<td>' . Xml::radio( 'amount', 250 ) . '250 ' . 
-			Xml::radio( 'amount', 100 ) . '100 ' .
-			Xml::radio( 'amount', 75 ) . '75 ' .
-			Xml::radio( 'amount', 35 ) . '35 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 250, $this->form_data['amount'] == 250 ) . '250 ' . 
+			Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
+			Xml::radio( 'amount', 75,  $this->form_data['amount'] == 75 ) . '75 ' .
+			Xml::radio( 'amount', 35, $this->form_data['amount'] == 35 ) . '35 ' .
 			'</td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label"></td>';
+		$form .= '<td>' . Xml::radio( 'amount', -1, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
+			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}

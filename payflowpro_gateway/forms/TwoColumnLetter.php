@@ -139,13 +139,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_TwoC
 		// amount
 		$form .= $this->getAmountField();
 		
-		// currency
-		$form .= '<tr>';
-		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', -1, null, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
-			' ' . $this->generateCurrencyDropdown() . '</td>';
-		$form .= '</tr>';
-		
 		// PayPal button
 		$form .= '<tr>';
 		$form .= '<td class="paypal-button" colspan="2">';
