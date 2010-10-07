@@ -10,7 +10,7 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoC
 		// we only want to load this JS if the form is being rendered
 		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
 				     $wgScriptPath . 
- 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js"></script>' );
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js?283"></script>' );
 	}
 	
 	public function generateFormStart() {
