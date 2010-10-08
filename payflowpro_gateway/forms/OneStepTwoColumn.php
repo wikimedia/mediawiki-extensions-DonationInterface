@@ -1,6 +1,7 @@
 <?php
 
 class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
+	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut, $wgScriptPath;
@@ -31,7 +32,10 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	}
 	
 	public function generateFormStart() {
-		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
+		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut, $wgRequest;
+		
+		$this->paypal = $wgRequest->getBool( 'paypal', false );
+		
 		$form = $this->generateBannerHeader();
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
@@ -58,25 +62,32 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'left-column', 'class' => 'payflow-cc-form-section'));
 		$form .= $this->generatePersonalContainer();
-		$form .= Xml::closeElement( 'div' ); // close div#left-column
 		
-		$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ));
-		$form .= $this->generatePaymentContainer();
+		if ( !$this->paypal ) {
+			$form .= Xml::closeElement( 'div' ); // close div#left-column
+			
+			$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ));
+			$form .= $this->generatePaymentContainer();
+		}
 		
 		return $form;
 	}
-
 	public function generateFormSubmit() {
 		// submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' )); 	
-		//$form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
-		$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
-		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
-		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gateway-donate-click' ); 
+		if ( $this->paypal ) {
+			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
+		} else {
+			$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
+			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
+			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
+				wfMsg( 'payflowpro_gateway-donate-click' ); 
+		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
+		
 		return $form;
 	}
 	
@@ -141,7 +152,8 @@ EOT;
 		$source = $wgRequest->getText( 'utm_source' );
 		$medium = $wgRequest->getText( 'utm_medium' );
 		$campaign = $wgRequest->getText( 'utm_campaign' );
-		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $source, $medium, $campaign ));
+		$formname = $wgRequest->getText( 'form_name' );
+		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $formname, $source, $medium, $campaign ));
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		
 		$form .= $this->generatePersonalFields();
