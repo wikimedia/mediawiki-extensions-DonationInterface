@@ -94,18 +94,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		// email
 		$form .= $this->getEmailField();
 		
-		//comment message
-		$form .= $this->getCommentMessageField();
-		
-		//comment
-		$form .= $this->getCommentField();
-		
-		// anonymous
-		$form .= $this->getCommentOptionField();
-
-		// email agreement
-		$form .= $this->getEmailOptField();
-		
 		// amount
 		$form .= $this->getAmountField();
 		
