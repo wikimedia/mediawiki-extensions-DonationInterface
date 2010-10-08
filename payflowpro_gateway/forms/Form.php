@@ -397,6 +397,25 @@ abstract class PayflowProGateway_Form {
 		$this->captcha_html = $html;		
 	}
 	
+	protected function generateBannerHeader() {
+		global $wgPayflowGatewayHeader, $wgOut, $wgRequest;
+		
+		$template = '';
+		
+		// intro text
+		if ( $wgRequest->getText('masthead', false)) {
+			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data[ 'language' ] . '}}' );
+		} elseif ( $wgPayflowGatewayHeader ) {
+			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
+			$template = $wgOut->parse( $header );
+		}	
+		
+		// make sure that we actually have a matching template to display so we don't display the 'redlink'
+		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template )) {
+			$wgOut->addHtml( $template );
+		}
+	}
+	
 	protected function getEmailField() {
 		// email
 		$form = '<tr>';
