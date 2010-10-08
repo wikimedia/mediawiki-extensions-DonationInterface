@@ -14,7 +14,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		// we only want to load this JS if the form is being rendered
 		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
 				     $wgScriptPath . 
- 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js?283"></script>' );
+ 				     '/extensions/DonationInterface/payflowpro_gateway/validate_input.js?284"></script>' );
 	}
 	
 	/**
@@ -126,7 +126,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	}
 
 	protected function generatePersonalContainer() {
-		global $wgRequest;
+		global $wgRequest, $wgScriptPath;
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));			;
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
@@ -135,7 +135,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 			$medium = $wgRequest->getText( 'utm_medium' );
 			$campaign = $wgRequest->getText( 'utm_campaign' );
 			$formname = $wgRequest->getText( 'form_name' );
-			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $formname, $source, $medium, $campaign ));
+			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $wgScriptPath, $formname, $source, $medium, $campaign ));
 		}
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		

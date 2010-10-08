@@ -62,7 +62,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		
 
 		$wgOut->addExtensionStyle( 
-			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?283" . 
+			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?284" . 
 			$wgPayFlowProGatewayCSSVersion);
 		
 		$scriptVars = array(
