@@ -51,7 +51,7 @@ $wgPayflowGatewayTest = FALSE;
 /**
  * The default form to use
  */
-$wgPayflowGatewayDefaultForm = 'TwoColumn';
+$wgPayflowGatewayDefaultForm = 'TwoStepTwoColumn';
 
 /**
  * A string or array of strings for making tokens more secure

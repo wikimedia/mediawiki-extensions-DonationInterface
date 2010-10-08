@@ -579,4 +579,36 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
+	
+	protected function getStateField() {
+		$form = '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) . '</td>';
+		$form .= '<td>' . $this->generateStateDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['state'] . '</span></td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getCountryField() {
+		$form = '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
+		$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
+	    $form .= '</tr>';
+	    return $form;
+	}
+	
+	protected function getCreditCardTypeField() {
+		$form = '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) . '</td>';
+		$form .= '<td>' . $this->generateCardDropdown() . '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getExpiryField() {
+		$form = '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
+		$form .= '<td>' . $this->generateExpiryMonthDropdown() . $this->generateExpiryYearDropdown() . '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
 }
