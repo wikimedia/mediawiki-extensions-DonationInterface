@@ -168,25 +168,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		}
 			
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
-		$form .= <<<EOT
-<script type="text/javascript">
-var fname = document.getElementById('fname');
-var lname = document.getElementById('lname');
-var amountOther = document.getElementById('amountOther');
-if (fname.value == '') {
-	fname.style.color = '#999999';
-	fname.value = 'First';
-}
-if (lname.value == '') {
-	lname.style.color = '#999999';
-	lname.value = 'Last';
-}
-if (amountOther.value == '') {
-	amountOther.style.color = '#999999';
-	amountOther.value = 'Other';
-}
-</script>
-EOT;
 		$form .= $this->generateDonationFooter();
 		if ( $this->paypal ) {
 			$form .= Xml::tags( 'div', array( 'style' => 'margin-bottom: 8em;' ), '&nbsp;');
