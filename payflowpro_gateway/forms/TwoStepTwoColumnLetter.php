@@ -104,6 +104,12 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		
+		// card logos
+		$form .= '<tr>';
+		$form .= '<td />';
+		$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
+		$form .= '</tr>';
+		
 		// card number
 		$form .= $this->getCardNumberField();
 		
