@@ -153,7 +153,14 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 		$form = '';
 		
 		// amount
-		$form .= $this->getAmountField();
+		$form = '<tr>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
+		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) . 
+			' ' . $this->generateCurrencyDropdown() . '</td>';
+		$form .= '</tr>';
 		
 		// card logos
 		$form .= '<tr>';
