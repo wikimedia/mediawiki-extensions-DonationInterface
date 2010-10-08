@@ -149,11 +149,13 @@ EOT;
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));			;
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
-		$source = $wgRequest->getText( 'utm_source' );
-		$medium = $wgRequest->getText( 'utm_medium' );
-		$campaign = $wgRequest->getText( 'utm_campaign' );
-		$formname = $wgRequest->getText( 'form_name' );
-		$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $formname, $source, $medium, $campaign ));
+		if ( !$this->paypal ) {
+			$source = $wgRequest->getText( 'utm_source' );
+			$medium = $wgRequest->getText( 'utm_medium' );
+			$campaign = $wgRequest->getText( 'utm_campaign' );
+			$formname = $wgRequest->getText( 'form_name' );
+			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $formname, $source, $medium, $campaign ));
+		}
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		
 		$form .= $this->generatePersonalFields();
