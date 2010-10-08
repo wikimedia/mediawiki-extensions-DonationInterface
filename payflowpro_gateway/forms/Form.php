@@ -569,15 +569,14 @@ abstract class PayflowProGateway_Form {
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 		
 		$form = '<tr>';
-				$form .= '<td class="label"></td>';
-				$form .= '<td class="paypal-button">';
-				$form .= Xml::hidden( 'PaypalRedirect', false );
-				$form .= Xml::tags( 'div',
-						array(),
-						'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
-					);
-				$form .= '</td>';
-				$form .= '</tr>';
+		$form .= '<td class="paypal-button" colspan="2">';
+		$form .= Xml::hidden( 'PaypalRedirect', false );
+		$form .= Xml::tags( 'div',
+				array(),
+				'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+			);
+		$form .= '</td>';
+		$form .= '</tr>';
 		return $form;
 	}
 }

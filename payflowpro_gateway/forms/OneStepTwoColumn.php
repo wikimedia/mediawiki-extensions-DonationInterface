@@ -7,6 +7,9 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		
 		parent::__construct( $form_data, $form_errors );
 		
+		// update the list of hidden fields we need to use in this form.
+		$this->updateHiddenFields();
+		
 		// we only want to load this JS if the form is being rendered
 		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
 				     $wgScriptPath . 
@@ -243,5 +246,20 @@ EOT;
 
 		return $form;
 	}
+	
+	/**
+	 * Update hidden fields to not set any comment-related fields
+	 */
+	public function updateHiddenFields() {
+		$hidden_fields = $this->getHiddenFields();
 
+		// make sure that the below elements are not set in the hidden fields
+		$not_needed = array( 'comment-option', 'email-opt', 'comment' );
+
+		foreach ( $not_needed as $field ) {
+			unset( $hidden_fields[ $field ] );
+		}
+		
+		$this->setHiddenFields( $hidden_fields );
+	}
 }

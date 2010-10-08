@@ -12,9 +12,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		}
 			
 		parent::__construct( $form_data, $form_errors );
-		
-		// update the list of hidden fields we need to use in this form.
-		$this->updateHiddenFields();
 	}
 
 	public function generateFormStart() {
@@ -195,22 +192,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		return $form;
 	}
 
-	/**
-	 * Update hidden fields to not set any comment-related fields
-	 */
-	public function updateHiddenFields() {
-		$hidden_fields = $this->getHiddenFields();
-
-		// make sure that the below elements are not set in the hidden fields
-		$not_needed = array( 'comment-option', 'email-opt', 'comment' );
-
-		foreach ( $not_needed as $field ) {
-			unset( $hidden_fields[ $field ] );
-		}
-		
-		$this->setHiddenFields( $hidden_fields );
-	}
-	
 	/**
 	 * Generate form closing elements
 	 */
