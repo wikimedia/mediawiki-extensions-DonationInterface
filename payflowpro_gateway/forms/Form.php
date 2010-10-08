@@ -582,16 +582,22 @@ abstract class PayflowProGateway_Form {
 	
 	protected function getStateField() {
 		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) . '</td>';
-		$form .= '<td>' . $this->generateStateDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['state'] . '</span></td>';
+		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
 	
 	protected function getCountryField() {
 		$form = '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
-		$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
+		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
 	    $form .= '</tr>';
 	    return $form;
 	}
