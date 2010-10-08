@@ -100,25 +100,6 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#right-column
 		$form .= Xml::closeElement( 'form' );
-		$form .= <<<EOT
-<script type="text/javascript">
-var fname = document.getElementById('fname');
-var lname = document.getElementById('lname');
-var amountOther = document.getElementById('amountOther');
-if (fname.value == '') {
-	fname.style.color = '#999999';
-	fname.value = 'First';
-}
-if (lname.value == '') {
-	lname.style.color = '#999999';
-	lname.value = 'Last';
-}
-if (amountOther.value == '') {
-	amountOther.style.color = '#999999';
-	amountOther.value = 'Other';
-}
-</script>
-EOT;
 		$form .= Xml::closeElement( 'div' ); // close div#mw-creditcard-form
 		$form .= $this->generateDonationFooter();
 		$form .= Xml::closeElement( 'div' ); // div#close mw-creditcard
