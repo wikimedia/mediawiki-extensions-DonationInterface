@@ -60,7 +60,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
 		
-		$text_template = $wgRequest->getText( 'text_template' );
+		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
 		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
 		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
 		

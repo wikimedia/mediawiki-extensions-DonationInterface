@@ -56,7 +56,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
 		
-		$text_template = $wgRequest->getText( 'text_template' );
+		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
 		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
 		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
 		
@@ -93,6 +93,16 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		
 		// email
 		$form .= $this->getEmailField();
+		
+		// amount
+		$form = '<tr>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
+		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) . 
+			' ' . $this->generateCurrencyDropdown() . '</td>';
+		$form .= '</tr>';
 		
 		// card number
 		$form .= $this->getCardNumberField();
