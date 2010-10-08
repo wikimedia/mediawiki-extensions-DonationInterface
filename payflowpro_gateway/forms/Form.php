@@ -539,6 +539,23 @@ abstract class PayflowProGateway_Form {
 		return $form;
 	}
 	
+	protected function getCommentMessageField() {
+		$form = '<tr>';
+		$form .= '<td colspan="2">';
+		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
+		$form .= '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
+	protected function getCommentField() {
+		$form = '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
+		$form .= '</tr>';
+		return $form;
+	}
+	
 	protected function getCommentOptionField() {
 		global $wgRequest;
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;

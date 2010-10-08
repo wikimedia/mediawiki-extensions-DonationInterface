@@ -99,17 +99,10 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		$form .= $this->getEmailField();
 		
 		//comment message
-		$form .= '<tr>';
-		$form .= '<td colspan="2">';
-		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
-		$form .= '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentMessageField();
 		
 		//comment
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentField();
 		
 		// anonymous
 		$form .= $this->getCommentOptionField();
@@ -143,10 +136,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 			$form .= $this->getCvvField();
 			
 			// expiry
-			$form .= '<tr>';
-			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
-			$form .= '<td>' . $this->generateExpiryMonthDropdown() . $this->generateExpiryYearDropdown() . '</td>';
-			$form .= '</tr>';
+			$form .= $this->getExpiryField();
 	
 			// street
 			$form .= $this->getStreetField();
@@ -155,19 +145,12 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 			$form .= $this->getCityField();
 	
 			// state
-			$form .= '<tr>';
-			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-state' ), 'state' ) . '</td>';
-			$form .= '<td>' . $this->generateStateDropdown() . ' ' . wfMsg( 'payflowpro_gateway-state-in-us' ) . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['state'] . '</span></td>';
-			$form .= '</tr>';
-				
+			$form .= $this->getStateField();
 			// zip
 			$form .= $this->getZipField();
 			
 			// country
-			$form .= '<tr>';
-			$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
-			$form .= '<td>' . $this->generateCountryDropdown() . '<span class="creditcard-error-msg">' . '  ' . $this->form_errors['country'] . '</span></td>';
-			$form .= '</tr>';
+			$form .= $this->getCountryField();
 		}
 
 		return $form;

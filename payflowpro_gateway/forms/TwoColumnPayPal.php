@@ -69,17 +69,10 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneS
 		$form .= $this->getEmailField();
 		
 		//comment message
-		$form .= '<tr>';
-		$form .= '<td colspan="2">';
-		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
-		$form .= '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentMessageField();
 		
 		//comment
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
-		$form .= '</tr>';
+		$form .= $this->getCommentField();
 		
 		// anonymous
 		$form .= $this->getCommentOptionField();
