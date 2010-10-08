@@ -94,9 +94,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		// email
 		$form .= $this->getEmailField();
 		
-		// amount
-		$form .= $this->getAmountField();
-		
 		// card number
 		$form .= $this->getCardNumberField();
 		
