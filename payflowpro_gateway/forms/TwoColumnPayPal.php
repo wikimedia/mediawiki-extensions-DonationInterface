@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_TwoColumn {
+class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneStepTwoColumn {
 
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut, $wgScriptPath;
