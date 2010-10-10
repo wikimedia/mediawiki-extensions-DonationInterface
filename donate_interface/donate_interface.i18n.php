@@ -889,9 +889,7 @@ $messages['hsb'] = array(
 	'donate_interface-comment-message' => 'Maš mysličku, kotruž chceš ze swětom dźělić? Napisaj tu hač k 200 znamješkam:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Prošu mjenuj moje mjeno (pódla mojeho komentara) na zjawnej lisćinje darow.',
-	'donate_interface-email-agreement' => "Přizwoluju připósłanju přichodnych powěsćowych listow abo e-mejlow.
-Njebudźemy twoje informacije předawać abo z nimi wikować.
-Naše prawidła priwatnosće za dary namakaš <a title='Darić/Priwatnosć za dary' href='/wiki/Donate/Donor_Privacy'>tu</a>",
+	'donate_interface-email-agreement' => 'Přizwoluju připósłanju přichodnych powěsćowych listow abo e-mejlow załožby Wikimedia foundation.',
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Prošu zapodaj płaćiwu sumu**',
 	'donate_interface-processing-error' => 'Zmylk je při předźěłowanju twojeho naprašowanja wustupił. Procesor k dispoziciji njesteji.',
@@ -1848,9 +1846,26 @@ $messages['sr-el'] = array(
 );
 
 /** Swedish (Svenska)
+ * @author Ainali
  * @author Boivie
  */
 $messages['sv'] = array(
+	'donate_interface' => 'Stöd Wikimedia',
+	'donate_interface-desc' => 'Donationsmålsida som integrerar gateway förlängningar',
+	'donate_interface-intro' => 'Välj en betalningsmetod, belopp och valuta.',
+	'donate_interface-amount' => 'Gåvobelopp:',
+	'donate_interface-other-amount' => 'Annat belopp',
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Betalningsmetod:',
+	'donate_interface-submit-button' => 'Ge',
+	'donate_interface-comment-message' => 'Har du en tanke att dela med världen? Skriv upp till 200 tecken här:',
+	'donate_interface-comment-label' => 'Kommentar:',
+	'donate_interface-anon-message' => 'Visa mitt namn (bredvid min kommentar) på den offentliga givarlistan.',
+	'donate_interface-email-agreement' => 'Jag accepterar att ta emot framtida nyhetsbrev eller e-post från Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Offentlig kommentar',
+	'donate_interface-amount-error' => '**Ange ett giltigt belopp**',
+	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades. 
+Inga processorer finns tillgängliga.',
 	'donate_interface-GBP' => 'GBP: Brittiska pund',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: USA-dollar',
