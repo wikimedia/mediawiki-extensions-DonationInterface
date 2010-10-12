@@ -15,10 +15,6 @@ function loadPlaceholders() {
 	var fname = document.getElementById('fname');
 	var lname = document.getElementById('lname');
 	var amountOther = document.getElementById('amountOther');
-	if (amountOther.value == '') {
-		amountOther.style.color = '#999999';
-		amountOther.value = 'Other';
-	}
 }
 
 addEvent( window, 'load', loadPlaceholders );
