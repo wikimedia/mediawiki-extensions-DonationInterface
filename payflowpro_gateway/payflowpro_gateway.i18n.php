@@ -1854,7 +1854,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-donor-legend' => 'اطلاعات هدیه‌کننده',
 	'payflowpro_gateway-card-legend' => 'اطلاعات کارت اعتباری',
 	'payflowpro_gateway-amount-legend' => 'مبلغ اهدایی:',
-	'payflowpro_gateway-cvv-link' => 'مثال',
+	'payflowpro_gateway-cvv-link' => 'کجا است؟',
 	'payflowpro_gateway-donor-amount' => 'مبلغ:',
 	'payflowpro_gateway-donor-currency-label' => 'واحد پول:',
 	'payflowpro_gateway-donor-email' => 'نشانی رایانامه:',
@@ -1874,6 +1874,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-donor-security' => 'کد امنیتی:',
 	'payflowpro_gateway-donor-submit' => 'اهدا کن',
 	'payflowpro_gateway-donor-currency-msg' => 'این کمک مالی در $1 تهیه شده است',
+	'payflow_gateway-error-msg-nopaypal' => 'به دلیل یک خطای فنی، نمی‌توانیم درخواست شما را به پی پال ارسال کنیم. لطفاً از فرم کمک مالی با کارت اعتباری استفاده کنید.',
 	'payflowpro_gateway-error-msg' => 'لطفاً $1 خود را وارد کنید',
 	'payflowpro_gateway-error-msg-js' => 'لطفاً وارد کنید',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**لطفاً یک مبلغ معتبر وارد کنید**',
@@ -1882,7 +1883,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg-mc' => '**لطفاً شمارهٔ کارت صحیح را برای مستر کارت وارد کنید.**',
 	'payflowpro_gateway-error-msg-visa' => '**لطفاً شمارهٔ کارت صحیح را برای Visa وارد کنید.**',
 	'payflowpro_gateway-error-msg-discover' => '**لطفاً شمارهٔ کارت صحیح را برای Discover وارد کنید.**',
-	'payflowpro_gateway-error-msg-amount' => 'میزان کمک مالی',
+	'payflowpro_gateway-error-msg-amount' => 'مبلغ اهدایی',
 	'payflowpro_gateway-error-msg-emailAdd' => 'نشانی پست الکترونیک',
 	'payflowpro_gateway-error-msg-fname' => 'نام',
 	'payflowpro_gateway-error-msg-lname' => 'نام خانوادگی',
@@ -1923,9 +1924,16 @@ $messages['fa'] = array(
 <p>این کد <i>همواره</i> در <i>بالای</i> شمارهٔ حساب برجسته‌شده در روی کارت قرار دارد.
 در برخی موارد، کد در سمت چپ کارت قرار دارد، اما همواره در بالای شمارهٔ حساب است.</p><br />',
 	'payflowpro_gateway-question-comment' => 'پرسش یا نظری دارید؟ تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'پس از کلیک بر «{{int:payflowpro_gateway-donor-submit}}»، اطلاعات کارت اعتباری شما پردازش خواهد شد.',
+	'payflowpro_gateway-donate-click' => 'کارت اعتباری شما به طور ایمن پردازش خواهد شد.',
+	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">راه‌های دیگری برای کمک مالی نظیر پی پال، چک و پست وجود دارد</a>.',
+	'payflowpro_gateway-paypal' => 'آیا حساب پی پال دارید؟ <a href="$1/index.php/Special:PayflowProGateway?paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">از طریق پی پال بپردازید</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'ما اطلاعات کارت اعتباری شما را ذخیره نمی‌کنیم، و اطلاعات خصوصی شما موضوع <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">سیاست حفظ اسرار</a> ماست.',
 	'payflowpro_gateway-token-mismatch' => 'نشست شما منقضی شده است. لطفا با پر کردن و ارسال فرم، دوباره سعی کنید.',
+	'payflowpro_gateway-cc-form-header-personal' => 'اطلاعات صورتحساب',
+	'payflowpro_gateway-cc-form-header-payment' => 'اطلاعات پرداخت',
+	'payflowpro_gateway-make-your-donation' => 'همینک کمک کنید',
+	'payflowpro_gateway-state-in-us' => 'اگر در داخل ایالات متحده هستید',
+	'payflowpro_gateway-comment' => 'توضیح',
 );
 
 /** Finnish (Suomi)
@@ -2127,7 +2135,7 @@ $messages['frp'] = array(
 	'payflowpro_gateway-donor-legend' => 'Enformacions sur lo donator',
 	'payflowpro_gateway-card-legend' => 'Enformacions sur la cârta de crèdit',
 	'payflowpro_gateway-amount-legend' => 'Montent du don :',
-	'payflowpro_gateway-cvv-link' => 'Ègzemplo',
+	'payflowpro_gateway-cvv-link' => 'Yô qu’o est ?',
 	'payflowpro_gateway-donor-amount' => 'Montent :',
 	'payflowpro_gateway-donor-currency-label' => 'Monéya :',
 	'payflowpro_gateway-donor-email' => 'Adrèce èlèctronica :',
@@ -2185,7 +2193,7 @@ Volyéd tornar èprovar pués aprés.',
 	'payflowpro_gateway-post-transaction' => 'Dètalys de la transaccion',
 	'payflowpro_gateway-submit-button' => 'Balyér',
 	'payflowpro_gateway-question-comment' => 'Quèstions ou ben comentèros ? Veriéd-vos vers : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'payflowpro_gateway-donate-click' => 'Aprés avêr clicâ dessus « {{int:payflowpro_gateway-donor-submit}} », les enformacions de voutra cârta de crèdit seront trètâs.',
+	'payflowpro_gateway-donate-click' => 'Voutra cârta de crèdit serat prêsa en charge de maniére sècurisâ.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nos encartens pas voutres enformacions de cârta de crèdit, et pués voutres balyês a sè sont somêses a noutra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politica de confidencialitât</a>.',
 );
 
@@ -2326,6 +2334,7 @@ $messages['gsw'] = array(
 	'payflowpro_gateway-donor-security' => 'Gheimnummere:',
 	'payflowpro_gateway-donor-submit' => 'Spände',
 	'payflowpro_gateway-donor-currency-msg' => 'D Spände isch in $1 gmacht wore',
+	'payflow_gateway-error-msg-nopaypal' => 'Wäg eme tächnische Fähler chenne mer Dyy Aagfrog nit an PayPal schicke. Bitte versuech s mit em Formular fir Kreditchartespände.',
 	'payflowpro_gateway-error-msg' => 'Bitte gib Dyy $1 yy',
 	'payflowpro_gateway-error-msg-js' => 'Bitte yygee:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Bitte gib e giltige Betrag yy**',
@@ -2383,6 +2392,7 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'payflowpro_gateway-token-mismatch' => 'Dyy Sitzig isch abglofe. Bitte fill s Formular nomol uus un schick s nomol ab.',
 	'payflowpro_gateway-cc-form-header-personal' => 'Zahligsinformatione',
 	'payflowpro_gateway-cc-form-header-payment' => 'Informatione zue dr Zahlig',
+	'payflowpro_gateway-make-your-donation' => 'Jetz spände',
 	'payflowpro_gateway-state-in-us' => 'wänn in dr USA',
 	'payflowpro_gateway-comment' => 'Aamerkig',
 );
@@ -5217,7 +5227,7 @@ $messages['sw'] = array(
  * @author TRYPPN
  */
 $messages['ta'] = array(
-	'payflowpro_gateway-cvv-link' => 'எடுத்துக்காட்டு',
+	'payflowpro_gateway-cvv-link' => 'இது எங்கேயுள்ளது ?',
 	'payflowpro_gateway-donor-amount' => 'தொகை:',
 	'payflowpro_gateway-donor-email' => 'மின்னஞ்சல் முகவரி:',
 	'payflowpro_gateway-donor-name' => 'பெயர்:',
@@ -5236,6 +5246,7 @@ $messages['ta'] = array(
 	'payflowpro_gateway-error-msg-city' => 'நகரம்',
 	'payflowpro_gateway-error-msg-state' => 'மாநிலம்',
 	'payflowpro_gateway-error-msg-zip' => 'அஞ்சல் எண்',
+	'payflowpro_gateway-comment' => 'கருத்து',
 );
 
 /** Telugu (తెలుగు)

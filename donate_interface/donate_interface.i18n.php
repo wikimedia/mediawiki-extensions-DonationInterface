@@ -80,10 +80,11 @@ $messages['af'] = array(
 	'donate_interface-comment-message' => "Het u 'n gedagte om met die wêreld te deel? Plaas tot 200 karakters hier:",
 	'donate_interface-comment-label' => 'Opmerking:',
 	'donate_interface-anon-message' => 'Lys asseblief my naam (langs my opmerking) op die publiek lys van skenkers.',
-	'donate_interface-email-agreement' => "Ek stem in om toekomstige nuus en e-pos vanaf die Wikimedia-stigting te ontvang.
-Ons sal nooit u inligting verkoop of daarmee handel dryf nie.
-Ons priaatheidsbeleid vir skenkers kan <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>hier</a> gevind word.",
+	'donate_interface-email-agreement' => 'Ek stem in om toekomstige nuus en e-pos vanaf die Wikimedia-stigting te ontvang.',
 	'donate_interface-comment-title' => 'Publieke kommentaar',
+	'donate_interface-amount-error' => "**Sleutel asseblief 'n geldige bedrag in**",
+	'donate_interface-processing-error' => "Daar was 'n fout tydens die verwerking van u versoek. 
+Geen verwerkers is beskikbaar nie.",
 	'donate_interface-GBP' => 'GBP: Britse pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
@@ -646,12 +647,38 @@ $messages['eu'] = array(
  */
 $messages['fa'] = array(
 	'donate_interface' => 'حمایت از ویکی‌مدیا',
+	'donate_interface-desc' => 'صفحهٔ مقصد ارسال کمک که با افزونهٔ درگاه یکی می‌شود',
+	'donate_interface-intro' => 'لطفاً روش پرداخت، مقدار و واحد پول را انتخاب کنید.',
+	'donate_interface-amount' => 'مبلغ اهدایی:',
+	'donate_interface-other-amount' => 'مقدار دیگر',
+	'donate_interface-currency' => 'واحد پول:',
+	'donate_interface-gateway' => 'روش پرداخت:',
+	'donate_interface-submit-button' => 'اهدا کن',
+	'donate_interface-comment-message' => 'ایده‌ای دارید که با جهانیان در میان بگذارید؟ تا سقف ۲۰۰ حرف بنویسید:',
+	'donate_interface-comment-label' => 'توضیح:',
+	'donate_interface-anon-message' => 'لطفاً نام من را (در کنار نظرم) در فهرست عمومی اهداکنندگان نمایش بده.',
+	'donate_interface-email-agreement' => 'می‌خواهم از خبرنامه‌ها و رایانامه‌های بعدی بنیاد ویکی‌مدیا را دریافت کنم.',
+	'donate_interface-comment-title' => 'توضیحات عمومی',
+	'donate_interface-amount-error' => '**لطفاً یک مبلغ معتبر وارد کنید**',
+	'donate_interface-processing-error' => 'خطایی در پردازش درخواست شما رخ داد.
+هیچ پردازشگری در دسترس نیست.',
 	'donate_interface-GBP' => 'GBP: پوند انگلیس',
 	'donate_interface-EUR' => 'EUR: یورو',
 	'donate_interface-USD' => 'USD: دلار آمریکا',
 	'donate_interface-AUD' => 'AUD: دلار استرالیا',
 	'donate_interface-CAD' => 'CAD: دلار کانادا',
+	'donate_interface-CHF' => 'CHF: فرانک سوئیس',
+	'donate_interface-CZK' => 'CZK: کرونای چک',
+	'donate_interface-DKK' => 'DKK: کرون دانمارک',
+	'donate_interface-HKD' => 'HKD: دلار هنگ کنگ',
+	'donate_interface-HUF' => 'HUF: فورینت مجاری',
 	'donate_interface-JPY' => 'JPY: ین ژاپن',
+	'donate_interface-NZD' => 'NZD: دلار زلاندنو',
+	'donate_interface-NOK' => 'NOK: کرون نروژ',
+	'donate_interface-PLN' => 'PLN: زووتی لهستان',
+	'donate_interface-SGD' => 'SGD: دلار سنگاپور',
+	'donate_interface-SEK' => 'SEK: کرون سوئد',
+	'donate_interface-ILS' => 'ILS: شکل اسرائیل',
 );
 
 /** Finnish (Suomi)
@@ -1883,6 +1910,13 @@ Inga processorer finns tillgängliga.',
 	'donate_interface-SGD' => 'SGD: Singaporiansk dollar',
 	'donate_interface-SEK' => 'SEK: Svenska kronor',
 	'donate_interface-ILS' => 'ILS: Israeliska shekel',
+);
+
+/** Tamil (தமிழ்)
+ * @author TRYPPN
+ */
+$messages['ta'] = array(
+	'donate_interface-comment-label' => 'கருத்து:',
 );
 
 /** Telugu (తెలుగు)
