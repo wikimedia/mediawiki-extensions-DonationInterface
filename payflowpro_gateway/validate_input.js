@@ -17,7 +17,7 @@ function loadPlaceholders() {
 	var amountOther = document.getElementById('amountOther');
 }
 
-addEvent( window, 'load', loadPlaceholders );
+//addEvent( window, 'load', loadPlaceholders );
 
 function getIfSessionSet() {
 	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
