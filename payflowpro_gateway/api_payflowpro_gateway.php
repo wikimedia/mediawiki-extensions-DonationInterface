@@ -114,8 +114,16 @@ class ApiPayflowProGateway extends ApiBase {
 		// fetch the CSRF prevention token and set it if it's not already set
 		$token = PayflowProGateway::fnPayflowEditToken( $wgPayflowGatewaySalt );
 
+		// retrieve and unpack the json encoded string of tracking data
+		$tracking_data = json_decode( $params[ 'tracking_data' ], true );
+		
+		// ensure the utm_source is formatted correctly
+		$utm_source_str = ( isset( $tracking_data[ 'utm_source' ] )) ? $tracking_data[ 'utm_source' ] : null;
+		$utm_source_id = ( isset( $tracking_data[ 'utm_source_id' ] )) ? $tracking_data[ 'utm_source_id' ] : null;
+		$tracking_data[ 'utm_source' ] = PayflowProGateway::getUtmSource( $utm_source_str, $utm_source_id );
+
 		// fetch the contribution_tracking_id by inserting tracking data to contrib tracking table
-		$contribution_tracking_id = PayflowProGateway::insertContributionTracking( json_decode( $params[ 'tracking_data' ], true ));
+		$contribution_tracking_id = PayflowProGateway::insertContributionTracking( $tracking_data );
 		
 		// this try/catch design pattern stolen from ClickTracking/ApiSpecialClickTracking.php
 		try {

@@ -933,7 +933,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'order_id' => $order_id, 
 				'numAttempt' => $numAttempt,
 				'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
-				'utm_source' => $this->getUtmSource(),
+				'utm_source' => self::getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				'language' => 'en',
@@ -968,7 +968,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 				'order_id' => $order_id,
 				'numAttempt' => $numAttempt,
 				'referrer' => ( $wgRequest->getVal( 'referrer' )) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
-				'utm_source' => $this->getUtmSource(),
+				'utm_source' => self::getUtmSource(),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				// try to honr the user-set language (uselang), otherwise the language set in the URL (language)
@@ -1015,20 +1015,34 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 *
 	 * the utm_source is structured as: banner.landing_page.payment_instrument
 	 *
+	 * @param string $utm_source The utm_source for tracking - if not passed directly,
+	 * 	we try to figure it out from the request object
+	 * @param int $utm_source_id The utm_source_id for tracking - if not passed directly,
+	 * 	we try to figure it out from the request object
 	 * @return string The full utm_source
 	 */
-	public function getUtmSource() {
+	public static function getUtmSource( $utm_source=null, $utm_source_id=null ) {
 		global $wgRequest;
 
-		// fetch whatever was passed in as the utm_source
-		$utm_source = $wgRequest->getText( 'utm_source' );
+		/**
+		 * fetch whatever was passed in as the utm_source
+		 * 
+		 * if utm_source was not passed in as a param, we try to divine it from
+		 * the request.  if it's not set there, no big deal, we'll just be
+		 * missing some tracking data.
+		 */ 
+		if ( is_null( $utm_source )) {
+			$utm_source = $wgRequest->getText( 'utm_source' );
+		}
 		
 		/**
 		 * if we have a utm_source_id, then the user is on a single-step credit card form.
 		 * if that's the case, we treat the single-step credit card form as a landing page, 
 		 * which we label as cc#, where # = the utm_source_id
 		 */
-		$utm_source_id = $wgRequest->getVal( 'utm_source_id', 0 );
+		if ( is_null( $utm_source_id )) {
+			$utm_source_id = $wgRequest->getVal( 'utm_source_id', 0 );
+		}
 		
 		// this is how the CC portion of the utm_source should be defined
 		$correct_cc_source = ( $utm_source_id ) ? 'cc' . $utm_source_id . '.cc' : 'cc';
