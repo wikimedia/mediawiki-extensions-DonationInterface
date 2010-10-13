@@ -11,26 +11,6 @@ function addEvent(obj, evType, fn){
 	} 
 }
 
-function loadPlaceholders() {
-	var fname = document.getElementById('fname');
-	var lname = document.getElementById('lname');
-	var amountOther = document.getElementById('amountOther');
-	if (fname.value == '') {
-		fname.style.color = '#999999';
-		fname.value = 'First';
-	}
-	if (lname.value == '') {
-		lname.style.color = '#999999';
-		lname.value = 'Last';
-	}
-	if (amountOther.value == '') {
-		amountOther.style.color = '#999999';
-		amountOther.value = 'Other';
-	}
-}
-
-//addEvent( window, 'load', loadPlaceholders );
-
 function getIfSessionSet() {
 	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
 }

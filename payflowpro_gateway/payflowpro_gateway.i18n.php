@@ -106,6 +106,8 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-make-your-donation' => 'Make your donation now',
 	'payflowpro_gateway-state-in-us' => 'if inside the US',
 	'payflowpro_gateway-comment' => 'Comment',
+	'payflowpro_gateway-first' => 'First',
+	'payflowpro_gateway-last' => 'Last',
 );
 
 /** Message documentation (Message documentation)

@@ -8,9 +8,6 @@
         width: 100%;
 }
 
-.payflowpro_gateway-cc_form_column {
-}
-
 #payflowpro_gateway-cc_form_form {
         width: 475px;
         float: right;
@@ -84,4 +81,9 @@
 #donate-body {
 	font-size:1.125em;
 	margin-bottom:1em;
+}
+
+/* Hiding stuff we don't need */
+h1#firstHeading, div#contentSub {
+	display: none;
 }
