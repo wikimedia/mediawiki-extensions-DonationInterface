@@ -69,6 +69,11 @@
         margin-right: 2em;
 }
 
+.button-plain {
+	font-size: 1em;
+	margin-bottom: 0.3em;
+}
+
 .button-navyblue {
 	background-image:url("https://payments.wikimedia.org/images/0/06/Button-wavy-blue.png");
 	color:#FFFFFF;

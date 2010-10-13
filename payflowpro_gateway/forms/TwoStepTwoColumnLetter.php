@@ -6,7 +6,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath())) {
-			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css' );
+			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter.css' );
 		}
 			
 		parent::__construct( $form_data, $form_errors );
@@ -17,11 +17,24 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		
 		$form = parent::generateBannerHeader();
 		
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
+		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0));
 		
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
+		$form .= Xml::openElement( 'tr' );
 		
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
+		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
+		
+		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
+		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
+		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
+		
+		$template = ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
+		// if the template doesn't exist, prevent the display of the red link
+		if ( preg_match( '/redlink\=1/', $template )) $template = NULL;
+		$form .= $template;
+		
+		$form .= Xml::closeElement( 'td' );
+		
+		$form .= Xml::openElement( 'td', array( 'id' => 'donate', 'valign' => 'top' ) );
 		
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -48,25 +61,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 	}
         
 	public function generateFormEnd() {
-		global $wgRequest, $wgOut;
 		$form = '';
-		
 		$form .= $this->generateFormClose();
-
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter', 'class' => 'payflowpro_gateway-cc_form_column'));
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_letter_inside' ));
-		
-		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
-		
-		$template = ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
-		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template )) $template = NULL;
-		$form .= $template;
-		
-		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter
-		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter_inside
 		return $form;
 	}
 	
@@ -149,9 +145,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 			
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
 		$form .= $this->generateDonationFooter();
-		$form .= Xml::closeElement( 'div' ); //close div#mw-creditcard
-		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_form
-		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_container
+		$form .= Xml::closeElement( 'td' ); //close div#mw-creditcard
+		$form .= Xml::closeElement( 'tr' );
+		$form .= Xml::closeElement( 'table' );
 		return $form;
 	}
 }
