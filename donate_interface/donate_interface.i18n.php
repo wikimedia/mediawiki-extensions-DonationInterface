@@ -563,11 +563,17 @@ Neniu procesoro estas atingebla.',
 );
 
 /** Spanish (Español)
+ * @author Locos epraix
  * @author Translationista
  */
 $messages['es'] = array(
+	'donate_interface' => 'Apoya Wikimedia',
+	'donate_interface-amount' => 'Cantidad donada:',
+	'donate_interface-currency' => 'Moneda:',
+	'donate_interface-submit-button' => 'Donar',
 	'donate_interface-comment-label' => 'Comentario:',
 	'donate_interface-anon-message' => 'Por favor, incluid mi nombre (al lado de mi comentario) en el listado de donantes públicos.',
+	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar estadounidense',
@@ -1619,8 +1625,25 @@ $messages['pms'] = array(
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
+	'donate_interface-submit-button' => 'بسپنه ورکول',
+	'donate_interface-comment-label' => 'تبصره:',
+	'donate_interface-GBP' => 'GBP: برتانيوي پاونډ',
 	'donate_interface-EUR' => 'EUR: اېرو',
 	'donate_interface-USD' => 'USD: امريکايي ډالر',
+	'donate_interface-AUD' => 'AUD: اسټراليايي ډالر',
+	'donate_interface-CAD' => 'CAD: کاناډايي ډالر',
+	'donate_interface-CHF' => 'CHF: سويسي فرانک',
+	'donate_interface-CZK' => 'CZK: چېکي کرون',
+	'donate_interface-DKK' => 'DKK: ډېنمارکي کرون',
+	'donate_interface-HKD' => 'HKD: هانګ کانګي ډالر',
+	'donate_interface-HUF' => 'HUF: هنګري فورېنټ',
+	'donate_interface-JPY' => 'JPY: جاپاني ين',
+	'donate_interface-NZD' => 'NZD: نيوزيلانډي ډالر',
+	'donate_interface-NOK' => 'NOK: نارويژي کرون',
+	'donate_interface-PLN' => 'پولينډي زووتۍ',
+	'donate_interface-SGD' => 'SGD: سېنګاپوري ډالر',
+	'donate_interface-SEK' => 'SEK: سويډني کرون',
+	'donate_interface-ILS' => 'ILS: اسراييلي شېکېل',
 );
 
 /** Portuguese (Português)
