@@ -104,9 +104,14 @@ $wgPayflowGatewayPaypalURL = '';
  */
 $wgHooks['DonationInterface_Value'][] = 'pfpGatewayValue';
 $wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
+
+// use sajax
 $wgUseAjax = true;
 $wgAjaxExportList[] = 'efPayflowGatewayCheckSession';
 
+// enable the API
+$wgAPIModules[ 'pfp' ] = 'ApiPayflowProGateway';
+$wgAutoloadClasses[ 'ApiPayflowProGateway' ] = $dir . 'api_payflowpro_gateway.php';
 /**
  * Return whether or not payflowEditToken is set in the session
  */

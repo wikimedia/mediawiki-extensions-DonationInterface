@@ -86,7 +86,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 		
 		// establish the edit token to prevent csrf
-		$token = $this->fnPayflowEditToken( $wgPayflowGatewaySalt ); //$wgUser->editToken( 'mrxc877668DwQQ' );
+		$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
 
 
 		// find out if amount was a radio button or textbox, set amount
@@ -717,12 +717,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		// determine opt-out settings
 		$optout = $this->determineOptOut( $data );
 
-		$db = payflowGatewayConnection();
-			
-		if (!$db) { return true ; }
-
-		$ts = $db->timestamp();
-
 		$tracked_contribution = array(
 			'note' => $data['comment'],
 			'referrer' => $data['referrer'],
@@ -732,23 +726,75 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'utm_campaign' => $data['utm_campaign'],
 			'optout' => $optout[ 'optout' ],
 			'language' => $data['language'],
-			'ts' => $ts,
+			'ts' => '',
 		);
 		
-		// Make all empty strings NULL
-		foreach ($tracked_contribution as $key => $value) {
-			if ($value === '') {
-				$tracked_contribution[$key] = null;
-			}
+		$data['contribution_tracking_id'] = self::insertContributionTracking( $tracked_contribution );
+		
+		if ( !$data[ 'contribution_tracking_id' ]) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Insert a record into the contribution_tracking table
+	 * 
+	 * @param mixed Contribution tracking ID or false on failure
+	 */
+	public static function insertContributionTracking( $tracking_data ) {
+		$db = payflowGatewayConnection();
+			
+		if (!$db) { return false; }
+
+		// set the time stamp if it's not already set
+		if ( !isset( $tracking_data[ 'ts' ] ) || !strlen( $tracking_data[ 'ts' ] )) {
+			$tracking_data[ 'ts' ] = $db->timestamp();
 		}
 		
 		// Store the contribution data
-		if ($db->insert( 'contribution_tracking', $tracked_contribution ) ) {
-			$data['contribution_tracking_id'] = $db->insertId();
-		 	return true;
+		if ($db->insert( 'contribution_tracking', self::cleanTrackingData( $tracking_data ))) {
+		 	return $db->insertId();
 		} else { 
 			return false; 
 		}		
+	}
+	
+	/**
+	 * Clean array of tracking data to contain valid fields
+	 * 
+	 * Compares tracking data array to list of valid tracking fields and 
+	 * removes any extra tracking fields/data.  Also sets empty values to
+	 * 'null' values.
+	 * @param array $tracking_data
+	 */
+	public static function cleanTrackingData( $tracking_data ) {
+		$tracking_fields = array( 
+			'note', 
+			'referrer', 
+			'anonymous', 
+			'utm_source', 
+			'utm_medium', 
+			'utm_campaign', 
+			'optout', 
+			'language', 
+			'ts'
+		);
+		
+		// loop through tracking data and clean it up
+		foreach ($tracking_data as $key => $value) {
+			// Make sure we only have valid fields
+			if( !in_array( $key, $tracking_fields )) {
+				unset( $tracking_data[ $key ]);	
+			}
+			
+			// Make all empty strings NULL	
+			if ( !strlen( $value )) {
+				$tracking_data[$key] = null;
+			}
+		}
+		
+		return $tracking_data;
 	}
 	
 	function fnPayflowReturnCurrencies() {
@@ -778,7 +824,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * @var mixed $salt
 	 * @return string
 	 */
-	function fnPayflowEditToken( $salt='' ) {
+	public static function fnPayflowEditToken( $salt='' ) {
 		if ( !isset( $_SESSION[ 'payflowEditToken' ] )) {
 			//generate unsalted token to place in the session
 			$token = self::fnPayflowGenerateToken();
@@ -813,7 +859,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	function fnPayflowMatchEditToken( $val, $salt='' ) {
 		// fetch a salted version of the session token
-		$sessionToken = $this->fnPayflowEditToken( $salt );
+		$sessionToken = self::fnPayflowEditToken( $salt );
 		if ( $val != $sessionToken ) {
 			wfDebug( "PayflowproGateway::fnPayflowMatchEditToken: broken session data\n" );
 		}

@@ -25,8 +25,16 @@ function payflowUser() {
 		'tender' => 'C', // credit card - all transactions in this case are credit cards
 		'verbosity' => 'MEDIUM', // level of detail in Payflow response
 		'user_ip' => ( $wgPayflowGatewayTest ) ? '12.12.12.12' : wfGetIP(), // current user's IP address
-		'order_id' => (double) microtime() * 1000000 . mt_rand(), // Generate random order number
+		'order_id' => payflowGetOrderId(),
 	);
 
 	return $payflow_data;
+}
+
+/**
+ * Return a mostly random number for an 'order id'
+ * @return int
+ */
+function payflowGetOrderId() {
+	return (double) microtime() * 1000000 . mt_rand(); // Generate random order number
 }
