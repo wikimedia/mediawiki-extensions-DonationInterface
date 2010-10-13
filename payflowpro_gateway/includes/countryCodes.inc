@@ -203,7 +203,7 @@ function countryCodes() {
 		'090' => 'Solomon Islands',
 		'706' => 'Somalia',
 		'710' => 'South Africa',
-		'239' => 'South Georgia and the South Sandwich Islands',
+		//'239' => 'South Georgia and the South Sandwich Islands',
 		'724' => 'Spain',
 		'144' => 'Sri Lanka',
 		'654' => 'Saint Helena',

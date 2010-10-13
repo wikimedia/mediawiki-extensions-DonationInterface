@@ -36,6 +36,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		
 		$form .= Xml::openElement( 'td', array( 'id' => 'donate', 'valign' => 'top' ) );
 		
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
 			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
@@ -49,9 +51,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 			$form .= Xml::closeElement( 'div' );  // close div#mw-payflow-general-error
 		}
 
-		// open form
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
-		
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
@@ -69,7 +68,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 	protected function generateBillingContainer() {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		$form .= $this->generateBillingFields();
 		$form .= Xml::closeElement( 'table' ); // close table#payflow-table-donor
@@ -145,7 +143,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 			
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
 		$form .= $this->generateDonationFooter();
-		$form .= Xml::closeElement( 'td' ); //close div#mw-creditcard
+		$form .= Xml::closeElement( 'td' );
 		$form .= Xml::closeElement( 'tr' );
 		$form .= Xml::closeElement( 'table' );
 		return $form;
