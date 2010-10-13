@@ -707,9 +707,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * are backwards (they are really opt-in) relative to contribution_tracking
 	 * (which is opt-out), we need to reverse the values
 	 */
-	function determineOptOut( $data ) {
-		$optout[ 'optout' ] = ( $data[ 'email-opt' ] == "1" ) ? '0' : '1';
-		$optout[ 'anonymous' ] = ( $data[ 'comment-option' ] == "1" ) ? '0' : '1';
+	public static function determineOptOut( $data ) {
+		$optout[ 'optout' ] = ( isset( $data[ 'email-opt' ]) && $data[ 'email-opt' ] == "1" ) ? '0' : '1';
+		$optout[ 'anonymous' ] = ( isset( $data[ 'comment-option' ]) && $data[ 'comment-option' ] == "1" ) ? '0' : '1';
 		return $optout;
 	}
 	
@@ -728,7 +728,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'language' => $data['language'],
 			'ts' => '',
 		);
-		
+
+		// insert tracking data and get the tracking id
 		$data['contribution_tracking_id'] = self::insertContributionTracking( $tracked_contribution );
 		
 		if ( !$data[ 'contribution_tracking_id' ]) {
@@ -740,7 +741,9 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	/**
 	 * Insert a record into the contribution_tracking table
 	 * 
-	 * @param mixed Contribution tracking ID or false on failure
+	 * @param array $tracking_data The array of tracking data to insert to contribution_tracking
+	 * 	NOTE: this should probably be run thru self::cleanTrackingData to ensure data integrity
+	 * @return mixed Contribution tracking ID or false on failure
 	 */
 	public static function insertContributionTracking( $tracking_data ) {
 		$db = payflowGatewayConnection();
@@ -753,7 +756,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		}
 		
 		// Store the contribution data
-		if ($db->insert( 'contribution_tracking', self::cleanTrackingData( $tracking_data ))) {
+		if ($db->insert( 'contribution_tracking', $tracking_data )) {
 		 	return $db->insertId();
 		} else { 
 			return false; 
@@ -767,8 +770,18 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * removes any extra tracking fields/data.  Also sets empty values to
 	 * 'null' values.
 	 * @param array $tracking_data
+	 * @param bool $clean_opouts If true, form opt-out values will be run through $this->determineOptOut
+	 * 	for cleanup.
 	 */
-	public static function cleanTrackingData( $tracking_data ) {
+	public static function cleanTrackingData( $tracking_data, $clean_optouts=false ) {
+		// clean up the optout values if necessary
+		if ( $clean_optouts ) {
+			$optouts = self::determineOptOut( $tracking_data );
+			$tracking_data[ 'optout' ] = $optouts[ 'optout' ];
+			$tracking_data[ 'anonymous' ] = $optouts[ 'anonymous' ];
+		}
+		
+		// define valid tracking fields
 		$tracking_fields = array( 
 			'note', 
 			'referrer', 
@@ -1084,7 +1097,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		
 		// determine opt-out settings
-		$optout = $this->determineOptOut( $data );
+		$optout = self::determineOptOut( $data );
 		
 		$db = payflowGatewayConnection();
 			

@@ -6,6 +6,11 @@
 class ApiPayflowProGateway extends ApiBase {
 	
 	/**
+	 * An array of valid dispatch methods
+	 */
+	public $validDispatchMethods = array( 'dispatch_get_required_dynamic_form_elements' );
+	
+	/**
 	 * API for PayflowProGateway extension
 	 * 
 	 * Parameters:
@@ -19,7 +24,8 @@ class ApiPayflowProGateway extends ApiBase {
 		
 		// route 'dispatch' requests to the appropriate method
 		if ( strlen($params[ 'dispatch' ] )) {
-			call_user_func_array( array( $this, $this->getDispatchMethod( $params[ 'dispatch' ])), array( $params ));
+			$method = $this->getDispatchMethod( $params[ 'dispatch' ]);
+			$this->$method( $params );
 		}
 	}
 	
@@ -61,7 +67,7 @@ class ApiPayflowProGateway extends ApiBase {
 		 */
 		if ( isset( $params[ 'dispatch' ] ) && strlen( $params[ 'dispatch' ] )) {
 			$method = $this->getDispatchMethod( $params[ 'dispatch' ] );
-			if ( !method_exists( $this, $method )) {
+			if ( !in_array( $method, $this->validDispatchMethods ) || !method_exists( $this, $method )) {
 				$this->dieUsage( "Invalid dispatch method <<<$method>>> passed to the PayflowPro Gatweay API.", 'unknown_method' );
 			}
 			
@@ -76,8 +82,15 @@ class ApiPayflowProGateway extends ApiBase {
 		// Validate tracking data
 		if ( isset( $params[ 'tracking_data' ] )) {
 			// Make sure tracking data is well formatted JSON
-			if ( !json_decode( $params[ 'tracking_data' ] )) {
+			$tracking_data = json_decode( $params[ 'tracking_data' ], true );
+			
+			if ( !count( $tracking_data )) {
 				$this->dieUsage( "Invalid JSON encoded tracking data", 'invalid_tracking');
+			}
+						
+			// Make sure that url and pageref tracking bits are set
+			if ( !isset( $tracking_data[ 'pageref' ] ) || !isset( $tracking_data[ 'url' ] )) {
+				$this->dieUsage( "Tracking data requires 'pageref' and 'url' tracking bits.", 'invalid_tracking' );
 			}
 		}
 	}
@@ -114,14 +127,18 @@ class ApiPayflowProGateway extends ApiBase {
 		// fetch the CSRF prevention token and set it if it's not already set
 		$token = PayflowProGateway::fnPayflowEditToken( $wgPayflowGatewaySalt );
 
-		// retrieve and unpack the json encoded string of tracking data
-		$tracking_data = json_decode( $params[ 'tracking_data' ], true );
-		
-		// ensure the utm_source is formatted correctly
-		$utm_source_str = ( isset( $tracking_data[ 'utm_source' ] )) ? $tracking_data[ 'utm_source' ] : null;
-		$utm_source_id = ( isset( $tracking_data[ 'utm_source_id' ] )) ? $tracking_data[ 'utm_source_id' ] : null;
-		$tracking_data[ 'utm_source' ] = PayflowProGateway::getUtmSource( $utm_source_str, $utm_source_id );
+		/**
+		 * retrieve and unpack the json encoded string of tracking data
+		 * 
+		 * it should include two bits:
+		 * 	url => the full url-encoded user-requested URL
+		 * 	pageref => the url-encoded referrer to the full user-requested URL
+		 */ 
+		$tracking_data = $this->parseTrackingData( json_decode( $params[ 'tracking_data' ], true ));
 
+		// clean up tracking data to make sure everything is set correctly
+		$tracking_data = PayflowProGateway::cleanTrackingData( $tracking_data, true );
+		
 		// fetch the contribution_tracking_id by inserting tracking data to contrib tracking table
 		$contribution_tracking_id = PayflowProGateway::insertContributionTracking( $tracking_data );
 		
@@ -134,5 +151,27 @@ class ApiPayflowProGateway extends ApiBase {
 		} catch ( Exception $e ) {
 			/* no result */
 		}
+	}
+	
+	/**
+	 * Parse tracking_data param into something meaningful to PayflowPro gateway
+	 * 
+	 * @param array $tracking_data An array of tracking data - expects 'referrer' and 'url'
+	 * @return array of cleaned up, PayflowPro Gateway-consumable tracking data
+	 */
+	protected function parseTrackingData( $unparsed_tracking_data ) {
+		// get the query string from the URL and turn it into an associative array
+		$url_bits = wfParseUrl( $unparsed_tracking_data[ 'url' ] );
+		$tracking_data = wfCgiToArray( $url_bits[ 'query' ] );
+		
+		// add the referrer to the tracked_data array
+		$tracking_data[ 'referrer' ] = urldecode( $unparsed_tracking_data[ 'pageref' ] );
+		
+		// ensure the utm_source is formatted correctly
+		$utm_source_str = ( isset( $tracking_data[ 'utm_source' ] )) ? $tracking_data[ 'utm_source' ] : null;
+		$utm_source_id = ( isset( $tracking_data[ 'utm_source_id' ] )) ? $tracking_data[ 'utm_source_id' ] : null;
+		$tracking_data[ 'utm_source' ] = PayflowProGateway::getUtmSource( $utm_source_str, $utm_source_id );
+		
+		return $tracking_data;
 	}
 }
