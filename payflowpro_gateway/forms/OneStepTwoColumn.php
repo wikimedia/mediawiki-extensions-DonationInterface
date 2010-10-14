@@ -53,6 +53,9 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
                         $form .= Xml::closeElement( 'div' );
                 }
 
+                // add noscript tags for javascript disabled browsers
+				$form .= $this->getNoScript();
+                
                 // open form
                 $form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
 
@@ -108,7 +111,6 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 
         protected function generateBannerHeader() {
                 global $wgPayflowGatewayHeader, $wgOut, $wgRequest;
-
                 $template = '';
 
                 // intro text

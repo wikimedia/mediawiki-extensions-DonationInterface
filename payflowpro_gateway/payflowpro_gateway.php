@@ -79,6 +79,11 @@ $wgPayflowGatewayDBpassword = $wgDBpassword;
 $wgPayflowGatewayHeader = NULL;
 
 /**
+ * A string containing full URL for Javascript-disabled credit card form redirect
+ */
+$wgPayflowGatewayNoScriptRedirect = null;
+
+/**
  * Proxy settings
  * 
  * If you need to use an HTTP proxy for outgoing traffic,

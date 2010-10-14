@@ -39,7 +39,10 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 			}
 			$form .= Xml::closeElement( 'div' );  // close div#mw-payflow-general-error
 		}
-
+		
+		// add noscript tags for javascript disabled browsers
+		$form .= $this->getNoScript();
+		
 		// open form
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
 		

@@ -26,6 +26,9 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneS
 			$form .= Xml::closeElement( 'div' );
 		}
 
+		// add noscript tags for javascript disabled browsers
+		$form .= $this->getNoScript();
+		
 		// open form
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
 		

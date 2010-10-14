@@ -650,6 +650,26 @@ abstract class PayflowProGateway_Form {
 	}
 	
 	/**
+	 * Generate HTML for <noscript> tags
+	 * 
+	 * For displaying when a user does not have Javascript enabled in their browser.
+	 */
+	protected function getNoScript() {
+		global $wgPayflowGatewayNoScriptRedirect;
+		
+		$form = '<noscript>';
+		$form .= '<div id="noscript">';
+		$form .= '<p id="noscript-msg">' . wfMsg( 'payflowpro_gateway-noscript-msg' ) . '</p>';
+		if ( $wgPayflowGatewayNoScriptRedirect ) {
+			$form .= '<p id="noscript-redirect-msg">' . wfMsg( 'payflowpro_gateway-noscript-redirect-msg' ) . '</p>';
+			$form .= '<p id="noscript-redirect-link"><a href="' . $wgPayflowGatewayNoScriptRedirect . '">' . $wgPayflowGatewayNoScriptRedirect . '</a></p>'; 
+		}
+		$form .= '</div>';
+		$form .= '</noscript>';
+		return $form;
+	}
+	
+	/**
 	 * Determine the 'no cache' form action
 	 * 
 	 * This mostly exists to ensure that the form does not try to use AJAX to 

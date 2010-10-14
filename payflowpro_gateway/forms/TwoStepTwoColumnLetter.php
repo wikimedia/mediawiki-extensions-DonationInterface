@@ -36,6 +36,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		
 		$form .= Xml::openElement( 'td', array( 'id' => 'donate', 'valign' => 'top' ) );
 		
+		// add noscript tags for javascript disabled browsers
+		$form .= $this->getNoScript();
+		
 		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
 		
 		// provide a place at the top of the form for displaying general messages
