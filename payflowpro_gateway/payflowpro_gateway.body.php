@@ -196,15 +196,15 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function fnPayflowDisplayForm( &$data, &$error ) {
-		global $wgOut;	
+		global $wgOut, $wgRequest;	
 
 		// save contrib tracking id early to track abondonment
-		/*if ( $data[ 'numAttempt' ] == '0' ) {
+		if ( $data[ 'numAttempt' ] == '0' && $wgRequest->getText( '_nocache_' ) == 'true' ) {
 			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
 				$when = time();
 				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
 			}
-		}*/
+		}
 
 		$form_class = $this->getFormClass();
 		$form_obj = new $form_class( $data, $error );
