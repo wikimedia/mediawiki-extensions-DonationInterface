@@ -18,6 +18,9 @@ class ApiPayflowProGateway extends ApiBase {
 	 * 			dispatch_<requested dispatch method>
 	 */
 	public function execute() {
+		// this is likely not defined because User.php hasn't been loaded, but we need it, so we define it.
+		if ( !defined( 'EDIT_TOKEN_SUFFIX' )) define( 'EDIT_TOKEN_SUFFIX', '+\\' );
+		
 		// extract and validate the parameters
 		$params = $this->extractRequestParams(); 
 		$this->validateParams( $params );
