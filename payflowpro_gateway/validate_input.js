@@ -62,7 +62,8 @@ function validate_form( form ) {
 
 function submit_form( ccform ) {
 	if ( validate_form( ccform )) {
-		ccform.submit();
+		// weird hack!!!!!! for some reasondoing just ccform.submit() throws an error....
+		$j(ccform).submit();
 	}
 	return true;
 }
