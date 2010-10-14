@@ -9,7 +9,6 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 
                 // we only want to load this JS if the form is being rendered
                 $this->loadValidateJs(); // validation JS
-				$this->loadApiJs(); // API/Ajax JS
 
 				$first = wfMsg( 'payflowpro_gateway-first' );
                 $last = wfMsg( 'payflowpro_gateway-last' );

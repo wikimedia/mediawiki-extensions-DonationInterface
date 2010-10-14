@@ -25,6 +25,7 @@
 
 } )( jQuery );
 
-if( String(window.location).indexOf('_nocache_') == -1 ){
+// Do not fire the AJAX request if _nocache_ is set or we are not using a single-step form (known by lack of utm_source_id)
+if( String(window.location).indexOf( '_nocache_' ) == -1 && String(window.location).indexOf( 'utm_source_id' ) != -1){
 	jQuery( document ).ready( jQuery.getDynamicFormElements );
 }

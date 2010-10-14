@@ -199,7 +199,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgOut, $wgRequest;	
 
 		// save contrib tracking id early to track abondonment
-		if ( $data[ 'numAttempt' ] == '0' && !$wgRequest->getText( 'utm_source_id', false ) && $wgRequest->getText( '_nocache_' ) == 'true' ) {
+		if ( $data[ 'numAttempt' ] == '0' && ( !$wgRequest->getText( 'utm_source_id', false ) || $wgRequest->getText( '_nocache_' ) == 'true' )) {
 			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
 				$when = time();
 				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
@@ -719,7 +719,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	
 	function fnPayflowSaveContributionTracking( &$data ) {
 		// determine opt-out settings
-		$optout = $this->determineOptOut( $data );
+		$optout = self::determineOptOut( $data );
 
 		$tracked_contribution = array(
 			'note' => $data['comment'],
