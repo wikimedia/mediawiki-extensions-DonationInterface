@@ -175,4 +175,6 @@ class ApiPayflowProGateway extends ApiBase {
 		
 		return $tracking_data;
 	}
+	
+	public function isReadMode(){ return false;}
 }
