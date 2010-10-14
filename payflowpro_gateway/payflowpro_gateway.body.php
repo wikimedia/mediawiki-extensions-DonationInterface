@@ -199,7 +199,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgOut, $wgRequest;	
 
 		// save contrib tracking id early to track abondonment
-		if ( $data[ 'numAttempt' ] == '0' && $wgRequest->getText( '_nocache_' ) == 'true' ) {
+		if ( $data[ 'numAttempt' ] == '0' && !$wgRequest->getText( 'utm_source_id', false ) && $wgRequest->getText( '_nocache_' ) == 'true' ) {
 			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
 				$when = time();
 				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
