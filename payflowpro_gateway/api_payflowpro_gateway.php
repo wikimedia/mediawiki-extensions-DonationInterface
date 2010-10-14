@@ -135,19 +135,20 @@ class ApiPayflowProGateway extends ApiBase {
 		 * 	pageref => the url-encoded referrer to the full user-requested URL
 		 */ 
 		$tracking_data = $this->parseTrackingData( json_decode( $params[ 'tracking_data' ], true ));
-
+		
 		// clean up tracking data to make sure everything is set correctly
 		$tracking_data = PayflowProGateway::cleanTrackingData( $tracking_data, true );
-		
+
 		// fetch the contribution_tracking_id by inserting tracking data to contrib tracking table
 		$contribution_tracking_id = PayflowProGateway::insertContributionTracking( $tracking_data );
 		
 		// this try/catch design pattern stolen from ClickTracking/ApiSpecialClickTracking.php
 		try {
 			// add dynamic elements to result object
-			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'order_id', $order_id );
+			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'orderid', $order_id );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'token', $token );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'contribution_tracking_id', $contribution_tracking_id );
+			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'tracking_data', $tracking_data );
 		} catch ( Exception $e ) {
 			/* no result */
 		}
@@ -161,7 +162,7 @@ class ApiPayflowProGateway extends ApiBase {
 	 */
 	protected function parseTrackingData( $unparsed_tracking_data ) {
 		// get the query string from the URL and turn it into an associative array
-		$url_bits = wfParseUrl( $unparsed_tracking_data[ 'url' ] );
+		$url_bits = wfParseUrl( urldecode( $unparsed_tracking_data[ 'url' ] ));
 		$tracking_data = wfCgiToArray( $url_bits[ 'query' ] );
 		
 		// add the referrer to the tracked_data array

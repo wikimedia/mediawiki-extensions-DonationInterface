@@ -15,14 +15,6 @@ function getIfSessionSet() {
 	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
 }
 
-addEvent( window, 'load', getIfSessionSet );
-
-function checkSession( request ) {
-	if ( request.responseText == "no" ) {
-		window.location = document.location.href;
-	}
-}
-
 function clearField( field, defaultValue ) {
 	if (field.value == defaultValue) {
 		field.value = '';
@@ -53,8 +45,8 @@ function validate_form( form ) {
 
 
 	// validate email address
-	var apos = form.emailAdd.value.indexOf("@");
-	var dotpos = form.emailAdd.value.lastIndexOf(".");
+	var apos = document.payment.emailAdd.value.indexOf("@");
+	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
 		output += payflowproGatewayErrorMsgEmail;

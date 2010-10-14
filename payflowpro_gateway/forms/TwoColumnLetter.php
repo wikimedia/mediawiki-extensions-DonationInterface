@@ -45,7 +45,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
-		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => '', 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
+		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 		
 		$form .= $this->generateBillingContainer();
 		return $form;

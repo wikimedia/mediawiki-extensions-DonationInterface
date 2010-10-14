@@ -56,7 +56,11 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$wgPayFlowProGatewayCSSVersion, $wgPayflowGatewayPaypalURL, 
 			$wgPayflowGatewaySalt;
 		
-		session_cache_limiter( 'nocache' );
+		// disable caching - this will likely be set in the URL to prevent form caching
+		if ( $wgRequest->getText( '_nocache_' ) == 'true' ) {
+			session_cache_limiter( 'nocache' );
+		}
+		
 		$this->fnPayflowEnsureSession();
 		$this->setHeaders();
 		

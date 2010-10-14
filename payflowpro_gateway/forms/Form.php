@@ -634,4 +634,39 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
+	
+	protected function loadValidateJs() {
+		global $wgOut, $wgScriptPath;
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
+							$wgScriptPath . 
+							'/extensions/DonationInterface/payflowpro_gateway/validate_input.js?284"></script>' );
+	}
+	
+	protected function loadApiJs() {
+		global $wgOut, $wgScriptPath;
+		$wgOut->addHeadItem( 'pfp_api_call', '<script type="text/javascript" src="' .
+							$wgScriptPath .
+							'/extensions/DonationInterface/payflowpro_gateway/pfp_api_controller.js?284"></script>' );
+	}
+	
+	/**
+	 * Determine the 'no cache' form action
+	 * 
+	 * This mostly exists to ensure that the form does not try to use AJAX to 
+	 * overwrite certain hidden form params that are normally overwitten for
+	 * cached versions of the form.
+	 * @return string $url The full URL for the form to post to
+	 */
+	protected function getNoCacheAction() {
+		global $wgRequest;
+
+		$url = $wgRequest->getFullRequestURL();
+		
+		// it the _nocache_ param != true, add it to the URL
+		if ( !$wgRequest->getText( '_nocache_' )) {
+			$url = wfAppendQuery( $url, array( '_nocache_' => 'true' ));
+		}
+		
+		return $url;
+	}
 }
