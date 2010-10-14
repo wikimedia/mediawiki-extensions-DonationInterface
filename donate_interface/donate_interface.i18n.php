@@ -595,6 +595,17 @@ $messages['es'] = array(
  * @author Pikne
  */
 $messages['et'] = array(
+	'donate_interface-intro' => 'Palun vali makseviis, summa ja vääring.',
+	'donate_interface-amount' => 'Annetussumma:',
+	'donate_interface-currency' => 'Vääring:',
+	'donate_interface-gateway' => 'Makseviis:',
+	'donate_interface-submit-button' => 'Anneta',
+	'donate_interface-comment-message' => 'On sul mõte, mida maailmaga jagada? Sisesta kuni 200 tähemärki:',
+	'donate_interface-comment-label' => 'Kommentaar:',
+	'donate_interface-anon-message' => 'Palun näita avalikus annetajate nimekirjas mu kommentaari järel minu nime.',
+	'donate_interface-email-agreement' => 'Olen nõus, et mulle saadetakse Wikimedia Foundationi uudis- ja e-kirju.',
+	'donate_interface-comment-title' => 'Avalik kommentaar',
+	'donate_interface-amount-error' => '**Palun sisesta sobiv summa**',
 	'donate_interface-GBP' => 'GBP: Suurbritannia naelsterling',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: USA dollar',
