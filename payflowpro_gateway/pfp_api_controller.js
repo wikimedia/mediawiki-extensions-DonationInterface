@@ -13,7 +13,7 @@
                         $('input[name=language]').val(data['dynamic_form_elements']['tracking_data']['language']);
                 };
 
-                $.post( wgScriptPath + '/api.php', {
+                $.post( wgScriptPath + '/api.php?' + Math.random() , {
                             'action' : 'pfp',
                             'dispatch' : 'get_required_dynamic_form_elements',
                             'format' : 'json',
