@@ -199,12 +199,12 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		global $wgOut;	
 
 		// save contrib tracking id early to track abondonment
-		if ( $data[ 'numAttempt' ] == '0' ) {
+		/*if ( $data[ 'numAttempt' ] == '0' ) {
 			if ( !$tracked = $this->fnPayflowSaveContributionTracking( $data ) ) {
 				$when = time();
 				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
 			}
-		}
+		}*/
 
 		$form_class = $this->getFormClass();
 		$form_obj = new $form_class( $data, $error );
