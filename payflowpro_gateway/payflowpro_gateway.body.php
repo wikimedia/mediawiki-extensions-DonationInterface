@@ -86,8 +86,16 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			'payflowproGatewayCVVExplain' => wfMsg( 'payflowpro_gateway-cvv-explain' ),
 		);
 		
-
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		
+		 $js = <<<EOT
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("div#p-logo a").attr("href","#");
+}
+</script>
+EOT;
+        $wgOut->addHeadItem( 'logolinkoverride', $js );
 		
 		// establish the edit token to prevent csrf
 		$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
