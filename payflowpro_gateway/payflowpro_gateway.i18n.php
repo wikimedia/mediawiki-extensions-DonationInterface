@@ -505,6 +505,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-accessible' => 'Гэта старонка даступна толькі са старонкі ахвяраваньняў.',
 	'payflowpro_gateway-form-message' => 'Выкарыстоўвайце гэтую форму для ахвяраваньня з крэдытнай карткі, ці',
 	'payflowpro_gateway-paypal-button' => 'Ахвяраваць праз PayPal',
+	'payflowpro_gateway-cc-button' => 'Ахвяраваць праз крэдытную картку',
 	'payflowpro_gateway-form-message-2' => 'Каб зьмяніць суму ці валюту, вярніцеся на <a href="/index.php?title=Donate">старонку ахвяраваньняў</a>',
 	'payflowpro_gateway-donor-legend' => 'Зьвесткі пра ахвяравальніка',
 	'payflowpro_gateway-card-legend' => 'Інфармацыя пра крэдытную картку',
@@ -590,6 +591,11 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-make-your-donation' => 'Зрабіце Вашае ахвяраваньне зараз',
 	'payflowpro_gateway-state-in-us' => 'калі на тэрыторыі ЗША',
 	'payflowpro_gateway-comment' => 'Камэнтар',
+	'payflowpro_gateway-first' => 'Першае',
+	'payflowpro_gateway-last' => 'Апошняе',
+	'payflowpro_gateway-noscript-msg' => 'Выглядае, што у Вас ня ўключаны JavaScript альбо Ваш браўзэр яго не падтрымлівае.
+Каб рабіць ахвяраваньне бясьпечным і зручным, нашая форма ахвяраваньня патрабуе JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Калі Вы ня можаце альбо не жадаеце ўключыць JavaScript, Вы можаце зрабіць ахвяраваньне наведаўшы:',
 );
 
 /** Bulgarian (Български)
@@ -812,6 +818,7 @@ $messages['bs'] = array(
 	'payflowpro_gateway-accessible' => 'Ova stranica je dostupna samo sa stranice za donacije.',
 	'payflowpro_gateway-form-message' => 'Koristite obrazac ispod za donaciju vašom kreditnom karticom, ili',
 	'payflowpro_gateway-paypal-button' => 'Donirajte putem PayPal',
+	'payflowpro_gateway-cc-button' => 'Donirajte putem kreditne kartice',
 	'payflowpro_gateway-form-message-2' => 'Da biste promijenili iznos ili valutu, vratite se na <a href="/index.php?title=Donate">stranicu za donacije</a>',
 	'payflowpro_gateway-donor-legend' => 'Donatorske informacije',
 	'payflowpro_gateway-card-legend' => 'Informacije o kreditnoj kartici',
@@ -897,6 +904,11 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'payflowpro_gateway-make-your-donation' => 'Donirajte sada',
 	'payflowpro_gateway-state-in-us' => 'ako je unutar SAD',
 	'payflowpro_gateway-comment' => 'Komentar',
+	'payflowpro_gateway-first' => 'Prvo',
+	'payflowpro_gateway-last' => 'Zadnje',
+	'payflowpro_gateway-noscript-msg' => 'Izgleda da nemate omogućenu JavaScript ili je vaš preglednik ne podržava.
+Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacije zahtjeva JavaScriptu.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Ako ne možete ili ne želite omogućiti JavaScript, ipak možete doprinijeti posjetom na:',
 );
 
 /** Catalan (Català)
@@ -1185,6 +1197,7 @@ $messages['de'] = array(
 	'payflowpro_gateway-accessible' => 'Diese Seite kann nur über die Spendenseite erreicht werden.',
 	'payflowpro_gateway-form-message' => 'Verwende das untenstehende Formular, um per Kreditkarte zu spenden, oder',
 	'payflowpro_gateway-paypal-button' => 'Spende per PayPal',
+	'payflowpro_gateway-cc-button' => 'Spende per Kreditkarte',
 	'payflowpro_gateway-form-message-2' => 'Um den Betrag oder die Währung zu ändern, kannst du zur <a href="/index.php?title=Donate">Spendenseite</a> zurückkehren.',
 	'payflowpro_gateway-donor-legend' => 'Spenderinformationen',
 	'payflowpro_gateway-card-legend' => 'Kreditkarteninformationen',
@@ -1213,10 +1226,10 @@ $messages['de'] = array(
 	'payflowpro_gateway-error-msg' => 'Das folgende Feld muss ausgefüllt sein: $1',
 	'payflowpro_gateway-error-msg-js' => 'Das folgende Feld wird benötigt:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Bitte einen gültigen Betrag eingeben*',
-	'payflowpro_gateway-error-msg-email' => '** Bitte gib eine gültige E-Mail-Adresse ein **',
-	'payflowpro_gateway-error-msg-amex' => '** Bitte gib eine korrekte American-Express-Kartennummer ein **',
-	'payflowpro_gateway-error-msg-mc' => '** Bitte gib eine korrekte Mastercard-Kartennummer ein **',
-	'payflowpro_gateway-error-msg-visa' => '** Bitte gib eine korrekte Visa-Kartennummer ein **',
+	'payflowpro_gateway-error-msg-email' => '**Bitte gib eine gültige E-Mail-Adresse an.**',
+	'payflowpro_gateway-error-msg-amex' => '**Bitte gib eine korrekte American-Express-Kartennummer ein.**',
+	'payflowpro_gateway-error-msg-mc' => '**Bitte gib eine korrekte Mastercard-Kartennummer ein.**',
+	'payflowpro_gateway-error-msg-visa' => '**Bitte gib eine korrekte Visa-Kartennummer ein.**',
 	'payflowpro_gateway-error-msg-discover' => '**Bitte gib eine korrekte Kreditkartennummer für Discover an.**',
 	'payflowpro_gateway-error-msg-amount' => 'Spendenbetrag',
 	'payflowpro_gateway-error-msg-emailAdd' => 'E-Mail-Adresse',
@@ -1259,7 +1272,7 @@ Bitte versuche es später noch einmal.',
 <p>Der Code befindet sich <i>immer über</i> der geprägten (erhabenen) Kontonummer auf der Vorderseite der Karte.
 In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch immer über der Kontonummer.
 </p><br />',
-	'payflowpro_gateway-question-comment' => 'Fragen oder Kommentare? Kontaktiere uns unter: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Fragen oder Kommentare? Kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Deine Kreditkarteninformationen werden gesichert verarbeitet.',
 	'payflowpro_gateway-otherways' => 'Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">andere Wege zum Spenden, inklusive PayPal oder Überweisung</a>.',
 	'payflowpro_gateway-paypal' => 'Verfügst Du über ein PayPal-Konto? <a href="$1/index.php/Special:PayflowProGateway?paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Spende per PayPal</a>.',
@@ -1270,6 +1283,11 @@ In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch
 	'payflowpro_gateway-make-your-donation' => 'Jetzt spenden',
 	'payflowpro_gateway-state-in-us' => 'sofern von innerhalb der USA',
 	'payflowpro_gateway-comment' => 'Anmerkung',
+	'payflowpro_gateway-first' => 'Erste',
+	'payflowpro_gateway-last' => 'Letzte',
+	'payflowpro_gateway-noscript-msg' => 'Es scheint, dass du JavaScript nicht aktiviert hast, oder es wird nicht von deinem Browser unterstützt.
+Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf unser Spendenformular JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Sofern du JavaSkript nicht aktivieren kannst oder möchtest, kannst du immer noch Spenden indem du die folgende Webseite aufrufst:',
 );
 
 /** German (formal address) (Deutsch (Sie-Form))
@@ -2066,6 +2084,7 @@ $messages['fr'] = array(
 	'payflowpro_gateway-accessible' => "Cette page n'est accessible que depuis la page de donation.",
 	'payflowpro_gateway-form-message' => 'Utilisez le formulaire ci-dessous pour donner avec une carte de crédit, ou bien',
 	'payflowpro_gateway-paypal-button' => 'Faire un don avec PayPal',
+	'payflowpro_gateway-cc-button' => 'Faire un don par carte de crédit',
 	'payflowpro_gateway-form-message-2' => 'Pour changer le montant ou la devise, retournez à <a href="/index.php?title=Donate">la page de donation</a>',
 	'payflowpro_gateway-donor-legend' => 'Informations sur le donateur',
 	'payflowpro_gateway-card-legend' => 'Informations sur la carte de crédit',
@@ -2151,6 +2170,11 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'payflowpro_gateway-make-your-donation' => 'Faites un don maintenant',
 	'payflowpro_gateway-state-in-us' => 'si vous êtes aux États-Unis',
 	'payflowpro_gateway-comment' => 'Commentaire',
+	'payflowpro_gateway-first' => 'Premier',
+	'payflowpro_gateway-last' => 'Dernier',
+	'payflowpro_gateway-noscript-msg' => 'Il semble que le JavaScript ne soit pas activé sur votre navigateur, ou alors il ne le supporte pas.
+Pour vous fournir une expérience sûre, sécurisée et agréable, notre formulaire de don nécessite JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Si vous ne pouvez pas ou ne voulez pas activer JavaScript, vous pouvez toujours contribuer en visitant :',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2244,6 +2268,7 @@ $messages['gl'] = array(
 	'payflowpro_gateway-accessible' => 'Esta páxina só é accesible a través da páxina de doazóns.',
 	'payflowpro_gateway-form-message' => 'Use o formulario que aparece a continuación para doar mediante tarxeta de crédito ou',
 	'payflowpro_gateway-paypal-button' => 'Doe mediante o PayPal',
+	'payflowpro_gateway-cc-button' => 'Doar mediante tarxeta de crédito',
 	'payflowpro_gateway-form-message-2' => 'Para cambiar a cantidade ou a moeda, volve á <a href="/index.php?title=Donate">páxina de doazóns</a>',
 	'payflowpro_gateway-donor-legend' => 'Información do doante',
 	'payflowpro_gateway-card-legend' => 'Información da tarxeta de crédito',
@@ -2329,6 +2354,11 @@ Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, per
 	'payflowpro_gateway-make-your-donation' => 'Fai a túa doazón agora',
 	'payflowpro_gateway-state-in-us' => 'se estás nos Estados Unidos',
 	'payflowpro_gateway-comment' => 'Comentario',
+	'payflowpro_gateway-first' => 'Primeiro',
+	'payflowpro_gateway-last' => 'Último',
+	'payflowpro_gateway-noscript-msg' => 'Semella que non tes o JavaScript activado ou que o teu navegador non o soporta.
+Para proporcionarche unha experiencia segura e agradable, o noso formulario de doazóns necesita JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Se non podes ou queres activar o JavaScript, tamén podes contribuír visitando:',
 );
 
 /** Swiss German (Alemannisch)
@@ -2340,6 +2370,7 @@ $messages['gsw'] = array(
 	'payflowpro_gateway-accessible' => 'Uf die Syte cha mer nume uus zuegryfe vu dr Spändesyte.',
 	'payflowpro_gateway-form-message' => 'Nimm des Formular do unte zum Spände per Kreditcharte oder',
 	'payflowpro_gateway-paypal-button' => 'Spänden iber PayPal',
+	'payflowpro_gateway-cc-button' => 'Per Kreditcharte spände',
 	'payflowpro_gateway-form-message-2' => 'Go d Hechi oder d Währig vum Betrag ändere, gang zruck uf <a href="/index.php?title=Donate">d Spändesyte</a>',
 	'payflowpro_gateway-donor-legend' => 'Spänderinformation',
 	'payflowpro_gateway-card-legend' => 'Kreditcharteninformation',
@@ -2425,6 +2456,11 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'payflowpro_gateway-make-your-donation' => 'Jetz spände',
 	'payflowpro_gateway-state-in-us' => 'wänn in dr USA',
 	'payflowpro_gateway-comment' => 'Aamerkig',
+	'payflowpro_gateway-first' => 'Erschti',
+	'payflowpro_gateway-last' => 'Letschti',
+	'payflowpro_gateway-noscript-msg' => 'Du hesch schyns JavaScript nit aktiviert, oder s wird nit unterstitzt vu dyym Browser.
+Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Wänn Du JavaSkript nit aktiviere chasch oder witt, chasch au spände iber die Websyte:',
 );
 
 /** Hebrew (עברית)
@@ -2777,6 +2813,7 @@ $messages['ia'] = array(
 	'payflowpro_gateway-accessible' => 'Iste pagina es solmente accessibile ab le pagina de donation.',
 	'payflowpro_gateway-form-message' => 'Usa le formulario hic infra pro donar con un carta de credito, o',
 	'payflowpro_gateway-paypal-button' => 'Donar per PayPal',
+	'payflowpro_gateway-cc-button' => 'Donar per carta de credito',
 	'payflowpro_gateway-form-message-2' => 'Pro cambiar le quantitate o le moneta, retorna al <a href="/index.php?title=Donate">pagina de donation</a>',
 	'payflowpro_gateway-donor-legend' => 'Informationes del donator',
 	'payflowpro_gateway-card-legend' => 'Informationes del carta de credito',
@@ -2862,6 +2899,11 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'payflowpro_gateway-make-your-donation' => 'Face tu donation ora',
 	'payflowpro_gateway-state-in-us' => 'si intra le Statos Unite',
 	'payflowpro_gateway-comment' => 'Commentar',
+	'payflowpro_gateway-first' => 'Prime',
+	'payflowpro_gateway-last' => 'Ultime',
+	'payflowpro_gateway-noscript-msg' => 'Il pare que tu non ha JavaScript activate, o tu navigator non lo supporta.
+Pro poter fornir un experientia secur e agradabile, nostre formulario de donation require JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Si tu non pote o non vole activar JavaScript, tu pote totevia contribuer si tu visita:',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -3046,6 +3088,7 @@ $messages['ja'] = array(
 	'payflowpro_gateway-accessible' => 'このページは寄付ページからのみ参照できます。',
 	'payflowpro_gateway-form-message' => '以下のフォームを利用してクレジットカードで寄付する、あるいは',
 	'payflowpro_gateway-paypal-button' => 'PayPal経由で寄付',
+	'payflowpro_gateway-cc-button' => 'クレジットカードで寄付',
 	'payflowpro_gateway-form-message-2' => '金額や通貨を変更するには、<a href="/index.php?title=Donate">寄付ページ</a>に戻ってください',
 	'payflowpro_gateway-donor-legend' => '寄付者情報',
 	'payflowpro_gateway-card-legend' => 'クレジットカード情報',
@@ -3131,6 +3174,9 @@ $messages['ja'] = array(
 	'payflowpro_gateway-make-your-donation' => '今すぐ寄付',
 	'payflowpro_gateway-state-in-us' => 'アメリカ国内の場合',
 	'payflowpro_gateway-comment' => 'コメント',
+	'payflowpro_gateway-noscript-msg' => 'JavaScriptが有効になっていないかもしれないか、もしくはブラウザーがJavaScriptをサポートしていません。
+安全で安心できる、そして快適な操作のため、寄付にはJacaScriptが必要になっています。',
+	'payflowpro_gateway-noscript-redirect-msg' => 'もしJavaScriptを有効にできない、あるいは有効にすることを望まない場合、こちらからも寄付可能です：',
 );
 
 /** Georgian (ქართული)
@@ -3467,6 +3513,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
 	'payflowpro_gateway-form-message' => 'Benotzt de Formulaire hei drënner fir en Don mat enger Kreditkaart ze maachen, oder',
 	'payflowpro_gateway-paypal-button' => 'Don iwwer PayPal',
+	'payflowpro_gateway-cc-button' => 'Don per Kreditkaart',
 	'payflowpro_gateway-form-message-2' => "Fir de Betrag oder d'Währung z'änneren gitt w.e.g. zréck op <a href=\"/index.php?title=Donate\">d'Säit vum Don</a>",
 	'payflowpro_gateway-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'payflowpro_gateway-card-legend' => "Informatiounen iwwert d'Kreditkaart",
@@ -3552,6 +3599,9 @@ Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer 
 	'payflowpro_gateway-make-your-donation' => 'Maacht Ären Don elo',
 	'payflowpro_gateway-state-in-us' => 'wann an de Vereenegte Staten (USA)',
 	'payflowpro_gateway-comment' => 'Bemierkung',
+	'payflowpro_gateway-first' => 'Éischt',
+	'payflowpro_gateway-last' => 'Lescht',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Wann Dir JavaSript net aschalte kënnt oder wëllt, kënnt Dir trotzdem en Don maachen wann Dir op dës Websäit gitt:',
 );
 
 /** Limburgish (Limburgs)
@@ -3615,6 +3665,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-accessible' => 'До оваа страница се доаѓа само преку страницата за донирање.',
 	'payflowpro_gateway-form-message' => 'Употребете го образецот подолу за донирање со кредитна картичка, или',
 	'payflowpro_gateway-paypal-button' => 'Донирајте преку PayPal',
+	'payflowpro_gateway-cc-button' => 'Донирајте со кредитна картичка',
 	'payflowpro_gateway-form-message-2' => 'За да го промените износот или валутата, вратете се на <a href="/index.php?title=Donate">страницата за донирање</a>',
 	'payflowpro_gateway-donor-legend' => 'Податоци за дарителот',
 	'payflowpro_gateway-card-legend' => 'Податоци за кредитната картичка',
@@ -3701,6 +3752,11 @@ $messages['mk'] = array(
 	'payflowpro_gateway-make-your-donation' => 'Донирајте веднаш',
 	'payflowpro_gateway-state-in-us' => 'ако сте во САД',
 	'payflowpro_gateway-comment' => 'Коментар',
+	'payflowpro_gateway-first' => 'Прва',
+	'payflowpro_gateway-last' => 'Последна',
+	'payflowpro_gateway-noscript-msg' => 'Изгледа дека немате овозможено JavaScript, или дека прелистувачот не го поддржува.
+Нашиот образец за донирање бара JavaScript со цел да Ви обезбедиме сигурно, безбедно и пријатно искуство.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Ако не можете или не сакате да овозможите JavaScript, можете сепак да придонесете посетувајќи ја страницата:',
 );
 
 /** Malayalam (മലയാളം)
@@ -4134,6 +4190,11 @@ I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid ove
 	'payflowpro_gateway-make-your-donation' => 'Gi din donasjon nå',
 	'payflowpro_gateway-state-in-us' => 'hvis innenfor USA',
 	'payflowpro_gateway-comment' => 'Kommentar',
+	'payflowpro_gateway-first' => 'Første',
+	'payflowpro_gateway-last' => 'Siste',
+	'payflowpro_gateway-noscript-msg' => 'Det ser ut til at du ikke har JavaScript aktivert, eller at nettleseren din ikke støtter der.
+For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Hvis du ikke kan eller ikke ønsker å aktivere JavaScript kan du fortsatt bidra ved å besøke:',
 );
 
 /** Occitan (Occitan)
@@ -4247,6 +4308,7 @@ $messages['pl'] = array(
 	'payflowpro_gateway-accessible' => 'Strona dostępna jest wyłącznie ze strony darowizn.',
 	'payflowpro_gateway-form-message' => 'Użyj poniższego formularza aby wpłacić darowiznę kartą kredytową lub',
 	'payflowpro_gateway-paypal-button' => 'Darowizna przez PayPal',
+	'payflowpro_gateway-cc-button' => 'Donacja kartą kredytową',
 	'payflowpro_gateway-form-message-2' => 'Aby zmienić kwotę lub walutę powróć do <a href="/index.php?title=Donate">strony składania darowizn</a>',
 	'payflowpro_gateway-donor-legend' => 'Informacje o darczyńcach',
 	'payflowpro_gateway-card-legend' => 'Informacje o karcie kredytowej',
@@ -4332,6 +4394,11 @@ W niektórych przypadkach, kod znajduje się po lewej stronie karty, ale zawsze 
 	'payflowpro_gateway-make-your-donation' => 'Przekaż darowiznę',
 	'payflowpro_gateway-state-in-us' => 'jeśli na terytorium USA',
 	'payflowpro_gateway-comment' => 'Komentarz',
+	'payflowpro_gateway-first' => 'początek',
+	'payflowpro_gateway-last' => 'koniec',
+	'payflowpro_gateway-noscript-msg' => 'Wygląda na to, że masz wyłączoną obsługę JavaScript lub Twoja przeglądarka go nie obsługuje.
+Z uwagi na konieczność zapewnienia bezpieczeństwa oraz wygody formularz darowizn wymaga JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Jeśli nie możesz lub nie chcesz włączyć obsługi JavaScript możesz pomóc odwiedzając stronę',
 );
 
 /** Piedmontese (Piemontèis)
@@ -4472,6 +4539,7 @@ $messages['ps'] = array(
 
 /** Portuguese (Português)
  * @author Giro720
+ * @author GoEThe
  * @author Hamilton Abreu
  * @author Luckas Blade
  * @author Malafaya
@@ -4482,6 +4550,7 @@ $messages['pt'] = array(
 	'payflowpro_gateway-accessible' => 'Esta página só é acessível a partir da página de donativos.',
 	'payflowpro_gateway-form-message' => 'Use o formulário abaixo para fazer um donativo com cartão de crédito, ou',
 	'payflowpro_gateway-paypal-button' => 'Donativos através do PayPal',
+	'payflowpro_gateway-cc-button' => 'Doe por cartão de crédito',
 	'payflowpro_gateway-form-message-2' => 'Para alterar o montante ou a divisa, volte à <a href="/index.php?title=Donate">página de donativos</a>',
 	'payflowpro_gateway-donor-legend' => 'Informação do benfeitor',
 	'payflowpro_gateway-card-legend' => 'Informação do cartão de crédito',
@@ -4567,6 +4636,11 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'payflowpro_gateway-make-your-donation' => 'Faça o seu donativo agora',
 	'payflowpro_gateway-state-in-us' => 'se estiver nos Estados Unidos',
 	'payflowpro_gateway-comment' => 'Comentário',
+	'payflowpro_gateway-first' => 'Primeiro',
+	'payflowpro_gateway-last' => 'Último',
+	'payflowpro_gateway-noscript-msg' => 'Aparentemente, não tem JavaScript habilitado, ou o seu navegador não suporta isso.
+De forma a proporcionar uma experiência segura e agradável, o nosso formulário de doação requer JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Se não puder ou não desejar ativar o JavaScript, pode ainda contribuir acedendo a:',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
@@ -4761,6 +4835,7 @@ $messages['ru'] = array(
 	'payflowpro_gateway-accessible' => 'Эта страница доступна только со страницы сбора пожертвований.',
 	'payflowpro_gateway-form-message' => 'Используйте данную форму для пожертвования с помощью кредитной карты, или',
 	'payflowpro_gateway-paypal-button' => 'Пожертвуйте через PayPal',
+	'payflowpro_gateway-cc-button' => 'Пожертвовать с помощью кредитной карты',
 	'payflowpro_gateway-form-message-2' => 'Чтобы изменить сумму или валюту, вернитесь к <a href="/index.php?title=Donate">странице пожертвований</a>',
 	'payflowpro_gateway-donor-legend' => 'Сведения о жертвователе',
 	'payflowpro_gateway-card-legend' => 'Информация о кредитной карте',
@@ -4846,6 +4921,11 @@ $messages['ru'] = array(
 	'payflowpro_gateway-make-your-donation' => 'Сделайте пожертвование сейчас',
 	'payflowpro_gateway-state-in-us' => 'если внутри США',
 	'payflowpro_gateway-comment' => 'Комментарий',
+	'payflowpro_gateway-first' => 'Первый',
+	'payflowpro_gateway-last' => 'Последний',
+	'payflowpro_gateway-noscript-msg' => 'Похоже, что у вас не включён JavaScript, или ваш браузер его не поддерживает.
+В целях обеспечения безопасного, надежного и удобного функционирования, нашей форме пожертвований требуется JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Если вы не можете или не хотите включать JavaScript, вы все равно можете внести свой вклад, посетив:',
 );
 
 /** Rusyn (Русиньскый)
@@ -5833,6 +5913,7 @@ $messages['vec'] = array(
 	'payflowpro_gateway-accessible' => 'Sta pagina la se pol védar sol che da la pagina de donassion.',
 	'payflowpro_gateway-form-message' => 'Dòpara el modulo qua soto par donar co la to carta de credito, o',
 	'payflowpro_gateway-paypal-button' => 'Dona tramite PayPal',
+	'payflowpro_gateway-cc-button' => 'Dona co la carta de credito',
 	'payflowpro_gateway-form-message-2' => 'Par canbiar l\'inporto o el scheo, torna indrìo a la <a href="/index.php?title=Donate">pagina de donassion</a>',
 	'payflowpro_gateway-donor-legend' => 'Informassion sul donator',
 	'payflowpro_gateway-card-legend' => 'Informassion su la carta de credito',
@@ -5876,6 +5957,8 @@ $messages['vec'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'el nùmaro de la to carta de credito',
 	'payflowpro_gateway-error-msg-expiration' => 'la data de scadensa de la to carta',
 	'payflowpro_gateway-error-msg-cvv' => 'el còdese de sicuressa (CVV) che xe scrito sul dedrìo de la to carta',
+	'payflowpro_gateway-error-msg-captcha' => "El Captcha che te ghè inserìo no'l xe valido. Proa da novo.",
+	'payflowpro_gateway-error-msg-captcha-please' => 'Par la sicuressa de la to carta, scrivi sti carateri che te vedi qua insima.',
 	'payflowpro_gateway-response-0' => 'La to transazion la xe stà aprovà.
 Grassie de la to donassion!',
 	'payflowpro_gateway-response-126' => 'La to transazion la xe drio spetar de vegner aprovà.',
@@ -5905,8 +5988,13 @@ Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sor
 	'payflowpro_gateway-question-comment' => 'Domande o comenti? Scrìveghe a: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Le informassion su la to carta de credito le vegnarà elaborà in tuta sicuressa.',
 	'payflowpro_gateway-credit-storage-processing' => 'Noantri no se salvémo mia i dati de la to carta de credito, e i to dati personali i xe sogeti a la nostra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">polìtega de riservadessa</a>.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Informassion de faturassion',
+	'payflowpro_gateway-cc-form-header-payment' => 'Informassion de pagamento',
+	'payflowpro_gateway-make-your-donation' => 'Fa na donassion desso',
 	'payflowpro_gateway-state-in-us' => 'se drento nei Stati Unìi',
 	'payflowpro_gateway-comment' => 'Comento',
+	'payflowpro_gateway-first' => 'Primo',
+	'payflowpro_gateway-last' => 'Ultimo',
 );
 
 /** Vietnamese (Tiếng Việt)
