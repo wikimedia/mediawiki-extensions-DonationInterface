@@ -22,9 +22,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		$form = parent::generateBannerHeader();
 		
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_container'));
-		
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-cc_form_form', 'class' => 'payflowpro_gateway-cc_form_column'));
-		
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) ); 
 		
 		// provide a place at the top of the form for displaying general messages
@@ -42,9 +40,6 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
-		
-		// open form
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard-form' ) );
 		
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
@@ -72,8 +67,9 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		if ( preg_match( '/redlink\=1/', $template )) $template = NULL;
 		$form .= $template;
 		
-		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter_inside
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_letter
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_container
 		return $form;
 	}
 	
@@ -175,9 +171,8 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		if ( $this->paypal ) {
 			$form .= Xml::tags( 'div', array( 'style' => 'margin-bottom: 8em;' ), '&nbsp;');
 		}
-		$form .= Xml::closeElement( 'div' ); //close div#mw-creditcard
-		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_form
-		$form .= Xml::closeElement( 'div' ); //close div#payflowpro_gateway-cc_form_container
+		$form .= Xml::closeElement( 'div' ); // close div#mw-creditcard
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-cc_form_form
 		return $form;
 	}
 }
