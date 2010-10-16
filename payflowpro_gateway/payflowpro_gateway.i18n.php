@@ -15,7 +15,7 @@ $messages['en'] = array(
 	'payflowpro_gateway-accessible' => 'This page is only accessible from the donation page.',
 	'payflowpro_gateway-form-message' => 'Use the form below to donate with a credit card, or ',
 	'payflowpro_gateway-paypal-button' => 'Donate via PayPal',
-	'payflowpro_gateway-cc-button' => 'Donate by credit card',
+	'payflowpro_gateway-cc-button' => 'Donate by Credit Card',
 	'payflowpro_gateway-form-message-2' => 'To change amount or currency, return to <a href="/index.php?title=Donate">the donation page</a>',
 	'payflowpro_gateway-donor-legend' => 'Donor information',
 	'payflowpro_gateway-card-legend' => 'Credit card information',
