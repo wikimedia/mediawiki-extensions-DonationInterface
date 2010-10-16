@@ -157,6 +157,22 @@ $messages['arz'] = array(
 	'donate_interface-JPY' => 'JPY: الين الياباني',
 );
 
+/** Bashkir (Башҡорт)
+ * @author Haqmar
+ */
+$messages['ba'] = array(
+	'donate_interface-GBP' => 'GBP: Британия фунт-стерлингы',
+	'donate_interface-EUR' => 'EUR: Евро',
+	'donate_interface-USD' => 'USD: АҠШ доллары',
+	'donate_interface-AUD' => 'AUD: Австралия доллары',
+	'donate_interface-CAD' => 'CAD: Канада доллары',
+	'donate_interface-CHF' => 'CHF: Швейцария франкы',
+	'donate_interface-CZK' => 'CZK: Чехия кроны',
+	'donate_interface-SGD' => 'SGD: Сингапур доллары',
+	'donate_interface-SEK' => 'SEK: Швед кронаһы',
+	'donate_interface-ILS' => 'ILS: Израиль шекеле',
+);
+
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
@@ -592,11 +608,13 @@ $messages['es'] = array(
 );
 
 /** Estonian (Eesti)
+ * @author Avjoska
  * @author Pikne
  */
 $messages['et'] = array(
 	'donate_interface-intro' => 'Palun vali makseviis, summa ja vääring.',
 	'donate_interface-amount' => 'Annetussumma:',
+	'donate_interface-other-amount' => 'Muu summa',
 	'donate_interface-currency' => 'Vääring:',
 	'donate_interface-gateway' => 'Makseviis:',
 	'donate_interface-submit-button' => 'Anneta',
@@ -959,6 +977,7 @@ $messages['hsb'] = array(
 /** Hungarian (Magyar)
  * @author Dani
  * @author Glanthor Reviol
+ * @author Misibacsi
  */
 $messages['hu'] = array(
 	'donate_interface' => 'Támogasd a Wikimédiát',
@@ -972,9 +991,7 @@ $messages['hu'] = array(
 	'donate_interface-comment-message' => 'Van olyan gondolatod, amit meg szeretnél osztani a világgal? Próbáld meg elmondani itt (maximum 200 karakterben):',
 	'donate_interface-comment-label' => 'Megjegyzés:',
 	'donate_interface-anon-message' => 'A nevem szerepelhet (a megjegyzés mellett) az adományozók nyilvános listáján.',
-	'donate_interface-email-agreement' => "Beleegyezem, hogy a jövőben leveleket, hírleveleket kapjak a Wikimédia Alapítványtól.
-A személyes adatokat soha nem adjuk el, és nem adjuk ki harmadik félnek.
-Az adományozási adatvédelmi irányelvek <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>itt</a> olvashatóak.",
+	'donate_interface-email-agreement' => 'Beleegyezem abba, hogy a jövőben hírleveleket kapjak a Wikimédia Alapítványtól.',
 	'donate_interface-comment-title' => 'Nyilvános megjegyzés',
 	'donate_interface-amount-error' => '** Légyszíves érvényes mennyiséget adj meg **',
 	'donate_interface-processing-error' => 'Hiba történt a kérés feldolgozása közben. Nincs szabad kapacitás.',
@@ -1739,9 +1756,16 @@ Nenhuma das plataformas está disponível.',
 );
 
 /** Romanian (Română)
+ * @author Firilacroco
  * @author Stelistcristi
  */
 $messages['ro'] = array(
+	'donate_interface' => 'Sprijiniți Wikimedia',
+	'donate_interface-amount' => 'Suma de donație:',
+	'donate_interface-other-amount' => 'Altă sumă',
+	'donate_interface-currency' => 'Valută:',
+	'donate_interface-gateway' => 'Modalitati de plata:',
+	'donate_interface-comment-label' => 'Comentariu:',
 	'donate_interface-GBP' => 'GBP: Liră sterlină',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolar american',
@@ -1976,10 +2000,12 @@ $messages['te'] = array(
 	'donate_interface-CAD' => 'CAD: కెనడా డాలర్',
 	'donate_interface-CHF' => 'CHF: స్విస్ ఫ్రాంక్',
 	'donate_interface-DKK' => 'DKK: డానిష్ క్రోన్',
+	'donate_interface-HKD' => 'HKD: హాంకాంగ్ డాలర్',
 	'donate_interface-JPY' => 'JPY: జపనీస్ యెన్',
 	'donate_interface-NZD' => 'NZD: న్యూజిలాండ్ డాలర్',
 	'donate_interface-NOK' => 'NOK: నార్వేజియన్ క్రోన్',
 	'donate_interface-SGD' => 'SGD: సింగపూర్ డాలర్',
+	'donate_interface-SEK' => 'SEK: స్వీడిష్ క్రోనా',
 );
 
 /** Thai (ไทย)
@@ -2267,6 +2293,7 @@ $messages['yue'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Bencmq
+ * @author Chenxiaoqino
  */
 $messages['zh-hans'] = array(
 	'donate_interface' => '资助维基媒体',
@@ -2280,9 +2307,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-comment-message' => '有想法希望与世界分享？请在此填写不超过200字的评论：',
 	'donate_interface-comment-label' => '评论：',
 	'donate_interface-anon-message' => '请在我的评论边上附上我的名字。',
-	'donate_interface-email-agreement' => "我同意接受维基媒体基金会及维基百科的邮件。
-我们绝不会交易您的个人信息。
-关于我们的捐助人隐私政策请参见<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>此处</a>。",
+	'donate_interface-email-agreement' => '我同意接受来自维基媒体基金会的邮件。',
 	'donate_interface-comment-title' => '公开的评论',
 	'donate_interface-amount-error' => '**请输入有效的数额**',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
