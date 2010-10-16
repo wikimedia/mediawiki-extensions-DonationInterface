@@ -7,7 +7,7 @@ abstract class PayflowProGateway_Form {
 	 * @var bool
 	 */
 	public $test = false;
-	
+
 	/**
 	 * An array of hidden fields, name => value
 	 * @var array
@@ -31,34 +31,34 @@ abstract class PayflowProGateway_Form {
 	 * @var string
 	 */
 	protected $style_path;
-	
+
 	/**
 	 * A string to hold the HTML to display a cpatcha
 	 * @var string
 	 */
 	protected $captcha_html;
-	
+
 	/**
 	 * Required method for returning the full HTML for a form.
-	 * 
+	 *
 	 * Code invoking forms will expect this method to be set.  Requiring only
 	 * this method allows for flexible form generation inside of child classes
-	 * while also providing a unified method for returning the full HTML for 
+	 * while also providing a unified method for returning the full HTML for
 	 * a form.
 	 * @return string The entire form HTML
 	 */
 	abstract function getForm();
-	
+
 	public function __construct( &$data, &$error ) {
 		global $wgPayflowGatewayTest, $wgOut;
 
 		$this->test = $wgPayflowGatewayTest;
 		$this->form_data =& $data;
 		$this->form_errors =& $error;
-		
+
 		/**
-		 *  add form-specific css - the path can be set in child classes 
-		 *  using $this->setStylePath, which should be called before 
+		 *  add form-specific css - the path can be set in child classes
+		 *  using $this->setStylePath, which should be called before
 		 *  calling parent::__construct()
 		 */
 		if ( !strlen( $this->getStylePath())) {
@@ -66,10 +66,10 @@ abstract class PayflowProGateway_Form {
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
 	}
-	
+
 	/**
 	 * Set the path to the CSS file for the form
-	 * 
+	 *
 	 * This should be a full path, perhaps taking advantage of $wgScriptPath.
 	 * If you do not pass the path to the method, the style path will default
 	 * to the default css in css/Form.css
@@ -83,7 +83,7 @@ abstract class PayflowProGateway_Form {
 		}
 		$this->style_path = $style_path;
 	}
-	
+
 	/**
 	 * Get the path to CSS
 	 * @return String
@@ -91,7 +91,7 @@ abstract class PayflowProGateway_Form {
 	public function getStylePath() {
 		return $this->style_path;
 	}
-	
+
 	/**
 	 * Generates the donation footer ("There are other ways to give...")
 	 * @returns string of HTML
@@ -101,7 +101,7 @@ abstract class PayflowProGateway_Form {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));	
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways' ));
@@ -111,7 +111,7 @@ abstract class PayflowProGateway_Form {
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;
 	}
-	
+
 	/**
 	 * Fetch the array of iso country codes => country names
 	 * @return array
@@ -135,10 +135,10 @@ abstract class PayflowProGateway_Form {
 		foreach ( $this->getCountries() as $iso_value => $full_name ) {
 			$countries[ $iso_value ] = wfMsg( 'payflowpro_gateway-country-dropdown-' . $iso_value );
 		}
-		
+
 		// alphabetically sort the country names
 		asort( $countries, SORT_STRING );
-		
+
 		// generate a dropdown option for each country
 		foreach ( $countries as $iso_value => $full_name ) {
 			if ( $this->form_data[ 'country' ] ) {
@@ -150,10 +150,10 @@ abstract class PayflowProGateway_Form {
 		}
 
 		// build the actual select
-		$country_menu = Xml::openElement( 
-			'select', 
-			array( 
-				'name' => 'country', 
+		$country_menu = Xml::openElement(
+			'select',
+			array(
+				'name' => 'country',
 				'id' => 'country',
 				'onchange' => 'return disableStates( this )'
 			));
@@ -213,15 +213,15 @@ abstract class PayflowProGateway_Form {
 		// generate a dropdown opt for each month
 		for ( $i = 1; $i < 13; $i++ ) {
 			$selected = ( $i == $month && $this->test ) ? true : false;
-			$expiry_months .= Xml::option( 
-				$wgLang->getMonthName( $i ), 
-				str_pad( $i, 2, '0', STR_PAD_LEFT ), 
+			$expiry_months .= Xml::option(
+				$wgLang->getMonthName( $i ),
+				str_pad( $i, 2, '0', STR_PAD_LEFT ),
 				$selected );
 		}
 
 		$expiry_month_menu = Xml::openElement(
 			'select',
-			array( 
+			array(
 				'name' => 'mos',
 				'id' => 'expiration'
 			));
@@ -241,7 +241,7 @@ abstract class PayflowProGateway_Form {
 
 		// generate a dropdown of year opts
 		for ( $i = 0; $i < 11; $i++ ) {
-			$selected = ( date( 'Y' ) + $i == substr( date( 'Y' ), 0, 2 ) . $year 
+			$selected = ( date( 'Y' ) + $i == substr( date( 'Y' ), 0, 2 ) . $year
 				&& $this->test ) ? true : false;
 			$expiry_years .= Xml::option( date( 'Y' ) + $i, date( 'Y' ) + $i, $selected );
 		}
@@ -290,7 +290,7 @@ abstract class PayflowProGateway_Form {
 
 	/**
 	 * Generates the dropdown list for available currencies
-	 * 
+	 *
 	 * @fixme The list of available currencies should NOT be defined here but rather
 	 * 	be customizable
 	 * @fixme It would be great to default the currency to a locale's currency
@@ -370,10 +370,10 @@ abstract class PayflowProGateway_Form {
 		}
 		return $this->hidden_fields;
 	}
-	
+
 	/**
 	 * Get the HTML set to display a captcha
-	 * 
+	 *
 	 * If $this->captcha_html has no string length, an empty string is returned.
 	 * @return string The HTML to display the captcha or an empty string
 	 */
@@ -383,39 +383,39 @@ abstract class PayflowProGateway_Form {
 		}
 		return $this->captcha_html;
 	}
-	
+
 	/**
 	 * Set a string of HTML used to display a captcha
-	 * 
+	 *
 	 * This allows for a flexible way of inserting some kind of captcha
-	 * into a form, and for a form to flexibly insert captcha HTML 
+	 * into a form, and for a form to flexibly insert captcha HTML
 	 * wherever it needs to go.
-	 * 
+	 *
 	 * @param string The HTML to display the captcha
 	 */
 	public function setCaptchaHTML( $html ) {
-		$this->captcha_html = $html;		
+		$this->captcha_html = $html;
 	}
-	
+
 	protected function generateBannerHeader() {
 		global $wgPayflowGatewayHeader, $wgOut, $wgRequest;
-		
+
 		$template = '';
-		
+
 		// intro text
 		if ( $wgRequest->getText('masthead', false)) {
 			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data[ 'language' ] . '}}' );
 		} elseif ( $wgPayflowGatewayHeader ) {
 			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
 			$template = $wgOut->parse( $header );
-		}	
-		
+		}
+
 		// make sure that we actually have a matching template to display so we don't display the 'redlink'
 		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template )) {
 			$wgOut->addHtml( $template );
 		}
 	}
-	
+
 	protected function getEmailField() {
 		// email
 		$form = '<tr>';
@@ -428,7 +428,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getAmountField() {
 		$otherChecked = false;
 		$amount = -1;
@@ -440,8 +440,8 @@ abstract class PayflowProGateway_Form {
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>'; 
-		$form .= '<td>' . Xml::radio( 'amount', 250, $this->form_data['amount'] == 250 ) . '250 ' . 
+		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
+		$form .= '<td>' . Xml::radio( 'amount', 250, $this->form_data['amount'] == 250 ) . '250 ' .
 			Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
 			Xml::radio( 'amount', 75,  $this->form_data['amount'] == 75 ) . '75 ' .
 			Xml::radio( 'amount', 35, $this->form_data['amount'] == 35 ) . '35 ' .
@@ -449,16 +449,16 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) . 
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "Other" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCardnumberField() {
 		global $wgPayflowGatewayTest;
 		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-		
+
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
 		$form .= '</tr>';
@@ -472,11 +472,11 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCvvField() {
 		global $wgPayflowGatewayTest;
 		$cvv = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'cvv' ] : '';
-		
+
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
 		$form .= '<tr>';
@@ -487,7 +487,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getStreetField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
@@ -499,7 +499,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCityField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
@@ -511,7 +511,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getZipField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
@@ -523,7 +523,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getNameField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['fname'] . '</span></td>';
@@ -538,7 +538,7 @@ abstract class PayflowProGateway_Form {
 		$form .= "</tr>";
 		return $form;
 	}
-	
+
 	protected function getCommentMessageField() {
 		$form = '<tr>';
 		$form .= '<td colspan="2">';
@@ -547,7 +547,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCommentField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
@@ -555,7 +555,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCommentOptionField() {
 		global $wgRequest;
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
@@ -565,7 +565,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getEmailOptField() {
 		global $wgRequest;
 		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'email-opt' ] : true;
@@ -580,11 +580,11 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getPaypalButton() {
 		global $wgScriptPath;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
-		
+
 		$form = '<tr>';
 		$form .= '<td class="paypal-button" colspan="2">';
 		$form .= Xml::hidden( 'PaypalRedirect', false );
@@ -596,7 +596,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getStateField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
@@ -607,7 +607,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getCountryField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
@@ -618,7 +618,7 @@ abstract class PayflowProGateway_Form {
 	    $form .= '</tr>';
 	    return $form;
 	}
-	
+
 	protected function getCreditCardTypeField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card' ), 'card' ) . '</td>';
@@ -626,7 +626,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function getExpiryField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
@@ -634,45 +634,45 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		return $form;
 	}
-	
+
 	protected function loadValidateJs() {
 		global $wgOut, $wgScriptPath;
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' . 
-							$wgScriptPath . 
+		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' .
+							$wgScriptPath .
 							'/extensions/DonationInterface/payflowpro_gateway/validate_input.js?284"></script>' );
 	}
-	
+
 	protected function loadApiJs() {
 		global $wgOut, $wgScriptPath;
 		$wgOut->addHeadItem( 'pfp_api_call', '<script type="text/javascript" src="' .
 							$wgScriptPath .
 							'/extensions/DonationInterface/payflowpro_gateway/pfp_api_controller.js?284"></script>' );
 	}
-	
+
 	/**
 	 * Generate HTML for <noscript> tags
-	 * 
+	 *
 	 * For displaying when a user does not have Javascript enabled in their browser.
 	 */
 	protected function getNoScript() {
 		global $wgPayflowGatewayNoScriptRedirect;
-		
+
 		$form = '<noscript>';
 		$form .= '<div id="noscript">';
 		$form .= '<p id="noscript-msg">' . wfMsg( 'payflowpro_gateway-noscript-msg' ) . '</p>';
 		if ( $wgPayflowGatewayNoScriptRedirect ) {
 			$form .= '<p id="noscript-redirect-msg">' . wfMsg( 'payflowpro_gateway-noscript-redirect-msg' ) . '</p>';
-			$form .= '<p id="noscript-redirect-link"><a href="' . $wgPayflowGatewayNoScriptRedirect . '">' . $wgPayflowGatewayNoScriptRedirect . '</a></p>'; 
+			$form .= '<p id="noscript-redirect-link"><a href="' . $wgPayflowGatewayNoScriptRedirect . '">' . $wgPayflowGatewayNoScriptRedirect . '</a></p>';
 		}
 		$form .= '</div>';
 		$form .= '</noscript>';
 		return $form;
 	}
-	
+
 	/**
 	 * Determine the 'no cache' form action
-	 * 
-	 * This mostly exists to ensure that the form does not try to use AJAX to 
+	 *
+	 * This mostly exists to ensure that the form does not try to use AJAX to
 	 * overwrite certain hidden form params that are normally overwitten for
 	 * cached versions of the form.
 	 * @return string $url The full URL for the form to post to
@@ -681,12 +681,12 @@ abstract class PayflowProGateway_Form {
 		global $wgRequest;
 
 		$url = $wgRequest->getFullRequestURL();
-		
+
 		// it the _nocache_ param != true, add it to the URL
 		if ( !$wgRequest->getText( '_nocache_' )) {
 			$url = wfAppendQuery( $url, array( '_nocache_' => 'true' ));
 		}
-		
+
 		return $url;
 	}
 }
