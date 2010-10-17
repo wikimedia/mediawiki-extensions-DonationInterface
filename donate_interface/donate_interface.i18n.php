@@ -161,6 +161,11 @@ $messages['arz'] = array(
  * @author Haqmar
  */
 $messages['ba'] = array(
+	'donate_interface-amount' => 'Иғәнә күләме:',
+	'donate_interface-other-amount' => 'Башҡа сумма',
+	'donate_interface-currency' => 'Валюта:',
+	'donate_interface-gateway' => 'Түләү ысулы:',
+	'donate_interface-comment-label' => 'Комментарий:',
 	'donate_interface-GBP' => 'GBP: Британия фунт-стерлингы',
 	'donate_interface-EUR' => 'EUR: Евро',
 	'donate_interface-USD' => 'USD: АҠШ доллары',
@@ -168,6 +173,13 @@ $messages['ba'] = array(
 	'donate_interface-CAD' => 'CAD: Канада доллары',
 	'donate_interface-CHF' => 'CHF: Швейцария франкы',
 	'donate_interface-CZK' => 'CZK: Чехия кроны',
+	'donate_interface-DKK' => 'DKK: Дания кроны',
+	'donate_interface-HKD' => 'HKD: Гонг Конг доллары',
+	'donate_interface-HUF' => 'HUF: Венгр флоринты',
+	'donate_interface-JPY' => 'JPY: Япон йенаһы',
+	'donate_interface-NZD' => 'NZD: Яңы Зеландия доллары',
+	'donate_interface-NOK' => 'NOK: Норвегия кроны',
+	'donate_interface-PLN' => 'PLN: Поляк злотыһы',
 	'donate_interface-SGD' => 'SGD: Сингапур доллары',
 	'donate_interface-SEK' => 'SEK: Швед кронаһы',
 	'donate_interface-ILS' => 'ILS: Израиль шекеле',
@@ -552,9 +564,7 @@ $messages['eo'] = array(
 	'donate_interface-comment-message' => 'Ĉu vi volas skribi viajn pensojn doni al la mondo?  Enigu ĝis 200 signoj ĉi tien:',
 	'donate_interface-comment-label' => 'Komenti:',
 	'donate_interface-anon-message' => 'Bonvolu listigi mian nomon apud mia komento en la publika listo de donacantoj.',
-	'donate_interface-email-agreement' => "Mi konsentas ricevi retpoŝtajn ĝisdatigojn pri Vikipedio kaj la Fondaĵo Wikimedia. 
-Ni neniam vendos aŭ donos vian informon. 
-Nia regularo pri privateco de donantoj estas trovebla <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>ĉi tie</a>.",
+	'donate_interface-email-agreement' => 'Mi konsentas ricevi retpoŝtojn kaj novaĵleterojn de la Fondaĵo Wikimedia.',
 	'donate_interface-comment-title' => 'Publika komento',
 	'donate_interface-amount-error' => '**Bonvolu enigi validan iomon**',
 	'donate_interface-processing-error' => 'Eraro okazis traktante vian peton.
@@ -584,12 +594,21 @@ Neniu procesoro estas atingebla.',
  */
 $messages['es'] = array(
 	'donate_interface' => 'Apoya Wikimedia',
+	'donate_interface-desc' => 'Página inicial de donativos que integra extensiones de puertas de enlace',
+	'donate_interface-intro' => 'Por favor, escoge un modo de pago, cantidad y moneda.',
 	'donate_interface-amount' => 'Cantidad donada:',
+	'donate_interface-other-amount' => 'Otra cantidad',
 	'donate_interface-currency' => 'Moneda:',
+	'donate_interface-gateway' => 'Forma de pago:',
 	'donate_interface-submit-button' => 'Donar',
+	'donate_interface-comment-message' => '¿Quieres compartir un pensamiento con el mundo? Escríbelo aquí (hasta 200 caracteres):',
 	'donate_interface-comment-label' => 'Comentario:',
 	'donate_interface-anon-message' => 'Por favor, incluid mi nombre (al lado de mi comentario) en el listado de donantes públicos.',
+	'donate_interface-email-agreement' => 'Acepto recibir futuros boletines y correos electrónicos de la Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
+	'donate_interface-amount-error' => '**Por favor, escribe una cantidad válida**',
+	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud. 
+ No hay procesadores disponibles.',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dólar estadounidense',
@@ -603,8 +622,10 @@ $messages['es'] = array(
 	'donate_interface-JPY' => 'JPY: Yen japonés',
 	'donate_interface-NZD' => 'NZD: Dólar de Nueva Zelanda',
 	'donate_interface-NOK' => 'NOK: Corona noruega',
+	'donate_interface-PLN' => 'PLN: Zloty polaco',
 	'donate_interface-SGD' => 'SGD: Dólar de Singapur',
 	'donate_interface-SEK' => 'SEK: Corona sueca',
+	'donate_interface-ILS' => 'ILS: Shekel israelí',
 );
 
 /** Estonian (Eesti)
@@ -888,13 +909,31 @@ $messages['gsw'] = array(
  * @author YaronSh
  */
 $messages['he'] = array(
+	'donate_interface' => 'הבעת תמיכה בוויקימדיה',
+	'donate_interface-other-amount' => 'סכום אחר',
+	'donate_interface-currency' => 'מטבע:',
+	'donate_interface-gateway' => 'שיטת התשלום:',
+	'donate_interface-submit-button' => 'תרומה',
+	'donate_interface-comment-label' => 'הערה:',
+	'donate_interface-comment-title' => 'הערה ציבורית',
 	'donate_interface-GBP' => 'GBP: לירה שטרלינג',
 	'donate_interface-EUR' => 'EUR: אירו
 �',
 	'donate_interface-USD' => 'USD: דולר אמריקאי',
 	'donate_interface-AUD' => 'AUD: דולר אוסטרלי',
 	'donate_interface-CAD' => 'CAD: דולר קנדי',
+	'donate_interface-CHF' => 'CHF: פרנק שוויצרי',
+	'donate_interface-CZK' => 'CZK: קורונה צ׳כית',
+	'donate_interface-DKK' => 'DKK: כתר דני',
+	'donate_interface-HKD' => 'HKD: דולר הונג קונגי',
+	'donate_interface-HUF' => 'HUF: פורינט הונגרי',
 	'donate_interface-JPY' => 'JPY: יין יפני',
+	'donate_interface-NZD' => 'NZD: דולר ניו זילנדי',
+	'donate_interface-NOK' => 'NOK: כתר נורבגי',
+	'donate_interface-PLN' => 'PLN: זלוטי פולני',
+	'donate_interface-SGD' => 'SGD: דולר סינגפורי',
+	'donate_interface-SEK' => 'SEK: כתר שוודי',
+	'donate_interface-ILS' => 'ILS: שקל ישראלי חדש',
 );
 
 /** Croatian (Hrvatski)
@@ -1105,10 +1144,19 @@ $messages['io'] = array(
 /** Italian (Italiano)
  * @author Aushulz
  * @author Beta16
+ * @author F. Cosoleto
  */
 $messages['it'] = array(
+	'donate_interface' => 'Sostieni Wikimedia',
+	'donate_interface-intro' => 'Scegli un metodo di pagamento, importo e valuta.',
+	'donate_interface-amount' => 'Importo della donazione:',
 	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Metodo di pagamento:',
+	'donate_interface-submit-button' => 'Dona',
 	'donate_interface-comment-label' => 'Commenti:',
+	'donate_interface-anon-message' => "Indica il mio nome, accanto al mio commento, nell'elenco pubblico dei donatori.",
+	'donate_interface-email-agreement' => 'Accetto di ricevere in futuro le newsletter o e-mail da Wikimedia Foundation.',
+	'donate_interface-amount-error' => '**Si prega di inserire un importo valido**',
 	'donate_interface-GBP' => 'GBP: Sterlina inglese',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dollaro U.S.',
@@ -1765,7 +1813,10 @@ $messages['ro'] = array(
 	'donate_interface-other-amount' => 'Altă sumă',
 	'donate_interface-currency' => 'Valută:',
 	'donate_interface-gateway' => 'Modalitati de plata:',
+	'donate_interface-submit-button' => 'Donează',
 	'donate_interface-comment-label' => 'Comentariu:',
+	'donate_interface-processing-error' => 'A fost o problemă la procesarea cererii dvs.
+Niciun procesor nu e disponibil.',
 	'donate_interface-GBP' => 'GBP: Liră sterlină',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolar american',
@@ -1789,6 +1840,14 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'donate_interface' => 'Sostiene UicchiMedia',
+	'donate_interface-amount' => "'Mborte d'a donazzione:",
+	'donate_interface-other-amount' => "Otre 'mborte",
+	'donate_interface-currency' => 'Valute',
+	'donate_interface-gateway' => 'Metode de paiamende:',
+	'donate_interface-submit-button' => 'Dduène',
+	'donate_interface-comment-label' => 'Coomende:',
+	'donate_interface-comment-title' => 'Commende pubbleche',
 	'donate_interface-GBP' => "GBP: Sterline 'nglese",
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dollaro americane',
@@ -2171,6 +2230,7 @@ $messages['uk'] = array(
  */
 $messages['vec'] = array(
 	'donate_interface' => 'Juta Wikimedia',
+	'donate_interface-desc' => 'Pagina de donassion che integra le estension gateway',
 	'donate_interface-intro' => "Par piaser, siegli el metodo par pagar, l'inporto e el to scheo.",
 	'donate_interface-amount' => 'Inporto de la donassion:',
 	'donate_interface-other-amount' => 'Altro inporto',
@@ -2183,6 +2243,8 @@ $messages['vec'] = array(
 	'donate_interface-email-agreement' => 'Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.',
 	'donate_interface-comment-title' => 'Comento publico',
 	'donate_interface-amount-error' => '**Par piaser, inserissi un inporto valido**',
+	'donate_interface-processing-error' => 'Ghe xe stà un problema processando la to richiesta.
+Nissun processor xe disponibile.',
 	'donate_interface-GBP' => 'GBP: Sterlina britànega',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolaro merican',
