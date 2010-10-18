@@ -678,15 +678,21 @@ abstract class PayflowProGateway_Form {
 	 * @return string $url The full URL for the form to post to
 	 */
 	protected function getNoCacheAction() {
-		global $wgRequest;
+		global $wgRequest, $wgTitle;
 
 		$url = $wgRequest->getFullRequestURL();
-
-		// it the _nocache_ param != true, add it to the URL
-		if ( !$wgRequest->getText( '_nocache_' )) {
-			$url = wfAppendQuery( $url, array( '_nocache_' => 'true' ));
+		$url_parts = wfParseUrl( $url );
+		$query_array = wfCgiToArray( $url_parts[ 'query' ] );
+		
+		// ensure that _cache_ does not get set in the URL
+		unset( $query_array[ '_cache_' ]);
+		
+		// make sure no other data that might overwrite posted data makes it into the URL
+		foreach ( $this->form_data as $key => $value ) {
+			unset( $query_array[ $key ] );
 		}
-
-		return $url;
+			
+		// construct the submission url
+		return wfAppendQuery( $wgTitle->getLocalURL(), $query_array );
 	}
 }
