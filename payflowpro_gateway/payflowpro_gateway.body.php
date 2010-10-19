@@ -113,7 +113,8 @@ EOT;
 		if ( $wgRequest->getText( '_cache_', false ) ) {
 			$cache = true;
 			$token = '';
-			$token_match = false;	
+			$token_match = false;
+			$wgOut->mSquidMaxage = 6000;	
 		} else {
 			$cache = false;
 			
