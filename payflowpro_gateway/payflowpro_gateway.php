@@ -101,6 +101,15 @@ $wgPayflowGatewayHTTPProxy = '';
  */
 $wgPayflowGatewayPaypalURL = '';
 
+/**
+ * Set the max-age value for Squid
+ * 
+ * If you have Squid enabled for caching, use this variable to configure
+ * the s-max-age for cached requests.
+ * @var int Time in seconds
+ */
+$wgPayflowSMaxAge = 6000;
+
 /** 
  * Hooks required to interface with the donation extension (include <donate> on page)
  *
