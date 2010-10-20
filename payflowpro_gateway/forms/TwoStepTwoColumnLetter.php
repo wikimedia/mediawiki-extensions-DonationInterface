@@ -18,9 +18,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		$form = parent::generateBannerHeader();
 
 		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0));
-
 		$form .= Xml::openElement( 'tr' );
-
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
 		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
