@@ -441,10 +441,10 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
-		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
-			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
-			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35 ) . '35 ' .
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20 ) . '20 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 20, $this->form_data['amount'] == 20 ) . '20 ' .
+			Xml::radio( 'amount', 35, $this->form_data['amount'] == 35 ) . '35 ' .
+			Xml::radio( 'amount', 50,  $this->form_data['amount'] == 50 ) . '50 ' .
+			Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
