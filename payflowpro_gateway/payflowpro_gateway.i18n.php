@@ -5201,9 +5201,14 @@ $messages['ru'] = array(
  * @author Gazeb
  */
 $messages['rue'] = array(
+	'payflowpro_gateway-cvv-link' => 'Де то найду?',
+	'payflowpro_gateway-donor-amount' => 'Сума',
+	'payflowpro_gateway-donor-currency-label' => 'Валута',
+	'payflowpro_gateway-donor-email' => 'Адреса електронічной пошты',
+	'payflowpro_gateway-donor-name' => 'Мено:',
 	'payflowpro_gateway-donor-fname' => 'Мено:',
 	'payflowpro_gateway-donor-mname' => 'Середнє мено:',
-	'payflowpro_gateway-donor-name' => 'Мено:',
+	'payflowpro_gateway-donor-lname' => 'Призвіско',
 	'payflowpro_gateway-donor-street' => 'Уліця:',
 	'payflowpro_gateway-donor-city' => 'Місто:',
 	'payflowpro_gateway-donor-state' => 'Штат:',
@@ -5212,6 +5217,17 @@ $messages['rue'] = array(
 	'payflowpro_gateway-donor-address' => 'Адреса:',
 	'payflowpro_gateway-donor-card' => 'Кредітна карта:',
 	'payflowpro_gateway-donor-card-num' => 'Чісло карты:',
+	'payflowpro_gateway-error-msg-emailAdd' => 'адреса ел. пошты',
+	'payflowpro_gateway-error-msg-fname' => 'імя',
+	'payflowpro_gateway-error-msg-lname' => 'призвіско',
+	'payflowpro_gateway-error-msg-street' => 'поштова адреса',
+	'payflowpro_gateway-error-msg-city' => 'місто',
+	'payflowpro_gateway-error-msg-state' => 'штат',
+	'payflowpro_gateway-error-msg-zip' => 'поштовый код',
+	'payflowpro_gateway-error-msg-card_num' => 'чісло кредітной карты',
+	'payflowpro_gateway-comment' => 'Коментарь',
+	'payflowpro_gateway-first' => 'Першый',
+	'payflowpro_gateway-last' => 'Послїднїй',
 );
 
 /** Yakut (Саха тыла)

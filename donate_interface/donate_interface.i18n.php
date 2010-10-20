@@ -1936,6 +1936,13 @@ $messages['ru'] = array(
 	'donate_interface-ILS' => 'ILS: израильский шекель',
 );
 
+/** Rusyn (Русиньскый)
+ * @author Gazeb
+ */
+$messages['rue'] = array(
+	'donate_interface-comment-label' => 'Коментарь:',
+);
+
 /** Yakut (Саха тыла)
  * @author HalanTul
  */
