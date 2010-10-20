@@ -432,7 +432,7 @@ abstract class PayflowProGateway_Form {
 	protected function getAmountField() {
 		$otherChecked = false;
 		$amount = -1;
-		if ( $this->form_data['amount'] != 250 && $this->form_data['amount'] != 100 && $this->form_data['amount'] != 75 && $this->form_data['amount'] != 35 && $this->form_data['amountOther'] > 0 ) {
+		if ( $this->form_data['amount'] != 100 && $this->form_data['amount'] != 50 && $this->form_data['amount'] != 35 && $this->form_data['amount'] != 20 && $this->form_data['amountOther'] > 0 ) {
 			$otherChecked = true;
 			$amount = $this->form_data['amountOther'];
 		}
@@ -441,10 +441,10 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
-		$form .= '<td>' . Xml::radio( 'amount', 250, $this->form_data['amount'] == 250 ) . '250 ' .
-			Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
-			Xml::radio( 'amount', 75,  $this->form_data['amount'] == 75 ) . '75 ' .
-			Xml::radio( 'amount', 35, $this->form_data['amount'] == 35 ) . '35 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
+			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
+			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35 ) . '35 ' .
+			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20 ) . '20 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';

@@ -15,6 +15,29 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		$this->loadValidateJs(); // validation JS
 
 		$this->loadApiJs(); // API/Ajax JS
+
+		// form placeholder values
+		$first = wfMsg( 'payflowpro_gateway-first' );
+		$last = wfMsg( 'payflowpro_gateway-last' );
+		$js = <<<EOT
+<script type="text/javascript">
+function loadPlaceholders() {
+	var fname = document.getElementById('fname');
+	var lname = document.getElementById('lname');
+	var amountOther = document.getElementById('amountOther');
+	if (fname.value == '') {
+		fname.style.color = '#999999';
+		fname.value = '$first';
+	}
+	if (lname.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$last';
+	}
+}
+addEvent( window, 'load', loadPlaceholders );
+</script>
+EOT;
+		$wgOut->addHeadItem( 'placeholders', $js );
 	}
 
 	/**
