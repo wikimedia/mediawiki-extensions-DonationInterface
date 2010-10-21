@@ -41,7 +41,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 		
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		// $form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -90,8 +90,8 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		if ( !$this->paypal ) {
 			// PayPal button
 			$form .= '<tr>';
-			$form .= '<td class="label"></td>';
-			$form .= '<td><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a></td>';
+			$form .= '<td style="text-align:center;" colspan="2"><big><b>Donate via PayPal</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/paypal.png"/></a><br/>'.
+			'— or —<br/><big><b>Donate on Wikipedia</b></big></td>';
 			$form .= '</tr>';
 		}
 

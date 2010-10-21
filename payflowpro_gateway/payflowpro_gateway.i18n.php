@@ -108,6 +108,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-comment' => 'Comment',
 	'payflowpro_gateway-first' => 'First',
 	'payflowpro_gateway-last' => 'Last',
+	'payflowpro_gateway-other' => 'Other',
 	'payflowpro_gateway-noscript-msg' => 'It appears that you do not have JavaScript enabled, or your browser does not support it.
 In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:',

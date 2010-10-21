@@ -19,11 +19,13 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		// form placeholder values
 		$first = wfMsg( 'payflowpro_gateway-first' );
 		$last = wfMsg( 'payflowpro_gateway-last' );
+		$other = wfMsg( 'payflowpro_gateway-other' );
 		$js = <<<EOT
 <script type="text/javascript">
 function loadPlaceholders() {
 	var fname = document.getElementById('fname');
 	var lname = document.getElementById('lname');
+	var otherRadio = document.getElementById('otherRadio');
 	var amountOther = document.getElementById('amountOther');
 	if (fname.value == '') {
 		fname.style.color = '#999999';
@@ -32,6 +34,10 @@ function loadPlaceholders() {
 	if (lname.value == '') {
 		lname.style.color = '#999999';
 		lname.value = '$last';
+	}
+	if (typeof otherRadio != "undefined" && amountOther.value == '') {
+		amountOther.style.color = '#999999';
+		amountOther.value = '$other';
 	}
 }
 addEvent( window, 'load', loadPlaceholders );
