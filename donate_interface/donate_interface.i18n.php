@@ -835,12 +835,32 @@ $messages['fr'] = array(
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
+	'donate_interface' => 'Sotegnir Wikimedia',
+	'donate_interface-amount' => 'Montent du don :',
+	'donate_interface-other-amount' => 'Ôtro montent',
+	'donate_interface-currency' => 'Monéya :',
+	'donate_interface-gateway' => 'Moyen de payement :',
+	'donate_interface-submit-button' => 'Balyér',
+	'donate_interface-comment-label' => 'Comentèro :',
+	'donate_interface-comment-title' => 'Comentèro publico',
+	'donate_interface-amount-error' => '**Volyéd buchiér un montent valido**',
 	'donate_interface-GBP' => 'GBP : livra stèrlingue',
 	'donate_interface-EUR' => 'EUR : erô',
 	'donate_interface-USD' => 'USD : dolar amèriquen',
 	'donate_interface-AUD' => 'AUD : dolar ôstralien',
 	'donate_interface-CAD' => 'CAD : dolar canadien',
+	'donate_interface-CHF' => 'CHF : franc suisso',
+	'donate_interface-CZK' => 'CZK : corona tch·èca',
+	'donate_interface-DKK' => 'DKK : corona danouèsa',
+	'donate_interface-HKD' => 'HKD : dolar d’Hong-Cong',
+	'donate_interface-HUF' => 'HUF : fllorin hongrouès',
 	'donate_interface-JPY' => 'JPY : yène j·aponês',
+	'donate_interface-NZD' => 'NZD : dolar nèo-zèlandês',
+	'donate_interface-NOK' => 'NOK : corona norvèg·ièna',
+	'donate_interface-PLN' => 'PLN : złoty polonès',
+	'donate_interface-SGD' => 'SGD : dolar de Singapour',
+	'donate_interface-SEK' => 'SEK : corona suèdouèsa',
+	'donate_interface-ILS' => 'ILS : ch·équèl israèlien',
 );
 
 /** Galician (Galego)
@@ -1376,11 +1396,35 @@ $messages['li'] = array(
 );
 
 /** Latvian (Latviešu)
+ * @author GreenZeb
  * @author Papuass
  */
 $messages['lv'] = array(
+	'donate_interface-amount' => 'Ziedojuma summa:',
+	'donate_interface-other-amount' => 'Cita summa',
 	'donate_interface-currency' => 'Valūta:',
+	'donate_interface-gateway' => 'Samaksas veids:',
+	'donate_interface-submit-button' => 'Ziedot',
+	'donate_interface-comment-label' => 'Komentārs:',
 	'donate_interface-comment-title' => 'Publisks komentārs',
+	'donate_interface-amount-error' => '**Lūdzu, ievadi derīgu summu**',
+	'donate_interface-GBP' => 'GBP: Lielbritānijas sterliņu mārciņa',
+	'donate_interface-EUR' => 'EUR: Eiro',
+	'donate_interface-USD' => 'USD: ASV dolārs',
+	'donate_interface-AUD' => 'AUD: Austrālijas dolārs',
+	'donate_interface-CAD' => 'CAD: Kanādas dolārs',
+	'donate_interface-CHF' => 'CHF: Šveices franks',
+	'donate_interface-CZK' => 'CZK: Čehijas krona',
+	'donate_interface-DKK' => 'DKK: Dānijas krona',
+	'donate_interface-HKD' => 'HKD: Honkongas dolārs',
+	'donate_interface-HUF' => 'HUF: Ungārijas forints',
+	'donate_interface-JPY' => 'JPY: Japānas jena',
+	'donate_interface-NZD' => 'NZD: Jaunzēlandes dolārs',
+	'donate_interface-NOK' => 'NOK: Norvēģijas krona',
+	'donate_interface-PLN' => 'PLN: Polijas zlots',
+	'donate_interface-SGD' => 'SGD: Singapūras dolārs',
+	'donate_interface-SEK' => 'SEK: Zviedrijas krona',
+	'donate_interface-ILS' => 'ILS: Izraēlas šekelis',
 );
 
 /** Macedonian (Македонски)
@@ -2007,6 +2051,7 @@ $messages['si'] = array(
 
 /** Slovak (Slovenčina)
  * @author Helix84
+ * @author Jkjk
  */
 $messages['sk'] = array(
 	'donate_interface-GBP' => 'GBP: britská libra',
@@ -2014,6 +2059,7 @@ $messages['sk'] = array(
 	'donate_interface-USD' => 'USD: americký dolár',
 	'donate_interface-AUD' => 'AUD: austrálsky dolár',
 	'donate_interface-CAD' => 'CAD: kanadský dolár',
+	'donate_interface-CHF' => 'CHF: švajčiarsky frank',
 	'donate_interface-JPY' => 'JPY: japonský jen',
 );
 
@@ -2022,8 +2068,16 @@ $messages['sk'] = array(
  */
 $messages['sl'] = array(
 	'donate_interface' => 'Podprite Wikimedijo',
+	'donate_interface-intro' => 'Prosimo, izberite način plačila, znesek in valuto.',
 	'donate_interface-amount' => 'Znesek prispevka:',
+	'donate_interface-other-amount' => 'Drug znesek',
+	'donate_interface-currency' => 'Valuta:',
+	'donate_interface-gateway' => 'Način plačila:',
 	'donate_interface-submit-button' => 'Prispevaj',
+	'donate_interface-comment-message' => 'Imate misel, ki jo želite deliti s svetom? Tukaj vnesite do 200 znakov:',
+	'donate_interface-comment-label' => 'Pripomba:',
+	'donate_interface-anon-message' => 'Prosimo, navedite moje ime (ob moji pripombi) na javnem seznamu donatorjev.',
+	'donate_interface-comment-title' => 'Javna pripomba',
 	'donate_interface-amount-error' => '**Prosimo, vnesite veljaven znesek**',
 	'donate_interface-GBP' => 'GBP: britanski funt',
 	'donate_interface-EUR' => 'EUR: evro',
@@ -2158,6 +2212,7 @@ $messages['th'] = array(
  * @author Hanberke
  */
 $messages['tk'] = array(
+	'donate_interface-currency' => 'Walýuta:',
 	'donate_interface-GBP' => 'GBP: britan funt sterlingi',
 	'donate_interface-EUR' => 'EUR: ýewro',
 	'donate_interface-USD' => 'USD: ABŞ dollary',
