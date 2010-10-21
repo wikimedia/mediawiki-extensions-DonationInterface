@@ -1,6 +1,7 @@
 <?php
 
 class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_OneStepTwoColumn {
+	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut, $wgScriptPath;
@@ -15,6 +16,8 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 
 	public function generateFormStart() {
 		global $wgOut, $wgRequest;
+
+		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
 		$form = parent::generateBannerHeader();
 		
@@ -84,18 +87,11 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 
 		$form = '';
 		
-		// PayPal button
-		// make sure we have a paypal url set to redirect the user to before displaying the button
-		if ( strlen( $wgPayflowGatewayPaypalURL )) {
+		if ( !$this->paypal ) {
+			// PayPal button
 			$form .= '<tr>';
 			$form .= '<td class="label"></td>';
-			$form .= '<td class="paypal-button">';
-			$form .= Xml::hidden( 'PaypalRedirect', false );
-			$form .= Xml::tags( 'div',
-					array(),
-					'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
-				);
-			$form .= '</td>';
+			$form .= '<td><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a></td>';
 			$form .= '</tr>';
 		}
 
@@ -105,6 +101,49 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		// email
 		$form .= $this->getEmailField();
 
+		// amount
+		$form .= $this->getAmountField();
+
+		if ( !$this->paypal ) {
+			// PayPal button
+			// make sure we have a paypal url set to redirect the user to before displaying the button
+			if ( strlen( $wgPayflowGatewayPaypalURL )) {
+				$form .= '<tr>';
+				$form .= '<td class="label"></td>';
+				$form .= '<td>';
+				$form .= Xml::hidden( 'PaypalRedirect', false );
+				$form .= Xml::tags( 'div',
+						array(),
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ))
+					);
+				$form .= '</td>';
+				$form .= '</tr>';
+			}
+
+			// card number
+			$form .= $this->getCardNumberField();
+
+			// cvv
+			$form .= $this->getCvvField();
+
+			// expiry
+			$form .= $this->getExpiryField();
+
+			// street
+			$form .= $this->getStreetField();
+
+			// city
+			$form .= $this->getCityField();
+
+			// state
+			$form .= $this->getStateField();
+			// zip
+			$form .= $this->getZipField();
+
+			// country
+			$form .= $this->getCountryField();
+		}
+		
 		// anonymous
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
@@ -114,38 +153,6 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 
 		// email agreement
 		$form .= $this->getEmailOptField();
-
-		// amount
-		$form .= $this->getAmountField();
-		
-		// card logos
-		$form .= '<tr>';
-		$form .= '<td />';
-		$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
-		$form .= '</tr>';
-
-		// card number
-		$form .= $this->getCardNumberField();
-
-		// cvv
-		$form .= $this->getCvvField();
-
-		// expiry
-		$form .= $this->getExpiryField();
-
-		// street
-		$form .= $this->getStreetField();
-
-		// city
-		$form .= $this->getCityField();
-
-		// state
-		$form .= $this->getStateField();
-		// zip
-		$form .= $this->getZipField();
-
-		// country
-		$form .= $this->getCountryField();
 
 		return $form;
 	}

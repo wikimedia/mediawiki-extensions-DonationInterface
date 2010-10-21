@@ -458,13 +458,17 @@ abstract class PayflowProGateway_Form {
 	protected function getCardnumberField() {
 		global $wgPayflowGatewayTest;
 		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
-
-		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
-		$form .= '</tr>';
-		$form .= '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card'] . '</span></td>';
-		$form .= '</tr>';
+		$form = '';
+		if ( $this->form_errors['card_num'] ) {
+			$form .= '<tr>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
+			$form .= '</tr>';
+		}
+		if ( $this->form_errors['card'] ) {
+			$form .= '<tr>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card'] . '</span></td>';
+			$form .= '</tr>';
+		}
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .

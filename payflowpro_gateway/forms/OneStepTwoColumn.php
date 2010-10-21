@@ -104,7 +104,7 @@ EOT;
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ));
 		if ( $this->paypal ) {
 			$form .= Xml::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'input-button button-navyblue', 'value' => wfMsg( 'payflowpro_gateway-submit-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
