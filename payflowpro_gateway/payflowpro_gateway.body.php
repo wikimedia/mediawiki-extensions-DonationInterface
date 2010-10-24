@@ -1114,8 +1114,10 @@ EOT;
 	 */
 	public function updateContributionTracking( &$data, $force=false ) {
 		// ony update contrib tracking if we're coming from a single-step landing page 
-		// which we know with cc# in utm_source or if force=true
-		if ( !$force && !preg_match( "/cc[0-9]/", $data[ 'utm_source' ] )) {
+		// which we know with cc# in utm_source or if force=true or if contribution_tracking_id is not set
+		if ( !$force && 
+				!preg_match( "/cc[0-9]/", $data[ 'utm_source' ] ) && 
+				$data[ 'contribution_tracking_id' ] ) {
 			return;
 		}
 
