@@ -163,7 +163,7 @@ function createQueueMessage($transaction) {
                 'country'                => $transaction['country_name'],
                 'countryID'              => $transaction['country_code'],
                 'postal_code'            => $transaction['zip'],
-                'gateway'                => 'payflowpro',
+                'gateway'                => $transaction[ 'gateway' ], 
                 'gateway_txn_id'         => $transaction['PNREF'],
                 'response'               => $transaction['RESPMSG'],
                 'currency'               => $transaction['currency'],

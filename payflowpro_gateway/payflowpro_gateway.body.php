@@ -982,6 +982,7 @@ EOT;
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
+				'gateway' => 'payflowpro',
 			);
 		} else {
 			$data = array(
@@ -1018,6 +1019,7 @@ EOT;
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
+				'gateway' => 'payflowpro', // this may need to become dynamic in the future
 			);
 		}
 		return $data;
