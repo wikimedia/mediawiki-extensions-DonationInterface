@@ -1999,10 +1999,12 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 $messages['eu'] = array(
 	'payflowprogateway' => 'Wikimedia lagundu',
 	'payflowpro_gateway-accessible' => 'Orrialde honetara dohaintzak orrialdetik bakarrik iritsi daiteke.',
+	'payflowpro_gateway-paypal-button' => 'Dohaintza egin PayPalen bidez',
+	'payflowpro_gateway-cc-button' => 'Dohaintza egin kreditu txartel bidez',
 	'payflowpro_gateway-donor-legend' => 'Emailaren informazioa',
 	'payflowpro_gateway-card-legend' => 'Kreditu txartelaren informazioa',
 	'payflowpro_gateway-amount-legend' => 'Dohaintza kopurua:',
-	'payflowpro_gateway-cvv-link' => 'Adibidea',
+	'payflowpro_gateway-cvv-link' => 'Non dago hau?',
 	'payflowpro_gateway-donor-amount' => 'Kopurua:',
 	'payflowpro_gateway-donor-currency-label' => 'Txanpona:',
 	'payflowpro_gateway-donor-email' => 'E-posta helbidea:',
@@ -2042,6 +2044,10 @@ $messages['eu'] = array(
 	'payflowpro_gateway-response-4' => 'Kopuru okerra.',
 	'payflowpro_gateway-thankyou' => 'Mileser zure dohaintzagatik!',
 	'payflowpro_gateway-submit-button' => 'Dohaintza egin',
+	'payflowpro_gateway-comment' => 'Iruzkina',
+	'payflowpro_gateway-first' => 'Lehena',
+	'payflowpro_gateway-last' => 'Azkena',
+	'payflowpro_gateway-other' => 'Bestelakoa',
 );
 
 /** Persian (فارسی)
@@ -5130,6 +5136,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'payflowpro_gateway-comment' => 'Comentário',
 	'payflowpro_gateway-first' => 'Primeiro',
 	'payflowpro_gateway-last' => 'Último',
+	'payflowpro_gateway-other' => 'Outro',
 	'payflowpro_gateway-noscript-msg' => 'Aparentemente o JavaScript não está ativo, ou o seu navegador não suporta JavaScript.
 O nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'português (pt)
@@ -5572,6 +5579,9 @@ $messages['sah'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'каартатын болдьоҕо',
 	'payflowpro_gateway-error-msg-cvv' => 'каарта кэннинээҕи CVV куода',
 	'payflowpro_gateway-error-msg-captcha' => 'Captcha алҕастаах киллэриллибит. Өссө боруобалаа.',
+	'payflowpro_gateway-first' => 'Бастакы',
+	'payflowpro_gateway-last' => 'Бүтэһик',
+	'payflowpro_gateway-other' => 'Атын',
 );
 
 /** Sicilian (Sicilianu)
