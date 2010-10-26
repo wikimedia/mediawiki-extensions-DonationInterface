@@ -98,6 +98,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Your credit card will be securely processed.',
 	'payflowpro_gateway-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Other ways to give</a>',
 	'payflowpro_gateway-paypal' => 'Have a PayPal account? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donate with PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacy policy</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Your session has expired.  Please try filling out and submitting the form again.',
@@ -112,7 +113,9 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-noscript-msg' => 'It appears that you do not have JavaScript enabled, or your browser does not support it.
 In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:',
-	'payflowpro_gateway-anon-message' => 'Please list my name on the public donor list.'
+	'payflowpro_gateway-anon-message' => 'Please list my name on the public donor list.',
+	'payflowpro_gateway-donate-wikipedia' => 'Donate on Wikipedia',
+	'payflowpro_gateway-or' => 'or'
 );
 
 /** Message documentation (Message documentation)
@@ -185,8 +188,8 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-submit-button' => '{{Identical|Donate}}',
 	'payflowpro_gateway-cc-form-header-personal' => '{{Identical|Personal information}}',
 	'payflowpro_gateway-comment' => '{{Identical|Comment}}',
-	'payflowpro_gateway-first' => 'From what Siebrand can see it means skipping to the first value in a list or something. Not 100% certain (TwoStepTwoColumn.php around lines 13-28).',
-	'payflowpro_gateway-last' => 'From what Siebrand can see it means skipping to the first/last value in a list or something. Not 100% certain (TwoStepTwoColumn.php around lines 13-28).',
+	'payflowpro_gateway-first' => "first name (without the 'name')",
+	'payflowpro_gateway-last' => "last name (without the 'name')"
 	'payflowpro_gateway-other' => '{{Identical|Other}}',
 );
 
