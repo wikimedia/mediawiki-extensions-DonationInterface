@@ -1209,6 +1209,7 @@ $messages['it'] = array(
 	'donate_interface' => 'Sostieni Wikimedia',
 	'donate_interface-intro' => 'Scegli un metodo di pagamento, importo e valuta.',
 	'donate_interface-amount' => 'Importo della donazione:',
+	'donate_interface-other-amount' => 'Altro importo',
 	'donate_interface-currency' => 'Valuta:',
 	'donate_interface-gateway' => 'Metodo di pagamento:',
 	'donate_interface-submit-button' => 'Dona',
