@@ -189,7 +189,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-cc-form-header-personal' => '{{Identical|Personal information}}',
 	'payflowpro_gateway-comment' => '{{Identical|Comment}}',
 	'payflowpro_gateway-first' => "first name (without the 'name')",
-	'payflowpro_gateway-last' => "last name (without the 'name')"
+	'payflowpro_gateway-last' => "last name (without the 'name')",
 	'payflowpro_gateway-other' => '{{Identical|Other}}',
 );
 
