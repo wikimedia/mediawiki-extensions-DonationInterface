@@ -48,8 +48,10 @@
 }
 
 #appeal {
-	background-color:#F3F3F3;
-	border-color:silver;
+	/* background-color:#F3F3F3; */
+	background-color: transparent;
+	/* border-color:silver; */
+	border-color: transparent;
 	border-style:solid;
 	border-width:1px 0 1px 1px;
 	padding:16px 24px 24px;
@@ -81,6 +83,18 @@
 #donate-body {
 	font-size:1.125em;
 	margin-bottom:1em;
+}
+
+/* Hiding content border */
+table {
+	background-color: transparent;
+}
+div#content {
+	background-color: transparent !important;
+	background-image: none !important;
+}
+div#mw-head-base {
+	background-image: none !important;
 }
 
 /* Hiding stuff we don't need */
