@@ -664,6 +664,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-question-comment' => 'Маеце пытаньні альбо камэнтары? Зьвяртайцеся на <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Вашая крэдытная картка будзе бясьпечна апрацаваная.',
 	'payflowpro_gateway-otherways' => 'Існуюць <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя спосабы зрабіць ахвяраваньне, уключаючы PayPal, чэк ці паштовы перавод</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Іншыя спосабы ахвяраваць</a>',
 	'payflowpro_gateway-paypal' => 'Маеце рахунак у PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Ахвяраваць праз PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Мы не захоўваем інфармацыю пра Вашыя крэдытныя карткі, а Вашыя асабістыя зьвесткі знаходзяцца пад абаронай нашай <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">палітыкі прыватнасьці</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Вашая сэсія скончылася. Калі ласка, паспрабуйце запоўніць і адправіць форму яшчэ раз.',
@@ -679,6 +680,8 @@ $messages['be-tarask'] = array(
 Каб рабіць ахвяраваньне бясьпечным і зручным, нашая форма ахвяраваньня патрабуе JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Калі Вы ня можаце альбо не жадаеце ўключыць JavaScript, Вы можаце зрабіць ахвяраваньне наведаўшы:',
 	'payflowpro_gateway-anon-message' => 'Калі ласка, унясіце маё імя ў публічны сьпіс ахвяравальнікаў.',
+	'payflowpro_gateway-donate-wikipedia' => 'Ахвяраваць на Вікіпэдыю',
+	'payflowpro_gateway-or' => 'ці',
 );
 
 /** Bulgarian (Български)
@@ -903,6 +906,8 @@ A-wezhioù emañ ar c'hod war tu kleiz ar gartenn met atav emañ a-us d'an niver
 A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant JavaScript.",
 	'payflowpro_gateway-noscript-redirect-msg' => "Ma ne c'helloc'h ket pe ma n'ho peus ket c'hoant gweredekañ JavaScript, gallout a rit kemer perzh en ur gweladenniñ:",
 	'payflowpro_gateway-anon-message' => 'Embannit ma anv war roll foran ar vadoberourien',
+	'payflowpro_gateway-donate-wikipedia' => 'Ober un donezon war Wikipedia',
+	'payflowpro_gateway-or' => 'pe',
 );
 
 /** Bosnian (Bosanski)
@@ -992,6 +997,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'payflowpro_gateway-question-comment' => 'Pitanja ili komentari? Kontaktirajte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Vaša kreditna kartica će biti sigurno obrađena.',
 	'payflowpro_gateway-otherways' => 'Ovdje su <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini da donirate, uključujući PayPal, ček ili mail</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Drugi načini za doniranje</a>',
 	'payflowpro_gateway-paypal' => 'Imate li PayPal račun? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donirajte putem PayPal-a</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su zaštićeni našim <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">pravilima o privatnosti</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.',
@@ -1007,6 +1013,8 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacije zahtjeva JavaScriptu.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Ako ne možete ili ne želite omogućiti JavaScript, ipak možete doprinijeti posjetom na:',
 	'payflowpro_gateway-anon-message' => 'Molim navedite moje ime na javnom spisku donatora.',
+	'payflowpro_gateway-donate-wikipedia' => 'Donirajte na Wikipediji',
+	'payflowpro_gateway-or' => 'ili',
 );
 
 /** Catalan (Català)
@@ -1387,7 +1395,7 @@ Bitte nimm mit uns Kontakt auf, um deine Transaktion abzuschließen.',
 	'payflowpro_gateway-response-24' => 'Deine Kreditkartennummer oder das Ablaufdatum ist falsch.',
 	'payflowpro_gateway-response-112' => 'Deine Anschrift oder der Sicherheitscode (CVV) ist falsch.',
 	'payflowpro_gateway-response-125' => 'Deine Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
-	'payflowpro_gateway-response-125-2' => 'Deine Kreditkarte kann nicht geprüft werden. Bitte bestätige, dass alle Informationen mit deinem Kreditkartenprofil übereinstimmen oder versuche es mit einer anderen Karte. Du kannst auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
+	'payflowpro_gateway-response-125-2' => 'Deine Kreditkarte kann nicht geprüft werden. Bitte bestätige, dass alle Informationen mit deinem Kreditkartenprofil übereinstimmen oder versuche es mit einer anderen Karte. Du kannst auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten (englisch)</a> ausprobieren oder kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
 	'payflowpro_gateway-response-default' => 'Es ist ein Verarbeitungsfehler aufgetreten.
 Bitte versuche es später noch einmal.',
 	'php-response-declined' => 'Deine Transaktion konnte nicht akzeptiert werden.',
@@ -1404,7 +1412,8 @@ In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch
 </p><br />',
 	'payflowpro_gateway-question-comment' => 'Fragen oder Kommentare? Kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Deine Kreditkarteninformationen werden gesichert verarbeitet.',
-	'payflowpro_gateway-otherways' => 'Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">andere Wege zum Spenden, inklusive PayPal oder Überweisung</a>.',
+	'payflowpro_gateway-otherways' => 'Es gibt auch <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">andere Spendemöglichkeiten, inklusive PayPal oder Überweisung</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Andere Spendemöglichkeiten (englisch)</a>',
 	'payflowpro_gateway-paypal' => 'Verfügst du über ein PayPal-Konto? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Spende per PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Wir speichern deine Kreditkarteninformationen nicht. Zudem unterliegen deine persönlichen Daten unseren <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Datenschutzbestimmungen (englisch)</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Deine Sitzung ist inzwischen abgelaufen. Bitte fülle das Formular erneut aus und sende es nochmals ab.',
@@ -1420,6 +1429,8 @@ In manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch
 Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf unser Spendenformular JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Sofern du JavaSkript nicht aktivieren kannst oder möchtest, kannst du immer noch Spenden indem du die folgende Webseite aufrufst:',
 	'payflowpro_gateway-anon-message' => 'Bitte meinen Namen in die öffentliche Spenderliste aufnehmen.',
+	'payflowpro_gateway-donate-wikipedia' => 'Spenden auf Wikipedia',
+	'payflowpro_gateway-or' => 'oder',
 );
 
 /** German (formal address) (Deutsch (Sie-Form))
@@ -2262,6 +2273,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 
 /** French (Français)
  * @author Cedric31
+ * @author Crochet.david
  * @author Grondin
  * @author IAlex
  * @author Peter17
@@ -2352,6 +2364,7 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'payflowpro_gateway-question-comment' => 'Questions ou commentaires ? Contact : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Votre carte de crédit sera prise en charge de manière sécurisée.',
 	'payflowpro_gateway-otherways' => 'Il y a <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’autres moyens de donner, notamment par PayPal, par chèque ou par courrier postal</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Autres façons de donner</a>',
 	'payflowpro_gateway-paypal' => 'Vous avez un compte PayPal ? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donnez avec PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nous ne stockons pas vos informations de carte de crédit et vos données personnelles sont soumises à notre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politique de confidentialité</a> .',
 	'payflowpro_gateway-token-mismatch' => 'Votre session a expiré. Veuillez essayer de remplir et d’envoyer à nouveau le formulaire.',
@@ -2367,6 +2380,8 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 Pour vous fournir une expérience sûre, sécurisée et agréable, notre formulaire de don nécessite JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Si vous ne pouvez pas ou ne voulez pas activer JavaScript, vous pouvez toujours contribuer en visitant :',
 	'payflowpro_gateway-anon-message' => 'Veuillez mentionner mon nom dans la liste publique des donateurs.',
+	'payflowpro_gateway-donate-wikipedia' => 'Faire un don sur Wikipédia',
+	'payflowpro_gateway-or' => 'ou',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2547,6 +2562,7 @@ Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, per
 	'payflowpro_gateway-question-comment' => 'Tes algunha pregunta ou comentario? Ponte en contacto: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'A información da túa tarxeta de crédito procesarase de xeito seguro.',
 	'payflowpro_gateway-otherways' => 'Existen outros <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">xeitos de doar, incluíndo o PayPal, os cheques ou o correo postal</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Outros xeitos de doar</a>',
 	'payflowpro_gateway-paypal' => 'Tes unha conta no PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Doa mediante o PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Non gardamos información da túa tarxeta de crédito, e os teus datos persoais están suxeitos á nosa <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de protección de datos</a>.',
 	'payflowpro_gateway-token-mismatch' => 'A súa sesión caducou. Intente encher e enviar o formulario de novo.',
@@ -2562,6 +2578,8 @@ Nalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, per
 Para proporcionarche unha experiencia segura e agradable, o noso formulario de doazóns necesita JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Se non podes ou queres activar o JavaScript, tamén podes contribuír visitando:',
 	'payflowpro_gateway-anon-message' => 'Poñede o meu nome na lista pública de doantes.',
+	'payflowpro_gateway-donate-wikipedia' => 'Doar á Wikipedia',
+	'payflowpro_gateway-or' => 'ou',
 );
 
 /** Swiss German (Alemannisch)
@@ -2651,6 +2669,7 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'payflowpro_gateway-question-comment' => 'Froge oder Kommentar? E-Mail-Kontakt: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Dyyni Kreditcharteninformatione wäre gsicheret verarbeitet.',
 	'payflowpro_gateway-otherways' => 'S git au <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">anderi Wäg zum Spände, inklusive PayPal, Scheck oder Iberwyysig</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Anderi Spändemegligkeite</a>',
 	'payflowpro_gateway-paypal' => 'Hesch du ne PayPal-Konto? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Spände iber PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Mir spyychere Dyyni Kreditcharteninformatione nit, un Dyy persenligi Date unterlige unsere <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Dateschutzbstimmige</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Dyy Sitzig isch abglofe. Bitte fill s Formular nomol uus un schick s nomol ab.',
@@ -2666,6 +2685,8 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Wänn Du JavaSkript nit aktiviere chasch oder witt, chasch au spände iber die Websyte:',
 	'payflowpro_gateway-anon-message' => 'Bitte myy Name in di effetli Spänderlischt ufneh.',
+	'payflowpro_gateway-donate-wikipedia' => 'Spände uf Wikipedia',
+	'payflowpro_gateway-or' => 'oder',
 );
 
 /** Hebrew (עברית)
@@ -3143,6 +3164,7 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'payflowpro_gateway-question-comment' => 'Questiones o commentos? Contacta: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Le informationes de tu carta de credito essera tractate de modo secur.',
 	'payflowpro_gateway-otherways' => 'Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere modos de donar, como PayPal, cheque o posta</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Altere modos de donation</a>',
 	'payflowpro_gateway-paypal' => 'Ha un conto de PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donar con PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Nos non retene le informationes de tu carta de credito, e tu datos personal es subjecte a nostre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politica de confidentialitate</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Tu session ha expirate. Per favor tenta completar e submitter le formulario de novo.',
@@ -3158,6 +3180,8 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 Pro poter fornir un experientia secur e agradabile, nostre formulario de donation require JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Si tu non pote o non vole activar JavaScript, tu pote totevia contribuer si tu visita:',
 	'payflowpro_gateway-anon-message' => 'Per favor mentiona mi nomine in le lista public de donatores.',
+	'payflowpro_gateway-donate-wikipedia' => 'Donar sur Wikipedia',
+	'payflowpro_gateway-or' => 'o',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -4041,6 +4065,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-question-comment' => 'Имате некои прашања или примедби? Обратете ни се на: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Вашата кредитна картичка ќе биде безбедно обработена.',
 	'payflowpro_gateway-otherways' => 'Постојат <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">и други начини на дарување како PayPal, со чек или по пошта</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Други начини на дарување</a>',
 	'payflowpro_gateway-paypal' => 'Имате сметка на PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Донирајте со PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од кредитните картички, а вашите лични податоци подложат на нашите <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">правилата за приватност</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.',
@@ -4056,6 +4081,8 @@ $messages['mk'] = array(
 Нашиот образец за донирање бара JavaScript со цел да Ви обезбедиме сигурно, безбедно и пријатно искуство.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Ако не можете или не сакате да овозможите JavaScript, можете сепак да придонесете посетувајќи ја страницата:',
 	'payflowpro_gateway-anon-message' => 'Наведете ме во јавниот список на дарители.',
+	'payflowpro_gateway-donate-wikipedia' => 'Донирајте на Википедија',
+	'payflowpro_gateway-or' => 'или',
 );
 
 /** Malayalam (മലയാളം)
@@ -4428,6 +4455,7 @@ In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staa
 	'payflowpro_gateway-question-comment' => 'Vragen of opmerkingen? Neem dan contact op met <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Uw creditcardinfomatie wordt beveiligd verwerkt.',
 	'payflowpro_gateway-otherways' => 'Er zijn <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere manieren om te doneren, inclusief PayPal, cheque of per post</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/nl">Andere manieren om te geven</a>',
 	'payflowpro_gateway-paypal' => 'Hebt u een PayPal-rekening? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Doneer via PayPal</a> .',
 	'payflowpro_gateway-credit-storage-processing' => 'We slaan uw creditkaartgegevens niet op en uw persoonlijke gegevens vallen onder ons <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacybeleid</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Uw sessie is verlopen. Vul het formulier opnieuw in en sla het daarna op.',
@@ -4443,6 +4471,8 @@ In sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staa
 Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Als u JavaScript niet kunt of wilt inschakelen, dan kunt u nog steeds bijdragen door op de volgende verwijzing te klikken:',
 	'payflowpro_gateway-anon-message' => 'Mijn naam mag zichtbaar zijn op de publieke lijst met donoren.',
+	'payflowpro_gateway-donate-wikipedia' => 'Doneren aan Wikipedia',
+	'payflowpro_gateway-or' => 'of',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -4575,6 +4605,7 @@ I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid ove
 	'payflowpro_gateway-question-comment' => 'Spørsmål eller kommentarer? Kontakt: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Ditt kredittkort vil bli sikkert behandlet.',
 	'payflowpro_gateway-otherways' => 'Det finnes <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb">andre måter å gi på, inklusive PayPal, sjekk eller post</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Andre måter å gi</a>',
 	'payflowpro_gateway-paypal' => 'Har du en PayPal-konto? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Doner med PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Vi lagrer ikke din kredittkortinformasjon, og persondata er underlagt våre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">retningslinjer for personvern</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Økten din har utløpt. Prøv å fylle ut og sende inn skjemaet på nytt.',
@@ -4590,6 +4621,8 @@ I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid ove
 For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Hvis du ikke kan eller ikke ønsker å aktivere JavaScript kan du fortsatt bidra ved å besøke:',
 	'payflowpro_gateway-anon-message' => 'Vennligst list opp navnet mitt på den offentlige donorlisten.',
+	'payflowpro_gateway-donate-wikipedia' => 'Doner på Wikipedia',
+	'payflowpro_gateway-or' => 'eller',
 );
 
 /** Occitan (Occitan)
@@ -5036,6 +5069,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'payflowpro_gateway-question-comment' => 'Tem perguntas ou comentários? Contacte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'O seu cartão de crédito será processado de forma segura.',
 	'payflowpro_gateway-otherways' => 'Pode <a href="http://wikimediafoundation.org/wiki/Coleta_de_fundos">fazer um donativo por outras vias, incluindo por PayPal, cheque, ou correio</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Outras formas de contribuir</a>',
 	'payflowpro_gateway-paypal' => 'Tem uma conta PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donativos através do PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Não armazenamos informação do seu cartão de crédito e os seus dados particulares estão sujeitos à nossa <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">política de privacidade</a>.',
 	'payflowpro_gateway-token-mismatch' => 'A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.',
@@ -5051,6 +5085,8 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 O nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Se não pode ou não deseja activar o JavaScript, mesmo assim pode contribuir acedendo a:',
 	'payflowpro_gateway-anon-message' => 'Por favor, coloque o meu nome na lista pública de benfeitores.',
+	'payflowpro_gateway-donate-wikipedia' => 'Faça um donativo na Wikipédia',
+	'payflowpro_gateway-or' => 'ou',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
@@ -5429,6 +5465,7 @@ $messages['ru'] = array(
 	'payflowpro_gateway-question-comment' => 'Имеются вопросы, замечания? Обращайтесь <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Информация по вашей кредитной карте будет обработана в защищённом режиме.',
 	'payflowpro_gateway-otherways' => 'Есть <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">другие способы сделать пожертвование</a>, в том числе через PayPal, чек, почту.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Другие способы сделать пожертвование</a>',
 	'payflowpro_gateway-paypal' => 'Зарегистрированы в PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Пожертвовать через PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Мы не храним сведений о вашей кредитной карте, в отношении ваших личных данных действует <a href="http://wikimediafoundation.org/wiki/Политика_конфиденциальности_жертвователей">политика конфиденциальности</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Ваш сеанс истёк. Пожалуйста, заполните форму ещё раз.',
@@ -5444,6 +5481,8 @@ $messages['ru'] = array(
 В целях обеспечения безопасного, надежного и удобного функционирования, нашей форме пожертвований требуется JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Если вы не можете или не хотите включать JavaScript, вы все равно можете внести свой вклад, посетив:',
 	'payflowpro_gateway-anon-message' => 'Пожалуйста, укажите моё имя в общедоступном списке жертвователей.',
+	'payflowpro_gateway-donate-wikipedia' => 'Пожертвовать на Википедию',
+	'payflowpro_gateway-or' => 'или',
 );
 
 /** Rusyn (Русиньскый)
@@ -5872,6 +5911,7 @@ V nekaterih primerih se koda nahaja na levi strani kartice, vendar je vedno nad 
 	'payflowpro_gateway-question-comment' => 'Vprašanja ali pripombe? Stik z nami: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Vaša kreditna kartica bo varno obdelana.',
 	'payflowpro_gateway-otherways' => 'Obstajajo tudi <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini darovanja, vključno s PayPal, čekom ali pošto</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Drugi načini darovanja</a>',
 	'payflowpro_gateway-paypal' => 'Imate račun PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Prispevajte s PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Vaših podatkov o kreditni kartici ne hranimo, vaše osebne podatke pa urejamo v skladu s <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">pravilnikom o zasebnosti</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Vaša seja je potekla. Prosimo, poskusite znova izpolniti in poslati obrazec.',
@@ -5887,6 +5927,8 @@ V nekaterih primerih se koda nahaja na levi strani kartice, vendar je vedno nad 
 Da bi zagotovili varno in prijetno doživetje, naš obrazec za doniranje zahteva JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Če ne morete ali ne želite omogočiti JavaScript, lahko še vedno prispevate z obiskom:',
 	'payflowpro_gateway-anon-message' => 'Prosim, navedite moje ime na javnem seznamu donatorjev.',
+	'payflowpro_gateway-donate-wikipedia' => 'Darujte na Wikipediji',
+	'payflowpro_gateway-or' => 'ali',
 );
 
 /** Serbian Cyrillic ekavian (Српски (ћирилица))
@@ -6706,6 +6748,7 @@ $messages['uk'] = array(
 	'payflowpro_gateway-question-comment' => 'В випадку запитань та коментарів зв\'яжіться з Фондом Вікімедіа: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Інформацію по вашій кредитній картці буде оброблено в захищеному режимі.',
 	'payflowpro_gateway-otherways' => 'Є <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">інші способи зробити пожертву, включаючи PayPal, чек або поштою</a> .',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Інші шляхи для пожертв</a>',
 	'payflowpro_gateway-paypal' => 'Маєте рахунок у PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Пожертвувати через PayPal</a> .',
 	'payflowpro_gateway-credit-storage-processing' => 'Ми не зберігаємо інформацію про вашу кредитну картку, і ваші особисті дані є об\'єктом нашої <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">політики конфіденційності</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Ваша сесія закінчилася. Будь ласка, спробуйте заповнити та відправити форми знову.',
@@ -6721,6 +6764,7 @@ $messages['uk'] = array(
 З метою забезпечення безпеки, надійності і зручності, наша форма пожертвування потребує JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Якщо ви не можете або не хочете дозволити JavaScript, ви все одно можете зробити свій внесок, відвідавши:',
 	'payflowpro_gateway-anon-message' => "Будь ласка, включіть моє ім'я у відкритий список донорів",
+	'payflowpro_gateway-or' => 'або',
 );
 
 /** Vèneto (Vèneto)
@@ -6913,6 +6957,7 @@ Xin hãy thử lại vào lần sau.',
 	'payflowpro_gateway-question-comment' => 'Có thắc mắc hay gợi ý? Hãy liên lạc với Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Thẻ tín dụng của bạn sẽ được xử lý một cách an toàn.',
 	'payflowpro_gateway-otherways' => 'Cũng có <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi">những cách khác để tặng tiền, bao gồm PayPal, séc, hoặc thư</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Thêm cách để quyên góp</a>',
 	'payflowpro_gateway-paypal' => 'Có tài khoản PayPal? Hãy <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5?uselang=vi">quyên góp bằng PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Chúng tôi không lưu giữ thông tin thẻ tín dụng của bạn, và dữ liệu cá nhân của bạn được sử dụng theo <a href="http://wikimediafoundation.org/wiki/Quy_%C4%91%E1%BB%8Bnh_quy%E1%BB%81n_ri%C3%AAng_t%C6%B0?uselang=vi">quy định quyền riêng tư</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Phiên của bạn đã hết hạn. Xin hãy thử điền và nộp đơn một lần nữa.',
@@ -6928,6 +6973,8 @@ Xin hãy thử lại vào lần sau.',
 Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ chịu.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Nếu không thể hoặc không muốn bật JavaScript, bạn vẫn có thể ghé vào đây để quyên góp:',
 	'payflowpro_gateway-anon-message' => 'Xin ghi tên của tôi vào danh sách người đóng góp công cộng.',
+	'payflowpro_gateway-donate-wikipedia' => 'Quyên góp trên Wikipedia',
+	'payflowpro_gateway-or' => 'hoặc',
 );
 
 /** Volapük (Volapük)
