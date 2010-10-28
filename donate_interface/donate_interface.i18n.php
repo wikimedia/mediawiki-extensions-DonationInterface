@@ -1543,6 +1543,45 @@ $messages['ml'] = array(
 	'donate_interface-ILS' => 'ILS: ഇസ്രയേലി ഷെക്കെൽ',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Diagramma Della Verita
+ */
+$messages['ms'] = array(
+	'donate_interface' => 'Sokonglah Wikimedia',
+	'donate_interface-desc' => "Laman sumbangan yang diintegerasikan degan ''gateway extension''",
+	'donate_interface-intro' => 'Sila pilih kaedah pembayaran, jumlah dan mata wang.',
+	'donate_interface-amount' => 'Jumlah derma:',
+	'donate_interface-other-amount' => 'Jumlah lain',
+	'donate_interface-currency' => 'Mata wang:',
+	'donate_interface-gateway' => 'Kaedah pembayaran:',
+	'donate_interface-submit-button' => 'Derma',
+	'donate_interface-comment-message' => 'Adakah anda mempunyai pandangan untuk berkongsi dengan sedunia? Hantarkannya dengan tidak melebihi 200 aksara:',
+	'donate_interface-comment-label' => 'Komen:',
+	'donate_interface-anon-message' => 'Letakkan nama saya (di sebelah komen) dalam senarai penderma umum.',
+	'donate_interface-email-agreement' => 'Saya setuju untuk menerima warkah atau e-mail daripada Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Komen umum',
+	'donate_interface-amount-error' => '**Sila masukkan jumlah yang sah**',
+	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda. 
+Sila kembali ke laman terdahulu.',
+	'donate_interface-GBP' => 'GBP: Pound Britain',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dolar Amerika',
+	'donate_interface-AUD' => 'AUS: Dolar Australia',
+	'donate_interface-CAD' => 'CAD: Dolar Kanada',
+	'donate_interface-CHF' => 'CHF: Swiss Franc',
+	'donate_interface-CZK' => 'CZK: Koruna Czech',
+	'donate_interface-DKK' => 'DKK: Danish Krone',
+	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
+	'donate_interface-HUF' => 'HUF: Forint Hungary',
+	'donate_interface-JPY' => 'JPY: Yen Jepun',
+	'donate_interface-NZD' => 'NZD: Dolar New Zealand',
+	'donate_interface-NOK' => 'NOK: Krone Norway',
+	'donate_interface-PLN' => 'PLN: Zloty Poland',
+	'donate_interface-SGD' => 'SGD: Dolar Singapura',
+	'donate_interface-SEK' => 'SEK: Krona Sweden',
+	'donate_interface-ILS' => 'ILS: Shekel Israel',
+);
+
 /** Maltese (Malti)
  * @author Chrisportelli
  */
