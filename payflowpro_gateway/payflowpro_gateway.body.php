@@ -862,7 +862,7 @@ EOT;
 	public static function fnPayflowEditToken( $salt='' ) {
 		
 		// make sure we have a session open for tracking a CSRF-prevention token
-		$this->fnPayflowEnsureSession();
+		self::fnPayflowEnsureSession();
 		
 		if ( !isset( $_SESSION[ 'payflowEditToken' ] )) {
 			//generate unsalted token to place in the session
@@ -918,7 +918,7 @@ EOT;
 	 * If we do not have a session set for the current user, 
 	 * start the session.
 	 */
-	public function fnPayflowEnsureSession() {
+	public static function fnPayflowEnsureSession() {
 		// if the session is already started, do nothing
 		if ( session_id() ) return;
 
