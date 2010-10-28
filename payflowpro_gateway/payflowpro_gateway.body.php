@@ -122,9 +122,6 @@ EOT;
 		} else {
 			$cache = false;
 			
-			// make sure we have a session open for tracking a CSRF-prevention token
-			$this->fnPayflowEnsureSession();
-					
 			// establish the edit token to prevent csrf
 			$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
 
@@ -138,18 +135,19 @@ EOT;
 		// Populate form data
 		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
 		
+		/**
+		 *  handle PayPal redirection 
+		 *  
+		 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
+		 *  and the PaypalRedirect form value must be true
+		 */
+		if ( $wgRequest->getBool( 'PaypalRedirect' )) {
+			$this->paypalRedirect( $data );
+			return;
+		}
+		
 		// dispatch forms/handling
 		if( $token_match ) {
-			/**
-			 *  handle PayPal redirection 
-			 *  
-			 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
-			 *  and the PaypalRedirect form value must be true
-			 */
-			if ( $wgRequest->getBool( 'PaypalRedirect' )) {
-				$this->paypalRedirect( $data );
-				return;
-			}
 			
 			if( $data['payment_method'] == 'processed' ) {
 				//increase the count of attempts
@@ -862,6 +860,10 @@ EOT;
 	 * @return string
 	 */
 	public static function fnPayflowEditToken( $salt='' ) {
+		
+		// make sure we have a session open for tracking a CSRF-prevention token
+		$this->fnPayflowEnsureSession();
+		
 		if ( !isset( $_SESSION[ 'payflowEditToken' ] )) {
 			//generate unsalted token to place in the session
 			$token = self::fnPayflowGenerateToken();
