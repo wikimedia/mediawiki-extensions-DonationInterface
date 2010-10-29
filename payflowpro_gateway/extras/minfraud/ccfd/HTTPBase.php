@@ -20,21 +20,21 @@
  */
 
 class HTTPBase {
-  var $server;
-  var $numservers;
-  var $url;
-  var $queries;
-  var $allowed_fields;
-  var $num_allowed_fields;
-  var $outputstr;
-  var $isSecure;
-  var $timeout;
-  var $debug;
-  var $check_field;
-  var $wsIpaddrRefreshTimeout;
-  var $wsIpaddrCacheFile;
-  var $useDNS;
-  var $ipstr;
+	var $server;
+	var $numservers;
+	var $url;
+	var $queries;
+	var $allowed_fields;
+	var $num_allowed_fields;
+	var $outputstr;
+	var $isSecure;
+	var $timeout;
+	var $debug;
+	var $check_field;
+	var $wsIpaddrRefreshTimeout;
+	var $wsIpaddrCacheFile;
+	var $useDNS;
+	var $ipstr;
   function __construct() {
     $this->isSecure = 0;
     $this->debug = 0;
@@ -51,7 +51,7 @@ class HTTPBase {
 
   // this function sets the checked field
   function set_check_field( $f ) {
-    $check_field = $f;
+    $this->check_field = $f;
   }
 
   // this function sets the allowed fields
@@ -344,7 +344,7 @@ class HTTPBase {
         $url3 = parse_url( $url );
         $host = $url3["host"];
         $path = $url3["path"];
-	$query =  $url3["query"];
+		$query =  $url3["query"];
 
         // open the connection
         $fp = fsockopen ( $host, 80, $errno, $errstr, $this->timeout );

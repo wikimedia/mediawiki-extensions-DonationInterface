@@ -60,7 +60,7 @@ function efDonateRender( $input, $args, $parser ) {
 
 	if ( !$formProcessed ) {
 	  // process form
-  	wfRunHooks( 'DonationInterface_DisplayForm' );
+  	    wfRunHooks( 'DonationInterface_DisplayForm' );
 		$formProcessed = true;
 	}
 
@@ -89,13 +89,13 @@ function fnDonateCreateOutput() {
 	$url = $wgRequest->getRequestURL();
 
 	if ( $url ) {
-	$getLang = explode( '/', $url );
-	$language = substr( $getLang[3], 0, 2 );
+		$getLang = explode( '/', $url );
+		$language = substr( $getLang[3], 0, 2 );
 	}
 
 	// error check and set "en" as default
 	if ( !preg_match( '/^[a-z-]+$/', $language ) ) {
-	$language = 'en';
+		$language = 'en';
 	}
 
 	// get payment method gateway value and name from each gateway and create menu of options
@@ -105,7 +105,7 @@ function fnDonateCreateOutput() {
 	$gatewayMenu = '';
 
 	foreach ( $values as $current ) {
-	$gatewayMenu .= Xml::option( $current['display_name'], $current['form_value'] );
+		$gatewayMenu .= Xml::option( $current['display_name'], $current['form_value'] );
 	}
 
     // get available currencies
@@ -113,9 +113,9 @@ function fnDonateCreateOutput() {
 	$currencies = array( 'USD' => "USD: U.S. Dollar" );
 	// FIXME: It uses the currencies of the last gateway to be loaded. It should probably use the union of currencies, (currencies allowed by any gateway).
     foreach ( $values as $key ) {
-      if ( isset( $key['currencies'] ) ) {
-        $currencies = $key['currencies'];
-      }
+		if ( isset( $key['currencies'] ) ) {
+			$currencies = $key['currencies'];
+		}
     }
 
 	$currencyMenu = '';
@@ -156,15 +156,15 @@ function fnDonateCreateOutput() {
 
 	$currency_options = '';
     foreach ( $currencies as $code => $name ) {
-      $selected = '';
-        if ( $code == $default_currency ) {
-          $selected = ' selected="selected"';
-        }
-      $currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
+		$selected = '';
+		if ( $code == $default_currency ) {
+			$selected = ' selected="selected"';
+		}
+		$currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
     }
 
 	$currencyFields = Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" ) ) .
-              $currency_options .
+            $currency_options .
               Xml::closeElement( 'select' );
 
 	$output .= Xml::fieldset( wfMsg( 'donate_interface-currency' ), $currencyFields,  array( 'class' => "mw-donation-currency" ) );

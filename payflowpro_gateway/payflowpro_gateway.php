@@ -125,21 +125,21 @@ $wgAPIModules[ 'pfp' ] = 'ApiPayflowProGateway';
 $wgAutoloadClasses[ 'ApiPayflowProGateway' ] = $dir . 'api_payflowpro_gateway.php';
 
 function payflowGatewayConnection() {
-        global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
-        global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
+	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
+	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
 
-        static $db;
+	static $db;
 
-        if ( !$db ) {
-                $db = new DatabaseMysql(
-                        $wgPayflowGatewayDBserver,
-                        $wgPayflowGatewayDBuser,
-                        $wgPayflowGatewayDBpassword,
-                        $wgPayflowGatewayDBname );
-                        $db->query( "SET names utf8" );
-        }
+	if ( !$db ) {
+			$db = new DatabaseMysql(
+					$wgPayflowGatewayDBserver,
+					$wgPayflowGatewayDBuser,
+					$wgPayflowGatewayDBpassword,
+					$wgPayflowGatewayDBname );
+					$db->query( "SET names utf8" );
+	}
 
-        return $db;
+	return $db;
 }
 
 /**
@@ -147,22 +147,21 @@ function payflowGatewayConnection() {
  * also supplies currencies supported by this gateway
  */
 function pfpGatewayValue( &$values ) {
+	$values['payflow'] = array(
+			'gateway' => 'payflow',
+			'display_name' => 'Credit Card',
+			'form_value' => 'payflow',
+			'currencies' => array(
+					'GBP' => 'GBP: British Pound',
+					'EUR' => 'EUR: Euro',
+					'USD' => 'USD: U.S. Dollar',
+					'AUD' => 'AUD: Australian Dollar',
+					'CAD' => 'CAD: Canadian Dollar',
+					'JPY' => 'JPY: Japanese Yen',
+			),
+	);
 
-        $values['payflow'] = array(
-                'gateway' => 'payflow',
-                'display_name' => 'Credit Card',
-                'form_value' => 'payflow',
-                'currencies' => array(
-                        'GBP' => 'GBP: British Pound',
-                        'EUR' => 'EUR: Euro',
-                        'USD' => 'USD: U.S. Dollar',
-                        'AUD' => 'AUD: Australian Dollar',
-                        'CAD' => 'CAD: Canadian Dollar',
-                        'JPY' => 'JPY: Japanese Yen',
-                ),
-        );
-
-        return true;
+	return true;
 }
 
 /**
@@ -173,15 +172,8 @@ function pfpGatewayValue( &$values ) {
  * the result might look like this: http://www.yourdomain.com/index.php?title=Special:PayflowPro&amount=75.00&currency_code=USD&payment_method=payflow
  */
 function pfpGatewayPage( &$url ) {
-        global $wgScript;
+	global $wgScript;
 
-        $url['payflow'] = $wgScript . "?title=Special:PayflowProGateway";
-        return true;
-}
-
-// Add JQuery
-$wgHooks['BeforePageDisplay'][] = 'pfpAddJQuery';
-function pfpAddJQuery( $out, $sk ) {
-        $out->includeJQuery();
-        return true;
+	$url['payflow'] = $wgScript . "?title=Special:PayflowProGateway";
+	return true;
 }
