@@ -1168,7 +1168,7 @@ EOT;
 	 *  This would make this a lot less hack-ish
 	 */
 	public function paypalRedirect( &$data ) {
-		global $wgOut, $wgPayflowGatewayPaypalURL;
+		global $wgPayflowGatewayPaypalURL;
 		
 		// if we don't have a URL enabled throw a graceful error to the user		
 		if ( !strlen( $wgPayflowGatewayPaypalURL )) {
@@ -1187,15 +1187,14 @@ EOT;
 		$this->updateContributionTracking( $data, true );
 		
 		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
-		
-		$output = '<form method="post" name="paypalredirect" action="' . $wgPayflowGatewayPaypalURL . '">';
-		foreach ( $data as $key => $value ) {
-			$output .= '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '" />';
-		}
-		
-		$wgOut->addHTML( $output );
 
-		// Automatically post the form if the user has Javascript support
-		$wgOut->addHTML( '<script type="text/javascript">document.paypalredirect.submit();</script>' );
+		// submit the data to the paypal redirect URL
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
+		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
+		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+		$result = curl_exec( $ch );
+		curl_close( $ch );
+
 	}
 } // end class
