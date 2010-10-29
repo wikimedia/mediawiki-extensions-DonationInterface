@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-require_once ("HTTPBase.php");
+require_once ( "HTTPBase.php" );
 class CreditCardFraudDetection extends HTTPBase {
   var $server;
   var $numservers;
@@ -29,7 +29,7 @@ class CreditCardFraudDetection extends HTTPBase {
     parent::__construct();
 	$this->isSecure = 1;    // use HTTPS by default
 
-    //set the allowed_fields hash
+    // set the allowed_fields hash
     $this->allowed_fields["i"] = 1;
     $this->allowed_fields["domain"] = 1;
     $this->allowed_fields["city"] = 1;
@@ -57,24 +57,24 @@ class CreditCardFraudDetection extends HTTPBase {
     $this->allowed_fields["accept_language"] = 1;
 
 
-    $this->num_allowed_fields = count($this->allowed_fields);
+    $this->num_allowed_fields = count( $this->allowed_fields );
 
-    //set the url of the web service
+    // set the url of the web service
     $this->url = "app/ccv2r";
     $this->check_field = "score";
-    $this->server = array("minfraud3.maxmind.com", "minfraud1.maxmind.com", "minfraud2.maxmind.com");
-    $this->numservers = count($this->server);
+    $this->server = array( "minfraud3.maxmind.com", "minfraud1.maxmind.com", "minfraud2.maxmind.com" );
+    $this->numservers = count( $this->server );
     $this->API_VERSION = 'PHP/1.49';
   }
 
-  function filter_field($key, $value) {
-    if ($key == 'emailMD5'){
-      if (preg_match('/@/',$value)){
-	return md5(strtolower($value));
+  function filter_field( $key, $value ) {
+    if ( $key == 'emailMD5' ) {
+      if ( preg_match( '/@/', $value ) ) {
+	return md5( strtolower( $value ) );
       }
-    } else if ($key == 'usernameMD5' || $key == 'passwordMD5') {
-      if (strlen($value) != 32) {
-	return md5(strtolower($value));
+    } else if ( $key == 'usernameMD5' || $key == 'passwordMD5' ) {
+      if ( strlen( $value ) != 32 ) {
+	return md5( strtolower( $value ) );
       }
     }
     return $value;

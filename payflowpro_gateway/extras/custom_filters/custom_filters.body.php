@@ -4,14 +4,14 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	/**
 	 * A value for tracking the 'riskiness' of a transaction
 	 *
-	 * The action to take based on a transaction's riskScore is determined by 
+	 * The action to take based on a transaction's riskScore is determined by
 	 * $action_ranges.  This is built assuming a range of possible risk scores
 	 * as 0-100, although you can probably bend this as needed.
 	 * @var public int
 	 */
 	public $risk_score;
 
-	/** 
+	/**
 	 * Define the action to take for a given $risk_score
 	 * @var public array
 	 */
@@ -45,8 +45,8 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 
 		// load user action ranges and risk score
 		global $wgPayflowGatewayCustomFiltersActionRanges, $wgPayflowGatewayCustomFiltersRiskScore;
-		if ( isset( $wgPayflowGatewayCustomFiltersActionRanges )) $this->action_ranges = $wgPayflowGatewayCustomFiltersActionRanges;
-		if ( isset( $wgPayflowGatewayCustomFiltersRiskScore )) $this->risk_score = $wgPayflowGatewayCustomFiltersRiskScore;
+		if ( isset( $wgPayflowGatewayCustomFiltersActionRanges ) ) $this->action_ranges = $wgPayflowGatewayCustomFiltersActionRanges;
+		if ( isset( $wgPayflowGatewayCustomFiltersRiskScore ) ) $this->risk_score = $wgPayflowGatewayCustomFiltersRiskScore;
 	}
 
 	/**
@@ -59,8 +59,8 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 		if ( $this->risk_score < 0 ) $this->risk_score = 0;
 		if ( $this->risk_score > 100 ) $this->risk_score = 100;
 
-		foreach ( $this->action_ranges as $action => $range ) { 
-		    if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) { 
+		foreach ( $this->action_ranges as $action => $range ) {
+		    if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
 				return $action;
 			}
 		}
@@ -71,10 +71,10 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	 */
 	public function validate() {
 		// expose a hook for custom filters
-		wfRunHooks( 'PayflowGatewayCustomFilter', array( &$this ));
+		wfRunHooks( 'PayflowGatewayCustomFilter', array( &$this ) );
 		$this->gateway_object->action = $this->determineAction();
 
-		$log_msg = '"' . $this->gateway_object->action . "\"\t\"" . $this->risk_score . "\""; 
+		$log_msg = '"' . $this->gateway_object->action . "\"\t\"" . $this->risk_score . "\"";
 		$this->log( $this->gateway_data['contribution_tracking_id'], 'Filtered', $log_msg );
 		return TRUE;
 	}

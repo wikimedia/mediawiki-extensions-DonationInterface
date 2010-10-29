@@ -7,7 +7,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
-		if ( !strlen( $this->getStylePath())) {
+		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css' );
 		}
 
@@ -20,33 +20,33 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
 		$form = parent::generateBannerHeader();
-		
-		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0));
+
+		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0 ) );
 		$form .= Xml::openElement( 'tr' );
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
-		
+
 		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
 		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' )) $text_template .= '/' . $this->form_data[ 'language' ];
+		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->form_data[ 'language' ];
 
-		$template = ( strlen( $text_template )) ? $wgOut->parse( '{{'.$text_template.'}}' ) : '';
+		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . $text_template . '}}' ) : '';
 		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template )) $template = NULL;
+		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
 		$form .= $template;
-		
+
 		$form .= Xml::closeElement( 'td' );
 
 		$form .= Xml::openElement( 'td', array( 'id' => 'donate', 'valign' => 'top' ) );
-		
+
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
-		
+
 		// $form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
-			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
-			if ( is_array( $this->form_errors['general'] )) {
+			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ) );
+			if ( is_array( $this->form_errors['general'] ) ) {
 				foreach ( $this->form_errors['general'] as $this->form_errors_msg ) {
 					$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors_msg );
 				}
@@ -72,7 +72,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 
 	protected function generateBillingContainer() {
 		$form = '';
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		$form .= $this->generateBillingFields();
 		$form .= Xml::closeElement( 'table' ); // close table#payflow-table-donor
@@ -86,12 +86,12 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 
 		$form = '';
-		
+
 		if ( !$this->paypal ) {
 			// PayPal button
 			$form .= '<tr>';
-			$form .= '<td style="text-align:center;" colspan="2"><big><b>'.wfMsg( 'payflowpro_gateway-paypal-button' ).'</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/paypal.png"/></a><br/>'.
-			'— '.wfMsg( 'payflowpro_gateway-or' ).' —<br/><big><b>'.wfMsg( 'payflowpro_gateway-donate-wikipedia' ).'</b></big></td>';
+			$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'payflowpro_gateway-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a><br/>' .
+			'— ' . wfMsg( 'payflowpro_gateway-or' ) . ' —<br/><big><b>' . wfMsg( 'payflowpro_gateway-donate-wikipedia' ) . '</b></big></td>';
 			$form .= '</tr>';
 		}
 
@@ -107,14 +107,14 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		if ( !$this->paypal ) {
 			// PayPal button
 			// make sure we have a paypal url set to redirect the user to before displaying the button
-			if ( strlen( $wgPayflowGatewayPaypalURL )) {
+			if ( strlen( $wgPayflowGatewayPaypalURL ) ) {
 				$form .= '<tr>';
 				$form .= '<td class="label"></td>';
 				$form .= '<td>';
 				$form .= Html::hidden( 'PaypalRedirect', false );
 				$form .= Xml::tags( 'div',
 						array(),
-						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ))
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) )
 					);
 				$form .= '</td>';
 				$form .= '</tr>';
@@ -143,7 +143,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 			// country
 			$form .= $this->getCountryField();
 		}
-		
+
 		// anonymous
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
@@ -156,16 +156,16 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 
 		return $form;
 	}
-	
+
 	public function generateFormSubmit() {
 		// submit button
-		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ));
+		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
 		} else {
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'submit_form( this )', 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			wfMsg( 'payflowpro_gateway-donate-click' );
@@ -194,7 +194,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		$form .= Xml::closeElement( 'table' );
 		return $form;
 	}
-	
+
 	/**
 	 * Generates the donation footer ("There are other ways to give...")
 	 * @returns string of HTML
@@ -202,14 +202,14 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 	public function generateDonationFooter() {
 		global $wgScriptPath;
 		$form = '';
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));
+		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
-		$form .= Xml::tags( 'p', array( 'class' => ''), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;

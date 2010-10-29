@@ -15,14 +15,14 @@ class PayflowProGateway_Extras_CustomFilters_MinFraud extends PayflowProGateway_
 		$data =& $custom_filter_object->gateway_data;
 
 		// see if we can bypass minfraud
-       	if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data )) return TRUE;
+       	if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data ) ) return TRUE;
 
         $minfraud_query = $this->build_query( $data );
         $this->query_minfraud( $minfraud_query );
        	$pfp_gateway_object->action = 'Filter';
 
 		$custom_filter_object->risk_score += $this->minfraud_response['riskScore'];
-		
+
 		// Write the query/response to the log
 		// @fixme this will cause the 'action' to be logged even though it's premature here
 		$this->log_query( $minfraud_query, $pfp_gateway_object, $data );

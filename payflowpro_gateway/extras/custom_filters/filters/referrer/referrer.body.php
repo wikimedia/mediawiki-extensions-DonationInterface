@@ -21,7 +21,7 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 	public function filter() {
 		// pull out the referrer from the filter object
 		$referrer = $this->cfo->gateway_data['referrer'];
-	
+
 		// a very complex filtering algorithm for referrers
 		global $wgCustomFiltersRefRules;
 		foreach ( $wgCustomFiltersRefRules as $regex => $risk_score_modifier ) {
@@ -29,14 +29,14 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 			 * note that the regex pattern does NOT include delimiters.
 			 * these will need to be included in your custom regex patterns.
 			 */
-			if( preg_match( "$regex", $referrer )) {
+			if ( preg_match( "$regex", $referrer ) ) {
 				$this->cfo->risk_score += $risk_score_modifier;
-		
+
 				// log it
-				$log_msg = "\"" . addslashes($referrer) . "\"";
-				$log_msg .= "\t\"" . addslashes($regex) . "\"";
+				$log_msg = "\"" . addslashes( $referrer ) . "\"";
+				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
-				$this->log( 
+				$this->log(
 					$this->cfo->gateway_data['contribution_tracking_id'],
 					'Filter: Referrer',
 					$log_msg

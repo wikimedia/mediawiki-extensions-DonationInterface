@@ -61,7 +61,7 @@ abstract class PayflowProGateway_Form {
 		 *  using $this->setStylePath, which should be called before
 		 *  calling parent::__construct()
 		 */
-		if ( !strlen( $this->getStylePath())) {
+		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath();
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
@@ -75,7 +75,7 @@ abstract class PayflowProGateway_Form {
 	 * to the default css in css/Form.css
 	 * @param string $style_path
 	 */
-	public function setStylePath( $style_path=null ) {
+	public function setStylePath( $style_path = null ) {
 		global $wgScriptPath;
 		if ( !$style_path ) {
 			// load the default form CSS if the style path not explicitly set
@@ -99,14 +99,14 @@ abstract class PayflowProGateway_Form {
 	public function generateDonationFooter() {
 		global $wgScriptPath;
 		$form = '';
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ));
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" )));
+		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ));
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways' ) );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
-		$form .= Xml::tags( 'p', array( 'class' => ''), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;
@@ -156,7 +156,7 @@ abstract class PayflowProGateway_Form {
 				'name' => 'country',
 				'id' => 'country',
 				'onchange' => 'return disableStates( this )'
-			));
+			) );
 		$country_menu .= $country_options;
 		$country_menu .= Xml::closeElement( 'select' );
 
@@ -192,7 +192,7 @@ abstract class PayflowProGateway_Form {
 			array(
 				'name' => 'card',
 				'id' => 'card'
-			));
+			) );
 		$card_menu .= $card_options;
 		$card_menu .= Xml::closeElement( 'select' );
 
@@ -224,7 +224,7 @@ abstract class PayflowProGateway_Form {
 			array(
 				'name' => 'mos',
 				'id' => 'expiration'
-			));
+			) );
 		$expiry_month_menu .= $expiry_months;
 		$expiry_month_menu .= Xml::closeElement( 'select' );
 		return $expiry_month_menu;
@@ -251,7 +251,7 @@ abstract class PayflowProGateway_Form {
 			array(
 				'name' => 'year',
 				'id' => 'year',
-			));
+			) );
 		$expiry_year_menu .= $expiry_years;
 		$expiry_year_menu .= Xml::closeElement( 'select' );
 		return $expiry_year_menu;
@@ -281,7 +281,7 @@ abstract class PayflowProGateway_Form {
 			array(
 				'name' => 'state',
 				'id' => 'state'
-			));
+			) );
 		$state_menu .= $state_opts;
 		$state_menu .= Xml::closeElement( 'select' );
 
@@ -319,7 +319,7 @@ abstract class PayflowProGateway_Form {
 			array(
 				'name' => 'currency_code',
 				'id' => 'input_currency_code'
-			));
+			) );
 		$currency_menu .= $currency_opts;
 		$currency_menu .= Xml::closeElement( 'select' );
 
@@ -332,7 +332,7 @@ abstract class PayflowProGateway_Form {
 	 * If you pass nothing in, we'll set the fields for you.
 	 * @param array $hidden_fields
 	 */
-	public function setHiddenFields( $hidden_fields=NULL ) {
+	public function setHiddenFields( $hidden_fields = NULL ) {
 		if ( !$hidden_fields ) {
 			$hidden_fields =  array(
 				'utm_source' => $this->form_data[ 'utm_source' ],
@@ -363,7 +363,7 @@ abstract class PayflowProGateway_Form {
 	 * @return array
 	 */
 	public function getHiddenFields() {
-		if ( !isset( $this->hidden_fields )) {
+		if ( !isset( $this->hidden_fields ) ) {
 			$this->setHiddenFields();
 		}
 		return $this->hidden_fields;
@@ -376,7 +376,7 @@ abstract class PayflowProGateway_Form {
 	 * @return string The HTML to display the captcha or an empty string
 	 */
 	public function getCaptchaHTML() {
-		if ( !strlen( $this->captcha_html )) {
+		if ( !strlen( $this->captcha_html ) ) {
 			return '';
 		}
 		return $this->captcha_html;
@@ -401,7 +401,7 @@ abstract class PayflowProGateway_Form {
 		$template = '';
 
 		// intro text
-		if ( $wgRequest->getText('masthead', false)) {
+		if ( $wgRequest->getText( 'masthead', false ) ) {
 			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data[ 'language' ] . '}}' );
 		} elseif ( $wgPayflowGatewayHeader ) {
 			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
@@ -409,7 +409,7 @@ abstract class PayflowProGateway_Form {
 		}
 
 		// make sure that we actually have a matching template to display so we don't display the 'redlink'
-		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template )) {
+		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
 			$wgOut->addHtml( $template );
 		}
 	}
@@ -438,7 +438,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label(wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount') . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
 			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
 			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35 ) . '35 ' .
@@ -483,7 +483,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-security' ), 'cvv' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off') ) .
+		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off' ) ) .
 			' ' . '<a href="javascript:PopupCVV();">' . wfMsg( 'payflowpro_gateway-cvv-link' ) . '</a>' .
 			'</td>';
 		$form .= '</tr>';
@@ -544,7 +544,7 @@ abstract class PayflowProGateway_Form {
 	protected function getCommentMessageField() {
 		$form = '<tr>';
 		$form .= '<td colspan="2">';
-		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ));
+		$form .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-comment-message' ) );
 		$form .= '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -552,8 +552,8 @@ abstract class PayflowProGateway_Form {
 
 	protected function getCommentField() {
 		$form = '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg('payflowpro_gateway-comment'), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' )) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-comment' ), 'comment' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data[ 'comment' ], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' ) ) . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
@@ -575,7 +575,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
 		$form .= ' ';
 		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
-		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ));
+		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ) );
 		$form .= wfMsg( 'donate_interface-email-agreement' );
 		$form .= Xml::closeElement( 'label' );
 		$form .= '</td>';
@@ -592,7 +592,7 @@ abstract class PayflowProGateway_Form {
 		$form .= Html::hidden( 'PaypalRedirect', false );
 		$form .= Xml::tags( 'div',
 				array(),
-				'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
+				'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
 			);
 		$form .= '</td>';
 		$form .= '</tr>';
@@ -685,15 +685,15 @@ abstract class PayflowProGateway_Form {
 		$url = $wgRequest->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
 		$query_array = wfCgiToArray( $url_parts[ 'query' ] );
-		
+
 		// ensure that _cache_ does not get set in the URL
-		unset( $query_array[ '_cache_' ]);
-		
+		unset( $query_array[ '_cache_' ] );
+
 		// make sure no other data that might overwrite posted data makes it into the URL
 		foreach ( $this->form_data as $key => $value ) {
 			unset( $query_array[ $key ] );
 		}
-			
+
 		// construct the submission url
 		return wfAppendQuery( $wgTitle->getLocalURL(), $query_array );
 	}

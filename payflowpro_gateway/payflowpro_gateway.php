@@ -1,7 +1,7 @@
 <?php
 
 # Alert the user that this is not a valid entry point to MediaWiki if they try to access the special pages file directly.
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
         echo <<<EOT
 To install PayflowPro Gateway extension, put the following line in LocalSettings.php:
 require_once( "\$IP/extensions/payflowpro_gateway/payflowpro_gateway.php" );
@@ -19,7 +19,7 @@ $wgExtensionCredits['specialpage'][] = array(
 );
 
 // Set up the new special page
-$dir = dirname(__FILE__) . '/';
+$dir = dirname( __FILE__ ) . '/';
 $wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form' ] = $dir . 'forms/Form.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_OneStepTwoColumn' ] = $dir . 'forms/OneStepTwoColumn.php';
@@ -43,10 +43,10 @@ $wgPayflowProTestingURL = 'https://pilot-payflowpro.paypal.com'; // Payflow test
 
 $wgPayFlowProGatewayCSSVersion = 1;
 
-$wgPayflowProPartnerID = ''; //PayPal or original authorized reseller
+$wgPayflowProPartnerID = ''; // PayPal or original authorized reseller
 $wgPayflowProVendorID = ''; // paypal merchant login ID
-$wgPayflowProUserID = ''; //if one or more users are set up, authorized user ID, else same as VENDOR
-$wgPayflowProPassword = ''; //merchant login password
+$wgPayflowProUserID = ''; // if one or more users are set up, authorized user ID, else same as VENDOR
+$wgPayflowProPassword = ''; // merchant login password
 
 // a boolean to determine if we're in testing mode
 $wgPayflowGatewayTest = FALSE;
@@ -75,7 +75,7 @@ $wgPayflowGatewayDBpassword = $wgDBpassword;
  *
  * This string gets run like so: $wg->addHtml( $wg->Parse( $wgpayflowGatewayHeader ))
  * You can use '@language' as a placeholder token to extract the user's language.
- * 
+ *
  */
 $wgPayflowGatewayHeader = NULL;
 
@@ -86,10 +86,10 @@ $wgPayflowGatewayNoScriptRedirect = null;
 
 /**
  * Proxy settings
- * 
+ *
  * If you need to use an HTTP proxy for outgoing traffic,
  * set wgPayflowGatweayUseHTTPProxy=TRUE and set $wgPayflowGatewayHTTPProxy
- * to the proxy desination.  
+ * to the proxy desination.
  *  eg:
  *  $wgPayflowGatewayUseHTTPProxy=TRUE;
  *  $wgPayflowGatewayHTTPProxy='192.168.1.1:3128'
@@ -104,14 +104,14 @@ $wgPayflowGatewayPaypalURL = '';
 
 /**
  * Set the max-age value for Squid
- * 
+ *
  * If you have Squid enabled for caching, use this variable to configure
  * the s-max-age for cached requests.
  * @var int Time in seconds
  */
 $wgPayflowSMaxAge = 6000;
 
-/** 
+/**
  * Hooks required to interface with the donation extension (include <donate> on page)
  *
  * gwValue supplies the value of the form option, the name that appears on the form
@@ -179,9 +179,9 @@ function pfpGatewayPage( &$url ) {
         return true;
 }
 
-//Add JQuery
+// Add JQuery
 $wgHooks['BeforePageDisplay'][] = 'pfpAddJQuery';
-function pfpAddJQuery($out, $sk){
+function pfpAddJQuery( $out, $sk ) {
         $out->includeJQuery();
         return true;
 }

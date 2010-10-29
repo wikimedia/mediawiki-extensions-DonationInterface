@@ -21,9 +21,9 @@
  * @author David Strauss <david@fourkitchens.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  */
- 
+
 // Alert the user that this is not a valid entry point to MediaWiki if they try to access this file directly.
-if ( !defined ('MEDIAWIKI' ) ) {
+if ( !defined ( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
 To install GeoIP extension, put the following line in LocalSettings.php:
 require_once( "\$IP/extensions/GeoIP/GeoIP.php" );
@@ -56,15 +56,15 @@ class UnsupportedGeoIP extends Exception { }
 class NotFoundGeoIP extends Exception { }
 
 function fnGetGeoIP( $ip_address = null ) {
-	if( !isset( $ip_address ) ) {
+	if ( !isset( $ip_address ) ) {
 		$ip_address = IP::sanitizeIP( wfGetIP() );
 	}
 
-	if( isset( $_GET['ip'] ) ) {
+	if ( isset( $_GET['ip'] ) ) {
 		$ip_address = IP::sanitizeIP( $_GET['ip'] );
 	}
 
-	if( !IP::isIPv4( $ip_address ) ) {
+	if ( !IP::isIPv4( $ip_address ) ) {
 		throw new UnsupportedGeoIP( 'Only IPv4 addresses are supported.' );
 	}
 

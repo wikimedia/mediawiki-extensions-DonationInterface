@@ -6,7 +6,7 @@ class PayflowProGateway_Form_SingleColumn extends PayflowProGateway_Form_TwoColu
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
-		if ( !strlen( $this->getStylePath())) {
+		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/SingleColumn.css' );
 		}
 

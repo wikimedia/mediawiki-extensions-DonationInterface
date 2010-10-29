@@ -8,11 +8,11 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 {
 	protected function setUp() {
 		$dir = dirname( __FILE__ ) . '/';
-		require_once( $dir . '../../extras.php');
-		require_once( $dir . '../minfraud.body.php');
+		require_once( $dir . '../../extras.php' );
+		require_once( $dir . '../minfraud.body.php' );
 		require_once( $dir . "../../../includes/countryCodes.inc" );
 		global $wgPayflowGatewayLog;
-		$wgPayflowGatewayLog = dirname(__FILE__) . "/test_log";
+		$wgPayflowGatewayLog = dirname( __FILE__ ) . "/test_log";
 		$license_key = 'XBCKSF4gnHA7';
 		$this->fixture = new PayflowProGateway_Extras_MinFraud( $license_key );
 	}
@@ -42,9 +42,9 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey( "emailMD5", $query );
 		$this->assertArrayHasKey( "bin", $query );
 		$this->assertArrayHasKey( "txnID", $query );
-		$this->assertArrayNotHasKey( "foo", $query ); //make sure we're not adding extraneous info
-		$this->assertNotContains( "@", $query[ 'domain' ] ); //make sure we're only getting domains from email addresses
-		$this->assertEquals( 6, strlen( $query[ 'bin' ] )); //make sure our bin is 6 digits long
+		$this->assertArrayNotHasKey( "foo", $query ); // make sure we're not adding extraneous info
+		$this->assertNotContains( "@", $query[ 'domain' ] ); // make sure we're only getting domains from email addresses
+		$this->assertEquals( 6, strlen( $query[ 'bin' ] ) ); // make sure our bin is 6 digits long
 	}
 
 	public function queryDataProvider() {
@@ -78,7 +78,7 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 	 * @dataProvider hashValidateFalseData
 	 */
 	public function testValidateMinfraudHashFalse( $data ) {
-		$this->assertFalse( $this->fixture->validate_minfraud_query( $data ));
+		$this->assertFalse( $this->fixture->validate_minfraud_query( $data ) );
 	}
 
 	public function hashValidateFalseData() {
@@ -86,7 +86,7 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 			array(
 				array(),
 				array( 'license_key' => 'a' ),
-				array( 
+				array(
 					'license_key' => 'a',
 					'i' => 'a',
 				),
@@ -120,13 +120,13 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 	 * @dataProvider hashValidateTrueData
 	 */
 	public function testValidateMinfraudHashTrue( $data ) {
-		$this->assertTrue( $this->fixture->validate_minfraud_query( $data ));
+		$this->assertTrue( $this->fixture->validate_minfraud_query( $data ) );
 	}
 
 	public function hashValidateTrueData() {
-		return array( 
-			array( 
-				array( 
+		return array(
+			array(
+				array(
 					'license_key' => 'a',
 					'i' => 'a',
 					'city' => 'a',
@@ -143,13 +143,13 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testDetermineActions( $risk_score, $action_ranges, $expected ) {
 		$this->fixture->action_ranges = $action_ranges;
-		$this->assertEquals( $expected, $this->fixture->determine_action( $risk_score ));
+		$this->assertEquals( $expected, $this->fixture->determine_action( $risk_score ) );
 	}
 
 	public function determineActionsData() {
 		return array(
-			array( '0.1', array( 'process' => array(0, 100)), 'process'),
-			array( '75.04', array( 'process' => array(0, 50), 'reject' => array( '50.01', '100')), 'reject'),
+			array( '0.1', array( 'process' => array( 0, 100 ) ), 'process' ),
+			array( '75.04', array( 'process' => array( 0, 50 ), 'reject' => array( '50.01', '100' ) ), 'reject' ),
 		);
 	}
 
@@ -157,21 +157,21 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		global $wgPayflowGatewayLog;
 		$this->fixture->log( '', '', "\"foo\"" );
 		$new_fh = fopen( $wgPayflowGatewayLog, 'r' );
-		$this->assertEquals('"'.date('c').'"'."\t\"\"\t\"\"\t\"foo\"\n", fread( $new_fh, filesize( $wgPayflowGatewayLog ) ));
+		$this->assertEquals( '"' . date( 'c' ) . '"' . "\t\"\"\t\"\"\t\"foo\"\n", fread( $new_fh, filesize( $wgPayflowGatewayLog ) ) );
 		fclose( $new_fh );
 	}
 
 	public function testGenerateHash() {
 		global $wgPayflowGatewaySalt;
 		$wgPayflowGatewaySalt = 'salt';
-		$this->assertEquals( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', $this->fixture->generate_hash( 'foo' ));
+		$this->assertEquals( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', $this->fixture->generate_hash( 'foo' ) );
 	}
 
 	public function testCompareHash() {
 		global $wgPayflowGatewaySalt;
 		$wgPayflowGatewaySalt = 'salt';
-		$this->assertTrue( $this->fixture->compare_hash('5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'foo'));
-		$this->assertFalse( $this->fixture->compare_hash('5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'bar'));
+		$this->assertTrue( $this->fixture->compare_hash( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'foo' ) );
+		$this->assertFalse( $this->fixture->compare_hash( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'bar' ) );
 	}
 
 	public function testBypassMinfraud() {
@@ -183,12 +183,12 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 			'foo',
 			'num_attempt' => 2
 		);
-		//@fixme this needs updating
-		//$this->assertTrue( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ));
-		//$this->assertEquals( 'challenge', $this->fixture->action );
-		//$this->assertEquals( '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3', $data[ 'data_hash' ]);
+		// @fixme this needs updating
+		// $this->assertTrue( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ));
+		// $this->assertEquals( 'challenge', $this->fixture->action );
+		// $this->assertEquals( '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3', $data[ 'data_hash' ]);
 
 		$data[] = 'bar';
-		$this->assertFalse( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ));
+		$this->assertFalse( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ) );
 	}
 }

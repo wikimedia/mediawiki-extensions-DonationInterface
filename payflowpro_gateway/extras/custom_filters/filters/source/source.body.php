@@ -21,7 +21,7 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 	public function filter() {
 		// pull out the source from the filter object
 		$source = $this->cfo->gateway_data['utm_source'];
-	
+
 		// a very complex filtering algorithm for sources
 		global $wgCustomFiltersSrcRules;
 		foreach ( $wgCustomFiltersSrcRules as $regex => $risk_score_modifier ) {
@@ -29,14 +29,14 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 			 * Note that regex pattern does not include delimiters.
 			 * These will need to be included your custom regex patterns.
 			 */
-			if( preg_match( "$regex", $source )) {
+			if ( preg_match( "$regex", $source ) ) {
 				$this->cfo->risk_score += $risk_score_modifier;
-		
+
 				// log it
-				$log_msg = "\"" . addslashes($source) . "\"";
-				$log_msg .= "\t\"" . addslashes($regex) . "\"";
+				$log_msg = "\"" . addslashes( $source ) . "\"";
+				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
-				$this->log( 
+				$this->log(
 					$this->cfo->gateway_data['contribution_tracking_id'],
 					'Filter: Source',
 					$log_msg

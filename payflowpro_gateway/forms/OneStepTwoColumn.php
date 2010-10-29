@@ -71,8 +71,8 @@ EOT;
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
-			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ));
-			if ( is_array( $this->form_errors['general'] )) {
+			$form .= Xml::openElement( 'div', array( 'id' => 'mw-payflow-general-error' ) );
+			if ( is_array( $this->form_errors['general'] ) ) {
 				foreach ( $this->form_errors['general'] as $this->form_errors_msg ) {
 					$form .= Xml::tags( 'p', array( 'class' => 'creditcard-error-msg' ), $this->form_errors_msg );
 				}
@@ -92,13 +92,13 @@ EOT;
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 
-		$form .= Xml::openElement( 'div', array( 'id' => 'left-column', 'class' => 'payflow-cc-form-section'));
+		$form .= Xml::openElement( 'div', array( 'id' => 'left-column', 'class' => 'payflow-cc-form-section' ) );
 		$form .= $this->generatePersonalContainer();
 
 		if ( !$this->paypal ) {
 			$form .= Xml::closeElement( 'div' ); // close div#left-column
 
-			$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ));
+			$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ) );
 			$form .= $this->generatePaymentContainer();
 		}
 
@@ -106,13 +106,13 @@ EOT;
 	}
 	public function generateFormSubmit() {
 		// submit button
-		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ));
+		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
 		} else {
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button' ), 'onclick' => 'submit_form( this )', 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			wfMsg( 'payflowpro_gateway-donate-click' );
@@ -143,7 +143,7 @@ EOT;
 		$template = '';
 
 		// intro text
-		if ( $wgRequest->getText('masthead', false)) {
+		if ( $wgRequest->getText( 'masthead', false ) ) {
 			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data[ 'language' ] . '}}' );
 		} elseif ( $wgPayflowGatewayHeader ) {
 			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
@@ -151,7 +151,7 @@ EOT;
 		}
 
 		// make sure that we actually have a matching template to display so we don't display the 'redlink'
-		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template )) {
+		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
 			$wgOut->addHtml( $template );
 		}
 	}
@@ -159,14 +159,14 @@ EOT;
 	protected function generatePersonalContainer() {
 		global $wgRequest, $wgScriptPath;
 		$form = '';
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
+		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ) );
 		if ( !$this->paypal ) {
 			$source = $wgRequest->getText( 'utm_source' );
 			$medium = $wgRequest->getText( 'utm_medium' );
 			$campaign = $wgRequest->getText( 'utm_campaign' );
 			$formname = $wgRequest->getText( 'form_name' );
-			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $wgScriptPath, $formname, $source, $medium, $campaign ));
+			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $wgScriptPath, $formname, $source, $medium, $campaign ) );
 		}
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 
@@ -187,10 +187,10 @@ EOT;
 		// email
 		$form .= $this->getEmailField();
 
-		//comment message
+		// comment message
 		$form .= $this->getCommentMessageField();
 
-		//comment
+		// comment
 		$form .= $this->getCommentField();
 
 		// anonymous
@@ -208,7 +208,7 @@ EOT;
 	protected function generatePaymentContainer() {
 		$form = '';
 		// credit card info
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-payment-info' ));
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-payment-info' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 
 		$form .= $this->generatePaymentFields();
@@ -227,7 +227,7 @@ EOT;
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td />';
-		$form .= '<td>&nbsp;<br/>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" )) . '</td>';
+		$form .= '<td>&nbsp;<br/>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
 		$form .= '</tr>';
 
 		// card number

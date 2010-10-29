@@ -15,13 +15,13 @@ class PayflowProGateway_Extras_ConversionLog extends PayflowProGateway_Extras {
 			return TRUE;
 		}
 
-		//make sure the payflow response property has been set (signifying a transaction has been made)
+		// make sure the payflow response property has been set (signifying a transaction has been made)
 		if ( !$pfp_gateway_object->payflow_response ) return FALSE;
 
-		$this->log( 
-			$data[ 'contribution_tracking_id' ], 
-			"Payflow response: " . addslashes( $pfp_gateway_object->payflow_response[ 'RESPMSG' ] ), 
-			'"' . addslashes( json_encode( $pfp_gateway_object->payflow_response )) . '"'
+		$this->log(
+			$data[ 'contribution_tracking_id' ],
+			"Payflow response: " . addslashes( $pfp_gateway_object->payflow_response[ 'RESPMSG' ] ),
+			'"' . addslashes( json_encode( $pfp_gateway_object->payflow_response ) ) . '"'
 		);
 		return TRUE;
 	}

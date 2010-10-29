@@ -6,7 +6,7 @@ if(OWA.util.readCookie){
         //NOTE: This only works as long as sid is the last param in the OWA cookie
                 if(owaS_start_index >= 0){
                                 var owaSessionID = owa_s_val.substr(owaS_start_index + owa_s_ident.length);
-                                                if(document.getElementById("owa_session_id")   && 
+                                                if(document.getElementById("owa_session_id")   &&
 						document.getElementById("owa_pageref")  ){					){
                                                                        document.getElementById("owa_session_id").value = owaSessionID;
 								       document.getElementById("owa_pageref").value = encode(window.location);

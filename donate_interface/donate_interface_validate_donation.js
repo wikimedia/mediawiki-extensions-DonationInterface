@@ -47,7 +47,7 @@ function DonateValidateForm( form ) {
     alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
     error = true;
   }
-  
+
   return !error;
 }
 //]]>

@@ -7,7 +7,7 @@
  * @link http://www.mediawiki.org/wiki/Extension:DonateInterface Documentation
  */
 
-if( !defined( 'MEDIAWIKI' ) ) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( "This is not a valid entry point.\n" );
 }
 
@@ -16,8 +16,8 @@ if( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'DonateInterface',
-	//'author' => array( 'diana' ), // FIXME: Committer does not have details in http://svn.wikimedia.org/viewvc/mediawiki/USERINFO/
-	'descriptionmsg' => 'donate_interface-desc', 
+	// 'author' => array( 'diana' ), // FIXME: Committer does not have details in http://svn.wikimedia.org/viewvc/mediawiki/USERINFO/
+	'descriptionmsg' => 'donate_interface-desc',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:DonateInterface',
 );
 
@@ -32,9 +32,9 @@ $wgHooks['DonationInterface_DisplayForm'][] = 'fnProcessDonationForm';
  * Create <donate /> tag to include landing page donation form
  */
 function efDonateSetup( &$parser ) {
-  $parser->setHook( 'donate', 'efDonateRender' );
+	$parser->setHook( 'donate', 'efDonateRender' );
 
-  return true;
+	return true;
 }
 
 
@@ -48,26 +48,26 @@ function efDonateSetup( &$parser ) {
 function efDonateRender( $input, $args, $parser ) {
 	global $wgOut, $wgExtensionAssetsPath;
 	static $formProcessed = false;
-  
-  $parser->disableCache();
-        
-  // if chapter exists for user's country, redirect
-  //not currently in use - in place for adding it when ready
-  //$chapter = fnDonateChapterRedirect();
-        
-  // add JavaScript validation to <head>
-  $wgOut->addScriptFile( $wgExtensionAssetsPath . '/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
- 
-	if (!$formProcessed) {
-	  //process form
+
+	$parser->disableCache();
+
+	// if chapter exists for user's country, redirect
+	// not currently in use - in place for adding it when ready
+	// $chapter = fnDonateChapterRedirect();
+
+	// add JavaScript validation to <head>
+	$wgOut->addScriptFile( $wgExtensionAssetsPath . '/DonationInterface/donate_interface/donate_interface_validate_donation.js' );
+
+	if ( !$formProcessed ) {
+	  // process form
   	wfRunHooks( 'DonationInterface_DisplayForm' );
 		$formProcessed = true;
 	}
 
-  //display form to gather data from user
-  $output = fnDonateCreateOutput();
-              
-  return $output;
+	// display form to gather data from user
+	$output = fnDonateCreateOutput();
+
+	return $output;
 }
 
 /**
@@ -77,84 +77,84 @@ function efDonateRender( $input, $args, $parser ) {
  * option supplies it's value and name for the form, as well as currencies it supports.
  */
 function fnDonateCreateOutput() {
-  global $wgRequest;
+	global $wgRequest;
 
-  // set them equal to post data
-  $utm_source = $wgRequest->getText( 'utm_source' );
-  $utm_medium = $wgRequest->getText( 'utm_medium' );
-  $utm_campaign = $wgRequest->getText( 'utm_campaign' );
-  $referrer = $wgRequest->getHeader('referer');
-        
-  //get language from URL
-  $url = $wgRequest->getRequestURL(); 
-  
-  if ($url) {
-    $getLang = explode('/', $url);
-    $language = substr($getLang[3], 0, 2);
-  }
-        
-  // error check and set "en" as default
-  if ( !preg_match( '/^[a-z-]+$/', $language ) ) {
-    $language = 'en';
-  }
+	// set them equal to post data
+	$utm_source = $wgRequest->getText( 'utm_source' );
+	$utm_medium = $wgRequest->getText( 'utm_medium' );
+	$utm_campaign = $wgRequest->getText( 'utm_campaign' );
+	$referrer = $wgRequest->getHeader( 'referer' );
 
-  //get payment method gateway value and name from each gateway and create menu of options
-  $values = array();
-  wfRunHooks('DonationInterface_Value', array(&$values)); 
-	
-  $gatewayMenu = '';
-  
-  foreach($values as $current) {
-    $gatewayMenu .= Xml::option($current['display_name'], $current['form_value']);
-  }
-  
-    //get available currencies
- 
-		$currencies = array( 'USD' => "USD: U.S. Dollar" );
-		//FIXME: It uses the currencies of the last gateway to be loaded. It should probably use the union of currencies, (currencies allowed by any gateway).
-    foreach($values as $key) {
-      if (isset($key['currencies'])) {
+	// get language from URL
+	$url = $wgRequest->getRequestURL();
+
+	if ( $url ) {
+	$getLang = explode( '/', $url );
+	$language = substr( $getLang[3], 0, 2 );
+	}
+
+	// error check and set "en" as default
+	if ( !preg_match( '/^[a-z-]+$/', $language ) ) {
+	$language = 'en';
+	}
+
+	// get payment method gateway value and name from each gateway and create menu of options
+	$values = array();
+	wfRunHooks( 'DonationInterface_Value', array( &$values ) );
+
+	$gatewayMenu = '';
+
+	foreach ( $values as $current ) {
+	$gatewayMenu .= Xml::option( $current['display_name'], $current['form_value'] );
+	}
+
+    // get available currencies
+
+	$currencies = array( 'USD' => "USD: U.S. Dollar" );
+	// FIXME: It uses the currencies of the last gateway to be loaded. It should probably use the union of currencies, (currencies allowed by any gateway).
+    foreach ( $values as $key ) {
+      if ( isset( $key['currencies'] ) ) {
         $currencies = $key['currencies'];
       }
     }
 
 	$currencyMenu = '';
 
-  foreach( $currencies as $value => $fullName ) {
-    $currencyMenu .= Xml::option( $fullName, $value );
-  }
-    
-  $output = Xml::openElement( 'form', array( 'name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => 'return DonateValidateForm(this)' )) .
-        Xml::openElement( 'div', array('id' => 'mw-donation-intro' )) .
-        Xml::element( 'p', array( 'class' => 'mw-donation-intro-text' ), wfMsg( 'donate_interface-intro' )) .
-        Xml::closeElement( 'div' );
-                
-  $output .= Html::hidden( 'utm_source', $utm_source ) .
+	foreach ( $currencies as $value => $fullName ) {
+		$currencyMenu .= Xml::option( $fullName, $value );
+	}
+
+    $output = Xml::openElement( 'form', array( 'name' => "donate", 'method' => "post", 'action' => "", 'onsubmit' => 'return DonateValidateForm(this)' ) ) .
+		Xml::openElement( 'div', array( 'id' => 'mw-donation-intro' ) ) .
+		Xml::element( 'p', array( 'class' => 'mw-donation-intro-text' ), wfMsg( 'donate_interface-intro' ) ) .
+		Xml::closeElement( 'div' );
+
+    $output .= Html::hidden( 'utm_source', $utm_source ) .
         Html::hidden( 'utm_medium', $utm_medium ) .
         Html::hidden( 'utm_campaign', $utm_campaign ) .
         Html::hidden( 'language', $language ) .
         Html::hidden( 'referrer', $referrer ) .
-        Html::hidden('process', '_yes_');
-        
-  $amount = array(
-        Xml::radioLabel(wfMsg( 'donate_interface-big-amount-display' ), 'amount', wfMsg( 'donate_interface-big-amount-value' ), 'input_amount_3', false  ),
-        Xml::radioLabel(wfMsg( 'donate_interface-medium-amount-display' ), 'amount', wfMsg( 'donate_interface-medium-amount-value' ), 'input_amount_2', false ),
-        Xml::radioLabel(wfMsg( 'donate_interface-small-amount-display' ), 'amount', wfMsg( 'donate_interface-small-amount-value' ), 'input_amount_1', false ),
-        Xml::inputLabel(wfMsg( 'donate_interface-other-amount' ), 'amountGiven', 'input_amount_other', '5'),
-  );
-        
-  $amountFields = '<table><tr>';
-    foreach( $amount as $value ) {
-      $amountFields .= '<td>' . $value . '</td>';
-    }
-    $amountFields .= '</tr></table>';
-        
-  $output .= Xml::fieldset(wfMsg( 'donate_interface-amount' ), $amountFields,  array('class' => "mw-donation-amount"));
-        
-  // Build currency options
-  $default_currency = fnDonateDefaultCurrency();
-        
-  $currency_options = '';
+        Html::hidden( 'process', '_yes_' );
+
+    $amount = array(
+        Xml::radioLabel( wfMsg( 'donate_interface-big-amount-display' ), 'amount', wfMsg( 'donate_interface-big-amount-value' ), 'input_amount_3', false  ),
+        Xml::radioLabel( wfMsg( 'donate_interface-medium-amount-display' ), 'amount', wfMsg( 'donate_interface-medium-amount-value' ), 'input_amount_2', false ),
+        Xml::radioLabel( wfMsg( 'donate_interface-small-amount-display' ), 'amount', wfMsg( 'donate_interface-small-amount-value' ), 'input_amount_1', false ),
+        Xml::inputLabel( wfMsg( 'donate_interface-other-amount' ), 'amountGiven', 'input_amount_other', '5' ),
+    );
+
+	$amountFields = '<table><tr>';
+	foreach ( $amount as $value ) {
+		$amountFields .= '<td>' . $value . '</td>';
+	}
+	$amountFields .= '</tr></table>';
+
+	$output .= Xml::fieldset( wfMsg( 'donate_interface-amount' ), $amountFields,  array( 'class' => "mw-donation-amount" ) );
+
+	// Build currency options
+	$default_currency = fnDonateDefaultCurrency();
+
+	$currency_options = '';
     foreach ( $currencies as $code => $name ) {
       $selected = '';
         if ( $code == $default_currency ) {
@@ -162,75 +162,74 @@ function fnDonateCreateOutput() {
         }
       $currency_options .= '<option value="' . $code . '"' . $selected . '>' . wfMsg( 'donate_interface-' . $code ) . '</option>';
     }
-      
-  $currencyFields = Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" )) .
-              $currency_options . 
+
+	$currencyFields = Xml::openElement( 'select', array( 'name' => 'currency_code', 'id' => "input_currency_code" ) ) .
+              $currency_options .
               Xml::closeElement( 'select' );
-        
-  $output .= Xml::fieldset(wfMsg( 'donate_interface-currency' ), $currencyFields,  array('class' => "mw-donation-currency" ));
-        
-  $gatewayFields = Xml::openElement( 'select', array('name' => 'payment_method', 'id' => 'select_payment_method')) . 
+
+	$output .= Xml::fieldset( wfMsg( 'donate_interface-currency' ), $currencyFields,  array( 'class' => "mw-donation-currency" ) );
+
+	$gatewayFields = Xml::openElement( 'select', array( 'name' => 'payment_method', 'id' => 'select_payment_method' ) ) .
               $gatewayMenu .
-              Xml::closeElement('select');
-        
-  $output .= Xml::fieldset(wfMsg( 'donate_interface-gateway' ), $gatewayFields,  array( 'class' => 'mw-donation-gateway' ));
-        
-  $publicComment = Xml::element( 'div', array( 'class' => 'mw-donation-comment-message'), wfMsg( 'donate_interface-comment-message' )) . 
-        Xml::inputLabel(wfMsg( 'donate_interface-comment-label' ), 'comment', 'comment', '30', '', array( 'maxlength' => '200' )) .
-        Xml::openElement( 'div', array( 'id' => 'mw-donation-checkbox' )) .
-        Xml::checkLabel( wfMsg( 'donate_interface-anon-message' ), 'comment-option', 'input_comment-option', TRUE ) . 
+              Xml::closeElement( 'select' );
+
+	$output .= Xml::fieldset( wfMsg( 'donate_interface-gateway' ), $gatewayFields,  array( 'class' => 'mw-donation-gateway' ) );
+
+	$publicComment = Xml::element( 'div', array( 'class' => 'mw-donation-comment-message' ), wfMsg( 'donate_interface-comment-message' ) ) .
+        Xml::inputLabel( wfMsg( 'donate_interface-comment-label' ), 'comment', 'comment', '30', '', array( 'maxlength' => '200' ) ) .
+        Xml::openElement( 'div', array( 'id' => 'mw-donation-checkbox' ) ) .
+        Xml::checkLabel( wfMsg( 'donate_interface-anon-message' ), 'comment-option', 'input_comment-option', TRUE ) .
         Xml::closeElement( 'div' ) .
-        Xml::openElement( 'div', array( 'id' => 'mw-donation-checkbox' )) .
+        Xml::openElement( 'div', array( 'id' => 'mw-donation-checkbox' ) ) .
         Xml::check( 'email-opt', TRUE ) .
-        Xml::tags( 'span', array( 'class' => 'mw-email-agreement' ), wfMsg( 'donate_interface-email-agreement' )) .
+        Xml::tags( 'span', array( 'class' => 'mw-email-agreement' ), wfMsg( 'donate_interface-email-agreement' ) ) .
         Xml::closeElement( 'div' );
-        
-  $output .= Xml::fieldset(wfMsg( 'donate_interface-comment-title' ), $publicComment, array( 'class' => 'mw-donation-public-comment'));
-                
-  $output .= Xml::submitButton(wfMsg( 'donate_interface-submit-button' ));
-       
-        $output .= Xml::closeElement( 'form' );
-                
-  // NOTE: For testing: show country of origin
-  //$country = fnDonateGetCountry();
-  //$output .= Xml::element('p', array('class' => 'mw-donation-test-message'), 'Country:' . $country);
-        
-  // NOTE: for testing: show default currency
-  //$currencyTest = fnDonateDefaultCurrency();
-  //$output .= Xml::element('p', array('class' => 'mw-donation-test-message'), wfMsg( 'donate_interface-currency' ) . $currencyTest);
-        
-  // NOTE: for testing: show IP address
-  //$referrer = $_SERVER['HTTP_REFERER'];
-  //$output .= '<p>' . 'Referrer:' . $referrer . '</p>';
-        
-  //for testing to show language culled from URL
-  $output .= '<p>' . ' Language: ' . $language . '</p>';
-              
-  return $output;
+
+	$output .= Xml::fieldset( wfMsg( 'donate_interface-comment-title' ), $publicComment, array( 'class' => 'mw-donation-public-comment' ) );
+
+	$output .= Xml::submitButton( wfMsg( 'donate_interface-submit-button' ) );
+
+	$output .= Xml::closeElement( 'form' );
+
+	// NOTE: For testing: show country of origin
+	// $country = fnDonateGetCountry();
+	// $output .= Xml::element('p', array('class' => 'mw-donation-test-message'), 'Country:' . $country);
+
+	// NOTE: for testing: show default currency
+	// $currencyTest = fnDonateDefaultCurrency();
+	// $output .= Xml::element('p', array('class' => 'mw-donation-test-message'), wfMsg( 'donate_interface-currency' ) . $currencyTest);
+
+	// NOTE: for testing: show IP address
+	// $referrer = $_SERVER['HTTP_REFERER'];
+	// $output .= '<p>' . 'Referrer:' . $referrer . '</p>';
+
+	// for testing to show language culled from URL
+	$output .= '<p>' . ' Language: ' . $language . '</p>';
+
+	return $output;
 }
 
 /*
 * Redirects user to their chosen payment processor
-* 
+*
 * Includes the user's input passed as GET
 * $url for the gateway was supplied with the gwPage hook and the key
 * matches the form value (also supplied by the gateway)
 */
-function fnDonateRedirectToProcessorPage($userInput, $url) {
-  global $wgOut;
-        
-  $chosenGateway = $userInput['gateway'];
+function fnDonateRedirectToProcessorPage( $userInput, $url ) {
+	global $wgOut;
 
-  $redirectionData = wfArrayToCGI( $userInput );
-  
-	//$wgOut->redirect(
-		//$wgPaymentGatewayHost . $url[$chosenGateway] . $redirectionData
-	//); 
-	
+	$chosenGateway = $userInput['gateway'];
+
+	$redirectionData = wfArrayToCGI( $userInput );
+
+	// $wgOut->redirect(
+	// $wgPaymentGatewayHost . $url[$chosenGateway] . $redirectionData
+	// );
+
 	$wgOut->redirect(
 		$url[$chosenGateway] . '&' . $redirectionData
 	);
-	
 }
 
 /**
@@ -240,7 +239,7 @@ function fnDonateRedirectToProcessorPage($userInput, $url) {
 function fnDonateGetCountry() {
 	$country_code = null;
 
-	if( function_exists( 'fnGetGeoIP' ) ) {
+	if ( function_exists( 'fnGetGeoIP' ) ) {
 		try {
 			$country_code = fnGetGeoIP();
 		} catch ( NotFoundGeoIP $e ) {
@@ -262,7 +261,7 @@ function fnDonateDefaultCurrency() {
 
 	$country_code = null;
 
-	if( function_exists( 'fnGetCountry' ) ) {
+	if ( function_exists( 'fnGetCountry' ) ) {
 		$country_code = fnGetCountry();
 	}
 
@@ -272,22 +271,22 @@ function fnDonateDefaultCurrency() {
 }
 
 /**
- * Will use GeoIP extension to redirect user to 
+ * Will use GeoIP extension to redirect user to
  * chapter page as dictated by IP address
  * NOT CURRENTLY IN USE
  */
 function fnDonateChapterRedirect() {
 	require_once( 'chapters.inc' );
-  
+
   $country_code = null;
 
-	if( function_exists( 'fnGetCountry' ) ) {
+	if ( function_exists( 'fnGetCountry' ) ) {
 		$country_code = fnDonateGetCountry();
 	}
 
 	$chapter = fnDonateGetChapter( $country_code );
 
-	if( $chapter ) {
+	if ( $chapter ) {
 		global $wgOut;
 		$wgOut->redirect( 'http://' . $chapter );
 	} else {
@@ -295,27 +294,27 @@ function fnDonateChapterRedirect() {
 	}
 
 }
-  
+
 function fnProcessDonationForm( ) {
   global $wgRequest, $wgOut;
-    
+
     // Checking that it was posted is not enough, donate_interface-amount-error
     // would be shown on previews, anon purges... (bug 22640)
-    if ( ( !$wgRequest->wasPosted() ) || ( $wgRequest->getVal('process') != "_yes_" ) ) {
+    if ( ( !$wgRequest->wasPosted() ) || ( $wgRequest->getVal( 'process' ) != "_yes_" ) ) {
         return true;
     }
-    // if form has been submitted, assign data and redirect user to chosen payment gateway 
+    // if form has been submitted, assign data and redirect user to chosen payment gateway
 
-    //find out which amount option was chosen for amount, redefined buttons or text box
-    if ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amount') ) ) {
-		  $amount = number_format( $wgRequest->getText('amount'), 2 );
-    } elseif ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText('amountGiven') ) ) { 
-        $amount = number_format( $wgRequest->getText('amountGiven'), 2, '.', '' ); 
+    // find out which amount option was chosen for amount, redefined buttons or text box
+    if ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount' ) ) ) {
+		  $amount = number_format( $wgRequest->getText( 'amount' ), 2 );
+    } elseif ( preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amountGiven' ) ) ) {
+        $amount = number_format( $wgRequest->getText( 'amountGiven' ), 2, '.', '' );
     } else {
         $wgOut->addHTML( wfMsg( 'donate_interface-amount-error' ) );
         return true;
-    }	 
-	 
+    }
+
   // create	array of user input from post data
   $userInput = array (
         'currency_code' => $wgRequest->getText( 'currency_code', 'USD' ),
@@ -333,17 +332,17 @@ function fnProcessDonationForm( ) {
   		'lname' => $wgRequest->getText( 'lname', null ),
   		'email' => $wgRequest->getText( 'emailAdd', null ),
   );
-	 
+
   // ask payment processor extensions for their URL/page title
   $url = '';
-    
-  if ( wfRunHooks('DonationInterface_Page', array(&$url)) ) {
-      // send user to correct page for payment  
+
+  if ( wfRunHooks( 'DonationInterface_Page', array( &$url ) ) ) {
+      // send user to correct page for payment
       fnDonateRedirectToProcessorPage( $userInput, $url );
   } else {
       $wgOut->addHTML( wfMsg( 'donate_interface-processing-error' ) );
   }
-    
+
   return true;
 }
 

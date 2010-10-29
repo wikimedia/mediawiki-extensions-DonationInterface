@@ -6,17 +6,17 @@
  *
  * To install:
  *      require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/minfraud/minfraud.php" );
- * 
+ *
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) { 
-	die( "This file is part of the MinFraud for PayflowPro Gateway extension. It is not a valid entry point.\n" );  
+if ( !defined( 'MEDIAWIKI' ) ) {
+	die( "This file is part of the MinFraud for PayflowPro Gateway extension. It is not a valid entry point.\n" );
 }
 
 $wgExtensionCredits['payflowprogateway_extras_minfraud'][] = array(
 	'name' => 'minfraud',
-	'author' =>'Arthur Richards', 
-	'url' => '', 
+	'author' => 'Arthur Richards',
+	'url' => '',
 	'description' => 'This extension uses the MaxMind minFraud service as a validator for the Payflow Pro gateway.'
 );
 
@@ -30,8 +30,8 @@ $wgMinFraudLicenseKey = '';
  *
  * The keys to the array are the 'actions' to be taken (eg 'process').
  * The value for one of these keys is an array representing the lower
- * and upper bounds for that action.  For instance, 
- *   $wgMinFraudActionRagnes = array( 
+ * and upper bounds for that action.  For instance,
+ *   $wgMinFraudActionRagnes = array(
  *		'process' => array( 0, 100)
  *		...
  *	);

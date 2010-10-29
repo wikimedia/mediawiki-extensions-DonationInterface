@@ -1,14 +1,14 @@
 //<![CDATA[
-function addEvent(obj, evType, fn){ 
-	if (obj.addEventListener){ 
-		obj.addEventListener(evType, fn, false); 
-		return true; 
-	} else if (obj.attachEvent){ 
-		var r = obj.attachEvent("on"+evType, fn); 
-		return r; 
-	} else { 
-		return false; 
-	} 
+function addEvent(obj, evType, fn){
+	if (obj.addEventListener){
+		obj.addEventListener(evType, fn, false);
+		return true;
+	} else if (obj.attachEvent){
+		var r = obj.attachEvent("on"+evType, fn);
+		return r;
+	} else {
+		return false;
+	}
 }
 
 function getIfSessionSet() {
@@ -37,7 +37,7 @@ function validate_form( form ) {
 			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
 		}
 	}
-	
+
 	//set state to "outside us"
 	if ( document.payment.country.value != '840' ) {
 			document.payment.state.value = 'XX';
@@ -55,8 +55,8 @@ function validate_form( form ) {
 	if( output ) {
 		alert( output );
 		return false;
-	}  
-	
+	}
+
 	return true;
 }
 
@@ -83,7 +83,7 @@ var cvv;
 
 function PopupCVV() {
 	cvv = window.open("", 'cvvhelp','scrollbars=yes,resizable=yes,width=600,height=400,left=200,top=100');
-	cvv.document.write( payflowproGatewayCVVExplain ); 
+	cvv.document.write( payflowproGatewayCVVExplain );
 	cvv.focus();
 }
 
@@ -94,5 +94,5 @@ function CloseCVV() {
 	}
 }
 
-window.onfocus = CloseCVV; 
+window.onfocus = CloseCVV;
 //]]>

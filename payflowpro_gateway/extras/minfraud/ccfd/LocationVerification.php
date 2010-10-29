@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-require_once ("HTTPBase.php");
+require_once ( "HTTPBase.php" );
 class LocationVerification extends HTTPBase {
   var $server;
   var $numservers;
@@ -29,21 +29,21 @@ class LocationVerification extends HTTPBase {
     parent::__construct();
 	$this->isSecure = 1;    // use HTTPS by default
 
-    //set the allowed_fields hash
+    // set the allowed_fields hash
     $this->allowed_fields["i"] = 1;
     $this->allowed_fields["city"] = 1;
     $this->allowed_fields["region"] = 1;
     $this->allowed_fields["postal"] = 1;
     $this->allowed_fields["country"] = 1;
     $this->allowed_fields["license_key"] = 1;
-    $this->num_allowed_fields = count($this->allowed_fields);
+    $this->num_allowed_fields = count( $this->allowed_fields );
 
-    //set the url of the web service
+    // set the url of the web service
     $this->url = "app/locvr";
     $this->check_field = "distance";
 
-    $this->server = array("www.maxmind.com", "www2.maxmind.com");
-    $this->numservers = count($this->server);
+    $this->server = array( "www.maxmind.com", "www2.maxmind.com" );
+    $this->numservers = count( $this->server );
     $this->API_VERSION = 'PHP/1.4';
   }
 }

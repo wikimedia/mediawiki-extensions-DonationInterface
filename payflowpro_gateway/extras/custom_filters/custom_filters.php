@@ -3,7 +3,7 @@
  * Provides a unified way to define and run custom filters for incoming transactions
  *
  * Running filters through 'custom filters' rather than directly through the validate hook in the gateway
- * offers the advantage of simplifying the passage of relvent data between filters/validators that's 
+ * offers the advantage of simplifying the passage of relvent data between filters/validators that's
  * needed to perform more complex validation/filtering of transactions.
  *
  * The actual filters themselves are regular MW extensions and can optional be organized in filters/
@@ -12,18 +12,18 @@
  * object.
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) { 
-    die( "This file is part of the MinFraud for PayflowPro Gateway extension. It is not a valid entry point.\n" );  
+if ( !defined( 'MEDIAWIKI' ) ) {
+    die( "This file is part of the MinFraud for PayflowPro Gateway extension. It is not a valid entry point.\n" );
 }
 
 $wgExtensionCredits['payflowprogateway_custom_filters'][] = array(
     'name' => 'custom filters',
-    'author' =>'Arthur Richards', 
-    'url' => '', 
+    'author' => 'Arthur Richards',
+    'url' => '',
     'description' => 'This extension provides a way to define custom filters for incoming transactions for the Payflow Pro gateway.'
 );
 
-/** 
+/**
  * Define the action to take for a given $risk_score
  */
 $wgPayflowGatewayCustomFiltersActionRanges = array(
@@ -36,7 +36,7 @@ $wgPayflowGatewayCustomFiltersActionRanges = array(
 /**
  * A value for tracking the 'riskiness' of a transaction
  *
- * The action to take based on a transaction's riskScore is determined by 
+ * The action to take based on a transaction's riskScore is determined by
  * $action_ranges.  This is built assuming a range of possible risk scores
  * as 0-100, although you can probably bend this as needed.
  */

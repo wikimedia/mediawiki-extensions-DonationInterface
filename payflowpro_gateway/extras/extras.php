@@ -7,14 +7,14 @@
  * Note: This should be specified in LocalSettings.php BEFORE requiring any of the other 'extras'
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) { 
-        die( "This file is part of PayflowPro Gateway extension. It is not a valid entry point.\n");
+if ( !defined( 'MEDIAWIKI' ) ) {
+        die( "This file is part of PayflowPro Gateway extension. It is not a valid entry point.\n" );
 }
 
 $wgExtensionCredits['payflowprogateway_extras'][] = array(
         'name' => 'extras',
-        'author' =>'Arthur Richards', 
-        'url' => '', 
+        'author' => 'Arthur Richards',
+        'url' => '',
         'description' => "This extension handles some of the set up required for PayflowPro Gateway extras"
 );
 

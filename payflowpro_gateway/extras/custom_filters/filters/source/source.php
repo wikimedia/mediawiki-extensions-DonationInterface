@@ -6,7 +6,7 @@
  *   require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/custom_filters/filters/source/source.php" );
  */
 
-if ( !defined( 'MEDIAWIKI' )) {
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( "This file is part of the source custom filter part of the PayflowPro Gateway extension.  It is not a valid entry point\n" );
 }
 
@@ -21,9 +21,9 @@ $wgExtensionCredits['payflowprogateway_customfilters_source'][] = array(
  * An array defining source strings and their associated risk score amount
  *
  * The key of the array is a regular expression to run against the source and the value is
- * the amount  to add to the risk score.  The regex is run through preg_match and does not 
+ * the amount  to add to the risk score.  The regex is run through preg_match and does not
  * need to include staring/ending delimiters - be sure to escape your characters!
- * 
+ *
  * eg:
  *   $wgCustomFiltersSrcRules['support.cc'] = "100";
  *   // increases risk score for trxns with source of 'support.cc' referrals by 100
