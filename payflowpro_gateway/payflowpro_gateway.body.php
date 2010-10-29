@@ -1180,7 +1180,7 @@ EOT;
 		$utm_source_parts = explode( ".", $data[ 'utm_source' ] );
 		$utm_source_parts[2] = 'pp';
 		$data[ 'utm_source' ] = implode( ".", $utm_source_parts );
-		
+		$data[ 'gateway' ] = 'paypal';
 		/**
 		 * update contribution tracking
 		 */
