@@ -135,20 +135,20 @@ EOT;
 		// Populate form data
 		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
 		
+		/**
+		 *  handle PayPal redirection 
+		 *  
+		 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
+		 *  and the PaypalRedirect form value must be true
+		 */
+		if ( $wgRequest->getBool( 'PaypalRedirect' )) {
+			$this->paypalRedirect( $data );
+			return;
+		}
+		
 		// dispatch forms/handling
 		if( $token_match ) {
-		
-			/**
-			 *  handle PayPal redirection 
-			 *  
-			 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
-			 *  and the PaypalRedirect form value must be true
-			 */
-			if ( $wgRequest->getBool( 'PaypalRedirect' )) {
-				$this->paypalRedirect( $data );
-				return;
-			}	
-					
+			
 			if( $data['payment_method'] == 'processed' ) {
 				//increase the count of attempts
 				++$data['numAttempt'];
