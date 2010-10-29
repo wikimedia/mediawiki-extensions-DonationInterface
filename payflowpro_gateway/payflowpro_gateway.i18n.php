@@ -1231,6 +1231,18 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'payflowpro_gateway-or' => 'nebo',
 );
 
+/** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+ * @author ОйЛ
+ */
+$messages['cu'] = array(
+	'payflowpro_gateway-donor-currency-label' => 'пла́тьно срѣ́дьство',
+	'payflowpro_gateway-donor-name' => 'и́мѧ',
+	'payflowpro_gateway-donor-city' => 'гра́дъ',
+	'payflowpro_gateway-donor-country' => 'дрьжава/страна',
+	'payflowpro_gateway-error-msg-city' => 'гра́дъ',
+	'payflowpro_gateway-or' => 'или',
+);
+
 /** Welsh (Cymraeg)
  * @author Arwel Parry
  * @author Lloffiwr

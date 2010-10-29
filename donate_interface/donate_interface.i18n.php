@@ -413,6 +413,18 @@ Není dostupný žádný platební procesor.',
 	'donate_interface-ILS' => 'ILS: Izraelský šekel',
 );
 
+/** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+ * @author ОйЛ
+ */
+$messages['cu'] = array(
+	'donate_interface-currency' => 'пла́тьно срѣ́дьство',
+	'donate_interface-submit-button' => 'даꙗ́ниꙗ сътворѥ́ниѥ',
+	'donate_interface-EUR' => 'EUR: єѵрѡ́',
+	'donate_interface-USD' => 'USD: амєрїка́ньскъ до́ларъ',
+	'donate_interface-AUD' => 'AUD: аѵстралі́искъ до́ларъ',
+	'donate_interface-CAD' => 'CAD: канадьскъ до́ларъ',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */
