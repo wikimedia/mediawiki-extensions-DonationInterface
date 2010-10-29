@@ -251,7 +251,7 @@ class HTTPBase{
     $numquerieskeys = count($this->queries); // get the number of keys in the hash called queries
     $querieskeys = array_keys($this->queries); // get a array of keys in the hash called queries
     if ($this->debug == 1) {
-      print "number of query keys " + $numquerieskeys + "\n";
+      print "number of query keys " . $numquerieskeys . "\n";
     }
 
     $query_string = "";
@@ -272,8 +272,6 @@ class HTTPBase{
         $query_string = $query_string . "&";
       }
     }
-
-    $content = "";
 
     //check if the curl module exists
     if (extension_loaded('curl')) {

@@ -334,8 +334,6 @@ abstract class PayflowProGateway_Form {
 	 */
 	public function setHiddenFields( $hidden_fields=NULL ) {
 		if ( !$hidden_fields ) {
-			global $wgRequest;
-
 			$hidden_fields =  array(
 				'utm_source' => $this->form_data[ 'utm_source' ],
 				'utm_medium' => $this->form_data[ 'utm_medium' ],
@@ -591,7 +589,7 @@ abstract class PayflowProGateway_Form {
 
 		$form = '<tr>';
 		$form .= '<td class="paypal-button" colspan="2">';
-		$form .= Xml::hidden( 'PaypalRedirect', false );
+		$form .= Html::hidden( 'PaypalRedirect', false );
 		$form .= Xml::tags( 'div',
 				array(),
 				'<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'

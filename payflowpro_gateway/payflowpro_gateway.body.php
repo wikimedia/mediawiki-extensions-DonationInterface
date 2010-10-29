@@ -41,8 +41,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 */
 	public function __construct() {
 		parent::__construct( 'PayflowProGateway' );
-		wfLoadExtensionMessages( 'PayflowProGateway' );
-
 		$this->errors = $this->getPossibleErrors();
 	}
 
@@ -52,8 +50,8 @@ class PayflowProGateway extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser, $wgScriptPath, 
-			$wgPayFlowProGatewayCSSVersion, $wgPayflowGatewayPaypalURL, 
+		global $wgRequest, $wgOut, $wgScriptPath,
+			$wgPayFlowProGatewayCSSVersion,
 			$wgPayflowGatewaySalt;
 		
 		$wgOut->addExtensionStyle( 
@@ -272,8 +270,6 @@ EOT;
 	 * Checks posted form data for errors and returns array of messages
 	 */
 	private function fnPayflowValidateForm( $data, &$error ) {
-		global $wgOut;
-		
 		// begin with no errors
 		$error_result = '0';
 
@@ -487,8 +483,7 @@ EOT;
 	 * Credit: code modified from payflowpro_example_EC.php posted (and supervised) on the PayPal developers message board
 	 */
 	private function fnPayflowGetResults( $data, $result ) {
-		global $wgOut;
-		// prepare NVP response for sorting and outputting 
+		// prepare NVP response for sorting and outputting
 		$responseArray = array();
 		
 		/**
@@ -511,7 +506,6 @@ EOT;
 		$resultCode = $responseArray['RESULT'];
 
 		// initialize response message
-		$tryAgainResponse = '';
 		$responseMsg = '';
 
 		// interpret result code, return
@@ -545,8 +539,7 @@ EOT;
 	 */
 	function fnPayflowGetResponseMsg( $resultCode, &$responseMsg ) {
 		$responseMsg = wfMsg( 'payflowpro_gateway-response-default' );
-		$errorCode = '0';
-		
+
 		switch( $resultCode ) {
 			case '0':
 				$responseMsg = wfMsg( 'payflowpro_gateway-response-0' );
@@ -607,7 +600,6 @@ EOT;
 
 		global $wgOut, $wgExternalThankYouPage;
 		$transaction = '';
-		$tracked = '';
 
 		// push to ActiveMQ server 
 		// include response message
@@ -1193,8 +1185,7 @@ EOT;
 		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
 		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
-		$result = curl_exec( $ch );
+		curl_exec( $ch );
 		curl_close( $ch );
-
 	}
 } // end class

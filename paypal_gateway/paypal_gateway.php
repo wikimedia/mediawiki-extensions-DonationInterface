@@ -76,7 +76,7 @@ function paypalGatewayValue( &$values ) {
  */
 function paypalGatewayPage( &$url ) {
 	// Business email address set in LocalSettings.php
-	global $wgPaypalEmail, $wgPaypalUrl;
+	global $wgPaypalUrl;
 
 	// to go directly to Paypal, will be used for this extension in general
 	//$url['paypal'] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=" . urlencode( $wgPaypalEmail ) . "&lc=US&no_note=1&no_shipping=1&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";

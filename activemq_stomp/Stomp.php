@@ -454,8 +454,6 @@ class Stomp
      */
     public function disconnect ()
     {
-		$header = array();
-
 		if ($this->clientId != null) {
 			$headers["client-id"] = $this->clientId;
 		}
@@ -561,9 +559,9 @@ class Stomp
      */
     public function hasFrameToRead()
     {
-        return TRUE; // http://bugs.php.net/bug.php?id=46024
+        return true; // http://bugs.php.net/bug.php?id=46024
         
-        $read = array($this->_socket);
+        /*$read = array($this->_socket);
         $write = null;
         $except = null;
         
@@ -575,7 +573,7 @@ class Stomp
             return true;
         } else {
             return false; 
-        }
+        }*/
     }
     
     /**

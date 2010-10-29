@@ -32,11 +32,6 @@ $wgHooks['DonationInterface_DisplayForm'][] = 'fnProcessDonationForm';
  * Create <donate /> tag to include landing page donation form
  */
 function efDonateSetup( &$parser ) {
-  global $wgHooks, $wgRequest;
-	
-  //load extension messages
-  wfLoadExtensionMessages( 'DonateInterface' );
-
   $parser->setHook( 'donate', 'efDonateRender' );
 
   return true;
@@ -82,14 +77,8 @@ function efDonateRender( $input, $args, $parser ) {
  * option supplies it's value and name for the form, as well as currencies it supports.
  */
 function fnDonateCreateOutput() {
-  global $wgOut, $wgRequest;
+  global $wgRequest;
 
-  // declare variable
-	$utm_source = '';
-	$utm_medium = '';
-	$utm_campaign = '';
-	$referrer = '';
-	
   // set them equal to post data
   $utm_source = $wgRequest->getText( 'utm_source' );
   $utm_medium = $wgRequest->getText( 'utm_medium' );
@@ -140,12 +129,12 @@ function fnDonateCreateOutput() {
         Xml::element( 'p', array( 'class' => 'mw-donation-intro-text' ), wfMsg( 'donate_interface-intro' )) .
         Xml::closeElement( 'div' );
                 
-  $output .= Xml::hidden( 'utm_source', $utm_source ) .
-        Xml::hidden( 'utm_medium', $utm_medium ) . 
-        Xml::hidden( 'utm_campaign', $utm_campaign ) .
-        Xml::hidden( 'language', $language ) .
-        Xml::hidden( 'referrer', $referrer ) .
-        XML::hidden('process', '_yes_');
+  $output .= Html::hidden( 'utm_source', $utm_source ) .
+        Html::hidden( 'utm_medium', $utm_medium ) .
+        Html::hidden( 'utm_campaign', $utm_campaign ) .
+        Html::hidden( 'language', $language ) .
+        Html::hidden( 'referrer', $referrer ) .
+        Html::hidden('process', '_yes_');
         
   $amount = array(
         Xml::radioLabel(wfMsg( 'donate_interface-big-amount-display' ), 'amount', wfMsg( 'donate_interface-big-amount-value' ), 'input_amount_3', false  ),
@@ -228,7 +217,7 @@ function fnDonateCreateOutput() {
 * matches the form value (also supplied by the gateway)
 */
 function fnDonateRedirectToProcessorPage($userInput, $url) {
-  global $wgOut,$wgPaymentGatewayHost;
+  global $wgOut;
         
   $chosenGateway = $userInput['gateway'];
 
@@ -272,7 +261,6 @@ function fnDonateDefaultCurrency() {
 	require_once( 'country2currency.inc' );
 
 	$country_code = null;
-	$currency = null;
 
 	if( function_exists( 'fnGetCountry' ) ) {
 		$country_code = fnGetCountry();
@@ -280,7 +268,7 @@ function fnDonateDefaultCurrency() {
 
 	$currency = fnCountry2Currency( $country_code );
 
-	return $result = $currency ? $currency : 'USD';
+	return $currency ? $currency : 'USD';
 }
 
 /**

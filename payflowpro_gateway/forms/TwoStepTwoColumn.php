@@ -3,7 +3,7 @@
 class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgScriptPath;
+		global $wgOut;
 
 		parent::__construct( $form_data, $form_errors );
 
@@ -49,7 +49,6 @@ EOT;
 	}
 
 	public function generateFormStart() {
-		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
 		$form = $this->generateBannerHeader();
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) );
@@ -106,7 +105,7 @@ EOT;
 		// add hidden fields
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
+			$form .= Html::hidden( $field, $value );
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#right-column
 		$form .= Xml::closeElement( 'form' );
@@ -172,9 +171,7 @@ EOT;
 	}
 
 	protected function generatePaymentFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
-
-		$form = '';
+		global $wgScriptPath;
 
 		// amount
 		$form = '<tr>';

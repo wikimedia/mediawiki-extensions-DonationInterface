@@ -4,7 +4,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgScriptPath;
+		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath())) {
@@ -111,7 +111,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 				$form .= '<tr>';
 				$form .= '<td class="label"></td>';
 				$form .= '<td>';
-				$form .= Xml::hidden( 'PaypalRedirect', false );
+				$form .= Html::hidden( 'PaypalRedirect', false );
 				$form .= Xml::tags( 'div',
 						array(),
 						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ))
@@ -162,7 +162,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ));
 		if ( $this->paypal ) {
-			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Html::hidden( 'PaypalRedirect', false );
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
@@ -184,7 +184,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		// add hidden fields
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
+			$form .= Html::hidden( $field, $value );
 		}
 
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'

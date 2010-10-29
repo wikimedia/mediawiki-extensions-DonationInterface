@@ -68,8 +68,6 @@ function fnGetGeoIP( $ip_address = null ) {
 		throw new UnsupportedGeoIP( 'Only IPv4 addresses are supported.' );
 	}
 
-	$country_code = null;
-
 	$dbr = wfGetDB( DB_SLAVE );
 	$long_ip = IP::toUnsigned( $ip_address );
 	$conditions = array(

@@ -74,7 +74,7 @@ class Stomp_Frame
         
         $data .= "\n";
         $data .= $this->body;
-        return $data .= "\x00\n";
+        return $data . "\x00\n";
     }
 }
 ?>

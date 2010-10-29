@@ -2,7 +2,7 @@
 
 class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Form_TwoStepTwoColumn {
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgScriptPath;
+		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath())) {
@@ -79,7 +79,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 
 	protected function generateBillingFields() {
 		global $wgScriptPath;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 
 		$form = '';
 
@@ -139,7 +138,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		// add hidden fields
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
+			$form .= Html::hidden( $field, $value );
 		}
 
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'

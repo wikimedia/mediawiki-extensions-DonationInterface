@@ -29,9 +29,9 @@ $wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
 * Create <donate /> tag to include landing page donation form
 */
 function efStompSetup(&$parser) {
-	     global $wgParser, $wgOut;
+	     global $wgParser, ;
 
-       //redundant and causes Fatal Error
+		//redundant and causes Fatal Error
 	     //$parser->disableCache();
 
 	     $wgParser->setHook( 'stomp', 'efStompTest' );
@@ -57,12 +57,10 @@ function efStompTest($input, $args, &$parser) {
 $wgHooks['gwStomp'][] = 'sendSTOMP';
 $wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
 
-
 /*
 * Hook to send transaction information to ActiveMQ server
 */
 function sendSTOMP($transaction) {
-        global $wgOut;
         global $wgStompServer, $wgStompQueueName;
 
         $queueName = isset ( $wgStompQueueName ) ? $wgStompQueueName : 'test';
@@ -94,7 +92,6 @@ function sendSTOMP($transaction) {
 * Hook to send transaction information to ActiveMQ server
 */
 function sendPendingSTOMP($transaction) {
-        global $wgOut;
         global $wgStompServer, $wgPendingStompQueueName;
 
         $queueName = isset ( $wgPendingStompQueueName ) ? $wgPendingStompQueueName : 'pending';
@@ -136,10 +133,6 @@ function sendPendingSTOMP($transaction) {
  * Response from Payflow is assigned to 'response'
  */
 function createQueueMessage($transaction) {
-        $message = array();
-
-        $timestamp = strtotime($transaction['date']);
-
         // specifically designed to match the CiviCRM API that will handle it
         // edit this array to include/ignore transaction data sent to the server
         $message = array(

@@ -4,7 +4,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgScriptPath;
+		global $wgOut;
 
 		parent::__construct( $form_data, $form_errors );
 
@@ -61,7 +61,7 @@ EOT;
 	}
 
 	public function generateFormStart() {
-		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut, $wgRequest;
+		global $wgRequest;
 
 		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
@@ -109,7 +109,7 @@ EOT;
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit'));
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ));
 		if ( $this->paypal ) {
-			$form .= Xml::hidden( 'PaypalRedirect', false );
+			$form .= Html::hidden( 'PaypalRedirect', false );
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button'), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit'));
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button'), 'onclick' => 'submit_form( this )', 'type' => 'submit'));
@@ -128,7 +128,7 @@ EOT;
 		// add hidden fields
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
+			$form .= Html::hidden( $field, $value );
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#right-column
 		$form .= Xml::closeElement( 'form' );
@@ -220,7 +220,7 @@ EOT;
 	}
 
 	protected function generatePaymentFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
+		global $wgScriptPath;
 
 		$form = '';
 

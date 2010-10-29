@@ -4,7 +4,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgScriptPath;
+		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath())) {
@@ -115,7 +115,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 				$form .= '<tr>';
 				$form .= '<td class="label"></td>';
 				$form .= '<td class="paypal-button">';
-				$form .= Xml::hidden( 'PaypalRedirect', false );
+				$form .= Html::hidden( 'PaypalRedirect', false );
 				$form .= Xml::tags( 'div',
 						array(),
 						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" )) . '&nbsp;&nbsp;&nbsp;<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="'.$scriptPath.'/donate_with_paypal.gif"/></a>'
@@ -159,7 +159,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 		// add hidden fields
 		$hidden_fields = $this->getHiddenFields();
 		foreach ( $hidden_fields as $field => $value ) {
-			$form .= Xml::hidden( $field, $value );
+			$form .= Html::hidden( $field, $value );
 		}
 
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'

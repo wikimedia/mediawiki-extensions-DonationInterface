@@ -2,12 +2,10 @@
 
 class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneStepTwoColumn {
 	public function __construct( &$form_data, &$form_errors ) {
-
 		parent::__construct( $form_data, $form_errors );
 	}
 
 	public function generateFormStart() {
-		global $wgPayflowGatewayHeader, $wgPayflwGatewayTest, $wgOut;
 		$form = $this->generateBannerHeader();
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-creditcard' ) );
@@ -46,7 +44,6 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneS
 	}
 
 	protected function generatePersonalContainer() {
-		global $wgRequest;
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ));			;
 		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header','id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
