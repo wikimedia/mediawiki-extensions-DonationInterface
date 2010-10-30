@@ -2178,6 +2178,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Centerlink
  * @author Crt
  * @author Nike
  * @author Olli
@@ -2242,7 +2243,7 @@ Kiitos lahjoituksestasi.',
 	'payflowpro_gateway-response-126' => 'Siirtosi odottaa hyväksyntää.',
 	'payflowpro_gateway-response-126-2' => 'Joku antamistasi tiedoista ei täsmännyt luottokorttisi tietoihin, tai teit erittäin suuren lahjoituksen. Oman turvallisuutesi vuoksi lahjoituksesi on tarkistettavana, ja ilmoitamme antamaasi sähköpostiosoitteeseen jos emme voi viimeistellä lahjoitustasi. Lähetä sähköpostia osoitteeseen <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> jos sinulla on kysymyksiä. Kiitos!',
 	'payflowpro_gateway-response-12' => 'Lisätietoja saat luottokorttiyhtiöltäsi.',
-	'payflowpro_gateway-response-13' => 'Siirtosi vaatii äänihyväksynnän.
+	'payflowpro_gateway-response-13' => 'Siirtosi vaatii äänihyväksynnän. 
 Ota yhteyttä jatkaaksesi siirtoa.',
 	'payflowpro_gateway-response-114' => 'Ota yhteyttä luottokorttiyhtiöösi saadaksesi lisätietoa.',
 	'payflowpro_gateway-response-23' => 'Luottokorttisi numero tai vanhenemisaika on väärä.',
@@ -2260,14 +2261,15 @@ Yritä myöhemmin uudelleen.',
 	'payflowpro_gateway-cvv-explain' => '<h4>Mikä on CVV?</h4>
 <p>Cardholder Verification Value (CVV): Nämä kolme tai neljä numeroa auttavat varmistamaan, että kortti on fyysisesti kortinhaltijan hallussa. Tämä ehkäisee luvatonta käyttöä ja petoksia.</p>
 <h4>Visa, Mastercard</h4>
-<p>Kolminumeroinen luku on kortin takapuolella, allekirjoitusalueella.
+<p>Kolminumeroinen luku on kortin takapuolella, allekirjoitusalueella. 
 Tyypillisesti allekirjoitusalueella on sarja numeroita, mutta vain kolme viimeistä numeroa muodostavat CVV-numeron.</p>
 <h4>American Express</h4>
-<p>Numero on <i>aina</i> sijoitettu kohopainettuun tilinumeroon kortin etupuolella.
+<p>Numero on <i>aina</i> sijoitettu kohopainettuun tilinumeroon kortin etupuolella. 
 Joissain tapauksissa numero sijaitsee kortin vasemmalla puolella, mutta se on aina tilinumeron yläpuolella.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Kysymyksiä tai kommentteja? Ota yhteyttä: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Luottokorttisi käsitellään turvallisesti.',
 	'payflowpro_gateway-otherways' => 'On myös <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">muita lahjoitustapoja, kuten PayPal, šekki tai posti</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Muut tavat antaa</a>',
 	'payflowpro_gateway-paypal' => 'Onko sinulla PayPal-tili? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Lahjoita PayPalin avulla</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Emme tallenna luottokorttitietojasi, ja henkilökohtaisia tietojasi suojaavat <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">tietoturvaperiaatteemme</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Istuntosi on vanhentunut.  Yritä täyttämällä lomake uudestaan ja lähettämällä se.',
@@ -2278,9 +2280,13 @@ Joissain tapauksissa numero sijaitsee kortin vasemmalla puolella, mutta se on ai
 	'payflowpro_gateway-comment' => 'Kommentti',
 	'payflowpro_gateway-first' => 'Ensimmäinen',
 	'payflowpro_gateway-last' => 'Viimeinen',
+	'payflowpro_gateway-other' => 'Muu',
 	'payflowpro_gateway-noscript-msg' => 'Näyttää siltä, että et ole ottanut JavaScriptiä käyttöön, tai selaimesi ei tue sitä.
 Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomakkeemme vaatii JavaScriptin.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Jos et voi tai et halua ottaa JavaScriptiä käyttöön, voit siltikin osallistua vierailemalla osoitteessa:',
+	'payflowpro_gateway-anon-message' => 'Luettele nimeni julkisessa lahjoittajaluettelossa.',
+	'payflowpro_gateway-donate-wikipedia' => 'Lahjoita Wikipediassa',
+	'payflowpro_gateway-or' => 'tai',
 );
 
 /** French (Français)
