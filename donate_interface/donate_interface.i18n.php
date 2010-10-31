@@ -83,7 +83,7 @@ $messages['af'] = array(
 	'donate_interface-email-agreement' => 'Ek stem in om toekomstige nuus en e-pos vanaf die Wikimedia-stigting te ontvang.',
 	'donate_interface-comment-title' => 'Publieke kommentaar',
 	'donate_interface-amount-error' => "**Sleutel asseblief 'n geldige bedrag in**",
-	'donate_interface-processing-error' => "Daar was 'n fout tydens die verwerking van u versoek.
+	'donate_interface-processing-error' => "Daar was 'n fout tydens die verwerking van u versoek. 
 Geen verwerkers is beskikbaar nie.",
 	'donate_interface-GBP' => 'GBP: Britse pond',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -517,8 +517,8 @@ $messages['diq'] = array(
 	'donate_interface-comment-message' => 'Eka yew fiqirê tu est? Tiya de 200 karekteran de binuse:',
 	'donate_interface-comment-label' => 'Xulase:',
 	'donate_interface-anon-message' => 'Ez rica keno nameyê mi listeyê bexş dayogan de binuse (bin xulaseyê mi).',
-	'donate_interface-email-agreement' => "Ez wazenê ke Dernegê Wikimediyayi ra emailan bigeri.
-Ma ti ra yew çik niroşenê ya zi enformasyon tu çew ra ni dano.
+	'donate_interface-email-agreement' => "Ez wazenê ke Dernegê Wikimediyayi ra emailan bigeri. 
+Ma ti ra yew çik niroşenê ya zi enformasyon tu çew ra ni dano. 
 Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>here</a>",
 	'donate_interface-comment-title' => 'Xulasayê şari',
 	'donate_interface-amount-error' => '**Ma rica keno yew meblugayê raşti binuse**',
@@ -652,7 +652,7 @@ $messages['es'] = array(
 	'donate_interface-email-agreement' => 'Acepto recibir futuros boletines y correos electrónicos de la Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-amount-error' => '**Por favor, escribe una cantidad válida**',
-	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud.
+	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud. 
  No hay procesadores disponibles.',
 	'donate_interface-GBP' => 'GBP: Libra esterlina',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -1025,7 +1025,7 @@ $messages['hr'] = array(
 	'donate_interface-email-agreement' => 'Slažem se s primanjem obavijesti potem e-pošte od Wikimedia zaklade.',
 	'donate_interface-comment-title' => 'Javni komentar',
 	'donate_interface-amount-error' => '**Molimo unesite valjani iznos**',
-	'donate_interface-processing-error' => 'Došlo je do pogreške u obradi vašeg zahtjeva.
+	'donate_interface-processing-error' => 'Došlo je do pogreške u obradi vašeg zahtjeva. 
 Obrađivači zahtjeva nisu dostupni.',
 	'donate_interface-GBP' => 'GBP: britanska funta',
 	'donate_interface-EUR' => 'EUR: euro',
@@ -1573,7 +1573,7 @@ $messages['ms'] = array(
 	'donate_interface-email-agreement' => 'Saya setuju untuk menerima warkah atau e-mail daripada Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Komen umum',
 	'donate_interface-amount-error' => '**Sila masukkan jumlah yang sah**',
-	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda.
+	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda. 
 Sila kembali ke laman terdahulu.',
 	'donate_interface-GBP' => 'GBP: Pound Britain',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -1705,7 +1705,7 @@ $messages['nn'] = array(
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-anon-message' => 'Ver venleg og list opp namnet mitt (ved sidan av kommentaren min) på den offentlege lista over gjevarar.',
 	'donate_interface-amount-error' => '**Ver venleg og skriv inn eit gyldig beløp**',
-	'donate_interface-processing-error' => 'Det har oppstått ein feil i prosesseringa av førespurnaden din.
+	'donate_interface-processing-error' => 'Det har oppstått ein feil i prosesseringa av førespurnaden din. 
 Ingen prosessorar er tilgjengelege.',
 	'donate_interface-GBP' => 'GBP: Britiske pund',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -2219,7 +2219,7 @@ $messages['sk'] = array(
 	'donate_interface-email-agreement' => 'Súhlasím so zasielaním ďalších noviniek a emailov týkajúcich sa Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Verejný komentár',
 	'donate_interface-amount-error' => '**Prosím, zadajte platnú čiastku**',
-	'donate_interface-processing-error' => 'Došlo k chybe pri spracovaní vašej požiadavky.
+	'donate_interface-processing-error' => 'Došlo k chybe pri spracovaní vašej požiadavky. 
 Žiadne procesory sú k dispozícii.',
 	'donate_interface-GBP' => 'GBP: britská libra',
 	'donate_interface-EUR' => 'EUR: euro',
@@ -2258,7 +2258,7 @@ $messages['sl'] = array(
 	'donate_interface-email-agreement' => 'Strinjam se s prejemanjem glasil ali e-pošt Fundacije Wikimedia.',
 	'donate_interface-comment-title' => 'Javna pripomba',
 	'donate_interface-amount-error' => '**Prosimo, vnesite veljaven znesek**',
-	'donate_interface-processing-error' => 'Prišlo je do napake pri obdelavi vaše zahteve.
+	'donate_interface-processing-error' => 'Prišlo je do napake pri obdelavi vaše zahteve. 
 Na voljo ni nobenega obdelovalca.',
 	'donate_interface-GBP' => 'GBP: britanski funt',
 	'donate_interface-EUR' => 'EUR: evro',
@@ -2318,7 +2318,7 @@ $messages['sv'] = array(
 	'donate_interface-email-agreement' => 'Jag accepterar att ta emot framtida nyhetsbrev eller e-post från Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => '**Ange ett giltigt belopp**',
-	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades.
+	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades. 
 Inga processorer finns tillgängliga.',
 	'donate_interface-GBP' => 'GBP: Brittiska pund',
 	'donate_interface-EUR' => 'EUR: Euro',
