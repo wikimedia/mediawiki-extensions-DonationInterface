@@ -115,7 +115,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-noscript-redirect-msg' => 'If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:',
 	'payflowpro_gateway-anon-message' => 'Please list my name on the public donor list.',
 	'payflowpro_gateway-donate-wikipedia' => 'Donate on Wikipedia',
-	'payflowpro_gateway-or' => 'or'
+	'payflowpro_gateway-or' => 'or',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
