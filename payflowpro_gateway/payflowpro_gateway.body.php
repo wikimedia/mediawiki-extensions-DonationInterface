@@ -1114,7 +1114,7 @@ EOT;
 		// which we know with cc# in utm_source or if force=true or if contribution_tracking_id is not set
 		if ( !$force &&
 				!preg_match( "/cc[0-9]/", $data[ 'utm_source' ] ) &&
-				$data[ 'contribution_tracking_id' ] ) {
+				is_numeric( $data[ 'contribution_tracking_id' ] ) ) {
 			return;
 		}
 
@@ -1182,6 +1182,7 @@ EOT;
 		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
 
 		// submit the data to the paypal redirect URL
+		// @fixme add some error checking!!!
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
 		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
