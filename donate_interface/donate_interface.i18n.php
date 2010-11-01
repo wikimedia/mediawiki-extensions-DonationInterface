@@ -894,6 +894,14 @@ $messages['frp'] = array(
 	'donate_interface-ILS' => 'ILS : ch·équèl israèlien',
 );
 
+/** Friulian (Furlan)
+ * @author Klenje
+ */
+$messages['fur'] = array(
+	'donate_interface-comment-label' => 'Coment:',
+	'donate_interface-comment-title' => 'Coment public',
+);
+
 /** Galician (Galego)
  * @author Toliño
  */

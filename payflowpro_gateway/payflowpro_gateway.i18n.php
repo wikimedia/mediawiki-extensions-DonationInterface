@@ -686,6 +686,8 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-anon-message' => 'Калі ласка, унясіце маё імя ў публічны сьпіс ахвяравальнікаў.',
 	'payflowpro_gateway-donate-wikipedia' => 'Ахвяраваць на Вікіпэдыю',
 	'payflowpro_gateway-or' => 'ці',
+	'payflowpro_gateway-state-dropdown-YY' => 'Выбраць штат',
+	'payflowpro_gateway-state-dropdown-XX' => 'Не ў ЗША',
 );
 
 /** Bulgarian (Български)
@@ -1025,6 +1027,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
 
 /** Catalan (Català)
  * @author Aleator
+ * @author Martorell
  * @author SMP
  * @author Solde
  */
@@ -1129,6 +1132,8 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'payflowpro_gateway-anon-message' => 'Anoteu el meu nom a la llista pública de donants.',
 	'payflowpro_gateway-donate-wikipedia' => 'Doneu a Wikipedia',
 	'payflowpro_gateway-or' => 'o',
+	'payflowpro_gateway-state-dropdown-YY' => 'Seleccioneu un estat',
+	'payflowpro_gateway-state-dropdown-XX' => 'No sóc als EUA',
 );
 
 /** Czech (Česky)
@@ -1238,6 +1243,8 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'payflowpro_gateway-anon-message' => 'Zveřejněte prosím mé jméno na seznamu dárců.',
 	'payflowpro_gateway-donate-wikipedia' => 'Přispět na Wikipedii',
 	'payflowpro_gateway-or' => 'nebo',
+	'payflowpro_gateway-state-dropdown-YY' => 'Vyberte stát',
+	'payflowpro_gateway-state-dropdown-XX' => 'Mimo USA',
 );
 
 /** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
@@ -2499,6 +2506,13 @@ Volyéd tornar èprovar pués aprés.',
 	'payflowpro_gateway-last' => 'Dèrriér',
 );
 
+/** Friulian (Furlan)
+ * @author Klenje
+ */
+$messages['fur'] = array(
+	'payflowpro_gateway-donor-name' => 'Non',
+);
+
 /** Irish (Gaeilge)
  * @author Kwekubo
  */
@@ -3534,6 +3548,8 @@ $messages['ja'] = array(
 	'payflowpro_gateway-anon-message' => '寄付者の公開一覧への、自分の名前を追加を希望します。',
 	'payflowpro_gateway-donate-wikipedia' => 'ウィキペディアに寄付',
 	'payflowpro_gateway-or' => 'または',
+	'payflowpro_gateway-state-dropdown-YY' => '州を選択',
+	'payflowpro_gateway-state-dropdown-XX' => 'アメリカ合衆国以外',
 );
 
 /** Georgian (ქართული)
@@ -3882,7 +3898,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-donor-name' => 'Numm:',
 	'payflowpro_gateway-donor-fname' => 'Virnumm:',
 	'payflowpro_gateway-donor-mname' => 'Zweete Virnumm:',
-	'payflowpro_gateway-donor-lname' => 'Familjennumm:',
+	'payflowpro_gateway-donor-lname' => 'Familljennumm',
 	'payflowpro_gateway-donor-street' => 'Strooss:',
 	'payflowpro_gateway-donor-city' => 'Stad:',
 	'payflowpro_gateway-donor-state' => 'Staat:',
@@ -3907,7 +3923,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-error-msg-amount' => 'Betrag vum Don',
 	'payflowpro_gateway-error-msg-emailAdd' => 'E-Mailadress',
 	'payflowpro_gateway-error-msg-fname' => 'Virnumm',
-	'payflowpro_gateway-error-msg-lname' => 'Familjennumm',
+	'payflowpro_gateway-error-msg-lname' => 'Familljennumm',
 	'payflowpro_gateway-error-msg-street' => 'Adress',
 	'payflowpro_gateway-error-msg-city' => 'Stad/Uertschaft',
 	'payflowpro_gateway-error-msg-state' => 'Staat',
@@ -3966,6 +3982,8 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'payflowpro_gateway-anon-message' => 'Setzt mäin Numm w.e.g. op déi ëffentlech Lëscht vun den Donateuren.',
 	'payflowpro_gateway-donate-wikipedia' => 'Maacht en Don op Wikipedia',
 	'payflowpro_gateway-or' => 'oder',
+	'payflowpro_gateway-state-dropdown-YY' => 'Sicht e Staat eraus',
+	'payflowpro_gateway-state-dropdown-XX' => 'Ausserhalb de Vereenegte Staate vun Amerika',
 );
 
 /** Limburgish (Limburgs)
@@ -4126,6 +4144,8 @@ $messages['mk'] = array(
 	'payflowpro_gateway-anon-message' => 'Наведете ме во јавниот список на дарители.',
 	'payflowpro_gateway-donate-wikipedia' => 'Донирајте на Википедија',
 	'payflowpro_gateway-or' => 'или',
+	'payflowpro_gateway-state-dropdown-YY' => 'Одберете сој. држава',
+	'payflowpro_gateway-state-dropdown-XX' => 'Надвор од САД',
 );
 
 /** Malayalam (മലയാളം)
@@ -4777,6 +4797,8 @@ For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema 
 	'payflowpro_gateway-anon-message' => 'Vennligst list opp navnet mitt på den offentlige donorlisten.',
 	'payflowpro_gateway-donate-wikipedia' => 'Doner på Wikipedia',
 	'payflowpro_gateway-or' => 'eller',
+	'payflowpro_gateway-state-dropdown-YY' => 'Velg en stat',
+	'payflowpro_gateway-state-dropdown-XX' => 'Utenfor USA',
 );
 
 /** Occitan (Occitan)
@@ -5078,6 +5100,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'payflowpro_gateway-question-comment' => 'Chestion o coment? Contat: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Soa carta ëd crédit a sarà tratà an manera sigura.',
 	'payflowpro_gateway-otherways' => 'A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d\'àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Autre manere për doné</a>',
 	'payflowpro_gateway-paypal' => 'Ha-lo un cont PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Ch\'a eufra con PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Noi i memorisoma pa j\'anformassion ëd soa carta ëd crédit, e ij sò dat përsonaj a son soget a nòstre <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">régole ëd confidensialità</a>.',
 	'payflowpro_gateway-token-mismatch' => "Soa session a l'é terminà. Për piasì, ch'a preuva a ampinì e a mandé torna ël formolari.",
@@ -5092,6 +5115,10 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'payflowpro_gateway-noscript-msg' => "A smija ch'a l'abia nen JavaScript abilità, o sò navigador a lo manten pa. Për smon-e n'esperiensa sicura, sensa arzigh e piasosa, nòst formolari ëd donassion a ciama JavaScript.",
 	'payflowpro_gateway-noscript-redirect-msg' => "S'a peul o a veul pa abilité JavaScript, a peul ancor contribuì an visitand:",
 	'payflowpro_gateway-anon-message' => 'Për piasì lista mè nòm an sla lista pùblica dij donator.',
+	'payflowpro_gateway-donate-wikipedia' => 'Doné dzora a Wikipedia',
+	'payflowpro_gateway-or' => 'o',
+	'payflowpro_gateway-state-dropdown-YY' => 'Selession-a në Stat',
+	'payflowpro_gateway-state-dropdown-XX' => 'Fòra djë Stat Unì',
 );
 
 /** Pashto (پښتو)
@@ -5243,6 +5270,8 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'payflowpro_gateway-anon-message' => 'Por favor, coloque o meu nome na lista pública de benfeitores.',
 	'payflowpro_gateway-donate-wikipedia' => 'Faça um donativo na Wikipédia',
 	'payflowpro_gateway-or' => 'ou',
+	'payflowpro_gateway-state-dropdown-YY' => 'Seleccione um Estado.',
+	'payflowpro_gateway-state-dropdown-XX' => 'Fora dos EUA.',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
@@ -5532,6 +5561,9 @@ Sì pregate de pruvà n'otre vote cchù nnande.",
 	'payflowpro_gateway-last' => 'Urteme',
 	'payflowpro_gateway-other' => 'Otre',
 	'payflowpro_gateway-anon-message' => "Se preghe de sckaffà 'u nome mèje jndr'à la liste de le donatore pubbleche.",
+	'payflowpro_gateway-or' => 'o',
+	'payflowpro_gateway-state-dropdown-YY' => "Scacchie 'nu State",
+	'payflowpro_gateway-state-dropdown-XX' => 'Fore a le State Aunìte',
 );
 
 /** Russian (Русский)
@@ -6088,6 +6120,8 @@ Da bi zagotovili varno in prijetno doživetje, naš obrazec za doniranje zahteva
 	'payflowpro_gateway-anon-message' => 'Prosim, navedite moje ime na javnem seznamu donatorjev.',
 	'payflowpro_gateway-donate-wikipedia' => 'Darujte na Wikipediji',
 	'payflowpro_gateway-or' => 'ali',
+	'payflowpro_gateway-state-dropdown-YY' => 'Izberite državo',
+	'payflowpro_gateway-state-dropdown-XX' => 'Izven ZDA',
 );
 
 /** Serbian Cyrillic ekavian (Српски (ћирилица))
@@ -6925,6 +6959,7 @@ $messages['uk'] = array(
 	'payflowpro_gateway-anon-message' => "Будь ласка, включіть моє ім'я у відкритий список донорів",
 	'payflowpro_gateway-donate-wikipedia' => 'Пожертвувати на Вікіпедію',
 	'payflowpro_gateway-or' => 'або',
+	'payflowpro_gateway-state-dropdown-XX' => 'За межами США',
 );
 
 /** Vèneto (Vèneto)
@@ -7244,6 +7279,7 @@ $messages['yue'] = array(
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Bencmq
  * @author Chenxiaoqino
+ * @author Hydra
  * @author Liangent
  * @author Wilsonmess
  */
@@ -7340,9 +7376,12 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-comment' => '注释',
 	'payflowpro_gateway-first' => '首先',
 	'payflowpro_gateway-last' => '最后',
+	'payflowpro_gateway-other' => '其他',
 	'payflowpro_gateway-noscript-msg' => '似乎你没有启用JavaScript，或者你的浏览器不支持JavaScript。
 为了给你提供安全、 舒适的体验，我们的捐助表格需要使用JavaScript。',
 	'payflowpro_gateway-noscript-redirect-msg' => '如果你不想或不能启用JavaScript, 你依然可以在以下地址完成捐助：',
+	'payflowpro_gateway-or' => '或者',
+	'payflowpro_gateway-state-dropdown-XX' => '不再美国内',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
