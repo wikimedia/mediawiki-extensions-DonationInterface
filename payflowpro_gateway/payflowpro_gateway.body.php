@@ -1161,7 +1161,7 @@ EOT;
 	 *  This would make this a lot less hack-ish
 	 */
 	public function paypalRedirect( &$data ) {
-		global $wgPayflowGatewayPaypalURL;
+		global $wgPayflowGatewayPaypalURL, $wgPayflowGatewayTest;
 
 		// if we don't have a URL enabled throw a graceful error to the user
 		if ( !strlen( $wgPayflowGatewayPaypalURL ) ) {
@@ -1180,12 +1180,14 @@ EOT;
 		$this->updateContributionTracking( $data, true );
 
 		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
+		
 		// submit the data to the paypal redirect URL
-		// @fixme add some error checking!!!
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
+		curl_setopt( $ch, CURLOPT_USERAGENT, 'Donation_Interface PayflowPro Gateway PayPal Redirecter 1.0' );
 		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+		if ( $wgPayflowGatewayTest ) curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
 		$curl_result = curl_exec( $ch );
 		$curl_error = ( !$curl_result ) ? curl_error( $ch ) : null;
 		curl_close( $ch );
