@@ -1180,14 +1180,17 @@ EOT;
 		$this->updateContributionTracking( $data, true );
 
 		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
-
 		// submit the data to the paypal redirect URL
 		// @fixme add some error checking!!!
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
 		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
-		curl_exec( $ch );
+		$curl_result = curl_exec( $ch );
 		curl_close( $ch );
+		// throw an exception if there was a curl error
+		if ( !$curl_result ) {
+			throw new MWException( 'There was a cURL error submitting information to ' . $wgPayflowGatewayPaypalURL . ': ' . curl_error( $ch ) );
+		}
 	}
 } // end class
