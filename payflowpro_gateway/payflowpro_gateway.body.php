@@ -1187,10 +1187,13 @@ EOT;
 		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
 		$curl_result = curl_exec( $ch );
+		$curl_error = ( !$curl_result ) ? curl_error( $ch ) : null;
 		curl_close( $ch );
+		
 		// throw an exception if there was a curl error
-		if ( !$curl_result ) {
-			throw new MWException( 'There was a cURL error submitting information to ' . $wgPayflowGatewayPaypalURL . ': ' . curl_error( $ch ) );
+		if ( !is_null( $curl_error ) ) {
+			throw new MWException( 'There was a cURL error submitting information to ' . $wgPayflowGatewayPaypalURL . ': ' . $curl_error );
 		}
+		
 	}
 } // end class
