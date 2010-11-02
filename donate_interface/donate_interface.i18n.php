@@ -430,6 +430,7 @@ $messages['cu'] = array(
  */
 $messages['cy'] = array(
 	'donate_interface' => 'Cefnogwch Wikimedia',
+	'donate_interface-desc' => "Gosod tudalen lanio sy'n integreiddio estyniadau porth",
 	'donate_interface-intro' => "Dewiswch fodd talu, y swm, a'r math o arian breiniol.",
 	'donate_interface-amount' => 'Swm y rhodd:',
 	'donate_interface-other-amount' => 'Swm arall',
@@ -439,9 +440,7 @@ $messages['cy'] = array(
 	'donate_interface-comment-message' => "Oes gennych rywbeth i'w ddweud wrth y byd? Gallwch ysgrifennu hyd at 200 llythyren yma:",
 	'donate_interface-comment-label' => 'Sylw:',
 	'donate_interface-anon-message' => 'Rhowch fy enw (wrth ymyl fy sylw) ar y rhestr gyhoeddus o roddwyr.',
-	'donate_interface-email-agreement' => "Rwyn cytuno i dderbyn cylchlythyron neu e-byst oddi wrth Sefydliad Wikimedia.
-Ni fyddwn byth yn gwerthu gwybodaeth amdanoch nac yn ei masnachu.
-Gallwch ddarllen ein polisi preifatrwydd ar gyfer noddwyr <a title='Donate/Donor Privacy' href='wiki/Donate/Donor_Privacy'>yma</a>.",
+	'donate_interface-email-agreement' => 'Rwyn cytuno i dderbyn cylchlythyron neu e-byst oddi wrth Sefydliad Wikimedia.',
 	'donate_interface-comment-title' => 'Sylw cyhoeddus',
 	'donate_interface-amount-error' => '**Byddwch gystal  gosod swm dilys**',
 	'donate_interface-processing-error' => 'Cafwyd gwall wrth drin eich cais. Nid oes prosesydd ar gael.',
@@ -2009,22 +2008,28 @@ Nenhuma das plataformas está disponível.',
 );
 
 /** Romanian (Română)
+ * @author AdiJapan
  * @author Firilacroco
  * @author Minisarm
  * @author Stelistcristi
  */
 $messages['ro'] = array(
 	'donate_interface' => 'Sprijiniți Wikimedia',
-	'donate_interface-amount' => 'Suma de donație:',
+	'donate_interface-desc' => 'Pagină de destinație pentru donații, cu module de plată',
+	'donate_interface-intro' => 'Vă rugăm să alegeți modul de plată, valoarea și moneda.',
+	'donate_interface-amount' => 'Suma donată:',
 	'donate_interface-other-amount' => 'Altă sumă',
-	'donate_interface-currency' => 'Valută:',
-	'donate_interface-gateway' => 'Modalitati de plata:',
+	'donate_interface-currency' => 'Monedă:',
+	'donate_interface-gateway' => 'Modalități de plată:',
 	'donate_interface-submit-button' => 'Donează',
+	'donate_interface-comment-message' => 'Vreți să le transmiteți un gînd tuturor? Scrieți aici pînă la 200 de caractere:',
 	'donate_interface-comment-label' => 'Comentariu:',
+	'donate_interface-anon-message' => 'Doresc să-mi apară numele (după comentariu) în lista publică a donațiilor.',
+	'donate_interface-email-agreement' => 'Accept să primesc în viitor buletine și mesaje electronice de la Fundația Wikimedia.',
 	'donate_interface-comment-title' => 'Comentariu public',
-	'donate_interface-amount-error' => '**Introduceți o sumă validă**',
-	'donate_interface-processing-error' => 'A fost o problemă la procesarea cererii dvs.
-Niciun procesor nu e disponibil.',
+	'donate_interface-amount-error' => '**Vă rugăm să introduceți o sumă validă**',
+	'donate_interface-processing-error' => 'S-a produs o eroare în timpul prelucrării cererii dumneavoastră.
+Niciun procesor nu este disponibil.',
 	'donate_interface-GBP' => 'GBP: Liră sterlină',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolar american',
@@ -2033,15 +2038,15 @@ Niciun procesor nu e disponibil.',
 	'donate_interface-CHF' => 'CHF: Franc elvețian',
 	'donate_interface-CZK' => 'CZK: Coroană cehă',
 	'donate_interface-DKK' => 'DKK: Coroană daneză',
-	'donate_interface-HKD' => 'HKD: Dolar Hong Kong',
+	'donate_interface-HKD' => 'HKD: Dolar din Hong-Kong',
 	'donate_interface-HUF' => 'HUF: Forint maghiar',
 	'donate_interface-JPY' => 'JPY: Yen japonez',
-	'donate_interface-NZD' => 'NZD: Dolarul neo-zeelandez',
+	'donate_interface-NZD' => 'NZD: Dolar neozeelandez',
 	'donate_interface-NOK' => 'NOK: Coroană norvegiană',
-	'donate_interface-PLN' => 'PLN: Zlotul polonez',
+	'donate_interface-PLN' => 'PLN: Zlot polonez',
 	'donate_interface-SGD' => 'SGD: Dolar singaporez',
 	'donate_interface-SEK' => 'SEK: Coroană suedeză',
-	'donate_interface-ILS' => 'ILS: Sekelul israelian',
+	'donate_interface-ILS' => 'ILS: Shekel israelian',
 );
 
 /** Tarandíne (Tarandíne)
