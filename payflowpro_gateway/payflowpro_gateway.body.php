@@ -1161,7 +1161,7 @@ EOT;
 	 *  This would make this a lot less hack-ish
 	 */
 	public function paypalRedirect( &$data ) {
-		global $wgPayflowGatewayPaypalURL, $wgPayflowGatewayTest;
+		global $wgPayflowGatewayPaypalURL, $wgOut;
 
 		// if we don't have a URL enabled throw a graceful error to the user
 		if ( !strlen( $wgPayflowGatewayPaypalURL ) ) {
@@ -1182,20 +1182,6 @@ EOT;
 		$wgPayflowGatewayPaypalURL .= "/" . $data[ 'language' ] . "?gateway=paypal";
 		
 		// submit the data to the paypal redirect URL
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $wgPayflowGatewayPaypalURL );
-		curl_setopt( $ch, CURLOPT_USERAGENT, 'Donation_Interface PayflowPro Gateway PayPal Redirecter 1.0' );
-		curl_setopt( $ch, CURLOPT_POST, count( $data ) );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $data ) );
-		if ( $wgPayflowGatewayTest ) curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		$curl_result = curl_exec( $ch );
-		$curl_error = ( !$curl_result ) ? curl_error( $ch ) : null;
-		curl_close( $ch );
-		
-		// throw an exception if there was a curl error
-		if ( !is_null( $curl_error ) ) {
-			throw new MWException( 'There was a cURL error submitting information to ' . $wgPayflowGatewayPaypalURL . ': ' . $curl_error );
-		}
-		
+		$wgOut->redirect( $wgPayflowGatewayPaypalURL . '&' . http_build_query( $data ) );
 	}
 } // end class
