@@ -102,10 +102,10 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
-			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
-			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35 ) . '35 ' .
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField( document.getElementById(\'amountOther\'), "Other" )' ) ) . '20 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '100 ' .
+			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '50 ' .
+			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '35 ' .
+			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '20 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';

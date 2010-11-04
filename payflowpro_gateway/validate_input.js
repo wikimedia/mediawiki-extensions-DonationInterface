@@ -21,6 +21,12 @@ function clearField( field, defaultValue ) {
 		field.style.color = 'black';
 	}
 }
+function clearField2( field, defaultValue ) {
+	if (field.value != defaultValue) {
+		field.value = '';
+		field.style.color = 'black';
+	}
+}
 
 function switchToPayPal() {
 	document.getElementById('payflow-table-cc').style.display = 'none';
