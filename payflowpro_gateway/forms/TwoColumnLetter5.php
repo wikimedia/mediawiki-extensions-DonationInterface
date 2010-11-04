@@ -100,12 +100,12 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= $this->getEmailField();
 
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment' ), 'payment_method' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'method', 1, $this->form_data['payment_method'] == 1 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
-			Xml::radio( 'method', 2, $this->form_data['payment_method'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
-			Xml::radio( 'method', 3,  $this->form_data['payment_method'] == 3 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
-			Xml::radio( 'method', 4, $this->form_data['payment_method'] == 4 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) .
-			Xml::radio( 'method', 5, $this->form_data['payment_method'] == 5 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment-type' ), 'payment_method' ) . '</td>';
+		$form .= '<td>' . Xml::radio( 'payment_method', 1, $this->form_data['payment_method'] == 1 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
+			Xml::radio( 'payment_method', 2, $this->form_data['payment_method'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
+			Xml::radio( 'payment_method', 3,  $this->form_data['payment_method'] == 3 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
+			Xml::radio( 'payment_method', 4, $this->form_data['payment_method'] == 4 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . "<br/>" .
+			Xml::radio( 'payment_method', 5, $this->form_data['payment_method'] == 5 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
 			'</td>';
 		$form .= '</tr>';
 		
