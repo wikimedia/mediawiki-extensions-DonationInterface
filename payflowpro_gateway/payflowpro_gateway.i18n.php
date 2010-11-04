@@ -191,6 +191,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-next' => 'Next',
 	'payflowpro_gateway-continue' => 'Continue',
 	'payflowpro_gateway-cancel' => 'Cancel',
+	'payflowpro_gateway-payment' => 'Payment',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
