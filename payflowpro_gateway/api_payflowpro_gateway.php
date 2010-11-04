@@ -120,39 +120,8 @@ class ApiPayflowProGateway extends ApiBase {
 	 * elements.
 	 */
 	protected function dispatch_get_required_dynamic_form_elements( $params ) {
-		global $wgPayflowGatewaySalt, $wgUseSquid;
+		global $wgPayflowGatewaySalt;
 
-		/**
-		 * if we are not Squid-caching, we do not want to generate the dynamic data via the API
-		 * 
-		 * when non-squid caching, the data should be generated in payflowpro_gateway.body.php, so
-		 * if we were to do it here as well, tracking information could be skewed.
-		 * 
-		 * ths js to hit the api shouldn't even get loaded if squid is not enabled, but
-		 * we do this just in case.
-		 */
-		if ( !$wgUseSquid ) {
-			return;
-		}
-		
-		// increse numattempt
-		$numAttempt = $params[ 'numAttempt' ] + 1;
-		
-		try {
-			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'numAttempt', $numAttempt );
-			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'token', $token );
-		} catch ( Exception $e ) {}
-		
-		
-		/**
-		 * If this is not the first numAttempt AND we have a valid session,
-		 * we do not need to load the dynamic values
-		 */
-		$token_match = PayflowProGateway::fnPayflowMatchEditToken( $params[ 'token' ], $wgpayflowGatewaySalt );
-		if ( $numAttempt > 1 && $token_match ) {
-			return;
-		}
-		
 		// fetch the order_id
 		require_once( 'includes/payflowUser.inc' );
 		$payflow_data = payflowUser();
@@ -180,6 +149,7 @@ class ApiPayflowProGateway extends ApiBase {
 		try {
 			// add dynamic elements to result object
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'orderid', $order_id );
+			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'token', $token );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'contribution_tracking_id', $contribution_tracking_id );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'tracking_data', $tracking_data );
 		} catch ( Exception $e ) {

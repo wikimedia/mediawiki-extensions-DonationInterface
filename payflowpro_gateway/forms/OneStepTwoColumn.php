@@ -4,7 +4,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors ) {
-		global $wgOut, $wgUseSquid;
+		global $wgOut;
 
 		parent::__construct( $form_data, $form_errors );
 
@@ -14,7 +14,7 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 		// we only want to load this JS if the form is being rendered
 		$this->loadValidateJs(); // validation JS
 
-		if ( $WgUseSquid ) $this->loadApiJs(); // API/Ajax JS - only if we're caching
+		$this->loadApiJs(); // API/Ajax JS
 
 		// form placeholder values
 		$first = wfMsg( 'payflowpro_gateway-first' );
