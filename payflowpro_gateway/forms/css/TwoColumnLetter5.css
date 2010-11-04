@@ -106,7 +106,7 @@ input.fullwidth {
 	width:300px !important;
 }
 
-payflowpro_gateway-form-submit-paypal {
+div#payflowpro_gateway-form-submit-paypal {
 	display: none;
 }
 
