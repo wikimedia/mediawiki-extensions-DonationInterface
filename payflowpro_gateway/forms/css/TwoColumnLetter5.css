@@ -106,6 +106,10 @@ input.fullwidth {
 	width:300px !important;
 }
 
+payflowpro_gateway-form-submit-paypal {
+	display: none;
+}
+
 /* Hiding stuff we don't need */
 h1#firstHeading, div#contentSub {
 	display: none;

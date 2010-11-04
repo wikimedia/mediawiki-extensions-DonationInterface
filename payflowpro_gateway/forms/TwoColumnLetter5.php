@@ -161,7 +161,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		
 		// paypal submit button
-		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		$form .= Html::hidden( 'PaypalRedirect', false );
 		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
