@@ -100,7 +100,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= $this->getEmailField();
 
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment' ) ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment' ), 'method' ) . '</td>';
 		$form .= '<td>' . Xml::radio( 'method', 1, $this->form_data['amount'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
 			Xml::radio( 'method', 2, $this->form_data['method'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
 			Xml::radio( 'method', 3,  $this->form_data['method'] == 3 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
@@ -109,7 +109,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 			'</td>';
 		$form .= '</tr>';
 		
-		
+		/*
 		// make sure we have a paypal url set to redirect the user to before displaying the button
 		if ( strlen( $wgPayflowGatewayPaypalURL ) ) {
 			$form .= '<tr>';
@@ -123,6 +123,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 			$form .= '</td>';
 			$form .= '</tr>';
 		}
+		*/
 
 		// card number
 		$form .= $this->getCardNumberField();
@@ -147,15 +148,15 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		// country
 		$form .= $this->getCountryField();
 
-		// anonymous
+		/*
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
 		$form .= ' ' . Xml::label( wfMsg( 'payflowpro_gateway-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
-		// email agreement
 		$form .= $this->getEmailOptField();
+		*/
 
 		return $form;
 	}
