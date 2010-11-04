@@ -7,7 +7,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath() ) ) {
-			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css' );
+			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter5.css' );
 		}
 
 		parent::__construct( $form_data, $form_errors );
@@ -104,10 +104,15 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= '<td>' . Xml::radio( 'payment_method', 1, $this->form_data['payment_method'] == 1 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
 			Xml::radio( 'payment_method', 2, $this->form_data['payment_method'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
 			Xml::radio( 'payment_method', 3,  $this->form_data['payment_method'] == 3 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
-			Xml::radio( 'payment_method', 4, $this->form_data['payment_method'] == 4 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . "<br/>" .
+			Xml::radio( 'payment_method', 4, $this->form_data['payment_method'] == 4 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . 
 			Xml::radio( 'payment_method', 5, $this->form_data['payment_method'] == 5 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
 			'</td>';
 		$form .= '</tr>';
+		
+		$form .= '</table>';
+		
+		$form .= Xml::openElement( 'div', array( 'id' => 'credit-card-stuff' ) );
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		
 		/*
 		// make sure we have a paypal url set to redirect the user to before displaying the button
