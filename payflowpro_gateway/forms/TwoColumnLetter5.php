@@ -151,9 +151,16 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 
 		// state
 		$form .= $this->getStateField();
+		
 		// zip
-		$form .= $this->getZipField();
-
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'zip', '15', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '15', 'id' => 'zip' ) ) .
+			'</td>';
+		$form .= '</tr>';
 		// country
 		$form .= $this->getCountryField();
 
