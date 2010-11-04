@@ -119,7 +119,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 			$form .= Html::hidden( 'PaypalRedirect', false );
 			$form .= Xml::tags( 'div',
 					array(),
-					'test' )
+					'test'
 				);
 			$form .= '</td>';
 			$form .= '</tr>';
