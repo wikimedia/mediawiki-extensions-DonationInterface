@@ -45,7 +45,7 @@
 	text-align: left;
 }
 
-#payflow-table-donor {
+#payflow-table-donor, #payflow-table-cc, #payflow-table-paypal {
 	background-color: transparent;
 }
 
