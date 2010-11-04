@@ -384,7 +384,7 @@ EOT;
 		global $wgOut, $wgDonationTestingMode, $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy;
 
 		// update contribution tracking
-		$this->updateContributionTracking( $data );
+		$this->updateContributionTracking( $data, defined( 'OWA' ) );
 
 		// create payflow query string, include string lengths
 		$queryArray = array(
@@ -919,6 +919,36 @@ EOT;
 		wfSetupSession();
 	}
 
+
+/**
+	 * Fetches ID for reference URL for OWA tracking
+	 * 
+	 * In the event that the URL is not already in the database, insert it
+	 * and return it's id.  Otehrewise, just return its id.
+	 * @param string $ref The reference URL
+	 * @return int The id for the reference URL - 0 if not found
+	 */
+	function get_owa_ref_id( $ref ) {
+		// Replication lag means sometimes a new event will not exist in the table yet
+		$dbw = contributionTrackingConnection();
+		$id_num = $dbw->selectField(
+			'contribution_tracking_owa_ref',
+			'id',
+			array( 'url' => $ref ),
+			__METHOD__
+		);
+		// Once we're on mysql 5, we can use replace() instead of this selectField --> insert or update hooey
+		if ( $id_num === false ) {
+			$dbw->insert(
+				'contribution_tracking_owa_ref',
+				array( 'url' => (string) $ref ),
+				__METHOD__
+			);
+			$id_num = $dbw->insertId();
+		}
+		return $id_num === false ? 0 : $id_num;
+	}
+
 	/**
 	 * Populate the $data array for the credit card form
 	 *
@@ -927,6 +957,12 @@ EOT;
 	 */
 	public function fnGetFormData( $amount, $numAttempt, $token, $order_id ) {
 		global $wgPayflowGatewayTest, $wgRequest;
+
+		// fetch ID for the url reference for OWA tracking
+		$owa_ref = $wgRequest->getText( 'owa_ref', null );
+		if( $owa_ref != null  && !is_numeric( $owa_ref )){
+			$owa_ref = $this->get_owa_ref_id( $owa_ref );
+		}
 
 		// if we're in testing mode and an action hasn't yet be specified, prepopulate the form
 		if ( !$wgRequest->getText( 'action', false ) && !$numAttempt && $wgPayflowGatewayTest ) {
@@ -978,6 +1014,8 @@ EOT;
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
 				'gateway' => 'payflowpro',
+				'owa_session' => $wgRequest->getText( 'owa_session', null ),
+				'owa_ref' => $owa_ref,
 			);
 		} else {
 			$data = array(
@@ -1015,6 +1053,8 @@ EOT;
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
 				'gateway' => 'payflowpro', // this may need to become dynamic in the future
+				'owa_session' => $wgRequest->getText( 'owa_session', null ),
+				'owa_ref' => $owa_ref,
 			);
 		}
 		return $data;
@@ -1133,6 +1173,8 @@ EOT;
 			'utm_source' => $data['utm_source'],
 			'utm_medium' => $data['utm_medium'],
 			'utm_campaign' => $data['utm_campaign'],
+			'owa_session' => $data['owa_session'],
+			'owa_ref' => $data['owa_ref'],
 			'optout' => $optout[ 'optout' ],
 			'language' => $data['language'],
 		);

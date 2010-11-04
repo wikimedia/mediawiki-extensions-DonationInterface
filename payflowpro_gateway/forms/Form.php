@@ -65,6 +65,15 @@ abstract class PayflowProGateway_Form {
 			$this->setStylePath();
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
+		/**
+		 * if OWA is enabled, load the JS.  
+		 * 
+		 * We do this here (rather than in individual forms) because if OWA is 
+		 * enabled, we ALWAYS want to make sure it gets included.
+		 */
+		if(defined('OWA')){
+			$this->loadOwaJs();
+		}
 	}
 
 	/**
@@ -351,6 +360,8 @@ abstract class PayflowProGateway_Form {
 				'contribution_tracking_id' => $this->form_data[ 'contribution_tracking_id' ],
 				'data_hash' => $this->form_data[ 'data_hash' ],
 				'action' => $this->form_data[ 'action' ],
+				'owa_session' => $this->form_data[ 'owa_session' ],
+				'owa_ref' => $this->form_data[ 'owa_ref' ],
 			);
 		}
 
@@ -650,6 +661,20 @@ abstract class PayflowProGateway_Form {
 							$wgScriptPath .
 							'/extensions/DonationInterface/payflowpro_gateway/pfp_api_controller.js?284"></script>' );
 	}
+
+	protected function loadOwaJs() {
+		global $wgOut, $wgScriptPath;
+		$wgOut->addHeadItem('owa_tracker_verts', '<script type="text/javascript" src="http://owa.tesla.usability.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>');
+		
+		$wgOut->addHeadItem( 'owa_get_info', '<script type="text/javascript" src="' .
+							$wgScriptPath .
+							'/extensions/DonationInterface/payflowpro_gateway/owa_get_info.js?284"></script>' );
+		$wgOut->addHeadItem( 'owa_tracker', '<script type="text/javascript" src="' .
+							$wgScriptPath .
+							'/extensions/DonationInterface/payflowpro_gateway/owa.tracker-combined-min.js?284"></script>' );
+							
+	}
+
 
 	/**
 	 * Generate HTML for <noscript> tags
