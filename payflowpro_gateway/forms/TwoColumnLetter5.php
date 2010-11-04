@@ -101,29 +101,14 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment-type' ), 'payment_method' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'payment_method', 1, $this->form_data['payment_method'] == 1, array( 'onclick' => 'document.getElementById(\'payflow-table-paypal\').style.display = \'none\';document.getElementById(\'payflow-table-cc\').style.display = \'table\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
-			Xml::radio( 'payment_method', 2, $this->form_data['payment_method'] == 2, array( 'onclick' => 'document.getElementById(\'payflow-table-paypal\').style.display = \'none\';document.getElementById(\'payflow-table-cc\').style.display = \'table\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
-			Xml::radio( 'payment_method', 3,  $this->form_data['payment_method'] == 3, array( 'onclick' => 'document.getElementById(\'payflow-table-paypal\').style.display = \'none\';document.getElementById(\'payflow-table-cc\').style.display = \'table\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
-			Xml::radio( 'payment_method', 4, $this->form_data['payment_method'] == 4, array( 'onclick' => 'document.getElementById(\'payflow-table-paypal\').style.display = \'none\';document.getElementById(\'payflow-table-cc\').style.display = \'table\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . 
-			Xml::radio( 'payment_method', 5, $this->form_data['payment_method'] == 5, array( 'onclick' => 'document.getElementById(\'payflow-table-cc\').style.display = \'none\';document.getElementById(\'payflow-table-paypal\').style.display = \'table\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
+		$form .= '<td>' . Xml::radio( 'payment_method', 'cc1', $this->form_data['payment_method'] == 'cc1', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
+			Xml::radio( 'payment_method', 'cc2', $this->form_data['payment_method'] == 'cc2', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
+			Xml::radio( 'payment_method', 'cc3',  $this->form_data['payment_method'] == 'cc3', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
+			Xml::radio( 'payment_method', 'cc4', $this->form_data['payment_method'] == 'cc4', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . 
+			Xml::radio( 'payment_method', 'pp', $this->form_data['payment_method'] == 'pp', array( 'onclick' => 'switchToPayPal()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
 			'</td>';
 		$form .= '</tr>';
 		
-		$form .= '</table>';
-		
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-paypal', 'style' => 'display:none;' ) );
-		if ( strlen( $wgPayflowGatewayPaypalURL ) ) {
-			$form .= '<tr>';
-			$form .= '<td class="label"></td>';
-			$form .= '<td>';
-			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::tags( 'div',
-					array(),
-					'test'
-				);
-			$form .= '</td>';
-			$form .= '</tr>';
-		}
 		$form .= '</table>';
 		
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
@@ -165,18 +150,21 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 	}
 
 	public function generateFormSubmit() {
-		// submit button
+		// cc submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		if ( $this->paypal ) {
-			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
-		} else {
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'submit_form( this )', 'type' => 'submit' ) );
-			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
-			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gateway-donate-click' );
-		}
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'submit_form( this )', 'type' => 'submit' ) );
+		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
+		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
+		wfMsg( 'payflowpro_gateway-donate-click' );
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
+		
+		// paypal submit button
+		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
+		$form .= Html::hidden( 'PaypalRedirect', false );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 
