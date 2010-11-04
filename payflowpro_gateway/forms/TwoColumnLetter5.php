@@ -105,7 +105,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 			Xml::radio( 'payment_method', 2, $this->form_data['payment_method'] == 2 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
 			Xml::radio( 'payment_method', 3,  $this->form_data['payment_method'] == 3 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
 			Xml::radio( 'payment_method', 4, $this->form_data['payment_method'] == 4 ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . 
-			Xml::radio( 'payment_method', 5, $this->form_data['payment_method'] == 5, 'onclick' => 'document.getElementById(\'payflow-table-cc\').style.display = \'none\';' ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
+			Xml::radio( 'payment_method', 5, $this->form_data['payment_method'] == 5, array( 'onclick' => 'document.getElementById(\'payflow-table-cc\').style.display = \'none\';' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
 			'</td>';
 		$form .= '</tr>';
 		
