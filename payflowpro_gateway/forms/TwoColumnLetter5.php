@@ -55,7 +55,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
-		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
+		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'autocomplete' => 'off' ) );
 
 		$form .= $this->generateBillingContainer();
 		return $form;
@@ -181,7 +181,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		// cc submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;submit_form( this )', 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;submit_form( this );', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 		wfMsg( 'payflowpro_gateway-donate-click' );
