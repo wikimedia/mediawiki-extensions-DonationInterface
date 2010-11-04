@@ -105,7 +105,7 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
 			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
 			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35 ) . '35 ' .
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, 'onfocus' => 'clearField( document.getElementById(\'amountOther\'), "Other" )' ) . '20 ' .
+			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField( document.getElementById(\'amountOther\'), "Other" )' ) ) . '20 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
