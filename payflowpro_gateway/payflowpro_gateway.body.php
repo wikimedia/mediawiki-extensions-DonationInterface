@@ -108,26 +108,19 @@ EOT;
 
 		$payflow_data = payflowUser();
 
-		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
-		if ( $wgRequest->getText( '_cache_', false ) ) {
-			$cache = true;
-			$token = '';
-			$token_match = false;
+		// if we have squid caching enabled, set the maxage
+		global $wgUseSquid, $wgPayflowSMaxAge;
+		if ( $wgUseSquid ) {
+			$wgOut->setSquidMaxage( $wgPayflowSMaxAge );
+		} 
+		
+		// establish the edit token to prevent csrf
+		$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
 
-			// if we have squid caching enabled, set the maxage
-			global $wgUseSquid, $wgPayflowSMaxAge;
-			if ( $wgUseSquid ) $wgOut->setSquidMaxage( $wgPayflowSMaxAge );
-		} else {
-			$cache = false;
-
-			// establish the edit token to prevent csrf
-			$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
-
-			// match token
-			$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
-			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
-		}
-
+		// match token
+		$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
+		$token_match = self::fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
+		
 		$this->setHeaders();
 
 		// Populate form data
@@ -148,8 +141,9 @@ EOT;
 		if ( $token_match ) {
 
 			if ( $data['payment_method'] == 'processed' ) {
-				// increase the count of attempts
-				++$data['numAttempt'];
+				// increase the count of attempts (if we're not using Squid [which means we're using the API to control numAttempt]
+				global $wgUseSquid;
+				if ( !$wgUseSquid ) ++$data['numAttempt'];
 
 				// Check form for errors and redisplay with messages
 				$form_errors = $this->fnPayflowValidateForm( $data, $this->errors );
@@ -195,10 +189,7 @@ EOT;
 				$this->fnPayflowDisplayForm( $data, $this->errors );
 			}
 		} else {
-			if ( !$cache ) {
-				// if we're not caching, there's a token mismatch
-				$this->errors['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
-			}
+			$this->errors['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
 			$this->fnPayflowDisplayForm( $data, $this->errors );
 		}
 	}
@@ -212,10 +203,10 @@ EOT;
 	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function fnPayflowDisplayForm( &$data, &$error ) {
-		global $wgOut, $wgRequest;
+		global $wgOut, $wgRequest, $wgUseSquid;
 
 		// save contrib tracking id early to track abondonment
-		if ( $data[ 'numAttempt' ] == '0' && ( !$wgRequest->getText( 'utm_source_id', false ) || $wgRequest->getText( '_nocache_' ) == 'true' ) ) {
+		if ( !$wgUseSquid && !is_null( $data[ 'contribution_tracking_id' ] )) {
 			$tracked = $this->fnPayflowSaveContributionTracking( $data );
 			if ( !$tracked ) {
 				$when = time();
@@ -889,7 +880,7 @@ EOT;
 	 * @var mixed $salt
 	 * @return bool
 	 */
-	function fnPayflowMatchEditToken( $val, $salt = '' ) {
+	public static function fnPayflowMatchEditToken( $val, $salt = '' ) {
 		// fetch a salted version of the session token
 		$sessionToken = self::fnPayflowEditToken( $salt );
 		if ( $val != $sessionToken ) {
@@ -974,7 +965,7 @@ EOT;
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ),
 				'token' => $token,
-				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
+				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id', null ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
 				'gateway' => 'payflowpro',
@@ -1011,7 +1002,7 @@ EOT;
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'token' => $token,
-				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
+				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id', null ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
 				'gateway' => 'payflowpro', // this may need to become dynamic in the future
