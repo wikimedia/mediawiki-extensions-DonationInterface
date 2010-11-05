@@ -16,5 +16,6 @@ OWATracker.setEndpoint('http://owa.tesla.usability.wikimedia.org/owa/');
 OWATracker.setSiteId('75af9f1681f6a30265361e3a951fa331');
 OWATracker.trackPageView();
 OWATracker.trackClicks();
-OWATracker.trackDomStream();
+//just track pageviews and clicks for now
+//OWATracker.trackDomStream();
 //]]>
