@@ -709,7 +709,11 @@ abstract class PayflowProGateway_Form {
 
 		$url = $wgRequest->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
-		$query_array = wfCgiToArray( $url_parts[ 'query' ] );
+		if ( isset( $url_parts[ 'query' ] ) ) {
+			$query_array = wfCgiToArray( $url_parts[ 'query' ] );
+		} else {
+			$query_array = array();
+		}
 
 		// ensure that _cache_ does not get set in the URL
 		unset( $query_array[ '_cache_' ] );
