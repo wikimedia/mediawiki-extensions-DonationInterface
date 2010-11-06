@@ -2140,6 +2140,7 @@ $messages['rue'] = array(
 	'donate_interface-submit-button' => 'Пожертвовати',
 	'donate_interface-comment-label' => 'Коментарь:',
 	'donate_interface-comment-title' => 'Публічный коментарь',
+	'donate_interface-amount-error' => '**Просиме, задайте правилну суму**',
 	'donate_interface-GBP' => 'GBP: Брітаньска лібра',
 	'donate_interface-EUR' => 'EUR: Евро',
 	'donate_interface-USD' => 'USD: долар США',
