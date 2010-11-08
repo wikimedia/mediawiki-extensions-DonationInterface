@@ -930,7 +930,7 @@ EOT;
 	 */
 	function get_owa_ref_id( $ref ) {
 		// Replication lag means sometimes a new event will not exist in the table yet
-		$dbw = contributionTrackingConnection();
+		$dbw = payflowGatewayConnection();
 		$id_num = $dbw->selectField(
 			'contribution_tracking_owa_ref',
 			'id',
