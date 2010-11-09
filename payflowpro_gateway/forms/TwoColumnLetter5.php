@@ -121,12 +121,13 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 		$form .= $this->getEmailField();
 
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-payment-type' ), 'card' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'card', 'cc1', $this->form_data['card'] == 'cc1', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ) .
-			Xml::radio( 'card', 'cc2', $this->form_data['card'] == 'cc2', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ) .
-			Xml::radio( 'card', 'cc3',  $this->form_data['card'] == 'cc3', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ) .
-			Xml::radio( 'card', 'cc4', $this->form_data['card'] == 'cc4', array( 'onclick' => 'switchToCreditCard()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ) . 
-			Xml::radio( 'card', 'pp', $this->form_data['card'] == 'pp', array( 'onclick' => 'switchToPayPal()' ) ) . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) .
+		$form .= '<td class="label">' . wfMsg( 'payflowpro_gateway-payment-type' ) . '</td>';
+		$form .= '<td>' . 
+			Xml::radio( 'card', 'cc1', $this->form_data['card'] == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . Xml::label( Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ), 'cc1radio' ) .
+			Xml::radio( 'card', 'cc2', $this->form_data['card'] == 'cc2', array( 'id' => 'cc2radio', 'onclick' => 'switchToCreditCard()' ) ) . Xml::label( Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ), 'cc2radio' ) .
+			Xml::radio( 'card', 'cc3',  $this->form_data['card'] == 'cc3', array( 'id' => 'cc3radio', 'onclick' => 'switchToCreditCard()' ) ) . Xml::label( Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ), 'cc3radio' ) .
+			Xml::radio( 'card', 'cc4', $this->form_data['card'] == 'cc4', array( 'id' => 'cc4radio', 'onclick' => 'switchToCreditCard()' ) ) . Xml::label( Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ), 'cc4radio' ) . 
+			Xml::radio( 'card', 'pp', $this->form_data['card'] == 'pp', array( 'id' => 'ppradio', 'onclick' => 'switchToPayPal()' ) ) . Xml::label( Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ), 'ppradio' ) .
 			'</td>';
 		$form .= '</tr>';
 		
