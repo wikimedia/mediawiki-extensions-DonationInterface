@@ -195,7 +195,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-payment-type' => 'Payment type',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
-	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
+	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State...',
 	'payflowpro_gateway-state-dropdown-XX' => 'Outside the U.S.',
 );
 

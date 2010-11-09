@@ -11,7 +11,7 @@ $messages = array();
 /** English */
 $messages['en'] = array(
 	// Below two messages are in payflowpro_gateway.i18n.php.
-	//'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
+	//'payflowpro_gateway-state-dropdown-YY' => 'Select a State-',
 	//'payflowpro_gateway-state-dropdown-XX' => 'Outside the U.S.',
 	'payflowpro_gateway-state-dropdown-AK' => 'Alaska',
 	'payflowpro_gateway-state-dropdown-AL' => 'Alabama',
