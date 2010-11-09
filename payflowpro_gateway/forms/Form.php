@@ -458,7 +458,7 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "'.wfMsg( 'payflowpro_gateway-other' ).'" )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-other' ).'\' )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -546,8 +546,8 @@ abstract class PayflowProGateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-name' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "'.wfMsg( 'payflowpro_gateway-first' ).'" )', 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, "'.wfMsg( 'payflowpro_gateway-last' ).'" )', 'maxlength' => '15', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-first' ).'\' )', 'maxlength' => '15', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-last' ).'\' )', 'maxlength' => '15', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 		return $form;
 	}
