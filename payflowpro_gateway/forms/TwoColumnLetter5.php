@@ -119,6 +119,19 @@ class PayflowProGateway_Form_TwoColumnLetter5 extends PayflowProGateway_Form_One
 
 		// email
 		$form .= $this->getEmailField();
+		
+		// email opt-in
+		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'email-opt' ] : true;
+		$form .= '<tr>';
+		$form .= '<td class="label"> </td>';
+		$form .= '<td class="check-option">' . Xml::check( 'email-opt', $email_opt_value );
+		$form .= ' ';
+		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
+		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ) );
+		$form .= wfMsg( 'donate_interface-email-agreement' );
+		$form .= Xml::closeElement( 'label' );
+		$form .= '</td>';
+		$form .= '</tr>';
 
 		$form .= '<tr>';
 		$form .= '<td class="label">' . wfMsg( 'payflowpro_gateway-payment-type' ) . '</td>';
