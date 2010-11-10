@@ -48,6 +48,9 @@ $wgMinFraudActionRanges = array(
 	'reject' => array( -1, -1 )
 );
 
+// Timeout in seconds for communicating with MaxMind
+$wgMinFraudTimeout = 2;
+
 /**
  * Define whether or not to run minFraud in stand alone mode
  *

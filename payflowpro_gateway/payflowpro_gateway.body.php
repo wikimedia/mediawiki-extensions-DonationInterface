@@ -381,7 +381,7 @@ EOT;
 	 * 						include in string (i.e. Vendor, password)
 	 */
 	private function fnPayflowProcessTransaction( $data, $payflow_data ) {
-		global $wgOut, $wgDonationTestingMode, $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy;
+		global $wgOut, $wgDonationTestingMode, $wgPayflowGatewayUseHTTPProxy, $wgPayflowGatewayHTTPProxy, $wgPayflowProTimeout;
 
 		// update contribution tracking
 		$this->updateContributionTracking( $data, defined( 'OWA' ) );
@@ -429,7 +429,7 @@ EOT;
 		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
 		curl_setopt( $ch, CURLOPT_HEADER, 1 );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
+		curl_setopt( $ch, CURLOPT_TIMEOUT, $wgPayflowProTimeout );
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 0 );
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $payflow_query );

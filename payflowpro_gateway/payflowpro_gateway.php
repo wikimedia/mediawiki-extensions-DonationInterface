@@ -54,6 +54,9 @@ $wgPayflowProPassword = ''; // merchant login password
 // a boolean to determine if we're in testing mode
 $wgPayflowGatewayTest = FALSE;
 
+// timeout in seconds for communicating with paypal
+$wgPayflowProTimeout = 2;
+
 /**
  * The default form to use
  */

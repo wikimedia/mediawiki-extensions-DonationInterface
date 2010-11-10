@@ -215,6 +215,8 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * Perform the min fraud query and capture the response
 	 */
 	public function query_minfraud( array $minfraud_query ) {
+		global $wgMinFraudTimeout;
+		$this->get_ccfd()->timeout = $wgMinFraudTimeout;
 		$this->get_ccfd()->input( $minfraud_query );
 		$this->get_ccfd()->query();
 		$this->minfraud_response = $this->get_ccfd()->output();
