@@ -456,7 +456,7 @@ EOT;
 
 			if ( $headers['http_code'] != 200 && $headers['http_code'] != 403 ) {
 				wfDebugLog( 'payflowpro_gateway', 'Failed sending transaction to PayflowPro, retrying' );
-				sleep( 5 );
+				sleep( 1 );
 			} elseif ( $headers['http_code'] == 200 || $headers['http_code'] == 403 ) {
 				wfDebugLog( 'payflowpro_gateway', 'Finished sending transaction to PayflowPro' );
 				break;
