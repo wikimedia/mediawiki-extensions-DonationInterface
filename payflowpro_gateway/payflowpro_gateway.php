@@ -30,6 +30,7 @@ $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter2' ] = $dir . 'forms/
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter3' ] = $dir . 'forms/TwoColumnLetter3.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter4' ] = $dir . 'forms/TwoColumnLetter4.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter5' ] = $dir . 'forms/TwoColumnLetter5.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter6' ] = $dir . 'forms/TwoColumnLetter6.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoStepTwoColumnLetter' ] = $dir . 'forms/TwoStepTwoColumnLetter.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_SingleColumn' ] = $dir . 'forms/SingleColumn.php';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.i18n.php';
