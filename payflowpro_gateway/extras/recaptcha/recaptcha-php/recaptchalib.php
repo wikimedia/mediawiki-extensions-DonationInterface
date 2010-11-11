@@ -153,9 +153,9 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 	curl_setopt( $ch, CURLOPT_TIMEOUT, RECAPTCHA_TIMEOUT );
 	curl_setopt( $ch, CURLOPT_USERAGENT, 'reCAPTCHA/PHP' );
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $data );
-	curl_setopt($curl, CURLOPT_HEADER, true );
-	curl_setopt($curl, CURLOPT_HTTPHEADER, array( "Host: " . $host ) ); 
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
+	curl_setopt( $ch, CURLOPT_HEADER, true );
+	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( "Host: " . $host ) ); 
 	
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
