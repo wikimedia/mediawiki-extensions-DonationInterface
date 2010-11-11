@@ -311,7 +311,7 @@ $messages['br'] = array(
 	'donate_interface-comment-message' => "Kas ur c'hemenn d'ar bed-holl a fell deoc'h ober ? Gallout a rit skrivañ betek 200 arouezenn amañ :",
 	'donate_interface-comment-label' => 'Evezhiadenn :',
 	'donate_interface-anon-message' => 'Lakait ma anv (ouzh ma evezhiadenn) war roll foran an dud o deus roet un dra bennak.',
-	'donate_interface-email-agreement' => "A-du emaon evit degemer kelc'hlizheroù pe posteloù a-berzh Diazezadur Wikimedia.",
+	'donate_interface-email-agreement' => 'A-du emaon evit degemer keleier a-berzh Diazezadur Wikimedia ur wezh dre vare.',
 	'donate_interface-comment-title' => 'Kemenn publik',
 	'donate_interface-amount-error' => '**Merkit ur sammad reizh**',
 	'donate_interface-processing-error' => "Ur fazi zo bet e-ser plediñ gant ho koulenn. N'haller ket tizhout prosesor ebet.",
@@ -429,7 +429,7 @@ $messages['cs'] = array(
 	'donate_interface-comment-message' => 'Chcete se podělit o nějakou myšlenku se světem? Napište sem nejvýše 200 znaků:',
 	'donate_interface-comment-label' => 'Komentář:',
 	'donate_interface-anon-message' => 'Uveďte mé jméno (spolu s mým komentářem) na veřejném seznamu dárců.',
-	'donate_interface-email-agreement' => 'Souhlasím, aby mi Wikimedia Foundation v budoucnu zasílala novinky a e-maily.',
+	'donate_interface-email-agreement' => 'Souhlasím, aby mi Wikimedia Foundation občas zasílala novinky.',
 	'donate_interface-comment-title' => 'Veřejný komentář',
 	'donate_interface-amount-error' => '**Zadejte platnou částku**',
 	'donate_interface-processing-error' => 'Při zpracovávání vašeho příspěvku došlo k chybě.
@@ -596,9 +596,7 @@ $messages['dsb'] = array(
 	'donate_interface-comment-message' => 'Maš myslicku, kótaruž coš ze swětom źěliś? Napiš how až k 200 znamješkam:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Pšosym naspomnjej mójo mě (pódla mójogo komentara) na zjawnej lisćinje darow.',
-	'donate_interface-email-agreement' => "Pśigłosujom pśipósłanjeju pśiducych powěsćowych listow ab e-mailow Wikimedije.
-Njebuźomy nigda twóje informacije pśedawaś abo z nimi wikowaś.
-Naše pšawidła priwatnosći za dary namakajoš <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>how</a>",
+	'donate_interface-email-agreement' => 'Zwólijom do togo, pśigóźbne aktualizacije wót załožby Wikimedia Foundation dostaś.',
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Pšosym zapódaj płaśiwu sumu**',
 	'donate_interface-processing-error' => 'Pśi pśeźěłowanju twójogo napšašowanja jo zmólka nastała. Procesor njestoj k dispoziciji.',
@@ -622,10 +620,14 @@ Naše pšawidła priwatnosći za dary namakajoš <a title='Donate/Donor Privacy'
 );
 
 /** Greek (Ελληνικά)
+ * @author Egmontaz
  * @author Glavkos
  * @author ZaDiak
  */
 $messages['el'] = array(
+	'donate_interface' => 'Υποστηρίξτε το Wikimedia',
+	'donate_interface-currency' => 'Νόμισμα:',
+	'donate_interface-amount-error' => '** Παρακαλώ εισάγετε έγκυρο ποσό **',
 	'donate_interface-GBP' => 'GBP: Βρετανική λίρα',
 	'donate_interface-EUR' => 'EUR: Ευρώ',
 	'donate_interface-USD' => 'USD: Δολάριο Η.Π.Α.',
@@ -634,6 +636,7 @@ $messages['el'] = array(
 	'donate_interface-CHF' => 'CHF: Φράγκο Ελβετίας',
 	'donate_interface-CZK' => 'CZK: Κορώνα Τσεχίας',
 	'donate_interface-DKK' => 'DKK: Κορόνα Δανίας',
+	'donate_interface-HKD' => 'HKD: Δολάριο Χονγκ Κονγκ',
 	'donate_interface-JPY' => 'JPY: Ιαπωνικό Γεν',
 );
 
@@ -1112,7 +1115,7 @@ $messages['hsb'] = array(
 	'donate_interface-comment-message' => 'Maš mysličku, kotruž chceš ze swětom dźělić? Napisaj tu hač k 200 znamješkam:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Prošu mjenuj moje mjeno (pódla mojeho komentara) na zjawnej lisćinje darow.',
-	'donate_interface-email-agreement' => 'Přizwoluju připósłanju přichodnych powěsćowych listow abo e-mejlow załožby Wikimedia foundation.',
+	'donate_interface-email-agreement' => 'Přizwoluju składnostne aktualizacije wot załožby Wikimedia foundation dóstać.',
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => ' **Prošu zapodaj płaćiwu sumu**',
 	'donate_interface-processing-error' => 'Zmylk je při předźěłowanju twojeho naprašowanja wustupił. Procesor k dispoziciji njesteji.',
@@ -1456,7 +1459,7 @@ $messages['lb'] = array(
 	'donate_interface-comment-message' => 'Wëllt dir der Welt Är iwwerleeunge matdeelen? Schreiwt bis zu 200 Zeechen heihinn:',
 	'donate_interface-comment-label' => 'Bemierkung:',
 	'donate_interface-anon-message' => 'Setzt mäin Numm w.e.g. (niewent menger Bemierkung) op déi ëffentlech Lëscht vun den Donateuren.',
-	'donate_interface-email-agreement' => "Ech sinn domat d'accord fir an Zukunft Newsletteren oder E-Maile vun der Wikimedia Foundation ze kréien.",
+	'donate_interface-email-agreement' => "Ech sinn domat d'accord fir an Zukunft Aktualisatioune vun der Wikimedia Foundation ze kréien.",
 	'donate_interface-comment-title' => 'Ëffentlech Bemierkung',
 	'donate_interface-amount-error' => '**Gitt w.e.g. e valabele Betrag an**',
 	'donate_interface-processing-error' => 'Et gouf e Feeler beim behandele vun Ärer Ufro. Et ass kee Prozesseur disponibel.',
@@ -2426,6 +2429,7 @@ $messages['te'] = array(
 	'donate_interface-comment-message' => 'అందరితో ఏదైనా ఆలోచనని పంచుకోవాలనుకుంటున్నారా? 200 అక్షరాల్లో ఇక్కడ చెప్పండి:',
 	'donate_interface-comment-label' => 'వ్యాఖ్య:',
 	'donate_interface-anon-message' => 'బహిరంగ దాతల జాబితాలో దయచేసి నా పేరుని (నా వ్యాఖ్య ప్రక్కనే) చూపించండి.',
+	'donate_interface-email-agreement' => 'వికీమీడియా ఫౌండేషను నుండి అప్పుడప్పుడూ తాజావిశేషాలను అందుకోడానికి నేను అంగీకరిస్తున్నాను.',
 	'donate_interface-comment-title' => 'బహిరంగ వ్యాఖ్య',
 	'donate_interface-amount-error' => '**దయచేసి సరైన మొత్తాన్ని పేర్కొనండి**',
 	'donate_interface-GBP' => 'GBP: బ్రిటీష్ పౌండ్',
