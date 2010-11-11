@@ -8,7 +8,6 @@
  * 
  * See below for original license and other info.
  */
-
 /*
  * This is a PHP library that handles calling reCAPTCHA.
  *    - Documentation and latest version
@@ -41,6 +40,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+// global MW variables that should be available
+global $wgPayflowRecaptchaUseHTTPProxy, $wgPayflowRecaptchaHTTPProxy, 
+	$wgPayflowRecaptchaTimeout, $wgProto, $wgPayflowRecaptchaComsRetryLimit;
 
 /**
  * The reCAPTCHA server URL's
@@ -367,6 +370,3 @@ function recaptcha_mailhide_html( $pubkey, $privkey, $email ) {
 		"' onclick=\"window.open('" . htmlentities ( $url ) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ( $emailparts [1] );
 
 }
-
-
-?>
