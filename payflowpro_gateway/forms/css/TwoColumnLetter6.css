@@ -109,10 +109,10 @@ input.fullwidth {
 div#payflowpro_gateway-form-submit-paypal {
 	display: block;
 }
-payflowpro_gateway-form-submit {
+div#payflowpro_gateway-form-submit {
 	display: none;
 }
-payflow-table-cc {
+table#payflow-table-cc {
 	display: none;
 }
 

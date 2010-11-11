@@ -147,6 +147,10 @@ class PayflowProGateway_Form_TwoColumnLetter6 extends PayflowProGateway_Form_One
 
 		// email
 		$form .= $this->getEmailField();
+		
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg"> </span></td>';
+		$form .= '</tr>';
 
 		// card number
 		$form .= $this->getCardNumberField();
