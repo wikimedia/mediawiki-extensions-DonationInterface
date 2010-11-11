@@ -1221,6 +1221,7 @@ EOT;
 		$utm_source_parts[2] = 'pp';
 		$data[ 'utm_source' ] = implode( ".", $utm_source_parts );
 		$data[ 'gateway' ] = 'paypal';
+		$data[ 'currency_code' ] = $data[ 'currency' ];
 		/**
 		 * update contribution tracking
 		 */
