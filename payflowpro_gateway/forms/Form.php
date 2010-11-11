@@ -319,7 +319,7 @@ abstract class PayflowProGateway_Form {
 
 		// generate dropdown of currency opts
 		foreach ( $available_currencies as $value => $currency_name ) {
-			$selected = ( $this->form_data[ 'currency' ] == $value ) ? true : false;
+			$selected = ( $this->form_data[ 'currency_code' ] == $value ) ? true : false;
 			$currency_opts .= Xml::option( wfMsg( 'donate_interface-' . $value ), $value, $selected );
 		}
 
