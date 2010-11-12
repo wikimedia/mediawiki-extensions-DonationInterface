@@ -163,7 +163,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
 		wfDebugLog( 'payflowpro_gateway', 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
-		curl_setopt( $ch, CURLPROXY_HTTP );
+		curl_setopt( $ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP );
 		curl_setopt( $ch, CURLOPT_PROXY, RECAPTCHA_HTTP_PROXY );
 	}
 	
