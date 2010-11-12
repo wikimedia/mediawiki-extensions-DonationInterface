@@ -149,7 +149,7 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
  * @return array response
  */
 function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
-	$url = RECAPTCHA_PROTOCOL . "://" . $host . ":" . $port;
+	$url = "http://" . $host . ":" . $port;
 	
 	$ch = curl_init( $url );
 	curl_setopt( $ch, CURLOPT_POST, true );
@@ -162,13 +162,14 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
-		curl_setopt( $ch, CURLOPT_HTTPPROXYTUNNEL, 1 );
+		wfDebugLog( 'payflowpro_gateway', 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
+		curl_setopt( $ch, CURLPROXY_HTTP );
 		curl_setopt( $ch, CURLOPT_PROXY, RECAPTCHA_HTTP_PROXY );
 	}
 	
 	// try up to three times
 	for ( $i = 0; $i < RECAPTCHA_RETRY_LIMIT; $i++ ) {
-		wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via cURL.' );
+		wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
 		$response = curl_exec( $ch );
 		wfDebugLog( 'payflowpro_gateway', "Finished communicating with reCaptcha." );
 		if ( $response ) {
@@ -188,7 +189,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	 */
 	if ( !$response ) {
 		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
-		$response = "true\r\n\r\ntrue";
+		$response = "true\r\n\r\nsuccess";
 	}
 	
 	return $response;
