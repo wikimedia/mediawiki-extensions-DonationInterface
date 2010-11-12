@@ -149,7 +149,7 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
  * @return array response
  */
 function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
-	$url = "http://" . $host . ":" . $port;
+	$url = "http://" . $host . ":" . $port . $path;
 	
 	$ch = curl_init( $url );
 	curl_setopt( $ch, CURLOPT_POST, true );
