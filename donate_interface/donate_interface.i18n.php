@@ -120,9 +120,7 @@ $messages['ar'] = array(
 	'donate_interface-comment-message' => 'هل لديك رأي تريد مشاركته من العالم؟ اكتب ما يصل إلى 200 حرف هنا:',
 	'donate_interface-comment-label' => 'التعليق:',
 	'donate_interface-anon-message' => 'الرجاء سرد اسمي (بجانب تعليقي) في قائمة المتبرعين العلنية.',
-	'donate_interface-email-agreement' => "أوافق على استلام نشرات ورسائل مؤسسة ويكيميديا المستقبلية.
-لن نبيع أو نتاجر بمعلوماتك.
-يمكن أن تجد سياسة خصوصية متبرعينا على <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>هنا</a>",
+	'donate_interface-email-agreement' => 'أوافق على استلام أخبار من فترة إلى أخرى من مؤسسة ويكيميديا.',
 	'donate_interface-comment-title' => 'تعليق عام',
 	'donate_interface-amount-error' => '**من فضلك أدخل مقدارًا صالحًا**',
 	'donate_interface-processing-error' => 'ثمة خطأ أثناء معالجة طلبك. لا معالج متوفر.',
@@ -286,7 +284,7 @@ $messages['bn'] = array(
 	'donate_interface-HKD' => 'HKD: হং কং ডলার',
 	'donate_interface-HUF' => 'HUF: হাঙ্গেরীয় ফোরিন্ট',
 	'donate_interface-JPY' => 'JPY: জাপানি ইয়েন',
-	'donate_interface-NZD' => 'NZD: নিউ জিল্যান্ড ডলার',
+	'donate_interface-NZD' => 'NZD: নিউজিল্যান্ড ডলার',
 	'donate_interface-NOK' => 'NOK: নরওয়েজীয় ক্রোন',
 	'donate_interface-PLN' => 'PLN: পোলীয় জোয়াটি',
 	'donate_interface-SGD' => 'SGD: সিঙ্গাপুর ডলার',
@@ -1025,10 +1023,12 @@ $messages['gsw'] = array(
 );
 
 /** Hebrew (עברית)
+ * @author Amire80
  * @author YaronSh
  */
 $messages['he'] = array(
 	'donate_interface' => 'הבעת תמיכה בוויקימדיה',
+	'donate_interface-desc' => 'דף נחיתה להתרמה עם שילוב של הרחבות שער',
 	'donate_interface-intro' => 'נא לבחור את השיטה, הכמות והמטבע לתשלום.',
 	'donate_interface-amount' => 'סכום התרומה:',
 	'donate_interface-other-amount' => 'סכום אחר',
@@ -1041,6 +1041,8 @@ $messages['he'] = array(
 	'donate_interface-email-agreement' => 'מוסכם בעיני שאקבל עדכוני חדשות והודעות בדוא״ל מקרן ויקימדיה מפעם לפעם.',
 	'donate_interface-comment-title' => 'הערה ציבורית',
 	'donate_interface-amount-error' => '**יש להזין סכום תקני**',
+	'donate_interface-processing-error' => 'חלה שגיאה בתהליך העיבוד של הבקשה. 
+אין מעבדים זמינים.',
 	'donate_interface-GBP' => 'GBP: לירה שטרלינג',
 	'donate_interface-EUR' => 'EUR: אירו
 �',
@@ -1501,16 +1503,20 @@ $messages['li'] = array(
 );
 
 /** Latvian (Latviešu)
+ * @author Geimeris
  * @author GreenZeb
  * @author Papuass
  */
 $messages['lv'] = array(
+	'donate_interface' => 'Atbalsti Wikimedia',
+	'donate_interface-intro' => 'Lūdzu izvēlēties maksājuma veidu, daudzumu un valūtu.',
 	'donate_interface-amount' => 'Ziedojuma summa:',
 	'donate_interface-other-amount' => 'Cita summa',
 	'donate_interface-currency' => 'Valūta:',
 	'donate_interface-gateway' => 'Samaksas veids:',
 	'donate_interface-submit-button' => 'Ziedot',
 	'donate_interface-comment-label' => 'Komentārs:',
+	'donate_interface-anon-message' => 'Lūdzu uzrādīt manu vārdu (blakus manam komentāram) publisko ziedotāju sarakstā.',
 	'donate_interface-comment-title' => 'Publisks komentārs',
 	'donate_interface-amount-error' => '**Lūdzu, ievadi derīgu summu**',
 	'donate_interface-GBP' => 'GBP: Lielbritānijas sterliņu mārciņa',
@@ -2072,7 +2078,7 @@ $messages['ro'] = array(
 	'donate_interface-comment-message' => 'Vreți să le transmiteți un gînd tuturor? Scrieți aici pînă la 200 de caractere:',
 	'donate_interface-comment-label' => 'Comentariu:',
 	'donate_interface-anon-message' => 'Doresc să-mi apară numele (după comentariu) în lista publică a donatorilor.',
-	'donate_interface-email-agreement' => 'Accept să primesc în viitor buletine și mesaje electronice de la Fundația Wikimedia.',
+	'donate_interface-email-agreement' => 'Accept să primesc în viitor actualizări ocazionale de la Fundația Wikimedia.',
 	'donate_interface-comment-title' => 'Comentariu public',
 	'donate_interface-amount-error' => '**Vă rugăm să introduceți o sumă validă**',
 	'donate_interface-processing-error' => 'S-a produs o eroare în timpul prelucrării cererii dumneavoastră.
@@ -2794,6 +2800,7 @@ $messages['zh-hans'] = array(
 /** Traditional Chinese (‪中文(繁體)‬)
  * @author Horacewai2
  * @author Liangent
+ * @author Pbdragonwang
  */
 $messages['zh-hant'] = array(
 	'donate_interface' => '資助維基媒體',
@@ -2807,7 +2814,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-comment-message' => '有想法希望與世界分享？請在此填寫不超過200字的評論：',
 	'donate_interface-comment-label' => '評論：',
 	'donate_interface-anon-message' => '請在我的評論邊上附上我的名字。',
-	'donate_interface-email-agreement' => '我同意在未來接收維基媒體基金會的新聞或電郵',
+	'donate_interface-email-agreement' => '我同意收到維基媒體基金會不定期的最新訊息。',
 	'donate_interface-comment-title' => '公開的評論',
 	'donate_interface-amount-error' => '**請輸入有效的數額**',
 	'donate_interface-processing-error' => '處理您的請求時出錯了。沒有可用的處理器。',
@@ -2837,10 +2844,20 @@ $messages['zh-hk'] = array(
 我們捐款者的私隱政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裏</a>找到",
 );
 
-/** Chinese (Taiwan) (‪中文(台灣)‬) */
+/** Chinese (Taiwan) (‪中文(台灣)‬)
+ * @author Pbdragonwang
+ */
 $messages['zh-tw'] = array(
-	'donate_interface-email-agreement' => "我同意接收未來的維基媒體的新聞稿或者電郵。
-我們不會賣或交易您的資料。
-我們捐款者的隱私政策可以在<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>這裡</a>找到",
+	'donate_interface' => '贊助維基媒體',
+	'donate_interface-intro' => '請選擇付款方式，金額和貨幣種類。',
+	'donate_interface-amount' => '捐贈金額：',
+	'donate_interface-other-amount' => '其他金額：',
+	'donate_interface-currency' => '貨幣種類：',
+	'donate_interface-email-agreement' => '我同意收到維基媒體基金會不定期的最新訊息。',
+	'donate_interface-EUR' => 'EUR: 歐元',
+	'donate_interface-HKD' => 'HKD:港幣',
+	'donate_interface-NZD' => 'NZD:紐元',
+	'donate_interface-SGD' => 'SGD:新加坡幣',
+	'donate_interface-ILS' => 'ILS: 以色列謝克爾',
 );
 
