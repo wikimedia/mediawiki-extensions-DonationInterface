@@ -272,6 +272,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-first' => "first name (without the 'name')",
 	'payflowpro_gateway-last' => "last name (without the 'name')",
 	'payflowpro_gateway-other' => '{{Identical|Other}}',
+	'payflowpro_gateway-or' => '{{Identical|Or}}',
 	'payflowpro_gateway-title' => '{{Identical|Title}}',
 	'payflowpro_gateway-address-1' => '{{Identical|Address}}',
 	'payflowpro_gateway-address-2' => '{{Identical|Address}}',
@@ -294,7 +295,7 @@ $messages['hu-formal'] = array(
  * @author Naudefj
  */
 $messages['af'] = array(
-	'payflowprogateway' => 'Ondersteun Wikipedia',
+	'payflowprogateway' => 'Skenk nou',
 	'payflowpro_gateway-desc' => 'Kredietkaart-verwerking via PayPal se PayFlow Pro',
 	'payflowpro_gateway-accessible' => 'Hierdie bladsy is slegs vanaf die donasie-bladsy toeganklik.',
 	'payflowpro_gateway-form-message' => "Gebruik die vorm hieronder om met 'n kredietkaart te skenk, of",
@@ -385,6 +386,56 @@ In sommige gevalle is die kode aan die linkerkant van die kaart, maar steeds bo 
 	'payflowpro_gateway-comment' => 'Opmerking',
 	'payflowpro_gateway-first' => 'Eerste',
 	'payflowpro_gateway-last' => 'Laaste',
+	'payflowpro_gateway-donate-wikipedia' => 'Skenk op Wikipedia',
+	'payflowpro_gateway-or' => 'of',
+	'payflowpro_gateway-your-information' => 'U gegewens',
+	'payflowpro_gateway-mailing-address' => 'Posadres',
+	'payflowpro_gateway-billing-address' => 'Faktuuradres',
+	'payflowpro_gateway-title' => 'Titel',
+	'payflowpro_gateway-suffix' => 'Agtervoegsel',
+	'payflowpro_gateway-address-1' => 'Adres 1',
+	'payflowpro_gateway-address-2' => 'Adres 2',
+	'payflowpro_gateway-address-line-2' => 'Adres (reël 2)',
+	'payflowpro_gateway-street-address' => 'Straatadres',
+	'payflowpro_gateway-street-address-line-2' => 'Straatadres (reël 2)',
+	'payflowpro_gateway-street-1' => 'Straat 1',
+	'payflowpro_gateway-street-2' => 'Street 2',
+	'payflowpro_gateway-apartment-number' => 'Toevoegsel',
+	'payflowpro_gateway-city-town' => 'Stad/Dorp',
+	'payflowpro_gateway-town-city' => 'Dorp/Stad',
+	'payflowpro_gateway-state-province' => 'Staat/provinsie',
+	'payflowpro_gateway-zip' => 'Poskode',
+	'payflowpro_gateway-zip-code' => 'Poskode',
+	'payflowpro_gateway-country' => 'Land',
+	'payflowpro_gateway-select-country' => 'Kies land',
+	'payflowpro_gateway-confirm-email' => 'Bevestig e-posadres',
+	'payflowpro_gateway-confirmation-email' => 'Bevestiging per e-pos',
+	'payflowpro_gateway-phone' => 'Telefoon',
+	'payflowpro_gateway-telephone' => 'Telefoonnommer',
+	'payflowpro_gateway-telephone-home' => 'Telefoon (tuis)',
+	'payflowpro_gateway-name-on-card' => 'Naam op die kaart',
+	'payflowpro_gateway-type-of-card' => 'Tipe kaart',
+	'payflowpro_gateway-card-type' => 'Kaarttipe',
+	'payflowpro_gateway-credit-card-type' => 'Tipe kredietkaart',
+	'payflowpro_gateway-credit-card-number' => 'Kredietkaart nommer',
+	'payflowpro_gateway-credit-card-number-abbreviated' => 'Kredietkaart #',
+	'payflowpro_gateway-cvv' => 'CVV',
+	'payflowpro_gateway-cvv-number-abbreviated' => 'CVV #',
+	'payflowpro_gateway-cvv2' => 'CVV2',
+	'payflowpro_gateway-cvv-number' => 'CVV-nommer',
+	'payflowpro_gateway-verification-number' => 'Verifikasie nommer',
+	'payflowpro_gateway-what-is-this' => 'Wat is dit?',
+	'payflowpro_gateway-donate-now' => 'Skenk nou',
+	'payflowpro_gateway-select-amount' => 'Kies bedrag',
+	'payflowpro_gateway-amount' => 'Bedrag',
+	'payflowpro_gateway-make-a-donation' => "Maak 'n donasie",
+	'payflowpro_gateway-next' => 'Volgende',
+	'payflowpro_gateway-continue' => 'Gaan voort',
+	'payflowpro_gateway-cancel' => 'Kanselleer',
+	'payflowpro_gateway-payment' => 'Betaling',
+	'payflowpro_gateway-payment-type' => 'Betaalwyse',
+	'payflowpro_gateway-state-dropdown-YY' => "Kies 'n staat",
+	'payflowpro_gateway-state-dropdown-XX' => 'Buite die VSA',
 );
 
 /** Gheg Albanian (Gegë)
@@ -625,6 +676,17 @@ $messages['arz'] = array(
 	'payflowpro_gateway-donate-click' => 'بعد الضغط على "{{int:payflowpro_gateway-donor-submit}}"، معلومات بطاقتك الائتمانيه ستتم معالجتها.',
 	'payflowpro_gateway-credit-storage-processing' => 'نحن لا نخزن معلومات بطاقتك الائتمانيه، وبياناتك الشخصيه معرضه لتوجد <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ar">وسائل أخرى للتبرع من بينها PayPal والشيكات والبريد</a>.
 <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.',
+);
+
+/** Azerbaijani (Azərbaycanca)
+ * @author Sortilegus
+ */
+$messages['az'] = array(
+	'payflowpro_gateway-or' => 'və ya',
+	'payflowpro_gateway-your-information' => 'Haqqınızda məlumat',
+	'payflowpro_gateway-company-name' => 'Şirkətin və ya təşkilatın adı',
+	'payflowpro_gateway-address-1' => 'Ünvan 1',
+	'payflowpro_gateway-address-2' => 'Ünvan 2',
 );
 
 /** Bashkir (Башҡорт)
@@ -916,7 +978,7 @@ $messages['bg'] = array(
  * @author Wikitanvir
  */
 $messages['bn'] = array(
-	'payflowprogateway' => 'আপনার নিরাপদ অনুদানের মাধ্যমে উইকিপিডিয়াকে সহায়তা করুন',
+	'payflowprogateway' => 'এখনই আপনার অনুদানটি প্রদান করুন',
 	'payflowpro_gateway-desc' => 'পেপ্যাল পেফ্লো প্রো ক্রেডিট কার্ড প্রসেসিং',
 	'payflowpro_gateway-accessible' => 'এই পাতায় শুধুমাত্র অনুদানের পাতা থেকেই প্রবেশ করা সম্ভব।',
 	'payflowpro_gateway-form-message' => 'ক্রেডিট কার্ডের মাধ্যমে দান করতে নিচের ফর্মটি ব্যবহার করুন, অথবা',
@@ -1760,10 +1822,10 @@ Někdy bývá kód umístěn na levé straně karty, ale vždy je nad číslem �
 	'payflowpro_gateway-make-your-donation' => 'Poskytnout příspěvek',
 	'payflowpro_gateway-state-in-us' => 'pokud v USA',
 	'payflowpro_gateway-comment' => 'Komentář',
-	'payflowpro_gateway-first' => 'První',
+	'payflowpro_gateway-first' => 'Křestní',
 	'payflowpro_gateway-middle' => 'Prostřední',
-	'payflowpro_gateway-last' => 'Poslední',
-	'payflowpro_gateway-other' => 'Další',
+	'payflowpro_gateway-last' => 'Příjmení',
+	'payflowpro_gateway-other' => 'Jiná',
 	'payflowpro_gateway-noscript-msg' => 'Zdá se, že nemáte povolený JavaScript nebo ho váš prohlížeč nepodporuje.
 Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vyžaduje JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Pokud nemůžete nebo nechcete povolit JavaScript, můžete stále přispět na adrese:',
@@ -2059,7 +2121,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
  * @author Umherirrender
  */
 $messages['de'] = array(
-	'payflowprogateway' => 'Wikimedia unterstützen',
+	'payflowprogateway' => 'Jetzt spenden',
 	'payflowpro_gateway-desc' => 'Ermöglicht die Spendenabwicklung per „Payflow Pro“ von PayPal oder per Kreditkarte',
 	'payflowpro_gateway-accessible' => 'Diese Seite kann nur über die Spendenseite erreicht werden.',
 	'payflowpro_gateway-form-message' => 'Verwende das untenstehende Formular, um per Kreditkarte zu spenden, oder',
@@ -3215,12 +3277,13 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Crochet.david
  * @author Grondin
  * @author IAlex
+ * @author Jean-Frédéric
  * @author Peter17
  * @author PieRRoMaN
  * @author Verdy p
  */
 $messages['fr'] = array(
-	'payflowprogateway' => 'Soutenez Wikimedia',
+	'payflowprogateway' => 'Faites un don maintenant',
 	'payflowpro_gateway-desc' => 'Traitement par carte de crédit PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "Cette page n'est accessible que depuis la page de donation.",
 	'payflowpro_gateway-form-message' => 'Utilisez le formulaire ci-dessous pour donner avec une carte de crédit, ou bien',
@@ -3330,6 +3393,9 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'payflowpro_gateway-company-name' => 'Nom de société ou organisation',
 	'payflowpro_gateway-address-1' => 'Adresse 1',
 	'payflowpro_gateway-address-2' => 'Adresse 2',
+	'payflowpro_gateway-address-line-2' => 'Adresse (ligne 2)',
+	'payflowpro_gateway-pay-by-credit-card' => 'Paiement par carte de crédit',
+	'payflowpro_gateway-which-card' => 'Quelle carte voulez-vous utiliser',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -3808,7 +3874,7 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
  * @author YaronSh
  */
 $messages['he'] = array(
-	'payflowprogateway' => 'הבעת תמיכה בוויקימדיה',
+	'payflowprogateway' => 'הבעת תמיכתך בוויקימדיה כעת',
 	'payflowpro_gateway-desc' => 'עיבוד תשלום בכרטיס אשראי PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'דף זה נגיש אך ורק דרך דף התרומה.',
 	'payflowpro_gateway-form-message' => 'השתמשו בטופס הזה כדי לתרום באמצעות כרטיס אשראי או',
@@ -5600,7 +5666,7 @@ $messages['mk'] = array(
  * @author Praveenp
  */
 $messages['ml'] = array(
-	'payflowprogateway' => 'വിക്കിമീഡിയയെ പിന്തുണയ്ക്കുക',
+	'payflowprogateway' => 'ഇപ്പോൾ തന്നെ സംഭാവന നൽകുക',
 	'payflowpro_gateway-desc' => 'പേപാൽ പേഫ്ലോ പ്രോ ക്രെഡിറ്റ് കാർഡ് ഉപയുക്തമാക്കുന്നു',
 	'payflowpro_gateway-accessible' => 'സംഭാവനാ താളിൽ നിന്നുമാത്രമേ ഈ താൾ ലഭ്യമാവുകയുള്ളു.',
 	'payflowpro_gateway-form-message' => 'ക്രെഡിറ്റ് കാർഡ് ഉപയോഗിച്ച് സംഭാവന ചെയ്യാൻ താഴെയുള്ള ഫോം ഉപയോഗിക്കുക, അല്ലെങ്കിൽ',
@@ -6069,7 +6135,7 @@ In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet 
  * @author Siebrand
  */
 $messages['nl'] = array(
-	'payflowprogateway' => 'Steun Wikimedia',
+	'payflowprogateway' => 'Doneer nu',
 	'payflowpro_gateway-desc' => 'Creditcardverwerking via PayPal PayFlow Pro',
 	'payflowpro_gateway-accessible' => 'Deze pagina is alleen toegankelijk via de donateurspagina.',
 	'payflowpro_gateway-form-message' => 'Gebruik het formulier hieronder om te doneren met een creditcard, of',
@@ -7003,7 +7069,7 @@ $messages['ps'] = array(
  * @author Malafaya
  */
 $messages['pt'] = array(
-	'payflowprogateway' => 'Apoie a Wikimedia',
+	'payflowprogateway' => 'Faça o seu donativo agora',
 	'payflowpro_gateway-desc' => 'Processamento de cartões de crédito pela plataforma PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Esta página só é acessível a partir da página de donativos.',
 	'payflowpro_gateway-form-message' => 'Use o formulário abaixo para fazer um donativo com cartão de crédito, ou',
@@ -7573,7 +7639,7 @@ Sì pregate de pruvà n'otre vote cchù nnande.",
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
-	'payflowprogateway' => 'Поддержка Викимедиа',
+	'payflowprogateway' => 'Сделайте пожертвование сейчас',
 	'payflowpro_gateway-desc' => 'Обработка кредитных карт PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Эта страница доступна только со страницы сбора пожертвований.',
 	'payflowpro_gateway-form-message' => 'Используйте данную форму для пожертвования с помощью кредитной карты, или',
@@ -7910,6 +7976,8 @@ $messages['sah'] = array(
 	'payflowpro_gateway-error-msg-expiration' => 'каартатын болдьоҕо',
 	'payflowpro_gateway-error-msg-cvv' => 'каарта кэннинээҕи CVV куода',
 	'payflowpro_gateway-error-msg-captcha' => 'Captcha алҕастаах киллэриллибит. Өссө боруобалаа.',
+	'payflowpro_gateway-response-4' => 'Сатаммат суумма',
+	'payflowpro_gateway-response-24' => 'Кирэдиит каартаҥ нүөмэрэ эбэтэр болдьоҕо алҕастаахтаахтар.',
 	'payflowpro_gateway-first' => 'Бастакы',
 	'payflowpro_gateway-last' => 'Бүтэһик',
 	'payflowpro_gateway-other' => 'Атын',
@@ -8138,7 +8206,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
  * @author Dbc334
  */
 $messages['sl'] = array(
-	'payflowprogateway' => 'Podprite Wikimedio',
+	'payflowprogateway' => 'Oddajte svoj prispevek zdaj',
 	'payflowpro_gateway-desc' => 'Obdelava kreditnih kartic PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ta stran je dostopna samo iz strani za prispevanje.',
 	'payflowpro_gateway-form-message' => 'Uporabite spodnji obrazec za prispevanje s kreditno kartico, ali',
@@ -9060,6 +9128,7 @@ $messages['tt-cyrl'] = array(
 );
 
 /** Ukrainian (Українська)
+ * @author AS
  * @author Ahonc
  * @author Alex Khimich
  * @author NickK
@@ -9067,7 +9136,7 @@ $messages['tt-cyrl'] = array(
  * @author Тест
  */
 $messages['uk'] = array(
-	'payflowprogateway' => 'Підтримай Вікімедіа',
+	'payflowprogateway' => 'Зробіть Вашу пожертву зараз',
 	'payflowpro_gateway-desc' => 'Обробка кредитних карт PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ця сторінка доступна тільки зі сторінки збору пожертвувань.',
 	'payflowpro_gateway-form-message' => 'Скористайтесь цією формою, щоб зробити пожертву з кредитної карти, або',
