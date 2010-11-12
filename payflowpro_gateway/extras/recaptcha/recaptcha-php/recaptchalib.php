@@ -124,9 +124,12 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
 	$http_request .= $req;
 
 	$response = '';
+	wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via fsock.' );
 	if ( false == ( $fs = @fsockopen( $host, $port, $errno, $errstr, 10 ) ) ) {
+		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha.' );
 		die ( 'Could not open socket' );
 	}
+	wfDebugLog( 'payflowpro_gateway', 'Finished communicating with reCaptcha.' );
 
 	fwrite( $fs, $http_request );
 
@@ -165,11 +168,11 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	
 	// try up to three times
 	for ( $i = 0; $i < RECAPTCHA_RETRY_LIMIT; $i++ ) {
-		wfDebug( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha.' );
+		wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via cURL.' );
 		$response = curl_exec( $ch );
-		wfDebug( 'payflowpro_gateway', "Finished communicating with reCaptcha." );
+		wfDebugLog( 'payflowpro_gateway', "Finished communicating with reCaptcha." );
 		if ( $response ) {
-			wfDebug( 'payflowpro_gateway', 'Response from reCaptcha: ' . $response );
+			wfDebugLog( 'payflowpro_gateway', 'Response from reCaptcha: ' . $response );
 			break;
 		}
 	}
@@ -184,7 +187,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	 * the user entered the correct values.
 	 */
 	if ( !$response ) {
-		wfDebug( 'payflowpro_gateway', 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
+		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
 		$response = "true\r\n\r\ntrue";
 	}
 	
