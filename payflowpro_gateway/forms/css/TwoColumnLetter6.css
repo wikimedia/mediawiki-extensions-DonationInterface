@@ -115,6 +115,9 @@ div#payflowpro_gateway-form-submit {
 table#payflow-table-cc {
 	display: none;
 }
+#footer {
+	background-image: none !important;
+}
 
 /* Hiding stuff we don't need */
 h1#firstHeading, div#contentSub {

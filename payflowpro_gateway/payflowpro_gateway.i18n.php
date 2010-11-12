@@ -10,7 +10,7 @@ $messages = array();
 
 /** English */
 $messages['en'] = array(
-	'payflowprogateway' => 'Support Wikipedia with your secure donation',
+	'payflowprogateway' => 'Make your donation now',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'payflowpro_gateway-accessible' => 'This page is only accessible from the donation page.',
 	'payflowpro_gateway-form-message' => 'Use the form below to donate with a credit card, or ',
