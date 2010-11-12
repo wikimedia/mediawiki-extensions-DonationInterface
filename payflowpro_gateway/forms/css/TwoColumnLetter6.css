@@ -105,16 +105,6 @@ input#lname {
 input.fullwidth {
 	width:300px !important;
 }
-
-div#payflowpro_gateway-form-submit-paypal {
-	display: block;
-}
-div#payflowpro_gateway-form-submit {
-	display: none;
-}
-table#payflow-table-cc {
-	display: none;
-}
 #footer {
 	background-image: none !important;
 }
