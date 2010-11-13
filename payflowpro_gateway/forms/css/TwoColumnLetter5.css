@@ -84,6 +84,18 @@
 	font-size:1.125em;
 	margin-bottom:1em;
 }
+input#fname {
+	width:133px !important;
+}
+input#lname {
+	width:155px !important;
+}
+input.fullwidth {
+	width:300px !important;
+}
+div#payflowpro_gateway-form-submit-paypal {
+	display: none;
+}
 
 /* Hiding content border */
 table {
@@ -96,21 +108,8 @@ div#content {
 div#mw-head-base {
 	background-image: none !important;
 }
-input#fname {
-	width:133px !important;
-}
-input#lname {
-	width:155px !important;
-}
-input.fullwidth {
-	width:300px !important;
-}
 #footer {
 	background-image: none !important;
-}
-
-div#payflowpro_gateway-form-submit-paypal {
-	display: none;
 }
 
 /* Hiding stuff we don't need */

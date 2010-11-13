@@ -24,6 +24,7 @@ $wgAutoloadClasses['PayflowProGateway'] = $dir . 'payflowpro_gateway.body.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form' ] = $dir . 'forms/Form.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_OneStepTwoColumn' ] = $dir . 'forms/OneStepTwoColumn.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoStepTwoColumn' ] = $dir . 'forms/TwoStepTwoColumn.php';
+$wgAutoloadClasses[ 'PayflowProGateway_Form_TwoStepTwoColumn2' ] = $dir . 'forms/TwoStepTwoColumn2.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnPayPal' ] = $dir . 'forms/TwoColumnPayPal.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter' ] = $dir . 'forms/TwoColumnLetter.php';
 $wgAutoloadClasses[ 'PayflowProGateway_Form_TwoColumnLetter2' ] = $dir . 'forms/TwoColumnLetter2.php';
