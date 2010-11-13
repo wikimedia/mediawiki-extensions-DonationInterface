@@ -193,6 +193,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-cancel' => 'Cancel',
 	'payflowpro_gateway-payment' => 'Payment',
 	'payflowpro_gateway-payment-type' => 'Payment type',
+	'payflowpro_gateway-month' => '$1 ($2)',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -282,6 +283,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-cvv-number-abbreviated' => "Abbreviation of 'Card Verification Value Number'",
 	'payflowpro_gateway-cvv2' => "Abbreviation of 'Card Verification Value 2'",
 	'payflowpro_gateway-cvv-number' => "Abbreviation of 'Card Verification Value' + 'Number' (unabbreviated)",
+	'payflowpro_gateway-month' => 'Expiration month for credit card. $1 is the month number, $2 is the month name.',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
