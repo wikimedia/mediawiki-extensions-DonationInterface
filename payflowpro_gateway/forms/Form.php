@@ -223,7 +223,7 @@ abstract class PayflowProGateway_Form {
 		for ( $i = 1; $i < 13; $i++ ) {
 			$selected = ( $i == $month && $this->test ) ? true : false;
 			$expiry_months .= Xml::option(
-				$wgLang->getMonthName( $i ),
+				$i . ' - ' . $wgLang->getMonthName( $i ),
 				str_pad( $i, 2, '0', STR_PAD_LEFT ),
 				$selected );
 		}
