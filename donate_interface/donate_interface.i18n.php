@@ -1837,6 +1837,7 @@ Ingen prosessorar er tilgjengelege.',
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Finnrind
+ * @author Jon Harald Søby
  * @author Nghtwlkr
  */
 $messages['no'] = array(
@@ -1851,7 +1852,7 @@ $messages['no'] = array(
 	'donate_interface-comment-message' => 'Har du en tanke å dele med verden? Skriv inn opp til 200 tegn her:',
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-anon-message' => 'List opp navnet mitt (ved siden av kommentaren min) på den offentlige donorlisten.',
-	'donate_interface-email-agreement' => 'Jeg godtar å motta fremtidige nyhetsbrev eller e-poster fra Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Jeg samtykker i å motta sporadiske meldinger fra Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => '**Skriv inn et gyldig beløp**',
 	'donate_interface-processing-error' => 'Det har oppstått en feil ved behandlingen av forespørselen din.
@@ -2561,20 +2562,21 @@ Hiç bir prosessor elýeterli däl.',
 
 /** Tagalog (Tagalog)
  * @author AnakngAraw
+ * @author Sky Harbor
  */
 $messages['tl'] = array(
 	'donate_interface' => 'Tangkilikin ang Wikimedia',
-	'donate_interface-desc' => 'Pahinang lapagan ng mga abuloy na nagsasama-sam ng mga dugtong ng daanang-tarangkahan',
+	'donate_interface-desc' => 'Pahinang lapagan ng mga kaloob na nagsasama-sama ng mga dugtong ng daanang-tarangkahan',
 	'donate_interface-intro' => 'Mangyaring pumili ng isang paraan ng pagbabayad, halaga, at salapi.',
-	'donate_interface-amount' => 'Halaga ng abuloy:',
+	'donate_interface-amount' => 'Halaga ng kaloob:',
 	'donate_interface-other-amount' => 'Ibang halaga',
 	'donate_interface-currency' => 'Salaping umiiral:',
 	'donate_interface-gateway' => 'Paraan ng pagbabayad:',
-	'donate_interface-submit-button' => 'Mag-abuloy',
-	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais ipamahaga sa mundo? Maglagay ng hanggang sa 200 mga panitik dito:',
-	'donate_interface-comment-label' => 'Puna:',
+	'donate_interface-submit-button' => 'Magkaloob',
+	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais ipamahagi sa mundo? Maglagay ng hanggang sa 200 mga panitik dito:',
+	'donate_interface-comment-label' => 'Komento',
 	'donate_interface-anon-message' => 'Mangyaring itala ang aking pangalan (katabi ng aking puna) na nasa ibabawa ng talaan ng pangmadlang tagapagkaloob.',
-	'donate_interface-email-agreement' => 'Sumasang-ayon ako upang makatanggap sa hinaharap ng mga balitang-liham o mga e-liham mula sa Pundasyon ng Wikimedia.',
+	'donate_interface-email-agreement' => 'Sumasang-ayon ako na paminsan-minsang makatanggap ng mga nagbabagang balita mula sa Pundasyong Wikimedia.',
 	'donate_interface-comment-title' => 'Pangmadlang puna',
 	'donate_interface-amount-error' => '**Mangyaring magpasok ng isang tanggap na halaga**',
 	'donate_interface-processing-error' => 'Nagkaroon ng isang kamalian sa pagsasagawa ng iyong kahilingan.
@@ -2582,20 +2584,20 @@ Walang makukuhang mga tagapagsagawa.',
 	'donate_interface-GBP' => 'GBP: Libra ng Britanya',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Dolyar ng Estados Unidos',
-	'donate_interface-AUD' => 'AUD: Dolyar ng Australia',
-	'donate_interface-CAD' => 'CAD: Doyar ng Kanada',
-	'donate_interface-CHF' => 'CHF: Pranko ng Suwisa',
-	'donate_interface-CZK' => 'CZK: Korunang Tseko',
+	'donate_interface-AUD' => 'AUD: Dolyar ng Australya',
+	'donate_interface-CAD' => 'CAD: Dolyar ng Kanada',
+	'donate_interface-CHF' => 'CHF: Prangko ng Suwisa',
+	'donate_interface-CZK' => 'CZK: Koruna ng Republikang Tseko',
 	'donate_interface-DKK' => 'DKK: Kroneng Danes',
 	'donate_interface-HKD' => 'HKD: Dolyar ng Hongkong',
-	'donate_interface-HUF' => 'HUF: Porinto ng Unggarya',
+	'donate_interface-HUF' => 'HUF: Forint ng Unggarya',
 	'donate_interface-JPY' => 'JPY: Yen ng Hapon',
 	'donate_interface-NZD' => 'NZD: Dolyar ng Bagong Selanda',
 	'donate_interface-NOK' => 'NOK: Krone ng Noruwega',
-	'donate_interface-PLN' => 'PLN: Isloti ng Polonya',
+	'donate_interface-PLN' => 'PLN: Zloty ng Polonya',
 	'donate_interface-SGD' => 'SGD: Dolyar ng Singgapur',
 	'donate_interface-SEK' => 'SEK: Krona ng Suwesya',
-	'donate_interface-ILS' => 'ILS: Syekel ng Israel',
+	'donate_interface-ILS' => 'ILS: Shekel ng Israel',
 );
 
 /** Turkish (Türkçe)
