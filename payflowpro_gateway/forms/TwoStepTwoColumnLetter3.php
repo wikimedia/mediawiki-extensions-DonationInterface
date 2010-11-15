@@ -61,6 +61,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 	}
 	
 	function generateFormSubmit() {
+		global $wgScriptPath;
 		// submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
