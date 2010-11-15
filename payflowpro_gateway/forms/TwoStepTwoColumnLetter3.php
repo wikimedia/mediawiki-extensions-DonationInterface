@@ -101,7 +101,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 		
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) . '&nbsp;' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" ) )'</h3></td>';
+		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) . '&nbsp;' . 
+			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" ) ) . '</h3></td>';
 		$form .= '</tr>';
 
 		// name
