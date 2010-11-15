@@ -100,7 +100,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</td>';
 		$form .= '</tr>';
 		
+		$form .= '<tr>';
 		$form .= '<h3>'.wfMsg( 'payflowpro_gateway-cc-form-header-personal' ).'</h3>';
+		$form .= '</tr>';
 
 		// name
 		$form .= $this->getNameField();
