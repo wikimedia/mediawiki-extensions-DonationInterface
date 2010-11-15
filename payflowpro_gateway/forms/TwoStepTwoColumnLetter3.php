@@ -87,12 +87,12 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '<td colspan="2">';
 		$form .= '<table cellspacing="2" cellpadding="2" border="1" id="donation_amount">';
 		$form .= '<tr>';
-		$form .= '<td class="amount_header">Description</td>';
-		$form .= '<td class="amount_header">Amount</td>';
-		$form .= '<td class="amount_header">Currency</td>';
+		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-description' ).'</td>';
+		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-donor-amount' ).'</td>';
+		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-currency-label' ).'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="amount_data">Donation</td>';
+		$form .= '<td class="amount_data">'.wfMsg( 'payflowpro_gateway-donation' ).'</td>';
 		$form .= '<td class="amount_data">'.$this->form_data['amount'].'</td>';
 		$form .= '<td class="amount_data">'.$this->form_data[ 'currency' ].'</td>';
 		$form .= '</tr>';
