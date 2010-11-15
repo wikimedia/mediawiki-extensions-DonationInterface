@@ -37,7 +37,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-please-complete' ) );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -81,22 +81,30 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		global $wgScriptPath;
 
 		$form = '';
+		
+		// amount
+		$form .= '<tr>';
+		$form .= '<td colspan="2">';
+		$form .= '<table cellspacing="2" cellpadding="2" border="1" class="donation_amount">';
+		$form .= '<tr>';
+		$form .= '<td class="amount_header">Description</td>';
+		$form .= '<td class="amount_header">Amount</td>';
+		$form .= '<td class="amount_header">Currency</td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="amount_data">Donation</td>';
+		$form .= '<td class="amount_data">'.$this->form_data['amount'].'</td>';
+		$form .= '<td class="amount_data">'.$this->form_data[ 'currency' ].'</td>';
+		$form .= '</tr>';
+		$form .= '</table>';
+		$form .= '</td>';
+		$form .= '</tr>';
 
 		// name
 		$form .= $this->getNameField();
 
 		// email
 		$form .= $this->getEmailField();
-
-		// amount
-		$form .= '<tr>';
-		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
-		$form .= '</tr>';
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
-			' ' . $this->generateCurrencyDropdown() . '</td>';
-		$form .= '</tr>';
 
 		// card logos
 		$form .= '<tr>';

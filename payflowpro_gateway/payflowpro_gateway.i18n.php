@@ -194,6 +194,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-payment' => 'Payment',
 	'payflowpro_gateway-payment-type' => 'Payment type',
 	'payflowpro_gateway-month' => '$1 ($2)',
+	'payflowpro_gateway-please-complete' => 'Please complete your donation below ...',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
