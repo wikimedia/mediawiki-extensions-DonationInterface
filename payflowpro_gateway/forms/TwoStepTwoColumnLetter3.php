@@ -123,7 +123,10 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= $this->getCvvField();
 
 		// expiry
-		$form .= $this->getExpiryField();
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
+		$form .= '<td>' . $this->generateExpiryMonthDropdown() . ' / ' . $this->generateExpiryYearDropdown() . '</td>';
+		$form .= '</tr>';
 
 		// street
 		$form .= $this->getStreetField();
