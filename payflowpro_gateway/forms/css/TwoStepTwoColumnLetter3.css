@@ -6,6 +6,7 @@ table#donation_amount {
 }
 table#donation_amount td.amount_header {
 	background-color:#eef2f7;
+	font-size:90%;
 }
 table#donation_amount td.amount_data {
 	background-color:#daf2db;
