@@ -85,7 +85,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		// amount
 		$form .= '<tr>';
 		$form .= '<td colspan="2">';
-		$form .= '<table cellspacing="2" cellpadding="2" border="1" class="donation_amount">';
+		$form .= '<table cellspacing="2" cellpadding="2" border="1" id="donation_amount">';
 		$form .= '<tr>';
 		$form .= '<td class="amount_header">Description</td>';
 		$form .= '<td class="amount_header">Amount</td>';
