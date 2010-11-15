@@ -50,17 +50,14 @@ class PayflowProGateway_Extras_reCaptcha extends PayflowProGateway_Extras {
 	 * Display the submission form with the captcha injected into it
 	 */
 	public function display_captcha( &$pfp_gateway_object, &$data ) {
-		global $wgOut, $wgPayflowRecaptchaPublicKey, $wgProto;
+		global $wgOut, $wgPayflowRecaptchaPublicKey, $wgPayflowRecaptchaUseSSL;
 
 		// log that a captcha's been triggered
 		$this->log( $data[ 'contribution_tracking_id' ], 'Captcha triggered' );
 
-		// check if we need to be using HTTPs to communicate with reCaptcha
-		$use_ssl = ( $wgProto == 'https' ) ? TRUE : FALSE;
-
 		// construct the HTML used to display the captcha
 		$captcha_html = Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ) );
-		$captcha_html .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $this->recap_err, $use_ssl );
+		$captcha_html .= recaptcha_get_html( $wgPayflowRecaptchaPublicKey, $this->recap_err, $wgPayflowRecaptchaUseSSL );
 		$captcha_html .= '<span class="creditcard-error-msg">' . wfMsg( 'payflowpro_gateway-error-msg-captcha-please' ) . '</span>';
 		$captcha_html .= Xml::closeElement( 'div' ); // close div#mw-donate-captcha
 

@@ -43,7 +43,7 @@
 
 // global MW variables that should be available
 global $wgPayflowRecaptchaUseHTTPProxy, $wgPayflowRecaptchaHTTPProxy, 
-	$wgPayflowRecaptchaTimeout, $wgProto, $wgPayflowRecaptchaComsRetryLimit;
+	$wgPayflowRecaptchaTimeout, $wgPayflowRecaptchaUseSSL, $wgPayflowRecaptchaComsRetryLimit;
 
 /**
  * The reCAPTCHA server URL's
@@ -62,7 +62,7 @@ define( "RECAPTCHA_HTTP_PROXY", $wgPayflowRecaptchaHTTPProxy );
  * Other reCAPTCHA settings
  */
 define( "RECAPTCHA_TIMEOUT", $wgPayflowRecaptchaTimeout );
-define( "RECAPTCHA_PROTOCOL", $wgProto ); //http or https
+define( "RECAPTCHA_PROTOCOL", $wgPayflowRecaptchaUseSSL ); //http or https
 define( "RECAPTCHA_RETRY_LIMIT", $wgPayflowRecaptchaComsRetryLimit );
 
 /**

@@ -38,6 +38,11 @@ $wgPayflowRecaptchaUseHTTPProxy = $wgPayflowGatewayUseHTTPProxy;
 $wgPayflowRecaptchaHTTPProxy = $wgPayflowGatewayHTTPProxy;
 
 /**
+ * Use SSL to communicate with reCaptcha
+ */
+$wgPayflowRecaptchaUseSSL = 1;
+
+/**
  * The # of times to retry communicating with reCaptcha if communication fails
  * @var int
  */
