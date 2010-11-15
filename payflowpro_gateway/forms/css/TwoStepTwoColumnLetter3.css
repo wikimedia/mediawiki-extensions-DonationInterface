@@ -11,6 +11,11 @@ table#donation_amount td.amount_header {
 table#donation_amount td.amount_data {
 	background-color:#daf2db;
 }
+h3.cc_header {
+	padding-bottom: 0;
+	margin-bottom: 0;
+	font-weight: normal;
+}
 .payflow-cc-form-section {
         float: none;
         margin-right: 0em;
