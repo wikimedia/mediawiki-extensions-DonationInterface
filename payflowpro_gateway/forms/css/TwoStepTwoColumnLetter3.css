@@ -85,10 +85,10 @@ table#donation_amount td.amount_data {
 	width:400px;
 }
 #donate-head {
-	border-color:#5EAC58;
+	border:none;
 	font-size:1.5em;
 	line-height:1.125em;
-	padding-bottom:0.5em;
+	padding-bottom:0em;
 	padding-top:0.125em;
 }
 #donate-body {
