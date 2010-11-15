@@ -184,11 +184,11 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 			'num_attempt' => 2
 		);
 		// @fixme this needs updating
-		// $this->assertTrue( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ));
+		// $this->assertTrue( $this->fixture->can_bypass_minfraud( $this->fixture, $data ));
 		// $this->assertEquals( 'challenge', $this->fixture->action );
 		// $this->assertEquals( '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3', $data[ 'data_hash' ]);
 
 		$data[] = 'bar';
-		$this->assertFalse( $this->fixture->can_bypass_minfraud( &$this->fixture, &$data ) );
+		$this->assertFalse( $this->fixture->can_bypass_minfraud( $this->fixture, $data ) );
 	}
 }
