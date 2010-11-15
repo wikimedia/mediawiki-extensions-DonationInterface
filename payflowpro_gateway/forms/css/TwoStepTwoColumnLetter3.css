@@ -1,14 +1,14 @@
 table#donation_amount {
-	background-color: transparent;
+	background-color:transparent;
 	border:1px solid #AAAAAA;
 	border-collapse:collapse;
 	width: 394px;
 }
 table#donation_amount td.amount_header {
-	background-color: #eef2f7;
+	background-color:#eef2f7;
 }
 table#donation_amount td.amount_data {
-	background-color: #cce7cd;
+	background-color:#daf2db;
 }
 .payflow-cc-form-section {
         float: none;
@@ -78,7 +78,7 @@ table#donation_amount td.amount_data {
 	padding:0.2em 0;
 }
 #donate {
-	background-color:#A9D9A3;
+	background-color:#cce7cd;
 	border:1px solid #5EAC58;
 	padding:16px 24px 24px;
 	width:400px;
