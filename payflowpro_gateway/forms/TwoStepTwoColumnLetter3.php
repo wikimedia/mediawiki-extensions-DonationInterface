@@ -59,6 +59,20 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= $this->generateBillingContainer();
 		return $form;
 	}
+	
+	function generateFormSubmit() {
+		// submit button
+		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
+		// $form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button' ), 'onclick' => 'submit_form( this )', 'type' => 'submit' ) );
+		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
+		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
+			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . wfMsg( 'payflowpro_gateway-donate-click' );
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
+		return $form;
+	}
 
 	public function generateFormEnd() {
 		$form = '';
@@ -106,7 +120,17 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 
 		// name
-		$form .= $this->getNameField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['fname'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['lname'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-name-on-card' ), 'fname' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-first' ).'\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-last' ).'\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= "</tr>";
 
 		// email
 		$form .= $this->getEmailField();
