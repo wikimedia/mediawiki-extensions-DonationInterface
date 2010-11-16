@@ -12,7 +12,6 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		parent::__construct( $form_data, $form_errors );
 	}
 	
-	// Load placeholders
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
