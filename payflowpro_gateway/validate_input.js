@@ -61,12 +61,14 @@ function validate_form( form ) {
 	}
 	
 	// validate name
+	/*
 	if (document.getElementById('fname').style.color == '#999999') {
 		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Fname']] + '.\r\n';
 	}
 	if (document.getElementById('lname').style.color == '#999999') {
 		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Lname']] + '.\r\n';
 	}
+	*/
 
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
