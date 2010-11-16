@@ -198,7 +198,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-please-complete' => 'Please complete your donation below ...',
 	'payflowpro_gateway-description' => 'Description',
 	'payflowpro_gateway-donation' => 'Donation',
-	'payflowpro_gateway-email-receipt' => 'Email receipt to',
+	'payflowpro_gateway-email-receipt' => 'E-mail receipt to',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
