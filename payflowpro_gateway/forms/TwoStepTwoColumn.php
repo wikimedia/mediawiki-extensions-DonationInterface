@@ -34,6 +34,43 @@ function loadPlaceholders() {
 	}
 }
 addEvent( window, 'load', loadPlaceholders );
+
+function formCheck( ccform ) {
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
+
+	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv" ],
+		numFields = fields.length,
+		i,
+		output = '',
+		currField = '';
+
+	for( i = 0; i < numFields; i++ ) {
+		if( document.getElementById( fields[i] ).value == '' ) {
+			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
+		}
+	}
+	
+	if (document.getElementById('fname').value == '$first') {
+		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
+	}
+	if (document.getElementById('lname').value == '$last') {
+		output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
+	}
+
+	// validate email address
+	var apos = document.payment.emailAdd.value.indexOf("@");
+	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
+
+	if( apos < 1 || dotpos-apos < 2 ) {
+		output += payflowproGatewayErrorMsgEmail;
+	}
+	
+	if( output ) {
+		alert( output );
+		return false;
+	}
+}
 </script>
 EOT;
 		$wgOut->addHeadItem( 'placeholders', $js );
@@ -79,7 +116,7 @@ EOT;
 
 		// Xml::element seems to convert html to htmlentities
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
-		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
+		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return formCheck(this)', 'autocomplete' => 'off' ) );
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'left-column', 'class' => 'payflow-cc-form-section' ) );
 		$form .= $this->generatePersonalContainer();

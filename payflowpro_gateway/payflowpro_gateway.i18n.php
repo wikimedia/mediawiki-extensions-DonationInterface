@@ -98,7 +98,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Your credit card will be securely processed.',
 	'payflowpro_gateway-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
-	'payflowpro_gateway-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including check.',
+	'payflowpro_gateway-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Other ways to give</a>',
 	'payflowpro_gateway-paypal' => 'Have a PayPal account? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donate with PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacy policy</a>.',
