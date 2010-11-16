@@ -74,19 +74,19 @@ function formCheck( ccform ) {
 	}
 	
 	if (document.getElementById('fname').value == '$first') {
-		output += payflowproGatewayErrorMsgJs + ' First Name.\\r\\n';
+		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
+	}
+	if (document.getElementById('lname').value == '$last') {
+		output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
 	}
 	if (document.getElementById('street').value == '$street') {
-		output += payflowproGatewayErrorMsgJs + ' Street Address.\\r\\n';
+		output += payflowproGatewayErrorMsgJs + ' street address.\\r\\n';
 	}
 	if (document.getElementById('city').value == '$city') {
-		output += payflowproGatewayErrorMsgJs + ' City.\\r\\n';
+		output += payflowproGatewayErrorMsgJs + ' city.\\r\\n';
 	}
 	if (document.getElementById('zip').value == '$zip') {
-		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
-	}
-	if (document.getElementById('state').value == '') {
-		output += payflowproGatewayErrorMsgJs + ' State.\\r\\n';
+		output += payflowproGatewayErrorMsgJs + ' zip code.\\r\\n';
 	}
 
 	// validate email address
