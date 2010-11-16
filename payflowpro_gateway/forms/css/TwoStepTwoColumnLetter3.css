@@ -20,6 +20,10 @@ div#payflowpro_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
 }
+div#payflowpro_gateway-donate-submessage {
+	font-size: 90%;
+	line-height: 120%;
+}
 #payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
 	padding-right:0;
 	width: 104px;
