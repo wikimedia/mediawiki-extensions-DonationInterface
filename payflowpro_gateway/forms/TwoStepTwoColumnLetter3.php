@@ -183,26 +183,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city', 'class' => 'fullwidth' ) ) .
-			'</td>';
-		$form .= '</tr>';
-
-		// state
-		$form .= '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
-		$form .= '</tr>';
-		$form .= '<tr>';
-		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
-		$form .= '</tr>';
-		
-		// zip
-		$form .= '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg"> </span></td>';
-		$form .= '</tr>';
-		$form .= '<tr>';
-		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city' ) ) .
+			$this->generateStateDropdown() .
+			Xml::input( 'zip', '10', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
