@@ -161,7 +161,9 @@ EOT;
 		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] . 
 			Html::hidden( 'amount', $this->form_data['amount'] ) . 
 			'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ].'</td>';
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ] .
+			Html::hidden( 'currency_code', $this->form_data['currency'] ) . 
+			'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
 		$form .= '</td>';
@@ -238,6 +240,7 @@ EOT;
 		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-donor-city' ).'\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
 			$this->generateStateDropdown() . ' ' .
 			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-zip-code' ).'\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
+			Html::hidden( 'country', 'US' ) .
 			'</td>';
 		$form .= '</tr>';
 
