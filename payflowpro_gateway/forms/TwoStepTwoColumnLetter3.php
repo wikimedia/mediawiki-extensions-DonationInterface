@@ -260,4 +260,31 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;
 	}
+	
+	public function generateStateDropdown() {
+		require_once( dirname( __FILE__ ) . '/../includes/stateAbbreviations.inc' );
+
+		$states = statesMenuXML();
+
+		$state_opts = Xml::option( '', ' ' );
+
+		// generate dropdown of state opts
+		foreach ( $states as $value => $state_name ) {
+			if ( $value !== 'YY' && $value !== 'XX' ) {
+				$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
+				$state_opts .= Xml::option( $value, $value, $selected );
+			}
+		}
+
+		$state_menu = Xml::openElement(
+			'select',
+			array(
+				'name' => 'state',
+				'id' => 'state'
+			) );
+		$state_menu .= $state_opts;
+		$state_menu .= Xml::closeElement( 'select' );
+
+		return $state_menu;
+	}
 }
