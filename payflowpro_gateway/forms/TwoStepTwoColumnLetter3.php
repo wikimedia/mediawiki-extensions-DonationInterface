@@ -11,6 +11,50 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 
 		parent::__construct( $form_data, $form_errors );
 	}
+	
+	public function loadPlaceholders() {
+		global $wgOut;
+		// form placeholder values
+		$first = wfMsg( 'payflowpro_gateway-first' );
+		$last = wfMsg( 'payflowpro_gateway-last' );
+		$city = 'City';
+		$zip = 'Zip Code';
+		$email = wfMsg( 'payflowpro_gateway-donor-email' );
+		$js = <<<EOT
+<script type="text/javascript">
+function loadPlaceholders() {
+	var fname = document.getElementById('fname');
+	var lname = document.getElementById('lname');
+	var city = document.getElementById('city');
+	var zip = document.getElementById('zip');
+	var email = document.getElementById('emailAdd');
+	var amountOther = document.getElementById('amountOther');
+	if (fname.value == '') {
+		fname.style.color = '#999999';
+		fname.value = '$first';
+	}
+	if (lname.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$last';
+	}
+	if (city.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$city';
+	}
+	if (zip.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$zip';
+	}
+	if (email.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$email';
+	}
+}
+addEvent( window, 'load', loadPlaceholders );
+</script>
+EOT;
+		$wgOut->addHeadItem( 'placeholders', $js );
+	}
 
 	public function generateFormStart() {
 		global $wgOut, $wgRequest;
@@ -173,7 +217,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-billing-address' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'Street\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
@@ -183,9 +227,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
+		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'City\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
 			$this->generateStateDropdown() . ' ' .
-			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'zip' ) ) .
+			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'Zip Code\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
