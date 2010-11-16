@@ -16,6 +16,11 @@ h3.cc_header {
 	margin-bottom: 0;
 	font-weight: normal;
 }
+div#payflowpro_gateway-donate-addl-info-text {
+	font-size: 90%;
+	line-height: 90%;
+}
+
 .payflow-cc-form-section {
         float: none;
         margin-right: 0em;
