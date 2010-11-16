@@ -101,6 +101,11 @@ h3.cc_header {
 	margin-bottom:1em;
 }
 
+/* Move the form up */
+#mw-head-base {
+	height: 1em !important;
+}
+
 /* Hiding content border */
 table {
 	background-color: transparent;

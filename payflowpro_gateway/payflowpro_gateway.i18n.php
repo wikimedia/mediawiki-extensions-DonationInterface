@@ -198,6 +198,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-please-complete' => 'Please complete your donation below ...',
 	'payflowpro_gateway-description' => 'Description',
 	'payflowpro_gateway-donation' => 'Donation',
+	'payflowpro_gateway-email-receipt' => 'Email receipt to',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -291,6 +292,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-continue' => '{{Identical|Continue}}',
 	'payflowpro_gateway-cancel' => '{{Identical|Cancel}}',
 	'payflowpro_gateway-month' => 'Expiration month for credit card. $1 is the month number, $2 is the month name.',
+	'payflowpro_gateway-email-receipt' => "Label for field which contains the email address the donor's receipt will be mailed to.",
 );
 
 /** Magyar (magázó) (Magyar (magázó))
