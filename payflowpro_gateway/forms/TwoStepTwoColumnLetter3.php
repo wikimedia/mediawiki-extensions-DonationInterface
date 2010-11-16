@@ -69,7 +69,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= Xml::element( 'input', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png", 'alt' => 'Submit donation', 'onclick' => 'submit_form( this )', 'type' => 'image' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . wfMsg( 'payflowpro_gateway-donate-click' );
+			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . 'Your credit / debit card will be securely processed.';
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		return $form;
@@ -220,7 +220,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'div', array( 'style' => 'text-align:center;' ), '* * *' );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), 'Your credit / debit card will be securely processed.' );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
 		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-alt' ) );
 		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
