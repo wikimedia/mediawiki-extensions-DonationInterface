@@ -85,9 +85,6 @@ function formCheck( ccform ) {
 	if (document.getElementById('zip').value == '$zip') {
 		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
 	}
-	if (document.getElementById('zip').value == '$zip') {
-		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
-	}
 
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
