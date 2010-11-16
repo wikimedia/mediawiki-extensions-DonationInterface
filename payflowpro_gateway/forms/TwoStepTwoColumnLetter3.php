@@ -103,13 +103,13 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '<table cellspacing="2" cellpadding="2" border="1" id="donation_amount">';
 		$form .= '<tr>';
 		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-description' ).'</td>';
-		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-donor-amount' ).'</td>';
-		$form .= '<td class="amount_header">'.wfMsg( 'payflowpro_gateway-donor-currency-label' ).'</td>';
+		$form .= '<td class="amount_header" style="text-align:right;width:75px;">'.wfMsg( 'payflowpro_gateway-donor-amount' ).'</td>';
+		$form .= '<td class="amount_header" style="text-align:right;width:75px;">'.wfMsg( 'payflowpro_gateway-donor-currency-label' ).'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="amount_data">'.wfMsg( 'payflowpro_gateway-donation' ).'</td>';
-		$form .= '<td class="amount_data">'.$this->form_data['amount'].'</td>';
-		$form .= '<td class="amount_data">'.$this->form_data[ 'currency' ].'</td>';
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'].'</td>';
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ].'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
 		$form .= '</td>';
@@ -140,7 +140,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 			$form .= '</tr>';
 		}
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( 'Credit / Debit card', 'card_num' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-card-num' ), 'card_num' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
 			'</td>';
 		$form .= '</tr>';
