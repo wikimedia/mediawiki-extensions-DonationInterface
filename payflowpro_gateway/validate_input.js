@@ -59,7 +59,14 @@ function validate_form( form ) {
 	if ( document.payment.country.value != '840' ) {
 			document.payment.state.value = 'XX';
 	}
-
+	
+	// validate name
+	if (document.getElementById('fname').style.color == '#999999') {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg[Fname]] + '.\r\n';
+	}
+	if (document.getElementById('lname').style.color == '#999999') {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg[Lname]] + '.\r\n';
+	}
 
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
