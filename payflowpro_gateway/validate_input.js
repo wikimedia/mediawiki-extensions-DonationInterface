@@ -77,7 +77,7 @@ function validate_form( form ) {
 	}
 
 	if( output ) {
-		alert( output );
+		alert( document.getElementById('lname').style.color );
 		return false;
 	}
 
