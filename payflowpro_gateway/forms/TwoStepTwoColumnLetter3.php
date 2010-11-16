@@ -56,14 +56,19 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return validate_form(this)', 'autocomplete' => 'off' ) );
 
-		$form .= $this->generateBillingContainer();
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
+		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
+		$form .= $this->generateBillingFields();
+		
 		return $form;
 	}
 	
 	public function generateFormSubmit() {
 		global $wgScriptPath;
+		
+		$form .= '<tr>';
+		$form .= '<td class="label"> </td>';
 		// submit button
-		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		// $form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
 		$form .= Xml::element( 'input', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png", 'alt' => 'Submit donation', 'onclick' => 'submit_form( this )', 'type' => 'image' ) );
@@ -71,24 +76,16 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . 'Your credit / debit card will be securely processed.';
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
-		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
+		
+		$form .= '</tr>';
 		return $form;
 	}
 
 	public function generateFormEnd() {
 		$form = '';
-		$form .= $this->generateFormClose();
-		return $form;
-	}
-
-	protected function generateBillingContainer() {
-		$form = '';
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
-		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
-		$form .= $this->generateBillingFields();
 		$form .= Xml::closeElement( 'table' ); // close table#payflow-table-donor
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-personal-info
-
+		$form .= $this->generateFormClose();
 		return $form;
 	}
 
@@ -201,7 +198,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '<td colspan=2><span class="creditcard-error-msg"> </span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td class="label"> </td>';
 		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
