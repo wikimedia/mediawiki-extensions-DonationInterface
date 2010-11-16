@@ -38,16 +38,16 @@ function loadPlaceholders() {
 		lname.value = '$last';
 	}
 	if (city.value == '') {
-		lname.style.color = '#999999';
-		lname.value = '$city';
+		city.style.color = '#999999';
+		city.value = '$city';
 	}
 	if (zip.value == '') {
-		lname.style.color = '#999999';
-		lname.value = '$zip';
+		zip.style.color = '#999999';
+		zip.value = '$zip';
 	}
 	if (email.value == '') {
-		lname.style.color = '#999999';
-		lname.value = '$email';
+		email.style.color = '#999999';
+		email.value = '$email';
 	}
 }
 addEvent( window, 'load', loadPlaceholders );
