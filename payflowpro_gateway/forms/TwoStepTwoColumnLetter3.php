@@ -85,6 +85,9 @@ function formCheck( ccform ) {
 	if (document.getElementById('zip').value == '$zip') {
 		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
 	}
+	if (document.getElementById('state').value == '') {
+		output += payflowproGatewayErrorMsgJs + ' State.\\r\\n';
+	}
 
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
@@ -348,7 +351,7 @@ EOT;
 
 		$states = statesMenuXML();
 
-		$state_opts = Xml::option( '', ' ' );
+		$state_opts = Xml::option( '', '' );
 
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
