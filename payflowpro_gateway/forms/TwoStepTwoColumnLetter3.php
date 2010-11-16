@@ -74,11 +74,6 @@ function formCheck( ccform ) {
 		}
 	}
 
-	//set state to "outside us"
-	if ( document.payment.country.value != '840' ) {
-			document.payment.state.value = 'XX';
-	}
-
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
 	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
