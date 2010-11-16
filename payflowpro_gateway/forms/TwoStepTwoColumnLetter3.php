@@ -17,8 +17,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		// form placeholder values
 		$first = wfMsg( 'payflowpro_gateway-first' );
 		$last = wfMsg( 'payflowpro_gateway-last' );
-		$city = 'City';
-		$zip = 'Zip Code';
+		$city = wfMsg( 'payflowpro_gateway-donor-city' );
+		$zip = wfMsg( 'payflowpro_gateway-zip-code' );
 		$email = wfMsg( 'payflowpro_gateway-donor-email' );
 		$js = <<<EOT
 <script type="text/javascript">
@@ -227,9 +227,9 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'City\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
+		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-donor-city' ).'\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
 			$this->generateStateDropdown() . ' ' .
-			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'Zip Code\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
+			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-zip-code' ).'\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
