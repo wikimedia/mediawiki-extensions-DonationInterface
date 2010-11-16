@@ -73,6 +73,13 @@ function formCheck( ccform ) {
 			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
 		}
 	}
+	
+	if (document.getElementById('fname').value == '$first') {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Fname']] + '.\\r\\n';
+	}
+	if (document.getElementById('lname').value == '$last') {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Lname']] + '.\\r\\n';
+	}
 
 	// validate email address
 	var apos = document.payment.emailAdd.value.indexOf("@");
@@ -85,9 +92,6 @@ function formCheck( ccform ) {
 	if( output ) {
 		alert( output );
 		return false;
-	} else {
-		document.payment.submit();
-		return true;
 	}
 }
 </script>
