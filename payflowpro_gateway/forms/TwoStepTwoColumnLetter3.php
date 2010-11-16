@@ -17,6 +17,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		// form placeholder values
 		$first = wfMsg( 'payflowpro_gateway-first' );
 		$last = wfMsg( 'payflowpro_gateway-last' );
+		$street = wfMsg( 'payflowpro_gateway-donor-street' );
 		$city = wfMsg( 'payflowpro_gateway-donor-city' );
 		$zip = wfMsg( 'payflowpro_gateway-zip-code' );
 		$email = wfMsg( 'payflowpro_gateway-donor-email' );
@@ -25,6 +26,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 function loadPlaceholders() {
 	var fname = document.getElementById('fname');
 	var lname = document.getElementById('lname');
+	var street = document.getElementById('street');
 	var city = document.getElementById('city');
 	var zip = document.getElementById('zip');
 	var email = document.getElementById('emailAdd');
@@ -36,6 +38,10 @@ function loadPlaceholders() {
 	if (lname.value == '') {
 		lname.style.color = '#999999';
 		lname.value = '$last';
+	}
+	if (street.value == '') {
+		street.style.color = '#999999';
+		street.value = '$street';
 	}
 	if (city.value == '') {
 		city.style.color = '#999999';
@@ -217,7 +223,7 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-billing-address' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'Street\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-donor-street' ).'\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
