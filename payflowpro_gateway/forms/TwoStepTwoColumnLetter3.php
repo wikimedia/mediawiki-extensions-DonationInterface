@@ -168,19 +168,52 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= "</tr>";
 
 		// street
-		$form .= $this->getStreetField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-billing-address' ), 'street' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
 
 		// city
-		$form .= $this->getCityField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label"> </td>';
+		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
 
 		// state
-		$form .= $this->getStateField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label"> </td>';
+		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
+		$form .= '</tr>';
 		
 		// zip
-		$form .= $this->getZipField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg"> </span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
+			'</td>';
+		$form .= '</tr>';
 
 		// country
-		$form .= $this->getCountryField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label"> </td>';
+		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
+	    $form .= '</tr>';
 		
 		// email
 		$form .= '<tr>';
