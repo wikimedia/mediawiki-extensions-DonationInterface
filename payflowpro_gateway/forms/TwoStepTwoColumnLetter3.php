@@ -30,7 +30,6 @@ function loadPlaceholders() {
 	var city = document.getElementById('city');
 	var zip = document.getElementById('zip');
 	var email = document.getElementById('emailAdd');
-	var amountOther = document.getElementById('amountOther');
 	if (fname.value == '') {
 		fname.style.color = '#999999';
 		fname.value = '$first';
@@ -75,10 +74,19 @@ function formCheck( ccform ) {
 	}
 	
 	if (document.getElementById('fname').value == '$first') {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Fname']] + '.\\r\\n';
+		output += payflowproGatewayErrorMsgJs + ' First Name.\\r\\n';
 	}
-	if (document.getElementById('lname').value == '$last') {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsg' + msg['Lname']] + '.\\r\\n';
+	if (document.getElementById('street').value == '$street') {
+		output += payflowproGatewayErrorMsgJs + ' Street Address.\\r\\n';
+	}
+	if (document.getElementById('city').value == '$city') {
+		output += payflowproGatewayErrorMsgJs + ' City.\\r\\n';
+	}
+	if (document.getElementById('zip').value == '$zip') {
+		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
+	}
+	if (document.getElementById('zip').value == '$zip') {
+		output += payflowproGatewayErrorMsgJs + ' Zip Code.\\r\\n';
 	}
 
 	// validate email address
