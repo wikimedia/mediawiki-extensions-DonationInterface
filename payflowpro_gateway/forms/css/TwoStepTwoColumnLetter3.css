@@ -28,6 +28,12 @@ div#payflowpro_gateway-donate-submessage {
 	padding-right:0.5em;
 	width: 100px;
 }
+input#city {
+	width: 150px;
+}
+input#zip {
+	width: 72px;
+}
 
 .payflow-cc-form-section {
         float: none;

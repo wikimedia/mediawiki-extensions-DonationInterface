@@ -183,9 +183,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city' ) ) .
-			$this->generateStateDropdown() .
-			Xml::input( 'zip', '10', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'zip' ) ) .
+		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
+			$this->generateStateDropdown() . ' ' .
+			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
