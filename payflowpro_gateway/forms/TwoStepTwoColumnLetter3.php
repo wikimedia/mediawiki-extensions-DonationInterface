@@ -190,6 +190,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 
 		// country
+		/*
 		$form .= '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
 		$form .= '</tr>';
@@ -197,6 +198,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '<td class="label"> </td>';
 		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
 	    $form .= '</tr>';
+	    */
 		
 		// email
 		$form .= '<tr>';
