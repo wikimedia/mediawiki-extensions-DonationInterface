@@ -29,10 +29,10 @@ div#payflowpro_gateway-donate-submessage {
 	width: 100px;
 }
 input#city {
-	width: 150px;
+	width: 135px;
 }
 input#zip {
-	width: 72px;
+	width: 50px;
 }
 
 .payflow-cc-form-section {
