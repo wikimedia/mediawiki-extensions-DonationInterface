@@ -158,7 +158,9 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="amount_data">'.wfMsg( 'payflowpro_gateway-donation' ).'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'].'</td>';
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] . 
+			Html::hidden( 'amount', $this->form_data['amount'] ) . 
+			'</td>';
 		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ].'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
