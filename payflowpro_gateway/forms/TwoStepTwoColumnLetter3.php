@@ -93,7 +93,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath;
+		global $wgScriptPath, $wgPayflowGatewayTest;
 
 		$form = '';
 		
@@ -127,7 +127,23 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= '</tr>';
 
 		// card number
-		$form .= $this->getCardNumberField();
+		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
+		$form .= '';
+		if ( $this->form_errors['card_num'] ) {
+			$form .= '<tr>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
+			$form .= '</tr>';
+		}
+		if ( $this->form_errors['card'] ) {
+			$form .= '<tr>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card'] . '</span></td>';
+			$form .= '</tr>';
+		}
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( 'Credit / Debit card', 'card_num' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
+			'</td>';
+		$form .= '</tr>';
 
 		// expiry
 		$form .= '<tr>';
@@ -204,8 +220,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'div', array( 'style' => 'text-align:center;' ), '* * *' );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), 'Your credit / debit card will be securely processed.' );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-alt' ) );
 		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
