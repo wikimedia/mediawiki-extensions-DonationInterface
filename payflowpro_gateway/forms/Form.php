@@ -137,7 +137,7 @@ abstract class PayflowProGateway_Form {
 	 * 	(see http://us.php.net/asort)
 	 * @return string
 	 */
-	public function generateCountryDropdown() {
+	public function generateCountryDropdown( $defaultCountry = 840 ) {
 		$country_options = '';
 
 		// create a new array of countries with potentially translated country names for alphabetizing later
@@ -153,7 +153,7 @@ abstract class PayflowProGateway_Form {
 			if ( $this->form_data[ 'country' ] ) {
 				$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
 			} else {
-				$selected = ( $iso_value == 840 ) ? true : false; // Default to United States
+				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Default to United States
 			}
 			$country_options .= Xml::option( $full_name, $iso_value, $selected );
 		}

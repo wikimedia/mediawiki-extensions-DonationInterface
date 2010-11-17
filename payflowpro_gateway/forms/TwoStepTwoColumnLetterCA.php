@@ -132,7 +132,13 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetterCA extends PayflowProGateway_
 		$form .= $this->getZipField();
 
 		// country
-		$form .= $this->getCountryField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country' ) . '</td>';
+		$form .= '<td>' . $this->generateCountryDropdown( 124 ) . '</td>'; // Canada default
+	    $form .= '</tr>';
 
 		return $form;
 	}
