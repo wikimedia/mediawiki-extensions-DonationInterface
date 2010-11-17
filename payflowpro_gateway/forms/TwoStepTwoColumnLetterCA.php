@@ -186,4 +186,38 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetterCA extends PayflowProGateway_
 
 		return $state_menu;
 	}
+	
+	public function generateCountryDropdown( $defaultCountry = 124 ) {
+		$country_options = '';
+
+		// create a new array of countries with potentially translated country names for alphabetizing later
+		foreach ( $this->getCountries() as $iso_value => $full_name ) {
+			$countries[ $iso_value ] = wfMsg( 'payflowpro_gateway-country-dropdown-' . $iso_value );
+		}
+
+		// alphabetically sort the country names
+		asort( $countries, SORT_STRING );
+
+		// generate a dropdown option for each country
+		foreach ( $countries as $iso_value => $full_name ) {
+			if ( $this->form_data[ 'country' ] ) {
+				$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
+			} else {
+				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Select default
+			}
+			$country_options .= Xml::option( $full_name, $iso_value, $selected );
+		}
+
+		// build the actual select
+		$country_menu = Xml::openElement(
+			'select',
+			array(
+				'name' => 'country',
+				'id' => 'country'
+			) );
+		$country_menu .= $country_options;
+		$country_menu .= Xml::closeElement( 'select' );
+
+		return $country_menu;
+	}
 }

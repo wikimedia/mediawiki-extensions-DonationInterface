@@ -153,7 +153,7 @@ abstract class PayflowProGateway_Form {
 			if ( $this->form_data[ 'country' ] ) {
 				$selected = ( $iso_value == $this->form_data[ 'country' ] ) ? true : false;
 			} else {
-				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Default to United States
+				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Select default
 			}
 			$country_options .= Xml::option( $full_name, $iso_value, $selected );
 		}
