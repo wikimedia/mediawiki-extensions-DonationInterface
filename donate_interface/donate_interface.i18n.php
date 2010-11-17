@@ -1232,6 +1232,7 @@ $messages['ia'] = array(
 /** Indonesian (Bahasa Indonesia)
  * @author Farras
  * @author IvanLanin
+ * @author Kenrick95
  */
 $messages['id'] = array(
 	'donate_interface' => 'Dukung Wikimedia',
@@ -1245,7 +1246,7 @@ $messages['id'] = array(
 	'donate_interface-comment-message' => 'Ada suatu pikiran untuk dibagi dengan dunia? Masukkan maksimum 200 karakter di sini:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Daftarkan nama saya (di sebelah komentar saya) pada daftar donor publik.',
-	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala atau surel Yayasan Wikimedia di masa mendatang.',
+	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala Yayasan Wikimedia di masa mendatang.',
 	'donate_interface-comment-title' => 'Komentar publik',
 	'donate_interface-amount-error' => '**Harap masukkan nilai yang valid**',
 	'donate_interface-processing-error' => 'Terjadi kesalahan dalam pemrosesan permintaan Anda. Tidak ada pemroses yang tersedia.',
@@ -2047,7 +2048,7 @@ $messages['pt'] = array(
 	'donate_interface-comment-message' => 'Quer partilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
 	'donate_interface-comment-label' => 'Comentário:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome (junto ao meu comentário) na lista pública de contribuidores.',
-	'donate_interface-email-agreement' => 'Concordo em receber mansagens ocasionais da Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Concordo em receber mensagens ocasionais da Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => '**Por favor, insira um montante válido**',
 	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
@@ -2087,7 +2088,7 @@ $messages['pt-br'] = array(
 	'donate_interface-comment-message' => 'Quer compartilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
 	'donate_interface-comment-label' => 'Comentário:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome (junto ao meu comentário) na lista pública de contribuidores.',
-	'donate_interface-email-agreement' => "Concordo em receber futuras ''newsletters'' e e-mails da Wikimedia Foundation.",
+	'donate_interface-email-agreement' => 'Concordo em receber mensagens ocasionais da Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => '**Por favor, insira um montante válido**',
 	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
@@ -2576,7 +2577,7 @@ $messages['tl'] = array(
 	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais ipamahagi sa mundo? Maglagay ng hanggang sa 200 mga panitik dito:',
 	'donate_interface-comment-label' => 'Komento',
 	'donate_interface-anon-message' => 'Pakitala ang pangalan ko (katabi ng aking komento) sa pampublikong tala ng mga tagapagkaloob.',
-	'donate_interface-email-agreement' => 'Sumasang-ayon ako na paminsan-minsang makatanggap ng mga nagbabagang balita mula sa Pundasyong Wikimedia.',
+	'donate_interface-email-agreement' => 'Sumasang-ayon akong paminsan-minsan na makatanggap ng mga balita mula sa Pundasyong Wikimedia.',
 	'donate_interface-comment-title' => 'Pampublikong komento',
 	'donate_interface-amount-error' => '**Mangyaring magpasok ng isang tanggap na halaga**',
 	'donate_interface-processing-error' => 'Nagkaroon ng isang kamalian sa pagsasagawa ng iyong kahilingan.
