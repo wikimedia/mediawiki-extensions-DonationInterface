@@ -120,7 +120,13 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetterCA extends PayflowProGateway_
 		$form .= $this->getCityField();
 
 		// state
-		$form .= $this->getStateField();
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-state-province' ), 'state' ) . '</td>';
+		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
+		$form .= '</tr>';
 		
 		// zip
 		$form .= $this->getZipField();
@@ -160,7 +166,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetterCA extends PayflowProGateway_
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
-			$state_opts .= Xml::option( wfMsg( 'payflowpro_gateway-state-dropdown-' . $value ), $value, $selected );
+			$state_opts .= Xml::option( $state_name, $value, $selected );
 		}
 
 		$state_menu = Xml::openElement(
