@@ -54,11 +54,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$wgPayFlowProGatewayCSSVersion,
 			$wgPayflowGatewaySalt;
 
-		// make a log entry if the user has submitted the cc form
-		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'order_id', 0 )) {
-			wfDebugLog( 'payflowpro_gateway', $wgRequest->getText( 'order_id' ) . " Transaction initiated." );	
-		}
-			
 		$wgOut->addExtensionStyle(
 			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?284" .
 			$wgPayFlowProGatewayCSSVersion );
@@ -112,7 +107,12 @@ EOT;
 		require_once( 'includes/payflowUser.inc' );
 
 		$payflow_data = payflowUser();
-
+		
+		// make a log entry if the user has submitted the cc form
+		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'process', 0 )) {
+			wfDebugLog( 'payflowpro_gateway', $payflow_data[ 'order_id' ] . " Transaction initiated." );	
+		}
+		
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $wgRequest->getText( '_cache_', false ) ) {
 			$cache = true;
