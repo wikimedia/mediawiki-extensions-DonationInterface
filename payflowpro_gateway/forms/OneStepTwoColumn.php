@@ -55,32 +55,43 @@ function formCheck( ccform ) {
 		i,
 		output = '',
 		currField = '';
-
-	for( i = 0; i < numFields; i++ ) {
-		if( document.getElementById( fields[i] ).value == '' ) {
-			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
-			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
+		
+	var doCheck = true;
+	if( typeof( document.payment.PaypalRedirect.value ) !== 'undefined' ) {
+		if( document.payment.PaypalRedirect.value ) {
+			doCheck = false;
 		}
 	}
 	
-	if (document.getElementById('fname').value == '$first') {
-		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
-	}
-	if (document.getElementById('lname').value == '$last') {
-		output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
-	}
-
-	// validate email address
-	var apos = document.payment.emailAdd.value.indexOf("@");
-	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
-
-	if( apos < 1 || dotpos-apos < 2 ) {
-		output += payflowproGatewayErrorMsgEmail;
+	if( doCheck ) {
+		for( i = 0; i < numFields; i++ ) {
+			if( document.getElementById( fields[i] ).value == '' ) {
+				currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+				output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
+			}
+		}
+		
+		if (document.getElementById('fname').value == '$first') {
+			output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
+		}
+		if (document.getElementById('lname').value == '$last') {
+			output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
+		}
+	
+		// validate email address
+		var apos = document.payment.emailAdd.value.indexOf("@");
+		var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
+	
+		if( apos < 1 || dotpos-apos < 2 ) {
+			output += payflowproGatewayErrorMsgEmail;
+		}
 	}
 	
 	if( output ) {
 		alert( output );
 		return false;
+	} else {
+		return true;
 	}
 }
 </script>
@@ -152,7 +163,7 @@ EOT;
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';return true;', 'type' => 'submit' ) );
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button' ), 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
