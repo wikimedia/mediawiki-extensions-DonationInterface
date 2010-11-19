@@ -524,7 +524,7 @@ EOT;
 		$errorCode = $this->fnPayflowGetResponseMsg( $resultCode, $responseMsg );
 		
 		// log that the transaction is essentially complete
-		wfDebugLog( 'payflowpro_gateway', $wgRequest->getText( 'order_id' ) . " Transaction complete." );
+		wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . " Transaction complete." );
 		
 		// if approved, display results and send transaction to the queue
 		if ( $errorCode == '1' ) {
