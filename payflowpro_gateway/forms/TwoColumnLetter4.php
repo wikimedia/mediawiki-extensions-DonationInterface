@@ -90,7 +90,7 @@ class PayflowProGateway_Form_TwoColumnLetter4 extends PayflowProGateway_Form_One
 		if ( !$this->paypal ) {
 			// PayPal button
 			$form .= '<tr>';
-			$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'payflowpro_gateway-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a><br/>' .
+			$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'payflowpro_gateway-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a><br/>' .
 			'— ' . wfMsg( 'payflowpro_gateway-or' ) . ' —<br/><big><b>' . wfMsg( 'payflowpro_gateway-donate-wikipedia' ) . '</b></big></td>';
 			$form .= '</tr>';
 		}
@@ -111,7 +111,7 @@ class PayflowProGateway_Form_TwoColumnLetter4 extends PayflowProGateway_Form_One
 				$form .= '<tr>';
 				$form .= '<td class="label"></td>';
 				$form .= '<td>';
-				$form .= Html::hidden( 'PaypalRedirect', false );
+				$form .= Html::hidden( 'PaypalRedirect', 0 );
 				$form .= Xml::tags( 'div',
 						array(),
 						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) )
@@ -162,8 +162,8 @@ class PayflowProGateway_Form_TwoColumnLetter4 extends PayflowProGateway_Form_One
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
-			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';return true;', 'type' => 'submit' ) );
+			$form .= Html::hidden( 'PaypalRedirect', 0 );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button

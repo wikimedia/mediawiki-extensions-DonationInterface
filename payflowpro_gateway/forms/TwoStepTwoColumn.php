@@ -69,6 +69,8 @@ function formCheck( ccform ) {
 	if( output ) {
 		alert( output );
 		return false;
+	} else {
+		return true;
 	}
 }
 </script>
