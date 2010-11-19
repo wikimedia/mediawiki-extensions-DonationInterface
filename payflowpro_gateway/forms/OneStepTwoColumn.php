@@ -58,7 +58,7 @@ function formCheck( ccform ) {
 		
 	var doCheck = true;
 	if( typeof( document.payment.PaypalRedirect.value ) !== 'undefined' ) {
-		if( document.payment.PaypalRedirect.value == true ) {
+		if( document.payment.PaypalRedirect.value == 'true' ) {
 			doCheck = false;
 		}
 	}
