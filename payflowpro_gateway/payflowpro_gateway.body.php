@@ -54,6 +54,11 @@ class PayflowProGateway extends UnlistedSpecialPage {
 			$wgPayFlowProGatewayCSSVersion,
 			$wgPayflowGatewaySalt;
 
+		// make a log entry if the user has submitted the cc form
+		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'order_id', 0 )) {
+			wfDebugLog( 'payflowpro_gateway', $wgRequest->getText( 'order_id' ) . " Transaction initiated." );	
+		}
+			
 		$wgOut->addExtensionStyle(
 			"{$wgScriptPath}/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css?284" .
 			$wgPayFlowProGatewayCSSVersion );
@@ -517,6 +522,10 @@ EOT;
 		// interpret result code, return
 		// approved (1), denied (2), try again (3), general error (4)
 		$errorCode = $this->fnPayflowGetResponseMsg( $resultCode, $responseMsg );
+		
+		// log that the transaction is essentially complete
+		wfDebugLog( 'payflowpro_gateway', $wgRequest->getText( 'order_id' ) . " Transaction complete." );
+		
 		// if approved, display results and send transaction to the queue
 		if ( $errorCode == '1' ) {
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
