@@ -157,9 +157,9 @@ EOT;
 					$this->fnPayflowDisplayForm( $data, $this->errors );
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data
-					wfDebugLog( 'payflowpro_gateway', 'Preparing to query MaxMind' );
+					wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . " Preparing to query MaxMind" );
 					wfRunHooks( 'PayflowGatewayValidate', array( &$this, &$data ) );
-					wfDebugLog( 'payflowpro_gateway', 'Finished querying Maxmind' );
+					wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' Finished querying Maxmind' );
 
 					// if the transaction was flagged for review
 					if ( $this->action == 'review' ) {
@@ -221,7 +221,7 @@ EOT;
 			$tracked = $this->fnPayflowSaveContributionTracking( $data );
 			if ( !$tracked ) {
 				$when = time();
-				wfDebugLog( 'payflowpro_gateway', 'Unable to save data to the contribution_tracking table ' . $when );
+				wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' Unable to save data to the contribution_tracking table ' . $when );
 			}
 		}
 
@@ -450,15 +450,15 @@ EOT;
 		$i = 1;
 
 		while ( $i++ <= 3 ) {
-			wfDebugLog( 'payflowpro_gateway', 'Preparing to send transaction to PayflowPro' );
+			wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' Preparing to send transaction to PayflowPro' );
 			$result = curl_exec( $ch );
 			$headers = curl_getinfo( $ch );
 
 			if ( $headers['http_code'] != 200 && $headers['http_code'] != 403 ) {
-				wfDebugLog( 'payflowpro_gateway', 'Failed sending transaction to PayflowPro, retrying' );
+				wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' Failed sending transaction to PayflowPro, retrying' );
 				sleep( 1 );
 			} elseif ( $headers['http_code'] == 200 || $headers['http_code'] == 403 ) {
-				wfDebugLog( 'payflowpro_gateway', 'Finished sending transaction to PayflowPro' );
+				wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' Finished sending transaction to PayflowPro' );
 				break;
 			}
 		}
@@ -466,7 +466,7 @@ EOT;
 		if ( $headers['http_code'] != 200 ) {
 			$wgOut->addHTML( '<h3>No response from credit card processor.  Please try again later!</h3><p>' );
 			$when = time();
-			wfDebugLog( 'payflowpro_gateway', 'No response from credit card processor ' . $when );
+			wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' No response from credit card processor ' . $when );
 			curl_close( $ch );
 			exit;
 		}

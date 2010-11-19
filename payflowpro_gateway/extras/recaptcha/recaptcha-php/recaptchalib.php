@@ -124,12 +124,10 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
 	$http_request .= $req;
 
 	$response = '';
-	wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via fsock.' );
 	if ( false == ( $fs = @fsockopen( $host, $port, $errno, $errstr, 10 ) ) ) {
 		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha.' );
 		die ( 'Could not open socket' );
 	}
-	wfDebugLog( 'payflowpro_gateway', 'Finished communicating with reCaptcha.' );
 
 	fwrite( $fs, $http_request );
 
