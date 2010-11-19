@@ -163,7 +163,7 @@ class PayflowProGateway_Form_TwoColumnLetter3 extends PayflowProGateway_Form_One
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';document.payment.submit();', 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';return true;', 'type' => 'submit' ) );
 		} else {
 			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
