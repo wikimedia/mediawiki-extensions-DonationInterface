@@ -208,7 +208,7 @@ class PayflowProGateway_Form_TwoColumnLetter6 extends PayflowProGateway_Form_One
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit', 'style' => 'display: none;' ) );
 		}
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;document.payment.submit();', 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;return true;', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 		wfMsg( 'payflowpro_gateway-donate-click' );
@@ -223,7 +223,7 @@ class PayflowProGateway_Form_TwoColumnLetter6 extends PayflowProGateway_Form_One
 		}
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		$form .= Html::hidden( 'PaypalRedirect', 0 );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;document.payment.submit();', 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		return $form;
