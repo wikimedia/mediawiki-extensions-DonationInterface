@@ -2617,9 +2617,7 @@ $messages['tr'] = array(
 	'donate_interface-comment-message' => 'Dünya ile paylaşacak bir düşünceniz mi var? Buraya 200 karaktere kadar yazabilirsiniz:',
 	'donate_interface-comment-label' => 'Yorum:',
 	'donate_interface-anon-message' => 'Lütfen adımı (yorumumun yanına) umumi bağışçı listesinde listeleyin.',
-	'donate_interface-email-agreement' => "İleride Wikimedi Foundation haber postalarını ya da e-postalarını almayı kabul ediyorum.
-Bilgilerinizi asla satmayız ya da ticaret yapmayız.
-Bağışçı gizlilik poltikamız <a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>burada</a> bulunabilir.",
+	'donate_interface-email-agreement' => "Wikimedia Foundation'dan arasıra yapılan güncellemeleri almayı kabul ediyorum.",
 	'donate_interface-comment-title' => 'Umumi yorum',
 	'donate_interface-amount-error' => '**Lütfen geçerli bir yorum girin**',
 	'donate_interface-processing-error' => 'İsteğinizin işlenmesinde bir hata oluştu.
