@@ -1746,6 +1746,21 @@ $messages['mt'] = array(
  * @author Servien
  */
 $messages['nds-nl'] = array(
+	'donate_interface' => 'Steun Wikimedia',
+	'donate_interface-desc' => 'Laandingspagina veur donasies dee integreert mit gateway-uutbreidingen',
+	'donate_interface-intro' => 'Kies een betaolingsmethode, bedrag en munteenheid.',
+	'donate_interface-amount' => 'Bedrag:',
+	'donate_interface-other-amount' => 'Aander bedrag',
+	'donate_interface-currency' => 'Munteenheid:',
+	'donate_interface-gateway' => 'Betaolingsmethode:',
+	'donate_interface-submit-button' => 'Geld geven',
+	'donate_interface-comment-message' => 'Wi-j een gedachte delen mit de wereld? Hieronder ku-j tot tweehonderd kerakters kwiet:',
+	'donate_interface-comment-label' => 'Opmarking:',
+	'donate_interface-anon-message' => 'Laot mien naam zien naos mien opmarking in de peblieke geldschieterslieste.',
+	'donate_interface-email-agreement' => 'Ik stem dermee in da-k netposberichen kriege van de Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Peblieke opmarking',
+	'donate_interface-amount-error' => '**Vul een bedrag in**',
+	'donate_interface-processing-error' => "Der is wat verkeerd egaon bie 't verwarken van joew verzeuk. Der is gien verwarkingsdiens beschikbaor.",
 	'donate_interface-GBP' => 'GBP: Britse pond',
 	'donate_interface-EUR' => 'EUR: Euro',
 	'donate_interface-USD' => 'USD: Amerikaanse dollar',
@@ -2464,6 +2479,38 @@ Inga processorer finns tillgängliga.',
 	'donate_interface-SGD' => 'SGD: Singaporiansk dollar',
 	'donate_interface-SEK' => 'SEK: Svenska kronor',
 	'donate_interface-ILS' => 'ILS: Israeliska shekel',
+);
+
+/** Swahili (Kiswahili)
+ * @author Lloffiwr
+ */
+$messages['sw'] = array(
+	'donate_interface' => 'Fadhili Wikimedia',
+	'donate_interface-desc' => 'Ukurasa wa kwanza wa kuchangia, inayofungamana programu za milango ya malipo',
+	'donate_interface-intro' => 'Tafadhali kuchagua njia ya kulipa, kiasi, na aina ya fedha.',
+	'donate_interface-amount' => 'Kiasi cha mchango:',
+	'donate_interface-other-amount' => 'Kiasi kingine',
+	'donate_interface-currency' => 'Fedha:',
+	'donate_interface-gateway' => 'Njia ya kulipa:',
+	'donate_interface-submit-button' => 'Changia',
+	'donate_interface-comment-message' => 'Una maoni unayotaka kuyatoa? Andika herufi hadi 200 hapa:',
+	'donate_interface-comment-label' => 'Maoni:',
+	'donate_interface-anon-message' => 'Tafadhali andika jina langu (kando ya maoni yangu) katika orodha ya wachangiaji inayotolewa kwa watu wote.',
+	'donate_interface-email-agreement' => 'Nakubali nipokee taarifa mara kwa mara kutoka Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Maoni yatakayotolewa kwa watu wote',
+	'donate_interface-amount-error' => '**Tafadhali ingiza kiasi halali**',
+	'donate_interface-processing-error' => 'Imetokea hitilafu wakati wa kufanyika ombi lako.
+Mashine ya kufanyika malipo haipatikani.',
+	'donate_interface-GBP' => 'GBP: Pauni ya Uingereza',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: Dola ya U.S.A.',
+	'donate_interface-AUD' => 'AUD: Dola ya Australia',
+	'donate_interface-CAD' => 'CAD: Dola ya Kanada',
+	'donate_interface-CZK' => 'CZK: Koruna ya Ucheki',
+	'donate_interface-DKK' => 'DKK: Krone ya Udeni',
+	'donate_interface-HKD' => 'HKD: Dola ya Hong Kong',
+	'donate_interface-NZD' => 'NZD: Dola ya New Zealand',
+	'donate_interface-SGD' => 'SGD: Dola ya Singapore',
 );
 
 /** Tamil (தமிழ்)
