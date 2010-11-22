@@ -107,12 +107,12 @@ EOT;
 		require_once( 'includes/payflowUser.inc' );
 
 		$payflow_data = payflowUser();
-		
+
 		// make a log entry if the user has submitted the cc form
 		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'process', 0 )) {
 			wfDebugLog( 'payflowpro_gateway', $payflow_data[ 'order_id' ] . " Transaction initiated." );	
 		}
-		
+
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $wgRequest->getText( '_cache_', false ) ) {
 			$cache = true;
@@ -158,6 +158,7 @@ EOT;
 
 				// Check form for errors and redisplay with messages
 				$form_errors = $this->fnPayflowValidateForm( $data, $this->errors );
+
 				if ( $form_errors ) {
 					$this->fnPayflowDisplayForm( $data, $this->errors );
 				} else { // The submitted form data is valid, so process it
@@ -256,7 +257,6 @@ EOT;
 				}
 			}
 		}
-
 		$this->form_class = $class_name;
 	}
 
@@ -299,7 +299,7 @@ EOT;
 
 		// find all empty fields and create message
 		foreach ( $data as $key => $value ) {
-			if ( $value == '' || $data['state'] == 'YY' ) {
+			if ( $value == '' || ($key == 'state' && $value == 'YY' )) {
 				// ignore fields that are not required
 				if ( isset( $msg[$key] ) ) {
 					$error[$key] = "**" . wfMsg( 'payflowpro_gateway-error-msg', $msg[$key] ) . "**<br />";
@@ -376,7 +376,6 @@ EOT;
 
 
 		} // end switch
-
 		return $error_result;
 	}
 
@@ -471,9 +470,9 @@ EOT;
 		if ( $headers['http_code'] != 200 ) {
 			$wgOut->addHTML( '<h3>No response from credit card processor.  Please try again later!</h3><p>' );
 			$when = time();
-			wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' No response from credit card processor ' . $when );
+			wfDebugLog( 'payflowpro_gateway', $data[ 'order_id' ] . ' No response from credit card processor: ' . curl_error( $ch ));
 			curl_close( $ch );
-			exit;
+			return;
 		}
 
 		curl_close( $ch );
@@ -943,6 +942,9 @@ EOT;
 	 * @return int The id for the reference URL - 0 if not found
 	 */
 	function get_owa_ref_id( $ref ) {
+		if ( !defined( 'OWA' ) ) {
+			return 0;
+		}
 		// Replication lag means sometimes a new event will not exist in the table yet
 		$dbw = payflowGatewayConnection();
 		$id_num = $dbw->selectField(
@@ -979,7 +981,7 @@ EOT;
 		}
 
 		// if we're in testing mode and an action hasn't yet be specified, prepopulate the form
-		if ( !$wgRequest->getText( 'action', false ) && !$numAttempt && $wgPayflowGatewayTest ) {
+		if ( !$wgRequest->getText( 'action', false ) && !$wgRequest->getText( 'process', 0 ) && $wgPayflowGatewayTest ) {
 			// define arrays of cc's and cc #s for random selection
 			$cards = array( 'american' );
 			$card_nums = array(
@@ -1006,8 +1008,8 @@ EOT;
 				'state' => 'CA',
 				'zip' => '94104',
 				'country' => 840,
-				'card' => $cards[ $card_index ],
 				'card_num' => $card_nums[ $cards[ $card_index ]][ $card_num_index ],
+				'card' => $cards[ $card_index ],
 				'expiration' => date( 'my', strtotime( '+1 year 1 month' ) ),
 				'cvv' => '001',
 				'currency' => 'USD',
@@ -1019,8 +1021,8 @@ EOT;
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				'language' => 'en',
-				'comment' => $wgRequest->getText( 'comment' ),
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
+				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ),
 				'token' => $token,
@@ -1043,9 +1045,9 @@ EOT;
 				'city' => $wgRequest->getText( 'city' ),
 				'state' => $wgRequest->getText( 'state' ),
 				'zip' => $wgRequest->getText( 'zip' ),
-				'country' => $wgRequest->getText( 'country' ),
-				'card' => $wgRequest->getText( 'card' ),
+				'country' => $wgRequest->getText( 'country', "840" ),
 				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
+				'card' => $wgRequest->getText( 'card' ),
 				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
 				'cvv' => $wgRequest->getText( 'cvv' ),
 				'currency' => $wgRequest->getText( 'currency_code' ),
@@ -1058,8 +1060,8 @@ EOT;
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				// try to honr the user-set language (uselang), otherwise the language set in the URL (language)
 				'language' => $wgRequest->getText( 'uselang', $wgRequest->getText( 'language' ) ),
-				'comment' => $wgRequest->getText( 'comment' ),
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
+				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'token' => $token,
