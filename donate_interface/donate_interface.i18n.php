@@ -65,6 +65,20 @@ $messages['qqq'] = array(
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
 );
 
+/** Angika (अंगिका)
+ * @author Angpradesh
+ */
+$messages['anp'] = array(
+	'donate_interface' => 'विकिपीडिया कॆ मदद करॊ',
+	'donate_interface-desc' => 'गेटवे विस्तारयुक्त दान पृष्ठ',
+	'donate_interface-intro' => 'कृपा करी कॆ भुगतान विधि, राशि आरू मुद्रा चुनॊ.',
+	'donate_interface-amount' => 'दान राशि',
+	'donate_interface-other-amount' => 'अन्य राशि',
+	'donate_interface-currency' => 'मुद्रा',
+	'donate_interface-gateway' => 'भुगतान विधि',
+	'donate_interface-submit-button' => 'दान करॊ',
+);
+
 /** Afrikaans (Afrikaans)
  * @author Naudefj
  */
@@ -1296,7 +1310,7 @@ $messages['it'] = array(
 	'donate_interface-comment-message' => 'Hai un pensiero da condividere con il mondo? Inserisci massimo 200 caratteri qui:',
 	'donate_interface-comment-label' => 'Commenti:',
 	'donate_interface-anon-message' => "Indica il mio nome, accanto al mio commento, nell'elenco pubblico dei donatori.",
-	'donate_interface-email-agreement' => 'Accetto di ricevere in futuro le newsletter o e-mail da Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Accetto di ricevere aggiornamenti occasionali dalla Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Commento pubblico',
 	'donate_interface-amount-error' => '**Si prega di inserire un importo valido**',
 	'donate_interface-GBP' => 'GBP: Sterlina inglese',
@@ -2457,7 +2471,7 @@ $messages['sv'] = array(
 	'donate_interface-comment-message' => 'Har du en tanke att dela med världen? Skriv upp till 200 tecken här:',
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-anon-message' => 'Visa mitt namn (bredvid min kommentar) på den offentliga givarlistan.',
-	'donate_interface-email-agreement' => 'Jag accepterar att ta emot framtida nyhetsbrev eller e-post från Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Jag accepterar att ta emot sporadiska uppdateringar från Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => '**Ange ett giltigt belopp**',
 	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades. 
@@ -2483,17 +2497,18 @@ Inga processorer finns tillgängliga.',
 
 /** Swahili (Kiswahili)
  * @author Lloffiwr
+ * @author Muddyb Blast Producer
  */
 $messages['sw'] = array(
-	'donate_interface' => 'Fadhili Wikimedia',
+	'donate_interface' => 'Saidia Wikimedia',
 	'donate_interface-desc' => 'Ukurasa wa kwanza wa kuchangia, inayofungamana programu za milango ya malipo',
-	'donate_interface-intro' => 'Tafadhali kuchagua njia ya kulipa, kiasi, na aina ya fedha.',
+	'donate_interface-intro' => 'Tafadhali chagua njia ya kulipa, kiasi, na aina ya fedha.',
 	'donate_interface-amount' => 'Kiasi cha mchango:',
 	'donate_interface-other-amount' => 'Kiasi kingine',
 	'donate_interface-currency' => 'Fedha:',
 	'donate_interface-gateway' => 'Njia ya kulipa:',
 	'donate_interface-submit-button' => 'Changia',
-	'donate_interface-comment-message' => 'Una maoni unayotaka kuyatoa? Andika herufi hadi 200 hapa:',
+	'donate_interface-comment-message' => 'Una maoni unayotaka kugawana na dunia? Andika herufi hadi 200 hapa:',
 	'donate_interface-comment-label' => 'Maoni:',
 	'donate_interface-anon-message' => 'Tafadhali andika jina langu (kando ya maoni yangu) katika orodha ya wachangiaji inayotolewa kwa watu wote.',
 	'donate_interface-email-agreement' => 'Nakubali nipokee taarifa mara kwa mara kutoka Wikimedia Foundation.',

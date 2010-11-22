@@ -9477,7 +9477,7 @@ $messages['sr-el'] = array(
  * @author Per
  */
 $messages['sv'] = array(
-	'payflowprogateway' => 'Stöd Wikimedia',
+	'payflowprogateway' => 'Donera nu',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkortsbearbetning',
 	'payflowpro_gateway-accessible' => 'Denna sida är endast åtkomlig från givarsidan.',
 	'payflowpro_gateway-form-message' => 'Använd formuläret nedan för att donera med kreditkort eller',
@@ -9640,6 +9640,14 @@ Tafadhali jaribu baadaye tena.',
 	'payflowpro_gateway-thankyou' => 'Ahsante kwa mchango wako!',
 	'payflowpro_gateway-post-transaction' => 'Taarifa ya malipo',
 	'payflowpro_gateway-submit-button' => 'Michango',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV ni nini?</h4>
+<p>Namba ya Kumthibitisha Mwenyekadi (CVV): Namba hii ina tarakimu tatu au nne. Namba inasaidia kuhakikisha kwamba yule anayelipa anaye kadi yenyewe papo hapo. Hii husaidia kuzuia matumizi yasiyoidhinishwa au ulaghai.</p>
+<h4>Visa, Mastercard</h4>
+<p>Namba yenye tarakimu 3 iko nyuma ya kadi yako, ndani ya eneo la sahihi. 
+Kwa kawaida eneo la sahihi litakuwa na mlolongo wa namba, lakini ni tarakimu tatu za mwisho tu ambazo ni kodi ya CVV.</p>
+<h4>American Express</h4>
+<p>Kodi iko <i>juu</i> ya namba iliyotunishwa, yaani namba ya akaunti iliyopo upande wa mbele ya kadi.
+Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> iko juu ya namba ya akaunti.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Maswali au maoni? Wasiliana na: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Malipo ya kadi yako ya mkopo yatafanikiwa salama.',
 	'payflowpro_gateway-otherways' => 'Kuna <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa kupitia PayPal, kwa hundi, au kwa posta</a>.',
@@ -9653,12 +9661,22 @@ Tafadhali jaribu baadaye tena.',
 	'payflowpro_gateway-middle' => 'la pili',
 	'payflowpro_gateway-last' => 'Mwisho',
 	'payflowpro_gateway-other' => 'Nyingine',
+	'payflowpro_gateway-anon-message' => 'Tafadhali andika jina langu katika orodha ya wafadhili iliyo wazi kwa umma.',
+	'payflowpro_gateway-donate-wikipedia' => 'Changia kwenye Wikipedia',
+	'payflowpro_gateway-or' => 'au',
 	'payflowpro_gateway-your-information' => 'Taarifa juu yako',
+	'payflowpro_gateway-mailing-address' => 'Anwani ya posta',
 	'payflowpro_gateway-company-name' => 'Jina la kampuni au shirika',
 	'payflowpro_gateway-address-1' => 'Anwani 1',
 	'payflowpro_gateway-address-2' => 'Anwani 2',
 	'payflowpro_gateway-address-lines' => 'Mistari ya anwani',
 	'payflowpro_gateway-address-line-2' => 'Anwani (mstari wa 2)',
+	'payflowpro_gateway-street-address' => 'Sanduku la posta',
+	'payflowpro_gateway-street-address-line-2' => 'Anwani (mstari wa 2)',
+	'payflowpro_gateway-street-1' => 'Anwani 1',
+	'payflowpro_gateway-street-2' => 'Anwani 2',
+	'payflowpro_gateway-city-town' => 'Mji/Jiji',
+	'payflowpro_gateway-town-city' => 'Mji/Jiji',
 	'payflowpro_gateway-zip-code' => 'Kodi ya posta',
 	'payflowpro_gateway-zip-postal-code' => 'Kodi ya posta',
 	'payflowpro_gateway-country' => 'Nchi',
@@ -9687,6 +9705,7 @@ Tafadhali jaribu baadaye tena.',
 	'payflowpro_gateway-expires-question' => 'Itakwisha?',
 	'payflowpro_gateway-expires' => 'Itakwisha',
 	'payflowpro_gateway-card-security-code' => 'Kodi ya usalama wa kadi',
+	'payflowpro_gateway-cvv' => 'CVV',
 	'payflowpro_gateway-cvv-number-abbreviated' => '# ya CVV',
 	'payflowpro_gateway-cvv2' => 'CVV2',
 	'payflowpro_gateway-cvv-number' => 'Namba ya CVV',
