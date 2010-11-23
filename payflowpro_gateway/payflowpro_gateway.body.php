@@ -144,7 +144,7 @@ EOT;
 		 *  if paypal redirection is enabled ($wgPayflowGatewayPaypalURL must be defined)
 		 *  and the PaypalRedirect form value must be true
 		 */
-		if ( $wgRequest->getBool( 'PaypalRedirect' ) ) {
+		if ( $wgRequest->getText( 'PaypalRedirect', 0 ) ) {
 			$this->paypalRedirect( $data );
 			return;
 		}
