@@ -2066,7 +2066,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'payflowpro_gateway-cancel' => 'Storno',
 	'payflowpro_gateway-payment' => 'Platba',
 	'payflowpro_gateway-payment-type' => 'Způsob platby',
-	'payflowpro_gateway-please-complete' => 'Prosíme, níže dokončete svůj příspěvek…',
+	'payflowpro_gateway-please-complete' => 'Prosíme, dokončete níže svůj příspěvek…',
 	'payflowpro_gateway-description' => 'Popis',
 	'payflowpro_gateway-donation' => 'Příspěvek',
 	'payflowpro_gateway-email-receipt' => 'E-mailové potvrzení na',
@@ -2867,7 +2867,7 @@ In some instances, the code is located on the left side of the card, but is alwa
  * @author Yekrats
  */
 $messages['eo'] = array(
-	'payflowprogateway' => 'Subtenu Vikimedion',
+	'payflowprogateway' => 'Donacu nun',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkcarta proceso',
 	'payflowpro_gateway-accessible' => 'Ĉi tiu paĝo estas alirebla nur el la donacpaĝo.',
 	'payflowpro_gateway-form-message' => 'Uzu la jenan formularon donaci per kreditkarto, aŭ',
@@ -9473,6 +9473,7 @@ $messages['sr-el'] = array(
  * @author Ainali
  * @author Boivie
  * @author Cohan
+ * @author GameOn
  * @author Nghtwlkr
  * @author Per
  */
@@ -9573,6 +9574,14 @@ I vissa fall finns koden på vänstra sidan av koret, men alltid ovanför konton
 	'payflowpro_gateway-noscript-msg' => 'Det verkar som om du inte har JavaScript aktiverat alternativt att din webbläsare stödjer inte det. 
 För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt donationsformulär JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Om du inte kan eller inte vill aktivera JavaScript, kan du bidra ändå genom att besöka:',
+	'payflowpro_gateway-or' => 'eller',
+	'payflowpro_gateway-company-name' => 'Företag eller organisation',
+	'payflowpro_gateway-apartment-number' => 'Lägenhet',
+	'payflowpro_gateway-country' => 'Land',
+	'payflowpro_gateway-telephone' => 'Telefon',
+	'payflowpro_gateway-next' => 'Nästa',
+	'payflowpro_gateway-continue' => 'Fortsätt',
+	'payflowpro_gateway-cancel' => 'Avbryt',
 );
 
 /** Swahili (Kiswahili)
