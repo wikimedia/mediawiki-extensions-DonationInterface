@@ -216,16 +216,17 @@ EOT;
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . 
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$20 ' .
-			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$35 ' .
-			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$50 ' .
-			Xml::radio( 'amount', 75, $this->form_data['amount'] == 75, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$75 ' .
-			'<br/>' .
-			Xml::radio( 'amount', 100, $this->form_data['amount'] == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$100 ' .
-			Xml::radio( 'amount', 150, $this->form_data['amount'] == 150, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$150 ' .
-			Xml::radio( 'amount', 250, $this->form_data['amount'] == 250, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$250 ' .
-			Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField(this, "Other");document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'onblur' => 'document.getElementById("otherRadio").value = this.value;', 'id' => 'amountOther' ) ) .
-			Html::hidden( 'currency_code', 'USD' ) .
+			'<table cellspacing="3" cellpadding="0" border="0" style="margin-bottom:0.5em;"><tr>' .
+			'<td>'.Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$20 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$35 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', 50, $this->form_data['amount'] == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$50 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', 75, $this->form_data['amount'] == 75, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$75 '.'</td>'.
+			'</tr><tr>' .
+			'<td>'.Xml::radio( 'amount', 100, $this->form_data['amount'] == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$100 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', 150, $this->form_data['amount'] == 150, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$150 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', 250, $this->form_data['amount'] == 250, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '$250 '.'</td>'.
+			'<td>'.Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField(this, "Other");document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'onblur' => 'document.getElementById("otherRadio").value = this.value;', 'id' => 'amountOther' ) ).Html::hidden( 'currency_code', 'USD' ).'</td>'.
+			'</tr></table>' .
 			'</td>';
 		$form .= '</tr>';
 		
@@ -261,6 +262,11 @@ EOT;
 		} else {
 			$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc', 'style' => 'display: none;' ) );
 		}
+		
+		$form .= '<tr>';
+		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) . 
+			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-left:8px;' ) ) . '</h3></td>';
+		$form .= '</tr>';
 		
 		// card number
 		$form .= $this->getCardNumberField();

@@ -13,12 +13,11 @@ table#donation_amount td.amount_data {
 }
 h3.cc_header {
 	padding-bottom: 0;
-	margin-bottom: 0;
 	font-weight: normal;
 }
 div#payflowpro_gateway-donate-addl-info-text {
 	font-size: 90%;
-	line-height: 120%;
+	line-height: 140%;
 }
 div#payflowpro_gateway-donate-submessage {
 	font-size: 90%;
