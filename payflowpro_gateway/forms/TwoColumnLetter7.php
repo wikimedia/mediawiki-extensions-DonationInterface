@@ -338,6 +338,7 @@ EOT;
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-email-receipt' ), 'emailAdd' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->form_data['email'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'payflowpro_gateway-donor-email' ).'\' )', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
+			Html::hidden( 'email-opt', 1 ) .
 			'</td>';
 		$form .= '</tr>';
 
