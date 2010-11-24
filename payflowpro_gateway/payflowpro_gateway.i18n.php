@@ -587,6 +587,7 @@ $messages['ar'] = array(
 	'payflowpro_gateway-question-comment' => 'ويكيبيديا مشروع لمؤسسة ويكيميديا. أسئلة أو تعليقات؟ راسل: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'ستتم معالجة بطاقتك الائتمانية بأمان.',
 	'payflowpro_gateway-otherways' => 'توجد <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع من بينها استخدام PayPal أو شيك مصرفي أو البريد</a>.',
+	'payflowpro_gateway-otherways-alt' => 'توجد <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع</a>، من ضمنها عبر شيك مصرفي.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع</a>',
 	'payflowpro_gateway-paypal' => 'أدليك حساب PayPal؟ <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">تبرع عبر PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'لا نخزن معلومات بطاقتك الائتمانية وبياناتك الشخصية تخضع ل<a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">سياستنا للخصوصية</a>.',
@@ -682,6 +683,10 @@ $messages['ar'] = array(
 	'payflowpro_gateway-cancel' => 'ألغِ',
 	'payflowpro_gateway-payment' => 'الدفع',
 	'payflowpro_gateway-payment-type' => 'نوع الدفع',
+	'payflowpro_gateway-please-complete' => 'من فضلك أكمل تبرعك أدناه...',
+	'payflowpro_gateway-description' => 'الوصف',
+	'payflowpro_gateway-donation' => 'التبرع',
+	'payflowpro_gateway-email-receipt' => 'أرسل البريد الإلكتروني إلى',
 	'payflowpro_gateway-state-dropdown-YY' => 'اختر ولاية',
 	'payflowpro_gateway-state-dropdown-XX' => 'خارج الولايات المتحدة',
 );
@@ -8474,7 +8479,7 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
  * @author Reder
  */
 $messages['roa-tara'] = array(
-	'payflowprogateway' => 'Aiute Uicchipèdie',
+	'payflowprogateway' => "Fà 'a donazziona toje mò",
 	'payflowpro_gateway-accessible' => "Quèste pàgene jè accessibbele sule ad 'a pàgene de le donaziune.",
 	'payflowpro_gateway-form-message' => "Ause 'u module aqquà d'abbasce pè donà cu 'na carte de credite, o",
 	'payflowpro_gateway-paypal-button' => 'Done ausanne PayPal',
@@ -8560,6 +8565,9 @@ Sì pregate de pruvà n'otre vote cchù nnande.",
 	'payflowpro_gateway-address-line-2' => 'Indirizze (linèe 2)',
 	'payflowpro_gateway-country' => 'Nazione',
 	'payflowpro_gateway-select-country' => "Scacchie 'a nazione",
+	'payflowpro_gateway-phone' => 'Telefone',
+	'payflowpro_gateway-telephone' => 'Telefone',
+	'payflowpro_gateway-telephone-home' => 'Tel. (case)',
 	'payflowpro_gateway-expires' => 'Scadenze',
 	'payflowpro_gateway-card-security-code' => "Codece de securezze d'a carte",
 	'payflowpro_gateway-cvv' => 'CVV',
