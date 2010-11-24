@@ -45,14 +45,6 @@ input#zip {
         width: 100%;
 }
 
-#payflowpro_gateway-cc_form_form {
-        width: 475px;
-        float: right;
-        margin-left: 2em;
-        padding-left: 2em;
-        border-left: 1px solid #BBBBBB;
-}
-
 #payflowpro_gateway-cc_form_letter {
         height: 100%;
 }
@@ -106,7 +98,7 @@ input#zip {
 	background-color:#cce7cd;
 	border:1px solid #5EAC58;
 	padding:16px 24px 24px;
-	width:450px;
+	width:430px;
 }
 #donate-head {
 	border:none;
