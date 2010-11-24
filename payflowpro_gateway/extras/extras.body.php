@@ -17,33 +17,64 @@ abstract class PayflowProGateway_Extras {
 	}
 
 	/**
-	 * Prepare a log file
+	 * Prepare logging mechanism
+	 * 
+	 * If 'syslog' is specified, we can use the syslogger.  If a file
+	 * is specified, we'll writ to the file.  Otherwise, do nothing.
 	 *
 	 * @param string path to log file
-	 * @return resource Pointer for the log file
 	 */
 	protected function prepare_log_file( $log_file ) {
-		$this->log_fh = fopen( $log_file, 'a+' );
+		
+		if ( strtolower( $log_file ) == "syslog" ) {
+
+			$this->log_fh = 'syslog';	
+		
+		} elseif( is_file( $log_file )) {
+			
+			$this->log_fh = fopen( $log_file, 'a+' );
+		
+		} else {
+
+			$this->log_fh = null;
+			
+		}
 	}
 
 	/**
-	 * Writes message to a log file
+	 * Writes message to the log
 	 *
-	 * If a log file does not exist and could not be created,
+	 * If a log file does not exist and we are not using syslog,
 	 * do nothing.
 	 * @fixme Perhaps lack of log file can be handled better?
 	 * @param string The message to log
 	 */
-	public function log( $id = '', $status = '', $data = '' ) {
+	public function log( $id = '', $status = '', $data = '', $log_level=LOG_INFO ) {
 		if ( !$this->log_fh ) {
 			echo "what log file?";
 			return;
 		}
+		
+		// format the message
 		$msg = '"' . date( 'c' ) . '"';
 		$msg .= "\t" . '"' . $id . '"';
 		$msg .= "\t" . '"' . $status . '"';
 		$msg .= "\t" . $data . "\n";
-		fwrite( $this->log_fh, $msg );
+		
+		// write to the log
+		if ( $this->log_fh == 'syslog' ) { //use syslog facility
+			// replace tabs with spaces - maybe do this universally?  cuz who needs tabs.
+			$msg = str_replace( "\t", " ", $msg );
+					
+			openlog( "payflowpro_gateway_trxn", LOG_ODELAY, LOG_SYSLOG );
+			syslog( $log_level, $msg );
+			closelog();	
+			
+		} else { //write to file
+			
+			fwrite( $this->log_fh, $msg );
+		
+		}
 	}
 
 	/**
@@ -74,6 +105,6 @@ abstract class PayflowProGateway_Extras {
 	 * Close the open log file handler if it's open
 	 */
 	public function __destruct() {
-		if ( $this->log_fh ) fclose( $this->log_fh );
+		if ( is_resource( $this->log_fh ) ) fclose( $this->log_fh );
 	}
 }
