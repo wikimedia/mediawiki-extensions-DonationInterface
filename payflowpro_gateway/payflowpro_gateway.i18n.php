@@ -2461,7 +2461,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'payflowpro_gateway-select-amount' => 'Betrag auswählen',
 	'payflowpro_gateway-amount' => 'Betrag',
 	'payflowpro_gateway-make-a-donation' => 'Spende',
-	'payflowpro_gateway-enter-your-amount' => 'Oder gebe den Betrag im obigen Feld ein',
+	'payflowpro_gateway-enter-your-amount' => 'Oder gib den Betrag im obigen Feld ein',
 	'payflowpro_gateway-will-support-with-gift' => 'Ich werde mit einer Spende in folgender Höhe unterstützen:',
 	'payflowpro_gateway-will-make-tax-deductible-gift' => 'Ich werde eine steuerlich absetzbare Spende in folgender Höhe machen:',
 	'payflowpro_gateway-select-dollar-amount' => 'Betrag in USD auswählen',
