@@ -3745,7 +3745,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
-	'payflowprogateway' => 'Sotegnéd Wikimedia',
+	'payflowprogateway' => 'Balyéd orendrêt',
 	'payflowpro_gateway-desc' => 'Trètament per cârta de crèdit PayPal Payflow Pro.',
 	'payflowpro_gateway-accessible' => 'Ceta pâge est accèssibla ren que dês la pâge de donacion.',
 	'payflowpro_gateway-form-message' => 'Utilisâd lo formulèro ce-desot por balyér avouéc una cârta de crèdit, ou ben',
@@ -7487,7 +7487,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
  * @author Xqt
  */
 $messages['pdc'] = array(
-	'payflowpro_gateway-cvv-link' => 'Beischpiel',
+	'payflowpro_gateway-cvv-link' => 'Wu iss daer?',
 	'payflowpro_gateway-donor-name' => 'Naame:',
 	'payflowpro_gateway-donor-lname' => 'Familie-Naame:',
 	'payflowpro_gateway-donor-street' => 'Schtrooss:',
@@ -7496,6 +7496,7 @@ $messages['pdc'] = array(
 	'payflowpro_gateway-donor-country' => 'Land/Gegend:',
 	'payflowpro_gateway-donor-address' => 'Adress:',
 	'payflowpro_gateway-error-msg-lname' => 'Familie-Naame',
+	'payflowpro_gateway-next' => 'Neegschte',
 );
 
 /** Polish (Polski)
@@ -9597,6 +9598,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
  */
 $messages['sw'] = array(
 	'payflowprogateway' => 'Changia sasa',
+	'payflowpro_gateway-form-message' => 'Tumia fomu ya chini ili kuchangia na kadi ya mkopo, au',
 	'payflowpro_gateway-paypal-button' => 'Changia kwa kupitia Paypal',
 	'payflowpro_gateway-cc-button' => 'Changia kwa kupitia kadi ya mkopo',
 	'payflowpro_gateway-form-message-2' => 'Ukitaka kubadilisha kiasi au aina ya fedha, rudi katika <a href="/index.php?title=Donate">ukurasa wa kuchangia</a>',
@@ -9643,14 +9645,17 @@ $messages['sw'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'namba ya kadi ya mkopo',
 	'payflowpro_gateway-error-msg-expiration' => 'tarehe itakayokwisha kadi',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV (kodi ya usalama) iliopo nyuma ya kadi yako',
+	'payflowpro_gateway-error-msg-captcha-please' => 'Ili kusaidia kulinda usalama wa kadi yako ya mkopo, tafadhali andika herufi unazoziona juu.',
 	'payflowpro_gateway-response-0' => 'Malipo yako yamepitishwa. 
 Ahsante kwa mchango wako!',
+	'payflowpro_gateway-response-126' => 'Manunuzi yako inasubiri idhini.',
 	'payflowpro_gateway-response-12' => 'Tafadhali uwasiliane na kampuni ya kadi yako ya mkopo ili kupata maelezo mengine.',
 	'payflowpro_gateway-response-114' => 'Tafadhali wasiliana na kampuni ya kadi yako ya mkopo ili kupata maelezo zaidi.',
 	'payflowpro_gateway-response-23' => 'Ama namba ya kadi ya mkopo au tarehe yake ya kuishia haipo sahihi.',
 	'payflowpro_gateway-response-4' => 'Kiasi batili.',
 	'payflowpro_gateway-response-24' => 'Ama namba ya kadi ya mkopo au tarehe yake ya kuishia haipo sahihi.',
 	'payflowpro_gateway-response-112' => 'Ama anwani au namba yako ya CVV (kodi ya usalama) hayapo sahihi.',
+	'payflowpro_gateway-response-125-2' => 'Kadi yako ya mkopo haikuweza kuidhinishwa. Tafadhali uhakikishe kwamba taarifa zote zilizotolewa zipo sawa na kadi, au jaribu kadi nyingine. Pia unaweza kuchangia kwa <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia nyingine</a> au unaweza kuwasiliana nasi hapo <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Asante kwa mchango wako.',
 	'payflowpro_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanyika malipo.
 Tafadhali jaribu baadaye tena.',
 	'php-response-declined' => 'Malipo yako hayakubaliwa.',
@@ -9671,6 +9676,7 @@ Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> i
 	'payflowpro_gateway-otherways-alt' => 'Kuna <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa hundi</a>.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Njia zingine za kuchangia</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Hatuhifadhi taarifa ya kadi yako ya mkopo, na taarifa juu yako binafsi iko chini ya <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">sera ya faragha</a> yetu.',
+	'payflowpro_gateway-cc-form-header-payment' => 'Taarifa za kulipa',
 	'payflowpro_gateway-make-your-donation' => 'Changia sasa',
 	'payflowpro_gateway-state-in-us' => 'kama ndani ya Marekani',
 	'payflowpro_gateway-comment' => 'Maoni',
