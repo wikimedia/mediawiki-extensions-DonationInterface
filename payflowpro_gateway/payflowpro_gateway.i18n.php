@@ -2970,6 +2970,22 @@ Iufoje, la kodo estas lokata maldekstre, sed ĝi ĉiam estas super la kontnumero
 Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Se vi ne povas aŭ ne volas ŝalti JavaScript, vi ankoraŭ povas kontribui irante:',
 	'payflowpro_gateway-anon-message' => 'Bonvolu enlistigi mian nomon en la publika listo de donacantoj.',
+	'payflowpro_gateway-or' => 'aŭ',
+	'payflowpro_gateway-title' => 'Titolo',
+	'payflowpro_gateway-suffix' => 'Sufikso',
+	'payflowpro_gateway-zip' => 'Poŝtkodo',
+	'payflowpro_gateway-zip-code' => 'Poŝtkodo',
+	'payflowpro_gateway-zip-postal' => 'Poŝtkodo',
+	'payflowpro_gateway-country' => 'Lando',
+	'payflowpro_gateway-select-country' => 'Elektu landon',
+	'payflowpro_gateway-confirm-email' => 'Konfirmu retpoŝton',
+	'payflowpro_gateway-phone' => 'Numero de telefono',
+	'payflowpro_gateway-donate-now' => 'Donaci nun',
+	'payflowpro_gateway-make-a-donation' => 'Donaci',
+	'payflowpro_gateway-cancel' => 'Nuligi',
+	'payflowpro_gateway-description' => 'Priskribo',
+	'payflowpro_gateway-donation' => 'Donaco',
+	'payflowpro_gateway-state-dropdown-XX' => 'Ekster Usono',
 );
 
 /** Spanish (Español)
@@ -3320,16 +3336,18 @@ $messages['eu'] = array(
 /** Persian (فارسی)
  * @author Ebraminio
  * @author Huji
+ * @author Mjbmr
  * @author Sahim
  * @author Wayiran
  * @author ZxxZxxZ
  */
 $messages['fa'] = array(
-	'payflowprogateway' => 'حمایت از ویکی‌مدیا',
+	'payflowprogateway' => 'همینک اهدا کنید',
 	'payflowpro_gateway-desc' => 'پردازش کارت اعتباری PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.',
 	'payflowpro_gateway-form-message' => 'از فرم زیر برای کمک مالی با کارت اعتباری استفاده کنید، یا',
-	'payflowpro_gateway-paypal-button' => 'از طریق پی پال کمک مالی کنید',
+	'payflowpro_gateway-paypal-button' => 'از طریق پی پال بپردازید',
+	'payflowpro_gateway-cc-button' => 'از طریق کارت اعتباری بپردازید',
 	'payflowpro_gateway-form-message-2' => 'برای تغییر مقدار یا نرخ، به <a href="/index.php?title=Donate">صفحه اهدا</a> بازگردید.',
 	'payflowpro_gateway-donor-legend' => 'اطلاعات هدیه‌کننده',
 	'payflowpro_gateway-card-legend' => 'اطلاعات کارت اعتباری',
@@ -3358,7 +3376,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-error-msg' => 'لطفاً $1 خود را وارد کنید',
 	'payflowpro_gateway-error-msg-js' => 'لطفاً وارد کنید',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**لطفاً یک مبلغ معتبر وارد کنید**',
-	'payflowpro_gateway-error-msg-email' => '**لطفاً یک نشانی رایانامه معتبر وارد کنید**',
+	'payflowpro_gateway-error-msg-email' => '**لطفاً یک نشانی پست الکترونیکی معتبر وارد کنید**',
 	'payflowpro_gateway-error-msg-amex' => '**لطفاً شمارهٔ کارت صحیح را برای American Express وارد کنید.**',
 	'payflowpro_gateway-error-msg-mc' => '**لطفاً شمارهٔ کارت صحیح را برای مستر کارت وارد کنید.**',
 	'payflowpro_gateway-error-msg-visa' => '**لطفاً شمارهٔ کارت صحیح را برای Visa وارد کنید.**',
@@ -3389,7 +3407,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-response-24' => 'شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.',
 	'payflowpro_gateway-response-112' => 'نشانی شما یا شمارهٔ CVV (کد امنیتی) نادرست است.',
 	'payflowpro_gateway-response-125' => "انتقال وجه شما توسط ''خدمات جلوگیری از کلاه‌برداری'' رد شده است.",
-	'payflowpro_gateway-response-125-2' => 'کارت اعتباری شما نتوانست تائید اعتبار شود. لطفاً تائید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">دیگر راه‌های ما برای اعطا</a> استفاده کنید یا از طریق <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> با ما تماس بگیرید. از پشتیبانی شما سپاسگذاریم',
+	'payflowpro_gateway-response-125-2' => 'کارت اعتباری شما نتوانست تائید اعتبار شود. لطفاً تائید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از <a href="http://wikimediafoundation.org/wiki/ارسال">دیگر راه‌های ما برای اعطا</a> استفاده کنید یا از طریق <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> با ما تماس بگیرید. از پشتیبانی شما سپاسگذاریم',
 	'payflowpro_gateway-response-default' => 'برای پردازش تراکنش شما خطا وجود دارد.
 لطفا دوباره تلاش کنید.',
 	'php-response-declined' => 'انتقال وجه شما مورد قبول نبود.',
@@ -3405,9 +3423,10 @@ $messages['fa'] = array(
 در برخی موارد، کد در سمت چپ کارت قرار دارد، اما همواره در بالای شمارهٔ حساب است.</p><br />',
 	'payflowpro_gateway-question-comment' => 'پرسش یا نظری دارید؟ تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'کارت اعتباری شما به طور ایمن پردازش خواهد شد.',
-	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">راه‌های دیگری برای کمک مالی نظیر پی پال، چک و پست وجود دارد</a>.',
-	'payflowpro_gateway-otherways-alt' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">راه‌های دیگری</a> هم برای پرداخت وجود دارد، ازجمله چک.',
-	'payflowpro_gateway-paypal' => 'آیا حساب پی پال دارید؟ <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">از طریق پی پال بپردازید</a>.',
+	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/ارسال">راه‌های دیگری برای کمک مالی نظیر پی پال، چک و پست وجود دارد</a>.',
+	'payflowpro_gateway-otherways-alt' => '<a href="http://wikimediafoundation.org/wiki/ارسال">راه‌های دیگری</a> هم برای پرداخت وجود دارد، ازجمله چک.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/ارسال">روش‌های دیگر</a>',
+	'payflowpro_gateway-paypal' => 'آیا حساب پی پال دارید؟ <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=fa&utm_source=$3&utm_medium=$4&utm_campaign=$5">از طریق پی پال بپردازید</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'ما اطلاعات کارت اعتباری شما را ذخیره نمی‌کنیم، و اطلاعات خصوصی شما موضوع <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">سیاست حفظ اسرار</a> ماست.',
 	'payflowpro_gateway-token-mismatch' => 'نشست شما منقضی شده است. لطفا با پر کردن و ارسال فرم، دوباره سعی کنید.',
 	'payflowpro_gateway-cc-form-header-personal' => 'اطلاعات صورتحساب',
@@ -3416,16 +3435,97 @@ $messages['fa'] = array(
 	'payflowpro_gateway-state-in-us' => 'اگر در داخل ایالات متحده هستید',
 	'payflowpro_gateway-comment' => 'توضیح',
 	'payflowpro_gateway-first' => 'نخستین',
+	'payflowpro_gateway-middle' => 'متوسط',
 	'payflowpro_gateway-last' => 'واپسین',
 	'payflowpro_gateway-other' => 'دیگر',
+	'payflowpro_gateway-noscript-msg' => 'به نظر می‌رسد جاوا اسکریپت غیرفعال باشد، یا مرورگر اینترنتی شما از آن پشتیبانی نمی‌کند.
+به منظور ارائه یک تجربه امن، مطمئن و لذت بخش، فرم کمک مالی ما نیاز به جاوا اسکریپت دارد.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'اگر نمی‌توانید جاوا اسکریپت را فعال کنید، ممکن است هنوز مشارکت داشته باشید با مراجعه به:',
+	'payflowpro_gateway-anon-message' => 'لطفاً نام من را در فهرست عمومی اهدا کنندگان قرار دهید.',
+	'payflowpro_gateway-donate-wikipedia' => 'کمک مالی به ویکی‌پدیا',
 	'payflowpro_gateway-or' => 'یا',
 	'payflowpro_gateway-your-information' => 'اطلاعات شما',
+	'payflowpro_gateway-mailing-address' => 'نشانی پستی',
+	'payflowpro_gateway-billing-address' => 'نشانی صدور صورت‌حساب',
+	'payflowpro_gateway-billing-name' => 'نام حسابداری',
 	'payflowpro_gateway-title' => 'عنوان',
+	'payflowpro_gateway-suffix' => 'پسوند',
+	'payflowpro_gateway-company-name' => 'نام شرکت یا سازمان',
 	'payflowpro_gateway-address-1' => 'نشانی ۱',
 	'payflowpro_gateway-address-2' => 'نشانی ۲',
+	'payflowpro_gateway-address-lines' => 'خطوط نشانی',
+	'payflowpro_gateway-address-line-2' => 'نشانی (خط ۲)',
 	'payflowpro_gateway-street-address' => 'نشانی خیابان',
+	'payflowpro_gateway-street-address-line-2' => 'نشانی خیابان (خط ۲)',
 	'payflowpro_gateway-street-1' => 'خیابان ۱',
 	'payflowpro_gateway-street-2' => 'خیابان ۲',
+	'payflowpro_gateway-apartment-number' => 'آپارتمان #',
+	'payflowpro_gateway-city-town' => 'شهرستان/شهر',
+	'payflowpro_gateway-town-city' => 'شهر/شهرستان',
+	'payflowpro_gateway-state-province' => 'ایالت/استان',
+	'payflowpro_gateway-zip' => 'زیپ',
+	'payflowpro_gateway-zip-code' => 'زیپ کد',
+	'payflowpro_gateway-zip-postal' => 'زیپ/پستی',
+	'payflowpro_gateway-zip-postal-code' => 'کد پستی/زیپ',
+	'payflowpro_gateway-billing-code' => 'نشانی پستی صدور صورت حساب',
+	'payflowpro_gateway-country' => 'کشور',
+	'payflowpro_gateway-select-country' => 'کشور را انتخاب کنید',
+	'payflowpro_gateway-confirm-email' => 'تایید پست الکترونیکی',
+	'payflowpro_gateway-confirmation-email' => 'تایید پست الکترونیکی',
+	'payflowpro_gateway-phone' => 'تلفن',
+	'payflowpro_gateway-telephone' => 'تلفن',
+	'payflowpro_gateway-telephone-home' => 'تلفن (منزل)',
+	'payflowpro_gateway-billing-phone-number' => 'شماره تلفن صدور صورت حساب',
+	'payflowpro_gateway-donation-information' => 'اطلاعات اهدایی',
+	'payflowpro_gateway-cc-billing-information' => 'اطلاعات صورت حساب کارت اعتباری',
+	'payflowpro_gateway-pay-by-credit-card' => 'پرداخت با کارت اعتباری',
+	'payflowpro_gateway-which-card' => 'از کدام کارت می‌خواهید استفاده کنید',
+	'payflowpro_gateway-choose-donation-method' => 'روش اهدا را انتخاب کنید',
+	'payflowpro_gateway-cardholders-name' => 'نام دارنده کارت',
+	'payflowpro_gateway-name-on-card' => 'نام روی کارت',
+	'payflowpro_gateway-type-of-card' => 'نوع کارت',
+	'payflowpro_gateway-cards-accepted' => 'کارت‌ها پذیرفته شدند',
+	'payflowpro_gateway-card-type' => 'نوع کارت',
+	'payflowpro_gateway-credit-card-type' => 'نوع کارت اعتباری',
+	'payflowpro_gateway-credit-card-number' => 'شمارهٔ کارت اعتباری',
+	'payflowpro_gateway-credit-card-number-abbreviated' => 'کارت اعتباری #',
+	'payflowpro_gateway-credit-card-expiration' => 'تاریخ انقضا کارت اعتباری',
+	'payflowpro_gateway-card-expiration' => 'تاریخ انقضای کارت',
+	'payflowpro_gateway-select-month-of-expiration' => 'ماه انقضا را انتخاب کنید',
+	'payflowpro_gateway-select-year-of-expiration' => 'سال انقضا را انتخاب کنید',
+	'payflowpro_gateway-expires-question' => 'منقضی می شود؟',
+	'payflowpro_gateway-expires' => 'منقضی می شود',
+	'payflowpro_gateway-card-security-code' => 'کد امنیتی کارت',
+	'payflowpro_gateway-cvv' => 'CVV',
+	'payflowpro_gateway-cvv-number-abbreviated' => 'CVV #',
+	'payflowpro_gateway-cvv2' => 'CVV دوم',
+	'payflowpro_gateway-cvv-number' => 'شماره CVV',
+	'payflowpro_gateway-verification-number' => 'کد تایید',
+	'payflowpro_gateway-what-is-this' => 'این چیست؟',
+	'payflowpro_gateway-do-not-include-dashes' => 'لطفاً شامل خط فاصله نشود',
+	'payflowpro_gateway-please-donate-today' => 'لطفاً امروز اهدا کنید',
+	'payflowpro_gateway-donate-now' => 'اکنون اهدا کنید',
+	'payflowpro_gateway-please-select-gift-amount' => 'لطفا مقدار هدیه را انتخاب کنید',
+	'payflowpro_gateway-select-gift-amount' => 'انتخاب مقدار هدیه',
+	'payflowpro_gateway-select-amount' => 'انتخاب مقدار',
+	'payflowpro_gateway-amount' => 'مقدار',
+	'payflowpro_gateway-make-a-donation' => 'اهدا کنید',
+	'payflowpro_gateway-enter-your-amount' => 'یا مقدار را در جعبه بالا وارد کنید',
+	'payflowpro_gateway-will-support-with-gift' => 'من حمایت می‌کنم با یک هدیه از:',
+	'payflowpro_gateway-will-make-tax-deductible-gift' => 'من کمک مالی می‌کنم از:',
+	'payflowpro_gateway-select-dollar-amount' => 'مقدار را برحسب دلار انتخاب کنید',
+	'payflowpro_gateway-submit-my-secure-donation' => 'ارسال کمک مالی به روش امن',
+	'payflowpro_gateway-next' => 'بعدی',
+	'payflowpro_gateway-continue' => 'ادامه',
+	'payflowpro_gateway-cancel' => 'انصراف',
+	'payflowpro_gateway-payment' => 'پرداخت',
+	'payflowpro_gateway-payment-type' => 'شیوهٔ پرداخت',
+	'payflowpro_gateway-please-complete' => 'لطفاً کمک مالی خود را در مقابل کامل کنید ...',
+	'payflowpro_gateway-description' => 'توضیحات',
+	'payflowpro_gateway-donation' => 'کمک مالی',
+	'payflowpro_gateway-email-receipt' => 'ارسال رسید به پست الکترونیکی',
+	'payflowpro_gateway-state-dropdown-YY' => 'ایالت را انتخاب کنید',
+	'payflowpro_gateway-state-dropdown-XX' => 'خارج از ایالات متحده',
 );
 
 /** Finnish (Suomi)
@@ -4308,6 +4408,7 @@ $messages['he'] = array(
 	'payflowpro_gateway-question-comment' => 'שאלות או הערות? נא ליצור קשר עם: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'כרטיס האשראי שלך יעובד באופן מאובטח.',
 	'payflowpro_gateway-otherways' => 'ישנן <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">דרכים נוספות לתת, לרבות PayPal, המחאה (צ׳ק) או בדואר</a>.',
+	'payflowpro_gateway-otherways-alt' => 'ישנן <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">דרכים נוספות לתרום</a>, לרבות המחאה.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">דרכים אחרות לתרום</a>',
 	'payflowpro_gateway-paypal' => 'יש לך חשבון ב־PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">ניתן לתרום באמצעות PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'איננו מאחסנים את פרטי כרטיס האשראי ואת הפרטים האישיים שלך ואלו כפופים ל<a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">מדיניות הפרטיות</a> שלנו.',
@@ -4403,6 +4504,10 @@ $messages['he'] = array(
 	'payflowpro_gateway-cancel' => 'ביטול',
 	'payflowpro_gateway-payment' => 'תשלום',
 	'payflowpro_gateway-payment-type' => 'אופן התשלום',
+	'payflowpro_gateway-please-complete' => 'נא להשלים את תרומתך להלן ...',
+	'payflowpro_gateway-description' => 'תיאור',
+	'payflowpro_gateway-donation' => 'תרומה',
+	'payflowpro_gateway-email-receipt' => 'שליחת הקבלה בדוא״ל אל',
 	'payflowpro_gateway-state-dropdown-YY' => 'בחר מדינה בארצות הברית',
 	'payflowpro_gateway-state-dropdown-XX' => 'מחוץ לארצות הברית',
 );
@@ -7499,6 +7604,13 @@ $messages['pdc'] = array(
 	'payflowpro_gateway-next' => 'Neegschte',
 );
 
+/** Pfälzisch (Pfälzisch)
+ * @author Xqt
+ */
+$messages['pfl'] = array(
+	'payflowpro_gateway-next' => 'Negschte',
+);
+
 /** Polish (Polski)
  * @author Maire
  * @author Mikołka
@@ -10283,6 +10395,7 @@ Upang makapagbigay ng isang ligtas, tiwasay at kaaya-ayang karanasan, ang pormul
 );
 
 /** Turkish (Türkçe)
+ * @author Emperyan
  * @author Joseph
  * @author Vito Genovese
  */
@@ -10457,6 +10570,7 @@ Güvenli, emniyetli ve güzel bir deneyim sağlamak için, bağış formumuzda J
 	'payflowpro_gateway-amount' => 'Miktar',
 	'payflowpro_gateway-make-a-donation' => 'Bir bağışta bulunun',
 	'payflowpro_gateway-enter-your-amount' => 'Ya da, yukarıdaki kutuya miktarınızı girin',
+	'payflowpro_gateway-will-support-with-gift' => 'Bağış ile destekliyorum:',
 	'payflowpro_gateway-select-dollar-amount' => 'Dolar miktarını seçin',
 	'payflowpro_gateway-submit-my-secure-donation' => 'Güvenli bağışımı gönderin',
 	'payflowpro_gateway-next' => 'Sonraki',

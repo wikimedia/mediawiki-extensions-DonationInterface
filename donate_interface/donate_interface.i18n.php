@@ -814,6 +814,7 @@ $messages['eu'] = array(
 /** Persian (فارسی)
  * @author Ebraminio
  * @author Huji
+ * @author Mjbmr
  */
 $messages['fa'] = array(
 	'donate_interface' => 'حمایت از ویکی‌مدیا',
@@ -827,7 +828,7 @@ $messages['fa'] = array(
 	'donate_interface-comment-message' => 'ایده‌ای دارید که با جهانیان در میان بگذارید؟ تا سقف ۲۰۰ حرف بنویسید:',
 	'donate_interface-comment-label' => 'توضیح:',
 	'donate_interface-anon-message' => 'لطفاً نام من را (در کنار نظرم) در فهرست عمومی اهداکنندگان نمایش بده.',
-	'donate_interface-email-agreement' => 'می‌خواهم از خبرنامه‌ها و رایانامه‌های بعدی بنیاد ویکی‌مدیا را دریافت کنم.',
+	'donate_interface-email-agreement' => 'من با دریافت به روز رسانی‌ها از طرف بنیاد ویکی‌مدیا موافقت می‌کنم.',
 	'donate_interface-comment-title' => 'توضیحات عمومی',
 	'donate_interface-amount-error' => '**لطفاً یک مبلغ معتبر وارد کنید**',
 	'donate_interface-processing-error' => 'خطایی در پردازش درخواست شما رخ داد.
