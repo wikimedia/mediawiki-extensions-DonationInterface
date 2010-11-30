@@ -57,8 +57,6 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	/**
 	 * Error field names used as tokens
 	 * @var array
-	 * @FIXME
-	 * 		THERE IS A PROBLEM WITH 'general' - this is an array in the gateway body!!!
 	 */
 	protected $error_tokens = array(
 		'#general',
@@ -84,7 +82,8 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		
 		$this->loadValidateJs();
 		
-		$this->set_html_file_path( $wgRequest->getText( 'ffname', 'default' ) );
+		// set html-escaped filename.
+		$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
 		
 		// fix general form error messages so it's not an array of msgs
 		if ( count( $form_errors[ 'general' ] )) {
@@ -202,13 +201,13 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	 * @param string $file_name
 	 */
 	public function set_html_file_path( $file_name ) {
-		global $wgPayflowHtmlFormDir;
+		global $wgPayflowHtmlFormDir, $wgPayflowAllowedHtmlForms;
 
 		// Get the dirname - the "/." helps ensure we get a consistent path name with no trailing slash
 		$html_dir = dirname( $wgPayflowHtmlFormDir . "/." );
 		
 		if ( !is_dir( $html_dir )) {
-			// throw some error
+			throw new MWException( 'Requested form directory does not exist.' );
 		}
 		
 		// make sure our file name is clean - strip extension and any other cruft like relpaths, dirs, etc
@@ -217,11 +216,11 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		
 		$full_path = $html_dir . '/' . $file_name . '.html';
 		
-		if ( !file_exists( $full_path )) {
-			// throw some error or use default or both?
+		// ensure that the full file path is actually whitelisted and exists
+		if ( !in_array( $full_path, $wgPayflowAllowedHtmlForms ) || !file_exists( $full_path ) ) {
+			throw new MWException( 'Requested an unavailable or non-existent form.' );
 		}
 		
 		$this->html_file_path = $full_path;
 	}
-	
 }

@@ -1073,9 +1073,27 @@ EOT;
 				'owa_ref' => $owa_ref,
 			);
 		}
+		
+		// sanitize user input
+		array_walk( $data, array( $this, 'sanitizeInput' ) );
+
 		return $data;
 	}
 
+	/**
+	 * Sanitize user input
+	 * 
+	 * Intended to be used with something like array_walk
+	 * 
+	 * @param $value The value of the array
+	 * @param $key The key of the array
+	 * @param $flags The flag constant for htmlspecialchars
+	 * @param $double_encode Whether or not to double-encode strings
+	 */
+	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
+		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
+	}
+	
 	public function getPossibleErrors() {
 		return array(
 			'general' => '',

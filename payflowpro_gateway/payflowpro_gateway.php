@@ -130,6 +130,15 @@ $wgPayflowSMaxAge = 6000;
 $wgPayflowHtmlFormDir = dirname( __FILE__ ) . "/forms/html";
 
 /**
+ * An array of allowed HTML forms.
+ * 
+ * Be sure to use full paths.  If your HTML form is not listed here, it will
+ * /never/ be loaded by the rapid html form loader!
+ * @var string
+ */
+$wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/demo.html" );
+
+/**
  * Hooks required to interface with the donation extension (include <donate> on page)
  *
  * gwValue supplies the value of the form option, the name that appears on the form
