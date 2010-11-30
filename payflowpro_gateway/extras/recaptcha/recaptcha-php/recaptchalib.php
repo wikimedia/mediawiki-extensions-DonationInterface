@@ -125,7 +125,7 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
 
 	$response = '';
 	if ( false == ( $fs = @fsockopen( $host, $port, $errno, $errstr, 10 ) ) ) {
-		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha.' );
+		PayflowProGateway::log( 'Failed communicating with reCaptcha.' );
 		die ( 'Could not open socket' );
 	}
 
@@ -160,18 +160,18 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
-		wfDebugLog( 'payflowpro_gateway', 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
+		PayflowProGateway::log( 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
 		curl_setopt( $ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP );
 		curl_setopt( $ch, CURLOPT_PROXY, RECAPTCHA_HTTP_PROXY );
 	}
 	
 	// try up to three times
 	for ( $i = 0; $i < RECAPTCHA_RETRY_LIMIT; $i++ ) {
-		wfDebugLog( 'payflowpro_gateway', 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
+		PayflowProGateway::log( 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
 		$response = curl_exec( $ch );
-		wfDebugLog( 'payflowpro_gateway', "Finished communicating with reCaptcha." );
+		PayflowProGateway::log( "Finished communicating with reCaptcha." );
 		if ( $response ) {
-			wfDebugLog( 'payflowpro_gateway', 'Response from reCaptcha: ' . $response );
+			PayflowProGateway::log( 'Response from reCaptcha: ' . $response )
 			break;
 		}
 	}
@@ -186,7 +186,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	 * the user entered the correct values.
 	 */
 	if ( !$response ) {
-		wfDebugLog( 'payflowpro_gateway', 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
+		PayflowProGateway::log( 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
 		$response = "true\r\n\r\nsuccess";
 	}
 	

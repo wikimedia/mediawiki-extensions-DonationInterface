@@ -139,6 +139,13 @@ $wgPayflowHtmlFormDir = dirname( __FILE__ ) . "/forms/html";
 $wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/demo.html" );
 
 /**
+ * Configure PayflowproGateway to use syslog for log messages rather than wfDebugLog
+ * 
+ * @var bool
+ */
+$wgPayflowGatewayUseSyslog = false;
+
+/**
  * Hooks required to interface with the donation extension (include <donate> on page)
  *
  * gwValue supplies the value of the form option, the name that appears on the form
