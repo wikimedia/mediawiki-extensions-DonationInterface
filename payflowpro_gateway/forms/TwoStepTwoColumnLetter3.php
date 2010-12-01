@@ -222,7 +222,11 @@ EOT;
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td />';
-		$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+		if ( $this->form_data[ 'currency' ] == 'USD' ) {
+			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+		} else {
+			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+		}
 		$form .= '</tr>';
 
 		// card number
