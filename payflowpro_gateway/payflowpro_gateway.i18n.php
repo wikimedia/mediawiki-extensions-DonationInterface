@@ -9140,6 +9140,22 @@ $messages['sah'] = array(
 	'payflowpro_gateway-state-dropdown-XX' => 'АХШ таһыгар',
 );
 
+/** Sardinian (Sardu)
+ * @author Node ue
+ */
+$messages['sc'] = array(
+	'payflowpro_gateway-donor-name' => 'Nùmene',
+	'payflowpro_gateway-donor-country' => 'Natzione/Regione',
+	'payflowpro_gateway-error-msg-city' => 'tzitade',
+	'payflowpro_gateway-error-msg-state' => 'istadu',
+	'payflowpro_gateway-other' => 'Àteru',
+	'payflowpro_gateway-town-city' => 'Bidda/Tzitade',
+	'payflowpro_gateway-state-province' => 'Istadu/Provìntzia',
+	'payflowpro_gateway-continue' => 'Sìghire',
+	'payflowpro_gateway-cancel' => 'Cantzellare',
+	'payflowpro_gateway-description' => 'Descritzione',
+);
+
 /** Sicilian (Sicilianu)
  * @author Aushulz
  */
@@ -9224,7 +9240,7 @@ $messages['si'] = array(
  * @author Helix84
  */
 $messages['sk'] = array(
-	'payflowprogateway' => 'Podporte nadáciu Wikimedia',
+	'payflowprogateway' => 'Darovať teraz',
 	'payflowpro_gateway-desc' => 'Spracovanie kreditnej karty PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Táto stránka je prístupná iba zo stránky darov.',
 	'payflowpro_gateway-form-message' => 'Použite nižšie uvedený formulár na darovanie pomocou kreditnej karty alebo',

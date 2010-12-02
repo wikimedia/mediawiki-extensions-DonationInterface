@@ -169,6 +169,44 @@ $messages['arz'] = array(
 	'donate_interface-JPY' => 'JPY: الين الياباني',
 );
 
+/** Azerbaijani (Azərbaycanca)
+ * @author Emperyan
+ */
+$messages['az'] = array(
+	'donate_interface' => 'Vikimedyayı dəstəkləyin',
+	'donate_interface-desc' => 'Şəbəkə keçidi uzadılmalarını inteqrasiya edən hədiyyə səhifəsi',
+	'donate_interface-intro' => 'Xahiş edirik bir ödəmə şəkli, miqdarı və pul vahidi seçin.',
+	'donate_interface-amount' => 'Fədakarlıq miqdarı:',
+	'donate_interface-other-amount' => 'Digər miqdar',
+	'donate_interface-currency' => 'Pul vahidi:',
+	'donate_interface-gateway' => 'Ödəmə şəkli:',
+	'donate_interface-submit-button' => 'Hədiyyə et',
+	'donate_interface-comment-message' => 'Dünya ilə paylaşacaq bir düşüncəniz var? Bura 200 xarakterə qədər yaza bilərsiniz:',
+	'donate_interface-comment-label' => 'Şərh:',
+	'donate_interface-anon-message' => 'Xahiş edirik addımı (şərhimin yanına) umumi hədiyyə edənlər siyahısında siyahıla.',
+	'donate_interface-email-agreement' => 'Wikimedia Foundationdan hərdənbir edilən yenilikləri almağı qəbul edirəm.',
+	'donate_interface-comment-title' => 'Umumi şərh',
+	'donate_interface-amount-error' => '**Xahiş olunur bir miqdar daxil edin**',
+	'donate_interface-processing-error' => 'İstəyinizə işlənməsində bir səhv meydana gəldi. Uyğun prosessor yoxdur.',
+	'donate_interface-GBP' => 'GBP: İngilis Sterlinqi',
+	'donate_interface-EUR' => 'EUR: Avro',
+	'donate_interface-USD' => 'USD: ABŞ dolları',
+	'donate_interface-AUD' => 'AUD: Avstraliya dolları',
+	'donate_interface-CAD' => 'CAD: Kanada dolları',
+	'donate_interface-CHF' => 'CHF: İsveçrə frankı',
+	'donate_interface-CZK' => 'CZK: Çex kronu',
+	'donate_interface-DKK' => 'DKK: Danimarka kronu',
+	'donate_interface-HKD' => 'HKD: Honq Konq dolları',
+	'donate_interface-HUF' => 'HUF: Macar forinti',
+	'donate_interface-JPY' => 'JPY: Yapon yeni',
+	'donate_interface-NZD' => 'NZD: Yeni Zelandiya dolları',
+	'donate_interface-NOK' => 'NOK: Norveç kronu',
+	'donate_interface-PLN' => 'PLN: Polşa zlotisi',
+	'donate_interface-SGD' => 'SGD: Sinqapur dolları',
+	'donate_interface-SEK' => 'SEK: İsveç kronu',
+	'donate_interface-ILS' => 'ILS: İsrail şekeli',
+);
+
 /** Bashkir (Башҡорт)
  * @author Assele
  * @author Haqmar
@@ -2373,7 +2411,7 @@ $messages['sk'] = array(
 	'donate_interface-comment-message' => 'Máte myšlienku o ktorú sa chcete podeliť so svetom? Napíšte ju sem do 200 znakov:',
 	'donate_interface-comment-label' => 'Komentár:',
 	'donate_interface-anon-message' => 'Prosím, uveďte moje meno (vedľa môjho komentára) vo verejnom zozname darcov.',
-	'donate_interface-email-agreement' => 'Súhlasím so zasielaním ďalších noviniek a emailov týkajúcich sa Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Súhlasím so zasielaním príležitostných noviniek a emailov týkajúcich sa Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Verejný komentár',
 	'donate_interface-amount-error' => '**Prosím, zadajte platnú čiastku**',
 	'donate_interface-processing-error' => 'Došlo k chybe pri spracovaní vašej požiadavky. 
@@ -2665,6 +2703,7 @@ Walang makukuhang mga tagapagsagawa.',
 );
 
 /** Turkish (Türkçe)
+ * @author Emperyan
  * @author Joseph
  * @author Vito Genovese
  */
@@ -2682,7 +2721,7 @@ $messages['tr'] = array(
 	'donate_interface-anon-message' => 'Lütfen adımı (yorumumun yanına) umumi bağışçı listesinde listeleyin.',
 	'donate_interface-email-agreement' => "Wikimedia Foundation'dan arasıra yapılan güncellemeleri almayı kabul ediyorum.",
 	'donate_interface-comment-title' => 'Umumi yorum',
-	'donate_interface-amount-error' => '**Lütfen geçerli bir yorum girin**',
+	'donate_interface-amount-error' => '**Lütfen geçerli bir miktar girin**',
 	'donate_interface-processing-error' => 'İsteğinizin işlenmesinde bir hata oluştu.
 Uygun işlemci bulunmuyor.',
 	'donate_interface-GBP' => 'GBP: İngiliz Sterlini',
