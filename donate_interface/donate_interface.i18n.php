@@ -1833,6 +1833,45 @@ $messages['nds-nl'] = array(
 	'donate_interface-ILS' => 'ILS: Israëlische sjekel',
 );
 
+/** Nepali (नेपाली)
+ * @author Bhawani Gautam Rhk
+ */
+$messages['ne'] = array(
+	'donate_interface' => 'विकिमीडियालाई सहयोग गर्नुहोस्',
+	'donate_interface-desc' => 'दान अवतरण पृष्ठ जसले प्रवेशद्वार(gateway) एक्स्टेन्सनलाई एकिकृत गर्दछ।',
+	'donate_interface-intro' => 'चुन्नुहोस् एउटा भुगतान पद्धति, राशि, अनि मुद्रा।',
+	'donate_interface-amount' => 'दान राशि:',
+	'donate_interface-other-amount' => 'अन्य राशि',
+	'donate_interface-currency' => 'मुद्रा:',
+	'donate_interface-gateway' => 'भुगतान पद्धति:',
+	'donate_interface-submit-button' => 'दान गर्ने',
+	'donate_interface-comment-message' => 'संसारसित साझा गर्ने विचार? २०० सम्मका अक्षरहरुको विचार यहाँ राख्नुहोस्:',
+	'donate_interface-comment-label' => 'टिप्पणी:',
+	'donate_interface-anon-message' => 'मेरो नाम सार्वजनिक दाता सूचीमा (मेरो टिप्पणीको छेउमा) दिनुहोस्।',
+	'donate_interface-email-agreement' => 'विकिमीडिया फाउण्डेसनबाट सामयिक अद्यतन प्राप्त गर्न सहमत छु।',
+	'donate_interface-comment-title' => 'सार्वजनिक टिप्पणी',
+	'donate_interface-amount-error' => '**कृपया एउटा वैध राशि दिनु्होस्**',
+	'donate_interface-processing-error' => 'तपाईंको अनुरोधको प्रक्रिया पूरा गर्न लाग्दा एउटा त्रुटि भएकोछ।
+प्रोसेसर प्राप्य छैन।',
+	'donate_interface-GBP' => 'GBP: ब्रिटिश पाउण्ड',
+	'donate_interface-EUR' => 'EUR: यूरो',
+	'donate_interface-USD' => 'USD: अमेरिकी डलर',
+	'donate_interface-AUD' => 'AUD: अस्ट्रेलियायी डलर',
+	'donate_interface-CAD' => 'CAD: केनेडियायी डलर',
+	'donate_interface-CHF' => 'CHF: स्वीस फ्य्रांक',
+	'donate_interface-CZK' => 'CZK: चेक कोरुना',
+	'donate_interface-DKK' => 'DKK: डेनिस क्रोन',
+	'donate_interface-HKD' => 'HKD: हंगकंग डलर',
+	'donate_interface-HUF' => 'HUF: हंगेरियायी फोरिण्ट',
+	'donate_interface-JPY' => 'JPY: जापानी येन',
+	'donate_interface-NZD' => 'NZD: न्यूजिलैंड डलर',
+	'donate_interface-NOK' => 'NOK: नर्वेजियायी क्रोन',
+	'donate_interface-PLN' => 'PLN: पोलिश ज्लोटी',
+	'donate_interface-SGD' => 'SGD: सिंगापुर डलर',
+	'donate_interface-SEK' => 'SEK: स्वीडिस क्रोना',
+	'donate_interface-ILS' => 'ILS: इजरायली शेकल',
+);
+
 /** Dutch (Nederlands)
  * @author McDutchie
  * @author Siebrand
