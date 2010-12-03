@@ -293,6 +293,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-month' => 'Expiration month for credit card. $1 is the month number, $2 is the month name. Appears in a drop-down list.',
 	'payflowpro_gateway-description' => '{{Identical|Description}}',
 	'payflowpro_gateway-email-receipt' => "Label for field which contains the email address the donor's receipt will be mailed to.",
+	'payflowpro_gateway-make-your-donation' => 'Header at the top of the donation form.',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
