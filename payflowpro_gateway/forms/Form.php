@@ -669,7 +669,7 @@ abstract class PayflowProGateway_Form {
 		$wgOut->addHeadItem( 'owa_get_info', '<script type="text/javascript" src="' .
 							$wgScriptPath .
 							'/extensions/DonationInterface/payflowpro_gateway/owa_get_info.js?284"></script>' );
-		$wgOut->addHeadItem( 'owa_tracker', '<script type="text/javascript" src="' .
+		$wgOut->addHeadItem( 'owa_tracker_init', '<script type="text/javascript" src="' .
 							$wgScriptPath .
 							'/extensions/DonationInterface/payflowpro_gateway/owa.tracker-combined-min.js?284"></script>' );
 							
