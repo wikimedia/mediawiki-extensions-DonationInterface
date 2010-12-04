@@ -99,14 +99,21 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter extends PayflowProGateway_Fo
 		$form .= '</tr>';
 
 		// card logos
-		$form .= '<tr>';
-		$form .= '<td />';
 		if ( $this->form_data[ 'currency' ] == 'USD' ) {
-			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '<tr id="four_cards" style="display:table-row;">';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '</tr>';
+			$form .= '<tr id="two_cards" style="display:none;">';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '</tr>';
 		} else {
-			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '<tr id="four_cards" style="display:none;">';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '</tr>';
+			$form .= '<tr id="two_cards" style="display:table-row;">';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '</tr>';
 		}
-		$form .= '</tr>';
 
 		// card number
 		$form .= $this->getCardNumberField();

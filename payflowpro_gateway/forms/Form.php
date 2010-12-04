@@ -327,7 +327,8 @@ abstract class PayflowProGateway_Form {
 			'select',
 			array(
 				'name' => 'currency_code',
-				'id' => 'input_currency_code'
+				'id' => 'input_currency_code',
+				'onchange' => 'showCards()'
 			) );
 		$currency_menu .= $currency_opts;
 		$currency_menu .= Xml::closeElement( 'select' );

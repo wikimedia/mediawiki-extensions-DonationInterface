@@ -95,6 +95,19 @@ function disableStates( form ) {
 		return true;
 }
 
+function showCards() {
+	if ( document.getElementById('four_cards') && document.getElementById('two_cards') ) {
+		var index = document.getElementById('input_currency_code').selectedIndex;
+		if ( document.getElementById('input_currency_code').options[index].value == 'USD' ) {
+			document.getElementById('four_cards').style.display = 'table-row';
+			document.getElementById('two_cards').style.display = 'none';
+		} else {
+			document.getElementById('four_cards').style.display = 'none';
+			document.getElementById('two_cards').style.display = 'table-row';	
+		}
+	}
+}
+
 var cvv;
 
 function PopupCVV() {
