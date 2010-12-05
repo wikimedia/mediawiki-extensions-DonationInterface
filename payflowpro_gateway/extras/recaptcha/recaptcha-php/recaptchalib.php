@@ -171,7 +171,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 		$response = curl_exec( $ch );
 		PayflowProGateway::log( "Finished communicating with reCaptcha." );
 		if ( $response ) {
-			PayflowProGateway::log( 'Response from reCaptcha: ' . $response )
+			PayflowProGateway::log( 'Response from reCaptcha: ' . $response );
 			break;
 		}
 	}
