@@ -2782,6 +2782,44 @@ Uygun işlemci bulunmuyor.',
 	'donate_interface-ILS' => 'ILS: İsrail Şekeli',
 );
 
+/** Tatar (Cyrillic) (Татарча/Tatarça (Cyrillic))
+ * @author Ильнар
+ */
+$messages['tt-cyrl'] = array(
+	'donate_interface' => 'Викимедиа Фондына ярдәм итик!',
+	'donate_interface-desc' => 'Иганәләр җыю һәм киңәйтелмәләр кертүче - шлюзлар җите',
+	'donate_interface-intro' => 'Зинһар, түләү ысулын, сумманы һәм акча берәмлеген сайлагыз.',
+	'donate_interface-amount' => 'Иганә күләме:',
+	'donate_interface-other-amount' => 'Башка күләм',
+	'donate_interface-currency' => 'Акча берәмлеге:',
+	'donate_interface-gateway' => 'Түләү ысулы:',
+	'donate_interface-submit-button' => 'Иганә',
+	'donate_interface-comment-message' => 'Нидер әйтергә телисезме? Сез монда 200 хәрефкә кадәр үзегезнең хатыгызны калдыра аласыз:',
+	'donate_interface-comment-label' => 'Искәрмә:',
+	'donate_interface-anon-message' => 'Зинһар, минем исемне (искәрмә янында)  иганә итүчеләр исемлегендә күрсәтегез.',
+	'donate_interface-email-agreement' => 'Мин Викимедиа Фондыннан хәбәрләр алырга риза.',
+	'donate_interface-comment-title' => 'Гомум җәмәгатчелеккә бирелгән искәрмә',
+	'donate_interface-amount-error' => '**Зинһар, билгеле бер акча күләмен кертегез**',
+	'donate_interface-processing-error' => 'Сезнең соравыгызны эшкәрткән вакытта хаталар килеп чыкты. Билгеле бер эшкәрткечләр юк.',
+	'donate_interface-GBP' => 'GBP: Бөекбритания фунт стерлинглары',
+	'donate_interface-EUR' => 'EUR: Евро',
+	'donate_interface-USD' => 'USD: АКШ доллары',
+	'donate_interface-AUD' => 'AUD: Австралия доллары',
+	'donate_interface-CAD' => 'CAD: Канада доллары',
+	'donate_interface-CHF' => 'CHF: Швейцар франкы',
+	'donate_interface-CZK' => 'CZK: Чех кронасы',
+	'donate_interface-DKK' => 'DKK: Дат кронасы',
+	'donate_interface-HKD' => 'HKD: Һонконг доллары',
+	'donate_interface-HUF' => 'HUF: Венгер форинты',
+	'donate_interface-JPY' => 'JPY: Япон йенасы',
+	'donate_interface-NZD' => 'NZD: Яңа Зеландия доллары',
+	'donate_interface-NOK' => 'NOK: Норвегия кронасы',
+	'donate_interface-PLN' => 'PLN: Польша злотые',
+	'donate_interface-SGD' => 'SGD: Сингапур доллары',
+	'donate_interface-SEK' => 'SEK: Швед кронасы',
+	'donate_interface-ILS' => 'ILS: Израиль шекеле',
+);
+
 /** Ukrainian (Українська)
  * @author Ahonc
  * @author NickK

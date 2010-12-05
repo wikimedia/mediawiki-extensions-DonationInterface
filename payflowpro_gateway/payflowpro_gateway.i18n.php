@@ -279,13 +279,17 @@ This is an error message which appears if one or more of the above fields is lef
 	'payflowpro_gateway-last' => "last name (without the 'name')",
 	'payflowpro_gateway-other' => '{{Identical|Other}}',
 	'payflowpro_gateway-or' => '{{Identical|Or}}',
-	'payflowpro_gateway-title' => '{{Identical|Title}}',
+	'payflowpro_gateway-title' => "I guess that this is a person's title; in English this could be for example Mr, Mrs, The Honourable, Dr. This is probably the label of an input box.
+
+{{Identical|Title}}",
 	'payflowpro_gateway-address-1' => '{{Identical|Address}}',
 	'payflowpro_gateway-address-2' => '{{Identical|Address}}',
 	'payflowpro_gateway-country' => '{{Identical|Country}}',
 	'payflowpro_gateway-credit-card-number-abbreviated' => "Abbreviation of 'Credit Card Number'",
 	'payflowpro_gateway-cvv' => "Abbreviation of 'Card Verification Value'",
-	'payflowpro_gateway-cvv-number-abbreviated' => "Abbreviation of 'Card Verification Value Number'",
+	'payflowpro_gateway-cvv-number-abbreviated' => "Abbreviation of 'Card Verification Value Number'.
+
+There is no limit to the length of the message.",
 	'payflowpro_gateway-cvv2' => "Abbreviation of 'Card Verification Value 2'",
 	'payflowpro_gateway-cvv-number' => "Abbreviation of 'Card Verification Value' + 'Number' (unabbreviated)",
 	'payflowpro_gateway-next' => '{{Identical|Next}}',
@@ -2180,7 +2184,7 @@ Weithiau, fe welwch y cod ar ochr chwith y cerdyn, ond mae bob amser uwchben rhi
 	'payflowpro_gateway-token-mismatch' => "Daeth eich sesiwn i ben. Rhowch gynnig arall ar lenwi a chyflwyno'r ffurflen.",
 	'payflowpro_gateway-cc-form-header-personal' => 'Manylion codi tâl',
 	'payflowpro_gateway-cc-form-header-payment' => 'Manylion talu',
-	'payflowpro_gateway-make-your-donation' => 'Rhoddwch nawr',
+	'payflowpro_gateway-make-your-donation' => 'Rhoi nawr',
 	'payflowpro_gateway-state-in-us' => 'os ydych yn UDA',
 	'payflowpro_gateway-comment' => 'Sylw',
 	'payflowpro_gateway-first' => 'Cyntaf',
@@ -4892,6 +4896,9 @@ Később próbáld meg újra.',
 	'payflowpro_gateway-noscript-msg' => 'Úgy tűnik, nincs engedélyezve a JavaScript, vagy a böngésző nem támogatja. A biztonságos és kellemes élmény érdekében az adományozási formához szükséges a JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Ha nem tudod vagy nem akarod használni a JavaScriptet, akkor látogasd meg ezt:',
 	'payflowpro_gateway-anon-message' => 'Nevem megjelenítése a nyilvános adományozók listáján.',
+	'payflowpro_gateway-next' => 'Következő',
+	'payflowpro_gateway-continue' => 'Folytatás',
+	'payflowpro_gateway-cancel' => 'Mégsem',
 );
 
 /** Interlingua (Interlingua)
@@ -9692,6 +9699,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
  */
 $messages['sw'] = array(
 	'payflowprogateway' => 'Changia sasa',
+	'payflowpro_gateway-desc' => 'Kutekeleza malipo ya kadi ya malipo kwa kupitia PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ukarasa huu inapatikana tu kuanzia ukurasa wa mchango.',
 	'payflowpro_gateway-form-message' => 'Tumia fomu ya chini ili kuchangia na kadi ya mkopo, au',
 	'payflowpro_gateway-paypal-button' => 'Changia kwa kupitia Paypal',
@@ -9747,11 +9755,14 @@ Ahsante kwa mchango wako!',
 	'payflowpro_gateway-response-126' => 'Manunuzi yako inasubiri idhini.',
 	'payflowpro_gateway-response-126-2' => 'Baadhi ya taarifa ulizozitoa hazikuwa sawa na taarifa kamili za kadi yako ya mkopo, ama ulitoa mchango mkubwa sana. Kwa ajili ya usalama wako, mchango wako inachunguliwa. Tutakuarifu, katika barua pepe tutakayotuma kwa anwani uliotaja, kama tutashindwa kukamilisha mchango wako. Tafadhali tuma barua pepe kwa <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kama una maswali. Asante!',
 	'payflowpro_gateway-response-12' => 'Tafadhali uwasiliane na kampuni ya kadi yako ya mkopo ili kupata maelezo mengine.',
+	'payflowpro_gateway-response-13' => 'Malipo yako yanahitaji idhini ya mdomo. 
+Tafadhali wasiliana nasi ili kuendelea kushughulika malipo yako.',
 	'payflowpro_gateway-response-114' => 'Tafadhali wasiliana na kampuni ya kadi yako ya mkopo ili kupata maelezo zaidi.',
 	'payflowpro_gateway-response-23' => 'Ama namba ya kadi ya mkopo au tarehe yake ya kuishia haipo sahihi.',
 	'payflowpro_gateway-response-4' => 'Kiasi batili.',
 	'payflowpro_gateway-response-24' => 'Ama namba ya kadi ya mkopo au tarehe yake ya kuishia haipo sahihi.',
 	'payflowpro_gateway-response-112' => 'Ama anwani au namba yako ya CVV (kodi ya usalama) hayapo sahihi.',
+	'payflowpro_gateway-response-125' => 'Malipo yako yamekataliwa na Huduma za Kuzuia Ulaghai.',
 	'payflowpro_gateway-response-125-2' => 'Kadi yako ya mkopo haikuweza kuidhinishwa. Tafadhali uhakikishe kwamba taarifa zote zilizotolewa zipo sawa na kadi, au jaribu kadi nyingine. Pia unaweza kuchangia kwa <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia nyingine</a> au unaweza kuwasiliana nasi hapo <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Asante kwa mchango wako.',
 	'payflowpro_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanyika malipo.
 Tafadhali jaribu baadaye tena.',
@@ -9772,7 +9783,10 @@ Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> i
 	'payflowpro_gateway-otherways' => 'Kuna <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa kupitia PayPal, kwa hundi, au kwa posta</a>.',
 	'payflowpro_gateway-otherways-alt' => 'Kuna <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa hundi</a>.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Njia zingine za kuchangia</a>.',
+	'payflowpro_gateway-paypal' => 'Unayo akaunti ya PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Changia kwa kupitia PayPal</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Hatuhifadhi taarifa ya kadi yako ya mkopo, na taarifa juu yako binafsi iko chini ya <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">sera ya faragha</a> yetu.',
+	'payflowpro_gateway-token-mismatch' => 'Kipindi chako kimekwisha. Tafadhali jaribu kujaza fomu upya na kuiwasililisha tena.',
+	'payflowpro_gateway-cc-form-header-personal' => 'Maelezo ya kutuma ankara',
 	'payflowpro_gateway-cc-form-header-payment' => 'Taarifa za kulipa',
 	'payflowpro_gateway-make-your-donation' => 'Changia sasa',
 	'payflowpro_gateway-state-in-us' => 'kama ndani ya Marekani',
@@ -9781,11 +9795,18 @@ Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> i
 	'payflowpro_gateway-middle' => 'la pili',
 	'payflowpro_gateway-last' => 'Mwisho',
 	'payflowpro_gateway-other' => 'Nyingine',
+	'payflowpro_gateway-noscript-msg' => 'Inaonekana kwamba hujawezesha JavaScript, au kivinjari chako hakiungwi mkono. 
+Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa kuchangia inahitaji JavaScript.',
+	'payflowpro_gateway-noscript-redirect-msg' => 'Kama hutaki au huwezi kuwezesha JavaScript, bado unaweza kuchangia kwa kupitia:',
 	'payflowpro_gateway-anon-message' => 'Tafadhali andika jina langu katika orodha ya wafadhili iliyo wazi kwa umma.',
 	'payflowpro_gateway-donate-wikipedia' => 'Changia kwenye Wikipedia',
 	'payflowpro_gateway-or' => 'au',
 	'payflowpro_gateway-your-information' => 'Taarifa juu yako',
 	'payflowpro_gateway-mailing-address' => 'Anwani ya posta',
+	'payflowpro_gateway-billing-address' => 'Anwani ya kutuma ankara',
+	'payflowpro_gateway-billing-name' => 'Jina la ankara',
+	'payflowpro_gateway-title' => 'Cheo (Bw./Bi./Nd.)',
+	'payflowpro_gateway-suffix' => 'Kiambishi tamati',
 	'payflowpro_gateway-company-name' => 'Jina la kampuni au shirika',
 	'payflowpro_gateway-address-1' => 'Anwani 1',
 	'payflowpro_gateway-address-2' => 'Anwani 2',
@@ -9797,6 +9818,7 @@ Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> i
 	'payflowpro_gateway-street-2' => 'Anwani 2',
 	'payflowpro_gateway-city-town' => 'Mji/Jiji',
 	'payflowpro_gateway-town-city' => 'Mji/Jiji',
+	'payflowpro_gateway-state-province' => 'Jimbo/Mkoa',
 	'payflowpro_gateway-zip-code' => 'Kodi ya posta',
 	'payflowpro_gateway-zip-postal-code' => 'Kodi ya posta',
 	'payflowpro_gateway-country' => 'Nchi',
@@ -9805,6 +9827,7 @@ Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> i
 	'payflowpro_gateway-phone' => 'Simu',
 	'payflowpro_gateway-telephone' => 'Namba ya simu',
 	'payflowpro_gateway-telephone-home' => 'Simu (ya nyumbani)',
+	'payflowpro_gateway-billing-phone-number' => 'Simu ya ankara',
 	'payflowpro_gateway-donation-information' => 'Taarifa ya mchango',
 	'payflowpro_gateway-cc-billing-information' => 'Taarifa ya kudai kadi ya mkopo',
 	'payflowpro_gateway-pay-by-credit-card' => 'Lipa kwa kupitia kadi ya mkopo',
@@ -10568,10 +10591,12 @@ Güvenli, emniyetli ve güzel bir deneyim sağlamak için, bağış formumuzda J
  * @author Ильнар
  */
 $messages['tt-cyrl'] = array(
-	'payflowprogateway' => 'Викимедиа проектына ярдәм итү',
+	'payflowprogateway' => 'Сез хәзер үк иганә ясый аласыз',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro кредит карталарын куллану',
 	'payflowpro_gateway-accessible' => 'Бу сәхифә бары тик ярдәм җыю битендә генә ачыла.',
-	'payflowpro_gateway-form-message' => 'Үзегезнең  кредит картыгыз ярдәмендә иганә ясагыз.',
+	'payflowpro_gateway-form-message' => 'Әлеге форма ярдәмендә үзегезнең  кредит картыгыз белән иганә, яисә',
+	'payflowpro_gateway-paypal-button' => 'PayPal аша иганә ясагыз',
+	'payflowpro_gateway-cc-button' => 'кредит картагыз ярдәмендә иганә ясагыз',
 	'payflowpro_gateway-form-message-2' => 'Акчаның күләмен яки акча берәмлеген алмаштыру өчен <a href="/index.php?title=Donate">иганәләр битенә кайтыгыз</a>',
 	'payflowpro_gateway-donor-legend' => 'Иганә турында мәгълүмат',
 	'payflowpro_gateway-card-legend' => 'Крдеит картасы турында мәгълүмат',
@@ -10619,6 +10644,15 @@ $messages['tt-cyrl'] = array(
 	'payflowpro_gateway-error-msg-captcha-please' => 'Зинһар, бирелгән Captcha формасын турыгыз. бу сезнең бот түгел икәнлегегезне дәлилләү өчен кирәк.',
 	'payflowpro_gateway-response-0' => 'Керткән иганәгез өчен бик зур рәхмәт сезгә!',
 	'payflowpro_gateway-response-126' => 'Сезнең транзакция тикшерүне көтә.',
+	'payflowpro_gateway-submit-button' => 'Иганә',
+	'payflowpro_gateway-first' => 'Исем',
+	'payflowpro_gateway-middle' => 'Әтиегезнең исеме',
+	'payflowpro_gateway-last' => 'Фамилия',
+	'payflowpro_gateway-other' => 'Башкалар',
+	'payflowpro_gateway-donate-wikipedia' => 'Википедия өчен иганә ясау',
+	'payflowpro_gateway-or' => 'яки',
+	'payflowpro_gateway-your-information' => 'Сезнең турында мәгълүмат',
+	'payflowpro_gateway-mailing-address' => 'Почта юллмасы',
 );
 
 /** Ukrainian (Українська)
@@ -10746,6 +10780,7 @@ $messages['uk'] = array(
 	'payflowpro_gateway-cvv-number-abbreviated' => 'CVV #',
 	'payflowpro_gateway-cvv2' => 'CVV2',
 	'payflowpro_gateway-continue' => 'Продовжити',
+	'payflowpro_gateway-month' => '$1 ($2)',
 	'payflowpro_gateway-state-dropdown-XX' => 'За межами США',
 );
 
