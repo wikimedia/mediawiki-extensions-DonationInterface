@@ -8,11 +8,11 @@
 //<![CDATA[
 //OWA.setSetting('debug', true);
 // Set base URL
-OWA.setSetting('baseUrl', 'http://owa.wikimedia.org/owa/');
+OWA.setSetting('baseUrl', 'https://owa.wikimedia.org/owa/');
 //OWA.setApiEndpoint('http://analytics.tesla.usability.wikimedia.org/wiki/d/index.php?action=owa&owa_specialAction');
 // Create a tracker
 OWATracker = new OWA.tracker();
-OWATracker.setEndpoint('http://owa.wikimedia.org/owa/');
+OWATracker.setEndpoint('https://owa.wikimedia.org/owa/');
 OWATracker.setSiteId('d41d8cd98f00b204e9800998ecf8427e');
 OWATracker.trackPageView();
 OWATracker.trackClicks();

@@ -665,7 +665,7 @@ abstract class PayflowProGateway_Form {
 
 	protected function loadOwaJs() {
 		global $wgOut, $wgScriptPath;
-		$wgOut->addHeadItem('owa_tracker', '<script type="text/javascript" src="http://owa.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>');
+		$wgOut->addHeadItem('owa_tracker', '<script type="text/javascript" src="https://owa.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>');
 		
 		$wgOut->addHeadItem( 'owa_get_info', '<script type="text/javascript" src="' .
 							$wgScriptPath .
