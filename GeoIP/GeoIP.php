@@ -43,12 +43,14 @@ $wgExtensionCredits['specialpage'][] = array(
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'fnGeoIPSchema';
 $wgSpecialPages['GeoIP'] = 'GeoIP';
 
-function fnGeoIPSchema() {
-	global $wgExtNewTables;
-	$wgExtNewTables[] = array(
-		'geoip',
-		dirname( __FILE__ ) . '/GeoIP.sql'
-	);
+function fnGeoIPSchema( $updater = null ) {
+	if ( $updater === null ) {
+		global $wgExtNewTables;
+		$wgExtNewTables[] = array( 'geoip', dirname( __FILE__ ) . '/GeoIP.sql' );
+	} else {
+		$updater->addExtensionUpdate( array( 'addTable', 'geoip',
+			dirname( __FILE__ ) . '/GeoIP.sql', true ) );
+	}
 	return true;
 }
 
