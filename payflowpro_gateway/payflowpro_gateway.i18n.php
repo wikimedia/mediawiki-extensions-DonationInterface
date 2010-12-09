@@ -3500,6 +3500,7 @@ $messages['fa'] = array(
  * @author Nike
  * @author Olli
  * @author Str4nd
+ * @author Tofu II
  * @author ZeiP
  */
 $messages['fi'] = array(
@@ -3604,6 +3605,8 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'payflowpro_gateway-anon-message' => 'Luettele nimeni julkisessa lahjoittajaluettelossa.',
 	'payflowpro_gateway-donate-wikipedia' => 'Lahjoita Wikipediassa',
 	'payflowpro_gateway-or' => 'tai',
+	'payflowpro_gateway-next' => 'Seuraava',
+	'payflowpro_gateway-cancel' => 'Peruuta',
 );
 
 /** French (Français)
