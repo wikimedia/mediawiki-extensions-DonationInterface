@@ -2256,7 +2256,9 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 	'payflowpro_gateway-payment' => 'Talu',
 	'payflowpro_gateway-payment-type' => 'Math y taliad',
 	'payflowpro_gateway-month' => '$1 ($2)',
+	'payflowpro_gateway-please-complete' => 'Llanwch y ffurflen isod er mwyn rhoi ...',
 	'payflowpro_gateway-description' => 'Disgrifiad',
+	'payflowpro_gateway-donation' => 'Eich rhodd',
 	'payflowpro_gateway-email-receipt' => 'Anfon derbynneb at y cyfeiriad e-bost',
 	'payflowpro_gateway-state-dropdown-YY' => 'Dewiswch Dalaith',
 	'payflowpro_gateway-state-dropdown-XX' => "Y tu allan i'r Unol Daleithiau",
@@ -3605,6 +3607,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'payflowpro_gateway-anon-message' => 'Luettele nimeni julkisessa lahjoittajaluettelossa.',
 	'payflowpro_gateway-donate-wikipedia' => 'Lahjoita Wikipediassa',
 	'payflowpro_gateway-or' => 'tai',
+	'payflowpro_gateway-make-a-donation' => 'Tee lahjoitus',
 	'payflowpro_gateway-next' => 'Seuraava',
 	'payflowpro_gateway-cancel' => 'Peruuta',
 );
