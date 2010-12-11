@@ -2993,6 +2993,7 @@ $messages['yue'] = array(
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Bencmq
  * @author Chenxiaoqino
+ * @author Kuailong
  */
 $messages['zh-hans'] = array(
 	'donate_interface' => '资助维基媒体',
@@ -3006,7 +3007,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-comment-message' => '有想法希望与世界分享？请在此填写不超过200字的评论：',
 	'donate_interface-comment-label' => '评论：',
 	'donate_interface-anon-message' => '请在我的评论边上附上我的名字。',
-	'donate_interface-email-agreement' => '我同意接受来自维基媒体基金会的邮件。',
+	'donate_interface-email-agreement' => '我同意维基媒体基金会不定期向我发送的邮件。',
 	'donate_interface-comment-title' => '公开的评论',
 	'donate_interface-amount-error' => '**请输入有效的数额**',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',

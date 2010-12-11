@@ -6044,6 +6044,8 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'payflowpro_gateway-address-2' => 'Adress 2',
 	'payflowpro_gateway-address-lines' => "Linne fir d'Adress",
 	'payflowpro_gateway-address-line-2' => 'Adress (Linn 2)',
+	'payflowpro_gateway-street-address' => 'Adress mat Strooss',
+	'payflowpro_gateway-street-address-line-2' => 'Adress mat Strooss (2. Linn)',
 	'payflowpro_gateway-street-1' => 'Strooss 1',
 	'payflowpro_gateway-street-2' => 'Strooss 2',
 	'payflowpro_gateway-apartment-number' => 'Appt. #',
@@ -6054,6 +6056,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'payflowpro_gateway-zip-code' => 'Post Code',
 	'payflowpro_gateway-zip-postal' => 'Post Code',
 	'payflowpro_gateway-zip-postal-code' => 'Post Code',
+	'payflowpro_gateway-billing-code' => "Postcode fir d'Rechnung",
 	'payflowpro_gateway-country' => 'Land',
 	'payflowpro_gateway-select-country' => "Sicht d'Land eraus",
 	'payflowpro_gateway-confirm-email' => 'E-Mailadress confirméieren',
@@ -11112,6 +11115,7 @@ $messages['yue'] = array(
  * @author Bencmq
  * @author Chenxiaoqino
  * @author Hydra
+ * @author Kuailong
  * @author Liangent
  * @author Wilsonmess
  */
@@ -11171,6 +11175,7 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-response-0' => '您的交易已经成功。
 感谢您的捐助！',
 	'payflowpro_gateway-response-126' => '您的交易正在等待确认中。',
+	'payflowpro_gateway-response-126-2' => '您所提供的部分信息和您的信用卡账户信息不符，或者您的捐款金额较大。为了阁下的账户安全，您的捐款目前正在接受审查，如果捐款失败，我们会通过您提供的电子邮件联系您。如有疑问，请致信<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>。感谢！',
 	'payflowpro_gateway-response-12' => '请向您的信用卡公司咨询更多信息。',
 	'payflowpro_gateway-response-13' => '您的交易需要语音授权。
 请联系我们以完成您的这笔交易。',
@@ -11198,6 +11203,8 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-question-comment' => '有问题或意见？请联系我们：<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => '您提交的信用卡信息会被安全地处理。',
 	'payflowpro_gateway-otherways' => '还可以通过<a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/zh-hans">其他途径捐助，包括PayPal，支票或邮件</a>。',
+	'payflowpro_gateway-otherways-alt' => '还可以通过<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/zh-hans">其他方式</a>捐款，包括使用支票。',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/zh-hans">其他捐款方式</a>',
 	'payflowpro_gateway-paypal' => '有PayPal帐号? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">用PayPal捐助</a>.',
 	'payflowpro_gateway-credit-storage-processing' => '我们不储存您的信用卡信息，并且您的个人信息也会遵循我们的<a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">隐私政策</a>。',
 	'payflowpro_gateway-token-mismatch' => '线程已过期。请您重新填写并提交表单。',
@@ -11213,7 +11220,35 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-noscript-msg' => '似乎你没有启用JavaScript，或者你的浏览器不支持JavaScript。
 为了给你提供安全、 舒适的体验，我们的捐助表格需要使用JavaScript。',
 	'payflowpro_gateway-noscript-redirect-msg' => '如果你不想或不能启用JavaScript, 你依然可以在以下地址完成捐助：',
+	'payflowpro_gateway-anon-message' => '请在公开捐助者名单中列出我的名字。',
+	'payflowpro_gateway-donate-wikipedia' => '捐助维基百科',
 	'payflowpro_gateway-or' => '或者',
+	'payflowpro_gateway-your-information' => '捐助人信息',
+	'payflowpro_gateway-mailing-address' => '邮件地址',
+	'payflowpro_gateway-company-name' => '公司或组织名',
+	'payflowpro_gateway-address-1' => '地址1',
+	'payflowpro_gateway-address-2' => '地址2',
+	'payflowpro_gateway-street-address' => '街道地址',
+	'payflowpro_gateway-city-town' => '市/镇',
+	'payflowpro_gateway-state-province' => '州/省',
+	'payflowpro_gateway-zip-postal-code' => '邮政编码',
+	'payflowpro_gateway-country' => '国家',
+	'payflowpro_gateway-select-country' => '选择国家/地区',
+	'payflowpro_gateway-confirm-email' => '确认电邮',
+	'payflowpro_gateway-telephone' => '电话',
+	'payflowpro_gateway-donation-information' => '捐赠信息',
+	'payflowpro_gateway-pay-by-credit-card' => '使用信用卡捐助',
+	'payflowpro_gateway-choose-donation-method' => '选择捐款方法',
+	'payflowpro_gateway-cardholders-name' => '持卡人姓名',
+	'payflowpro_gateway-verification-number' => '验证码',
+	'payflowpro_gateway-what-is-this' => '这是什么？',
+	'payflowpro_gateway-please-donate-today' => '请今日捐赠',
+	'payflowpro_gateway-donate-now' => '立即捐款',
+	'payflowpro_gateway-select-amount' => '选择金额',
+	'payflowpro_gateway-amount' => '金额',
+	'payflowpro_gateway-next' => '下一步',
+	'payflowpro_gateway-continue' => '继续',
+	'payflowpro_gateway-cancel' => '取消',
 	'payflowpro_gateway-state-dropdown-XX' => '不在美国内',
 );
 
