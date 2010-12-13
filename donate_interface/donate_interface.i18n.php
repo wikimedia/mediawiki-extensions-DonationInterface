@@ -288,15 +288,25 @@ $messages['be-tarask'] = array(
 );
 
 /** Bulgarian (Български)
+ * @author Spiritia
  * @author Turin
  */
 $messages['bg'] = array(
-	'donate_interface-amount' => 'Сума на дарението:',
+	'donate_interface' => 'Подкрепете Уикимедия',
+	'donate_interface-desc' => 'Начална дарителска страница,интегрираща порталните разширения',
+	'donate_interface-intro' => 'Моля, изберете метод на плащане, размер и валута.',
+	'donate_interface-amount' => 'Размер на дарението:',
 	'donate_interface-other-amount' => 'Друга сума',
 	'donate_interface-currency' => 'Валута:',
 	'donate_interface-gateway' => 'Начин на плащане:',
 	'donate_interface-submit-button' => 'Даряване',
+	'donate_interface-comment-message' => 'Искате ли да споделите нещо със света? Поставете тук вашия коментар (до 200 знака):',
 	'donate_interface-comment-label' => 'Коментар:',
+	'donate_interface-anon-message' => 'Искам името ми да бъде включено (наред с коментара ми) в публичния лист на дарителите.',
+	'donate_interface-email-agreement' => 'Съгласен съм от време на време да получавам новини от Фондация Уикимедия.',
+	'donate_interface-comment-title' => 'Публичен коментар',
+	'donate_interface-amount-error' => 'Моля, въведете коректна сума',
+	'donate_interface-processing-error' => 'Настъпи грешка при обработката на заявката ви. Нямаше налични процесори.',
 	'donate_interface-GBP' => 'GBP: британска лира',
 	'donate_interface-EUR' => 'EUR: евро',
 	'donate_interface-USD' => 'USD: американски долар',
