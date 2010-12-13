@@ -196,6 +196,8 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-description' => 'Description',
 	'payflowpro_gateway-donation' => 'Donation',
 	'payflowpro_gateway-email-receipt' => 'E-mail receipt to',
+	'payflowpro_gateway-monthly-donation' => 'Make a monthly donation',
+	'payflowpro_gateway-via-paypal' => '(via PayPal)',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -299,6 +301,8 @@ There is no limit to the length of the message.",
 	'payflowpro_gateway-month' => 'Expiration month for credit card. $1 is the month number, $2 is the month name. Appears in a drop-down list.',
 	'payflowpro_gateway-description' => '{{Identical|Description}}',
 	'payflowpro_gateway-email-receipt' => "Label for field which contains the email address the donor's receipt will be mailed to.",
+	'payflowpro_gateway-monthly-donation' => "Button label, 25 characters maximum",
+	'payflowpro_gateway-via-paypal' => 'This appears after the monthly donation button',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
