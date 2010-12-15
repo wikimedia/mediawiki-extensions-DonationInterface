@@ -1207,6 +1207,7 @@ $messages['be-tarask'] = array(
 );
 
 /** Bulgarian (Български)
+ * @author DCLXVI
  * @author Spiritia
  * @author Turin
  */
@@ -1282,6 +1283,8 @@ $messages['bg'] = array(
 	'payflowpro_gateway-comment' => 'Коментар',
 	'payflowpro_gateway-first' => 'Първи',
 	'payflowpro_gateway-last' => 'Последен',
+	'payflowpro_gateway-company-name' => 'Име на фирма или организация',
+	'payflowpro_gateway-what-is-this' => 'Какво е това?',
 );
 
 /** Bengali (বাংলা)
@@ -5233,6 +5236,8 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 	'payflowpro_gateway-description' => 'Description',
 	'payflowpro_gateway-donation' => 'Donation',
 	'payflowpro_gateway-email-receipt' => 'Inviar quitantia in e-mail a',
+	'payflowpro_gateway-monthly-donation' => 'Facer un donation mensual',
+	'payflowpro_gateway-via-paypal' => '(via PayPal)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selige un stato',
 	'payflowpro_gateway-state-dropdown-XX' => 'Extra le Statos Unite',
 );
@@ -8725,6 +8730,8 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
 	'payflowpro_gateway-description' => 'Descriere',
 	'payflowpro_gateway-donation' => 'Donație',
 	'payflowpro_gateway-email-receipt' => 'E-mail de primire la',
+	'payflowpro_gateway-monthly-donation' => 'Faceți o donație lunară',
+	'payflowpro_gateway-via-paypal' => '(prin PayPal)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selectați un stat',
 	'payflowpro_gateway-state-dropdown-XX' => 'În afara Statelor Unite',
 );
