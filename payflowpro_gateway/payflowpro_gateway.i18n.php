@@ -4655,12 +4655,19 @@ $messages['he'] = array(
 	'payflowpro_gateway-description' => 'תיאור',
 	'payflowpro_gateway-donation' => 'תרומה',
 	'payflowpro_gateway-email-receipt' => 'שליחת הקבלה בדוא״ל אל',
+	'payflowpro_gateway-monthly-donation' => 'תרומה חודשית',
+	'payflowpro_gateway-via-paypal' => '(דרך PayPal)',
+	'payflowpro_gateway-shirt-size' => 'מידת החולצה:',
+	'payflowpro_gateway-language' => 'שפה:',
+	'payflowpro_gateway-front' => 'החלק הקדמי',
+	'payflowpro_gateway-back' => 'החלק האחורי',
 	'payflowpro_gateway-state-dropdown-YY' => 'בחר מדינה בארצות הברית',
 	'payflowpro_gateway-state-dropdown-XX' => 'מחוץ לארצות הברית',
 );
 
 /** Croatian (Hrvatski)
  * @author Herr Mlinka
+ * @author Roberta F.
  * @author SpeedyGonsales
  * @author Tivek
  */
@@ -4757,10 +4764,44 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'payflowpro_gateway-state-in-us' => 'ako živite unutar SAD-a',
 	'payflowpro_gateway-comment' => 'Komentar',
 	'payflowpro_gateway-first' => 'Prvi',
+	'payflowpro_gateway-middle' => 'Srednje',
 	'payflowpro_gateway-last' => 'Zadnji',
+	'payflowpro_gateway-other' => 'Ostalo',
 	'payflowpro_gateway-noscript-msg' => 'Čini se da JavaScript na Vašem pregledniku nije omogućen ili nije podržan.
 Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zahtijeva JavaScript.',
 	'payflowpro_gateway-noscript-redirect-msg' => 'Ako ne možete ili ne želite omogućiti JavaScript, još uvijek možete doprinijeti posjetite li:',
+	'payflowpro_gateway-anon-message' => 'Molim navedite moje ime na javnom spisku donatora.',
+	'payflowpro_gateway-donate-wikipedia' => 'Donirajte Wikipediji',
+	'payflowpro_gateway-or' => 'ili',
+	'payflowpro_gateway-your-information' => 'Vaše informacije',
+	'payflowpro_gateway-mailing-address' => 'Poštanska adresa',
+	'payflowpro_gateway-address-1' => 'Adresa 1',
+	'payflowpro_gateway-address-2' => 'Adresa 2',
+	'payflowpro_gateway-street-1' => 'Ulica 1',
+	'payflowpro_gateway-street-2' => 'Ulica 2',
+	'payflowpro_gateway-apartment-number' => 'Stan br.',
+	'payflowpro_gateway-city-town' => 'Grad / mjesto',
+	'payflowpro_gateway-town-city' => 'Mjesto / grad',
+	'payflowpro_gateway-state-province' => 'Država / pokrajina',
+	'payflowpro_gateway-zip' => 'Zip',
+	'payflowpro_gateway-zip-code' => 'Poštanski broj',
+	'payflowpro_gateway-country' => 'Država',
+	'payflowpro_gateway-select-country' => 'Odaberite državu',
+	'payflowpro_gateway-confirm-email' => 'Potvrdite elektroničku poštu',
+	'payflowpro_gateway-phone' => 'Phone',
+	'payflowpro_gateway-telephone' => 'Telefon',
+	'payflowpro_gateway-donation-information' => 'Informacija o darivatelju',
+	'payflowpro_gateway-which-card' => 'Koju karticu želite rabiti',
+	'payflowpro_gateway-choose-donation-method' => 'Odaberite način darivanja',
+	'payflowpro_gateway-type-of-card' => 'Vrsta kartice',
+	'payflowpro_gateway-credit-card-number' => 'broj kreditne kartice',
+	'payflowpro_gateway-credit-card-number-abbreviated' => 'Kreditna kartica:',
+	'payflowpro_gateway-do-not-include-dashes' => 'Molimo vas, nemojte dodavati crtice',
+	'payflowpro_gateway-please-donate-today' => 'Molimo, darujte danas',
+	'payflowpro_gateway-donate-now' => 'Darujte sada',
+	'payflowpro_gateway-select-amount' => 'Odaberite iznos',
+	'payflowpro_gateway-amount' => 'Iznos',
+	'payflowpro_gateway-make-a-donation' => 'Darujte',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -9934,7 +9975,7 @@ $messages['sw'] = array(
 	'payflowpro_gateway-response-0' => 'Malipo yako yamepitishwa. 
 Ahsante kwa mchango wako!',
 	'payflowpro_gateway-response-126' => 'Shughuli yako yanasubiri kuidhinishwa.',
-	'payflowpro_gateway-response-126-2' => 'Baadhi ya taarifa ulizozitoa hazikuwa sawa na taarifa kamili za kadi yako ya mkopo, ama ulitoa mchango mkubwa sana. Kwa ajili ya usalama wako, mchango wako inachunguliwa. Tutakuarifu, katika barua pepe tutakayotuma kwa anwani uliotaja, kama tutashindwa kukamilisha mchango wako. Tafadhali tuma barua pepe kwa <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kama una maswali. Asante!',
+	'payflowpro_gateway-response-126-2' => 'Baadhi ya taarifa ulizozitoa hazikuendana na na taarifa kamili za kadi yako ya malipo, ama umetoa mchango mkubwa sana. Kwa ajili ya usalama wako, mchango wako unachunguzwa. Tutakutaarifu kupitia anwani ya barua pepe uliyoitaja, iwapo tutashindwa kukamilisha mchango wako. Tafadhali tuma barua pepe kwa <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> kama una maswali. Ahsante!',
 	'payflowpro_gateway-response-12' => 'Tafadhali uwasiliane na kampuni ya kadi yako ya mkopo ili kupata maelezo mengine.',
 	'payflowpro_gateway-response-13' => 'Malipo yako yanahitaji idhini ya mdomo. 
 Tafadhali wasiliana nasi ili kuendelea kushughulika malipo yako.',
@@ -11489,7 +11530,10 @@ $messages['zh-hans'] = array(
 	'payflowpro_gateway-country' => '国家',
 	'payflowpro_gateway-select-country' => '选择国家/地区',
 	'payflowpro_gateway-confirm-email' => '确认电邮',
+	'payflowpro_gateway-phone' => '电话',
 	'payflowpro_gateway-telephone' => '电话',
+	'payflowpro_gateway-telephone-home' => '电话 （家）',
+	'payflowpro_gateway-billing-phone-number' => '付费电话号码',
 	'payflowpro_gateway-donation-information' => '捐赠信息',
 	'payflowpro_gateway-pay-by-credit-card' => '使用信用卡捐助',
 	'payflowpro_gateway-choose-donation-method' => '选择捐款方法',

@@ -2954,10 +2954,22 @@ $messages['vi'] = array(
  * @author פוילישער
  */
 $messages['yi'] = array(
+	'donate_interface' => 'שטיצט וויקימעדיע',
+	'donate_interface-amount' => 'סכום נדבה:',
+	'donate_interface-other-amount' => 'אַנדער סכום',
 	'donate_interface-currency' => 'וואַלוטע:',
+	'donate_interface-gateway' => 'צאָלונג מעטאד',
+	'donate_interface-submit-button' => 'ביישטייערן',
+	'donate_interface-comment-message' => 'אפשר האט איר א געדאַנק צו טיילן מיט דער וועלט? שטעלט דאָ ביז 200 צייכענס:',
+	'donate_interface-comment-label' => 'הערה:',
 	'donate_interface-GBP' => 'GBP: בריטישער פֿונט',
 	'donate_interface-EUR' => 'EUR: איירא',
 	'donate_interface-USD' => 'USD: אמעריקאנער דאלאר',
+	'donate_interface-AUD' => 'AUD: אויסטראַלישער טאָלער',
+	'donate_interface-CAD' => 'CAD: קאַנאַדישער טאָלער',
+	'donate_interface-CHF' => 'CHF: שווייצער פֿראַנק',
+	'donate_interface-CZK' => 'CZK: טשעכישע קאָרונע',
+	'donate_interface-DKK' => 'DKK: דענישע קראנע',
 	'donate_interface-ILS' => 'ILS: ישראלדיקער שקל',
 );
 
