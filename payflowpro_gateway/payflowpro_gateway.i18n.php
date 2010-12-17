@@ -198,6 +198,10 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-email-receipt' => 'E-mail receipt to',
 	'payflowpro_gateway-monthly-donation' => 'Make a monthly donation',
 	'payflowpro_gateway-via-paypal' => '(via PayPal)',
+	'payflowpro_gateway-shirt-size' => 'T-shirt size:',
+	'payflowpro_gateway-language' => 'Language:',
+	'payflowpro_gateway-front' => 'Front',
+	'payflowpro_gateway-back' => 'Back',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -303,6 +307,10 @@ There is no limit to the length of the message.",
 	'payflowpro_gateway-email-receipt' => "Label for field which contains the email address the donor's receipt will be mailed to.",
 	'payflowpro_gateway-monthly-donation' => 'Button label, 25 characters maximum',
 	'payflowpro_gateway-via-paypal' => 'This appears after the monthly donation button',
+	'payflowpro_gateway-shirt-size' => 'This is a label for a select list of shirt sizes',
+	'payflowpro_gateway-language' => 'This is a label for a select list of languages a shirt can be printed in',
+	'payflowpro_gateway-front' => 'This is a label for an image of the front of a shirt',
+	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
