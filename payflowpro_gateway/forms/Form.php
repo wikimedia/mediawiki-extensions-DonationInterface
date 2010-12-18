@@ -353,6 +353,8 @@ abstract class PayflowProGateway_Form {
 				'comment' => $this->form_data[ 'comment' ],
 				'comment-option' => $this->form_data[ 'comment-option' ],
 				'email-opt' => $this->form_data[ 'email-opt' ],
+				'size' => $this->form_data[ 'size' ],
+				'premium-language' => $this->form_data[ 'premium-language' ],
 				'process' => 'CreditCard',
 				'payment_method' => 'processed',
 				'token' => $this->form_data[ 'token' ],
