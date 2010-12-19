@@ -308,7 +308,8 @@ There is no limit to the length of the message.",
 	'payflowpro_gateway-monthly-donation' => 'Button label, 25 characters maximum',
 	'payflowpro_gateway-via-paypal' => 'This appears after the monthly donation button',
 	'payflowpro_gateway-shirt-size' => 'This is a label for a select list of shirt sizes',
-	'payflowpro_gateway-language' => 'This is a label for a select list of languages a shirt can be printed in',
+	'payflowpro_gateway-language' => 'This is a label for a select list of languages a shirt can be printed in
+{{Identical|Language}}',
 	'payflowpro_gateway-front' => 'This is a label for an image of the front of a shirt',
 	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt',
 );
@@ -1024,6 +1025,7 @@ $messages['be'] = array(
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
+ * @author Lloffiwr
  * @author Wizardist
  * @author Zedlik
  */
@@ -1210,7 +1212,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-email-receipt' => 'Даслаць квіток праз электронную пошту',
 	'payflowpro_gateway-monthly-donation' => 'Зрабіць штомесячнае ахвяраваньне',
 	'payflowpro_gateway-via-paypal' => '(праз PayPal)',
-	'payflowpro_gateway-shirt-size' => 'Памер цішоткі:',
+	'payflowpro_gateway-shirt-size' => 'Памер майкі:',
 	'payflowpro_gateway-language' => 'Мова:',
 	'payflowpro_gateway-front' => 'Пярэдні бок',
 	'payflowpro_gateway-back' => 'Задні бок',
@@ -1224,7 +1226,7 @@ $messages['be-tarask'] = array(
  * @author Turin
  */
 $messages['bg'] = array(
-	'payflowprogateway' => 'Подкрепете Уикимедия',
+	'payflowprogateway' => 'Направете дарение сега',
 	'payflowpro_gateway-accessible' => 'Тази страница е достъпна само от страницата за дарение.',
 	'payflowpro_gateway-form-message' => 'Помогнете с кредитната си карта.',
 	'payflowpro_gateway-paypal-button' => 'Даряване с PayPal',
@@ -1295,8 +1297,11 @@ $messages['bg'] = array(
 	'payflowpro_gateway-comment' => 'Коментар',
 	'payflowpro_gateway-first' => 'Първи',
 	'payflowpro_gateway-last' => 'Последен',
+	'payflowpro_gateway-or' => 'или',
 	'payflowpro_gateway-company-name' => 'Име на фирма или организация',
+	'payflowpro_gateway-credit-card-number-abbreviated' => 'Кредитна карта #',
 	'payflowpro_gateway-what-is-this' => 'Какво е това?',
+	'payflowpro_gateway-continue' => 'Продължаване',
 );
 
 /** Bengali (বাংলা)
@@ -1861,6 +1866,10 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
 	'payflowpro_gateway-email-receipt' => 'E-mail potvrda za',
 	'payflowpro_gateway-monthly-donation' => 'Pošalji mjesečnu donaciju',
 	'payflowpro_gateway-via-paypal' => '(preko PayPal)',
+	'payflowpro_gateway-shirt-size' => 'Veličina majice:',
+	'payflowpro_gateway-language' => 'Jezik:',
+	'payflowpro_gateway-front' => 'Naprijed',
+	'payflowpro_gateway-back' => 'Nazad',
 	'payflowpro_gateway-state-dropdown-YY' => 'Odaberi Saveznu državu',
 	'payflowpro_gateway-state-dropdown-XX' => 'Izvan SAD',
 );
@@ -3715,7 +3724,7 @@ $messages['fa'] = array(
  * @author ZeiP
  */
 $messages['fi'] = array(
-	'payflowprogateway' => 'Tue Wikimediaa',
+	'payflowprogateway' => 'Tee lahjoituksesi nyt',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro -luottokorttikäsittely.',
 	'payflowpro_gateway-accessible' => 'Tämä sivu on käytettävissä vain lahjoitussivulta.',
 	'payflowpro_gateway-form-message' => 'Voit lahjoittaa luottokortilla käyttäen alla olevaa lomaketta, tai',
@@ -3818,6 +3827,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'payflowpro_gateway-or' => 'tai',
 	'payflowpro_gateway-make-a-donation' => 'Tee lahjoitus',
 	'payflowpro_gateway-next' => 'Seuraava',
+	'payflowpro_gateway-continue' => 'Jatka',
 	'payflowpro_gateway-cancel' => 'Peruuta',
 );
 
@@ -4497,6 +4507,10 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
 	'payflowpro_gateway-email-receipt' => 'Empfangsbstetigung per Mail an',
 	'payflowpro_gateway-monthly-donation' => 'All Monet spände',
 	'payflowpro_gateway-via-paypal' => '(iber PayPal)',
+	'payflowpro_gateway-shirt-size' => 'T-Shirt-Greßi:',
+	'payflowpro_gateway-language' => 'Sproch:',
+	'payflowpro_gateway-front' => 'Vordersyte',
+	'payflowpro_gateway-back' => 'Rucksyte',
 	'payflowpro_gateway-state-dropdown-YY' => 'E Staat uuswehle',
 	'payflowpro_gateway-state-dropdown-XX' => 'Usserhalb vu dr Vereinigte Staate',
 );
@@ -7019,7 +7033,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-description' => 'വിവരണം',
 	'payflowpro_gateway-donation' => 'സംഭാവന',
 	'payflowpro_gateway-email-receipt' => 'രസീത് അയക്കേണ്ട ഇമെയിൽ',
-	'payflowpro_gateway-monthly-donation' => 'മാസംതോറുമുള്ള സംഭാവനാരീതി ഉപയോഗിക്കുക',
+	'payflowpro_gateway-monthly-donation' => 'മാസംതോറും സംഭാവന നൽകുക.',
 	'payflowpro_gateway-via-paypal' => '(പേപാൽ വഴി)',
 	'payflowpro_gateway-shirt-size' => 'ടി-ഷർട്ടിന്റെ വലിപ്പം:',
 	'payflowpro_gateway-language' => 'ഭാഷ:',
@@ -7725,6 +7739,12 @@ For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema 
 	'payflowpro_gateway-description' => 'Beskrivelse',
 	'payflowpro_gateway-donation' => 'Donasjon',
 	'payflowpro_gateway-email-receipt' => 'E-postkvittering til',
+	'payflowpro_gateway-monthly-donation' => 'Gi en månedlig gave',
+	'payflowpro_gateway-via-paypal' => '(via PayPal)',
+	'payflowpro_gateway-shirt-size' => 'T-skjortestørrelse:',
+	'payflowpro_gateway-language' => 'Språk:',
+	'payflowpro_gateway-front' => 'Foran',
+	'payflowpro_gateway-back' => 'Bak',
 	'payflowpro_gateway-state-dropdown-YY' => 'Velg en stat',
 	'payflowpro_gateway-state-dropdown-XX' => 'Utenfor USA',
 );
@@ -8649,6 +8669,12 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'payflowpro_gateway-description' => 'Descrição',
 	'payflowpro_gateway-donation' => 'Doação',
 	'payflowpro_gateway-email-receipt' => 'Enviar o recibo para o e-mail',
+	'payflowpro_gateway-monthly-donation' => 'Fazer uma doação mensal',
+	'payflowpro_gateway-via-paypal' => '(através do PayPal)',
+	'payflowpro_gateway-shirt-size' => 'Tamanho da camiseta:',
+	'payflowpro_gateway-language' => 'Língua:',
+	'payflowpro_gateway-front' => 'À frente',
+	'payflowpro_gateway-back' => 'Atrás',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selecione um estado.',
 	'payflowpro_gateway-state-dropdown-XX' => 'Fora dos EUA.',
 );
@@ -11371,6 +11397,10 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'payflowpro_gateway-email-receipt' => 'Gửi thư điện tử biên lai tới',
 	'payflowpro_gateway-monthly-donation' => 'Quyên góp hàng tháng',
 	'payflowpro_gateway-via-paypal' => '(qua PayPal)',
+	'payflowpro_gateway-shirt-size' => 'Cỡ áo phông:',
+	'payflowpro_gateway-language' => 'Ngôn ngữ:',
+	'payflowpro_gateway-front' => 'Mặt trước',
+	'payflowpro_gateway-back' => 'Mặt sau',
 	'payflowpro_gateway-state-dropdown-YY' => 'Chọn tiểu bang',
 	'payflowpro_gateway-state-dropdown-XX' => 'Bên ngoài Hoa Kỳ',
 );
