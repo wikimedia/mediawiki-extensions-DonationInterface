@@ -1210,7 +1210,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-description' => 'Апісаньне',
 	'payflowpro_gateway-donation' => 'Ахвяраваньне',
 	'payflowpro_gateway-email-receipt' => 'Даслаць квіток праз электронную пошту',
-	'payflowpro_gateway-monthly-donation' => 'Зрабіць штомесячнае ахвяраваньне',
+	'payflowpro_gateway-monthly-donation' => 'Штомесячнае ахвяраваньне',
 	'payflowpro_gateway-via-paypal' => '(праз PayPal)',
 	'payflowpro_gateway-shirt-size' => 'Памер майкі:',
 	'payflowpro_gateway-language' => 'Мова:',
@@ -4716,7 +4716,7 @@ $messages['he'] = array(
  * @author Tivek
  */
 $messages['hr'] = array(
-	'payflowprogateway' => 'Podržite Wikimediju',
+	'payflowprogateway' => 'Darujte sada',
 	'payflowpro_gateway-desc' => 'PayPal PayFlow Pro obrada kreditnih kartica',
 	'payflowpro_gateway-accessible' => 'Ova stranica je dostupna samo iz stranice za donacije.',
 	'payflowpro_gateway-form-message' => 'Koristite donji obrazac za doniranje putem kreditne kartice, ili',
@@ -4819,6 +4819,8 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'payflowpro_gateway-or' => 'ili',
 	'payflowpro_gateway-your-information' => 'Vaše informacije',
 	'payflowpro_gateway-mailing-address' => 'Poštanska adresa',
+	'payflowpro_gateway-title' => 'Naslov',
+	'payflowpro_gateway-company-name' => 'Tvrtka ili naziv organizacije',
 	'payflowpro_gateway-address-1' => 'Adresa 1',
 	'payflowpro_gateway-address-2' => 'Adresa 2',
 	'payflowpro_gateway-street-1' => 'Ulica 1',
@@ -4846,6 +4848,12 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'payflowpro_gateway-select-amount' => 'Odaberite iznos',
 	'payflowpro_gateway-amount' => 'Iznos',
 	'payflowpro_gateway-make-a-donation' => 'Darujte',
+	'payflowpro_gateway-payment-type' => 'Način plaćanja',
+	'payflowpro_gateway-description' => 'Opis',
+	'payflowpro_gateway-via-paypal' => '(putem PayPala)',
+	'payflowpro_gateway-language' => 'Jezik:',
+	'payflowpro_gateway-state-dropdown-YY' => 'Odaberite državu',
+	'payflowpro_gateway-state-dropdown-XX' => 'Izvan SAD-a',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -5701,6 +5709,7 @@ In alcuni casi, il codice si trova sulla parte sinistra della casa, ma comunque 
  * @author Aphaia
  * @author Fryed-peach
  * @author Kanon und wikipedia
+ * @author Ohgi
  * @author 青子守歌
  */
 $messages['ja'] = array(
@@ -5884,6 +5893,7 @@ $messages['ja'] = array(
 	'payflowpro_gateway-description' => '概要',
 	'payflowpro_gateway-donation' => '寄付',
 	'payflowpro_gateway-email-receipt' => '電子メール領収書の宛先：',
+	'payflowpro_gateway-language' => '言語：',
 	'payflowpro_gateway-state-dropdown-YY' => '州を選択',
 	'payflowpro_gateway-state-dropdown-XX' => 'アメリカ合衆国以外',
 );
