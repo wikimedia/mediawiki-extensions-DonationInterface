@@ -714,6 +714,8 @@ EOT;
 		$countries = countryCodes();
 		$transaction['country_name'] = $countries[$data['country']];
 		$transaction['country_code'] = $data['country'];
+		$transaction['country_name2'] = $countries[$data['country2']];
+		$transaction['country_code2'] = $data['country2'];
 		// put all data into one array
 		$transaction += array_merge( $data, $responseArray );
 
