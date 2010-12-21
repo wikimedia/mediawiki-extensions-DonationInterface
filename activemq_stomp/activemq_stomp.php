@@ -139,6 +139,8 @@ function createQueueMessage( $transaction ) {
 		'optout'                 => $transaction['optout'],
 		'anonymous'              => $transaction['anonymous'],
 		'comment'                => $transaction['comment'],
+		'size'                   => $transaction['size'],
+		'premium_language'       => $transaction['premium_language'],
 		'utm_source'             => $transaction['utm_source'],
 		'utm_medium'             => $transaction['utm_medium'],
 		'utm_campaign'           => $transaction['utm_campaign'],
