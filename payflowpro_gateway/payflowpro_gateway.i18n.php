@@ -4034,6 +4034,12 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'payflowpro_gateway-description' => 'Description',
 	'payflowpro_gateway-donation' => 'Don',
 	'payflowpro_gateway-email-receipt' => 'Envoyer le courriel de reçu à',
+	'payflowpro_gateway-monthly-donation' => 'Faire un don mensuel',
+	'payflowpro_gateway-via-paypal' => '(via PayPal)',
+	'payflowpro_gateway-shirt-size' => 'taille du T-shirt:',
+	'payflowpro_gateway-language' => 'Langue :',
+	'payflowpro_gateway-front' => 'Devant',
+	'payflowpro_gateway-back' => 'Derrière',
 	'payflowpro_gateway-state-dropdown-YY' => 'Choisir un pays',
 	'payflowpro_gateway-state-dropdown-XX' => 'Hors des États-Unis',
 );

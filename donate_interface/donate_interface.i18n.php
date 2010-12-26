@@ -2229,6 +2229,17 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-ILS' => 'ILS: Shekel (Israel)',
 );
 
+/** Quechua (Runa Simi)
+ * @author AlimanRuna
+ */
+$messages['qu'] = array(
+	'donate_interface' => 'Wikimediata yanapay',
+	'donate_interface-amount' => "Hayk'a qarana:",
+	'donate_interface-other-amount' => 'Wakin chhika',
+	'donate_interface-currency' => 'Kañina:',
+	'donate_interface-submit-button' => 'Qarana',
+);
+
 /** Romanian (Română)
  * @author AdiJapan
  * @author Firilacroco
