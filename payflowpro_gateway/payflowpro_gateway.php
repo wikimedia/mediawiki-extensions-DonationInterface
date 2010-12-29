@@ -147,7 +147,8 @@ $wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/demo.html" );
 $wgPayflowGatewayUseSyslog = false;
 
 /**
- * Configure price cieling and floor for valid contribution amount
+ * Configure price cieling and floor for valid contribution amount.  Values 
+ * should be in USD.
  */
 $wgPayflowPriceFloor = '1.00';
 $wgPayflowPriceCieling = '10000.00';
