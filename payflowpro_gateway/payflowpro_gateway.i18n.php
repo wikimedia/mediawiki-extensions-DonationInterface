@@ -202,6 +202,17 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-language' => 'Language:',
 	'payflowpro_gateway-front' => 'Front',
 	'payflowpro_gateway-back' => 'Back',
+	'payflowpro_gateway-front-of-shirt' => 'Front of shirt',
+	'payflowpro_gateway-back-of-shirt' => 'Back of shirt',
+	'payflowpro_gateway-select-a-size' => 'Please select a size.',
+	'payflowpro_gateway-select' => 'Size:',
+	'payflowpro_gateway-shipping-address' => 'Shipping address',
+	'payflowpro_gateway-shipping-address-different' => 'My shipping address is different from my billing address.',
+	'payflowpro_gateway-shipping-address-same' => 'Shipping address same as billing address.',
+	'payflowpro_gateway-only-billing-address' => 'Shirts can only be shipped to your billing address.',
+	'payflowpro_gateway-donation-must-equal' => 'Donation must equal $1 or more.',
+	'payflowpro_gateway-thank-you' => 'Thank you! Your donation has been received.',
+	'payflowpro_gateway-wikipedia-translation' => 'Please note: "Wikipedia" on the shirt sleeve will be the "Wikipedia 10" graphic, which is not translated.',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -312,6 +323,7 @@ There is no limit to the length of the message.",
 {{Identical|Language}}',
 	'payflowpro_gateway-front' => 'This is a label for an image of the front of a shirt',
 	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt',
+	'payflowpro_gateway-wikipedia-translation' => 'Do not translate the two phrases in quotes: "Wikipedia" and "Wikipedia 10"',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
