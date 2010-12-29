@@ -5,6 +5,16 @@
 	font-size: 1.2em;
 	font-weight: bold;
 }
+#premium-size {
+	margin: 0.2em 0;
+}
+#premium-language {
+	text-align: center;
+	background-color: #162b46;
+	width:160px;
+	height: 100px;
+	margin: 0 auto;
+}
 
 .payflow-cc-form-section {
         float: none;

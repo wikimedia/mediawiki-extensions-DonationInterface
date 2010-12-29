@@ -24,7 +24,13 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-values' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'premium-size' ) );
 		$form .= wfMsg( 'payflowpro_gateway-shirt-size-2', $wgRequest->getText( 'size' ) );
+		$form .= Xml::closeElement( 'div' );  // close div#premium-size
+		$form .= wfMsg( 'payflowpro_gateway-on-the-back' ) . "<br/>";
+		$form .= Xml::openElement( 'div', array( 'id' => 'premium-language' ) );
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '150', 'height' => '90' ) );
+		$form .= Xml::closeElement( 'div' );  // close div#premium-language
 		$form .= Xml::closeElement( 'div' );  // close div#premium-values
 		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
 
