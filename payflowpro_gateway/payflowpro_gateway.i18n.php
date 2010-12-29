@@ -199,6 +199,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-monthly-donation' => 'Make a monthly donation',
 	'payflowpro_gateway-via-paypal' => '(via PayPal)',
 	'payflowpro_gateway-shirt-size' => 'T-shirt size:',
+	'payflowpro_gateway-shirt-size-2' => 'T-shirt size: $1',
 	'payflowpro_gateway-language' => 'Language:',
 	'payflowpro_gateway-front' => 'Front',
 	'payflowpro_gateway-back' => 'Back',
