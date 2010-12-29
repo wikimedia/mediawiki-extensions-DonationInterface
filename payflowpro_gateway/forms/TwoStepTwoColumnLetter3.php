@@ -199,6 +199,9 @@ EOT;
 		
 		// amount
 		$form .= '<tr>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
 		$form .= '<td colspan="2">';
 		$form .= '<table cellspacing="0" cellpadding="4" border="1" id="donation_amount">';
 		$form .= '<tr>';
