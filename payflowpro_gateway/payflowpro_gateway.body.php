@@ -279,6 +279,8 @@ EOT;
 	 * Checks posted form data for errors and returns array of messages
 	 */
 	private function fnPayflowValidateForm( &$data, &$error ) {
+		global $wgPayflowPriceFloor, $wgPayflowPriceCieling;
+		
 		// begin with no errors
 		$error_result = '0';
 
@@ -310,7 +312,9 @@ EOT;
 		}
 
 		// check amount
-		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data['amount'] ) || $data['amount'] == "0.00" ) {
+		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data[ 'amount' ] ) || 
+			( (float) $data[ 'amount' ] < (float) $wgPayflowPriceFloor || 
+				(float) $data[ 'amount' ] > (float) $wgPayflowPriceCieling ) ) {
 			$error['invalidamount'] = wfMsg( 'payflowpro_gateway-error-msg-invalid-amount' );
 			$error_result = '1';
 		}

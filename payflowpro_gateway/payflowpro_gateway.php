@@ -147,6 +147,12 @@ $wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/demo.html" );
 $wgPayflowGatewayUseSyslog = false;
 
 /**
+ * Configure price cieling and floor for valid contribution amount
+ */
+$wgPayflowPriceFloor = '1.00';
+$wgPayflowPriceCieling = '10000.00';
+
+/**
  * Hooks required to interface with the donation extension (include <donate> on page)
  *
  * gwValue supplies the value of the form option, the name that appears on the form
