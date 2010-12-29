@@ -213,6 +213,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-donation-must-equal' => 'Donation must equal $1 or more.',
 	'payflowpro_gateway-thank-you' => 'Thank you! Your donation has been received.',
 	'payflowpro_gateway-wikipedia-translation' => 'Please note: "Wikipedia" on the shirt sleeve will be the "Wikipedia 10" graphic, which is not translated.',
+	'payflowpro_gateway-on-the-back' => 'With this on the back:',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
@@ -324,6 +325,7 @@ There is no limit to the length of the message.",
 	'payflowpro_gateway-front' => 'This is a label for an image of the front of a shirt',
 	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt',
 	'payflowpro_gateway-wikipedia-translation' => 'Do not translate the two phrases in quotes: "Wikipedia" and "Wikipedia 10"',
+	'payflowpro_gateway-on-the-back' => 'Label for an image of the localized Wikipedia wordmark chosen by the donor',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
