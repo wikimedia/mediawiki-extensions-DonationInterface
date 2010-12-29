@@ -13,7 +13,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest;
+		global $wgOut, $wgRequest, $wgScriptPath;
 
 		$form = parent::generateBannerHeader();
 
@@ -21,14 +21,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= Xml::openElement( 'tr' );
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
-		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->form_data[ 'language' ];
-
-		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . $text_template . '}}' ) : '';
-		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
-		$form .= $template;
+		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/Wikipedia-ten-tshirt-back.jpg" ) );
+		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
 
 		$form .= Xml::closeElement( 'td' );
 
