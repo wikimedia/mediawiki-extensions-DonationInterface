@@ -278,7 +278,7 @@ EOT;
 	/**
 	 * Checks posted form data for errors and returns array of messages
 	 */
-	private function fnPayflowValidateForm( $data, &$error ) {
+	private function fnPayflowValidateForm( &$data, &$error ) {
 		// begin with no errors
 		$error_result = '0';
 
@@ -324,59 +324,35 @@ EOT;
 			$error_result = '1';
 		}
 
-		// validate that credit card number entered is correct for the brand
-		switch( $data['card'] ) {
-			case 'american':
-				// pattern for Amex
-				$pattern = '/^3[47][0-9]{13}$/';
-
-				// if the pattern doesn't match
-				if ( !preg_match( $pattern, $data['card_num']  ) ) {
-					$error_result = '1';
-					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-amex' );
-				}
-
+		// validate that credit card number entered is correct and set the card type
+		switch( $data[ 'card_num' ] ) {
+			// american express
+			case preg_match( '/^3[47][0-9]{13}$/', $data[ 'card_num' ] ):
+				$data[ 'card' ] = 'american';
 				break;
 
-			case 'mastercard':
-				// pattern for Mastercard
-				$pattern = '/^5[1-5][0-9]{14}$/';
-
-				// if pattern doesn't match
-				if ( !preg_match( $pattern, $data['card_num'] ) ) {
-					$error_result = '1';
-					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-mc' );
-				}
-
+			//	mastercard
+			case preg_match( '/^5[1-5][0-9]{14}$/', $data[ 'card_num' ] ):
+				$data[ 'card' ] = 'mastercard';
+				break;
+			
+			// visa
+			case preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $data[ 'card_num' ] ):
+				$data[ 'card' ] = 'visa';
+				break;
+				
+			// discover
+			case preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $data[ 'card_num' ] ):
+				$data[ 'card' ] = 'discover';
 				break;
 
-			case 'visa':
-				// pattern for Visa
-				$pattern = '/^4[0-9]{12}(?:[0-9]{3})?$/';
-
-				// if pattern doesn't match
-				if ( !preg_match( $pattern, $data['card_num'] ) ) {
-					$error_result = '1';
-					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-visa' );
-				}
-
+			// an invalid credit card number was entered
+			default:
+				$error_result = '1';
+				$error[ 'card_num' ] = wfMsg( 'payflowpro_gateway-error-msg-card-num' );
 				break;
-
-			case 'discover':
-				// pattern for Discover
-				$pattern = '/^6(?:011|5[0-9]{2})[0-9]{12}$/';
-
-				// if pattern doesn't match
-				if ( !preg_match( $pattern, $data['card_num'] ) ) {
-					$error_result = '1';
-					$error['card'] = wfMsg( 'payflowpro_gateway-error-msg-discover' );
-				}
-
-				break;
-
-
-
-		} // end switch
+		}
+		
 		return $error_result;
 	}
 
