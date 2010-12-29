@@ -295,7 +295,7 @@ EOT;
 			'city' => wfMsg( 'payflowpro_gateway-error-msg-city' ),
 			'state' => wfMsg( 'payflowpro_gateway-error-msg-state' ),
 			'zip' => wfMsg( 'payflowpro_gateway-error-msg-zip' ),
-			'card_num' => wfMsg( 'payflowpro_gateway-error-msg-card_num' ),
+			'card_num' => wfMsg( 'payflowpro_gateway-error-msg-card-num' ),
 			'expiration' => wfMsg( 'payflowpro_gateway-error-msg-expiration' ),
 			'cvv' => wfMsg( 'payflowpro_gateway-error-msg-cvv' ),
 		);
@@ -329,32 +329,17 @@ EOT;
 		}
 
 		// validate that credit card number entered is correct and set the card type
-		switch( $data[ 'card_num' ] ) {
-			// american express
-			case preg_match( '/^3[47][0-9]{13}$/', $data[ 'card_num' ] ):
-				$data[ 'card' ] = 'american';
-				break;
-
-			//	mastercard
-			case preg_match( '/^5[1-5][0-9]{14}$/', $data[ 'card_num' ] ):
-				$data[ 'card' ] = 'mastercard';
-				break;
-			
-			// visa
-			case preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $data[ 'card_num' ] ):
-				$data[ 'card' ] = 'visa';
-				break;
-				
-			// discover
-			case preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $data[ 'card_num' ] ):
-				$data[ 'card' ] = 'discover';
-				break;
-
-			// an invalid credit card number was entered
-			default:
-				$error_result = '1';
-				$error[ 'card_num' ] = wfMsg( 'payflowpro_gateway-error-msg-card-num' );
-				break;
+		if ( preg_match( '/^3[47][0-9]{13}$/', $data[ 'card_num' ] ) ) { // american express
+			$data[ 'card' ] = 'american';
+		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $data[ 'card_num' ] ) ) { //	mastercard
+			$data[ 'card' ] = 'mastercard';
+		} elseif ( preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $data[ 'card_num' ] ) ) {// visa
+			$data[ 'card' ] = 'visa';
+		} elseif ( preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $data[ 'card_num' ] ) ) { // discover
+			$data[ 'card' ] = 'discover';
+		} else { // an invalid credit card number was entered
+			$error_result = '1';
+			$error[ 'card_num' ] = wfMsg( 'payflowpro_gateway-error-msg-card-num' );
 		}
 		
 		return $error_result;

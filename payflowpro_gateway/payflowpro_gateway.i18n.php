@@ -60,7 +60,6 @@ $messages['en'] = array(
 	'payflowpro_gateway-error-msg-state' => 'state',
 	'payflowpro_gateway-error-msg-zip' => 'postal code',
 	'payflowpro_gateway-error-msg-country' => 'country',
-	'payflowpro_gateway-error-msg-card_num' => 'credit card number',
 	'payflowpro_gateway-error-msg-expiration' => "card's expiration date",
 	'payflowpro_gateway-error-msg-cvv' => 'CVV from the back of your card',
 	'payflowpro_gateway-error-msg-captcha' => "The Captcha value you entered is incorrect.  Please try again.",
