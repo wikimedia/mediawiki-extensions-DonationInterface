@@ -58,9 +58,9 @@ function loadPlaceholders() {
 addEvent( window, 'load', loadPlaceholders );
 
 function formCheck( ccform ) {
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip', 'CardNum', 'Cvv' ];
 
-	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv" ],
+	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
 		numFields = fields.length,
 		i,
 		output = '',
@@ -87,6 +87,11 @@ function formCheck( ccform ) {
 	}
 	if (document.getElementById('zip').value == '$zip') {
 		output += payflowproGatewayErrorMsgJs + ' zip code.\\r\\n';
+	}
+	
+	var stateField = document.getElementById( 'state' );
+	if( stateField.options[stateField.selectedIndex].value == '' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\\r\\n';
 	}
 
 	// validate email address

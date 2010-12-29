@@ -137,7 +137,7 @@ abstract class PayflowProGateway_Form {
 	 * 	(see http://us.php.net/asort)
 	 * @return string
 	 */
-	public function generateCountryDropdown( $defaultCountry = 840 ) {
+	public function generateCountryDropdown( $defaultCountry = null ) {
 		$country_options = '';
 
 		// create a new array of countries with potentially translated country names for alphabetizing later
@@ -163,9 +163,9 @@ abstract class PayflowProGateway_Form {
 			'select',
 			array(
 				'name' => 'country',
-				'id' => 'country',
-				'onchange' => 'return disableStates( this )'
+				'id' => 'country'
 			) );
+		$country_menu .= Xml::option( wfMsg( 'payflowpro_gateway-select-country' ), '', false );
 		$country_menu .= $country_options;
 		$country_menu .= Xml::closeElement( 'select' );
 

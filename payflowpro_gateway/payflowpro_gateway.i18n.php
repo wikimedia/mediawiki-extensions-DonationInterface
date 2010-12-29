@@ -62,6 +62,7 @@ $messages['en'] = array(
 	'payflowpro_gateway-error-msg-city' => 'city',
 	'payflowpro_gateway-error-msg-state' => 'state',
 	'payflowpro_gateway-error-msg-zip' => 'postal code',
+	'payflowpro_gateway-error-msg-country' => 'country',
 	'payflowpro_gateway-error-msg-card_num' => 'credit card number',
 	'payflowpro_gateway-error-msg-expiration' => "card's expiration date",
 	'payflowpro_gateway-error-msg-cvv' => 'CVV from the back of your card',
@@ -142,7 +143,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-zip-postal-code' => 'Zip/Postal code',
 	'payflowpro_gateway-billing-code' => 'Billing zip',
 	'payflowpro_gateway-country' => 'Country',
-	'payflowpro_gateway-select-country' => 'Select country',
+	'payflowpro_gateway-select-country' => 'Select a country',
 	'payflowpro_gateway-confirm-email' => 'Confirm e-mail',
 	'payflowpro_gateway-phone' => 'Phone',
 	'payflowpro_gateway-telephone' => 'Telephone',
@@ -217,7 +218,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-on-the-back' => 'With this on the back:',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
-	'payflowpro_gateway-state-dropdown-YY'   => 'Select a State',
+	'payflowpro_gateway-state-dropdown-YY'   => 'Select a state',
 	'payflowpro_gateway-state-dropdown-XX' => 'Outside the U.S.',
 );
 

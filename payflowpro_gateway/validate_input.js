@@ -40,20 +40,28 @@ function switchToCreditCard() {
 }
 
 function validate_form( form ) {
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'State', 'Zip', 'CardNum', 'Cvv' ];
-
-	var fields = ["emailAdd","fname","lname","street","city","state","zip","card_num","cvv" ],
-		numFields = fields.length,
-		i,
-		output = '',
-		currField = '';
-
+	var output = '';
+	var currField = '';
+	var i = 0;
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip', 'CardNum', 'Cvv' ];
+	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
+		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
 			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
 			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
 		}
 	}
+	var stateField = document.getElementById( 'state' );
+	var countryField = document.getElementById( 'country' );
+	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+	}
+	if( countryField.options[countryField.selectedIndex].value == '' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+	}
+	output += "State:" + stateField.options[stateField.selectedIndex].value + '.\r\n';
+	output += "Country:" + countryField.options[countryField.selectedIndex].value + '.\r\n';
 
 	//set state to "outside us"
 	if ( document.payment.country.value != '840' ) {
