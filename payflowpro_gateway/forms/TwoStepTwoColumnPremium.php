@@ -22,10 +22,12 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
+		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), "Your t-shirt will be shipped in the size and language below:" );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-values' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-size' ) );
-		$form .= wfMsg( 'payflowpro_gateway-shirt-size-2', $wgRequest->getText( 'size' ) );
+		$sizeDisplay = '<span id="size-display">'.$wgRequest->getText( 'size' ).'</span>';
+		$form .= wfMsg( 'payflowpro_gateway-shirt-size-2', $sizeDisplay );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-size
 		$form .= wfMsg( 'payflowpro_gateway-on-the-back' ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-language' ) );

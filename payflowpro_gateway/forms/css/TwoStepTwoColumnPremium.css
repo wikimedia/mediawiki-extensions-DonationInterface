@@ -1,12 +1,19 @@
 #premium-confirmation {
 	text-align: center;
 }
-#premium-values {
+#premium-header {
 	font-size: 1.2em;
 	font-weight: bold;
+	margin: 0.2em 0 0.8em 0;
+}
+#premium-values {
+	font-size: 1.2em;
 }
 #premium-size {
 	margin: 0.2em 0;
+}
+#premium-size #size-display {
+	font-weight: bold;
 }
 #premium-language {
 	text-align: center;
