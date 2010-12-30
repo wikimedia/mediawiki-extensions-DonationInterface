@@ -15,6 +15,10 @@
 	height: 92px;
 	margin: 0 auto;
 }
+#premium-language img {
+	display: block;
+	margin: 0;
+}
 
 .payflow-cc-form-section {
         float: none;
