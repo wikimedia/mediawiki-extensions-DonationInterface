@@ -1285,55 +1285,55 @@ EOT;
 	public function convert_to_usd( $currency_code, $amount ) {
 		switch ( strtoupper( $currency_code ) ) {
 			case 'USD':
-				$usd_amount = $amount * 1;
+				$usd_amount = $amount / 1;
 				break;
 			case 'GBP':
-				$usd_amount = $amount * 1;
+				$usd_amount = $amount / 1;
 				break;
 			case 'EUR':
-				$usd_amount = $amount * 1;
+				$usd_amount = $amount / 1;
 				break;
 			case 'AUD':
-				$usd_amount = $amount * 2;
+				$usd_amount = $amount / 2;
 				break;
 			case 'CAD':
-				$usd_amount = $amount * 1;
+				$usd_amount = $amount / 1;
 				break;
 			case 'CHF':
-				$usd_amount = $amount * 1;
+				$usd_amount = $amount / 1;
 				break;
 			case 'CZK':
-				$usd_amount = $amount * 20;
+				$usd_amount = $amount / 20;
 				break;
 			case 'DKK':
-				$usd_amount = $amount * 5;
+				$usd_amount = $amount / 5;
 				break;
 			case 'HKD':
-				$usd_amount = $amount * 10;
+				$usd_amount = $amount / 10;
 				break;
 			case 'HUF':
-				$usd_amount = $amount * 200;
+				$usd_amount = $amount / 200;
 				break;
 			case 'JPY':
-				$usd_amount = $amount * 100;
+				$usd_amount = $amount / 100;
 				break;
 			case 'NZD':
-				$usd_amount = $amount * 2;
+				$usd_amount = $amount / 2;
 				break;
 			case 'NOK':
-				$usd_amount = $amount * 10;
+				$usd_amount = $amount / 10;
 				break;
 			case 'PLN':
-				$usd_amount = $amount * 5;
+				$usd_amount = $amount / 5;
 				break;
 			case 'SGD':
-				$usd_amount = $amount * 2;
+				$usd_amount = $amount / 2;
 				break;
 			case 'SEK':
-				$usd_amount = $amount * 10;
+				$usd_amount = $amount / 10;
 				break;
 			case 'ILS':
-				$usd_amount = $amount * 5;
+				$usd_amount = $amount / 5;
 				break;
 			default:
 				$usd_amount = $amount;
