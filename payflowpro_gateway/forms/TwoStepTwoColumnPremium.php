@@ -29,7 +29,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= Xml::closeElement( 'div' );  // close div#premium-size
 		$form .= wfMsg( 'payflowpro_gateway-on-the-back' ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-language' ) );
-		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '150', 'height' => '90' ) );
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/wordmarks/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '150', 'height' => '90' ) );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-language
 		$form .= Xml::closeElement( 'div' );  // close div#premium-values
 		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
