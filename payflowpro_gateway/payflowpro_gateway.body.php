@@ -313,8 +313,8 @@ EOT;
 
 		// check amount
 		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data[ 'amount' ] ) || 
-			( (float) $this->convert_to_usd( $data[ 'currency_code' ], $data[ 'amount' ] ) <= (float) $wgPayflowPriceFloor || 
-				(float) $this->convert_to_usd( $data[ 'currency_code' ], $data[ 'amount' ] ) >= (float) $wgPayflowPriceCieling ) ) {
+			( (float) $this->convert_to_usd( $data[ 'currency' ], $data[ 'amount' ] ) <= (float) $wgPayflowPriceFloor || 
+				(float) $this->convert_to_usd( $data[ 'currency' ], $data[ 'amount' ] ) >= (float) $wgPayflowPriceCieling ) ) {
 			$error['invalidamount'] = wfMsg( 'payflowpro_gateway-error-msg-invalid-amount' );
 			$error_result = '1';
 		}
