@@ -213,6 +213,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'payflowpro_gateway-thank-you' => 'Thank you! Your donation has been received.',
 	'payflowpro_gateway-wikipedia-translation' => 'Please note: "Wikipedia" on the shirt sleeve will be the "Wikipedia 10" graphic, which is not translated.',
 	'payflowpro_gateway-on-the-back' => 'With this on the back:',
+	'payflowpro_gateway-tshirt-confirmation' => 'Your t-shirt will be shipped in the size and language below:',
 
 	// For more USA states, see payflowpro_gateway.us-states.i18n.php.
 	'payflowpro_gateway-state-dropdown-YY'   => 'Select a state',

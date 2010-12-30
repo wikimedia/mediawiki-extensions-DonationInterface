@@ -22,7 +22,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
-		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), "Your t-shirt will be shipped in the size and language below:" );
+		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), wfMsg( 'payflowpro_gateway-tshirt-confirmation' ) );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-values' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-size' ) );
