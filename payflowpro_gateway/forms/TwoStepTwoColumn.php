@@ -57,10 +57,6 @@ function formCheck( ccform ) {
 	if (document.getElementById('lname').value == '$last') {
 		output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
 	}
-	var stateField = document.getElementById( 'state' );
-	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\\r\\n';
-	}
 	var countryField = document.getElementById( 'country' );
 	if( countryField.options[countryField.selectedIndex].value == '' ) {
 		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\\r\\n';
