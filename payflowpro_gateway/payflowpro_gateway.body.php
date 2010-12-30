@@ -295,7 +295,7 @@ EOT;
 			'city' => wfMsg( 'payflowpro_gateway-error-msg-city' ),
 			'state' => wfMsg( 'payflowpro_gateway-error-msg-state' ),
 			'zip' => wfMsg( 'payflowpro_gateway-error-msg-zip' ),
-			'card_num' => wfMsg( 'payflowpro_gateway-error-msg-card-num' ),
+			'card_num' => wfMsg( 'payflowpro_gateway-error-msg-card_num' ),
 			'expiration' => wfMsg( 'payflowpro_gateway-error-msg-expiration' ),
 			'cvv' => wfMsg( 'payflowpro_gateway-error-msg-cvv' ),
 		);
