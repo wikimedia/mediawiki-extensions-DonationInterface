@@ -1031,7 +1031,7 @@ EOT;
 				'city2' => $wgRequest->getText( 'city' ),
 				'state2' => $wgRequest->getText( 'state' ),
 				'zip2' => $wgRequest->getText( 'zip' ),
-				'country2' => $wgRequest->getText( 'country' ),
+				'country2' => $wgRequest->getText( 'country2', $wgRequest->getText( 'country' ) ),
 				'size' => $wgRequest->getText( 'size' ),
 				'premium_language' => $wgRequest->getText( 'premium_language', "en" ),
 				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),

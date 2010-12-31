@@ -142,7 +142,24 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		$form .= $this->getZipField();
 
 		// country
-		$form .= $this->getCountryField();
+		$form .= $this->getCountryField( $this->form_data[ 'country2' ] );
+		
+		/*
+		$form .= '<tr>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg"></span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td colspan="2"><label for="shipping"><input id="shipping" name="shipping" type="checkbox" checked="checked"/> '.wfMsg( 'payflowpro_gateway-shipping-address-same' ).'</label></td>';
+	    $form .= '</tr>';
+		
+		$form .= '<tr>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country2'] . '</span></td>';
+		$form .= '</tr>';
+		$form .= '<tr>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country2' ) . '</td>';
+		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
+		$form .= '</tr>';
+		*/
 
 		return $form;
 	}
@@ -157,6 +174,9 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremium extends PayflowProGateway_F
 		foreach ( $hidden_fields as $field => $value ) {
 			$form .= Html::hidden( $field, $value );
 		}
+		
+		// Temporary
+		$form .= Html::hidden( 'country2', $this->form_data[ 'country2' ] );
 
 		$form .= Xml::closeElement( 'form' ); // close form 'payment'
 		$form .= $this->generateDonationFooter();
