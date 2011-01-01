@@ -6,7 +6,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnPremiumUS extends PayflowProGateway
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath() ) ) {
-			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnPremium.css' );
+			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnPremiumUS.css' );
 		}
 
 		parent::__construct( $form_data, $form_errors );
@@ -318,5 +318,46 @@ EOT;
 		$form .= Xml::closeElement( 'tr' );
 		$form .= Xml::closeElement( 'table' );
 		return $form;
+	}
+	
+	public function generateDonationFooter() {
+		global $wgScriptPath;
+		$form = '';
+		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
+		$form .= Xml::tags( 'div', array( 'style' => 'text-align:center;' ), '* * *' );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-alt' ) );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
+		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
+		return $form;
+	}
+	
+	public function generateStateDropdown() {
+		require_once( dirname( __FILE__ ) . '/../includes/stateAbbreviations.inc' );
+
+		$states = statesMenuXML();
+
+		$state_opts = Xml::option( '', '' );
+
+		// generate dropdown of state opts
+		foreach ( $states as $value => $state_name ) {
+			if ( $value !== 'YY' && $value !== 'XX' ) {
+				$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
+				$state_opts .= Xml::option( $value, $value, $selected );
+			}
+		}
+
+		$state_menu = Xml::openElement(
+			'select',
+			array(
+				'name' => 'state',
+				'id' => 'state'
+			) );
+		$state_menu .= $state_opts;
+		$state_menu .= Xml::closeElement( 'select' );
+
+		return $state_menu;
 	}
 }
