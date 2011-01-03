@@ -1257,6 +1257,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-wikipedia-translation' => 'Калі ласка, заўважце: слова «Wikipedia» на рукаве майкі нанесеная ў выглядзе сымбалю «Wikipedia 10», які ня будзе перакладзены.',
 	'payflowpro_gateway-on-the-back' => 'Пры гэтым на звароце:',
 	'payflowpro_gateway-tshirt-confirmation' => 'Вам будзе дасланая майка наступнага памеру з надпісам на наступнай мове:',
+	'payflowpro_gateway-donation-tshirt' => 'Ахвяраваньне (можаце атрымаць майку)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Выбраць штат',
 	'payflowpro_gateway-state-dropdown-XX' => 'Не ў ЗША',
 );
@@ -2393,6 +2394,7 @@ $messages['cy'] = array(
 	'payflowpro_gateway-error-msg-js' => "Rhaid rhoi'r wybodaeth ganlynol:",
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Gofalwch osod swm dilys**',
 	'payflowpro_gateway-error-msg-email' => '**Gofalwch osod cyfeiriad e-bost dilys**',
+	'payflowpro_gateway-error-msg-card-num' => "**Rhowch rif cerdyn credyd dilys yn perthyn i un o'r mathau o gardiau credyd a dderbynnir**",
 	'payflowpro_gateway-error-msg-amex' => '**Gofalwch osod rhif cywir ar gyfer cerdyn American Express.**',
 	'payflowpro_gateway-error-msg-mc' => '**Gofalwch osod rhif cywir ar gyfer cerdyn MasterCard.**',
 	'payflowpro_gateway-error-msg-visa' => '**Gofalwch osod rhif cywir ar gyfer cerdyn Visa.**',
@@ -2554,8 +2556,13 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 	'payflowpro_gateway-shipping-address' => 'Cyfeiriad derbyn y nwyddau',
 	'payflowpro_gateway-shipping-address-different' => "Mae'r cyfeiriad derbyn y nwyddau yn wahanol i'r cyfeiriad codi tâl.",
 	'payflowpro_gateway-shipping-address-same' => 'Yr un cyfeiriad sydd i dderbyn y nwyddau ag sydd i godi tâl.',
+	'payflowpro_gateway-only-billing-address' => 'Sylwer y gallwn anfon crysau at eich cyfeiriad codi tâl yn unig.',
+	'payflowpro_gateway-donation-must-equal' => 'Rhaid rhoi $1 neu ragor.',
 	'payflowpro_gateway-thank-you' => 'Diolch yn fawr! Mae eich rhodd wedi cael ei derbyn.',
+	'payflowpro_gateway-wikipedia-translation' => 'Sylwer: Mae\'r gair "Wikipedia" ar lawes y crys yn cael ei ysgrifennu gyda\'r graffeg "Wikipedia 10", ac ni chaiff hwn ei gyfieithu.',
+	'payflowpro_gateway-on-the-back' => 'Ar y cefn bydd hyn:',
 	'payflowpro_gateway-tshirt-confirmation' => "Fe gaiff crys T ei anfon atoch, o'r maint canlynol ac yn yr iaith ganlynol:",
+	'payflowpro_gateway-donation-tshirt' => "Rhodd (gyda'r cynnig crys T)",
 	'payflowpro_gateway-state-dropdown-YY' => 'Dewiswch Dalaith',
 	'payflowpro_gateway-state-dropdown-XX' => "Y tu allan i'r Unol Daleithiau",
 );
@@ -6229,6 +6236,7 @@ $messages['ka'] = array(
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-thankyou' => 'გმადლობთ შეწირვისათვის!',
 	'payflowpro_gateway-submit-button' => 'შეწირულობები',
+	'payflowpro_gateway-other' => 'სხვა',
 );
 
 /** Khmer (ភាសាខ្មែរ)
