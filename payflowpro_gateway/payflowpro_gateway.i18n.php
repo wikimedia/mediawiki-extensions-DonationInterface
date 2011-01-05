@@ -7234,6 +7234,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-error-msg-js' => 'ദയവായി താങ്കൾ നൽകുക',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**ദയവായി സാധുവായ ഒരു തുക നൽകുക**',
 	'payflowpro_gateway-error-msg-email' => '**ദയവായി സാധുവായ ഇമെയിൽ വിലാസം നൽകുക**',
+	'payflowpro_gateway-error-msg-card-num' => '**ദയവായി സ്വീകരിക്കുന്ന ഇനത്തിൽ പെടുന്ന, സാധുവായ ക്രെഡിറ്റ് കാർഡ് നമ്പർ നൽകുക**',
 	'payflowpro_gateway-error-msg-amex' => '**ദയവായി അമേരിക്കൻ എക്സ്‌‌പ്രസ്സിന്റെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
 	'payflowpro_gateway-error-msg-mc' => '**ദയവായി മാസ്റ്റർ കാർഡിന്റെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
 	'payflowpro_gateway-error-msg-visa' => '**ദയവായി വീസയുടെ ശരിയായ കാർഡ് നമ്പർ നൽകുക.**',
@@ -7246,6 +7247,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-error-msg-city' => 'പട്ടണം',
 	'payflowpro_gateway-error-msg-state' => 'സംസ്ഥാനം',
 	'payflowpro_gateway-error-msg-zip' => 'സിപ് അല്ലെങ്കിൽ പിൻകോഡ്',
+	'payflowpro_gateway-error-msg-country' => 'രാജ്യം',
 	'payflowpro_gateway-error-msg-card_num' => 'ക്രെഡിറ്റ് കാർഡ് നമ്പർ',
 	'payflowpro_gateway-error-msg-expiration' => 'കാർഡിന്റെ കാലാവധി തീരുന്ന തീയതി',
 	'payflowpro_gateway-error-msg-cvv' => 'കാർഡിന്റെ പിന്നിൽ നിന്നും CVV',
@@ -7382,9 +7384,24 @@ $messages['ml'] = array(
 	'payflowpro_gateway-monthly-donation' => 'മാസംതോറും സംഭാവന നൽകുക.',
 	'payflowpro_gateway-via-paypal' => '(പേപാൽ വഴി)',
 	'payflowpro_gateway-shirt-size' => 'ടി-ഷർട്ടിന്റെ വലിപ്പം:',
+	'payflowpro_gateway-shirt-size-2' => 'ടി-ഷർട്ടിന്റെ വലിപ്പം: $1',
 	'payflowpro_gateway-language' => 'ഭാഷ:',
 	'payflowpro_gateway-front' => 'മുൻഭാഗം',
 	'payflowpro_gateway-back' => 'പിൻഭാഗം',
+	'payflowpro_gateway-front-of-shirt' => 'കുപ്പായത്തിന്റെ മുൻഭാഗം',
+	'payflowpro_gateway-back-of-shirt' => 'കുപ്പായത്തിന്റെ പിൻഭാഗം',
+	'payflowpro_gateway-select-a-size' => 'ദയവായി സൈസ് തിരഞ്ഞെടുക്കുക.',
+	'payflowpro_gateway-select' => 'വലിപ്പം:',
+	'payflowpro_gateway-shipping-address' => 'അയച്ചുതരേണ്ട വിലാസം',
+	'payflowpro_gateway-shipping-address-different' => 'എനിക്ക് അയച്ചുതരേണ്ട വിലാസം എന്റെ ബില്ലിങ് വിലാസത്തിൽ നിന്നും വ്യത്യസ്തമാണ്.',
+	'payflowpro_gateway-shipping-address-same' => 'ബില്ലിങ് വിലാസം തന്നെയാണ് അയച്ചുതരേണ്ട വിലാസവും.',
+	'payflowpro_gateway-only-billing-address' => 'കുപ്പായങ്ങൾ താങ്കളുടെ ബില്ലിങ് വിലാസത്തിലേയ്ക്കു മാത്രമേ അയക്കാൻ നിർവ്വാഹമുള്ളു.',
+	'payflowpro_gateway-donation-must-equal' => 'സംഭാവന തുക $1-നു തുല്യമോ കൂടുതലോ ആയിരിക്കണം.',
+	'payflowpro_gateway-thank-you' => 'നന്ദി! താങ്കളുടെ സംഭാവന കൈപ്പറ്റിയിരിക്കുന്നു.',
+	'payflowpro_gateway-wikipedia-translation' => 'ദയവായി ശ്രദ്ധിക്കുകൾ: "Wikipedia 10" ചിത്രത്തിലെ "Wikipedia" പരിഭാഷപ്പെടുത്താൻ കഴിയില്ല.',
+	'payflowpro_gateway-on-the-back' => 'പിൻഭാഗത്ത് ഇപ്രകാരമുണ്ടായിരിക്കും:',
+	'payflowpro_gateway-tshirt-confirmation' => 'താങ്കൾക്ക് അയക്കുന്ന ടീ-ഷർട്ട് താഴെ കൊടുക്കുന്ന വലിപ്പത്തിലും ഭാഷയിലുമാണുണ്ടാവുക:',
+	'payflowpro_gateway-donation-tshirt' => 'സംഭാവന (ടി-ഷർട്ട് സൗജന്യസൗകര്യം)',
 	'payflowpro_gateway-state-dropdown-YY' => 'സംസ്ഥാനം തിരഞ്ഞെടുക്കുക',
 	'payflowpro_gateway-state-dropdown-XX' => 'അമേരിക്കൻ ഐക്യനാടുകളല്ല',
 );
@@ -7670,6 +7687,7 @@ In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet 
 
 /** Dutch (Nederlands)
  * @author Als-Holder
+ * @author Mihxil
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -7708,6 +7726,7 @@ $messages['nl'] = array(
 	'payflowpro_gateway-error-msg-js' => 'Het volgende veld is verplicht:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Voer alstublieft een geldig bedrag in**',
 	'payflowpro_gateway-error-msg-email' => '**Voer alstublieft een geldig e-mailadres in**',
+	'payflowpro_gateway-error-msg-card-num' => '**Vul een geldig creditcardnummer in van één van de geaccepteerde creditcardsoorten**',
 	'payflowpro_gateway-error-msg-amex' => '**Voer alstublieft een geldig kaartnummer voor  American Express in.**',
 	'payflowpro_gateway-error-msg-mc' => '**Voer alstublieft een geldig kaartnummer voor Mastercard in.**',
 	'payflowpro_gateway-error-msg-visa' => '**Voer alstublieft een geldig kaartnummer voor Visa in.**',
@@ -7867,9 +7886,13 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'payflowpro_gateway-select' => 'Maat:',
 	'payflowpro_gateway-shipping-address' => 'Afleveradres',
 	'payflowpro_gateway-shipping-address-different' => 'Mijn afleveradres is anders dan mijn factuuradres.',
+	'payflowpro_gateway-shipping-address-same' => 'Afleveradres hetzelfde als factuuradres.',
+	'payflowpro_gateway-only-billing-address' => 'Shirts kunnen alleen worden verzonden naar uw factuuradres.',
 	'payflowpro_gateway-donation-must-equal' => 'Donatie moet groter of gelijk zijn aan $1.',
 	'payflowpro_gateway-thank-you' => 'Bedankt! Uw donatie is ontvangen.',
+	'payflowpro_gateway-wikipedia-translation' => ' Let op: "Wikipedia" op de mouw zal een afbeelding "Wikipedia 10" zijn, die niet is vertaald.',
 	'payflowpro_gateway-on-the-back' => 'Met dit op de achterkant:',
+	'payflowpro_gateway-tshirt-confirmation' => 'Je t-shirt zal worden verzonden in de volgende maat en taal:',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selecteer een staat',
 	'payflowpro_gateway-state-dropdown-XX' => 'Buiten de VS',
 );
