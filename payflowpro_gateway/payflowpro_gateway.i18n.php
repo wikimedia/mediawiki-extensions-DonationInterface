@@ -6204,6 +6204,7 @@ $messages['ja'] = array(
 
 /** Georgian (ქართული)
  * @author BRUTE
+ * @author David1010
  * @author Temuri rajavi
  */
 $messages['ka'] = array(
@@ -6251,7 +6252,27 @@ $messages['ka'] = array(
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-thankyou' => 'გმადლობთ შეწირვისათვის!',
 	'payflowpro_gateway-submit-button' => 'შეწირულობები',
+	'payflowpro_gateway-make-your-donation' => 'გაიღე  თანხა ახლავე',
 	'payflowpro_gateway-other' => 'სხვა',
+	'payflowpro_gateway-or' => 'ან',
+	'payflowpro_gateway-title' => 'სათაური',
+	'payflowpro_gateway-city-town' => 'ქალაქი',
+	'payflowpro_gateway-town-city' => 'ქალაქი',
+	'payflowpro_gateway-state-province' => 'შტატი/პროვინცია',
+	'payflowpro_gateway-zip' => 'ზიპ',
+	'payflowpro_gateway-zip-code' => 'ზიპ კოდი',
+	'payflowpro_gateway-zip-postal' => 'ზიპ/საფოსტო',
+	'payflowpro_gateway-zip-postal-code' => 'ზიპ/საფოსტო ინდექსი',
+	'payflowpro_gateway-country' => 'ქვეყანა',
+	'payflowpro_gateway-select-country' => 'ქვეყნის არჩევა',
+	'payflowpro_gateway-confirm-email' => 'დაადასტურეთ ი-მეილი',
+	'payflowpro_gateway-phone' => 'ტელეფონი',
+	'payflowpro_gateway-telephone' => 'ტელეფონი',
+	'payflowpro_gateway-telephone-home' => 'ტელ. (სახლი)',
+	'payflowpro_gateway-what-is-this' => 'რა არის ეს?',
+	'payflowpro_gateway-front' => 'წინ',
+	'payflowpro_gateway-back' => 'უკან',
+	'payflowpro_gateway-select' => 'ზომა:',
 );
 
 /** Khmer (ភាសាខ្មែរ)
@@ -7522,10 +7543,8 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 $messages['mt'] = array(
 	'payflowprogateway' => 'Sostni lill-Wikipedija',
 	'payflowpro_gateway-accessible' => 'Din il-paġna hi aċċessibbli biss mill-paġna tad-donazzjoni.',
-	'payflowpro_gateway-form-message' => "Uża l-formola t'hawn taħt biex tagħmel donazzjoni permezz tal-karta tal-kreditu, jew",
 	'payflowpro_gateway-paypal-button' => "Agħmel donazzjoni permezz ta' PayPal",
 	'payflowpro_gateway-cc-button' => 'Agħmel donazzjoni permezz tal-karta tal-kreditu',
-	'payflowpro_gateway-form-message-2' => 'Biex tbiddel l-ammont jew il-valuta, irritorna lura lejn il-<a href="/index.php?title=Donate">paġna ta\' donazzjoni</a>',
 	'payflowpro_gateway-donor-legend' => 'Informazzjoni fuq id-donatur',
 	'payflowpro_gateway-card-legend' => 'Informazzjoni fuq il-karta tal-kreditu',
 	'payflowpro_gateway-amount-legend' => "Ammont ta' donazzjoni:",
@@ -7569,7 +7588,7 @@ $messages['mt'] = array(
 	'payflowpro_gateway-error-msg-card_num' => 'numru tal-karta tal-kreditu',
 	'payflowpro_gateway-error-msg-expiration' => "data ta' skadenza tal-karta tal-kreditu",
 	'payflowpro_gateway-error-msg-cvv' => "CVV min-naħa ta' wara tal-karta",
-	'payflowpro_gateway-error-msg-captcha' => "Il-valur Captcha li daħħalt huwa ħażin. Jekk jogħġbok erġa' pprova.",
+	'payflowpro_gateway-error-msg-captcha' => "Il-valur tal-Captcha li daħħalt huwa ħażin. Jekk jogħġbok erġa' pprova.",
 	'payflowpro_gateway-error-msg-captcha-please' => 'Għas-sigurtà tal-karta tal-kreditu tiegħek, jekk jogħġbok ikteb il-karattri li jidhru hawn fuq.',
 	'payflowpro_gateway-response-0' => 'It-transazzjoni tiegħek ġiet approvata.
 Grazzi tad-donazzjoni tiegħek!',
@@ -7894,6 +7913,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'payflowpro_gateway-wikipedia-translation' => 'Let op: "Wikipedia" op de mouw is de afbeelding "Wikipedia 10". Dit wordt niet vertaald.',
 	'payflowpro_gateway-on-the-back' => 'Met dit op de achterkant:',
 	'payflowpro_gateway-tshirt-confirmation' => 'Uw t-shirt wordt geleverd in de volgende maat en taal:',
+	'payflowpro_gateway-donation-tshirt' => 'Donatie (T-shirtaanbod)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selecteer een staat',
 	'payflowpro_gateway-state-dropdown-XX' => 'Buiten de VS',
 );
@@ -9776,6 +9796,7 @@ $messages['sah'] = array(
 	'payflowpro_gateway-error-msg-city' => 'куората',
 	'payflowpro_gateway-error-msg-state' => 'регион (штаат)',
 	'payflowpro_gateway-error-msg-zip' => 'индекс',
+	'payflowpro_gateway-error-msg-country' => 'дойду',
 	'payflowpro_gateway-error-msg-card_num' => 'кирэдьиит каартатын нүөмэрэ',
 	'payflowpro_gateway-error-msg-expiration' => 'каартатын болдьоҕо',
 	'payflowpro_gateway-error-msg-cvv' => 'каарта кэннинээҕи CVV куода',
@@ -9794,6 +9815,7 @@ $messages['sah'] = array(
 	'payflowpro_gateway-question-comment' => 'Ыйытыы эбэтэр этии баар дуо? Манна суруй <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Кирэдьиит каартаҥ көмүскэллээх эрэсиимҥэ танастаныа',
 	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Сиэртибэ атын көрүҥнэрэ</a> эмиэ бааллар, холобур PayPal, чек, почта.',
+	'payflowpro_gateway-otherways-alt' => 'Сиэртибэлээһини <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">атынннык эмиэ оҥоруохха</a> сөп, ол иһигэр баан чиэгинэн.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Сиэртибэни ыытыы атын көрүҥнэрэ</a>',
 	'payflowpro_gateway-paypal' => 'PayPal тиһиликкэ бэлиэтэммитиҥ дуо? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPal нөҥүө сиэртибэлээһин</a>.',
 	'payflowpro_gateway-credit-storage-processing' => 'Эн кредиткаҥ туһунан ханна да хаалбат, оттон эн тус бэйэҥ тускунан информацияны <a href="http://wikimediafoundation.org/wiki/Политика_конфиденциальности_жертвователей">кистээһин сиэрэ</a> хааччахтыыр.',
@@ -9889,6 +9911,19 @@ $messages['sah'] = array(
 	'payflowpro_gateway-please-complete' => 'Сиэртибэ туһунан суруй эрэ...',
 	'payflowpro_gateway-description' => 'Быһаарыыта',
 	'payflowpro_gateway-donation' => 'Сиэртибэлээһин',
+	'payflowpro_gateway-language' => 'Тыла:',
+	'payflowpro_gateway-front' => 'Иннэ',
+	'payflowpro_gateway-back' => 'Кэннэ',
+	'payflowpro_gateway-front-of-shirt' => 'Футболка иннэ',
+	'payflowpro_gateway-back-of-shirt' => 'Футболка кэннэ',
+	'payflowpro_gateway-select-a-size' => 'Бука диэн, размергын тал',
+	'payflowpro_gateway-select' => 'Размер:',
+	'payflowpro_gateway-shipping-address' => 'Почта аадырыһа',
+	'payflowpro_gateway-shipping-address-different' => 'Почтам аадырыһа төлүүр аадырыспыттан ураты.',
+	'payflowpro_gateway-shipping-address-same' => 'Почтам аадырыһа төлүүр сирим аадырыһын кытта биир.',
+	'payflowpro_gateway-only-billing-address' => 'Төлүүр сир аадырыһыгар эрэ ыытыллыан сөп.',
+	'payflowpro_gateway-donation-must-equal' => 'Сиэртибэ кээмэйэ мантан $1 кыра буолуо суохтаах.',
+	'payflowpro_gateway-thank-you' => 'Махтанабыт! Сиэртибэҥ киирдэ.',
 	'payflowpro_gateway-state-dropdown-YY' => 'Региоҥҥун тал',
 	'payflowpro_gateway-state-dropdown-XX' => 'АХШ таһыгар',
 );
