@@ -45,6 +45,8 @@ $wgExtensionMessagesFiles['PayflowProGatewayCountries'] = $dir . 'payflowpro_gat
 $wgExtensionMessagesFiles['PayflowProGatewayUSStates'] = $dir . 'payflowpro_gateway.us-states.i18n.php';
 $wgExtensionAliasesFiles['PayflowProGateway'] = $dir . 'payflowpro_gateway.alias.php';
 $wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
+$wgSpecialPages['HideBanners'] = 'SpecialHideBanners';
+$wgAutoloadClasses['SpecialHideBanners'] = $dir . 'SpecialHideBanners.php';
 $wgAjaxExportList[] = "fnPayflowProofofWork";
 
 
