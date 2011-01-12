@@ -285,6 +285,7 @@ This message comes before any one of a number of messages which are the names of
 An alternative to 'field' in the translation could be 'information'.
 
 This is an error message which appears if one or more of the above fields is left empty.",
+	'payflowpro_gateway-error-msg-card-num' => 'The stars are to attract attention to the message in a drop-down box. The stars are not interpreted as wiki code when in use in the extension.',
 	'payflowpro_gateway-error-msg-emailAdd' => '{{Identical|E-mail address}}',
 	'payflowpro_gateway-error-msg-street' => '{{Identical|Street}}',
 	'payflowpro_gateway-error-msg-city' => '{{Identical|City}}',
@@ -3866,6 +3867,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Cbrown1023
  * @author Centerlink
  * @author Crt
  * @author Nike
@@ -3878,10 +3880,8 @@ $messages['fi'] = array(
 	'payflowprogateway' => 'Tee lahjoituksesi nyt',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro -luottokorttikäsittely.',
 	'payflowpro_gateway-accessible' => 'Tämä sivu on käytettävissä vain lahjoitussivulta.',
-	'payflowpro_gateway-form-message' => 'Voit lahjoittaa luottokortilla käyttäen alla olevaa lomaketta, tai',
 	'payflowpro_gateway-paypal-button' => 'Lahjoita PayPalin kautta',
 	'payflowpro_gateway-cc-button' => 'Lahjoita luottokortilla',
-	'payflowpro_gateway-form-message-2' => 'Muuttaaksesi summaa tai valuuttaa, palaa <a href="/index.php?title=Donate">lahjoitussivulle</a>',
 	'payflowpro_gateway-donor-legend' => 'Lahjoittajan tiedot',
 	'payflowpro_gateway-card-legend' => 'Luottokortin tiedot',
 	'payflowpro_gateway-amount-legend' => 'Lahjoitusmäärä',
@@ -3967,8 +3967,8 @@ Joissain tapauksissa numero sijaitsee kortin vasemmalla puolella, mutta se on ai
 	'payflowpro_gateway-make-your-donation' => 'Tee lahjoituksesi nyt',
 	'payflowpro_gateway-state-in-us' => 'jos olet Yhdysvalloissa',
 	'payflowpro_gateway-comment' => 'Kommentti',
-	'payflowpro_gateway-first' => 'Ensimmäinen',
-	'payflowpro_gateway-last' => 'Viimeinen',
+	'payflowpro_gateway-first' => 'Etunimi',
+	'payflowpro_gateway-last' => 'Sukunimi',
 	'payflowpro_gateway-other' => 'Muu',
 	'payflowpro_gateway-noscript-msg' => 'Näyttää siltä, että et ole ottanut JavaScriptiä käyttöön, tai selaimesi ei tue sitä.
 Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomakkeemme vaatii JavaScriptin.',
@@ -6249,15 +6249,16 @@ $messages['ja'] = array(
 /** Georgian (ქართული)
  * @author BRUTE
  * @author David1010
+ * @author Dawid Deutschland
  * @author Temuri rajavi
  */
 $messages['ka'] = array(
-	'payflowprogateway' => 'მხარი დაუჭირეთ ვიკიმედიას',
+	'payflowprogateway' => 'გაიღე  თანხა ახლავე',
 	'payflowpro_gateway-accessible' => 'ეს გვერდი ხელმისაწვდომია მხოლოდ შემოწირულობის გვერდიდან.',
 	'payflowpro_gateway-donor-legend' => 'ინფორმაცია დონორზე',
 	'payflowpro_gateway-card-legend' => 'საკრედიტო ბარათის ინფორმაცია',
 	'payflowpro_gateway-amount-legend' => 'შემოწირულობის თანხა:',
-	'payflowpro_gateway-cvv-link' => 'მაგალითი',
+	'payflowpro_gateway-cvv-link' => 'სად არის?',
 	'payflowpro_gateway-donor-amount' => 'თანხა:',
 	'payflowpro_gateway-donor-currency-label' => 'ვალუტა',
 	'payflowpro_gateway-donor-email' => 'იმეილის მისამართი:',
@@ -6296,10 +6297,24 @@ $messages['ka'] = array(
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-thankyou' => 'გმადლობთ შეწირვისათვის!',
 	'payflowpro_gateway-submit-button' => 'შეწირულობები',
+	'payflowpro_gateway-cc-form-header-personal' => 'პირადი ინფორმაცია',
+	'payflowpro_gateway-cc-form-header-payment' => 'ინფორმაცია გადასახადზე',
 	'payflowpro_gateway-make-your-donation' => 'გაიღე  თანხა ახლავე',
+	'payflowpro_gateway-comment' => 'კომენტარი',
+	'payflowpro_gateway-first' => 'პირველი',
+	'payflowpro_gateway-middle' => 'შუა',
+	'payflowpro_gateway-last' => 'ბოლო',
 	'payflowpro_gateway-other' => 'სხვა',
+	'payflowpro_gateway-donate-wikipedia' => 'შემოსწირე ვიკიპედიას',
 	'payflowpro_gateway-or' => 'ან',
+	'payflowpro_gateway-your-information' => 'შენი ინფორმაცია',
 	'payflowpro_gateway-title' => 'სათაური',
+	'payflowpro_gateway-company-name' => 'კომპანიისა ან ორგანიზაციის სახელი',
+	'payflowpro_gateway-address-1' => 'მისამართი 1',
+	'payflowpro_gateway-address-2' => 'მისამართი 2',
+	'payflowpro_gateway-street-address' => 'ქუჩის მისამართი',
+	'payflowpro_gateway-street-1' => 'ქუჩა 1',
+	'payflowpro_gateway-street-2' => 'ქუჩა 2',
 	'payflowpro_gateway-city-town' => 'ქალაქი',
 	'payflowpro_gateway-town-city' => 'ქალაქი',
 	'payflowpro_gateway-state-province' => 'შტატი/პროვინცია',
@@ -6313,7 +6328,19 @@ $messages['ka'] = array(
 	'payflowpro_gateway-phone' => 'ტელეფონი',
 	'payflowpro_gateway-telephone' => 'ტელეფონი',
 	'payflowpro_gateway-telephone-home' => 'ტელ. (სახლი)',
+	'payflowpro_gateway-expires-question' => 'ვადა?',
+	'payflowpro_gateway-expires' => 'ვადა',
+	'payflowpro_gateway-cvv' => 'CVV',
+	'payflowpro_gateway-cvv-number-abbreviated' => 'CCV-№.',
+	'payflowpro_gateway-cvv2' => 'CVV2',
+	'payflowpro_gateway-cvv-number' => 'CVV-ნომერი',
 	'payflowpro_gateway-what-is-this' => 'რა არის ეს?',
+	'payflowpro_gateway-next' => 'შემდეგი',
+	'payflowpro_gateway-continue' => 'გაგრძელება',
+	'payflowpro_gateway-cancel' => 'გაუქმება',
+	'payflowpro_gateway-payment' => 'გადახდა',
+	'payflowpro_gateway-payment-type' => 'გადახდის სახე',
+	'payflowpro_gateway-description' => 'აღწერა',
 	'payflowpro_gateway-front' => 'წინ',
 	'payflowpro_gateway-back' => 'უკან',
 	'payflowpro_gateway-select' => 'ზომა:',
