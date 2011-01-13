@@ -1421,10 +1421,12 @@ $messages['ja'] = array(
 );
 
 /** Georgian (ქართული)
+ * @author Dawid Deutschland
  * @author Temuri rajavi
  */
 $messages['ka'] = array(
 	'donate_interface' => 'მხარი დაუჭირე ვიკიმედიას',
+	'donate_interface-amount' => 'შემოწირულობის თანხა:',
 	'donate_interface-currency' => 'ვალუტა:',
 	'donate_interface-gateway' => 'გადახდის მეთოდი:',
 	'donate_interface-submit-button' => 'შემოწე',
