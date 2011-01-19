@@ -22,8 +22,8 @@ class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
-		$first = wfMsg( 'payflowpro_gateway-first' );
-		$last = wfMsg( 'payflowpro_gateway-last' );
+		$first = wfMsg( 'payflowpro_gateway-donor-fname' );
+		$last = wfMsg( 'payflowpro_gateway-donor-lname' );
 		$other = wfMsg( 'payflowpro_gateway-other' );
 		$js = <<<EOT
 <script type="text/javascript">
