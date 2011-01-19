@@ -3699,7 +3699,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-cvv-link' => 'کجا است؟',
 	'payflowpro_gateway-donor-amount' => 'مبلغ:',
 	'payflowpro_gateway-donor-currency-label' => 'واحد پول:',
-	'payflowpro_gateway-donor-email' => 'نشانی رایانامه:',
+	'payflowpro_gateway-donor-email' => 'نشانی پست الکترونیکی:',
 	'payflowpro_gateway-donor-name' => 'نام:',
 	'payflowpro_gateway-donor-fname' => 'نام:',
 	'payflowpro_gateway-donor-mname' => 'نام میانی:',
@@ -3741,7 +3741,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-response-0' => 'انتقال وجه شما تأیید شده است.
 تشکر از کمک مالی شما!',
 	'payflowpro_gateway-response-126' => 'انتقال وجه شما در انتظار تأیید است.',
-	'payflowpro_gateway-response-126-2' => 'برخی از اطلاعاتی که ارائه کردید با پروندهٔ کارت اعتباری‌تان همخوانی نداشت، یا آنکه هدیهٔ بسیار بزرگی اهداء کردید. برای امنیت خودتان، کمک مالی شما هم‌اکنون در حال بازبینی است، و اگر ما نتوانستیم کمک مالی شما را نهایی کنیم، از طریق رایانشانی (نشانی رایانامه) ارائه‌شده به شما خبر خواهیم داد. اگر سوالی دارید، لطفاً به ما رایانامه‌اش <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> کنید. سپاسگذاریم',
+	'payflowpro_gateway-response-126-2' => 'برخی از اطلاعاتی که ارائه کردید با پروندهٔ کارت اعتباری‌تان همخوانی نداشت، یا آنکه هدیهٔ بسیار بزرگی اهداء کردید. برای امنیت خودتان، کمک مالی شما هم‌اکنون در حال بازبینی است، و اگر ما نتوانستیم کمک مالی شما را نهایی کنیم، از طریق نشانی پست الکترونیکی ارائه‌شده به شما خبر خواهیم داد. اگر سوالی دارید، لطفاً به ما پست الکترونیکی <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> بفرستید. سپاسگذاریم',
 	'payflowpro_gateway-response-12' => 'لطفاً با شرکت کارت اعتباری برای اطلاعات بیش‌تر تماس بگیرید.',
 	'payflowpro_gateway-response-13' => 'انتقال وجه شما به مجوز صوتی نیاز دارد.
 لطفاً برای ادامهٔ انتقال وجه با ما تماس بگیرید.',
@@ -3813,7 +3813,7 @@ $messages['fa'] = array(
 	'payflowpro_gateway-billing-code' => 'نشانی پستی صدور صورت حساب',
 	'payflowpro_gateway-country' => 'کشور',
 	'payflowpro_gateway-select-country' => 'کشور را انتخاب کنید',
-	'payflowpro_gateway-confirm-email' => 'تأیید رایانامه',
+	'payflowpro_gateway-confirm-email' => 'تأیید پست الکترونیکی',
 	'payflowpro_gateway-phone' => 'تلفن',
 	'payflowpro_gateway-telephone' => 'تلفن',
 	'payflowpro_gateway-telephone-home' => 'تلفن (منزل)',
