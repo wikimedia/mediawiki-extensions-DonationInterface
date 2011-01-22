@@ -207,7 +207,7 @@ $messages['az'] = array(
 	'donate_interface-ILS' => 'ILS: İsrail şekeli',
 );
 
-/** Bashkir (Башҡорт)
+/** Bashkir (Башҡортса)
  * @author Assele
  * @author Haqmar
  */
@@ -247,7 +247,7 @@ $messages['ba'] = array(
 	'donate_interface-ILS' => 'ILS: Израиль шекеле',
 );
 
-/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  */
@@ -2536,7 +2536,7 @@ Na voljo ni nobenega obdelovalca.',
 	'donate_interface-ILS' => 'ILS: izraelski šekel',
 );
 
-/** Serbian Cyrillic ekavian (Српски (ћирилица))
+/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
@@ -2547,7 +2547,7 @@ $messages['sr-ec'] = array(
 	'donate_interface-JPY' => 'JPY: Јапански јен',
 );
 
-/** Serbian Latin ekavian (Srpski (latinica)) */
+/** Serbian Latin ekavian (‪Srpski (latinica)‬) */
 $messages['sr-el'] = array(
 	'donate_interface-EUR' => 'EUR: Evro',
 	'donate_interface-USD' => 'USD: Američki dolar',
