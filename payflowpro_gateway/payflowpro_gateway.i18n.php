@@ -1725,6 +1725,7 @@ A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant Jav
 	'payflowpro_gateway-donation-must-equal' => 'An donezon a rank bezañ $1 pe ouzhpenn.',
 	'payflowpro_gateway-thank-you' => "Trugarez deoc'h ! Resevet eo bet ho tonezon.",
 	'payflowpro_gateway-on-the-back' => 'Gant an dra-mañ war ar penn-adreñv :',
+	'payflowpro_gateway-tshirt-confirmation' => "Kaset e vo an tee-shirt deoc'h gant ar vent hag ar yezh amañ dindan :",
 	'payflowpro_gateway-donation-tshirt' => 'Donezon (tee-shirt profet)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Dibab ur Stad',
 	'payflowpro_gateway-state-dropdown-XX' => 'Er-maez SUA',
@@ -6617,6 +6618,13 @@ Versöhk et schpääder noch ens.',
 	'payflowpro_gateway-donate-click' => 'Wann De op „{{int:Payflowpro gateway-submit-button}}“ jekleck häs, wääde Ding Kredittkaatedaate beärbeit.',
 	'payflowpro_gateway-credit-storage-processing' => 'Mer sellver donn Ding Kreddittkaetdaate nit faßhallde, un för Ding päsöönlesch Daate ham_mer uns
 <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Rääjelle för der Daateschotz un de Jeheimhaldung</a>.',
+);
+
+/** Kurdish (Latin) (Kurdî (Latin))
+ * @author George Animal
+ */
+$messages['ku-latn'] = array(
+	'payflowpro_gateway-donor-city' => 'Bajarr',
 );
 
 /** Luxembourgish (Lëtzebuergesch)

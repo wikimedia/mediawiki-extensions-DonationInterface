@@ -1504,6 +1504,7 @@ $messages['ko'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'donate_interface-submit-button' => 'Schpände!',
 	'donate_interface-GBP' => 'GBP: Änglesche Pongk',
 	'donate_interface-EUR' => 'EUR: Euros',
 	'donate_interface-USD' => 'USD:  Dollars uß de USA',
