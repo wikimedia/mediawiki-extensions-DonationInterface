@@ -1455,12 +1455,36 @@ $messages['ka'] = array(
  * @author គីមស៊្រុន
  */
 $messages['km'] = array(
+	'donate_interface' => 'គាំទ្រវិគីមេឌា',
+	'donate_interface-intro' => 'សូមជ្រើសរើសរបៀបបង់ប្រាក់ ចំនួនទឹកប្រាក់ និង ឯកតា។',
+	'donate_interface-amount' => 'ចំនួនទឹកប្រាក់បរិច្ចាគ៖',
+	'donate_interface-other-amount' => 'ចំនួនទឹកប្រាក់ផ្សេងទៀត',
+	'donate_interface-currency' => 'ឯកតា៖',
+	'donate_interface-gateway' => 'របៀបបង់ប្រាក់៖',
+	'donate_interface-submit-button' => 'បរិច្ចាគ',
+	'donate_interface-comment-message' => 'តើអ្នកមានគំនិតសំរាប់ចែកចាយអោយពិភពលោកដឹងលឺទេ? សូមសរសេរនៅទៅនេះ (មិនលើសពី២០០អក្សរ)៖',
+	'donate_interface-comment-label' => 'យោបល់៖',
+	'donate_interface-anon-message' => 'សូមដាក់ឈ្មោះខ្ញុំ (នៅក្បែរយោបល់ខ្ញុះ) នៅលើបញ្ជីអ្នកបរិច្ចាគសាធារណៈ។',
+	'donate_interface-email-agreement' => 'ខ្ញុំយល់ស្របក្នុងការទទួលយកការបន្ទាន់សម័យណាមួយពីមូលនិធិវិគីមេឌា។',
+	'donate_interface-comment-title' => 'យោបល់សាធារណៈ',
+	'donate_interface-amount-error' => '**សូមបំពេញចំនួនទឹកប្រាក់អោយបានត្រឹមត្រូវ**',
 	'donate_interface-GBP' => 'GBP៖ ផោនអង់គ្លេស',
 	'donate_interface-EUR' => 'EUR៖ យូរ៉ូ',
 	'donate_interface-USD' => 'USD៖ ដុល្លារអាមេរិក',
 	'donate_interface-AUD' => 'AUD៖ ដុល្លារអូស្ត្រាលី',
 	'donate_interface-CAD' => 'CAD៖ ដុល្លារកាណាដា',
+	'donate_interface-CHF' => 'CHF: ហ្រង់ស្វីស',
+	'donate_interface-CZK' => 'CZK: កូរុណាឆែក',
+	'donate_interface-DKK' => 'DKK: ក្រូណេដាណឺម៉ាក',
+	'donate_interface-HKD' => 'HKD: ដុល្លារហុងកុង',
+	'donate_interface-HUF' => 'HUF: ហ្វរីនហុងគ្រី',
 	'donate_interface-JPY' => 'JPY៖ យ៉េនជប៉ុន',
+	'donate_interface-NZD' => 'NZD: ដុល្លារញូហ្សៀលែន',
+	'donate_interface-NOK' => 'NOK: ក្រូណេណរវេយ',
+	'donate_interface-PLN' => 'PLN: ស្លូទីប៉ូឡូញ',
+	'donate_interface-SGD' => 'SGD: ដុល្លាសិង្ហបុរី',
+	'donate_interface-SEK' => 'SEK: ក្រូណាស៊ុយអែដ',
+	'donate_interface-ILS' => 'ILS: ស្សិកែលអ៊ីស្រាអែល',
 );
 
 /** Korean (한국어)
