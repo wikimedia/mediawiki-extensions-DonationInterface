@@ -11228,6 +11228,7 @@ $messages['te'] = array(
 	'payflowpro_gateway-donation' => 'విరాళం',
 	'payflowpro_gateway-monthly-donation' => 'నెలవారీ విరాళమివ్వండి',
 	'payflowpro_gateway-via-paypal' => '(పేపాల్ ద్వారా)',
+	'payflowpro_gateway-language' => 'భాష:',
 	'payflowpro_gateway-state-dropdown-YY' => 'రాష్ట్రాన్ని ఎంచుకోండి',
 	'payflowpro_gateway-state-dropdown-XX' => 'అమెరికా బయట',
 );
