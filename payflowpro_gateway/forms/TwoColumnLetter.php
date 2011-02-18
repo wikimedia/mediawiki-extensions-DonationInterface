@@ -118,7 +118,7 @@ class PayflowProGateway_Form_TwoColumnLetter extends PayflowProGateway_Form_OneS
 				$form .= Html::hidden( 'PaypalRedirect', 0 );
 				$form .= Xml::tags( 'div',
 						array(),
-						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" ) ) . '&nbsp;&nbsp;&nbsp;<a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" ) ) . '&#160;&#160;&#160;<a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
 					);
 				$form .= '</td>';
 				$form .= '</tr>';

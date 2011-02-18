@@ -173,7 +173,7 @@ EOT;
 		// submit button
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		// $form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
-		$form .= '&nbsp;<br/>' . Xml::element( 'input', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png", 'alt' => 'Submit donation', 'type' => 'image' ) );
+		$form .= '&#160;<br/>' . Xml::element( 'input', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png", 'alt' => 'Submit donation', 'type' => 'image' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . 'Your credit / debit card will be securely processed.';
