@@ -10040,6 +10040,14 @@ $messages['sah'] = array(
 	'payflowpro_gateway-thankyou' => 'Сиэртибэлээбитиҥ иһин махтанабыт!',
 	'payflowpro_gateway-post-transaction' => 'Транзакция туһунан',
 	'payflowpro_gateway-submit-button' => 'Төлүүргэ',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV диэн тугуй?</h4>
+<p>Куттал суох буолуутун куода (CVV, Cardholder Verification Value) үс эбэтэр түөрт сыыппараттан турар уонна карточка төлүүр киһиэхэ дьиҥнээхтик баарын туоһулуур. Көҥүлэ суох туттууну уонна түөкүннээһини суох гынарга көмөлөһөр.</p>
+<h4>Visa, Mastercard</h4>
+<p>Үс сыыппараах куод каарта кэтэҕэр, илии баттыыр сир аттыгар баар.
+Үкчугэр онно элбэх сыппара баар буолар, олортон бүтэһик үһэ CVV сыыппаралара.</p>
+<h4>American Express</h4>
+<p>Куод <i>куруук</i> счет нүөмэрин <i>үрдүгэр</i> баар буолар, каарта илин өттүгэр.
+Сороҕор каарта хаҥас өттүгэр баар буолар, ол эрээри счет нүөмэриттэн куруук үөһэ.</p><br />',
 	'payflowpro_gateway-question-comment' => 'Ыйытыы эбэтэр этии баар дуо? Манна суруй <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Кирэдьиит каартаҥ көмүскэллээх эрэсиимҥэ танастаныа',
 	'payflowpro_gateway-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Сиэртибэ атын көрүҥнэрэ</a> эмиэ бааллар, холобур PayPal, чек, почта.',
@@ -12299,7 +12307,32 @@ $messages['vo'] = array(
  * @author פוילישער
  */
 $messages['yi'] = array(
-	'payflowprogateway' => 'שטיצט וויקימעדיע',
+	'payflowprogateway' => 'גיט אײַער נדבה אַצינד',
+	'payflowpro_gateway-donor-amount' => 'סכום:',
+	'payflowpro_gateway-donor-currency-label' => 'וואַלוטע:',
+	'payflowpro_gateway-donor-email' => 'בליצפּאָסט אַדרעס',
+	'payflowpro_gateway-donor-name' => 'נאָמען',
+	'payflowpro_gateway-donor-fname' => 'ערשטער נאָמען',
+	'payflowpro_gateway-donor-mname' => 'מיטלער נאָמען',
+	'payflowpro_gateway-donor-lname' => 'משפחה נאָמען',
+	'payflowpro_gateway-donor-street' => 'גאַס',
+	'payflowpro_gateway-donor-city' => 'שטאָט',
+	'payflowpro_gateway-donor-state' => 'שטאַט',
+	'payflowpro_gateway-donor-postal' => 'פאסט קאד',
+	'payflowpro_gateway-donor-country' => 'לאַנד/ראַיאן',
+	'payflowpro_gateway-donor-address' => 'אַדרעס',
+	'payflowpro_gateway-donor-card' => 'קרעדיט קאַרטל',
+	'payflowpro_gateway-donor-card-num' => 'קרעדיט־קאַרטל נומער',
+	'payflowpro_gateway-donor-expiration' => 'גילטיק ביז',
+	'payflowpro_gateway-donor-security' => 'זיכערהייטס קאד',
+	'payflowpro_gateway-donor-submit' => 'נדבה',
+	'payflowpro_gateway-donor-currency-msg' => 'דאס בייַשטייַער ווערט געמאַכט אין $1',
+	'payflow_gateway-error-msg-nopaypal' => 'צוליב א טעכנישן אויסגליטש, קענען מיר נישט שיקן אײַער ביטע צו PayPal. זײַט אַזוי גוט און פרובירט ניצן אונזער קרעדיט־קאַרטל בײַשטײַערן פֿארעם.',
+	'payflowpro_gateway-error-msg' => 'ביטא אײַנגעבן אײַער $1',
+	'payflowpro_gateway-error-msg-zip' => 'פאסט קאד',
+	'payflowpro_gateway-error-msg-country' => 'לאַנד',
+	'payflowpro_gateway-error-msg-card_num' => 'קרעדיט־קאַרטל נומער',
+	'payflowpro_gateway-error-msg-expiration' => 'גילטיק ביז',
 );
 
 /** Cantonese (粵語) */

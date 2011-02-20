@@ -3009,6 +3009,7 @@ $messages['yi'] = array(
 	'donate_interface-CHF' => 'CHF: שווייצער פֿראַנק',
 	'donate_interface-CZK' => 'CZK: טשעכישע קאָרונע',
 	'donate_interface-DKK' => 'DKK: דענישע קראנע',
+	'donate_interface-SEK' => 'SEK: שוועדישע קראנע',
 	'donate_interface-ILS' => 'ILS: ישראלדיקער שקל',
 );
 
