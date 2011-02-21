@@ -8449,7 +8449,13 @@ $messages['pdc'] = array(
 	'payflowpro_gateway-donor-country' => 'Land/Gegend:',
 	'payflowpro_gateway-donor-address' => 'Adress:',
 	'payflowpro_gateway-error-msg-lname' => 'Familie-Naame',
+	'payflowpro_gateway-or' => 'odder',
+	'payflowpro_gateway-phone' => 'Foohn',
+	'payflowpro_gateway-telephone' => 'Foohn-Nummer',
+	'payflowpro_gateway-telephone-home' => 'Foohn (deheem)',
 	'payflowpro_gateway-next' => 'Neegschte',
+	'payflowpro_gateway-language' => 'Schprooch:',
+	'payflowpro_gateway-select' => 'Grees:',
 );
 
 /** Pälzisch (Pälzisch)

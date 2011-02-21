@@ -2065,6 +2065,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
  * @author Xqt
  */
 $messages['pdc'] = array(
+	'donate_interface-comment-label' => 'Aamaerricking:',
 	'donate_interface-GBP' => 'GBP: Britisch Pfund',
 	'donate_interface-EUR' => 'EUR: Eiro',
 	'donate_interface-USD' => 'USD: U.S. Dollar',
