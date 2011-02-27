@@ -6752,6 +6752,7 @@ Versöhk et schpääder noch ens.',
 	'payflowpro_gateway-donate-click' => 'Wann De op „{{int:Payflowpro gateway-submit-button}}“ jekleck häs, wääde Ding Kredittkaatedaate beärbeit.',
 	'payflowpro_gateway-credit-storage-processing' => 'Mer sellver donn Ding Kreddittkaetdaate nit faßhallde, un för Ding päsöönlesch Daate ham_mer uns
 <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">Rääjelle för der Daateschotz un de Jeheimhaldung</a>.',
+	'payflowpro_gateway-state-dropdown-XX' => 'Ußerhallef vun de USA',
 );
 
 /** Kurdish (Latin) (Kurdî (Latin))
