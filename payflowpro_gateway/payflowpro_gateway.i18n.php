@@ -1341,6 +1341,7 @@ $messages['bg'] = array(
 
 /** Bengali (বাংলা)
  * @author Bellayet
+ * @author Ehsanulhb
  * @author Wikitanvir
  */
 $messages['bn'] = array(
@@ -1517,6 +1518,7 @@ $messages['bn'] = array(
 	'payflowpro_gateway-cancel' => 'বাতিল',
 	'payflowpro_gateway-payment' => 'পরিশোধ',
 	'payflowpro_gateway-payment-type' => 'পরিশোধের ধরন',
+	'payflowpro_gateway-description' => 'বিবরণ',
 	'payflowpro_gateway-state-dropdown-YY' => 'প্রদেশ নির্বাচন করুন',
 	'payflowpro_gateway-state-dropdown-XX' => 'যুক্তরাষ্ট্রের বাইরে',
 );
