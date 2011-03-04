@@ -113,7 +113,7 @@ EOT;
 		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'process', 0 )) {
 			self::log( $payflow_data[ 'order_id' ] . " Transaction initiated." );			
 		} else {
-			self::log( $payflow_data[ 'order_id' ] . " Initial credit card form request.", 'payflowpro_gateway', LOG_DEBUG );
+			self::log( $payflow_data[ 'order_id' ] . " " . $payflow_data[ 'i_order_id' ] . " Initial credit card form request.", 'payflowpro_gateway', LOG_DEBUG );
 		}
 
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
