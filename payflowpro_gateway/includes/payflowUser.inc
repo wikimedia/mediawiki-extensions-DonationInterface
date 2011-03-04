@@ -32,9 +32,30 @@ function payflowUser() {
 }
 
 /**
- * Return a mostly random number for an 'order id'
+ * Fetch and return the 'order_id' for a transaction
  * @return int
  */
 function payflowGetOrderId() {
-	return (double) microtime() * 1000000 . mt_rand(); // Generate random order number
+	global $wgRequest;
+	
+	// is an order_id already set?
+	$order_id = $wgRequest->getText( 'order_id', 0 );
+	
+	// if the form was not just posted OR there's no order_id set, generate one.
+	if ( !$wgRequest->wasPosted() || !$order_id ) {
+		$order_id = generateOrderId();
+	}
+	
+	return $order_id;
+}
+
+/**
+ * Generate an order id
+ * 
+ * Since transactions to PayPal are initially matched internally on their end
+ * with the 'order_id' field, but we don't actually care what the order id is,
+ * we generate a sufficiently random number to avoid duplication. 
+ */
+function generateOrderId() {
+	return (double) microtime() * 1000000 . mt_rand();
 }

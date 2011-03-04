@@ -111,27 +111,41 @@ EOT;
 
 		// make a log entry if the user has submitted the cc form
 		if ( $wgRequest->wasPosted() && $wgRequest->getText( 'process', 0 )) {
-			self::log( $payflow_data[ 'order_id' ] . " Transaction initiated." );
+			self::log( $payflow_data[ 'order_id' ] . " Transaction initiated." );			
+		} else {
+			self::log( $payflow_data[ 'order_id' ] . " Initial credit card form request.", 'payflowpro_gateway', LOG_DEBUG );
 		}
 
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $wgRequest->getText( '_cache_', false ) ) {
+			self::log( $payflow_data[ 'order_id' ] . " Cache requested", 'payflowpro_gateway', LOG_DEBUG );
 			$cache = true;
 			$token = '';
 			$token_match = false;
 
 			// if we have squid caching enabled, set the maxage
 			global $wgUseSquid, $wgPayflowSMaxAge;
-			if ( $wgUseSquid ) $wgOut->setSquidMaxage( $wgPayflowSMaxAge );
+			if ( $wgUseSquid ) {
+				self::log( $payflow_data[ 'order_id' ] . " Setting s-max-age: " . $wgPayflowSMaxAge, 'payflowpro_gateway', LOG_DEBUG );
+				$wgOut->setSquidMaxage( $wgPayflowSMaxAge );	
+			}
 		} else {
 			$cache = false;
 
 			// establish the edit token to prevent csrf
 			$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
-
+			
+			self::log( $payflow_data[ 'order_id' ] . " fnPayflowEditToken: " . $token, 'payflowpro_gateway', LOG_DEBUG );
+			if ( $wgRequest->wasPosted() ) {
+				self::log( $payflow_data[ 'order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
+			}
+			
 			// match token
 			$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
 			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
+			if ( !$cache ) {
+				self:log( $payflow_data[ 'order_id' ] . "Token match: " . $token_match );
+			}
 		}
 
 		$this->setHeaders();
@@ -152,8 +166,8 @@ EOT;
 
 		// dispatch forms/handling
 		if ( $token_match ) {
-
 			if ( $data['payment_method'] == 'processed' ) {
+				
 				// increase the count of attempts
 				++$data['numAttempt'];
 
