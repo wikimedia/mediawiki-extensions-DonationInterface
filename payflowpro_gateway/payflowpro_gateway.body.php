@@ -142,7 +142,7 @@ EOT;
 			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
 			if ( $wgRequest->wasPosted() ) {
 				self::log( $payflow_data[ 'order_id' ] .  " " . $payflow_data[ 'i_order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
-				self::log( $payflow_data[ 'order_id' ] . " " . $payflow_data[ 'i_order_id' ] . " Token match: " . $token_match, 'payflowpro_gateway', LOG_DEBUG );
+				self::log( $payflow_data[ 'order_id' ] . " " . $payflow_data[ 'i_order_id' ] . " Token match: " . ($token_match ? 'true' : 'false' ), 'payflowpro_gateway', LOG_DEBUG );
 			}
 		}
 
@@ -505,19 +505,24 @@ EOT;
 		
 		// if approved, display results and send transaction to the queue
 		if ( $errorCode == '1' ) {
+			self::log( $data[ 'order_id' ] . " " . $data[ 'i_order_id' ] . " Transaction approved.", 'payflowpro_gateway', LOG_DEBUG );
 			$this->fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg );
 			// give user a second chance to enter incorrect data
 		} elseif ( ( $errorCode == '3' ) && ( $data['numAttempt'] < '5' ) ) {
+			self::log( $data[ 'order_id' ] . " " . $data[ 'i_order_id' ] . " Transaction unsuccessful (invalid info).", 'payflowpro_gateway', LOG_DEBUG );
 			// pass responseMsg as an array key as required by displayForm
-				$this->errors['retryMsg'] = $responseMsg;
-				$this->fnPayflowDisplayForm( $data, $this->errors );
+			$this->errors['retryMsg'] = $responseMsg;
+			$this->fnPayflowDisplayForm( $data, $this->errors );
 			// if declined or if user has already made two attempts, decline
 		} elseif ( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
-				$this->fnPayflowDisplayDeclinedResults( $responseMsg );
+			self::log( $data[ 'order_id' ] . " " . $data[ 'i_order_id' ] . " Transaction declined.", 'payflowpro_gateway', LOG_DEBUG );
+			$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 		} elseif ( ( $errorCode == '4' ) ) {
-				$this->fnPayflowDisplayOtherResults( $responseMsg );
+			self::log( $data[ 'order_id' ] . " " . $data[ 'i_order_id' ] . " Transaction unsuccessful.", 'payflowpro_gateway', LOG_DEBUG );
+			$this->fnPayflowDisplayOtherResults( $responseMsg );
 		} elseif ( ( $errorCode == '5' ) ) {
-				$this->fnPayflowDisplayPending( $data, $responseArray, $responseMsg );
+			self::log( $data[ 'order_id' ] . " " . $data[ 'i_order_id' ] . " Transaction pending.", 'payflowpro_gateway', LOG_DEBUG );
+			$this->fnPayflowDisplayPending( $data, $responseArray, $responseMsg );
 		}
 
 	}// end display results
