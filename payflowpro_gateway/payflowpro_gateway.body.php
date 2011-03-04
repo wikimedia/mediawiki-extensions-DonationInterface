@@ -118,7 +118,7 @@ EOT;
 
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $wgRequest->getText( '_cache_', false ) ) {
-			self::log( $payflow_data[ 'order_id' ] . " Cache requested", 'payflowpro_gateway', LOG_DEBUG );
+			self::log( $payflow_data[ 'order_id' ] . " " . $payflow_data[ 'i_order_id' ] . " Cache requested", 'payflowpro_gateway', LOG_DEBUG );
 			$cache = true;
 			$token = '';
 			$token_match = false;
@@ -126,7 +126,7 @@ EOT;
 			// if we have squid caching enabled, set the maxage
 			global $wgUseSquid, $wgPayflowSMaxAge;
 			if ( $wgUseSquid ) {
-				self::log( $payflow_data[ 'order_id' ] . " Setting s-max-age: " . $wgPayflowSMaxAge, 'payflowpro_gateway', LOG_DEBUG );
+				self::log( $payflow_data[ 'order_id' ] .  " " . $payflow_data[ 'i_order_id' ] . " Setting s-max-age: " . $wgPayflowSMaxAge, 'payflowpro_gateway', LOG_DEBUG );
 				$wgOut->setSquidMaxage( $wgPayflowSMaxAge );	
 			}
 		} else {
@@ -135,21 +135,21 @@ EOT;
 			// establish the edit token to prevent csrf
 			$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
 			
-			self::log( $payflow_data[ 'order_id' ] . " fnPayflowEditToken: " . $token, 'payflowpro_gateway', LOG_DEBUG );
+			self::log( $payflow_data[ 'order_id' ] .  " " . $payflow_data[ 'i_order_id' ] . " fnPayflowEditToken: " . $token, 'payflowpro_gateway', LOG_DEBUG );
 			
 			// match token
 			$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
 			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
 			if ( $wgRequest->wasPosted() ) {
-				self::log( $payflow_data[ 'order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
-				self::log( $payflow_data[ 'order_id' ] . "Token match: " . $token_match );
+				self::log( $payflow_data[ 'order_id' ] .  " " . $payflow_data[ 'i_order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
+				self::log( $payflow_data[ 'order_id' ] . " " . $payflow_data[ 'i_order_id' ] . " Token match: " . $token_match, 'payflowpro_gateway', LOG_DEBUG );
 			}
 		}
 
 		$this->setHeaders();
 
 		// Populate form data
-		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'] );
+		$data = $this->fnGetFormData( $amount, $numAttempt, $token, $payflow_data['order_id'], $payflow_data['i_order_id'] );
 
 		/**
 		 *  handle PayPal redirection
@@ -953,7 +953,7 @@ EOT;
 	 * Provides a way to prepopulate the form with test data using $wgPayflowGatewayTest
 	 * @return array
 	 */
-	public function fnGetFormData( $amount, $numAttempt, $token, $order_id ) {
+	public function fnGetFormData( $amount, $numAttempt, $token, $order_id, $i_order_id=0 ) {
 		global $wgPayflowGatewayTest, $wgRequest;
 
 		// fetch ID for the url reference for OWA tracking
@@ -1006,6 +1006,7 @@ EOT;
 				'currency' => 'USD',
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'order_id' => $order_id,
+				'i_order_id' => $i_order_id,
 				'numAttempt' => $numAttempt,
 				'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
 				'utm_source' => self::getUtmSource(),
@@ -1053,6 +1054,7 @@ EOT;
 				'currency' => $wgRequest->getText( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'order_id' => $order_id,
+				'i_order_id' => $i_order_id,
 				'numAttempt' => $numAttempt,
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => self::getUtmSource(),

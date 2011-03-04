@@ -148,7 +148,7 @@ class ApiPayflowProGateway extends ApiBase {
 		// this try/catch design pattern stolen from ClickTracking/ApiSpecialClickTracking.php
 		try {
 			// add dynamic elements to result object
-			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'orderid', $order_id );
+			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'order_id', $order_id );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'token', $token );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'contribution_tracking_id', $contribution_tracking_id );
 			$this->getResult()->addValue( array( 'dynamic_form_elements' ), 'tracking_data', $tracking_data );

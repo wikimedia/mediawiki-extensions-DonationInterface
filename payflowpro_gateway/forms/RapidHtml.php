@@ -33,7 +33,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		'@cvv', // => $wgRequest->getText( 'cvv' ),
 		'@currency_code', //'currency' => $wgRequest->getText( 'currency_code' ),
 		'@payment_method', // => $wgRequest->getText( 'payment_method' ),
-		'@orderid', // => $order_id,
+		'@order_id', // => $order_id,
 		'@numAttempt', // => $numAttempt,
 		'@referrer', // => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 		'@utm_source', // => self::getUtmSource(),
