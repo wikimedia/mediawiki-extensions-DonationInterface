@@ -136,14 +136,12 @@ EOT;
 			$token = self::fnPayflowEditToken( $wgPayflowGatewaySalt );
 			
 			self::log( $payflow_data[ 'order_id' ] . " fnPayflowEditToken: " . $token, 'payflowpro_gateway', LOG_DEBUG );
-			if ( $wgRequest->wasPosted() ) {
-				self::log( $payflow_data[ 'order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
-			}
 			
 			// match token
 			$token_check = ( $wgRequest->getText( 'token' ) ) ? $wgRequest->getText( 'token' ) : $token;
 			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
-			if ( !$cache ) {
+			if ( $wgRequest->wasPosted() ) {
+				self::log( $payflow_data[ 'order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
 				self:log( $payflow_data[ 'order_id' ] . "Token match: " . $token_match );
 			}
 		}
