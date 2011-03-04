@@ -142,7 +142,7 @@ EOT;
 			$token_match = $this->fnPayflowMatchEditToken( $token_check, $wgPayflowGatewaySalt );
 			if ( $wgRequest->wasPosted() ) {
 				self::log( $payflow_data[ 'order_id' ] . " Submitted edit token: " . $wgRequest->getText( 'token', 'None' ), 'payflowpro_gateway', LOG_DEBUG);
-				self:log( $payflow_data[ 'order_id' ] . "Token match: " . $token_match );
+				self::log( $payflow_data[ 'order_id' ] . "Token match: " . $token_match );
 			}
 		}
 
@@ -183,7 +183,7 @@ EOT;
 					// if the transaction was flagged for review
 					if ( $this->action == 'review' ) {
 						// expose a hook for external handling of trxns flagged for review
-						wfRunHooks( 'PayflowGatewayReview', array( &$this, &$data ) );
+						wfRunHooks( 'PayflowGatewayReview', array( &$this, &$data ));
 					}
 
 					// if the transaction was flagged to be 'challenged'
