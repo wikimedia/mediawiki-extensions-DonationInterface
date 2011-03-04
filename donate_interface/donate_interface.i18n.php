@@ -1528,7 +1528,17 @@ $messages['ko'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'donate_interface' => 'Ongershtöz Wikimedia!',
+	'donate_interface-desc' => 'En Einschtiesh_Sigg för et Shpände, di de ongerscheidlijje Zohsaz_Projramme för et Bezahle ömfaß.',
+	'donate_interface-intro' => 'Söhg en Aat för_t Bezahle, ene Bedraach un en Jeld_Zood uß.',
+	'donate_interface-amount' => 'Bedraach:',
+	'donate_interface-other-amount' => 'Ene andere Bedraach',
+	'donate_interface-currency' => 'De Zoot Jeld:',
+	'donate_interface-gateway' => 'De Aat ze lazze',
 	'donate_interface-submit-button' => 'Schpände!',
+	'donate_interface-amount-error' => '**Jiv ene jöltijje Bedraach en**',
+	'donate_interface-processing-error' => 'Ene Fähler es beim Beärbeide vun Dinge Enjaab opjetrodde.
+Et sinn_er kein Prozäßoore mieh frei.',
 	'donate_interface-GBP' => 'GBP: Änglesche Pongk',
 	'donate_interface-EUR' => 'EUR: Euros',
 	'donate_interface-USD' => 'USD:  Dollars uß de USA',
