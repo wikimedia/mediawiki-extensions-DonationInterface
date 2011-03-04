@@ -39,7 +39,7 @@ function payflowGetOrderId() {
 	global $wgRequest;
 	
 	// is an order_id already set?
-	$order_id = $wgRequest->getText( 'order_id', 0 );
+	$order_id = $wgRequest->getText( 'orderid', 0 );
 	
 	// if the form was not just posted OR there's no order_id set, generate one.
 	if ( !$wgRequest->wasPosted() || !$order_id ) {
