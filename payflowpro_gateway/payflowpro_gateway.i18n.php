@@ -1334,6 +1334,7 @@ $messages['bg'] = array(
 	'payflowpro_gateway-last' => 'Последен',
 	'payflowpro_gateway-or' => 'или',
 	'payflowpro_gateway-company-name' => 'Име на фирма или организация',
+	'payflowpro_gateway-city-town' => 'Град',
 	'payflowpro_gateway-credit-card-number-abbreviated' => 'Кредитна карта #',
 	'payflowpro_gateway-what-is-this' => 'Какво е това?',
 	'payflowpro_gateway-continue' => 'Продължаване',
