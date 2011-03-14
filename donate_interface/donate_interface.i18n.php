@@ -1536,6 +1536,11 @@ $messages['ksh'] = array(
 	'donate_interface-currency' => 'De Zoot Jeld:',
 	'donate_interface-gateway' => 'De Aat ze lazze',
 	'donate_interface-submit-button' => 'Schpände!',
+	'donate_interface-comment-message' => 'Häß De ene Jedangke för de Wält ze verzälle? Schriev bes 200 Zeiche:',
+	'donate_interface-comment-label' => 'Meddeilong:',
+	'donate_interface-anon-message' => 'Donn minge Name un ming Meddeilong en de öffentlesche Leß met de Spänder.',
+	'donate_interface-email-agreement' => 'Esch däät jähn jelääjentlesch Neueschkeite övver de Wikimedia Steftong krijje.',
+	'donate_interface-comment-title' => 'Meddeilong fö de Welt',
 	'donate_interface-amount-error' => '**Jiv ene jöltijje Bedraach en**',
 	'donate_interface-processing-error' => 'Ene Fähler es beim Beärbeide vun Dinge Enjaab opjetrodde.
 Et sinn_er kein Prozäßoore mieh frei.',
