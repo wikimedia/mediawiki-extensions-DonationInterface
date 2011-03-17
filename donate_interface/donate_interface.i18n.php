@@ -1075,7 +1075,7 @@ $messages['gsw'] = array(
 	'donate_interface-comment-message' => 'Hesch e Gedanke, wu Du mit dr Wält witt teile? Gib do bis zue 200 Zeiche yy:',
 	'donate_interface-comment-label' => 'Aamerkig:',
 	'donate_interface-anon-message' => 'Bitte setz myy Name (näbe myy Aamerkig) uf di effentlig Spänderlischt.',
-	'donate_interface-email-agreement' => 'Ich stimm zue, ass ich ab un zue aktuelli Informatione vu dr Wikimedia Foundation iberchumm.',
+	'donate_interface-email-agreement' => 'Ich stimm zue, ass ich ab un zue aktuelli Informatione vu dr Wikimedia Foundation per Mail iberchumm.',
 	'donate_interface-comment-title' => 'Effentligi Aamerkig',
 	'donate_interface-amount-error' => '**Bitte gib e giltige Betrag yy**',
 	'donate_interface-processing-error' => 'S het e Fähler gee bim Verarbeite vu Dyyre Aafrog. S isch kei Prozässor verfiegbar.',
@@ -1140,6 +1140,7 @@ $messages['he'] = array(
 );
 
 /** Croatian (Hrvatski)
+ * @author Herr Mlinka
  * @author SpeedyGonsales
  */
 $messages['hr'] = array(
@@ -1154,7 +1155,7 @@ $messages['hr'] = array(
 	'donate_interface-comment-message' => 'Želite li nešto poručiti? Napišite poruku do 200 znakova ovdje:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Molim navedite moje ime (uz moj komentar) na javni popis donatora.',
-	'donate_interface-email-agreement' => 'Slažem se s primanjem obavijesti e-poštom od Wikimedia zaklade.',
+	'donate_interface-email-agreement' => 'Slažem se s primanjem povremenih e-mail ažuriranja od Zaklade Wikimedija.',
 	'donate_interface-comment-title' => 'Javni komentar',
 	'donate_interface-amount-error' => '**Molimo unesite valjani iznos**',
 	'donate_interface-processing-error' => 'Došlo je do pogreške u obradi vašeg zahtjeva. 
@@ -1942,7 +1943,7 @@ $messages['nl'] = array(
 	'donate_interface-comment-message' => 'Wilt u een gedachte delen met de wereld? Hieronder kunt u tot tweehonderd karakters kwijt:',
 	'donate_interface-comment-label' => 'Opmerking:',
 	'donate_interface-anon-message' => 'Geef mijn naam weer naast mijn opmerking in de publieke donateurslijst.',
-	'donate_interface-email-agreement' => 'Ik ga akkoord met het ontvangen van e-mails van de Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Ik ga akkoord met het af en toe ontvangen van e-mails van de Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Publieke opmerking',
 	'donate_interface-amount-error' => '**Voer alstublieft een geldig bedrag in**',
 	'donate_interface-processing-error' => 'Er is een fout opgetreden bij het verwerken van uw verzoek. Er is geen verwerkingsdienst beschikbaar.',
