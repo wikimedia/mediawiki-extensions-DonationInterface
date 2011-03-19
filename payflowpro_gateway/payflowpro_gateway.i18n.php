@@ -7915,6 +7915,14 @@ In sommige gevallen steet de code an de linkerzied van de kaorte, mar dit steet 
 	'payflowpro_gateway-credit-storage-processing' => 'Joew kredietkaortgevens wönnen neet op-esleugen, en joew persoonlijke infermasie vuilt onder ons <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">gegevensbeleid</a>.',
 );
 
+/** Nepali (नेपाली)
+ * @author Bhawani Gautam Rhk
+ */
+$messages['ne'] = array(
+	'payflowprogateway' => 'तपाईंको दान अहिले नैं गर्नुहोस्।',
+	'payflowpro_gateway-donor-currency-label' => 'मुद्रा',
+);
+
 /** Dutch (Nederlands)
  * @author Als-Holder
  * @author Mihxil
