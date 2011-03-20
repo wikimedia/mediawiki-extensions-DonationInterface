@@ -29,12 +29,10 @@ $wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
 * Create <donate /> tag to include landing page donation form
 */
 function efStompSetup( &$parser ) {
-	global $wgParser;
-
 	// redundant and causes Fatal Error
 	// $parser->disableCache();
 
-	$wgParser->setHook( 'stomp', 'efStompTest' );
+	$parser->setHook( 'stomp', 'efStompTest' );
 
 	return true;
 }
