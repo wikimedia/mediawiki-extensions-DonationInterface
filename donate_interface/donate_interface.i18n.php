@@ -2604,6 +2604,7 @@ $messages['sr-el'] = array(
 /** Swedish (Svenska)
  * @author Ainali
  * @author Boivie
+ * @author WikiPhoenix
  */
 $messages['sv'] = array(
 	'donate_interface' => 'Stöd Wikimedia',
@@ -2617,7 +2618,7 @@ $messages['sv'] = array(
 	'donate_interface-comment-message' => 'Har du en tanke att dela med världen? Skriv upp till 200 tecken här:',
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-anon-message' => 'Visa mitt namn (bredvid min kommentar) på den offentliga givarlistan.',
-	'donate_interface-email-agreement' => 'Jag accepterar att ta emot sporadiska uppdateringar från Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Jag accepterar att ta emot enstaka uppdateringar från Wikimedia Foundation via e-post.',
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => '**Ange ett giltigt belopp**',
 	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades. 
