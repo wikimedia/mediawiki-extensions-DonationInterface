@@ -1327,7 +1327,7 @@ $messages['bg'] = array(
 	'payflowpro_gateway-thankyou' => 'Благодарим ви за дарението!',
 	'payflowpro_gateway-post-transaction' => 'Данни за превода',
 	'payflowpro_gateway-submit-button' => 'Даряване',
-	'payflowpro_gateway-question-comment' => 'Уикипедия е проект на Фондация Уикимедия. Имате въпроси или забележки? Свържете се с Фондация Уикимедия: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-question-comment' => 'Въпроси или коментари? Свържете се с <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'След натискане на "{{int:payflowpro_gateway-donor-submit}}", данните от кредитната ви карта ще бъдат обработени.',
 	'payflowpro_gateway-credit-storage-processing' => 'Ние не пазим информация за вашата кредитна карта. Личните ви данни са обект на защита от нашата <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">политика за личните данни</a>.',
 	'payflowpro_gateway-comment' => 'Коментар',
@@ -1339,6 +1339,7 @@ $messages['bg'] = array(
 	'payflowpro_gateway-credit-card-number-abbreviated' => 'Кредитна карта #',
 	'payflowpro_gateway-what-is-this' => 'Какво е това?',
 	'payflowpro_gateway-continue' => 'Продължаване',
+	'payflowpro_gateway-language' => 'Език:',
 );
 
 /** Bengali (বাংলা)
