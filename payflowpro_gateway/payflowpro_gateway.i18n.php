@@ -7752,7 +7752,7 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
  * @author Chrisportelli
  */
 $messages['mt'] = array(
-	'payflowprogateway' => 'Sostni lill-Wikipedija',
+	'payflowprogateway' => 'Agħmel id-donazzjoni tiegħek issa',
 	'payflowpro_gateway-accessible' => 'Din il-paġna hi aċċessibbli biss mill-paġna tad-donazzjoni.',
 	'payflowpro_gateway-paypal-button' => "Agħmel donazzjoni permezz ta' PayPal",
 	'payflowpro_gateway-cc-button' => 'Agħmel donazzjoni permezz tal-karta tal-kreditu',
