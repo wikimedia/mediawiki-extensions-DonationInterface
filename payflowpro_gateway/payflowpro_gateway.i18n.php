@@ -3960,6 +3960,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'payflowpro_gateway-anon-message' => 'Luettele nimeni julkisessa lahjoittajaluettelossa.',
 	'payflowpro_gateway-donate-wikipedia' => 'Lahjoita Wikipediassa',
 	'payflowpro_gateway-or' => 'tai',
+	'payflowpro_gateway-donate-now' => 'Lahjoita nyt',
 	'payflowpro_gateway-make-a-donation' => 'Tee lahjoitus',
 	'payflowpro_gateway-next' => 'Seuraava',
 	'payflowpro_gateway-continue' => 'Jatka',
