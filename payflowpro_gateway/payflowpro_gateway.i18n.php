@@ -3143,15 +3143,19 @@ Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</
 
 /** Greek (Ελληνικά)
  * @author Crazymadlover
+ * @author Glavkos
  * @author Omnipaedista
  * @author ZaDiak
  */
 $messages['el'] = array(
 	'payflowprogateway' => 'Υποστήριξη Wikimedia',
+	'payflowpro_gateway-accessible' => 'Αυτή η σελίδα είναι προσβάσιμη μόνο από τη σελίδα δωρεάς.',
+	'payflowpro_gateway-paypal-button' => 'Δωρίστε μέσω PayPal',
+	'payflowpro_gateway-cc-button' => 'Κάντε δωρεά  με πιστωτική κάρτα',
 	'payflowpro_gateway-donor-legend' => 'Πληροφορίες δωρητή',
 	'payflowpro_gateway-card-legend' => 'Πληροφορίες πιστωτικής κάρτας',
 	'payflowpro_gateway-amount-legend' => 'Ποσό δωρεάς:',
-	'payflowpro_gateway-cvv-link' => 'Παράδειγμα',
+	'payflowpro_gateway-cvv-link' => 'Πού είναι αυτό;',
 	'payflowpro_gateway-donor-amount' => 'Ποσό:',
 	'payflowpro_gateway-donor-currency-label' => 'Συνάλλαγμα:',
 	'payflowpro_gateway-donor-email' => 'Διεύθυνση ηλεκτρονικού ταχυδρομείου:',
@@ -6701,6 +6705,7 @@ $messages['ksh'] = array(
 	'payflowprogateway' => 'Donn Wikimedia ongerschtöze',
 	'payflowpro_gateway-desc' => 'Met <i lang="en">PayPal Payflow Pro</i> vun Kredditkaate afhallde.',
 	'payflowpro_gateway-accessible' => 'Heh di Sigg es bloß vun de Schpändesigg uß zo han.',
+	'payflowpro_gateway-paypal-button' => 'Spende övver <i lang="en">PayPal</i>',
 	'payflowpro_gateway-cc-button' => 'Met Kreditkaat spende',
 	'payflowpro_gateway-donor-legend' => 'Enfommazjuhne övver der Schpänder',
 	'payflowpro_gateway-card-legend' => 'Enfommazjuhne övver et Schpände',
