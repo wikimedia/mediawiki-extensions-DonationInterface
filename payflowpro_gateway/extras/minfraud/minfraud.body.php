@@ -185,7 +185,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		$minfraud_array[ 'accept_language' ] = $wgRequest->getHeader( 'accept-language' );
 
 		// fetch the array of country codes
-		$country_codes = countryCodes();
+		$country_codes = PayflowProGateway::getCountries();
 
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {

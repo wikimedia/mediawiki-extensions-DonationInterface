@@ -126,8 +126,7 @@ abstract class PayflowProGateway_Form {
 	 * @return array
 	 */
 	public function getCountries() {
-		require_once( dirname( __FILE__ ) . '/../includes/countryCodes.inc' );
-		return countryCodes();
+		return PayflowProGateway::getCountries();
 	}
 
 	/**

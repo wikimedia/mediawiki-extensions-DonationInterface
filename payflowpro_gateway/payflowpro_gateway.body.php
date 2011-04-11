@@ -384,6 +384,8 @@ EOT;
 			'FIRSTNAME' => $data['fname'],
 			'LASTNAME' => $data['lname'],
 			'STREET' => $data['street'],
+			'STATE' => $data['state'],
+			'COUNTRY' => $data['country'],
 			'ZIP' => $data['zip'],
 			'INVNUM' => $data['order_id'],
 			'CVV2' => $data['cvv'],
@@ -587,33 +589,57 @@ EOT;
 	}
 
 	/**
+	 * Prepares the transactional message to be sent via Stomp to queueing service
+	 * 
+	 * @param array $data
+	 * @param array $resposneArray
+	 * @param array $responseMsg
+	 * @return array
+	 */
+	public function prepareStompTransaction( $data, $resposneArray, $responseMsg ) {
+		$countries = $this->getCountries();
+		
+		$transaction = array();
+
+		// include response message
+		$transaction['response'] = $responseMsg;
+		
+		// include date
+		$transaction['date'] = time();
+		
+		$transaction['country_name'] = $countries[$data['country']];
+		$transaction['country_code'] = $data['country'];
+		$transaction['country_name2'] = $countries[$data['country2']];
+		$transaction['country_code2'] = $data['country2'];
+		
+		// put all data into one array
+		$optout = $this->determineOptOut( $data );
+		$data[ 'anonymous' ] = $optout[ 'anonymous' ];
+		$data[ 'optout' ] = $optout[ 'optout' ];
+		
+		$transaction += array_merge( $data, $responseArray );
+		
+		return $transaction;
+	}
+	
+	/**
+	 * Fetch an array of country abbrevs => country names
+	 */
+	public static function getCountries() {
+		require_once( 'includes/countryCodes.inc' );
+		return countryCodes();
+	}
+	
+	/**
 	 * Display response message to user with submitted user-supplied data
 	 *
 	 * @param $data Array: array of posted data from form
 	 * @param $responseMsg String: message supplied by getResults function
 	 */
 	function fnPayflowDisplayApprovedResults( $data, $responseArray, $responseMsg ) {
-		require_once( 'includes/countryCodes.inc' );
-
 		global $wgOut, $wgExternalThankYouPage;
-		$transaction = '';
 
-		// push to ActiveMQ server
-		// include response message
-		$transaction['response'] = $responseMsg;
-		// include date
-		$transaction['date'] = time();
-		// send both the country as text and the three digit ISO code
-		$countries = countryCodes();
-		$transaction['country_name'] = $countries[$data['country']];
-		$transaction['country_code'] = $data['country'];
-		$transaction['country_name2'] = $countries[$data['country2']];
-		$transaction['country_code2'] = $data['country2'];
-		// put all data into one array
-		$optout = $this->determineOptOut( $data );
-		$data[ 'anonymous' ] = $optout[ 'anonymous' ];
-		$data[ 'optout' ] = $optout[ 'optout' ];
-		$transaction += array_merge( $data, $responseArray );
+		$transaction = $this->prepareStompTransaction( $data, $responseArray, $responseMsg );
 
 		/**
 		 * hook to call stomp functions
@@ -630,7 +656,7 @@ EOT;
 			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
 
 			// translate country code into text
-			$countries = countryCodes();
+			$countries = $this->getCountries();
 
 			$rows = array(
 				'title' => array( wfMsg( 'payflowpro_gateway-post-transaction' ) ),
@@ -686,21 +712,7 @@ EOT;
 	function fnPayflowDisplayPending( $data, $responseArray, $responseMsg ) {
 		global $wgOut;
 
-		$transaction = '';
-
-		// push to ActiveMQ server
-		// include response message
-		$transaction['response'] = $responseMsg;
-		// include date
-		$transaction['date'] = time();
-		// send both the country as text and the three digit ISO code
-		$countries = countryCodes();
-		$transaction['country_name'] = $countries[$data['country']];
-		$transaction['country_code'] = $data['country'];
-		$transaction['country_name2'] = $countries[$data['country2']];
-		$transaction['country_code2'] = $data['country2'];
-		// put all data into one array
-		$transaction += array_merge( $data, $responseArray );
+		$transaction = $this->prepareStompTransaction( $data, $responseArray, $responseMsg );
 
 		// hook to call stomp functions
 		wfRunHooks( 'gwPendingStomp', array( $transaction ) );
