@@ -202,7 +202,7 @@ function countryCodes() {
 		"SB" => "Solomon Islands",
 		"SO" => "Somalia",
 		"ZA" => "South Africa",
-		"GS" => "South Georgia and the South Sandwich Islands",
+		//"GS" => "South Georgia and the South Sandwich Islands",
 		"ES" => "Spain",
 		"LK" => "Sri Lanka",
 		"SD" => "Sudan",
