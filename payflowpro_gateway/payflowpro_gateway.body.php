@@ -384,6 +384,7 @@ EOT;
 			'FIRSTNAME' => $data['fname'],
 			'LASTNAME' => $data['lname'],
 			'STREET' => $data['street'],
+			'CITY' => $data['city'],
 			'STATE' => $data['state'],
 			'COUNTRY' => $data['country'],
 			'ZIP' => $data['zip'],
