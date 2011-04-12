@@ -596,7 +596,7 @@ EOT;
 	 * @param array $responseMsg
 	 * @return array
 	 */
-	public function prepareStompTransaction( $data, $resposneArray, $responseMsg ) {
+	public function prepareStompTransaction( $data, $responseArray, $responseMsg ) {
 		$countries = $this->getCountries();
 		
 		$transaction = array();
