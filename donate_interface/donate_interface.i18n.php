@@ -65,20 +65,6 @@ $messages['qqq'] = array(
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
 );
 
-/** Angika (अंगिका)
- * @author Angpradesh
- */
-$messages['anp'] = array(
-	'donate_interface' => 'विकिपीडिया कॆ मदद करॊ',
-	'donate_interface-desc' => 'गेटवे विस्तारयुक्त दान पृष्ठ',
-	'donate_interface-intro' => 'कृपा करी कॆ भुगतान विधि, राशि आरू मुद्रा चुनॊ.',
-	'donate_interface-amount' => 'दान राशि',
-	'donate_interface-other-amount' => 'अन्य राशि',
-	'donate_interface-currency' => 'मुद्रा',
-	'donate_interface-gateway' => 'भुगतान विधि',
-	'donate_interface-submit-button' => 'दान करॊ',
-);
-
 /** Afrikaans (Afrikaans)
  * @author Naudefj
  */
@@ -116,6 +102,20 @@ Geen verwerkers is beskikbaar nie.",
 	'donate_interface-SGD' => 'SGD: Singaporese dollar',
 	'donate_interface-SEK' => 'SEK: Sweedse kroon',
 	'donate_interface-ILS' => 'ILS: Israeliese shekel',
+);
+
+/** Angika (अंगिका)
+ * @author Angpradesh
+ */
+$messages['anp'] = array(
+	'donate_interface' => 'विकिपीडिया कॆ मदद करॊ',
+	'donate_interface-desc' => 'गेटवे विस्तारयुक्त दान पृष्ठ',
+	'donate_interface-intro' => 'कृपा करी कॆ भुगतान विधि, राशि आरू मुद्रा चुनॊ.',
+	'donate_interface-amount' => 'दान राशि',
+	'donate_interface-other-amount' => 'अन्य राशि',
+	'donate_interface-currency' => 'मुद्रा',
+	'donate_interface-gateway' => 'भुगतान विधि',
+	'donate_interface-submit-button' => 'दान करॊ',
 );
 
 /** Arabic (العربية)
@@ -805,7 +805,7 @@ $messages['et'] = array(
 	'donate_interface-comment-message' => 'On sul mõte, mida maailmaga jagada? Sisesta kuni 200 tähemärki:',
 	'donate_interface-comment-label' => 'Kommentaar:',
 	'donate_interface-anon-message' => 'Palun näita avalikus annetajate nimekirjas mu kommentaari järel minu nime.',
-	'donate_interface-email-agreement' => 'Olen nõus, et mulle saadetakse Wikimedia Foundationist perioodiliselt uudiskirju.',
+	'donate_interface-email-agreement' => 'Olen nõus, et mulle saadetakse Wikimedia Foundationist perioodiliselt e-uudiskirju.',
 	'donate_interface-comment-title' => 'Avalik kommentaar',
 	'donate_interface-amount-error' => '**Palun sisesta sobiv summa**',
 	'donate_interface-GBP' => 'GBP: Suurbritannia naelsterling',
