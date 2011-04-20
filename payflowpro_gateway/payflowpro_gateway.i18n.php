@@ -7466,7 +7466,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-otherways-alt' => 'Постојат и <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">други начини на донирање</a>, вклучувајќи со чек.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Други начини на дарување</a>',
 	'payflowpro_gateway-paypal' => 'Имате сметка на PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Донирајте со PayPal</a>.',
-	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од кредитните картички. Покрај ова, Вашите лични податоци подлежат на <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">правилата за приватност</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Ние не ги чуваме податоците од кредитните картички. Покрај ова, Вашите лични податоци подлежат на <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">заштита на личните податоци</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.',
 	'payflowpro_gateway-cc-form-header-personal' => 'Наплатни податоци',
 	'payflowpro_gateway-cc-form-header-payment' => 'Лични податоци',
