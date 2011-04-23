@@ -1312,7 +1312,7 @@ $messages['id'] = array(
 	'donate_interface-comment-message' => 'Ada suatu pikiran untuk dibagi dengan dunia? Masukkan maksimum 200 karakter di sini:',
 	'donate_interface-comment-label' => 'Komentar:',
 	'donate_interface-anon-message' => 'Daftarkan nama saya (di sebelah komentar saya) pada daftar donor publik.',
-	'donate_interface-email-agreement' => 'Saya setuju untuk menerima nawala Yayasan Wikimedia di masa mendatang.',
+	'donate_interface-email-agreement' => 'Saya setuju untuk sesekali menerima surel pembaruan dari Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Komentar publik',
 	'donate_interface-amount-error' => '**Harap masukkan nilai yang valid**',
 	'donate_interface-processing-error' => 'Terjadi kesalahan dalam pemrosesan permintaan Anda. Tidak ada pemroses yang tersedia.',
@@ -2174,6 +2174,7 @@ $messages['pms'] = array(
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
+	'donate_interface-currency' => 'ارز:',
 	'donate_interface-submit-button' => 'بسپنه ورکول',
 	'donate_interface-comment-label' => 'تبصره:',
 	'donate_interface-GBP' => 'GBP: برتانيوي پاونډ',
@@ -2239,6 +2240,7 @@ Nenhuma das plataformas está disponível.',
 /** Brazilian Portuguese (Português do Brasil)
  * @author Giro720
  * @author Luckas Blade
+ * @author 555
  */
 $messages['pt-br'] = array(
 	'donate_interface' => 'Ajude a Wikimedia',
@@ -2252,7 +2254,7 @@ $messages['pt-br'] = array(
 	'donate_interface-comment-message' => 'Quer compartilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
 	'donate_interface-comment-label' => 'Comentário:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome (junto ao meu comentário) na lista pública de contribuidores.',
-	'donate_interface-email-agreement' => 'Concordo em receber mensagens ocasionais da Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Concordo em receber atualizações esporádicas da Wikimedia Foundation por e-mail.',
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => '**Por favor, insira um montante válido**',
 	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
