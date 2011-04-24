@@ -7821,6 +7821,7 @@ $messages['ml'] = array(
 );
 
 /** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
  * @author Diagramma Della Verita
  */
 $messages['ms'] = array(
@@ -7923,6 +7924,8 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 	'payflowpro_gateway-anon-message' => 'Masukkan nama saya dalam senarai penderma umum.',
 	'payflowpro_gateway-donate-wikipedia' => 'Berikan sumbangan kepada Wikipedia',
 	'payflowpro_gateway-or' => 'atau',
+	'payflowpro_gateway-title' => 'Tajuk',
+	'payflowpro_gateway-next' => 'Berikutnya',
 );
 
 /** Maltese (Malti)
