@@ -839,14 +839,42 @@ $messages['arz'] = array(
 );
 
 /** Azerbaijani (Azərbaycanca)
+ * @author Cekli829
  * @author Sortilegus
  */
 $messages['az'] = array(
+	'payflowpro_gateway-donor-name' => 'Ad',
+	'payflowpro_gateway-error-msg-city' => 'şəhər',
+	'payflowpro_gateway-error-msg-state' => 'ölkə',
+	'payflowpro_gateway-error-msg-zip' => 'poçt indeksi',
+	'payflowpro_gateway-error-msg-country' => 'ölkə',
+	'payflowpro_gateway-first' => 'Birinci',
 	'payflowpro_gateway-or' => 'və ya',
 	'payflowpro_gateway-your-information' => 'Haqqınızda məlumat',
+	'payflowpro_gateway-title' => 'Başlıq',
 	'payflowpro_gateway-company-name' => 'Şirkətin və ya təşkilatın adı',
 	'payflowpro_gateway-address-1' => 'Ünvan 1',
 	'payflowpro_gateway-address-2' => 'Ünvan 2',
+	'payflowpro_gateway-street-1' => 'Küçə 1',
+	'payflowpro_gateway-street-2' => 'Küçə 2',
+	'payflowpro_gateway-zip' => 'Zip',
+	'payflowpro_gateway-zip-code' => 'Zip kodu',
+	'payflowpro_gateway-country' => 'Ölkə',
+	'payflowpro_gateway-telephone' => 'Telefon',
+	'payflowpro_gateway-telephone-home' => 'Tel. (ev)',
+	'payflowpro_gateway-cvv' => 'CVV',
+	'payflowpro_gateway-cvv-number-abbreviated' => 'CVV #',
+	'payflowpro_gateway-cvv2' => 'CVV2',
+	'payflowpro_gateway-cvv-number' => 'CVV nömrə',
+	'payflowpro_gateway-verification-number' => 'Təsdiq nömrəsi',
+	'payflowpro_gateway-what-is-this' => 'Bu nədir?',
+	'payflowpro_gateway-next' => 'Növbəti',
+	'payflowpro_gateway-continue' => 'Davam et',
+	'payflowpro_gateway-cancel' => 'Ləğv et',
+	'payflowpro_gateway-language' => 'Dil:',
+	'payflowpro_gateway-front' => 'İrəli',
+	'payflowpro_gateway-back' => 'Geri',
+	'payflowpro_gateway-select' => 'Həcm:',
 );
 
 /** Bashkir (Башҡортса)
@@ -8115,11 +8143,19 @@ $messages['myv'] = array(
 	'payflowpro_gateway-donor-street' => 'Ульцат:',
 	'payflowpro_gateway-donor-city' => 'Ошот:',
 	'payflowpro_gateway-donor-state' => 'Штатот:',
+	'payflowpro_gateway-donor-postal' => 'Почтань индексэзэ:',
 	'payflowpro_gateway-donor-country' => 'Масторот/йонксот:',
 	'payflowpro_gateway-donor-address' => 'Сёрма паргот:',
+	'payflowpro_gateway-error-msg-fname' => 'лем',
+	'payflowpro_gateway-error-msg-lname' => 'фамилия',
 	'payflowpro_gateway-error-msg-city' => 'ошот',
 	'payflowpro_gateway-error-msg-state' => 'штатот',
 	'payflowpro_gateway-error-msg-zip' => 'индексэть',
+	'payflowpro_gateway-error-msg-country' => 'мастор',
+	'payflowpro_gateway-city-town' => 'Ош/Веле',
+	'payflowpro_gateway-town-city' => 'Веле/Ош',
+	'payflowpro_gateway-front-of-shirt' => 'Панар икелькс',
+	'payflowpro_gateway-back-of-shirt' => 'Панар удалкс',
 );
 
 /** Nedersaksisch (Nedersaksisch)

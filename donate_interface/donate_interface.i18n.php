@@ -170,6 +170,7 @@ $messages['arz'] = array(
 );
 
 /** Azerbaijani (Azərbaycanca)
+ * @author Cekli829
  * @author Emperyan
  */
 $messages['az'] = array(
@@ -184,7 +185,7 @@ $messages['az'] = array(
 	'donate_interface-comment-message' => 'Dünya ilə paylaşacaq bir düşüncəniz var? Bura 200 xarakterə qədər yaza bilərsiniz:',
 	'donate_interface-comment-label' => 'Şərh:',
 	'donate_interface-anon-message' => 'Xahiş edirik addımı (şərhimin yanına) umumi hədiyyə edənlər siyahısında siyahıla.',
-	'donate_interface-email-agreement' => 'Wikimedia Foundationdan hərdənbir edilən yenilikləri almağı qəbul edirəm.',
+	'donate_interface-email-agreement' => 'Vikimedia Foundundan hərdənbir edilən yenilikləri almağı qəbul edirəm.',
 	'donate_interface-comment-title' => 'Umumi şərh',
 	'donate_interface-amount-error' => '**Xahiş olunur bir miqdar daxil edin**',
 	'donate_interface-processing-error' => 'İstəyinizə işlənməsində bir səhv meydana gəldi. Uyğun prosessor yoxdur.',
@@ -1849,6 +1850,21 @@ $messages['mt'] = array(
 	'donate_interface-SGD' => "SGD: Dollaru ta' Singapor",
 	'donate_interface-SEK' => 'SEK: Krona Żvediża',
 	'donate_interface-ILS' => 'ILS: Shekel Iżraeljan',
+);
+
+/** Erzya (Эрзянь)
+ * @author Botuzhaleny-sodamo
+ */
+$messages['myv'] = array(
+	'donate_interface-currency' => 'Валютась:',
+	'donate_interface-EUR' => 'EUR: эвро',
+	'donate_interface-CHF' => 'CHF: Швейцариянь франк',
+	'donate_interface-DKK' => 'DKK: Даниянь крона',
+	'donate_interface-HUF' => 'HUF: Венгриянь форинт',
+	'donate_interface-JPY' => 'JPY: Япониянь йена',
+	'donate_interface-NZD' => 'NZD: Од Зеландиянь доллар',
+	'donate_interface-NOK' => 'NOK: Норвегиянь крона',
+	'donate_interface-SEK' => 'SEK: Швециянь крона',
 );
 
 /** Nedersaksisch (Nedersaksisch)
