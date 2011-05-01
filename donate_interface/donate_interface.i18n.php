@@ -1985,6 +1985,7 @@ $messages['nl'] = array(
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
  * @author Gunnernett
+ * @author Harald Khan
  */
 $messages['nn'] = array(
 	'donate_interface' => 'Støtt Wikimedia',
@@ -1993,7 +1994,7 @@ $messages['nn'] = array(
 	'donate_interface-gateway' => 'Betalingsmåte:',
 	'donate_interface-comment-message' => 'Har du tankar å dela med verda? Skriv inn opp til 200 bokstavar her:',
 	'donate_interface-comment-label' => 'Kommentar:',
-	'donate_interface-anon-message' => 'Ver venleg og list opp namnet mitt (ved sidan av kommentaren min) på den offentlege lista over gjevarar.',
+	'donate_interface-anon-message' => 'Gjer vel og list opp namnet mitt (ved sida av kommentaren min) på den offentlege lista over gjevarar.',
 	'donate_interface-amount-error' => '**Ver venleg og skriv inn eit gyldig beløp**',
 	'donate_interface-processing-error' => 'Det har oppstått ein feil i prosesseringa av førespurnaden din. 
 Ingen prosessorar er tilgjengelege.',

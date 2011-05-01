@@ -9468,6 +9468,7 @@ $messages['ps'] = array(
 	'payflowpro_gateway-other' => 'نور',
 	'payflowpro_gateway-or' => 'يا',
 	'payflowpro_gateway-your-information' => 'ستاسې مالومات',
+	'payflowpro_gateway-title' => 'لقب',
 	'payflowpro_gateway-address-1' => '۱ پته',
 	'payflowpro_gateway-address-2' => '۲ پته',
 	'payflowpro_gateway-address-lines' => 'د پتې کرښې',
@@ -9485,6 +9486,7 @@ $messages['ps'] = array(
 	'payflowpro_gateway-telephone' => 'ټيليفون',
 	'payflowpro_gateway-telephone-home' => 'ټيليفون (کور)',
 	'payflowpro_gateway-donation-information' => 'د بسپنې مالومات',
+	'payflowpro_gateway-what-is-this' => 'دا څه دی؟',
 	'payflowpro_gateway-cancel' => 'ناګارل',
 	'payflowpro_gateway-language' => 'ژبه:',
 );
