@@ -8695,6 +8695,7 @@ Takk for gåva di!',
  * @author Jon Harald Søby
  * @author Laaknor
  * @author Nghtwlkr
+ * @author Sjurhamre
  */
 $messages['no'] = array(
 	'payflowprogateway' => 'Gi nå',
@@ -8888,6 +8889,16 @@ For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema 
 	'payflowpro_gateway-back-of-shirt' => 'Baksiden av skjorten',
 	'payflowpro_gateway-select-a-size' => 'Velg en størrelse.',
 	'payflowpro_gateway-select' => 'Størrelse:',
+	'payflowpro_gateway-shipping-address' => 'Leveringsadresse',
+	'payflowpro_gateway-shipping-address-different' => 'Leveringsadressen min er forskjellig fra fakturaadressen.',
+	'payflowpro_gateway-shipping-address-same' => 'Leveringsadressen min er den samme som fakturaadressen.',
+	'payflowpro_gateway-only-billing-address' => 'T-skjorter kan bare sendes til fakturaadressen din.',
+	'payflowpro_gateway-donation-must-equal' => 'Donasjonen må være på minst $1.',
+	'payflowpro_gateway-thank-you' => 'Takk skal du ha! Donasjonen din er mottatt.',
+	'payflowpro_gateway-wikipedia-translation' => 'Merk: "På skjorteermet vil "Wikipedia" bli erstattet av en "Wikipedia 10"-grafikk, som ikke er oversatt.',
+	'payflowpro_gateway-on-the-back' => 'Med dette på baksiden:',
+	'payflowpro_gateway-tshirt-confirmation' => 'T-skjorten blir sendt i størrelsen og på på språket under:',
+	'payflowpro_gateway-donation-tshirt' => 'Donasjon (t-skjorte-tilbud)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Velg en stat',
 	'payflowpro_gateway-state-dropdown-XX' => 'Utenfor USA',
 );
@@ -12792,6 +12803,9 @@ $messages['uk'] = array(
 	'payflowpro_gateway-amount' => 'Сума',
 	'payflowpro_gateway-continue' => 'Продовжити',
 	'payflowpro_gateway-month' => '$1 ($2)',
+	'payflowpro_gateway-description' => 'Опис',
+	'payflowpro_gateway-via-paypal' => '(через PayPal)',
+	'payflowpro_gateway-language' => 'Мова:',
 	'payflowpro_gateway-select' => 'Розмір:',
 	'payflowpro_gateway-state-dropdown-XX' => 'За межами США',
 );
