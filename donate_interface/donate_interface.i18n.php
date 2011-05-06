@@ -753,6 +753,7 @@ Neniu procesoro estas atingebla.',
 );
 
 /** Spanish (Español)
+ * @author Fitoschido
  * @author Locos epraix
  * @author Translationista
  */
@@ -768,7 +769,7 @@ $messages['es'] = array(
 	'donate_interface-comment-message' => '¿Quieres compartir un pensamiento con el mundo? Escríbelo aquí (hasta 200 caracteres):',
 	'donate_interface-comment-label' => 'Comentario:',
 	'donate_interface-anon-message' => 'Por favor, incluid mi nombre (al lado de mi comentario) en el listado de donantes públicos.',
-	'donate_interface-email-agreement' => 'Estoy de acuerdo en recibir actualizaciones ocasionales de la Fundación Wikimedia.',
+	'donate_interface-email-agreement' => 'Estoy de acuerdo en recibir noticias por correo electrónico de la Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-amount-error' => '**Por favor, escribe una cantidad válida**',
 	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud. 
