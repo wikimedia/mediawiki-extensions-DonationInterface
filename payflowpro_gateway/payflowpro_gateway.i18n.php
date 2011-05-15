@@ -8662,7 +8662,7 @@ $messages['nn'] = array(
 	'payflowpro_gateway-amount-legend' => 'Gåvebeløp:',
 	'payflowpro_gateway-cvv-link' => 'Døme',
 	'payflowpro_gateway-donor-email' => 'E-postadresse',
-	'payflowpro_gateway-donor-name' => 'Namn:',
+	'payflowpro_gateway-donor-name' => 'Namn',
 	'payflowpro_gateway-donor-mname' => 'Mellomnamn:',
 	'payflowpro_gateway-donor-lname' => 'Etternamn:',
 	'payflowpro_gateway-donor-city' => 'By:',
@@ -8710,7 +8710,7 @@ $messages['no'] = array(
 	'payflowpro_gateway-donor-amount' => 'Beløp:',
 	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
 	'payflowpro_gateway-donor-email' => 'E-postadresse:',
-	'payflowpro_gateway-donor-name' => 'Navn:',
+	'payflowpro_gateway-donor-name' => 'Navn',
 	'payflowpro_gateway-donor-fname' => 'Fornavn:',
 	'payflowpro_gateway-donor-mname' => 'Mellomnavn:',
 	'payflowpro_gateway-donor-lname' => 'Etternavn:',
@@ -10854,32 +10854,35 @@ $messages['scn'] = array(
 
 /** Sinhala (සිංහල)
  * @author චතුනි අලහප්පෙරුම
+ * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
-	'payflowprogateway' => 'විකිමාධ්‍යයට අනුග්‍රහය දක්වන්න',
-	'payflowpro_gateway-desc' => 'පේපැල් පේ‍ෆ්ලෝ ප්‍රෝ ක්‍රෙඩිට් කාඩ් පත සැකසෙමිනි',
-	'payflowpro_gateway-accessible' => 'මෙම පිටුව වෙත ප්‍රවේශ්‍ය විය හැක්කේ පරිත්‍යාග පිටුවෙන් පමණි.',
-	'payflowpro_gateway-donor-legend' => 'දායකයාගේ තොරතුරු',
-	'payflowpro_gateway-card-legend' => 'ක්‍රෙඩිට් කාඩ් පතෙහි තොරතුරු',
-	'payflowpro_gateway-amount-legend' => 'පරිත්‍යාගයේ අගය:',
-	'payflowpro_gateway-cvv-link' => 'නිදසුන',
-	'payflowpro_gateway-donor-amount' => 'අගය:',
+	'payflowprogateway' => 'දැන් ඔබගේ පරිත්‍යාගය සපයන්න',
+	'payflowpro_gateway-desc' => 'පේපල් පෙයිෆ්ලෝ ප්‍රෝ ණය පත සකසමින්',
+	'payflowpro_gateway-accessible' => 'මෙම පිටුව වෙත පිවිසිය හැක්කේ පරිත්‍යාග පිටුවෙන් පමණි.',
+	'payflowpro_gateway-paypal-button' => 'පේපල් මගින් පරිත්‍යාග කරන්න',
+	'payflowpro_gateway-cc-button' => 'ණය පත මගින් පරිත්‍යාග කරන්න',
+	'payflowpro_gateway-donor-legend' => 'දානපතියාගේ තොරතුරු',
+	'payflowpro_gateway-card-legend' => 'ණය පතෙහි තොරතුරු',
+	'payflowpro_gateway-amount-legend' => 'පරිත්‍යාගයේ වටිනාකම:',
+	'payflowpro_gateway-cvv-link' => 'කෝ මේක?',
+	'payflowpro_gateway-donor-amount' => 'වටිනාකම:',
 	'payflowpro_gateway-donor-currency-label' => 'ව්‍යවහාර මුදල:',
 	'payflowpro_gateway-donor-email' => 'විද්‍යුත්-තැපැල් ලිපිනය:',
 	'payflowpro_gateway-donor-name' => 'නම:',
-	'payflowpro_gateway-donor-fname' => 'පළමු නම:',
-	'payflowpro_gateway-donor-mname' => 'මැද නම:',
-	'payflowpro_gateway-donor-lname' => 'අවසන් නම:',
+	'payflowpro_gateway-donor-fname' => 'පළමු නම',
+	'payflowpro_gateway-donor-mname' => 'මැද නම',
+	'payflowpro_gateway-donor-lname' => 'අවසන් නම',
 	'payflowpro_gateway-donor-street' => 'වීදිය:',
 	'payflowpro_gateway-donor-city' => 'නගරය:',
 	'payflowpro_gateway-donor-state' => 'ප්‍රාන්තය:',
 	'payflowpro_gateway-donor-postal' => 'තැපැල් කේතය:',
 	'payflowpro_gateway-donor-country' => 'රට/ප්‍රදේශය:',
 	'payflowpro_gateway-donor-address' => 'ලිපිනය:',
-	'payflowpro_gateway-donor-card' => 'ක්‍රෙඩිට් කාඩ් පත:',
+	'payflowpro_gateway-donor-card' => 'ණය පත:',
 	'payflowpro_gateway-donor-card-num' => 'කාඩ් පත් අංකය:',
 	'payflowpro_gateway-donor-expiration' => 'කල් ඉකුත්වීම් දිනය:',
-	'payflowpro_gateway-donor-security' => 'සුරැකුම් කේතය:',
+	'payflowpro_gateway-donor-security' => 'සුරක්ෂිත කේතය:',
 	'payflowpro_gateway-donor-submit' => 'පරිත්‍යාග කරන්න',
 	'payflowpro_gateway-donor-currency-msg' => 'මෙම පරිත්‍යාගය සිදු කරනුයේ  $1 භාවිතයෙනි',
 	'payflowpro_gateway-error-msg' => 'පහත තොරතුරු අවශ්‍ය වේ: $1',
@@ -10898,6 +10901,7 @@ $messages['si'] = array(
 	'payflowpro_gateway-error-msg-city' => 'නගරය',
 	'payflowpro_gateway-error-msg-state' => 'ප්‍රාන්තය',
 	'payflowpro_gateway-error-msg-zip' => 'සිප් කේතය',
+	'payflowpro_gateway-error-msg-country' => 'රට',
 	'payflowpro_gateway-error-msg-card_num' => 'ක්‍රෙඩිට් කාඩ් අංකය',
 	'payflowpro_gateway-error-msg-expiration' => 'කාඩ් පතෙහි කල් ඉකුත්වන දිනය',
 	'payflowpro_gateway-error-msg-cvv' => 'ඔබ කාඩ් පත පිටුපසින් කාඩ්පත්-සුරැකුම්-කේතය',
@@ -10918,6 +10922,19 @@ $messages['si'] = array(
 	'php-response-declined' => 'ඔබගේ ගනුදෙනුව ප්‍රතික්‍ෂේප කර ඇත.',
 	'payflowpro_gateway-post-transaction' => 'ගනුදෙනු විස්තර',
 	'payflowpro_gateway-submit-button' => 'පරිත්‍යාග කරන්න',
+	'payflowpro_gateway-cvv-explain' => '<h4>CVV යනු කුමක්ද?</h4>
+<p>කාඩ්පත් ධර සත්‍යෙක්ෂණ අගය (CVV): මෙම ඉලක්කම් තුන හෝ හතරකින් යුත් අංක කාඩ්පත් හිමියාගේ අයිතියෙහි එම භෞතික කාඩ්පත තිබේදැයි සුරක්ෂිත කිරීම සදහා උපකාරී වේ. බලය නොලත් හෝ වංචනික භාවිතයන් වළැක්වීම සදහාද මෙය උපකාරී වේ.</p>
+<h4>වීසා,මාස්ටර්කාඩ්</h4>
+<p>ඉලක්කම් තුනකින් යුත් කේතය ඔබගේ කාඩ්පතෙහි පිටුපස පිහිටා ඇත. (මුද්‍රා පැත්තෙහි ඇතුළතින් )
+Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
+<h4>ඇමරිකන් එක්ස්ප්‍රෙස්</h4>
+<p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
+In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
+	'payflowpro_gateway-question-comment' => 'ප්‍රශ්න හෝ විවේචන ඇත්ද? සම්බන්ධ කරගන්න: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'payflowpro_gateway-donate-click' => 'ඔබගේ ණය පත සුරක්ෂිතව ක්‍රියායනය සිදු වෙනු ඇත.',
+	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/si">දීමට ඇති අනෙකුත් ක්‍රම</a>',
+	'payflowpro_gateway-credit-storage-processing' => 'අප විසින් ඔබගේ ණය පතෙහි තොරතුරු සහ ඔබගේ පුද්ගලික දත්ත අපගේ  <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">පෞද්ගලිකත්ව ප්‍රතිපත්ති</a> විෂයට අනුව ආරක්ෂා පිණිස තබා නොගන්නෙමු.',
+	'payflowpro_gateway-please-complete' => 'පහත දැක්වෙන ඔබගේ පරිත්‍යාගය සම්පූර්ණ කරන්න ...',
 );
 
 /** Slovak (Slovenčina)
@@ -11436,7 +11453,7 @@ $messages['sv'] = array(
 	'payflowpro_gateway-donor-amount' => 'Belopp:',
 	'payflowpro_gateway-donor-currency-label' => 'Valuta:',
 	'payflowpro_gateway-donor-email' => 'Epostadress:',
-	'payflowpro_gateway-donor-name' => 'Namn:',
+	'payflowpro_gateway-donor-name' => 'Namn',
 	'payflowpro_gateway-donor-fname' => 'Förnamn:',
 	'payflowpro_gateway-donor-mname' => 'Mellannamn:',
 	'payflowpro_gateway-donor-lname' => 'Efternamn:',
