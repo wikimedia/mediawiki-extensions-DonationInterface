@@ -10937,7 +10937,10 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'payflowpro_gateway-donate-click' => 'ඔබගේ ණය පත සුරක්ෂිතව ක්‍රියායනය සිදු වෙනු ඇත.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/si">දීමට ඇති අනෙකුත් ක්‍රම</a>',
 	'payflowpro_gateway-credit-storage-processing' => 'අප විසින් ඔබගේ ණය පතෙහි තොරතුරු සහ ඔබගේ පුද්ගලික දත්ත අපගේ  <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">පෞද්ගලිකත්ව ප්‍රතිපත්ති</a> විෂයට අනුව ආරක්ෂා පිණිස තබා නොගන්නෙමු.',
+	'payflowpro_gateway-cancel' => 'අත් හරින්න',
 	'payflowpro_gateway-please-complete' => 'පහත දැක්වෙන ඔබගේ පරිත්‍යාගය සම්පූර්ණ කරන්න ...',
+	'payflowpro_gateway-language' => 'භාෂාව:',
+	'payflowpro_gateway-back' => 'ආපසු',
 );
 
 /** Slovak (Slovenčina)
