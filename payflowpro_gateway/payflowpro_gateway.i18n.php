@@ -8379,7 +8379,7 @@ $messages['nds-nl'] = array(
 	'payflowpro_gateway-donor-card-num' => 'Nummer van de kaorte:',
 	'payflowpro_gateway-donor-expiration' => 'Vervaldaotum:',
 	'payflowpro_gateway-donor-security' => 'Beveiligingscode:',
-	'payflowpro_gateway-donor-submit' => 'Geld geven',
+	'payflowpro_gateway-donor-submit' => 'Steun {{SITENAME}}',
 	'payflowpro_gateway-donor-currency-msg' => 'Disse donasie is in $1',
 	'payflowpro_gateway-error-msg' => 'Vul joew $1 in',
 	'payflowpro_gateway-error-msg-js' => "'t Volgende veld mu-j invullen:",
@@ -8419,7 +8419,7 @@ Prebeer 't laoter weer.",
 	'php-response-declined' => 'Joew storting is of-ewezen.',
 	'payflowpro_gateway-thankyou' => 'Bedank veur de centen!',
 	'payflowpro_gateway-post-transaction' => 'Gegevens van de storting',
-	'payflowpro_gateway-submit-button' => 'Geld geven',
+	'payflowpro_gateway-submit-button' => 'Steun {{SITENAME}}',
 	'payflowpro_gateway-cvv-explain' => "<h4>Wat is CVV?</h4>
 <p>CVV steet veur Cardholder Verification Value (kaorthouwer bevestigingsweerde). Dit getal van dree of vier ciefers zörg derveur da-w nao kunnen kieken of de kaorte ech in hanen is van de persoon dee 't geld geef en helpt fraude te veurkoemen.</p>
 <h4>Visa, Mastercard</h4>
@@ -8986,6 +8986,13 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'payflowpro_gateway-question-comment' => 'Wikipèdia es un projècte de la Wikimedia Foundation. De questions o de comentaris ? Contactatz la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'payflowpro_gateway-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.',
 	'payflowpro_gateway-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">politica de confidencialitat</a>.',
+);
+
+/** Ossetic (Иронау)
+ * @author Amikeco
+ */
+$messages['os'] = array(
+	'payflowpro_gateway-language' => 'Æвзаг:',
 );
 
 /** Deitsch (Deitsch)
