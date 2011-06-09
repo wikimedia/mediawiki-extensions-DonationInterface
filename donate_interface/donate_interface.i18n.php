@@ -1778,6 +1778,7 @@ $messages['ml'] = array(
 );
 
 /** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
  * @author Diagramma Della Verita
  */
 $messages['ms'] = array(
@@ -1792,7 +1793,7 @@ $messages['ms'] = array(
 	'donate_interface-comment-message' => 'Adakah anda mempunyai pandangan untuk berkongsi dengan sedunia? Hantarkannya dengan tidak melebihi 200 aksara:',
 	'donate_interface-comment-label' => 'Komen:',
 	'donate_interface-anon-message' => 'Letakkan nama saya (di sebelah komen) dalam senarai penderma umum.',
-	'donate_interface-email-agreement' => 'Saya setuju untuk menerima warkah atau e-mail daripada Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Saya setuju untuk menerima kemas kini e-mel sekali-sekala daripada Yayasan Wikimedia.',
 	'donate_interface-comment-title' => 'Komen umum',
 	'donate_interface-amount-error' => '**Sila masukkan jumlah yang sah**',
 	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda. 
