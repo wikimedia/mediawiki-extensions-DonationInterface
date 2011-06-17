@@ -72,7 +72,7 @@ class CreditCardFraudDetection extends HTTPBase {
       if ( preg_match( '/@/', $value ) ) {
 	return md5( strtolower( $value ) );
       }
-    } else if ( $key == 'usernameMD5' || $key == 'passwordMD5' ) {
+    } elseif ( $key == 'usernameMD5' || $key == 'passwordMD5' ) {
       if ( strlen( $value ) != 32 ) {
 	return md5( strtolower( $value ) );
       }

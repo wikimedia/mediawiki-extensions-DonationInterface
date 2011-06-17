@@ -1,11 +1,11 @@
 <?php
 /**
  * This is a modified PHP library that handles calling reCaptcha
- * 
+ *
  * This is /different/ from the original PHP API for reCAPTCHA.
  * This version supports cURL and using an http proxy for network
  * communications and takes some settings set by MediaWiki.
- * 
+ *
  * See below for original license and other info.
  */
 /*
@@ -42,7 +42,7 @@
  */
 
 // global MW variables that should be available
-global $wgPayflowRecaptchaUseHTTPProxy, $wgPayflowRecaptchaHTTPProxy, 
+global $wgPayflowRecaptchaUseHTTPProxy, $wgPayflowRecaptchaHTTPProxy,
 	$wgPayflowRecaptchaTimeout, $wgPayflowRecaptchaUseSSL, $wgPayflowRecaptchaComsRetryLimit;
 
 /**
@@ -99,7 +99,7 @@ function _recaptcha_http_post( $host, $path, $data, $port = 80 ) {
         } else {
         	$response = _recaptcha_http_post_curl( $host, $path, $req, $port );
         }
-        
+
         $response = explode( "\r\n\r\n", $response, 2 );
 
         return $response;
@@ -114,7 +114,7 @@ function _recaptcha_http_post( $host, $path, $data, $port = 80 ) {
  * @return array response
  */
 function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
-	
+
 	$http_request  = "POST $path HTTP/1.0\r\n";
 	$http_request .= "Host: $host\r\n";
 	$http_request .= "Content-Type: application/x-www-form-urlencoded;\r\n";
@@ -134,8 +134,8 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
 	while ( !feof( $fs ) )
 		$response .= fgets( $fs, 1160 ); // One TCP-IP packet
 	fclose( $fs );
-        
-	return $response;	
+
+	return $response;
 }
 
 /**
@@ -148,7 +148,7 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
  */
 function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	$url = "http://" . $host . ":" . $port . $path;
-	
+
 	$ch = curl_init( $url );
 	curl_setopt( $ch, CURLOPT_POST, true );
 	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -156,15 +156,15 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	curl_setopt( $ch, CURLOPT_USERAGENT, 'reCAPTCHA/PHP' );
 	curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
 	curl_setopt( $ch, CURLOPT_HEADER, true );
-	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( "Host: " . $host ) ); 
-	
+	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( "Host: " . $host ) );
+
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
 		PayflowProGateway::log( 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
 		curl_setopt( $ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP );
 		curl_setopt( $ch, CURLOPT_PROXY, RECAPTCHA_HTTP_PROXY );
 	}
-	
+
 	// try up to three times
 	for ( $i = 0; $i < RECAPTCHA_RETRY_LIMIT; $i++ ) {
 		PayflowProGateway::log( 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
@@ -175,13 +175,13 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 			break;
 		}
 	}
-	
+
 	/**
 	 * This is a nasty hack to pretend like things worked when they really didn't
-	 * 
-	 * Doing this per instructions from the fundraisers to accept a trxn when we 
+	 *
+	 * Doing this per instructions from the fundraisers to accept a trxn when we
 	 * are unsuccesful communicating with reCaptcha.
-	 * 
+	 *
 	 * This sets $response to a message that will fool reCaptcha (on our end) into thinking
 	 * the user entered the correct values.
 	 */
@@ -189,7 +189,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 		PayflowProGateway::log( 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
 		$response = "true\r\n\r\nsuccess";
 	}
-	
+
 	return $response;
 }
 
@@ -350,7 +350,7 @@ function _recaptcha_mailhide_email_parts ( $email ) {
 
 	if ( strlen ( $arr[0] ) <= 4 ) {
 		$arr[0] = substr ( $arr[0], 0, 1 );
-	} else if ( strlen ( $arr[0] ) <= 6 ) {
+	} elseif ( strlen ( $arr[0] ) <= 6 ) {
 		$arr[0] = substr ( $arr[0], 0, 3 );
 	} else {
 		$arr[0] = substr ( $arr[0], 0, 4 );

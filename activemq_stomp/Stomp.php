@@ -162,7 +162,7 @@ class Stomp
             if ( !is_resource( $this->_socket ) && $att >= $this->_attempts && !array_key_exists( $i + 1, $this->_hosts ) ) {
                 require_once 'Stomp/Exception.php';
                 throw new Stomp_Exception( "Could not connect to $host:$port ($att/{$this->_attempts})" );
-            } else if ( is_resource( $this->_socket ) ) {
+            } elseif ( is_resource( $this->_socket ) ) {
                 $connected = true;
                 $this->_currentHost = $i;
                 break;
@@ -569,7 +569,7 @@ class Stomp
 
         if ($has_frame_to_read === false) {
             throw new Stomp_Exception('Check failed to determin if the socket is readable');
-        } else if ($has_frame_to_read > 0) {
+        } elseif ($has_frame_to_read > 0) {
             return true;
         } else {
             return false;
