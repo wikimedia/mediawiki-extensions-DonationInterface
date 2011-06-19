@@ -2502,8 +2502,16 @@ $messages['sah'] = array(
 
 /** Sinhala (සිංහල)
  * @author චතුනි අලහප්පෙරුම
+ * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'donate_interface' => 'විකිමාධ්‍යට සහය දක්වන්න',
+	'donate_interface-other-amount' => 'වෙනත් වටිනාකම්',
+	'donate_interface-currency' => 'ව්‍යවහාර මුදල:',
+	'donate_interface-gateway' => 'ගෙවීමේ ක්‍රමය:',
+	'donate_interface-submit-button' => 'පරිත්‍යාග කරන්න',
+	'donate_interface-comment-label' => 'පරිකථනය:',
+	'donate_interface-comment-title' => 'පොදු විවේචන',
 	'donate_interface-GBP' => 'මබ්‍රිප: බ්‍රිතාන්‍ය පවුම්',
 	'donate_interface-EUR' => 'යුරෝ: යුරෝ',
 	'donate_interface-USD' => 'ඇඩො: එ.ජ. ඩොලර්',
