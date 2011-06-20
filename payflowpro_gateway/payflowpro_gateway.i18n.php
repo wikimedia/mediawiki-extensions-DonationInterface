@@ -9511,6 +9511,7 @@ $messages['ps'] = array(
 	'payflowpro_gateway-what-is-this' => 'دا څه دی؟',
 	'payflowpro_gateway-cancel' => 'ناګارل',
 	'payflowpro_gateway-language' => 'ژبه:',
+	'payflowpro_gateway-state-dropdown-XX' => 'د متحده ايالاتو نه دباندې',
 );
 
 /** Portuguese (Português)
