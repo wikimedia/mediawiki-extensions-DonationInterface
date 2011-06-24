@@ -2113,6 +2113,7 @@ $messages['pdc'] = array(
 );
 
 /** Polish (Polski)
+ * @author Mikołka
  * @author Sp5uhe
  */
 $messages['pl'] = array(
@@ -2127,7 +2128,7 @@ $messages['pl'] = array(
 	'donate_interface-comment-message' => 'Chciałbyś coś przekazać światu? Możesz tutaj wpisać do 200 znaków.',
 	'donate_interface-comment-label' => 'Komentarz',
 	'donate_interface-anon-message' => 'Proszę wymienić mnie (obok mój komentarz) na publicznej liście darczyńców.',
-	'donate_interface-email-agreement' => 'Zgadzam się na okazjonalne otrzymywanie e‐mailem informacji o aktualnościach od Fundacji Wikimedia.',
+	'donate_interface-email-agreement' => 'Zgadzam się na okazjonalne otrzymywanie e-mailem informacji o aktualnościach od Fundacji Wikimedia.',
 	'donate_interface-comment-title' => 'Komentarz publiczny',
 	'donate_interface-amount-error' => '**Proszę wpisać poprawną kwotę**',
 	'donate_interface-processing-error' => 'Wystąpił błąd podczas wykonywania operacji. Brak dostępnego procesora.',
@@ -2136,18 +2137,18 @@ $messages['pl'] = array(
 	'donate_interface-USD' => 'USD – dolar amerykański',
 	'donate_interface-AUD' => 'AUD – dolar australijski',
 	'donate_interface-CAD' => 'CAD – dolar kanadyjski',
-	'donate_interface-CHF' => 'CHF — frank szwajcarski',
-	'donate_interface-CZK' => 'CZK — korona czeska',
-	'donate_interface-DKK' => 'DKK — korona duńska',
-	'donate_interface-HKD' => 'HKD — dolar Hongkongu',
-	'donate_interface-HUF' => 'HUF — forint węgierski',
+	'donate_interface-CHF' => 'CHF – frank szwajcarski',
+	'donate_interface-CZK' => 'CZK – korona czeska',
+	'donate_interface-DKK' => 'DKK – korona duńska',
+	'donate_interface-HKD' => 'HKD – dolar Hongkongu',
+	'donate_interface-HUF' => 'HUF – forint węgierski',
 	'donate_interface-JPY' => 'JPY – jen japoński',
-	'donate_interface-NZD' => 'NZD — dolar nowozelandzki',
-	'donate_interface-NOK' => 'NOK — korona norweska',
-	'donate_interface-PLN' => 'PLN — polski złoty',
-	'donate_interface-SGD' => 'SGD — dolar singapurski',
-	'donate_interface-SEK' => 'SEK — korona szwedzka',
-	'donate_interface-ILS' => 'ILS — szekel izraelski',
+	'donate_interface-NZD' => 'NZD – dolar nowozelandzki',
+	'donate_interface-NOK' => 'NOK – korona norweska',
+	'donate_interface-PLN' => 'PLN – polski złoty',
+	'donate_interface-SGD' => 'SGD – dolar singapurski',
+	'donate_interface-SEK' => 'SEK – korona szwedzka',
+	'donate_interface-ILS' => 'ILS – szekel izraelski',
 );
 
 /** Piedmontese (Piemontèis)
