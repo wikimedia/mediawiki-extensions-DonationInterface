@@ -1824,7 +1824,7 @@ A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant Jav
 	'payflowpro_gateway-back' => 'A-dreñv',
 	'payflowpro_gateway-front-of-shirt' => 'Penn a-raok an tee-shirt',
 	'payflowpro_gateway-back-of-shirt' => 'Penn a-dreñv an tee-shirt',
-	'payflowpro_gateway-select-a-size' => 'Mar-plij dibabit ur ment.',
+	'payflowpro_gateway-select-a-size' => 'Diuzit ur vent.',
 	'payflowpro_gateway-select' => 'Ment :',
 	'payflowpro_gateway-shipping-address' => "Chomlec'h kas",
 	'payflowpro_gateway-shipping-address-different' => "Disheñvel eo ma chomlec'h kas diouzh ma chomlec'h fakturenniñ.",
