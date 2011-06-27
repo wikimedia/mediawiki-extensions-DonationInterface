@@ -8257,6 +8257,7 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 	'payflowpro_gateway-or' => 'atau',
 	'payflowpro_gateway-title' => 'Tajuk',
 	'payflowpro_gateway-next' => 'Berikutnya',
+	'payflowpro_gateway-select' => 'Saiz:',
 );
 
 /** Maltese (Malti)
