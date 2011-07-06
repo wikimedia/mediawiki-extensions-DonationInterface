@@ -64,7 +64,7 @@ function validate_form( form ) {
 	output += "Country:" + countryField.options[countryField.selectedIndex].value + '.\r\n';
 
 	//set state to "outside us"
-	if ( document.payment.country.value != '840' ) {
+	if ( document.payment.country.value != 'US' ) {
 			document.payment.state.value = 'XX';
 	}
 
@@ -94,7 +94,7 @@ function submit_form( ccform ) {
 
 function disableStates( form ) {
 
-		if ( document.payment.country.value != '840' ) {
+		if ( document.payment.country.value != 'US' ) {
 			document.payment.state.value = 'XX';
 		} else {
 			document.payment.state.value = 'YY';
