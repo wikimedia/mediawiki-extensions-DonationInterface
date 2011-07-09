@@ -3306,7 +3306,7 @@ In some instances, the code is located on the left side of the card, but is alwa
  */
 $messages['eo'] = array(
 	'payflowprogateway' => 'Donacu nun',
-	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkcarta proceso',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkarta proceso',
 	'payflowpro_gateway-accessible' => 'Ĉi tiu paĝo estas alirebla nur el la donacpaĝo.',
 	'payflowpro_gateway-paypal-button' => 'Donaci per PayPal',
 	'payflowpro_gateway-cc-button' => 'Donaci per kreditkarto',
@@ -8175,7 +8175,7 @@ $messages['ms'] = array(
 	'payflowpro_gateway-donor-street' => 'Jalan',
 	'payflowpro_gateway-donor-city' => 'Bandar',
 	'payflowpro_gateway-donor-state' => 'Negeri',
-	'payflowpro_gateway-donor-postal' => 'Pos kod',
+	'payflowpro_gateway-donor-postal' => 'Poskod',
 	'payflowpro_gateway-donor-country' => 'Negara/Wilayah',
 	'payflowpro_gateway-donor-address' => 'Alamat',
 	'payflowpro_gateway-donor-card' => 'Kad kredit',
@@ -8200,7 +8200,7 @@ $messages['ms'] = array(
 	'payflowpro_gateway-error-msg-street' => 'alamat',
 	'payflowpro_gateway-error-msg-city' => 'bandar',
 	'payflowpro_gateway-error-msg-state' => 'negeri',
-	'payflowpro_gateway-error-msg-zip' => 'pos kod',
+	'payflowpro_gateway-error-msg-zip' => 'poskod',
 	'payflowpro_gateway-error-msg-country' => 'negara',
 	'payflowpro_gateway-error-msg-card_num' => 'nombor kad kredit',
 	'payflowpro_gateway-error-msg-expiration' => 'tarikh luput kad',
