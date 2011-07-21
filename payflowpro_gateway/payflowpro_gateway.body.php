@@ -1062,7 +1062,7 @@ EOT;
 				 * to be 'country' for downstream processing (until we fully support passing in two separate addresses).  I thought about completely
 				 * disabling country2 support in the forms, etc but realized there's a chance it'll be resurrected shortly.  Hence this silly hack.
 				 */
-				'country2' => ( strlen( $wgRequest->getText( 'country2', '' ))) ? $wgRequest->getText( 'country2' ) : $wgRequest->getText( 'country' ),
+				'country2' => ( strlen( $wgRequest->getText( 'country2' ))) ? $wgRequest->getText( 'country2' ) : $wgRequest->getText( 'country' ),
 				'size' => $wgRequest->getText( 'size' ),
 				'premium_language' => $wgRequest->getText( 'premium_language', "en" ),
 				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
