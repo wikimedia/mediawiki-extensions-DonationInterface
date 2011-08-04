@@ -3516,6 +3516,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Dferg
  * @author Diego Grez
  * @author Drini
+ * @author Fitoschido
  * @author Locos epraix
  * @author MisterWiki
  * @author Od1n
@@ -3645,8 +3646,18 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'payflowpro_gateway-credit-card-number' => 'Número de la tarjeta de crédito',
 	'payflowpro_gateway-credit-card-number-abbreviated' => 'Tarjeta de crédito número #',
 	'payflowpro_gateway-credit-card-expiration' => 'Fecha de caducidad de la tarjeta de crédito',
+	'payflowpro_gateway-select-year-of-expiration' => 'Seleccionar el año de vencimiento',
+	'payflowpro_gateway-expires-question' => '¿Vence?',
 	'payflowpro_gateway-expires' => 'Expira',
+	'payflowpro_gateway-card-security-code' => 'Código de seguridad de la tarjeta',
+	'payflowpro_gateway-cvv' => 'CVV',
+	'payflowpro_gateway-cvv-number-abbreviated' => 'CVV #',
+	'payflowpro_gateway-cvv2' => 'CVV2',
+	'payflowpro_gateway-cvv-number' => 'Número CVV',
+	'payflowpro_gateway-verification-number' => 'Número de verificación',
 	'payflowpro_gateway-what-is-this' => '¿Qué es esto?',
+	'payflowpro_gateway-do-not-include-dashes' => 'Por favor, no incluya guiones',
+	'payflowpro_gateway-please-donate-today' => 'Por favor haga una donación hoy',
 	'payflowpro_gateway-donate-now' => 'Dona ahora',
 	'payflowpro_gateway-select-amount' => 'Seleccionar cantidad',
 	'payflowpro_gateway-amount' => 'Cantidad',
@@ -4784,6 +4795,13 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'payflowpro_gateway-donation-tshirt' => 'Doazón (oferta de camiseta)',
 	'payflowpro_gateway-state-dropdown-YY' => 'Selecciona un estado',
 	'payflowpro_gateway-state-dropdown-XX' => 'Fóra dos EUA',
+);
+
+/** Ancient Greek (Ἀρχαία ἑλληνικὴ)
+ * @author Crazymadlover
+ */
+$messages['grc'] = array(
+	'payflowpro_gateway-cancel' => 'Ἀκυροῦν',
 );
 
 /** Swiss German (Alemannisch)
@@ -8488,12 +8506,12 @@ $messages['nds-nl'] = array(
 	'payflowpro_gateway-donor-currency-msg' => 'Disse donasie is in $1',
 	'payflowpro_gateway-error-msg' => 'Vul joew $1 in',
 	'payflowpro_gateway-error-msg-js' => "t Volgende veld mö'j invullen:",
-	'payflowpro_gateway-error-msg-invalid-amount' => '**Vul een bedrag in**',
-	'payflowpro_gateway-error-msg-email' => '**Vul een geldig netpostadres in**',
-	'payflowpro_gateway-error-msg-amex' => '**Vul een geldig nummer in van joew American Express-kaorte**',
-	'payflowpro_gateway-error-msg-mc' => '**Vul een geldig nummer in van joew Mastercard**',
-	'payflowpro_gateway-error-msg-visa' => '**Vul een geldig nummer in van joew Visakaorte**',
-	'payflowpro_gateway-error-msg-discover' => '**Vul een geldig nummer in van joew Discoverkaorte**',
+	'payflowpro_gateway-error-msg-invalid-amount' => '**Vul n bedrag in**',
+	'payflowpro_gateway-error-msg-email' => '**Vul n geldig netpostadres in**',
+	'payflowpro_gateway-error-msg-amex' => '**Vul n geldig nummer in van joew American Express-kaorte**',
+	'payflowpro_gateway-error-msg-mc' => '**Vul n geldig nummer in van joew Mastercard**',
+	'payflowpro_gateway-error-msg-visa' => '**Vul n geldig nummer in van joew Visakaorte**',
+	'payflowpro_gateway-error-msg-discover' => '**Vul n geldig nummer in van joew Discoverkaorte**',
 	'payflowpro_gateway-error-msg-amount' => 'bedrag',
 	'payflowpro_gateway-error-msg-emailAdd' => 'netpostadres',
 	'payflowpro_gateway-error-msg-fname' => 'veurnaam',
@@ -8508,7 +8526,7 @@ $messages['nds-nl'] = array(
 	'payflowpro_gateway-response-0' => 'Joew storting is goedekeurd!
 Bedankt veur de schenking!',
 	'payflowpro_gateway-response-126' => 'Joew storting wacht op goedkeuring.',
-	'payflowpro_gateway-response-126-2' => "Der is wat informasie da'j op-egeven hebben, en niet t zelfde is as op t prefiel van joew kredietkaorte, of je hebben eprobeerd um een alderbarstens grote schenking te doon. Veur joew eigen veiligheid wörden disse schenking op dit moment nao-ekeken en wie laoten t joe weten via t op-egeven netpostadres a'w de schenking niet kunnen verwarken. Neem kontakt op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> a'j nog vragen hebben. Bedank!",
+	'payflowpro_gateway-response-126-2' => "Der is wat informasie da'j op-egeven hebben, en niet t zelfde is as op t prefiel van joew kredietkaorte, of je hebben eprobeerd um n alderbarstens grote schenking te doon. Veur joew eigen veiligheid wörden disse schenking op dit moment nao-ekeken en wie laoten t joe weten via t op-egeven netpostadres a'w de schenking niet kunnen verwarken. Neem kontakt op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> a'j nog vragen hebben. Bedank!",
 	'payflowpro_gateway-response-12' => 'Neem kontakt op mit de kredietkaortmaotschappieje veur meer informasie.',
 	'payflowpro_gateway-response-13' => "Veur disse storting mö'j mondelinge toestemming geven.
 Neem kontakt op mit ons veur de storting.",
@@ -8518,7 +8536,7 @@ Neem kontakt op mit ons veur de storting.",
 	'payflowpro_gateway-response-24' => 't Nummer van de kredietkaorte is vervuilen of verkeerd.',
 	'payflowpro_gateway-response-112' => 'Joew adres of CVV-nummer (beveiligingskode) is verkeerd.',
 	'payflowpro_gateway-response-125' => 'Joew storting is aofewezen deur Fraud Prevention Services.',
-	'payflowpro_gateway-response-125-2' => 'Der kon niet bevestigd wörden dat joew kredietkaorte geldig is. Kiek effen nao of alle gegevens die\'j op-egeven hebben t zelfde bin as op t kredietkaortprefiel, of probeer een schenking te doon mit een aandere kredietkaorte, a\'j dat hebben. Je kunnen oek op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aandere menieren geld schenken</a> of kontakt mit ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Bedank veur joe steun.',
+	'payflowpro_gateway-response-125-2' => 'Der kon niet bevestigd wörden dat joew kredietkaorte geldig is. Kiek effen nao of alle gegevens die\'j op-egeven hebben t zelfde bin as op t kredietkaortprefiel, of probeer n schenking te doon mit n aandere kredietkaorte, a\'j dat hebben. Je kunnen oek op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aandere menieren geld schenken</a> of kontakt mit ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Bedank veur joe steun.',
 	'payflowpro_gateway-response-default' => 'Der gung wat fout mit de storting.
 Probeer t laoter weer.',
 	'php-response-declined' => 'Joew storting is aofewezen.',
