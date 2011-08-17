@@ -104,7 +104,7 @@ Geen verwerkers is beskikbaar nie.",
 	'donate_interface-ILS' => 'ILS: Israeliese shekel',
 );
 
-/** Angika (अंगिका)
+/** Angika (अङ्गिका)
  * @author Angpradesh
  */
 $messages['anp'] = array(
@@ -948,23 +948,25 @@ $messages['fi'] = array(
  * @author Peter17
  * @author PieRRoMaN
  * @author Sherbrooke
+ * @author Verdy p
  */
 $messages['fr'] = array(
 	'donate_interface' => 'Soutenir Wikimedia',
-	'donate_interface-desc' => "Page d'atterrissage pour les dons qui intègre les modules de paiement",
+	'donate_interface-desc' => 'Page d’atterrissage pour les dons qui intègre les modules de paiement',
 	'donate_interface-intro' => 'Veuillez choisir un moyen de paiement, un montant et une devise.',
 	'donate_interface-amount' => 'Montant du don :',
 	'donate_interface-other-amount' => 'Autre montant',
 	'donate_interface-currency' => 'Devise :',
 	'donate_interface-gateway' => 'Moyen de paiement :',
 	'donate_interface-submit-button' => 'Faire un don',
-	'donate_interface-comment-message' => "Vous souhaitez transmettre une pensée au monde ? Notez jusqu'à 200 caractères ci-après :",
+	'donate_interface-comment-message' => 'Vous souhaitez transmettre une pensée au monde ? Notez jusqu’à 200 caractères ci-après :',
 	'donate_interface-comment-label' => 'Commentaire :',
 	'donate_interface-anon-message' => 'Veuillez lister mon nom (à la suite de mon commentaire) dans la liste publique des donateurs.',
-	'donate_interface-email-agreement' => "J’accepte de recevoir à l'occasion des courriels de la part de la Wikimedia Foundation.",
+	'donate_interface-email-agreement' => 'J’accepte de recevoir à l’occasion des courriels de la part de la Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Commentaire public',
 	'donate_interface-amount-error' => '**Veuillez entrer un montant valide**',
-	'donate_interface-processing-error' => "Une erreur est survenue lors du traitement de votre requête. Aucun processeur n'est disponible.",
+	'donate_interface-processing-error' => 'Une erreur est survenue lors du traitement de votre requête.
+Aucun processeur n’est disponible.',
 	'donate_interface-GBP' => 'GBP : livre sterling',
 	'donate_interface-EUR' => 'EUR : euro',
 	'donate_interface-USD' => 'USD : dollar américain',
@@ -1578,7 +1580,7 @@ $messages['lb'] = array(
 	'donate_interface-intro' => "Wielt w.e.g eng Method fir ze bezuelen, de Betrag an d'Währung eraus.",
 	'donate_interface-amount' => 'Héicht vum Don:',
 	'donate_interface-other-amount' => 'Anere Betrag',
-	'donate_interface-currency' => 'Währung',
+	'donate_interface-currency' => 'Währung:',
 	'donate_interface-gateway' => 'Method fir ze bezuelen:',
 	'donate_interface-submit-button' => 'Maacht en Don',
 	'donate_interface-comment-message' => 'Wëllt dir der Welt Är iwwerleeunge matdeelen? Schreiwt bis zu 200 Zeechen heihinn:',
@@ -1640,7 +1642,7 @@ $messages['lt'] = array(
 	'donate_interface-comment-message' => 'Norėtumėte savo mintimis pasidalinti su pasauliu? Čia galite įvesti iki 200 ženklų tekstą:',
 	'donate_interface-comment-label' => 'Komentaras:',
 	'donate_interface-anon-message' => 'Norėčiau, kad mano vardas būtų rodomas viešame paaukojusiųjų sąraše (šalia mano komentaro).',
-	'donate_interface-email-agreement' => 'Sutinku gauti retus pranešimus iš Wikimedia Foundation.',
+	'donate_interface-email-agreement' => 'Sutinku gauti retus elektroninio pašto pranešimus iš Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Viešas komentaras',
 	'donate_interface-amount-error' => '**Prašome įvesti tinkamą sumą**',
 	'donate_interface-processing-error' => 'Įvyko klaida apdorojant Jūsų užklausą.
@@ -1884,7 +1886,7 @@ $messages['nds-nl'] = array(
 	'donate_interface-comment-message' => "Wi'j n gedachte delen mit de wereld? Hieronder ku'j tot tweehonderd karakters kwiet:",
 	'donate_interface-comment-label' => 'Opmarking:',
 	'donate_interface-anon-message' => 'Laot mien naam zien naos mien opmarking in de publieke geldschieterslieste.',
-	'donate_interface-email-agreement' => "Ik stem dermee in da'k netpostberichten kriege van de Wikimedia Foundation.",
+	'donate_interface-email-agreement' => "Ik stem dermee in da'k aof en toe netpostberichten kriege van de Wikimedia Foundation.",
 	'donate_interface-comment-title' => 'Publieke opmarking',
 	'donate_interface-amount-error' => '**Vul n bedrag in**',
 	'donate_interface-processing-error' => 'Der is wat verkeerd egaon bie t verwarken van joew verzeuk. Der is gien verwarkingsdienst beschikbaor.',
@@ -1908,6 +1910,7 @@ $messages['nds-nl'] = array(
 );
 
 /** Nepali (नेपाली)
+ * @author Bhawani Gautam
  * @author Bhawani Gautam Rhk
  */
 $messages['ne'] = array(
@@ -2258,9 +2261,9 @@ Nenhuma das plataformas está disponível.',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
+ * @author 555
  * @author Giro720
  * @author Luckas Blade
- * @author 555
  */
 $messages['pt-br'] = array(
 	'donate_interface' => 'Ajude a Wikimedia',
@@ -2462,7 +2465,7 @@ $messages['rue'] = array(
 	'donate_interface-ILS' => 'ILS: ізраільскый шекель',
 );
 
-/** Yakut (Саха тыла)
+/** Sakha (Саха тыла)
  * @author HalanTul
  */
 $messages['sah'] = array(
@@ -2921,6 +2924,7 @@ $messages['tt-cyrl'] = array(
 
 /** Ukrainian (Українська)
  * @author Ahonc
+ * @author Aleksandrit
  * @author NickK
  * @author Prima klasy4na
  * @author Тест
@@ -2936,7 +2940,7 @@ $messages['uk'] = array(
 	'donate_interface-submit-button' => 'Пожертвувати',
 	'donate_interface-comment-message' => 'Є думка, щоб поділитися з світом? Наберіть до 200 символів тут:',
 	'donate_interface-comment-label' => 'Коментар:',
-	'donate_interface-anon-message' => "Будь ласка, вкажіть моє ім'я (поряд з моїм коментарем) в загальнодоступному списку донорів.",
+	'donate_interface-anon-message' => 'Будь ласка, вкажіть моє ім’я (поряд з моїм коментарем) в загальнодоступному списку донорів.',
 	'donate_interface-email-agreement' => 'Я згоден отримувати періодичні оновлення електронною поштою від Фонду Вікімедіа.',
 	'donate_interface-comment-title' => 'Загальнодоступний коментар',
 	'donate_interface-amount-error' => '**Будь ласка, введіть коректну суму**',
