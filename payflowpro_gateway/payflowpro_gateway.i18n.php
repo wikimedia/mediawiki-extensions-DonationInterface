@@ -1206,7 +1206,7 @@ $messages['be-tarask'] = array(
 	'payflowpro_gateway-otherways-alt' => 'Існуюць <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя шляхі ахвяраваньня</a>, у тым ліку чэкам.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Іншыя спосабы ахвяраваць</a>',
 	'payflowpro_gateway-paypal' => 'Маеце рахунак у PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Ахвяраваць праз PayPal</a>.',
-	'payflowpro_gateway-credit-storage-processing' => 'Мы не захоўваем інфармацыю пра Вашыя крэдытныя карткі, а Вашыя асабістыя зьвесткі знаходзяцца пад абаронай нашай <a href="http://wikimediafoundation.org/wiki/Donor_policy">палітыкі прыватнасьці</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Мы не захоўваем інфармацыю пра Вашыя крэдытныя карткі, а Вашыя асабістыя зьвесткі знаходзяцца пад абаронай нашых <a href="http://wikimediafoundation.org/wiki/Donor_policy">правілаў адносна прыватнасьці ахвяравальнікаў</a>.',
 	'payflowpro_gateway-token-mismatch' => 'Вашая сэсія скончылася. Калі ласка, паспрабуйце запоўніць і адправіць форму яшчэ раз.',
 	'payflowpro_gateway-cc-form-header-personal' => 'Плацёжныя зьвесткі',
 	'payflowpro_gateway-cc-form-header-payment' => 'Інфармацыя пра аплату',
@@ -5116,7 +5116,7 @@ $messages['he'] = array(
 	'payflowpro_gateway-otherways-alt' => 'ישנן <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">דרכים נוספות לתרום</a>, לרבות המחאה.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">דרכים אחרות לתרום</a>',
 	'payflowpro_gateway-paypal' => 'יש לך חשבון ב־PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">ניתן לתרום באמצעות PayPal</a>.',
-	'payflowpro_gateway-credit-storage-processing' => 'איננו מאחסנים את פרטי כרטיס האשראי ואת הפרטים האישיים שלך ואלו כפופים ל<a href="http://wikimediafoundation.org/wiki/Donor_policy">מדיניות הפרטיות</a> שלנו.',
+	'payflowpro_gateway-credit-storage-processing' => 'איננו מאחסנים את פרטי כרטיס האשראי, והפרטים האישיים שלך כפופים ל<a href="http://wikimediafoundation.org/wiki/Donor_policy">מדיניות הפרטיות</a> שלנו.',
 	'payflowpro_gateway-token-mismatch' => 'פג תוקף השיחה. אנא נסו למלא את הטופס מחדש.',
 	'payflowpro_gateway-cc-form-header-personal' => 'פרטי החיוב',
 	'payflowpro_gateway-cc-form-header-payment' => 'פרטי התשלום',
@@ -6429,6 +6429,7 @@ In alcuni casi, il codice si trova sulla parte sinistra della casa, ma comunque 
 );
 
 /** Japanese (日本語)
+ * @author Akaniji
  * @author Aphaia
  * @author Fryed-peach
  * @author Kanon und wikipedia
@@ -6523,7 +6524,7 @@ $messages['ja'] = array(
 	'payflowpro_gateway-otherways-alt' => '小切手を含む<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/ja">その他の送金方法</a>があります。',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">その他の方法</a>',
 	'payflowpro_gateway-paypal' => 'PayPalのアカウントをお持ちですか？<a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPalでも寄付できます</a>。',
-	'payflowpro_gateway-credit-storage-processing' => 'クレジットカード情報を保管されません。また、個人情報は<a href="http://wikimediafoundation.org/wiki/Donor_policy">個人情報保護方針</a>の対象です。',
+	'payflowpro_gateway-credit-storage-processing' => 'クレジットカード情報は保管されません。また、個人情報は<a href="http://wikimediafoundation.org/wiki/Donor_policy">寄贈者の個人情報保護方針</a>の対象です。',
 	'payflowpro_gateway-token-mismatch' => 'セッションが期限切れです。もう一度入力して、フォームを送信してください。',
 	'payflowpro_gateway-cc-form-header-personal' => '課金情報',
 	'payflowpro_gateway-cc-form-header-payment' => '支払情報',
