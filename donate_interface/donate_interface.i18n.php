@@ -2709,9 +2709,11 @@ Hakuna vichakataji vinavyopatikana.',
 );
 
 /** Tamil (தமிழ்)
+ * @author Surya Prakash.S.A.
  * @author TRYPPN
  */
 $messages['ta'] = array(
+	'donate_interface' => 'விக்கிமீடியாவை ஆதரிக்கவும்',
 	'donate_interface-comment-label' => 'கருத்து:',
 );
 
