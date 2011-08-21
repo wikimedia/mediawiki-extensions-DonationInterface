@@ -575,6 +575,45 @@ $messages['cy'] = array(
 	'donate_interface-ILS' => 'ILS: Shekel Israel',
 );
 
+/** Danish (Dansk)
+ * @author Peter Alberti
+ */
+$messages['da'] = array(
+	'donate_interface' => 'Støt Wikimedia',
+	'donate_interface-desc' => 'Donationsdestinationsside, som integrerer passage-udvidelser',
+	'donate_interface-intro' => 'Vælg venligst betalingsmetode, beløb og møntfod.',
+	'donate_interface-amount' => 'Donationsbeløb:',
+	'donate_interface-other-amount' => 'Andet beløb',
+	'donate_interface-currency' => 'Møntfod:',
+	'donate_interface-gateway' => 'Betalingsmetode:',
+	'donate_interface-submit-button' => 'Donér',
+	'donate_interface-comment-message' => 'Har du en tanke, du ønsker at dele med verden? Skriv op til 200 tegn her:',
+	'donate_interface-comment-label' => 'Kommentar:',
+	'donate_interface-anon-message' => 'Angiv venligst mit navn (ved siden af min kommentarer) på den offentlige liste over donorer.',
+	'donate_interface-email-agreement' => 'Jeg samtykker i at modtage lejlighedsvise email-opdateringer fra Wikimedia Foundation.',
+	'donate_interface-comment-title' => 'Offentlig kommentar',
+	'donate_interface-amount-error' => '**Angiv venligst et gyldigt beløb**',
+	'donate_interface-processing-error' => 'Der opstod en fejl under behandlingen af din forespørgsel.
+Ingen processorer er tilgængelige.',
+	'donate_interface-GBP' => 'GBP: Britiske pund',
+	'donate_interface-EUR' => 'EUR: Euro',
+	'donate_interface-USD' => 'USD: USA-dollar',
+	'donate_interface-AUD' => 'AUD: Australske dollar',
+	'donate_interface-CAD' => 'CAD: Canadiske dollar',
+	'donate_interface-CHF' => 'CHF: Schweizerfranc',
+	'donate_interface-CZK' => 'CZK: Tjekkiske koruna',
+	'donate_interface-DKK' => 'DKK: Danske kroner',
+	'donate_interface-HKD' => 'HKD: Hong Kong-dollar',
+	'donate_interface-HUF' => 'HUF: Ungarske forint',
+	'donate_interface-JPY' => 'JPY: Japanske yen',
+	'donate_interface-NZD' => 'NZD: Newzealandske dollar',
+	'donate_interface-NOK' => 'NOK: Norske kroner',
+	'donate_interface-PLN' => 'PLN: Polske zloty',
+	'donate_interface-SGD' => 'SGD: Singapore-dollar',
+	'donate_interface-SEK' => 'SEK: Svenske kroner',
+	'donate_interface-ILS' => 'ILS: Israelske shekel',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Tbleher
