@@ -1389,6 +1389,16 @@ $messages['io'] = array(
 	'donate_interface-CAD' => 'CAD: Kanadana Dolaro',
 );
 
+/** Icelandic (Íslenska)
+ * @author WiseWoman
+ */
+$messages['is'] = array(
+	'donate_interface' => 'Stuð Wikimedia',
+	'donate_interface-currency' => 'Gjaldmiðill:',
+	'donate_interface-gateway' => 'Greiðsluaðferð:',
+	'donate_interface-DKK' => 'DKK: Dönsk króna',
+);
+
 /** Italian (Italiano)
  * @author Aushulz
  * @author Beta16
