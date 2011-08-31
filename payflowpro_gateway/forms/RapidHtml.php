@@ -86,7 +86,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
 		
 		// fix general form error messages so it's not an array of msgs
-		if ( count( $form_errors[ 'general' ] )) {
+		if ( is_array( $form_errors[ 'general' ] ) && count( $form_errors[ 'general' ] )) {
 			$general_errors = "";
 			foreach ( $form_errors[ 'general' ] as $general_error ) {
 				$general_errors .= "<p class='creditcard'>$general_error</p>";
