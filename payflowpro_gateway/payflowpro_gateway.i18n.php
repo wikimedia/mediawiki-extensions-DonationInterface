@@ -9724,6 +9724,7 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (Português)
+ * @author Alchimista
  * @author GTNS
  * @author Giro720
  * @author GoEThe

@@ -119,6 +119,7 @@ $messages['anp'] = array(
 );
 
 /** Arabic (العربية)
+ * @author Meno25
  * @author OsamaK
  * @author ترجمان05
  */
@@ -134,7 +135,7 @@ $messages['ar'] = array(
 	'donate_interface-comment-message' => 'هل لديك رأي تريد مشاركته من العالم؟ اكتب ما يصل إلى 200 حرف هنا:',
 	'donate_interface-comment-label' => 'التعليق:',
 	'donate_interface-anon-message' => 'الرجاء سرد اسمي (بجانب تعليقي) في قائمة المتبرعين العلنية.',
-	'donate_interface-email-agreement' => 'أوافق على استلام أخبار من فترة إلى أخرى من مؤسسة ويكيميديا.',
+	'donate_interface-email-agreement' => 'أوافق على استلام رسائل من فترة إلى أخرى من مؤسسة ويكيميديا.',
 	'donate_interface-comment-title' => 'تعليق علني',
 	'donate_interface-amount-error' => '**من فضلك أدخل مقدارًا صالحًا**',
 	'donate_interface-processing-error' => 'ثمة خطأ أثناء معالجة طلبك. لا معالج متوفر.',
