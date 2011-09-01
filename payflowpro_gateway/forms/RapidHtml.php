@@ -52,6 +52,9 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		'@gateway', // => 'payflowpro', // this may need to become dynamic in the future
 		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
+		// Not actually data tokens, but available to you in html form:
+		// @captcha -> the captcha form
+		// @script_path -> maps to $wgScriptPath 
 	);
 	
 	/**
@@ -77,7 +80,6 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgRequest;
-
 		parent::__construct( $form_data, $form_errors );
 		
 		$this->loadValidateJs();
@@ -118,6 +120,8 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	 * @return string The HTML form with real data in it
 	 */
 	public function add_data( $html ) {
+		global $wgScriptPath;
+		
 		// replace data
 		$form = str_replace( $this->data_tokens, $this->form_data, $html );
 
@@ -126,6 +130,9 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 
 		// handle captcha
 		$form = str_replace( "@captcha", $this->getCaptchaHtml(), $form );
+		
+		// handle script path
+		$form = str_replace( "@script_path", $wgScriptPath, $form );
 		
 		$form = $this->fix_dropdowns( $form );
 		
