@@ -37,7 +37,9 @@ input#city {
 input#zip {
 	width: 55px;
 }
-
+input.hasplaceholder {
+	color: rgb(153, 153, 153);
+}
 .payflow-cc-form-section {
         float: none;
         margin-right: 0em;

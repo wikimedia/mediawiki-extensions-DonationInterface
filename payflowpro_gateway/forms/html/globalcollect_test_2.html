@@ -6,7 +6,31 @@
 
 <link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
 
+<script type="text/javascript">
+//make HTML5 placeholders work in non supportive browsers
+$("input[placeholder]").each(function() {
+	if($(this).val()=="") {
+		$(this).addClass('hasplaceholder');
+		$(this).val($(this).attr("placeholder"));
+		$(this).focus(function() {
+			if($(this).val()==$(this).attr("placeholder")) $(this).val("");
+			$(this).removeClass('hasplaceholder');
+		});
+		$(this).blur(function() {
+			if($(this).val()=="") {
+				$(this).addClass('hasplaceholder');
+				$(this).val($(this).attr("placeholder"));
+			}
+		});
+	}
+});
 
+$('form').submit(function(evt){
+	$('input[placeholder]').each(function(){
+		if($(this).attr("placeholder") == $(this).val()) {$(this).val('');}
+	});
+});
+</script>
 
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -150,9 +174,9 @@
                             <td class="label"><label for="fname">Name</label></td>
                             <td>
                             	<input name="fname" size="30" value="@fname" type="text"
-                            		placeholder="First" maxlength="25" class="required" id="fname"/>
+                            		placeholder="First name" maxlength="25" class="required" id="fname"/>
                                  <input name="lname" size="30" value="@lname" type="text" 
-                                 	placeholder="Last" maxlength="25" id="lname"/>
+                                 	placeholder="Last name" maxlength="25" id="lname"/>
                         	</td>
                         </tr>
                         <tr>
