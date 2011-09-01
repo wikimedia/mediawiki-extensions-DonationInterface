@@ -55,6 +55,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
+		// @action -> generate correct form action for this form
 	);
 	
 	/**
@@ -121,10 +122,22 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	 */
 	public function add_data( $html ) {
 		global $wgScriptPath;
-		
-		// replace data
-		$form = str_replace( $this->data_tokens, $this->form_data, $html );
 
+		/**
+		 * This is a hack and should be replaced with something more performant.
+		 */
+		$form = $html;
+		
+		// handle form action
+		$form = str_replace( "@action", $this->getNoCacheAction(), $form );
+
+		// replace data
+		foreach ( $this->data_tokens as $token ) {
+			$key = substr( $token, 1, strlen( $token )); //get the token string w/o the '@'
+			if ( $key == 'emailAdd' ) $key = 'email';
+			$form = str_replace( $token, $this->form_data[ $key ], $form );
+		}
+		
 		// replace errors
 		$form = str_replace( $this->error_tokens, $this->form_errors, $form );
 
