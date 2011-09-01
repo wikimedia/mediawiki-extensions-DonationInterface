@@ -1,14 +1,10 @@
+<link rel="stylesheet" href="@script_path/skins/vector/main-ltr.css" />
+<link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css" /> 
+<link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
 <style>
 	.step2hidden{ display:none; }
+	#footer-places { display:none; }
 </style>
-<link rel="stylesheet" href="https://payments.wikimedia.org/skins/vector/main-ltr.css" />
-<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css" /> 
-
-<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
-
-
-
-
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <tr>
         <td id="appeal" valign="top">
@@ -71,28 +67,25 @@
                                         <td class="amount_header">Description</td>
                                         <td class="amount_header" style="text-align:right;width:75px;">Amount
                                         </td>
-                                        <td class="amount_header" style="text-align:right;width:75px;">Currency
-                                        </td>
+                                        
                                     </tr>
                                     <tr>
                                         <td class="amount_data">Donation</td>
-                                        <td class="amount_data" style="text-align:right;width:75px;">@amount<input
+                                        <td class="amount_data" style="text-align:right;width:75px;">$ @amount<input
                                                 type="hidden" value="@amount" name="amount"/></td>
-                                        <td class="amount_data" style="text-align:right;width:75px;">@currency_code<input
-                                                type="hidden" values="@currency_code" name="currency_code"/></td>
+                                        
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                         <tr class="step2hidden">
                             <td colspan="2"><h3 class="cc_header">Billing information<img
-                                    src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
+                                    src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
                                     style="vertical-align:baseline;margin-left:8px;"/></h3></td>
                         </tr>
                         <tr>
                             <td class="label"></td>
-                            <td><img
-                                    src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif"/>
+                            <td><img src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" style="padding-top: 10px;"/>
                             </td>
                         </tr>
                         <tr>
@@ -138,119 +131,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="fname">Name on card</label></td>
-                            <td><input name="fname" size="30" value="@fname" type="text"
-                                       onfocus="clearField( this, &#039;First name&#039; )" maxlength="25"
-                                       class="required" id="fname"/>
-                                 <input name="lname" size="30" value="@lname"
-                                       type="text"
-                                       onfocus="clearField( this, &#039;Last name&#039; )"
-                                       maxlength="25" id="lname"/></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="street">Billing address</label></td>
-                            <td><input name="street" size="30" value="@street" type="text"
-                                       onfocus="clearField( this, &#039;Street&#039; )" maxlength="100"
-                                       id="street" class="fullwidth"/></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td class="label"></td>
-                            <td><input name="city" size="18" value="@city" type="text"
-                                       onfocus="clearField( this, &#039;City&#039; )" maxlength="40" id="city"/>
-                                <select name="state" id="state">
-                                    <option value=""/>
-                                    <option value="AK">AK</option>
-                                    <option value="AL">AL</option>
-                                    <option value="AR">AR</option>
-                                    <option value="AZ">AZ</option>
-                                    <option value="CA">CA</option>
-                                    <option value="CO">CO</option>
-                                    <option value="CT">CT</option>
-                                    <option value="DC">DC</option>
-                                    <option value="DE">DE</option>
-                                    <option value="FL">FL</option>
-                                    <option value="GA">GA</option>
-                                    <option value="HI">HI</option>
-                                    <option value="IA">IA</option>
-                                    <option value="ID">ID</option>
-                                    <option value="IL">IL</option>
-                                    <option value="IN">IN</option>
-                                    <option value="KS">KS</option>
-                                    <option value="KY">KY</option>
-                                    <option value="LA">LA</option>
-                                    <option value="MA">MA</option>
-                                    <option value="MD">MD</option>
-                                    <option value="ME">ME</option>
-                                    <option value="MI">MI</option>
-                                    <option value="MN">MN</option>
-                                    <option value="MO">MO</option>
-                                    <option value="MS">MS</option>
-                                    <option value="MT">MT</option>
-                                    <option value="NC">NC</option>
-                                    <option value="ND">ND</option>
-                                    <option value="NE">NE</option>
-                                    <option value="NH">NH</option>
-                                    <option value="NJ">NJ</option>
-                                    <option value="NM">NM</option>
-                                    <option value="NV">NV</option>
-                                    <option value="NY">NY</option>
-                                    <option value="OH">OH</option>
-                                    <option value="OK">OK</option>
-                                    <option value="OR">OR</option>
-                                    <option value="PA">PA</option>
-                                    <option value="PR">PR</option>
-                                    <option value="RI">RI</option>
-                                    <option value="SC">SC</option>
-                                    <option value="SD">SD</option>
-                                    <option value="TN">TN</option>
-                                    <option value="TX">TX</option>
-                                    <option value="UT">UT</option>
-                                    <option value="VA">VA</option>
-                                    <option value="VT">VT</option>
-                                    <option value="WA">WA</option>
-                                    <option value="WI">WI</option>
-                                    <option value="WV">WV</option>
-                                    <option value="WY">WY</option>
-                                    <option value="AA">AA</option>
-                                    <option value="AE">AE</option>
-                                    <option value="AP">AP</option>
-                                </select> <input name="zip" size="5" value="" type="text"
-                                                 onfocus="clearField( this, &#039;Zip code&#039; )"
-                                                 maxlength="10" id="zip"/><input type="hidden" value="@country"
-                                                                                 name="country"/></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="emailAdd">E-mail receipt to</label></td>
-                            <td><input name="emailAdd" size="30" value="@emailAdd" type="text"
-                                       onfocus="clearField( this, &#039;Email address&#039; )" maxlength="64"
-                                       id="emailAdd" class="fullwidth"/></td>
-                        </tr>
-                        <tr>
                             <td class="label"></td>
                             <td>
-                                <div id="mw-donate-submit-button">&#160;<br/><input
-                                        src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png"
-                                        alt="Submit donation" type="image"/></div>
-                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.</div>
+                                <div id="mw-donate-submit-button"><input  style="margin-top:19px;"
+                                        src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png" alt="Submit donation" type="image"/></div>
+                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.</div>
                             </td>
                         </tr>
                     </table>
                 </div>
+                <input type="hidden" name="emailAdd" size="30" value="@emailAdd" onfocus="clearField( this, &#039;Email address&#039; )" maxlength="64"id="emailAdd" class="fullwidth"/>
+                <input type="hidden" name="fname" size="30" value="@fname"onfocus="clearField( this, &#039;First name&#039; )" maxlength="25" class="required" id="fname"/>
+                <input type="hidden" name="lname" size="30" value="@lname" onfocus="clearField( this, &#039;Last name&#039; )" maxlength="25" id="lname"/>
+				<input type="hidden" name="street" size="30" value="@street" onfocus="clearField( this, &#039;Street&#039; )" maxlength="100" id="street" class="fullwidth"/>
+                <input type="hidden" name="city" size="18" value="@city"  onfocus="clearField( this, &#039;City&#039; )" maxlength="40" id="city"/>
+                <input type="hidden" name="state" size="18" value="@state" maxlength="40" id="state"/>
+				<input type="hidden" name="zip" size="5" value="@zip" onfocus="clearField( this, &#039;Zip code&#039; )"maxlength="10" id="zip"/>
+				<input type="hidden" name="country" value="@country"/>
+                
                 <input type="hidden" value="@utm_source" name="utm_source"/>
                 <input type="hidden" value="@utm_medium" name="utm_medium"/>
 				<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
@@ -274,7 +172,7 @@
                     <div style="text-align:center;">* * *</div>
                     <div class="">We do not store your credit card information, and your personal data is
                         subject to our <a target="_new"
-                                          href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">privacy
+                                          href="http://wikimediafoundation.org/wiki/Donor_Privacy_Policy">donor privacy
                             policy</a>.
                     </div>
                     <div class="">There are <a target="_new"
