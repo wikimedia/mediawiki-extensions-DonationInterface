@@ -54,39 +54,52 @@
             </noscript>
             <h2 id="donate-head">Please complete your donation below ...</h2>
 
-            <p class='creditcard-error-msg'></p>
+            <p class='creditcard-error-msg'>#general#retryMsg</p>
 
             <form name="payment" method="post"
                   action="/index.php/Special:PayflowProGateway?uselang=en&amp;masthead=none&amp;form_name=TwoStepTwoColumnLetter3&amp;text_template=2010%2FJimmyQuote"
                   onsubmit="return formCheck(this)" autocomplete="off">
                 <div id="payflowpro_gateway-personal-info">
                     <table id="payflow-table-donor">
-                        <tr>
-                            <td colspan="2"><span class="creditcard-error-msg"></span></td>
+                    	<tr>
+                            <td colspan="2"><span class="creditcard-error-msg">#amount</span></td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td colspan="2"><h3 class="cc_header">Billing information<img
-                                    src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
-                                    style="vertical-align:baseline;margin-left:8px;"/></h3></td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="card_num">Address</label></td>
-                            <td>@fname @mname @lname<br />@street<br />@city, @state @zip</td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="card_num">Email</label></td>
-                            <td>@emailAdd</td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="card_num">Amount</label></td>
-                            <td>@currency_code @amount</td>
-                        </tr>
-                        <tr>
+                    	<tr>
+                    		<td colspan="2">
+								<table id="donation_amount" cellspacing="0" cellpadding="4" border="1">
+									<tbody>
+										<tr>
+											<td class="amount_header">Description</td>
+											<td class="amount_header" style="text-align:right;width:75px;">Amount</td>
+										</tr>
+										<tr>
+											<td class="amount_data">Donation</td>
+											<td class="amount_data" style="text-align:right;width:75px;">
+												$ @amount
+												<input type="hidden" name="amount" value="@amount" />
+												<input type="hidden" name="currency_code" value="@currency_code" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+                    	</tr>
+						<tr>
+							<td colspan="2">
+								<h3 class="cc_header">
+									Billing information <img style="vertical-align:baseline;margin-left:8px;" src="/~rkaldari/checkouts/prototype/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif">
+								</h3>
+							</td>
+						</tr>
+						<tr>
                             <td class="label"></td>
                             <td><img
                                     src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif"/>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan=2><span class="creditcard-error-msg">#card#card_num</span></td>
+                        <tr>
                         <tr>
                             <td class="label"><label for="card_num">Card number</label></td>
                             <td><input name="card_num" size="30" value="@card_num" type="text" maxlength="100"
@@ -122,7 +135,8 @@
                             </select></td>
                         </tr>
                         <tr>
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
+                            <td colspan=2><span class="creditcard-error-msg">#cvv</span></td>
+                        <tr>
                         <tr>
                             <td class="label"><label for="cvv">Security code</label></td>
                             <td><input name="cvv" size="5" value="@cvv" type="text" maxlength="10" id="cvv"
@@ -130,37 +144,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
+                            <td colspan=2><span class="creditcard-error-msg">#fname#lname</span></td>
                         </tr>
                         <tr>
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
+                            <td class="label"><label for="fname">Name</label></td>
+                            <td>
+                            	<input name="fname" size="30" value="@fname" type="text"
+                            		placeholder="First" maxlength="25" class="required" id="fname"/>
+                                 <input name="lname" size="30" value="@lname" type="text" 
+                                 	placeholder="Last" maxlength="25" id="lname"/>
+                        	</td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="fname">Name on card</label></td>
-                            <td><input name="fname" size="30" value="@fname" type="text"
-                                       onfocus="clearField( this, &#039;First name&#039; )" maxlength="25"
-                                       class="required" id="fname"/>
-                                 <input name="lname" size="30" value="@lname"
-                                       type="text"
-                                       onfocus="clearField( this, &#039;Last name&#039; )"
-                                       maxlength="25" id="lname"/></td>
+                        <tr>
+                            <td colspan=2><span class="creditcard-error-msg">#street</span></td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
+                        <tr>
+                            <td class="label"><label for="street">Address</label></td>
+                            <td>
+                            	<input name="street" size="30" value="@street" type="text"
+                           			placeholder="Street" maxlength="100" id="street" class="fullwidth"/>
+							</td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="street">Billing address</label></td>
-                            <td><input name="street" size="30" value="@street" type="text"
-                                       onfocus="clearField( this, &#039;Street&#039; )" maxlength="100"
-                                       id="street" class="fullwidth"/></td>
+                        <tr>
+                            <td colspan=2><span class="creditcard-error-msg">#state#zip</span></td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
-                        </tr>
-                        <tr class="step2hidden">
+                        <tr>
                             <td class="label"></td>
-                            <td><input name="city" size="18" value="@city" type="text"
-                                       onfocus="clearField( this, &#039;City&#039; )" maxlength="40" id="city"/>
+                            <td>
+                            	<input name="city" size="18" value="@city" type="text"
+                           			placeholder="City" maxlength="40" id="city"/>
                                 <select name="state" id="state">
                                     <option value=""/>
                                     <option value="AK">AK</option>
@@ -218,19 +230,20 @@
                                     <option value="AA">AA</option>
                                     <option value="AE">AE</option>
                                     <option value="AP">AP</option>
-                                </select> <input name="zip" size="5" value="" type="text"
-                                                 onfocus="clearField( this, &#039;Zip code&#039; )"
-                                                 maxlength="10" id="zip"/><input type="hidden" value="@country"
-                                                                                 name="country"/></td>
+                                </select> <input name="zip" size="5" value="@zip" type="text"
+                        			placeholder="Zip" maxlength="10" id="zip"/><input type="hidden" 
+                        			value="@country" name="country" />
+                        	</td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td colspan=2><span class="creditcard-error-msg"></span></td>
+                        <tr>
+                            <td colspan=2><span class="creditcard-error-msg">#emailAdd</span></td>
                         </tr>
-                        <tr class="step2hidden">
-                            <td class="label"><label for="emailAdd">E-mail receipt to</label></td>
-                            <td><input name="emailAdd" size="30" value="@emailAdd" type="text"
-                                       onfocus="clearField( this, &#039;Email address&#039; )" maxlength="64"
-                                       id="emailAdd" class="fullwidth"/></td>
+                        <tr>
+                            <td class="label"><label for="emailAdd">E-mail</label></td>
+                            <td>
+                            	<input name="emailAdd" size="30" value="@emailAdd" type="text"
+                        			placeholder="Email address" maxlength="64" id="emailAdd" class="fullwidth"/>
+                        	</td>
                         </tr>
                         <tr>
                             <td class="label"></td>
