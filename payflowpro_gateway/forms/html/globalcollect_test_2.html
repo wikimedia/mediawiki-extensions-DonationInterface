@@ -1,11 +1,10 @@
+<link rel="stylesheet" href="@script_path/skins/vector/main-ltr.css" />
+<link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css" /> 
+<link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
 <style>
 	.step2hidden{ display:none; }
+	#footer-places { display:none; }
 </style>
-<link rel="stylesheet" href="https://payments.wikimedia.org/skins/vector/main-ltr.css" />
-<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css" /> 
-
-<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
-
 <script type="text/javascript">
 //make HTML5 placeholders work in non supportive browsers
 $("input[placeholder]").each(function() {
@@ -81,7 +80,7 @@ $('form').submit(function(evt){
             <p class='creditcard-error-msg'>#general#retryMsg</p>
 
             <form name="payment" method="post"
-                  action="/index.php/Special:PayflowProGateway?uselang=en&amp;masthead=none&amp;form_name=TwoStepTwoColumnLetter3&amp;text_template=2010%2FJimmyQuote"
+                  action="@action"
                   onsubmit="return formCheck(this)" autocomplete="off">
                 <div id="payflowpro_gateway-personal-info">
                     <table id="payflow-table-donor">
@@ -111,14 +110,14 @@ $('form').submit(function(evt){
 						<tr>
 							<td colspan="2">
 								<h3 class="cc_header">
-									Billing information <img style="vertical-align:baseline;margin-left:8px;" src="/~rkaldari/checkouts/prototype/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif">
+									Billing information <img style="vertical-align:baseline;margin-left:8px;" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif">
 								</h3>
 							</td>
 						</tr>
 						<tr>
                             <td class="label"></td>
                             <td><img
-                                    src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif"/>
+                                    src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif"/>
                             </td>
                         </tr>
                         <tr>
@@ -273,9 +272,9 @@ $('form').submit(function(evt){
                             <td class="label"></td>
                             <td>
                                 <div id="mw-donate-submit-button">&#160;<br/><input
-                                        src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png"
+                                        src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png"
                                         alt="Submit donation" type="image"/></div>
-                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.</div>
+                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.</div>
                             </td>
                         </tr>
                     </table>
@@ -303,7 +302,7 @@ $('form').submit(function(evt){
                     <div style="text-align:center;">* * *</div>
                     <div class="">We do not store your credit card information, and your personal data is
                         subject to our <a target="_new"
-                                          href="http://wikimediafoundation.org/wiki/Donor_policy">privacy
+                                          href="http://wikimediafoundation.org/wiki/Donor_policy">donor privacy
                             policy</a>.
                     </div>
                     <div class="">There are <a target="_new"

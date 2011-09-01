@@ -50,16 +50,15 @@
             </noscript>
             <h2 id="donate-head">Please complete your donation below ...</h2>
 
-            <p class='creditcard-error-msg'>#general</p>
-            <p class='creditcard-error-msg'>#retryMsg</p>
+            <p class='creditcard-error-msg'>#general#retryMsg</p>
 
             <form name="payment" method="post"
                   action="@action"
                   onsubmit="return formCheck(this)" autocomplete="off">
                 <div id="payflowpro_gateway-personal-info">
-                    <table id="payflow-table-">
+                    <table id="payflow-table-donor">
                         <tr>
-                            <td colspan="2"><span class="creditcard-error-msg">#card_num</span></td>
+                            <td colspan="2"><span class="creditcard-error-msg">#card#card_num</span></td>
                         </tr>
                         <tr>
                             <td colspan="2"><span class="creditcard-error-msg">#card</span></td>
@@ -175,7 +174,7 @@
                 <div id="payflowpro_gateway-donate-addl-info-text">
                     <div style="text-align:center;">* * *</div>
                     <div class="">We do not store your credit card information, and your personal data is
-                        subject to our <a target="_new" href="http://wikimediafoundation.org/wiki/Donor_policy">privacy policy</a>.
+                        subject to our <a target="_new" href="http://wikimediafoundation.org/wiki/Donor_policy">donor privacy policy</a>.
                     </div>
                     <div class="">There are <a target="_new"
                                                href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other
