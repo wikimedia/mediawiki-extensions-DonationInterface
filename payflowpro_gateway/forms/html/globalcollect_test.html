@@ -1,6 +1,14 @@
 <style>
 	.step2hidden{ display:none; }
 </style>
+<link rel="stylesheet" href="https://payments.wikimedia.org/skins/vector/main-ltr.css" />
+<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css" /> 
+
+<link rel="stylesheet" href="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/payflowpro_gateway.css" /> 
+
+
+
+
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <tr>
         <td id="appeal" valign="top">
@@ -78,13 +86,13 @@
                         </tr>
                         <tr class="step2hidden">
                             <td colspan="2"><h3 class="cc_header">Billing information<img
-                                    src="/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
+                                    src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
                                     style="vertical-align:baseline;margin-left:8px;"/></h3></td>
                         </tr>
                         <tr>
                             <td class="label"></td>
                             <td><img
-                                    src="/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif"/>
+                                    src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif"/>
                             </td>
                         </tr>
                         <tr>
@@ -236,13 +244,9 @@
                             <td class="label"></td>
                             <td>
                                 <div id="mw-donate-submit-button">&#160;<br/><input
-                                        src="/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png"
+                                        src="https://test-payments.tesla.usability.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/submit-donation-button.png"
                                         alt="Submit donation" type="image"/></div>
-                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img
-                                        src="/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif"
-                                        style="vertical-align:baseline;margin-right:4px;"/>Your credit / debit
-                                    card will be securely processed.
-                                </div>
+                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage"><img src="https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.</div>
                             </td>
                         </tr>
                     </table>
@@ -257,7 +261,7 @@
                 <input type="hidden" value="@email-opt" name="email-opt"/>
 				<input type="hidden" value="@payment_method" name="payment_method"/>
 				<input type="hidden" value="@token" name="token"/>
-				<input type="hidden" value="@order_id"  name="order_id"/><
+				<input type="hidden" value="@order_id"  name="order_id"/>
 				<input type="hidden" value="@num_attempt" name="numAttempt"/>
 				<input type="hidden" value="@contribution_tracking_id" name="contribution_tracking_id"/>
 				<input type="hidden" value="@data_hash" name="data_hash"/>
