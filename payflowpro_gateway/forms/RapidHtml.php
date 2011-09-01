@@ -82,7 +82,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgRequest;
 		parent::__construct( $form_data, $form_errors );
-		
+
 		$this->loadValidateJs();
 		
 		// set html-escaped filename.
