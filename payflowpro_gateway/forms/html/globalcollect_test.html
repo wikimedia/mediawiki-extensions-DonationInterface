@@ -112,9 +112,6 @@ function formCheck( ccform ) {
                 <div id="payflowpro_gateway-personal-info">
                     <table id="payflow-table-donor">
                         <tr>
-                            <td colspan="2"><span class="creditcard-error-msg">#card#card_num</span></td>
-                        </tr>
-                        <tr>
                             <td colspan="2">
                                 <table cellspacing="0" cellpadding="4" border="1" id="donation_amount">
                                     <tr>
@@ -141,6 +138,9 @@ function formCheck( ccform ) {
                             <td class="label"></td>
                             <td><img src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" style="padding-top: 10px;"/>
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span class="creditcard-error-msg">#card#card_num</span></td>
                         </tr>
                         <tr>
                             <td class="label"><label for="card_num">Card number</label></td>
