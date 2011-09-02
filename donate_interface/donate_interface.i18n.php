@@ -739,7 +739,13 @@ $messages['dsb'] = array(
  */
 $messages['el'] = array(
 	'donate_interface' => 'Υποστηρίξτε το Wikimedia',
+	'donate_interface-amount' => 'Ποσό δωρεάς:',
+	'donate_interface-other-amount' => 'Άλλο ποσό',
 	'donate_interface-currency' => 'Νόμισμα:',
+	'donate_interface-gateway' => 'Μέθοδος πληρωμής:',
+	'donate_interface-submit-button' => 'Δωρήστε',
+	'donate_interface-comment-label' => 'Σχόλιο:',
+	'donate_interface-comment-title' => 'Δημόσιο σχόλιο',
 	'donate_interface-amount-error' => '** Παρακαλώ εισάγετε έγκυρο ποσό **',
 	'donate_interface-GBP' => 'GBP: Βρετανική λίρα',
 	'donate_interface-EUR' => 'EUR: Ευρώ',
@@ -750,7 +756,14 @@ $messages['el'] = array(
 	'donate_interface-CZK' => 'CZK: Κορώνα Τσεχίας',
 	'donate_interface-DKK' => 'DKK: Κορόνα Δανίας',
 	'donate_interface-HKD' => 'HKD: Δολάριο Χονγκ Κονγκ',
+	'donate_interface-HUF' => 'HUF: Φιορίνι Ουγγαρίας',
 	'donate_interface-JPY' => 'JPY: Ιαπωνικό Γεν',
+	'donate_interface-NZD' => 'NZD: Δολάριο Νέας Ζηλανδίας',
+	'donate_interface-NOK' => 'ΝΟΚ: Κορόνα Νορβηγίας',
+	'donate_interface-PLN' => 'PLN: Ζλότι Πολωνίας',
+	'donate_interface-SGD' => 'SGD: Δολάριο Σιγκαπούρης',
+	'donate_interface-SEK' => 'SEK: Κορώνα Σουηδίας',
+	'donate_interface-ILS' => 'ILS: Ισραηλίτικο Σέκελ',
 );
 
 /** Esperanto (Esperanto)
