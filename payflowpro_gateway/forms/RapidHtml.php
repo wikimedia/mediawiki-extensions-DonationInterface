@@ -135,6 +135,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		foreach ( $this->data_tokens as $token ) {
 			$key = substr( $token, 1, strlen( $token )); //get the token string w/o the '@'
 			if ( $key == 'emailAdd' ) $key = 'email';
+			if ( $key == 'currency_code' ) $key = 'currency';
 			if ( array_key_exists( $key, $this->form_data )) {
 				$replace = $this->form_data[ $key ];
 			} else {
