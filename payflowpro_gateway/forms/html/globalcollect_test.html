@@ -5,6 +5,60 @@
 	.step2hidden{ display:none; }
 	#footer-places { display:none; }
 </style>
+
+<script type="text/javascript">
+function formCheck( ccform ) {
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip' ];
+
+	var fields = ["emailAdd","fname","lname","street","city","zip" ],
+		numFields = fields.length,
+		i,
+		output = '',
+		currField = '';
+
+	for( i = 0; i < numFields; i++ ) {
+		if( document.getElementById( fields[i] ).value == '' ) {
+			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
+		}
+	}
+	
+	if (document.getElementById('fname').value == '$first') {
+		output += payflowproGatewayErrorMsgJs + ' first name.\r\n';
+	}
+	if (document.getElementById('lname').value == '$last') {
+		output += payflowproGatewayErrorMsgJs + ' last name.\r\n';
+	}
+	if (document.getElementById('street').value == '$street') {
+		output += payflowproGatewayErrorMsgJs + ' street address.\r\n';
+	}
+	if (document.getElementById('city').value == '$city') {
+		output += payflowproGatewayErrorMsgJs + ' city.\r\n';
+	}
+	if (document.getElementById('zip').value == '$zip') {
+		output += payflowproGatewayErrorMsgJs + ' zip code.\r\n';
+	}
+	
+	var stateField = document.getElementById( 'state' );
+	if( stateField.options[stateField.selectedIndex].value == '' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+	}
+
+	// validate email address
+	var apos = document.payment.emailAdd.value.indexOf("@");
+	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
+
+	if( apos < 1 || dotpos-apos < 2 ) {
+		output += payflowproGatewayErrorMsgEmail;
+	}
+	
+	if( output ) {
+		alert( output );
+		return false;
+	}
+}
+</script>
+
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
     <tr>
         <td id="appeal" valign="top">
@@ -59,9 +113,6 @@
                     <table id="payflow-table-donor">
                         <tr>
                             <td colspan="2"><span class="creditcard-error-msg">#card#card_num</span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><span class="creditcard-error-msg">#card</span></td>
                         </tr>
                         <tr>
                             <td colspan="2">
