@@ -199,7 +199,9 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 					$newdata[ $value ] = substr( $data[ $value ], 0, 6 );
 					break;
 				case "country":
-					$newdata[ $value ] = $country_codes[ $data[ $value ]];
+					if ( array_key_exists( $value, $data ) ) {
+						$newdata[ $value ] = $country_codes[ $data[ $value ]];
+					}
 					break;
 				default:
 		          $newdata[ $value ] = $data[ $value ];
