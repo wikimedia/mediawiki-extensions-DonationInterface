@@ -2501,14 +2501,21 @@ $messages['ru'] = array(
  */
 $messages['rue'] = array(
 	'donate_interface' => 'Підпора фонду Вікімедія',
+	'donate_interface-desc' => 'Цїлёва сторінка про приспівателїв, зєдночуюча інтерфейс ку платобным картам',
+	'donate_interface-intro' => 'Звольте собі способ плачіня, суму і валуту.',
 	'donate_interface-amount' => 'Сума приспевку:',
 	'donate_interface-other-amount' => 'Інша сума',
 	'donate_interface-currency' => 'Валута',
 	'donate_interface-gateway' => 'Способ платбы:',
 	'donate_interface-submit-button' => 'Пожертвовати',
+	'donate_interface-comment-message' => 'Хочете ся подїлити о даяку ідею зо світом? Напиште гев до 200 сімболів:',
 	'donate_interface-comment-label' => 'Коментарь:',
+	'donate_interface-anon-message' => 'Зазначте моє імя (вєдно з моїм коментарём) на публічнім списку донорів.',
+	'donate_interface-email-agreement' => 'Я згоден даколи обтримати новинкы з Фонду Вікімедія',
 	'donate_interface-comment-title' => 'Публічный коментарь',
 	'donate_interface-amount-error' => '**Просиме, задайте правилну суму**',
+	'donate_interface-processing-error' => 'Почас спрацованя вашого приспевку дішло ку хыбі.
+Не є доступный жаден платобный процесор.',
 	'donate_interface-GBP' => 'GBP: Брітаньска лібра',
 	'donate_interface-EUR' => 'EUR: Евро',
 	'donate_interface-USD' => 'USD: долар США',
