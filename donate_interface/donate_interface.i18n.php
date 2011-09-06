@@ -55,14 +55,42 @@ No processors are available.',
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Hamilton Abreu
+ * @author Jsoby
  * @author Siebrand
  */
 $messages['qqq'] = array(
 	'donate_interface' => '{{Identical|Support Wikimedia}}',
 	'donate_interface-desc' => '{{desc}}',
+	'donate_interface-intro' => 'Message shown above the donate field prompting that tells people what to do.',
+	'donate_interface-amount' => 'Shown above the field where you choose the amoun you want to donate.',
+	'donate_interface-other-amount' => 'Field shown before the field where you input a custom amount to donate (not one of the preset amounts).',
 	'donate_interface-currency' => '{{Identical|Currency}}',
+	'donate_interface-gateway' => 'Shown where you choose to pay with PayPal, credit card or another method.',
 	'donate_interface-submit-button' => '{{Identical|Donate}}',
+	'donate_interface-comment-message' => 'Shown before the box where you can input a custom message together with your donation.',
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
+	'donate_interface-anon-message' => 'Next to check box.',
+	'donate_interface-email-agreement' => 'Next to check box.',
+	'donate_interface-comment-title' => 'Next to check box; whether the comment shall be publically viewable or not.',
+	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
+	'donate_interface-processing-error' => 'Error message.',
+	'donate_interface-GBP' => 'Used in drop-down field for currency.',
+	'donate_interface-EUR' => 'Used in drop-down field for currency.',
+	'donate_interface-USD' => 'Used in drop-down field for currency.',
+	'donate_interface-AUD' => 'Used in drop-down field for currency.',
+	'donate_interface-CAD' => 'Used in drop-down field for currency.',
+	'donate_interface-CHF' => 'Used in drop-down field for currency.',
+	'donate_interface-CZK' => 'Used in drop-down field for currency.',
+	'donate_interface-DKK' => 'Used in drop-down field for currency.',
+	'donate_interface-HKD' => 'Used in drop-down field for currency.',
+	'donate_interface-HUF' => 'Used in drop-down field for currency.',
+	'donate_interface-JPY' => 'Used in drop-down field for currency.',
+	'donate_interface-NZD' => 'Used in drop-down field for currency.',
+	'donate_interface-NOK' => 'Used in drop-down field for currency.',
+	'donate_interface-PLN' => 'Used in drop-down field for currency.',
+	'donate_interface-SGD' => 'Used in drop-down field for currency.',
+	'donate_interface-SEK' => 'Used in drop-down field for currency.',
+	'donate_interface-ILS' => 'Used in drop-down field for currency.',
 );
 
 /** Afrikaans (Afrikaans)
@@ -3255,6 +3283,7 @@ $messages['zh-hans'] = array(
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
+ * @author Anakmalaysia
  * @author Horacewai2
  * @author Liangent
  * @author Pbdragonwang
@@ -3271,7 +3300,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-comment-message' => '有想法希望與世界分享？請在此填寫不超過200字的評論：',
 	'donate_interface-comment-label' => '評論：',
 	'donate_interface-anon-message' => '請在我的評論邊上附上我的名字。',
-	'donate_interface-email-agreement' => '我同意收到維基媒體基金會不定期的最新訊息。',
+	'donate_interface-email-agreement' => '我同意接收來自維基媒體基金會偶爾的電子郵件更新。',
 	'donate_interface-comment-title' => '公開的評論',
 	'donate_interface-amount-error' => '**請輸入有效的數額**',
 	'donate_interface-processing-error' => '處理您的請求時出錯了。沒有可用的處理器。',
