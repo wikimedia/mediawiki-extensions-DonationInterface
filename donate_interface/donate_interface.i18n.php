@@ -56,6 +56,7 @@ No processors are available.',
  * @author Fryed-peach
  * @author Hamilton Abreu
  * @author Jsoby
+ * @author Lloffiwr
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -71,7 +72,7 @@ $messages['qqq'] = array(
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
 	'donate_interface-anon-message' => 'Next to check box.',
 	'donate_interface-email-agreement' => 'Next to check box.',
-	'donate_interface-comment-title' => 'Next to check box; whether the comment shall be publically viewable or not.',
+	'donate_interface-comment-title' => "Next to check box; to choose whether the donor's comment shall be publically viewable or not.",
 	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
 	'donate_interface-processing-error' => 'Error message.',
 	'donate_interface-GBP' => 'Used in drop-down field for currency.',
@@ -333,7 +334,7 @@ $messages['bg'] = array(
 	'donate_interface-comment-message' => 'Искате ли да споделите нещо със света? Поставете тук вашия коментар (до 200 знака):',
 	'donate_interface-comment-label' => 'Коментар:',
 	'donate_interface-anon-message' => 'Искам името ми да бъде включено (наред с коментара ми) в публичния лист на дарителите.',
-	'donate_interface-email-agreement' => 'Съгласен съм от време на време да получавам новини от Фондация Уикимедия.',
+	'donate_interface-email-agreement' => 'Съгласен съм от време на време да получавам по имейл новини от Фондация Уикимедия.',
 	'donate_interface-comment-title' => 'Публичен коментар',
 	'donate_interface-amount-error' => 'Моля, въведете коректна сума',
 	'donate_interface-processing-error' => 'Настъпи грешка при обработката на заявката ви. Нямаше налични процесори.',
