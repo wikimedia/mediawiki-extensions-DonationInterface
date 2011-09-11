@@ -1963,7 +1963,9 @@ $messages['mt'] = array(
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
+	'donate_interface-amount' => 'Зяро лезксйармак максат:',
 	'donate_interface-currency' => 'Валютась:',
+	'donate_interface-submit-button' => 'Лезксйармаконь максома',
 	'donate_interface-EUR' => 'EUR: эвро',
 	'donate_interface-CHF' => 'CHF: Швейцариянь франк',
 	'donate_interface-DKK' => 'DKK: Даниянь крона',
