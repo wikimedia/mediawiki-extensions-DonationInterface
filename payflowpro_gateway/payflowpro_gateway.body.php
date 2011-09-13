@@ -161,17 +161,14 @@ EOT;
 			$this->paypalRedirect( $data );
 			return;
 		}
-
 		// dispatch forms/handling
 		if ( $token_match ) {
 			if ( $data['payment_method'] == 'processed' ) {
 				
 				// increase the count of attempts
 				++$data['numAttempt'];
-
 				// Check form for errors and redisplay with messages
 				$form_errors = $this->fnPayflowValidateForm( $data, $this->errors );
-
 				if ( $form_errors ) {
 					$this->fnPayflowDisplayForm( $data, $this->errors );
 				} else { // The submitted form data is valid, so process it
