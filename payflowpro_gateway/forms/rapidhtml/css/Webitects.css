@@ -1,0 +1,111 @@
+/*------------------+
+ | Site: Wikipedia  |
+ | Part: New styles |
+ | File: new.css    |
+ +------------------*/
+
+.l { float: left; }
+.r { float: right; }
+hr { margin: 1.5em 0 0.5em; }
+h3 span { font-weight: normal; }
+
+/* Amounts */
+#amount-table td { white-space: nowrap; }
+
+/* Callouts */
+.call-l { float: left; margin: 0.2em 1em 1em 0; }
+.call-l, .call-r { background: #fff; border: 1px solid #444; font-size: 13px; padding: 15px 20px; }
+.call-l h3, .call-r h3 { font-size: 17px; }
+.call-l .loading, .call-r .loading { background-image: url(../images/loading-white.gif); }
+.call-r { float: right; margin: 0.2em 0 1em 1em; }
+
+/* Loading */
+#loading { font-size: 12px; margin-left: 0.5em; vertical-align: middle; }
+.loading { background: url(../images/loading-green.gif) no-repeat 50% 50%; padding: 10px; }
+
+/* Muted text */
+.mute { font-size: 12px; }
+	
+	
+/*-------------------+
+ | Site: Wikipedia   |
+ | Part: Form styles |
+ | File: forms.css   |
+ +-------------------*/
+
+
+/* Specifics
+======================================================================*/
+/* Buttons */
+.btn { display: inline-block; padding: 0.3em 0.5em; vertical-align: middle; }
+
+/* Donate options */
+.donate-options input { width: 15em; }
+
+/* Checklists */
+.checklist { border: 1px solid #ccc; max-height: 20em; line-height: 1.4;  margin: 0 0 1em 0; overflow: auto; }
+.checklist input { margin-bottom: 1px; }
+.checklist label { display: block; padding: 0.1em 0 0.1em 25px; height: 1%; text-indent: -25px; }
+.checklist li { background: none; display: block; float: none; margin: 0; padding: 0; white-space: normal; width: 100%; }
+.checklist li p { margin: 0; padding: 1em 0 0; }
+.checklist li ul { margin: 0 0 0 2em; }
+.checklist .mute { font-size: 1em; white-space: nowrap; }
+.checklist p { font-weight: bold; margin-bottom: 0.25em; }
+.checklist .selected { background: #ffa; }
+.checklist ul { margin-bottom: 1em; }
+
+/* Fields */
+.form { clear: both; font-size: 1.1em; height: 1%; }
+.form dd { margin: 0; }
+.form dt { clear: both; font-weight: normal; margin: 0.5em 0 0; }
+.form dt:first-child { margin: 0; }
+.form .label { display: block; font-size: 14px; }
+.field { margin: 0 0 1em; overflow: hidden; position: relative; }
+.field p { margin-bottom: 0.25em; }
+
+/* Location */
+.loc-fields span { float: left; margin-bottom: 5px; }
+.loc-fields .loc-city { margin-right: 1%; width: 51%; }
+.loc-fields .loc-postal { width: 18%; }
+.loc-fields .loc-state { margin-right: 4%; width: 22%; }
+.loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
+
+/* Name */
+.name-fields span { float: left; margin: 0 2% 5px 0; width: 48%; }
+.name-fields .name-last { margin: 0; }
+
+/* Help text */
+.field-help { color: #666; font-size: 0.8em; font-weight: normal; }
+
+/* Hints */
+.ezpz-hint { color: #777; font-style: italic; }
+
+/* Options */
+.form .options-h, .form .options-v { margin: 0; }
+.options-h, .options-v { list-style: none; margin: 0 0 1em 0; }
+.options-h img, .options-v img { vertical-align: middle; }
+.options-h li, .options-v li { background: none; margin-bottom: 0.3em; padding: 0; }
+.options-h li { display: inline; line-height: 2.5; margin-right: 0.3em; white-space: nowrap; }
+.options-h li select { vertical-align: middle; }
+.options-h li:last-child { margin: 0; }
+.form .options-v { margin-top: 5px; }
+.options-v li { padding-left: 25px; text-indent: -25px; }
+
+/* Text boxes */
+textarea.txt { width: 99%; }
+select.txt { padding: 0.2em; }
+
+.txt, .txt-date, .txt-med, .txt-sm {
+  border: 1px solid #ccc;
+  -moz-box-shadow: inset 0 1px 1px #ddd;
+  -webkit-box-shadow: inset 0 1px 1px #ddd;
+  box-shadow: inset 0 0 1px #ddd;
+  margin-right: 0.5em;
+  padding: 0.3em;
+  vertical-align: middle;
+}
+
+.txt { width: 95%; }
+.txt-date { width: 7em; }
+.txt-med { width: 47%; }
+.txt-sm { width: 3em; }
