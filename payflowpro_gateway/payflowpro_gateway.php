@@ -129,7 +129,7 @@ $wgPayflowSMaxAge = 6000;
  * Directory for HTML forms (used by RapidHtml form class)
  * @var string
  */
-$wgPayflowHtmlFormDir = dirname( __FILE__ ) . "/forms/html";
+$wgPayflowHtmlFormDir = dirname( __FILE__ ) . "/forms/rapidhtml/html";
 
 /**
  * An array of allowed HTML forms.
