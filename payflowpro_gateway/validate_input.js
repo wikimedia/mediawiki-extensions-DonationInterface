@@ -40,6 +40,10 @@ function switchToCreditCard() {
 }
 
 function validate_form( form ) {
+	if( form == null ){
+		form = document.payment
+	}
+
 	var output = '';
 	var currField = '';
 	var i = 0;
@@ -57,20 +61,29 @@ function validate_form( form ) {
 	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
 		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
 	}
-	if( countryField.options[countryField.selectedIndex].value == '' ) {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+	// output += "State:" + stateField.options[stateField.selectedIndex].value + '.\r\n';
+	
+	if( countryField.type == "select" ){ // country is a dropdown select
+		if( countryField.options[countryField.selectedIndex].value == '' ) {
+			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+		}
+		// output += "Country:" + countryField.options[countryField.selectedIndex].value + '.\r\n';
 	}
-	output += "State:" + stateField.options[stateField.selectedIndex].value + '.\r\n';
-	output += "Country:" + countryField.options[countryField.selectedIndex].value + '.\r\n';
+	else{ // country is a hidden or text input
+		if( countryField.value == '' ) {
+			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+		}
+		// output += "Country:" + countryField.value + '.\r\n';
+	}
 
 	//set state to "outside us"
-	if ( document.payment.country.value != 'US' ) {
-			document.payment.state.value = 'XX';
+	if ( form.country.value != 'US' ) {
+			form.state.value = 'XX';
 	}
 
 	// validate email address
-	var apos = document.payment.emailAdd.value.indexOf("@");
-	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
+	var apos = form.emailAdd.value.indexOf("@");
+	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
 		output += payflowproGatewayErrorMsgEmail;
