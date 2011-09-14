@@ -3,11 +3,14 @@
 <!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.17/vector/csshover.min.htc")}</style><![endif]-->
 <!-- start Webitects styles -->
 <link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/css/Webitects.css" />
-
 <style type="text/css">
+	/* Force vertical scrollbar 
+	html { overflow-y: scroll; }
+	*/
 	/* Accordion */
 	#accordion h3 { background: #a4d4a6; border-bottom: 1px solid #5eac58; font-size: 1em; margin: 0; padding: 0.5em 0.9em; }
 	.accordion-content { padding: 0.9em; }
+	#step2accordion { display:none; }
 	 
 	/* Callouts */
 	.call-l, .call-r { width: 270px; }
@@ -73,11 +76,11 @@
               </div> 
               
               <h3>2. Billing and payment</h3> 
-              <div class="accordion-content"> 
+              <div id="step2accordion" class="accordion-content"> 
               	<div id="errorMessages"></div>
                 <div class="name-fields"> 
-                  <span class="name-first"><input class="txt hint" id="fname" name="namefirst" title="First name" value="@fname" /></span> 
-                  <span class="name-last"><input class="txt hint" id="lname" name="namelast" title="Last name" value="@lname" /></span> 
+                  <span class="name-first"><input class="txt hint" id="fname" name="fname" title="First name" value="@fname" /></span> 
+                  <span class="name-last"><input class="txt hint" id="lname" name="lname" title="Last name" value="@lname" /></span> 
                 </div> 
                 <div class="loc-fields"> 
                   <span class="loc-street"><input class="txt hint" id="street" name="street" title="Street address" value="@street" /></span> 
@@ -91,10 +94,10 @@
                   <span class="loc-postal"><input class="txt hint" id="zip" name="zip" title="Zip" value="@zip"/></span> 
                 </div> 
                 <p><input class="txt hint" title="Email address" id="emailAdd" name="emailAdd" value="@emailAdd"/></p> 
-                <dl class="form"> 
+                <dl class=""> 
                   <dt><span class="label">Select credit card</span></dt> 
-                  <dd class="field"> 
-                    <ul class="options-h" id="cards"> 
+                  <dd class="field" style="margin-bottom: 0;"> 
+                    <ul class="options-h" id="cards" style="margin: 0;"> 
                       <li><input id="cc-visa" name="cardtype" type="radio" value="Visa" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" /></label></li> 
                       <li><input id="cc-mastercard" name="cardtype" type="radio" value="MasterCard" /> <label for="cc-mastercard"><img alt="MasterCard" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" /></label></li> 
                       <li><input id="cc-amex" name="cardtype" type="radio" value="American Express" /> <label for="cc-amex"><img alt="American Express" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" /></label></li> 
@@ -157,7 +160,7 @@
                       <p class="mute"><img alt="" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" /> Your credit card will be securely processed.</p> 
                     </dd> 
                   </dl> 
-                  		<input type="hidden" name="gateway" value="paypal" /> 
+                  		<input type="hidden" name="gateway" value="payflowpro" /> 
 						<input type="hidden" name="returnto" value="Thank_You/en" /> 
 
 						<input type="hidden" value="@amount" name="amount" />
@@ -191,119 +194,119 @@
         <p>We do not store your credit card information, and your personal data is subject to our <a target="_blank" href="http://wikimediafoundation.org/wiki/Donor_policy"> donor privacy policy</a>.</p> 
         <p><a href="/wiki/Ways_to_Give/en">More information or other ways to give</a><br /><a href="/wiki/FAQ/en">Answers to frequently asked questions</a></p> 
       </div> 
-    </div> 
+    </div>
+    <!-- load jquery 1.4.2 -->
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery-1.4.2.min.js'></script>
     <script type="text/javascript">
-    	window.onload = function (){
-    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.min.js', function() {
-	    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.min.js', function() {
-	    			// check for RapidHtml errors and display, if any
-	    			var errors = ('#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
-	    						  '#lname','#city','#country','#street','#state','#zip','#emailAdd');
-	    			
-	    			var count = 0
-	    			for (i=0; i < errors.length; i++){
-	    				if ( errors[i].length > 0 ){
-	    					console.log(errors[i]);
-	    					count++;
-	    					if ( count > 1 )
-	    						$('#errorMessages').append('<br />');
-	    					$('#errorMessages').append(error[i]);
-	    				}
-	    			}
-	    			
-	    			// Inline labels
-				    $(".hint").ezpz_hint();
-				    
-				    // Init accordion
-				    $("#accordion").accordion({
-				      autoHeight: false
-				    });
-				    
-				    $("#cc").click(function(){
-				    	console.log('Clicked: CC');				    
-				    	if ( validateAmount(document.paypalcontribution) ){
-				    		console.log('Amount: OK');
-				    		console.log('Target: Credit Card');
-				    		showAmount( $("input[name=amount]") );
-							$("#accordion").accordion("activate", 1);
-							$("#change-amount").show();
-				    	}
-				      
-				    });
-				    
-				    $("#pp").click(function(){
-				    console.log('Clicked: PP');	
-				    	if ( validateAmount(document.paypalcontribution) ){
-				    		console.log('Amount: OK');
-				    		console.log('Target: PayPal');	
-				    		// set the action to go to PayPal
-				    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
-							$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal...")
-				    		document.paypalcontribution.submit();
-						}
-				    });
-				    
-				    $("#submitcreditcard").click(function(){
-				    	console.log('Clicked: Submit CC');				    
-				    	if ( validate_form(document.paypalcontribution) ){
-				    		console.log('Form: OK');
-				    		console.log('Target: Submit Credit Card');
-				    		
-				    		document.paypalcontribution.action = "@action";
-				    		document.paypalcontribution.submit()
-				    	}
-				      
-				    })
-				    
-				    // Fix behavior of images in labels
-				    $("label img").live("click", function() { $("#" + $(this).parents("label").attr("for")).click(); });
-				    
-				    // Display selected amount
-				    function showAmount(e){ $("#selected-amount").html("($" + e.val() + ")"); }
-				    
-				    // Set selected amount to amount
-				    $("input[name=amountRadio]").click(function(){ setAmount($(this)); });
-				    $("#other-amount").change(function(){ setAmount($(this)); });
-				    function setAmount(e){ $("input[name=amount]").val(e.val()); }
-				    
-				    // Security codes
-				    $("#where").click(function(){
-				      $("#codes").toggle();
-				      return false;
-				    });
-				    
-				    function validateAmount(){
-				    	var minimums = {
-					    	'USD' : 1,
+    	( function( $ ){
+	    	window.onload = function (){
+	    		// set all jQuery instances to 1.4.2
+		    	jQuery = $;
+		    	$j = $;
+	    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.min.js', function() {
+		    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.min.js', function() {
+		    			// check for RapidHtml errors and display, if any
+		    			var errors = ('#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
+		    						  '#lname','#city','#country','#street','#state','#zip','#emailAdd');
+		    			
+		    			var count = 0
+		    			for( i=0; i < errors.length; i++ ){
+		    				if ( errors[i].length > 0 ){
+		    					console.log(errors[i]);
+		    					count++;
+		    					if ( count > 1 )
+		    						$('#errorMessages').append('<br />');
+		    					$('#errorMessages').append(error[i]);
+		    				}
+		    			}
+		    			// Inline labels
+					    $(".hint").ezpz_hint();
+					    
+					    // Init accordion
+					    $("#accordion").accordion({
+					      autoHeight: false
+					    });
+					    $("#cc").click(function(){
+					    	console.log('Clicked: CC');				    
+					    	if ( validateAmount(document.paypalcontribution) ){
+					    		console.log('Amount: OK');
+					    		console.log('Target: Credit Card');
+					    		showAmount( $("input[name=amount]") );
+								$("#accordion").accordion("activate", 1);
+								$("#change-amount").show();
+					    	}
+					      
+					    });
+					    $("#pp").click(function(){
+					    console.log('Clicked: PP');	
+					    	if ( validateAmount(document.paypalcontribution) ){
+					    		console.log('Amount: OK');
+					    		console.log('Target: PayPal');	
+					    		// set the action to go to PayPal
+					    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
+								$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal...")
+					    		document.paypalcontribution.submit();
+							}
+					    });
+					    $("#submitcreditcard").click(function(){
+					    	console.log('Clicked: Submit CC');				    
+					    	if ( validate_form(document.paypalcontribution) ){
+					    		console.log('Form: OK');
+					    		console.log('Target: Submit Credit Card');
+					    		
+					    		document.paypalcontribution.action = "@action";
+					    		document.paypalcontribution.submit()
+					    	}
+					    })
+					    
+					    // Fix behavior of images in labels
+					    $("label img").live("click", function() { $("#" + $(this).parents("label").attr("for")).click(); });
+					    
+					    // Display selected amount
+					    function showAmount(e){ $("#selected-amount").html("($" + e.val() + ")"); }
+					    
+					    // Set selected amount to amount
+					    $("input[name=amountRadio]").click(function(){ setAmount($(this)); });
+					    $("#other-amount").change(function(){ setAmount($(this)); });
+					    function setAmount(e){ $("input[name=amount]").val(e.val()); }
+					    
+					    // Security codes
+					    $("#where").click(function(){
+					      $("#codes").toggle();
+					      return false;
+					    });
+					    
+					    function validateAmount(){
+					    	var minimums = {
+						    	'USD' : 1,
+						    }
+					    	var error = true;
+	 						var amount = $("input[name=amount]").val(); // get the amount
+							var otherAmount = amount // create a working copy
+							otherAmount = otherAmount.replace(/[,.](\d)$/, '\:$10');
+							otherAmount = otherAmount.replace(/[,.](\d)(\d)$/, '\:$1$2');
+							otherAmount = otherAmount.replace(/[,.]/g, '');
+							otherAmount = otherAmount.replace(/:/, '.');
+							amount = otherAmount; // idk, reset amount to working copy amount
+							$("input[name=amount]").val(amount); // set the new amount back into the form
+							
+							// Check amount is a real number, sets error as true (good) if no issues
+							error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
+							// Check amount is at least the minimum
+							var currency = 'USD'; // hard-coded for these forms and tests
+							if ( typeof( minimums[currency] ) == 'undefined' ) {
+								minimums[currency] = 1;
+							}
+							if ( amount < minimums[currency] || error ) {
+								alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
+								error = true;
+							}
+							return !error;
 					    }
-				    	var error = true;
- 						var amount = $("input[name=amount]").val(); // get the amount
-						var otherAmount = amount // create a working copy
-						otherAmount = otherAmount.replace(/[,.](\d)$/, '\:$10');
-						otherAmount = otherAmount.replace(/[,.](\d)(\d)$/, '\:$1$2');
-						otherAmount = otherAmount.replace(/[,.]/g, '');
-						otherAmount = otherAmount.replace(/:/, '.');
-						amount = otherAmount; // idk, reset amount to working copy amount
-						$("input[name=amount]").val(amount); // set the new amount back into the form
-						
-						// Check amount is a real number, sets error as true (good) if no issues
-						error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
-						// Check amount is at least the minimum
-						var currency = 'USD'; // hard-coded for these forms and tests
-						if ( typeof( minimums[currency] ) == 'undefined' ) {
-							minimums[currency] = 1;
-						}
-						if ( amount < minimums[currency] || error ) {
-							alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
-							error = true;
-						}
-						
-						return !error;
-				    }
-				    
+					});
 				});
-			});
-    	}
+	    	}
+       	})(jQuery);
     </script>
 <!-- Wikimedia Project logo
 <li id="footer-copyrightico"><a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a></li> 

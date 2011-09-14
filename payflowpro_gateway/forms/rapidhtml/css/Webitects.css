@@ -108,4 +108,8 @@ select.txt { padding: 0.2em; }
 .txt { width: 95%; }
 .txt-date { width: 7em; }
 .txt-med { width: 47%; }
-.txt-sm { width: 3em; }
+.txt-sm { width: 4em; }
+
+/* overrides of payflowpro.css */
+input#fname { width: 95%; margin-right: 4px; }
+input#lname { width: 95%; }
