@@ -424,7 +424,8 @@ There is no limit to the length of the message.",
 	'payflowpro_gateway-language' => 'This is a label for a select list of languages a shirt can be printed in
 {{Identical|Language}}',
 	'payflowpro_gateway-front' => 'This is a label for an image of the front of a shirt',
-	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt',
+	'payflowpro_gateway-back' => 'This is a label for an image of the back of a shirt
+{{Identical|Back}}',
 	'payflowpro_gateway-front-of-shirt' => 'Caption for picture of front of t-shirt',
 	'payflowpro_gateway-back-of-shirt' => 'Caption for picture of back of t-shirt',
 	'payflowpro_gateway-select-a-size' => 'Label for field for choosing t-shirt size.',
