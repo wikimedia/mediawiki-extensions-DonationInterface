@@ -96,6 +96,9 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 			}
 			$form_errors[ 'general' ] = $general_errors;
 		}
+		
+		// if this form needs to support squid cacheing, handle the magic
+		$this->handle_cacheability();
 	}
 	
 	/**
@@ -248,5 +251,15 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		}
 		
 		$this->html_file_path = $full_path;
+	}
+	
+	/**
+	 * Load API js if this form needs to support cacheing
+	 */
+	public function handle_cacheability() {
+		global $wgRequest;
+		if ( $wgRequest->getText( '_cache_', false )) {
+			$this->loadApiJs();
+		}
 	}
 }
