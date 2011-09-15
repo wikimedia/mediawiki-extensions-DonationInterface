@@ -59,7 +59,7 @@ h3 span { font-weight: normal; }
 .form dd { margin: 0; }
 .form dt { clear: both; font-weight: normal; margin: 0.5em 0 0; }
 .form dt:first-child { margin: 0; }
-.form .label { display: block; font-size: 14px; }
+.form .label, span.label { display: block; font-size: 14px; font-weight: normal; }
 .field { margin: 0 0 1em; overflow: hidden; position: relative; }
 .field p { margin-bottom: 0.25em; }
 
