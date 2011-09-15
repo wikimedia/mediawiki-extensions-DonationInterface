@@ -196,7 +196,7 @@
         <p><a href="/wiki/Ways_to_Give/en">More information or other ways to give</a><br /><a href="/wiki/FAQ/en">Answers to frequently asked questions</a></p> 
       </div> 
     </div>
-    <!-- load jquery 1.4.2 -->
+    <!-- load jquery (newer) -->
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.js'></script>
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.core.js'></script>
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.widget.js'></script>
@@ -284,8 +284,8 @@
 			    
 			    function validateAmount(){
 			    	var minimums = {
-				    	'USD' : 1,
-				    }
+				    	'USD' : 1
+				    };
 			    	var error = true;
 						var amount = $("input[name=amount]").val(); // get the amount
 					var otherAmount = amount // create a working copy

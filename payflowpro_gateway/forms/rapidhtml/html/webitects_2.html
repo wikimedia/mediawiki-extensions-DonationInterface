@@ -26,9 +26,11 @@
 	}
 	#amount-table-white label { font-size: 1.1em; }
 	
+	#donate-body { width: 348px; }
 	#donate-body h3 { font-size: 17px; }
 	
-	#where-content { font-size: 13px; line-height: 19px; }
+	#step2wrapper { width: 325px; }
+	#where-content { font-size: 13px; line-height: 19px; width: 325px; }
 	
 </style> 
 
@@ -74,7 +76,7 @@
                         </table>
 
                         <p class="donate-options">
-                            <input class="btn" id="cc" type="button" value="Donate by Credit Card" />
+                            <input class="btn" id="cc" type="button" value="Donate by Credit Card" /><br />
                             <input class="btn" id="pp" type="button" value="Donate via PayPal"/><span id='loading'></span>
                         </p>
                     </div>
@@ -315,8 +317,8 @@
 			    
 			    function validateAmount(){
 			    	var minimums = {
-				    	'USD' : 1,
-				    }
+				    	'USD' : 1
+				    };
 			    	var error = true;
 						var amount = $("input[name=amount]").val(); // get the amount
 					var otherAmount = amount // create a working copy
