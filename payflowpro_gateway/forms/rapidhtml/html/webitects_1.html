@@ -9,7 +9,7 @@
 	html { overflow-y: scroll; }
 	*/
 	/* Accordion */
-	#accordion h3 { background: #a4d4a6; border-bottom: 1px solid #5eac58; font-size: 1em; margin: 0; padding: 0.5em 0.9em; }
+	#accordion h3 { background: #a4d4a6; border-bottom: 1px solid #5eac58; font-size: 1em; margin: 0; padding: 0.5em 0.9em; outline: 0; }
 	.accordion-content { padding: 0.9em; }
 	#step2accordion { display:none; }
 	 
@@ -77,7 +77,7 @@
               </div> 
               
               <h3>2. Billing and payment</h3> 
-              <div id="step2accordion" class="accordion-content"> 
+              <div class="accordion-content"> 
               	<div id="errorMessages"></div>
                 <div class="name-fields"> 
                   <span class="name-first"><input class="txt hint" id="fname" name="fname" title="First name" value="@fname" /></span> 
@@ -118,15 +118,15 @@
                         <span class="label">Expiration date</span> 
                         <select id="mos" name="mos"> 
                           <option value="">Month</option> 
-                          <option value="1">01 - January</option> 
-                          <option value="2">02 - February</option> 
-                          <option value="3">03 - March</option> 
-                          <option value="4">04 - April</option> 
-                          <option value="5">05 - May</option> 
-                          <option value="6">06 - June</option> 
-                          <option value="7">07 - July</option> 
-                          <option value="8">08 - August</option> 
-                          <option value="9">09 - September</option> 
+                          <option value="01">01 - January</option> 
+                          <option value="02">02 - February</option> 
+                          <option value="03">03 - March</option> 
+                          <option value="04">04 - April</option> 
+                          <option value="05">05 - May</option> 
+                          <option value="06">06 - June</option> 
+                          <option value="07">07 - July</option> 
+                          <option value="08">08 - August</option> 
+                          <option value="09">09 - September</option> 
                           <option value="10">10 - October</option> 
                           <option value="11">11 - November</option> 
                           <option value="12">12 - December</option> 
@@ -161,12 +161,12 @@
                       <p class="mute"><img alt="" src="@script_path/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif" /> Your credit card will be securely processed.</p> 
                     </dd> 
                   </dl> 
-                  		<input type="hidden" name="gateway" value="payflowpro" /> 
+                  		<input type="hidden" name="gateway" value="payflowpro" id="gateway" /> 
 						<input type="hidden" name="returnto" value="Thank_You/en" /> 
 
 						<input type="hidden" value="@amount" name="amount" />
-						<input type="hidden" value="US" name="country" id="country" />
-						
+						<input type="hidden" value="@country" name="country" id="country" />
+						<input type="hidden" value="@expiration" name="expiration" />						
 						<input type="hidden" value="@currency_code" name="currency" />
 						<input type="hidden" value="@utm_source" name="utm_source"/>
 			            <input type="hidden" value="@utm_medium" name="utm_medium"/>
@@ -206,6 +206,11 @@
 		    	$j = $;
 	    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.min.js', function() {
 		    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.min.js', function() {
+		    			// Init accordion
+					    $("#accordion").accordion({
+					      autoHeight: false
+					    });
+		    			
 		    			// check for RapidHtml errors and display, if any
 		    			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
 		    						  '#lname','#city','#country','#street','#state','#zip','#emailAdd'];
@@ -213,47 +218,45 @@
 		    			var count = 0;
 		    			for( var i=0; i < errors.length; i++ ){
 		    				if ( errors[i].length > 0 ){
-		    					console.log(errors[i]);
 		    					count++;
 		    					if ( count > 1 )
 		    						$('#errorMessages').append('<br />');
 		    					$('#errorMessages').append(errors[i]);
 		    				}
 		    			}
+		    			if( count > 0 ){
+		    				// show the second step with the error
+		    				$("#accordion").accordion( "activate" , 1 );
+		    			}
 		    			// Inline labels
 					    $(".hint").ezpz_hint();
 					    
-					    // Init accordion
-					    $("#accordion").accordion({
-					      autoHeight: false
-					    });
-					    $("#cc").click(function(){
-					    	console.log('Clicked: CC');				    
+					    $("#cc").click(function(){		    
 					    	if ( validateAmount(document.paypalcontribution) ){
-					    		console.log('Amount: OK');
-					    		console.log('Target: Credit Card');
 					    		showAmount( $("input[name=amount]") );
 								$("#accordion").accordion("activate", 1);
 								$("#change-amount").show();
 					    	}
 					      
 					    });
-					    $("#pp").click(function(){
-					    console.log('Clicked: PP');	
+					    $("#pp").click(function(){	
 					    	if ( validateAmount(document.paypalcontribution) ){
-					    		console.log('Amount: OK');
-					    		console.log('Target: PayPal');	
 					    		// set the action to go to PayPal
+					    		$("input[name=gateway]").val("paypal");
 					    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
 								$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal...")
 					    		document.paypalcontribution.submit();
 							}
 					    });
-					    $("#submitcreditcard").click(function(){
-					    	console.log('Clicked: Submit CC');				    
+					    $("#submitcreditcard").click(function(){					    	
+					    	// set country to US
+				    		$("input[name=country]").val("US");
+					    				    
 					    	if ( validate_form(document.paypalcontribution) ){
-					    		console.log('Form: OK');
-					    		console.log('Target: Submit Credit Card');
+					    		// set expiration date
+					    		$("input[name=expiration]").val(
+					    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4)
+					    		)
 					    		
 					    		document.paypalcontribution.action = "@action";
 					    		document.paypalcontribution.submit()
@@ -295,6 +298,7 @@
 							error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
 							// Check amount is at least the minimum
 							var currency = 'USD'; // hard-coded for these forms and tests
+							$("input[name=currency]").val(currency);
 							if ( typeof( minimums[currency] ) == 'undefined' ) {
 								minimums[currency] = 1;
 							}
