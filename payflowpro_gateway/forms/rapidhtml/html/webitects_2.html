@@ -206,141 +206,141 @@
     </div>
 </div>
 
-    <!-- load jquery 1.4.2 -->
-    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery-1.4.2.min.js'></script>
+    <!-- load jquery (newer) -->
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.js'></script>
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.core.js'></script>
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.widget.js'></script>
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.accordion.js'></script>
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.js'></script>
     <script type="text/javascript">
     	( function( $ ){
 	    	window.onload = function (){
 	    		// set all jQuery instances to 1.4.2
 		    	jQuery = $;
 		    	$j = $;
-	    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.min.js', function() {
-		    		$.getScript('@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.min.js', function() {
-		    			// Init accordion
-					    $("#accordion").accordion({
-					      autoHeight: false
-					    });
-		    			
-		    			// check for RapidHtml errors and display, if any
-		    			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
-		    						  '#lname','#city','#country','#street','#state','#zip','#emailAdd'];
-		    			
-		    			var count = 0;
-		    			for( var i=0; i < errors.length; i++ ){
-		    				if ( errors[i].length > 0 ){
-		    					count++;
-		    					if ( count > 1 )
-		    						$('#errorMessages').append('<br />');
-		    					$('#errorMessages').append(errors[i]);
-		    				}
-		    			}
-		    			if( count > 0 ){
-		    				// show the second step with the error
-		    				showAmount( $("input[name=amount]") );
-							// show second step
-					    	$(".hideamountclass").slideUp();
-				            $("#step2wrapper").slideDown();
-				            $("#change-amount").show();
-				            
-				            // set the action on step1 header to show first step
-				            $("#step1header").click(function(){
-								$(".hideamountclass").slideDown();
-								$("#step2wrapper").slideUp();
-								$("#change-amount").hide();
-				            });
-		    			}
-		    			// Inline labels
-					    $(".hint").ezpz_hint();
-					    
-					    $("#cc").click(function(){
-					    	if ( validateAmount(document.paypalcontribution) ){
-					    		showAmount( $("input[name=amount]") );
-								// show second step
-						    	$(".hideamountclass").slideUp();
-					            $("#step2wrapper").slideDown();
-					            $("#change-amount").show();
-					            
-					            // set the action on step1 header to show first step
-					            $("#step1header").click(function(){
-									$(".hideamountclass").slideDown();
-									$("#step2wrapper").slideUp();
-									$("#change-amount").hide();
-					            });
-					    	}
-					    });
-					    
-					    $("#pp").click(function(){
-					    console.log('Clicked: PP');	
-					    	if ( validateAmount(document.paypalcontribution) ){
-					    		// set the action to go to PayPal
-					    		$("input[name=gateway]").val("paypal");
-					    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
-								$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal…");
-					    		document.paypalcontribution.submit();
-							}
-					    });
-					    $("#submitcreditcard").click(function(){
-					    	// set country to US
-				    		$("input[name=country]").val("US");
-					    				    
-					    	if ( validate_form(document.paypalcontribution) ){
-					    		// set expiration date
-					    		$("input[name=expiration]").val(
-					    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4)
-					    		);
-					    		
-					    		document.paypalcontribution.action = "@action";
-					    		document.paypalcontribution.submit();
-					    	}
-					    })
-					    
-					    // Fix behavior of images in labels
-					    $("label img").live("click", function() { $("#" + $(this).parents("label").attr("for")).click(); });
-					    
-					    // Display selected amount
-					    function showAmount(e){ $("#selected-amount").html("($" + e.val() + ")"); }
-					    
-					    // Set selected amount to amount
-					    $("input[name=amountRadio]").click(function(){ setAmount($(this)); });
-					    $("#other-amount").change(function(){ setAmount($(this)); });
-					    function setAmount(e){ $("input[name=amount]").val(e.val()); }
-					    
-					    // Security codes
-					    $("#where").click(function(){
-					      $("#codes").toggle();
-					      return false;
-					    });
-					    
-					    function validateAmount(){
-					    	var minimums = {
-						    	'USD' : 1,
-						    }
-					    	var error = true;
-	 						var amount = $("input[name=amount]").val(); // get the amount
-							var otherAmount = amount // create a working copy
-							otherAmount = otherAmount.replace(/[,.](\d)$/, '\:$10');
-							otherAmount = otherAmount.replace(/[,.](\d)(\d)$/, '\:$1$2');
-							otherAmount = otherAmount.replace(/[,.]/g, '');
-							otherAmount = otherAmount.replace(/:/, '.');
-							amount = otherAmount; // idk, reset amount to working copy amount
-							$("input[name=amount]").val(amount); // set the new amount back into the form
-							
-							// Check amount is a real number, sets error as true (good) if no issues
-							error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
-							// Check amount is at least the minimum
-							var currency = 'USD'; // hard-coded for these forms and tests
-							$("input[name=currency]").val(currency);
-							if ( typeof( minimums[currency] ) == 'undefined' ) {
-								minimums[currency] = 1;
-							}
-							if ( amount < minimums[currency] || error ) {
-								alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
-								error = true;
-							}
-							return !error;
-					    }
-					});
-				});
+    			// Init accordion
+			    $("#accordion").accordion({
+			      autoHeight: false
+			    });
+    			
+    			// check for RapidHtml errors and display, if any
+    			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
+    						  '#lname','#city','#country','#street','#state','#zip','#emailAdd'];
+    			
+    			var count = 0;
+    			for( var i=0; i < errors.length; i++ ){
+    				if ( errors[i].length > 0 ){
+    					count++;
+    					if ( count > 1 )
+    						$('#errorMessages').append('<br />');
+    					$('#errorMessages').append(errors[i]);
+    				}
+    			}
+    			if( count > 0 ){
+    				// show the second step with the error
+    				showAmount( $("input[name=amount]") );
+					// show second step
+			    	$(".hideamountclass").slideUp();
+		            $("#step2wrapper").slideDown();
+		            $("#change-amount").show();
+		            
+		            // set the action on step1 header to show first step
+		            $("#step1header").click(function(){
+						$(".hideamountclass").slideDown();
+						$("#step2wrapper").slideUp();
+						$("#change-amount").hide();
+		            });
+    			}
+    			// Inline labels
+			    $(".hint").ezpz_hint();
+			    
+			    $("#cc").click(function(){
+			    	if ( validateAmount(document.paypalcontribution) ){
+			    		showAmount( $("input[name=amount]") );
+						// show second step
+				    	$(".hideamountclass").slideUp();
+			            $("#step2wrapper").slideDown();
+			            $("#change-amount").show();
+			            
+			            // set the action on step1 header to show first step
+			            $("#step1header").click(function(){
+							$(".hideamountclass").slideDown();
+							$("#step2wrapper").slideUp();
+							$("#change-amount").hide();
+			            });
+			    	}
+			    });
+			    
+			    $("#pp").click(function(){
+			    console.log('Clicked: PP');	
+			    	if ( validateAmount(document.paypalcontribution) ){
+			    		// set the action to go to PayPal
+			    		$("input[name=gateway]").val("paypal");
+			    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
+						$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal…");
+			    		document.paypalcontribution.submit();
+					}
+			    });
+			    $("#submitcreditcard").click(function(){
+			    	// set country to US
+		    		$("input[name=country]").val("US");
+			    				    
+			    	if ( validate_form(document.paypalcontribution) ){
+			    		// set expiration date
+			    		$("input[name=expiration]").val(
+			    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4)
+			    		);
+			    		
+			    		document.paypalcontribution.action = "@action";
+			    		document.paypalcontribution.submit();
+			    	}
+			    })
+			    
+			    // Fix behavior of images in labels
+			    $("label img").live("click", function() { $("#" + $(this).parents("label").attr("for")).click(); });
+			    
+			    // Display selected amount
+			    function showAmount(e){ $("#selected-amount").html("($" + e.val() + ")"); }
+			    
+			    // Set selected amount to amount
+			    $("input[name=amountRadio]").click(function(){ setAmount($(this)); });
+			    $("#other-amount").change(function(){ setAmount($(this)); });
+			    function setAmount(e){ $("input[name=amount]").val(e.val()); }
+			    
+			    // Security codes
+			    $("#where").click(function(){
+			      $("#codes").toggle();
+			      return false;
+			    });
+			    
+			    function validateAmount(){
+			    	var minimums = {
+				    	'USD' : 1,
+				    }
+			    	var error = true;
+						var amount = $("input[name=amount]").val(); // get the amount
+					var otherAmount = amount // create a working copy
+					otherAmount = otherAmount.replace(/[,.](\d)$/, '\:$10');
+					otherAmount = otherAmount.replace(/[,.](\d)(\d)$/, '\:$1$2');
+					otherAmount = otherAmount.replace(/[,.]/g, '');
+					otherAmount = otherAmount.replace(/:/, '.');
+					amount = otherAmount; // idk, reset amount to working copy amount
+					$("input[name=amount]").val(amount); // set the new amount back into the form
+					
+					// Check amount is a real number, sets error as true (good) if no issues
+					error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
+					// Check amount is at least the minimum
+					var currency = 'USD'; // hard-coded for these forms and tests
+					$("input[name=currency]").val(currency);
+					if ( typeof( minimums[currency] ) == 'undefined' ) {
+						minimums[currency] = 1;
+					}
+					if ( amount < minimums[currency] || error ) {
+						alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
+						error = true;
+					}
+					return !error;
+			    }
 	    	}
        	})(jQuery);
     </script>
