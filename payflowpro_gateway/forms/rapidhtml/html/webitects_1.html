@@ -255,7 +255,7 @@
 					    	if ( validate_form(document.paypalcontribution) ){
 					    		// set expiration date
 					    		$("input[name=expiration]").val(
-					    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4);
+					    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4)
 					    		)
 					    		
 					    		document.paypalcontribution.action = "@action";
