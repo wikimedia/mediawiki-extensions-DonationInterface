@@ -48,7 +48,7 @@
             
             <div id="accordion"> 
               <h3>1. Donation amount <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">Change</a>)</span></h3> 
-              <div class="accordion-content"> 
+              <div id="step1accordion" class="accordion-content"> 
                 <form method="post" name="paypalcontribution"> 
                   <table id="amount-table"> 
                     <tr> 
@@ -72,7 +72,7 @@
               </div> 
               
               <h3>2. Billing and payment</h3> 
-              <div class="accordion-content"> 
+              <div id="step2accordion" class="accordion-content"> 
               	<div id="errorMessages"></div>
                 <div class="name-fields"> 
                   <span class="name-first"><input class="txt hint" id="fname" name="fname" title="First name" value="@fname" /></span> 
