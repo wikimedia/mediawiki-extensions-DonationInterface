@@ -21,6 +21,8 @@
 	#appeal-content { padding-right: 380px; }
 	.clear { clear: both; }
 	#donate { float: left; margin-left: -350px; width: 350px; }
+
+	#zip { width: 2em; }
 </style>
 
     <div class="ltr"> 
@@ -229,6 +231,21 @@
     			if( count > 0 ){
     				// show the second step with the error
     				$("#accordion").accordion( "activate" , 1 );
+    				
+    				//we have clearly selected an amount before, make sure it is shown
+    				showAmount( $("input[name=amount]") );
+    				
+    				// hacks for IE6/IE7
+					if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<8){
+						$("#change-amount").click( function(){
+							$("#donate").css("width","335px");
+							$("#step1accordion").show();
+			            	$("#step2accordion").hide();
+						});
+						$("#donate").css("width","335px");
+						$("#step1accordion").hide();
+			            $("#step2accordion").show();
+					}
     			}
     			// Inline labels
 			    $(".hint").ezpz_hint();
@@ -238,6 +255,18 @@
 			    		showAmount( $("input[name=amount]") );
 						$("#accordion").accordion("activate", 1);
 						$("#change-amount").show();
+						
+						// hacks for IE6/IE7
+						if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<8){
+							$("#change-amount").click( function(){
+								$("#donate").css("width","335px");
+								$("#step1accordion").show();
+				            	$("#step2accordion").hide();
+							});
+							$("#donate").css("width","335px");
+							$("#step1accordion").hide();
+				            $("#step2accordion").show();
+						}						
 			    	}
 			      
 			    });
