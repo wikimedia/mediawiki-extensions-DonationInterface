@@ -22,9 +22,16 @@
 	.clear { clear: both; }
 	#donate { float: left; margin-left: -350px; width: 350px; }
 
-	#zip { width: 2em; }
+	.txt-sm2 { width: 2em; }
 </style>
-
+	<!--[if lt IE 7]><style>
+	/* style for IE6 + IE5.5 + IE5.0 */
+	.gainlayout { height: 0; }
+	</style><![endif]-->
+	 
+	<!--[if IE 7]><style>
+	.gainlayout { zoom: 1; height: 1%; }
+	</style><![endif]-->
     <div class="ltr"> 
       <div id="appeal"> 
         <div id="appeal-content"> 
@@ -109,14 +116,14 @@
                   </dd> 
                 </dl> 
                 
-                <div id="payment"> 
-                  <dl class="form"> 
+                <div id="payment" class="gainlayout"> 
+                  <dl class="form" class="gainlayout"> 
                     <dt><span class="label"><label for="card_num">Card number</label></span></dt> 
                     <dd class="field"><input class="txt" id="card_num" name="card_num" value="@card_num"/></dd> 
                     
                     <dt></dt> 
-                    <dd class="field"> 
-                      <div class="l" style="margin-right: 5%;"> 
+                    <dd class="field" class="gainlayout"> 
+                      <div class="l" style="margin-right: 5%;" class="gainlayout"> 
                         <span class="label">Expiration date</span> 
                         <select id="mos" name="mos"> 
                           <option value="">Month</option> 
@@ -134,7 +141,7 @@
                           <option value="12">12 - December</option> 
                         </select> 
  
-                        <select id="year" name="year"> 
+                        <select id="year" name="year">  
                           <option value="">Year</option> 
                           <option value="2011">2011</option> 
                           <option value="2012">2012</option> 
@@ -148,9 +155,9 @@
                           <option value="2020">2020</option> 
                         </select> 
                       </div> 
-                      <div class="l"> 
+                      <div class="l" class="gainlayout"> 
                         <label class="label" for="cvv">Security code</label> 
-                        <input class="txt-sm" id="cvv" name="cvv"  value="@cvv"/> 
+                        <input class="txt-sm2" id="cvv" name="cvv"  value="@cvv"/> 
                         <a class="mute" href="#" id="where">Where?</a> 
                       </div> 
                       
@@ -214,6 +221,13 @@
 			    $("#accordion").accordion({
 			      autoHeight: false
 			    });
+			    
+			    if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<7){
+			    	//get the current querystring
+			    	var qs = window.location.search.substring(1);
+			    	// redirect IE6 people to another form
+			    	window.location.replace("http://wikimediafoundation.org/wiki/Special:LandingCheck?language=en&landing_page=L11_ExtraInfo_0902_N&utm_campaign=C_0916_Webitects_US_ie6&utm_source=B_BR_0916_US&country_code=USreferrer=webitects1");
+			    }
     			
     			// check for RapidHtml errors and display, if any
     			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
@@ -236,7 +250,7 @@
     				showAmount( $("input[name=amount]") );
     				
     				// hacks for IE6/IE7
-					if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<8){
+					if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<9){
 						$("#change-amount").click( function(){
 							$("#donate").css("width","335px");
 							$("#step1accordion").show();
@@ -257,7 +271,7 @@
 						$("#change-amount").show();
 						
 						// hacks for IE6/IE7
-						if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<8){
+						if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<9){
 							$("#change-amount").click( function(){
 								$("#donate").css("width","335px");
 								$("#step1accordion").show();
@@ -266,7 +280,7 @@
 							$("#donate").css("width","335px");
 							$("#step1accordion").hide();
 				            $("#step2accordion").show();
-						}						
+						}					
 			    	}
 			      
 			    });

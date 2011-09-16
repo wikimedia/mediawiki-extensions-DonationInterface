@@ -33,6 +33,14 @@
 	#where-content { font-size: 13px; line-height: 19px; width: 325px; }
 	
 </style> 
+<!--[if lt IE 7]><style>
+/* style for IE6 + IE5.5 + IE5.0 */
+.gainlayout { height: 0; }
+</style><![endif]-->
+ 
+<!--[if IE 7]><style>
+.gainlayout { zoom: 1; height: 1%; }
+</style><![endif]-->
 
 <div class="ltr">
     <div id="appeal">
@@ -82,7 +90,7 @@
                     </div>
 
 					<div id="step2wrapper" style="display: none;">
-                    <div id="billing-content">
+                    <div id="billing-content" class="gainlayout">
                         <h3>Billing and payment</h3>
                         <div id="errorMessages"></div>
                         <div class="name-fields">
@@ -115,7 +123,7 @@
                         </dl>
                     </div>
 
-                    <div id="payment">
+                    <div id="payment"  class="gainlayout">
                         <dl class="form">
                             <dt><span class="label"><label for="card_num">Card number</label></span></dt>
                             <dd class="field"><input class="txt" id="card_num" name="card_num" value="@card_num"/></dd>
@@ -224,6 +232,13 @@
 			    $("#accordion").accordion({
 			      autoHeight: false
 			    });
+			    
+			    if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<7){
+			    	//get the current querystring
+			    	var qs = window.location.search.substring(1);
+			    	// redirect IE6 people to another form
+			    	window.location.replace("http://wikimediafoundation.org/wiki/Special:LandingCheck?language=en&landing_page=L11_ExtraInfo_0902_N&utm_campaign=C_0916_Webitects_US_ie6&utm_source=B_BR_0916_US&country_code=US&referrer=webitects2");
+			    }
     			
     			// check for RapidHtml errors and display, if any
     			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',

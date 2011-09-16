@@ -23,6 +23,15 @@
 	#donate { float: left; margin-left: -350px; width: 350px; }
 </style> 
 
+	<!--[if lt IE 7]><style>
+	/* style for IE6 + IE5.5 + IE5.0 */
+	.gainlayout { height: 0; }
+	</style><![endif]-->
+	 
+	<!--[if IE 7]><style>
+	.gainlayout { zoom: 1; height: 1%; }
+	</style><![endif]-->
+
     <div class="ltr"> 
       <div id="appeal"> 
         <div id="appeal-content"> 
@@ -202,7 +211,8 @@
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.core.js'></script>
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.widget.js'></script>
     <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ui.accordion.js'></script>
-    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.js'></script>    <script type="text/javascript">
+    <script type='text/javascript' src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/js/jquery.ezpz_hint.js'></script>
+    <script type="text/javascript">
     	( function( $ ){
 	    	window.onload = function (){
 	    		// set all jQuery instances to 1.4.2
@@ -212,6 +222,13 @@
 			    $("#accordion").accordion({
 			      autoHeight: false
 			    });
+			    
+			    if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<7){
+			    	//get the current querystring
+			    	var qs = window.location.search.substring(1);
+			    	// redirect IE6 people to another form
+					window.location.replace("http://wikimediafoundation.org/wiki/Special:LandingCheck?language=en&landing_page=L11_ExtraInfo_0902_N&utm_campaign=C_0916_Webitects_US_ie6&utm_source=B_BR_0916_US&country_code=USreferrer=webitects1a");
+			    }
     			
     			// check for RapidHtml errors and display, if any
     			var errors = ['#general','#retryMsg','#amount','#card_num','#card','#cvv','#fname',
@@ -229,6 +246,21 @@
     			if( count > 0 ){
     				// show the second step with the error
     				$("#accordion").accordion( "activate" , 1 );
+    				
+    				//we have clearly selected an amount before, make sure it is shown
+    				showAmount( $("input[name=amount]") );
+    				
+    				// hacks for IE6/IE7
+					if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<9){
+						$("#change-amount").click( function(){
+							$("#donate").css("width","335px");
+							$("#step1accordion").show();
+			            	$("#step2accordion").hide();
+						});
+						$("#donate").css("width","335px");
+						$("#step1accordion").hide();
+			            $("#step2accordion").show();
+					}
     			}
     			// Inline labels
 			    $(".hint").ezpz_hint();
@@ -238,6 +270,18 @@
 			    		showAmount( $("input[name=amount]") );
 						$("#accordion").accordion("activate", 1);
 						$("#change-amount").show();
+						
+						// hacks for IE6/IE7
+						if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<9){
+							$("#change-amount").click( function(){
+								$("#donate").css("width","335px");
+								$("#step1accordion").show();
+				            	$("#step2accordion").hide();
+							});
+							$("#donate").css("width","335px");
+							$("#step1accordion").hide();
+				            $("#step2accordion").show();
+						}						
 			    	}
 			      
 			    });
@@ -246,7 +290,7 @@
 			    		// set the action to go to PayPal
 			    		$("input[name=gateway]").val("paypal");
 			    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
-						$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal...")
+						$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal…");
 			    		document.paypalcontribution.submit();
 					}
 			    });
@@ -261,7 +305,7 @@
 			    		)
 			    		
 			    		document.paypalcontribution.action = "@action";
-			    		document.paypalcontribution.submit()
+			    		document.paypalcontribution.submit();
 			    	}
 			    })
 			    
@@ -309,7 +353,7 @@
 						error = true;
 					}
 					return !error;
-			    }
+			    };
 	    	}
        	})(jQuery);
     </script>
