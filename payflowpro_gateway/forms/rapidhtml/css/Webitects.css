@@ -16,12 +16,12 @@ h3 span { font-weight: normal; }
 .call-l { float: left; margin: 0.2em 1em 1em 0; }
 .call-l, .call-r { background: #fff; border: 1px solid #444; font-size: 13px; padding: 15px 20px; }
 .call-l h3, .call-r h3 { font-size: 17px; }
-.call-l .loading, .call-r .loading { background-image: url(../images/loading-white.gif); }
+.call-l .loading, .call-r .loading { background-image: url(https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-white.gif); }
 .call-r { float: right; margin: 0.2em 0 1em 1em; }
 
 /* Loading */
 #loading { font-size: 12px; margin-left: 0.5em; vertical-align: middle; }
-.loading { background: url(../images/loading-green.gif) no-repeat 50% 50%; padding: 10px; }
+.loading { background: url(https://payments.wikimedia.org/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-green.gif) no-repeat 50% 50%; padding: 10px; }
 
 /* Muted text */
 .mute { font-size: 12px; }
