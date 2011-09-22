@@ -39,6 +39,67 @@ function switchToCreditCard() {
 	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'none';
 }
 
+/*
+ * Validates the personal information fields
+ *
+ * @input form The form containing the inputs to be checked
+ *
+ * @return boolean true if no errors, false otherwise (also uses an alert() to notify the user)
+ */
+function validate_personal( form ){
+
+    // TODO: this form should only report a single error for the email address?
+
+	var output = '';
+	var currField = '';
+	var i = 0;
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip'];
+	var fields = [ "emailAdd","fname","lname","street","city","zip" ],
+		numFields = fields.length;
+	for( i = 0; i < numFields; i++ ) {
+		if( document.getElementById( fields[i] ).value == '' ) {
+			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
+		}
+	}
+	var stateField = document.getElementById( 'state' );
+	var countryField = document.getElementById( 'country' );
+	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+	}
+
+	if( countryField.type == "select" ){ // country is a dropdown select
+		if( countryField.options[countryField.selectedIndex].value == '' ) {
+			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+		}
+	}
+	else{ // country is a hidden or text input
+		if( countryField.value == '' ) {
+			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+		}
+	}
+
+	//set state to "outside us"
+	if ( form.country.value != 'US' ) {
+			form.state.value = 'XX';
+	}
+
+	// validate email address
+	var apos = form.emailAdd.value.indexOf("@");
+	var dotpos = form.emailAdd.value.lastIndexOf(".");
+
+	if( apos < 1 || dotpos-apos < 2 ) {
+		output += payflowproGatewayErrorMsgEmail;
+	}
+
+	if( output ) {
+		alert( output );
+		return false;
+	}
+
+	return true;
+}
+
 function validate_form( form ) {
 	if( form == null ){
 		form = document.payment

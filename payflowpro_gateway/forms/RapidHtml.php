@@ -39,7 +39,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		'@utm_source', // => self::getUtmSource(),
 		'@utm_medium', // => $wgRequest->getText( 'utm_medium' ),
 		'@utm_campaign', // => $wgRequest->getText( 'utm_campaign' ),
-		// try to honr the user-set language (uselang), otherwise the language set in the URL (language)
+		// try to honor the user-set language (uselang), otherwise the language set in the URL (language)
 		'@language', // => $wgRequest->getText( 'uselang', $wgRequest->getText( 'language' ) ),
 		'@comment-option', // => $wgRequest->getText( 'comment-option' ),
 		'@comment', // => $wgRequest->getText( 'comment' ),
@@ -147,8 +147,20 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 			$form = str_replace( $token, $replace, $form );
 		}
 		
-		// replace errors
-		$form = str_replace( $this->error_tokens, $this->form_errors, $form );
+		// @fixme why do some errors have HTML in them
+		// replace errors|escape with escaped versions
+		$escape_error_tokens = array();
+		foreach ( $this->error_tokens as $token ) {
+			$escape_error_tokens[] = "$token|escape";
+		}
+		$escape_errors = array();
+		foreach ( $this->form_errors as $error ) {
+			$escape_errors[] = addslashes($error);
+		}
+		$form = str_replace($escape_error_tokens, $escape_errors, $form);
+
+		// replace standard errors
+		$form = str_replace($this->error_tokens, $this->form_errors, $form);
 
 		// handle captcha
 		$form = str_replace( "@captcha", $this->getCaptchaHtml(), $form );
