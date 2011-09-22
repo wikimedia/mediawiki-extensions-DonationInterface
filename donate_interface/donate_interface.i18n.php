@@ -880,10 +880,12 @@ $messages['es'] = array(
 );
 
 /** Estonian (Eesti)
+ * @author Adeliine
  * @author Avjoska
  * @author Pikne
  */
 $messages['et'] = array(
+	'donate_interface' => 'Toeta Wikimediat',
 	'donate_interface-intro' => 'Palun vali makseviis, summa ja vääring.',
 	'donate_interface-amount' => 'Annetussumma:',
 	'donate_interface-other-amount' => 'Muu summa',
