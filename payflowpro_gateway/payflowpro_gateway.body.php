@@ -79,6 +79,7 @@ class PayflowProGateway extends UnlistedSpecialPage {
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 
 		// @fixme can this be moved into the form generators?
+        // @fixme this is broken on MW 1.16, executes before jQuery load
 		 $js = <<<EOT
 <script type="text/javascript">
 jQuery(document).ready(function() {
