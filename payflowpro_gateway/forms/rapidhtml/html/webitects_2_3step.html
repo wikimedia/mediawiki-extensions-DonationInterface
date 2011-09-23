@@ -35,7 +35,7 @@
     #step2wrapper, #step2header, #step3wrapper, #step3header { display: none; }
 	#where-content { font-size: 13px; line-height: 19px; width: 325px; }
 
-    #amountErrorMessages, #billingErrorMessages, #paymentErrorMessages { color: #F00; }
+    #amtErrorMessages, #billingErrorMessages, #paymentErrorMessages { color: #F00; }
 	
 </style> 
 <!--[if lt IE 7]><style>
@@ -73,7 +73,7 @@
 
                 <form method="post" name="paypalcontribution">
                     <div id="step1wrapper">
-                        <div id="amountErrorMessages" class="small"></div>
+                        <div id="amtErrorMessages" class="small"></div>
                         <table id="amount-table-white">
                             <tr>
                                 <td><label><input type="radio" name="amountRadio" value="5" /> $5</label></td>
@@ -272,7 +272,7 @@
                 // show the errors
                 var prevError = false;
                 if( amountErrorString != ""){
-                    $("#amountErrorMessages").html( amountErrorString );
+                    $("#amtErrorMessages").html( amountErrorString );
                     prevError = true;
 					showStep2(); // init the headers
 					showStep3();
