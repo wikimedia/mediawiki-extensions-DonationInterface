@@ -1,6 +1,6 @@
 <!-- load styles from original first steps -->
 <link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/css/lp1.css" />
-<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.17/vector/csshover.min.htc")}</style><![endif]-->
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("@script_path/skins/vector/csshover.min.htc")}</style><![endif]-->
 <!-- start Webitects styles -->
 <link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/css/Webitects.css" />
 <style type="text/css">
@@ -216,7 +216,7 @@
                     <input type="hidden" value="@owa_ref" name="owa_ref"/>
                 </form>
                 <div id="where-content">
-		            <hr>
+		            <hr />
 		            <h3>Where your donation goes</h3>
 		            <p><strong>Technology:</strong> Servers, bandwidth, maintenance, development. Wikipedia is the #5 website in the world and it runs on a fraction of what other top websites spend.</p>
 		            <p><strong>People:</strong> The other top 10 website have thousands of employees. We have fewer than 100, making your donation a great investment in a highly-efficient not-for-profit organization.</p>
@@ -342,7 +342,7 @@
 			    	if ( validate_cc() ){
 			    		// set the hidden expiration date input from the two selects
 			    		$('input[name="expiration"]').val(
-			    			$("select[name=mos]").val() + $('select[name="year"]').val().substring(2,4)
+			    			$('select[name="mos"]').val() + $('select[name="year"]').val().substring(2,4)
 			    		);
 			    		document.paypalcontribution.action = "@action";
 			    		document.paypalcontribution.submit();
@@ -412,7 +412,7 @@
                 });
                 // set the hidden amount input to the value of the selected element
 			    function setAmount(e){
-                    $("input[name=amount]").val( e.val() );
+                    $('input[name="amount"]').val( e.val() );
                 }
 			    
 			    // show the CVV help image on click

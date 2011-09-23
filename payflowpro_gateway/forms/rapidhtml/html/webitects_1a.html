@@ -1,6 +1,6 @@
 <!-- load styles from original first steps -->
 <link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/css/lp1.css" />
-<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.17/vector/csshover.min.htc")}</style><![endif]-->
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("@script_path/skins/vector/csshover.min.htc")}</style><![endif]-->
 <!-- start Webitects styles -->
 <link rel="stylesheet" href="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/css/Webitects.css" />
 <style type="text/css">
@@ -248,7 +248,7 @@
     				$("#accordion").accordion( "activate" , 1 );
     				
     				//we have clearly selected an amount before, make sure it is shown
-    				showAmount( $("input[name=amount]") );
+    				showAmount( $('input[name="amount"]') );
     				
     				// hacks for IE6/IE7
 					if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<9){
@@ -267,7 +267,7 @@
 			    
 			    $("#cc").click(function(){		    
 			    	if ( validateAmount(document.paypalcontribution) ){
-			    		showAmount( $("input[name=amount]") );
+			    		showAmount( $('input[name="amount"]') );
 						$("#accordion").accordion("activate", 1);
 						$("#change-amount").show();
 						
@@ -288,7 +288,7 @@
 			    $("#pp").click(function(){	
 			    	if ( validateAmount(document.paypalcontribution) ){
 			    		// set the action to go to PayPal
-			    		$("input[name=gateway]").val("paypal");
+			    		$('input[name="gateway"]').val("paypal");
 			    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
 						$("#loading").html("<img src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-green.gif' /> Redirecting to PayPal…");
 			    		document.paypalcontribution.submit();
@@ -296,11 +296,11 @@
 			    });
 			    $("#submitcreditcard").click(function(){					    	
 			    	// set country to US
-		    		$("input[name=country]").val("US");
+		    		$('input[name="country"]').val("US");
 			    				    
 			    	if ( validate_form(document.paypalcontribution) ){
 			    		// set expiration date
-			    		$("input[name=expiration]").val(
+			    		$('input[name="expiration"]').val(
 			    			$("select[name=mos]").val() + $("select[name=year]").val().substring(2,4)
 			    		)
 			    		
@@ -316,9 +316,9 @@
 			    function showAmount(e){ $("#selected-amount").html("($" + e.val() + ")"); }
 			    
 			    // Set selected amount to amount
-			    $("input[name=amountRadio]").click(function(){ setAmount($(this)); });
+			    $('input[name="amountRadio"]').click(function(){ setAmount($(this)); });
 			    $("#other-amount").change(function(){ setAmount($(this)); });
-			    function setAmount(e){ $("input[name=amount]").val(e.val()); }
+			    function setAmount(e){ $('input[name="amount"]').val(e.val()); }
 			    
 			    // Security codes
 			    $("#where").click(function(){
@@ -331,20 +331,20 @@
 				    	'USD' : 1
 				    };
 			    	var error = true;
-						var amount = $("input[name=amount]").val(); // get the amount
+						var amount = $('input[name="amount"]').val(); // get the amount
 					var otherAmount = amount // create a working copy
 					otherAmount = otherAmount.replace(/[,.](\d)$/, '\:$10');
 					otherAmount = otherAmount.replace(/[,.](\d)(\d)$/, '\:$1$2');
 					otherAmount = otherAmount.replace(/[,.]/g, '');
 					otherAmount = otherAmount.replace(/:/, '.');
 					amount = otherAmount; // idk, reset amount to working copy amount
-					$("input[name=amount]").val(amount); // set the new amount back into the form
+					$('input[name="amount"]').val(amount); // set the new amount back into the form
 					
 					// Check amount is a real number, sets error as true (good) if no issues
 					error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
 					// Check amount is at least the minimum
 					var currency = 'USD'; // hard-coded for these forms and tests
-					$("input[name=currency]").val(currency);
+					$('input[name="currency"]').val(currency);
 					if ( typeof( minimums[currency] ) == 'undefined' ) {
 						minimums[currency] = 1;
 					}
