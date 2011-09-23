@@ -240,17 +240,6 @@
 	    		// ensure all jQuery instances are set to 1.4.2
 		    	jQuery = $;
 		    	$j = $;
-			    
-			    // This form is radically broken in IE6
-			    // Redirecting them to another page
-			    // TODO: handle this in the banner
-			    if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<7){
-			    	//get the current querystring
-			    	var qs = window.location.search.substring(1);
-			    	// redirect IE6 people to another form
-			    	window.location.replace("https://wikimediafoundation.org/wiki/Special:LandingCheck?language=en&landing_page=L11_ExtraInfo_0902_N&utm_campaign=C_0916_Webitects_US_ie6&utm_source=B_BR_0916_US&country_code=US&referrer=webitects2");
-			    }
-			    
 
     			// check for RapidHtml errors and display, if any
                 var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'],
@@ -317,7 +306,7 @@
                         // set the action to go to PayPal
 			    		$('input[name="gateway"]').val("paypal");
 						$('input[name="PaypalRedirect"]').val("1");
-						$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal…");
+						$("#loading").html("<img src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-white.gif' /> Redirecting to PayPal…");
 			    		document.paypalcontribution.action = "@action";
 			    		document.paypalcontribution.submit();
 					}

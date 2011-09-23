@@ -290,7 +290,7 @@
 			    		// set the action to go to PayPal
 			    		$("input[name=gateway]").val("paypal");
 			    		document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
-						$("#loading").html("<img src='../images/loading.gif' /> Redirecting to PayPal…");
+						$("#loading").html("<img src='@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-green.gif' /> Redirecting to PayPal…");
 			    		document.paypalcontribution.submit();
 					}
 			    });
