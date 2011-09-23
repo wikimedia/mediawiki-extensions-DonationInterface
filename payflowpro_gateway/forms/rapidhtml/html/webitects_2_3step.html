@@ -274,11 +274,15 @@
                 if( amountErrorString != ""){
                     $("#amountErrorMessages").html( amountErrorString );
                     prevError = true;
+					showStep2(); // init the headers
+					showStep3();
                     showStep1(); // should be default, but ensure
                 }
                 if( billingErrorString != ""){
                     $("#billingErrorMessages").html( billingErrorString );
                     if( !prevError ){
+						showStep1(); // init the headers
+						showStep3();
                         showStep2();
                         prevError = true;
                     }
@@ -286,8 +290,11 @@
                 }
                 if( paymentErrorString != ""){
                     $("#paymentErrorMessages").html( paymentErrorString );
-                    if( !prevError )
-                        showStep3();
+                    if( !prevError ){
+						showStep1(); // init the headers
+						showStep2();
+						showStep3();
+					}
                     showAmount( $('input[name="amount"]') ); // lets go ahead and assume there is something to show
                 }
     			
@@ -350,7 +357,6 @@
 					showStep2();
 	            });
 	            $("#step3header").click(function(){
-					showStep2();
 					showStep3();
 	            });
 			    
