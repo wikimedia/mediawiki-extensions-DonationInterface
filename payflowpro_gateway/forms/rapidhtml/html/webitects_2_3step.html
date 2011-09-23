@@ -35,7 +35,7 @@
     #step2wrapper, #step2header, #step3wrapper, #step3header { display: none; }
 	#where-content { font-size: 13px; line-height: 19px; width: 325px; }
 
-    #amtErrorMessages, #billingErrorMessages, #paymentErrorMessages { color: #F00; }
+    #amountErrorMessages, #billingErrorMessages, #paymentErrorMessages { color: #F00; }
 	
 </style> 
 <!--[if lt IE 7]><style>
@@ -73,7 +73,7 @@
 
                 <form method="post" name="paypalcontribution">
                     <div id="step1wrapper">
-                        <div id="amtErrorMessages" class="small"></div>
+                        <div id="amountErrorMessages" class="small"></div>
                         <table id="amount-table-white">
                             <tr>
                                 <td><label><input type="radio" name="amountRadio" value="5" /> $5</label></td>
@@ -85,7 +85,7 @@
                                 <td><label><input type="radio" name="amountRadio" value="50" /> $50</label></td>
                                 <td><label><input type="radio" name="amountRadio" value="100" /> $100</label></td>
                                 <td><label><input type="radio" name="amountRadio" value="250" /> $250</label></td>
-                                <td><label><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> $<input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
+                                <td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label>$<input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
                             </tr>
                         </table>
 
@@ -272,7 +272,7 @@
                 // show the errors
                 var prevError = false;
                 if( amountErrorString != ""){
-                    $("#amtErrorMessages").html( amountErrorString );
+                    $("#amountErrorMessages").html( amountErrorString );
                     prevError = true;
 					showStep2(); // init the headers
 					showStep3();
