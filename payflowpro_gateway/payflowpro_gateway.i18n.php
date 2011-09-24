@@ -9851,6 +9851,7 @@ For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema 
 );
 
 /** Occitan (Occitan)
+ * @author Boulaur
  * @author Cedric31
  */
 $messages['oc'] = array(
@@ -9896,6 +9897,7 @@ $messages['oc'] = array(
 	'payflowpro_gateway-error-msg-city' => 'vila',
 	'payflowpro_gateway-error-msg-state' => 'estat',
 	'payflowpro_gateway-error-msg-zip' => 'Còde Zip',
+	'payflowpro_gateway-error-msg-country' => 'país',
 	'payflowpro_gateway-error-msg-card_num' => 'Numèro de carta de credit',
 	'payflowpro_gateway-error-msg-expiration' => "Data d'expiracion de la carta",
 	'payflowpro_gateway-error-msg-cvv' => "Lo CVV a l'esquina de vòstra carta",
@@ -12974,6 +12976,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'payflowpro_gateway-street-address-line-2' => 'Anwani ya mtaa(mstari wa 2)',
 	'payflowpro_gateway-street-1' => 'Anwani 1',
 	'payflowpro_gateway-street-2' => 'Anwani 2',
+	'payflowpro_gateway-apartment-number' => 'Fleti namba',
 	'payflowpro_gateway-city-town' => 'Mji/Jiji',
 	'payflowpro_gateway-town-city' => 'Mji/Jiji',
 	'payflowpro_gateway-state-province' => 'Nchi/Mkoa',
@@ -13025,7 +13028,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'payflowpro_gateway-make-a-donation' => 'Changia',
 	'payflowpro_gateway-enter-your-amount' => 'Au ingiza kiasi cha mchango katika sanduku la juu',
 	'payflowpro_gateway-will-support-with-gift' => 'Nitatoa mchango wa:',
-	'payflowpro_gateway-will-make-tax-deductible-gift' => 'Nitatoa mchango, ninayoweza kutumia kupunguza kodi yangu, ya:',
+	'payflowpro_gateway-will-make-tax-deductible-gift' => 'Nitatoa mchango, utakaoweza kutozwa kutoka katika kodi yangu, ya:',
 	'payflowpro_gateway-submit-my-secure-donation' => 'Wasilisha mchango wangu salama',
 	'payflowpro_gateway-next' => 'Ijayo',
 	'payflowpro_gateway-continue' => 'Endelea',
