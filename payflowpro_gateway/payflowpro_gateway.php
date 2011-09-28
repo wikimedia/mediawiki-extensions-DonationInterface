@@ -139,7 +139,6 @@ $wgPayflowHtmlFormDir = dirname( __FILE__ ) . "/forms/rapidhtml/html";
  * @var string
  */
 $wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/demo.html" );
-$wgPayflowAllowedHtmlForms = array(	$wgPayflowHtmlFormDir . "/lightbox1.html" );
 
 /**
  * Configure PayflowproGateway to use syslog for log messages rather than wfDebugLog
