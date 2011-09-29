@@ -1601,11 +1601,13 @@ $messages['km'] = array(
 );
 
 /** Korean (한국어)
+ * @author Freebiekr
  * @author Klutzy
  * @author Kwj2772
  */
 $messages['ko'] = array(
 	'donate_interface' => '위키미디어를 지원해주세요',
+	'donate_interface-desc' => '게이트웨이 확장 기능을 통합하고 있는 기부 방문 문서',
 	'donate_interface-intro' => '결제 방법, 기부 금액, 통화 종류를 선택해주세요.',
 	'donate_interface-amount' => '기부 금액:',
 	'donate_interface-other-amount' => '기타 금액',
@@ -1615,9 +1617,11 @@ $messages['ko'] = array(
 	'donate_interface-comment-message' => '다른 사람들에게 전달하고 싶은 말을 입력해주시요. 200자까지 가능합니다.',
 	'donate_interface-comment-label' => '내용:',
 	'donate_interface-anon-message' => '자신의 이름을 공개 기부자 명단에서 표시하도록 합니다. (메시지 옆에 표시됩니다.)',
-	'donate_interface-email-agreement' => '앞으로 위키미디어 재단에서 뉴스레터/이메일을 받고 싶습니다.',
+	'donate_interface-email-agreement' => '위키미디어 재단의  새로운 소식을  가끔  이메일로 받는 데 동의합니다.',
 	'donate_interface-comment-title' => '공개 메시지',
 	'donate_interface-amount-error' => '**금액을 올바르게 입력해주세요**',
+	'donate_interface-processing-error' => '당신의 요청을 처리하는 도중에 오류가 있었습니다.
+어떤 프로세서도 이용할 수 없습니다.',
 	'donate_interface-GBP' => 'GBP: 영국 파운드',
 	'donate_interface-EUR' => 'EUR: 유로',
 	'donate_interface-USD' => 'USD: 미국 달러',
@@ -2985,6 +2989,7 @@ Walang makukuhang mga tagapagsagawa.',
 /** Turkish (Türkçe)
  * @author Emperyan
  * @author Joseph
+ * @author Tarkovsky
  * @author Vito Genovese
  */
 $messages['tr'] = array(
@@ -2999,7 +3004,7 @@ $messages['tr'] = array(
 	'donate_interface-comment-message' => 'Dünya ile paylaşacak bir düşünceniz mi var? Buraya 200 karaktere kadar yazabilirsiniz:',
 	'donate_interface-comment-label' => 'Yorum:',
 	'donate_interface-anon-message' => 'Lütfen adımı (yorumumun yanına) umumi bağışçı listesinde listeleyin.',
-	'donate_interface-email-agreement' => "Wikimedia Foundation'dan arasıra yapılan güncellemeleri almayı kabul ediyorum.",
+	'donate_interface-email-agreement' => "Wikimedia Foundation'dan arasıra yapılan e-posta güncellemeleri almayı kabul ediyorum.",
 	'donate_interface-comment-title' => 'Umumi yorum',
 	'donate_interface-amount-error' => '**Lütfen geçerli bir miktar girin**',
 	'donate_interface-processing-error' => 'İsteğinizin işlenmesinde bir hata oluştu.
