@@ -167,6 +167,22 @@ $wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
 $wgAPIModules[ 'pfp' ] = 'ApiPayflowProGateway';
 $wgAutoloadClasses[ 'ApiPayflowProGateway' ] = $dir . 'api_payflowpro_gateway.php';
 
+// Resources for ResourceLoader
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
+	'styles' => array(
+		'forms/rapidhtml/css/lp1.css',
+		'forms/rapidhtml/css/Webitects.css',
+	),
+	'scripts' => array(
+		'forms/rapidhtml/js/jquery.ezpz_hint.js',
+	),
+	'dependencies' => array(
+		'jquery.ui.accordion'
+	),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
 	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
