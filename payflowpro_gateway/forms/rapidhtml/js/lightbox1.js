@@ -41,7 +41,7 @@ $(function() {
 	$( '#steps .step' ).each( function(i) {
         var $step 		= $( this );
 		widths[i]  		= stepsWidth;
-        stepsWidth	 	+= $step.width();
+        stepsWidth	 	+= 600; // Hard-coding as $.width() is not working for some reason
     } );
 	$( '#steps' ).width( stepsWidth );
 

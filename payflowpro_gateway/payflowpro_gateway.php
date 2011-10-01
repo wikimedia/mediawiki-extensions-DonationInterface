@@ -188,6 +188,13 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
 		'forms/rapidhtml/js/lightbox1.js',
 	),
 	'dependencies' => array(
+		'jquery.ui.core',
+		'jquery.ui.widget',
+		'jquery.ui.mouse',
+		'jquery.ui.position',
+		'jquery.ui.draggable',
+		'jquery.ui.resizable',
+		'jquery.ui.button',
 		'jquery.ui.dialog',
 	),
 	'localBasePath' => dirname( __FILE__ ),
@@ -197,10 +204,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
 
 $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
 	'styles' => array(
-		'forms/rapidhtml/css/jquery.ui.core.css',
-		'forms/rapidhtml/css/jquery.ui.theme.css',
-		'forms/rapidhtml/css/jquery.ui.dialog.css',
-		'forms/rapidhtml/css/jquery.ui.button.css',
 		'forms/rapidhtml/css/lightbox1.css',	
 	),
 	'localBasePath' => dirname( __FILE__ ),
