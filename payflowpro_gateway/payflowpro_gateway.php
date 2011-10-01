@@ -183,6 +183,32 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
 );
 
+$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
+	'scripts' => array(
+		'forms/rapidhtml/js/lightbox1.js',
+	),
+	'dependencies' => array(
+		'jquery.ui.dialog',
+	),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+	'position' => 'top',
+);
+
+$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
+	'styles' => array(
+		'forms/rapidhtml/css/jquery.ui.core.css',
+		'forms/rapidhtml/css/jquery.ui.theme.css',
+		'forms/rapidhtml/css/jquery.ui.dialog.css',
+		'forms/rapidhtml/css/jquery.ui.button.css',
+		'forms/rapidhtml/css/lightbox1.css',	
+	),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+	'position' => 'top',
+);
+
+
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;
 	global $wgPayflowGatewayDBuser, $wgPayflowGatewayDBpassword;
