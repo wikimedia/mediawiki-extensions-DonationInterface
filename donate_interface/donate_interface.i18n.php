@@ -559,12 +559,12 @@ Není dostupný žádný platební procesor.',
  * @author ОйЛ
  */
 $messages['cu'] = array(
-	'donate_interface-currency' => 'пла́тьно срѣ́дьство',
-	'donate_interface-submit-button' => 'даꙗ́ниꙗ сътворѥ́ниѥ',
-	'donate_interface-EUR' => 'EUR: єѵрѡ́',
-	'donate_interface-USD' => 'USD: амєрїка́ньскъ до́ларъ',
-	'donate_interface-AUD' => 'AUD: аѵстралі́искъ до́ларъ',
-	'donate_interface-CAD' => 'CAD: канадьскъ до́ларъ',
+	'donate_interface-currency' => 'платьно срѣдьство :',
+	'donate_interface-submit-button' => 'даꙗниꙗ сътворѥниѥ',
+	'donate_interface-EUR' => 'EUR: єѵрѡ',
+	'donate_interface-USD' => 'USD: амєрїканьскъ доларъ',
+	'donate_interface-AUD' => 'AUD: аѵстралїискъ доларъ',
+	'donate_interface-CAD' => 'CAD: канадьскъ доларъ',
 );
 
 /** Welsh (Cymraeg)
@@ -2959,7 +2959,7 @@ $messages['tl'] = array(
 	'donate_interface-currency' => 'Salaping umiiral:',
 	'donate_interface-gateway' => 'Paraan ng pagbabayad:',
 	'donate_interface-submit-button' => 'Magkaloob',
-	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais ipamahagi sa mundo? Maglagay ng hanggang sa 200 mga panitik dito:',
+	'donate_interface-comment-message' => 'Mayroon ka bang kaisipang nais mong ipamahagi sa mundo? Maglagay ng hanggang sa 200 panitik dito:',
 	'donate_interface-comment-label' => 'Komento',
 	'donate_interface-anon-message' => 'Pakitala ang pangalan ko (katabi ng aking komento) sa pampublikong tala ng mga tagapagkaloob.',
 	'donate_interface-email-agreement' => 'Sumasang-ayon akong paminsan-minsan na makatanggap ng mga pagsasapanahon sa pamamagitan ng e-liham mula sa Pundasyong Wikimedia.',
@@ -3004,7 +3004,7 @@ $messages['tr'] = array(
 	'donate_interface-comment-message' => 'Dünya ile paylaşacak bir düşünceniz mi var? Buraya 200 karaktere kadar yazabilirsiniz:',
 	'donate_interface-comment-label' => 'Yorum:',
 	'donate_interface-anon-message' => 'Lütfen adımı (yorumumun yanına) umumi bağışçı listesinde listeleyin.',
-	'donate_interface-email-agreement' => "Wikimedia Foundation'dan arasıra yapılan e-posta güncellemeleri almayı kabul ediyorum.",
+	'donate_interface-email-agreement' => "Wikimedia Vakfı'ndan ara sıra yapılan e-posta güncellemeleri almayı kabul ediyorum.",
 	'donate_interface-comment-title' => 'Umumi yorum',
 	'donate_interface-amount-error' => '**Lütfen geçerli bir miktar girin**',
 	'donate_interface-processing-error' => 'İsteğinizin işlenmesinde bir hata oluştu.
