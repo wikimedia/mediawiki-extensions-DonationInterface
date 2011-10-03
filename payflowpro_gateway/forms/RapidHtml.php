@@ -84,9 +84,21 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		parent::__construct( $form_data, $form_errors );
 
 		$this->loadValidateJs();
-		
-		// set html-escaped filename.
-		$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
+		$country = $wgRequest->getText( 'country', '' );
+
+		if ( $country != '' ){
+			try{
+				$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
+				// set html-escaped filename.
+				$this->set_html_file_path( htmlspecialchars( $country_based ));
+			} catch ( MWException $mwe ) {
+				// country-specific file does not exist, set html-escaped filename.
+				$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
+			}
+		} else {
+			// set html-escaped filename.
+			$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
+		}
 		
 		// fix general form error messages so it's not an array of msgs
 		if ( is_array( $form_errors[ 'general' ] ) && count( $form_errors[ 'general' ] )) {
