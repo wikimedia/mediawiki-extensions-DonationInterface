@@ -652,10 +652,8 @@ abstract class PayflowProGateway_Form {
 	}
 
 	protected function loadValidateJs() {
-		global $wgOut, $wgScriptPath;
-		$wgOut->addHeadItem( 'validatescript', '<script type="text/javascript" src="' .
-							$wgScriptPath .
-							'/extensions/DonationInterface/payflowpro_gateway/validate_input.js?284"></script>' );
+		global $wgOut;
+		$wgOut->addModules( 'pfp.form.core.validate' );
 	}
 
 	protected function loadApiJs() {

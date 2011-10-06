@@ -183,6 +183,37 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
 );
 
+// RapidHtml globalcollect_test form resources
+$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test' ] = array(
+	'styles' => array(
+		'forms/css/TwoStepTwoColumnLetter3.css',
+		'payflowpro_gateway.css',
+	),
+	'scripts' => array(),
+	'dependencies' => array(),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// form validation resource
+$wgResourceModules[ 'pfp.form.core.validate' ] = array(
+	'styles' => array(),
+	'scripts' => 'validate_input.js',
+	'dependencies' => 'pfp.form.core.pfp_css',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// general PFP css
+$wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
+	'styles' => 'payflowpro_gateway.css',
+	'scripts' => array(),
+	'dependencies' => array(),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// RapidHtml lightbox form resources
 $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
 	'scripts' => array(
 		'forms/rapidhtml/js/lightbox1.js',
@@ -202,6 +233,9 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
 	'position' => 'top',
 );
 
+// RapidHtml lightbox form css resources (these are separate from the js
+// resources for a good reason but I forget what - I believe to facilitate
+// ensuring proper load order?
 $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
 	'styles' => array(
 		'forms/rapidhtml/css/lightbox1.css',	
