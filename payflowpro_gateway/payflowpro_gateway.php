@@ -167,41 +167,27 @@ $wgHooks['DonationInterface_Page'][] = 'pfpGatewayPage';
 $wgAPIModules[ 'pfp' ] = 'ApiPayflowProGateway';
 $wgAutoloadClasses[ 'ApiPayflowProGateway' ] = $dir . 'api_payflowpro_gateway.php';
 
-// Resources for ResourceLoader
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
-	'styles' => array(
-		'forms/rapidhtml/css/lp1.css',
-		'forms/rapidhtml/css/Webitects.css',
-	),
-	'scripts' => array(
-		'forms/rapidhtml/js/jquery.ezpz_hint.js',
-	),
-	'dependencies' => array(
-		'jquery.ui.accordion'
-	),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
-);
-
-// RapidHtml globalcollect_test form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test' ] = array(
-	'styles' => array(
-		'forms/css/TwoStepTwoColumnLetter3.css',
-		'payflowpro_gateway.css',
-	),
-	'scripts' => array(),
-	'dependencies' => array(),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
-);
+// load any rapidhtml related resources
+require_once( dirname( __FILE__ ) . "/forms/rapidhtml/RapidHtmlResources.php" );
 
 // form validation resource
 $wgResourceModules[ 'pfp.form.core.validate' ] = array(
-	'styles' => array(),
 	'scripts' => 'validate_input.js',
 	'dependencies' => 'pfp.form.core.pfp_css',
 	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+);
+
+// form placeholders
+$wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
+	'scripts' => 'form_placeholders.js',
+	'dependencies' => 'pfp.form.core.validate',
+	'messages' => array(
+		'payflowpro_gateway-donor-fname',
+		'payflowpro_gateway-donor-lname'
+	),
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
 
 // general PFP css
@@ -210,41 +196,23 @@ $wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
 	'scripts' => array(),
 	'dependencies' => array(),
 	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+);
+
+// TowStepTwoColumnLetter3
+$wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
+	'styles' => 'forms/css/TwoStepTwoColumnLetter3.css',
+	'dependencies' => 'pfp.form.core.validate',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+);
+
+// API JS
+$wgResourceModules[ 'pfp.form.core.api' ] = array(
+	'scripts' => 'pfp_api_controller.js',
+	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
 );
-
-// RapidHtml lightbox form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
-	'scripts' => array(
-		'forms/rapidhtml/js/lightbox1.js',
-	),
-	'dependencies' => array(
-		'jquery.ui.core',
-		'jquery.ui.widget',
-		'jquery.ui.mouse',
-		'jquery.ui.position',
-		'jquery.ui.draggable',
-		'jquery.ui.resizable',
-		'jquery.ui.button',
-		'jquery.ui.dialog',
-	),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
-	'position' => 'top',
-);
-
-// RapidHtml lightbox form css resources (these are separate from the js
-// resources for a good reason but I forget what - I believe to facilitate
-// ensuring proper load order?
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
-	'styles' => array(
-		'forms/rapidhtml/css/lightbox1.css',	
-	),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
-	'position' => 'top',
-);
-
 
 function payflowGatewayConnection() {
 	global $wgPayflowGatewayDBserver, $wgPayflowGatewayDBname;

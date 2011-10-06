@@ -83,7 +83,6 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		global $wgRequest;
 		parent::__construct( $form_data, $form_errors );
 
-		$this->loadValidateJs();
 		$country = $wgRequest->getText( 'country', '' );
 
 		if ( $country != '' ){

@@ -657,10 +657,8 @@ abstract class PayflowProGateway_Form {
 	}
 
 	protected function loadApiJs() {
-		global $wgOut, $wgScriptPath;
-		$wgOut->addHeadItem( 'pfp_api_call', '<script type="text/javascript" src="' .
-							$wgScriptPath .
-							'/extensions/DonationInterface/payflowpro_gateway/pfp_api_controller.js?284"></script>' );
+		global $wgOut;
+		$wgOut->addModules( 'pfp.form.core.api' );
 	}
 
 	protected function loadOwaJs() {
