@@ -180,7 +180,6 @@ $wgResourceModules[ 'pfp.form.core.validate' ] = array(
 
 // form placeholders
 $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
-	'position' => 'top',
 	'scripts' => 'form_placeholders.js',
 	'dependencies' => 'pfp.form.core.validate',
 	'messages' => array(
