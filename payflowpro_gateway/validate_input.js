@@ -1,4 +1,4 @@
-function addEvent(obj, evType, fn){
+window.addEvent = function(obj, evType, fn) {
 	if (obj.addEventListener){
 		obj.addEventListener(evType, fn, false);
 		return true;
@@ -8,35 +8,35 @@ function addEvent(obj, evType, fn){
 	} else {
 		return false;
 	}
-}
+};
 
-function getIfSessionSet() {
+window.getIfSessionSet = function() {
 	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
-}
+};
 
-function clearField( field, defaultValue ) {
+window.clearField = function( field, defaultValue ) {
 	if (field.value == defaultValue) {
 		field.value = '';
 		field.style.color = 'black';
 	}
-}
-function clearField2( field, defaultValue ) {
+};
+window.clearField2 = function( field, defaultValue ) {
 	if (field.value != defaultValue) {
 		field.value = '';
 		field.style.color = 'black';
 	}
-}
+};
 
-function switchToPayPal() {
+window.switchToPayPal = function() {
 	document.getElementById('payflow-table-cc').style.display = 'none';
 	document.getElementById('payflowpro_gateway-form-submit').style.display = 'none';
 	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'block';
-}
-function switchToCreditCard() {
+};
+window.switchToCreditCard = function() {
 	document.getElementById('payflow-table-cc').style.display = 'table';
 	document.getElementById('payflowpro_gateway-form-submit').style.display = 'block';
 	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'none';
-}
+};
 
 /*
  * Validates the personal information fields
@@ -45,7 +45,7 @@ function switchToCreditCard() {
  *
  * @return boolean true if no errors, false otherwise (also uses an alert() to notify the user)
  */
-function validate_personal( form ){
+window.validate_personal = function( form ){
 
     // TODO: this form should only report a single error for the email address?
 
@@ -97,9 +97,9 @@ function validate_personal( form ){
 	}
 
 	return true;
-}
+};
 
-function validate_form( form ) {
+window.validate_form = function( form ) {
 	if( form == null ){
 		form = document.payment
 	}
@@ -155,17 +155,17 @@ function validate_form( form ) {
 	}
 
 	return true;
-}
+};
 
-function submit_form( ccform ) {
+window.submit_form = function( ccform ) {
 	if ( validate_form( ccform )) {
 		// weird hack!!!!!! for some reasondoing just ccform.submit() throws an error....
 		$j(ccform).submit();
 	}
 	return true;
-}
+};
 
-function disableStates( form ) {
+window.disableStates = function( form ) {
 
 		if ( document.payment.country.value != 'US' ) {
 			document.payment.state.value = 'XX';
@@ -174,9 +174,9 @@ function disableStates( form ) {
 		}
 
 		return true;
-}
+};
 
-function showCards() {
+window.showCards = function() {
 	if ( document.getElementById('four_cards') && document.getElementById('two_cards') ) {
 		var index = document.getElementById('input_currency_code').selectedIndex;
 		if ( document.getElementById('input_currency_code').options[index].value == 'USD' ) {
@@ -187,21 +187,21 @@ function showCards() {
 			document.getElementById('two_cards').style.display = 'table-row';	
 		}
 	}
-}
+};
 
-var cvv;
+window.cvv = '';
 
-function PopupCVV() {
+window.PopupCVV = function() {
 	cvv = window.open("", 'cvvhelp','scrollbars=yes,resizable=yes,width=600,height=400,left=200,top=100');
 	cvv.document.write( payflowproGatewayCVVExplain );
 	cvv.focus();
-}
+};
 
-function CloseCVV() {
+window.CloseCVV = function() {
 	if (cvv) {
 		if (!cvv.closed) cvv.close();
 		cvv = null;
 	}
-}
+};
 
 window.onfocus = CloseCVV;
