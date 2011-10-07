@@ -1,4 +1,3 @@
-//<![CDATA[
 function addEvent(obj, evType, fn){
 	if (obj.addEventListener){
 		obj.addEventListener(evType, fn, false);
@@ -206,4 +205,3 @@ function CloseCVV() {
 }
 
 window.onfocus = CloseCVV;
-//]]>

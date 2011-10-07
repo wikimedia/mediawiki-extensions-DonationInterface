@@ -5,15 +5,17 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 	public function __construct( &$form_data, &$form_errors ) {
 		global $wgOut;
 
-		parent::__construct( $form_data, $form_errors );
-
 		// load validation and placeholder JS
-		$this->loadPlaceholders();	
+		$this->loadPlaceholders();
+
+		parent::__construct( $form_data, $form_errors );
 	}
 
 	public function loadPlaceholders() {
 		global $wgOut;
 		$wgOut->addModules( 'pfp.form.core.placeholders' );
+		//$placeholder_resources = '<script type="text/javascript">mw.loader.load("pfp.form.core.placeholders");</script>';
+		//$wgOut->addHtml( $placeholder_resources );
 	}
 	
 	/**

@@ -65,6 +65,7 @@ abstract class PayflowProGateway_Form {
 			$this->setStylePath();
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
+		
 		/**
 		 * if OWA is enabled, load the JS.  
 		 * 
@@ -74,8 +75,19 @@ abstract class PayflowProGateway_Form {
 		if(defined('OWA')){
 			$this->loadOwaJs();
 		}
+		
+		$this->loadLogoLinkOverride();
 	}
 
+	/**
+	 * Override the link in the logo to redirec to a particular form
+	 * rather than the main page
+	 */
+	public function loadLogoLinkOverride() {
+		global $wgOut;
+		$wgOut->addModules( 'pfp.core.logolink_override' );
+	}
+	
 	/**
 	 * Set the path to the CSS file for the form
 	 *

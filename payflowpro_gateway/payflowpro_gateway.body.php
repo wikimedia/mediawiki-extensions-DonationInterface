@@ -74,17 +74,6 @@ class PayflowProGateway extends UnlistedSpecialPage {
 
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
 
-		// @fixme can this be moved into the form generators?
-        // @fixme this is broken on MW 1.16, executes before jQuery load
-		 $js = <<<EOT
-<script type="text/javascript">
-jQuery(document).ready(function() {
-	jQuery("div#p-logo a").attr("href","#");
-});
-</script>
-EOT;
-        $wgOut->addHeadItem( 'logolinkoverride', $js );
-
 		// find out if amount was a radio button or textbox, set amount
 		if ( isset( $_REQUEST['amount'] ) && preg_match( '/^\d+(\.(\d+)?)?$/', $wgRequest->getText( 'amount' ) ) ) {
 			$amount = $wgRequest->getText( 'amount' );

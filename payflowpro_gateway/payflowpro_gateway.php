@@ -180,6 +180,7 @@ $wgResourceModules[ 'pfp.form.core.validate' ] = array(
 
 // form placeholders
 $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
+	'position' => 'top',
 	'scripts' => 'form_placeholders.js',
 	'dependencies' => 'pfp.form.core.validate',
 	'messages' => array(
@@ -212,6 +213,14 @@ $wgResourceModules[ 'pfp.form.core.api' ] = array(
 	'scripts' => 'pfp_api_controller.js',
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// Logo link override
+$wgResourceModules[ 'pfp.core.logolink_override' ] = array(
+	'scripts' => 'logolink_override.js',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+
 );
 
 function payflowGatewayConnection() {
