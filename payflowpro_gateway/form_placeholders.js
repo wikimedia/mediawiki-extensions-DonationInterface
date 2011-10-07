@@ -1,20 +1,21 @@
 //<![CDATA[
-function loadPlaceholders() {
-	var fname = document.getElementById('fname');
-	var lname = document.getElementById('lname');
-	var amountOther = document.getElementById('amountOther');
-	if (fname.value == '') {
-		fname.style.color = '#999999';
-		fname.value = mw.msg( 'payflowpro_gateway-donor-fname' );
-	}
-	if (lname.value == '') {
-		lname.style.color = '#999999';
-		lname.value = mw.msg( 'payflowpro_gateway-donor-lname' );
-	}
-}
-addEvent( window, 'load', loadPlaceholders );
+( function( $ ) {
+	$(document).ready(function() {
+		var fname = document.getElementById('fname');
+		var lname = document.getElementById('lname');
+		var amountOther = document.getElementById('amountOther');
+		if (fname.value == '') {
+			fname.style.color = '#999999';
+			fname.value = mw.msg( 'payflowpro_gateway-donor-fname' );
+		}
+		if (lname.value == '') {
+			lname.style.color = '#999999';
+			lname.value = mw.msg( 'payflowpro_gateway-donor-lname' );
+		}
+	});
+})(jQuery);
 
-function formCheck( ccform ) {
+window.formCheck = function( ccform ) {
 	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip', 'CardNum', 'Cvv' ];
 
 	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
