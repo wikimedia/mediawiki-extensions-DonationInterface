@@ -12562,8 +12562,12 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-donor-card-num' => 'Број карте:',
 	'payflowpro_gateway-donor-expiration' => 'Датум истека:',
 	'payflowpro_gateway-donor-security' => 'Сигурносни код:',
-	'payflowpro_gateway-donor-submit' => 'Донирај',
+	'payflowpro_gateway-donor-submit' => 'Приложи',
 	'payflowpro_gateway-donor-currency-msg' => 'Ова донација се даје у $1',
+	'payflow_gateway-card-name-amex' => 'Американ експрес',
+	'payflow_gateway-card-name-visa' => 'Виза',
+	'payflow_gateway-card-name-mc' => 'Мастеркард',
+	'payflow_gateway-card-name-discover' => 'Дискавер',
 	'payflowpro_gateway-error-msg' => 'Молимо Вас унесите Ваш $1',
 	'payflowpro_gateway-error-msg-js' => 'Молимо Вас унесите Ваш:',
 	'payflowpro_gateway-error-msg-invalid-amount' => '**Унесите исправан износ**',
@@ -12589,7 +12593,7 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-response-4' => 'Неисправан износ.',
 	'payflowpro_gateway-response-24' => 'Број ваше кредитне картице или датум истека је неисправан.',
 	'payflowpro_gateway-response-125' => 'Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба.',
-	'payflowpro_gateway-submit-button' => 'Донирајте',
+	'payflowpro_gateway-submit-button' => 'Приложи',
 	'payflowpro_gateway-cc-form-header-personal' => 'Подаци о плаћању',
 	'payflowpro_gateway-cc-form-header-payment' => 'Подаци о плаћању',
 	'payflowpro_gateway-make-your-donation' => 'Приложите новац сада',
@@ -12602,6 +12606,7 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-donate-wikipedia' => 'Приложите новац Википедији',
 	'payflowpro_gateway-or' => 'или',
 	'payflowpro_gateway-your-information' => 'Ваши подаци',
+	'payflowpro_gateway-month' => '$1 ($2)',
 );
 
 /** Serbian Latin ekavian (‪Srpski (latinica)‬) */
