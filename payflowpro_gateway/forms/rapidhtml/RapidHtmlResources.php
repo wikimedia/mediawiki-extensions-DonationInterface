@@ -61,6 +61,12 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2_3step' ] = array(
+	'scripts' => 'js/webitects_2_3step.js',
+	'dependencies' => 'pfp.form.rapidhtml.webitects',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
 
 /**
  * globalcollect_test

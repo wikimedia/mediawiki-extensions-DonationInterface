@@ -1,4 +1,4 @@
-//make HTML5 placeholders work in non supportive browsers
+// make HTML5 placeholders work in non supportive browsers
 $("input[placeholder]").each(function() {
 	if($(this).val()=="") {
 		$(this).addClass('hasplaceholder');
@@ -16,6 +16,7 @@ $("input[placeholder]").each(function() {
 	}
 });
 
+// clear the placeholder values on form submit
 $('form').submit(function(evt){
 	$('input[placeholder]').each(function(){
 		if($(this).attr("placeholder") == $(this).val()) {$(this).val('');}
