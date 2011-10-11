@@ -8,7 +8,7 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css' );
 		}
-
+		$this->loadvalidateJs();
 		parent::__construct( $form_data, $form_errors );
 	}
 	
@@ -23,40 +23,34 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$email = wfMsg( 'payflowpro_gateway-donor-email' );
 		$js = <<<EOT
 <script type="text/javascript">
-//function loadPlaceholders() {
-window.loadPlaceholders = function() {
-	var fname = document.getElementById('fname');
-	var lname = document.getElementById('lname');
-	var street = document.getElementById('street');
-	var city = document.getElementById('city');
-	var zip = document.getElementById('zip');
-	var email = document.getElementById('emailAdd');
-	if (fname.value == '') {
-		fname.style.color = '#999999';
-		fname.value = '$first';
-	}
-	if (lname.value == '') {
-		lname.style.color = '#999999';
-		lname.value = '$last';
-	}
-	if (street.value == '') {
-		street.style.color = '#999999';
-		street.value = '$street';
-	}
-	if (city.value == '') {
-		city.style.color = '#999999';
-		city.value = '$city';
-	}
-	if (zip.value == '') {
-		zip.style.color = '#999999';
-		zip.value = '$zip';
-	}
-	if (email.value == '') {
-		email.style.color = '#999999';
-		email.value = '$email';
-	}
-}
-addEvent( window, 'load', loadPlaceholders );
+( function( $ ) {
+	$(document).ready(function() {
+		if ( $( '#fname' ).val() == '') {
+			$( '#fname' ).css( 'color', '#999999' );
+			$( '#fname' ).val( '$first' );
+		}
+		if ( $( '#lname' ).val() == '') {
+			$( '#lname' ).css( 'color', '#999999' );
+			$( '#lname' ).val( '$last' );
+		}
+		if ( $( '#street' ).val() == '') {
+			$( '#street' ).css( 'color', '#999999' );
+			$( '#street' ).val( '$street' );
+		}
+		if ( $( '#city' ).val() == '' ) {
+			$( '#city' ).css( 'color', '#999999' );
+			$( '#city' ).val( '$city' );
+		}
+		if ( $( '#zip' ).val() =='') {
+			$( '#zip' ).css( 'color', '#999999' );
+			$( '#zip' ).val( '$zip' );
+		}
+		if ( $( '#emailAdd' ).val() == '') {
+			$( '#emailAdd' ).css( 'color', '#999999' );
+			$( '#emailAdd' ).val( '$email' );
+		}
+	});
+})(jQuery);
 
 //function formCheck( ccform ) {
 window.formCheck = function( ccform ) {
