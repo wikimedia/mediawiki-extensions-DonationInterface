@@ -22,7 +22,7 @@ $('form').submit(function(evt){
 	});
 });
 
-function formCheck( ccform ) {
+window.formCheck = function( ccform ) {
 	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip' ];
 
 	var fields = ["emailAdd","fname","lname","street","city","zip" ],
