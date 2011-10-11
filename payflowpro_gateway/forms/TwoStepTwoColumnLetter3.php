@@ -23,7 +23,8 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		$email = wfMsg( 'payflowpro_gateway-donor-email' );
 		$js = <<<EOT
 <script type="text/javascript">
-function loadPlaceholders() {
+//function loadPlaceholders() {
+window.loadPlaceholders = function() {
 	var fname = document.getElementById('fname');
 	var lname = document.getElementById('lname');
 	var street = document.getElementById('street');
@@ -57,7 +58,8 @@ function loadPlaceholders() {
 }
 addEvent( window, 'load', loadPlaceholders );
 
-function formCheck( ccform ) {
+//function formCheck( ccform ) {
+window.formCheck = function( ccform ) {
 	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip', 'CardNum', 'Cvv' ];
 
 	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
