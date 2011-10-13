@@ -115,7 +115,7 @@ abstract class PayflowProGateway_Form {
 
 	/**
 	 * Generates the donation footer ("There are other ways to give...")
-	 * @returns string of HTML
+	 * @return string of HTML
 	 */
 	public function generateDonationFooter() {
 		global $wgScriptPath;

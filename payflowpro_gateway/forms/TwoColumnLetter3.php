@@ -197,7 +197,7 @@ class PayflowProGateway_Form_TwoColumnLetter3 extends PayflowProGateway_Form_One
 
 	/**
 	 * Generates the donation footer ("There are other ways to give...")
-	 * @returns string of HTML
+	 * @return string of HTML
 	 */
 	public function generateDonationFooter() {
 		global $wgScriptPath;
