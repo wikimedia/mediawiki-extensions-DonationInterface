@@ -8,7 +8,7 @@
  *
  * See below for original license and other info.
  */
-/*
+/**
  * This is a PHP library that handles calling reCAPTCHA.
  *    - Documentation and latest version
  *          http://recaptcha.net/plugins/php/
