@@ -5598,6 +5598,7 @@ $messages['grc'] = array(
 );
 
 /** Swiss German (Alemannisch)
+ * @author Als-Chlämens
  * @author Als-Holder
  */
 $messages['gsw'] = array(
@@ -5687,7 +5688,7 @@ In e Teil Fäll stoht dr Code uf dr lionke Syte vu dr Charte, aber alliwyl iber 
 	'payflowpro_gateway-otherways-alt' => 'S git no <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderi Megligkeite z spände</a>, au iber Scheck.',
 	'payflowpro_gateway-otherways-short' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Anderi Spändemegligkeite</a>',
 	'payflowpro_gateway-paypal' => 'Hesch du ne PayPal-Konto? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Spände iber PayPal</a>.',
-	'payflowpro_gateway-credit-storage-processing' => 'Mir spyychere Dyyni Kreditcharteninformatione nit, un Dyy persenligi Date unterlige unsere <a href="http://wikimediafoundation.org/wiki/Donor_policy">Dateschutzbstimmige</a>.',
+	'payflowpro_gateway-credit-storage-processing' => 'Mir spyychere Dyyni Kreditcharteninformatione nit, un Dyy persenligi Date unterlige unsere <a href="http://wikimediafoundation.org/wiki/Donor_policy">Dateschutzbstimmige für Spänder</a> (änglisch).',
 	'payflowpro_gateway-token-mismatch' => 'Dyy Sitzig isch abglofe. Bitte fill s Formular nomol uus un schick s nomol ab.',
 	'payflowpro_gateway-cc-form-header-personal' => 'Zahligsinformatione',
 	'payflowpro_gateway-cc-form-header-payment' => 'Informatione zue dr Zahlig',
