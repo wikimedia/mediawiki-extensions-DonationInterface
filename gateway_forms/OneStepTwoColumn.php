@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
+class Gateway_Form_OneStepTwoColumn extends Gateway_Form {
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {

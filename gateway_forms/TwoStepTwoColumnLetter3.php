@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_Form_TwoStepTwoColumn {
+class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn {
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgExtensionAssetsPath;
 
@@ -28,27 +28,27 @@ class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_F
 		if ( $( '#fname' ).val() == '') {
 			$( '#fname' ).css( 'color', '#999999' );
 			$( '#fname' ).val( '$first' );
-		}
+	}
 		if ( $( '#lname' ).val() == '') {
 			$( '#lname' ).css( 'color', '#999999' );
 			$( '#lname' ).val( '$last' );
-		}
+	}
 		if ( $( '#street' ).val() == '') {
 			$( '#street' ).css( 'color', '#999999' );
 			$( '#street' ).val( '$street' );
-		}
+	}
 		if ( $( '#city' ).val() == '' ) {
 			$( '#city' ).css( 'color', '#999999' );
 			$( '#city' ).val( '$city' );
-		}
+	}
 		if ( $( '#zip' ).val() =='') {
 			$( '#zip' ).css( 'color', '#999999' );
 			$( '#zip' ).val( '$zip' );
-		}
+	}
 		if ( $( '#emailAdd' ).val() == '') {
 			$( '#emailAdd' ).css( 'color', '#999999' );
 			$( '#emailAdd' ).val( '$email' );
-		}
+	}
 	});
 })(jQuery);
 

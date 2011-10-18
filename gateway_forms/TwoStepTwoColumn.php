@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
+class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgOut;
@@ -14,7 +14,7 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 		global $wgOut;
 		$wgOut->addModules( 'pfp.form.core.placeholders' );
 	}
-	
+
 	/**
 	 * Required method for constructing the entire form
 	 *

@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_TwoStepTwoColumnLetterCA extends PayflowProGateway_Form_TwoStepTwoColumn {
+class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColumn {
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgScriptPath;
 

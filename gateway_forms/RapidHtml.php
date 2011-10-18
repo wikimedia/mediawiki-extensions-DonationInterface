@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
+class Gateway_Form_RapidHtml extends Gateway_Form {
 
 	/**
 	 * Full path of HTML form to load
@@ -88,7 +88,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		if ( $country != '' ){
 			try{
 				$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
-				// set html-escaped filename.
+		// set html-escaped filename.
 				$this->set_html_file_path( htmlspecialchars( $country_based ));
 			} catch ( MWException $mwe ) {
 				// country-specific file does not exist, set html-escaped filename.
@@ -98,7 +98,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 			// set html-escaped filename.
 			$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
 		}
-		
+
 		// fix general form error messages so it's not an array of msgs
 		if ( is_array( $form_errors['general'] ) && count( $form_errors['general'] ) ) {
 			$general_errors = "";
@@ -141,7 +141,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		 * This is a hack and should be replaced with something more performant.
 		 */
 		$form = $html;
-		
+
 		// handle form action
 		$form = str_replace( "@action", $this->getNoCacheAction(), $form );
 
@@ -157,7 +157,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 			}
 			$form = str_replace( $token, $replace, $form );
 		}
-		
+
 		// @fixme why do some errors have HTML in them
 		// replace errors|escape with escaped versions
 		$escape_error_tokens = array();
@@ -269,7 +269,7 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 
 		$this->html_file_path = $allowedForms[$file_name];
 	}
-	
+
 	/**
 	 * Load API js if this form needs to support cacheing
 	 */
@@ -277,6 +277,6 @@ class PayflowProGateway_Form_RapidHtml extends PayflowProGateway_Form {
 		global $wgRequest;
 		if ( $wgRequest->getText( '_cache_', false )) {
 			$this->loadApiJs();
-		}
+}
 	}
 }

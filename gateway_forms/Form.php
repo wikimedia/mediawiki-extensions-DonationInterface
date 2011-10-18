@@ -1,6 +1,6 @@
 <?php
 
-abstract class PayflowProGateway_Form {
+abstract class Gateway_Form {
 
 	/**
 	 * Defines if we are in test mode
@@ -277,7 +277,7 @@ abstract class PayflowProGateway_Form {
 	 * @return string The entire HTML select element for the state dropdown list
 	 */
 	public function generateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/../includes/stateAbbreviations.inc' );
+		require_once( dirname( __FILE__ ) . '/includes/stateAbbreviations.inc' );
 
 		$states = statesMenuXML();
 
