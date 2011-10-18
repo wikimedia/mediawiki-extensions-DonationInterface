@@ -456,6 +456,8 @@ class Stomp
     {
 		if ( $this->clientId != null ) {
 			$headers["client-id"] = $this->clientId;
+		} else {
+			$headers = array();
 		}
 
         if ( is_resource( $this->_socket ) ) {
