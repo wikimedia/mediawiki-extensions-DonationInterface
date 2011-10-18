@@ -123,7 +123,7 @@ abstract class Gateway_Form {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );
@@ -605,7 +605,7 @@ abstract class Gateway_Form {
 
 	protected function getPaypalButton() {
 		global $wgScriptPath;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
 
 		$form = '<tr>';
 		$form .= '<td class="paypal-button" colspan="2">';

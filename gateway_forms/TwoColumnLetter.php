@@ -83,7 +83,7 @@ class Gateway_Form_TwoColumnLetter extends Gateway_Form_OneStepTwoColumn {
 
 	protected function generateBillingFields() {
 		global $wgScriptPath;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
 
 		$form = '';
 
@@ -118,7 +118,7 @@ class Gateway_Form_TwoColumnLetter extends Gateway_Form_OneStepTwoColumn {
 				$form .= Html::hidden( 'PaypalRedirect', 0 );
 				$form .= Xml::tags( 'div',
 						array(),
-						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos2.gif" ) ) . '&#160;&#160;&#160;<a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos2.gif" ) ) . '&#160;&#160;&#160;<a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
 					);
 				$form .= '</td>';
 				$form .= '</tr>';

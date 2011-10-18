@@ -83,7 +83,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 
 	protected function generateBillingFields() {
 		global $wgScriptPath, $wgRequest;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
+		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
 
 		$form = '';
 
@@ -114,7 +114,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 				$form .= Html::hidden( 'PaypalRedirect', 0 );
 				$form .= Xml::tags( 'div',
 						array(),
-						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) )
+						Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) )
 					);
 				$form .= '</td>';
 				$form .= '</tr>';
@@ -204,7 +204,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/rapidssl_ssl_certificate.gif" ) ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate.gif" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );

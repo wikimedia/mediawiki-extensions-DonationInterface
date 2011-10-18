@@ -23,7 +23,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
 		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), wfMsg( 'payflowpro_gateway-tshirt-confirmation' ) );
-		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/wikipedia-ten-tshirt-front.png", 'width' => '300', 'height' => '280' ) ) . "<br/>";
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/wikipedia-ten-tshirt-front.png", 'width' => '300', 'height' => '280' ) ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-values' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-size' ) );
 		$sizeDisplay = '<span id="size-display">'.$wgRequest->getText( 'size' ).'</span>';
@@ -31,7 +31,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		$form .= Xml::closeElement( 'div' );  // close div#premium-size
 		$form .= wfMsg( 'payflowpro_gateway-on-the-back' ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-language' ) );
-		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/wordmarks/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '200', 'height' => '92' ) );
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/wordmarks/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '200', 'height' => '92' ) );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-language
 		$form .= Xml::closeElement( 'div' );  // close div#premium-values
 		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
@@ -107,17 +107,17 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		// card logos
 		if ( $this->form_data[ 'currency' ] == 'USD' ) {
 			$form .= '<tr id="four_cards" style="display:table-row;">';
-			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 			$form .= '</tr>';
 			$form .= '<tr id="two_cards" style="display:none;">';
-			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';
 			$form .= '</tr>';
 		} else {
 			$form .= '<tr id="four_cards" style="display:none;">';
-			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 			$form .= '</tr>';
 			$form .= '<tr id="two_cards" style="display:table-row;">';
-			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';
 			$form .= '</tr>';
 		}
 

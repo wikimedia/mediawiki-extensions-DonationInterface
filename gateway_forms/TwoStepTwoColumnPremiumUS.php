@@ -122,7 +122,7 @@ EOT;
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
-		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) );
+		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) );
 		$form .= wfMsg( 'payflowpro_gateway-shirt-size-2', $wgRequest->getText( 'size' ) );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
 
@@ -202,16 +202,16 @@ EOT;
 		
 		$form .= '<tr>';
 		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) . 
-			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-left:8px;' ) ) . '</h3></td>';
+			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-left:8px;' ) ) . '</h3></td>';
 		$form .= '</tr>';
 
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
 		if ( $this->form_data[ 'currency' ] == 'USD' ) {
-			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
+			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 		} else {
-			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos3.gif" ) ) . '</td>';
+			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';
 		}
 		$form .= '</tr>';
 		
