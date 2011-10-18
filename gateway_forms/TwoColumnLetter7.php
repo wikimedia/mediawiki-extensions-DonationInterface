@@ -2,7 +2,7 @@
 
 class PayflowProGateway_Form_TwoColumnLetter7 extends PayflowProGateway_Form_OneStepTwoColumn {
 	
-	public function __construct( &$form_data, &$form_errors ) {
+	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
@@ -10,7 +10,7 @@ class PayflowProGateway_Form_TwoColumnLetter7 extends PayflowProGateway_Form_One
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter7.css' );
 		}
 
-		parent::__construct( $form_data, $form_errors );
+		parent::__construct( $form_data, $form_errors, $gateway );
 	}
 	
 	public function loadPlaceholders() {
@@ -192,7 +192,7 @@ EOT;
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgPayflowGatewayPaypalURL, $wgRequest;
+		global $wgScriptPath, $wgRequest;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 
 		$form = '';
@@ -249,20 +249,20 @@ EOT;
 		$form .= '<td class="label""><div style="padding-top:9px;">' . wfMsg( 'payflowpro_gateway-payment-type' ) . '</div></td>';
 		$form .= '<td>' . 
 			'<p style="border: 1px solid rgb(187, 187, 187); float: left; -moz-border-radius: 5px 5px 5px 5px; margin: 0 8px 0 0; padding: 5px 5px 5px 3px; white-space: nowrap;">'.
-			Xml::radio( 'card', 'cc1', $this->form_data['card'] == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ). '</label>' .
+			Xml::radio( 'card_type', 'cc1', $this->form_data['card_type'] == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-visa.png" ) ). '</label>' .
 			'&#160;<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-mastercard.png" ) ). '</label>' .
 			'&#160;<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-amex.png" ) ). '</label>' .
 			'&#160;<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-discover.png" ) ). '</label>' . 
 			'</p>'.
 			'<p style="border: 1px solid transparent; float: left; -moz-border-radius: 5px 5px 5px 5px; margin: 0; padding: 5px 5px 5px 3px; white-space: nowrap;">'.
-			Xml::radio( 'card', 'pp', $this->form_data['card'] == 'pp', array( 'id' => 'ppradio', 'onclick' => 'switchToPayPal()' ) ) . '<label for="ppradio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) . '</label>' .
+			Xml::radio( 'card_type', 'pp', $this->form_data['card_type'] == 'pp', array( 'id' => 'ppradio', 'onclick' => 'switchToPayPal()' ) ) . '<label for="ppradio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/card-paypal.png" ) ) . '</label>' .
 			'</p>'.
 			'</td>';
 		$form .= '</tr>';
 		
 		$form .= '</table>';
 		
-		if ( $this->form_data['card'] == 'cc1' || $this->form_data['card'] == 'cc2' || $this->form_data['card'] == 'cc3' || $this->form_data['card'] == 'cc4' ) {
+		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
 			$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 		} else {
 			$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc', 'style' => 'display: none;' ) );
@@ -360,7 +360,7 @@ EOT;
 		global $wgScriptPath;
 	
 		// cc submit button
-		if ( $this->form_data['card'] == 'cc1' || $this->form_data['card'] == 'cc2' || $this->form_data['card'] == 'cc3' || $this->form_data['card'] == 'cc4' ) {
+		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		} else {
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit', 'style' => 'display: none;' ) );
@@ -374,7 +374,7 @@ EOT;
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		
 		// paypal submit button
-		if ( $this->form_data['card'] == 'cc1' || $this->form_data['card'] == 'cc2' || $this->form_data['card'] == 'cc3' || $this->form_data['card'] == 'cc4' ) {
+		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
 			$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal', 'style' => 'display: none;' ) );
 		} else {
 			$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal' ) );

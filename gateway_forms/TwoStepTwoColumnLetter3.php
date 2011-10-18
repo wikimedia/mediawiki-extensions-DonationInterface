@@ -1,15 +1,15 @@
 <?php
 
 class PayflowProGateway_Form_TwoStepTwoColumnLetter3 extends PayflowProGateway_Form_TwoStepTwoColumn {
-	public function __construct( &$form_data, &$form_errors ) {
-		global $wgScriptPath;
+	public function __construct( &$form_data, &$form_errors, &$gateway ) {
+		global $wgExtensionAssetsPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath() ) ) {
-			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnLetter3.css' );
+			$this->setStylePath( $wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/TwoStepTwoColumnLetter3.css' );
 		}
 		$this->loadvalidateJs();
-		parent::__construct( $form_data, $form_errors );
+		parent::__construct( $form_data, $form_errors, $gateway );
 	}
 	
 	public function loadPlaceholders() {
@@ -189,7 +189,7 @@ EOT;
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgPayflowGatewayTest;
+		global $wgScriptPath;
 
 		$form = '';
 		
@@ -234,16 +234,16 @@ EOT;
 		$form .= '</tr>';
 		
 		// card number
-		$card_num = ( $wgPayflowGatewayTest ) ? $this->form_data[ 'card_num' ] : '';
+		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->form_data[ 'card_num' ] : '';
 		$form .= '';
 		if ( $this->form_errors['card_num'] ) {
 			$form .= '<tr>';
 			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
 			$form .= '</tr>';
 		}
-		if ( $this->form_errors['card'] ) {
+		if ( $this->form_errors['card_type'] ) {
 			$form .= '<tr>';
-			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card'] . '</span></td>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_type'] . '</span></td>';
 			$form .= '</tr>';
 		}
 		$form .= '<tr>';
@@ -355,7 +355,7 @@ EOT;
 	}
 	
 	public function generateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/../includes/stateAbbreviations.inc' );
+		require_once( dirname( __FILE__ ) . '/includes/stateAbbreviations.inc' );
 
 		$states = statesMenuXML();
 

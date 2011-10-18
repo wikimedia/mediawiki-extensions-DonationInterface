@@ -3,10 +3,10 @@
 class PayflowProGateway_Form_OneStepTwoColumn extends PayflowProGateway_Form {
 	public $paypal = false; // true for paypal only version
 
-	public function __construct( &$form_data, &$form_errors ) {
+	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgOut;
 
-		parent::__construct( $form_data, $form_errors );
+		parent::__construct( $form_data, $form_errors, $gateway );
 
 		// update the list of hidden fields we need to use in this form.
 		$this->updateHiddenFields();
@@ -192,14 +192,14 @@ EOT;
 	}
 
 	protected function generateBannerHeader() {
-		global $wgPayflowGatewayHeader, $wgOut, $wgRequest;
+		global $wgOut, $wgRequest;
 		$template = '';
 
 		// intro text
 		if ( $wgRequest->getText( 'masthead', false ) ) {
 			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data[ 'language' ] . '}}' );
-		} elseif ( $wgPayflowGatewayHeader ) {
-			$header = str_replace( '@language', $this->form_data[ 'language' ], $wgPayflowGatewayHeader );
+		} elseif ( $this->gateway->getGlobal( "Header" ) ) {
+			$header = str_replace( '@language', $this->form_data[ 'language' ], $this->gateway->getGlobal( "Header" ) );
 			$template = $wgOut->parse( $header );
 		}
 

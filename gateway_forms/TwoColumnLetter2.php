@@ -3,7 +3,7 @@
 class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_OneStepTwoColumn {
 	public $paypal = false; // true for paypal only version
 
-	public function __construct( &$form_data, &$form_errors ) {
+	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
@@ -11,7 +11,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoColumnLetter.css' );
 		}
 
-		parent::__construct( $form_data, $form_errors );
+		parent::__construct( $form_data, $form_errors, $gateway );
 	}
 
 	public function generateFormStart() {
@@ -82,7 +82,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgPayflowGatewayPaypalURL, $wgRequest;
+		global $wgScriptPath, $wgRequest;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/payflowpro_gateway/includes";
 
 		$form = '';
@@ -107,7 +107,7 @@ class PayflowProGateway_Form_TwoColumnLetter2 extends PayflowProGateway_Form_One
 		if ( !$this->paypal ) {
 			// PayPal button
 			// make sure we have a paypal url set to redirect the user to before displaying the button
-			if ( strlen( $wgPayflowGatewayPaypalURL ) ) {
+			if ( strlen( $this->gateway->getGlobal( "PaypalURL" ) ) ) {
 				$form .= '<tr>';
 				$form .= '<td class="label"></td>';
 				$form .= '<td>';

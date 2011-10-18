@@ -1,18 +1,108 @@
 <?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * @since		r98249
+ * @author Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
+ */
 
-class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
+/**
+ * This form is designed for bank transfers
+ */
+class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgOut;
 
+		$form_data['transaction_type'] = 'BANK_TRANSFER';
+		$form_data['process'] = 'BANK_TRANSFER';
 		parent::__construct( $form_data, $form_errors, $gateway );
-		// load validation and placeholder JS
+
+		// we only want to load this JS if the form is being rendered
+		$this->loadValidateJs(); // validation JS
+
 		$this->loadPlaceholders();
 	}
 
 	public function loadPlaceholders() {
 		global $wgOut;
-		$wgOut->addModules( 'pfp.form.core.placeholders' );
+		// form placeholder values
+		$first = wfMsg( 'payflowpro_gateway-donor-fname' );
+		$last = wfMsg( 'payflowpro_gateway-donor-lname' );
+		$js = <<<EOT
+<script type="text/javascript">
+function loadPlaceholders() {
+	var fname = document.getElementById('fname');
+	var lname = document.getElementById('lname');
+	var amountOther = document.getElementById('amountOther');
+	if (fname.value == '') {
+		fname.style.color = '#999999';
+		fname.value = '$first';
+	}
+	if (lname.value == '') {
+		lname.style.color = '#999999';
+		lname.value = '$last';
+	}
+}
+addEvent( window, 'load', loadPlaceholders );
+
+function formCheck( ccform ) {
+	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip' ];
+
+	var fields = ["emailAdd","fname","lname","street","city","zip" ],
+		numFields = fields.length,
+		i,
+		output = '',
+		currField = '';
+
+	for( i = 0; i < numFields; i++ ) {
+		if( document.getElementById( fields[i] ).value == '' ) {
+			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
+			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
+		}
+	}
+	
+	if (document.getElementById('fname').value == '$first') {
+		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
+	}
+	if (document.getElementById('lname').value == '$last') {
+		output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
+	}
+	var countryField = document.getElementById( 'country' );
+	if( countryField.options[countryField.selectedIndex].value == '' ) {
+		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\\r\\n';
+	}
+
+	// validate email address
+	var apos = document.payment.emailAdd.value.indexOf("@");
+	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
+
+	if( apos < 1 || dotpos-apos < 2 ) {
+		output += payflowproGatewayErrorMsgEmail;
+	}
+	
+	if( output ) {
+		alert( output );
+		return false;
+	} else {
+		return true;
+	}
+}
+</script>
+EOT;
+		$wgOut->addHeadItem( 'placeholders', $js );
 	}
 	
 	/**
@@ -24,7 +114,6 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 	public function getForm() {
 		$form = $this->generateFormStart();
 		$form .= $this->getCaptchaHTML();
-		$form .= $this->generateFormSubmit();
 		$form .= $this->generateFormEnd();
 		return $form;
 	}
@@ -59,10 +148,11 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'left-column', 'class' => 'payflow-cc-form-section' ) );
 		$form .= $this->generatePersonalContainer();
+		$form .= $this->generatePaymentContainer();
+		$form .= $this->generateFormSubmit();
 		$form .= Xml::closeElement( 'div' ); // close div#left-column
 
-		$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ) );
-		$form .= $this->generatePaymentContainer();
+		//$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payflow-cc-form-section' ) );
 
 		return $form;
 	}
@@ -88,7 +178,10 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 		foreach ( $hidden_fields as $field => $value ) {
 			$form .= Html::hidden( $field, $value );
 		}
-		$form .= Xml::closeElement( 'div' ); // close div#right-column
+
+		$value = 'BANK_TRANSFER';
+		//$form .= Html::hidden( $field, $value );
+		//$form .= Xml::closeElement( 'div' ); // close div#right-column
 		$form .= Xml::closeElement( 'form' );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-creditcard-form
 		$form .= $this->generateDonationFooter();
@@ -163,24 +256,6 @@ class PayflowProGateway_Form_TwoStepTwoColumn extends PayflowProGateway_Form {
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 		' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
-
-		// card logos
-		$form .= '<tr>';
-		$form .= '<td />';
-		$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/payflowpro_gateway/includes/credit_card_logos.gif" ) ) . '</td>';
-		$form .= '</tr>';
-
-		// credit card type
-		$form .= $this->getCreditCardTypeField();
-
-		// card number
-		$form .= $this->getCardnumberField();
-
-		// expiry
-		$form .= $this->getExpiryField();
-
-		// cvv
-		$form .= $this->getCvvField();
 
 		return $form;
 	}

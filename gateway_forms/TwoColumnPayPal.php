@@ -1,8 +1,8 @@
 <?php
 
 class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneStepTwoColumn {
-	public function __construct( &$form_data, &$form_errors ) {
-		parent::__construct( $form_data, $form_errors );
+	public function __construct( &$form_data, &$form_errors, &$gateway ) {
+		parent::__construct( $form_data, $form_errors, $gateway );
 	}
 
 	public function generateFormStart() {
@@ -58,7 +58,6 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneS
 	}
 
 	protected function generatePersonalFields() {
-		global $wgPayflowGatewayPaypalURL;
 		$form = '';
 
 		// name
@@ -83,7 +82,7 @@ class PayflowProGateway_Form_TwoColumnPayPal extends PayflowProGateway_Form_OneS
 		$form .= $this->getAmountField();
 
 		// PayPal button
-		if ( strlen( $wgPayflowGatewayPaypalURL ) ) {
+		if ( strlen( $this->gateway->getGlobal( "PaypalURL" ) ) ) {
 			$form .= $this->getPaypalButton();
 		}
 
