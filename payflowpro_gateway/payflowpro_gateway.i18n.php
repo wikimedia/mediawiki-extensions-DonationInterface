@@ -2935,6 +2935,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
  */
 $messages['da'] = array(
 	'payflowprogateway' => 'Doner nu',
+	'globalcollectgateway' => 'Doner nu',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkorthåndtering',
 	'payflowpro_gateway-accessible' => 'Denne side er kun tilgængelig fra donationssiden.',
 	'payflowpro_gateway-paypal-button' => 'Doner via PayPal',
@@ -2981,6 +2982,7 @@ $messages['da'] = array(
 	'payflowpro_gateway-error-msg-state' => 'stat',
 	'payflowpro_gateway-error-msg-zip' => 'postnummer',
 	'payflowpro_gateway-error-msg-country' => 'land',
+	'payflowpro_gateway-error-msg-card_type' => 'kreditkorttype',
 	'payflowpro_gateway-error-msg-card_num' => 'kreditkortnummer',
 	'payflowpro_gateway-error-msg-expiration' => 'kortets udløbsdato',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV fra bagsiden af dit kort',
@@ -3150,6 +3152,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
  */
 $messages['de'] = array(
 	'payflowprogateway' => 'Jetzt spenden',
+	'globalcollectgateway' => 'Jetzt spenden',
 	'payflowpro_gateway-desc' => 'Ermöglicht die Spendenabwicklung per „Payflow Pro“ von PayPal oder per Kreditkarte',
 	'payflowpro_gateway-accessible' => 'Diese Seite kann nur über die Spendenseite erreicht werden.',
 	'payflowpro_gateway-paypal-button' => 'Spende per PayPal',
@@ -3196,6 +3199,7 @@ $messages['de'] = array(
 	'payflowpro_gateway-error-msg-state' => 'Staat',
 	'payflowpro_gateway-error-msg-zip' => 'Postleitzahl',
 	'payflowpro_gateway-error-msg-country' => 'Staat',
+	'payflowpro_gateway-error-msg-card_type' => 'Kreditkartentyp',
 	'payflowpro_gateway-error-msg-card_num' => 'Kreditkartennummer',
 	'payflowpro_gateway-error-msg-expiration' => 'Gültig bis',
 	'payflowpro_gateway-error-msg-cvv' => 'Prüfnummer',
@@ -4942,6 +4946,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 /** French (Français)
  * @author Cedric31
  * @author Crochet.david
+ * @author Gomoko
  * @author Grondin
  * @author Hashar
  * @author IAlex
@@ -4954,6 +4959,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  */
 $messages['fr'] = array(
 	'payflowprogateway' => 'Faire un don maintenant',
+	'globalcollectgateway' => 'Faire un don maintenant',
 	'payflowpro_gateway-desc' => 'Traitement de carte de crédit par PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Cette page n’est accessible que depuis la page de donation.',
 	'payflowpro_gateway-paypal-button' => 'Faire un don avec PayPal',
@@ -5000,6 +5006,7 @@ $messages['fr'] = array(
 	'payflowpro_gateway-error-msg-state' => 'État',
 	'payflowpro_gateway-error-msg-zip' => 'code postal',
 	'payflowpro_gateway-error-msg-country' => 'pays',
+	'payflowpro_gateway-error-msg-card_type' => 'Type de carte de crédit',
 	'payflowpro_gateway-error-msg-card_num' => 'numéro de carte de crédit',
 	'payflowpro_gateway-error-msg-expiration' => 'date d’expiration de la carte',
 	'payflowpro_gateway-error-msg-cvv' => 'le CVV situé au dos de votre carte',
@@ -5388,6 +5395,7 @@ $messages['ga'] = array(
  */
 $messages['gl'] = array(
 	'payflowprogateway' => 'Fai a túa doazón agora',
+	'globalcollectgateway' => 'Fai a túa doazón agora',
 	'payflowpro_gateway-desc' => 'Procesamento por tarxeta de crédito PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Esta páxina só é accesible a través da páxina de doazóns.',
 	'payflowpro_gateway-paypal-button' => 'Doar mediante o PayPal',
@@ -5434,6 +5442,7 @@ $messages['gl'] = array(
 	'payflowpro_gateway-error-msg-state' => 'estado',
 	'payflowpro_gateway-error-msg-zip' => 'código postal',
 	'payflowpro_gateway-error-msg-country' => 'país',
+	'payflowpro_gateway-error-msg-card_type' => 'tipo de tarxeta de crédito',
 	'payflowpro_gateway-error-msg-card_num' => 'número da tarxeta de crédito',
 	'payflowpro_gateway-error-msg-expiration' => 'data de caducidade da tarxeta',
 	'payflowpro_gateway-error-msg-cvv' => 'número CVV (código de seguridade) da parte traseira da túa tarxeta',
@@ -5816,6 +5825,7 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
  */
 $messages['he'] = array(
 	'payflowprogateway' => 'הבעת תמיכתך בוויקימדיה כעת',
+	'globalcollectgateway' => 'תִרמו עכשיו',
 	'payflowpro_gateway-desc' => 'עיבוד תשלום בכרטיס אשראי PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'דף זה נגיש אך ורק דרך דף התרומה.',
 	'payflowpro_gateway-paypal-button' => 'תרומה באמצעות PayPal',
@@ -5862,6 +5872,7 @@ $messages['he'] = array(
 	'payflowpro_gateway-error-msg-state' => 'מדינה',
 	'payflowpro_gateway-error-msg-zip' => 'מיקוד',
 	'payflowpro_gateway-error-msg-country' => 'ארץ',
+	'payflowpro_gateway-error-msg-card_type' => 'סוג כרטיס האשראי',
 	'payflowpro_gateway-error-msg-card_num' => 'מספר כרטיס האשראי',
 	'payflowpro_gateway-error-msg-expiration' => 'תאריך תפוגת הכרטיס',
 	'payflowpro_gateway-error-msg-cvv' => 'קוד הביטחון מגב הכרטיס שלך',
@@ -6633,6 +6644,7 @@ Később próbáld meg újra.',
  */
 $messages['ia'] = array(
 	'payflowprogateway' => 'Face un donation ora',
+	'globalcollectgateway' => 'Face un donation ora',
 	'payflowpro_gateway-desc' => 'Processamento per carta de credito PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Iste pagina es solmente accessibile ab le pagina de donation.',
 	'payflowpro_gateway-paypal-button' => 'Donar per PayPal',
@@ -6679,6 +6691,7 @@ $messages['ia'] = array(
 	'payflowpro_gateway-error-msg-state' => 'tu stato/provincia',
 	'payflowpro_gateway-error-msg-zip' => 'tu codice postal',
 	'payflowpro_gateway-error-msg-country' => 'pais',
+	'payflowpro_gateway-error-msg-card_type' => 'typo de carta de credito',
 	'payflowpro_gateway-error-msg-card_num' => 'le numero de tu carta de credito',
 	'payflowpro_gateway-error-msg-expiration' => 'le data de expiration de tu carta',
 	'payflowpro_gateway-error-msg-cvv' => 'le CVV (codice de securitate) al reverso de tu carta',
@@ -8572,6 +8585,7 @@ Kad būtų užtikrinta saugi, apsaugota ir maloni aplinka, mūsų aukojimo forma
  */
 $messages['mk'] = array(
 	'payflowprogateway' => 'Донирајте сега',
+	'globalcollectgateway' => 'Донирајте сега',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro обработка на податоците за плаќање со кредитна картичка',
 	'payflowpro_gateway-accessible' => 'До оваа страница се доаѓа само преку страницата за донирање.',
 	'payflowpro_gateway-paypal-button' => 'Донирајте преку PayPal',
@@ -8618,6 +8632,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-error-msg-state' => 'сојузна држава',
 	'payflowpro_gateway-error-msg-zip' => 'поштенски број',
 	'payflowpro_gateway-error-msg-country' => 'земја',
+	'payflowpro_gateway-error-msg-card_type' => 'тип на кредитна картичка',
 	'payflowpro_gateway-error-msg-card_num' => 'број на кредитната картичка',
 	'payflowpro_gateway-error-msg-expiration' => 'кога истекува картичката',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV-бројот од опачината на картичката',
@@ -8662,7 +8677,7 @@ $messages['mk'] = array(
 	'payflowpro_gateway-token-mismatch' => 'Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.',
 	'payflowpro_gateway-cc-form-header-personal' => 'Наплатни податоци',
 	'payflowpro_gateway-cc-form-header-payment' => 'Лични податоци',
-	'payflowpro_gateway-make-your-donation' => 'Донирајте веднаш',
+	'payflowpro_gateway-make-your-donation' => 'Донирајте сега',
 	'payflowpro_gateway-state-in-us' => 'ако сте во САД',
 	'payflowpro_gateway-comment' => 'Коментар',
 	'payflowpro_gateway-first' => 'Прва',
@@ -10912,6 +10927,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
  */
 $messages['ro'] = array(
 	'payflowprogateway' => 'Donați acum',
+	'globalcollectgateway' => 'Faceți o donație acum',
 	'payflowpro_gateway-desc' => 'Prelucrează cardul de credit PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Această pagină este accesibilă doar de la pagina de donații.',
 	'payflowpro_gateway-paypal-button' => 'Donați prin PayPal',
@@ -10958,6 +10974,7 @@ $messages['ro'] = array(
 	'payflowpro_gateway-error-msg-state' => 'stat',
 	'payflowpro_gateway-error-msg-zip' => 'cod poștal',
 	'payflowpro_gateway-error-msg-country' => 'țară',
+	'payflowpro_gateway-error-msg-card_type' => 'tipul cardului de credit',
 	'payflowpro_gateway-error-msg-card_num' => 'numărul cardului de credit',
 	'payflowpro_gateway-error-msg-expiration' => 'data expirării cardului',
 	'payflowpro_gateway-error-msg-cvv' => 'codul CVV de pe spatele cardului dumneavoastră',
@@ -12329,6 +12346,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
  */
 $messages['sl'] = array(
 	'payflowprogateway' => 'Oddajte svoj prispevek zdaj',
+	'globalcollectgateway' => 'Oddajte svoj prispevek zdaj',
 	'payflowpro_gateway-desc' => 'Obdelava kreditnih kartic PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ta stran je dostopna samo iz strani za prispevanje.',
 	'payflowpro_gateway-paypal-button' => 'Donirajte preko PayPala',
@@ -12375,6 +12393,7 @@ $messages['sl'] = array(
 	'payflowpro_gateway-error-msg-state' => 'država',
 	'payflowpro_gateway-error-msg-zip' => 'poštna številka',
 	'payflowpro_gateway-error-msg-country' => 'država',
+	'payflowpro_gateway-error-msg-card_type' => 'vrsta kreditne kartice',
 	'payflowpro_gateway-error-msg-card_num' => 'številka kreditne kartice',
 	'payflowpro_gateway-error-msg-expiration' => 'datum veljavnosti kartice',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV na hrbtni strani kartice',
