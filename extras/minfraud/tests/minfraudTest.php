@@ -1,25 +1,28 @@
 <?php
+
 /**
  * @fixme wfGetIP() in minfraud.body.php wonks this up
  */
 require_once "PHPUnit/Framework.php";
 
-class minfraudTest extends PHPUnit_Framework_TestCase
-{
+class minfraudTest extends PHPUnit_Framework_TestCase {
+
 	protected function setUp() {
 		$dir = dirname( __FILE__ ) . '/';
 		require_once( $dir . '../../extras.php' );
 		require_once( $dir . '../minfraud.body.php' );
-		require_once( $dir . "../../../includes/countryCodes.inc" );
-		global $wgPayflowGatewayLog;
-		$wgPayflowGatewayLog = dirname( __FILE__ ) . "/test_log";
+		global $wgDonationInterfaceExtrasLog;
+		$wgDonationInterfaceExtrasLog = dirname( __FILE__ ) . "/test_log";
 		$license_key = 'XBCKSF4gnHA7';
-		$this->fixture = new PayflowProGateway_Extras_MinFraud( $license_key );
+		global $wgPayflowProGatewayTest;
+		$wgPayflowProGatewayTest = true;
+		$adapter = new PayflowProAdapter();
+		$this->fixture = new Gateway_Extras_MinFraud( &$adapter, $license_key );
 	}
 
 	protected function tearDown() {
-		global $wgPayflowGatewayLog;
-		unlink( $wgPayflowGatewayLog );
+		global $wgDonationInterfaceExtrasLog;
+		unlink( $wgDonationInterfaceExtrasLog );
 	}
 
 	public function testCcfdInstance() {
@@ -43,8 +46,8 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		$this->assertArrayHasKey( "bin", $query );
 		$this->assertArrayHasKey( "txnID", $query );
 		$this->assertArrayNotHasKey( "foo", $query ); // make sure we're not adding extraneous info
-		$this->assertNotContains( "@", $query[ 'domain' ] ); // make sure we're only getting domains from email addresses
-		$this->assertEquals( 6, strlen( $query[ 'bin' ] ) ); // make sure our bin is 6 digits long
+		$this->assertNotContains( "@", $query['domain'] ); // make sure we're only getting domains from email addresses
+		$this->assertEquals( 6, strlen( $query['bin'] ) ); // make sure our bin is 6 digits long
 	}
 
 	public function queryDataProvider() {
@@ -68,11 +71,11 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider queryDataProvider
 	 */
-/*	public function testQueryMinfraud( $data ) {
-		$query = $this->fixture->build_query( $data );
-		$this->fixture->query_minfraud( $query );
-		$this->assertType( 'array', $this->fixture->minfraud_response );
-	}*/
+	/* 	public function testQueryMinfraud( $data ) {
+	  $query = $this->fixture->build_query( $data );
+	  $this->fixture->query_minfraud( $query );
+	  $this->assertType( 'array', $this->fixture->minfraud_response );
+	  } */
 
 	/**
 	 * @dataProvider hashValidateFalseData
@@ -81,10 +84,18 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse( $this->fixture->validate_minfraud_query( $data ) );
 	}
 
+	public function setExtrasGlobal( $varname, $value ) {
+		//Just set the one for the adapter. 
+		$adapter_prefix = $this->fixture->gateway_adapter->getGlobalPrefix();
+		$globalname = $adapter_prefix . $varname;
+		global $$globalname;
+		$$globalname = $value;
+	}
+
 	public function hashValidateFalseData() {
 		return array(
 			array(
-				array(),
+				array( ),
 				array( 'license_key' => 'a' ),
 				array(
 					'license_key' => 'a',
@@ -154,29 +165,26 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 	}
 
 	public function testLogging() {
-		global $wgPayflowGatewayLog;
+		global $wgDonationInterfaceExtrasLog;
 		$this->fixture->log( '', '', "\"foo\"" );
-		$new_fh = fopen( $wgPayflowGatewayLog, 'r' );
-		$this->assertEquals( '"' . date( 'c' ) . '"' . "\t\"\"\t\"\"\t\"foo\"\n", fread( $new_fh, filesize( $wgPayflowGatewayLog ) ) );
+		$new_fh = fopen( $wgDonationInterfaceExtrasLog, 'r' );
+		$this->assertEquals( '"' . date( 'c' ) . '"' . "\t\"\"\t\"\"\t\"foo\"\n", fread( $new_fh, filesize( $wgDonationInterfaceExtrasLog ) ) );
 		fclose( $new_fh );
 	}
 
 	public function testGenerateHash() {
-		global $wgPayflowGatewaySalt;
-		$wgPayflowGatewaySalt = 'salt';
+		$this->setExtrasGlobal( 'Salt', 'salt' );
 		$this->assertEquals( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', $this->fixture->generate_hash( 'foo' ) );
 	}
 
 	public function testCompareHash() {
-		global $wgPayflowGatewaySalt;
-		$wgPayflowGatewaySalt = 'salt';
+		$this->setExtrasGlobal( 'Salt', 'salt' );
 		$this->assertTrue( $this->fixture->compare_hash( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'foo' ) );
 		$this->assertFalse( $this->fixture->compare_hash( '5a9ee1e4a15adbf03b3ef9f7baa6caffa9f6bcd72c736498f045c073e57753e7b244bc97fe82b075eabd80778a4d56eb14406e9a1ac4b13737b2c3fd8c3717e8', 'bar' ) );
 	}
 
 	public function testBypassMinfraud() {
-		global $wgPayflowGatewaySalt;
-		$wgPayflowGatewaySalt = 'salt';
+		$this->setExtrasGlobal( 'Salt', 'salt' );
 		$data = array(
 			'action' => '4bd7857c851039d1e07a434800fe752c6bd99aec61c325aef460441be1b95c3ab5236e43c8d06f41d77715dbd3cf94e679b86422ec3204f00ad433501e5005e9',
 			'data_hash' => '029ef6f5c2a165215b5a92ff1a194e4a6de8c668d6193582da42713f119c1b07d8358b5cd94a3bd51c9aa50709c8533295215ce3cce8c2b61e69078d789bc3f3',
@@ -191,4 +199,5 @@ class minfraudTest extends PHPUnit_Framework_TestCase
 		$data[] = 'bar';
 		$this->assertFalse( $this->fixture->can_bypass_minfraud( $this->fixture, $data ) );
 	}
+
 }

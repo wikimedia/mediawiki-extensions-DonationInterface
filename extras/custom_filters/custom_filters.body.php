@@ -1,6 +1,7 @@
 <?php
 
-class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
+class Gateway_Extras_CustomFilters extends Gateway_Extras {
+
 	/**
 	 * A value for tracking the 'riskiness' of a transaction
 	 *
@@ -18,35 +19,15 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	public $action_ranges;
 
 	/**
-	 * A container for the gateway object
-	 *
-	 * This gets populated on construction.
-	 * @var object
-	 */
-	public $gateway_object;
-
-	/**
-	 * A container for data from the gateway
-	 *
-	 * This gets populated on construction.
-	 */
-	public $gateway_data;
-
-	/**
 	 * A container for an instance of self
 	 */
 	static $instance;
 
-	public function __construct( &$pfp_gateway_object, &$data ) {
-		parent::__construct();
-
-		$this->gateway_object =& $pfp_gateway_object;
-		$this->gateway_data =& $data;
-
-		// load user action ranges and risk score
-		global $wgPayflowGatewayCustomFiltersActionRanges, $wgPayflowGatewayCustomFiltersRiskScore;
-		if ( isset( $wgPayflowGatewayCustomFiltersActionRanges ) ) $this->action_ranges = $wgPayflowGatewayCustomFiltersActionRanges;
-		if ( isset( $wgPayflowGatewayCustomFiltersRiskScore ) ) $this->risk_score = $wgPayflowGatewayCustomFiltersRiskScore;
+	public function __construct( &$gateway_adapter ) {
+		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
+		// load user action ranges and risk score		
+		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
+		$this->risk_score = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
 	}
 
 	/**
@@ -56,11 +37,13 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	 */
 	public function determineAction() {
 		// possible risk scores are between 0 and 100
-		if ( $this->risk_score < 0 ) $this->risk_score = 0;
-		if ( $this->risk_score > 100 ) $this->risk_score = 100;
+		if ( $this->risk_score < 0 )
+			$this->risk_score = 0;
+		if ( $this->risk_score > 100 )
+			$this->risk_score = 100;
 
 		foreach ( $this->action_ranges as $action => $range ) {
-		    if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
+			if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
 				return $action;
 			}
 		}
@@ -71,22 +54,24 @@ class PayflowProGateway_Extras_CustomFilters extends PayflowProGateway_Extras {
 	 */
 	public function validate() {
 		// expose a hook for custom filters
-		wfRunHooks( 'PayflowGatewayCustomFilter', array( &$this ) );
-		$this->gateway_object->action = $this->determineAction();
+		wfRunHooks( 'GatewayCustomFilter', array( &$this->gateway_adapter, &$this ) );
+		$this->gateway_adapter->action = $this->determineAction();
 
-		$log_msg = '"' . $this->gateway_object->action . "\"\t\"" . $this->risk_score . "\"";
-		$this->log( $this->gateway_data['contribution_tracking_id'], 'Filtered', $log_msg );
+		$log_msg = '"' . $this->gateway_adapter->action . "\"\t\"" . $this->risk_score . "\"";
+		$this->log( $this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Filtered', $log_msg );
 		return TRUE;
 	}
 
-	static function onValidate( &$pfp_gateway_object, &$data ) {
-		return self::singleton( $pfp_gateway_object, $data )->validate();
+	static function onValidate( &$gateway_adapter ) {
+		$gateway_adapter->debugarray[] = 'custom filters onValidate hook!';
+		return self::singleton( $gateway_adapter )->validate();
 	}
 
-	static function singleton( &$pfp_gateway_object, &$data ) {
+	static function singleton( &$gateway_adapter ) {
 		if ( !self::$instance ) {
-			self::$instance = new self( $pfp_gateway_object, $data );
+			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;
 	}
+
 }

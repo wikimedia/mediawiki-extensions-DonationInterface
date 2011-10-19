@@ -1,16 +1,16 @@
 <?php
+
 /**
  * Provides a method for filtering transactions based on referrer
  *
  * To install:
- *   require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/custom_filters/filters/referrer/referrer.php" );
+ *   require_once( "$IP/extensions/DonationInterface/extras/custom_filters/filters/referrer/referrer.php" );
  */
-
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( "This file is part of the referrer custom filter part of the PayflowPro Gateway extension.  It is not a valid entry point\n" );
+	die( "This file is part of the referrer custom filter part of the Gateway extension.  It is not a valid entry point\n" );
 }
 
-$wgExtensionCredits['payflowprogateway_customfilters_referrer'][] = array(
+$wgExtensionCredits['gateway_customfilters_referrer'][] = array(
 	'name' => 'custom filter: referrer',
 	'author' => 'Arthur Richards',
 	'url' => '',
@@ -28,7 +28,7 @@ $wgExtensionCredits['payflowprogateway_customfilters_referrer'][] = array(
  *   $wgCustomFiltersRefRules['fraud\.com'] = "100";
  *   // increases risk score for trxns with http://fraud.com referrals by 100
  */
-$wgCustomFiltersRefRules = array();
+$wgCustomFiltersRefRules = array( );
 
-$wgAutoloadClasses['PayflowProGateway_Extras_CustomFilters_Referrer'] = dirname( __FILE__ ) . "/referrer.body.php";
-$wgHooks["PayflowGatewayCustomFilter"][] = array( 'PayflowProGateway_Extras_CustomFilters_Referrer::onFilter' );
+$wgAutoloadClasses['Gateway_Extras_CustomFilters_Referrer'] = dirname( __FILE__ ) . "/referrer.body.php";
+$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );

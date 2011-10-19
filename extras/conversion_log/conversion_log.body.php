@@ -1,39 +1,41 @@
 <?php
-class PayflowProGateway_Extras_ConversionLog extends PayflowProGateway_Extras {
+
+class Gateway_Extras_ConversionLog extends Gateway_Extras {
+
 	static $instance;
 
 	/**
-	 * Logs the response from a payflow transaction
+	 * Logs the response from a transaction
 	 */
-	public function post_process( &$pfp_gateway_object, &$data ) {
+	public function post_process() {
 		// if the trxn has been outright rejected, log it
-		if ( $pfp_gateway_object->action == 'reject' ) {
+		if ( $this->gateway_adapter->action == 'reject' ) {
 			$this->log(
-				$data[ 'contribution_tracking_id' ],
-				'Rejected'
+				$this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Rejected'
 			);
 			return TRUE;
 		}
 
-		// make sure the payflow response property has been set (signifying a transaction has been made)
-		if ( !$pfp_gateway_object->payflow_response ) return FALSE;
+		// make sure the response property has been set (signifying a transaction has been made)
+		if ( !$this->gateway_adapter->getTransactionAllResults() )
+			return FALSE;
 
 		$this->log(
-			$data[ 'contribution_tracking_id' ],
-			"Payflow response: " . addslashes( $pfp_gateway_object->payflow_response[ 'RESPMSG' ] ),
-			'"' . addslashes( json_encode( $pfp_gateway_object->payflow_response ) ) . '"'
+			$this->gateway_adapter->getData( 'contribution_tracking_id' ), "Gateway response: " . addslashes( $this->gateway_adapter->getTransactionMessage() ), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
 		);
 		return TRUE;
 	}
 
-	static function onPostProcess( &$pfp_gateway_object, &$data ) {
-		return self::singleton()->post_process( $pfp_gateway_object, $data );
+	static function onPostProcess( &$gateway_adapter ) {
+		$gateway_adapter->debugarray[] = 'conversion log onPostProcess hook!';
+		return self::singleton( $gateway_adapter )->post_process();
 	}
 
-	static function singleton() {
+	static function singleton( &$gateway_adapter ) {
 		if ( !self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;
 	}
+
 }

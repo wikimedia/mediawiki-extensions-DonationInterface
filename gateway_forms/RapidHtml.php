@@ -83,6 +83,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		global $wgRequest;
 		parent::__construct( $form_data, $form_errors, $gateway );
 
+		$this->loadValidateJs();
+		
 		$country = $wgRequest->getText( 'country', '' );
 
 		if ( $country != '' ){

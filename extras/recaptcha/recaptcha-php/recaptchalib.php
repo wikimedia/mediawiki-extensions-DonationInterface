@@ -42,8 +42,7 @@
  */
 
 // global MW variables that should be available
-global $wgPayflowRecaptchaUseHTTPProxy, $wgPayflowRecaptchaHTTPProxy,
-	$wgPayflowRecaptchaTimeout, $wgPayflowRecaptchaUseSSL, $wgPayflowRecaptchaComsRetryLimit;
+global $wgReCaptchaConfData;
 
 /**
  * The reCAPTCHA server URL's
@@ -55,15 +54,17 @@ define( "RECAPTCHA_VERIFY_SERVER", "www.google.com" );
 /**
  * Proxy settings
  */
-define( "RECAPTCHA_USE_HTTP_PROXY", $wgPayflowRecaptchaUseHTTPProxy );
-define( "RECAPTCHA_HTTP_PROXY", $wgPayflowRecaptchaHTTPProxy );
+define( "RECAPTCHA_USE_HTTP_PROXY", $wgReCaptchaConfData['UseHTTPProxy'] );
+define( "RECAPTCHA_HTTP_PROXY", $wgReCaptchaConfData['HTTPProxy'] );
 
 /**
  * Other reCAPTCHA settings
  */
-define( "RECAPTCHA_TIMEOUT", $wgPayflowRecaptchaTimeout );
-define( "RECAPTCHA_PROTOCOL", $wgPayflowRecaptchaUseSSL ); //http or https
-define( "RECAPTCHA_RETRY_LIMIT", $wgPayflowRecaptchaComsRetryLimit );
+define( "RECAPTCHA_TIMEOUT", $wgReCaptchaConfData['UseHTTPProxy'] );
+define( "RECAPTCHA_PROTOCOL", $wgReCaptchaConfData['UseSSL'] ); //http or https
+define( "RECAPTCHA_RETRY_LIMIT", $wgReCaptchaConfData['ComsRetryLimit'] );
+
+define( "RECAPTCHA_GATEWAY", $wgReCaptchaConfData['GatewayClass'] );
 
 /**
  * Encodes the given data into a query string format
@@ -125,7 +126,8 @@ function _recaptcha_http_post_fsock( $host, $path, $data, $port = 80 ) {
 
 	$response = '';
 	if ( false == ( $fs = @fsockopen( $host, $port, $errno, $errstr, 10 ) ) ) {
-		PayflowProGateway::log( 'Failed communicating with reCaptcha.' );
+		$c = RECAPTCHA_GATEWAY;
+		$c::log( 'Failed communicating with reCaptcha.' );
 		die ( 'Could not open socket' );
 	}
 
@@ -158,20 +160,22 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	curl_setopt( $ch, CURLOPT_HEADER, true );
 	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( "Host: " . $host ) );
 
+	$c = RECAPTCHA_GATEWAY;
+	
 	// set proxy settings if necessary
 	if ( RECAPTCHA_USE_HTTP_PROXY ) {
-		PayflowProGateway::log( 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
+		$c::log( 'Using http proxy ' . RECAPTCHA_HTTP_PROXY );
 		curl_setopt( $ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP );
 		curl_setopt( $ch, CURLOPT_PROXY, RECAPTCHA_HTTP_PROXY );
 	}
 
 	// try up to three times
 	for ( $i = 0; $i < RECAPTCHA_RETRY_LIMIT; $i++ ) {
-		PayflowProGateway::log( 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
+		$c::log( 'Preparing to communicate with reCaptcha via cURL at ' . $url . '.' );
 		$response = curl_exec( $ch );
-		PayflowProGateway::log( "Finished communicating with reCaptcha." );
+		$c::log( "Finished communicating with reCaptcha." );
 		if ( $response ) {
-			PayflowProGateway::log( 'Response from reCaptcha: ' . $response );
+			$c::log( 'Response from reCaptcha: ' . $response );
 			break;
 		}
 	}
@@ -186,7 +190,7 @@ function _recaptcha_http_post_curl( $host, $path, $data, $port = 80 ) {
 	 * the user entered the correct values.
 	 */
 	if ( !$response ) {
-		PayflowProGateway::log( 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
+		$c::log( 'Failed communicating with reCaptcha: ' . curl_error( $ch ) );
 		$response = "true\r\n\r\nsuccess";
 	}
 

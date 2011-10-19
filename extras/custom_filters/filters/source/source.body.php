@@ -1,6 +1,7 @@
 <?php
 
-class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Extras {
+class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
+
 	/**
 	 * Container for an instance of self
 	 * @var object
@@ -13,14 +14,14 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 	 */
 	public $cfo;
 
-	public function __construct( &$custom_filter_object ) {
-		parent::__construct();
-		$this->cfo =& $custom_filter_object;
+	public function __construct( &$gateway_adapter, &$custom_filter_object ) {
+		parent::__construct( &$gateway_adapter );
+		$this->cfo = & $custom_filter_object;
 	}
 
 	public function filter() {
 		// pull out the source from the filter object
-		$source = $this->cfo->gateway_data['utm_source'];
+		$source = $this->gateway_adapter->getData( 'utm_source' );
 
 		// a very complex filtering algorithm for sources
 		global $wgCustomFiltersSrcRules;
@@ -37,9 +38,7 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
 				$this->log(
-					$this->cfo->gateway_data['contribution_tracking_id'],
-					'Filter: Source',
-					$log_msg
+					$this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Filter: Source', $log_msg
 				);
 			}
 		}
@@ -48,6 +47,7 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 	}
 
 	static function onFilter( &$custom_filter_object ) {
+		$gateway_adapter->debugarray[] = 'source onFilter hook!';
 		return self::singleton( $custom_filter_object )->filter();
 	}
 
@@ -57,4 +57,5 @@ class PayflowProGateway_Extras_CustomFilters_Source extends PayflowProGateway_Ex
 		}
 		return self::$instance;
 	}
+
 }

@@ -1,5 +1,6 @@
 <?php
-class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
+
+class Gateway_Extras_MinFraud extends Gateway_Extras {
 
 	/**
 	 * Full response from minFraud
@@ -16,14 +17,14 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	/**
 	 * User-definable riskScore ranges for actions to take
 	 *
- 	 * Overload with $wgMinFraudActionRanges
+	 * Overload with $wgMinFraudActionRanges
 	 * @var public array
 	 */
 	public $action_ranges = array(
-		'process'	=> array( 0, 100 ),
-		'review'	=> array( -1, -1 ),
-		'challenge'	=> array( -1, -1 ),
-		'reject'	=> array( -1, -1 ),
+		'process' => array( 0, 100 ),
+		'review' => array( -1, -1 ),
+		'challenge' => array( -1, -1 ),
+		'reject' => array( -1, -1 ),
 	);
 
 	/**
@@ -37,11 +38,10 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 */
 	static $instance;
 
-	function __construct( $license_key = NULL ) {
-		parent::__construct();
+	function __construct( &$gateway_adapter, $license_key = NULL ) {
+		parent::__construct( $gateway_adapter );
 		$dir = dirname( __FILE__ ) . '/';
 		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
-		require_once( $dir . "../../includes/countryCodes.inc" );
 		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges;
 
 		// set the minfraud license key, go no further if we don't have it
@@ -50,46 +50,48 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		}
 		$this->minfraud_license_key = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
 
-		if ( isset( $wgMinFraudActionRanges ) ) $this->action_ranges = $wgMinFraudActionRanges;
+		if ( isset( $wgMinFraudActionRanges ) )
+			$this->action_ranges = $wgMinFraudActionRanges;
 	}
 
 	/**
 	 * Query minFraud with the transaction, set actions to take and make a log entry
 	 *
-	 * Accessible via $wgHooks[ 'PayflowGatewayValidate' ]
-	 * @param object PayflowPro Gateway object
+	 * Accessible via $wgHooks[ 'GatewayValidate' ]
+	 * @param object Gateway object
 	 * @param array The array of data generated from an attempted transaction
 	 */
-	public function validate( &$pfp_gateway_object, &$data ) {
+	public function validate() {
 		// see if we can bypass minfraud
-		if ( $this->can_bypass_minfraud( $pfp_gateway_object, $data ) ) return TRUE;
+		if ( $this->can_bypass_minfraud() )
+			return TRUE;
 
-		$minfraud_query = $this->build_query( $data );
+		$minfraud_query = $this->build_query( $this->gateway_adapter->getData() );
 		$this->query_minfraud( $minfraud_query );
-		$pfp_gateway_object->action = $this->determine_action( $this->minfraud_response[ 'riskScore' ] );
+		$this->gateway_adapter->action = $this->determine_action( $this->minfraud_response['riskScore'] );
 
 		// reset the data hash
-		if ( isset( $data[ 'data_hash' ] ) ) unset( $data[ 'data_hash' ] );
-		$data[ 'action' ] = $this->generate_hash( $pfp_gateway_object->action );
-		$data[ 'data_hash' ] = $this->generate_hash( serialize( $data ) );
+		$this->gateway_adapter->unsetHash();
+		$this->gateway_adapter->setActionHash( $this->generate_hash( $this->gateway_adapter->action ) );
+		$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData() ) );
 
 		// Write the query/response to the log
-		$this->log_query( $minfraud_query, $pfp_gateway_object, $data );
+		$this->log_query( $minfraud_query );
 		return TRUE;
 	}
 
 	/**
 	 * Logs a minFraud query and its response
 	 */
-	public function log_query( $minfraud_query, $pfp_gateway_object, $data ) {
+	public function log_query( $minfraud_query ) {
 		if ( $this->log_fh ) {
-			$log_message = '"' . addslashes( $data[ 'comment' ] ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $data[ 'amount' ] . ' ' . $data[ 'currency' ] ) . '"';
+			$log_message = '"' . addslashes( $this->gateway_adapter->getData( 'comment' ) ) . '"';
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData( 'amount' ) . ' ' . $this->gateway_adapter->getData( 'currency' ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $minfraud_query ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraud_response ) ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $pfp_gateway_object->action ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $data[ 'referrer' ] ) . '"';
-			$this->log( $data[ 'contribution_tracking_id' ], 'minFraud query', $log_message );
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->action ) . '"';
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData( 'referrer' ) ) . '"';
+			$this->log( $this->gateway_adapter->getData( 'contribution_tracking_id' ), 'minFraud query', $log_message );
 		}
 	}
 
@@ -102,40 +104,37 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * assume the transaction has already gone through the minFraud check and can be passed
 	 * on to the appropriate action.
 	 *
-	 * @param object $pfp_gateway_object The PayflowPro gateway object
-	 * @param array $data The array of data from the form submission
 	 * @return bool
 	 */
-	public function can_bypass_minfraud( &$pfp_gateway_object, &$data ) {
+	public function can_bypass_minfraud() {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
-		if ( !strlen( $data[ 'data_hash' ] ) || !strlen( $data[ 'action' ] ) ) {
+		$localdata = $this->gateway_adapter->getData();
+		if ( !strlen( $localdata['data_hash'] ) || !strlen( $localdata['action'] ) ) {
 			return FALSE;
 		}
 
-		$data_hash = $data[ 'data_hash' ]; // the data hash passed in by the form submission
-		$num_attempt = $data[ 'numAttempt' ]; // the num_attempt has been increased by one, so we have to adjust slightly
-		$data[ 'numAttempt' ] = $num_attempt - 1;
-
-		// unset these values from the data aray since they are not part of the overall data hash
-		unset( $data[ 'data_hash' ] );
+		$data_hash = $localdata['data_hash']; // the data hash passed in by the form submission		
+		// unset these values since they are not part of the overall data hash
+		$this->gateway_adapter->unsetHash();
+		unset( $localdata['data_hash'] );
 		// compare the data hash to make sure it's legit
-		if ( $this->compare_hash( $data_hash, serialize( $data ) ) ) {
-			$data[ 'numAttempt' ] = $num_attempt; // reset the current num attempt
-			$data[ 'data_hash' ] = $this->generate_hash( serialize( $data ) ); // hash the data array
+		if ( $this->compare_hash( $data_hash, serialize( $localdata ) ) ) {
 
+			$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData() ) ); // hash the data array
 			// check to see if we have a valid action set for us to bypass minfraud
 			$actions = array( 'process', 'challenge', 'review', 'reject' );
-			$action_hash = $data[ 'action' ]; // a hash of the action to take passed in by the form submission
+			$action_hash = $localdata['action']; // a hash of the action to take passed in by the form submission
 			foreach ( $actions as $action ) {
 				if ( $this->compare_hash( $action_hash, $action ) ) {
 					// set the action that should be taken
-					$pfp_gateway_object->action = $action;
+					$this->gateway_adapter->action = $action;
 					return TRUE;
 				}
 			}
 		} else {
 			// log potential tampering
-			if ( $this->log_fh ) $this->log( $data[ 'contribution_tracking_id'], 'Data hash/action mismatch' );
+			if ( $this->log_fh )
+				$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch' );
 		}
 
 		return FALSE;
@@ -147,7 +146,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 */
 	public function get_ccfd() {
 		if ( !$this->ccfd ) {
-			$this->ccfd = new CreditCardFraudDetection;
+			$this->ccfd = new CreditCardFraudDetection( $this->gateway_adapter );
 		}
 		return $this->ccfd;
 	}
@@ -157,8 +156,6 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * @return array containing hash for minfraud query
 	 */
 	public function build_query( array $data ) {
-		global $wgPayflowGatewayTest;
-
 		// mapping of data keys -> minfraud array keys
 		$map = array(
 			"city" => "city",
@@ -172,20 +169,20 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		);
 
 		// minfraud license key
-		$minfraud_array[ "license_key" ] = $this->minfraud_license_key;
+		$minfraud_array["license_key"] = $this->minfraud_license_key;
 
 		// user's IP address
-		$minfraud_array[ "i" ] = ( $wgPayflowGatewayTest ) ? '12.12.12.12' : wfGetIP();
+		$minfraud_array["i"] = ( $this->gateway_adapter->getGlobal( "Test" ) ) ? '12.12.12.12' : wfGetIP();
 
 		// user's user agent
 		global $wgRequest;
-		$minfraud_array[ "user_agent" ] = $wgRequest->getHeader( 'user-agent' );
+		$minfraud_array["user_agent"] = $wgRequest->getHeader( 'user-agent' );
 
 		// user's language
-		$minfraud_array[ 'accept_language' ] = $wgRequest->getHeader( 'accept-language' );
+		$minfraud_array['accept_language'] = $wgRequest->getHeader( 'accept-language' );
 
 		// fetch the array of country codes
-		$country_codes = PayflowProGateway::getCountries();
+		$country_codes = GatewayForm::getCountries();
 
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {
@@ -193,19 +190,19 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 			// do some data processing to clean up values for minfraud
 			switch ( $key ) {
 				case "domain": // get just the domain from the email address
-					$newdata[ $value ] = substr( strstr( $data[ $value ], '@' ), 1 );
+					$newdata[$value] = substr( strstr( $data[$value], '@' ), 1 );
 					break;
 				case "bin": // get just the first 6 digits from CC#
-					$newdata[ $value ] = substr( $data[ $value ], 0, 6 );
+					$newdata[$value] = substr( $data[$value], 0, 6 );
 					break;
 				case "country":
-					$newdata[ $value ] = $country_codes[ $data[ $value ]];
+					$newdata[$value] = $country_codes[$data[$value]];
 					break;
 				default:
-		          $newdata[ $value ] = $data[ $value ];
+					$newdata[$value] = $data[$value];
 			}
 
-			$minfraud_array[ $key ] = $newdata[ $value ];
+			$minfraud_array[$key] = $newdata[$value];
 		}
 
 		return $minfraud_array;
@@ -229,7 +226,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * there is a value for a required field and if its length is > 0
 	 *
 	 * @param array $minfraud_query which is the array you would pass to
-	 *	minfraud in a query
+	 * 	minfraud in a query
 	 * @result bool
 	 */
 	public function validate_minfraud_query( array $minfraud_query ) {
@@ -244,8 +241,8 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		);
 
 		foreach ( $reqd_fields as $reqd_field ) {
-			if ( !isset( $minfraud_query[ $reqd_field ] ) ||
-					strlen( $minfraud_query[ $reqd_field ] ) < 1 ) {
+			if ( !isset( $minfraud_query[$reqd_field] ) ||
+				strlen( $minfraud_query[$reqd_field] ) < 1 ) {
 				return FALSE;
 			}
 		}
@@ -261,7 +258,7 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 	 * @param float risk score (returned from minFraud)
 	 * @return array of actions to be taken
 	 */
-	 public function determine_action( $risk_score ) {
+	public function determine_action( $risk_score ) {
 		foreach ( $this->action_ranges as $action => $range ) {
 			if ( $risk_score >= $range[0] && $risk_score <= $range[1] ) {
 				return $action;
@@ -269,14 +266,16 @@ class PayflowProGateway_Extras_MinFraud extends PayflowProGateway_Extras {
 		}
 	}
 
-	static function onValidate( &$pfp_gateway_object, &$data ) {
-		return self::singleton()->validate( $pfp_gateway_object, $data );
+	static function onValidate( &$gateway_adapter ) {
+		$gateway_adapter->debugarray[] = "minfraud onValidate hook!";
+		return self::singleton( $gateway_adapter )->validate();
 	}
 
-	static function singleton() {
+	static function singleton( &$gateway_adapter ) {
 		if ( !self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;
 	}
+
 }

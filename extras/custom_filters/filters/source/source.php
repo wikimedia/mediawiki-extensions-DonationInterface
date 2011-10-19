@@ -1,16 +1,16 @@
 <?php
+
 /**
  * Provides a method for filtering transactions based on source
  *
  * To install:
- *   require_once( "$IP/extensions/DonationInterface/payflowpro_gateway/extras/custom_filters/filters/source/source.php" );
+ *   require_once( "$IP/extensions/DonationInterface/extras/custom_filters/filters/source/source.php" );
  */
-
 if ( !defined( 'MEDIAWIKI' ) ) {
-	die( "This file is part of the source custom filter part of the PayflowPro Gateway extension.  It is not a valid entry point\n" );
+	die( "This file is part of the source custom filter part of the Gateway extension.  It is not a valid entry point\n" );
 }
 
-$wgExtensionCredits['payflowprogateway_customfilters_source'][] = array(
+$wgExtensionCredits['gateway_customfilters_source'][] = array(
 	'name' => 'custom filter: source',
 	'author' => 'Arthur Richards',
 	'url' => '',
@@ -28,7 +28,7 @@ $wgExtensionCredits['payflowprogateway_customfilters_source'][] = array(
  *   $wgCustomFiltersSrcRules['support.cc'] = "100";
  *   // increases risk score for trxns with source of 'support.cc' referrals by 100
  */
-$wgCustomFiltersSrcRules = array();
+$wgCustomFiltersSrcRules = array( );
 
-$wgAutoloadClasses['PayflowProGateway_Extras_CustomFilters_Source'] = dirname( __FILE__ ) . "/source.body.php";
-$wgHooks["PayflowGatewayCustomFilter"][] = array( 'PayflowProGateway_Extras_CustomFilters_Source::onFilter' );
+$wgAutoloadClasses['Gateway_Extras_CustomFilters_Source'] = dirname( __FILE__ ) . "/source.body.php";
+$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );

@@ -1,6 +1,7 @@
 <?php
 
-class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_Extras {
+class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
+
 	/**
 	 * Container for an instance of self
 	 * @var object
@@ -13,14 +14,14 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 	 */
 	public $cfo;
 
-	public function __construct( &$custom_filter_object ) {
-		parent::__construct();
-		$this->cfo =& $custom_filter_object;
+	public function __construct( &$gateway_adapter, &$custom_filter_object ) {
+		parent::__construct( &$gateway_adapter );
+		$this->cfo = & $custom_filter_object;
 	}
 
 	public function filter() {
-		// pull out the referrer from the filter object
-		$referrer = $this->cfo->gateway_data['referrer'];
+		// pull out the referrer from the gateway_adapter
+		$referrer = $this->gateway_adapter->getData( 'referrer' );
 
 		// a very complex filtering algorithm for referrers
 		global $wgCustomFiltersRefRules;
@@ -37,9 +38,7 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
 				$this->log(
-					$this->cfo->gateway_data['contribution_tracking_id'],
-					'Filter: Referrer',
-					$log_msg
+					$this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Filter: Referrer', $log_msg
 				);
 			}
 		}
@@ -48,6 +47,7 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 	}
 
 	static function onFilter( &$custom_filter_object ) {
+		$gateway_adapter->debugarray[] = 'referrer onFilter hook!';
 		return self::singleton( $custom_filter_object )->filter();
 	}
 
@@ -57,4 +57,5 @@ class PayflowProGateway_Extras_CustomFilters_Referrer extends PayflowProGateway_
 		}
 		return self::$instance;
 	}
+
 }
