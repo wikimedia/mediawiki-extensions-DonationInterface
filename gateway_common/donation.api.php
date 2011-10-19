@@ -5,33 +5,34 @@
  * Call with api.php?action=donate
  */
 class DonationApi extends ApiBase {
+	var $donationData, $gateway;
 	public function execute() {
 		global $wgRequest, $wgParser;
 		
-		$params = $this->extractRequestParams();
-		$options = array();
+		$this->donationData = $this->extractRequestParams();
 		
-		$gateway = $params['gateway'];
+		$this->gateway = $this->donationData['gateway'];
 		
 		// If you want to test with fake data, pass a 'test' param set to true.
 		// You still have to set the gateway you are testing though.
 		// It looks like this only works if the Test global variable for that gateway is true.
-		if ( array_key_exists( 'test', $params ) && $params['test'] ) {
-			$params = $this->getTestData( $gateway );
-			$options['testData'] = $params;
+		if ( array_key_exists( 'test', $this->donationData ) && $this->donationData['test'] ) {
+			$this->populateTestData();
+		} else {
+			// If we need to do any local data munging do it here.
 		}
 		
-		$method = $params['payment_method'];
+		$method = $this->donationData['payment_method'];
 		
-		if ( $gateway == 'payflowpro' ) {
-			$gatewayObj = new PayflowProAdapter( $options );
+		if ( $this->gateway == 'payflowpro' ) {
+			$gatewayObj = new PayflowProAdapter();
 			switch ( $method ) {
 				// TODO: add other payment methods
 				default:
 					$result = $gatewayObj->do_transaction( 'Card' );
 			}
-		} else if ( $gateway == 'globalcollect' ) {
-			$gatewayObj = new GlobalCollectAdapter( $options );
+		} else if ( $this->gateway == 'globalcollect' ) {
+			$gatewayObj = new GlobalCollectAdapter();
 			switch ( $method ) {
 				// TODO: add other payment methods
 				case 'card':
@@ -48,11 +49,20 @@ class DonationApi extends ApiBase {
 		$outputResult = array();
 		$outputResult['message'] = $result['message'];
 		$outputResult['status'] = $result['status'];
-		$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
-		$outputResult['errors'] = implode( '; ', $result['errors'] );
+		if ( array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) ) {
+			$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
+		}
+		if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
+			$outputResult['formaction'] = $result['data']['FORMACTION'];
+		}
+		if ( $result['errors'] ) {
+			$outputResult['errors'] = $result['errors'];
+		}
 		
-		$this->getResult()->addValue( 'data', 'request', $params );
-		$this->getResult()->addValue( 'data', 'result', $outputResult );
+		if ( $this->donationData ) {
+			$this->getResult()->addValue( null, 'request', $this->donationData );
+		}
+		$this->getResult()->addValue( null, 'result', $outputResult );
 		
 		/*
 		$this->getResult()->setIndexedTagName( $result, 'response' );
@@ -93,9 +103,9 @@ class DonationApi extends ApiBase {
 		return $param;
 	}
 	
-	private function getTestData( $gateway ) {
-		$params = array(
-			'gateway' => $gateway,
+	private function populateTestData() {
+		$this->donationData = array(
+			'gateway' => $this->gateway,
 			'amount' => "35",
 			'currency' => 'USD',
 			'fname' => 'Tester',
@@ -109,7 +119,7 @@ class DonationApi extends ApiBase {
 			'country' => 'US',
 			'payment_method' => 'card',
 			'language' => 'en',
-			'card_type' => '1', // Is this valid for PayflowPro?
+			'card_type' => 'american',
 		);
 		if ( $gateway != 'globalcollect' ) {
 			$params += array(
@@ -118,7 +128,7 @@ class DonationApi extends ApiBase {
 				'cvv' => '001',
 			);
 		}
-		return $params;
+		return true;
 	}
 
 	public function getParamDescription() {
