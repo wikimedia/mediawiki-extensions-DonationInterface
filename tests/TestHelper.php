@@ -23,16 +23,6 @@
  */
 
 /*
- * Include PHPUnit dependencies
- */
-require_once 'PHPUnit/Framework/IncompleteTestError.php';
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'PHPUnit/Framework/TestSuite.php';
-require_once 'PHPUnit/Runner/Version.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once 'PHPUnit/Util/Filter.php';
-
-/*
  * Set error reporting to the level to which code must comply.
  */
 error_reporting( E_ALL | E_STRICT );
