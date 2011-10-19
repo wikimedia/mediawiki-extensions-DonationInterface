@@ -147,7 +147,7 @@ if ( $optionalParts['Recaptcha'] === true ){
 /**
  * Global form dir and RapidHTML whitelist
  */
-$wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/html";
+$wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/rapidhtml/html";
 //ffname is the $key from now on. 
 $wgDonationInterfaceAllowedHtmlForms = array(
 	'demo' => $wgDonationInterfaceHtmlFormDir . "/demo.html",
@@ -457,6 +457,85 @@ $wgResourceModules['donationInterface.skinOverride'] = array(
 	'styles' => 'skinOverride.css',
 	'position' => 'top'
 	) + $wgResourceTemplate;
+
+// Resources for ResourceLoader - 98582
+$wgResourceTemplate = array(
+	'localBasePath' => $donationinterface_dir . 'gateway_forms',
+	'remoteExtPath' => 'DonationInterface/gateway_forms',
+);
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
+	'styles' => array(
+		'rapidhtml/css/lp1.css',
+		'rapidhtml/css/Webitects.css',
+	),
+	'scripts' => array(
+		'rapidhtml/js/jquery.ezpz_hint.js',
+	),
+	'dependencies' => array(
+		'jquery.ui.accordion'
+	)
+) + $wgResourceTemplate;
+
+
+//99077
+// RapidHtml globalcollect_test form resources
+$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test' ] = array(
+	'styles' => array(
+		'css/TwoStepTwoColumnLetter3.css',
+		'css/gateway.css',
+	),
+	'scripts' => array(),
+	'dependencies' => array(),
+) + $wgResourceTemplate;
+
+// form validation resource
+//TODO: Move this somewhere gateway-agnostic. 
+$wgResourceModules[ 'pfp.form.core.validate' ] = array(
+	'styles' => array(),
+	'scripts' => 'validate_input.js',
+	'dependencies' => 'pfp.form.core.pfp_css',
+	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// general PFP css
+$wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
+	'styles' => 'css/gateway.css',
+	'scripts' => array(),
+	'dependencies' => array(),
+) + $wgResourceTemplate;
+
+
+//98589 & 98600
+// RapidHtml lightbox form resources
+$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
+	'scripts' => array(
+		'rapidhtml/js/lightbox1.js',
+	),
+	'dependencies' => array(
+		'jquery.ui.core',
+		'jquery.ui.widget',
+		'jquery.ui.mouse',
+		'jquery.ui.position',
+		'jquery.ui.draggable',
+		'jquery.ui.resizable',
+		'jquery.ui.button',
+		'jquery.ui.dialog',
+	),
+	'position' => 'top',
+) + $wgResourceTemplate;
+
+// RapidHtml lightbox form css resources (these are separate from the js
+// resources for a good reason but I forget what - I believe to facilitate
+// ensuring proper load order?
+$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
+	'styles' => array(
+		'rapidhtml/css/lightbox1.css',	
+	),
+	'position' => 'top',
+) + $wgResourceTemplate;
+
+
 
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'donate_interface/donate_interface.i18n.php';
 
