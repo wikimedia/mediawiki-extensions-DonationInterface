@@ -458,44 +458,35 @@ $wgResourceModules['donationInterface.skinOverride'] = array(
 	'position' => 'top'
 	) + $wgResourceTemplate;
 
-// Resources for ResourceLoader - 98582
+// load any rapidhtml related resources
+require_once( $donationinterface_dir . 'gateway_forms/rapidhtml/RapidHtmlResources.php' );
+
+
 $wgResourceTemplate = array(
 	'localBasePath' => $donationinterface_dir . 'gateway_forms',
 	'remoteExtPath' => 'DonationInterface/gateway_forms',
 );
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
-	'styles' => array(
-		'rapidhtml/css/lp1.css',
-		'rapidhtml/css/Webitects.css',
-	),
-	'scripts' => array(
-		'rapidhtml/js/jquery.ezpz_hint.js',
-	),
-	'dependencies' => array(
-		'jquery.ui.accordion'
-	)
-) + $wgResourceTemplate;
-
-
-//99077
-// RapidHtml globalcollect_test form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test' ] = array(
-	'styles' => array(
-		'css/TwoStepTwoColumnLetter3.css',
-		'css/gateway.css',
-	),
-	'scripts' => array(),
-	'dependencies' => array(),
-) + $wgResourceTemplate;
 
 // form validation resource
 //TODO: Move this somewhere gateway-agnostic. 
 $wgResourceModules[ 'pfp.form.core.validate' ] = array(
-	'styles' => array(),
 	'scripts' => 'validate_input.js',
 	'dependencies' => 'pfp.form.core.pfp_css',
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+);
+
+// form placeholders
+//TODO: Move this somewhere gateway-agnostic. 
+$wgResourceModules[ 'pfp.form.core.placeholders' ] = array(	
+	'scripts' => 'form_placeholders.js',
+	'dependencies' => 'pfp.form.core.validate',
+	'messages' => array(
+		'payflowpro_gateway-donor-fname',
+		'payflowpro_gateway-donor-lname'
+	),
+	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
 
 // general PFP css
@@ -505,37 +496,28 @@ $wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
 	'dependencies' => array(),
 ) + $wgResourceTemplate;
 
-
-//98589 & 98600
-// RapidHtml lightbox form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
-	'scripts' => array(
-		'rapidhtml/js/lightbox1.js',
-	),
-	'dependencies' => array(
-		'jquery.ui.core',
-		'jquery.ui.widget',
-		'jquery.ui.mouse',
-		'jquery.ui.position',
-		'jquery.ui.draggable',
-		'jquery.ui.resizable',
-		'jquery.ui.button',
-		'jquery.ui.dialog',
-	),
-	'position' => 'top',
+// TowStepTwoColumnLetter3
+$wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
+	'styles' => 'css/TwoStepTwoColumnLetter3.css',
+	'dependencies' => 'pfp.form.core.validate',
 ) + $wgResourceTemplate;
 
-// RapidHtml lightbox form css resources (these are separate from the js
-// resources for a good reason but I forget what - I believe to facilitate
-// ensuring proper load order?
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
-	'styles' => array(
-		'rapidhtml/css/lightbox1.css',	
-	),
-	'position' => 'top',
-) + $wgResourceTemplate;
+// API JS
+//TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section. 
+$wgResourceModules[ 'pfp.form.core.api' ] = array(
+	'scripts' => 'pfp_api_controller.js',
+	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
+);
 
+// Logo link override
+//TODO: Move this somewhere gateway-agnostic. 
+$wgResourceModules[ 'pfp.core.logolink_override' ] = array(
+	'scripts' => 'logolink_override.js',
+	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
+	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 
+);
 
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'donate_interface/donate_interface.i18n.php';
 
