@@ -1536,15 +1536,25 @@ $messages['ja'] = array(
 /** Georgian (ქართული)
  * @author Dawid Deutschland
  * @author Temuri rajavi
+ * @author გიორგიმელა
  */
 $messages['ka'] = array(
-	'donate_interface' => 'მხარი დაუჭირე ვიკიმედიას',
+	'donate_interface' => 'დაუჭირეთ მხარი ვიკიმედიას!',
+	'donate_interface-desc' => 'შემოწირულობების შეგროვების გვერდი, რომელშიც ინტეგრირებულია gateway გაფართოებები.',
+	'donate_interface-intro' => 'გთხოვთ, აირჩიეთ გადახდის მეთოდი, თანხა და ვალუტა.',
 	'donate_interface-amount' => 'შემოწირულობის თანხა:',
+	'donate_interface-other-amount' => 'სხვა თანხა',
 	'donate_interface-currency' => 'ვალუტა:',
 	'donate_interface-gateway' => 'გადახდის მეთოდი:',
 	'donate_interface-submit-button' => 'შემოწე',
+	'donate_interface-comment-message' => 'გსურთ, რომ თქვენი მოსაზრება მთელ მსოფლიოს გაუზიაროთ? აქ შეგიძლიათ 200 სიმბოლოსგან შემდგარი შეტყობინების დატოვება.',
 	'donate_interface-comment-label' => 'კომენტარი:',
+	'donate_interface-anon-message' => 'მე მსურს, რომ ჩემი სახელი, ჩემი კომენტარის გვერდით, გამოჩდნეს მეცენატთდა საზოგადო სიაში.',
+	'donate_interface-email-agreement' => 'მე მსურს ფონდ ვიკიმედიისგან საინფორმაციო წერილების მიღება.',
 	'donate_interface-comment-title' => 'საჯარო კომენტარი',
+	'donate_interface-amount-error' => '**გთხოვთ, მიუთითეთ სწორი თანხა**',
+	'donate_interface-processing-error' => 'ბოდიში, თქვენი შეტყობინების დამუშავებისას შეცდომა წარმოიშვა.
+მიზეზი - პროცესორთა არასაკმარისი რაოდენობა.',
 	'donate_interface-GBP' => 'GBP: ბრიტანული გირვანქა სტერლინგი',
 	'donate_interface-EUR' => 'EUR: ევრო',
 	'donate_interface-USD' => 'USD: აშშ დოლარი',

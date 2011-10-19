@@ -680,6 +680,7 @@ $messages['aln'] = array(
 );
 
 /** Arabic (العربية)
+ * @author AwamerT
  * @author Meno25
  * @author OsamaK
  * @author ترجمان05
@@ -687,6 +688,7 @@ $messages['aln'] = array(
  */
 $messages['ar'] = array(
 	'payflowprogateway' => 'تبرع الآن',
+	'globalcollectgateway' => 'تبرع الآن',
 	'payflowpro_gateway-desc' => 'معالجة PayPal Payflow Pro لبطاقات الائتمان',
 	'payflowpro_gateway-accessible' => 'يمكن الوصول إلى هذه الصفحة فقط من صفحة التبرعات.',
 	'payflowpro_gateway-paypal-button' => 'تبرع عبر PayPal',
@@ -737,6 +739,7 @@ $messages['ar'] = array(
 	'payflowpro_gateway-error-msg-state' => 'الدولة',
 	'payflowpro_gateway-error-msg-zip' => 'الرمز البريدي',
 	'payflowpro_gateway-error-msg-country' => 'الدولة',
+	'payflowpro_gateway-error-msg-card_type' => 'نوع بطاقة الائتمان',
 	'payflowpro_gateway-error-msg-card_num' => 'رقم بطاقة الائتمان',
 	'payflowpro_gateway-error-msg-expiration' => 'تاريخ انتهاء صلاحية البطاقة',
 	'payflowpro_gateway-error-msg-cvv' => 'رمز التحقق من البطاقة (CCV) من خلف بطاقتك',
@@ -11329,6 +11332,7 @@ Sì pregate de pruvà n'otre vote cchù nnande.",
  */
 $messages['ru'] = array(
 	'payflowprogateway' => 'Сделайте пожертвование сейчас',
+	'globalcollectgateway' => 'Сделайте пожертвование сейчас',
 	'payflowpro_gateway-desc' => 'Обработка кредитных карт PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Эта страница доступна только со страницы сбора пожертвований.',
 	'payflowpro_gateway-paypal-button' => 'Пожертвуйте через PayPal',
@@ -11379,6 +11383,7 @@ $messages['ru'] = array(
 	'payflowpro_gateway-error-msg-state' => 'штат',
 	'payflowpro_gateway-error-msg-zip' => 'индекс',
 	'payflowpro_gateway-error-msg-country' => 'страна',
+	'payflowpro_gateway-error-msg-card_type' => 'тип кредитной карты',
 	'payflowpro_gateway-error-msg-card_num' => 'номер кредитной карты',
 	'payflowpro_gateway-error-msg-expiration' => 'дата окончания действия карты',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV с обратной стороны вашей карты',
@@ -14316,10 +14321,12 @@ Par motivi de sicuressa, par el modulo de donassion ghe vole pa forsa JavaScript
 
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
+ * @author Trần Nguyễn Minh Huy
  * @author Vinhtantran
  */
 $messages['vi'] = array(
-	'payflowprogateway' => 'Quyên góp bây giờ',
+	'payflowprogateway' => 'Quyên góp ngay bây giờ',
+	'globalcollectgateway' => 'Quyên góp ngay bây giờ',
 	'payflowpro_gateway-desc' => 'Xử lý thẻ tín dụng dùng PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Trang này chỉ truy cập được từ trang quyên góp.',
 	'payflowpro_gateway-paypal-button' => 'Quyên góp dùng PayPal',
@@ -14367,6 +14374,7 @@ $messages['vi'] = array(
 	'payflowpro_gateway-error-msg-state' => 'tiểu bang',
 	'payflowpro_gateway-error-msg-zip' => 'mã bưu chính',
 	'payflowpro_gateway-error-msg-country' => 'quốc gia',
+	'payflowpro_gateway-error-msg-card_type' => 'loại thẻ tín dụng',
 	'payflowpro_gateway-error-msg-card_num' => 'số thẻ tín dụng',
 	'payflowpro_gateway-error-msg-expiration' => 'ngày hết hạn của thẻ',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV trên mặt trái của thẻ',
