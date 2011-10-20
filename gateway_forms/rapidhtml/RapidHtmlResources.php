@@ -5,7 +5,7 @@
  * This file is included in DonationInterfa/payflowpro_gateway.php
  */
 
-$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/forms/rapidhtml';
+$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
 
 /**
  * LIGHTBOX

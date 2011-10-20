@@ -49,21 +49,24 @@ class DonationApi extends ApiBase {
 		$outputResult = array();
 		$outputResult['message'] = $result['message'];
 		$outputResult['status'] = $result['status'];
-		if ( array_key_exists( 'PAYMENT', $result['data'] )
-			&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
-		{
-			$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
-		}
-		if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
-			$outputResult['formaction'] = $result['data']['FORMACTION'];
-		}
-		if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
-			$outputResult['responsemsg'] = $result['data']['RESPMSG'];
+		
+		if ( array_key_exists( 'data', $result ) ) {
+			if ( array_key_exists( 'PAYMENT', $result['data'] )
+				&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
+			{
+				$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
+			}
+			if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
+				$outputResult['formaction'] = $result['data']['FORMACTION'];
+			}
+			if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
+				$outputResult['responsemsg'] = $result['data']['RESPMSG'];
+			}
 		}
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
 		}
-		
+	
 		if ( $this->donationData ) {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}

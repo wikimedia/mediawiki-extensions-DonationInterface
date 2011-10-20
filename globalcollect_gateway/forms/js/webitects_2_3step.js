@@ -84,7 +84,50 @@ $( document ).ready( function () {
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) ) {
-			showStep3();
+			var language = 'en'; // default value
+			var matches = document.location.href.match(/uselang=(\w+)/i);
+			if ( matches[1] ) {
+				language = matches[1];
+			}
+			var sendData = {
+				'action': 'donate',
+				'gateway': 'globalcollect',
+				'currency': 'USD',
+				'amount': $( "input[name='amount']" ).val(),
+				'fname': $( "input[name='fname']" ).val(),
+				'lname': $( "input[name='lname']" ).val(),
+				'street': $( "input[name='street']" ).val(),
+				'city': $( "input[name='city']" ).val(),
+				'state': $( "input[name='state']" ).val(),
+				'zip': $( "input[name='zip']" ).val(),
+				'emailAdd': $( "input[name='emailAdd']" ).val(),
+				'country': $( "input[name='country']" ).val(),
+				'payment_method': 'card',
+				'language': language,
+				'card_type': $( "input[name='cardtype']" ).val().toLowerCase(),
+				'format': 'json'
+			};
+	
+			$.ajax( {
+				'url': mw.util.wikiScript( 'api' ),
+				'data': sendData,
+				'dataType': 'json',
+				'type': 'GET',
+				'success': function( data ) {
+					if ( data.result.errors ) {
+						var errors = new Array();
+						$.each( data.result.errors, function( index, value ) {
+							alert( value );
+						} );
+					} else {
+						if ( data.result.returnurl ) {
+							// Insert the iframe into the form
+							showStep3();
+						}
+					}
+				}
+			} );
+			
 		}
 		else {
 			// show the continue button to indicate how to get to step 3 since they
