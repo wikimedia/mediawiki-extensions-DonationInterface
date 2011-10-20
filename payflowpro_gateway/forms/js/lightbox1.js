@@ -109,6 +109,10 @@ $(function() {
 	}
 	
 	function finalSubmit() {
+	
+		// Reset the error display
+		$( '#card-errors' ).empty();
+		
 		var formErrors = false;
 		for( var i = 1; i <= fieldsetCount; ++i ) {
 			var error = validateStep(i);
@@ -158,16 +162,18 @@ $(function() {
 				'url': mw.util.wikiScript( 'api' ),
 				'data': sendData,
 				'dataType': 'json',
-				'type': 'GET',
+				'type': 'POST',
 				'success': function( data ) {
+					console.debug( data );
 					if ( data.result.errors ) {
 						var errors = new Array();
-						for( var key in data.result.errors ){ 
-							errors.push( data.result.errors[key] );
-						}
-						alert ( errors.join( '\r\n' ) );
+						$.each( data.result.errors, function( index, value ) {
+							$( '#card-errors' ).append( '<div class="error-msg">'+value+'</div>' );
+						} );
 					} else {
-						/* Load the thank you page */
+						if ( data.result.returnurl ) {
+							window.location = data.result.returnurl;
+						}
 					}
 				}
 			} );

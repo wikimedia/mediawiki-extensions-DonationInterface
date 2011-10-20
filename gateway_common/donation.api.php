@@ -49,11 +49,16 @@ class DonationApi extends ApiBase {
 		$outputResult = array();
 		$outputResult['message'] = $result['message'];
 		$outputResult['status'] = $result['status'];
-		if ( array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) ) {
+		if ( array_key_exists( 'PAYMENT', $result['data'] )
+			&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
+		{
 			$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
 		}
 		if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
 			$outputResult['formaction'] = $result['data']['FORMACTION'];
+		}
+		if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
+			$outputResult['responsemsg'] = $result['data']['RESPMSG'];
 		}
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
@@ -111,7 +116,7 @@ class DonationApi extends ApiBase {
 			'fname' => 'Tester',
 			'mname' => 'T.',
 			'lname' => 'Testington',
-			'street' => '548 Market St.',
+			'street' => '549 Market St.',
 			'city' => 'San Francisco',
 			'state' => 'CA',
 			'zip' => '94104',

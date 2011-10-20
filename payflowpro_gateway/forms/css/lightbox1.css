@@ -195,7 +195,7 @@ input.btn {
 }
 .step-content {
 	padding: 20px;
-	height: 260px;
+	height: 280px;
 }
 
 #steps form fieldset{
@@ -285,4 +285,12 @@ input.btn {
 	bottom: 25px;
 	right: 25px;
 	margin: 0 !important;
+}
+#steps #card-errors {
+	font-size: 13px;
+	line-height: 15px;
+	color: #cc0000;
+}
+#steps #card-errors .error-msg {
+	margin-bottom: 1em;
 }
