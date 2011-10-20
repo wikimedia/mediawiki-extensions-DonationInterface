@@ -5174,6 +5174,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
  */
 $messages['frp'] = array(
 	'payflowprogateway' => 'Balyéd orendrêt',
+	'globalcollectgateway' => 'Balyéd orendrêt',
 	'payflowpro_gateway-desc' => 'Trètament per cârta de crèdit PayPal Payflow Pro.',
 	'payflowpro_gateway-accessible' => 'Ceta pâge est accèssibla ren que dês la pâge de donacion.',
 	'payflowpro_gateway-paypal-button' => 'Balyér avouéc PayPal',
@@ -5220,6 +5221,7 @@ $messages['frp'] = array(
 	'payflowpro_gateway-error-msg-state' => 'ètat',
 	'payflowpro_gateway-error-msg-zip' => 'code postâl',
 	'payflowpro_gateway-error-msg-country' => 'payis',
+	'payflowpro_gateway-error-msg-card_type' => 'tipo de cârta de crèdit',
 	'payflowpro_gateway-error-msg-card_num' => 'numerô de cârta de crèdit',
 	'payflowpro_gateway-error-msg-expiration' => 'dâta d’èxpiracion de la cârta',
 	'payflowpro_gateway-error-msg-cvv' => 'lo CVV placiê dèrriér voutra cârta',
@@ -8801,6 +8803,7 @@ $messages['mk'] = array(
  */
 $messages['ml'] = array(
 	'payflowprogateway' => 'ഇപ്പോൾ തന്നെ സംഭാവന നൽകുക',
+	'globalcollectgateway' => 'ഉടൻ സംഭാവന ചെയ്യുക',
 	'payflowpro_gateway-desc' => 'പേപാൽ പേഫ്ലോ പ്രോ ക്രെഡിറ്റ് കാർഡ് ഉപയുക്തമാക്കുന്നു',
 	'payflowpro_gateway-accessible' => 'സംഭാവനാ താളിൽ നിന്നുമാത്രമേ ഈ താൾ ലഭ്യമാവുകയുള്ളു.',
 	'payflowpro_gateway-paypal-button' => 'പേപാൽ വഴി സം‌ഭാവന ചെയ്യുക',
@@ -8851,6 +8854,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-error-msg-state' => 'സംസ്ഥാനം',
 	'payflowpro_gateway-error-msg-zip' => 'സിപ് അല്ലെങ്കിൽ പിൻകോഡ്',
 	'payflowpro_gateway-error-msg-country' => 'രാജ്യം',
+	'payflowpro_gateway-error-msg-card_type' => 'ക്രെഡിറ്റ് കാർഡ് തരം',
 	'payflowpro_gateway-error-msg-card_num' => 'ക്രെഡിറ്റ് കാർഡ് നമ്പർ',
 	'payflowpro_gateway-error-msg-expiration' => 'കാർഡിന്റെ കാലാവധി തീരുന്ന തീയതി',
 	'payflowpro_gateway-error-msg-cvv' => 'കാർഡിന്റെ പിന്നിൽ നിന്നും CVV',
