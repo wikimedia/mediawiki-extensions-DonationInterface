@@ -42,7 +42,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
 	'position' => 'top',
 );
 
-
 /**
  * webitects
  */
@@ -58,12 +57,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 		'jquery.ui.accordion',
 		'pfp.form.core.validate'
 	),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2_3step' ] = array(
-	'scripts' => 'js/webitects_2_3step.js',
-	'dependencies' => 'pfp.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );

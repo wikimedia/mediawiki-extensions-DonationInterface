@@ -1,10 +1,12 @@
 <script type="text/javascript">
-	mw.loader.load('pfp.form.rapidhtml.webitects_2_3step');
+	mw.loader.load('pfp.form.rapidhtml.webitects');
+	var extensionPath = mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' ) + '/extensions/DonationInterface';
+	mw.loader.load( extensionPath + '/payflowpro_gateway/forms/js/webitects_2_3step.js', 'text/javascript' );
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'],
 		billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape',
 			'#street|escape','#state|escape','#zip|escape','#emailAdd|escape'],
-		paymentErrors = ['#card_num|escape','#card|escape','#cvv|escape'],
+		paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'],
 		actionURL = "@action",
 		scriptPath = "@script_path";
 	
@@ -185,7 +187,7 @@
                                         <a class="mute" href="#" id="where">Where?</a>
                                     </div>
 
-                                    <div class="clear" id="codes" style="display: none;"><img alt="Security codes" src="@script_path/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/security-code.png" /></div>
+                                    <div class="clear" id="codes" style="display: none;"><img alt="Security codes" src="@script_path/extensions/DonationInterface/gateway_forms/includes/security-code.png" /></div>
                                 </dd>
 
                                 <dt></dt>
