@@ -6,7 +6,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	const COMMUNICATION_TYPE = 'xml';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
 
-	function defineAccountInfo() {
+	/**
+	 * Define accountInfo
+	 */
+	public function defineAccountInfo() {
 		$this->accountInfo = array(
 			'MERCHANTID' => self::getGlobal( 'MerchantID' ),
 			//'IPADDRESS' => '', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm. 
@@ -14,7 +17,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineVarMap() {
+	/**
+	 * Define var_map
+	 */
+	public function defineVarMap() {
 		$this->var_map = array(
 			'ORDERID' => 'order_id',
 			'AMOUNT' => 'amount',
@@ -38,7 +44,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineReturnValueMap() {
+	/**
+	 * Define return_value_map
+	 */
+	public function defineReturnValueMap() {
 		$this->return_value_map = array(
 			'OK' => true,
 			'NOK' => false,
@@ -57,7 +66,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 1100, 99999 );
 	}
 
-	function defineTransactions() {
+	/**
+	 * Define transactions
+	 *
+	 * Please do not add more transactions to this array.
+	 * This method should define:
+	 * - INSERT_ORDERWITHPAYMENT: used for payments
+	 * - TEST_CONNECTION: testing connections - is this still valid?
+	 * - GET_ORDERSTATUS
+	 *
+	 * @todo
+	 * - Remove BANK_TRANSFER
+	 *
+	 */
+	public function defineTransactions() {
 		$this->transactions = array( );
 
 		$this->transactions['BANK_TRANSFER'] = array(
@@ -211,8 +233,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Take the entire response string, and strip everything we don't care about.
 	 * For instance: If it's XML, we only want correctly-formatted XML. Headers must be killed off. 
 	 * return a string.
+	 *
+	 * @param string	$rawResponse	The raw response a string of XML.
 	 */
-	function getFormattedResponse( $rawResponse ) {
+	public function getFormattedResponse( $rawResponse ) {
 		$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 		$displayXML = $this->formatXmlString( $xmlString );
 		$realXML = new DomDocument( '1.0' );
@@ -223,8 +247,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
+	 *
+	 * @param array	$response	The response array
 	 */
-	function getResponseStatus( $response ) {
+	public function getResponseStatus( $response ) {
 
 		$aok = true;
 
@@ -240,8 +266,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
 	 * return a key/value array of codes (if they exist) and messages. 
+	 *
+	 * @param array	$response	The response array
 	 */
-	function getResponseErrors( $response ) {
+	public function getResponseErrors( $response ) {
 		$errors = array( );
 		foreach ( $response->getElementsByTagName( 'ERROR' ) as $node ) {
 			$code = '';
@@ -262,8 +290,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Harvest the data we need back from the gateway. 
 	 * return a key/value array
+	 *
+	 * @param array	$response	The response array
 	 */
-	function getResponseData( $response ) {
+	public function getResponseData( $response ) {
 		$data = array( );
 
 		$transaction = $this->currentTransaction();
@@ -291,7 +321,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return $data;
 	}
 
-	function processResponse( $response ) {
+
+	/**
+	 * Process the response
+	 *
+	 * @param array	$response	The response array
+	 */
+	public function processResponse( $response ) {
 		//set the transaction result message
 		$responseStatus = isset( $response['STATUSID'] ) ? $response['STATUSID'] : '';
 		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC. 
@@ -307,7 +343,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * the default case. This should prevent accidental form submission with
 	 * unknown transaction types. 
 	 */
-	function defineStagedVars() {
+	public function defineStagedVars() {
 
 		//OUR field names. 
 		$this->staged_vars = array(
@@ -315,10 +351,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'card_type',
 			//'card_num',
 			'returnto',
+			'transaction_type',
 			'order_id', //This may or may not oughta-be-here...
 		);
 	}
 
+	/**
+	 * Stage: amount
+	 *
+	 * @param string	$type	request|response
+	 */
 	protected function stage_amount( $type = 'request' ) {
 		switch ( $type ) {
 			case 'request':
@@ -330,6 +372,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
+	/**
+	 * Stage: card_num
+	 *
+	 * @param string	$type	request|response
+	 */
+	protected function stage_card_num( $type = 'request' ) {
+		//I realize that the $type isn't used. Voodoo.
+		if ( array_key_exists( 'card_num', $this->postdata ) ) {
+			$this->postdata['card_num'] = str_replace( ' ', '', $this->postdata['card_num'] );
+		}
+	}
+
+	/**
+	 * Stage: card_type
+	 *
+	 * @param string	$type	request|response
+	 */
 	protected function stage_card_type( $type = 'request' ) {
 
 		$types = array(
@@ -351,13 +410,25 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function stage_card_num( $type = 'request' ) {
-		//I realize that the $type isn't used. Voodoo.
-		if ( array_key_exists( 'card_num', $this->postdata ) ) {
-			$this->postdata['card_num'] = str_replace( ' ', '', $this->postdata['card_num'] );
-		}
+	/**
+	 * Stage: transaction_type
+	 *
+	 * @param string	$type	request|response
+	 *
+	 * @todo
+	 * - This still needs to be deployed. This will alter the paymentproductid. 
+	 */
+	protected function stage_transaction_type( $type = 'request' ) {
+		
+		//$this->postdata['transaction_type'] = $this->currentTransaction();
+		//$this->var_map['PAYMENTPRODUCTID'] = 0;
 	}
 
+	/**
+	 * Stage: returnto
+	 *
+	 * @param string	$type	request|response
+	 */
 	protected function stage_returnto( $type = 'request' ) {
 		if ( $type === 'request' ) {
 			$this->postdata['returnto'] = $this->postdata['returnto'] . "?order_id=" . $this->postdata['order_id'];
