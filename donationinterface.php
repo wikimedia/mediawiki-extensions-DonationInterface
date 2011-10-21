@@ -35,14 +35,16 @@ $donationinterface_dir = dirname( __FILE__ ) . '/';
 
 $optionalParts = array( //define as fail closed. This variable will be unset before we leave this file. 
 	'Extras' => false, //this one gets set in the next loop, so don't bother. 
+	'CustomFilters' => false, //Also gets set in the next loop. 
 	'Stomp' => false,
-	'CustomFilters' => false, //this is definitely an Extra
 	'ConversionLog' => false, //this is definitely an Extra
 	'Minfraud' => false, //this is definitely an Extra
-	'Minfraud_as_filter' => false, //extra
 	'Recaptcha' => false, //extra
 	'PayflowPro' => false,
 	'GlobalCollect' => false,
+	'ReferrerFilter' => false, //extra
+	'SourceFilter' => false, //extra
+	'Minfraud_as_filter' => false, //extra
 	
 );
 
@@ -51,13 +53,26 @@ foreach ($optionalParts as $subextension => $enabled){
 	global $$globalname;
 	if ( isset( $$globalname ) && $$globalname === true ) {
 		$optionalParts[$subextension] = true;
-		if ( $subextension === 'CustomFilters' ||
+		//this is getting annoying. 
+		if ( $subextension === 'ReferrerFilter' ||
+			$subextension === 'SourceFilter' ||
+			$subextension === 'Minfraud_as_filter' ||
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
 			$subextension === 'Recaptcha' ) {
 			
+			//we have extras
 			$optionalParts['Extras'] = true;
+			
+			if ( $subextension === 'ReferrerFilter' ||
+				$subextension === 'SourceFilter' ||
+				$subextension === 'Minfraud_as_filter' ){
+				
+				//and at least one of them is a custom filter. 
+				$optionalParts['CustomFilters'] = true;
+			}
 		}
+		
 	}
 }
 
@@ -132,6 +147,16 @@ if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter']
 //Minfraud as Filter classes
 if ( $optionalParts['Minfraud_as_filter'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_MinFraud'] = $donationinterface_dir . "extras/custom_filters/filters/minfraud/minfraud.body.php";
+}
+
+//Referrer Filter classes
+if ( $optionalParts['ReferrerFilter'] === true ){
+	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Referrer'] = $donationinterface_dir . "extras/custom_filters/filters/referrer/referrer.body.php";
+}
+
+//Source Filter classes
+if ( $optionalParts['SourceFilter'] === true ){
+	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Source'] = $donationinterface_dir . "extras/custom_filters/filters/source/source.body.php";
 }
 
 //Recaptcha classes
@@ -348,6 +373,16 @@ if ( $optionalParts['Minfraud_as_filter'] === true ){
 	$wgMinFraudStandalone = FALSE;
 }
 
+//Referrer Filter globals
+if ( $optionalParts['ReferrerFilter'] === true ){
+	$wgCustomFiltersRefRules = array( );
+}
+
+//Source Filter globals
+if ( $optionalParts['SourceFilter'] === true ){
+	$wgCustomFiltersSrcRules = array( );
+}
+
 //Recaptcha globals
 if ( $optionalParts['Recaptcha'] === true ){
 	/**
@@ -412,6 +447,16 @@ if ($optionalParts['Stomp'] === true){
 //Custom Filters hooks
 if ($optionalParts['CustomFilters'] === true){
 	$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
+}
+
+//Referrer Filter hooks
+if ( $optionalParts['ReferrerFilter'] === true ){
+	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
+}
+
+//Source Filter hooks
+if ( $optionalParts['SourceFilter'] === true ){
+	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
 }
 
 //Conversion Log hooks
