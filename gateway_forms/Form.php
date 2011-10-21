@@ -359,8 +359,11 @@ abstract class Gateway_Form {
 				'email-opt' => $this->form_data['email-opt'],
 				'size' => $this->form_data['size'],
 				'premium_language' => $this->form_data['premium_language'],
-				'process' => isset( $this->form_data['process'] ) ? $this->form_data['process'] : 'CreditCard',
-				'payment_method' => 'processed',
+				// process has been disabled - may no longer be needed. 
+				//'process' => isset( $this->form_data['process'] ) ? $this->form_data['process'] : 'CreditCard',
+				// payment_method is no longer set to: processed
+				'payment_method' => isset( $this->form_data['payment_method'] ) ? $this->form_data['payment_method'] : '',
+				'payment_submethod' => isset( $this->form_data['payment_submethod'] ) ? $this->form_data['payment_submethod'] : '',
 				'token' => $this->form_data['token'],
 				'order_id' => $this->form_data['order_id'],
 				'i_order_id' => $this->form_data['i_order_id'],
@@ -370,7 +373,6 @@ abstract class Gateway_Form {
 				'action' => $this->form_data['action'],
 				'owa_session' => $this->form_data['owa_session'],
 				'owa_ref' => $this->form_data['owa_ref'],
-				'transaction_type' => isset( $this->form_data['transaction_type'] ) ? $this->form_data['transaction_type'] : '',
 			);
 		}
 
