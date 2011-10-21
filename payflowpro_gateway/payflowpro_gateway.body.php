@@ -44,7 +44,7 @@ class PayflowProGateway extends GatewayForm {
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
-			if ( $this->adapter->posted && $data['payment_method'] == 'processed' ) {
+			if ( $this->adapter->posted) {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 				// Check form for errors
