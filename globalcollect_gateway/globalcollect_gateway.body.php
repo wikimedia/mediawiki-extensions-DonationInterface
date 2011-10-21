@@ -1,5 +1,25 @@
 <?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
 
+/**
+ * GlobalCollectGateway
+ *
+ */
 class GlobalCollectGateway extends GatewayForm {
 
 	/**
@@ -65,47 +85,24 @@ EOT;
 		//so stop it. 
 		$data = $this->adapter->getDisplayData();
 
-		/*
-		 * The $transactionType should default to false.
-		 *
-		 * This is being introduced after INSERT_ORDERWITHPAYMENT was built.
-		 * Until all INSERT_ORDERWITHPAYMENT can be set in the proper forms, it
-		 * will be set as the default.
-		 */
-		$transactionType = false;
-		$transactionType = ( isset( $data['transaction_type'] ) && !empty( $data['transaction_type'] ) ) ? $data['transaction_type'] : 'INSERT_ORDERWITHPAYMENT';
-
-		$this->adapter->log( '$transactionType: Default is set to: INSERT_ORDERWITHPAYMENT, this is a temporary hack for backwards compatibility.' );
-		$this->adapter->log( 'Setting transaction type: ' . ( string ) $data['transaction_type'] );
-
-
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			if ( $this->adapter->posted && $data['payment_method'] == 'processed' ) {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 
+				/*
+				 * The $transactionType should default to false.
+				 *
+				 * An invalid $transactionType will cause an error.
+				 */
+				$transactionType = ( isset( $data['transaction_type'] ) && !empty( $data['transaction_type'] ) ) ? $data['transaction_type'] : false;
+		
+				$transactionTypeMeta = $this->adapter->getTransactionTypeMeta( $transactionType, array( 'log' => true, ) );
+				
 				// Check form for errors
+				$form_errors = $this->validateForm( $data, $this->errors, $transactionTypeMeta['validation'] );
 
-				$options = array( );
-				switch ( $transactionType ) {
-
-					case 'BANK_TRANSFER':
-						$options['creditCard'] = false;
-						break;
-
-					case 'INSERT_ORDERWITHPAYMENT':
-						$options['creditCard'] = false;
-						break;
-
-					default:
-						$options['creditCard'] = false;
-				}
-
-				$form_errors = $this->validateForm( $data, $this->errors, $options );
-				unset( $options );
-
-				//$form_errors = $this->fnValidateForm( $data, $this->errors );
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 
@@ -113,20 +110,14 @@ EOT;
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data
 					// Execute the proper transaction code:
-					switch ( $transactionType ) {
 
-						case 'BANK_TRANSFER':
-							$this->executeBankTransfer();
-							break;
+					$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+			
+					$this->displayResultsForDebug( $result );
 
-						case 'INSERT_ORDERWITHPAYMENT':
-							$this->executeInsertOrderWithPayment();
-							break;
+					if ( $transactionType == 'credit' ) {
 
-						default:
-
-							$message = 'The transaction type [ ' . $transactionType . ' ] was not found.';
-							throw new Exception( $message );
+						$this->executeiFrameForCreditCard();
 					}
 
 
@@ -135,7 +126,7 @@ EOT;
 			} else {
 				// Display form for the first time
 				$oid = $wgRequest->getText( 'order_id' );
-				if ( $oid && !empty( $oid ) ) {
+				if ( $oid ) {
 					$wgOut->addHTML( "<pre>CAME BACK FROM SOMETHING.</pre>" );
 					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug( $result );
@@ -153,30 +144,11 @@ EOT;
 	}
 
 	/**
-	 * Execute BANK_TRANSFER
+	 * Execute execute iFrame for credit card
 	 */
-	public function executeBankTransfer() {
-
-		//global $wgOut;
-
-		$result = $this->adapter->do_transaction( 'BANK_TRANSFER' );
-		$this->adapter->addDonorDataToSession();
-
-		$this->displayResultsForDebug( $result );
-	}
-
-	/**
-	 * Execute INSERT_ORDERWITHPAYMENT
-	 */
-	public function executeInsertOrderWithPayment() {
+	public function executeiFrameForCreditCard() {
 
 		global $wgOut;
-
-		$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-		$this->adapter->addDonorDataToSession();
-		//$result = $this->adapter->do_transaction( 'TEST_CONNECTION' );
-
-		$this->displayResultsForDebug( $result );
 
 		if ( !empty( $result['data'] ) ) {
 

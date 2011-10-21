@@ -80,56 +80,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 */
 	public function defineTransactions() {
-		$this->transactions = array( );
 
-		$this->transactions['BANK_TRANSFER'] = array(
-			'request' => array(
-				'REQUEST' => array(
-					'ACTION',
-					'META' => array(
-						'MERCHANTID',
-						// 'IPADDRESS',
-						'VERSION'
-					),
-					'PARAMS' => array(
-						'ORDER' => array(
-							'ORDERID',
-							'AMOUNT',
-							'CURRENCYCODE',
-							'LANGUAGECODE',
-							'COUNTRYCODE',
-							'MERCHANTREFERENCE'
-						),
-						'PAYMENT' => array(
-							'PAYMENTPRODUCTID',
-							'AMOUNT',
-							'CURRENCYCODE',
-							'LANGUAGECODE',
-							'COUNTRYCODE',
-							'HOSTEDINDICATOR',
-							'RETURNURL',
-//							'INVOICENUMBER',
-//							'CUSTOMERBANKNAME',
-//							'CUSTOMERACCOUNTHOLDERNAME',
-//							'CUSTOMERBANKACCOUNT',
-//							'CUSTOMERBANKCITY',
-							'FIRSTNAME',
-							'SURNAME',
-							'STREET',
-							'CITY',
-							'STATE',
-							'ZIP',
-							'EMAIL',
-						)
-					)
-				)
-			),
-			'values' => array(
-				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
-				'HOSTEDINDICATOR' => '1',
-				'PAYMENTPRODUCTID' => '11',
-			),
-		);
+		// Define the transaction types and groups
+		$this->defineTransactionGroups();
+		$this->defineTransactionTypes();
+		
+		$this->transactions = array( );
 
 		$this->transactions['INSERT_ORDERWITHPAYMENT'] = array(
 			'request' => array(
@@ -228,7 +184,158 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			)
 		);
 	}
+	
+	/**
+	 * Define transaction groups
+	 *
+	 * At some point, we are going to need methods to get this information to display available forms
+	 *
+	 * @todo
+	 * - This is not in use. This is a map to @see GlobalCollectAdapter::defineTransactionTypes()
+	 *
+	 */
+	private function defineTransactionGroups() {
+		
+		$this->transaction_groups = array();
+		
+		$this->transaction_groups['rtbt'] = array(
+			'label'	=> 'Real time bank transfer',
+			'types'	=> array( 'rtbt_ideal',  'rtbt_eps',  'rtbt_sofortuberweisung',  'rtbt_nordea_sweeden', 'rtbt_enets', ),
+		);
+		
+		$this->transaction_groups['bt'] = array(
+			'label'	=> 'Bank transfer',
+			'types'	=> array( 'bt', ),
+			'validation' => array( 'creditCard' => false, )
+			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
+		);
+	}
 
+	/**
+	 * Define transaction types
+	 *
+	 */
+	private function defineTransactionTypes() {
+		
+		$this->transaction_types = array();
+
+		/*
+		 * Bank transfers
+		 */
+		 
+		// Bank Transfer
+		$this->transaction_types['bt'] = array(
+			'paymentproductid'	=> 11,
+			'label'	=> 'Bank Transfer',
+			'group'	=> 'bt',
+			'validation' => array( 'creditCard' => false, ),
+		);
+
+		/*
+		 * Real time bank transfers
+		 */
+		 
+		// Nordea (Sweeden)
+		$this->transaction_types['rtbt_nordea_sweeden'] = array(
+			'paymentproductid'	=> 805,
+			'label'	=> 'Nordea (Sweeden)',
+			'group'	=> 'rtbt',
+			'validation' => array( 'creditCard' => false, ),
+		);
+		 
+		// Ideal
+		$this->transaction_types['rtbt_ideal'] = array(
+			'paymentproductid'	=> 809,
+			'label'	=> 'Ideal',
+			'group'	=> 'rtbt',
+			'validation' => array( 'creditCard' => false, ),
+		);
+		 
+		// eNETS
+		$this->transaction_types['rtbt_enets'] = array(
+			'paymentproductid'	=> 810,
+			'label'	=> 'eNETS',
+			'group'	=> 'rtbt',
+			'validation' => array( 'creditCard' => false, ),
+		);
+		 
+		// Sofortuberweisung/DIRECTebanking
+		$this->transaction_types['rtbt_sofortuberweisung'] = array(
+			'paymentproductid'	=> 836,
+			'label'	=> 'Sofortuberweisung/DIRECTebanking',
+			'group'	=> 'rtbt',
+			'validation' => array( 'creditCard' => false, ),
+		);
+		 
+		// eps Online-Überweisung
+		$this->transaction_types['rtbt_eps'] = array(
+			'paymentproductid'	=> 856,
+			'label'	=> 'eps Online-Überweisung',
+			'group'	=> 'rtbt',
+			'validation' => array( 'creditCard' => false, ),
+			'issuerids' => array( 
+				824 => 'Bankhaus Spängler',
+				825 => 'Hypo Tirol Bank',
+				822 => 'NÖ HYPO',
+				823 => 'Voralberger HYPO',
+				828 => 'P.S.K.',
+				829 => 'Easy',
+				826 => 'Erste Bank und Sparkassen',
+				827 => 'BAWAG',
+				820 => 'Raifeissen',
+				821 => 'Volksbanken Gruppe',
+				831 => 'Sparda-Bank',
+			)
+		);
+	}
+
+	/**
+	 * Get a transaction group meta
+	 *
+	 * @param	string	$group	Groups contain transaction types
+	 */
+	public function getTransactionGroupMeta( $group ) {
+		
+		if ( isset( $this->transaction_groups[ $group ] ) ) {
+			
+			return $this->transaction_groups[ $group ];
+		}
+		else {
+			$message = 'The transaction group [ ' . $group . ' ] was not found.';
+			throw new Exception( $message );
+		}
+	}
+
+	/**
+	 * Get a transaction type meta
+	 *
+	 * @param	string	$transactionType	Transaction types are mapped to paymentproductid
+	 */
+	public function getTransactionTypeMeta( $transactionType, $options = array() ) {
+		
+		extract( $options );
+		
+		$log = isset( $log ) ? (boolean) $log : false ;
+		
+		if ( isset( $this->transaction_types[ $transactionType ] ) ) {
+			
+			if ( $log ) {
+				$this->log( 'Getting transaction type: ' . ( string ) $transactionType );
+			}
+			
+			// Ensure that the validation index is set.
+			if ( !isset( $this->transaction_types[ $transactionType ]['validation'] ) ) {
+				$this->transaction_types[ $transactionType ]['validation'] = array();
+			}
+			
+			return $this->transaction_types[ $transactionType ];
+		}
+		else {
+			$message = 'The transaction type [ ' . $transactionType . ' ] was not found.';
+			throw new Exception( $message );
+		}
+	}
+	
 	/**
 	 * Take the entire response string, and strip everything we don't care about.
 	 * For instance: If it's XML, we only want correctly-formatted XML. Headers must be killed off. 
@@ -416,12 +523,49 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param string	$type	request|response
 	 *
 	 * @todo
-	 * - This still needs to be deployed. This will alter the paymentproductid. 
+	 * - ISSUERID will need to provide a dropdown for rtbt_ideal and rtbt_ideal.
 	 */
 	protected function stage_transaction_type( $type = 'request' ) {
 		
-		//$this->postdata['transaction_type'] = $this->currentTransaction();
-		//$this->var_map['PAYMENTPRODUCTID'] = 0;
+		$transaction_type = array_key_exists( 'transaction_type', $this->postdata ) ? $this->postdata['transaction_type']: false;
+
+		// These will be grouped and ordred by payment product id
+		switch ( $transaction_type )  {
+			
+			/* Bank transfer */
+			case 'bt':
+				$this->postdata['payment_product'] = 11;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+			
+			/* Real time bank transfer */
+			case 'rtbt_nordea_sweeden':
+				$this->postdata['payment_product'] = 805;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+			
+			case 'rtbt_ideal':
+				$this->postdata['payment_product'] = 809;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				//$this->var_map['ISSUERID'] = 'issuer';
+				break;
+			
+			case 'rtbt_enets':
+				$this->postdata['payment_product'] = 810;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+			
+			case 'rtbt_sofortuberweisung':
+				$this->postdata['payment_product'] = 836;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+			
+			case 'rtbt_eps':
+				$this->postdata['payment_product'] = 856;
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				//$this->var_map['ISSUERID'] = 'issuer';
+				break;
+		}
 	}
 
 	/**
