@@ -58,6 +58,7 @@ class DonationData {
 				'cvv' => $wgRequest->getText( 'cvv' ),
 				'currency' => $wgRequest->getText( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
+				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
 				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
 				'numAttempt' => $wgRequest->getVal( 'numAttempt', 0 ),
@@ -70,7 +71,8 @@ class DonationData {
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
-				'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
+				// test_string has been disabled - may no longer be needed. 
+				//'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'_cache_' => $wgRequest->getText( '_cache_', null ),
 				'token' => $wgRequest->getText( 'token', null ),
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
@@ -79,7 +81,6 @@ class DonationData {
 				'gateway' => $wgRequest->getText( 'gateway' ), //likely to be reset shortly by setGateway();
 				'owa_session' => $wgRequest->getText( 'owa_session', null ),
 				'owa_ref' => $wgRequest->getText( 'owa_ref', null ),
-				'transaction_type' => $wgRequest->getText( 'transaction_type', null ), // Used by GlobalCollect for payment types
 			);
 			if ( !$wgRequest->wasPosted() ) {
 				$this->setVal( 'posted', false );
@@ -150,6 +151,7 @@ class DonationData {
 				'cvv' => '001',
 				'currency' => 'USD',
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
+				'payment_submethod' => $wgRequest->getText( 'payment_submethod' ),
 				'order_id' => '1234567890',
 				'i_order_id' => '1234567890',
 				'numAttempt' => 0,
@@ -161,7 +163,8 @@ class DonationData {
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
-				'test_string' => $wgRequest->getText( 'process' ),
+				// test_string has been disabled - may no longer be needed. 
+				//'test_string' => $wgRequest->getText( 'process' ),
 				'token' => '',
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
@@ -169,7 +172,6 @@ class DonationData {
 				'gateway' => 'payflowpro',
 				'owa_session' => $wgRequest->getText( 'owa_session', null ),
 				'owa_ref' => 'http://localhost/defaultTestData',
-				'transaction_type' => '', // Used by GlobalCollect for payment types
 			);
 		}
 	}
