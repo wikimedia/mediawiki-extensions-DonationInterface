@@ -1225,6 +1225,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	function runPreProcess() {
 		if ( $this->transaction_option( 'do_validation' ) ) {
+			global $wgHooks;
 			if ( !isset( $wgHooks['GatewayValidate'] ) ) {
 				//if there ARE no validate hooks, we're okay.
 				$this->action = 'process';
