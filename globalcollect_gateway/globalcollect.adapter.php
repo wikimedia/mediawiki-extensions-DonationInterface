@@ -70,20 +70,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Define transactions
 	 *
 	 * Please do not add more transactions to this array.
+	 *
 	 * This method should define:
 	 * - INSERT_ORDERWITHPAYMENT: used for payments
 	 * - TEST_CONNECTION: testing connections - is this still valid?
 	 * - GET_ORDERSTATUS
-	 *
-	 * @todo
-	 * - Remove BANK_TRANSFER
-	 *
 	 */
 	public function defineTransactions() {
 
 		// Define the transaction types and groups
-		$this->defineTransactionGroups();
-		$this->defineTransactionTypes();
+		$this->definePaymentMethods();
+		$this->definePaymentSubmethods();
 		
 		$this->transactions = array( );
 
@@ -186,24 +183,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 	
 	/**
-	 * Define transaction groups
-	 *
-	 * At some point, we are going to need methods to get this information to display available forms
-	 *
-	 * @todo
-	 * - This is not in use. This is a map to @see GlobalCollectAdapter::defineTransactionTypes()
-	 *
+	 * Define payment methods
 	 */
-	private function defineTransactionGroups() {
+	protected function definePaymentMethods() {
 		
-		$this->transaction_groups = array();
+		$this->payment_methods = array();
 		
-		$this->transaction_groups['rtbt'] = array(
+		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
 			'types'	=> array( 'rtbt_ideal',  'rtbt_eps',  'rtbt_sofortuberweisung',  'rtbt_nordea_sweeden', 'rtbt_enets', ),
 		);
 		
-		$this->transaction_groups['bt'] = array(
+		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
 			'types'	=> array( 'bt', ),
 			'validation' => array( 'creditCard' => false, )
@@ -212,19 +203,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Define transaction types
+	 * Define payment submethods
 	 *
 	 */
-	private function defineTransactionTypes() {
+	protected function definePaymentSubmethods() {
 		
-		$this->transaction_types = array();
+		$this->payment_submethods = array();
 
 		/*
 		 * Bank transfers
 		 */
 		 
 		// Bank Transfer
-		$this->transaction_types['bt'] = array(
+		$this->payment_submethods['bt'] = array(
 			'paymentproductid'	=> 11,
 			'label'	=> 'Bank Transfer',
 			'group'	=> 'bt',
@@ -236,7 +227,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 */
 		 
 		// Nordea (Sweeden)
-		$this->transaction_types['rtbt_nordea_sweeden'] = array(
+		$this->payment_submethods['rtbt_nordea_sweeden'] = array(
 			'paymentproductid'	=> 805,
 			'label'	=> 'Nordea (Sweeden)',
 			'group'	=> 'rtbt',
@@ -244,7 +235,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		 
 		// Ideal
-		$this->transaction_types['rtbt_ideal'] = array(
+		$this->payment_submethods['rtbt_ideal'] = array(
 			'paymentproductid'	=> 809,
 			'label'	=> 'Ideal',
 			'group'	=> 'rtbt',
@@ -252,7 +243,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		 
 		// eNETS
-		$this->transaction_types['rtbt_enets'] = array(
+		$this->payment_submethods['rtbt_enets'] = array(
 			'paymentproductid'	=> 810,
 			'label'	=> 'eNETS',
 			'group'	=> 'rtbt',
@@ -260,7 +251,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		 
 		// Sofortuberweisung/DIRECTebanking
-		$this->transaction_types['rtbt_sofortuberweisung'] = array(
+		$this->payment_submethods['rtbt_sofortuberweisung'] = array(
 			'paymentproductid'	=> 836,
 			'label'	=> 'Sofortuberweisung/DIRECTebanking',
 			'group'	=> 'rtbt',
@@ -268,7 +259,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		 
 		// eps Online-Überweisung
-		$this->transaction_types['rtbt_eps'] = array(
+		$this->payment_submethods['rtbt_eps'] = array(
 			'paymentproductid'	=> 856,
 			'label'	=> 'eps Online-Überweisung',
 			'group'	=> 'rtbt',
@@ -290,48 +281,48 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Get a transaction group meta
+	 * Get payment method meta
 	 *
-	 * @param	string	$group	Groups contain transaction types
+	 * @param	string	$payment_method	Payment methods contain payment submethods
 	 */
-	public function getTransactionGroupMeta( $group ) {
+	public function getPaymentMethodMeta( $payment_method ) {
 		
-		if ( isset( $this->transaction_groups[ $group ] ) ) {
+		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
 			
-			return $this->transaction_groups[ $group ];
+			return $this->payment_methods[ $payment_method ];
 		}
 		else {
-			$message = 'The transaction group [ ' . $group . ' ] was not found.';
+			$message = 'The payment method [ ' . $payment_method . ' ] was not found.';
 			throw new Exception( $message );
 		}
 	}
 
 	/**
-	 * Get a transaction type meta
+	 * Get payment submethod meta
 	 *
-	 * @param	string	$transactionType	Transaction types are mapped to paymentproductid
+	 * @param	string	$payment_submethod	Payment submethods are mapped to paymentproductid
 	 */
-	public function getTransactionTypeMeta( $transactionType, $options = array() ) {
+	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
 		extract( $options );
 		
 		$log = isset( $log ) ? (boolean) $log : false ;
 		
-		if ( isset( $this->transaction_types[ $transactionType ] ) ) {
+		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
 			
 			if ( $log ) {
-				$this->log( 'Getting transaction type: ' . ( string ) $transactionType );
+				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
 			}
 			
 			// Ensure that the validation index is set.
-			if ( !isset( $this->transaction_types[ $transactionType ]['validation'] ) ) {
-				$this->transaction_types[ $transactionType ]['validation'] = array();
+			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
+				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
 			}
 			
-			return $this->transaction_types[ $transactionType ];
+			return $this->payment_submethods[ $payment_submethod ];
 		}
 		else {
-			$message = 'The transaction type [ ' . $transactionType . ' ] was not found.';
+			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
 			throw new Exception( $message );
 		}
 	}
@@ -406,11 +397,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$transaction = $this->currentTransaction();
 
 		switch ( $transaction ) {
-			case 'BANK_TRANSFER':
-				$data = $this->xmlChildrenToArray( $response, 'ROW' );
-				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
-				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
-				break;
 			case 'INSERT_ORDERWITHPAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
@@ -458,7 +444,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'card_type',
 			//'card_num',
 			'returnto',
-			'transaction_type',
+			'payment_method',
 			'order_id', //This may or may not oughta-be-here...
 		);
 	}
@@ -518,19 +504,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage: transaction_type
+	 * Stage: payment_method
 	 *
 	 * @param string	$type	request|response
 	 *
 	 * @todo
-	 * - ISSUERID will need to provide a dropdown for rtbt_ideal and rtbt_ideal.
+	 * - Need to implement this for credit card if necessary
+	 * - ISSUERID will need to provide a dropdown for rtbt_eps and rtbt_ideal.
 	 */
-	protected function stage_transaction_type( $type = 'request' ) {
+	protected function stage_payment_method( $type = 'request' ) {
 		
-		$transaction_type = array_key_exists( 'transaction_type', $this->postdata ) ? $this->postdata['transaction_type']: false;
+		$payment_method = array_key_exists( 'payment_method', $this->postdata ) ? $this->postdata['payment_method']: false;
+		$payment_submethod = array_key_exists( 'payment_submethod', $this->postdata ) ? $this->postdata['payment_submethod']: false;
 
 		// These will be grouped and ordred by payment product id
-		switch ( $transaction_type )  {
+		switch ( $payment_submethod )  {
 			
 			/* Bank transfer */
 			case 'bt':
@@ -567,7 +555,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 		}
 	}
-
+	
 	/**
 	 * Stage: returnto
 	 *
