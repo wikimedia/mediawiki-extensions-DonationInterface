@@ -15,7 +15,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 	public $cfo;
 
 	public function __construct( &$gateway_adapter, &$custom_filter_object ) {
-		parent::__construct( &$gateway_adapter );
+		parent::__construct( $gateway_adapter );
 		$this->cfo = & $custom_filter_object;
 	}
 
@@ -46,14 +46,14 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onFilter( &$custom_filter_object ) {
+	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
 		$gateway_adapter->debugarray[] = 'referrer onFilter hook!';
-		return self::singleton( $custom_filter_object )->filter();
+		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
-	static function singleton( &$custom_filter_object ) {
+	static function singleton( &$gateway_adapter, &$custom_filter_object ) {
 		if ( !self::$instance ) {
-			self::$instance = new self( $custom_filter_object );
+			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
 		return self::$instance;
 	}
