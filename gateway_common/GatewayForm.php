@@ -1,5 +1,25 @@
 <?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
 
+/**
+ * GatewayForm
+ *
+ */
 class GatewayForm extends UnlistedSpecialPage {
 
 	/**
@@ -26,10 +46,15 @@ class GatewayForm extends UnlistedSpecialPage {
 
 	/**
 	 * An array of form errors
-	 * @var array
+	 * @var array $errors
 	 */
 	public $errors = array( );
-	public $adapter; //the adapter goes here.  
+
+	/**
+	 * The adapter object
+	 * @var object $adapter
+	 */
+	public $adapter;
 
 	/**
 	 * The form is assumed to be successful. Errors in the form must set this to
@@ -39,7 +64,11 @@ class GatewayForm extends UnlistedSpecialPage {
 	 */
 	public $validateFormResult = true;
 
-	function __construct() {
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
 		$me = get_called_class();
 		parent::__construct( $me );
 		$this->errors = $this->getPossibleErrors();
