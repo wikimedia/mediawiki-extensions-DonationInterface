@@ -84,8 +84,12 @@ $( document ).ready( function () {
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) ) {
-			var language = 'en'; // default value
-			var matches = document.location.href.match(/uselang=(\w+)/i);
+			$( '#payment' ).empty();
+			// Load wait spinner
+			$( '#payment' ).append( '<br/><br/><br/><img alt="loading" src="'+mw.config.get( 'wgScriptPath' )+'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
+			showStep3(); // Open the 3rd section
+			var language = 'en'; // default value is English
+			var matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
 			if ( matches[1] ) {
 				language = matches[1];
 			}
@@ -120,9 +124,13 @@ $( document ).ready( function () {
 							alert( value );
 						} );
 					} else {
-						if ( data.result.returnurl ) {
+						if ( data.result.formaction ) {
+							$( '#payment' ).empty();
 							// Insert the iframe into the form
-							showStep3();
+							$( '#payment' ).append( 
+								'<iframe src="'+data.result.formaction+'" width="318" height="300" frameborder="0"></iframe>'
+							);
+							
 						}
 					}
 				}
