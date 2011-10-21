@@ -126,7 +126,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @var array $staged_vars
 	 */
-	protected $staged_vars = array( );
+	protected $staged_vars = array();
 	protected $return_value_map;
 	protected $postdata;
 	protected $postdatadefaults;
@@ -153,7 +153,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @see DonationData
 	 */
-	public function __construct( $options = array( ) ) {
+	public function __construct( $options = array() ) {
 		global $wgRequest;
 
 		// Extract the options
@@ -195,7 +195,7 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Override this in children if you want different defaults. 
 	 */
-	function setPostDefaults( $options = array( ) ) {
+	function setPostDefaults( $options = array() ) {
 
 		// Extract the options
 		if ( is_array( $options ) ) {
@@ -279,7 +279,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * the configured value for Donation Interface if it exists or not. 
 	 */
 	static function getGlobal( $varname ) {
-		static $gotten = array( ); //cache. 
+		static $gotten = array(); //cache. 
 		if ( !array_key_exists( $varname, $gotten ) ) {
 			$globalname = self::getGlobalPrefix() . $varname;
 			global $$globalname;
@@ -349,13 +349,18 @@ abstract class GatewayAdapter implements GatewayType {
 		throw new MWException( $msg );
 	}
 
+	/**
+	 * Build a string of name/value pairs out of our donation data for submission to the payment
+	 * processor.
+	 */
 	function buildRequestNameValueString() {
+		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->transactions[$this->currentTransaction()]['request'];
 		if ( !is_array( $structure ) ) {
 			return '';
 		}
 
-		$queryvals = array( );
+		$queryvals = array();
 
 		//we are going to assume a flat array, because... namevalue. 
 		foreach ( $structure as $fieldname ) {
@@ -369,10 +374,14 @@ abstract class GatewayAdapter implements GatewayType {
 		return $ret;
 	}
 
+	/**
+	 * Build an XML document out of our donation data for submission to the payment processor.
+	 */
 	function buildRequestXML() {
 		$this->xmlDoc = new DomDocument( '1.0' );
 		$node = $this->xmlDoc->createElement( 'XML' );
 
+		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->transactions[$this->currentTransaction()]['request'];
 
 		$this->buildTransactionNodes( $structure, $node );
@@ -622,6 +631,12 @@ abstract class GatewayAdapter implements GatewayType {
 		return $headers;
 	}
 
+	/**
+	 * Get or set the current transaction
+	 *
+	 * @param $transaction string This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
+	 * that maps to a first-level key in the $transactions array.
+	 */
 	protected function currentTransaction( $transaction = '' ) { //get&set in one!
 		static $current_transaction;
 		if ( $transaction != '' ) {
@@ -670,7 +685,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// in case there is a general network issue
 		$i = 1;
 
-		$results = array( );
+		$results = array();
 
 		while ( $i++ <= 3 ) {
 			self::log( $this->postdatadefaults['order_id'] . ' Preparing to send transaction to ' . self::getGatewayName() );
@@ -725,7 +740,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $result;
 	}
 
-	public static function log( $msg, $log_level=LOG_INFO, $log_id_suffix = '' ) {
+	public static function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
 		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
 
 		// if we're not using the syslog facility, use wfDebugLog
@@ -749,7 +764,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$token = strtok( $xml, "\n" );
 		$result = ''; // holds formatted version as it is built
 		$pad = 0; // initial indent
-		$matches = array( ); // returns from preg_matches()
+		$matches = array(); // returns from preg_matches()
 		// scan each line and adjust indent based on opening/closing tags
 		while ( $token !== false ) :
 
@@ -815,7 +830,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * between the $start value, and now.  
 	 */
 	public function getStopwatch( $string, $reset = false ) {
-		static $start = array( );
+		static $start = array();
 		$now = microtime( true );
 
 		if ( empty( $start ) || !array_key_exists( $string, $start ) || $reset === true ) {
@@ -833,7 +848,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param type $vars 
 	 */
 	function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
-		$params = array( );
+		$params = array();
 		if ( self::getGlobal( 'SaveCommStats' ) ) {
 			$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
@@ -856,7 +871,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function xmlChildrenToArray( $xml, $nodename ) {
-		$data = array( );
+		$data = array();
 		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
 			foreach ( $node->childNodes as $childnode ) {
 				if ( trim( $childnode->nodeValue ) != '' ) {
