@@ -44,7 +44,7 @@ class GlobalCollectGateway extends GatewayForm {
 		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
 		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
 
-		$wgOut->allowClickjacking();
+		$wgOut->allowClickjacking(); // so we can embed in an iframe when necessary
 
 		$wgOut->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .

@@ -1103,9 +1103,10 @@ abstract class GatewayAdapter implements GatewayType {
 		// refresh our data
 		$this->postdata = $this->dataObj->getData();
 
-		//update contribution tracking
+		// update contribution tracking
 		$this->dataObj->updateContributionTracking( true );
 
+		// Build the redirect URL. $this->postdata['language'] is escaped by sanitizeInput().
 		$ret = self::getGlobal( "PaypalURL" ) . "/" . $this->postdata['language'] . "?gateway=paypal&" . http_build_query( $this->getPaypalData() );
 		self::log( $ret );
 		return $ret;
@@ -1255,7 +1256,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getFormClass() {
-		if ( isset( $this->form_class ) && class_exists( $this->form_class ) ) {
+		if ( isset( $this->form_class ) && MWInit::classExists( $this->form_class ) ) {
 			return $this->form_class;
 		} else {
 			return false;
