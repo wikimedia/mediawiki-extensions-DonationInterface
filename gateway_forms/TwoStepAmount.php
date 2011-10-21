@@ -26,7 +26,17 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
 		global $wgOut;
 
-		$form_data['transaction_type'] = 'bt';
+		$form_data['payment_method'] = 'bt';
+		$form_data['payment_submethod'] = 'bt';
+		
+		//$form_data['payment_method'] = 'rtbt';
+		//$form_data['payment_submethod'] = 'rtbt_nordea_sweeden';
+		
+		//$form_data['payment_method'] = 'rtbt';
+		//$form_data['payment_submethod'] = 'rtbt_ideal';
+		//$form_data['issuerids'] = array();
+		
+		
 		$form_data['process'] = 'other';
 		parent::__construct( $form_data, $form_errors, $gateway );
 
