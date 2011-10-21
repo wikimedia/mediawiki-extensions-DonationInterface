@@ -53,6 +53,7 @@ class GlobalCollectGateway extends GatewayForm {
 		// Hide unneeded interface elements
 		$wgOut->addModules( 'donationInterface.skinOverride' );
 
+		// Used to add gateway specific error messages.
 		$gateway_id = $this->adapter->getIdentifier();
 
 		$this->addErrorMessageScript();
@@ -87,21 +88,22 @@ EOT;
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
-			if ( $this->adapter->posted && $data['payment_method'] == 'processed' ) {
+			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 
 				/*
-				 * The $transactionType should default to false.
+				 * The $payment_method should default to false.
 				 *
-				 * An invalid $transactionType will cause an error.
+				 * An invalid $payment_method will cause an error.
 				 */
-				$transactionType = ( isset( $data['transaction_type'] ) && !empty( $data['transaction_type'] ) ) ? $data['transaction_type'] : false;
+				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : false;
+				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : false;
 		
-				$transactionTypeMeta = $this->adapter->getTransactionTypeMeta( $transactionType, array( 'log' => true, ) );
+				$payment_submethodMeta = $this->adapter->getPaymentSubmethodMeta( $payment_submethod, array( 'log' => true, ) );
 				
 				// Check form for errors
-				$form_errors = $this->validateForm( $data, $this->errors, $transactionTypeMeta['validation'] );
+				$form_errors = $this->validateForm( $data, $this->errors, $payment_submethodMeta['validation'] );
 
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
@@ -115,9 +117,9 @@ EOT;
 			
 					$this->displayResultsForDebug( $result );
 
-					if ( $transactionType == 'credit' ) {
+					if ( $payment_method == 'credit' ) {
 
-						$this->executeiFrameForCreditCard();
+						$this->executeIframeForCreditCard( $result );
 					}
 
 
@@ -144,9 +146,14 @@ EOT;
 	}
 
 	/**
-	 * Execute execute iFrame for credit card
+	 * Execute iframe for credit card
+	 *
+	 * @param array	$result	The result array from the gateway adapter
+	 *
+	 * @todo
+	 * - this needs to be moved out of @see GlobalCollectGateway and into the adapter.
 	 */
-	public function executeiFrameForCreditCard() {
+	public function executeIframeForCreditCard( $result ) {
 
 		global $wgOut;
 
