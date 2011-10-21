@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Wikimedia Foundation
  *
@@ -109,13 +108,18 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $transactions;
 
 	/**
-	 * $transaction_type will be set in the GatewayForm::execute()
+	 * $transaction_groups will be defined by the adapter.
 	 *
-	 * @var string|false
-	 *
-	 * @see GatewayForm::execute()
+	 * @var	array	$transaction_groups
 	 */
-	protected $transaction_type = false;
+	protected $transaction_groups = array();
+
+	/**
+	 * $transaction_types will be defined by the adapter.
+	 *
+	 * @var	array	$transaction_types
+	 */
+	protected $transaction_types = array();
 
 	/**
 	 * Staged variables. This is affected by the transaction type.
@@ -173,7 +177,6 @@ abstract class GatewayAdapter implements GatewayType {
 		//TODO: Fix this a bit. 
 
 		$this->posted = $wgRequest->wasPosted();
-
 		$this->setPostDefaults( $postDefaults );
 		$this->defineTransactions();
 		$this->defineVarMap();
@@ -182,7 +185,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		//Don't bother setting the transaction type if it's not something. 
 		if ( $this->dataObj->isSomething( 'transaction_type' ) ) {
-			$this->currentTransaction( $this->postdata['transaction_type'] );
+			$this->currentTransaction('INSERT_ORDERWITHPAYMENT');
 		}
 
 		$this->displaydata = $this->postdata;
