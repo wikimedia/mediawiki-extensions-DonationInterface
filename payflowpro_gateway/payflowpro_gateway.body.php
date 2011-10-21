@@ -24,6 +24,8 @@ class PayflowProGateway extends GatewayForm {
 
 		$gateway_id = $this->adapter->getIdentifier();
 
+		$this->addErrorMessageScript();
+		
 		$this->setHeaders();
 
 		/**
