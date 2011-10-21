@@ -469,17 +469,18 @@ abstract class GatewayAdapter implements GatewayType {
 
 			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
 
+			// If the payment processor requires XML, package our data into XML.
 			if ( $this->getCommunicationType() === 'xml' ) {
-				$this->getStopwatch( "buildRequestXML" );
-				$curlme = $this->buildRequestXML();
-				$this->saveCommunicationStats( "buildRequestXML", $transaction );
+				$this->getStopwatch( "buildRequestXML" ); // begin profiling
+				$curlme = $this->buildRequestXML(); // build the XML
+				$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
 			}
 
+			// If the payment processor requires name/value pairs, package our data into name/value pairs.
 			if ( $this->getCommunicationType() === 'namevalue' ) {
-				//buildRequestNameValueString()
-				$this->getStopwatch( "buildRequestNameValueString" );
-				$curlme = $this->buildRequestNameValueString();
-				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction );
+				$this->getStopwatch( "buildRequestNameValueString" ); // begin profiling
+				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
+				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
 			}
 		} catch ( MWException $e ) {
 			self::log( "Malformed gateway definition. Cannot continue: Aborting.", LOG_CRIT );
@@ -488,7 +489,7 @@ abstract class GatewayAdapter implements GatewayType {
 				//TODO: appropriate messages. 
 				'message' => "$transaction : Malformed gateway definition. Cannot continue: Aborting.",
 				'errors' => array(
-					'1000000' => 'Faulty Code! Bad programmer. Bad!' //...please change this.
+					'1000000' => 'Transaction could not be processed due to an internal error.'
 				),
 				'action' => $this->action,
 			);
@@ -777,6 +778,11 @@ abstract class GatewayAdapter implements GatewayType {
 		return $result;
 	}
 
+	/**
+	 * Get the communication type from the gateway class. The communication type is how we need to
+	 * package the donation data before we send it off to the payment processor, for example, 'xml'
+	 * or 'namevalue'.
+	 */
 	static function getCommunicationType() {
 		$c = get_called_class();
 		return $c::COMMUNICATION_TYPE;
