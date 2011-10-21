@@ -108,18 +108,18 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $transactions;
 
 	/**
-	 * $transaction_groups will be defined by the adapter.
+	 * $payment_methods will be defined by the adapter.
 	 *
-	 * @var	array	$transaction_groups
+	 * @var	array	$payment_methods
 	 */
-	protected $transaction_groups = array();
+	protected $payment_methods = array();
 
 	/**
-	 * $transaction_types will be defined by the adapter.
+	 * $payment_submethods will be defined by the adapter.
 	 *
-	 * @var	array	$transaction_types
+	 * @var	array	$payment_submethods
 	 */
-	protected $transaction_types = array();
+	protected $payment_submethods = array();
 
 	/**
 	 * Staged variables. This is affected by the transaction type.
@@ -184,7 +184,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineReturnValueMap();
 
 		//Don't bother setting the transaction type if it's not something. 
-		if ( $this->dataObj->isSomething( 'transaction_type' ) ) {
+		if ( $this->dataObj->isSomething( 'payment_method' ) ) {
 			$this->currentTransaction('INSERT_ORDERWITHPAYMENT');
 		}
 
@@ -292,7 +292,14 @@ abstract class GatewayAdapter implements GatewayType {
 		return $gotten[$varname];
 	}
 
-	function getValue( $gateway_field_name, $token = false ) {
+	/**
+	 * getValue
+	 *
+	 * @todo
+	 * - This is specific to transactions.
+	 * - This method probably needs to be renamed.
+	 */
+	public function getValue( $gateway_field_name, $token = false ) {
 		if ( empty( $this->transactions ) ) {
 			//TODO: These dies should all throw exceptions or something less completely fatal. 
 			$msg = self::getGatewayName() . ': Transactions structure is empty! No transaction can be constructed.';
@@ -652,7 +659,60 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		return $current_transaction;
 	}
-
+	
+	/**
+	 * Define payment methods
+	 *
+	 * Payment methods include:
+	 * - Paypal
+	 * - Credit Card
+	 * - Debit
+	 * - Bank Transfer
+	 * - Real Time Bank Transfer
+	 *
+	 * Not all payment methods are available within an adapter
+	 *
+	 * @return	array	Returns the available payment methods for the specific adapter
+	 */
+	public function getPaymentMethods() {
+		
+		// Define the payment methods if they have not been set yet.
+		if ( empty( $this->payment_methods ) ) {
+			
+			$this->definePaymentMethods();
+		}
+		
+		return $this->payment_methods;
+	}
+	
+	/**
+	 * Define payment methods
+	 *
+	 * @todo
+	 * - this is not implemented in all adapters yet
+	 *
+	 * Payment methods include:
+	 * - Paypal: paypal, recurring paypal
+	 * - Credit Card: Master Card
+	 * - Debit
+	 * - Bank Transfer
+	 * - Real Time Bank Transfer
+	 *
+	 * Not all payment submethods are available within an adapter
+	 *
+	 * @return	array	Returns the available payment submethods for the specific adapter
+	 */
+	public function getPaymentSubmethods() {
+		
+		// Define the payment methods if they have not been set yet.
+		if ( empty( $this->payment_submethods ) ) {
+			
+			$this->definePaymentSubmethods();
+		}
+		
+		return $this->payment_methods;
+	}
+	
 	/**
 	 * Sends a name-value pair string to Payflow gateway
 	 *
