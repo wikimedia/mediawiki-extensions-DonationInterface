@@ -2727,6 +2727,7 @@ $messages['cu'] = array(
  */
 $messages['cy'] = array(
 	'payflowprogateway' => 'Rhoddwch nawr',
+	'globalcollectgateway' => 'Rhoddwch nawr',
 	'payflowpro_gateway-desc' => 'Prosesu cerdyn credyd gyda PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => "Dim ond o'r dudalen rhoi arian y gellir dod at y dudalen hon.",
 	'payflowpro_gateway-paypal-button' => 'Rhoi â PayPal',
@@ -2773,6 +2774,7 @@ $messages['cy'] = array(
 	'payflowpro_gateway-error-msg-state' => 'sir/rhanbarth',
 	'payflowpro_gateway-error-msg-zip' => 'cod post',
 	'payflowpro_gateway-error-msg-country' => 'gwlad',
+	'payflowpro_gateway-error-msg-card_type' => 'math y cerdyn credyd',
 	'payflowpro_gateway-error-msg-card_num' => 'rhif y cerdyn credyd',
 	'payflowpro_gateway-error-msg-expiration' => "dyddiad y daw'r cerdyn credyd i ben",
 	'payflowpro_gateway-error-msg-cvv' => 'y cod diogelwch ar gefn eich cerdyn',
@@ -8800,6 +8802,7 @@ $messages['mk'] = array(
 
 /** Malayalam (മലയാളം)
  * @author Praveenp
+ * @author Vssun
  */
 $messages['ml'] = array(
 	'payflowprogateway' => 'ഇപ്പോൾ തന്നെ സംഭാവന നൽകുക',
@@ -8862,7 +8865,7 @@ $messages['ml'] = array(
 	'payflowpro_gateway-error-msg-captcha-please' => 'താങ്കൾ ഒരു ബോട്ട് അല്ല എന്നു തെളിയിക്കാൻ ദയവായി കാപ്ച ഫോം പൂരിപ്പിച്ചു നൽകുക.',
 	'payflowpro_gateway-response-0' => 'താങ്കളുടെ ഇടപാട് അംഗീകരിക്കപ്പെട്ടിരിക്കുന്നു.
 താങ്കളുടെ സംഭാവനയ്ക്ക് നന്ദി!',
-	'payflowpro_gateway-response-126' => 'താങ്കളുടെ ഇടപാടിനുള്ള അംഗീകരണം പരിശോധിക്കുന്നു.',
+	'payflowpro_gateway-response-126' => 'താങ്കളുടെ ഇടപാടിനുള്ള അംഗീകാരം അനിശ്ചിതത്വത്തിലാണ്.',
 	'payflowpro_gateway-response-126-2' => 'താങ്കൾ നൽകിയ ചില വിവരങ്ങൾ താങ്കളുടെ ക്രെഡിറ്റ് കാർഡിലെ വിവരങ്ങളുമായി ഒത്തുപോകുന്നില്ല, അല്ലെങ്കിൽ താങ്കൾ വളരെ വലിയൊരു സംഭാവനയാണ് ചെയ്തിരിക്കുന്നത്. താങ്കളുടെ സുരക്ഷയ്ക്കായി, താങ്കളുടെ സംഭാവന പരിശോധിച്ചുകൊണ്ടിരിക്കുന്നു, താങ്കളുടെ സംഭാവന സ്വീകരിക്കാൻ സാധിക്കുകയില്ലെങ്കിൽ താങ്കൾ നൽകിയ ഇമെയിൽ വിലാസം വഴി താങ്കളെ അക്കാര്യം അറിയിക്കുന്നതാണ്. താങ്കൾക്കെന്തെങ്കിലും ചോദിക്കാനുണ്ടെങ്കിൽ ദയവായി <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> എന്ന വിലാസത്തിൽ ചോദിക്കുക. നന്ദി!',
 	'payflowpro_gateway-response-12' => 'ദയവായി കൂടുതൽ വിവരങ്ങൾക്കായി താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് കമ്പനിയുമായി ബന്ധപ്പെടുക.',
 	'payflowpro_gateway-response-13' => 'ഈ ഇടപാടിനു താങ്കളുടെ ശബ്ദത്തിലുള്ള സാധൂകരണമാവശ്യമാണ്.
@@ -9019,6 +9022,7 @@ $messages['ml'] = array(
  */
 $messages['ms'] = array(
 	'payflowprogateway' => 'Derma sekarang',
+	'globalcollectgateway' => 'Derma sekarang',
 	'payflowpro_gateway-desc' => 'Kad kredit anda sedang diproses melalui PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Laman ini hanya akan dipaparkan melalui laman sumbangan',
 	'payflowpro_gateway-paypal-button' => 'Derma melalui PayPal',
@@ -9065,6 +9069,7 @@ $messages['ms'] = array(
 	'payflowpro_gateway-error-msg-state' => 'negeri',
 	'payflowpro_gateway-error-msg-zip' => 'poskod',
 	'payflowpro_gateway-error-msg-country' => 'negara',
+	'payflowpro_gateway-error-msg-card_type' => 'jenis kad kredit',
 	'payflowpro_gateway-error-msg-card_num' => 'nombor kad kredit',
 	'payflowpro_gateway-error-msg-expiration' => 'tarikh luput kad',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV pada belakang kad anda',
@@ -12897,6 +12902,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
  */
 $messages['sw'] = array(
 	'payflowprogateway' => 'Changia sasa',
+	'globalcollectgateway' => 'Changia sasa',
 	'payflowpro_gateway-desc' => 'Kutekeleza malipo ya kadi ya malipo kwa kupitia PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Ukarasa huu unapatikana katika ukurasa wa mchango tu.',
 	'payflowpro_gateway-paypal-button' => 'Changia kwa kupitia Paypal',
@@ -12943,6 +12949,7 @@ $messages['sw'] = array(
 	'payflowpro_gateway-error-msg-state' => 'jimbo',
 	'payflowpro_gateway-error-msg-zip' => 'simbo',
 	'payflowpro_gateway-error-msg-country' => 'nchi',
+	'payflowpro_gateway-error-msg-card_type' => 'aina ya kadi ya mkopo',
 	'payflowpro_gateway-error-msg-card_num' => 'namba ya kadi ya malipo',
 	'payflowpro_gateway-error-msg-expiration' => 'tarehe ya kadi kwisha',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV (kodi ya usalama) iliyopo nyuma ya kadi yako',

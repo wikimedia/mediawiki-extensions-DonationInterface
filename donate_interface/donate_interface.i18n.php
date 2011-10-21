@@ -1861,17 +1861,18 @@ $messages['mk'] = array(
 
 /** Malayalam (മലയാളം)
  * @author Praveenp
+ * @author Vssun
  */
 $messages['ml'] = array(
 	'donate_interface' => 'വിക്കിമീഡിയയ്ക്ക് പിന്തുണയേകുക',
-	'donate_interface-desc' => 'ഗേറ്റ്‌വേ അനുബന്ധങ്ങളുമായി ചേർന്ന് പ്രവർത്തിക്കുന്ന സംഭാവനാ പ്രധാന താൾ',
+	'donate_interface-desc' => 'ഗേറ്റ്‌വേ അനുബന്ധങ്ങളുമായി ചേർന്ന് പ്രവർത്തിക്കുന്ന സംഭാവനക്കുള്ള പ്രധാന താൾ',
 	'donate_interface-intro' => 'ദയവായി താങ്കളുടെ പണമടയ്ക്കൽ രീതി, തുക, നാണയം എന്നിവ തിരഞ്ഞെടുക്കുക.',
 	'donate_interface-amount' => 'സംഭാവന ചെയ്യുന്ന തുക:',
 	'donate_interface-other-amount' => 'മറ്റ് തുക:',
 	'donate_interface-currency' => 'നാണയം:',
 	'donate_interface-gateway' => 'പണമടയ്ക്കൽ രീതി:',
 	'donate_interface-submit-button' => 'സംഭാവന ചെയ്യുക',
-	'donate_interface-comment-message' => 'ലോകവുമായി പങ്കുവെയ്ക്കാൻ ഒരു ചിന്ത താങ്കൾക്കുണ്ടോ? 200 അക്ഷരങ്ങളിൽ കവിയാതെ ഇവിടെ ചേർക്കുക:',
+	'donate_interface-comment-message' => 'ലോകരുമായി പങ്കുവെയ്ക്കാൻ ഒരു ചിന്ത താങ്കൾക്കുണ്ടോ? 200 അക്ഷരങ്ങളിൽ കവിയാതെ ഇവിടെ ചേർക്കുക:',
 	'donate_interface-comment-label' => 'അഭിപ്രായം:',
 	'donate_interface-anon-message' => 'എന്റെ പേര് (എന്റെ അഭിപ്രായത്തിനു സമീപത്തായി) പൊതു സംഭാവകരുടെ പട്ടികയിൽ ദയവായി ചേർക്കുക.',
 	'donate_interface-email-agreement' => 'വിക്കിമീഡിയ ഫൗണ്ടേഷൻ ഇടയ്ക്കിടയ്ക്ക് ഇമെയിൽ ആയി പ്രസിദ്ധീകരിക്കുന്ന പുതിയ വിശേഷങ്ങൾ സ്വീകരിക്കാൻ ഞാനാഗ്രഹിക്കുന്നു.',
