@@ -334,10 +334,10 @@ class GatewayForm extends UnlistedSpecialPage {
 
 			// make sure our form class exists before going on, if not try loading default form class
 			$class_name = "Gateway_Form_" . $form_class;
-			if ( !MWInit::classExists( $class_name ) ) {
+			if ( !class_exists( $class_name ) ) {
 				$class_name_orig = $class_name;
 				$class_name = "Gateway_Form_" . $defaultForm;
-				if ( !MWInit::classExists( $class_name ) ) {
+				if ( !class_exists( $class_name ) ) {
 					throw new MWException( 'Could not load form ' . $class_name_orig . ' nor default form ' . $class_name );
 				}
 			}

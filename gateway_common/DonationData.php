@@ -711,7 +711,7 @@ class DonationData {
 	}
 	
 	function getAdapterClass(){
-		if ( MWInit::classExists( $this->boss ) ) {
+		if ( class_exists( $this->boss ) ) {
 			return $this->boss;
 		} else {
 			return false;
