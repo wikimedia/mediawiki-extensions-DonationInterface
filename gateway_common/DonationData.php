@@ -25,7 +25,7 @@ class DonationData {
 			$this->populateData_Test( $testdata );
 		} else {
 			$this->normalized = array(
-				'posted' => 'true', //moderately sneaky. 
+				'posted' => 'true', //moderately sneaky.
 				'amount' => $wgRequest->getText( 'amount', null ),
 				'amountGiven' => $wgRequest->getText( 'amountGiven', null ),
 				'amountOther' => $wgRequest->getText( 'amountOther', null ),
@@ -71,7 +71,7 @@ class DonationData {
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
-				// test_string has been disabled - may no longer be needed. 
+				// test_string has been disabled - may no longer be needed.
 				//'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'_cache_' => $wgRequest->getText( '_cache_', null ),
 				'token' => $wgRequest->getText( 'token', null ),
@@ -163,7 +163,7 @@ class DonationData {
 				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'comment' => $wgRequest->getText( 'comment' ),
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
-				// test_string has been disabled - may no longer be needed. 
+				// test_string has been disabled - may no longer be needed.
 				//'test_string' => $wgRequest->getText( 'process' ),
 				'token' => '',
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
@@ -228,17 +228,17 @@ class DonationData {
 	}
 
 	function setOwaRefId() {
-		//Our data should already be pulled and whatever. 
+		//Our data should already be pulled and whatever.
 		if ( $this->isSomething( 'owa_ref' ) && !is_numeric( $this->normalized['owa_ref'] ) ) {
 			$owa_ref = $this->get_owa_ref_id( $owa_ref );
 		}
 	}
 
 	function setNormalizedOrderIDs() {
-		//basically, we need a new order_id every time we come through here, but if there's an internal already there, 
-		//we want to use that one internally. So. 
-		//Exception: If we pass in an order ID in the querystring: Don't mess with it. 
-		//TODO: I'm pretty sure I'm not supposed to do this directly. 
+		//basically, we need a new order_id every time we come through here, but if there's an internal already there,
+		//we want to use that one internally. So.
+		//Exception: If we pass in an order ID in the querystring: Don't mess with it.
+		//TODO: I'm pretty sure I'm not supposed to do this directly.
 		if ( array_key_exists( 'order_id', $_GET ) ) {
 			$this->setVal( 'order_id', $_GET['order_id'] );
 			$this->setVal( 'i_order_id', $_GET['order_id'] );
@@ -252,7 +252,7 @@ class DonationData {
 	}
 
 	/**
-	 * Generate an order id exactly once for this go-round. 
+	 * Generate an order id exactly once for this go-round.
 	 */
 	function generateOrderId() {
 		static $order_id = null;
@@ -264,9 +264,9 @@ class DonationData {
 
 	/**
 	 * Sanitize user input
-	 * 
+	 *
 	 * Intended to be used with something like array_walk
-	 * 
+	 *
 	 * @param $value The value of the array
 	 * @param $key The key of the array
 	 * @param $flags The flag constant for htmlspecialchars
@@ -282,7 +282,7 @@ class DonationData {
 			$c::log( $message, $log_level );
 		}
 	}
-	
+
 	function getGatewayIdentifier() {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
@@ -291,7 +291,7 @@ class DonationData {
 			return 'DonationData';
 		}
 	}
-	
+
 	function getGatewayGlobal( $varname ) {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
@@ -308,13 +308,11 @@ class DonationData {
 	}
 
 	function doCacheStuff() {
-		//TODO: Wow, name.  
-		global $wgRequest;
-
+		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $this->isSomething( '_cache_' ) ) {
 			self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Cache requested', LOG_DEBUG );
-			$this->cache = true; //TODO: If we don't need this, kill it in the face. 
+			$this->cache = true; //TODO: If we don't need this, kill it in the face.
 			$this->setVal( 'token', 'cache' );
 
 			// if we have squid caching enabled, set the maxage
@@ -326,12 +324,12 @@ class DonationData {
 				$wgOut->setSquidMaxage( $maxAge );
 			}
 		} else {
-			$this->cache = false; //TODO: Kill this one in the face, too. (see above) 
+			$this->cache = false; //TODO: Kill this one in the face, too. (see above)
 		}
 	}
 
 	function getAnnoyingOrderIDLogLinePrefix() {
-		//TODO: ...aww. But it's so descriptive. 
+		//TODO: ...aww. But it's so descriptive.
 		return $this->getVal( 'order_id' ) . ' ' . $this->getVal( 'i_order_id' ) . ': ';
 	}
 
@@ -403,7 +401,7 @@ class DonationData {
 	 */
 	function unsetEditToken() {
 		$gateway_ident = $this->gatewayID;
-		
+
 		if ( isset( $_SESSION ) && isset( $_SESSION[$gateway_ident . 'EditToken'] ) ){
 			unset( $_SESSION[$gateway_ident . 'EditToken'] );
 		}
@@ -440,7 +438,7 @@ class DonationData {
 			$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' editToken: ' . $token, LOG_DEBUG );
 
 			// match token
-			$token_check = ( $this->isSomething( 'token' ) ) ? $this->getVal( 'token' ) : $token; //TODO: does this suck as much as it looks like it does? 
+			$token_check = ( $this->isSomething( 'token' ) ) ? $this->getVal( 'token' ) : $token; //TODO: does this suck as much as it looks like it does?
 			$match = $this->matchEditToken( $token_check, $salt );
 			if ( $wgRequest->wasPosted() ) {
 				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Submitted edit token: ' . $this->getVal( 'token' ), LOG_DEBUG );
@@ -522,8 +520,8 @@ class DonationData {
 	 * because the form elements for comment anonymization and email opt-out
 	 * are backwards (they are really opt-in) relative to contribution_tracking
 	 * (which is opt-out), we need to reverse the values.
-	 * NOTE: If you prune here, and there is a paypal redirect, you will have 
-	 * problems with the email-opt/optout and comment-option/anonymous. 
+	 * NOTE: If you prune here, and there is a paypal redirect, you will have
+	 * problems with the email-opt/optout and comment-option/anonymous.
 	 */
 	function setNormalizedOptOuts( $prune = false ) {
 		$optout['optout'] = ( $this->isSomething( 'email-opt' ) && $this->getVal( 'email-opt' ) == "1" ) ? '0' : '1';
@@ -543,7 +541,7 @@ class DonationData {
 	 * Compares tracking data array to list of valid tracking fields and
 	 * removes any extra tracking fields/data.  Also sets empty values to
 	 * 'null' values.
-	 * @param bool $clean_opouts 
+	 * @param bool $clean_opouts
 	 */
 	public function getCleanTrackingData() {
 
@@ -572,7 +570,7 @@ class DonationData {
 	}
 
 	//if ( !empty($data) && ( $data[ 'numAttempt' ] == '0' && ( !$wgRequest->getText( 'utm_source_id', false ) || $wgRequest->getText( '_nocache_' ) == 'true' ) ) ) {
-	//so, basically, if this is the first attempt. This seems to get called nowhere else. 
+	//so, basically, if this is the first attempt. This seems to get called nowhere else.
 	function saveContributionTracking() {
 
 		$tracked_contribution = $this->getCleanTrackingData();
@@ -620,9 +618,9 @@ class DonationData {
 	 * @param array $data Form data
 	 * @param bool $force If set to true, will ensure that contribution tracking is updated
 	 */
-	//Looks like two places: Either right before a paypal redirect (if that's still a thing) or 
-	//just prior to curling something up to some server somewhere. 
-	//I took care of the one just prior to curling. 
+	//Looks like two places: Either right before a paypal redirect (if that's still a thing) or
+	//just prior to curling something up to some server somewhere.
+	//I took care of the one just prior to curling.
 	public function updateContributionTracking( $force = false ) {
 		// ony update contrib tracking if we're coming from a single-step landing page
 		// which we know with cc# in utm_source or if force=true or if contribution_tracking_id is not set
@@ -678,9 +676,9 @@ class DonationData {
 	}
 
 	/**
-	 * TODO: Consider putting all the session data for a gateway under something like 
+	 * TODO: Consider putting all the session data for a gateway under something like
 	 * $_SESSION[$gateway_identifier]
-	 * so we can kill it all with one stroke. 
+	 * so we can kill it all with one stroke.
 	 */
 	public function unsetAllDDSessionData() {
 		unset( $_SESSION['Donor'] );
@@ -709,7 +707,7 @@ class DonationData {
 			}
 		}
 	}
-	
+
 	function getAdapterClass(){
 		if ( class_exists( $this->boss ) ) {
 			return $this->boss;

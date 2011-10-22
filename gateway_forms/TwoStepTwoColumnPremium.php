@@ -13,7 +13,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest, $wgScriptPath;
+		global $wgRequest, $wgScriptPath;
 
 		$form = parent::generateBannerHeader();
 
@@ -143,7 +143,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 
 		// country
 		$form .= $this->getCountryField( $this->form_data[ 'country2' ] );
-		
+
 		/*
 		$form .= '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg"></span></td>';
@@ -151,7 +151,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		$form .= '<tr>';
 		$form .= '<td colspan="2"><label for="shipping"><input id="shipping" name="shipping" type="checkbox" checked="checked"/> '.wfMsg( 'payflowpro_gateway-shipping-address-same' ).'</label></td>';
 	    $form .= '</tr>';
-		
+
 		$form .= '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country2'] . '</span></td>';
 		$form .= '</tr>';
@@ -174,7 +174,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		foreach ( $hidden_fields as $field => $value ) {
 			$form .= Html::hidden( $field, $value );
 		}
-		
+
 		// Temporary
 		$form .= Html::hidden( 'country2', $this->form_data[ 'country2' ] );
 

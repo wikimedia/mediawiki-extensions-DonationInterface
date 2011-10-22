@@ -3,8 +3,6 @@
 class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
-		global $wgOut;
-
 		parent::__construct( $form_data, $form_errors, $gateway );
 		// load validation and placeholder JS
 		$this->loadValidateJs();

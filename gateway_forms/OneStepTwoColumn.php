@@ -4,8 +4,6 @@ class Gateway_Form_OneStepTwoColumn extends Gateway_Form {
 	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
-		global $wgOut;
-
 		parent::__construct( $form_data, $form_errors, $gateway );
 
 		// update the list of hidden fields we need to use in this form.
@@ -18,7 +16,7 @@ class Gateway_Form_OneStepTwoColumn extends Gateway_Form {
 
 		$this->loadPlaceholders();
 	}
-	
+
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
@@ -55,14 +53,14 @@ function formCheck( ccform ) {
 		i,
 		output = '',
 		currField = '';
-		
+
 	var doCheck = true;
 	if( typeof( document.payment.PaypalRedirect.value ) !== 'undefined' ) {
 		if( document.payment.PaypalRedirect.value == 1 ) {
 			doCheck = false;
 		}
 	}
-	
+
 	if( doCheck ) {
 		for( i = 0; i < numFields; i++ ) {
 			if( document.getElementById( fields[i] ).value == '' ) {
@@ -70,23 +68,23 @@ function formCheck( ccform ) {
 				output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
 			}
 		}
-		
+
 		if (document.getElementById('fname').value == '$first') {
 			output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
 		}
 		if (document.getElementById('lname').value == '$last') {
 			output += payflowproGatewayErrorMsgJs + ' last name.\\r\\n';
 		}
-	
+
 		// validate email address
 		var apos = document.payment.emailAdd.value.indexOf("@");
 		var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
-	
+
 		if( apos < 1 || dotpos-apos < 2 ) {
 			output += payflowproGatewayErrorMsgEmail;
 		}
 	}
-	
+
 	if( output ) {
 		alert( output );
 		return false;

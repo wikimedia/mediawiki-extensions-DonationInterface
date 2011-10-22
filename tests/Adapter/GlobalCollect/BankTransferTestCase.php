@@ -24,7 +24,7 @@
 require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
 
 /**
- * 
+ *
  * @group Fundraising
  * @group Gateways
  * @group DonationInterface
@@ -62,7 +62,7 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 				IBAN
 				CountryDescription
 				Notes
-			We do not need to have donor information stored on our side yet as long as it is sent to Global Collect 
+			We do not need to have donor information stored on our side yet as long as it is sent to Global Collect
 	*/
 
 	/**
@@ -80,12 +80,11 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 	public function testbuildRequestXML() {
 
 		global $wgGlobalCollectGatewayTest;
-		global $wgRequest;
-		
+
 		$wgGlobalCollectGatewayTest = true;
 
 		$_SERVER = array();
-		
+
 		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
@@ -93,17 +92,17 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 
 
 		$options = array();
-		
+
 		$options['test'] = true;
 		$transactionType = 'BANK_TRANSFER';
-		
+
 		$amount = 350;
-		
+
 		$options['postDefaults'] = array(
 			'returnTitle'	=> true,
 			'returnTo'		=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult',
 		);
-		
+
 		$options['testData'] = array(
 			'amount' => $amount,
 			'transaction_type' => $transactionType,
@@ -139,15 +138,15 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 			'owa_ref' => 'http://localhost/defaultTestData',
 			'transaction_type' => '', // Used by GlobalCollect for payment types
 		);
-		
+
 		$gateway = new GlobalCollectAdapter( $options );
 
 		$result = $gateway->do_transaction( $transactionType );
-		
+
 		$request = trim( $gateway->buildRequestXML() );
-		
+
 		$orderId = $gateway->getData( 'order_id' );
-		
+
 		$expected  = '<?xml version="1.0"?>' . "\n";
 		$expected .= '<XML><REQUEST><ACTION>INSERT_ORDERWITHPAYMENT</ACTION><META><MERCHANTID>6570</MERCHANTID><VERSION>1.0</VERSION></META><PARAMS><ORDER><ORDERID>' . $orderId . '</ORDERID><AMOUNT>' . $amount * 100 . '</AMOUNT><CURRENCYCODE>EUR</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>ES</COUNTRYCODE><MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE></ORDER><PAYMENT><PAYMENTPRODUCTID>11</PAYMENTPRODUCTID><AMOUNT>35000</AMOUNT><CURRENCYCODE>EUR</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>ES</COUNTRYCODE><HOSTEDINDICATOR>1</HOSTEDINDICATOR><RETURNURL>http://wikimedia-fundraising-1.17.localhost.wikimedia.org/index.php/Special:GlobalCollectGatewayResult?order_id=' . $orderId . '</RETURNURL><FIRSTNAME>Testy</FIRSTNAME><SURNAME>Testerton</SURNAME><STREET>123 Happy Street</STREET><CITY>Barcelona</CITY><STATE>XX</STATE><EMAIL>jpostlethwaite@wikimedia.org</EMAIL></PAYMENT></PARAMS></REQUEST></XML>';
 		//$expected .= '<XML><REQUEST><ACTION>Donate</ACTION><ACCOUNT><MERCHANTID>128</MERCHANTID><PASSWORD>k4ftw</PASSWORD><VERSION>3.2</VERSION><RETURNURL>http://' . TESTS_HOSTNAME . '/index.php/Donate-thanks/en</RETURNURL></ACCOUNT><DONATION><DONOR>Tester Testington</DONOR><AMOUNT>35000</AMOUNT><CURRENCYCODE>USD</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>US</COUNTRYCODE></DONATION></REQUEST></XML>' . "\n";
@@ -181,29 +180,28 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 		$this->markTestIncomplete( TESTS_MESSAGE_NOT_IMPLEMENTED );
 
 		global $wgGlobalCollectGatewayTest;
-		global $wgRequest;
-		
+
 		$wgGlobalCollectGatewayTest = true;
 
 		$_SERVER = array();
-		
+
 		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
 
 		$options = array();
-		
+
 		$options['test'] = true;
 		$transactionType = 'BANK_TRANSFER';
-		
+
 		$options['postDefaults'] = array(
 			'returnTitle'	=> true,
 			'returnTo'		=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult',
 		);
 
 		$amount = 350;
-		
+
 		$options['testData'] = array(
 			'amount' => $amount,
 			'transaction_type' => $transactionType,
@@ -239,10 +237,10 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 			'owa_ref' => 'http://localhost/defaultTestData',
 			'transaction_type' => '', // Used by GlobalCollect for payment types
 		);
-		
+
 		$gateway = new GlobalCollectAdapter( $options );
 		$result = $gateway->do_transaction( $transactionType );
-	
+
 		$this->assertTrue( $result );
 	}
 }

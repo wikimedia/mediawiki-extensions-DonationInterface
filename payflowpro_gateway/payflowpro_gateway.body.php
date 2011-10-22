@@ -7,7 +7,7 @@ class PayflowProGateway extends GatewayForm {
 	 */
 	public function __construct() {
 		$this->adapter = new PayflowProAdapter();
-		parent::__construct(); //the next layer up will know who we are. 
+		parent::__construct(); //the next layer up will know who we are.
 	}
 
 	/**
@@ -16,8 +16,7 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
-		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
+		global $wgRequest, $wgOut;
 
 		// Hide unneeded interface elements
 		$wgOut->addModules( 'donationInterface.skinOverride' );
@@ -25,7 +24,7 @@ class PayflowProGateway extends GatewayForm {
 		$gateway_id = $this->adapter->getIdentifier();
 
 		$this->addErrorMessageScript();
-		
+
 		$this->setHeaders();
 
 		/**
@@ -38,8 +37,8 @@ class PayflowProGateway extends GatewayForm {
 			$this->paypalRedirect();
 			return;
 		}
-		//TODO: This is short-circuiting what I really want to do here. 
-		//so stop it. 
+		//TODO: This is short-circuiting what I really want to do here.
+		//so stop it.
 		$data = $this->adapter->getDisplayData();
 
 		// dispatch forms/handling
@@ -179,8 +178,8 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $responseMsg String: message supplied by getResults function
 	 */
 	function fnPayflowDisplayOtherResults( $responseMsg ) {
-		//I have collapsed it like this because the contents were identical. 
-		//TODO: Determine if we need to be switching on anything else in the display here. 
+		//I have collapsed it like this because the contents were identical.
+		//TODO: Determine if we need to be switching on anything else in the display here.
 		$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 	}
 
@@ -195,8 +194,8 @@ class PayflowProGateway extends GatewayForm {
 	}
 
 	//TODO: Remember why the heck I decided to leave this here...
-	//arguably, it's because it's slightly more "view" related, but... still, shouldn't you get stashed 
-	//in the new GatewayForm class so we can override in children if we feel like it? Odd. 
+	//arguably, it's because it's slightly more "view" related, but... still, shouldn't you get stashed
+	//in the new GatewayForm class so we can override in children if we feel like it? Odd.
 	function addErrorMessageScript() {
 		global $wgOut;
 		$gateway_id = $this->adapter->getIdentifier();

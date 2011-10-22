@@ -19,8 +19,8 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 	public function __construct( &$gateway_adapter ) {
 		parent::__construct( $gateway_adapter );
 
-		//stash all the vars that reCaptcha is going to need in a global just for it. 
-		//I know this is vaguely unpleasant, but it's the quickest way back to zero. 
+		//stash all the vars that reCaptcha is going to need in a global just for it.
+		//I know this is vaguely unpleasant, but it's the quickest way back to zero.
 		global $wgReCaptchaConfData;
 		$wgReCaptchaConfData['UseHTTPProxy'] = $this->gateway_adapter->getGlobal( 'RecaptchaUseHTTPProxy' );
 		$wgReCaptchaConfData['HTTPProxy'] = $this->gateway_adapter->getGlobal( 'RecaptchaHTTPProxy' );
@@ -74,12 +74,12 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 		// load up the form class
 		$form_class = $this->gateway_adapter->getFormClass();
 
-		//hmm. Looking at this now, makes me want to say 
+		//hmm. Looking at this now, makes me want to say
 		//TODO: Refactor the Form Class constructors. Again. Because the next three lines of code anger me deeply.
-		//#1 - all three things are clearly in the gateway adapter, and we're passing that already. 
-		//#2 - I have to stuff them in variables because Form wants parameters by reference. 
+		//#1 - all three things are clearly in the gateway adapter, and we're passing that already.
+		//#2 - I have to stuff them in variables because Form wants parameters by reference.
 		$data = $this->gateway_adapter->getData();
-		$erros = $this->gateway_adapter->getValidationErrors();
+		$errors = $this->gateway_adapter->getValidationErrors();
 		$form_obj = new $form_class( $data, $errors, $this->gateway_adapter );
 
 		// set the captcha HTML to use in the form

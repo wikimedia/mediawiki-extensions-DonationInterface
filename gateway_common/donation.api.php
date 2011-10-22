@@ -7,12 +7,10 @@
 class DonationApi extends ApiBase {
 	var $donationData, $gateway;
 	public function execute() {
-		global $wgRequest, $wgParser;
-		
 		$this->donationData = $this->extractRequestParams();
-		
+
 		$this->gateway = $this->donationData['gateway'];
-		
+
 		// If you want to test with fake data, pass a 'test' param set to true.
 		// You still have to set the gateway you are testing though.
 		// It looks like this only works if the Test global variable for that gateway is true.
@@ -21,9 +19,9 @@ class DonationApi extends ApiBase {
 		} else {
 			// If we need to do any local data munging do it here.
 		}
-		
+
 		$method = $this->donationData['payment_method'];
-		
+
 		if ( $this->gateway == 'payflowpro' ) {
 			$gatewayObj = new PayflowProAdapter();
 			switch ( $method ) {
@@ -44,12 +42,12 @@ class DonationApi extends ApiBase {
 		} else {
 			$this->dieUsage( "Invalid gateway <<<$gateway>>> passed to Donation API.", 'unknown_gateway' );
 		}
-		
+
 		//$normalizedData = $gatewayObj->getData();
 		$outputResult = array();
 		$outputResult['message'] = $result['message'];
 		$outputResult['status'] = $result['status'];
-		
+
 		if ( array_key_exists( 'data', $result ) ) {
 			if ( array_key_exists( 'PAYMENT', $result['data'] )
 				&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
@@ -66,12 +64,12 @@ class DonationApi extends ApiBase {
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
 		}
-	
+
 		if ( $this->donationData ) {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
-		
+
 		/*
 		$this->getResult()->setIndexedTagName( $result, 'response' );
 		$this->getResult()->addValue( 'data', 'result', $result );
@@ -101,7 +99,7 @@ class DonationApi extends ApiBase {
 			'language' => $this->defineParam( false  ),
 		);
 	}
-	
+
 	private function defineParam( $required = false, $type = 'string' ) {
 		if ( $required ) {
 			$param = array( ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true );
@@ -110,7 +108,7 @@ class DonationApi extends ApiBase {
 		}
 		return $param;
 	}
-	
+
 	private function populateTestData() {
 		$this->donationData = array(
 			'gateway' => $this->gateway,

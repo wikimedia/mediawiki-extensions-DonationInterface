@@ -72,7 +72,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		$me = get_called_class();
 		parent::__construct( $me );
 		$this->errors = $this->getPossibleErrors();
-		$this->setFormClass(); 
+		$this->setFormClass();
 	}
 
 	/**
@@ -84,7 +84,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * @param array	$error	Reference to the error messages of the form
 	 * @param array	$options
 	 *   OPTIONAL - You may require certain field groups to be validated
-	 *   - address - Validates: street, city, state, zip 
+	 *   - address - Validates: street, city, state, zip
 	 *   - amount - Validates: amount
 	 *   - creditCard - Validates: card_num, cvv, expiration and sets the card
 	 *   - email - Validates: email
@@ -313,7 +313,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function displayForm( &$data, &$error ) {
-		global $wgOut, $wgRequest;
+		global $wgOut;
 
 		$form_class = $this->getFormClass();
 		$form_obj = new $form_class( $data, $error, $this->adapter );
@@ -344,7 +344,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		}
 		$this->form_class = $class_name;
 
-		//this should... maybe replace the other thing? I need it in the adapter so reCaptcha can get to it. 
+		//this should... maybe replace the other thing? I need it in the adapter so reCaptcha can get to it.
 		$this->adapter->setFormClass( $class_name );
 	}
 
@@ -436,17 +436,17 @@ class GatewayForm extends UnlistedSpecialPage {
 
 	/**
 	 * Convert an amount for a particular currency to an amount in USD
-	 * 
+	 *
 	 * This is grosley rudimentary and likely wildly inaccurate.
 	 * This mimicks the hard-coded values used by the WMF to convert currencies
 	 * for validatoin on the front-end on the first step landing pages of their
 	 * donation process - the idea being that we can get a close approximation
 	 * of converted currencies to ensure that contributors are not going above
 	 * or below the price ceiling/floor, even if they are using a non-US currency.
-	 * 
+	 *
 	 * In reality, this probably ought to use some sort of webservice to get real-time
 	 * conversion rates.
-	 *  
+	 *
 	 * @param $currency_code
 	 * @param $amount
 	 * @return unknown_type

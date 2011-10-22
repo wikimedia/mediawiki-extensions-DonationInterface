@@ -11,7 +11,7 @@ class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn
 		$this->loadvalidateJs();
 		parent::__construct( $form_data, $form_errors, $gateway );
 	}
-	
+
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
@@ -68,7 +68,7 @@ window.formCheck = function( ccform ) {
 			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
 		}
 	}
-	
+
 	if (document.getElementById('fname').value == '$first') {
 		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
 	}
@@ -84,7 +84,7 @@ window.formCheck = function( ccform ) {
 	if (document.getElementById('zip').value == '$zip') {
 		output += payflowproGatewayErrorMsgJs + ' zip code.\\r\\n';
 	}
-	
+
 	var stateField = document.getElementById( 'state' );
 	if( stateField.options[stateField.selectedIndex].value == '' ) {
 		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\\r\\n';
@@ -97,7 +97,7 @@ window.formCheck = function( ccform ) {
 	if( apos < 1 || dotpos-apos < 2 ) {
 		output += payflowproGatewayErrorMsgEmail;
 	}
-	
+
 	if( output ) {
 		alert( output );
 		return false;
@@ -155,17 +155,17 @@ EOT;
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		$form .= $this->generateBillingFields();
-		
+
 		return $form;
 	}
-	
+
 	public function generateFormSubmit() {
 		global $wgScriptPath;
-		
+
 		$form = '<tr>';
 		$form .= '<td class="label"> </td>';
 		$form .= '<td>';
-		
+
 		// submit button
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		// $form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
@@ -174,7 +174,7 @@ EOT;
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
 			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-right:4px;' ) ) . 'Your credit / debit card will be securely processed.';
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
-		
+
 		$form .= '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -192,7 +192,7 @@ EOT;
 		global $wgScriptPath;
 
 		$form = '';
-		
+
 		// amount
 		$form .= '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
@@ -207,19 +207,19 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="amount_data">'.wfMsg( 'payflowpro_gateway-donation' ).'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] . 
-			Html::hidden( 'amount', $this->form_data['amount'] ) . 
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] .
+			Html::hidden( 'amount', $this->form_data['amount'] ) .
 			'</td>';
 		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ] .
-			Html::hidden( 'currency_code', $this->form_data['currency'] ) . 
+			Html::hidden( 'currency_code', $this->form_data['currency'] ) .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
 		$form .= '</td>';
 		$form .= '</tr>';
-		
+
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) . 
+		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) .
 			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-left:8px;' ) ) . '</h3></td>';
 		$form .= '</tr>';
 
@@ -232,7 +232,7 @@ EOT;
 			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';
 		}
 		$form .= '</tr>';
-		
+
 		// card number
 		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->form_data[ 'card_num' ] : '';
 		$form .= '';
@@ -257,7 +257,7 @@ EOT;
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-expiration' ), 'expiration' ) . '</td>';
 		$form .= '<td>' . $this->generateExpiryMonthDropdown() . ' / ' . $this->generateExpiryYearDropdown() . '</td>';
 		$form .= '</tr>';
-		
+
 		// cvv
 		$form .= $this->getCvvField();
 
@@ -307,7 +307,7 @@ EOT;
 		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
 	    $form .= '</tr>';
 	    */
-		
+
 		// email
 		$form .= '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['emailAdd'] . '</span></td>';
@@ -339,11 +339,9 @@ EOT;
 		$form .= Xml::closeElement( 'table' );
 		return $form;
 	}
-	
+
 	public function generateDonationFooter() {
-		global $wgScriptPath;
-		$form = '';
-		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
+		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'div', array( 'style' => 'text-align:center;' ), '* * *' );
 		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
@@ -353,7 +351,7 @@ EOT;
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;
 	}
-	
+
 	public function generateStateDropdown() {
 		require_once( dirname( __FILE__ ) . '/includes/stateAbbreviations.inc' );
 

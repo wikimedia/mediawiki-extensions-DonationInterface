@@ -24,19 +24,17 @@
 class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
-		global $wgOut;
-
 		$form_data['payment_method'] = 'bt';
 		$form_data['payment_submethod'] = 'bt';
-		
+
 		//$form_data['payment_method'] = 'rtbt';
 		//$form_data['payment_submethod'] = 'rtbt_nordea_sweeden';
-		
+
 		//$form_data['payment_method'] = 'rtbt';
 		//$form_data['payment_submethod'] = 'rtbt_ideal';
 		//$form_data['issuerids'] = array();
-		
-		
+
+
 		$form_data['process'] = 'other';
 		parent::__construct( $form_data, $form_errors, $gateway );
 
@@ -83,7 +81,7 @@ function formCheck( ccform ) {
 			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\\r\\n';
 		}
 	}
-	
+
 	if (document.getElementById('fname').value == '$first') {
 		output += payflowproGatewayErrorMsgJs + ' first name.\\r\\n';
 	}
@@ -102,7 +100,7 @@ function formCheck( ccform ) {
 	if( apos < 1 || dotpos-apos < 2 ) {
 		output += payflowproGatewayErrorMsgEmail;
 	}
-	
+
 	if( output ) {
 		alert( output );
 		return false;
@@ -114,7 +112,7 @@ function formCheck( ccform ) {
 EOT;
 		$wgOut->addHeadItem( 'placeholders', $js );
 	}
-	
+
 	/**
 	 * Required method for constructing the entire form
 	 *
@@ -255,8 +253,6 @@ EOT;
 	}
 
 	protected function generatePaymentFields() {
-		global $wgScriptPath;
-
 		// amount
 		$form = '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
