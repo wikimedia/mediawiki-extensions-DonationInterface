@@ -645,6 +645,7 @@ Ingen processorer er tilgængelige.',
 );
 
 /** German (Deutsch)
+ * @author ChrisiPK
  * @author Kghbln
  * @author Tbleher
  */
@@ -662,7 +663,7 @@ $messages['de'] = array(
 	'donate_interface-anon-message' => 'Mein Name darf (zusammen mit meinem Kommentar) in der öffentlichen Spenderliste genannt werden.',
 	'donate_interface-email-agreement' => 'Ich bin damit einverstanden, gelegentlich per E-Mail aktuelle Informationen von der Wikimedia Foundation zu erhalten.',
 	'donate_interface-comment-title' => 'Öffentlicher Kommentar:',
-	'donate_interface-amount-error' => '**Bitte gib einen gültigen Betrag ein**',
+	'donate_interface-amount-error' => '**Bitte einen gültigen Betrag eingeben**',
 	'donate_interface-processing-error' => 'Es gab einen Verarbeitungsfehler Ihrer Anfrage. Es ist kein Prozess verfügbar.',
 	'donate_interface-GBP' => 'GBP: Britisches Pfund',
 	'donate_interface-EUR' => 'EUR: Euro',
@@ -1535,6 +1536,7 @@ $messages['ja'] = array(
 
 /** Georgian (ქართული)
  * @author Dawid Deutschland
+ * @author Nodar Kherkheulidze
  * @author Temuri rajavi
  * @author გიორგიმელა
  */
@@ -1554,7 +1556,7 @@ $messages['ka'] = array(
 	'donate_interface-comment-title' => 'საჯარო კომენტარი',
 	'donate_interface-amount-error' => '**გთხოვთ, მიუთითეთ სწორი თანხა**',
 	'donate_interface-processing-error' => 'ბოდიში, თქვენი შეტყობინების დამუშავებისას შეცდომა წარმოიშვა.
-მიზეზი - პროცესორთა არასაკმარისი რაოდენობა.',
+მიზეზი —  პროცესორთა არასაკმარისი რაოდენობა.',
 	'donate_interface-GBP' => 'GBP: ბრიტანული გირვანქა სტერლინგი',
 	'donate_interface-EUR' => 'EUR: ევრო',
 	'donate_interface-USD' => 'USD: აშშ დოლარი',
