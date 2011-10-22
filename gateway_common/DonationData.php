@@ -61,7 +61,7 @@ class DonationData {
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
 				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
-				'numAttempt' => $wgRequest->getVal( 'numAttempt', 0 ),
+				'numAttempt' => $wgRequest->getVal( 'numAttempt', '0' ),
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => self::getUtmSource(), //TODO: yes. That.
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
@@ -90,10 +90,10 @@ class DonationData {
 
 		$this->normalizeAndSanitize();
 
-		//TODO: determine if _nocache_ is still a thing anywhere.
-		if ( !empty( $this->normalized ) && ( $this->getVal( 'numAttempt' ) == '0' && ((!$this->getVal( 'utm_source_id' ) == false ) || $this->getVal( '_nocache_' ) == 'true' ) ) ) {
+		//TODO: test with _cache_ on. 
+		if ( !empty( $this->normalized ) && ( $this->getVal( 'numAttempt' ) == '0' && ((!$this->getVal( 'utm_source_id' ) == false ) || is_null($this->getVal( '_cache_' )) ) ) ) {
 			$this->saveContributionTracking();
-		}
+		} 
 	}
 
 	function getData() {
@@ -177,7 +177,10 @@ class DonationData {
 	}
 
 	function isSomething( $key ) {
-		if ( array_key_exists( $key, $this->normalized ) && !empty( $this->normalized[$key] ) ) {
+		if ( array_key_exists( $key, $this->normalized ) ) {
+			if ( is_null($this->normalized[$key]) || $this->normalized[$key] === '' ) {
+				return false;
+			}
 			return true;
 		} else {
 			return false;
