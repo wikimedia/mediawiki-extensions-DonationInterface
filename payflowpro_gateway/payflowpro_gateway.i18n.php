@@ -8110,11 +8110,23 @@ Versöhk et schpääder noch ens.',
 	'payflowpro_gateway-state-dropdown-XX' => 'Ußerhallef vun de USA',
 );
 
-/** Kurdish (Latin) (Kurdî (Latin))
+/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
  * @author George Animal
+ * @author Gomada
  */
 $messages['ku-latn'] = array(
+	'payflowpro_gateway-donor-name' => 'Nav',
+	'payflowpro_gateway-donor-fname' => 'Pêşnav',
+	'payflowpro_gateway-donor-mname' => 'Navê navîn',
+	'payflowpro_gateway-donor-street' => 'Kuçe',
 	'payflowpro_gateway-donor-city' => 'Bajarr',
+	'payflowpro_gateway-donor-state' => 'Dewlet',
+	'payflowpro_gateway-donor-country' => 'Welat/Herêm',
+	'payflowpro_gateway-error-msg-fname' => 'nav',
+	'payflowpro_gateway-error-msg-lname' => 'paşnav',
+	'payflowpro_gateway-error-msg-city' => 'bajar',
+	'payflowpro_gateway-error-msg-state' => 'dewlet',
+	'payflowpro_gateway-error-msg-country' => 'welat',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -8122,6 +8134,7 @@ $messages['ku-latn'] = array(
  */
 $messages['lb'] = array(
 	'payflowprogateway' => 'Maacht Ären Don elo',
+	'globalcollectgateway' => 'Maacht Ären Don elo',
 	'payflowpro_gateway-desc' => 'Behandele vun der Kreditkaart PayPal Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Dës Säit ass nëmmen vun der Säit vun den Donë méiglech.',
 	'payflowpro_gateway-paypal-button' => 'Don iwwer PayPal',
@@ -8168,6 +8181,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-error-msg-state' => 'Staat',
 	'payflowpro_gateway-error-msg-zip' => 'Post-Code',
 	'payflowpro_gateway-error-msg-country' => 'Land',
+	'payflowpro_gateway-error-msg-card_type' => 'Kreditkaarten-Typ',
 	'payflowpro_gateway-error-msg-card_num' => 'Nummer vun der Kreditkaart',
 	'payflowpro_gateway-error-msg-expiration' => "Datum op deem d'Kaart ofleeft",
 	'payflowpro_gateway-error-msg-cvv' => 'den CVV deen hannen op Ärer Kaart drop steet',
@@ -9422,10 +9436,12 @@ $messages['ne'] = array(
 /** Dutch (Nederlands)
  * @author Als-Holder
  * @author Mihxil
+ * @author SPQRobin
  * @author Siebrand
  */
 $messages['nl'] = array(
 	'payflowprogateway' => 'Doneer nu',
+	'globalcollectgateway' => 'Doneer nu',
 	'payflowpro_gateway-desc' => 'Creditcardverwerking via PayPal PayFlow Pro',
 	'payflowpro_gateway-accessible' => 'Deze pagina is alleen toegankelijk via de donateurspagina.',
 	'payflowpro_gateway-paypal-button' => 'Via PayPal doneren',
@@ -9472,6 +9488,7 @@ $messages['nl'] = array(
 	'payflowpro_gateway-error-msg-state' => 'staat',
 	'payflowpro_gateway-error-msg-zip' => 'postcode',
 	'payflowpro_gateway-error-msg-country' => 'land',
+	'payflowpro_gateway-error-msg-card_type' => 'creditcardtype',
 	'payflowpro_gateway-error-msg-card_num' => 'creditcardnummer',
 	'payflowpro_gateway-error-msg-expiration' => 'vervaldatum creditcard',
 	'payflowpro_gateway-error-msg-cvv' => 'CVV - beveiligingscode - van de achterkant van uw creditcard',

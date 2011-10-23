@@ -1692,6 +1692,20 @@ Et sinn_er kein Prozäßoore mieh frei.',
 	'donate_interface-ILS' => "ILS: Ißra'eelesch Scheekel",
 );
 
+/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
+ * @author Gomada
+ */
+$messages['ku-latn'] = array(
+	'donate_interface' => 'Piştgiriyê bide Wîkîmedyayê',
+	'donate_interface-comment-label' => 'Şîrove:',
+	'donate_interface-EUR' => 'EUR: Ewro',
+	'donate_interface-USD' => "USD: Dolarên DYA'yê",
+	'donate_interface-CAD' => 'CAD: Dolarên Kanadayê',
+	'donate_interface-CZK' => 'CZK: Korunayên Çekî',
+	'donate_interface-JPY' => 'JPY: Yenê Japon',
+	'donate_interface-SEK' => 'SEK: Kronên Swêdî',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
