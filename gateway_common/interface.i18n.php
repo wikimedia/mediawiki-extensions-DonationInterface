@@ -11,7 +11,8 @@ $messages = array();
 /** English */
 $messages['en'] = array(
 	'donate_interface' => 'Support Wikimedia',
-	'donate_interface-desc' => 'Donation landing page that integrates gateway extensions',
+	'donate_interface-desc' => 'Donation landing page that integrates gateway extensions.',
+	'donate_interface-langonly-desc' => 'Exposes ONLY DonationInterface i18n messages.',
 	'donate_interface-intro' => 'Please choose a payment method, amount, and currency.',
 	'donate_interface-amount' => 'Donation amount:',
 	'donate_interface-other-amount' => 'Other amount',
