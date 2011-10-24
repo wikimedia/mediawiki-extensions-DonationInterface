@@ -47,7 +47,7 @@ class PayflowProGateway extends GatewayForm {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 				// Check form for errors
-				$form_errors = $this->fnValidateForm( $data, $this->errors );
+				$form_errors = $this->validateForm( $data, $this->errors, array( 'address', 'amount', 'creditCard', 'email', 'name' ) );
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 					$this->displayForm( $data, $this->errors );
@@ -65,6 +65,7 @@ class PayflowProGateway extends GatewayForm {
 					$this->displayResultsForDebug( $result );
 				}
 			} else {
+				error_log("Not posted - showing for the first time");
 				// Display form for the first time
 				$this->displayForm( $data, $this->errors );
 			}
