@@ -22,7 +22,7 @@ EOT;
 $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'Donation Interface',
 	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Jeremy Postlethwaite' ),
-	'version' => '1.0.0',
+	'version' => '2.0.0',
 	'descriptionmsg' => 'donationinterface-desc',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:DonationInterface',
 );
