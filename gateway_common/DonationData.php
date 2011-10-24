@@ -211,10 +211,16 @@ class DonationData {
 			$this->setNormalizedOrderIDs();
 			$this->setGateway();
 			$this->setNormalizedOptOuts();
+			$this->setLanguage();
 			array_walk( $this->normalized, array( $this, 'sanitizeInput' ) );
 		}
 	}
 
+	/**
+	 * normalizeAndSanitize helper function
+	 * Takes all possible sources for the intended donation amount, and 
+	 * normalizes them into the 'amount' field.  
+	 */
 	function setNormalizedAmount() {
 		if ( !($this->isSomething( 'amount' )) || !(preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amount' ) ) ) ) {
 			if ( $this->isSomething( 'amountGiven' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountGiven' ) ) ) {
@@ -234,6 +240,12 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * normalizeAndSanitize helper function
+	 * Ensures that order_id and i_order_id are ready to go, depending on what 
+	 * comes in populated or not, and where it came from.
+	 * @return null
+	 */
 	function setNormalizedOrderIDs() {
 		//basically, we need a new order_id every time we come through here, but if there's an internal already there,
 		//we want to use that one internally. So.
@@ -301,10 +313,27 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * normalizeAndSanitize helper function.
+	 * Sets the gateway to be the gateway that called this class in the first 
+	 * place.
+	 */
 	function setGateway() {
 		//TODO: Hum. If we have some other gateway in the form data, should we go crazy here? (Probably)
 		$gateway = $this->gatewayID;
 		$this->setVal( 'gateway', $gateway );
+	}
+	
+	/**
+	 * normalizeAndSanitize helper function
+	 * If the language has not yet been set, pulls the language code 
+	 * from the current global language object. 
+	 */
+	function setLanguage() {
+		global $wgLang;
+		if ( !$this->isSomething( 'language' ) ) {
+			$this->setVal( 'language', $wgLang->getCode() );
+		}
 	}
 
 	function doCacheStuff() {

@@ -1055,7 +1055,7 @@ abstract class GatewayAdapter implements GatewayType {
 			'response' => $this->getTransactionMessage(),
 			'date' => time(),
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			'language' => '',
+			//'language' => '',
 		);
 		$transaction += $this->getData();
 
