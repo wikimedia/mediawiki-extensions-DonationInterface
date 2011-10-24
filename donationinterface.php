@@ -564,24 +564,21 @@ $wgResourceModules[ 'pfp.core.logolink_override' ] = array(
 
 );
 
-$wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'donate_interface/donate_interface.i18n.php';
-
-
+// Load the interface messages that are shared across multiple gateways
+$wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
+$wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
+$wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
+	
 //GlobalCollect gateway magical globals
-
 //TODO: all the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
-	$wgExtensionMessagesFiles['GlobalCollectGatewayCountries'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.countries.i18n.php';
-	$wgExtensionMessagesFiles['GlobalCollectGatewayUSStates'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.us-states.i18n.php';
 	$wgExtensionAliasesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 }
 
 //PayflowPro gateway magical globals
 if ( $optionalParts['PayflowPro'] === true ){
 	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
-	$wgExtensionMessagesFiles['PayflowProGatewayCountries'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.countries.i18n.php';
-	$wgExtensionMessagesFiles['PayflowProGatewayUSStates'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.us-states.i18n.php';
 	$wgExtensionAliasesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
 }
