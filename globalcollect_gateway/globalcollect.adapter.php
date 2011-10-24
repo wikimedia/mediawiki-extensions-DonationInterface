@@ -127,7 +127,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
-			//'PAYMENTPRODUCTID' => '11',
 			),
 			'do_validation' => true,
 			'addDonorDataToSession' => true,
@@ -229,7 +228,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 0,
 			'label'	=> 'Any',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
 		);
 
 		/*
@@ -241,7 +240,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 1,
 			'label'	=> 'Visa',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
 		);
 		 
 		// MasterCard
@@ -249,7 +248,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 3,
 			'label'	=> 'MasterCard',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
 		);
 		 
 		// American Express
@@ -257,7 +256,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 2,
 			'label'	=> 'American Express',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
 		);
 		 
 		// Maestro

@@ -40,14 +40,14 @@ class PayflowProGateway extends GatewayForm {
 		//TODO: This is short-circuiting what I really want to do here.
 		//so stop it.
 		$data = $this->adapter->getDisplayData();
-
+		
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			if ( $this->adapter->posted) {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 				// Check form for errors
-				$form_errors = $this->validateForm( $data, $this->errors, array( 'address', 'amount', 'creditCard', 'email', 'name' ) );
+				$form_errors = $this->validateForm( $data, $this->errors );
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 					$this->displayForm( $data, $this->errors );

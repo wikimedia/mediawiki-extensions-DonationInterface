@@ -94,39 +94,36 @@ class GatewayForm extends UnlistedSpecialPage {
 	 *
 	 * @see GatewayForm::fnValidateForm()
 	 */
-	public function validateForm( &$data, &$error, $options = array( ) ) {
+	public function validateForm( &$data, &$error, $options = false ) {
 		
-		//TODO: Should parts of this fail closed? Probably. Right now, with no 
-		//options sent, nothing will validate. 
-
-		extract( $options );
-
-		// Set which items will be validated
-		$address = isset( $address ) ? ( boolean ) $address : true;
-		$amount = isset( $amount ) ? ( boolean ) $amount : true;
-		$creditCard = isset( $creditCard ) ? ( boolean ) $creditCard : false;
-		$email = isset( $email ) ? ( boolean ) $email : true;
-		$name = isset( $name ) ? ( boolean ) $name : true;
+		$validateAll = false;
+		if ($options === false){
+			$validateAll = true;
+		}
+		
+		if ( is_array( $options ) ){
+			extract( $options );
+		}
 
 		// These are set in the order they will most likely appear on the form.
-
-		if ( $name ) {
+		
+		if ( $validateAll || isset( $name ) ) {
 			$this->validateName( $data, $error );
 		}
 
-		if ( $address ) {
+		if ( $validateAll || isset( $address ) ) {
 			$this->validateAddress( $data, $error );
 		}
 
-		if ( $amount ) {
+		if ( $validateAll || isset( $amount ) ) {
 			$this->validateAmount( $data, $error );
 		}
 
-		if ( $email ) {
+		if ( $validateAll || isset( $email ) ) {
 			$this->validateEmail( $data, $error );
 		}
 
-		if ( $creditCard ) {
+		if ( $validateAll || isset( $creditCard ) ) {
 			$this->validateCreditCard( $data, $error );
 		}
 
