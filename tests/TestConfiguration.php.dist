@@ -54,6 +54,20 @@ define( 'TESTS_HOSTNAME', 'localhost' );
 define( 'TESTS_EMAIL', 'no-reply@wikimedia.org' );
 
 /**
+ * TESTS_GATEWAY_DEFAULT
+ *
+ * This is the default gateway that will be used to implement unit tests.
+ */
+define( 'TESTS_GATEWAY_DEFAULT', 'GlobalCollectGateway' );
+
+/**
+ * TESTS_ADAPTER_DEFAULT
+ *
+ * This is the default adapter that will be used to implement unit tests.
+ */
+define( 'TESTS_ADAPTER_DEFAULT', 'GlobalCollectAdapter' );
+
+/**
  * TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD
  *
  * A "valid" test American Express Card for PayFlowPro.
