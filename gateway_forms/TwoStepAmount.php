@@ -24,8 +24,9 @@
 class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 	public function __construct( &$form_data, &$form_errors, &$gateway ) {
-		$form_data['payment_method'] = 'bt';
-		$form_data['payment_submethod'] = 'bt';
+
+		$form_data['payment_method'] = empty($form_data['payment_method']) ? 'bt' : $form_data['payment_method'];
+		$form_data['payment_submethod'] = empty($form_data['payment_submethod']) ? 'bt' : $form_data['payment_submethod'];
 
 		//$form_data['payment_method'] = 'rtbt';
 		//$form_data['payment_submethod'] = 'rtbt_nordea_sweeden';
