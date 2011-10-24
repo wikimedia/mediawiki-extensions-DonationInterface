@@ -92,26 +92,19 @@ EOT;
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 
-				/* Commenting out because this is completely breaking Credit Card in GC.
-				* Under usual circumstances, that would be an automatic revert, but 
-				* there were no small number of clean places to do that.
-				**/
+				/*
+				 * The $payment_method should default to false.
+				 *
+				 * An invalid $payment_method will cause an error.
+				 */
+				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
+				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
+		
+				$payment_submethodMeta = $this->adapter->getPaymentSubmethodMeta( $payment_submethod, array( 'log' => true, ) );
 				
-//				/*
-//				 * The $payment_method should default to false.
-//				 *
-//				 * An invalid $payment_method will cause an error.
-//				 */
-//				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : false;
-//				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : false;
-//		
-//				$payment_submethodMeta = $this->adapter->getPaymentSubmethodMeta( $payment_submethod, array( 'log' => true, ) );
-//				
-//				// Check form for errors
-//				$form_errors = $this->validateForm( $data, $this->errors, $payment_submethodMeta['validation'] );
+				// Check form for errors
+				$form_errors = $this->validateForm( $data, $this->errors, $payment_submethodMeta['validation'] );
 				
-				$form_errors = $this->validateForm( $data, $this->errors, array( 'address', 'amount', 'creditCard', 'email', 'name' ) );
-
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 
@@ -124,10 +117,10 @@ EOT;
 			
 					$this->displayResultsForDebug( $result );
 
-					//if ( $payment_method == 'credit' ) {
+					if ( $payment_method == 'cc' ) {
 
-					$this->executeIframeForCreditCard( $result );
-					//}
+						$this->executeIframeForCreditCard( $result );
+					}
 
 
 					//TODO: add all the hooks back in. 

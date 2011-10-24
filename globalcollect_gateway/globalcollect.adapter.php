@@ -184,16 +184,26 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	
 	/**
 	 * Define payment methods
+	 *
+	 * The credit card group has a catchall for unspecified payment types.
 	 */
 	protected function definePaymentMethods() {
 		
 		$this->payment_methods = array();
 		
-		$this->payment_methods['rtbt'] = array(
-			'label'	=> 'Real time bank transfer',
-			'types'	=> array( 'rtbt_ideal',  'rtbt_eps',  'rtbt_sofortuberweisung',  'rtbt_nordea_sweeden', 'rtbt_enets', ),
+		// Credit Cards
+		$this->payment_methods['cc'] = array(
+			'label'	=> 'Credit Cards',
+			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb,', 'cb', ),
 		);
 		
+		// Real Time Bank Transfers
+		$this->payment_methods['rtbt'] = array(
+			'label'	=> 'Real time bank transfer',
+			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweeden', 'rtbt_enets', ),
+		);
+		
+		// Bank Transfers
 		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
 			'types'	=> array( 'bt', ),
@@ -209,6 +219,94 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	protected function definePaymentSubmethods() {
 		
 		$this->payment_submethods = array();
+
+		/*
+		 * Credit Card
+		 */
+		 
+		// None specified - This is a catchall to validate all options for credit cards.
+		$this->payment_submethods[''] = array(
+			'paymentproductid'	=> 0,
+			'label'	=> 'Any',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+
+		/*
+		 * Credit Card
+		 */
+		 
+		// Visa
+		$this->payment_submethods['visa'] = array(
+			'paymentproductid'	=> 1,
+			'label'	=> 'Visa',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// MasterCard
+		$this->payment_submethods['mc'] = array(
+			'paymentproductid'	=> 3,
+			'label'	=> 'MasterCard',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// American Express
+		$this->payment_submethods['amex'] = array(
+			'paymentproductid'	=> 2,
+			'label'	=> 'American Express',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// Maestro
+		$this->payment_submethods['maestro'] = array(
+			'paymentproductid'	=> 117,
+			'label'	=> 'Maestro',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// Solo
+		$this->payment_submethods['solo'] = array(
+			'paymentproductid'	=> 118,
+			'label'	=> 'Solo',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// Laser
+		$this->payment_submethods['laser'] = array(
+			'paymentproductid'	=> 124,
+			'label'	=> 'Laser',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// JCB
+		$this->payment_submethods['jcb'] = array(
+			'paymentproductid'	=> 125,
+			'label'	=> 'JCB',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// Discover
+		$this->payment_submethods['discover'] = array(
+			'paymentproductid'	=> 128,
+			'label'	=> 'Discover',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
+		 
+		// CB
+		$this->payment_submethods['cb'] = array(
+			'paymentproductid'	=> 130,
+			'label'	=> 'CB', // Carte Bancaire OR Carte Bleue
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+		);
 
 		/*
 		 * Bank transfers
@@ -325,32 +423,27 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
-		/* Commenting out because this is completely breaking Credit Card in GC.
-		 * Under usual circumstances, that would be an automatic revert, but 
-		 * there were no small number of clean places to do that.
-		 **/
+		extract( $options );
 		
-//		extract( $options );
-//		
-//		$log = isset( $log ) ? (boolean) $log : false ;
-//		
-//		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
-//			
-//			if ( $log ) {
-//				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
-//			}
-//			
-//			// Ensure that the validation index is set.
-//			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
-//				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
-//			}
-//			
-//			return $this->payment_submethods[ $payment_submethod ];
-//		}
-//		else {
-//			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
-//			throw new Exception( $message );
-//		}
+		$log = isset( $log ) ? (boolean) $log : false ;
+		
+		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
+			
+			if ( $log ) {
+				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
+			}
+			
+			// Ensure that the validation index is set.
+			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
+				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
+			}
+			
+			return $this->payment_submethods[ $payment_submethod ];
+		}
+		else {
+			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
+			throw new Exception( $message );
+		}
 	}
 	
 	/**
