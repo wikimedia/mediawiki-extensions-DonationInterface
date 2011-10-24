@@ -10036,6 +10036,7 @@ $messages['pfl'] = array(
  */
 $messages['pl'] = array(
 	'payflowprogateway' => 'Przekaż darowiznę już teraz',
+	'globalcollectgateway' => 'Przekaż darowiznę',
 	'payflowpro_gateway-desc' => 'PayPal obsługa kart kredytowych Payflow Pro',
 	'payflowpro_gateway-accessible' => 'Strona dostępna jest wyłącznie ze strony darowizn.',
 	'payflowpro_gateway-paypal-button' => 'Darowizna przez PayPal',
@@ -10082,6 +10083,7 @@ $messages['pl'] = array(
 	'payflowpro_gateway-error-msg-state' => 'województwo',
 	'payflowpro_gateway-error-msg-zip' => 'kod pocztowy',
 	'payflowpro_gateway-error-msg-country' => 'państwo',
+	'payflowpro_gateway-error-msg-card_type' => 'typ karty kredytowej',
 	'payflowpro_gateway-error-msg-card_num' => 'numer karty kredytowej',
 	'payflowpro_gateway-error-msg-expiration' => 'datę ważności karty',
 	'payflowpro_gateway-error-msg-cvv' => 'kod CVV umieszczony z tyłu karty',
