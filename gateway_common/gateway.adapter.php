@@ -251,6 +251,17 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * Returns the variable $this->dataObj which should be an instance of
+	 * DonationData
+	 *
+	 * @return DonationData
+	 */
+	public function getDonationData() {
+		
+		return $this->dataObj;
+	}
+	
 	function getDisplayData() {
 		return $this->displaydata;
 	}
@@ -644,7 +655,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param $transaction string This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
 	 * that maps to a first-level key in the $transactions array.
 	 */
-	protected function currentTransaction( $transaction = '' ) { //get&set in one!
+	public function currentTransaction( $transaction = '' ) { //get&set in one!
 		static $current_transaction;
 		if ( $transaction != '' ) {
 			$current_transaction = $transaction;
