@@ -33,51 +33,19 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends DonationInterfaceTestCase {
 
-	/*
-	Acceptance Criteria
-		308.1 *Given that a donor wants to donate via an offline bank transfer
-			When they submit the following information:
-				Amount
-				Country (Required – use ISO 3166 codes)
-				First Name
-				Surname
-				Street Address
-				Zip
-				City
-				State (optional)
-			Then an XML submission is created and sent to Global Collect with the above information AND:
-				MERCHANTREFERENCE (contribution tracking id)
-				curencycode
-		308.2
-			GIven that a donation order was submitted with the above information
-			When the submit button is pressed and a response recieved from Global Collect
-			The response is parased and the following information is displayed to the donor:
-				PAYMENTREFERENCE
-				Account Holder
-				Bank Name
-				City
-				Swift Code
-				SpecialID (if provided)
-				Bank Account Number
-				IBAN
-				CountryDescription
-				Notes
-			We do not need to have donor information stored on our side yet as long as it is sent to Global Collect
-	*/
-
 	/**
-	 * testbuildRequestXML
+	 * testBuildRequestXml
 	 *
 	 * @todo
 	 * - there are many cases to this that need to be developed.
 	 * - Do not consider this a complete test!
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::do_transaction
+	 * @covers GatewayAdapter::currentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
-	public function testbuildRequestXML() {
+	public function testBuildRequestXml() {
 
 		global $wgGlobalCollectGatewayTest;
 
@@ -90,91 +58,69 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
 
-
-		$options = array();
-
-		$options['test'] = true;
-		$transactionType = 'BANK_TRANSFER';
-
-		$amount = 350;
-
-		$options['postDefaults'] = array(
-			'returnTitle'	=> true,
-			'returnTo'		=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult',
+		$payment_product_id = 11;
+		
+		$optionsForTestData = array(
+			'form_name' => 'TwoStepAmount',
+			'payment_method' => 'bt',
+			'payment_submethod' => 'bt',
 		);
 
-		$options['testData'] = array(
-			'amount' => $amount,
-			'transaction_type' => $transactionType,
-			'email' => TESTS_EMAIL,
-			'fname' => 'Testy',
-			'lname' => 'Testerton',
-			'street' => '123 Happy Street',
-			'city' => 'Barcelona',
-			'state' => 'XX',
-			'zip' => '',
-			'country' => 'ES',
-			//'size' => 'small',
-			'currency' => 'EUR',
-			'payment_method' => '',
-			//'order_id' => '5038287830',
-			//'i_order_id' => '1234567890',
-			'numAttempt' => 0,
-			'referrer' => 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount',
-			'utm_source' => '..gc_bt',
-			'utm_medium' => null,
-			'utm_campaign' => null,
-			'language' => 'en',
-			'comment-option' => '',
-			'comment' => '',
-			'email-opt' => 1,
-			'test_string' => '',
-			'token' => '',
-			'contribution_tracking_id' => '',
-			'data_hash' => '',
-			'action' => '',
-			'gateway' => 'globalcollect',
-			'owa_session' => '',
-			'owa_ref' => 'http://localhost/defaultTestData',
-			'transaction_type' => '', // Used by GlobalCollect for payment types
-		);
-
+		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		
 		$gateway = new GlobalCollectAdapter( $options );
 
-		$result = $gateway->do_transaction( $transactionType );
+		$gateway->currentTransaction('INSERT_ORDERWITHPAYMENT');
 
 		$request = trim( $gateway->buildRequestXML() );
 
 		$orderId = $gateway->getData( 'order_id' );
 
 		$expected  = '<?xml version="1.0"?>' . "\n";
-		$expected .= '<XML><REQUEST><ACTION>INSERT_ORDERWITHPAYMENT</ACTION><META><MERCHANTID>6570</MERCHANTID><VERSION>1.0</VERSION></META><PARAMS><ORDER><ORDERID>' . $orderId . '</ORDERID><AMOUNT>' . $amount * 100 . '</AMOUNT><CURRENCYCODE>EUR</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>ES</COUNTRYCODE><MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE></ORDER><PAYMENT><PAYMENTPRODUCTID>11</PAYMENTPRODUCTID><AMOUNT>35000</AMOUNT><CURRENCYCODE>EUR</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>ES</COUNTRYCODE><HOSTEDINDICATOR>1</HOSTEDINDICATOR><RETURNURL>http://wikimedia-fundraising-1.17.localhost.wikimedia.org/index.php/Special:GlobalCollectGatewayResult?order_id=' . $orderId . '</RETURNURL><FIRSTNAME>Testy</FIRSTNAME><SURNAME>Testerton</SURNAME><STREET>123 Happy Street</STREET><CITY>Barcelona</CITY><STATE>XX</STATE><EMAIL>jpostlethwaite@wikimedia.org</EMAIL></PAYMENT></PARAMS></REQUEST></XML>';
-		//$expected .= '<XML><REQUEST><ACTION>Donate</ACTION><ACCOUNT><MERCHANTID>128</MERCHANTID><PASSWORD>k4ftw</PASSWORD><VERSION>3.2</VERSION><RETURNURL>http://' . TESTS_HOSTNAME . '/index.php/Donate-thanks/en</RETURNURL></ACCOUNT><DONATION><DONOR>Tester Testington</DONOR><AMOUNT>35000</AMOUNT><CURRENCYCODE>USD</CURRENCYCODE><LANGUAGECODE>en</LANGUAGECODE><COUNTRYCODE>US</COUNTRYCODE></DONATION></REQUEST></XML>' . "\n";
-		$this->assertEquals($request, $expected, 'The constructed XML for transaction type [' . $transactionType . '] does not match our expected.');
-	}
-
-	/**
-	 * testRequestHasRequiredFields
-	 */
-	public function testRequestHasRequiredFields() {
-
-		$this->markTestIncomplete( TESTS_MESSAGE_NOT_IMPLEMENTED );
-
-	}
-
-	/**
-	 * testReturnDonorResponse
-	 */
-	public function testReturnDonorResponse() {
-
-		$this->markTestIncomplete( TESTS_MESSAGE_NOT_IMPLEMENTED );
-
+		$expected .= '<XML>';
+		$expected .= 	'<REQUEST>';
+		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
+		$expected .= 		'<META><MERCHANTID>' . $gateway->getGatewayMerchantId() . '</MERCHANTID><VERSION>1.0</VERSION></META>';
+		$expected .= 		'<PARAMS>';
+		$expected .= 			'<ORDER>';
+		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
+		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
+		$expected .= 				'<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
+		$expected .= 			'</ORDER>';
+		$expected .= 			'<PAYMENT>';
+		$expected .= 				'<PAYMENTPRODUCTID>' . $payment_product_id . '</PAYMENTPRODUCTID>';
+		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
+		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
+		$expected .= 				'<RETURNURL>http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult?order_id=' . $orderId . '</RETURNURL>';
+		$expected .= 				'<FIRSTNAME>' . $options['testData']['fname'] . '</FIRSTNAME>';
+		$expected .= 				'<SURNAME>' . $options['testData']['lname'] . '</SURNAME>';
+		$expected .= 				'<STREET>' . $options['testData']['street'] . '</STREET>';
+		$expected .= 				'<CITY>' . $options['testData']['city'] . '</CITY>';
+		$expected .= 				'<STATE>' . $options['testData']['state'] . '</STATE>';
+		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+		$expected .= 			'</PAYMENT>';
+		$expected .= 		'</PARAMS>';
+		$expected .= 	'</REQUEST>';
+		$expected .= '</XML>';
+		
+		$this->assertEquals($expected, $request, 'The constructed XML for paymentmethod [' . $optionsForTestData['payment_method'] . '] does not match our expected.');
 	}
 
 	/**
 	 * testSendToGlobalCollect
 	 *
 	 * Adding
+	 * @covers GatewayAdapter::__construct
+	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::do_transaction
+	 * @covers GatewayAdapter::buildRequestXML
+	 * @covers GatewayAdapter::getData
 	 */
 	public function testSendToGlobalCollect() {
 		$this->markTestIncomplete( TESTS_MESSAGE_NOT_IMPLEMENTED );
@@ -190,57 +136,20 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
 
-		$options = array();
-
-		$options['test'] = true;
-		$transactionType = 'BANK_TRANSFER';
-
-		$options['postDefaults'] = array(
-			'returnTitle'	=> true,
-			'returnTo'		=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult',
+		$payment_product_id = 11;
+		
+		$optionsForTestData = array(
+			'form_name' => 'TwoStepAmount',
+			'payment_method' => 'bt',
+			'payment_submethod' => 'bt',
 		);
 
-		$amount = 350;
-
-		$options['testData'] = array(
-			'amount' => $amount,
-			'transaction_type' => $transactionType,
-			'email' => TESTS_EMAIL,
-			'fname' => 'Testy',
-			'lname' => 'Testerton',
-			'street' => '123 Happy Street',
-			'city' => 'Barcelona',
-			'state' => 'XX',
-			'zip' => '',
-			'country' => 'ES',
-			//'size' => 'small',
-			'currency' => 'EUR',
-			'payment_method' => '',
-			//'order_id' => '5038287830',
-			//'i_order_id' => '1234567890',
-			'numAttempt' => 0,
-			'referrer' => 'http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount',
-			'utm_source' => '..gc_bt',
-			'utm_medium' => null,
-			'utm_campaign' => null,
-			'language' => 'en',
-			'comment-option' => '',
-			'comment' => '',
-			'email-opt' => 1,
-			'test_string' => '',
-			'token' => '',
-			'contribution_tracking_id' => '',
-			'data_hash' => '',
-			'action' => '',
-			'gateway' => 'globalcollect',
-			'owa_session' => '',
-			'owa_ref' => 'http://localhost/defaultTestData',
-			'transaction_type' => '', // Used by GlobalCollect for payment types
-		);
+		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
 
 		$gateway = new GlobalCollectAdapter( $options );
 		$result = $gateway->do_transaction( $transactionType );
 
+		// This will never assert to true. Another type of assertion will be necessary.
 		$this->assertTrue( $result );
 	}
 }
