@@ -240,6 +240,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Ideal',
 			'group'	=> 'rtbt',
 			'validation' => array( 'creditCard' => false, ),
+			'issuerids' => array( 
+				771	=> 'RegioBank',
+				161	=> 'Van Lanschot Bankiers',
+				31	=> 'ABN AMRO',
+				761	=> 'ASN Bank',
+				21	=> 'Rabobank',
+				511	=> 'Triodos Bank',
+				721	=> 'ING',
+				751	=> 'SNS Bank',
+				91	=> 'Friesland Bank',
+			)
 		);
 		 
 		// eNETS
@@ -265,19 +276,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'rtbt',
 			'validation' => array( 'creditCard' => false, ),
 			'issuerids' => array( 
-				824 => 'Bankhaus Spängler',
-				825 => 'Hypo Tirol Bank',
-				822 => 'NÖ HYPO',
-				823 => 'Voralberger HYPO',
-				828 => 'P.S.K.',
-				829 => 'Easy',
-				826 => 'Erste Bank und Sparkassen',
-				827 => 'BAWAG',
-				820 => 'Raifeissen',
-				821 => 'Volksbanken Gruppe',
-				831 => 'Sparda-Bank',
+				824	=> 'Bankhaus Spängler',
+				825	=> 'Hypo Tirol Bank',
+				822	=> 'NÖ HYPO',
+				823	=> 'Voralberger HYPO',
+				828	=> 'P.S.K.',
+				829	=> 'Easy',
+				826	=> 'Erste Bank und Sparkassen',
+				827	=> 'BAWAG',
+				820	=> 'Raifeissen',
+				821	=> 'Volksbanken Gruppe',
+				831	=> 'Sparda-Bank',
 			)
 		);
+	}
+
+	/**
+	 * Get the Global Collect Merchant Id
+	 */
+	public function getGatewayMerchantId() {
+		
+		global $wgGlobalCollectGatewayMerchantID;
+		
+		return $wgGlobalCollectGatewayMerchantID;
 	}
 
 	/**
@@ -296,7 +317,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			throw new Exception( $message );
 		}
 	}
-
+	
 	/**
 	 * Get payment submethod meta
 	 *
@@ -535,7 +556,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'rtbt_ideal':
 				$this->postdata['payment_product'] = 809;
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				//$this->var_map['ISSUERID'] = 'issuer';
+				$this->var_map['ISSUERID'] = 'issuer';
 				break;
 			
 			case 'rtbt_enets':
