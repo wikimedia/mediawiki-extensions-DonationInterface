@@ -95,6 +95,9 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * @see GatewayForm::fnValidateForm()
 	 */
 	public function validateForm( &$data, &$error, $options = array( ) ) {
+		
+		//TODO: Should parts of this fail closed? Probably. Right now, with no 
+		//options sent, nothing will validate. 
 
 		extract( $options );
 

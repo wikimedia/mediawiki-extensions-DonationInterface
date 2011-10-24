@@ -325,27 +325,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
-		extract( $options );
+		/* Commenting out because this is completely breaking Credit Card in GC.
+		 * Under usual circumstances, that would be an automatic revert, but 
+		 * there were no small number of clean places to do that.
+		 **/
 		
-		$log = isset( $log ) ? (boolean) $log : false ;
-		
-		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
-			
-			if ( $log ) {
-				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
-			}
-			
-			// Ensure that the validation index is set.
-			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
-				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
-			}
-			
-			return $this->payment_submethods[ $payment_submethod ];
-		}
-		else {
-			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
-			throw new Exception( $message );
-		}
+//		extract( $options );
+//		
+//		$log = isset( $log ) ? (boolean) $log : false ;
+//		
+//		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
+//			
+//			if ( $log ) {
+//				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
+//			}
+//			
+//			// Ensure that the validation index is set.
+//			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
+//				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
+//			}
+//			
+//			return $this->payment_submethods[ $payment_submethod ];
+//		}
+//		else {
+//			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
+//			throw new Exception( $message );
+//		}
 	}
 	
 	/**
