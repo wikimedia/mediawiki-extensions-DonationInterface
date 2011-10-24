@@ -184,9 +184,9 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineReturnValueMap();
 
 		//Don't bother setting the transaction type if it's not something. 
-		if ( $this->dataObj->isSomething( 'payment_method' ) ) {
-			$this->currentTransaction('INSERT_ORDERWITHPAYMENT');
-		}
+//		if ( $this->dataObj->isSomething( 'payment_method' ) ) {
+//			$this->currentTransaction('INSERT_ORDERWITHPAYMENT');
+//		}
 
 		$this->displaydata = $this->postdata;
 		$this->stageData();
