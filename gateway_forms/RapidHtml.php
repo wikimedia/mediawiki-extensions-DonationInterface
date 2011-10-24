@@ -255,9 +255,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wg<gateway>AllowedHtmlForms
 	 */
 	public function set_html_file_path( $form_key ) {
-		//This ONE TIME, this is okay, because we actually want to compare to the default HTML form dir as well. 
-		global $wgDonationInterfaceHtmlFormDir;
-
 		$g = $this->gateway;
 		$gatewayFormDir = $g::getGlobal( 'HtmlFormDir' );
 		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
