@@ -117,6 +117,7 @@ require_once( TESTS_WEB_ROOT . '/includes/HttpFunctions.php' );
 require_once( TESTS_WEB_ROOT . '/includes/db/Database.php' );
 require_once( TESTS_WEB_ROOT . '/includes/db/DatabaseMysql.php' );
 require_once( TESTS_WEB_ROOT . '/includes/Profiler.php' );
+require_once( TESTS_WEB_ROOT . '/includes/Sanitizer.php' );
 $request = $_SERVER;
 $wgRequest = new FauxRequest( $request );
 
