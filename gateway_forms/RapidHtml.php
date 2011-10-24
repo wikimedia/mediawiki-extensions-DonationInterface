@@ -250,11 +250,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	}
 
 	/**
-	 * Validate and set the path to the HTML file
+	 * Set the path to the HTML file for a requested rapid html form.
 	 * 
-	 * @param string $file_name
+	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wg<gateway>AllowedHtmlForms
 	 */
-	public function set_html_file_path( $file_name ) {
+	public function set_html_file_path( $form_key ) {
 		//This ONE TIME, this is okay, because we actually want to compare to the default HTML form dir as well. 
 		global $wgDonationInterfaceHtmlFormDir;
 
@@ -262,14 +262,12 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$gatewayFormDir = $g::getGlobal( 'HtmlFormDir' );
 		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
 
-		if ( !array_key_exists( $file_name, $allowedForms ) ||
-			((strpos( $allowedForms[$file_name], $gatewayFormDir ) === false) && (strpos( $allowedForms[$file_name], $wgDonationInterfaceHtmlFormDir ) === false)) ||
-			(!file_exists( $allowedForms[$file_name] )) ) {
-
+		// Make sure that the requested form is whitelisted
+		if ( !array_key_exists( $form_key, $allowedForms ) || ( !file_exists( $allowedForms[$form_key] )) ) {
 			throw new MWException( 'Requested an unavailable or non-existent form.' );
 		}
 
-		$this->html_file_path = $allowedForms[$file_name];
+		$this->html_file_path = $allowedForms[ $form_key ];
 	}
 
 	/**
