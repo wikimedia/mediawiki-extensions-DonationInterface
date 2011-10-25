@@ -11,7 +11,6 @@ $messages = array();
 /** English */
 $messages['en'] = array(
 	'payflowprogateway' => 'Make your donation now',
-	'globalcollectgateway' => 'Make your donation now',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',

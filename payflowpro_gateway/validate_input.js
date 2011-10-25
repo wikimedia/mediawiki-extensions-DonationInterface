@@ -52,29 +52,28 @@ window.validate_personal = function( form ){
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip'];
 	var fields = [ "emailAdd","fname","lname","street","city","zip" ],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
-			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
-			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
+			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
 	}
 	var stateField = document.getElementById( 'state' );
 	var countryField = document.getElementById( 'country' );
 	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
 	}
 
 	if( countryField.type == "select" ){ // country is a dropdown select
 		if( countryField.options[countryField.selectedIndex].value == '' ) {
-			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
 	}
 	else{ // country is a hidden or text input
 		if( countryField.value == '' ) {
-			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
 	}
 
@@ -88,7 +87,7 @@ window.validate_personal = function( form ){
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += payflowproGatewayErrorMsgEmail;
+		output += mw.msg( 'donate_interface-error-msg-email' );
 	}
 
 	if( output ) {
@@ -107,33 +106,29 @@ window.validate_form = function( form ) {
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip', 'CardNum', 'Cvv' ];
 	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
-			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
-			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
+			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
 	}
 	var stateField = document.getElementById( 'state' );
 	var countryField = document.getElementById( 'country' );
 	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
 	}
-	// output += "State:" + stateField.options[stateField.selectedIndex].value + '.\r\n';
 	
 	if( countryField.type == "select" ){ // country is a dropdown select
 		if( countryField.options[countryField.selectedIndex].value == '' ) {
-			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-		// output += "Country:" + countryField.options[countryField.selectedIndex].value + '.\r\n';
 	}
 	else{ // country is a hidden or text input
 		if( countryField.value == '' ) {
-			output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgCountry'] + '.\r\n';
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-		// output += "Country:" + countryField.value + '.\r\n';
 	}
 
 	//set state to "outside us"
@@ -146,7 +141,7 @@ window.validate_form = function( form ) {
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += payflowproGatewayErrorMsgEmail;
+		output += mw.msg( 'donate_interface-error-msg-email' );
 	}
 
 	if( output ) {

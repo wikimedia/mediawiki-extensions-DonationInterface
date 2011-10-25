@@ -512,11 +512,39 @@ $wgResourceTemplate = array(
 	'remoteExtPath' => 'DonationInterface/gateway_forms',
 );
 
+$wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
+	'messages' => array(
+		'donate_interface-error-msg-js',
+		'donate_interface-error-msg-invalid-amount',
+		'donate_interface-error-msg-email',
+		'donate_interface-error-msg-card-num',
+		'donate_interface-error-msg-amex',
+		'donate_interface-error-msg-mc',
+		'donate_interface-error-msg-visa',
+		'donate_interface-error-msg-discover',
+		'donate_interface-error-msg-amount',
+		'donate_interface-error-msg-emailAdd',
+		'donate_interface-error-msg-fname',
+		'donate_interface-error-msg-lname',
+		'donate_interface-error-msg-street',
+		'donate_interface-error-msg-city',
+		'donate_interface-error-msg-state',
+		'donate_interface-error-msg-zip',
+		'donate_interface-error-msg-country',
+		'donate_interface-error-msg-card_type',
+		'donate_interface-error-msg-card_num',
+		'donate_interface-error-msg-expiration',
+		'donate_interface-error-msg-cvv',
+		'donate_interface-error-msg-captcha',
+		'donate_interface-error-msg-captcha-please',
+	)
+);
+
 // form validation resource
 //TODO: Move this somewhere gateway-agnostic.
 $wgResourceModules[ 'pfp.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
-	'dependencies' => 'pfp.form.core.pfp_css',
+	'dependencies' => array( 'pfp.form.core.pfp_css', 'ext.donationInterface.errorMessages' ),
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
 );
@@ -527,8 +555,14 @@ $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 	'scripts' => 'form_placeholders.js',
 	'dependencies' => 'pfp.form.core.validate',
 	'messages' => array(
-		'payflowpro_gateway-donor-fname',
-		'payflowpro_gateway-donor-lname'
+		'donate_interface-donor-fname',
+		'donate_interface-donor-lname',
+		'donate_interface-donor-street',
+		'donate_interface-donor-city',
+		'donate_interface-donor-state',
+		'donate_interface-donor-postal',
+		'donate_interface-donor-country',
+		'donate_interface-donor-address',
 	),
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
@@ -572,8 +606,8 @@ $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway
 //GlobalCollect gateway magical globals
 //TODO: all the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
-	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
-	$wgExtensionAliasesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
+	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
+	$wgExtensionAliasesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
 }
 
 //PayflowPro gateway magical globals

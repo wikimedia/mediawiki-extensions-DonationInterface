@@ -71,71 +71,20 @@ $( document ).ready( function () {
 			// set the action to go to PayPal
 			$( 'input[name="gateway"]' ).val( "paypal" );
 			$( 'input[name="PaypalRedirect"]' ).val( "1" );
-			$( "#loading" ).html( "<img src=" + scriptPath + "'/extensions/DonationInterface/payflowpro_gateway/forms/rapidhtml/images/loading-white.gif' /> Redirecting to PayPal…" );
+			$( "#loading" ).html( '<img alt="loading" src="'+mw.config.get( 'wgScriptPath' )+'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" /> Redirecting to PayPal…' );
 			document.paypalcontribution.action = actionURL;
 			document.paypalcontribution.submit();
 		}
 	} );
 	$( "#paymentContinueBtn" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) ) {
-			showStep3();
+			displayCreditCardForm()
 		}
 	} );
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) ) {
-			$( '#payment' ).empty();
-			// Load wait spinner
-			$( '#payment' ).append( '<br/><br/><br/><img alt="loading" src="'+mw.config.get( 'wgScriptPath' )+'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
-			showStep3(); // Open the 3rd section
-			var language = 'en'; // default value is English
-			var matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
-			if ( matches[1] ) {
-				language = matches[1];
-			}
-			var sendData = {
-				'action': 'donate',
-				'gateway': 'globalcollect',
-				'currency': 'USD',
-				'amount': $( "input[name='amount']" ).val(),
-				'fname': $( "input[name='fname']" ).val(),
-				'lname': $( "input[name='lname']" ).val(),
-				'street': $( "input[name='street']" ).val(),
-				'city': $( "input[name='city']" ).val(),
-				'state': $( "input[name='state']" ).val(),
-				'zip': $( "input[name='zip']" ).val(),
-				'emailAdd': $( "input[name='emailAdd']" ).val(),
-				'country': $( "input[name='country']" ).val(),
-				'payment_method': 'card',
-				'language': language,
-				'card_type': $( "input[name='cardtype']" ).val().toLowerCase(),
-				'format': 'json'
-			};
-	
-			$.ajax( {
-				'url': mw.util.wikiScript( 'api' ),
-				'data': sendData,
-				'dataType': 'json',
-				'type': 'GET',
-				'success': function( data ) {
-					if ( data.result.errors ) {
-						var errors = new Array();
-						$.each( data.result.errors, function( index, value ) {
-							alert( value );
-						} );
-					} else {
-						if ( data.result.formaction ) {
-							$( '#payment' ).empty();
-							// Insert the iframe into the form
-							$( '#payment' ).append( 
-								'<iframe src="'+data.result.formaction+'" width="318" height="300" frameborder="0"></iframe>'
-							);
-							
-						}
-					}
-				}
-			} );
-			
+			displayCreditCardForm()
 		}
 		else {
 			// show the continue button to indicate how to get to step 3 since they
@@ -165,7 +114,7 @@ $( document ).ready( function () {
 		showStep2();
 	} );
 	$( "#step3header" ).click( function() {
-		showStep3();
+		displayCreditCardForm();
 	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {
@@ -183,6 +132,60 @@ $( document ).ready( function () {
 	} );
 
 } );
+
+function displayCreditCardForm() {
+	$( '#payment' ).empty();
+	// Load wait spinner
+	$( '#payment' ).append( '<br/><br/><br/><img alt="loading" src="'+mw.config.get( 'wgScriptPath' )+'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
+	showStep3(); // Open the 3rd section
+	var language = 'en'; // default value is English
+	var matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
+	if ( matches[1] ) {
+		language = matches[1];
+	}
+	var sendData = {
+		'action': 'donate',
+		'gateway': 'globalcollect',
+		'currency': 'USD',
+		'amount': $( "input[name='amount']" ).val(),
+		'fname': $( "input[name='fname']" ).val(),
+		'lname': $( "input[name='lname']" ).val(),
+		'street': $( "input[name='street']" ).val(),
+		'city': $( "input[name='city']" ).val(),
+		'state': $( "input[name='state']" ).val(),
+		'zip': $( "input[name='zip']" ).val(),
+		'emailAdd': $( "input[name='emailAdd']" ).val(),
+		'country': $( "input[name='country']" ).val(),
+		'payment_method': 'card',
+		'language': language,
+		'card_type': $( "input[name='cardtype']" ).val().toLowerCase(),
+		'format': 'json'
+	};
+
+	$.ajax( {
+		'url': mw.util.wikiScript( 'api' ),
+		'data': sendData,
+		'dataType': 'json',
+		'type': 'GET',
+		'success': function( data ) {
+			if ( data.result.errors ) {
+				var errors = new Array();
+				$.each( data.result.errors, function( index, value ) {
+					alert( value );
+				} );
+			} else {
+				if ( data.result.formaction ) {
+					$( '#payment' ).empty();
+					// Insert the iframe into the form
+					$( '#payment' ).append( 
+						'<iframe src="'+data.result.formaction+'" width="318" height="300" frameborder="0"></iframe>'
+					);
+					
+				}
+			}
+		}
+	} );
+}
 
 function showStep1() {
 	// show the correct sections
