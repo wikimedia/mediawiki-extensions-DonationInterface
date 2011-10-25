@@ -105,7 +105,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						),
 						'PAYMENT' => array(
 							'PAYMENTPRODUCTID',
-							'ISSUERID',
 							'AMOUNT',
 							'CURRENCYCODE',
 							'LANGUAGECODE',
