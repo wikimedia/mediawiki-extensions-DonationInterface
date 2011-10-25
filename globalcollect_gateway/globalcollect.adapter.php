@@ -240,7 +240,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 1,
 			'label'	=> 'Visa',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// MasterCard
@@ -248,7 +248,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 3,
 			'label'	=> 'MasterCard',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// American Express
@@ -256,7 +256,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 2,
 			'label'	=> 'American Express',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// Maestro
@@ -264,7 +264,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 117,
 			'label'	=> 'Maestro',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// Solo
@@ -272,7 +272,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 118,
 			'label'	=> 'Solo',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// Laser
@@ -280,7 +280,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 124,
 			'label'	=> 'Laser',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// JCB
@@ -288,7 +288,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 125,
 			'label'	=> 'JCB',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// Discover
@@ -296,7 +296,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 128,
 			'label'	=> 'Discover',
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 		 
 		// CB
@@ -304,7 +304,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 130,
 			'label'	=> 'CB', // Carte Bancaire OR Carte Bleue
 			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'creditCard' => true, 'email' => true, 'name' => true, ),
+			'validation' => array(),
 		);
 
 		/*
@@ -316,7 +316,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 11,
 			'label'	=> 'Bank Transfer',
 			'group'	=> 'bt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 		);
 
 		/*
@@ -328,7 +328,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 805,
 			'label'	=> 'Nordea (Sweeden)',
 			'group'	=> 'rtbt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 		);
 		 
 		// Ideal
@@ -336,7 +336,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 809,
 			'label'	=> 'Ideal',
 			'group'	=> 'rtbt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 			'issuerids' => array( 
 				771	=> 'RegioBank',
 				161	=> 'Van Lanschot Bankiers',
@@ -355,7 +355,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 810,
 			'label'	=> 'eNETS',
 			'group'	=> 'rtbt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 		);
 		 
 		// Sofortuberweisung/DIRECTebanking
@@ -363,7 +363,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 836,
 			'label'	=> 'Sofortuberweisung/DIRECTebanking',
 			'group'	=> 'rtbt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 		);
 		 
 		// eps Online-Überweisung
@@ -371,7 +371,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 856,
 			'label'	=> 'eps Online-Überweisung',
 			'group'	=> 'rtbt',
-			'validation' => array( 'creditCard' => false, ),
+			'validation' => array(),
 			'issuerids' => array( 
 				824	=> 'Bankhaus Spängler',
 				825	=> 'Hypo Tirol Bank',
