@@ -3,11 +3,11 @@
 	$(document).ready(function() {
 		if ( $( '#fname' ).val() == '') {
 			$( '#fname' ).css( 'color', '#999999' );
-			$( '#fname' ).val( mw.msg( 'payflowpro_gateway-donor-fname' ) );
+			$( '#fname' ).val( mw.msg( 'donate_interface-donor-fname' ) );
 		}
 		if ( $( '#lname' ).val() == '') {
 			$( '#lname' ).css( 'color', '#999999' );
-			$( '#lname' ).val( mw.msg( 'payflowpro_gateway-donor-lname' ) );
+			$( '#lname' ).val( mw.msg( 'donate_interface-donor-lname' ) );
 		}
 	});
 })(jQuery);

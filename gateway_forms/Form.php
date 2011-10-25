@@ -184,10 +184,10 @@ abstract class Gateway_Form {
 	 */
 	public function generateCardDropdown() {
 		$available_cards = array(
-			'visa' => wfMsg( 'payflow_gateway-card-name-visa' ),
-			'mastercard' => wfMsg( 'payflow_gateway-card-name-mc' ),
-			'american' => wfMsg( 'payflow_gateway-card-name-amex' ),
-			'discover' => wfMsg( 'payflow_gateway-card-name-discover' ),
+			'visa' => wfMsg( 'donate_interface-card-name-visa' ),
+			'mastercard' => wfMsg( 'donate_interface-card-name-mc' ),
+			'american' => wfMsg( 'donate_interface-card-name-amex' ),
+			'discover' => wfMsg( 'donate_interface-card-name-discover' ),
 		);
 
 		$card_options = '';
