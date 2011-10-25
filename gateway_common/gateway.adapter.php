@@ -304,6 +304,18 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * getVarMap
+	 *
+	 * This method was added for unit testing.
+	 *
+	 * @return	array	Returns @see GatewayAdapter::$var_map
+	 */
+	public function getVarMap() {
+	
+		return $this->var_map;
+	}
+	
+	/**
 	 * getValue
 	 *
 	 * @todo
