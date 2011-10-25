@@ -35,12 +35,21 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 
 	/**
 	 * testDefineVarMap
+	 *
+	 * This is tested with a bank transfer from Spain.
+	 *
 	 * @covers GlobalCollectAdapter::__construct 
 	 * @covers GlobalCollectAdapter::defineVarMap 
 	 */
 	public function testDefineVarMap() {
 
-		$adapter = new GlobalCollectAdapter();
+		global $wgGlobalCollectGatewayTest;
+
+		$wgGlobalCollectGatewayTest = true;
+
+		$options = $this->getGatewayAdapterTestDataFromSpain();
+		
+		$this->gatewayAdapter = new GlobalCollectAdapter( $options );
 		
 		$var_map = array(
 			'ORDERID' => 'order_id',
@@ -49,9 +58,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'order_id',
-			'RETURNURL' => 'returnto', //TODO: Fund out where the returnto URL is supposed to be coming from. 
+			'RETURNURL' => 'returnto', 
 			'IPADDRESS' => 'user_ip', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
-			'PAYMENTPRODUCTID' => 'card_type',
+			'ISSUERID' => 'issuer_id',
+			'PAYMENTPRODUCTID' => 'payment_product',
 			'CVV' => 'cvv',
 			'EXPIRYDATE' => 'expiration',
 			'CREDITCARDNUMBER' => 'card_num',
@@ -64,7 +74,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 			'EMAIL' => 'email',
 		);
 		
-		$this->assertEquals( $var_map,  $adapter->var_map );
+		$this->assertEquals( $var_map,  $this->gatewayAdapter->getVarMap() );
 
 	}
 }
