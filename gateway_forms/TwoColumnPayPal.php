@@ -46,7 +46,7 @@ class Gateway_Form_TwoColumnPayPal extends Gateway_Form_OneStepTwoColumn {
 	protected function generatePersonalContainer() {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );			;
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ) );
+		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'donate_interface-make-your-donation' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 
 		$form .= $this->generatePersonalFields();

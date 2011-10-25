@@ -48,8 +48,8 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
-		$first = wfMsg( 'payflowpro_gateway-donor-fname' );
-		$last = wfMsg( 'payflowpro_gateway-donor-lname' );
+		$first = wfMsg( 'donate_interface-donor-fname' );
+		$last = wfMsg( 'donate_interface-donor-lname' );
 		$js = <<<EOT
 <script type="text/javascript">
 function loadPlaceholders() {
@@ -170,11 +170,11 @@ EOT;
 		// submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		// $form .= Xml::submitButton( wfMsg( 'payflowpro_gateway-submit-button' ));
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button' ), 'type' => 'submit' ) );
+		// $form .= Xml::submitButton( wfMsg( 'donate_interface-submit-button' ));
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-cc-button' ), 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-		wfMsg( 'payflowpro_gateway-donate-click' );
+		wfMsg( 'donate_interface-donate-click' );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		return $form;
@@ -201,7 +201,7 @@ EOT;
 	protected function generatePersonalContainer() {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );                 ;
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-cc-form-header-personal' ) );
+		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'donate_interface-cc-form-header-personal' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 
 		$form .= $this->generatePersonalFields();
@@ -242,7 +242,7 @@ EOT;
 		$form = '';
 		// credit card info
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-payment-info' ) );
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-payment' ), wfMsg( 'payflowpro_gateway-cc-form-header-payment' ) );
+		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-payment' ), wfMsg( 'donate_interface-cc-form-header-payment' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 
 		$form .= $this->generatePaymentFields();
@@ -259,7 +259,7 @@ EOT;
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 		' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';

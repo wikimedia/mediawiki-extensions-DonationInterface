@@ -38,7 +38,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-make-your-donation' ));
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -86,7 +86,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 
 		/*
 		$form .= '<tr>';
-		$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'payflowpro_gateway-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a></td>';
+		$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'donate_interface-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a></td>';
 		$form .= '</tr>';
 		*/
 		
@@ -101,7 +101,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '100 ' .
 			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '50 ' .
 			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '35 ' .
@@ -128,7 +128,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= '</tr>';
 
 		$form .= '<tr>';
-		$form .= '<td class="label">' . wfMsg( 'payflowpro_gateway-payment-type' ) . '</td>';
+		$form .= '<td class="label">' . wfMsg( 'donate_interface-payment-type' ) . '</td>';
 		$form .= '<td>' . 
 			Xml::radio( 'card_type', 'cc1', $this->form_data['card_type'] == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-visa.png" ) ). '</label>' .
 			Xml::radio( 'card_type', 'cc2', $this->form_data['card_type'] == 'cc2', array( 'id' => 'cc2radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc2radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" ) ). '</label>' .
@@ -179,7 +179,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-postal' ), 'zip' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'zip', '15', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '15', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -190,7 +190,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'payflowpro_gateway-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
 		$form .= $this->getEmailOptField();
@@ -208,10 +208,10 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit', 'style' => 'display: none;' ) );
 		}
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;return true;', 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=0;return true;', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-		wfMsg( 'payflowpro_gateway-donate-click' );
+		wfMsg( 'donate_interface-donate-click' );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		
@@ -223,7 +223,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		}
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		$form .= Html::hidden( 'PaypalRedirect', 0 );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-donor-submit' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		return $form;
@@ -260,9 +260,9 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-otherways-short' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-credit-storage-processing' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;

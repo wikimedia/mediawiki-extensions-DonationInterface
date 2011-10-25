@@ -6,7 +6,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath() ) ) {
-			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/payflowpro_gateway/forms/css/TwoStepTwoColumnPremium.css' );
+			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/gateway_forms/css/TwoStepTwoColumnPremium.css' );
 		}
 
 		parent::__construct( $form_data, $form_errors, $gateway );
@@ -22,14 +22,14 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
-		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), wfMsg( 'payflowpro_gateway-tshirt-confirmation' ) );
+		$form .= Xml::tags( 'div', array( 'id' => 'premium-header' ), wfMsg( 'donate_interface-tshirt-confirmation' ) );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/wikipedia-ten-tshirt-front.png", 'width' => '300', 'height' => '280' ) ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-values' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-size' ) );
 		$sizeDisplay = '<span id="size-display">'.$wgRequest->getText( 'size' ).'</span>';
-		$form .= wfMsg( 'payflowpro_gateway-shirt-size-2', $sizeDisplay );
+		$form .= wfMsg( 'donate_interface-shirt-size-2', $sizeDisplay );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-size
-		$form .= wfMsg( 'payflowpro_gateway-on-the-back' ) . "<br/>";
+		$form .= wfMsg( 'donate_interface-on-the-back' ) . "<br/>";
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-language' ) );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/wordmarks/".$wgRequest->getText( 'premium_language' )."-wordmark.png", 'width' => '200', 'height' => '92' ) );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-language
@@ -43,7 +43,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-please-complete' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-please-complete' ) );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -99,7 +99,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
@@ -149,14 +149,14 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 		$form .= '<td colspan="2"><span class="creditcard-error-msg"></span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><label for="shipping"><input id="shipping" name="shipping" type="checkbox" checked="checked"/> '.wfMsg( 'payflowpro_gateway-shipping-address-same' ).'</label></td>';
+		$form .= '<td colspan="2"><label for="shipping"><input id="shipping" name="shipping" type="checkbox" checked="checked"/> '.wfMsg( 'donate_interface-shipping-address-same' ).'</label></td>';
 	    $form .= '</tr>';
 
 		$form .= '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country2'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'payflowpro_gateway-donor-country' ), 'country2' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-country' ), 'country2' ) . '</td>';
 		$form .= '<td>' . $this->generateCountryDropdown() . '</td>';
 		$form .= '</tr>';
 		*/

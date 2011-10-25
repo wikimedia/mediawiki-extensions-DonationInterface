@@ -41,7 +41,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		// $form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ));
+		// $form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-make-your-donation' ));
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -90,8 +90,8 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		if ( !$this->paypal ) {
 			// PayPal button
 			$form .= '<tr>';
-			$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'payflowpro_gateway-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a><br/>' .
-			'— ' . wfMsg( 'payflowpro_gateway-or' ) . ' —<br/><big><b>' . wfMsg( 'payflowpro_gateway-donate-wikipedia' ) . '</b></big></td>';
+			$form .= '<td style="text-align:center;" colspan="2"><big><b>' . wfMsg( 'donate_interface-paypal-button' ) . '</b></big><br/><a href="#" onclick="document.payment.PaypalRedirect.value=1;document.payment.submit();"><img src="' . $scriptPath . '/paypal.png"/></a><br/>' .
+			'— ' . wfMsg( 'donate_interface-or' ) . ' —<br/><big><b>' . wfMsg( 'donate_interface-donate-wikipedia' ) . '</b></big></td>';
 			$form .= '</tr>';
 		}
 
@@ -148,7 +148,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
 		$form .= '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'payflowpro_gateway-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 
 		// email agreement
@@ -163,12 +163,12 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', 0 );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=1;return true;', 'type' => 'submit' ) );
 		} else {
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-donor-submit' ), 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-donor-submit' ), 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gateway-donate-click' );
+			wfMsg( 'donate_interface-donate-click' );
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
@@ -207,9 +207,9 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate.gif" ) ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-otherways-short' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-credit-storage-processing' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'payflowpro_gateway-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-otherways-short' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-credit-storage-processing' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-question-comment' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;

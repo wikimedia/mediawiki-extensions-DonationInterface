@@ -41,7 +41,7 @@ class Gateway_Form_TwoColumnLetter extends Gateway_Form_OneStepTwoColumn {
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'payflowpro_gateway-make-your-donation' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-make-your-donation' ) );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {

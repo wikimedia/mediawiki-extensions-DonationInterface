@@ -20,9 +20,9 @@ class Gateway_Form_OneStepTwoColumn extends Gateway_Form {
 	public function loadPlaceholders() {
 		global $wgOut;
 		// form placeholder values
-		$first = wfMsg( 'payflowpro_gateway-donor-fname' );
-		$last = wfMsg( 'payflowpro_gateway-donor-lname' );
-		$other = wfMsg( 'payflowpro_gateway-other' );
+		$first = wfMsg( 'donate_interface-donor-fname' );
+		$last = wfMsg( 'donate_interface-donor-lname' );
+		$other = wfMsg( 'donate_interface-other' );
 		$js = <<<EOT
 <script type="text/javascript">
 function loadPlaceholders() {
@@ -161,12 +161,12 @@ EOT;
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
 		if ( $this->paypal ) {
 			$form .= Html::hidden( 'PaypalRedirect', false );
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';return true;', 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-paypal-button' ), 'onclick' => 'document.payment.PaypalRedirect.value=\'true\';return true;', 'type' => 'submit' ) );
 		} else {
-			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'payflowpro_gateway-cc-button' ), 'type' => 'submit' ) );
+			$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-cc-button' ), 'type' => 'submit' ) );
 			$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 			$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-			wfMsg( 'payflowpro_gateway-donate-click' );
+			wfMsg( 'donate_interface-donate-click' );
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
@@ -211,13 +211,13 @@ EOT;
 		global $wgRequest, $wgScriptPath;
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
-		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'payflowpro_gateway-make-your-donation' ) );
+		$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'donate_interface-make-your-donation' ) );
 		if ( !$this->paypal ) {
 			$source = htmlspecialchars( $wgRequest->getText( 'utm_source' ) );
 			$medium = htmlspecialchars( $wgRequest->getText( 'utm_medium' ) );
 			$campaign = htmlspecialchars( $wgRequest->getText( 'utm_campaign' ) );
 			$formname = htmlspecialchars( $wgRequest->getText( 'form_name' ) );
-			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'payflowpro_gateway-paypal', $wgScriptPath, $formname, $source, $medium, $campaign ) );
+			$form .= Xml::Tags( 'p', array( 'id' => 'payflowpro_gateway-cc_otherways' ), wfMsg( 'donate_interface-paypal', $wgScriptPath, $formname, $source, $medium, $campaign ) );
 		}
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 
