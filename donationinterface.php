@@ -249,7 +249,7 @@ $wgDonationInterfaceHTTPProxy = '';
 $wgDonationInterfaceSMaxAge = 6000;
 
 /**
- * Configure price cieling and floor for valid contribution amount.  Values
+ * Configure price ceiling and floor for valid contribution amount.  Values
  * should be in USD.
  */
 $wgDonationInterfacePriceFloor = '1.00';
