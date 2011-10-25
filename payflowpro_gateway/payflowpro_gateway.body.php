@@ -134,10 +134,12 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $responseMsg String: message supplied by getResults function
 	 */
 	function fnPayflowDisplayApprovedResults( $data, $responseMsg ) {
-		global $wgOut, $wgExternalThankYouPage;
+		global $wgOut;
+		
+		$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
 
-		if ( $wgExternalThankYouPage ) {
-			$wgOut->redirect( $wgExternalThankYouPage . "/" . $data['language'] );
+		if ( $thankyoupage ) {
+			$wgOut->redirect( $thankyoupage . "/" . $data['language'] );
 		} else {
 			// display response message
 			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
@@ -165,12 +167,17 @@ class PayflowProGateway extends GatewayForm {
 	 */
 	function fnPayflowDisplayDeclinedResults( $responseMsg ) {
 		global $wgOut;
+		$failpage = $this->adapter->getGlobal( 'FailPage' );
 
-		// general decline message
-		$declinedDefault = wfMsg( 'php-response-declined' );
+		if ( $failpage ) {
+			$wgOut->redirect( $failpage . "/" . $data['language'] );
+		} else {
+			// general decline message
+			$declinedDefault = wfMsg( 'php-response-declined' );
 
-		// display response message
-		$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+			// display response message
+			$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+		}
 	}
 
 	/**
