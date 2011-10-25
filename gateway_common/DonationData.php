@@ -59,6 +59,7 @@ class DonationData {
 				'currency' => $wgRequest->getText( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
+				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
 				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
 				'numAttempt' => $wgRequest->getVal( 'numAttempt', '0' ),
@@ -152,6 +153,7 @@ class DonationData {
 				'currency' => 'USD',
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod' ),
+				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
 				'order_id' => '1234567890',
 				'i_order_id' => '1234567890',
 				'numAttempt' => 0,

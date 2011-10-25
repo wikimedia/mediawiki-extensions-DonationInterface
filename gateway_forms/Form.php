@@ -364,6 +364,7 @@ abstract class Gateway_Form {
 				// payment_method is no longer set to: processed
 				'payment_method' => isset( $this->form_data['payment_method'] ) ? $this->form_data['payment_method'] : '',
 				'payment_submethod' => isset( $this->form_data['payment_submethod'] ) ? $this->form_data['payment_submethod'] : '',
+				'issuer_id' => isset( $this->form_data['issuer_id'] ) ? $this->form_data['issuer_id'] : '',
 				'token' => $this->form_data['token'],
 				'order_id' => $this->form_data['order_id'],
 				'i_order_id' => $this->form_data['i_order_id'],
