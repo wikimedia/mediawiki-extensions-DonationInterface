@@ -78,8 +78,6 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * Checks posted form data for errors and returns array of messages
 	 *
-	 * This is update to GatewayForm::fnValidateForm().
-	 *
 	 * @param array	$data	Reference to the data of the form
 	 * @param array	$error	Reference to the error messages of the form
 	 * @param array	$options
@@ -91,39 +89,37 @@ class GatewayForm extends UnlistedSpecialPage {
 	 *   - name - Validates: fname, lname
 	 *
 	 * @return 0|1	Returns 0 on success and 1 on failure
-	 *
-	 * @see GatewayForm::fnValidateForm()
 	 */
-	public function validateForm( &$data, &$error, $options = false ) {
+	public function validateForm( &$data, &$error, $options = array() ) {
 		
-		$validateAll = false;
-		if ($options === false){
-			$validateAll = true;
-		}
-		
-		if ( is_array( $options ) ){
-			extract( $options );
-		}
+		extract( $options );
+
+		// Set which items will be validated
+		$address = isset( $address ) ? ( boolean ) $address : true;
+		$amount = isset( $amount ) ? ( boolean ) $amount : true;
+		$creditCard = isset( $creditCard ) ? ( boolean ) $creditCard : false;
+		$email = isset( $email ) ? ( boolean ) $email : true;
+		$name = isset( $name ) ? ( boolean ) $name : true;
 
 		// These are set in the order they will most likely appear on the form.
-		
-		if ( $validateAll || isset( $name ) ) {
+
+		if ( $name ) {
 			$this->validateName( $data, $error );
 		}
 
-		if ( $validateAll || isset( $address ) ) {
+		if ( $address ) {
 			$this->validateAddress( $data, $error );
 		}
 
-		if ( $validateAll || isset( $amount ) ) {
+		if ( $amount ) {
 			$this->validateAmount( $data, $error );
 		}
 
-		if ( $validateAll || isset( $email ) ) {
+		if ( $email ) {
 			$this->validateEmail( $data, $error );
 		}
 
-		if ( $validateAll || isset( $creditCard ) ) {
+		if ( $creditCard ) {
 			$this->validateCreditCard( $data, $error );
 		}
 
