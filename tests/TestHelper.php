@@ -27,6 +27,10 @@
  */
 error_reporting( E_ALL | E_STRICT );
 
+if ( !defined( 'MEDIAWIKI' ) ) {
+	define( 'MEDIAWIKI', 1 );
+}
+
 /**
  * TESTS_WEB_ROOT
  *
@@ -39,6 +43,9 @@ $IP = TESTS_WEB_ROOT;
 /*
  * Required files for unit testing. 
  */
+require_once( TESTS_WEB_ROOT . '/includes/Defines.php' );
+require_once( TESTS_WEB_ROOT . '/includes/DefaultSettings.php' );
+require_once( TESTS_WEB_ROOT . '/LocalSettings.php' );
 require_once( TESTS_WEB_ROOT . '/includes/SpecialPage.php' );
 require_once( TESTS_WEB_ROOT . '/includes/Title.php' );
 require_once( TESTS_WEB_ROOT . '/includes/Exception.php' );
@@ -74,10 +81,6 @@ require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'globalcolle
 require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'ContributionTracking/ContributionTracking.processor.php';
 
 
-if ( !defined( 'MEDIAWIKI' ) ) {
-	define( 'MEDIAWIKI', 1 );
-}
-
 /*
  * Unit tests are run from the command line.
  *
@@ -109,8 +112,6 @@ $_SESSION = isset( $_SESSION ) ? $_SESSION : array();
  *
  * These files need to be required after the above code. Do not move.
  */
-require_once( TESTS_WEB_ROOT . '/includes/Defines.php' );
-require_once( TESTS_WEB_ROOT . '/LocalSettings.php' );
 require_once( TESTS_WEB_ROOT . '/includes/WebRequest.php' );
 require_once( TESTS_WEB_ROOT . '/includes/GlobalFunctions.php' );
 require_once( TESTS_WEB_ROOT . '/includes/HttpFunctions.php' );
