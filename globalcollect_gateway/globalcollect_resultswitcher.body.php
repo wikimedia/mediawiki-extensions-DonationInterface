@@ -93,7 +93,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		} else {
 			if ( !$this->adapter->isCache() ) {
 				// if we're not caching, there's a token mismatch
-				$this->errors['general']['token-mismatch'] = wfMsg( 'payflowpro_gateway-token-mismatch' );
+				$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
 			}
 		}
 	}

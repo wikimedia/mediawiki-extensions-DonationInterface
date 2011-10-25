@@ -148,11 +148,11 @@ class PayflowProGateway extends GatewayForm {
 			$countries = GatewayForm::getCountries();
 
 			$rows = array(
-				'title' => array( wfMsg( 'payflowpro_gateway-post-transaction' ) ),
-				'amount' => array( wfMsg( 'payflowpro_gateway-donor-amount' ), $data['amount'] ),
-				'email' => array( wfMsg( 'payflowpro_gateway-donor-email' ), $data['email'] ),
-				'name' => array( wfMsg( 'payflowpro_gateway-donor-name' ), $data['fname'], $data['mname'], $data['lname'] ),
-				'address' => array( wfMsg( 'payflowpro_gateway-donor-address' ), $data['street'], $data['city'], $data['state'], $data['zip'], $countries[$data['country']] ),
+				'title' => array( wfMsg( 'donate_interface-post-transaction' ) ),
+				'amount' => array( wfMsg( 'donate_interface-donor-amount' ), $data['amount'] ),
+				'email' => array( wfMsg( 'donate_interface-donor-email' ), $data['email'] ),
+				'name' => array( wfMsg( 'donate_interface-donor-name' ), $data['fname'], $data['mname'], $data['lname'] ),
+				'address' => array( wfMsg( 'donate_interface-donor-address' ), $data['street'], $data['city'], $data['state'], $data['zip'], $countries[$data['country']] ),
 			);
 
 			// if we want to show the response
@@ -194,7 +194,7 @@ class PayflowProGateway extends GatewayForm {
 	function fnPayflowDisplayPending( $responseMsg ) {
 		global $wgOut;
 
-		$thankyou = wfMsg( 'payflowpro_gateway-thankyou' );
+		$thankyou = wfMsg( 'donate_interface-thankyou' );
 
 		// display response message
 		$wgOut->addHTML( '<h2 class="response_message">' . $thankyou . '</h2>' );
