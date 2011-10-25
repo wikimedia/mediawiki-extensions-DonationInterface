@@ -31,6 +31,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'RETURNURL' => 'returnto', //TODO: Fund out where the returnto URL is supposed to be coming from. 
 			'IPADDRESS' => 'user_ip', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
 			'PAYMENTPRODUCTID' => 'card_type',
+			'ISSUERID' => 'issuer_id',
 			'CVV' => 'cvv',
 			'EXPIRYDATE' => 'expiration',
 			'CREDITCARDNUMBER' => 'card_num',
@@ -653,7 +654,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'rtbt_ideal':
 				$this->postdata['payment_product'] = 809;
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				$this->var_map['ISSUERID'] = 'issuer';
+				$this->var_map['ISSUERID'] = 'issuer_id';
 				break;
 			
 			case 'rtbt_enets':
@@ -669,7 +670,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'rtbt_eps':
 				$this->postdata['payment_product'] = 856;
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				//$this->var_map['ISSUERID'] = 'issuer';
+				$this->var_map['ISSUERID'] = 'issuer_id';
 				break;
 		}
 	}
