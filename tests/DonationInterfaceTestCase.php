@@ -34,19 +34,28 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'TestHelper.php';
  */
 abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 {
+
+	/**
+	 * This will be set by a test method with the adapter object.
+	 *
+	 * @var GatewayAdapter	$gatewayAdapter
+	 */
+	protected $gatewayAdapter;
 	
 	/**
 	 * This fetches test data to be used for gateway adapters.
 	 *
+	 * This method also sets up $_SERVER
+	 *
 	 * The returned result is populated with a test user from Spain, attempting
 	 * a bank transfer for 350 EUR.
+	 *
+	 * @param array	$options
 	 *
 	 * Options that may need to be set:
 	 * - adapter: (string) Defaults to TESTS_ADAPTER_DEFAULT
 	 * - gateway: (string) Defaults to TESTS_GATEWAY_DEFAULT
 	 * - test: (boolean) $test may be legacy code, use with caution.
-	 *
-	 *
 	 *
 	 * This test data has these defaults:
 	 * - amount: Amount is set to an integer, by default, for the amount of 350
@@ -83,8 +92,9 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - owa_session:  
 	 * - owa_ref: http://localhost/defaultTestData
 	 *
+	 * @return array	Contains: postDefaults, testData
 	 */
-	public function getGatewayAdapterTestDataFromSpain( $options = array() ) {
+	public function getGatewayAdapterTestData( $options = array() ) {
 		
 		extract( $options );
 
@@ -120,6 +130,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$payment_method		= isset( $payment_method )		? (string) $payment_method : 'bt' ;
 		$payment_submethod	= isset( $payment_submethod )	? (string) $payment_submethod : 'bt' ;
+		$issuer_id			= isset( $issuer_id )			? (string) $issuer_id : '' ;
 		$amount				= isset( $amount )				? $amount : 350 ;
 		$currency			= isset( $currency )			? (string) $currency : 'EUR' ;
 		$language			= isset( $language )			? (string) $language	: 'en' ;
@@ -176,14 +187,108 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			'owa_ref' => 'http://localhost/defaultTestData',
 		);
 		
+		// Set the issuer id if available
+		if ( !empty( $issuer_id ) ) {
+			
+			$return['testData']['issuer_id'] = $issuer_id;
+		}
+		
+		// Set the gateway
 		if ( $gateway == 'GlobalCollectGateway' ) {
 			$return['testData']['gateway'] = 'globalcollect';	
 		}
 		elseif ( $gateway == 'PayflowProGateway' ) {
 			$return['testData']['gateway'] = 'payflowpro';	
 		}
+
+		$_SERVER = array();
+
+		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
+		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
+		$_SERVER['REQUEST_URI'] = '/index.php/Special:' . $gateway . '?form_name=' . $form_name;
 		
 		return $return;
+	}
+
+	
+	/**
+	 * This fetches test data to be used for gateway adapters.
+	 *
+	 * The returned result is populated with a test user from Spain, attempting
+	 * a bank transfer for 350 EUR.
+	 *
+	 * If you need more locations to test, implement another method like this
+	 * one, overriding options as needed.
+	 *
+	 * Use the naming conventions with:
+	 * - From<Location>
+	 * - Using<BankTransfer>
+	 *
+	 * The above parameters would map to: getGatewayAdapterTestDataFromSpainUsingBankTransfer()
+	 *
+ 	 * @see DonationInterfaceTestCase::getGatewayAdapterTestData()
+	 */
+	public function getGatewayAdapterTestDataFromSpain( $options = array() ) {
+		
+		$options['city']		= 'Barcelona';
+		$options['state']		= 'XX';
+		$options['zip']			= '';
+		$options['country']		= 'ES';
+		$options['currency']	= 'EUR';
+		
+		return $this->getGatewayAdapterTestData( $options );
+	}
+	
+	/**
+	 * Get the expected XML request from GlobalCollect
+	 *
+	 * @return string	The expected XML request
+	 */
+	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
+
+		$orderId = $this->gatewayAdapter->getData( 'order_id' );
+
+		$expected  = '<?xml version="1.0"?>' . "\n";
+		$expected .= '<XML>';
+		$expected .= 	'<REQUEST>';
+		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
+		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGatewayMerchantId() . '</MERCHANTID><VERSION>1.0</VERSION></META>';
+		$expected .= 		'<PARAMS>';
+		$expected .= 			'<ORDER>';
+		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
+		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
+		$expected .= 				'<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
+		$expected .= 			'</ORDER>';
+		$expected .= 			'<PAYMENT>';
+		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
+
+		// Set the issuer id if it is passed.
+		if ( isset( $optionsForTestData['issuer_id'] ) ) {
+			$expected .= 				'<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
+		}
+		
+		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
+		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
+		$expected .= 				'<RETURNURL>http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult?order_id=' . $orderId . '</RETURNURL>';
+		$expected .= 				'<FIRSTNAME>' . $options['testData']['fname'] . '</FIRSTNAME>';
+		$expected .= 				'<SURNAME>' . $options['testData']['lname'] . '</SURNAME>';
+		$expected .= 				'<STREET>' . $options['testData']['street'] . '</STREET>';
+		$expected .= 				'<CITY>' . $options['testData']['city'] . '</CITY>';
+		$expected .= 				'<STATE>' . $options['testData']['state'] . '</STATE>';
+		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+		$expected .= 			'</PAYMENT>';
+		$expected .= 		'</PARAMS>';
+		$expected .= 	'</REQUEST>';
+		$expected .= '</XML>';
+		
+		return $expected;
 		
 	}
 }
