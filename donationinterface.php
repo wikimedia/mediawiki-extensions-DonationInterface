@@ -260,7 +260,7 @@ $wgDonationInterfacePriceCeiling = '10000.00';
  */
 //$wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
 $wgDonationInterfaceThankYouPage = 'Donate-thanks';
-$wgDonationInterfaceFailPage = 'Donate-error';
+$wgDonationInterfaceFailPage = 'Donate-error'; 
 
 
 //GlobalCollect gateway globals
@@ -288,6 +288,9 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgPayflowProGatewayHtmlFormDir = $donationinterface_dir . 'payflowpro_gateway/forms/html';
 	//this really should be redefined in LocalSettings.
 	$wgPayflowProGatewayAllowedHtmlForms = $wgDonationInterfaceAllowedHtmlForms;
+	
+	//defaults to not doing the new fail page redirect. 
+	$wgPayflowProGatewayFailPage = false;
 }
 
 //Stomp globals

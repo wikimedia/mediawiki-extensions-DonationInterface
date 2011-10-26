@@ -90,7 +90,9 @@ class GatewayForm extends UnlistedSpecialPage {
 	 *
 	 * @return 0|1	Returns 0 on success and 1 on failure
 	 */
-	public function validateForm( &$data, &$error, $options = array() ) {
+	public function validateForm( &$error, $options = array() ) {
+		
+		$data = $this->adapter->getDisplayData();
 		
 		extract( $options );
 
@@ -303,16 +305,15 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * Build and display form to user
 	 *
-	 * @param $data Array: array of posted user input
 	 * @param $error Array: array of error messages returned by validate_form function
 	 *
 	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
-	public function displayForm( &$data, &$error ) {
+	public function displayForm( &$error ) {
 		global $wgOut;
 
 		$form_class = $this->getFormClass();
-		$form_obj = new $form_class( $data, $error, $this->adapter );
+		$form_obj = new $form_class( $this->adapter, $error );
 		$form = $form_obj->getForm();
 		$wgOut->addHTML( $form );
 	}

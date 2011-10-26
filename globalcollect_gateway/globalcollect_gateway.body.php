@@ -82,12 +82,9 @@ EOT;
 			return;
 		}
 
-		//TODO: This is short-circuiting what I really want to do here. 
-		//so stop it. 
-		$data = $this->adapter->getDisplayData();
 
 		// dispatch forms/handling
-		if ( $this->adapter->checkTokens() ) {
+		if ( $this->adapter->checkTokens() ) {			
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
@@ -97,18 +94,23 @@ EOT;
 				 *
 				 * An invalid $payment_method will cause an error.
 				 */
+				
+				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
+				//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
+				$data = $this->adapter->getDisplayData();
+				
 				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
 				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
 		
 				$payment_submethodMeta = $this->adapter->getPaymentSubmethodMeta( $payment_submethod, array( 'log' => true, ) );
 				
 				// Check form for errors
-				$form_errors = $this->validateForm( $data, $this->errors, $payment_submethodMeta['validation'] );
+				$form_errors = $this->validateForm( $this->errors, $payment_submethodMeta['validation'] );
 				
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 
-					$this->displayForm( $data, $this->errors );
+					$this->displayForm( $this->errors );
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data
 					// Execute the proper transaction code:
@@ -122,8 +124,6 @@ EOT;
 						$this->executeIframeForCreditCard( $result );
 					}
 
-
-					//TODO: add all the hooks back in. 
 				}
 			} else {
 				// Display form for the first time
@@ -134,14 +134,14 @@ EOT;
 					$this->displayResultsForDebug( $result );
 				}
 				$this->adapter->log( "Not posted, or not processed. Showing the form for the first time." );
-				$this->displayForm( $data, $this->errors );
+				$this->displayForm( $this->errors );
 			}
 		} else {
 			if ( !$this->adapter->isCache() ) {
 				// if we're not caching, there's a token mismatch
 				$this->errors['general']['token-mismatch'] = wfMsg( $gateway_id . '_gateway-token-mismatch' );
 			}
-			$this->displayForm( $data, $this->errors );
+			$this->displayForm( $this->errors );
 		}
 	}
 

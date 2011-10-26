@@ -15,7 +15,7 @@ abstract class Gateway_Form {
 	public $hidden_fields;
 
 	/**
-	 * An array of form data, passed from the payflow pro object
+	 * An array of form data, collected from the gateway parameter. 
 	 * @var array
 	 */
 	public $form_data;
@@ -49,12 +49,12 @@ abstract class Gateway_Form {
 	 */
 	abstract function getForm();
 
-	public function __construct( &$data, &$error, &$gateway ) {
+	public function __construct( &$gateway, &$error ) {
 		global $wgOut;
 
 		$this->gateway = & $gateway;
 		$this->test = $this->gateway->getGlobal( "Test" );
-		$this->form_data = & $data;
+		$this->form_data = $this->gateway->getDisplayData();
 		$this->form_errors = & $error;
 
 		/**

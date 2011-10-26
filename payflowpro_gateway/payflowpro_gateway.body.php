@@ -37,9 +37,6 @@ class PayflowProGateway extends GatewayForm {
 			$this->paypalRedirect();
 			return;
 		}
-		//TODO: This is short-circuiting what I really want to do here.
-		//so stop it.
-		$data = $this->adapter->getDisplayData();
 		
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
@@ -47,10 +44,10 @@ class PayflowProGateway extends GatewayForm {
 				// The form was submitted and the payment method has been set
 				$this->adapter->log( "Form posted and payment method set." );
 				// Check form for errors
-				$form_errors = $this->validateForm( $data, $this->errors );
+				$form_errors = $this->validateForm( $this->errors );
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
-					$this->displayForm( $data, $this->errors );
+					$this->displayForm( $this->errors );
 				} else { // The submitted form data is valid, so process it
 					$result = $this->adapter->do_transaction( 'Card' );
 
@@ -67,14 +64,14 @@ class PayflowProGateway extends GatewayForm {
 			} else {
 				error_log("Not posted - showing for the first time");
 				// Display form for the first time
-				$this->displayForm( $data, $this->errors );
+				$this->displayForm( $this->errors );
 			}
 		} else {
 			if ( !$this->adapter->isCache() ) {
 				// if we're not caching, there's a token mismatch
 				$this->errors['general']['token-mismatch'] = wfMsg( $gateway_id . '_gateway-token-mismatch' );
 			}
-			$this->displayForm( $data, $this->errors );
+			$this->displayForm( $this->errors );
 		}
 	}
 
@@ -108,7 +105,7 @@ class PayflowProGateway extends GatewayForm {
 			$this->log( $oid . " " . $i_oid . " Transaction unsuccessful (invalid info).", LOG_DEBUG );
 			// pass responseMsg as an array key as required by displayForm
 			$this->errors['retryMsg'] = $responseMsg;
-			$this->displayForm( $data, $this->errors );
+			$this->displayForm( $this->errors );
 			// if declined or if user has already made two attempts, decline
 		} elseif ( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
 			$this->log( $oid . " " . $i_oid . " Transaction declined.", LOG_DEBUG );
@@ -123,7 +120,7 @@ class PayflowProGateway extends GatewayForm {
 			$this->log( $oid . " " . $i_oid . " Transaction unsuccessful (communication failure).", LOG_DEBUG );
 			$this->fnPayflowDisplayOtherResults( $responseMsg );
 			$this->errors['retryMsg'] = $responseMsg;
-			$this->displayForm( $data, $this->errors );
+			$this->displayForm( $this->errors );
 		}
 	}
 

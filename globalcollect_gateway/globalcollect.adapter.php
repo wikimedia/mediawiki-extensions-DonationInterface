@@ -563,7 +563,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * unknown transaction types. 
 	 */
 	public function defineStagedVars() {
-
 		//OUR field names. 
 		$this->staged_vars = array(
 			'amount',

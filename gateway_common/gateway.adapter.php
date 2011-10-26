@@ -236,7 +236,16 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function checkTokens() {
-		return $this->dataObj->checkTokens();
+		$checkResult = $this->dataObj->checkTokens();
+		
+		if ( $checkResult ) {
+			$this->debugarray[] = 'Token Match';
+		} else {
+			$this->debugarray[] = 'Token MISMATCH';
+		}
+		
+		$this->refreshGatewayValueFromSource( 'token' );		
+		return $checkResult;
 	}
 
 	function getData( $val = '' ) {
@@ -599,11 +608,10 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->doStompTransaction();
 		}
 
-		$this->dataObj->unsetEditToken();
-
 		//TODO: Actually pull these from somewhere legit. 
 		if ( $this->getTransactionStatus() === true ) {
 			$this->setTransactionResult( "$transaction Transaction Successful!", 'message' );
+			
 		} elseif ( $this->getTransactionStatus() === false ) {
 			$this->setTransactionResult( "$transaction Transaction FAILED!", 'message' );
 		} else {
@@ -613,10 +621,26 @@ abstract class GatewayAdapter implements GatewayType {
 		// log that the transaction is essentially complete
 		self::log( $this->getData( 'order_id' ) . " Transaction complete." );
 
+		//Session Handling
+		//getTransactionStatus works here like this, because it only returns 
+		//something other than false if it's the sort of a transaction that can 
+		//denote a successful donation.  
+		$wmfStatus = $this->getTransactionWMFStatus();
+		switch ( $wmfStatus ){
+			case 'failed' : //only kill their session if they've tried three (or somehow more) times. 
+				if ( (int)$this->postdata['numAttempt'] < 3 ) {
+					break;
+				}
+			case 'complete' :
+			case 'pending' :
+			case 'pending-poke' :
+				$this->unsetAllSessionData();
+		}	
 		//if we're not actively adding the donor data to the session, kill it. 
 		if ( !$this->transaction_option( 'addDonorDataToSession' ) ) {
-			$this->unsetAllGatewaySessionData();
+			$this->dataObj->unsetDonorSessionData(); //just that. Not the whole session. 
 		}
+		$this->debugarray[] = 'numAttempt = ' . $this->postdata['numAttempt'];
 
 		return $this->getTransactionAllResults();
 
@@ -1024,8 +1048,14 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->dataObj->addDonorDataToSession();
 	}
 
-	function unsetAllGatewaySessionData() {
-		$this->dataObj->unsetAllDDSessionData();
+	/**
+	 * Destroys the session completely. 
+	 * Note: This will leave the cookie behind! It just won't go to anything at 
+	 * all. 
+	 */
+	function unsetAllSessionData() {
+		$this->dataObj->killAllSessionEverything();
+		$this->debugarray[] = 'Killed all the session everything.';
 	}
 
 	function doStompTransaction() {
@@ -1056,7 +1086,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->dataObj->populateDonorFromSession();
 		}
 
-		// refresh our data
+		// refresh our data directly, which we should NEVER EVER DO WITHOUT STAGING.
 		$this->postdata = $this->dataObj->getData();
 
 		// stage the gateway data
@@ -1226,7 +1256,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * If it has been set: returns the WMF Transaction Status in the 
 	 * $transaction_results array. This is the one we care about for switching 
 	 * on overall behavior. Otherwise, returns false.
-	 * @return mixed WMF Transaction results status, or false if not set.  
+	 * @return mixed WMF Transaction results status, or false if not set. 
+	 * Possible valid statuses are: 'complete', 'pending', 'pending-poke', 'failed' and 'revised'.
 	 */
 	public function getTransactionWMFStatus() {
 		if ( array_key_exists( 'WMF_STATUS', $this->transaction_results ) ) {
@@ -1303,6 +1334,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	public function incrementNumAttempt() {
 		$this->dataObj->incrementNumAttempt();
+		$this->refreshGatewayValueFromSource( 'numAttempt' );
 	}
 
 	public function setHash( $hashval ) {
@@ -1350,7 +1382,7 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $this->action == 'reject' ) {
 				// expose a hook for external handling of trxns flagged for rejection
 				wfRunHooks( 'GatewayReject', array( &$this ) );
-				$this->dataObj->unsetEditToken();
+				$this->unsetAllSessionData();
 			}
 		} else {
 			$this->action = 'process'; //we have to do this so do_transaction doesn't kick out. 
@@ -1369,6 +1401,27 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Instead of pulling all the DonationData back through to update one local 
+	 * value, use this. It updates both postdata (which is intended to be 
+	 * staged for the gateway) and displaydata (which could potentially become 
+	 * staged for the user). 
+	 * 
+	 * TODO: handle the cases where $val is listed in the gateway adapter's 
+	 * staged_vars. 
+	 * Not doing this right now, though, because it's not yet necessary for 
+	 * anything we have at the moment. 
+	 * 
+	 * @param string $val The field name that we are looking to retrieve from 
+	 * our DonationData object. 
+	 */
+	function refreshGatewayValueFromSource( $val ){
+		$refreshed = $this->dataObj->getVal( $val );
+		error_log( "Refreshed Value $val = " . print_r($refreshed, true) );
+		$this->postdata[$val] = $refreshed;
+		$this->displaydata[$val] = $refreshed;
 	}
 
 }

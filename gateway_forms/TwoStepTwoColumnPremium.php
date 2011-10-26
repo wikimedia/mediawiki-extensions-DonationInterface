@@ -1,7 +1,8 @@
 <?php
 
 class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn {
-	public function __construct( &$form_data, &$form_errors, &$gateway ) {
+	public function __construct( &$gateway, &$form_errors ) {
+		parent::__construct( $gateway, $form_errors );
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
@@ -9,7 +10,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/gateway_forms/css/TwoStepTwoColumnPremium.css' );
 		}
 
-		parent::__construct( $form_data, $form_errors, $gateway );
+		parent::__construct( $gateway, $form_errors );
 	}
 
 	public function generateFormStart() {

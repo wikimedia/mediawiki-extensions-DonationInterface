@@ -429,6 +429,9 @@ class DonationData {
 
 	/**
 	 * Unset the payflow edit token from a user's session
+	 * 
+	 * TODO: Get rid of this, if we end up using the new, much more draconian
+	 * killAllSessionEverything(). 
 	 */
 	function unsetEditToken() {
 		$gateway_ident = $this->gatewayID;
@@ -468,8 +471,12 @@ class DonationData {
 
 			$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' editToken: ' . $token, LOG_DEBUG );
 
-			// match token
-			$token_check = ( $this->isSomething( 'token' ) ) ? $this->getVal( 'token' ) : $token; //TODO: does this suck as much as it looks like it does?
+			// match token			
+			if ( !$this->isSomething( 'token' ) ){
+				$this->setVal( 'token', $token );				
+			}
+			$token_check = $this->getVal( 'token' );
+			
 			$match = $this->matchEditToken( $token_check, $salt );
 			if ( $wgRequest->wasPosted() ) {
 				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Submitted edit token: ' . $this->getVal( 'token' ), LOG_DEBUG );
@@ -707,13 +714,25 @@ class DonationData {
 	}
 
 	/**
-	 * TODO: Consider putting all the session data for a gateway under something like
-	 * $_SESSION[$gateway_identifier]
-	 * so we can kill it all with one stroke.
+	 * Unsets the session data, in the case that we've saved it for gateways 
+	 * like GlobalCollect that require it to persist over here through their 
+	 * iframe experience. 
 	 */
-	public function unsetAllDDSessionData() {
+	public function unsetDonorSessionData() {
 		unset( $_SESSION['Donor'] );
-		$this->unsetEditToken();
+	}
+	
+	/**
+	 * This should kill the session as hard as possible.
+	 * It will leave the cookie behind, but everything it could possibly 
+	 * reference will be gone. 
+	 */
+	public function killAllSessionEverything() {
+		//yes: We do need all of these things, to be sure we're killing the 
+		//correct session data everywhere it could possibly be. 
+		self::ensureSession(); //make sure we are killing the right thing. 
+		session_unset(); //frees all registered session variables. At this point, they can still be re-registered. 
+		session_destroy(); //killed on the server. 
 	}
 
 	public function addData( $newdata ) {

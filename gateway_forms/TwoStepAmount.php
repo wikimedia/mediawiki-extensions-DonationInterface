@@ -23,21 +23,23 @@
  */
 class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
-	public function __construct( &$form_data, &$form_errors, &$gateway ) {
+	public function __construct( &$gateway, &$form_errors ) {
+		parent::__construct( $gateway, $form_errors );
+		
+		//TODO: This is pretty odd to do here. However, as this form is only 
+		//being used for testing purposes, it's getting the update that goes 
+		//along with yet another change in Form Class construction.
+		$this->form_data['payment_method'] = empty($this->form_data['payment_method']) ? 'bt' : $this->form_data['payment_method'];
+		$this->form_data['payment_submethod'] = empty($this->form_data['payment_submethod']) ? 'bt' : $this->form_data['payment_submethod'];
 
-		$form_data['payment_method'] = empty($form_data['payment_method']) ? 'bt' : $form_data['payment_method'];
-		$form_data['payment_submethod'] = empty($form_data['payment_submethod']) ? 'bt' : $form_data['payment_submethod'];
+		//$this->form_data['payment_method'] = 'rtbt';
+		//$this->form_data['payment_submethod'] = 'rtbt_nordea_sweeden';
 
-		//$form_data['payment_method'] = 'rtbt';
-		//$form_data['payment_submethod'] = 'rtbt_nordea_sweeden';
-
-		//$form_data['payment_method'] = 'rtbt';
-		//$form_data['payment_submethod'] = 'rtbt_ideal';
-		//$form_data['issuerids'] = array();
-
-
-		$form_data['process'] = 'other';
-		parent::__construct( $form_data, $form_errors, $gateway );
+		//$this->form_data['payment_method'] = 'rtbt';
+		//$this->form_data['payment_submethod'] = 'rtbt_ideal';
+		//$this->form_data['issuerids'] = array();
+		
+		$this->form_data['process'] = 'other';
 
 		// we only want to load this JS if the form is being rendered
 		$this->loadValidateJs(); // validation JS
