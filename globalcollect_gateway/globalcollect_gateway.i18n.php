@@ -32,3 +32,26 @@ $messages['qqq'] = array(
 	'globalcollect_gateway-response-400530' => 'Error message for invalid payment method, for example, not a valid credit card type.',
 	'globalcollect_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
+
+/** German (Deutsch)
+ * @author Kghbln
+ */
+$messages['de'] = array(
+	'globalcollectgateway' => 'Jetzt spenden',
+	'globalcollect_gateway-desc' => 'Ermöglicht die Zahlungsabwicklung durch GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Ungültiger Staat.',
+	'globalcollect_gateway-response-9140' => 'Ungültige Währung.',
+	'globalcollect_gateway-response-9150' => 'Ungültige Sprache.',
+	'globalcollect_gateway-response-400530' => 'Ungültige Zahlungsmethode.',
+	'globalcollect_gateway-response-default' => 'Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.
+Bitte versuche es später noch einmal.',
+);
+
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
+ * @author Kghbln
+ */
+$messages['de-formal'] = array(
+	'globalcollect_gateway-response-default' => 'Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.
+Bitte versuchen Sie es später noch einmal.',
+);
+
