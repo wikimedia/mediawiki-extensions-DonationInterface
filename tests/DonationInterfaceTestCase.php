@@ -41,6 +41,35 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * @var GatewayAdapter	$gatewayAdapter
 	 */
 	protected $gatewayAdapter;
+
+	/**
+	 * buildRequestXmlForGlobalCollect
+	 *
+	 * @todo
+	 * - there are many cases to this that need to be developed.
+	 * - Do not consider this a complete test!
+	 *
+	 * @covers GatewayAdapter::__construct
+	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::buildRequestXML
+	 * @covers GatewayAdapter::getData
+	 */
+	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
+
+		global $wgGlobalCollectGatewayTest;
+		
+		$wgGlobalCollectGatewayTest = true;
+
+		$this->gatewayAdapter = new GlobalCollectAdapter( $options );
+
+		$this->gatewayAdapter->currentTransaction('INSERT_ORDERWITHPAYMENT');
+
+		$request = trim( $this->gatewayAdapter->buildRequestXML() );
+
+		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
+		
+		$this->assertEquals($expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.');
+	}
 	
 	/**
 	 * This fetches test data to be used for gateway adapters.
@@ -211,7 +240,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		return $return;
 	}
 
-	
 	/**
 	 * This fetches test data to be used for gateway adapters.
 	 *
@@ -265,12 +293,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 			'</ORDER>';
 		$expected .= 			'<PAYMENT>';
 		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
-
-		// Set the issuer id if it is passed.
-		if ( isset( $optionsForTestData['issuer_id'] ) ) {
-			$expected .= 				'<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
-		}
-		
 		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
 		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
@@ -283,6 +305,12 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 				'<CITY>' . $options['testData']['city'] . '</CITY>';
 		$expected .= 				'<STATE>' . $options['testData']['state'] . '</STATE>';
 		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+
+		// Set the issuer id if it is passed.
+		if ( isset( $optionsForTestData['issuer_id'] ) ) {
+			$expected .= 				'<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
+		}
+		
 		$expected .= 			'</PAYMENT>';
 		$expected .= 		'</PARAMS>';
 		$expected .= 	'</REQUEST>';
