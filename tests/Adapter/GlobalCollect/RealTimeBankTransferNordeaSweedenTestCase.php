@@ -14,7 +14,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
+ * @since		r100823
  * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 

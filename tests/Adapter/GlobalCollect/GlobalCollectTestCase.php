@@ -59,7 +59,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'order_id',
 			'RETURNURL' => 'returnto', 
-			'IPADDRESS' => 'user_ip', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
+			'IPADDRESS' => 'user_ip',
 			'ISSUERID' => 'issuer_id',
 			'PAYMENTPRODUCTID' => 'payment_product',
 			'CVV' => 'cvv',

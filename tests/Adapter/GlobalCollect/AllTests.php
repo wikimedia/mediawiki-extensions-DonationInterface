@@ -20,10 +20,39 @@
  */
 
 /**
- * @see DonationInterface_Adapter_ServerTestCase
+ * @see DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollectTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase
  */
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'BankTransferTestCase.php';
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollectTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferEnetsTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferEpsTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferIdealTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferNordeaSweedenTestCase.php';
+
+/**
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferSofortuberweisungTestCase.php';
 
 /**
  * AllTests
@@ -53,8 +82,28 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite( 'Donation Interface - Adapter Suite' );
 
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_BankTransferTestCase' );                                                             
+		// General adapter tests
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase' );                                                             
+
+		// Bank transfer tests
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_BankTransferTestCase' );                                                             
+
+		// Real time bank transfer tests
+		
+		// eNets
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase' );
+		
+		// eps Online-Überweisung
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase' );
+		
+		// Ideal
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase' );
+		
+		// Nordea (Sweeden)
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenTestCase' );
+		
+		// eNETS
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );                                                             
 
 		return $suite;
 	}
