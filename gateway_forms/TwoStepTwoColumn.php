@@ -4,9 +4,6 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 
 	public function __construct( &$gateway, &$form_errors ) {
 		parent::__construct( $gateway, $form_errors );
-		// load validation and placeholder JS
-		$this->loadValidateJs();
-		$this->loadPlaceholders();
 	}
 
 	public function loadPlaceholders() {
@@ -21,6 +18,7 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 	 * @return string The entire form HTML
 	 */
 	public function getForm() {
+		$this->loadResources();
 		$form = $this->generateFormStart();
 		$form .= $this->getCaptchaHTML();
 		$form .= $this->generateFormSubmit();
@@ -28,6 +26,19 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Load resources required by this form
+	 * 
+	 * This will get called in getForm(). If getForm() is not defined in any
+	 * child classes, but child classes should not load the same resources
+	 * as are defined here, just overload this method in the child class
+	 * to define what (if any) resources ought to be loaded.
+	 */
+	public function loadResources() {
+		$this->loadValidateJs();
+		$this->loadPlaceholders();
+	}
+	
 	public function generateFormStart() {
 		$form = $this->generateBannerHeader();
 

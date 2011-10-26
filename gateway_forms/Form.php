@@ -61,6 +61,10 @@ abstract class Gateway_Form {
 		 *  add form-specific css - the path can be set in child classes
 		 *  using $this->setStylePath, which should be called before
 		 *  calling parent::__construct()
+		 *  
+		 *  @TODO ditch this and start using ResourceLoader. Perhaps do something
+		 *  similar to how resources are getting loaded in TwoStepTwoColumn and
+		 *  its children.
 		 */
 		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath();
