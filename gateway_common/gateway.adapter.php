@@ -67,7 +67,7 @@ interface GatewayType {
 	 * First array key: Some way for us to id the transaction. Doesn't actually have to be the gateway's name for it, but I'm going with that until I have a reason not to. 
 	 * Second array key: 
 	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours, 
-	 * 		according to the precidence established in the getValue function. 
+	 * 		according to the precidence established in the getTransactionSpecificValue function. 
 	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here. 
 	 */
 	function defineTransactions();
@@ -135,6 +135,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $transaction_results;
 	protected $form_class;
 	protected $validation_errors;
+	protected $current_transaction;
 	public $action; //Currently, hooks need to be able to set this directly.
 	public $debugarray; //TODO: Take me out. 
 
@@ -230,7 +231,14 @@ abstract class GatewayAdapter implements GatewayType {
 		return $returnto;
 	}
 
-	function checkTokens() {
+	/**
+	 * Checks the edit tokens in the user's session against the one gathered 
+	 * from populated form data.  
+	 * Adds a string to the debugarray, to make it a little easier to tell what 
+	 * happened if we turn the debug results on.  
+	 * @return boolean true if match, else false.  
+	 */
+	public function checkTokens() {
 		$checkResult = $this->dataObj->checkTokens();
 		
 		if ( $checkResult ) {
@@ -320,21 +328,41 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 	
 	/**
-	 * getValue
-	 *
-	 * @todo
-	 * - This is specific to transactions.
-	 * - This method probably needs to be renamed.
+	 * This function is used exclusively by the two functions that build 
+	 * requests to be sent directly to external payment gateway servers. Those 
+	 * two functions are buildRequestNameValueString, and (perhaps less 
+	 * obviously) buildRequestXML. As such, unless a valid current transaction 
+	 * has already been set, this will error out rather hard. 
+	 * In other words: In all likelihood, this is not the function you're 
+	 * looking for.
+	 * @param string $gateway_field_name The GATEWAY's field name that we are 
+	 * hoping to populate. Probably not even remotely the way we name the same 
+	 * data internally. 
+	 * @param boolean $token This is a throwback to a road we nearly went down, 
+	 * with ajax and client-side token replacement. The idea was, if this was 
+	 * set to true, we would simply pass the fully-formed transaction structure 
+	 * with our tokenized var names in the spots where form values would usually 
+	 * go, so we could fetch the structure and have some client-side voodoo 
+	 * populate the transaction so we wouldn't have to touch the data at all.
+	 * At this point, very likely cruft that can be removed, but as I'm not 100% 
+	 * on that point, I'm keeping it for now. If we do kill off this param, we 
+	 * should also get rid of the function buildTransactionFormat and anything 
+	 * that calls it. 
+	 * @return mixed The value we want to send directly to the gateway, for the 
+	 * specified gateway field name. 
 	 */
-	public function getValue( $gateway_field_name, $token = false ) {
+	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		if ( empty( $this->transactions ) ) {
-			//TODO: These dies should all throw exceptions or something less completely fatal. 
 			$msg = self::getGatewayName() . ': Transactions structure is empty! No transaction can be constructed.';
 			self::log( $msg, LOG_CRIT );
 			throw new MWException( $msg );
 		}
-		//How do we determine the value of a field asked for in a particular transaction? 
-		$transaction = $this->currentTransaction();
+		//Ensures we are using the correct transaction structure for our various lookups. 
+		$transaction = $this->getCurrentTransaction();
+		
+		if ( !$transaction ){
+			return null;
+		}
 
 		//If there's a hard-coded value in the transaction definition, use that.
 		if ( !empty( $transaction ) ) {
@@ -382,14 +410,45 @@ abstract class GatewayAdapter implements GatewayType {
 		self::log( $msg, LOG_CRIT );
 		throw new MWException( $msg );
 	}
+	
+	
+	/**
+	 * Returns the current transaction request structure if it exists, otherwise 
+	 * returns false. 
+	 * Fails nicely if the current transaction is simply not set yet.
+	 * Throws an exception if the transaction is set, but no structure is defined. 
+	 * @return mixed current transaction's structure as an array, or false
+	 */
+	protected function getTransactionRequestStructure(){
+		$transaction = $this->getCurrentTransaction();
+		if ( !$transaction ){
+			return false;
+		}
+		
+		if ( empty( $this->transactions ) || 
+			!array_key_exists( $transaction, $this->transactions ) || 
+			! array_key_exists( 'request', $this->transactions[$transaction] ) ) {
+			
+			$msg = self::getGatewayName() . ": $transaction request structure is empty! No transaction can be constructed.";
+			self::log( $msg, LOG_CRIT );
+			throw new MWException( $msg );
+		}
+		
+		return $this->transactions[$transaction]['request'];
+	}
 
 	/**
-	 * Build a string of name/value pairs out of our donation data for submission to the payment
-	 * processor.
+	 * Builds a set of transaction data in name/value format
+	 *		*)The current transaction must be set before you call this function.
+	 *		*)Uses getTransactionSpecificValue to assign staged values to the 
+	 * fields required by the gateway. Look there for more insight into the 
+	 * heirarchy of all possible data sources. 
+	 * @return string The raw transaction in name/value format, ready to be 
+	 * curl'd off to the remote server. 
 	 */
-	function buildRequestNameValueString() {
+	protected function buildRequestNameValueString() {
 		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->transactions[$this->currentTransaction()]['request'];
+		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
 			return '';
 		}
@@ -398,7 +457,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		//we are going to assume a flat array, because... namevalue. 
 		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getValue( $fieldname );
+			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
 				$queryvals[] = $fieldname . '[' . strlen( $fieldvalue ) . ']=' . $fieldvalue;
 			}
@@ -409,22 +468,39 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Build an XML document out of our donation data for submission to the payment processor.
+	 * Builds a set of transaction data in XML format
+	 *		*)The current transaction must be set before you call this function.
+	 *		*)(eventually) uses getTransactionSpecificValue to assign staged 
+	 * values to the fields required by the gateway. Look there for more insight 
+	 * into the heirarchy of all possible data sources. 
+	 * @return string The raw transaction in xml format, ready to be 
+	 * curl'd off to the remote server. 
 	 */
-	function buildRequestXML() {
+	protected function buildRequestXML() {
 		$this->xmlDoc = new DomDocument( '1.0' );
 		$node = $this->xmlDoc->createElement( 'XML' );
 
 		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->transactions[$this->currentTransaction()]['request'];
+		$structure = $this->getTransactionRequestStructure();
+		if ( !is_array( $structure ) ) {
+			return '';
+		}
 
 		$this->buildTransactionNodes( $structure, $node );
 		$this->xmlDoc->appendChild( $node );
 		return $this->xmlDoc->saveXML();
 	}
 
-	function buildTransactionNodes( $structure, &$node, $js = false ) {
-		$transaction = $this->currentTransaction();
+	/**
+	 * buildRequestXML helper function. 
+	 * Builds the XML transaction by recursively crawling the transaction 
+	 * structure and adding populated nodes by reference. 
+	 * @param array $structure Current transaction's more leafward structure, 
+	 * from the point of view of the current XML node. 
+	 * @param xmlNode $node The current XML node. 
+	 * @param bool $js More likely cruft relating back to buildTransactionFormat
+	 */
+	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
 
 		if ( !is_array( $structure ) ) { //this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case. 
 			$this->appendNodeIfValue( $structure, $node, $js );
@@ -443,21 +519,48 @@ abstract class GatewayAdapter implements GatewayType {
 		//not actually returning anything. It's all side-effects. Because I suck like that. 
 	}
 
-	function appendNodeIfValue( $value, &$node, $js = false ) {
-		$nodevalue = $this->getValue( $value, $js );
+	/**
+	 * appendNodeIfValue is a helper function for buildTransactionNodes, which 
+	 * is used by buildRequestXML to construct an XML transaction. 
+	 * This function will append an XML node to the transaction being built via 
+	 * the passed-in parent node, only if the current node would have a 
+	 * non-empty value.  
+	 * @param string $value The GATEWAY's field name for the current node. 
+	 * @param string $node The parent node this node will be contained in, if it
+	 *  is determined to have a non-empty value. 
+	 * @param bool $js Probably cruft at this point. This is connected to the 
+	 * function buildTransactionFormat. 
+	 */
+	protected function appendNodeIfValue( $value, &$node, $js = false ) {
+		$nodevalue = $this->getTransactionSpecificValue( $value, $js );
 		if ( $nodevalue !== '' && $nodevalue !== false ) {
 			$temp = $this->xmlDoc->createElement( $value, $nodevalue );
 			$node->appendChild( $temp );
 		}
 	}
 
-	//TODO: You can actually take this out if we never ever want to use ajax for a gateway. 
-	function buildTransactionFormat( $transaction ) {
-		$this->currentTransaction( $transaction );
+	/**
+	 * This is a throwback to a road we nearly went down, 
+	 * with ajax and client-side token replacement. The idea was, if this was 
+	 * set to true, we would simply pass the fully-formed transaction structure 
+	 * with our tokenized var names in the spots where form values would usually 
+	 * go, so we could fetch the structure and have some client-side voodoo 
+	 * populate the transaction so we wouldn't have to touch the data at all.
+	 * At this point, very likely cruft that can be removed, but as I'm not 100% 
+	 * on that point, I'm keeping it for now.
+	 * @param string $transaction The current transaction. 
+	 * @return string XML transaction with the form values tokenized instead of 
+	 * populated.  
+	 */
+	public function buildTransactionFormat( $transaction ) {
+		$this->setCurrentTransaction( $transaction );
 		$this->xmlDoc = new DomDocument( '1.0' );
 		$node = $this->xmlDoc->createElement( 'XML' );
 
-		$structure = $this->transactions[$this->currentTransaction()]['request'];
+		$structure = $this->getTransactionRequestStructure();		
+		if ( !is_array( $structure ) ) {
+			return '';
+		}
 
 		$this->buildTransactionNodes( $structure, $node, true );
 		$this->xmlDoc->appendChild( $node );
@@ -471,14 +574,37 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Perform a transaction through the gateway
+	 * Perform a transaction through the gateway.
+	 * This is the entire end-to-end function, meant to be used from the 
+	 * outside, to communicate with a properly constructed gateway and handle 
+	 * all the return data in an appropriate manner, according to the requested 
+	 * transaction's structure and definition.  
 	 *
-	 * @param $transaction string This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
+	 * @param string $transaction This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
 	 * that maps to a first-level key in the $transactions array.
+	 * @return array The results of the transaction attempt. Minimum keys include: 
+	 *	'status' = The result of the pure communication attempt. If there was a 
+	 *		server there, and it responded in a way that was parsable, this will be 
+	 *		set to true, even if it gave us bad news. In all other cases, this will be false. 
+	 *	'message' = An appropriate thing to say to... whatever called us, about 
+	 *		the overall result that happened here. 
+	 *		TODO: Some kind of i18n here. Either pass message labels, or...
+	 *		...wait, I like that one. Let's pass message labels. 
+	 *	'errors' = sort of a misnomer, that should probably be renamed to 
+	 *		result_codes or similar. This is always going to be an array of 
+	 *		numeric codes (even if we have to make them up ourselves) and 
+	 *		human-readable assessments of what happened, probably straight from 
+	 *		the gateway. 
+	 *	'action' = (sometimes there) What the pre-commit hooks said we should go 
+	 *		do with ourselves. Mostly in there for debugging purposes at this 
+	 *		point, as nothing on the outside should care at all, how we do things 
+	 *		internally. 
+	 *	'data' = The data passed back to us from the transaction, in a nice 
+	 *		key-value array. 
 	 */
-	function do_transaction( $transaction ) {
+	public function do_transaction( $transaction ) {
 		try {
-			$this->currentTransaction( $transaction );
+			$this->setCurrentTransaction( $transaction );
 			//update the contribution tracking data
 			$this->incrementNumAttempt();
 
@@ -488,10 +614,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 
 			$this->runPreProcess(); //many hooks get fired here...
-			//TODO: Uhmmm... what if none of the validate hooks are enabled? 
-			//Currently, I think that means the transaction stops here, and that's not quite right.
-			//...is it?
-			// if the transaction was NOT flagged for processing by something in runPreProcess()...
+
 			if ( $this->action != 'process' ) {
 				self::log( "Transaction failed pre-process checks." . print_r( $this->getData(), true ) );
 				return array(
@@ -681,25 +804,37 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Get or set the current transaction
-	 *
-	 * @param $transaction string This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
-	 * that maps to a first-level key in the $transactions array.
+	 * Sets the transaction you are about to send to the payment gateway. This 
+	 * will throw an exception if you try to set it to something that has no 
+	 * transaction definition. 
+	 * @param type $transaction_name This is a specific transaction type like 
+	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a 
+	 * first-level key in the $transactions array.
 	 */
-	public function currentTransaction( $transaction = '' ) { //get&set in one!
-		static $current_transaction;
-		if ( $transaction != '' ) {
-			$current_transaction = $transaction;
-		}
-		if ( !isset( $current_transaction ) ) {
-			return false;
-		}
-		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $current_transaction, $this->transactions ) ) {
-			$msg = self::getGatewayName() . ': Transactions structure is malformed! ' . $current_transaction . ' transaction cannot be constructed.';
+	public function setCurrentTransaction( $transaction_name ){
+		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $transaction_name, $this->transactions ) ) {
+			$msg = self::getGatewayName() . ': Transaction Name "' . $transaction_name . '" undefined for this gateway.';
 			self::log( $msg, LOG_CRIT );
 			throw new MWException( $msg );
+		} else {
+			$this->current_transaction = $transaction_name;
 		}
-		return $current_transaction;
+	}
+	
+	/**
+	 * Gets the currently set transaction name. This value should only ever be 
+	 * set with setCurrentTransaction: A function that ensures the current 
+	 * transaction maps to a first-level key that is known to exist in the 
+	 * $transactions array, defined in the child gateway. 
+	 * @return mixed The name of the properly set transaction, or false if none 
+	 * has been set. 
+	 */
+	public function getCurrentTransaction(){
+		if ( is_null( $this->current_transaction ) ) {
+			return false;
+		} else {
+			return $this->current_transaction;
+		}
 	}
 	
 	/**
@@ -756,9 +891,14 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 	
 	/**
-	 * Sends a name-value pair string to Payflow gateway
-	 *
-	 * @param $data String: The exact thing we want to send.
+	 * Sends a curl request to the gateway server, and gets a response. 
+	 * Saves that response to the gateway object with setTransactionResult();
+	 * @param string $data the raw data we want to curl up to a server somewhere. 
+	 * Should have been constructed with either buildRequestNameValueString, or 
+	 * buildRequestXML. 
+	 * @return boolean true if the communication was successful and there is a 
+	 * parseable response, false if there was a fundamental communication 
+	 * problem. (timeout, bad URL, etc.) 
 	 */
 	protected function curl_transaction( $data ) {
 		// assign header data necessary for the curl_setopt() function
@@ -803,14 +943,13 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		$this->saveCommunicationStats( __FUNCTION__, $this->currentTransaction(), "Request:" . print_r( $data, true ) . "\nResponse" . print_r( $results, true ) );
+		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Request:" . print_r( $data, true ) . "\nResponse" . print_r( $results, true ) );
 
 		if ( $results['headers']['http_code'] != 200 ) {
 			$results['result'] = false;
 			//TODO: i18n here! 
 			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
 			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
-			$when = time();
 			self::log( $this->postdatadefaults['order_id'] . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
 			curl_close( $ch );
 			return false;
@@ -985,15 +1124,24 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * addCodeRange is used to define ranges of response codes for major WMF 
+	 * donation-making gateway transactions, that let us know what status bucket 
+	 * to sort them into.
 	 * DO NOT DEFINE OVERLAPPING RANGES!
-	 * TODO: Make sure it won't let you add overlapping ranges. That would probably necessitate the sort moving to here, too.
-	 * @param type $transaction
-	 * @param type $key
-	 * @param type $action
-	 * @param type $lower
-	 * @param type $upper 
+	 * TODO: Make sure it won't let you add overlapping ranges. That would 
+	 * probably necessitate the sort moving to here, too.
+	 * @param string $transaction The transaction these codes map to.
+	 * @param string $key The (incoming) field name containing the numeric codes 
+	 * we're defining here. 
+	 * @param string $action Should be limited to the values 'complete', 
+	 * 'pending', 'pending-poke', 'failed' and 'revised'... but for now you're 
+	 * on the honor system, kids. TODO: Limit these values in this function, 
+	 * once we are slightly more certain we don't need more values.   
+	 * @param int $lower The integer value of the lower-bound in this code range. 
+	 * @param int $upper Optional: The integer value of the upper-bound in the 
+	 * code range. If omitted, it will make a range of one value: The lower bound.
 	 */
-	function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
+	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
 		} else {
@@ -1039,7 +1187,15 @@ abstract class GatewayAdapter implements GatewayType {
 		return null;
 	}
 
-	function addDonorDataToSession() {
+	/**
+	 * Adds donor data to the user's session, presumably for retrieval before we 
+	 * unset all the session data. 
+	 * An example of a time you would want to use this, is when fetching 
+	 * GlobalCollect's credit card iFrame. They need the donor data, but don't 
+	 * pass it back to us, so we have to hold on to it somehow prior to the 
+	 * point we save it to the database (on successful conversion)
+	 */
+	public function addDonorDataToSession() {
 		$this->dataObj->addDonorDataToSession();
 	}
 
@@ -1053,7 +1209,20 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->debugarray[] = 'Killed all the session everything.';
 	}
 
-	function doStompTransaction() {
+	/**
+	 * Called in do_transaction, in the case that we have successfully completed 
+	 * a transaction that has 'do_processhooks' enabled. 
+	 * Saves a stomp frame to the configured server and queue, based on the 
+	 * outcome of our current transaction. 
+	 * The big tricky thing here, is that we DO NOT SET a TransactionWMFStatus, 
+	 * unless we have just learned what happened to a donation in progress, 
+	 * through performing the current transaction. 
+	 * To put it another way, getTransactionWMFStatus should always return 
+	 * false, unless it's new data about a new transaction. In that case, the 
+	 * outcome will be assigned and the proper stomp hook selected. 
+	 * @return null 
+	 */
+	protected function doStompTransaction() {
 		$this->debugarray[] = "Attempting Stomp Transaction!";
 		$hook = '';
 
@@ -1386,13 +1555,17 @@ abstract class GatewayAdapter implements GatewayType {
 
 	function transaction_option( $option_value ) {
 		//ooo, ugly. 
-		if ( array_key_exists( $option_value, $this->transactions[$this->currentTransaction()] ) ) {
-			if ( $this->transactions[$this->currentTransaction()][$option_value] === true ) {
+		$transaction = $this->getCurrentTransaction();
+		if ( !$transaction ){
+			return false;
+		}
+		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
+			if ( $this->transactions[$transaction][$option_value] === true ) {
 				return true;
 			}
-			if ( is_array( $this->transactions[$this->currentTransaction()][$option_value] ) &&
-				!empty( $this->transactions[$this->currentTransaction()][$option_value] ) ) {
-				return $this->transactions[$this->currentTransaction()][$option_value];
+			if ( is_array( $this->transactions[$transaction][$option_value] ) &&
+				!empty( $this->transactions[$transaction][$option_value] ) ) {
+				return $this->transactions[$transaction][$option_value];
 			}
 		}
 		return false;

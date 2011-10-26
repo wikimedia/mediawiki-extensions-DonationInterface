@@ -62,7 +62,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 
 		$this->gatewayAdapter = new GlobalCollectAdapter( $options );
 
-		$this->gatewayAdapter->currentTransaction('INSERT_ORDERWITHPAYMENT');
+		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
 		$request = trim( $this->gatewayAdapter->buildRequestXML() );
 

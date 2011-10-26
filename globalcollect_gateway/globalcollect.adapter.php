@@ -555,7 +555,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function getResponseData( $response ) {
 		$data = array( );
 
-		$transaction = $this->currentTransaction();
+		$transaction = $this->getCurrentTransaction();
 
 		switch ( $transaction ) {
 			case 'INSERT_ORDERWITHPAYMENT':
