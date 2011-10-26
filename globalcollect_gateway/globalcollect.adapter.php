@@ -191,24 +191,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		$this->payment_methods = array();
 		
-		// Credit Cards
-		$this->payment_methods['cc'] = array(
-			'label'	=> 'Credit Cards',
-			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb,', 'cb', ),
-		);
-		
-		// Real Time Bank Transfers
-		$this->payment_methods['rtbt'] = array(
-			'label'	=> 'Real time bank transfer',
-			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweeden', 'rtbt_enets', ),
-		);
-		
 		// Bank Transfers
 		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
 			'types'	=> array( 'bt', ),
 			'validation' => array( 'creditCard' => false, )
 			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
+		);
+		
+		// Credit Cards
+		$this->payment_methods['cc'] = array(
+			'label'	=> 'Credit Cards',
+			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb,', 'cb', ),
+		);
+		
+		// Direct Debit
+		$this->payment_methods['dd'] = array(
+			'label'	=> 'Direct Debit',
+			'types'	=> array( 'dd_johnsen_nl', 'dd_johnsen_de', 'dd_johnsen_at', 'dd_johnsen_fr', 'dd_johnsen_gb', 'dd_johnsen_be', 'dd_johnsen_ch', 'dd_johnsen_it', 'dd_johnsen_es', ),
+			'validation' => array( 'creditCard' => false, )
+			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
+		);
+		
+		// Real Time Bank Transfers
+		$this->payment_methods['rtbt'] = array(
+			'label'	=> 'Real time bank transfer',
+			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweeden', 'rtbt_enets', ),
 		);
 	}
 
@@ -221,7 +229,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods = array();
 
 		/*
-		 * Credit Card
+		 * Bank transfers
+		 */
+		 
+		// Bank Transfer
+		$this->payment_submethods['bt'] = array(
+			'paymentproductid'	=> 11,
+			'label'	=> 'Bank Transfer',
+			'group'	=> 'bt',
+			'validation' => array(),
+		);
+
+		/*
+		 * Default => Credit Card
+		 *
+		 * Every payment_method should have a payment_submethod.
+		 * This is just a catch to sure some validation happens. 
 		 */
 		 
 		// None specified - This is a catchall to validate all options for credit cards.
@@ -230,6 +253,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Any',
 			'group'	=> 'cc',
 			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+		);
+
+		/*
+		 * Bank transfers
+		 */
+		 
+		// Bank Transfer
+		$this->payment_submethods['bt'] = array(
+			'paymentproductid'	=> 11,
+			'label'	=> 'Bank Transfer',
+			'group'	=> 'bt',
+			'validation' => array(),
 		);
 
 		/*
@@ -309,12 +344,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 
 		/*
-		 * Bank transfers
+		 * Direct Debit
 		 */
 		 
 		// Bank Transfer
-		$this->payment_submethods['bt'] = array(
-			'paymentproductid'	=> 11,
+		$this->payment_submethods['dd_johnsen_nl'] = array(
+			'paymentproductid'	=> 711,
 			'label'	=> 'Bank Transfer',
 			'group'	=> 'bt',
 			'validation' => array(),
@@ -649,39 +684,35 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			
 			/* Bank transfer */
 			case 'bt':
-				$this->postdata['payment_product'] = 11;
+				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+
+			/* Direct Debit */
+			case 'dd_johnsen_nl':
+			case 'dd_johnsen_de':
+			case 'dd_johnsen_at':
+			case 'dd_johnsen_fr':
+			case 'dd_johnsen_gb':
+			case 'dd_johnsen_be':
+			case 'dd_johnsen_ch':
+			case 'dd_johnsen_it':
+			case 'dd_johnsen_es':
+				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 			
 			/* Real time bank transfer */
 			case 'rtbt_nordea_sweeden':
-				$this->postdata['payment_product'] = 805;
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				break;
-			
-			case 'rtbt_ideal':
-				$this->postdata['payment_product'] = 809;
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				$this->var_map['ISSUERID'] = 'issuer_id';
-				
-				// Add the ISSUERID field if it does not exist
-				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
-					$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ISSUERID';
-				}
-				break;
-			
 			case 'rtbt_enets':
-				$this->postdata['payment_product'] = 810;
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				break;
-			
 			case 'rtbt_sofortuberweisung':
-				$this->postdata['payment_product'] = 836;
+				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 			
 			case 'rtbt_eps':
-				$this->postdata['payment_product'] = 856;
+			case 'rtbt_ideal':
+				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['ISSUERID'] = 'issuer_id';
 				
@@ -689,6 +720,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
 					$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ISSUERID';
 				}
+				break;
+				
+			/* Default Case */
+			default:
+				//$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				//$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 		}
 	}
