@@ -24,9 +24,7 @@ $('form').submit(function(evt){
 });
 
 window.formCheck = function( ccform ) {
-	var msg = [ 'EmailAdd', 'Fname', 'Lname', 'Street', 'City', 'Zip' ];
-
-	var fields = ["emailAdd","fname","lname","street","city","zip" ],
+	var fields = ['emailAdd','fname','lname','street','city','zip'],
 		numFields = fields.length,
 		i,
 		output = '',
@@ -34,30 +32,30 @@ window.formCheck = function( ccform ) {
 
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
-			currField = window['payflowproGatewayErrorMsg'+ msg[i]];
-			output += payflowproGatewayErrorMsgJs + ' ' + currField + '.\r\n';
+			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
 	}
 	
 	if (document.getElementById('fname').value == '$first') {
-		output += payflowproGatewayErrorMsgJs + ' first name.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' first name.\r\n';
 	}
 	if (document.getElementById('lname').value == '$last') {
-		output += payflowproGatewayErrorMsgJs + ' last name.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' last name.\r\n';
 	}
 	if (document.getElementById('street').value == '$street') {
-		output += payflowproGatewayErrorMsgJs + ' street address.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' street address.\r\n';
 	}
 	if (document.getElementById('city').value == '$city') {
-		output += payflowproGatewayErrorMsgJs + ' city.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' city.\r\n';
 	}
 	if (document.getElementById('zip').value == '$zip') {
-		output += payflowproGatewayErrorMsgJs + ' zip code.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' zip code.\r\n';
 	}
 	
 	var stateField = document.getElementById( 'state' );
 	if( stateField.options[stateField.selectedIndex].value == '' ) {
-		output += payflowproGatewayErrorMsgJs + ' ' + window['payflowproGatewayErrorMsgState'] + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
 	}
 
 	// validate email address
@@ -65,7 +63,7 @@ window.formCheck = function( ccform ) {
 	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += payflowproGatewayErrorMsgEmail;
+		output += mw.msg( 'donate_interface-error-msg-email' );
 	}
 	
 	if( output ) {
