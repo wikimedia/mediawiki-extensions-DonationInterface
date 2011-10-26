@@ -26,10 +26,10 @@ window.formCheck = function( ccform ) {
 		}
 	}
 	
-	if (document.getElementById('fname').value == '$first') {
+	if (document.getElementById('fname').value == mw.msg( 'donate_interface-donor-fname' )) {
 		output += mw.msg( 'donate_interface-error-msg-js' ) + ' first name.\r\n';
 	}
-	if (document.getElementById('lname').value == '$last') {
+	if (document.getElementById('lname').value == mw.msg( 'donate_interface-donor-lname' )) {
 		output += mw.msg( 'donate_interface-error-msg-js' ) + ' last name.\r\n';
 	}
 	var countryField = document.getElementById( 'country' );
