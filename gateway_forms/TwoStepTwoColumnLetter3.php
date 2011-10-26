@@ -17,12 +17,34 @@ class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn
 	 * 
 	 * @see parent::loadResources()
 	 */
-	public function loadResources() {
+	/*public function loadResources() {
 		$this->loadValidateJs();
-	}
+	}*/
 	
 	public function loadPlaceholders() {
 		global $wgOut;
+		
+		
+		$scriptVars = array(
+			'payflowproGatewayErrorMsgJs' => wfMsg( 'donate_interface-error-msg-js' ),
+			'payflowproGatewayErrorMsgEmail' => wfMsg( 'donate_interface-error-msg-email' ),
+			'payflowproGatewayErrorMsgAmount' => wfMsg( 'donate_interface-error-msg-amount' ),
+			'payflowproGatewayErrorMsgEmailAdd' => wfMsg( 'donate_interface-error-msg-emailAdd' ),
+			'payflowproGatewayErrorMsgFname' => wfMsg( 'donate_interface-error-msg-fname' ),
+			'payflowproGatewayErrorMsgLname' => wfMsg( 'donate_interface-error-msg-lname' ),
+			'payflowproGatewayErrorMsgStreet' => wfMsg( 'donate_interface-error-msg-street' ),
+			'payflowproGatewayErrorMsgCity' => wfMsg( 'donate_interface-error-msg-city' ),
+			'payflowproGatewayErrorMsgState' => wfMsg( 'donate_interface-error-msg-state' ),
+			'payflowproGatewayErrorMsgZip' => wfMsg( 'donate_interface-error-msg-zip' ),
+			'payflowproGatewayErrorMsgCountry' => wfMsg( 'donate_interface-error-msg-country' ),
+			'payflowproGatewayErrorMsgCardNum' => wfMsg( 'donate_interface-error-msg-card_num' ),
+			'payflowproGatewayErrorMsgExpiration' => wfMsg( 'donate_interface-error-msg-expiration' ),
+			'payflowproGatewayErrorMsgCvv' => wfMsg( 'donate_interface-error-msg-cvv' ),
+			'payflowproGatewayCVVExplain' => wfMsg( 'donate_interface-cvv-explain' ),
+		);
+
+		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		
 		// form placeholder values
 		$first = wfMsg( 'donate_interface-donor-fname' );
 		$last = wfMsg( 'donate_interface-donor-lname' );
@@ -161,7 +183,7 @@ EOT;
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return formCheck(this)', 'autocomplete' => 'off' ) );
 
-		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'donate_interface-personal-info' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		$form .= $this->generateBillingFields();
 
