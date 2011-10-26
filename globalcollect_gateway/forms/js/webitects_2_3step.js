@@ -161,7 +161,6 @@ function displayCreditCardForm() {
 		'card_type': $( "input[name='cardtype']" ).val().toLowerCase(),
 		'format': 'json'
 	};
-
 	$.ajax( {
 		'url': mw.util.wikiScript( 'api' ),
 		'data': sendData,
@@ -201,6 +200,9 @@ function showStep1() {
 }
 
 function showStep2() {
+	if ( $( '#step3wrapper' ).is(":visible") ) {
+		$( "#paymentContinue" ).show(); // Show continue button in 2nd section
+	}
 	// show the correct sections
 	$( "#step1wrapper" ).slideUp();
 	$( "#step2wrapper" ).slideDown();

@@ -37,10 +37,13 @@ h3 span { font-weight: normal; }
 /* Specifics
 ======================================================================*/
 /* Buttons */
-.btn { display: inline-block; padding: 0.3em 0.5em; vertical-align: middle; }
+.btn { display: inline-block; padding: 0.3em 0.5em; vertical-align: middle; font-size: 12px; }
 
 /* Donate options */
 .donate-options input { width: 15em; }
+
+/* Continue button */
+#paymentContinue input { width: 15em; }
 
 /* Checklists */
 .checklist { border: 1px solid #ccc; max-height: 20em; line-height: 1.4;  margin: 0 0 1em 0; overflow: auto; }

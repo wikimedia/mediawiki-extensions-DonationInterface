@@ -28,7 +28,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		foreach ( $wgCustomFiltersSrcRules as $regex => $risk_score_modifier ) {
 			/**
 			 * Note that regex pattern does not include delimiters.
-			 * These will need to be included your custom regex patterns.
+			 * These will need to be included in your custom regex patterns.
 			 */
 			if ( preg_match( "$regex", $source ) ) {
 				$this->cfo->risk_score += $risk_score_modifier;

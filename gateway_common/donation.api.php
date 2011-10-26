@@ -60,6 +60,9 @@ class DonationApi extends ApiBase {
 			if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
 				$outputResult['responsemsg'] = $result['data']['RESPMSG'];
 			}
+			if ( array_key_exists( 'ORDERID', $result['data'] ) ) {
+				$outputResult['orderid'] = $result['data']['ORDERID'];
+			}
 		}
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
@@ -69,7 +72,7 @@ class DonationApi extends ApiBase {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
-
+		
 		/*
 		$this->getResult()->setIndexedTagName( $result, 'response' );
 		$this->getResult()->addValue( 'data', 'result', $result );
@@ -97,6 +100,7 @@ class DonationApi extends ApiBase {
 			'cvv' => $this->defineParam( false  ),
 			'payment_method' => $this->defineParam( false  ),
 			'language' => $this->defineParam( false  ),
+			'order_id' => $this->defineParam( false  ),
 		);
 	}
 
@@ -158,6 +162,7 @@ class DonationApi extends ApiBase {
 			'cvv' => 'CVV security code',
 			'payment_method' => 'Payment method to use',
 			'language' => 'Language code',
+			'order_id' => 'Order ID (if a donation has already been started)',
 		);
 	}
 
