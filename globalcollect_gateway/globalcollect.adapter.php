@@ -663,6 +663,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->postdata['payment_product'] = 809;
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['ISSUERID'] = 'issuer_id';
+				
+				// Add the ISSUERID field if it does not exist
+				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
+					$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ISSUERID';
+				}
 				break;
 			
 			case 'rtbt_enets':
@@ -679,6 +684,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->postdata['payment_product'] = 856;
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['ISSUERID'] = 'issuer_id';
+				
+				// Add the ISSUERID field if it does not exist
+				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
+					$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ISSUERID';
+				}
 				break;
 		}
 	}
