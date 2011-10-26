@@ -145,28 +145,28 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['street'] ) ) {
 
-			$error['street'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-street' );
+			$error['street'] = 'dontate_interface-error-msg-street' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['city'] ) ) {
 
-			$error['city'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-city' );
+			$error['city'] = 'dontate_interface-error-msg-city' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['state'] ) ) {
 
-			$error['state'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-state' );
+			$error['state'] = 'dontate_interface-error-msg-state' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['zip'] ) && $data['state'] != 'XX') {
 
-			$error['zip'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-zip' );
+			$error['zip'] = 'dontate_interface-error-msg-zip' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -184,7 +184,7 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['amount'] ) ) {
 
-			$error['amount'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-amount' );
+			$error['amount'] = 'dontate_interface-error-msg-amount' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -196,7 +196,7 @@ class GatewayForm extends UnlistedSpecialPage {
 			( ( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) < ( float ) $priceFloor ||
 			( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) > ( float ) $priceCeiling ) ) {
 
-			$error['invalidamount'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-invalid-amount' );
+			$error['invalidamount'] = 'dontate_interface-error-msg-invalid-amount' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -214,21 +214,21 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['card_num'] ) ) {
 
-			$error['card_num'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-card_num' );
+			$error['card_num'] = 'dontate_interface-error-msg-card_num' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['cvv'] ) ) {
 
-			$error['cvv'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-cvv' );
+			$error['cvv'] = 'dontate_interface-error-msg-cvv' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['expiration'] ) ) {
 
-			$error['expiration'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-expiration' );
+			$error['expiration'] = 'dontate_interface-error-msg-expiration' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -243,7 +243,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		} elseif ( preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $data['card_num'] ) ) { // discover
 			$data['card'] = 'discover';
 		} else { // an invalid credit card number was entered
-			$error['card_num'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-card-num' );
+			$error['card_num'] = 'dontate_interface-error-msg-card-num' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -261,7 +261,7 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['email'] ) ) {
 
-			$error['email'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-email-empty' );
+			$error['email'] = 'dontate_interface-error-email-empty' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -271,7 +271,7 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		// create error message (supercedes empty field message)
 		if ( !$isEmail ) {
-			$error['email'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-email' );
+			$error['email'] = 'dontate_interface-error-msg-email' );
 
 			$this->setValidateFormResult( false );
 		}
@@ -289,14 +289,14 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['fname'] ) ) {
 
-			$error['fname'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-fname' );
+			$error['fname'] = 'dontate_interface-error-msg-fname' );
 
 			$this->setValidateFormResult( false );
 		}
 
 		if ( empty( $data['lname'] ) ) {
 
-			$error['lname'] = wfMsg( $this->adapter->getIdentifier() . '_gateway-error-msg-lname' );
+			$error['lname'] = 'dontate_interface-error-msg-lname' );
 
 			$this->setValidateFormResult( false );
 		}
