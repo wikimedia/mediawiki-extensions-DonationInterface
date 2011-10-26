@@ -62,7 +62,6 @@ class PayflowProGateway extends GatewayForm {
 					$this->displayResultsForDebug( $result );
 				}
 			} else {
-				error_log("Not posted - showing for the first time");
 				// Display form for the first time
 				$this->displayForm( $this->errors );
 			}

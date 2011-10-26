@@ -1419,7 +1419,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	function refreshGatewayValueFromSource( $val ){
 		$refreshed = $this->dataObj->getVal( $val );
-		error_log( "Refreshed Value $val = " . print_r($refreshed, true) );
 		$this->postdata[$val] = $refreshed;
 		$this->displaydata[$val] = $refreshed;
 	}
