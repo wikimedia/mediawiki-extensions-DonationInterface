@@ -12,15 +12,6 @@ class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn
 		parent::__construct( $gateway, $form_errors );
 	}
 
-	/**
-	 * Load resources required by this form
-	 * 
-	 * @see parent::loadResources()
-	 */
-	/*public function loadResources() {
-		$this->loadValidateJs();
-	}*/
-	
 	public function loadPlaceholders() {
 		global $wgOut;
 		
@@ -183,7 +174,7 @@ EOT;
 		$form .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		$form .= Xml::openElement( 'form', array( 'name' => 'payment', 'method' => 'post', 'action' => $this->getNoCacheAction(), 'onsubmit' => 'return formCheck(this)', 'autocomplete' => 'off' ) );
 
-		$form .= Xml::openElement( 'div', array( 'id' => 'donate_interface-personal-info' ) );
+		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 		$form .= $this->generateBillingFields();
 
