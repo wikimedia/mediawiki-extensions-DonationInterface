@@ -32,6 +32,11 @@ window.formCheck = function( ccform ) {
 	if (document.getElementById('lname').value == mw.msg( 'donate_interface-donor-lname' )) {
 		output += mw.msg( 'donate_interface-error-msg-js' ) + ' last name.\r\n';
 	}
+	var stateField = document.getElementById( 'state' );
+	var stateFieldSelected = stateField.options[stateField.selectedIndex].value;
+	if( stateFieldSelected == '' || stateFieldSelected == 'YY' ) {
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
+	}
 	var countryField = document.getElementById( 'country' );
 	if( countryField.options[countryField.selectedIndex].value == '' ) {
 		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
