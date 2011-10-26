@@ -171,7 +171,9 @@ function displayCreditCardForm() {
 			if ( data.result.errors ) {
 				var errors = new Array();
 				$.each( data.result.errors, function( index, value ) {
-					alert( value );
+					alert( value ); // Show them the error
+					$( "#paymentContinue" ).show(); // Show continue button in 2nd section
+					showStep2(); // Switch back to 2nd section of form
 				} );
 			} else {
 				if ( data.result.formaction ) {

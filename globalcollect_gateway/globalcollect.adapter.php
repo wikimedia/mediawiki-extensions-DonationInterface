@@ -499,7 +499,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$message = $childnode->nodeValue;
 				}
 			}
-			$errors[$code] = $message;
+			
+			// If we have a localized version of the error message, output that
+			if ( substr( wfMsg( 'globalcollect_gateway-response-'.$code ), 0, 4 ) === '&lt;' ) {
+				$errors[$code] = $message;
+			} else {
+				$errors[$code] = wfMsg( 'globalcollect_gateway-response-'.$code );
+			}
+			
 		}
 		return $errors;
 	}
