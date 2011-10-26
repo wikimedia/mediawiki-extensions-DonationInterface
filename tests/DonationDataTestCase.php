@@ -30,7 +30,7 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestC
  * @author Katie Horn <khorn@wikimedia.org>
  */
 class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
-	
+
 	/**
 	 *
 	 */
@@ -80,10 +80,10 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/importedTestData',
 		);
-		
+
 	}
-	
-	
+
+
 	/**
 	 * @covers DonationData::__construct
 	 * @covers DonationData::getData
@@ -144,7 +144,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		unset($returned['i_order_id']);
 		$this->assertEquals($returned, $expected, "Staged post data does not match expected (largely empty).");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -197,20 +197,20 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'owa_ref' => 'http://localhost/defaultTestData',
 		);
 		unset($returned['order_id']);
-		
+
 		$this->assertEquals($expected, $returned, "Staged default test data does not match expected.");
 	}
-	
+
 	/**
 	 *
 	 */
 	public function testRepopulate(){
 		$expected = $this->testData;
-		//just unset a handfull... doesn't matter what, really. 
+		//just unset a handfull... doesn't matter what, really.
 		unset($expected['comment-option']);
 		unset($expected['email-opt']);
 		unset($expected['test_string']);
-				
+
 		$ddObj = new DonationData('');
 		$ddObj->populateData(true, $expected); //change to test mode with explicit test data
 		$returned = $ddObj->getData();
@@ -219,18 +219,18 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		unset($expected['order_id']);
 		$this->assertEquals($returned, $expected, "The forced test data did not populate as expected.");
 	}
-	
+
 	/**
 	 *
 	 */
 	public function testIsSomething(){
 		$data = $this->testData;
 		unset($data['zip']);
-		$ddObj = new DonationData('', true, $data); 
+		$ddObj = new DonationData('', true, $data);
 		$this->assertEquals($ddObj->isSomething('zip'), false, "Zip should currently be nothing.");
 		$this->assertEquals($ddObj->isSomething('lname'), true, "Lname should currently be something.");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -241,7 +241,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$this->assertEquals($ddObj->getVal('zip'), null, "Zip should currently be nothing.");
 		$this->assertEquals($ddObj->getVal('lname'), 'McTestingyou', "Lname should currently be 'McTestingyou'.");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -255,7 +255,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$this->assertEquals($returned['amount'], '42.50', "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -269,7 +269,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$this->assertEquals($returned['amount'], 88.15, "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -283,7 +283,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$this->assertEquals($returned['amount'], 3.25, "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountOther', $returned)), "amountOther should have been removed from the data");
 	}
-	
+
 	/**
 	 *
 	 */
@@ -300,8 +300,8 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
 	}
 
-	/*
-	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function. 
+	/**
+	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function.
 	 * I know that's more regression-ish, but I stand by it. :p
 	function isCache(){
 	function setOwaRefId(){
@@ -324,7 +324,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	function saveContributionTracking() {
 	public static function insertContributionTracking( $tracking_data ) {
 	public function updateContributionTracking( $force = false ) {
-	
+
 	*/
 }
 
