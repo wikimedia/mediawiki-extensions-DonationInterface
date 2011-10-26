@@ -178,7 +178,7 @@ $wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/rapidhtm
 //ffname is the $key from now on.
 $wgDonationInterfaceAllowedHtmlForms = array(
 	'globalcollect_test' => $wgDonationInterfaceHtmlFormDir . "/globalcollect_test.html",
-	'globalcollect_test2' => $wgDonationInterfaceHtmlFormDir . "/globalcollect_test2.html",
+	'globalcollect_test_2' => $wgDonationInterfaceHtmlFormDir . "/globalcollect_test_2.html",
 );
 
 $wgDonationInterfaceTest = false;
