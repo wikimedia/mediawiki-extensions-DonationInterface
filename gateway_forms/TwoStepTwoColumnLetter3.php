@@ -64,29 +64,29 @@ window.formCheck = function( ccform ) {
 	for( i = 0; i < numFields; i++ ) {
 		if( document.getElementById( fields[i] ).value == '' ) {
 			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\\r\\n';
 		}
 	}
 
 	if (document.getElementById('fname').value == '$first') {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' first name.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' first name.\\r\\n';
 	}
 	if (document.getElementById('lname').value == '$last') {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' last name.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' last name.\\r\\n';
 	}
 	if (document.getElementById('street').value == '$street') {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' street address.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' street address.\\r\\n';
 	}
 	if (document.getElementById('city').value == '$city') {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' city.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' city.\\r\\n';
 	}
 	if (document.getElementById('zip').value == '$zip') {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' zip code.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' zip code.\\r\\n';
 	}
 
 	var stateField = document.getElementById( 'state' );
 	if( stateField.options[stateField.selectedIndex].value == '' ) {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\\r\\n';
 	}
 
 	// validate email address
