@@ -146,7 +146,7 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		$form = '';
 		
 		$payment_submethod = $this->gateway->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
-		if ( !isset( $payment_submethod['issuerids'] ) ) {
+		if ( !isset( $payment_submethod['issuerids'] )  || empty( $payment_submethod['issuerids'] ) ) {
 			
 			// No issuer_id to load
 			return $form;
