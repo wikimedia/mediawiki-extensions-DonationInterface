@@ -7,7 +7,7 @@
  *
  * @since r100950
  */
-
+ 
 /*******************************************************************************
 
 Helpers
@@ -93,9 +93,6 @@ function validateElementAmount( options ) {
 			else {
 				params.min = 0;
 			}
-			//console.log('value: ' + value);
-			//console.log('integerValue: ' + integerValue);
-			//console.log(params);
 			
 			return integerValue >= params.min;
 		}, mw.msg( 'donate_interface-error-msg-invalid-amount' ) );
@@ -383,187 +380,170 @@ Validate Element Groups
 *******************************************************************************/
 
 /**
- * Validate Bank Transfers
+ * Validate GlobalCollect payment forms
+ * 
+ * See how to implement error containers
+ * @link http://jquery.bassistance.de/validate/demo/errorcontainer-demo.html
  *
+ * Notes:
+ * - To make cancel buttons not attempt form validation, add class="cancel" to the button element.
+ * - Validation does not ignore hidden fields.
+ * - This attaches a listener for a form submit event. When the form is submitted, it is captured and validated.
  */
+$().ready(function() {
 
-function validateForm( options ) {
-/*
-	$("#form1").validate({
-		errorLabelContainer: $("#form1 div.error")
-	});
-	
-	var container = $('div.container');
-	// validate the form when it is submitted
-	var validator = $("#form2").validate({
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li',
-		meta: "validate"
-	});
-	
-	$(".cancel").click(function() {
-		validator.resetForm();
-	});
+	if ( !isset( validatePaymentForm.formId ) ) {
+		validatePaymentForm.formId = '';
+	}
 
-*/
-	$().ready(function() {
-	
-		if ( !isset( options.formId ) ) {
-			options.formId = '';
-		}
-	
-		if ( empty( options.formId ) ) {
-			
-			// An id must be specified to validate the form.
-			return;
-		}
-	
-		var validateOptions = {
-			ignore: ':hidden',
-		}
+	if ( empty( validatePaymentForm.formId ) ) {
 		
-		$("#" + options.formId).validate();
+		// An id must be specified to validate the form.
+		return;
+	}
 
-		// Check for payment_method
-		if ( !isset( options.payment_method ) ) {
-			options.payment_method = '';
-		}
+	// Options for plugin jquery.validate.js
+	var validateOptions = {
+		//ignore: ':hidden',
+	}
 	
-		// Check for payment_submethod
-		if ( !isset( options.payment_submethod ) ) {
-			options.payment_submethod = '';
-		}
+	/* 
+	 * This is where everything happens: .validate( validateOptions );
+	 */
+	$("#" + validatePaymentForm.formId).validate( validateOptions );
+
+	// Check for payment_method
+	if ( !isset( validatePaymentForm.payment_method ) ) {
+		validatePaymentForm.payment_method = '';
+	}
+
+	// Check for payment_submethod
+	if ( !isset( validatePaymentForm.payment_submethod ) ) {
+		validatePaymentForm.payment_submethod = '';
+	}
+
+	// Initialize validate options if not set.
+	if ( !isset( validatePaymentForm.validate ) ) {
+		validatePaymentForm.validate = {};
+	}
+
+	/*
+	 * Setup default validations based on payment_method
+	 */
 	
-		//console.log( options );
-		// Initialize validate options if not set.
-		if ( !isset( options.validate ) ) {
-			options.validate = {};
-		}
-		//console.log( options.validate );
+	if ( validatePaymentForm.payment_method == 'cc' ) {
+		
+		// card_num and cvv are not validated on our site.
+	}
+	else if ( validatePaymentForm.payment_method == 'bt' ) {
+		
+		validatePaymentForm.validate.payment = true;
+	}
+	else if ( validatePaymentForm.payment_method == 'rtbt' ) {
+		
+		validatePaymentForm.validate.payment = true;
+	}
+
+	/*
+	 * Setup default validations based on payment_submethod
+	 */
 	
-		/*
-		 * Setup default validations based on payment_method
-		 */
+	if ( validatePaymentForm.payment_submethod == 'rtbt_ideal' ) {
 		
-		if ( options.payment_method == 'cc' ) {
-			
-			// card_num and cvv are not validated on our site.
-		}
-		else if ( options.payment_method == 'bt' ) {
-			
-			options.validate.payment = true;
-		}
-		else if ( options.payment_method == 'rtbt' ) {
-			
-			options.validate.payment = true;
-		}
-		//console.log( options.validate );
+		// Ideal requires issuer_id
+		validatePaymentForm.validate.issuerId = true;
+	}
+	else if ( validatePaymentForm.payment_submethod == 'rtbt_eps' ) {
+		
+		// eps requires issuer_id
+		validatePaymentForm.validate.issuerId = true;
+	}
+
+	/*
+	 * Standard elements groups to validate
+	 */
 	
-		/*
-		 * Setup default validations based on payment_submethod
-		 */
-		
-		if ( options.payment_submethod == 'rtbt_ideal' ) {
-			
-			// Ideal requires issuer_id
-			options.validate.issuerId = true;
-		}
-		else if ( options.payment_submethod == 'rtbt_eps' ) {
-			
-			// eps requires issuer_id
-			options.validate.issuerId = true;
-		}
-		//console.log( options.validate );
+	// Options: Validate address
+	if ( !isset( validatePaymentForm.validate.address ) ) {
+		validatePaymentForm.validate.address = true;
+	}
 	
-		/*
-		 * Standard elements groups to validate
-		 */
-		
-		// Options: Validate address
-		if ( !isset( options.validate.address ) ) {
-			options.validate.address = true;
-		}
-		
-		// Options: Validate amount
-		if ( !isset( options.validate.amount ) ) {
-			options.validate.amount = true;
-		}
-		
-		// Options: Validate creditCard
-		if ( !isset( options.validate.creditCard ) ) {
-			options.validate.creditCard = false;
-		}
-		
-		// Options: Validate email
-		if ( !isset( options.validate.email ) ) {
-			options.validate.email = true;
-		}
-		
-		// Options: Validate issuerId
-		if ( !isset( options.validate.issuerId ) ) {
-			options.validate.issuerId = false;
-		}
-		
-		// Options: Validate name
-		if ( !isset( options.validate.name ) ) {
-			options.validate.name = true;
-		}
-		
-		// Options: Validate payment
-		if ( !isset( options.validate.payment ) ) {
-			options.validate.payment = false;
-		}
-		//console.log( options.validate );
+	// Options: Validate amount
+	if ( !isset( validatePaymentForm.validate.amount ) ) {
+		validatePaymentForm.validate.amount = true;
+	}
 	
-		/*
-		 * Standard elements groups to validate if enabled
-		 */
-		
-		// Validate: address
-		if ( options.validate.address ) {
-			validateElementStreet( options );
-			validateElementCity( options );
-			validateElementState( options );
-			//validateElementZip( options );
-			validateElementCountry( options );
-		}
-		
-		// Validate: amount
-		if ( options.validate.amount ) {
-			validateElementAmount( options );
-		}
-		
-		// Validate: creditCard
-		if ( options.validate.creditCard ) {
-			validateElementCardNumber( options );
-			validateElementCvv( options );
-		}
-		
-		// Validate: email
-		if ( options.validate.email ) {
-			validateElementEmail( options );
-		}
-		
-		// Validate: name
-		if ( options.validate.name ) {
-			validateElementFirstName( options );
-			validateElementLastName( options );
-		}
-		
-		// Validate: payment
-		if ( options.validate.payment ) {
-			validateElementPaymentMethod( options );
-			validateElementPaymentSubmethod( options );
-		
-			// Validate: issuer_id
-			if ( options.validate.issuerId ) {
-				validateElementIssuerId( options );
-			}
-		}
-		
-		// The following validators are not ready:
+	// Options: Validate creditCard
+	if ( !isset( validatePaymentForm.validate.creditCard ) ) {
+		validatePaymentForm.validate.creditCard = false;
+	}
 	
-	});
-}
+	// Options: Validate email
+	if ( !isset( validatePaymentForm.validate.email ) ) {
+		validatePaymentForm.validate.email = true;
+	}
+	
+	// Options: Validate issuerId
+	if ( !isset( validatePaymentForm.validate.issuerId ) ) {
+		validatePaymentForm.validate.issuerId = false;
+	}
+	
+	// Options: Validate name
+	if ( !isset( validatePaymentForm.validate.name ) ) {
+		validatePaymentForm.validate.name = true;
+	}
+	
+	// Options: Validate payment
+	if ( !isset( validatePaymentForm.validate.payment ) ) {
+		validatePaymentForm.validate.payment = false;
+	}
+
+	/*
+	 * Standard elements groups to validate if enabled
+	 */
+
+	// Validate: address
+	if ( validatePaymentForm.validate.address ) {
+		validateElementStreet( validatePaymentForm );
+		validateElementCity( validatePaymentForm );
+		validateElementState( validatePaymentForm );
+		validateElementCountry( validatePaymentForm );
+		
+		// Zip is not ready
+		//validateElementZip( validatePaymentForm );
+	}
+	
+	// Validate: amount
+	if ( validatePaymentForm.validate.amount ) {
+		validateElementAmount( validatePaymentForm );
+	}
+	
+	// Validate: creditCard
+	if ( validatePaymentForm.validate.creditCard ) {
+		validateElementCardNumber( validatePaymentForm );
+		validateElementCvv( validatePaymentForm );
+	}
+	
+	// Validate: email
+	if ( validatePaymentForm.validate.email ) {
+		validateElementEmail( validatePaymentForm );
+	}
+	
+	// Validate: name
+	if ( validatePaymentForm.validate.name ) {
+		validateElementFirstName( validatePaymentForm );
+		validateElementLastName( validatePaymentForm );
+	}
+	
+	// Validate: payment
+	if ( validatePaymentForm.validate.payment ) {
+		validateElementPaymentMethod( validatePaymentForm );
+		validateElementPaymentSubmethod( validatePaymentForm );
+	
+		// Validate: issuer_id
+		if ( validatePaymentForm.validate.issuerId ) {
+			validateElementIssuerId( validatePaymentForm );
+		}
+	}
+});
 
