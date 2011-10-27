@@ -415,6 +415,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Get payment method meta
 	 *
+	 * @todo
+	 * - These may need to move to the parent class
+	 *
 	 * @param	string	$payment_method	Payment methods contain payment submethods
 	 */
 	public function getPaymentMethodMeta( $payment_method ) {
@@ -431,6 +434,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	
 	/**
 	 * Get payment submethod meta
+	 *
+	 * @todo
+	 * - These may need to move to the parent class
 	 *
 	 * @param	string	$payment_submethod	Payment submethods are mapped to paymentproductid
 	 */
