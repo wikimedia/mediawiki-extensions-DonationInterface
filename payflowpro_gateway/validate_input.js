@@ -154,7 +154,7 @@ window.validate_form = function( form ) {
 
 window.submit_form = function( ccform ) {
 	if ( validate_form( ccform )) {
-		// weird hack!!!!!! for some reasondoing just ccform.submit() throws an error....
+		// weird hack!!!!!! for some reason doing just ccform.submit() throws an error....
 		$j(ccform).submit();
 	}
 	return true;
