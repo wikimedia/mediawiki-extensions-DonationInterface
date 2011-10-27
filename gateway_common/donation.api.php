@@ -81,7 +81,7 @@ class DonationApi extends ApiBase {
 	}
 	
 	public function isReadMode() {
-		return true;
+		return false;
 	}
 
 	public function getAllowedParams() {
