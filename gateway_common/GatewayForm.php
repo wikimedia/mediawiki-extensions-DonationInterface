@@ -355,7 +355,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		if ( !empty( $results['errors'] ) ) {
 			$wgOut->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $results['errors'] as $code => $value ) {
-				$wgOut->addHTML( HTML::element('li', null, "Error $code: $value" ) . HTML::closeElement( 'li' ) );
+				$wgOut->addHTML( HTML::element('li', null, "Error $code: $value" ) );
 			}
 			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		}
@@ -364,13 +364,13 @@ class GatewayForm extends UnlistedSpecialPage {
 			$wgOut->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $results['data'] as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$wgOut->addHTML( HTML::element('li', null, $key ) . HTML::openElement( 'ul' ) );
+					$wgOut->addHTML( HTML::openElement('li', null, $key ) . HTML::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$wgOut->addHTML( HTML::element('li', null, "$key2: $val2" ) . HTML::closeElement( 'li' ) );
+						$wgOut->addHTML( HTML::element('li', null, "$key2: $val2" ) );
 					}
 					$wgOut->addHTML( HTML::closeElement( 'ul' ) . HTML::closeElement( 'li' ) );
 				} else {
-					$wgOut->addHTML( HTML::element('li', null, "$key: $value" ) . HTML::closeElement( 'li' ) );
+					$wgOut->addHTML( HTML::element('li', null, "$key: $value" ) );
 				}
 			}
 			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
@@ -380,7 +380,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		if ( array_key_exists( 'Donor', $_SESSION ) ) {
 			$wgOut->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
-				$wgOut->addHTML( HTML::element('li', null, "$key: $val" ) . HTML::closeElement( 'li' ) );
+				$wgOut->addHTML( HTML::element('li', null, "$key: $val" ) );
 			}
 			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
@@ -390,7 +390,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		if ( is_array( $this->adapter->debugarray ) ) {
 			$wgOut->addHTML( "Debug Array:" . HTML::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$wgOut->addHTML( HTML::element('li', null, $val ) . HTML::closeElement( 'li' ) );
+				$wgOut->addHTML( HTML::element('li', null, $val ) );
 			}
 			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
