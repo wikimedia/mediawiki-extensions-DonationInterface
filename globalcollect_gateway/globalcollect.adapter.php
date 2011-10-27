@@ -229,18 +229,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods = array();
 
 		/*
-		 * Bank transfers
-		 */
-		 
-		// Bank Transfer
-		$this->payment_submethods['bt'] = array(
-			'paymentproductid'	=> 11,
-			'label'	=> 'Bank Transfer',
-			'group'	=> 'bt',
-			'validation' => array(),
-		);
-
-		/*
 		 * Default => Credit Card
 		 *
 		 * Every payment_method should have a payment_submethod.
