@@ -140,7 +140,7 @@ function displayCreditCardForm() {
 	showStep3(); // Open the 3rd section
 	var language = 'en'; // default value is English
 	var matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
-	if ( matches[1] ) {
+	if ( matches && matches[1] ) {
 		language = matches[1];
 	}
 	var sendData = {
@@ -162,7 +162,7 @@ function displayCreditCardForm() {
 		'format': 'json'
 	};
 	$.ajax( {
-		'url': mw.util.wikiScript( 'api' ),
+		'url': mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' ) + '/api.php?',
 		'data': sendData,
 		'dataType': 'json',
 		'type': 'GET',
