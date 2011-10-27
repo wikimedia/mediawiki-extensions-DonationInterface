@@ -427,7 +427,7 @@ abstract class GatewayAdapter implements GatewayType {
 		
 		if ( empty( $this->transactions ) || 
 			!array_key_exists( $transaction, $this->transactions ) || 
-			! array_key_exists( 'request', $this->transactions[$transaction] ) ) {
+			!array_key_exists( 'request', $this->transactions[$transaction] ) ) {
 			
 			$msg = self::getGatewayName() . ": $transaction request structure is empty! No transaction can be constructed.";
 			self::log( $msg, LOG_CRIT );
@@ -1371,7 +1371,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getTransactionAllResults() {
-		if ( !empty( $this->transaction_results ) && is_array( $this->transaction_results ) ) {
+		if ( $this->transaction_results && is_array( $this->transaction_results ) ) {
 			return $this->transaction_results;
 		} else {
 			return false;
