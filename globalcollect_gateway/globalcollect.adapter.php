@@ -727,7 +727,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function stage_returnto( $type = 'request' ) {
 		if ( $type === 'request' ) {
-			$this->postdata['returnto'] = $this->postdata['returnto'] . "?order_id=" . $this->postdata['order_id'];
+			$this->postdata['returnto'] = $this->postdata['returnto'] . '?' . wfArrayToCGI( array( 'order_id' => $this->postdata['order_id'] ) );
 		}
 	}
 
