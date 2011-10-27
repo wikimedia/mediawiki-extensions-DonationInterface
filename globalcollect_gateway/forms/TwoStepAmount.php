@@ -81,9 +81,6 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		return $form;
 	}
 
-	public $payment_methods = array();
-	public $payment_submethods = array();
-
 	/**
 	 * Generate the payment information
 	 *
@@ -113,78 +110,16 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 		$form .= Xml::tags( 'h4', array(), 'Payment method:' );
 		
-		// Bank Transfers
-		$this->payment_methods['bt'] = array(
-			'label'	=> 'Bank transfer',
-			'types'	=> array( 'bt', ),
-			'validation' => array( 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
-		);
-		
-		// Credit Cards
-		//$this->payment_methods['cc'] = array(
-		//	'label'	=> 'Credit Cards',
-		//	'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb,', 'cb', ),
-		//);
-		
-		// Direct Debit
-		$this->payment_methods['dd'] = array(
-			'label'	=> 'Direct Debit',
-			'types'	=> array( 'dd_johnsen_nl', 'dd_johnsen_de', 'dd_johnsen_at', 'dd_johnsen_fr', 'dd_johnsen_gb', 'dd_johnsen_be', 'dd_johnsen_ch', 'dd_johnsen_it', 'dd_johnsen_es', ),
-			'validation' => array( 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
-		);
-		
-		// Real Time Bank Transfers
-		$this->payment_methods['rtbt'] = array(
-			'label'	=> 'Real time bank transfer',
-			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweeden', 'rtbt_enets', ),
-		);
-		 
-		// Ideal
-		$this->payment_submethods['rtbt_ideal'] = array(
-			'paymentproductid'	=> 809,
-			'label'	=> 'Ideal',
-			'group'	=> 'rtbt',
-			'validation' => array(),
-			'issuerids' => array( 
-				771	=> 'RegioBank',
-				161	=> 'Van Lanschot Bankiers',
-				31	=> 'ABN AMRO',
-				761	=> 'ASN Bank',
-				21	=> 'Rabobank',
-				511	=> 'Triodos Bank',
-				721	=> 'ING',
-				751	=> 'SNS Bank',
-				91	=> 'Friesland Bank',
-			)
-		);
-		// eps Online-Überweisung
-		$this->payment_submethods['rtbt_eps'] = array(
-			'paymentproductid'	=> 856,
-			'label'	=> 'eps Online-Überweisung',
-			'group'	=> 'rtbt',
-			'validation' => array(),
-			'issuerids' => array( 
-				824	=> 'Bankhaus Spängler',
-				825	=> 'Hypo Tirol Bank',
-				822	=> 'NÖ HYPO',
-				823	=> 'Voralberger HYPO',
-				828	=> 'P.S.K.',
-				829	=> 'Easy',
-				826	=> 'Erste Bank und Sparkassen',
-				827	=> 'BAWAG',
-				820	=> 'Raifeissen',
-				821	=> 'Volksbanken Gruppe',
-				831	=> 'Sparda-Bank',
-			)
-		);
-		
 		$form .= Xml::openElement( 'ul', array() ); // open div#mw-payment-information ul
-		//<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">Other ways to give</a>
 		
-		foreach ( $this->payment_methods as $payment_method => $payment_methodMeta ) {
+		// Payment methods that are not supported by this form.
+		$ignorePaymentMethod = array( 'cc', );
+		foreach ( $this->gateway->getPaymentMethods() as $payment_method => $payment_methodMeta ) {
 
+			if ( in_array( $payment_method, $ignorePaymentMethod ) ) {
+				continue;
+			}
+			
 			$form .= Xml::openElement( 'li', array() );
 
 				$form .= Xml::tags( 'span', array(), $payment_method );
@@ -210,7 +145,8 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		
 		$form = '';
 		
-		if ( !isset( $this->payment_submethods[ $this->getPaymentSubmethod() ] ) ) {
+		$payment_submethod = $this->gateway->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
+		if ( !isset( $payment_submethod['issuerids'] ) ) {
 			
 			// No issuer_id to load
 			return $form;
@@ -219,7 +155,7 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		$selectOptions = '';
 
 		// generate dropdown of issuer_ids
-		foreach ( $this->payment_submethods[ $this->getPaymentSubmethod() ]['issuerids'] as $issuer_id => $issuer_id_label ) {
+		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
 			$selected = ( $this->form_data['issuer_id'] == $value ) ? true : false;
 			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
 			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id_label, $selected );
