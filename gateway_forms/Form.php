@@ -21,6 +21,24 @@ abstract class Gateway_Form {
 	public $form_data;
 
 	/**
+	 * The id of the form.
+	 *
+	 * This should also be the name of the form
+	 *
+	 * @var string
+	 */
+	public $form_id = 'payment';
+
+	/**
+	 * The name of the form.
+	 *
+	 * This should also be the id of the form
+	 *
+	 * @var string
+	 */
+	public $form_name = 'payment';
+
+	/**
 	 * An array of form errors, passed from the payflow pro object
 	 * @var array
 	 */
@@ -37,6 +55,18 @@ abstract class Gateway_Form {
 	 * @var string
 	 */
 	protected $captcha_html;
+
+	/**
+	 * The payment method
+	 * @var string
+	 */
+	protected $payment_method = '';
+
+	/**
+	 * The payment submethod
+	 * @var string
+	 */
+	protected $payment_submethod = '';
 
 	/**
 	 * Required method for returning the full HTML for a form.
@@ -82,6 +112,16 @@ abstract class Gateway_Form {
 		}
 		
 		$this->loadLogoLinkOverride();
+		
+		// This method should be overridden in the child class
+		$this->init();
+	}
+
+	/**
+	 * Initialize the form
+	 *
+	 */
+	protected function init() {
 	}
 
 	/**
@@ -313,7 +353,12 @@ abstract class Gateway_Form {
 	 * @fixme It would be great to default the currency to a locale's currency
 	 * @return string The entire HTML select for the currency dropdown
 	 */
-	public function generateCurrencyDropdown() {
+	public function generateCurrencyDropdown( $options = array() ) {
+		
+		extract( $options );
+		
+		$showCardsOnCurrencyChange = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
+		
 		$available_currencies = array(
 			'USD' => 'USD: U.S. Dollar',
 			'GBP' => 'GBP: British Pound',
@@ -336,7 +381,7 @@ abstract class Gateway_Form {
 			array(
 				'name' => 'currency_code',
 				'id' => 'input_currency_code',
-				'onchange' => 'showCards()'
+				'onchange' => $showCardsOnCurrencyChange ? 'showCards()' : '',
 			) );
 		$currency_menu .= $currency_opts;
 		$currency_menu .= Xml::closeElement( 'select' );
@@ -734,6 +779,86 @@ abstract class Gateway_Form {
 
 		// construct the submission url
 		return wfAppendQuery( $wgTitle->getLocalURL(), $query_array );
+	}
+
+	/**
+	 * Get the form id
+	 *
+	 * @return	string
+	 */
+	protected function getFormId() {
+		
+		return $this->form_id;
+	}
+
+	/**
+	 * Set the form id
+	 *
+	 * @param	string	$value	The form_id value
+	 */
+	protected function setFormId( $value = '' ) {
+		
+		$this->form_id = (string) $value;
+	}
+
+	/**
+	 * Get the form name
+	 *
+	 * @return	string
+	 */
+	protected function getFormName() {
+		
+		return $this->form_name;
+	}
+
+	/**
+	 * Set the form name
+	 *
+	 * @param	string	$value	The form_name value
+	 */
+	protected function setFormName( $value = '' ) {
+		
+		$this->form_name = (string) $value;
+	}
+
+	/**
+	 * Get the payment method
+	 *
+	 * @return	string
+	 */
+	protected function getPaymentMethod() {
+		
+		return $this->payment_method;
+	}
+
+	/**
+	 * Set the payment method
+	 *
+	 * @param	string	$value	The payment method value
+	 */
+	protected function setPaymentMethod( $value = '' ) {
+		
+		$this->payment_method = (string) $value;
+	}
+
+	/**
+	 * Get the payment submethod
+	 *
+	 * @return	string
+	 */
+	protected function getPaymentSubmethod() {
+		
+		return $this->payment_submethod;
+	}
+
+	/**
+	 * Set the payment submethod
+	 *
+	 * @param	string	$value	The payment submethod value
+	 */
+	protected function setPaymentSubmethod( $value = '' ) {
+		
+		$this->payment_submethod = (string) $value;
 	}
 
 }
