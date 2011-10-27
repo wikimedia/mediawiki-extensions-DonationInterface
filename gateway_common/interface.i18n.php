@@ -11080,7 +11080,7 @@ $messages['pms'] = array(
 	'donate_interface-donor-security' => 'Còdes ëd sicurëssa:',
 	'donate_interface-donor-submit' => 'Dà',
 	'donate_interface-donor-currency-msg' => "Sta donassion-sì a l'é fàita an $1",
-	'donate_interface-error-msg-nopaypal' => "A motiv d'un eror técnich, i podoma pa mandé toa arcesta a payPal. Për piasì preuva an dovrand nòst formolari ëd donassion ëd na carta ëd crédit normal.",
+	'donate_interface-error-msg-nopaypal' => "Për n'eror técnich, i podoma pa mandé soa arcesta a payPal. Për piasì, ch'a preuva an dovrand nòst formolari normal ëd donassion con carta ëd crédit.",
 	'donate_interface-error-msg' => 'Për piasì anseriss tò $1',
 	'donate_interface-error-msg-js' => 'Për piasì anseriss tò',
 	'donate_interface-error-msg-invalid-amount' => "**Për piasì anseriss n'ampòrt vàlid**",
@@ -12015,6 +12015,7 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
 	'donate_interface-on-the-back' => 'Inserția de pe spate:',
 	'donate_interface-tshirt-confirmation' => 'Mărimea și limba inscripției tricoului ce va fi expediat către dumneavoastră:',
 	'donate_interface-donation-tshirt' => 'Donație (tricou oferit)',
+	'donate_interface-state-dropdown-YY' => 'Selectați un stat',
 	'donate_interface-state-dropdown-XX' => 'În afara Statelor Unite',
 );
 
@@ -15456,7 +15457,10 @@ $messages['vi'] = array(
 	'donate_interface-donor-security' => 'Mã an ninh:',
 	'donate_interface-donor-submit' => 'Quyên góp',
 	'donate_interface-donor-currency-msg' => 'Lần quyên góp này được trả bằng $1',
+	'donate_interface-card-name-amex' => 'American Express',
+	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'MasterCard',
+	'donate_interface-card-name-discover' => 'Discover',
 	'donate_interface-error-msg-nopaypal' => 'Do một lỗi kỹ thuật, chúng tôi không thể gửi thông tin của bạn đến PayPal. Xin hãy sử dụng biểu mẫu thường để quyên góp bằng thẻ tín dụng.',
 	'donate_interface-error-msg' => 'Xin nhập $1 của bạn',
 	'donate_interface-error-msg-js' => 'Xin hãy nhập',
