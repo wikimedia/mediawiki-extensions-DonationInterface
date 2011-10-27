@@ -23,20 +23,6 @@
 class GatewayForm extends UnlistedSpecialPage {
 
 	/**
-	 * Defines the action to take on a transaction.
-	 *
-	 * Possible values include 'process', 'challenge',
-	 * 'review', 'reject'.  These values can be set during
-	 * data processing validation, for instance.
-	 *
-	 * Hooks are exposed to handle the different actions.
-	 *
-	 * Defaults to 'process'.
-	 * @var string
-	 */
-	public $action = 'process';
-
-	/**
 	 * A container for the form class
 	 *
 	 * Used to loard the form object to display the CC form
@@ -367,48 +353,48 @@ class GatewayForm extends UnlistedSpecialPage {
 		$wgOut->addHTML( HTML::element( 'span', null, $results['message'] ) );
 
 		if ( !empty( $results['errors'] ) ) {
-			$wgOut->addHTML( "<ul>" );
+			$wgOut->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $results['errors'] as $code => $value ) {
-				$wgOut->addHTML( HTML::element('li', null, "Error $code: $value" ) );
+				$wgOut->addHTML( HTML::element('li', null, "Error $code: $value" ) . HTML::closeElement( 'li' ) );
 			}
-			$wgOut->addHTML( "</ul>" );
+			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		}
 
 		if ( !empty( $results['data'] ) ) {
-			$wgOut->addHTML( "<ul>" );
+			$wgOut->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $results['data'] as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$wgOut->addHTML( HTML::element('li', null, $key ) . '<ul>' );
+					$wgOut->addHTML( HTML::element('li', null, $key ) . HTML::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$wgOut->addHTML( HTML::element('li', null, "$key2: $val2" ) );
+						$wgOut->addHTML( HTML::element('li', null, "$key2: $val2" ) . HTML::closeElement( 'li' ) );
 					}
-					$wgOut->addHTML( "</ul>" );
+					$wgOut->addHTML( HTML::closeElement( 'ul' ) . HTML::closeElement( 'li' ) );
 				} else {
-					$wgOut->addHTML( HTML::element('li', null, "$key: $value" ) );
+					$wgOut->addHTML( HTML::element('li', null, "$key: $value" ) . HTML::closeElement( 'li' ) );
 				}
 			}
-			$wgOut->addHTML( "</ul>" );
+			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
 			$wgOut->addHTML( "Empty Results" );
 		}
 		if ( array_key_exists( 'Donor', $_SESSION ) ) {
-			$wgOut->addHTML( "Session Donor Vars:<ul>" );
+			$wgOut->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
-				$wgOut->addHTML( HTML::element('li', null, "$key: $val" ) );
+				$wgOut->addHTML( HTML::element('li', null, "$key: $val" ) . HTML::closeElement( 'li' ) );
 			}
-			$wgOut->addHTML( "</ul>" );
+			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
-			$wgOut->addHTML( "No Session Donor Vars:<ul>" );
+			$wgOut->addHTML( "No Session Donor Vars:" );
 		}
 
 		if ( is_array( $this->adapter->debugarray ) ) {
-			$wgOut->addHTML( "Debug Array:<ul>" );
+			$wgOut->addHTML( "Debug Array:" . HTML::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$wgOut->addHTML( HTML::element('li', null, $val ) );
+				$wgOut->addHTML( HTML::element('li', null, $val ) . HTML::closeElement( 'li' ) );
 			}
-			$wgOut->addHTML( "</ul>" );
+			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
-			$wgOut->addHTML( "No Debug Array<ul>" );
+			$wgOut->addHTML( "No Debug Array" );
 		}
 	}
 

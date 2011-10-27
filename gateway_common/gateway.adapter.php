@@ -252,7 +252,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function getData( $val = '' ) {
-		if ( empty( $val ) ) {
+		if ( $val === '' ) {
 			return $this->postdata;
 		} else {
 			if ( array_key_exists( $val, $this->postdata ) ) {
