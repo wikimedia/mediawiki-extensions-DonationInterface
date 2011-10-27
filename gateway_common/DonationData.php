@@ -235,13 +235,6 @@ class DonationData {
 		}
 	}
 
-	function setOwaRefId() {
-		//Our data should already be pulled and whatever.
-		if ( $this->isSomething( 'owa_ref' ) && !is_numeric( $this->normalized['owa_ref'] ) ) {
-			$owa_ref = $this->get_owa_ref_id( $owa_ref );
-		}
-	}
-
 	/**
 	 * normalizeAndSanitize helper function
 	 * Ensures that order_id and i_order_id are ready to go, depending on what 

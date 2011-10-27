@@ -281,7 +281,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGatewayMerchantId() . '</MERCHANTID><VERSION>1.0</VERSION></META>';
+		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantId' ) . '</MERCHANTID><VERSION>1.0</VERSION></META>';
 		$expected .= 		'<PARAMS>';
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';

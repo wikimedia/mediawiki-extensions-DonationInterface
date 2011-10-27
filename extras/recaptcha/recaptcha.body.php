@@ -74,13 +74,11 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 		// load up the form class
 		$form_class = $this->gateway_adapter->getFormClass();
 
-		//hmm. Looking at this now, makes me want to say
-		//TODO: Refactor the Form Class constructors. Again. Because the next three lines of code anger me deeply.
-		//#1 - all three things are clearly in the gateway adapter, and we're passing that already.
-		//#2 - I have to stuff them in variables because Form wants parameters by reference.
+		//TODO: use setValidationErrors and getValidationErrors everywhere, and 
+		//refactor all the form constructors one more time. Eventually.  
 		$data = $this->gateway_adapter->getData();
 		$errors = $this->gateway_adapter->getValidationErrors();
-		$form_obj = new $form_class( $data, $errors, $this->gateway_adapter );
+		$form_obj = new $form_class( $this->gateway_adapter, $errors );
 
 		// set the captcha HTML to use in the form
 		$form_obj->setCaptchaHTML( $captcha_html );

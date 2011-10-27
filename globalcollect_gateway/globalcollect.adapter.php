@@ -425,16 +425,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Get the Global Collect Merchant Id
-	 */
-	public function getGatewayMerchantId() {
-		
-		global $wgGlobalCollectGatewayMerchantID;
-		
-		return $wgGlobalCollectGatewayMerchantID;
-	}
-
-	/**
 	 * Get payment method meta
 	 *
 	 * @param	string	$payment_method	Payment methods contain payment submethods
