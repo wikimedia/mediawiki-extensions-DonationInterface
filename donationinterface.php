@@ -94,7 +94,6 @@ $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway
 // All these form classes are available, but not enabled by default. 
 // If you want them enabled, copy the desired lines into your LocalSettings.php, and uncomment. 
 //$wgAutoloadClasses['Gateway_Form_OneStepTwoColumn'] = $donationinterface_dir . 'gateway_forms/OneStepTwoColumn.php';
-//$wgAutoloadClasses['Gateway_Form_TwoStepAmount'] = $donationinterface_dir . 'gateway_forms/TwoStepAmount.php';
 //$wgAutoloadClasses['Gateway_Form_TwoColumnPayPal'] = $donationinterface_dir . 'gateway_forms/TwoColumnPayPal.php';
 //$wgAutoloadClasses['Gateway_Form_TwoColumnLetter'] = $donationinterface_dir . 'gateway_forms/TwoColumnLetter.php';
 //$wgAutoloadClasses['Gateway_Form_TwoColumnLetter2'] = $donationinterface_dir . 'gateway_forms/TwoColumnLetter2.php';
@@ -114,6 +113,17 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	$wgAutoloadClasses['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.body.php';
 	$wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_resultswitcher.body.php';
 	$wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
+
+	$wgAutoloadClasses['Gateway_Form_TwoStepAmount'] = $donationinterface_dir . 'globalcollect_gateway/forms/TwoStepAmount.php';
+
+	$wgResourceModules[ 'gc.form.core.validate' ] = array(
+		// scripts are not being picked up properly. These are currently only being loaded in TwoStepAmount.php
+		//'scripts' => array( 'js/validate.js',  'js/jquery.validate.js', 'js/jquery.validate.additional-methods.js', ),
+		'dependencies' => array( 'ext.donationInterface.errorMessages' ),
+		'localBasePath' => $donationinterface_dir . 'globalcollect_gateway/modules',
+		'remoteExtPath' => 'DonationInterface/globalcollect_gateway/modules'
+	);
+
 }
 //PayflowPro gateway classes
 if ( $optionalParts['PayflowPro'] === true ){
