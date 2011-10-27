@@ -118,7 +118,7 @@ if ( $optionalParts['GlobalCollect'] === true ){
 
 	$wgResourceModules[ 'gc.form.core.validate' ] = array(
 		// scripts are not being picked up properly. These are currently only being loaded in TwoStepAmount.php
-		//'scripts' => array( 'js/validate.js',  'js/jquery.validate.js', 'js/jquery.validate.additional-methods.js', ),
+		'scripts' => array( 'js/validate.js',  'js/jquery.validate.js', 'js/jquery.validate.additional-methods.js', ),
 		'dependencies' => array( 'ext.donationInterface.errorMessages' ),
 		'localBasePath' => $donationinterface_dir . 'globalcollect_gateway/modules',
 		'remoteExtPath' => 'DonationInterface/globalcollect_gateway/modules'
