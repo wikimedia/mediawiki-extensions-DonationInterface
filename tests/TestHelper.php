@@ -76,6 +76,11 @@ require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'extras/extr
 require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'globalcollect_gateway/globalcollect.adapter.php';
 
 /**
+ * @see GlobalCollectTestAdapter
+ */
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Adapter/GlobalCollect/GlobalCollectTestAdapter.php';
+
+/**
  * @see ContributionTrackingProcessor
  */
 require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'ContributionTracking/ContributionTracking.processor.php';

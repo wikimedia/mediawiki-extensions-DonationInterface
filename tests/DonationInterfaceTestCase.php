@@ -50,7 +50,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - Do not consider this a complete test!
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -60,11 +60,11 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$wgGlobalCollectGatewayTest = true;
 
-		$this->gatewayAdapter = new GlobalCollectAdapter( $options );
+		$this->gatewayAdapter = new GlobalCollectTestAdapter( $options );
 
 		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
-		$request = trim( $this->gatewayAdapter->buildRequestXML() );
+		$request = trim( $this->gatewayAdapter->executeBuildRequestXML() );
 
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 		
@@ -281,7 +281,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantId' ) . '</MERCHANTID><VERSION>1.0</VERSION></META>';
+		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantID' ) . '</MERCHANTID><VERSION>1.0</VERSION></META>';
 		$expected .= 		'<PARAMS>';
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
