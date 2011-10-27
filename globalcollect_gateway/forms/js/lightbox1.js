@@ -23,7 +23,7 @@ $(function() {
 	
 	/* Set selected amount to amount */
 	$( "input[name='amountRadio']" ).click( function() { setAmount( $( this ) ); } );
-	$( "#other-amount" ).change( function() { setAmount( $( this ) ); } );
+	$( "#other-amount" ).keyup( function() { setAmount( $( this ) ); } );
 	function setAmount(e) { $("input[name='amount']").val( e.val() ); }
 
 	/* number of fieldsets */

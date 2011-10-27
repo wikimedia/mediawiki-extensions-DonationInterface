@@ -1,7 +1,5 @@
 <script type="text/javascript">
-	mw.loader.load('pfp.form.rapidhtml.webitects');
-	var extensionPath = mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' ) + '/extensions/DonationInterface';
-	mw.loader.load( extensionPath + '/globalcollect_gateway/forms/js/webitects_2_3step.js', 'text/javascript' );
+	mw.loader.load('gc.form.rapidhtml.webitects_2_3step');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'],
 		billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape',

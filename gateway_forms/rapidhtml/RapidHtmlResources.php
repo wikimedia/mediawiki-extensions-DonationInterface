@@ -6,6 +6,7 @@
  */
 
 $wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
+$wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 
 /**
  * LIGHTBOX
@@ -59,6 +60,16 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	),
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step' ] = array(
+	'scripts' => array(
+		'js/webitects_2_3step.js',
+	),
+	'dependencies' => array(
+		'pfp.form.rapidhtml.webitects'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 
 /**

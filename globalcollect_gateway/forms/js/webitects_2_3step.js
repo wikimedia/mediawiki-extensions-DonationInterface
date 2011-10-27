@@ -121,7 +121,7 @@ $( document ).ready( function () {
 		setAmount( $( this ) );
 	} );
 	// reset the amount field when "other" is changed
-	$( "#other-amount" ).change( function() {
+	$( "#other-amount" ).keyup( function() {
 		setAmount( $( this ) );
 	} );
 
