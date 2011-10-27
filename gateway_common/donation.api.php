@@ -21,6 +21,7 @@ class DonationApi extends ApiBase {
 		}
 
 		$method = $this->donationData['payment_method'];
+		$submethod = $this->donationData['payment_submethod'];
 
 		if ( $this->gateway == 'payflowpro' ) {
 			$gatewayObj = new PayflowProAdapter();
@@ -78,6 +79,10 @@ class DonationApi extends ApiBase {
 		$this->getResult()->addValue( 'data', 'result', $result );
 		*/
 	}
+	
+	public function isReadMode() {
+		return true;
+	}
 
 	public function getAllowedParams() {
 		return array(
@@ -99,6 +104,7 @@ class DonationApi extends ApiBase {
 			'expiration' => $this->defineParam( false  ),
 			'cvv' => $this->defineParam( false  ),
 			'payment_method' => $this->defineParam( false  ),
+			'payment_submethod' => $this->defineParam( false  ),
 			'language' => $this->defineParam( false  ),
 			'order_id' => $this->defineParam( false  ),
 		);
@@ -161,6 +167,7 @@ class DonationApi extends ApiBase {
 			'expiration' => 'Expiration date',
 			'cvv' => 'CVV security code',
 			'payment_method' => 'Payment method to use',
+			'payment_submethod' => 'Payment submethod to use',
 			'language' => 'Language code',
 			'order_id' => 'Order ID (if a donation has already been started)',
 		);
