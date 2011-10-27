@@ -8,7 +8,6 @@ class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn
 		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath( $wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/TwoStepTwoColumnLetter3.css' );
 		}
-		$this->loadvalidateJs();
 		parent::__construct( $gateway, $form_errors );
 	}
 
