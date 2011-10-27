@@ -39,7 +39,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * Rabobank: 21
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -64,7 +64,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * ABN AMRO: 31
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -89,7 +89,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * Friesland Bank: 91
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -114,7 +114,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * Van Lanschot Bankiers: 161
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -139,7 +139,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * Triodos Bank: 511
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -164,7 +164,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * ING: 721
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -189,7 +189,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * SNS Bank: 751
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -214,7 +214,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * ASN Bank: 761
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	 * RegioBank: 771
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */

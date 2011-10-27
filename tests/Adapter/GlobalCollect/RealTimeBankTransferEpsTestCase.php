@@ -39,7 +39,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Raifeissen: 820
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -64,7 +64,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Volksbanken Gruppe: 821
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -89,7 +89,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * NÖ HYPO: 822
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -114,7 +114,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Voralberger HYPO: 823
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -139,7 +139,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Bankhaus Spängler: 824
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -164,7 +164,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Hypo Tirol Bank: 825
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -189,7 +189,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Erste Bank und Sparkassen: 826
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -214,7 +214,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * BAWAG: 827
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * P.S.K.: 828
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -264,7 +264,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Easy: 829
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
@@ -289,7 +289,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * Sparda-Bank: 831
 	 *
 	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::currentTransaction
+	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData
 	 */
