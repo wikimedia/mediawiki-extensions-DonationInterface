@@ -139,7 +139,7 @@ EOT;
 		} else {
 			if ( !$this->adapter->isCache() ) {
 				// if we're not caching, there's a token mismatch
-				$this->errors['general']['token-mismatch'] = wfMsg( $gateway_id . '_gateway-token-mismatch' );
+				$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
 			}
 			$this->displayForm( $this->errors );
 		}
