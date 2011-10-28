@@ -101,7 +101,6 @@ class DonationData {
 	 * populateData helper function 
 	 * If donor session data has been set, pull the fields in the session that 
 	 * are populated, and merge that with the data set we already have. 
-	 * Then, unset the session variable to avoid later confusion.
 	 */
 	function integrateDataFromSession(){
 		self::ensureSession();
@@ -478,17 +477,15 @@ class DonationData {
 		$sessionToken = $this->getEditToken( $salt );
 		if ( $val != $sessionToken ) {
 			wfDebug( "DonationData::matchEditToken: broken session data\n" );
+			//and reset the token for next time. 
+			$this->expunge( 'token' );	
 		}
-		$this->log( "Val = $val" );
-		$this->log( "Session Token = $sessionToken" );
 		return $val == $sessionToken;
 	}
 
+
 	/**
-	 * Unset the payflow edit token from a user's session.
-	 * 
-	 * TODO: Get rid of this, if we end up using the new, much more draconian
-	 * killAllSessionEverything(). 
+	 * unsets the edit token in the user's session. 
 	 */
 	function unsetEditToken() {
 		$gateway_ident = $this->gatewayID;

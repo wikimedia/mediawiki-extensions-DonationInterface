@@ -89,7 +89,6 @@ class GlobalCollectGatewayResult extends GatewayForm {
 				$wgOut->addHTML( "<br>Redirecting to page $go" );
 				$wgOut->redirect( $go );
 			}
-			$this->adapter->log( "Not posted, or not processed. Showing the form for the first time." );
 		} else {
 			if ( !$this->adapter->isCache() ) {
 				// if we're not caching, there's a token mismatch

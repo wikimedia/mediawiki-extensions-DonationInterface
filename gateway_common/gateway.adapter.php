@@ -566,9 +566,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->xmlDoc->appendChild( $node );
 		$xml = $this->xmlDoc->saveXML();
 		$xmlStart = strpos( $xml, "<XML>" );
-		self::log( "XML START" . $xmlStart );
 		$xml = substr( $xml, $xmlStart );
-		self::log( "XML stubby thing..." . $xml );
 
 		return $xml;
 	}
@@ -616,7 +614,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->runPreProcess(); //many hooks get fired here...
 
 			if ( $this->action != 'process' ) {
-				self::log( "Transaction failed pre-process checks." . print_r( $this->getData(), true ) );
 				return array(
 					'status' => false,
 					//TODO: appropriate messages. 
@@ -737,7 +734,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		// log that the transaction is essentially complete
-		self::log( $this->getData( 'order_id' ) . " Transaction complete." );
+		self::log( $this->getData( 'contribution_tracking_id' ) . " Transaction complete." );
 
 		//Session Handling
 		//getTransactionStatus works here like this, because it only returns 
@@ -909,12 +906,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$headers = $this->getCurlBaseHeaders();
 		$headers[] = 'Content-Length: ' . strlen( $data );
 
-		if ( $this->getCommunicationType() === 'xml' ) {
-			self::log( "Sending Data: " . $this->formatXmlString( $data ) );
-		} else {
-			self::log( "Sending Data: " . $data );
-		}
-
 		$curl_opts = $this->getCurlBaseOpts();
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
@@ -930,27 +921,27 @@ abstract class GatewayAdapter implements GatewayType {
 		$results = array();
 
 		while ( $i++ <= 3 ) {
-			self::log( $this->postdatadefaults['order_id'] . ' Preparing to send transaction to ' . self::getGatewayName() );
+			self::log( $this->getData( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
 			$results['result'] = curl_exec( $ch );
 			$results['headers'] = curl_getinfo( $ch );
 
 			if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
-				self::log( $this->postdatadefaults['order_id'] . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
+				self::log( $this->getData( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
 				sleep( 1 );
 			} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
-				self::log( $this->postdatadefaults['order_id'] . ' Finished sending transaction to ' . self::getGatewayName() );
+				self::log( $this->getData( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
 				break;
 			}
 		}
 
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Request:" . print_r( $data, true ) . "\nResponse" . print_r( $results, true ) );
+		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
 		if ( $results['headers']['http_code'] != 200 ) {
 			$results['result'] = false;
 			//TODO: i18n here! 
 			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
 			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
-			self::log( $this->postdatadefaults['order_id'] . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
+			self::log( $this->getData( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
 			curl_close( $ch );
 			return false;
 		}
@@ -967,7 +958,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$xmlStart = strpos( $rawResponse, '<RESPONSE' );
 		}
 		if ( $xmlStart == false ) { //Still false. Your Head Asplode.
-			self::log( "Wow, that was so messed up I couldn't even parse the response, so here's the thing in its entirety:\n" . $rawResponse );
+			self::log( "Completely Mangled Response:\n" . $rawResponse );
 			return false;
 		}
 		$justXML = substr( $rawResponse, $xmlStart );
@@ -1168,14 +1159,12 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $upper >= $code ) { //you've arrived. It's either here or it's nowhere.
 				if ( is_array( $val ) ) {
 					if ( $val['lower'] <= $code ) {
-						$this->saveCommunicationStats( __FUNCTION__, $transaction, "code = $code" );
 						return $val['action'];
 					} else {
 						return null;
 					}
 				} else {
 					if ( $upper === $code ) {
-						$this->saveCommunicationStats( __FUNCTION__, $transaction, "code = $code" );
 						return $val;
 					} else {
 						return null;
@@ -1249,8 +1238,6 @@ abstract class GatewayAdapter implements GatewayType {
 			//'language' => '',
 		);
 		$transaction += $this->getDisplayData();
-
-		self::log( "Intended STOMP transaction: " . print_r( $transaction, true ) );
 		
 		try {
 			wfRunHooks( $hook, array( $transaction ) );
@@ -1511,9 +1498,9 @@ abstract class GatewayAdapter implements GatewayType {
 				return;
 			}
 			// allow any external validators to have their way with the data
-			self::log( $this->getData( 'order_id' ) . " Preparing to query MaxMind" );
+			self::log( $this->getData( 'contribution_tracking_id' ) . " Preparing to query MaxMind" );
 			wfRunHooks( 'GatewayValidate', array( &$this ) );
-			self::log( $this->getData( 'order_id' ) . ' Finished querying Maxmind' );
+			self::log( $this->getData( 'contribution_tracking_id' ) . ' Finished querying Maxmind' );
 
 			// if the transaction was flagged for review
 			if ( $this->action == 'review' ) {

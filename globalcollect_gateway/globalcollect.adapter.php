@@ -476,7 +476,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 		$displayXML = $this->formatXmlString( $xmlString );
 		$realXML = new DomDocument( '1.0' );
-		self::log( "Here is the Raw XML: " . $displayXML ); //I am apparently a huge fibber.
+		self::log( $this->getData( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
 		$realXML->loadXML( trim( $xmlString ) );
 		return $realXML;
 	}
@@ -554,8 +554,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 		}
 
-
-		self::log( "Returned Data: " . print_r( $data, true ) );
 		return $data;
 	}
 

@@ -87,8 +87,6 @@ EOT;
 		if ( $this->adapter->checkTokens() ) {			
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
-				$this->adapter->log( "Form posted and payment method set." );
-
 				/*
 				 * The $payment_method should default to false.
 				 *
@@ -133,7 +131,6 @@ EOT;
 					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug( $result );
 				}
-				$this->adapter->log( "Not posted, or not processed. Showing the form for the first time." );
 				$this->displayForm( $this->errors );
 			}
 		} else {
