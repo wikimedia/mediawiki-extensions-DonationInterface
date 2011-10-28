@@ -247,7 +247,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->debugarray[] = 'Token MISMATCH';
 		}
 		
-		$this->refreshGatewayValueFromSource( 'token' );		
+		$this->refreshGatewayValueFromSource( 'token' );
 		return $checkResult;
 	}
 
@@ -1285,7 +1285,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$utm_source_parts[2] = 'pp';
 		$data['utm_source'] = implode( ".", $utm_source_parts );
 		$data['gateway'] = 'paypal';
-		$data['currency_code'] = $data['currency'];
+		$data['currency_code'] = isset( $data['currency'] ) ? $data['currency'] : '';
 
 		// Add our response vars to the data object. 
 		$this->dataObj->addData( $data );
@@ -1302,7 +1302,6 @@ abstract class GatewayAdapter implements GatewayType {
 	
 	protected function getPaypalData() {
 		$paypalkeys = array(
-			'gateway',
 			'contribution_tracking_id',
 			'comment',
 			'referrer',
