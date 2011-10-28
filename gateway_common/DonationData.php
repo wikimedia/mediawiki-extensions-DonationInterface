@@ -92,7 +92,13 @@ class DonationData {
 		$this->normalizeAndSanitize();
 
 		//TODO: test with _cache_ on. 
-		if ( !empty( $this->normalized ) && ( $this->getVal( 'numAttempt' ) == '0' && ((!$this->getVal( 'utm_source_id' ) == false ) || is_null($this->getVal( '_cache_' )) ) ) ) {
+//		if ( !empty( $this->normalized ) && 
+//		( $this->getVal( 'numAttempt' ) == '0' && 
+//			((!$this->getVal( 'utm_source_id' ) == false ) || 
+//			is_null($this->getVal( '_cache_' )) ) ) ) {
+//			error_log('about to save contribution tracking from an initial populate: ' . $this->getVal('contribution_tracking_id'));
+		
+		if (!$this->isSomething( 'contribution_tracking_id' )){
 			$this->saveContributionTracking();
 		} 
 	}
