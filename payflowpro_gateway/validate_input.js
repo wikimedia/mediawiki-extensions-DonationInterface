@@ -61,8 +61,9 @@ window.validate_personal = function( form ){
 		}
 	}
 	var stateField = document.getElementById( 'state' );
+	var selectedState = stateField.options[stateField.selectedIndex].value;
 	var countryField = document.getElementById( 'country' );
-	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
+	if( selectedState == 'YY' || selectedState == '' ) {
 		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
 	}
 
