@@ -1241,21 +1241,6 @@ abstract class GatewayAdapter implements GatewayType {
 			return;
 		}
 
-		$data = $this->getTransactionData();
-
-		//Gah. I might want to move all this data prep business upstream more than somewhat. 
-		//...but that's for later. 
-		// Add the session vars to the data object
-		if ( $this->transaction_option( 'pullDonorDataFromSession' ) ) {
-			$this->dataObj->populateDonorFromSession();
-		}
-
-		// refresh our data directly, which we should NEVER EVER DO WITHOUT STAGING.
-		$this->postdata = $this->dataObj->getData();
-
-		// stage the gateway data
-		$this->stageData( 'response' );
-
 		// send the thing.
 		$transaction = array(
 			'response' => $this->getTransactionMessage(),
@@ -1263,7 +1248,7 @@ abstract class GatewayAdapter implements GatewayType {
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			//'language' => '',
 		);
-		$transaction += $this->getData();
+		$transaction += $this->getDisplayData();
 
 		self::log( "Intended STOMP transaction: " . print_r( $transaction, true ) );
 		

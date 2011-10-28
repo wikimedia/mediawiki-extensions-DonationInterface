@@ -87,20 +87,46 @@ class DonationData {
 				$this->setVal( 'posted', false );
 			}
 		}
+		
+		//if we have saved any donation data to the session, pull them in as well.
+		$this->integrateDataFromSession();
+		
 		$this->doCacheStuff();
 
 		$this->normalizeAndSanitize();
 
-		//TODO: test with _cache_ on. 
-//		if ( !empty( $this->normalized ) && 
-//		( $this->getVal( 'numAttempt' ) == '0' && 
-//			((!$this->getVal( 'utm_source_id' ) == false ) || 
-//			is_null($this->getVal( '_cache_' )) ) ) ) {
-//			error_log('about to save contribution tracking from an initial populate: ' . $this->getVal('contribution_tracking_id'));
-		
-		if (!$this->isSomething( 'contribution_tracking_id' )){
-			$this->saveContributionTracking();
-		} 
+	}
+	
+	/**
+	 * populateData helper function 
+	 * If donor session data has been set, pull the fields in the session that 
+	 * are populated, and merge that with the data set we already have. 
+	 * Then, unset the session variable to avoid later confusion.
+	 */
+	function integrateDataFromSession(){
+		self::ensureSession();
+		if ( array_key_exists( 'Donor', $_SESSION ) ) {
+			//if the thing coming in from the session isn't already something, 
+			//replace it. 
+			//if it is: assume that the session data was meant to be replaced 
+			//with better data.  
+			//...unless it's referrer. 
+			//TODO: Keep an eye on anything that is calculated programmatically 
+			//during the form data pull, and not afterward in the normalize bits.  
+			//TODO: Stop calculating things during the actual data pull, because 
+			//that's totally bogus.  
+			foreach ( $_SESSION['Donor'] as $key => $val ){
+				if ( !$this->isSomething( $key ) ){
+					$this->setVal( $key, $val );
+				} else {
+					//TODO: Change this to a switch statement if we get more 
+					//fields in here. 
+					if ( $key === 'referrer' ){
+						$this->setVal( $key, $val );
+					}
+				}
+			}
+		}
 	}
 
 	function getData() {
@@ -184,6 +210,11 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * Tells you if a value is something or not. 
+	 * @param string $key The field you would like to determine if it exists or not. 
+	 * @return boolean true if the field is something. False if it is null, or an empty string. 
+	 */
 	function isSomething( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
 			if ( is_null($this->normalized[$key]) || $this->normalized[$key] === '' ) {
@@ -220,12 +251,39 @@ class DonationData {
 			$this->setGateway();
 			$this->setNormalizedOptOuts();
 			$this->setLanguage();
+			$this->handleContributionTrackingID();
 			array_walk( $this->normalized, array( $this, 'sanitizeInput' ) );
 		}
 	}
+	
+	/**
+	 * normalizeAndSanitize helper function.
+	 * Assures that if no contribution_tracking_id is present, a row is created 
+	 * in the Contribution tracking table, and that row is assigned to the 
+	 * current contribution we're tracking. 
+	 * If a contribution tracking id is already present, no new rows will be 
+	 * assigned. 
+	 */
+	function handleContributionTrackingID(){
+		//TODO: test with _cache_ on. 
+		
+		//what follows here is the original horrible if statement for comparison to the new line (below). 
+		//TODO: whack this when we know the replacement is solid. 
+//		if ( !empty( $this->normalized ) && 
+//		( $this->getVal( 'numAttempt' ) == '0' && 
+//			((!$this->getVal( 'utm_source_id' ) == false ) || 
+//			is_null($this->getVal( '_cache_' )) ) ) ) {
+//			$this->saveContributionTracking();
+//			}
+		
+		if ( !$this->isSomething( 'contribution_tracking_id' ) && 
+			( $this->getVal( 'utm_source_id' ) !== false || !$this->isSomething( '_cache_' ) ) ){
+			$this->saveContributionTracking();
+		} 
+	}
 
 	/**
-	 * normalizeAndSanitize helper function
+	 * normalizeAndSanitize helper function.
 	 * Takes all possible sources for the intended donation amount, and 
 	 * normalizes them into the 'amount' field.  
 	 */
@@ -242,7 +300,7 @@ class DonationData {
 	}
 
 	/**
-	 * normalizeAndSanitize helper function
+	 * normalizeAndSanitize helper function.
 	 * Ensures that order_id and i_order_id are ready to go, depending on what 
 	 * comes in populated or not, and where it came from.
 	 * @return null
@@ -276,9 +334,9 @@ class DonationData {
 	}
 
 	/**
-	 * Sanitize user input
+	 * Sanitize user input.
 	 *
-	 * Intended to be used with something like array_walk
+	 * Intended to be used with something like array_walk.
 	 *
 	 * @param $value The value of the array
 	 * @param $key The key of the array
@@ -326,7 +384,7 @@ class DonationData {
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function
+	 * normalizeAndSanitize helper function.
 	 * If the language has not yet been set, pulls the language code 
 	 * from the current global language object. 
 	 */
@@ -364,7 +422,7 @@ class DonationData {
 	}
 
 	/**
-	 * Establish an 'edit' token to help prevent CSRF, etc
+	 * Establish an 'edit' token to help prevent CSRF, etc.
 	 *
 	 * We use this in place of $wgUser->editToken() b/c currently
 	 * $wgUser->editToken() is broken (apparently by design) for
@@ -427,7 +485,7 @@ class DonationData {
 	}
 
 	/**
-	 * Unset the payflow edit token from a user's session
+	 * Unset the payflow edit token from a user's session.
 	 * 
 	 * TODO: Get rid of this, if we end up using the new, much more draconian
 	 * killAllSessionEverything(). 
@@ -441,7 +499,7 @@ class DonationData {
 	}
 
 	/**
-	 * Ensure that we have a session set for the current user
+	 * Ensure that we have a session set for the current user.
 	 *
 	 * If we do not have a session set for the current user,
 	 * start the session.
@@ -606,8 +664,11 @@ class DonationData {
 		return $tracking_data;
 	}
 
-	//if ( !empty($data) && ( $data[ 'numAttempt' ] == '0' && ( !$wgRequest->getText( 'utm_source_id', false ) || $wgRequest->getText( '_nocache_' ) == 'true' ) ) ) {
-	//so, basically, if this is the first attempt. This seems to get called nowhere else.
+	/**
+	 * Saves a NEW ROW in the Contribution Tracking table and returns the new ID. 
+	 * @return boolean true if we got a contribution tracking # back, false if 
+	 * something went wrong.  
+	 */
 	function saveContributionTracking() {
 
 		$tracked_contribution = $this->getCleanTrackingData();
@@ -685,30 +746,12 @@ class DonationData {
 
 	public function addDonorDataToSession() {
 		self::ensureSession();
-		$donordata = array(
-			'email',
-			'fname',
-			'mname',
-			'lname',
-			'street',
-			'city',
-			'state',
-			'zip',
-			'country',
-			'contribution_tracking_id',
-			'referrer'
-		);
+		$donordata = $this->getStompMessageFields();
 
 		foreach ( $donordata as $item ) {
 			if ( $this->isSomething( $item ) ) {
 				$_SESSION['Donor'][$item] = $this->getVal( $item );
 			}
-		}
-	}
-
-	public function populateDonorFromSession() {
-		if ( array_key_exists( 'Donor', $_SESSION ) ) {
-			$this->addData( $_SESSION['Donor'] );
 		}
 	}
 
@@ -763,6 +806,53 @@ class DonationData {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Returns an array of field names we intend to send to activeMQ via a Stomp 
+	 * message. Note: These are field names from the FORM... not the field names 
+	 * that will appear in the stomp message. 
+	 * TODO: Move the mapping for donation data from 
+	 * /extensions/DonationData/activemq_stomp/activemq_stomp.php
+	 * to somewhere in DonationData. 	 * 
+	 */
+	function getStompMessageFields(){
+		$stomp_fields = array(
+			'contribution_tracking_id',
+			'optout',
+			'anonymous',
+			'comment',
+			'size',
+			'premium_language',
+			'utm_source',
+			'utm_medium',
+			'utm_campaign',
+			'language',
+			'referrer',
+			'email',
+			'fname',
+			'mname',
+			'lname',
+			'street',
+			'city',
+			'state',
+			'country',
+			'zip',
+			'fname2',
+			'lname2',
+			'street2',
+			'city2',
+			'state2',
+			'country2',
+			'zip2',
+			'gateway',
+			'gateway_txn_id',
+			'response',
+			'currency',
+			'amount',
+			'date',
+		);
+		return $stomp_fields;
 	}
 
 }

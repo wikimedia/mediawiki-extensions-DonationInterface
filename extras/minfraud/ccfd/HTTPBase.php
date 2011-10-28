@@ -161,6 +161,7 @@ class HTTPBase {
 		} else {
 			//otherwise, this thing complains loudly when the file doesn't exist. 
 			$datetime = time();
+			$ipstr = false;
 		}
 
 		// if the ip addresses expired or don't exist then
