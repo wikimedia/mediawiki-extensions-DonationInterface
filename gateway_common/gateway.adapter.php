@@ -1285,7 +1285,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$utm_source_parts[2] = 'pp';
 		$data['utm_source'] = implode( ".", $utm_source_parts );
 		$data['gateway'] = 'paypal';
-		$data['currency_code'] = isset( $data['currency'] ) ? $data['currency'] : '';
+		$data['currency_code'] = isset( $data['currency'] ) ? $data['currency'] : 'USD';
 
 		// Add our response vars to the data object. 
 		$this->dataObj->addData( $data );

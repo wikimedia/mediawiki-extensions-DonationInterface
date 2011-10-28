@@ -56,7 +56,7 @@ class DonationData {
 				'card_type' => $wgRequest->getText( 'card_type' ),
 				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
 				'cvv' => $wgRequest->getText( 'cvv' ),
-				'currency' => $wgRequest->getText( 'currency_code' ),
+				'currency' => $wgRequest->getText( 'currency_code', 'USD' ),
 				'payment_method' => $wgRequest->getText( 'payment_method' ),
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
