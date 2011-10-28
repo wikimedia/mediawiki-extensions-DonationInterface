@@ -202,7 +202,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Credit Cards
 		$this->payment_methods['cc'] = array(
 			'label'	=> 'Credit Cards',
-			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb,', 'cb', ),
+			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb', 'cb', ),
 		);
 		
 		// Direct Debit
@@ -630,9 +630,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$types = array(
 			'visa' => '1',
-			'mastercard' => '3',
 			'american' => '2',
-			'discover' => '128'
+			'amex' => '2',
+			'american express' => '2',
+			'mastercard' => '3',
+			'mc' => '3',
+			'maestro' => '117',
+			'solo' => '118',
+			'laser' => '124',
+			'jcb' => '125',
+			'discover' => '128',
+			'cb' => '130',
 		);
 
 		if ( $type === 'response' ) {
