@@ -158,7 +158,7 @@ function displayCreditCardForm() {
 		'country': $( "input[name='country']" ).val(),
 		'payment_method': 'card',
 		'language': language,
-		'card_type': $( "input[name='cardtype']" ).val().toLowerCase(),
+		'card_type': $( "input[name='cardtype']:checked" ).val().toLowerCase(),
 		'contribution_tracking_id': $( "input[name='contribution_tracking_id']" ).val(),
 		'numAttempt': $( "input[name='numAttempt']" ).val(),
 		'utm_source': $( "input[name='utm_source']" ).val(),
