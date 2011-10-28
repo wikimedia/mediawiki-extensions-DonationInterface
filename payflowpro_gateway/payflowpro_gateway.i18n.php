@@ -762,7 +762,6 @@ $messages['ga'] = array(
  */
 $messages['gl'] = array(
 	'payflowprogateway' => 'Fai a túa doazón agora',
-	'globalcollectgateway' => 'Fai a túa doazón agora',
 	'payflowpro_gateway-desc' => 'Procesamento por tarxeta de crédito PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'A túa transacción foi aprobada.
 Grazas pola doazón!',
@@ -779,7 +778,7 @@ Ponte en contacto connosco para continuar con esta operación.',
 	'payflowpro_gateway-response-125' => 'A túa transacción foi rexeitada polo servizo de prevención de fraudes.',
 	'payflowpro_gateway-response-125-2' => 'A túa tarxeta de crédito non se puido validar. Por favor, comproba que toda a información que proporcionaches coincide coa do perfil da túa tarxeta de crédito, ou intenta empregar outra tarxeta. Tamén podes utilizar calquera dos <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">outros xeitos de doar</a> ou porte en contacto connosco no correo electrónico <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Grazas polo teu apoio.',
 	'payflowpro_gateway-response-default' => 'Houbo un erro ao procesar a túa transacción.
-Por favor, inténteo de novo máis tarde.',
+Por favor, inténtao de novo máis tarde.',
 );
 
 /** Swiss German (Alemannisch)

@@ -106,6 +106,50 @@ $messages['fr'] = array(
 Veuillez réessayer plus tard.',
 );
 
+/** Galician (Galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'globalcollectgateway' => 'Fai a túa doazón agora',
+	'globalcollect_gateway-desc' => 'Procesamento de pagamentos GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'O país non é válido.',
+	'globalcollect_gateway-response-9140' => 'A moeda non é válida.',
+	'globalcollect_gateway-response-9150' => 'A lingua non é válida.',
+	'globalcollect_gateway-response-400530' => 'O método de pagamento non é válido.',
+	'globalcollect_gateway-response-430306' => 'A túa tarxeta de crédito caducou. Proba cunha tarxeta diferente ou con algún dos outros métodos de pagamento.',
+	'globalcollect_gateway-response-430330' => 'O número de tarxeta non é válido.',
+	'globalcollect_gateway-response-430421' => 'Non se puido validar a túa tarxeta de crédito. Comproba que toda a información coincide coa do perfil da tarxeta ou inténtao con outra tarxeta.',
+	'globalcollect_gateway-response-430360' => 'Non se puido autorizar a transacción. Proba cunha tarxeta diferente ou con algún dos outros métodos de pagamento.',
+	'globalcollect_gateway-response-430285' => 'Non se puido autorizar a transacción. Proba cunha tarxeta diferente ou con algún dos outros métodos de pagamento.',
+	'globalcollect_gateway-response-21000150' => 'O número da conta bancaria non é válido.',
+	'globalcollect_gateway-response-21000155' => 'O código bancario non é válido.',
+	'globalcollect_gateway-response-21000160' => 'O número de conta da transferencia non é válido.',
+	'globalcollect_gateway-response-default' => 'Houbo un erro ao procesar a túa transacción.
+Por favor, inténtao de novo máis tarde.',
+);
+
+/** Swiss German (Alemannisch)
+ * @author Als-Chlämens
+ */
+$messages['gsw'] = array(
+	'globalcollectgateway' => 'Jetz spände',
+	'globalcollect_gateway-desc' => 'Ermöglicht d Zaaligsabwicklig dur GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Nit giltige Staat.',
+	'globalcollect_gateway-response-9140' => 'Wäärig nit gültig.',
+	'globalcollect_gateway-response-9150' => 'Sprooch nit gültig.',
+	'globalcollect_gateway-response-400530' => 'Zaaligsmethod isch nit gültig.',
+	'globalcollect_gateway-response-430306' => 'Dyni Kreditcharte isch abgloffe. Bitte probier e andri Charte oder e andri Zaaligsmethod uss.',
+	'globalcollect_gateway-response-430330' => 'D Kreditchartenummer isch nit gültig.',
+	'globalcollect_gateway-response-430421' => "Dyni Kreditcharte het nit chönne validiert werde. Due bitte überpriefe, ob alli Informatione mit dyner Charte überyystimme, oder probier's mit ere andre Charte.",
+	'globalcollect_gateway-response-430360' => 'D Transaktion het nit chönne bstätigt werde. Nimm bitte e andri Charte oder probier e andri Zaaligsmethod uss.',
+	'globalcollect_gateway-response-430285' => 'D Transaktion het nit chönne bstätigt werde. Nimm bitte e andri Charte oder probier e andri Zaaligsmethod uss.',
+	'globalcollect_gateway-response-21000150' => 'D Kontonummer isch nit gültig.',
+	'globalcollect_gateway-response-21000155' => 'D Bankleitzaal isch nit gültig.',
+	'globalcollect_gateway-response-21000160' => 'D Girokontonummer isch nit gültig.',
+	'globalcollect_gateway-response-default' => 'S het e Verarbeitigsfähler gee bi dr Uusfierig vu Dyyre Transaktion.
+Bitte versuech s speter nonemol.',
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  */
