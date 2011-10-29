@@ -1175,8 +1175,7 @@ Pabandykite dar kartą vėliau.',
  * @author Brest
  */
 $messages['mk'] = array(
-	'payflowprogateway' => 'Донирајте сега',
-	'globalcollectgateway' => 'Донирајте сега',
+	'payflowprogateway' => 'Дарувајте сега',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro обработка на податоците за плаќање со кредитна картичка',
 	'payflowpro_gateway-response-0' => 'Вашето плаќање е одобрено.
 Ви благодариме на донацијата!',

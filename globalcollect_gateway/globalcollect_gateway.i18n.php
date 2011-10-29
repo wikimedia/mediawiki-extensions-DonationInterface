@@ -150,11 +150,22 @@ $messages['gsw'] = array(
 Bitte versuech s speter nonemol.',
 );
 
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'globalcollectgateway' => 'Maacht Ären Don elo',
+	'globalcollect_gateway-desc' => 'Ofwécklung vum Bezuelen duerch GlobalCollect',
+	'globalcollect_gateway-response-430306' => 'Är Kreditkaart ass ofgelaf. Probéiert w.e.g. en aner Kaart oder eng vun eisen anere Méiglechkeete fir ze bezuelen.',
+	'globalcollect_gateway-response-21000150' => "D'Kontonummer ass net valabel.",
+	'globalcollect_gateway-response-21000155' => "De Code fir d'Bank ass net valabel.",
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
-	'globalcollectgateway' => 'Донирајте сега',
+	'globalcollectgateway' => 'Дарувајте сега',
 	'globalcollect_gateway-desc' => 'Платежна обработка GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Неважечка земја.',
 	'globalcollect_gateway-response-9140' => 'Неважечка валута.',
@@ -193,5 +204,28 @@ $messages['ms'] = array(
 	'globalcollect_gateway-response-21000160' => 'Nombor akaun giro tidak sah.',
 	'globalcollect_gateway-response-default' => 'Terdapat masalah dalam memproses transaksi anda. 
 Sila cuba sebentar lagi.',
+);
+
+/** Dutch (Nederlands)
+ * @author SPQRobin
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'globalcollectgateway' => 'Doneer nu',
+	'globalcollect_gateway-desc' => 'Betalingsverwerking via GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Ongeldig land.',
+	'globalcollect_gateway-response-9140' => 'Ongeldige valuta.',
+	'globalcollect_gateway-response-9150' => 'Ongeldige taal.',
+	'globalcollect_gateway-response-400530' => 'Ongeldige betalingsmethode.',
+	'globalcollect_gateway-response-430306' => 'Uw creditcard is verlopen. Probeer een andere kaart of een van onze andere betalingsmethoden.',
+	'globalcollect_gateway-response-430330' => 'Ongeldig kaartnummer.',
+	'globalcollect_gateway-response-430421' => 'Uw creditcard kan niet worden gevalideerd. Controleer alstublieft of alle informatie overeenkomt met uw creditcardgegevens, of gebruik een andere kaart.',
+	'globalcollect_gateway-response-430360' => 'De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.',
+	'globalcollect_gateway-response-430285' => 'De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.',
+	'globalcollect_gateway-response-21000150' => 'Ongeldig rekeningnummer.',
+	'globalcollect_gateway-response-21000155' => 'Ongeldige bankcode.',
+	'globalcollect_gateway-response-21000160' => 'Ongeldig girorekeningnummer.',
+	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden bij het verwerken van uw transactie.
+Probeer het later alstublieft nog een keer.',
 );
 
