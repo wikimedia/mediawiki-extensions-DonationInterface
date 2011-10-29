@@ -430,10 +430,9 @@ class DonationData {
 	 * resolved in $wgUser, we'll use our own methods for token
 	 * handling.
 	 *
-	 * @var mixed $salt
 	 * @return string
 	 */
-	public function getEditToken( $salt = '' ) {
+	public function token_getSaltedSessionToken() {
 
 		// make sure we have a session open for tracking a CSRF-prevention token
 		self::ensureSession();
@@ -442,57 +441,66 @@ class DonationData {
 
 		if ( !isset( $_SESSION[$gateway_ident . 'EditToken'] ) ) {
 			// generate unsalted token to place in the session
-			$token = self::generateToken();
+			$token = self::token_generateToken();
 			$_SESSION[$gateway_ident . 'EditToken'] = $token;
 		} else {
 			$token = $_SESSION[$gateway_ident . 'EditToken'];
 		}
 
+		return $this->token_applyMD5AndSalt( $token );
+	}
+	
+	/**
+	 * In the case where we have an expired session (token mismatch), we go 
+	 * ahead and fix it for 'em for their next post. 
+	 */
+	function token_refreshAllTokenEverything(){
+		$unsalted = self::token_generateToken();	
+		$gateway_ident = $this->gatewayID;
+		self::ensureSession();
+		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
+		$salted = $this->token_getSaltedSessionToken();
+		$this->setVal( 'token', $salted);
+	}
+	
+	function token_applyMD5AndSalt( $clear_token ){
+		$salt = $this->getGatewayGlobal( 'Salt' );
+		
 		if ( is_array( $salt ) ) {
 			$salt = implode( "|", $salt );
 		}
-		return md5( $token . $salt ) . EDIT_TOKEN_SUFFIX;
+		
+		$salted = md5( $clear_token . $salt ) . EDIT_TOKEN_SUFFIX;
+		return $salted;
 	}
+
 
 	/**
 	 * Generate a token string
 	 *
-	 * @var mixed $salt
+	 * @var mixed $padding
 	 * @return string
 	 */
-	public static function generateToken( $salt = '' ) {
+	public static function token_generateToken( $padding = '' ) {
 		$token = dechex( mt_rand() ) . dechex( mt_rand() );
-		return md5( $token . $salt );
+		return md5( $token . $padding );
 	}
 
 	/**
 	 * Determine the validity of a token
 	 *
 	 * @var string $val
-	 * @var mixed $salt
 	 * @return bool
 	 */
-	function matchEditToken( $val, $salt = '' ) {
+	function token_matchEditToken( $val ) {
 		// fetch a salted version of the session token
-		$sessionToken = $this->getEditToken( $salt );
-		if ( $val != $sessionToken ) {
+		$sessionSaltedToken = $this->token_getSaltedSessionToken();
+		if ( $val != $sessionSaltedToken ) {
 			wfDebug( "DonationData::matchEditToken: broken session data\n" );
 			//and reset the token for next time. 
-			$this->expunge( 'token' );	
+			$this->token_refreshAllTokenEverything();
 		}
-		return $val == $sessionToken;
-	}
-
-
-	/**
-	 * unsets the edit token in the user's session. 
-	 */
-	function unsetEditToken() {
-		$gateway_ident = $this->gatewayID;
-
-		if ( isset( $_SESSION ) && isset( $_SESSION[$gateway_ident . 'EditToken'] ) ){
-			unset( $_SESSION[$gateway_ident . 'EditToken'] );
-		}
+		return $val == $sessionSaltedToken;
 	}
 
 	/**
@@ -510,18 +518,14 @@ class DonationData {
 		wfSetupSession();
 	}
 
-	public function checkTokens() {
+	public function token_checkTokens() {
 		global $wgRequest;
 		static $match = null;
 
 		if ( $match === null ) {
-			$salt = $this->getGatewayGlobal( 'Salt' );
-			if ( $salt === false ){
-				$salt = 'gotToBeInAUnitTest';
-			}
 
 			// establish the edit token to prevent csrf
-			$token = $this->getEditToken( $salt );
+			$token = $this->token_getSaltedSessionToken();
 
 			$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' editToken: ' . $token, LOG_DEBUG );
 
@@ -531,7 +535,7 @@ class DonationData {
 			}
 			$token_check = $this->getVal( 'token' );
 			
-			$match = $this->matchEditToken( $token_check, $salt );
+			$match = $this->token_matchEditToken( $token_check );
 			if ( $wgRequest->wasPosted() ) {
 				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Submitted edit token: ' . $this->getVal( 'token' ), LOG_DEBUG );
 				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Token match: ' . ($match ? 'true' : 'false' ), LOG_DEBUG );

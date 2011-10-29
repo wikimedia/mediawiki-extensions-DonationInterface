@@ -239,7 +239,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return boolean true if match, else false.  
 	 */
 	public function checkTokens() {
-		$checkResult = $this->dataObj->checkTokens();
+		$checkResult = $this->dataObj->token_checkTokens();
 		
 		if ( $checkResult ) {
 			$this->debugarray[] = 'Token Match';
@@ -1558,8 +1558,13 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	function refreshGatewayValueFromSource( $val ){
 		$refreshed = $this->dataObj->getVal( $val );
-		$this->postdata[$val] = $refreshed;
-		$this->displaydata[$val] = $refreshed;
+		if ( !is_null($refreshed) ){
+			$this->postdata[$val] = $refreshed;
+			$this->displaydata[$val] = $refreshed;
+		} else {
+			unset( $this->postdata[$val] );
+			unset( $this->displaydata[$val] );
+		}
 	}
 
 }
