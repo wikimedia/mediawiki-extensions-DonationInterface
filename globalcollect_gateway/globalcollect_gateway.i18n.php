@@ -156,9 +156,13 @@ Bitte versuech s speter nonemol.',
 $messages['lb'] = array(
 	'globalcollectgateway' => 'Maacht Ären Don elo',
 	'globalcollect_gateway-desc' => 'Ofwécklung vum Bezuelen duerch GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Net valabelt Land.',
+	'globalcollect_gateway-response-9140' => 'Net valabel Währung.',
+	'globalcollect_gateway-response-9150' => 'Net valabel Sprooch.',
 	'globalcollect_gateway-response-430306' => 'Är Kreditkaart ass ofgelaf. Probéiert w.e.g. en aner Kaart oder eng vun eisen anere Méiglechkeete fir ze bezuelen.',
 	'globalcollect_gateway-response-21000150' => "D'Kontonummer ass net valabel.",
 	'globalcollect_gateway-response-21000155' => "De Code fir d'Bank ass net valabel.",
+	'globalcollect_gateway-response-21000160' => "D'Giro-Kontonummer ass net valabel.",
 );
 
 /** Macedonian (Македонски)

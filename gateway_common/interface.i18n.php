@@ -254,6 +254,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
  * @author Jsoby
  * @author Kghbln
  * @author Lloffiwr
+ * @author McDutchie
  * @author Minh Nguyen
  * @author Purodha
  * @author Raymond
@@ -322,6 +323,7 @@ $messages['qqq'] = array(
 	'donate_interface-donor-security' => 'Label for the field where you put in the security code for your card.',
 	'donate_interface-donor-submit' => '{{Identical|Donate}}',
 	'donate_interface-donor-currency-msg' => '* $1 is 3 letter currency code',
+	'donate_interface-card-name-discover' => "Trademark name of credit card Discover®, '''not''' the verb \"to discover\".",
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
 	'donate_interface-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
 
@@ -5266,6 +5268,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Hashar
  * @author IAlex
  * @author Jean-Frédéric
+ * @author McDutchie
  * @author Peter17
  * @author PieRRoMaN
  * @author Quentinv57
@@ -5336,7 +5339,7 @@ Aucun processeur n’est disponible.',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
-	'donate_interface-card-name-discover' => 'Découvrir',
+	'donate_interface-card-name-discover' => 'Discover',
 	'donate_interface-error-msg-nopaypal' => 'En raison d’un problème technique, nous ne pouvons pas envoyer votre requête à PayPal. Veuillez essayer notre formulaire classique de don par carte de crédit.',
 	'donate_interface-error-msg' => 'Veuillez entrer votre $1',
 	'donate_interface-error-msg-js' => 'Veuillez entrer votre',
@@ -5730,6 +5733,7 @@ $messages['fur'] = array(
 );
 
 /** Galician (Galego)
+ * @author McDutchie
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -5795,7 +5799,7 @@ $messages['gl'] = array(
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
-	'donate_interface-card-name-discover' => 'Descubrir',
+	'donate_interface-card-name-discover' => 'Discover',
 	'donate_interface-error-msg-nopaypal' => 'Debido a un problema técnico, non podemos enviar a túa solicitude ao PayPal. Inténtao empregando o noso formulario de doazóns mediante tarxeta de crédito.',
 	'donate_interface-error-msg' => 'O seguinte campo é necesario: $1',
 	'donate_interface-error-msg-js' => 'O seguinte campo é necesario:',
@@ -6198,15 +6202,16 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
 $messages['he'] = array(
 	'donate_interface' => 'הבעת תמיכה בוויקימדיה',
 	'donate_interface-desc' => 'דף נחיתה להתרמה עם שילוב של הרחבות שער',
+	'donate_interface-langonly-desc' => 'חשיפה רק של הודעות של DonationInterface',
 	'donate_interface-intro' => 'נא לבחור את השיטה, הכמות והמטבע לתשלום.',
-	'donate_interface-amount' => 'סכום התרומה:',
+	'donate_interface-amount' => 'סכום:',
 	'donate_interface-other-amount' => 'סכום אחר',
 	'donate_interface-currency' => 'מטבע:',
 	'donate_interface-gateway' => 'שיטת התשלום:',
 	'donate_interface-submit-button' => 'תרומה',
 	'donate_interface-comment-message' => 'עוברת בך מחשבה שרצית לשתף עם העולם? ניתן להזין כאן עד 200 תווים:',
 	'donate_interface-comment-label' => 'הערה:',
-	'donate_interface-anon-message' => 'נא להציג את השם (לצד ההערה שלי) ברשימת התורמים הציבורית.',
+	'donate_interface-anon-message' => 'נא להציג את שמי ברשימת התורמים הציבורית.',
 	'donate_interface-email-agreement' => 'אני מסכים לקבל עדכוני חדשות והודעות בדוא״ל מקרן ויקימדיה מפעם לפעם.',
 	'donate_interface-comment-title' => 'הערה ציבורית',
 	'donate_interface-amount-error' => '**יש להזין סכום תקני**',
@@ -6384,6 +6389,7 @@ $messages['he'] = array(
 	'donate_interface-cancel' => 'ביטול',
 	'donate_interface-payment' => 'תשלום',
 	'donate_interface-payment-type' => 'אופן התשלום',
+	'donate_interface-month' => '$1 ($2)',
 	'donate_interface-please-complete' => 'נא להשלים את תרומתך להלן ...',
 	'donate_interface-description' => 'תיאור',
 	'donate_interface-donation' => 'תרומה',
@@ -7060,15 +7066,16 @@ $messages['hu'] = array(
 $messages['ia'] = array(
 	'donate_interface' => 'Supportar Wikimedia',
 	'donate_interface-desc' => 'Pagina de arrivata pro donationes que integra le extensiones de pagamento',
+	'donate_interface-langonly-desc' => 'Expone solmente messages de systema DonationInterface',
 	'donate_interface-intro' => 'Per favor selige un methodo de pagamento, amonta e moneta.',
-	'donate_interface-amount' => 'Amonta del donation:',
+	'donate_interface-amount' => 'Amonta',
 	'donate_interface-other-amount' => 'Altere amonta',
 	'donate_interface-currency' => 'Moneta:',
 	'donate_interface-gateway' => 'Methodo de pagamento:',
 	'donate_interface-submit-button' => 'Donar',
 	'donate_interface-comment-message' => 'Vole tu transmitter un pensata al mundo? Scribe usque a 200 characteres hic:',
 	'donate_interface-comment-label' => 'Commento:',
-	'donate_interface-anon-message' => 'Mentiona mi nomine (juxta mi commento) in le lista public de donatores.',
+	'donate_interface-anon-message' => 'Per favor mentiona mi nomine in le lista public de donatores.',
 	'donate_interface-email-agreement' => 'Io accepta de reciper occasional actualitates per e-mail del Fundation Wikimedia.',
 	'donate_interface-comment-title' => 'Commento public',
 	'donate_interface-amount-error' => '**Per favor entra un amonta valide**',
@@ -7116,6 +7123,10 @@ $messages['ia'] = array(
 	'donate_interface-donor-security' => 'Codice de securitate:',
 	'donate_interface-donor-submit' => 'Donar',
 	'donate_interface-donor-currency-msg' => 'Iste donation es facite in $1',
+	'donate_interface-card-name-amex' => 'American Express',
+	'donate_interface-card-name-visa' => 'Visa',
+	'donate_interface-card-name-mc' => 'Mastercard',
+	'donate_interface-card-name-discover' => 'Discover',
 	'donate_interface-error-msg-nopaypal' => 'A causa de un error technic, nos non pote inviar tu requesta a PayPal. Per favor tenta usar nostre formulario de donation con carta de credito normal.',
 	'donate_interface-error-msg' => 'Per favor entra tu $1',
 	'donate_interface-error-msg-js' => 'Per favor entra',
@@ -7246,6 +7257,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 	'donate_interface-cancel' => 'Cancellar',
 	'donate_interface-payment' => 'Pagamento',
 	'donate_interface-payment-type' => 'Modo de pagamento',
+	'donate_interface-month' => '$1 ($2)',
 	'donate_interface-please-complete' => 'Per favor completa vostre donation hic infra ...',
 	'donate_interface-description' => 'Description',
 	'donate_interface-donation' => 'Donation',
@@ -7271,6 +7283,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 	'donate_interface-on-the-back' => 'Con isto sur le dorso:',
 	'donate_interface-tshirt-confirmation' => 'Le T-shirt essera livrate in le talia e lingua sequente:',
 	'donate_interface-donation-tshirt' => 'Donation (offerta de t-shirt)',
+	'donate_interface-state-dropdown-YY' => 'Selige un stato',
 	'donate_interface-state-dropdown-XX' => 'Extra le Statos Unite',
 );
 
@@ -9663,14 +9676,14 @@ $messages['ms'] = array(
 	'donate_interface-desc' => "Laman sumbangan yang diintegerasikan degan ''gateway extension''",
 	'donate_interface-langonly-desc' => 'Mendedahkan pesanan sistem DonationInterface (Antaramuka Pendermaan) sahaja',
 	'donate_interface-intro' => 'Sila pilih kaedah pembayaran, jumlah dan mata wang.',
-	'donate_interface-amount' => 'Jumlah derma:',
+	'donate_interface-amount' => 'Jumlah',
 	'donate_interface-other-amount' => 'Jumlah lain',
 	'donate_interface-currency' => 'Mata wang:',
 	'donate_interface-gateway' => 'Kaedah pembayaran:',
 	'donate_interface-submit-button' => 'Derma',
 	'donate_interface-comment-message' => 'Adakah anda mempunyai pandangan untuk berkongsi dengan sedunia? Hantarkannya dengan tidak melebihi 200 aksara:',
 	'donate_interface-comment-label' => 'Komen:',
-	'donate_interface-anon-message' => 'Letakkan nama saya (di sebelah komen) dalam senarai penderma umum.',
+	'donate_interface-anon-message' => 'Sila senaraikan nama saya dalam senarai penderma umum.',
 	'donate_interface-email-agreement' => 'Saya setuju untuk menerima kemas kini e-mel sekali-sekala daripada Yayasan Wikimedia.',
 	'donate_interface-comment-title' => 'Komen umum',
 	'donate_interface-amount-error' => '**Sila masukkan jumlah yang sah**',
@@ -12702,7 +12715,7 @@ $messages['sah'] = array(
 	'donate_interface-submit-button' => 'Сиэртибэлииргэ',
 	'donate_interface-comment-message' => 'Тугу эрэ этээри гынаҕын дуо? 200 бэлиэҕэ дылы сурук хаалларыаххын сөп:',
 	'donate_interface-comment-label' => 'Хос быһаарыы:',
-	'donate_interface-anon-message' => 'Мин ааппын дьон көрөр сиэртибэһиттэр тиһиктэригэр киллэриҥ (хос быһаарыым аттыгар).',
+	'donate_interface-anon-message' => 'Мин ааппын сиэртибэһиттэр аһаҕас тиһиктэригэр киллэриҥ.',
 	'donate_interface-email-agreement' => 'Викимедиа пуондатыттан сонуннары э-почтанан тутарга сөбүлэһэбин.',
 	'donate_interface-comment-title' => 'Дьоҥҥо көстөр хос быһаарыы',
 	'donate_interface-amount-error' => '** Бука диэн, сатанар суумманы киллэр **',
