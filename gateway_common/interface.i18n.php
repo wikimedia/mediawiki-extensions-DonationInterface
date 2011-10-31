@@ -250,13 +250,13 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-rtbt-issuer_id' => 'Bank',
 
 	// Direct debit (dd)
-	'donate_interface-dd-account_name' => 'Account Name',
-	'donate_interface-dd-account_number' => 'Account Number',
+	'donate_interface-dd-account_name' => 'Account name',
+	'donate_interface-dd-account_number' => 'Account number',
 	'donate_interface-dd-authorization_id' => 'Authorization ID',
-	'donate_interface-dd-bank_check_digit' => 'Bank Check Digit',
-	'donate_interface-dd-bank_code' => 'Bank Code',
-	'donate_interface-dd-bank_name' => 'Bank Name',
-	'donate_interface-dd-branch_code' => 'Branch Code',
+	'donate_interface-dd-bank_check_digit' => 'Bank check digit',
+	'donate_interface-dd-bank_code' => 'Bank code',
+	'donate_interface-dd-bank_name' => 'Bank name',
+	'donate_interface-dd-branch_code' => 'Branch code',
 	'donate_interface-dd-direct_debit_text' => 'Direct debit text',
 	'donate_interface-dd-iban' => 'IBAN',
 );
