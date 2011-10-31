@@ -177,7 +177,8 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->postdata = $this->dataObj->getData();
 		//TODO: Fix this a bit. 
 
-		$this->posted = $wgRequest->wasPosted();
+		$this->posted = ( $wgRequest->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
+		
 		$this->setPostDefaults( $postDefaults );
 		$this->defineTransactions();
 		$this->defineVarMap();
