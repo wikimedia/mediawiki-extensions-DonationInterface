@@ -49,6 +49,18 @@ $messages['qqq'] = array(
 	'globalcollect_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'globalcollectgateway' => 'Rhoddwch nawr',
+	'globalcollect_gateway-response-9130' => 'Gwlad annilys.',
+	'globalcollect_gateway-response-9150' => 'Iaith annilys.',
+	'globalcollect_gateway-response-400530' => 'Modd talu annilys.',
+	'globalcollect_gateway-response-430330' => 'Rhif annilys i gerdyn.',
+	'globalcollect_gateway-response-21000155' => 'Côd banc annilys.',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
@@ -150,6 +162,28 @@ $messages['gsw'] = array(
 Bitte versuech s speter nonemol.',
 );
 
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'globalcollectgateway' => 'Face un donation ora',
+	'globalcollect_gateway-desc' => 'Processamento de pagamentos GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Pais invalide.',
+	'globalcollect_gateway-response-9140' => 'Moneta invalide.',
+	'globalcollect_gateway-response-9150' => 'Lingua invalide.',
+	'globalcollect_gateway-response-400530' => 'Methodo de pagamento invalide.',
+	'globalcollect_gateway-response-430306' => 'Vostre carta de credito ha expirate. Per favor essaya un altere carta o un de nostre altere methodos de pagamento.',
+	'globalcollect_gateway-response-430330' => 'Numero de carta invalide.',
+	'globalcollect_gateway-response-430421' => 'Vostre carta de credito non poteva esser validate. Per favor verifica que tote le informationes corresponde al profilo de vostre carta, o usa un altere carta.',
+	'globalcollect_gateway-response-430360' => 'Le transaction non poteva esser autorisate. Per favor usa un altere carta o un de nostre altere methodos de pagamento.',
+	'globalcollect_gateway-response-430285' => 'Le transaction non poteva esser autorisate. Per favor usa un altere carta o un de nostre altere methodos de pagamento.',
+	'globalcollect_gateway-response-21000150' => 'Numero de conto bancari invalide.',
+	'globalcollect_gateway-response-21000155' => 'Codice bancari invalide.',
+	'globalcollect_gateway-response-21000160' => 'Numero de conto de giro invalide.',
+	'globalcollect_gateway-response-default' => 'Un error occurreva durante le tractamento de tu transaction.
+Per favor reproba plus tarde.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -231,5 +265,38 @@ $messages['nl'] = array(
 	'globalcollect_gateway-response-21000160' => 'Ongeldig girorekeningnummer.',
 	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden bij het verwerken van uw transactie.
 Probeer het later alstublieft nog een keer.',
+);
+
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Jsoby
+ */
+$messages['no'] = array(
+	'globalcollectgateway' => 'Doner nå',
+	'globalcollect_gateway-desc' => 'Betalingsprosessering med GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Ugyldig land.',
+	'globalcollect_gateway-response-9140' => 'Ugyldig valuta.',
+	'globalcollect_gateway-response-9150' => 'Ugyldig språk.',
+	'globalcollect_gateway-response-400530' => 'Ugylding betalingsmetode.',
+	'globalcollect_gateway-response-430306' => 'Kredittkortet ditt er utgått. Prøv et annet kort eller en av de andre betalingsmetodene våre.',
+	'globalcollect_gateway-response-430330' => 'Ugyldig kortnummer.',
+	'globalcollect_gateway-response-430421' => 'Kredittkortet ditt kunne ikke valideres. Sjekk at informasjonen du har oppgitt stemmer overens med det som står på kortet, eller prøv et annet kort.',
+	'globalcollect_gateway-response-430360' => 'Overføringen kunne ikke autoriseres. Prøv et annet kort eller en av de andre betalingsmåtene våre.',
+	'globalcollect_gateway-response-430285' => 'Overføringen kunne ikke autoriseres. Prøv et annet kort eller en av de andre betalingsmetodene våre.',
+	'globalcollect_gateway-response-21000150' => 'Ugyldig kontonummer.',
+	'globalcollect_gateway-response-21000155' => 'Ugyldig bankkode.',
+	'globalcollect_gateway-response-21000160' => 'Ugyldig girokontonummer.',
+	'globalcollect_gateway-response-default' => 'Det oppsto en feil under behandlingen av overføringen din.
+Prøv igjen senere.',
+);
+
+/** Swahili (Kiswahili)
+ * @author Lloffiwr
+ */
+$messages['sw'] = array(
+	'globalcollectgateway' => 'Changia sasa',
+	'globalcollect_gateway-response-9130' => 'Jina batili la nchi.',
+	'globalcollect_gateway-response-9150' => 'Lugha batili.',
+	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.',
+	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
 );
 
