@@ -245,6 +245,20 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	// For more USA states, see donate_interface.us-states.i18n.php.
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
 	'donate_interface-state-dropdown-XX' => 'Outside the U.S.',
+
+	// Real time bank transfer (rtbt)
+	'donate_interface-rtbt-issuer_id' => 'Bank',
+
+	// Direct debit (dd)
+	'donate_interface-dd-account_name' => 'Account Name',
+	'donate_interface-dd-account_number' => 'Account Number',
+	'donate_interface-dd-authorization_id' => 'Authorization ID',
+	'donate_interface-dd-bank_check_digit' => 'Bank Check Digit',
+	'donate_interface-dd-bank_code' => 'Bank Code',
+	'donate_interface-dd-bank_name' => 'Bank Name',
+	'donate_interface-dd-branch_code' => 'Branch Code',
+	'donate_interface-dd-direct_debit_text' => 'Direct debit text',
+	'donate_interface-dd-iban' => 'IBAN',
 );
 
 /** Message documentation (Message documentation)
@@ -484,6 +498,21 @@ There is no limit to the length of the message.",
 	'donate_interface-donation-tshirt' => 'This message is about "Donate and get a T-shirt".',
 	'donate_interface-state-dropdown-YY' => "Label for the dropdown of US states. Only US states are shown, so don't translate this to your equivalent subdivision level.",
 	'donate_interface-state-dropdown-XX' => 'Option in the US state dropdown if you are not in the US.',
+
+	// Real time bank transfer (rtbt)
+	'donate_interface-rtbt-issuer_id' => 'Real time bank transfer: Bank',
+
+	// Direct debit (dd) - Some of these may need more clarification
+	'donate_interface-dd-account_name' => 'Direct Debit: Account Name',
+	'donate_interface-dd-account_number' => 'Direct Debit: Account Number',
+	'donate_interface-dd-authorization_id' => 'Direct Debit: Authorization ID',
+	'donate_interface-dd-bank_check_digit' => 'Direct Debit: Bank Check Digit',
+	'donate_interface-dd-bank_code' => 'Direct Debit: Bank Code',
+	'donate_interface-dd-bank_name' => 'Direct Debit: Bank Name',
+	'donate_interface-dd-branch_code' => 'Direct Debit: Branch Code',
+	'donate_interface-dd-direct_debit_text' => 'Direct Debit: Direct debit text.',
+	'donate_interface-dd-iban' => 'Direct Debit: International Bank Account Number - IBAN',
+
 );
 
 /** Magyar (magázó) (Magyar (magázó))
