@@ -62,6 +62,22 @@ function empty( value ) {
  
     return false;
 }
+ 
+/*******************************************************************************
+
+Form Methods 
+
+*******************************************************************************/
+
+/**
+ * setAmount
+ *
+ * @param object e	The element
+ */
+setAmount = function( e ) {
+	$('input[name="amount"]').val(e.val());
+};
+
 
 /*******************************************************************************
 
@@ -75,6 +91,7 @@ Validate Elements
  */
 function validateElementAmount( options ) {
     
+	// Need to distinguish between single amount field and radio buttons.
 	$().ready(function() {
 		
 		/**
@@ -392,6 +409,9 @@ Validate Element Groups
  */
 $().ready(function() {
 
+	$('input[name="amountRadio"]').click(function(){ setAmount($(this)); });
+	$("#other-amount").change(function(){ setAmount($(this)); });
+
 	if ( !isset( validatePaymentForm.formId ) ) {
 		validatePaymentForm.formId = '';
 	}
@@ -434,14 +454,17 @@ $().ready(function() {
 	if ( validatePaymentForm.payment_method == 'cc' ) {
 		
 		// card_num and cvv are not validated on our site.
+		validatePaymentForm.validate.state = true;
 	}
 	else if ( validatePaymentForm.payment_method == 'bt' ) {
 		
 		validatePaymentForm.validate.payment = true;
+		validatePaymentForm.validate.state = false;
 	}
 	else if ( validatePaymentForm.payment_method == 'rtbt' ) {
 		
 		validatePaymentForm.validate.payment = true;
+		validatePaymentForm.validate.state = false;
 	}
 
 	/*
@@ -506,7 +529,11 @@ $().ready(function() {
 	if ( validatePaymentForm.validate.address ) {
 		validateElementStreet( validatePaymentForm );
 		validateElementCity( validatePaymentForm );
-		validateElementState( validatePaymentForm );
+		
+		if ( validatePaymentForm.validate.state ) {
+			validateElementState( validatePaymentForm );
+		}
+		
 		validateElementCountry( validatePaymentForm );
 		
 		// Zip is not ready
@@ -545,5 +572,7 @@ $().ready(function() {
 			validateElementIssuerId( validatePaymentForm );
 		}
 	}
+
+
 });
 
