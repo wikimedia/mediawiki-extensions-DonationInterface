@@ -423,6 +423,7 @@ abstract class Gateway_Form {
 				'action' => $this->form_data['action'],
 				'owa_session' => $this->form_data['owa_session'],
 				'owa_ref' => $this->form_data['owa_ref'],
+				'gateway' => $this->form_data['gateway'],
 			);
 		}
 

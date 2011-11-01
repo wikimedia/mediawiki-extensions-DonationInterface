@@ -259,23 +259,22 @@ class DonationData {
 	 * assigned. 
 	 */
 	function handleContributionTrackingID(){
-		//TODO: test with _cache_ on. 
-		
-		//what follows here is the original horrible if statement for comparison to the new line (below). 
-		//TODO: whack this when we know the replacement is solid. 
-//		if ( !empty( $this->normalized ) && 
-//		( $this->getVal( 'numAttempt' ) == '0' && 
-//			((!$this->getVal( 'utm_source_id' ) == false ) || 
-//			is_null($this->getVal( '_cache_' )) ) ) ) {
-//			$this->saveContributionTracking();
-//			}
-		
 		if ( !$this->isSomething( 'contribution_tracking_id' ) && 
-			( $this->getVal( 'utm_source_id' ) !== false || !$this->isSomething( '_cache_' ) ) ){
+			( !$this->canCache() ) ){
 			$this->saveContributionTracking();
 		} 
 	}
-
+	
+	
+	function canCache(){
+		if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
+			if ( $this->isSomething( 'utm_source_id' ) && $this->getVal( 'utm_source_id' ) !== false ){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * normalizeAndSanitize helper function.
 	 * Takes all possible sources for the intended donation amount, and 
@@ -554,7 +553,13 @@ class DonationData {
 		
 		$utm_source = $this->getVal( 'utm_source' );
 		$utm_source_id = $this->getVal( 'utm_source_id' );
-		$payment_method = $this->getVal( 'payment_method' );
+		
+		//TODO: Seriously, you need to move this. 
+		if ( $this->isSomething('payment_method') ){
+			$payment_method = $this->getVal( 'payment_method' );
+		} else {
+			$payment_method = 'cc';
+		}
 		
 		// this is how the payment method portion of the utm_source should be defined
 		$correct_payment_method_source = ( $utm_source_id ) ? $payment_method . $utm_source_id . '.' . $payment_method : $payment_method;

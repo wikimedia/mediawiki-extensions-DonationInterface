@@ -51,6 +51,9 @@ class ApiPayflowProGateway extends ApiBase {
 			'gateway' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
+			'payment_method' => array(
+				ApiBase::PARAM_TYPE => 'string',
+			),
 		);
 	}
 
@@ -58,6 +61,8 @@ class ApiPayflowProGateway extends ApiBase {
 		return array(
 			'dispatch' => 'the API method from which to return data',
 			'tracking_data' => 'A JSON formatted string of data to insert into contribution_tracking',
+			'gateway' => 'The current gateway',
+			'payment_method' => 'The current payment method'
 		);
 	}
 
@@ -148,10 +153,8 @@ class ApiPayflowProGateway extends ApiBase {
 		 * 	pageref => the url-encoded referrer to the full user-requested URL
 		 */
 		$tracking_data = $this->parseTrackingData( json_decode( $params[ 'tracking_data' ], true ) );
-		
 		//instantiate a new DonationData that behaves like it's owned by the correct gateway. 
 		$donationDataObj = new DonationData( $gateway_class, false, $tracking_data );
-		
 		// fetch the order_id
 		$order_id = $donationDataObj->getVal( 'order_id' );
 

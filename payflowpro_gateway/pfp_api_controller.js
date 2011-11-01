@@ -17,7 +17,11 @@
                             'action' : 'pfp',
                             'dispatch' : 'get_required_dynamic_form_elements',
                             'format' : 'json',
-                            'tracking_data' : '{"url": "'+escape(window.location)+'", "pageref": "'+escape(document.referrer)+'"}'
+                            'tracking_data' : '{"url": "'+escape(window.location)+
+								'", "pageref": "'+escape(document.referrer)+ 
+								'", "gateway": "'+escape(document.gateway)+
+								'", "payment_method": "'+escape(document.payment_method)+
+								'"}'
                         }, processFormElements, 'json' );
         };
 
