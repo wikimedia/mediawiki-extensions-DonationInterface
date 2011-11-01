@@ -57,8 +57,8 @@
 <div class="ltr">
     <div id="appeal">
         <div id="appeal-content">
-            <h2 id="appeal-head"> <span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title}}</span></h2>
-            <div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal}}</div>
+            <h2 id="appeal-head"> <span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title|@language}}</span></h2>
+            <div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal|@language}}</div>
         </div>
     </div>
 
@@ -157,15 +157,12 @@
                     <input type="hidden" value="@payment_method" name="payment_method"/>
                 </form>
                 <div id="where-content">
-		            <hr />
-		            <h3>Where your donation goes</h3>
-		            <p><strong>Technology:</strong> Servers, bandwidth, maintenance, development. Wikipedia is the #5 website in the world and it runs on a fraction of what other top websites spend.</p>
-		            <p><strong>People:</strong> The other top 10 website have thousands of employees. We have fewer than 100, making your donation a great investment in a highly-efficient not-for-profit organization.</p>
-		        </div>
+		        	{{LanguageSwitch|2011FR/core-appeal-whitebox-nodiv|@language}}
+				</div>
             </div>
         </div>
-        <p>We do not store your credit card information, and your personal data is subject to our <a target="_blank" href="//wikimediafoundation.org/wiki/Donor_policy"> donor privacy policy</a>.</p>
-        <p><a target="_blank" href="//wikimediafoundation.org/wiki/Ways_to_Give/en">More information or other ways to give</a><br /><a target="_blank" href="//wikimediafoundation.org/wiki/FAQ/en">Answers to frequently asked questions</a></p>
+        <p>%donate_interface-credit-storage-processing%</p>
+        <p>%donate_interface-otherways%</p>
     </div>
 </div>
 
