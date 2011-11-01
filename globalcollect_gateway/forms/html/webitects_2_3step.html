@@ -57,26 +57,15 @@
 <div class="ltr">
     <div id="appeal">
         <div id="appeal-content">
-            <h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
-            <div id="appeal-body" class="plainlinks">
-                <p>I feel like I'm living the first line of my obituary.</p>
-                <p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
-                <p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
-                <p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
-                <p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
-                <p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
-                <p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
-                <p>Thank you,</p>
-                <p><strong>Brandon Harris</strong><br /></p>
-                <p>Programmer, Wikimedia Foundation</p>
-            </div>
+            <h2 id="appeal-head"> <span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title}}</span></h2>
+            <div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal}}</div>
         </div>
     </div>
 
     <div id="donate">
         <div id="donate-content">
             <div id="donate-body" style="padding: 0 1em;">
-                <div id="step1header"><h3>Donation amount <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
+                <div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
 
                 <form method="post" name="paypalcontribution">
                     <div id="step1wrapper">
@@ -97,33 +86,33 @@
                         </table>
 
                         <p class="donate-options">
-                            <input class="btn" id="cc" type="button" value="Donate by Credit Card" /><br />
-                            <input class="btn" id="pp" type="button" value="Donate via PayPal"/><span id='loading'></span>
+                            <input class="btn" id="cc" type="button" value="%donate_interface-cc-button%" /><br />
+                            <input class="btn" id="pp" type="button" value="%donate_interface-paypal-button%"/><span id='loading'></span>
                         </p>
                     </div>
-					<div id="step2header"><h3>Billing Address <span class="mute" id="change-billing" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
+					<div id="step2header"><h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donation_interface-change%</a>)</span></h3></div>
 					<div id="step2wrapper">
                         <div id="billing-content" class="gainlayout">
                             <div id="billingErrorMessages" class="small"></div>
                             <div class="name-fields">
-                                <span class="name-first"><input class="txt hint" id="fname" name="fname" title="First name" value="@fname" /></span>
-                                <span class="name-last"><input class="txt hint" id="lname" name="lname" title="Last name" value="@lname" /></span>
+                                <span class="name-first"><input class="txt hint" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" /></span>
+                                <span class="name-last"><input class="txt hint" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" /></span>
                             </div>
                             <div class="loc-fields">
-                                <span class="loc-street"><input class="txt hint" id="street" name="street" title="Street address" value="@street" /></span>
-                                <span class="loc-city"><input class="txt hint" id="city" name="city" title="City" value="@city" /></span>
+                                <span class="loc-street"><input class="txt hint" id="street" name="street" title="%donate_interface-donor-street%" value="@street" /></span>
+                                <span class="loc-city"><input class="txt hint" id="city" name="city" title="%donate_interface-donor-city%" value="@city" /></span>
                                 <span class="loc-state">
                                 <select id="state" name="state" class="txt" value="@state" >
                                     <option value=""></option>
                                     <option value="AK">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="PR">PR</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option><option value="AA">AA</option><option value="AE">AE</option><option value="AP">AP</option>
                                 </select>
                                 </span>
-                                <span class="loc-postal"><input class="txt hint" id="zip" name="zip" title="Zip" value="@zip"/></span>
+                                <span class="loc-postal"><input class="txt hint" id="zip" name="zip" title="%donate_interface-zip%" value="@zip"/></span> <!-- TODO: use postal code on non-US -->
                             </div>
-                            <p><input class="txt hint" title="Email address" id="emailAdd" name="emailAdd" value="@emailAdd"/></p>
+                            <p><input class="txt hint" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd"/></p>
 
                             <dl class="">
-                                <dt><span class="label">Select credit card</span></dt>
+                                <dt><span class="label">%donate_interface-select-credit-card%</span></dt>
                                 <dd class="field" style="margin-bottom: 0;">
                                     <ul class="options-h" id="cards" style="margin: 0;">
                                         <li><input id="cc-visa" name="cardtype" type="radio" value="visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
@@ -131,12 +120,12 @@
                                         <li><input id="cc-amex" name="cardtype" type="radio" value="american" class="cardradio" /> <label for="cc-amex"><img alt="American Express" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-amex.png" /></label></li>
                                         <li><input id="cc-discover" name="cardtype" type="radio" value="discover" class="cardradio" /> <label for="cc-discover"><img alt="Discover" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-discover.png" /></label></li>
                                     </ul>
-                                    <div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="Continue" /></div>
+                                    <div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="%donate_interface-continue%" /></div>
                                 </dd>
                             </dl>
                         </div>
 				    </div>
-				    <div id="step3header"><h3>Payment Information <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
+				    <div id="step3header"><h3>%donate_interface-cc-form-header-payment% <span class="mute" id="change-payment" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
                     <div id="step3wrapper" style="display: none;">
                         <div id="payment" class="gainlayout" style="height:300px;text-align:center;"></div>
                     </div>
