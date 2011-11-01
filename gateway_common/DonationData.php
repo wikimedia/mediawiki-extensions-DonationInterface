@@ -454,7 +454,7 @@ class DonationData {
 		self::ensureSession();
 		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
 		$salted = $this->token_getSaltedSessionToken();
-		$this->setVal( 'token', $salted);
+		$this->setVal( 'token', $salted );
 	}
 	
 	function token_applyMD5AndSalt( $clear_token ){
