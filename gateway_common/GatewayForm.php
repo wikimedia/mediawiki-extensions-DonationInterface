@@ -143,14 +143,18 @@ class GatewayForm extends UnlistedSpecialPage {
 			$this->setValidateFormResult( false );
 		}
 
-		if ( empty( $data['state'] ) ) {
+		$validateState = ( $data['country'] == 'US' ) ? true : false ;
+
+		if ( empty( $data['state'] ) && $validateState  ) {
 
 			$error['state'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-state' ) );
 
 			$this->setValidateFormResult( false );
 		}
 
-		if ( empty( $data['zip'] ) && $data['state'] != 'XX') {
+		$validateZip = ( $validateState && isset( $data['state'] ) && $data['state'] != 'XX' ) ? true : false ;
+		
+		if ( empty( $data['zip'] ) && $validateZip ) {
 
 			$error['zip'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-zip' ) );
 
