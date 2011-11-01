@@ -60,6 +60,11 @@ $( document ).ready( function () {
 	$( ".hint" ).ezpz_hint();
 
 	$( "#cc" ).click( function() {
+		/* safety check for people who hit the back button */
+		checkedValue = $( "input[name='amountRadio']:checked" ).val();
+		if ( $( 'input[name="amount"]' ).val() == '0.00' && checkedValue && !isNaN( checkedValue ) ) {
+			setAmount( checkedValue );
+		}
 		if ( validateAmount() ) {
 			showAmount( $( 'input[name="amount"]' ) );
 			showStep2();
@@ -67,6 +72,11 @@ $( document ).ready( function () {
 	} );
 
 	$( "#pp" ).click( function() {
+		/* safety check for people who hit the back button */
+		checkedValue = $( "input[name='amountRadio']:checked" ).val();
+		if ( $( 'input[name="amount"]' ).val() == '0.00' && checkedValue && !isNaN( checkedValue ) ) {
+			setAmount( checkedValue );
+		}
 		if ( validateAmount() ) {
 			// set the action to go to PayPal
 			$( 'input[name="gateway"]' ).val( "paypal" );
@@ -185,7 +195,7 @@ function displayCreditCardForm() {
 						$( '#payment' ).empty();
 						// Insert the iframe into the form
 						$( '#payment' ).append( 
-							'<iframe src="'+data.result.formaction+'" width="318" height="300" frameborder="0"></iframe>'
+							'<iframe src="'+data.result.formaction+'" width="318" height="314" frameborder="0"></iframe>'
 						);
 						
 					}
