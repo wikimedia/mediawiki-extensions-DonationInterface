@@ -156,7 +156,7 @@ function displayCreditCardForm() {
 		'zip': $( "input[name='zip']" ).val(),
 		'emailAdd': $( "input[name='emailAdd']" ).val(),
 		'country': $( "input[name='country']" ).val(),
-		'payment_method': 'card',
+		'payment_method': 'cc',
 		'language': language,
 		'card_type': $( "input[name='cardtype']:checked" ).val().toLowerCase(),
 		'contribution_tracking_id': $( "input[name='contribution_tracking_id']" ).val(),

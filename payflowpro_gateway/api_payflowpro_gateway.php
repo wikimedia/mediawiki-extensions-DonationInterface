@@ -2,7 +2,7 @@
 /**
  * PayflowPro Gateway API extension
  * Call with api.php?action=pfp
- * TODO: Determine if this is being used by anything anymore, and if so, what. 
+ * TODO: Move this somewhere that looks more gateway-agnostic. 
  */
 
 class ApiPayflowProGateway extends ApiBase {
@@ -11,7 +11,7 @@ class ApiPayflowProGateway extends ApiBase {
 	 * An array of valid dispatch methods
 	 */
 	public $validDispatchMethods = array( 'dispatch_get_required_dynamic_form_elements' );
-
+	
 	/**
 	 * API for PayflowProGateway extension
 	 *
@@ -26,7 +26,7 @@ class ApiPayflowProGateway extends ApiBase {
 		// extract and validate the parameters
 		$params = $this->extractRequestParams();
 		$this->validateParams( $params );
-
+		
 		// route 'dispatch' requests to the appropriate method
 		if ( strlen( $params[ 'dispatch' ] ) ) {
 			$method = $this->getDispatchMethod( $params[ 'dispatch' ] );
@@ -46,6 +46,9 @@ class ApiPayflowProGateway extends ApiBase {
 				ApiBase::PARAM_TYPE => 'string',
 			),
 			'tracking_data' => array(
+				ApiBase::PARAM_TYPE => 'string',
+			),
+			'gateway' => array(
 				ApiBase::PARAM_TYPE => 'string',
 			),
 		);
@@ -73,7 +76,7 @@ class ApiPayflowProGateway extends ApiBase {
 		if ( isset( $params[ 'dispatch' ] ) && strlen( $params[ 'dispatch' ] ) ) {
 			$method = $this->getDispatchMethod( $params[ 'dispatch' ] );
 			if ( !in_array( $method, $this->validDispatchMethods ) || !method_exists( $this, $method ) ) {
-				$this->dieUsage( "Invalid dispatch method <<<$method>>> passed to the PayflowPro Gatweay API.", 'unknown_method' );
+				$this->dieUsage( "Invalid dispatch method <<<$method>>> passed to the Donation Interface Gateway API.", 'unknown_method' );
 			}
 
 			// make sure we have tracking data for get_required_dynamic_form_elements
@@ -122,18 +125,21 @@ class ApiPayflowProGateway extends ApiBase {
 	 * elements.
 	 */
 	protected function dispatch_get_required_dynamic_form_elements( $params ) {
-		global $wgPayflowProGatewaySalt;
 
-		// fetch the order_id
-		//TODO: This include should be *very* deprecated. All the functionality there has been 
-		//recently eaten by gateway.adapter.php and DontationData.php. 
-		require_once( 'includes/payflowUser.inc' );
-		$payflow_data = payflowUser();
-		$order_id = $payflow_data[ 'order_id' ];
-
-		// fetch the CSRF prevention token and set it if it's not already set
-		$token = PayflowProGateway::fnPayflowEditToken( $wgPayflowProGatewaySalt );
-
+		//Get the gateway class name. We don't need to instantiate: Just get the name
+		//so we can get a new DonationData that *thinks* it's being instantiated by 
+		//the relevent gateway class. 
+		$gateway_class = '';
+		switch ( $params['gateway'] ){
+			case 'globalcollect' : 
+				$gateway_class = 'GlobalCollectAdapter';
+				break;
+			case 'payflowpro' :
+			default:
+				$gateway_class = 'PayflowProAdapter';
+				break;
+		}
+		
 		/**
 		 * retrieve and unpack the json encoded string of tracking data
 		 *
@@ -142,12 +148,19 @@ class ApiPayflowProGateway extends ApiBase {
 		 * 	pageref => the url-encoded referrer to the full user-requested URL
 		 */
 		$tracking_data = $this->parseTrackingData( json_decode( $params[ 'tracking_data' ], true ) );
+		
+		//instantiate a new DonationData that behaves like it's owned by the correct gateway. 
+		$donationDataObj = new DonationData( $gateway_class, false, $tracking_data );
+		
+		// fetch the order_id
+		$order_id = $donationDataObj->getVal( 'order_id' );
 
-		// clean up tracking data to make sure everything is set correctly
-		$tracking_data = PayflowProGateway::cleanTrackingData( $tracking_data, true );
+		// fetch the CSRF prevention token and set it if it's not already set
+		$token = $donationDataObj->token_getSaltedSessionToken();
 
-		// fetch the contribution_tracking_id by inserting tracking data to contrib tracking table
-		$contribution_tracking_id = PayflowProGateway::insertContributionTracking( $tracking_data );
+		//I'd just call DD's saveContributionTracking, but we need all the parts out here. 
+		$tracking_data = $donationDataObj->getCleanTrackingData();
+		$contribution_tracking_id = $donationDataObj::insertContributionTracking( $tracking_data );
 
 		// this try/catch design pattern stolen from ClickTracking/ApiSpecialClickTracking.php
 		try {
@@ -175,11 +188,7 @@ class ApiPayflowProGateway extends ApiBase {
 		// add the referrer to the tracked_data array
 		$tracking_data[ 'referrer' ] = urldecode( $unparsed_tracking_data[ 'pageref' ] );
 
-		// ensure the utm_source is formatted correctly
-		$utm_source_str = ( isset( $tracking_data[ 'utm_source' ] ) ) ? $tracking_data[ 'utm_source' ] : null;
-		$utm_source_id = ( isset( $tracking_data[ 'utm_source_id' ] ) ) ? $tracking_data[ 'utm_source_id' ] : null;
-		$tracking_data[ 'utm_source' ] = PayflowProGateway::getUtmSource( $utm_source_str, $utm_source_id );
-
+		//DonationData handles the utm normalization now. 
 		return $tracking_data;
 	}
 

@@ -138,7 +138,7 @@ $(function() {
 				'zip': $( "input[name='zip']" ).val(),
 				'emailAdd': $( "input[name='emailAdd']" ).val(),
 				'country': $( "input[name='country']" ).val(),
-				'payment_method': 'card',
+				'payment_method': 'cc',
 				'language': 'en',
 				'card_type': 'visa',
 				

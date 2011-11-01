@@ -34,7 +34,7 @@ class DonationApi extends ApiBase {
 			$gatewayObj = new GlobalCollectAdapter();
 			switch ( $method ) {
 				// TODO: add other payment methods
-				case 'card':
+				case 'cc':
 					$result = $gatewayObj->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					break;
 				default:
@@ -138,7 +138,7 @@ class DonationApi extends ApiBase {
 			'zip' => '94104',
 			'emailAdd' => 'test@example.com',
 			'country' => 'US',
-			'payment_method' => 'card',
+			'payment_method' => 'cc',
 			'language' => 'en',
 			'card_type' => 'american',
 		);
