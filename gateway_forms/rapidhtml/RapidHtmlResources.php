@@ -2,7 +2,7 @@
 /**
  * For defining RapidHtml ResourceLoader resourcses
  *
- * This file is included in DonationInterfa/payflowpro_gateway.php
+ * This file is included in DonationInterface/payflowpro_gateway.php
  */
 
 $wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
@@ -62,6 +62,9 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step' ] = array(
+	'styles' => array(
+		'css/webitects_2_3step.css',
+	),
 	'scripts' => array(
 		'js/webitects_2_3step.js',
 	),
