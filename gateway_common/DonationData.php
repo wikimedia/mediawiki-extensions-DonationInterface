@@ -84,6 +84,19 @@ class DonationData {
 				'gateway' => $wgRequest->getText( 'gateway' ), //likely to be reset shortly by setGateway();
 				'owa_session' => $wgRequest->getText( 'owa_session', null ),
 				'owa_ref' => $wgRequest->getText( 'owa_ref', null ),
+
+				'account_name' => $wgRequest->getText( 'account_name', null ),
+				'account_number' => $wgRequest->getText( 'account_number', null ),
+				'authorization_id' => $wgRequest->getText( 'authorization_id', null ),
+				'bank_check_digit' => $wgRequest->getText( 'bank_check_digit', null ),
+				'bank_name' => $wgRequest->getText( 'bank_name', null ),
+				'bank_code' => $wgRequest->getText( 'bank_code', null ),
+				'branch_code' => $wgRequest->getText( 'branch_code', null ),
+				'country_code_bank' => $wgRequest->getText( 'country_code_bank', null ),
+				'date_collect' => $wgRequest->getText( 'date_collect', null ),
+				'direct_debit_text' => $wgRequest->getText( 'direct_debit_text', null ),
+				'iban' => $wgRequest->getText( 'iban', null ),
+				'transaction_type' => $wgRequest->getText( 'transaction_type', null ),
 			);
 			if ( !$wgRequest->wasPosted() ) {
 				$this->setVal( 'posted', false );
