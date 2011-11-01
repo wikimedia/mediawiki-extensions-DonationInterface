@@ -193,10 +193,15 @@ $messages['lb'] = array(
 	'globalcollect_gateway-response-9130' => 'Net valabelt Land.',
 	'globalcollect_gateway-response-9140' => 'Net valabel Währung.',
 	'globalcollect_gateway-response-9150' => 'Net valabel Sprooch.',
+	'globalcollect_gateway-response-400530' => 'Bezuelmethod net valabel.',
 	'globalcollect_gateway-response-430306' => 'Är Kreditkaart ass ofgelaf. Probéiert w.e.g. en aner Kaart oder eng vun eisen anere Méiglechkeete fir ze bezuelen.',
+	'globalcollect_gateway-response-430330' => "D'Kaartennummer ass net valabel.",
+	'globalcollect_gateway-response-430421' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all Informatiounen mat deene vun Ärer Kreditkaart iwwertenee stëmmen, oder probéiert eng aner Kaart.',
 	'globalcollect_gateway-response-21000150' => "D'Kontonummer ass net valabel.",
 	'globalcollect_gateway-response-21000155' => "De Code fir d'Bank ass net valabel.",
 	'globalcollect_gateway-response-21000160' => "D'Giro-Kontonummer ass net valabel.",
+	'globalcollect_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
+Probéiert et w.e.g. spéider nach eng Kéier.',
 );
 
 /** Macedonian (Македонски)
