@@ -52,10 +52,10 @@ window.validate_personal = function( form ){
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var fields = [ "emailAdd","fname","lname","street","city","zip" ],
+	var fields = [ 'fname','lname','street','city','zip', 'emailAdd' ],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
-		if( document.getElementById( fields[i] ).value == '' ) {
+		if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
 			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
