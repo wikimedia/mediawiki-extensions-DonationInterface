@@ -230,7 +230,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-front-of-shirt' => 'Front of shirt',
 	'donate_interface-back-of-shirt' => 'Back of shirt',
 	'donate_interface-select-a-size' => 'Please select a size.',
-	'donate_interface-select' => 'Size:',
+	'donate_interface-select' => 'Select',
 	'donate_interface-shipping-address' => 'Shipping address',
 	'donate_interface-shipping-address-different' => 'My shipping address is different from my billing address.',
 	'donate_interface-shipping-address-same' => 'Shipping address same as billing address.',
@@ -241,6 +241,9 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-on-the-back' => 'With this on the back:',
 	'donate_interface-tshirt-confirmation' => 'Your t-shirt will be shipped in the size and language below:',
 	'donate_interface-donation-tshirt' => 'Donation (t-shirt offer)',
+
+	'donate_interface-change' => 'Change',
+	'donate_interface-select-credit-card' => 'Select credit card',
 
 	// For more USA states, see donate_interface.us-states.i18n.php.
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
@@ -485,7 +488,7 @@ There is no limit to the length of the message.",
 	'donate_interface-front-of-shirt' => 'Caption for picture of front of t-shirt',
 	'donate_interface-back-of-shirt' => 'Caption for picture of back of t-shirt',
 	'donate_interface-select-a-size' => 'Label for field for choosing t-shirt size.',
-	'donate_interface-select' => '{{Identical|Size}}',
+	'donate_interface-select' => 'Action asking the user to choose from a set of options',
 	'donate_interface-shipping-address' => 'Label for shipping address for t-shirt.',
 	'donate_interface-shipping-address-different' => 'Label for check box.',
 	'donate_interface-shipping-address-same' => 'Label for check box.',
@@ -508,6 +511,8 @@ There is no limit to the length of the message.",
 	'donate_interface-dd-branch_code' => 'Direct Debit: Branch Code',
 	'donate_interface-dd-direct_debit_text' => 'Direct Debit: Direct debit text.',
 	'donate_interface-dd-iban' => 'Direct Debit: International Bank Account Number - IBAN',
+	'donate_interface-change' => 'Action used for editing payment amount or other payment information',
+	'donate_interface-select-credit-card' => 'This is a label for selecting a credit card type',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
