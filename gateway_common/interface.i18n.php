@@ -330,6 +330,11 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-dd-branch_code' => 'Branch code',
 	'donate_interface-dd-direct_debit_text' => 'Direct debit text',
 	'donate_interface-dd-iban' => 'IBAN',
+
+        // Links to translation improvement
+        'donate_interface-translate-bluelink' => 'Improve this translation',
+        'donate_interface-translate-redlink1' => 'Help translate this page.',
+        'donate_interface-translate-redlink2' => 'Or e-mail your translation to translations@wikimedia.org',
 );
 
 /** Message documentation (Message documentation)
@@ -647,6 +652,9 @@ There is no limit to the length of the message.",
 	'donate_interface-dd-iban' => 'Direct Debit: International Bank Account Number - IBAN',
 	'donate_interface-change' => 'Action used for editing payment amount or other payment information',
 	'donate_interface-select-credit-card' => 'This is a label for selecting a credit card type',
+        'donate_interface-translate-bluelink' => 'Link at the bottom of an appeal to the page on Meta where one can help translate the appeal one is viewing.',
+        'donate_interface-translate-redlink1' => 'Link at the bottom of an appeal to the Meta hub for translations. Is followed by [[MediaWiki:Donate interface-translate-redlink2]].',
+        'donate_interface-translate-redlink2' => 'Plain text (not link) at the bottom of an appeal telling people that they can e-mail a translation. Preceded by [[MediaWiki:Donate interface-translate-redlink1]].',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
