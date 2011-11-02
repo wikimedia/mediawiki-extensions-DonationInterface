@@ -19,29 +19,46 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Define var_map
+	 *
+	 * @todo
+	 * - RETURNURL: Find out where the returnto URL is supposed to be coming from.
+	 * - IPADDRESS: Is the server IPA or the user/client IPA?
 	 */
 	public function defineVarMap() {
+		
 		$this->var_map = array(
-			'ORDERID' => 'order_id',
-			'AMOUNT' => 'amount',
-			'CURRENCYCODE' => 'currency',
-			'LANGUAGECODE' => 'language',
-			'COUNTRYCODE' => 'country',
-			'MERCHANTREFERENCE' => 'order_id',
-			'RETURNURL' => 'returnto', //TODO: Fund out where the returnto URL is supposed to be coming from. 
-			'IPADDRESS' => 'user_ip', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
-			'PAYMENTPRODUCTID' => 'card_type',
-			'ISSUERID' => 'issuer_id',
-			'CVV' => 'cvv',
-			'EXPIRYDATE' => 'expiration',
-			'CREDITCARDNUMBER' => 'card_num',
-			'FIRSTNAME' => 'fname',
-			'SURNAME' => 'lname',
-			'STREET' => 'street',
-			'CITY' => 'city',
-			'STATE' => 'state',
-			'ZIP' => 'zip',
-			'EMAIL' => 'email',
+			'ACCOUNTNAME'		=> 'account_name',
+			'ACCOUNTNUMBER'		=> 'account_number',
+			'AUTHORIZATIONID'	=> 'authorization_id',
+			'AMOUNT'			=> 'amount',
+			'BANKCHECKDIGIT'	=> 'bank_check_digit',
+			'BANKCODE'			=> 'bank_code',
+			'BANKNAME'			=> 'bank_name',
+			'BRANCHCODE'		=> 'branch_code',
+			'CITY'				=> 'city',
+			'COUNTRYCODE'		=> 'country',
+			'COUNTRYCODEBANK'	=> 'country_code_bank',
+			'CREDITCARDNUMBER'	=> 'card_num',
+			'CURRENCYCODE'		=> 'currency',
+			'CVV'				=> 'cvv',
+			'DATECOLLECT'		=> 'date_collect',
+			'DIRECTDEBITTEXT'	=> 'direct_debit_text',
+			'EMAIL'				=> 'email',
+			'EXPIRYDATE'		=> 'expiration',
+			'FIRSTNAME'			=> 'fname',
+			'IBAN'				=> 'iban',
+			'IPADDRESS'			=> 'user_ip',
+			'ISSUERID'			=> 'issuer_id',
+			'LANGUAGECODE'		=> 'language',
+			'MERCHANTREFERENCE'	=> 'order_id',
+			'ORDERID'			=> 'order_id',
+			'PAYMENTPRODUCTID'	=> 'card_type',
+			'RETURNURL'			=> 'returnto',
+			'STATE'				=> 'state',
+			'STREET'			=> 'street',
+			'SURNAME'			=> 'lname',
+			'TRANSACTIONTYPE'	=> 'transaction_type',
+			'ZIP'				=> 'zip',
 		);
 	}
 
@@ -72,7 +89,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * Please do not add more transactions to this array.
 	 *
+	 * @todo
+	 * - Does DO_BANKVALIDATION need IPADDRESS? What about the other transactions. Is this the user's IPA?
+	 * - Does DO_BANKVALIDATION need HOSTEDINDICATOR?
+	 * - Does DO_BANKVALIDATION need do_validation?
+	 * - Does DO_BANKVALIDATION need addDonorDataToSession? We should not save bank account information
+	 *
 	 * This method should define:
+	 * - DO_BANKVALIDATION: used prior to INSERT_ORDERWITHPAYMENT for direct debit
 	 * - INSERT_ORDERWITHPAYMENT: used for payments
 	 * - TEST_CONNECTION: testing connections - is this still valid?
 	 * - GET_ORDERSTATUS
@@ -85,13 +109,49 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		$this->transactions = array( );
 
+		$this->transactions['DO_BANKVALIDATION'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'GENERAL' => array(
+							'ACCOUNTNAME',
+							'ACCOUNTNUMBER',
+							'AUTHORIZATIONID',
+							'BANKCHECKDIGIT',
+							'BANKCODE',
+							'BANKNAME',
+							'BRANCHCODE',
+							'COUNTRYCODEBANK',
+							'DATECOLLECT', // YYYYMMDD
+							'DIRECTDEBITTEXT',
+							'IBAN',
+							'MERCHANTREFERENCE',
+							'TRANSACTIONTYPE',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_BANKVALIDATION',
+				'HOSTEDINDICATOR' => '1',
+			),
+			'do_validation' => true,
+			'addDonorDataToSession' => false,
+		);
+
 		$this->transactions['INSERT_ORDERWITHPAYMENT'] = array(
 			'request' => array(
 				'REQUEST' => array(
 					'ACTION',
 					'META' => array(
 						'MERCHANTID',
-						// 'IPADDRESS',
+						'IPADDRESS',
 						'VERSION'
 					),
 					'PARAMS' => array(
@@ -101,7 +161,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'CURRENCYCODE',
 							'LANGUAGECODE',
 							'COUNTRYCODE',
-							'MERCHANTREFERENCE'
+							'MERCHANTREFERENCE',
 						),
 						'PAYMENT' => array(
 							'PAYMENTPRODUCTID',
@@ -139,7 +199,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					'ACTION',
 					'META' => array(
 						'MERCHANTID',
-//							'IPADDRESS',
+							'IPADDRESS',
 						'VERSION'
 					),
 					'PARAMS' => array( )
@@ -156,7 +216,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					'ACTION',
 					'META' => array(
 						'MERCHANTID',
-//						'IPADDRESS',
+						'IPADDRESS',
 						'VERSION'
 					),
 					'PARAMS' => array(
@@ -339,7 +399,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods['dd_johnsen_nl'] = array(
 			'paymentproductid'	=> 711,
 			'label'	=> 'Bank Transfer',
-			'group'	=> 'bt',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Bank Transfer
+		$this->payment_submethods['dd_johnsen_de'] = array(
+			'paymentproductid'	=> 711,
+			'label'	=> 'Bank Transfer',
+			'group'	=> 'dd',
 			'validation' => array(),
 		);
 
@@ -663,6 +731,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @todo
 	 * - Need to implement this for credit card if necessary
 	 * - ISSUERID will need to provide a dropdown for rtbt_eps and rtbt_ideal.
+	 * - COUNTRYCODEBANK will need it's own dropdown for country. Do not map to 'country'
 	 */
 	protected function stage_payment_method( $type = 'request' ) {
 		
@@ -690,6 +759,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'dd_johnsen_es':
 				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				$this->var_map['COUNTRYCODEBANK'] = 'country';
+
+				// Currently, this is needed by the Netherlands
+				$this->postdata['transaction_type'] = '01';
+
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNAME';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNUMBER';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'AUTHORIZATIONID';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKCHECKDIGIT';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKCODE';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKNAME';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BRANCHCODE';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'COUNTRYCODEBANK';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'DATECOLLECT';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'DIRECTDEBITTEXT';
+				//$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'IBAN';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'TRANSACTIONTYPE';
+
 				break;
 			
 			/* Real time bank transfer */
@@ -704,7 +791,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'rtbt_ideal':
 				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				$this->var_map['ISSUERID'] = 'issuer_id';
 				
 				// Add the ISSUERID field if it does not exist
 				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
