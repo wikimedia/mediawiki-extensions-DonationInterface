@@ -56,7 +56,7 @@
 											<td><label><input id="amountRadio4" type="radio" name="amountRadio" value="50" /> <span id="amountSpan4">$50</span></label></td>
 											<td><label><input id="amountRadio5" type="radio" name="amountRadio" value="100" /> <span id="amountSpan5">$100</span></label></td>
 											<td><label><input id="amountRadio6" type="radio" name="amountRadio" value="250" /> <span id="amountSpan6">$250</span></label></td>
-											<td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label><span id="amountSpanOther">$</span><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="%donate_interface-other%"  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
+											<td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label><span id="amountSpanOther">$</span><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="%donate_interface-other%" placeholder="%donate_interface-other%"  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
 										</tr>
 									</table>
 
@@ -136,8 +136,14 @@
 							</div>
 						</div>
 					</div>
-					<p>%donate_interface-credit-storage-processing%</p>
-					<p>%donate_interface-otherways%</p>
+					<p id="informationsharing">%donate_interface-informationsharing%</p>
+					<!-- TODO: links inside the message or not? -->
+					<ul id="moreinfolinks">
+						<li><a href="http://wikimediafoundation.org/wiki/Monthly_donations/en/US">%donate_interface-monthly-donation%</a></li><!-- TODO: localize the link -->
+						<li>%donate_interface-otherways-short%</li><!-- TODO: localize the link -->
+						<li><a href="http://wikimediafoundation.org/wiki/FAQ/en">%donate_interface-faqs%</a></li><!-- TODO: localize the link -->
+						<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
+					</ul>
 				</div>
 			</td>
 		</tr>

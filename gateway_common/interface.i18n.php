@@ -335,10 +335,15 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-dd-direct_debit_text' => 'Direct debit text',
 	'donate_interface-dd-iban' => 'IBAN',
 
-        // Links to translation improvement
-        'donate_interface-translate-bluelink' => 'Improve this translation',
-        'donate_interface-translate-redlink1' => 'Help translate this page.',
-        'donate_interface-translate-redlink2' => 'Or e-mail your translation to translations@wikimedia.org',
+	// Links to translation improvement
+	'donate_interface-translate-bluelink' => 'Improve this translation',
+	'donate_interface-translate-redlink1' => 'Help translate this page.',
+	'donate_interface-translate-redlink2' => 'Or e-mail your translation to translations@wikimedia.org',
+
+	'donate_interface-faqs' => 'Frequently asked questions',
+	'donate_interface-tax-info' => 'Tax deductibility information',
+	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.'
+	
 );
 
 /** Message documentation (Message documentation)
@@ -659,9 +664,13 @@ There is no limit to the length of the message.",
 	'donate_interface-dd-branch_code' => 'Direct Debit: Branch Code - Code for donors bank branch',
 	'donate_interface-dd-direct_debit_text' => 'Direct Debit: Direct debit text. - text to be sent next to direct debit (rarely used)',
 	'donate_interface-dd-iban' => 'Direct Debit: International Bank Account Number - IBAN',
+	'donate_interface-change' => 'Action used for editing payment amount or other payment information',
+	'donate_interface-select-credit-card' => 'This is a label for selecting a credit card type',
 	'donate_interface-translate-bluelink' => 'Link at the bottom of an appeal to the page on Meta where one can help translate the appeal one is viewing.',
 	'donate_interface-translate-redlink1' => 'Link at the bottom of an appeal to the Meta hub for translations. Is followed by [[MediaWiki:Donate interface-translate-redlink2]].',
 	'donate_interface-translate-redlink2' => 'Plain text (not link) at the bottom of an appeal telling people that they can e-mail a translation. Preceded by [[MediaWiki:Donate interface-translate-redlink1]].',
+	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
+	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
 );
 
 /** Magyar (magázó) (Magyar (magázó))

@@ -28,6 +28,7 @@ table#layouttable tr td {
 
 #appeal {
     /*width: 100%;*/
+    padding-right: 25px;
 }
 #appeal-content {
     /*padding-right: 380px;*/
@@ -75,6 +76,14 @@ table#layouttable tr td {
 .txt{
     margin: 0 !important;
 }
-#billingContent span{
+#billingContent span {
     margin: 0 !important;
+}
+p#informationsharing {
+    padding: 0 15px;
+    line-height: 14px;
+    font-size: 11px;
+}
+ul#moreinfolinks li{
+    list-style: none;
 }
