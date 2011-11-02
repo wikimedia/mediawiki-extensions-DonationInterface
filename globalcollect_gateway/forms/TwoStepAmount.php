@@ -24,23 +24,171 @@
 class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 	/**
+	 * The default value of section header tags.
+	 *
+	 * A value of 3 => h3
+	 *
+	 * @var integer $sectionHeaderLevel
+	 */
+	public $sectionHeaderLevel = 3;
+
+	/**
+	 * The appeal
+	 *
+	 * @var string $appeal
+	 */
+	public $appeal = '';
+
+	/**
+	 * The default appeal
+	 *
+	 */
+    const DEFAULT_APPEAL = <<<HTML
+		<h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
+		<div id="appeal-body" class="plainlinks">
+			<p>I feel like I'm living the first line of my obituary.</p>
+			<p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
+			<p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
+			<p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
+			<p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
+			<p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
+			<p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
+			<p>Thank you,</p>
+			<p><strong>Brandon Harris</strong><br /></p>
+			<p>Programmer, Wikimedia Foundation</p>
+		</div>
+HTML;
+	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Form methods
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
 	 * Initialize the form
+	 *
+	 * This is called at the end of the constructor
 	 *
 	 */
 	protected function init() {
 		
-		//TODO: This is pretty odd to do here. However, as this form is only 
-		//being used for testing purposes, it's getting the update that goes 
-		//along with yet another change in Form Class construction.
-		$this->form_data['payment_method'] = empty($this->form_data['payment_method']) ? 'bt' : $this->form_data['payment_method'];
-		$this->form_data['payment_submethod'] = empty($this->form_data['payment_submethod']) ? 'bt' : $this->form_data['payment_submethod'];
-		
 		$this->setPaymentMethod( $this->form_data['payment_method'] );
 		$this->setPaymentSubmethod( $this->form_data['payment_submethod'] );
 		
+		// Should process be deprecated?
 		$this->form_data['process'] = 'other';
-
+		
+		// Initialize the appeal
+		$this->appeal = self::DEFAULT_APPEAL;
+		
 		$this->loadResources();
+	}
+
+	/**
+	 * Required method for returning the full HTML for a form.
+	 *
+	 * @return string The entire form HTML
+	 */
+	public function getForm() {
+		
+		return $this->getFormPage();
+		
+		$form = '';
+		
+		$form .= $this->generateFormStart();
+		$form .= $this->generateFormEnd();
+		return $form;
+	}
+	
+	/**
+	 * Get the form messages
+	 *
+	 * @param	array	$options
+	 *
+	 * @todo
+	 * - Does retryMsg need to be displayed?
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getFormMessages( $options = array() ) {
+
+		$return = '';
+		
+		// We want this container to exist so it can be populated with javascript messages.
+		$return .= Xml::openElement( 'div', array( 'id' => 'payment_form_messages' ) );
+		
+		// If errors are present, allow them to be displayed.
+		if ( $this->form_errors['general'] ) {
+			
+			if ( is_array( $this->form_errors['general'] ) ) {
+				
+				// Loop through messages and display them as paragraphs
+				foreach ( $this->form_errors['general'] as $this->form_errors_msg ) {
+					$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors_msg );
+				}
+			} else {
+				
+				// Display single message
+				$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors_msg );
+			}
+		}
+		
+		if ( $this->form_errors['invalidamount'] ) {
+			$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors['invalidamount'] );
+		}
+		
+		$return .= Xml::closeElement( 'div' ); // payment_form_messages
+		//$return .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
+		
+		return $return;
+	}
+
+	/**
+	 * Get the section header tag
+	 *
+	 * @param	string	$section		The section label
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getFormSectionHeaderTag( $section, $options = array() ) {
+		
+		// Make sure $section does not get overridden.
+		if ( isset( $options['section'] ) ) {
+
+			unset( $options['section'] );
+		}
+		
+		extract( $options );
+
+		$headerLevel	= isset( $headerLevel )	? (integer) $headerLevel	: (integer) $this->sectionHeaderLevel;
+		$headerId		= isset( $headerId )	? (string) $headerId		: '';
+		$headerClass	= isset( $headerClass )	? (string) $headerClass		: '';
+
+		// Set maximum level to 6
+		$headerLevel = ( $headerLevel > 6 ) ? 6 : $headerLevel;
+
+		// Set minimum level to 2
+		$headerLevel = ( $headerLevel < 2 ) ? 2 : $headerLevel;
+		
+		$headerTag = 'h' . $headerLevel;
+		
+		$headerOptions = array();
+
+		// Add a header class
+		if ( !empty( $headerClass ) ) {
+			$headerOptions['class'] = $headerClass;
+		}
+
+		// Add a header id
+		if ( !empty( $headerId ) ) {
+			$headerOptions['id'] = $headerId;
+		}
+		
+		$return .= Xml::tags( $headerTag, $headerOptions, $section );
+		
+		return $return;
 	}
 
 	/**
@@ -58,7 +206,6 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		global $wgOut;
 		$wgOut->addModules( 'gc.form.core.validate' );
 		
-		//$js = "\n" . '<script type="text/javascript">' . "validateForm( { validate: { address: true, amount: true, creditCard: false, email: true, name: true, }, payment_method: '" . $this->getPaymentMethod() . "', payment_submethod: '" . $this->getPaymentSubmethod() . "', formId: '" . $this->getFormId() . "' } );" . '</script>' . "\n";
 		$js = "\n" . '<script type="text/javascript">'
 			. "var validatePaymentForm = {
 				formId: '" . $this->getFormId() . "',
@@ -68,18 +215,412 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		. '</script>' . "\n";
 		$wgOut->addHeadItem( 'loadValidateJs', $js );
 	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Get and set html snippets of code for form
+	//
+	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Required method for returning the full HTML for a form.
+	 * Set the appeal
 	 *
-	 * @return string The entire form HTML
+	 * @param	string	$appeal		The html appeal text
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
 	 */
-	public function getForm() {
-		$form = $this->generateFormStart();
-		$form .= $this->getCaptchaHTML();
-		$form .= $this->generateFormEnd();
-		return $form;
+	public function setAppeal( $appeal, $options = array() ) {
+		
+		$this->appeal = $appeal;
 	}
+	
+	/**
+	 * Get the appeal
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getAppeal( $options = array() ) {
+
+		$return = '';
+
+		$return .= Xml::openElement( 'div', array( 'id' => 'appeal' ) );
+
+		$return .= Xml::openElement( 'div', array( 'id' => 'appeal-content' ) );
+
+		$return .= $this->appeal;
+		
+		$return .= Xml::closeElement( 'div' ); // appeal-content
+
+		$return .= Xml::closeElement( 'div' ); // appeal
+
+		return $return;
+	}
+	
+	/**
+	 * Generate the direct debit component
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getDirectDebit( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+
+		$ignore = isset( $ignore ) ? (array) $ignore : array();
+
+		if ( $this->getPaymentMethod() != 'dd' ) {
+			
+			// No direct debit fields need to be loaded.
+			return $form;
+		}
+
+		$fields = array(
+			'account_name'		=> array( 'required' => true, ),
+			'account_number'	=> array( 'required' => true, ),
+			'authorization_id'	=> array( 'required' => true, ),
+			'bank_check_digit'	=> array( 'required' => true, ),
+			'bank_code'			=> array( 'required' => true, ),
+			'bank_name'			=> array( 'required' => true, ),
+			'branch_code'		=> array( 'required' => true, ),
+			'direct_debit_text'	=> array( 'required' => true, ),
+			'iban'				=> array( 'required' => true, ),
+		);
+		
+		$country = isset( $this->form_data['country'] ) ? $this->form_data['country'] : '';
+		
+		if ( $country == 'AT' ) {
+			
+			unset( $fields['bank_check_digit'] );
+			unset( $fields['branch_code'] );
+			unset( $fields['iban'] );
+		}
+		elseif ( $country == 'BE' ) {
+			
+			unset( $fields['bank_code'] );
+			unset( $fields['bank_check_digit'] );
+			unset( $fields['branch_code'] );
+			unset( $fields['iban'] );
+		}
+		elseif ( $country == 'IT' ) {
+			
+			unset( $fields['iban'] );
+		}
+		elseif ( $country == 'NL' ) {
+			
+			unset( $fields['bank_check_digit'] );
+			unset( $fields['branch_code'] );
+			unset( $fields['iban'] );
+		}
+		elseif ( $country == 'ES' ) {
+			
+			unset( $fields['iban'] );
+		}
+		
+		
+		foreach ( $fields as $field => $meta ) {
+			
+			// Skip ignored fields
+			if ( in_array( $field, $ignore ) ) {
+				
+				continue;
+			}
+			
+			$return .= '<tr>';
+			$return .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-dd-' . $field ), $field ) . '</td>';
+	
+			$return .= '<td>';
+			
+			$required = isset ( $meta['required'] ) ? (boolean) $meta['required'] : false ;
+			$elementClass  = '';
+			$elementClass .= $required ? ' required ' : '' ;
+			$elementClass = trim( $elementClass );
+			
+			$return .= Xml::input( $field, '', $this->form_data[ $field ], array( 'class' => $elementClass, 'type' => 'text', 'maxlength' => '32', 'id' => $field ) );
+			$return .= '</td>';
+			$return .= '</tr>';
+		}
+		
+		return $return;
+	}
+	
+	/**
+	 * Get the end of the form
+	 *
+	 * This method gets the hidden fields and appends the closing form tag.
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getFormEnd( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+
+		$return .= $this->generateFormSubmit();
+		
+		// Add hidden fields
+		foreach ( $this->getHiddenFields() as $field => $value ) {
+			
+			$return .= Html::hidden( $field, $value );
+		}
+
+		$return .= Xml::closeElement( 'form' );
+		
+		return $return;
+	}
+	
+	/**
+	 * Get the page including form and content
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getFormPage( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+
+		$headerLevel = isset( $headerLevel ) ? (integer) $headerLevel : 3;
+
+		// Tell the user they need JavaScript enabled.
+		$return .= $this->getNoScript();
+
+		// Display the form messages
+		$return .= $this->getFormMessages( $options );
+		
+		$return .= Xml::openElement( 'div', array( 'id' => 'payment_form_container' ) );
+		
+		$return .= $this->getFormStart();
+		
+		$return .= $this->getCaptchaHTML();
+		
+		$return .= $this->getFormSectionAmount();
+		
+		$return .= $this->getFormSectionPersonal();
+		
+		$return .= $this->getFormSectionPayment();
+		
+		$return .= $this->getFormEnd();
+
+		$return .= $this->generateDonationFooter();
+
+		$return .= Xml::closeElement( 'div' ); // payment_form_container
+		
+		// Display the appeal
+		$return .= $this->getAppeal( $options );
+	
+		return $return;
+	}
+
+	/**
+	 * Get the page including form and content
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function generateFormSubmit( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+		
+		// submit button
+		$return .= Xml::openElement( 'div', array( 'id' => 'payment_gateway-form-submit' ) );
+		$return .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
+		$return .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-submit-button' ), 'type' => 'submit' ) );
+		$return .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
+		$return .= Xml::closeElement( 'div' ); // close div#payment_gateway-form-submit
+		
+		return $return;
+	}
+	
+	/**
+	 * Get the start of the form
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getFormStart( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+
+		$formOptions = array( 
+			'action'		=> $this->getNoCacheAction(),
+			'autocomplete'	=> 'off',
+			'id'			=> $this->getFormId(),
+			'method'		=> 'post',
+			'name'			=> $this->getFormName(),
+			'onsubmit'		=> '',
+		);
+		
+		// Xml::element seems to convert html to htmlentities
+		$return .= Xml::openElement( 'form', $formOptions );
+		
+		return $return;
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Form sections
+	//
+	////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Get the donation amount section
+	 *
+	 * @param	array	$options
+	 *
+	 * Fields:
+	 * - amount|amountRadio
+	 * - currency_code
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getFormSectionAmount( $options = array() ) {
+
+		$return = '';
+		
+		$id = 'section_amount';
+		
+		$headerOptions = $options;
+		
+		$headerOptions['id'] = $id . '_header';
+		
+		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-currency' ), $headerOptions );
+
+		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
+		
+		$radioOptions = array();
+		$radioOptions['showCardsOnCurrencyChange'] = false;
+				
+		$country = isset( $this->form_data['country'] ) ? $this->form_data['country'] : '';
+
+		if ( $country == 'SG' ) {
+			$radioOptions['setCurrency'] = 'SGD';
+		}
+	
+		$return .= $this->generateAmountByRadio( $radioOptions );
+		
+		$return .= Xml::closeElement( 'div' );  // $id
+		
+		return $return;
+	}
+	
+	/**
+	 * Get the personal information section
+	 *
+	 * @param	array	$options
+	 *
+	 * Fields:
+	 * - fname
+	 * - lname
+	 * - email
+	 * - street
+	 * - city
+	 * - zip
+	 * - country
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getFormSectionPersonal( $options = array() ) {
+
+		$return = '';
+		
+		$id = 'section_personal';
+		
+		$headerOptions = $options;
+		
+		$headerOptions['id'] = $id . '_header';
+		
+		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-cc-form-header-personal' ), $headerOptions );
+
+		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
+		
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
+
+		$return .= $this->getNameField();
+
+		// email
+		$return .= $this->getEmailField();
+
+		// street
+		$return .= $this->getStreetField();
+
+		// city
+		$return .= $this->getCityField();
+
+		// state
+		//$return .= $this->getStateField();
+
+		// zip
+		$return .= $this->getZipField();
+
+		// country
+		$return .= $this->getCountryField();
+
+		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
+		
+		$return .= Xml::closeElement( 'div' );  // $id
+		
+		return $return;
+	}
+	
+	/**
+	 * Get the payment information section
+	 *
+	 * @param	array	$options
+	 *
+	 * Fields:
+	 * - rtbt
+	 * - bt
+	 * - dd
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	public function getFormSectionPayment( $options = array() ) {
+
+		$return = '';
+		
+		$id = 'section_personal';
+		
+		$headerOptions = $options;
+		
+		$headerOptions['id'] = $id . '_header';
+		
+		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-cc-form-header-payment' ), $headerOptions );
+
+		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
+		
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
+
+		$return .= $this->getDirectDebit();
+
+		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
+		
+		$return .= Xml::closeElement( 'div' );  // $id
+		
+		return $return;
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Deprecated
+	//
+	////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Generate the payment information
@@ -114,6 +655,8 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		
 		// Payment methods that are not supported by this form.
 		$ignorePaymentMethod = array( 'cc', );
+		
+		// Loop through forms to display
 		foreach ( $this->gateway->getPaymentMethods() as $payment_method => $payment_methodMeta ) {
 
 			if ( in_array( $payment_method, $ignorePaymentMethod ) ) {
@@ -144,6 +687,7 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	public function generateFormIssuerIdDropdown() {
 		
 		$form = '';
+		//return $form;
 		
 		$payment_submethod = $this->gateway->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
 		if ( !isset( $payment_submethod['issuerids'] )  || empty( $payment_submethod['issuerids'] ) ) {
@@ -156,12 +700,12 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 		// generate dropdown of issuer_ids
 		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
-			$selected = ( $this->form_data['issuer_id'] == $value ) ? true : false;
+			$selected = ( $this->form_data['issuer_id'] == $issuer_id ) ? true : false;
 			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
-			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id_label, $selected );
+			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
 		}
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-issuer_id' ), 'issuer_id' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-rtbt-issuer_id' ), 'issuer_id' ) . '</td>';
 
 		$form .= '<td>';
 		$form .= Xml::openElement(
@@ -179,6 +723,7 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 		
 		return $form;
 	}
+	
 	
 	/**
 	 * Generate the first part of the form
@@ -224,16 +769,6 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 		//$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payment-cc-form-section' ) );
 
-		return $form;
-	}
-
-	public function generateFormSubmit() {
-		// submit button
-		$form = Xml::openElement( 'div', array( 'id' => 'payment_gateway-form-submit' ) );
-		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-submit-button' ), 'type' => 'submit' ) );
-		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
-		$form .= Xml::closeElement( 'div' ); // close div#payment_gateway-form-submit
 		return $form;
 	}
 
@@ -291,7 +826,7 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 		return $form;
 	}
-
+	
 	protected function generatePaymentContainer() {
 		$form = '';
 		// credit card info
@@ -309,17 +844,12 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 
 	protected function generatePaymentFields() {
 		// amount
-		$form = '<tr>';
-		$form .= '<td colspan="2"><span class="donation-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
-		$form .= '</tr>';
-		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'class' => 'required', 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
-		' ' . $this->generateCurrencyDropdown( array( 'showCardsOnCurrencyChange' => false, ) ) . '</td>';
-		$form .= '</tr>';
+		$form .= $this->generateAmountByRadio();
 
 		$form .= $this->generateFormIssuerIdDropdown();
+		$form .= $this->generateFormDirectDebit();
 
+		
 		return $form;
 	}
 }
