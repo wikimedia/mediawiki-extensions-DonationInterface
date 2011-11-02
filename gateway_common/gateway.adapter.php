@@ -252,6 +252,12 @@ abstract class GatewayAdapter implements GatewayType {
 		return $checkResult;
 	}
 
+	/**
+	 * Returns staged data from the adapter object. 
+	 * @param string $val An optional specific key you want returned. 
+	 * @return mixed All the staged data held by the adapter, or if a key was 
+	 * set, the staged value for that key. 
+	 */
 	function getData( $val = '' ) {
 		if ( $val === '' ) {
 			return $this->postdata;
@@ -275,8 +281,16 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->dataObj;
 	}
 	
-	function getDisplayData() {
-		return $this->displaydata;
+	function getDisplayData( $val = '' ) {
+		if ( $val === '' ) {
+			return $this->displaydata;
+		} else {
+			if ( array_key_exists( $val, $this->displaydata ) ) {
+				return $this->displaydata[$val];
+			} else {
+				return null;
+			}
+		}
 	}
 
 	function isCache() {
@@ -1259,7 +1273,7 @@ abstract class GatewayAdapter implements GatewayType {
 			//what do we do in the event that we're still nothing? (just move on.)
 		}
 	}
-
+	
 	/**
 	 *
 	 * @param type $type Whatever types of staging you feel like having in your child class. 
@@ -1274,24 +1288,29 @@ abstract class GatewayAdapter implements GatewayType {
 			$function_name = 'stage_' . $field;
 			if ( method_exists( $this, $function_name ) ) {
 				$this->{$function_name}( $type );
-			}
 		}
+	}
 	}
 
 	function getPaypalRedirectURL() {
 		$utm_source = $this->getData( 'utm_source' );
 
 		// update the utm source to set the payment instrument to pp rather than cc
-		$utm_source_parts = explode( ".", $utm_source );
-		$utm_source_parts[2] = 'pp';
-		$data['utm_source'] = implode( ".", $utm_source_parts );
-		$data['gateway'] = 'paypal';
+		$data['payment_method'] = 'pp';
 		$data['currency_code'] = isset( $data['currency'] ) ? $data['currency'] : 'USD';
 
 		// Add our response vars to the data object. 
-		$this->dataObj->addData( $data );
+		$this->dataObj->addData( $data ); //addData will, among other things, rebuild the utm_[stuff]. 
 		// refresh our data
-		$this->postdata = $this->dataObj->getData();
+		foreach ( $data as $key => $value){
+			$this->refreshGatewayValueFromSource( $key );
+		}
+		//TODO: Make an array of calculated fields in DonationData...
+		//in other words: Fields that will get recalculated on a normalizeAndSanitize()...
+		//so we don't have to _know_ to do this, when we add data. 
+		//In fact, put that in addData, and restage anything that's either the explicit key, 
+		//or any of the calculated keys. 
+		$this->refreshGatewayValueFromSource( 'utm_source' ); //calculated field! 
 
 		//update contribution tracking
 		$this->dataObj->updateContributionTracking( true );
@@ -1334,9 +1353,9 @@ abstract class GatewayAdapter implements GatewayType {
 		);
 		$ret = array();
 		foreach ( $paypalkeys as $key ){
-			$val = $this->getData( $key );
+			$val = $this->getDisplayData( $key );
 			if (!is_null( $val )){
-				$ret[$key] = $this->getData( $key );
+				$ret[$key] = $this->getDisplayData( $key );
 			}
 		}
 		return $ret;
@@ -1522,7 +1541,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		} else {
 			$this->action = 'process'; //we have to do this so do_transaction doesn't kick out. 
-		}
+	}
 	}
 
 	function transaction_option( $option_value ) {
@@ -1567,5 +1586,5 @@ abstract class GatewayAdapter implements GatewayType {
 			unset( $this->displaydata[$val] );
 		}
 	}
-
+	
 }
