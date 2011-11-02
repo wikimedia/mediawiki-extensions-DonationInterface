@@ -49,6 +49,29 @@ $messages['qqq'] = array(
 	'globalcollect_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
 
+/** Arabic (العربية)
+ * @author AwamerT
+ * @author Peadara
+ */
+$messages['ar'] = array(
+	'globalcollectgateway' => 'تبرع الآن',
+	'globalcollect_gateway-desc' => 'تجهيز المدفوعات جلوبالكوليكت',
+	'globalcollect_gateway-response-9130' => 'إسم بلد غير صالح',
+	'globalcollect_gateway-response-9140' => 'العملة غير صالح',
+	'globalcollect_gateway-response-9150' => 'لغة غير صحيحة.',
+	'globalcollect_gateway-response-400530' => 'طريقة الدفع غير صحيحة.',
+	'globalcollect_gateway-response-430306' => 'انتهت مدة صلاحية بطاقة الائتمان الخاصة بك. الرجاء استخدام بطاقة أخرى أو أحد من وسائل الدفع الأخرى.',
+	'globalcollect_gateway-response-430330' => 'رقم بطاقة غير صالح.',
+	'globalcollect_gateway-response-430421' => 'تعذرالتحقق من صحة بطاقة الائتمان الخاصة بك. الرجاء التحقق من أن جميع المعلومات يطابق تعريف بطاقة الائتمان الخاصة بك، أو حاول ببطاقة مختلفة.',
+	'globalcollect_gateway-response-430360' => 'لا يمكن السماح بالحركة. الرجاء استخدام بطاقة أخرى أو أحد من وسائلنا للدفع الأخرى.',
+	'globalcollect_gateway-response-430285' => 'لا يمكن السماح بالحركة. الرجاء استخدام بطاقة أخرى أو أحد من وسائلنا للدفع الأخرى.',
+	'globalcollect_gateway-response-21000150' => 'رقم حساب مصرفي غير صالح.',
+	'globalcollect_gateway-response-21000155' => 'رمز البنك غير صالح.',
+	'globalcollect_gateway-response-21000160' => 'رقم حساب جيرو غير صالح.',
+	'globalcollect_gateway-response-default' => 'حدث خطأ أثناء معالجة الحركة الخاصة بك.
+الرجاء المحاولة مرة أخرى لاحقاً.',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */
@@ -116,6 +139,18 @@ $messages['fr'] = array(
 	'globalcollect_gateway-response-21000160' => 'Numéro de compte du virement invalide.',
 	'globalcollect_gateway-response-default' => 'Une erreur est survenue lors du traitement de votre transaction.
 Veuillez réessayer plus tard.',
+);
+
+/** Franco-Provençal (Arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'globalcollectgateway' => 'Balyéd orendrêt',
+	'globalcollect_gateway-response-9130' => 'Payis envalido.',
+	'globalcollect_gateway-response-9140' => 'Monéya envalida.',
+	'globalcollect_gateway-response-9150' => 'Lengoua envalida.',
+	'globalcollect_gateway-response-400530' => 'Moyen de payement envalido.',
+	'globalcollect_gateway-response-430330' => 'Numerô de cârta envalido.',
 );
 
 /** Galician (Galego)
@@ -303,5 +338,25 @@ $messages['sw'] = array(
 	'globalcollect_gateway-response-9150' => 'Lugha batili.',
 	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.',
 	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Trần Nguyễn Minh Huy
+ */
+$messages['vi'] = array(
+	'globalcollectgateway' => 'Quyên góp ngay bây giờ',
+	'globalcollect_gateway-response-9130' => 'Quốc gia này không hợp lệ.',
+	'globalcollect_gateway-response-9140' => 'Loại tiền tệ không hợp lệ.',
+	'globalcollect_gateway-response-9150' => 'Ngôn ngữ không hợp lệ.',
+	'globalcollect_gateway-response-400530' => 'Phương thức thanh toán không hợp lệ.',
+	'globalcollect_gateway-response-430306' => 'Thẻ tín dụng của bạn đã hết hạn. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
+	'globalcollect_gateway-response-430330' => 'Mã số thẻ không hợp lệ.',
+	'globalcollect_gateway-response-430421' => 'Thẻ tín dụng của bạn không được xác nhận. Xin vui lòng kiểm chứng rằng tất cả thông tin phù hợp với hồ sơ thẻ tín dụng của bạn hoặc thử dùng một thẻ khác.',
+	'globalcollect_gateway-response-430360' => 'Giao dịch này không cho phép. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
+	'globalcollect_gateway-response-430285' => 'Giao dịch này không cho phép. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
+	'globalcollect_gateway-response-21000150' => 'Số tài khoản ngân hàng không hợp lệ.',
+	'globalcollect_gateway-response-21000155' => 'Mã ngân hàng không hợp lệ.',
+	'globalcollect_gateway-response-default' => 'Đã xảy ra lỗi khi xử lý giao dịch của bạn.
+Xin hãy thử lại sau.',
 );
 

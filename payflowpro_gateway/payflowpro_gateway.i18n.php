@@ -2001,7 +2001,6 @@ Par piaser, ripròa de novo tra un tocheto.',
  */
 $messages['vi'] = array(
 	'payflowprogateway' => 'Quyên góp ngay bây giờ',
-	'globalcollectgateway' => 'Quyên góp ngay bây giờ',
 	'payflowpro_gateway-desc' => 'Xử lý thẻ tín dụng dùng PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Giao dịch của bạn đã được chứng nhận.
 Cảm ơn sự đóng góp của bạn!',
@@ -2017,8 +2016,8 @@ Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao d�
 	'payflowpro_gateway-response-112' => 'Địa chỉ hoặc mã an ninh của bạn không đúng.',
 	'payflowpro_gateway-response-125' => 'Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.',
 	'payflowpro_gateway-response-125-2' => 'Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Cũng có thể <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi">quyên góp một cách khác</a> hoặc liên lạc với chúng tôi tại <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cám ơn sự hỗ trợ của bạn.',
-	'payflowpro_gateway-response-default' => 'Có lỗi khi xử lý giao dịch của bạn.
-Xin hãy thử lại vào lần sau.',
+	'payflowpro_gateway-response-default' => 'Đã xảy ra lỗi khi xử lý giao dịch của bạn.
+Xin hãy thử lại sau.',
 );
 
 /** Yiddish (ייִדיש)
