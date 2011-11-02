@@ -21,25 +21,23 @@
     display: none;
 }
 
-/* Callouts */
-.call-l, .call-r {
-    width: 270px;
+/* Layout */
+table#layouttable tr td {
+    vertical-align: top;
 }
 
-/* Layout */
 #appeal {
-    float: left;
-    width: 100%;
+    /*width: 100%;*/
 }
 #appeal-content {
-    padding-right: 380px;
+    /*padding-right: 380px;*/
 }
 .clear {
     clear: both;
 }
 #donate {
-    float: left;
-    margin-left: -350px;
+    /*float: left;*/
+    /*margin-left: -350px;*/
     width: 350px;
 }
 #donate-content {
@@ -73,4 +71,10 @@
 
 #amtErrorMessages, #billingErrorMessages, #paymentErrorMessages {
     color: #F00;
+}
+.txt{
+    margin: 0 !important;
+}
+#billingContent span{
+    margin: 0 !important;
 }

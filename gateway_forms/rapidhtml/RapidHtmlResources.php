@@ -52,7 +52,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 		'css/Webitects.css',
 	),
 	'scripts' => array(
-		'js/jquery.ezpz_hint.js',
 	),
 	'dependencies' => array(
 		'jquery.ui.accordion',
@@ -70,6 +69,16 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step' ] = array(
 	),
 	'dependencies' => array(
 		'pfp.form.rapidhtml.webitects'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step.ie6' ] = array(
+	'styles' => array(
+		'css/webitects_2_3step.ie6.css',
+	),
+	'dependencies' => array(
+		'gc.form.rapidhtml.webitects_2_3step'
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
