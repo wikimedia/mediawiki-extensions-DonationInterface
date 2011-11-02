@@ -91,7 +91,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );
 		if ( $error ) {
-			$form_errors['general'][] = $error;
+			// We escape HTML here since only quotes are escaped later
+			$form_errors['general'][] = htmlspecialchars( $error );
 		}
 
 		if ( $country != '' ){
