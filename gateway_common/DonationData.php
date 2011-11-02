@@ -66,7 +66,7 @@ class DonationData {
 				'numAttempt' => $wgRequest->getVal( 'numAttempt', '0' ),
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => $wgRequest->getText( 'utm_source' ),
-				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', 0 ),
+				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				// try to honor the user-set language (uselang), otherwise the language set in the URL (language)
@@ -199,7 +199,7 @@ class DonationData {
 			'numAttempt' => 0,
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
 			'utm_source' => 'test_src',
-			'utm_source_id' => 0,
+			'utm_source_id' => null,
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
@@ -281,7 +281,7 @@ class DonationData {
 	
 	function canCache(){
 		if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
-			if ( $this->isSomething( 'utm_source_id' ) && $this->getVal( 'utm_source_id' ) !== false ){
+			if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
 				return true;
 			}
 		}
