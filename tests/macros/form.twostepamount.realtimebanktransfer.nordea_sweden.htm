@@ -4,16 +4,16 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://wikimedia-fundraising-1.17.localhost.wikimedia.org/" />
-<title>form.twostepamount.banktransfer</title>
+<title>form.twostepamount.realtimebanktransfer.enets</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">form.twostepamount.banktransfer</td></tr>
+<tr><td rowspan="1" colspan="3">form.twostepamount.realtimebanktransfer.enets</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount&amp;payment_method=bt&amp;payment_submethod=bt</td>
+	<td>/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount&amp;payment_method=rtbt&amp;payment_submethod=rtbt_nordea_sweeden</td>
 	<td></td>
 </tr>
 <tr>
@@ -29,17 +29,22 @@
 <tr>
 	<td>select</td>
 	<td>id=country</td>
-	<td>label=Spain</td>
+	<td>label=Netherlands</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=street</td>
-	<td>123 Happy Street</td>
+	<td>Middenweg 200</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=city</td>
-	<td>Madrid</td>
+	<td>Amsterdam</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=state</td>
+	<td>label=Outside the U.S.</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -47,13 +52,8 @@
 	<td>no-reply@wikimedia.org</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>id=input_amount_other</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
-	<td>id=other-amount</td>
+	<td>id=amount</td>
 	<td>1</td>
 </tr>
 <tr>
