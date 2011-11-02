@@ -88,6 +88,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$this->loadValidateJs();
 		
 		$country = $wgRequest->getText( 'country', '' );
+		// Get error passed via query string
+		$error = $wgRequest->getText( 'error' );
+		if ( $error ) {
+			$form_errors['general'][] = $error;
+		}
 
 		if ( $country != '' ){
 			try{
