@@ -126,7 +126,7 @@ class PayflowProGateway extends GatewayForm {
 	 * Display response message to user with submitted user-supplied data
 	 *
 	 * @param $data Array: array of posted data from form
-	 * @param $responseMsg String: message supplied by getResults function
+	 * @param $responseMsg String: message supplied by fnPayflowDisplayResults function
 	 */
 	function fnPayflowDisplayApprovedResults( $data, $responseMsg ) {
 		global $wgOut;
@@ -158,7 +158,7 @@ class PayflowProGateway extends GatewayForm {
 	/**
 	 * Display response message to user with submitted user-supplied data
 	 *
-	 * @param $responseMsg String: message supplied by getResults function
+	 * @param $responseMsg String: message supplied by fnPayflowDisplayResults function
 	 */
 	function fnPayflowDisplayDeclinedResults( $responseMsg ) {
 		global $wgOut;
@@ -178,7 +178,7 @@ class PayflowProGateway extends GatewayForm {
 	/**
 	 * Display response message when there is a system error unrelated to user's entry
 	 *
-	 * @param $responseMsg String: message supplied by getResults function
+	 * @param $responseMsg String: message supplied by fnPayflowDisplayResults function
 	 */
 	function fnPayflowDisplayOtherResults( $responseMsg ) {
 		//I have collapsed it like this because the contents were identical.

@@ -162,7 +162,7 @@ EOT;
 				// Display form for the first time
 				$oid = $wgRequest->getText( 'order_id' );
 				if ( $oid ) {
-					$wgOut->addHTML( "<pre>CAME BACK FROM SOMETHING.</pre>" );
+					// $wgOut->addHTML( "<pre>CAME BACK FROM SOMETHING.</pre>" );
 					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug( $result );
 				}

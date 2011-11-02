@@ -3,7 +3,7 @@
 class GlobalCollectGatewayResult extends GatewayForm {
 
 	/**
-	 * Defines the action to take on a PFP transaction.
+	 * Defines the action to take on a GlobalCollect transaction.
 	 *
 	 * Possible values include 'process', 'challenge',
 	 * 'review', 'reject'.  These values can be set during
@@ -82,7 +82,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 						$go = $this->adapter->getThankYouPage();
 						break;
 					case 'failed':
-						$go = $this->adapter->getFailPage();
+						$go = $this->getDeclinedResultPage();
 						break;
 				}
 
@@ -96,6 +96,33 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			}
 		}
 	}
+	
+	/**
+	 * Get the URL to redirect to when the transaction has been declined. This will be the form the
+	 * user came from with all the data and an error message.
+	 */
+	function getDeclinedResultPage() {
+		global $wgOut;
+		$failpage = $this->adapter->getGlobal( 'FailPage' );
+
+		if ( $failpage ) {
+			$wgOut->redirect( $failpage . "/" . $data['language'] );
+		} else {
+			// general decline message
+			$declinedDefault = wfMsg( 'php-response-declined' );
+			
+			$data = $this->adapter->getData();
+			$referrer = $data['referrer'];
+			unset( $data['referrer'] );
+			$data['amount'] = $data['amount']/100;
+			$data['error'] = $declinedDefault;
+			
+			$params = wfArrayToCGI( $data );
+			$returnto = htmlspecialchars_decode( $referrer ) . '&' . $params;
+			return $returnto;
+		}
+	}
+	
 }
 
 // end class
