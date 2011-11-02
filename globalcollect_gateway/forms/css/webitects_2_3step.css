@@ -85,5 +85,6 @@ p#informationsharing {
     font-size: 11px;
 }
 ul#moreinfolinks li{
-    list-style: none;
+    list-style: none !important;
+    list-style-image: none !important;
 }
