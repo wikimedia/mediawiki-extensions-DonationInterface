@@ -804,7 +804,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function stage_returnto( $type = 'request' ) {
 		if ( $type === 'request' ) {
-			$this->postdata['returnto'] = $this->postdata['returnto'] . '?' . wfArrayToCGI( array( 'order_id' => $this->postdata['order_id'] ) );
+			// Add order ID to the returnto URL
+			$queryArray = array( 'order_id' => $this->postdata['order_id'] );
+			$this->postdata['returnto'] = wfAppendQuery( $this->postdata['returnto'], $queryArray );
 		}
 	}
 	
