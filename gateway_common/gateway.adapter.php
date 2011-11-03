@@ -241,16 +241,24 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return boolean true if match, else false.  
 	 */
 	public function checkTokens() {
-		$checkResult = $this->dataObj->token_checkTokens();
-
-		if ( $checkResult ) {
-			$this->debugarray[] = 'Token Match';
+		if ( !$this->posted ) { 
+			//we don't care, because we can't possibly have a good one at this
+			//point. 
+			//Additional: If we try for this before we're posted, the squid log 
+			//caching won't work. 
+			return true;
 		} else {
-			$this->debugarray[] = 'Token MISMATCH';
-		}
+			$checkResult = $this->dataObj->token_checkTokens();
 
-		$this->refreshGatewayValueFromSource( 'token' );
-		return $checkResult;
+			if ( $checkResult ) {
+				$this->debugarray[] = 'Token Match';
+			} else {
+				$this->debugarray[] = 'Token MISMATCH';
+			}
+
+			$this->refreshGatewayValueFromSource( 'token' );
+			return $checkResult;
+		}
 	}
 
 	/**

@@ -105,7 +105,7 @@ class DonationData {
 		
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
-		
+
 		$this->doCacheStuff();
 
 		$this->normalizeAndSanitize();
@@ -118,8 +118,7 @@ class DonationData {
 	 * are populated, and merge that with the data set we already have. 
 	 */
 	function integrateDataFromSession(){
-		self::ensureSession();
-		if ( array_key_exists( 'Donor', $_SESSION ) ) {
+		if ( self::sessionExists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//if the thing coming in from the session isn't already something, 
 			//replace it. 
 			//if it is: assume that the session data was meant to be replaced 
@@ -431,6 +430,16 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * This function sets the token to the string 'cache' if we're caching, and 
+	 * then sets the s-maxage header to whatever you specify for the SMaxAge.
+	 * NOTES: The bit where we setSquidMaxage will not work at all, under two 
+	 * conditions: 
+	 * The user has a session ID.
+	 * The mediawiki_session cookie is set in the user's browser.
+	 * @global bool $wgUseSquid
+	 * @global type $wgOut 
+	 */
 	function doCacheStuff() {
 		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
@@ -441,7 +450,7 @@ class DonationData {
 			// if we have squid caching enabled, set the maxage
 			global $wgUseSquid, $wgOut;
 			$maxAge = $this->getGatewayGlobal( 'SMaxAge' );
-
+			
 			if ( $wgUseSquid && ( $maxAge !== false ) ) {
 				self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Setting s-max-age: ' . $maxAge, LOG_DEBUG );
 				$wgOut->setSquidMaxage( $maxAge );
@@ -545,11 +554,21 @@ class DonationData {
 	 */
 	public static function ensureSession() {
 		// if the session is already started, do nothing
-		if ( session_id() )
+		if ( self::sessionExists() )
 			return;
 
 		// otherwise, fire it up using global mw function wfSetupSession
 		wfSetupSession();
+	}
+	
+	/**
+	 * Checks to see if the session exists without actually creating one. 
+	 * @return bool true if we have a session, otherwise false.  
+	 */
+	public static function sessionExists() {
+		if ( session_id() )
+			return true;
+		return false;
 	}
 
 	public function token_checkTokens() {
