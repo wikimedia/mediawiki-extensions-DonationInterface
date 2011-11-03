@@ -84,7 +84,12 @@ EOT;
 		
 
 		// dispatch forms/handling
-		if ( $this->adapter->checkTokens() ) {			
+		if ( $this->adapter->checkTokens() ) {	
+			
+			//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
+			//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
+			$data = $this->adapter->getDisplayData();
+				
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				/*
@@ -92,11 +97,6 @@ EOT;
 				 *
 				 * An invalid $payment_method will cause an error.
 				 */
-				
-				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
-				//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
-				$data = $this->adapter->getDisplayData();
-				
 				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
 				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
 		
@@ -123,13 +123,20 @@ EOT;
 
 				}
 			} else {
-				// Display form for the first time
+				// Display form
+				
+				// Not sure what this is for.
 				$oid = $wgRequest->getText( 'order_id' );
 				if ( $oid ) {
-					// $wgOut->addHTML( "<pre>CAME BACK FROM SOMETHING.</pre>" );
 					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug( $result );
 				}
+				
+				// If the result of the previous transaction was failure, set the retry message.
+				if ( $data && array_key_exists( 'response', $data ) && $data['response'] == 'failure' ) {
+					$this->errors['retryMsg'] = wfMsg( 'php-response-declined' );
+				}
+				
 				$this->displayForm( $this->errors );
 			}
 		} else {

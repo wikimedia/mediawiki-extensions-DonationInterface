@@ -112,32 +112,17 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		if ( $failpage ) {
 			$wgOut->redirect( $failpage . "/" . $displayData['language'] );
 		} else {
-			// general decline message
-			$declinedDefault = wfMsg( 'php-response-declined' );
-			
-			// The page we're going to send them back to.
-			// TODO: figure out something better so we aren't expanding the URL after every attempt.
+			// Get the page we're going to send them back to.
 			$referrer = $displayData['referrer'];
+			$returnto = htmlspecialchars_decode( $referrer ); // escape for security
 			
-			// Tack on some data so that we can pre-populate the fields
-			$queryArray = array (
-				'fname' => $displayData['fname'],
-				'lname' => $displayData['lname'],
-				'street' => $displayData['street'],
-				'city' => $displayData['city'],
-				'state' => $displayData['state'],
-				'zip' => $displayData['zip'],
-				'country' => $displayData['country'],
-				'utm_source' => $displayData['utm_source'],
-				'utm_medium' => $displayData['utm_medium'],
-				'utm_campaign' => $displayData['utm_campaign'],
-				'numAttempt' => $displayData['numAttempt'],
-				'error' => $declinedDefault,
-			);
+			// Set the response as failure so that an error message will be displayed when the form reloads.
+			$this->adapter->addData( array( 'response' => 'failure' ) );
 			
-			$returnto = wfAppendQuery( htmlspecialchars_decode( $referrer ), $queryArray );
+			// Store their data in the session.
+			$this->adapter->addDonorDataToSession();
 			
-			// Return the referrer URL with the data included in the query string
+			// Return the referrer URL
 			return $returnto;
 		}
 	}
