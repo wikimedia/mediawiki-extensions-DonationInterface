@@ -78,10 +78,14 @@ $messages['ar'] = array(
 $messages['cy'] = array(
 	'globalcollectgateway' => 'Rhoddwch nawr',
 	'globalcollect_gateway-response-9130' => 'Gwlad annilys.',
+	'globalcollect_gateway-response-9140' => 'Arian breiniol annilys.',
 	'globalcollect_gateway-response-9150' => 'Iaith annilys.',
 	'globalcollect_gateway-response-400530' => 'Modd talu annilys.',
+	'globalcollect_gateway-response-430306' => 'Mae eich cerdyn credyd wedi dod i ben. Defnyddiwch gerdyn arall neu fodd gwahanol o dalu.',
 	'globalcollect_gateway-response-430330' => 'Rhif annilys i gerdyn.',
+	'globalcollect_gateway-response-21000150' => 'Rhif annilys i gyfrif banc.',
 	'globalcollect_gateway-response-21000155' => 'Côd banc annilys.',
+	'globalcollect_gateway-response-21000160' => 'Rhif annilys i gyfrif giro.',
 );
 
 /** German (Deutsch)
