@@ -93,6 +93,17 @@ function validateElementAmount( options ) {
     
 	// Need to distinguish between single amount field and radio buttons.
 	$().ready(function() {
+
+		var amountSelector = '#amount';
+		
+		// Check to see if the element exists
+		if ( $("input[name='amountRadio']").length ) {
+			amountSelector = "input[name='amountRadio']";
+			$( amountSelector ).click(function(){ setAmount($(this)); });
+
+			$("#other-amount").focus(function(){ $('#input_amount_other').prop('checked', true); });
+			$("#other-amount").change(function(){ setAmount($(this)); });
+		}
 		
 		/**
 		 * Convert to an integer value because we will not test for:
@@ -114,7 +125,7 @@ function validateElementAmount( options ) {
 			return integerValue >= params.min;
 		}, mw.msg( 'donate_interface-error-msg-invalid-amount' ) );
 
-        $("#amount").rules("add", 
+        $( amountSelector ).rules("add", 
             {
                 required: true,
 				requirefunds: { 
@@ -231,6 +242,10 @@ function validateElementCity( options ) {
  *
  */
 function validateElementState( options ) {
+
+	if ( !$("#state").length ) {
+		return;
+	}
     
 	$().ready(function() {
 
@@ -409,9 +424,6 @@ Validate Element Groups
  */
 $().ready(function() {
 
-	$('input[name="amountRadio"]').click(function(){ setAmount($(this)); });
-	$("#other-amount").change(function(){ setAmount($(this)); });
-
 	if ( !isset( validatePaymentForm.formId ) ) {
 		validatePaymentForm.formId = '';
 	}
@@ -572,7 +584,6 @@ $().ready(function() {
 			validateElementIssuerId( validatePaymentForm );
 		}
 	}
-
 
 });
 
