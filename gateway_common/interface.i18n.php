@@ -352,7 +352,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
         // Various form interface elements
 	'donate_interface-faqs' => 'Frequently asked questions',
 	'donate_interface-tax-info' => 'Tax deductibility information',
-	'donate_interface-information_sharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.'
+	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.'
         'donate_interface-currency-change' => 'Change?',
         'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of  Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.',
 
@@ -701,6 +701,27 @@ There is no limit to the length of the message.",
 	'donate_interface-translate-redlink2' => 'Plain text (not link) at the bottom of an appeal telling people that they can e-mail a translation. Preceded by [[MediaWiki:Donate interface-translate-redlink1]].',
 	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
+        'donate_interface-email-fallbackname' => 'String that will be used instead of the donor\'s name in the e-mail in case it is missing.',
+        'donate_interface-email-subject' => 'Subject line of thank you e-mail',
+        'donate_interface-email-unsub-title' => 'Title for unsubscription box',
+        'donate_interface-email-unsub-button' => 'The button you click to unsubscribe from receiving e-mails',
+        'donate_interface-email-unsub-success' => 'The message that is shown when a user is successfully unsubscribed from the mailing list',
+        'donate_interface-email-unsub-delay' => 'The message that is shown when there is a delay in the unsubscription of a donor from the mailing list',
+        'donate_interface-email-unsub-fail' => 'The message that is shown when there has been an error in the unsubscription of a donor from the mailing list',
+        'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
+        'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
+        'donate_interface-taxded-link-int' => 'Link to information about tax deductibility and other legal information, to be used outside of the U.S.',
+        'donate_interface-taxded-link-us' => 'Link to information about tax deductibility, to be used inside of the U.S.',
+        'donate_interface-taxded-msg-int' => 'Legal information shown to international donors.',
+        'donate_interface-taxded-msg-us' => 'Tax deductibility shown to U.S. donors.',
+        'donate_interface-legal-original' => 'Message notifying users that the English version of legal pages is the prevalent one.',
+        'donate_interface-legal-donorpolicy' => 'Message telling donors about the Donor Privacy Policy.',
+        'donate_interface-monthlybox-title' => 'Header for box prompting users to change from one-time donation to a recurring monthly donation.',
+        'donate_interface-monthlybox-content' => 'Information about when and how monthly donations are processed.',
+        'donate_interface-monthlybox-amount' => 'Label for the field for the donation amount.',
+        'donate_interface-monthlybox-yes' => 'Button to click to accept giving a monthly donation.',
+        'donate_interface-monthlybox-no' => 'Button to click to decline giving a monthly donation.',
+        'donate_interface-monthlybox-bottom' => 'Message in the bottom of the monthly donation box ensuring donors that their donation will be processed securely.',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
