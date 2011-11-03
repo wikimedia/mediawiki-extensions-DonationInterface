@@ -443,68 +443,19 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * In reality, this probably ought to use some sort of webservice to get real-time
 	 * conversion rates.
 	 *
-	 * @param $currency_code
-	 * @param $amount
-	 * @return unknown_type
+	 * @param string $currency_code
+	 * @param float $amount
+	 * @return float
 	 */
-	public function convert_to_usd( $currency_code, $amount ) {
-		switch ( strtoupper( $currency_code ) ) {
-			case 'USD':
-				$usd_amount = $amount / 1;
-				break;
-			case 'GBP':
-				$usd_amount = $amount / 1;
-				break;
-			case 'EUR':
-				$usd_amount = $amount / 1;
-				break;
-			case 'AUD':
-				$usd_amount = $amount / 2;
-				break;
-			case 'CAD':
-				$usd_amount = $amount / 1;
-				break;
-			case 'CHF':
-				$usd_amount = $amount / 1;
-				break;
-			case 'CZK':
-				$usd_amount = $amount / 20;
-				break;
-			case 'DKK':
-				$usd_amount = $amount / 5;
-				break;
-			case 'HKD':
-				$usd_amount = $amount / 10;
-				break;
-			case 'HUF':
-				$usd_amount = $amount / 200;
-				break;
-			case 'JPY':
-				$usd_amount = $amount / 100;
-				break;
-			case 'NZD':
-				$usd_amount = $amount / 2;
-				break;
-			case 'NOK':
-				$usd_amount = $amount / 10;
-				break;
-			case 'PLN':
-				$usd_amount = $amount / 5;
-				break;
-			case 'SGD':
-				$usd_amount = $amount / 2;
-				break;
-			case 'SEK':
-				$usd_amount = $amount / 10;
-				break;
-			case 'ILS':
-				$usd_amount = $amount / 5;
-				break;
-			default:
-				$usd_amount = $amount;
-				break;
+	static function convert_to_usd( $currency_code, $amount ) {
+		require_once( dirname( __FILE__ ) . '/currencyRates.inc' );
+		$rates = getCurrencyRates();
+		$code = strtoupper( $currency_code );
+		if ( array_key_exists( $code, $rates ) ) {
+			$usd_amount = $amount / $rates[$code];
+		} else {
+			$usd_amount = $amount;
 		}
-
 		return $usd_amount;
 	}
 

@@ -36,7 +36,7 @@ $messages['en'] = array(
 No processors are available.',
 
 // Currency translations
-	'donate_interface-AEB' => 'AEB: UAE dirham',
+	'donate_interface-AED' => 'AED: UAE dirham',
 	'donate_interface-ARS' => 'ARS: Argentinian peso',
 	'donate_interface-AUD' => 'AUD: Australian dollar',
 	'donate_interface-BBD' => 'BBD: Barbadian dollar',
@@ -112,7 +112,7 @@ No processors are available.',
 	'donate_interface-TWD' => 'TWD: New Taiwan dollar',
 	'donate_interface-UAH' => 'UAH: Ukrainian hryvnia',
 	'donate_interface-USD' => 'USD: U.S. dollar',
-	'donate_interface-UTU' => 'UTU: Uruguayan peso',
+	'donate_interface-UYU' => 'UYU: Uruguayan peso',
 	'donate_interface-UZS' => 'UZS: Uzbekistani som',
 	'donate_interface-VND' => 'VND: Vietnamese dong',
 	'donate_interface-XAF' => 'XAF: Central African CFA franc',
@@ -319,7 +319,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-change' => 'Change',
 	'donate_interface-select-credit-card' => 'Select credit card',
 
-	// For more USA states, see donate_interface.us-states.i18n.php.
+	// For more USA states, see us-states.i18n.php.
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
 	'donate_interface-state-dropdown-XX' => 'Outside the U.S.',
 
@@ -408,7 +408,7 @@ $messages['qqq'] = array(
 	'donate_interface-comment-title' => "Next to check box; to choose whether the donor's comment shall be publically viewable or not.",
 	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
 	'donate_interface-processing-error' => 'Error message.',
-	'donate_interface-AEB' => 'Used in drop-down field for currency.',
+	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
 	'donate_interface-AUD' => 'Used in drop-down field for currency.',
 	'donate_interface-BBD' => 'Used in drop-down field for currency.',
@@ -484,7 +484,7 @@ $messages['qqq'] = array(
 	'donate_interface-TWD' => 'Used in drop-down field for currency.',
 	'donate_interface-UAH' => 'Used in drop-down field for currency.',
 	'donate_interface-USD' => 'Used in drop-down field for currency.',
-	'donate_interface-UTU' => 'Used in drop-down field for currency.',
+	'donate_interface-UYU' => 'Used in drop-down field for currency.',
 	'donate_interface-UZS' => 'Used in drop-down field for currency.',
 	'donate_interface-VND' => 'Used in drop-down field for currency.',
 	'donate_interface-XAF' => 'Used in drop-down field for currency.',
