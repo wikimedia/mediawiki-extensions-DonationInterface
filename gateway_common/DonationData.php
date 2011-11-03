@@ -245,7 +245,33 @@ class DonationData {
 			unset( $this->normalized[$key] );
 		}
 	}
+	
+	/**
+	 * Returns an array of all the fields that get re-calculated during a 
+	 * normalizeAndSanitize. 
+	 * This will most likely be used on the outside when in the process of 
+	 * adding data.
+	 * @return array An array of values matching all recauculated fields.  
+	 */
+	function getCalculatedFields() {
+		$fields = array(
+			'utm_source',
+			'amount',
+			'order_id',
+			'i_order_id',
+			'gateway',
+			'optout',
+			'anonymous',
+			'language',
+			'contribution_tracking_id', //sort of...		
+		);
+		return $fields;
+	}
 
+	/**
+	 * Normalizes and Sanitizes the current set of data, just after it's been 
+	 * pulled (or re-pulled) from a source. 
+	 */
 	function normalizeAndSanitize() {
 		if ( !empty( $this->normalized ) ) {
 			$this->setUtmSource();

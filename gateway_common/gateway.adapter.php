@@ -277,6 +277,23 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function addData( $dataArray ) {
 		$this->dataObj->addData( $dataArray );
+		
+		$calculated_fields = $this->dataObj->getCalculatedFields();
+		$data_fields = array_keys( $dataArray );
+		$data_fields = array_merge( $data_fields, $calculated_fields );
+		
+		foreach ( $data_fields as $value){
+			$this->refreshGatewayValueFromSource( $value );
+		}
+		
+		//and now check to see if you have to re-stage. 
+		//I'd fire off individual staging functions by value, but that's a 
+		//really bad idea, as multiple staged vars could be used in any staging 
+		//function, to calculate any other staged var. 
+		$changed_staged_vars = array_intersect( $this->staged_vars, $data_fields );
+		if ( count( $changed_staged_vars ) ) {
+			$this->stageData();
+		}
 	}
 
 	/**
@@ -1313,24 +1330,15 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function getPaypalRedirectURL() {
-		$utm_source = $this->getData( 'utm_source' );
+		$currency = $this->getData( 'currency' );
 
 		// update the utm source to set the payment instrument to pp rather than cc
 		$data['payment_method'] = 'pp';
-		$data['currency_code'] = isset( $data['currency'] ) ? $data['currency'] : 'USD';
+		$data['currency_code'] = ( !is_null( $currency ) ) ? $currency : 'USD';
 
-		// Add our response vars to the data object. 
-		$this->dataObj->addData( $data ); //addData will, among other things, rebuild the utm_[stuff]. 
-		// refresh our data
-		foreach ( $data as $key => $value){
-			$this->refreshGatewayValueFromSource( $key );
-		}
-		//TODO: Make an array of calculated fields in DonationData...
-		//in other words: Fields that will get recalculated on a normalizeAndSanitize()...
-		//so we don't have to _know_ to do this, when we add data. 
-		//In fact, put that in addData, and restage anything that's either the explicit key, 
-		//or any of the calculated keys. 
-		$this->refreshGatewayValueFromSource( 'utm_source' ); //calculated field! 
+		// Add our response vars to the data object, and restage if necessary.
+		$this->addData( $data );
+		
 		//update contribution tracking
 		$this->dataObj->updateContributionTracking( true );
 
