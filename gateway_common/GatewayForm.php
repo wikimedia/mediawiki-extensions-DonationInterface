@@ -50,7 +50,6 @@ class GatewayForm extends UnlistedSpecialPage {
 	 */
 	public $validateFormResult = true;
 
-
 	/**
 	 * Constructor
 	 */
@@ -349,8 +348,18 @@ class GatewayForm extends UnlistedSpecialPage {
 		return $this->form_class;
 	}
 
-	function displayResultsForDebug( $results ) {
+	/**
+	 * Get the currently set form class
+	 *
+	 * Will set the form class if the form class not already set
+	 * Using logic in setFormClass()
+	 * @return string
+	 */
+	protected function displayResultsForDebug( $results = array() ) {
 		global $wgOut;
+		
+		$results = empty( $results ) ? $this->adapter->getTransactionAllResults() : $results;
+		
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ){
 			return;
 		}
@@ -551,6 +560,41 @@ class GatewayForm extends UnlistedSpecialPage {
 	public function setValidateFormResult( $validateFormResult ) {
 
 		$this->validateFormResult = empty( $validateFormResult ) ? false : ( boolean ) $validateFormResult;
+	}
+
+	/**
+	 * Handle the result from the gateway
+	 *
+	 * @todo
+	 * - This is being implemented in GlobalCollect
+	 * - Do we need to implement this for PayFlow Pro? Not yet!
+	 */
+	protected function resultHandler() {
+		global $wgOut;
+
+		// If transaction was successful, go to the thank you page.
+		if ( $this->adapter->getTransactionStatus() ) {
+			$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
+	
+			if ( $thankyoupage ) {
+				return $wgOut->redirect( $thankyoupage . "/" . $this->adapter->getTransactionDataLanguage() );
+			}
+		}
+		
+		// If we did not go to the Thank you page, there must be an error.
+		return $this->resultHandlerError();
+
+	}
+
+	/**
+	 * Handle the error result from the gateway
+	 *
+	 * Override this method in the payment gateway body class.
+	 */
+	protected function resultHandlerError() {
+
+		// Display debugging results
+		$this->displayResultsForDebug();
 	}
 
 }
