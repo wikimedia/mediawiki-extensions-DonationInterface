@@ -143,10 +143,6 @@ class DonationData {
 		return $this->normalized;
 	}
 
-	function isCache() {
-		return $this->cache;
-	}
-
 	function populateData_Test( $testdata = false ) {
 		// define arrays of cc's and cc #s for random selection
 		$cards = array( 'american' );
@@ -273,19 +269,27 @@ class DonationData {
 	 */
 	function handleContributionTrackingID(){
 		if ( !$this->isSomething( 'contribution_tracking_id' ) && 
-			( !$this->canCache() ) ){
+			( !$this->isCaching() ) ){
 			$this->saveContributionTracking();
 		} 
 	}
 	
 	
-	function canCache(){
-		if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
-			if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
-				return true;
+	function isCaching(){
+		//I think it's safe to static this here. I don't want to calc this every 
+		//time some outside object asks if we're caching. 
+		static $cache = null;
+		if ( is_null( $cache ) ){
+			if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
+				if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
+					$cache = true;
+				}
+			}
+			if ( is_null( $cache ) ){
+				$cache = false;
 			}
 		}
-		return false;
+		return $cache;
 	}
 	
 	/**
@@ -404,9 +408,8 @@ class DonationData {
 	function doCacheStuff() {
 		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
-		if ( $this->isSomething( '_cache_' ) ) {
+		if ( $this->isCaching() ) {
 			self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Cache requested', LOG_DEBUG );
-			$this->cache = true; //TODO: If we don't need this, kill it in the face.
 			$this->setVal( 'token', 'cache' );
 
 			// if we have squid caching enabled, set the maxage
@@ -417,8 +420,6 @@ class DonationData {
 				self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Setting s-max-age: ' . $maxAge, LOG_DEBUG );
 				$wgOut->setSquidMaxage( $maxAge );
 			}
-		} else {
-			$this->cache = false; //TODO: Kill this one in the face, too. (see above)
 		}
 	}
 

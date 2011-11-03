@@ -294,8 +294,8 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	function isCache() {
-		return $this->dataObj->isCache();
+	function isCaching() {
+		return $this->dataObj->isCaching();
 	}
 
 	/**

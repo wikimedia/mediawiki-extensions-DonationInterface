@@ -303,7 +303,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	/**
 	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function.
 	 * I know that's more regression-ish, but I stand by it. :p
-	function isCache(){
 	function setNormalizedOrderIDs(){
 	function generateOrderId() {
 	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
