@@ -103,17 +103,21 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 */
 	function getDeclinedResultPage() {
 		global $wgOut;
+		
+		$displayData = $this->adapter->getDisplayData();
 		$failpage = $this->adapter->getGlobal( 'FailPage' );
 
 		if ( $failpage ) {
-			$wgOut->redirect( $failpage . "/" . $data['language'] );
+			$wgOut->redirect( $failpage . "/" . $displayData['language'] );
 		} else {
 			// general decline message
 			$declinedDefault = wfMsg( 'php-response-declined' );
 			
-			$displayData = $this->adapter->getDisplayData();
+			// The page we're going to send them back to.
+			// TODO: figure out something better so we aren't expanding the URL after every attempt.
 			$referrer = $displayData['referrer'];
 			
+			// Tack on some data so that we can pre-populate the fields
 			$queryArray = array (
 				'fname' => $displayData['fname'],
 				'lname' => $displayData['lname'],
@@ -129,7 +133,6 @@ class GlobalCollectGatewayResult extends GatewayForm {
 				'error' => $declinedDefault,
 			);
 			
-			// TODO: figure out something better so we aren't expanding the URL after every attempt.
 			$returnto = wfAppendQuery( htmlspecialchars_decode( $referrer ), $queryArray );
 			
 			// Return the referrer URL with the data included in the query string
