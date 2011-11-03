@@ -116,9 +116,16 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			unset( $data['referrer'] );
 			$data['amount'] = $data['amount']/100;
 			$data['error'] = $declinedDefault;
-			
 			$params = wfArrayToCGI( $data );
-			$returnto = htmlspecialchars_decode( $referrer ) . '&' . $params;
+			
+			// Make sure the referrer has a query string
+			if ( strpos( $referrer, '?' ) === false ) {
+				$returnto = htmlspecialchars_decode( $referrer ) . '?' . $params;
+			} else {
+				$returnto = htmlspecialchars_decode( $referrer ) . '&' . $params;
+			}
+			
+			// Return the referrer URL with the data included in the query string
 			return $returnto;
 		}
 	}
