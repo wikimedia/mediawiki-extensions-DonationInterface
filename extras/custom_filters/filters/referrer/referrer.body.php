@@ -24,8 +24,8 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		$referrer = $this->gateway_adapter->getData( 'referrer' );
 
 		// a very complex filtering algorithm for referrers
-		global $wgCustomFiltersRefRules;
-		foreach ( $wgCustomFiltersRefRules as $regex => $risk_score_modifier ) {
+		$refRules = $this->gateway_adapter->getGlobal( 'CustomFiltersRefRules' );
+		foreach ( $refRules as $regex => $risk_score_modifier ) {
 			/**
 			 * note that the regex pattern does NOT include delimiters.
 			 * these will need to be included in your custom regex patterns.
@@ -47,6 +47,9 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 	}
 
 	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
+		if ( !$gateway_adapter->getGlobal( 'EnableReferrerFilter' ) ){
+			return true;
+		}
 		$gateway_adapter->debugarray[] = 'referrer onFilter hook!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}

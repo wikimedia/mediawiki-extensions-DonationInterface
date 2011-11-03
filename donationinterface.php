@@ -70,6 +70,7 @@ foreach ($optionalParts as $subextension => $enabled){
 
 				//and at least one of them is a custom filter.
 				$optionalParts['CustomFilters'] = true;
+				$wgDonationInterfaceEnableCustomFilters = true; //override this for specific gateways to disable
 			}
 		}
 
@@ -363,7 +364,7 @@ if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter']
 	 * These are evauluated on a >= or <= basis.  Please refer to minFraud
 	 * documentation for a thorough explanation of the 'riskScore'.
 	 */
-	$wgMinFraudActionRanges = array(
+	$wgDonationInterfaceMinFraudActionRanges = array(
 		'process' => array( 0, 100 ),
 		'review' => array( -1, -1 ),
 		'challenge' => array( -1, -1 ),
@@ -393,12 +394,12 @@ if ( $optionalParts['Minfraud_as_filter'] === true ){
 
 //Referrer Filter globals
 if ( $optionalParts['ReferrerFilter'] === true ){
-	$wgCustomFiltersRefRules = array( );
+	$wgDonationInterfaceCustomFiltersRefRules = array( );
 }
 
 //Source Filter globals
 if ( $optionalParts['SourceFilter'] === true ){
-	$wgCustomFiltersSrcRules = array( );
+	$wgDonationInterfaceCustomFiltersSrcRules = array( );
 }
 
 //Recaptcha globals

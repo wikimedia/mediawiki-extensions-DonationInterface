@@ -17,7 +17,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	/**
 	 * User-definable riskScore ranges for actions to take
 	 *
-	 * Overload with $wgMinFraudActionRanges
+	 * Overload with $wgDonationInterfaceMinFraudActionRanges
 	 * @var public array
 	 */
 	public $action_ranges = array(
@@ -42,16 +42,17 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		parent::__construct( $gateway_adapter );
 		$dir = dirname( __FILE__ ) . '/';
 		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
-		global $wgMinFraudLicenseKey, $wgMinFraudActionRanges;
+		global $wgMinFraudLicenseKey;
 
 		// set the minfraud license key, go no further if we don't have it
 		if ( !$license_key && !$wgMinFraudLicenseKey ) {
 			throw new MWException( "minFraud license key required but not present." );
 		}
 		$this->minfraud_license_key = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
-
-		if ( isset( $wgMinFraudActionRanges ) )
-			$this->action_ranges = $wgMinFraudActionRanges;
+		
+		$gateway_ranges = $gateway_adapter->getGlobal( 'MinFraudActionRanges' );
+		if ( !is_null( $gateway_ranges ) )
+			$this->action_ranges = $gateway_ranges;
 	}
 
 	/**
@@ -63,33 +64,35 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	 */
 	public function validate() {
 		// see if we can bypass minfraud
-		if ( $this->can_bypass_minfraud() )
+		if ( $this->can_bypass_minfraud() ){
 			return TRUE;
+		}
 
 		$minfraud_query = $this->build_query( $this->gateway_adapter->getData() );
 		$this->query_minfraud( $minfraud_query );
-		$this->gateway_adapter->action = $this->determine_action( $this->minfraud_response['riskScore'] );
+		$localAction = $this->determine_action( $this->minfraud_response['riskScore'] );
+		$this->gateway_adapter->setValidationAction( $localAction );
 
 		// reset the data hash
 		$this->gateway_adapter->unsetHash();
-		$this->gateway_adapter->setActionHash( $this->generate_hash( $this->gateway_adapter->action ) );
+		$this->gateway_adapter->setActionHash( $this->generate_hash( $localAction ) );
 		$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData() ) );
 
 		// Write the query/response to the log
-		$this->log_query( $minfraud_query );
+		$this->log_query( $minfraud_query, $localAction );
 		return TRUE;
 	}
 
 	/**
 	 * Logs a minFraud query and its response
 	 */
-	public function log_query( $minfraud_query ) {
+	public function log_query( $minfraud_query, $action ) {
 		if ( $this->log_fh ) {
 			$log_message = '"' . addslashes( $this->gateway_adapter->getData( 'comment' ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData( 'amount' ) . ' ' . $this->gateway_adapter->getData( 'currency' ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $minfraud_query ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraud_response ) ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->action ) . '"';
+			$log_message .= "\t" . '"' . addslashes( $action ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData( 'referrer' ) ) . '"';
 			$this->log( $this->gateway_adapter->getData( 'contribution_tracking_id' ), 'minFraud query', $log_message );
 		}
@@ -127,7 +130,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 			foreach ( $actions as $action ) {
 				if ( $this->compare_hash( $action_hash, $action ) ) {
 					// set the action that should be taken
-					$this->gateway_adapter->action = $action;
+					$this->gateway_adapter->setValidationAction( $action );
 					return TRUE;
 				}
 			}
@@ -266,7 +269,10 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		}
 	}
 
-	static function onValidate( &$gateway_adapter ) {
+	static function onValidate( &$gateway_adapter ) {		
+		if ( !$gateway_adapter->getGlobal( 'EnableMinfraud' ) ){
+			return true;
+		}
 		$gateway_adapter->debugarray[] = "minfraud onValidate hook!";
 		return self::singleton( $gateway_adapter )->validate();
 	}

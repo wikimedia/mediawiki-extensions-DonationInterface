@@ -43,7 +43,7 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 			if ( $captcha_resp->is_valid ) {
 				// if validated, update the action and move on
 				$this->log( $this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Captcha passed' );
-				$this->gateway_adapter->action = "process";
+				$this->gateway_adapter->setValidationAction( 'process' );
 				return TRUE;
 			} else {
 				$this->recap_err = $captcha_resp->error;
@@ -99,6 +99,9 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 	}
 
 	static function onChallenge( &$gateway_adapter ) {
+		if ( !$gateway_adapter->getGlobal( 'EnableRecaptcha' ) ){
+			return true;
+		}
 		$gateway_adapter->debugarray[] = 'recaptcha onChallenge hook!';
 		return self::singleton( $gateway_adapter )->challenge();
 	}

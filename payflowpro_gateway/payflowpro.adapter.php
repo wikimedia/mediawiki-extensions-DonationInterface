@@ -78,8 +78,6 @@ class PayflowProAdapter extends GatewayAdapter {
 				'TENDER' => 'C',
 				'VERBOSITY' => 'MEDIUM',
 			),
-			'do_validation' => true,
-			'do_processhooks' => true,
 		);
 	}
 
@@ -208,7 +206,9 @@ class PayflowProAdapter extends GatewayAdapter {
 	function processResponse( $response ) {
 		//set the transaction result message
 		$this->setTransactionResult( $response['RESPMSG'], 'txn_message' );
-		$this->setTransactionResult( $response['PNREF'], 'gateway_txn_id' );
+		if ( isset( $response['PNREF'] ) ){
+			$this->setTransactionResult( $response['PNREF'], 'gateway_txn_id' );
+		}
 	}
 
 	function defineStagedVars() {
@@ -232,6 +232,14 @@ class PayflowProAdapter extends GatewayAdapter {
 				$this->postdata['user_ip'] = $wgDonationInterfaceIPAddress;
 			}
 		}
+	}
+	
+	protected function pre_process_card(){
+		$this->runPreProcessHooks();
+	}
+	
+	protected function post_process_card(){
+		$this->runPostProcessHooks();
 	}
 
 }

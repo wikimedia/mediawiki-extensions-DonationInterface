@@ -10,7 +10,7 @@
  *
  * This inherits minFraud settings form the main minFraud extension.  To make
  * transactions run through minFraud outside of custom filters, set
- * $wgMinFraudStandalone = TRUE
+ * $wgDonationInterfaceEnableMinfraud = TRUE
  *
  * To install:
  *   require_once( "$IP/extensions/DonationInterface/extras/custom_filters/filters/minfraud.php" );
@@ -41,7 +41,7 @@ $wgExtensionCredits['gateway_extras_customfilters_minfraud'][] = array(
  */
 
 function efCustomFiltersMinFraudSetup() {
-	global $wgMinFraudStandalone, $wgHooks;
-	if ( !$wgMinFraudStandalone )
+	global $wgDonationInterfaceEnableMinfraud, $wgHooks;
+	if ( !$wgDonationInterfaceEnableMinfraud )
 		$wgHooks['GatewayCustomFilter'][] = array( "Gateway_Extras_CustomFilters_MinFraud::onFilter" );
 }

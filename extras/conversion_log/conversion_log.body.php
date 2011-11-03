@@ -9,7 +9,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 	 */
 	public function post_process() {
 		// if the trxn has been outright rejected, log it
-		if ( $this->gateway_adapter->action == 'reject' ) {
+		if ( $this->gateway_adapter->getValidationAction() == 'reject' ) {
 			$this->log(
 				$this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Rejected'
 			);
@@ -27,6 +27,9 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 	}
 
 	static function onPostProcess( &$gateway_adapter ) {
+		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ){
+			return true;
+		}
 		$gateway_adapter->debugarray[] = 'conversion log onPostProcess hook!';
 		return self::singleton( $gateway_adapter )->post_process();
 	}

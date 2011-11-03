@@ -51,11 +51,11 @@ class PayflowProGateway extends GatewayForm {
 					$result = $this->adapter->do_transaction( 'Card' );
 
 					// if the transaction was flagged for rejection
-					if ( $this->adapter->action == 'reject' ) {
+					if ( $this->adapter->getValidationAction() == 'reject' ) {
 						$this->fnPayflowDisplayDeclinedResults( '' );
 					}
 
-					if ( $this->adapter->action == 'process' ) {
+					if ( $this->adapter->getValidationAction() == 'process' ) {
 						$this->fnPayflowDisplayResults( $result );
 					}
 					$this->displayResultsForDebug( $result );

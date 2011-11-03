@@ -81,7 +81,7 @@ EOT;
 			$this->paypalRedirect();
 			return;
 		}
-
+		
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {			
@@ -118,7 +118,6 @@ EOT;
 					$this->displayResultsForDebug( $result );
 
 					if ( $payment_method == 'cc' ) {
-
 						$this->executeIframeForCreditCard( $result );
 					}
 

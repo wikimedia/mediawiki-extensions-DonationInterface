@@ -24,7 +24,6 @@ $wgExtensionCredits['gateway_extras_minfraud'][] = array(
 
 function efMinFraudSetup() {
 	// if we're in standalone mode, use the GatewayValidate hook
-	global $wgMinFraudStandalone, $wgHooks;
-	if ( $wgMinFraudStandalone )
-		$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_MinFraud::onValidate' );
+	global $wgHooks;
+	$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_MinFraud::onValidate' );
 }

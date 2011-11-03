@@ -92,8 +92,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @todo
 	 * - Does DO_BANKVALIDATION need IPADDRESS? What about the other transactions. Is this the user's IPA?
 	 * - Does DO_BANKVALIDATION need HOSTEDINDICATOR?
-	 * - Does DO_BANKVALIDATION need do_validation?
-	 * - Does DO_BANKVALIDATION need addDonorDataToSession? We should not save bank account information
 	 *
 	 * This method should define:
 	 * - DO_BANKVALIDATION: used prior to INSERT_ORDERWITHPAYMENT for direct debit
@@ -139,10 +137,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			),
 			'values' => array(
 				'ACTION' => 'DO_BANKVALIDATION',
-				'HOSTEDINDICATOR' => '1',
 			),
-			'do_validation' => true,
-			'addDonorDataToSession' => false,
 		);
 
 		$this->transactions['INSERT_ORDERWITHPAYMENT'] = array(
@@ -189,8 +184,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
 			),
-			'do_validation' => true,
-			'addDonorDataToSession' => true,
 		);
 
 		$this->transactions['TEST_CONNECTION'] = array(
@@ -230,8 +223,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'GET_ORDERSTATUS',
 				'VERSION' => '2.0'
 			),
-			'do_processhooks' => true,
-			'pullDonorDataFromSession' => true,
 			'loop_for_status' => array(
 				//'pending',
 				'pending_poke',
@@ -815,6 +806,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( $type === 'request' ) {
 			$this->postdata['returnto'] = $this->postdata['returnto'] . '?' . wfArrayToCGI( array( 'order_id' => $this->postdata['order_id'] ) );
 		}
+	}
+	
+	protected function pre_process_insert_orderwithpayment(){
+		if ( $this->getData( 'payment_method' ) === 'cc' ){
+			$this->runPreProcessHooks(); //this is shortly to move elsewhere.  
+			$this->addDonorDataToSession();
+		}
+	}
+	
+	protected function pre_process_get_orderstatus(){
+		if  ( $this->getData( 'payment_method' ) === 'cc' ){
+			//if they're set, get CVVRESULT && AVSRESULT
+			global $wgRequest;
+			$cvv_result = $wgRequest->getVal( 'CVVRESULT', null );
+			$avs_result = $wgRequest->getVal( 'AVSRESULT', null );
+			if ( !is_null($cvv_result) ){
+				$this->debugarray[] = "CVV result: $cvv_result";
+			}
+			if ( !is_null($avs_result) ){
+				$this->debugarray[] = "AVS result: $avs_result";
+			}
+		}
+	}
+	
+	protected function post_process_get_orderstatus(){
+		$this->runPostProcessHooks();
 	}
 
 }

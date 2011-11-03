@@ -75,19 +75,21 @@ class GlobalCollectGatewayResult extends GatewayForm {
 				$this->displayResultsForDebug( $result );
 				//do the switching between the... stuff. 
 
-				switch ( $this->adapter->getTransactionWMFStatus() ) {
-					case 'complete':
-					case 'pending':
-					case 'pending-poke':
-						$go = $this->adapter->getThankYouPage();
-						break;
-					case 'failed':
-						$go = $this->getDeclinedResultPage();
-						break;
-				}
+				if ( $this->adapter->getTransactionWMFStatus() ){
+					switch ( $this->adapter->getTransactionWMFStatus() ) {
+						case 'complete':
+						case 'pending':
+						case 'pending-poke':
+							$go = $this->adapter->getThankYouPage();
+							break;
+						case 'failed':
+							$go = $this->getDeclinedResultPage();
+							break;
+					}
 
-				$wgOut->addHTML( "<br>Redirecting to page $go" );
-				$wgOut->redirect( $go );
+					$wgOut->addHTML( "<br>Redirecting to page $go" );
+					$wgOut->redirect( $go );
+				}
 			}
 		} else {
 			if ( !$this->adapter->isCache() ) {
