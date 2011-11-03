@@ -243,11 +243,12 @@ function validateElementCity( options ) {
  */
 function validateElementState( options ) {
 
-	if ( !$("#state").length ) {
-		return;
-	}
-    
 	$().ready(function() {
+
+		// Do not try to validate state if the field does not exist.
+		if ( !$("#state").length ) {
+			return;
+		}
 
         $("#state").rules("add", 
             {
