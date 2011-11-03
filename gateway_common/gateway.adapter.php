@@ -701,7 +701,7 @@ abstract class GatewayAdapter implements GatewayType {
 				//are frequently packaged togther in the same place, whether the transaction passed or failed. 
 				$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
 
-				//if we're still okay (hey, even if we're not), get relevent dataz.
+				//if we're still okay (hey, even if we're not), get relevent data.
 				$pulled_data = $this->getResponseData( $formatted );
 				$this->setTransactionResult( $pulled_data, 'data' );
 
@@ -1479,6 +1479,38 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getTransactionData() {
 		if ( array_key_exists( 'data', $this->transaction_results ) ) {
 			return $this->transaction_results['data'];
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns false if FORMACTION does not exist or string if it does exist
+	 *
+	 * @return false|string  
+	 */
+	public function getTransactionDataFormAction() {
+		
+		$data = $this->getTransactionData();
+		
+		if ( is_array( $data ) && array_key_exists( 'FORMACTION', $data ) ) {
+			return $data['FORMACTION'];
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns false if language does not exist or string if it does exist
+	 *
+	 * @return false|string  
+	 */
+	public function getTransactionDataLanguage() {
+		
+		$data = $this->getTransactionData();
+		
+		if ( is_array( $data ) && array_key_exists( 'language', $data ) ) {
+			return $data['language'];
 		} else {
 			return false;
 		}
