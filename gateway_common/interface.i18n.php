@@ -194,7 +194,7 @@ Typically the signature panel will have a series of numbers, but only the last t
 <p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
 	'donate_interface-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-        'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.'
+        'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.',
 	'donate_interface-donate-click' => 'Your credit card will be securely processed.',
 	'donate_interface-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
 	'donate_interface-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
@@ -354,7 +354,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
         // Various form interface elements
 	'donate_interface-faqs' => 'Frequently asked questions',
 	'donate_interface-tax-info' => 'Tax deductibility information',
-	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.'
+	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
         'donate_interface-currency-change' => 'Change?',
         'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of  Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.',
 
