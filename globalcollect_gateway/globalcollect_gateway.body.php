@@ -125,7 +125,7 @@ EOT;
 			} else {
 				// Display form
 				
-				// Not sure what this is for.
+				// See GlobalCollectAdapter::stage_returnto()
 				$oid = $wgRequest->getText( 'order_id' );
 				if ( $oid ) {
 					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );

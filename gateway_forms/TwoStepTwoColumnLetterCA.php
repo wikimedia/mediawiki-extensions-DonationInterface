@@ -183,7 +183,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
-			$state_opts .= Xml::option( $state_name, $value, $selected );
+			$state_opts .= Xml::option( wfMsg( 'donate_interface-province-dropdown-' . $value ), $value, $selected );
 		}
 
 		$state_menu = Xml::openElement(
