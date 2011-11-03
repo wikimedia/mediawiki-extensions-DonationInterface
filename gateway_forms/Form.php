@@ -416,27 +416,36 @@ abstract class Gateway_Form {
 		$displayCurrencyDropdown = isset( $displayCurrencyDropdown ) ? (boolean) $displayCurrencyDropdown : true;
 		$setCurrency = isset( $setCurrency ) ? (string) $setCurrency : '';
 		$displayCurrencyDropdown = empty( $setCurrency ) ? $displayCurrencyDropdown : false;
+
+		$amount = isset( $this->form_data['amount'] ) ? (string) $this->form_data['amount'] : '0';
+
+		// Treat values as string for comparison
+		$amountValues = array('5', '10', '20', '35', '50', '100', '250',);
 		
+		$isOther = in_array( $amount, $amountValues) ? false : true;
+		$amountOther = $isOther ? $amount : '';
+		
+		$checked = 'checked="checked" ';
 		// The text to return
 		$return  = '';
 		
 		$return .= '<table id="amount-radio">';
 		$return .= '	<tr>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="5" /> 5</label></td>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="10" /> 10</label></td>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="20" /> 20</label></td>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="35" /> 35</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="5" ' . ( $amount == '5' ? $checked : '' ) . '/> 5</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="10" ' . ( $amount == '10' ? $checked : '' ) . '/> 10</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="20" ' . ( $amount == '20' ? $checked : '' ) . '/> 20</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="35" ' . ( $amount == '35' ? $checked : '' ) . '/> 35</label></td>';
 		$return .= '	</tr>';
 		$return .= '	<tr>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="50" /> 50</label></td>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="100" /> 100</label></td>';
-		$return .= '		<td><label><input type="radio" name="amountRadio" value="250" /> 250</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="50" ' . ( $amount == '50' ? $checked : '' ) . '/> 50</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="100" ' . ( $amount == '100' ? $checked : '' ) . '/> 100</label></td>';
+		$return .= '		<td><label><input type="radio" name="amountRadio" value="250" ' . ( $amount == '250' ? $checked : '' ) . '/> 250</label></td>';
 		$return .= '		<td>';
-		$return .= '			<input type="radio" name="amountRadio" id="input_amount_other" value="other" />';
-		$return .= '			<label><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus=""/></label>';
+		$return .= '			<input type="radio" name="amountRadio" id="input_amount_other" value="other" ' . ( $isOther ? $checked : '' ) . ' />';
+		$return .= '			<label><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="" value="' . $amountOther . '" /></label>';
 		
 		// Add hidden amount field for validation
-		$return .= Html::hidden( 'amount', 0 );
+		$return .= Html::hidden( 'amount', $amount );
 		
 		// Set currency
 		if ( !empty( $setCurrency ) ) {
