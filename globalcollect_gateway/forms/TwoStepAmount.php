@@ -102,44 +102,73 @@ HTML;
 	}
 	
 	/**
+	 * Get the form messages by type.
+	 *
+	 * Since this displays to the end user, if a key does not exist, it fails
+	 * silently and returns an empty string.
+	 *
+	 * @param	string	$type
+	 * @param	array	$options
+	 *
+	 * @todo
+	 * - Move to the parent class
+	 * - This returns error messages by paragraph tags, but it may be better to do this as a list.
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getFormMessagesByType( $type, $options = array() ) {
+
+		if ( isset( $options['type'] ) ) {
+			unset( $options['type'] );
+		}
+		
+		extract( $options );
+		
+		$defaultErrorClass = 'payment_error_message payment_error_message_' . strtolower( $type );
+		
+		$errorClass = isset( $errorClass ) ? $errorClass : $defaultErrorClass;
+		
+		$return = '';
+		
+		if ( isset( $this->form_errors[ $type ] ) ) {
+			
+			if ( is_array( $this->form_errors[ $type ] ) ) {
+				
+				// Loop through messages and display them as paragraphs
+				foreach ( $this->form_errors[ $type ] as $message ) {
+					$return .= Xml::tags( 'p', array( 'class' => $errorClass ), $message );
+				}
+			} else {
+				
+				// Display single message
+				$return .= Xml::tags( 'p', array( 'class' => $errorClass ), $message );
+			}
+		}
+		
+		return $return;
+	}
+	
+	/**
 	 * Get the form messages
 	 *
 	 * @param	array	$options
 	 *
-	 * @todo
-	 * - Does retryMsg need to be displayed?
-	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getFormMessages( $options = array() ) {
+	protected function getFormMessages( $options = array() ) {
 
 		$return = '';
 		
 		// We want this container to exist so it can be populated with javascript messages.
 		$return .= Xml::openElement( 'div', array( 'id' => 'payment_form_messages' ) );
 		
-		// If errors are present, allow them to be displayed.
-		if ( $this->form_errors['general'] ) {
-			
-			if ( is_array( $this->form_errors['general'] ) ) {
-				
-				// Loop through messages and display them as paragraphs
-				foreach ( $this->form_errors['general'] as $this->form_errors_msg ) {
-					$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors_msg );
-				}
-			} else {
-				
-				// Display single message
-				$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors_msg );
-			}
-		}
+		$return .= $this->getFormMessagesByType('general');
 		
-		if ( $this->form_errors['invalidamount'] ) {
-			$return .= Xml::tags( 'p', array( 'class' => 'creditcard-error-message' ), $this->form_errors['invalidamount'] );
-		}
+		$return .= $this->getFormMessagesByType('invalidamount');
+		
+		$return .= $this->getFormMessagesByType('retryMsg');
 		
 		$return .= Xml::closeElement( 'div' ); // payment_form_messages
-		//$return .= "<p class='creditcard-error-msg'>" . $this->form_errors['retryMsg'] . "</p>";
 		
 		return $return;
 	}
@@ -152,7 +181,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getFormSectionHeaderTag( $section, $options = array() ) {
+	protected function getFormSectionHeaderTag( $section, $options = array() ) {
 		
 		// Make sure $section does not get overridden.
 		if ( isset( $options['section'] ) ) {
@@ -230,7 +259,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function setAppeal( $appeal, $options = array() ) {
+	protected function setAppeal( $appeal, $options = array() ) {
 		
 		$this->appeal = $appeal;
 	}
@@ -242,7 +271,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getAppeal( $options = array() ) {
+	protected function getAppeal( $options = array() ) {
 
 		$return = '';
 
@@ -260,13 +289,31 @@ HTML;
 	}
 	
 	/**
+	 * Generate the bank transfer component
+	 *
+	 * Nothing is being added right now.
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getBankTransfer( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+		
+		return $return;
+	}
+	
+	/**
 	 * Generate the direct debit component
 	 *
 	 * @param	array	$options
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getDirectDebit( $options = array() ) {
+	protected function getDirectDebit( $options = array() ) {
 		
 		extract( $options );
 
@@ -473,6 +520,56 @@ HTML;
 		return $return;
 	}
 	
+	/**
+	 * Generate the bank transfer component
+	 *
+	 * Nothing is being added right now.
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getRealTimeBankTransfer( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+		
+		$payment_submethod = $this->gateway->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
+		if ( !isset( $payment_submethod['issuerids'] )  || empty( $payment_submethod['issuerids'] ) ) {
+			
+			// No issuer_id to load
+			return $return;
+		}
+
+		$selectOptions = '';
+
+		// generate dropdown of issuer_ids
+		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
+			$selected = ( $this->form_data['issuer_id'] == $issuer_id ) ? true : false;
+			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
+			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
+		}
+		$return .= '<tr>';
+		$return .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-rtbt-issuer_id' ), 'issuer_id' ) . '</td>';
+
+		$return .= '<td>';
+		$return .= Xml::openElement(
+			'select',
+			array(
+				'name' => 'issuer_id',
+				'id' => 'issuer_id',
+				'onchange' => '',
+			) );
+		$return .= $selectOptions;
+		$return .= Xml::closeElement( 'select' );
+
+		$return .= '</td>';
+		$return .= '</tr>';
+		
+		return $return;
+	}
+	
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Form sections
@@ -608,6 +705,10 @@ HTML;
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
 		$return .= $this->getDirectDebit();
+
+		$return .= $this->getBankTransfer();
+
+		$return .= $this->getRealTimeBankTransfer();
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 		
