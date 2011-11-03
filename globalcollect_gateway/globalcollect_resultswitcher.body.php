@@ -111,19 +111,26 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			// general decline message
 			$declinedDefault = wfMsg( 'php-response-declined' );
 			
-			$data = $this->adapter->getData();
-			$referrer = $data['referrer'];
-			unset( $data['referrer'] );
-			$data['amount'] = $data['amount']/100;
-			$data['error'] = $declinedDefault;
-			$params = wfArrayToCGI( $data );
+			$displayData = $this->adapter->getDisplayData();
+			$referrer = $displayData['referrer'];
 			
-			// Make sure the referrer has a query string
-			if ( strpos( $referrer, '?' ) === false ) {
-				$returnto = htmlspecialchars_decode( $referrer ) . '?' . $params;
-			} else {
-				$returnto = htmlspecialchars_decode( $referrer ) . '&' . $params;
-			}
+			$queryArray = array (
+				'fname' => $displayData['fname'],
+				'lname' => $displayData['lname'],
+				'street' => $displayData['street'],
+				'city' => $displayData['city'],
+				'state' => $displayData['state'],
+				'zip' => $displayData['zip'],
+				'country' => $displayData['country'],
+				'utm_source' => $displayData['utm_source'],
+				'utm_medium' => $displayData['utm_medium'],
+				'utm_campaign' => $displayData['utm_campaign'],
+				'numAttempt' => $displayData['numAttempt'],
+				'error' => $declinedDefault,
+			);
+			
+			// TODO: figure out something better so we aren't expanding the URL after every attempt.
+			$returnto = wfAppendQuery( htmlspecialchars_decode( $referrer ), $queryArray );
 			
 			// Return the referrer URL with the data included in the query string
 			return $returnto;
