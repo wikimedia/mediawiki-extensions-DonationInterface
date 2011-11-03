@@ -119,6 +119,7 @@ No processors are available.',
 	'donate_interface-XCD' => 'East Caribbean dollar',
 	'donate_interface-XOF' => 'West African CFA franc',
 	'donate_interface-ZAR' => 'South African rand',
+	'donate_interface-currency-display' => '$1 ($2)',
 	
 	// Migrated messages
 	'donate_interface-accessible' => 'This page is only accessible from the donation page.',
@@ -491,6 +492,7 @@ $messages['qqq'] = array(
 	'donate_interface-XCD' => 'Used in drop-down field for currency.',
 	'donate_interface-XOF' => 'Used in drop-down field for currency.',
 	'donate_interface-ZAR' => 'Used in drop-down field for currency.',
+	'donate_interface-currency-display' => '$1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-accessible' => 'Error message if you try to go to "Special:PayFlowProGateway" from anywhere else than the donation form.',
 	'donate_interface-paypal-button' => 'Button to choose to donate via PayPal.',
 	'donate_interface-cc-button' => 'Button to choose to donate by credit card.',
