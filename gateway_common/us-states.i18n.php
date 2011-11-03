@@ -1,6 +1,6 @@
 <?php
 /**
- * Internationalization file for the Donation Interface - PayflowPro - extension
+ * Internationalization file for the Donation Interface extension - US state names and codes
  *
  * @file
  * @ingroup Extensions
@@ -10,7 +10,7 @@ $messages = array();
 
 /** English */
 $messages['en'] = array(
-	// Below two messages are in donate_interface.i18n.php.
+	// Below two messages are in interface.i18n.php.
 	//'donate_interface-state-dropdown-YY' => 'Select a State',
 	//'donate_interface-state-dropdown-XX' => 'Outside the U.S.',
 	'donate_interface-state-dropdown-AK' => 'Alaska',

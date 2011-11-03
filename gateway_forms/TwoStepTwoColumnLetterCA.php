@@ -148,7 +148,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-country' ), 'country' ) . '</td>';
-		$form .= '<td>' . $this->generateCountryDropdown( 124 ) . '</td>'; // Canada default
+		$form .= '<td>' . $this->generateCountryDropdown( 'CA' ) . '</td>'; // Canada default
 	    $form .= '</tr>';
 
 		return $form;
@@ -174,7 +174,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 	}
 	
 	public function generateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/../includes/provinceAbbreviations.inc' );
+		require_once( dirname( __FILE__ ) . '/includes/provinceAbbreviations.inc' );
 
 		$states = statesMenuXML();
 
