@@ -1,0 +1,90 @@
+#errorMessages {
+    font-size: 0.75em;
+    color: #FF0000;
+}
+/* Force vertical scrollbar
+   html { overflow-y: scroll; }
+   */
+/* Accordion */
+#accordion h3 {
+    background: #FFFFFF;
+    border: none;
+    font-size: 1.1em;
+    margin: 0;
+    padding: 0.5em 0.9em;
+    outline: 0;
+}
+.accordion-content {
+    padding: 0.9em;
+}
+#step2accordion {
+    display: none;
+}
+
+/* Layout */
+table#layouttable tr td {
+    vertical-align: top;
+}
+
+#appeal {
+    /*width: 100%;*/
+    padding-right: 25px;
+}
+#appeal-content {
+    /*padding-right: 380px;*/
+}
+.clear {
+    clear: both;
+}
+#donate {
+    /*float: left;*/
+    /*margin-left: -350px;*/
+    width: 350px;
+}
+#donate-content {
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 1em 0;
+    font-size: 0.95em;
+    /* Maybe */
+    width: 348px;
+}
+#amount-table-white label {
+    font-size: 1.1em;
+}
+
+#donate-body h3 {
+    font-size: 17px;
+}
+
+#step1wrapper, #step2wrapper, #step3wrapper {
+    width: 325px;
+}
+/* Initially hide steps 2 and 3 */
+#step2wrapper, #step2header, #step3wrapper, #step3header {
+    display: none;
+}
+#where-content {
+    font-size: 13px;
+    line-height: 19px;
+    width: 325px;
+}
+
+#amtErrorMessages, #billingErrorMessages, #paymentErrorMessages {
+    color: #F00;
+}
+.txt{
+    margin: 0 !important;
+}
+#billingContent span {
+    margin: 0 !important;
+}
+p#informationsharing {
+    padding: 0 15px;
+    line-height: 14px;
+    font-size: 11px;
+}
+ul#moreinfolinks li{
+    list-style: none !important;
+    list-style-image: none !important;
+}

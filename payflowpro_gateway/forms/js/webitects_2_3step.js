@@ -56,8 +56,6 @@ $( document ).ready( function () {
 		}
 		showAmount( $( 'input[name="amount"]' ) ); // lets go ahead and assume there is something to show
 	}
-	// Init inline labels
-	$( ".hint" ).ezpz_hint();
 
 	$( "#cc" ).click( function() {
 		if ( validateAmount() ) {
