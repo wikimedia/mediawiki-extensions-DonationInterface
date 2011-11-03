@@ -74,9 +74,6 @@ EOT;
 		/**
 		 *  handle PayPal redirection
 		 *
-		 * @todo
-		 * - Redirect to the bank needs some error checking on the url. Verify that it is https...
-		 *
 		 *  if paypal redirection is enabled ($wgPayflowProGatewayPaypalURL must be defined)
 		 *  and the PaypalRedirect form value must be true
 		 */
@@ -116,47 +113,15 @@ EOT;
 					// allow any external validators to have their way with the data
 					// Execute the proper transaction code:
 
-
-					if ( $payment_method == 'cc' ) {
-
-						$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-						$this->executeIframeForCreditCard( $result );
-					}
-					elseif ( $payment_method == 'rtbt' ) {
-
-						$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						$formAction = ( isset( $result['data'] ) && isset($result['data']['FORMACTION']) ) ? $result['data']['FORMACTION'] : '';
-						
-						// Redirect to the bank
-						if ( !empty( $formAction ) ) {
-							return $wgOut->redirect( $formAction );
-						}
-
-					}
-					elseif ( $payment_method == 'dd' ) {
-
-						$result = $this->adapter->do_transaction( 'DO_BANKVALIDATION' );
-
-						if ( isset( $result['status'] ) && $result['status'] ) {
-
-							$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-						}
-						
-					}
-					else {
-						$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-					}
+					$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 			
 					$this->displayResultsForDebug( $result );
 
-					if ( isset( $result['status'] ) && $result['status'] ) {
-						$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
-				
-						if ( $thankyoupage ) {
-							$wgOut->redirect( $thankyoupage . "/" . $data['language'] );
-						}
+					if ( $payment_method == 'cc' ) {
+
+						$this->executeIframeForCreditCard( $result );
 					}
+
 				}
 			} else {
 				// Display form for the first time
