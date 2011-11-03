@@ -5,7 +5,8 @@
  * This file is included in DonationInterface/payflowpro_gateway.php
  */
 
-$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
+$wgDonationInterfaceRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
+$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/rapidhtml';
 $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 
 /**
@@ -46,64 +47,53 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
 /**
  * webitects
  */
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
+$wgResourceModules[ 'di.form.rapidhtml.webitects' ] = array(
 	'styles' => array(
 		'css/lp1.css',
-		'css/Webitects.css',
+		'css/webitects.css',
 	),
-	'scripts' => array(
-	),
-	'dependencies' => array(
-		'jquery.ui.accordion',
-		'pfp.form.core.validate'
-	),
+	'scripts' => '',
+	'dependencies' => 'jquery.ui.accordion',
 	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );
-$wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step' ] = array(
-	'styles' => array(
-		'css/webitects_2_3step.css',
-	),
-	'scripts' => array(
-		'js/webitects_2_3step.js',
-	),
-	'dependencies' => array(
-		'pfp.form.rapidhtml.webitects'
-	),
+$wgResourceModules[ 'di.form.rapidhtml.webitects.ie6' ] = array(
+	'styles' => 'css/webitects.ie6.css',
+	'scripts' => '',
+	'dependencies' => 'di.form.rapidhtml.webitects',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
+);
+
+// GlobalCollect
+$wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
+	'styles' => '', //'css/webitects_2_3step.css',
+	'scripts' => 'js/webitects_2_3step.js',
+	'dependencies' => 'di.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
-$wgResourceModules[ 'gc.form.rapidhtml.webitects_2_3step.ie6' ] = array(
-	'styles' => array(
-		'css/webitects_2_3step.ie6.css',
-	),
-	'dependencies' => array(
-		'gc.form.rapidhtml.webitects_2_3step'
-	),
+$wgResourceModules[ 'gc.form.rapidhtml.webitects.ie6' ] = array(
+	'styles' => 'css/webitects_2_3step.ie6.css',
+	'dependencies' => 'gc.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2_3step' ] = array(
-	'styles' => array(
-		'css/webitects_2_3step.css',
-	),
-	'scripts' => array(
-		'js/webitects_2_3step.js',
-	),
+// PayflowPro
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects_2_3step.js',
 	'dependencies' => array(
-		'pfp.form.rapidhtml.webitects'
+		'di.form.rapidhtml.webitects',
+		'pfp.form.core.validate'
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2_3step.ie6' ] = array(
-	'styles' => array(
-		'css/webitects_2_3step.ie6.css',
-	),
-	'dependencies' => array(
-		'pfp.form.rapidhtml.webitects_2_3step'
-	),
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects.ie6' ] = array(
+	'styles' => '', //css/webitects_2_3step.ie6.css',
+	'dependencies' => 'pfp.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );

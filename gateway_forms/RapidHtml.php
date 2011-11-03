@@ -208,7 +208,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function add_messages( $html ) {
-		global $wgRequest, $wgOut, $wgScriptPath;
+		global $wgRequest, $wgOut, $wgScriptPath, $wgDonationInterfaceMessageLinks;
 		if( $wgRequest->getText( 'debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
@@ -217,16 +217,35 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		# replace interface messages
 		# doing this before transclusion so that tokens can be passed as params (e.g. @language)
 		$matches = array();
-		preg_match_all( "/%([a-zA-Z0-9_-]+)%/", $html, $matches );
-		foreach( $matches[1] as $msg_key ){
-			$html = str_replace( '%' . $msg_key . '%', wfMsg( $msg_key ), $html );
+		preg_match_all( "/%([a-zA-Z0-9_-]+)(|(?:(?!%).)*)%/", $html, $matches );
+
+		foreach( $matches[ 1 ] as $i => $msg_key ){
+			if(isset($matches[ 2 ][ $i ]) && $matches[ 2 ][ $i ] != ''){
+				$params = explode( '|', trim( $matches[ 2 ][ $i ], '|' ) );
+
+				// replace link URLs with the global variable setting and pass language and country
+				foreach( $params as $k => $p ){
+					if( $p == "url" && isset( $wgDonationInterfaceMessageLinks[ $msg_key ] ) ){
+						$params[ $k ] =  $wgDonationInterfaceMessageLinks[ $msg_key ];
+						if( strpos( $params[ $k ], '?' ) >= 0 ){
+							$params[ $k ] .= '&';
+						} else {
+							$params[ $k ] .= '?';
+						}
+						$params[ $k ] .= "language=" . $this->form_data['language']. "&country=" . $this->form_data['country'];
+					}
+				}
+				$html = str_replace( $matches[ 0 ][ $i ], wfMsg( $msg_key, $params ), $html );
+			} else {
+				$html = str_replace( '%' . $msg_key . '%', wfMsg( $msg_key ), $html );
+			}
 		}
 
 		# do any requested tranclusion of templates
 		$matches = array();
 		preg_match_all( "/{{((?:(?!}).)+)}}/", $html, $matches );
-		$i = 1;
-		foreach( $matches[0] as $template ){
+		
+		foreach( $matches[ 0 ] as $template ){
 			# parse the template and replace in the html
 			$html = str_replace( $template, $wgOut->parse( $template ), $html );
 		}

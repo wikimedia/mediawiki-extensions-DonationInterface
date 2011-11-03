@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	mw.loader.load('gc.form.rapidhtml.webitects_2_3step');
+	mw.loader.load('gc.form.rapidhtml.webitects');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
 	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
@@ -9,7 +9,7 @@
 </script>
 <!--[if lt IE 7]>
 <script type="text/javascript">
-	mw.loader.load('gc.form.rapidhtml.webitects_2_3step.ie6');
+	mw.loader.load('gc.form.rapidhtml.webitects.ie6');
 </script>
 <style type="text/css">
 	body{
@@ -135,11 +135,11 @@
 							</div>
 						</div>
 					</div>
-					<p id="informationsharing">%donate_interface-informationsharing%</p>
+					<p id="informationsharing">%donate_interface-informationsharing|url%</p>
 					<!-- TODO: links inside the message or not? -->
 					<ul id="moreinfolinks">
 						<li><a href="http://wikimediafoundation.org/wiki/Monthly_donations/en/US">%donate_interface-monthly-donation%</a></li><!-- TODO: localize the link -->
-						<li>%donate_interface-otherways-short%</li><!-- TODO: localize the link -->
+						<li>%donate_interface-otherways-short|url%</li><!-- TODO: localize the link -->
 						<li><a href="http://wikimediafoundation.org/wiki/FAQ/en">%donate_interface-faqs%</a></li><!-- TODO: localize the link -->
 						<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
 					</ul>
