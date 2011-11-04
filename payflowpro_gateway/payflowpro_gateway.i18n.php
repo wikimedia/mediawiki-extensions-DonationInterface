@@ -1692,28 +1692,28 @@ Skúste to prosím opäť neskôr.',
 );
 
 /** Slovenian (Slovenščina)
+ * @author Artelind
  * @author Dbc334
  */
 $messages['sl'] = array(
 	'payflowprogateway' => 'Oddajte svoj prispevek zdaj',
-	'globalcollectgateway' => 'Oddajte svoj prispevek zdaj',
-	'payflowpro_gateway-desc' => 'Obdelava kreditnih kartic PayPal Payflow Pro',
+	'payflowpro_gateway-desc' => 'Obdelava kreditnih kartic preko PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Vaša transakcija je bila odobrena.
-Zahvaljujemo se vam za vaš prispevek!',
+Zahvaljujemo se Vam za vaš prispevek!',
 	'payflowpro_gateway-response-126' => 'Vaša transakcija čaka na odobritev.',
-	'payflowpro_gateway-response-126-2' => 'Nekatere navedene iformacije ne ustrezajo profilu vaše kreditne kartice ali pa ste podarili zelo veliko darilo. Zavoljo vaše varnosti je vaša donacija trenutno v pregledu in preko navedenega e-poštnega naslova vas bomo obvestili, če nismo mogli zaključiti vaše donacije. Prosimo, pošljite e-pošto na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, če imate kakršna koli vprašanja. Hvala!',
-	'payflowpro_gateway-response-12' => 'Za dodatne informacije se, prosimo, obrnite na izdajatelja vaše kreditne kartice.',
+	'payflowpro_gateway-response-126-2' => 'Nekatere navedene informacije ne ustrezajo profilu Vaše kreditne kartice, ali pa ste naredili zelo visoko donacijo. Zaradi Vaše varnosti je Vaša donacija trenutno v pregledu, in preko navedenega e-poštnega naslova Vas bomo obvestili, če Vaše donacije ni bilo mogoče zaključiti. Če imate kakršnokoli vprašanje, nas lahko kontaktirate preko e-poštnega naslova <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Hvala!',
+	'payflowpro_gateway-response-12' => 'Za dodatne informacije se prosimo obrnite na izdajatelja vaše kreditne kartice.',
 	'payflowpro_gateway-response-13' => 'Vaša transakcija potrebuje glasovno odobritev.
-Za nadaljevanje vaše transakcije, prosimo, stopite v stik z nami.',
-	'payflowpro_gateway-response-114' => 'Za dodatne informacije se, prosimo, obrnite na izdajatelja vaše kreditne kartice.',
-	'payflowpro_gateway-response-23' => 'Številka vaše kreditne kartice ali datum veljavnosti je napačen.',
+Prosimo kontaktirajte nas za nadaljevanje Vaše transakcije.',
+	'payflowpro_gateway-response-114' => 'Prosimo Vas, da se za dodatne informacije obrnete na izdajatelja Vaše kreditne kartice.',
+	'payflowpro_gateway-response-23' => 'Številka vaše kreditne kartice ali datum njene veljavnosti je napačen.',
 	'payflowpro_gateway-response-4' => 'Neveljaven znesek.',
-	'payflowpro_gateway-response-24' => 'Številka vaše kreditne kartice ali datum veljavnosti je napačen.',
+	'payflowpro_gateway-response-24' => 'Številka vaše kreditne kartice ali datum njene veljavnosti je napačen.',
 	'payflowpro_gateway-response-112' => 'Vaš naslov ali številka CVV (varnostna koda) je napačna.',
 	'payflowpro_gateway-response-125' => 'Vašo transakcijo je zavrnila Storitev preprečitve goljufij (Fraud Prevention Services).',
-	'payflowpro_gateway-response-125-2' => 'Vaša kreditna kartica ni bila potrjena. Prosimo, preverite, ali vse informacije ustrezajo profilu vaše kreditne kartice, ali pa poskusite z drugo kartico. Uporabite lahko tudi enega od <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugih načinov darovanja</a> ali nam pišite na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Zahvaljujemo se vam za vašo podporo.',
-	'payflowpro_gateway-response-default' => 'Prišlo je do napake pri obdelavi transakcije. 
-Prosimo, poskusite znova pozneje.',
+	'payflowpro_gateway-response-125-2' => 'Vaša kreditna kartica ni bila potrjena. Prosimo, preverite, če vse informacije ustrezajo profilu vaše kreditne kartice, ali pa poskusite z drugo kartico. Uporabite lahko tudi enega od <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugih načinov prispevanja</a>, ali pa nam pišite na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Zahvaljujemo se Vam za vašo podporo.',
+	'payflowpro_gateway-response-default' => 'Pri obdelavi transakcije je prišlo do napake 
+Prosimo, poskusite znova kasneje.',
 );
 
 /** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
