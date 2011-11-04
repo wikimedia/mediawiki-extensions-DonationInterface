@@ -69,8 +69,8 @@ h3 span { font-weight: normal; }
 /* Location */
 .loc-fields span { float: left; margin-bottom: 5px; }
 .loc-fields .loc-city { margin-right: 1%; width: 51%; }
-.loc-fields .loc-postal { width: 18%; }
-.loc-fields .loc-state { margin-right: 4%; width: 22%; }
+.loc-fields .loc-postal { width: 22%; }
+.loc-fields .loc-state { margin-right: 0%; width: 22%; }
 .loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
 
 /* Name */
