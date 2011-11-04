@@ -110,7 +110,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 300 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 310, 350 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'revised', 400 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending_poke', 525 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending-poke', 525 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 550, 650 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 1000, 1050 );
@@ -130,7 +130,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Allowed:
 	 * - complete
 	 * - pending
-	 * - pending_poke
+	 * - pending-poke
 	 * - revised
 	 *
 	 * Denied:
@@ -143,7 +143,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->goToThankYouOn = array(
 			'complete',
 			'pending',
-			'pending_poke',
+			'pending-poke',
 			'revised',
 		);
 	}
@@ -289,7 +289,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			),
 			'loop_for_status' => array(
 				//'pending',
-				'pending_poke',
+				'pending-poke',
 				'complete',
 				'failed',
 				'revised',

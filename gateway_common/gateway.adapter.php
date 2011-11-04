@@ -1276,15 +1276,26 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param string $transaction The transaction these codes map to.
 	 * @param string $key The (incoming) field name containing the numeric codes 
 	 * we're defining here. 
-	 * @param string $action Should be limited to the values 'complete', 
-	 * 'pending', 'pending-poke', 'failed' and 'revised'... but for now you're 
-	 * on the honor system, kids. TODO: Limit these values in this function, 
-	 * once we are slightly more certain we don't need more values.   
+	 * @param string $action Limited to the values 'complete', 'pending', 
+	 * 'pending-poke', 'failed' and 'revised'. 
 	 * @param int $lower The integer value of the lower-bound in this code range. 
 	 * @param int $upper Optional: The integer value of the upper-bound in the 
 	 * code range. If omitted, it will make a range of one value: The lower bound.
 	 */
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
+		//our choices here are: 
+		//TODO: Move this somewhere both this function and 
+		//setTransactionWMFStatus can get to it. 
+		$statuses = array(
+			'complete', 
+			'pending', 
+			'pending-poke', 
+			'failed', 
+			'revised'
+		);
+		if ( !in_array( $action, $statuses ) ) {
+			throw new MWException( "Transaction WMF Status $action is invalid." );
+		}
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
 		} else {
@@ -1573,11 +1584,23 @@ abstract class GatewayAdapter implements GatewayType {
 	 * process to completion: This status being set at all, denotes the very end 
 	 * of the donation process on our end. Further attempts by the same user 
 	 * will be seen as starting over. 
-	 * @param string $status Only five strings will do anything good in the rest 
-	 * of the code so far: 
-	 * 'complete', 'pending', 'pending-poke', 'failed', 'revised'
+	 * @param string $status The final status of one discrete donation attempt, 
+	 * can be one of five values: 'complete', 'pending', 'pending-poke', 
+	 * 'failed', 'revised'
 	 */
 	public function setTransactionWMFStatus( $status ) {
+		//our choices here are: 
+		$statuses = array(
+			'complete', 
+			'pending', 
+			'pending-poke', 
+			'failed', 
+			'revised'
+		);
+		if ( !in_array( $status, $statuses ) ) {
+			throw new MWException( "Transaction WMF Status $status is invalid." );
+		}
+		
 		$this->transaction_results['WMF_STATUS'] = $status;
 	}
 
