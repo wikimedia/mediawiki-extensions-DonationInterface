@@ -987,6 +987,16 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Get the payment method
+	 *
+	 * @return	string
+	 */
+	public function getPaymentMethod() {
+
+		return $this->getData_Raw('payment_method');
+	}
+
+	/**
 	 * Define payment methods
 	 *
 	 * Payment methods include:
@@ -1009,6 +1019,16 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		return $this->payment_methods;
+	}
+
+	/**
+	 * Get the payment submethod
+	 *
+	 * @return	string
+	 */
+	public function getPaymentSubmethod() {
+
+		return $this->getData_Raw('payment_submethod');
 	}
 
 	/**
