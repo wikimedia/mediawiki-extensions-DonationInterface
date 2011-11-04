@@ -516,36 +516,55 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * Handle the result from the gateway
 	 *
+	 * If there are errors, then this will return to the form.
+	 *
 	 * @todo
 	 * - This is being implemented in GlobalCollect
 	 * - Do we need to implement this for PayFlow Pro? Not yet!
+	 * - Do we only want to skip the Thank you page on getTransactionWMFStatus() => failed?
+	 *
+	 * @return null
 	 */
 	protected function resultHandler() {
+		
 		global $wgOut;
 
-		// If transaction was successful, go to the thank you page.
-		if ( $this->adapter->getTransactionStatus() ) {
+		// If transaction is anything, except failed, go to the thank you page.
+		
+		if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+
 			$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
 	
 			if ( $thankyoupage ) {
-				return $wgOut->redirect( $thankyoupage . "/" . $this->adapter->getTransactionDataLanguage() );
+				return $wgOut->redirect( $thankyoupage . '/' . $this->adapter->getTransactionDataLanguage() );
 			}
 		}
 		
 		// If we did not go to the Thank you page, there must be an error.
 		return $this->resultHandlerError();
-
 	}
 
 	/**
 	 * Handle the error result from the gateway
 	 *
-	 * Override this method in the payment gateway body class.
+	 * @todo
+	 * - logging may need be added to this method
+	 *
+	 * @return null
 	 */
 	protected function resultHandlerError() {
 
 		// Display debugging results
 		$this->displayResultsForDebug();
+
+		$this->errors['general'] = ( !isset( $this->errors['general'] ) || empty( $this->errors['general'] ) ) ? array() : (array) $this->errors['general'];
+
+		foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
+			
+			$this->errors['general'][ $code ] = $message;
+		}
+		
+		return $this->displayForm( $this->errors );
 	}
 
 }
