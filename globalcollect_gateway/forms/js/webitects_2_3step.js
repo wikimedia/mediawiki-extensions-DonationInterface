@@ -102,9 +102,6 @@ $( document ).ready( function () {
 	} );
 
 	$( "#submitcreditcard" ).click( function() {
-		// set country to US TODO: make this dynamic
-		$( 'input[name="country"]' ).val( "US" );
-
 		if ( validate_cc() ) {
 			// set the hidden expiration date input from the two selects
 			$( 'input[name="expiration"]' ).val(
