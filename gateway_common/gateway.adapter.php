@@ -111,6 +111,13 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var	array	$error_map
 	 */
 	protected $error_map = array();
+	
+	/**
+	 * @see GatewayAdapter::defineGoToThankYouOn()
+	 *
+	 * @var	array	$goToThankYouOn
+	 */
+	protected $goToThankYouOn = array();
 
 	/**
 	 * $var_map maps gateway variables to client variables
@@ -160,6 +167,15 @@ abstract class GatewayAdapter implements GatewayType {
 	const IDENTIFIER = 'donation';
 	const COMMUNICATION_TYPE = 'xml'; //this needs to be either 'xml' or 'namevalue'
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example. 
+
+	/**
+	 * Get @see GlobalCollectAdapter::$goToThankYouOn
+	 *
+	 */
+	public function getGoToThankYouOn() {
+		
+		return $this->goToThankYouOn;
+	}
 
 	/**
 	 * Constructor
