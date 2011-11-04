@@ -177,8 +177,11 @@ function showAmount( e ) {
 	$( "#change-amount" ).show();
 }
 function validateAmount() {
+	
+	// TODO: THIS NEEDS TO BE REPLACED WITH KALDARI'S CURRENCIES
 	var minimums = {
-		'USD' : 1
+		'USD' : 1,
+		'CAD' : 1
 	};
 	var error = true;
 	var amount = $( 'input[name="amount"]' ).val(); // get the amount
@@ -192,8 +195,7 @@ function validateAmount() {
 	error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
 
 	// Check amount is at least the minimum
-	var currency_code = 'USD'; // hard-coded for these forms and tests
-	$( 'input[name="currency_code"]' ).val( currency_code );
+	var currency_code = $( 'input[name="currency_code"]' ).val();
 	if ( typeof( minimums[currency_code] ) == 'undefined' ) {
 		minimums[currency_code] = 1;
 	}
