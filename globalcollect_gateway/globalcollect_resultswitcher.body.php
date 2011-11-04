@@ -107,10 +107,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		global $wgOut;
 		
 		$displayData = $this->adapter->getData_Raw();
-		$failpage = $this->adapter->getGlobal( 'FailPage' );
+		$failpage = $this->adapter->getFailPage();
 
 		if ( $failpage ) {
-			$wgOut->redirect( $failpage . "/" . $displayData['language'] );
+			return $failpage;
 		} else {
 			// Get the page we're going to send them back to.
 			$referrer = $displayData['referrer'];
