@@ -324,6 +324,16 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
 	'donate_interface-state-dropdown-XX' => 'Outside the U.S.',
 
+	// Bank transfer (bt)
+	'donate_interface-bt-account_holder' => 'Account holder',
+	'donate_interface-bt-bank_account_number' => 'Bank account number',
+	'donate_interface-bt-country_description' => 'Country description',
+	'donate_interface-bt-payment_reference' => 'Payment reference',
+	'donate_interface-bt-swift_code' => 'Swift code',
+	'donate_interface-bt-special_id' => 'Special ID',
+	'donate_interface-bt-information' => 'Bank transfer information',
+	'donate_interface-bt-finished' => 'Finished',
+
 	// Real time bank transfer (rtbt)
 	'donate_interface-rtbt-issuer_id' => 'Select a Bank',
 
@@ -688,6 +698,16 @@ There is no limit to the length of the message.",
 	'donate_interface-select-credit-card' => 'This is a label for selecting a credit card type',
 	'donate_interface-state-dropdown-YY' => "Label for the dropdown of US states. Only US states are shown, so don't translate this to your equivalent subdivision level.",
 	'donate_interface-state-dropdown-XX' => 'Option in the US state dropdown if you are not in the US.',
+
+	'donate_interface-bt-account_holder' => 'Bank transfer: Account holder',
+	'donate_interface-bt-bank_account_number' => 'Bank transfer: Bank account number',
+	'donate_interface-bt-country_description' => 'Bank transfer: Country description',
+	'donate_interface-bt-payment_reference' => 'Bank transfer: Payment reference',
+	'donate_interface-bt-swift_code' => 'Bank transfer: Swift code',
+	'donate_interface-bt-special_id' => 'Bank transfer: Special ID',
+	'donate_interface-bt-information' => 'Bank transfer: Bank transfer information',
+	'donate_interface-bt-finished' => 'Bank transfer: Finished - this is a link or a button to take the user to the Thank you page for their donation.',
+
 	'donate_interface-rtbt-issuer_id' => 'Real time bank transfer: Select a Bank used to pick which bank the donor wishes to use for their donation',
 	'donate_interface-dd-account_name' => 'Direct Debit: Account Name - Name of person who owns the Bank Account',
 	'donate_interface-dd-account_number' => 'Direct Debit: Account Number - Bank account number to be used for the Direct Debit',
