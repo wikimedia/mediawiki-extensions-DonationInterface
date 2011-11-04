@@ -693,6 +693,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 	
 	/**
+	 * Get payment submethod form validation options
+	 *
+	 * @todo
+	 * - These may need to move to the parent class
+	 *
+	 * @return	array
+	 */
+	public function getPaymentSubmethodFormValidation( $options = array() ) {
+		
+		$meta = $this->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
+		
+		return $meta['validation'];
+	}
+	
+	/**
 	 * Because GC has some processes that involve more than one do_transaction 
 	 * chained together, we're catching those special ones in an overload and 
 	 * letting the rest behave normally. 
