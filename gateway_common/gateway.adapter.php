@@ -151,7 +151,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $staged_vars = array();
 	protected $return_value_map;
-	protected $postdata;
+	protected $staged_data;
+	protected $raw_data;
 	protected $postdatadefaults;
 	protected $xmlDoc;
 	protected $dataObj;
@@ -160,7 +161,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $validation_errors;
 	protected $current_transaction;
 	protected $action;
-	public $debugarray; //TODO: Take me out. 
+	public $debugarray; 
 
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -206,8 +207,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $testData );
 
-		$this->postdata = $this->dataObj->getData();
-		//TODO: Fix this a bit. 
+		$this->raw_data = $this->dataObj->getData();
+		$this->staged_data = $this->raw_data;
 
 		$this->posted = ( $wgRequest->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
 
@@ -218,7 +219,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
 
-		$this->displaydata = $this->postdata;
 		$this->stageData();
 	}
 
@@ -292,19 +292,20 @@ abstract class GatewayAdapter implements GatewayType {
 			return $checkResult;
 		}
 	}
-
+	
 	/**
-	 * Returns staged data from the adapter object. 
+	 * Returns staged data from the adapter object, or null if a key was 
+	 * specified and no value exsits. 
 	 * @param string $val An optional specific key you want returned. 
 	 * @return mixed All the staged data held by the adapter, or if a key was 
 	 * set, the staged value for that key. 
 	 */
-	function getData( $val = '' ) {
+	function getData_Staged( $val = '' ) {
 		if ( $val === '' ) {
-			return $this->postdata;
+			return $this->staged_data;
 		} else {
-			if ( array_key_exists( $val, $this->postdata ) ) {
-				return $this->postdata[$val];
+			if ( array_key_exists( $val, $this->staged_data ) ) {
+				return $this->staged_data[$val];
 			} else {
 				return null;
 			}
@@ -337,22 +338,22 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Returns the variable $this->dataObj which should be an instance of
-	 * DonationData
-	 *
-	 * @return DonationData
+	 * This is the ONLY getData type function anything should be using 
+	 * outside the adapter. 
+	 * Please note that in this case, raw means it's been normalized and 
+	 * sanitized by DonationData. Mostly, we qualify it as "raw" because it's 
+	 * not been staged for this adapter. 
+	 * @param string $val The specific key you're looking for (if any)
+	 * @return mixed An array of all the raw, unstaged (but normalized and 
+	 * sanitized) data sent to the adapter, or if $val was set, either the 
+	 * specific value held for $val, or null if none exists.  
 	 */
-	public function getDonationData() {
-
-		return $this->dataObj;
-	}
-
-	function getDisplayData( $val = '' ) {
+	public function getData_Raw( $val = '' ) {
 		if ( $val === '' ) {
-			return $this->displaydata;
+			return $this->raw_data;
 		} else {
-			if ( array_key_exists( $val, $this->displaydata ) ) {
-				return $this->displaydata[$val];
+			if ( array_key_exists( $val, $this->raw_data ) ) {
+				return $this->raw_data[$val];
 			} else {
 				return null;
 			}
@@ -534,10 +535,10 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $token === true ) { //we just want the field name to use, so short-circuit all that mess. 
 				return '@' . $this->var_map[$gateway_field_name];
 			}
-			if ( array_key_exists( $this->var_map[$gateway_field_name], $this->postdata ) &&
-				$this->postdata[$this->var_map[$gateway_field_name]] !== '' ) {
+			$staged = $this->getData_Staged( $this->var_map[$gateway_field_name] );
+			if ( !is_null( $staged ) ) {
 				//if it was sent, use that. 
-				return $this->postdata[$this->var_map[$gateway_field_name]];
+				return $staged;
 			} else {
 				//return the default for that form value
 
@@ -889,7 +890,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		// log that the transaction is essentially complete
-		self::log( $this->getData( 'contribution_tracking_id' ) . " Transaction complete." );
+		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . " Transaction complete." );
 
 		//getTransactionStatus works here like this, because it only returns 
 		//something other than false if it's the sort of a transaction that can 
@@ -897,7 +898,7 @@ abstract class GatewayAdapter implements GatewayType {
 //		$wmfStatus = $this->getTransactionWMFStatus();
 //		switch ( $wmfStatus ){
 //			case 'failed' : //only kill their session if they've tried three (or somehow more) times. 
-//				if ( (int)$this->postdata['numAttempt'] < 3 ) {
+//				if ( (int)$this->getData_Staged('numAttempt') < 3 ) {
 //					break;
 //				}
 //			case 'complete' :
@@ -906,7 +907,7 @@ abstract class GatewayAdapter implements GatewayType {
 //				$this->unsetAllSessionData();
 //		}
 
-		$this->debugarray[] = 'numAttempt = ' . $this->postdata['numAttempt'];
+		$this->debugarray[] = 'numAttempt = ' . $this->getData_Staged('numAttempt');
 
 		return $this->getTransactionAllResults();
 
@@ -1072,15 +1073,15 @@ abstract class GatewayAdapter implements GatewayType {
 		$results = array();
 
 		while ( $i++ <= 3 ) {
-			self::log( $this->getData( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
+			self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
 			$results['result'] = curl_exec( $ch );
 			$results['headers'] = curl_getinfo( $ch );
 
 			if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
-				self::log( $this->getData( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
+				self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
 				sleep( 1 );
 			} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
-				self::log( $this->getData( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
+				self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
 				break;
 			}
 		}
@@ -1092,7 +1093,7 @@ abstract class GatewayAdapter implements GatewayType {
 			//TODO: i18n here! 
 			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
 			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
-			self::log( $this->getData( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
+			self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
 			curl_close( $ch );
 			return false;
 		}
@@ -1392,7 +1393,7 @@ abstract class GatewayAdapter implements GatewayType {
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			//'language' => '',
 		);
-		$transaction += $this->getDisplayData();
+		$transaction += $this->getData_Raw();
 
 		try {
 			wfRunHooks( $hook, array( $transaction ) );
@@ -1404,9 +1405,10 @@ abstract class GatewayAdapter implements GatewayType {
 	function smooshVarsForStaging() {
 
 		foreach ( $this->staged_vars as $field ) {
-			if ( !array_key_exists( $field, $this->postdata ) || empty( $this->postdata[$field] ) ) {
+			$val = $this->getData_Staged( $field );
+			if ( is_null( $val ) or $val === '' ) {
 				if ( array_key_exists( $field, $this->postdatadefaults ) ) {
-					$this->postdata[$field] = $this->postdatadefaults[$field];
+					$this->staged_data[$field] = $this->postdatadefaults[$field];
 				}
 			}
 			//what do we do in the event that we're still nothing? (just move on.)
@@ -1445,7 +1447,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function getPaypalRedirectURL() {
-		$currency = $this->getData( 'currency' );
+		$currency = $this->getData_Raw( 'currency' );
 
 		// update the utm source to set the payment instrument to pp rather than cc
 		$data['payment_method'] = 'pp';
@@ -1457,7 +1459,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//update contribution tracking
 		$this->dataObj->updateContributionTracking( true );
 
-		$ret = self::getGlobal( "PaypalURL" ) . "/" . $this->postdata['language'] . "?gateway=paypal&" . http_build_query( $this->getPaypalData() );
+		$ret = self::getGlobal( "PaypalURL" ) . "/" . $this->staged_data['language'] . "?gateway=paypal&" . http_build_query( $this->getPaypalData() );
 		self::log( $ret );
 		return $ret;
 	}
@@ -1495,9 +1497,9 @@ abstract class GatewayAdapter implements GatewayType {
 		);
 		$ret = array();
 		foreach ( $paypalkeys as $key ){
-			$val = $this->getDisplayData( $key );
+			$val = $this->getData_Raw( $key );
 			if (!is_null( $val )){
-				$ret[$key] = $this->getDisplayData( $key );
+				$ret[$key] = $this->getData_Raw( $key );
 			}
 		}
 		return $ret;
@@ -1735,9 +1737,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	function runPreProcessHooks() {
 		// allow any external validators to have their way with the data
-		self::log( $this->getData( 'contribution_tracking_id' ) . " Preparing to query MaxMind" );
+		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . " Preparing to query MaxMind" );
 		wfRunHooks( 'GatewayValidate', array( &$this ) );
-		self::log( $this->getData( 'contribution_tracking_id' ) . ' Finished querying Maxmind' );
+		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ' Finished querying Maxmind' );
 
 		//DO NOT set some variable as getValidationAction() here, and keep 
 		//checking that. getValidationAction could change with each one of these 
@@ -1806,9 +1808,9 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * Instead of pulling all the DonationData back through to update one local 
-	 * value, use this. It updates both postdata (which is intended to be 
-	 * staged for the gateway) and displaydata (which could potentially become 
-	 * staged for the user). 
+	 * value, use this. It updates both staged_data (which is intended to be 
+	 * staged and used _just_ by the gateway) and raw_data, which is actually 
+	 * just normalized and sanitized form data as entered by the user. 
 	 * 
 	 * TODO: handle the cases where $val is listed in the gateway adapter's 
 	 * staged_vars. 
@@ -1821,11 +1823,11 @@ abstract class GatewayAdapter implements GatewayType {
 	function refreshGatewayValueFromSource( $val ) {
 		$refreshed = $this->dataObj->getVal( $val );
 		if ( !is_null($refreshed) ){
-			$this->postdata[$val] = $refreshed;
-			$this->displaydata[$val] = $refreshed;
+			$this->staged_data[$val] = $refreshed;
+			$this->raw_data[$val] = $refreshed;
 		} else {
-			unset( $this->postdata[$val] );
-			unset( $this->displaydata[$val] );
+			unset( $this->staged_data[$val] );
+			unset( $this->raw_data[$val] );
 		}
 	}
 

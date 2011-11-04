@@ -90,32 +90,31 @@ class PayflowProGateway extends GatewayForm {
 			}
 		}
 
-		$oid = $this->adapter->getData( 'order_id' );
-		$i_oid = $this->adapter->getData( 'i_order_id' );
-		$data = $this->adapter->getData();
+		$data = $this->adapter->getData_Raw();
+		$msgPrefix = $data['order_id'] . ' ' . $data['i_order_id'] . ' ';
 
 		// if approved, display results and send transaction to the queue
 		if ( $errorCode == '1' ) {
-			$this->log( $oid . " " . $i_oid . " Transaction approved.", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction approved.", LOG_DEBUG );
 			$this->fnPayflowDisplayApprovedResults( $data, $responseMsg );
 			// give user a second chance to enter incorrect data
 		} elseif ( ( $errorCode == '3' ) && ( $data['numAttempt'] < '5' ) ) {
-			$this->log( $oid . " " . $i_oid . " Transaction unsuccessful (invalid info).", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction unsuccessful (invalid info).", LOG_DEBUG );
 			// pass responseMsg as an array key as required by displayForm
 			$this->errors['retryMsg'] = $responseMsg;
 			$this->displayForm( $this->errors );
 			// if declined or if user has already made two attempts, decline
 		} elseif ( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
-			$this->log( $oid . " " . $i_oid . " Transaction declined.", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction declined.", LOG_DEBUG );
 			$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 		} elseif ( ( $errorCode == '4' ) ) {
-			$this->log( $oid . " " . $i_oid . " Transaction unsuccessful.", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction unsuccessful.", LOG_DEBUG );
 			$this->fnPayflowDisplayOtherResults( $responseMsg );
 		} elseif ( ( $errorCode == '5' ) ) {
-			$this->log( $oid . " " . $i_oid . " Transaction pending.", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction pending.", LOG_DEBUG );
 			$this->fnPayflowDisplayPending( $data, $responseMsg );
 		} elseif ( ( $errorCode == '1000000' ) ) { //TODO: This is temporary until we can decide on the actual error codes WE control.
-			$this->log( $oid . " " . $i_oid . " Transaction unsuccessful (communication failure).", LOG_DEBUG );
+			$this->log( $msgPrefix . "Transaction unsuccessful (communication failure).", LOG_DEBUG );
 			$this->fnPayflowDisplayOtherResults( $responseMsg );
 			$this->errors['retryMsg'] = $responseMsg;
 			$this->displayForm( $this->errors );

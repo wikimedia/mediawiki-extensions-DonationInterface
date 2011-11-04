@@ -60,7 +60,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		$log_msg = '"' . $localAction . "\"\t\"" . $this->risk_score . "\"";
-		$this->log( $this->gateway_adapter->getData( 'contribution_tracking_id' ), 'Filtered', $log_msg );
+		$this->log( $this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Filtered', $log_msg );
 		return TRUE;
 	}
 

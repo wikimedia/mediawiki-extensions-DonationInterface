@@ -62,7 +62,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
 			$oid = $wgRequest->getText( 'order_id' );
-			$adapter_oid = $this->adapter->getData();
+			$adapter_oid = $this->adapter->getData_Raw();
 			$adapter_oid = $adapter_oid['order_id'];
 			if ( $oid && !empty( $oid ) && $oid === $adapter_oid ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
@@ -106,7 +106,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	function getDeclinedResultPage() {
 		global $wgOut;
 		
-		$displayData = $this->adapter->getDisplayData();
+		$displayData = $this->adapter->getData_Raw();
 		$failpage = $this->adapter->getGlobal( 'FailPage' );
 
 		if ( $failpage ) {

@@ -17,7 +17,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_MinFraud {
 			return TRUE;
 		}
 
-		$minfraud_query = $this->build_query( $this->gateway_adapter->getData() );
+		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Raw() );
 		$this->query_minfraud( $minfraud_query );
 		
 

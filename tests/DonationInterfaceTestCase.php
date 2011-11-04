@@ -52,7 +52,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
 	 */
 	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
 
@@ -275,7 +274,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
 
-		$orderId = $this->gatewayAdapter->getData( 'order_id' );
+		$orderId = $this->gatewayAdapter->getData_Raw( 'order_id' );
 
 		$expected  = '<?xml version="1.0"?>' . "\n";
 		$expected .= '<XML>';

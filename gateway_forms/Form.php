@@ -84,7 +84,7 @@ abstract class Gateway_Form {
 
 		$this->gateway = & $gateway;
 		$this->test = $this->gateway->getGlobal( "Test" );
-		$this->form_data = $this->gateway->getDisplayData();
+		$this->form_data = $this->gateway->getData_Raw();
 		$this->form_errors = & $error;
 
 		/**

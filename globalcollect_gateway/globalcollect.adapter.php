@@ -767,7 +767,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 		$displayXML = $this->formatXmlString( $xmlString );
 		$realXML = new DomDocument( '1.0' );
-		self::log( $this->getData( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
+		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
 		$realXML->loadXML( trim( $xmlString ) );
 		return $realXML;
 	}
@@ -961,7 +961,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//set the transaction result message
 		$responseStatus = isset( $response['STATUSID'] ) ? $response['STATUSID'] : '';
 		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC. 
-		$this->setTransactionResult( $this->getData( 'order_id' ), 'gateway_txn_id' );
+		$this->setTransactionResult( $this->getData_Raw( 'order_id' ), 'gateway_txn_id' );
 	}
 
 	/**
@@ -995,10 +995,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	protected function stage_amount( $type = 'request' ) {
 		switch ( $type ) {
 			case 'request':
-				$this->postdata['amount'] = $this->postdata['amount'] * 100;
+				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
 				break;
 			case 'response':
-				$this->postdata['amount'] = $this->postdata['amount'] / 100;
+				$this->staged_data['amount'] = $this->staged_data['amount'] / 100;
 				break;
 		}
 	}
@@ -1010,8 +1010,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function stage_card_num( $type = 'request' ) {
 		//I realize that the $type isn't used. Voodoo.
-		if ( array_key_exists( 'card_num', $this->postdata ) ) {
-			$this->postdata['card_num'] = str_replace( ' ', '', $this->postdata['card_num'] );
+		if ( array_key_exists( 'card_num', $this->staged_data ) ) {
+			$this->staged_data['card_num'] = str_replace( ' ', '', $this->staged_data['card_num'] );
 		}
 	}
 
@@ -1041,10 +1041,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$types = array_flip( $types );
 		}
 
-		if ( ( array_key_exists( 'card_type', $this->postdata ) ) && array_key_exists( $this->postdata['card_type'], $types ) ) {
-			$this->postdata['card_type'] = $types[$this->postdata['card_type']];
+		$card_type = $this->getData_Staged('card_type');
+		if ( ( !is_null( $card_type ) ) && array_key_exists( $card_type, $types ) ) {
+			$this->staged_data['card_type'] = $types[$card_type];
 		} else {
-			//$this->postdata['card_type'] = '';
+			//$this->staged_data['card_type'] = '';
 			//iono: maybe nothing? 
 		}
 	}
@@ -1061,15 +1062,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function stage_payment_method( $type = 'request' ) {
 		
-		$payment_method = array_key_exists( 'payment_method', $this->postdata ) ? $this->postdata['payment_method']: false;
-		$payment_submethod = array_key_exists( 'payment_submethod', $this->postdata ) ? $this->postdata['payment_submethod']: false;
+		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method']: false;
+		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod']: false;
 
 		// These will be grouped and ordred by payment product id
 		switch ( $payment_submethod )  {
 			
 			/* Bank transfer */
 			case 'bt':
-				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 
@@ -1083,12 +1084,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'dd_ch':
 			case 'dd_it':
 			case 'dd_es':
-				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['COUNTRYCODEBANK'] = 'country';
 
 				// Currently, this is needed by the Netherlands
-				$this->postdata['transaction_type'] = '01';
+				$this->staged_data['transaction_type'] = '01';
 
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNAME';
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNUMBER';
@@ -1109,13 +1110,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'rtbt_nordea_sweeden':
 			case 'rtbt_enets':
 			case 'rtbt_sofortuberweisung':
-				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 			
 			case 'rtbt_eps':
 			case 'rtbt_ideal':
-				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				
 				// Add the ISSUERID field if it does not exist
@@ -1126,7 +1127,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				
 			/* Default Case */
 			default:
-				//$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				//$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				//$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 		}
@@ -1143,21 +1144,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//TODO: This needs to be more robust (like actually pulling the 
 			//qstring keys, resetting the values, and putting it all back)
 			//but for now it'll keep us alive. 
-			if ( !strpos( $this->postdata['returnto'], 'order_id' ) ){
-				$queryArray = array( 'order_id' => $this->postdata['order_id'] );
-				$this->postdata['returnto'] = wfAppendQuery( $this->postdata['returnto'], $queryArray );
+			$returnto = $this->getData_Staged( 'returnto' );
+			if ( !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ){
+				$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
+				$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
 			}
 		}
 	}
 	
 	protected function pre_process_insert_orderwithpayment(){
-		if ( $this->getData( 'payment_method' ) === 'cc' ){
+		if ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
 			$this->addDonorDataToSession();
 		}
 	}
 	
 	protected function pre_process_get_orderstatus(){
-		if  ( $this->getData( 'payment_method' ) === 'cc' ){
+		if  ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
 			$this->runPreProcessHooks();
 		}
 	}
@@ -1171,7 +1173,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not. 
 	 */
 	public function getCVVResult(){
-		if ( is_null( $this->getData( 'cvv_result' ) ) ){
+		if ( is_null( $this->getData_Raw( 'cvv_result' ) ) ){
 			return null;
 		}
 		
@@ -1185,7 +1187,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'0' => true, //No service available.
 		);
 		
-		$result = $result_map[$this->getData( 'cvv_result' )];
+		$result = $result_map[$this->getData_Raw( 'cvv_result' )];
 		return $result;
 
 	}	
@@ -1195,7 +1197,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not. 
 	 */
 	public function getAVSResult(){
-		if ( is_null( $this->getData( 'avs_result' ) ) ){
+		if ( is_null( $this->getData_Raw( 'avs_result' ) ) ){
 			return null;
 		}
 		//Best guess here: 
@@ -1223,7 +1225,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'0' => 50, //No service available.
 		);		
 
-		$result = $result_map[$this->getData( 'avs_result' )];
+		$result = $result_map[$this->getData_Raw( 'avs_result' )];
 		return $result;
 	}
 

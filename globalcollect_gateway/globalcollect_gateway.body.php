@@ -86,7 +86,7 @@ EOT;
 
 			//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
 			//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
-			$data = $this->adapter->getDisplayData();
+			$data = $this->adapter->getData_Raw();
 
 			if ( $this->adapter->posted ) {
 				
@@ -119,7 +119,7 @@ EOT;
 						
 						// Display an iframe for credit cards
 						if ( $this->executeIframeForCreditCard() ) {
-							
+							$this->displayResultsForDebug();
 							// Nothing left to process
 							return;
 						}
