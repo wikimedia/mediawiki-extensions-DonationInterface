@@ -29,6 +29,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->var_map = array(
 			'ACCOUNTNAME'		=> 'account_name',
 			'ACCOUNTNUMBER'		=> 'account_number',
+			'ATTEMPTID'			=> 'attempt_id',
 			'AUTHORIZATIONID'	=> 'authorization_id',
 			'AMOUNT'			=> 'amount',
 			'BANKCHECKDIGIT'	=> 'bank_check_digit',
@@ -43,6 +44,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CVV'				=> 'cvv',
 			'DATECOLLECT'		=> 'date_collect',
 			'DIRECTDEBITTEXT'	=> 'direct_debit_text',
+			'EFFORTID'			=> 'effort_id',
 			'EMAIL'				=> 'email',
 			'EXPIRYDATE'		=> 'expiration',
 			'FIRSTNAME'			=> 'fname',
@@ -60,6 +62,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'TRANSACTIONTYPE'	=> 'transaction_type',
 			'ZIP'				=> 'zip',
 		);
+	}
+	
+	/**
+	 * Setting some GC-specific defaults. 
+	 * @param array $options These get extracted in the parent.
+	 */
+	function setPostDefaults( $options = array() ) {
+		parent::setPostDefaults( $options );
+		$this->postdatadefaults['attempt_id'] = '1';
+		$this->postdatadefaults['effort_id'] = '1';
 	}
 
 	/**
@@ -230,6 +242,54 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'failed',
 				'revised',
 			)
+		);
+		
+		$this->transactions['CANCEL_PAYMENT'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'ORDERID',
+							'EFFORTID',
+							'ATTEMPTID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'CANCEL_PAYMENT',
+				'VERSION' => '1.0'
+			),
+		);
+		
+		$this->transactions['SET_PAYMENT'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'ORDERID',
+							'EFFORTID',
+							'PAYMENTPRODUCTID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'SET_PAYMENT',
+				'VERSION' => '1.0'
+			),
 		);
 	}
 	
@@ -522,6 +582,76 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
 			throw new Exception( $message );
 		}
+	}
+	
+	/**
+	 * Because GC has some processes that involve more than one do_transaction 
+	 * chained together, we're catching those special ones in an overload and 
+	 * letting the rest behave normally. 
+	 */
+	public function do_transaction( $transaction ){
+		switch ( $transaction ){
+			case 'K4sVoodoo' :
+				return $this->doK4svoodoo();
+				break;
+			default:
+				return parent::do_transaction( $transaction );
+		}
+	}
+	
+	//TODO: rename, yo. 
+	private function doK4svoodoo(){
+		global $wgRequest; //this is for pulling vars straight from the querystring
+		$pull_vars = array(
+			'CVVRESULT' => 'cvv_result',
+			'AVSRESULT' => 'avs_result',
+		);
+		$addme = array();
+		foreach ( $pull_vars as $theirkey => $ourkey) {
+			$tmp = $wgRequest->getVal( $theirkey, null );
+			if ( !is_null( $tmp ) ) { 
+				$addme[$ourkey] = $tmp;
+			}
+		}
+		if ( count( $addme ) ){
+			$this->addData( $addme );
+		}
+		
+		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
+		
+//		$status_result['data'];
+//		
+		//TODO: If we've already failed, flame out here instead of later. 
+
+		if ( isset( $status_result['data'] ) && is_array( $status_result['data'] ) ){
+			//if they're set, get CVVRESULT && AVSRESULT
+			$pull_vars['EFFORTID'] = 'effort_id';
+			$pull_vars['ATTEMPTID'] = 'attempt_id';
+			$addme = array();
+			foreach ( $pull_vars as $theirkey => $ourkey) {
+				if ( array_key_exists( $theirkey, $status_result['data'] ) ){
+					$addme[$ourkey] = $status_result['data'][$theirkey];
+				}
+			}
+
+			if ( count( $addme ) ){
+				$this->addData( $addme );
+			}
+			
+			//now, either do a cancel or a process, depending on what the filters 
+			//said we should do. 
+			switch ( $status_result['action'] ){
+				case 'process' :
+					$final = $this->do_transaction( 'SET_PAYMENT' );
+					break;
+				case 'reject' :
+					$final = $this->do_transaction( 'CANCEL_PAYMENT' );
+					break;
+			}
+			return $final;
+		}
+//		error_log("Got nothing good back from the first call...");
+		return $status_result;		
 	}
 	
 	/**
@@ -904,28 +1034,79 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	
 	protected function pre_process_insert_orderwithpayment(){
 		if ( $this->getData( 'payment_method' ) === 'cc' ){
-			$this->runPreProcessHooks(); //this is shortly to move elsewhere.  
 			$this->addDonorDataToSession();
 		}
 	}
 	
 	protected function pre_process_get_orderstatus(){
 		if  ( $this->getData( 'payment_method' ) === 'cc' ){
-			//if they're set, get CVVRESULT && AVSRESULT
-			global $wgRequest;
-			$cvv_result = $wgRequest->getVal( 'CVVRESULT', null );
-			$avs_result = $wgRequest->getVal( 'AVSRESULT', null );
-			if ( !is_null($cvv_result) ){
-				$this->debugarray[] = "CVV result: $cvv_result";
-			}
-			if ( !is_null($avs_result) ){
-				$this->debugarray[] = "AVS result: $avs_result";
-			}
+			$this->runPreProcessHooks();
 		}
 	}
 	
 	protected function post_process_get_orderstatus(){
 		$this->runPostProcessHooks();
+	}
+	
+	/**
+	 * getCVVResult is intended to be used by the functions filter, to 
+	 * determine if we want to fail the transaction ourselves or not. 
+	 */
+	public function getCVVResult(){
+		if ( is_null( $this->getData( 'cvv_result' ) ) ){
+			return null;
+		}
+		
+		$result_map = array(
+			'M' => true, //CVV check performed and valid value.
+			'N' => false, //CVV checked and no match.
+			'P' => true, //CVV check not performed, not requested
+			'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card. 
+			'U' => true, //? //Issuer not certified for CVV2.
+			'Y' => false, //Server provider did not respond.
+			'0' => true, //No service available.
+		);
+		
+		$result = $result_map[$this->getData( 'cvv_result' )];
+		return $result;
+
+	}	
+	
+	/**
+	 * getAVSResult is intended to be used by the functions filter, to 
+	 * determine if we want to fail the transaction ourselves or not. 
+	 */
+	public function getAVSResult(){
+		if ( is_null( $this->getData( 'avs_result' ) ) ){
+			return null;
+		}
+		//Best guess here: 
+		//Scale of 0 - 100, of Problem we think this result is likely to cause.
+
+		$result_map = array(
+			'A' => 50, //Address (Street) matches, Zip does not.
+			'B' => 50, //Street address match for international transactions. Postal code not verified due to incompatible formats.
+			'C' => 50, //Street address and postal code not verified for international transaction due to incompatible formats.
+			'D' => 0, //Street address and postal codes match for international transaction.
+			'E' => 100, //AVS Error.
+			'F' => 0, //Address does match and five digit ZIP code does match (UK only).
+			'G' => 50, //Address information is unavailable; international transaction; non-AVS participant. 
+			'I' => 50, //Address information not verified for international transaction.
+			'M' => 0, //Street address and postal codes match for international transaction.
+			'N' => 100, //No Match on Address (Street) or Zip.
+			'P' => 50, //Postal codes match for international transaction. Street address not verified due to incompatible formats.
+			'R' => 100, //Retry, System unavailable or Timed out.
+			'S' => 50, //Service not supported by issuer.
+			'U' => 50, //Address information is unavailable.
+			'W' => 50, //9 digit Zip matches, Address (Street) does not.
+			'X' => 0, //Exact AVS Match.
+			'Y' => 0, //Address (Street) and 5 digit Zip match.
+			'Z' => 50, //5 digit Zip matches, Address (Street) does not.
+			'0' => 50, //No service available.
+		);		
+
+		$result = $result_map[$this->getData( 'avs_result' )];
+		return $result;
 	}
 
 }

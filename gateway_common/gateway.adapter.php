@@ -642,16 +642,19 @@ abstract class GatewayAdapter implements GatewayType {
 	 *		human-readable assessments of what happened, probably straight from 
 	 *		the gateway. 
 	 *	'action' = (sometimes there) What the pre-commit hooks said we should go 
-	 *		do with ourselves. Mostly in there for debugging purposes at this 
-	 *		point, as nothing on the outside should care at all, how we do things 
-	 *		internally. 
+	 *		do with ourselves, if they were fired off. 
 	 *	'data' = The data passed back to us from the transaction, in a nice 
 	 *		key-value array. 
 	 */
 	public function do_transaction( $transaction ) {
+		//reset, in case this isn't our first time. 
+		$this->transaction_results = array();
+		$this->setValidationAction('process', true); 
+		
 		try {
 			$this->setCurrentTransaction( $transaction );
-			//update the contribution tracking data
+			
+			//TODO: This is a problem here. Needs to be moved to pre_process or something. 
 			$this->incrementNumAttempt();
 
 			//If we have any special pre-process instructions for this 
@@ -675,6 +678,7 @@ abstract class GatewayAdapter implements GatewayType {
 				);
 			}
 
+			//TODO: Maybe move this to the pre_process functions? 
 			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
 
 			// If the payment processor requires XML, package our data into XML.
@@ -732,6 +736,10 @@ abstract class GatewayAdapter implements GatewayType {
 
 				//TODO: Death to the pulled_data parameter! 
 				$this->processResponse( $pulled_data ); //now we've set all the transaction results... 
+				
+				//well, almost all. 
+				$this->setTransactionResult( $this->getValidationAction(), 'action' );
+				
 			} else {
 				self::log( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
 			}
@@ -783,21 +791,20 @@ abstract class GatewayAdapter implements GatewayType {
 		// log that the transaction is essentially complete
 		self::log( $this->getData( 'contribution_tracking_id' ) . " Transaction complete." );
 
-		//Session Handling
 		//getTransactionStatus works here like this, because it only returns 
 		//something other than false if it's the sort of a transaction that can 
 		//denote a successful donation.  
-		$wmfStatus = $this->getTransactionWMFStatus();
-		switch ( $wmfStatus ){
-			case 'failed' : //only kill their session if they've tried three (or somehow more) times. 
-				if ( (int)$this->postdata['numAttempt'] < 3 ) {
-					break;
-				}
-			case 'complete' :
-			case 'pending' :
-			case 'pending-poke' :
-				$this->unsetAllSessionData();
-		}
+//		$wmfStatus = $this->getTransactionWMFStatus();
+//		switch ( $wmfStatus ){
+//			case 'failed' : //only kill their session if they've tried three (or somehow more) times. 
+//				if ( (int)$this->postdata['numAttempt'] < 3 ) {
+//					break;
+//				}
+//			case 'complete' :
+//			case 'pending' :
+//			case 'pending-poke' :
+//				$this->unsetAllSessionData();
+//		}
 
 		$this->debugarray[] = 'numAttempt = ' . $this->postdata['numAttempt'];
 

@@ -66,7 +66,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			$adapter_oid = $adapter_oid['order_id'];
 			if ( $oid && !empty( $oid ) && $oid === $adapter_oid ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
-					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
+					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'K4sVoodoo' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
 					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
