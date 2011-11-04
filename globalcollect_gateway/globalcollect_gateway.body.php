@@ -124,6 +124,16 @@ EOT;
 							return;
 						}
 					}
+					elseif ( $payment_method == 'bt' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+						
+							return $this->displayBankTransferInformation();
+						}
+
+					}
 					elseif ( $payment_method == 'rtbt' ) {
 
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
@@ -210,6 +220,61 @@ EOT;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Display information for bank transfer
+	 */
+	protected function displayBankTransferInformation() {
+
+		global $wgOut;
+
+		$results = $this->adapter->getTransactionAllResults();
+
+		$return = '';
+		$fields = array(
+			'ACCOUNTHOLDER'			=> array('translation' => 'donate_interface-bt-account_holder', ),
+			'BANKNAME'				=> array('translation' => 'donate_interface-dd-bank_name', ),
+			'BANKACCOUNTNUMBER'		=> array('translation' => 'donate_interface-bt-bank_account_number', ),
+			'CITY'					=> array('translation' => 'donate_interface-donor-city', ),
+			'COUNTRYDESCRIPTION'	=> array('translation' => 'donate_interface-bt-country_description', ),
+			'IBAN'					=> array('translation' => 'donate_interface-dd-iban', ),
+			'PAYMENTREFERENCE'		=> array('translation' => 'donate_interface-bt-payment_reference', ),
+			'SWIFTCODE'				=> array('translation' => 'donate_interface-bt-swift_code', ),
+			'SPECIALID'				=> array('translation' => 'donate_interface-bt-special_id', ),
+		);
+		
+		$id = 'bank_transfer_information';
+		
+		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
+
+		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-bt-information' ) );
+		
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
+
+		foreach ( $fields as $field => $meta ) {
+			
+			if ( isset( $results['data'][ $field ] ) ) {
+				$return .= Xml::openElement( 'tr', array() );
+		
+				$return .= Xml::tags( 'th', array(), wfMsg( $meta['translation'] ) );
+				$return .= Xml::tags( 'td', array(), $results['data'][ $field ] );
+		
+				$return .= Xml::closeElement( 'tr' );
+			}
+		}
+
+		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
+
+		$url = $this->adapter->getGlobal( 'ThankYouPage' ) . '/' . $this->adapter->getTransactionDataLanguage();
+		
+		$link = Xml::tags( 'a', array( 'href' => $url ), wfMsg( 'donate_interface-bt-finished' ) );
+		
+		$return .= Xml::tags( 'p', array(), $link );
+		
+		$return .= Xml::closeElement( 'div' );  // $id
+		
+		return $wgOut->addHTML( $return );
 	}
 
 }
