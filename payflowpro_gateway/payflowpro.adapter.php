@@ -15,6 +15,20 @@ class PayflowProAdapter extends GatewayAdapter {
 		);
 	}
 
+	/**
+	 * Define error_map
+	 *
+	 * @todo
+	 * - Add: Error messages
+	 * - error_map is not used by PayflowProAdapter
+	 */
+	public function defineErrorMap() {
+		
+		$this->error_map = array(
+			0		=> 'payflowpro_gateway-response-default',	
+		);
+	}
+
 	function defineVarMap() {
 		$this->var_map = array(
 			'ACCT' => 'card_num',
