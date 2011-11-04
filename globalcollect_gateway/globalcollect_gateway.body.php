@@ -34,9 +34,7 @@ class GlobalCollectGateway extends GatewayForm {
 	 * Show the special page
 	 *
 	 * @todo
-	 * - Add transaction type handler
-	 * - What should a failure on transaction_type issues do? log & message client 
-	 * - Set up BANK_TRANSFER: Story #308
+	 * - Finish error handling
 	 *
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
@@ -85,18 +83,20 @@ EOT;
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {	
-			
-			//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
-			//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
-			$data = $this->adapter->getDisplayData();
-				
+
 			if ( $this->adapter->posted ) {
+				
 				// The form was submitted and the payment method has been set
 				/*
 				 * The $payment_method should default to false.
 				 *
 				 * An invalid $payment_method will cause an error.
 				 */
+
+				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
+				//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
+				$data = $this->adapter->getDisplayData();
+
 				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
 				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
 		
@@ -113,13 +113,44 @@ EOT;
 					// allow any external validators to have their way with the data
 					// Execute the proper transaction code:
 
-					$result = $this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-			
-					$this->displayResultsForDebug( $result );
-
 					if ( $payment_method == 'cc' ) {
-						$this->executeIframeForCreditCard( $result );
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+						
+						// Display an iframe for credit cards
+						if ( $this->executeIframeForCreditCard() ) {
+							
+							// Nothing left to process
+							return;
+						}
 					}
+					elseif ( $payment_method == 'rtbt' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						$formAction = $this->adapter->getTransactionDataFormAction();
+						
+						// Redirect to the bank
+						if ( !empty( $formAction ) ) {
+							return $wgOut->redirect( $formAction );
+						}
+
+					}
+					elseif ( $payment_method == 'dd' ) {
+
+						$this->adapter->do_transaction( 'DO_BANKVALIDATION' );
+
+						if ( $this->adapter->getTransactionStatus() ) {
+
+							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+						}
+						
+					}
+					else {
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+					}
+			
+					return $this->resultHandler();
 
 				}
 			} else {
@@ -128,8 +159,8 @@ EOT;
 				// See GlobalCollectAdapter::stage_returnto()
 				$oid = $wgRequest->getText( 'order_id' );
 				if ( $oid ) {
-					$result = $this->adapter->do_transaction( 'GET_ORDERSTATUS' );
-					$this->displayResultsForDebug( $result );
+					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
+					$this->displayResultsForDebug();
 				}
 				
 				// If the result of the previous transaction was failure, set the retry message.
@@ -151,33 +182,34 @@ EOT;
 	/**
 	 * Execute iframe for credit card
 	 *
-	 * @param array	$result	The result array from the gateway adapter
-	 *
-	 * @todo
-	 * - this needs to be moved out of @see GlobalCollectGateway and into the adapter.
+	 * @return boolean	Returns true if formaction exists for iframe.
 	 */
-	public function executeIframeForCreditCard( $result ) {
+	protected function executeIframeForCreditCard() {
 
 		global $wgOut;
 
-		if ( !empty( $result['data'] ) ) {
+		$formAction = $this->adapter->getTransactionDataFormAction();
+		
+		if ( $formAction ) {
 
-			if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
-				$paymentFrame = Xml::openElement( 'iframe', array(
-						'id' => 'globalcollectframe',
-						'name' => 'globalcollectframe',
-						'width' => '680',
-						'height' => '300',
-						'frameborder' => '0',
-						'style' => 'display:block;',
-						'src' => $result['data']['FORMACTION']
-						)
-				);
-				$paymentFrame .= Xml::closeElement( 'iframe' );
+			$paymentFrame = Xml::openElement( 'iframe', array(
+					'id' => 'globalcollectframe',
+					'name' => 'globalcollectframe',
+					'width' => '680',
+					'height' => '300',
+					'frameborder' => '0',
+					'style' => 'display:block;',
+					'src' => $formAction,
+				)
+			);
+			$paymentFrame .= Xml::closeElement( 'iframe' );
 
-				$wgOut->addHTML( $paymentFrame );
-			}
+			$wgOut->addHTML( $paymentFrame );
+			
+			return true;
 		}
+
+		return false;
 	}
 
 }
