@@ -18,6 +18,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Define error_map
+	 *
+	 * @todo
+	 * - Add: Error messages
+	 */
+	public function defineErrorMap() {
+		
+		$this->error_map = array(
+			0		=> 'globalcollect_gateway-response-default',	
+			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.	
+			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX	
+		);
+	}
+
+	/**
 	 * Define var_map
 	 *
 	 * @todo
@@ -94,8 +109,39 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 1000, 1050 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 1100, 99999 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 100000, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
+		
+		
+		$this->defineGoToThankYouOn();
 	}
 
+	/**
+	 * Define goToThankYouOn
+	 *
+	 * The statuses defined in @see GlobalCollectAdapter::$goToThankYouOn will
+	 * allow a completed form to go to the Thank you page.
+	 *
+	 * Allowed:
+	 * - complete
+	 * - pending
+	 * - pending_poke
+	 * - revised
+	 *
+	 * Denied:
+	 * - failed
+	 * - Any thing else not defined in $goToThankYouOn
+	 *
+	 */
+	public function defineGoToThankYouOn() {
+		
+		$this->goToThankYouOn = array(
+			'complete',
+			'pending',
+			'pending_poke',
+			'revised',
+		);
+	}
+	
 	/**
 	 * Define transactions
 	 *
@@ -319,7 +365,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Direct Debit
 		$this->payment_methods['dd'] = array(
 			'label'	=> 'Direct Debit',
-			'types'	=> array( 'dd_johnsen_nl', 'dd_johnsen_de', 'dd_johnsen_at', 'dd_johnsen_fr', 'dd_johnsen_gb', 'dd_johnsen_be', 'dd_johnsen_ch', 'dd_johnsen_it', 'dd_johnsen_es', ),
+			'types'	=> array( 'dd_at', 'dd_be', 'dd_ch', 'dd_de', 'dd_es','dd_fr', 'dd_gb', 'dd_it', 'dd_nl', ),
 			'validation' => array( 'creditCard' => false, )
 			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
@@ -443,21 +489,77 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 
 		/*
-		 * Direct Debit
+		 * Direct debit
 		 */
 		 
-		// Bank Transfer
-		$this->payment_submethods['dd_johnsen_nl'] = array(
-			'paymentproductid'	=> 711,
-			'label'	=> 'Bank Transfer',
+		// Direct debit: AT
+		$this->payment_submethods['dd_at'] = array(
+			'paymentproductid'	=> 713,
+			'label'	=> 'Direct debit: AT',
 			'group'	=> 'dd',
 			'validation' => array(),
 		);
 		 
-		// Bank Transfer
-		$this->payment_submethods['dd_johnsen_de'] = array(
+		// Direct debit: BE
+		$this->payment_submethods['dd_be'] = array(
+			'paymentproductid'	=> 716,
+			'label'	=> 'Direct debit: BE',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: CH
+		$this->payment_submethods['dd_ch'] = array(
+			'paymentproductid'	=> 717,
+			'label'	=> 'Direct debit: CH',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: DE
+		$this->payment_submethods['dd_de'] = array(
+			'paymentproductid'	=> 712,
+			'label'	=> 'Direct debit: DE',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: ES
+		$this->payment_submethods['dd_es'] = array(
+			'paymentproductid'	=> 719,
+			'label'	=> 'Direct debit: ES',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: FR
+		$this->payment_submethods['dd_fr'] = array(
+			'paymentproductid'	=> 714,
+			'label'	=> 'Direct debit: FR',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: GB
+		$this->payment_submethods['dd_gb'] = array(
+			'paymentproductid'	=> 715,
+			'label'	=> 'Direct debit: GB',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: IT
+		$this->payment_submethods['dd_it'] = array(
+			'paymentproductid'	=> 718,
+			'label'	=> 'Direct debit: IT',
+			'group'	=> 'dd',
+			'validation' => array(),
+		);
+		 
+		// Direct debit: NL
+		$this->payment_submethods['dd_nl'] = array(
 			'paymentproductid'	=> 711,
-			'label'	=> 'Bank Transfer',
+			'label'	=> 'Direct debit: NL',
 			'group'	=> 'dd',
 			'validation' => array(),
 		);
@@ -692,6 +794,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
 	 * return a key/value array of codes (if they exist) and messages. 
 	 *
+	 * If the site has $wgDonationInterfaceDisplayDebug = true, then the real
+	 * messages will be sent to the client. Messages will not be translated or
+	 * obfuscated. 
+	 *
 	 * @param array	$response	The response array
 	 */
 	public function getResponseErrors( $response ) {
@@ -707,14 +813,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$message = $childnode->nodeValue;
 				}
 			}
-			
-			// If we have a localized version of the error message, output that
-			if ( substr( wfMsg( 'globalcollect_gateway-response-'.$code ), 0, 4 ) === '&lt;' ) {
-				$errors[$code] = $message;
-			} else {
-				$errors[$code] = wfMsg( 'globalcollect_gateway-response-'.$code );
-			}
-			
+
+			$errors[ $code ] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( $code );
+
+			$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $code ) );
 		}
 		return $errors;
 	}
@@ -723,6 +825,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Harvest the data we need back from the gateway. 
 	 * return a key/value array
 	 *
+	 * When we set lookup error code ranges, we use GET_ORDERSTATUS as the key for search
+	 * because they are only defined for that transaction type.
+	 *
 	 * @param array	$response	The response array
 	 */
 	public function getResponseData( $response ) {
@@ -730,11 +835,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$transaction = $this->getCurrentTransaction();
 
+		$this->getTransactionStatus();
+		
 		switch ( $transaction ) {
 			case 'INSERT_ORDERWITHPAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
+
+				// WMFStatus will already be set if the transaction was unable to communicate properly.
+				if ( $this->getTransactionStatus() ) {
+					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
+				}
+
 				break;
 			case 'GET_ORDERSTATUS':
 				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
@@ -961,15 +1074,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 
 			/* Direct Debit */
-			case 'dd_johnsen_nl':
-			case 'dd_johnsen_de':
-			case 'dd_johnsen_at':
-			case 'dd_johnsen_fr':
-			case 'dd_johnsen_gb':
-			case 'dd_johnsen_be':
-			case 'dd_johnsen_ch':
-			case 'dd_johnsen_it':
-			case 'dd_johnsen_es':
+			case 'dd_nl':
+			case 'dd_de':
+			case 'dd_at':
+			case 'dd_fr':
+			case 'dd_gb':
+			case 'dd_be':
+			case 'dd_ch':
+			case 'dd_it':
+			case 'dd_es':
 				$this->postdata['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['COUNTRYCODEBANK'] = 'country';
