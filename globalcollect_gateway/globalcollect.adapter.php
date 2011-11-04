@@ -42,11 +42,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function defineVarMap() {
 		
 		$this->var_map = array(
+			'ACCOUNTHOLDER'		=> 'account_holder',
 			'ACCOUNTNAME'		=> 'account_name',
 			'ACCOUNTNUMBER'		=> 'account_number',
 			'ATTEMPTID'			=> 'attempt_id',
 			'AUTHORIZATIONID'	=> 'authorization_id',
 			'AMOUNT'			=> 'amount',
+			'BANKACCOUNTNUMBER'	=> 'bank_account_number',
 			'BANKCHECKDIGIT'	=> 'bank_check_digit',
 			'BANKCODE'			=> 'bank_code',
 			'BANKNAME'			=> 'bank_name',
@@ -54,6 +56,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CITY'				=> 'city',
 			'COUNTRYCODE'		=> 'country',
 			'COUNTRYCODEBANK'	=> 'country_code_bank',
+			'COUNTRYDESCRIPTION'=> 'country_description',
 			'CREDITCARDNUMBER'	=> 'card_num',
 			'CURRENCYCODE'		=> 'currency',
 			'CVV'				=> 'cvv',
@@ -70,10 +73,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'MERCHANTREFERENCE'	=> 'order_id',
 			'ORDERID'			=> 'order_id',
 			'PAYMENTPRODUCTID'	=> 'card_type',
+			'PAYMENTREFERENCE'	=> 'payment_reference',
 			'RETURNURL'			=> 'returnto',
+			'SPECIALID'			=> 'special_id',
 			'STATE'				=> 'state',
 			'STREET'			=> 'street',
 			'SURNAME'			=> 'lname',
+			'SWIFTCODE'			=> 'swift_code',
 			'TRANSACTIONTYPE'	=> 'transaction_type',
 			'ZIP'				=> 'zip',
 		);
