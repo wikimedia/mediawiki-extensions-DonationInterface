@@ -84,6 +84,10 @@ EOT;
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {	
 
+			//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
+			//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
+			$data = $this->adapter->getDisplayData();
+
 			if ( $this->adapter->posted ) {
 				
 				// The form was submitted and the payment method has been set
@@ -92,10 +96,6 @@ EOT;
 				 *
 				 * An invalid $payment_method will cause an error.
 				 */
-
-				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
-				//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
-				$data = $this->adapter->getDisplayData();
 
 				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
 				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
