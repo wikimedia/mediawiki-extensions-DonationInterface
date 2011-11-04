@@ -4,16 +4,16 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://wikimedia-fundraising-1.17.localhost.wikimedia.org/" />
-<title>form.twostepamount.realtimebanktransfer.enets</title>
+<title>form.payflowpro</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">form.twostepamount.realtimebanktransfer.enets</td></tr>
+<tr><td rowspan="1" colspan="3">form.payflowpro</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount&amp;payment_method=rtbt&amp;payment_submethod=rtbt_ideal&amp;issuer_id=751</td>
+	<td>/index.php/Special:PayflowProGateway</td>
 	<td></td>
 </tr>
 <tr>
@@ -27,34 +27,64 @@
 	<td>Testerton</td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>id=country</td>
-	<td>label=Netherlands</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=street</td>
-	<td>Middenweg 200</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=city</td>
-	<td>Amsterdam</td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=emailAdd</td>
 	<td>no-reply@wikimedia.org</td>
 </tr>
 <tr>
-	<td>select</td>
-	<td>id=input_currency_code</td>
-	<td>label=EUR: Euro</td>
+	<td>type</td>
+	<td>id=amount</td>
+	<td>100</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//input[@name='amountRadio' and @value='20']</td>
-	<td></td>
+	<td>type</td>
+	<td>id=card_num</td>
+	<td>378282246310005</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cvv</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=year</td>
+	<td>label=2020</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=street</td>
+	<td>123 Test Street</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=city</td>
+	<td>D</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=street</td>
+	<td>123 G Street</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=city</td>
+	<td>Davis</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=state</td>
+	<td>label=California</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=zip</td>
+	<td>95616</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=country</td>
+	<td>label=United States</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -62,9 +92,9 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>css=p.payment_error_message.payment_error_message_general</td>
-	<td>There was an error processing your transaction. Please try again later.</td>
+	<td>verifyTextPresent</td>
+	<td>Your credit card could not be validated.</td>
+	<td></td>
 </tr>
 </tbody></table>
 </body>
