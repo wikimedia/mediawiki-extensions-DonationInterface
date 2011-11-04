@@ -215,7 +215,7 @@ HTML;
 			$headerOptions['id'] = $headerId;
 		}
 		
-		$return .= Xml::tags( $headerTag, $headerOptions, $section );
+		$return = Xml::tags( $headerTag, $headerOptions, $section );
 		
 		return $return;
 	}
