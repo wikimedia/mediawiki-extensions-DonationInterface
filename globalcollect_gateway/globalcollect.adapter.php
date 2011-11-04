@@ -1139,9 +1139,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function stage_returnto( $type = 'request' ) {
 		if ( $type === 'request' ) {
-			// Add order ID to the returnto URL
-			$queryArray = array( 'order_id' => $this->postdata['order_id'] );
-			$this->postdata['returnto'] = wfAppendQuery( $this->postdata['returnto'], $queryArray );
+			// Add order ID to the returnto URL, only if it's not already there. 
+			//TODO: This needs to be more robust (like actually pulling the 
+			//qstring keys, resetting the values, and putting it all back)
+			//but for now it'll keep us alive. 
+			if ( !strpos( $this->postdata['returnto'], 'order_id' ) ){
+				$queryArray = array( 'order_id' => $this->postdata['order_id'] );
+				$this->postdata['returnto'] = wfAppendQuery( $this->postdata['returnto'], $queryArray );
+			}
 		}
 	}
 	

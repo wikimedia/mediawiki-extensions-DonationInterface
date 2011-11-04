@@ -32,6 +32,8 @@ class DonationApi extends ApiBase {
 			}
 		} else if ( $this->gateway == 'globalcollect' ) {
 			$gatewayObj = new GlobalCollectAdapter();
+			//I have NO IDEA how this worked before you were explicitly adding the data here. 
+			$gatewayObj->addData( $this->donationData );
 			switch ( $method ) {
 				// TODO: add other payment methods
 				case 'cc':

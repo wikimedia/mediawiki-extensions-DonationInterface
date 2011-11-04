@@ -262,7 +262,8 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'language',
-			'contribution_tracking_id', //sort of...		
+			'contribution_tracking_id', //sort of...
+			'currency'
 		);
 		return $fields;
 	}
@@ -280,7 +281,22 @@ class DonationData {
 			$this->setNormalizedOptOuts();
 			$this->setLanguage();
 			$this->handleContributionTrackingID();
+			$this->setCurrencyCode();
 			array_walk( $this->normalized, array( $this, 'sanitizeInput' ) );
+		}
+	}
+	
+	/**
+	 * normalizeAndSanitize helper function
+	 * Setting the currency code correctly. 
+	 */
+	function setCurrencyCode() {
+		global $wgRequest;
+		if ( !$this->isSomething('currency') ){
+			$code = $wgRequest->getVal('currency', null);
+			if (!is_null($code)){
+				$this->setVal('currency', $code);
+			}
 		}
 	}
 	
