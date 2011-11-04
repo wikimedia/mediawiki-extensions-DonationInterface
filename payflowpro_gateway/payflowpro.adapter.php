@@ -197,6 +197,22 @@ class PayflowProAdapter extends GatewayAdapter {
 			return $response;
 		}
 	}
+	
+	/**
+	 * Gets all the currency codes appropriate for this gateway
+	 * @return array of currency codes
+	 */
+	function getCurrencies() {
+		$currencies = array(
+			'USD', // U.S. Dollar
+			'GBP', // British Pound
+			'EUR', // Euro
+			'AUD', // Australian Dollar
+			'CAD', // Canadian Dollar
+			'JPY', // Japanese Yen
+		);
+		return $currencies;
+	}
 
 	/**
 	 * Actually do... stuff. Here. 

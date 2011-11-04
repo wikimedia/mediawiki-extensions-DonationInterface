@@ -95,7 +95,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
-			' ' . $this->generateCurrencyDropdown() . '</td>';
+			' ' . $this->generateCurrencyDropdown( 'CAD' ) . '</td>';
 		$form .= '</tr>';
 
 		// card logos

@@ -348,50 +348,57 @@ abstract class Gateway_Form {
 	/**
 	 * Generates the dropdown list for available currencies
 	 *
-	 * @param	array	$options
-	 *
-	 * $options:
-	 * - showCardsOnCurrencyChange: Allow javascript onchange="showCards();" to be executed.
+	 * @param string $defaultCurrencyCode default currency code to select
+	 * @param boolean $showCardsOnCurrencyChange Allow javascript onchange="showCards();" to be executed.
 	 *
 	 * @fixme The list of available currencies should NOT be defined here but rather
 	 * 	be customizable
 	 * @fixme It would be great to default the currency to a locale's currency
 	 * @return string The entire HTML select for the currency dropdown
 	 */
-	public function generateCurrencyDropdown( $options = array() ) {
+	public function generateCurrencyDropdown( $defaultCurrencyCode = 'USD', $showCardsOnCurrencyChange = false ) {
 		
-		extract( $options );
+		// Get an array of currency codes from the current payment gateway
+		$availableCurrencies = $this->gateway->getCurrencies();
 		
-		$showCardsOnCurrencyChange = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
+		// If a currency has already been posted, use that, otherwise use the default.
+		if ( $this->form_data['currency'] ) {
+			$selectedCurrency = $this->form_data['currency'];
+		} else {
+			$selectedCurrency = $defaultCurrencyCode;
+		}
 		
-		$available_currencies = array(
-			'USD' => 'USD: U.S. Dollar',
-			'GBP' => 'GBP: British Pound',
-			'EUR' => 'EUR: Euro',
-			'AUD' => 'AUD: Australian Dollar',
-			'CAD' => 'CAD: Canadian Dollar',
-			'JPY' => 'JPY: Japanese Yen',
-		);
-
-		$currency_opts = '';
+		$currencyOpts = ''; // Initialize variable for the select list options
 
 		// generate dropdown of currency opts
-		foreach ( $available_currencies as $value => $currency_name ) {
-			$selected = ( $this->form_data['currency'] == $value ) ? true : false;
-			$currency_opts .= Xml::option( wfMsg( 'donate_interface-' . $value ), $value, $selected );
+		foreach ( $availableCurrencies as $currencyCode ) {
+		
+			// Should this option be selected?
+			$selected = ( $selectedCurrency == $currencyCode ) ? true : false;
+			
+			$optionText = wfMsg( 'donate_interface-' . $currencyCode ); // name of the currency
+			/* uncomment this to get currency name and code in the drop-down list
+			$optionText = wfMsg(
+				'donate_interface-currency-display', // formatting
+				wfMsg( 'donate_interface-' . $currencyCode ), // name of the currency
+				$currencyCode // code of the currency
+			);
+			*/
+			
+			$currencyOpts .= Xml::option( $optionText, $currencyCode, $selected );
 		}
 
-		$currency_menu = Xml::openElement(
+		$currencyMenu = Xml::openElement(
 			'select',
 			array(
 				'name' => 'currency_code',
 				'id' => 'input_currency_code',
 				'onchange' => $showCardsOnCurrencyChange ? 'showCards()' : '',
 			) );
-		$currency_menu .= $currency_opts;
-		$currency_menu .= Xml::closeElement( 'select' );
+		$currencyMenu .= $currencyOpts;
+		$currencyMenu .= Xml::closeElement( 'select' );
 
-		return $currency_menu;
+		return $currencyMenu;
 	}
 
 	/**
@@ -412,7 +419,7 @@ abstract class Gateway_Form {
 		
 		extract( $options );
 
-		$options['showCardsOnCurrencyChange'] = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
+		$showCardsOnCurrencyChange = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
 		$displayCurrencyDropdown = isset( $displayCurrencyDropdown ) ? (boolean) $displayCurrencyDropdown : true;
 		$setCurrency = isset( $setCurrency ) ? (string) $setCurrency : '';
 		$displayCurrencyDropdown = empty( $setCurrency ) ? $displayCurrencyDropdown : false;
@@ -458,7 +465,7 @@ abstract class Gateway_Form {
 		if ( $displayCurrencyDropdown ) {
 			$return .= '	<tr>';
 			$return .= '		<td colspan="4" >';
-			$return .= $this->generateCurrencyDropdown( $options );
+			$return .= $this->generateCurrencyDropdown( null, $showCardsOnCurrencyChange );
 			$return .= '		</td>';
 			$return .= '	</tr>';
 		}

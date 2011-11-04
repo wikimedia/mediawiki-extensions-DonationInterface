@@ -615,7 +615,99 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		return $data;
 	}
-
+	
+	/**
+	 * Gets all the currency codes appropriate for this gateway
+	 * @return array of currency codes
+	 */
+	function getCurrencies() {
+		$currencies = array(
+			'AED', // UAE dirham
+			'ARS', // Argentinian peso
+			'AUD', // Australian dollar
+			'BBD', // Barbadian dollar
+			'BDT', // Bagladesh taka
+			'BGN', // Bulgarian lev
+			'BHD', // Bahraini dinar
+			'BMD', // Bermudian dollar
+			'BND', // Brunei dollar
+			'BOB', // Bolivia boliviano
+			'BRL', // Brazilian real
+			'BSD', // Bahamian dollar
+			'BZD', // Belize dollar
+			'CAD', // Canadian dollar
+			'CHF', // Swiss franc
+			'CLP', // Chilean deso
+			'CNY', // Chinese yuan renminbi
+			'COP', // Colombia columb
+			'CRC', // Costa Rican colon
+			'CZK', // Czech koruna
+			'DKK', // Danish krone
+			'DOP', // Dominican peso
+			'DZD', // Algerian dinar
+			'EEK', // Estonian kroon
+			'EGP', // Egyptian pound
+			'EUR', // Euro
+			'GBP', // British pound
+			'GTQ', // Guatemala quetzal
+			'HKD', // Hong Kong dollar
+			'HNL', // Honduras lempira
+			'HRK', // Croatian kuna
+			'HUF', // Hungarian forint
+			'IDR', // Indonesian rupiah
+			'ILS', // Israeli shekel
+			'INR', // Indian rupee
+			'JMD', // Jamaican dollar
+			'JOD', // Jordanian dinar
+			'JPY', // Japanese yen
+			'KES', // Kenyan shilling
+			'KRW', // South Korean won
+			'KYD', // Cayman Islands dollar
+			'KZT', // Kazakhstani tenge
+			'LBP', // Lebanese pound
+			'LKR', // Sri Lankan rupee
+			'LTL', // Lithuanian litas
+			'LVL', // Latvian lats
+			'MAD', // Moroccan dirham
+			'MKD', // Macedonia denar
+			'MUR', // Mauritius rupee
+			'MVR', // Maldives rufiyaa
+			'MXN', // Mexican peso
+			'MYR', // Malaysian ringgit
+			'NOK', // Norwegian krone
+			'NZD', // New Zealand dollar
+			'OMR', // Omani rial
+			'PAB', // Panamanian balboa
+			'PEN', // Peru nuevo sol
+			'PHP', // Philippine peso
+			'PKR', // Pakistani rupee
+			'PLN', // Polish złoty
+			'PYG', // Paraguayan guaraní
+			'QAR', // Qatari rial
+			'RON', // Romanian leu
+			'RUB', // Russian ruble
+			'SAR', // Saudi riyal
+			'SEK', // Swedish krona
+			'SGD', // Singapore dollar
+			'SVC', // Salvadoran colón
+			'THB', // Thai baht
+			'TJS', // Tajikistani Somoni
+			'TND', // Tunisan dinar
+			'TRY', // Turkish lira
+			'TTD', // Trinidad and Tobago dollar
+			'TWD', // New Taiwan dollar
+			'UAH', // Ukrainian hryvnia
+			'UYU', // Uruguayan peso
+			'USD', // U.S. dollar
+			'UZS', // Uzbekistani som
+			'VND', // Vietnamese dong
+			'XAF', // Central African CFA franc
+			'XCD', // East Caribbean dollar
+			'XOF', // West African CFA franc
+			'ZAR', // South African rand
+		);
+		return $currencies;
+	}
 
 	/**
 	 * Process the response
