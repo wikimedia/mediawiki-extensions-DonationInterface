@@ -41,7 +41,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			$this->risk_score = 0;
 		if ( $this->risk_score > 100 )
 			$this->risk_score = 100;
-
+//		error_log("Risk score: " . $this->risk_score );
 		foreach ( $this->action_ranges as $action => $range ) {
 			if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
 				return $action;
@@ -56,6 +56,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		// expose a hook for custom filters
 		wfRunHooks( 'GatewayCustomFilter', array( &$this->gateway_adapter, &$this ) );
 		$localAction = $this->determineAction();
+//		error_log("Filter validation says " . $localAction);
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		$log_msg = '"' . $localAction . "\"\t\"" . $this->risk_score . "\"";

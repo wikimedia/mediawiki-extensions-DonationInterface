@@ -47,7 +47,8 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 	}
 
 	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableSourceFilter' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableSourceFilter' ) ||
+			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ){
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'source onFilter hook!';

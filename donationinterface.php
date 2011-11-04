@@ -44,6 +44,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'GlobalCollect' => false,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
+	'FunctionsFilter' => false, //extra
 	'Minfraud_as_filter' => false, //extra
 
 );
@@ -56,6 +57,7 @@ foreach ($optionalParts as $subextension => $enabled){
 		//this is getting annoying.
 		if ( $subextension === 'ReferrerFilter' ||
 			$subextension === 'SourceFilter' ||
+			$subextension === 'FunctionsFilter' ||
 			$subextension === 'Minfraud_as_filter' ||
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
@@ -66,6 +68,7 @@ foreach ($optionalParts as $subextension => $enabled){
 
 			if ( $subextension === 'ReferrerFilter' ||
 				$subextension === 'SourceFilter' ||
+				$subextension === 'FunctionsFilter' ||
 				$subextension === 'Minfraud_as_filter' ){
 
 				//and at least one of them is a custom filter.
@@ -172,6 +175,11 @@ if ( $optionalParts['ReferrerFilter'] === true ){
 //Source Filter classes
 if ( $optionalParts['SourceFilter'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Source'] = $donationinterface_dir . "extras/custom_filters/filters/source/source.body.php";
+}
+
+//Functions Filter classes
+if ( $optionalParts['FunctionsFilter'] === true ){
+	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Functions'] = $donationinterface_dir . "extras/custom_filters/filters/functions/functions.body.php";
 }
 
 //Recaptcha classes
@@ -403,6 +411,11 @@ if ( $optionalParts['SourceFilter'] === true ){
 	$wgDonationInterfaceCustomFiltersSrcRules = array( );
 }
 
+//Functions Filter globals
+if ( $optionalParts['FunctionsFilter'] === true ){
+	$wgDonationInterfaceCustomFiltersFunctions = array( );
+}
+
 //Recaptcha globals
 if ( $optionalParts['Recaptcha'] === true ){
 	/**
@@ -477,7 +490,12 @@ if ( $optionalParts['ReferrerFilter'] === true ){
 //Source Filter hooks
 if ( $optionalParts['SourceFilter'] === true ){
 	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
-}
+} 
+
+//Functions Filter hooks
+if ( $optionalParts['FunctionsFilter'] === true ){
+	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
+} 
 
 //Conversion Log hooks
 if ($optionalParts['ConversionLog'] === true){

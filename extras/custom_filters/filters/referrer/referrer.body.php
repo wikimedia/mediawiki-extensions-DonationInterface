@@ -47,7 +47,8 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 	}
 
 	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableReferrerFilter' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableReferrerFilter' ) ||
+			!count( $gateway_adapter->getGlobal( 'CustomFiltersRefRules' ) ) ){
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'referrer onFilter hook!';
