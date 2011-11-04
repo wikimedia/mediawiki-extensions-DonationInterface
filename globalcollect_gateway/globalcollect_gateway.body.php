@@ -84,26 +84,14 @@ EOT;
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {	
 
-			//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
-			//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
-			$data = $this->adapter->getData_Raw();
-
 			if ( $this->adapter->posted ) {
 				
 				// The form was submitted and the payment method has been set
-				/*
-				 * The $payment_method should default to false.
-				 *
-				 * An invalid $payment_method will cause an error.
-				 */
+				$payment_method = $this->adapter->getPaymentMethod();
+				$payment_submethod = $this->adapter->getPaymentSubmethod();
 
-				$payment_method = ( isset( $data['payment_method'] ) && !empty( $data['payment_method'] ) ) ? $data['payment_method'] : 'cc';
-				$payment_submethod = ( isset( $data['payment_submethod'] ) && !empty( $data['payment_submethod'] ) ) ? $data['payment_submethod'] : '';
-		
-				$payment_submethodMeta = $this->adapter->getPaymentSubmethodMeta( $payment_submethod, array( 'log' => true, ) );
-				
 				// Check form for errors
-				$form_errors = $this->validateForm( $this->errors, $payment_submethodMeta['validation'] );
+				$form_errors = $this->validateForm( $this->errors, $this->adapter->getPaymentSubmethodFormValidation() );
 				
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
@@ -172,6 +160,10 @@ EOT;
 					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug();
 				}
+
+				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere. 
+				//All we seem to be doing with it now, is internal adapter logic outside of the adapter. 
+				$data = $this->adapter->getData_Raw();
 				
 				// If the result of the previous transaction was failure, set the retry message.
 				if ( $data && array_key_exists( 'response', $data ) && $data['response'] == 'failure' ) {
