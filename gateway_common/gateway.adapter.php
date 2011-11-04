@@ -101,9 +101,24 @@ interface GatewayType {
  */
 abstract class GatewayAdapter implements GatewayType {
 
-	//Contains the map of THEIR var names, to OURS.
-	//I'd have gone the other way, but we'd run into 1:many pretty quick. 
-	protected $var_map;
+	/**
+	 * $error_map maps gateway errors to client errors
+	 *
+	 * The index of each error should map to a translation:
+	 *
+	 * 0 => globalcollect_gateway-response-default
+	 *
+	 * @var	array	$error_map
+	 */
+	protected $error_map = array();
+
+	/**
+	 * $var_map maps gateway variables to client variables
+	 *
+	 * @var	array	$var_map
+	 */
+	protected $var_map = array();
+
 	protected $accountInfo;
 	protected $url;
 	protected $transactions;
@@ -182,6 +197,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->setPostDefaults( $postDefaults );
 		$this->defineTransactions();
+		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
@@ -374,6 +390,74 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getVarMap() {
 
 		return $this->var_map;
+	}
+
+	/**
+	 * getErrorMap
+	 *
+	 * This will also return an error message if a $code is passed.
+	 *
+	 * If the error code does not exist, the default message will be returned.
+	 *
+	 * A default message should always exist with an index of 0.
+	 *
+	 * NOTE: This method will check to see if the message exists in translation
+	 * and use that message instead of the default. This would override error_map.
+	 *
+	 * @param	string	$code	The error code to look up in the map
+	 *
+	 * @return	array|string	Returns @see GatewayAdapter::$error_map
+	 */
+	public function getErrorMap( $code = null, $options = array() ) {
+
+		if ( isset( $options['code'] ) ) {
+			unset( $options['code'] );
+		}
+		
+		extract( $options );
+
+		global $messages;
+		
+		if ( is_null( $code ) ) {
+			return $this->error_map;
+		}
+
+		$translate = isset( $translate ) ? (boolean) $translate : false ;
+		
+		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
+		
+		$translatedMessage = wfMsg( $response_message );
+		
+		// Check to see if an error message exists in translation
+		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
+			
+			// Message does not exist
+			$translatedMessage = '';
+		}
+		
+		// If the $code does not exist, use the default code: 0
+		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
+		
+		$translatedMessage = ( $translate && empty( $translatedMessage ) ) ? wfMsg( $this->error_map[ $code ] ) : $translatedMessage; 
+		
+		// Check to see if we return the translated message.
+		$message = ( $translate ) ? $translatedMessage : $this->error_map[ $code ];
+		
+		return $message;
+	}
+
+	/**
+	 * getErrorMapByCodeAndTranslate
+	 *
+	 * This will take an error code and translate the message.
+	 *
+	 * @param	string	$code	The error code to look up in the map
+	 *
+	 * @return	string	Returns the translated message from @see GatewayAdapter::$error_map
+	 */
+	public function getErrorMapByCodeAndTranslate( $code ) {
+		
+		return $this->getErrorMap( $code, array( 'translate' => true, ) );
 	}
 
 	/**
@@ -1526,16 +1610,54 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Returns false if language does not exist or string if it does exist
 	 *
+	 * @todo
+	 * - Can we just get the language from somewhere else to make this simpler?
+	 *
 	 * @return false|string  
 	 */
 	public function getTransactionDataLanguage() {
 		
 		$data = $this->getTransactionData();
 		
-		if ( is_array( $data ) && array_key_exists( 'language', $data ) ) {
-			return $data['language'];
+		$return = false;
+		
+		// Check for language in $data
+		if ( is_array( $data ) ) {
+			if ( array_key_exists( 'language', $data ) ) {
+				$return = $data['language'];
+			} 
+		}
+
+		// Check for language in $data['ORDER']['LANGUAGECODE']
+		if ( empty( $return ) && array_key_exists( 'ORDER', $data ) ) {
+			
+			if ( array_key_exists( 'LANGUAGECODE', $data['ORDER'] ) ) {
+				$return = $data['ORDER']['LANGUAGECODE'];
+			}
+		}
+
+		// Check for language in $data['PAYMENT']['LANGUAGECODE']
+		if ( empty( $return ) && array_key_exists( 'PAYMENT', $data ) ) {
+			
+			if ( array_key_exists( 'LANGUAGECODE', $data['PAYMENT'] ) ) {
+				$return = $data['PAYMENT']['LANGUAGECODE'];
+			}
+		}
+		
+		return $return;
+	}
+
+	/**
+	 * Returns an array of errors. This should be an empty array on success.
+	 *
+	 * @return array
+	 */
+	public function getTransactionErrors() {
+		
+		if ( is_array( $this->transaction_results ) && array_key_exists( 'errors', $this->transaction_results ) ) {
+			return $this->transaction_results['errors'];
 		} else {
-			return false;
+			return array();
 		}
 	}
 
