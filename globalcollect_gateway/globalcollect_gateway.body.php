@@ -258,7 +258,9 @@ EOT;
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 
-		$url = $this->adapter->getGlobal( 'ThankYouPage' ) . '/' . $this->adapter->getTransactionDataLanguage();
+		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
+
+		$url = $this->adapter->getGlobal( 'ThankYouPage' ) . '/' . $this->adapter->getTransactionDataLanguage() . $queryString;
 		
 		$link = Xml::tags( 'a', array( 'href' => $url ), wfMsg( 'donate_interface-bt-finished' ) );
 		
