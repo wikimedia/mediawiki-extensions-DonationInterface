@@ -885,6 +885,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return array of currency codes
 	 */
 	function getCurrencies() {
+		// If you update this list, also update the list in the exchange_rates drupal module.
 		$currencies = array(
 			'AED', // UAE dirham
 			'ARS', // Argentinian peso
