@@ -324,7 +324,7 @@ HTML;
 		if ( $this->getPaymentMethod() != 'dd' ) {
 			
 			// No direct debit fields need to be loaded.
-			return $form;
+			return $return;
 		}
 
 		$fields = array(
