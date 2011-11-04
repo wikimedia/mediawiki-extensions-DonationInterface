@@ -141,7 +141,7 @@ HTML;
 			} else {
 				
 				// Display single message
-				$return .= Xml::tags( 'p', array( 'class' => $errorClass ), $message );
+				$return .= Xml::tags( 'p', array( 'class' => $errorClass ), $this->form_errors[ $type ] );
 			}
 		}
 		
