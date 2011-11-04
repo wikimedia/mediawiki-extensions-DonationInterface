@@ -151,7 +151,7 @@ function displayCreditCardForm() {
 	var sendData = {
 		'action': 'donate',
 		'gateway': 'globalcollect',
-		'currency': 'USD',
+		'currency': $( "input[name='amount']" ).val(),
 		'amount': $( "input[name='amount']" ).val(),
 		'fname': $( "input[name='fname']" ).val(),
 		'lname': $( "input[name='lname']" ).val(),
