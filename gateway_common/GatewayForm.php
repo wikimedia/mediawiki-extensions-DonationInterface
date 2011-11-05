@@ -121,6 +121,13 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * Validates the address
 	 *
+	 * Required:
+	 * - street
+	 * - city
+	 * - state
+	 * - zip
+	 * - country
+	 *
 	 * @param array	$data	Reference to the data of the form
 	 * @param array	$error	Reference to the error messages of the form
 	 *
@@ -142,18 +149,23 @@ class GatewayForm extends UnlistedSpecialPage {
 			$this->setValidateFormResult( false );
 		}
 
-		$validateState = ( $data['country'] == 'US' ) ? true : false ;
-
-		if ( empty( $data['state'] ) && $validateState  ) {
+		if ( empty( $data['state'] ) || $data['state'] == 'YY' ) {
 
 			$error['state'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-state' ) );
 
 			$this->setValidateFormResult( false );
 		}
 
-		$validateZip = ( $validateState && isset( $data['state'] ) && $data['state'] != 'XX' ) ? true : false ;
+		if ( empty( $data['country'] ) || !array_key_exists( $data['country'], $this->getCountries() )) {
+
+			$error['country'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-country' ) );
+
+			$this->setValidateFormResult( false );
+		}
+
+		$ignoreCountries = array();
 		
-		if ( empty( $data['zip'] ) && $validateZip ) {
+		if ( empty( $data['zip'] ) && !in_array( $data['country'], $ignoreCountries ) ) {
 
 			$error['zip'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-zip' ) );
 
