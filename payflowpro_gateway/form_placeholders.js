@@ -35,7 +35,7 @@ window.formCheck = function( ccform ) {
 	var stateField = document.getElementById( 'state' );
 	var stateFieldSelected = stateField.options[stateField.selectedIndex].value;
 	if( stateFieldSelected == '' || stateFieldSelected == 'YY' ) {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
 	}
 	var countryField = document.getElementById( 'country' );
 	if( countryField.options[countryField.selectedIndex].value == '' ) {

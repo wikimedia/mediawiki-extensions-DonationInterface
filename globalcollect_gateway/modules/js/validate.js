@@ -255,8 +255,8 @@ function validateElementState( options ) {
                 required: true,
                 notEqual: 'YY',
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ),
-                    notEqual: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ),
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ),
+                    notEqual: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ),
                 }
             }
         );

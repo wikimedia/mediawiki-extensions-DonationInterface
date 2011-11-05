@@ -55,7 +55,7 @@ window.formCheck = function( ccform ) {
 	
 	var stateField = document.getElementById( 'state' );
 	if( stateField.options[stateField.selectedIndex].value == '' ) {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-state' ) + '.\r\n';
+		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
 	}
 
 	// validate email address

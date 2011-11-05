@@ -618,6 +618,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-donor-postal',
 		'donate_interface-donor-country',
 		'donate_interface-donor-emailAdd',
+		'donate_interface-state-province',
 	)
 );
 

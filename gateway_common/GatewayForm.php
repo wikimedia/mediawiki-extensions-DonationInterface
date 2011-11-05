@@ -151,7 +151,7 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		if ( empty( $data['state'] ) || $data['state'] == 'YY' ) {
 
-			$error['state'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-state' ) );
+			$error['state'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-state-province' ) );
 
 			$this->setValidateFormResult( false );
 		}
