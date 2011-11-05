@@ -1946,17 +1946,18 @@ $messages['tt-cyrl'] = array(
  * @author Alex Khimich
  * @author Dim Grits
  * @author NickK
+ * @author Olvin
  * @author Prima klasy4na
  * @author Тест
  */
 $messages['uk'] = array(
 	'payflowprogateway' => 'Зробіть Вашу пожертву зараз',
 	'payflowpro_gateway-desc' => 'Обробка кредитних карт PayPal Payflow Pro',
-	'payflowpro_gateway-response-0' => 'Вашу транзакцію підтверджено.
-Дякуємо за ваше пожертвування!',
+	'payflowpro_gateway-response-0' => 'Транзакцію підтверджено.
+Дякуємо за вашу пожертву!',
 	'payflowpro_gateway-response-126' => 'Ваша транзакція очікує підтвердження.',
-	'payflowpro_gateway-response-126-2' => 'Деякі з зазначених вами даних не збігаються з профілем вашої кредитної картки, або ви зробили дуже велике пожертвування. Для забезпечення вашої безпеки ваше пожертвування наразі розглядається, і ми повідомимо вас на надану адресу електронної пошти, якщо ми не зможемо виконати ваш запит на пожертвування. Будь ласка, повідомте електронною поштою <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, якщо у вас є які-небудь запитання. Дякуємо!',
-	'payflowpro_gateway-response-12' => 'Будь-ласка, зверніться до компанії, що обслуговує кредитну картку, для отримання детальнішої інформації.',
+	'payflowpro_gateway-response-126-2' => 'Деякі з наданих вами відомостей не відповідають профілю вашої кредитної картки, або ж ви зробили дуже велику пожертву. Для забезпечення вашої безпеки пожертва наразі розглядається, і ми повідомимо вас через надану адресу електронної пошти, якщо не зможемо обробити запит на пожертву. Будь ласка, повідомте електронною поштою <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, якщо маєте які-небудь питання. Дякуємо!',
+	'payflowpro_gateway-response-12' => 'Будь-ласка, зверніться до компанії, що обслуговує кредитну картку, для отримання подальшої інформації.',
 	'payflowpro_gateway-response-13' => "Ваша транзакція вимагає голосової авторизації.
 Будь ласка, зв'яжіться з нами, щоб продовжити операцію.",
 	'payflowpro_gateway-response-114' => 'Будь-ласка, зверніться до компанії, що обслуговує кредитну картку, для отримання детальнішої інформації.',
@@ -1964,7 +1965,7 @@ $messages['uk'] = array(
 	'payflowpro_gateway-response-4' => 'Неправильна сума.',
 	'payflowpro_gateway-response-24' => 'Номер вашої кредитної картки або дата закінчення терміну дії є невірними.',
 	'payflowpro_gateway-response-112' => 'Ваша адреса або номер CVV (захисний код) є неправильним.',
-	'payflowpro_gateway-response-125' => 'Ваша транзакція відхилена Службами запобігання шахрайству.',
+	'payflowpro_gateway-response-125' => 'Вашу транзакцію було відхилено службою запобігання шахрайству.',
 	'payflowpro_gateway-response-125-2' => 'Ваша кредитна картка не може бути підтверджена. Будь ласка, переконайтеся, що всі заповнені дані відповідають профілю вашої кредитної картки або скористайтесь іншою карткою. Ви також можете скористатись одним з <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">інших способів пожертвування</a> або зв\'язатись з нами електронною поштою <a href="mailto:donate@wikimedia.org">donate@wikimedia.org.</a> Дякуємо за вашу підтримку.',
 	'payflowpro_gateway-response-default' => 'Під час обробки вашої транзакції виникла помилка.
 Будь ласка, спробуйте пізніше.',
@@ -2005,7 +2006,7 @@ $messages['vi'] = array(
 	'payflowpro_gateway-response-0' => 'Giao dịch của bạn đã được chứng nhận.
 Cảm ơn sự đóng góp của bạn!',
 	'payflowpro_gateway-response-126' => 'Giao dịch của bạn đang chờ được chứng nhận.',
-	'payflowpro_gateway-response-126-2' => 'Một số thông tin mà bạn cung cấp không đúng với hồ sơ thẻ tín dụng của bạn, hoặc bạn đã đóng góp rất nhiều tiền. Để bảo vệ tài khoản của bạn, chúng tôi hiện đang xem xét sự đóng góp của bạn. Nếu trường hợp chúng tôi không thể hoàn thành sự đóng góp của bạn, chúng tôi sẽ liên lạc với bạn qua địa chỉ thư điện tử mà bạn cung cấp. Nếu có thắc mắc gì, xin hãy gửi thư điện tử cho <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cám ơn!',
+	'payflowpro_gateway-response-126-2' => 'Một số thông tin mà bạn cung cấp không đúng với hồ sơ thẻ tín dụng của bạn, hoặc bạn đã đóng góp rất nhiều tiền. Để bảo vệ tài khoản của bạn, chúng tôi hiện đang xem xét sự đóng góp của bạn. Nếu trường hợp chúng tôi không thể hoàn thành sự đóng góp của bạn, chúng tôi sẽ liên lạc với bạn qua địa chỉ thư điện tử mà bạn cung cấp. Nếu có thắc mắc gì, xin hãy gửi thư điện tử cho <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cảm ơn!',
 	'payflowpro_gateway-response-12' => 'Xin liên hệ với công ty thẻ tín dụng của bạn để biết thêm chi tiết.',
 	'payflowpro_gateway-response-13' => 'Giao dịch này cần xác nhận bằng điện thoại.
 Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao dịch.',
@@ -2013,9 +2014,9 @@ Xin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao d�
 	'payflowpro_gateway-response-23' => 'Số thẻ tín dụng của bạn hoặc ngày hết hạn không đúng.',
 	'payflowpro_gateway-response-4' => 'Số tiền không hợp lệ.',
 	'payflowpro_gateway-response-24' => 'Số thẻ tín dụng hoặc ngày hết hạn không đúng.',
-	'payflowpro_gateway-response-112' => 'Địa chỉ hoặc mã an ninh của bạn không đúng.',
+	'payflowpro_gateway-response-112' => 'Địa chỉ hoặc mã CCV (mã bảo mật) của bạn không đúng.',
 	'payflowpro_gateway-response-125' => 'Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.',
-	'payflowpro_gateway-response-125-2' => 'Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Cũng có thể <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi">quyên góp một cách khác</a> hoặc liên lạc với chúng tôi tại <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cám ơn sự hỗ trợ của bạn.',
+	'payflowpro_gateway-response-125-2' => 'Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Bạn cũng có thể <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi">quyên góp bằng cách khác</a> hoặc liên lạc với chúng tôi tại <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Cảm ơn sự hỗ trợ của bạn.',
 	'payflowpro_gateway-response-default' => 'Đã xảy ra lỗi khi xử lý giao dịch của bạn.
 Xin hãy thử lại sau.',
 );
