@@ -31,7 +31,7 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  * @group GlobalCollect
  * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml
@@ -46,7 +46,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenT
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_nordea_sweeden',
+			'payment_submethod' => 'rtbt_nordea_sweden',
 			'payment_product_id' => 805,
 		);
 

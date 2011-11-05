@@ -390,7 +390,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Real Time Bank Transfers
 		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
-			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweeden', 'rtbt_enets', ),
+			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweden', 'rtbt_enets', ),
 		);
 	}
 
@@ -598,10 +598,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 * Real time bank transfers
 		 */
 		 
-		// Nordea (Sweeden)
-		$this->payment_submethods['rtbt_nordea_sweeden'] = array(
+		// Nordea (Sweden)
+		$this->payment_submethods['rtbt_nordea_sweden'] = array(
 			'paymentproductid'	=> 805,
-			'label'	=> 'Nordea (Sweeden)',
+			'label'	=> 'Nordea (Sweden)',
 			'group'	=> 'rtbt',
 			'validation' => array(),
 		);
@@ -1209,7 +1209,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			
 			/* Real time bank transfer */
-			case 'rtbt_nordea_sweeden':
+			case 'rtbt_nordea_sweden':
 			case 'rtbt_enets':
 			case 'rtbt_sofortuberweisung':
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];

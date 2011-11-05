@@ -45,9 +45,9 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferEp
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferIdealTestCase.php';
 
 /**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenTestCase
+ * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase
  */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferNordeaSweedenTestCase.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferNordeaSwedenTestCase.php';
 
 /**
  * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase
@@ -99,8 +99,8 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 		// Ideal
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase' );
 		
-		// Nordea (Sweeden)
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSweedenTestCase' );
+		// Nordea (Sweden)
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase' );
 		
 		// eNETS
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );                                                             
