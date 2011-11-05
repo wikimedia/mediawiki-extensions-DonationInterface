@@ -661,7 +661,7 @@ HTML;
 		$return .= $this->getCityField();
 
 		// state
-		//$return .= $this->getStateField();
+		$return .= $this->getStateField();
 
 		// zip
 		$return .= $this->getZipField();
