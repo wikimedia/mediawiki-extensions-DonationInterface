@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	mw.loader.load('pfp.form.rapidhtml.webitects');
+	mw.loader.load('pfp.form.rapidhtml.webitects_2step');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
 	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
@@ -41,7 +41,7 @@
 				<div id="donate">
 					<div id="donate-content">
 						<div id="donate-body" style="padding: 0 1em;">
-							<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount">(CAD)</span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
+							<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
 
 							<form method="post" name="paypalcontribution">
 								<div id="step1wrapper">
@@ -66,10 +66,11 @@
 										<input class="btn" id="pp" type="button" value="%donate_interface-paypal-button%"/><span id='loading'></span>
 									</p>
 								</div>
-								<div id="step2header"><h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
+								<div id="step2header"><h3>%donate_interface-cc-form-header-personal% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
 								<div id="step2wrapper">
 									<div id="billing-content" class="gainlayout">
 										<div id="billingErrorMessages" class="small"></div>
+										<div id="paymentErrorMessages" class="small"></div>
 										<div class="name-fields">
 											<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
 											<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
@@ -83,29 +84,28 @@
 												<option value=""></option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON">ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option>
 											</select>
 											</span>
-											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-zip%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span> <!-- TODO: use postal code on non-US -->
+											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-zip%" value="@zip" placeholder="%donate_interface-zip%"/></span> <!-- TODO: use postal code on non-US -->
 										</div>
 										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/></p>
 
 
-										<dl class="">
-											<dt><span class="label">Select credit card</span></dt>
-											<dd class="field" style="margin-bottom: 0;">
-												<ul class="options-h" id="cards" style="margin: 0;">
-													<li><input id="cc-visa" name="cardtype" type="radio" value="Visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
-													<li><input id="cc-mastercard" name="cardtype" type="radio" value="MasterCard" class="cardradio" /> <label for="cc-mastercard"><img alt="MasterCard" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" /></label></li>
+										<!--<dl class="">-->
+											<!--<dt><span class="label">Select credit card</span></dt>-->
+											<!--<dd class="field" style="margin-bottom: 0;">-->
+												<!--<ul class="options-h" id="cards" style="margin: 0;">-->
+													<!--<li><input id="cc-visa" name="cardtype" type="radio" value="Visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>-->
+													<!--<li><input id="cc-mastercard" name="cardtype" type="radio" value="MasterCard" class="cardradio" /> <label for="cc-mastercard"><img alt="MasterCard" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" /></label></li>-->
 													<!--<li><input id="cc-amex" name="cardtype" type="radio" value="American Express" class="cardradio" /> <label for="cc-amex"><img alt="American Express" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-amex.png" /></label></li>-->
 													<!--<li><input id="cc-discover" name="cardtype" type="radio" value="Discover" class="cardradio" /> <label for="cc-discover"><img alt="Discover" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-discover.png" /></label></li>-->
-												</ul>
-												<div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="Continue" /></div>
-											</dd>
-										</dl>
+												<!--</ul>-->
+											<!--</dd>-->
+										<!--</dl>-->
 									</div>
-								</div>
-								<div id="step3header"><h3>Payment Information <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
-								<div id="step3wrapper" style="display: none;">
+								<!--</div>-->
+								<!--<div id="step3header"><h3>Payment Information <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>-->
+								<!--<div id="step3wrapper" style="display: none;">-->
 									<div id="payment"  class="gainlayout">
-										<div id="paymentErrorMessages" class="small"></div>
+
 										<dl class="form">
 											<dt><span class="label"><label for="card_num">Card number</label></span></dt>
 											<dd class="field"><input class="txt" id="card_num" name="card_num" value="@card_num"/></dd>
@@ -168,9 +168,9 @@
 								<input type="hidden" value="@card" name="card" id="card">
 
 								<input type="hidden" value="@amount" name="amount" />
-								<input type="hidden" value="CA" name="country" id="country" />
+								<input type="hidden" value="US" name="country" id="country" />
 								<input type="hidden" value="@expiration" name="expiration" id="expiration"/>
-								<input type="hidden" value="CAD" name="currency_code" />
+								<input type="hidden" value="@currency_code" name="currency_code" />
 								<input type="hidden" value="@utm_source" name="utm_source"/>
 								<input type="hidden" value="@utm_medium" name="utm_medium"/>
 								<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
@@ -178,7 +178,7 @@
 								<input type="hidden" value="@referrer" name="referrer"/>
 								<input type="hidden" value="@comment" name="comment"/>
 								<input type="hidden" value="@comment-option" name="comment-option"/>
-								<input type="hidden" value="1" name="email-opt"/>
+								<input type="hidden" value="1 " name="email-opt"/>
 								<input type="hidden" value="processed" name="payment_method"/>
 								<input type="hidden" value="@token" name="token"/>
 								<input type="hidden" value="@order_id"  name="order_id"/>
