@@ -265,6 +265,7 @@ class PayflowProAdapter extends GatewayAdapter {
 	}
 	
 	protected function pre_process_card(){
+		$this->incrementNumAttempt();
 		$this->runPreProcessHooks();
 	}
 	

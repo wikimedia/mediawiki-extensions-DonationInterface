@@ -742,8 +742,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 *		numeric codes (even if we have to make them up ourselves) and 
 	 *		human-readable assessments of what happened, probably straight from 
 	 *		the gateway. 
-	 *	'action' = (sometimes there) What the pre-commit hooks said we should go 
-	 *		do with ourselves, if they were fired off. 
+	 *	'action' = What the pre-commit hooks said we should go do with ourselves. 
+	 *		If none were fired, this will be set to 'process'  
 	 *	'data' = The data passed back to us from the transaction, in a nice 
 	 *		key-value array. 
 	 */
@@ -754,9 +754,6 @@ abstract class GatewayAdapter implements GatewayType {
 		
 		try {
 			$this->setCurrentTransaction( $transaction );
-			
-			//TODO: This is a problem here. Needs to be moved to pre_process or something. 
-			$this->incrementNumAttempt();
 
 			//If we have any special pre-process instructions for this 
 			//transaction, do 'em. 
@@ -868,6 +865,7 @@ abstract class GatewayAdapter implements GatewayType {
 				'errors' => array(
 					'1000000' => 'communication failure' //...stupid code.
 				),
+				'action' => $this->getValidationAction(),
 			);
 		}
 
@@ -892,30 +890,10 @@ abstract class GatewayAdapter implements GatewayType {
 		// log that the transaction is essentially complete
 		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . " Transaction complete." );
 
-		//getTransactionStatus works here like this, because it only returns 
-		//something other than false if it's the sort of a transaction that can 
-		//denote a successful donation.  
-//		$wmfStatus = $this->getTransactionWMFStatus();
-//		switch ( $wmfStatus ){
-//			case 'failed' : //only kill their session if they've tried three (or somehow more) times. 
-//				if ( (int)$this->getData_Staged('numAttempt') < 3 ) {
-//					break;
-//				}
-//			case 'complete' :
-//			case 'pending' :
-//			case 'pending-poke' :
-//				$this->unsetAllSessionData();
-//		}
-
 		$this->debugarray[] = 'numAttempt = ' . $this->getData_Staged('numAttempt');
 
 		return $this->getTransactionAllResults();
-
-		//speaking of universal form: 
-		//$result['status'] = something I wish could be boiled down to a bool, but that's way too optimistic, I think.
-		//$result['message'] = whatever we want to display back? 
-		//$result['errors']['code']['message'] = 
-		//$result['data'][$whatever] = values they pass back to us for whatever reason. We might... log it, or pieces of it, or something? 
+		
 	}
 
 	function getCurlBaseOpts() {

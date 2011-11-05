@@ -297,6 +297,39 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	//this really should be redefined in LocalSettings.
 	$wgGlobalCollectGatewayAllowedHtmlForms = $wgDonationInterfaceAllowedHtmlForms;
 	$wgGlobalCollectGatewayAllowedHtmlForms['lightbox1'] = $wgGlobalCollectGatewayHtmlFormDir .'/lightbox1.html';
+	
+	$wgGlobalCollectGatewayCvvMap = array(
+		'M' => true, //CVV check performed and valid value.
+		'N' => false, //CVV checked and no match.
+		'P' => true, //CVV check not performed, not requested
+		'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card. 
+		'U' => true, //? //Issuer not certified for CVV2.
+		'Y' => false, //Server provider did not respond.
+		'0' => true, //No service available.
+	);
+	
+	$wgGlobalCollectGatewayAvsMap = array(
+		'A' => 50, //Address (Street) matches, Zip does not.
+		'B' => 50, //Street address match for international transactions. Postal code not verified due to incompatible formats.
+		'C' => 50, //Street address and postal code not verified for international transaction due to incompatible formats.
+		'D' => 0, //Street address and postal codes match for international transaction.
+		'E' => 100, //AVS Error.
+		'F' => 0, //Address does match and five digit ZIP code does match (UK only).
+		'G' => 50, //Address information is unavailable; international transaction; non-AVS participant. 
+		'I' => 50, //Address information not verified for international transaction.
+		'M' => 0, //Street address and postal codes match for international transaction.
+		'N' => 100, //No Match on Address (Street) or Zip.
+		'P' => 50, //Postal codes match for international transaction. Street address not verified due to incompatible formats.
+		'R' => 100, //Retry, System unavailable or Timed out.
+		'S' => 50, //Service not supported by issuer.
+		'U' => 50, //Address information is unavailable.
+		'W' => 50, //9 digit Zip matches, Address (Street) does not.
+		'X' => 0, //Exact AVS Match.
+		'Y' => 0, //Address (Street) and 5 digit Zip match.
+		'Z' => 50, //5 digit Zip matches, Address (Street) does not.
+		'0' => 50, //No service available.
+	);	
+	
 }
 
 //PayflowPro gateway globals

@@ -287,13 +287,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'GET_ORDERSTATUS',
 				'VERSION' => '2.0'
 			),
-			'loop_for_status' => array(
-				//'pending',
-				'pending-poke',
-				'complete',
-				'failed',
-				'revised',
-			)
+//			'loop_for_status' => array(
+//				//'pending',
+//				'pending-poke',
+//				'complete',
+//				'failed',
+//				'revised',
+//			)
 		);
 		
 		$this->transactions['CANCEL_PAYMENT'] = array(
@@ -714,16 +714,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function do_transaction( $transaction ){
 		switch ( $transaction ){
-			case 'K4sVoodoo' :
-				return $this->doK4svoodoo();
+			case 'Confirm_CreditCard' :
+				return $this->transactionConfirm_CreditCard();
 				break;
 			default:
 				return parent::do_transaction( $transaction );
 		}
 	}
 	
-	//TODO: rename, yo. 
-	private function doK4svoodoo(){
+	
+	private function transactionConfirm_CreditCard(){
 		global $wgRequest; //this is for pulling vars straight from the querystring
 		$pull_vars = array(
 			'CVVRESULT' => 'cvv_result',
@@ -739,42 +739,101 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( count( $addme ) ){
 			$this->addData( $addme );
 		}
+		$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
+		$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
+		$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
+		self::log( $logmsg );
 		
 		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 		
-//		$status_result['data'];
-//		
-		//TODO: If we've already failed, flame out here instead of later. 
+		//error_log( "GET_ORDERSTATUS result: " . $status_result );
+		
+		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
+		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
+		$problemmessage = ''; //to be used in conjunction with the flag.
+		
+		//we filtered
+		if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
+			$cancelflag = true;
+		} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
+		//can't communicate or internal error
+			$problemflag = true;
+		}
 
-		if ( isset( $status_result['data'] ) && is_array( $status_result['data'] ) ){
-			//if they're set, get CVVRESULT && AVSRESULT
-			$pull_vars['EFFORTID'] = 'effort_id';
-			$pull_vars['ATTEMPTID'] = 'attempt_id';
-			$addme = array();
-			foreach ( $pull_vars as $theirkey => $ourkey) {
-				if ( array_key_exists( $theirkey, $status_result['data'] ) ){
-					$addme[$ourkey] = $status_result['data'][$theirkey];
+		if ( !$cancelflag && !$problemflag ) {
+			$order_status_results = $this->getTransactionWMFStatus();
+			if (!$order_status_results){
+				$problemflag = true;
+				$problemmessage = "We don't have a Transaction WMF Status after doing a GET_ORDERSTATUS.";
+			}
+			switch ( $order_status_results ){
+				//status says no - probably no need to cancel, but why not be explicit? 
+				case 'failed' : 
+				case 'revised' :  
+					$cancelflag = true;
+					break;
+			}
+		}
+
+		//if we got here with no problemflag, 
+		//confirm or cancel the payment based on $cancelflag 
+		if ( !$problemflag ){
+			if ( isset( $status_result['data'] ) && is_array( $status_result['data'] ) ){
+				//if they're set, get CVVRESULT && AVSRESULT
+				$pull_vars['EFFORTID'] = 'effort_id';
+				$pull_vars['ATTEMPTID'] = 'attempt_id';
+				$addme = array();
+				foreach ( $pull_vars as $theirkey => $ourkey) {
+					if ( array_key_exists( $theirkey, $status_result['data'] ) ){
+						$addme[$ourkey] = $status_result['data'][$theirkey];
+					}
+				}
+
+				if ( count( $addme ) ){
+					$this->addData( $addme );
 				}
 			}
-
-			if ( count( $addme ) ){
-				$this->addData( $addme );
-			}
 			
-			//now, either do a cancel or a process, depending on what the filters 
-			//said we should do. 
-			switch ( $status_result['action'] ){
-				case 'process' :
-					$final = $this->do_transaction( 'SET_PAYMENT' );
-					break;
-				case 'reject' :
-					$final = $this->do_transaction( 'CANCEL_PAYMENT' );
-					break;
+			if ( !$cancelflag ){
+				$final = $this->do_transaction( 'SET_PAYMENT' );
+				if ( isset( $final['status'] ) && $final['status'] === true ) {
+					$this->setTransactionWMFStatus( $order_status_results ); //this had damn well better exist if we got this far.
+					$this->runPostProcessHooks();  //stomp is in here
+					$this->unsetAllSessionData();
+				} else {
+					$problemflag = true;
+					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
+				}
+			} else {
+				$final = $this->do_transaction( 'CANCEL_PAYMENT' );
+				if ( isset( $final['status'] ) && $final['status'] === true ) {
+					$this->setTransactionWMFStatus( 'failed' );
+					$this->unsetAllSessionData();
+				} else {
+					$problemflag = true;
+					$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
+				}
 			}
-			return $final;
 		}
-//		error_log("Got nothing good back from the first call...");
-		return $status_result;		
+		
+		if ( $problemflag ){
+			//we have probably had a communication problem that could mean stranded payments. 
+			$problemmessage = $this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . ' ' . $problemmessage;
+			self::log( $problemmessage );
+			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
+			return array(
+				'status' => false,
+				//TODO: appropriate messages. 
+				'message' => $problemmessage,
+				'errors' => array(
+					'1000000' => 'Transaction could not be processed due to an internal error.'
+				),
+				'action' => $this->getValidationAction(),
+			);
+		}
+		
+//		return something better... if we need to!
+		return $status_result;
 	}
 	
 	/**
@@ -1175,6 +1234,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 	
 	protected function pre_process_insert_orderwithpayment(){
+		$this->incrementNumAttempt();
 		if ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
 			$this->addDonorDataToSession();
 		}
@@ -1186,8 +1246,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 	
-	protected function post_process_get_orderstatus(){
-		$this->runPostProcessHooks();
+	protected function post_process_insert_orderwithpayment(){
+		if  ( $this->getData_Raw( 'payment_method' ) != 'cc' ){
+			$this->runPostProcessHooks();
+		}
 	}
 	
 	/**
@@ -1199,17 +1261,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			return null;
 		}
 		
-		$result_map = array(
-			'M' => true, //CVV check performed and valid value.
-			'N' => false, //CVV checked and no match.
-			'P' => true, //CVV check not performed, not requested
-			'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card. 
-			'U' => true, //? //Issuer not certified for CVV2.
-			'Y' => false, //Server provider did not respond.
-			'0' => true, //No service available.
-		);
+		$cvv_map = $this->getGlobal( 'CvvMap' );
 		
-		$result = $result_map[$this->getData_Raw( 'cvv_result' )];
+		$result = $cvv_map[$this->getData_Raw( 'cvv_result' )];
 		return $result;
 
 	}	
@@ -1225,29 +1279,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//Best guess here: 
 		//Scale of 0 - 100, of Problem we think this result is likely to cause.
 
-		$result_map = array(
-			'A' => 50, //Address (Street) matches, Zip does not.
-			'B' => 50, //Street address match for international transactions. Postal code not verified due to incompatible formats.
-			'C' => 50, //Street address and postal code not verified for international transaction due to incompatible formats.
-			'D' => 0, //Street address and postal codes match for international transaction.
-			'E' => 100, //AVS Error.
-			'F' => 0, //Address does match and five digit ZIP code does match (UK only).
-			'G' => 50, //Address information is unavailable; international transaction; non-AVS participant. 
-			'I' => 50, //Address information not verified for international transaction.
-			'M' => 0, //Street address and postal codes match for international transaction.
-			'N' => 100, //No Match on Address (Street) or Zip.
-			'P' => 50, //Postal codes match for international transaction. Street address not verified due to incompatible formats.
-			'R' => 100, //Retry, System unavailable or Timed out.
-			'S' => 50, //Service not supported by issuer.
-			'U' => 50, //Address information is unavailable.
-			'W' => 50, //9 digit Zip matches, Address (Street) does not.
-			'X' => 0, //Exact AVS Match.
-			'Y' => 0, //Address (Street) and 5 digit Zip match.
-			'Z' => 50, //5 digit Zip matches, Address (Street) does not.
-			'0' => 50, //No service available.
-		);		
+		$avs_map = $this->getGlobal( 'AvsMap' );
 
-		$result = $result_map[$this->getData_Raw( 'avs_result' )];
+		$result = $avs_map[$this->getData_Raw( 'avs_result' )];
 		return $result;
 	}
 
