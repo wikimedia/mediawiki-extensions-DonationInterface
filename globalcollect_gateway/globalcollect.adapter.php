@@ -37,7 +37,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * @todo
 	 * - RETURNURL: Find out where the returnto URL is supposed to be coming from.
-	 * - IPADDRESS: Is the server IPA or the user/client IPA?
 	 */
 	public function defineVarMap() {
 		
@@ -45,23 +44,34 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'ACCOUNTHOLDER'		=> 'account_holder',
 			'ACCOUNTNAME'		=> 'account_name',
 			'ACCOUNTNUMBER'		=> 'account_number',
+			'ADDRESSLINE1E'		=> 'address_line_1e', //dd:CH
+			'ADDRESSLINE2'		=> 'address_line_2', //dd:CH
+			'ADDRESSLINE3'		=> 'address_line_3', //dd:CH
+			'ADDRESSLINE4'		=> 'address_line_4', //dd:CH
 			'ATTEMPTID'			=> 'attempt_id',
 			'AUTHORIZATIONID'	=> 'authorization_id',
 			'AMOUNT'			=> 'amount',
 			'BANKACCOUNTNUMBER'	=> 'bank_account_number',
+			'BANKAGENZIA'		=> 'bank_agenzia', // dd:IT
 			'BANKCHECKDIGIT'	=> 'bank_check_digit',
 			'BANKCODE'			=> 'bank_code',
+			'BANKFILIALE'		=> 'bank_filiale', // dd:IT
 			'BANKNAME'			=> 'bank_name',
 			'BRANCHCODE'		=> 'branch_code',
 			'CITY'				=> 'city',
 			'COUNTRYCODE'		=> 'country',
 			'COUNTRYCODEBANK'	=> 'country_code_bank',
 			'COUNTRYDESCRIPTION'=> 'country_description',
+			'CUSTOMERBANKCITY'	=> 'customer_bank_city', // dd
+			'CUSTOMERBANKSTREET'=> 'customer_bank_street', // dd
+			'CUSTOMERBANKNUMBER'=> 'customer_bank_number', // dd
+			'CUSTOMERBANKZIP'	=> 'customer_bank_zip', // dd
 			'CREDITCARDNUMBER'	=> 'card_num',
 			'CURRENCYCODE'		=> 'currency',
 			'CVV'				=> 'cvv',
 			'DATECOLLECT'		=> 'date_collect',
 			'DIRECTDEBITTEXT'	=> 'direct_debit_text',
+			'DOMICILIO'			=> 'domicilio', // dd:ES
 			'EFFORTID'			=> 'effort_id',
 			'EMAIL'				=> 'email',
 			'EXPIRYDATE'		=> 'expiration',
@@ -74,13 +84,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'ORDERID'			=> 'order_id',
 			'PAYMENTPRODUCTID'	=> 'card_type',
 			'PAYMENTREFERENCE'	=> 'payment_reference',
+			'PROVINCIA'			=> 'provincia', // dd:ES
 			'RETURNURL'			=> 'returnto',
 			'SPECIALID'			=> 'special_id',
 			'STATE'				=> 'state',
 			'STREET'			=> 'street',
 			'SURNAME'			=> 'lname',
 			'SWIFTCODE'			=> 'swift_code',
-			'TRANSACTIONTYPE'	=> 'transaction_type',
+			'TRANSACTIONTYPE'	=> 'transaction_type', // dd:GB,NL
 			'ZIP'				=> 'zip',
 		);
 	}
@@ -496,6 +507,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		/*
 		 * Direct debit
+		 *
+		 * See: WebCollect 7.1 Technical guide: Appendix H Country-specific direct debit keys
+		 *
+		 * - keys: These values, which can be found in $this->var_map, will only be put in the request, if they are populated from the form or staging.
 		 */
 		 
 		// Direct debit: AT
@@ -504,6 +519,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: AT',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: BE
@@ -512,6 +528,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: BE',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORIZATIONID', 'BANKNAME', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: CH
@@ -520,6 +537,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: CH',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', 'BANKNAME', 'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', 'IBAN', ),
 		);
 		 
 		// Direct debit: DE
@@ -528,6 +546,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: DE',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: ES
@@ -536,6 +555,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: ES',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKCHECKDIGIT', 'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', 'DOMICILIO', 'PROVINCIA', ),
 		);
 		 
 		// Direct debit: FR
@@ -544,6 +564,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: FR',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKCHECKDIGIT', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: GB
@@ -552,6 +573,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: GB',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORIZATIONID', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 		 
 		// Direct debit: IT
@@ -560,6 +582,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: IT',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', 'BANKFILIALE', 'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: NL
@@ -568,6 +591,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: NL',
 			'group'	=> 'dd',
 			'validation' => array(),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 
 		/*
@@ -1140,6 +1164,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - Need to implement this for credit card if necessary
 	 * - ISSUERID will need to provide a dropdown for rtbt_eps and rtbt_ideal.
 	 * - COUNTRYCODEBANK will need it's own dropdown for country. Do not map to 'country'
+	 * - DATECOLLECT is using gmdate('Ymd')
+	 * - DIRECTDEBITTEXT will need to be translated. This is what appears on the bank statement for donations for a client. This is hardcoded to: Wikimedia Foundation
 	 */
 	protected function stage_payment_method( $type = 'request' ) {
 		
@@ -1157,33 +1183,28 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			/* Direct Debit */
 			case 'dd_nl':
-			case 'dd_de':
-			case 'dd_at':
-			case 'dd_fr':
 			case 'dd_gb':
+				$this->staged_data['transaction_type'] = '01';
+			case 'dd_at':
 			case 'dd_be':
 			case 'dd_ch':
-			case 'dd_it':
+			case 'dd_de':
 			case 'dd_es':
+			case 'dd_fr':
+			case 'dd_it':
+
+				// DATECOLLECT is required on all Direct Debit
+				$this->addKeyToTransaction('DATECOLLECT');
+
+				$this->staged_data['date_collect'] = gmdate('Ymd');
+				$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
+				
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				$this->var_map['COUNTRYCODEBANK'] = 'country';
 
-				// Currently, this is needed by the Netherlands
-				$this->staged_data['transaction_type'] = '01';
-
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNAME';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ACCOUNTNUMBER';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'AUTHORIZATIONID';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKCHECKDIGIT';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKCODE';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BANKNAME';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'BRANCHCODE';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'COUNTRYCODEBANK';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'DATECOLLECT';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'DIRECTDEBITTEXT';
-				//$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'IBAN';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'TRANSACTIONTYPE';
+				// Direct debit has different required fields for each paymentproductid.
+				$this->addKeysToTransactionForSubmethod( $payment_submethod );
 
 				break;
 			
@@ -1200,17 +1221,25 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				
-				// Add the ISSUERID field if it does not exist
-				if ( !in_array( 'ISSUERID', $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'] ) ) {
-					$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['PAYMENT'][] = 'ISSUERID';
-				}
+				$this->addKeyToTransaction('ISSUERID');
 				break;
 				
 			/* Default Case */
 			default:
-				//$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				//$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				
+				// Nothing is done in the default case.
 				break;
+		}
+	}
+	
+	/**
+	 * Add keys to transaction for submethod
+	 *
+	 */
+	protected function addKeysToTransactionForSubmethod( $payment_submethod ) {
+		
+		foreach ( $this->payment_submethods[ $payment_submethod ]['keys'] as $key ) {
+			$this->addKeyToTransaction( $key );
 		}
 	}
 	
