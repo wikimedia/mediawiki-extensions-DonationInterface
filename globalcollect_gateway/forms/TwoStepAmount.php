@@ -587,7 +587,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getFormSectionAmount( $options = array() ) {
+	protected function getFormSectionAmount( $options = array() ) {
 
 		$return = '';
 		
@@ -633,7 +633,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getFormSectionPersonal( $options = array() ) {
+	protected function getFormSectionPersonal( $options = array() ) {
 
 		$return = '';
 		
@@ -688,7 +688,7 @@ HTML;
 	 *
 	 * @return string	Returns an HTML string
 	 */
-	public function getFormSectionPayment( $options = array() ) {
+	protected function getFormSectionPayment( $options = array() ) {
 
 		$return = '';
 		
