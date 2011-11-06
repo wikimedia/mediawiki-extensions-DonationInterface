@@ -1242,25 +1242,46 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param type $vars 
 	 */
 	function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
-		$params = array();
-		if ( self::getGlobal( 'SaveCommStats' ) ) {
+		static $saveStats = null;
+		static $saveDB = null;
+
+		if ( $saveStats === null ){
+			$saveStats = self::getGlobal( 'SaveCommStats' );
+		}
+		
+		if ( !$saveStats ){
+			return;
+		}
+		
+		if ( $saveDB === null ){
 			$db = ContributionTrackingProcessor::contributionTrackingConnection();
-
-			//TODO: Actually define this table somewhere in the code, once we 
-			//are reasonably certain we know what we want to see in it. 
-			if ( !( $db->tableExists( 'communication_stats' ) ) ) {
-				return;
+			if ( $db->tableExists( 'communication_stats' ) ) {
+				$saveDB = true;
+			} else {
+				$saveDB = false;
 			}
-
-			$params['contribution_id'] = $this->dataObj->getVal( 'contribution_tracking_id' );
+		}
+		
+		$params = array(
+			'contribution_id' => $this->dataObj->getVal( 'contribution_tracking_id' ),
+			'duration' => $this->getStopwatch( $function ),
+			'gateway' => self::getGatewayName(),
+			'function' => $function,
+			'vars' => $vars,
+			'additional' => $additional,
+		);
+		
+		if ( $saveDB ){ 
+			$db = ContributionTrackingProcessor::contributionTrackingConnection();
 			$params['ts'] = $db->timestamp();
-			$params['duration'] = $this->getStopwatch( __FUNCTION__ );
-			$params['gateway'] = self::getGatewayName();
-			$params['function'] = $function;
-			$params['vars'] = $vars;
-			$params['additional'] = $additional;
-
 			$db->insert( 'communication_stats', $params );
+		} else {
+			//save to syslog. But which syslog? 
+			$msg = '';
+			foreach ($params as $key=>$val){
+				$msg .= "$key:$val - ";
+			}
+			self::log($msg, LOG_INFO, '_commstats');
 		}
 	}
 
