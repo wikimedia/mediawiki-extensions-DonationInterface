@@ -209,6 +209,7 @@ $messages['en'] = array(
 	"donate_interface-country-dropdown-SO" => "Somalia",
 	"donate_interface-country-dropdown-ZA" => "South Africa",
 	"donate_interface-country-dropdown-KR" => "South Korea",
+	"donate_interface-country-dropdown-SS" => "South Sudan",
 	"donate_interface-country-dropdown-ES" => "Spain",
 	"donate_interface-country-dropdown-LK" => "Sri Lanka",
 	"donate_interface-country-dropdown-SD" => "Sudan",
