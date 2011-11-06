@@ -62,9 +62,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
 			$oid = $wgRequest->getText( 'order_id' );
-			$adapter_oid = $this->adapter->getData_Raw();
-			$adapter_oid = $adapter_oid['order_id'];
-			if ( $oid && !empty( $oid ) && $oid === $adapter_oid ) {
+			$adapter_oid = $this->adapter->getData_Raw( 'order_id' );
+			
+			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
+			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' && $oid && !empty( $oid ) && $oid === $adapter_oid ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
