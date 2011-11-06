@@ -73,6 +73,10 @@ h3 span { font-weight: normal; }
 .loc-fields .loc-state { margin-right: 0%; width: 22%; }
 .loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
 
+/* Location where we are not including a state select */
+.loc-fields.nostate .loc-city { float: left; margin: 0 1% 5px 0; width: 48%; }
+.loc-fields.nostate .loc-postal { float: left; margin: 0 1% 5px 0; width: 49%; }
+
 /* Name */
 .name-fields span { float: left; margin: 0 2% 5px 0; width: 48%; }
 .name-fields .name-last { margin: 0; }

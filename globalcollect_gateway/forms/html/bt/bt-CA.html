@@ -52,10 +52,16 @@
 											<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
 											<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
 										</div>
-										<div class="loc-fields nostate">
+										<div class="loc-fields">
 											<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>
 											<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>
-											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>
+											<span class="loc-state">
+											<select id="state" name="state" class="txt" value="@state" >
+												<option value=""></option>
+												<option value=""></option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="ON">ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option>
+											</select>
+											</span>
+											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>
 										</div>
 										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/></p>
 										<div id="bt-continue" style="margin-top: 10px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
@@ -68,7 +74,7 @@
 								<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 
 								<input type="hidden" value="@amount" name="amount" />
-								<input type="hidden" value="@country" name="country" id="country" />
+								<input type="hidden" value="CA" name="country" id="country" />
 								<input type="hidden" value="@currency_code" name="currency_code" />
 								<input type="hidden" value="@utm_source" name="utm_source"/>
 								<input type="hidden" value="@utm_medium" name="utm_medium"/>
@@ -91,8 +97,6 @@
 								<!-- required fields for bt and dd -->
 								<input type="hidden" value="bt" name="payment_method"/>
 								<input type="hidden" value="bt" name="payment_submethod"/>
-								<!-- required fields omitted above -->
-								<input type="hidden" value="XX" name="state"/>
 							</form>
 							<div id="where-content">
 								{{LanguageSwitch|2011FR/core-appeal-whitebox-nodiv|@language}}
