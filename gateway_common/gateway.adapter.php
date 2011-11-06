@@ -832,7 +832,6 @@ abstract class GatewayAdapter implements GatewayType {
 				$pulled_data = $this->getResponseData( $formatted );
 				$this->setTransactionResult( $pulled_data, 'data' );
 
-				//TODO: Death to the pulled_data parameter! 
 				$this->processResponse( $pulled_data ); //now we've set all the transaction results... 
 				
 				//well, almost all. 

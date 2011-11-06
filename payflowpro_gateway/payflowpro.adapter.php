@@ -235,7 +235,9 @@ class PayflowProAdapter extends GatewayAdapter {
 	 */
 	function processResponse( $response ) {
 		//set the transaction result message
-		$this->setTransactionResult( $response['RESPMSG'], 'txn_message' );
+		if ( isset( $response['RESPMSG'] ) ){
+			$this->setTransactionResult( $response['RESPMSG'], 'txn_message' );
+		}
 		if ( isset( $response['PNREF'] ) ){
 			$this->setTransactionResult( $response['PNREF'], 'gateway_txn_id' );
 		}
