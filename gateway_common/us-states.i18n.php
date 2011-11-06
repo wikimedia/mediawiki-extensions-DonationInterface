@@ -65,7 +65,7 @@ $messages['en'] = array(
 	'donate_interface-state-dropdown-WI' => 'Wisconsin',
 	'donate_interface-state-dropdown-WV' => 'West Virginia',
 	'donate_interface-state-dropdown-WY' => 'Wyoming',
-	'donate_interface-state-dropdown-AA' => 'AA',
-	'donate_interface-state-dropdown-AE' => 'AE',
-	'donate_interface-state-dropdown-AP' => 'AP',
+	'donate_interface-state-dropdown-AA' => 'AA (Military)',
+	'donate_interface-state-dropdown-AE' => 'AE (Military)',
+	'donate_interface-state-dropdown-AP' => 'AP (Military)',
 );

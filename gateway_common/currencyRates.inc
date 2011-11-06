@@ -5,6 +5,7 @@
  * Last updated November 3, 2011 (rounded down)
  */
 function getCurrencyRates() {
+	// If you change these, make sure to also update any JS validation scripts
 	$currencyRates = array(
 		'AED' => '4',
 		'ARS' => '4',
