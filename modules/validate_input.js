@@ -52,35 +52,33 @@ window.validate_personal = function( form ){
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var fields = [ 'fname','lname','street','city','zip', 'emailAdd' ],
+	var fields = ['fname','lname','street','city','zip', 'emailAdd'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
+		// See if the field is empty or equal to the placeholder
 		if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
 			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
 	}
+	
 	var stateField = document.getElementById( 'state' );
-	var selectedState = stateField.options[stateField.selectedIndex].value;
+	if ( stateField && stateField.type == 'select-one' ) { // state is a dropdown select
+		var selectedState = stateField.options[stateField.selectedIndex].value;
+		if ( selectedState == 'YY' || selectedState == '' ) {
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
+		}
+	}
+
 	var countryField = document.getElementById( 'country' );
-	if( selectedState == 'YY' || selectedState == '' ) {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
-	}
-
-	if( countryField.type == "select" ){ // country is a dropdown select
-		if( countryField.options[countryField.selectedIndex].value == '' ) {
+	if ( countryField && countryField.type == 'select-one' ) { // country is a dropdown select
+		if ( countryField.options[countryField.selectedIndex].value == '' ) {
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-	}
-	else{ // country is a hidden or text input
-		if( countryField.value == '' ) {
+	} else { // country is a hidden or text input
+		if ( countryField.value == '' ) {
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-	}
-
-	//set state to "outside us"
-	if ( form.country.value != 'US' ) {
-			form.state.value = 'XX';
 	}
 
 	// validate email address
@@ -107,34 +105,36 @@ window.validate_form = function( form ) {
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var fields = ["emailAdd","fname","lname","street","city","zip","card_num","cvv" ],
+	var fields = ['fname','lname','street','city','zip', 'emailAdd', 'card_num','cvv'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
-		if( document.getElementById( fields[i] ).value == '' ) {
+		// See if the field is empty or equal to the placeholder
+		if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
 			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 		}
 	}
+	
 	var stateField = document.getElementById( 'state' );
-	var countryField = document.getElementById( 'country' );
-	if( stateField.options[stateField.selectedIndex].value == 'YY' ) {
-		output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
+	console.debug(stateField);
+	console.debug(stateField.type);
+	if ( stateField && stateField.type == 'select-one' ) { // state is a dropdown select
+		var selectedState = stateField.options[stateField.selectedIndex].value;
+		console.debug(selectedState);
+		if ( selectedState == 'YY' || selectedState == '' ) {
+			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
+		}
 	}
 	
-	if( countryField.type == "select" ){ // country is a dropdown select
-		if( countryField.options[countryField.selectedIndex].value == '' ) {
+	var countryField = document.getElementById( 'country' );
+	if ( countryField && countryField.type == 'select-one' ) { // country is a dropdown select
+		if ( countryField.options[countryField.selectedIndex].value == '' ) {
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-	}
-	else{ // country is a hidden or text input
-		if( countryField.value == '' ) {
+	} else { // country is a hidden or text input
+		if ( countryField.value == '' ) {
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
-	}
-
-	//set state to "outside us"
-	if ( form.country.value != 'US' ) {
-			form.state.value = 'XX';
 	}
 
 	// validate email address

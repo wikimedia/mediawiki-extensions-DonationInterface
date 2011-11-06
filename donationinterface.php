@@ -627,8 +627,8 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 $wgResourceModules[ 'pfp.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
 	'dependencies' => array( 'pfp.form.core.pfp_css', 'ext.donationInterface.errorMessages' ),
-	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway'
+	'localBasePath' => $donationinterface_dir . 'modules',
+	'remoteExtPath' => 'DonationInterface/modules'
 );
 
 // form placeholders
