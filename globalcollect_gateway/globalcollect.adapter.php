@@ -625,7 +625,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'rtbt',
 			'validation' => array(),
 			'issuerids' => array( 
-				771	=> 'RegioBank',
+				771	=> 'SNS Regio Bank',
 				161	=> 'Van Lanschot Bankiers',
 				31	=> 'ABN AMRO',
 				761	=> 'ASN Bank',
@@ -634,6 +634,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				721	=> 'ING',
 				751	=> 'SNS Bank',
 				91	=> 'Friesland Bank',
+				81	=> 'Fortis',
 			)
 		);
 		 
