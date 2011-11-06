@@ -280,9 +280,29 @@ class DonationData {
 			$this->setGateway();
 			$this->setNormalizedOptOuts();
 			$this->setLanguage();
+			$this->setCountry();
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
 			array_walk( $this->normalized, array( $this, 'sanitizeInput' ) );
+		}
+	}
+	
+	/**
+	 * normalizeAndSanitize helper function
+	 * Setting the country correctly.
+	 */
+	function setCountry() {
+		global $wgRequest;
+		if ( !$this->isSomething('country') ){
+			// If no country was passed, try to do GeoIP lookup
+			// Requires php5-geoip package
+			if ( function_exists( 'geoip_country_code_by_name' ) ) {
+				$ip = wfGetIP();
+				if ( IP::isValid( $ip ) ) {
+					$country = geoip_country_code_by_name( $ip );
+					$this->setVal('country', $country);
+				}
+			}
 		}
 	}
 	
