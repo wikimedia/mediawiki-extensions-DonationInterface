@@ -585,18 +585,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $this->transactions[$transaction]['request'];
 	}
-
-	/**
-	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
-	 *
-	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $key ][] = $value 
-	 */
-	protected function addKeyToTransaction( $value, $type = 'PAYMENT' ) {
-
-		if ( !in_array( $value, $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $type ] ) ) {
-			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $type ][] = $value;
-		}
-	}
 	
 	/**
 	 * Builds a set of transaction data in name/value format
