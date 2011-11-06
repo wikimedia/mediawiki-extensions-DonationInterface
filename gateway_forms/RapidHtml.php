@@ -113,8 +113,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( is_array( $form_errors['general'] ) && count( $form_errors['general'] ) ) {
 			$general_errors = "";
 			foreach ( $form_errors['general'] as $general_error ) {
-				$general_errors .= "<p class='creditcard'>$general_error</p>";
+				$general_errors .= "$general_error<br />";
 			}
+
 			$form_errors['general'] = $general_errors;
 		}
 		
@@ -183,7 +184,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 		$escape_errors = array();
 		foreach ( $this->form_errors as $error ) {
-			$escape_errors[] = addslashes($error);
+			$error_c = str_replace( array("\r\n", "\n", "\r"), " ", $error );
+			$escape_errors[] = addslashes($error_c);
 		}
 		$form = str_replace($escape_error_tokens, $escape_errors, $form);
 

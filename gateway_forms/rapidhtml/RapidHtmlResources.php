@@ -64,17 +64,17 @@ $wgResourceModules[ 'di.form.rapidhtml.webitects.ie6' ] = array(
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );
-//$wgResourceModules[ 'di.form.rapidhtml.webitects.2nd' ] = array(
-//	'styles' => 'css/webitects2nd.css',
-//	'dependencies' => 'di.form.rapidhtml.webitects',
-//	'localBasePath' => dirname( __FILE__ ),
-//	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
-//);
+$wgResourceModules[ 'di.form.rapidhtml.webitects.2nd' ] = array(
+	'styles' => 'css/webitects2nd.css',
+	'dependencies' => 'di.form.rapidhtml.webitects',
+	'localBasePath' => dirname( __FILE__ ),
+	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
+);
 
 // GlobalCollect
 $wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
-	'styles' => '', //'css/webitects_2_3step.css',
-	'scripts' => 'js/webitects_2_3step.js',
+	'styles' => '',
+	'scripts' => 'js/webitects.js',
 	'dependencies' => 'di.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
@@ -87,15 +87,31 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.ie6' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
-//$wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd' ] = array(
-//	'styles' => '',
-//	'dependencies' => array(
-//		'gc.form.rapidhtml.webitects',
-//		'di.form.rapidhtml.webitects.2nd'
-//	),
-//	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
-//	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
-//);
+$wgResourceModules[ 'gc.form.rapidhtml.webitects.1st' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects_2_3step.js',
+	'dependencies' => array(
+		'gc.form.rapidhtml.webitects',
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd' ] = array(
+	'styles' => '',
+	'dependencies' => array(
+		'gc.form.rapidhtml.webitects',
+		'di.form.rapidhtml.webitects.2nd'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'gc.form.rapidhtml.webitects.bt' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects.bt.js',
+	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
 
 // PayflowPro
 $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
