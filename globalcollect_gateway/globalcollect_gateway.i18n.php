@@ -243,6 +243,28 @@ $messages['ia'] = array(
 Per favor reproba plus tarde.',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author Kenrick95
+ */
+$messages['id'] = array(
+	'globalcollectgateway' => 'Menyumbanglah sekarang',
+	'globalcollect_gateway-desc' => 'Pemrosesan pembayaran GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Negara tidak valid.',
+	'globalcollect_gateway-response-9140' => 'Mata uang tidak valid.',
+	'globalcollect_gateway-response-9150' => 'Bahasa tidak valid.',
+	'globalcollect_gateway-response-400530' => 'Metode pembayaran tidak valid.',
+	'globalcollect_gateway-response-430306' => 'Kartu kredit Anda telah kadaluarsa. Silakan coba dengan kartu kredit yang lain atau metode pembayaran lainnya.',
+	'globalcollect_gateway-response-430330' => 'Nomor kartu tidak valid.',
+	'globalcollect_gateway-response-430421' => 'Kartu kredit Anda tidak dapat divalidasi. Mohon verifikasi bahwa semua informasi cocok dengan profil kartu kredit Anda, atau coba dengan kartu yang lain.',
+	'globalcollect_gateway-response-430360' => 'Transaksi tidak dapat diotorisasi. Silakan coba dengan kartu yang lain atau metode pembayaran lainnya.',
+	'globalcollect_gateway-response-430285' => 'Transaksi tidak dapat diotorisasi. Silakan coba dengan kartu yang lain atau metode pembayaran lainnya.',
+	'globalcollect_gateway-response-21000150' => 'Nomor rekening bank tidak valid.',
+	'globalcollect_gateway-response-21000155' => 'Kode bank tidak valid.',
+	'globalcollect_gateway-response-21000160' => 'Nomor rekening giro tidak valid.',
+	'globalcollect_gateway-response-default' => 'Terjadi kesalahan dalam pemrosesan transaksi Anda.
+Silakan coba lagi nanti.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -378,6 +400,29 @@ $messages['pl'] = array(
 Spróbuj ponownie później.',
 );
 
+/** Russian (Русский)
+ * @author Kaganer
+ * @author Александр Сигачёв
+ */
+$messages['ru'] = array(
+	'globalcollectgateway' => 'Сделайте пожертвование сейчас',
+	'globalcollect_gateway-desc' => 'Шлюз обработки платежей GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Указана неподдерживаемая страна.',
+	'globalcollect_gateway-response-9140' => 'Указана неподдерживаемая валюта.',
+	'globalcollect_gateway-response-9150' => 'Указан неподдерживаемый язык.',
+	'globalcollect_gateway-response-400530' => 'Некорректный способ платежа.',
+	'globalcollect_gateway-response-430306' => 'Истёк срок действия вашей кредитной карты. Пожалуйста, попробуйте использовать другую карту или выберите другой способ платежа.',
+	'globalcollect_gateway-response-430330' => 'Некорректный номер карты.',
+	'globalcollect_gateway-response-430421' => 'Ваша кредитная карта не прошла проверку. Пожалуйста, проверьте, что вся введённая вами информация соответствует данным вашей карты, или попробуйте использовать другую карту.',
+	'globalcollect_gateway-response-430360' => 'Транзакция не может быть авторизована. Пожалуйста, попробуйте использовать другую карту или выберите другой способ платежа.',
+	'globalcollect_gateway-response-430285' => 'Транзакция не может быть авторизована. Пожалуйста, попробуйте использовать другую карту или выберите другой способ платежа.',
+	'globalcollect_gateway-response-21000150' => 'Неправильный номер банковского счёта.',
+	'globalcollect_gateway-response-21000155' => 'Неправильный код банка.',
+	'globalcollect_gateway-response-21000160' => 'Неправильный номер счёта giro.',
+	'globalcollect_gateway-response-default' => 'При обработке вашей транзакции возникла ошибка.
+Пожалуйста, повторите попытку позже.',
+);
+
 /** Slovenian (Slovenščina)
  * @author Artelind
  * @author Dbc334
@@ -388,16 +433,16 @@ $messages['sl'] = array(
 	'globalcollect_gateway-response-9130' => 'Neveljavna država.',
 	'globalcollect_gateway-response-9140' => 'Neveljavna valuta.',
 	'globalcollect_gateway-response-9150' => 'Neveljaven jezik.',
-	'globalcollect_gateway-response-400530' => 'Neveljavna plačilna metoda.',
-	'globalcollect_gateway-response-430306' => 'Vaša kreditna kartica je potekla. Prosimo poskusite z drugo kartico, ali pa uporabite katero od naših drugih plačilnih metod.',
-	'globalcollect_gateway-response-430330' => 'Številka kartice je neveljavna.',
-	'globalcollect_gateway-response-430421' => 'Vaše kreditne kartice se ni dalo potrditi. Prosimo preverite, če so podatki o Vaši kreditni kartici pravilni, ali pa poskusite z drugo kartico.',
-	'globalcollect_gateway-response-430360' => 'Pri potrjevanju transakcije je prišlo do napake. Prosimo poskusite z drugo kartico, ali pa uporabite katero od naših drugih plačilnih metod.',
-	'globalcollect_gateway-response-430285' => 'Pri potrjevanju transakcije je prišlo do napake. Prosimo poskusite z drugo kartico, ali pa uporabite katero od naših drugih plačilnih metod.',
+	'globalcollect_gateway-response-400530' => 'Neveljaven način plačila.',
+	'globalcollect_gateway-response-430306' => 'Vaša kreditna kartica je potekla. Prosimo, poskusite z drugo kartico ali pa uporabite katerega od naših drugih načinov plačila.',
+	'globalcollect_gateway-response-430330' => 'Številka kartice ni veljavna.',
+	'globalcollect_gateway-response-430421' => 'Vaše kreditne kartice ni bilo mogoče potrditi. Prosimo, preverite, da so podatki o vaši kreditni kartici pravilni, ali pa poskusite z drugo kartico.',
+	'globalcollect_gateway-response-430360' => 'Pri potrjevanju transakcije je prišlo do napake. Prosimo, poskusite z drugo kartico ali pa uporabite katerega od naših drugih načinov plačila.',
+	'globalcollect_gateway-response-430285' => 'Pri potrjevanju transakcije je prišlo do napake. Prosimo, poskusite z drugo kartico ali pa uporabite katerega od naših drugih načinov plačila.',
 	'globalcollect_gateway-response-21000150' => 'Številka bančnega računa je napačna.',
 	'globalcollect_gateway-response-21000155' => 'Številka banke je napačna.',
-	'globalcollect_gateway-response-21000160' => 'Številka žiro računa je napačna.',
-	'globalcollect_gateway-response-default' => 'Pri obdelavi Vaše transakcije je prišlo do napake. Prosimo poskusite kasneje.',
+	'globalcollect_gateway-response-21000160' => 'Številka žiroračuna je napačna.',
+	'globalcollect_gateway-response-default' => 'Pri obdelavi vaše transakcije je prišlo do napake. Prosimo, poskusite pozneje.',
 );
 
 /** Swahili (Kiswahili)

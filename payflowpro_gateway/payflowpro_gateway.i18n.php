@@ -1699,19 +1699,19 @@ $messages['sl'] = array(
 	'payflowprogateway' => 'Oddajte svoj prispevek zdaj',
 	'payflowpro_gateway-desc' => 'Obdelava kreditnih kartic preko PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Vaša transakcija je bila odobrena.
-Zahvaljujemo se Vam za vaš prispevek!',
+Zahvaljujemo se vam za vaš prispevek!',
 	'payflowpro_gateway-response-126' => 'Vaša transakcija čaka na odobritev.',
-	'payflowpro_gateway-response-126-2' => 'Nekatere navedene informacije ne ustrezajo profilu Vaše kreditne kartice, ali pa ste naredili zelo visoko donacijo. Zaradi Vaše varnosti je Vaša donacija trenutno v pregledu, in preko navedenega e-poštnega naslova Vas bomo obvestili, če Vaše donacije ni bilo mogoče zaključiti. Če imate kakršnokoli vprašanje, nas lahko kontaktirate preko e-poštnega naslova <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Hvala!',
-	'payflowpro_gateway-response-12' => 'Za dodatne informacije se prosimo obrnite na izdajatelja vaše kreditne kartice.',
+	'payflowpro_gateway-response-126-2' => 'Nekatere navedene informacije ne ustrezajo profilu vaše kreditne kartice ali pa ste naredili zelo visoko donacijo. Zavoljo vaše varnosti je vaš prispevek trenutno v pregledu in preko navedenega e-poštnega naslova vas bomo obvestili, če vaše donacije nismo mogli zaključiti. Če imate kakršno koli vprašanje, nas kontaktirajte preko e-poštnega naslova <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Hvala!',
+	'payflowpro_gateway-response-12' => 'Za dodatne informacije se, prosimo, obrnite na izdajatelja vaše kreditne kartice.',
 	'payflowpro_gateway-response-13' => 'Vaša transakcija potrebuje glasovno odobritev.
-Prosimo kontaktirajte nas za nadaljevanje Vaše transakcije.',
-	'payflowpro_gateway-response-114' => 'Prosimo Vas, da se za dodatne informacije obrnete na izdajatelja Vaše kreditne kartice.',
+Prosimo, stopite v stik z nami za nadaljevanje vaše transakcije.',
+	'payflowpro_gateway-response-114' => 'Prosimo, da se za dodatne informacije obrnete na izdajatelja vaše kreditne kartice.',
 	'payflowpro_gateway-response-23' => 'Številka vaše kreditne kartice ali datum njene veljavnosti je napačen.',
 	'payflowpro_gateway-response-4' => 'Neveljaven znesek.',
 	'payflowpro_gateway-response-24' => 'Številka vaše kreditne kartice ali datum njene veljavnosti je napačen.',
 	'payflowpro_gateway-response-112' => 'Vaš naslov ali številka CVV (varnostna koda) je napačna.',
 	'payflowpro_gateway-response-125' => 'Vašo transakcijo je zavrnila Storitev preprečitve goljufij (Fraud Prevention Services).',
-	'payflowpro_gateway-response-125-2' => 'Vaša kreditna kartica ni bila potrjena. Prosimo, preverite, če vse informacije ustrezajo profilu vaše kreditne kartice, ali pa poskusite z drugo kartico. Uporabite lahko tudi enega od <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugih načinov prispevanja</a>, ali pa nam pišite na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Zahvaljujemo se Vam za vašo podporo.',
+	'payflowpro_gateway-response-125-2' => 'Vaša kreditna kartica ni bila potrjena. Prosimo, preverite, če vse informacije ustrezajo profilu vaše kreditne kartice, ali pa poskusite z drugo kartico. Uporabite lahko tudi enega od <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">drugih načinov prispevanja</a> ali pa nam pišite na <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Zahvaljujemo se vam za vašo podporo.',
 	'payflowpro_gateway-response-default' => 'Pri obdelavi transakcije je prišlo do napake 
 Prosimo, poskusite znova kasneje.',
 );
