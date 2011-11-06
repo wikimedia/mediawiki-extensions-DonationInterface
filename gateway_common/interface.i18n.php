@@ -335,7 +335,8 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-bt-finished' => 'Finished',
 
 	// Real time bank transfer (rtbt)
-	'donate_interface-rtbt-issuer_id' => 'Select a Bank',
+	'donate_interface-rtbt-issuer_id' => 'Choose a Bank',
+	'donate_interface-rtbt-issuer_id-longlist' => 'Other banks'
 
 	// Direct debit (dd)
 	'donate_interface-dd-account_name' => 'Account name',
@@ -12649,7 +12650,8 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-bt-special_id' => 'Speciaal ID',
 	'donate_interface-bt-information' => 'Bankoverschrinvingsgegevens',
 	'donate_interface-bt-finished' => 'Voltooid',
-	'donate_interface-rtbt-issuer_id' => 'Bank',
+	'donate_interface-rtbt-issuer_id' => 'Kies uw bank',
+	'donate_interface-rtbt-issuer_id-longlist' => 'Overige banken',
 	'donate_interface-dd-account_name' => 'Rekeningnaam',
 	'donate_interface-dd-account_number' => 'Rekeningnummer',
 	'donate_interface-dd-authorization_id' => 'Autorisatie-ID',
