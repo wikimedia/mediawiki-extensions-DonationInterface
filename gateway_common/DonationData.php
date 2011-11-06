@@ -27,9 +27,9 @@ class DonationData {
 			$this->populateData_Test();
 		} else {
 			$this->normalized = array(
-				'amount' => $wgRequest->getText( 'amount' ),
-				'amountGiven' => $wgRequest->getText( 'amountGiven' ),
-				'amountOther' => $wgRequest->getText( 'amountOther' ),
+				'amount' => $wgRequest->getText( 'amount', null ),
+				'amountGiven' => $wgRequest->getText( 'amountGiven', null ),
+				'amountOther' => $wgRequest->getText( 'amountOther', null ),
 				'email' => $wgRequest->getText( 'emailAdd' ),
 				'fname' => $wgRequest->getText( 'fname' ),
 				'mname' => $wgRequest->getText( 'mname' ),
@@ -59,14 +59,14 @@ class DonationData {
 				'cvv' => $wgRequest->getText( 'cvv' ),
 				'currency' => $wgRequest->getVal( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method', 'cc' ),
-				'payment_submethod' => $wgRequest->getVal( 'payment_submethod' ), // Used by GlobalCollect for payment types
+				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
-				'order_id' => $wgRequest->getVal( 'order_id' ), //as far as I know, this won't actually ever pull anything back. This does get pulled back on processing credit cards. 2011-11-04
-				'i_order_id' => $wgRequest->getVal( 'i_order_id' ), //internal id for each contribution attempt
+				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
+				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
 				'numAttempt' => $wgRequest->getVal( 'numAttempt', '0' ),
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => $wgRequest->getText( 'utm_source' ),
-				'utm_source_id' => $wgRequest->getVal( 'utm_source_id' ),
+				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
 				// try to honor the user-set language (uselang), otherwise the language set in the URL (language)
@@ -76,27 +76,27 @@ class DonationData {
 				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				// test_string has been disabled - may no longer be needed.
 				//'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
-				'_cache_' => $wgRequest->getVal( '_cache_' ),
-				'token' => $wgRequest->getVal( 'token' ),
+				'_cache_' => $wgRequest->getText( '_cache_', null ),
+				'token' => $wgRequest->getText( 'token', null ),
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
 				'action' => $wgRequest->getText( 'action' ),
 				'gateway' => $wgRequest->getText( 'gateway' ), //likely to be reset shortly by setGateway();
-				'owa_session' => $wgRequest->getVal( 'owa_session' ),
-				'owa_ref' => $wgRequest->getVal( 'owa_ref' ),
+				'owa_session' => $wgRequest->getText( 'owa_session', null ),
+				'owa_ref' => $wgRequest->getText( 'owa_ref', null ),
 
-				'account_name' => $wgRequest->getText( 'account_name' ),
-				'account_number' => $wgRequest->getText( 'account_number' ),
-				'authorization_id' => $wgRequest->getText( 'authorization_id' ),
-				'bank_check_digit' => $wgRequest->getText( 'bank_check_digit' ),
-				'bank_name' => $wgRequest->getText( 'bank_name' ),
-				'bank_code' => $wgRequest->getText( 'bank_code' ),
-				'branch_code' => $wgRequest->getText( 'branch_code' ),
-				'country_code_bank' => $wgRequest->getText( 'country_code_bank' ),
-				'date_collect' => $wgRequest->getText( 'date_collect' ),
-				'direct_debit_text' => $wgRequest->getText( 'direct_debit_text' ),
-				'iban' => $wgRequest->getText( 'iban' ),
-				'transaction_type' => $wgRequest->getText( 'transaction_type' ),
+				'account_name' => $wgRequest->getText( 'account_name', null ),
+				'account_number' => $wgRequest->getText( 'account_number', null ),
+				'authorization_id' => $wgRequest->getText( 'authorization_id', null ),
+				'bank_check_digit' => $wgRequest->getText( 'bank_check_digit', null ),
+				'bank_name' => $wgRequest->getText( 'bank_name', null ),
+				'bank_code' => $wgRequest->getText( 'bank_code', null ),
+				'branch_code' => $wgRequest->getText( 'branch_code', null ),
+				'country_code_bank' => $wgRequest->getText( 'country_code_bank', null ),
+				'date_collect' => $wgRequest->getText( 'date_collect', null ),
+				'direct_debit_text' => $wgRequest->getText( 'direct_debit_text', null ),
+				'iban' => $wgRequest->getText( 'iban', null ),
+				'transaction_type' => $wgRequest->getText( 'transaction_type', null ),
 			);
 			if ( !$wgRequest->wasPosted() ) {
 				$this->setVal( 'posted', false );
