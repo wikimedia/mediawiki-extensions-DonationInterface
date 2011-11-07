@@ -58,7 +58,7 @@ window.displayCreditCardForm = function() {
 		'format': 'json'
 	};
 	$.ajax( {
-		'url': mw.config.get( 'wgServer' ) + mw.config.get( 'wgScriptPath' ) + '/api.php?',
+		'url': mw.util.wikiScript( 'api' ),
 		'data': sendData,
 		'dataType': 'json',
 		'type': 'GET',
