@@ -385,6 +385,10 @@ In order to provide a safe, secure and pleasant experience, our donation form re
         'donate_interface-monthlybox-yes' => 'Sure, make it monthly',
         'donate_interface-monthlybox-no' => 'NO, make a one-time donation',
         'donate_interface-monthlybox-bottom' => 'Your donation will be securely processed.',
+
+	// SecureLogo text
+	'donate_interface-securelogo-title' => 'Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.',
+	'donate_interface-secureLogo-text' => 'About SSL Certificates',
         
 	
 );
@@ -749,6 +753,9 @@ See [[w:en:Check_digit]] for explanation of Check Digit.',
 	'donate_interface-monthlybox-yes' => 'Button to click to accept giving a monthly donation.',
 	'donate_interface-monthlybox-no' => 'Button to click to decline giving a monthly donation.',
 	'donate_interface-monthlybox-bottom' => 'Message in the bottom of the monthly donation box ensuring donors that their donation will be processed securely.',
+
+	'donate_interface-securelogo-title' => 'Link \'title\' that is shown to donors when they hover over the Verisign secure site logo that appears on donation forms',
+	'donate_interface-secureLogo-text' => 'Text shown to donors for a link explaining more about SSL secure site certificates',
 );
 
 /** Magyar (magázó) (Magyar (magázó))
