@@ -86,7 +86,7 @@
 											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-zip%" value="@zip" placeholder="%donate_interface-donor-zip%"/></span> <!-- TODO: use postal code on non-US -->
 											<span class="loc-country">
 												<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
-													<option value="">Select a country</option>
+													<option value="">%donate_interface-select-country%</option>
 													<option value="AF">%donate_interface-country-dropdown-AF%</option><option value="AL">%donate_interface-country-dropdown-AL%</option><option value="DZ">%donate_interface-country-dropdown-DZ%</option><option value="AS">%donate_interface-country-dropdown-AS%</option><option value="AD">%donate_interface-country-dropdown-AD%</option><option value="AO">%donate_interface-country-dropdown-AO%</option><option value="AI">%donate_interface-country-dropdown-AI%</option><option value="AQ">%donate_interface-country-dropdown-AQ%</option><option value="AG">%donate_interface-country-dropdown-AG%</option><option value="AR">%donate_interface-country-dropdown-AR%</option><option value="AM">%donate_interface-country-dropdown-AM%</option><option value="AW">%donate_interface-country-dropdown-AW%</option><option value="AU">%donate_interface-country-dropdown-AU%</option><option value="AT">%donate_interface-country-dropdown-AT%</option><option value="AZ">%donate_interface-country-dropdown-AZ%</option><option value="BS">%donate_interface-country-dropdown-BS%</option><option value="BH">%donate_interface-country-dropdown-BH%</option><option value="BD">%donate_interface-country-dropdown-BD%</option><option value="BB">%donate_interface-country-dropdown-BB%</option><option value="BY">%donate_interface-country-dropdown-BY%</option><option value="BE">%donate_interface-country-dropdown-BE%</option><option value="BZ">%donate_interface-country-dropdown-BZ%</option><option value="BJ">%donate_interface-country-dropdown-BJ%</option><option value="BM">%donate_interface-country-dropdown-BM%</option><option value="BT">%donate_interface-country-dropdown-BT%</option>
 													<option value="BO">%donate_interface-country-dropdown-BO%</option><option value="BA">%donate_interface-country-dropdown-BA%</option><option value="BW">%donate_interface-country-dropdown-BW%</option><option value="BV">%donate_interface-country-dropdown-BV%</option><option value="BR">%donate_interface-country-dropdown-BR%</option><option value="IN">%donate_interface-country-dropdown-IN%</option><option value="BN">%donate_interface-country-dropdown-BN%</option><option value="BG">%donate_interface-country-dropdown-BG%</option><option value="BF">%donate_interface-country-dropdown-BF%</option><option value="BI">%donate_interface-country-dropdown-BI%</option><option value="KH">%donate_interface-country-dropdown-KH%</option><option value="CM">%donate_interface-country-dropdown-CM%</option><option value="CA">%donate_interface-country-dropdown-CA%</option><option value="CV">%donate_interface-country-dropdown-CV%</option><option value="KY">%donate_interface-country-dropdown-KY%</option><option value="CF">%donate_interface-country-dropdown-CF%</option><option value="TD">%donate_interface-country-dropdown-TD%</option><option value="CL">%donate_interface-country-dropdown-CL%</option><option value="CN">%donate_interface-country-dropdown-CN%</option><option value="CX">%donate_interface-country-dropdown-CX%</option><option value="CC">%donate_interface-country-dropdown-CC%</option><option value="CO">%donate_interface-country-dropdown-CO%</option><option value="KM">%donate_interface-country-dropdown-KM%</option><option value="CG">%donate_interface-country-dropdown-CG%</option><option value="CD">%donate_interface-country-dropdown-CD%</option>
 													<option value="CK">%donate_interface-country-dropdown-CK%</option><option value="CR">%donate_interface-country-dropdown-CR%</option><option value="HR">%donate_interface-country-dropdown-HR%</option><option value="CY">%donate_interface-country-dropdown-CY%</option><option value="CZ">%donate_interface-country-dropdown-CZ%</option><option value="CI">%donate_interface-country-dropdown-CI%</option><option value="DK">%donate_interface-country-dropdown-DK%</option><option value="DJ">%donate_interface-country-dropdown-DJ%</option><option value="DM">%donate_interface-country-dropdown-DM%</option><option value="DO">%donate_interface-country-dropdown-DO%</option><option value="EC">%donate_interface-country-dropdown-EC%</option><option value="EG">%donate_interface-country-dropdown-EG%</option><option value="SV">%donate_interface-country-dropdown-SV%</option><option value="GQ">%donate_interface-country-dropdown-GQ%</option><option value="ER">%donate_interface-country-dropdown-ER%</option><option value="EE">%donate_interface-country-dropdown-EE%</option><option value="ET">%donate_interface-country-dropdown-ET%</option><option value="FK">%donate_interface-country-dropdown-FK%</option><option value="FO">%donate_interface-country-dropdown-FO%</option><option value="FJ">%donate_interface-country-dropdown-FJ%</option><option value="FI">%donate_interface-country-dropdown-FI%</option><option value="FR">%donate_interface-country-dropdown-FR%</option><option value="GF">%donate_interface-country-dropdown-GF%</option><option value="PF">%donate_interface-country-dropdown-PF%</option><option value="TF">%donate_interface-country-dropdown-TF%</option>
@@ -104,7 +104,7 @@
 
 
 										<dl class="">
-											<dt><span class="label">Select credit card</span></dt>
+											<dt><span class="label">%donate_interface-select-credit-card%</span></dt>
 											<dd class="field" style="margin-bottom: 0;">
 												<ul class="options-h" id="cards" style="margin: 0;">
 													<li><input id="cc-visa" name="cardtype" type="radio" value="Visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
@@ -117,7 +117,7 @@
 										</dl>
 									</div>
 								</div>
-								<div id="step3header"><h3>Payment Information <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
+								<div id="step3header"><h3>%donate_interface-cc-form-header-payment% <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
 								<div id="step3wrapper" style="display: none;">
 									<div id="payment"  class="gainlayout">
 										<div id="paymentErrorMessages" class="small"></div>
@@ -212,13 +212,19 @@
 						</div>
 					</div>
 					<p id="informationsharing">%donate_interface-informationsharing%</p>
-					<!-- TODO: links inside the message or not? -->
-					<ul id="moreinfolinks">
-						<li><a href="http://wikimediafoundation.org/wiki/Monthly_donations/en/US">%donate_interface-monthly-donation%</a></li><!-- TODO: localize the link -->
-						<li>%donate_interface-otherways-short%</li><!-- TODO: localize the link -->
-						<li><a href="http://wikimediafoundation.org/wiki/FAQ/en">%donate_interface-faqs%</a></li><!-- TODO: localize the link -->
-						<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
-					</ul>
+					<table>
+						<tr>
+							<td>
+								<ul id="moreinfolinks">
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Monthly_donations&language=@language&uselang=@language&country=@country">%donate_interface-monthly-donation%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a></li>
+									<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
+								</ul>
+							</td>
+							<td>@verisign_logo</td>
+						</tr>
+					</table>
 				</div>
 			</td>
 		</tr>

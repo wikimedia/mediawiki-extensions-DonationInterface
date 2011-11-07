@@ -89,7 +89,7 @@
 
 
 										<dl class="">
-											<dt><span class="label">Select credit card</span></dt>
+											<dt><span class="label">%donate_interface-select-credit-card%</span></dt>
 											<dd class="field" style="margin-bottom: 0;">
 												<ul class="options-h" id="cards" style="margin: 0;">
 													<li><input id="cc-visa" name="cardtype" type="radio" value="Visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
@@ -102,7 +102,7 @@
 										</dl>
 									</div>
 								</div>
-								<div id="step3header"><h3>Payment Information <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
+								<div id="step3header"><h3>%donate_interface-cc-form-header-payment% <span class="mute" id="change-payment" style="display: none;">(<a href="#">Change</a>)</span></h3></div>
 								<div id="step3wrapper" style="display: none;">
 									<div id="payment"  class="gainlayout">
 										<div id="paymentErrorMessages" class="small"></div>
@@ -197,13 +197,19 @@
 						</div>
 					</div>
 					<p id="informationsharing">%donate_interface-informationsharing%</p>
-					<!-- TODO: links inside the message or not? -->
-					<ul id="moreinfolinks">
-						<li><a href="http://wikimediafoundation.org/wiki/Monthly_donations/en/US">%donate_interface-monthly-donation%</a></li><!-- TODO: localize the link -->
-						<li>%donate_interface-otherways-short%</li><!-- TODO: localize the link -->
-						<li><a href="http://wikimediafoundation.org/wiki/FAQ/en">%donate_interface-faqs%</a></li><!-- TODO: localize the link -->
-						<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
-					</ul>
+					<table>
+						<tr>
+							<td>
+								<ul id="moreinfolinks">
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Monthly_donations&language=@language&uselang=@language&country=@country">%donate_interface-monthly-donation%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a></li>
+									<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
+								</ul>
+							</td>
+							<td>@verisign_logo</td>
+						</tr>
+					</table>
 				</div>
 			</td>
 		</tr>
