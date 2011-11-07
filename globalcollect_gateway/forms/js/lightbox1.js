@@ -141,7 +141,6 @@ $(function() {
 			$( "input[name='country']" ).val('US' );
 			
 			/* Submit the form */
-			/* TODO: Replace this with AJAX request */
 			var sendData = {
 				'action': 'donate',
 				'gateway': 'globalcollect',
@@ -151,10 +150,10 @@ $(function() {
 				'lname': $( "input[name='lname']" ).val(),
 				'street': $( "input[name='street']" ).val(),
 				'city': $( "input[name='city']" ).val(),
-				'state': $( "input[name='state']" ).val(),
+				'state': $( 'select#state option:selected' ).val(),
 				'zip': $( "input[name='zip']" ).val(),
 				'emailAdd': $( "input[name='emailAdd']" ).val(),
-				'country': $( "input[name='country']" ).val(),
+				'country': 'US',
 				'payment_method': 'cc',
 				'language': 'en',
 				'card_type': 'visa',
