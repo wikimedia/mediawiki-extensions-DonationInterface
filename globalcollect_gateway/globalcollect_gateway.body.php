@@ -138,9 +138,15 @@ EOT;
 
 						$this->adapter->do_transaction( 'DO_BANKVALIDATION' );
 
-						if ( $this->adapter->getTransactionStatus() ) {
+						// Check to see if validations were successful, if so, proceed with order.
+						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 
 							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+						}
+						else {
+
+							// Attach the error messages to the form
+							$this->adapter->setBankValidationErrors();
 						}
 						
 					}
