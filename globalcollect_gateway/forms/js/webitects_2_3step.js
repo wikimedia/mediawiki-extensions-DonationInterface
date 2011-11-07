@@ -109,8 +109,7 @@ $( document ).ready( function () {
 	$( ".cardradio" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) ) {
 			displayCreditCardForm()
-		}
-		else {
+		} else {
 			// show the continue button to indicate how to get to step 3 since they
 			// have already clicked on a card image
 			$( "#paymentContinue" ).show();
@@ -132,10 +131,16 @@ $( document ).ready( function () {
 		showStep1();
 	} );
 	$( "#step2header" ).click( function() {
-		showStep2();
+		if ( validateAmount() ) {
+			showAmount( $( 'input[name="amount"]' ) );
+			showStep2();
+		}
 	} );
 	$( "#step3header" ).click( function() {
-		displayCreditCardForm();
+		if ( validateAmount() ) {
+			showAmount( $( 'input[name="amount"]' ) );
+			displayCreditCardForm();
+		}
 	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {

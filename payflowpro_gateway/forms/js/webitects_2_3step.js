@@ -74,6 +74,11 @@ $( document ).ready( function () {
 	}
 
 	$( "#cc" ).click( function() {
+		/* safety check for people who hit the back button */
+		checkedValue = $( "input[name='amountRadio']:checked" ).val();
+		if ( $( 'input[name="amount"]' ).val() == '0.00' && checkedValue && !isNaN( checkedValue ) ) {
+			setAmount( checkedValue );
+		}
 		if ( validateAmount() ) {
 			showAmount( $( 'input[name="amount"]' ) );
 			showStep2();
@@ -122,10 +127,16 @@ $( document ).ready( function () {
 		showStep1();
 	} );
 	$( "#step2header" ).click( function() {
-		showStep2();
+		if ( validateAmount() ) {
+			showAmount( $( 'input[name="amount"]' ) );
+			showStep2();
+		}
 	} );
 	$( "#step3header" ).click( function() {
-		showStep3();
+		if ( validateAmount() ) {
+			showAmount( $( 'input[name="amount"]' ) );
+			showStep3();
+		}
 	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {
