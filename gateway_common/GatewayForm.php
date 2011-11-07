@@ -197,7 +197,7 @@ class GatewayForm extends UnlistedSpecialPage {
 			( ( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) < ( float ) $priceFloor ||
 			( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) > ( float ) $priceCeiling ) ) {
 
-			$error['invalidamount'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-invalid-amount' ) );
+			$error['invalidamount'] = wfMsg( 'donate_interface-error-msg-invalid-amount' );
 
 			$this->setValidateFormResult( false );
 		}
