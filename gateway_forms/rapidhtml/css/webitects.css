@@ -72,6 +72,7 @@ h3 span { font-weight: normal; }
 .loc-fields .loc-postal { width: 22%; }
 .loc-fields .loc-state { margin-right: 0%; width: 22%; }
 .loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
+.loc-fields .loc-country { margin-bottom: 5px; width: 103%; }
 
 /* Location where we are not including a state select */
 .loc-fields.nostate .loc-city { float: left; margin: 0 1% 5px 0; width: 48%; }
