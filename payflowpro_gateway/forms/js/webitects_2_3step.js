@@ -174,14 +174,10 @@ function showAmount( e ) {
 	$( "#change-amount" ).show();
 }
 function validateAmount() {
-	
-	// TODO: THIS NEEDS TO BE REPLACED WITH KALDARI'S CURRENCIES
-	var minimums = {
-		'USD' : 1,
-		'CAD' : 1
-	};
 	var error = true;
 	var amount = $( 'input[name="amount"]' ).val(); // get the amount
+	// Normalize weird amount formats.
+	// Don't mess with these unless you know what you're doing.
 	amount = amount.replace( /[,.](\d)$/, '\:$10' );
 	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
 	amount = amount.replace( /[,.]/g, '' );
@@ -193,11 +189,11 @@ function validateAmount() {
 
 	// Check amount is at least the minimum
 	var currency_code = $( 'input[name="currency_code"]' ).val();
-	if ( typeof( minimums[currency_code] ) == 'undefined' ) {
-		minimums[currency_code] = 1;
+	if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
+		wgCurrencyMinimums[currency_code] = 1;
 	}
-	if ( amount < minimums[currency_code] || error ) {
-		alert( 'You must contribute at least $1'.replace( '$1', minimums[currency_code] + ' ' + currency_code ) );
+	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
+		alert( 'You must contribute at least $1'.replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
 		error = true;
 	}
 	return !error;

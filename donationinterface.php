@@ -622,11 +622,17 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 	)
 );
 
+// minimum amounts for all currencies
+$wgResourceModules[ 'di.form.core.minimums' ] = array(
+	'scripts' => 'validate.currencyMinimums.js',
+	'localBasePath' => $donationinterface_dir . 'modules',
+	'remoteExtPath' => 'DonationInterface/modules'
+);
+
 // form validation resource
-//TODO: Move this somewhere gateway-agnostic.
-$wgResourceModules[ 'pfp.form.core.validate' ] = array(
+$wgResourceModules[ 'di.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
-	'dependencies' => array( 'pfp.form.core.pfp_css', 'ext.donationInterface.errorMessages' ),
+	'dependencies' => array( 'pfp.form.core.pfp_css', 'di.form.core.minimums', 'ext.donationInterface.errorMessages' ),
 	'localBasePath' => $donationinterface_dir . 'modules',
 	'remoteExtPath' => 'DonationInterface/modules'
 );
@@ -635,7 +641,7 @@ $wgResourceModules[ 'pfp.form.core.validate' ] = array(
 //TODO: Move this somewhere gateway-agnostic.
 $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 	'scripts' => 'form_placeholders.js',
-	'dependencies' => 'pfp.form.core.validate',
+	'dependencies' => 'di.form.core.validate',
 	'messages' => array(
 		'donate_interface-donor-fname',
 		'donate_interface-donor-lname',
@@ -660,7 +666,7 @@ $wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
 // TowStepTwoColumnLetter3
 $wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
 	'styles' => 'css/TwoStepTwoColumnLetter3.css',
-	'dependencies' => 'pfp.form.core.validate',
+	'dependencies' => 'di.form.core.validate',
 ) + $wgResourceTemplate;
 
 // API JS

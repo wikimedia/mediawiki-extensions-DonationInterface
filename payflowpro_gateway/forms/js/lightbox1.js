@@ -204,9 +204,6 @@ $(function() {
 	}
 	
 	function validateAmount(){
-		var minimums = {
-			'USD' : 1
-		};
 		var error = true;
 		var amount = $( "input[name='amount']" ).val(); // get the amount
 		var otherAmount = amount // create a working copy
@@ -222,11 +219,11 @@ $(function() {
 		// Check amount is at least the minimum
 		var currency = 'USD'; // hard-coded for these forms and tests
 		$( "input[name='currency']" ).val( currency );
-		if ( typeof( minimums[currency] ) == 'undefined' ) {
-			minimums[currency] = 1;
+		if ( typeof( wgCurrencyMinimums[currency] ) == 'undefined' ) {
+			wgCurrencyMinimums[currency] = 1;
 		}
-		if ( amount < minimums[currency] || error ) {
-			alert( 'You must contribute at least $1'.replace('$1', minimums[currency] + ' ' + currency ) );
+		if ( amount < wgCurrencyMinimums[currency] || error ) {
+			alert( 'You must contribute at least $1'.replace('$1', wgCurrencyMinimums[currency] + ' ' + currency ) );
 			error = true;
 		}
 		return !error;

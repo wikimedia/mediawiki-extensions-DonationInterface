@@ -795,7 +795,7 @@ abstract class Gateway_Form {
 
 	protected function loadValidateJs() {
 		global $wgOut;
-		$wgOut->addModules( 'pfp.form.core.validate' );
+		$wgOut->addModules( 'di.form.core.validate' );
 	}
 
 	protected function loadApiJs() {

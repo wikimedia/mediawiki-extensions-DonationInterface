@@ -72,93 +72,6 @@ window.showAmount = function( e ) {
 	$( "#change-amount" ).show();
 }
 window.validateAmount = function() {
-
-	// If you change these, also change in currencyRates.inc.
-	var minimums = {
-		'AED': 4,
-		'ARS': 4,
-		'AUD': 1,
-		'BBD': 2,
-		'BDT': 76,
-		'BGN': 1.4,
-		'BHD': 0.4,
-		'BMD': 1,
-		'BND': 1.3,
-		'BOB': 7,
-		'BRL': 1.7,
-		'BSD': 1,
-		'BZD': 2,
-		'CAD': 1,
-		'CHF': 0.9,
-		'CLP': 494,
-		'CNY': 6,
-		'COP': 1910,
-		'CRC': 512,
-		'CZK': 18,
-		'DKK': 5,
-		'DOP': 38,
-		'DZD': 73,
-		'EEK': 11,
-		'EGP': 6,
-		'EUR': 0.7,
-		'GBP': 0.6,
-		'GTQ': 7.8,
-		'HKD': 7.7,
-		'HNL': 19,
-		'HRK': 5,
-		'HUF': 219,
-		'IDR': 8960,
-		'ILS': 3.6,
-		'INR': 49,
-		'JMD': 85,
-		'JOD': 0.7,
-		'JPY': 78,
-		'KES': 97,
-		'KRW': 1127,
-		'KYD': 0.8,
-		'KZT': 147,
-		'LBP': 1500,
-		'LKR': 110,
-		'LTL': 2.5,
-		'LVL': 0.5,
-		'MAD': 8.1,
-		'MKD': 45,
-		'MUR': 29,
-		'MVR': 15,
-		'MXN': 13,
-		'MYR': 3,
-		'NOK': 5.5,
-		'NZD': 1.2,
-		'OMR': 0.3,
-		'PAB': 1,
-		'PEN': 2.7,
-		'PHP': 43,
-		'PKR': 86,
-		'PLN': 3,
-		'PYG': 4190,
-		'QAR': 3.6,
-		'RON': 3.1,
-		'RUB': 30,
-		'SAR': 3.7,
-		'SEK': 6.5,
-		'SGD': 1.2,
-		'SVC': 8.7,
-		'THB': 30,
-		'TJS': 4.7,
-		'TND': 1.4,
-		'TRY': 1.7,
-		'TTD': 6,
-		'TWD': 30,
-		'UAH': 8,
-		'USD': 1,
-		'UYU': 19,
-		'UZS': 1760,
-		'VND': 21000,
-		'XAF': 470,
-		'XCD': 2.7,
-		'XOF': 476,
-		'ZAR': 7.8
-	};
 	var error = true;
 	var amount = $( 'input[name="amount"]' ).val(); // get the amount
 	// Normalize weird amount formats.
@@ -174,11 +87,11 @@ window.validateAmount = function() {
 
 	// Check amount is at least the minimum
 	var currency_code = $( 'input[name="currency_code"]' ).val();
-	if ( typeof( minimums[currency_code] ) == 'undefined' ) {
-		minimums[currency_code] = 1;
+	if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
+		wgCurrencyMinimums[currency_code] = 1;
 	}
-	if ( amount < minimums[currency_code] || error ) {
-		alert( 'You must contribute at least $1'.replace( '$1', minimums[currency_code] + ' ' + currency_code ) );
+	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
+		alert( 'You must contribute at least $1'.replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
 		error = true;
 	}
 	return !error;
