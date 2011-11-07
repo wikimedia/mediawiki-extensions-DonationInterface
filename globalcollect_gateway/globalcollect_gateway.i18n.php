@@ -88,6 +88,28 @@ $messages['cy'] = array(
 	'globalcollect_gateway-response-21000160' => 'Rhif annilys i gyfrif giro.',
 );
 
+/** Danish (Dansk)
+ * @author Peter Alberti
+ */
+$messages['da'] = array(
+	'globalcollectgateway' => 'Doner nu',
+	'globalcollect_gateway-desc' => 'Håndtering af betaling via GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Ugyldigt land.',
+	'globalcollect_gateway-response-9140' => 'Ugyldig valuta.',
+	'globalcollect_gateway-response-9150' => 'Ugyldigt sprog.',
+	'globalcollect_gateway-response-400530' => 'Ugyldig betalingsmetode.',
+	'globalcollect_gateway-response-430306' => 'Dit kreditkort er udløbet. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.',
+	'globalcollect_gateway-response-430330' => 'Ugyldigt kortnummer.',
+	'globalcollect_gateway-response-430421' => 'Dit kreditkort kunne ikke valideres. Vær så venlig at kontrollere, at al information stemmer overens med dit kort, eller prøv med et andet kort.',
+	'globalcollect_gateway-response-430360' => 'Transaktionen kunne ikke godkendes. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.',
+	'globalcollect_gateway-response-430285' => 'Transaktionen kunne ikke godkendes. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.',
+	'globalcollect_gateway-response-21000150' => 'Ugyldigt kontonummer.',
+	'globalcollect_gateway-response-21000155' => 'Ugyldig bankkode.',
+	'globalcollect_gateway-response-21000160' => 'Ugyldigt girokontonummer.',
+	'globalcollect_gateway-response-default' => 'Der opstod en fejl under behandlingen af din transaktion.
+Prøv venligst igen senere.',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
