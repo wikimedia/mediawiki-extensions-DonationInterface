@@ -10,7 +10,7 @@ $(function() {
 	
 	// If the form is being reloaded, restore the amount
 	var previousAmount = $( 'input[name="amount"]' ).val();
-	if ( previousAmount ) {
+	if ( previousAmount && previousAmount > 0  ) {
 		var matched = false;
 		$( 'input[name="amountRadio"]' ).each( function( index ) {
 			if ( $( this ).val() == previousAmount ) {
