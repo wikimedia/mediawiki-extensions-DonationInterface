@@ -72,12 +72,18 @@ $( document ).ready( function () {
 			$( 'input#other-amount' ).val( previousAmount );
 		}
 	}
-
+	// For when people switch back to Other from another value
+	$( '#input_amount_other' ).click( function() {
+		var otherAmount = $( 'input#other-amount' ).val();
+		if ( otherAmount && !isNaN( otherAmount ) ) {
+			setAmount( $( 'input#other-amount' ) );
+		}
+	} );
 	$( "#cc" ).click( function() {
-		/* safety check for people who hit the back button */
+		// Safety check for people who hit the back button
 		checkedValue = $( "input[name='amountRadio']:checked" ).val();
 		if ( $( 'input[name="amount"]' ).val() == '0.00' && checkedValue && !isNaN( checkedValue ) ) {
-			setAmount( checkedValue );
+			setAmount( $( "input[name='amountRadio']:checked" ) );
 		}
 		if ( validateAmount() ) {
 			showAmount( $( 'input[name="amount"]' ) );
@@ -140,7 +146,9 @@ $( document ).ready( function () {
 	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {
-		setAmount( $( this ) );
+		if ( !isNaN( $( this ).val() ) ) {
+			setAmount( $( this ) );
+		}
 	} );
 	// reset the amount field when "other" is changed
 	$( "#other-amount" ).change( function() {
