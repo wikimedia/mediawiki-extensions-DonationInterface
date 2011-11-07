@@ -951,7 +951,7 @@ abstract class Gateway_Form {
 	 * Create the Verisign logo (small size)
 	 *
 	 */
-	protected function getSmallSecureLogo($language) {
+	protected function getSmallSecureLogo() {
 
 		$form = '<table id="secureLogo" width="135" border="0" cellpadding="2" cellspacing="0" title=' . wfMsg('donate_interface-securelogo-title') . '>';
 		$form .= '<tr>';
