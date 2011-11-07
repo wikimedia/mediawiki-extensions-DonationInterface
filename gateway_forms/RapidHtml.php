@@ -200,7 +200,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$form = str_replace( "@script_path", $wgScriptPath, $form );
 
 		// handle script path
-		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo( $this->form_data[ "uselang" ] ), $form );
+		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo(), $form );
 
 		$form = $this->fix_dropdowns( $form );
 
