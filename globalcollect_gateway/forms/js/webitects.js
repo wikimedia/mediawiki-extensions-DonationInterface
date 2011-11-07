@@ -121,32 +121,3 @@ window.validateAmount = function() {
 	}
 	return !error;
 }
-
-window.validate_cc = function() {
-	// reset the errors
-	$( "#paymentErrorMessages" ).html( '' );
-	var error = false;
-	if ( $( 'input[name="card_num"]' ).val() == '' ) {
-		$( "#paymentErrorMessages" ).append( "Please enter a valid credit card number" );
-		error = true;
-	}
-	if ( $( 'select[name="mos"]' ).val() == '' ) {
-		if ( $( "#paymentErrorMessages" ).html() != "" )
-			$( "#paymentErrorMessages" ).append( "<br />" );
-		$( "#paymentErrorMessages" ).append( "Please enter a valid month for the expiration date" );
-		error = true;
-	}
-	if ( $( 'select[name="year"]' ).val() == '' ) {
-		if ( $( "#paymentErrorMessages" ).html() != "" )
-			$( "#paymentErrorMessages" ).append( "<br />" );
-		$( "#paymentErrorMessages" ).append( "Please enter a valid year for the expiration date" );
-		error = true;
-	}
-	if ( $( 'input[name="cvv"]' ).val() == '' ) {
-		if ( $( "#paymentErrorMessages" ).html() != "" )
-			$( "#paymentErrorMessages" ).append( "<br />" );
-		$( "#paymentErrorMessages" ).append( "Please enter a valid security code" );
-		error = true;
-	}
-	return !error;
-}

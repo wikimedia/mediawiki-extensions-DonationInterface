@@ -4,6 +4,9 @@
  */
 $( document ).ready( function () {
 
+	$( "#step2header" ).show();
+	$( "#step2wrapper" ).show();
+
 	// check for RapidHtml errors and display, if any
 	var amountErrorString = "",
 		billingErrorString = "",
@@ -32,29 +35,12 @@ $( document ).ready( function () {
 	var prevError = false;
 	if ( amountErrorString != "" ) {
 		$( "#amtErrorMessages" ).html( amountErrorString );
-		prevError = true;
-		showStep2(); // init the headers
-		showStep3();
-		showStep1(); // should be default, but ensure
 	}
 	if ( billingErrorString != "" ) {
 		$( "#billingErrorMessages" ).html( billingErrorString );
-		if ( !prevError ) {
-			showStep1(); // init the headers
-			showStep3();
-			showStep2();
-			prevError = true;
-		}
-		showAmount( $( 'input[name="amount"]' ) ); // lets go ahead and assume there is something to show
 	}
 	if ( paymentErrorString != "" ) {
 		$( "#paymentErrorMessages" ).html( paymentErrorString );
-		if ( !prevError ) {
-			showStep1(); // init the headers
-			showStep2();
-			showStep3();
-		}
-		showAmount( $( 'input[name="amount"]' ) ); // lets go ahead and assume there is something to show
 	}
 
 	$( "#paymentContinueBtn" ).live( "click", function() {
@@ -73,52 +59,23 @@ $( document ).ready( function () {
 			$( "#paymentContinue" ).show();
 		}
 	} );
-	
+
 	// init all of the header actions
-	$( "#step1header" ).click( function() {
-		showStep1();
-	} );
 	$( "#step2header" ).click( function() {
 		showStep2();
 	} );
-	// Set selected amount to amount
-	$( 'input[name="amountRadio"]' ).click( function() {
-		setAmount( $( this ) );
+	$( "#step3header" ).click( function() {
+		displayCreditCardForm();
 	} );
-	// reset the amount field when "other" is changed
-	$( "#other-amount" ).change( function() {
-		setAmount( $( this ) );
-	} );
-
-	// show the CVV help image on click
-	$( "#where" ).click( function() {
-		$( "#codes" ).toggle();
-		return false;
-	} );
-
 } );
-
-
-window.showStep1 = function() {
-	// show the correct sections
-	$( "#step1wrapper" ).slideDown();
-	$( "#step2wrapper" ).slideUp();
-	$( "#step3wrapper" ).slideUp();
-	$( "#change-amount" ).hide();
-	$( "#change-billing" ).show();
-	$( "#change-payment" ).show();
-	$( "#step1header" ).show(); // just in case
-}
 
 window.showStep2 = function() {
 	if ( $( '#step3wrapper' ).is(":visible") ) {
 		$( "#paymentContinue" ).show(); // Show continue button in 2nd section
 	}
 	// show the correct sections
-	$( "#step1wrapper" ).slideUp();
 	$( "#step2wrapper" ).slideDown();
 	$( "#step3wrapper" ).slideUp();
-	$( "#change-amount" ).show();
 	$( "#change-billing" ).hide();
 	$( "#change-payment" ).show();
 	$( "#step2header" ).show(); // just in case
@@ -126,10 +83,8 @@ window.showStep2 = function() {
 
 window.showStep3 = function() {
 	// show the correct sections
-	$( "#step1wrapper" ).slideUp();
 	$( "#step2wrapper" ).slideUp();
 	$( "#step3wrapper" ).slideDown();
-	$( "#change-amount" ).show();
 	$( "#change-billing" ).show();
 	$( "#change-payment" ).hide();
 	$( "#step3header" ).show(); // just in case
