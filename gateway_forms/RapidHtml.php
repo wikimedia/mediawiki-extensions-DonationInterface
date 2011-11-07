@@ -58,6 +58,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @action -> generate correct form action for this form
 		// @appeal -> name of the appeal text to load
 		// @appeal_title -> name of the appeal title to load
+		// @verisign_logo -> placeholder to load the secure verisign logo
 	);
 
 	/**
@@ -197,6 +198,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// handle script path
 		$form = str_replace( "@script_path", $wgScriptPath, $form );
+
+		// handle script path
+		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo( $this->form_data[ "uselang" ] ), $form );
 
 		$form = $this->fix_dropdowns( $form );
 
