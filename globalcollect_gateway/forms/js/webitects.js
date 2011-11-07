@@ -11,11 +11,11 @@ window.displayCreditCardForm = function() {
 	}
 	
 	var currencyField = document.getElementById( 'input_currency_code' );
-	var currency = '';
+	var currency_code = '';
 	if ( currencyField && currencyField.type == 'select-one' ) { // currency is a dropdown select
-		currency = $( 'select#input_currency_code option:selected' ).val();
+		currency_code = $( 'select#input_currency_code option:selected' ).val();
 	} else {
-		currency = $( "input[name='currency_code']" ).val();
+		currency_code = $( "input[name='currency_code']" ).val();
 	}
 	
 	var stateField = document.getElementById( 'state' );
@@ -37,7 +37,7 @@ window.displayCreditCardForm = function() {
 	var sendData = {
 		'action': 'donate',
 		'gateway': 'globalcollect',
-		'currency': currency,
+		'currency_code': currency_code,
 		'amount': $( "input[name='amount']" ).val(),
 		'fname': $( "input[name='fname']" ).val(),
 		'lname': $( "input[name='lname']" ).val(),

@@ -89,7 +89,7 @@ class DonationApi extends ApiBase {
 			'gateway' => $this->defineParam( true ),
 			'test' => $this->defineParam( false  ),
 			'amount' => $this->defineParam( false ),
-			'currency' => $this->defineParam( false ),
+			'currency_code' => $this->defineParam( false ),
 			'fname' => $this->defineParam( false ),
 			'mname' => $this->defineParam( false ),
 			'lname' => $this->defineParam( false ),
@@ -128,7 +128,7 @@ class DonationApi extends ApiBase {
 		$this->donationData = array(
 			'gateway' => $this->gateway,
 			'amount' => "35",
-			'currency' => 'USD',
+			'currency_code' => 'USD',
 			'fname' => 'Tester',
 			'mname' => 'T.',
 			'lname' => 'Testington',
@@ -157,7 +157,7 @@ class DonationApi extends ApiBase {
 			'gateway' => 'Which payment gateway to use - payflowpro, globalcollect, etc.',
 			'test' => 'Set to true if you want to use bogus test data instead of supplying your own',
 			'amount' => 'The amount donated',
-			'currency' => 'Currency code',
+			'currency_code' => 'Currency code',
 			'fname' => 'First name',
 			'mname' => 'Middle name',
 			'lname' => 'Last name',
@@ -192,7 +192,7 @@ class DonationApi extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=donate&gateway=payflowpro&amount=2.00&currency=USD',
+			'api.php?action=donate&gateway=payflowpro&amount=2.00&currency_code=USD',
 		);
 	}
 
