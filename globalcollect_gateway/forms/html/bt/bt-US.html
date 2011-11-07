@@ -104,13 +104,19 @@
 						</div>
 					</div>
 					<p id="informationsharing">%donate_interface-informationsharing|url%</p>
-					<!-- TODO: links inside the message or not? -->
-					<ul id="moreinfolinks">
-						<li><a href="http://wikimediafoundation.org/wiki/Monthly_donations/en/US">%donate_interface-monthly-donation%</a></li><!-- TODO: localize the link -->
-						<li>%donate_interface-otherways-short|url%</li><!-- TODO: localize the link -->
-						<li><a href="http://wikimediafoundation.org/wiki/FAQ/en">%donate_interface-faqs%</a></li><!-- TODO: localize the link -->
-						<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
-					</ul>
+					<table>
+						<tr>
+							<td>
+								<ul id="moreinfolinks">
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Monthly_donations&language=@language&uselang=@language&country=@country">%donate_interface-monthly-donation%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></li>
+									<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a></li>
+									<!--<li><a href="">%donate_interface-tax-info%</a></li>--><!-- TODO: localize the link -->
+								</ul>
+							</td>
+							<td>@verisign_logo</td>
+						</tr>
+					</table>
 				</div>
 			</td>
 		</tr>
