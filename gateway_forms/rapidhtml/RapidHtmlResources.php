@@ -98,6 +98,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.1st' ] = array(
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd' ] = array(
 	'styles' => '',
+	'scripts' => 'js/webitects2nd.js',
 	'dependencies' => array(
 		'gc.form.rapidhtml.webitects',
 		'di.form.rapidhtml.webitects.2nd'
