@@ -335,7 +335,6 @@ HTML;
 			'bank_code'			=> array( 'required' => true, ),
 			'bank_name'			=> array( 'required' => true, ),
 			'branch_code'		=> array( 'required' => true, ),
-			'direct_debit_text'	=> array( 'required' => true, ),
 			'iban'				=> array( 'required' => true, ),
 		);
 		
@@ -349,8 +348,6 @@ HTML;
 		}
 		elseif ( $country == 'BE' ) {
 			
-			unset( $fields['bank_code'] );
-			unset( $fields['bank_check_digit'] );
 			unset( $fields['branch_code'] );
 			unset( $fields['iban'] );
 		}
