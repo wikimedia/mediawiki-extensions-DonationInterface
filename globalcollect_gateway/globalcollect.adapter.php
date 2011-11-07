@@ -836,7 +836,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( !$cancelflag ){
 				$final = $this->do_transaction( 'SET_PAYMENT' );
 				if ( isset( $final['status'] ) && $final['status'] === true ) {
-					$this->setTransactionWMFStatus( $order_status_results );
+					$this->setTransactionWMFStatus( 'complete' );
 					//get the old status from the first txn, and add in the part where we set the payment. 
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
