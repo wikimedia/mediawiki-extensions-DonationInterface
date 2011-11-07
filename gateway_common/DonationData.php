@@ -57,7 +57,9 @@ class DonationData {
 				'card_type' => $wgRequest->getText( 'card_type' ),
 				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
 				'cvv' => $wgRequest->getText( 'cvv' ),
-				'currency' => $wgRequest->getVal( 'currency_code' ),
+				//Leave both of these here. 
+				'currency' => $wgRequest->getVal( 'currency' ),
+				'currency_code' => $wgRequest->getVal( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method', 'cc' ),
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
@@ -312,11 +314,26 @@ class DonationData {
 	 */
 	function setCurrencyCode() {
 		global $wgRequest;
-		if ( !$this->isSomething('currency') ){
-			$code = $wgRequest->getVal('currency', null);
-			if (!is_null($code)){
-				$this->setVal('currency', $code);
-			}
+		
+		//at this point, we can have either currency, or currency_code. 
+		//-->>currency_code has the authority!<<-- 
+		$currency = false;
+		
+		if ( $this->isSomething( 'currency_code' ) ) {
+			$currency = $this->getVal( 'currency_code' );
+		} elseif ( $this->isSomething( 'currency' ) ) {
+			$currency = $this->getVal( 'currency' );
+		}
+		
+		if ( $currency ){
+			//set them both.
+			$this->setVal( 'currency_code', $currency );
+			$this->setVal( 'currency', $currency );
+		} else {
+			//we want these unset if neither of them was anything, so things 
+			//using this data know to use their own defaults. 
+			$this->expunge( 'currency_code' );
+			$this->expunge( 'currency' );
 		}
 	}
 	
