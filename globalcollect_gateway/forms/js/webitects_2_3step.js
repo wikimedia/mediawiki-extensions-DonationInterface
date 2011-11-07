@@ -75,7 +75,7 @@ $( document ).ready( function () {
 	// For when people switch back to Other from another value
 	$( '#input_amount_other' ).click( function() {
 		var otherAmount = $( 'input#other-amount' ).val();
-		if ( otherAmount && !isNaN( otherAmount ) ) {
+		if ( otherAmount ) {
 			setAmount( $( 'input#other-amount' ) );
 		}
 	} );
