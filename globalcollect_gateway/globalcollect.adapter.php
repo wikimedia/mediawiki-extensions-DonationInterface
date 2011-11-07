@@ -796,7 +796,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//can't communicate or internal error
 			$problemflag = true;
 		}
-
+		
+		$order_status_results = false;
 		if ( !$cancelflag && !$problemflag ) {
 			$order_status_results = $this->getTransactionWMFStatus();
 			$txn_data = $this->getTransactionData();
@@ -806,10 +807,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$problemmessage = "We don't have a Transaction WMF Status after doing a GET_ORDERSTATUS.";
 			}
 			switch ( $order_status_results ){
-				//status says no - probably no need to cancel, but why not be explicit? 
 				case 'failed' : 
 				case 'revised' :  
-					$cancelflag = true;
+					$cancelflag = true; //makes sure we don't try to confirm.
 					break;
 			}
 		}
@@ -846,14 +846,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
 				}
 			} else {
-				$final = $this->do_transaction( 'CANCEL_PAYMENT' );
-				if ( isset( $final['status'] ) && $final['status'] === true ) {
-					$this->setTransactionWMFStatus( $order_status_results );
-					$this->unsetAllSessionData();
-				} else {
-					$problemflag = true;
-					$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
+				if ($order_status_results === false){
+					//we didn't do the check, because we're going to fail the thing. 
+					$final = $this->do_transaction( 'CANCEL_PAYMENT' );
+					if ( isset( $final['status'] ) && $final['status'] === true ) {
+						$this->setTransactionWMFStatus( $order_status_results );
+						$this->unsetAllSessionData();
+					} else {
+						$problemflag = true;
+						$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
+					}
 				}
+				//No else. We can't be in here if we've had problems, so the 
+				//GET_STATUS must have told us no. No action required (in fact, 
+				//GC will complain if we try to can something at this point). 
 			}
 		}
 		
