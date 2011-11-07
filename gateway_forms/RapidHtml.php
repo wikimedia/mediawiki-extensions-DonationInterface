@@ -156,8 +156,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// handle the appeal and appeal header
 		// TODO: determine and set variables for the default templates
-		$appeal_title_name = $this->make_safe( $wgRequest->getText( 'appeal-title', 'jimmy-appeal-title' ) );
-		$appeal_name = $this->make_safe( $wgRequest->getText( 'appeal', 'jimmy-appeal' ) );
+		$appeal_title_name = $this->make_safe( $wgRequest->getText( 'appeal-title', 'Appeal-default' ) );
+		$appeal_name = $this->make_safe( $wgRequest->getText( 'appeal', 'Appeal-default' ) );
 
 		$form = str_replace( "@appeal-title", $appeal_title_name, $form );
 		$form = str_replace( "@appeal", $appeal_name, $form );
