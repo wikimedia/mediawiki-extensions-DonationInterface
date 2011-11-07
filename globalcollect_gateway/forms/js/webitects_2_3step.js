@@ -56,6 +56,22 @@ $( document ).ready( function () {
 		}
 		showAmount( $( 'input[name="amount"]' ) ); // lets go ahead and assume there is something to show
 	}
+	
+	// If the form is being reloaded, restore the amount
+	var previousAmount = $( 'input[name="amount"]' ).val();
+	if ( previousAmount ) {
+		var matched = false;
+		$( 'input[name="amountRadio"]' ).each( function( index ) {
+			if ( $( this ).val() == previousAmount ) {
+				$( this ).attr( 'checked', true );
+				matched = true;
+			}
+		} );
+		if ( !matched ) {
+			$( 'input#input_amount_other' ).attr( 'checked', true );
+			$( 'input#other-amount' ).val( previousAmount );
+		}
+	}
 
 	$( "#cc" ).click( function() {
 		/* safety check for people who hit the back button */
