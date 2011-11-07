@@ -54,7 +54,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$var_map = array(
 			'ORDERID' => 'order_id',
 			'AMOUNT' => 'amount',
-			'CURRENCYCODE' => 'currency',
+			'CURRENCYCODE' => 'currency_code',
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'order_id',

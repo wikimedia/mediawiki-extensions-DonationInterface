@@ -187,7 +187,7 @@ $(function() {
 		error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
 		// Check amount is at least the minimum
 		var currency = 'USD'; // hard-coded for these forms and tests
-		$( "input[name='currency']" ).val( currency );
+		$( "input[name='currency_code']" ).val( currency );
 		if ( typeof( wgCurrencyMinimums[currency] ) == 'undefined' ) {
 			wgCurrencyMinimums[currency] = 1;
 		}

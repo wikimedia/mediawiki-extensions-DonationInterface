@@ -238,7 +238,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->postdatadefaults = array(
 			'order_id' => '112358' . rand(),
 			'amount' => '11.38',
-			'currency' => 'USD',
+			'currency_code' => 'USD',
 			'language' => 'en',
 			'country' => 'US',
 			'returnto' => $returnTo,
@@ -1476,7 +1476,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function getPaypalRedirectURL() {
-		$currency = $this->getData_Raw( 'currency' );
+		$currency = $this->getData_Raw( 'currency_code' );
 
 		// update the utm source to set the payment instrument to pp rather than cc
 		$data['payment_method'] = 'pp';

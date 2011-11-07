@@ -192,8 +192,8 @@ EOT;
 		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] .
 			Html::hidden( 'amount', $this->form_data['amount'] ) .
 			'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency' ] .
-			Html::hidden( 'currency_code', $this->form_data['currency'] ) .
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency_code' ] .
+			Html::hidden( 'currency_code', $this->form_data['currency_code'] ) .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
@@ -208,7 +208,7 @@ EOT;
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		if ( $this->form_data[ 'currency' ] == 'USD' ) {
+		if ( $this->form_data[ 'currency_code' ] == 'USD' ) {
 			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 		} else {
 			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';

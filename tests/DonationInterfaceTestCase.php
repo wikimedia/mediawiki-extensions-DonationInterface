@@ -193,7 +193,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			'zip' => $zip,
 			'country' => $country,
 			//'size' => 'small',
-			'currency' => $currency,
+			'currency_code' => $currency,
 			//'order_id' => '5038287830',
 			//'i_order_id' => '1234567890',
 			'numAttempt' => 0,
@@ -262,7 +262,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$options['state']		= 'XX';
 		$options['zip']			= '';
 		$options['country']		= 'ES';
-		$options['currency']	= 'EUR';
+		$options['currency_code']	= 'EUR';
 		
 		return $this->getGatewayAdapterTestData( $options );
 	}
@@ -285,7 +285,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
 		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency_code'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
@@ -293,7 +293,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 			'<PAYMENT>';
 		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
 		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency'] . '</CURRENCYCODE>';
+		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency_code'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';

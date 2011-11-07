@@ -99,7 +99,7 @@ class Gateway_Form_TwoStepTwoColumnLetter extends Gateway_Form_TwoStepTwoColumn 
 		$form .= '</tr>';
 
 		// card logos
-		if ( $this->form_data[ 'currency' ] == 'USD' ) {
+		if ( $this->form_data[ 'currency_code' ] == 'USD' ) {
 			$form .= '<tr id="four_cards" style="display:table-row;">';
 			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 			$form .= '</tr>';

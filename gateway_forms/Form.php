@@ -366,8 +366,8 @@ abstract class Gateway_Form {
 		$availableCurrencies = $this->gateway->getCurrencies();
 		
 		// If a currency has already been posted, use that, otherwise use the default.
-		if ( $this->form_data['currency'] ) {
-			$selectedCurrency = $this->form_data['currency'];
+		if ( $this->form_data['currency_code'] ) {
+			$selectedCurrency = $this->form_data['currency_code'];
 		} else {
 			$selectedCurrency = $defaultCurrencyCode;
 		}

@@ -194,8 +194,8 @@ class GatewayForm extends UnlistedSpecialPage {
 		$priceFloor = $this->adapter->getGlobal( 'PriceFloor' );
 		$priceCeiling = $this->adapter->getGlobal( 'PriceCeiling' );
 		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data['amount'] ) ||
-			( ( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) < ( float ) $priceFloor ||
-			( float ) $this->convert_to_usd( $data['currency'], $data['amount'] ) > ( float ) $priceCeiling ) ) {
+			( ( float ) $this->convert_to_usd( $data['currency_code'], $data['amount'] ) < ( float ) $priceFloor ||
+			( float ) $this->convert_to_usd( $data['currency_code'], $data['amount'] ) > ( float ) $priceCeiling ) ) {
 
 			$error['invalidamount'] = wfMsg( 'donate_interface-error-msg-invalid-amount' );
 

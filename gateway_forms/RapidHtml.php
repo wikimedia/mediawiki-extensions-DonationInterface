@@ -31,7 +31,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@card_type', // => $wgRequest->getText( 'card_type' ),
 		'@expiration', // => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
 		'@cvv', // => $wgRequest->getText( 'cvv' ),
-		'@currency_code', //'currency' => $wgRequest->getText( 'currency_code' ),
+		'@currency_code', //'currency_code' => $wgRequest->getText( 'currency_code' ),
 		'@payment_method', // => $wgRequest->getText( 'payment_method' ),
 		'@order_id', // => $order_id,
 		'@numAttempt', // => $numAttempt,
@@ -169,7 +169,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		foreach ( $this->data_tokens as $token ) {
 			$key = substr( $token, 1, strlen( $token )); //get the token string w/o the '@'
 			if ( $key == 'emailAdd' ) $key = 'email';
-			if ( $key == 'currency_code' ) $key = 'currency';
 			if ( array_key_exists( $key, $this->form_data )) {
 				$replace = $this->form_data[ $key ];
 			} else {
@@ -270,7 +269,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// currency code
 		$start = strpos( $html, 'name="currency_code"' );
 		if ( $start ) {
-			$currency_code = $this->form_data['currency'];
+			$currency_code = $this->form_data['currency_code'];
 			$end = strpos( $html, '</select>', $start );
 			$str = substr( $html, $start, ( $end - $start ) );
 			$str = str_replace( 'value="' . $currency_code . '"', 'value="' . $currency_code . '" selected="selected"', $str );

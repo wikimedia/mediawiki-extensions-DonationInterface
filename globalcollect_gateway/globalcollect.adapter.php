@@ -79,7 +79,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CUSTOMERBANKNUMBER'=> 'customer_bank_number', // dd
 			'CUSTOMERBANKZIP'	=> 'customer_bank_zip', // dd
 			'CREDITCARDNUMBER'	=> 'card_num',
-			'CURRENCYCODE'		=> 'currency',
+			'CURRENCYCODE'		=> 'currency_code',
 			'CVV'				=> 'cvv',
 			'DATECOLLECT'		=> 'date_collect',
 			'DIRECTDEBITTEXT'	=> 'direct_debit_text',

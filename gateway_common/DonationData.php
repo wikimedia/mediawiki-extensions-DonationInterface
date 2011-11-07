@@ -57,7 +57,7 @@ class DonationData {
 				'card_type' => $wgRequest->getText( 'card_type' ),
 				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
 				'cvv' => $wgRequest->getText( 'cvv' ),
-				//Leave both of these here. 
+				//Leave both of the currencies here, in case something external didn't get the memo.
 				'currency' => $wgRequest->getVal( 'currency' ),
 				'currency_code' => $wgRequest->getVal( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method', 'cc' ),
@@ -187,7 +187,7 @@ class DonationData {
 			'card_type' => $cards[$card_index],
 			'expiration' => date( 'my', strtotime( '+1 year 1 month' ) ),
 			'cvv' => '001',
-			'currency' => 'USD',
+			'currency_code' => 'USD',
 			'payment_method' => 'cc',
 			'payment_submethod' => '', //cards have no payment submethods. 
 			'issuer_id' => '',
@@ -265,7 +265,7 @@ class DonationData {
 			'anonymous',
 			'language',
 			'contribution_tracking_id', //sort of...
-			'currency'
+			'currency_code',
 		);
 		return $fields;
 	}
@@ -323,17 +323,15 @@ class DonationData {
 			$currency = $this->getVal( 'currency_code' );
 		} elseif ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
+			$this->expunge( 'currency' );
 		}
 		
 		if ( $currency ){
-			//set them both.
 			$this->setVal( 'currency_code', $currency );
-			$this->setVal( 'currency', $currency );
 		} else {
-			//we want these unset if neither of them was anything, so things 
-			//using this data know to use their own defaults. 
-			$this->expunge( 'currency_code' );
-			$this->expunge( 'currency' );
+			//we want this set tu null if neither of them was anything, so 
+			//things using this data know to use their own defaults. 
+			$this->setVal( 'currency_code', null );
 		}
 	}
 	
@@ -940,7 +938,7 @@ class DonationData {
 			'gateway',
 			'gateway_txn_id',
 			'response',
-			'currency',
+			'currency_code',
 			'amount',
 			'date',
 		);

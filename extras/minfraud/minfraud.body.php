@@ -89,7 +89,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	public function log_query( $minfraud_query, $action ) {
 		if ( $this->log_fh ) {
 			$log_message = '"' . addslashes( $this->gateway_adapter->getData_Raw( 'comment' ) ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Raw( 'amount' ) . ' ' . $this->gateway_adapter->getData_Raw( 'currency' ) ) . '"';
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Raw( 'amount' ) . ' ' . $this->gateway_adapter->getData_Raw( 'currency_code' ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $minfraud_query ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraud_response ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $action ) . '"';
