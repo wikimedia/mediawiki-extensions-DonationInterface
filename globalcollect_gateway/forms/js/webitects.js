@@ -10,10 +10,10 @@ window.displayCreditCardForm = function() {
 		language = matches[1];
 	}
 	
-	var currencyField = document.getElementById( 'currency' );
+	var currencyField = document.getElementById( 'input_currency_code' );
 	var currency = '';
 	if ( currencyField && currencyField.type == 'select-one' ) { // currency is a dropdown select
-		currency = $( 'select#currency option:selected' ).val();
+		currency = $( 'select#input_currency_code option:selected' ).val();
 	} else {
 		currency = $( "input[name='currency_code']" ).val();
 	}
