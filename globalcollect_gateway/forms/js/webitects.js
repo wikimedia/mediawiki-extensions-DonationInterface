@@ -9,19 +9,44 @@ window.displayCreditCardForm = function() {
 	if ( matches && matches[1] ) {
 		language = matches[1];
 	}
+	
+	var currencyField = document.getElementById( 'currency' );
+	var currency = '';
+	if ( currencyField && currencyField.type == 'select-one' ) { // currency is a dropdown select
+		currency = $( 'select#currency option:selected' ).val();
+	} else {
+		currency = $( "input[name='currency_code']" ).val();
+	}
+	
+	var stateField = document.getElementById( 'state' );
+	var state = '';
+	if ( stateField && stateField.type == 'select-one' ) { // state is a dropdown select
+		state = $( 'select#state option:selected' ).val();
+	} else {
+		state = $( "input[name='state']" ).val();
+	}
+	
+	var countryField = document.getElementById( 'country' );
+	var country = '';
+	if ( countryField && countryField.type == 'select-one' ) { // country is a dropdown select
+		country = $( 'select#country option:selected' ).val();
+	} else {
+		country = $( "input[name='country']" ).val();
+	}
+	
 	var sendData = {
 		'action': 'donate',
 		'gateway': 'globalcollect',
-		'currency': $( "input[name='currency_code']" ).val(),
+		'currency': currency,
 		'amount': $( "input[name='amount']" ).val(),
 		'fname': $( "input[name='fname']" ).val(),
 		'lname': $( "input[name='lname']" ).val(),
 		'street': $( "input[name='street']" ).val(),
 		'city': $( "input[name='city']" ).val(),
-		'state': $( "input[name='state']" ).val(),
+		'state': state,
 		'zip': $( "input[name='zip']" ).val(),
 		'emailAdd': $( "input[name='emailAdd']" ).val(),
-		'country': $( "input[name='country']" ).val(),
+		'country': country,
 		'payment_method': 'cc',
 		'language': language,
 		'card_type': $( "input[name='cardtype']:checked" ).val().toLowerCase(),
