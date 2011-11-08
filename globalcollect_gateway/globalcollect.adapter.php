@@ -1335,8 +1335,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$count = 0;
 		//Count's just there making sure we don't get stuck here. 
 		while ( !in_array( $language, $this->getAvailableLanguages() ) && $count < 3 ){
-			//find the failback. 
-			$language = $this->dataObj->getFailbackLanguage( $language );
+			// Get the fallback language
+			$language = Language::getFallbackFor( $language );
 			$count += 1;
 		}
 		

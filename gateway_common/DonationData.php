@@ -471,12 +471,14 @@ class DonationData {
 	
 	/**
 	 * normalizeAndSanitize helper function.
-	 * If the language has not yet been set, pulls the language code 
+	 * If the language has not yet been set or is not valid, pulls the language code 
 	 * from the current global language object. 
 	 */
 	function setLanguage() {
 		global $wgLang;
-		if ( !$this->isSomething( 'language' ) ) {
+		if ( !$this->isSomething( 'language' )
+			|| !Language::isValidBuiltInCode( $this->normalized['language'] ) )
+		{
 			$this->setVal( 'language', $wgLang->getCode() );
 		}
 	}
@@ -943,25 +945,6 @@ class DonationData {
 			'date',
 		);
 		return $stomp_fields;
-	}
-	
-	/**
-	 * getFailbackLanguage should return the code for a next-best-language, in 
-	 * the event it is deemed unavailable by the gateway. 
-	 * @param string $unavailable_language
-	 * @return string The code which the unavailable language should fail back 
-	 * to.
-	 */
-	function getFailbackLanguage( $unavailable_language ){
-		$unavailable_language = strtolower($unavailable_language);
-		
-		//TODO: Something in here more complicated than defaulting to English. 
-		//Probably get a failback from MediaWiki if one exists, and if the code 
-		//doesn't change as part of that process, have a next-best language 
-		//identifier that we write? 
-		
-		$failback = 'en';
-		return strtolower($failback);
 	}
 }
 
