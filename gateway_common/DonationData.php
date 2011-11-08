@@ -944,6 +944,25 @@ class DonationData {
 		);
 		return $stomp_fields;
 	}
+	
+	/**
+	 * getFailbackLanguage should return the code for a next-best-language, in 
+	 * the event it is deemed unavailable by the gateway. 
+	 * @param string $unavailable_language
+	 * @return string The code which the unavailable language should fail back 
+	 * to.
+	 */
+	function getFailbackLanguage( $unavailable_language ){
+		$unavailable_language = strtolower($unavailable_language);
+		
+		//TODO: Something in here more complicated than defaulting to English. 
+		//Probably get a failback from MediaWiki if one exists, and if the code 
+		//doesn't change as part of that process, have a next-best language 
+		//identifier that we write? 
+		
+		$failback = 'en';
+		return strtolower($failback);
+	}
 }
 
 ?>
