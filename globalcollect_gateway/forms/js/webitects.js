@@ -66,7 +66,7 @@ window.displayCreditCardForm = function() {
 			if ( typeof data.error !== 'undefined' ) {
 				alert( ajaxError );
 				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
-				showStep1();
+				showStep2();
 			} else if ( typeof data.result !== 'undefined' ) {
 				if ( data.result.errors ) {
 					var errors = new Array();
