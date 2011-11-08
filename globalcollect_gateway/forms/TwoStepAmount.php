@@ -307,6 +307,24 @@ HTML;
 	}
 	
 	/**
+	 * Generate the credit card component
+	 *
+	 * Nothing is being added right now.
+	 *
+	 * @param	array	$options
+	 *
+	 * @return string	Returns an HTML string
+	 */
+	protected function getCreditCard( $options = array() ) {
+		
+		extract( $options );
+
+		$return = '';
+		
+		return $return;
+	}
+	
+	/**
 	 * Generate the direct debit component
 	 *
 	 * @param	array	$options
@@ -594,7 +612,7 @@ HTML;
 		
 		$headerOptions['id'] = $id . '_header';
 		
-		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-currency' ), $headerOptions );
+		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-payment_method-' . $this->getPaymentMethod() ), $headerOptions );
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
 		
@@ -701,11 +719,23 @@ HTML;
 		
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
-		$return .= $this->getDirectDebit();
-
-		$return .= $this->getBankTransfer();
-
-		$return .= $this->getRealTimeBankTransfer();
+		switch ( $this->getPaymentMethod() ) {
+			case 'bt':
+				$return .= $this->getBankTransfer();
+				break;
+			case 'cc':
+				$return .= $this->getCreditCard();
+				break;
+			case 'dd':
+				$return .= $this->getDirectDebit();
+				break;
+			case 'rtbt':
+				$return .= $this->getRealTimeBankTransfer();
+				break;
+			default:
+				$return .= $this->getCreditCard();
+				break;
+		}
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 		
