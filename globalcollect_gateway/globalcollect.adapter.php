@@ -1325,7 +1325,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'payment_submethod',
 			'issuer_id',
 			'order_id', //This may or may not oughta-be-here...
+			'language',
 		);
+	}
+	
+	protected function stage_language( $type = 'request' ) {
+		$language = strtolower( $this->staged_data['language'] );
+		switch ( $language ){
+			case 'zh' :
+				$this->staged_data['language'] = 'sc';
+				break;
+		}
 	}
 
 	/**
