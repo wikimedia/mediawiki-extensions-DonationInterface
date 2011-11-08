@@ -1643,12 +1643,13 @@ $messages['sah'] = array(
 );
 
 /** Sinhala (සිංහල)
+ * @author Singhalawap
  * @author චතුනි අලහප්පෙරුම
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
 	'payflowprogateway' => 'දැන් ඔබගේ පරිත්‍යාගය සපයන්න',
-	'payflowpro_gateway-desc' => 'පේපල් පෙයිෆ්ලෝ ප්‍රෝ ණය පත සකසමින්',
+	'payflowpro_gateway-desc' => 'පේපැල් පේෆ්ලෝ ප්‍රෝ ණයපත සකසමින්',
 	'payflowpro_gateway-response-0' => 'ඔබගේ ගනුදෙනුව අනුමත කර ඇත.
 ඔබ‍ගේ පරිත්‍යාගයට ස්තූතියි!',
 	'payflowpro_gateway-response-126' => 'ඔබගේ ගනුදෙනුව අනුමත කර ඇත.',

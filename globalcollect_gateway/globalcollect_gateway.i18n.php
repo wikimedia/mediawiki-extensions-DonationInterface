@@ -77,15 +77,20 @@ $messages['ar'] = array(
  */
 $messages['cy'] = array(
 	'globalcollectgateway' => 'Rhoddwch nawr',
+	'globalcollect_gateway-desc' => 'Prosesu taliadau trwy GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Gwlad annilys.',
 	'globalcollect_gateway-response-9140' => 'Arian breiniol annilys.',
 	'globalcollect_gateway-response-9150' => 'Iaith annilys.',
 	'globalcollect_gateway-response-400530' => 'Modd talu annilys.',
 	'globalcollect_gateway-response-430306' => 'Mae eich cerdyn credyd wedi dod i ben. Defnyddiwch gerdyn arall neu fodd gwahanol o dalu.',
 	'globalcollect_gateway-response-430330' => 'Rhif annilys i gerdyn.',
+	'globalcollect_gateway-response-430360' => "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
+	'globalcollect_gateway-response-430285' => "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
 	'globalcollect_gateway-response-21000150' => 'Rhif annilys i gyfrif banc.',
 	'globalcollect_gateway-response-21000155' => 'Côd banc annilys.',
 	'globalcollect_gateway-response-21000160' => 'Rhif annilys i gyfrif giro.',
+	'globalcollect_gateway-response-default' => 'Cafwyd gwall wrth drin eich gweithrediad.
+Ceisiwch eto ymhen tipyn.',
 );
 
 /** Danish (Dansk)
@@ -476,6 +481,8 @@ $messages['sw'] = array(
 	'globalcollect_gateway-response-9150' => 'Lugha batili.',
 	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.',
 	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
+	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
+Tafadhali jaribu tena baadaye.',
 );
 
 /** Vietnamese (Tiếng Việt)
