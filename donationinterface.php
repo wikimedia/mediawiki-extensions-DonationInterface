@@ -214,7 +214,7 @@ $wgDonationInterfaceRetrySeconds = 5;
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
 //for instance: To override $wgDonationInterfaceUseSyslog just for GlobalCollect, add
-// $wgGolbalCollectGatewayUseSyslog = true
+// $wgGlobalCollectGatewayUseSyslog = true
 // to LocalSettings.
 //
 
