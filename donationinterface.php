@@ -585,6 +585,7 @@ $wgResourceTemplate = array(
 
 $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 	'messages' => array(
+		'donate_interface-error-msg-general',
 		'donate_interface-error-msg-js',
 		'donate_interface-error-msg-invalid-amount',
 		'donate_interface-error-msg-email',

@@ -13,9 +13,12 @@ $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gatewa
  * LIGHTBOX
  */
 // RapidHtml lightbox form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
+$wgResourceModules[ 'pfp.form.rapidhtml.lightbox' ] = array(
 	'scripts' => array(
 		'js/lightbox1.js',
+	),
+	'styles' => array(
+		'css/lightbox1.css',	
 	),
 	'dependencies' => array(
 		'jquery.ui.core',
@@ -26,18 +29,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox.js' ] = array(
 		'jquery.ui.resizable',
 		'jquery.ui.button',
 		'jquery.ui.dialog',
-	),
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-	'position' => 'top',
-);
-
-// RapidHtml lightbox form css resources (these are separate from the js
-// resources for a good reason but I forget what - I believe to facilitate
-// ensuring proper load order?
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox.css' ] = array(
-	'styles' => array(
-		'css/lightbox1.css',	
 	),
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,

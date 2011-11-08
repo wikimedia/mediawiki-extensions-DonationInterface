@@ -157,6 +157,7 @@ No processors are available.',
 	'donate_interface-card-name-mc' => 'Mastercard',
 	'donate_interface-card-name-discover' => 'Discover',
 	// The key names for the error messages should mostly match up with the donate_interface-donor keys above. (There are a few exceptions for backwards compat.)
+	'donate_interface-error-msg-general' => 'There was an error processing your request.',
 	'donate_interface-error-msg-nopaypal' => 'Due to a technical error, we cannot send your request to PayPal.  Please try using our regular credit card donation form.',
 	'donate_interface-error-msg' => 'Please enter your $1',
 	'donate_interface-error-msg-js' => 'Please enter your',
@@ -543,6 +544,7 @@ $messages['qqq'] = array(
 	'donate_interface-donor-submit' => '{{Identical|Donate}}',
 	'donate_interface-donor-currency-msg' => '* $1 is 3 letter currency code',
 	'donate_interface-card-name-discover' => "Trademark name of credit card Discover®, '''not''' the verb \"to discover\".",
+	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
 	'donate_interface-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
 

@@ -1,5 +1,45 @@
-$(function() {
+$( document ).ready( function () {
 
+	// check for RapidHtml errors and display, if any
+	var amountErrorString = "";
+	var billingErrorString = "";
+	var paymentErrorString = "";
+
+	// generate formatted errors to display
+	var temp = [];
+	for ( var e in amountErrors )
+		if ( amountErrors[e] != "" )
+			temp[temp.length] = amountErrors[e];
+	amountErrorString = temp.join( "<br />" );
+
+	temp = [];
+	for ( var f in billingErrors )
+		if ( billingErrors[f] != "" )
+			temp[temp.length] = billingErrors[f];
+	billingErrorString = temp.join( "<br />" );
+
+	temp = [];
+	for ( var g in paymentErrors )
+		if ( paymentErrors[g] != "" )
+			temp[temp.length] = paymentErrors[g];
+	paymentErrorString = temp.join( "<br />" );
+
+	// show the errors
+	var prevError = false;
+	if ( amountErrorString != "" ) {
+		$( "#amtErrorMessages" ).html( amountErrorString );
+		prevError = true;
+	}
+	if ( billingErrorString != "" ) {
+		$( "#billingErrorMessages" ).html( billingErrorString );
+		if ( !prevError ) {
+			prevError = true;
+		}
+	}
+	if ( paymentErrorString != "" ) {
+		$( "#paymentErrorMessages" ).html( paymentErrorString );
+	}
+	
 	$( '#dialog' ).dialog( {
 		width: 600,
 		resizable: false,

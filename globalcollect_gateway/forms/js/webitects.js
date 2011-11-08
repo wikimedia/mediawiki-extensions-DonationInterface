@@ -63,7 +63,11 @@ window.displayCreditCardForm = function() {
 		'dataType': 'json',
 		'type': 'GET',
 		'success': function( data ) {
-			if ( typeof data.result !== 'undefined' ) {
+			if ( typeof data.error !== 'undefined' ) {
+				alert( ajaxError );
+				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
+				showStep1();
+			} else if ( typeof data.result !== 'undefined' ) {
 				if ( data.result.errors ) {
 					var errors = new Array();
 					$.each( data.result.errors, function( index, value ) {
@@ -82,6 +86,10 @@ window.displayCreditCardForm = function() {
 					}
 				}
 			}
+		},
+		'error': function( xhr ) {
+			alert( ajaxError );
+			showStep1();
 		}
 	} );
 }
