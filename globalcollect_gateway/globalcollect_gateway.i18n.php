@@ -169,6 +169,13 @@ $messages['es'] = array(
 Por favor intentelo de nuevo mas tarde.',
 );
 
+/** Estonian (Eesti)
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'globalcollectgateway' => 'Anneta kohe',
+);
+
 /** French (Français)
  * @author Gomoko
  * @author IAlex
