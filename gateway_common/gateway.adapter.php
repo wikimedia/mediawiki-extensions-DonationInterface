@@ -1676,34 +1676,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getTransactionDataLanguage() {
 		
-		$data = $this->getTransactionData();
-		
-		$return = false;
-		
-		// Check for language in $data
-		if ( is_array( $data ) ) {
-			if ( array_key_exists( 'language', $data ) ) {
-				$return = $data['language'];
-			} 
-		}
-
-		// Check for language in $data['ORDER']['LANGUAGECODE']
-		if ( empty( $return ) && array_key_exists( 'ORDER', $data ) ) {
-			
-			if ( array_key_exists( 'LANGUAGECODE', $data['ORDER'] ) ) {
-				$return = $data['ORDER']['LANGUAGECODE'];
-			}
-		}
-
-		// Check for language in $data['PAYMENT']['LANGUAGECODE']
-		if ( empty( $return ) && array_key_exists( 'PAYMENT', $data ) ) {
-			
-			if ( array_key_exists( 'LANGUAGECODE', $data['PAYMENT'] ) ) {
-				$return = $data['PAYMENT']['LANGUAGECODE'];
-			}
-		}
-		
-		return $return;
+		return $this->getData_Raw( 'language' );
 	}
 
 	/**
