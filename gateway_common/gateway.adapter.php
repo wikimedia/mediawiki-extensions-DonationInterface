@@ -252,7 +252,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @global type $wgLang
 	 * @return mixed Page URL in string format, or false if none is set. 
 	 */
-	function getThankYouPage() {
+	public function getThankYouPage() {
 		$page = self::getGlobal( "ThankYouPage" );
 		if ( $page ) {
 			$page = $this->appendLanguageAndMakeURL( $page );
@@ -265,7 +265,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @global type $wgLang
 	 * @return mixed Page URL in string format, or false if none is set.  
 	 */
-	function getFailPage() {
+	public function getFailPage() {
 		$page = self::getGlobal( "FailPage" );
 		if ( $page ) {
 			$page = $this->appendLanguageAndMakeURL( $page );
@@ -281,7 +281,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * page title. 
 	 * @return string A URL  
 	 */
-	function appendLanguageAndMakeURL( $url ){
+	protected function appendLanguageAndMakeURL( $url ){
 		$language = $this->getData_Raw( 'language' );
 		//make sure we don't already have the language in there...
 		$dirs = explode('/', $url);
@@ -334,7 +334,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return mixed All the staged data held by the adapter, or if a key was 
 	 * set, the staged value for that key. 
 	 */
-	function getData_Staged( $val = '' ) {
+	protected function getData_Staged( $val = '' ) {
 		if ( $val === '' ) {
 			return $this->staged_data;
 		} else {
@@ -1698,19 +1698,6 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Returns false if language does not exist or string if it does exist
-	 *
-	 * @todo
-	 * - Can we just get the language from somewhere else to make this simpler?
-	 *
-	 * @return false|string  
-	 */
-	public function getTransactionDataLanguage() {
-		
-		return $this->getData_Raw( 'language' );
 	}
 
 	/**

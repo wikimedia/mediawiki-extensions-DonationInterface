@@ -133,7 +133,7 @@ class PayflowProGateway extends GatewayForm {
 		$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
 
 		if ( $thankyoupage ) {
-			$wgOut->redirect( $thankyoupage . "/" . $data['language'] );
+			$wgOut->redirect( $thankyoupage );
 		} else {
 			// display response message
 			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
@@ -161,10 +161,10 @@ class PayflowProGateway extends GatewayForm {
 	 */
 	function fnPayflowDisplayDeclinedResults( $responseMsg ) {
 		global $wgOut;
-		$failpage = $this->adapter->getGlobal( 'FailPage' );
+		$failpage = $this->adapter->getFailPage();
 
 		if ( $failpage ) {
-			$wgOut->redirect( $failpage . "/" . $data['language'] );
+			$wgOut->redirect( $failpage );
 		} else {
 			// general decline message
 			$declinedDefault = wfMsg( 'php-response-declined' );

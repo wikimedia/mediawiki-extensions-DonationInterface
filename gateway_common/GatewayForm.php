@@ -545,13 +545,13 @@ class GatewayForm extends UnlistedSpecialPage {
 		
 		if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 
-			$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
+			$thankyoupage = $this->adapter->getThankYouPage();
 	
 			if ( $thankyoupage ) {
 				
 				$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 				
-				return $wgOut->redirect( $thankyoupage . '/' . $this->adapter->getTransactionDataLanguage() . $queryString );
+				return $wgOut->redirect( $thankyoupage . $queryString );
 			}
 		}
 		
