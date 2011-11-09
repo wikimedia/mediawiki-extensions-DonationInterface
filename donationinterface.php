@@ -253,7 +253,7 @@ $wgDonationInterfaceNoScriptRedirect = null;
  * Proxy settings
  *
  * If you need to use an HTTP proxy for outgoing traffic,
- * set wgPayflowGatweayUseHTTPProxy=TRUE and set $wgPayflowProGatewayHTTPProxy
+ * set wgPayflowProGatewayUseHTTPProxy=TRUE and set $wgPayflowProGatewayHTTPProxy
  * to the proxy desination.
  *  eg:
  *  $wgPayflowProGatewayUseHTTPProxy=TRUE;
