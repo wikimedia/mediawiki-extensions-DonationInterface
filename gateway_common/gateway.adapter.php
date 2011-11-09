@@ -247,22 +247,56 @@ abstract class GatewayAdapter implements GatewayType {
 		);
 	}
 
+	/**
+	 * getThankYouPage should either return a full page url, or false. 
+	 * @global type $wgLang
+	 * @return mixed Page URL in string format, or false if none is set. 
+	 */
 	function getThankYouPage() {
-		global $wgLang;
-		$language = $wgLang->getCode();
-		$page = self::getGlobal( "ThankYouPage" ) . "/$language";
-//		$returnTitle = Title::newFromText( $page );
-//		$returnto = $returnTitle->getFullURL();
+		$page = self::getGlobal( "ThankYouPage" );
+		if ( $page ) {
+			$page = $this->appendLanguageAndMakeURL( $page );
+		}
 		return $page;
 	}
 
+	/**
+	 * getFailPage should either return a full page url, or false. 
+	 * @global type $wgLang
+	 * @return mixed Page URL in string format, or false if none is set.  
+	 */
 	function getFailPage() {
-		global $wgLang;
-		$language = $wgLang->getCode();
-		$page = self::getGlobal( "FailPage" ) . "/$language";
-		$returnTitle = Title::newFromText( $page );
-		$returnto = $returnTitle->getFullURL();
-		return $returnto;
+		$page = self::getGlobal( "FailPage" );
+		if ( $page ) {
+			$page = $this->appendLanguageAndMakeURL( $page );
+		}
+		return $page;
+	}
+	
+	/**
+	 * For pages we intend to redirect to. This function will take either a full 
+	 * URL or a page title, and turn it into a URL with the appropriate language 
+	 * appended onto the end. 
+	 * @param string $url Either a wiki page title, or a URL to an external wiki 
+	 * page title. 
+	 * @return string A URL  
+	 */
+	function appendLanguageAndMakeURL( $url ){
+		$language = $this->getData_Raw( 'language' );
+		//make sure we don't already have the language in there...
+		$dirs = explode('/', $url);
+		if ( !is_array($dirs) || !in_array( $language, $dirs ) ){
+			$url = $url . "/$language";
+		}
+		
+		error_log("Position: " . strpos( $url, 'http' ));
+		if ( strpos( $url, 'http' ) === 0) { 
+			return $url;
+		} else { //this isn't a url yet.
+			$returnTitle = Title::newFromText( $url );
+			$url = $returnTitle->getFullURL();
+			return $url;
+		}
 	}
 
 	/**

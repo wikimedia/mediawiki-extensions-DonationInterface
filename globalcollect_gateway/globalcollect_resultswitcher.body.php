@@ -88,8 +88,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 							break;
 					}
 
-					$wgOut->addHTML( "<br>Redirecting to page $go" );
-					$wgOut->redirect( $go );
+					if ($go) {
+						$wgOut->addHTML( "<br>Redirecting to page $go" );
+						$wgOut->redirect( $go );
+					} //TODO: There really should be an else here. 
 				}
 			}
 		} else {
