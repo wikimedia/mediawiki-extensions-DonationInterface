@@ -799,15 +799,19 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
 
 			if ( $this->getValidationAction() != 'process' ) {
-				return array(
+
+				self::log( "Failed failed pre-process checks.", LOG_CRIT );
+				
+				$this->transaction_results = array(
 					'status' => false,
-					//TODO: appropriate messages. 
-					'message' => "$transaction : Failed failed pre-process checks. Somebody PLEASE override me!",
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 					'errors' => array(
-						'1000000' => 'pre-process failed you.' //...stupid code.
+						'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 					),
 					'action' => $this->getValidationAction(),
 				);
+			
+				return $this->getTransactionAllResults();
 			}
 
 			//TODO: Maybe move this to the pre_process functions? 
@@ -827,16 +831,19 @@ abstract class GatewayAdapter implements GatewayType {
 				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
 			}
 		} catch ( MWException $e ) {
+			
 			self::log( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(), LOG_CRIT );
-			return array(
+			
+			$this->transaction_results = array(
 				'status' => false,
-				//TODO: appropriate messages. 
-				'message' => "$transaction : Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(),
+				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
 				'errors' => array(
-					'1000000' => 'Transaction could not be processed due to an internal error.'
+					'internal-0001' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
 				),
 				'action' => $this->getValidationAction(),
 			);
+			
+			return $this->getTransactionAllResults();
 		}
 
 		//start looping here, if we're the sort of transaction that needs to do that. 
@@ -892,14 +899,19 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->saveCommunicationStats( __FUNCTION__, $transaction, "counter = $counter" );
 
 		if ( $txn_ok === false ) { //nothing to process, so we have to build it manually
-			return array(
+			
+			self::log( "$transaction Communication Failed!", LOG_CRIT );
+			
+			$this->transaction_results = array(
 				'status' => false,
-				'message' => "$transaction Communication Failed!",
+				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 				'errors' => array(
-					'1000000' => 'communication failure' //...stupid code.
+					'internal-0002' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 				),
 				'action' => $this->getValidationAction(),
 			);
+			
+			return $this->getTransactionAllResults();
 		}
 
 		//If we have any special post-process instructions for this 
