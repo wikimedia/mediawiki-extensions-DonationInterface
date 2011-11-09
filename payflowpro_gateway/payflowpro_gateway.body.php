@@ -113,10 +113,15 @@ class PayflowProGateway extends GatewayForm {
 		} elseif ( ( $errorCode == '5' ) ) {
 			$this->log( $msgPrefix . "Transaction pending.", LOG_DEBUG );
 			$this->fnPayflowDisplayPending( $data, $responseMsg );
-		} elseif ( ( $errorCode == '1000000' ) ) { //TODO: This is temporary until we can decide on the actual error codes WE control.
+		} elseif ( strpos( $errorCode, 'internal' ) === 0 ) {
 			$this->log( $msgPrefix . "Transaction unsuccessful (communication failure).", LOG_DEBUG );
-			$this->fnPayflowDisplayOtherResults( $responseMsg );
 			$this->errors['retryMsg'] = $responseMsg;
+			$this->displayForm( $this->errors );
+		} elseif ( !empty( $errorCode ) ) {
+			// This should not be hit.
+			$this->log( $msgPrefix . "Transaction unsuccessful (unknown failure).", LOG_DEBUG );
+			$this->fnPayflowDisplayOtherResults( $responseMsg );
+			$this->errors['retryMsg'] = $errorCode;
 			$this->displayForm( $this->errors );
 		}
 	}
