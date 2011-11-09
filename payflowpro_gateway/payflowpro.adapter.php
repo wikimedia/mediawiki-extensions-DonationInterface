@@ -26,6 +26,11 @@ class PayflowProAdapter extends GatewayAdapter {
 		
 		$this->error_map = array(
 			0		=> 'payflowpro_gateway-response-default',	
+			
+			// Internal messages
+			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
+			'internal-0002' => 'donate_interface-processing-error', // Communication failure
 		);
 	}
 
