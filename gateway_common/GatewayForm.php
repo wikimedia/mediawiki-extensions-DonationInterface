@@ -574,9 +574,16 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		$this->errors['general'] = ( !isset( $this->errors['general'] ) || empty( $this->errors['general'] ) ) ? array() : (array) $this->errors['general'];
 
+		$this->errors['retryMsg'] = ( !isset( $this->errors['retryMsg'] ) || empty( $this->errors['retryMsg'] ) ) ? array() : (array) $this->errors['retryMsg'];
+
 		foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
 			
-			$this->errors['general'][ $code ] = $message;
+			if ( strpos( $code, 'internal' ) === 0 ) {
+				$this->errors['retryMsg'][ $code ] = $message;
+			}
+			else {
+				$this->errors['general'][ $code ] = $message;
+			}
 		}
 		
 		return $this->displayForm( $this->errors );
