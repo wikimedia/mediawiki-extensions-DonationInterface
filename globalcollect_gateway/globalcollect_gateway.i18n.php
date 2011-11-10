@@ -343,6 +343,29 @@ $messages['mk'] = array(
 Обидете се повторно.',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ * @author Vssun
+ */
+$messages['ml'] = array(
+	'globalcollectgateway' => 'ഉടൻ സംഭാവന ചെയ്യുക',
+	'globalcollect_gateway-desc' => 'ഗ്ലോബൽ കളക്റ്റ് പണമിടപാട്',
+	'globalcollect_gateway-response-9130' => 'രാജ്യം അസാധുവാണ്.',
+	'globalcollect_gateway-response-9140' => 'നാണയം അസാധുവാണ്.',
+	'globalcollect_gateway-response-9150' => 'ഭാഷ അസാധുവാണ്.',
+	'globalcollect_gateway-response-400530' => 'അസാധുവായ പണമടക്കൽ രീതി',
+	'globalcollect_gateway-response-430306' => 'നിങ്ങളുടെ ക്രെഡിറ്റ്കാർഡിന്റെ കാലാവധി തീർന്നിരിക്കുന്നു. ദയവായി മറ്റൊരു കാർഡോ മറ്റേതെങ്കിലും പണമടക്കൽ രീതിയോ ഉപയോഗിക്കുക.',
+	'globalcollect_gateway-response-430330' => 'അസാധുവായ കാർഡ് നമ്പർ',
+	'globalcollect_gateway-response-430421' => 'നിങ്ങളുടെ ക്രെഡിറ്റ്കാർഡ് സാധൂകരിക്കാനാകുന്നില്ല. ദയവായി വിവരങ്ങളെല്ലാം നിങ്ങളുടെ ക്രെഡിറ്റ്കാർഡ് വിവരങ്ങളുമായി ഒത്തുനോക്കുക, അല്ലെങ്കിൽ മറ്റൊരു കാർഡുപയോഗിക്കുക.',
+	'globalcollect_gateway-response-430360' => 'ഈ ഇടപാട് സാധൂകരിക്കാനാകുന്നില്ല. ദയവായി മറ്റൊരു കാർഡുപയോഗിക്കുകയോ മറ്റേതെങ്കിലും പണമടക്കൽ രീതി അവലംബിക്കുകയോ ചെയ്യുക.',
+	'globalcollect_gateway-response-430285' => 'ഈ ഇടപാട് സാധൂകരിക്കാനാകുന്നില്ല. ദയവായി മറ്റൊരു കാർഡുപയോഗിക്കുകയോ മറ്റേതെങ്കിലും പണമടക്കൽ രീതി അവലംബിക്കുകയോ ചെയ്യുക.',
+	'globalcollect_gateway-response-21000150' => 'അസാധുവായ ബാങ്ക് അക്കൗണ്ട് നമ്പർ.',
+	'globalcollect_gateway-response-21000155' => 'അസാധുവായ ബാങ്ക് കോഡ്.',
+	'globalcollect_gateway-response-21000160' => 'അസാധുവായ ഗിറോ അക്കൗണ്ട് നമ്പർ.',
+	'globalcollect_gateway-response-default' => 'താങ്കളുടെ ഇടപാട് കൈകാര്യം ചെയ്തുകൊണ്ടിരിക്കെ ഒരു പിഴവുണ്ടായിരിക്കുന്നു.
+ദയവായി അൽപ്പസമയത്തിനു ശേഷം ശ്രമിക്കുക.',
+);
+
 /** Malay (Bahasa Melayu)
  * @author Anakmalaysia
  * @author Diagramma Della Verita
@@ -432,6 +455,28 @@ $messages['pl'] = array(
 	'globalcollect_gateway-response-21000160' => 'Nieprawidłowy numer konta.',
 	'globalcollect_gateway-response-default' => 'Wystąpił błąd podczas przeprowadzania transakcji.
 Spróbuj ponownie później.',
+);
+
+/** Portuguese (Português)
+ * @author João Sousa
+ */
+$messages['pt'] = array(
+	'globalcollectgateway' => 'Faça o seu donativo agora',
+	'globalcollect_gateway-desc' => 'Processamento de pagamentos GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'País inválido',
+	'globalcollect_gateway-response-9140' => 'Moeda inválida',
+	'globalcollect_gateway-response-9150' => 'Língua inválida',
+	'globalcollect_gateway-response-400530' => 'Método de pagamento inválido',
+	'globalcollect_gateway-response-430306' => 'O seu cartão de crédito caducou. Por favor use um cartão diferente ou um outro método de pagamento.',
+	'globalcollect_gateway-response-430330' => 'Número de cartão é inválido.',
+	'globalcollect_gateway-response-430421' => 'Não foi possível validar o seu cartão de crédito. Por favor verifique se toda a informação corresponde ao seu perfil de cartão de crédito, ou tente usar outro cartão.',
+	'globalcollect_gateway-response-430360' => 'Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.',
+	'globalcollect_gateway-response-430285' => 'Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.',
+	'globalcollect_gateway-response-21000150' => 'Número de conta bancário inválido.',
+	'globalcollect_gateway-response-21000155' => 'Código bancário inválido.',
+	'globalcollect_gateway-response-21000160' => 'Número de conta de transferência inválido.',
+	'globalcollect_gateway-response-default' => 'Ocorreu um erro no processamento desta transacção.
+Por favor, tente novamente mais tarde.',
 );
 
 /** Russian (Русский)
