@@ -31,7 +31,7 @@ $messages['en'] = array(
 	'donate_interface-medium-amount-value' => '75',
 	'donate_interface-small-amount-value' => '30',
 	'donate_interface-amount-error' => 'Please enter a valid amount',
-        'donate_interface-smallamount-error' => 'You must contribute at least $1',
+	'donate_interface-smallamount-error' => 'You must contribute at least $1',
 	'donate_interface-processing-error' => 'There has been an error processing your request.
 No processors are available.',
 
@@ -125,9 +125,9 @@ No processors are available.',
 	'donate_interface-accessible' => 'This page is only accessible from the donation page.',
 	'donate_interface-paypal-button' => 'Donate via PayPal',
 	'donate_interface-cc-button' => 'Donate by credit card',
-        'donate_interface-dd-button' => 'Donate by direct debit',
-        'donate_interface-bt-button' => 'Donate by bank transfer',
-        'donate_interface-rt-button' => 'Donate via bank using $1',
+	'donate_interface-dd-button' => 'Donate by direct debit',
+	'donate_interface-bt-button' => 'Donate by bank transfer',
+	'donate_interface-rt-button' => 'Donate through $1 bank',
 	'donate_interface-donor-legend' => 'Donor information',
 	'donate_interface-card-legend' => 'Credit card information',
 	'donate_interface-amount-legend' => 'Donation amount',
@@ -186,7 +186,7 @@ No processors are available.',
 	'donate_interface-error-msg-cvv' => 'CVV from the back of your card',
 	'donate_interface-error-msg-captcha' => "The Captcha value you entered is incorrect.  Please try again.",
 	'donate_interface-error-msg-captcha-please' => "For your credit card security, please type the characters you see above.",
-		'php-response-declined' => 'Your transaction could not be accepted.',
+	'php-response-declined' => 'Your transaction could not be accepted.',
 	'donate_interface-thankyou' => 'Thank you for your donation!',
 	'donate_interface-post-transaction' => 'Transaction details',
 	'donate_interface-cvv-explain' => '<h4>What is CVV?</h4>
@@ -198,7 +198,7 @@ Typically the signature panel will have a series of numbers, but only the last t
 <p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
 	'donate_interface-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-        'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.',
+	'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.',
 	'donate_interface-donate-click' => 'Your credit card will be securely processed.',
 	'donate_interface-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
 	'donate_interface-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
@@ -357,37 +357,37 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-translate-redlink1' => 'Help translate this page.',
 	'donate_interface-translate-redlink2' => 'Or e-mail your translation to translations@wikimedia.org',
 
-        // E-mail related variables
-        'donate_interface-email-fallbackname' => 'friend of the Wikimedia Foundation',
-        'donate_interface-email-subject' => 'Thank you from the Wikimedia Foundation',
-        'donate_interface-email-unsub-title' => 'Wikimedia Foundation unsubscribe',
-        'donate_interface-email-unsub-button' => 'Unsubscribe',
-        'donate_interface-email-unsub-success' => 'You have successfully been removed from our mailing list',
-        'donate_interface-email-unsub-delay' => 'Please allow up to four (4) days for the changes to take effect. We apologize for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>',
-        'donate_interface-email-unsub-fail' => 'There was an error processing your request, please contact <donations@wikimedia.org>.',
+	// E-mail related variables
+	'donate_interface-email-fallbackname' => 'friend of the Wikimedia Foundation',
+	'donate_interface-email-subject' => 'Thank you from the Wikimedia Foundation',
+	'donate_interface-email-unsub-title' => 'Wikimedia Foundation unsubscribe',
+	'donate_interface-email-unsub-button' => 'Unsubscribe',
+	'donate_interface-email-unsub-success' => 'You have successfully been removed from our mailing list',
+	'donate_interface-email-unsub-delay' => 'Please allow up to four (4) days for the changes to take effect. We apologize for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>',
+	'donate_interface-email-unsub-fail' => 'There was an error processing your request, please contact <donations@wikimedia.org>.',
 
-        // Various form interface elements
+	// Various form interface elements
 	'donate_interface-faqs' => 'Frequently asked questions',
 	'donate_interface-tax-info' => 'Tax deductibility information',
 	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
-        'donate_interface-currency-change' => 'Change?',
-        'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of  Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.',
+	'donate_interface-currency-change' => 'Change?',
+	'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of  Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.',
 
-        // Tax deductibility and other legalese
-        'donate_interface-taxded-link-int' => 'Tax and other legal information',
-        'donate_interface-taxded-link-us' => 'Tax deductibility information',
-        'donate_interface-taxded-msg-int' => 'Wikimedia Foundation is a non-profit charity established in the United States under the US IRS Code Section 501(c)(3), and, for that reason, donations from persons or entities located in the United States may benefit from tax deductible status. Donations from persons or entities located outside the United States may not be eligible for tax deductions in the United States and elsewhere; in such cases, donors should seek local tax advice. Importantly, Wikimedia does not seek donations from persons or entities located in any jurisdiction that prohibits or restricts fundraising activities by international charities such as Wikimedia or applies gift taxes on donations made to such international charities.',
-        'donate_interface-taxded-msg-us' => 'Wikimedia Foundation is a non-profit charity established in the United States under the US IRS Code Section 501(c)(3), and, for that reason, donations from persons or entities located in the United States may benefit from tax deductible status.',
-        'donate_interface-legal-original' => 'This is a courtesy translation. In the event of a conflict between this translation and the English version, the English version shall govern.',
-        'donate_interface-legal-donorpolicy' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone.',
+	// Tax deductibility and other legalese
+	'donate_interface-taxded-link-int' => 'Tax and other legal information',
+	'donate_interface-taxded-link-us' => 'Tax deductibility information',
+	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation is a non-profit charity established in the United States under the US IRS Code Section 501(c)(3), and, for that reason, donations from persons or entities located in the United States may benefit from tax deductible status. Donations from persons or entities located outside the United States may not be eligible for tax deductions in the United States and elsewhere; in such cases, donors should seek local tax advice. Importantly, Wikimedia does not seek donations from persons or entities located in any jurisdiction that prohibits or restricts fundraising activities by international charities such as Wikimedia or applies gift taxes on donations made to such international charities.',
+	'donate_interface-taxded-msg-us' => 'Wikimedia Foundation is a non-profit charity established in the United States under the US IRS Code Section 501(c)(3), and, for that reason, donations from persons or entities located in the United States may benefit from tax deductible status.',
+	'donate_interface-legal-original' => 'This is a courtesy translation. In the event of a conflict between this translation and the English version, the English version shall govern.',
+	'donate_interface-legal-donorpolicy' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone.',
 
-        // Monthly donation box
-        'donate_interface-monthlybox-title' => 'Make it monthly?',
-        'donate_interface-monthlybox-content' => 'Monthly donations are processed on the 2<sup>nd</sup> of every month. You may cancel at any time.',
-        'donate_interface-monthlybox-amount' => 'Donation amount:',
-        'donate_interface-monthlybox-yes' => 'Sure, make it monthly',
-        'donate_interface-monthlybox-no' => 'NO, make a one-time donation',
-        'donate_interface-monthlybox-bottom' => 'Your donation will be securely processed.',
+	// Monthly donation box
+	'donate_interface-monthlybox-title' => 'Make it monthly?',
+	'donate_interface-monthlybox-content' => 'Monthly donations are processed on the 2<sup>nd</sup> of every month. You may cancel at any time.',
+	'donate_interface-monthlybox-amount' => 'Donation amount:',
+	'donate_interface-monthlybox-yes' => 'Sure, make it monthly',
+	'donate_interface-monthlybox-no' => 'NO, make a one-time donation',
+	'donate_interface-monthlybox-bottom' => 'Your donation will be securely processed.',
 
 	// SecureLogo text
 	'donate_interface-securelogo-title' => 'Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.',
@@ -518,8 +518,8 @@ $messages['qqq'] = array(
 	'donate_interface-paypal-button' => 'Button to choose to donate via PayPal.',
 	'donate_interface-cc-button' => 'Button to choose to donate by credit card.',
 	'donate_interface-dd-button' => 'Button to choose to donate by [[w:direct debit|direct debit]].',
-        'donate_interface-bt-button' => 'Button to choose to donate by bank transfer.',
-        'donate_interface-rt-button' => "Button to choose to donate via real time banking.
+	'donate_interface-bt-button' => 'Button to choose to donate by bank transfer.',
+	'donate_interface-rt-button' => "Button to choose to donate via real time banking.
 
 '''\$1''' is the name of a bank that performs such actions. E.g. \"IDEAL\" for the Netherlands or \"Nordea\" for Sweden. Will only be used in select countries.',
 	'donate_interface-donor-legend' => 'Header for the entire form where you fill out your personal information.",
