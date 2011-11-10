@@ -76,42 +76,33 @@
 												<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
 													<option value="">%donate_interface-select-country%</option>
 													<option value="AT">%donate_interface-country-dropdown-AT%</option>
+													<option value="BE">%donate_interface-country-dropdown-BE%</option>
+													<option value="DE">%donate_interface-country-dropdown-DE%</option>
+													<option value="NL">%donate_interface-country-dropdown-NL%</option>
+													<option value="CH">%donate_interface-country-dropdown-CH%</option>
+													<option value="GB">%donate_interface-country-dropdown-GB%</option>
 												</select>
 											</span>
 										</div>
 										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
 										<table style="margin-top: 10px;" >
 											<tr><td>
-												<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
-													<option value="">%donate_interface-rtbt-issuer_id%...</option>
-													<option value="825">Hypo Tirol Bank</option>
-													<option value="829">Easy</option>
-													<option value="828">P.S.K.</option>
-													<option value="827">BAWAG</option>
-													<option value="826">Erste Bank und Sparkassen</option>
-													<option value="831">Sparda-Bank</option>
-													<option value="824">Bankhaus Spängler</option>
-													<option value="823">Voralberger HYPO</option>
-													<option value="822">NÖ HYPO</option>
-													<option value="821">Volksbanken Gruppe</option>
-													<option value="820">Raifeissen</option>
-													</select>
-
-												<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
+												<div id="bt-continue" style="margin-top: 7px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
 											</td><td>
-												<img style="margin-left: 25px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/eps-logo-square.gif" alt="eps">
+												<img style="margin-left: 100px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/sofortEn.png" alt="Sofort">
 											</td></tr>
 										</table>
 									</div>
 								</div>
 
+								
 
 								<input type="hidden" name="returnto" value="Thank_You/en" />
 								<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 
 								<input type="hidden" value="@amount" name="amount" />
 								<!--<input type="hidden" value="@country" name="country" id="country" /> -->
-								<input type="hidden" value="EUR" name="currency_code" />
+								<input type="hidden" value="GBP" name="currency_code" />
 								<input type="hidden" value="@utm_source" name="utm_source"/>
 								<input type="hidden" value="@utm_medium" name="utm_medium"/>
 								<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
@@ -132,7 +123,7 @@
 								<input type="hidden" value="@payment_method" name="payment_method"/>
 								<!-- required fields for bt and dd -->
 								<input type="hidden" value="rtbt" name="payment_method"/>
-								<input type="hidden" value="rtbt_eps" name="payment_submethod"/>
+								<input type="hidden" value="rtbt_sofortuberweisung" name="payment_submethod"/>
 								<!-- required fields omitted above -->
 								<input type="hidden" value="XX" name="state"/>
 							</form>

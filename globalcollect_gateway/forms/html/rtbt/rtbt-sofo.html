@@ -41,8 +41,24 @@
 					<div id="donate-content">
 						<div id="donate-body" style="padding: 0 1em;">
 							<form method="post" name="paypalcontribution">
-								<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount">@amount @currency_code</span></h3></div>
-								<div id="amtErrorMessages" class="small"></div>
+								<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
+								<div id="step1wrapper" style="display: none;">
+									<div id="amtErrorMessages" class="small"></div>
+									<table id="amount-table-white">
+										<tr>
+											<td><label><input id="amountRadio0" type="radio" name="amountRadio" value="5" /> <span id="amountSpan0">5</span></label></td>
+											<td><label><input id="amountRadio1" type="radio" name="amountRadio" value="10" /> <span id="amountSpan1">10</span></label></td>
+											<td><label><input id="amountRadio2" type="radio" name="amountRadio" value="20" /> <span id="amountSpan2">20</span></label></td>
+											<td><label><input id="amountRadio3" type="radio" name="amountRadio" value="40" /> <span id="amountSpan3">40</span></label></td>
+										</tr>
+										<tr>
+											<td><label><input id="amountRadio4" type="radio" name="amountRadio" value="55" /> <span id="amountSpan4">55</span></label></td>
+											<td><label><input id="amountRadio5" type="radio" name="amountRadio" value="75" /> <span id="amountSpan5">75</span></label></td>
+											<td><label><input id="amountRadio6" type="radio" name="amountRadio" value="180" /> <span id="amountSpan6">180</span></label></td>
+											<td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label><span id="amountSpanOther"></span><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="%donate_interface-other%" placeholder="%donate_interface-other%"  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
+										</tr>
+									</table>
+								</div>
 								<div id="step2header"><h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
 								<div id="step2wrapper">
 									<div id="billing-content" class="gainlayout">
@@ -86,7 +102,7 @@
 
 								<input type="hidden" value="@amount" name="amount" />
 								<!--<input type="hidden" value="@country" name="country" id="country" /> -->
-								<input type="hidden" value="@currency_code" name="currency_code" />
+								<input type="hidden" value="EUR" name="currency_code" />
 								<input type="hidden" value="@utm_source" name="utm_source"/>
 								<input type="hidden" value="@utm_medium" name="utm_medium"/>
 								<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
