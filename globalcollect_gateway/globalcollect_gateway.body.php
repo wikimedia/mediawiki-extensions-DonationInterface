@@ -150,6 +150,16 @@ EOT;
 						}
 						
 					}
+					elseif ( $payment_method == 'obt' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+						
+							return $this->displayOnlineBankTransferInformation();
+						}
+
+					}
 					else {
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					}
@@ -265,6 +275,58 @@ EOT;
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 
 		$return .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-bank_transfer_message' ) );
+
+		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
+
+		$url = $this->adapter->getThankYouPage() . $queryString;
+		
+		$link = Xml::tags( 'a', array( 'href' => $url ), wfMsg( 'donate_interface-bt-finished' ) );
+		
+		$return .= Xml::tags( 'p', array(), $link );
+		
+		$return .= Xml::closeElement( 'div' );  // $id
+		
+		return $wgOut->addHTML( $return );
+	}
+
+	/**
+	 * Display information for online bank transfer
+	 */
+	protected function displayOnlineBankTransferInformation() {
+
+		global $wgOut;
+
+		$results = $this->adapter->getTransactionAllResults();
+
+		$return = '';
+		$fields = array(
+			'CUSTOMERPAYMENTREFERENCE'	=> array('translation' => 'donate_interface-obt-customer_payment_reference', ),
+			'BILLERID'					=> array('translation' => 'donate_interface-obt-biller_id', ),
+		);
+		
+		$id = 'bank_transfer_information';
+		
+		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
+
+		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-obt-information' ) );
+		
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
+
+		foreach ( $fields as $field => $meta ) {
+			
+			if ( isset( $results['data'][ $field ] ) ) {
+				$return .= Xml::openElement( 'tr', array() );
+		
+				$return .= Xml::tags( 'th', array(), wfMsg( $meta['translation'] ) );
+				$return .= Xml::tags( 'td', array(), $results['data'][ $field ] );
+		
+				$return .= Xml::closeElement( 'tr' );
+			}
+		}
+
+		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
+
+		$return .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-online_bank_transfer_message' ) );
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 
