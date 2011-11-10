@@ -64,21 +64,28 @@
 											</span>
 										</div>
 										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
-										<table style="margin-top: 10px;" ><tr><td><select id="issuer_id" name="issuer_id" value="@issuer_id">
-												<option value="">%donate_interface-rtbt-issuer_id%</option>
-												<option value="825">Hypo Tirol Bank</option>
-												<option value="829">Easy</option>
-												<option value="828">P.S.K.</option>
-												<option value="827">BAWAG</option>
-												<option value="826">Erste Bank und Sparkassen</option>
-												<option value="831">Sparda-Bank</option>
-												<option value="824">Bankhaus Spängler</option>
-												<option value="823">Voralberger HYPO</option>
-												<option value="822">NÖ HYPO</option>
-												<option value="821">Volksbanken Gruppe</option>
-												<option value="820">Raifeissen</option></select></td>
+										<table style="margin-top: 10px;" >
+											<tr><td>
+												<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
+													<option value="">%donate_interface-rtbt-issuer_id%...</option>
+													<option value="825">Hypo Tirol Bank</option>
+													<option value="829">Easy</option>
+													<option value="828">P.S.K.</option>
+													<option value="827">BAWAG</option>
+													<option value="826">Erste Bank und Sparkassen</option>
+													<option value="831">Sparda-Bank</option>
+													<option value="824">Bankhaus Spängler</option>
+													<option value="823">Voralberger HYPO</option>
+													<option value="822">NÖ HYPO</option>
+													<option value="821">Volksbanken Gruppe</option>
+													<option value="820">Raifeissen</option>
+													</select>
 
-										<td><div id="bt-continue"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div></td></tr></table>
+												<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
+											</td><td>
+												<img style="margin-left: 25px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/eps-logo-square.gif" alt="eps">
+											</td></tr>
+										</table>
 									</div>
 								</div>
 
