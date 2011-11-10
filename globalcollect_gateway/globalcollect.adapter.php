@@ -1,5 +1,25 @@
 <?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
 
+/**
+ * GlobalCollectAdapter
+ *
+ */
 class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
@@ -411,6 +431,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
+		// Bank Transfers
+		$this->payment_methods['obt'] = array(
+			'label'	=> 'Online bank transfer',
+			'types'	=> array( 'bpay', ),
+			'validation' => array( 'creditCard' => false, )
+			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
+		);
+		
 		// Real Time Bank Transfers
 		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
@@ -627,6 +655,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'dd',
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+		);
+
+		/*
+		 * Online bank transfers
+		 */
+		 
+		// Online Bank Transfer Bpay
+		$this->payment_submethods['bpay'] = array(
+			'paymentproductid'	=> 500,
+			'label'	=> 'Online Bank Transfer: Bpay',
+			'group'	=> 'obt',
+			'validation' => array(),
+			'keys' => array(),
 		);
 
 		/*
@@ -1509,6 +1550,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->addKeysToTransactionForSubmethod( $payment_submethod );
 
 				break;
+			
+			/* Online bank transfer */
+			case 'bpay':
+				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+				break;
+
 			
 			/* Real time bank transfer */
 			case 'rtbt_nordea_sweden':
