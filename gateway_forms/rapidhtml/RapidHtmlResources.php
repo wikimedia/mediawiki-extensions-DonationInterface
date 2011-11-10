@@ -116,12 +116,32 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects.2nd' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects2nd.js',
+	'dependencies' => array(
+		'di.form.rapidhtml.webitects',
+		'di.form.core.validate'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
 $wgResourceModules[ 'pfp.form.rapidhtml.webitects_2step' ] = array(
 	'styles' => '',
 	'scripts' => 'js/webitects_2_2step.js',
 	'dependencies' => array(
-		'di.form.rapidhtml.webitects',
+		'di.form.rapidhtml.webitects.2nd',
 		'di.form.core.validate'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2stepB' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects_2_2stepB.js',
+	'dependencies' => array(
+		'di.form.core.validate',
+		'di.form.rapidhtml.webitects'
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
