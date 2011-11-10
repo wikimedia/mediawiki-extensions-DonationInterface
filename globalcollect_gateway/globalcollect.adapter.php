@@ -1634,12 +1634,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 	
-	protected function post_process_insert_orderwithpayment(){
-		if  ( $this->getData_Raw( 'payment_method' ) != 'cc' ){
-			$this->runPostProcessHooks();
-		}
-	}
-	
 	/**
 	 * getCVVResult is intended to be used by the functions filter, to 
 	 * determine if we want to fail the transaction ourselves or not. 
