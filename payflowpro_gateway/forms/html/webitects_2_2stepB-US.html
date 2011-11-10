@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	mw.loader.load('pfp.form.rapidhtml.webitects_2step');
+	mw.loader.load('pfp.form.rapidhtml.webitects_2stepB');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
 	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
@@ -41,7 +41,7 @@
 				<div id="donate">
 					<div id="donate-content">
 						<div id="donate-body" style="padding: 0 1em;">
-							<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
+							<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;"> (<a href="#">%donate_interface-change%</a>)</span></h3></div>
 
 							<form method="post" name="paypalcontribution">
 								<div id="step1wrapper">
@@ -106,8 +106,8 @@
 								<!--<div id="step3wrapper" style="display: none;">-->
 									<div id="payment"  class="gainlayout">
 										<dl class="form">
-											<dt><span class="label" style="display: inline-block; vertical-align: text-bottom; "><label for="card_num">Card number</label><img id="cardlogos" style="margin-left: 30px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" alt="Visa/Mastercard/Discover/American Express"></span></dt>
-											<dd class="field"><input class="txt" id="card_num" name="card_num" value="@card_num"/></dd>
+											<dt><span class="label" style="display: inline-block; vertical-align: text-bottom; "><label for="card_num">Card info</label><img id="cardlogos" style="margin-left: 30px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" alt="Visa/Mastercard/Discover/American Express"></span></dt>
+											<dd class="field"><input class="txt" id="card_num" name="card_num" value="@card_num" placeholder="Card number"/></dd>
 
 											<dt></dt>
 											<dd class="field">
@@ -128,7 +128,7 @@
 														<option value="11">11 - November</option>
 														<option value="12">12 - December</option>
 													</select>
-
+													/
 													<select id="year" name="year">
 														<option value="">Year</option>
 														<option value="2011">2011</option>
@@ -154,9 +154,9 @@
 
 											<dt></dt>
 											<dd class="field">
-												<input id="submitcreditcard" class="btn" type="button" value="Submit donation" style="width:116px; height:30px;"/>
-												<!--<input id="submitcreditcard" src="@script_path/extensions/DonationInterface/gateway_forms/includes/submit-donation-button.png" alt="Submit donation" type="image">-->
-												<p class="mute"><img alt="" src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" /> Your credit card will be securely processed.</p>
+												<!--<input id="submitcreditcard" class="btn" type="button" value="Submit donation" style="width:116px; height:30px;"/>-->
+												<input id="submitcreditcard" src="@script_path/extensions/DonationInterface/gateway_forms/includes/submit-donation-button.png" alt="Submit donation" type="image">
+												<p class="mute"><img alt="" src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" /> Your credit / debit card will be securely processed.</p>
 											</dd>
 										</dl>
 									</div>
