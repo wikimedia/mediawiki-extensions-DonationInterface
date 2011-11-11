@@ -77,6 +77,182 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Define data_constraints
+	 *
+	 * @todo
+	 * - card_type: what do we do about this one? It is also payment_product.
+	 *
+	 */
+	public function defineDataConstraints() {
+		
+		$this->data_constraints = array(
+			
+			// General fields
+
+			//'ACCOUNTHOLDER'		=> 'account_holder',		AN50
+			'account_holder'		=> array('type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'ACCOUNTNAME'			=> 'account_name'			AN35
+			'account_name'			=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+			
+			//'ACCOUNTNUMBER'		=> 'account_number'			AN30
+			'account_number'		=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+			
+			//'ADDRESSLINE1E'		=> 'address_line_1e'		AN35
+			'address_line_1e'		=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+
+			//'ADDRESSLINE2'		=> 'address_line_2'			AN35
+			'address_line_2'		=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+
+			//'ADDRESSLINE3'		=> 'address_line_3'			AN35
+			'address_line_3'		=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+
+			//'ADDRESSLINE4'		=> 'address_line_4'			AN35
+			'address_line_4'		=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+
+			//'ATTEMPTID'			=> 'attempt_id'				N5
+			'attempt_id'			=> array( 'type' => 'numeric',			'length' => 5, ),
+			
+			// Did not find this one
+			//'AUTHORISATIONID'		=> 'authorization_id'		AN18
+			'authorization_id'		=> array( 'type' => 'alphanumeric',		'length' => 18, ),
+			
+			//'AMOUNT'				=> 'amount'					N12
+			'amount'				=> array( 'type' => 'numeric',			'length' => 12, ),
+			
+			//'BANKACCOUNTNUMBER'	=> 'bank_account_number'	AN50
+			'bank_account_number'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'BANKAGENZIA'			=> 'bank_agenzia'			AN30
+			'bank_agenzia'			=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+
+			//'BANKCHECKDIGIT'		=> 'bank_check_digit'		AN2
+			'bank_check_digit'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
+			
+			//'BANKCODE'			=> 'bank_code'				N5
+			'bank_code'				=> array( 'type' => 'numeric',			'length' => 5, ),
+			
+			//'BANKFILIALE'			=> 'bank_filiale'			AN30
+			'bank_filiale'			=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+
+			//'BANKNAME'			=> 'bank_name'				AN40
+			'bank_name'				=> array( 'type' => 'alphanumeric',		'length' => 40, ),
+			
+			//'BRANCHCODE'			=> 'branch_code'			N5
+			'branch_code'			=> array( 'type' => 'numeric',			'length' => 5, ),
+			
+			//'CITY'				=> 'city'					AN50
+			'city'					=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'COUNTRYCODE'			=> 'country'				AN2
+			'country'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
+			
+			//'COUNTRYCODEBANK'		=> 'country_code_bank'		AN2
+			'country_code_bank'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
+			
+			//'COUNTRYDESCRIPTION'	=> 'country_description'	AN50
+			'country_description'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'CUSTOMERBANKCITY'	=> 'customer_bank_city'		AN50
+			'customer_bank_city'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+
+			//'CUSTOMERBANKSTREET'	=> 'customer_bank_street'	AN30
+			'customer_bank_street'	=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+
+			//'CUSTOMERBANKNUMBER'	=> 'customer_bank_number'	N5
+			'customer_bank_number'	=> array( 'type' => 'numeric',			'length' => 5, ),
+
+			//'CUSTOMERBANKZIP'		=> 'customer_bank_zip'		AN10
+			'customer_bank_zip'		=> array( 'type' => 'alphanumeric',		'length' => 10, ),
+
+			//'CREDITCARDNUMBER'	=> 'card_num'				N19
+			'card_num'				=> array( 'type' => 'numeric',			'length' => 19, ),
+			
+			//'CURRENCYCODE'		=> 'currency_code'			AN3
+			'currency_code'			=> array( 'type' => 'alphanumeric',		'length' => 3, ),
+			
+			//'CVV'					=> 'cvv'					N4
+			'cvv'					=> array( 'type' => 'numeric',			'length' => 4, ),
+			
+			//'DATECOLLECT'			=> 'date_collect'			D8	YYYYMMDD
+			'date_collect'			=> array( 'type' => 'date',				'length' => 8, ),
+			
+			//'DIRECTDEBITTEXT'		=> 'direct_debit_text'		AN50
+			'direct_debit_text'		=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'DOMICILIO'			=> 'domicilio'				AN30
+			'domicilio'				=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+
+			//'EFFORTID'			=> 'effort_id'				N5
+			'effort_id'				=> array( 'type' => 'numeric',			'length' => 5, ),
+			
+			//'EMAIL'				=> 'email'					AN70
+			'email'					=> array( 'type' => 'alphanumeric',		'length' => 70, ),
+			
+			//'EXPIRYDATE'			=> 'expiration'				N4	MMYY
+			'expiration'			=> array( 'type' => 'numeric',			'length' => 4, ),
+			
+			//'FIRSTNAME'			=> 'fname'					AN15
+			'fname'					=> array( 'type' => 'alphanumeric',		'length' => 15, ),
+			
+			//'IBAN'				=> 'iban'					AN50
+			// IBAN is AN21 on direct debit
+			'iban'					=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'IPADDRESS'			=> 'user_ip'				AN32
+			'user_ip'				=> array( 'type' => 'alphanumeric',		'length' => 32, ),
+			
+			//'ISSUERID'			=> 'issuer_id'				N4
+			'issuer_id'				=> array( 'type' => 'numeric',			'length' => 4, ),
+			
+			//'LANGUAGECODE'		=> 'language'				AN2
+			'language'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
+			
+			//'MERCHANTREFERENCE'	=> 'order_id'				AN50
+			'order_id'				=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'ORDERID'				=> 'order_id'				N10
+			'order_id'				=> array( 'type' => 'numeric',			'length' => 10, ),
+			
+			// This is mapped to other things
+			//'PAYMENTPRODUCTID'	=> 'card_type'				AN50
+			'card_type'				=> array( 'type' => 'numeric',			'length' => 5, ),
+			'payment_product'		=> array( 'type' => 'numeric',			'length' => 5, ),
+			
+			//'PAYMENTREFERENCE'	=> 'payment_reference'		AN20
+			'payment_reference'		=> array( 'type' => 'alphanumeric',		'length' => 20, ),
+			
+			//'PROVINCIA'			=> 'provincia'				AN30
+			'provincia'				=> array( 'type' => 'alphanumeric',		'length' => 30, ),
+
+			//'RETURNURL'			=> 'returnto'				AN512
+			'returnto'				=> array( 'type' => 'alphanumeric',		'length' => 512, ),
+			
+			//'SPECIALID'			=> 'special_id'				AN255
+			'special_id'			=> array( 'type' => 'alphanumeric',		'length' => 255, ),
+			
+			//'STATE'				=> 'state'					AN35
+			'state'					=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+			
+			//'STREET'				=> 'street'					AN50
+			'street'				=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			
+			//'SURNAME'				=> 'lname'					AN35
+			'lname'					=> array( 'type' => 'alphanumeric',		'length' => 35, ),
+			
+			//'SWIFTCODE'			=> 'swift_code'				AN255
+			// This is AN11 for several payment types we are not dealing with yet.
+			'swift_code'			=> array( 'type' => 'alphanumeric',		'length' => 255, ),
+			
+			//'TRANSACTIONTYPE'		=> 'transaction_type'		AN2
+			'transaction_type'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
+
+			//'ZIP'					=> 'zip'					AN10
+			'zip'					=> array( 'type' => 'alphanumeric',		'length' => 10, ),
+		);
+	}
+	
+	/**
 	 * Define var_map
 	 *
 	 * @todo
@@ -93,7 +269,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'ADDRESSLINE3'		=> 'address_line_3', //dd:CH
 			'ADDRESSLINE4'		=> 'address_line_4', //dd:CH
 			'ATTEMPTID'			=> 'attempt_id',
-			'AUTHORIZATIONID'	=> 'authorization_id',
+			'AUTHORISATIONID'	=> 'authorization_id',
 			'AMOUNT'			=> 'amount',
 			'BANKACCOUNTNUMBER'	=> 'bank_account_number',
 			'BANKAGENZIA'		=> 'bank_agenzia', // dd:IT
@@ -239,7 +415,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						'GENERAL' => array(
 							'ACCOUNTNAME',
 							'ACCOUNTNUMBER',
-							'AUTHORIZATIONID',
+							'AUTHORISATIONID',
 							'BANKCHECKDIGIT',
 							'BANKCODE',
 							'BANKNAME',
@@ -591,7 +767,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: BE',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORIZATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: CH
@@ -636,7 +812,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: GB',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORIZATIONID', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 		 
 		// Direct debit: IT
@@ -1534,6 +1710,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Stage: setup_stage_payment_method_for_direct_debit
+	 *
+	 * @param string	$payment_submethod
+	 * @param string	$type	request|response
+	 */
+	protected function setup_stage_payment_method_for_direct_debit( $payment_submethod, $type = 'request' ) {
+
+		// DATECOLLECT is required on all Direct Debit
+		$this->addKeyToTransaction('DATECOLLECT');
+
+		$this->staged_data['date_collect'] = gmdate('Ymd');
+		$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
+		
+		$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+				$this->data_constraints['IBAN']['length'] = 21;
+		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+		$this->var_map['COUNTRYCODEBANK'] = 'country';
+
+		// Direct debit has different required fields for each paymentproductid.
+		$this->addKeysToTransactionForSubmethod( $payment_submethod );
+	}
+	
+	/**
 	 * Stage: payment_method
 	 *
 	 * @param string	$type	request|response
@@ -1561,29 +1760,47 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			/* Direct Debit */
 			case 'dd_nl':
+				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 32;
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
 			case 'dd_gb':
 				$this->staged_data['transaction_type'] = '01';
-			case 'dd_at':
-			case 'dd_be':
-			case 'dd_ch':
-			case 'dd_de':
-			case 'dd_es':
-			case 'dd_fr':
-			case 'dd_it':
-
-				// DATECOLLECT is required on all Direct Debit
-				$this->addKeyToTransaction('DATECOLLECT');
-
-				$this->staged_data['date_collect'] = gmdate('Ymd');
-				$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
 				
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				$this->var_map['COUNTRYCODEBANK'] = 'country';
-
-				// Direct debit has different required fields for each paymentproductid.
-				$this->addKeysToTransactionForSubmethod( $payment_submethod );
-
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_at':
+				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 28;
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_be':
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_ch':
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_de':
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_es':
+				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 40;
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_fr':
+				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 18;
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				break;
+			case 'dd_it':
+				$this->data_constraints['BANKCHECKDIGIT']['length'] = 1;
+				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 32;
+				
+				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
 				break;
 			
 			/* Online bank transfer */
