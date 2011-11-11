@@ -1710,12 +1710,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage: setup_stage_payment_method_for_direct_debit
+	 * Stage: setupStagePaymentMethodForDirectDebit
 	 *
 	 * @param string	$payment_submethod
 	 * @param string	$type	request|response
 	 */
-	protected function setup_stage_payment_method_for_direct_debit( $payment_submethod, $type = 'request' ) {
+	protected function setupStagePaymentMethodForDirectDebit( $payment_submethod, $type = 'request' ) {
 
 		// DATECOLLECT is required on all Direct Debit
 		$this->addKeyToTransaction('DATECOLLECT');
@@ -1724,9 +1724,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
 		
 		$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->data_constraints['IBAN']['length'] = 21;
 		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 		$this->var_map['COUNTRYCODEBANK'] = 'country';
+
+		$this->data_constraints['iban']['length'] = 21;
 
 		// Direct debit has different required fields for each paymentproductid.
 		$this->addKeysToTransactionForSubmethod( $payment_submethod );
@@ -1760,47 +1761,47 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			/* Direct Debit */
 			case 'dd_nl':
-				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 32;
+				$this->data_constraints['direct_debit_text']['length'] = 32;
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_gb':
 				$this->staged_data['transaction_type'] = '01';
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_at':
-				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 28;
+				$this->data_constraints['direct_debit_text']['length'] = 28;
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_be':
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_ch':
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_de':
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_es':
-				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 40;
+				$this->data_constraints['direct_debit_text']['length'] = 40;
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_fr':
-				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 18;
+				$this->data_constraints['direct_debit_text']['length'] = 18;
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_it':
-				$this->data_constraints['BANKCHECKDIGIT']['length'] = 1;
-				$this->data_constraints['DIRECTDEBITTEXT']['length'] = 32;
+				$this->data_constraints['bank_check_digit']['length'] = 1;
+				$this->data_constraints['direct_debit_text']['length'] = 32;
 				
-				$this->setup_stage_payment_method_for_direct_debit( $payment_submethod, $type);
+				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			
 			/* Online bank transfer */
