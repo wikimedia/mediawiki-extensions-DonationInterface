@@ -86,7 +86,15 @@ window.validate_personal = function( form ){
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += mw.msg( 'donate_interface-error-msg-email' );
+		output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+	}
+	
+	// Make sure cookies are enabled
+	document.cookie = 'wmf_test=1;';
+	if ( document.cookie.indexOf( 'wmf_test=1' ) != -1 ) {
+		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
+	} else {
+		output += mw.msg( 'donate_interface-error-msg-cookies' ); // display error
 	}
 
 	if( output ) {
@@ -142,7 +150,15 @@ window.validate_form = function( form ) {
 	var dotpos = form.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += mw.msg( 'donate_interface-error-msg-email' );
+		output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+	}
+	
+	// Make sure cookies are enabled
+	document.cookie = 'wmf_test=1;';
+	if ( document.cookie.indexOf( 'wmf_test=1' ) != -1 ) {
+		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
+	} else {
+		output += mw.msg( 'donate_interface-error-msg-cookies' ); // display error
 	}
 
 	if( output ) {
