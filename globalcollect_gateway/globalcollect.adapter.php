@@ -1643,15 +1643,31 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param string	$type	request|response
 	 */
 	protected function stage_returnto( $type = 'request' ) {
+		
 		if ( $type === 'request' ) {
-			// Add order ID to the returnto URL, only if it's not already there. 
-			//TODO: This needs to be more robust (like actually pulling the 
-			//qstring keys, resetting the values, and putting it all back)
-			//but for now it'll keep us alive. 
+
+			// Get the default returnto
 			$returnto = $this->getData_Staged( 'returnto' );
-			if ( !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ){
-				$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
-				$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
+			
+			if ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
+				
+				// Add order ID to the returnto URL, only if it's not already there. 
+				//TODO: This needs to be more robust (like actually pulling the 
+				//qstring keys, resetting the values, and putting it all back)
+				//but for now it'll keep us alive. 
+				if ( !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ){
+					$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
+					$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
+				}
+				
+			} elseif ( $this->getData_Raw( 'payment_method' ) === 'rtbt' ) {
+				
+				$this->staged_data['returnto'] = $this->getThankYouPage();
+				
+			} else {
+				
+				// Do we want to set this here?
+				$this->staged_data['returnto'] = $returnto;
 			}
 		}
 	}
