@@ -38,6 +38,14 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	public function execute( $par ) {
 		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
 
+		//no longer letting people in without these things. If this is 
+		//preventing you from doing something, you almost certainly want to be 
+		//somewhere else. 
+		if ( !isset($_GET['order_id']) || !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
+			//TODO: i18n, apparently. 
+			wfHttpError( 403, 'Forbidden', 'You do not have permission to access this page.' );
+		}
+
 		$referrer = $wgRequest->getHeader( 'referer' );
 
 		global $wgServer;
@@ -45,11 +53,14 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
 		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
-		if ( strpos( $referrer, $wgServer ) === false ) {
+		if ( strpos( $referrer, $wgServer ) === false ) {			
 			$wgOut->allowClickjacking();
 			$wgOut->addModules( 'iframe.liberator' );
 			return;
 		}
+		
+		
+		
 
 		$wgOut->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
@@ -62,10 +73,9 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
 			$oid = $wgRequest->getText( 'order_id' );
-			$adapter_oid = $this->adapter->getData_Raw( 'order_id' );
 			
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
-			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' && $oid && !empty( $oid ) && $oid === $adapter_oid ) {
+			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' && $this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
@@ -93,7 +103,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 						$wgOut->redirect( $go );
 					} //TODO: There really should be an else here. 
 				}
-			}
+			} 
 		} else {
 			if ( !$this->adapter->isCaching() ) {
 				// if we're not caching, there's a token mismatch
