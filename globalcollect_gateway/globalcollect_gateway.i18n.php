@@ -72,6 +72,15 @@ $messages['ar'] = array(
 الرجاء المحاولة مرة أخرى لاحقاً.',
 );
 
+/** Breton (Brezhoneg)
+ * @author Fulup
+ */
+$messages['br'] = array(
+	'globalcollect_gateway-response-9130' => 'Bro direizh.',
+	'globalcollect_gateway-response-9140' => 'Moneiz direizh.',
+	'globalcollect_gateway-response-9150' => 'Yezh direizh.',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */
@@ -84,6 +93,7 @@ $messages['cy'] = array(
 	'globalcollect_gateway-response-400530' => 'Modd talu annilys.',
 	'globalcollect_gateway-response-430306' => 'Mae eich cerdyn credyd wedi dod i ben. Defnyddiwch gerdyn arall neu fodd gwahanol o dalu.',
 	'globalcollect_gateway-response-430330' => 'Rhif annilys i gerdyn.',
+	'globalcollect_gateway-response-430421' => 'Ni ddilyswyd eich cerdyn credyd. Sicrhewch bod yr holl fanylion yn gywir fel ag y maent ar eich cyfrif cerdyn credyd, neu rhowch gynnig ar gerdyn arall.',
 	'globalcollect_gateway-response-430360' => "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
 	'globalcollect_gateway-response-430285' => "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
 	'globalcollect_gateway-response-21000150' => 'Rhif annilys i gyfrif banc.',

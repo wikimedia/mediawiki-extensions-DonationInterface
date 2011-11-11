@@ -1721,7 +1721,7 @@ Prosimo, poskusite znova kasneje.',
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
-	'payflowprogateway' => 'Приложите новац сада',
+	'payflowprogateway' => 'Приложите новац',
 	'payflowpro_gateway-desc' => 'Обрађивање кредитних картица преко Пејпала',
 	'payflowpro_gateway-response-0' => 'Ваш пренос новца је одобрен.
 Хвала вам на подршци!',
