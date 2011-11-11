@@ -1363,6 +1363,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function defineStagedVars() {
 		//OUR field names. 
 		$this->staged_vars = array(
+			'fname',
+			'lname',
+			'street',
+			'city',
+			'state',
+			'email',
 			'amount',
 			'card_type',
 			//'card_num',
@@ -1373,6 +1379,36 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'order_id', //This may or may not oughta-be-here...
 			'language',
 		);
+	}
+	
+	protected function stage_fname( $type = 'request' ) {
+		// Truncate to 15 characters due to GlobalCollect's field length limit
+		$this->staged_data['fname'] = substr( $this->staged_data['fname'], 0, 15 );
+	}
+	
+	protected function stage_lname( $type = 'request' ) {
+		// Truncate to 35 characters due to GlobalCollect's field length limit
+		$this->staged_data['lname'] = substr( $this->staged_data['lname'], 0, 35 );
+	}
+	
+	protected function stage_street( $type = 'request' ) {
+		// Truncate to 50 characters due to GlobalCollect's field length limit
+		$this->staged_data['street'] = substr( $this->staged_data['street'], 0, 50 );
+	}
+	
+	protected function stage_city( $type = 'request' ) {
+		// Truncate to 40 characters due to GlobalCollect's field length limit
+		$this->staged_data['city'] = substr( $this->staged_data['city'], 0, 40 );
+	}
+	
+	protected function stage_state( $type = 'request' ) {
+		// Truncate to 35 characters due to GlobalCollect's field length limit
+		$this->staged_data['state'] = substr( $this->staged_data['state'], 0, 35 );
+	}
+	
+	protected function stage_email( $type = 'request' ) {
+		// Truncate to 70 characters due to GlobalCollect's field length limit
+		$this->staged_data['email'] = substr( $this->staged_data['email'], 0, 70 );
 	}
 	
 	protected function stage_language( $type = 'request' ) {
