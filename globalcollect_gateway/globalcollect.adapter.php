@@ -700,7 +700,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				721	=> 'ING',
 				751	=> 'SNS Bank',
 				91	=> 'Friesland Bank',
-				81	=> 'Fortis',
 			)
 		);
 		 
