@@ -101,7 +101,7 @@ window.setAmount = function( e ) {
 }
 // Display selected amount
 window.showAmount = function( e ) {
-	$( "#selected-amount" ).html( "($" + e.val() + ")" );
+	$( "#selected-amount" ).html( "$" + e.val() + "" );
 	$( "#change-amount" ).show();
 }
 window.validateAmount = function() {
