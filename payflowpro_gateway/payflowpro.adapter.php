@@ -16,6 +16,19 @@ class PayflowProAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Define dataConstraints
+	 *
+	 * @todo
+	 * - Implement this for PayFlowPro
+	 *
+	 */
+	public function defineDataConstraints() {
+		
+		$this->dataConstraints = array(
+		);
+	}
+	
+	/**
 	 * Define error_map
 	 *
 	 * @todo
