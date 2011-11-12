@@ -73,7 +73,7 @@ $( document ).ready( function () {
 	if( amount == null || isNaN( amount.val() ) || amount.val() <= 0 ){
 		// the amount is not set
 		$( "#step1wrapper" ).slideDown();
-		$( "#selected-amount" ).html( '(' + $( 'input[name="currency_code"]' ).val() + ')' );
+//		$( "#selected-amount" ).html( '(' + $( 'input[name="currency_code"]' ).val() + ')' );
 
 	} else {
 		showAmount( $( 'input[name="amount"]' ) );
@@ -117,7 +117,7 @@ function setAmount( e ) {
 }
 // Display selected amount
 function showAmount( e ) {
-	$( "#selected-amount" ).html( + e.val() + " " + $( 'input[name="currency_code"]' ).val() );
+	$( "#selected-amount" ).html( "$" + e.val() );
 	$( "#change-amount" ).show();
 }
 function validateAmount() {
