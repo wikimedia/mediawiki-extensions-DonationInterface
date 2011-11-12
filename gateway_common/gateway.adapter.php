@@ -1553,14 +1553,17 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( isset( $this->dataConstraints[ $field ] ) && is_string( $value ) ) {
 			
 				// Truncate the field if it has a length specified
-				$length = isset( $this->dataConstraints[ $field ]['length']) ? (integer) $this->dataConstraints[ $field ]['length'] : false;
+				if ( isset( $this->dataConstraints[ $field ]['length'] ) ) {
+					$length = (integer) $this->dataConstraints[ $field ]['length'];
+				} else {
+					$length = false;
+				}
 				
 				if ( !empty( $length ) && !empty( $value ) ) {
 					$value = substr( $value, 0, $length );
 				}
-			}
-			else {
-			
+				
+			} else {
 				$this->log( 'Field does not exist in $this->dataConstraints[ ' . ( string ) $field . ' ]', LOG_DEBUG );
 			}
 			
