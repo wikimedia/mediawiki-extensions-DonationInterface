@@ -99,7 +99,15 @@ function formCheck( ccform ) {
 	var dotpos = document.payment.emailAdd.value.lastIndexOf(".");
 
 	if( apos < 1 || dotpos-apos < 2 ) {
-		output += payflowproGatewayErrorMsgEmail;
+		output += payflowproGatewayErrorMsgEmail + '.\\r\\n';
+	}
+	
+	// Make sure cookies are enabled
+	document.cookie = 'wmf_test=1;';
+	if ( document.cookie.indexOf( 'wmf_test=1' ) != -1 ) {
+		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
+	} else {
+		output += 'Please enable cookies in your browser.'; // display error
 	}
 
 	if( output ) {
