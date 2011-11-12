@@ -55,10 +55,12 @@ window.validate_personal = function( form ){
 	var fields = ['fname','lname','street','city','zip', 'emailAdd'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
-		// See if the field is empty or equal to the placeholder
-		if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
-			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+		if ( document.getElementById( fields[i] ) ) { // Make sure field exists
+			// See if the field is empty or equal to the placeholder
+			if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
+				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+				output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+			}
 		}
 	}
 	
@@ -118,10 +120,12 @@ window.validate_form = function( form ) {
 	var fields = ['fname','lname','street','city','zip', 'emailAdd', 'card_num','cvv'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
-		// See if the field is empty or equal to the placeholder
-		if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
-			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+		if ( document.getElementById( fields[i] ) ) { // Make sure field exists
+			// See if the field is empty or equal to the placeholder
+			if( document.getElementById( fields[i] ).value == '' || document.getElementById( fields[i] ).value == mw.msg( 'donate_interface-donor-'+fields[i] ) ) {
+				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+				output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+			}
 		}
 	}
 	

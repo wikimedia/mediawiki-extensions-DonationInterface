@@ -20,9 +20,11 @@ window.formCheck = function( ccform ) {
 		currField = '';
 
 	for( i = 0; i < numFields; i++ ) {
-		if( document.getElementById( fields[i] ).value == '' ) {
-			currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+		if ( document.getElementById( fields[i] ) ) { // Make sure field exists
+			if( document.getElementById( fields[i] ).value == '' ) {
+				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+				output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+			}
 		}
 	}
 	
