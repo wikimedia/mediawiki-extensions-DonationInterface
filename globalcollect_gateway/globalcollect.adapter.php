@@ -50,34 +50,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Define error_map
-	 *
-	 * @todo
-	 * - Add: Error messages
-	 */
-	public function defineErrorMap() {
-		
-		$this->error_map = array(
-			0		=> 'globalcollect_gateway-response-default',	
-			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.	
-			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
-			
-			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
-			
-			// Do bank validation messages
-			//'dbv-50'	=> 'globalcollect_gateway-response-dbv-50', // Account number format incorrect
-			//'dbv-80'	=> 'globalcollect_gateway-response-dbv-80', // Account details missing
-			//'dbv-330'	=> 'globalcollect_gateway-response-dbv-330', // Check digit format is incorrect
-			//'dbv-340'	=> 'globalcollect_gateway-response-dbv-340', // Branch code not submitted
-			
-		);
-	}
-
-	/**
-	 * Define data_constraints
+	 * Define dataConstraints
 	 *
 	 * @todo
 	 * - card_type: what do we do about this one? It is also payment_product.
@@ -85,12 +58,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function defineDataConstraints() {
 		
-		$this->data_constraints = array(
+		$this->dataConstraints = array(
 			
 			// General fields
 
 			//'ACCOUNTHOLDER'		=> 'account_holder',		AN50
-			'account_holder'		=> array('type' => 'alphanumeric',		'length' => 50, ),
+			'account_holder'		=> array( 'type' => 'alphanumeric',		'length' => 50, ),
 			
 			//'ACCOUNTNAME'			=> 'account_name'			AN35
 			'account_name'			=> array( 'type' => 'alphanumeric',		'length' => 35, ),
@@ -141,8 +114,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'BRANCHCODE'			=> 'branch_code'			N5
 			'branch_code'			=> array( 'type' => 'numeric',			'length' => 5, ),
 			
-			//'CITY'				=> 'city'					AN50
-			'city'					=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			//'CITY'				=> 'city'					AN40
+			'city'					=> array( 'type' => 'alphanumeric',		'length' => 40, ),
 			
 			//'COUNTRYCODE'			=> 'country'				AN2
 			'country'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
@@ -249,6 +222,33 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			//'ZIP'					=> 'zip'					AN10
 			'zip'					=> array( 'type' => 'alphanumeric',		'length' => 10, ),
+		);
+	}
+
+	/**
+	 * Define error_map
+	 *
+	 * @todo
+	 * - Add: Error messages
+	 */
+	public function defineErrorMap() {
+		
+		$this->error_map = array(
+			0		=> 'globalcollect_gateway-response-default',	
+			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.	
+			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
+			
+			// Internal messages
+			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
+			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+			
+			// Do bank validation messages
+			//'dbv-50'	=> 'globalcollect_gateway-response-dbv-50', // Account number format incorrect
+			//'dbv-80'	=> 'globalcollect_gateway-response-dbv-80', // Account details missing
+			//'dbv-330'	=> 'globalcollect_gateway-response-dbv-330', // Check digit format is incorrect
+			//'dbv-340'	=> 'globalcollect_gateway-response-dbv-340', // Branch code not submitted
+			
 		);
 	}
 	
@@ -1538,12 +1538,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function defineStagedVars() {
 		//OUR field names. 
 		$this->staged_vars = array(
-			'fname',
-			'lname',
-			'street',
-			'city',
-			'state',
-			'email',
 			'amount',
 			'card_type',
 			//'card_num',
@@ -1554,36 +1548,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'order_id', //This may or may not oughta-be-here...
 			'language',
 		);
-	}
-	
-	protected function stage_fname( $type = 'request' ) {
-		// Truncate to 15 characters due to GlobalCollect's field length limit
-		$this->staged_data['fname'] = substr( $this->staged_data['fname'], 0, 15 );
-	}
-	
-	protected function stage_lname( $type = 'request' ) {
-		// Truncate to 35 characters due to GlobalCollect's field length limit
-		$this->staged_data['lname'] = substr( $this->staged_data['lname'], 0, 35 );
-	}
-	
-	protected function stage_street( $type = 'request' ) {
-		// Truncate to 50 characters due to GlobalCollect's field length limit
-		$this->staged_data['street'] = substr( $this->staged_data['street'], 0, 50 );
-	}
-	
-	protected function stage_city( $type = 'request' ) {
-		// Truncate to 40 characters due to GlobalCollect's field length limit
-		$this->staged_data['city'] = substr( $this->staged_data['city'], 0, 40 );
-	}
-	
-	protected function stage_state( $type = 'request' ) {
-		// Truncate to 35 characters due to GlobalCollect's field length limit
-		$this->staged_data['state'] = substr( $this->staged_data['state'], 0, 35 );
-	}
-	
-	protected function stage_email( $type = 'request' ) {
-		// Truncate to 70 characters due to GlobalCollect's field length limit
-		$this->staged_data['email'] = substr( $this->staged_data['email'], 0, 70 );
 	}
 	
 	protected function stage_language( $type = 'request' ) {
@@ -1727,7 +1691,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 		$this->var_map['COUNTRYCODEBANK'] = 'country';
 
-		$this->data_constraints['iban']['length'] = 21;
+		$this->dataConstraints['iban']['length'] = 21;
 
 		// Direct debit has different required fields for each paymentproductid.
 		$this->addKeysToTransactionForSubmethod( $payment_submethod );
@@ -1755,13 +1719,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			
 			/* Bank transfer */
 			case 'bt':
+				
+				// Brazil
+				if ( $this->staged_data['country'] == 'BR' ) {
+					$this->dataConstraints['direct_debit_text']['city'] = 50;
+				}
+
+				// Korea - Manual does not specify North or South
+				if ( $this->staged_data['country'] == 'KR' ) {
+					$this->dataConstraints['direct_debit_text']['city'] = 50;
+				}
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 
 			/* Direct Debit */
 			case 'dd_nl':
-				$this->data_constraints['direct_debit_text']['length'] = 32;
+				$this->dataConstraints['direct_debit_text']['length'] = 32;
 				
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
@@ -1771,7 +1745,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_at':
-				$this->data_constraints['direct_debit_text']['length'] = 28;
+				$this->dataConstraints['direct_debit_text']['length'] = 28;
 				
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
@@ -1788,18 +1762,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_es':
-				$this->data_constraints['direct_debit_text']['length'] = 40;
+				$this->dataConstraints['direct_debit_text']['length'] = 40;
 				
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_fr':
-				$this->data_constraints['direct_debit_text']['length'] = 18;
+				$this->dataConstraints['direct_debit_text']['length'] = 18;
 				
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_it':
-				$this->data_constraints['bank_check_digit']['length'] = 1;
-				$this->data_constraints['direct_debit_text']['length'] = 32;
+				$this->dataConstraints['bank_check_digit']['length'] = 1;
+				$this->dataConstraints['direct_debit_text']['length'] = 32;
 				
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
