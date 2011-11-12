@@ -102,6 +102,17 @@ interface GatewayType {
 abstract class GatewayAdapter implements GatewayType {
 
 	/**
+	 * $dataConstraints provides information on how to handle variables.
+	 *
+	 * 	 <code>
+	 * 		'account_holder'		=> array( 'type' => 'alphanumeric',		'length' => 50, )
+	 * 	 </code>
+	 *
+	 * @var	array	$dataConstraints
+	 */
+	protected $dataConstraints = array();
+
+	/**
 	 * $error_map maps gateway errors to client errors
 	 *
 	 * The index of each error should map to a translation:
@@ -216,6 +227,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
+		$this->defineDataConstraints();
 		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
 
@@ -1509,7 +1521,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param type $type Whatever types of staging you feel like having in your child class. 
 	 * ...but usually request and response. I think. 
 	 */
-	function stageData( $type = 'request' ) {
+	public function stageData( $type = 'request' ) {
 		$this->defineStagedVars();
 		$this->smooshVarsForStaging(); //yup, we do need to do this seperately. 
 		//If we tried to piggyback off the same loop, all the vars wouldn't be ready, and some staging functions will require 
@@ -1518,8 +1530,44 @@ abstract class GatewayAdapter implements GatewayType {
 			$function_name = 'stage_' . $field;
 			$this->executeIfFunctionExists( $function_name, $type );
 		}
+		
+		// Format the staged data
+		$this->formatStagedData();
+		
 	}
 
+	/**
+	 * Format staged data
+	 *
+	 * Formatting:
+	 * - trim - all strings
+	 * - truncate - all strings to the maximum length permitted by the gateway
+	 */
+	public function formatStagedData() {
+
+		foreach ( $this->staged_data as $field => $value ) {
+
+			// Trim all values if they are a string
+			$value = is_string( $value ) ? trim( $value ) : $value;
+			
+			if ( isset( $this->dataConstraints[ $field ] ) && is_string( $value ) ) {
+			
+				// Truncate the field if it has a length specified
+				$length = isset( $this->dataConstraints[ $field ]['length']) ? (integer) $this->dataConstraints[ $field ]['length'] : false;
+				
+				if ( !empty( $length ) && !empty( $value ) ) {
+					$value = substr( $value, 0, $length );
+				}
+			}
+			else {
+			
+				$this->log( 'Field does not exist in $this->dataConstraints[ ' . ( string ) $field . ' ]', LOG_DEBUG );
+			}
+			
+			$this->staged_data[ $field ] = $value;
+		}
+	}
+	
 	function getPaypalRedirectURL() {
 		$currency = $this->getData_Raw( 'currency_code' );
 
