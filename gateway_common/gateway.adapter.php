@@ -1560,7 +1560,7 @@ abstract class GatewayAdapter implements GatewayType {
 				}
 				
 			} else {
-				$this->log( 'Field does not exist in $this->dataConstraints[ ' . ( string ) $field . ' ]', LOG_DEBUG );
+				//$this->log( 'Field does not exist in $this->dataConstraints[ ' . ( string ) $field . ' ]', LOG_DEBUG );
 			}
 			
 			$this->staged_data[ $field ] = $value;
