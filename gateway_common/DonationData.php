@@ -357,11 +357,16 @@ class DonationData {
 		} 
 	}
 	
-	
+	/**
+	 * Tells us if we think we're in caching mode or not. 
+	 * @staticvar string $cache Keeps track of the mode so we don't have to 
+	 * calculate it from the data fields more than once. 
+	 * @return boolean true if we are going to be caching, false if we aren't. 
+	 */
 	function isCaching(){
-		//I think it's safe to static this here. I don't want to calc this every 
-		//time some outside object asks if we're caching. 
+		
 		static $cache = null;
+		
 		if ( is_null( $cache ) ){
 			if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
 				if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
@@ -372,6 +377,13 @@ class DonationData {
 				$cache = false;
 			}
 		}
+		
+		 //this business could change at any second, and it will prevent us from 
+		 //caching, so we're going to keep asking if it's set. 
+		if (self::sessionExists()){
+			$cache = false;
+		}		
+		
 		return $cache;
 	}
 	
@@ -654,6 +666,13 @@ class DonationData {
 		static $match = null;
 
 		if ( $match === null ) {
+			if ( $this->isCaching() ){  
+				//This makes sense.
+				//If all three conditions for caching are currently true, the 
+				//last thing we want to do is screw it up by setting a session 
+				//token before the page loads. 
+				return true;
+			}
 
 			// establish the edit token to prevent csrf
 			$token = $this->token_getSaltedSessionToken();

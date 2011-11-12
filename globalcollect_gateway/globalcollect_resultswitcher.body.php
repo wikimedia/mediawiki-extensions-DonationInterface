@@ -59,9 +59,6 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			return;
 		}
 		
-		
-		
-
 		$wgOut->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
 			$this->adapter->getGlobal( 'CSSVersion' ) );
@@ -104,12 +101,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 					} //TODO: There really should be an else here. 
 				}
 			} 
-		} else {
-			if ( !$this->adapter->isCaching() ) {
-				// if we're not caching, there's a token mismatch
-				$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
-			}
-		}
+		} 
 	}
 	
 	/**

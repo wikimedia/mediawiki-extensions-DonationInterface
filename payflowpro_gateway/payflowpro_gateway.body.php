@@ -64,11 +64,8 @@ class PayflowProGateway extends GatewayForm {
 				// Display form for the first time
 				$this->displayForm( $this->errors );
 			}
-		} else {
-			if ( !$this->adapter->isCaching() ) {
-				// if we're not caching, there's a token mismatch
-				$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
-			}
+		} else {//token mismatch
+			$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
 			$this->displayForm( $this->errors );
 		}
 	}
