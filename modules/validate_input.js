@@ -213,7 +213,7 @@ window.cvv = '';
 
 window.PopupCVV = function() {
 	cvv = window.open("", 'cvvhelp','scrollbars=yes,resizable=yes,width=600,height=400,left=200,top=100');
-	cvv.document.write( payflowproGatewayCVVExplain );
+	cvv.document.write( mw.msg( 'donate_interface-cvv-explain' ) );
 	cvv.focus();
 };
 
