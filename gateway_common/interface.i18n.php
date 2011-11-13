@@ -324,6 +324,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-donation-tshirt' => 'Donation (t-shirt offer)',
 	'donate_interface-change' => 'Change',
 	'donate_interface-select-credit-card' => 'Select credit card',
+	'donate_interface-optional' => 'optional'
 
 	// For more USA states, see us-states.i18n.php.
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
@@ -778,6 +779,7 @@ See [[w:en:Check_digit]] for explanation of Check Digit.',
 	'donate_interface-monthlybox-bottom' => 'Message in the bottom of the monthly donation box ensuring donors that their donation will be processed securely.',
 	'donate_interface-securelogo-title' => "Link 'title' that is shown to donors when they hover over the Verisign secure site logo that appears on donation forms",
 	'donate_interface-secureLogo-text' => 'Text shown to donors for a link explaining more about SSL secure site certificates',
+	'donate_interface-optional' => 'used to mark a field that is not required to be filled out'
 );
 
 /** Magyar (magázó) (Magyar (magázó))
