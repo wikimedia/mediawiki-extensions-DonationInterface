@@ -888,11 +888,12 @@ Prošu spytajće pozdźišo hišće raz.',
 /** Hungarian (Magyar)
  * @author BáthoryPéter
  * @author Dani
+ * @author Dj
  * @author Glanthor Reviol
  * @author Misibacsi
  */
 $messages['hu'] = array(
-	'payflowprogateway' => 'Támogasd a Wikimédiát',
+	'payflowprogateway' => 'Adakozz most',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro hitelkártya feldolgozása',
 	'payflowpro_gateway-response-0' => 'A tranzakció elfogadva.
 Köszönjük az adományt!',

@@ -265,6 +265,27 @@ $messages['gsw'] = array(
 Bitte versuech s speter nonemol.',
 );
 
+/** Hungarian (Magyar)
+ * @author Dj
+ */
+$messages['hu'] = array(
+	'globalcollectgateway' => 'Adakozz most',
+	'globalcollect_gateway-response-9130' => 'Érvénytelen ország.',
+	'globalcollect_gateway-response-9140' => 'Érvénytelen pénznem.',
+	'globalcollect_gateway-response-9150' => 'Érvénytelen nyelv.',
+	'globalcollect_gateway-response-400530' => 'Érvénytelen fizetési mód.',
+	'globalcollect_gateway-response-430306' => 'A hitelkártyád lejárt. Próbálkozz másik kártyával, vagy más fizetési móddal!',
+	'globalcollect_gateway-response-430330' => 'Érvénytelen kártyaszám.',
+	'globalcollect_gateway-response-430421' => 'A hitelkártyádat nem lehet érvényesíteni. Ellenőrizd, hogy a megadott adatok egyeznek a kártyán lévő adatokkal, vagy próbálkozz egy másik kártyával!',
+	'globalcollect_gateway-response-430360' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz egy másik kártyával, vagy másik fizetési móddal!',
+	'globalcollect_gateway-response-430285' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz egy másik kártyával, vagy másik fizetési móddal!',
+	'globalcollect_gateway-response-21000150' => 'Érvénytelen bankszámlaszám.',
+	'globalcollect_gateway-response-21000155' => 'Érvénytelen bank kód.',
+	'globalcollect_gateway-response-21000160' => 'Érvénytelen giro számlaszám.',
+	'globalcollect_gateway-response-default' => 'Hiba történt a tranzakció feldolgozása során.
+Próbáld meg később újra!',
+);
+
 /** Interlingua (Interlingua)
  * @author McDutchie
  */
