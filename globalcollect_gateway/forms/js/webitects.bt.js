@@ -72,8 +72,16 @@ $( document ).ready( function () {
 	} );
 	// reset the amount field when "other" is changed
 	$( "#other-amount" ).keyup( function() {
-		if ( $( '#input_amount_other' ).is(':checked') ) {
+		if ( $( '#input_amount_other' ).is( ':checked' ) ) {
 			setAmount( $( this ) );
+		}
+	} );
+	// change the amount when "other" is focused
+	$( "#other-amount" ).focus( function() {
+		$( '#input_amount_other' ).attr( 'checked', true );
+		var otherAmount = $( 'input#other-amount' ).val();
+		if ( otherAmount && !isNaN( otherAmount ) ) {
+			setAmount( $( 'input#other-amount' ) );
 		}
 	} );
 
