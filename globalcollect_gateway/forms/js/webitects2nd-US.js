@@ -114,9 +114,13 @@ $( document ).ready( function () {
 // set the hidden amount input to the value of the selected element
 function setAmount( e ) {
 	$( 'input[name="amount"]' ).val( e.val() );
+	showAmount( e );
 }
 // Display selected amount
 function showAmount( e ) {
+	if( e.val() == "other" ){
+		e = $( "#other-amount" );
+	}
 	$( "#selected-amount" ).html( "$" + e.val() );
 	$( "#change-amount" ).show();
 }
