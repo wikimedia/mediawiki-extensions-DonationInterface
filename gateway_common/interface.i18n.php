@@ -344,7 +344,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-obt-biller_id' => 'Biller code',
 	'donate_interface-obt-customer_payment_reference' => 'Reference #',
 	'donate_interface-obt-information' => 'Online bank transfer information',
-	'donate_interface-online_bank_transfer_message' => 'Telephone & Internet Banking - BPAY©',
+	'donate_interface-online_bank_transfer_message' => 'Telephone & Internet Banking - BPAY®',
 
 	// Real time bank transfer (rtbt)
 	'donate_interface-rtbt-issuer_id' => 'Choose a Bank',
