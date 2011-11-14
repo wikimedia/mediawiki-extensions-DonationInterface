@@ -88,6 +88,8 @@ $( document ).ready( function () {
 		}
 	}
 
+	showAmount( $( 'input[name="amount"]' ) );
+
 } );
 
 // set the hidden amount input to the value of the selected element
