@@ -93,7 +93,9 @@ $( document ).ready( function () {
 	} );
 
 	$( "#step1header" ).click( function() {
+		// show the correct sections
 		$( "#step1wrapper" ).slideDown();
+		$( "#step3wrapper" ).slideUp();
 		$( "#change-amount" ).hide();
 	} );
 
