@@ -57,13 +57,24 @@ $( document ).ready( function () {
 		showAmount( $( 'input[name="amount"]' ) );
 	}
 
+	// For when people switch back to Other from another value
+	$( '#input_amount_other' ).click( function() {
+		var otherAmount = $( 'input#other-amount' ).val();
+		if ( otherAmount ) {
+			setAmount( $( 'input#other-amount' ) );
+		}
+	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {
-		setAmount( $( this ) );
+		if ( !isNaN( $( this ).val() ) ) {
+			setAmount( $( this ) );
+		}
 	} );
 	// reset the amount field when "other" is changed
-	$( "#other-amount" ).change( function() {
-		setAmount( $( this ) );
+	$( "#other-amount" ).keyup( function() {
+		if ( $( '#input_amount_other' ).is(':checked') ) {
+			setAmount( $( this ) );
+		}
 	} );
 
 	$( "#step1header" ).click( function() {

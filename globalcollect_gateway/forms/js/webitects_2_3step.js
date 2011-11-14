@@ -72,13 +72,7 @@ $( document ).ready( function () {
 			$( 'input#other-amount' ).val( previousAmount );
 		}
 	}
-	// For when people switch back to Other from another value
-	$( '#input_amount_other' ).click( function() {
-		var otherAmount = $( 'input#other-amount' ).val();
-		if ( otherAmount ) {
-			setAmount( $( 'input#other-amount' ) );
-		}
-	} );
+	
 	$( "#cc" ).click( function() {
 		/* safety check for people who hit the back button */
 		checkedValue = $( "input[name='amountRadio']:checked" ).val();
@@ -148,6 +142,14 @@ $( document ).ready( function () {
 			displayCreditCardForm();
 		}
 	} );
+	
+	// For when people switch back to Other from another value
+	$( '#input_amount_other' ).click( function() {
+		var otherAmount = $( 'input#other-amount' ).val();
+		if ( otherAmount ) {
+			setAmount( $( 'input#other-amount' ) );
+		}
+	} );
 	// Set selected amount to amount
 	$( 'input[name="amountRadio"]' ).click( function() {
 		if ( !isNaN( $( this ).val() ) ) {
@@ -156,7 +158,9 @@ $( document ).ready( function () {
 	} );
 	// reset the amount field when "other" is changed
 	$( "#other-amount" ).keyup( function() {
-		setAmount( $( this ) );
+		if ( $( '#input_amount_other' ).is(':checked') ) {
+			setAmount( $( this ) );
+		}
 	} );
 
 	// show the CVV help image on click
