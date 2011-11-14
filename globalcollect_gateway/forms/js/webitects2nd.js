@@ -48,6 +48,14 @@ $( document ).ready( function () {
 			displayCreditCardForm()
 		}
 	} );
+
+	$( "#bt-continueBtn" ).live( "click", function() {
+		if ( validateAmount() && validate_personal( document.paypalcontribution ) ) {
+			document.paypalcontribution.action = actionURL;
+			document.paypalcontribution.submit();
+		}
+	} );
+
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
