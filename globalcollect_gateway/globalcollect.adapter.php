@@ -1017,21 +1017,48 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$addme[$ourkey] = $tmp;
 			}
 		}
-		if ( count( $addme ) ){
+		
+		$post_status_check = false;
+		if ( count( $addme ) ){ //nothing unusual here. 
 			$this->addData( $addme );
+			$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
+			$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
+			$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
+			self::log( $logmsg );
+		} else { //this is an orphan transaction. 
+			$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
+			$post_status_check = true;
 		}
-		$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
-		$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
-		$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
-		self::log( $logmsg );
 		
 		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
-		
-		//error_log( "GET_ORDERSTATUS result: " . $status_result );
 		
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
 		$problemmessage = ''; //to be used in conjunction with the flag.
+
+		
+		if ( $post_status_check ){
+			if ( array_key_exists('data', $status_result) ) {
+				foreach ( $pull_vars as $theirkey => $ourkey) {
+					if ( array_key_exists($theirkey, $status_result['data']) ) {
+						$addme[$ourkey] = $status_result['data'][$theirkey];
+					}
+				}
+			}
+			
+			if ( count( $addme ) ){
+				$this->addData( $addme );
+				$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
+				$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
+				$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
+				self::log( $logmsg );
+				$this->runPreProcessHooks();
+				$status_result['action'] = $this->getValidationAction();
+			} else {
+				$problemflag = true; //nothing to be done.
+				$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
+			}
+		}
 		
 		//we filtered
 		if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
@@ -1055,7 +1082,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				case 'revised' :  
 					$cancelflag = true; //makes sure we don't try to confirm.
 					break;
-			}
+				case 'complete' :
+					$problemflag = true; //nothing to be done.
+					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
+					break;
+			}	
 		}
 
 		//if we got here with no problemflag, 

@@ -112,7 +112,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	public function can_bypass_minfraud() {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
 		$localdata = $this->gateway_adapter->getData_Raw();
-		if ( !strlen( $localdata['data_hash'] ) || !strlen( $localdata['action'] ) ) {
+		if ( !isset($localdata['data_hash']) || !strlen( $localdata['data_hash'] ) || !isset($localdata['action']) || !strlen( $localdata['action'] ) ) {
 			return FALSE;
 		}
 
