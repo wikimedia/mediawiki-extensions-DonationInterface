@@ -107,13 +107,13 @@ $( document ).ready( function () {
 		}
 	} );
 	$( "#paymentContinueBtn" ).live( "click", function() {
-		if ( validate_personal( document.paypalcontribution ) ) {
+		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm()
 		}
 	} );
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
-		if ( validate_personal( document.paypalcontribution ) ) {
+		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm()
 		} else {
 			// show the continue button to indicate how to get to step 3 since they

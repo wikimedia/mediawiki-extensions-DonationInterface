@@ -64,7 +64,7 @@ window.displayCreditCardForm = function() {
 		'type': 'GET',
 		'success': function( data ) {
 			if ( typeof data.error !== 'undefined' ) {
-				alert( ajaxError );
+				alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
 				showStep2();
 			} else if ( typeof data.result !== 'undefined' ) {
@@ -88,7 +88,7 @@ window.displayCreditCardForm = function() {
 			}
 		},
 		'error': function( xhr ) {
-			alert( ajaxError );
+			alert( mw.msg( 'donate_interface-error-msg-general' ) );
 			showStep1();
 		}
 	} );
@@ -124,7 +124,7 @@ window.validateAmount = function() {
 		wgCurrencyMinimums[currency_code] = 1;
 	}
 	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
-		alert( 'You must contribute at least $1'.replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
+		alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
 		error = true;
 	}
 	return !error;

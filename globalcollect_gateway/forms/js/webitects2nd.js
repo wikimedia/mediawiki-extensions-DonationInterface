@@ -44,13 +44,13 @@ $( document ).ready( function () {
 	}
 
 	$( "#paymentContinueBtn" ).live( "click", function() {
-		if ( validate_personal( document.paypalcontribution ) ) {
+		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm()
 		}
 	} );
 	// Set the cards to progress to step 3
 	$( ".cardradio" ).live( "click", function() {
-		if ( validate_personal( document.paypalcontribution ) ) {
+		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm()
 		}
 		else {
@@ -62,10 +62,14 @@ $( document ).ready( function () {
 
 	// init all of the header actions
 	$( "#step2header" ).click( function() {
-		showStep2();
+		if ( validateAmount() ) {
+			showStep2();
+		}
 	} );
 	$( "#step3header" ).click( function() {
-		displayCreditCardForm();
+		if ( validateAmount() ) {
+			displayCreditCardForm();
+		}
 	} );
 
 	// check to see if amount was passed from the previous step
@@ -140,7 +144,7 @@ function validateAmount() {
 		wgCurrencyMinimums[currency_code] = 1;
 	}
 	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
-		alert( 'You must contribute at least $1'.replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
+		alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
 		error = true;
 	}
 	return !error;
