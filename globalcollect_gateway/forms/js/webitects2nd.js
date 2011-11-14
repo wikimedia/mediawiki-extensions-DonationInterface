@@ -114,7 +114,7 @@ $( document ).ready( function () {
 	$( "#other-amount" ).focus( function() {
 		$( '#input_amount_other' ).attr( 'checked', true );
 		var otherAmount = $( 'input#other-amount' ).val();
-		if ( otherAmount && !isNaN( otherAmount ) ) {
+		if ( otherAmount ) {
 			setAmount( $( 'input#other-amount' ) );
 		}
 	} );
