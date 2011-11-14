@@ -143,6 +143,16 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects.2nd' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'pfp.form.rapidhtml.webitects.2nd.US' ] = array(
+	'styles' => '',
+	'scripts' => 'js/webitects2nd-US.js',
+	'dependencies' => array(
+		'pfp.form.rapidhtml.webitects',
+		'di.form.core.validate'
+	),
+	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
 $wgResourceModules[ 'pfp.form.rapidhtml.webitects_2step' ] = array(
 	'styles' => '',
 	'scripts' => 'js/webitects_2_2step.js',
