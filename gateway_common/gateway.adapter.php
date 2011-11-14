@@ -205,23 +205,25 @@ abstract class GatewayAdapter implements GatewayType {
 		extract( $options );
 
 		$testData = isset( $testData ) ? $testData : false;
+		$external_data = isset( $external_data ) ? $external_data : false; //not test data: Regular type. 
 		$postDefaults = isset( $postDefaults ) ? $postDefaults : false;
-
+		
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
-
 			// Only submit test data if we are in test mode.
-			$testData = false;
 		} else {
 			$this->url = self::getGlobal( 'TestingURL' );
+			if ( $testData ){
+				$external_data = $testData;
+			}
 		}
-
-		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $testData );
+		
+		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
 
 		$this->raw_data = $this->dataObj->getData();
 		$this->staged_data = $this->raw_data;
-
-		$this->posted = ( $wgRequest->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
+		
+		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
 
 		$this->setPostDefaults( $postDefaults );
 		$this->defineTransactions();
