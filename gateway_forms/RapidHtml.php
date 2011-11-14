@@ -52,6 +52,10 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@gateway', // => 'payflowpro', // this may need to become dynamic in the future
 		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
+		'@account_number',
+		'@authorization_id',
+		'@account_name',
+		'@bank_code',
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
