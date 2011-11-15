@@ -109,10 +109,6 @@ input.hasplaceholder {
 	padding:0.2em 0;
 }
 #donate {
-	background-color:#CCE7CD;
-	border:1px solid #5EAC58;
-	padding:16px 24px 24px;
-	width:400px;
 }
 #donate-head {
 	border:none;
@@ -149,4 +145,22 @@ div#mw-head-base {
 /* Hiding stuff we don't need */
 h1#firstHeading, div#contentSub {
 	display: none;
+}
+
+/* NEW STUFF */
+#greenBackground{
+    padding:16px 24px 24px;
+	width:400px;
+    background-color:#CCE7CD;
+	border:1px solid #5EAC58;
+}
+p#informationsharing {
+    width: 400px;
+    padding: 0 15px;
+    line-height: 14px;
+    font-size: 11px;
+}
+ul#moreinfolinks li{
+    list-style: none !important;
+    list-style-image: none !important;
 }

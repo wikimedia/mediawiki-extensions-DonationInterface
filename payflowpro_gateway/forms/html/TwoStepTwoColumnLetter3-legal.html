@@ -1,11 +1,11 @@
 <script type="text/javascript">
 	mw.loader.load('pfp.form.rapidhtml.TwoStepTwoColumnLetter3');
 	// these must go through RapidHTML and thus are inline
-	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
-	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
-	var actionURL = "@action";
-	var scriptPath = "@script_path";
+//	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
+//	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
+//	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
+//	var actionURL = "@action";
+//	var scriptPath = "@script_path";
 </script>
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -21,7 +21,7 @@
 					<p id="noscript-msg">It appears that you do not have JavaScript enabled, or your browser does not support it. In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.</p><p id="noscript-redirect-msg">If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:</p><p id="noscript-redirect-link"><a href="http://wikimediafoundation.org/wiki/DonateNonJS/en">http://wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
 				</div>
 			</noscript>
-
+				
 			<h2 id="donate-head">Please complete your donation below ...</h2>
 
 			<p id="topError" class="creditcard-error-msg"></p>
@@ -94,7 +94,8 @@
 						</tr>
 						<tr>
 							<td class="label"><label for="fname">Name on card</label></td>
-							<td><input name="fname" size="30" value="@fname" type="text" placeholder="First name" maxlength="25" class="required" id="fname" style="color: rgb(153, 153, 153); "><input name="lname" size="30" value="@lname" type="text" placeholder="Last name" maxlength="25" id="lname" style="color: rgb(153, 153, 153); ">
+							<td><input name="fname" size="30" value="@fname" type="text" placeholder="First name" maxlength="25" class="required" id="fname" style="color: rgb(153, 153, 153); ">
+								<input name="lname" size="30" value="@lname" type="text" placeholder="Last name" maxlength="25" id="lname" style="color: rgb(153, 153, 153); ">
 							</td>
 						</tr>
 						<tr>
@@ -169,16 +170,21 @@
 				<input type="hidden" value="@gateway" name="gateway"/>
 				<input type="hidden" value="cc" name="payment_method"/>
 			</form>
-				<div class="payflow-cc-form-section" id="payflowpro_gateway-donate-addl-info">
-					<div id="payflowpro_gateway-donate-addl-info-text">
-						<div style="text-align:center;">* * *</div>
-						<div class="">We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_policy">donor privacy policy</a>.</div><div class="">There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.</div>
-						<div class="">Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>
-						</div>
-					</div>
-				</div>
-				<div style="clear:both;"></div>
 			</div>
+			<p id="informationsharing">%donate_interface-informationsharing|url%</p>
+			<table>
+				<tr>
+					<td>
+						<ul id="moreinfolinks">
+							<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Monthly_donations&language=@language&uselang=@language&country=@country">%donate_interface-monthly-donation%</a></li>
+							<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></li>
+							<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a></li>
+							<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Tax_Deductibility&language=@language&uselang=@language&country=@country">%donate_interface-tax-info%</a></li>
+						</ul>
+					</td>
+					<td>@verisign_logo</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	</tbody>
