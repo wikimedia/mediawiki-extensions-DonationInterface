@@ -41,6 +41,10 @@ $( document ).ready( function () {
 	}
 
 	$( "#ccSubmitButton" ).click( function() {
+		// Set expiration date
+		$( "input[name='expiration']" ).val(
+			$( "select[name='mos']" ).val() + $( "select[name='year']" ).val().substring( 2, 4 )
+		)
 		// Safety check for people who hit the back button on forms with amount radio buttons
 		if ( $( "input[name='amountRadio']" ).length ) {
 			checkedValue = $( "input[name='amountRadio']:checked" ).val();
