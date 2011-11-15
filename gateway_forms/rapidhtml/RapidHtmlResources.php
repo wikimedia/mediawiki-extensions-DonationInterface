@@ -67,7 +67,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
 	'styles' => '',
 	'scripts' => array(
 		'js/webitects.js',
-		'js/webitects.accordian.js',
+		#'js/webitects.accordian.js',
 	),
 	'dependencies' => 'di.form.rapidhtml.webitects',
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
@@ -115,7 +115,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.bt' ] = array(
 //	'scripts' => 'js/webitects.bt.js',
 	'dependencies' => array(
 		'gc.form.rapidhtml.webitects.2nd',
-		'gc.form.core.validate'
+		#'gc.form.core.validate'
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
