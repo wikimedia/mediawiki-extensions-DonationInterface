@@ -758,7 +758,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: AT',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: BE
@@ -768,6 +768,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'dd',
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
+			//'keys' => array( /*'ACCOUNTNAME',*/ 'ACCOUNTNUMBER', 'AUTHORISATIONID', /*'BANKCHECKDIGIT',*/ 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: CH
@@ -776,7 +777,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: CH',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', 'BANKNAME', 'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', 'IBAN', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', /*'BANKNAME',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', 'IBAN', ),
 		);
 		 
 		// Direct debit: DE
@@ -785,7 +786,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: DE',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: ES
@@ -794,7 +795,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: ES',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKCHECKDIGIT', 'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', 'DOMICILIO', 'PROVINCIA', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', /*'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', /*'DOMICILIO', 'PROVINCIA',*/ ),
 		);
 		 
 		// Direct debit: FR
@@ -803,7 +804,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: FR',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKCHECKDIGIT', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: GB
@@ -812,7 +813,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: GB',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 		 
 		// Direct debit: IT
@@ -821,7 +822,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: IT',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', 'BANKNAME', 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', 'BANKFILIALE', 'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', /*'BANKFILIALE',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', ),
 		);
 		 
 		// Direct debit: NL
@@ -830,7 +831,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: NL',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKNAME', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 
 		/*
@@ -1437,6 +1438,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Set the bank validation error messages for the client.
 	 *
+	 * @todo
+	 * - Only the first message will be returned. The reason is there are no translations for DO_BANKVALIDATION
+	 *
 	 * The messages have already been generated at this point. The purpose of
 	 * this method is to pass them to the view.
 	 */
@@ -1448,7 +1452,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$errors = isset( $checks['errors'] ) ? $checks['errors'] : array();
 
-		$this->setTransactionResult( $errors, 'errors' );
+		$errorsToBeDisplayed = array();
+		foreach ( $errors as $code => $error ) {
+			$errorsToBeDisplayed[ $code ] = $this->getErrorMapByCodeAndTranslate( $code );
+			
+			// This break is temporary. All errors will have the same message. Only display it once.
+			break;
+		}
+
+		$this->setTransactionResult( $errorsToBeDisplayed, 'errors' );
 	}
 	
 	/**
