@@ -42,7 +42,7 @@ $( document ).ready( function () {
 
 	$( "#ccSubmitButton" ).click( function() {
 		// Safety check for people who hit the back button on forms with amount radio buttons
-		if ( $( "input[name='amountRadio']" ).length {
+		if ( $( "input[name='amountRadio']" ).length ) {
 			checkedValue = $( "input[name='amountRadio']:checked" ).val();
 			currentAmount = $( 'input[name="amount"]' ).val();
 			// The currenctAmount could be set to empty string or '0.00'
