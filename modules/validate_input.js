@@ -169,11 +169,8 @@ window.validate_form = function( form ) {
 	}
 	
 	var stateField = document.getElementById( 'state' );
-	console.debug(stateField);
-	console.debug(stateField.type);
 	if ( stateField && stateField.type == 'select-one' ) { // state is a dropdown select
 		var selectedState = stateField.options[stateField.selectedIndex].value;
-		console.debug(selectedState);
 		if ( selectedState == 'YY' || selectedState == '' ) {
 			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
 		}
