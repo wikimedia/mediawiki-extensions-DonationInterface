@@ -208,8 +208,8 @@ $wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test_2' ] = array(
  */
 $wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3' ] = array(
 	'styles' => 'css/TwoStepTwoColumnLetter3.css',
-	'scripts' => '',
-	'dependencies' => array(),
+	'scripts' => 'js/TwoStepTwoColumnLetter3.js',
+	'dependencies' => array( 'di.form.core.validate' ),
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
