@@ -22,6 +22,7 @@ h3.cc_header {
 div#payflowpro_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
+    padding-top: 11px;
 }
 div#payflowpro_gateway-donate-submessage {
 	font-size: 90%;
