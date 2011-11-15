@@ -41,12 +41,14 @@ $( document ).ready( function () {
 	}
 
 	$( "#ccSubmitButton" ).click( function() {
-		// Safety check for people who hit the back button
-		checkedValue = $( "input[name='amountRadio']:checked" ).val();
-		currenctAmount = $( 'input[name="amount"]' ).val();
-		// The currenctAmount could be set to empty string or '0.00'
-		if ( ( currentAmount == '0.00' || currentAmount == '' ) && checkedValue && !isNaN( checkedValue ) ) {
-			$( 'input[name="amount"]' ).val( checkedValue );
+		// Safety check for people who hit the back button on forms with amount radio buttons
+		if ( $( "input[name='amountRadio']" ).length {
+			checkedValue = $( "input[name='amountRadio']:checked" ).val();
+			currentAmount = $( 'input[name="amount"]' ).val();
+			// The currenctAmount could be set to empty string or '0.00'
+			if ( ( currentAmount == '0.00' || currentAmount == '' ) && checkedValue && !isNaN( checkedValue ) ) {
+				$( 'input[name="amount"]' ).val( checkedValue );
+			}
 		}
 		if ( validateAmount() ) {
 			if ( validate_form() ) {
