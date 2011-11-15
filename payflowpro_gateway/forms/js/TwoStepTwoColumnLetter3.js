@@ -5,9 +5,9 @@
 $( document ).ready( function () {
 
 	// check for RapidHtml errors and display, if any
-	var amountErrorString = "",
-		billingErrorString = "",
-		paymentErrorString = "";
+	var amountErrorString = "";
+	var billingErrorString = "";
+	var paymentErrorString = "";
 
 	// generate formatted errors to display
 	var temp = [];
@@ -29,15 +29,12 @@ $( document ).ready( function () {
 	paymentErrorString = temp.join( "<br />" );
 
 	// show the errors
-	var prevError = false;
 	if ( amountErrorString != "" ) {
-		$( "#amtErrorMessages" ).html( amountErrorString );
-	}
-	if ( billingErrorString != "" ) {
-		$( "#billingErrorMessages" ).html( billingErrorString );
-	}
-	if ( paymentErrorString != "" ) {
-		$( "#paymentErrorMessages" ).html( paymentErrorString );
+		$( "#topError" ).html( amountErrorString );
+	} else if ( billingErrorString != "" ) {
+		$( "#topError" ).html( billingErrorString );
+	} else if ( paymentErrorString != "" ) {
+		$( "#topError" ).html( paymentErrorString );
 	}
 
 	$( "#ccSubmitButton" ).click( function() {
