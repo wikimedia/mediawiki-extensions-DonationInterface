@@ -1049,6 +1049,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			
 			if ( count( $addme ) ){
 				$this->addData( $addme );
+				$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
 				$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
 				$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
 				$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
@@ -1596,23 +1597,34 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	protected function stage_language( $type = 'request' ) {
 		$language = strtolower( $this->staged_data['language'] );
 		
-		$count = 0;
-		//Count's just there making sure we don't get stuck here. 
-		while ( !in_array( $language, $this->getAvailableLanguages() ) && $count < 3 ){
-			// Get the fallback language
-			$language = Language::getFallbackFor( $language );
-			$count += 1;
-		}
-		
-		if ( !in_array( $language, $this->getAvailableLanguages() ) ){
-			$language = 'en';
-		}
-		
-		if ( $language === 'zh' ) { //Handles GC's mutant Chinese code.
-			$language = 'sc';
+		switch ( $type ) {
+			case 'request':
+				$count = 0;
+				//Count's just there making sure we don't get stuck here. 
+				while ( !in_array( $language, $this->getAvailableLanguages() ) && $count < 3 ){
+					// Get the fallback language
+					$language = Language::getFallbackFor( $language );
+					$count += 1;
+				}
+
+				if ( !in_array( $language, $this->getAvailableLanguages() ) ){
+					$language = 'en';
+				}
+
+				if ( $language === 'zh' ) { //Handles GC's mutant Chinese code.
+					$language = 'sc';
+				}
+
+				break;
+			case 'response':
+				if ( $language === 'sc' ){
+					$language = 'zh';
+				}
+				break;
 		}
 		
 		$this->staged_data['language'] = $language;
+			
 	}
 	
 	/**

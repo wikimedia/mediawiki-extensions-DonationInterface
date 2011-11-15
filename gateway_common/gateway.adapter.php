@@ -1530,7 +1530,9 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		
 		// Format the staged data
-		$this->formatStagedData();
+		if ($type === 'request'){
+			$this->formatStagedData();
+		}
 		
 	}
 
@@ -1667,7 +1669,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return mixed Transaction results status, or false if not set.  
 	 */
 	public function getTransactionStatus() {
-		if ( array_key_exists( 'status', $this->transaction_results ) ) {
+		if ( is_array( $this->transaction_results ) && array_key_exists( 'status', $this->transaction_results ) ) {
 			return $this->transaction_results['status'];
 		} else {
 			return false;
