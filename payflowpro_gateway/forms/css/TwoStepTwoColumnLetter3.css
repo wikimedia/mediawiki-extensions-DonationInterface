@@ -28,9 +28,11 @@ div#payflowpro_gateway-donate-submessage {
 	line-height: 120%;
 }
 #payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
-	padding-right: 0.5em;
-	width: 100px;
 	white-space: nowrap;
+    display: block;
+    padding-right: 1em;
+    text-align: right;
+    width: 94px;
 }
 input#city {
 	width: 130px;
