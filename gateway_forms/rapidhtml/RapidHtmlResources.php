@@ -6,7 +6,7 @@
  */
 
 $wgDonationInterfaceRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
-$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/rapidhtml';
+$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/forms';
 $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 
 /**
