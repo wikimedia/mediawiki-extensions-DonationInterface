@@ -38,7 +38,48 @@ window.switchToCreditCard = function() {
 	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'none';
 };
 
-/*
+/**
+ * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
+ */
+window.validateAmount = function() {
+	var error = true;
+	var amount = $( 'input[name="amount"]' ).val(); // get the amount
+	// Normalize weird amount formats.
+	// Don't mess with these unless you know what you're doing.
+	amount = amount.replace( /[,.](\d)$/, '\:$10' );
+	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
+	amount = amount.replace( /[,.]/g, '' );
+	amount = amount.replace( /:/, '.' );
+	$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
+
+	// Check amount is a real number, sets error as true (good) if no issues
+	error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
+
+	// Check amount is at least the minimum
+	var currency_code = $( 'input[name="currency_code"]' ).val();
+	if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
+		wgCurrencyMinimums[currency_code] = 1;
+	}
+	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
+		alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
+		error = true;
+		// See if we're on a webitects accordian form
+		if ( $( '#step1wrapper' ).length ) {
+			$( "#step1wrapper" ).slideDown();
+			$( "#paymentContinue" ).show();
+			// If we're on a GlobalCollect iframe form, slide up the 3rd step to force the user to
+			// generate a new iframe after they change the form.
+			if ( $( '#payment iframe' ).length ) {
+				$( "#step3wrapper" ).slideUp();
+			}
+		}
+		$( '#other-amount' ).val( '' );
+		$( '#other-amount' ).focus();
+	}
+	return !error;
+}
+
+/**
  * Validates the personal information fields
  *
  * @input form The form containing the inputs to be checked
@@ -46,8 +87,6 @@ window.switchToCreditCard = function() {
  * @return boolean true if no errors, false otherwise (also uses an alert() to notify the user)
  */
 window.validate_personal = function( form ){
-
-    // TODO: this form should only report a single error for the email address?
 
 	var output = '';
 	var currField = '';
