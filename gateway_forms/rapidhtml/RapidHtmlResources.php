@@ -202,3 +202,14 @@ $wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test_2' ] = array(
 	'localBasePath' => dirname( __FILE__ ),
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
+
+/**
+ * TwoStepTwoColumnLetter3 Deathmatch
+ */
+$wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3' ] = array(
+	'styles' => 'css/TwoStepTwoColumnLetter3.css',
+	'scripts' => '',
+	'dependencies' => array(),
+	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
