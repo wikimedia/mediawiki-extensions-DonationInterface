@@ -1,6 +1,8 @@
 <?php
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
+	
+	protected $utm_source;
 
 	public function unstage_data( $data = array(), $final = true ){
 		$unstaged = array();
@@ -49,6 +51,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->defineReturnValueMap();
 
 		$this->stageData();
+		
+		//have to do this here, or else. 
+		$this->utm_source = $this->getUTMSourceFromDB();
+		$this->raw_data['utm_source'] = $this->utm_source;
+		$this->staged_data['utm_source'] = $this->utm_source;
 	}
 	
 	public function addData($dataArray){
@@ -58,6 +65,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->raw_data['i_order_id'] = $order_id;
 		$this->staged_data['order_id'] = $order_id;
 		$this->staged_data['i_order_id'] = $order_id;
+		$this->raw_data['utm_source'] = $this->utm_source;
+		$this->staged_data['utm_source'] = $this->utm_source;
 	}
 	
 	public function do_transaction($transaction){
@@ -66,8 +75,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			case 'CANCEL_PAYMENT':
 				self::log($this->getData_Raw('contribution_tracking_id') . ": CVV: " . $this->getData_Raw('cvv_result') . ": AVS: " . $this->getData_Raw('avs_result'));
 				//and then go on, unless you're testing, in which case:
-				//return "NOPE";
-				//break;
+//				return "NOPE";
+//				break;
 			default:
 				return parent::do_transaction($transaction);
 				break;
@@ -87,6 +96,37 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
 		syslog( $log_level, $msg );
 		closelog();
+	}
+	
+	public function getUTMSourceFromDB(){
+
+		$db = ContributionTrackingProcessor::contributionTrackingConnection();
+
+		if ( !$db ) {
+			die("There is something terribly wrong with your Contribution Tracking database. fixit.");
+			return null;
+		}
+		
+		$ctid = $this->getData_Raw('contribution_tracking_id');
+
+		// if contrib tracking id is not already set, we need to insert the data, otherwise update			
+		if ( $ctid ) {
+			$res = $db->select( 'contribution_tracking',
+             array(
+                 'utm_source'
+             ),
+             array('id' => $ctid)
+			);
+			foreach ($res as $thing){
+				$this->log("$ctid: Found UTM Source value $thing->utm_source");
+				return $thing->utm_source;
+			}
+		}
+		
+		//if we got here, we can't find anything else...
+		$this->log("$ctid: FAILED to find UTM Source value. Using default.");
+		return $this->getData_Raw('utm_source');
+		
 	}
 	
 }

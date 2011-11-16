@@ -13,7 +13,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	protected $killfiles = array();
 	protected $order_ids = array();
-	protected $max_per_execute = 5;
+	protected $max_per_execute = 3;
 	
 	
 	function execute(){
@@ -48,6 +48,25 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		$xml = new DomDocument;
 		
+		//fields that have generated notices if they're not there. 
+		$additional_fields = array(
+			'card_num',
+			'comment',
+			'size',
+			'utm_medium',
+			'utm_campaign',
+			'referrer',
+			'mname',
+			'fname2',
+			'lname2',
+			'street2',
+			'city2',
+			'state2',
+			'country2',
+			'zip2',			
+		);
+		
+		
 		foreach ($payments as $key => $payment_data){
 			$xml->loadXML($payment_data['xml']);
 			$parsed = $adapter->getResponseData($xml);
@@ -55,9 +74,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$payments[$key]['unstaged'] = $adapter->unstage_data($parsed);
 			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];
 			$payments[$key]['unstaged']['i_order_id'] = $payments[$key]['unstaged']['order_id'];
-			$payments[$key]['unstaged']['card_num'] = '';
-		}		
-
+			foreach ($additional_fields as $val){
+				if (!array_key_exists($val, $payments[$key]['unstaged'])){
+					$payments[$key]['unstaged'][$val] = null;
+				}
+			}
+		}
+		
 		// ADDITIONAL: log out what you did here, to... somewhere. 
 		// Preferably *before* you rewrite the Order ID file. 
 
@@ -70,6 +93,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				unset($this->order_ids[$payments[$key]['unstaged']['order_id']]);
 			} else {
 				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
+				if (strpos($results['message'], "GET_ORDERSTATUS reports that the payment is already complete.")){
+					unset($this->order_ids[$payments[$key]['unstaged']['order_id']]);
+				}
 			}
 			echo $results['message'] . "\n";
 		}
