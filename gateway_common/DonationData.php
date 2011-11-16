@@ -87,6 +87,7 @@ class DonationData {
 				'gateway' => $wgRequest->getText( 'gateway' ), //likely to be reset shortly by setGateway();
 				'owa_session' => $wgRequest->getText( 'owa_session', null ),
 				'owa_ref' => $wgRequest->getText( 'owa_ref', null ),
+				'descriptor' => $wgRequest->getText( 'descriptor', null ),
 
 				'account_name' => $wgRequest->getText( 'account_name', null ),
 				'account_number' => $wgRequest->getText( 'account_number', null ),
