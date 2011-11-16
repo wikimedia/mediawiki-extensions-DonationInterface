@@ -213,3 +213,11 @@ $wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3.orig' ] = array(
+	'styles' => 'css/TwoStepTwoColumnLetter3-orig.css',
+	'scripts' => 'js/TwoStepTwoColumnLetter3.js',
+	'dependencies' => array( 'di.form.core.validate' ),
+	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
+);
+
