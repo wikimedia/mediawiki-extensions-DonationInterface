@@ -265,6 +265,21 @@ $messages['gsw'] = array(
 Bitte versuech s speter nonemol.',
 );
 
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'globalcollectgateway' => 'Nětko darić',
+	'globalcollect_gateway-response-9130' => 'Njepłaćiwy kraj.',
+	'globalcollect_gateway-response-9140' => 'Njepłaćiwa měna.',
+	'globalcollect_gateway-response-9150' => 'Njepłaćiwa rěč.',
+	'globalcollect_gateway-response-400530' => 'Njepłaćiwa płaćenska metoda.',
+	'globalcollect_gateway-response-430330' => 'Njepłaćiwe kartowe čisło.',
+	'globalcollect_gateway-response-21000150' => 'Njepłaćiwe kontowe čisło.',
+	'globalcollect_gateway-response-21000155' => 'Njepłaćiwe bankowe wodźenske čisło.',
+	'globalcollect_gateway-response-21000160' => 'Njepłaćiwe girokontowe čisło.',
+);
+
 /** Hungarian (Magyar)
  * @author Dj
  */
@@ -328,6 +343,27 @@ $messages['id'] = array(
 	'globalcollect_gateway-response-21000160' => 'Nomor rekening giro tidak valid.',
 	'globalcollect_gateway-response-default' => 'Terjadi kesalahan dalam pemrosesan transaksi Anda.
 Silakan coba lagi nanti.',
+);
+
+/** Japanese (日本語)
+ * @author Whym
+ */
+$messages['ja'] = array(
+	'globalcollectgateway' => '今すぐ寄付を',
+	'globalcollect_gateway-desc' => 'グローバルコレクト決済処理',
+	'globalcollect_gateway-response-9130' => '国名が無効です。',
+	'globalcollect_gateway-response-9140' => '通貨が無効です。',
+	'globalcollect_gateway-response-9150' => '言語名が無効です。',
+	'globalcollect_gateway-response-400530' => '支払い方法が無効です。',
+	'globalcollect_gateway-response-430306' => 'あなたのクレジットカードは有効期限が切れています。他のカードか他の支払い方法をお試しください。',
+	'globalcollect_gateway-response-430330' => 'カード番号が無効です。',
+	'globalcollect_gateway-response-430421' => 'あなたのクレジットカードの妥当性が確かめられませんでした。すべての情報がクレジットカードの個人情報と一致しているかどうかお確かめください。もしくは他のカードをお試しください。',
+	'globalcollect_gateway-response-430360' => '取引は許可されませんでした。他のカードか他の支払い方法をお試しください。',
+	'globalcollect_gateway-response-430285' => '取引は許可されませんでした。他のカードか他の支払い方法をお試しください。',
+	'globalcollect_gateway-response-21000150' => '銀行口座番号が無効です。',
+	'globalcollect_gateway-response-21000155' => '銀行コードが無効です。',
+	'globalcollect_gateway-response-21000160' => '振替口座番号が無効です。',
+	'globalcollect_gateway-response-default' => '取引の処理中にエラーが起こりました。後でもう一度お試しください。',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -575,6 +611,28 @@ $messages['sl'] = array(
 	'globalcollect_gateway-response-21000155' => 'Številka banke je napačna.',
 	'globalcollect_gateway-response-21000160' => 'Številka žiroračuna je napačna.',
 	'globalcollect_gateway-response-default' => 'Pri obdelavi vaše transakcije je prišlo do napake. Prosimo, poskusite pozneje.',
+);
+
+/** Swedish (Svenska)
+ * @author Warrakkk
+ */
+$messages['sv'] = array(
+	'globalcollectgateway' => 'Ge ditt bidrag nu',
+	'globalcollect_gateway-desc' => 'GlobalCollect betalningshantering',
+	'globalcollect_gateway-response-9130' => 'Ogiltig land.',
+	'globalcollect_gateway-response-9140' => 'Ogiltig valuta.',
+	'globalcollect_gateway-response-9150' => 'Ogiltigt språk.',
+	'globalcollect_gateway-response-400530' => 'Ogiltig betalningsmetod.',
+	'globalcollect_gateway-response-430306' => 'Ditt kreditkort har slutat gälla. Prova ett annat kort eller något av våra andra betalningsalternativ.',
+	'globalcollect_gateway-response-430330' => 'Ogiltig kortnummer.',
+	'globalcollect_gateway-response-430421' => 'Ditt kreditkort kunde inte verifieras. Kontrollera att alla uppgifter stämmer överens med kreditkortsprofilen eller prova ett annat kort.',
+	'globalcollect_gateway-response-430360' => 'Transaktionen kan inte godkännas. Prova ett annat kort eller något av våra andra betalningsalternativ.',
+	'globalcollect_gateway-response-430285' => 'Transaktionen kan inte godkännas. Prova ett annat kort eller något av våra andra betalningsalternativ.',
+	'globalcollect_gateway-response-21000150' => 'Ogiltig bankkontonummer.',
+	'globalcollect_gateway-response-21000155' => 'Ogiltig bankkod.',
+	'globalcollect_gateway-response-21000160' => 'Ogiltigt girokontonummer.',
+	'globalcollect_gateway-response-default' => 'Ett fel uppstod när din transaktion behandlades.
+Försök igen senare.',
 );
 
 /** Swahili (Kiswahili)
