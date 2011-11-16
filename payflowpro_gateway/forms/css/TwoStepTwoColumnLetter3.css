@@ -167,3 +167,8 @@ ul#moreinfolinks li{
     list-style: none !important;
     list-style-image: none !important;
 }
+h3.amount_header {
+	padding: 0 0 0.4em 0;
+	margin-bottom: 0;
+	font-weight: normal;
+}
