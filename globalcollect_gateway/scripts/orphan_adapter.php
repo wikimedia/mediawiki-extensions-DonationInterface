@@ -25,4 +25,37 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 		return $unstaged;
 	}
+	
+	public function loadDataAndReInit( $data ){
+
+		$this->dataObj = new DonationData( get_called_class(), false, $data );
+
+		$this->raw_data = $this->dataObj->getData();
+		
+		//this would be VERY BAD anywhere else. 
+		$this->raw_data['order_id'] = $this->raw_data['i_order_id'];
+		$this->staged_data = $this->raw_data;
+		
+		$this->transaction_results = array();
+		
+		$this->setPostDefaults();
+		$this->defineTransactions();
+		$this->defineErrorMap();
+		$this->defineVarMap();
+		$this->defineDataConstraints();
+		$this->defineAccountInfo();
+		$this->defineReturnValueMap();
+
+		$this->stageData();
+	}
+	
+	public function addData($dataArray){
+		$order_id = $this->raw_data['i_order_id'];
+		parent::addData($dataArray);
+		$this->raw_data['order_id'] = $order_id;
+		$this->raw_data['i_order_id'] = $order_id;
+		$this->staged_data['order_id'] = $order_id;
+		$this->staged_data['i_order_id'] = $order_id;
+	}
+	
 }

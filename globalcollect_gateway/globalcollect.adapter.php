@@ -1090,7 +1090,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					break;
 			}	
 		}
-
+		
 		//if we got here with no problemflag, 
 		//confirm or cancel the payment based on $cancelflag 
 		if ( !$problemflag ){
@@ -1268,7 +1268,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'GET_ORDERSTATUS':
 				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
-				$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
+				if (isset($data['STATUSID'])){
+					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
+				}
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				break;
 		}

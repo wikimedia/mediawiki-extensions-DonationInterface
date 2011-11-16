@@ -29,29 +29,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		$files = $this->getAllLogFileNames();
 		foreach ($files as $file){
-			$file_array = file($file, FILE_SKIP_EMPTY_LINES);
+			$file_array = $this->getLogfileLines( $file );
 			$payments = $this->findTransactionLines($file_array);
 			if (count($payments) === 0){
 				$this->killfiles[] = $file;
+				echo print_r($this->killfiles, true);
 			}
 		}		
 		
 		$data = array(
-			'wheeee' => 'yes'
-//			'order_id' => '1052864192',
-//			'i_order_id' => '1052864192',
-//			'city' => '',
-//			'state' => '',
-//			'zip' => '',
-//			'country' => 'US',
-//			'email' => '',
-//			'card_num' => '',
-			
+			'wheeee' => 'yes'			
 		);
 		
-		$class_name = 'GlobalCollectOrphanAdapter';
-		
-		$adapter = new $class_name(array('external_data' => $data));
+		$adapter = new GlobalCollectOrphanAdapter(array('external_data' => $data));
 		$adapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 		$var_map = $adapter->defineVarMap();
 		
@@ -62,23 +52,34 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$parsed = $adapter->getResponseData($xml);
 			$payments[$key]['parsed'] = $parsed;
 			$payments[$key]['unstaged'] = $adapter->unstage_data($parsed);
-			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments['contribution_tracking_id'];
+			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];
 			$payments[$key]['unstaged']['i_order_id'] = $payments[$key]['unstaged']['order_id'];
-		}
-		//setCurrentTransaction
-		//then load the XML into a DomDocument, and run getResponseData. 
+			$payments[$key]['unstaged']['card_num'] = '';
+		}		
 		
-		echo print_r($payments, true);
+		//foreach dealie we have data for... do it. 
+		//probably damage the constructor, and do all the regular business on a data load. 
+		die(); //Not actually letting this work for another round or so. 
+		//Note to Self:
+		//Before you actually get rid of that die there and fire this thing off, make sure that:
+		// * Your STOMP server is pointing to the real STOMP server
+		//		...and the same with the queues.
+		// * Your AVS/CVV rules make The Sense. 
+		// ADDITIONAL: log out what you did here, to... somewhere. 
+		// Preferably *before* you rewrite the Order ID file. 
 
-		//careful after this bit. 
-		die();
-		
-		
-		
 		//we may need to unset some hooks out here. Like... recaptcha. Makes no sense.
-		$adapter = new GlobalCollectAdapter(array('external_data' => $data));
 		error_log("\n\n\n");
-		$results = $adapter->do_transaction('Confirm_CreditCard');
+		foreach($payments as $payment_data){
+			$adapter->loadDataAndReInit($payment_data['unstaged']);
+			$results = $adapter->do_transaction('Confirm_CreditCard');
+			if ($results['status'] == true){
+				echo "\nWe were supposed to " . $results['action'] . "\n";
+			} else {
+				echo "\nProblem Happened! \n";
+			}
+			echo $results['message'] . "\n";
+		}
 		
 		
 		//$this->rewriteOrderIds();
@@ -89,7 +90,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$files = array();
 		if ($handle = opendir(dirname(__FILE__) . '/orphanlogs/')){
 			while ( ($file = readdir($handle)) !== false ){
-				if (trim($file, '.') != '' && $file != 'order_ids.txt'){
+				if (trim($file, '.') != '' && $file != 'order_ids.txt' && $file != '.svn'){
 					$files[] = dirname(__FILE__) . '/orphanlogs/' . $file;
 				}
 			}
@@ -120,7 +121,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$pos2 = strpos($line_data, '</ORDERID>');
 			if ($pos2 > $pos1){
 				$tmp = substr($line_data, $pos1, $pos2-$pos1);
-				echo "$tmp\n";
 				if (isset($this->order_ids[$tmp])){
 					$orders[$tmp] = trim($line_data);
 					unset($this->order_ids[$tmp]);
@@ -162,6 +162,43 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$outstanding_orders = implode("\n", $this->order_ids);		
 		fwrite($file, $outstanding_orders);
 		fclose($file);
+	}
+	
+	function getLogfileLines( $file ){
+		$array = array(); //surprise! 
+		$array = file($file, FILE_SKIP_EMPTY_LINES);
+		//now, check about 50 lines to make sure we're not seeing any of that #012, #015 crap.
+		$checkcount = 50;
+		if (count($array) < $checkcount){
+			$checkcount = count($array);
+		}
+		$convert = false;
+		for ($i=0; $i<$checkcount; ++$i){
+			if( strpos($array[$i], '#012') || strpos($array[$i], '#015') ){
+				$convert = true;
+				break;
+			}
+		}
+		if ($convert) {
+			$array2 = array(); 
+			foreach ($array as $line){
+				if (strpos($line, '#012')){
+					$line = str_replace('#012', "\n", $line);
+				}
+				if (strpos($line, '#015') ){
+					$line = str_replace('#015', "\r", $line);	
+				}
+				$array2[] = $line;
+			}
+			$newfile = implode("\n", $array2);
+			
+			$handle = fopen($file, 'w');
+			fwrite($handle, $newfile);
+			fclose($handle);
+			$array = file($file, FILE_SKIP_EMPTY_LINES);
+		}
+		
+		return $array;
 	}
 	
 }
