@@ -25,7 +25,8 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		foreach ($order_ids as $id){
 			$this->order_ids[$id] = $id; //easier to unset this way. 
 		}
-		echo "Order ID count: " . count($this->order_ids) . "\n";
+		$outstanding_count = count($this->order_ids);
+		echo "Order ID count: " . $outstanding_count . "\n";
 		
 		$files = $this->getAllLogFileNames();
 		foreach ($files as $file){
@@ -56,34 +57,26 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$payments[$key]['unstaged']['i_order_id'] = $payments[$key]['unstaged']['order_id'];
 			$payments[$key]['unstaged']['card_num'] = '';
 		}		
-		
-		//foreach dealie we have data for... do it. 
-		//probably damage the constructor, and do all the regular business on a data load. 
-		die(); //Not actually letting this work for another round or so. 
-		//Note to Self:
-		//Before you actually get rid of that die there and fire this thing off, make sure that:
-		// * Your STOMP server is pointing to the real STOMP server
-		//		...and the same with the queues.
-		// * Your AVS/CVV rules make The Sense. 
+
 		// ADDITIONAL: log out what you did here, to... somewhere. 
 		// Preferably *before* you rewrite the Order ID file. 
 
 		//we may need to unset some hooks out here. Like... recaptcha. Makes no sense.
-		error_log("\n\n\n");
 		foreach($payments as $payment_data){
 			$adapter->loadDataAndReInit($payment_data['unstaged']);
 			$results = $adapter->do_transaction('Confirm_CreditCard');
 			if ($results['status'] == true){
-				echo "\nWe were supposed to " . $results['action'] . "\n";
+				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
+				unset($this->order_ids[$payments[$key]['unstaged']['order_id']]);
 			} else {
-				echo "\nProblem Happened! \n";
+				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
 			}
 			echo $results['message'] . "\n";
 		}
 		
-		
-		//$this->rewriteOrderIds();
-		//and don't forget to kill the logs we don't care about anymore.
+		if ($outstanding_count != count($this->order_ids)){
+			$this->rewriteOrderIds();
+		}
 	}
 	
 	function getAllLogFileNames(){
@@ -113,6 +106,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		
+		$order_ids = $this->order_ids;
 		foreach ($lines as $line_no=>$line_data){
 			if (count($orders) >= $this->max_per_execute){
 				continue;
@@ -121,9 +115,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$pos2 = strpos($line_data, '</ORDERID>');
 			if ($pos2 > $pos1){
 				$tmp = substr($line_data, $pos1, $pos2-$pos1);
-				if (isset($this->order_ids[$tmp])){
+				if (isset($order_ids[$tmp])){
 					$orders[$tmp] = trim($line_data);
-					unset($this->order_ids[$tmp]);
+					unset($order_ids[$tmp]);
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 <?php
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
+
 	public function unstage_data( $data = array(), $final = true ){
 		$unstaged = array();
 		foreach ( $data as $key=>$val ){
@@ -27,7 +28,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 	
 	public function loadDataAndReInit( $data ){
-
+		$this->batch = true; //or the hooks will accumulate badness. 
+		
 		$this->dataObj = new DonationData( get_called_class(), false, $data );
 
 		$this->raw_data = $this->dataObj->getData();
@@ -56,6 +58,35 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->raw_data['i_order_id'] = $order_id;
 		$this->staged_data['order_id'] = $order_id;
 		$this->staged_data['i_order_id'] = $order_id;
+	}
+	
+	public function do_transaction($transaction){
+		switch ($transaction){
+			case 'SET_PAYMENT':
+			case 'CANCEL_PAYMENT':
+				self::log($this->getData_Raw('contribution_tracking_id') . ": CVV: " . $this->getData_Raw('cvv_result') . ": AVS: " . $this->getData_Raw('avs_result'));
+				//and then go on, unless you're testing, in which case:
+				//return "NOPE";
+				//break;
+			default:
+				return parent::do_transaction($transaction);
+				break;
+		}
+	}
+	
+	public static function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
+		$identifier = 'orphans:' . self::getIdentifier() . "_gateway_trxn";
+
+		// if we're not using the syslog facility, use wfDebugLog
+		if ( !self::getGlobal( 'UseSyslog' ) ) {
+			wfDebugLog( $identifier, $msg );
+			return;
+		}
+
+		// otherwise, use syslogging
+		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
+		syslog( $log_level, $msg );
+		closelog();
 	}
 	
 }

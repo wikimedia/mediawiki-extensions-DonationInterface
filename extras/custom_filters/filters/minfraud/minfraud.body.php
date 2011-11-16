@@ -37,7 +37,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_MinFraud {
 	}
 
 	static function singleton( &$gateway_adapter ) {
-		if ( !self::$instance ) {
+		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;

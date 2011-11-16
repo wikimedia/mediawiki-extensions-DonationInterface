@@ -56,7 +56,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 	}
 
 	static function singleton( &$gateway_adapter, &$custom_filter_object ) {
-		if ( !self::$instance ) {
+		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
 		return self::$instance;

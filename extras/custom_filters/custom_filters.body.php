@@ -41,7 +41,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			$this->risk_score = 0;
 		if ( $this->risk_score > 100 )
 			$this->risk_score = 100;
-//		error_log("Risk score: " . $this->risk_score );
 		foreach ( $this->action_ranges as $action => $range ) {
 			if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
 				return $action;
@@ -73,7 +72,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	}
 
 	static function singleton( &$gateway_adapter ) {
-		if ( !self::$instance ) {
+		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;

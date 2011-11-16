@@ -173,6 +173,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $current_transaction;
 	protected $action;
 	public $debugarray; 
+	protected $batch = false;
 
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -1988,6 +1989,19 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function hasDonorDataInSession( $key = false, $value= '' ){
 		return $this->dataObj->hasDonorDataInSession( $key, $value );
+	}
+	
+	/**
+	 * Lets the outside world (particularly hooks that accumulate points scores)
+	 * know if we are a batch processor. 
+	 * @return type 
+	 */
+	public function isBatchProcessor(){
+		if (!property_exists($this, 'batch')){
+			return false;
+		} else {
+			return $this->batch;
+		}
 	}
 
 }
