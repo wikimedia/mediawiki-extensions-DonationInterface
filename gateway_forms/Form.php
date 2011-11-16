@@ -202,6 +202,8 @@ abstract class Gateway_Form {
 
 		// generate a dropdown option for each country
 		foreach ( $countries as $iso_value => $full_name ) {
+			// Note: If the server has the php5-geoip package, $this->form_data['country'] will
+			// always have a value.
 			if ( $this->form_data['country'] ) {
 				$selected = ( $iso_value == $this->form_data['country'] ) ? true : false;
 			} else {
