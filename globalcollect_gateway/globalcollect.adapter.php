@@ -290,6 +290,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CURRENCYCODE'		=> 'currency_code',
 			'CVV'				=> 'cvv',
 			'DATECOLLECT'		=> 'date_collect',
+			'DESCRIPTOR'		=> 'descriptor', // eWallets
 			'DIRECTDEBITTEXT'	=> 'direct_debit_text',
 			'DOMICILIO'			=> 'domicilio', // dd:ES
 			'EFFORTID'			=> 'effort_id',
@@ -607,6 +608,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
+		// eWallets
+		$this->payment_methods['ew'] = array(
+			'label'	=> 'eWallets',
+			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', ),
+			'validation' => array( 'address' => false, 'creditCard' => false, )
+			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
+		);
+		
 		// Bank Transfers
 		$this->payment_methods['obt'] = array(
 			'label'	=> 'Online bank transfer',
@@ -832,6 +841,55 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'dd',
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+		);
+
+		/*
+		 * eWallets
+		 */
+		 
+		// eWallets PayPal
+		$this->payment_submethods['ew_paypal'] = array(
+			'paymentproductid'	=> 840,
+			'label'	=> 'eWallets: PayPal',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+		 
+		// eWallets PayPal
+		$this->payment_submethods['ew_paypal'] = array(
+			'paymentproductid'	=> 840,
+			'label'	=> 'eWallets: PayPal',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+		 
+		// eWallets WebMoney
+		$this->payment_submethods['ew_webmoney'] = array(
+			'paymentproductid'	=> 841,
+			'label'	=> 'eWallets: WebMoney',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+		 
+		// eWallets Moneybookers
+		$this->payment_submethods['ew_moneybookers'] = array(
+			'paymentproductid'	=> 843,
+			'label'	=> 'eWallets: Moneybookers',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+		 
+		// eWallets cashU
+		$this->payment_submethods['ew_cashu'] = array(
+			'paymentproductid'	=> 845,
+			'label'	=> 'eWallets: cashU',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
 		);
 
 		/*
@@ -1753,6 +1811,28 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Direct debit has different required fields for each paymentproductid.
 		$this->addKeysToTransactionForSubmethod( $payment_submethod );
 	}
+
+	/**
+	 * Stage: setupStagePaymentMethodForEWallets
+	 *
+	 * @param string	$payment_submethod
+	 * @param string	$type	request|response
+	 */
+	protected function setupStagePaymentMethodForEWallets( $payment_submethod, $type = 'request' ) {
+
+		// DESCRIPTOR is required on WebMoney, assuming it is required for all.
+		$this->addKeyToTransaction('DESCRIPTOR');
+
+		$this->staged_data['descriptor'] = 'Wikimedia Foundation/Wikipedia';
+
+		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+		$this->var_map['COUNTRYCODEBANK'] = 'country';
+		
+		$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
+
+		// eWallets custom keys
+		$this->addKeysToTransactionForSubmethod( $payment_submethod );
+	}
 	
 	/**
 	 * Stage: payment_method
@@ -1835,12 +1915,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			
+			/* eWallets */
+			case 'ew_cashu':
+			case 'ew_moneybookers':
+			case 'ew_paypal':
+			case 'ew_webmoney':
+				$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
+				break;
+
 			/* Online bank transfer */
 			case 'bpay':
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
-
 			
 			/* Real time bank transfer */
 			case 'rtbt_nordea_sweden':
