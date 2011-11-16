@@ -122,18 +122,6 @@ EOT;
 						}
 
 					}
-					elseif ( $payment_method == 'rtbt' ) {
-
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						$formAction = $this->adapter->getTransactionDataFormAction();
-						
-						// Redirect to the bank
-						if ( !empty( $formAction ) ) {
-							return $wgOut->redirect( $formAction );
-						}
-
-					}
 					elseif ( $payment_method == 'dd' ) {
 
 						$this->adapter->do_transaction( 'DO_BANKVALIDATION' );
@@ -148,7 +136,18 @@ EOT;
 							// Attach the error messages to the form
 							$this->adapter->setBankValidationErrors();
 						}
+					}
+					elseif ( $payment_method == 'ew' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						$formAction = $this->adapter->getTransactionDataFormAction();
 						
+						// Redirect to the bank
+						if ( !empty( $formAction ) ) {
+							return $wgOut->redirect( $formAction );
+						}
+
 					}
 					elseif ( $payment_method == 'obt' ) {
 
@@ -157,6 +156,18 @@ EOT;
 						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 						
 							return $this->displayOnlineBankTransferInformation();
+						}
+
+					}
+					elseif ( $payment_method == 'rtbt' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						$formAction = $this->adapter->getTransactionDataFormAction();
+						
+						// Redirect to the bank
+						if ( !empty( $formAction ) ) {
+							return $wgOut->redirect( $formAction );
 						}
 
 					}
