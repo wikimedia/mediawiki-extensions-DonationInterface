@@ -94,7 +94,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				++$i;
 				$adapter->loadDataAndReInit($payment_data['unstaged']);
 				$results = $adapter->do_transaction('Confirm_CreditCard');
-				if ($results['status'] == true){
+				if ($results['status']){
 					$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
 					unset($this->order_ids[$payment_data['unstaged']['order_id']]);
 				} else {
