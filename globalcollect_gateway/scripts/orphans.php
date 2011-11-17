@@ -29,9 +29,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		echo "Order ID count: " . $outstanding_count . "\n";
 		
 		$files = $this->getAllLogFileNames();
+		$payments = array();
 		foreach ($files as $file){
+			if (count($payments) >= $this->max_per_execute){
+				continue;
+			}
 			$file_array = $this->getLogfileLines( $file );
-			$payments = $this->findTransactionLines($file_array);
+			$payments = array_merge($this->findTransactionLines($file_array), $payments);
 			if (count($payments) === 0){
 				$this->killfiles[] = $file;
 				echo print_r($this->killfiles, true);
