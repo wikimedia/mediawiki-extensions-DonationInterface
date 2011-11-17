@@ -124,6 +124,7 @@ No processors are available.',
 	// Migrated messages
 	'donate_interface-accessible' => 'This page is only accessible from the donation page.',
 	'donate_interface-paypal-button' => 'Donate via PayPal',
+	'donate_interface-paypal-redirect' => 'Redirecting to PayPal…',
 	'donate_interface-cc-button' => 'Donate by credit card',
 	'donate_interface-ccdc-button' => 'Donate by credit/debit card',
 	'donate_interface-dd-button' => 'Donate by direct debit',

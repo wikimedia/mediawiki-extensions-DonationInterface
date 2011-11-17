@@ -67,9 +67,6 @@
 .donate-options {
 	text-align: center;
 }
-.donate-options input {
-	width: 15em;
-}
 
 input.button, select#input_currency_code {
  font-size: 95%;
@@ -175,7 +172,7 @@ div.ui-dialog {
 }
 input.btn {
 	font-size: 15px;
-	margin-bottom: 3px;
+	margin-bottom: 4px;
 }
 #dialog{
 	overflow: hidden;
@@ -293,4 +290,8 @@ input.btn {
 }
 #steps #card-errors .error-msg {
 	margin-bottom: 1em;
+}
+#informationsharing {
+	font-size: 11px;
+	line-height: 13px;
 }

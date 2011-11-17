@@ -9,69 +9,70 @@ var actionURL = "@action";
 var scriptPath = "@script_path";
 </script>
 
-    <div class="ltr">
-      <div id="appeal">
-        <div id="appeal-content">
-          <div class="call-r">
-            <div id="donate">
-              <h3 id="amount-heading">Donate</h3>
-              
-              <form method="post" name="paypalcontribution">
-                <div style="display: block;" id="amount-content">
-                  <div id="amtErrorMessages" class="small"></div>
-                  <table id="amount-table"> 
-                    <tr> 
-                      <td><label><input type="radio" name="amountRadio" value="5" /> $5</label></td> 
-                      <td><label><input type="radio" name="amountRadio" value="10" /> $10</label></td> 
-                      <td><label><input type="radio" name="amountRadio" value="20" /> $20</label></td> 
-                      <td><label><input type="radio" name="amountRadio" value="35" /> $35</label></td> 
-                    </tr> 
-                    <tr> 
-                      <td><label><input type="radio" name="amountRadio" value="50" /> $50</label></td> 
-                      <td><label><input type="radio" name="amountRadio" value="100" /> $100</label></td> 
-                      <td><label><input type="radio" name="amountRadio" value="250" /> $250</label></td> 
-                      <td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label>$<input type="text" name="amountGiven" size="4" id="other-amount" placeholder="Other" onfocus="this.form.input_amount_other.checked=true;"/></label></td> 
-                    </tr> 
-                  </table> 
-                  
-                  <p class="donate-options">
-                    <input class="btn" id="cc" value="Donate by Credit Card" type="button">
-                    <br><input class="btn" id="pp" value="Donate via PayPal" type="button"><span id="loading"></span>
-                  </p>
-                </div>
-                
-              </form>
-            </div>
-            
-            <div id="callout-content">
-              <hr>
-                <h3>Where your donation goes</h3>
-                <p><strong>Technology:</strong> Servers, bandwidth, 
-maintenance, development. Wikipedia is the #5 website in the world and 
-it runs on a fraction of what other top websites spend.</p>
-                <p><strong>People:</strong> The other top 10 website 
-have thousands of employees. We have fewer than 100, making your 
-donation a great investment in a highly-efficient not-for-profit 
-organization.</p>
-            </div>
-          </div>
-          
-          <h2 id="appeal-head"> <span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title|@language}}</span></h2>
-          <div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal|@language}}</div>
-        </div>
-      </div>
-      
-      <hr>
-      
-      <p>We do not store your credit card information, and your personal data is subject to our <a target="_blank" href="http://wikimediafoundation.org/wiki/Donor_policy"> donor privacy policy</a>.</p>
-      <p><a href="http://wikipedia.webitects.com/wiki/Ways_to_Give/en">More information or other ways to give</a><br><a href="http://wikipedia.webitects.com/wiki/FAQ/en">Answers to frequently asked questions</a></p>
-    </div>
+<div class="ltr">
+	<div id="appeal">
+		<div id="appeal-content">
+			<div class="call-r">
+				<div id="donate">
+					<noscript>
+						<div id="noscript">
+							<p id="noscript-msg">It appears that you do not have JavaScript enabled, or your browser does not support it. In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.</p><p id="noscript-redirect-msg">If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:</p><p id="noscript-redirect-link"><a href="http://wikimediafoundation.org/wiki/DonateNonJS/en">http://wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
+						</div>
+					</noscript>
+			
+					<h3 id="amount-heading">%donate_interface-amount-legend%</h3>
+					
+					<p id="topError" class="creditcard-error-msg"></p>
+					<form method="post" name="paypalcontribution">
+						<div style="display: block;" id="amount-content">
+							<div id="amtErrorMessages" class="small"></div>
+							<table id="amount-table"> 
+								<tr> 
+									<td><label><input type="radio" name="amountRadio" value="5" /> $5</label></td> 
+									<td><label><input type="radio" name="amountRadio" value="10" /> $10</label></td> 
+									<td><label><input type="radio" name="amountRadio" value="20" /> $20</label></td> 
+									<td><label><input type="radio" name="amountRadio" value="35" /> $35</label></td> 
+								</tr> 
+								<tr> 
+									<td><label><input type="radio" name="amountRadio" value="50" /> $50</label></td> 
+									<td><label><input type="radio" name="amountRadio" value="100" /> $100</label></td> 
+									<td><label><input type="radio" name="amountRadio" value="250" /> $250</label></td> 
+									<td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label>$<input type="text" name="amountGiven" size="4" id="other-amount" placeholder="Other" onfocus="this.form.input_amount_other.checked=true;"/></label></td> 
+								</tr> 
+							</table> 
+					  
+							<p class="donate-options">
+								<input class="btn" id="cc" value="%donate_interface-cc-button%" type="button"/>
+								<br><input class="btn" id="pp" value="%donate_interface-paypal-button%" type="button"><span id="loading"></span>
+							</p>
+						</div>
+					</form>
+				</div>
+				
+				<div id="callout-content">
+					<hr/>
+					<p id="informationsharing">%donate_interface-informationsharing|url%</p>
+				</div>
+			</div>
+			  
+			<h2 id="appeal-head"><span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title|@language}}</span></h2>
+			<div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal|@language}}</div>
+		</div>
+	</div>
+		  
+	<hr/>
+		  
+	<p>
+		<a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a><br/>
+		<a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a>
+	</p>
+</div>
     
 <div id="dialog">
 	<div id="steps">
 		<form id="donationForm" name="donationForm" action="" method="post">
 			<fieldset class="step">
-				<legend>Personal Information</legend>
+				<legend>%donate_interface-billing-address%</legend>
 				<input type="hidden" name="gateway" value="payflowpro" id="gateway" /> 
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="@action" name="action" />

@@ -45,7 +45,7 @@ $( document ).ready( function () {
 		resizable: false,
         autoOpen: false,
         modal: true,
-        title: 'Donate by Credit Card'
+        title: mw.msg( 'donate_interface-cc-button' )
 	} );
 	
 	// If the form is being reloaded, restore the amount
@@ -65,15 +65,15 @@ $( document ).ready( function () {
 	}
 	
 	$( '#cc' ).click( function() {
-		if ( validateAmount( document.paypalcontribution ) ) {
+		if ( validateAmount() ) {
 			$( '#dialog' ).dialog( 'open' );
 		}
 	});
 	$( '#pp' ).click( function() {
-		if ( validateAmount( document.paypalcontribution ) ) {
+		if ( validateAmount() ) {
+			//$( 'input#pp' ).attr( 'disabled', 'disabled' );
 			$( "input[name='gateway']" ).val( 'paypal' );
 			document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
-			$( '#loading' ).html( "<img src='../images/loading.gif' /> Redirecting to PayPal..." );
 			document.paypalcontribution.submit();
 		}
 	});
@@ -202,7 +202,7 @@ $( document ).ready( function () {
 				'state': $( 'select#state option:selected' ).val(),
 				'zip': $( "input[name='zip']" ).val(),
 				'emailAdd': $( "input[name='emailAdd']" ).val(),
-				'country': 'US',
+				'country': $( "input[name='country']" ).val(),
 				'payment_method': 'cc',
 				'language': 'en',
 				
@@ -258,29 +258,41 @@ $( document ).ready( function () {
 
 		return error;
 	}
-	
-	function validateAmount(){
+
+	/**
+	 * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
+	 */
+	function validateAmount() {
 		var error = true;
 		var amount = $( "input[name='amount']" ).val(); // get the amount
-		var otherAmount = amount // create a working copy
-		otherAmount = otherAmount.replace( /[,.](\d)$/, '\:$10' );
-		otherAmount = otherAmount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
-		otherAmount = otherAmount.replace( /[,.]/g, '' );
-		otherAmount = otherAmount.replace( /:/, '.' );
-		amount = otherAmount; // reset amount to working copy amount
-		$( "input[name='amount']" ).val( amount ); // set the new amount back into the form
+		// Normalize weird amount formats.
+		// Don't mess with these unless you know what you're doing.
+		amount = amount.replace( /[,.](\d)$/, '\:$10' );
+		amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
+		amount = amount.replace( /[,.]/g, '' );
+		amount = amount.replace( /:/, '.' );
+		$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
 		
 		// Check amount is a real number, sets error as true (good) if no issues
 		error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
-		// Check amount is at least the minimum
-		var currency = 'USD'; // hard-coded for these forms and tests
-		$( "input[name='currency_code']" ).val( currency );
-		if ( typeof( wgCurrencyMinimums[currency] ) == 'undefined' ) {
-			wgCurrencyMinimums[currency] = 1;
+		
+		// Find out the currency code
+		if ( $( 'input[name="currency_code"]' ).val() == '' ) {
+			var currency_code = 'USD'; // hard-code since we're only running this in the US
+			$( "input[name='currency_code']" ).val( currency_code );
+		} else {
+			var currency_code = $( 'input[name="currency_code"]' ).val();
 		}
-		if ( amount < wgCurrencyMinimums[currency] || error ) {
-			alert( 'You must contribute at least $1'.replace('$1', wgCurrencyMinimums[currency] + ' ' + currency ) );
+		
+		// Check amount is at least the minimum
+		if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
+			wgCurrencyMinimums[currency_code] = 1;
+		}
+		if ( amount < wgCurrencyMinimums[currency_code] || error ) {
+			alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
 			error = true;
+			$( '#other-amount' ).val( '' );
+			$( '#other-amount' ).focus();
 		}
 		return !error;
 	};
