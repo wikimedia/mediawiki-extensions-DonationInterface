@@ -90,11 +90,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$results = $adapter->do_transaction('Confirm_CreditCard');
 			if ($results['status'] == true){
 				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
-				unset($this->order_ids[$payments[$key]['unstaged']['order_id']]);
+				unset($this->order_ids[$payment_data['unstaged']['order_id']]);
 			} else {
 				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
 				if (strpos($results['message'], "GET_ORDERSTATUS reports that the payment is already complete.")){
-					unset($this->order_ids[$payments[$key]['unstaged']['order_id']]);
+					unset($this->order_ids[$payment_data['unstaged']['order_id']]);
 				}
 			}
 			echo $results['message'] . "\n";
