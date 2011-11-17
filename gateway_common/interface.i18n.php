@@ -130,6 +130,7 @@ No processors are available.',
 	'donate_interface-dd-button' => 'Donate by direct debit',
 	'donate_interface-bt-button' => 'Donate by bank transfer',
 	'donate_interface-rt-button' => 'Donate through $1 bank',
+	'donate_interface-ewallet-button' => 'Donate via $1',
 	'donate_interface-donor-legend' => 'Donor information',
 	'donate_interface-card-legend' => 'Credit card information',
 	'donate_interface-amount-legend' => 'Donation amount',
@@ -534,6 +535,7 @@ $messages['qqq'] = array(
 	'donate_interface-rt-button' => "Button to choose to donate via real time banking.
 
 '''\$1''' is the name of a bank that performs such actions. E.g. \"IDEAL\" for the Netherlands or \"Nordea\" for Sweden. Will only be used in select countries.',
+	'donate_interface-ewallet-button' => 'Button to choose to donate via an eWallet. \'\'\'\$1\'\'\' is the name of an eWallet, like PayPal, Moneybookers, etc.',
 	'donate_interface-donor-legend' => 'Header for the entire form where you fill out your personal information.",
 	'donate_interface-donor-legend' => 'Header for the entire form where you fill out your personal information.',
 	'donate_interface-card-legend' => 'Header for part of the form that has information about the credit card itself.',
