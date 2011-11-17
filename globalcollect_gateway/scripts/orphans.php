@@ -31,14 +31,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$files = $this->getAllLogFileNames();
 		$payments = array();
 		foreach ($files as $file){
-			if (count($payments) >= $this->max_per_execute){
-				continue;
-			}
-			$file_array = $this->getLogfileLines( $file );
-			$payments = array_merge($this->findTransactionLines($file_array), $payments);
-			if (count($payments) === 0){
-				$this->killfiles[] = $file;
-				echo print_r($this->killfiles, true);
+			if (count($payments) < $this->max_per_execute){
+				$file_array = $this->getLogfileLines( $file );
+				$payments = array_merge($this->findTransactionLines($file_array), $payments);
+				if (count($payments) === 0){
+					$this->killfiles[] = $file;
+					echo print_r($this->killfiles, true);
+				}
 			}
 		}		
 		
@@ -89,19 +88,23 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		// Preferably *before* you rewrite the Order ID file. 
 
 		//we may need to unset some hooks out here. Like... recaptcha. Makes no sense.
+		$i = 0;
 		foreach($payments as $payment_data){
-			$adapter->loadDataAndReInit($payment_data['unstaged']);
-			$results = $adapter->do_transaction('Confirm_CreditCard');
-			if ($results['status'] == true){
-				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
-				unset($this->order_ids[$payment_data['unstaged']['order_id']]);
-			} else {
-				$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
-				if (strpos($results['message'], "GET_ORDERSTATUS reports that the payment is already complete.")){
+			if ($i < $this->max_per_execute){
+				++$i;
+				$adapter->loadDataAndReInit($payment_data['unstaged']);
+				$results = $adapter->do_transaction('Confirm_CreditCard');
+				if ($results['status'] == true){
+					$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
 					unset($this->order_ids[$payment_data['unstaged']['order_id']]);
+				} else {
+					$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
+					if (strpos($results['message'], "GET_ORDERSTATUS reports that the payment is already complete.")){
+						unset($this->order_ids[$payment_data['unstaged']['order_id']]);
+					}
 				}
+				echo $results['message'] . "\n";
 			}
-			echo $results['message'] . "\n";
 		}
 		
 		if ($outstanding_count != count($this->order_ids)){
@@ -138,16 +141,15 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		$order_ids = $this->order_ids;
 		foreach ($lines as $line_no=>$line_data){
-			if (count($orders) >= $this->max_per_execute){
-				continue;
-			}
-			$pos1 = strpos($line_data, '<ORDERID>') + 9;
-			$pos2 = strpos($line_data, '</ORDERID>');
-			if ($pos2 > $pos1){
-				$tmp = substr($line_data, $pos1, $pos2-$pos1);
-				if (isset($order_ids[$tmp])){
-					$orders[$tmp] = trim($line_data);
-					unset($order_ids[$tmp]);
+			if (count($orders) < $this->max_per_execute){
+				$pos1 = strpos($line_data, '<ORDERID>') + 9;
+				$pos2 = strpos($line_data, '</ORDERID>');
+				if ($pos2 > $pos1){
+					$tmp = substr($line_data, $pos1, $pos2-$pos1);
+					if (isset($order_ids[$tmp])){
+						$orders[$tmp] = trim($line_data);
+						unset($order_ids[$tmp]);
+					}
 				}
 			}
 		}
