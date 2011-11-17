@@ -526,6 +526,7 @@ $messages['qqq'] = array(
 	'donate_interface-currency-display' => '$1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-accessible' => 'Error message if you try to go to "Special:PayFlowProGateway" from anywhere else than the donation form.',
 	'donate_interface-paypal-button' => 'Button to choose to donate via PayPal.',
+	'donate_interface-paypal-redirect' => 'Message to display while the page is redirecting to PayPal. This is displayed next to the button so it needs to be short if possible.',
 	'donate_interface-cc-button' => 'Button to choose to donate by credit card.',
 	'donate_interface-ccdc-button' => 'Button to choose to donate by credit card or debit card.',
 	'donate_interface-dd-button' => 'Button to choose to donate by [[w:direct debit|direct debit]].',
