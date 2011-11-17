@@ -86,15 +86,30 @@ h3 span { font-weight: normal; }
 .loc-fields.nostate .loc-city { float: left; margin: 0 1% 5px 0; width: 48%; }
 .loc-fields.nostate .loc-postal { float: left; margin: 0 1% 5px 0; width: 49%; }
 
+/* Location where we are not including a state select */
+.loc-fields.bigstate .loc-city { margin-right: 1%; width: 42%; }
+.loc-fields.bigstate .loc-postal { width: 24%; }
+.loc-fields.bigstate .loc-state { margin-right: 0%; width: 30%; }
+
+.loc-postal.ja { width: 300px; }
+
+/* Direct debit fields */
+
+.dd-acctnumber { float: left; margin: 5px 2% 5px 0; width: 48%; }
+.dd-acctname { float: left; margin: 5px 2% 5px 0; width: 48%; }
+.dd-bankcode { margin-bottom: 5px; width: 100%; }
+
+
 /* Name */
 .name-fields span { float: left; margin: 0 2% 5px 0; width: 48%; }
 .name-fields .name-last { margin: 0; }
 
+/* Name - reversed */
+.name-fields.reversed span { float: left; margin: 0 2% 5px 0; width: 48%; }
+.name-fields.reserved .name-first{ margin: 0; }
+
 /* Help text */
 .field-help { color: #666; font-size: 0.8em; font-weight: normal; }
-
-/* Hints */
-.ezpz-hint { color: #777; font-style: italic; }
 
 /* Options */
 .form .options-h, .form .options-v { margin: 0; }
@@ -221,4 +236,9 @@ p#informationsharing {
 ul#moreinfolinks li{
     list-style: none !important;
     list-style-image: none !important;
+}
+
+#bpay{
+    margin: 25px 0 0 15px;
+    font-size: 12px;
 }
