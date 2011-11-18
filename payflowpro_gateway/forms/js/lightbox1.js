@@ -177,7 +177,7 @@ $( document ).ready( function () {
 			var valueLength = $.trim( $this.val() ).length;
 			if ( valueLength == 0 ) {
 				errors = true;
-				$this.css( 'background-color', '#FFEDEF' );
+				$this.css( 'background-color', '#FFEAEC' );
 			} else {
 				$this.css( 'background-color', '#FFFFFF' );
 			}
@@ -192,7 +192,7 @@ $( document ).ready( function () {
 			var ccCheckRegExp = /[^\d]/; 
 			if ( ccCheckRegExp.test(cardNumber) ) {
 				errors = true;
-				$( '#card_num' ).css( 'background-color', '#FFEDEF' );
+				$( '#card_num' ).css( 'background-color', '#FFEAEC' );
 			} else {
 				$( '#card_num' ).css( 'background-color', '#FFFFFF' );
 			}
@@ -226,7 +226,7 @@ $( document ).ready( function () {
 			var valueLength = $.trim( $this.val() ).length;
 			if ( valueLength == 0 ) {
 				errors = true;
-				$this.css( 'background-color', '#FFEDEF' );
+				$this.css( 'background-color', '#FFEAEC' );
 			} else {
 				$this.css( 'background-color', '#FFFFFF' );
 			}
@@ -240,7 +240,7 @@ $( document ).ready( function () {
 			var dotpos = email.lastIndexOf(".");
 			if( apos < 1 || dotpos-apos < 2 ) {
 				errors = true;
-				$( '#email' ).css( 'background-color', '#FFEDEF' );
+				$( '#email' ).css( 'background-color', '#FFEAEC' );
 			} else {
 				$( '#email' ).css( 'background-color', '#FFFFFF' );
 			}
