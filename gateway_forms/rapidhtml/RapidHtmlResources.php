@@ -28,9 +28,11 @@ $wgResourceModules[ 'pfp.form.rapidhtml.lightbox' ] = array(
 		'jquery.ui.resizable',
 		'jquery.ui.button',
 		'jquery.ui.dialog',
+		'ext.donationInterface.errorMessages',
 	),
 	'messages' => array(
 		'donate_interface-cc-button',
+		'donate_interface-ccdc-button',
 		'donate_interface-paypal-button',
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',

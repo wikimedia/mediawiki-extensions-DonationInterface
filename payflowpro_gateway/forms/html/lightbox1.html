@@ -16,13 +16,13 @@ var scriptPath = "@script_path";
 				<div id="donate">
 					<noscript>
 						<div id="noscript">
-							<p id="noscript-msg">It appears that you do not have JavaScript enabled, or your browser does not support it. In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.</p><p id="noscript-redirect-msg">If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:</p><p id="noscript-redirect-link"><a href="http://wikimediafoundation.org/wiki/DonateNonJS/en">http://wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
+							<p id="noscript-msg">%donate_interface-noscript-msg%</p>
+							<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
+							<p id="noscript-redirect-link"><a href="http://wikimediafoundation.org/wiki/DonateNonJS/en">http://wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
 						</div>
 					</noscript>
-			
+					<div id="topError" class="creditcard-error-msg"></div>
 					<h3 id="amount-heading">%donate_interface-amount-legend%</h3>
-					
-					<p id="topError" class="creditcard-error-msg"></p>
 					<form method="post" name="paypalcontribution">
 						<div style="display: block;" id="amount-content">
 							<div id="amtErrorMessages" class="small"></div>
@@ -42,37 +42,37 @@ var scriptPath = "@script_path";
 							</table> 
 					  
 							<p class="donate-options">
-								<input class="btn" id="cc" value="%donate_interface-cc-button%" type="button"/>
-								<br><input class="btn" id="pp" value="%donate_interface-paypal-button%" type="button"><span id="loading"></span>
+								<input class="btn" id="cc" value="%donate_interface-ccdc-button%" type="button"/><br/>
+								<input class="btn" id="pp" value="%donate_interface-paypal-button%" type="button"/>
 							</p>
 						</div>
 					</form>
 				</div>
-				
+				<hr/>
 				<div id="callout-content">
-					<hr/>
 					<p id="informationsharing">%donate_interface-informationsharing|url%</p>
+					<div id="secure-logo">@verisign_logo</div>
+					<ul id="moreinfolinks">
+						<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Monthly_donations&language=@language&uselang=@language&country=@country">%donate_interface-monthly-donation%</a></li>
+						<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></li>
+						<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a></li>
+						<li><a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Tax_Deductibility&language=@language&uselang=@language&country=@country">%donate_interface-tax-info%</a></li>
+					</ul>
 				</div>
 			</div>
-			  
+			<!-- The appeal -->
 			<h2 id="appeal-head"><span class="mw-headline">{{LanguageSwitch|2011FR/@appeal-title|@language}}</span></h2>
 			<div id="appeal-body" class="plainlinks">{{LanguageSwitch|2011FR/@appeal|@language}}</div>
 		</div>
 	</div>
-		  
-	<hr/>
-		  
-	<p>
-		<a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a><br/>
-		<a href="http://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a>
-	</p>
+
 </div>
     
 <div id="dialog">
 	<div id="steps">
 		<form id="donationForm" name="donationForm" action="" method="post">
 			<fieldset class="step">
-				<legend>%donate_interface-billing-address%</legend>
+				<legend>%donate_interface-cc-form-header-personal%</legend>
 				<input type="hidden" name="gateway" value="payflowpro" id="gateway" /> 
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="@action" name="action" />
@@ -141,11 +141,11 @@ var scriptPath = "@script_path";
 						</tr>
 						</table>
 					</div>
-					<a href="#" class="continue-button">Continue</a>
+					<a href="#" id="personal-continue" class="continue-button">Continue</a>
 				</div>
 			</fieldset>
 			<fieldset class="step">
-				<legend>Payment</legend>
+				<legend>%donate_interface-cc-form-header-payment%</legend>
 				<div class="step-content">
 					<div class="stuff">
 						<div id="card-errors"></div>
@@ -206,13 +206,15 @@ var scriptPath = "@script_path";
 								<label for="email">Security Code</label>
 							</td>
 							<td>
-								<input name="cvv" size="30" value="@cvv" type="text" maxlength="100" class="required" id="cvv" style="width: 50px;" />
+								<input name="cvv" size="30" value="@cvv" type="text" maxlength="100" class="required" id="cvv" style="width: 50px;" />&#160;
+								<a href="#" onclick="PopupCVV(); return false;" id="cvv-link">What is this?</a>
 							</td>
 						</tr>
 						</table>
 					</div>
 					<a href="#" class="back-button" id="goback">Back</a>
-					<a href="#" class="continue-button" id="submitcreditcard">Continue</a>
+					<a href="#" id="cc-continue" class="continue-button">Continue</a>
+					<div id="spinner"><img src="@script_path/extensions/DonationInterface/gateway_forms/includes/loading-white.gif"/></div>
 				</div>
 			</fieldset>
 		</form>

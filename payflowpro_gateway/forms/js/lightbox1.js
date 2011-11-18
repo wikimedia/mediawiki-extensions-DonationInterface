@@ -25,19 +25,12 @@ $( document ).ready( function () {
 	paymentErrorString = temp.join( "<br />" );
 
 	// show the errors
-	var prevError = false;
 	if ( amountErrorString != "" ) {
-		$( "#amtErrorMessages" ).html( amountErrorString );
-		prevError = true;
-	}
-	if ( billingErrorString != "" ) {
-		$( "#billingErrorMessages" ).html( billingErrorString );
-		if ( !prevError ) {
-			prevError = true;
-		}
-	}
-	if ( paymentErrorString != "" ) {
-		$( "#paymentErrorMessages" ).html( paymentErrorString );
+		$( "#topError" ).html( amountErrorString );
+	} else if ( billingErrorString != "" ) {
+		$( "#topError" ).html( billingErrorString );
+	} else if ( paymentErrorString != "" ) {
+		$( "#topError" ).html( paymentErrorString );
 	}
 	
 	$( '#dialog' ).dialog( {
@@ -45,7 +38,7 @@ $( document ).ready( function () {
 		resizable: false,
         autoOpen: false,
         modal: true,
-        title: mw.msg( 'donate_interface-cc-button' )
+        title: mw.msg( 'donate_interface-ccdc-button' )
 	} );
 	
 	// If the form is being reloaded, restore the amount
@@ -65,22 +58,52 @@ $( document ).ready( function () {
 	}
 	
 	$( '#cc' ).click( function() {
+	
+		// Make sure cookies are enabled
+		document.cookie = 'wmf_test=1;';
+		if ( document.cookie.indexOf( 'wmf_test=1' ) != -1 ) {
+			document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
+		} else {
+			alert( mw.msg( 'donate_interface-error-msg-cookies' ) ); // display error
+			return false;
+		}
+		
 		if ( validateAmount() ) {
 			$( '#dialog' ).dialog( 'open' );
+			$( "#spinner" ).hide(); // just in case
 		}
 	});
 	$( '#pp' ).click( function() {
 		if ( validateAmount() ) {
 			//$( 'input#pp' ).attr( 'disabled', 'disabled' );
 			$( "input[name='gateway']" ).val( 'paypal' );
-			document.paypalcontribution.action = "https://wikimediafoundation.org/wiki/Special:ContributionTracking/en";
+			$( 'input[name="PaypalRedirect"]' ).val( "1" );
+			document.paypalcontribution.action = actionURL;
 			document.paypalcontribution.submit();
 		}
 	});
 	
-	/* Set selected amount to amount */
-	$( "input[name='amountRadio']" ).click( function() { setAmount( $( this ) ); } );
-	$( "#other-amount" ).change( function() { setAmount( $( this ) ); } );
+	// Set amount when a radio button is clicked
+	$( 'input[name="amountRadio"]' ).click( function() {
+		if ( !isNaN( $( this ).val() ) ) {
+			setAmount( $( this ) );
+		}
+		if ( $( this ).val() == 'other' ) {
+			setAmount( $( '#other-amount' ) );
+		}
+	} );
+	// Change the amount when "other" is focused
+	$( "#other-amount" ).focus( function() {
+		$( '#input_amount_other' ).attr( 'checked', true );
+		setAmount( $( '#other-amount' ) );
+	} );
+	// Reset the amount field when "other" is changed
+	$( "#other-amount" ).keyup( function() {
+		if ( $( '#input_amount_other' ).is( ':checked' ) ) {
+			setAmount( $( this ) );
+		}
+	} );
+	
 	function setAmount(e) { $("input[name='amount']").val( e.val() ); }
 
 	/* number of fieldsets */
@@ -94,10 +117,7 @@ $( document ).ready( function () {
 	Set the final sum as the total width of the steps element.
 	*/
 	var stepsWidth	= 0;
-    var widths 		= new Array();
 	$( '#steps .step' ).each( function(i) {
-        var $step 		= $( this );
-		widths[i]  		= stepsWidth;
         stepsWidth	 	+= 600; // Hard-coding as $.width() is not working for some reason
     } );
 	$( '#steps' ).width( stepsWidth );
@@ -107,37 +127,33 @@ $( document ).ready( function () {
 	
 	/* make continue buttons */
 	$( 'a.continue-button' ).button();
-	$( 'a.continue-button' ).click( function(e) {
-		var $this	= $( this );
-		current = $( this ).parent().parent().index() + 1;
-		if ( current == fieldsetCount ) {
-			finalSubmit();
-			return false;
-		}
-		if ( validateStep( current ) === 1 ) {
-			current = current + 1;
-			$( '#steps' ).stop().animate( { marginLeft: '-' + widths[current - 1] + 'px' }, 500, 
+	$( 'a#personal-continue' ).click( function(e) {
+		if ( validatePersonal() ) {
+			// Advance to the next step
+			$( '#steps' ).stop().animate( { marginLeft: '-600px' }, 500, 
 				function() {
-        			$( '#donationForm' ).children( ':nth-child(' + parseInt(current) + ')' ).find( ':input:first' ).focus();
+        			$( '#donationForm' ).children( ':nth-child(1)' ).find( ':input:first' ).focus();
         		}
         	);
-		} else {
-			$this.blur();
 		}
-		
-        e.preventDefault();
+		$( this ).blur();
+		e.preventDefault();
+		return false;
+    });
+    $( 'a#cc-continue' ).click( function(e) {
+    	finalSubmit();
+		e.preventDefault();
+		return false;
     });
     
     /* Make back button */
 	$( 'a.back-button' ).button();
 	$( 'a.back-button' ).click( function(e) {
-		var $this	= $( this );
 		/* Set current to 1 less than previous step */
 		current = $( this ).parent().parent().index();
-		
-		$( '#steps' ).stop().animate( { marginLeft: '+' + widths[current - 1] + 'px' }, 500 );
-		
-        e.preventDefault();
+		$( '#steps' ).stop().animate( { marginLeft: '0px' }, 500 );
+		$( this ).blur();
+		e.preventDefault();
     });
 
 	/* Hitting tab on the last input of each fieldset makes the form slide to the next step. */
@@ -152,37 +168,42 @@ $( document ).ready( function () {
 		});
 	});
 
-	/*
-	Validates errors on all the fieldsets.
-	Records if the form has errors in $( '#donationForm' ).data().
-	*/
-	function validateSteps() {
-		var formErrors = false;
-		for( var i = 1; i < fieldsetCount; ++i ) {
-			var error = validateStep(i);
-			if ( error == -1 ) formErrors = true;
-		}
-		$( '#donationForm' ).data( 'errors', formErrors );
-	}
-	
 	function finalSubmit() {
-	
-		// Reset the error display
-		$( '#card-errors' ).empty();
+		var step = 2;
+		var errors = false;
 		
-		var formErrors = false;
-		for( var i = 1; i <= fieldsetCount; ++i ) {
-			var error = validateStep(i);
-			if ( error == -1 ) formErrors = true;
+		$( '#donationForm' ).children( ':nth-child(' + step + ')' ).find( ':input:not(button).required' ).each( function() {
+			var $this 		= $( this );
+			var valueLength = $.trim( $this.val() ).length;
+			if ( valueLength == 0 ) {
+				errors = true;
+				$this.css( 'background-color', '#FFEDEF' );
+			} else {
+				$this.css( 'background-color', '#FFFFFF' );
+			}
+		});
+		
+		// Validate credit card number
+		cardNumber = $( '#card_num' ).val();
+		cardNumber = $.trim( cardNumber );
+		if ( cardNumber != '' ) {
+			cardNumber = cardNumber.replace(/ /g,''); // remove any spaces
+			// Make sure it contains only digits
+			var ccCheckRegExp = /[^\d]/; 
+			if ( ccCheckRegExp.test(cardNumber) ) {
+				errors = true;
+				$( '#card_num' ).css( 'background-color', '#FFEDEF' );
+			} else {
+				$( '#card_num' ).css( 'background-color', '#FFFFFF' );
+			}
 		}
-		$( '#donationForm' ).data( 'errors', formErrors );
 		
-		if ( $( '#donationForm' ).data( 'errors' ) ) {
-			alert( 'Please correct the errors in the form.' );
+		if ( errors ) {
+			//alert( mw.msg( 'donate_interface-error-msg-validation' ) );
 			return false;
 		} else {
 			/* Set country to US */
-			$( "input[name='country']" ).val('US' );
+			$( "input[name='country']" ).val( 'US' );
 							
 			/* Set expiration date */
 			$( "input[name='expiration']" ).val(
@@ -190,81 +211,55 @@ $( document ).ready( function () {
 			)
 			
 			/* Submit the form */
-			var sendData = {
-				'action': 'donate',
-				'gateway': 'payflowpro',
-				'currency_code': 'USD',
-				'amount': $( "input[name='amount']" ).val(),
-				'fname': $( "input[name='fname']" ).val(),
-				'lname': $( "input[name='lname']" ).val(),
-				'street': $( "input[name='street']" ).val(),
-				'city': $( "input[name='city']" ).val(),
-				'state': $( 'select#state option:selected' ).val(),
-				'zip': $( "input[name='zip']" ).val(),
-				'emailAdd': $( "input[name='emailAdd']" ).val(),
-				'country': $( "input[name='country']" ).val(),
-				'payment_method': 'cc',
-				'language': 'en',
-				
-				'expiration': $( "input[name='expiration']" ).val(),
-				'card_num': $( "input[name='card_num']" ).val(),
-				'cvv': $( "input[name='cvv']" ).val(),
-				'card_type': '',
-				
-				'format': 'json'
-			};
-	
-			$.ajax( {
-				'url': mw.util.wikiScript( 'api' ),
-				'data': sendData,
-				'dataType': 'json',
-				'type': 'POST',
-				'success': function( data ) {
-					console.debug( data );
-					if ( data.result.errors ) {
-						var errors = new Array();
-						$.each( data.result.errors, function( index, value ) {
-							$( '#card-errors' ).append( '<div class="error-msg">'+value+'</div>' );
-						} );
-					} else {
-						if ( data.result.returnurl ) {
-							window.location = data.result.returnurl;
-						}
-					}
-				}
-			} );
-			//document.donationForm.action = $( "input[name='action']" ).val();
+			document.donationForm.action = $( "input[name='action']" ).val();
+			$( "#spinner" ).show();
 			//document.donationForm.submit();
 		}
 	}
-
-	/*
-	validates one fieldset
-	returns -1 if errors found, or 1 if not
-	*/
-	function validateStep( step ) {
-		var error = 1;
-		$( '#donationForm' ).children( ':nth-child(' + parseInt(step) + ')' ).find( ':input:not(button).required' ).each( function() {
+	
+	function validatePersonal() {
+		var step = 1;
+		var errors = false;
+		
+		$( '#donationForm' ).children( ':nth-child(' + step + ')' ).find( ':input:not(button).required' ).each( function() {
 			var $this 		= $( this );
-			var valueLength = jQuery.trim( $this.val() ).length;
-
-			if ( valueLength == '' ) {
-				error = -1;
+			var valueLength = $.trim( $this.val() ).length;
+			if ( valueLength == 0 ) {
+				errors = true;
 				$this.css( 'background-color', '#FFEDEF' );
 			} else {
 				$this.css( 'background-color', '#FFFFFF' );
 			}
 		});
-
-		return error;
+		
+		// Validate email address
+		email = $( '#email' ).val();
+		email = $.trim( email );
+		if( email != '' ) {
+			var apos = email.indexOf("@");
+			var dotpos = email.lastIndexOf(".");
+			if( apos < 1 || dotpos-apos < 2 ) {
+				errors = true;
+				$( '#email' ).css( 'background-color', '#FFEDEF' );
+			} else {
+				$( '#email' ).css( 'background-color', '#FFFFFF' );
+			}
+		}
+		
+		if ( errors ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
 	 * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
 	 */
 	function validateAmount() {
-		var error = true;
+		var errors = false;
 		var amount = $( "input[name='amount']" ).val(); // get the amount
+		
 		// Normalize weird amount formats.
 		// Don't mess with these unless you know what you're doing.
 		amount = amount.replace( /[,.](\d)$/, '\:$10' );
@@ -273,8 +268,8 @@ $( document ).ready( function () {
 		amount = amount.replace( /:/, '.' );
 		$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
 		
-		// Check amount is a real number, sets error as true (good) if no issues
-		error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
+		// Check amount is a real number greater than 0
+		errors = ( amount == null || isNaN( amount ) || parseFloat( amount ) <= 0 );
 		
 		// Find out the currency code
 		if ( $( 'input[name="currency_code"]' ).val() == '' ) {
@@ -288,12 +283,16 @@ $( document ).ready( function () {
 		if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
 			wgCurrencyMinimums[currency_code] = 1;
 		}
-		if ( amount < wgCurrencyMinimums[currency_code] || error ) {
+		if ( amount < wgCurrencyMinimums[currency_code] || errors ) {
+			errors = true;
 			alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
-			error = true;
 			$( '#other-amount' ).val( '' );
 			$( '#other-amount' ).focus();
 		}
-		return !error;
+		if ( errors ) {
+			return false;
+		} else {
+			return true;
+		}
 	};
 });

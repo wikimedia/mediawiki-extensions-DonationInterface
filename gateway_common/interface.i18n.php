@@ -166,6 +166,7 @@ No processors are available.',
 	'donate_interface-error-msg-nopaypal' => 'Due to a technical error, we cannot send your request to PayPal.  Please try using our regular credit card donation form.',
 	'donate_interface-error-msg' => 'Please enter your $1',
 	'donate_interface-error-msg-js' => 'Please enter your',
+	'donate_interface-error-msg-validation' => 'Please correct the errors in the form.',
 	'donate_interface-error-msg-invalid-amount' => 'Please enter a valid amount',
 	'donate_interface-error-msg-email' => 'Please enter a valid e-mail address',
 	'donate_interface-error-msg-card-num' => 'Please enter a valid credit card number for one of the accepted credit card types',
@@ -603,6 +604,7 @@ This message comes before any one of a number of messages which are the names of
 An alternative to 'field' in the translation could be 'information'.
 
 This is an error message which appears if one or more of the above fields is left empty.",
+	'donate_interface-error-msg-validation' => 'Generic error message for form validation failure',
 	'donate_interface-error-msg-invalid-amount' => 'Error message for invalid amount (e.g. if you put a letter in the amount field).',
 	'donate_interface-error-msg-email' => 'Error message if the e-mail address is not valid (e.g. non-ASCII characters, spaces or lacking @).',
 	'donate_interface-error-msg-card-num' => 'The stars are to attract attention to the message in a drop-down box. The stars are not interpreted as wiki code when in use in the extension.',

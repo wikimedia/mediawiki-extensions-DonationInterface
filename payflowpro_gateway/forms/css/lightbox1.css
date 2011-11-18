@@ -135,6 +135,8 @@ h3 span {
 .call-r {
     float: right;
     margin: 0.2em 0 1em 1em;
+    background-color: #CCE7CD;
+    border: 1px solid #5EAC58;
 }
 #loading {
     font-size: 12px;
@@ -171,8 +173,9 @@ div.ui-dialog {
 	font-size: 0.8em;
 }
 input.btn {
-	font-size: 15px;
+	font-size: 14px;
 	margin-bottom: 4px;
+	width: 18em;
 }
 #dialog{
 	overflow: hidden;
@@ -283,6 +286,15 @@ input.btn {
 	right: 25px;
 	margin: 0 !important;
 }
+#spinner {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	bottom: 37px;
+	right: 133px;
+	z-index: 2000;
+	display: none;
+}
 #steps #card-errors {
 	font-size: 13px;
 	line-height: 15px;
@@ -294,4 +306,14 @@ input.btn {
 #informationsharing {
 	font-size: 11px;
 	line-height: 13px;
+}
+#secure-logo {
+	float: right;
+}
+#moreinfolinks {
+	font-size: 12px;
+}
+#cvv-link {
+	color: #2779AA;
+	font-size: 0.8em;
 }
