@@ -213,7 +213,7 @@ $( document ).ready( function () {
 			/* Submit the form */
 			document.donationForm.action = $( "input[name='action']" ).val();
 			$( "#spinner" ).show();
-			//document.donationForm.submit();
+			document.donationForm.submit();
 		}
 	}
 	
