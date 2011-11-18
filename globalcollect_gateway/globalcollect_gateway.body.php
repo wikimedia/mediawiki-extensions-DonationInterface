@@ -288,7 +288,7 @@ EOT;
 
 		$url = $this->adapter->getThankYouPage() . $queryString;
 		
-		$link = Xml::tags( 'a', array( 'href' => $url ), wfMsg( 'donate_interface-bt-finished' ) );
+		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = '$url'" ) );
 		
 		$return .= Xml::tags( 'p', array(), $link );
 		
@@ -334,13 +334,51 @@ EOT;
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 
+		$return .= Xml::openElement( 'table' ); //open info table
+
+		$return .= Xml::openElement( 'tr' );
+
+		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+
 		$return .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-online_bank_transfer_message' ) );
+
+		$return .= Xml::closeElement ( 'td' );
+
+		$return .= Xml::closeElement ( 'tr' );
+
+		$return .= Xml::openElement ( 'tr' );
+
+		$return .= Xml::openElement( 'td' );
+
+		$return .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
+
+		$return .= Xml::closeElement ( 'td' );
+
+		$return .= Xml::openElement ( 'td' );
+
+		$return .= Xml::tags( 'p',  array(), 'Contact your bank or financial institution <br /> to make this payment from your cheque, <br /> debit, credit card or transaction account. <br /> More info: www.bpay.com.au ' );
+
+		$return .= Xml::closeElement ( 'td' );
+
+		$return .= Xml::closeElement ( 'tr' );
+
+		$return .= Xml::openElement ( 'tr' );
+
+		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+
+		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518');
+
+		$return .= Xml::closeElement ( 'td' );
+
+		$return .= Xml::closeElement ( 'tr' );
+
+		$return .= Xml::closeElement ( 'table' ); //close info table
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 
 		$url = $this->adapter->getThankYouPage() . $queryString;
-		
-		$link = Xml::tags( 'a', array( 'href' => $url ), wfMsg( 'donate_interface-bt-finished' ) );
+
+		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = '$url'" ) );
 		
 		$return .= Xml::tags( 'p', array(), $link );
 		
