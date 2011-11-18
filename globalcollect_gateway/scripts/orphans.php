@@ -5,7 +5,7 @@
 //TODO: Something that is not specific to anybody's install, here. 
 global $IP;
 if ( !isset($IP) ) {
-	$IP = '/var/www/wikimedia-dev';
+	$IP = '../../../../';
 }
 require_once( "$IP/maintenance/Maintenance.php" );
 
