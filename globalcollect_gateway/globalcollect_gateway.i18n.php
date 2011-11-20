@@ -285,6 +285,7 @@ $messages['hsb'] = array(
  */
 $messages['hu'] = array(
 	'globalcollectgateway' => 'Adakozz most',
+	'globalcollect_gateway-desc' => 'GlobalCollect fizetés feldolozása',
 	'globalcollect_gateway-response-9130' => 'Érvénytelen ország.',
 	'globalcollect_gateway-response-9140' => 'Érvénytelen pénznem.',
 	'globalcollect_gateway-response-9150' => 'Érvénytelen nyelv.',
