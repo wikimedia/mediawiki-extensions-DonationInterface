@@ -1720,27 +1720,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		return $languages;
 	}
-
-	/**
-	 * Floor the amount
-	 *
-	 * Some amounts for GlobalCollect cannot have cents. We will not round up.
-	 *
-	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
-	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
-	 *
-	 *
-	 * @param string	$value
-	 */
-	protected function floorAmount( $value ) {
-		
-		$value = substr( $value, 0, -2 ) . '00';
-		
-		return $value;
-	}
 	
 	/**
 	 * Stage: amount
+	 *
+	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
+	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
 	 *
 	 * @param string	$type	request|response
 	 */
@@ -1748,18 +1733,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $type ) {
 			case 'request':
 				
-				$floor = false;
-				
-				if ( $this->staged_data['currency_code'] == 'JPY' ) {
-					$floor = true;
+				// JPY cannot have cents.
+				$floorCurrencies = array ( 'JPY' );
+				if ( in_array( $this->staged_data['currency_code'], $floorCurrencies ) ) {
+					$this->staged_data['amount'] = floor( $this->staged_data['amount'] ) * 100;
 				}
 				
 				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
-				
-				// Floor if required
-				if ( $floor ) {
-					$this->staged_data['amount'] = $this->floorAmount( $this->staged_data['amount'] );
-				}
 
 				break;
 			case 'response':
