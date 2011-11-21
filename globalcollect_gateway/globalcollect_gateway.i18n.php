@@ -367,6 +367,15 @@ $messages['ja'] = array(
 	'globalcollect_gateway-response-default' => '取引の処理中にエラーが起こりました。後でもう一度お試しください。',
 );
 
+/** Korean (한국어)
+ * @author Kwj2772
+ */
+$messages['ko'] = array(
+	'globalcollectgateway' => '지금 기부해주세요',
+	'globalcollect_gateway-response-21000150' => '잘못된 은행 계좌 번호.',
+	'globalcollect_gateway-response-21000155' => '은행 코드가 잘못되었습니다.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */

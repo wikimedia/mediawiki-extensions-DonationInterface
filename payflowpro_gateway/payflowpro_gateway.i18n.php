@@ -1071,7 +1071,7 @@ $messages['km'] = array(
  * @author Kwj2772
  */
 $messages['ko'] = array(
-	'payflowprogateway' => '위키미디어를 지지해주세요',
+	'payflowprogateway' => '지금 기부해주세요',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro 신용 카드 처리 시스템',
 	'payflowpro_gateway-response-0' => '거래가 승인되었습니다.
 당신의 기부에 감사드립니다!',
