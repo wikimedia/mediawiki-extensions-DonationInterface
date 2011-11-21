@@ -856,15 +856,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'keys' => array(),
 		);
 		 
-		// eWallets PayPal
-		$this->payment_submethods['ew_paypal'] = array(
-			'paymentproductid'	=> 840,
-			'label'	=> 'eWallets: PayPal',
-			'group'	=> 'ew',
-			'validation' => array(),
-			'keys' => array(),
-		);
-		 
 		// eWallets WebMoney
 		$this->payment_submethods['ew_webmoney'] = array(
 			'paymentproductid'	=> 841,
