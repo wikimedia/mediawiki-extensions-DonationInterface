@@ -1520,7 +1520,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param type $type Whatever types of staging you feel like having in your child class. 
 	 * ...but usually request and response. I think. 
 	 */
-	public function stageData( $type = 'request' ) {
+	protected function stageData( $type = 'request' ) {
 		$this->defineStagedVars();
 		$this->smooshVarsForStaging(); //yup, we do need to do this seperately. 
 		//If we tried to piggyback off the same loop, all the vars wouldn't be ready, and some staging functions will require 
