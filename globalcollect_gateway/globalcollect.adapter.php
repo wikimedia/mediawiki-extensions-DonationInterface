@@ -1278,7 +1278,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			$errors[ $code ] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( $code );
 
-			$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $code ) );
+			$codeAction = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $code );
+			
+			if ( !empty( $codeAction ) ) {
+			
+				$this->setTransactionWMFStatus( $codeAction );
+			}
 		}
 		return $errors;
 	}
