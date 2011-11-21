@@ -1736,7 +1736,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				// JPY cannot have cents.
 				$floorCurrencies = array ( 'JPY' );
 				if ( in_array( $this->staged_data['currency_code'], $floorCurrencies ) ) {
-					$this->staged_data['amount'] = floor( $this->staged_data['amount'] ) * 100;
+					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
 				}
 				
 				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
