@@ -64,14 +64,12 @@ window.displayCreditCardForm = function() {
 			if ( typeof data.error !== 'undefined' ) {
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
-				showStep2();
 			} else if ( typeof data.result !== 'undefined' ) {
 				if ( data.result.errors ) {
 					var errors = new Array();
 					$.each( data.result.errors, function( index, value ) {
 						alert( value ); // Show them the error
 						$( "#paymentContinue" ).show(); // Show continue button in 2nd section
-						showStep2(); // Switch back to 2nd section of form
 					} );
 				} else {
 					if ( data.result.formaction ) {
@@ -80,7 +78,6 @@ window.displayCreditCardForm = function() {
 						$( '#payment' ).append(
 							'<iframe src="'+data.result.formaction+'" width="318" height="314" frameborder="0"></iframe>'
 						);
-
 					}
 				}
 			}
