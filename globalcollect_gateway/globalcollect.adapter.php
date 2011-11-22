@@ -1268,13 +1268,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 
 			$errors[ $code ] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( $code );
-
-			$codeAction = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $code );
-			
-			if ( !empty( $codeAction ) ) {
-			
-				$this->setTransactionWMFStatus( $codeAction );
-			}
 		}
 		return $errors;
 	}
@@ -1294,13 +1287,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$transaction = $this->getCurrentTransaction();
 
 		$this->getTransactionStatus();
-		
+
 		switch ( $transaction ) {
 			case 'INSERT_ORDERWITHPAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
-
+		
 				// WMFStatus will already be set if the transaction was unable to communicate properly.
 				if ( $this->getTransactionStatus() ) {
 					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
