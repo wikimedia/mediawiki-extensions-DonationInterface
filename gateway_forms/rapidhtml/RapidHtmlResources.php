@@ -131,6 +131,21 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.dd' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
+	'styles' => 'css/gc.cc.css',
+	'scripts' => array(
+        'js/gc.cc.js',
+        'js/gc.js'
+    ),
+	'dependencies' => array( 'di.form.core.validate' ),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
+
+
+/*************************************************************
+ *************************************************************
+ *************************************************************/
 
 // PayflowPro
 $wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
