@@ -38,8 +38,11 @@ $( document ).ready( function () {
 	}
 
     $( "#paymentContinueBtn" ).live( "click", function() {
-        if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
-            displayCreditCardForm()
+        if ( validate_personal( document.payment ) && validateAmount() ) {
+            $( "#payment" ).animate( { height:'314px' }, 1000 );
+            displayCreditCardForm();
+            // hide the continue button so that people don't get confused with two of them
+            $( "#paymentContinue" ).hide();
         }
     } );
 
