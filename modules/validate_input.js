@@ -56,7 +56,13 @@ window.validateAmount = function() {
 	error = ( amount == null || isNaN( amount ) || amount.value <= 0 );
 
 	// Check amount is at least the minimum
-	var currency_code = $( 'input[name="currency_code"]' ).val();
+	var currency_code = '';
+    if( $( 'input[name="currency_code"]' ).length ){
+        currency_code = $( 'input[name="currency_code"]' ).val();
+    }
+    if( $( 'select[name="currency_code"]' ).length ){
+        currency_code = $( 'select[name="currency_code"]' ).val();
+    }
 	if ( typeof( wgCurrencyMinimums[currency_code] ) == 'undefined' ) {
 		wgCurrencyMinimums[currency_code] = 1;
 	}

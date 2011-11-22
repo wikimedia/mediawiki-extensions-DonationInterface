@@ -101,6 +101,13 @@ window.setAmount = function( e ) {
 }
 // Display selected amount
 window.showAmount = function( e ) {
-	$( "#selected-amount" ).html( "$" + e.val() + "" );
+    var currency_code = "";
+    if( $( 'input[name="currency_code"]' ).length ){
+        currency_code = $( 'input[name="currency_code"]' ).val();
+    }
+    if( $( 'select[name="currency_code"]' ).length ){
+        currency_code = $( 'select[name="currency_code"]' ).val();
+    }
+	$( "#selected-amount" ).html( + e.val() + " " + currency_code );
 	$( "#change-amount" ).show();
 }

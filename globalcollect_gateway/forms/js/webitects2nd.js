@@ -150,8 +150,15 @@ function setAmount( e ) {
 	$( 'input[name="amount"]' ).val( e.val() );
 }
 // Display selected amount
-function showAmount( e ) {
-	$( "#selected-amount" ).html( + e.val() + " " + $( 'input[name="currency_code"]' ).val() );
+window.showAmount = function( e ) {
+    var currency_code = "";
+    if( $( 'input[name="currency_code"]' ).length ){
+        currency_code = $( 'input[name="currency_code"]' ).val();
+    }
+    if( $( 'select[name="currency_code"]' ).length ){
+        currency_code = $( 'select[name="currency_code"]' ).val();
+    }
+	$( "#selected-amount" ).html( + e.val() + " " + currency_code );
 	$( "#change-amount" ).show();
 }
 

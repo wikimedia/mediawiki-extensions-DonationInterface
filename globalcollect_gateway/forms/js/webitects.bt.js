@@ -1,6 +1,9 @@
 
 $( document ).ready( function () {
 
+	$( "#step2header" ).show();
+	$( "#step2wrapper" ).show();
+
 	// check for RapidHtml errors and display, if any
 	var amountErrorString = "",
 		billingErrorString = "",
@@ -51,8 +54,7 @@ $( document ).ready( function () {
 	if( amount == null || isNaN( amount.val() ) || amount.val() <= 0 ){
 		// the amount is not set
 		$( "#step1wrapper" ).slideDown();
-		$( "#selected-amount" ).html( '(' + $( 'input[name="currency_code"]' ).val() + ')' );
-
+//		showAmount( document.getElementByName( 'amount' ) );
 	} else {
 		showAmount( $( 'input[name="amount"]' ) );
 	}
@@ -89,8 +91,7 @@ $( document ).ready( function () {
 		$( "#step1wrapper" ).slideDown();
 		$( "#change-amount" ).hide();
 	} );
-
-
+    
 	// If the form is being reloaded, restore the amount
 	var previousAmount = $( 'input[name="amount"]' ).val();
 	if ( previousAmount && previousAmount > 0  ) {
@@ -106,17 +107,10 @@ $( document ).ready( function () {
 			$( 'input#other-amount' ).val( previousAmount );
 		}
 	}
-
 	showAmount( $( 'input[name="amount"]' ) );
-
 } );
 
 // set the hidden amount input to the value of the selected element
 function setAmount( e ) {
 	$( 'input[name="amount"]' ).val( e.val() );
-}
-// Display selected amount
-function showAmount( e ) {
-	$( "#selected-amount" ).html( + e.val() + " " + $( 'input[name="currency_code"]' ).val() );
-	$( "#change-amount" ).show();
 }
