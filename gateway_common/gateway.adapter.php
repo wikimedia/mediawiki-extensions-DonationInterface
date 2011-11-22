@@ -1377,18 +1377,41 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	function findCodeAction( $transaction, $key, $code ) {
-		$this->getStopwatch( __FUNCTION__, true );
-		if ( !array_key_exists( $transaction, $this->return_value_map ) || !array_key_exists( $key, $this->return_value_map[$transaction] ) ) {
-			return null;
-		}
-		if ( !is_array( $this->return_value_map[$transaction][$key] ) ) {
-			return null;
-		}
-		//sort the array so we can do this quickly. 
-		ksort( $this->return_value_map[$transaction][$key], SORT_NUMERIC );
+	/**
+	 * findCodeAction
+	 *
+	 * @param	string			$transaction
+	 * @param	string			$key			The key to lookup in the transaction such as STATUSID
+	 * @param	integer|string	$code			This gets converted to an integer if the values is numeric.
+	 *
+	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
+	 */
+	public function findCodeAction( $transaction, $key, $code ) {
 
-		$ranges = $this->return_value_map[$transaction][$key];
+		$this->getStopwatch( __FUNCTION__, true );
+		
+		// Do not allow anything that is not numeric
+		if ( !is_numeric( $code ) ) {
+			return null;
+		}
+
+		// Cast the code as an integer
+		settype( $code, 'integer');	
+		
+		// Check to see if the transaction is defined
+		if ( !array_key_exists( $transaction, $this->return_value_map ) ) {
+			return null;
+		}
+		
+		// Verify the key exists within the transaction 
+		if ( !array_key_exists( $key, $this->return_value_map[ $transaction ] ) || !is_array( $this->return_value_map[ $transaction ][ $key ] ) ) {
+			return null;
+		}
+		
+		//sort the array so we can do this quickly. 
+		ksort( $this->return_value_map[ $transaction ][ $key ], SORT_NUMERIC );
+
+		$ranges = $this->return_value_map[ $transaction ][ $key ];
 		//so, you have a code, which is a number. You also have a numerically sorted array.
 		//loop through until you find an upper >= your code.
 		//make sure it's in the range, and return the action. 
