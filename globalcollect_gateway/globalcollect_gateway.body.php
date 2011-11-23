@@ -260,7 +260,7 @@ EOT;
 
 		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-bt-information' ) );
 
-		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table', 'width' => '50%' ) );
 
 		foreach ( $fields as $field => $meta ) {
 
@@ -273,10 +273,12 @@ EOT;
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
+						
+		$return .= Xml::openElement( 'tr', array() );
+		$return .= Xml::tags( 'td', array('style' => 'font-weight:bold', 'colspan' => '2'), wfMsg( 'donate_interface-bank_transfer_message' ) );
+		$return .= Xml::closeElement( 'tr' );
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
-
-		$return .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-bank_transfer_message' ) );
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 
