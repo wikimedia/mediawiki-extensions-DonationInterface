@@ -102,7 +102,6 @@ $messages['aln'] = array(
  */
 $messages['ar'] = array(
 	'payflowprogateway' => 'تبرع الآن',
-	'globalcollectgateway' => 'تبرع الآن',
 	'payflowpro_gateway-desc' => 'معالجة PayPal Payflow Pro لبطاقات الائتمان',
 	'payflowpro_gateway-response-0' => 'اعتمدت حوالتك.
 شكرا لك على التبرع!',
@@ -362,7 +361,6 @@ Zkuste to znovu o něco později.',
  */
 $messages['cy'] = array(
 	'payflowprogateway' => 'Rhoddwch nawr',
-	'globalcollectgateway' => 'Rhoddwch nawr',
 	'payflowpro_gateway-desc' => 'Prosesu cerdyn credyd gyda PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Cadarnhawyd eich taliad.
 Diolch am roi!',
@@ -388,7 +386,6 @@ Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
  */
 $messages['da'] = array(
 	'payflowprogateway' => 'Doner nu',
-	'globalcollectgateway' => 'Doner nu',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkorthåndtering',
 	'payflowpro_gateway-response-0' => 'Din transaktion er blevet godkendt.
 Tak for din donation!',
@@ -704,7 +701,6 @@ Yritä myöhemmin uudelleen.',
  */
 $messages['fr'] = array(
 	'payflowprogateway' => 'Faire un don maintenant',
-	'globalcollectgateway' => 'Faire un don maintenant',
 	'payflowpro_gateway-desc' => 'Traitement de carte de crédit par PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Votre transaction a été approuvée.
 Merci pour votre don !',
@@ -729,7 +725,6 @@ Veuillez réessayer plus tard.',
  */
 $messages['frp'] = array(
 	'payflowprogateway' => 'Balyéd orendrêt',
-	'globalcollectgateway' => 'Balyéd orendrêt',
 	'payflowpro_gateway-desc' => 'Trètament per cârta de crèdit PayPal Payflow Pro.',
 	'payflowpro_gateway-response-0' => 'Voutra transaccion at étâ aprovâ.
 Grant-marci por voutron don !',
@@ -787,7 +782,6 @@ Por favor, inténtao de novo máis tarde.',
  */
 $messages['gsw'] = array(
 	'payflowprogateway' => 'Jetz spände',
-	'globalcollectgateway' => 'Jetz spände',
 	'payflowpro_gateway-desc' => 'Kreditcharte verwände iber PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Dyy Transaktion isch uusgfiert wore.
 Dankschen fir Dyy Spände!',
@@ -814,7 +808,6 @@ Bitte versuech s speter nonemol.',
  */
 $messages['he'] = array(
 	'payflowprogateway' => 'הבעת תמיכתך בוויקימדיה כעת',
-	'globalcollectgateway' => 'תִרמו עכשיו',
 	'payflowpro_gateway-desc' => 'עיבוד תשלום בכרטיס אשראי PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'העברת הכספים אושרה.
 תודה על תרומתכם!',
@@ -918,7 +911,6 @@ Később próbáld meg újra.',
  */
 $messages['ia'] = array(
 	'payflowprogateway' => 'Face un donation ora',
-	'globalcollectgateway' => 'Face un donation ora',
 	'payflowpro_gateway-desc' => 'Processamento per carta de credito PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Le transaction ha essite approbate.
 Gratias pro tu donation!',
@@ -1120,7 +1112,6 @@ Versöhk et schpääder noch ens.',
  */
 $messages['lb'] = array(
 	'payflowprogateway' => 'Maacht Ären Don elo',
-	'globalcollectgateway' => 'Maacht Ären Don elo',
 	'payflowpro_gateway-desc' => 'Behandele vun der Kreditkaart PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Är Transaktioun gouf kzeptéiert.
 Merci fir Ären Don!',
@@ -1228,7 +1219,6 @@ $messages['ml'] = array(
  */
 $messages['ms'] = array(
 	'payflowprogateway' => 'Derma sekarang',
-	'globalcollectgateway' => 'Derma sekarang',
 	'payflowpro_gateway-desc' => 'Kad kredit anda sedang diproses melalui PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Transaksi anda berjaya dilakukan. 
 Terima kasih atas sumbangan anda!',
@@ -1309,7 +1299,6 @@ $messages['ne'] = array(
  */
 $messages['nl'] = array(
 	'payflowprogateway' => 'Doneer nu',
-	'globalcollectgateway' => 'Doneer nu',
 	'payflowpro_gateway-desc' => 'Creditcardverwerking via PayPal PayFlow Pro',
 	'payflowpro_gateway-response-0' => 'Uw transactie is goedgekeurd.
 Dank u wel voor uw donatie!',
@@ -1405,7 +1394,6 @@ Tornatz ensajar mai tard.",
  */
 $messages['pl'] = array(
 	'payflowprogateway' => 'Przekaż darowiznę już teraz',
-	'globalcollectgateway' => 'Przekaż darowiznę',
 	'payflowpro_gateway-desc' => 'PayPal obsługa kart kredytowych Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Transakcja została przeprowadzona.
 Dziękujemy za wsparcie!',
@@ -1524,7 +1512,6 @@ Por favor tente novamente mais tarde.',
  */
 $messages['ro'] = array(
 	'payflowprogateway' => 'Donați acum',
-	'globalcollectgateway' => 'Faceți o donație acum',
 	'payflowpro_gateway-desc' => 'Prelucrează cardul de credit PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Tranzacția dumneavoastră a fost aprobată.
 Vă mulțumim pentru donație!',
@@ -1574,7 +1561,6 @@ Sì pregate de pruvà n'otre vote cchù nnande.",
  */
 $messages['ru'] = array(
 	'payflowprogateway' => 'Сделайте пожертвование сейчас',
-	'globalcollectgateway' => 'Сделайте пожертвование сейчас',
 	'payflowpro_gateway-desc' => 'Обработка кредитных карт PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Ваша транзакция была санкционирована.
 Спасибо за ваше пожертвование!',
@@ -1771,7 +1757,6 @@ Försök igen senare.',
  */
 $messages['sw'] = array(
 	'payflowprogateway' => 'Changia sasa',
-	'globalcollectgateway' => 'Changia sasa',
 	'payflowpro_gateway-desc' => 'Kutekeleza malipo ya kadi ya malipo kwa kupitia PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Malipo yako yamepitishwa. 
 Ahsante kwa mchango wako!',

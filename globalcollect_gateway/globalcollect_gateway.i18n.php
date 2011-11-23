@@ -265,6 +265,13 @@ $messages['gsw'] = array(
 Bitte versuech s speter nonemol.',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'globalcollectgateway' => 'תִרמו עכשיו',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
@@ -576,6 +583,13 @@ $messages['pt-br'] = array(
 	'globalcollect_gateway-response-21000160' => 'Número de conta bancária inválido.',
 	'globalcollect_gateway-response-default' => 'Ocorreu um erro no processamento desta transação.
 Por favor tente novamente mais tarde.',
+);
+
+/** Romanian (Română)
+ * @author Minisarm
+ */
+$messages['ro'] = array(
+	'globalcollectgateway' => 'Faceți o donație acum',
 );
 
 /** Russian (Русский)
