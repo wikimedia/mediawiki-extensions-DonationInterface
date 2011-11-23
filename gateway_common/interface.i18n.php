@@ -192,11 +192,7 @@ No processors are available.',
 	'donate_interface-error-msg-captcha-please' => "For your credit card security, please type the characters you see above.",
 	'donate_interface-error-msg-cookies' => 'Please enable cookies in your browser.',
 	'donate_interface-error-msg-genaricrequired' => 'This field is required',
-	'donate_interface-donate-error-please' => 'Please',
-	'donate_interface-donate-error-try-a-different-card' => 'try a different card',
-	'donate_interface-donate-error-or-one-of-our' => 'or one of our',
-	'donate_interface-donate-error-other-ways-to-give' => 'other ways to give',
-	'donate_interface-donate-error-or-contact-us-at' => 'or contact us at mailto:donate@wikimedia.org.',
+	'donate_interface-donate-error-try-a-different-card' => 'Please [$1 try a different card] or one of our [$2 other ways to give] or contact us at $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'php-response-declined' => 'Your transaction could not be accepted.',
 	'donate_interface-thankyou' => 'Thank you for your donation!',
@@ -638,17 +634,14 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-captcha-please' => 'Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.',
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
 	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit',
-	'donate_interface-donate-error-please' => 'All of the messages prefixed with "donate_interface-donate-error-" are part of a message on /index.php/Donate-error.
+	'donate_interface-donate-error-try-a-different-card' => 'This message will be displayed in the the article /index.php/Donate-error.
+	
+It will take three parameters:
 
-The full message:	
-
-Please try a different card or one of our other ways to give or contact us at mailto:donate@wikimedia.org.
-
-Thank you for your support!',
-	'donate_interface-donate-error-try-a-different-card' => 'This is a link so a user can try a different card.',
-	'donate_interface-donate-error-or-one-of-our' => 'Text to complete the sentence with: donate_interface-donate-error-try-a-different-card and donate_interface-donate-error-other-ways-to-give.',
-	'donate_interface-donate-error-other-ways-to-give' => 'This is a link to other ways to give.',
-	'donate_interface-donate-error-or-contact-us-at' => 'Contact us',
+1. A link back to the form to try another credit card.
+2. A link to other payment methods.
+3. An email address link such as: mailto:someone@example.com
+	',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'php-response-declined' => 'Error message if the translaction was declined.',
 	'donate_interface-thankyou' => 'A thank you for donating.',
