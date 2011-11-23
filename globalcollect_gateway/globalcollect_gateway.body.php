@@ -260,22 +260,22 @@ EOT;
 
 		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-bt-information' ) );
 
-		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table', 'width' => '50%' ) );
+		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table', 'style' => 'width:600px; margin-left:auto; margin-right:auto;' ) );
 
 		foreach ( $fields as $field => $meta ) {
 
 			if ( isset( $results['data'][ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 
-				$return .= Xml::tags( 'th', array(), wfMsg( $meta['translation'] ) );
-				$return .= Xml::tags( 'td', array(), $results['data'][ $field ] );
+				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), wfMsg( $meta['translation'] ) );
+				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), $results['data'][ $field ] );
 
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
 						
 		$return .= Xml::openElement( 'tr', array() );
-		$return .= Xml::tags( 'td', array('style' => 'font-weight:bold', 'colspan' => '2'), wfMsg( 'donate_interface-bank_transfer_message' ) );
+		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;', 'colspan' => '2' ), wfMsg( 'donate_interface-bank_transfer_message' ) );
 		$return .= Xml::closeElement( 'tr' );
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
@@ -284,9 +284,9 @@ EOT;
 
 		$url = $this->adapter->getThankYouPage() . $queryString;
 
-		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = '$url'" ) );
+		$link = HTML::input('MyButton', wfMsg( 'donate_interface-bt-finished') , 'button', array( 'onclick' => "window.location = '$url'" ) );
 
-		$return .= Xml::tags( 'p', array(), $link );
+		$return .= Xml::tags( 'p', array( 'style' => 'text-align:center;' ), $link );
 
 		$return .= Xml::closeElement( 'div' );  // $id
 
