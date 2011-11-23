@@ -283,7 +283,10 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getFailPage() {
 		$page = self::getGlobal( "FailPage" );
 		if ( $page ) {
-			$page = $this->appendLanguageAndMakeURL( $page );
+
+			$language = $this->getData_Raw( 'language' );
+
+			$page .= '?uselang=' . $language;
 		}
 		return $page;
 	}
