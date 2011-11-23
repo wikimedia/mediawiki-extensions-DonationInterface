@@ -1176,7 +1176,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//we didn't do the check, because we're going to fail the thing. 
 					$final = $this->do_transaction( 'CANCEL_PAYMENT' );
 					if ( isset( $final['status'] ) && $final['status'] === true ) {
-						$this->setTransactionWMFStatus( $order_status_results );
+						$this->setTransactionWMFStatus( 'failed' );
 						$this->unsetAllSessionData();
 					} else {
 						$problemflag = true;
