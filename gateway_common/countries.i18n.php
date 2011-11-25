@@ -253,6 +253,26 @@ $messages['en'] = array(
 	"donate_interface-country-dropdown-ZW" => "Zimbabwe",
 );
 
+/** Arabic (العربية) */
+$messages['ar'] = array(
+	'donate_interface-country-dropdown-SA' => 'السعودية',
+);
+
+/** Bulgarian (Български) */
+$messages['bg'] = array(
+	'donate_interface-country-dropdown-BG' => 'България',
+);
+
+/** Czech (Česky) */
+$messages['cs'] = array(
+	'donate_interface-country-dropdown-CZ' => 'Česko',
+);
+
+/** Danish (Dansk) */
+$messages['da'] = array(
+	'donate_interface-country-dropdown-DK' => 'Danmark',
+);
+
 /** German (Deutsch) */
 $messages['de'] = array(
 	'donate_interface-country-dropdown-US' => 'USA',
@@ -274,4 +294,127 @@ $messages['de'] = array(
 	'donate_interface-country-dropdown-CH' => 'Schweiz',
 	'donate_interface-country-dropdown-GB' => 'Großbritannien',
 );
+
+/** Greek (Ελληνικά) */
+$messages['el'] = array(
+	'donate_interface-country-dropdown-CY' => 'Κύπρος',
+	'donate_interface-country-dropdown-GR' => 'Ελλάδα',
+);
+
+/** Spanish (Español) */
+$messages['es'] = array(
+	'donate_interface-country-dropdown-ES' => 'España',
+	'donate_interface-country-dropdown-MX' => 'México',
+);
+
+/** Finnish (Suomi) */
+$messages['fi'] = array(
+	'donate_interface-country-dropdown-FI' => 'Suomi',
+);
+
+/** French (Français) */
+$messages['fr'] = array(
+	'donate_interface-country-dropdown-BE' => 'Belgique',
+	'donate_interface-country-dropdown-CA' => 'Canada',
+	'donate_interface-country-dropdown-CH' => 'Suisse',
+	'donate_interface-country-dropdown-FR' => 'France',
+);
+
+/** Hebrew (עברית) */
+$messages['he'] = array(
+	'donate_interface-country-dropdown-IL' => 'ישראל',
+);
+
+/** Hungarian (Magyar) */
+$messages['hu'] = array(
+	'donate_interface-country-dropdown-HU' => 'Magyarország',
+);
+
+/** Italian (Italiano) */
+$messages['it'] = array(
+	'donate_interface-country-dropdown-CH' => 'Svizzera',
+	'donate_interface-country-dropdown-IT' => 'Italia',
+	'donate_interface-country-dropdown-SM' => 'San Marino',
+	'donate_interface-country-dropdown-VA' => 'Città del Vaticano',
+);
+
+/** Japanese (日本語) */
+$messages['ja'] = array(
+	'donate_interface-country-dropdown-JP' => '日本',
+);
+
+/** Norwegian (Nynorsk) (Norsk (nynorsk)) */
+$messages['nn'] = array(
+	'donate_interface-country-dropdown-NO' => 'Noreg',
+);
+
+/** Norwegian (Bokmål) (Norsk (bokmål)) */
+$messages['no'] = array(
+	'donate_interface-country-dropdown-NO' => 'Norge',
+);
+
+/** Dutch (Nederlands) */
+$messages['nl'] = array(
+	'donate_interface-country-dropdown-BE' => 'België',
+	'donate_interface-country-dropdown-NL' => 'Nederland',
+);
+
+/** Polish (Polski) */
+$messages['pl'] = array(
+	'donate_interface-country-dropdown-PL' => 'Polska',
+);
+
+/** Portuguese (Português) */
+$messages['pt'] = array(
+	'donate_interface-country-dropdown-BR' => 'Brasil',
+);
+
+/** Brazilian Portuguese (Português do Brasil) */
+$messages['pt-br'] = array(
+	'donate_interface-country-dropdown-BR' => 'Brasil',
+);
+
+/** Romanian (Română) */
+$messages['ro'] = array(
+	'donate_interface-country-dropdown-RO' => 'România',
+);
+
+/** Russian (Русский) */
+$messages['ru'] = array(
+	'donate_interface-country-dropdown-BY' => 'Белоруссия',
+	'donate_interface-country-dropdown-IL' => 'Израиль',
+	'donate_interface-country-dropdown-RU' => 'Россия',
+);
+
+/** Slovak (Slovenčina) */
+$messages['sk'] = array(
+	'donate_interface-country-dropdown-SK' => 'Slovensko',
+);
+
+/** Swedish (Svenska) */
+$messages['sv'] = array(
+	'donate_interface-country-dropdown-FI' => 'Finland',
+	'donate_interface-country-dropdown-SE' => 'Sverige',
+);
+
+/** Turkish (Türkçe) */
+$messages['tr'] = array(
+	'donate_interface-country-dropdown-TR' => 'Türkiye',
+);
+
+/** Chinese (Hant) */
+$messages['zh-hant'] = array(
+	'donate_interface-country-dropdown-HK' => '香港',
+	'donate_interface-country-dropdown-TW' => '台灣',
+);
+
+
+
+
+
+
+
+
+
+
 
