@@ -30,7 +30,7 @@ class DonationApi extends ApiBase {
 				default:
 					$result = $gatewayObj->do_transaction( 'Card' );
 			}
-		} else if ( $this->gateway == 'globalcollect' ) {
+		} elseif ( $this->gateway == 'globalcollect' ) {
 			$gatewayObj = new GlobalCollectAdapter();
 			switch ( $method ) {
 				// TODO: add other payment methods
@@ -73,13 +73,13 @@ class DonationApi extends ApiBase {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
-		
+
 		/*
 		$this->getResult()->setIndexedTagName( $result, 'response' );
 		$this->getResult()->addValue( 'data', 'result', $result );
 		*/
 	}
-	
+
 	public function isReadMode() {
 		return false;
 	}
