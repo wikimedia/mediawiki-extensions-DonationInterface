@@ -407,14 +407,3 @@ $messages['zh-hant'] = array(
 	'donate_interface-country-dropdown-HK' => '香港',
 	'donate_interface-country-dropdown-TW' => '台灣',
 );
-
-
-
-
-
-
-
-
-
-
-
