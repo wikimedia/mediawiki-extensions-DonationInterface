@@ -56,6 +56,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@authorization_id',
 		'@account_name',
 		'@bank_code',
+		'@bank_name',
+        '@bank_check_digit',
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 

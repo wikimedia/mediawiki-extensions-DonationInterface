@@ -74,14 +74,6 @@ h3 span { font-weight: normal; }
 .loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
 .loc-fields .loc-country { margin-bottom: 5px; width: 103%; }
 
-/* Direct Debit setups*/
-.dd-fields { float: left; margin-bottom: 5px; margin-top: 5px;}
-.dd-be-an { float: left; width: 45%; }
-.dd-be-ai { float: left; width: 45%; margin-left: 5%; }
-.dd-at-accountname { float: left; width: 97%; margin-bottom: 10px;}
-.dd-at-an { float: left; width: 45%; }
-.dd-at-bc { float: left; width: 45%; margin-left: 5%; }
-
 /* Location where we are not including a state select */
 .loc-fields.nostate .loc-city { float: left; margin: 0 1% 5px 0; width: 48%; }
 .loc-fields.nostate .loc-postal { float: left; margin: 0 1% 5px 0; width: 49%; }
@@ -94,7 +86,16 @@ h3 span { font-weight: normal; }
 .loc-postal.ja { width: 300px; }
 
 /* Direct debit fields */
+.dd-fields { float: left; margin-bottom: 5px; margin-top: 5px;}
 
+.dd-be-acctname, .dd-be-bankname { float: left; width:100%; margin-bottom: 5px;}
+.dd-be-acctnum, .dd-be-bankcode { float: left;  margin: 0 1% 5px 0; width: 48%; }
+.dd-be-authid, .dd-be-checkdigit { float: left; width: 49%; margin: 0; }
+
+.dd-at-accountname { float: left; width: 97%; margin-bottom: 10px;}
+.dd-at-an { float: left; width: 45%; }
+
+.dd-at-bc { float: left; width: 45%; margin-left: 5%; }
 .dd-acctnumber { float: left; margin: 5px 2% 5px 0; width: 48%; }
 .dd-acctname { float: left; margin: 5px 2% 5px 0; width: 48%; }
 .dd-bankcode { margin-bottom: 5px; width: 100%; }
