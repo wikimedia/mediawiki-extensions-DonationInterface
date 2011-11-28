@@ -2015,6 +2015,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 	
+	protected function post_process_insert_orderwithpayment(){
+		//yeah, we absolutely want to do this for every one of these. 
+		$this->doLimboStompTransaction();
+	}
+	
 	protected function pre_process_get_orderstatus(){
 		if  ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
 			$this->runPreProcessHooks();
@@ -2053,5 +2058,40 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$result = $avs_map[$this->getData_Raw( 'avs_result' )];
 		return $result;
 	}
+	
+	/**
+	 * Function that adds a stomp message to a special 'limbo' queue, for data 
+	 * that is either highly likely or completely guaranteed to be bifurcated by 
+	 * handing the ball to a third-party process. 
+	 * No need to override doStompTransaction in the parent class, as that has 
+	 * more logic than we need here. However, we may consider functionalizing 
+	 * some of the copied code in the parent class. 
+	 * @return void 
+	 */
+	protected function doLimboStompTransaction() {
+		if ( !$this->getGlobal( 'EnableStomp' ) ){
+			return;
+		}
+		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
+		$hook = 'gwLimboStomp';
 
+		// send the thing.
+		$transaction = array(
+			'response' => $this->getTransactionMessage(),
+			'date' => time(),
+			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+			'correlation-id' => 'GC-' . $this->getData_Raw('order_id'),
+		);
+		
+		$stomp_fields = $this->dataObj->getStompMessageFields();
+		foreach ($stomp_fields as $field){	
+			$transaction[$field] = $this->getData_Raw($field);
+		}
+
+		try {
+			wfRunHooks( $hook, array( $transaction ) );
+		} catch ( Exception $e ) {
+			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
+		}
+	}
 }
