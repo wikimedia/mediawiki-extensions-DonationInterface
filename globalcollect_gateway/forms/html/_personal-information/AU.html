@@ -1,0 +1,25 @@
+<div class="name-fields">
+    <span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
+    <span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
+</div>
+<div class="loc-fields">
+    <!-- TODO: add locality to translation -->
+    <span class="loc-street"><input class="txt" id="street" name="street" title="Locality" value="@street" placeholder="Locality"/></span>
+    <span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>
+	<span class="loc-state">
+	<select id="state" name="state" class="txt" value="@state" >
+        <option value="">%donate_interface-donor-state%</option>
+        <option value="ACT">ACT</option>
+        <option value="JBT">JBT</option>
+        <option value="NSW">NSW</option>
+        <option value="NT">NT</option>
+        <option value="QLD">QLD</option>
+        <option value="SA">SA</option>
+        <option value="TAS">TAS</option>
+        <option value="VIC">VIC</option>
+        <option value="WA">WA</option>
+    </select>
+	</span>
+    <span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>
+</div>
+<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/></p>
