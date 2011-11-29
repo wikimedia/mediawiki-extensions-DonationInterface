@@ -52,12 +52,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@gateway', // => 'payflowpro', // this may need to become dynamic in the future
 		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
+        // Direct Debit Fields
 		'@account_number',
 		'@authorization_id',
 		'@account_name',
 		'@bank_code',
 		'@bank_name',
         '@bank_check_digit',
+        '@branch_code',
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
@@ -135,6 +137,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	public function getForm() {
 		$html = $this->load_html();
+		$html = $this->replace_blocks( $html );
 		return $this->add_data( $html );
 	}
 
@@ -266,6 +269,55 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		return $html;
 	}
 
+
+    /**
+     * Replaces basic template blocks in forms with the template elements
+     *
+     * @param string $html Form with tokens as placeholders for messages
+     * @return string The HTML form containing translated messages
+     */
+	public function replace_blocks( $html ){
+		global $wgRequest, $wgGlobalCollectGatewayHtmlFormDir;
+		if( $wgRequest->getText( 'debug', 'false' ) == 'true' ){
+			# do not replace tokens
+			return $html;
+		}
+
+		# replace template blocks
+		# doing this before transclusion so that tokens can be used in the templates
+		$matches = array();
+		preg_match_all( "/
+				{%\ block\ ([a-zA-Z0-9_-]+)\ ([a-zA-Z0-9_-]*)%}		# look for the start block and switching variable
+			/xis", $html, $matches );						# flags to ignore whitespace in regex and match \n with . (s)
+
+		foreach( $matches[ 1 ] as $i => $key ){
+			# $matches[ 1 ] is specified in the code, not user input
+			$filepath = $wgGlobalCollectGatewayHtmlFormDir . '/_' . $matches[ 1 ][ $i ] . '/';
+
+            $var = 'default';
+
+            # check to see if the parameter is, in fact, an element of form_data
+            if( array_key_exists( $matches[ 2 ][ $i ], $this->form_data ) ){
+                # get the value of the element and super-escape
+                $var = $this->make_safe( $this->form_data[ $matches[ 2 ][ $i ] ], 'default' );
+            }
+
+            # oh, and we only allow with the extension .html
+            # take that h@k3rs
+            if( file_exists( $filepath . $var . '.html' ) ){
+                # replace the template block with the actual template
+                $template = file_get_contents( $filepath . $var . '.html' );
+                $html = str_replace( $matches[ 0 ][ $i ], $template, $html );
+            } else {
+                # replace the template call with nothing at all
+                $html = str_replace( $matches[ 0 ][ $i ], '', $html );
+
+            }
+		}	
+		return $html;
+
+	}
+
 	/**
 	 * Set dropdowns to "selected' where appropriate
 	 * 
@@ -365,13 +417,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @param $string The unsafe string to escape and check for invalid characters
 	 * @return mixed|String A string matching the regex or an empty string
 	 */
-	function make_safe( $string ) {
+	function make_safe( $string, $default='' ) {
 		$num = preg_match( '([a-zA-Z0-9_-]+)', $string, $matches );
 
 		if ( $num == 1 ){
 			# theoretically this is overkill, but better safe than sorry
 			return wfEscapeWikiText( htmlspecialchars( $matches[0] ) );
 		}
-		return '';
+		return $default;
 	}
 }
