@@ -1085,6 +1085,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
 		$problemmessage = ''; //to be used in conjunction with the flag.
+		$deletelimbomessageflag = false; //this tells us if we should delete this transaction's limbo queue message or not. 
 
 		
 		if ( $post_status_check ){
@@ -1131,11 +1132,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $order_status_results ){
 				case 'failed' : 
 				case 'revised' :  
+					$deletelimbomessageflag = true;
 					$cancelflag = true; //makes sure we don't try to confirm.
 					break;
 				case 'complete' :
 					$problemflag = true; //nothing to be done.
 					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
+					$deletelimbomessageflag = true;
 					break;
 			}	
 		}
@@ -1167,6 +1170,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
 					$this->unsetAllSessionData();
+					$deletelimbomessageflag = true;
 				} else {
 					$problemflag = true;
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
@@ -1178,15 +1182,34 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if ( isset( $final['status'] ) && $final['status'] === true ) {
 						$this->setTransactionWMFStatus( 'failed' );
 						$this->unsetAllSessionData();
+						$deletelimbomessageflag = true;
 					} else {
 						$problemflag = true;
 						$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
 					}
 				}
-				//No else. We can't be in here if we've had problems, so the 
-				//GET_STATUS must have told us no. No action required (in fact, 
-				//GC will complain if we try to can something at this point). 
+					//No else. We can't be in here if we've had problems, so the 
+					//GET_STATUS must have told us no. No action required (in fact, 
+					//GC will complain if we try to can something at this point). 
 			}
+		}
+		
+		if ( $deletelimbomessageflag ) {
+			//ack the message out of the limbo queue. 
+			
+			//TODO: Test this in a batch situation. I have reason to suspect that the selectors won't work if the stomp connection isn't being reset properly. 
+			$limbo_messages = stompFetchMessages( 'limbo', "JMSCorrelationID = '" . $this->getCorrelationID() . "'" );
+			$msgCount = count($limbo_messages);
+			if ($msgCount){
+				stompAckMessages($limbo_messages);
+				if ($msgCount > 1){
+					self::log($this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . " - Deleted $msgCount limbo messages.");
+				}
+			} else {
+				self::log($this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . " - No limbo messages found.");
+			}
+			
+			closeDIStompConnection();
 		}
 		
 		if ( $problemflag ){
@@ -1285,8 +1308,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$data = array( );
 
 		$transaction = $this->getCurrentTransaction();
-
-		$this->getTransactionStatus();
 
 		switch ( $transaction ) {
 			case 'INSERT_ORDERWITHPAYMENT':
@@ -2015,9 +2036,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 	
+	/**
+	 * post-process function for INSERT_ORDERWITHPAYMENT. 
+	 * This gets called by executeIfFunctionExists, in do_transaction. 
+	 */
 	protected function post_process_insert_orderwithpayment(){
 		//yeah, we absolutely want to do this for every one of these. 
-		$this->doLimboStompTransaction();
+		if ( $this->getTransactionStatus() === true ) {
+			$data = $this->getTransactionData();
+			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
+			if ($action != 'failed'){
+				$this->doLimboStompTransaction();
+			}
+		}
 	}
 	
 	protected function pre_process_get_orderstatus(){
@@ -2059,39 +2090,4 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return $result;
 	}
 	
-	/**
-	 * Function that adds a stomp message to a special 'limbo' queue, for data 
-	 * that is either highly likely or completely guaranteed to be bifurcated by 
-	 * handing the ball to a third-party process. 
-	 * No need to override doStompTransaction in the parent class, as that has 
-	 * more logic than we need here. However, we may consider functionalizing 
-	 * some of the copied code in the parent class. 
-	 * @return void 
-	 */
-	protected function doLimboStompTransaction() {
-		if ( !$this->getGlobal( 'EnableStomp' ) ){
-			return;
-		}
-		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
-		$hook = 'gwLimboStomp';
-
-		// send the thing.
-		$transaction = array(
-			'response' => $this->getTransactionMessage(),
-			'date' => time(),
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			'correlation-id' => 'GC-' . $this->getData_Raw('order_id'),
-		);
-		
-		$stomp_fields = $this->dataObj->getStompMessageFields();
-		foreach ($stomp_fields as $field){	
-			$transaction[$field] = $this->getData_Raw($field);
-		}
-
-		try {
-			wfRunHooks( $hook, array( $transaction ) );
-		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
-		}
-	}
 }

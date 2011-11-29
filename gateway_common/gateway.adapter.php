@@ -1512,6 +1512,51 @@ abstract class GatewayAdapter implements GatewayType {
 			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
 		}
 	}
+	
+	
+	/**
+	 * Function that adds a stomp message to a special 'limbo' queue, for data 
+	 * that is either highly likely or completely guaranteed to be bifurcated by 
+	 * handing the ball to a third-party process. 
+	 * TODO: Functionalize some of the code copied from doStompTransaction.  
+	 * @return null 
+	 */
+	protected function doLimboStompTransaction() {
+		if ( !$this->getGlobal( 'EnableStomp' ) ){
+			return;
+		}
+		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
+		$hook = 'gwLimboStomp';
+
+		$stomp_fields = $this->dataObj->getStompMessageFields();
+		
+		$transaction = array(
+			'response' => $this->getTransactionMessage(),
+			'date' => time(),
+			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+			'correlation-id' => $this->getCorrelationID(),
+			'payment_method' => $this->getData_Raw('payment_method')
+		);
+		
+		$raw_data = array();
+		foreach ($stomp_fields as $field){	
+			if (!isset($transaction[$field])){
+				$raw_data[$field] = $this->getData_Raw($field);
+			}
+		}
+		
+		$transaction = array_merge($transaction, $raw_data);
+
+		try {
+			wfRunHooks( $hook, array( $transaction ) );
+		} catch ( Exception $e ) {
+			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
+		}
+	}
+	
+	protected function getCorrelationID(){
+		return $this->getIdentifier() . '-' . $this->getData_Raw('order_id');
+	}
 
 	function smooshVarsForStaging() {
 
