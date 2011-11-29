@@ -801,6 +801,17 @@ Bitte nimm Kontakt zuen is uf go Dyy Transaktio wyterfiere.',
 Bitte versuech s speter nonemol.',
 );
 
+/** Gujarati (ગુજરાતી)
+ * @author Rangilo Gujarati
+ */
+$messages['gu'] = array(
+	'payflowprogateway' => 'તમારું દાન હમણાં કરો',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro credit card processing',
+	'payflowpro_gateway-response-0' => 'તમારી લેવડદેવડ મંજૂર કરવામાં આવી છે. </br> 
+તમારા દાન માટે આભાર!',
+	'payflowpro_gateway-response-126' => 'તમારી લેવડદેવડ મંજૂરી બાકી છે',
+);
+
 /** Hebrew (עברית)
  * @author Amire80
  * @author Rotemliss
