@@ -1535,17 +1535,15 @@ abstract class GatewayAdapter implements GatewayType {
 			'date' => time(),
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			'correlation-id' => $this->getCorrelationID(),
-			'payment_method' => $this->getData_Raw('payment_method')
+			'payment_method' => $this->getData_Raw( 'payment_method' )
 		);
 		
 		$raw_data = array();
-		foreach ($stomp_fields as $field){	
-			if (!isset($transaction[$field])){
-				$raw_data[$field] = $this->getData_Raw($field);
-			}
+		foreach ( $stomp_fields as $field ){	
+			$raw_data[$field] = $this->getData_Raw( $field );
 		}
 		
-		$transaction = array_merge($transaction, $raw_data);
+		$transaction = array_merge( $raw_data, $transaction );
 
 		try {
 			wfRunHooks( $hook, array( $transaction ) );
