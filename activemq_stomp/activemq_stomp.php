@@ -135,19 +135,24 @@ function sendLimboSTOMP( $transaction ) {
 	// include a library
 	require_once( "Stomp.php" );
 
-	$message = json_encode( createQueueMessage( $transaction ) );
+	$properties = array( 
+		'persistent' => 'true', 
+		'correlation-id' => $transaction['correlation-id'],
+		'payment_method' => $transaction['payment_method'] 
+	);
+		
+	if ( array_key_exists( 'antimessage', $transaction ) ) {
+		$message = '';
+		$properties['antimessage'] = 'true';
+	} else {
+		$message = json_encode( createQueueMessage( $transaction ) );
+	}
 
 	// make a connection
 	$con = new Stomp( $wgStompServer );
 
 	// connect
 	$con->connect();
-	
-	$properties = array( 
-		'persistent' => 'true', 
-		'correlation-id' => $transaction['correlation-id'],
-		'payment_method' => $transaction['payment_method'] 
-	);
 
 	// send a message to the queue
 	$result = $con->send( "/queue/$queueName", $message, $properties );
@@ -212,6 +217,8 @@ function createQueueMessage( $transaction ) {
 		'postal_code_2' => $transaction['zip2'],
 		'gateway' => $transaction['gateway'],
 		'gateway_txn_id' => $transaction['gateway_txn_id'],
+		'payment_method' => $transaction['payment_method'],
+		'payment_submethod' => $transaction['payment_submethod'],
 		'response' => $transaction['response'],
 		'currency' => $transaction['currency_code'],
 		'original_currency' => $transaction['currency_code'],

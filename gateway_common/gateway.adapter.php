@@ -832,14 +832,14 @@ abstract class GatewayAdapter implements GatewayType {
 
 			// If the payment processor requires XML, package our data into XML.
 			if ( $this->getCommunicationType() === 'xml' ) {
-				$this->getStopwatch( "buildRequestXML" ); // begin profiling
+				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
 				$curlme = $this->buildRequestXML(); // build the XML
 				$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
 			}
 
 			// If the payment processor requires name/value pairs, package our data into name/value pairs.
 			if ( $this->getCommunicationType() === 'namevalue' ) {
-				$this->getStopwatch( "buildRequestNameValueString" ); // begin profiling
+				$this->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
 				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
 				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
 			}
@@ -1283,11 +1283,15 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 *
-	 * @param type $function
-	 * @param type $additional
-	 * @param type $vars 
+	 * @param string $function This is the function name that identifies the 
+	 * stopwatch that should have already been started with the getStopwatch 
+	 * function.
+	 * @param string $additional Additional information about the thing we're 
+	 * currently timing. Meant to be easily searchable.  
+	 * @param string $vars Intended to be particular values of any variables 
+	 * that might be of interest. 
 	 */
-	function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
+	public function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
 		static $saveStats = null;
 		static $saveDB = null;
 
@@ -1521,7 +1525,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * TODO: Functionalize some of the code copied from doStompTransaction.  
 	 * @return null 
 	 */
-	protected function doLimboStompTransaction() {
+	protected function doLimboStompTransaction( $antimessage = false ) {
 		if ( !$this->getGlobal( 'EnableStomp' ) ){
 			return;
 		}
@@ -1530,25 +1534,39 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$stomp_fields = $this->dataObj->getStompMessageFields();
 		
-		$transaction = array(
-			'response' => $this->getTransactionMessage(),
-			'date' => time(),
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			'correlation-id' => $this->getCorrelationID(),
-			'payment_method' => $this->getData_Raw( 'payment_method' )
-		);
-		
-		$raw_data = array();
-		foreach ( $stomp_fields as $field ){	
-			$raw_data[$field] = $this->getData_Raw( $field );
+		if ($antimessage){
+			$transaction = array(
+				'date' => time(),
+				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+				'correlation-id' => $this->getCorrelationID(),
+				'payment_method' => $this->getData_Raw( 'payment_method' ),
+				'antimessage' => 'true'
+			);
+		} else {
+			$transaction = array(
+				'response' => $this->getTransactionMessage(),
+				'date' => time(),
+				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+				'correlation-id' => $this->getCorrelationID(),
+				'payment_method' => $this->getData_Raw( 'payment_method' ),
+			);
+			
+			$raw_data = array();
+			foreach ( $stomp_fields as $field ){	
+				$raw_data[$field] = $this->getData_Raw( $field );
+			}
+			$transaction = array_merge( $raw_data, $transaction );
 		}
-		
-		$transaction = array_merge( $raw_data, $transaction );
 
 		try {
 			wfRunHooks( $hook, array( $transaction ) );
 		} catch ( Exception $e ) {
 			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
+		}
+		if ($antimessage){
+			$antimessage = "Anti-message = true";
+		} else {
+			$antimessage = '';
 		}
 	}
 	

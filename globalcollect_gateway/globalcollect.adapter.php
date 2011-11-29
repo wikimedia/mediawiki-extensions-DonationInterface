@@ -1046,7 +1046,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function do_transaction( $transaction ){
 		switch ( $transaction ){
 			case 'Confirm_CreditCard' :
-				return $this->transactionConfirm_CreditCard();
+				$this->getStopwatch( __FUNCTION__, true );
+				$result = $this->transactionConfirm_CreditCard();
+				$this->saveCommunicationStats( __FUNCTION__, $transaction );
 				break;
 			default:
 				return parent::do_transaction( $transaction );
@@ -1195,21 +1197,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		
 		if ( $deletelimbomessageflag ) {
-			//ack the message out of the limbo queue. 
-			
-			//TODO: Test this in a batch situation. I have reason to suspect that the selectors won't work if the stomp connection isn't being reset properly. 
-			$limbo_messages = stompFetchMessages( 'limbo', "JMSCorrelationID = '" . $this->getCorrelationID() . "'" );
-			$msgCount = count($limbo_messages);
-			if ($msgCount){
-				stompAckMessages($limbo_messages);
-				if ($msgCount > 1){
-					self::log($this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . " - Deleted $msgCount limbo messages.");
-				}
-			} else {
-				self::log($this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . " - No limbo messages found.");
-			}
-			
-			closeDIStompConnection();
+			//As it happens, we can't remove things from the queue here: It 
+			//takes way too dang long. (~5 seconds!)
+			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 
+			$this->doLimboStompTransaction( true );
 		}
 		
 		if ( $problemflag ){
