@@ -615,6 +615,13 @@ $messages['ru'] = array(
 Пожалуйста, повторите попытку позже.',
 );
 
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'globalcollectgateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
+);
+
 /** Slovenian (Slovenščina)
  * @author Artelind
  * @author Dbc334
