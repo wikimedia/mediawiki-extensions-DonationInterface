@@ -408,7 +408,8 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-securelogo-title' => 'Click to Verify - This site chose VeriSign SSL for secure e-commerce and confidential communications.',
 	'donate_interface-secureLogo-text' => 'About SSL Certificates',
         
-	
+	// HTTP errors
+	'donate_interface-error-http-403' => 'You do not have permission to access this page.',
 );
 
 /** Message documentation (Message documentation)

@@ -43,8 +43,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//somewhere else. 
 		$forbidden = false;
 		if ( !isset($_GET['order_id']) || !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
-			//TODO: i18n, apparently. 
-			wfHttpError( 403, 'Forbidden', 'You do not have permission to access this page.' );
+			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
 			$forbidden = true;
 		}
 
