@@ -380,6 +380,8 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-email-unsub-success' => 'You have successfully been removed from our mailing list',
 	'donate_interface-email-unsub-delay' => 'Please allow up to four (4) days for the changes to take effect. We apologize for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'There was an error processing your request, please contact <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Are you sure you want to unsubscribe <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'This will opt you out of emails from the Wikimedia Foundation sent to you as a donor. You may still receive emails to this email address if it is associated with an account on one of our projects. If you have any questions, please contact <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 
 	// Various form interface elements
 	'donate_interface-faqs' => 'Frequently asked questions',
@@ -782,6 +784,8 @@ See [[w:en:Check_digit]] for explanation of Check Digit.',
 	'donate_interface-email-unsub-success' => 'The message that is shown when a user is successfully unsubscribed from the mailing list',
 	'donate_interface-email-unsub-delay' => 'The message that is shown when there is a delay in the unsubscription of a donor from the mailing list',
 	'donate_interface-email-unsub-fail' => 'The message that is shown when there has been an error in the unsubscription of a donor from the mailing list',
+	'donate_interface-email-unsub-confirm' => 'To confirm that the user wants to unsubscribe from getting e-mail notifications. \'\'\'$1\'\'\' is the user\'s e-mail address.',
+	'donate_interface-email-unsub-warning' => 'A warning that unsubscribing from donation requests will not unsubscribe from talk page notifications, etc.',
 	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
 	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
