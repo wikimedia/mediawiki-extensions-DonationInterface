@@ -41,9 +41,11 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//no longer letting people in without these things. If this is 
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
+		$forbidden = false;
 		if ( !isset($_GET['order_id']) || !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
 			//TODO: i18n, apparently. 
 			wfHttpError( 403, 'Forbidden', 'You do not have permission to access this page.' );
+			$forbidden = true;
 		}
 
 		$referrer = $wgRequest->getHeader( 'referer' );
@@ -64,6 +66,23 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			$this->adapter->getGlobal( 'CSSVersion' ) );
 
 		$this->setHeaders();
+		
+		if ( $forbidden ){
+			$qs_oid = 'undefined';
+			$message = '';
+			if ( !isset($_GET['order_id']) ){
+				$message = 'No order ID in the Querystring.';
+			} else {
+				$qs_oid = $_GET['order_id'];
+			}
+			
+			if ( !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
+				$message = 'Requested order id not present in the session';
+			}
+			
+			$this->adapter->log("Resultswitcher: Request forbidden. " . $message . " Quersytring Oirder ID: $qs_oid");
+			return;
+		}
 
 
 		// dispatch forms/handling
@@ -99,16 +118,16 @@ class GlobalCollectGatewayResult extends GatewayForm {
 						$wgOut->addHTML( "<br>Redirecting to page $go" );
 						$wgOut->redirect( $go );
 					} else {
-						$this->adapter->log("Resultswitcher: No redirect defined.");
+						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid");
 					}
 				} else {
-					$this->adapter->log("Resultswitcher: No TransactionWMFStatus.");
+					$this->adapter->log("Resultswitcher: No TransactionWMFStatus. Order ID: $oid");
 				}
 			} else {
-				$this->adapter->log("Resultswitcher: Payment method is not cc.");
+				$this->adapter->log("Resultswitcher: Payment method is not cc. Order ID: $oid");
 			}
 		} else {
-			$this->adapter->log("Resultswitcher: Token Check Failed.");
+			$this->adapter->log("Resultswitcher: Token Check Failed. Order ID: $oid");
 		}
 	}
 	
