@@ -38,7 +38,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		//Now, actually do the processing. 
 		if ( method_exists( $this, $func ) ) {
-			$this->{$function_name}();
+			$this->{$func}();
 		} else {
 			echo "There's no $func in Orphan Rectifying!\n";
 			die();

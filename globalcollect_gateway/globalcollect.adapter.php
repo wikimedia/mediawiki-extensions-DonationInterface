@@ -1049,6 +1049,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->getStopwatch( __FUNCTION__, true );
 				$result = $this->transactionConfirm_CreditCard();
 				$this->saveCommunicationStats( __FUNCTION__, $transaction );
+				return $result;
 				break;
 			default:
 				return parent::do_transaction( $transaction );
@@ -1080,14 +1081,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		} else { //this is an orphan transaction. 
 			$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
 			$is_orphan = true;
+			//have to change this code range: All these are usually "pending" and 
+			//that would still be true...
+			//...aside from the fact that if the user has gotten this far, they left 
+			//the part where they could add more data. 
+			//By now, "incomplete" definitely means "failed" for 0-70. 
+			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
 		
-		//have to change this code range: All these are usually "pending" and 
-		//that would still be true...
-		//...aside from the fact that if the user has gotten this far, they left 
-		//the part where they could add more data. 
-		//By now, "incomplete" definitely means "failed" for 0-70. 
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 		
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
@@ -1095,7 +1096,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
 
-		
 		if ( $is_orphan ){
 			if ( array_key_exists('data', $status_result) ) {
 				foreach ( $pull_vars as $theirkey => $ourkey) {
@@ -1195,10 +1195,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						$problemflag = true;
 						$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
 					}
+				} else {
+					//in case we got wiped out, set the final status to what it was before. 
+					$this->setTransactionWMFStatus( $order_status_results );
 				}
-					//No else. We can't be in here if we've had problems, so the 
-					//GET_STATUS must have told us no. No action required (in fact, 
-					//GC will complain if we try to can something at this point). 
 			}
 		}
 		
@@ -1214,7 +1214,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$problemmessage = $this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . ' ' . $problemmessage;
 			self::log( $problemmessage );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
-			return array(
+			$ret = array(
 				'status' => false,
 				//TODO: appropriate messages. 
 				'message' => $problemmessage,
@@ -1223,6 +1223,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				),
 				'action' => $this->getValidationAction(),
 			);
+			return $ret;
 		}
 		
 //		return something better... if we need to!

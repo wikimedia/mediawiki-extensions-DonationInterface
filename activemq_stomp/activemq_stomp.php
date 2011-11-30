@@ -130,7 +130,7 @@ function sendPendingSTOMP( $transaction ) {
 function sendLimboSTOMP( $transaction ) {
 	global $wgStompServer, $wgLimboStompQueueName;
 
-	$queueName = isset( $wgLimboStompQueueName ) ? $wgLimboStompQueueName : 'test';
+	$queueName = isset( $wgLimboStompQueueName ) ? $wgLimboStompQueueName : 'limbo';
 
 	// include a library
 	require_once( "Stomp.php" );

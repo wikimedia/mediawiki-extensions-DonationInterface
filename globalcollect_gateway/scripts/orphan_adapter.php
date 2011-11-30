@@ -100,7 +100,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 //				return "NOPE";
 //				break;
 			default:
-				return parent::do_transaction( $transaction );
+				$ret = parent::do_transaction( $transaction );
+				return $ret;
 				break;
 		}
 	}
