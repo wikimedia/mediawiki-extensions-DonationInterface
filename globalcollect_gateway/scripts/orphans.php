@@ -13,42 +13,193 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	protected $killfiles = array();
 	protected $order_ids = array();
-	protected $max_per_execute = 3;
+	protected $max_per_execute = 500; //only really used if you're going by-file.
+	protected $target_execute_time = 30; //(seconds) - only used by the stomp option.
+	protected $adapter;
 	
 	
 	function execute(){
-		
-		$order_ids = file('orphanlogs/order_ids.txt', FILE_SKIP_EMPTY_LINES);
-		foreach ($order_ids as $key=>$val){
-			$order_ids[$key] = trim($val);
-		}
-		foreach ($order_ids as $id){
-			$this->order_ids[$id] = $id; //easier to unset this way. 
-		}
-		$outstanding_count = count($this->order_ids);
-		echo "Order ID count: " . $outstanding_count . "\n";
-		
-		$files = $this->getAllLogFileNames();
-		$payments = array();
-		foreach ($files as $file){
-			if (count($payments) < $this->max_per_execute){
-				$file_array = $this->getLogfileLines( $file );
-				$payments = array_merge($this->findTransactionLines($file_array), $payments);
-				if (count($payments) === 0){
-					$this->killfiles[] = $file;
-					echo print_r($this->killfiles, true);
+		$func = 'parse_files';
+		if ( !empty( $_SERVER['argv'][1] ) ){
+			if ( $_SERVER['argv'][1] === 'stomp' ){
+				$func = 'orphan_stomp';
+				if ( !empty( $_SERVER['argv'][2] ) && is_numeric( $_SERVER['argv'][2] ) ){
+					$this->target_execute_time = $_SERVER['argv'][2];
 				}
+			} elseif ( is_numeric( $_SERVER['argv'][1] ) ){
+				$this->max_per_execute = $_SERVER['argv'][1];
 			}
-		}		
+		}
 		
 		$data = array(
 			'wheeee' => 'yes'			
 		);
+		$this->adapter = new GlobalCollectOrphanAdapter(array('external_data' => $data));
 		
-		$adapter = new GlobalCollectOrphanAdapter(array('external_data' => $data));
-		$adapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
-		$var_map = $adapter->defineVarMap();
+		//Now, actually do the processing. 
+		if ( method_exists( $this, $func ) ) {
+			$this->{$function_name}();
+		} else {
+			echo "There's no $func in Orphan Rectifying!\n";
+			die();
+		}
+	}
+	
+	function orphan_stomp(){
 		
+		$this->removed_message_count = 0;
+		$this->now = time(); //time at start, thanks very much. 
+		
+		//I want to be clear on the problem I hope to prevent with this. 
+		//Say, for instance, we pull a legit orphan, and for whatever reason, can't completely rectify it. 
+		//Then, we go back and pull more... and that same one is in the list again. We should stop after one try per message per execute.
+		//We should also be smart enough to not process things we believe we just deleted. 
+		$this->handled_ids = array();
+		
+		//first, we need to... clean up the limbo queue. 
+		$this->handleStompAntiMessages();
+		$this->adapter->log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
+		
+		//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
+		$orphans = $this->getStompOrphans();
+		while ( count( $orphans ) && $this->keepGoing() ){
+			//..do stuff. 
+			foreach ( $orphans as $correlation_id => $orphan ) {
+				//process
+				if ( $this->rectifyOrphan( $orphan ) ){
+					$this->addStompCorrelationIDToAckBucket( $correlation_id );
+					$this->handled_ids[$correlation_id] = 'rectified';
+				} else {
+					$this->handled_ids[$correlation_id] = 'error';
+				}
+			}
+		}
+		
+		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
+
+		//TODO: Make stats squirt out all over the place.  
+		$am = 0;
+		$rec = 0;
+		$err = 0;
+		foreach( $this->handled_ids as $id=>$whathappened ){
+			switch ( $whathappened ){
+				case 'antimessage' : 
+					$am += 1;
+					break;
+				case 'rectified' : 
+					$rec += 1;
+					break;
+				case 'error' :
+					$err += 1;
+					break;
+			}
+		}
+		echo "\nDone! Final results: \n $am destroyed via antimessage \n $rec rectified orphans \n $err errored out\n";
+		
+	}
+	
+	function keepGoing(){
+		$elapsed = time() - $this->now;
+		if ( $elapsed < $this->target_execute_time ){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function addStompCorrelationIDToAckBucket( $correlation_id, $ackNow = false ){
+		static $bucket = array();
+		$count = 50; //sure. Why not?
+		if ( $correlation_id ) {
+			$bucket[$correlation_id] = "'$correlation_id'"; //avoiding duplicates.
+			$this->handled_ids[$correlation_id] = 'antimessage';
+		}
+		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
+			//ack now.
+			$selector = 'JMSCorrelationID IN (' . implode( ", ", $bucket ) . ')';
+			$ackMe = stompFetchMessages( 'limbo', $selector, $count * 100 ); //This is outrageously high, but I just want to be reasonably sure we get all the matches. 
+			$retrieved_count = count( $ackMe );
+			if ( $retrieved_count ){
+				stompAckMessages( $ackMe );
+				$this->removed_message_count += $retrieved_count;
+			}
+			$bucket = array();
+		}
+		
+	}
+	
+	function handleStompAntiMessages(){
+		$selector = "antimessage = 'true'";
+		$antimessages = stompFetchMessages( 'limbo', $selector, 1000 );
+		$count = 0;
+		while ( count( $antimessages ) ){ //if there's an antimessage, we can ack 'em all right now. 
+			$count += count( $antimessages );
+			foreach ( $antimessages as $message ){
+				//add the correlation ID to the ack bucket. 
+				if (array_key_exists('correlation-id', $message->headers)) {
+					$this->addStompCorrelationIDToAckBucket( $message->headers['correlation-id'] );
+				} else {
+					echo 'The STOMP message ' . $message->headers['message-id'] . ' has no correlation ID!';
+				}
+			}
+			$antimessages = stompFetchMessages( 'limbo', $selector, 1000 );
+		}
+		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
+		$this->adapter->log("Found $count antimessages.");
+	}
+	
+	/**
+	 * Returns an array of **at most** 300 decoded orphans that we don't think we've rectified yet. 
+	 * @return array keys are the correlation_id, and the values are the decoded stomp message body. 
+	 */
+	function getStompOrphans(){
+		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
+		$selector = "payment_method = 'cc'";
+		$messages = stompFetchMessages( 'limbo', $selector, 300 );
+		$orphans = array();
+		foreach ( $messages as $message ){
+			if ( !array_key_exists('antimessage', $message->headers )
+				&& !array_key_exists( $message->headers['correlation-id'], $this->handled_ids ) ) {
+				//check the timestamp to see if it's old enough. 
+				$decoded = json_decode($message->body, true);
+				if ( array_key_exists( 'date', $decoded ) ){
+					$elapsed = $this->now - $decoded['date'];
+					if ( $elapsed > $time_buffer ){
+						//we got ourselves an orphan! 
+						$orphans[$message->headers['antimessage']] = $decoded;
+					}
+				}
+			}
+		}
+		return $orphans;
+	}
+	
+	function parse_files(){
+		//all the old stuff goes here. 
+		$order_ids = file( 'orphanlogs/order_ids.txt', FILE_SKIP_EMPTY_LINES );
+		foreach ( $order_ids as $key=>$val ){
+			$order_ids[$key] = trim( $val );
+		}
+		foreach ( $order_ids as $id ){
+			$this->order_ids[$id] = $id; //easier to unset this way. 
+		}
+		$outstanding_count = count( $this->order_ids );
+		echo "Order ID count: " . $outstanding_count . "\n";
+		
+		$files = $this->getAllLogFileNames();
+		$payments = array();
+		foreach ( $files as $file ){
+			if ( count( $payments ) < $this->max_per_execute ){
+				$file_array = $this->getLogfileLines( $file );
+				$payments = array_merge( $this->findTransactionLines( $file_array ), $payments );
+				if ( count( $payments ) === 0 ){
+					$this->killfiles[] = $file;
+					echo print_r( $this->killfiles, true );
+				}
+			}
+		}
+		
+		$this->adapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 		$xml = new DomDocument;
 		
 		//fields that have generated notices if they're not there. 
@@ -69,12 +220,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			'zip2',			
 		);
 		
-		
 		foreach ($payments as $key => $payment_data){
 			$xml->loadXML($payment_data['xml']);
-			$parsed = $adapter->getResponseData($xml);
+			$parsed = $this->adapter->getResponseData($xml);
 			$payments[$key]['parsed'] = $parsed;
-			$payments[$key]['unstaged'] = $adapter->unstage_data($parsed);
+			$payments[$key]['unstaged'] = $this->adapter->unstage_data($parsed);
 			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];
 			$payments[$key]['unstaged']['i_order_id'] = $payments[$key]['unstaged']['order_id'];
 			foreach ($additional_fields as $val){
@@ -92,24 +242,41 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		foreach($payments as $payment_data){
 			if ($i < $this->max_per_execute){
 				++$i;
-				$adapter->loadDataAndReInit($payment_data['unstaged']);
-				$results = $adapter->do_transaction('Confirm_CreditCard');
-				if ($results['status']){
-					$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": FINAL: " . $results['action']);
-					unset($this->order_ids[$payment_data['unstaged']['order_id']]);
-				} else {
-					$adapter->log( $payment_data['unstaged']['contribution_tracking_id'] . ": ERROR: " . $results['message']);
-					if (strpos($results['message'], "GET_ORDERSTATUS reports that the payment is already complete.")){
-						unset($this->order_ids[$payment_data['unstaged']['order_id']]);
-					}
+				if ( $this->rectifyOrphan( $payment_data['unstaged'] ) ) {
+					unset( $this->order_ids[$payment_data['unstaged']['order_id']] );
 				}
-				echo $results['message'] . "\n";
 			}
 		}
 		
 		if ($outstanding_count != count($this->order_ids)){
 			$this->rewriteOrderIds();
 		}
+	}
+	
+	/**
+	 * Uses the Orphan Adapter to rectify a single orphan. Returns a boolean letting the caller know if
+	 * the orphan has been fully rectified or not. 
+	 * @param array $data Some set of orphan data. 
+	 * @param boolean $query_contribution_tracking A flag specifying if we should query the contribution_tracking table or not.
+	 * @return boolean True if the orphan has been rectified, false if not. 
+	 */
+	function rectifyOrphan( $data, $query_contribution_tracking = true ){
+		$rectified = false;
+		
+		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
+		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+		if ($results['status']){
+			$this->adapter->log( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
+			$rectified = true;
+		} else {
+			$this->adapter->log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
+			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) ){
+				$rectified = true;
+			}
+		}
+		echo $results['message'] . "\n";
+		
+		return $rectified;
 	}
 	
 	function getAllLogFileNames(){

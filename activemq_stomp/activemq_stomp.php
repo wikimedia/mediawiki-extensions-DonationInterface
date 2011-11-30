@@ -259,14 +259,16 @@ function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 			break;
 	}
 	
-	$stomp = getDIStompConnection();
+	//This needs to be renewed every time, or the selectors won't work. 
+	//So says the internets, at least.  
+	$stomp = getDIStompConnection( true ); 
 	
 	$properties = array( 'ack' => 'client' );
-	if (!is_null($selector)){
+	if ( !is_null( $selector ) ){
 		$properties['selector'] = $selector;
 	}
 	
-	$returned = $stomp->subscribe('/queue/' . $queue, $properties);
+	$returned = $stomp->subscribe( '/queue/' . $queue, $properties );
 	$message = $stomp->readFrame();
 	
 	$return = array();

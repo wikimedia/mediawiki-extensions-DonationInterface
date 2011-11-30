@@ -1070,7 +1070,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 		
-		$post_status_check = false;
+		$is_orphan = false;
 		if ( count( $addme ) ){ //nothing unusual here. 
 			$this->addData( $addme );
 			$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
@@ -1079,18 +1079,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			self::log( $logmsg );
 		} else { //this is an orphan transaction. 
 			$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
-			$post_status_check = true;
+			$is_orphan = true;
 		}
 		
+		//have to change this code range: All these are usually "pending" and 
+		//that would still be true...
+		//...aside from the fact that if the user has gotten this far, they left 
+		//the part where they could add more data. 
+		//By now, "incomplete" definitely means "failed" for 0-70. 
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 		
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
 		$problemmessage = ''; //to be used in conjunction with the flag.
-		$deletelimbomessageflag = false; //this tells us if we should delete this transaction's limbo queue message or not. 
+		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
 
 		
-		if ( $post_status_check ){
+		if ( $is_orphan ){
 			if ( array_key_exists('data', $status_result) ) {
 				foreach ( $pull_vars as $theirkey => $ourkey) {
 					if ( array_key_exists($theirkey, $status_result['data']) ) {
@@ -1134,13 +1140,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $order_status_results ){
 				case 'failed' : 
 				case 'revised' :  
-					$deletelimbomessageflag = true;
+					$add_antimessage = true;
 					$cancelflag = true; //makes sure we don't try to confirm.
 					break;
 				case 'complete' :
 					$problemflag = true; //nothing to be done.
 					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
-					$deletelimbomessageflag = true;
+					$add_antimessage = true;
 					break;
 			}	
 		}
@@ -1172,7 +1178,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
 					$this->unsetAllSessionData();
-					$deletelimbomessageflag = true;
+					$add_antimessage = true;
 				} else {
 					$problemflag = true;
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
@@ -1184,7 +1190,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if ( isset( $final['status'] ) && $final['status'] === true ) {
 						$this->setTransactionWMFStatus( 'failed' );
 						$this->unsetAllSessionData();
-						$deletelimbomessageflag = true;
+						$add_antimessage = true;
 					} else {
 						$problemflag = true;
 						$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
@@ -1196,7 +1202,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 		
-		if ( $deletelimbomessageflag ) {
+		if ( $add_antimessage && !$is_orphan ) {
 			//As it happens, we can't remove things from the queue here: It 
 			//takes way too dang long. (~5 seconds!)
 			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 

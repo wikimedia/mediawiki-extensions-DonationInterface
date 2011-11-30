@@ -31,7 +31,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $unstaged;
 	}
 
-	public function loadDataAndReInit( $data ) {
+	public function loadDataAndReInit( $data, $useDB = true ) {
 		$this->batch = true; //or the hooks will accumulate badness. 
 		//re-init all these arrays, because this is a batch thing. 
 		$this->hard_data = array( );
@@ -46,7 +46,19 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->raw_data = $this->dataObj->getData();
 
-		$this->hard_data = array_merge( $this->hard_data, $this->getUTMInfoFromDB() );
+		if ( $useDB ){
+			$this->hard_data = array_merge( $this->hard_data, $this->getUTMInfoFromDB() );
+		} else {
+			$utm_keys = array(
+				'utm_source',
+				'utm_campaign',
+				'utm_medium',
+				'date'
+			);
+			foreach($utm_keys as $key){
+				$this->hard_data[$key] = $data[$key];
+			}			
+		}
 		$this->reAddHardData();
 
 		$this->staged_data = $this->raw_data;
@@ -178,11 +190,14 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			return;
 		}
 
-
-		if ( !is_null( $this->getData_Raw( 'ts' ) ) ) {
-			$timestamp = strtotime( $this->getData_Raw( 'ts' ) ); //I hate that this works.
+		if ( !is_null( $this->getData_Raw( 'date' ) ) ) {
+			$timestamp = $this->getData_Raw( 'date' );
 		} else {
-			$timestamp = time();
+			if ( !is_null( $this->getData_Raw( 'ts' ) ) ) {
+				$timestamp = strtotime( $this->getData_Raw( 'ts' ) ); //I hate that this works.
+			} else {
+				$timestamp = time();
+			}
 		}
 
 		// send the thing.
