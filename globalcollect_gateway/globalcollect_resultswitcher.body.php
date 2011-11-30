@@ -72,7 +72,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			$oid = $wgRequest->getText( 'order_id' );
 			
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
-			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' && $this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ) {
+			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
@@ -98,10 +98,18 @@ class GlobalCollectGatewayResult extends GatewayForm {
 					if ($go) {
 						$wgOut->addHTML( "<br>Redirecting to page $go" );
 						$wgOut->redirect( $go );
-					} //TODO: There really should be an else here. 
+					} else {
+						$this->adapter->log("Resultswitcher: No redirect defined.");
+					}
+				} else {
+					$this->adapter->log("Resultswitcher: No TransactionWMFStatus.");
 				}
-			} 
-		} 
+			} else {
+				$this->adapter->log("Resultswitcher: Payment method is not cc.");
+			}
+		} else {
+			$this->adapter->log("Resultswitcher: Token Check Failed.");
+		}
 	}
 	
 	/**
