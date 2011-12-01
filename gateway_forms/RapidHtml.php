@@ -58,7 +58,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@account_name',
 		'@bank_code',
 		'@bank_name',
-        '@bank_check_digit',
+		'@bank_check_digit',
         '@branch_code',
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
