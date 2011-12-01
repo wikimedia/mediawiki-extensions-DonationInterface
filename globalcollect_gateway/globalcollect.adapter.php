@@ -2015,14 +2015,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
 				}
 				
-			} elseif ( $this->getData_Raw( 'payment_method' ) === 'rtbt' ) {
-				
-				$this->staged_data['returnto'] = $this->getThankYouPage();
-				
 			} else {
 				
 				// Do we want to set this here?
-				$this->staged_data['returnto'] = $returnto;
+				$this->staged_data['returnto'] = $this->getThankYouPage();
 			}
 		}
 	}
