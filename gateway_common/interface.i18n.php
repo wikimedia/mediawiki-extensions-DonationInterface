@@ -784,7 +784,7 @@ See [[w:en:Check_digit]] for explanation of Check Digit.',
 	'donate_interface-email-unsub-success' => 'The message that is shown when a user is successfully unsubscribed from the mailing list',
 	'donate_interface-email-unsub-delay' => 'The message that is shown when there is a delay in the unsubscription of a donor from the mailing list',
 	'donate_interface-email-unsub-fail' => 'The message that is shown when there has been an error in the unsubscription of a donor from the mailing list',
-	'donate_interface-email-unsub-confirm' => 'To confirm that the user wants to unsubscribe from getting e-mail notifications. \'\'\'$1\'\'\' is the user\'s e-mail address.',
+	'donate_interface-email-unsub-confirm' => "To confirm that the user wants to unsubscribe from getting e-mail notifications. '''$1''' is the user's e-mail address.",
 	'donate_interface-email-unsub-warning' => 'A warning that unsubscribing from donation requests will not unsubscribe from talk page notifications, etc.',
 	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
@@ -5145,6 +5145,8 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-email-unsub-success' => 'Sie wurden erfolgreich aus unserer Mailinglist entfernt',
 	'donate_interface-email-unsub-delay' => 'Bitte lassen Sie uns für die Änderungen vier (4) Tage Zeit. Wir bitten um Verständnis für die E-Mails, die Sie während dieser Zeit erhalten. Wenn Sie irgendwelche Fragen haben, kontaktieren Sie bitte <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Es gab einen Fehler bei der Verarbeitung Ihrer Anfrage, bitte <donations@wikimedia.org> kontaktieren.',
+	'donate_interface-email-unsub-confirm' => 'Sind Sie sicher, dass Sie keine E-Mail-Benachrichtigungen mehr an <b>$1</b> erhalten möchten?',
+	'donate_interface-email-unsub-warning' => 'Hiermit entscheiden Sie sich, keine E-Mails mehr von der Wikimedia Foundation zu erhalten, die Spendern zugesandt werden. Sie könnten allerdings immer noch E-Mails erhalten, sofern diese E-Mail-Adresse mit einem Benutzerkonto eines Wikimedia-Projekts verknüpft ist. Im Fall von Fragen, können Sie sich gerne eine E-Mail an <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a> senden.',
 	'donate_interface-faqs' => 'Häufig gestellte Fragen',
 	'donate_interface-tax-info' => 'Information über die steuerliche Absetzbarkeit',
 	'donate_interface-informationsharing' => 'Sie geben Ihre Informationen der Wikimedia Foundation preis, der Non-Profit-Organisation, die Wikipedia und andere Wikimedia-Projekte betreibt. Die Service-Provider in den USA und sonstigen Ländern entsprechen unseren Spenderdatenschutzrichtlinien. Wir verkaufen oder handeln nicht mit Ihren Daten. Für weitere Informationen lesen Sie bitte <a href="http://wikimediafoundation.org/wiki/Donor_policy/de">unsere Spenderdatenschutzrichtlinien</a>.',
@@ -5164,6 +5166,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-monthlybox-bottom' => 'Ihre Spende wird sicher verarbeitet.',
 	'donate_interface-securelogo-title' => 'Zum Verifizieren hier klicken – Diese Website benutzt VeriSign SSL für sicheren E-Commerce und vertrauliche Kommunikationen.',
 	'donate_interface-secureLogo-text' => 'Über SSL-Zertifikate',
+	'donate_interface-error-http-403' => 'Du hast nicht die erforderliche Berechtigung, um diese Seite aufrufen zu können.',
 );
 
 /** German (formal address) (‪Deutsch (Sie-Form)‬)
@@ -5194,6 +5197,7 @@ $messages['de-formal'] = array(
 	'donate_interface-state-dropdown-YY' => 'Wählen Sie einen Staat',
 	'donate_interface-translate-redlink2' => 'Oder senden Sie Ihre Übersetzung per E-Mail an translations@wikimedia.org',
 	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei Ihrer Überweisung anzugeben. Falls Sie Fragen oder Anliegen haben, können Sie eine E-Mail an donations@wikimedia.org senden.',
+	'donate_interface-error-http-403' => 'Sie haben nicht die erforderliche Berechtigung, um diese Seite aufrufen zu können.',
 );
 
 /** Zazaki (Zazaki)
@@ -8557,6 +8561,8 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'donate_interface-email-unsub-success' => 'Eliminamos correctamente o teu nome da lista de correo',
 	'donate_interface-email-unsub-delay' => 'Pode levar ata catro (4) días que os cambios se fagan efectivos. Pedimos desculpas polos correos electrónicos que poidas recibir estes días. Se tes algunha pregunta, ponte en contacto con nós no enderezo <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Houbo un erro ao procesar a túa solicitude, ponte en contacto con nós no enderezo <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Estás seguro de querer cancelar a subscrición a <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Isto cancelará os correos electrónicos que a Fundación Wikimedia che envía como doante. Poida que sigas recibindo correos se este enderezo está asociado a unha conta nun dos nosos proxectos. Se tes dúbidas ou preguntas, ponte en contacto con nós no enderezo <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Preguntas máis frecuentes',
 	'donate_interface-tax-info' => 'Información de desgravación fiscal',
 	'donate_interface-informationsharing' => 'Ao realizar unha doazón, compartes a túa información coa Fundación Wikimedia, a organización sen fins de lucro que aloxa a Wikipedia e outros proxectos, e cos seus provedores de servizos nos EUA e outros lugares conforme á nosa política de protección de datos. Non vendemos nin comerciamos coa túa información. Se queres obter máis información lee a nosa <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">política de protección de datos</a>.',
@@ -8576,6 +8582,7 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'donate_interface-monthlybox-bottom' => 'A túa doazón procesarase de xeito seguro.',
 	'donate_interface-securelogo-title' => 'Preme para comprobar. Este sitio elixiu o SSL de VeriSign para realizar comercios en liña seguros e comunicacións confidenciais.',
 	'donate_interface-secureLogo-text' => 'Acerca dos certificados SSL',
+	'donate_interface-error-http-403' => 'Non ten permiso para acceder a esta páxina.',
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
@@ -14234,6 +14241,8 @@ $messages['mk'] = array(
 	'donate_interface-email-unsub-success' => 'Успешно сте отстранети од нашиот поштенски список',
 	'donate_interface-email-unsub-delay' => 'Ќе треба да почекате до четири (4) дена за да се спроведат измените. Се извинуваме ако во меѓувреме добиете несакана е-пошта. Доколку имате прашања, обратете се на <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Се појави грешка при обработката на вашето барање. Обратете се на <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Дали сте сигурни дека сакате да ја откажете претплатата на <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Со ова одбирате да не добивате е-пошта што ја испраќа Фондацијата Викимедија на дарителите. Адресата и понатаму ќе можете да ја користите за добивање на е-пошта од други корисници ако е здружена со сметка на некој од нашите проекти. Ако имате прашања, обратете се на <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Често поставувани прашања',
 	'donate_interface-tax-info' => 'Информации за даночното олеснување',
 	'donate_interface-informationsharing' => 'Давајќи го овој прилог, вие ги споделувате информациите со Фондацијата Викимедија, непрофитната организација која раководи со Википедија и другите Викимедиини проекти, и нејзините услужители во САД и на други места, согласно нашите правила за приватност на дарителите. Ние не ги продаваме или разменуваме вашите информации со никого. Повеќе на страницата за <a href="http://wikimediafoundation.org/wiki/Donor_policy/en?uselang=mk">правила за дарителите</a>.',
@@ -14253,6 +14262,7 @@ $messages['mk'] = array(
 	'donate_interface-monthlybox-bottom' => 'Вашиот прилог ќе биде безбедно обработен.',
 	'donate_interface-securelogo-title' => 'Стиснете за да потврдите - Ова мрежно место го одбра VeriSign SSL за безбедно е-банкарство и доверливи преписки.',
 	'donate_interface-secureLogo-text' => 'За SSL-уверенијата',
+	'donate_interface-error-http-403' => 'Немате дозвола да ја отворите оваа страница.',
 );
 
 /** Malayalam (മലയാളം)
@@ -15027,6 +15037,8 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 	'donate_interface-email-unsub-success' => 'Anda telah digugurkan daripada senarai mel kami',
 	'donate_interface-email-unsub-delay' => 'Sila berikan empat (4) hari untuk perubahan dilaksanakan. Kami memohon maaf atas sebarang e-mel yang anda terima ketika ini. Jika anda ada persoalan, sila hubungi <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Terdapat ralat ketika memproseskan permintaan anda, sila hubungi <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Adakah anda benar-benar ingin berhenti melanggan <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Ini akan membuat anda tidak menerima pesanan-pesanan e-mel yang dihantar oleh Yayasan Wikimedia kepada anda selaku penderma. Anda masih boleh menerima e-mel kepada alamat e-mel ini jika ia dikaitkan dengan suatu akaun di mana-mana projek kami. Jika anda ada sebarang soalan, sila hubungi <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Soalan lazim',
 	'donate_interface-tax-info' => 'Maklumat kebolehpotongan cukai',
 	'donate_interface-informationsharing' => 'Dengan menderma, anda berkongsi maklumat anda dengan Yayasan Wikimedia, pertubuhan bukan bermotif keuntungan yang mengendalikan pelayaran Wikipedia dan projek-projek Wikimedia yang lain, serta penyedia-penyedia perkhidmatannya di Amerika Syarikat dan negara-negara lain yang menurut dasar privasi penderma kami. Kami tidak menjual atau memperdagangkan maklumat anda kepada sesiapa. Untuk maklumat lanjut, sila baca <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">dasar penderma kami</a>.',
@@ -15046,6 +15058,7 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 	'donate_interface-monthlybox-bottom' => 'Dermaan anda akan diproses dengan selamat.',
 	'donate_interface-securelogo-title' => 'Klik untuk Sahkan - Tapak web ini memilih VeriSign SSL untuk perdagangan elektronik yang selamat dan perhubungan sulit.',
 	'donate_interface-secureLogo-text' => 'Perihal Sijil SSL',
+	'donate_interface-error-http-403' => 'Anda tiada kebenaran untuk mengakses laman ini.',
 );
 
 /** Maltese (Malti)
@@ -22041,6 +22054,8 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
 	'donate_interface-email-unsub-success' => 'Du har framgångsrikt tagits bort från vår sändlista',
 	'donate_interface-email-unsub-delay' => 'Tillåt upp till fyra (4) dagar för att ändringarna ska börja gälla. Vi ber om ursäkt för alla e-postmeddelanden som du får under denna tid. Om du har några frågor, vänligen kontakta<donations@wikimedia.org></donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Det uppstod ett fel vid bearbetningen av din förfrågan, kontakta <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Är du säker på att du vill avbeställa <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Detta kommer att avaktivera e-postmeddelanden från Wikimedia Foundation som skickas till dig som givare. Du kan fortfarande få e-post till denna e-postadress om den är associerad med ett konto på ett av våra projekt. Om du har några frågor, vänligen kontakta <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Svar På Ofta Förekommande Frågor',
 	'donate_interface-tax-info' => 'Information om avdragsgiltighet',
 	'donate_interface-informationsharing' => 'Genom att donera delar du din information med Wikimedia Foundation, en ideell organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i USA och på andra håll i enlighet med vår sekretesspolicy för givaren. Vi säljer eller byter inte din information till någon. För mer information <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">läs våra givarpolicy</a>.',
@@ -22060,6 +22075,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
 	'donate_interface-monthlybox-bottom' => 'Din gåva kommer att behandlas säkert.',
 	'donate_interface-securelogo-title' => 'Klicka för att verifiera - denna sajt använder VeriSign SSL för säker e-handel och konfidentiell kommunikation.',
 	'donate_interface-secureLogo-text' => 'Om SSLcertifikat',
+	'donate_interface-error-http-403' => 'Du har inte behörighet att komma åt denna sida.',
 );
 
 /** Swahili (Kiswahili)
@@ -24565,6 +24581,8 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'donate_interface-email-unsub-success' => 'Tên của bạn đã được gỡ bỏ thành công khỏi danh sách thư của chúng tôi',
 	'donate_interface-email-unsub-delay' => 'Xin vui lòng chờ đến bốn (4) ngày để những thay đổi có hiệu lực. Chúng tôi xin lỗi vì các email mà bạn nhận được trong thời gian này. Nếu bạn có bất kỳ câu hỏi nào, xin vui lòng liên hệ <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Đã có lỗi xảy ra khi xử lý yêu cầu của bạn, vui lòng liên hệ <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Bạn có chắc bạn muốn hủy đăng ký <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Việc này sẽ quyết định hủy việc nhận các thư điện tử do Wikimedia Foundation gửi đến người quyên góp. Bạn vẫn có thể nhận thư điện tử tại địa chỉ thư điện tử này nếu có tài khoản sử dụng địa chỉ thư điện tử này tại một trong những dự án của chúng tôi. Nếu bạn có thắc mắc gì, xin vui lòng liên lạc với <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Câu hỏi thường gặp',
 	'donate_interface-tax-info' => 'Thông tin khấu trừ thuế',
 	'donate_interface-informationsharing' => 'Qua việc quyên góp, bạn đang chia sẻ thông tin của bạn với Wikimedia Foundation, tổ chức phi lợi nhuận điều hành Wikipedia và các dự án Wikimedia khác, và các nhà cung cấp dịch vụ ở Hoa Kỳ và các nơi khác theo chính sách bảo mật dành cho nhà tài trợ của chúng tôi. Chúng tôi không bán hoặc trao đổi thông tin của bạn cho bất cứ ai. Xin đọc <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">chính sách bảo mật của chúng tôi</a> để biết thêm thông tin.',
@@ -24584,6 +24602,7 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'donate_interface-monthlybox-bottom' => 'Khoản quyên góp của bạn sẽ được xử lý một cách an toàn.',
 	'donate_interface-securelogo-title' => 'Nhấn vào đây để xác minh – Trang này đã chọn VeriSign SSL để giao dịch thương mại điện tử được an toàn và bảo mật.',
 	'donate_interface-secureLogo-text' => 'Giới thiệu chứng thư SSL',
+	'donate_interface-error-http-403' => 'Bạn không có quyền truy cập trang này.',
 );
 
 /** Volapük (Volapük)
