@@ -21,10 +21,6 @@ class PayflowProGateway extends GatewayForm {
 		// Hide unneeded interface elements
 		$wgOut->addModules( 'donationInterface.skinOverride' );
 
-		$gateway_id = $this->adapter->getIdentifier();
-
-		$this->addErrorMessageScript();
-
 		$this->setHeaders();
 
 		/**

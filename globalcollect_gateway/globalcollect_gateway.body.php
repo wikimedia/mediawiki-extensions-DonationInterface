@@ -51,11 +51,6 @@ class GlobalCollectGateway extends GatewayForm {
 		// Hide unneeded interface elements
 		$wgOut->addModules( 'donationInterface.skinOverride' );
 
-		// Used to add gateway specific error messages.
-		$gateway_id = $this->adapter->getIdentifier();
-
-		$this->addErrorMessageScript();
-
 		// Make the wiki logo not clickable.
 		// @fixme can this be moved into the form generators?
 		$js = <<<EOT
