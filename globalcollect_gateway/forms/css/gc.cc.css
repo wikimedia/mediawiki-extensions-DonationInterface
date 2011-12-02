@@ -183,6 +183,10 @@ input#city {
 input#zip {
 	width: 65px;
 }
+input#zip.nostate {
+    width: 125px;
+    margin-left: 4px;
+}
 
 /* From Webitects */
 /* Options */
