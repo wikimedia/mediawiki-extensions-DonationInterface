@@ -117,7 +117,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
 			//ack now.
 			$selector = 'JMSCorrelationID IN (' . implode( ", ", $bucket ) . ')';
-			$ackMe = stompFetchMessages( 'limbo', $selector, $count * 100 ); //This is outrageously high, but I just want to be reasonably sure we get all the matches. 
+			$ackMe = stompFetchMessages( 'cc-limbo', $selector, $count * 100 ); //This is outrageously high, but I just want to be reasonably sure we get all the matches. 
 			$retrieved_count = count( $ackMe );
 			if ( $retrieved_count ){
 				stompAckMessages( $ackMe );
@@ -130,7 +130,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	function handleStompAntiMessages(){
 		$selector = "antimessage = 'true'";
-		$antimessages = stompFetchMessages( 'limbo', $selector, 1000 );
+		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		$count = 0;
 		while ( count( $antimessages ) ){ //if there's an antimessage, we can ack 'em all right now. 
 			$count += count( $antimessages );
@@ -142,7 +142,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					echo 'The STOMP message ' . $message->headers['message-id'] . ' has no correlation ID!';
 				}
 			}
-			$antimessages = stompFetchMessages( 'limbo', $selector, 1000 );
+			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		}
 		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
 		$this->adapter->log("Found $count antimessages.");
@@ -155,7 +155,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	function getStompOrphans(){
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
 		$selector = "payment_method = 'cc'";
-		$messages = stompFetchMessages( 'limbo', $selector, 300 );
+		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 		$orphans = array();
 		foreach ( $messages as $message ){
 			if ( !array_key_exists('antimessage', $message->headers )

@@ -1529,9 +1529,17 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( !$this->getGlobal( 'EnableStomp' ) ){
 			return;
 		}
-		global $wgLimboStompQueueName;
-		if ( !isset( $wgLimboStompQueueName ) || $wgLimboStompQueueName === false ){
-			return;
+		
+		if ($this->getData_Raw( 'payment_method' ) === 'cc'){
+			global $wgCCLimboStompQueueName;
+			if ( !isset( $wgCCLimboStompQueueName ) || $wgCCLimboStompQueueName === false ){
+				return;
+			}
+		} else {
+			global $wgLimboStompQueueName;
+			if ( !isset( $wgLimboStompQueueName ) || $wgLimboStompQueueName === false ){
+				return;
+			}
 		}
 		
 		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";

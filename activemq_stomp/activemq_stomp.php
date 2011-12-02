@@ -128,9 +128,13 @@ function sendPendingSTOMP( $transaction ) {
  * nothing exploded big enough to kill the whole thing.
  */
 function sendLimboSTOMP( $transaction ) {
-	global $wgStompServer, $wgLimboStompQueueName;
-
-	$queueName = isset( $wgLimboStompQueueName ) ? $wgLimboStompQueueName : 'limbo';
+	global $wgStompServer, $wgLimboStompQueueName, $wgCCLimboStompQueueName;
+	
+	if ( $transaction['payment_method'] === 'cc' ) {
+		$queueName = isset( $wgCCLimboStompQueueName ) ? $wgCCLimboStompQueueName : 'cc-limbo';
+	} else {
+		$queueName = isset( $wgLimboStompQueueName ) ? $wgLimboStompQueueName : 'limbo';
+	}
 
 	// include a library
 	require_once( "Stomp.php" );
@@ -244,7 +248,7 @@ function createQueueMessage( $transaction ) {
  * @return array an array of stomp messages, with a count of up to $limit. 
  */
 function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
-	global $wgStompQueueName, $wgPendingStompQueueName, $wgLimboStompQueueName;
+	global $wgStompQueueName, $wgPendingStompQueueName, $wgLimboStompQueueName, $wgCCLimboStompQueueName;
 	
 	switch($queue){
 		case 'pending':
@@ -252,6 +256,9 @@ function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 			break;
 		case 'limbo':
 			$queue = $wgLimboStompQueueName;
+			break;
+		case 'cc-limbo':
+			$queue = $wgCCLimboStompQueueName;
 			break;
 		case 'verified':
 		default:
