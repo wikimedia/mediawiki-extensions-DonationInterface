@@ -1046,9 +1046,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function do_transaction( $transaction ){
 		switch ( $transaction ){
 			case 'Confirm_CreditCard' :
-				$this->getStopwatch( __FUNCTION__, true );
+				$this->getStopwatch( 'Confirm_CreditCard', true );
 				$result = $this->transactionConfirm_CreditCard();
-				$this->saveCommunicationStats( __FUNCTION__, $transaction );
+				$this->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
 				return $result;
 				break;
 			default:

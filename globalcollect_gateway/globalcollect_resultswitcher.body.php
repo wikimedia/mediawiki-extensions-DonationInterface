@@ -37,14 +37,25 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 */
 	public function execute( $par ) {
 		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
-
+		
 		//no longer letting people in without these things. If this is 
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
 		$forbidden = false;
-		if ( !isset($_GET['order_id']) || !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
-			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+		$qs_oid = 'undefined';
+		if ( !isset( $_GET['order_id'] ) ){
 			$forbidden = true;
+			$f_message = 'No order ID in the Querystring.';
+		} else {
+			$qs_oid = $_GET['order_id'];
+			if ( !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
+				$forbidden = true;
+				$f_message = 'Requested order id not present in the session';
+			}
+		}
+		
+		if ( $forbidden ){
+			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
 		}
 
 		$referrer = $wgRequest->getHeader( 'referer' );
@@ -54,7 +65,8 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
 		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
-		if ( strpos( $referrer, $wgServer ) === false ) {			
+		if ( !$forbidden && strpos( $referrer, $wgServer ) === false ) {
+			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $qs_oid);
 			$wgOut->allowClickjacking();
 			$wgOut->addModules( 'iframe.liberator' );
 			return;
@@ -67,22 +79,11 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		$this->setHeaders();
 		
 		if ( $forbidden ){
-			$qs_oid = 'undefined';
-			$message = '';
-			if ( !isset($_GET['order_id']) ){
-				$message = 'No order ID in the Querystring.';
-			} else {
-				$qs_oid = $_GET['order_id'];
-			}
-			
-			if ( !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
-				$message = 'Requested order id not present in the session';
-			}
-			
-			$this->adapter->log("Resultswitcher: Request forbidden. " . $message . " Quersytring Oirder ID: $qs_oid");
+			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Querystring Order ID: $qs_oid  Adapter Order ID: " . $this->adapter->getData_Raw( 'order_id' ) );
 			return;
+		} else {
+			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $qs_oid );
 		}
-
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
@@ -91,7 +92,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' ) {
-				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) ) {
+				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) || !is_array( $_SESSION['order_status'][$oid] ) ) {
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
