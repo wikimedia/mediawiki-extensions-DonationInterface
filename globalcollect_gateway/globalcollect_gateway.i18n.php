@@ -289,6 +289,7 @@ $messages['hsb'] = array(
 
 /** Hungarian (Magyar)
  * @author Dj
+ * @author Misibacsi
  */
 $messages['hu'] = array(
 	'globalcollectgateway' => 'Adakozz most',
@@ -299,9 +300,9 @@ $messages['hu'] = array(
 	'globalcollect_gateway-response-400530' => 'Érvénytelen fizetési mód.',
 	'globalcollect_gateway-response-430306' => 'A hitelkártyád lejárt. Próbálkozz másik kártyával, vagy más fizetési móddal!',
 	'globalcollect_gateway-response-430330' => 'Érvénytelen kártyaszám.',
-	'globalcollect_gateway-response-430421' => 'A hitelkártyádat nem lehet érvényesíteni. Ellenőrizd, hogy a megadott adatok egyeznek a kártyán lévő adatokkal, vagy próbálkozz egy másik kártyával!',
-	'globalcollect_gateway-response-430360' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz egy másik kártyával, vagy másik fizetési móddal!',
-	'globalcollect_gateway-response-430285' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz egy másik kártyával, vagy másik fizetési móddal!',
+	'globalcollect_gateway-response-430421' => 'A hitelkártyádat nem lehet ellenőrizni. Nézd meg, hogy a megadott adatok egyeznek-e a kártyán lévő adatokkal vagy próbálkozz másik kártyával!',
+	'globalcollect_gateway-response-430360' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz másik kártyával, vagy másik fizetési móddal!',
+	'globalcollect_gateway-response-430285' => 'A tranzakciót nem lehet érvényesíteni. Próbálkozz másik kártyával, vagy másik fizetési móddal!',
 	'globalcollect_gateway-response-21000150' => 'Érvénytelen bankszámlaszám.',
 	'globalcollect_gateway-response-21000155' => 'Érvénytelen bank kód.',
 	'globalcollect_gateway-response-21000160' => 'Érvénytelen giro számlaszám.',
