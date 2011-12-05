@@ -286,10 +286,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		# replace template blocks
 		# doing this before transclusion so that tokens can be used in the templates
 		$matches = array();
-		preg_match_all( "/
-				{%\ block\ ([a-zA-Z0-9_-]+)\ ([a-zA-Z0-9_-]*)([\ ]*)%}		# look for the start block and switching variable
-			/xis", $html, $matches );						# flags to ignore whitespace in regex and match \n with . (s)
-
+		# look for the start block and switching variable
+		preg_match_all( "/{%\s*block ([a-zA-Z0-9_-]+)\s*([a-zA-Z0-9_-]*)\s*%}/i", $html, $matches );
+		
 		foreach( $matches[ 1 ] as $i => $key ){
 			# $matches[ 1 ] is specified in the code, not user input
 			$filepath = $wgGlobalCollectGatewayHtmlFormDir . '/_' . $matches[ 1 ][ $i ] . '/';
@@ -315,7 +314,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
             } else {
                 # replace the template call with nothing at all
                 $html = str_replace( $matches[ 0 ][ $i ], '', $html );
-
             }
 		}	
 		return $html;
