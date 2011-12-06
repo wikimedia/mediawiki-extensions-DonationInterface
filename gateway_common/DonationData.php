@@ -107,6 +107,19 @@ class DonationData {
 			}
 		}
 		
+		$posted_referrer = $wgRequest->getVal( 'referrer' );
+		$tries = array(
+			'referer',
+			'referrer',
+			'Referer',
+			'Referrer'
+		);
+		foreach ($tries as $trythis){
+			$header[$trythis] = $wgRequest->getHeader( $trythis );
+		}
+		
+		$this->log( 'ReferrerHeaderTest (' . $this->getVal( 'contribution_tracking_id' ) . "): Posted = $posted_referrer, Header Tries = " . print_r($header, true) . ', Final = ' . $this->getVal('referrer') );		
+		
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
@@ -140,6 +153,7 @@ class DonationData {
 				}
 			}
 		}
+		$this->log( 'ReferrerHeaderTest (' . $this->getVal( 'contribution_tracking_id' ) . "): Final After Session Integration = " . $this->getVal('referrer') );
 	}
 
 	function getData() {

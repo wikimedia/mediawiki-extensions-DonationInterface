@@ -799,6 +799,8 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->transaction_results = array();
 		$this->setValidationAction('process', true); 
 		
+		$this->log( 'ReferrerHeaderTest (' . $this->getData_Raw( 'contribution_tracking_id' ) . "): Value @ do_transaction = " . $this->getData_Raw( 'referrer' ) );
+		
 		try {
 			$this->setCurrentTransaction( $transaction );
 
@@ -1277,7 +1279,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$start[$string] = $now;
 		}
 		$clock = round( $now - $start[$string], 4 );
-		self::log( "\nClock at $string: $clock ($now)" );
+		self::log( "Clock at $string: $clock ($now)" );
 		return $clock;
 	}
 
