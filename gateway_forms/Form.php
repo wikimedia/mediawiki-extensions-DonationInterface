@@ -455,7 +455,7 @@ abstract class Gateway_Form {
 		$return .= '		<td><label><input type="radio" name="amountRadio" value="250" ' . ( $amount == '250' ? $checked : '' ) . '/> 250</label></td>';
 		$return .= '		<td>';
 		$return .= '			<input type="radio" name="amountRadio" id="input_amount_other" value="other" ' . ( $isOther ? $checked : '' ) . ' />';
-		$return .= '			<label><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="" value="' . $amountOther . '" /></label>';
+		$return .= '			<label><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="" value="' . htmlspecialchars( $amountOther ) . '" /></label>';
 		
 		// Add hidden amount field for validation
 		$return .= Html::hidden( 'amount', $amount );
