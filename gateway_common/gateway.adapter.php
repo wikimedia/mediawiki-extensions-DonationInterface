@@ -1576,11 +1576,6 @@ abstract class GatewayAdapter implements GatewayType {
 		} catch ( Exception $e ) {
 			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
 		}
-		if ($antimessage){
-			$antimessage = "Anti-message = true";
-		} else {
-			$antimessage = '';
-		}
 	}
 	
 	protected function getCorrelationID(){
