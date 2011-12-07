@@ -53,6 +53,7 @@ window.displayCreditCardForm = function() {
 		'utm_source': $( "input[name='utm_source']" ).val(),
 		'utm_campaign': $( "input[name='utm_campaign']" ).val(),
 		'utm_medium': $( "input[name='utm_medium']" ).val(),
+		'referrer': $( "input[name='referrer']" ).val(),
 		'format': 'json'
 	};
 	$.ajax( {

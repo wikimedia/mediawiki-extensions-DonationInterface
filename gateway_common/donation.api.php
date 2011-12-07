@@ -112,6 +112,7 @@ class DonationApi extends ApiBase {
 			'utm_source' => $this->defineParam( false  ),
 			'utm_campaign' => $this->defineParam( false  ),
 			'utm_medium' => $this->defineParam( false  ),
+			'referrer' => $this->defineParam( false ),
 		);
 	}
 
@@ -180,6 +181,7 @@ class DonationApi extends ApiBase {
 			'utm_source' => 'Tracking variable',
 			'utm_campaign' => 'Tracking variable',
 			'utm_medium' => 'Tracking variable',
+			'referrer' => 'Original referrer',
 		);
 	}
 
