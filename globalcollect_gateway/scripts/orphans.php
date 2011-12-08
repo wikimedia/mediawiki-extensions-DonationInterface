@@ -1,15 +1,15 @@
 <?php
-if ( !defined( 'MEDIAWIKI' ) ) {
-	exit( 1 );
-}
+//actually, as a maintenance script, this totally is a valid entry point. 
+
 //If you want to use this script, you will have to add the following line to LocalSettings.php:
 //$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = $IP . '/extensions/DonationInterface/globalcollect_gateway/scripts/orphan_adapter.php';
 
-//TODO: Something that is not specific to anybody's install, here. 
-global $IP;
-if ( !isset($IP) ) {
-	$IP = '../../../../';
+$IP = getenv( 'MW_INSTALL_PATH' );
+if ( $IP === false ) {
+	$IP = dirname( _FILE_ ) . '/../..';
 }
+
+//If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
 require_once( "$IP/maintenance/Maintenance.php" );
 
 class GlobalCollectOrphanRectifier extends Maintenance {
@@ -19,7 +19,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	protected $max_per_execute = 500; //only really used if you're going by-file.
 	protected $target_execute_time = 30; //(seconds) - only used by the stomp option.
 	protected $adapter;
-	
 	
 	function execute(){
 		$func = 'parse_files';
@@ -49,7 +48,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 	
 	function orphan_stomp(){
-		
+		echo "Orphan Stomp\n";
 		$this->removed_message_count = 0;
 		$this->now = time(); //time at start, thanks very much. 
 		
@@ -99,8 +98,17 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					break;
 			}
 		}
-		echo "\nDone! Final results: \n $am destroyed via antimessage \n $rec rectified orphans \n $err errored out\n";
+		$final = "\nDone! Final results: \n";
+		$final .= " $am destroyed via antimessage \n";
+		$final .= " $rec rectified orphans \n";
+		$final .= " $err errored out \n";
+		if ( isset( $this->adapter->orphanstats ) ){
+			foreach ( $this->adapter->orphanstats as $status => $count ) {
+				$final .= "   Status $status = $count\n";
+			}
+		}
 		
+		echo $final;
 	}
 	
 	function keepGoing(){
@@ -118,20 +126,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		if ( $correlation_id ) {
 			$bucket[$correlation_id] = "'$correlation_id'"; //avoiding duplicates.
 			$this->handled_ids[$correlation_id] = 'antimessage';
-			echo "Added $correlation_id to the ack bucket : Total bucket count = " . count( $bucket );
 		}
 		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
 			//ack now.
-			echo 'Acking ' . count( $bucket ) . ' bucket messages.';
+			echo 'Acking ' . count( $bucket ) . " bucket messages.\n";
 			$selector = 'JMSCorrelationID IN (' . implode( ", ", $bucket ) . ')';
 			$ackMe = stompFetchMessages( 'cc-limbo', $selector, $count * 100 ); //This is outrageously high, but I just want to be reasonably sure we get all the matches. 
 			$retrieved_count = count( $ackMe );
 			if ( $retrieved_count ){
 				stompAckMessages( $ackMe );
 				$this->removed_message_count += $retrieved_count;
-				echo "Done acking $retrieved_count messages. ";
+				echo "Done acking $retrieved_count messages. \n";
 			} else {
-				echo "Oh noes! No messages to ack for some reason...";
+				echo "Oh noes! No messages retrieved for $selector...\n";
 			}
 			$bucket = array();
 		}
@@ -149,7 +156,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				if (array_key_exists('correlation-id', $message->headers)) {
 					$this->addStompCorrelationIDToAckBucket( $message->headers['correlation-id'] );
 				} else {
-					echo 'The STOMP message ' . $message->headers['message-id'] . ' has no correlation ID!';
+					echo 'The STOMP message ' . $message->headers['message-id'] . " has no correlation ID!\n";
 				}
 			}
 			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
@@ -181,8 +188,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 						$order_id = $order_id[1];
 						$decoded['order_id'] = $order_id;
 						$decoded['i_order_id'] = $order_id;
+						$decoded = unCreateQueueMessage($decoded);
+						$decoded['card_num'] = '';
 						$orphans[$correlation_id] = $decoded;
-						echo "\nFound an orphan! $correlation_id";
+						echo "Found an orphan! $correlation_id \n";
 					}
 				}
 			}
@@ -200,7 +209,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$this->order_ids[$id] = $id; //easier to unset this way. 
 		}
 		$outstanding_count = count( $this->order_ids );
-		echo "Order ID count: " . $outstanding_count . "\n";
+		echo "Order ID count: $outstanding_count \n";
 		
 		$files = $this->getAllLogFileNames();
 		$payments = array();
@@ -277,7 +286,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 * @return boolean True if the orphan has been rectified, false if not. 
 	 */
 	function rectifyOrphan( $data, $query_contribution_tracking = true ){
-		echo "\nRectifying Orphan " . $data['order_id'];
+		echo 'Rectifying Orphan ' . $data['order_id'] . "\n";
 		$rectified = false;
 		
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );

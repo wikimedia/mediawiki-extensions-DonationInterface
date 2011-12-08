@@ -156,7 +156,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 					$msg .= "$key = $val ";
 				}
 				$this->log( "$ctid: Found UTM Data. $msg" );
-				echo $msg;
+				echo "$msg\n";
 				return $data;
 			}
 		}

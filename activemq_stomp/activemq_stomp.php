@@ -188,7 +188,7 @@ function sendLimboSTOMP( $transaction ) {
  */
 function createQueueMessage( $transaction ) {
 	// specifically designed to match the CiviCRM API that will handle it
-	// edit this array to include/ignore transaction data sent to the server
+	// edit this array to include/ignore transaction data sent to the server	
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 		'optout' => $transaction['optout'],
@@ -235,6 +235,42 @@ function createQueueMessage( $transaction ) {
 
 	return $message;
 }
+
+
+function unCreateQueueMessage( $transaction ) {
+	// For now, this function assumes that we have a complete queue message. 
+	// TODO: Something more robust and programmatic, as time allows. This whole file is just terrible. 
+	
+	$rekey = array(
+		'first_name' => 'fname',
+		'middle_name' => 'mname',
+		'last_name' => 'lname',
+		'street_address' => 'street',
+		'state_province' => 'state',
+		'postal_code' => 'zip',
+		'first_name_2' => 'fname2',
+		'last_name_2' => 'lname2',
+		'street_address_2' => 'street2',
+		'city_2' => 'city2',
+		'state_province_2' => 'state2',
+		'postal_code_2' => 'zip2',
+//		'currency' => 'currency_code',
+		'original_currency' => 'currency_code',
+		'original_gross' => 'amount',
+//		'gross' => 'amount',
+//		'net' => 'amount',
+	);
+	
+	foreach ( $rekey as $stomp => $di ){
+		if ( isset( $transaction[$stomp] ) ){
+			$transaction[$di] = $transaction[$stomp];
+			unset($transaction[$stomp]);
+		};
+	}
+
+	return $transaction;
+}
+
 
 /**
  * Fetches all the messages in a queue that match the supplies selector. 

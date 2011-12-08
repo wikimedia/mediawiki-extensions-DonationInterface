@@ -1123,8 +1123,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					}
 				}
 			}
-			
+			$gotCVV = false;
 			if ( count( $addme ) ){
+				$gotCVV = true;
 				$this->addData( $addme );
 				$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
 				$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
@@ -1133,10 +1134,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				self::log( $logmsg );
 				$this->runPreProcessHooks();
 				$status_result['action'] = $this->getValidationAction();
-			} else {
-				$problemflag = true; //nothing to be done.
-				$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
-			}
+			} 
 		}
 		
 		//we filtered
@@ -1152,6 +1150,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$order_status_results = $this->getTransactionWMFStatus();
 			$txn_data = $this->getTransactionData();
 			$original_status_code = isset( $txn_data['STATUSID']) ? $txn_data['STATUSID'] : 'NOT SET';
+			if ( $is_orphan ){
+				//save stats. 
+				if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
+					$this->orphanstats[$original_status_code] = 0;
+				} else {
+					$this->orphanstats[$original_status_code] += 1;
+				}
+				
+				if ( $original_status_code > 70 && !$gotCVV ){
+					$problemflag = true; 
+					$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
+				} 
+				
+			}
 			if (!$order_status_results){
 				$problemflag = true;
 				$problemmessage = "We don't have a Transaction WMF Status after doing a GET_ORDERSTATUS.";
