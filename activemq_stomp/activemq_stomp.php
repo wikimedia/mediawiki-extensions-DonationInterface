@@ -250,6 +250,14 @@ function createQueueMessage( $transaction ) {
 function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 	global $wgStompQueueName, $wgPendingStompQueueName, $wgLimboStompQueueName, $wgCCLimboStompQueueName;
 	
+	static $selector_last = null;
+	if ( !is_null( $selector_last ) && $selector_last != $selector ){
+		$renew = true;
+	} else {
+		$renew = false;
+	}
+	$selector_last = $selector;
+	
 	switch($queue){
 		case 'pending':
 			$queue = $wgPendingStompQueueName;
@@ -266,22 +274,22 @@ function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 			break;
 	}
 	
-	//This needs to be renewed every time, or the selectors won't work. 
-	//So says the internets, at least.  
-	$stomp = getDIStompConnection( true ); 
+	//This needs to be renewed every time we change the selectors. 
+	$stomp = getDIStompConnection( $renew ); 
 	
 	$properties = array( 'ack' => 'client' );
 	if ( !is_null( $selector ) ){
 		$properties['selector'] = $selector;
 	}
 	
-	$returned = $stomp->subscribe( '/queue/' . $queue, $properties );
+	$stomp->subscribe( '/queue/' . $queue, $properties );
 	$message = $stomp->readFrame();
 	
 	$return = array();
 	
 	while ( !empty( $message ) && count( $return ) < $limit ) {
 		$return[] = $message;
+		$stomp->subscribe( '/queue/' . $queue, $properties );
 		$message = $stomp->readFrame();
 	}
 	
