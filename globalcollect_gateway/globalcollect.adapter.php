@@ -567,7 +567,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'ORDERID',
 							'EFFORTID',
 							'PAYMENTPRODUCTID',
-						),bt
+						),
 					)
 				)
 			),
