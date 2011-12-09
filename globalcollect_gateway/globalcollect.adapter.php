@@ -1153,23 +1153,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( $is_orphan ){
 				//save stats. 
 				if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
-					$this->orphanstats[$original_status_code] = 0;
+					$this->orphanstats[$original_status_code] = 1;
 				} else {
 					$this->orphanstats[$original_status_code] += 1;
-				}
-				
-				if ( $original_status_code > 70 && !$gotCVV ){
-					$problemflag = true; 
-					$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
-				} 
-				
+				}				
 			}
 			if (!$order_status_results){
 				$problemflag = true;
 				$problemmessage = "We don't have a Transaction WMF Status after doing a GET_ORDERSTATUS.";
 			}
 			switch ( $order_status_results ){
-				case 'failed' : 
+				case 'failed' : 			
 				case 'revised' :  
 					$add_antimessage = true;
 					$cancelflag = true; //makes sure we don't try to confirm.
@@ -1179,6 +1173,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
 					$add_antimessage = true;
 					break;
+				case 'pending' :
+					if ( $is_orphan && !$gotCVV ){
+						$problemflag = true; 
+						$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
+					} 
 			}	
 		}
 		

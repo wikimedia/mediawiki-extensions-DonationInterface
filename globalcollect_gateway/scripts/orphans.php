@@ -6,7 +6,7 @@
 
 $IP = getenv( 'MW_INSTALL_PATH' );
 if ( $IP === false ) {
-	$IP = dirname( _FILE_ ) . '/../..';
+	$IP = dirname( _FILE_ ) . '/../../../..';
 }
 
 //If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
@@ -62,21 +62,23 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->handleStompAntiMessages();
 		$this->adapter->log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 		
-		//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
-		$orphans = $this->getStompOrphans();
-		while ( count( $orphans ) && $this->keepGoing() ){
-			//..do stuff. 
-			foreach ( $orphans as $correlation_id => $orphan ) {
-				//process
-				if ( $this->rectifyOrphan( $orphan ) ){
-					$this->addStompCorrelationIDToAckBucket( $correlation_id );
-					$this->handled_ids[$correlation_id] = 'rectified';
-				} else {
-					$this->handled_ids[$correlation_id] = 'error';
-				}
-			}
-			$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
+		if ( $this->keepGoing() ){
+			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
 			$orphans = $this->getStompOrphans();
+			while ( count( $orphans ) && $this->keepGoing() ){
+				//..do stuff. 
+				foreach ( $orphans as $correlation_id => $orphan ) {
+					//process
+					if ( $this->rectifyOrphan( $orphan ) ){
+						$this->addStompCorrelationIDToAckBucket( $correlation_id );
+						$this->handled_ids[$correlation_id] = 'rectified';
+					} else {
+						$this->handled_ids[$correlation_id] = 'error';
+					}
+				}
+				$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
+				$orphans = $this->getStompOrphans();
+			}
 		}
 		
 		$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
@@ -159,6 +161,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					echo 'The STOMP message ' . $message->headers['message-id'] . " has no correlation ID!\n";
 				}
 			}
+			$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
 			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		}
 		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.

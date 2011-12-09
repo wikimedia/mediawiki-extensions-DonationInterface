@@ -230,7 +230,7 @@ function createQueueMessage( $transaction ) {
 		'fee' => '0',
 		'gross' => $transaction['amount'],
 		'net' => $transaction['amount'],
-		'date' => $transaction['date'],
+		'date' => ( int ) $transaction['date'],
 	);
 
 	return $message;
