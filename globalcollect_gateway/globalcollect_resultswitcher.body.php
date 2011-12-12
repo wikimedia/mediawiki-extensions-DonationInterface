@@ -89,7 +89,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		$this->setHeaders();
 		
 		if ( $forbidden ){
-			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Querystring Order ID: $qs_oid  Adapter Order ID: " . $this->adapter->getData_Raw( 'order_id' ) );
+			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Querystring Order ID: $qs_oid  Adapter Order ID: " . $this->adapter->getData_Unstaged_Escaped( 'order_id' ) );
 			return;
 		} else {
 			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $qs_oid );
@@ -101,7 +101,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			$oid = $wgRequest->getText( 'order_id' );
 			
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
-			if ( $this->adapter->getData_Raw( 'payment_method') === 'cc' ) {
+			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) || !is_array( $_SESSION['order_status'][$oid] ) ) {
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
@@ -148,7 +148,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	function getDeclinedResultPage() {
 		global $wgOut;
 		
-		$displayData = $this->adapter->getData_Raw();
+		$displayData = $this->adapter->getData_Unstaged_Escaped();
 		$failpage = $this->adapter->getFailPage();
 
 		if ( $failpage ) {

@@ -36,7 +36,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		//re-init all these arrays, because this is a batch thing. 
 		$this->hard_data = array( );
 		$this->transaction_results = array( );
-		$this->raw_data = array( );
+		$this->unstaged_data = array( );
 		$this->staged_data = array( );
 
 		$this->hard_data['order_id'] = $data['order_id'];
@@ -44,7 +44,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->dataObj = new DonationData( get_called_class(), false, $data );
 
-		$this->raw_data = $this->dataObj->getData();
+		$this->unstaged_data = $this->dataObj->getDataEscaped();
 
 		if ( $useDB ){
 			$this->hard_data = array_merge( $this->hard_data, $this->getUTMInfoFromDB() );
@@ -61,7 +61,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 		$this->reAddHardData();
 
-		$this->staged_data = $this->raw_data;
+		$this->staged_data = $this->unstaged_data;
 
 		$this->setPostDefaults();
 		$this->defineTransactions();
@@ -86,7 +86,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		//anywhere else, and this would constitute abuse of the system.
 		//so don't do it. 
 		foreach ( $this->hard_data as $key => $val ) {
-			$this->raw_data[$key] = $val;
+			$this->unstaged_data[$key] = $val;
 			$this->staged_data[$key] = $val;
 		}
 	}
@@ -95,7 +95,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		switch ( $transaction ) {
 			case 'SET_PAYMENT':
 			case 'CANCEL_PAYMENT':
-				self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ": CVV: " . $this->getData_Raw( 'cvv_result' ) . ": AVS: " . $this->getData_Raw( 'avs_result' ) );
+				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": CVV: " . $this->getData_Unstaged_Escaped( 'cvv_result' ) . ": AVS: " . $this->getData_Unstaged_Escaped( 'avs_result' ) );
 			//and then go on, unless you're testing, in which case:
 //				return "NOPE";
 //				break;
@@ -130,7 +130,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			return null;
 		}
 
-		$ctid = $this->getData_Raw( 'contribution_tracking_id' );
+		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
 		$data = array( );
 
@@ -191,11 +191,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			return;
 		}
 
-		if ( !is_null( $this->getData_Raw( 'date' ) ) ) {
-			$timestamp = $this->getData_Raw( 'date' );
+		if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
+			$timestamp = $this->getData_Unstaged_Escaped( 'date' );
 		} else {
-			if ( !is_null( $this->getData_Raw( 'ts' ) ) ) {
-				$timestamp = strtotime( $this->getData_Raw( 'ts' ) ); //I hate that this works.
+			if ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
+				$timestamp = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); //I hate that this works.
 			} else {
 				$timestamp = time();
 			}
@@ -208,7 +208,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			//'language' => '',
 		);
-		$transaction += $this->getData_Raw();
+		$transaction += $this->getData_Unstaged_Escaped();
 
 		try {
 			wfRunHooks( $hook, array( $transaction ) );

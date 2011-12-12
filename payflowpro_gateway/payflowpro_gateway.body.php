@@ -83,7 +83,7 @@ class PayflowProGateway extends GatewayForm {
 			}
 		}
 
-		$data = $this->adapter->getData_Raw();
+		$data = $this->adapter->getData_Unstaged_Escaped();
 		$msgPrefix = $data['order_id'] . ' ' . $data['i_order_id'] . ' ';
 
 		// if approved, display results and send transaction to the queue

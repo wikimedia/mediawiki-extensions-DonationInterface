@@ -68,7 +68,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 			return TRUE;
 		}
 
-		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Raw() );
+		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
 		$this->query_minfraud( $minfraud_query );
 		$localAction = $this->determine_action( $this->minfraud_response['riskScore'] );
 		$this->gateway_adapter->setValidationAction( $localAction );
@@ -76,7 +76,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		// reset the data hash
 		$this->gateway_adapter->unsetHash();
 		$this->gateway_adapter->setActionHash( $this->generate_hash( $localAction ) );
-		$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData_Raw() ) );
+		$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData_Unstaged_Escaped() ) );
 
 		// Write the query/response to the log
 		$this->log_query( $minfraud_query, $localAction );
@@ -88,13 +88,13 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	 */
 	public function log_query( $minfraud_query, $action ) {
 		if ( $this->log_fh ) {
-			$log_message = '"' . addslashes( $this->gateway_adapter->getData_Raw( 'comment' ) ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Raw( 'amount' ) . ' ' . $this->gateway_adapter->getData_Raw( 'currency_code' ) ) . '"';
+			$log_message = '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'comment' ) ) . '"';
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'amount' ) . ' ' . $this->gateway_adapter->getData_Unstaged_Escaped( 'currency_code' ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $minfraud_query ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraud_response ) ) . '"';
 			$log_message .= "\t" . '"' . addslashes( $action ) . '"';
-			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Raw( 'referrer' ) ) . '"';
-			$this->log( $this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'minFraud query', $log_message );
+			$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' ) ) . '"';
+			$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'minFraud query', $log_message );
 		}
 	}
 
@@ -111,7 +111,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	 */
 	public function can_bypass_minfraud() {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
-		$localdata = $this->gateway_adapter->getData_Raw();
+		$localdata = $this->gateway_adapter->getData_Unstaged_Escaped();
 		if ( !isset($localdata['data_hash']) || !strlen( $localdata['data_hash'] ) || !isset($localdata['action']) || !strlen( $localdata['action'] ) ) {
 			return FALSE;
 		}
@@ -123,7 +123,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		// compare the data hash to make sure it's legit
 		if ( $this->compare_hash( $data_hash, serialize( $localdata ) ) ) {
 
-			$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData_Raw() ) ); // hash the data array
+			$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData_Unstaged_Escaped() ) ); // hash the data array
 			// check to see if we have a valid action set for us to bypass minfraud
 			$actions = array( 'process', 'challenge', 'review', 'reject' );
 			$action_hash = $localdata['action']; // a hash of the action to take passed in by the form submission

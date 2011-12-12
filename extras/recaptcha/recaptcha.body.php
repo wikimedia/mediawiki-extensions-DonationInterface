@@ -42,12 +42,12 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 			$captcha_resp = $this->check_captcha();
 			if ( $captcha_resp->is_valid ) {
 				// if validated, update the action and move on
-				$this->log( $this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Captcha passed' );
+				$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Captcha passed' );
 				$this->gateway_adapter->setValidationAction( 'process' );
 				return TRUE;
 			} else {
 				$this->recap_err = $captcha_resp->error;
-				$this->log( $this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Captcha failed' );
+				$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Captcha failed' );
 			}
 		}
 		// display captcha
@@ -64,7 +64,7 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 		$useSSL = $this->gateway_adapter->getGlobal( 'RecaptchaUseSSL' );
 
 		// log that a captcha's been triggered
-		$this->log( $this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Captcha triggered' );
+		$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Captcha triggered' );
 
 		// construct the HTML used to display the captcha
 		$captcha_html = Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ) );
@@ -76,7 +76,7 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 
 		//TODO: use setValidationErrors and getValidationErrors everywhere, and 
 		//refactor all the form constructors one more time. Eventually.  
-		$data = $this->gateway_adapter->getData_Raw();
+		$data = $this->gateway_adapter->getData_Unstaged_Escaped();
 		$errors = $this->gateway_adapter->getValidationErrors();
 		$form_obj = new $form_class( $this->gateway_adapter, $errors );
 

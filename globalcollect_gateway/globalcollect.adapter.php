@@ -1093,9 +1093,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$is_orphan = false;
 		if ( count( $addme ) ){ //nothing unusual here. 
 			$this->addData( $addme );
-			$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
-			$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
-			$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
+			$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
+			$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			self::log( $logmsg );
 		} else { //this is an orphan transaction. 
 			$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
@@ -1128,9 +1128,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$gotCVV = true;
 				$this->addData( $addme );
 				$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
-				$logmsg = $this->getData_Raw( 'contribution_tracking_id' ) . ': ';
-				$logmsg .= 'CVV Result: ' . $this->getData_Raw( 'cvv_result' );
-				$logmsg .= ', AVS Result: ' . $this->getData_Raw( 'avs_result' );
+				$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
+				$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+				$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 				self::log( $logmsg );
 				$this->runPreProcessHooks();
 				$status_result['action'] = $this->getValidationAction();
@@ -1241,7 +1241,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		if ( $problemflag ){
 			//we have probably had a communication problem that could mean stranded payments. 
-			$problemmessage = $this->getData_Raw( 'contribution_tracking_id' ) . ':' . $this->getData_Raw( 'order_id' ) . ' ' . $problemmessage;
+			$problemmessage = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ':' . $this->getData_Unstaged_Escaped( 'order_id' ) . ' ' . $problemmessage;
 			self::log( $problemmessage );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
@@ -1271,7 +1271,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 		$displayXML = $this->formatXmlString( $xmlString );
 		$realXML = new DomDocument( '1.0' );
-		self::log( $this->getData_Raw( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
+		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
 		$realXML->loadXML( trim( $xmlString ) );
 		return $realXML;
 	}
@@ -1665,7 +1665,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//set the transaction result message
 		$responseStatus = isset( $response['STATUSID'] ) ? $response['STATUSID'] : '';
 		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC. 
-		$this->setTransactionResult( $this->getData_Raw( 'order_id' ), 'gateway_txn_id' );
+		$this->setTransactionResult( $this->getData_Unstaged_Escaped( 'order_id' ), 'gateway_txn_id' );
 	}
 
 	/**
@@ -2042,7 +2042,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			// Get the default returnto
 			$returnto = $this->getData_Staged( 'returnto' );
 			
-			if ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
+			if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
 				
 				// Add order ID to the returnto URL, only if it's not already there. 
 				//TODO: This needs to be more robust (like actually pulling the 
@@ -2063,7 +2063,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	
 	protected function pre_process_insert_orderwithpayment(){
 		$this->incrementNumAttempt();
-		if ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
 			$this->addDonorDataToSession();
 		}
 	}
@@ -2084,7 +2084,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 	
 	protected function pre_process_get_orderstatus(){
-		if  ( $this->getData_Raw( 'payment_method' ) === 'cc' ){
+		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
 			$this->runPreProcessHooks();
 		}
 	}
@@ -2094,13 +2094,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not. 
 	 */
 	public function getCVVResult(){
-		if ( is_null( $this->getData_Raw( 'cvv_result' ) ) ){
+		if ( is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ){
 			return null;
 		}
 		
 		$cvv_map = $this->getGlobal( 'CvvMap' );
 		
-		$result = $cvv_map[$this->getData_Raw( 'cvv_result' )];
+		$result = $cvv_map[$this->getData_Unstaged_Escaped( 'cvv_result' )];
 		return $result;
 
 	}	
@@ -2110,7 +2110,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not. 
 	 */
 	public function getAVSResult(){
-		if ( is_null( $this->getData_Raw( 'avs_result' ) ) ){
+		if ( is_null( $this->getData_Unstaged_Escaped( 'avs_result' ) ) ){
 			return null;
 		}
 		//Best guess here: 
@@ -2118,7 +2118,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$avs_map = $this->getGlobal( 'AvsMap' );
 
-		$result = $avs_map[$this->getData_Raw( 'avs_result' )];
+		$result = $avs_map[$this->getData_Unstaged_Escaped( 'avs_result' )];
 		return $result;
 	}
 	

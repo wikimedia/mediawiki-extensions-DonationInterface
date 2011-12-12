@@ -190,7 +190,7 @@ EOT;
 
 				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere.
 				//All we seem to be doing with it now, is internal adapter logic outside of the adapter.
-				$data = $this->adapter->getData_Raw();
+				$data = $this->adapter->getData_Unstaged_Escaped();
 
 				// If the result of the previous transaction was failure, set the retry message.
 				if ( $data && array_key_exists( 'response', $data ) && $data['response'] == 'failure' ) {

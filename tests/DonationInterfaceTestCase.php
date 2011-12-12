@@ -274,7 +274,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
 
-		$orderId = $this->gatewayAdapter->getData_Raw( 'order_id' );
+		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$expected  = '<?xml version="1.0"?>' . "\n";
 		$expected .= '<XML>';

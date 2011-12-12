@@ -21,7 +21,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 
 	public function filter() {
 		// pull out the source from the filter object
-		$source = $this->gateway_adapter->getData_Raw( 'utm_source' );
+		$source = $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' );
 
 		// a very complex filtering algorithm for sources
 		$srcRules = $this->gateway_adapter->getGlobal( 'CustomFiltersSrcRules' );
@@ -38,7 +38,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
 				$this->log(
-					$this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Filter: Source', $log_msg
+					$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Filter: Source', $log_msg
 				);
 			}
 		}

@@ -44,7 +44,7 @@ class DonationApi extends ApiBase {
 			$this->dieUsage( "Invalid gateway <<<$gateway>>> passed to Donation API.", 'unknown_gateway' );
 		}
 
-		//$normalizedData = $gatewayObj->getData_Raw();
+		//$normalizedData = $gatewayObj->getData_Unstaged_Escaped();
 		$outputResult = array();
 		$outputResult['message'] = $result['message'];
 		$outputResult['status'] = $result['status'];

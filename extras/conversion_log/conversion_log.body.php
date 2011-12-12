@@ -11,7 +11,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		// if the trxn has been outright rejected, log it
 		if ( $this->gateway_adapter->getValidationAction() == 'reject' ) {
 			$this->log(
-				$this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Rejected'
+				$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Rejected'
 			);
 			return TRUE;
 		}
@@ -21,7 +21,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 			return FALSE;
 
 		$this->log(
-			$this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), "Gateway response: " . addslashes( $this->gateway_adapter->getTransactionMessage() ), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
+			$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), "Gateway response: " . addslashes( $this->gateway_adapter->getTransactionMessage() ), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
 		);
 		return TRUE;
 	}

@@ -21,7 +21,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 
 	public function filter() {
 		// pull out the referrer from the gateway_adapter
-		$referrer = $this->gateway_adapter->getData_Raw( 'referrer' );
+		$referrer = $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' );
 
 		// a very complex filtering algorithm for referrers
 		$refRules = $this->gateway_adapter->getGlobal( 'CustomFiltersRefRules' );
@@ -38,7 +38,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
 				$this->log(
-					$this->gateway_adapter->getData_Raw( 'contribution_tracking_id' ), 'Filter: Referrer', $log_msg
+					$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Filter: Referrer', $log_msg
 				);
 			}
 		}

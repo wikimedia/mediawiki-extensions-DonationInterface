@@ -94,7 +94,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 */
 	public function testConstruct(){
 		$ddObj = new DonationData(''); //as if we were posted.
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
 			'amount' => '0.00',
 			'email' => '',
@@ -150,7 +150,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 */
 	public function testConstructAsTest(){
 		$ddObj = new DonationData('', true); //test mode from the start, no data
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$expected = array(
 			'amount' => '35',
 			'email' => 'test@example.com',
@@ -213,7 +213,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 
 		$ddObj = new DonationData('');
 		$ddObj->populateData(true, $expected); //change to test mode with explicit test data
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		//unset these, because they're always new
 		unset($returned['order_id']);
 		unset($expected['order_id']);
@@ -251,7 +251,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amountGiven'] = 42.50;
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals($returned['amount'], '42.50', "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
 	}
@@ -265,7 +265,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amountGiven'] = 42.50;
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals($returned['amount'], 88.15, "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
 	}
@@ -279,7 +279,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amountOther'] = 3.25;
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals($returned['amount'], 3.25, "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountOther', $returned)), "amountOther should have been removed from the data");
 	}
@@ -294,7 +294,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amountOther'] = 'macedonia';
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
-		$returned = $ddObj->getData();
+		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals($returned['amount'], 0.00, "Amount was not properly reset");
 		$this->assertTrue(!(array_key_exists('amountOther', $returned)), "amountOther should have been removed from the data");
 		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");

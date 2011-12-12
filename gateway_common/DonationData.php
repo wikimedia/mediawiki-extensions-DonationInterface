@@ -18,7 +18,7 @@ class DonationData {
 		$this->populateData( $test, $data );
 	}
 
-	function populateData( $test = false, $external_data = false ) {
+	protected function populateData( $test = false, $external_data = false ) {
 		global $wgRequest;
 		$this->normalized = array( );
 		if ( is_array( $external_data ) ){
@@ -107,25 +107,12 @@ class DonationData {
 			}
 		}
 		
-		$posted_referrer = $wgRequest->getVal( 'referrer' );
-		$tries = array(
-			'referer',
-			'referrer',
-			'Referer',
-			'Referrer'
-		);
-		foreach ($tries as $trythis){
-			$header[$trythis] = $wgRequest->getHeader( $trythis );
-		}
-		
-		$this->log( 'ReferrerHeaderTest (' . $this->getVal( 'contribution_tracking_id' ) . "): Posted = $posted_referrer, Header Tries = " . print_r($header, true) . ', Final = ' . $this->getVal('referrer') );		
-		
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
 		$this->doCacheStuff();
 
-		$this->normalizeAndSanitize();
+		$this->normalize();
 
 	}
 	
@@ -134,7 +121,7 @@ class DonationData {
 	 * If donor session data has been set, pull the fields in the session that 
 	 * are populated, and merge that with the data set we already have. 
 	 */
-	function integrateDataFromSession(){
+	protected function integrateDataFromSession(){
 		if ( self::sessionExists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//if the thing coming in from the session isn't already something, 
 			//replace it. 
@@ -153,14 +140,27 @@ class DonationData {
 				}
 			}
 		}
-		$this->log( 'ReferrerHeaderTest (' . $this->getVal( 'contribution_tracking_id' ) . "): Final After Session Integration = " . $this->getVal('referrer') );
 	}
 
-	function getData() {
+	/**
+	 * Returns an array of normalized and escaped donation data
+	 * @return array
+	 */
+	public function getDataEscaped() {
+		$escaped = $this->normalized;
+		array_walk( $escaped, array( $this, 'sanitizeInput' ) );
+		return $escaped;
+	}
+
+	/**
+	 * Returns an array of normalized (but unescaped) donation data
+	 * @return array 
+	 */
+	public function getDataUnescaped() {
 		return $this->normalized;
 	}
 
-	function populateData_Test( $testdata = false ) {
+	protected function populateData_Test( $testdata = false ) {
 		// define arrays of cc's and cc #s for random selection
 		$cards = array( 'american' );
 		$card_nums = array(
@@ -234,7 +234,7 @@ class DonationData {
 	 * @param string $key The field you would like to determine if it exists or not. 
 	 * @return boolean true if the field is something. False if it is null, or an empty string. 
 	 */
-	function isSomething( $key ) {
+	public function isSomething( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
 			if ( is_null($this->normalized[$key]) || $this->normalized[$key] === '' ) {
 				return false;
@@ -245,7 +245,26 @@ class DonationData {
 		}
 	}
 
-	function getVal( $key ) {
+	/**
+	 * getVal_Escaped
+	 * @param string $key The data field you would like to retrieve.
+	 * @return mixed The normalized and escaped value of that $key. 
+	 */
+	public function getVal_Escaped( $key ) {
+		if ( $this->isSomething( $key ) ) {
+			return $this->sanitizeInput( $this->normalized[$key] );
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * getVal
+	 * For Internal Use Only! External objects should use getVal_Escaped.
+	 * @param string $key The data field you would like to retrieve.
+	 * @return mixed The normalized value of that $key. 
+	 */
+	protected function getVal( $key ) {
 		if ( $this->isSomething( $key ) ) {
 			return $this->normalized[$key];
 		} else {
@@ -270,7 +289,7 @@ class DonationData {
 	
 	/**
 	 * Returns an array of all the fields that get re-calculated during a 
-	 * normalizeAndSanitize. 
+	 * normalize. 
 	 * This will most likely be used on the outside when in the process of 
 	 * adding data.
 	 * @return array An array of values matching all recauculated fields.  
@@ -293,10 +312,10 @@ class DonationData {
 	}
 
 	/**
-	 * Normalizes and Sanitizes the current set of data, just after it's been 
+	 * Normalizes the current set of data, just after it's been 
 	 * pulled (or re-pulled) from a source. 
 	 */
-	function normalizeAndSanitize() {
+	function normalize() {
 		if ( !empty( $this->normalized ) ) {
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
@@ -307,12 +326,11 @@ class DonationData {
 			$this->setCountry();
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
-			array_walk( $this->normalized, array( $this, 'sanitizeInput' ) );
 		}
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function
+	 * normalize helper function
 	 * Setting the country correctly.
 	 */
 	function setCountry() {
@@ -331,7 +349,7 @@ class DonationData {
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function
+	 * normalize helper function
 	 * Setting the currency code correctly. 
 	 */
 	function setCurrencyCode() {
@@ -358,7 +376,7 @@ class DonationData {
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * Assures that if no contribution_tracking_id is present, a row is created 
 	 * in the Contribution tracking table, and that row is assigned to the 
 	 * current contribution we're tracking. 
@@ -403,7 +421,7 @@ class DonationData {
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * Takes all possible sources for the intended donation amount, and 
 	 * normalizes them into the 'amount' field.  
 	 */
@@ -420,7 +438,7 @@ class DonationData {
 	}
 
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * Ensures that order_id and i_order_id are ready to go, depending on what 
 	 * comes in populated or not, and where it came from.
 	 * @return null
@@ -459,22 +477,21 @@ class DonationData {
 	 * Intended to be used with something like array_walk.
 	 *
 	 * @param $value The value of the array
-	 * @param $key The key of the array
 	 * @param $flags The flag constant for htmlspecialchars
 	 * @param $double_encode Whether or not to double-encode strings
 	 */
-	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
+	protected function sanitizeInput( &$value, $flags=ENT_COMPAT, $double_encode=false ) {
 		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
 	}
 
-	function log( $message, $log_level=LOG_INFO ) {
+	protected function log( $message, $log_level=LOG_INFO ) {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'log' ) )){
 			$c::log( $message, $log_level );
 		}
 	}
 
-	function getGatewayIdentifier() {
+	protected function getGatewayIdentifier() {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
 			return $c::getIdentifier();
@@ -483,7 +500,7 @@ class DonationData {
 		}
 	}
 
-	function getGatewayGlobal( $varname ) {
+	protected function getGatewayGlobal( $varname ) {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
 			return $c::getGlobal( $varname );
@@ -493,24 +510,24 @@ class DonationData {
 	}
 
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * Sets the gateway to be the gateway that called this class in the first 
 	 * place.
 	 */
-	function setGateway() {
+	protected function setGateway() {
 		//TODO: Hum. If we have some other gateway in the form data, should we go crazy here? (Probably)
 		$gateway = $this->gatewayID;
 		$this->setVal( 'gateway', $gateway );
 	}
 	
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * If the language has not yet been set or is not valid, pulls the language code 
 	 * from the current global language object. 
 	 * Also sets the premium_language as the calculated language if it's not 
 	 * already set coming in (had been defaulting to english). 
 	 */
-	function setLanguage() {
+	protected function setLanguage() {
 		global $wgLang;
 		$language = false;
 		
@@ -545,7 +562,7 @@ class DonationData {
 	 * @global bool $wgUseSquid
 	 * @global type $wgOut 
 	 */
-	function doCacheStuff() {
+	protected function doCacheStuff() {
 		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $this->isCaching() ) {
@@ -563,7 +580,7 @@ class DonationData {
 		}
 	}
 
-	function getAnnoyingOrderIDLogLinePrefix() {
+	protected function getAnnoyingOrderIDLogLinePrefix() {
 		//TODO: ...aww. But it's so descriptive.
 		return $this->getVal( 'order_id' ) . ' ' . $this->getVal( 'i_order_id' ) . ': ';
 	}
@@ -577,6 +594,8 @@ class DonationData {
 	 * a security risk for non-authenticated users.  Until this is
 	 * resolved in $wgUser, we'll use our own methods for token
 	 * handling.
+	 * 
+	 * Public so the api can get to it. 
 	 *
 	 * @return string
 	 */
@@ -602,7 +621,7 @@ class DonationData {
 	 * In the case where we have an expired session (token mismatch), we go 
 	 * ahead and fix it for 'em for their next post. 
 	 */
-	function token_refreshAllTokenEverything(){
+	protected function token_refreshAllTokenEverything(){
 		$unsalted = self::token_generateToken();	
 		$gateway_ident = $this->gatewayID;
 		self::ensureSession();
@@ -611,7 +630,7 @@ class DonationData {
 		$this->setVal( 'token', $salted );
 	}
 	
-	function token_applyMD5AndSalt( $clear_token ){
+	protected function token_applyMD5AndSalt( $clear_token ){
 		$salt = $this->getGatewayGlobal( 'Salt' );
 		
 		if ( is_array( $salt ) ) {
@@ -640,7 +659,7 @@ class DonationData {
 	 * @var string $val
 	 * @return bool
 	 */
-	function token_matchEditToken( $val ) {
+	protected function token_matchEditToken( $val ) {
 		// fetch a salted version of the session token
 		$sessionSaltedToken = $this->token_getSaltedSessionToken();
 		if ( $val != $sessionSaltedToken ) {
@@ -657,7 +676,7 @@ class DonationData {
 	 * If we do not have a session set for the current user,
 	 * start the session.
 	 */
-	public static function ensureSession() {
+	protected static function ensureSession() {
 		// if the session is already started, do nothing
 		if ( self::sessionExists() )
 			return;
@@ -670,7 +689,7 @@ class DonationData {
 	 * Checks to see if the session exists without actually creating one. 
 	 * @return bool true if we have a session, otherwise false.  
 	 */
-	public static function sessionExists() {
+	protected static function sessionExists() {
 		if ( session_id() )
 			return true;
 		return false;
@@ -711,7 +730,7 @@ class DonationData {
 	}
 
 	/**
-	 * normalizeAndSanitize helper function.
+	 * normalize helper function.
 	 * 
 	 * Checks to see if the utm_source is set properly for the credit card
 	 * form including any cc form variants (identified by utm_source_id).  If
@@ -768,7 +787,7 @@ class DonationData {
 	 * NOTE: If you prune here, and there is a paypal redirect, you will have
 	 * problems with the email-opt/optout and comment-option/anonymous.
 	 */
-	function setNormalizedOptOuts( $prune = false ) {
+	protected function setNormalizedOptOuts( $prune = false ) {
 		$optout['optout'] = ( $this->isSomething( 'email-opt' ) && $this->getVal( 'email-opt' ) == "1" ) ? '0' : '1';
 		$optout['anonymous'] = ( $this->isSomething( 'comment-option' ) && $this->getVal( 'comment-option' ) == "1" ) ? '0' : '1';
 		foreach ( $optout as $thing => $stuff ) {
@@ -969,7 +988,7 @@ class DonationData {
 				}
 			}
 		}
-		$this->normalizeAndSanitize();
+		$this->normalize();
 	}
 
 	public function incrementNumAttempt() {
@@ -984,7 +1003,7 @@ class DonationData {
 		}
 	}
 
-	function getAdapterClass(){
+	protected function getAdapterClass(){
 		if ( class_exists( $this->boss ) ) {
 			return $this->boss;
 		} else {
@@ -1000,7 +1019,7 @@ class DonationData {
 	 * /extensions/DonationData/activemq_stomp/activemq_stomp.php
 	 * to somewhere in DonationData. 	 * 
 	 */
-	function getStompMessageFields(){
+	public function getStompMessageFields(){
 		$stomp_fields = array(
 			'contribution_tracking_id',
 			'optout',

@@ -77,7 +77,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	 */
 	public function validateForm( &$error, $options = array() ) {
 		
-		$data = $this->adapter->getData_Raw();
+		$data = $this->adapter->getData_Unstaged_Escaped();
 		
 		extract( $options );
 
