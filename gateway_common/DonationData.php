@@ -252,7 +252,9 @@ class DonationData {
 	 */
 	public function getVal_Escaped( $key ) {
 		if ( $this->isSomething( $key ) ) {
-			return $this->sanitizeInput( $this->normalized[$key], $key );
+			//TODO: If we ever start sanitizing in a more complicated way, we should move this 
+			//off to a function and have both getVal_Escaped and sanitizeInput call that. 
+			return htmlspecialchars( $this->normalized[$key], ENT_COMPAT, 'UTF-8', false );
 		} else {
 			return null;
 		}
