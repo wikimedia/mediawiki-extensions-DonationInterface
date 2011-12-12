@@ -252,7 +252,7 @@ class DonationData {
 	 */
 	public function getVal_Escaped( $key ) {
 		if ( $this->isSomething( $key ) ) {
-			return $this->sanitizeInput( $this->normalized[$key] );
+			return $this->sanitizeInput( $this->normalized[$key], $key );
 		} else {
 			return null;
 		}
@@ -477,10 +477,11 @@ class DonationData {
 	 * Intended to be used with something like array_walk.
 	 *
 	 * @param $value The value of the array
+	 * @param $key The key of the array
 	 * @param $flags The flag constant for htmlspecialchars
 	 * @param $double_encode Whether or not to double-encode strings
 	 */
-	protected function sanitizeInput( &$value, $flags=ENT_COMPAT, $double_encode=false ) {
+	protected function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
 		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
 	}
 
