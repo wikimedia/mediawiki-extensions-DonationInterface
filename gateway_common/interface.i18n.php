@@ -7376,6 +7376,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Alluk.
  * @author Cbrown1023
  * @author Centerlink
  * @author Crt
@@ -7401,6 +7402,7 @@ $messages['fi'] = array(
 	'donate_interface-email-agreement' => 'Suostun vastaanottamaan ajoittaisia sähköpostiviestejä Wikimedia Foundationilta.',
 	'donate_interface-comment-title' => 'Julkinen kommentti',
 	'donate_interface-amount-error' => 'Syötä kelvollinen määrä',
+	'donate_interface-smallamount-error' => 'Lahjoituksen vähimmäissumma on $1.',
 	'donate_interface-processing-error' => 'Tapahtui virhe käsiteltäessä pyyntöäsi. Ei käsittelijää saatavilla.',
 	'donate_interface-AUD' => 'Australian dollari',
 	'donate_interface-CAD' => 'Kanadan dollari',
@@ -7478,6 +7480,7 @@ $messages['fi'] = array(
 	'donate_interface-error-msg-cvv' => 'CVV korttisi takapuolelta',
 	'donate_interface-error-msg-captcha' => 'Syöttämäsi tarkistuskoodin arvo oli väärin. Yritä uudestaan.',
 	'donate_interface-error-msg-captcha-please' => 'Luottokorttisi turvallisuuden vuoksi, syötä yllä näkemäsi merkit.',
+	'donate_interface-error-msg-cookies' => 'Ota selaimesi evästeet käyttöön.',
 	'donate_interface-error-msg-genaricrequired' => 'Tämä kenttä on pakollinen',
 	'donate_interface-donate-error-try-a-different-card' => 'Yritä [$1 toista korttia] tai jotain [$2 muista tavoista lahjoittaa] tai ota meihin yhteyttä osoitteella $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Kiitos tuestasi!',
@@ -7493,6 +7496,8 @@ Tyypillisesti allekirjoitusalueella on sarja numeroita, mutta vain kolme viimeis
 <p>Numero on <i>aina</i> sijoitettu kohopainettuun tilinumeroon kortin etupuolella. 
 Joissain tapauksissa numero sijaitsee kortin vasemmalla puolella, mutta se on aina tilinumeron yläpuolella.</p><br />',
 	'donate_interface-question-comment' => 'Kysymyksiä tai kommentteja? Ota yhteyttä: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-easydonate' => 'Pyrimme tekemään lahjoittamisesta mahdollisimman helppoa kaikenmaalaisille ihmisille. Kerro meille, miten olisimme voineet tehdä lahjoittamisesi helpommaksi. Lähetä ehdotuksesi (englanniksi) osoitteeseen problemsdonating@wikimedia.org.',
+	'donate_interface-problemsdonating' => 'Ongelmia lahjoittamisessa?',
 	'donate_interface-donate-click' => 'Luottokorttisi käsitellään turvallisesti.',
 	'donate_interface-otherways' => 'On myös <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">muita lahjoitustapoja, kuten PayPal, šekki tai posti</a>.',
 	'donate_interface-otherways-alt' => 'On olemassa myös <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">muita lahjoitustapoja</a>, kuten sekki.',
@@ -7614,9 +7619,11 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'donate_interface-change' => 'Muuta',
 	'donate_interface-select-credit-card' => 'Valitse luottokortti',
 	'donate_interface-optional' => 'valinnainen',
+	'donate_interface-state-dropdown-YY' => 'Valitse osavaltio',
 	'donate_interface-state-dropdown-XX' => 'Yhdysvaltojen ulkopuolella',
 	'donate_interface-bt-account_holder' => 'Tilinomistaja',
 	'donate_interface-bt-bank_account_number' => 'Tilinumero',
+	'donate_interface-dd-bank_name' => 'Pankin nimi',
 	'donate_interface-translate-bluelink' => 'Paranna tätä käännöstä',
 	'donate_interface-translate-redlink1' => 'Auta tämän sivun kääntämisessä.',
 	'donate_interface-translate-redlink2' => 'Tai lähetä käännöksesi sähköpostilla osoitteeseen translations@wikimedia.org',
@@ -7625,6 +7632,8 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'donate_interface-email-unsub-button' => 'Peruuta tilaus',
 	'donate_interface-email-unsub-success' => 'Sinut on onnistuneesti poistettu postituslistaltamme',
 	'donate_interface-faqs' => 'Usein kysytyt kysymykset',
+	'donate_interface-informationsharing' => 'Lahjoittaessasi lähetät tietojasi Wikimedia Foundationille, Wikipediaa ja muita Wikimedian projekteja ylläpitävälle voittoa tavoittamattomalle järjestölle sekä sen palveluntarjoajille Yhdysvalloissa ja ja muualla tietosuojakäytäntömme mukaisesti. Emme myy tietojasi kenellekään. Lisätietoja <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">lahjoittajapolitiikastamme</a>.',
+	'donate_interface-taxded-link-int' => 'Verotus- ja muut oikeudelliset tiedot',
 );
 
 /** French (Français)
@@ -9745,9 +9754,15 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'donate_interface-email-unsub-warning' => 'Nećete dobivati e-poštu od Zaklade Wikimedija kao darivatelj. Ako ste prijavili ovu adresu e-pošte na nekom od naših projekata možete zbog toga dobiti poneku poruku. Ako imate pitanja, molimo javite se na adresu <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Često postavljana pitanja (FAQ)',
 	'donate_interface-tax-info' => 'Informacije o poreznim olakšicama',
+	'donate_interface-informationsharing' => 'Darivanjem vi dijelite svoje podatke sa Zakladom Wikimedija, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke. Više o tome pročitajte na stranici o našim <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">pravilima za donatore</a>.',
 	'donate_interface-currency-change' => 'Promijeni?',
+	'donate_interface-bank_transfer_message' => 'Na bankovnom izviješću pojaviti će se „Global Collect“ kao primatelj priloga. Global Collect je ovlašćen za prihvat i obradu plaćanja u ime Zaklade Wikimedija. Ne zaboravite navesti prikazanu brojčanu oznaku u uplati. Ako imate pitanja ili vas nešto brine glede priloga, slobodno nas kontaktirajte putem e-pošte: donations@wikimedia.org.',
 	'donate_interface-taxded-link-int' => 'Porezi i ostali pravni podatci',
 	'donate_interface-taxded-link-us' => 'Informacije o poreznim olakšicama',
+	'donate_interface-taxded-msg-int' => 'Zaklada Wikimedija je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama. Donacije državljana drugih država ili pravnih osoba izvan SAD možda ne podliježu poreznim olakšicama u SAD ili drugim državama; u tom slučaju darivatelje savjetujemo da potraže savjet u svojoj državi. Važno je napomenuti da Wikimedija ne traži priloge od fizičkih ili pravnih osoba smještenih u državama u kojima je ovakvo prikupljanje sredstava za međunarodne dobrotvorne organizacije poput Wikimedije ograničeno ili zabranjeno, ili kad se ovakvi prilozi oporezuju.',
+	'donate_interface-taxded-msg-us' => 'Zaklada Wikimedija je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama.',
+	'donate_interface-legal-original' => 'Ovo je neslužbeni prijevod. U slučaju njegovog neslaganja s engleskim izvornikom engleski izvornik ima prednost.',
+	'donate_interface-legal-donorpolicy' => 'Darivanjem vi dijelite svoje podatke sa Zakladom Wikimedija, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke.',
 	'donate_interface-monthlybox-title' => 'Želite darivati redovni (mjesečni) prilog?',
 	'donate_interface-monthlybox-content' => 'Mjesečni prilozi se obrađuju drugog dana u mjesecu. Možete odustati kad god želite.',
 	'donate_interface-monthlybox-amount' => 'Iznos donacije:',
@@ -10607,9 +10622,9 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'donate_interface-make-your-donation' => 'Face tu donation ora',
 	'donate_interface-state-in-us' => 'si intra le Statos Unite',
 	'donate_interface-comment' => 'Commentar',
-	'donate_interface-first' => 'Prime',
-	'donate_interface-middle' => 'Medie',
-	'donate_interface-last' => 'Ultime',
+	'donate_interface-first' => 'Prenomine',
+	'donate_interface-middle' => 'Secunde nomine',
+	'donate_interface-last' => 'Nomine de familia',
 	'donate_interface-other' => 'Altere',
 	'donate_interface-noscript-msg' => 'Il pare que tu non ha JavaScript activate, o tu navigator non lo supporta.
 Pro poter fornir un experientia secur e agradabile, nostre formulario de donation require JavaScript.',
@@ -14657,6 +14672,7 @@ $messages['ml'] = array(
 	'donate_interface-error-msg-captcha-please' => 'താങ്കൾ ഒരു ബോട്ട് അല്ല എന്നു തെളിയിക്കാൻ ദയവായി കാപ്ച ഫോം പൂരിപ്പിച്ചു നൽകുക.',
 	'donate_interface-error-msg-cookies' => 'ദയവായി താങ്കളുടെ ബ്രൗസറിൽ കുക്കികൾ സജ്ജമാക്കുക.',
 	'donate_interface-error-msg-genaricrequired' => 'ഈ ഫീൽഡ് ആവശ്യമാണ്',
+	'donate_interface-donate-error-try-a-different-card' => 'ദയവായി [$1 മറ്റൊരു കാർഡ്] ഉപയോഗിച്ചു നോക്കുക, അഥവാ  [$2 സംഭാവന ചെയ്യാനുള്ള മറ്റു മാർഗ്ഗങ്ങൾ നോക്കാവുന്നതാണ്] അല്ലെങ്കിൽ $3 എന്നതിൽ ഞങ്ങളുമായി ബന്ധപ്പെടുക',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'താങ്കളുടെ പിന്തുണയ്ക്ക് നന്ദി!',
 	'php-response-declined' => 'താങ്കളുടെ ഇടപാട് അസ്വീകാര്യമാണ്.',
 	'donate_interface-thankyou' => 'താങ്കളുടെ സംഭാവനയ്ക്ക് നന്ദി!',
