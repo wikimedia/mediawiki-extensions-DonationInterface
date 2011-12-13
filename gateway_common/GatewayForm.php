@@ -326,9 +326,13 @@ class GatewayForm extends UnlistedSpecialPage {
 	 */
 	public function setFormClass( $class_name = NULL ) {
 		if ( !$class_name ) {
-			global $wgRequest;
+			//TODO: This is the sort of thing we really ought to be handled in 
+			//DonationData instead of all the way out here. 
 			$defaultForm = $this->adapter->getGlobal( 'DefaultForm' );
-			$form_class = $wgRequest->getText( 'form_name', $defaultForm );
+			$form_class = $this->adapter->getData_Unstaged_Escaped( 'form_name' );
+			if ( is_null( $form_class ) ){
+				$form_class = $defaultForm;
+			}
 
 			// make sure our form class exists before going on, if not try loading default form class
 			$class_name = "Gateway_Form_" . $form_class;
@@ -342,7 +346,8 @@ class GatewayForm extends UnlistedSpecialPage {
 		}
 		$this->form_class = $class_name;
 
-		//this should... maybe replace the other thing? I need it in the adapter so reCaptcha can get to it.
+		//...this is just dumb now.
+		//TODO: Check who's using this get/set combo, and maybe nuke it all.
 		$this->adapter->setFormClass( $class_name );
 	}
 

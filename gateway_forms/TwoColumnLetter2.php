@@ -1,7 +1,6 @@
 <?php
 
 class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
-	public $paypal = false; // true for paypal only version
 
 	public function __construct( &$gateway, &$form_errors ) {
 		global $wgScriptPath;
@@ -15,23 +14,13 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest;
-
-		$this->paypal = $wgRequest->getBool( 'paypal', false );
-
 		$form = parent::generateBannerHeader();
 
 		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0 ) );
 		$form .= Xml::openElement( 'tr' );
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
-		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->form_data[ 'language' ];
-
-		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . $text_template . '}}' ) : '';
-		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
+		$template = self::generateTextTemplate();
 		$form .= $template;
 
 		$form .= Xml::closeElement( 'td' );
@@ -145,7 +134,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		}
 
 		// anonymous
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
+		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form .= '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
 		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';

@@ -43,21 +43,21 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	 * The default appeal
 	 *
 	 */
-    const DEFAULT_APPEAL = <<<HTML
-		<h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
-		<div id="appeal-body" class="plainlinks">
-			<p>I feel like I'm living the first line of my obituary.</p>
-			<p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
-			<p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
-			<p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
-			<p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
-			<p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
-			<p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
-			<p>Thank you,</p>
-			<p><strong>Brandon Harris</strong><br /></p>
-			<p>Programmer, Wikimedia Foundation</p>
-		</div>
-HTML;
+//    const DEFAULT_APPEAL = <<<HTML
+//		<h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
+//		<div id="appeal-body" class="plainlinks">
+//			<p>I feel like I'm living the first line of my obituary.</p>
+//			<p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
+//			<p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
+//			<p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
+//			<p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
+//			<p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
+//			<p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
+//			<p>Thank you,</p>
+//			<p><strong>Brandon Harris</strong><br /></p>
+//			<p>Programmer, Wikimedia Foundation</p>
+//		</div>
+//HTML;
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -73,11 +73,11 @@ HTML;
 	 */
 	protected function init() {
 		
-		$this->setPaymentMethod( $this->form_data['payment_method'] );
-		$this->setPaymentSubmethod( $this->form_data['payment_submethod'] );
+		$this->setPaymentMethod( $this->getEscapedValue( 'payment_method' ) );
+		$this->setPaymentSubmethod( $this->getEscapedValue( 'payment_submethod' ) );
 		
 		// Should process be deprecated?
-		$this->form_data['process'] = 'other';
+		$this->getEscapedValue( 'process' ) = 'other';
 		
 		// Initialize the appeal
 		$this->appeal = self::DEFAULT_APPEAL;
@@ -356,7 +356,7 @@ HTML;
 			'iban'				=> array( 'required' => true, ),
 		);
 		
-		$country = isset( $this->form_data['country'] ) ? $this->form_data['country'] : '';
+		$country = !is_null( $this->getEscapedValue( 'country' ) ) ? $this->getEscapedValue( 'country' ) : '';
 		
 		if ( $country == 'AT' ) {
 			
@@ -403,7 +403,7 @@ HTML;
 			$elementClass .= $required ? ' required ' : '' ;
 			$elementClass = trim( $elementClass );
 			
-			$return .= Xml::input( $field, '', $this->form_data[ $field ], array( 'class' => $elementClass, 'type' => 'text', 'maxlength' => '32', 'id' => $field ) );
+			$return .= Xml::input( $field, '', $this->getEscapedValue( $field ), array( 'class' => $elementClass, 'type' => 'text', 'maxlength' => '32', 'id' => $field ) );
 			$return .= '</td>';
 			$return .= '</tr>';
 		}
@@ -561,7 +561,7 @@ HTML;
 
 		// generate dropdown of issuer_ids
 		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
-			$selected = ( $this->form_data['issuer_id'] == $issuer_id ) ? true : false;
+			$selected = ( $this->getEscapedValue( 'issuer_id' ) == $issuer_id ) ? true : false;
 			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
 			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
 		}
@@ -619,7 +619,7 @@ HTML;
 		$radioOptions = array();
 		$radioOptions['showCardsOnCurrencyChange'] = false;
 				
-		$country = isset( $this->form_data['country'] ) ? $this->form_data['country'] : '';
+		$country = !is_null( $this->getEscapedValue( 'country' ) ) ? $this->getEscapedValue( 'country' ) : '';
 
 		if ( $country == 'SG' ) {
 			$radioOptions['setCurrency'] = 'SGD';
@@ -769,8 +769,8 @@ HTML;
 		$form .= Xml::tags( 'li', array(), 'payment_method: ' . $this->getPaymentMethod() );
 		$form .= Xml::tags( 'li', array(), 'payment_submethod: ' . $this->getPaymentSubmethod() );
 		
-		if ( isset( $this->form_data['issuer_id'] ) ) {
-			$form .= Xml::tags( 'li', array(), 'issuer_id: ' . $this->form_data['issuer_id'] );
+		if ( !is_null( $this->getEscapedValue( 'issuer_id' ) ) ) {
+			$form .= Xml::tags( 'li', array(), 'issuer_id: ' . $this->getEscapedValue( 'issuer_id' ) );
 		}
 		
 		$form .= Xml::closeElement( 'ul' ); // close div#mw-payment-information ul
@@ -828,7 +828,7 @@ HTML;
 
 		// generate dropdown of issuer_ids
 		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
-			$selected = ( $this->form_data['issuer_id'] == $issuer_id ) ? true : false;
+			$selected = ( $this->getEscapedValue( 'issuer_id' ) == $issuer_id ) ? true : false;
 			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
 			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
 		}

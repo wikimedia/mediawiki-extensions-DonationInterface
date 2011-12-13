@@ -13,7 +13,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest;
+		global $wgOut;
 
 		$form = parent::generateBannerHeader();
 
@@ -21,13 +21,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= Xml::openElement( 'tr' );
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
-		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->form_data[ 'language' ];
-
-		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . $text_template . '}}' ) : '';
-		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
+		$template = self::generateTextTemplate();
 		$form .= $template;
 
 		$form .= Xml::closeElement( 'td' );
@@ -94,12 +88,12 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'amount', '7', $this->form_data['amount'], array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
+		$form .= '<td>' . Xml::input( 'amount', '7', $this->getEscapedValue( 'amount' ), array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			' ' . $this->generateCurrencyDropdown( 'CAD' ) . '</td>';
 		$form .= '</tr>';
 
 		// card logos
-		if ( $this->form_data[ 'currency_code' ] == 'USD' ) {
+		if ( $this->getEscapedValue( 'currency_code' ) == 'USD' ) {
 			$form .= '<tr id="four_cards" style="display:table-row;">';
 			$form .= '<td class="label"> </td><td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 			$form .= '</tr>';
@@ -182,7 +176,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
-			$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
+			$selected = ( $this->getEscapedValue( 'state' ) == $value ) ? true : false;
 			$state_opts .= Xml::option( wfMsg( 'donate_interface-province-dropdown-' . $value ), $value, $selected );
 		}
 

@@ -15,12 +15,6 @@ abstract class Gateway_Form {
 	public $hidden_fields;
 
 	/**
-	 * An array of form data, collected from the gateway parameter. 
-	 * @var array
-	 */
-	public $form_data;
-
-	/**
 	 * The id of the form.
 	 *
 	 * This should also be the name of the form
@@ -67,6 +61,12 @@ abstract class Gateway_Form {
 	 * @var string
 	 */
 	protected $payment_submethod = '';
+	
+	/**
+	 * Tells us if we're paypal only or not. 
+	 * @var boolean
+	 */
+	public $paypal = false; // true for paypal only version
 
 	/**
 	 * Required method for returning the full HTML for a form.
@@ -80,12 +80,12 @@ abstract class Gateway_Form {
 	abstract function getForm();
 
 	public function __construct( &$gateway, &$error ) {
-		global $wgOut;
+		global $wgOut, $wgRequest;
 
 		$this->gateway = & $gateway;
 		$this->test = $this->gateway->getGlobal( "Test" );
-		$this->form_data = $this->gateway->getData_Unstaged_Escaped();
 		$this->form_errors = & $error;
+		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
 		/**
 		 *  add form-specific css - the path can be set in child classes
@@ -202,10 +202,10 @@ abstract class Gateway_Form {
 
 		// generate a dropdown option for each country
 		foreach ( $countries as $iso_value => $full_name ) {
-			// Note: If the server has the php5-geoip package, $this->form_data['country'] will
+			// Note: If the server has the php5-geoip package, $this->getEscapedValue( 'country' ) will
 			// always have a value.
-			if ( $this->form_data['country'] ) {
-				$selected = ( $iso_value == $this->form_data['country'] ) ? true : false;
+			if ( $this->getEscapedValue( 'country' ) ) {
+				$selected = ( $iso_value == $this->getEscapedValue( 'country' ) ) ? true : false;
 			} else {
 				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Select default
 			}
@@ -245,7 +245,7 @@ abstract class Gateway_Form {
 		// generate  a dropdown opt for each card
 		foreach ( $available_cards as $value => $card_name ) {
 			// only load the card value if we're in testing mode
-			$selected = ( $value == $this->form_data['card_type'] && $this->test ) ? true : false;
+			$selected = ( $value == $this->getEscapedValue( 'card_type' ) && $this->test ) ? true : false;
 			$card_options .= Xml::option( $card_name, $value, $selected );
 		}
 
@@ -267,8 +267,8 @@ abstract class Gateway_Form {
 
 		// derive the previously set expiry month, if set
 		$month = NULL;
-		if ( $this->form_data['expiration'] ) {
-			$month = substr( $this->form_data['expiration'], 0, 2 );
+		if ( $this->getEscapedValue( 'expiration' ) ) {
+			$month = substr( $this->getEscapedValue( 'expiration' ), 0, 2 );
 		}
 
 		$expiry_months = '';
@@ -296,8 +296,8 @@ abstract class Gateway_Form {
 	public function generateExpiryYearDropdown() {
 		// derive the previously set expiry year, if set
 		$year = NULL;
-		if ( $this->form_data['expiration'] ) {
-			$year = substr( $this->form_data['expiration'], 2, 2 );
+		if ( $this->getEscapedValue( 'expiration' ) ) {
+			$year = substr( $this->getEscapedValue( 'expiration' ), 2, 2 );
 		}
 
 		$expiry_years = '';
@@ -335,7 +335,7 @@ abstract class Gateway_Form {
 
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
-			$selected = ( $this->form_data['state'] == $value ) ? true : false;
+			$selected = ( $this->getEscapedValue( 'state' ) == $value ) ? true : false;
 			$state_opts .= Xml::option( wfMsg( 'donate_interface-state-dropdown-' . $value ), $value, $selected );
 		}
 
@@ -368,8 +368,8 @@ abstract class Gateway_Form {
 		$availableCurrencies = $this->gateway->getCurrencies();
 		
 		// If a currency has already been posted, use that, otherwise use the default.
-		if ( $this->form_data['currency_code'] ) {
-			$selectedCurrency = $this->form_data['currency_code'];
+		if ( $this->getEscapedValue( 'currency_code' ) ) {
+			$selectedCurrency = $this->getEscapedValue( 'currency_code' );
 		} else {
 			$selectedCurrency = $defaultCurrencyCode;
 		}
@@ -430,7 +430,7 @@ abstract class Gateway_Form {
 		$setCurrency = isset( $setCurrency ) ? (string) $setCurrency : '';
 		$displayCurrencyDropdown = empty( $setCurrency ) ? $displayCurrencyDropdown : false;
 
-		$amount = isset( $this->form_data['amount'] ) ? (string) $this->form_data['amount'] : '0';
+		$amount = !is_null( $this->getEscapedValue( 'amount' ) ) ? (string) $this->getEscapedValue( 'amount' ) : '0';
 
 		// Treat values as string for comparison
 		$amountValues = array('5', '10', '20', '35', '50', '100', '250',);
@@ -490,31 +490,31 @@ abstract class Gateway_Form {
 	public function setHiddenFields( $hidden_fields = NULL ) {
 		if ( !$hidden_fields ) {
 			$hidden_fields = array(
-				'utm_source' => $this->form_data['utm_source'],
-				'utm_medium' => $this->form_data['utm_medium'],
-				'utm_campaign' => $this->form_data['utm_campaign'],
-				'language' => $this->form_data['language'],
-				'referrer' => $this->form_data['referrer'],
-				'comment' => $this->form_data['comment'],
-				'comment-option' => $this->form_data['comment-option'],
-				'email-opt' => $this->form_data['email-opt'],
-				'size' => $this->form_data['size'],
-				'premium_language' => $this->form_data['premium_language'],
+				'utm_source' => $this->getEscapedValue( 'utm_source' ),
+				'utm_medium' => $this->getEscapedValue( 'utm_medium' ),
+				'utm_campaign' => $this->getEscapedValue( 'utm_campaign' ),
+				'language' => $this->getEscapedValue( 'language' ),
+				'referrer' => $this->getEscapedValue( 'referrer' ),
+				'comment' => $this->getEscapedValue( 'comment' ),
+				'comment-option' => $this->getEscapedValue( 'comment-option' ),
+				'email-opt' => $this->getEscapedValue( 'email-opt' ),
+				'size' => $this->getEscapedValue( 'size' ),
+				'premium_language' => $this->getEscapedValue( 'premium_language' ),
 				// process has been disabled - may no longer be needed. 
-				//'process' => isset( $this->form_data['process'] ) ? $this->form_data['process'] : 'CreditCard',
+				//'process' => !is_null( $this->getEscapedValue( 'process' ) ) ? $this->getEscapedValue( 'process' ) : 'CreditCard',
 				// payment_method is no longer set to: processed
-				'payment_method' => isset( $this->form_data['payment_method'] ) ? $this->form_data['payment_method'] : '',
-				'payment_submethod' => isset( $this->form_data['payment_submethod'] ) ? $this->form_data['payment_submethod'] : '',
-				'token' => $this->form_data['token'],
-				'order_id' => $this->form_data['order_id'],
-				'i_order_id' => $this->form_data['i_order_id'],
-				'numAttempt' => $this->form_data['numAttempt'],
-				'contribution_tracking_id' => $this->form_data['contribution_tracking_id'],
-				'data_hash' => $this->form_data['data_hash'],
-				'action' => $this->form_data['action'],
-				'owa_session' => $this->form_data['owa_session'],
-				'owa_ref' => $this->form_data['owa_ref'],
-				'gateway' => $this->form_data['gateway'],
+				'payment_method' => !is_null( $this->getEscapedValue( 'payment_method' ) ) ? $this->getEscapedValue( 'payment_method' ) : '',
+				'payment_submethod' => !is_null( $this->getEscapedValue( 'payment_submethod' ) ) ? $this->getEscapedValue( 'payment_submethod' ) : '',
+				'token' => $this->getEscapedValue( 'token' ),
+				'order_id' => $this->getEscapedValue( 'order_id' ),
+				'i_order_id' => $this->getEscapedValue( 'i_order_id' ),
+				'numAttempt' => $this->getEscapedValue( 'numAttempt' ),
+				'contribution_tracking_id' => $this->getEscapedValue( 'contribution_tracking_id' ),
+				'data_hash' => $this->getEscapedValue( 'data_hash' ),
+				'action' => $this->getEscapedValue( 'action' ),
+				'owa_session' => $this->getEscapedValue( 'owa_session' ),
+				'owa_ref' => $this->getEscapedValue( 'owa_ref' ),
+				'gateway' => $this->getEscapedValue( 'gateway' ),
 			);
 		}
 
@@ -568,9 +568,9 @@ abstract class Gateway_Form {
 
 		// intro text
 		if ( $wgRequest->getText( 'masthead', false ) ) {
-			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->form_data['language'] . '}}' );
+			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->getEscapedValue( 'language' ) . '}}' );
 		} elseif ( $header ) {
-			$header = str_replace( '@language', $this->form_data['language'], $header );
+			$header = str_replace( '@language', $this->getEscapedValue( 'language' ), $header );
 			$template = $wgOut->parse( $header );
 		}
 
@@ -578,6 +578,20 @@ abstract class Gateway_Form {
 		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
 			$wgOut->addHtml( $template );
 		}
+	}
+	
+	protected function generateTextTemplate() {
+		global $wgOut, $wgRequest;
+		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
+		
+		//TODO: determine if this next line is really as silly as it looks. I don't think we should be using $wgRequest here at all.
+		//(See DonationData::setLanguage())
+		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->getEscapedValue( 'language' );
+		
+		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . htmlspecialchars( $text_template, ENT_COMPAT, 'UTF-8', false ) . '}}' ) : '';
+		// if the template doesn't exist, prevent the display of the red link
+		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
+		return $template;
 	}
 
 	protected function getEmailField() {
@@ -587,7 +601,7 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-email' ), 'emailAdd' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->form_data['email'], array( 'type' => 'text', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->getEscapedValue( 'email' ), array( 'type' => 'text', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		return $form;
@@ -596,31 +610,31 @@ abstract class Gateway_Form {
 	protected function getAmountField() {
 		$otherChecked = false;
 		$amount = -1;
-		if ( $this->form_data['amount'] != 100 && $this->form_data['amount'] != 50 && $this->form_data['amount'] != 35 && $this->form_data['amount'] != 20 && $this->form_data['amountOther'] > 0 ) {
+		if ( $this->getEscapedValue( 'amount' ) != 100 && $this->getEscapedValue( 'amount' ) != 50 && $this->getEscapedValue( 'amount' ) != 35 && $this->getEscapedValue( 'amount' ) != 20 && $this->getEscapedValue( 'amountOther' ) > 0 ) {
 			$otherChecked = true;
-			$amount = $this->form_data['amountOther'];
+			$amount = $this->getEscapedValue( 'amountOther' );
 		}
 		$form = '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100 ) . '100 ' .
-			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50 ) . '50 ' .
-			Xml::radio( 'amount', 35, $this->form_data['amount'] == 35 ) . '35 ' .
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20 ) . '20 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 100, $this->getEscapedValue( 'amount' ) == 100 ) . '100 ' .
+			Xml::radio( 'amount', 50, $this->getEscapedValue( 'amount' ) == 50 ) . '50 ' .
+			Xml::radio( 'amount', 35, $this->getEscapedValue( 'amount' ) == 35 ) . '35 ' .
+			Xml::radio( 'amount', 20, $this->getEscapedValue( 'amount' ) == 20 ) . '20 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-other' ) . '\' )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->getEscapedValue( 'amountOther' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-other' ) . '\' )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
 
 	protected function getCardnumberField() {
-		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->form_data['card_num'] : '';
+		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'card_num' ) : '';
 		$form = '';
 		if ( $this->form_errors['card_num'] ) {
 			$form .= '<tr>';
@@ -641,7 +655,7 @@ abstract class Gateway_Form {
 	}
 
 	protected function getCvvField() {
-		$cvv = ( $this->gateway->getGlobal( "Test" ) ) ? $this->form_data['cvv'] : '';
+		$cvv = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'cvv' ) : '';
 
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
@@ -660,7 +674,7 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-street' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'street', '30', $this->getEscapedValue( 'street' ), array( 'type' => 'text', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		return $form;
@@ -672,7 +686,7 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-city' ), 'city' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'city', '30', $this->form_data['city'], array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'city', '30', $this->getEscapedValue( 'city' ), array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		return $form;
@@ -684,7 +698,7 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-postal' ), 'zip' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'zip', '30', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'zip', '30', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		return $form;
@@ -699,8 +713,8 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-name' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-fname' ) . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-lname' ) . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-fname' ) . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-lname' ) . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 		return $form;
 	}
@@ -717,14 +731,14 @@ abstract class Gateway_Form {
 	protected function getCommentField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-comment' ), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->form_data['comment'], array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' ) ) . '</td>';
+		$form .= '<td>' . Xml::input( 'comment', '30', $this->getEscapedValue( 'comment' ), array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' ) ) . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
 
 	protected function getCommentOptionField() {
 		global $wgRequest;
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data['comment-option'] : true;
+		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form = '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
 		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
@@ -734,7 +748,7 @@ abstract class Gateway_Form {
 
 	protected function getEmailOptField() {
 		global $wgRequest;
-		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data['email-opt'] : true;
+		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'email-opt' ) : true;
 		$form = '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
 		$form .= ' ';
@@ -865,7 +879,9 @@ abstract class Gateway_Form {
 		unset( $query_array['_cache_'] );
 
 		// make sure no other data that might overwrite posted data makes it into the URL
-		foreach ( $this->form_data as $key => $value ) {
+		
+		$all_form_data = $this->gateway->getData_Unstaged_Escaped();
+		foreach ( $all_form_data as $key => $value ) {
 			unset( $query_array[$key] );
 		}
 
@@ -965,6 +981,18 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '</table>';
 	return $form;
+	}
+	
+	/**
+	 * Pulls normalized and escaped data from the $gateway object. 
+	 * For more information, see GatewayAdapter::getData_Unstaged_Escaped in 
+	 * $IP/extensions/DonationData/gateway_common/gateway.adapter.php
+	 * @param string $key The value to fetch from the adapter.
+	 * @return mixed The escaped value in the adapter, or null if none exists.
+	 * Note: The value could still be a blank string in some cases. 
+	 */
+	protected function getEscapedValue( $key ) {
+		return $this->gateway->getData_Unstaged_Escaped( $key );
 	}
 }
 

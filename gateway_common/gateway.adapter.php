@@ -387,6 +387,13 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * This is the ONLY getData type function anything should be using 
 	 * outside the adapter. 
+	 * Short explanation of the data population up to now: 
+	 *	*) When the gateway adapter is constructed, it constructs a DonationData 
+	 *		object.
+	 *	*) On construction, the DonationData object pulls donation data from an 
+	 *		appropriate source, and normalizes the entire data set for storage.
+	 *	*) The gateway adapter pulls normalized, html escaped data out of the 
+	 *		DonationData object, as the base of its own data set. 
 	 * @param string $val The specific key you're looking for (if any)
 	 * @return mixed An array of all the raw, unstaged (but normalized and 
 	 * sanitized) data sent to the adapter, or if $val was set, either the 

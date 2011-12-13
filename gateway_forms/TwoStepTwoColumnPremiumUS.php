@@ -121,7 +121,7 @@ EOT;
 	}
 
 	public function generateFormStart() {
-		global $wgRequest, $wgScriptPath;
+		global $wgScriptPath;
 
 		$form = parent::generateBannerHeader();
 
@@ -131,7 +131,7 @@ EOT;
 
 		$form .= Xml::openElement( 'div', array( 'id' => 'premium-confirmation' ) );
 		$form .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/Wikipedia-ten-tshirt-back.jpg", 'width' => '300', 'height' => '300' ) );
-		$form .= wfMsg( 'donate_interface-shirt-size-2', $wgRequest->getText( 'size' ) );
+		$form .= wfMsg( 'donate_interface-shirt-size-2', $this->getEscapedValue( 'size' ) );
 		$form .= Xml::closeElement( 'div' );  // close div#premium-confirmation
 
 		$form .= Xml::closeElement( 'td' );
@@ -197,11 +197,11 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="amount_data">'.wfMsg( 'donate_interface-donation' ).'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data['amount'] .
-			Html::hidden( 'amount', $this->form_data['amount'] ) .
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->getEscapedValue( 'amount' ) .
+			Html::hidden( 'amount', $this->getEscapedValue( 'amount' ) ) .
 			'</td>';
-		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->form_data[ 'currency_code' ] .
-			Html::hidden( 'currency_code', $this->form_data['currency_code'] ) .
+		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->getEscapedValue( 'currency_code' ) .
+			Html::hidden( 'currency_code', $this->getEscapedValue( 'currency_code' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '</table>';
@@ -216,7 +216,7 @@ EOT;
 		// card logos
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		if ( $this->form_data[ 'currency_code' ] == 'USD' ) {
+		if ( $this->getEscapedValue( 'currency_code' ) == 'USD' ) {
 			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos.gif" ) ) . '</td>';
 		} else {
 			$form .= '<td>' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/credit_card_logos3.gif" ) ) . '</td>';
@@ -224,7 +224,7 @@ EOT;
 		$form .= '</tr>';
 
 		// card number
-		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->form_data[ 'card_num' ] : '';
+		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'card_num' ) : '';
 		$form .= '';
 		if ( $this->form_errors['card_num'] ) {
 			$form .= '<tr>';
@@ -260,8 +260,8 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-name-on-card' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->form_data['fname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-fname' ).'\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->form_data['lname'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-lname' ).'\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-fname' ).'\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-lname' ).'\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 
 		// street
@@ -270,7 +270,7 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-billing-address' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->form_data['street'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-street' ).'\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'street', '30', $this->getEscapedValue( 'street' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-street' ).'\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
@@ -280,9 +280,9 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '18', $this->form_data['city'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-city' ).'\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
+		$form .= '<td>' . Xml::input( 'city', '18', $this->getEscapedValue( 'city' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-city' ).'\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
 			$this->generateStateDropdown() . ' ' .
-			Xml::input( 'zip', '5', $this->form_data['zip'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-zip-code' ).'\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
+			Xml::input( 'zip', '5', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-zip-code' ).'\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			Html::hidden( 'country', 'US' ) .
 			'</td>';
 		$form .= '</tr>';
@@ -293,7 +293,7 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . $this->generateCountryDropdown( $this->form_data['country2'] ) . '</td>';
+		$form .= '<td>' . $this->generateCountryDropdown( $this->getEscapedValue( 'country2' ) ) . '</td>';
 	    $form .= '</tr>';
 
 		// email
@@ -302,7 +302,7 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-email-receipt' ), 'emailAdd' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->form_data['email'], array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-email' ).'\' )', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
+		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->getEscapedValue( 'email' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-email' ).'\' )', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
@@ -350,7 +350,7 @@ EOT;
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			if ( $value !== 'YY' && $value !== 'XX' ) {
-				$selected = ( $this->form_data[ 'state' ] == $value ) ? true : false;
+				$selected = ( $this->getEscapedValue( 'state' ) == $value ) ? true : false;
 				$state_opts .= Xml::option( $value, $value, $selected );
 			}
 		}

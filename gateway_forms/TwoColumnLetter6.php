@@ -14,7 +14,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest;
+		global $wgOut;
 
 		$form = parent::generateBannerHeader();
 
@@ -22,13 +22,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= Xml::openElement( 'tr' );
 		$form .= Xml::openElement( 'td', array( 'id' => 'appeal', 'valign' => 'top' ) );
 
-		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		// if the user has uselang set, honor that, otherwise default to the language set for the form defined by 'language' in the query string
-		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->form_data[ 'language' ];
-
-		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . $text_template . '}}' ) : '';
-		// if the template doesn't exist, prevent the display of the red link
-		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
+		$template = self::generateTextTemplate();
 		$form .= $template;
 
 		$form .= Xml::closeElement( 'td' );
@@ -93,29 +87,29 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		// amount
 		$otherChecked = false;
 		$amount = -1;
-		if ( $this->form_data['amount'] != 100 && $this->form_data['amount'] != 50 && $this->form_data['amount'] != 35 && $this->form_data['amount'] != 20 && $this->form_data['amountOther'] > 0 ) {
+		if ( $this->getEscapedValue( 'amount' ) != 100 && $this->getEscapedValue( 'amount' ) != 50 && $this->getEscapedValue( 'amount' ) != 35 && $this->getEscapedValue( 'amount' ) != 20 && $this->getEscapedValue( 'amountOther' ) > 0 ) {
 			$otherChecked = true;
-			$amount = $this->form_data['amountOther'];
+			$amount = $this->getEscapedValue( 'amountOther' );
 		}
 		$form .= '<tr>';
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
-		$form .= '<td>' . Xml::radio( 'amount', 100, $this->form_data['amount'] == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '100 ' .
-			Xml::radio( 'amount', 50, $this->form_data['amount'] == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '50 ' .
-			Xml::radio( 'amount', 35,  $this->form_data['amount'] == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '35 ' .
-			Xml::radio( 'amount', 20, $this->form_data['amount'] == 20, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '20 ' .
+		$form .= '<td>' . Xml::radio( 'amount', 100, $this->getEscapedValue( 'amount' ) == 100, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '100 ' .
+			Xml::radio( 'amount', 50, $this->getEscapedValue( 'amount' ) == 50, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '50 ' .
+			Xml::radio( 'amount', 35,  $this->getEscapedValue( 'amount' ) == 35, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '35 ' .
+			Xml::radio( 'amount', 20, $this->getEscapedValue( 'amount' ) == 20, array( 'onfocus' => 'clearField2( document.getElementById(\'amountOther\'), "Other" )' ) ) . '20 ' .
 			'</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->form_data['amountOther'], array( 'type' => 'text', 'onfocus' => 'clearField(this, "Other");document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'onblur' => 'document.getElementById("otherRadio").value = this.value;', 'id' => 'amountOther' ) ) .
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->getEscapedValue( 'amountOther' ), array( 'type' => 'text', 'onfocus' => 'clearField(this, "Other");document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'onblur' => 'document.getElementById("otherRadio").value = this.value;', 'id' => 'amountOther' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		
 		// email opt-in
-		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'email-opt' ] : true;
+		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'email-opt' ) : true;
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
 		$form .= '<td class="check-option">' . Xml::check( 'email-opt', $email_opt_value );
@@ -130,17 +124,17 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= '<tr>';
 		$form .= '<td class="label">' . wfMsg( 'donate_interface-payment-type' ) . '</td>';
 		$form .= '<td>' . 
-			Xml::radio( 'card_type', 'cc1', $this->form_data['card_type'] == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-visa.png" ) ). '</label>' .
-			Xml::radio( 'card_type', 'cc2', $this->form_data['card_type'] == 'cc2', array( 'id' => 'cc2radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc2radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" ) ). '</label>' .
-			Xml::radio( 'card_type', 'cc3',  $this->form_data['card_type'] == 'cc3', array( 'id' => 'cc3radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc3radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-amex.png" ) ). '</label>' .
-			Xml::radio( 'card_type', 'cc4', $this->form_data['card_type'] == 'cc4', array( 'id' => 'cc4radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc4radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-discover.png" ) ). '</label>' . 
-			Xml::radio( 'card_type', 'pp', $this->form_data['card_type'] == 'pp', array( 'id' => 'ppradio', 'onclick' => 'switchToPayPal()' ) ) . '<label for="ppradio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-paypal.png" ) ) . '</label>' .
+			Xml::radio( 'card_type', 'cc1', $this->getEscapedValue( 'card_type' ) == 'cc1', array( 'id' => 'cc1radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc1radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-visa.png" ) ). '</label>' .
+			Xml::radio( 'card_type', 'cc2', $this->getEscapedValue( 'card_type' ) == 'cc2', array( 'id' => 'cc2radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc2radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" ) ). '</label>' .
+			Xml::radio( 'card_type', 'cc3',  $this->getEscapedValue( 'card_type' ) == 'cc3', array( 'id' => 'cc3radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc3radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-amex.png" ) ). '</label>' .
+			Xml::radio( 'card_type', 'cc4', $this->getEscapedValue( 'card_type' ) == 'cc4', array( 'id' => 'cc4radio', 'onclick' => 'switchToCreditCard()' ) ) . '<label for="cc4radio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-discover.png" ) ). '</label>' . 
+			Xml::radio( 'card_type', 'pp', $this->getEscapedValue( 'card_type' ) == 'pp', array( 'id' => 'ppradio', 'onclick' => 'switchToPayPal()' ) ) . '<label for="ppradio">' . Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/card-paypal.png" ) ) . '</label>' .
 			'</td>';
 		$form .= '</tr>';
 		
 		$form .= '</table>';
 		
-		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
+		if ( $this->getEscapedValue( 'card_type' ) == 'cc1' || $this->getEscapedValue( 'card_type' ) == 'cc2' || $this->getEscapedValue( 'card_type' ) == 'cc3' || $this->getEscapedValue( 'card_type' ) == 'cc4' ) {
 			$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 		} else {
 			$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc', 'style' => 'display: none;' ) );
@@ -180,14 +174,14 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-postal' ), 'zip' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'zip', '15', $this->form_data['zip'], array( 'type' => 'text', 'maxlength' => '15', 'id' => 'zip' ) ) .
+		$form .= '<td>' . Xml::input( 'zip', '15', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'maxlength' => '15', 'id' => 'zip' ) ) .
 			'</td>';
 		$form .= '</tr>';
 		// country
 		$form .= $this->getCountryField();
 
 		/*
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->form_data[ 'comment-option' ] : true;
+		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form .= '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
 		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
@@ -202,7 +196,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 	public function generateFormSubmit() {
 	
 		// cc submit button
-		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
+		if ( $this->getEscapedValue( 'card_type' ) == 'cc1' || $this->getEscapedValue( 'card_type' ) == 'cc2' || $this->getEscapedValue( 'card_type' ) == 'cc3' || $this->getEscapedValue( 'card_type' ) == 'cc4' ) {
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		} else {
 			$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit', 'style' => 'display: none;' ) );
@@ -216,7 +210,7 @@ class Gateway_Form_TwoColumnLetter6 extends Gateway_Form_OneStepTwoColumn {
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		
 		// paypal submit button
-		if ( $this->form_data['card_type'] == 'cc1' || $this->form_data['card_type'] == 'cc2' || $this->form_data['card_type'] == 'cc3' || $this->form_data['card_type'] == 'cc4' ) {
+		if ( $this->getEscapedValue( 'card_type' ) == 'cc1' || $this->getEscapedValue( 'card_type' ) == 'cc2' || $this->getEscapedValue( 'card_type' ) == 'cc3' || $this->getEscapedValue( 'card_type' ) == 'cc4' ) {
 			$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal', 'style' => 'display: none;' ) );
 		} else {
 			$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit-paypal' ) );
