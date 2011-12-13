@@ -314,7 +314,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'SWIFTCODE'			=> 'swift_code',
 			'TRANSACTIONTYPE'	=> 'transaction_type', // dd:GB,NL
 			'ZIP'				=> 'zip',
-			'FISCALNUMBER'		=> 'fiscal_number', //Boletos
 		);
 	}
 	
@@ -630,13 +629,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Real time bank transfer',
 			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweden', 'rtbt_enets', ),
 		);
-
-		// Cash payments
-		$this->payment_meathods['cash'] = array(
-			'label' => 'Cash payments',
-			'types' => array( 'cash_boleto', ),
-		);
-
 	}
 
 	/**
@@ -760,7 +752,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-
 
 		/*
 		 * Direct debit
@@ -976,16 +967,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				821	=> 'Volksbanken Gruppe',
 				831	=> 'Sparda-Bank',
 			)
-		);
-
-		// Cash Payments - Boletos
-
-		$this->payment_submeathods['cash_boleto'] = array(
-			'paymentproductid'	=> 1503,
-			'label' => 'Boleto Bancario Brazil',
-			'group' => 'cash',
-			'validation' => array(),
-			'keys' => array(),
 		);
 	}
 
@@ -1970,14 +1951,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'ew_paypal':
 			case 'ew_webmoney':
 				$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
-				break;
-
-			/* Cash payments */
-			 case 'cash_boleto':
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-
-				$this->addKeyToTransaction('FISCALNUMBER');
 				break;
 
 			/* Online bank transfer */

@@ -343,7 +343,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-bt-country_description' => 'Country description',
 	'donate_interface-bt-payment_reference' => 'Payment reference',
 	'donate_interface-bt-swift_code' => 'Swift code',
-	'donate_interface-bt-special_id' => 'Country specific information',
+	'donate_interface-bt-special_id' => 'Special ID',
 	'donate_interface-bt-information' => 'Bank transfer information',
 	'donate_interface-bt-finished' => 'Finished',
 
@@ -413,7 +413,6 @@ In order to provide a safe, secure and pleasant experience, our donation form re
         
 	// HTTP errors
 	'donate_interface-error-http-403' => 'You do not have permission to access this page.',
-
 );
 
 /** Message documentation (Message documentation)
@@ -758,7 +757,7 @@ There is no limit to the length of the message.",
 	'donate_interface-bt-country_description' => 'Bank transfer: Country description',
 	'donate_interface-bt-payment_reference' => 'Bank transfer: Payment reference',
 	'donate_interface-bt-swift_code' => 'Bank transfer: Swift code',
-	'donate_interface-bt-special_id' => 'Bank transfer: Label for country specific bank transfer information (for example ABA number for the USA)',
+	'donate_interface-bt-special_id' => 'Bank transfer: Special ID',
 	'donate_interface-bt-information' => 'Bank transfer: Bank transfer information',
 	'donate_interface-bt-finished' => 'Bank transfer: Finished - this is a link or a button to take the user to the Thank you page for their donation.',
 	'donate_interface-obt-biller_id' => 'BPAY (Australian Online Bank Transfer) - The label for biller code',
