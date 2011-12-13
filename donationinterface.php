@@ -24,7 +24,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Jeremy Postlethwaite' ),
 	'version' => '2.0.0',
 	'descriptionmsg' => 'donationinterface-desc',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:DonationInterface',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:DonationInterface',
 );
 
 $donationinterface_dir = dirname( __FILE__ ) . '/';

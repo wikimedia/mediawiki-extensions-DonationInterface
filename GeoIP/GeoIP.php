@@ -37,7 +37,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'version' => '1.0',
 	'author' => 'David Strauss',
 	'description' => "[[Special:GeoIP|Shows user's geographical location, based on their IP address]]",
-	'url' => 'http://www.mediawiki.org/wiki/Extension:GeoIP'
+	'url' => 'https://www.mediawiki.org/wiki/Extension:GeoIP'
 );
 
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'fnGeoIPSchema';
