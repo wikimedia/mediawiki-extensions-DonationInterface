@@ -1,8 +1,16 @@
 <?php
 
 /**
- * Description of DonationData
- *
+ * DonationData
+ * This class is responsible for pulling all the data used by DonationInterface 
+ * from various sources. Once pulled, DonationData will then normalize and 
+ * sanitize the data for use by the various gateway adapters which connect to 
+ * the payment gateways, and through those gateway adapters, the forms that 
+ * provide the user interface.
+ * 
+ * DonationData was not written to be instantiated by anything other than a 
+ * gateway adapter (or class descended from GatewayAdapter). 
+ * 
  * @author khorn
  */
 class DonationData {
@@ -10,14 +18,38 @@ class DonationData {
 	protected $normalized = array( );
 	public $boss;
 
+	/**
+	 * DonationData constructor
+	 * @param string $owning_class The name of the class that instantiated this 
+	 * instance of DonationData. This is used to grab gateway-specific functions 
+	 * and values, such as the logging function and gateway-specific global 
+	 * variables. 
+	 * @param boolean $test Indicates if DonationData has been instantiated in 
+	 * testing mode. Default is false.
+	 * @param mixed $data An optional array of donation data that will, if 
+	 * present, circumvent the usual process of gathering the data from various 
+	 * places in $wgRequest, or 'false' to gather the data the usual way. 
+	 * Default is false. 
+	 */
 	function __construct( $owning_class, $test = false, $data = false ) {
-		//TODO: Actually think about this bit.
-		// ...and keep in mind we can re-populate if it's a test or whatever. (But that may not be a good idea either)
 		$this->boss = $owning_class;
 		$this->gatewayID = $this->getGatewayIdentifier();
 		$this->populateData( $test, $data );
 	}
 
+	/**
+	 * populateData, called on construct, pulls donation data from various 
+	 * sources. Once the data has been pulled, it will handle any session data 
+	 * if present, normalize the data regardless of the source, and handle the 
+	 * caching variables.  
+	 * @global Webrequest $wgRequest 
+	 * @param boolean $test Indicates if DonationData has been instantiated in 
+	 * testing mode. Default is false.
+	 * @param mixed $external_data An optional array of donation data that will, 
+	 * if present, circumvent the usual process of gathering the data from 
+	 * various places in $wgRequest, or 'false' to gather the data the usual way. 
+	 * Default is false. 
+	 */
 	protected function populateData( $test = false, $external_data = false ) {
 		global $wgRequest;
 		$this->normalized = array( );
@@ -162,6 +194,18 @@ class DonationData {
 		return $this->normalized;
 	}
 
+	/**
+	 * populateData helper function.
+	 * If there is no external data provided upon DonationData construct, and 
+	 * the object was instantiated in test mode, populateData_Test in intended 
+	 * to provide a baseline minimum of data with which to run tests without 
+	 * exploding. 
+	 * Populates $this->normalized. 
+	 * TODO: Implement an override for the test data, in the event that a 
+	 * partial data array is provided when DonationData is instantiated. 
+	 * @param array $testdata Intended to implement an override for any values 
+	 * that may be provided on instantiation. 
+	 */
 	protected function populateData_Test( $testdata = false ) {
 		// define arrays of cc's and cc #s for random selection
 		$cards = array( 'american' );
@@ -232,9 +276,11 @@ class DonationData {
 	}
 
 	/**
-	 * Tells you if a value is something or not. 
-	 * @param string $key The field you would like to determine if it exists or not. 
-	 * @return boolean true if the field is something. False if it is null, or an empty string. 
+	 * Tells you if a value in $this->normalized is something or not. 
+	 * @param string $key The field you would like to determine if it exists in 
+	 * a usable way or not. 
+	 * @return boolean true if the field is something. False if it is null, or 
+	 * an empty string. 
 	 */
 	public function isSomething( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
@@ -249,7 +295,8 @@ class DonationData {
 
 	/**
 	 * getVal_Escaped
-	 * @param string $key The data field you would like to retrieve.
+	 * @param string $key The data field you would like to retrieve. Pulls the 
+	 * data from $this->normalized if it is found to be something. 
 	 * @return mixed The normalized and escaped value of that $key. 
 	 */
 	public function getVal_Escaped( $key ) {
@@ -265,7 +312,8 @@ class DonationData {
 	/**
 	 * getVal
 	 * For Internal Use Only! External objects should use getVal_Escaped.
-	 * @param string $key The data field you would like to retrieve.
+	 * @param string $key The data field you would like to retrieve directly 
+	 * from $this->normalized. 
 	 * @return mixed The normalized value of that $key. 
 	 */
 	protected function getVal( $key ) {
@@ -278,14 +326,23 @@ class DonationData {
 
 	/**
 	 * Sets a key in the normalized data array, to a new value.
+	 * This function should only ever be used for keys that are not listed in 
+	 * DonationData::getCalculatedFields().
+	 * TODO: If the $key is listed in DonationData::getCalculatedFields(), use 
+	 * DonationData::addData() instead. Or be a jerk about it and throw an 
+	 * exception. (Personally I like the second one)
 	 * @param string $key The key you want to set.
 	 * @param string $val The value you'd like to assign to the key. 
 	 */
-	function setVal( $key, $val ) {
+	public function setVal( $key, $val ) {
 		$this->normalized[$key] = $val;
 	}
 
-	function expunge( $key ) {
+	/**
+	 * Removes a value from $this->normalized. 
+	 * @param type $key 
+	 */
+	public function expunge( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
 			unset( $this->normalized[$key] );
 		}
@@ -294,11 +351,12 @@ class DonationData {
 	/**
 	 * Returns an array of all the fields that get re-calculated during a 
 	 * normalize. 
-	 * This will most likely be used on the outside when in the process of 
-	 * adding data.
+	 * This can be used on the outside when in the process of changing data, 
+	 * particularly if any of the recalculted fields need to be restaged by the 
+	 * gateway adapter. 
 	 * @return array An array of values matching all recauculated fields.  
 	 */
-	function getCalculatedFields() {
+	public function getCalculatedFields() {
 		$fields = array(
 			'utm_source',
 			'amount',
@@ -317,9 +375,13 @@ class DonationData {
 
 	/**
 	 * Normalizes the current set of data, just after it's been 
-	 * pulled (or re-pulled) from a source. 
+	 * pulled (or re-pulled) from a data source. 
+	 * Care should be taken in the normalize helper functions to write code in 
+	 * such a way that running them multiple times on the same array won't cause 
+	 * the data to stroll off into the sunset: Normalize will definitely need to 
+	 * be called multiple times against the same array. 
 	 */
-	function normalize() {
+	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
@@ -337,8 +399,17 @@ class DonationData {
 	/**
 	 * normalize helper function
 	 * Sets the form class we will be using. 
+	 * In the case that we are using forms, form_name will be harvested from 
+	 * $wgRequest by populateData. If we are coming from somewhere that does not 
+	 * use a form interface (like an api call), this logic should be skipped. 
+	 * 
+	 * For any specified form, if it is enabled and available, the class would 
+	 * have been autoloaded at this point. If it is not enabled and available, 
+	 * we will check the default for the calling gateway, and failing that, 
+	 * throw an exception. 
+	 * 
 	 */
-	function setFormClass(){
+	protected function setFormClass(){
 		//don't actually try to load the forms here... but do determine if what we've got in there will load or not. 
 		//Elsewise, set it to the default. 
 
@@ -362,8 +433,10 @@ class DonationData {
 	/**
 	 * normalize helper function
 	 * Setting the country correctly.
+	 * If we have no country, we try to get something rational through GeoIP 
+	 * lookup.
 	 */
-	function setCountry() {
+	protected function setCountry() {
 		global $wgRequest;
 		if ( !$this->isSomething('country') ){
 			// If no country was passed, try to do GeoIP lookup
@@ -381,8 +454,10 @@ class DonationData {
 	/**
 	 * normalize helper function
 	 * Setting the currency code correctly. 
+	 * Historically, this value could come in through 'currency' or 
+	 * 'currency_code'. After this fires, we will only have 'currency_code'. 
 	 */
-	function setCurrencyCode() {
+	protected function setCurrencyCode() {
 		global $wgRequest;
 		
 		//at this point, we can have either currency, or currency_code. 
@@ -413,7 +488,7 @@ class DonationData {
 	 * If a contribution tracking id is already present, no new rows will be 
 	 * assigned. 
 	 */
-	function handleContributionTrackingID(){
+	protected function handleContributionTrackingID(){
 		if ( !$this->isSomething( 'contribution_tracking_id' ) && 
 			( !$this->isCaching() ) ){
 			$this->saveContributionTracking();
@@ -426,7 +501,7 @@ class DonationData {
 	 * calculate it from the data fields more than once. 
 	 * @return boolean true if we are going to be caching, false if we aren't. 
 	 */
-	function isCaching(){
+	public function isCaching(){
 		
 		static $cache = null;
 		
@@ -455,7 +530,7 @@ class DonationData {
 	 * Takes all possible sources for the intended donation amount, and 
 	 * normalizes them into the 'amount' field.  
 	 */
-	function setNormalizedAmount() {
+	protected function setNormalizedAmount() {
 		if ( !($this->isSomething( 'amount' )) || !(preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amount' ) ) ) ) {
 			if ( $this->isSomething( 'amountGiven' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountGiven' ) ) ) {
 				$this->setVal( 'amount', number_format( $this->getVal( 'amountGiven' ), 2, '.', '' ) );
@@ -473,7 +548,7 @@ class DonationData {
 	 * comes in populated or not, and where it came from.
 	 * @return null
 	 */
-	function setNormalizedOrderIDs() {
+	protected function setNormalizedOrderIDs() {
 		//basically, we need a new order_id every time we come through here, but if there's an internal already there,
 		//we want to use that one internally. So.
 		//Exception: If we pass in an order ID in the querystring: Don't mess with it.
@@ -493,7 +568,7 @@ class DonationData {
 	/**
 	 * Generate an order id exactly once for this go-round.
 	 */
-	static function generateOrderId() {
+	protected static function generateOrderId() {
 		static $order_id = null;
 		if ( $order_id === null ) {
 			$order_id = ( double ) microtime() * 1000000 . mt_rand( 1000, 9999 );
@@ -515,6 +590,12 @@ class DonationData {
 		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
 	}
 
+	/**
+	 * log: This grabs the adapter class that instantiated DonationData, and 
+	 * uses its log function. 
+	 * @param string $message The message to log. 
+	 * @param type $log_level 
+	 */
 	protected function log( $message, $log_level=LOG_INFO ) {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'log' ) )){
@@ -522,6 +603,14 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * getGatewayIdentifier
+	 * This grabs the adapter class that instantiated DonationData, and returns 
+	 * the result of its 'getIdentifier' function. Used for normalizing the 
+	 * 'gateway' value, and stashing and retrieving the edit token (and other 
+	 * things, where needed) in the session. 
+	 * @return type 
+	 */
 	protected function getGatewayIdentifier() {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
@@ -531,6 +620,16 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * getGatewayGlobal
+	 * This grabs the adapter class that instantiated DonationData, and returns 
+	 * the result of its 'getGlobal' function for the $varname passed in. Used 
+	 * to determine gateway-specific configuration settings. 
+	 * @param string $varname the global variable (minus prefix) that we want to 
+	 * check. 
+	 * @return mixed  The value of the gateway global if it exists. Else, the 
+	 * value of the Donation Interface global if it exists. Else, null.
+	 */
 	protected function getGatewayGlobal( $varname ) {
 		$c = $this->getAdapterClass();
 		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
@@ -611,8 +710,18 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * getAnnoyingOrderIDLogLinePrefix
+	 * Constructs and returns the annoying order ID log line prefix. 
+	 * This has moved from being annoyingly all over the place in the edit token 
+	 * logging code before it was functionalized, to being annoying to look at 
+	 * in the logs because the two numbers in the prefix are frequently 
+	 * identical (and large).
+	 * TODO: Determine if anything actually looks at both of those numbers, in 
+	 * order to make this less annoying. Rename on success. 
+	 * @return string Annoying Order ID Log Line Prefix in all its dubious glory. 
+	 */
 	protected function getAnnoyingOrderIDLogLinePrefix() {
-		//TODO: ...aww. But it's so descriptive.
 		return $this->getVal( 'order_id' ) . ' ' . $this->getVal( 'i_order_id' ) . ': ';
 	}
 
@@ -649,8 +758,10 @@ class DonationData {
 	}
 	
 	/**
+	 * token_refreshAllTokenEverything
 	 * In the case where we have an expired session (token mismatch), we go 
-	 * ahead and fix it for 'em for their next post. 
+	 * ahead and fix it for 'em for their next post. We do this by refreshing 
+	 * everything that has to do with the edit token.
 	 */
 	protected function token_refreshAllTokenEverything(){
 		$unsalted = self::token_generateToken();	
@@ -661,6 +772,13 @@ class DonationData {
 		$this->setVal( 'token', $salted );
 	}
 	
+	/**
+	 * token_applyMD5AndSalt
+	 * Takes a clear-text token, and returns the MD5'd result of the token plus 
+	 * the configured gateway salt.
+	 * @param string $clear_token The original, unsalted, unencoded edit token. 
+	 * @return string The salted and MD5'd token. 
+	 */
 	protected function token_applyMD5AndSalt( $clear_token ){
 		$salt = $this->getGatewayGlobal( 'Salt' );
 		
@@ -674,9 +792,10 @@ class DonationData {
 
 
 	/**
-	 * Generate a token string
-	 *
-	 * @var mixed $padding
+	 * token_generateToken
+	 * Generate a random string to be used as an edit token. 
+	 * @var string $padding A string with which we could pad out the random hex 
+	 * further. 
 	 * @return string
 	 */
 	public static function token_generateToken( $padding = '' ) {
@@ -685,7 +804,11 @@ class DonationData {
 	}
 
 	/**
-	 * Determine the validity of a token
+	 * token_matchEditToken
+	 * Determine the validity of a token by checking it against the salted 
+	 * version of the clear-text token we have already stored in the session. 
+	 * On failure, it resets the edit token both in the session and in the form, 
+	 * so they will match on the user's next load. 
 	 *
 	 * @var string $val
 	 * @return bool
@@ -702,10 +825,14 @@ class DonationData {
 	}
 
 	/**
+	 * ensureSession
 	 * Ensure that we have a session set for the current user.
-	 *
 	 * If we do not have a session set for the current user,
 	 * start the session.
+	 * BE CAREFUL with this one, as creating sessions willy-nilly will break 
+	 * squid caching for reasons that are not immediately obvious. 
+	 * (See DonationData::doCacheStuff, and basically everything about setting 
+	 * headers in $wgOut)
 	 */
 	protected static function ensureSession() {
 		// if the session is already started, do nothing
@@ -717,6 +844,7 @@ class DonationData {
 	}
 	
 	/**
+	 * sessionExists
 	 * Checks to see if the session exists without actually creating one. 
 	 * @return bool true if we have a session, otherwise false.  
 	 */
@@ -726,16 +854,30 @@ class DonationData {
 		return false;
 	}
 
+	/**
+	 * token_checkTokens
+	 * The main function to check the salted and MD5'd token we should have 
+	 * saved and gathered from $wgRequest, against the clear-text token we 
+	 * should have saved to the user's session. 
+	 * token_getSaltedSessionToken() will start off the process if this is a 
+	 * first load, and there's no saved token in the session yet. 
+	 * @global Webrequest $wgRequest
+	 * @staticvar string $match
+	 * @return type 
+	 */
 	public function token_checkTokens() {
 		global $wgRequest;
-		static $match = null;
+		static $match = null; //because we only want to do this once per load.
 
 		if ( $match === null ) {
 			if ( $this->isCaching() ){
 				//This makes sense.
 				//If all three conditions for caching are currently true, the 
 				//last thing we want to do is screw it up by setting a session 
-				//token before the page loads. 
+				//token before the page loads, because sessions break caching. 
+				//The API will set the session and form token values immediately 
+				//after that first page load, which is all we care about saving 
+				//in the cache anyway. 
 				return true;
 			}
 
@@ -815,6 +957,10 @@ class DonationData {
 	 * because the form elements for comment anonymization and email opt-out
 	 * are backwards (they are really opt-in) relative to contribution_tracking
 	 * (which is opt-out), we need to reverse the values.
+	 * Difficulty here is compounded by the fact that these values come from 
+	 * checkboxes on forms, which simply don't make it to $wgRequest if they are 
+	 * not checked... or not present in the form at all. In other words, this 
+	 * situation is painful and you probably want to leave it alone.
 	 * NOTE: If you prune here, and there is a paypal redirect, you will have
 	 * problems with the email-opt/optout and comment-option/anonymous.
 	 */
@@ -945,6 +1091,15 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * addDonorDataToSession
+	 * Adds all the fields that are required to make a well-formed stomp 
+	 * message, to the user's session for later use. This mechanism is used by gateways that 
+	 * have a user being directed somewhere out of our control, and then coming 
+	 * back to complete a transaction. (Globalcollect Hosted Credit Card, for 
+	 * example)
+	 * 
+	 */
 	public function addDonorDataToSession() {
 		self::ensureSession();
 		$donordata = $this->getStompMessageFields();
@@ -1011,6 +1166,15 @@ class DonationData {
 		session_destroy(); //killed on the server. 
 	}
 
+	/**
+	 * addData
+	 * Adds an array of data to the normalized array, and then re-normalizes it. 
+	 * NOTE: If any gateway is using this function, it should then immediately 
+	 * repopulate its own data set with the DonationData source, and then 
+	 * re-stage values as necessary. 
+	 * @param array $newdata An array of data to integrate with the existing 
+	 * data held by the DonationData object. 
+	 */
 	public function addData( $newdata ) {
 		if ( is_array( $newdata ) && !empty( $newdata ) ) {
 			foreach ( $newdata as $key => $val ) {
@@ -1022,6 +1186,11 @@ class DonationData {
 		$this->normalize();
 	}
 
+	/**
+	 * incrementNumAttempt
+	 * Adds one to the 'numAttempt' field we use to keep track of how many times 
+	 * a donor has tried to do something. 
+	 */
 	public function incrementNumAttempt() {
 		if ( $this->isSomething( 'numAttempt' ) ) {
 			$attempts = $this->getVal( 'numAttempt' );
@@ -1034,6 +1203,10 @@ class DonationData {
 		}
 	}
 
+	/**
+	 * Gets the name of the adapter class that instantiated DonationData. 
+	 * @return mixed The name of the class if it exists, or false. 
+	 */
 	protected function getAdapterClass(){
 		if ( class_exists( $this->boss ) ) {
 			return $this->boss;
