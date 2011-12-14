@@ -71,7 +71,7 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 	}
 
 	protected function generateBillingFields() {
-		global $wgScriptPath, $wgRequest;
+		global $wgScriptPath;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
 
 		$form = '';
@@ -134,12 +134,8 @@ class Gateway_Form_TwoColumnLetter2 extends Gateway_Form_OneStepTwoColumn {
 		}
 
 		// anonymous
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
-		$form .= '</tr>';
-
+		$form .= $this->getCommentOptionField();
+		
 		// email agreement
 		$form .= $this->getEmailOptField();
 

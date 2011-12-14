@@ -168,11 +168,16 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $xmlDoc;
 	protected $dataObj;
 	protected $transaction_results;
-	protected $form_class;
 	protected $validation_errors;
 	protected $current_transaction;
 	protected $action;
 	public $debugarray; 
+	/**
+	 * A boolean that will tell us if we've posted to ourselves. A little more telling than 
+	 * $wgRequest->wasPosted(), as something else could have posted to us. 
+	 * @var boolean
+	 */
+	public $posted = false;
 	protected $batch = false;
 
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
@@ -224,6 +229,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 		
+		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
 		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
 
 		$this->setPostDefaults( $postDefaults );
@@ -1876,14 +1882,10 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function setFormClass( $formClassName ) {
-		//I'm adding this because Captcha needs it, and we're gonna fire the hook inside. Nothing else really needs it as far as I know.
-		$this->form_class = $formClassName;
-	}
-
 	public function getFormClass() {
-		if ( isset( $this->form_class ) && class_exists( $this->form_class ) ) {
-			return $this->form_class;
+		$form_class = $this->getData_Unstaged_Escaped( 'form_class' );
+		if ( ( $form_class ) && class_exists( $form_class ) ) {
+			return $form_class;
 		} else {
 			return false;
 		}

@@ -330,7 +330,33 @@ class DonationData {
 			$this->setCountry();
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
+			$this->setFormClass();
 		}
+	}
+	
+	/**
+	 * normalize helper function
+	 * Sets the form class we will be using. 
+	 */
+	function setFormClass(){
+		//don't actually try to load the forms here... but do determine if what we've got in there will load or not. 
+		//Elsewise, set it to the default. 
+
+		if ( $this->isSomething( 'form_name' ) ){ //we're apparently going to try to load a form class. Note: That might not always be true.
+			$class_name = "Gateway_Form_" . $this->getVal( 'form_name' );
+			if ( !class_exists( $class_name ) ) {
+				//try the default
+				$class_name_orig = $class_name;
+				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
+				if ( class_exists( $class_name ) ) {
+					$this->setVal( 'form_name', $this->getGatewayGlobal( 'DefaultForm' ) );
+				} else {
+					throw new MWException( 'Could not find form ' . $class_name_orig . ', nor default form ' . $class_name );
+				}
+			}
+			
+			$this->setVal( 'form_class', $class_name );
+		}		
 	}
 	
 	/**

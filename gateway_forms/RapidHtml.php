@@ -96,6 +96,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$this->loadValidateJs();
 		
+		//Not sure if we should be using $wgRequest here. Depends if we want the normalized one or not. 
 		$country = $wgRequest->getText( 'country', '' );
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );
@@ -406,6 +407,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * Load API js if this form needs to support cacheing
 	 */
 	public function handle_cacheability() {
+		//We may change this from checking one thing in $wgRequest, to a 
+		//reference to $this->gateway->isCaching(). Little more robust. 
 		global $wgRequest;
 		if ( $wgRequest->getText( '_cache_', false )) {
 			$this->loadApiJs();

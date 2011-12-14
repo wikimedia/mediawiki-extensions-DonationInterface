@@ -135,7 +135,7 @@ EOT;
 	}
 
 	public function generateFormStart() {
-		global $wgOut, $wgRequest;
+		global $wgOut;
 
 		$form = parent::generateBannerHeader();
 
@@ -231,20 +231,6 @@ EOT;
 			'</tr></table>' .
 			'</td>';
 		$form .= '</tr>';
-
-		// email opt-in
-		/*
-		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'email-opt' ) : true;
-		$form .= '<tr>';
-		$form .= '<td class="label"> </td>';
-		$form .= '<td class="check-option">' . Xml::check( 'email-opt', $email_opt_value );
-		$form .= ' ';
-		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ) );
-		$form .= wfMsg( 'donate_interface-email-agreement' );
-		$form .= Xml::closeElement( 'label' );
-		$form .= '</td>';
-		$form .= '</tr>';
-		*/
 
 		// Payment type
 		$form .= '<tr>';
@@ -344,16 +330,6 @@ EOT;
 			Html::hidden( 'email-opt', 1 ) .
 			'</td>';
 		$form .= '</tr>';
-
-		/*
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
-		$form .= '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
-		$form .= '</tr>';
-
-		$form .= $this->getEmailOptField();
-		*/
 
 		return $form;
 	}

@@ -21,16 +21,11 @@ abstract class Gateway_Form {
 	 *
 	 * @var string
 	 */
+	//TODO: Determine what this is, and either take measures to reference 
+	//something closer to the source data via the gateway object, or get rid of 
+	//it. If this is (as the comment suggests) also the name of the form, 
+	//my vote goes for option 2. 
 	public $form_id = 'payment';
-
-	/**
-	 * The name of the form.
-	 *
-	 * This should also be the id of the form
-	 *
-	 * @var string
-	 */
-	public $form_name = 'payment';
 
 	/**
 	 * An array of form errors, passed from the payflow pro object
@@ -49,18 +44,6 @@ abstract class Gateway_Form {
 	 * @var string
 	 */
 	protected $captcha_html;
-
-	/**
-	 * The payment method
-	 * @var string
-	 */
-	protected $payment_method = '';
-
-	/**
-	 * The payment submethod
-	 * @var string
-	 */
-	protected $payment_submethod = '';
 	
 	/**
 	 * Tells us if we're paypal only or not. 
@@ -568,12 +551,13 @@ abstract class Gateway_Form {
 
 		// intro text
 		if ( $wgRequest->getText( 'masthead', false ) ) {
-			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->getEscapedValue( 'language' ) . '}}' );
+			$parse = '{{' . htmlspecialchars( $wgRequest->getText( 'masthead' ), ENT_COMPAT, 'UTF-8', false ) . '/' . $this->getEscapedValue( 'language' ) . '}}';
+			$template = $wgOut->parse( $parse );
 		} elseif ( $header ) {
 			$header = str_replace( '@language', $this->getEscapedValue( 'language' ), $header );
-			$template = $wgOut->parse( $header );
+			$template = $wgOut->parse( htmlspecialchars( $header, ENT_COMPAT, 'UTF-8', false ) );
 		}
-
+		
 		// make sure that we actually have a matching template to display so we don't display the 'redlink'
 		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
 			$wgOut->addHtml( $template );
@@ -737,8 +721,7 @@ abstract class Gateway_Form {
 	}
 
 	protected function getCommentOptionField() {
-		global $wgRequest;
-		$comment_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'comment-option' ) : true;
+		$comment_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form = '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
 		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
@@ -747,8 +730,7 @@ abstract class Gateway_Form {
 	}
 
 	protected function getEmailOptField() {
-		global $wgRequest;
-		$email_opt_value = ( $wgRequest->wasPosted() ) ? $this->getEscapedValue( 'email-opt' ) : true;
+		$email_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'email-opt' ) : true;
 		$form = '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'email-opt', $email_opt_value );
 		$form .= ' ';
@@ -895,18 +877,9 @@ abstract class Gateway_Form {
 	 * @return	string
 	 */
 	protected function getFormId() {
-		
+		//TODO: Determine what this is, and either take measures to reference 
+		//something closer to the source data, move it to a child class, or get rid of it.
 		return $this->form_id;
-	}
-
-	/**
-	 * Set the form id
-	 *
-	 * @param	string	$value	The form_id value
-	 */
-	protected function setFormId( $value = '' ) {
-		
-		$this->form_id = (string) $value;
 	}
 
 	/**
@@ -916,17 +889,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getFormName() {
 		
-		return $this->form_name;
-	}
-
-	/**
-	 * Set the form name
-	 *
-	 * @param	string	$value	The form_name value
-	 */
-	protected function setFormName( $value = '' ) {
-		
-		$this->form_name = (string) $value;
+		return $this->getEscapedValue( 'form_name' );
 	}
 
 	/**
@@ -936,17 +899,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getPaymentMethod() {
 		
-		return $this->payment_method;
-	}
-
-	/**
-	 * Set the payment method
-	 *
-	 * @param	string	$value	The payment method value
-	 */
-	protected function setPaymentMethod( $value = '' ) {
-		
-		$this->payment_method = (string) $value;
+		return $this->getEscapedValue( 'payment_method' );
 	}
 
 	/**
@@ -955,18 +908,7 @@ abstract class Gateway_Form {
 	 * @return	string
 	 */
 	protected function getPaymentSubmethod() {
-		
-		return $this->payment_submethod;
-	}
-
-	/**
-	 * Set the payment submethod
-	 *
-	 * @param	string	$value	The payment submethod value
-	 */
-	protected function setPaymentSubmethod( $value = '' ) {
-		
-		$this->payment_submethod = (string) $value;
+		return $this->getEscapedValue( 'payment_submethod' );
 	}
 
 	/**

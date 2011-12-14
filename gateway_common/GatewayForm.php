@@ -23,14 +23,6 @@
 class GatewayForm extends UnlistedSpecialPage {
 
 	/**
-	 * A container for the form class
-	 *
-	 * Used to loard the form object to display the CC form
-	 * @var object
-	 */
-	public $form_class;
-
-	/**
 	 * An array of form errors
 	 * @var array $errors
 	 */
@@ -57,7 +49,6 @@ class GatewayForm extends UnlistedSpecialPage {
 		$me = get_called_class();
 		parent::__construct( $me );
 		$this->errors = $this->getPossibleErrors();
-		$this->setFormClass();
 	}
 
 	/**
@@ -314,63 +305,29 @@ class GatewayForm extends UnlistedSpecialPage {
 		global $wgOut;
 
 		$form_class = $this->getFormClass();
-		$form_obj = new $form_class( $this->adapter, $error );
-		$form = $form_obj->getForm();
-		$wgOut->addHTML( $form );
-	}
-
-	/**
-	 * Set the form class to use to generate the CC form
-	 *
-	 * @param string $class_name The class name of the form to use
-	 */
-	public function setFormClass( $class_name = NULL ) {
-		if ( !$class_name ) {
-			//TODO: This is the sort of thing we really ought to be handled in 
-			//DonationData instead of all the way out here. 
-			$defaultForm = $this->adapter->getGlobal( 'DefaultForm' );
-			$form_class = $this->adapter->getData_Unstaged_Escaped( 'form_name' );
-			if ( is_null( $form_class ) ){
-				$form_class = $defaultForm;
-			}
-
-			// make sure our form class exists before going on, if not try loading default form class
-			$class_name = "Gateway_Form_" . $form_class;
-			if ( !class_exists( $class_name ) ) {
-				$class_name_orig = $class_name;
-				$class_name = "Gateway_Form_" . $defaultForm;
-				if ( !class_exists( $class_name ) ) {
-					throw new MWException( 'Could not load form ' . $class_name_orig . ' nor default form ' . $class_name );
-				}
-			}
+		if ( $form_class && class_exists( $form_class ) ){
+			$form_obj = new $form_class( $this->adapter, $error );
+			$form = $form_obj->getForm();
+			$wgOut->addHTML( $form );
+		} else {
+			throw new MWException( 'No valid form to load.' );
 		}
-		$this->form_class = $class_name;
-
-		//...this is just dumb now.
-		//TODO: Check who's using this get/set combo, and maybe nuke it all.
-		$this->adapter->setFormClass( $class_name );
 	}
 
 	/**
 	 * Get the currently set form class
-	 *
-	 * Will set the form class if the form class not already set
-	 * Using logic in setFormClass()
-	 * @return string
+	 * @return mixed string containing the valid and enabled form class, otherwise false. 
 	 */
 	public function getFormClass() {
-		if ( !isset( $this->form_class ) ) {
-			$this->setFormClass();
-		}
-		return $this->form_class;
+		return $this->adapter->getFormClass();
 	}
 
 	/**
-	 * Get the currently set form class
+	 * displayResultsForDebug
 	 *
-	 * Will set the form class if the form class not already set
-	 * Using logic in setFormClass()
-	 * @return string
+	 * Displays useful information for debugging purposes. 
+	 * Enable with $wgDonationInterfaceDisplayDebug, or the adapter equivalent.
+	 * @return null
 	 */
 	protected function displayResultsForDebug( $results = array() ) {
 		global $wgOut;

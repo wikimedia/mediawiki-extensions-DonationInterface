@@ -73,9 +73,6 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	 */
 	protected function init() {
 		
-		$this->setPaymentMethod( $this->getEscapedValue( 'payment_method' ) );
-		$this->setPaymentSubmethod( $this->getEscapedValue( 'payment_submethod' ) );
-		
 		// Should process be deprecated?
 		$this->getEscapedValue( 'process' ) = 'other';
 		

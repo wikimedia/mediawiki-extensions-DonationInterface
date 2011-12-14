@@ -192,24 +192,6 @@ EOT;
 		return $form;
 	}
 
-	protected function generateBannerHeader() {
-		global $wgOut, $wgRequest;
-		$template = '';
-
-		// intro text
-		if ( $wgRequest->getText( 'masthead', false ) ) {
-			$template = $wgOut->parse( '{{' . $wgRequest->getText( 'masthead' ) . '/' . $this->getEscapedValue( 'language' ) . '}}' );
-		} elseif ( $this->gateway->getGlobal( "Header" ) ) {
-			$header = str_replace( '@language', $this->getEscapedValue( 'language' ), $this->gateway->getGlobal( "Header" ) );
-			$template = $wgOut->parse( $header );
-		}
-
-		// make sure that we actually have a matching template to display so we don't display the 'redlink'
-		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
-			$wgOut->addHtml( $template );
-		}
-	}
-
 	protected function generatePersonalContainer() {
 		global $wgScriptPath;
 		$form = '';
