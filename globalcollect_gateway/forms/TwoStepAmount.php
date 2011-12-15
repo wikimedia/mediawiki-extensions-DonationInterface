@@ -43,21 +43,21 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	 * The default appeal
 	 *
 	 */
-//    const DEFAULT_APPEAL = <<<HTML
-//		<h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
-//		<div id="appeal-body" class="plainlinks">
-//			<p>I feel like I'm living the first line of my obituary.</p>
-//			<p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
-//			<p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
-//			<p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
-//			<p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
-//			<p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
-//			<p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
-//			<p>Thank you,</p>
-//			<p><strong>Brandon Harris</strong><br /></p>
-//			<p>Programmer, Wikimedia Foundation</p>
-//		</div>
-//HTML;
+    const DEFAULT_APPEAL = <<<HTML
+		<h2 id="appeal-head"> <span class="mw-headline" id="From_Wikipedia_programmer_Brandon_Harris">From Wikipedia programmer Brandon Harris</span></h2>
+		<div id="appeal-body" class="plainlinks">
+			<p>I feel like I'm living the first line of my obituary.</p>
+			<p>I don't think there will be anything else that I do in my life as important as what I do now for Wikipedia. We're not just building an encyclopedia, we're working to make people free. When we have access to free knowledge, we are better people. We understand the world is bigger than us, and we become infected with tolerance and understanding.</p>
+			<p>Wikipedia is the 5th largest website in the world. I work at the small non-profit that keeps it on the web. We don't run ads because doing so would sacrifice our independence. The site is not and should never be a propaganda tool.</p>
+			<p>Our work is possible because of donations from our readers. Will you help protect Wikipedia by donating $5, $10, $20 or whatever you can afford?</p>
+			<p>I work at the Wikimedia Foundation because everything in my soul tells me it's the right thing to do. I've worked at huge tech companies, doing some job to build some crappy thing that's designed to steal money from some kid who doesn't know it. I would come home from work crushed.</p>
+			<p>You might not know this, but the Wikimedia Foundation operates with a very small staff. Most other top-ten sites have tens of thousands of people and massive budgets. But they produce a fraction of what we pull off with sticks and wire.</p>
+			<p>When you give to Wikipedia, you're supporting free knowledge around the world. You're not only leaving a legacy for your children and for their children, you're elevating people around the world who have access to this treasure. You're assuring that one day everyone else will too.</p>
+			<p>Thank you,</p>
+			<p><strong>Brandon Harris</strong><br /></p>
+			<p>Programmer, Wikimedia Foundation</p>
+		</div>
+HTML;
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -72,9 +72,6 @@ class Gateway_Form_TwoStepAmount extends Gateway_Form {
 	 *
 	 */
 	protected function init() {
-		
-		// Should process be deprecated?
-		$this->getEscapedValue( 'process' ) = 'other';
 		
 		// Initialize the appeal
 		$this->appeal = self::DEFAULT_APPEAL;
