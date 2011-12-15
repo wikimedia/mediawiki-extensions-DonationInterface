@@ -591,7 +591,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Bank transfer',
 			'types'	=> array( 'bt', ),
 			'validation' => array( 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
 		// Credit Cards
@@ -605,7 +604,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct Debit',
 			'types'	=> array( 'dd_at', 'dd_be', 'dd_ch', 'dd_de', 'dd_es','dd_fr', 'dd_gb', 'dd_it', 'dd_nl', ),
 			'validation' => array( 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
 		// eWallets
@@ -613,7 +611,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets',
 			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', ),
 			'validation' => array( 'address' => false, 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
 		// Bank Transfers
@@ -621,7 +618,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Online bank transfer',
 			'types'	=> array( 'bpay', ),
 			'validation' => array( 'creditCard' => false, )
-			//'forms'	=> array( 'Gateway_Form_TwoStepAmount', ),
 		);
 		
 		// Real Time Bank Transfers
