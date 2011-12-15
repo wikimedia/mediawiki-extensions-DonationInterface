@@ -118,19 +118,8 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	$wgAutoloadClasses['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.body.php';
 	$wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_resultswitcher.body.php';
 	$wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
-
-	$wgAutoloadClasses['Gateway_Form_TwoStepAmount'] = $donationinterface_dir . 'globalcollect_gateway/forms/TwoStepAmount.php';
-
-	$wgResourceModules[ 'gc.form.core.validate' ] = array(
-		// scripts are not being picked up properly. These are currently only being loaded in TwoStepAmount.php
-		'scripts' => array( 'js/validate.js',  'js/jquery.validate.js', 'js/jquery.validate.additional-methods.js', ),
-		'dependencies' => array( 'ext.donationInterface.errorMessages', 'jquery.ui.accordion', ),
-		'localBasePath' => $donationinterface_dir . 'globalcollect_gateway/modules',
-		'remoteExtPath' => 'DonationInterface/globalcollect_gateway/modules',
-		'styles' => 'css/style.css',
-	);
-
 }
+
 //PayflowPro gateway classes
 if ( $optionalParts['PayflowPro'] === true ){
 	$wgAutoloadClasses['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.body.php';
