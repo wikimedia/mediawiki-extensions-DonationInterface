@@ -17,6 +17,7 @@ class DonationData {
 
 	protected $normalized = array( );
 	public $boss;
+	protected $validationErrors = false;
 
 	/**
 	 * DonationData constructor
@@ -383,6 +384,8 @@ class DonationData {
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
+			//TODO: Uncomment the next line when we want to start actually using the input validation. 
+			//$this->validateAllInput();
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
 			$this->setNormalizedOrderIDs();
@@ -433,8 +436,8 @@ class DonationData {
 				throw new MWException( 'Could not find form ' . $class_name_orig . ', nor default form ' . $class_name );
 			}
 		}
-			
-		$this->setVal( 'form_class', $class_name );
+
+		$this->setVal( 'form_class', $class_name );		
 	}
 	
 	/**
@@ -1286,6 +1289,303 @@ class DonationData {
 			$posted = (array_key_exists('REQUEST_METHOD', $_SERVER) && $wgRequest->wasPosted());
 		}
 		return $posted; 
+	}
+	
+	/**
+	 * validateAllInput
+	 * This function will go through all the data we have pulled from wherever 
+	 * we've pulled it, and make sure it's safe and expected and everything. 
+	 */
+	protected function validateAllInput(){
+		$rules = $this->buildValidationRules();
+		foreach ( $this->normalized as $key => $val ){
+			if ( $this->isSomething( $key ) ){
+				//make sure there's a rule for it.
+				if ( !isset( $rules[$key] ) ){
+					$this->log( "Validate Error: There is no rule for $key!" );
+					//TODO: i18n
+					$this->validate_setError( 'general', "Validate Error: There is no rule for $key!" );
+				} else {
+					$function = $rules[$key]['validate_function'];
+					if (method_exists( $this, $function )){
+						$this->{$function}( $key, $rules[$key]['error_form_token'] );
+					} else {
+						$this->log( "Validate Error: There is no $function function!" );
+						//TODO: i18n
+						$this->validate_setError( 'general', "Validate Error: There is no $function function!" );
+					}					
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Builds the validation rule set for all the keys we're pulling. 
+	 * TODO: Do some mapping here with i18n messages, too. We can't take this 
+	 * into prod just throwing the generic at everything. 
+	 * TODO: In general with this whole thing, the alphanumeric strategy should 
+	 * be... revised. Clearly we can't have a list of 'good' characters. 
+	 * Instead, we need to clean stuff that is clearly dangerous. 
+	 * Also, maybe we just auto-assign the alphanumeric clean function to 
+	 * anything that doesn't have other assignments, instead of dying nastily 
+	 * when we have one with no assignment. That's probably more pleasant.
+	 * @return array An array of keys, the ways we want to validate them, and 
+	 * what messages to set if they don't pass.
+	 * $array[$key] = array( 
+	 *		'validate_function' => $function_name,
+	 *		'error_form_token' => $error_token 
+	 * ) 
+	 */
+	protected function buildValidationRules(){
+		$rules = array();
+		
+		//you should group these jerks by type or something. 
+		
+		//initial build based on general functions to run for validation. 
+		$numeric = array(
+				'amount',
+				'amountGiven',
+				'amountOther',
+				'card_num',
+				'cvv',
+				'contribution_tracking_id',
+				'utm_source_id',
+				'account_number',
+				'expiration',
+				'order_id',
+				'i_order_id',
+				'numAttempt'
+		);
+		
+		foreach ($numeric as $key){
+			$rules[$key]['validate_function'] = 'validate_numeric';
+		}
+		
+		$alphanumeric = array(
+				'fname',
+				'mname',
+				'lname',
+				'street',
+				'city',
+				'state',
+				'zip',
+				'country',
+				'fname2',
+				'lname2',
+				'street2',
+				'city2',
+				'state2',
+				'zip2',
+				'country2',
+				'size',
+				'premium_language',
+				'card_type',
+				'currency',
+				'currency_code',
+				'payment_method',
+				'payment_submethod', 
+				'form_name',
+				'ffname',
+			
+				//for lack of a better idea what to do with these things, I'm just gonna leave these here.
+				//If any of them need to be numeric or boolean or dealt with specially, do that. 
+				'issuer_id',
+				'referrer',
+				'utm_source',
+				'utm_medium',
+				'utm_campaign',
+				'language',
+				'uselang',
+				'comment',
+				'token',
+				'data_hash',
+				'action',
+				'gateway',
+				'owa_session',
+				'owa_ref',
+				'descriptor',
+				'account_name',
+				'authorization_id',
+				'bank_check_digit',
+				'bank_name',
+				'bank_code',
+				'branch_code',
+				'country_code_bank',
+				'date_collect',
+				'direct_debit_text',
+				'iban',
+				'transaction_type',
+		);
+		
+		foreach ($alphanumeric as $key){
+			$rules[$key]['validate_function'] = 'validate_alphanumeric_with_cleaning';
+		}
+		
+		$boolean = array(
+				'comment-option',
+				'email-opt',
+				'_cache_',
+				'anonymous',
+				'optout',
+		); 
+		
+		foreach ($boolean as $key){
+			$rules[$key]['validate_function'] = 'validate_boolean';
+		}
+
+		$rules['email']['validate_function'] = 'validate_email';
+		
+		
+		//now, set the error token to use...
+		
+		foreach ( $rules as $key => $value ){
+			$error_token = 'general';
+			switch ( $key ) {
+				case 'amountGiven' :
+				case 'amountOther' :
+					$error_token = 'amount';
+					break;
+				case 'email' :
+					$error_token = 'emailAdd';
+					break;
+				case 'amount' :
+				case 'card_num':
+				case 'card_type':
+				case 'cvv':
+				case 'fname':
+				case 'lname':
+				case 'city':
+				case 'country':
+				case 'street':
+				case 'state':
+				case 'zip':
+					$error_token = $key;
+					break;
+			}
+			$rules[$key]['error_form_token'] = $error_token;
+		}		
+		
+		return $rules;
+	}
+	
+	/**
+	 * Sets an error found during validation.
+	 * @param string $error_token The error token to set for this error. 
+	 * (See RapidHTML::$error_tokens for possibilities)
+	 * @param string $msg The translated message to display at that error token.
+	 */
+	protected function validate_setError( $error_token, $msg ){
+		if ( !$this->validationErrors ){
+			$this->validationErrors = array();
+		}
+		$this->validationErrors[$error_token] = $msg;
+		
+	}
+	
+	/**
+	 * validatedOK
+	 * Checks to see if the data validated ok (no errors). 
+	 * @return boolean True if no errors, false if errors exist. 
+	 */
+	public function validatedOK() {
+		if ( is_array( $this->validationErrors ) ){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * getValidationErrors
+	 * Returns the errors set on data validation.
+	 * @return mixed Array if errors are set, else false. 
+	 */
+	public function getValidationErrors() {
+		return $this->validationErrors;
+	}
+	
+	/**
+	 * validate_email
+	 * validateAllInput helper function
+	 * To validate any input value using this function, add a line to 
+	 * $this->buildValidationRules() specifying the function name as the field 
+	 * name's 'validate_function'. 
+	 * @param string $key The name of the field to validate.
+	 * @param string $error_token As in RapidHTML, the pre-defined area of the 
+	 * form in which to display the error.
+	 */
+	protected function validate_email( $key, $error_token ){
+		// is email address valid?
+		$isEmail = User::isValidEmailAddr( $this->getVal($key) );
+
+		// create error message (supercedes empty field message)
+		if ( !$isEmail ) {
+			$this->log( __FUNCTION__ . " $key is not an email address.", LOG_DEBUG );
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-email' ) );
+		}
+	}
+	
+	/**
+	 * validate_boolean
+	 * validateAllInput helper function
+	 * To validate any input value using this function, add a line to 
+	 * $this->buildValidationRules() specifying the function name as the field 
+	 * name's 'validate_function'. 
+	 * @param string $key The name of the field to validate.
+	 * @param string $error_token As in RapidHTML, the pre-defined area of the 
+	 * form in which to display the error.
+	 */
+	protected function validate_boolean( $key, $error_token ){
+		$val = $this->getVal($key);
+		if ( $val === 0 || $val === 1 ) {
+			$this->log( __FUNCTION__ . " $key is not boolean.", LOG_DEBUG );
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
+		}
+		
+	}
+	
+	/**
+	 * validate_alphanumeric_with_cleaning
+	 * validateAllInput helper function
+	 * To validate and clean any input value using this function, add a line to 
+	 * $this->buildValidationRules() specifying the function name as the field 
+	 * name's 'validate_function'. 
+	 * TODO: Something even remotely useful here. Like the cleaning promised in 
+	 * the function name. 
+	 * @param string $key The name of the field to validate.
+	 * @param string $error_token As in RapidHTML, the pre-defined area of the 
+	 * form in which to display the error.
+	 */
+	protected function validate_alphanumeric_with_cleaning( $key, $error_token ){
+		$val = $this->getVal($key);
+
+		//instead of validating here, we should probably be proactively removing badness. 
+		if ( preg_match( '/%/', $val ) ) { //this is dumb and bad. Fixit. 
+			$this->log( __FUNCTION__ . " $key is not valid alphanumeric. $val", LOG_DEBUG );
+			//oooh. This blows. 
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
+		}
+	}
+	
+	/**
+	 * validate_numeric
+	 * validateAllInput helper function
+	 * To validate any input value using this function, add a line to 
+	 * $this->buildValidationRules() specifying the function name as the field 
+	 * name's 'validate_function'. 
+	 * @param string $key The name of the field to validate.
+	 * @param string $error_token As in RapidHTML, the pre-defined area of the 
+	 * form in which to display the error.
+	 */
+	protected function validate_numeric( $key, $error_token ){
+		$val = $this->getVal($key);
+
+		//instead of validating here, we should probably be doing something else entirely. 
+		if ( !is_numeric( $val ) ) { 
+			$this->log( __FUNCTION__ . " $key is not valid numeric format. $val", LOG_DEBUG );
+			//oooh. This blows. 
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
+		}
 	}
 }
 
