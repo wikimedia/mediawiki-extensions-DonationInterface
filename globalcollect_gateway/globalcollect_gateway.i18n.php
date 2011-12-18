@@ -79,6 +79,11 @@ $messages['br'] = array(
 	'globalcollect_gateway-response-9130' => 'Bro direizh.',
 	'globalcollect_gateway-response-9140' => 'Moneiz direizh.',
 	'globalcollect_gateway-response-9150' => 'Yezh direizh.',
+	'globalcollect_gateway-response-21000150' => 'Niverenn gont-vank direizh.',
+	'globalcollect_gateway-response-21000155' => 'Kod-bank direizh.',
+	'globalcollect_gateway-response-21000160' => 'Niverenn gont an dreuzvankadenn direizh.',
+	'globalcollect_gateway-response-default' => 'Ur fazi zo bet e-ser plediñ gant ho treuzgread.
+Klaskit en-dro a-benn ur pennadig.',
 );
 
 /** Welsh (Cymraeg)
@@ -277,14 +282,21 @@ $messages['he'] = array(
  */
 $messages['hsb'] = array(
 	'globalcollectgateway' => 'Nětko darić',
+	'globalcollect_gateway-desc' => 'Zmóžnja přewjedźenje płaćenjow přez GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Njepłaćiwy kraj.',
 	'globalcollect_gateway-response-9140' => 'Njepłaćiwa měna.',
 	'globalcollect_gateway-response-9150' => 'Njepłaćiwa rěč.',
 	'globalcollect_gateway-response-400530' => 'Njepłaćiwa płaćenska metoda.',
+	'globalcollect_gateway-response-430306' => 'Waša kreditna karta hižo płaćiwy njeje. Prošu spytajće druhu kartu abo druhu płaćensku metodu.',
 	'globalcollect_gateway-response-430330' => 'Njepłaćiwe kartowe čisło.',
+	'globalcollect_gateway-response-430421' => 'Waša kreditna karta njeda so přepruwować. Prošu zawěsćće, zo wšě informacije wašemu profilej kreditneje karty wotpowěduja abo wužijće druhu kartu.',
+	'globalcollect_gateway-response-430360' => 'Transakcija njeda so awtorizować. Prošu wužijće druhu kartu abo druhu płaćensku metodu.',
+	'globalcollect_gateway-response-430285' => 'Transakcija njeda so awtorizować. Prošu wužijće druhu kartu abo druhu płaćensku metodu.',
 	'globalcollect_gateway-response-21000150' => 'Njepłaćiwe kontowe čisło.',
 	'globalcollect_gateway-response-21000155' => 'Njepłaćiwe bankowe wodźenske čisło.',
 	'globalcollect_gateway-response-21000160' => 'Njepłaćiwe girokontowe čisło.',
+	'globalcollect_gateway-response-default' => 'Při předźěłowanju wašeje transakcije je zmylk wustupił.
+Prošu spytajće pozdźišo hišće raz.',
 );
 
 /** Hungarian (Magyar)

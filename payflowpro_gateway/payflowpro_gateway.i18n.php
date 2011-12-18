@@ -273,7 +273,7 @@ Deuit e darempred ganeomp evit kenderc'hel ganti.",
 	'payflowpro_gateway-response-112' => "Fall eo ar chomlec'h pe an niverenn CVV (kod surentez) lakaet.",
 	'payflowpro_gateway-response-125' => "Dinac'het eo bet an treuzgread gant Servijoù Dizarbenn ar Floderezh.",
 	'payflowpro_gateway-response-125-2' => "N'eus ket bet gallet kadarnaat ho kartenn. Gwiriit mat e klot an titouroù lakaet ganeoc'h gant profil ho kartenn-vank, pe neuze klaskit gant ur gartenn all. Gallout a rit ober gant <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">diskoulmoù all da reiñ, ivez,</a> pe mont e darempred ganeomp dre ar chomlec'h da-heul <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Trugarez deoc'h evit harpañ ac'hanomp.",
-	'payflowpro_gateway-response-default' => 'Ur fazi zo bet e-ser tretiñ ho treuzgread.
+	'payflowpro_gateway-response-default' => 'Ur fazi zo bet e-ser plediñ gant ho treuzgread.
 Klaskit en-dro a-benn ur pennadig.',
 );
 
