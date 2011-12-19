@@ -113,6 +113,7 @@ class DonationApi extends ApiBase {
 			'utm_campaign' => $this->defineParam( false  ),
 			'utm_medium' => $this->defineParam( false  ),
 			'referrer' => $this->defineParam( false ),
+			'recurring' => $this->defineParam( false ),
 		);
 	}
 
@@ -182,6 +183,7 @@ class DonationApi extends ApiBase {
 			'utm_campaign' => 'Tracking variable',
 			'utm_medium' => 'Tracking variable',
 			'referrer' => 'Original referrer',
+			'recurring' => 'Optional - indicates that the transaction is meant to be recurring.',
 		);
 	}
 

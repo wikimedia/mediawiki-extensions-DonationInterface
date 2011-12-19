@@ -1685,6 +1685,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'issuer_id',
 			'order_id', //This may or may not oughta-be-here...
 			'language',
+			'recurring'
 		);
 	}
 	
@@ -2005,6 +2006,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				
 				// Nothing is done in the default case.
 				break;
+		}
+	}
+	
+	/**
+	 * Stage: recurring
+	 * Adds the recurring payment pieces to the structure of 
+	 * INSERT_ORDERWITHPAYMENT if the recurring field is populated.
+	 *
+	 * @param string	$type	request|response
+	 */
+	protected function stage_recurring( $type = 'request' ){
+		if ( ! $this->getData_Staged( 'recurring' ) ){
+			return;
+		} else {
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'ORDERTYPE';
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['ORDERTYPE'] = '4';
 		}
 	}
 	

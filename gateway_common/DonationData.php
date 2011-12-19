@@ -136,6 +136,7 @@ class DonationData {
 				'transaction_type' => $wgRequest->getText( 'transaction_type', null ),
 				'form_name' => $wgRequest->getText( 'form_name', null ),
 				'ffname' => $wgRequest->getText( 'ffname', null ),
+				'recurring' => $wgRequest->getVal( 'recurring', null ), //boolean type
 			);
 			if ( !$this->wasPosted() ) {
 				$this->setVal( 'posted', false );
@@ -1428,6 +1429,7 @@ class DonationData {
 				'_cache_',
 				'anonymous',
 				'optout',
+				'recurring',
 		); 
 		
 		foreach ($boolean as $key){
