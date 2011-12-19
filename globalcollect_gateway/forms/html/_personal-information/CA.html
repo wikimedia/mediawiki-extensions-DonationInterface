@@ -1,25 +1,58 @@
-<div class="name-fields">
-	<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
-	<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
-</div>
-<div class="loc-fields">
-	<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>
-	<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>
-	<span class="loc-state">
-	<select id="state" name="state" class="txt" value="@state" >
-		<option value=""></option>
-        <option value="AB">AB</option>
-        <option value="BC">BC</option>
-        <option value="MB">MB</option>
-        <option value="NB">NB</option>
-        <option value="NL">NL</option>
-        <option value="NS">NS</option>
-        <option value="ON">ON</option>
-        <option value="PE">PE</option>
-        <option value="QC">QC</option>
-        <option value="SK">SK</option>
-	</select>
-	</span>
-	<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>
-</div>
-<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/></p>
+<tr>
+	<td colspan="2">
+		<h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+	</td>
+</tr>
+<tr>
+	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+</tr>
+<tr>
+	<td colspan="2">
+		<input class="fullwidth" name="street" value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street">
+	</td>
+</tr>
+<tr>
+	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+</tr>
+<tr>
+	<td colspan="2">
+		<input class="halfwidth state" name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city">
+		<select id="state" name="state" class="txt" value="@state" >
+			<option value=""></option>
+			<option value="AB">AB</option>
+			<option value="BC">BC</option>
+			<option value="MB">MB</option>
+			<option value="NB">NB</option>
+			<option value="NL">NL</option>
+			<option value="NS">NS</option>
+			<option value="ON">ON</option>
+			<option value="PE">PE</option>
+			<option value="QC">QC</option>
+			<option value="SK">SK</option>
+		</select>
+		<input name="zip" class="halfwidth leftmar state" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
+			<option value="">%donate_interface-select-country%</option>
+			<option value="CA">%donate_interface-country-dropdown-CA%</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<input class="fullwidth" name="emailAdd" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
+	</td>
+</tr>
