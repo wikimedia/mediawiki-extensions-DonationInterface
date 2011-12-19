@@ -38,12 +38,9 @@
 		<input name="zip" class="halfwidth leftmar state" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
 	</td>
 </tr>
-<tr>
+<tr style="display: none;">
 	<td colspan="2">
-		<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
-			<option value="">%donate_interface-select-country%</option>
-			<option value="CA">%donate_interface-country-dropdown-CA%</option>
-		</select>
+		<input type="hidden" value="US" name="country" id="country" />
 	</td>
 </tr>
 <tr>

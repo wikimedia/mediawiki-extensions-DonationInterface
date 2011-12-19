@@ -146,7 +146,7 @@ h1#firstHeading, div#contentSub {
 /* NEW STUFF */
 #greenBackground{
     padding:16px 24px;
-	width:300px;
+	width:301px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
@@ -170,23 +170,27 @@ table#payflow-table-donor{
     /*margin-left: 10px;*/
 }
 
-/* Form inputs */
-input#fname, input#lname {
-    width: 130px;
+/* Form Inputs */
+
+input.halfwidth {
+	width: 137px;
 }
-input#street, input#card_num, input#emailAdd {
-    width: 271px;
+input.fullwidth {
+	width: 285px;
 }
-input#city {
-	width: 135px;
+
+input.leftmar {
+	margin-left: 4px;
 }
-input#zip {
-	width: 65px;
+
+input#city.halfwidth.state{
+	width:134px;
 }
-input#zip.nostate {
-    width: 125px;
-    margin-left: 4px;
+input#zip.halfwidth.state{
+	width:84px;
+	margin-left: 0;
 }
+
 
 /* From Webitects */
 /* Options */

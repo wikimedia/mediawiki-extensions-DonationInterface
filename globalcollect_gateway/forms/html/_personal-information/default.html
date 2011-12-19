@@ -1,21 +1,34 @@
+
+
+
+
+
+
 <tr>
-    <td colspan="2"><h3 class="cc_header">Billing information<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3></td>
+	<td colspan="2">
+		<h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
+	</td>
 </tr>
 <tr>
-    <td colspan="2"><input name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%"  id="lname"></td>
+	<td colspan="2">
+		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+	</td>
 </tr>
 <tr>
-    <td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td colspan="2"><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-    <td colspan="2"><input name="street" value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street"></td>
+	<td colspan="2">
+		<input class="fullwidth" name="street" value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street">
+	</td>
 </tr>
 <tr>
-    <td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td colspan="2"><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-    <td colspan="2"><input name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city"><input name="zip" class="nostate" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
-    </td>
+	<td colspan="2">
+		<input name="zip" class="halfwidth" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip"><input class="halfwidth leftmar" name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city">
+	</td>
 </tr>
 <tr>
     <td colspan="2">
@@ -35,5 +48,7 @@
     </td>
 </tr>
 <tr>
-    <td colspan="2"><input name="emailAdd" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd"></td>
+	<td colspan="2">
+		<input class="fullwidth" name="emailAdd" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
+	</td>
 </tr>
