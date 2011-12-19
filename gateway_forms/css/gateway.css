@@ -121,6 +121,13 @@ body.ltr #footer #footer-places {
 	padding: 3px;
 }
 
+/*
+	The following should be in form css and not the gateway common css.
+	Commenting out due to conflicts, but leaving so that if it does break something,
+	it can easily be re-enabled. -pgehres 2011-12-19
+*/
+/*
 input#fname { width: 110px; margin-right: 4px; }
 input#lname { width: 132px; }
 input.fullwidth { width: 254px; }
+*/
