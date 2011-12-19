@@ -160,7 +160,18 @@ EOT;
 							return $wgOut->redirect( $formAction );
 						}
 
-					} 					else {
+					} elseif ( $payment_method == 'cash' ) {
+
+						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+						$formAction = $this->adapter->getTransactionDataFormAction();
+
+						// Redirect to the bank
+						if ( !empty( $formAction ) ) {
+							return $wgOut->redirect( $formAction );
+						}
+
+					} else {
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					}
 
