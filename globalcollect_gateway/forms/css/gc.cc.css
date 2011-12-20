@@ -146,7 +146,7 @@ h1#firstHeading, div#contentSub {
 /* NEW STUFF */
 #greenBackground{
     padding:16px 24px;
-	width:301px;
+	width:300px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
@@ -183,14 +183,25 @@ input.leftmar {
 	margin-left: 4px;
 }
 
-input#city.halfwidth.state{
+input#city.halfwidth.state {
 	width:134px;
 }
-input#zip.halfwidth.state{
+input#zip.halfwidth.state {
 	width:84px;
 	margin-left: 0;
 }
+select#state {
+	width: 50px;
+}
 
+
+/* Specific element overrides */
+input#zip.ja {
+	width: 268px;
+}
+select#state.ja {
+	width:100%;
+}
 
 /* From Webitects */
 /* Options */
