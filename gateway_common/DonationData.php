@@ -385,8 +385,6 @@ class DonationData {
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
-			//TODO: Uncomment the next line when we want to start actually using the input validation. 
-			//$this->validateAllInput();
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
 			$this->setNormalizedOrderIDs();
@@ -397,6 +395,8 @@ class DonationData {
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
 			$this->setFormClass();
+			//TODO: Uncomment the next line when we want to start actually using the input validation. 
+//			$this->validateAllInput();
 		}
 	}
 	
@@ -1336,7 +1336,8 @@ class DonationData {
 	 * what messages to set if they don't pass.
 	 * $array[$key] = array( 
 	 *		'validate_function' => $function_name,
-	 *		'error_form_token' => $error_token 
+	 *		'error_form_token' => $error_token,
+	 * 
 	 * ) 
 	 */
 	protected function buildValidationRules(){
@@ -1346,13 +1347,11 @@ class DonationData {
 		
 		//initial build based on general functions to run for validation. 
 		$numeric = array(
-				'amount',
 				'amountGiven',
 				'amountOther',
 				'card_num',
 				'cvv',
 				'contribution_tracking_id',
-				'utm_source_id',
 				'account_number',
 				'expiration',
 				'order_id',
@@ -1395,6 +1394,7 @@ class DonationData {
 				'issuer_id',
 				'referrer',
 				'utm_source',
+				'utm_source_id',
 				'utm_medium',
 				'utm_campaign',
 				'language',
@@ -1431,6 +1431,7 @@ class DonationData {
 				'anonymous',
 				'optout',
 				'recurring',
+				'posted',
 		); 
 		
 		foreach ($boolean as $key){
@@ -1438,6 +1439,7 @@ class DonationData {
 		}
 
 		$rules['email']['validate_function'] = 'validate_email';
+		$rules['amount']['validate_amount'] = 'validate_amount';
 		
 		
 		//now, set the error token to use...
@@ -1529,6 +1531,46 @@ class DonationData {
 	}
 	
 	/**
+	 * validate_amount
+	 * validateAllInput helper function
+	 * To validate any input value using this function, add a line to 
+	 * $this->buildValidationRules() specifying the function name as the field 
+	 * name's 'validate_function'. 
+	 * @param string $key The name of the field to validate.
+	 * @param string $error_token As in RapidHTML, the pre-defined area of the 
+	 * form in which to display the error.
+	 */
+	protected function validate_amount( $key, $error_token ){
+		if ( !$this->isSomething( $key ) ) {
+			$this->log( __FUNCTION__ . " $key is not something.", LOG_DEBUG );
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-invalid-amount' ) );
+			return;
+		}
+		
+		if ( !$this->isSomething( 'currency_code' ) ) {
+			$this->log( __FUNCTION__ . " currency_code is not something.", LOG_DEBUG );
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
+			return;
+		}
+		$currency_code = $this->getVal( 'currency_code' );
+		
+		$val = $this->getVal( $key );
+		if ( !is_numeric( $val ) ) { 
+			$this->log( __FUNCTION__ . " $key is not valid numeric format. $val", LOG_DEBUG );
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-invalid-amount' ) );
+		}
+		
+		// check amount
+		$priceFloor = $this->adapter->getGlobal( 'PriceFloor' );
+		$priceCeiling = $this->adapter->getGlobal( 'PriceCeiling' );
+		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $val ) ||
+			( ( float ) $this->convert_to_usd( $currency_code, $val ) < ( float ) $priceFloor ||
+			( float ) $this->convert_to_usd( $currency_code, $val ) > ( float ) $priceCeiling ) ) {
+			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-invalid-amount' ) );
+		}
+	}
+	
+	/**
 	 * validate_boolean
 	 * validateAllInput helper function
 	 * To validate any input value using this function, add a line to 
@@ -1540,9 +1582,23 @@ class DonationData {
 	 */
 	protected function validate_boolean( $key, $error_token ){
 		$val = $this->getVal($key);
-		if ( $val === 0 || $val === 1 ) {
-			$this->log( __FUNCTION__ . " $key is not boolean.", LOG_DEBUG );
-			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
+		switch ($val) {
+			case 0:
+			case '0':
+			case false:
+			case 'false':
+				$this->setVal( $key, 0 );
+				break;
+			case 1:
+			case '1':
+			case true:
+			case 'true':
+				$this->setVal( $key, 1 );
+				break;
+			default:
+				$this->log( __FUNCTION__ . " $key is not boolean." );
+				$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ), LOG_DEBUG );
+				break;
 		}
 		
 	}
@@ -1590,6 +1646,36 @@ class DonationData {
 			$this->validate_setError( $error_token, wfMsg( 'donate_interface-error-msg-general' ) );
 		}
 	}
+	
+	/**
+	 * Convert an amount for a particular currency to an amount in USD
+	 *
+	 * This is grosley rudimentary and likely wildly inaccurate.
+	 * This mimicks the hard-coded values used by the WMF to convert currencies
+	 * for validatoin on the front-end on the first step landing pages of their
+	 * donation process - the idea being that we can get a close approximation
+	 * of converted currencies to ensure that contributors are not going above
+	 * or below the price ceiling/floor, even if they are using a non-US currency.
+	 *
+	 * In reality, this probably ought to use some sort of webservice to get real-time
+	 * conversion rates.
+	 *
+	 * @param string $currency_code
+	 * @param float $amount
+	 * @return float
+	 */
+	static function convert_to_usd( $currency_code, $amount ) {
+		require_once( dirname( __FILE__ ) . '/currencyRates.inc' );
+		$rates = getCurrencyRates();
+		$code = strtoupper( $currency_code );
+		if ( array_key_exists( $code, $rates ) ) {
+			$usd_amount = $amount / $rates[$code];
+		} else {
+			$usd_amount = $amount;
+		}
+		return $usd_amount;
+	}
+	
 }
 
 ?>
