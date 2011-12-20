@@ -221,6 +221,7 @@ function createQueueMessage( $transaction ) {
 		'postal_code_2' => $transaction['zip2'],
 		'gateway' => $transaction['gateway'],
 		'gateway_txn_id' => $transaction['gateway_txn_id'],
+		'recurring' => $transaction['recurring'],
 		'payment_method' => $transaction['payment_method'],
 		'payment_submethod' => $transaction['payment_submethod'],
 		'response' => $transaction['response'],
@@ -234,6 +235,11 @@ function createQueueMessage( $transaction ) {
 		//The code there should also be fixed. 
 		'date' => ( int ) $transaction['date'], 
 	);
+	
+	//optional key
+	if ( !$message['recurring'] ) {
+		unset( $message['recurring'] );
+	}
 
 	return $message;
 }

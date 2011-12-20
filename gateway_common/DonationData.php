@@ -1265,6 +1265,7 @@ class DonationData {
 			'zip2',
 			'gateway',
 			'gateway_txn_id',
+			'recurring',
 			'payment_method',
 			'payment_submethod',
 			'response',
