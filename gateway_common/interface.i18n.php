@@ -208,7 +208,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-question-comment' => 'Questions or comments? Contact: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Problems donating?',
-	'donate_interface-donate-click' => 'Your credit card will be securely processed.',
+	'donate_interface-donate-click' => 'Your credit / debit card will be securely processed.',
 	'donate_interface-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
 	'donate_interface-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
 	'donate_interface-otherways-short' => 'Other ways to give',
