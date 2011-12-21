@@ -203,6 +203,10 @@ select#state.ja {
 	width:100%;
 }
 
+select#state.it {
+	width: auto;
+}
+
 /* From Webitects */
 /* Options */
 .form .options-h, .form .options-v { margin: 0; }
