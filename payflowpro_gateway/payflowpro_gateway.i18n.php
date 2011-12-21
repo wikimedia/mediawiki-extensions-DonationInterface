@@ -688,6 +688,7 @@ Yritä myöhemmin uudelleen.',
 /** French (Français)
  * @author Cedric31
  * @author Crochet.david
+ * @author DavidL
  * @author Gomoko
  * @author Grondin
  * @author Hashar
@@ -715,7 +716,7 @@ Veuillez nous contacter pour poursuivre votre transaction.',
 	'payflowpro_gateway-response-24' => "Votre numéro de carte de crédit ou date d'expiration est incorrect(e).",
 	'payflowpro_gateway-response-112' => 'Votre adresse ou numéro CVV (code de sécurité) est incorrect(e).',
 	'payflowpro_gateway-response-125' => 'Votre transaction a été déclinée par les Services de prévention des fraudes.',
-	'payflowpro_gateway-response-125-2' => 'Votre carte bancaire n’a pas pu être validée. Veuillez vérifier que les informations fournies correspondent au profil de votre carte bancaire, ou essayez avec une autre carte. Vous pouvez aussi utiliser <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d’autres solutions pour faire un don</a> ou nous contacter à l’adresse <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Nous vous remercions de votre soutien.',
+	'payflowpro_gateway-response-125-2' => 'Votre carte bancaire n’a pas pu être validée. Veuillez vérifier que les informations fournies correspondent au profil de votre carte bancaire, ou essayez avec une autre carte. Vous pouvez aussi utiliser <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">d’autres solutions pour faire un don</a> ou nous contacter à l’adresse <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Nous vous remercions de votre soutien.',
 	'payflowpro_gateway-response-default' => 'Une erreur est survenue lors du traitement de votre transaction.
 Veuillez réessayer plus tard.',
 );
