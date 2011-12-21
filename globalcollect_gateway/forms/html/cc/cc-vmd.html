@@ -18,7 +18,11 @@
 			<div id="greenBackground" class="">
 			<noscript>
 				<div id="noscript">
-					<p id="noscript-msg">It appears that you do not have JavaScript enabled, or your browser does not support it. In order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.</p><p id="noscript-redirect-msg">If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:</p><p id="noscript-redirect-link"><a href="https://wikimediafoundation.org/wiki/DonateNonJS/en">https://wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
+					<p id="noscript-msg">%donate_interface-noscript-msg%</p>
+					<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
+					<p id="noscript-redirect-link">
+						<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
+					</p>
 				</div>
 			</noscript>
 			<p id="topError" class="creditcard-error-msg"></p>
@@ -30,46 +34,11 @@
 						<tr>
 							<td colspan="2">
 								<div id="step1header">
-									<h3 class="amount_header">Donation amount:  <span id="selected-amount">$@amount (CAD)</span></h3>
+									<h3 class="amount_header">%donate_interface-amount-legend%:  <span id="selected-amount">{% block donation-amount currency_code %}</span></h3>
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2"><h3 class="cc_header">Billing information<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="fname" value="@fname" type="text" placeholder="First name" id="fname"><input name="lname" value="@lname" type="text" placeholder="Last name"  id="lname"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><span class="creditcard-error-msg"></span></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="street" value="@street" type="text" placeholder="Street" id="street"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><span class="creditcard-error-msg"></span></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="city" value="@city" type="text" placeholder="City" id="city">
-                                <select id="state" name="state" class="txt" value="@state" >
-                                    <option value=""></option>
-                                    <option value="AB">AB</option>
-                                    <option value="BC">BC</option>
-                                    <option value="MB">MB</option>
-                                    <option value="NB">NB</option>
-                                    <option value="NL">NL</option>
-                                    <option value="NS">NS</option>
-                                    <option value="ON">ON</option>
-                                    <option value="PE">PE</option>
-                                    <option value="QC">QC</option>
-                                    <option value="SK">SK</option>
-                                </select>
-								<input name="zip" value="@zip" type="text" placeholder="Zip code" id="zip">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="emailAdd" value="@emailAdd" type="text" placeholder="Email address" id="emailAdd"></td>
-						</tr>
+						{% block personal-information country %}
                         <tr>
                             <td>
                                 <dl class="">
@@ -78,8 +47,9 @@
                                             <li><input id="cc-visa" name="cardtype" type="radio" value="visa" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
                                             <li><input id="cc-mastercard" name="cardtype" type="radio" value="mastercard" class="cardradio" /> <label for="cc-mastercard"><img alt="MasterCard" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" /></label></li>
                                             <!--<li><input id="cc-amex" name="cardtype" type="radio" value="american" class="cardradio" /> <label for="cc-amex"><img alt="American Express" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-amex.png" /></label></li>-->
-                                            <!--<li><input id="cc-discover" name="cardtype" type="radio" value="discover" class="cardradio" /> <label for="cc-discover"><img alt="Discover" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-discover.png" /></label></li>-->
-                                        </ul>
+                                            <li><input id="cc-discover" name="cardtype" type="radio" value="discover" class="cardradio" /> <label for="cc-discover"><img alt="Discover" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-discover.png" /></label></li>
+											<!--<li><input id="cc-jcb" name="cardtype" type="radio" value="jcb" class="cardradio" /> <label for="cc-jcb"><img alt="JCB" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-jcb.png" /></label></li>-->
+										</ul>
                                         <div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="%donate_interface-continue%" /></div>
                                     </dd>
                                 </dl>
@@ -93,7 +63,7 @@
 						<tr>
                             <td>
                                 <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
-                                    <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">Your credit / debit card will be securely processed.
+                                    <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> %donate_interface-donate-click%
                                 </div>
                             </td>
                         </tr>
@@ -104,9 +74,10 @@
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="@amount" name="amount">
-				<input type="hidden" value="CA" name="country" id="country" />
+				<!-- This should be included in the personal_information templates -->
+				<!--<input type="hidden" value="@country" name="country" id="country" />-->
 				<input type="hidden" value="@expiration" name="expiration" id="expiration"/>
-				<input type="hidden" value="CAD" name="currency_code" />
+				<input type="hidden" value="@currency_code" name="currency_code" />
 				<input type="hidden" value="@utm_source" name="utm_source"/>
 				<input type="hidden" value="@utm_medium" name="utm_medium"/>
 				<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
