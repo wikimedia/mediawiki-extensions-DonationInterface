@@ -20,7 +20,9 @@
 				<div id="noscript">
 					<p id="noscript-msg">%donate_interface-noscript-msg%</p>
 					<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
-					<p id="noscript-redirect-link"><a href="//wikimediafoundation.org/wiki/DonateNonJS/en">wikimediafoundation.org/wiki/DonateNonJS/en</a></p>
+					<p id="noscript-redirect-link">
+						<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
+					</p>
 				</div>
 			</noscript>
 			<p id="topError" class="creditcard-error-msg"></p>
@@ -32,45 +34,11 @@
 						<tr>
 							<td colspan="2">
 								<div id="step1header">
-									<h3 class="amount_header">Monthly donation amount: <span id="selected-amount">$@amount (AUD)</span></h3>
+									<h3 class="amount_header">%donate_interface-monthlybox-amount%:  <span id="selected-amount">{% block donation-amount currency_code %}</span></h3>
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2"><h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%"  id="lname"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><span class="creditcard-error-msg"></span></td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="street" value="@street" type="text" placeholder="%donate_interface-donor-street%" id="street"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><span class="creditcard-error-msg"></span></td>
-						</tr>
-						<tr>
-							<!-- TODO: add "locality" to translation (probably part of a "neighborhood" type thing-->
-							<td colspan="2"><input name="city" value="@city" type="text" placeholder="Locality" id="city">
-								<select id="state" name="state" class="txt" value="@state" >
-									<option value="">%donate_interface-donor-state%</option>
-									<option value="ACT">ACT</option>
-									<option value="NSW">NSW</option>
-									<option value="NT">NT</option>
-									<option value="QLD">QLD</option>
-									<option value="SA">SA</option>
-									<option value="TAS">TAS</option>
-									<option value="VIC">VIC</option>
-									<option value="WA">WA</option>
-								</select>
-								<input name="zip" value="@zip" type="text" placeholder="%donate_interface-donor-postal%" id="zip">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2"><input name="emailAdd" value="@emailAdd" type="text" placeholder="%donate_interface-donor-email%" id="emailAdd"></td>
-						</tr>
+						{% block personal-information country %}
                         <tr>
                             <td>
                                 <dl class="">
@@ -81,7 +49,6 @@
                                             <li><input id="cc-amex" name="cardtype" type="radio" value="american" class="cardradio" /> <label for="cc-amex"><img alt="American Express" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-amex.png" /></label></li>
                                             <!--<li><input id="cc-discover" name="cardtype" type="radio" value="discover" class="cardradio" /> <label for="cc-discover"><img alt="Discover" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-discover.png" /></label></li>-->
 											<li><input id="cc-jcb" name="cardtype" type="radio" value="jcb" class="cardradio" /> <label for="cc-jcb"><img alt="JCB" src="@script_path/extensions/DonationInterface/gateway_forms/includes/card-jcb.png" /></label></li>
-                                        </ul>
                                         <div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="%donate_interface-continue%" /></div>
                                     </dd>
                                 </dl>
@@ -95,7 +62,7 @@
 						<tr>
                             <td>
                                 <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
-									<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;">%donate_interface-donate-click%
+                                    <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> %donate_interface-donate-click%
                                 </div>
                             </td>
                         </tr>
@@ -106,9 +73,10 @@
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="@amount" name="amount">
-				<input type="hidden" value="AU" name="country" id="country" />
+				<!-- This should be included in the personal_information templates -->
+				<!--<input type="hidden" value="@country" name="country" id="country" />-->
 				<input type="hidden" value="@expiration" name="expiration" id="expiration"/>
-				<input type="hidden" value="AUD" name="currency_code" />
+				<input type="hidden" value="@currency_code" name="currency_code" />
 				<input type="hidden" value="@utm_source" name="utm_source"/>
 				<input type="hidden" value="@utm_medium" name="utm_medium"/>
 				<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
@@ -126,6 +94,7 @@
 				<input type="hidden" value="@owa_ref" name="owa_ref"/>
 				<input type="hidden" value="@gateway" name="gateway"/>
 				<input type="hidden" value="cc" name="payment_method"/>
+				<input type="hidden" value="1" name="recurring"/>
 			</form>
 			</div>
 			<p id="informationsharing">%donate_interface-informationsharing|url%</p>
