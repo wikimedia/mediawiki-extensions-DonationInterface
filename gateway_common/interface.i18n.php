@@ -5389,37 +5389,6 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-error-http-403' => 'Du hast nicht die erforderliche Berechtigung, um diese Seite aufrufen zu können.',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
- * @author Imre
- * @author Kghbln
- */
-$messages['de-formal'] = array(
-	'donate_interface-error-msg-nopaypal' => 'Aufgrund eines technischen Problems können wir keine Verbindung zu PayPal herstellen. Bitte nutzen Sie stattdessen das Formular für Kreditkartenspenden.',
-	'donate_interface-error-msg-email' => 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
-	'donate_interface-error-msg-amex' => 'Bitte geben Sie eine korrekte American-Express-Kartennummer ein',
-	'donate_interface-error-msg-mc' => 'Bitte geben Sie eine korrekte Mastercard-Kartennummer ein',
-	'donate_interface-error-msg-visa' => 'Bitte geben Sie eine korrekte Visa-Kartennummer ein',
-	'donate_interface-error-msg-discover' => 'Bitte geben Sie eine korrekte Kreditkartennummer für Discover an.',
-	'donate_interface-error-msg-captcha' => 'Der eingegebene Bestätigungscode ist falsch. Bitte versuchen Sie es erneut.',
-	'donate_interface-error-msg-captcha-please' => 'Bitte gebem Sie den Bestätigungscode ein, um zu bestätigen, dass Sie ein Mensch und kein Bot sind.',
-	'php-response-declined' => 'Ihre Transaktion konnte nicht akzeptiert werden.',
-	'donate_interface-thankyou' => 'Vielen Dank für Ihre Spende!',
-	'donate_interface-question-comment' => 'Fragen oder Kommentare? Kontaktieren Sie uns unter: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Ihre Kreditkarteninformationen werden gesichert verarbeitet.',
-	'donate_interface-paypal' => 'Verfügen Sie über ein PayPal-Konto? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Spende per PayPal</a>.',
-	'donate_interface-credit-storage-processing' => 'Wir speichern Ihre Kreditkarteninformationen nicht. Zudem unterliegen Ihre persönlichen Daten unseren <a href="http://wikimediafoundation.org/wiki/Donor_policy">Datenschutzbestimmungen für Spender</a> (englisch).',
-	'donate_interface-token-mismatch' => 'Ihre Sitzung ist inzwischen abgelaufen. Bitte füllen Sie das Formular erneut aus und senden Sie es nochmals ab.',
-	'donate_interface-your-information' => 'Informationen zu Ihnen',
-	'donate_interface-which-card' => 'Welche Kreditkarte möchten Sie verwenden',
-	'donate_interface-please-donate-today' => 'Bitte spenden Sie noch heute',
-	'donate_interface-make-a-donation' => 'Spenden Sie',
-	'donate_interface-enter-your-amount' => 'Oder geben Sie den Betrag im obigen Feld ein',
-	'donate_interface-state-dropdown-YY' => 'Wählen Sie einen Staat',
-	'donate_interface-translate-redlink2' => 'Oder senden Sie Ihre Übersetzung per E-Mail an translations@wikimedia.org',
-	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei Ihrer Überweisung anzugeben. Falls Sie Fragen oder Anliegen haben, können Sie eine E-Mail an donations@wikimedia.org senden.',
-	'donate_interface-error-http-403' => 'Sie haben nicht die erforderliche Berechtigung, um diese Seite aufrufen zu können.',
-);
-
 /** Zazaki (Zazaki)
  * @author Jsoby
  * @author Mirzali
