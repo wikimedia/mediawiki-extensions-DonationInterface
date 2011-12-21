@@ -402,7 +402,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	// Monthly donation box
 	'donate_interface-monthlybox-title' => 'Make it monthly?',
 	'donate_interface-monthlybox-content' => 'Monthly donations are processed on the 2<sup>nd</sup> of every month. You may cancel at any time.',
-	'donate_interface-monthlybox-amount' => 'Monthly donation amount:',
+	'donate_interface-monthlybox-amount' => 'Monthly donation amount',
 	'donate_interface-monthlybox-yes' => 'Sure, make it monthly',
 	'donate_interface-monthlybox-no' => 'NO, make a one-time donation',
 	'donate_interface-monthlybox-bottom' => 'Your donation will be securely processed.',
