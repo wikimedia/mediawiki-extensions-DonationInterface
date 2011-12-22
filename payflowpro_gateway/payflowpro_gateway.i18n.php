@@ -417,22 +417,22 @@ Prøv venligst igen senere.',
 $messages['de'] = array(
 	'payflowprogateway' => 'Jetzt spenden',
 	'payflowpro_gateway-desc' => 'Ermöglicht die Spendenabwicklung per „Payflow Pro“ von PayPal oder per Kreditkarte',
-	'payflowpro_gateway-response-0' => 'Deine Transaktion wurde durchgeführt.
-Vielen Dank für deine Spende.',
-	'payflowpro_gateway-response-126' => 'Für deine Transaktion wird auf eine Freigabe gewartet.',
-	'payflowpro_gateway-response-126-2' => 'Einige Informationen stimmen nicht mit deinem Kreditkartenprofil überein oder die Spende ist zu hoch. Zu deiner eigenen Sicherheit befindet sich deine Spende unter Prüfung und wir informieren dich durch die angegebene E-Mail-Adresse, falls wir deine Spende nicht abschließen können. Bitte schicke uns bei Fragen eine E-Mail an <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank!',
-	'payflowpro_gateway-response-12' => 'Bitte nehme für weitere Informationen mit deinem Kreditinstitut Kontakt auf.',
-	'payflowpro_gateway-response-13' => 'Deine Transaktion benötigt eine manuelle Bearbeitung.
-Bitte nimm mit uns Kontakt auf, um deine Transaktion abzuschließen.',
-	'payflowpro_gateway-response-114' => 'Bitte nimm mit deinem kartenausgebenden Kreditinstitut Kontakt auf.',
-	'payflowpro_gateway-response-23' => 'Deine Kreditkartennummer oder das Ablaufdatum ist falsch.',
+	'payflowpro_gateway-response-0' => 'Ihre Transaktion wurde genehmigt.
+Vielen Dank für Ihre Spende.',
+	'payflowpro_gateway-response-126' => 'Es wird auf eine Freigabe Ihrer Transaktion gewartet.',
+	'payflowpro_gateway-response-126-2' => 'Einige Informationen stimmen nicht mit Ihrem Kreditkartenprofil überein oder die Spende ist zu hoch. Zu Ihrer eigenen Sicherheit wird Ihre Spende überprüft. Wir informieren Sie über die angegebene E-Mail-Adresse, sofern wir Ihre Spende nicht abschließen können. Bitte schicken Sie uns im Fall von Fragen eine E-Mail an <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
+	'payflowpro_gateway-response-12' => 'Bitte nehmen Sie für weitere Informationen mit Ihrem Kreditinstitut Kontakt auf.',
+	'payflowpro_gateway-response-13' => 'Ihre Transaktion erfordert eine manuelle Bearbeitung.
+Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
+	'payflowpro_gateway-response-114' => 'Bitte nehmen Sie mit dem Kreditinstitut Kontakt auf, das Ihre Karte ausgegeben hat.',
+	'payflowpro_gateway-response-23' => 'Ihre Kreditkartennummer oder das Ablaufdatum der Kreditkarte ist falsch.',
 	'payflowpro_gateway-response-4' => 'Ungültiger Betrag.',
-	'payflowpro_gateway-response-24' => 'Deine Kreditkartennummer oder das Ablaufdatum ist falsch.',
-	'payflowpro_gateway-response-112' => 'Deine Anschrift oder der Sicherheitscode (CVV) ist falsch.',
-	'payflowpro_gateway-response-125' => 'Deine Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
-	'payflowpro_gateway-response-125-2' => 'Deine Kreditkarte kann nicht geprüft werden. Bitte bestätige, dass alle Informationen mit deinem Kreditkartenprofil übereinstimmen oder versuche es mit einer anderen Karte. Du kannst auch unsere <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/de">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktiere uns unter <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
+	'payflowpro_gateway-response-24' => 'Ihre Kreditkartennummer oder das Ablaufdatum der Kreditkarte ist falsch.',
+	'payflowpro_gateway-response-112' => 'Ihre Anschrift oder der Sicherheitscode (CVV) ist falsch.',
+	'payflowpro_gateway-response-125' => 'Ihre Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.',
+	'payflowpro_gateway-response-125-2' => 'Ihre Kreditkarte kann nicht geprüft werden. Bitte bestätigen Sie, dass alle Informationen mit Ihrem Kreditkartenprofil übereinstimmen oder versuchen Sie es mit einer anderen Karte. Sie können auch unsere <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktieren Sie uns unter der E_Mail-Adresse <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Vielen Dank.',
 	'payflowpro_gateway-response-default' => 'Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.
-Bitte versuche es später noch einmal.',
+Bitte versuchen Sie es später noch einmal.',
 );
 
 /** German (formal address) (‪Deutsch (Sie-Form)‬)
