@@ -1733,6 +1733,21 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-response-125' => 'Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба.',
 );
 
+/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+$messages['sr-el'] = array(
+	'payflowprogateway' => 'Priložite novac',
+	'payflowpro_gateway-desc' => 'Obrađivanje kreditnih kartica preko Pejpala',
+	'payflowpro_gateway-response-0' => 'Vaš prenos novca je odobren.
+Hvala vam na podršci!',
+	'payflowpro_gateway-response-126' => 'Vaš prenos novca čeka na odobrenje.',
+	'payflowpro_gateway-response-12' => 'Obratite se kompaniji koja vam je izdala kreditnu karticu za više detalja.',
+	'payflowpro_gateway-response-114' => 'Obratite se kompaniji koja vam je izdala kreditnu karticu za više detalja.',
+	'payflowpro_gateway-response-23' => 'Broj vaše kreditne kartice ili datum isteka je neispravan.',
+	'payflowpro_gateway-response-4' => 'Neispravan iznos.',
+	'payflowpro_gateway-response-24' => 'Broj vaše kreditne kartice ili datum isteka je neispravan.',
+	'payflowpro_gateway-response-125' => 'Vaš prenos novca je odbijen od strane Službe za prevenciju zloupotreba.',
+);
+
 /** Swedish (Svenska)
  * @author Ainali
  * @author Boivie
