@@ -695,13 +695,13 @@ $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gate
 //TODO: all the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
-	$wgExtensionAliasesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
+	$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
 }
 
 //PayflowPro gateway magical globals
 if ( $optionalParts['PayflowPro'] === true ){
 	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
-	$wgExtensionAliasesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
+	$wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
 }
 
