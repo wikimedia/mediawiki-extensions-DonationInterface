@@ -16654,7 +16654,7 @@ Ingen prosessorar er tilgjengelege.',
  * @author Sjurhamre
  * @author Zilvador
  */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'donate_interface' => 'Støtt Wikimedia',
 	'donate_interface-desc' => 'Donasjonsdestinasjonsside som integrerer gateway-utvidelser',
 	'donate_interface-langonly-desc' => 'Viser kun DonationInterface-meldinger',

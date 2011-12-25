@@ -512,7 +512,7 @@ Probeer het later alstublieft nog een keer.',
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Jsoby
  */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'globalcollectgateway' => 'Doner nå',
 	'globalcollect_gateway-desc' => 'Betalingsprosessering med GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Ugyldig land.',

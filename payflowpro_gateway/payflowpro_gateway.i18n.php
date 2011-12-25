@@ -1351,7 +1351,7 @@ Takk for gåva di!',
  * @author Nghtwlkr
  * @author Sjurhamre
  */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'payflowprogateway' => 'Gi nå',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkortbehandling',
 	'payflowpro_gateway-response-0' => 'Transaksjonen din har blitt godkjent.

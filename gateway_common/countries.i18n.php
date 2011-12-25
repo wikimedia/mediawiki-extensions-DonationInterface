@@ -349,7 +349,7 @@ $messages['nn'] = array(
 );
 
 /** Norwegian (Bokmål) (Norsk (bokmål)) */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'donate_interface-country-dropdown-NO' => 'Norge',
 );
 
