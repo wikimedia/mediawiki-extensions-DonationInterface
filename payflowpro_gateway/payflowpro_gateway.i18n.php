@@ -984,6 +984,7 @@ $messages['io'] = array(
  */
 $messages['it'] = array(
 	'payflowprogateway' => 'Fai ora la tua donazione',
+	'payflowpro_gateway-desc' => 'Gestione carta di credito PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'La transazione è stata approvata.
 Grazie per la tua donazione!',
 	'payflowpro_gateway-response-126' => 'La transazione è in attesa di approvazione.',

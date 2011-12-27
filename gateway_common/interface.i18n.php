@@ -3097,6 +3097,7 @@ $messages['bn'] = array(
 	'donate_interface-MAD' => 'মরক্কীয় দিরহাম',
 	'donate_interface-MKD' => 'মেসিডোনীয় দিনার',
 	'donate_interface-MUR' => 'মরিসাস রুপি',
+	'donate_interface-MVR' => 'মালদ্বীপ রুপি',
 	'donate_interface-NOK' => 'নরওয়েজীয় ক্রোন',
 	'donate_interface-NZD' => 'নিউজিল্যান্ড ডলার',
 	'donate_interface-PLN' => 'পোলীয় জোয়াটি',
@@ -3293,7 +3294,13 @@ $messages['bn'] = array(
 	'donate_interface-change' => 'পরিবর্তন',
 	'donate_interface-optional' => 'ঐচ্ছিক',
 	'donate_interface-state-dropdown-XX' => 'যুক্তরাষ্ট্রের বাইরে',
+	'donate_interface-bt-bank_account_number' => 'ব্যাংক অ্যাকাউন্ট নম্বর',
+	'donate_interface-rtbt-issuer_id' => 'কোন ব্যাংক নির্বাচন করুন',
 	'donate_interface-dd-account_name' => 'অ্যাকাউন্ট নাম',
+	'donate_interface-dd-account_number' => 'অ্যাকাউন্ট নম্বর',
+	'donate_interface-dd-bank_name' => 'ব্যাংকের নাম',
+	'donate_interface-translate-bluelink' => 'এই অনুবাদের উন্নয়ন করুন',
+	'donate_interface-translate-redlink1' => 'এই পাতাটি অনুবাদ করতে সাহায্য করুন।',
 );
 
 /** Breton (Brezhoneg)
@@ -5479,6 +5486,14 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-securelogo-title' => 'Zum Verifizieren hier klicken – Diese Website benutzt VeriSign SSL für sicheren E-Commerce und vertrauliche Kommunikationen.',
 	'donate_interface-secureLogo-text' => 'Über SSL-Zertifikate',
 	'donate_interface-error-http-403' => 'Sie haben nicht die erforderliche Berechtigung, um diese Seite aufzurufen.',
+);
+
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
+ * @author Imre
+ */
+$messages['de-formal'] = array(
+	'donate_interface-noscript-msg' => 'Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.
+Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf unser Spendenformular JavaScript.',
 );
 
 /** Zazaki (Zazaki)
@@ -11117,7 +11132,7 @@ In alcun casos, le codice se trova al sinistra del carta, ma es sempre supra le 
 	'donate_interface-question-comment' => 'Questiones o commentos? Contacta: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Nos tenta facilitar le donationes de tote le paises. Per favor dice nos como nos pote render lo plus facile pro te. Invia suggestiones a: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Problemas de donar?',
-	'donate_interface-donate-click' => 'Le informationes de tu carta de credito essera tractate de modo secur.',
+	'donate_interface-donate-click' => 'Le informationes de tu carta de credito/debito essera tractate de modo secur.',
 	'donate_interface-otherways' => 'Il ha <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/ia">altere modos de donar, como PayPal, cheque o posta</a>.',
 	'donate_interface-otherways-alt' => 'Il ha <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altere modos de donar</a>, como per cheque.',
 	'donate_interface-otherways-short' => 'Altere modos de donation',
@@ -11289,7 +11304,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 	'donate_interface-legal-donorpolicy' => 'Per donar, tu divide tu information con le Fundation Wikimedia, le organisation sin scopo lucrative que alberga Wikipedia e altere projecto Wikimedia, e su fornitores de servicio in le Statos Unite e alibi in conformitate con nostre politica de confidentialitate pro le donatores. Nos non vende o excambia tu information.',
 	'donate_interface-monthlybox-title' => 'Facer lo cata mense?',
 	'donate_interface-monthlybox-content' => 'Le donationes mensual es processate super le secunde die de de cata mense. Tu pote cancellar a omne tempore.',
-	'donate_interface-monthlybox-amount' => 'Amonta del donation',
+	'donate_interface-monthlybox-amount' => 'Amonta del donation mensual',
 	'donate_interface-monthlybox-yes' => 'Si, face lo cata mense',
 	'donate_interface-monthlybox-no' => 'NO, face un donation unic',
 	'donate_interface-monthlybox-bottom' => 'Tu donation essera processate de forma secur.',
@@ -18339,7 +18354,8 @@ Normalment l'area ëd firma a l'ha na serie ëd nùmer, ma mach j'ùltime tre gi
 Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é sempe dzora al nùmer ëd cont.</p><br />",
 	'donate_interface-question-comment' => 'Chestion o coment? Contat: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => "I së sforsoma ëd rende bel fé doné a përson-e an qualsëssìa pais. Për piasì, ch'an fasa savèj com i podoma rendlo pi bel fé për chiel. Ch'a manda ij sò sugeriment a: problemsdonating@wikimedia.org.",
-	'donate_interface-donate-click' => 'Soa carta ëd crédit a sarà tratà an manera sigura.',
+	'donate_interface-problemsdonating' => 'Problem a doné?',
+	'donate_interface-donate-click' => 'Soa carta ëd crédit / débit a sarà tratà an manera sigura.',
 	'donate_interface-otherways' => 'A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d\'àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.',
 	'donate_interface-otherways-alt' => 'A-i é <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">d\'àutre manere ëd fé na donassion</a>, comprèis jë s-cianchèt.',
 	'donate_interface-otherways-short' => 'Àutre manere për fé dle donassion',
@@ -18467,7 +18483,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-bt-country_description' => 'Descrission dël pais',
 	'donate_interface-bt-payment_reference' => 'Arferiment dël pagament',
 	'donate_interface-bt-swift_code' => 'Còdes Swift',
-	'donate_interface-bt-special_id' => 'ID special',
+	'donate_interface-bt-special_id' => 'Anformassion specìfiche dël pais',
 	'donate_interface-bt-information' => 'Anformassion dël trasferiment bancari',
 	'donate_interface-bt-finished' => 'Finì',
 	'donate_interface-obt-biller_id' => 'Còdes ëd chi a fatura',
@@ -18495,6 +18511,8 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-email-unsub-success' => 'It ses stàit gavà da bin da nòsta lista ëd pòsta',
 	'donate_interface-email-unsub-delay' => "Për piasì, ch'a speta fin-a a quatr (4) di për che le modìfiche a l'abio efet. I së scusoma për qualsëssìa mëssagi ch'a arseivèissa an cost temp. S'a l'èissa qualsëssìa chestion, për piasì ch'a contata <donations@wikimedia.org>",
 	'donate_interface-email-unsub-fail' => "A-i era n'eror an tratand toa arcesta, për piasì contata <donations@wikimedia.org>.",
+	'donate_interface-email-unsub-confirm' => 'Ses-to sigur ëd vorej disëscrive <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => "Sòn-sì at butrà fòra dai corej mandà da la Fondassion Wikimedia a ti com donator. It podras anco' arseive corej a st'adrëssa e-mail s'it ses associà con un cont d'un dij nòst proget. S'it l'avèisse quaich custion, për piasì contata <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
 	'donate_interface-faqs' => "Chestion fàite 'd soens",
 	'donate_interface-tax-info' => "Anformassion an sl'ardussion da le taje",
 	'donate_interface-informationsharing' => "An donand, a partagia soe anformassion con la Fondassion Wikimedia, l'organisassion sensa but ëd guadagn ch'a òspita Wikipedia e j'àutri proget Wikimedia, e ij sò fornidor ëd servissi ant jë Stat Unì e da d'àutre part conforma a nòstre régole d'arservatëssa dij donator. Noi i vendoma pa ni i scangioma soa anformassion con chicassìa. Për savèjne ëd pi, për piasì ch'a lesa <a href=\"http://wikimediafoundation.org/wiki/Donor_policy/en\">nòstre régole an sij donator</a>.",
@@ -18512,8 +18530,10 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-monthlybox-yes' => 'Bò, felo mensilment',
 	'donate_interface-monthlybox-no' => 'NÒ, fé na donassion na vira sola',
 	'donate_interface-monthlybox-bottom' => 'Soa donassion a sarà tratà an manera sigura.',
+	'donate_interface-monthly-cancel' => "Pagament mensij a saran debità da la Fondassion Wikimedia fin al moment ch'it in avise ëd finije.",
 	'donate_interface-securelogo-title' => "Ch'a sgnaca për Verifiché - Ës sit a l'ha sernù Verisign SSL për le comunicassion sigure ëd comersi e confidensiaj.",
 	'donate_interface-secureLogo-text' => 'Dzora ai sertificà SSL',
+	'donate_interface-error-http-403' => "It l'has pa ij përmess për vëdde sta pàgina-sì.",
 );
 
 /** Pashto (پښتو)
@@ -18528,6 +18548,7 @@ $messages['ps'] = array(
 	'donate_interface-comment-label' => 'تبصره:',
 	'donate_interface-comment-title' => 'عمومي تبصره',
 	'donate_interface-AED' => 'اماراتي درهم',
+	'donate_interface-ARS' => 'ارجنټايني پېسو',
 	'donate_interface-AUD' => 'اسټراليايي ډالر',
 	'donate_interface-BBD' => 'باربادياني ډالر',
 	'donate_interface-BDT' => 'بنګله دېشي ټکه',
@@ -18542,19 +18563,31 @@ $messages['ps'] = array(
 	'donate_interface-CAD' => 'کاناډايي ډالر',
 	'donate_interface-CHF' => 'سويسي فرانک',
 	'donate_interface-CLP' => 'چېلي پېسو',
+	'donate_interface-CNY' => 'چينايي يان رينمېنبي',
 	'donate_interface-COP' => 'کولمبيايي کولمب',
 	'donate_interface-CRC' => 'کوسټاريکي کولون',
 	'donate_interface-CZK' => 'چېکي کرون',
 	'donate_interface-DKK' => 'ډېنمارکي کرون',
+	'donate_interface-DOP' => 'ډومنيکاني پېسو',
 	'donate_interface-DZD' => 'الجزايري دينار',
 	'donate_interface-EEK' => 'اېسټوني کرون',
 	'donate_interface-EGP' => 'مصري پونډ',
 	'donate_interface-EUR' => 'اېرو',
 	'donate_interface-GBP' => 'برتانيوي پاونډ',
+	'donate_interface-GTQ' => 'ګواتمالي کويټزال',
 	'donate_interface-HKD' => 'هانګ کانګي ډالر',
+	'donate_interface-HNL' => 'هندوراسي ليمپېرا',
+	'donate_interface-HRK' => 'کرواسي کيونا',
 	'donate_interface-HUF' => 'هنګري فورېنټ',
+	'donate_interface-IDR' => 'اندونېزي روپيه',
 	'donate_interface-ILS' => 'اسراييلي شېکېل',
+	'donate_interface-INR' => 'هندي روپۍ',
+	'donate_interface-JMD' => 'جمايکاني ډالر',
+	'donate_interface-JOD' => 'اردني دينار',
 	'donate_interface-JPY' => 'جاپاني ين',
+	'donate_interface-KES' => 'کينيايي شېلېنګ',
+	'donate_interface-KRW' => 'سوېل کوريايي وون',
+	'donate_interface-KYD' => 'کېمني ټاپوانو ډالر',
 	'donate_interface-MVR' => 'مالديپي روفيه',
 	'donate_interface-NOK' => 'نارويژي کرون',
 	'donate_interface-NZD' => 'نيوزيلانډي ډالر',
@@ -18655,7 +18688,13 @@ $messages['ps'] = array(
 	'donate_interface-credit-card-number-abbreviated' => 'باور کارت #',
 	'donate_interface-expires-question' => 'پای نېټه؟',
 	'donate_interface-expires' => 'پای نېټه',
+	'donate_interface-cvv' => 'CVV',
+	'donate_interface-cvv-number-abbreviated' => 'CVV #',
+	'donate_interface-cvv2' => 'CVV2',
+	'donate_interface-cvv-number' => 'CVV ګڼ',
 	'donate_interface-what-is-this' => 'دا څه دی؟',
+	'donate_interface-make-a-donation' => 'بسپنه ورکول',
+	'donate_interface-next' => 'راتلونکی',
 	'donate_interface-cancel' => 'ناګارل',
 	'donate_interface-donation' => 'بسپنې',
 	'donate_interface-language' => 'ژبه:',
@@ -20328,6 +20367,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-error-msg-cvv' => "CVV da 'u rete d'a carta toje",
 	'donate_interface-error-msg-captcha' => "'U valore d'u captcha ca è mise jè sbagliate. Pruève arrete.",
 	'donate_interface-error-msg-captcha-please' => "Pè 'a securezze d'a carte de credite vuèstre, sì pregate de diggetà le carattere ce vide aqquà d'abasce.",
+	'donate_interface-error-msg-genaricrequired' => 'Stu cambe jè richieste',
 	'php-response-declined' => "'A donaziune toje non g'è state accettate.",
 	'donate_interface-thankyou' => "Grazzie pè 'a donaziune toje!",
 	'donate_interface-post-transaction' => "Dettaglie sus 'a transizione",
@@ -21791,6 +21831,7 @@ $messages['si'] = array(
 	'donate_interface-HUF' => 'හන්ගේරියානු ෆොරින්ට්',
 	'donate_interface-ILS' => 'ඊශ්‍රායෙල ෂෙකෙල්',
 	'donate_interface-JPY' => 'ජපාන යෙන්',
+	'donate_interface-LKR' => 'ශ්‍රී ලංකා රුපියල්',
 	'donate_interface-NOK' => 'නෝවීජියානු ක්‍රෝන',
 	'donate_interface-NZD' => 'නවසීලන්ත ඩොලර්',
 	'donate_interface-PLN' => 'පෝලන්ත ස්ලොටි',
@@ -21827,7 +21868,10 @@ $messages['si'] = array(
 	'donate_interface-donor-security' => 'සුරක්ෂිත කේතය',
 	'donate_interface-donor-submit' => 'පරිත්‍යාග කරන්න',
 	'donate_interface-donor-currency-msg' => 'මෙම පරිත්‍යාගය සිදු කරනුයේ  $1 භාවිතයෙනි',
+	'donate_interface-card-name-amex' => 'ඇමරිකන් එක්ස්ප්‍රස්',
 	'donate_interface-card-name-visa' => 'වීසා',
+	'donate_interface-card-name-mc' => 'මාස්ටර්කාඩ්',
+	'donate_interface-card-name-discover' => 'ඩිස්කවර්',
 	'donate_interface-error-msg-nopaypal' => 'තාක්ෂණික දෝෂයක් මත, අප හට ඔබේ ඉල්ලීම පේපැල් වෙත යැවිය නොහැක.  කරුණාකර අපගේ සාමාන්‍ය ණයපත් පරිත්‍යාග අයදුම්පත පුරවා යවමින් උත්සහ කරන්න.',
 	'donate_interface-error-msg' => 'පහත තොරතුරු අවශ්‍ය වේ: $1',
 	'donate_interface-error-msg-js' => 'පහත තොරතුරු අවශ්‍ය වේ:',
@@ -21882,11 +21926,14 @@ $messages['si'] = array(
 	'donate_interface-middle' => 'මැද',
 	'donate_interface-last' => 'අවසන්',
 	'donate_interface-other' => 'වෙනත්',
+	'donate_interface-or' => 'හෝ',
 	'donate_interface-your-information' => 'ඔබේ තොරතුරු',
 	'donate_interface-title' => 'මාතෘකාව',
 	'donate_interface-company-name' => 'ව්‍යාපාරයේ හෝ සංවිධානයේ නම',
 	'donate_interface-address-1' => 'ලිපිනය 1',
 	'donate_interface-address-2' => 'ලිපිනය 2',
+	'donate_interface-street-1' => 'වීදිය 1',
+	'donate_interface-street-2' => 'වීදිය 2',
 	'donate_interface-zip-code' => 'සිප් කේතය',
 	'donate_interface-country' => 'රට',
 	'donate_interface-select-country' => 'රට තෝරන්න',
@@ -24728,7 +24775,9 @@ $messages['te'] = array(
 	'donate_interface-back' => 'వెనుక',
 	'donate_interface-select' => 'పరిమాణం:',
 	'donate_interface-change' => 'మార్చు',
+	'donate_interface-optional' => 'ఐచ్చికం',
 	'donate_interface-state-dropdown-XX' => 'అమెరికా బయట',
+	'donate_interface-bt-account_holder' => 'ఖాతాదారు',
 	'donate_interface-bt-country_description' => 'దేశపు వివరణ',
 	'donate_interface-rtbt-issuer_id-longlist' => 'ఇతర బ్యాంకులు',
 	'donate_interface-dd-account_name' => 'ఖాతా పేరు',
@@ -27010,6 +27059,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 );
 
 /** Yiddish (ייִדיש)
+ * @author Imre
  * @author פוילישער
  */
 $messages['yi'] = array(
@@ -27138,6 +27188,7 @@ $messages['yi'] = array(
 	'donate_interface-or' => 'אדער',
 	'donate_interface-your-information' => 'אײַער אינפֿאָרמאַציע',
 	'donate_interface-mailing-address' => 'פאסט אדרעס',
+	'donate_interface-cancel' => 'אַנולירן',
 );
 
 /** Cantonese (粵語)
@@ -27801,6 +27852,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-error-msg-captcha-please' => '為確保您的信用卡安全，請輸入上方顯示的文字。',
 	'donate_interface-error-msg-cookies' => '請啟用您瀏覽器上允許執行cookies的選項',
 	'donate_interface-error-msg-genaricrequired' => '此字段是必需的',
+	'donate_interface-donate-error-try-a-different-card' => '請試用[$1 另外一個信用卡]或[$2 其他捐贈方法]，或者發送至$3聯絡我們',
 	'donate_interface-donate-error-thank-you-for-your-support' => '感謝您的支持！',
 	'php-response-declined' => '您的交易已被拒絕。',
 	'donate_interface-thankyou' => '感謝您的捐贈！',
@@ -27995,6 +28047,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-monthlybox-yes' => '是的，我要每月捐款',
 	'donate_interface-monthlybox-no' => '不，進行本次捐款即可',
 	'donate_interface-monthlybox-bottom' => '您的捐贈內容將會安全隱密地處理',
+	'donate_interface-monthly-cancel' => '維基媒體基金會將扣除每月支付，直至您通知我們停止的時候。',
 	'donate_interface-securelogo-title' => '點選驗證 - 此網站使用VeriSign SSL確保電子商務安全及機密通訊。',
 	'donate_interface-secureLogo-text' => '關於SSL憑證',
 	'donate_interface-error-http-403' => '你沒有訪問這個頁面的權限。',
