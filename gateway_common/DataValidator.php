@@ -135,9 +135,9 @@ class DataValidator {
 	 * @param string $value - The value of the field. So far, only used to say 
 	 * more precise things about Credit Cards. 
 	 */
-	public static function getErrorMessage( $field, $type, $value = null ){
+	public static function getErrorMessage( $field, $type, $language, $value = null ){
 		//this is gonna get ugly up in here. 
-		error_log( __FUNCTION__ . " $field, $type, $value " );
+		//error_log( __FUNCTION__ . " $field, $type, $value " );
 
 		//Empty messages should get: 
 		//'donate_interface-error-msg' => 'Please enter your $1';
@@ -154,7 +154,7 @@ class DataValidator {
 			//'donate_interface-error-msg-postal' => 'postal code',
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
-			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string ) ) {
+			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
 				return wfMsg( 'donate_interface-error-msg', wfMsg( $error_message_field_string ) );
 			} 
 		}
@@ -191,7 +191,7 @@ class DataValidator {
 			}
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;			
-			if ( self::wmfMessageExists( $error_message_field_string ) ) {
+			if ( self::wmfMessageExists( $error_message_field_string, $language ) ) {
 				return wfMsg( $error_message_field_string );
 			}
 		}
@@ -203,21 +203,14 @@ class DataValidator {
 	
 	/**
 	 * wmfMessageExists returns true if a translatable message has been defined 
-	 * for the string that has been passed in, false if none is present. 
-	 * TODO: See what this does in other languages when the string exists in 
-	 * English, but not in the uselang. 
+	 * for the string and language that have been passed in, false if none is 
+	 * present. 
 	 * @param string $msg_key The message string to look up.
-	 * @return boolean - true if message, exists, otherwise false.
+	 * @param string $language A valid mediawiki language code.
+	 * @return boolean - true if message exists, otherwise false.
 	 */
-	public static function wmfMessageExists( $msg_key ){
-		//we may have some problems here if this returns false positives if a 
-		//message exists in English, but not in the language we're looking for.
-		//..but, they're not problems we don't already have. 
-		if ( wfEmptyMsg( $msg_key ) ) {
-			return false;
-		} else {
-			return true;
-		}
+	public static function wmfMessageExists( $msg_key, $language ){
+		return wfMessage( $msg_key )->inLanguage( $language )->exists();
 	}
 
 
@@ -242,8 +235,7 @@ class DataValidator {
 		 * We need to run the validation in an order that makes sense. 
 		 * 
 		 * First: If we need to validate that some things are not empty, do that. 
-		 * Second: Do regular data type validation (on things that are not empty, 
-		 * keeping in mind we may or may not have exploded on those yet. 
+		 * Second: Do regular data type validation on things that are not empty.
 		 * Third: Do validation that depends on multiple fields (making sure you 
 		 * validated that all the required fields exist on step 1, regardless of 
 		 * $check_not_empty)
@@ -300,6 +292,7 @@ class DataValidator {
 		$errors = array();
 		
 		$self = get_called_class();
+		$language = self::getLanguage( $data );
 		
 		foreach ( $instructions['non_empty'] as $field => $function ){
 			if ( method_exists( $self, $function ) && $function === 'validate_not_empty' ) {
@@ -307,11 +300,11 @@ class DataValidator {
 					$instructions['non_empty'][$field] = true;
 				} else {
 					$instructions['non_empty'][$field] = false;
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty' );
+					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
 				}
 			} else {
 				$instructions['non_empty'][$field] === 'exception';
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty' );
+				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
 			}
 		}
@@ -322,11 +315,11 @@ class DataValidator {
 					$instructions['valid_type'][$field] = true;
 				} else {
 					$instructions['valid_type'][$field] = false;
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type' );
+					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
 				}
 			} else {
 				$instructions['valid_type'][$field] === 'exception';
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type' );
+				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
 			}
 		}
@@ -358,16 +351,17 @@ class DataValidator {
 				
 				$instructions['calculated'][$field] = $result;
 				if ($result === false){ //implying we did the check, and it failed. 
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated' );
+					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				}
 				
 			} else {
 				$instructions['calculated'][$field] === 'exception';
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated' );
+				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
-		error_log( print_r( $errors, true ) );
+		//error_log( __FUNCTION__ . " " . print_r( $instructions, true ) );
+		//error_log( print_r( $errors, true ) );
 		return $errors;
 	}
 	
@@ -584,7 +578,6 @@ class DataValidator {
 	 * @return boolean True if the $value is not missing or empty, otherwise false.
 	 */
 	protected static function validate_not_empty( $value, $data ){
-		error_log(__FUNCTION__ . ". Yup!");
 		if ( !array_key_exists( $value, $data ) || is_null( $data[$value] ) || $data[$value] === '' ){
 			return false;
 		}
@@ -671,6 +664,24 @@ class DataValidator {
 		}
 	}
 	
+	/**
+	 * getLanguage
+	 * Returns a valid mediawiki language code to use for all the 
+	 * DonationInterface translations.
+	 * Will only look at the currently configured language if the 'language' key 
+	 * doesn't exist in the data set: Users may not have a language preference 
+	 * set if we're bouncing between mediawiki instances for payments.
+	 * @param array $data A normalized DonationInterface data set. 
+	 * @return string A valid mediawiki language code. 
+	 */
+	public static function getLanguage( $data ) {
+		global $wgLang;
+		if ( array_key_exists( 'language', $data )
+			&& Language::isValidBuiltInCode( $data['language'] ) ) {
+			return $data['language'];
+		} else {
+			return $wgLang->getCode();
+		}		
+	}
+	
 }
-
-?>
