@@ -61,13 +61,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//first, we need to... clean up the limbo queue. 
 		
 		//building in some redundancy here.
-		$keepGoing = true;
+		$collider_keepGoing = true;
 		$am_called_count = 0;
-		while ( $keepGoing ){
+		while ( $collider_keepGoing ){
 			$antimessageCount = $this->handleStompAntiMessages();
 			$am_called_count += 1;
-			if ( $antimessageCount === 0 ){
-				$keepGoing = false;
+			if ( $antimessageCount < 10 ){
+				$collider_keepGoing = false;
 			} else {
 				sleep(2); //two seconds. 
 			}
@@ -81,15 +81,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				//..do stuff. 
 				foreach ( $orphans as $correlation_id => $orphan ) {
 					//process
-					if ( $this->rectifyOrphan( $orphan ) ){
-						$this->addStompCorrelationIDToAckBucket( $correlation_id );
-						$this->handled_ids[$correlation_id] = 'rectified';
-					} else {
-						$this->handled_ids[$correlation_id] = 'error';
+					if ( $this->keepGoing() ){
+						if ( $this->rectifyOrphan( $orphan ) ){
+							$this->addStompCorrelationIDToAckBucket( $correlation_id );
+							$this->handled_ids[$correlation_id] = 'rectified';
+						} else {
+							$this->handled_ids[$correlation_id] = 'error';
+						}
 					}
 				}
 				$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
-				$orphans = $this->getStompOrphans();
+				if ( $this->keepGoing() ){
+					$orphans = $this->getStompOrphans();
+				}
 			}
 		}
 		
