@@ -32,7 +32,7 @@ $messages['en'] = array(
 	'donate_interface-small-amount-value' => '30',
 	'donate_interface-amount-error' => 'Please enter a valid amount',
 	'donate_interface-smallamount-error' => 'You must contribute at least $1',
-	'donate_interface-bigamount-error' => 'We can not accept donations greater than USD 10000 ($1 $2) through our website. Please contact our major gifts staff at [mailto:$3 $3].',
+	'donate_interface-bigamount-error' => 'We can not accept donations greater than USD 10000 ($1 $2) through our website. Please contact our major gifts staff at $3.',
 	'donate_interface-processing-error' => 'There has been an error processing your request.
 No processors are available.',
 
