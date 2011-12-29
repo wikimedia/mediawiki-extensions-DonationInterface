@@ -32,6 +32,7 @@ $messages['en'] = array(
 	'donate_interface-small-amount-value' => '30',
 	'donate_interface-amount-error' => 'Please enter a valid amount',
 	'donate_interface-smallamount-error' => 'You must contribute at least $1',
+	'donate_interface-bigamount-error' => 'We can not accept donations greater than USD 10000 ($1 $2) through our website. Please contact our major gifts staff at [mailto:$3 $3].',
 	'donate_interface-processing-error' => 'There has been an error processing your request.
 No processors are available.',
 
@@ -451,6 +452,10 @@ $messages['qqq'] = array(
 	'donate_interface-comment-title' => "Next to check box; to choose whether the donor's comment shall be publically viewable or not.",
 	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
 	'donate_interface-smallamount-error' => "Error message if the amount chosen is too low. \$1 is a variable (it does '''not''' mean \"one dollar\"), and will be replaced with an amount in the user's currency.",
+	'donate_interface-bigamount-error' => "Error message if the amount chosen is too high. Parameters:
+* \$1 is the amount in the user's chosen currency.
+* \$2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
+* \$3 is the e-mail address that the user should e-mail to give big gifts.",
 	'donate_interface-processing-error' => 'Error message.',
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
