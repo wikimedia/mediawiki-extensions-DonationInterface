@@ -167,7 +167,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$selector = "antimessage = 'true'";
 		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		$count = 0;
-		while ( count( $antimessages ) && $this->keepGoing() ){ //if there's an antimessage, we can ack 'em all right now. 
+		while ( count( $antimessages ) > 10 && $this->keepGoing() ){ //if there's an antimessage, we can ack 'em all right now. 
 			$count += count( $antimessages );
 			foreach ( $antimessages as $message ){
 				//add the correlation ID to the ack bucket. 
