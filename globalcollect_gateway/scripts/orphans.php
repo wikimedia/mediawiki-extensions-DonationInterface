@@ -59,7 +59,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->handled_ids = array();
 		
 		//first, we need to... clean up the limbo queue. 
-		$this->handleStompAntiMessages();
+		
+		//building in some redundancy here.
+		$keepGoing = true;
+		$am_called_count = 0;
+		while ( $keepGoing ){
+			$antimessageCount = $this->handleStompAntiMessages();
+			$am_called_count += 1;
+			if ( $antimessageCount === 0 ){
+				$keepGoing = false;
+			} else {
+				sleep(2); //two seconds. 
+			}
+		}
 		$this->adapter->log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 		
 		if ( $this->keepGoing() ){
@@ -101,7 +113,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		$final = "\nDone! Final results: \n";
-		$final .= " $am destroyed via antimessage \n";
+		$final .= " $am destroyed via antimessage (called $am_called_count times) \n";
 		$final .= " $rec rectified orphans \n";
 		$final .= " $err errored out \n";
 		if ( isset( $this->adapter->orphanstats ) ){
@@ -166,6 +178,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
 		$this->adapter->log("Found $count antimessages.");
+		return $count;
 	}
 	
 	/**
