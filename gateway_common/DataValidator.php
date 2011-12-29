@@ -159,7 +159,7 @@ class DataValidator {
 			} 
 		}
 		
-		if ( $type === 'valid_type' ) {
+		if ( $type === 'valid_type' || $type === 'calculated' ) {
 			//NOTE: We are just using the next bit because it's convenient. 
 			//getErrorToken is actually for something entirely different: 
 			//Figuring out where on the form the error should land.  
@@ -168,8 +168,10 @@ class DataValidator {
 			switch ($token){
 				case 'amount': 
 					$suffix = 'invalid-amount';
+					break;
 				case 'emailAdd': 
 					$suffix = 'email';
+					break;
 				case 'card_num': //god damn it.
 					$suffix = 'card_num'; //more defaultness.
 					if (!is_null($value)){
@@ -276,6 +278,8 @@ class DataValidator {
 						//Note: We could do something like also validate amount not empty, and then that it's numeric
 						//That way we'd get more precisely granular error messages. 
 						$check_type = 'calculated';
+						$instructions['non_empty']['amount'] = 'validate_not_empty';
+						$instructions['valid_type']['amount'] = 'validate_numeric';
 						$instructions['non_empty']['currency_code'] = 'validate_not_empty';
 						$instructions['valid_type']['currency_code'] = self::getValidationFunction( 'currency_code' );
 						$instructions['non_empty']['gateway'] = 'validate_not_empty';
@@ -360,8 +364,8 @@ class DataValidator {
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
-		//error_log( __FUNCTION__ . " " . print_r( $instructions, true ) );
-		//error_log( print_r( $errors, true ) );
+//		error_log( __FUNCTION__ . " " . print_r( $instructions, true ) );
+//		error_log( print_r( $errors, true ) );
 		return $errors;
 	}
 	
