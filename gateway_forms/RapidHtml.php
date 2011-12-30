@@ -90,9 +90,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'#emailAdd',
 	);
 
-	public function __construct( &$gateway, &$form_errors ) {
+	public function __construct( &$gateway ) {
 		global $wgRequest;
-		parent::__construct( $gateway, $form_errors );
+		parent::__construct( $gateway );
 
 		$this->loadValidateJs();
 		

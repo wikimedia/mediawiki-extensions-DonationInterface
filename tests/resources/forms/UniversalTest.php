@@ -158,7 +158,7 @@ HTML;
 		
 		$return .= $this->getFormMessagesByType('general');
 		
-		$return .= $this->getFormMessagesByType('invalidamount');
+		$return .= $this->getFormMessagesByType('amount');
 		
 		$return .= $this->getFormMessagesByType('retryMsg');
 		

@@ -1,7 +1,7 @@
 <?php
 
 class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn {
-	public function __construct( &$gateway, &$form_errors ) {
+	public function __construct( &$gateway ) {
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
@@ -9,7 +9,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/gateway_forms/css/TwoStepTwoColumnPremium.css' );
 		}
 
-		parent::__construct( $gateway, $form_errors );
+		parent::__construct( $gateway );
 	}
 
 	public function generateFormStart() {
@@ -96,7 +96,7 @@ class Gateway_Form_TwoStepTwoColumnPremium extends Gateway_Form_TwoStepTwoColumn
 
 		// amount
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';

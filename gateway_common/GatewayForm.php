@@ -48,265 +48,85 @@ class GatewayForm extends UnlistedSpecialPage {
 	public function __construct() {
 		$me = get_called_class();
 		parent::__construct( $me );
-		$this->errors = $this->getPossibleErrors();
 	}
 
 	/**
-	 * Checks posted form data for errors and returns array of messages
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
+	 * Checks current dataset for validation errors
+	 * TODO: As with every other bit of gateway-related logic that should 
+	 * definitely be available to every entry point, and functionally has very 
+	 * little to do with being contained within what in an ideal world would be 
+	 * a piece of mostly UI, this function needs to be moved inside the gateway 
+	 * adapter class.
 	 * @param array	$options
-	 *   OPTIONAL - You may require certain field groups to be validated
-	 *   - address - Validates: street, city, state, zip
-	 *   - amount - Validates: amount
-	 *   - creditCard - Validates: card_num, cvv, expiration and sets the card
-	 *   - email - Validates: email
-	 *   - name - Validates: fname, lname
+	 *   OPTIONAL - In addition to all non-optional validation which verifies 
+	 *   that all populated fields contain an appropriate data type, you may 
+	 *   require certain field groups to be non-empty.
+	 *   - address - Validation requires non-empty: street, city, state, zip
+	 *   - amount - Validation requires non-empty: amount
+	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
+	 *   - email - Validation requires non-empty: email
+	 *   - name - Validation requires non-empty: fname, lname
 	 *
-	 * @return 0|1	Returns 0 on success and 1 on failure
+	 * @return boolean Returns true on an error-free validation, otherwise false.
 	 */
-	public function validateForm( &$error, $options = array() ) {
+	public function validateForm( $options = array() ) {
 		
-		$data = $this->adapter->getData_Unstaged_Escaped();
+		$check_not_empty = array();
 		
-		extract( $options );
-
-		// Set which items will be validated
-		$address = isset( $address ) ? ( boolean ) $address : true;
-		$amount = isset( $amount ) ? ( boolean ) $amount : true;
-		$creditCard = isset( $creditCard ) ? ( boolean ) $creditCard : false;
-		$email = isset( $email ) ? ( boolean ) $email : true;
-		$name = isset( $name ) ? ( boolean ) $name : true;
-
-		// These are set in the order they will most likely appear on the form.
-
-		if ( $name ) {
-			$this->validateName( $data, $error );
+		foreach ( $options as $option ){
+			$add_checks = array();
+			switch( $option ){
+				case 'address' :
+					$add_checks = array(
+						'street',
+						'city',
+						'state',
+						'country',
+						'zip', //this should really be added or removed, depending on the country and/or gateway requirements. 
+						//however, that's not happening in this class in the code I'm replacing, so... 
+						//TODO: Something clever in the DataValidator with data groups like these. 
+					);
+					break;
+				case 'amount' :
+					$add_checks[] = 'amount';
+					break;
+				case 'creditCard' :
+					$add_checks = array(
+						'card_num',
+						'cvv',
+						'expiration',
+						'card_type'
+					);
+					break;
+				case 'email' :
+					$add_checks[] = 'email';
+					break;
+				case 'name' :
+					$add_checks = array(
+						'fname',
+						'lname'
+					);
+					break;
+			}
+			$check_not_empty = array_merge( $check_not_empty, $add_checks );
 		}
-
-		if ( $address ) {
-			$this->validateAddress( $data, $error );
-		}
-
-		if ( $amount ) {
-			$this->validateAmount( $data, $error );
-		}
-
-		if ( $email ) {
-			$this->validateEmail( $data, $error );
-		}
-
-		if ( $creditCard ) {
-			$this->validateCreditCard( $data, $error );
-		}
-
-		/*
-		 * $error_result would return 0 on success, 1 on failure.
-		 *
-		 * This is done for backward compatibility.
-		 */
-		return $this->getValidateFormResult() ? 0 : 1;
-	}
-
-	/**
-	 * Validates the address
-	 *
-	 * Required:
-	 * - street
-	 * - city
-	 * - state
-	 * - zip
-	 * - country
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
-	 *
-	 * @see GatewayForm::validateForm()
-	 */
-	public function validateAddress( &$data, &$error ) {
-
-		if ( empty( $data['street'] ) ) {
-
-			$error['street'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-street' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['city'] ) ) {
-
-			$error['city'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-city' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['state'] ) || $data['state'] == 'YY' ) {
-
-			$error['state'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-state-province' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['country'] ) || !array_key_exists( $data['country'], $this->getCountries() )) {
-
-			$error['country'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-country' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		$ignoreCountries = array();
 		
-		if ( empty( $data['zip'] ) && !in_array( $data['country'], $ignoreCountries ) ) {
+		$validate_errors = $this->adapter->revalidate( $check_not_empty );
 
-			$error['zip'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-zip' ) );
-
-			$this->setValidateFormResult( false );
-		}
-	}
-
-	/**
-	 * Validates the amount contributed
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
-	 *
-	 * @see GatewayForm::validateForm()
-	 */
-	public function validateAmount( &$data, &$error ) {
-
-		if ( empty( $data['amount'] ) ) {
-
-			$error['amount'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-amount' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		// check amount
-		$priceFloor = $this->adapter->getGlobal( 'PriceFloor' );
-		$priceCeiling = $this->adapter->getGlobal( 'PriceCeiling' );
-		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $data['amount'] ) ||
-			( ( float ) $this->convert_to_usd( $data['currency_code'], $data['amount'] ) < ( float ) $priceFloor ||
-			( float ) $this->convert_to_usd( $data['currency_code'], $data['amount'] ) > ( float ) $priceCeiling ) ) {
-
-			$error['invalidamount'] = wfMsg( 'donate_interface-error-msg-invalid-amount' );
-
-			$this->setValidateFormResult( false );
-		}
-	}
-
-	/**
-	 * Validates a credit card
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
-	 *
-	 * @see GatewayForm::validateForm()
-	 */
-	public function validateCreditCard( &$data, &$error ) {
-
-		if ( empty( $data['card_num'] ) ) {
-
-			$error['card_num'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-card_num' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['cvv'] ) ) {
-
-			$error['cvv'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-cvv' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['expiration'] ) ) {
-
-			$error['expiration'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-expiration' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		// validate that credit card number entered is correct and set the card type
-		if ( preg_match( '/^3[47][0-9]{13}$/', $data['card_num'] ) ) { // american express
-			$data['card'] = 'american';
-		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $data['card_num'] ) ) { //	mastercard
-			$data['card'] = 'mastercard';
-		} elseif ( preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $data['card_num'] ) ) {// visa
-			$data['card'] = 'visa';
-		} elseif ( preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $data['card_num'] ) ) { // discover
-			$data['card'] = 'discover';
-		} else { // an invalid credit card number was entered
-			$error['card_num'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-card-num' ) );
-
-			$this->setValidateFormResult( false );
-		}
-	}
-
-	/**
-	 * Validates an email address.
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
-	 *
-	 * @see GatewayForm::validateForm()
-	 */
-	public function validateEmail( &$data, &$error ) {
-
-		if ( empty( $data['email'] ) ) {
-
-			$error['email'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-email-empty' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		// is email address valid?
-		$isEmail = User::isValidEmailAddr( $data['email'] );
-
-		// create error message (supercedes empty field message)
-		if ( !$isEmail ) {
-			$error['email'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-email' ) );
-
-			$this->setValidateFormResult( false );
-		}
-	}
-
-	/**
-	 * Validates the name
-	 *
-	 * @param array	$data	Reference to the data of the form
-	 * @param array	$error	Reference to the error messages of the form
-	 *
-	 * @see GatewayForm::validateForm()
-	 */
-	public function validateName( &$data, &$error ) {
-
-		if ( empty( $data['fname'] ) ) {
-
-			$error['fname'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-fname' ) );
-
-			$this->setValidateFormResult( false );
-		}
-
-		if ( empty( $data['lname'] ) ) {
-
-			$error['lname'] = wfMsg( 'donate_interface-error-msg', wfMsg( 'donate_interface-error-msg-lname' ) );
-
-			$this->setValidateFormResult( false );
-		}
+		return $validate_errors;
 	}
 
 	/**
 	 * Build and display form to user
 	 *
-	 * @param $error Array: array of error messages returned by validate_form function
-	 *
 	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
-	public function displayForm( &$error ) {
+	public function displayForm() {
 		global $wgOut;
 
 		$form_class = $this->getFormClass();
 		if ( $form_class && class_exists( $form_class ) ){
-			$form_obj = new $form_class( $this->adapter, $error );
+			$form_obj = new $form_class( $this->adapter );
 			$form = $form_obj->getForm();
 			$wgOut->addHTML( $form );
 		} else {
@@ -385,25 +205,6 @@ class GatewayForm extends UnlistedSpecialPage {
 		}
 	}
 
-	public function getPossibleErrors() {
-		return array(
-			'general' => '',
-			'retryMsg' => '',
-			'invalidamount' => '',
-			'card_num' => '',
-			'card_type' => '',
-			'cvv' => '',
-			'fname' => '',
-			'lname' => '',
-			'city' => '',
-			'country' => '',
-			'street' => '',
-			'state' => '',
-			'zip' => '',
-			'emailAdd' => '',
-		);
-	}
-
 	/**
 	 * Convert an amount for a particular currency to an amount in USD
 	 *
@@ -451,7 +252,8 @@ class GatewayForm extends UnlistedSpecialPage {
 		// if we don't have a URL enabled throw a graceful error to the user
 		if ( !strlen( $this->adapter->getGlobal( 'PaypalURL' ) ) ) {
 			$gateway_identifier = $this->adapter->getIdentifier();
-			$this->errors['general']['nopaypal'] = wfMsg( $gateway_identifier . '_gateway-error-msg-nopaypal' );
+			$error['general']['nopaypal'] = wfMsg( $gateway_identifier . '_gateway-error-msg-nopaypal' );
+			$this->adapter->addManualError( $error );
 			return;
 		}
 		// submit the data to the paypal redirect URL
@@ -534,21 +336,19 @@ class GatewayForm extends UnlistedSpecialPage {
 		// Display debugging results
 		$this->displayResultsForDebug();
 
-		$this->errors['general'] = ( !isset( $this->errors['general'] ) || empty( $this->errors['general'] ) ) ? array() : (array) $this->errors['general'];
-
-		$this->errors['retryMsg'] = ( !isset( $this->errors['retryMsg'] ) || empty( $this->errors['retryMsg'] ) ) ? array() : (array) $this->errors['retryMsg'];
-
 		foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
 			
+			$error = array();
 			if ( strpos( $code, 'internal' ) === 0 ) {
-				$this->errors['retryMsg'][ $code ] = $message;
+				$error['retryMsg'][ $code ] = $message;
 			}
 			else {
-				$this->errors['general'][ $code ] = $message;
+				$error['general'][ $code ] = $message;
 			}
+			$this->adapter->addManualError( $error );
 		}
 		
-		return $this->displayForm( $this->errors );
+		return $this->displayForm();
 	}
 
 }

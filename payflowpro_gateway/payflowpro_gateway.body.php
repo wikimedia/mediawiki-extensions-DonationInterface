@@ -39,10 +39,10 @@ class PayflowProGateway extends GatewayForm {
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				// Check form for errors
-				$form_errors = $this->validateForm( $this->errors );
+				$form_errors = $this->validateForm();
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
-					$this->displayForm( $this->errors );
+					$this->displayForm();
 				} else { // The submitted form data is valid, so process it
 					$result = $this->adapter->do_transaction( 'Card' );
 
@@ -58,11 +58,12 @@ class PayflowProGateway extends GatewayForm {
 				}
 			} else {
 				// Display form for the first time
-				$this->displayForm( $this->errors );
+				$this->displayForm();
 			}
 		} else {//token mismatch
-			$this->errors['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
-			$this->displayForm( $this->errors );
+			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
 		}
 	}
 
@@ -94,8 +95,9 @@ class PayflowProGateway extends GatewayForm {
 		} elseif ( ( $errorCode == '3' ) && ( $data['numAttempt'] < '5' ) ) {
 			$this->log( $msgPrefix . "Transaction unsuccessful (invalid info).", LOG_DEBUG );
 			// pass responseMsg as an array key as required by displayForm
-			$this->errors['retryMsg'] = $responseMsg;
-			$this->displayForm( $this->errors );
+			$error['retryMsg'] = $responseMsg;
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
 			// if declined or if user has already made two attempts, decline
 		} elseif ( ( $errorCode == '2' ) || ( $data['numAttempt'] >= '3' ) ) {
 			$this->log( $msgPrefix . "Transaction declined.", LOG_DEBUG );
@@ -108,14 +110,16 @@ class PayflowProGateway extends GatewayForm {
 			$this->fnPayflowDisplayPending( $data, $responseMsg );
 		} elseif ( strpos( $errorCode, 'internal' ) === 0 ) {
 			$this->log( $msgPrefix . "Transaction unsuccessful (communication failure).", LOG_DEBUG );
-			$this->errors['retryMsg'] = $responseMsg;
-			$this->displayForm( $this->errors );
+			$error['retryMsg'] = $responseMsg;
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
 		} elseif ( !empty( $errorCode ) ) {
 			// This should not be hit.
 			$this->log( $msgPrefix . "Transaction unsuccessful (unknown failure).", LOG_DEBUG );
 			$this->fnPayflowDisplayOtherResults( $responseMsg );
-			$this->errors['retryMsg'] = $errorCode;
-			$this->displayForm( $this->errors );
+			$error['retryMsg'] = $errorCode;
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 class Gateway_Form_TwoColumnLetter7 extends Gateway_Form_OneStepTwoColumn {
 
-	public function __construct( &$gateway, &$form_errors ) {
+	public function __construct( &$gateway ) {
 		global $wgScriptPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
@@ -10,7 +10,7 @@ class Gateway_Form_TwoColumnLetter7 extends Gateway_Form_OneStepTwoColumn {
 			$this->setStylePath( $wgScriptPath . '/extensions/DonationInterface/gateway_forms/css/TwoColumnLetter7.css' );
 		}
 
-		parent::__construct( $gateway, $form_errors );
+		parent::__construct( $gateway );
 	}
 
 	public function loadPlaceholders() {
@@ -213,7 +213,7 @@ EOT;
 			$amount = $this->getEscapedValue( 'amountOther' );
 		}
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"><div style="padding-top:4px;">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</div></td>';

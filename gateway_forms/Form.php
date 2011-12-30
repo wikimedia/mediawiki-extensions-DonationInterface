@@ -62,12 +62,16 @@ abstract class Gateway_Form {
 	 */
 	abstract function getForm();
 
-	public function __construct( &$gateway, &$error ) {
+	public function __construct( &$gateway ) {
 		global $wgOut, $wgRequest;
 
 		$this->gateway = & $gateway;
 		$this->test = $this->gateway->getGlobal( "Test" );
-		$this->form_errors = & $error;
+		$gateway_errors = $this->gateway->getAllErrors();
+		if ( !is_array( $gateway_errors ) ){
+			$gateway_errors = array();
+		}
+		$this->form_errors = array_merge( DataValidator::getEmptyErrorArray(), $gateway_errors );
 		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
 		/**
@@ -599,7 +603,7 @@ abstract class Gateway_Form {
 			$amount = $this->getEscapedValue( 'amountOther' );
 		}
 		$form = '<tr>';
-		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';

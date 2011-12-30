@@ -1895,7 +1895,8 @@ abstract class GatewayAdapter implements GatewayType {
 		return get_called_class();
 	}
 
-	public function setValidationErrors( $errors ) {
+	//only the gateway should be setting validation errors. Everybody else should set manual errors. 
+	protected function setValidationErrors( $errors ) {
 		$this->validation_errors = $errors;
 	}
 
@@ -1905,6 +1906,35 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			return false;
 		}
+	}
+
+	public function addManualError( $errors, $reset = false ) {
+		if ( $reset ){
+			$this->manual_errors = array();
+			return;
+		}
+		$this->manual_errors = array_merge( $this->manual_errors, $errors );
+	}
+
+	public function getManualErrors() {
+		if ( !empty( $this->manual_errors ) ) {
+			return $this->manual_errors;
+		} else {
+			return false;
+		}
+	}
+	
+	public function getAllErrors(){
+		$validation = $this->getValidationErrors();
+		$manual = $this->getManualErrors();
+		$return = array();
+		if ( is_array( $validation ) ){
+			$return = array_merge( $return, $validation );
+		}
+		if ( is_array( $manual ) ){
+			$return = array_merge( $return, $manual );
+		}
+		return $return;
 	}
 
 	public function incrementNumAttempt() {
@@ -2104,5 +2134,23 @@ abstract class GatewayAdapter implements GatewayType {
 			return $this->batch;
 		}
 	}
+	
+	public function getOriginalValidationErrors( ){
+		return $this->dataObj->getValidationErrors();
+	}
+	
+	//TODO: Maybe validate on $unstaged_data directly? 
+	public function revalidate( $check_not_empty = array() ){
+		$validation_errors = $this->dataObj->getValidationErrors( true, $check_not_empty );
+		$this->setValidationErrors( $validation_errors );
+		return $this->validatedOK();
+	}
 
+	public function validatedOK(){
+		if ( $this->getValidationErrors() === false ){
+			return true;
+		}
+		return false;
+	}
+	
 }

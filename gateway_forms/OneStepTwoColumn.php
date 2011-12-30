@@ -2,8 +2,8 @@
 
 class Gateway_Form_OneStepTwoColumn extends Gateway_Form {
 
-	public function __construct( &$gateway, &$form_errors ) {
-		parent::__construct( $gateway, $form_errors );
+	public function __construct( &$gateway ) {
+		parent::__construct( $gateway );
 
 		// update the list of hidden fields we need to use in this form.
 		$this->updateHiddenFields();

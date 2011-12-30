@@ -1,14 +1,14 @@
 <?php
 
 class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn {
-	public function __construct( &$gateway, &$form_errors ) {
+	public function __construct( &$gateway ) {
 		global $wgExtensionAssetsPath;
 
 		// set the path to css, before the parent constructor is called, checking to make sure some child class hasn't already set this
 		if ( !strlen( $this->getStylePath() ) ) {
 			$this->setStylePath( $wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/TwoStepTwoColumnLetter3.css' );
 		}
-		parent::__construct( $gateway, $form_errors );
+		parent::__construct( $gateway );
 	}
 
 	public function loadPlaceholders() {
@@ -195,7 +195,7 @@ EOT;
 
 		// amount
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['invalidamount'] . '</span></td>';
+		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td colspan="2">';

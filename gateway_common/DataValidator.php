@@ -120,6 +120,32 @@ class DataValidator {
 		return $error_token;
 	}
 	
+	/**
+	 * getEmptyErrorArray
+	 * This only exists anymore, to make badly-coded forms happy when they start
+	 * pulling keys all over the place without checking to see if they're set or
+	 * not. 
+	 * @return array All the possible error tokens as keys, with blank errors. 
+	 */
+	public static function getEmptyErrorArray() {
+		return array(
+			'general' => '',
+			'retryMsg' => '',
+			'amount' => '',
+			'card_num' => '',
+			'card_type' => '',
+			'cvv' => '',
+			'fname' => '',
+			'lname' => '',
+			'city' => '',
+			'country' => '',
+			'street' => '',
+			'state' => '',
+			'zip' => '',
+			'emailAdd' => '',
+		);
+	}
+	
 	
 	/**
 	 * getErrorMessage - returns the translated error message appropriate for a 
