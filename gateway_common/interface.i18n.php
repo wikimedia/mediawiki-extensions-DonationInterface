@@ -453,9 +453,9 @@ $messages['qqq'] = array(
 	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
 	'donate_interface-smallamount-error' => "Error message if the amount chosen is too low. \$1 is a variable (it does '''not''' mean \"one dollar\"), and will be replaced with an amount in the user's currency.",
 	'donate_interface-bigamount-error' => "Error message if the amount chosen is too high. Parameters:
-* \$1 is the amount in the user's chosen currency.
-* \$2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
-* \$3 is the e-mail address that the user should e-mail to give big gifts.",
+* $1 is the amount in the user's chosen currency.
+* $2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
+* $3 is the e-mail address that the user should e-mail to give big gifts.",
 	'donate_interface-processing-error' => 'Error message.',
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
@@ -5143,6 +5143,7 @@ $messages['de'] = array(
 	'donate_interface-comment-title' => 'Öffentlicher Kommentar:',
 	'donate_interface-amount-error' => 'Bitte einen gültigen Betrag eingeben',
 	'donate_interface-smallamount-error' => 'Der Mindestbetrag ist $1',
+	'donate_interface-bigamount-error' => 'Wir können über unsere Website leider keine Spenden annehmen, deren Wert über USD 10.000 ($1 $2) liegt. Bitte kontaktieren Sie, unter der E-Mail-Adresse $3, unsere Großspenderbetreuung.',
 	'donate_interface-processing-error' => 'Es gab einen Verarbeitungsfehler Ihrer Anfrage. Es ist kein Prozess verfügbar.',
 	'donate_interface-AED' => 'VAE-Dirham',
 	'donate_interface-ARS' => 'Argentinischer Peso',
@@ -7707,6 +7708,7 @@ $messages['fi'] = array(
 	'donate_interface-comment-title' => 'Julkinen kommentti',
 	'donate_interface-amount-error' => 'Syötä kelvollinen määrä',
 	'donate_interface-smallamount-error' => 'Lahjoituksen vähimmäissumma on $1.',
+	'donate_interface-bigamount-error' => 'Emme voi vastaanottaa sivustomme kautta lahjoituksia, jotka ovat suurempia kuin 10 000 Yhdysvaltain dollaria ($1 $2). Jos haluat lahjoittaa tätä suuremman summan, lähetä sähköposti $3 suurista lahjoituksista vastaavalle osastolle.',
 	'donate_interface-processing-error' => 'Tapahtui virhe käsiteltäessä pyyntöäsi. Ei käsittelijää saatavilla.',
 	'donate_interface-AED' => 'Yhdistyneiden arabiemiirikuntien dirhami',
 	'donate_interface-ARS' => 'Argentiinan peso',
@@ -8092,6 +8094,7 @@ $messages['fr'] = array(
 	'donate_interface-comment-title' => 'Commentaire public',
 	'donate_interface-amount-error' => 'Veuillez entrer un montant valide',
 	'donate_interface-smallamount-error' => 'Vous devez contribuer au moins $1',
+	'donate_interface-bigamount-error' => 'Nous ne pouvons pas accepter de dons supérieurs à 10000 USD ($1 $2) par le biais de notre site Web. Veuillez communiquer avec notre équipe chargée des dons importants à $3.',
 	'donate_interface-processing-error' => 'Une erreur est survenue lors du traitement de votre requête.
 Aucun processeur n’est disponible.',
 	'donate_interface-AED' => 'dirham des Émirats Arabes Unis',
@@ -8552,7 +8555,7 @@ Tipicament, la bârra por la signatura contint una sèria de nombros, mas solame
 <p>Lo code est <i>tojorn</i> placiê <i>en-dessus</i> du numerô de compto surabadâ u front de la cârta.
 Dens quârques câs, lo code est placiê sur lo fllanc gôcho de la cârta, mas il est tojorn en-dessus du numerô de compto.</p><br />',
 	'donate_interface-question-comment' => 'Quèstions ou ben comentèros ? Veriéd-vos vers : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Voutra cârta de crèdit serat prêsa en charge de maniére sècurisâ.',
+	'donate_interface-donate-click' => 'Voutra cârta de crèdit / dèbit serat prêsa en charge de maniére sècurisâ.',
 	'donate_interface-otherways' => 'Y at <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’ôtros moyens de balyér, notament per PayPal, per ch·èque ou ben per pôsta</a>.',
 	'donate_interface-otherways-alt' => 'Y at <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’ôtros moyens de balyér</a>, notament per ch·èque.',
 	'donate_interface-otherways-short' => 'Ôtros moyens de balyér',
@@ -8676,7 +8679,7 @@ Por vos balyér una èxpèrience sûra, sècurisâ et agrèâbla, noutron formul
 	'donate_interface-state-dropdown-YY' => 'Chouèsir un payis',
 	'donate_interface-state-dropdown-XX' => 'En defôr des Ètats-Unis',
 	'donate_interface-bt-country_description' => 'Dèscripcion du payis',
-	'donate_interface-bt-special_id' => 'Numerô spèciâl',
+	'donate_interface-bt-special_id' => 'Enformacion spècefica u payis',
 	'donate_interface-bt-finished' => 'Chavonâ',
 	'donate_interface-rtbt-issuer_id' => 'Banca',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Ôtres banques',
@@ -8720,6 +8723,7 @@ $messages['gl'] = array(
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-amount-error' => 'Por favor, escribe unha cantidade válida',
 	'donate_interface-smallamount-error' => 'Debes achegar, polo menos, $1',
+	'donate_interface-bigamount-error' => 'Non podemos aceptar doazóns superiores aos 10.000 dólares estadounidenses ($1 $2) a través da nosa páxina web. Ponte en contacto co noso persoal para os grandes agasallos no enderezo $3.',
 	'donate_interface-processing-error' => 'Houbo un erro ao procesar a túa solicitude. Non hai ningún procesador dispoñible.',
 	'donate_interface-AED' => 'dirham dos Emiratos Árabes Unidos',
 	'donate_interface-ARS' => 'peso arxentino',
@@ -10301,6 +10305,7 @@ $messages['hsb'] = array(
 	'donate_interface-comment-title' => 'Zjawny komentar',
 	'donate_interface-amount-error' => 'Prošu zapodaj płaćiwu sumu',
 	'donate_interface-smallamount-error' => 'Minimalny přinošk je $1',
+	'donate_interface-bigamount-error' => 'Njemóžemy dary  přez naše websydło akceptować, kotrychž hódnota je přez 10.000 USD ($1 $2). Prošu stajće z našim wotdźělom za wulke dary přez e-mejl $3 do zwiska.',
 	'donate_interface-processing-error' => 'Zmylk je při předźěłowanju twojeho naprašowanja wustupił. Procesor k dispoziciji njesteji.',
 	'donate_interface-AED' => 'Dirham ZAE',
 	'donate_interface-ARS' => 'Argentinske peso',
@@ -11041,6 +11046,7 @@ $messages['ia'] = array(
 	'donate_interface-comment-title' => 'Commento public',
 	'donate_interface-amount-error' => 'Per favor entra un amonta valide',
 	'donate_interface-smallamount-error' => 'Tu debe contribuer al minus $1',
+	'donate_interface-bigamount-error' => 'Nos non accepta donationes plus grande que USD 10000 ($1 $2) per nostre sito web. Per favor contacta nostre equipa de major donationes a $3.',
 	'donate_interface-processing-error' => 'Un error occurreva durante le tractamento de tu requesta. Nulle processator es disponibile.',
 	'donate_interface-AED' => 'Dirham del Emiratos Arabe Unite',
 	'donate_interface-ARS' => 'Peso argentin',
@@ -14954,6 +14960,7 @@ $messages['mk'] = array(
 	'donate_interface-comment-title' => 'Јавен коментар',
 	'donate_interface-amount-error' => 'Внесете важечки износ',
 	'donate_interface-smallamount-error' => 'Прилогот мора да изнесува барем $1',
+	'donate_interface-bigamount-error' => 'Не можеме да прифатиме суми поголеми од 10.000 долари ($1 $2) преку нашето мрежно место. Обратете се кај надлежните за големи дарови на $3.',
 	'donate_interface-processing-error' => 'Се појави грешка при обработката на вашето барање. Нема достапни преработувачи.',
 	'donate_interface-AED' => 'Емиратски дирам',
 	'donate_interface-ARS' => 'Аргентински пезос',
@@ -15757,6 +15764,7 @@ $messages['ms'] = array(
 	'donate_interface-comment-title' => 'Komen umum',
 	'donate_interface-amount-error' => 'Sila masukkan jumlah yang sah',
 	'donate_interface-smallamount-error' => 'Anda mesti menyumbangkan sekurang-kurangya $1',
+	'donate_interface-bigamount-error' => 'Kami tidak boleh menerima dermaan yang melebihi USD 10000 ($1 $2) melalui tapak web kami. Sila hubungi kakitangan dermaan utama kami di $3.',
 	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda. 
 Sila kembali ke laman terdahulu.',
 	'donate_interface-AED' => 'Dirham UAE',
@@ -18278,6 +18286,7 @@ $messages['pms'] = array(
 	'donate_interface-comment-title' => 'Coment pùblich',
 	'donate_interface-amount-error' => 'Për piasì anseriss un total bon',
 	'donate_interface-smallamount-error' => 'A dev contribuì almanch con $1',
+	'donate_interface-bigamount-error' => 'I podoma pa aceté donassion pi gròsse che 10000 USD ($1 $2) dzora a nòst sit. Për piasì contata nòsta ehip për le gròsse donassion a $3.',
 	'donate_interface-processing-error' => "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
 	'donate_interface-AED' => 'Dirham UAE',
 	'donate_interface-ARS' => 'Peso argentin',
@@ -19204,6 +19213,7 @@ $messages['pt-br'] = array(
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => 'Por favor, insira um montante válido',
 	'donate_interface-smallamount-error' => 'Você deve contribuir com ao menos $1',
+	'donate_interface-bigamount-error' => 'Não podemos aceitar doações superiores a USD 10,000 ( $1  $2 ) através do nosso site. Entre em contato com nossa equipe de doações via $3.',
 	'donate_interface-processing-error' => 'Ocorreu um erro no processamento do seu pedido.
 Nenhuma das plataformas está disponível.',
 	'donate_interface-AED' => 'Dirham dos Emirados Árabes Unidos',
@@ -19373,7 +19383,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-question-comment' => 'Você tem perguntas ou comentários? Contate: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Estamos tentando facilitar as doações em todos os países. Por favor, deixe-nos saber como poderíamos facilitar sua doação. Envie suas sugestões para: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Problemas ao doar?',
-	'donate_interface-donate-click' => 'Seu cartão de crédito será processado com segurança.',
+	'donate_interface-donate-click' => 'Seu cartão de crédito/ débito será processado com segurança.',
 	'donate_interface-otherways' => 'Há <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/pt">outras formas de contribuir, incluindo por PayPal, cheque ou correio</a>.',
 	'donate_interface-otherways-alt' => 'Há <a href="http://wikimediafoundation.org/wiki/Coleta_de_fundos">outras formas de contribuir</a>, incluindo por cheque.',
 	'donate_interface-otherways-short' => 'Outras formas de contribuir',
@@ -19534,7 +19544,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-email-unsub-warning' => 'Isso cancelará os e-mails que a Fundação Wikimedia te envia como doador. Você pode continuar recebendo e-mails se o endereço está associado a uma conta em um de nossos projetos. Se você tiver perguntas, entre em contato conosco no endereço <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Perguntas mais frequentes',
 	'donate_interface-tax-info' => 'Informação sobre dedução fiscal',
-	'donate_interface-informationsharing' => 'Ao doar, você compartilha suas informações com a Wikimedia Foundation, a organização sem fins lucrativos que abriga o Wikipedia e outros projetos da Wikimedia, e seus provedores de serviço nos EUA e em todos os lugares, em relação à nossa <a href="//wikimediafoundation.org/wiki/Donor_policy/pt">política de privacidade de doadores</a>. Não vendemos ou comercializamos nossas informações com ninguém',
+	'donate_interface-informationsharing' => 'Ao doar, você compartilha suas informações com a Wikimedia Foundation, a organização sem fins lucrativos que abriga o Wikipedia e outros projetos da Wikimedia, e seus provedores de serviço nos EUA e em todos os lugares, em relação à nossa <a href="//wikimediafoundation.org/wiki/Donor_policy/en">política de privacidade de doadores</a>. Não vendemos ou comercializamos nossas informações com ninguém',
 	'donate_interface-currency-change' => 'Alterar?',
 	'donate_interface-bank_transfer_message' => "Por favor, observe que o seu extrato mostrará 'Global Collect' como o destinatário da doação. Global Collect está autorizado a aceitar e processar pagamentos em nome da Fundação Wikimedia. Lembre-se de incluir o número de referência fornecido aqui em sua transferência bancária e esteja à vontade para contatar donations@wikimedia.org se você tiver dúvidas.",
 	'donate_interface-taxded-link-int' => 'Impostos e outras informações legais',
@@ -19545,7 +19555,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-legal-donorpolicy' => 'Ao fazer um donativo, está a partilhar a sua informação com a Fundação Wikimedia, a organização sem fins lucrativos que aloja a Wikipédia e outros projetos Wikimedia, e com os seus fornecedores de serviços nos Estados Unidos e outros locais conforme a nossa política de privacidade para doadores. Não vendemos ou ou comercializamos a sua informação.',
 	'donate_interface-monthlybox-title' => 'Quer programar uma doação mensal?',
 	'donate_interface-monthlybox-content' => 'As doações mensais são processadas no dia 2 de cada mês. Você pode cancelar a qualquer momento.',
-	'donate_interface-monthlybox-amount' => 'Quantia da doação',
+	'donate_interface-monthlybox-amount' => 'Doação mensal',
 	'donate_interface-monthlybox-yes' => 'Claro, programe uma doação mensal.',
 	'donate_interface-monthlybox-no' => 'NÃO, fazer uma doação única',
 	'donate_interface-monthlybox-bottom' => 'A sua doação será processada de modo seguro.',
@@ -20468,6 +20478,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-thankyou' => "Grazzie pè 'a donaziune toje!",
 	'donate_interface-post-transaction' => "Dettaglie sus 'a transizione",
 	'donate_interface-question-comment' => 'Domande o commende? Condatte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-problemsdonating' => "Probbleme cu 'a donazione?",
 	'donate_interface-donate-click' => "'A carte de credite/debite tune adda essere elabborate n'mode secure.",
 	'donate_interface-otherways-short' => 'Otre mode pe dà',
 	'donate_interface-token-mismatch' => "'A sessiona toje ha scadute. Pe piace pruève arrete a combilà e a confermà 'u module.",
@@ -20663,6 +20674,7 @@ $messages['ru'] = array(
 	'donate_interface-comment-title' => 'Общедоступный комментарий',
 	'donate_interface-amount-error' => 'Пожалуйста, введите корректную сумму',
 	'donate_interface-smallamount-error' => 'Вы должны внести по крайней мере $1',
+	'donate_interface-bigamount-error' => 'Мы не можем принять пожертвования больше чем 10000 USD ($1 $2) через наш сайт. Пожалуйста, свяжитесь с нашим персоналом по большим пожертвованиям по $3.',
 	'donate_interface-processing-error' => 'При обработке вашего запроса возникла ошибка. Нет доступных процессоров.',
 	'donate_interface-AED' => 'дирхам ОАЭ',
 	'donate_interface-ARS' => 'аргентинское песо',
@@ -20812,7 +20824,7 @@ $messages['ru'] = array(
 	'donate_interface-error-msg-expiration' => 'дата окончания действия карты',
 	'donate_interface-error-msg-cvv' => 'CVV с обратной стороны вашей карты',
 	'donate_interface-error-msg-captcha' => 'Введённое значение Captcha неправильно. Пожалуйста, попробуйте ещё раз.',
-	'donate_interface-error-msg-captcha-please' => 'Пожалуйста, заполните форму Captcha, чтобы доказать, что вы не бот.',
+	'donate_interface-error-msg-captcha-please' => 'Для безопасности Вашей кредитной карты, пожалуйста, введите символы, которые Вы видите выше.',
 	'donate_interface-error-msg-cookies' => 'Пожалуйста, включите «куки» (cookies) в своём браузере.',
 	'donate_interface-error-msg-genaricrequired' => 'Это поле обязательно для заполнения.',
 	'donate_interface-donate-error-try-a-different-card' => 'Пожалуйста, [$1 попробуйте другую карту] или выберите [$2 другой способ сделать пожертвование], либо свяжитесь с нами по адресу $3',
@@ -20829,7 +20841,7 @@ $messages['ru'] = array(
 <p>Код <i>всегда</i> расположен <i>над</i> тиснёным (выпуклым) номером счёта, на лицевой стороне карты.
 В некоторых случаях этот код расположен на левой стороне карты, но всегда выше номера счёта.</p><br />',
 	'donate_interface-question-comment' => 'Имеются вопросы, замечания? Обращайтесь <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-easydonate' => 'Мы стараемся сделать так, чтобы людям в каждой стране было проще делать пожертвования. Пожалуйста, дайте нам знать, как мы могли бы упростить это для вас. Отправьте свои предложения по адресу: problemsdonating@wikimedia.org.',
+	'donate_interface-easydonate' => 'Мы стараемся сделать так, чтобы людям в каждой стране было проще делать пожертвования. Пожалуйста, дайте нам знать, как мы можем упростить это для вас. Отправьте свои предложения по адресу: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Возникла проблема с пожертвованием?',
 	'donate_interface-donate-click' => 'Информация по вашей кредитной (дебетной) карте будет обработана безопасным образом.',
 	'donate_interface-otherways' => 'Есть <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/ru">другие способы сделать пожертвование</a>, в том числе через PayPal, чек, почту.',
@@ -20909,8 +20921,8 @@ $messages['ru'] = array(
 	'donate_interface-verification-number' => 'Проверочный код',
 	'donate_interface-what-is-this' => 'Что это значит?',
 	'donate_interface-do-not-include-dashes' => 'Пожалуйста, не используйте тире',
-	'donate_interface-please-donate-today' => 'Пожалуйста, сделайте пожертвование не откладывая',
-	'donate_interface-donate-now' => 'Сделать пожертвование не откладывая',
+	'donate_interface-please-donate-today' => 'Пожалуйста, сделайте пожертвование, не откладывая',
+	'donate_interface-donate-now' => 'Сделать пожертвование, не откладывая',
 	'donate_interface-please-select-gift-amount' => 'Пожалуйста, выберите сумму пожертвования',
 	'donate_interface-select-gift-amount' => 'Выбор суммы пожертвования',
 	'donate_interface-select-amount' => 'Выберите сумму',
@@ -24517,6 +24529,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 );
 
 /** Tamil (தமிழ்)
+ * @author Shanmugamp7
  * @author Surya Prakash.S.A.
  * @author TRYPPN
  */
@@ -24747,6 +24760,25 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-language' => 'மொழி:',
 	'donate_interface-back' => 'பின்செல்',
 	'donate_interface-state-dropdown-XX' => 'அமெரிக்காவிற்கு வெளியே',
+	'donate_interface-rtbt-issuer_id' => 'ஒரு வங்கியை தேர்ந்தெடு',
+	'donate_interface-rtbt-issuer_id-longlist' => 'மற்ற வங்கிகள்',
+	'donate_interface-dd-account_name' => 'கணக்கின் பெயர்',
+	'donate_interface-dd-account_number' => 'கணக்கு எண்',
+	'donate_interface-dd-authorization_id' => 'அங்கீகரித்தல் ID',
+	'donate_interface-dd-bank_check_digit' => 'வங்கி காசோலை இலக்கம்',
+	'donate_interface-dd-bank_code' => 'வரிசை குறியீடு',
+	'donate_interface-dd-bank_name' => 'வங்கி பெயர்',
+	'donate_interface-dd-branch_code' => 'கிளை குறியீடு',
+	'donate_interface-dd-direct_debit_text' => 'நேரடி பற்று உரை',
+	'donate_interface-dd-iban' => 'சர்வதேச வங்கி கணக்கு எண் IBAN',
+	'donate_interface-translate-bluelink' => 'இந்த மொழிபெயர்ப்பை மேம்படுத்தவும்',
+	'donate_interface-translate-redlink1' => 'இந்த பக்கத்தை மொழிபெயர்க்க உதவி',
+	'donate_interface-translate-redlink2' => 'அல்லது translations@wikimedia.orgக்கு உங்கள் மொழிபெயர்ப்புகளை மின்னஞ்சல் செய்யவும்',
+	'donate_interface-email-fallbackname' => 'விக்கிமீடியா அறக்கட்டளையின் நண்பர்',
+	'donate_interface-email-subject' => 'விக்கிமீடியா அறக்கட்டளையிலிருந்து நன்றி',
+	'donate_interface-email-unsub-success' => 'நீங்கள் வெற்றிகரமாக எங்கள் மின்னஞ்சல் பட்டியலில் இருந்து நீக்கப்பட்டுவிட்டீர்கள்.',
+	'donate_interface-email-unsub-fail' => 'உங்கள் கோரிக்கையை செயல்படுத்தும்போது பிழை ஏற்பட்டது, தயவுகூர்ந்து <donations@wikimedia.org>ஐ தொடர்பு கொள்ளவும்.',
+	'donate_interface-faqs' => 'அடிக்கடி கேட்கப்படும் கேள்விகள்',
 );
 
 /** Telugu (తెలుగు)
@@ -27573,6 +27605,7 @@ $messages['yue'] = array(
  * @author Mys 721tx
  * @author Tommyang
  * @author Wilsonmess
+ * @author Yanmiao liu
  * @author 阿pp
  */
 $messages['zh-hans'] = array(
@@ -27592,6 +27625,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-comment-title' => '公开的评论',
 	'donate_interface-amount-error' => '请输入有效的数额',
 	'donate_interface-smallamount-error' => '您需要至少捐助$1',
+	'donate_interface-bigamount-error' => '我们不能通过网站接受大于 USD 10000 ($1 $2) 的捐款。请联系我们的礼物专员（$3）。',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
 	'donate_interface-AED' => '阿联酋迪拉姆',
 	'donate_interface-ARS' => '阿根廷比索',
@@ -27918,6 +27952,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-email-unsub-delay' => '请静候此更改生效，可能需要四（4）天时间。我们对于在此期间您收到的任何电邮表示歉意。如果您还有任何问题，请联系 <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => '在处理您的请求时发生错误，请联系 <donations@wikimedia.org> 。',
 	'donate_interface-email-unsub-confirm' => '您确认要退订<b>$1</b>吗？',
+	'donate_interface-email-unsub-warning' => '您将从Wikimedia基金会作为捐助者发送给您的电子邮件群中退出。您可能仍会在这个e-mail地址收到电子邮件，如果它与我们的某个项目相关联。如果您有任何疑问，请联系<a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>。',
 	'donate_interface-faqs' => '常见问题',
 	'donate_interface-tax-info' => '税务折减信息',
 	'donate_interface-informationsharing' => '捐款后，您将与维基媒体基金会共享您的信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并遵照我们的<a href="//wikimediafoundation.org/wiki/Donor_policy/zh-hans">《捐款人隐私政策》</a>管理美国和其他国家/地区的服务提供商。我们不会向任何人出售或交易您的信息',
