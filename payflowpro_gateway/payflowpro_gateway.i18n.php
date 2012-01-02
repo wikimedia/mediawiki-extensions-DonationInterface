@@ -839,6 +839,14 @@ $messages['he'] = array(
 נא לנסות שוב מאוחר יותר.',
 );
 
+/** Hindi (हिन्दी)
+ * @author Ansumang
+ */
+$messages['hi'] = array(
+	'payflowprogateway' => 'अपने दान अभी करें',
+	'payflowpro_gateway-response-4' => 'अमान्य राशि।',
+);
+
 /** Croatian (Hrvatski)
  * @author Herr Mlinka
  * @author Roberta F.
