@@ -844,7 +844,21 @@ $messages['he'] = array(
  */
 $messages['hi'] = array(
 	'payflowprogateway' => 'अपने दान अभी करें',
+	'payflowpro_gateway-desc' => 'पेपाल पेफ्लो प्रो क्रेडिट कार्ड प्रसंस्करण',
+	'payflowpro_gateway-response-0' => 'आपके लेनदेन को मंजूरी दी गई है ।
+आपको दान के लिए धन्यवाद!',
+	'payflowpro_gateway-response-126' => 'आपके लेनदेन अनुमोदन के लिए है।',
+	'payflowpro_gateway-response-12' => 'कृपया अधिक जानकारी के लिए अपने क्रेडिट कार्ड कंपनी से संपर्क करें।',
+	'payflowpro_gateway-response-13' => 'आपके लेनदेन में आवाज प्राधिकरण की आवश्यकता है ।
+कृपया आपके लेनदेन जारी रखने के लिए हमें संपर्क करें।',
+	'payflowpro_gateway-response-114' => 'कृपया अधिक जानकारी के लिए अपने क्रेडिट कार्ड कंपनी से संपर्क करें।',
+	'payflowpro_gateway-response-23' => 'आपके क्रेडिट कार्ड नंबर या समय सीमा समाप्ति दिनांक ग़लत है।',
 	'payflowpro_gateway-response-4' => 'अमान्य राशि।',
+	'payflowpro_gateway-response-24' => 'आपके क्रेडिट कार्ड नंबर या समय सीमा समाप्ति दिनांक ग़लत है।',
+	'payflowpro_gateway-response-112' => 'आपके पते या CVV नंबर (सुरक्षा कोड) सही नहीं है।',
+	'payflowpro_gateway-response-125' => 'आपके लेनदेन, फ़्रौड रोकथाम सेवाओं द्वारा अस्वीकार कर दिया गया है।',
+	'payflowpro_gateway-response-default' => 'आपके लेनदेन प्रसंस्करण में कोई त्रुटि थी ।
+कृपया बाद में पुन: प्रयास करें।',
 );
 
 /** Croatian (Hrvatski)
