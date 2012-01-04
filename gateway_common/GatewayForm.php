@@ -111,9 +111,9 @@ class GatewayForm extends UnlistedSpecialPage {
 			$check_not_empty = array_merge( $check_not_empty, $add_checks );
 		}
 		
-		$validate_errors = $this->adapter->revalidate( $check_not_empty );
+		$validated_ok = $this->adapter->revalidate( $check_not_empty );
 
-		return $validate_errors;
+		return !$validated_ok;
 	}
 
 	/**

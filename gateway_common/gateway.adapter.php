@@ -169,6 +169,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $dataObj;
 	protected $transaction_results;
 	protected $validation_errors;
+	protected $manual_errors = array();
 	protected $current_transaction;
 	protected $action;
 	public $debugarray; 
