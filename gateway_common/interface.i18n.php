@@ -160,7 +160,7 @@ No processors are available.',
 	'donate_interface-donor-currency-msg' => 'This donation is being made in $1',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
-	'donate_interface-card-name-mc' => 'Mastercard',
+	'donate_interface-card-name-mc' => 'MasterCard',
 	'donate_interface-card-name-discover' => 'Discover',
 	// The key names for the error messages should mostly match up with the donate_interface-donor keys above. (There are a few exceptions for backwards compat.)
 	'donate_interface-error-msg-general' => 'There was an error processing your request.',
@@ -200,7 +200,7 @@ No processors are available.',
 	'donate_interface-post-transaction' => 'Transaction details',
 	'donate_interface-cvv-explain' => '<h4>What is CVV?</h4>
 <p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorized or fraudulent use.</p>
-<h4>Visa, Mastercard</h4>
+<h4>Visa, MasterCard</h4>
 <p>The 3-digit code is located on the back of your card, inside the signature area.
 Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
 <h4>American Express</h4>
