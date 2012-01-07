@@ -72,6 +72,29 @@ $messages['ar'] = array(
 الرجاء المحاولة مرة أخرى لاحقاً.',
 );
 
+/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+ * @author EugeneZelenko
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'globalcollectgateway' => 'Зрабіце ахвяраваньне зараз',
+	'globalcollect_gateway-desc' => 'Шлюз апрацоўкі плацяжоў GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Няслушная краіна.',
+	'globalcollect_gateway-response-9140' => 'Няслушная валюта.',
+	'globalcollect_gateway-response-9150' => 'Няслушная мова.',
+	'globalcollect_gateway-response-400530' => 'Няслушны спосаб плацяжу.',
+	'globalcollect_gateway-response-430306' => 'Вашая крэдытная картка пратэрмінаваная. Калі ласка, выкарыстайце іншую картку ці выберыце іншыя мэтады плацяжу.',
+	'globalcollect_gateway-response-430330' => 'Няслушны нумар карткі.',
+	'globalcollect_gateway-response-430421' => 'Вашая картка не прайшла праверку. Калі ласка, запэўніцеся, што ўсе зьвесткі па картцы слушныя, ці скарыстайцеся іншай карткай.',
+	'globalcollect_gateway-response-430360' => 'Транзакцыя ня можа быць аўтарызаваная. Калі ласка, скарыстайцеся іншай карткай ці выберыце іншы спосаб плацяжу.',
+	'globalcollect_gateway-response-430285' => 'Транзакцыя ня можа быць аўтарызаваная. Калі ласка, скарыстайцеся іншай карткай ці выберыце іншы спосаб плацяжу.',
+	'globalcollect_gateway-response-21000150' => 'Няслушны нумар банкаўскага рахунку.',
+	'globalcollect_gateway-response-21000155' => 'Няслушны код банка.',
+	'globalcollect_gateway-response-21000160' => 'Няслушны нумар рахунку giro.',
+	'globalcollect_gateway-response-default' => 'У час апрацоўкі Вашай транзакцыі ўзьнікла памылка.
+Калі ласка, паспрабуйце зноў пазьней.',
+);
+
 /** Breton (Brezhoneg)
  * @author Fulup
  */
