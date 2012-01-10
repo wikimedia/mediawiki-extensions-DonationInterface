@@ -18,6 +18,10 @@
 
 /**
  * GatewayForm
+ * This class is the generic unlisted special page in charge of actually 
+ * displaying the form. Each gateway will have one or more direct descendants of 
+ * this class, with most of the gateway-specific control logic in its execute 
+ * function. For instance: extensions/DonationInterface/globalcollect_gateway/globalcollect_gateway.body.php
  *
  */
 class GatewayForm extends UnlistedSpecialPage {
@@ -29,18 +33,10 @@ class GatewayForm extends UnlistedSpecialPage {
 	public $errors = array( );
 
 	/**
-	 * The adapter object
+	 * The gateway adapter object
 	 * @var object $adapter
 	 */
 	public $adapter;
-
-	/**
-	 * The form is assumed to be successful. Errors in the form must set this to
-	 * false.
-	 *
-	 * @var boolean
-	 */
-	public $validateFormResult = true;
 
 	/**
 	 * Constructor
@@ -206,34 +202,10 @@ class GatewayForm extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Convert an amount for a particular currency to an amount in USD
-	 *
-	 * This is grosley rudimentary and likely wildly inaccurate.
-	 * This mimicks the hard-coded values used by the WMF to convert currencies
-	 * for validatoin on the front-end on the first step landing pages of their
-	 * donation process - the idea being that we can get a close approximation
-	 * of converted currencies to ensure that contributors are not going above
-	 * or below the price ceiling/floor, even if they are using a non-US currency.
-	 *
-	 * In reality, this probably ought to use some sort of webservice to get real-time
-	 * conversion rates.
-	 *
-	 * @param string $currency_code
-	 * @param float $amount
-	 * @return float
+	 * logs messages to the current gateway adapter's configured log location
+	 * @param string $msg The message to log
+	 * @param string $log_level The severity level of the message. 
 	 */
-	static function convert_to_usd( $currency_code, $amount ) {
-		require_once( dirname( __FILE__ ) . '/currencyRates.inc' );
-		$rates = getCurrencyRates();
-		$code = strtoupper( $currency_code );
-		if ( array_key_exists( $code, $rates ) ) {
-			$usd_amount = $amount / $rates[$code];
-		} else {
-			$usd_amount = $amount;
-		}
-		return $usd_amount;
-	}
-
 	public function log( $msg, $log_level=LOG_INFO ) {
 		$this->adapter->log( $msg, $log_level );
 	}
@@ -267,26 +239,6 @@ class GatewayForm extends UnlistedSpecialPage {
 	public static function getCountries() {
 		require_once( dirname( __FILE__ ) . '/../gateway_forms/includes/countryCodes.inc' );
 		return countryCodes();
-	}
-
-	/**
-	 * Get validate form result
-	 *
-	 * @return boolean
-	 */
-	public function getValidateFormResult() {
-
-		return ( boolean ) $this->validateFormResult;
-	}
-
-	/**
-	 * Set validate form result
-	 *
-	 * @param boolean $validateFormResult
-	 */
-	public function setValidateFormResult( $validateFormResult ) {
-
-		$this->validateFormResult = empty( $validateFormResult ) ? false : ( boolean ) $validateFormResult;
 	}
 
 	/**
