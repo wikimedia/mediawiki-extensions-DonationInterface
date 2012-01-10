@@ -106,14 +106,15 @@ abstract class Gateway_Form {
 
 	/**
 	 * Initialize the form
-	 *
+	 * Called by the main Form construtror, this was clearly meant to be 
+	 * overridden where necessary in child classes.
 	 */
 	protected function init() {
 	}
 
 	/**
-	 * Override the link in the logo to redirec to a particular form
-	 * rather than the main page
+	 * Override the link in the logo to redirect to a particular form
+	 * rather than the main page. Called by the form class constructor.
 	 */
 	public function loadLogoLinkOverride() {
 		global $wgOut;
@@ -147,6 +148,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generates the donation footer ("There are other ways to give...")
+	 * This function is not used by any RapidHTML forms.
 	 * @return string of HTML
 	 */
 	public function generateDonationFooter() {
@@ -171,6 +173,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generate the menu select of countries
+	 * This function is not used by any RapidHTML forms.
 	 * @fixme It would be great if we could default the country to the user's locale
 	 * @fixme We should also do a locale-based asort on the country dropdown
 	 * 	(see http://us.php.net/asort)
@@ -214,7 +217,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Genereat the menu select of credit cards
+	 * Generate the menu select of credit cards
+	 * getCreditCardTypeField helper function, and getCreditCardTypeField is 
+	 * only used by TwoStepTwoColumn.php. 
 	 *
 	 * @fixme Abstract out the setting of avaiable cards
 	 * @return string
@@ -249,6 +254,12 @@ abstract class Gateway_Form {
 		return $card_menu;
 	}
 
+	/**
+	 * Generates the expiry month dropdown form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @global type $wgLang
+	 * @return type 
+	 */
 	public function generateExpiryMonthDropdown() {
 		global $wgLang;
 
@@ -280,6 +291,12 @@ abstract class Gateway_Form {
 		return $expiry_month_menu;
 	}
 
+	/**
+	 * Generates the expiry year dropdown form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @global type $wgLang
+	 * @return type 
+	 */
 	public function generateExpiryYearDropdown() {
 		// derive the previously set expiry year, if set
 		$year = NULL;
@@ -309,6 +326,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generates the dropdown for states
+	 * This function is not used by any RapidHTML forms.
 	 * @fixme Alpha sort (ideally locale alpha sort) states in dropdown
 	 * 	AFTER state names are translated
 	 * @return string The entire HTML select element for the state dropdown list
@@ -340,6 +358,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generates the dropdown list for available currencies
+	 * This function is not used by any RapidHTML forms.
 	 *
 	 * @param string $defaultCurrencyCode default currency code to select
 	 * @param boolean $showCardsOnCurrencyChange Allow javascript onchange="showCards();" to be executed.
@@ -396,12 +415,16 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generates the radio buttons for selecting a donation amount
+	 * This function appears to be used only by the Universal Test form, and as 
+	 * such should be moved to that class and away from the class all the forms 
+	 * are eventually descended from. 
 	 *
 	 * @param	array	$options
 	 *
 	 * $options:
 	 * - displayCurrencyDropdown: Display the currency dropdown selector
 	 * - showCardsOnCurrencyChange: Passed to @see Gateway_Form::generateStateDropdown()
+	 * - setCurrency: ???
 	 *
 	 * @todo
 	 * - Use Xml object to generate form elements.
@@ -410,6 +433,7 @@ abstract class Gateway_Form {
 	 */
 	public function generateAmountByRadio( $options = array() ) {
 		
+		//TODO: Stop using extract. 
 		extract( $options );
 
 		$showCardsOnCurrencyChange = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
@@ -470,8 +494,8 @@ abstract class Gateway_Form {
 
 	/**
 	 * Set the hidden field array
-	 *
 	 * If you pass nothing in, we'll set the fields for you.
+	 * This function is not used by any RapidHTML forms.
 	 * @param array $hidden_fields
 	 */
 	public function setHiddenFields( $hidden_fields = NULL ) {
@@ -510,7 +534,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Gets an array of the hidden fields for the form
-	 *
+	 * This function is not used by any RapidHTML forms.
 	 * @return array
 	 */
 	public function getHiddenFields() {
@@ -546,6 +570,14 @@ abstract class Gateway_Form {
 		$this->captcha_html = $html;
 	}
 
+	/**
+	 * generateBannerHeader
+	 * Generates a banner header based on the existance of set masthead data, 
+	 * and/or a gateway header defined in LocalSettings. 
+	 * This function is not used by any RapidHTML forms.
+	 * @global type $wgOut
+	 * @global type $wgRequest 
+	 */
 	protected function generateBannerHeader() {
 		global $wgOut, $wgRequest;
 		$g = $this->gateway;
@@ -568,6 +600,13 @@ abstract class Gateway_Form {
 		}
 	}
 	
+	/**
+	 * generateTextTemplate: Loads the text from the appropraite template. 
+	 * This function is not used by any RapidHTML forms.
+	 * @global type $wgOut
+	 * @global type $wgRequest
+	 * @return string 
+	 */
 	protected function generateTextTemplate() {
 		global $wgOut, $wgRequest;
 		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
@@ -582,6 +621,11 @@ abstract class Gateway_Form {
 		return $template;
 	}
 
+	/**
+	 * Builds and returns the email form field
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getEmailField() {
 		// email
 		$form = '<tr>';
@@ -595,6 +639,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the amount form field. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getAmountField() {
 		$otherChecked = false;
 		$amount = -1;
@@ -621,6 +670,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * getCardnumberField builds and returns the credit card number field. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCardnumberField() {
 		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'card_num' ) : '';
 		$form = '';
@@ -642,6 +696,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the cvv form field
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCvvField() {
 		$cvv = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'cvv' ) : '';
 
@@ -656,6 +715,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the street form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getStreetField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
@@ -668,6 +732,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * getCityField builds and returns the city form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCityField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
@@ -680,6 +749,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the zip (postal) code form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getZipField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
@@ -692,6 +766,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the name-related form controls. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getNameField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['fname'] . '</span></td>';
@@ -707,6 +786,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the comment message. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCommentMessageField() {
 		$form = '<tr>';
 		$form .= '<td colspan="2">';
@@ -716,6 +800,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the comment form field. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCommentField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-comment' ), 'comment' ) . '</td>';
@@ -724,6 +813,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the comment option checkbox. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getCommentOptionField() {
 		$comment_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form = '<tr>';
@@ -733,6 +827,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the email-opt checkbox.
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getEmailOptField() {
 		$email_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'email-opt' ) : true;
 		$form = '<tr>';
@@ -747,6 +846,12 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the paypal button form element. 
+	 * This function is only used in TwoColumnPayPal.php. 
+	 * @global type $wgScriptPath
+	 * @return string 
+	 */
 	protected function getPaypalButton() {
 		global $wgScriptPath;
 		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
@@ -761,6 +866,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the state dropdown form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getStateField() {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
@@ -772,6 +882,12 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the country form element. 
+	 * This function is not used by any RapidHTML forms.
+	 * @param type $defaultCountry
+	 * @return string 
+	 */
 	protected function getCountryField( $defaultCountry = null ) {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
@@ -783,6 +899,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the card type dropdown. 
+	 * This function is only used by TwoStepTwoColumn.php
+	 * @return string 
+	 */
 	protected function getCreditCardTypeField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-card' ), 'card_type' ) . '</td>';
@@ -791,6 +912,11 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Builds and returns the credit card expiry form controls. 
+	 * This function is not used by any RapidHTML forms.
+	 * @return string 
+	 */
 	protected function getExpiryField() {
 		$form = '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-expiration' ), 'expiration' ) . '</td>';
@@ -799,16 +925,31 @@ abstract class Gateway_Form {
 		return $form;
 	}
 
+	/**
+	 * Uses resource loader to load the form validation javascript. 
+	 * @global type $wgOut 
+	 */
 	protected function loadValidateJs() {
 		global $wgOut;
 		$wgOut->addModules( 'di.form.core.validate' );
 	}
 
+	/**
+	 * Uses the resource loader to add the api client side javascript, usually 
+	 * only when the form is caching. 
+	 * @global type $wgOut 
+	 */
 	protected function loadApiJs() {
 		global $wgOut;
 		$wgOut->addModules( 'pfp.form.core.api' );
 	}
 
+	/**
+	 * Loads the OWA javascript. 
+	 * if OWA is enabled, this is called by the main form constructor. 
+	 * @global type $wgOut
+	 * @global type $wgScriptPath 
+	 */
 	protected function loadOwaJs() {
 		global $wgOut, $wgScriptPath;
 		$wgOut->addHeadItem( 'owa_tracker', '<script type="text/javascript" src="https://owa.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>' );
@@ -823,7 +964,7 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generate HTML for <noscript> tags
-	 *
+	 * This function is not used by any RapidHTML forms.
 	 * For displaying when a user does not have Javascript enabled in their browser.
 	 */
 	protected function getNoScript() {
@@ -877,7 +1018,9 @@ abstract class Gateway_Form {
 
 	/**
 	 * Get the form id
-	 *
+	 * This function appears to be used only by the Universal Test form, and as 
+	 * such should be moved to that class and away from the class all the forms 
+	 * are eventually descended from. 
 	 * @return	string
 	 */
 	protected function getFormId() {
@@ -888,7 +1031,9 @@ abstract class Gateway_Form {
 
 	/**
 	 * Get the form name
-	 *
+	 * This function appears to be used only by the Universal Test form, and as 
+	 * such should be moved to that class and away from the class all the forms 
+	 * are eventually descended from. 
 	 * @return	string
 	 */
 	protected function getFormName() {
@@ -897,27 +1042,7 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Get the payment method
-	 *
-	 * @return	string
-	 */
-	protected function getPaymentMethod() {
-		
-		return $this->getEscapedValue( 'payment_method' );
-	}
-
-	/**
-	 * Get the payment submethod
-	 *
-	 * @return	string
-	 */
-	protected function getPaymentSubmethod() {
-		return $this->getEscapedValue( 'payment_submethod' );
-	}
-
-	/**
-	 * Create the Verisign logo (small size)
-	 *
+	 * Create and return the Verisign logo (small size) form element.
 	 */
 	protected function getSmallSecureLogo() {
 
