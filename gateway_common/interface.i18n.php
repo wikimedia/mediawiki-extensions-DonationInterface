@@ -2599,7 +2599,8 @@ $messages['be-tarask'] = array(
 <p>Код <i>заўсёды</i> знаходзіцца <i>над</i> цісьнёным (выпуклым) нумарам рахунку на тварным баку карткі.
 У некаторых выпадках, код знаходзіцца ў левым баку карткі, але заўсёды над нумарам рахунку.</p><br />',
 	'donate_interface-question-comment' => 'Маеце пытаньні альбо камэнтары? Зьвяртайцеся на <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Вашая крэдытная картка будзе бясьпечна апрацаваная.',
+	'donate_interface-problemsdonating' => 'Узьніклі праблемы з ахвяраваньнем?',
+	'donate_interface-donate-click' => 'Вашая крэдытная/дэбэтовая картка будзе бясьпечна апрацаваная.',
 	'donate_interface-otherways' => 'Існуюць <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя спосабы зрабіць ахвяраваньне, уключаючы PayPal, чэк ці паштовы перавод</a>.',
 	'donate_interface-otherways-alt' => 'Існуюць <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя шляхі ахвяраваньня</a>, у тым ліку чэкам.',
 	'donate_interface-otherways-short' => 'Іншыя спосабы ахвяраваць',
@@ -2718,8 +2719,11 @@ $messages['be-tarask'] = array(
 	'donate_interface-on-the-back' => 'Пры гэтым на звароце:',
 	'donate_interface-tshirt-confirmation' => 'Вам будзе дасланая майка наступнага памеру з надпісам на наступнай мове:',
 	'donate_interface-donation-tshirt' => 'Ахвяраваньне (можаце атрымаць майку)',
+	'donate_interface-select-credit-card' => 'Выберыце крэдытную картку',
 	'donate_interface-state-dropdown-YY' => 'Выберыце штат',
 	'donate_interface-state-dropdown-XX' => 'Не ў ЗША',
+	'donate_interface-bt-account_holder' => 'Уладальнік рахунку',
+	'donate_interface-bt-country_description' => 'Апісаньне краіны',
 	'donate_interface-rtbt-issuer_id' => 'Выберыце банк',
 );
 
