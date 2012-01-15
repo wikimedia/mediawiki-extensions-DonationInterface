@@ -2725,6 +2725,14 @@ $messages['be-tarask'] = array(
 	'donate_interface-bt-account_holder' => 'Уладальнік рахунку',
 	'donate_interface-bt-country_description' => 'Апісаньне краіны',
 	'donate_interface-rtbt-issuer_id' => 'Выберыце банк',
+	'donate_interface-translate-bluelink' => 'Палепшыце гэты пераклад',
+	'donate_interface-translate-redlink1' => 'Дапамажыце перакласьці гэтую старонку.',
+	'donate_interface-translate-redlink2' => 'Ці дашліце Ваш пераклад па адрасе translations@wikimedia.org',
+	'donate_interface-email-fallbackname' => 'прыяцель Фундацыі «Вікімэдыі»',
+	'donate_interface-email-subject' => 'Прыміце ўдзячнасьць ад Фундацыі «Вікімэдыя»',
+	'donate_interface-email-unsub-title' => 'Адмаўленьне ад падпіскі на паведамленьні Фундацыі «Вікімэдыя»',
+	'donate_interface-email-unsub-button' => 'Адпісацца',
+	'donate_interface-email-unsub-success' => 'Вы былі пасьпяховы выключаныя з нашага сьпісу распаўсюджаньня',
 );
 
 /** Bulgarian (Български)
