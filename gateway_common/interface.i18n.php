@@ -11269,6 +11269,7 @@ Zo by so wěsty, zwjeselacy přewjedźenje zawěsćiło, trjeba naš darjenski f
 
 /** Hungarian (Magyar)
  * @author Bdamokos
+ * @author Bináris
  * @author BáthoryPéter
  * @author Dani
  * @author Dj
@@ -11295,7 +11296,7 @@ $messages['hu'] = array(
 	'donate_interface-comment-title' => 'Nyilvános megjegyzés',
 	'donate_interface-amount-error' => 'Légyszíves érvényes mennyiséget adj meg',
 	'donate_interface-smallamount-error' => 'Minimális adomány: $1',
-	'donate_interface-bigamount-error' => 'Nem fogadhatunk el 10 000 USD-nél ($1 $2) nagyobb ajándékot a honlapon keresztül. Kérjük, vedd fel a kapcsolatot a nagy ajándékokat kezelő személyzettel itt: $3!',
+	'donate_interface-bigamount-error' => 'Nem fogadhatunk el 10 000 USD-nél ($1 $2) nagyobb adományt a honlapon keresztül. Kérjük, vedd fel a kapcsolatot a nagy adományokat kezelő személyzettel itt: $3!',
 	'donate_interface-processing-error' => 'Hiba történt a kérés feldolgozása közben. Nincs szabad kapacitás.',
 	'donate_interface-AED' => 'emirátusi dirham',
 	'donate_interface-ARS' => 'argentin peso',
