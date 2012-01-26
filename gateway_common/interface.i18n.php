@@ -407,7 +407,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-monthlybox-yes' => 'Sure, make it monthly',
 	'donate_interface-monthlybox-no' => 'NO, make a one-time donation',
 	'donate_interface-monthlybox-bottom' => 'Your donation will be securely processed.',
-	'donate_interface-onetime' _> 'Make a one-time donation',
+	'donate_interface-onetime' => 'Make a one-time donation',
 	
 	'donate_interface-monthly-cancel' => 'Monthly payments will be debited by the Wikimedia Foundation until such time as you notify us to discontinue them.',
 
