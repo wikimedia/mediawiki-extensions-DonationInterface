@@ -22,8 +22,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@fname', // => $wgRequest->getText( 'fname' ),
 		'@mname', // => $wgRequest->getText( 'mname' ),
 		'@lname', // => $wgRequest->getText( 'lname' ),
+		'@street_supplemental', // => $wgRequest->getText( 'street_supplemental' ), MUST BE BEFORE @street
 		'@street', // => $wgRequest->getText( 'street' ),
-		'@street_supplemental', // => $wgRequest->getText( 'street_supplemental' ),
 		'@city', // => $wgRequest->getText( 'city' ),
 		'@state', // => $wgRequest->getText( 'state' ),
 		'@zip', // => $wgRequest->getText( 'zip' ),
