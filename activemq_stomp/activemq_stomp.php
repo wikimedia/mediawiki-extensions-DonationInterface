@@ -206,7 +206,7 @@ function createQueueMessage( $transaction ) {
 		'middle_name' => $transaction['mname'],
 		'last_name' => $transaction['lname'],
 		'street_address' => $transaction['street'],
-		'supplemental_address_1' => '',
+		'supplemental_address_1' => $transaction[ 'street_supplemental' ],
 		'city' => $transaction['city'],
 		'state_province' => $transaction['state'],
 		'country' => $transaction['country'],
