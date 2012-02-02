@@ -10015,7 +10015,10 @@ $messages['he'] = array(
 	'donate_interface-donor-mname' => 'שם אמצעי',
 	'donate_interface-donor-lname' => 'שם משפחה',
 	'donate_interface-donor-street' => 'רחוב',
+	'donate_interface-donor-street-number' => 'מספר',
 	'donate_interface-donor-city' => 'עיר',
+	'donate_interface-donor-county' => 'מחוז',
+	'donate_interface-donor-island' => 'אי',
 	'donate_interface-donor-state' => 'מדינה',
 	'donate_interface-donor-zip' => 'מיקוד',
 	'donate_interface-donor-postal' => 'מיקוד',
@@ -16363,7 +16366,10 @@ $messages['ml'] = array(
 	'donate_interface-donor-mname' => 'മദ്ധ്യ നാമം',
 	'donate_interface-donor-lname' => 'അവസാന നാമം',
 	'donate_interface-donor-street' => 'തെരുവ്',
+	'donate_interface-donor-street-number' => 'എണ്ണം',
 	'donate_interface-donor-city' => 'പട്ടണം',
+	'donate_interface-donor-county' => 'രാജ്യം:',
+	'donate_interface-donor-island' => 'ദ്വീപ്',
 	'donate_interface-donor-state' => 'സംസ്ഥാനം',
 	'donate_interface-donor-zip' => 'സിപ്',
 	'donate_interface-donor-postal' => 'തപാൽ കോഡ്',
@@ -16425,7 +16431,7 @@ $messages['ml'] = array(
 	'donate_interface-question-comment' => 'എന്തെങ്കിലും ചോദ്യങ്ങളോ അഭിപ്രായങ്ങളോ ഉണ്ടോ? ബന്ധപ്പെടുക:<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'ഏതുരാജ്യത്തുനിന്നുമുള്ള ആൾക്കാർക്കും ലളിതമായി സംഭാവന ചെയ്യുവാൻ കഴിയുകയാണ് ഞങ്ങളുടെ ലക്ഷ്യം. താങ്കളുടെ സംഭാവന എങ്ങനെ എളുപ്പത്തിൽ നൽകാനാകും എന്ന് ഞങ്ങളെ അറിയിക്കുക. താങ്കളുടെ നിർദ്ദേശങ്ങൾ അറിയിക്കേണ്ട വിലാസം: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'സംഭാവന നൽകുന്നതിൽ എന്തെങ്കിലും പ്രശ്നങ്ങളുണ്ടോ?',
-	'donate_interface-donate-click' => 'താങ്കളുടെ ക്രെഡിറ്റ് കാർഡ് സുരക്ഷിതമായി ഉപയോഗിക്കും',
+	'donate_interface-donate-click' => 'താങ്കളുടെ ക്രെഡിറ്റ് / ഡെബിറ്റ് കാർഡ് സുരക്ഷിതമായി ഉപയോഗിക്കുന്നതാണ്.',
 	'donate_interface-otherways' => '<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">പേപാൽ, ചെക്ക്, എഴുത്തുകൾ തുടങ്ങിയ മറ്റു മാർഗ്ഗങ്ങളും ഉപയോഗിക്കാവുന്നതാണ്</a>.',
 	'donate_interface-otherways-alt' => 'ചെക്ക് അടക്കം <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">സംഭാവന ചെയ്യാൻ മറ്റ് മാർഗ്ഗങ്ങൾ</a> ഉണ്ടെന്നറിയുക.',
 	'donate_interface-otherways-short' => 'സംഭാവനക്കുള്ള മറ്റുമാർഗ്ഗങ്ങൾ',
@@ -16597,10 +16603,13 @@ $messages['ml'] = array(
 	'donate_interface-legal-donorpolicy' => 'സംഭാവന ചെയ്യുന്നതിലൂടെ, വിക്കിപീഡിയയും മറ്റു വിക്കിമീഡിയ പദ്ധതികളും പ്രവർത്തിപ്പിക്കുന്ന ലാഭരഹിതസംഘടനയായ വിക്കിമീഡിയ ഫൗണ്ടേഷനുമായും അമേരിക്കൻ ഐക്യനാടുകളിലോ മറ്റെവിടെയെങ്കിലോ ഉള്ള അതിന്റെ സേവനദാതാക്കളുമായും നിങ്ങൾ പങ്കുവെക്കുന്ന വ്യക്തിവിവരങ്ങൾ ഞങ്ങളുടെ ദാതാക്കളുടെ സ്വകാര്യതാനയമനുസരിച്ചാണ് ശേഖരിക്കപ്പെടുന്നത്. ഈ വിവരങ്ങൾ ഞങ്ങൾ വ്യാപാരത്തിനു വേണ്ടി ഉപയോഗിക്കുകയോ ആർക്കും വിൽക്കുകയോ ചെയ്യുന്നതല്ല.',
 	'donate_interface-monthlybox-title' => 'മാസാമാസമാക്കണോ?',
 	'donate_interface-monthlybox-content' => 'മാസാമാസമുള്ള സംഭാവനകൾ ഓരോ മാസവും രണ്ടാം തിയതിയാണ് സ്വീകരിക്കപ്പെടുക. നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും അത് റദ്ദാക്കാവുന്നതാണ്.',
-	'donate_interface-monthlybox-amount' => 'സംഭാവന ചെയ്യുന്ന തുക',
+	'donate_interface-monthlybox-amount' => 'മാസംതോറും നൽകാനുദ്ദേശിക്കുന്ന സംഭാവന തുക',
 	'donate_interface-monthlybox-yes' => 'ശരി, മാസാമാസത്തേക്കാക്കൂ',
 	'donate_interface-monthlybox-no' => 'വേണ്ട, ഒറ്റത്തവണ സംഭാവനയാക്കൂ',
 	'donate_interface-monthlybox-bottom' => 'നിങ്ങളുടെ സംഭാവന സുരക്ഷിതമായിത്തന്നെ സ്വീകരിക്കുന്നതാണ്.',
+	'donate_interface-onetime' => 'ഒറ്റത്തവണ സംഭാവന നടപ്പിലാക്കുക',
+	'donate_interface-monthly-short' => 'മാസംതോറും',
+	'donate_interface-onetime-short' => 'ഒറ്റത്തവണ',
 	'donate_interface-securelogo-title' => 'സാധുത പരിശോധിക്കുക - ഈ സൈറ്റ്, സുരക്ഷിത ഇ-കൊമേഴ്സിനും സ്വകാര്യവിവരങ്ങളുടെ കൈമാറ്റത്തിനുമായി വെരിസൈൻ എസ്.എസ്.എൽ. ഉപയോഗപ്പെടുത്തുന്നു.',
 	'donate_interface-secureLogo-text' => 'എസ്.എസ്.എൽ. സാക്ഷ്യപത്രങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങൾ',
 	'donate_interface-error-http-403' => 'ഈ താളിൽ പ്രവേശിക്കുവാൻ താങ്കൾക്ക് അനുമതിയില്ല',
@@ -28690,6 +28699,7 @@ $messages['yue'] = array(
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Anakmalaysia
  * @author Bencmq
+ * @author Breawycker
  * @author Chenxiaoqino
  * @author Hydra
  * @author Hzy980512
@@ -28826,7 +28836,9 @@ $messages['zh-hans'] = array(
 	'donate_interface-donor-mname' => '中间名：',
 	'donate_interface-donor-lname' => '姓：',
 	'donate_interface-donor-street' => '街道',
+	'donate_interface-donor-street-number' => '数字',
 	'donate_interface-donor-city' => '城市：',
+	'donate_interface-donor-county' => '国家',
 	'donate_interface-donor-state' => '州或省：',
 	'donate_interface-donor-zip' => '邮编',
 	'donate_interface-donor-postal' => '邮编：',
