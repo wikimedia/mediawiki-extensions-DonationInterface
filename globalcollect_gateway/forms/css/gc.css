@@ -190,7 +190,7 @@ input#zip.halfwidth.state {
 	width:84px;
 	margin-left: 0;
 }
-select#state.us {
+select#state.us, select#state.au, select#state.ca {
 	width: 50px;
 }
 
