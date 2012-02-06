@@ -13,9 +13,14 @@
 </tr>
 <tr>
 	<td colspan="2">
-		<input class="fullwidth" name="street" value="@street" type="text" title="%donate_interface-donor-address%" placeholder="%donate_interface-donor-address%" id="street">
+		<input class="fullwidth" name="street" value="@street" type="text" title="%donate_interface-donor-address%/%donate_interface-donor-pobox%" placeholder="%donate_interface-donor-address%/%donate_interface-donor-pobox%" id="street">
 	</td>
 </tr>
+<!--<tr>-->
+	<!--<td colspan="2">-->
+		<!--<input class="fullwidth" name="streetnumber" value="@street_supplemental" type="text" title="%donate_interface-donor-street-number%" placeholder="%donate_interface-donor-street-number%" id="streetnumber">-->
+	<!--</td>-->
+<!--</tr>-->
 <tr>
 	<td colspan="2">
 		<input class="fullwidth" name="streetnumber" value="@street_supplemental" type="text" title="%donate_interface-donor-street-number%" placeholder="%donate_interface-donor-street-number%" id="streetnumber">
@@ -31,8 +36,8 @@
 </tr>
 <tr>
     <td colspan="2">
-        <select class="txt" id="state" name="state" value="" placeholder="">
-            <option value=""></option>
+        <select class="txt" id="state" name="state" value="@state">
+            <option value="">%donate_interface-donor-island%/%donate_interface-donor-county%</option>
 			<option value="BV">Boa Vista</option>
 			<option value="BR">Brava</option>
 			<option value="MA">Maio</option>
@@ -44,6 +49,7 @@
 			<option value="RG">Ribeira Grande</option>
 			<option value="RS">Ribeira Grande de Santiago</option>
 			<option value="SL">Sal</option>
+			<option value="CA">Santa Catarina</option>
 			<option value="CF">Santa Catarina de Fogo</option>
 			<option value="CR">Santa Cruz</option>
 			<option value="SD">São Domingos</option>
