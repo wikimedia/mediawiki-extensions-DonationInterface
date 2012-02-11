@@ -29170,6 +29170,7 @@ $messages['zh-hans'] = array(
  * @author Kly
  * @author Liangent
  * @author Mark85296341
+ * @author Oapbtommy
  * @author Pbdragonwang
  * @author Waihorace
  */
@@ -29294,15 +29295,18 @@ $messages['zh-hant'] = array(
 	'donate_interface-donor-emailAdd' => '電郵信箱',
 	'donate_interface-donor-name' => '姓名：',
 	'donate_interface-donor-fname' => '名：',
+	'donate_interface-donor-address' => '地址：',
 	'donate_interface-donor-mname' => '中間名：',
 	'donate_interface-donor-lname' => '姓：',
 	'donate_interface-donor-street' => '街道',
+	'donate_interface-donor-street-number' => '編號',
 	'donate_interface-donor-city' => '城市：',
+	'donate_interface-donor-county' => '縣',
+	'donate_interface-donor-island' => '島嶼',
 	'donate_interface-donor-state' => '州或省：',
 	'donate_interface-donor-zip' => '美國郵遞區號',
 	'donate_interface-donor-postal' => '郵編：',
 	'donate_interface-donor-country' => '國家/地區：',
-	'donate_interface-donor-address' => '地址：',
 	'donate_interface-donor-card' => '信用卡：',
 	'donate_interface-donor-card-num' => '信用卡號碼：',
 	'donate_interface-donor-expiration' => '到期日：',
@@ -29540,6 +29544,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-monthlybox-no' => '不，進行本次捐款即可',
 	'donate_interface-monthlybox-bottom' => '您的捐贈內容將會安全隱密地處理',
 	'donate_interface-monthly-cancel' => '維基媒體基金會將扣除每月支付，直至您通知我們停止的時候。',
+	'donate_interface-monthly-short' => '每月',
 	'donate_interface-securelogo-title' => '點選驗證 - 此網站使用VeriSign SSL確保電子商務安全及機密通訊。',
 	'donate_interface-secureLogo-text' => '關於SSL憑證',
 	'donate_interface-error-http-403' => '你沒有訪問這個頁面的權限。',
