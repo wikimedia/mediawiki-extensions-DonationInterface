@@ -68,6 +68,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @appeal -> name of the appeal text to load
 		// @appeal_title -> name of the appeal title to load
 		// @verisign_logo -> placeholder to load the secure verisign logo
+		// @select_country -> generates a select containing all country names
 	);
 
 	/**
@@ -217,6 +218,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// handle script path
 		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo(), $form );
 
+		// handle country drop-down
+		$form = str_replace( "@select_country", $this->getCountryDropdown(), $form );
+
 		$form = $this->fix_dropdowns( $form );
 
 		return $this->add_messages( $form );
@@ -256,9 +260,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 						$params[ $k ] .= "language=" . $this->getEscapedValue( 'language' ) . "&country=" . $this->getEscapedValue( 'country' );
 					}
 				}
+				// TODO: add support for message variations here as well
 				$html = str_replace( $matches[ 0 ][ $i ], wfMsg( $msg_key, $params ), $html );
 			} else {
-				$html = str_replace( '%' . $msg_key . '%', wfMsg( $msg_key ), $html );
+				// look for a country variant of the message and use that if found
+				$html = str_replace( '%' . $msg_key . '%', $this->get_message_variation( $msg_key ), $html );
 			}
 		}
 
@@ -434,5 +440,74 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			return wfEscapeWikiText( htmlspecialchars( $matches[0] ) );
 		}
 		return $default;
+	}
+
+	/**
+	 * This function looks for a country variant of the specified message and
+	 * returns the variant if found for the current language.  If the variant
+	 * does not have a message for the current language, the original message
+	 * is used (checking first the current language and then falling back as
+	 * is normal for wfMessage).
+	 *
+	 * @param $key The original message key to be evaluated
+	 * @return string A string representing the message requested
+	 */
+	function get_message_variation( $key ) {
+		$langCode = strtolower( $this->getEscapedValue( 'language' ) );
+		$countryCode = strtolower( $this->getEscapedValue( 'country' ) );
+
+		# construct the country-specific message key
+		$msg_alt_key = $key . '-' . $countryCode;
+		$msg_alt = wfMessage( $msg_alt_key );
+
+		# load the default
+		$to_return = wfMessage( $key )->inLanguage( $langCode )->text();
+
+		# check to see if an alternate exists
+		if ( $msg_alt->exists() ){
+			# get the English version of the alternate message
+			$msg_alt_en = $msg_alt->inLanguage( 'en' )->text();
+			# get the alternate message in the current language
+			$msg_alt_lang = $msg_alt->inLanguage( $langCode )->text();
+
+			# if we are looking for English, we're good
+			if ( $langCode == 'en' ){
+				$to_return = $msg_alt_en;
+			}
+			# check make sure we didn't fallback to English
+			elseif ( strcmp( $msg_alt_en, $msg_alt_lang ) != 0 ){
+				$to_return = $msg_alt_lang;
+			}
+			else {
+				# do nothing and return the original message
+			}
+		}
+
+		# strip the damned colons off of the right end
+		$to_return = rtrim( $to_return, ':' );
+
+		return $to_return;
+	}
+
+	/**
+	 * Gets a list of the supported countries from the parent class
+	 * and returns an option list representing all of those countries
+	 * in a translatable fashion.
+	 *
+	 * @return string An option list containing all supported countries
+	 */
+	function getCountryDropdown() {
+		# get the list of supported countries
+		$countries = GatewayForm::getCountries();
+
+		$output = "";
+
+		# iterate through the countris, ignoring the value since we
+		# will generate a message key to replace later
+		foreach( $countries as $c => $v ) {
+			$output .= "<option value=\"" . $c . "\">%donate_interface-country-dropdown-" . $c . "%</option>\n";
+		}
+
+		return $output;
 	}
 }
