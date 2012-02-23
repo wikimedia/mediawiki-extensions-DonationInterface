@@ -238,6 +238,7 @@ class DataValidator {
 	 * @return boolean - true if message exists, otherwise false.
 	 */
 	public static function wmfMessageExists( $msg_key, $language ){
+		$language = strtolower( $language );
 		if ( wfMessage( $msg_key )->inLanguage( $language )->exists() ){
 			# if we are looking for English, we already know the answer
 			if ( $language == 'en' ){
@@ -264,9 +265,7 @@ class DataValidator {
 	 * @return String the text of the first existant message
 	 * @throws MWException if no message keys are specified
 	 */
-	public static function wfLangSpecificFallback( $language /*...*/ ){
-		$msg_keys = func_get_args();
-		array_shift( $msg_keys );
+	public static function wfLangSpecificFallback( $language='en', $msg_keys=array() ){
 
 		if ( count( $msg_keys ) < 1 ){
 			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
