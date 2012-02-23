@@ -33,6 +33,9 @@ $messages['fr']['donate_interface-donor-lname-gq'] = 'Nom';
 $messages['pt']['donate_interface-donor-fname-gq'] = 'Nome';
 $messages['pt']['donate_interface-donor-lname-gq'] = 'Apelido';
 
+/* KE - Kenya */
+$messages['en']['donate_interface-donor-lname-ke'] = 'Surname';
+
 /* TZ - Tanzania */
 $messages['en']['donate_interface-donor-lname-tz'] = 'Surname';
 
