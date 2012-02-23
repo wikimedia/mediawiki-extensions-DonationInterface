@@ -688,6 +688,7 @@ $wgResourceModules[ 'pfp.core.logolink_override' ] = array(
 
 // Load the interface messages that are shared across multiple gateways
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
+$wgExtensionMessagesFiles['DonateInterfaceAlt'] = $donationinterface_dir . 'gateway_common/country.specific.i18n.php';
 $wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
 $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
 $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
