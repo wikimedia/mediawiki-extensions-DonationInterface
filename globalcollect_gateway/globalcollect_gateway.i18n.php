@@ -188,10 +188,12 @@ Bitte versuchen Sie es später noch einmal.',
 );
 
 /** Spanish (Español)
+ * @author Armando-Martin
  * @author Bea.miau
  */
 $messages['es'] = array(
 	'globalcollectgateway' => 'Haga su donación ahora',
+	'globalcollect_gateway-desc' => 'Procesamiento de pagos de GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'País no válido',
 	'globalcollect_gateway-response-9140' => 'Moneda no válida',
 	'globalcollect_gateway-response-9150' => 'Idioma no válido.',
@@ -203,6 +205,7 @@ $messages['es'] = array(
 	'globalcollect_gateway-response-430285' => 'La transacción no puede ser autorizada. Porfavor, pruebe otra tarjeta de crédito u otro de nuestros métodos de pago.',
 	'globalcollect_gateway-response-21000150' => 'Cuenta bancaria no válida',
 	'globalcollect_gateway-response-21000155' => 'Codigo bancario no válido',
+	'globalcollect_gateway-response-21000160' => 'Número de cuenta de giro inválida.',
 	'globalcollect_gateway-response-default' => 'Hubo un error procesando su transacción.
 Por favor intentelo de nuevo mas tarde.',
 );
