@@ -1694,12 +1694,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		switch ( $type ) {
 			case 'request':
-				$count = 0;
-				//Count's just there making sure we don't get stuck here. 
-				while ( !in_array( $language, $this->getAvailableLanguages() ) && $count < 3 ){
-					// Get the fallback language
-					$language = Language::getFallbackFor( $language );
-					$count += 1;
+				if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
+					$fallbacks = Language::getFallbacksFor( $language );
+					foreach ( $fallbacks as $fallback ) {
+						if ( in_array( $fallback, $this->getAvailableLanguages() ) ) {
+							$language = $fallback;
+							break;
+						}
+					}
 				}
 
 				if ( !in_array( $language, $this->getAvailableLanguages() ) ){
