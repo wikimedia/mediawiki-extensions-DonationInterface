@@ -21804,6 +21804,7 @@ Nisciune processore jè disponibbele.",
  * @author Dim Grits
  * @author Eleferen
  * @author Eugrus
+ * @author Express2000
  * @author Jsoby
  * @author KPu3uC B Poccuu
  * @author Kaganer
@@ -21936,15 +21937,19 @@ $messages['ru'] = array(
 	'donate_interface-donor-emailAdd' => 'Адрес электронной почты',
 	'donate_interface-donor-name' => 'Имя:',
 	'donate_interface-donor-fname' => 'Имя:',
+	'donate_interface-donor-address' => 'Адрес:',
 	'donate_interface-donor-mname' => 'Отчество (или второе имя):',
 	'donate_interface-donor-lname' => 'Фамилия:',
 	'donate_interface-donor-street' => 'Улица:',
+	'donate_interface-donor-street-number' => 'Номер',
 	'donate_interface-donor-city' => 'Город:',
+	'donate_interface-donor-county' => 'Округ',
+	'donate_interface-donor-island' => 'Остров',
 	'donate_interface-donor-state' => 'Штат:',
 	'donate_interface-donor-zip' => 'Индекс',
 	'donate_interface-donor-postal' => 'Почтовый индекс:',
 	'donate_interface-donor-country' => 'Страна / регион:',
-	'donate_interface-donor-address' => 'Адрес:',
+	'donate_interface-donor-pobox' => 'Абонементный ящик',
 	'donate_interface-donor-card' => 'Кредитная карта:',
 	'donate_interface-donor-card-num' => 'Номер карты:',
 	'donate_interface-donor-expiration' => 'Срок окончания действия:',
@@ -22178,6 +22183,7 @@ $messages['ru'] = array(
 	'donate_interface-monthlybox-no' => 'НЕТ, сделать единовременное пожертвование',
 	'donate_interface-monthlybox-bottom' => 'Информация о вашем пожертвовании будет обработана в защищённом режиме.',
 	'donate_interface-monthly-cancel' => 'Ежемесячные платежи будут сниматься со счёта, пока вы не укажете нам прекратить их.',
+	'donate_interface-onetime' => 'Сделать единовременное пожертвование',
 	'donate_interface-securelogo-title' => 'Нажмите, чтобы проверить — этот сайт выбрал VeriSign SSL для обеспечения безопасности электронной коммерции и конфиденциальных сообщений.',
 	'donate_interface-secureLogo-text' => 'О сертификатах SSL',
 	'donate_interface-error-http-403' => 'Извините, у вас недостаточно прав для доступа к этой странице.',
