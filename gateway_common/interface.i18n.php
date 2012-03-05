@@ -13837,12 +13837,15 @@ $messages['km'] = array(
 
 /** Kannada (ಕನ್ನಡ)
  * @author Nayvik
+ * @author VASANTH S.N.
  */
 $messages['kn'] = array(
+	'donate_interface-submit-button' => 'ದೇಣಿಗೆ',
+	'donate_interface-comment-label' => 'ಟಿಪ್ಪಣಿ',
 	'donate_interface-cvv-link' => 'ಉದಾಹರಣೆ',
+	'donate_interface-donor-address' => 'ವಿಳಾಸ:',
 	'donate_interface-donor-city' => 'ನಗರ:',
 	'donate_interface-donor-state' => 'ರಾಜ್ಯ',
-	'donate_interface-donor-address' => 'ವಿಳಾಸ:',
 	'donate_interface-error-msg-city' => 'ನಗರ',
 	'donate_interface-error-msg-state' => 'ರಾಜ್ಯ',
 );
@@ -14402,9 +14405,13 @@ $messages['ku-latn'] = array(
 	'donate_interface-USD' => "Dolarên DYA'yê",
 	'donate_interface-donor-name' => 'Nav',
 	'donate_interface-donor-fname' => 'Pêşnav',
+	'donate_interface-donor-address' => 'Navnîşan',
 	'donate_interface-donor-mname' => 'Navê navîn',
-	'donate_interface-donor-street' => 'Kuçe',
+	'donate_interface-donor-lname' => 'Paşnav',
+	'donate_interface-donor-street' => 'Kûçe',
+	'donate_interface-donor-street-number' => 'Hejmar',
 	'donate_interface-donor-city' => 'Bajar',
+	'donate_interface-donor-island' => 'Girav',
 	'donate_interface-donor-state' => 'Dewlet',
 	'donate_interface-donor-country' => 'Welat/Herêm',
 	'donate_interface-error-msg-fname' => 'nav',
