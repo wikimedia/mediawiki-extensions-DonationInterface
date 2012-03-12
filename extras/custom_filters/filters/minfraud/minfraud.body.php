@@ -21,7 +21,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_MinFraud {
 		$this->query_minfraud( $minfraud_query );
 		
 
-		$custom_filter_object->risk_score += $this->minfraud_response['riskScore'];
+		$custom_filter_object->addRiskScore( $this->minfraud_response['riskScore'], 'minfraud_filter' );
 
 		// Write the query/response to the log
 		$this->log_query( $minfraud_query, '' );

@@ -31,12 +31,12 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 			 * these will need to be included in your custom regex patterns.
 			 */
 			if ( preg_match( "$regex", $referrer ) ) {
-				$this->cfo->risk_score += $risk_score_modifier;
+				$this->cfo->addRiskScore( $risk_score_modifier, 'referrer' );
 
 				// log it
 				$log_msg = "\"" . addslashes( $referrer ) . "\"";
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
-				$log_msg .= "\t\"" . $this->cfo->risk_score . "\"";
+				$log_msg .= "\t\"" . $this->cfo->getRiskScore() . "\"";
 				$this->log(
 					$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Filter: Referrer', $log_msg
 				);

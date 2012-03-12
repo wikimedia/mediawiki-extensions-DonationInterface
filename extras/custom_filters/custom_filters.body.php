@@ -8,15 +8,28 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 * The action to take based on a transaction's riskScore is determined by
 	 * $action_ranges.  This is built assuming a range of possible risk scores
 	 * as 0-100, although you can probably bend this as needed.
-	 * @var public int
+	 * Due to the increased complexity introduced by custom filters, $risk_score 
+	 * will now be represented as an array of scores, with the name of the 
+	 * score's source in the keys, to promote our ability to tell what the heck 
+	 * is going on. 
+	 * @var private array()
 	 */
-	public $risk_score;
+	private $risk_score;
 
 	/**
 	 * Define the action to take for a given $risk_score
 	 * @var public array
 	 */
 	public $action_ranges;
+	
+	/**
+	 * Define a standard log prefix with contribution tracking id, and order id,
+	 * to use as a prefix in all our logging. 
+	 * TODO: Move this out to the gateway adapter once we have time to determine 
+	 * that changing the way we log things isn't going to break our utils. 
+	 * @var public function
+	 */
+	public $log_msg_prefix;
 
 	/**
 	 * A container for an instance of self
@@ -27,7 +40,9 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
-		$this->risk_score = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
+		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
+		$this->log_msg_prefix = $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->log_msg_prefix .= ':' . $this->gateway_adapter->getData_Unstaged_Escaped( 'order_id' ) . ' ';
 	}
 
 	/**
@@ -36,17 +51,54 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 * @return string The action to take
 	 */
 	public function determineAction() {
+		$risk_score = $this->getRiskScore();
 		// possible risk scores are between 0 and 100
-		if ( $this->risk_score < 0 )
-			$this->risk_score = 0;
-		if ( $this->risk_score > 100 )
-			$this->risk_score = 100;
+		if ( $risk_score < 0 )
+			$risk_score = 0;
+		if ( $risk_score > 100 )
+			$risk_score = 100;
 		foreach ( $this->action_ranges as $action => $range ) {
-			if ( $this->risk_score >= $range[0] && $this->risk_score <= $range[1] ) {
+			if ( $risk_score >= $range[0] && $risk_score <= $range[1] ) {
 				return $action;
 			}
 		}
 	}
+	
+
+	public function addRiskScore( $score, $source ){
+		if ( !is_numeric( $score ) ){
+			throw new MWException(__FUNCTION__ . " Cannot add $score to risk score (not numeric). Source: $source" );
+		}
+		if ( !is_array( $this->risk_score ) ){
+			if ( is_numeric( $this->risk_score ) ){
+				$this->risk_score['unknown'] = (int)$this->risk_score;
+			} else {
+				$this->risk_score = array();
+			}
+		}
+		$this->gateway_adapter->log( $this->log_msg_prefix . "$source added a score of $score", LOG_INFO, '_fraud' );
+		$this->risk_score[$source] = $score;
+	}
+	
+
+	public function getRiskScore(){
+		if ( !is_array( $this->risk_score ) ){
+			if ( !is_numeric( $this->risk_score ) ){
+				throw new MWException(__FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
+			} else {
+				$this->gateway_adapter->log( $this->log_msg_prefix . "returning numeric score " . $this->risk_score , LOG_INFO, '_fraud' );
+				return $this->risk_score;
+			}
+		} else {
+			$total = 0;
+			foreach ( $this->risk_score as $score ){
+				$total += $score;
+			}
+			$this->gateway_adapter->log( $this->log_msg_prefix . "Returning total of $total " . print_r( $this->risk_score, true) , LOG_INFO, '_fraud' );
+			return $total;
+		}
+	}
+	
 
 	/**
 	 * Run the transaction through the custom filters
@@ -58,7 +110,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 //		error_log("Filter validation says " . $localAction);
 		$this->gateway_adapter->setValidationAction( $localAction );
 
-		$log_msg = '"' . $localAction . "\"\t\"" . $this->risk_score . "\"";
+		$log_msg = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
 		$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Filtered', $log_msg );
 		return TRUE;
 	}

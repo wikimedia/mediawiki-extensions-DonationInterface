@@ -71,6 +71,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
 		$this->query_minfraud( $minfraud_query );
 		$localAction = $this->determine_action( $this->minfraud_response['riskScore'] );
+		$this->gateway_adapter->log( $this->log_msg_prefix . "Minfraud Standalone setting the action to $localAction.", LOG_INFO, '_fraud' );
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		// reset the data hash

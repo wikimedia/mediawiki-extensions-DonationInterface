@@ -37,7 +37,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 					throw new MWException( "Filter functions are returning somekinda nonsense." );
 				}
 
-				$this->cfo->risk_score += $score;
+				$this->cfo->addRiskScore( $score, $function_name );
 			}
 		}
 
