@@ -873,6 +873,13 @@ $messages['hu-formal'] = array(
 	'donate_interface-token-mismatch' => 'A munkamenet lejárt. Kérjük, töltse ki és küldje el újra az űrlapot.',
 );
 
+/** Ṫuroyo (Ṫuroyo)
+ * @author Ariyo
+ */
+$messages['tru'] = array(
+	'donate_interface-language' => 'Leşono',
+);
+
 /** Afrikaans (Afrikaans)
  * @author Ansumang
  * @author Jsoby
@@ -5448,6 +5455,7 @@ $messages['de'] = array(
 	'donate_interface-donor-emailAdd' => 'E-Mail-Adresse:',
 	'donate_interface-donor-name' => 'Name:',
 	'donate_interface-donor-fname' => 'Vorname:',
+	'donate_interface-donor-address' => 'Anschrift:',
 	'donate_interface-donor-mname' => '2. Vorname:',
 	'donate_interface-donor-lname' => 'Nachname:',
 	'donate_interface-donor-street' => 'Straße:',
@@ -5459,7 +5467,7 @@ $messages['de'] = array(
 	'donate_interface-donor-zip' => 'Postleitzahl',
 	'donate_interface-donor-postal' => 'Postleitzahl:',
 	'donate_interface-donor-country' => 'Staat:',
-	'donate_interface-donor-address' => 'Anschrift:',
+	'donate_interface-donor-zone' => 'Zone',
 	'donate_interface-donor-pobox' => 'Postfach',
 	'donate_interface-donor-card' => 'Kreditkarte:',
 	'donate_interface-donor-card-num' => 'Kreditkartennr.:',
@@ -8590,6 +8598,7 @@ Aucun processeur n’est disponible.',
 	'donate_interface-donor-zip' => 'Code postal',
 	'donate_interface-donor-postal' => 'Code postal',
 	'donate_interface-donor-country' => 'Pays / région',
+	'donate_interface-donor-zone' => 'Zone',
 	'donate_interface-donor-pobox' => 'Boîte PO',
 	'donate_interface-donor-card' => 'Carte bancaire ou de crédit',
 	'donate_interface-donor-card-num' => 'Numéro de carte',
@@ -11198,6 +11207,7 @@ $messages['hsb'] = array(
 	'donate_interface-donor-emailAdd' => 'E-mejlowa adresa',
 	'donate_interface-donor-name' => 'Mjeno:',
 	'donate_interface-donor-fname' => 'Předmjeno:',
+	'donate_interface-donor-address' => 'Adresa:',
 	'donate_interface-donor-mname' => 'Druhe mjeno:',
 	'donate_interface-donor-lname' => 'Swójbne mjeno:',
 	'donate_interface-donor-street' => 'Hasa:',
@@ -11209,7 +11219,7 @@ $messages['hsb'] = array(
 	'donate_interface-donor-zip' => 'Póstowe wodźenske čisło',
 	'donate_interface-donor-postal' => 'Postowe wodźenske čisło:',
 	'donate_interface-donor-country' => 'Kraj/Region:',
-	'donate_interface-donor-address' => 'Adresa:',
+	'donate_interface-donor-zone' => 'Cona',
 	'donate_interface-donor-pobox' => 'Póstowy fach',
 	'donate_interface-donor-card' => 'Kreditna karta:',
 	'donate_interface-donor-card-num' => 'Kartowe čisło:',
@@ -11948,6 +11958,7 @@ $messages['ia'] = array(
 	'donate_interface-donor-emailAdd' => 'Adresse de e-mail',
 	'donate_interface-donor-name' => 'Nomine:',
 	'donate_interface-donor-fname' => 'Prenomine:',
+	'donate_interface-donor-address' => 'Adresse:',
 	'donate_interface-donor-mname' => 'Secunde prenomine:',
 	'donate_interface-donor-lname' => 'Nomine de familia:',
 	'donate_interface-donor-street' => 'Strata:',
@@ -11959,7 +11970,7 @@ $messages['ia'] = array(
 	'donate_interface-donor-zip' => 'Codice postal',
 	'donate_interface-donor-postal' => 'Codice postal:',
 	'donate_interface-donor-country' => 'Pais/Region:',
-	'donate_interface-donor-address' => 'Adresse:',
+	'donate_interface-donor-zone' => 'Zona',
 	'donate_interface-donor-pobox' => 'Cassa postal',
 	'donate_interface-donor-card' => 'Carta de credito:',
 	'donate_interface-donor-card-num' => 'Numero del carta:',
@@ -16219,6 +16230,7 @@ $messages['mk'] = array(
 	'donate_interface-donor-postal' => 'Поштенски број:',
 	'donate_interface-donor-postcode' => 'Пошт. бр.',
 	'donate_interface-donor-country' => 'Земја/Регион:',
+	'donate_interface-donor-zone' => 'Подрачје',
 	'donate_interface-donor-pobox' => 'Пошт. фах',
 	'donate_interface-donor-card' => 'Кредитна картичка:',
 	'donate_interface-donor-card-num' => 'Број на картичката:',
