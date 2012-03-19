@@ -256,6 +256,7 @@ $messages['en'] = array(
 /** Arabic (العربية) */
 $messages['ar'] = array(
 	'donate_interface-country-dropdown-SA' => 'السعودية',
+	'donate_interface-country-dropdown-MR' => 'موريتانيا',
 );
 
 /** Bulgarian (Български) */
