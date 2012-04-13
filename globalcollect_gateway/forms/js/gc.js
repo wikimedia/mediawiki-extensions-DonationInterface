@@ -57,6 +57,12 @@ window.displayCreditCardForm = function() {
 		'recurring': $( "input[name='recurring']" ).val(),
 		'format': 'json'
 	};
+
+	// If the field, street_supplemental, exists add it to sendData
+	if ( $("input[name='street_supplemental']").length ) {
+		sendData.street_supplemental = $( "input[name='street_supplemental']" ).val();
+	}
+
 	$.ajax( {
 		'url': mw.util.wikiScript( 'api' ),
 		'data': sendData,
