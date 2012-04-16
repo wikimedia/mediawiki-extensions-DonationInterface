@@ -595,6 +595,7 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-donor-emailAdd' => '{{Identical|E-mail address}}',
 	'donate_interface-donor-name' => '{{Identical|Name}}',
 	'donate_interface-donor-fname' => 'Label for field containing first name.',
+	'donate_interface-donor-address' => '{{Identical|Address}}',
 	'donate_interface-donor-mname' => 'Label for field to input middle name.',
 	'donate_interface-donor-lname' => 'Label for field to input last name.',
 	'donate_interface-donor-street' => '{{Identical|Street}}',
@@ -608,8 +609,7 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-donor-zip' => 'Placeholder for zip code field. This should be 7 characters maximum.',
 	'donate_interface-donor-postal' => 'Label for field to input postal code.',
 	'donate_interface-donor-country' => 'Label for field with dropdown list of countries/regions.',
-	'donate_interface-donor-zone' => 'Alternate label for postal code, used in some countries, e.g. Cote d\'Ivoire. Can be ignored if not applicable.',
-	'donate_interface-donor-address' => '{{Identical|Address}}',
+	'donate_interface-donor-zone' => "Alternate label for postal code, used in some countries, e.g. Cote d'Ivoire. Can be ignored if not applicable.",
 	'donate_interface-donor-pobox' => 'Label for a post office box used in an address',
 	'donate_interface-donor-card' => 'Label or header for credit card information.',
 	'donate_interface-donor-card-num' => 'Label for card number field.',
@@ -12755,8 +12755,9 @@ Nessuna persona addetta all'elaborazione della richiesta è disponibile.",
 	'donate_interface-donor-currency-label' => 'Valuta:',
 	'donate_interface-donor-email' => 'Indirizzo e-mail:',
 	'donate_interface-donor-emailAdd' => 'Indirizzo e-mail:',
-	'donate_interface-donor-name' => 'Nome:',
+	'donate_interface-donor-name' => 'Nome',
 	'donate_interface-donor-fname' => 'Nome:',
+	'donate_interface-donor-address' => 'Indirizzo:',
 	'donate_interface-donor-mname' => 'Secondo nome',
 	'donate_interface-donor-lname' => 'Cognome:',
 	'donate_interface-donor-street' => 'Via:',
@@ -12765,7 +12766,6 @@ Nessuna persona addetta all'elaborazione della richiesta è disponibile.",
 	'donate_interface-donor-zip' => 'Zip (solo USA)',
 	'donate_interface-donor-postal' => 'Codice postale:',
 	'donate_interface-donor-country' => 'Paese/Regione:',
-	'donate_interface-donor-address' => 'Indirizzo:',
 	'donate_interface-donor-card' => 'Carta di credito:',
 	'donate_interface-donor-card-num' => 'Numero della carta:',
 	'donate_interface-donor-expiration' => 'Scadenza:',
@@ -14478,6 +14478,7 @@ $messages['ku-latn'] = array(
 
 /** Luxembourgish (Lëtzebuergesch)
  * @author Jsoby
+ * @author Les Meloures
  * @author Robby
  * @author Zinneke
  */
@@ -14739,8 +14740,8 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-credit-card-number-abbreviated' => 'Kreditkaart #',
 	'donate_interface-credit-card-expiration' => 'Gültegkeet vun der Kreditkaart',
 	'donate_interface-card-expiration' => 'Gültegkeet vun der Kreditkaart',
-	'donate_interface-select-month-of-expiration' => 'Sicht de Mount vum Ënn vun der Gëltegkeet eraus',
-	'donate_interface-select-year-of-expiration' => "Sicht d'Joer vum Ënn vun der Gëltegkeet eraus",
+	'donate_interface-select-month-of-expiration' => 'Sicht de Mount vum Enn vun der Gëltegkeet eraus',
+	'donate_interface-select-year-of-expiration' => "Sicht d'Joer vum Enn vun der Gëltegkeet eraus",
 	'donate_interface-expires-question' => 'Gülteg bis?',
 	'donate_interface-expires' => 'Gülteg bis',
 	'donate_interface-card-security-code' => 'Sécherheetscode vun der Kaart',
@@ -19075,10 +19076,19 @@ $messages['pdc'] = array(
 );
 
 /** Pälzisch (Pälzisch)
+ * @author Manuae
  * @author Xqt
  */
 $messages['pfl'] = array(
-	'donate_interface-next' => 'Negschte',
+	'donate_interface-donor-street' => 'Schdrooß',
+	'donate_interface-donor-city' => 'Schdad',
+	'donate_interface-donor-county' => 'Schdaad',
+	'donate_interface-error-msg-street' => 'Schdrooß',
+	'donate_interface-error-msg-state' => 'Schdaad',
+	'donate_interface-or' => 'oda',
+	'donate_interface-next' => 'Negschde',
+	'donate_interface-language' => 'Schbrooch:',
+	'donate_interface-dd-iban' => 'IBAN',
 );
 
 /** Polish (Polski)

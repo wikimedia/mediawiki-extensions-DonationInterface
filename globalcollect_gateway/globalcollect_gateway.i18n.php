@@ -753,3 +753,10 @@ $messages['vi'] = array(
 Xin hãy thử lại sau.',
 );
 
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'globalcollectgateway' => '马上捐款',
+);
+
