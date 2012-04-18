@@ -5327,6 +5327,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 
 /** German (Deutsch)
  * @author ChrisiPK
+ * @author Filzstift
  * @author Jsoby
  * @author Kghbln
  * @author Lyzzy
@@ -5689,7 +5690,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-tax-info' => 'Information über die steuerliche Absetzbarkeit',
 	'donate_interface-informationsharing' => 'Sie geben Ihre Informationen der Wikimedia Foundation preis, der Non-Profit-Organisation, die Wikipedia und andere Wikimedia-Projekte betreibt. Die Service-Provider in den USA und sonstigen Ländern entsprechen unseren Spenderdatenschutzrichtlinien. Wir verkaufen oder handeln nicht mit Ihren Daten. Für weitere Informationen lesen Sie bitte <a href="http://wikimediafoundation.org/wiki/Donor_policy/de">unsere Spenderdatenschutzrichtlinien</a>.',
 	'donate_interface-currency-change' => 'Ändern?',
-	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie  bitte eine E-Mail an donations@wikimedia.org senden.',
+	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie bitte eine E-Mail an donations@wikimedia.org.',
 	'donate_interface-taxded-link-int' => 'Steuer- und andere Rechtsinformationen',
 	'donate_interface-taxded-link-us' => 'Information über die steuerliche Absetzbarkeit',
 	'donate_interface-taxded-msg-int' => 'Die Wikimedia Foundation ist eine gemeinnützige Organisation, die in den USA nach den Vorgaben des „US IRS Code, Absatz 501(c)(3)“ gegründet wurde. Daher sind Spenden von Personen oder Organisationen aus den Vereinigten Staaten möglicherweise steuerlich absetzbar. Spenden von Personen oder Organisationen außerhalb der Vereinigten Staaten sind in den Vereinigten Staaten und anderen Staaten möglicherweise nicht steuerlich absetzbar. In diesen Fällen sollten sich die Spender vor Ort steuerlichen Rat einholen. Wikimedia strebt keine Spenden von Personen oder Organisationen an, die sich in Staaten befinden, deren Rechtsprechung Spendenaktionen internationaler gemeinnütziger Organisationen wie der Wikimedia Foundation verbietet oder beschränkt, oder in denen Schenkungssteuern auf Spenden an solche internationalen gemeinnützigen Organisationen erhoben werden.',
@@ -13010,6 +13011,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
  * @author Jsoby
  * @author Miya
  * @author Ohgi
+ * @author Shirayuki
  * @author Whym
  * @author 藤田健士朗
  * @author 青子守歌
@@ -13031,7 +13033,7 @@ $messages['ja'] = array(
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '有効な金額を入力してください',
 	'donate_interface-smallamount-error' => '最低$1のご寄付が必要です',
-	'donate_interface-bigamount-error' => '10000アメリカドル ($1 $2) を超える金額のご寄付はウェブサイトで受け付けることができません。大口のご寄付を担当する職員 $2 にご連絡ください。',
+	'donate_interface-bigamount-error' => '10000 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。処理サービスが利用できません。',
 	'donate_interface-AED' => 'アラブ首長国連邦・ディルハム',
 	'donate_interface-ARS' => 'アルゼンチン・ペソ',
@@ -13135,6 +13137,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-emailAdd' => '電子メールアドレス',
 	'donate_interface-donor-name' => '氏名',
 	'donate_interface-donor-fname' => 'ファーストネーム（名）',
+	'donate_interface-donor-address' => '住所',
 	'donate_interface-donor-mname' => 'ミドルネーム',
 	'donate_interface-donor-lname' => 'ラストネーム（氏）',
 	'donate_interface-donor-street' => '通り（番地）',
@@ -13143,7 +13146,6 @@ $messages['ja'] = array(
 	'donate_interface-donor-zip' => '郵便番号',
 	'donate_interface-donor-postal' => '郵便番号',
 	'donate_interface-donor-country' => '国/地域',
-	'donate_interface-donor-address' => '住所',
 	'donate_interface-donor-card' => 'クレジットカード',
 	'donate_interface-donor-card-num' => 'カード番号',
 	'donate_interface-donor-expiration' => '有効期限',
