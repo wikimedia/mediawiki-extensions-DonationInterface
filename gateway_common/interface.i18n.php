@@ -13216,8 +13216,8 @@ $messages['ja'] = array(
 	'donate_interface-middle' => 'ミドルネーム',
 	'donate_interface-last' => 'ラストネーム（氏）',
 	'donate_interface-other' => 'その他',
-	'donate_interface-noscript-msg' => 'JavaScriptが有効になっていないか、もしくはブラウザがJavaScriptをサポートしていません。
-安全で安心できる、そして快適な操作のため、この寄付フォームではJacaScriptが必要になっています。',
+	'donate_interface-noscript-msg' => 'JavaScript が有効になっていないか、もしくはブラウザが JavaScript に対応していません。
+安全で安心できる、そして快適な操作のため、この寄付フォームでは JavaScript が必要になっています。',
 	'donate_interface-noscript-redirect-msg' => 'もしJavaScriptを有効にできない、あるいは有効にすることを望まない場合、こちらからも寄付可能です：',
 	'donate_interface-donate-wikipedia' => 'ウィキペディアに寄付',
 	'donate_interface-or' => 'または',
