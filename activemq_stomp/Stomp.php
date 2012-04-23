@@ -117,6 +117,7 @@ class Stomp
     {
         $parsed = parse_url( $url );
         if ( $parsed ) {
+        	$parsed['port'] = isset( $parsed['port'] ) ? $parsed['port'] : null;
             array_push( $this->_hosts, array( $parsed['host'] , $parsed['port'] , $parsed['scheme'] ) );
         } else {
             require_once 'Stomp/Exception.php';
