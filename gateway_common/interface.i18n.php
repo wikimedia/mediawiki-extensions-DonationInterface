@@ -5722,6 +5722,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 );
 
 /** Zazaki (Zazaki)
+ * @author Erdemaslancan
  * @author Jsoby
  * @author Mirzali
  * @author Xoser
@@ -5771,6 +5772,7 @@ Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Do
 	'donate_interface-donor-email' => 'Adresê emaili',
 	'donate_interface-donor-name' => 'Name:',
 	'donate_interface-donor-fname' => 'Name:',
+	'donate_interface-donor-address' => 'Adres:',
 	'donate_interface-donor-mname' => 'Nameyê miyani:',
 	'donate_interface-donor-lname' => 'Nameyê peni:',
 	'donate_interface-donor-street' => 'Cagde',
@@ -5778,13 +5780,13 @@ Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Do
 	'donate_interface-donor-state' => 'Eyalet:',
 	'donate_interface-donor-postal' => 'Kodê postayi:',
 	'donate_interface-donor-country' => 'Dewlet/Mintiqa:',
-	'donate_interface-donor-address' => 'Adres:',
 	'donate_interface-donor-card' => 'Kardê krediti:',
 	'donate_interface-donor-card-num' => 'Amarê Kardi:',
 	'donate_interface-donor-expiration' => 'Wextê qediyayisi:',
 	'donate_interface-donor-security' => 'Kodê pawitisi:',
 	'donate_interface-donor-submit' => 'Bexs',
 	'donate_interface-donor-currency-msg' => 'Bexş ti ya $1 de teslim biyo',
+	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-error-msg' => 'Rica keno $1 de bike',
 	'donate_interface-error-msg-js' => 'Xo de bike',
 	'donate_interface-error-msg-invalid-amount' => 'Ma rica kenê yew meblagê raşti de bike',
@@ -5817,6 +5819,7 @@ Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Do
 <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-donate-click' => 'Klik ra tepiya "{{int:payflowpro_gateway-donor-submit}}", mıameley enformasyonê karta krediyê şıma beno.',
 	'donate_interface-credit-storage-processing' => 'Ma melumatê karta krediyê şıma qeyd nêkenime, u melumatê şımawo şexsi bınê idarey <a href="http://wikimediafoundation.org/wiki/Donor_policy">privacy policy</a>ê ma dero.',
+	'donate_interface-via-paypal' => "(PayPal'î sera)",
 );
 
 /** Lower Sorbian (Dolnoserbski)
@@ -13203,7 +13206,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-cvv' => 'カード裏面のに記載されているカード照合番号',
 	'donate_interface-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直して下さい。',
 	'donate_interface-error-msg-captcha-please' => 'クレジットカードの安全のため、上に示されている文字を入力してください。',
-	'donate_interface-error-msg-cookies' => 'ブラウザのクッキーを有効にしてください。',
+	'donate_interface-error-msg-cookies' => 'ブラウザの Cookie を有効にしてください。',
 	'donate_interface-error-msg-genaricrequired' => 'この項目は必須です。',
 	'donate_interface-donate-error-try-a-different-card' => ' [ $1 別のカード] もしくは  [ $2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
