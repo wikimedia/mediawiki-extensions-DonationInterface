@@ -6042,6 +6042,7 @@ Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</
 );
 
 /** Greek (Ελληνικά)
+ * @author Crazymadlover
  * @author Egmontaz
  * @author Glavkos
  * @author Jsoby
@@ -6172,15 +6173,16 @@ $messages['el'] = array(
 	'donate_interface-donor-emailAdd' => 'Διεύθυνση ηλεκτρονικού ταχυδρομείου',
 	'donate_interface-donor-name' => 'Όνομα:',
 	'donate_interface-donor-fname' => 'Όνομα',
+	'donate_interface-donor-address' => 'Διεύθυνση:',
 	'donate_interface-donor-mname' => 'Πατρώνυμο',
 	'donate_interface-donor-lname' => 'Επίθετο:',
 	'donate_interface-donor-street' => 'Οδός & αριθμός',
 	'donate_interface-donor-city' => 'Πόλη:',
+	'donate_interface-donor-island' => 'Νησί',
 	'donate_interface-donor-state' => 'Πολιτεία:',
 	'donate_interface-donor-zip' => 'Τ.Κ.',
 	'donate_interface-donor-postal' => 'Τ.Κ.',
 	'donate_interface-donor-country' => 'Χώρα/Περιοχή:',
-	'donate_interface-donor-address' => 'Διεύθυνση:',
 	'donate_interface-donor-card' => 'Πιστωτική κάρτα:',
 	'donate_interface-donor-card-num' => 'Αριθμός κάρτας:',
 	'donate_interface-donor-expiration' => 'Ημερομηνία λήξης:',
