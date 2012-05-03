@@ -1834,6 +1834,27 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//$this->staged_data['card_type'] = '';
 			//iono: maybe nothing? 
 		}
+
+		// This array contains all the card types that need AUTHENTICATIONINDICATOR
+		$authenticationIndicatorTypes = array(
+			'1', // visa
+			'3', // mc
+		);
+
+		// This array contains all currencies that should implement AUTHENTICATIONINDICATOR
+		$authenticationIndicatorCurrencies = array(
+			'INR',
+		);
+
+		if ( in_array( $this->staged_data['card_type'], $authenticationIndicatorTypes ) ) {
+
+			if ( in_array( $this->staged_data['currency_code'], $authenticationIndicatorCurrencies ) ) {
+
+				// Implement AUTHENTICATIONINDICATOR
+				$this->addKeyToTransaction('AUTHENTICATIONINDICATOR');
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
+			}
+		}
 	}
 
 	/**
