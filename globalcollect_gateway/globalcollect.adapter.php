@@ -298,7 +298,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'EXPIRYDATE'		=> 'expiration',
 			'FIRSTNAME'			=> 'fname',
 			'IBAN'				=> 'iban',
-			'IPADDRESS'			=> 'user_ip',
+			'IPADDRESS'			=> 'server_ip',
+			'IPADDRESSCUSTOMER'	=> 'user_ip',
 			'ISSUERID'			=> 'issuer_id',
 			'LANGUAGECODE'		=> 'language',
 			'MERCHANTREFERENCE'	=> 'order_id',
@@ -454,6 +455,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'LANGUAGECODE',
 							'COUNTRYCODE',
 							'MERCHANTREFERENCE',
+							'IPADDRESSCUSTOMER',
 						),
 						'PAYMENT' => array(
 							'PAYMENTPRODUCTID',
