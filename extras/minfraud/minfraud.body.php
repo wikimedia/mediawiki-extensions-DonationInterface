@@ -1,5 +1,25 @@
 <?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
 
+/**
+ * Gateway_Extras_MinFraud
+ *
+ */
 class Gateway_Extras_MinFraud extends Gateway_Extras {
 
 	/**
@@ -38,7 +58,13 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 	 */
 	static $instance;
 
-	function __construct( &$gateway_adapter, $license_key = NULL ) {
+	/**
+	 * Constructor
+	 *
+	 * @param GatewayAdapter	$gateway_adapter	Gateway adapter instance
+	 * @param string			$license_key		The license key. May also be set in $wgMinFraudLicenseKey
+	 */
+	public function __construct( &$gateway_adapter, $license_key = NULL ) {
 		parent::__construct( $gateway_adapter );
 		$dir = dirname( __FILE__ ) . '/';
 		require_once( $dir . "ccfd/CreditCardFraudDetection.php" );
@@ -71,7 +97,7 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
 		$this->query_minfraud( $minfraud_query );
 		$localAction = $this->determine_action( $this->minfraud_response['riskScore'] );
-		$this->gateway_adapter->log( $this->log_msg_prefix . "Minfraud Standalone setting the action to $localAction.", LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( "Minfraud Standalone setting the action to $localAction.", LOG_INFO, '_fraud' );
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		// reset the data hash
@@ -157,6 +183,21 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 
 	/**
 	 * Builds minfraud query from user input
+	 *
+	 * Required:
+	 * - city
+	 * - country
+	 * - i: Client IPA
+	 * - license_key
+	 * - postal
+	 * - region
+	 *
+	 * Optional that we are sending:
+	 * - bin: First 6 digits of the card
+	 * - domain: send the domain of the email address
+	 * - emailMD5: send an MD5 of the email address
+	 * - txnID: The internal transaction id of the contribution.
+	 *
 	 * @return array containing hash for minfraud query
 	 */
 	public function build_query( array $data ) {
@@ -201,6 +242,9 @@ class Gateway_Extras_MinFraud extends Gateway_Extras {
 					break;
 				case "country":
 					$newdata[$value] = $country_codes[$data[$value]];
+					break;
+				case "emailMD5":
+					$newdata[$value] = $this->get_ccfd()->filter_field( $key, $data[$value] );
 					break;
 				default:
 					$newdata[$value] = $data[$value];
