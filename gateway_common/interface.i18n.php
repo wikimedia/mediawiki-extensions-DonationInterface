@@ -13418,7 +13418,7 @@ $messages['ja'] = array(
 	'donate_interface-onetime' => '一度だけ寄付する',
 	'donate_interface-monthly-short' => '毎月',
 	'donate_interface-onetime-short' => '一度だけ',
-	'donate_interface-securelogo-title' => 'クリックして確認 - このサイトは電子取引の安全と通信の秘密保持のためにVeriSign SSLを用いています。',
+	'donate_interface-securelogo-title' => 'クリックして確認 - このサイトは電子商取引の安全と通信の秘密保持のためにVeriSign SSLを用いています。',
 	'donate_interface-secureLogo-text' => 'SSL 証明書について',
 	'donate_interface-error-http-403' => 'このページへのアクセス許可がありません。',
 );
