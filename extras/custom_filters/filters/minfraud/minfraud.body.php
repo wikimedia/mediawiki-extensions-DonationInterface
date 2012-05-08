@@ -60,6 +60,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_CustomFilters
 	public $minfraudResponse = array();
 
 	/**
+	 * An array of minFraud API servers
+	 * @var array $minFraudServers
+	 */
+	public $minFraudServers = array();
+
+	/**
 	 * License key for minfraud
 	 * @var string $minfraudLicenseKey
 	 */
@@ -94,9 +100,16 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_CustomFilters
 		}
 		$this->minfraudLicenseKey = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
 		
+		// Set the action range
 		$gateway_ranges = $gateway_adapter->getGlobal( 'MinFraudActionRanges' );
 		if ( !is_null( $gateway_ranges ) ) {
 			$this->action_ranges = $gateway_ranges;
+		}
+		
+		// Set the minFraud API servers
+		$minFraudServers = $gateway_adapter->getGlobal( 'MinFraudServers' );
+		if ( !empty( $minFraudServers ) && is_array( $minFraudServers ) ) {
+			$this->minFraudServers = $minFraudServers;
 		}
 	}
 
@@ -251,6 +264,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_CustomFilters
 	public function get_ccfd() {
 		if ( !$this->ccfd ) {
 			$this->ccfd = new CreditCardFraudDetection( $this->gateway_adapter );
+			
+			// Override the minFraud API servers
+			if ( !empty( $this->minFraudServers ) && is_array( $this->minFraudServers )  ) {
+				
+				$this->ccfd->server = $this->minFraudServers;
+			}
 		}
 		return $this->ccfd;
 	}

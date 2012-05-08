@@ -397,6 +397,23 @@ if ( $optionalParts['Minfraud'] === true ){
 		'reject' => array( -1, -1 )
 	);
 
+	/**
+	 * This allows setting where to point the minFraud servers.
+	 *
+	 * As of February 21st, 2012 minfraud.maxmind.com will route to the east or
+	 * west server, depending on you location.
+	 *
+	 * minfraud-us-east.maxmind.com: 174.36.207.186
+	 * minfraud-us-west.maxmind.com: 50.97.220.226
+	 *
+	 * The minFraud API requires an array of servers.
+	 *
+	 * You do not have to specify a server.
+	 *
+	 * @see CreditCardFraudDetection::$server
+	 */
+	$wgDonationInterfaceMinFraudServers = array();
+
 	// Timeout in seconds for communicating with MaxMind
 	$wgMinFraudTimeout = 2;
 }
