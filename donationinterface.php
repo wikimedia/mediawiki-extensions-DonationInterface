@@ -452,7 +452,7 @@ if ( $optionalParts['Recaptcha'] === true ){
 	$wgDonationInterfaceRecaptchaPublicKey = '';
 	$wgDonationInterfaceRecaptchaPrivateKey = '';
 
-	// Timeout (in seconds) for communicating with reCatpcha
+	// Timeout (in seconds) for communicating with reCAPTCHA
 	$wgDonationInterfaceRecaptchaTimeout = 2;
 
 	/**
