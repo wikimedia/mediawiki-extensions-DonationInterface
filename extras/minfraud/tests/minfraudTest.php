@@ -13,7 +13,7 @@ class minfraudTest extends PHPUnit_Framework_TestCase {
 		require_once( $dir . '../minfraud.body.php' );
 		global $wgDonationInterfaceExtrasLog;
 		$wgDonationInterfaceExtrasLog = dirname( __FILE__ ) . "/test_log";
-		$license_key = 'XBCKSF4gnHA7';
+		$license_key = $hwgMinFraudLicenseKey;
 		global $wgPayflowProGatewayTest;
 		$wgPayflowProGatewayTest = true;
 		$adapter = new PayflowProAdapter();
