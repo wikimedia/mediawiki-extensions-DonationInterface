@@ -2208,6 +2208,51 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * This custom filter function checks the global variable:
 	 *
+	 * EmailDomainMap
+	 *
+	 * How the score is tabulated:
+	 *  - If a emailDomain is not defined, a score of zero will be generated.
+	 *  - Generates a score based on the defined value.
+	 *  - Returns an integer: 0 <= $score <= 100
+	 *
+	 * @see GatewayAdapter::$debugarray
+	 * @see GatewayAdapter::log()
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceEmailDomainMap
+	 *
+	 * @return integer
+	 */
+	public function getScoreEmailDomainMap() {
+
+		$score = 0;
+
+		$email = $this->getData_Unstaged_Escaped( 'email' );
+
+		$emailDomain = substr( strstr( $email, '@' ), 1 );
+
+		$emailDomainMap = $this->getGlobal( 'EmailDomainMap' );
+
+		$msg = self::getGatewayName() . ': Email Domain map: '
+			. print_r( $emailDomainMap, true );
+
+		$this->log( $msg, LOG_DEBUG );
+
+		// Lookup a score if it is defined
+		if ( isset( $emailDomainMap[ $emailDomain ] ) ) {
+			$score = (integer) abs( $emailDomainMap[ $emailDomain ] );
+		}
+
+		// @see $wgDonationInterfaceDisplayDebug
+		$this->debugarray[] = 'custom filters function: get email domain [ '
+			. $emailDomain . ' ] map score = ' . $score;
+
+		return $score;
+	}
+
+	/**
+	 * This custom filter function checks the global variable:
+	 *
 	 * UtmCampaignMap
 	 *
 	 * How the score is tabulated:
