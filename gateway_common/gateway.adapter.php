@@ -2161,5 +2161,47 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * This custom filter function checks the global variable:
+	 *
+	 * CountryMap
+	 *
+	 * How the score is tabulated:
+	 *  - If a country is not defined, a score of zero will be generated.
+	 *  - Generates a score based on the defined value.
+	 *  - Returns an integer: 0 <= $score <= 100
+	 *
+	 * @see GatewayAdapter::$debugarray
+	 * @see GatewayAdapter::log()
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceCountryMap
+	 *
+	 * @return integer
+	 */
+	public function getScoreCountryMap() {
+
+		$score = 0;
+
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+
+		$countryMap = $this->getGlobal( 'CountryMap' );
+
+		$msg = self::getGatewayName() . ': Country map: '
+			. print_r( $countryMap, true );
+
+		$this->log( $msg, LOG_DEBUG );
+
+		// Lookup a score if it is defined
+		if ( isset( $countryMap[ $country ] ) ) {
+			$score = (integer) abs( $countryMap[ $country ] );
+		}
+
+		// @see $wgDonationInterfaceDisplayDebug
+		$this->debugarray[] = 'custom filters function: get country [ '
+			. $country . ' ] map score = ' . $score;
+
+		return $score;
+	}
 }
