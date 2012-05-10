@@ -461,6 +461,31 @@ if ( $optionalParts['FunctionsFilter'] === true ){
 $wgDonationInterfaceCountryMap = array();
 
 /**
+ * $wgDonationInterfaceEmailDomainMap
+ *
+ * A score of 0 for an email domain means no risk.
+ * A score of 100 means this email domain is extremely risky for fraud.
+ * Scores may be negative.
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreEmailDomainMap' => 100,
+ * );
+ *
+ * $wgDonationInterfaceEmailDomainMap = array(
+ * 	'gmail.com' =>  5,
+ * 	'wikimedia.org' => 0,
+ * );
+ * ?>
+ * @endcode
+ */
+$wgDonationInterfaceEmailDomainMap = array();
+
+/**
  * $wgDonationInterfaceUtmCampaignMap
  *
  * A score of 0 for utm_campaign means no risk.
