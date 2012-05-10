@@ -460,6 +460,31 @@ if ( $optionalParts['FunctionsFilter'] === true ){
  */
 $wgDonationInterfaceCountryMap = array();
 
+/**
+ * $wgDonationInterfaceUtmCampaignMap
+ *
+ * A score of 0 for utm_campaign means no risk.
+ * A score of 100 means this utm_campaign is extremely risky for fraud.
+ * Scores may be negative
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreUtmCampaignMap' => 100,
+ * );
+ *
+ * $wgDonationInterfaceUtmCampaignMap = array(
+ * 	'' =>  20,
+ * 	'some-odd-string' => 100,
+ * );
+ * ?>
+ * @endcode
+ */
+$wgDonationInterfaceUtmCampaignMap = array();
+
 //Recaptcha globals
 if ( $optionalParts['Recaptcha'] === true ){
 	/**
