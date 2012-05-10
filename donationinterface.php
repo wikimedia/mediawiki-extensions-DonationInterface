@@ -267,7 +267,6 @@ $wgDonationInterfacePriceCeiling = '10000.00';
 $wgDonationInterfaceThankYouPage = 'Donate-thanks';
 $wgDonationInterfaceFailPage = 'Donate-error'; 
 
-
 //GlobalCollect gateway globals
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgGlobalCollectGatewayURL = 'https://ps.gcsip.nl/wdl/wdl';
@@ -432,6 +431,34 @@ if ( $optionalParts['SourceFilter'] === true ){
 if ( $optionalParts['FunctionsFilter'] === true ){
 	$wgDonationInterfaceCustomFiltersFunctions = array( );
 }
+
+/**
+ * $wgDonationInterfaceCountryMap
+ *
+ * A score of 0 for a country means no risk.
+ * A score of 100 means this country is extremely risky for fraud.
+ *
+ * The score for a country has the following range:
+ *
+ * 0 <= $score <= 100
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreCountryMap' => 100,
+ * );
+ *
+ * $wgDonationInterfaceCountryMap = array(
+ * 	'CA' =>  1,
+ * 	'US' => 5,
+ * );
+ * ?>
+ * @endcode
+ */
+$wgDonationInterfaceCountryMap = array();
 
 //Recaptcha globals
 if ( $optionalParts['Recaptcha'] === true ){
