@@ -557,6 +557,13 @@ $messages['nl'] = array(
 Probeer het later alstublieft nog een keer.',
 );
 
+/** Pälzisch (Pälzisch)
+ * @author Manuae
+ */
+$messages['pfl'] = array(
+	'globalcollect_gateway-response-9150' => 'Ugildischi Schbrooch',
+);
+
 /** Polish (Polski)
  * @author Mikołka
  * @author Sp5uhe
