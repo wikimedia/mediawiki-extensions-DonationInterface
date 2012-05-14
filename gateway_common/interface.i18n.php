@@ -12863,7 +12863,7 @@ In alcuni casi, il codice si trova sulla parte sinistra della casa, ma comunque 
 	'donate_interface-question-comment' => 'Domande o commenti? Contatta <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Stiamo cercando di rendere più facile la donazione alle persone in ogni paese. Facci sapere come potremmo renderla più facile per te. Invia i tuoi suggerimenti a: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Qualche problema?',
-	'donate_interface-donate-click' => 'La tua carta di credito verrà elaborata in modo sicuro.',
+	'donate_interface-donate-click' => 'La tua carta di credito/debito verrà elaborata in modo sicuro.',
 	'donate_interface-otherways' => 'Sono possibili <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altri modi per donare, tra cui PayPal, assegno o posta</a>.',
 	'donate_interface-otherways-alt' => 'Sono possibili <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">altri modi per donare</a>, anche con assegno.',
 	'donate_interface-otherways-short' => 'Altri modi per donare',
