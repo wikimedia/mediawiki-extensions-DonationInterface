@@ -91,21 +91,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 	}
 
-	public function do_transaction( $transaction ) {
-		switch ( $transaction ) {
-			case 'SET_PAYMENT':
-			case 'CANCEL_PAYMENT':
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": CVV: " . $this->getData_Unstaged_Escaped( 'cvv_result' ) . ": AVS: " . $this->getData_Unstaged_Escaped( 'avs_result' ) );
-			//and then go on, unless you're testing, in which case:
-//				return "NOPE";
-//				break;
-			default:
-				$ret = parent::do_transaction( $transaction );
-				return $ret;
-				break;
-		}
-	}
-
 	public static function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
 		$identifier = 'orphans:' . self::getIdentifier() . "_gateway_trxn";
 

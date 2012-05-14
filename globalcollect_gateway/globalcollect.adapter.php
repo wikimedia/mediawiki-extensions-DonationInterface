@@ -1214,15 +1214,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} else {
 				if ($order_status_results === false){
 					//we didn't do the check, because we're going to fail the thing. 
-					$final = $this->do_transaction( 'CANCEL_PAYMENT' );
-					if ( isset( $final['status'] ) && $final['status'] === true ) {
-						$this->setTransactionWMFStatus( 'failed' );
-						$this->unsetAllSessionData();
-						$add_antimessage = true;
-					} else {
-						$problemflag = true;
-						$problemmessage = "CANCEL_PAYMENT couldn't communicate properly!";
-					}
+					/**
+					 * No need to send an explicit CANCEL_PAYMENT here, because 
+					 * the payment has not been set. 
+					 * In fact, GC will error out if we try to do that, and tell 
+					 * us there is nothing to cancel.
+					 */
+					$this->setTransactionWMFStatus( 'failed' );
+					$this->unsetAllSessionData();
+					$add_antimessage = true;
 				} else {
 					//in case we got wiped out, set the final status to what it was before. 
 					$this->setTransactionWMFStatus( $order_status_results );

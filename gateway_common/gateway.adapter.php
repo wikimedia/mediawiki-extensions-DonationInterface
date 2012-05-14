@@ -246,6 +246,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * Override this in children if you want different defaults. 
+	 * TODO: Move all this default-type functionality into the DonationData class. 
 	 */
 	function setPostDefaults( $options = array() ) {
 
@@ -265,9 +266,15 @@ abstract class GatewayAdapter implements GatewayType {
 			'country' => 'US',
 			'returnto' => $returnTo,
 			'user_ip' => ( self::getGlobal( 'Test' ) ) ? '12.12.12.12' : wfGetIP(), // current user's IP address
-			'server_ip' => $_SERVER['SERVER_ADDR'], // server IP address
 			'card_type' => 'visa',
 		);
+		
+		//Can't just assume this is populated: Could be slaying orphans. 
+		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ){
+			$this->postdatadefaults['server_ip'] = $_SERVER['SERVER_ADDR']; // server IP address
+		} else {
+			$this->postdatadefaults['server_ip'] = '127.0.0.1';
+		}
 	}
 
 	/**
