@@ -45,8 +45,6 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
 	'FunctionsFilter' => false, //extra
-	'Minfraud_as_filter' => false, //extra
-
 );
 
 foreach ($optionalParts as $subextension => $enabled){
@@ -58,7 +56,6 @@ foreach ($optionalParts as $subextension => $enabled){
 		if ( $subextension === 'ReferrerFilter' ||
 			$subextension === 'SourceFilter' ||
 			$subextension === 'FunctionsFilter' ||
-			$subextension === 'Minfraud_as_filter' ||
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
 			$subextension === 'Recaptcha' ) {
@@ -69,7 +66,7 @@ foreach ($optionalParts as $subextension => $enabled){
 			if ( $subextension === 'ReferrerFilter' ||
 				$subextension === 'SourceFilter' ||
 				$subextension === 'FunctionsFilter' ||
-				$subextension === 'Minfraud_as_filter' ){
+				$subextension === 'Minfraud' ){
 
 				//and at least one of them is a custom filter.
 				$optionalParts['CustomFilters'] = true;
@@ -148,12 +145,7 @@ if ($optionalParts['ConversionLog'] === true){
 }
 
 //Minfraud classes
-if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter'] === true ){
-	$wgAutoloadClasses['Gateway_Extras_MinFraud'] = $donationinterface_dir . "extras/minfraud/minfraud.body.php";
-}
-
-//Minfraud as Filter classes
-if ( $optionalParts['Minfraud_as_filter'] === true ){
+if ( $optionalParts['Minfraud'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_MinFraud'] = $donationinterface_dir . "extras/custom_filters/filters/minfraud/minfraud.body.php";
 }
 
@@ -376,7 +368,7 @@ if ( $optionalParts['CustomFilters'] === true ){
 }
 
 //Minfraud globals
-if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter'] === true ){
+if ( $optionalParts['Minfraud'] === true ){
 	/**
 	 * Your minFraud license key.
 	 */
@@ -388,7 +380,7 @@ if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter']
 	 * The keys to the array are the 'actions' to be taken (eg 'process').
 	 * The value for one of these keys is an array representing the lower
 	 * and upper bounds for that action.  For instance,
-	 *   $wgMinFraudActionRagnes = array(
+	 *   $wgDonationInterfaceMinFraudActionRanges = array(
 	 * 		'process' => array( 0, 100)
 	 * 		...
 	 * 	);
@@ -407,23 +399,6 @@ if ( $optionalParts['Minfraud'] === true || $optionalParts['Minfraud_as_filter']
 
 	// Timeout in seconds for communicating with MaxMind
 	$wgMinFraudTimeout = 2;
-
-	/**
-	 * Define whether or not to run minFraud in stand alone mode
-	 *
-	 * If this is set to run in standalone, these scripts will be
-	 * accessed directly via the "GatewayValidate" hook.
-	 * You may not want to run this in standalone mode if you prefer
-	 * to use this in conjunction with Custom Filters.  This has the
-	 * advantage of sharing minFraud info with other filters.
-	 */
-	$wgMinFraudStandalone = TRUE;
-
-}
-
-//Minfraud as Filter globals
-if ( $optionalParts['Minfraud_as_filter'] === true ){
-	$wgMinFraudStandalone = FALSE;
 }
 
 //Referrer Filter globals
@@ -522,6 +497,11 @@ if ( $optionalParts['SourceFilter'] === true ){
 if ( $optionalParts['FunctionsFilter'] === true ){
 	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
 } 
+
+//Minfraud as Filter globals
+if ( $optionalParts['Minfraud'] === true ){
+	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
+}
 
 //Conversion Log hooks
 if ($optionalParts['ConversionLog'] === true){
@@ -707,17 +687,6 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
 }
 
-//Minfraud magical globals
-if ( $optionalParts['Minfraud'] === true ){ //We do not want this in filter mode.
-	$wgExtensionFunctions[] = 'efMinFraudSetup';
-}
-
-//Minfraud as Filter globals
-if ( $optionalParts['Minfraud_as_filter'] === true ){
-	$wgExtensionFunctions[] = 'efCustomFiltersMinFraudSetup';
-}
-
-
 /**
  * FUNCTIONS
  */
@@ -725,16 +694,6 @@ if ( $optionalParts['Minfraud_as_filter'] === true ){
 //---Stomp functions---
 if ($optionalParts['Stomp'] === true){
 	require_once( $donationinterface_dir . 'activemq_stomp/activemq_stomp.php'  );
-}
-
-//---Minfraud functions---
-if ($optionalParts['Minfraud'] === true){
-	require_once( $donationinterface_dir . 'extras/minfraud/minfraud.php'  );
-}
-
-//---Minfraud as filter functions---
-if ($optionalParts['Minfraud_as_filter'] === true){
-	require_once( $donationinterface_dir . 'extras/custom_filters/filters/minfraud/minfraud.php'  );
 }
 
 function efDonationInterfaceUnitTests( &$files ) {
