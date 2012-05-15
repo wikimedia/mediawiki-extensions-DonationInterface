@@ -33,7 +33,7 @@
  * $wgDonationInterfaceMinFraudActionRanges
  * @endcode
  */
-class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras_CustomFilters {
+class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 	/**
 	 * Instance of minFraud CreditCardFraudDetection
