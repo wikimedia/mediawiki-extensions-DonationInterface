@@ -276,6 +276,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 	/**
 	 * Logs a minFraud query and its response
+	 *
+	 * WARNING: It is critical that the order of these fields is not altered.
+	 *
+	 * The minfraud_log_mailer depends on the order of these fields.
+	 *
+	 * @see http://svn.wikimedia.org/viewvc/wikimedia/trunk/fundraising-misc/minfraud_log_mailer/
 	 */
 	public function log_query() {
 
