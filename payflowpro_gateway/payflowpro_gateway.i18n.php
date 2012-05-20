@@ -1377,7 +1377,7 @@ Neem alstublieft contact met ons op voor uw transactie.',
 	'payflowpro_gateway-response-112' => 'Uw adres of CVV-nummer (veiligheidscode) is onjuist.',
 	'payflowpro_gateway-response-125' => 'Uw transactie is geweigers door Fraud Prevention Services.',
 	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk uw creditcard te valideren. Controleer alstublieft of alle gegevens die u hebt opgegeven overeenkomen met uw creditkaartprofiel, of probeer te doneren met een andere creditkaart. U kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank u wel voor uw steun.',
-	'payflowpro_gateway-response-default' => 'Er is een fout opgetreden bij het verwerken van uw transactie.
+	'payflowpro_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van uw transactie.
 Probeer het later nog een keer.',
 );
 

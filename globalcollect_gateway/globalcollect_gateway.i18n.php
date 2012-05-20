@@ -553,8 +553,8 @@ $messages['nl'] = array(
 	'globalcollect_gateway-response-21000150' => 'Ongeldig rekeningnummer.',
 	'globalcollect_gateway-response-21000155' => 'Ongeldige bankcode.',
 	'globalcollect_gateway-response-21000160' => 'Ongeldig girorekeningnummer.',
-	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden bij het verwerken van uw transactie.
-Probeer het later alstublieft nog een keer.',
+	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van uw transactie.
+Probeer het later nog een keer.',
 );
 
 /** Pälzisch (Pälzisch)
