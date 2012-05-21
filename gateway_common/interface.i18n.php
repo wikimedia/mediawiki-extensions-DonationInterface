@@ -5795,7 +5795,7 @@ Ser bexşi politikayê ma tiya de <a title='Donate/Donor Privacy' href='/wiki/Do
 	'donate_interface-donor-lname' => 'Nameyê eşir:',
 	'donate_interface-donor-street' => 'Cagde',
 	'donate_interface-donor-street-number' => 'Nımre',
-	'donate_interface-donor-city' => 'Saristan:',
+	'donate_interface-donor-city' => 'Sûke',
 	'donate_interface-donor-county' => 'Dewlet',
 	'donate_interface-donor-state' => 'Eyalet:',
 	'donate_interface-donor-postal' => 'Kodê postayi:',
