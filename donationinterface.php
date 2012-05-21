@@ -485,6 +485,56 @@ $wgDonationInterfaceCountryMap = array();
  */
 $wgDonationInterfaceUtmCampaignMap = array();
 
+/**
+ * $wgDonationInterfaceUtmMediumMap
+ *
+ * A score of 0 for utm_medium means no risk.
+ * A score of 100 means this utm_medium is extremely risky for fraud.
+ * Scores may be negative
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreUtmMediumMap' => 100,
+ * );
+ *
+ * $wgDonationInterfaceUtmMediumMap = array(
+ * 	'' =>  20,
+ * 	'some-odd-string' => 100,
+ * );
+ * ?>
+ * @endcode
+ */
+$wgDonationInterfaceUtmMediumMap = array();
+
+/**
+ * $wgDonationInterfaceUtmSourceMap
+ *
+ * A score of 0 for utm_source means no risk.
+ * A score of 100 means this utm_source is extremely risky for fraud.
+ * Scores may be negative
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreUtmSourceMap' => 100,
+ * );
+ *
+ * $wgDonationInterfaceUtmSourceMap = array(
+ * 	'' =>  20,
+ * 	'some-odd-string' => 100,
+ * );
+ * ?>
+ * @endcode
+ */
+$wgDonationInterfaceUtmSourceMap = array();
+
 //Recaptcha globals
 if ( $optionalParts['Recaptcha'] === true ){
 	/**
