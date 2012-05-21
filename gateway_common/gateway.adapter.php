@@ -2246,4 +2246,88 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $score;
 	}
+
+	/**
+	 * This custom filter function checks the global variable:
+	 *
+	 * UtmMediumMap
+	 *
+	 * How the score is tabulated:
+	 *  - If a medium is not defined, a score of zero will be generated.
+	 *  - Generates a score based on the defined value.
+	 *  - Returns an integer.
+	 *
+	 * @see GatewayAdapter::$debugarray
+	 * @see GatewayAdapter::log()
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceUtmMediumMap
+	 *
+	 * @return integer
+	 */
+	public function getScoreUtmMediumMap() {
+
+		$score = 0;
+
+		$medium = $this->getData_Unstaged_Escaped( 'utm_medium' );
+		$mediumMap = $this->getGlobal( 'UtmMediumMap' );
+
+		$msg = self::getGatewayName() . ': UTM Medium map: '
+			. print_r( $mediumMap, true );
+
+		$this->log( $msg, LOG_DEBUG );
+
+		// Lookup a score if it is defined
+		if ( isset( $mediumMap[ $medium ] ) ) {
+			$score = (integer) $mediumMap[ $medium ];
+		}
+
+		// @see $wgDonationInterfaceDisplayDebug
+		$this->debugarray[] = 'custom filters function: get utm medium [ '
+			. $medium . ' ] score = ' . $score;
+
+		return $score;
+	}
+
+	/**
+	 * This custom filter function checks the global variable:
+	 *
+	 * UtmSourceMap
+	 *
+	 * How the score is tabulated:
+	 *  - If a source is not defined, a score of zero will be generated.
+	 *  - Generates a score based on the defined value.
+	 *  - Returns an integer.
+	 *
+	 * @see GatewayAdapter::$debugarray
+	 * @see GatewayAdapter::log()
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceUtmSourceMap
+	 *
+	 * @return integer
+	 */
+	public function getScoreUtmSourceMap() {
+
+		$score = 0;
+
+		$source = $this->getData_Unstaged_Escaped( 'utm_source' );
+		$sourceMap = $this->getGlobal( 'UtmSourceMap' );
+
+		$msg = self::getGatewayName() . ': UTM Source map: '
+			. print_r( $sourceMap, true );
+
+		$this->log( $msg, LOG_DEBUG );
+
+		// Lookup a score if it is defined
+		if ( isset( $sourceMap[ $source ] ) ) {
+			$score = (integer) $sourceMap[ $source ];
+		}
+
+		// @see $wgDonationInterfaceDisplayDebug
+		$this->debugarray[] = 'custom filters function: get utm source [ '
+			. $source . ' ] score = ' . $score;
+
+		return $score;
+	}
 }
