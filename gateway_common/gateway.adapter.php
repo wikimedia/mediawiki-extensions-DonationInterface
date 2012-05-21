@@ -2204,4 +2204,46 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $score;
 	}
+
+	/**
+	 * This custom filter function checks the global variable:
+	 *
+	 * UtmCampaignMap
+	 *
+	 * How the score is tabulated:
+	 *  - If a campaign is not defined, a score of zero will be generated.
+	 *  - Generates a score based on the defined value.
+	 *  - Returns an integer.
+	 *
+	 * @see GatewayAdapter::$debugarray
+	 * @see GatewayAdapter::log()
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceUtmCampaignMap
+	 *
+	 * @return integer
+	 */
+	public function getScoreUtmCampaignMap() {
+
+		$score = 0;
+
+		$campaign = $this->getData_Unstaged_Escaped( 'utm_campaign' );
+		$campaignMap = $this->getGlobal( 'UtmCampaignMap' );
+
+		$msg = self::getGatewayName() . ': UTM Campaign map: '
+			. print_r( $campaignMap, true );
+
+		$this->log( $msg, LOG_DEBUG );
+
+		// Lookup a score if it is defined
+		if ( isset( $campaignMap[ $campaign ] ) ) {
+			$score = (integer) $campaignMap[ $campaign ];
+		}
+
+		// @see $wgDonationInterfaceDisplayDebug
+		$this->debugarray[] = 'custom filters function: get utm campaign [ '
+			. $campaign . ' ] score = ' . $score;
+
+		return $score;
+	}
 }
