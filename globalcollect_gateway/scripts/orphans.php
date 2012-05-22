@@ -119,10 +119,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$final = "\nDone! Final results: \n";
 		$final .= " $am destroyed via antimessage (called $am_called_count times) \n";
 		$final .= " $rec rectified orphans \n";
-		$final .= " $err errored out \n";
+		$final .= " $err errored out";
 		if ( isset( $this->adapter->orphanstats ) ){
 			foreach ( $this->adapter->orphanstats as $status => $count ) {
-				$final .= "   Status $status = $count\n";
+				$final .= "\n   Status $status = $count";
 			}
 		}
 		$this->adapter->log($final);
