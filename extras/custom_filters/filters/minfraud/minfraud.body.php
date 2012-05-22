@@ -279,12 +279,15 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	public function log_query() {
 
-		$log_message = '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'comment' ) ) . '"';
+		$log_message = '';
+
+		$log_message .= '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'comment' ) ) . '"';
+		$log_message .= "\t" . '"' . date( 'c' ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'amount' ) . ' ' . $this->gateway_adapter->getData_Unstaged_Escaped( 'currency_code' ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudQuery ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudResponse ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' ) ) . '"';
-		$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'minFraud query', $log_message );
+		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"minFraud query" ' . $log_message , LOG_INFO, '_fraud' );
 	}
 
 	/**

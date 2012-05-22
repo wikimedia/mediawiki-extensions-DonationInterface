@@ -41,8 +41,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
-		$this->log_msg_prefix = $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		$this->log_msg_prefix .= ':' . $this->gateway_adapter->getData_Unstaged_Escaped( 'order_id' ) . ' ';
+		$this->log_msg_prefix = $this->gateway_adapter->getLogMessagePrefix();
 	}
 
 	/**
@@ -63,7 +62,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			}
 		}
 	}
-	
 
 	public function addRiskScore( $score, $source ){
 		if ( !is_numeric( $score ) ){
@@ -76,7 +74,9 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 				$this->risk_score = array();
 			}
 		}
-		$this->gateway_adapter->log( $this->log_msg_prefix . "$source added a score of $score", LOG_INFO, '_fraud' );
+
+		$log_message = '"' . "$source added a score of $score" . '"';
+		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
 		$this->risk_score[$source] = $score;
 	}
 	
@@ -86,7 +86,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			if ( !is_numeric( $this->risk_score ) ){
 				throw new MWException(__FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
 			} else {
-				$this->gateway_adapter->log( $this->log_msg_prefix . "returning numeric score " . $this->risk_score , LOG_INFO, '_fraud' );
 				return $this->risk_score;
 			}
 		} else {
@@ -94,7 +93,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			foreach ( $this->risk_score as $score ){
 				$total += $score;
 			}
-			$this->gateway_adapter->log( $this->log_msg_prefix . "Returning total of $total " . print_r( $this->risk_score, true) , LOG_INFO, '_fraud' );
 			return $total;
 		}
 	}
@@ -107,11 +105,13 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		// expose a hook for custom filters
 		wfRunHooks( 'GatewayCustomFilter', array( &$this->gateway_adapter, &$this ) );
 		$localAction = $this->determineAction();
-//		error_log("Filter validation says " . $localAction);
 		$this->gateway_adapter->setValidationAction( $localAction );
 
-		$log_msg = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
-		$this->log( $this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Filtered', $log_msg );
+		$log_message = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
+		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"Filtered" ' . $log_message , LOG_INFO, '_fraud' );
+
+		$log_message = '"' . addslashes( json_encode( $this->risk_score ) ) . '"';
+		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"CustomFiltersScores" ' . $log_message, LOG_INFO, '_fraud' );
 		return TRUE;
 	}
 
