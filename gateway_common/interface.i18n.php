@@ -12261,6 +12261,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author -iNu-
  * @author Farras
  * @author IvanLanin
  * @author Jsoby
@@ -12392,11 +12393,16 @@ $messages['id'] = array(
 	'donate_interface-donor-mname' => 'Nama tengah:',
 	'donate_interface-donor-lname' => 'Nama belakang:',
 	'donate_interface-donor-street' => 'Alamat:',
+	'donate_interface-donor-street-number' => 'Nomor',
 	'donate_interface-donor-city' => 'Kota:',
+	'donate_interface-donor-county' => 'County',
+	'donate_interface-donor-island' => 'Pulau',
 	'donate_interface-donor-state' => 'Negara bagian:',
 	'donate_interface-donor-zip' => 'Zip',
 	'donate_interface-donor-postal' => 'Kode pos:',
 	'donate_interface-donor-country' => 'Negara/Wilayah:',
+	'donate_interface-donor-zone' => 'Zona',
+	'donate_interface-donor-pobox' => 'PO Box',
 	'donate_interface-donor-card' => 'Kartu kredit:',
 	'donate_interface-donor-card-num' => 'Nomor kartu:',
 	'donate_interface-donor-expiration' => 'Tanggal kedaluwarsa:',
@@ -12630,6 +12636,9 @@ Dalam rangka memberikan pengalaman yang aman dan menyenangkan, formulir sumbanga
 	'donate_interface-monthlybox-no' => 'TIDAK, buat donasi hanya sekali',
 	'donate_interface-monthlybox-bottom' => 'Donasi Anda akan diproses secara aman.',
 	'donate_interface-monthly-cancel' => 'Pembayaran bulanan akan didebet oleh Wikimedia Foundation sampai saat Anda memberitahu kami untuk menghentikannya.',
+	'donate_interface-onetime' => 'Buat sumbangan satu kali',
+	'donate_interface-monthly-short' => 'Bulanan',
+	'donate_interface-onetime-short' => 'Satu kali',
 	'donate_interface-securelogo-title' => 'Klik untuk Verifikasi - Situs ini menggunakan VeriSign SSL untuk mengamankan perdagangan elektronik dan komunikasi rahasia.',
 	'donate_interface-secureLogo-text' => 'Tentang Sertifikat SSL',
 	'donate_interface-error-http-403' => 'Anda tidak memiliki izin untuk mengakses halaman ini.',
