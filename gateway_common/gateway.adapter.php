@@ -131,6 +131,13 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $goToThankYouOn = array();
 
 	/**
+	 * @var string $log_msg_prefix Define a standard log prefix with 
+	 * contribution tracking id and order id to use as a prefix in all our of
+	 * logging.
+	 */
+	protected $log_msg_prefix;
+
+	/**
 	 * $var_map maps gateway variables to client variables
 	 *
 	 * @var	array	$var_map
@@ -275,6 +282,19 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			$this->postdatadefaults['server_ip'] = '127.0.0.1';
 		}
+	}
+
+	/**
+	 * Get the log message prefix
+	 *
+	 * @return string 
+	 */
+	public function getLogMessagePrefix() {
+
+		$this->log_msg_prefix = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->log_msg_prefix .= ':' . $this->getData_Unstaged_Escaped( 'order_id' ) . ' ';
+
+		return $this->log_msg_prefix;
 	}
 
 	/**
@@ -1210,6 +1230,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// otherwise, use syslogging
 		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
+		$msg = str_replace( "\t", " ", $msg );
 		syslog( $log_level, $msg );
 		closelog();
 	}
