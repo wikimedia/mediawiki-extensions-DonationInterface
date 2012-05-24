@@ -112,6 +112,14 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 
 		$log_message = '"' . addslashes( json_encode( $this->risk_score ) ) . '"';
 		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"CustomFiltersScores" ' . $log_message, LOG_INFO, '_fraud' );
+
+		$utm = array(
+			'utm_campaign' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_campaign' ),
+			'utm_medium' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_medium' ),
+			'utm_source' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' ),
+		);
+		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
+		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"utm" ' . $log_message, LOG_INFO, '_fraud' );
 		return TRUE;
 	}
 
