@@ -234,13 +234,14 @@ abstract class GatewayAdapter implements GatewayType {
 		
 		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
 
+		$this->setPostDefaults( $postDefaults );
+		
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 		
 		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
 		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
 
-		$this->setPostDefaults( $postDefaults );
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
@@ -282,6 +283,11 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			$this->postdatadefaults['server_ip'] = '127.0.0.1';
 		}
+		
+		//this is a dumb fix until we can get rid of this dumb function altogether.
+		$this->dataObj->setVal( 'user_ip', $this->postdatadefaults['user_ip'] );
+		$this->dataObj->setVal( 'server_ip', $this->postdatadefaults['server_ip'] );
+		
 	}
 
 	/**
