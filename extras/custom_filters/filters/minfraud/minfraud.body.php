@@ -151,6 +151,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->minfraudQuery["license_key"] = $this->minfraudLicenseKey;
 
 		// user's IP address
+		//TODO: GET THIS FROM THE ADAPTER. 
 		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getGlobal( "Test" ) ) ? '12.12.12.12' : wfGetIP();
 
 		// user's user agent

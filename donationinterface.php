@@ -45,6 +45,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
 	'FunctionsFilter' => false, //extra
+	'IPVelocityFilter' => false, //extra
 );
 
 foreach ($optionalParts as $subextension => $enabled){
@@ -58,7 +59,8 @@ foreach ($optionalParts as $subextension => $enabled){
 			$subextension === 'FunctionsFilter' ||
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
-			$subextension === 'Recaptcha' ) {
+			$subextension === 'Recaptcha' ||
+			$subextension === 'IPVelocityFilter' ) {
 
 			//we have extras
 			$optionalParts['Extras'] = true;
@@ -66,7 +68,8 @@ foreach ($optionalParts as $subextension => $enabled){
 			if ( $subextension === 'ReferrerFilter' ||
 				$subextension === 'SourceFilter' ||
 				$subextension === 'FunctionsFilter' ||
-				$subextension === 'Minfraud' ){
+				$subextension === 'Minfraud' ||
+				$subextension === 'IPVelocityFilter' ){
 
 				//and at least one of them is a custom filter.
 				$optionalParts['CustomFilters'] = true;
@@ -169,6 +172,10 @@ if ( $optionalParts['Recaptcha'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_ReCaptcha'] = $donationinterface_dir . "extras/recaptcha/recaptcha.body.php";
 }
 
+//Functions Filter classes
+if ( $optionalParts['IPVelocityFilter'] === true ){
+	$wgAutoloadClasses['Gateway_Extras_CustomFilters_IP_Velocity'] = $donationinterface_dir . "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php";
+}
 
 /**
  * GLOBALS
@@ -432,6 +439,13 @@ if ( $optionalParts['FunctionsFilter'] === true ){
 	$wgDonationInterfaceCustomFiltersFunctions = array( );
 }
 
+//IP velocity filter globals
+$wgDonationInterfaceMemcacheHost = 'localhost';
+$wgDonationInterfaceMemcachePort = '11211';
+$wgDonationInterfaceIPVelocityFailScore = 100;
+$wgDonationInterfaceIPVelocityTimeout = 60 * 5;	//5 minutes in seconds
+$wgDonationInterfaceIPVelocityThreshhold = 3;	//3 transactions per timeout
+
 /**
  * $wgDonationInterfaceCountryMap
  *
@@ -658,6 +672,12 @@ if ($optionalParts['Recaptcha'] === true){
 	// Set reCpatcha as plugin for 'challenge' action
 	$wgHooks["GatewayChallenge"][] = array( "Gateway_Extras_ReCaptcha::onChallenge" );
 }
+
+//Functions Filter hooks
+if ( $optionalParts['IPVelocityFilter'] === true ){
+	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
+	$wgHooks["GatewayPostProcess"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
+} 
 
 /**
  * APIS
