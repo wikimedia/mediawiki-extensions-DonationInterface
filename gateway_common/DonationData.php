@@ -412,12 +412,16 @@ class DonationData {
 	 * For any specified form, if it is enabled and available, the class would 
 	 * have been autoloaded at this point. If it is not enabled and available, 
 	 * we will check the default for the calling gateway, and failing that, 
-	 * throw an exception. 
-	 * 
+	 * form_class will be set to null, which should result in a redirect.
+	 *
+	 * Do not actually try to load the forms here.
+	 * Do determine if the requested forms will load or not.
+	 *
+	 * @see GatewayForm::displayForm()
 	 */
 	protected function setFormClass(){
-		//don't actually try to load the forms here... but do determine if what we've got in there will load or not. 
-		//Elsewise, set it to the default. 
+
+		// Is this the default form
 		$default = false;
 
 		if ( $this->isSomething( 'form_name' ) ){
@@ -428,7 +432,16 @@ class DonationData {
 		}
 		
 		if ( !class_exists( $class_name ) ) {
-			if (!$default){ //try that, then.
+
+			/*
+			 * If $class_name is not the default form, then check to see if the
+			 * default form is available.
+			 */
+			if (!$default) {
+
+				$log_message = '"' . $class_name . '"';
+				$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+
 				$class_name_orig = $class_name;
 				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
 			}
@@ -436,7 +449,12 @@ class DonationData {
 			if ( class_exists( $class_name ) ) {
 				$this->setVal( 'form_name', $this->getGatewayGlobal( 'DefaultForm' ) );
 			} else {
-				throw new MWException( 'Could not find form ' . $class_name_orig . ', nor default form ' . $class_name );
+
+				$log_message = '"Could not find form [ ' . $class_name_orig . ' ], nor default form [ ' . $class_name . ' ]"';
+				$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+
+				// Unset class name
+				$class_name = null;
 			}
 		}
 
