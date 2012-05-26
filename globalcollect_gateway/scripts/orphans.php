@@ -21,6 +21,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	protected $adapter;
 	
 	function execute(){
+		//have to turn this off here, until we know it's using the user's ip, and 
+		//not 127.0.0.1 during the batch process.
+		global $wgDonationInterfaceEnableIPVelocityFilter;
+		$wgDonationInterfaceEnableIPVelocityFilter = false;
+		
 		$func = 'parse_files';
 		if ( !empty( $_SERVER['argv'][1] ) ){
 			if ( $_SERVER['argv'][1] === 'stomp' ){
