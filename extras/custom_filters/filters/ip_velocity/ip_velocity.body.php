@@ -57,7 +57,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		//this needs Memcached to work.
 		if ( !class_exists('Memcached') ){
 			$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter says Memcached class does not exist." );
-			return true; //can't proceed... fail open
+			return false; //can't proceed... 
 		}
 		
 		//connect to memcache
