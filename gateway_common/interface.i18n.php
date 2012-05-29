@@ -9248,6 +9248,30 @@ Por vos balyér una èxpèrience sûra, sècurisâ et agrèâbla, noutron formul
 	'donate_interface-error-http-403' => 'Vos avéd pas los drêts d’accès a ceta pâge.',
 );
 
+/** Northern Frisian (Nordfriisk)
+ * @author Murma174
+ */
+$messages['frr'] = array(
+	'donate_interface' => 'Dan bidrach tu Wikimedia',
+	'donate_interface-desc' => 'So komt det tu en spendensidj, diar uk gateway ütjwidjangen uunwiset',
+	'donate_interface-langonly-desc' => 'Sodenang wurd bluas a süsteemmeldangen för det spendensidj uunwiset',
+	'donate_interface-intro' => 'Besteme, hü dü betaale wel, det sum an det münt.',
+	'donate_interface-amount' => 'Sum',
+	'donate_interface-other-amount' => 'Ööder sum',
+	'donate_interface-currency' => 'Münt:',
+	'donate_interface-gateway' => 'Hü wel dü betaale:',
+	'donate_interface-submit-button' => 'Dan bidrach',
+	'donate_interface-comment-message' => 'Maadst dü ööder lidj wat sai? Dü könst 200 buksteewen skriiw:',
+	'donate_interface-comment-label' => 'Komentaar:',
+	'donate_interface-anon-message' => 'Skriiw man nööm üüb det spendenlist.',
+	'donate_interface-email-agreement' => "Ik maad dan an wan en E-Mail mä neis faan't Wikmedia Foundation fu",
+	'donate_interface-comment-title' => 'Komentaar för ööder lidj:',
+	'donate_interface-amount-error' => 'Du en sum iin',
+	'donate_interface-smallamount-error' => 'Dü skel tumanst $1 auerwise',
+	'donate_interface-bigamount-error' => 'Wi kön üüb didiar wai ei muar üs USD 10.000 ($1 $2) uunnem. Wan dü muar du wel, skriiw en E-Mail tu $3.',
+	'donate_interface-processing-error' => "Diar as wat skiaf gingen bi't ferwerkin.",
+);
+
 /** Friulian (Furlan)
  * @author Klenje
  */
