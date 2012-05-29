@@ -14,14 +14,30 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	public $cfo;
 
-	public function __construct( &$gateway_adapter, &$custom_filter_object ) {
+	public function __construct( &$gateway_adapter, &$custom_filter_object = null ) {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = & $custom_filter_object;
 	}
 
 	public function filter() {
+		$whitelist = $this->gateway_adapter->getGlobal( 'IPWhitelist' );
+		$blacklist = $this->gateway_adapter->getGlobal( 'IPBlacklist' );
+		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
+		
+		//first, handle the whitelist / blacklist before you do anything else. 
+		if ( in_array( $user_ip, $whitelist ) ){
+			$this->gateway_adapter->debugarray[] = "IP present in whitelist.";
+			$this->cfo->addRiskScore( 0, 'IPWhitelist' );
+			return true;
+		}
+		if ( in_array( $user_ip, $blacklist ) ){
+			$this->gateway_adapter->debugarray[] = "IP present in blacklist.";
+			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
+			return true;
+		}
+		
+		//if the user ip was in neither list, check the velocity. 
 		if ( $this->connectToMemcache() ){
-			$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
 			$stored = $this->getMemcachedValue();
 
@@ -32,16 +48,19 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			} else {
 				$count = count( $stored );
 				$this->gateway_adapter->debugarray[] = "Found a memcached bit of data for $user_ip: " . print_r($stored, true);
+				$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter: $user_ip has $count hits" );
 				if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ){
 					$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
 					//cool off, sucker. Muahahaha. 
 					$this->addNowToMemcachedValue( $stored );
+				} else {
+					$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero here, too.
 				}
 			}	
 		}
 		
 		//fail open, in case memcached doesn't work.
-		return TRUE;
+		return true;
 	}
 	
 	
@@ -117,12 +136,12 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 	
-	static function onPostProcess( &$gateway_adapter, &$custom_filter_object ) {
+	static function onPostProcess( &$gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'IP Velocity onPostProcess hook!';
-		return self::singleton( $gateway_adapter, $custom_filter_object )->postProcess();
+		return self::singleton( $gateway_adapter )->postProcess();
 	}
 
 	static function singleton( &$gateway_adapter, &$custom_filter_object ) {
