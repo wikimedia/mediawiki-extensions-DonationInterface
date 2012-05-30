@@ -105,6 +105,7 @@ class DonationData {
 				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
 				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
 				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
+				'utm_key' => $wgRequest->getText( 'utm_key' ),
 				// Pull both of these here. We can logic out which one to use in the normalize bits. 
 				'language' => $wgRequest->getText( 'language', null ),
 				'uselang' => $wgRequest->getText( 'uselang', null ),
@@ -1009,6 +1010,7 @@ class DonationData {
 			'utm_source',
 			'utm_medium',
 			'utm_campaign',
+			'utm_key',
 			'optout',
 			'language',
 			'ts'
