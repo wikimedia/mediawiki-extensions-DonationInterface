@@ -139,6 +139,8 @@ class DonationData {
 				'form_name' => $wgRequest->getText( 'form_name', null ),
 				'ffname' => $wgRequest->getText( 'ffname', null ),
 				'recurring' => $wgRequest->getVal( 'recurring', null ), //boolean type
+				'user_ip' => null, //placeholder. We'll make these in a minute.
+				'server_ip' => null,
 			);
 			if ( !$this->wasPosted() ) {
 				$this->setVal( 'posted', false );
@@ -277,6 +279,7 @@ class DonationData {
 			'gateway' => 'payflowpro',
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/defaultTestData',
+			'user_ip' => '12.12.12.12',
 		);
 	}
 
@@ -374,6 +377,7 @@ class DonationData {
 			'premium_language',
 			'contribution_tracking_id', //sort of...
 			'currency_code',
+			'user_ip',
 		);
 		return $fields;
 	}
@@ -394,13 +398,38 @@ class DonationData {
 			$this->setGateway();
 			$this->setNormalizedOptOuts();
 			$this->setLanguage();
-			$this->setCountry();
+			$this->setIPAddresses();
+			$this->setCountry(); //must do this AFTER setIPAddress...
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
 			$this->setFormClass();
 			
 			$this->getValidationErrors();
 		}
+	}
+	
+	/**
+	 * normalize helper function
+	 * Sets user_ip and server_ip. 
+	 */
+	protected function setIPAddresses(){
+		//if we are coming in from the orphan slayer, the client ip should 
+		//already be populated with something un-local, and we'd want to keep 
+		//that.
+		if ( !$this->isSomething( 'user_ip' ) || $this->getVal( 'user_ip' ) === '127.0.0.1' ){
+			if ( function_exists( 'wfGetIP' ) ){
+				$this->setVal( 'user_ip', wfGetIP() );
+			}
+		}
+		
+		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ){
+			$this->setVal( 'server_ip', $_SERVER['SERVER_ADDR'] );
+		} else {
+			//command line? 
+			$this->setVal( 'server_ip', '127.0.0.1' );
+		}
+		
+		
 	}
 	
 	/**
@@ -456,7 +485,7 @@ class DonationData {
 			// If no country was passed, try to do GeoIP lookup
 			// Requires php5-geoip package
 			if ( function_exists( 'geoip_country_code_by_name' ) ) {
-				$ip = wfGetIP();
+				$ip = $this->getVal( 'user_ip' );
 				if ( IP::isValid( $ip ) ) {
 					$country = geoip_country_code_by_name( $ip );
 					$this->setVal('country', $country);
@@ -1276,6 +1305,7 @@ class DonationData {
 			'response',
 			'currency_code',
 			'amount',
+			'user_ip',
 			'date',
 		);
 		return $stomp_fields;

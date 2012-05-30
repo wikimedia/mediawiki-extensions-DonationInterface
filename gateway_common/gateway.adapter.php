@@ -215,6 +215,7 @@ abstract class GatewayAdapter implements GatewayType {
 	public function __construct( $options = array() ) {
 		global $wgRequest;
 
+		//TODO: EXTRACT MUST DIE.
 		// Extract the options
 		extract( $options );
 
@@ -263,6 +264,7 @@ abstract class GatewayAdapter implements GatewayType {
 			extract( $options );
 		}
 
+		//TODO: The next two lines belong in the globalcollect adapter. >:[
 		$returnTitle = isset( $returnTitle ) ? $returnTitle : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
 		$returnTo = isset( $returnTo ) ? $returnTo : $returnTitle->getFullURL();
 
@@ -273,21 +275,8 @@ abstract class GatewayAdapter implements GatewayType {
 			'language' => 'en',
 			'country' => 'US',
 			'returnto' => $returnTo,
-			'user_ip' => ( self::getGlobal( 'Test' ) ) ? '12.12.12.12' : wfGetIP(), // current user's IP address
 			'card_type' => 'visa',
 		);
-		
-		//Can't just assume this is populated: Could be slaying orphans. 
-		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ){
-			$this->postdatadefaults['server_ip'] = $_SERVER['SERVER_ADDR']; // server IP address
-		} else {
-			$this->postdatadefaults['server_ip'] = '127.0.0.1';
-		}
-		
-		//this is a dumb fix until we can get rid of this dumb function altogether.
-		$this->dataObj->setVal( 'user_ip', $this->postdatadefaults['user_ip'] );
-		$this->dataObj->setVal( 'server_ip', $this->postdatadefaults['server_ip'] );
-		
 	}
 
 	/**
