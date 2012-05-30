@@ -152,7 +152,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		// user's IP address
 		//TODO: GET THIS FROM THE ADAPTER. 
-		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getGlobal( "Test" ) ) ? '12.12.12.12' : wfGetIP();
+		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ) );
 
 		// user's user agent
 		global $wgRequest;

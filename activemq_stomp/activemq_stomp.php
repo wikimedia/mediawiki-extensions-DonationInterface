@@ -231,6 +231,7 @@ function createQueueMessage( $transaction ) {
 		'fee' => '0',
 		'gross' => $transaction['amount'],
 		'net' => $transaction['amount'],
+		'user_ip' => $transaction['user_ip'],
 		//the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
 		//The code there should also be fixed. 
 		'date' => ( int ) $transaction['date'], 

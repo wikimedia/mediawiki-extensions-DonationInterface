@@ -265,23 +265,12 @@ class PayflowProAdapter extends GatewayAdapter {
 		//OUR field names. 
 		$this->staged_vars = array(
 			'card_num',
-			'user_ip'
 		);
 	}
 
 	protected function stage_card_num( $type = 'request' ) {
 		//I realize that the $type isn't used. Voodoo.
 		$this->staged_data['card_num'] = str_replace( ' ', '', $this->staged_data['card_num'] );
-	}
-
-	//TODO: Something much fancier here. 
-	protected function stage_user_ip( $type = 'request' ) {
-		if ( $this->staged_data['user_ip'] === '127.0.0.1' ) {
-			$ipAddress = $this->getGlobal( 'IPAddress' );
-			if ( !empty( $ipAddress ) ) {
-				$this->staged_data['user_ip'] = $ipAddress;
-			}
-		}
 	}
 	
 	protected function pre_process_card(){
