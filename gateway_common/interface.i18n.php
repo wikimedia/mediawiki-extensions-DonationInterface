@@ -22251,6 +22251,7 @@ $messages['ru'] = array(
 	'donate_interface-donor-zip' => 'Индекс',
 	'donate_interface-donor-postal' => 'Почтовый индекс:',
 	'donate_interface-donor-country' => 'Страна / регион:',
+	'donate_interface-donor-zone' => 'Зона',
 	'donate_interface-donor-pobox' => 'Абонементный ящик',
 	'donate_interface-donor-card' => 'Кредитная карта:',
 	'donate_interface-donor-card-num' => 'Номер карты:',
