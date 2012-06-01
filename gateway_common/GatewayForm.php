@@ -126,7 +126,20 @@ class GatewayForm extends UnlistedSpecialPage {
 			$form = $form_obj->getForm();
 			$wgOut->addHTML( $form );
 		} else {
-			throw new MWException( 'No valid form to load.' );
+
+			$page = $this->adapter->getGlobal( "FailPage" );
+
+			$log_message = '"Redirecting to [ ' . $page . ' ] "';
+			$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+
+			if ( $page ) {
+
+				$language = $this->getVal( 'language' );
+
+				$page .= '?uselang=' . $language;
+			}
+
+			$wgOut->redirect( $page );
 		}
 	}
 
