@@ -9995,7 +9995,7 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
 	'donate_interface-bt-country_description' => 'Beschrybig vum Staat',
 	'donate_interface-bt-payment_reference' => 'Zahligsreferänz',
 	'donate_interface-bt-swift_code' => 'SWIFT-Code',
-	'donate_interface-bt-special_id' => 'Spezielli Chennig',
+	'donate_interface-bt-special_id' => 'Länderspezifischi Informatione',
 	'donate_interface-bt-information' => 'Überwysigsinformatione',
 	'donate_interface-bt-finished' => 'Fertig',
 	'donate_interface-obt-biller_id' => 'Code vum Rächnigsteller',
@@ -21382,7 +21382,7 @@ Maykunapiqa tuyru p'anqachap lluq'i larunpim, ichataq hinay pachapi qullqiyupay 
 	'donate_interface-error-http-403' => "Manam saqillasunkichu kay p'anqaman riyta.",
 );
 
-/** Romanian (Română)
+/** Romanian (română)
  * @author AdiJapan
  * @author Cin
  * @author Firilacroco
@@ -22100,7 +22100,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-secureLogo-text' => "'Mbormazzione sus a le Certifecate SSL",
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Aleksandrit
  * @author AlexSm
  * @author Dim Grits
