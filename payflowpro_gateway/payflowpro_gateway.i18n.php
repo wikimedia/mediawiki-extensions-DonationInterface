@@ -1031,6 +1031,7 @@ Si prega di riprovare più tardi.",
  * @author Fryed-peach
  * @author Kanon und wikipedia
  * @author Ohgi
+ * @author Shirayuki
  * @author Whym
  * @author 青子守歌
  */
@@ -1046,12 +1047,12 @@ $messages['ja'] = array(
 取引を続けるには私たちにお問い合わせください。',
 	'payflowpro_gateway-response-114' => 'より詳しい情報はクレジットカード会社にお問い合わせください。',
 	'payflowpro_gateway-response-23' => 'クレジットカード番号あるいは有効期限が正しくありません。',
-	'payflowpro_gateway-response-4' => '金額が無効です。',
+	'payflowpro_gateway-response-4' => '金額が正しくありません。',
 	'payflowpro_gateway-response-24' => 'クレジットカード番号あるいは有効期限が正しくありません。',
 	'payflowpro_gateway-response-112' => '住所あるいはカード照合番号（セキュリティコード）が正しくありません。',
 	'payflowpro_gateway-response-125' => 'あなたの取引は詐欺防止サービスによって拒否されました。',
 	'payflowpro_gateway-response-125-2' => 'あなたのクレジットカードの妥当性が確認できませんでした。入力した情報すべてがクレジットカードの情報と一致しているか検証するか、または別のカードを試してください。<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">他の寄付方法</a>のどれかを利用したり、我々に <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> で連絡を取ることもできます。ご支援ありがとうございます。',
-	'payflowpro_gateway-response-default' => 'お取引を処理している際にエラーがおきました。
+	'payflowpro_gateway-response-default' => 'お取引の処理中にエラーが発生しました。
 後ほどまたお試しください。',
 );
 

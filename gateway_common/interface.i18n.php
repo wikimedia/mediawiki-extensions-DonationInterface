@@ -14041,6 +14041,7 @@ $messages['kn'] = array(
  * @author Klutzy
  * @author Kwj2772
  * @author 관인생략
+ * @author 아라
  */
 $messages['ko'] = array(
 	'donate_interface' => '위키미디어를 지원해주세요',
@@ -14239,7 +14240,7 @@ $messages['ko'] = array(
 	'donate_interface-cc-form-header-payment' => '결제 정보',
 	'donate_interface-make-your-donation' => '지금 기부해주세요',
 	'donate_interface-state-in-us' => '미국 내 거주하시는 경우',
-	'donate_interface-comment' => '코멘트',
+	'donate_interface-comment' => '덧글',
 	'donate_interface-first' => '이름',
 	'donate_interface-last' => '성',
 	'donate_interface-noscript-msg' => '자바스크립트를 사용할 수 없도록 지정되어 있거나, 자바스크립트를 지원하지 않는 브라우저 입니다.

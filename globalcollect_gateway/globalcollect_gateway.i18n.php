@@ -95,13 +95,14 @@ $messages['be-tarask'] = array(
 Калі ласка, паспрабуйце зноў пазьней.',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fulup
  */
 $messages['br'] = array(
 	'globalcollect_gateway-response-9130' => 'Bro direizh.',
 	'globalcollect_gateway-response-9140' => 'Moneiz direizh.',
 	'globalcollect_gateway-response-9150' => 'Yezh direizh.',
+	'globalcollect_gateway-response-430330' => 'Niverenn gartenn direizh.',
 	'globalcollect_gateway-response-21000150' => 'Niverenn gont-vank direizh.',
 	'globalcollect_gateway-response-21000155' => 'Kod-bank direizh.',
 	'globalcollect_gateway-response-21000160' => 'Niverenn gont an dreuzvankadenn direizh.',
