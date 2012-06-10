@@ -408,6 +408,7 @@ Silakan coba lagi nanti.',
 );
 
 /** Japanese (日本語)
+ * @author Shirayuki
  * @author Whym
  */
 $messages['ja'] = array(
@@ -425,7 +426,8 @@ $messages['ja'] = array(
 	'globalcollect_gateway-response-21000150' => '銀行口座番号が無効です。',
 	'globalcollect_gateway-response-21000155' => '銀行コードが無効です。',
 	'globalcollect_gateway-response-21000160' => '振替口座番号が無効です。',
-	'globalcollect_gateway-response-default' => '取引の処理中にエラーが起こりました。後でもう一度お試しください。',
+	'globalcollect_gateway-response-default' => 'お取引の処理中にエラーが発生しました。
+後でもう一度お試しください。',
 );
 
 /** Korean (한국어)

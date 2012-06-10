@@ -13141,7 +13141,7 @@ $messages['ja'] = array(
 	'donate_interface' => 'ウィキメディアを支援する',
 	'donate_interface-desc' => 'ゲートウェイ拡張機能と一体化した、寄付申し込みページ',
 	'donate_interface-langonly-desc' => 'DonationInterface システム メッセージのみを公開する',
-	'donate_interface-intro' => '支払い方法と金額、通貨をお選びください。',
+	'donate_interface-intro' => '支払い方法と金額、通貨を入力してください。',
 	'donate_interface-amount' => '金額',
 	'donate_interface-other-amount' => 'これ以外の額',
 	'donate_interface-currency' => '通貨:',
@@ -13153,7 +13153,7 @@ $messages['ja'] = array(
 	'donate_interface-email-agreement' => 'ウィキメディア財団が今後不定期に送信するメールを受け取ることに同意します。',
 	'donate_interface-comment-title' => '公開コメント',
 	'donate_interface-amount-error' => '有効な金額を入力してください',
-	'donate_interface-smallamount-error' => '最低$1のご寄付が必要です',
+	'donate_interface-smallamount-error' => '少なくとも$1のご寄付が必要です',
 	'donate_interface-bigamount-error' => '10000 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。
 処理サービスを利用できません。',
@@ -13242,9 +13242,9 @@ $messages['ja'] = array(
 	'donate_interface-ZAR' => '南アフリカ ランド',
 	'donate_interface-accessible' => 'このページは寄付ページからのみ参照できます。',
 	'donate_interface-paypal-button' => 'PayPal経由で寄付',
-	'donate_interface-paypal-redirect' => 'ペイパルへリダイレクト中',
+	'donate_interface-paypal-redirect' => 'PayPalにリダイレクト中…',
 	'donate_interface-cc-button' => 'クレジットカードで寄付',
-	'donate_interface-ccdc-button' => 'クレジットカードかデビットカードで寄付',
+	'donate_interface-ccdc-button' => 'クレジットカード/デビットカードで寄付',
 	'donate_interface-dd-button' => '口座振替で寄付',
 	'donate_interface-bt-button' => '銀行振込で寄付',
 	'donate_interface-rt-button' => '$1銀行を通して寄付',
@@ -13272,21 +13272,21 @@ $messages['ja'] = array(
 	'donate_interface-donor-card' => 'クレジットカード',
 	'donate_interface-donor-card-num' => 'カード番号',
 	'donate_interface-donor-expiration' => '有効期限',
-	'donate_interface-donor-security' => 'セキュリティーコード',
+	'donate_interface-donor-security' => 'セキュリティコード',
 	'donate_interface-donor-submit' => '寄付',
 	'donate_interface-donor-currency-msg' => 'この寄付は$1で行われています',
 	'donate_interface-card-name-amex' => 'アメリカン・エキスプレス',
 	'donate_interface-card-name-visa' => 'VISA',
 	'donate_interface-card-name-mc' => 'マスターカード',
 	'donate_interface-card-name-discover' => 'ディスカバー',
-	'donate_interface-error-msg-general' => '要求を処理するあいだにエラーが起こりました。',
+	'donate_interface-error-msg-general' => '要求の処理中にエラーが発生しました。',
 	'donate_interface-error-msg-nopaypal' => '技術的なエラーが発生したため、PayPalに要求を送信できませんでした。通常のクレジットカードの寄付フォームを利用してみてください。',
-	'donate_interface-error-msg' => '自身のの$1を入力してください',
+	'donate_interface-error-msg' => '以下の項目は必須です：$1',
 	'donate_interface-error-msg-js' => '以下の項目を入力してください',
 	'donate_interface-error-msg-validation' => 'フォーム内のエラーを修正してください。',
 	'donate_interface-error-msg-invalid-amount' => '有効な金額を入力してください',
 	'donate_interface-error-msg-email' => '正しいメールアドレスを入力してください',
-	'donate_interface-error-msg-card-num' => '利用できるカードの種類の1つのクレジットカードの有効な番号を入力してください',
+	'donate_interface-error-msg-card-num' => '利用できるカードの種類のいずれかの、クレジットカードの有効な番号を入力してください',
 	'donate_interface-error-msg-amex' => 'アメリカン・エキスプレスのカード番号を正しく入力してください。',
 	'donate_interface-error-msg-mc' => 'マスターカードのカード番号を正しく入力してください。',
 	'donate_interface-error-msg-visa' => 'VISAのカード番号を正しく入力してください。',
@@ -13305,10 +13305,10 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-card_num' => 'クレジットカード番号',
 	'donate_interface-error-msg-expiration' => 'カードの有効期限',
 	'donate_interface-error-msg-cvv' => 'カード裏面のに記載されているカード照合番号',
-	'donate_interface-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直して下さい。',
+	'donate_interface-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直してください。',
 	'donate_interface-error-msg-captcha-please' => 'クレジットカードの安全のため、上に示されている文字を入力してください。',
-	'donate_interface-error-msg-cookies' => 'ブラウザの Cookie を有効にしてください。',
-	'donate_interface-error-msg-genaricrequired' => 'この項目は必須です。',
+	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
+	'donate_interface-error-msg-genaricrequired' => 'この欄は必須です',
 	'donate_interface-donate-error-try-a-different-card' => ' [ $1 別のカード] もしくは  [ $2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
 	'php-response-declined' => 'お取引が承認されませんでした。',
@@ -13339,8 +13339,8 @@ $messages['ja'] = array(
 	'donate_interface-middle' => 'ミドルネーム',
 	'donate_interface-last' => 'ラストネーム（氏）',
 	'donate_interface-other' => 'その他',
-	'donate_interface-noscript-msg' => 'JavaScript が有効になっていないか、もしくはブラウザが JavaScript に対応していません。
-安全で安心できる、そして快適な操作のため、この寄付フォームでは JavaScript が必要になっています。',
+	'donate_interface-noscript-msg' => 'JavaScript を有効にしていないか、ブラウザーが JavaScript に対応していません。
+安全で安心できる、快適な操作のため、この寄付フォームでは JavaScript を必須にしています。',
 	'donate_interface-noscript-redirect-msg' => 'もしJavaScriptを有効にできない、あるいは有効にすることを望まない場合、こちらからも寄付可能です：',
 	'donate_interface-donate-wikipedia' => 'ウィキペディアに寄付',
 	'donate_interface-or' => 'または',
@@ -13393,7 +13393,7 @@ $messages['ja'] = array(
 	'donate_interface-select-year-of-expiration' => '有効期限の年を選択',
 	'donate_interface-expires-question' => '期限切れ？',
 	'donate_interface-expires' => '期限切れ',
-	'donate_interface-card-security-code' => 'カードのセキュリティーコード',
+	'donate_interface-card-security-code' => 'カードのセキュリティコード',
 	'donate_interface-cvv' => 'カード照合番号',
 	'donate_interface-cvv-number-abbreviated' => 'カード照合番号',
 	'donate_interface-cvv2' => 'カード照合番号2',
@@ -28517,7 +28517,7 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'donate_interface-email-unsub-title' => 'Không theo dõi Wikimedia Foundation',
 	'donate_interface-email-unsub-button' => 'Không theo dõi',
 	'donate_interface-email-unsub-success' => 'Tên của bạn đã được gỡ bỏ thành công khỏi danh sách thư của chúng tôi',
-	'donate_interface-email-unsub-delay' => 'Xin vui lòng chờ đến bốn (4) ngày để những thay đổi có hiệu lực. Chúng tôi xin lỗi vì các email mà bạn nhận được trong thời gian này. Nếu bạn có bất kỳ câu hỏi nào, xin vui lòng liên hệ <donations@wikimedia.org>',
+	'donate_interface-email-unsub-delay' => 'Xin vui lòng chờ đến bốn (4) ngày để những thay đổi có hiệu lực. Chúng tôi xin lỗi vì các thư điện tử mà bạn nhận được trong thời gian này. Nếu bạn có bất kỳ câu hỏi nào, xin vui lòng liên hệ <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Đã có lỗi xảy ra khi xử lý yêu cầu của bạn, vui lòng liên hệ <donations@wikimedia.org>.',
 	'donate_interface-email-unsub-confirm' => 'Bạn có chắc bạn muốn hủy đăng ký <b>$1</b>?',
 	'donate_interface-email-unsub-warning' => 'Việc này sẽ quyết định hủy việc nhận các thư điện tử do Wikimedia Foundation gửi đến người quyên góp. Bạn vẫn có thể nhận thư điện tử tại địa chỉ thư điện tử này nếu có tài khoản sử dụng địa chỉ thư điện tử này tại một trong những dự án của chúng tôi. Nếu bạn có thắc mắc gì, xin vui lòng liên lạc với <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
@@ -28525,7 +28525,7 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'donate_interface-tax-info' => 'Thông tin khấu trừ thuế',
 	'donate_interface-informationsharing' => 'Qua việc quyên góp, bạn đang chia sẻ thông tin của bạn với Wikimedia Foundation, tổ chức phi lợi nhuận điều hành Wikipedia và các dự án Wikimedia khác, và các nhà cung cấp dịch vụ ở Hoa Kỳ và các nơi khác theo chính sách bảo mật dành cho nhà tài trợ của chúng tôi. Chúng tôi không bán hoặc trao đổi thông tin của bạn cho bất cứ ai. Xin đọc <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">chính sách bảo mật của chúng tôi</a> để biết thêm thông tin.',
 	'donate_interface-currency-change' => 'Thay đổi?',
-	'donate_interface-bank_transfer_message' => "Xin lưu ý rằng thông tin thanh toán của bạn sẽ hiển thị đích đến là 'Global Collect' như một chứng nhận của tặng phẩm này. Global Collect được ủy quyền để chấp nhận và xử lý thanh toán trên danh nghĩa của Wikimedia Foundation. Hãy nhớ thêm các tham số được cung cấp ở đây vào chuyển khoản ngân hàng của bạn và hãy thoải mái gửi email đến donations@wikimedia.org nếu bạn có bất kỳ câu hỏi hoặc mối quan tâm nào.",
+	'donate_interface-bank_transfer_message' => "Xin lưu ý rằng thông tin thanh toán của bạn sẽ hiển thị đích đến là 'Global Collect' như một chứng nhận của tặng phẩm này. Global Collect được ủy quyền để chấp nhận và xử lý thanh toán trên danh nghĩa của Wikimedia Foundation. Hãy nhớ thêm các tham số được cung cấp ở đây vào chuyển khoản ngân hàng của bạn và hãy thoải mái gửi thư điện tử đến donations@wikimedia.org nếu bạn có bất kỳ câu hỏi hoặc mối quan tâm nào.",
 	'donate_interface-taxded-link-int' => 'Thông tin về thuế và vấn đề pháp lý khác',
 	'donate_interface-taxded-link-us' => 'Thông tin khấu trừ thuế',
 	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation là một tổ chức từ thiện phi lợi nhuận được thành lập tại Hoa Kỳ theo điều khoản 501(c)(3) của Sở Thuế Vụ Hoa Kỳ, và, vì lý do đó, những khoản quyên góp từ các cá nhân hoặc tổ chức ở Hoa Kỳ có thể được hưởng lợi khấu trừ thuế. Quyên góp từ các cá nhân hoặc tổ chức bên ngoài Hoa Kỳ có thể không đủ điều kiện để khấu trừ thuế tại Hoa Kỳ và các nơi khác; trong trường hợp này, các nhà tài trợ nên tìm lời khuyên tại sở thuế địa phương. Quan trọng hơn, Wikimedia không tìm kiếm sự đóng góp từ các cá nhân hoặc tổ chức nằm trong bất kỳ quyền hạn cấm hoặc hạn chế hoạt động gây quỹ nào của các tổ chức từ thiện quốc tế như Wikimedia hoặc áp dụng thuế tặng phẩm trong các khoản quyên góp dành cho các tổ chức từ thiện quốc tế đó.',
@@ -29275,7 +29275,7 @@ $messages['yue'] = array(
 	'donate_interface-credit-storage-processing' => '基於我哋嘅<a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">私隱政策</a>，我哋唔會保存你嘅信用咭資料，同埋你嘅個人資料。',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author A911504820
  * @author Anakmalaysia
  * @author Bencmq
@@ -29289,6 +29289,7 @@ $messages['yue'] = array(
  * @author Mys 721tx
  * @author Tommyang
  * @author Wilsonmess
+ * @author Xiaomingyan
  * @author Yanmiao liu
  * @author Yfdyh000
  * @author 阿pp
@@ -29495,7 +29496,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-cc-form-header-payment' => '付款信息',
 	'donate_interface-make-your-donation' => '立刻进行捐款',
 	'donate_interface-state-in-us' => '如果在美国境内',
-	'donate_interface-comment' => '注释',
+	'donate_interface-comment' => '评论',
 	'donate_interface-first' => '名',
 	'donate_interface-middle' => '中间名',
 	'donate_interface-last' => '姓',
