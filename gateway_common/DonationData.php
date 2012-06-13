@@ -403,6 +403,7 @@ class DonationData {
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode();
 			$this->setFormClass();
+			$this->renameCardType();
 			
 			$this->getValidationErrors();
 		}
@@ -489,6 +490,20 @@ class DonationData {
 		}
 
 		$this->setVal( 'form_class', $class_name );		
+	}
+
+	/**
+	 * munge the legacy card_type field into payment_submethod
+	 */
+	protected function renameCardType()
+	{
+		if ($this->getVal('payment_method') == 'cc')
+		{
+			if ($this->isSomething('card_type'))
+			{
+				$this->setVal('payment_submethod', $this->getVal('card_type'));
+			}
+		}
 	}
 	
 	/**
