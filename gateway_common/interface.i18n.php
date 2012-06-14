@@ -1678,7 +1678,7 @@ $messages['arz'] = array(
 <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.',
 );
 
-/** Azerbaijani (Azərbaycanca)
+/** Azerbaijani (azərbaycanca)
  * @author Cekli829
  * @author Emperyan
  * @author Sortilegus
@@ -2176,7 +2176,7 @@ $messages['ba'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Belarusian (Беларуская)
+/** Belarusian (беларуская)
  * @author Тест
  * @author Хомелка
  */
@@ -2878,7 +2878,7 @@ $messages['be-tarask'] = array(
 	'donate_interface-error-http-403' => 'Вы ня маеце дазволу на доступ да гэтай старонкі',
 );
 
-/** Bulgarian (Български)
+/** Bulgarian (български)
  * @author DCLXVI
  * @author Jsoby
  * @author Spiritia
@@ -3531,7 +3531,7 @@ $messages['bn'] = array(
 	'donate_interface-translate-redlink1' => 'এই পাতাটি অনুবাদ করতে সাহায্য করুন।',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fohanno
  * @author Fulup
  * @author Gwendal
@@ -3906,7 +3906,7 @@ A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant Jav
 	'donate_interface-error-http-403' => "N'oc'h ket aotreet da vont d'ar bajenn-mañ.",
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  * @author Jsoby
  */
@@ -4127,7 +4127,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
 	'donate_interface-state-dropdown-XX' => 'Izvan SAD',
 );
 
-/** Catalan (Català)
+/** Catalan (català)
  * @author Aleator
  * @author Jsoby
  * @author Martorell
@@ -4335,7 +4335,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-state-dropdown-XX' => 'No sóc als EUA',
 );
 
-/** Czech (Česky)
+/** Czech (česky)
  * @author Danny B.
  * @author Jkjk
  * @author Jsoby
@@ -5005,7 +5005,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 	'donate_interface-error-http-403' => "Nid yw'r gallu gennych i weld y dudalen hon.",
 );
 
-/** Danish (Dansk)
+/** Danish (dansk)
  * @author Jon Harald Søby
  * @author Jsoby
  * @author McDutchie
@@ -6855,7 +6855,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
 	'donate_interface-error-http-403' => 'Vi ne havas permeson por aliri tiun ĉi paĝon.',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
  * @author Crazymadlover
@@ -7253,7 +7253,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-error-http-403' => 'No tiene permiso para acceder a esta página',
 );
 
-/** Estonian (Eesti)
+/** Estonian (eesti)
  * @author Adeliine
  * @author Avjoska
  * @author Jsoby
@@ -7627,7 +7627,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 	'donate_interface-error-http-403' => 'Sul pole õigust sellele leheküljele ligi pääseda.',
 );
 
-/** Basque (Euskara)
+/** Basque (euskara)
  * @author An13sa
  * @author Jsoby
  */
@@ -8127,7 +8127,7 @@ $messages['fa'] = array(
 	'donate_interface-error-http-403' => 'شما اجازهٔ دسترسی به این صفحه را ندارید.',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Alluk.
  * @author Cbrown1023
  * @author Centerlink
@@ -8508,7 +8508,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'donate_interface-error-http-403' => 'Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen.',
 );
 
-/** French (Français)
+/** French (français)
  * @author Crochet.david
  * @author DavidL
  * @author Gomoko
@@ -8904,7 +8904,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-error-http-403' => "Vous n'avez pas le droit d'accéder à cette page.",
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  * @author Jsoby
  */
@@ -9292,7 +9292,7 @@ $messages['frr'] = array(
 	'donate_interface-processing-error' => "Diar as wat skiaf gingen bi't ferwerkin.",
 );
 
-/** Friulian (Furlan)
+/** Friulian (furlan)
  * @author Klenje
  */
 $messages['fur'] = array(
@@ -10805,7 +10805,7 @@ $messages['hi'] = array(
 	'donate_interface-error-http-403' => 'आपको इस पृष्ठ का उपयोग करने की अनुमति नहीं है।',
 );
 
-/** Croatian (Hrvatski)
+/** Croatian (hrvatski)
  * @author Anton008
  * @author Bugoslav
  * @author Herr Mlinka
@@ -11559,7 +11559,7 @@ Zo by so wěsty, zwjeselacy přewjedźenje zawěsćiło, trjeba naš darjenski f
 	'donate_interface-error-http-403' => 'Nimaće prawo za přistup na tutu stronu.',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Bdamokos
  * @author Bináris
  * @author BáthoryPéter
@@ -11937,7 +11937,7 @@ $messages['hu'] = array(
 	'donate_interface-error-http-403' => 'Nincs jogosultsága ennek a lapnak az eléréséhez.',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author Jsoby
  * @author McDutchie
  * @author Microcell
@@ -12725,7 +12725,7 @@ $messages['io'] = array(
 	'donate_interface-error-msg-state' => 'stato',
 );
 
-/** Icelandic (Íslenska)
+/** Icelandic (íslenska)
  * @author WiseWoman
  */
 $messages['is'] = array(
@@ -12735,7 +12735,7 @@ $messages['is'] = array(
 	'donate_interface-DKK' => 'Dönsk króna',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Aushulz
  * @author Beta16
  * @author F. Cosoleto
@@ -15227,7 +15227,7 @@ $messages['li'] = array(
 	'donate_interface-card-expiration' => 'Vervaldatum kaart',
 );
 
-/** Lingala (Lingála)
+/** Lingala (lingála)
  * @author Eruedin
  */
 $messages['ln'] = array(
@@ -15305,7 +15305,7 @@ $messages['ln'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Lithuanian (Lietuvių)
+/** Lithuanian (lietuvių)
  * @author Matasg
  */
 $messages['lt'] = array(
@@ -15766,7 +15766,7 @@ Buaipuitu pakhat mah an awm lo.',
 	'donate_interface-error-msg-card_type' => 'credit card chî',
 );
 
-/** Latvian (Latviešu)
+/** Latvian (latviešu)
  * @author Geimeris
  * @author GreenZeb
  * @author Papuass
@@ -16335,7 +16335,7 @@ Ben teyeng nyediakna pengalaman sing aman lan nyenengna, formulir sumbangane per
 	'donate_interface-secureLogo-text' => 'Bab Sertifikat SSL',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  * @author Jsoby
  * @author Rancher
@@ -18707,7 +18707,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-error-http-403' => 'U hebt geen rechten om deze pagina te bekijken.',
 );
 
-/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
  * @author Gunnernett
  * @author Harald Khan
  * @author Jsoby
@@ -18812,7 +18812,7 @@ Ingen prosessorar er tilgjengelege.',
 	'donate_interface-faqs' => 'Vanlege spørsmål',
 );
 
-/** Occitan (Occitan)
+/** Occitan (occitan)
  * @author Boulaur
  * @author Cedric31
  * @author Jsoby
@@ -19334,7 +19334,7 @@ $messages['pfl'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Bartek50003
  * @author BeginaFelicysym
  * @author Lazowik
@@ -20266,7 +20266,7 @@ $messages['ps'] = array(
 	'donate_interface-currency-change' => 'بدلول؟',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Alchimista
  * @author GTNS
  * @author Giro720
@@ -20659,7 +20659,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-error-http-403' => 'Você não tem permissão para acessar esta página.',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author 555
  * @author Giro720
  * @author GoEThe
@@ -21792,7 +21792,7 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
 	'donate_interface-error-http-403' => 'Nu aveți permisiunea să accesați această pagină.',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  * @author Reder
  */
@@ -22801,7 +22801,7 @@ $messages['sa'] = array(
 	'donate_interface-cancel' => 'निवर्तयते',
 );
 
-/** Sakha (Саха тыла)
+/** Sakha (саха тыла)
  * @author HalanTul
  * @author Jsoby
  */
@@ -23022,7 +23022,7 @@ $messages['sah'] = array(
 	'donate_interface-state-dropdown-XX' => 'АХШ таһыгар',
 );
 
-/** Sardinian (Sardu)
+/** Sardinian (sardu)
  * @author Node ue
  */
 $messages['sc'] = array(
@@ -23038,7 +23038,7 @@ $messages['sc'] = array(
 	'donate_interface-description' => 'Descritzione',
 );
 
-/** Sicilian (Sicilianu)
+/** Sicilian (sicilianu)
  * @author Aushulz
  */
 $messages['scn'] = array(
@@ -23055,7 +23055,7 @@ $messages['scn'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Serbo-Croatian (Srpskohrvatski)
+/** Serbo-Croatian (srpskohrvatski / српскохрватски)
  * @author OC Ripper
  */
 $messages['sh'] = array(
@@ -23785,7 +23785,7 @@ $messages['si'] = array(
 	'donate_interface-error-http-403' => 'මෙම පිටුවට පිවිසීමට ඔබට අවසර නැත.',
 );
 
-/** Slovak (Slovenčina)
+/** Slovak (slovenčina)
  * @author Helix84
  * @author Jkjk
  * @author Jsoby
@@ -24007,7 +24007,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
 	'donate_interface-state-dropdown-XX' => 'Mimo USA',
 );
 
-/** Slovenian (Slovenščina)
+/** Slovenian (slovenščina)
  * @author Artelind
  * @author Dbc334
  * @author Irena Plahuta
@@ -24392,7 +24392,7 @@ Naš obrazec za darovanje zahteva JavaScript, ker vam z njim zagotovimo varno in
 	'donate_interface-error-http-403' => 'Za dostop do te strani nimate dovoljenja.',
 );
 
-/** Albanian (Shqip)
+/** Albanian (shqip)
  * @author Dasius
  */
 $messages['sq'] = array(
@@ -24758,7 +24758,7 @@ Për të ofruar një eksperience sa më të sigurt dhe sa më të kënaqshme, fo
 	'donate_interface-secureLogo-text' => 'Rreth Certifikatave SSL',
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
  * @author Nikola Smolenski
  * @author Rancher
  * @author Михајло Анђелковић
@@ -25130,7 +25130,7 @@ $messages['sr-ec'] = array(
 	'donate_interface-error-http-403' => 'Немате дозволу да приступите овој страници.',
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬)
+/** Serbian (Latin script) (‪srpski (latinica)‬)
  * @author Rancher
  * @author Vecanoi
  */
@@ -25500,7 +25500,7 @@ Naš obrazac za darivanje zahteva javaskript da bismo vam obezbedili sigurno, be
 	'donate_interface-error-http-403' => 'Nemate dozvolu da pristupite ovoj stranici.',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Ainali
  * @author Boivie
  * @author Cohan
@@ -26657,7 +26657,7 @@ $messages['te'] = array(
 	'donate_interface-monthlybox-amount' => 'విరాళపు మొత్తం',
 );
 
-/** Tetum (Tetun)
+/** Tetum (tetun)
  * @author MF-Warburg
  */
 $messages['tet'] = array(
@@ -27584,7 +27584,7 @@ Güvenli, emniyetli ve güzel bir deneyim sağlamak için, bağış formumuzda J
 	'donate_interface-error-http-403' => 'Bu sayfaya erişim izniniz yoktur.',
 );
 
-/** Tatar (Cyrillic script) (Татарча)
+/** Tatar (Cyrillic script) (татарча)
  * @author Jsoby
  * @author Ильнар
  */
@@ -27678,7 +27678,7 @@ $messages['tt-cyrl'] = array(
 	'donate_interface-mailing-address' => 'Почта юллмасы',
 );
 
-/** Ukrainian (Українська)
+/** Ukrainian (українська)
  * @author Ahonc
  * @author Aleksandrit
  * @author Alex Khimich
@@ -28062,7 +28062,7 @@ $messages['uk'] = array(
 	'donate_interface-error-http-403' => 'Вибачте, у вас недостатньо прав для доступу до цієї сторінки.',
 );
 
-/** Vèneto (Vèneto)
+/** vèneto (vèneto)
  * @author Candalua
  * @author Jsoby
  */
@@ -29727,7 +29727,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-error-http-403' => '你没有访问这个页面的权限。',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Anakmalaysia
  * @author Horacewai2
  * @author Jsoby

@@ -132,7 +132,7 @@ $messages['cy'] = array(
 Ceisiwch eto ymhen tipyn.',
 );
 
-/** Danish (Dansk)
+/** Danish (dansk)
  * @author Peter Alberti
  */
 $messages['da'] = array(
@@ -188,7 +188,7 @@ $messages['de-formal'] = array(
 Bitte versuchen Sie es später noch einmal.',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
  */
@@ -211,14 +211,14 @@ $messages['es'] = array(
 Por favor intentelo de nuevo mas tarde.',
 );
 
-/** Estonian (Eesti)
+/** Estonian (eesti)
  * @author Pikne
  */
 $messages['et'] = array(
 	'globalcollectgateway' => 'Anneta kohe',
 );
 
-/** French (Français)
+/** French (français)
  * @author Gomoko
  * @author IAlex
  */
@@ -241,7 +241,7 @@ $messages['fr'] = array(
 Veuillez réessayer plus tard.',
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
@@ -340,7 +340,7 @@ $messages['hsb'] = array(
 Prošu spytajće pozdźišo hišće raz.',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Dj
  * @author Misibacsi
  */
@@ -363,7 +363,7 @@ $messages['hu'] = array(
 Próbáld meg később újra!',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -461,7 +461,7 @@ $messages['lb'] = array(
 Probéiert et w.e.g. spéider nach eng Kéier.',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -581,7 +581,7 @@ $messages['pfl'] = array(
 	'globalcollect_gateway-response-9150' => 'Ugildischi Schbrooch',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Mikołka
  * @author Sp5uhe
  */
@@ -604,7 +604,7 @@ $messages['pl'] = array(
 Spróbuj ponownie później.',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author João Sousa
  */
 $messages['pt'] = array(
@@ -626,7 +626,7 @@ $messages['pt'] = array(
 Por favor, tente novamente mais tarde.',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author Ppena
  */
 $messages['pt-br'] = array(
@@ -648,7 +648,7 @@ $messages['pt-br'] = array(
 Por favor tente novamente mais tarde.',
 );
 
-/** Romanian (Română)
+/** Romanian (română)
  * @author Minisarm
  */
 $messages['ro'] = array(
@@ -670,7 +670,7 @@ $messages['ro'] = array(
 Vă rugăm să reîncercați mai târziu.',
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Kaganer
  * @author Александр Сигачёв
  */
@@ -700,7 +700,7 @@ $messages['si'] = array(
 	'globalcollectgateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
 );
 
-/** Slovenian (Slovenščina)
+/** Slovenian (slovenščina)
  * @author Artelind
  * @author Dbc334
  */
@@ -722,7 +722,7 @@ $messages['sl'] = array(
 	'globalcollect_gateway-response-default' => 'Pri obdelavi vaše transakcije je prišlo do napake. Prosimo, poskusite pozneje.',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Warrakkk
  */
 $messages['sv'] = array(
@@ -777,7 +777,7 @@ $messages['vi'] = array(
 Xin hãy thử lại sau.',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(

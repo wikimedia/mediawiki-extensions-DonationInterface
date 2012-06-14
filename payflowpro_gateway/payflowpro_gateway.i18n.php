@@ -198,7 +198,7 @@ $messages['be-tarask'] = array(
 Калі ласка, паспрабуйце ізноў пазьней.',
 );
 
-/** Bulgarian (Български)
+/** Bulgarian (български)
  * @author DCLXVI
  * @author Spiritia
  * @author Turin
@@ -250,7 +250,7 @@ $messages['bn'] = array(
 অনুগ্রহপূর্বক কিছুক্ষণ পর আবার চেষ্টা করুন।',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fohanno
  * @author Fulup
  * @author Gwendal
@@ -277,7 +277,7 @@ Deuit e darempred ganeomp evit kenderc'hel ganti.",
 Klaskit en-dro a-benn ur pennadig.',
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
@@ -301,7 +301,7 @@ Molimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.',
 Molimo pokušajte kasnije.',
 );
 
-/** Catalan (Català)
+/** Catalan (català)
  * @author Aleator
  * @author Martorell
  * @author SMP
@@ -327,7 +327,7 @@ Poseu-vos en contacte amb nosaltres per continuar amb la transacció.',
 	'payflowpro_gateway-response-default' => 'Hi ha hagut un error en processar la vostra transacció. Torneu-ho a provar més tard.',
 );
 
-/** Czech (Česky)
+/** Czech (česky)
  * @author Danny B.
  * @author Jkjk
  * @author Matěj Grabovský
@@ -380,7 +380,7 @@ Cysylltwch â ni er mwyn parhau gyda'ch taliad.",
 Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
 );
 
-/** Danish (Dansk)
+/** Danish (dansk)
  * @author Jon Harald Søby
  * @author Peter Alberti
  */
@@ -562,7 +562,7 @@ Bonvolu kontakti nin por plufari vian pagon.',
 Bonvolu provi denove pli poste.',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Cbrown1023
  * @author Crazymadlover
  * @author Dferg
@@ -597,7 +597,7 @@ Por favor contáctanos para continuar la transacción.',
 Por favor intente mas tarde.',
 );
 
-/** Estonian (Eesti)
+/** Estonian (eesti)
  * @author Avjoska
  * @author Pikne
  */
@@ -616,7 +616,7 @@ Aitäh annetamast.',
 Palun ürita hiljem uuesti.',
 );
 
-/** Basque (Euskara)
+/** Basque (euskara)
  * @author An13sa
  */
 $messages['eu'] = array(
@@ -654,7 +654,7 @@ $messages['fa'] = array(
 لطفا دوباره تلاش کنید.',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Cbrown1023
  * @author Centerlink
  * @author Crt
@@ -685,7 +685,7 @@ Ota yhteyttä jatkaaksesi siirtoa.',
 Yritä myöhemmin uudelleen.',
 );
 
-/** French (Français)
+/** French (français)
  * @author Cedric31
  * @author Crochet.david
  * @author DavidL
@@ -721,7 +721,7 @@ Veuillez nous contacter pour poursuivre votre transaction.',
 Veuillez réessayer plus tard.',
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
@@ -861,7 +861,7 @@ $messages['hi'] = array(
 कृपया बाद में पुन: प्रयास करें।',
 );
 
-/** Croatian (Hrvatski)
+/** Croatian (hrvatski)
  * @author Herr Mlinka
  * @author Roberta F.
  * @author SpeedyGonsales
@@ -912,7 +912,7 @@ Prošu stajće so z nami do zwiska, zo byšće ze swoju transakciju pokročował
 Prošu spytajće pozdźišo hišće raz.',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author BáthoryPéter
  * @author Dani
  * @author Dj
@@ -940,7 +940,7 @@ Kérünk vedd fel velünk a kapcsolatot a tranzakció folytatásához.',
 Később próbáld meg újra.',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -997,7 +997,7 @@ $messages['io'] = array(
 	'payflowpro_gateway-response-4' => 'Ne-valida sumo.',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Aushulz
  * @author Beta16
  * @author Blaisorblade
@@ -1174,7 +1174,7 @@ $messages['li'] = array(
 	'payflowprogateway' => 'Steun Wikimedia',
 );
 
-/** Lithuanian (Lietuvių)
+/** Lithuanian (lietuvių)
  * @author Matasg
  */
 $messages['lt'] = array(
@@ -1198,7 +1198,7 @@ Prašome susisiekti su mumis, norėdami tęsti savo mokėjimą.',
 Pabandykite dar kartą vėliau.',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  * @author Brest
  */
@@ -1382,7 +1382,7 @@ Neem alstublieft contact met ons op voor uw transactie.',
 Probeer het later nog een keer.',
 );
 
-/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
  * @author Gunnernett
  * @author Nghtwlkr
  */
@@ -1396,7 +1396,7 @@ Takk for gåva di!',
 	'payflowpro_gateway-response-125' => 'Overføringa di har vorte avvist av tenesta som skal hindra svindel.',
 );
 
-/** Occitan (Occitan)
+/** Occitan (occitan)
  * @author Boulaur
  * @author Cedric31
  */
@@ -1428,7 +1428,7 @@ $messages['or'] = array(
 	'payflowpro_gateway-response-4' => 'ଭୁଲ ପରିମାଣ ।',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Maire
  * @author Mikołka
  * @author Odder
@@ -1488,7 +1488,7 @@ $messages['ps'] = array(
 	'payflowprogateway' => 'خپله بسپنه همدا اوس ورکړۍ',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Alchimista
  * @author GTNS
  * @author Giro720
@@ -1518,7 +1518,7 @@ Por favor, contacte-nos para continuar a transacção.',
 Por favor, tente novamente mais tarde.',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author Giro720
  * @author GoEThe
  * @author Luckas Blade
@@ -1546,7 +1546,7 @@ Por favor, contate-nos para continuar a transação.',
 Por favor tente novamente mais tarde.',
 );
 
-/** Romanian (Română)
+/** Romanian (română)
  * @author AdiJapan
  * @author Cin
  * @author Firilacroco
@@ -1574,7 +1574,7 @@ Contactați-ne pentru a vă continua tranzacția.',
 Vă rugăm să reîncercați mai târziu.',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  * @author Reder
  */
@@ -1594,7 +1594,7 @@ Grazie pa donazzione!",
 Sì pregate de pruvà n'otre vote cchù nnande.",
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Dim Grits
  * @author Eleferen
  * @author Kaganer
@@ -1647,7 +1647,7 @@ $messages['rue'] = array(
 Спробуйте то знову о дашто пізнїше.',
 );
 
-/** Sakha (Саха тыла)
+/** Sakha (саха тыла)
  * @author HalanTul
  */
 $messages['sah'] = array(
@@ -1697,7 +1697,7 @@ $messages['si'] = array(
 කරුණාකර පසුව නැවත උත්සාහ කරන්න.',
 );
 
-/** Slovak (Slovenčina)
+/** Slovak (slovenčina)
  * @author Helix84
  */
 $messages['sk'] = array(
@@ -1721,7 +1721,7 @@ Kontaktujte nás prosím, aby sme mohli pokračovať vo vašej transakcii.',
 Skúste to prosím opäť neskôr.',
 );
 
-/** Slovenian (Slovenščina)
+/** Slovenian (slovenščina)
  * @author Artelind
  * @author Dbc334
  */
@@ -1746,7 +1746,7 @@ Prosimo, stopite v stik z nami za nadaljevanje vaše transakcije.',
 Prosimo, poskusite znova kasneje.',
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -1764,7 +1764,7 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-response-125' => 'Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба.',
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+/** Serbian (Latin script) (‪srpski (latinica)‬) */
 $messages['sr-el'] = array(
 	'payflowprogateway' => 'Priložite novac',
 	'payflowpro_gateway-desc' => 'Obrađivanje kreditnih kartica preko Pejpala',
@@ -1779,7 +1779,7 @@ Hvala vam na podršci!',
 	'payflowpro_gateway-response-125' => 'Vaš prenos novca je odbijen od strane Službe za prevenciju zloupotreba.',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Ainali
  * @author Boivie
  * @author Cohan
@@ -1974,7 +1974,7 @@ Bağışınız için teşekkürler!',
 Lütfen daha sonra tekrar deneyin.',
 );
 
-/** Tatar (Cyrillic script) (Татарча)
+/** Tatar (Cyrillic script) (татарча)
  * @author Ильнар
  */
 $messages['tt-cyrl'] = array(
@@ -1984,7 +1984,7 @@ $messages['tt-cyrl'] = array(
 	'payflowpro_gateway-response-126' => 'Сезнең транзакция тикшерүне көтә.',
 );
 
-/** Ukrainian (Українська)
+/** Ukrainian (українська)
  * @author AS
  * @author Ahonc
  * @author Alex Khimich
@@ -2015,7 +2015,7 @@ $messages['uk'] = array(
 Будь ласка, спробуйте пізніше.',
 );
 
-/** Vèneto (Vèneto)
+/** vèneto (vèneto)
  * @author Candalua
  */
 $messages['vec'] = array(
@@ -2092,7 +2092,7 @@ $messages['yue'] = array(
 請遲啲再試。',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Bencmq
  * @author Chenxiaoqino
  * @author Hydra
@@ -2121,7 +2121,7 @@ $messages['zh-hans'] = array(
 请稍后再试。',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Anakmalaysia
  * @author Horacewai2
  * @author Liangent
