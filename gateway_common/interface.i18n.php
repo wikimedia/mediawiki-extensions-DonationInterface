@@ -366,6 +366,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	// Real time bank transfer (rtbt)
 	'donate_interface-rtbt-issuer_id' => 'Choose a Bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Other banks',
+	'donate_interface-sofortbanking' => 'Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the “Donate by manual bank transfer” option on the main donation page.',
 
 	// Direct debit (dd)
 	'donate_interface-dd-account_name' => 'Account name',
@@ -805,6 +806,7 @@ There is no limit to the length of the message.",
 	'donate_interface-obt-information' => 'BPAY (Australian Online Bank Transfer) - The second level header on the web page',
 	'donate_interface-online_bank_transfer_message' => 'BPAY (Australian Online Bank Transfer)  - The message displayed about the BPAY transaction.',
 	'donate_interface-rtbt-issuer_id' => 'Real time bank transfer: Select a Bank used to pick which bank the donor wishes to use for their donation',
+	'donate_interface-sofortbanking' => 'Description of Sofortbanking and instructions on how to use it.',
 	'donate_interface-dd-account_name' => 'Direct Debit: Account Name - Name of person who owns the Bank Account',
 	'donate_interface-dd-account_number' => 'Direct Debit: Account Number - Bank account number to be used for the Direct Debit',
 	'donate_interface-dd-authorization_id' => 'Direct Debit: Authorization ID',
