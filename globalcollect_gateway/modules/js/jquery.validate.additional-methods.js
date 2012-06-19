@@ -224,7 +224,7 @@ jQuery.validator.addMethod("creditcardtypes", function(value, element, param) {
 
 	var validTypes = 0x0000;
 
-	if (param.mastercard)
+	if (param.mc)
 		validTypes |= 0x0001;
 	if (param.visa)
 		validTypes |= 0x0002;

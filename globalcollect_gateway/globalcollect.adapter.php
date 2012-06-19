@@ -1810,10 +1810,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$types = array(
 			'visa' => '1',
-			'american' => '2',
 			'amex' => '2',
-			'american express' => '2',
-			'mastercard' => '3',
 			'mc' => '3',
 			'maestro' => '117',
 			'solo' => '118',

@@ -227,8 +227,8 @@ abstract class Gateway_Form {
 	public function generateCardDropdown() {
 		$available_cards = array(
 			'visa' => wfMsg( 'donate_interface-card-name-visa' ),
-			'mastercard' => wfMsg( 'donate_interface-card-name-mc' ),
-			'american' => wfMsg( 'donate_interface-card-name-amex' ),
+			'mc' => wfMsg( 'donate_interface-card-name-mc' ),
+			'amex' => wfMsg( 'donate_interface-card-name-amex' ),
 			'discover' => wfMsg( 'donate_interface-card-name-discover' ),
 		);
 

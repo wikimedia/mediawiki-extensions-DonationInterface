@@ -54,11 +54,11 @@ class DataValidator {
 	
 	/**
 	 * $card_types
-	 * @var array A list of all card types we recognize
+	 * @var array A list of SOME card types we recognize
 	 */
 	protected static $card_types = array( 
-		'american',
-		'mastercard',
+		'amex',
+		'mc',
 		'visa',
 		'discover'
 	);
@@ -201,19 +201,7 @@ class DataValidator {
 				case 'card_num': //god damn it.
 					$suffix = 'card_num'; //more defaultness.
 					if (!is_null($value)){
-						$fake_suffix = self::getCardType($value);
-						switch ( $fake_suffix ){
-							case 'american':
-								$suffix = 'amex';
-								break;
-							case 'mastercard':
-								$suffix = 'mc';
-								break;
-							case 'visa':
-							case 'discover':
-								$suffix = $fake_suffix;
-								break;
-						}
+						$suffix = self::getCardType($value);
 					}
 					break;
 			}
@@ -730,9 +718,9 @@ class DataValidator {
 	public static function getCardType( $card_num ) {
 		// validate that credit card number entered is correct and set the card type
 		if ( preg_match( '/^3[47][0-9]{13}$/', $card_num ) ) { // american express
-			return 'american';
+			return 'amex';
 		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $card_num ) ) { //	mastercard
-			return 'mastercard';
+			return 'mc';
 		} elseif ( preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $card_num ) ) {// visa
 			return 'visa';
 		} elseif ( preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $card_num ) ) { // discover
