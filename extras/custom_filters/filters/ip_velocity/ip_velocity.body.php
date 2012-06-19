@@ -52,7 +52,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 				if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ){
 					$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
 					//cool off, sucker. Muahahaha. 
-					$this->addNowToMemcachedValue( $stored );
+					$this->addNowToMemcachedValue( $stored, true );
 				} else {
 					$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero here, too.
 				}
@@ -98,13 +98,29 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return $stored;
 	}
 	
-	function addNowToMemcachedValue( $oldvalue = null ){
+	/**
+	 * Adds the ip to the local memcache, recording another attempt.
+	 * If the $fail var is set and true, this denotes that the sensor has been 
+	 * tripped and will cause the data to live for the (potentially longer) 
+	 * duration defined in the IPVelocityFailDuration global
+	 * @param array $oldvalue The value we've just pulled from memcache for this 
+	 * ip address
+	 * @param bool $fail If this entry was added on the filter being tripped
+	 */
+	function addNowToMemcachedValue( $oldvalue = null, $fail = false ){
 		//need to be connected first. 
 		if ( is_null( $oldvalue ) ){
 			$oldvalue = $this->getMemcachedValue();
 		}
 		
-		$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityTimeout' );
+		$timeout = null;
+		if ( $fail ){
+			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityFailDuration' );
+		}
+		if ( is_null($timeout) ){
+			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityTimeout' );
+		}
+		
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 		$ret = $this->cache_obj->set( $user_ip, self::addNowToVelocityData( $oldvalue, $timeout ), $timeout );
 		if (!$ret){
@@ -141,7 +157,8 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'IP Velocity onPostProcess hook!';
-		return self::singleton( $gateway_adapter )->postProcess();
+		$dummy = null; //have to do this or it fails hard on a pass-by-reference...
+		return self::singleton( $gateway_adapter, $dummy )->postProcess();
 	}
 
 	static function singleton( &$gateway_adapter, &$custom_filter_object ) {

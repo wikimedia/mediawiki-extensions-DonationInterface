@@ -445,6 +445,8 @@ $wgDonationInterfaceMemcachePort = '11211';
 $wgDonationInterfaceIPVelocityFailScore = 100;
 $wgDonationInterfaceIPVelocityTimeout = 60 * 5;	//5 minutes in seconds
 $wgDonationInterfaceIPVelocityThreshhold = 3;	//3 transactions per timeout
+//$wgDonationInterfaceIPVelocityFailDuration is also something you can set...
+//If you leave it blank, it will use the VelocityTimeout as a default. 
 
 /**
  * $wgDonationInterfaceCountryMap
