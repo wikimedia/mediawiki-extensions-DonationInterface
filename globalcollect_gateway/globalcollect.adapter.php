@@ -612,7 +612,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// eWallets
 		$this->payment_methods['ew'] = array(
 			'label'	=> 'eWallets',
-			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', ),
+			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', 'ew_yandex' ),
 			'validation' => array( 'address' => false, 'creditCard' => false, )
 		);
 		
@@ -867,6 +867,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods['ew_webmoney'] = array(
 			'paymentproductid'	=> 841,
 			'label'	=> 'eWallets: WebMoney',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+
+		// eWallets Yandex
+		$this->payment_submethods['ew_yandex'] = array(
+			'paymentproductid'	=> 849,
+			'label'	=> 'eWallets: Yandex',
 			'group'	=> 'ew',
 			'validation' => array(),
 			'keys' => array(),
@@ -1988,6 +1997,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'ew_moneybookers':
 			case 'ew_paypal':
 			case 'ew_webmoney':
+			case 'ew_yandex':
 				$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
 				break;
 
