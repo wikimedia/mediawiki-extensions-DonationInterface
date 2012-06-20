@@ -141,7 +141,16 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
-
+$wgResourceModules[ 'gc.form.rapidhtml.ew' ] = array(
+	'styles' => 'css/gc.cc.css',
+	'scripts' => array(
+        'js/gc.js',
+        'js/gc.ew.js'
+    ),
+	'dependencies' => array( 'di.form.core.validate' ),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
 
 /*************************************************************
  *************************************************************
