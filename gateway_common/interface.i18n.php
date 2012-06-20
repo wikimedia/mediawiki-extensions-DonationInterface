@@ -5727,6 +5727,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-online_bank_transfer_message' => 'Telephone & Internet Banking - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Andere Kreditinstitute',
+	'donate_interface-sofortbanking' => 'Bei Sofortbanking handelt es sich um direkte Echtzeitüberweisungen via DIRECTBanking.com. Es erlaubt Ihnen, direkt während des Online-Spendevorgangs, eine Überweisung mit den Informationen Ihres Online-Bankings auszulösen. Sofern Sie für Ihr Bankkonto das Online-Banking nicht haben freischalten lassen, können Sie alternativ auch die Option „Spenden per manueller Überweisung“ auf der Startseite zum Spenden auswählen.',
 	'donate_interface-dd-account_name' => 'Kontoinhaber',
 	'donate_interface-dd-account_number' => 'Kontonummer',
 	'donate_interface-dd-authorization_id' => 'Autorisierungskennung',
@@ -7121,7 +7122,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-billing-code' => 'Código postal de facturación',
 	'donate_interface-country' => 'País',
 	'donate_interface-select-country' => 'Seleccione el país',
-	'donate_interface-confirm-email' => 'Confirmar e-mail',
+	'donate_interface-confirm-email' => 'Confirmar el correo electrónico',
 	'donate_interface-phone' => 'Teléfono',
 	'donate_interface-telephone' => 'Teléfono',
 	'donate_interface-telephone-home' => 'Tel. (domicilio)',
@@ -7233,7 +7234,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-email-unsub-delay' => 'Puede tardar hasta cuatro 4 días que los cambios surtan efecto. Nos disculpamos por los correos electrónicos que pueda recibir durante este tiempo. Si tiene alguna duda, póngase en contacto con <donations@wikimedia.org></donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Hubo un error al procesar su solicitud, póngase en contacto con <donations@wikimedia.org>.</donations@wikimedia.org>',
 	'donate_interface-email-unsub-confirm' => '¿Está seguro de que desea cancelar la suscripción <b> $1 </b>?',
-	'donate_interface-email-unsub-warning' => 'Esto va a cancelar su suscripción de los e-mails que la Fundación Wikimedia le envia como donante. Todavía puede recibir mensajes en ese correo electrónico si esta dirección de correo electrónico está asociada con una cuenta en uno de nuestros proyectos. Si tienes alguna pregunta, póngase en contacto con <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
+	'donate_interface-email-unsub-warning' => 'Esto va a cancelar su suscripción de los correos electrónicos que la Fundación Wikimedia le envía como donante. Todavía puede recibir mensajes en ese correo electrónico si esta dirección de correo electrónico está asociada con una cuenta en uno de nuestros proyectos. Si tienes alguna pregunta, póngase en contacto con <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Preguntas más frecuentes',
 	'donate_interface-tax-info' => 'Información de desgravación de impuestos',
 	'donate_interface-informationsharing' => 'Al donar, esta compartiendo su información con la Fundación Wikimedia, la organización sin fines de lucro que alberga Wikipedia y otros proyectos de Wikimedia y sus proveedores de servicios en los Estados Unidos y en otros lugares conforme a nuestra política de privacidad de donantes. No venderemos ni comerciaremos su información con nadie. Para obtener más información, lea <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">nuestra política de donantes</a>.',
@@ -9308,7 +9309,7 @@ $messages['fur'] = array(
 	'donate_interface-donor-name' => 'Non',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Jsoby
  * @author McDutchie
  * @author Toliño
@@ -9434,9 +9435,11 @@ $messages['gl'] = array(
 	'donate_interface-donor-emailAdd' => 'Enderezo de correo electrónico',
 	'donate_interface-donor-name' => 'Nome',
 	'donate_interface-donor-fname' => 'Nome:',
+	'donate_interface-donor-fname-alt' => 'Nome',
 	'donate_interface-donor-address' => 'Enderezo:',
 	'donate_interface-donor-mname' => 'Segundo nome:',
 	'donate_interface-donor-lname' => 'Apelidos',
+	'donate_interface-donor-lname-alt' => 'Apelidos',
 	'donate_interface-donor-street' => 'Rúa:',
 	'donate_interface-donor-street-number' => 'Número',
 	'donate_interface-donor-city' => 'Cidade:',
@@ -9445,6 +9448,7 @@ $messages['gl'] = array(
 	'donate_interface-donor-state' => 'Estado:',
 	'donate_interface-donor-zip' => 'Código postal',
 	'donate_interface-donor-postal' => 'Código postal:',
+	'donate_interface-donor-postcode' => 'Código postal',
 	'donate_interface-donor-country' => 'País/Rexión:',
 	'donate_interface-donor-zone' => 'Zona',
 	'donate_interface-donor-pobox' => 'Caixa postal',
@@ -9642,6 +9646,7 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'donate_interface-online_bank_transfer_message' => 'Servizos bancarios por teléfono e internet - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Selecciona un banco',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Outros bancos',
+	'donate_interface-sofortbanking' => 'Sofortbanking é unha transferencia bancaria directa e en tempo real a través da páxina DIRECTebanking.com. Permite realizar directamente a transferencia bancaria durante a doazón coa túa información bancaria. Se a túa conta bancaria non ten activadas as opcións en liña poida que prefiras empregar a opción "Doar mediante unha transferencia bancaria manual" que aparece na páxina principal de doazóns.',
 	'donate_interface-dd-account_name' => 'Nome da conta',
 	'donate_interface-dd-account_number' => 'Número da conta',
 	'donate_interface-dd-authorization_id' => 'ID da autorización',
@@ -13084,6 +13089,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
 	'donate_interface-online_bank_transfer_message' => 'Telefono & Internet Banking - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Seleziona una banca',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Altre banche',
+	'donate_interface-sofortbanking' => 'Sofortbanking è un trasferimento bancario diretto ed in tempo reale tramite DIRECTebanking.com che ti permette di attivare direttamente un bonifico bancario durante la tua donazione online con i tuoi dati bancari. Se il tuo conto in banca non è abilitato con funzionalità online si consiglia di utilizzare l\'opzione "Donazioni tramite bonifico bancario manuale" nella pagina principale delle donazioni.',
 	'donate_interface-dd-account_name' => 'Nome del titolare del conto',
 	'donate_interface-dd-account_number' => 'Numero di conto',
 	'donate_interface-dd-authorization_id' => 'Autorizzazione ID',

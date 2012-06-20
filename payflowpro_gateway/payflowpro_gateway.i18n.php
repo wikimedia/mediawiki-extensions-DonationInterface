@@ -458,6 +458,7 @@ Bitte versuchen Sie es später noch einmal.',
 );
 
 /** Zazaki (Zazaki)
+ * @author Erdemaslancan
  * @author Mirzali
  * @author Xoser
  */
@@ -466,7 +467,7 @@ $messages['diq'] = array(
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro prosesa kardê krediyi',
 	'payflowpro_gateway-response-0' => 'Transactionê ti testiq biyo.
 Bexşê ti ra ma zaf teşkur kenê!',
-	'payflowpro_gateway-response-126' => 'Transactionê ti ho testiq beno.',
+	'payflowpro_gateway-response-126' => 'Gurwekerdışê şıma araşt kerdış paweno',
 	'payflowpro_gateway-response-126-2' => 'Tayê melumato ke to dayo, ebe karta krediyê profili ra yewbini nêgêno, ya zi to meblağo de gırd da. Seba emniyetê xo, beğşê to nıka qontrol beno, u ma ebe email adresa daiye ra to rê rışenime eke beğşê to qebul nêbi. Kerem ke, persê to ke estê be <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> ra ma rê email bırışe. Weş u war be!',
 	'payflowpro_gateway-response-12' => 'Ma rica keno ser kardê kredi xo ra bank ra kontak bike.',
 	'payflowpro_gateway-response-13' => 'Qe transaksiyon ti ra otorizationo veng lazim o. 
@@ -575,6 +576,7 @@ Bonvolu provi denove pli poste.',
  * @author Mor
  * @author Od1n
  * @author Translationista
+ * @author Vivaelcelta
  */
 $messages['es'] = array(
 	'payflowprogateway' => 'Haga su donación ahora',
@@ -582,7 +584,7 @@ $messages['es'] = array(
 	'payflowpro_gateway-response-0' => 'La transacción ha sido aprobada.
 ¡Gracias por tu donación!',
 	'payflowpro_gateway-response-126' => 'Tu transacción está pendiente de ser aprobada.',
-	'payflowpro_gateway-response-126-2' => 'La información que has dado no coincide con tu perfil de tarjeta de crédito, o haz hecho un regalo muy grande. Por tu propia seguridad, tu donación aún se encuentra bajo estudio, y te notificaremos por medio del e-mail que has dado si no pudimos finalizar tu donación. Por favor envíe un e-mail a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> si tiene cualquier pregunta. ¡Gracias!',
+	'payflowpro_gateway-response-126-2' => 'La información que has dado no coincide con tu perfil de tarjeta de crédito, o haz hecho un regalo muy grande. Por tu propia seguridad, tu donación aún se encuentra bajo estudio, y te notificaremos por medio del correo electrónico que has dado si no pudimos finalizar tu donación. Por favor envíe un correo electrónico a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> si tiene cualquier pregunta. ¡Gracias!',
 	'payflowpro_gateway-response-12' => 'Por favor, contacta con la compañía de tu tarjeta de crédito para más información.',
 	'payflowpro_gateway-response-13' => 'Tu transacción requiere de autorización de palabra.
 Por favor contáctanos para continuar la transacción.',
