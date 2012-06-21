@@ -100,7 +100,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$this->loadValidateJs();
 		
-		//Not sure if we should be using $wgRequest here. Depends if we want the normalized one or not. 
+		// Not sure if we should be using $wgRequest here. Depends if we want the normalized one or not.
 		$country = $wgRequest->getText( 'country', '' );
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );
@@ -109,18 +109,22 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$form_errors['general'][] = htmlspecialchars( $error );
 		}
 
-		if ( $country != '' ){
+		// checking to see if there is a country-specific version of the form
+		if ( !empty( $country ) ) {
 			try{
 				$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
-				// set html-escaped filename.
-				$this->set_html_file_path( htmlspecialchars( $country_based ));
+				$this->set_html_file_path( htmlspecialchars( $country_based ) );
 			} catch ( MWException $mwe ) {
-				// country-specific file does not exist, set html-escaped filename.
-				$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
+				// no, there is not
 			}
-		} else {
-			// set html-escaped filename.
-			$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' )));
+		}
+		// only keep looking if we still haven't found a form that works
+		if ( empty( $this->html_file_path ) ){
+			try{
+				$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' ) ) );
+			} catch ( MWException $mwe ) {
+				$this->set_html_file_path( 'default' );
+			}
 		}
 
 		// fix general form error messages so it's not an array of msgs
@@ -133,7 +137,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$form_errors['general'] = $general_errors;
 		}
 		
-		// if this form needs to support squid cacheing, handle the magic
+		// if this form needs to support squid caching, handle the magic
 		$this->handle_cacheability();
 	}
 
