@@ -11393,6 +11393,7 @@ Typisce podpismowy wobłuk změje rjady ličbow, ale jenož poslednje tři měst
 <p>Kod je <i>přeco wyše</i> zaćišćaneho (wysokostajeneho) kontoweho čisła na prědnim boku karty.
 Druhdy kod je na lěwym boku karty, ale je přeco wyše kontoweho čisła.</p><br />',
 	'donate_interface-question-comment' => 'Prašenja abo komentary? Staj so z nami do zwiska: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-easydonate' => 'Pospytujemy ludźom w kóždym kraju darjenje wosnadnić. Prošu zdźěl nam, kak my móhli to wam wosnadnić. Pósćelće prošu swoje namjety na:  problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Maće problemy při darjenju?',
 	'donate_interface-donate-click' => 'Informacije wašeje kreditneje / debitneje karty budu so wěsće předźěłować.',
 	'donate_interface-otherways' => 'Su tež <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">druhe móžnosće, zo byšće darił, na přikład PayPal, šek abo póst</a>.',
@@ -28532,6 +28533,7 @@ Biểu mẫu quyên góp cần JavaScript để an toàn, bảo đảm, và dễ
 	'donate_interface-online_bank_transfer_message' => 'Ngân hàng Điện thoại & Internet – BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Ngân hàng',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Ngân hàng khác',
+	'donate_interface-sofortbanking' => 'Sofortbanking là một dịch vụ chuyển khoản ngân hàng trực tiếp và thời gian thực qua DIRECTebanking.com cho phép chuyển khoản ngân hàng ngay khi quyên góp trực tuyến theo thông tin ngân hàng trực tuyến của bạn. Nếu tài khoản ngân hàng của bạn không có kích hoạt các tính năng trực tuyến, bạn có thể sử dụng phần “Quyên góp bằng cách chuyển khoản ngân hàng thủ công” trên trang quyên góp chính.',
 	'donate_interface-dd-account_name' => 'Tên tài khoản',
 	'donate_interface-dd-account_number' => 'Số tài khoản',
 	'donate_interface-dd-authorization_id' => 'ID ủy quyền',
