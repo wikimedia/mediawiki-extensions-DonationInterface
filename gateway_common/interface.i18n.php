@@ -11200,7 +11200,7 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'donate_interface-error-http-403' => 'Nemate ovlasti za pristup ovoj stranici.',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Jsoby
  * @author Michawiki
  */
@@ -26155,7 +26155,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-bt-bank_account_number' => 'Namba ya akaunti ya benki',
 	'donate_interface-bt-payment_reference' => 'Rejeo ya malipo',
 	'donate_interface-bt-swift_code' => 'Kodi ya SWIFT',
-	'donate_interface-bt-special_id' => 'Namba ya pekee',
+	'donate_interface-bt-special_id' => 'Namba ya pekee inayotakiwa nchini kunaohusika',
 	'donate_interface-bt-information' => 'Maelezo ya uhawilisho wa benki',
 	'donate_interface-bt-finished' => 'Imekamilishwa',
 	'donate_interface-obt-customer_payment_reference' => 'Namba ya rejeo',
