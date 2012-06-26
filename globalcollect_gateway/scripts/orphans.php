@@ -108,6 +108,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$am = 0;
 		$rec = 0;
 		$err = 0;
+		$fe = 0;
 		foreach( $this->handled_ids as $id=>$whathappened ){
 			switch ( $whathappened ){
 				case 'antimessage' : 
@@ -119,12 +120,16 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				case 'error' :
 					$err += 1;
 					break;
+				case 'false_orphan' :
+					$fe += 1;
+					break;
 			}
 		}
 		$final = "\nDone! Final results: \n";
 		$final .= " $am destroyed via antimessage (called $am_called_count times) \n";
 		$final .= " $rec rectified orphans \n";
-		$final .= " $err errored out";
+		$final .= " $err errored out \n";
+		$final .= " $fe false orphans caught \n";
 		if ( isset( $this->adapter->orphanstats ) ){
 			foreach ( $this->adapter->orphanstats as $status => $count ) {
 				$final .= "\n   Status $status = $count";
@@ -199,28 +204,46 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$selector = "payment_method = 'cc'";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 		$orphans = array();
+		$false_orphans = array();
 		foreach ( $messages as $message ){
-			if ( !array_key_exists('antimessage', $message->headers )
-				&& !array_key_exists( $message->headers['correlation-id'], $this->handled_ids ) ) {
-				//check the timestamp to see if it's old enough. 
-				$decoded = json_decode($message->body, true);
-				if ( array_key_exists( 'date', $decoded ) ){
-					$elapsed = $this->now - $decoded['date'];
-					if ( $elapsed > $time_buffer ){
-						//we got ourselves an orphan! 
-						$correlation_id = $message->headers['correlation-id'];
-						$order_id = explode('-', $correlation_id);
-						$order_id = $order_id[1];
-						$decoded['order_id'] = $order_id;
-						$decoded['i_order_id'] = $order_id;
-						$decoded = unCreateQueueMessage($decoded);
-						$decoded['card_num'] = '';
-						$orphans[$correlation_id] = $decoded;
-						echo "Found an orphan! $correlation_id \n";
+			//this next block will do quite a lot of antimessage collision 
+			//when the queue is not being railed. 
+			if ( array_key_exists('antimessage', $message->headers ) ){
+				$correlation_id = $message->headers['correlation-id'];
+				$false_orphans[] = $correlation_id;
+				echo "False Orphan! $correlation_id \n";
+			} else { 
+				//legit message
+				if ( !array_key_exists( $message->headers['correlation-id'], $this->handled_ids ) ) {
+					//check the timestamp to see if it's old enough. 
+					$decoded = json_decode($message->body, true);
+					if ( array_key_exists( 'date', $decoded ) ){
+						$elapsed = $this->now - $decoded['date'];
+						if ( $elapsed > $time_buffer ){
+							//we got ourselves an orphan! 
+							$correlation_id = $message->headers['correlation-id'];
+							$order_id = explode('-', $correlation_id);
+							$order_id = $order_id[1];
+							$decoded['order_id'] = $order_id;
+							$decoded['i_order_id'] = $order_id;
+							$decoded = unCreateQueueMessage($decoded);
+							$decoded['card_num'] = '';
+							$orphans[$correlation_id] = $decoded;
+							echo "Found an orphan! $correlation_id \n";
+						}
 					}
 				}
 			}
 		}
+		
+		foreach ( $orphans as $cid => $data ){
+			if ( in_array( $cid, $false_orphans ) ){
+				unset( $orphans[$cid] );
+				$this->addStompCorrelationIDToAckBucket( $cid );
+				$this->handled_ids[ $cid ] = 'false_orphan';
+			}
+		}
+		
 		return $orphans;
 	}
 	
@@ -322,6 +345,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		} else {
 			$this->adapter->log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
 			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) ){
+				$rectified = true;
+			}
+			
+			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
+			if ( strpos( $results['message'], "No processors are available." ) ){
 				$rectified = true;
 			}
 		}
