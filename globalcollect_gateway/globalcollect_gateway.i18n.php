@@ -218,6 +218,17 @@ $messages['et'] = array(
 	'globalcollectgateway' => 'Anneta kohe',
 );
 
+/** Finnish (suomi)
+ * @author Alluk.
+ */
+$messages['fi'] = array(
+	'globalcollectgateway' => 'Tee lahjoitus nyt',
+	'globalcollect_gateway-response-9130' => 'Virheellinen maa.',
+	'globalcollect_gateway-response-9140' => 'Virheellinen valuutta.',
+	'globalcollect_gateway-response-9150' => 'Virheellinen kieli.',
+	'globalcollect_gateway-response-400530' => 'Virheellinen maksutapa.',
+);
+
 /** French (français)
  * @author Gomoko
  * @author IAlex
