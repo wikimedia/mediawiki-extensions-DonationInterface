@@ -2526,7 +2526,7 @@ $messages['be'] = array(
 	'donate_interface-monthlybox-bottom' => 'Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Jsoby
@@ -2856,6 +2856,10 @@ $messages['be-tarask'] = array(
 	'donate_interface-bt-payment_reference' => 'Нумар выплатнага даручэньня',
 	'donate_interface-bt-swift_code' => 'Код Swift',
 	'donate_interface-bt-special_id' => 'Краіназалежная інфармацыя',
+	'donate_interface-bt-information' => 'Інфармацыя пра банкаўскі пералік',
+	'donate_interface-bt-finished' => 'Гатова',
+	'donate_interface-obt-biller_id' => 'Код (Biller code)',
+	'donate_interface-obt-customer_payment_reference' => 'Адзнака № (Reference #)',
 	'donate_interface-rtbt-issuer_id' => 'Выберыце банк',
 	'donate_interface-translate-bluelink' => 'Палепшыце гэты пераклад',
 	'donate_interface-translate-redlink1' => 'Дапамажыце перакласьці гэтую старонку.',
@@ -8273,11 +8277,15 @@ $messages['fi'] = array(
 	'donate_interface-donor-mname' => 'Toiset etunimet',
 	'donate_interface-donor-lname' => 'Sukunimi',
 	'donate_interface-donor-street' => 'Katu',
+	'donate_interface-donor-street-number' => 'Numero',
 	'donate_interface-donor-city' => 'Kaupunki',
+	'donate_interface-donor-county' => 'Maa',
+	'donate_interface-donor-island' => 'Saari',
 	'donate_interface-donor-state' => 'Osavaltio',
 	'donate_interface-donor-zip' => 'Postinumero',
 	'donate_interface-donor-postal' => 'Postinumero',
 	'donate_interface-donor-country' => 'Maa',
+	'donate_interface-donor-pobox' => 'PL',
 	'donate_interface-donor-card' => 'Luottokortti',
 	'donate_interface-donor-card-num' => 'Kortin numero',
 	'donate_interface-donor-expiration' => 'Vanhenemispäivä',
@@ -8511,6 +8519,9 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'donate_interface-monthlybox-no' => 'EI, vain kertalahjoitus',
 	'donate_interface-monthlybox-bottom' => 'Lahjoituksesi käsitellään turvallisesti.',
 	'donate_interface-monthly-cancel' => 'Kuukausittaiset maksut välitetään Wikimedia Foundationille niin kauan kunnes pyydät meitä lopettamaan maksut.',
+	'donate_interface-onetime' => 'Tee kertalahjoitus',
+	'donate_interface-monthly-short' => 'Kuukausittain',
+	'donate_interface-onetime-short' => 'Vain kerran',
 	'donate_interface-securelogo-title' => 'Varmista napsauttamalla - Tämä sivusto on valinnut VeriSign SSL:n turvalliseen verkkokauppaan ja luottamukselliseen yhteydenpitoon.',
 	'donate_interface-secureLogo-text' => 'Tietoja SSL-sertifikaateista',
 	'donate_interface-error-http-403' => 'Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen.',
