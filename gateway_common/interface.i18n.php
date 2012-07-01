@@ -4628,7 +4628,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-error-http-403' => 'Nemáte oprávnění k přístupu na tuto stránku.',
 );
 
-/** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+/** Church Slavic (словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
  * @author ОйЛ
  */
 $messages['cu'] = array(
@@ -4727,6 +4727,8 @@ $messages['cy'] = array(
 	'donate_interface-PKR' => 'Rwpî Pacistan',
 	'donate_interface-PLN' => 'Zloty Gwlad Pwyl',
 	'donate_interface-QAR' => 'Rial Qatar',
+	'donate_interface-RUB' => 'rwbl Rwsia',
+	'donate_interface-SAR' => 'riyal Sawdi-Arabia',
 	'donate_interface-SEK' => 'Krona Sweden',
 	'donate_interface-SGD' => 'Doler Singapôr',
 	'donate_interface-TND' => 'Dinar Tiwnisia',
@@ -5888,7 +5890,7 @@ $messages['diq'] = array(
 	'donate_interface-via-paypal' => "(PayPal'î sera)",
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Jsoby
  * @author Michawiki
  */
@@ -10444,6 +10446,7 @@ $messages['he'] = array(
 	'donate_interface-online_bank_transfer_message' => 'בנקאות בטלפון ובאינטרנט – BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'בחירת בנק',
 	'donate_interface-rtbt-issuer_id-longlist' => 'בנקים אחרים',
+	'donate_interface-sofortbanking' => 'Sofortbanking היא העברה בנקאית ישירה בזמן אמת דרך DIRECTebanking.com, המאפשרת לך להפעיל העברה בנקאית באופן ישיר בזמן נתינת תרומה מקוונת בעזרת המידע הבנקאי שלך. אם לחשבון הבנק שלך אין יכולות לבצע פעולות מקוונת, אולי עדיף לך להשתמש באפשרות "תרומה בהעברה בנקאית ישירה" בדף התרמה הראשי.',
 	'donate_interface-dd-account_name' => 'שם החשבון',
 	'donate_interface-dd-account_number' => 'מספר החשבון',
 	'donate_interface-dd-authorization_id' => 'קוד אימות לחיוב ישיר (Direct Debit Authorization ID)',
@@ -22583,7 +22586,7 @@ $messages['ru'] = array(
 	'donate_interface-error-http-403' => 'Извините, у вас недостаточно прав для доступа к этой странице.',
 );
 
-/** Rusyn (Русиньскый)
+/** Rusyn (русиньскый)
  * @author Gazeb
  * @author Jsoby
  */
