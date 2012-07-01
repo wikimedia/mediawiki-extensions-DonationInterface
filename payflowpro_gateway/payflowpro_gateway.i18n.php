@@ -170,7 +170,7 @@ $messages['ba'] = array(
 Зинһар, һуңыраҡ тағы ҡабатлап ҡарағыҙ.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Lloffiwr
@@ -483,7 +483,7 @@ Ma rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.',
 Ma rica kenê reyna dest bi bike.',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -755,7 +755,7 @@ $messages['ga'] = array(
 	'payflowpro_gateway-desc' => 'Próiseáil chárta creidmheasa PayPal Payflow Pro',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -890,7 +890,7 @@ Molimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.',
 Molimo pokušajte kasnije.',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
@@ -1625,7 +1625,7 @@ $messages['ru'] = array(
 Пожалуйста, повторите попытку позже.',
 );
 
-/** Rusyn (Русиньскый)
+/** Rusyn (русиньскый)
  * @author Gazeb
  */
 $messages['rue'] = array(

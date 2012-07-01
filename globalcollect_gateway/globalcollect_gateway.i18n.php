@@ -72,7 +72,7 @@ $messages['ar'] = array(
 الرجاء المحاولة مرة أخرى لاحقاً.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Wizardist
  */
@@ -264,7 +264,7 @@ $messages['frp'] = array(
 	'globalcollect_gateway-response-430330' => 'Numerô de cârta envalido.',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -329,7 +329,7 @@ $messages['he'] = array(
 	'globalcollect_gateway-response-default' => 'אירעה שגיאה בעיבוד העסקה שלך. נא לנסות שוב מאוחר יותר.',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
