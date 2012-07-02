@@ -1308,22 +1308,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
     }
 	
 	/**
-	 * Take the entire response string, and strip everything we don't care about.
-	 * For instance: If it's XML, we only want correctly-formatted XML. Headers must be killed off. 
-	 * return a string.
-	 *
-	 * @param string	$rawResponse	The raw response a string of XML.
-	 */
-	public function getFormattedResponse( $rawResponse ) {
-		$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
-		$displayXML = $this->formatXmlString( $xmlString );
-		$realXML = new DomDocument( '1.0' );
-		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
-		$realXML->loadXML( trim( $xmlString ) );
-		return $realXML;
-	}
-
-	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
 	 * @param array	$response	The response array

@@ -94,7 +94,7 @@ class DonationData {
 				//Leave both of the currencies here, in case something external didn't get the memo.
 				'currency' => $wgRequest->getVal( 'currency' ),
 				'currency_code' => $wgRequest->getVal( 'currency_code' ),
-				'payment_method' => $wgRequest->getText( 'payment_method', 'cc' ),
+				'payment_method' => $wgRequest->getText( 'payment_method', null ),  // NOTE: If things are breaking because session data is overwriting this; please fix elsewhere!
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.

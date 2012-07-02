@@ -25,13 +25,6 @@ interface GatewayType {
 	//all the particulars of the child classes. Aaaaall.
 
 	/**
-	 * Take the entire response string, and strip everything we don't care about.
-	 * For instance: If it's XML, we only want correctly-formatted XML. Headers must be killed off. 
-	 * return a string.
-	 */
-	function getFormattedResponse( $rawResponse );
-
-	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 */
 	function getResponseStatus( $response );
@@ -78,11 +71,19 @@ interface GatewayType {
 	function defineTransactions();
 
 	/**
+	 */
+	function defineErrorMap();
+
+	/**
 	 * defineVarMap needs to set up the $var_map array. 
 	 * Keys = the name (or node name) value in the gateway transaction
 	 * Values = the mediawiki field name for the corresponding piece of data. 
 	 */
 	function defineVarMap();
+
+	/**
+	 */
+	function defineDataConstraints();
 
 	/**
 	 * defineAccountInfo needs to set up the $accountInfo array. 
@@ -97,6 +98,8 @@ interface GatewayType {
 	 * Values = what that string constant means to mediawiki. 
 	 */
 	function defineReturnValueMap();
+
+	function getCurrencies();
 }
 
 /**
@@ -885,8 +888,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 			if ( $this->getValidationAction() != 'process' ) {
 
-				self::log( "Failed failed pre-process checks.", LOG_CRIT );
-
+				self::log( "Failed failed pre-process checks for transaction type $transaction.", LOG_CRIT );
+				
 				$this->transaction_results = array(
 					'status' => false,
 					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
@@ -1235,10 +1238,44 @@ abstract class GatewayAdapter implements GatewayType {
 		return true;
 	}
 
+	/**
+	 * Take the entire response string, and strip everything we don't care
+	 * about.  For instance: If it's XML, we only want correctly-formatted XML.
+	 * Headers must be killed off.
+	 * return a string.
+	 */
+	function getFormattedResponse( $rawResponse ) {
+		if ( $this->getCommunicationType() == 'xml' ) {
+			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
+			$displayXML = $this->formatXmlString( $xmlString );
+			$realXML = new DomDocument( '1.0' );
+			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
+			$realXML->loadXML( trim( $xmlString ) );
+			return $realXML;
+		}
+		elseif ( $this->getCommunicationType() == 'namevalue' ) {
+			$nvString = $this->stripNameValueResponseHeaders( $rawResponse );
+
+			// prepare NVP response for sorting and outputting
+			$responseArray = array( );
+
+			$result_arr = explode( "&", $nvString );
+			foreach ( $result_arr as $result_pair ) {
+				list( $key, $value ) = preg_split( "/=/", $result_pair, 2 );
+				$responseArray[ $key ] = $value;
+			}
+
+			self::log( "Here is the response as an array: " . print_r( $responseArray, true ) );
+			return $responseArray;
+		}
+	}
+
 	function stripXMLResponseHeaders( $rawResponse ) {
 		$xmlStart = strpos( $rawResponse, '<?xml' );
-		if ( $xmlStart == false ) { //I totally saw this happen one time. No XML, just <RESPONSE>...
-			$xmlStart = strpos( $rawResponse, '<RESPONSE' );
+		if ( $xmlStart == false ) {
+			//I totally saw this happen one time. No XML, just <RESPONSE>...
+			//...Weaken to almost no error checking.  Buckle up!
+			$xmlStart = strpos( $rawResponse, '<' );
 		}
 		if ( $xmlStart == false ) { //Still false. Your Head Asplode.
 			self::log( "Completely Mangled Response:\n" . $rawResponse );
@@ -1250,6 +1287,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	function stripNameValueResponseHeaders( $rawResponse ) {
+		//XXX gateway-specific string:
 		$result = strstr( $rawResponse, 'RESULT' );
 		$this->setTransactionResult( $result, 'unparsed_data' );
 		return $result;
@@ -1889,7 +1927,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getTransactionMessage() {
-		if ( array_key_exists( 'txn_message', $this->transaction_results ) ) {
+		if ( $this->transaction_results && array_key_exists( 'txn_message', $this->transaction_results ) ) {
 			return $this->transaction_results['txn_message'];
 		} else {
 			return false;
@@ -1897,7 +1935,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getTransactionGatewayTxnID() {
-		if ( array_key_exists( 'gateway_txn_id', $this->transaction_results ) ) {
+		if ( $this->transaction_results && array_key_exists( 'gateway_txn_id', $this->transaction_results ) ) {
 			return $this->transaction_results['gateway_txn_id'];
 		} else {
 			return false;
@@ -2091,8 +2129,7 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $this->transactions[$transaction][$option_value] === true ) {
 				return true;
 			}
-			if ( is_array( $this->transactions[$transaction][$option_value] ) &&
-				!empty( $this->transactions[$transaction][$option_value] ) ) {
+			if ( !empty( $this->transactions[$transaction][$option_value] ) ) {
 				return $this->transactions[$transaction][$option_value];
 			}
 		}
