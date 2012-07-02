@@ -114,33 +114,6 @@ class PayflowProAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Take the entire response string, and strip everything we don't care about.
-	 * For instance: If it's XML, we only want correctly-formatted XML. Headers must be killed off. 
-	 * return a string.
-	 */
-	function getFormattedResponse( $rawResponse ) {
-		$nvString = $this->stripNameValueResponseHeaders( $rawResponse );
-
-		// prepare NVP response for sorting and outputting
-		$responseArray = array( );
-
-		/**
-		 * The result response string looks like:
-		 * 	RESULT=7&PNREF=E79P2C651DC2&RESPMSG=Field format error&HOSTCODE=10747&DUPLICATE=1
-		 * We want to turn this into an array of key value pairs, so explode on '&' and then
-		 * split up the resulting strings into $key => $value
-		 */
-		$result_arr = explode( "&", $nvString );
-		foreach ( $result_arr as $result_pair ) {
-			list( $key, $value ) = preg_split( "/=/", $result_pair, 2 );
-			$responseArray[$key] = $value;
-		}
-
-		self::log( "Here is the response as an array: " . print_r( $responseArray, true ) );
-		return $responseArray;
-	}
-
-	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 */
 	function getResponseStatus( $response ) {

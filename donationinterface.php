@@ -42,6 +42,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Recaptcha' => false, //extra
 	'PayflowPro' => false,
 	'GlobalCollect' => false,
+	'Amazon' => false,
 	'FormChooser' => false,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
@@ -113,6 +114,12 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgAutoloadClasses['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.body.php';
 	$wgAutoloadClasses['PayflowProAdapter'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro.adapter.php';
 }
+
+if ( $optionalParts['Amazon'] === true ){
+	$wgAutoloadClasses['AmazonGateway'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.body.php';
+	$wgAutoloadClasses['AmazonAdapter'] = $donationinterface_dir . 'amazon_gateway/amazon.adapter.php';
+}
+
 
 //Stomp classes
 if ($optionalParts['Stomp'] === true){
@@ -336,6 +343,28 @@ if ( $optionalParts['PayflowPro'] === true ){
 	
 	//defaults to not doing the new fail page redirect. 
 	$wgPayflowProGatewayFailPage = false;
+}
+
+if ( $optionalParts['Amazon'] === true ){
+	//n.b. "-Testing-" urls are not wired to anything, they're just here for
+	// your copy n paste pleasure.
+
+	$wgAmazonGatewayURL = "https://authorize.payments.amazon.com/pba/paypipeline";
+	$wgAmazonGatewayTestingURL = "https://authorize.payments-sandbox.amazon.com/pba/paypipeline";
+
+	$wgAmazonGatewayFpsURL = "https://fps.amazonaws.com/";
+	$wgAmazonGatewayFpsTestingURL = "https://fps.sandbox.amazonaws.com/";
+
+	$wgAmazonGatewayAccessKey = "";
+	$wgAmazonGatewaySecretKey = "";
+
+	// the long one, not the AWS account ID
+	$wgAmazonGatewayPaymentsAccountID = "";
+
+	// e.g. http://payments.wikimedia.org/index.php/Special:AmazonGateway  --
+	// does NOT accept unroutable development names, use the number instead
+	// even if it's 127.0.0.1
+	$wgAmazonGatewayReturnURL = "";
 }
 
 //Stomp globals
@@ -626,6 +655,10 @@ if ( $optionalParts['GlobalCollect'] === true ){
 //PayflowPro gateway special pages
 if ( $optionalParts['PayflowPro'] === true ){
 	$wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
+}
+//Amazon Simple Payment gateway special pages
+if ( $optionalParts['Amazon'] === true ){
+	$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
 }
 
 
