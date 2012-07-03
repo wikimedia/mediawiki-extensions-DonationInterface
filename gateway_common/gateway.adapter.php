@@ -1126,7 +1126,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->definePaymentSubmethods();
 		}
 
-		return $this->payment_methods;
+		return $this->payment_submethods;
 	}
 
 	/**
