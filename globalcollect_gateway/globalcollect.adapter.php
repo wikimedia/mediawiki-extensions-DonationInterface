@@ -1696,7 +1696,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'issuer_id',
 			'order_id', //This may or may not oughta-be-here...
 			'language',
-			'recurring'
+			'recurring',
+			'country'
 		);
 	}
 	
@@ -2054,6 +2055,28 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		} else {
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'ORDERTYPE';
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['ORDERTYPE'] = '4';
+		}
+	}
+	
+	/**
+	 * Stage: country
+	 * This should be a catch-all for establishing weird country-based rules. 
+	 * Right now, we only have the one, but there could be more here later.
+	 *
+	 * @param string	$type	request|response
+	 */
+	protected function stage_country( $type = 'request' ){
+		if ( $type != 'request' ){
+			return; //nothing to do here. 
+		}
+		
+		switch ( $this->getData_Staged( 'country' ) ){
+			case 'AR' :
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'PURCHASETYPE';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['USAGETYPE'] = '0';
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['PURCHASETYPE'] = '1';
+				break;
 		}
 	}
 	
