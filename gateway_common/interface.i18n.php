@@ -7771,6 +7771,7 @@ $messages['eu'] = array(
  * @author Huji
  * @author Jsoby
  * @author Mjbmr
+ * @author Reza1615
  * @author Sahim
  * @author Wayiran
  * @author ZxxZxxZ
@@ -7881,6 +7882,7 @@ $messages['fa'] = array(
 	'donate_interface-paypal-button' => 'از طریق پی پال بپردازید',
 	'donate_interface-paypal-redirect' => 'تغییرمسیر به پی‌پال…',
 	'donate_interface-cc-button' => 'از طریق کارت اعتباری بپردازید',
+	'donate_interface-ccdc-button' => 'پرداخت با کارت اعتباری/کارت دبیت',
 	'donate_interface-dd-button' => 'از طریق برداشت مستقیم کمک مالی کنید',
 	'donate_interface-bt-button' => 'از طریق انتقال بانکی کمک مالی کنید',
 	'donate_interface-rt-button' => 'از طریق بانک $1 کمک مالی کنید',
@@ -7907,6 +7909,7 @@ $messages['fa'] = array(
 	'donate_interface-donor-zip' => 'زیپ',
 	'donate_interface-donor-postal' => 'کد پستی:',
 	'donate_interface-donor-country' => 'کشور/منطقه:',
+	'donate_interface-donor-zone' => 'منطقه',
 	'donate_interface-donor-pobox' => 'صندوق پستی',
 	'donate_interface-donor-card' => 'کارت اعتباری:',
 	'donate_interface-donor-card-num' => 'شمارهٔ کارت:',
@@ -7961,6 +7964,7 @@ $messages['fa'] = array(
 در برخی موارد، کد در سمت چپ کارت قرار دارد، اما همواره در بالای شمارهٔ حساب است.</p><br />',
 	'donate_interface-question-comment' => 'پرسش یا نظری دارید؟ تماس بگیرید: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'ما سعی می‌کنیم که اهدای کمک در تمامی کشورها را آسان‌تر سازیم. لطفاً ما را آگاه کنید که چگونه این کار را برای شما آسان‌تر کنیم. پیشنهادهای خود را به problemsdonating@wikimedia.org بفرستید.',
+	'donate_interface-problemsdonating' => 'در پرداخت مشکل دارید؟',
 	'donate_interface-donate-click' => 'کارت اعتباری / بانکی شما به طور ایمن پردازش خواهد شد.',
 	'donate_interface-otherways' => '<a href="http://wikimediafoundation.org/wiki/ارسال">راه‌های دیگری برای کمک مالی نظیر پی پال، چک و پست وجود دارد</a>.',
 	'donate_interface-otherways-alt' => '<a href="http://wikimediafoundation.org/wiki/ارسال">راه‌های دیگری</a> هم برای پرداخت وجود دارد، ازجمله چک.',
@@ -8093,6 +8097,7 @@ $messages['fa'] = array(
 	'donate_interface-bt-special_id' => 'اطلاعات مختص کشور',
 	'donate_interface-bt-information' => 'اطلاعات انتقال بانک',
 	'donate_interface-bt-finished' => 'تمام شد',
+	'donate_interface-obt-biller_id' => 'کد پرداخت‌کننده',
 	'donate_interface-obt-customer_payment_reference' => 'شمارهٔ مرجع',
 	'donate_interface-obt-information' => 'اطلاعات انتقال برخط بانکی',
 	'donate_interface-rtbt-issuer_id' => 'بانک را انتخاب کنید',
@@ -14363,9 +14368,11 @@ $messages['ko'] = array(
 	'donate_interface-enter-your-amount' => '혹은 기부하실 그램액을 상단에 입력해 주십시오',
 	'donate_interface-will-support-with-gift' => '나는 다음과 같은 선물로 지원하겠습니다:',
 	'donate_interface-will-make-tax-deductible-gift' => '나는 다음의 선물에 대해 세금감면을 받기 원합니다:',
+	'donate_interface-submit-my-secure-donation' => '비밀 기부 전송',
 	'donate_interface-next' => '다음',
 	'donate_interface-continue' => '계속',
 	'donate_interface-cancel' => '취소',
+	'donate_interface-description' => '설명',
 	'donate_interface-donation' => '기부',
 	'donate_interface-via-paypal' => '(예로 PayPal)',
 	'donate_interface-shirt-size' => '티셔츠 사이즈:',
@@ -14377,11 +14384,15 @@ $messages['ko'] = array(
 	'donate_interface-back-of-shirt' => '셔츠 뒷면',
 	'donate_interface-select-a-size' => '사이즈를 선택해주세요.',
 	'donate_interface-select' => '선택',
+	'donate_interface-change' => '바꾸기',
+	'donate_interface-select-credit-card' => '신용 카드 선택',
+	'donate_interface-optional' => '선택 사항',
 	'donate_interface-state-dropdown-XX' => '미국 밖',
 	'donate_interface-bt-account_holder' => '예금주',
 	'donate_interface-bt-bank_account_number' => '은행 계좌번호',
 	'donate_interface-bt-country_description' => '국가 설명',
 	'donate_interface-bt-finished' => '완료',
+	'donate_interface-obt-customer_payment_reference' => '참고 #',
 	'donate_interface-online_bank_transfer_message' => '전화 및 인터넷 뱅킹 - BPAY®',
 	'donate_interface-rtbt-issuer_id' => '은행 선택',
 	'donate_interface-rtbt-issuer_id-longlist' => '다른 은행',
