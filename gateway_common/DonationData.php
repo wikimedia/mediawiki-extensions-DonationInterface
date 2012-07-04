@@ -1154,10 +1154,6 @@ class DonationData {
 
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
-		if ( !$db ) {
-			return true;
-		}  ///wait, what? TODO: This line was straight copied from the _gateway.body. Find out if there's a good reason we're not returning false here.
-
 		// if contrib tracking id is not already set, we need to insert the data, otherwise update
 		if ( !$this->getVal( 'contribution_tracking_id' ) ) {
 			$tracked_contribution = $this->getCleanTrackingData();
