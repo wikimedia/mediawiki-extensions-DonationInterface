@@ -494,6 +494,14 @@ $messages['lb'] = array(
 Probéiert et w.e.g. spéider nach eng Kéier.',
 );
 
+/** Lithuanian (lietuvių)
+ * @author Eitvys200
+ */
+$messages['lt'] = array(
+	'globalcollect_gateway-response-9130' => 'Neleistina šalis.',
+	'globalcollect_gateway-response-9150' => 'Neleistina kalba.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
