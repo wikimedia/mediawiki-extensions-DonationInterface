@@ -414,12 +414,13 @@ class DonationData {
 	 * Sets user_ip and server_ip. 
 	 */
 	protected function setIPAddresses(){
+		global $wgRequest;
 		//if we are coming in from the orphan slayer, the client ip should 
 		//already be populated with something un-local, and we'd want to keep 
 		//that.
 		if ( !$this->isSomething( 'user_ip' ) || $this->getVal( 'user_ip' ) === '127.0.0.1' ){
-			if ( function_exists( 'wfGetIP' ) ){
-				$this->setVal( 'user_ip', wfGetIP() );
+			if ( isset($wgRequest) ){
+				$this->setVal( 'user_ip', $wgRequest->getIP() );
 			}
 		}
 		

@@ -58,8 +58,9 @@ class UnsupportedGeoIP extends Exception { }
 class NotFoundGeoIP extends Exception { }
 
 function fnGetGeoIP( $ip_address = null ) {
+	global $wgRequest;
 	if ( !isset( $ip_address ) ) {
-		$ip_address = IP::sanitizeIP( wfGetIP() );
+		$ip_address = IP::sanitizeIP( $wgRequest->getIP() );
 	}
 
 	if ( isset( $_GET['ip'] ) ) {
