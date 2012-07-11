@@ -570,7 +570,7 @@ $messages['ms'] = array(
 Sila cuba sebentar lagi.',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Jsoby
  */
 $messages['nb'] = array(

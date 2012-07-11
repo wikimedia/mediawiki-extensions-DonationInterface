@@ -145,7 +145,7 @@ $messages['arz'] = array(
 من فضلك حاول مره أخرى.',
 );
 
-/** Bashkir (Башҡортса)
+/** Bashkir (башҡортса)
  * @author Assele
  * @author Haqmar
  */
@@ -1296,9 +1296,8 @@ Jekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.',
 	'payflowpro_gateway-response-125' => 'It-transazzjoni tiegħek ġiet rifjutata mill-Fraud Prevention Services.',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Finnrind
- * @author Jon Harald Søby
  * @author Laaknor
  * @author Nghtwlkr
  * @author Sjurhamre
