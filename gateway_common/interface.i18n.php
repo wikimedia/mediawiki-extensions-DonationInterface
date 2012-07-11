@@ -1871,7 +1871,7 @@ $messages['az'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Bashkir (Башҡортса)
+/** Bashkir (башҡортса)
  * @author Assele
  * @author Haqmar
  * @author Jsoby
@@ -13844,7 +13844,7 @@ $messages['ka'] = array(
 	'donate_interface-onetime-short' => 'ერთხელ',
 );
 
-/** Kazakh (Cyrillic script) (‪Қазақша (кирил)‬)
+/** Kazakh (Cyrillic script) (‪қазақша (кирил)‬)
  * @author GaiJin
  * @author Kaztrans
  */
@@ -17739,7 +17739,7 @@ $messages['mt'] = array(
 	'donate_interface-post-transaction' => 'Dettalji tat-transazzjoni',
 );
 
-/** Erzya (Эрзянь)
+/** Erzya (эрзянь)
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
@@ -17776,10 +17776,9 @@ $messages['myv'] = array(
 	'donate_interface-back-of-shirt' => 'Панар удалкс',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Danmichaelo
  * @author Finnrind
- * @author Jon Harald Søby
  * @author Jsoby
  * @author Laaknor
  * @author McDutchie
@@ -17804,6 +17803,7 @@ $messages['nb'] = array(
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => 'Skriv inn et gyldig beløp',
 	'donate_interface-smallamount-error' => 'Du må bidra med minst $1',
+	'donate_interface-bigamount-error' => 'Vi kan ikke ta imot donasjoner på mer enn 10&nbsp;000&nbsp;USD ($1&nbsp;$2) via denne nettsiden. Vennligst kontakt våre ansatte for store gaver på $3.',
 	'donate_interface-processing-error' => 'Det har oppstått en feil ved behandlingen av forespørselen din.
 Ingen prosessorer er tilgjengelige.',
 	'donate_interface-AED' => 'Emiratarabisk dirham',
@@ -17908,15 +17908,20 @@ Ingen prosessorer er tilgjengelige.',
 	'donate_interface-donor-emailAdd' => 'E-post adresse',
 	'donate_interface-donor-name' => 'Navn',
 	'donate_interface-donor-fname' => 'Fornavn:',
+	'donate_interface-donor-address' => 'Adresse:',
 	'donate_interface-donor-mname' => 'Mellomnavn:',
 	'donate_interface-donor-lname' => 'Etternavn:',
 	'donate_interface-donor-street' => 'Gate:',
+	'donate_interface-donor-street-number' => 'Nummer',
 	'donate_interface-donor-city' => 'By:',
+	'donate_interface-donor-county' => 'Fylke',
+	'donate_interface-donor-island' => 'Øy',
 	'donate_interface-donor-state' => 'Stat:',
 	'donate_interface-donor-zip' => 'Postnummer',
 	'donate_interface-donor-postal' => 'Postnummer:',
 	'donate_interface-donor-country' => 'Land/region:',
-	'donate_interface-donor-address' => 'Adresse:',
+	'donate_interface-donor-zone' => 'Sone',
+	'donate_interface-donor-pobox' => 'Postboks',
 	'donate_interface-donor-card' => 'Kredittkort:',
 	'donate_interface-donor-card-num' => 'Kortnummer:',
 	'donate_interface-donor-expiration' => 'Utløpsdato:',
@@ -17973,7 +17978,7 @@ I enkelte tilfeller er koden plassert på venstre side av kortet, men alltid ove
 	'donate_interface-question-comment' => 'Spørsmål eller kommentarer? Kontakt: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Vi prøver å gjøre det enkelt for innbyggere i alle land å donere. Fortell gjerne om det hvis det er noe vi kan gjøre for at det skal bli lettere for deg. Send dine forslag på: problemsdonating@wikimedia.org',
 	'donate_interface-problemsdonating' => 'Problemer med å donere?',
-	'donate_interface-donate-click' => 'Ditt kredittkort vil bli sikkert behandlet.',
+	'donate_interface-donate-click' => 'Ditt kreditt- eller debitkort vil bli sikkert behandlet.',
 	'donate_interface-otherways' => 'Det finnes <a href="http://wikimediafoundation.org/wiki/Donate/WaysToGive/nb">andre måter å gi på, inklusive PayPal, sjekk eller post</a>.',
 	'donate_interface-otherways-alt' => 'Det finnes <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andre måter å gi på</a>, inklusive sjekk.',
 	'donate_interface-otherways-short' => 'Andre måter å gi',
@@ -18145,11 +18150,14 @@ For å gi en trygg, sikker og behagelig opplevelse krever vårt donasjonsskjema 
 	'donate_interface-legal-donorpolicy' => 'Ved å donere deler du informasjon med Wikimedia Foundation, den idelle organisasjonen som driver Wikipedia og andre Wikimedia-prosjekter, og dens tjenestetilbydere i USA og andre steder, i samsvar med vår donorpolicy. Vi selger eller utveksler ikke din informasjon med noen.',
 	'donate_interface-monthlybox-title' => 'Gjør det til en månedlig gave?',
 	'donate_interface-monthlybox-content' => 'Månedlige gaver prosesseres den andre hver måned. Du kan avslutte det når som helst.',
-	'donate_interface-monthlybox-amount' => 'Gavebeløp',
+	'donate_interface-monthlybox-amount' => 'Månedlig gavebeløp',
 	'donate_interface-monthlybox-yes' => 'Ja, gjør det til en månedlig gave',
 	'donate_interface-monthlybox-no' => 'NEI, gjør det til en engangsgave',
 	'donate_interface-monthlybox-bottom' => 'Gaven din vil bli behandlet sikkert.',
 	'donate_interface-monthly-cancel' => 'Månedlige betalinger vil belastes av Wikimedia Foundation fram til du ber om at det skal slutte.',
+	'donate_interface-onetime' => 'Gi en engangsgave',
+	'donate_interface-monthly-short' => 'Månedlig',
+	'donate_interface-onetime-short' => 'Én gang',
 	'donate_interface-securelogo-title' => 'Klikk for å verifisere – denne siden valgte VeriSign SSL for sikker e-handel og konfidensiell kommunikasjon.',
 	'donate_interface-secureLogo-text' => 'Om SSL-sertifikater',
 	'donate_interface-error-http-403' => 'Du har ikke tilgang til denne siden.',
