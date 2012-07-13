@@ -116,15 +116,9 @@ EOT;
 
 					} elseif ( $payment_method == 'dd' ) {
 
-						$this->adapter->do_transaction( 'DO_BANKVALIDATION' );
-
-						// Check to see if validations were successful, if so, proceed with order.
-						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-
-							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-						}
-						else {
-
+						$result = $this->adapter->do_transaction('Direct_Debit');
+						if (!$result['status'])
+						{
 							// Attach the error messages to the form
 							$this->adapter->setBankValidationErrors();
 						}
