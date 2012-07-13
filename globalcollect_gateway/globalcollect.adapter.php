@@ -1076,7 +1076,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$result = $this->transactionConfirm_CreditCard();
 				$this->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
 				return $result;
-				break;
+			case 'Direct_Debit' :
+				$this->getStopwatch( 'Direct_Debit', true );
+				$result = $this->transactionDirect_Debit();
+				$this->saveCommunicationStats( 'Direct_Debit', $transaction );
+				return $result;
 			default:
 				return parent::do_transaction( $transaction );
 		}
@@ -1266,6 +1270,38 @@ class GlobalCollectAdapter extends GatewayAdapter {
 //		return something better... if we need to!
 		return $status_result;
 	}
+
+    protected function transactionDirect_Debit()
+    {  
+		$result = $this->do_transaction('DO_BANKVALIDATION');
+		if ($result['status'])
+		{
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['HOSTEDINDICATOR'] = 0;
+			$result = $this->do_transaction('INSERT_ORDERWITHPAYMENT');
+			if (isset($result['status']) && $result['status'])
+			{  
+				if ($this->getTransactionWMFStatus() == 'pending')
+				{
+					$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $this->getData_Staged('payment_product');
+
+					$txn_data = $this->getTransactionData();
+					$original_status_code = isset( $txn_data['STATUSID']) ? $txn_data['STATUSID'] : 'NOT SET';
+
+					$result = $this->do_transaction('SET_PAYMENT');
+					//TODO this should always be performed after a SET_PAYMENT
+					if (isset($result['status']) && $result['status'])
+					{
+						$this->setTransactionWMFStatus('complete');
+						//get the old status from the first txn, and add in the part where we set the payment. 
+						$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
+						$this->runPostProcessHooks();  //stomp is in here
+						$this->unsetAllSessionData();
+					}
+				}
+            }
+        }
+        return $result;
+    }
 	
 	/**
 	 * Take the entire response string, and strip everything we don't care about.
@@ -1417,36 +1453,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Interpret DO_BANKVALIDATION checks performed.
 	 *
-	 * The check results are returned as follows:
-	 * 
-	 * 	 <code>
-	 * 		<RESPONSE>
-	 * 			<RESULT>OK</RESULT>
-	 * 			<META>
-	 * 			<REQUESTID>207326</REQUESTID>
-	 * 			<RESPONSEDATETIME>20111106054547</RESPONSEDATETIME>
-	 * 			<CHECKSPERFORMED>
-	 * 				<CHECK>
-	 * 					<CHECKCODE>0030</CHECKCODE>
-	 * 					<CHECKRESULT>NOTCHECKED</CHECKRESULT></CHECK>
-	 * 				<CHECK>
-	 * 					<CHECKCODE>0050</CHECKCODE>
-	 * 					<CHECKRESULT>ERROR</CHECKRESULT></CHECK>
-	 * 				<CHECK>
-	 * 					<CHECKCODE>0051</CHECKCODE>
-	 * 					<CHECKRESULT>NOTCHECKED</CHECKRESULT>
-	 * 				</CHECK>
-	 * 			</CHECKSPERFORMED>
-	 * 		</RESPONSE>
-	 * 	 </code>
-	 *
 	 * This will use the error map.
 	 *
 	 * PASSED is a successful validation.
 	 *
 	 * ERROR is a validation failure.
 	 *
-	 * WARNING: For now, this will be treated as failed.
+	 * WARNING: For now, this will be ignored.
 	 *
 	 * NOTCHECKED does not need to be worried about in the check results. These
 	 * are supposed to appear if a validation failed, rendering the other
@@ -1524,8 +1537,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		
 		if ( $isWarning ) {
-			// This should be logged.
-			$return = 'failed';
+			self::log('Got warnings from bank validation: '.print_r($data['errors'], TRUE));
+			$return = 'complete';
 		}
 		
 		if ( $isError ) {
@@ -1949,59 +1962,40 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 
 			/* Direct Debit */
+			case 'dd_de':
+				$this->dataConstraints['account_number']['length'] = 10;
+				$this->dataConstraints['bank_code']['length'] = 8;
+				break;
 			case 'dd_nl':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 10;
 				$this->dataConstraints['direct_debit_text']['length'] = 32;
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_gb':
 				$this->staged_data['transaction_type'] = '01';
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_at':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['bank_code']['length'] = 5;
 				$this->dataConstraints['direct_debit_text']['length'] = 28;
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
-				break;
-			case 'dd_be':
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
-				break;
-			case 'dd_ch':
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
-				break;
-			case 'dd_de':
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_es':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 10;
+				$this->dataConstraints['bank_code']['length'] = 4;
 				$this->dataConstraints['direct_debit_text']['length'] = 40;
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_fr':
 				$this->dataConstraints['direct_debit_text']['length'] = 18;
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			case 'dd_it':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 12;
 				$this->dataConstraints['bank_check_digit']['length'] = 1;
+				$this->dataConstraints['bank_code']['length'] = 5;
 				$this->dataConstraints['direct_debit_text']['length'] = 32;
-				
-				$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
 				break;
 			
-			/* eWallets */
-			case 'ew_cashu':
-			case 'ew_moneybookers':
-			case 'ew_paypal':
-			case 'ew_webmoney':
-			case 'ew_yandex':
-				$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
-				break;
-
 			/* Cash payments */
 			 case 'cash_boleto':
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
@@ -2039,6 +2033,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				
 				// Nothing is done in the default case.
 				break;
+		}
+
+		switch ($payment_method) {
+		case 'dd':
+			$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
+			break;
+		case 'ew':
+			$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
+			break;
 		}
 	}
 	
