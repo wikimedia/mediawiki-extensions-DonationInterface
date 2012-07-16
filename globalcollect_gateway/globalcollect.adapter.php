@@ -315,7 +315,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'SWIFTCODE'			=> 'swift_code',
 			'TRANSACTIONTYPE'	=> 'transaction_type', // dd:GB,NL
 			'ZIP'				=> 'zip',
-			'FISCALNUMBER'		=> 'fiscal_number', //Boletos
 		);
 	}
 	
@@ -634,7 +633,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 
 		// Cash payments
-		$this->payment_meathods['cash'] = array(
+		$this->payment_methods['cash'] = array(
 			'label' => 'Cash payments',
 			'types' => array( 'cash_boleto', ),
 		);
@@ -2004,8 +2003,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			 case 'cash_boleto':
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-
-				$this->addKeyToTransaction('FISCALNUMBER');
 				break;
 
 			/* Online bank transfer */
