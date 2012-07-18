@@ -1064,13 +1064,6 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Define payment methods
 	 *
-	 * Payment methods include:
-	 * - Paypal
-	 * - Credit Card
-	 * - Debit
-	 * - Bank Transfer
-	 * - Real Time Bank Transfer
-	 *
 	 * Not all payment methods are available within an adapter
 	 *
 	 * @return	array	Returns the available payment methods for the specific adapter
@@ -1101,13 +1094,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @todo
 	 * - this is not implemented in all adapters yet
-	 *
-	 * Payment methods include:
-	 * - Paypal: paypal, recurring paypal
-	 * - Credit Card: Master Card
-	 * - Debit
-	 * - Bank Transfer
-	 * - Real Time Bank Transfer
 	 *
 	 * Not all payment submethods are available within an adapter
 	 *
