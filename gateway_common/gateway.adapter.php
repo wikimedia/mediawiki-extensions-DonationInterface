@@ -264,17 +264,12 @@ abstract class GatewayAdapter implements GatewayType {
 			extract( $options );
 		}
 
-		//TODO: The next two lines belong in the globalcollect adapter. >:[
-		$returnTitle = isset( $returnTitle ) ? $returnTitle : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-		$returnTo = isset( $returnTo ) ? $returnTo : $returnTitle->getFullURL();
-
 		$this->postdatadefaults = array(
 			'order_id' => '112358' . rand(),
 			'amount' => '11.38',
 			'currency_code' => 'USD',
 			'language' => 'en',
 			'country' => 'US',
-			'returnto' => $returnTo,
 			'card_type' => 'visa',
 		);
 	}

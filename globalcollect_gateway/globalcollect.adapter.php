@@ -327,6 +327,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		parent::setPostDefaults( $options );
 		$this->postdatadefaults['attempt_id'] = '1';
 		$this->postdatadefaults['effort_id'] = '1';
+
+		$returnTitle = isset($options['returnTitle']) ? $options['returnTitle'] : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
+		$returnTo = isset($options['returnTo']) ? $options['returnTo'] : $returnTitle->getFullURL();
+		$this->postdatadefaults['returnto'] = $returnTo;
 	}
 
 	/**
