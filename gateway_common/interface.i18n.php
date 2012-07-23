@@ -1680,6 +1680,23 @@ $messages['arz'] = array(
 <a href="http://wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.',
 );
 
+/** Assamese (অসমীয়া)
+ * @author Bishnu Saikia
+ */
+$messages['as'] = array(
+	'donate_interface-submit-button' => 'দান-বৰঙনি',
+	'donate_interface-comment-label' => 'মন্তব্য',
+	'donate_interface-donor-city' => 'চহৰ',
+	'donate_interface-error-msg-city' => 'চহৰ',
+	'donate_interface-error-msg-state' => 'ৰাজ্য',
+	'donate_interface-error-msg-country' => 'দেশ',
+	'donate_interface-next' => 'পৰৱৰ্তী',
+	'donate_interface-continue' => 'অব্যাহত',
+	'donate_interface-cancel' => 'বাতিল',
+	'donate_interface-description' => 'বিৱৰণ',
+	'donate_interface-language' => 'ভাষা:',
+);
+
 /** Azerbaijani (azərbaycanca)
  * @author Cekli829
  * @author Emperyan
@@ -4353,6 +4370,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 $messages['cs'] = array(
 	'donate_interface' => 'Podpora nadace Wikimedia',
 	'donate_interface-desc' => 'Cílová stránka pro přispěvatele, sjednocující rozhraní k platebním branám',
+	'donate_interface-langonly-desc' => 'Poskytuje jen systémová hlášení pro DonationInterface',
 	'donate_interface-intro' => 'Zvolte si způsob platby, částku a měnu.',
 	'donate_interface-amount' => 'Částka',
 	'donate_interface-other-amount' => 'Jiná částka',
@@ -4598,6 +4616,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-change' => 'Změnit',
 	'donate_interface-select-credit-card' => 'Vyberte kreditní kartu',
 	'donate_interface-optional' => 'nepovinné',
+	'donate_interface-state-dropdown-YY' => 'Zvolte stát',
 	'donate_interface-state-dropdown-XX' => 'Mimo USA',
 	'donate_interface-bt-account_holder' => 'Majitel účtu',
 	'donate_interface-bt-bank_account_number' => 'Číslo bankovního účtu',
@@ -4610,12 +4629,27 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-translate-bluelink' => 'Vylepšete tento překlad',
 	'donate_interface-translate-redlink1' => 'Pomozte přeložit tuto stránku.',
 	'donate_interface-translate-redlink2' => 'Nebo svůj překlad pošlete e-mailem na translations@wikimedia.org',
+	'donate_interface-email-fallbackname' => 'přítel Wikimedia Foundation',
+	'donate_interface-email-subject' => 'Poděkování od Wikimedia Foundation',
+	'donate_interface-email-unsub-title' => 'Odhlášení Wikimedia Foundation',
+	'donate_interface-email-unsub-button' => 'Odhlásit',
+	'donate_interface-email-unsub-success' => 'Byli jste úspěšně odebráni z našeho seznamu adresátů',
+	'donate_interface-email-unsub-delay' => 'Prosíme, abyste nám dali až čtyři (4) dny, než se změny projeví. Omlouváme se za jakékoli e-maily, které v jejich průběhu dostanete. Pokud máte jakékoli dotazy, obraťte se na <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-fail' => 'Při zpracování vašeho požadavku došlo k chybě, prosím kontaktujte <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-confirm' => 'Opravdu chcete odhlásit adresu <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Tímto se odhlásíte s e-mailů, které vám jako dárci poslala Wikimedia Foundation. Na tuto e-mailovou adresu můžete dostávat další e-maily, pokud je přiřazena k účtu na některém z našich projektů. Pokud máte jakékoli otázky, napište na <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Často kladené otázky',
+	'donate_interface-tax-info' => 'Informace o nároku na odpočet daně',
+	'donate_interface-bank_transfer_message' => 'Upozorňujeme, že na vašem výpise bude jako příjemce tohoto daru uveden „Global Collect“. Global Collect je pověřen přijímáním a zpracováním plateb jménem Wikimedia Foundation. Nezapomeňte v bankovním převodu uvést zde poskytnuté referenční číslo a pokud máte jakékoli dotazy či obavy, neváhejte nám poslat e-mail na donations@wikimedia.org.',
+	'donate_interface-taxded-link-int' => 'Daňové a další právní informace',
+	'donate_interface-taxded-link-us' => 'Informace o nároku na odpočet daně',
+	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation je nezisková organizace založená ve Spojených státech v souladu s paragrafem 501(c)(3) amerického daňového zákona, v důsledku čeho mohou být dary od osob sídlících ve Spojených státech využívat daňové odečitatelnosti. Dary od osob sídlících mimo Spojené státy nemusí mít na daňovou odečitatelnost ve Spojených státech či jinde nárok; v takovém případě by měli dárci vyhledat pomoc místního daňového poradce. Je důležité upozornit, že Wikimedia nevyhledává příspěvky od osob sídlících v jakékoli jurisdikci, která zakazuje či omezuje výběr příspěvků mezinárodním dobročinným organizacím, jakou je Wikimedia, nebo na příspěvky takovým mezinárodním dobročinným organizacím uvaluje darovací daň.',
+	'donate_interface-taxded-msg-us' => 'Wikimedia Foundation je nezisková organizace založená ve Spojených státech v souladu s paragrafem 501(c)(3) amerického daňového zákona, v důsledku čeho mohou být dary od osob sídlících ve Spojených státech využívat daňové odečitatelnosti.',
 	'donate_interface-legal-original' => 'Toto je dobrovolnický překlad. V případě nesouladu mezi tímto překladem a anglickou verzí má přednost anglická verze.',
 	'donate_interface-legal-donorpolicy' => 'Přispíváním sdílíte své informace s Wikimedia Foundation, neziskovou organizací, která hostí Wikipedii a jiné projekty od Wikimedia, a jejími poskytovateli služeb v USA i kdekoliv jinde na základě našeho dokumentu o ochraně osobních dat dárců. Vaše informace nikomu neprodáváme ani je s nikým nevyměňujeme.',
 	'donate_interface-monthlybox-title' => 'Přispívat měsíčně?',
 	'donate_interface-monthlybox-content' => 'Měsíční příspěvky jsou zpracovávány vždy druhého dne daného měsíce. Toto můžete kdykoliv zrušit.',
-	'donate_interface-monthlybox-amount' => 'Výše příspěvku',
+	'donate_interface-monthlybox-amount' => 'Měsíční výše příspěvku',
 	'donate_interface-monthlybox-yes' => 'Jistě, chci přispívat měsíčně',
 	'donate_interface-monthlybox-no' => 'NE, chci přispět jednorázově',
 	'donate_interface-monthlybox-bottom' => 'Váš příspěvek bude bezpečně zpracován.',
@@ -5024,6 +5058,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
  * @author McDutchie
  * @author Medic
  * @author Peter Alberti
+ * @author Sarrus
  * @author Tjernobyl
  * @author Zilvador
  */
@@ -5152,7 +5187,10 @@ Ingen processorer er tilgængelige.',
 	'donate_interface-donor-mname' => 'Mellemnavn',
 	'donate_interface-donor-lname' => 'Efternavn',
 	'donate_interface-donor-street' => 'Vej',
+	'donate_interface-donor-street-number' => 'Nummer',
 	'donate_interface-donor-city' => 'By',
+	'donate_interface-donor-county' => 'Land',
+	'donate_interface-donor-island' => 'Ø',
 	'donate_interface-donor-state' => 'Stat',
 	'donate_interface-donor-zip' => 'Postnummer',
 	'donate_interface-donor-postal' => 'Postnummer',
@@ -13650,12 +13688,19 @@ $messages['ka'] = array(
 	'donate_interface-UYU' => 'ურუგვაიული პესო',
 	'donate_interface-UZS' => 'უზბეკური სომი',
 	'donate_interface-VND' => 'ვიეტნამური დონგი',
+	'donate_interface-XAF' => 'ცენტრალურაფრიკული ცფა ფრანკი',
 	'donate_interface-XCD' => 'აღმოსავლეთ კარიბული დოლარი',
+	'donate_interface-XOF' => 'დასავლეთაფრიკული ცფა ფრანკი',
 	'donate_interface-ZAR' => 'სამხრეთ აფრიკული რანდი',
 	'donate_interface-accessible' => 'ეს გვერდი ხელმისაწვდომია მხოლოდ შემოწირულობის გვერდიდან.',
 	'donate_interface-paypal-button' => 'შემოწირულობა PayPal-ით',
 	'donate_interface-paypal-redirect' => 'PayPal-ზე გადამისამართება…',
 	'donate_interface-cc-button' => 'შემოწირულობა საკრედიტო ბარათით',
+	'donate_interface-ccdc-button' => 'შემოწირვა საკრედიტო/სადებეტო ბარათის საშუალებით',
+	'donate_interface-dd-button' => 'შემოწირვა ანგარიშიდან პირდაპირი ჩამოწერით',
+	'donate_interface-bt-button' => 'შემოწირვა საბანკო გადარიცხვით',
+	'donate_interface-rt-button' => 'შემოწირვა $1 ბანკის საშუალებით',
+	'donate_interface-ewallet-button' => 'შემოწირვა $1-ით',
 	'donate_interface-donor-legend' => 'ინფორმაცია შემომწირებელზე',
 	'donate_interface-card-legend' => 'საკრედიტო ბარათის ინფორმაცია',
 	'donate_interface-amount-legend' => 'შემოწირულობის თანხა',
@@ -13713,6 +13758,8 @@ $messages['ka'] = array(
 	'donate_interface-error-msg-expiration' => 'ბარათის ვადის დასრულების თარიღი',
 	'donate_interface-error-msg-cvv' => 'CVV თქვენი ბარათის უკანა მხრიდან',
 	'donate_interface-error-msg-captcha-please' => 'თქვენი საკრედიტო ბარათის უსაფრთხოებისთვის, შეიყვანეთ კოდი, რომელსაც ზემოთ ხედავთ.',
+	'donate_interface-error-msg-genaricrequired' => 'ამ ველის შევსება სავალდებულოა.',
+	'donate_interface-donate-error-thank-you-for-your-support' => 'მადლობა თქვენი მხარდაჭერისათვის!',
 	'php-response-declined' => 'თქვენი ტრანსაქცია ვერ იქნა მიღებული.',
 	'donate_interface-thankyou' => 'გმადლობთ შემოწირულობისთვის!',
 	'donate_interface-post-transaction' => 'ტრანსაქციის დეტალები',
@@ -13774,6 +13821,7 @@ $messages['ka'] = array(
 	'donate_interface-credit-card-number-abbreviated' => 'საკრედიტო ბარათის ნომერი',
 	'donate_interface-credit-card-expiration' => 'საკრედიტო ბარათის მოქმედების ვადა',
 	'donate_interface-card-expiration' => 'ბარათის მოქმედების ვადა',
+	'donate_interface-select-month-of-expiration' => 'მოქმედების ვადის გასვლის წელი',
 	'donate_interface-select-year-of-expiration' => 'მოქმედების ვადის გასვლის წელი',
 	'donate_interface-expires-question' => 'ვადა?',
 	'donate_interface-expires' => 'ვადა',
@@ -13831,12 +13879,15 @@ $messages['ka'] = array(
 	'donate_interface-rtbt-issuer_id-longlist' => 'სხვა ბანკები',
 	'donate_interface-dd-account_name' => 'ანგარიშის მფლობელი',
 	'donate_interface-dd-account_number' => 'ანგარიშის ნომერი',
+	'donate_interface-dd-authorization_id' => 'ავტორიზაციის კოდი',
 	'donate_interface-dd-bank_code' => 'ბანკის კოდი',
 	'donate_interface-dd-bank_name' => 'ბანკის სახელი',
 	'donate_interface-dd-branch_code' => 'ფილიალის კოდი',
 	'donate_interface-dd-iban' => 'IBAN',
 	'donate_interface-translate-bluelink' => 'გააუმჯობესეთ ეს თარგმანი',
 	'donate_interface-translate-redlink1' => 'დაგვეხმარეთ ამ გვერდის თარგმნაში.',
+	'donate_interface-email-fallbackname' => 'ფონდი ვიკიმედიის მეგობარი',
+	'donate_interface-email-subject' => 'მადლობა ფონდი ვიკიმედიისაგან',
 	'donate_interface-email-unsub-button' => 'გამოწერის გაუქმება',
 	'donate_interface-informationsharing' => 'შემოწირულობის გაკეთებისას თქვენ უზიარებთ გარკვეულ ინფორმაციას „ფონდ ვიკიმედიას“ - არაკომერციულ ორგანიზაციას, რომელიც უძღვება „ვიკიპედიასა“ და დობილ პროექტებს, ასევე აშშ-სა და სხვა ქვეყნებში განთავსებულ სერვერულ პროვაიდერებთან  <a href="//wikimediafoundation.org/wiki/Donor_policy/en">შემომწირველის ინფორმაციის კონფიდენციალობის პოლიტიკის თანახმად.</a>. ჩვენ არ ვყიდით ინფორმაციას თქვენს შესახებ და არავის არ გადავცემთ მას.',
 	'donate_interface-currency-change' => 'შევცვალო?',
@@ -25957,6 +26008,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
 	'donate_interface-online_bank_transfer_message' => 'Telefon- och Internetbank - BPAY ®',
 	'donate_interface-rtbt-issuer_id' => 'Välj en bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Andra banker',
+	'donate_interface-sofortbanking' => 'Sofortbanking är en direkt, realtidsöverföring via DIRECTebanking.com som låter dig starta en banköverföring när du donerar med hjälp av information om din under online-bank. Om ditt bankkonto inte kan nås online kan du välja att istället markera valet "Donera med manuell banköverföring" på donationssidan.',
 	'donate_interface-dd-account_name' => 'Kontonamn',
 	'donate_interface-dd-account_number' => 'Kontonummer',
 	'donate_interface-dd-authorization_id' => 'Auktoriserande ID',
