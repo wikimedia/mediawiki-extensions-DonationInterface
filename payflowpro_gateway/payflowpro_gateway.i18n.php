@@ -1069,6 +1069,7 @@ $messages['ka'] = array(
 	'payflowpro_gateway-response-23' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-response-4' => 'არასწორი თანხა.',
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
+	'payflowpro_gateway-response-112' => 'თქვენი მისამართი ან CVV ნომერი (უსაფრთხოების კოდი) არასწორია.',
 );
 
 /** Khmer (ភាសាខ្មែរ)
