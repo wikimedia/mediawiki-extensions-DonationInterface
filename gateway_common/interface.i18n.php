@@ -219,11 +219,11 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-easydonate' => 'We are trying to make it easy for people in every country to donate. Please let us know how we could make it easier for you. Send your suggestions to: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Problems donating?',
 	'donate_interface-donate-click' => 'Your credit / debit card will be securely processed.',
-	'donate_interface-otherways' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
-	'donate_interface-otherways-alt' => 'There are <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
+	'donate_interface-otherways' => 'There are <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give, including PayPal, check, or mail</a>.',
+	'donate_interface-otherways-alt' => 'There are <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">other ways to give</a>, including by check.',
 	'donate_interface-otherways-short' => 'Other ways to give',
 	'donate_interface-paypal' => 'Have a PayPal account? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donate with PayPal</a>.',
-	'donate_interface-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="http://wikimediafoundation.org/wiki/Donor_policy">donor privacy policy</a>.',
+	'donate_interface-credit-storage-processing' => 'We do not store your credit card information, and your personal data is subject to our <a href="//wikimediafoundation.org/wiki/Donor_policy">donor privacy policy</a>.',
 	'donate_interface-token-mismatch' => 'Your session has expired.  Please try filling out and submitting the form again.',
 	'donate_interface-cc-form-header-personal' => 'Billing information',
 	'donate_interface-cc-form-header-payment' => 'Payment information',
@@ -414,7 +414,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	// Various form interface elements
 	'donate_interface-faqs' => 'Frequently asked questions',
 	'donate_interface-tax-info' => 'Tax deductibility information',
-	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="http://wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
+	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
 	'donate_interface-currency-change' => 'Change?',
 	'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of  Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to e-mail donations@wikimedia.org if you have any questions or concerns.',
 
