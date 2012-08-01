@@ -463,7 +463,7 @@ Bitte versuchen Sie es später noch einmal.',
  * @author Xoser
  */
 $messages['diq'] = array(
-	'payflowprogateway' => 'Wikimediya rê destek bide',
+	'payflowprogateway' => 'Bêca xo newke bıkerê',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro prosesa kardê krediyi',
 	'payflowpro_gateway-response-0' => 'Transactionê ti testiq biyo.
 Bexşê ti ra ma zaf teşkur kenê!',

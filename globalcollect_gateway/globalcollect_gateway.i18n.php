@@ -646,25 +646,26 @@ Spróbuj ponownie później.',
 );
 
 /** Portuguese (português)
+ * @author Hamilton Abreu
  * @author João Sousa
  */
 $messages['pt'] = array(
 	'globalcollectgateway' => 'Faça o seu donativo agora',
 	'globalcollect_gateway-desc' => 'Processamento de pagamentos GlobalCollect',
-	'globalcollect_gateway-response-9130' => 'País inválido',
-	'globalcollect_gateway-response-9140' => 'Moeda inválida',
-	'globalcollect_gateway-response-9150' => 'Língua inválida',
-	'globalcollect_gateway-response-400530' => 'Método de pagamento inválido',
-	'globalcollect_gateway-response-430306' => 'O seu cartão de crédito caducou. Por favor use um cartão diferente ou um outro método de pagamento.',
-	'globalcollect_gateway-response-430330' => 'Número de cartão é inválido.',
-	'globalcollect_gateway-response-430421' => 'Não foi possível validar o seu cartão de crédito. Por favor verifique se toda a informação corresponde ao seu perfil de cartão de crédito, ou tente usar outro cartão.',
-	'globalcollect_gateway-response-430360' => 'Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.',
-	'globalcollect_gateway-response-430285' => 'Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.',
-	'globalcollect_gateway-response-21000150' => 'Número de conta bancário inválido.',
-	'globalcollect_gateway-response-21000155' => 'Código bancário inválido.',
-	'globalcollect_gateway-response-21000160' => 'Número de conta de transferência inválido.',
+	'globalcollect_gateway-response-9130' => 'País inválido.',
+	'globalcollect_gateway-response-9140' => 'Divisa inválida.',
+	'globalcollect_gateway-response-9150' => 'Língua inválida.',
+	'globalcollect_gateway-response-400530' => 'Método de pagamento inválido.',
+	'globalcollect_gateway-response-430306' => 'O seu cartão de crédito caducou. Use um cartão diferente ou um outro método de pagamento, por favor.',
+	'globalcollect_gateway-response-430330' => 'O número de cartão é inválido.',
+	'globalcollect_gateway-response-430421' => 'Não foi possível validar o seu cartão de crédito. Verifique se toda a informação providenciada coincide com o seu cartão de crédito, ou tente usar outro cartão, por favor.',
+	'globalcollect_gateway-response-430360' => 'Não foi possível autorizar a transação. Tente usar outro cartão ou outro método de pagamento, por favor.',
+	'globalcollect_gateway-response-430285' => 'Não foi possível autorizar a transação. Tente usar outro cartão ou outro método de pagamento, por favor.',
+	'globalcollect_gateway-response-21000150' => 'O número de conta bancária é inválido.',
+	'globalcollect_gateway-response-21000155' => 'O código bancário é inválido.',
+	'globalcollect_gateway-response-21000160' => 'O número de conta bancária é inválido.',
 	'globalcollect_gateway-response-default' => 'Ocorreu um erro no processamento desta transacção.
-Por favor, tente novamente mais tarde.',
+Tente novamente mais tarde, por favor.',
 );
 
 /** Brazilian Portuguese (português do Brasil)
