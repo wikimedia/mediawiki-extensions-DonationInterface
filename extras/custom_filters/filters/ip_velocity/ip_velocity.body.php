@@ -20,17 +20,15 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	}
 
 	public function filter() {
-		$whitelist = $this->gateway_adapter->getGlobal( 'IPWhitelist' );
-		$blacklist = $this->gateway_adapter->getGlobal( 'IPBlacklist' );
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 		
 		//first, handle the whitelist / blacklist before you do anything else. 
-		if ( in_array( $user_ip, $whitelist ) ){
+		if ( DataValidator::ip_is_listed( $user_ip, 'IPWhitelist' ) ){
 			$this->gateway_adapter->debugarray[] = "IP present in whitelist.";
 			$this->cfo->addRiskScore( 0, 'IPWhitelist' );
 			return true;
 		}
-		if ( in_array( $user_ip, $blacklist ) ){
+		if ( DataValidator::ip_is_listed( $user_ip, 'IPBlacklist' ) ){
 			$this->gateway_adapter->debugarray[] = "IP present in blacklist.";
 			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
 			return true;

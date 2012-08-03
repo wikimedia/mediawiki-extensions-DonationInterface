@@ -750,4 +750,74 @@ class DataValidator {
 		}		
 	}
 	
+	/**
+	 * Takes either an IP address, or an IP address with a CIDR block, and 
+	 * expands it to an array containing all the relevent addresses so we can do 
+	 * things like save the expanded list to memcache, and use in_array(). 
+	 * @param string $ip Either a single address, or a block. 
+	 * @return array An expanded list of IP addresses denoted by $ip. 
+	 */
+	public static function expandIPBlockToArray( $ip ){
+		$parts = explode('/', $ip);
+		if ( count( $parts ) === 1 ){
+			return array( $ip );
+		} else {
+			//expand that mess.
+			//this next bit was stolen from php.net and smacked around some
+			$corr = ( pow( 2, 32 ) - 1) - ( pow( 2, 32 - $parts[1] ) - 1 );
+			$first = ip2long( $parts[0] ) & ( $corr );
+			$length = pow( 2, 32 - $parts[1] ) - 1;
+			$ips = array( );
+			for ( $i = 0; $i <= $length; $i++ ) {
+				$ips[] = long2ip( $first + $i );
+			}
+			return $ips;
+		}
+	}
+	
+	/**
+	 * Eventually, this function should pull from here and memcache. 
+	 * @staticvar array $blacklist A cached and expanded blacklist
+	 * @param string $ip The IP addx we want to check
+	 * @param string $list_name The global list, ostensibly full of IP addresses, 
+	 * that we want to check against.
+	 * @param string $gateway The gateway we're concerned with. Only matters if, 
+	 * for instance, $wgDonationInterfaceIPBlacklist is different from 
+	 * $wgGlobalcollectGatewayIPBlacklist for some silly reason.
+	 */
+	public static function ip_is_listed( $ip, $list_name, $gateway = '' ) {
+		//cache this mess
+		static $ip_list_cache = array();
+		$globalIPLists = array(
+			'IPWhitelist',
+			'IPBlacklist',
+		);
+		
+		if ( !in_array( $list_name, $globalIPLists ) ){
+			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
+		}
+		
+		$class = self::getGatewayClass( $gateway );
+		if ( !$class ){
+			$class = 'GatewayAdapter';
+		}
+		
+		if ( !array_key_exists( $class, $ip_list_cache ) || !array_key_exists( $list_name, $ip_list_cache[$class] ) ){
+			//go get it and expand the block entries
+			$list = $class::getGlobal( $list_name );
+			$expanded = array();
+			foreach ( $list as $address ){
+				$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
+			}
+			$ip_list_cache[$class][$list_name] = $expanded;
+			//TODO: This seems like an excellent time to stash this expanded 
+			//thing in memcache. Later, we can look for that value earlier. Yup.
+		}
+		
+		if ( in_array( $ip, $ip_list_cache[$class][$list_name] ) ){
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
