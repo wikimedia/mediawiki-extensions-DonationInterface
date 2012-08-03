@@ -794,7 +794,7 @@ class DataValidator {
 		);
 		
 		if ( !in_array( $list_name, $globalIPLists ) ){
-			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
+			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No recognized global list of IPs called $list_name. Do better." );
 		}
 		
 		$class = self::getGatewayClass( $gateway );
