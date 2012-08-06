@@ -824,9 +824,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 *		key-value array. 
 	 */
 	public function do_transaction( $transaction ) {
-		//reset, in case this isn't our first time. 
+		//reset, in case this isn't our first time.
 		$this->transaction_results = array();
-		$this->setValidationAction('process', true); 
+		$this->setValidationAction('process', true);
 				
 		try {
 			$this->setCurrentTransaction( $transaction );
@@ -1121,58 +1121,61 @@ abstract class GatewayAdapter implements GatewayType {
 	 * problem. (timeout, bad URL, etc.) 
 	 */
 	protected function curl_transaction( $data ) {
-		// assign header data necessary for the curl_setopt() function
 		$this->getStopwatch( __FUNCTION__, true );
 
-		$ch = curl_init();
-
-		$headers = $this->getCurlBaseHeaders();
-		$headers[] = 'Content-Length: ' . strlen( $data );
-
-		$curl_opts = $this->getCurlBaseOpts();
-		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
-		$curl_opts[CURLOPT_POSTFIELDS] = $data;
-
-		foreach ( $curl_opts as $option => $value ) {
-			curl_setopt( $ch, $option, $value );
-		}
-
-		// As suggested in the PayPal developer forum sample code, try more than once to get a response
-		// in case there is a general network issue
-		$i = 1;
+		$txnOk = true;
 
 		$results = array();
+		$ch = curl_init();
 
-		while ( $i++ <= 3 ) {
-			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
-			$results['result'] = curl_exec( $ch );
-			$results['headers'] = curl_getinfo( $ch );
+		if ( wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) ) ) {
 
-			if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
-				sleep( 1 );
-			} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
-				break;
+			// assign header data necessary for the curl_setopt() function
+			$headers = $this->getCurlBaseHeaders();
+			$headers[] = 'Content-Length: ' . strlen( $data );
+
+			$curl_opts = $this->getCurlBaseOpts();
+			$curl_opts[CURLOPT_HTTPHEADER] = $headers;
+			$curl_opts[CURLOPT_POSTFIELDS] = $data;
+
+			foreach ( $curl_opts as $option => $value ) {
+				curl_setopt( $ch, $option, $value );
 			}
-		}
 
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
+			// As suggested in the PayPal developer forum sample code, try more than once to get a
+			// response in case there is a general network issue
+			$i = 1;
 
-		if ( $results['headers']['http_code'] != 200 ) {
-			$results['result'] = false;
-			//TODO: i18n here! 
-			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
-			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
-			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
-			curl_close( $ch );
-			return false;
+			while ( $i++ <= 3 ) {
+				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
+				$results['result'] = curl_exec( $ch );
+				$results['headers'] = curl_getinfo( $ch );
+
+				if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
+					self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
+					sleep( 1 );
+				} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
+					self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
+					break;
+				}
+			}
+
+			$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
+
+			if ( $results['headers']['http_code'] != 200 ) {
+				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
+				$txnOk = false;
+			}
+		} else {
+			self::log(  $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' cURL transaction aborted on hook DonationInterfaceCurlInit', LOG_INFO );
+			$this->setValidationAction('reject');
+			$txnOk = false;
 		}
 
 		curl_close( $ch );
 
 		$this->setTransactionResult( $results );
-		return true;
+		return $txnOk;
 	}
 
 	function stripXMLResponseHeaders( $rawResponse ) {

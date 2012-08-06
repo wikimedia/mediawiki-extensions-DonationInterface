@@ -75,25 +75,26 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			}
 		}
 
-		$log_message = '"' . "$source added a score of $score" . '"';
+		$log_message = "\"$source added a score of $score\"";
 		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
 		$this->risk_score[$source] = $score;
 	}
 	
 
-	public function getRiskScore(){
-		if ( !is_array( $this->risk_score ) ){
-			if ( !is_numeric( $this->risk_score ) ){
-				throw new MWException(__FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
-			} else {
-				return $this->risk_score;
-			}
-		} else {
+	public function getRiskScore() {
+
+		if ( is_numeric( $this->risk_score ) ) {
+			return $this->risk_score;
+
+		} elseif ( is_array( $this->risk_score) ) {
 			$total = 0;
 			foreach ( $this->risk_score as $score ){
 				$total += $score;
 			}
 			return $total;
+
+		} else {
+			throw new MWException( __FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
 		}
 	}
 	
