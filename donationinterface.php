@@ -42,11 +42,12 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Recaptcha' => false, //extra
 	'PayflowPro' => false,
 	'GlobalCollect' => false,
+	'FormChooser' => false,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
 	'FunctionsFilter' => false, //extra
 	'IPVelocityFilter' => false, //extra
-	'FormChooser' => false,
+	'SessionVelocityFilter' => false, //extra
 );
 
 foreach ($optionalParts as $subextension => $enabled){
@@ -61,7 +62,8 @@ foreach ($optionalParts as $subextension => $enabled){
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
 			$subextension === 'Recaptcha' ||
-			$subextension === 'IPVelocityFilter' ) {
+			$subextension === 'IPVelocityFilter' ||
+			$subextension === 'SessionVelocityFilter') {
 
 			//we have extras
 			$optionalParts['Extras'] = true;
@@ -70,7 +72,8 @@ foreach ($optionalParts as $subextension => $enabled){
 				$subextension === 'SourceFilter' ||
 				$subextension === 'FunctionsFilter' ||
 				$subextension === 'Minfraud' ||
-				$subextension === 'IPVelocityFilter' ){
+				$subextension === 'IPVelocityFilter' ||
+				$subextension === 'SessionVelocityFilter' ){
 
 				//and at least one of them is a custom filter.
 				$optionalParts['CustomFilters'] = true;
@@ -161,8 +164,14 @@ if ( $optionalParts['IPVelocityFilter'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_IP_Velocity'] = $donationinterface_dir . "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php";
 }
 
+//Functions Filter classes
+if ( $optionalParts['SessionVelocityFilter'] === true ){
+	$wgAutoloadClasses['Gateway_Extras_SessionVelocityFilter'] = $donationinterface_dir . "extras/session_velocity/session_velocity.body.php";
+}
+
 if ( $optionalParts['FormChooser'] === true ){
 	$wgAutoloadClasses['GatewayFormChooser'] = $donationinterface_dir . 'special/GatewayFormChooser.php';
+
 }
 
 /**
@@ -436,7 +445,12 @@ $wgDonationInterfaceIPVelocityFailScore = 100;
 $wgDonationInterfaceIPVelocityTimeout = 60 * 5;	//5 minutes in seconds
 $wgDonationInterfaceIPVelocityThreshhold = 3;	//3 transactions per timeout
 //$wgDonationInterfaceIPVelocityFailDuration is also something you can set...
-//If you leave it blank, it will use the VelocityTimeout as a default. 
+//If you leave it blank, it will use the VelocityTimeout as a default.
+
+// Session velocity filter globals
+$wgDonationInterfaceSessionVelocity_HitScore = 10;  // How much to add to the score per API hit
+$wgDonationInterfaceSessionVelocity_DecayRate = 1;  // Linear decay rate; pts / sec
+$wgDonationInterfaceSessionVelocity_Threshold = 50; // Above this score, we deny users the page
 
 /**
  * $wgDonationInterfaceCountryMap
@@ -671,7 +685,11 @@ if ($optionalParts['Recaptcha'] === true){
 if ( $optionalParts['IPVelocityFilter'] === true ){
 	$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
 	$wgHooks["GatewayPostProcess"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
-} 
+}
+
+if ( $optionalParts['SessionVelocityFilter'] === true ) {
+	$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
+}
 
 /**
  * APIS
