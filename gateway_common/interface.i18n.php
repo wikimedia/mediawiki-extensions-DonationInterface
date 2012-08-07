@@ -5938,7 +5938,7 @@ $messages['diq'] = array(
 	'donate_interface-card-legend' => 'Enformasyonê Kard ê Krediti',
 	'donate_interface-amount-legend' => 'Miktarê Bêcer',
 	'donate_interface-cvv-link' => 'Noyo kon ca deyo?',
-	'donate_interface-donor-amount' => 'Cend ponet:',
+	'donate_interface-donor-amount' => 'Miktara bêcer',
 	'donate_interface-donor-currency-label' => 'Dowiz:',
 	'donate_interface-donor-email' => 'Adresê emaili',
 	'donate_interface-donor-emailAdd' => 'Adresê e-posta',
@@ -9460,7 +9460,7 @@ Por vos balyér una èxpèrience sûra, sècurisâ et agrèâbla, noutron formul
 	'donate_interface-monthlybox-yes' => 'Ben sûr, balyér tôs los mês',
 	'donate_interface-monthlybox-no' => 'NAN, balyér d’un côp',
 	'donate_interface-monthlybox-bottom' => 'Voutron don serat prês en charge de maniére sècurisâ.',
-	'donate_interface-secureLogo-text' => 'A propôs des cèrtificats SSL',
+	'donate_interface-secureLogo-text' => 'Sur los cèrtificats SSL',
 	'donate_interface-error-http-403' => 'Vos avéd pas los drêts d’accès a ceta pâge.',
 );
 
