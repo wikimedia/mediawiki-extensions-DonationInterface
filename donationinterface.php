@@ -88,6 +88,7 @@ $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/Do
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayForm'] = $donationinterface_dir . 'gateway_common/GatewayForm.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
+$wgAutoloadClasses['GatewayFormChooser'] = $donationinterface_dir . 'special/GatewayFormChooser.php';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
@@ -611,6 +612,8 @@ if ( $optionalParts['Recaptcha'] === true ){
 /**
  * SPECIAL PAGES
  */
+
+$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
 
 //GlobalCollect gateway special pages
 if ( $optionalParts['GlobalCollect'] === true ){
