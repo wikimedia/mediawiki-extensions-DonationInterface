@@ -6,6 +6,7 @@
  * the currently available payment processors.
  *
  * @author Peter Gehres <pgehres@wikimedia.org>
+ * @author Matt Walker <mwalker@wikimedia.org>
  */
 class GatewayFormChooser extends UnlistedSpecialPage {
 
@@ -14,13 +15,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	function execute( $par ) {
-		global $wgDonationInterfaceFormMap;
 
 		// Set the country parameter
-		$country = $this->getRequest()->getVal( 'country' );
-		$currency = $this->getRequest()->getVal( 'currency' );
-		$paymentMethod = $this->getRequest()->getVal( 'paymentmethod' );
-		$paymentSubMethod = $this->getRequest()->getVal( 'submethod' );
+		$country = $this->getRequest()->getVal( 'country', null );
+		$currency = $this->getRequest()->getVal( 'currency', null );
+		$paymentMethod = $this->getRequest()->getVal( 'paymentmethod', null );
+		$paymentSubMethod = $this->getRequest()->getVal( 'submethod', null );
 
 		$formSpec = $this->obtainFormSpecification( $country, $currency, $paymentMethod,
 			$paymentSubMethod );
@@ -71,7 +71,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// Perform the redirection
-		print $redirectURL;
 		$this->getOutput()->redirect( $redirectURL );
 	}
 
@@ -106,7 +105,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// Determine how far we got through the filter
-		if ( !$country || !$currency || !$method ) {
+		if ( $country === null || $currency === null || $method === null ) {
 			return false;
 		}
 

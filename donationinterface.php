@@ -46,6 +46,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'SourceFilter' => false, //extra
 	'FunctionsFilter' => false, //extra
 	'IPVelocityFilter' => false, //extra
+	'FormChooser' => false,
 );
 
 foreach ($optionalParts as $subextension => $enabled){
@@ -88,7 +89,6 @@ $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/Do
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayForm'] = $donationinterface_dir . 'gateway_common/GatewayForm.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
-$wgAutoloadClasses['GatewayFormChooser'] = $donationinterface_dir . 'special/GatewayFormChooser.php';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
@@ -114,6 +114,10 @@ $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway
 //$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnPremium'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnPremium.php';
 //$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnPremiumUS'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnPremiumUS.php';
 //$wgAutoloadClasses['Gateway_Form_SingleColumn'] = $donationinterface_dir . 'gateway_forms/SingleColumn.php';
+
+if ( $optionalParts['FormChooser'] === true ){
+	$wgAutoloadClasses['GatewayFormChooser'] = $donationinterface_dir . 'special/GatewayFormChooser.php';
+}
 
 //GlobalCollect gateway classes
 if ( $optionalParts['GlobalCollect'] === true ){
@@ -181,6 +185,14 @@ if ( $optionalParts['IPVelocityFilter'] === true ){
 /**
  * GLOBALS
  */
+
+if ( $optionalParts['FormChooser'] === true ){
+	// this will be overwritten by DonationInterfaceFormSettings
+	// This map should be $[country][currency][method][] with two base keys of gateway
+	// and form. These keys may be arrays themselves.
+	$wgDonationInterfaceFormMap = array(
+	);
+}
 
 /**
  * Global form dir and RapidHTML whitelist
