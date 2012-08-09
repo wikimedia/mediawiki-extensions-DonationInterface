@@ -109,9 +109,7 @@ class DonationData {
 				// Pull both of these here. We can logic out which one to use in the normalize bits. 
 				'language' => $wgRequest->getText( 'language', null ),
 				'uselang' => $wgRequest->getText( 'uselang', null ),
-				'comment-option' => $wgRequest->getText( 'comment-option' ),
 				'comment' => $wgRequest->getText( 'comment' ),
-				'email-opt' => $wgRequest->getText( 'email-opt' ),
 				// test_string has been disabled - may no longer be needed.
 				//'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'_cache_' => $wgRequest->getText( '_cache_', null ),
@@ -269,9 +267,7 @@ class DonationData {
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
-			'comment-option' => 0,
 			'comment' => 0,
-			'email-opt' => 0,
 			'token' => '',
 			'contribution_tracking_id' => '',
 			'data_hash' => '',
@@ -396,7 +392,6 @@ class DonationData {
 			$this->setNormalizedAmount();
 			$this->setNormalizedOrderIDs();
 			$this->setGateway();
-			$this->setNormalizedOptOuts();
 			$this->setLanguage();
 			$this->setIPAddresses();
 			$this->setCountry(); //must do this AFTER setIPAddress...
@@ -1025,31 +1020,6 @@ class DonationData {
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );
 		$this->setVal( 'utm_source' , $utm_source );
-	}
-
-	/**
-	 * Determine proper opt-out settings for contribution tracking
-	 *
-	 * because the form elements for comment anonymization and email opt-out
-	 * are backwards (they are really opt-in) relative to contribution_tracking
-	 * (which is opt-out), we need to reverse the values.
-	 * Difficulty here is compounded by the fact that these values come from 
-	 * checkboxes on forms, which simply don't make it to $wgRequest if they are 
-	 * not checked... or not present in the form at all. In other words, this 
-	 * situation is painful and you probably want to leave it alone.
-	 * NOTE: If you prune here, and there is a paypal redirect, you will have
-	 * problems with the email-opt/optout and comment-option/anonymous.
-	 */
-	protected function setNormalizedOptOuts( $prune = false ) {
-		$optout['optout'] = ( $this->isSomething( 'email-opt' ) && $this->getVal( 'email-opt' ) == "1" ) ? '0' : '1';
-		$optout['anonymous'] = ( $this->isSomething( 'comment-option' ) && $this->getVal( 'comment-option' ) == "1" ) ? '0' : '1';
-		foreach ( $optout as $thing => $stuff ) {
-			$this->setVal( $thing, $stuff );
-		}
-		if ( $prune ) {
-			$this->expunge( 'email-opt' );
-			$this->expunge( 'comment-option' );
-		}
 	}
 
 	/**
