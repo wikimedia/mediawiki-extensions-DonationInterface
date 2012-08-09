@@ -17,8 +17,6 @@ class DataValidator {
 	 * @var array All fields that should validate as boolean values
 	 */
 	protected static $boolean_fields = array(
-		'comment-option',
-		'email-opt',
 		'_cache_',
 		'anonymous',
 		'optout',
