@@ -49,11 +49,15 @@ interface GatewayType {
 	function getResponseData( $response );
 
 	/**
-	 * Actually do... stuff. Here. 
-	 * TODO: Better comment. 
-	 * Process the entire response gott'd by the last four functions. 
+	 * Perform any additional processing on the response obtained from the server.
+	 *
+	 * @param array $response   The WMF response object array -> ie: data, errors, action...
+	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
+	 *  an array of all variables that need to be recreated and restaged.
+	 *
+	 * @return An actionable error code if it happened.
 	 */
-	function processResponse( $response );
+	public function processResponse( $response, &$retryVars = null );
 
 	/**
 	 * Should be a list of our variables that need special staging. 
@@ -797,34 +801,73 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Perform a transaction through the gateway.
-	 * This is the entire end-to-end function, meant to be used from the 
-	 * outside, to communicate with a properly constructed gateway and handle 
-	 * all the return data in an appropriate manner, according to the requested 
-	 * transaction's structure and definition.  
+	 * Performs a transaction through the gateway. Optionally may reattempt the transaction if
+	 * a recoverable gateway error occurred.
 	 *
-	 * @param string $transaction This is a specific transaction type like 'INSERT_ORDERWITHPAYMENT'
-	 * that maps to a first-level key in the $transactions array.
-	 * @return array The results of the transaction attempt. Minimum keys include: 
-	 *	'status' = The result of the pure communication attempt. If there was a 
-	 *		server there, and it responded in a way that was parsable, this will be 
-	 *		set to true, even if it gave us bad news. In all other cases, this will be false. 
-	 *	'message' = An appropriate thing to say to... whatever called us, about 
-	 *		the overall result that happened here. 
-	 *		TODO: Some kind of i18n here. Either pass message labels, or...
-	 *		...wait, I like that one. Let's pass message labels. 
-	 *	'errors' = sort of a misnomer, that should probably be renamed to 
-	 *		result_codes or similar. This is always going to be an array of 
-	 *		numeric codes (even if we have to make them up ourselves) and 
-	 *		human-readable assessments of what happened, probably straight from 
-	 *		the gateway. 
-	 *	'action' = What the pre-commit hooks said we should go do with ourselves. 
-	 *		If none were fired, this will be set to 'process'  
-	 *	'data' = The data passed back to us from the transaction, in a nice 
-	 *		key-value array. 
+	 * This function provides all functionality to the external world to communicate with a
+	 * properly constructed gateway and handle all the return data in an appropriate manner.
+	 * -- Appropriateness is determined by the requested $transaction structure and definition/
+	 *
+	 * @param string  | $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
+	 *  that maps to a first-level key in the $transactions array.
+	 *
+	 * @return array    | The results of the transaction attempt. Minimum keys include:
+	 *	'status' = The result of the pure communication attempt. If there was a
+	 *		server there, and it responded in a way that was parsable, this will be
+	 *		set to true, even if it gave us bad news. In all other cases, this will be false.
+	 *	'message' = An appropriate thing to say to... whatever called us, about
+	 *		the overall result that happened here. This should be an i18n message label.
+	 *	'errors' = sort of a misnomer, that should probably be renamed to
+	 *		result_codes or similar. This is always going to be an array of
+	 *		numeric codes (even if we have to make them up ourselves) and
+	 *		human-readable assessments of what happened, probably straight from
+	 *		the gateway.
+	 *	'action' = What the pre-commit hooks said we should go do with ourselves.
+	 *		If none were fired, this will be set to 'process'
+	 *	'data' = The data passed back to us from the transaction, in a nice
+	 *		key-value array.
 	 */
 	public function do_transaction( $transaction ) {
-		//reset, in case this isn't our first time.
+
+		$retryCount = 0;
+
+		do {
+			$retryVars = null;
+			$retval = $this->do_transaction_internal( $transaction, $retryVars );
+
+			if ( $retryVars !== null ) {
+				// TODO: Add more intelligence here. Right now we just assume it's the order_id
+				// and that it is totally OK to just reset it and reroll.
+
+				self::log( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
+
+				// Force regen of the order_id
+				$this->dataObj->resetOrderId();
+
+				// Pull anything changed from dataObj
+				$this->unstaged_data = $this->dataObj->getDataEscaped();
+				$this->staged_data = $this->unstaged_data;
+				$this->stageData();
+
+				// Refreshes any session data
+				$this->addDonorDataToSession();
+			}
+
+		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < 3 ) );
+
+		if ( $retryCount >= 3 ) {
+			self::log( "Transaction canceled after $retryCount retries.", LOG_ERR );
+		}
+
+		return $retval;
+	}
+
+	/**
+	 * Called from do_transaction() in order to be able to deal with transactions that had
+	 * recoverable errors but that do require the entire transaction to be repeated.
+	 */
+	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
+		//reset, in case this isn't our first time. 
 		$this->transaction_results = array();
 		$this->setValidationAction('process', true);
 				
@@ -843,7 +886,7 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $this->getValidationAction() != 'process' ) {
 
 				self::log( "Failed failed pre-process checks.", LOG_CRIT );
-				
+
 				$this->transaction_results = array(
 					'status' => false,
 					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
@@ -891,6 +934,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//start looping here, if we're the sort of transaction that needs to do that. 
 		$stopflag = false;
 		$counter = 0;
+		$errCode = null;
 		$statuses = $this->transaction_option( 'loop_for_status' );
 		$this->getStopwatch( __FUNCTION__, true );
 		while ( $stopflag === false ) {
@@ -912,10 +956,10 @@ abstract class GatewayAdapter implements GatewayType {
 				$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
 
 				//if we're still okay (hey, even if we're not), get relevent data.
-				$pulled_data = $this->getResponseData( $formatted );
-				$this->setTransactionResult( $pulled_data, 'data' );
+				$this->setTransactionResult( $this->getResponseData( $formatted ), 'data' );
 
-				$this->processResponse( $pulled_data ); //now we've set all the transaction results... 
+				// Process the formatted response data. This will then drive the result action
+				$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
 				
 				//well, almost all. 
 				$this->setTransactionResult( $this->getValidationAction(), 'action' );
@@ -940,7 +984,8 @@ abstract class GatewayAdapter implements GatewayType {
 		//Log out how many times we looped, and what the clock is now. 
 		$this->saveCommunicationStats( __FUNCTION__, $transaction, "counter = $counter" );
 
-		if ( $txn_ok === false ) { //nothing to process, so we have to build it manually
+		if ( $txn_ok === false ) {
+			//nothing to process, so we have to build it manually
 			
 			self::log( "$transaction Communication Failed!", LOG_CRIT );
 			
@@ -953,6 +998,21 @@ abstract class GatewayAdapter implements GatewayType {
 				'action' => $this->getValidationAction(),
 			);
 			
+			return $this->getTransactionAllResults();
+		} elseif ( !empty( $retryVars ) ) {
+			//nothing to process, so we have to build it manually
+
+			self::log( "$transaction Communication failed (errcode $errCode), will reattempt!", LOG_ALERT );
+
+			$this->transaction_results = array(
+				'status' => false,
+				'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
+				'errors' => array(
+					$errCode => $this->getErrorMapByCodeAndTranslate( $errCode ),
+				),
+				'action' => $this->getValidationAction(),
+			);
+
 			return $this->getTransactionAllResults();
 		}
 
@@ -1121,61 +1181,58 @@ abstract class GatewayAdapter implements GatewayType {
 	 * problem. (timeout, bad URL, etc.) 
 	 */
 	protected function curl_transaction( $data ) {
+		// assign header data necessary for the curl_setopt() function
 		$this->getStopwatch( __FUNCTION__, true );
 
-		$txnOk = true;
-
-		$results = array();
 		$ch = curl_init();
 
-		if ( wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) ) ) {
+		$headers = $this->getCurlBaseHeaders();
+		$headers[] = 'Content-Length: ' . strlen( $data );
 
-			// assign header data necessary for the curl_setopt() function
-			$headers = $this->getCurlBaseHeaders();
-			$headers[] = 'Content-Length: ' . strlen( $data );
+		$curl_opts = $this->getCurlBaseOpts();
+		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
+		$curl_opts[CURLOPT_POSTFIELDS] = $data;
 
-			$curl_opts = $this->getCurlBaseOpts();
-			$curl_opts[CURLOPT_HTTPHEADER] = $headers;
-			$curl_opts[CURLOPT_POSTFIELDS] = $data;
+		foreach ( $curl_opts as $option => $value ) {
+			curl_setopt( $ch, $option, $value );
+		}
 
-			foreach ( $curl_opts as $option => $value ) {
-				curl_setopt( $ch, $option, $value );
+		// As suggested in the PayPal developer forum sample code, try more than once to get a response
+		// in case there is a general network issue
+		$i = 1;
+
+		$results = array();
+
+		while ( $i++ <= 3 ) {
+			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
+			$results['result'] = curl_exec( $ch );
+			$results['headers'] = curl_getinfo( $ch );
+
+			if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
+				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
+				sleep( 1 );
+			} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
+				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
+				break;
 			}
+		}
 
-			// As suggested in the PayPal developer forum sample code, try more than once to get a
-			// response in case there is a general network issue
-			$i = 1;
+		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
-			while ( $i++ <= 3 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
-				$results['result'] = curl_exec( $ch );
-				$results['headers'] = curl_getinfo( $ch );
-
-				if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
-					self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
-					sleep( 1 );
-				} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
-					self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
-					break;
-				}
-			}
-
-			$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
-
-			if ( $results['headers']['http_code'] != 200 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
-				$txnOk = false;
-			}
-		} else {
-			self::log(  $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' cURL transaction aborted on hook DonationInterfaceCurlInit', LOG_INFO );
-			$this->setValidationAction('reject');
-			$txnOk = false;
+		if ( $results['headers']['http_code'] != 200 ) {
+			$results['result'] = false;
+			//TODO: i18n here! 
+			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
+			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
+			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
+			curl_close( $ch );
+			return false;
 		}
 
 		curl_close( $ch );
 
 		$this->setTransactionResult( $results );
-		return $txnOk;
+		return true;
 	}
 
 	function stripXMLResponseHeaders( $rawResponse ) {

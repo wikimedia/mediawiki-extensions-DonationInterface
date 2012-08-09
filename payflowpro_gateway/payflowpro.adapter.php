@@ -247,17 +247,19 @@ class PayflowProAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Actually do... stuff. Here. 
-	 * TODO: Better comment. 
-	 * Process the entire response gott'd by the last four functions. 
+	 * Perform any additional processing on the response obtained from the server.
+	 *
+	 * @param array $response   The WMF response object array -> ie: data, errors, action...
+	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
+	 *  an array of all variables that need to be recreated and restaged.
 	 */
-	function processResponse( $response ) {
+	public function processResponse( $response, &$retryVars = null ) {
 		//set the transaction result message
-		if ( isset( $response['RESPMSG'] ) ){
-			$this->setTransactionResult( $response['RESPMSG'], 'txn_message' );
+		if ( isset( $response['data']['RESPMSG'] ) ){
+			$this->setTransactionResult( $response['data']['RESPMSG'], 'txn_message' );
 		}
-		if ( isset( $response['PNREF'] ) ){
-			$this->setTransactionResult( $response['PNREF'], 'gateway_txn_id' );
+		if ( isset( $response['data']['PNREF'] ) ){
+			$this->setTransactionResult( $response['data']['PNREF'], 'gateway_txn_id' );
 		}
 	}
 
