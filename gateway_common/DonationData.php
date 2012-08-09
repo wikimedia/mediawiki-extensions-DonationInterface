@@ -384,7 +384,7 @@ class DonationData {
 	 * Care should be taken in the normalize helper functions to write code in 
 	 * such a way that running them multiple times on the same array won't cause 
 	 * the data to stroll off into the sunset: Normalize will definitely need to 
-	 * be called multiple times against the same array. 
+	 * be called multiple times against the same array.
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
@@ -620,33 +620,46 @@ class DonationData {
 	 * normalize helper function.
 	 * Ensures that order_id and i_order_id are ready to go, depending on what 
 	 * comes in populated or not, and where it came from.
+	 *
 	 * @return null
 	 */
-	protected function setNormalizedOrderIDs() {
-		//basically, we need a new order_id every time we come through here, but if there's an internal already there,
-		//we want to use that one internally. So.
-		//Exception: If we pass in an order ID in the querystring: Don't mess with it.
-		//TODO: I'm pretty sure I'm not supposed to do this directly.
+	protected function setNormalizedOrderIDs( ) {
+
+		static $idGenThisRequest = false;
+		$id = null;
+
+		// We need to obtain and set the order_id every time this function is called. If there's
+		// one already in existence (ie: in the GET string) we will use that one.
 		if ( array_key_exists( 'order_id', $_GET ) ) {
-			$this->setVal( 'order_id', $_GET['order_id'] );
-			$this->setVal( 'i_order_id', $_GET['order_id'] );
-			return;
+			// This must come only from the get string. It's there to process return calls.
+			// TODO: Move this somewhere more sane! We shouldn't be doing anything with requests
+			// in normalization functions.
+			$id = $_GET['order_id'];
+		} elseif ( ( $this->isSomething( 'order_id' ) ) && ( $idGenThisRequest == true ) ) {
+			// An order ID already exists, therefore we do nothing
+			$id = $this->getVal( 'order_id' );
+		} else {
+			// Apparently we need a new one
+			$idGenThisRequest = true;
+			$id = $this->generateOrderId();
 		}
 
-		$this->setVal( 'order_id', $this->generateOrderId() );
-		if ( !$this->isSomething( 'i_order_id' ) ) {
-			$this->setVal( 'i_order_id', $this->generateOrderId() );
-		}
+		// HACK: We used to have i_order_id remain consistent; but that might confuse things,
+		// so now it just follows order_id; and we only keep it for legacy reasons (ie: I have
+		// no idea what it would do if I removed it.)
+
+		$this->setVal( 'order_id', $id );
+		$this->setVal( 'i_order_id', $id );
 	}
 
 	/**
-	 * Generate an order id exactly once for this go-round.
+	 * Generate an order id
+	 *
+	 * @return A randomized order ID
 	 */
 	protected static function generateOrderId() {
-		static $order_id = null;
-		if ( $order_id === null ) {
-			$order_id = ( double ) microtime() * 1000000 . mt_rand( 1000, 9999 );
-		}
+		$order_id = ( double ) microtime() * 1000000 . mt_rand( 1000, 9999 );
+
 		return $order_id;
 	}
 
@@ -1213,13 +1226,13 @@ class DonationData {
 	}
 
 	/**
-	 * addData
 	 * Adds an array of data to the normalized array, and then re-normalizes it. 
 	 * NOTE: If any gateway is using this function, it should then immediately 
 	 * repopulate its own data set with the DonationData source, and then 
-	 * re-stage values as necessary. 
+	 * re-stage values as necessary.
+	 *
 	 * @param array $newdata An array of data to integrate with the existing 
-	 * data held by the DonationData object. 
+	 * data held by the DonationData object.
 	 */
 	public function addData( $newdata ) {
 		if ( is_array( $newdata ) && !empty( $newdata ) ) {
@@ -1359,7 +1372,15 @@ class DonationData {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Resets the order ID and re-normalizes the data set. This effectively creates a new
+	 * transaction.
+	 */
+	public function resetOrderId() {
+		$this->expunge( 'order_id' );
+		$this->normalize();
+	}
 }
 
 ?>

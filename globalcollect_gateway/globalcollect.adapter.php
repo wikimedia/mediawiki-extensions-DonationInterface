@@ -234,7 +234,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function defineErrorMap() {
 		
 		$this->error_map = array(
-			0		=> 'globalcollect_gateway-response-default',	
+			0		=> 'globalcollect_gateway-response-default',
+			300620  => 'donate_interface-processing-error',      // Order ID already used in a previous transaction
 			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.	
 			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
 			
@@ -1682,13 +1683,39 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Process the response
 	 *
-	 * @param array	$response	The response array
+	 * @param array	$response   The response array
+	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
+	 *  an array of all variables that need to be recreated and restaged.
+	 *
+	 * @return An actionable error code if it happened.
 	 */
-	public function processResponse( $response ) {
+	public function processResponse( $response, &$retryVars = null ) {
 		//set the transaction result message
-		$responseStatus = isset( $response['STATUSID'] ) ? $response['STATUSID'] : '';
+		$responseStatus = isset( $response['data']['STATUSID'] ) ? $response['data']['STATUSID'] : '';
 		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC. 
 		$this->setTransactionResult( $this->getData_Unstaged_Escaped( 'order_id' ), 'gateway_txn_id' );
+
+		$retErrCode = null;
+
+		// We are also curious to know if there were any recoverable errors
+		foreach ( $response['errors'] as $errCode => $errMsg ) {
+			if ( $retryVars === null ) {
+				$retryVars = array();
+			}
+
+			switch ( $errCode ) {
+				case 300620:
+					// Oh no! We've already used this order # somewhere else! Restart!
+					$retryVars[] = 'order_id';
+					$retErrCode = $errCode;
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		return $retErrCode;
 	}
 
 	/**
