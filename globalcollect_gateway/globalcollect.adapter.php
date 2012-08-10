@@ -1714,7 +1714,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'order_id', //This may or may not oughta-be-here...
 			'language',
 			'recurring',
-			'country'
+			'country',
+			//Street address and zip need to be staged, to provide dummy data in
+			//the event that they are sent blank, which will short-circuit all
+			//AVS checking for accounts that have AVS data tied to them.
+			'street',
+			'zip',
 		);
 	}
 	
@@ -1880,6 +1885,41 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->addKeyToTransaction('AUTHENTICATIONINDICATOR');
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
 			}
+		}
+	}
+	
+	/**
+	 * Stage the street address. In the event that there isn't anything in
+	 * there, we need to send something along so that AVS checks get triggered
+	 * at all. 
+	 * The zero is intentional: Allegedly, Some banks won't perform the check
+	 * if the address line contains no numerical data. 
+	 * @param string $type request|response
+	 */
+	protected function stage_street( $type = 'request') {
+		if ( $type === 'request' ){
+			$is_garbage = false;
+			$street = trim( $this->staged_data['street'] );
+			( strlen( $street ) === 0 ) ? $is_garbage = true : null;
+			( !DataValidator::validate_not_just_punctuation( $street ) ) ? $is_garbage = true : null;
+			
+			if ( $is_garbage ){
+				$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
+			}
+		}
+	}
+	
+	/**
+	 * Stage the zip. In the event that there isn't anything in
+	 * there, we need to send something along so that AVS checks get triggered
+	 * at all. 
+	 * @param string $type request|response
+	 */
+	protected function stage_zip( $type = 'request') {
+		if ( $type === 'request' && strlen( trim( $this->staged_data['zip'] ) ) === 0  ){
+			//it would be nice to check for more here, but the world has some 
+			//straaaange postal codes...
+			$this->staged_data['zip'] = '0';
 		}
 	}
 

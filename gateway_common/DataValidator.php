@@ -663,6 +663,22 @@ class DataValidator {
 		return true;
 	}
 	
+	/**
+	 * Validates that somebody didn't just punch in a bunch of punctuation, and
+	 * nothing else. Doing so for certain fields can short-circuit AVS checking
+	 * at some banks, and so we want to treat data like this as empty in the
+	 * adapter staging phase. 
+	 * @param string $value The value to check
+	 * @return bool true if it's more than just punctuation, false if it is. 
+	 */
+	public static function validate_not_just_punctuation( $value ){
+		$value = html_entity_decode( $value ); //Just making sure.
+		$regex = '/([\x20-\x2F]|[\x3A-\x40]|[\x5B-\x60]|[\x7B-\x7E]){' . strlen($value) . '}/';
+		if ( preg_match( $regex, $value ) ){
+			return false;
+		}
+		return true;
+	}
 	
 	/**
 	 * getGatewayClass
