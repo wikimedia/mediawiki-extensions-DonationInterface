@@ -463,6 +463,20 @@ $messages['ja'] = array(
 後でもう一度お試しください。',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'globalcollectgateway' => 'გააკეთეთ შემოწირულობა ახლავე',
+	'globalcollect_gateway-response-9130' => 'არასწორი ქვეყანა.',
+	'globalcollect_gateway-response-9140' => 'არასწორი ვალუტა.',
+	'globalcollect_gateway-response-9150' => 'არასწორი ენა.',
+	'globalcollect_gateway-response-400530' => 'არასწორი გადახდის მეთოდი.',
+	'globalcollect_gateway-response-430330' => 'არასწორი ბარათის ნომერი.',
+	'globalcollect_gateway-response-21000150' => 'არასწორი საბანკო ანგარიშის ნომერი.',
+	'globalcollect_gateway-response-21000155' => 'არასწორი საბანკო კოდი.',
+);
+
 /** Korean (한국어)
  * @author Kwj2772
  */
