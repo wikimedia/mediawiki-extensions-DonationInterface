@@ -1142,8 +1142,8 @@ Donn Desch aan uns wände, öm heh met wigger ze maache.',
 	'payflowpro_gateway-response-112' => 'Ding Addräß udder de <i lang="en">CVV</i> Nommer (Sescherheitskood) vun Dinge Kreddittkaat, es verkeeht.',
 	'payflowpro_gateway-response-125' => 'Ding Zahlung es afjelehnt woode, vun einem vun dä Deenste, di Betuppereije verhendere well.',
 	'payflowpro_gateway-response-125-2' => 'Ding Kreditkaat kunnt nit beschtäätesch wääde. Bes esu joot un donn all de Enfommazjuhne nohluure, of dat, wat De aanjejovve has och esu op Dinge Kaat dropschteiht un schtemmp, udder versöhk et met en ander Kaat. Do kanns och eine vun unser <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">ander Müjjeleschkeijte ze jävve</a>, udder donn uns en e-mail schriive noh <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Mer bedanke uns för Ding Ongerschtözung.',
-	'payflowpro_gateway-response-default' => 'Et es ene Fähler opjetrodde beim Övverdraare udder Affärbeide vu Dinge Zahlung.
-Versöhk et schpääder noch ens.',
+	'payflowpro_gateway-response-default' => 'Et es ene Fähler opjetrodde beim Övverdraare udder Affärbeide vun Dinge Zahlung.
+Versöhg_et schpääder noch ens.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
