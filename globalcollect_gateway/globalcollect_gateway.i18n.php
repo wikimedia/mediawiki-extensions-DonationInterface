@@ -659,6 +659,15 @@ $messages['pl'] = array(
 Spróbuj ponownie później.',
 );
 
+/** Pashto (پښتو)
+ * @author Ahmed-Najib-Biabani-Ibrahimkhel
+ */
+$messages['ps'] = array(
+	'globalcollect_gateway-response-9130' => 'ناسم هېواد.',
+	'globalcollect_gateway-response-9140' => 'ناسم ارز.',
+	'globalcollect_gateway-response-9150' => 'ناسمه ژبه.',
+);
+
 /** Portuguese (português)
  * @author Hamilton Abreu
  * @author João Sousa
@@ -754,6 +763,9 @@ $messages['ru'] = array(
  */
 $messages['si'] = array(
 	'globalcollectgateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
+	'globalcollect_gateway-response-9130' => 'වලංගු නොවන රටකි.',
+	'globalcollect_gateway-response-9140' => 'වලංගු නොවන ව්‍යවහාරයකි.',
+	'globalcollect_gateway-response-9150' => 'වලංගු නොවන භාෂාවකි.',
 );
 
 /** Slovenian (slovenščina)
@@ -811,6 +823,14 @@ $messages['sw'] = array(
 	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
 	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
 Tafadhali jaribu tena baadaye.',
+);
+
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'globalcollect_gateway-response-9130' => 'చెల్లని దేశం.',
+	'globalcollect_gateway-response-9150' => 'చెల్లని భాష.',
 );
 
 /** Tagalog (Tagalog)
