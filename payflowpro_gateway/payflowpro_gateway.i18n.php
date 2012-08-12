@@ -559,8 +559,7 @@ Bonvolu kontakti nin por plufari vian pagon.',
 	'payflowpro_gateway-response-112' => 'Via adreso aŭ sekureca kodo estas malĝusta.',
 	'payflowpro_gateway-response-125' => 'Via pago estis malaprobita de Kontraŭfraŭdaj Servoj.',
 	'payflowpro_gateway-response-125-2' => 'Via kreditkarto ne estis validigebla. Bonvolu verigi ke ĉiu provizita informo kongruas vian kreditkartan profilon, aŭ utiligi alian karton. Vi ankaŭ povas uzi unu el niaj <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">aliaj metodoj por donaci</a> aŭ kontakti nin ĉe <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dankon pro via subteno.',
-	'payflowpro_gateway-response-default' => 'Estis eraro dum procedado de via pago.
-Bonvolu provi denove pli poste.',
+	'payflowpro_gateway-response-default' => 'Estis eraro traktante vian pagon. Bonvolu provi denove pli poste.',
 );
 
 /** Spanish (español)
@@ -605,6 +604,7 @@ Por favor intente mas tarde.',
  */
 $messages['et'] = array(
 	'payflowprogateway' => 'Anneta kohe',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro krediitkaardi käitlus',
 	'payflowpro_gateway-response-0' => 'Sinu ülekanne on heakskiidetud. 
 Aitäh annetamast.',
 	'payflowpro_gateway-response-126' => 'Sinu ülekanne ootab heakskiitu.',
@@ -614,6 +614,7 @@ Aitäh annetamast.',
 	'payflowpro_gateway-response-4' => 'Vigane summa.',
 	'payflowpro_gateway-response-24' => 'Krediitkaardinumber või aegumistähtaeg on vale.',
 	'payflowpro_gateway-response-112' => 'Aadress või turvakood on vale.',
+	'payflowpro_gateway-response-125' => 'Pettuste ennetamise teenused on ülekande tagasi lükanud.',
 	'payflowpro_gateway-response-default' => 'Sinu ülekande töötlemisel tekkis viga.
 Palun ürita hiljem uuesti.',
 );
@@ -1837,6 +1838,7 @@ Tafadhali jaribu tena baadaye.',
 );
 
 /** Tamil (தமிழ்)
+ * @author Karthi.dr
  * @author Surya Prakash.S.A.
  * @author TRYPPN
  */
@@ -1856,6 +1858,8 @@ $messages['ta'] = array(
 	'payflowpro_gateway-response-24' => 'உங்கள் கடனட்டை எண்ணோ அதன் காலாவதியாகும் தேதியோ தவறாக உள்ளது.',
 	'payflowpro_gateway-response-112' => 'உங்கள் முகவரியோ CCV எண்ணோ (பாதுகாப்புக் குறியீடு) தவறாக உள்ளது.',
 	'payflowpro_gateway-response-125' => 'உங்கள் பரிமாற்றாம் மோசடித் தடுப்புச் சேவைகள் மூலம் மறுக்கப்பட்டுள்ளது.',
+	'payflowpro_gateway-response-default' => 'தங்கள் பரிமாற்றத்தைச் செயல்படுத்துவதில் ஒரு பிழை ஏற்பட்டது.
+அருள்கூர்ந்து மீண்டும் முயற்சிக்கவும்.',
 );
 
 /** Telugu (తెలుగు)

@@ -216,6 +216,21 @@ Por favor intentelo de nuevo mas tarde.',
  */
 $messages['et'] = array(
 	'globalcollectgateway' => 'Anneta kohe',
+	'globalcollect_gateway-desc' => 'Makse käitlemine GlobalCollecti kaudu',
+	'globalcollect_gateway-response-9130' => 'Vigane maa.',
+	'globalcollect_gateway-response-9140' => 'Vigane vääring.',
+	'globalcollect_gateway-response-9150' => 'Vigane keel.',
+	'globalcollect_gateway-response-400530' => 'Vigane makseviis.',
+	'globalcollect_gateway-response-430306' => 'Sinu krediitkaart on aegunud. Palun proovi teise kaardiga või muud makseviisi.',
+	'globalcollect_gateway-response-430330' => 'Vigane kaardi number.',
+	'globalcollect_gateway-response-430421' => 'Sinu krediitkaarti ei saanud valideerida. Palun kontrolli, et kõik andmed vastaksid sinu kaardi profiilile või proovi teist kaarti.',
+	'globalcollect_gateway-response-430360' => 'Ülekannet ei kinnitatud. Palun proovi teist kaarti või muud makseviisi.',
+	'globalcollect_gateway-response-430285' => 'Ülekannet ei kinnitatud. Palun proovi teist kaarti või muud makseviisi.',
+	'globalcollect_gateway-response-21000150' => 'Vigane pangakonto number.',
+	'globalcollect_gateway-response-21000155' => 'Vigane pangakood.',
+	'globalcollect_gateway-response-21000160' => 'Vigane žiirokonto number.',
+	'globalcollect_gateway-response-default' => 'Ülekande käitlemisel ilmnes tõrge.
+Palun proovi hiljem uuesti.',
 );
 
 /** Finnish (suomi)
@@ -766,6 +781,10 @@ $messages['si'] = array(
 	'globalcollect_gateway-response-9130' => 'වලංගු නොවන රටකි.',
 	'globalcollect_gateway-response-9140' => 'වලංගු නොවන ව්‍යවහාරයකි.',
 	'globalcollect_gateway-response-9150' => 'වලංගු නොවන භාෂාවකි.',
+	'globalcollect_gateway-response-400530' => 'වලංගු නොවන ගෙවීම් ක්‍රමය.',
+	'globalcollect_gateway-response-430330' => 'වලංගු නොවන කාඩ්පත් අංකය.',
+	'globalcollect_gateway-response-21000150' => 'වලංගු නොවන බැංකු ගිණුම් අංකය.',
+	'globalcollect_gateway-response-21000155' => 'වලංගු නොවන බැංකු කේතය.',
 );
 
 /** Slovenian (slovenščina)
@@ -823,6 +842,23 @@ $messages['sw'] = array(
 	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
 	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
 Tafadhali jaribu tena baadaye.',
+);
+
+/** Tamil (தமிழ்)
+ * @author Karthi.dr
+ */
+$messages['ta'] = array(
+	'globalcollectgateway' => 'உங்கள் நன்கொடையை இப்போது அளிக்கவும்',
+	'globalcollect_gateway-response-9130' => 'செல்லாத நாடு.',
+	'globalcollect_gateway-response-9140' => 'செல்லாத நாணயமுறை',
+	'globalcollect_gateway-response-9150' => 'செல்லாத மொழி.',
+	'globalcollect_gateway-response-400530' => 'செல்லாத செலுத்துதல்  முறை.',
+	'globalcollect_gateway-response-430306' => 'உங்கள் கடனட்டை காலாவதியாகி விட்டது. அருள்கூர்ந்து வேறு  அட்டையைப் பயன்படுத்தவும் அல்லது பணம் செலுத்தும் பிற வழிகளை முயற்சிக்கவும்.',
+	'globalcollect_gateway-response-430330' => 'செல்லாத அட்டை எண்.',
+	'globalcollect_gateway-response-21000150' => 'செல்லாத வங்கிக் கணக்கு எண்.',
+	'globalcollect_gateway-response-21000155' => 'செல்லாத வங்கிக் குறியீடு.',
+	'globalcollect_gateway-response-default' => 'தங்கள் பரிமாற்றத்தைச் செயல்படுத்துவதில் ஒரு பிழை ஏற்பட்டது.
+அருள்கூர்ந்து மீண்டும் முயற்சிக்கவும்.',
 );
 
 /** Telugu (తెలుగు)
