@@ -834,4 +834,24 @@ class DataValidator {
 			return false;
 		}
 	}
+	
+	/**
+	 * Test to determine if a value either appears in the haystack in the case
+	 * of an array, or that the needle IS the haystack 
+	 * @param mixed $needle The value to match on
+	 * @param mixed $haystack Either an array, or a single value
+	 * @return bool
+	 */
+	public static function value_appears_in( $needle, $haystack ){
+		if ( !is_array( $haystack ) ){
+			if ( $needle === $haystack ){
+				return true;
+			}
+		} else {
+			if ( in_array( $needle, $haystack ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
