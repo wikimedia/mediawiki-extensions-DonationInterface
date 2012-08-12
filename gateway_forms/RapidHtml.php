@@ -7,6 +7,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @var string
 	 */
 	protected $html_file_path = '';
+	
+	/**
+	 * Whitelisted base directory from which the HTML form is loading.
+	 * This may not necessarily be just the path without the filename: It's 
+	 * probably back farther than that. 
+	 * @var string
+	 */
+	protected $html_base_dir = '';
 
 	/**
 	 * Tokens used in HTML form for data replacement
@@ -307,7 +315,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		
 		foreach( $matches[ 1 ] as $i => $key ){
 			# $matches[ 1 ] is specified in the code, not user input
-			$filepath = $this->gateway->getGlobal('HtmlFormDir') . '/_' . $matches[ 1 ][ $i ] . '/';
+			$filepath = $this->html_base_dir . '/_' . $matches[ 1 ][ $i ] . '/';
 
             $var = 'default';
 
@@ -403,19 +411,60 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	/**
 	 * Set the path to the HTML file for a requested rapid html form.
 	 * 
-	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wg<gateway>AllowedHtmlForms
+	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wgDonationInterfaceAllowedHtmlForms
 	 */
 	public function set_html_file_path( $form_key ) {
 		$g = $this->gateway;
-		$gatewayFormDir = $g::getGlobal( 'HtmlFormDir' );
 		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
 
-		// Make sure that the requested form is whitelisted
-		if ( !array_key_exists( $form_key, $allowedForms ) || ( !file_exists( $allowedForms[$form_key] )) ) {
+		$problems = false;
+		//make sure the requested form exists.
+		if ( !array_key_exists( $form_key, $allowedForms ) 
+			|| !array_key_exists( 'file', $allowedForms[$form_key] ) 
+			|| ( !file_exists( $allowedForms[$form_key]['file'] ) ) ) {
+			$problems = true;
+		}
+		
+		if ( !$problems ){
+			//make sure the requested form is cleared for this gateway
+			if ( !array_key_exists( 'gateway', $allowedForms[$form_key] ) ){
+				$problems = true;
+			} else {
+				$ident = $g->getIdentifier();
+				if ( is_array( $allowedForms[$form_key]['gateway'] ) ){
+					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ){
+						$problems = true;
+					}
+				} else {
+					if ( $allowedForms[$form_key]['gateway'] != $ident ){
+						$problems = true;
+					}
+				}
+			}
+		}
+		
+		//now, figure out what whitelisted form directory this is a part of. 
+		$allowedDirs = $g::getGlobal( 'FormDirs' );
+		$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
+		$build = '';
+		for( $i=0; $i<count( $dirparts ); ++$i ){
+			if ( trim( $dirparts[$i] != '' ) ){
+				$build .= '/' . $dirparts[$i];
+			}
+			if ( in_array( $build, $allowedDirs ) ){
+				$this->html_base_dir = $build;
+			}
+		}
+		
+		if ( empty( $this->html_base_dir ) ){
+			$problems = true;
+		}
+		
+		if ( $problems ){
 			throw new MWException( 'Requested an unavailable or non-existent form.' ); # TODO: translate
 		}
 
-		$this->html_file_path = $allowedForms[ $form_key ];
+		$this->html_file_path = $allowedForms[$form_key]['file'];
 	}
 
 	/**

@@ -170,15 +170,9 @@ if ( $optionalParts['FormChooser'] === true ){
  */
 
 /**
- * Global form dir and RapidHTML whitelist
+ * Global form dir
  */
 $wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/rapidhtml/html";
-//ffname is the $key from now on.
-$wgDonationInterfaceAllowedHtmlForms = array(
-	'globalcollect_test' => $wgDonationInterfaceHtmlFormDir . "/globalcollect_test.html",
-	'globalcollect_test_2' => $wgDonationInterfaceHtmlFormDir . "/globalcollect_test_2.html",
-);
-
 $wgDonationInterfaceTest = false;
 
 /**
@@ -272,8 +266,11 @@ if ( $optionalParts['GlobalCollect'] === true ){
 
 	$wgGlobalCollectGatewayHtmlFormDir = $donationinterface_dir . 'globalcollect_gateway/forms/html';
 	//this really should be redefined in LocalSettings.
-	$wgGlobalCollectGatewayAllowedHtmlForms = $wgDonationInterfaceAllowedHtmlForms;
-	$wgGlobalCollectGatewayAllowedHtmlForms['lightbox1'] = $wgGlobalCollectGatewayHtmlFormDir .'/lightbox1.html';
+	$wgDonationInterfaceAllowedHtmlForms['lightbox1_gc'] = array(
+		'file' => $wgGlobalCollectGatewayHtmlFormDir .'/lightbox1.html',
+		'gateway' => 'globalcollect',
+		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' ))
+	);
 	
 	$wgGlobalCollectGatewayCvvMap = array(
 		'M' => true, //CVV check performed and valid value.
@@ -321,9 +318,12 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgPayflowProGatewayPassword = ''; // merchant login password
 
 	$wgPayflowProGatewayHtmlFormDir = $donationinterface_dir . 'payflowpro_gateway/forms/html';
-	//this really should be redefined in LocalSettings.
-	$wgPayflowProGatewayAllowedHtmlForms = $wgDonationInterfaceAllowedHtmlForms;
-	$wgPayflowProGatewayAllowedHtmlForms['lightbox1'] = $wgPayflowProGatewayHtmlFormDir .'/lightbox1.html';
+
+	$wgDonationInterfaceAllowedHtmlForms['lightbox1_pfp'] = array(
+		'file' => $wgPayflowProGatewayHtmlFormDir .'/lightbox1.html',
+		'gateway' => 'payflowpro',
+		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' ))
+	);
 	
 	//defaults to not doing the new fail page redirect. 
 	$wgPayflowProGatewayFailPage = false;
