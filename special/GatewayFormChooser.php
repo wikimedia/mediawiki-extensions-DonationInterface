@@ -7,6 +7,7 @@
  *
  * @author Peter Gehres <pgehres@wikimedia.org>
  * @author Matt Walker <mwalker@wikimedia.org>
+ * @author Katie Horn <khorn@wikimedia.org>
  */
 class GatewayFormChooser extends UnlistedSpecialPage {
 
@@ -28,6 +29,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		if ( $testNewGetAll ){
 			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring );
 			echo "<pre>" . print_r( $forms, true ) . "</pre>";
+			$form = self::pickOneForm( $forms, $currency, $country );
+			echo "<pre>I choose you, " . print_r( $form, true) . "!</pre>";
 			die();
 		}
 
@@ -279,5 +282,81 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function getAllEnabledGateways(){
 		global $wgDonationInterfaceEnabledGateways;
 		return $wgDonationInterfaceEnabledGateways;
+	}
+	
+	/**
+	 * In the event that we have more than one valid form, we need to figure out
+	 * which one we ought to be using. 
+	 * In the absense of any data regarding form preferences, we should pick one
+	 * that appears to be localized for whatever we requested. 
+	 * If we still have more than one, take the one with the most payment
+	 * submethods. 
+	 * If we *still* have more than one, just... take the top or something. 
+	 * @param array $valid_forms All the forms that are valid for the parameters
+	 * we've used. 
+	 */
+	static function pickOneForm( $valid_forms, $currency, $country ){
+		if ( count( $valid_forms ) === 1 ){
+			reset( $valid_forms );
+			return key ( $valid_forms );
+		}
+		
+		//general idea: If one form has constraints for the following ordered
+		//keys, and some forms do not have that constraint, prefer the one with 
+		//the explicit constraints. 
+		//But, it naturally got more complicated when I started considering the
+		//ivnerse. 
+		$keys = array(
+			'currencies' => $currency,
+			'countries' => $country,
+		);
+		foreach ( $keys as $key => $look ) { 
+		//got to loop on keys first, as valid_forms loop will hopefully shrink as we're going.
+			$failforms = array();
+			foreach ( $valid_forms as $form_name => $meta ){
+				if ( ( !is_null($look) && !array_key_exists( $key, $meta ) )
+					|| is_null($look) && array_key_exists( $key, $meta ) ){
+					$failforms[] = $form_name;
+				}
+			}
+			if ( !empty( $failforms ) && count( $failforms ) != count( $valid_forms ) ) {
+				//Kill everybody who didn't have it, because somebody totally did.
+				foreach ( $failforms as $failform ){
+					unset( $valid_forms[$failform] );
+				}
+			}
+			if ( count( $valid_forms ) === 1 ){
+				reset( $valid_forms );
+				return key ( $valid_forms );
+			}
+		}
+		
+		//now, go for the one with the most explicitly defined payment submethods. 
+		$submethod_counter = array();
+		foreach ( $valid_forms as $form_name => $meta ){
+			$submethod_counter[$form_name] = 0;
+			foreach ( $meta['payment_methods'] as $method ){
+				$submethod_counter[$form_name] += count( $method );
+			}			
+		}
+		arsort( $submethod_counter, SORT_NUMERIC );
+		$max = 0;
+		foreach ( $submethod_counter as $form_name => $count ){
+			if ( $count > $max ){ 
+				$max = $count; //after the arsort, this will happen the first time and that's it.
+			}
+			if ( $count < $max ){
+				unset( $valid_forms[$form_name] );
+			}
+		}
+		
+		if ( count( $valid_forms ) === 1 ){
+			reset( $valid_forms );
+			return key ( $valid_forms );
+		}
+		
+		//Hell: we're still here. Throw a freaking dart. 
+		reset( $valid_forms );
+		return key ( $valid_forms );
 	}
 }
