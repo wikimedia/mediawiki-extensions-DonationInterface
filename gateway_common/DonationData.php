@@ -396,7 +396,7 @@ class DonationData {
 			$this->setIPAddresses();
 			$this->setCountry(); //must do this AFTER setIPAddress...
 			$this->handleContributionTrackingID();
-			$this->setCurrencyCode();
+			$this->setCurrencyCode(); // AFTER setCountry
 			$this->setFormClass();
 			$this->renameCardType();
 			
@@ -536,19 +536,21 @@ class DonationData {
 		//-->>currency_code has the authority!<<-- 
 		$currency = false;
 		
-		if ( $this->isSomething( 'currency_code' ) ) {
-			$currency = $this->getVal( 'currency_code' );
-		} elseif ( $this->isSomething( 'currency' ) ) {
+		if ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
+		}
+		if ( $this->isSomething( 'currency_code' ) ) {
+			$currency = $this->getVal( 'currency_code' );
 		}
 		
 		if ( $currency ){
 			$this->setVal( 'currency_code', $currency );
 		} else {
-			//we want this set tu null if neither of them was anything, so 
-			//things using this data know to use their own defaults. 
-			$this->setVal( 'currency_code', null );
+			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
+			$country_default_currency = getNationalCurrency($this->getVal('country'));
+
+			$this->setVal('currency_code', $country_default_currency);
 		}
 	}
 	
