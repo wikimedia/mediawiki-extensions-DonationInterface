@@ -750,6 +750,14 @@ $messages['ro'] = array(
 Vă rugăm să reîncercați mai târziu.',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'globalcollect_gateway-response-430330' => "Numere d'a carte invalide.",
+	'globalcollect_gateway-response-21000155' => "Codece d'a banghe invalide.",
+);
+
 /** Russian (русский)
  * @author Kaganer
  * @author Александр Сигачёв
