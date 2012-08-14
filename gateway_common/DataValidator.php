@@ -499,7 +499,7 @@ class DataValidator {
 	 */
 	protected static function validate_email( $value ){
 		// is email address valid?
-		$isEmail = User::isValidEmailAddr( $value );
+		$isEmail = Sanitizer::validateEmail( $value );
 		return $isEmail;
 	}
 	

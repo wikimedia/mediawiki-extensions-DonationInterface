@@ -93,7 +93,7 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 	public function check_captcha() {
 		global $wgRequest;
 		$privateKey = $this->gateway_adapter->getGlobal( 'RecaptchaPrivateKey' );
-		$resp = recaptcha_check_answer( $privateKey, wfGetIP(), $wgRequest->getText( 'recaptcha_challenge_field' ), $wgRequest->getText( 'recaptcha_response_field' ) );
+		$resp = recaptcha_check_answer( $privateKey, $wgRequest->getIP(), $wgRequest->getText( 'recaptcha_challenge_field' ), $wgRequest->getText( 'recaptcha_response_field' ) );
 
 		return $resp;
 	}
