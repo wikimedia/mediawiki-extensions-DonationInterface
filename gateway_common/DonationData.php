@@ -396,7 +396,7 @@ class DonationData {
 			$this->setIPAddresses();
 			$this->setCountry(); //must do this AFTER setIPAddress...
 			$this->handleContributionTrackingID();
-			$this->setCurrencyCode();
+			$this->setCurrencyCode(); // AFTER setCountry
 			$this->setFormClass();
 			$this->renameCardType();
 			
@@ -409,12 +409,13 @@ class DonationData {
 	 * Sets user_ip and server_ip. 
 	 */
 	protected function setIPAddresses(){
+		global $wgRequest;
 		//if we are coming in from the orphan slayer, the client ip should 
 		//already be populated with something un-local, and we'd want to keep 
 		//that.
 		if ( !$this->isSomething( 'user_ip' ) || $this->getVal( 'user_ip' ) === '127.0.0.1' ){
-			if ( function_exists( 'wfGetIP' ) ){
-				$this->setVal( 'user_ip', wfGetIP() );
+			if ( isset($wgRequest) ){
+				$this->setVal( 'user_ip', $wgRequest->getIP() );
 			}
 		}
 		
@@ -535,19 +536,21 @@ class DonationData {
 		//-->>currency_code has the authority!<<-- 
 		$currency = false;
 		
-		if ( $this->isSomething( 'currency_code' ) ) {
-			$currency = $this->getVal( 'currency_code' );
-		} elseif ( $this->isSomething( 'currency' ) ) {
+		if ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
+		}
+		if ( $this->isSomething( 'currency_code' ) ) {
+			$currency = $this->getVal( 'currency_code' );
 		}
 		
 		if ( $currency ){
 			$this->setVal( 'currency_code', $currency );
 		} else {
-			//we want this set tu null if neither of them was anything, so 
-			//things using this data know to use their own defaults. 
-			$this->setVal( 'currency_code', null );
+			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
+			$country_default_currency = getNationalCurrency($this->getVal('country'));
+
+			$this->setVal('currency_code', $country_default_currency);
 		}
 	}
 	
