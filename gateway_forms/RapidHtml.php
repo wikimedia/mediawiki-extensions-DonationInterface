@@ -443,21 +443,23 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			}
 		}
 		
-		//now, figure out what whitelisted form directory this is a part of. 
-		$allowedDirs = $g::getGlobal( 'FormDirs' );
-		$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
-		$build = '';
-		for( $i=0; $i<count( $dirparts ); ++$i ){
-			if ( trim( $dirparts[$i] != '' ) ){
-				$build .= '/' . $dirparts[$i];
+		if ( !$problems ){
+			//now, figure out what whitelisted form directory this is a part of. 
+			$allowedDirs = $g::getGlobal( 'FormDirs' );
+			$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
+			$build = '';
+			for( $i=0; $i<count( $dirparts ); ++$i ){
+				if ( trim( $dirparts[$i] != '' ) ){
+					$build .= '/' . $dirparts[$i];
+				}
+				if ( in_array( $build, $allowedDirs ) ){
+					$this->html_base_dir = $build;
+				}
 			}
-			if ( in_array( $build, $allowedDirs ) ){
-				$this->html_base_dir = $build;
+
+			if ( empty( $this->html_base_dir ) ){
+				$problems = true;
 			}
-		}
-		
-		if ( empty( $this->html_base_dir ) ){
-			$problems = true;
 		}
 		
 		if ( $problems ){
