@@ -191,8 +191,6 @@ function createQueueMessage( $transaction ) {
 	// edit this array to include/ignore transaction data sent to the server	
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
-		'optout' => $transaction['optout'],
-		'anonymous' => $transaction['anonymous'],
 		'comment' => $transaction['comment'],
 		'size' => $transaction['size'],
 		'premium_language' => $transaction['premium_language'],
@@ -221,7 +219,6 @@ function createQueueMessage( $transaction ) {
 		'postal_code_2' => $transaction['zip2'],
 		'gateway' => $transaction['gateway'],
 		'gateway_txn_id' => $transaction['gateway_txn_id'],
-		'recurring' => $transaction['recurring'],
 		'payment_method' => $transaction['payment_method'],
 		'payment_submethod' => $transaction['payment_submethod'],
 		'response' => $transaction['response'],
@@ -237,9 +234,16 @@ function createQueueMessage( $transaction ) {
 		'date' => ( int ) $transaction['date'], 
 	);
 	
-	//optional key
-	if ( !$message['recurring'] ) {
-		unset( $message['recurring'] );
+	//optional keys
+	$optional_keys = array(
+		'recurring',
+		'optout',
+		'anonymous',
+	);
+	foreach ( $optional_keys as $key ) {
+		if ( isset( $transaction[ $key ] ) ) {
+			$message[ $key ] = $transaction[ $key ];
+		}
 	}
 
 	return $message;
