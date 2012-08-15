@@ -286,13 +286,18 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	public function log_query() {
 
+		$encoded_response = array();
+		foreach ($this->minfraudResponse as $key => $value) {
+			$encoded_response[ $key ] = utf8_encode( $value );
+		}
+
 		$log_message = '';
 
 		$log_message .= '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'comment' ) ) . '"';
 		$log_message .= "\t" . '"' . date( 'c' ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'amount' ) . ' ' . $this->gateway_adapter->getData_Unstaged_Escaped( 'currency_code' ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudQuery ) ) . '"';
-		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudResponse ) ) . '"';
+		$log_message .= "\t" . '"' . addslashes( json_encode( $encoded_response ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' ) ) . '"';
 		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"minFraud query" ' . $log_message , LOG_INFO, '_fraud' );
 	}
