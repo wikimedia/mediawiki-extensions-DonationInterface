@@ -181,7 +181,7 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function processResponse( $response ) {
+	function processResponse( $response, &$retryVars = null ) {
 		global $wgRequest;
 
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
