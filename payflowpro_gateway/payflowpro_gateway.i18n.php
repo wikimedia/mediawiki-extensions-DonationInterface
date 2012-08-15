@@ -1067,6 +1067,11 @@ $messages['ja'] = array(
  */
 $messages['ka'] = array(
 	'payflowprogateway' => 'გაიღე  თანხა ახლავე',
+	'payflowpro_gateway-desc' => 'PayPal Payflow Pro საკრედიტო ბარათების დამუშავება',
+	'payflowpro_gateway-response-0' => 'თქვენი ტრანზაქცია დამტკიცებულია.
+გმადლობთ შემოწირულობისათვის!',
+	'payflowpro_gateway-response-126' => 'თქვენი გადარიცხვა ელოდება დამტკიცებას.',
+	'payflowpro_gateway-response-12' => 'დამატებითი ინფორმაციისათვის გთხოვთ, დაუკავშირდით თქვენი საკრედიტო ბარათის კომპანიას.',
 	'payflowpro_gateway-response-23' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
 	'payflowpro_gateway-response-4' => 'არასწორი თანხა.',
 	'payflowpro_gateway-response-24' => 'თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.',
@@ -1296,6 +1301,8 @@ Jekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.',
 	'payflowpro_gateway-response-24' => "In-numru tal-karta tal-kreditu tiegħek jew id-data ta' skadenza hija żbaljata.",
 	'payflowpro_gateway-response-112' => "L-indirizz tiegħek jew in-numru CVV (kodiċi ta' sigurtà) huwa żbaljat.",
 	'payflowpro_gateway-response-125' => 'It-transazzjoni tiegħek ġiet rifjutata mill-Fraud Prevention Services.',
+	'payflowpro_gateway-response-125-2' => 'Il-karta tal-kreditu tiegħek ma setgħetx tiġi valdiata. Jekk jogħġbok ivverfika li kull informazzjoni li tajt taqbel mal-profil tal-karta tal-kreditu tiegħek, jew prova b\'karta differenti. Tista\' wkoll tagħżel wieħed mill-ħafna <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">modi oħra kif tagħti donazzjoni</a> jew ikkuntatjana fuq <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Grazzi tas-sosten tiegħek.',
+	'payflowpro_gateway-response-default' => "Kien hemm żball fl-ipproċessar tat-tranżazzjoni tiegħek. Jekk jogħġbok erġa' pprova.",
 );
 
 /** Norwegian Bokmål (‪norsk (bokmål)‬)
