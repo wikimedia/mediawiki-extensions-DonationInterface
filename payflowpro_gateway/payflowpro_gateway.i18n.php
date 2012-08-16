@@ -1059,6 +1059,28 @@ $messages['ja'] = array(
 後ほどまたお試しください。',
 );
 
+/** Javanese (Basa Jawa)
+ * @author NoiX180
+ */
+$messages['jv'] = array(
+	'payflowprogateway' => 'Sumbang saiki',
+	'payflowpro_gateway-desc' => 'Pamrosèsan kertu krèdit PayPal Payflow Pro',
+	'payflowpro_gateway-response-0' => 'Transaksi Sampéyan sampun dililakaké.
+Matur nuwun sumbanganipun!',
+	'payflowpro_gateway-response-126' => 'Transaksi Sampéyan ngentèni palilan.',
+	'payflowpro_gateway-response-12' => 'Mangga hubungi prusahaan kertu krèdit Sampéyan kanggo informasi luwih lanjut.',
+	'payflowpro_gateway-response-13' => 'Transaksi Sampéyan mbutuhaké otorisasi swara.
+Mangga hubungi awak dhéwé kanggo nglanjutaké transaksi.',
+	'payflowpro_gateway-response-114' => 'Mangga hubungi prusahaan kertu krèdit Sampéyan kanggo informasi luwih lanjut.',
+	'payflowpro_gateway-response-23' => 'Nomer lan tanggal kedaluwarsa kertu krèdit Sampéyan salah.',
+	'payflowpro_gateway-response-4' => 'Cacahé ora sah.',
+	'payflowpro_gateway-response-24' => 'Nomer utawa tanggal kedaluwarsa kertu krèdit Sampéyan salah.',
+	'payflowpro_gateway-response-112' => 'Alamat utawa nomer CVV (kodhé kamanan) Sampéyan salah.',
+	'payflowpro_gateway-response-125' => 'Transaksi Sampéyan ditolak déning Layanan Pancegahan Pangapusan.',
+	'payflowpro_gateway-response-default' => 'Ana kasalahan mrosès transaksi Sampéyan.
+Jajal manèh mengko.',
+);
+
 /** Georgian (ქართული)
  * @author BRUTE
  * @author David1010
@@ -1288,6 +1310,7 @@ Sila cuba sebentar lagi.',
  */
 $messages['mt'] = array(
 	'payflowprogateway' => 'Agħmel id-donazzjoni tiegħek issa',
+	'payflowpro_gateway-desc' => 'Ġestjoni tal-karta tal-kreditu PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'It-transazzjoni tiegħek ġiet approvata.
 Grazzi tad-donazzjoni tiegħek!',
 	'payflowpro_gateway-response-126' => 'It-transazzjoni tiegħek qegħda tistenna li tiġi approvata.',
