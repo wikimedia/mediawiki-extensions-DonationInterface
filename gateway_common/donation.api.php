@@ -32,14 +32,21 @@ class DonationApi extends ApiBase {
 				default:
 					$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
 			}
+		} elseif ( $this->gateway == 'adyen' ) {
+			$gatewayObj = new AdyenAdapter();
+			$result = $gatewayObj->do_transaction( 'donate' );
 		} else {
-			$this->dieUsage( "Invalid gateway <<<$gateway>>> passed to Donation API.", 'unknown_gateway' );
+			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );
 		}
 
 		//$normalizedData = $gatewayObj->getData_Unstaged_Escaped();
 		$outputResult = array();
-		$outputResult['message'] = $result['message'];
-		$outputResult['status'] = $result['status'];
+		if ( array_key_exists( 'message', $result ) ) {
+			$outputResult['message'] = $result['message'];
+		}
+		if ( array_key_exists( 'status', $result ) ) {
+			$outputResult['status'] = $result['status'];
+		}
 
 		if ( array_key_exists( 'data', $result ) ) {
 			if ( array_key_exists( 'PAYMENT', $result['data'] )
@@ -57,13 +64,16 @@ class DonationApi extends ApiBase {
 				$outputResult['orderid'] = $result['data']['ORDERID'];
 			}
 		}
-		if ( $result['errors'] ) {
+		if ( array_key_exists( 'errors', $result ) && $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
 		if ( $this->donationData ) {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
+		}
+		if ( array_key_exists( 'gateway_params', $result ) ) {
+			$this->getResult()->addValue( null, 'gateway_params', $result['gateway_params'] );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}

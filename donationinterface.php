@@ -43,6 +43,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'PayflowPro' => false,
 	'GlobalCollect' => false,
 	'Amazon' => false,
+	'Adyen' => false,
 	'FormChooser' => false,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
@@ -118,6 +119,12 @@ if ( $optionalParts['PayflowPro'] === true ){
 if ( $optionalParts['Amazon'] === true ){
 	$wgAutoloadClasses['AmazonGateway'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.body.php';
 	$wgAutoloadClasses['AmazonAdapter'] = $donationinterface_dir . 'amazon_gateway/amazon.adapter.php';
+}
+
+if ( $optionalParts['Adyen'] === true ){
+	$wgAutoloadClasses['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.body.php';
+	$wgAutoloadClasses['AdyenGatewayResult'] = $donationinterface_dir . 'adyen_gateway/adyen_resultswitcher.body.php';
+	$wgAutoloadClasses['AdyenAdapter'] = $donationinterface_dir . 'adyen_gateway/adyen.adapter.php';
 }
 
 
@@ -409,6 +416,19 @@ if ( $optionalParts['Amazon'] === true ){
 	// does NOT accept unroutable development names, use the number instead
 	// even if it's 127.0.0.1
 	$wgAmazonGatewayReturnURL = "";
+}
+
+if ( $optionalParts['Adyen'] === true ){
+	$wgAdyenGatewayHtmlFormDir = $donationinterface_dir . 'adyen_gateway/forms/html';
+
+	$wgAdyenGatewayBaseURL = 'https://live.adyen.com';
+	$wgAdyenGatewayBaseTestingURL = 'https://test.adyen.com'; // unused
+
+#	$wgAdyenGatewayAccountInfo['example'] = array(
+#		'AccountName' => ''; // account identifier, not login name
+#		'SharedSecret' => ''; // entered in the skin editor
+#		'SkinCode' => '';
+#	);
 }
 
 //Stomp globals
@@ -712,6 +732,11 @@ if ( $optionalParts['PayflowPro'] === true ){
 //Amazon Simple Payment gateway special pages
 if ( $optionalParts['Amazon'] === true ){
 	$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
+}
+//Adyen gateway special pages
+if ( $optionalParts['Adyen'] === true ){
+	$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
+	$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
 }
 
 

@@ -214,6 +214,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $manual_errors = array();
 	protected $current_transaction;
 	protected $action;
+	protected $risk_score = 0;
 	public $debugarray; 
 	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than 
@@ -281,12 +282,12 @@ abstract class GatewayAdapter implements GatewayType {
 		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
 		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
 
+		$this->findAccount();
+		$this->defineAccountInfo();
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineDataConstraints();
-		$this->findAccount();
-		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
 
 		$this->stageData();
@@ -557,8 +558,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * and use that message instead of the default. This would override error_map.
 	 *
 	 * @param    string    $code    The error code to look up in the map
-	 * @param array $options
-	 * @return    array|string    Returns @see GatewayAdapter::$error_map
+	 * @param    array     $options
+	 * @return   array|string    Returns @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMap( $code = null, $options = array() ) {
 
@@ -1733,6 +1734,7 @@ abstract class GatewayAdapter implements GatewayType {
 			case 'pending-poke':
 				$queue = 'pending';
 				break;
+
 			default:
 				// No action
 				self::log( "STOMP transaction has no place to go for status $status :(", LOG_WARNING );
@@ -2243,9 +2245,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	function runPreProcessHooks() {
 		// allow any external validators to have their way with the data
-		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . " Preparing to query MaxMind" );
+		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . " Preparing to run custom filters" );
 		wfRunHooks( 'GatewayValidate', array( &$this ) );
-		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished querying Maxmind' );
+		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished running custom filters' );
 
 		//DO NOT set some variable as getValidationAction() here, and keep 
 		//checking that. getValidationAction could change with each one of these 
@@ -2337,12 +2339,19 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Sets the current validation action. This is meant to be used by the
-	 * process hooks, and as such, by default, only worse news than was already
-	 * being stored will be retained for the final result.
-	 * @param string $action the value you want to set as the action.
-	 * @param bool $reset set to true to do a hard set on the action value.
-	 * Otherwise, the status will only change if it fails harder than it already
+	 * Allows us to send an initial fraud score offset with api calls
+	 */
+	public function addRiskScore( $score ) {
+		$this->risk_score += $score;
+	}
+
+	/**
+	 * Sets the current validation action. This is meant to be used by the 
+	 * process hooks, and as such, by default, only worse news than was already 
+	 * being stored will be retained for the final result.  
+	 * @param string $action the value you want to set as the action. 
+	 * @param bool $reset set to true to do a hard set on the action value. 
+	 * Otherwise, the status will only change if it fails harder than it already 
 	 * was.
 	 * @throws MWException
 	 */
