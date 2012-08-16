@@ -40,7 +40,6 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineAccountInfo() {}
 	function defineReturnValueMap() {}
 	function defineDataConstraints() {}
 
@@ -52,6 +51,10 @@ class AmazonAdapter extends GatewayAdapter {
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
 			'internal-0002' => 'donate_interface-processing-error', // Communication failure
 		);
+	}
+
+	public function defineAccountInfo() {
+		$this->accountInfo = array();
 	}
 
 	function defineTransactions() {
