@@ -78,6 +78,8 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		$log_message = "\"$source added a score of $score\"";
 		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
 		$this->risk_score[$source] = $score;
+
+		$this->gateway_adapter->addRiskScore( $score );
 	}
 	
 
