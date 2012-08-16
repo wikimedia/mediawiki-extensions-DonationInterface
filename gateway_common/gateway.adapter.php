@@ -1223,11 +1223,12 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
 		if ( $results['headers']['http_code'] != 200 ) {
-			$results['result'] = false;
-			//TODO: i18n here! 
-			//TODO: But also, fire off some kind of "No response from the gateway" thing to somebody so we know right away. 
-			$results['message'] = 'No response from ' . self::getGatewayName() . '.  Please try again later!';
-			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response from ' . self::getGatewayName() . ': ' . curl_error( $ch ) );
+
+			$errCode = $results['headers']['http_code'];
+			$errResult = $results['result'];
+
+			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response (error $errCode) from ' . self::getGatewayName() . ': ' . curl_error( $ch ) . " : result: $errResult" );
+
 			curl_close( $ch );
 			return false;
 		}

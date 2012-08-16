@@ -25,7 +25,6 @@ class AmazonAdapter extends GatewayAdapter {
 	function getResponseErrors( $response ) {}
 	function getResponseData( $response ) {}
 	function defineStagedVars() {}
-	function defineErrorMap() {}
 	function defineVarMap() {
 		$this->var_map = array(
 			"amount" => "amount",
@@ -44,6 +43,16 @@ class AmazonAdapter extends GatewayAdapter {
 	function defineAccountInfo() {}
 	function defineReturnValueMap() {}
 	function defineDataConstraints() {}
+
+	public function defineErrorMap() {
+
+		$this->error_map = array(
+			// Internal messages
+			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
+			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+		);
+	}
 
 	function defineTransactions() {
 		$this->transactions = array();
@@ -139,6 +148,7 @@ class AmazonAdapter extends GatewayAdapter {
 			unset( $request_params[ 'title' ] );
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
+			$this->log("received callback from amazon with: $incoming", LOG_DEBUG);
 		} 
 		else {
 			//TODO parseurl... in case ReturnURL already has a query string
@@ -154,10 +164,14 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->addDonorDataToSession();
 			$query_str = $this->encodeQuery( $query );
 			$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
+
+			$this->log("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
 		}
 		else {
 			$query_str = $this->encodeQuery( $query );
 			$this->url .= "?{$query_str}&Signature={$signature}";
+
+			$this->log("At $transaction, query string: $query_str", LOG_DEBUG);
 
 			parent::do_transaction( $transaction );
 		}
