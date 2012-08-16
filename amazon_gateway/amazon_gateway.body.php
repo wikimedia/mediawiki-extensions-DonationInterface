@@ -68,12 +68,12 @@ EOT;
 
 		if ( $this->adapter->checkTokens() && $wgRequest->getText( 'status' ) ) {
 			$this->adapter->do_transaction( 'VerifySignature' );
+
 			if ( $this->adapter->getTransactionWMFStatus() == 'complete' ) {
 				$wgOut->redirect( $this->adapter->getThankYouPage() );
 			}
 			else {
-				$error[ 'retryMsg' ] = wfMsg( 'php-response-declined' );
-				$this->adapter->addManualError( $error );
+				$wgOut->redirect( $this->adapter->getFailPage() );
 			}
 		}
 	}
