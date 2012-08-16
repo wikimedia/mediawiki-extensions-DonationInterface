@@ -766,11 +766,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected function appendNodeIfValue( $value, &$node, $js = false ) {
 		$nodevalue = $this->getTransactionSpecificValue( $value, $js );
 		if ( $nodevalue !== '' && $nodevalue !== false ) {
-
-			// HTML Entity encoding was added for Amazon. There might be a bug there because
-			// amazon arguably shouldn't be adding that node anyways... but... meh.
-
-			$temp = $this->xmlDoc->createElement( $value, htmlentities( $nodevalue ) );
+			$temp = $this->xmlDoc->createElement( $value, $nodevalue );
 			$node->appendChild( $temp );
 		}
 	}
