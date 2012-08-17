@@ -94,9 +94,17 @@ $messages['nl'] = array(
 
 /** Tagalog (Tagalog)
  * @author AnakngAraw
+ * @author Sky Harbor
  */
 $messages['tl'] = array(
-	'amazongateway' => 'Mag-abuloy ka na ngayon',
+	'amazongateway' => 'Magkaloob ka na ngayon',
 	'amazon_gateway-desc' => 'Pagsasagawa ng pagbabayad na pang-Amazon',
+);
+
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'amazongateway' => 'اب آپ عطیہ کر',
 );
 

@@ -2051,6 +2051,16 @@ $messages['uk'] = array(
 Будь ласка, спробуйте пізніше.',
 );
 
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'payflowpro_gateway-response-126' => 'اپنے لین دین کی منظوری نامکمل ہے.',
+	'payflowpro_gateway-response-12' => 'براہ مہربانی سے رابطہ آپ کے کریڈٹ کارڈ کی کمپنی مزید معلومات کے لئے.',
+	'payflowpro_gateway-response-23' => 'اپنے کریڈٹ کارڈ نمبر یا ختم تاریخ غلط ہے.',
+	'payflowpro_gateway-response-4' => 'باطل کی رقم.',
+);
+
 /** vèneto (vèneto)
  * @author Candalua
  */
