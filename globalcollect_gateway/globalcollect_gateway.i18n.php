@@ -899,6 +899,20 @@ $messages['tl'] = array(
 Mangyaring subukan uli mamaya.',
 );
 
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'globalcollectgateway' => 'اب آپ عطیہ کر',
+	'globalcollect_gateway-response-9130' => 'باطل ملک.',
+	'globalcollect_gateway-response-9140' => 'باطل کرنسی.',
+	'globalcollect_gateway-response-9150' => 'باطل زبان ہے.',
+	'globalcollect_gateway-response-400530' => 'باطل کی ادائیگی کا طریقہ.',
+	'globalcollect_gateway-response-430330' => 'باطل کارڈ کی تعداد ۔',
+	'globalcollect_gateway-response-21000150' => 'باطل بینک اکاؤنٹ کی تعداد ۔',
+	'globalcollect_gateway-response-21000155' => 'باطل بینک کوڈ.',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Trần Nguyễn Minh Huy
  */
