@@ -1184,10 +1184,25 @@ abstract class GatewayAdapter implements GatewayType {
 	 * problem. (timeout, bad URL, etc.) 
 	 */
 	protected function curl_transaction( $data ) {
+
 		// assign header data necessary for the curl_setopt() function
 		$this->getStopwatch( __FUNCTION__, true );
 
+		// Basic variable init
+		$retval = false;    // By default return that we failed
+
+		$contributionTrackingId = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$gatewayName = self::getGatewayName();
+
+		// Initialize cURL and construct operation (also run hook)
 		$ch = curl_init();
+
+		$hookResult = wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) );
+		if ( $hookResult == false ) {
+			self::log( "$contributionTrackingId cURL transaction aborted on hook DonationInterfaceCurlInit", LOG_INFO );
+			$this->setValidationAction('reject');
+			return false;
+		}
 
 		$headers = $this->getCurlBaseHeaders();
 		$headers[] = 'Content-Length: ' . strlen( $data );
@@ -1200,43 +1215,73 @@ abstract class GatewayAdapter implements GatewayType {
 			curl_setopt( $ch, $option, $value );
 		}
 
-		// As suggested in the PayPal developer forum sample code, try more than once to get a response
-		// in case there is a general network issue
+		// As suggested in the PayPal developer forum sample code, try more than once to get a
+		// response in case there is a general network issue
+		$continue = true;
 		$i = 1;
-
 		$results = array();
 
-		while ( $i++ <= 3 ) {
-			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Preparing to send transaction to ' . self::getGatewayName() );
-			$results['result'] = curl_exec( $ch );
-			$results['headers'] = curl_getinfo( $ch );
+		while ( ( $i++ <= 3 ) && ( $continue === true )) {
+			self::log( "$contributionTrackingId Preparing to send transaction to $gatewayName" );
 
-			if ( $results['headers']['http_code'] != 200 && $results['headers']['http_code'] != 403 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Failed sending transaction to ' . self::getGatewayName() . ', retrying' );
-				sleep( 1 );
-			} elseif ( $results['headers']['http_code'] == 200 || $results['headers']['http_code'] == 403 ) {
-				self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished sending transaction to ' . self::getGatewayName() );
-				break;
+			// Execute the cURL operation
+			$result = curl_exec( $ch );
+			$results['result'] = $result;
+
+			if ( $results['result'] !== false ) {
+				// The cURL operation was at least successful, what happened in it?
+
+				$results['headers'] = curl_getinfo( $ch );
+				$httpCode = $results['headers']['http_code'];
+
+				switch ( $httpCode ) {
+					case 200:   // Everything is AWESOME
+						$continue = false;
+
+						self::log( "$contributionTrackingId Successful transaction to $gatewayName", LOG_DEBUG );
+						$this->setTransactionResult( $results );
+
+						$retval = true;
+						break;
+
+					case 400:   // Oh noes! Bad request.. BAD CODE, BAD BAD CODE!
+						$continue = false;
+
+						self::log( "$contributionTrackingId on $gatewayName returned (400) BAD REQUEST: $result", LOG_ERR );
+
+						// Even though there was an error, set the results. Amazon at least gives
+						// us useful XML return
+						$this->setTransactionResult( $results );
+
+						$retval = true;
+						break;
+
+					case 403:   // Hmm, forbidden? Maybe if we ask it nicely again...
+						$continue = true;
+						self::log( "$contributionTrackingId on $gatewayName returned (403) FORBIDDEN: $result", LOG_ALERT );
+						break;
+
+					default:    // No clue what happened... break out and log it
+						$continue = false;
+						self::log( "$contributionTrackingId on $gatewayName failed remotely and returned ($httpCode): $result", LOG_ERR );
+						break;
+				}
+			} else {
+				// Well the cURL transaction failed for some reason or another. Try again!
+				$continue = true;
+
+				$errno = curl_errno( $ch );
+				$err = curl_error( $ch );
+				self::log( "$contributionTrackingId cURL transaction  to $gatewayName failed: ($errno) $err" );
 			}
-		}
 
+		} // End while cURL transaction hasn't returned something useful
+
+		// Clean up and return
+		curl_close( $ch );
 		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
-		if ( $results['headers']['http_code'] != 200 ) {
-
-			$errCode = $results['headers']['http_code'];
-			$errResult = $results['result'];
-
-			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' No response (error $errCode) from ' . self::getGatewayName() . ': ' . curl_error( $ch ) . " : result: $errResult" );
-
-			curl_close( $ch );
-			return false;
-		}
-
-		curl_close( $ch );
-
-		$this->setTransactionResult( $results );
-		return true;
+		return $retval;
 	}
 
 	/**

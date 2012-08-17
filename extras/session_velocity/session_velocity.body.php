@@ -46,16 +46,6 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 
 	public function __construct( &$gateway_adapter ) {
 		parent::__construct( $gateway_adapter );
-
-		$this->sessionVarName_Score = sprintf(
-			$this->sessionVarName_Score,
-			$gateway_adapter->getIdentifier()
-		);
-
-		$this->sessionVarName_UpdateTime = sprintf(
-			$this->sessionVarName_UpdateTime,
-			$gateway_adapter->getIdentifier()
-		);
 	}
 
 	/**
@@ -87,8 +77,8 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
 		// Determine IP status before doing anything complex
-		$wl = DataValidator::ip_is_listed( $user_ip, 'IPWhitelist', $gateway_adapter->IDENTIFIER );
-		$bl = DataValidator::ip_is_listed( $user_ip, 'IPBlacklist', $gateway_adapter->IDENTIFIER );
+		$wl = DataValidator::ip_is_listed( $user_ip, 'IPWhitelist', $gateway_adapter->getIdentifier() );
+		$bl = DataValidator::ip_is_listed( $user_ip, 'IPBlacklist', $gateway_adapter->getIdentifier() );
 
 		if ( $wl ) {
 			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in whitelist.";
