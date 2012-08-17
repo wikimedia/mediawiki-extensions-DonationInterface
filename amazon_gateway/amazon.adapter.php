@@ -22,8 +22,6 @@ class AmazonAdapter extends GatewayAdapter {
 	const COMMUNICATION_TYPE = 'xml';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
-	function getResponseErrors( $response ) {}
-	function getResponseData( $response ) {}
 	function defineStagedVars() {}
 	function defineVarMap() {
 		$this->var_map = array(
@@ -34,6 +32,8 @@ class AmazonAdapter extends GatewayAdapter {
 			"buyerEmail" => "email",
 			"transactionDate" => "date_collect",
 			"buyerName" => "fname", //TODO unravel mystery in queueconsumer
+			"errorMessage" => "error_message",
+			"paymentMethod" => "payment_method",
 			//"recipientEmail" => "merchant_email",
 			//"recipientName" => "merchant_name",
 			//"operation" => e.g. "pay"
@@ -69,7 +69,6 @@ class AmazonAdapter extends GatewayAdapter {
 				'signatureMethod',
 				'signatureVersion',
 				'accessKey',
-				'amazonPaymentsAccountId',
 			),
 			'values' => array(
 				'cobrandingStyle' => 'logo',
@@ -81,7 +80,6 @@ class AmazonAdapter extends GatewayAdapter {
 				'signatureMethod' => 'HmacSHA256',
 				'signatureVersion' => '2',
 				'accessKey' => $this->getGlobal( 'AccessKey' ),
-				'amazonPaymentsAccountId' => $this->getGlobal( 'PaymentsAccountID' ),
 			),
 			'redirect' => TRUE,
 		);
@@ -199,6 +197,7 @@ class AmazonAdapter extends GatewayAdapter {
 		global $wgRequest;
 
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
+			// Obtain data parameters for STOMP message injection
 			//n.b. these request vars were from the _previous_ api call
 			$add_data = array();
 			foreach ( $this->var_map as $gateway_key => $normal_key ) {
@@ -215,14 +214,24 @@ class AmazonAdapter extends GatewayAdapter {
 			//TODO: consider prioritizing the session vars
 			$this->dataObj->addData( $add_data );
 
-			//todo: lots of other statuses we can interpret
-			$success_statuses = array( 'PS' );
-			$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
-			if ( in_array( $status, $success_statuses ) ) {
-				$this->setTransactionWMFStatus( 'complete' );
-				$this->setTransactionResult( $this->dataObj->getVal_Escaped( 'gateway_txn_id' ), 'gateway_txn_id' );
-			}
-			else {
+			// Take a look at the return URL status param; but only if the signature could be
+			// verified with Amazon.
+			if ( $response['data'] == true ) {
+				//todo: lots of other statuses we can interpret
+				$success_statuses = array( 'PS', 'PI' );
+				$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
+				if ( in_array( $status, $success_statuses ) ) {
+					$this->setTransactionWMFStatus( 'complete' );
+					$this->setTransactionResult( $this->dataObj->getVal_Escaped( 'gateway_txn_id' ), 'gateway_txn_id' );
+				}
+				else {
+					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
+					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
+					$this->log( "Transaction failed with ($status) $errString", LOG_ERR );
+					$this->setTransactionWMFStatus( 'failed' );
+				}
+			} else {
+				$this->log( "Transaction failed in response data verification.", LOG_INFO );
 				$this->setTransactionWMFStatus( 'failed' );
 			}
 		}
@@ -256,13 +265,13 @@ class AmazonAdapter extends GatewayAdapter {
 	function getCurlBaseHeaders() {
 		$headers = array(
 			'Content-Type: text/html; charset=utf-8',
-			'X-VPS-Client-Timeout: 45',
-			'X-VPS-Request-ID:' . $this->postdatadefaults[ 'order_id' ],
 		);
 		return $headers;
 	}
 
-	public function getResponseStatus( $response ) {
+	function getResponseData( $response ) {
+		// The XML string isn't really all that useful, so just return TRUE if the signature
+		// was verified
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
 			$statuses = $response->getElementsByTagName( 'VerificationStatus' );
 			foreach ( $statuses as $node ) {
@@ -273,5 +282,49 @@ class AmazonAdapter extends GatewayAdapter {
 		}
 
 		return FALSE;
+	}
+
+	public function getResponseStatus( $response ) {
+		$aok = false;
+
+		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
+
+			foreach ( $response->getElementsByTagName( 'VerifySignatureResult' ) as $node ) {
+				// All we care about is that the node exists
+				$aok = true;
+			}
+		}
+
+		return $aok;
+	}
+
+	function getResponseErrors( $response ) {
+		$errors = array( );
+		foreach ( $response->getElementsByTagName( 'Error' ) as $node ) {
+			$code = '';
+			$message = '';
+			foreach ( $node->childNodes as $childnode ) {
+				if ( $childnode->nodeName === "Code" ) {
+					$code = $childnode->nodeValue;
+				}
+				if ( $childnode->nodeName === "Message" ) {
+					$message = $childnode->nodeValue;
+				}
+			}
+		}
+		return $errors;
+	}
+
+	/**
+	 * For the Amazon adapter this is a huge hack! Because we build the transaction differently.
+	 * Amazon expectings things to them in the query string, and back via XML. Go figure.
+	 *
+	 * In any case; do_transaction() does the heavy lifting. And this does nothing; which is
+	 * required because otherwise we throw a bunch of silly XML at Amazon that it just ignores.
+	 *
+	 * @return string|void Nothing :)
+	 */
+	protected function buildRequestXML() {
+		return '';
 	}
 }
