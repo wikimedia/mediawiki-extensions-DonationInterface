@@ -188,6 +188,13 @@ $messages['de-formal'] = array(
 Bitte versuchen Sie es später noch einmal.',
 );
 
+/** Zazaki (Zazaki)
+ * @author Erdemaslancan
+ */
+$messages['diq'] = array(
+	'globalcollectgateway' => 'Bêca xo newke bıkerê',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
@@ -284,7 +291,7 @@ $messages['frp'] = array(
  */
 $messages['gl'] = array(
 	'globalcollectgateway' => 'Fai a túa doazón agora',
-	'globalcollect_gateway-desc' => 'Procesamento de pagamentos GlobalCollect',
+	'globalcollect_gateway-desc' => 'Procesamento de pagamentos de GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'O país non é válido.',
 	'globalcollect_gateway-response-9140' => 'A moeda non é válida.',
 	'globalcollect_gateway-response-9150' => 'A lingua non é válida.',

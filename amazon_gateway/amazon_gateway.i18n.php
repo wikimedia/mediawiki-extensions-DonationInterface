@@ -20,6 +20,13 @@ $messages['qqq'] = array(
 	'amazon_gateway-desc' => '{{desc}}',
 );
 
+/** Breton (brezhoneg)
+ * @author Y-M D
+ */
+$messages['br'] = array(
+	'amazongateway' => 'Grit ur roadenn bremañ',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
@@ -52,6 +59,14 @@ $messages['fr'] = array(
 	'amazon_gateway-desc' => 'Traitement des paiements Amazon',
 );
 
+/** Galician (galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'amazongateway' => 'Fai a túa doazón agora',
+	'amazon_gateway-desc' => 'Procesamento de pagamentos de Amazon',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -74,6 +89,13 @@ $messages['it'] = array(
 $messages['ja'] = array(
 	'amazongateway' => '今すぐ寄付',
 	'amazon_gateway-desc' => 'Amazon での支払い処理',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'amazongateway' => 'Maacht Ären Don elo',
 );
 
 /** Macedonian (македонски)

@@ -761,7 +761,7 @@ $messages['ga'] = array(
  */
 $messages['gl'] = array(
 	'payflowprogateway' => 'Fai a túa doazón agora',
-	'payflowpro_gateway-desc' => 'Procesamento por tarxeta de crédito PayPal Payflow Pro',
+	'payflowpro_gateway-desc' => 'Procesamento por tarxeta de crédito de PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'A túa transacción foi aprobada.
 Grazas pola doazón!',
 	'payflowpro_gateway-response-126' => 'A túa transacción está pendente de aprobación.',
