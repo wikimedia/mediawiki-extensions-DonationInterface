@@ -72,8 +72,7 @@ EOT;
 				$wgOut->redirect( $this->adapter->getThankYouPage() );
 			}
 			else {
-				$error[ 'retryMsg' ] = wfMsg( 'php-response-declined' );
-				$this->adapter->addManualError( $error );
+				$wgOut->redirect( $this->adapter->getFailPage() );
 			}
 		}
 	}
