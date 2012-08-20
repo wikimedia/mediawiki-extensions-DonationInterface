@@ -20,6 +20,14 @@ $messages['qqq'] = array(
 	'amazon_gateway-desc' => '{{desc}}',
 );
 
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'amazongateway' => 'Зрабіце ахвяраваньне зараз',
+	'amazon_gateway-desc' => 'Працэсінг плацяжоў Amazon',
+);
+
 /** Breton (brezhoneg)
  * @author Y-M D
  */
