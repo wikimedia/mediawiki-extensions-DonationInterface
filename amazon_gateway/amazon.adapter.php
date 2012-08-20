@@ -22,6 +22,16 @@ class AmazonAdapter extends GatewayAdapter {
 	const COMMUNICATION_TYPE = 'xml';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
+	function __construct( $options = array() ) {
+		parent::__construct( $options );
+
+		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+			$this->addData(
+				array( 'payment_method' => 'amazon' )
+			);
+		}
+	}
+
 	function defineStagedVars() {}
 	function defineVarMap() {
 		$this->var_map = array(
@@ -31,16 +41,18 @@ class AmazonAdapter extends GatewayAdapter {
 			"status" => "gateway_status",
 			"buyerEmail" => "email",
 			"transactionDate" => "date_collect",
-			"buyerName" => "fname", //TODO unravel mystery in queueconsumer
+			"buyerName" => "fname", // This is dealt with in processResponse()
 			"errorMessage" => "error_message",
-			"paymentMethod" => "payment_method",
+			"paymentMethod" => "payment_submethod",
 			//"recipientEmail" => "merchant_email",
 			//"recipientName" => "merchant_name",
 			//"operation" => e.g. "pay"
 		);
 	}
 
-	function defineAccountInfo() {}
+	function defineAccountInfo() {
+		$this->accountInfo = array();
+	}
 	function defineReturnValueMap() {}
 	function defineDataConstraints() {}
 
@@ -204,10 +216,20 @@ class AmazonAdapter extends GatewayAdapter {
 				$value = $wgRequest->getVal( $gateway_key, null );
 				if ( !empty( $value ) ) {
 					$add_data[ $normal_key ] = $value;
-					if ( $normal_key == 'amount' ) {
-						list ($currency, $amount) = explode( ' ', $value );
-						$add_data[ 'currency' ] = $currency;
-						$add_data[ 'amount' ] = $amount;
+
+					// Deal with some fun special cases
+					switch ( $normal_key ) {
+						case 'amount':
+							list ($currency, $amount) = explode( ' ', $value );
+							$add_data[ 'currency' ] = $currency;
+							$add_data[ 'amount' ] = $amount;
+							break;
+
+						case 'fname':
+							list ($fname, $lname) = explode( ' ', $value, 2 );
+							$add_data[ 'fname' ] = $fname;
+							$add_data[ 'lname' ] = $lname;
+							break;
 					}
 				}
 			}
@@ -327,4 +349,5 @@ class AmazonAdapter extends GatewayAdapter {
 	protected function buildRequestXML() {
 		return '';
 	}
+
 }
