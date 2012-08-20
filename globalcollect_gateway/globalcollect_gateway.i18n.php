@@ -195,6 +195,22 @@ $messages['diq'] = array(
 	'globalcollectgateway' => 'Bêca xo newke bıkerê',
 );
 
+/** Lower Sorbian (dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'globalcollectgateway' => 'Něnto pósćiś',
+	'globalcollect_gateway-desc' => 'Zmóžnja pśewjeźenje płaśenjow pśez GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Njepłaśiwy kraj.',
+	'globalcollect_gateway-response-9140' => 'Njepłaśiwe pjenjeze.',
+	'globalcollect_gateway-response-9150' => 'Njepłaśiwa rěc.',
+	'globalcollect_gateway-response-400530' => 'Njepłaśiwa metoda płaśenja.',
+	'globalcollect_gateway-response-430330' => 'Njepłaśiwy kórtowy numer.',
+	'globalcollect_gateway-response-21000150' => 'Njepłaśiwy kontowy numer.',
+	'globalcollect_gateway-response-21000155' => 'Njepłaśiwy numer banki.',
+	'globalcollect_gateway-response-21000160' => 'Njepłaśiwy girokontowy numer.',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
