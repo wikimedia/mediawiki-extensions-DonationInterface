@@ -59,6 +59,14 @@ $messages['dsb'] = array(
 	'amazon_gateway-desc' => 'Pśeźěłanje zapłaśenjow pśez Amazon',
 );
 
+/** Spanish (español)
+ * @author Armando-Martin
+ */
+$messages['es'] = array(
+	'amazongateway' => 'Haz tu donación ahora',
+	'amazon_gateway-desc' => 'Proceso de pagos de Amazon',
+);
+
 /** French (français)
  * @author Erkethan
  */
@@ -73,6 +81,14 @@ $messages['fr'] = array(
 $messages['gl'] = array(
 	'amazongateway' => 'Fai a túa doazón agora',
 	'amazon_gateway-desc' => 'Procesamento de pagamentos de Amazon',
+);
+
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'amazongateway' => 'לתרום עכשיו',
+	'amazon_gateway-desc' => 'עיבוד תשלומים של אמזון',
 );
 
 /** Upper Sorbian (hornjoserbsce)
