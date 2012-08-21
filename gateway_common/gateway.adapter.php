@@ -1644,34 +1644,31 @@ abstract class GatewayAdapter implements GatewayType {
 			return;
 		}
 		$this->debugarray[] = "Attempting Stomp Transaction!";
-		$hook = '';
+
+		$queue = 'default';
 
 		$status = $this->getTransactionWMFStatus();
 		switch ( $status ) {
 			case 'complete':
-				$hook = 'gwStomp';
+				$queue = 'default';
 				break;
+
 			case 'pending':
 			case 'pending-poke':
-				$hook = 'gwPendingStomp';
+				$queue = 'pending';
 				break;
-		}
-		if ( $hook === '' ) {
-			$this->debugarray[] = "No Stomp Hook Found for WMF_Status $status";
-			return;
+
+			default:
+				// No action
+				self::log( "STOMP transaction has no place to go for status $status :(", LOG_WARNING );
+				return;
 		}
 
 		// send the thing.
-		$transaction = array(
-			'response' => $this->getTransactionMessage(),
-			'date' => time(),
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			//'language' => '',
-		);
-		$transaction += $this->getData_Unstaged_Escaped();
+		$transaction = $this->getStompTransaction();
 
 		try {
-			wfRunHooks( $hook, array( $transaction ) );
+			wfRunHooks( 'gwStomp', array( $transaction, $queue ) );
 		} catch ( Exception $e ) {
 			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
 		}
@@ -1682,60 +1679,75 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Function that adds a stomp message to a special 'limbo' queue, for data 
 	 * that is either highly likely or completely guaranteed to be bifurcated by 
 	 * handing the ball to a third-party process. 
-	 * TODO: Functionalize some of the code copied from doStompTransaction.  
+	 *
+	 * @param bool $antiMessage If TRUE message will be formatted to destroy a message in the limbo
+	 *  queue when the orphan slayer is run.
+	 *
 	 * @return null 
 	 */
-	protected function doLimboStompTransaction( $antimessage = false ) {
+	protected function doLimboStompTransaction( $antiMessage = false ) {
 		if ( !$this->getGlobal( 'EnableStomp' ) ){
 			return;
 		}
 		
-		if ($this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc'){
-			global $wgCCLimboStompQueueName;
-			if ( !isset( $wgCCLimboStompQueueName ) || $wgCCLimboStompQueueName === false ){
-				return;
-			}
-		} else {
-			global $wgLimboStompQueueName;
-			if ( !isset( $wgLimboStompQueueName ) || $wgLimboStompQueueName === false ){
-				return;
-			}
-		}
-		
 		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
-		$hook = 'gwLimboStomp';
 
-		$stomp_fields = $this->dataObj->getStompMessageFields();
-		
-		if ($antimessage){
-			$transaction = array(
-				'date' => time(),
-				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-				'correlation-id' => $this->getCorrelationID(),
-				'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
-				'antimessage' => 'true'
-			);
-		} else {
-			$transaction = array(
-				'response' => $this->getTransactionMessage(),
-				'date' => time(),
-				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-				'correlation-id' => $this->getCorrelationID(),
-				'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
-			);
-			
-			$unstaged_local = array();
-			foreach ( $stomp_fields as $field ){	
-				$unstaged_local[$field] = $this->getData_Unstaged_Escaped( $field );
-			}
-			$transaction = array_merge( $unstaged_local, $transaction );
-		}
+		$transaction = $this->getStompTransaction( $antiMessage );
 
 		try {
-			wfRunHooks( $hook, array( $transaction ) );
+			wfRunHooks( 'gwStomp', array( $transaction, 'limbo' ) );
 		} catch ( Exception $e ) {
 			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
 		}
+	}
+
+	/**
+	 * Formats an array in preparation for dispatch to a STOMP queue
+	 *
+	 * @param bool $antiMessage If TRUE, message will be prepared to destroy
+	 * @param bool $recoverTimestamp If TRUE the timestamp will be set to any recoverable timestamp
+	 *  from the transaction. If it cannot be recovered or this argument is false, it will take the
+	 *  current time.
+	 *
+	 * @return array Pass this return array to STOMP :)
+	 */
+	protected function getStompTransaction( $antiMessage = false, $recoverTimestamp = false ) {
+		$transaction = array(
+			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
+			'response' => $this->getTransactionMessage(),
+			'correlation-id' => $this->getCorrelationID(),
+		);
+
+		if ( $antiMessage == true ) {
+			// As anti-messages only exist to destroy messages all we need is the identifier
+			$transaction['antimessage'] = 'true';
+		} else {
+			// Else we actually need the rest of the data
+			$stomp_data = array_intersect_key(
+				$this->getData_Unstaged_Escaped(),
+				array_flip( $this->dataObj->getStompMessageFields() )
+			);
+
+			// The order here is important, values in $transaction are considered more definitive
+			// in case the transaction already had keys with those values
+			$transaction = array_merge( $stomp_data, $transaction );
+
+			// And now determine the date; which is annoyingly not as easy as one would like it
+			// if we're attempting to recover some data: ie: we're an orphan
+			$timestamp = null;
+			if ( $recoverTimestamp === true ) {
+				if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
+					$timestamp = $this->getData_Unstaged_Escaped( 'date' );
+				} elseif ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
+					// That this works is mildly surprising
+					$timestamp = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) );
+				}
+			}
+			$transaction['date'] = ( $timestamp === null ) ? time() : $timestamp;
+		}
+
+		return $transaction;
 	}
 	
 	protected function getCorrelationID(){

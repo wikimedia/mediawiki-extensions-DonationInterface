@@ -370,10 +370,17 @@ if ( $optionalParts['Amazon'] === true ){
 //Stomp globals
 if ($optionalParts['Stomp'] === true){
 	$wgStompServer = "";
-	//$wgStompQueueName = ""; //only set this with an actual value. Default is unset.
-	//$wgPendingStompQueueName = ""; //only set this with an actual value. Default is unset.
-	//$wgLimboStompQueueName = ""; //only set this with an actual value. Default is unset.
-	//$wgCCLimboStompQueueName = ""; //only set this with an actual value. Default is unset.
+
+	// In this array, 'default', 'pending', and 'limbo' are required keys for those categories of
+	// transactions. The value is the name of the queue. To single out a transaction type, ie:
+	// credit cards, prepend 'cc-' to the base key name.
+	//
+	// If the resultant queue name evaluates to false, the message will not be queued on the server.
+	$wgStompQueueNames = array(
+		'default' => 'test-default',    // Previously known as $wgStompQueueName
+		'pending' => 'test-pending',    // Previously known as $wgPendingStompQueueName
+		'limbo' => 'test-limbo',        // Previously known as $wgLimboStompQueueName
+	);
 }
 
 //Extras globals - required for ANY optional class that is considered an "extra".
@@ -903,6 +910,7 @@ if ( $optionalParts['PayflowPro'] === true ){
 //---Stomp functions---
 if ($optionalParts['Stomp'] === true){
 	require_once( $donationinterface_dir . 'activemq_stomp/activemq_stomp.php'  );
+	$wgAutoloadClasses['Stomp'] = $donationinterface_dir . 'activemq_stomp/Stomp.php';
 }
 
 function efDonationInterfaceUnitTests( &$files ) {
