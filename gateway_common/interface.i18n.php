@@ -23119,7 +23119,7 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
 	'donate_interface-dd-account_number' => 'Numărul contului',
 	'donate_interface-dd-authorization_id' => 'ID autorizație',
 	'donate_interface-dd-bank_check_digit' => 'Cifră de control bancar',
-	'donate_interface-dd-bank_code' => 'Sortează codul',
+	'donate_interface-dd-bank_code' => 'Cod de sortare',
 	'donate_interface-dd-bank_name' => 'Numele băncii',
 	'donate_interface-dd-iban' => 'IBAN',
 	'donate_interface-translate-bluelink' => 'Îmbunătățiți această traducere',
