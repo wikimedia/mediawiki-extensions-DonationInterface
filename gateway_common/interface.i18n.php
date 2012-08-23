@@ -8022,7 +8022,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 $messages['eu'] = array(
 	'donate_interface' => 'Lagundu Wikimedia',
 	'donate_interface-intro' => 'Mesedez aukeratu ordainketa era, kopurua, eta txanpon-mota.',
-	'donate_interface-amount' => 'Dohaintza kopurua:',
+	'donate_interface-amount' => 'Kopurua',
 	'donate_interface-other-amount' => 'Bestelako kopurua',
 	'donate_interface-currency' => 'Txanpona:',
 	'donate_interface-gateway' => 'Ordainketa era:',
@@ -21175,7 +21175,7 @@ $messages['pms'] = array(
 	'donate_interface-donor-street' => 'Contrà:',
 	'donate_interface-donor-street-number' => 'Nùmer',
 	'donate_interface-donor-city' => 'Sità:',
-	'donate_interface-donor-county' => 'Contea',
+	'donate_interface-donor-county' => 'Contà',
 	'donate_interface-donor-island' => 'Ìsola',
 	'donate_interface-donor-state' => 'Stat:',
 	'donate_interface-donor-zip' => 'Còdes postal',
