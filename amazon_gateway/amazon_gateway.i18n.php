@@ -67,6 +67,13 @@ $messages['es'] = array(
 	'amazon_gateway-desc' => 'Proceso de pagos de Amazon',
 );
 
+/** Basque (euskara)
+ * @author An13sa
+ */
+$messages['eu'] = array(
+	'amazongateway' => 'Egin orain zure dohaintza',
+);
+
 /** French (français)
  * @author Erkethan
  */
