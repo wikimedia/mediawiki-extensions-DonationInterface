@@ -21367,6 +21367,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-online_bank_transfer_message' => "Servissi bancari për teléfon e an sl'aragnà - BPAY®",
 	'donate_interface-rtbt-issuer_id' => 'Sern na Banca',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Àutre banche',
+	'donate_interface-sofortbanking' => "Sofortbanking a l'é un Trasferiment Bancari diret, an temp real via DIRECTebanking.com che at përmëtt d'ativé diretament un trasferiment bancari an mente da toa donassion an linia con ij tò dat bancari. Se tò cont bancari a l'é pa abilità con funsion an linia it peule dovré l'opsion \"Doné con trasferiment bancari manual\" an sla pagina ëd donassion prinsipal.",
 	'donate_interface-dd-account_name' => 'Nòm dël cont',
 	'donate_interface-dd-account_number' => 'Nùmer dël cont',
 	'donate_interface-dd-authorization_id' => "ID dl'autorisassion",
