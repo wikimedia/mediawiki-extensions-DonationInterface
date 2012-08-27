@@ -13756,7 +13756,7 @@ $messages['ja'] = array(
 	'donate_interface-card-name-discover' => 'ディスカバー',
 	'donate_interface-error-msg-general' => '要求の処理中にエラーが発生しました。',
 	'donate_interface-error-msg-nopaypal' => '技術的なエラーが発生したため、PayPalに要求を送信できませんでした。通常のクレジットカードの寄付フォームを利用してみてください。',
-	'donate_interface-error-msg' => '以下の項目は必須です：$1',
+	'donate_interface-error-msg' => '以下の項目は必須です: $1',
 	'donate_interface-error-msg-js' => '以下の項目を入力してください',
 	'donate_interface-error-msg-validation' => 'フォーム内のエラーを修正してください。',
 	'donate_interface-error-msg-invalid-amount' => '有効な金額を入力してください',
@@ -13874,7 +13874,7 @@ $messages['ja'] = array(
 	'donate_interface-cvv2' => 'カード照合番号2',
 	'donate_interface-cvv-number' => 'カード照合番号の値',
 	'donate_interface-verification-number' => '照合番号',
-	'donate_interface-what-is-this' => 'これは何？',
+	'donate_interface-what-is-this' => 'これは何?',
 	'donate_interface-do-not-include-dashes' => 'ダッシュを含めないでください',
 	'donate_interface-please-donate-today' => '今日、寄付してください',
 	'donate_interface-donate-now' => '今すぐ寄付',
@@ -13980,7 +13980,7 @@ $messages['ja'] = array(
 	'donate_interface-onetime-short' => '一度だけ',
 	'donate_interface-securelogo-title' => 'クリックして確認 - このサイトは電子商取引の安全と通信の秘密保持のためにVeriSign SSLを用いています。',
 	'donate_interface-secureLogo-text' => 'SSL 証明書について',
-	'donate_interface-error-http-403' => 'このページへのアクセス許可がありません。',
+	'donate_interface-error-http-403' => 'あなたにはこのページへのアクセス権がありません。',
 );
 
 /** Javanese (Basa Jawa)
