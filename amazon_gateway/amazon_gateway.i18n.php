@@ -138,13 +138,21 @@ $messages['nl'] = array(
 	'amazon_gateway-desc' => 'Betalingsverwerking via Amazon',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'amazongateway' => 'Fà toa donassion adess',
+	'amazon_gateway-desc' => "Process ëd pagament d'Amazon",
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor
  */
 $messages['tl'] = array(
 	'amazongateway' => 'Magkaloob ka na ngayon',
-	'amazon_gateway-desc' => 'Pagsasagawa ng pagbabayad na pang-Amazon',
+	'amazon_gateway-desc' => 'Pagsasagawa ng pagbabayad gamit ang Amazon',
 );
 
 /** Urdu (اردو)
