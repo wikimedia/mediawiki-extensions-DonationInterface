@@ -67,8 +67,11 @@ EOT;
 
 
 		if ( $this->adapter->checkTokens() && $wgRequest->getText( 'status' ) ) {
-			$this->adapter->do_transaction( 'VerifySignature' );
-			if ( $this->adapter->getTransactionWMFStatus() == 'complete' ) {
+			$this->adapter->do_transaction( 'ProcessAmazonReturn' );
+
+			$status = $this->adapter->getTransactionWMFStatus();
+
+			if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
 				$wgOut->redirect( $this->adapter->getThankYouPage() );
 			}
 			else {

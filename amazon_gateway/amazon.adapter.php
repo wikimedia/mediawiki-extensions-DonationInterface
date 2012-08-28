@@ -109,13 +109,17 @@ class AmazonAdapter extends GatewayAdapter {
 			'values' => array(
 				'Action' => "VerifySignature",
 				'UrlEndPoint' => $this->getGlobal( "ReturnURL" ),
-				'Version' => "2008-09-17",
+				'Version' => "2010-08-28",
 				'SignatureMethod' => "HmacSHA256",
 				'SignatureVersion' => "2",
 				'AWSAccessKeyId' => $this->getGlobal( "AccessKey" ),
 				'Timestamp' => date( 'c' ),
 			),
 			'url' => $this->getGlobal( "FpsURL" ),
+		);
+		$this->transactions[ 'ProcessAmazonReturn' ] = array(
+			'request' => array(),
+			'values' => array(),
 		);
 	}
 
@@ -169,33 +173,45 @@ class AmazonAdapter extends GatewayAdapter {
 		$parsed_uri = parse_url( $this->url );
 		$signature = $this->signRequest( $parsed_uri[ 'host' ], $parsed_uri[ 'path' ], $query );
 
-		if ( $this->transaction_option( 'redirect' ) ) {
-			$this->doLimboStompTransaction();
-			$this->addDonorDataToSession();
-			$query_str = $this->encodeQuery( $query );
-			$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
+		switch ( $transaction ) {
+			case 'Donate':
+				$this->addDonorDataToSession();
+				$query_str = $this->encodeQuery( $query );
+				$this->log("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
 
-			$this->log("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
-		}
-		else {
-			$query_str = $this->encodeQuery( $query );
-			$this->url .= "?{$query_str}&Signature={$signature}";
+				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
+				return;
 
-			$this->log("At $transaction, query string: $query_str", LOG_DEBUG);
+			case 'VerifySignature':
+				// We don't currently use this. In fact we just ignore the return URL signature.
+				// However, it's perfectly good code and we may go back to using it at some point
+				// so I didn't want to remove it.
+				$query_str = $this->encodeQuery( $query );
+				$this->url .= "?{$query_str}&Signature={$signature}";
 
-			parent::do_transaction( $transaction );
-		}
+				$this->log("At $transaction, query string: $query_str", LOG_DEBUG);
 
-		// This is actually the final step of a redirected call.
-		// At the moment we only have one case, in the future we can
-		// check the 'operation' param to determine the originating call.
-		if ( $transaction == 'VerifySignature' ) {
-			if ( $this->getTransactionWMFStatus() == 'complete' ) {
-				$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
-				$this->runPostProcessHooks();
-				$this->doLimboStompTransaction( true );
-			}
-			$this->unsetAllSessionData();
+				parent::do_transaction( $transaction );
+
+				if ( $this->getTransactionWMFStatus() == 'complete' ) {
+					$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
+					$this->runPostProcessHooks();
+					$this->doLimboStompTransaction( true );
+				}
+				$this->unsetAllSessionData();
+				return;
+
+			case 'ProcessAmazonReturn':
+				// What we need to do here is make sure
+				$this->addDataFromURI();
+				$this->analyzeReturnStatus();
+				$this->unsetAllSessionData();
+				return;
+
+			default:
+				$this->log( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
+				$this->setTransactionWMFStatus( 'failed' );
+				return;
 		}
 	}
 
@@ -205,62 +221,82 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function processResponse( $response, &$retryVars = null ) {
-		global $wgRequest;
+	/**
+	 * Looks at the 'status' variable in the amazon return URL get string and places the data
+	 * in the appropriate WMF status and sends to STOMP.
+	 */
+	protected function analyzeReturnStatus() {
+		// We only want to analyze this if we don't already have a WMF status... Therefore we
+		// won't overwrite things.
+		if ( $this->getTransactionWMFStatus() === false ) {
 
-		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
-			// Obtain data parameters for STOMP message injection
-			//n.b. these request vars were from the _previous_ api call
-			$add_data = array();
-			foreach ( $this->var_map as $gateway_key => $normal_key ) {
-				$value = $wgRequest->getVal( $gateway_key, null );
-				if ( !empty( $value ) ) {
-					$add_data[ $normal_key ] = $value;
+			$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
+			$this->setTransactionResult( $txnid, 'gateway_txn_id' );
 
-					// Deal with some fun special cases
-					switch ( $normal_key ) {
-						case 'amount':
-							list ($currency, $amount) = explode( ' ', $value );
-							$add_data[ 'currency' ] = $currency;
-							$add_data[ 'amount' ] = $amount;
-							break;
+			// Second make sure that the inbound request had a matching outbound session. If it
+			// doesn't we drop it.
+			if ( !$this->dataObj->hasDonorDataInSession( 'order_id', $this->getData_Unstaged_Escaped( 'order_id' ) ) ) {
 
-						case 'fname':
-							list ($fname, $lname) = explode( ' ', $value, 2 );
-							$add_data[ 'fname' ] = $fname;
-							$add_data[ 'lname' ] = $lname;
-							break;
-					}
+				// We will however log it if we have a seemingly valid transaction id
+				if ( $txnid != null ) {
+					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+					$this->log( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
 				}
+
+				$this->setTransactionWMFStatus( 'failed' );
+				return;
 			}
-			//TODO: consider prioritizing the session vars
-			$this->dataObj->addData( $add_data );
 
-			// Take a look at the return URL status param; but only if the signature could be
-			// verified with Amazon.
-			if ( $response['data'] == true ) {
-				//todo: lots of other statuses we can interpret
-				$success_statuses = array( 'PS', 'PI' );
-				$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
-				if ( in_array( $status, $success_statuses ) ) {
+			// Third: we did have an outbound request; so let's look at what amazon is telling us
+			// about the transaction.
+			// todo: lots of other statuses we can interpret
+			// see: http://docs.amazonwebservices.com/AmazonSimplePay/latest/ASPAdvancedUserGuide/ReturnValueStatusCodes.html
+			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
+				case 'PS':  // Payment success
 					$this->setTransactionWMFStatus( 'complete' );
-					$this->setTransactionResult( $this->dataObj->getVal_Escaped( 'gateway_txn_id' ), 'gateway_txn_id' );
-				}
-				else {
+					$this->doStompTransaction();
+					break;
+
+				case 'PI':  // Payment initiated, it will complete later
+					$this->setTransactionWMFStatus( 'pending' );
+					$this->doStompTransaction();
+					break;
+
+				case 'PF':  // Payment failed
+				case 'SE':  // This one is interesting; service failure... can we do something here?
+				default:    // All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
 					$this->log( "Transaction failed with ($status) $errString", LOG_ERR );
 					$this->setTransactionWMFStatus( 'failed' );
-				}
-			} else {
-				$this->log( "Transaction failed in response data verification.", LOG_INFO );
-				$this->setTransactionWMFStatus( 'failed' );
+					break;
 			}
+		}
+	}
+
+	/**
+	 * Adds translated data from the URI string into donation data
+	 */
+	function addDataFromURI() {
+		$this->dataObj->addVarMapDataFromURI( $this->var_map );
+
+		$this->unstaged_data = $this->dataObj->getDataEscaped();
+		$this->staged_data = $this->unstaged_data;
+		$this->stageData();
+	}
+
+	function processResponse( $response, &$retryVars = null ) {
+		global $wgRequest;
+
+		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
+			$this->log( "Transaction failed in response data verification.", LOG_INFO );
+			$this->setTransactionWMFStatus( 'failed' );
 		}
 	}
 
 	function encodeQuery( $params ) {
 		ksort( $params );
+		$query = array();
 		foreach ( $params as $key => $value ) {
 			$encoded = str_replace( "%7E", "~", rawurlencode( $value ) );
 			$query[] = $key . "=" . $encoded;
