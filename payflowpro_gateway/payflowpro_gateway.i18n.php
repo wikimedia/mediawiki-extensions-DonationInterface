@@ -1964,7 +1964,7 @@ Soňra gaýtadan synaň.',
  * @author Sky Harbor
  */
 $messages['tl'] = array(
-	'payflowprogateway' => 'Magkaloob na ngayon',
+	'payflowprogateway' => 'Magkaloob ka na ngayon',
 	'payflowpro_gateway-desc' => 'Pagsasagawa ng tarheng pang-utang ng PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Napayagan na ang transaksyon mo.
 Salamat sa kaloob mo!',
