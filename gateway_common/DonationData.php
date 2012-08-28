@@ -621,9 +621,6 @@ class DonationData {
 	 */
 	protected function setNormalizedOrderIDs( ) {
 
-		static $idGenThisRequest = false;
-		$id = null;
-
 		// We need to obtain and set the order_id every time this function is called. If there's
 		// one already in existence (ie: in the GET string) we will use that one.
 		if ( array_key_exists( 'order_id', $_GET ) ) {
@@ -631,12 +628,11 @@ class DonationData {
 			// TODO: Move this somewhere more sane! We shouldn't be doing anything with requests
 			// in normalization functions.
 			$id = $_GET['order_id'];
-		} elseif ( ( $this->isSomething( 'order_id' ) ) && ( $idGenThisRequest == true ) ) {
+		} elseif ( $this->isSomething( 'order_id' ) ) {
 			// An order ID already exists, therefore we do nothing
 			$id = $this->getVal( 'order_id' );
 		} else {
 			// Apparently we need a new one
-			$idGenThisRequest = true;
 			$id = $this->generateOrderId();
 		}
 
