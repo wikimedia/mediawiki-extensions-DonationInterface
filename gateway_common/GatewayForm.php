@@ -232,28 +232,6 @@ class GatewayForm extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Handle redirection of form content to PayPal
-	 *
-	 * @fixme If we can update contrib tracking table in ContributionTracking
-	 * 	extension, we can probably get rid of this method and just submit the form
-	 *  directly to the paypal URL, and have all processing handled by ContributionTracking
-	 *  This would make this a lot less hack-ish
-	 */
-	public function paypalRedirect() {
-		global $wgOut;
-
-		// if we don't have a URL enabled throw a graceful error to the user
-		if ( !strlen( $this->adapter->getGlobal( 'PaypalURL' ) ) ) {
-			$gateway_identifier = $this->adapter->getIdentifier();
-			$error['general']['nopaypal'] = wfMessage( $gateway_identifier . '_gateway-error-msg-nopaypal' )->text();
-			$this->adapter->addManualError( $error );
-			return;
-		}
-		// submit the data to the paypal redirect URL
-		$wgOut->redirect( $this->adapter->getPaypalRedirectURL() );
-	}
-
-	/**
 	 * Fetch the array of iso country codes => country names
 	 * @return array
 	 */

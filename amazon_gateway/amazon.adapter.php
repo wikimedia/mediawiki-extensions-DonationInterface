@@ -19,7 +19,7 @@
 class AmazonAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Amazon';
 	const IDENTIFIER = 'amazon';
-	const COMMUNICATION_TYPE = 'xml';
+	public $communication_type = 'xml';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
 	function __construct( $options = array() ) {
