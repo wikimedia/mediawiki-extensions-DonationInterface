@@ -3,7 +3,7 @@
 class PayflowProAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Payflow Pro';
 	const IDENTIFIER = 'payflowpro';
-	const COMMUNICATION_TYPE = 'namevalue';
+	public $communication_type = 'namevalue';
 	const GLOBAL_PREFIX = 'wgPayflowProGateway';
 
 	function defineAccountInfo() {

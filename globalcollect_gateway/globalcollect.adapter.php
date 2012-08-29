@@ -23,7 +23,7 @@
 class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
-	const COMMUNICATION_TYPE = 'xml';
+	public $communication_type = 'xml';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
 
 	/**
