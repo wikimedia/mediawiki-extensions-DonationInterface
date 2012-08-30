@@ -178,6 +178,9 @@ class AmazonAdapter extends GatewayAdapter {
 				$this->addDonorDataToSession();
 				$query_str = $this->encodeQuery( $query );
 				$this->log("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
+				
+				//always have to do this before a redirect. 
+				$this->dataObj->updateContributionTracking( true );
 
 				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
 				return;

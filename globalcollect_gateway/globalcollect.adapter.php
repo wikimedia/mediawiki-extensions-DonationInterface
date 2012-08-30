@@ -460,6 +460,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'COUNTRYCODE',
 							'MERCHANTREFERENCE',
 							'IPADDRESSCUSTOMER',
+							'EMAIL',
 						),
 						'PAYMENT' => array(
 							'PAYMENTPRODUCTID',
