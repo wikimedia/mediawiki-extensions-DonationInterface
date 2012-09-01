@@ -153,6 +153,14 @@ $messages['pms'] = array(
 	'amazon_gateway-desc' => "Process ëd pagament d'Amazon",
 );
 
+/** Swedish (svenska)
+ * @author Ainali
+ */
+$messages['sv'] = array(
+	'amazongateway' => 'Gör din donation nu',
+	'amazon_gateway-desc' => 'Amazons betalningsprocess',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor
