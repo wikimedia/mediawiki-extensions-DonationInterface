@@ -72,6 +72,28 @@ $messages['ar'] = array(
 الرجاء المحاولة مرة أخرى لاحقاً.',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'globalcollectgateway' => 'Fai la to donación agora',
+	'globalcollect_gateway-desc' => 'Procesamientu de pagos de GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'País inválidu.',
+	'globalcollect_gateway-response-9140' => 'Moneda inválida.',
+	'globalcollect_gateway-response-9150' => 'Llingua inválida.',
+	'globalcollect_gateway-response-400530' => 'Métodu de pagu inválidu.',
+	'globalcollect_gateway-response-430306' => 'La tarxeta de créditu caducó. Por favor, prueba con otra tarxeta o con otru de los nuesos métodos de pagu.',
+	'globalcollect_gateway-response-430330' => 'Númberu de tarxeta inválidu.',
+	'globalcollect_gateway-response-430421' => 'Non se pudo validar la to tarxeta de créditu. Comprueba que tola información case cola del perfil de la tarxeta o prueba con otra tarxeta.',
+	'globalcollect_gateway-response-430360' => 'Non se pudo autorizar a transaición. Prueba con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
+	'globalcollect_gateway-response-430285' => 'Non se pudo autorizar a transaición. Prueba con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
+	'globalcollect_gateway-response-21000150' => 'Númberu de cuenta bancaria inválidu.',
+	'globalcollect_gateway-response-21000155' => 'Códigu de bancu inválidu.',
+	'globalcollect_gateway-response-21000160' => 'Númberu de cuenta de xiru inválidu.',
+	'globalcollect_gateway-response-default' => 'Hebo un fallu al procesar la to transaición.
+Por favor, torna a intentalo más sero.',
+);
+
 /** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Wizardist

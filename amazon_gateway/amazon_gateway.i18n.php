@@ -20,6 +20,14 @@ $messages['qqq'] = array(
 	'amazon_gateway-desc' => '{{desc}}',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'amazongateway' => 'Fai la to donación agora',
+	'amazon_gateway-desc' => "Procesamientu de pagos d'Amazon",
+);
+
 /** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author Wizardist
  */
