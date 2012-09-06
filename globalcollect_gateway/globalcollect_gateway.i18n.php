@@ -52,11 +52,12 @@ $messages['qqq'] = array(
 /** Arabic (العربية)
  * @author AwamerT
  * @author Peadara
+ * @author زكريا
  */
 $messages['ar'] = array(
 	'globalcollectgateway' => 'تبرع الآن',
 	'globalcollect_gateway-desc' => 'تجهيز المدفوعات جلوبالكوليكت',
-	'globalcollect_gateway-response-9130' => 'إسم بلد غير صالح',
+	'globalcollect_gateway-response-9130' => 'اسم بلد غير صالح',
 	'globalcollect_gateway-response-9140' => 'العملة غير صالح',
 	'globalcollect_gateway-response-9150' => 'لغة غير صحيحة.',
 	'globalcollect_gateway-response-400530' => 'طريقة الدفع غير صحيحة.',
