@@ -4519,6 +4519,7 @@ Není dostupný žádný platební procesor.',
 	'donate_interface-accessible' => 'Tato stránka je přístupná pouze ze stránky pro přispívání.',
 	'donate_interface-paypal-button' => 'Darovat prostřednictvím služby PayPal',
 	'donate_interface-paypal-redirect' => 'Přesměrování na PayPal…',
+	'donate_interface-amazon-button' => 'Darovat přes Amazon',
 	'donate_interface-cc-button' => 'Přispět kreditní kartou',
 	'donate_interface-ccdc-button' => 'Darovat kreditní/debetní kartou',
 	'donate_interface-dd-button' => 'Darovat inkasem z účtu',
@@ -4738,6 +4739,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-bt-finished' => 'Hotovo',
 	'donate_interface-obt-customer_payment_reference' => 'Referenční číslo',
 	'donate_interface-obt-information' => 'Informace o on-line převodu',
+	'donate_interface-online_bank_transfer_message' => 'Telefonní a internetové bankovnictví - BPAY ®',
 	'donate_interface-rtbt-issuer_id' => 'Zvolte banku',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Další banky',
 	'donate_interface-dd-account_name' => 'Jméno vlastníka účtu',
@@ -6077,7 +6079,7 @@ $messages['diq'] = array(
 	'donate_interface-donor-street' => 'Cagde',
 	'donate_interface-donor-street-number' => 'Nımre',
 	'donate_interface-donor-city' => 'Sûke',
-	'donate_interface-donor-county' => 'Dewlet',
+	'donate_interface-donor-county' => 'Qeze',
 	'donate_interface-donor-island' => 'Ada',
 	'donate_interface-donor-state' => 'Eyalet:',
 	'donate_interface-donor-zip' => 'Kodê posta',
@@ -25515,6 +25517,7 @@ Na voljo ni nobenega obdelovalca.',
 	'donate_interface-accessible' => 'Ta stran je dostopna samo prek strani za prispevanje.',
 	'donate_interface-paypal-button' => 'Prispevajte prek PayPala',
 	'donate_interface-paypal-redirect' => 'Preusmerjanje na PayPal ...',
+	'donate_interface-amazon-button' => 'Donirajte z Amazonom',
 	'donate_interface-cc-button' => 'Prispevajte s kreditno kartico',
 	'donate_interface-ccdc-button' => 'Prispevajte s kreditno/debetno kartico',
 	'donate_interface-dd-button' => 'Prispevajte prek neposredne bremenitve',
@@ -28757,6 +28760,13 @@ Upang makapagbigay ng isang ligtas, tiwasay at kaaya-ayang karanasan, ang pormul
 	'donate_interface-securelogo-title' => 'I-klik upang Matiyak - Pinili ng sayt na ito ang VeriSign SSL para sa ligtas na e-komersiyo at lihim na komunikasyon,',
 	'donate_interface-secureLogo-text' => 'Tungkol sa mga Sertipikong SSL',
 	'donate_interface-error-http-403' => 'Wala kang pahintulot na puntahan ang pahinang ito.',
+);
+
+/** толышә зывон (толышә зывон)
+ * @author Erdemaslancan
+ */
+$messages['tly'] = array(
+	'donate_interface-donor-county' => 'Кезе',
 );
 
 /** Turkish (Türkçe)
