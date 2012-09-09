@@ -4404,6 +4404,13 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-state-dropdown-XX' => 'No sóc als EUA',
 );
 
+/** Sorani Kurdish (کوردی)
+ * @author Asoxor
+ */
+$messages['ckb'] = array(
+	'donate_interface' => 'پشتگیریی ویکیمیدیا بکە',
+);
+
 /** Czech (česky)
  * @author Chmee2
  * @author Danny B.
