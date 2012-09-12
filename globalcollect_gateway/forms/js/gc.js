@@ -94,4 +94,4 @@ window.displayCreditCardForm = function() {
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
 		}
 	} );
-}
+};

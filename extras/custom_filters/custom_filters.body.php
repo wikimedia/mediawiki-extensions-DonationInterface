@@ -12,13 +12,13 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 * will now be represented as an array of scores, with the name of the 
 	 * score's source in the keys, to promote our ability to tell what the heck 
 	 * is going on. 
-	 * @var private array()
+	 * @var array()
 	 */
 	private $risk_score;
 
 	/**
 	 * Define the action to take for a given $risk_score
-	 * @var public array
+	 * @var array
 	 */
 	public $action_ranges;
 	
@@ -27,7 +27,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 * to use as a prefix in all our logging. 
 	 * TODO: Move this out to the gateway adapter once we have time to determine 
 	 * that changing the way we log things isn't going to break our utils. 
-	 * @var public function
+	 * @var string
 	 */
 	public $log_msg_prefix;
 

@@ -48,7 +48,7 @@ function efStompTest( $input, $args, &$parser ) {
  * of the strcat(payment_method '-$queue'), or '$queue'
  *
  * @param array $transaction Key-value array of staged and ready donation data.
- * @param string Name of the queue to use, ie: 'limbo' or 'pending'
+ * @param string $queue Name of the queue to use, ie: 'limbo' or 'pending'
  *
  * @return bool Just returns true all the time. Presumably an indication that
  * nothing exploded big enough to kill the whole thing.
@@ -303,8 +303,8 @@ function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 
 
 /**
- * Ack all of the messages in the array, thereby removing them from the queue. 
- * @param type $messages 
+ * Ack all of the messages in the array, thereby removing them from the queue.
+ * @param array $messages
  */
 function stompAckMessages( $messages = array() ){
 	$stomp = getDIStompConnection();
@@ -312,7 +312,7 @@ function stompAckMessages( $messages = array() ){
 		if (!array_key_exists('redelivered', $message->headers)) {
 			$message->headers['redelivered'] = 'true';
 		}
-		$result = $stomp->ack($message);
+		$stomp->ack($message);
 	}
 }
 

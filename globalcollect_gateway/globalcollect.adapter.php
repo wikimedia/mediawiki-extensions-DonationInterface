@@ -181,9 +181,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'LANGUAGECODE'		=> 'language'				AN2
 			'language'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
 			
-			//'MERCHANTREFERENCE'	=> 'order_id'				AN50
-			'order_id'				=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
 			//'ORDERID'				=> 'order_id'				N10
 			'order_id'				=> array( 'type' => 'numeric',			'length' => 10, ),
 			
@@ -1007,7 +1004,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @todo
 	 * - These may need to move to the parent class
 	 *
-	 * @param	string	$payment_method	Payment methods contain payment submethods
+	 * @param    string    $payment_method    Payment methods contain payment submethods
+	 * @throws Exception
 	 */
 	public function getPaymentMethodMeta( $payment_method ) {
 		
@@ -1020,14 +1018,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			throw new Exception( $message );
 		}
 	}
-	
+
 	/**
 	 * Get payment submethod meta
 	 *
 	 * @todo
 	 * - These may need to move to the parent class
 	 *
-	 * @param	string	$payment_submethod	Payment submethods are mapped to paymentproductid
+	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
+	 * @param array $options
+	 * @throws Exception
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
@@ -1053,14 +1053,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			throw new Exception( $message );
 		}
 	}
-	
+
 	/**
 	 * Get payment submethod form validation options
 	 *
 	 * @todo
 	 * - These may need to move to the parent class
 	 *
-	 * @return	array
+	 * @param array $options
+	 * @return    array
 	 */
 	public function getPaymentSubmethodFormValidation( $options = array() ) {
 		
@@ -1312,6 +1313,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
 	 * @param array	$response	The response array
+	 * @return bool
 	 */
 	public function getResponseStatus( $response ) {
 
@@ -1335,6 +1337,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * obfuscated. 
 	 *
 	 * @param array	$response	The response array
+	 * @return array
 	 */
 	public function getResponseErrors( $response ) {
 		$errors = array( );
@@ -1363,6 +1366,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * because they are only defined for that transaction type.
 	 *
 	 * @param DOMDocument	$response	The response object
+	 * @return array
 	 */
 	public function getResponseData( $response ) {
 		$data = array( );
@@ -1410,9 +1414,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Parse the response object for the checked validations 
 	 *
 	 * @param DOMDocument	$response	The response object
+	 * @return array
 	 */
 	protected function xmlGetChecks( $response ) {
-		
 		$data = array(
 			'CHECKS' => array(),
 		);
@@ -1460,15 +1464,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - What do we do about WARNING? For now, it is fail?
 	 * - Get the validation id
 	 *
-	 * @param array	$data	The data array
+	 * @param array    $data    The data array
 	 *
+	 * @throws MWException
 	 * @return boolean
 	 */
 	public function checkDoBankValidation( &$data ) {
-		
 		$checks = &$data['CHECKSPERFORMED'];
-		
-		$hasValidationId = false;
+
 		$isPass = 0;
 		$isError = 0;
 		$isWarning = 0;
@@ -1477,7 +1480,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$return = 'failed';
 		
 		if ( !is_array( $checks['CHECKS'] ) ) {
-		
 			// Should we trigger an error if no checks are performed?
 			// For now, just return failed.
 			return $return;
@@ -1487,7 +1489,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$return = 'complete';
 		
 		foreach ( $checks['CHECKS'] as $checkCode => $checkResult ) {
-			
 			// Prefix error codes with dbv for DO_BANKVALIDATION
 			$code = 'dbv-' . $checkCode;
 			
@@ -1496,24 +1497,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 				// Message might need to be put somewhere else.
 				$data['errors'][ $code ] = $this->getErrorMap( $code );
-
 			} elseif ( $checkResult == 'NOTCHECKED' ) {
-
 				$isNotChecked++;
-
 			} elseif ( $checkResult == 'PASSED' ) {
-
 				$isPass++;
 
 			} elseif ( $checkResult == 'WARNING' ) {
-
 				$isWarning++;
 
 				// Message might need to be put somewhere else.
 				$data['errors'][ $code ] = $this->getErrorMap( $code );
-
 			} else {
-				
 				$message = 'Unknown check result: (' . $checkResult . ')';
 				
 				throw new MWException( $message );
@@ -1534,12 +1528,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$return = 'failed';
 		}
 
-		// Check to see if a validation id exists
-		$hasValidationId = isset( $data['VALIDATIONID'] ) ? (boolean) $data['VALIDATIONID'] : false;
-		
-		// Do we have a validation ID?
-		//$return = $hasValidationId ? $return : 'failed';
-		
 		return $return;
 	}
 	

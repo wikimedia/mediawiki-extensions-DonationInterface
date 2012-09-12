@@ -25,7 +25,6 @@
  *
  */
 class GatewayForm extends UnlistedSpecialPage {
-
 	/**
 	 * An array of form errors
 	 * @var array $errors
@@ -154,8 +153,9 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * displayResultsForDebug
 	 *
-	 * Displays useful information for debugging purposes. 
+	 * Displays useful information for debugging purposes.
 	 * Enable with $wgDonationInterfaceDisplayDebug, or the adapter equivalent.
+	 * @param array $results
 	 * @return null
 	 */
 	protected function displayResultsForDebug( $results = array() ) {
@@ -217,7 +217,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	/**
 	 * logs messages to the current gateway adapter's configured log location
 	 * @param string $msg The message to log
-	 * @param string $log_level The severity level of the message. 
+	 * @param int|string $log_level The severity level of the message.
 	 */
 	public function log( $msg, $log_level=LOG_INFO ) {
 		$this->adapter->log( $msg, $log_level );
@@ -237,7 +237,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		// if we don't have a URL enabled throw a graceful error to the user
 		if ( !strlen( $this->adapter->getGlobal( 'PaypalURL' ) ) ) {
 			$gateway_identifier = $this->adapter->getIdentifier();
-			$error['general']['nopaypal'] = wfMsg( $gateway_identifier . '_gateway-error-msg-nopaypal' );
+			$error['general']['nopaypal'] = wfMessage( $gateway_identifier . '_gateway-error-msg-nopaypal' )->text();
 			$this->adapter->addManualError( $error );
 			return;
 		}

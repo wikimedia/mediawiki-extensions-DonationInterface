@@ -15,12 +15,12 @@ class Gateway_Form_TwoStepTwoColumnLetter3 extends Gateway_Form_TwoStepTwoColumn
 		global $wgOut;
 		
 		// form placeholder values
-		$first = wfMsg( 'donate_interface-donor-fname' );
-		$last = wfMsg( 'donate_interface-donor-lname' );
-		$street = wfMsg( 'donate_interface-donor-street' );
-		$city = wfMsg( 'donate_interface-donor-city' );
-		$zip = wfMsg( 'donate_interface-zip-code' );
-		$email = wfMsg( 'donate_interface-donor-email' );
+		$first = wfMessage( 'donate_interface-donor-fname' )->escaped();
+		$last = wfMessage( 'donate_interface-donor-lname' )->escaped();
+		$street = wfMessage( 'donate_interface-donor-street' )->escaped();
+		$city = wfMessage( 'donate_interface-donor-city' )->escaped();
+		$zip = wfMessage( 'donate_interface-zip-code' )->escaped();
+		$email = wfMessage( 'donate_interface-donor-email' )->escaped();
 		$js = <<<EOT
 <script type="text/javascript">
 ( function( $ ) {
@@ -115,8 +115,6 @@ EOT;
 	}
 
 	public function generateFormStart() {
-		global $wgOut;
-
 		$form = parent::generateBannerHeader();
 
 		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0 ) );
@@ -133,7 +131,7 @@ EOT;
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-please-complete' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMessage( 'donate_interface-please-complete' )->escaped() );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -168,7 +166,6 @@ EOT;
 
 		// submit button
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		// $form .= Xml::submitButton( wfMsg( 'donate_interface-submit-button' ));
 		$form .= '&#160;<br/>' . Xml::element( 'input', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/submit-donation-button.png", 'alt' => 'Submit donation', 'type' => 'image' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
@@ -201,12 +198,12 @@ EOT;
 		$form .= '<td colspan="2">';
 		$form .= '<table cellspacing="0" cellpadding="4" border="1" id="donation_amount">';
 		$form .= '<tr>';
-		$form .= '<td class="amount_header">'.wfMsg( 'donate_interface-description' ).'</td>';
-		$form .= '<td class="amount_header" style="text-align:right;width:75px;">'.wfMsg( 'donate_interface-donor-amount' ).'</td>';
-		$form .= '<td class="amount_header" style="text-align:right;width:75px;">'.wfMsg( 'donate_interface-donor-currency-label' ).'</td>';
+		$form .= '<td class="amount_header">'.wfMessage( 'donate_interface-description' )->escaped() . '</td>';
+		$form .= '<td class="amount_header" style="text-align:right;width:75px;">' . wfMessage( 'donate_interface-donor-amount' )->escaped() . '</td>';
+		$form .= '<td class="amount_header" style="text-align:right;width:75px;">' . wfMessage( 'donate_interface-donor-currency-label' )->escaped() . '</td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="amount_data">'.wfMsg( 'donate_interface-donation' ).'</td>';
+		$form .= '<td class="amount_data">' . wfMessage( 'donate_interface-donation' )->escaped() . '</td>';
 		$form .= '<td class="amount_data" style="text-align:right;width:75px;">'.$this->getEscapedValue( 'amount' ) .
 			Html::hidden( 'amount', $this->getEscapedValue( 'amount' ) ) .
 			'</td>';
@@ -219,7 +216,7 @@ EOT;
 		$form .= '</tr>';
 
 		$form .= '<tr>';
-		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMsg( 'donate_interface-cc-form-header-personal' ) .
+		$form .= '<td colspan="2"><h3 class="cc_header">' . wfMessage( 'donate_interface-cc-form-header-personal' )->escaped() .
 			Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/padlock.gif", 'style' => 'vertical-align:baseline;margin-left:8px;' ) ) . '</h3></td>';
 		$form .= '</tr>';
 
@@ -247,14 +244,14 @@ EOT;
 			$form .= '</tr>';
 		}
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-card-num' ), 'card_num' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-card-num' )->text(), 'card_num' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
 		// expiry
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-expiration' ), 'expiration' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-expiration' )->text(), 'expiration' ) . '</td>';
 		$form .= '<td>' . $this->generateExpiryMonthDropdown() . ' / ' . $this->generateExpiryYearDropdown() . '</td>';
 		$form .= '</tr>';
 
@@ -269,9 +266,9 @@ EOT;
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['lname'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-name-on-card' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-fname' ).'\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-lname' ).'\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-name-on-card' )->text(), 'fname' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-fname' )->escaped() . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-lname' )->escaped() . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 
 		// street
@@ -279,8 +276,8 @@ EOT;
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-billing-address' ), 'street' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'street', '30', $this->getEscapedValue( 'street' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-street' ).'\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-billing-address' )->text(), 'street' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'street', '30', $this->getEscapedValue( 'street' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-street' )->escaped() . '\' )', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
@@ -290,9 +287,9 @@ EOT;
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"> </td>';
-		$form .= '<td>' . Xml::input( 'city', '18', $this->getEscapedValue( 'city' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-city' ).'\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
+		$form .= '<td>' . Xml::input( 'city', '18', $this->getEscapedValue( 'city' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-city' )->escaped() . '\' )', 'maxlength' => '40', 'id' => 'city' ) ) . ' ' .
 			$this->generateStateDropdown() . ' ' .
-			Xml::input( 'zip', '5', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-zip-code' ).'\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
+			Xml::input( 'zip', '5', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-zip-code' )->escaped() . '\' )', 'maxlength' => '10', 'id' => 'zip' ) ) .
 			Html::hidden( 'country', 'US' ) .
 			'</td>';
 		$form .= '</tr>';
@@ -313,8 +310,8 @@ EOT;
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['emailAdd'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-email-receipt' ), 'emailAdd' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->getEscapedValue( 'email' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \''.wfMsg( 'donate_interface-donor-email' ).'\' )', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-email-receipt' )->text(), 'emailAdd' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->getEscapedValue( 'email' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-email' )->escaped() . '\' )', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
 
@@ -344,9 +341,9 @@ EOT;
 		$form = Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'div', array( 'style' => 'text-align:center;' ), '* * *' );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'donate_interface-credit-storage-processing' ) );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'donate_interface-otherways-alt' ) );
-		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMsg( 'donate_interface-question-comment' ) );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMessage( 'donate_interface-credit-storage-processing' )->escaped() );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMessage( 'donate_interface-otherways-alt' )->escaped() );
+		$form .= Xml::tags( 'div', array( 'class' => '' ), wfMessage( 'donate_interface-question-comment' )->escaped() );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;

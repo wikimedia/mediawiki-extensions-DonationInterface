@@ -39,7 +39,7 @@ div#payflowpro_gateway-donate-submessage {
 
 .payflow-cc-form-section {
     float: none;
-    margin-right: 0em;
+    margin-right: 0;
     margin-bottom: 1em;
 }
 
@@ -110,7 +110,7 @@ div#payflowpro_gateway-donate-submessage {
 	border:none;
 	font-size:1.5em;
 	line-height:1.125em;
-	padding-bottom:0em;
+	padding-bottom:0;
 	padding-top:0.125em;
 }
 #donate-body {

@@ -85,14 +85,7 @@ HTML;
 	 * @return string The entire form HTML
 	 */
 	public function getForm() {
-		
 		return $this->getFormPage();
-		
-		$form = '';
-		
-		$form .= $this->generateFormStart();
-		$form .= $this->generateFormEnd();
-		return $form;
 	}
 	
 	/**
@@ -388,7 +381,7 @@ HTML;
 			}
 			
 			$return .= '<tr>';
-			$return .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-dd-' . $field ), $field ) . '</td>';
+			$return .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-dd-' . $field )->text(), $field ) . '</td>';
 	
 			$return .= '<td>';
 			
@@ -494,7 +487,7 @@ HTML;
 		// submit button
 		$return .= Xml::openElement( 'div', array( 'id' => 'payment_gateway-form-submit' ) );
 		$return .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		$return .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-submit-button' ), 'type' => 'submit' ) );
+		$return .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMessage( 'donate_interface-submit-button' )->text(), 'type' => 'submit' ) );
 		$return .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$return .= Xml::closeElement( 'div' ); // close div#payment_gateway-form-submit
 		
@@ -556,11 +549,10 @@ HTML;
 		// generate dropdown of issuer_ids
 		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
 			$selected = ( $this->getEscapedValue( 'issuer_id' ) == $issuer_id ) ? true : false;
-			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
 			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
 		}
 		$return .= '<tr>';
-		$return .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-rtbt-issuer_id' ), 'issuer_id' ) . '</td>';
+		$return .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-rtbt-issuer_id' )->text(), 'issuer_id' ) . '</td>';
 
 		$return .= '<td>';
 		$return .= Xml::openElement(
@@ -606,7 +598,7 @@ HTML;
 		
 		$headerOptions['id'] = $id . '_header';
 		
-		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-payment_method-' . $this->getPaymentMethod() ), $headerOptions );
+		$return .= $this->getFormSectionHeaderTag( wfMessage( 'donate_interface-payment_method-' . $this->getPaymentMethod() )->text(), $headerOptions );
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
 		
@@ -652,34 +644,20 @@ HTML;
 		
 		$headerOptions['id'] = $id . '_header';
 		
-		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-cc-form-header-personal' ), $headerOptions );
+		$return .= $this->getFormSectionHeaderTag( wfMessage( 'donate_interface-cc-form-header-personal' )->text(), $headerOptions );
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
-		
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
 		$return .= $this->getNameField();
-
-		// email
 		$return .= $this->getEmailField();
-
-		// street
 		$return .= $this->getStreetField();
-
-		// city
 		$return .= $this->getCityField();
-
-		// state
 		$return .= $this->getStateField();
-
-		// zip
 		$return .= $this->getZipField();
-
-		// country
 		$return .= $this->getCountryField();
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
-		
 		$return .= Xml::closeElement( 'div' );  // $id
 		
 		return $return;
@@ -707,7 +685,7 @@ HTML;
 		
 		$headerOptions['id'] = $id . '_header';
 		
-		$return .= $this->getFormSectionHeaderTag( wfMsg( 'donate_interface-cc-form-header-payment' ), $headerOptions );
+		$return .= $this->getFormSectionHeaderTag( wfMessage( 'donate_interface-cc-form-header-payment' )->text(), $headerOptions );
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
 		
@@ -823,11 +801,10 @@ HTML;
 		// generate dropdown of issuer_ids
 		foreach ( $payment_submethod['issuerids'] as $issuer_id => $issuer_id_label ) {
 			$selected = ( $this->getEscapedValue( 'issuer_id' ) == $issuer_id ) ? true : false;
-			//$selectOptions .= Xml::option( wfMsg( 'donate_interface-rtbt-' . $issuer_id ), $issuer_id_label, $selected );
 			$selectOptions .= Xml::option( $issuer_id_label, $issuer_id, $selected );
 		}
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-rtbt-issuer_id' ), 'issuer_id' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-rtbt-issuer_id' )->text(), 'issuer_id' ) . '</td>';
 
 		$form .= '<td>';
 		$form .= Xml::openElement(
@@ -845,13 +822,11 @@ HTML;
 		
 		return $form;
 	}
-	
-	
+
 	/**
 	 * Generate the first part of the form
 	 */
 	public function generateFormStart() {
-		
 		$form = '';
 		
 		//$form .= $this->generateBannerHeader();
@@ -889,8 +864,6 @@ HTML;
 		$form .= $this->generateFormSubmit();
 		$form .= Xml::closeElement( 'div' ); // close div#left-column
 
-		//$form .= Xml::openElement( 'div', array( 'id' => 'right-column', 'class' => 'payment-cc-form-section' ) );
-
 		return $form;
 	}
 
@@ -912,7 +885,6 @@ HTML;
 	protected function generatePersonalContainer() {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payment_gateway-personal-info' ) );                 ;
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payment-cc-form-header', 'id' => 'payment-cc-form-header-personal' ), wfMsg( 'donate_interface-cc-form-header-personal' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payment-table-donor' ) );
 
 		$form .= $this->generatePersonalFields();
@@ -924,26 +896,12 @@ HTML;
 	}
 
 	protected function generatePersonalFields() {
-		// first name
 		$form = $this->getNameField();
-
-		// country
 		$form .= $this->getCountryField();
-
-		// street
 		$form .= $this->getStreetField();
-
-
-		// city
 		$form .= $this->getCityField();
-
-		// state
 		$form .= $this->getStateField();
-
-		// zip
 		$form .= $this->getZipField();
-
-		// email
 		$form .= $this->getEmailField();
 
 		return $form;
@@ -953,7 +911,6 @@ HTML;
 		$form = '';
 		// credit card info
 		$form .= Xml::openElement( 'div', array( 'id' => 'donation-payment-info' ) );
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payment-cc-form-header', 'id' => 'payment-cc-form-header-payment' ), wfMsg( 'donate_interface-cc-form-header-payment' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'donation-table-cc' ) );
 
 		$form .= $this->generatePaymentFields();
@@ -965,13 +922,10 @@ HTML;
 	}
 
 	protected function generatePaymentFields() {
-		// amount
-		$form .= $this->generateAmountByRadio();
-
+		$form = $this->generateAmountByRadio();
 		$form .= $this->generateFormIssuerIdDropdown();
 		$form .= $this->generateFormDirectDebit();
 
-		
 		return $form;
 	}
 }

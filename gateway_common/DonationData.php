@@ -14,7 +14,6 @@
  * @author khorn
  */
 class DonationData {
-
 	protected $normalized = array( );
 	public $boss;
 	protected $validationErrors = null;
@@ -200,15 +199,15 @@ class DonationData {
 
 	/**
 	 * populateData helper function.
-	 * If there is no external data provided upon DonationData construct, and 
-	 * the object was instantiated in test mode, populateData_Test in intended 
-	 * to provide a baseline minimum of data with which to run tests without 
-	 * exploding. 
-	 * Populates $this->normalized. 
-	 * TODO: Implement an override for the test data, in the event that a 
-	 * partial data array is provided when DonationData is instantiated. 
-	 * @param array $testdata Intended to implement an override for any values 
-	 * that may be provided on instantiation. 
+	 * If there is no external data provided upon DonationData construct, and
+	 * the object was instantiated in test mode, populateData_Test in intended
+	 * to provide a baseline minimum of data with which to run tests without
+	 * exploding.
+	 * Populates $this->normalized.
+	 * TODO: Implement an override for the test data, in the event that a
+	 * partial data array is provided when DonationData is instantiated.
+	 * @param array|bool $testdata Intended to implement an override for any values
+	 * that may be provided on instantiation.
 	 */
 	protected function populateData_Test( $testdata = false ) {
 		// define arrays of cc's and cc #s for random selection
@@ -344,7 +343,7 @@ class DonationData {
 
 	/**
 	 * Removes a value from $this->normalized. 
-	 * @param type $key 
+	 * @param string $key type
 	 */
 	public function expunge( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
@@ -509,7 +508,6 @@ class DonationData {
 	 * lookup.
 	 */
 	protected function setCountry() {
-		global $wgRequest;
 		if ( !$this->isSomething('country') ){
 			// If no country was passed, try to do GeoIP lookup
 			// Requires php5-geoip package
@@ -530,9 +528,7 @@ class DonationData {
 	 * 'currency_code'. After this fires, we will only have 'currency_code'. 
 	 */
 	protected function setCurrencyCode() {
-		global $wgRequest;
-		
-		//at this point, we can have either currency, or currency_code. 
+		//at this point, we can have either currency, or currency_code.
 		//-->>currency_code has the authority!<<-- 
 		$currency = false;
 		
@@ -668,20 +664,20 @@ class DonationData {
 	 *
 	 * Intended to be used with something like array_walk.
 	 *
-	 * @param $value The value of the array
-	 * @param $key The key of the array
-	 * @param $flags The flag constant for htmlspecialchars
-	 * @param $double_encode Whether or not to double-encode strings
+	 * @param $value string The value of the array
+	 * @param $key string The key of the array
+	 * @param $flags int The flag constant for htmlspecialchars
+	 * @param $double_encode bool Whether or not to double-encode strings
 	 */
 	protected function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
 		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
 	}
 
 	/**
-	 * log: This grabs the adapter class that instantiated DonationData, and 
-	 * uses its log function. 
-	 * @param string $message The message to log. 
-	 * @param type $log_level 
+	 * log: This grabs the adapter class that instantiated DonationData, and
+	 * uses its log function.
+	 * @param string $message The message to log.
+	 * @param int|string $log_level
 	 */
 	protected function log( $message, $log_level=LOG_INFO ) {
 		$c = $this->getAdapterClass();
@@ -1126,7 +1122,6 @@ class DonationData {
 	/**
 	 * Update contribution_tracking table
 	 *
-	 * @param array $data Form data
 	 * @param bool $force If set to true, will ensure that contribution tracking is updated
 	 */
 	public function updateContributionTracking( $force = false ) {
@@ -1170,20 +1165,20 @@ class DonationData {
 			}
 		}
 	}
-	
+
 	/**
-	 * Checks to see if we have donor data in our session. 
-	 * This can be useful for determining if a user should be at a certain point 
-	 * in the workflow for certain gateways. For example: This is used on the 
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to 
-	 * determine if the user is actually in the process of making a credit card 
-	 * transaction. 
-	 * @param string $key Optional: A particular key to check against the 
-	 * donor data in session. 
-	 * @param string $value Optional (unless $key is set): A value that the $key 
-	 * should contain, in the donor session.  
-	 * @return boolean true if the session contains donor data (and if the data 
-	 * key matches, when key and value are set), and false if there is no donor 
+	 * Checks to see if we have donor data in our session.
+	 * This can be useful for determining if a user should be at a certain point
+	 * in the workflow for certain gateways. For example: This is used on the
+	 * outside of the adapter in GlobalCollect's resultswitcher page, to
+	 * determine if the user is actually in the process of making a credit card
+	 * transaction.
+	 * @param bool|string $key Optional: A particular key to check against the
+	 * donor data in session.
+	 * @param string $value Optional (unless $key is set): A value that the $key
+	 * should contain, in the donor session.
+	 * @return boolean true if the session contains donor data (and if the data
+	 * key matches, when key and value are set), and false if there is no donor
 	 * data (or if the key and value do not match)
 	 */
 	public function hasDonorDataInSession(  $key = false, $value= ''  ) {
@@ -1331,8 +1326,7 @@ class DonationData {
 	 * won't give us notices if we weren't even a web request. 
 	 * I realize this is pretty lame. 
 	 * Notices, however, are more lame. 
-	 * @global type $wgRequest
-	 * @staticvar string $posted Keeps track so we don't have to figure it out twice. 
+	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 */
 	public function wasPosted(){
 		global $wgRequest;

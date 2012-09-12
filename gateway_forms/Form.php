@@ -1,7 +1,6 @@
 <?php
 
 abstract class Gateway_Form {
-
 	/**
 	 * Defines if we are in test mode
 	 * @var bool
@@ -163,9 +162,9 @@ abstract class Gateway_Form {
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-otherways-short' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-credit-storage-processing' ) );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMsg( 'donate_interface-question-comment' ) );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-otherways-short' )->text() );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-credit-storage-processing' )->text() );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-question-comment' )->text() );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
 		return $form;
@@ -176,7 +175,8 @@ abstract class Gateway_Form {
 	 * This function is not used by any RapidHTML forms.
 	 * @fixme It would be great if we could default the country to the user's locale
 	 * @fixme We should also do a locale-based asort on the country dropdown
-	 * 	(see http://us.php.net/asort)
+	 *     (see http://us.php.net/asort)
+	 * @param null $defaultCountry Unused
 	 * @return string
 	 */
 	public function generateCountryDropdown( $defaultCountry = null ) {
@@ -184,7 +184,7 @@ abstract class Gateway_Form {
 
 		// create a new array of countries with potentially translated country names for alphabetizing later
 		foreach ( GatewayForm::getCountries() as $iso_value => $full_name ) {
-			$countries[$iso_value] = wfMsg( 'donate_interface-country-dropdown-' . $iso_value );
+			$countries[$iso_value] = wfMessage( 'donate_interface-country-dropdown-' . $iso_value )->text();
 		}
 
 		// alphabetically sort the country names
@@ -209,7 +209,7 @@ abstract class Gateway_Form {
 				'name' => 'country',
 				'id' => 'country'
 			) );
-		$country_menu .= Xml::option( wfMsg( 'donate_interface-select-country' ), '', false );
+		$country_menu .= Xml::option( wfMessage( 'donate_interface-select-country' )->text(), '', false );
 		$country_menu .= $country_options;
 		$country_menu .= Xml::closeElement( 'select' );
 
@@ -226,10 +226,10 @@ abstract class Gateway_Form {
 	 */
 	public function generateCardDropdown() {
 		$available_cards = array(
-			'visa' => wfMsg( 'donate_interface-card-name-visa' ),
-			'mc' => wfMsg( 'donate_interface-card-name-mc' ),
-			'amex' => wfMsg( 'donate_interface-card-name-amex' ),
-			'discover' => wfMsg( 'donate_interface-card-name-discover' ),
+			'visa' => wfMessage( 'donate_interface-card-name-visa' )->text(),
+			'mc' => wfMessage( 'donate_interface-card-name-mc' )->text(),
+			'amex' => wfMessage( 'donate_interface-card-name-amex' )->text(),
+			'discover' => wfMessage( 'donate_interface-card-name-discover' )->text(),
 		);
 
 		$card_options = '';
@@ -257,14 +257,13 @@ abstract class Gateway_Form {
 	/**
 	 * Generates the expiry month dropdown form element. 
 	 * This function is not used by any RapidHTML forms.
-	 * @global type $wgLang
-	 * @return type 
+	 * @return string HTML
 	 */
 	public function generateExpiryMonthDropdown() {
 		global $wgLang;
 
 		// derive the previously set expiry month, if set
-		$month = NULL;
+		$month = null;
 		if ( $this->getEscapedValue( 'expiration' ) ) {
 			$month = substr( $this->getEscapedValue( 'expiration' ), 0, 2 );
 		}
@@ -275,7 +274,7 @@ abstract class Gateway_Form {
 		for ( $i = 1; $i < 13; $i++ ) {
 			$selected = ( $i == $month && $this->test ) ? true : false;
 			$expiry_months .= Xml::option(
-				wfMsg( 'donate_interface-month', $i, $wgLang->getMonthName( $i ) ),
+				wfMessage( 'donate_interface-month', $i, $wgLang->getMonthName( $i ) )->text(),
 				str_pad( $i, 2, '0', STR_PAD_LEFT ),
 				$selected );
 		}
@@ -294,12 +293,11 @@ abstract class Gateway_Form {
 	/**
 	 * Generates the expiry year dropdown form element. 
 	 * This function is not used by any RapidHTML forms.
-	 * @global type $wgLang
-	 * @return type 
+	 * @return string
 	 */
 	public function generateExpiryYearDropdown() {
 		// derive the previously set expiry year, if set
-		$year = NULL;
+		$year = null;
 		if ( $this->getEscapedValue( 'expiration' ) ) {
 			$year = substr( $this->getEscapedValue( 'expiration' ), 2, 2 );
 		}
@@ -327,7 +325,7 @@ abstract class Gateway_Form {
 	/**
 	 * Generates the dropdown for states
 	 * This function is not used by any RapidHTML forms.
-	 * @fixme Alpha sort (ideally locale alpha sort) states in dropdown
+	 * @todo FIXME: Alpha sort (ideally locale alpha sort) states in dropdown
 	 * 	AFTER state names are translated
 	 * @return string The entire HTML select element for the state dropdown list
 	 */
@@ -341,7 +339,11 @@ abstract class Gateway_Form {
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			$selected = ( $this->getEscapedValue( 'state' ) == $value ) ? true : false;
-			$state_opts .= Xml::option( wfMsg( 'donate_interface-state-dropdown-' . $value ), $value, $selected );
+			$state_opts .= Xml::option(
+				wfMessage( 'donate_interface-state-dropdown-' . $value )->text(),
+				$value,
+				$selected
+			);
 		}
 
 		$state_menu = Xml::openElement(
@@ -388,15 +390,8 @@ abstract class Gateway_Form {
 			// Should this option be selected?
 			$selected = ( $selectedCurrency == $currencyCode ) ? true : false;
 			
-			$optionText = wfMsg( 'donate_interface-' . $currencyCode ); // name of the currency
-			/* uncomment this to get currency name and code in the drop-down list
-			$optionText = wfMsg(
-				'donate_interface-currency-display', // formatting
-				wfMsg( 'donate_interface-' . $currencyCode ), // name of the currency
-				$currencyCode // code of the currency
-			);
-			*/
-			
+			$optionText = wfMessage( 'donate_interface-' . $currencyCode )->text(); // name of the currency
+
 			$currencyOpts .= Xml::option( $optionText, $currencyCode, $selected );
 		}
 
@@ -564,7 +559,7 @@ abstract class Gateway_Form {
 	 * into a form, and for a form to flexibly insert captcha HTML
 	 * wherever it needs to go.
 	 *
-	 * @param string The HTML to display the captcha
+	 * @param string $html to display the captcha
 	 */
 	public function setCaptchaHTML( $html ) {
 		$this->captcha_html = $html;
@@ -575,8 +570,6 @@ abstract class Gateway_Form {
 	 * Generates a banner header based on the existance of set masthead data, 
 	 * and/or a gateway header defined in LocalSettings. 
 	 * This function is not used by any RapidHTML forms.
-	 * @global type $wgOut
-	 * @global type $wgRequest 
 	 */
 	protected function generateBannerHeader() {
 		global $wgOut, $wgRequest;
@@ -603,15 +596,13 @@ abstract class Gateway_Form {
 	/**
 	 * generateTextTemplate: Loads the text from the appropraite template. 
 	 * This function is not used by any RapidHTML forms.
-	 * @global type $wgOut
-	 * @global type $wgRequest
-	 * @return string 
+	 * @return string
 	 */
 	protected function generateTextTemplate() {
 		global $wgOut, $wgRequest;
 		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
 		
-		//TODO: determine if this next line is really as silly as it looks. I don't think we should be using $wgRequest here at all.
+		// @todo Determine if this next line is really as silly as it looks. I don't think we should be using $wgRequest here at all.
 		//(See DonationData::setLanguage())
 		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->getEscapedValue( 'language' );
 		
@@ -632,7 +623,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['emailAdd'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-email' ), 'emailAdd' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-email' )->text(), 'emailAdd' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'emailAdd', '30', $this->getEscapedValue( 'email' ), array( 'type' => 'text', 'maxlength' => '64', 'id' => 'emailAdd', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -655,7 +646,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-amount' )->text(), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::radio( 'amount', 100, $this->getEscapedValue( 'amount' ) == 100 ) . '100 ' .
 			Xml::radio( 'amount', 50, $this->getEscapedValue( 'amount' ) == 50 ) . '50 ' .
 			Xml::radio( 'amount', 35, $this->getEscapedValue( 'amount' ) == 35 ) . '35 ' .
@@ -664,7 +655,7 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label"></td>';
-		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->getEscapedValue( 'amountOther' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-other' ) . '\' )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
+		$form .= '<td>' . Xml::radio( 'amount', $amount, $otherChecked, array( 'id' => 'otherRadio' ) ) . Xml::input( 'amountOther', '7', $this->getEscapedValue( 'amountOther' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-other' )->text() . '\' )', 'onblur' => 'document.getElementById("otherRadio").value = this.value;if (this.value > 0) document.getElementById("otherRadio").checked=true;', 'maxlength' => '10', 'id' => 'amountOther' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -689,7 +680,7 @@ abstract class Gateway_Form {
 			$form .= '</tr>';
 		}
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-card-num' ), 'card_num' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-card-num' )->text(), 'card_num' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'card_num', '30', $card_num, array( 'type' => 'text', 'maxlength' => '100', 'id' => 'card_num', 'class' => 'fullwidth', 'autocomplete' => 'off' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -707,9 +698,9 @@ abstract class Gateway_Form {
 		$form = '<tr>';
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-security' ), 'cvv' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-security' )->text(), 'cvv' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off' ) ) .
-			' ' . '<a href="javascript:PopupCVV();">' . wfMsg( 'donate_interface-cvv-link' ) . '</a>' .
+			' ' . '<a href="javascript:PopupCVV();">' . wfMessage( 'donate_interface-cvv-link' )->text() . '</a>' .
 			'</td>';
 		$form .= '</tr>';
 		return $form;
@@ -725,7 +716,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-street' ), 'street' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-street' )->text(), 'street' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'street', '30', $this->getEscapedValue( 'street' ), array( 'type' => 'text', 'maxlength' => '100', 'id' => 'street', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -742,7 +733,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-city' ), 'city' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-city' )->text(), 'city' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'city', '30', $this->getEscapedValue( 'city' ), array( 'type' => 'text', 'maxlength' => '40', 'id' => 'city', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -759,7 +750,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-postal' ), 'zip' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-postal' )->text(), 'zip' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'zip', '30', $this->getEscapedValue( 'zip' ), array( 'type' => 'text', 'maxlength' => '9', 'id' => 'zip', 'class' => 'fullwidth' ) ) .
 			'</td>';
 		$form .= '</tr>';
@@ -779,9 +770,9 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['lname'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-name' ), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-fname' ) . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMsg( 'donate_interface-donor-lname' ) . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-name' )->text(), 'fname' ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-fname' )->text() . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-lname' )->text() . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 		return $form;
 	}
@@ -794,7 +785,7 @@ abstract class Gateway_Form {
 	protected function getCommentMessageField() {
 		$form = '<tr>';
 		$form .= '<td colspan="2">';
-		$form .= Xml::tags( 'p', array( ), wfMsg( 'donate_interface-comment-message' ) );
+		$form .= Xml::tags( 'p', array( ), wfMessage( 'donate_interface-comment-message' )->escaped() );
 		$form .= '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -807,7 +798,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getCommentField() {
 		$form = '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-comment' ), 'comment' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-comment' )->text(), 'comment' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'comment', '30', $this->getEscapedValue( 'comment' ), array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' ) ) . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -822,7 +813,7 @@ abstract class Gateway_Form {
 		$comment_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'comment-option' ) : true;
 		$form = '<tr>';
 		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMsg( 'donate_interface-anon-message' ), 'comment-option' ) . '</td>';
+		$form .= ' ' . Xml::label( wfMessage( 'donate_interface-anon-message' )->text(), 'comment-option' ) . '</td>';
 		$form .= '</tr>';
 		return $form;
 	}
@@ -839,7 +830,7 @@ abstract class Gateway_Form {
 		$form .= ' ';
 		// put the label inside Xml::openElement so any HTML in the msg might get rendered (right, Germany?)
 		$form .= Xml::openElement( 'label', array( 'for' => 'email-opt' ) );
-		$form .= wfMsg( 'donate_interface-email-agreement' );
+		$form .= wfMessage( 'donate_interface-email-agreement' )->text();
 		$form .= Xml::closeElement( 'label' );
 		$form .= '</td>';
 		$form .= '</tr>';
@@ -849,8 +840,7 @@ abstract class Gateway_Form {
 	/**
 	 * Builds and returns the paypal button form element. 
 	 * This function is only used in TwoColumnPayPal.php. 
-	 * @global type $wgScriptPath
-	 * @return string 
+	 * @return string
 	 */
 	protected function getPaypalButton() {
 		global $wgScriptPath;
@@ -876,7 +866,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-state' ), 'state' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-state' )->text(), 'state' ) . '</td>';
 		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -885,7 +875,7 @@ abstract class Gateway_Form {
 	/**
 	 * Builds and returns the country form element. 
 	 * This function is not used by any RapidHTML forms.
-	 * @param type $defaultCountry
+	 * @param null $defaultCountry
 	 * @return string 
 	 */
 	protected function getCountryField( $defaultCountry = null ) {
@@ -893,7 +883,7 @@ abstract class Gateway_Form {
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-country' ), 'country' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-country' )->text(), 'country' ) . '</td>';
 		$form .= '<td>' . $this->generateCountryDropdown( $defaultCountry ) . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -906,7 +896,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getCreditCardTypeField() {
 		$form = '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-card' ), 'card_type' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-card' )->text(), 'card_type' ) . '</td>';
 		$form .= '<td>' . $this->generateCardDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -919,7 +909,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getExpiryField() {
 		$form = '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-expiration' ), 'expiration' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-expiration' )->text(), 'expiration' ) . '</td>';
 		$form .= '<td>' . $this->generateExpiryMonthDropdown() . $this->generateExpiryYearDropdown() . '</td>';
 		$form .= '</tr>';
 		return $form;
@@ -927,7 +917,6 @@ abstract class Gateway_Form {
 
 	/**
 	 * Uses resource loader to load the form validation javascript. 
-	 * @global type $wgOut 
 	 */
 	protected function loadValidateJs() {
 		global $wgOut;
@@ -937,7 +926,6 @@ abstract class Gateway_Form {
 	/**
 	 * Uses the resource loader to add the api client side javascript, usually 
 	 * only when the form is caching. 
-	 * @global type $wgOut 
 	 */
 	protected function loadApiJs() {
 		global $wgOut;
@@ -947,8 +935,6 @@ abstract class Gateway_Form {
 	/**
 	 * Loads the OWA javascript. 
 	 * if OWA is enabled, this is called by the main form constructor. 
-	 * @global type $wgOut
-	 * @global type $wgScriptPath 
 	 */
 	protected function loadOwaJs() {
 		global $wgOut, $wgScriptPath;
@@ -973,9 +959,9 @@ abstract class Gateway_Form {
 
 		$form = '<noscript>';
 		$form .= '<div id="noscript">';
-		$form .= '<p id="noscript-msg">' . wfMsg( 'donate_interface-noscript-msg' ) . '</p>';
+		$form .= '<p id="noscript-msg">' . wfMessage( 'donate_interface-noscript-msg' )->text() . '</p>';
 		if ( $noScriptRedirect ) {
-			$form .= '<p id="noscript-redirect-msg">' . wfMsg( 'donate_interface-noscript-redirect-msg' ) . '</p>';
+			$form .= '<p id="noscript-redirect-msg">' . wfMessage( 'donate_interface-noscript-redirect-msg' )->text() . '</p>';
 			$form .= '<p id="noscript-redirect-link"><a href="' . $noScriptRedirect . '">' . $noScriptRedirect . '</a></p>';
 		}
 		$form .= '</div>';
@@ -1045,10 +1031,9 @@ abstract class Gateway_Form {
 	 * Create and return the Verisign logo (small size) form element.
 	 */
 	protected function getSmallSecureLogo() {
-
-		$form = '<table id="secureLogo" width="130" border="0" cellpadding="2" cellspacing="0" title=' . wfMsg('donate_interface-securelogo-title') . '>';
+		$form = '<table id="secureLogo" width="130" border="0" cellpadding="2" cellspacing="0" title=' . wfMessage('donate_interface-securelogo-title')->escaped() . '>';
 		$form .= '<tr>';
-		$form .= '<td width="130" align="center" valign="top"><script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=payments.wikimedia.org&size=S&use_flash=NO&use_transparent=NO&lang=en"></script><br /><a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">' . wfMsg('donate_interface-secureLogo-text') . '</a></td>';
+		$form .= '<td width="130" align="center" valign="top"><script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=payments.wikimedia.org&size=S&use_flash=NO&use_transparent=NO&lang=en"></script><br /><a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">' . wfMessage('donate_interface-secureLogo-text')->escaped() . '</a></td>';
 		$form .= '</tr>';
 		$form .= '</table>';
 	return $form;
@@ -1066,4 +1051,3 @@ abstract class Gateway_Form {
 		return $this->gateway->getData_Unstaged_Escaped( $key );
 	}
 }
-

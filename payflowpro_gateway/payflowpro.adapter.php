@@ -134,7 +134,6 @@ class PayflowProAdapter extends GatewayAdapter {
 	 * 5 if pending - 'pending'
 	 */
 	function getResponseErrors( $response ) {
-
 		if ( is_array( $response ) && array_key_exists( 'RESULT', $response ) ) {
 			$resultCode = $response['RESULT'];
 		} else {
@@ -145,47 +144,47 @@ class PayflowProAdapter extends GatewayAdapter {
 
 		switch ( $resultCode ) {
 			case '0':
-				$errors['1'] = wfMsg( 'payflowpro_gateway-response-0' );
+				$errors['1'] = wfMessage( 'payflowpro_gateway-response-0' )->text();
 				$this->setTransactionWMFStatus( 'complete' );
 				break;
 			case '126':
-				$errors['5'] = wfMsg( 'payflowpro_gateway-response-126-2' );
+				$errors['5'] = wfMessage( 'payflowpro_gateway-response-126-2' )->text();
 				$this->setTransactionWMFStatus( 'pending' );
 				break;
 			case '12':
-				$errors['2'] = wfMsg( 'payflowpro_gateway-response-12' );
+				$errors['2'] = wfMessage( 'payflowpro_gateway-response-12' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '13':
-				$errors['2'] = wfMsg( 'payflowpro_gateway-response-13' );
+				$errors['2'] = wfMessage( 'payflowpro_gateway-response-13' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '114':
-				$errors['2'] = wfMsg( 'payflowpro_gateway-response-114' );
+				$errors['2'] = wfMessage( 'payflowpro_gateway-response-114' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '4':
-				$errors['3'] = wfMsg( 'payflowpro_gateway-response-4' );
+				$errors['3'] = wfMessage( 'payflowpro_gateway-response-4' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '23':
-				$errors['3'] = wfMsg( 'payflowpro_gateway-response-23' );
+				$errors['3'] = wfMessage( 'payflowpro_gateway-response-23' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '24':
-				$errors['3'] = wfMsg( 'payflowpro_gateway-response-24' );
+				$errors['3'] = wfMessage( 'payflowpro_gateway-response-24' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '112':
-				$errors['3'] = wfMsg( 'payflowpro_gateway-response-112' );
+				$errors['3'] = wfMessage( 'payflowpro_gateway-response-112' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			case '125':
-				$errors['3'] = wfMsg( 'payflowpro_gateway-response-125-2' );
+				$errors['3'] = wfMessage( 'payflowpro_gateway-response-125-2' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 				break;
 			default:
-				$errors['4'] = wfMsg( 'payflowpro_gateway-response-default' );
+				$errors['4'] = wfMessage( 'payflowpro_gateway-response-default' )->text();
 				$this->setTransactionWMFStatus( 'failed' );
 		}
 

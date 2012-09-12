@@ -33,12 +33,7 @@ window.clearField = function( field, defaultValue ) {
  * @param mixed varname
  */
 function isset( varname ){
-    if ( typeof( varname ) == "undefined" ) {
-        return false;
-    }
-    else {
-        return true;
-    }
+    return typeof( varname ) != "undefined";
 }
 
 /**
@@ -129,8 +124,8 @@ function validateElementAmount( options ) {
             {
                 required: true,
 				requirefunds: { 
-					min: 1,
-				},
+					min: 1
+				}
             }
         );
     });
@@ -150,7 +145,7 @@ function validateElementEmail( options ) {
                 email: true,
                 messages: {
                     required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-emailAdd' ),
-                    email: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-emailAdd' ),
+                    email: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-emailAdd' )
                 }
             }
         );
@@ -169,7 +164,7 @@ function validateElementFirstName( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-fname' ),
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-fname' )
                 }
             }
         );
@@ -188,8 +183,8 @@ function validateElementLastName( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-lname' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-lname' )
+				}
             }
         );
     });
@@ -207,8 +202,8 @@ function validateElementStreet( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-street' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-street' )
+				}
             }
         );
     });
@@ -226,8 +221,8 @@ function validateElementCity( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-city' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-city' )
+				}
             }
         );
     });
@@ -256,8 +251,8 @@ function validateElementState( options ) {
                 notEqual: 'YY',
                 messages: {
                     required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ),
-                    notEqual: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ),
-                }
+                    notEqual: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' )
+				}
             }
         );
     });
@@ -275,8 +270,8 @@ function validateElementZip( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-zip' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-zip' )
+				}
             }
         );
     });
@@ -297,8 +292,8 @@ function validateElementCountry( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' )
+				}
             }
         );
     });
@@ -321,8 +316,8 @@ function validateElementCardNumber( options ) {
                 //creditcard: true,
                 //creditcardtypes: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-card_num' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-card_num' )
+				}
             }
         );
     });
@@ -340,8 +335,8 @@ function validateElementCvv( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-cvv' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-cvv' )
+				}
             }
         );
     });
@@ -360,8 +355,8 @@ function validateElementPaymentMethod( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_method' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_method' )
+				}
             }
         );
     });
@@ -380,8 +375,8 @@ function validateElementPaymentSubmethod( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_submethod' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_submethod' )
+				}
             }
         );
     });
@@ -399,8 +394,8 @@ function validateElementIssuerId( options ) {
             {
                 required: true,
                 messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-issuer_id' ),
-                }
+                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-issuer_id' )
+				}
             }
         );
     });
@@ -438,7 +433,7 @@ $().ready(function() {
 	// Options for plugin jquery.validate.js
 	var validateOptions = {
 		//ignore: ':hidden',
-	}
+	};
 	
 	/* 
 	 * This is where everything happens: .validate( validateOptions );

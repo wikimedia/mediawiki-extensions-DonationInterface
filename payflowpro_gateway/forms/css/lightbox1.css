@@ -32,7 +32,7 @@
  padding-top: 0.125em;
 }
 #appeal-body {
- padding: 0.2em 0em;
+ padding: 0.2em 0;
  font-size: 1.125em;
  margin-bottom: 1em;
 }
@@ -211,12 +211,12 @@ input.btn {
 	font-weight:bold;
 	float:left;
 	width:580px;
-	padding:8px 0px 5px 20px;
-	margin:10px 0px;
+	padding:8px 0 5px 20px;
+	margin:10px 0;
 }
 #steps form div.stuff{
 	clear:both;
-	margin:3px 0px;
+	margin:3px 0;
 	width:auto;
 	padding:5px 10px;
 	/*
@@ -262,9 +262,9 @@ input.btn {
 	width: 62px;
 }
 #steps form input:focus{
-	-moz-box-shadow:0px 0px 3px #aaa;
-	-webkit-box-shadow:0px 0px 3px #aaa;
-	box-shadow:0px 0px 3px #aaa;
+	-moz-box-shadow:0 0 3px #aaa;
+	-webkit-box-shadow:0 0 3px #aaa;
+	box-shadow:0 0 3px #aaa;
 	background-color:#FFFEEF;
 }
 #steps form p.submit{

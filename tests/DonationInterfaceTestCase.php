@@ -69,7 +69,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$this->assertEquals($expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.');
 	}
-	
+
 	/**
 	 * This fetches test data to be used for gateway adapters.
 	 *
@@ -78,7 +78,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * The returned result is populated with a test user from Spain, attempting
 	 * a bank transfer for 350 EUR.
 	 *
-	 * @param array	$options
+	 * @param array    $options
 	 *
 	 * Options that may need to be set:
 	 * - adapter: (string) Defaults to TESTS_ADAPTER_DEFAULT
@@ -90,37 +90,38 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - payment_method: bt
 	 * - payment_submethod: bt
 	 * - email: TESTS_EMAIL
-	 * - fname: Testy: 
-	 * - lname: Testerton: 
-	 * - street: 123 Happy Street: 
-	 * - city: Barcelona: 
-	 * - state: XX: 
-	 * - zip:  
-	 * - country: ES: 
+	 * - fname: Testy:
+	 * - lname: Testerton:
+	 * - street: 123 Happy Street:
+	 * - city: Barcelona:
+	 * - state: XX:
+	 * - zip:
+	 * - country: ES:
 	 * - //size: small
-	 * - currency: EUR: 
-	 * - payment_method:  
+	 * - currency: EUR:
+	 * - payment_method:
 	 * - //order_id: 5038287830
 	 * - //i_order_id: 1234567890
 	 * - numAttempt: 0
-	 * - referrer: http:// . TESTS_HOSTNAME . /index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount: 
-	 * - utm_source: ..gc_bt: 
+	 * - referrer: http:// . TESTS_HOSTNAME . /index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount:
+	 * - utm_source: ..gc_bt:
 	 * - utm_medium: null
 	 * - utm_campaign: null
-	 * - language: en: 
-	 * - comment-option:  
-	 * - comment:  
+	 * - language: en:
+	 * - comment-option:
+	 * - comment:
 	 * - email-opt: 1
-	 * - test_string:  
-	 * - token:  
-	 * - contribution_tracking_id:  
-	 * - data_hash:  
-	 * - action:  
-	 * - gateway: globalcollect: 
-	 * - owa_session:  
+	 * - test_string:
+	 * - token:
+	 * - contribution_tracking_id:
+	 * - data_hash:
+	 * - action:
+	 * - gateway: globalcollect:
+	 * - owa_session:
 	 * - owa_ref: http://localhost/defaultTestData
 	 *
-	 * @return array	Contains: postDefaults, testData
+	 * @throws Exception
+	 * @return array    Contains: postDefaults, testData
 	 */
 	public function getGatewayAdapterTestData( $options = array() ) {
 		
@@ -266,11 +267,13 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		return $this->getGatewayAdapterTestData( $options );
 	}
-	
+
 	/**
 	 * Get the expected XML request from GlobalCollect
 	 *
-	 * @return string	The expected XML request
+	 * @param $optionsForTestData
+	 * @param array $options
+	 * @return string    The expected XML request
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
 

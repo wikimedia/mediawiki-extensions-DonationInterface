@@ -13,8 +13,6 @@ class Gateway_Form_TwoStepTwoColumnLetter extends Gateway_Form_TwoStepTwoColumn 
 	}
 
 	public function generateFormStart() {
-		global $wgOut;
-
 		$form = parent::generateBannerHeader();
 
 		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0 ) );
@@ -31,7 +29,7 @@ class Gateway_Form_TwoStepTwoColumnLetter extends Gateway_Form_TwoStepTwoColumn 
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-please-complete' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMessage( 'donate_interface-please-complete' )->escaped() );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -87,7 +85,7 @@ class Gateway_Form_TwoStepTwoColumnLetter extends Gateway_Form_TwoStepTwoColumn 
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-amount' )->text(), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->getEscapedValue( 'amount' ), array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';

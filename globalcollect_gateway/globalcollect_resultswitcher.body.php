@@ -1,7 +1,6 @@
 <?php
 
 class GlobalCollectGatewayResult extends GatewayForm {
-
 	/**
 	 * Defines the action to take on a GlobalCollect transaction.
 	 *
@@ -36,9 +35,11 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
-		
-		//no longer letting people in without these things. If this is 
+		global $wgExtensionAssetsPath;
+
+		$out = $this->getOutput();
+
+		//no longer letting people in without these things. If this is
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
 		$forbidden = false;
@@ -55,34 +56,34 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		}
 		
 		if ( $forbidden ){
-			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 		}
 
-		$referrer = $wgRequest->getHeader( 'referer' );
+		$referrer = $this->getRequest()->getHeader( 'referer' );
 		$liberated = false;
 		if ( array_key_exists( 'order_status', $_SESSION ) && array_key_exists( $qs_oid, $_SESSION['order_status'] ) ){
 			$liberated = true;
 		}
 
 		global $wgServer;
-		//TODO: Whitelist! We only want to do this for servers we are configured to like!
+		// @todo Whitelist! We only want to do this for servers we are configured to like!
 		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
 		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
 		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
 			$_SESSION['order_status'][$qs_oid] = 'liberated';
 			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $qs_oid);
-			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
-			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
+			// @todo Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
+			// @todo If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
 			if ( $forbidden ) {
 				$this->adapter->log("Resultswitcher: " . $qs_oid . "SHOULD BE FORBIDDEN. Reason: $f_message");
 			}
-			$wgOut->allowClickjacking();
-			$wgOut->addModules( 'iframe.liberator' );
+			$out->allowClickjacking();
+			$out->addModules( 'iframe.liberator' );
 			return;
 		}
 		
-		$wgOut->addExtensionStyle(
+		$out->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
 			$this->adapter->getGlobal( 'CSSVersion' ) );
 
@@ -98,7 +99,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
-			$oid = $wgRequest->getText( 'order_id' );
+			$oid = $this->getRequest()->getText( 'order_id' );
 			
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
@@ -124,9 +125,9 @@ class GlobalCollectGatewayResult extends GatewayForm {
 							break;
 					}
 
-					if ($go) {
-						$wgOut->addHTML( "<br>Redirecting to page $go" );
-						$wgOut->redirect( $go );
+					if ( $go ) {
+						$out->addHTML( "<br>Redirecting to page $go" );
+						$out->redirect( $go );
 					} else {
 						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid");
 					}
@@ -146,8 +147,6 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 * user came from with all the data and an error message.
 	 */
 	function getDeclinedResultPage() {
-		global $wgOut;
-		
 		$displayData = $this->adapter->getData_Unstaged_Escaped();
 		$failpage = $this->adapter->getFailPage();
 
@@ -168,7 +167,4 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			return $returnto;
 		}
 	}
-	
 }
-
-// end class

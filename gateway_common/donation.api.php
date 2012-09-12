@@ -21,6 +21,7 @@ class DonationApi extends ApiBase {
 		}
 
 		$method = $this->donationData['payment_method'];
+		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
 		if ( $this->gateway == 'payflowpro' ) {

@@ -38,8 +38,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$paymentSubMethod );
 		
 		// Now do something with the specification
-		$params = array();
-
 		if ($formSpec) {
 			// TODO: Make this a little more intelligent than just choosing the first one
 			switch( $formSpec['gateways'][0] ){
@@ -74,7 +72,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 			// set the default redirect
 			$redirectURL = $this->getTitleFor( $gateway )->getLocalUrl( $params );
-
 		} else {
 			// This is an error condition, so we return something reasonable
 			// TODO: Figure out something better to do
@@ -283,17 +280,20 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		global $wgDonationInterfaceEnabledGateways;
 		return $wgDonationInterfaceEnabledGateways;
 	}
-	
+
 	/**
 	 * In the event that we have more than one valid form, we need to figure out
-	 * which one we ought to be using. 
+	 * which one we ought to be using.
 	 * In the absense of any data regarding form preferences, we should pick one
-	 * that appears to be localized for whatever we requested. 
+	 * that appears to be localized for whatever we requested.
 	 * If we still have more than one, take the one with the most payment
-	 * submethods. 
-	 * If we *still* have more than one, just... take the top or something. 
+	 * submethods.
+	 * If we *still* have more than one, just... take the top or something.
 	 * @param array $valid_forms All the forms that are valid for the parameters
-	 * we've used. 
+	 * we've used.
+	 * @param $currency
+	 * @param $country
+	 * @return mixed
 	 */
 	static function pickOneForm( $valid_forms, $currency, $country ){
 		if ( count( $valid_forms ) === 1 ){

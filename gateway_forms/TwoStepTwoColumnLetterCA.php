@@ -13,8 +13,6 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 	}
 
 	public function generateFormStart() {
-		global $wgOut;
-
 		$form = parent::generateBannerHeader();
 
 		$form .= Xml::openElement( 'table', array( 'width' => '100%', 'cellspacing' => 0, 'cellpadding' => 0, 'border' => 0 ) );
@@ -31,7 +29,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		// add noscript tags for javascript disabled browsers
 		$form .= $this->getNoScript();
 
-		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMsg( 'donate_interface-please-complete' ) );
+		$form .= Xml::tags( 'h2', array( 'id' => 'donate-head' ), wfMessage( 'donate_interface-please-complete' )->escaped() );
 
 		// provide a place at the top of the form for displaying general messages
 		if ( $this->form_errors['general'] ) {
@@ -87,7 +85,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-amount' )->text(), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->getEscapedValue( 'amount' ), array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 			' ' . $this->generateCurrencyDropdown( 'CAD' ) . '</td>';
 		$form .= '</tr>';
@@ -129,7 +127,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-state-province' ), 'state' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-state-province' )->text(), 'state' ) . '</td>';
 		$form .= '<td>' . $this->generateStateDropdown() . '</td>';
 		$form .= '</tr>';
 		
@@ -141,7 +139,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-country' ), 'country' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-country' )->text(), 'country' ) . '</td>';
 		$form .= '<td>' . $this->generateCountryDropdown( 'CA' ) . '</td>'; // Canada default
 	    $form .= '</tr>';
 
@@ -168,7 +166,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 	}
 	
 	public function generateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/includes/provinceAbbreviations.inc' );
+		require_once( __DIR__ . '/includes/provinceAbbreviations.inc' );
 
 		$states = statesMenuXML();
 
@@ -177,7 +175,7 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 		// generate dropdown of state opts
 		foreach ( $states as $value => $state_name ) {
 			$selected = ( $this->getEscapedValue( 'state' ) == $value ) ? true : false;
-			$state_opts .= Xml::option( wfMsg( 'donate_interface-province-dropdown-' . $value ), $value, $selected );
+			$state_opts .= Xml::option( wfMessage( 'donate_interface-province-dropdown-' . $value )->text(), $value, $selected );
 		}
 
 		$state_menu = Xml::openElement(
@@ -191,5 +189,4 @@ class Gateway_Form_TwoStepTwoColumnLetterCA extends Gateway_Form_TwoStepTwoColum
 
 		return $state_menu;
 	}
-	
 }

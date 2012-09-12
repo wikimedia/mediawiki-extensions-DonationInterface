@@ -143,21 +143,23 @@ class DataValidator {
 			'emailAdd' => '',
 		);
 	}
-	
-	
+
+
 	/**
-	 * getErrorMessage - returns the translated error message appropriate for a 
-	 * validation error on the specified field, of the specified type. 
-	 * @param string $field - The common name of the field containing the data 
+	 * getErrorMessage - returns the translated error message appropriate for a
+	 * validation error on the specified field, of the specified type.
+	 * @param string $field - The common name of the field containing the data
 	 * that is causing the error.
-	 * @param type $type - The type of error being caused, from a set. 
-	 *	Possible values are: 
-	 *		'non_empty' - the value is required and not currently present
-	 *		'valid_type' - in general, the wrong format
-	 *		'calculated' - fields that failed some kind of multiple-field data 
+	 * @param string $type - The type of error being caused, from a set.
+	 *    Possible values are:
+	 *        'non_empty' - the value is required and not currently present
+	 *        'valid_type' - in general, the wrong format
+	 *        'calculated' - fields that failed some kind of multiple-field data
 	 * integrity check.
-	 * @param string $value - The value of the field. So far, only used to say 
-	 * more precise things about Credit Cards. 
+	 * @param string $language MediaWiki language code
+	 * @param string $value - The value of the field. So far, only used to say
+	 * more precise things about Credit Cards.
+	 * @return String
 	 */
 	public static function getErrorMessage( $field, $type, $language, $value = null ){
 		//this is gonna get ugly up in here. 
@@ -179,7 +181,10 @@ class DataValidator {
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
 			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMsg( 'donate_interface-error-msg', wfMsg( $error_message_field_string ) );
+				return wfMessage(
+					'donate_interface-error-msg',
+					wfMessage( $error_message_field_string )->text()
+				)->text();
 			} 
 		}
 		
@@ -206,12 +211,12 @@ class DataValidator {
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;			
 			if ( self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMsg( $error_message_field_string );
+				return wfMessage( $error_message_field_string )->text();
 			}
 		}
 		
 		//ultimate defaultness. 
-		return wfMsg( 'donate_interface-error-msg-general' );		
+		return wfMessage( 'donate_interface-error-msg-general' )->text();
 	}
 	
 	
@@ -247,9 +252,10 @@ class DataValidator {
 	 * in the requested language. If no messages are found in that language, the
 	 * function returns the first existant fallback message.
 	 *
-	 * @param $language the requested language
+	 * @param string $language the code of the requested language
+	 * @param array $msg_keys
+	 * @throws MWException
 	 * @return String the text of the first existant message
-	 * @throws MWException if no message keys are specified
 	 */
 	public static function wfLangSpecificFallback( $language='en', $msg_keys=array() ){
 
@@ -278,16 +284,17 @@ class DataValidator {
 
 	/**
 	 * validate
-	 * Run all the validation rules we have defined against a (hopefully 
-	 * normalized) DonationInterface data set. 
-	 * @param array $data The DonationInterface data set, or a subset thereof. 
-	 * @param array $check_not_empty An array of fields to do empty validation 
-	 * on. If this is not populated, no fields will throw errors for being empty, 
-	 * UNLESS they are required for a field that uses them for more complex 
-	 * validation (the 'calculated' phase). 
-	 * @return array An array of errors in a format ready for any derivitive of 
-	 * the main DonationInterface Form class to display. The array will be empty 
-	 * if no errors were generated and everything passed OK.  
+	 * Run all the validation rules we have defined against a (hopefully
+	 * normalized) DonationInterface data set.
+	 * @param array $data The DonationInterface data set, or a subset thereof.
+	 * @param array $check_not_empty An array of fields to do empty validation
+	 * on. If this is not populated, no fields will throw errors for being empty,
+	 * UNLESS they are required for a field that uses them for more complex
+	 * validation (the 'calculated' phase).
+	 * @throws MWException
+	 * @return array An array of errors in a format ready for any derivitive of
+	 * the main DonationInterface Form class to display. The array will be empty
+	 * if no errors were generated and everything passed OK.
 	 */
 	public static function validate( $data, $check_not_empty = array()  ){
 		//return the array of errors that should be generated on validate.
@@ -367,7 +374,6 @@ class DataValidator {
 					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
 				}
 			} else {
-				$instructions['non_empty'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
 			}
@@ -382,7 +388,6 @@ class DataValidator {
 					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
 				}
 			} else {
-				$instructions['valid_type'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
 			}
@@ -419,7 +424,6 @@ class DataValidator {
 				}
 				
 			} else {
-				$instructions['calculated'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
@@ -788,16 +792,18 @@ class DataValidator {
 			return $ips;
 		}
 	}
-	
+
 	/**
-	 * Eventually, this function should pull from here and memcache. 
+	 * Eventually, this function should pull from here and memcache.
 	 * @staticvar array $blacklist A cached and expanded blacklist
 	 * @param string $ip The IP addx we want to check
-	 * @param string $list_name The global list, ostensibly full of IP addresses, 
+	 * @param string $list_name The global list, ostensibly full of IP addresses,
 	 * that we want to check against.
-	 * @param string $gateway The gateway we're concerned with. Only matters if, 
-	 * for instance, $wgDonationInterfaceIPBlacklist is different from 
+	 * @param string $gateway The gateway we're concerned with. Only matters if,
+	 * for instance, $wgDonationInterfaceIPBlacklist is different from
 	 * $wgGlobalcollectGatewayIPBlacklist for some silly reason.
+	 * @throws MWException
+	 * @return bool
 	 */
 	public static function ip_is_listed( $ip, $list_name, $gateway = '' ) {
 		//cache this mess

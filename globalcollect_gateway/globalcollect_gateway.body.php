@@ -21,7 +21,6 @@
  *
  */
 class GlobalCollectGateway extends GatewayForm {
-
 	/**
 	 * Constructor - set up the new special page
 	 */
@@ -36,20 +35,23 @@ class GlobalCollectGateway extends GatewayForm {
 	 * @todo
 	 * - Finish error handling
 	 *
-	 * @param $par Mixed: parameter passed to the page or null
+	 * @param $par string|null: parameter passed to the page or null
+	 * @return null|void
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
+		global $wgExtensionAssetsPath;
 		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
 
-		$wgOut->allowClickjacking();
+		$out = $this->getOutput();
 
-		$wgOut->addExtensionStyle(
+		$out->allowClickjacking();
+
+		$out->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
 			$CSSVersion );
 
 		// Hide unneeded interface elements
-		$wgOut->addModules( 'donationInterface.skinOverride' );
+		$out->addModules( 'donationInterface.skinOverride' );
 
 		// Make the wiki logo not clickable.
 		// @fixme can this be moved into the form generators?
@@ -60,7 +62,7 @@ jQuery(document).ready(function() {
 });
 </script>
 EOT;
-		$wgOut->addHeadItem( 'logolinkoverride', $js );
+		$out->addHeadItem( 'logolinkoverride', $js );
 
 		$this->setHeaders();
 
@@ -70,17 +72,14 @@ EOT;
 		 *  if paypal redirection is enabled ($wgPayflowProGatewayPaypalURL must be defined)
 		 *  and the PaypalRedirect form value must be true
 		 */
-		if ( $wgRequest->getText( 'PaypalRedirect', 0 ) ) {
+		if ( $this->getRequest()->getText( 'PaypalRedirect', 0 ) ) {
 			$this->paypalRedirect();
 			return;
 		}
 
-
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
-
 			if ( $this->adapter->posted ) {
-
 				// The form was submitted and the payment method has been set
 				$payment_method = $this->adapter->getPaymentMethod();
 				$payment_submethod = $this->adapter->getPaymentSubmethod();
@@ -96,7 +95,6 @@ EOT;
 					// Execute the proper transaction code:
 
 					if ( $payment_method == 'cc' ) {
-
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						// Display an iframe for credit cards
@@ -110,60 +108,49 @@ EOT;
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-
 							return $this->displayBankTransferInformation();
 						}
-
 					} elseif ( $payment_method == 'dd' ) {
 
 						$result = $this->adapter->do_transaction('Direct_Debit');
-						if (!$result['status'])
-						{
+						if (!$result['status']) {
 							// Attach the error messages to the form
 							$this->adapter->setBankValidationErrors();
 						}
 					} elseif ( $payment_method == 'ew' ) {
-
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						$formAction = $this->adapter->getTransactionDataFormAction();
 
 						// Redirect to the bank
 						if ( !empty( $formAction ) ) {
-							return $wgOut->redirect( $formAction );
+							return $out->redirect( $formAction );
 						}
-
 					} elseif ( $payment_method == 'obt' ) {
-
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 
 							return $this->displayOnlineBankTransferInformation();
 						}
-
 					} elseif ( $payment_method == 'rtbt' ) {
-
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						$formAction = $this->adapter->getTransactionDataFormAction();
 
 						// Redirect to the bank
 						if ( !empty( $formAction ) ) {
-							return $wgOut->redirect( $formAction );
+							return $out->redirect( $formAction );
 						}
-
 					} elseif ( $payment_method == 'cash' ) {
-
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 						$formAction = $this->adapter->getTransactionDataFormAction();
 
 						// Redirect to the bank
 						if ( !empty( $formAction ) ) {
-							return $wgOut->redirect( $formAction );
+							return $out->redirect( $formAction );
 						}
-
 					} else {
 						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					}
@@ -175,7 +162,7 @@ EOT;
 				// Display form
 
 				// See GlobalCollectAdapter::stage_returnto()
-				$oid = $wgRequest->getText( 'order_id' );
+				$oid = $this->getRequest()->getText( 'order_id' );
 				if ( $oid ) {
 					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
 					$this->displayResultsForDebug();
@@ -187,14 +174,14 @@ EOT;
 
 				// If the result of the previous transaction was failure, set the retry message.
 				if ( $data && array_key_exists( 'response', $data ) && $data['response'] == 'failure' ) {
-					$error['retryMsg'] = wfMsg( 'php-response-declined' );
+					$error['retryMsg'] = $this->msg( 'php-response-declined' )->text();
 					$this->adapter->addManualError( $error );
 				}
 
 				$this->displayForm();
 			}
 		} else { //token mismatch
-			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
+			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
 			$this->adapter->addManualError( $error );
 			$this->displayForm();
 		}
@@ -206,13 +193,9 @@ EOT;
 	 * @return boolean	Returns true if formaction exists for iframe.
 	 */
 	protected function executeIframeForCreditCard() {
-
-		global $wgOut;
-
 		$formAction = $this->adapter->getTransactionDataFormAction();
 
 		if ( $formAction ) {
-
 			$paymentFrame = Xml::openElement( 'iframe', array(
 					'id' => 'globalcollectframe',
 					'name' => 'globalcollectframe',
@@ -225,7 +208,7 @@ EOT;
 			);
 			$paymentFrame .= Xml::closeElement( 'iframe' );
 
-			$wgOut->addHTML( $paymentFrame );
+			$this->getOutput()->addHTML( $paymentFrame );
 
 			return true;
 		}
@@ -237,9 +220,6 @@ EOT;
 	 * Display information for bank transfer
 	 */
 	protected function displayBankTransferInformation() {
-
-		global $wgOut;
-
 		$results = $this->adapter->getTransactionAllResults();
 
 		$return = '';
@@ -258,25 +238,20 @@ EOT;
 		$id = 'bank_transfer_information';
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
-
-		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-bt-information' ) );
-
+		$return .= Xml::tags( 'h2', array(), $this->msg( 'donate_interface-bt-information' )->escaped() );
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table', 'style' => 'width:600px; margin-left:auto; margin-right:auto;' ) );
 
 		foreach ( $fields as $field => $meta ) {
-
 			if ( isset( $results['data'][ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
-
-				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), wfMsg( $meta['translation'] ) );
+				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), $this->msg( $meta['translation'] )->escaped() );
 				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), $results['data'][ $field ] );
-
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
 						
 		$return .= Xml::openElement( 'tr', array() );
-		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;', 'colspan' => '2' ), wfMsg( 'donate_interface-bank_transfer_message' ) );
+		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;', 'colspan' => '2' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement( 'tr' );
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
@@ -285,21 +260,19 @@ EOT;
 
 		$url = $this->adapter->getThankYouPage() . $queryString;
 
-		$link = HTML::input('MyButton', wfMsg( 'donate_interface-bt-finished') , 'button', array( 'onclick' => "window.location = '$url'" ) );
+		$link = HTML::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = '$url'" ) );
 
 		$return .= Xml::tags( 'p', array( 'style' => 'text-align:center;' ), $link );
-
 		$return .= Xml::closeElement( 'div' );  // $id
 
-		return $wgOut->addHTML( $return );
+		return $this->getOutput()->addHTML( $return );
 	}
 
 	/**
 	 * Display information for online bank transfer
 	 */
 	protected function displayOnlineBankTransferInformation() {
-
-		global $wgOut, $wgScriptPath;
+		global $wgScriptPath;
 
 		$results = $this->adapter->getTransactionAllResults();
 
@@ -312,63 +285,39 @@ EOT;
 		$id = 'bank_transfer_information';
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
-
-		$return .= Xml::tags( 'h2', array(), wfMsg( 'donate_interface-obt-information' ) );
-
+		$return .= Xml::tags( 'h2', array(), $this->msg( 'donate_interface-obt-information' )->escaped() );
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
 		foreach ( $fields as $field => $meta ) {
 
 			if ( isset( $results['data'][ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
-
-				$return .= Xml::tags( 'th', array(), wfMsg( $meta['translation'] ) );
+				$return .= Xml::tags( 'th', array(), $this->msg( $meta['translation'] )->escaped() );
 				$return .= Xml::tags( 'td', array(), $results['data'][ $field ] );
-
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
-
 		$return .= Xml::openElement( 'table' ); //open info table
-
 		$return .= Xml::openElement( 'tr' );
-
 		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
-
-		$return .= Xml::tags( 'p', array(), wfMsg( 'donate_interface-online_bank_transfer_message' ) );
-
+		$return .= Xml::tags( 'p', array(), $this->msg( 'donate_interface-online_bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement ( 'td' );
-
 		$return .= Xml::closeElement ( 'tr' );
-
 		$return .= Xml::openElement ( 'tr' );
-
 		$return .= Xml::openElement( 'td' );
-
 		$return .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
-
 		$return .= Xml::closeElement ( 'td' );
-
 		$return .= Xml::openElement ( 'td' );
-
 		$return .= Xml::tags( 'p',  array(), 'Contact your bank or financial institution <br /> to make this payment from your cheque, <br /> debit, credit card or transaction account. <br /> More info: www.bpay.com.au ' );
-
 		$return .= Xml::closeElement ( 'td' );
-
 		$return .= Xml::closeElement ( 'tr' );
-
 		$return .= Xml::openElement ( 'tr' );
-
 		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
-
 		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518');
-
 		$return .= Xml::closeElement ( 'td' );
-
 		$return .= Xml::closeElement ( 'tr' );
-
 		$return .= Xml::closeElement ( 'table' ); //close info table
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
@@ -378,12 +327,8 @@ EOT;
 		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = '$url'" ) );
 
 		$return .= Xml::tags( 'p', array(), $link );
-
 		$return .= Xml::closeElement( 'div' );  // $id
 
-		return $wgOut->addHTML( $return );
+		return $this->getOutput()->addHTML( $return );
 	}
-
 }
-
-// end class
