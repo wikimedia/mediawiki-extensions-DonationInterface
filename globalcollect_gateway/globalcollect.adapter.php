@@ -1807,9 +1807,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $type ) {
 			case 'request':
 				
-				// JPY cannot have cents.
-				$floorCurrencies = array ( 'JPY' );
-				if ( in_array( $this->staged_data['currency_code'], $floorCurrencies ) ) {
+				if ( in_array( $this->staged_data['currency_code'], $this->non_fractional_currencies ) ) {
 					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
 				}
 				
