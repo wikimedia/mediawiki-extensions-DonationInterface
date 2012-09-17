@@ -652,7 +652,9 @@ if ( $optionalParts['Recaptcha'] === true ){
  * SPECIAL PAGES
  */
 
-$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
+if ( $optionalParts['FormChooser'] === true ){
+	$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
+}
 
 //GlobalCollect gateway special pages
 if ( $optionalParts['GlobalCollect'] === true ){
