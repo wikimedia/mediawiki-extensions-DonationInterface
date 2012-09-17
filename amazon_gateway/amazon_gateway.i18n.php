@@ -130,6 +130,14 @@ $messages['ja'] = array(
 	'amazon_gateway-desc' => 'Amazon での支払い処理',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'amazongateway' => 'Donn jäz jävve',
+	'amazon_gateway-desc' => 'Lazze övver <i lang="en">Amazon</i>',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
