@@ -51,6 +51,10 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	function defineAccountInfo() {
+		//XXX since this class actually accesses two different endpoints,
+		// the usefulness of this function is uncertain.  In other words,
+		// account info is transaction-specific.  We use account_config
+		// instead
 		$this->accountInfo = array();
 	}
 	function defineReturnValueMap() {}
@@ -91,7 +95,6 @@ class AmazonAdapter extends GatewayAdapter {
 				'processImmediate' => '1',
 				'signatureMethod' => 'HmacSHA256',
 				'signatureVersion' => '2',
-				'accessKey' => $this->getGlobal( 'AccessKey' ),
 			),
 			'redirect' => TRUE,
 		);
@@ -112,7 +115,6 @@ class AmazonAdapter extends GatewayAdapter {
 				'Version' => "2010-08-28",
 				'SignatureMethod' => "HmacSHA256",
 				'SignatureVersion' => "2",
-				'AWSAccessKeyId' => $this->getGlobal( "AccessKey" ),
 				'Timestamp' => date( 'c' ),
 			),
 			'url' => $this->getGlobal( "FpsURL" ),
@@ -157,18 +159,23 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->url = $this->getGlobal( "URL" );
 		}
 
-		if ( $transaction == 'VerifySignature' ) {
+		switch ( $transaction ) {
+		case 'Donate':
+			//TODO parseurl... in case ReturnURL already has a query string
+			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$this->getGlobal( 'ReturnURL' )}?order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$this->transactions[ $transaction ][ 'values' ][ 'accessKey' ] = $this->account_config[ 'AccessKey' ];
+			break;
+		case 'VerifySignature':
 			$request_params = $wgRequest->getValues();
 			unset( $request_params[ 'title' ] );
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
 			$this->log("received callback from amazon with: $incoming", LOG_DEBUG);
-		} 
-		else {
-			//TODO parseurl... in case ReturnURL already has a query string
-			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$this->getGlobal( 'ReturnURL' )}?order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$this->transactions[ $transaction ][ 'values' ][ 'AWSAccessKeyId' ] = $this->account_config[ 'AccessKey' ];
+			break;
 		}
 
+		// TODO this will move to a staging function once FR#507 is deployed
 		$query = $this->buildRequestParams();
 		$parsed_uri = parse_url( $this->url );
 		$signature = $this->signRequest( $parsed_uri[ 'host' ], $parsed_uri[ 'path' ], $query );
@@ -308,7 +315,7 @@ class AmazonAdapter extends GatewayAdapter {
 	function signRequest( $host, $path, &$params ) {
 		unset( $params['signature'] );
 
-		$secret_key = $this->getGlobal( "SecretKey" );
+		$secret_key = $this->account_config[ "SecretKey" ];
 
 		$query_str = $this->encodeQuery( $params );
 		$path_encoded = str_replace( "%2F", "/", rawurlencode( $path ) );

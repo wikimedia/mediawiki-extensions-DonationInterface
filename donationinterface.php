@@ -278,7 +278,9 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	$wgGlobalCollectGatewayURL = 'https://ps.gcsip.nl/wdl/wdl';
 	$wgGlobalCollectGatewayTestingURL = 'https://'; // GlobalCollect testing URL
 
-	$wgGlobalCollectGatewayMerchantID = ''; // GlobalCollect ID
+#	$wgGlobalCollectGatewayAccountInfo['example'] = array(
+#		'MerchantID' => '', // GlobalCollect ID
+#	);
 
 	$wgGlobalCollectGatewayHtmlFormDir = $donationinterface_dir . 'globalcollect_gateway/forms/html';
 	//this really should be redefined in LocalSettings.
@@ -328,10 +330,12 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgPayflowProGatewayURL = 'https://payflowpro.paypal.com';
 	$wgPayflowProGatewayTestingURL = 'https://pilot-payflowpro.paypal.com'; // Payflow testing URL
 
-	$wgPayflowProGatewayPartnerID = ''; // PayPal or original authorized reseller
-	$wgPayflowProGatewayVendorID = ''; // paypal merchant login ID
-	$wgPayflowProGatewayUserID = ''; // if one or more users are set up, authorized user ID, else same as VENDOR
-	$wgPayflowProGatewayPassword = ''; // merchant login password
+#	$wgPayflowProGatewayAccountInfo['example'] = array(
+#		'PartnerID' => '', // PayPal or original authorized reseller
+#		'VendorID' => '', // paypal merchant login ID
+#		'UserID' => '', // if one or more users are set up, authorized user ID, else same as VENDOR
+#		'Password' => '', // merchant login password
+#	);
 
 	$wgPayflowProGatewayHtmlFormDir = $donationinterface_dir . 'payflowpro_gateway/forms/html';
 
@@ -355,11 +359,13 @@ if ( $optionalParts['Amazon'] === true ){
 	$wgAmazonGatewayFpsURL = "https://fps.amazonaws.com/";
 	$wgAmazonGatewayFpsTestingURL = "https://fps.sandbox.amazonaws.com/";
 
-	$wgAmazonGatewayAccessKey = "";
-	$wgAmazonGatewaySecretKey = "";
-
-	// the long one, not the AWS account ID
-	$wgAmazonGatewayPaymentsAccountID = "";
+#	$wgAmazonGatewayAccountInfo['example'] = array(
+#		'AccessKey' => "",
+#		'SecretKey' => "",
+#
+#		// the long one, not the AWS account ID
+#		'PaymentsAccountID' => "",
+#	);
 
 	// e.g. http://payments.wikimedia.org/index.php/Special:AmazonGateway  --
 	// does NOT accept unroutable development names, use the number instead

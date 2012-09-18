@@ -151,6 +151,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $var_map = array();
 
+	protected $account_name;
+	protected $account_config;
 	protected $accountInfo;
 	protected $url;
 	protected $transactions;
@@ -258,6 +260,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineDataConstraints();
+		$this->findAccount();
 		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
 
@@ -283,6 +286,23 @@ abstract class GatewayAdapter implements GatewayType {
 			'country' => 'US',
 			'card_type' => 'visa',
 		);
+	}
+
+	/**
+	 * Determine which account to use for this session
+	 */
+	protected function findAccount() {
+		$acctConfig = self::getGlobal( 'AccountInfo' ); 
+
+		//TODO crazy logic to determine which account we want
+		$accounts = array_keys( $acctConfig );
+		$this->account_name = array_shift( $accounts );
+
+		$this->account_config = $acctConfig[ $this->account_name ];
+
+		$this->dataObj->addData( array(
+			'gateway_account' => $this->account_name,
+		) );
 	}
 
 	/**
@@ -460,6 +480,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 * wgDonationInterface definitions. Through this function, it is no longer 
 	 * necessary to define gateway-specific globals in LocalSettings unless you 
 	 * wish to override the default value for all gateways. 
+	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
+	 * that value will override the default settings.
+	 *
 	 * @staticvar array $gotten A cache of all the globals we've already... 
 	 * gotten. 
 	 * @param string $varname The global value we're looking for. It will first

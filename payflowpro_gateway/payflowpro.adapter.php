@@ -8,10 +8,10 @@ class PayflowProAdapter extends GatewayAdapter {
 
 	function defineAccountInfo() {
 		$this->accountInfo = array(
-			'PARTNER' => self::getGlobal( 'PartnerID' ), // PayPal or original authorized reseller
-			'VENDOR' => self::getGlobal( 'VendorID' ), // paypal merchant login ID
-			'USER' => self::getGlobal( 'UserID' ), // if one or more users are set up, authorized user ID, else same as VENDOR
-			'PWD' => self::getGlobal( 'Password' ), // merchant login password
+			'PARTNER' => $this->account_config[ 'PartnerID' ], // PayPal or original authorized reseller
+			'VENDOR' => $this->account_config[ 'VendorID' ], // paypal merchant login ID
+			'USER' => $this->account_config[ 'UserID' ], // if one or more users are set up, authorized user ID, else same as VENDOR
+			'PWD' => $this->account_config[ 'Password' ], // merchant login password
 		);
 	}
 
