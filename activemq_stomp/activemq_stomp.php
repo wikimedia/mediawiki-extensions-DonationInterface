@@ -177,6 +177,7 @@ function createQueueMessage( $transaction ) {
 		'country_2' => $transaction['country2'],
 		'postal_code_2' => $transaction['zip2'],
 		'gateway' => $transaction['gateway'],
+		'gateway_account' => $transaction['gateway_account'],
 		'gateway_txn_id' => $transaction['gateway_txn_id'],
 		'payment_method' => $transaction['payment_method'],
 		'payment_submethod' => $transaction['payment_submethod'],

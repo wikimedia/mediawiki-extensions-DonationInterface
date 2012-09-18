@@ -43,7 +43,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function defineAccountInfo() {
 		$this->accountInfo = array(
-			'MERCHANTID' => self::getGlobal( 'MerchantID' ),
+			'MERCHANTID' => $this->account_config[ 'MerchantID' ],
 			//'IPADDRESS' => '', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm. 
 			'VERSION' => "1.0",
 		);
