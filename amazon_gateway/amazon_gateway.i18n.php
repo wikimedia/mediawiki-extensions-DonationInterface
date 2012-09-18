@@ -41,6 +41,7 @@ $messages['be-tarask'] = array(
  */
 $messages['br'] = array(
 	'amazongateway' => 'Grit ur roadenn bremañ',
+	'amazon_gateway-desc' => 'O tretiñ ar paeañ evit Amazon',
 );
 
 /** German (Deutsch)
