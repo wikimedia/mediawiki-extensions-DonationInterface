@@ -133,9 +133,8 @@ class GatewayForm extends UnlistedSpecialPage {
 
 			if ( $page ) {
 
-				$language = $this->getVal( 'language' );
-
-				$page .= '?uselang=' . $language;
+				$language = $this->getRequest()->getVal( 'language' );
+				$page = wfAppendQuery( $page, array( 'uselang' => $language ) );
 			}
 
 			$wgOut->redirect( $page );
