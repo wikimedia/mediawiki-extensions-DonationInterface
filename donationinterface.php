@@ -869,6 +869,7 @@ $wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
 //TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section.
 $wgResourceModules[ 'pfp.form.core.api' ] = array(
 	'scripts' => 'pfp_api_controller.js',
+	'dependencies' => array( 'mediawiki.util', 'jquery.json' ),
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
