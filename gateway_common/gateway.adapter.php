@@ -1793,6 +1793,10 @@ abstract class GatewayAdapter implements GatewayType {
 	 * ...but usually request and response. I think.
 	 */
 	protected function stageData( $type = 'request' ) {
+		if ( $type === 'request' ){
+			//reset from our normalized unstaged data so we never double-stage
+			$this->staged_data = $this->unstaged_data;
+		}
 		$this->defineStagedVars();
 		$this->smooshVarsForStaging(); //yup, we do need to do this seperately. 
 		//If we tried to piggyback off the same loop, all the vars wouldn't be ready, and some staging functions will require 
