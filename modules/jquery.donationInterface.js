@@ -1,3 +1,7 @@
+// DO NOT USE THIS SCRIPT. SERIOUSLY, DON'T.
+// It's broken, has alert()s all over the place, and doesn't escape its HTML properly.
+
+
 /**
  * Turns any form with the bare minimum "appropriate" fields into a form that
  * can get a donor to a gateway with no interstitial page.
