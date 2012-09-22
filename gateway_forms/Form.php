@@ -129,10 +129,10 @@ abstract class Gateway_Form {
 	 * @param string $style_path
 	 */
 	public function setStylePath( $style_path = null ) {
-		global $wgScriptPath;
+		global $wgExtensionAssetsPath;
 		if ( !$style_path ) {
 			// load the default form CSS if the style path not explicitly set
-			$style_path = $wgScriptPath . '/extensions/DonationInterface/gateway_forms/css/Form.css';
+			$style_path = $wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/Form.css';
 		}
 		$this->style_path = $style_path;
 	}
@@ -151,14 +151,14 @@ abstract class Gateway_Form {
 	 * @return string of HTML
 	 */
 	public function generateDonationFooter() {
-		global $wgScriptPath, $wgServer;
+		global $wgExtensionAssetsPath, $wgServer;
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
 		if ($wgServer =="https://payments.wikimedia.org") { 
 			$form .= $this ->getSmallSecureLogo(); 
 		} else { 
-			$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) ); 
+			$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgExtensionAssetsPath . "/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) ); 
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
@@ -671,12 +671,12 @@ abstract class Gateway_Form {
 		$form = '';
 		if ( $this->form_errors['card_num'] ) {
 			$form .= '<tr>';
-			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_num'] . '</span></td>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['card_num'] ) . '</span></td>';
 			$form .= '</tr>';
 		}
 		if ( $this->form_errors['card_type'] ) {
 			$form .= '<tr>';
-			$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['card_type'] . '</span></td>';
+			$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['card_type'] ) . '</span></td>';
 			$form .= '</tr>';
 		}
 		$form .= '<tr>';
@@ -696,7 +696,7 @@ abstract class Gateway_Form {
 		$cvv = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'cvv' ) : '';
 
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['cvv'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['cvv'] ) . '</span></td>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-security' )->text(), 'cvv' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'cvv', '5', $cvv, array( 'type' => 'text', 'maxlength' => '10', 'id' => 'cvv', 'autocomplete' => 'off' ) ) .
@@ -713,7 +713,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getStreetField() {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['street'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['street'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-street' )->text(), 'street' ) . '</td>';
@@ -730,7 +730,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getCityField() {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['city'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['city'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-city' )->text(), 'city' ) . '</td>';
@@ -747,7 +747,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getZipField() {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['zip'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['zip'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-postal' )->text(), 'zip' ) . '</td>';
@@ -764,15 +764,15 @@ abstract class Gateway_Form {
 	 */
 	protected function getNameField() {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['fname'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['fname'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['lname'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['lname'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-name' )->text(), 'fname' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-fname' )->text() . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
-			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . wfMessage( 'donate_interface-donor-lname' )->text() . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
+		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . Xml::escapeJsString( wfMessage( 'donate_interface-donor-fname' )->text() ) . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
+			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . Xml::escapeJsString( wfMessage( 'donate_interface-donor-lname' )->text() ) . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
 		return $form;
 	}
@@ -843,13 +843,13 @@ abstract class Gateway_Form {
 	 * @return string
 	 */
 	protected function getPaypalButton() {
-		global $wgScriptPath;
-		$scriptPath = "$wgScriptPath/extensions/DonationInterface/gateway_forms/includes";
+		global $wgExtensionAssetsPath;
+		$scriptPath = "$wgExtensionAssetsPath/DonationInterface/gateway_forms/includes";
 
 		$form = '<tr>';
 		$form .= '<td class="paypal-button" colspan="2">';
 		$form .= Html::hidden( 'PaypalRedirect', false );
-		$form .= Xml::tags( 'div', array( ), '<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . $scriptPath . '/donate_with_paypal.gif"/></a>'
+		$form .= Xml::tags( 'div', array( ), '<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . htmlspecialchars( $scriptPath ) . '/donate_with_paypal.gif"/></a>'
 		);
 		$form .= '</td>';
 		$form .= '</tr>';
@@ -863,7 +863,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getStateField() {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['state'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['state'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-state' )->text(), 'state' ) . '</td>';
@@ -880,7 +880,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getCountryField( $defaultCountry = null ) {
 		$form = '<tr>';
-		$form .= '<td colspan=2><span class="creditcard-error-msg">' . $this->form_errors['country'] . '</span></td>';
+		$form .= '<td colspan=2><span class="creditcard-error-msg">' . htmlspecialchars( $this->form_errors['country'] ) . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
 		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-country' )->text(), 'country' ) . '</td>';
@@ -937,15 +937,15 @@ abstract class Gateway_Form {
 	 * if OWA is enabled, this is called by the main form constructor. 
 	 */
 	protected function loadOwaJs() {
-		global $wgOut, $wgScriptPath;
+		global $wgOut, $wgExtensionAssetsPath;
 		$wgOut->addHeadItem( 'owa_tracker', '<script type="text/javascript" src="https://owa.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>' );
 
 		$wgOut->addHeadItem( 'owa_get_info', '<script type="text/javascript" src="' .
-			$wgScriptPath .
-			'/extensions/DonationInterface/payflowpro_gateway/owa_get_info.js?284"></script>' );
+			$wgExtensionAssetsPath .
+			'/DonationInterface/payflowpro_gateway/owa_get_info.js?284"></script>' );
 		$wgOut->addHeadItem( 'owa_tracker_init', '<script type="text/javascript" src="' .
-			$wgScriptPath .
-			'/extensions/DonationInterface/payflowpro_gateway/owa.tracker-combined-min.js?284"></script>' );
+			$wgExtensionAssetsPath .
+			'/DonationInterface/payflowpro_gateway/owa.tracker-combined-min.js?284"></script>' );
 	}
 
 	/**
@@ -959,10 +959,10 @@ abstract class Gateway_Form {
 
 		$form = '<noscript>';
 		$form .= '<div id="noscript">';
-		$form .= '<p id="noscript-msg">' . wfMessage( 'donate_interface-noscript-msg' )->text() . '</p>';
+		$form .= '<p id="noscript-msg">' . wfMessage( 'donate_interface-noscript-msg' )->escaped() . '</p>';
 		if ( $noScriptRedirect ) {
-			$form .= '<p id="noscript-redirect-msg">' . wfMessage( 'donate_interface-noscript-redirect-msg' )->text() . '</p>';
-			$form .= '<p id="noscript-redirect-link"><a href="' . $noScriptRedirect . '">' . $noScriptRedirect . '</a></p>';
+			$form .= '<p id="noscript-redirect-msg">' . wfMessage( 'donate_interface-noscript-redirect-msg' )->escaped() . '</p>';
+			$form .= '<p id="noscript-redirect-link"><a href="' . htmlspecialchars( $noScriptRedirect ) . '">' . htmlspecialchars( $noScriptRedirect ) . '</a></p>';
 		}
 		$form .= '</div>';
 		$form .= '</noscript>';
@@ -1036,7 +1036,7 @@ abstract class Gateway_Form {
 		$form .= '<td width="130" align="center" valign="top"><script type="text/javascript" src="https://seal.verisign.com/getseal?host_name=payments.wikimedia.org&size=S&use_flash=NO&use_transparent=NO&lang=en"></script><br /><a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">' . wfMessage('donate_interface-secureLogo-text')->escaped() . '</a></td>';
 		$form .= '</tr>';
 		$form .= '</table>';
-	return $form;
+		return $form;
 	}
 	
 	/**
