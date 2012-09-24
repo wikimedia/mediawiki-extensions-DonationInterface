@@ -173,7 +173,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form with real data in it
 	 */
 	public function add_data( $html ) {
-		global $wgRequest, $wgOut, $wgScriptPath;
+		global $wgRequest, $wgScriptPath;
 
 		/**
 		 * This is a hack and should be replaced with something more performant.
@@ -245,7 +245,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function add_messages( $html ) {
-		global $wgRequest, $wgOut, $wgScriptPath, $wgDonationInterfaceMessageLinks;
+		global $wgRequest, $wgOut, $wgDonationInterfaceMessageLinks;
 		if( $wgRequest->getText( 'debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
@@ -273,7 +273,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 					}
 				}
 				// TODO: add support for message variations here as well
-				$html = str_replace( $matches[ 0 ][ $i ], wfMsg( $msg_key, $params ), $html );
+				$html = str_replace( $matches[ 0 ][ $i ], wfMessage( $msg_key, $params )->text(), $html );
 			} else {
 				// look for a country variant of the message and use that if found
 				$msg_text = DataValidator::wfLangSpecificFallback( $this->getEscapedValue( 'language' ),
@@ -292,7 +292,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 		return $html;
 	}
-
 
     /**
      * Replaces basic template blocks in forms with the template elements
@@ -342,7 +341,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
             }
 		}	
 		return $html;
-
 	}
 
 	/**
@@ -410,8 +408,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 	/**
 	 * Set the path to the HTML file for a requested rapid html form.
-	 * 
+	 *
 	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wgDonationInterfaceAllowedHtmlForms
+	 * @throws MWException
 	 */
 	public function set_html_file_path( $form_key ) {
 		$g = $this->gateway;
@@ -486,8 +485,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * values to letters, numbers, hyphens and underscores. The function also
 	 * performs standard escaping of the passed values.
 	 *
-	 * @param $string The unsafe string to escape and check for invalid characters
-	 * @return mixed|String A string matching the regex or an empty string
+	 * @param string $string The unsafe string to escape and check for invalid characters
+	 * @param string $default
+	 * @return string $default A string matching the regex or an empty string
 	 */
 	function make_safe( $string, $default='' ) {
 		$num = preg_match( '([a-zA-Z0-9_-]+)', $string, $matches );

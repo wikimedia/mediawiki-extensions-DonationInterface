@@ -1,7 +1,6 @@
 <?php
 
 class PayflowProGateway extends GatewayForm {
-
 	/**
 	 * Constructor - set up the new special page
 	 */
@@ -16,10 +15,8 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut;
-
 		// Hide unneeded interface elements
-		$wgOut->addModules( 'donationInterface.skinOverride' );
+		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 
 		$this->setHeaders();
 
@@ -29,7 +26,7 @@ class PayflowProGateway extends GatewayForm {
 		 *  if paypal redirection is enabled ($wgPayflowProGatewayPaypalURL must be defined)
 		 *  and the PaypalRedirect form value must be true
 		 */
-		if ( $wgRequest->getText( 'PaypalRedirect', 0 ) ) {
+		if ( $this->getRequest()->getText( 'PaypalRedirect', 0 ) ) {
 			$this->paypalRedirect();
 			return;
 		}
@@ -61,7 +58,7 @@ class PayflowProGateway extends GatewayForm {
 				$this->displayForm();
 			}
 		} else {//token mismatch
-			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
+			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
 			$this->adapter->addManualError( $error );
 			$this->displayForm();
 		}
@@ -70,7 +67,6 @@ class PayflowProGateway extends GatewayForm {
 	/**
 	 * "Reads" the name-value pair result string returned by Payflow and creates corresponding error messages
 	 *
-	 * @param $data Array: array of user input
 	 * @param $result String: name-value pair results returned by Payflow
 	 *
 	 * Credit: code modified from payflowpro_example_EC.php posted (and supervised) on the PayPal developers message board
@@ -130,49 +126,46 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $responseMsg String: message supplied by fnPayflowDisplayResults function
 	 */
 	function fnPayflowDisplayApprovedResults( $data, $responseMsg ) {
-		global $wgOut;
-		
 		$thankyoupage = $this->adapter->getGlobal( 'ThankYouPage' );
 
 		if ( $thankyoupage ) {
-			$wgOut->redirect( $thankyoupage );
+			$this->getOutput()->redirect( $thankyoupage );
 		} else {
 			// display response message
-			$wgOut->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
+			$this->getOutput()->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
 
 			// translate country code into text
 			$countries = GatewayForm::getCountries();
 
 			$rows = array(
-				'title' => array( wfMsg( 'donate_interface-post-transaction' ) ),
-				'amount' => array( wfMsg( 'donate_interface-donor-amount' ), $data['amount'] ),
-				'email' => array( wfMsg( 'donate_interface-donor-email' ), $data['email'] ),
-				'name' => array( wfMsg( 'donate_interface-donor-name' ), $data['fname'], $data['mname'], $data['lname'] ),
-				'address' => array( wfMsg( 'donate_interface-donor-address' ), $data['street'], $data['city'], $data['state'], $data['zip'], $countries[$data['country']] ),
+				'title' => array( $this->msg( 'donate_interface-post-transaction' )->text() ),
+				'amount' => array( $this->msg( 'donate_interface-donor-amount' )->text(), $data['amount'] ),
+				'email' => array( $this->msg( 'donate_interface-donor-email' )->text(), $data['email'] ),
+				'name' => array( $this->msg( 'donate_interface-donor-name' )->text(), $data['fname'], $data['mname'], $data['lname'] ),
+				'address' => array( $this->msg( 'donate_interface-donor-address' )->text(), $data['street'], $data['city'], $data['state'], $data['zip'], $countries[$data['country']] ),
 			);
 
 			// if we want to show the response
-			$wgOut->addHTML( Xml::buildTable( $rows, array( 'class' => 'submitted-response' ) ) );
+			$this->getOutput()->addHTML( Xml::buildTable( $rows, array( 'class' => 'submitted-response' ) ) );
 		}
 	}
 
 	/**
 	 * Display response message to user with submitted user-supplied data
 	 *
-	 * @param $responseMsg String: message supplied by fnPayflowDisplayResults function
+	 * @param $responseMsg string supplied by fnPayflowDisplayResults function (should be HTML)
 	 */
 	function fnPayflowDisplayDeclinedResults( $responseMsg ) {
-		global $wgOut;
 		$failpage = $this->adapter->getFailPage();
 
 		if ( $failpage ) {
-			$wgOut->redirect( $failpage );
+			$this->getOutput()->redirect( $failpage );
 		} else {
 			// general decline message
-			$declinedDefault = wfMsg( 'php-response-declined' );
+			$declinedDefault = $this->msg( 'php-response-declined' )->escaped();
 
 			// display response message
-			$wgOut->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+			$this->getOutput()->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
 		}
 	}
 
@@ -183,20 +176,15 @@ class PayflowProGateway extends GatewayForm {
 	 */
 	function fnPayflowDisplayOtherResults( $responseMsg ) {
 		//I have collapsed it like this because the contents were identical.
-		//TODO: Determine if we need to be switching on anything else in the display here.
+		// @todo Determine if we need to be switching on anything else in the display here.
 		$this->fnPayflowDisplayDeclinedResults( $responseMsg );
 	}
 
 	function fnPayflowDisplayPending( $responseMsg ) {
-		global $wgOut;
-
-		$thankyou = wfMsg( 'donate_interface-thankyou' );
+		$thankyou = $this->msg( 'donate_interface-thankyou' )->escaped();
 
 		// display response message
-		$wgOut->addHTML( '<h2 class="response_message">' . $thankyou . '</h2>' );
-		$wgOut->addHTML( '<p>' . $responseMsg );
+		$this->getOutput()->addHTML( '<h2 class="response_message">' . $thankyou . '</h2>' );
+		$this->getOutput()->addHTML( '<p>' . $responseMsg );
 	}
-
 }
-
-// end class

@@ -188,7 +188,7 @@ window.showStep1 = function() {
 	$( "#change-billing" ).show();
 	$( "#change-payment" ).show();
 	$( "#step1header" ).show(); // just in case
-}
+};
 
 window.showStep2 = function() {
 	if ( $( '#step3wrapper' ).is(":visible") ) {
@@ -202,9 +202,9 @@ window.showStep2 = function() {
 	$( "#change-billing" ).hide();
 	$( "#change-payment" ).show();
 	$( "#step2header" ).show(); // just in case
-}
+};
 
-window.showStep3 = function() {
+window.showStep3 = function () {
 	// show the correct sections
 	$( "#step1wrapper" ).slideUp();
 	$( "#step2wrapper" ).slideUp();
@@ -213,7 +213,7 @@ window.showStep3 = function() {
 	$( "#change-billing" ).show();
 	$( "#change-payment" ).hide();
 	$( "#step3header" ).show(); // just in case
-}
+};
 // Fix behavior of images in labels
 // TODO: check that disabling this is okay in things other than Chrome
 // $("label img").live("click", function() { $("#" + $(this).parents( "label" ).attr( "for" )).click(); });

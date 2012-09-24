@@ -27,7 +27,7 @@
 			//TODO: also think about a barber pole. That would go here.
 		});
 		//$("form")
-	}
+	};
 
 	/**
 	 * Turns the first parent form from the passing object, to an object we can
@@ -84,7 +84,7 @@
 		xml = $("#xml_structure").html();
 		window.alert(xml);
 		return xml;
-	}
+	};
 	
 	$.stageData = function(serializedForm) {
 		var finalObj = {};
@@ -106,7 +106,7 @@
 		$.debugPostObjectWithAlert(finalObj);
 		
 		return finalObj;
-	}
+	};
 	
 	$(document).ajaxError(function(event, request, settings, thrown){
 		var display = '';
@@ -138,8 +138,7 @@
 		$('<input type="hidden" id="xml" name="xml" value="' + postData +'">').appendTo('#immediate_repost');
 		$('#immediate_repost').submit();
 		window.alert("Form Submitted! Go look...");
-	}
-	
+	};
 
 	/**
 	 * Sends the formatted ajax request to the API, turns the result into a
@@ -185,7 +184,7 @@
 			}
 			$('#immediate_repost').submit();
 
-		}
+		};
 
 //		$.post(
 //			//mw.config.get('wgScriptPath') + '/api.php',
@@ -195,7 +194,7 @@
 //			postData,
 //			processAjaxReturn,
 //			'xml');
-	}
+	};
 
 	/**
 	 * Just for easy debugging. Should not actually be called anywhere.

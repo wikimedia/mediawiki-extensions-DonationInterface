@@ -80,9 +80,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	/**
 	 * Constructor
 	 *
-	 * @param GatewayAdapter	$gateway_adapter	Gateway adapter instance
-	 * @param GatewayAdapter	$custom_filter_object	Gateway adapter instance
-	 * @param string			$license_key		The license key. May also be set in $wgMinFraudLicenseKey
+	 * @param GatewayAdapter    $gateway_adapter    Gateway adapter instance
+	 * @param GatewayAdapter    $custom_filter_object    Gateway adapter instance
+	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
+	 * @throws MWException
 	 */
 	public function __construct( &$gateway_adapter, &$custom_filter_object, $license_key = NULL ) {
 
@@ -130,6 +131,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * - emailMD5: send an MD5 of the email address
 	 * - txnID: The internal transaction id of the contribution.
 	 *
+	 * @param array $data
 	 * @return array containing hash for minfraud query
 	 */
 	public function build_query( array $data ) {
@@ -239,7 +241,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	/**
 	 * Execute the minFraud filter
 	 *
-	 * @return true
+	 * @return bool true
 	 */
 	public function filter() {
 		// see if we can bypass minfraud

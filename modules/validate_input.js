@@ -3,8 +3,7 @@ window.addEvent = function(obj, evType, fn) {
 		obj.addEventListener(evType, fn, false);
 		return true;
 	} else if (obj.attachEvent){
-		var r = obj.attachEvent("on"+evType, fn);
-		return r;
+		return obj.attachEvent("on"+evType, fn);
 	} else {
 		return false;
 	}
@@ -83,7 +82,7 @@ window.validateAmount = function() {
 		$( '#other-amount' ).focus();
 	}
 	return !error;
-}
+};
 
 /**
  * Validates the personal information fields

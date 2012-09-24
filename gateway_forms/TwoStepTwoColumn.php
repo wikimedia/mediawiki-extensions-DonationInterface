@@ -81,11 +81,10 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 		// submit button
 		$form = Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-form-submit' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'mw-donate-submit-button' ) );
-		// $form .= Xml::submitButton( wfMsg( 'donate_interface-submit-button' ));
-		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMsg( 'donate_interface-cc-button' ), 'type' => 'submit' ) );
+		$form .= Xml::element( 'input', array( 'class' => 'button-plain', 'value' => wfMessage( 'donate_interface-cc-button' )->text(), 'type' => 'submit' ) );
 		$form .= Xml::closeElement( 'div' ); // close div#mw-donate-submit-button
 		$form .= Xml::openElement( 'div', array( 'class' => 'mw-donate-submessage', 'id' => 'payflowpro_gateway-donate-submessage' ) ) .
-		wfMsg( 'donate_interface-donate-click' );
+			wfMessage( 'donate_interface-donate-click' )->text();
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-submessage
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-form-submit
 		return $form;
@@ -109,7 +108,6 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 	protected function generatePersonalContainer() {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-personal-info' ) );                 ;
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-personal' ), wfMsg( 'donate_interface-cc-form-header-personal' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-donor' ) );
 
 		$form .= $this->generatePersonalFields();
@@ -150,7 +148,6 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 		$form = '';
 		// credit card info
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-payment-info' ) );
-		//$form .= Xml::tags( 'h3', array( 'class' => 'payflow-cc-form-header', 'id' => 'payflow-cc-form-header-payment' ), wfMsg( 'donate_interface-cc-form-header-payment' ) );
 		$form .= Xml::openElement( 'table', array( 'id' => 'payflow-table-cc' ) );
 
 		$form .= $this->generatePaymentFields();
@@ -169,7 +166,7 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 		$form .= '<td colspan="2"><span class="creditcard-error-msg">' . $this->form_errors['amount'] . '</span></td>';
 		$form .= '</tr>';
 		$form .= '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMsg( 'donate_interface-donor-amount' ), 'amount' ) . '</td>';
+		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-donor-amount' )->text(), 'amount' ) . '</td>';
 		$form .= '<td>' . Xml::input( 'amount', '7', $this->getEscapedValue( 'amount' ), array( 'type' => 'text', 'maxlength' => '10', 'id' => 'amount' ) ) .
 		' ' . $this->generateCurrencyDropdown() . '</td>';
 		$form .= '</tr>';
@@ -195,3 +192,4 @@ class Gateway_Form_TwoStepTwoColumn extends Gateway_Form {
 		return $form;
 	}
 }
+

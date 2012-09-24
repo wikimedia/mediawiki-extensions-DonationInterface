@@ -208,7 +208,7 @@ $( document ).ready( function () {
 			/* Set expiration date */
 			$( "input[name='expiration']" ).val(
 				$( "select[name='mos']" ).val() + $( "select[name='year']" ).val().substring( 2, 4 )
-			)
+			);
 			
 			/* Submit the form */
 			document.donationForm.action = $( "input[name='action']" ).val();
@@ -246,11 +246,7 @@ $( document ).ready( function () {
 			}
 		}
 		
-		if ( errors ) {
-			return false;
-		} else {
-			return true;
-		}
+		return !errors;
 	}
 
 	/**
@@ -289,10 +285,6 @@ $( document ).ready( function () {
 			$( '#other-amount' ).val( '' );
 			$( '#other-amount' ).focus();
 		}
-		if ( errors ) {
-			return false;
-		} else {
-			return true;
-		}
-	};
+		return !errors;
+	}
 });

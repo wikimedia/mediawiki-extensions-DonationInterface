@@ -403,7 +403,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//reverse the array, so we find the last instance first.
 		$contrib_id_finder = array_reverse($contrib_id_finder);
 		foreach ($orders as $order_id => $xml){
-			$contribution_tracking_id = '';
 			$finder = array_search("<ORDERID>$order_id</ORDERID>", $contrib_id_finder);
 			
 			//now search forward (which is actually backward) to the "Raw XML" line, so we can get the contribution_tracking_id
@@ -437,7 +436,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 	
 	function getLogfileLines( $file ){
-		$array = array(); //surprise! 
 		$array = file($file, FILE_SKIP_EMPTY_LINES);
 		//now, check about 50 lines to make sure we're not seeing any of that #012, #015 crap.
 		$checkcount = 50;

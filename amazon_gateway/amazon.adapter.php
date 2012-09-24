@@ -289,8 +289,6 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	function processResponse( $response, &$retryVars = null ) {
-		global $wgRequest;
-
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
 			$this->log( "Transaction failed in response data verification.", LOG_INFO );
 			$this->setTransactionWMFStatus( 'failed' );
@@ -359,6 +357,7 @@ class AmazonAdapter extends GatewayAdapter {
 		return $aok;
 	}
 
+	// @todo FIXME: This doesn't go anywhere.
 	function getResponseErrors( $response ) {
 		$errors = array( );
 		foreach ( $response->getElementsByTagName( 'Error' ) as $node ) {

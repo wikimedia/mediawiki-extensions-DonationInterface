@@ -134,7 +134,6 @@ class ApiPayflowProGateway extends ApiBase {
 		//Get the gateway class name. We don't need to instantiate: Just get the name
 		//so we can get a new DonationData that *thinks* it's being instantiated by 
 		//the relevent gateway class. 
-		$gateway_class = '';
 		switch ( $params['gateway'] ){
 			case 'globalcollect' : 
 				$gateway_class = 'GlobalCollectAdapter';
@@ -180,7 +179,7 @@ class ApiPayflowProGateway extends ApiBase {
 	/**
 	 * Parse tracking_data param into something meaningful to PayflowPro gateway
 	 *
-	 * @param array $tracking_data An array of tracking data - expects 'referrer' and 'url'
+	 * @param array $unparsed_tracking_data An array of tracking data - expects 'referrer' and 'url'
 	 * @return array of cleaned up, PayflowPro Gateway-consumable tracking data
 	 */
 	protected function parseTrackingData( $unparsed_tracking_data ) {

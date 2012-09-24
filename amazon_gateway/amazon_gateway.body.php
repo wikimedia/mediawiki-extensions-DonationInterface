@@ -17,7 +17,6 @@
  */
 
 class AmazonGateway extends GatewayForm {
-
 	/**
 	 * Constructor - set up the new special page
 	 */
@@ -35,17 +34,19 @@ class AmazonGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
+		global $wgExtensionAssetsPath;
 		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
 
-		$wgOut->allowClickjacking();
+		$out = $this->getOutput();
 
-		$wgOut->addExtensionStyle(
+		$out->allowClickjacking();
+
+		$out->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
 			$CSSVersion );
 
 		// Hide unneeded interface elements
-		$wgOut->addModules( 'donationInterface.skinOverride' );
+		$out->addModules( 'donationInterface.skinOverride' );
 
 		// Make the wiki logo not clickable.
 		// @fixme can this be moved into the form generators?
@@ -56,26 +57,26 @@ jQuery(document).ready(function() {
 });
 </script>
 EOT;
-		$wgOut->addHeadItem( 'logolinkoverride', $js );
+		$out->addHeadItem( 'logolinkoverride', $js );
 
 		$this->setHeaders();
 
-		if ( $wgRequest->getText( 'redirect', 0 ) ) {
+		if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
 			$this->adapter->do_transaction( 'Donate' );
 			return;
 		}
 
 
-		if ( $this->adapter->checkTokens() && $wgRequest->getText( 'status' ) ) {
+		if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
 			$this->adapter->do_transaction( 'ProcessAmazonReturn' );
 
 			$status = $this->adapter->getTransactionWMFStatus();
 
 			if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
-				$wgOut->redirect( $this->adapter->getThankYouPage() );
+				$out->redirect( $this->adapter->getThankYouPage() );
 			}
 			else {
-				$wgOut->redirect( $this->adapter->getFailPage() );
+				$out->redirect( $this->adapter->getFailPage() );
 			}
 		}
 	}

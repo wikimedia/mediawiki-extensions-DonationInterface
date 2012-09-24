@@ -78,4 +78,4 @@ window.formCheck = function( ccform ) {
 		alert( output );
 		return false;
 	}
-}
+};

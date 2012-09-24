@@ -130,8 +130,6 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		}
 
 		// Analyze the filter results
-		$retval = false;
-
 		if ( $score >= $threshold ) {
 			// Ahh!!! Failure!!! Sloooooooow doooowwwwnnnn
 			$this->gateway_adapter->log( "Rejecting request due to session velocity of " . $score, LOG_ALERT );

@@ -79,7 +79,7 @@ window.showStep2 = function() {
 	$( "#change-billing" ).hide();
 	$( "#change-payment" ).show();
 	$( "#step2header" ).show(); // just in case
-}
+};
 
 window.showStep3 = function() {
 	// show the correct sections
@@ -88,4 +88,4 @@ window.showStep3 = function() {
 	$( "#change-billing" ).show();
 	$( "#change-payment" ).hide();
 	$( "#step3header" ).show(); // just in case
-}
+};

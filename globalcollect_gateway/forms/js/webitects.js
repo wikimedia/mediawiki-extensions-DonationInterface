@@ -94,13 +94,13 @@ window.displayCreditCardForm = function() {
 			showStep1();
 		}
 	} );
-}
+};
 
 
 // set the hidden amount input to the value of the selected element
 window.setAmount = function( e ) {
 	$( 'input[name="amount"]' ).val( e.val() );
-}
+};
 // Display selected amount
 window.showAmount = function( e ) {
     var currency_code = "";
@@ -112,4 +112,4 @@ window.showAmount = function( e ) {
     }
 	$( "#selected-amount" ).html( + e.val() + " " + currency_code );
 	$( "#change-amount" ).show();
-}
+};

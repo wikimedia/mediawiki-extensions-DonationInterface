@@ -223,7 +223,7 @@ $(function() {
 	function validateAmount(){
 		var error = true;
 		var amount = $( "input[name='amount']" ).val(); // get the amount
-		var otherAmount = amount // create a working copy
+		var otherAmount = amount; // create a working copy
 		otherAmount = otherAmount.replace( /[,.](\d)$/, '\:$10' );
 		otherAmount = otherAmount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
 		otherAmount = otherAmount.replace( /[,.]/g, '' );
@@ -244,5 +244,5 @@ $(function() {
 			error = true;
 		}
 		return !error;
-	};
+	}
 });

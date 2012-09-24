@@ -104,8 +104,7 @@ jQuery.validator.addMethod(
 		}
 		cd = rs % 11;
 		if(cd == 10){cd = "X";}
-		if(cd == cdv){return true;}
-		return false;
+		return cd == cdv;
 	},
 	"The specified vehicle identification number (VIN) is invalid."
 );
@@ -267,10 +266,7 @@ jQuery.validator.addMethod("creditcardtypes", function(value, element, param) {
 	if (validTypes & 0x0040 && /^(2131|1800)/.test(value)) { //jcb
 		return value.length == 15;
 	}
-	if (validTypes & 0x0080) { //unknown
-		return true;
-	}
-	return false;
+	return validTypes & 0x0080;
 }, "Please enter a valid credit card number.");
 
 jQuery.validator.addMethod("ipv4", function(value, element, param) {

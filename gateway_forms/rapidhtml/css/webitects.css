@@ -70,7 +70,7 @@ h3 span { font-weight: normal; }
 .loc-fields span { float: left; margin-bottom: 5px; }
 .loc-fields .loc-city { margin-right: 1%; width: 51%; }
 .loc-fields .loc-postal { width: 22%; }
-.loc-fields .loc-state { margin-right: 0%; width: 22%; }
+.loc-fields .loc-state { margin-right: 0; width: 22%; }
 .loc-fields .loc-street { margin-bottom: 5px; width: 100%; }
 .loc-fields .loc-country { margin-bottom: 5px; width: 103%; }
 
@@ -81,7 +81,7 @@ h3 span { font-weight: normal; }
 /* Location where we are not including a state select */
 .loc-fields.bigstate .loc-city { margin-right: 1%; width: 42%; }
 .loc-fields.bigstate .loc-postal { width: 24%; }
-.loc-fields.bigstate .loc-state { margin-right: 0%; width: 30%; }
+.loc-fields.bigstate .loc-state { margin-right: 0; width: 30%; }
 
 .loc-postal.ja { width: 300px; }
 

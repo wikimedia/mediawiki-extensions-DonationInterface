@@ -427,7 +427,7 @@ class Stomp
      * Acknowledge consumption of a message from a subscription
 	 * Note: This operation is always asynchronous
      *
-     * @param string|Stomp_Frame $messageMessage ID
+     * @param string|Stomp_Frame $message Message ID
      * @param string $transactionId
      * @return boolean
      * @throws Stomp_Exception
@@ -472,11 +472,13 @@ class Stomp
         $this->_username = '';
         $this->_password = '';
     }
-    /**
-     * Write frame to server
-     *
-     * @param Stomp_Frame $stompFrame
-     */
+
+	/**
+	 * Write frame to server
+	 *
+	 * @param Stomp_Frame $stompFrame
+	 * @throws Stomp_Exception
+	 */
     protected function _writeFrame ( Stomp_Frame $stompFrame )
     {
         if ( !is_resource( $this->_socket ) ) {
@@ -496,7 +498,7 @@ class Stomp
     /**
      * Set timeout to wait for content to read
      *
-     * @param int $seconds_to_wait  Seconds to wait for a frame
+     * @param int $seconds  Seconds to wait for a frame
      * @param int $milliseconds Milliseconds to wait for a frame
      */
     public function setReadTimeout( $seconds, $milliseconds = 0 )

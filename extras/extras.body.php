@@ -7,7 +7,7 @@ abstract class Gateway_Extras {
 
 	/**
 	 * File handle for log file
-	 * @var public
+	 * @var
 	 */
 	public $log_fh = NULL;
 	public $gateway_adapter;
@@ -27,7 +27,7 @@ abstract class Gateway_Extras {
 	 * If 'syslog' is specified, we can use the syslogger.  If a file
 	 * is specified, we'll writ to the file.  Otherwise, do nothing.
 	 *
-	 * @param string path to log file
+	 * @param string $log_file Path to log file
 	 */
 	protected function prepare_log_file( $log_file ) {
 
@@ -49,7 +49,10 @@ abstract class Gateway_Extras {
 	 * If a log file does not exist and we are not using syslog,
 	 * do nothing.
 	 * @fixme Perhaps lack of log file can be handled better?
-	 * @param string The message to log
+	 * @param string $id
+	 * @param string $status
+	 * @param string $data
+	 * @param int $log_level
 	 */
 	public function log( $id = '', $status = '', $data = '', $log_level=LOG_INFO ) {
 		if ( !$this->log_fh ) {

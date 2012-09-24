@@ -69,7 +69,7 @@ class Gateway_Extras_reCaptcha extends Gateway_Extras {
 		// construct the HTML used to display the captcha
 		$captcha_html = Xml::openElement( 'div', array( 'id' => 'mw-donate-captcha' ) );
 		$captcha_html .= recaptcha_get_html( $publicKey, $this->recap_err, $useSSL );
-		$captcha_html .= '<span class="creditcard-error-msg">' . wfMsg( $this->gateway_adapter->getIdentifier() . '_gateway-error-msg-captcha-please' ) . '</span>';
+		$captcha_html .= '<span class="creditcard-error-msg">' . wfMessage( $this->gateway_adapter->getIdentifier() . '_gateway-error-msg-captcha-please' )->escaped() . '</span>';
 		$captcha_html .= Xml::closeElement( 'div' ); // close div#mw-donate-captcha
 		// load up the form class
 		$form_class = $this->gateway_adapter->getFormClass();

@@ -45,8 +45,8 @@ interface GatewayType {
 	 * Perform any additional processing on the response obtained from the server.
 	 *
 	 * @param array $response   The WMF response object array -> ie: data, errors, action...
-	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
-	 *  an array of all variables that need to be recreated and restaged.
+	 * @param       $retryVars  null|array If the transaction suffered a recoverable error, this
+	 *  will be an array of all variables that need to be recreated and restaged.
 	 *
 	 * @return An actionable error code if it happened.
 	 */
@@ -458,7 +458,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * wish to override the default value for all gateways. 
 	 * @staticvar array $gotten A cache of all the globals we've already... 
 	 * gotten. 
-	 * @param type $varname The global value we're looking for. It will first 
+	 * @param string $varname The global value we're looking for. It will first
 	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX, 
 	 * plus the $varname value. If that doesn't come up with anything that has 
 	 * been set, it will use the default value for all of donation interface, 
@@ -504,9 +504,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 * NOTE: This method will check to see if the message exists in translation
 	 * and use that message instead of the default. This would override error_map.
 	 *
-	 * @param	string	$code	The error code to look up in the map
-	 *
-	 * @return	array|string	Returns @see GatewayAdapter::$error_map
+	 * @param    string    $code    The error code to look up in the map
+	 * @param array $options
+	 * @return    array|string    Returns @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMap( $code = null, $options = array() ) {
 
@@ -516,8 +516,6 @@ abstract class GatewayAdapter implements GatewayType {
 		
 		extract( $options );
 
-		global $messages;
-		
 		if ( is_null( $code ) ) {
 			return $this->error_map;
 		}
@@ -526,7 +524,7 @@ abstract class GatewayAdapter implements GatewayType {
 		
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
 		
-		$translatedMessage = wfMsg( $response_message );
+		$translatedMessage = wfMessage( $response_message )->text();
 		
 		// Check to see if an error message exists in translation
 		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
@@ -538,7 +536,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// If the $code does not exist, use the default code: 0
 		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
 		
-		$translatedMessage = ( $translate && empty( $translatedMessage ) ) ? wfMsg( $this->error_map[ $code ] ) : $translatedMessage; 
+		$translatedMessage = ( $translate && empty( $translatedMessage ) ) ? wfMessage( $this->error_map[ $code ] )->text() : $translatedMessage;
 		
 		// Check to see if we return the translated message.
 		$message = ( $translate ) ? $translatedMessage : $this->error_map[ $code ];
@@ -561,28 +559,29 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * This function is used exclusively by the two functions that build 
-	 * requests to be sent directly to external payment gateway servers. Those 
-	 * two functions are buildRequestNameValueString, and (perhaps less 
-	 * obviously) buildRequestXML. As such, unless a valid current transaction 
-	 * has already been set, this will error out rather hard. 
-	 * In other words: In all likelihood, this is not the function you're 
+	 * This function is used exclusively by the two functions that build
+	 * requests to be sent directly to external payment gateway servers. Those
+	 * two functions are buildRequestNameValueString, and (perhaps less
+	 * obviously) buildRequestXML. As such, unless a valid current transaction
+	 * has already been set, this will error out rather hard.
+	 * In other words: In all likelihood, this is not the function you're
 	 * looking for.
-	 * @param string $gateway_field_name The GATEWAY's field name that we are 
-	 * hoping to populate. Probably not even remotely the way we name the same 
-	 * data internally. 
-	 * @param boolean $token This is a throwback to a road we nearly went down, 
-	 * with ajax and client-side token replacement. The idea was, if this was 
-	 * set to true, we would simply pass the fully-formed transaction structure 
-	 * with our tokenized var names in the spots where form values would usually 
-	 * go, so we could fetch the structure and have some client-side voodoo 
+	 * @param string $gateway_field_name The GATEWAY's field name that we are
+	 * hoping to populate. Probably not even remotely the way we name the same
+	 * data internally.
+	 * @param boolean $token This is a throwback to a road we nearly went down,
+	 * with ajax and client-side token replacement. The idea was, if this was
+	 * set to true, we would simply pass the fully-formed transaction structure
+	 * with our tokenized var names in the spots where form values would usually
+	 * go, so we could fetch the structure and have some client-side voodoo
 	 * populate the transaction so we wouldn't have to touch the data at all.
-	 * At this point, very likely cruft that can be removed, but as I'm not 100% 
-	 * on that point, I'm keeping it for now. If we do kill off this param, we 
-	 * should also get rid of the function buildTransactionFormat and anything 
-	 * that calls it. 
-	 * @return mixed The value we want to send directly to the gateway, for the 
-	 * specified gateway field name. 
+	 * At this point, very likely cruft that can be removed, but as I'm not 100%
+	 * on that point, I'm keeping it for now. If we do kill off this param, we
+	 * should also get rid of the function buildTransactionFormat and anything
+	 * that calls it.
+	 * @throws MWException
+	 * @return mixed The value we want to send directly to the gateway, for the
+	 * specified gateway field name.
 	 */
 	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		if ( empty( $this->transactions ) ) {
@@ -645,10 +644,10 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Returns the current transaction request structure if it exists, otherwise 
-	 * returns false. 
+	 * Returns the current transaction request structure if it exists, otherwise
+	 * returns false.
 	 * Fails nicely if the current transaction is simply not set yet.
-	 * Throws an exception if the transaction is set, but no structure is defined. 
+	 * @throws MWException if the transaction is set, but no structure is defined.
 	 * @return mixed current transaction's structure as an array, or false
 	 */
 	protected function getTransactionRequestStructure(){
@@ -1081,12 +1080,13 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Sets the transaction you are about to send to the payment gateway. This 
-	 * will throw an exception if you try to set it to something that has no 
-	 * transaction definition. 
-	 * @param type $transaction_name This is a specific transaction type like 
-	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a 
+	 * Sets the transaction you are about to send to the payment gateway. This
+	 * will throw an exception if you try to set it to something that has no
+	 * transaction definition.
+	 * @param type $transaction_name This is a specific transaction type like
+	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a
 	 * first-level key in the $transactions array.
+	 * @throws MWException
 	 */
 	public function setCurrentTransaction( $transaction_name ){
 		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $transaction_name, $this->transactions ) ) {
@@ -1508,20 +1508,22 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * addCodeRange is used to define ranges of response codes for major WMF 
-	 * donation-making gateway transactions, that let us know what status bucket 
+	 * addCodeRange is used to define ranges of response codes for major WMF
+	 * donation-making gateway transactions, that let us know what status bucket
 	 * to sort them into.
 	 * DO NOT DEFINE OVERLAPPING RANGES!
-	 * TODO: Make sure it won't let you add overlapping ranges. That would 
+	 * TODO: Make sure it won't let you add overlapping ranges. That would
 	 * probably necessitate the sort moving to here, too.
 	 * @param string $transaction The transaction these codes map to.
-	 * @param string $key The (incoming) field name containing the numeric codes 
-	 * we're defining here. 
-	 * @param string $action Limited to the values 'complete', 'pending', 
-	 * 'pending-poke', 'failed' and 'revised'. 
-	 * @param int $lower The integer value of the lower-bound in this code range. 
-	 * @param int $upper Optional: The integer value of the upper-bound in the 
+	 * @param string $key The (incoming) field name containing the numeric codes
+	 * we're defining here.
+	 * @param string $action Limited to the values 'complete', 'pending',
+	 * 'pending-poke', 'failed' and 'revised'.
+	 * @param int $lower The integer value of the lower-bound in this code range.
+	 * @param int $upper Optional: The integer value of the upper-bound in the
 	 * code range. If omitted, it will make a range of one value: The lower bound.
+	 * @throws MWException
+	 * @return void
 	 */
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
 		//our choices here are: 
@@ -1657,7 +1659,6 @@ abstract class GatewayAdapter implements GatewayType {
 			case 'pending-poke':
 				$queue = 'pending';
 				break;
-
 			default:
 				// No action
 				self::log( "STOMP transaction has no place to go for status $status :(", LOG_WARNING );
@@ -1784,8 +1785,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 *
-	 * @param type $type Whatever types of staging you feel like having in your child class. 
-	 * ...but usually request and response. I think. 
+	 * @param string $type Whatever types of staging you feel like having in your child class.
+	 * ...but usually request and response. I think.
 	 */
 	protected function stageData( $type = 'request' ) {
 		$this->defineStagedVars();
@@ -1801,7 +1802,6 @@ abstract class GatewayAdapter implements GatewayType {
 		if ($type === 'request'){
 			$this->formatStagedData();
 		}
-		
 	}
 
 	/**
@@ -1958,15 +1958,16 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Sets the WMF Transaction Status. This is the one we care about for 
-	 * switching on behavior. 
-	 * DO NOT SET THE WMF STATUS unless you've just taken an entire donation 
-	 * process to completion: This status being set at all, denotes the very end 
-	 * of the donation process on our end. Further attempts by the same user 
-	 * will be seen as starting over. 
-	 * @param string $status The final status of one discrete donation attempt, 
-	 * can be one of five values: 'complete', 'pending', 'pending-poke', 
+	 * Sets the WMF Transaction Status. This is the one we care about for
+	 * switching on behavior.
+	 * DO NOT SET THE WMF STATUS unless you've just taken an entire donation
+	 * process to completion: This status being set at all, denotes the very end
+	 * of the donation process on our end. Further attempts by the same user
+	 * will be seen as starting over.
+	 * @param string $status The final status of one discrete donation attempt,
+	 * can be one of five values: 'complete', 'pending', 'pending-poke',
 	 * 'failed', 'revised'
+	 * @throws MWException
 	 */
 	public function setTransactionWMFStatus( $status ) {
 		//our choices here are: 
@@ -2220,13 +2221,14 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Sets the current validation action. This is meant to be used by the 
-	 * process hooks, and as such, by default, only worse news than was already 
-	 * being stored will be retained for the final result.  
-	 * @param string $action the value you want to set as the action. 
-	 * @param bool $reset set to true to do a hard set on the action value. 
-	 * Otherwise, the status will only change if it fails harder than it already 
+	 * Sets the current validation action. This is meant to be used by the
+	 * process hooks, and as such, by default, only worse news than was already
+	 * being stored will be retained for the final result.
+	 * @param string $action the value you want to set as the action.
+	 * @param bool $reset set to true to do a hard set on the action value.
+	 * Otherwise, the status will only change if it fails harder than it already
 	 * was.
+	 * @throws MWException
 	 */
 	public function setValidationAction( $action, $reset = false ) {
 		//our choices are: 
@@ -2261,20 +2263,20 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		return $this->action;
 	}
-	
+
 	/**
-	 * Checks to see if we have donor data in our session. 
-	 * This can be useful for determining if a user should be at a certain point 
-	 * in the workflow for certain gateways. For example: This is used on the 
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to 
-	 * determine if the user is actually in the process of making a credit card 
-	 * transaction. 
-	 * @param string $key Optional: A particular key to check against the 
-	 * donor data in session. 
-	 * @param string $value Optional (unless $key is set): A value that the $key 
-	 * should contain, in the donor session.  
-	 * @return boolean true if the session contains donor data (and if the data 
-	 * key matches, when key and value are set), and false if there is no donor 
+	 * Checks to see if we have donor data in our session.
+	 * This can be useful for determining if a user should be at a certain point
+	 * in the workflow for certain gateways. For example: This is used on the
+	 * outside of the adapter in GlobalCollect's resultswitcher page, to
+	 * determine if the user is actually in the process of making a credit card
+	 * transaction.
+	 * @param bool|string $key Optional: A particular key to check against the
+	 * donor data in session.
+	 * @param string $value Optional (unless $key is set): A value that the $key
+	 * should contain, in the donor session.
+	 * @return boolean true if the session contains donor data (and if the data
+	 * key matches, when key and value are set), and false if there is no donor
 	 * data (or if the key and value do not match)
 	 */
 	public function hasDonorDataInSession( $key = false, $value= '' ){

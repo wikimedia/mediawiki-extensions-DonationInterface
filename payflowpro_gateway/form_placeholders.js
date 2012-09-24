@@ -76,5 +76,5 @@ window.formCheck = function( ccform ) {
 	} else {
 		return true;
 	}
-}
+};
 //]]>

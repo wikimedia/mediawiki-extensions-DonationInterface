@@ -1,7 +1,6 @@
 <?php
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
-
 	//Data we know to be good, that we always want to re-assert after a load or an addData. 
 	//so far: order_id, i_order_id, and the utm data we pull from contribution tracking. 
 	protected $hard_data = array( );
@@ -107,12 +106,10 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	public function getUTMInfoFromDB() {
-
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
 		if ( !$db ) {
 			die( "There is something terribly wrong with your Contribution Tracking database. fixit." );
-			return null;
 		}
 
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
