@@ -987,3 +987,8 @@ $messages['zh-hans'] = array(
 	'globalcollectgateway' => '马上捐款',
 );
 
+/** Traditional Chinese (中文（繁體）‎) */
+$messages['zh-hant'] = array(
+	'globalcollectgateway' => '馬上捐款',
+);
+
