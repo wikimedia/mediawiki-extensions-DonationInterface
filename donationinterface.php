@@ -317,7 +317,7 @@ if ( $optionalParts['GlobalCollect'] === true ){
 		'X' => 0, //Exact AVS Match.
 		'Y' => 0, //Address (Street) and 5 digit Zip match.
 		'Z' => 50, //5 digit Zip matches, Address (Street) does not.
-		'0' => 50, //No service available.
+		'0' => 25, //No service available.
 	);	
 	
 }
