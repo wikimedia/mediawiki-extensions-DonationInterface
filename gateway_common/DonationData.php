@@ -1041,6 +1041,7 @@ class DonationData {
 	 * @return array Clean tracking data 
 	 */
 	public function getCleanTrackingData( $unset = false ) {
+		global $wgContributionTrackingAnalyticsUpgrade;
 
 		// define valid tracking fields
 		$tracking_fields = array(
@@ -1053,8 +1054,11 @@ class DonationData {
 			'utm_key',
 			'optout',
 			'language',
+			'country',
 			'ts'
 		);
+
+		$tracking_data = array();
 
 		foreach ( $tracking_fields as $value ) {
 			if ( $this->isSomething( $value ) ) {
@@ -1064,6 +1068,23 @@ class DonationData {
 					$tracking_data[$value] = null;
 				}
 			}
+		}
+
+		if( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ){
+			$tracking_data['form_amount'] = $this->getVal( 'currency_code' ) . " " . $this->getVal( 'amount' );
+		}
+		if( $this->isSomething( 'form_name' ) ){
+			$tracking_data['payments_form'] = $this->getVal( 'form_name' );
+			if( $this->isSomething( 'ffname' ) ){
+				$tracking_data['payments_form'] .= '.' . $this->getVal( 'ffname' );
+			}
+		}
+
+		// @todo remove if-block after some period of time
+		if( !$wgContributionTrackingAnalyticsUpgrade ){
+			unset( $tracking_data['country'] );
+			unset( $tracking_data['form_amount'] );
+			unset( $tracking_data['payments_form'] );
 		}
 
 		return $tracking_data;
