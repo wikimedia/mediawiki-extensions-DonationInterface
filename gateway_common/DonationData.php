@@ -1325,6 +1325,7 @@ class DonationData {
 			'country2',
 			'zip2',
 			'gateway',
+			'gateway_account',
 			'gateway_txn_id',
 			'recurring',
 			'payment_method',
