@@ -11,15 +11,6 @@ class DonationApi extends ApiBase {
 
 		$this->gateway = $this->donationData['gateway'];
 
-		// If you want to test with fake data, pass a 'test' param set to true.
-		// You still have to set the gateway you are testing though.
-		// It looks like this only works if the Test global variable for that gateway is true.
-		if ( array_key_exists( 'test', $this->donationData ) && $this->donationData['test'] ) {
-			$this->populateTestData();
-		} else {
-			// If we need to do any local data munging do it here.
-		}
-
 		$method = $this->donationData['payment_method'];
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
@@ -68,17 +59,13 @@ class DonationApi extends ApiBase {
 		}
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
+			$this->getResult()->setIndexedTagName( $outputResult['errors']. 'error' );
 		}
 
 		if ( $this->donationData ) {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
-
-		/*
-		$this->getResult()->setIndexedTagName( $result, 'response' );
-		$this->getResult()->addValue( 'data', 'result', $result );
-		*/
 	}
 
 	public function isReadMode() {
@@ -88,7 +75,6 @@ class DonationApi extends ApiBase {
 	public function getAllowedParams() {
 		return array(
 			'gateway' => $this->defineParam( true ),
-			'test' => $this->defineParam( false  ),
 			'amount' => $this->defineParam( false ),
 			'currency_code' => $this->defineParam( false ),
 			'fname' => $this->defineParam( false ),
@@ -128,39 +114,9 @@ class DonationApi extends ApiBase {
 		return $param;
 	}
 
-	private function populateTestData() {
-		$this->donationData = array(
-			'gateway' => $this->gateway,
-			'amount' => "35",
-			'currency_code' => 'USD',
-			'fname' => 'Tester',
-			'mname' => 'T.',
-			'lname' => 'Testington',
-			'street' => '549 Market St.',
-			'street_supplementa' => '3rd Floor',
-			'city' => 'San Francisco',
-			'state' => 'CA',
-			'zip' => '94104',
-			'emailAdd' => 'test@example.com',
-			'country' => 'US',
-			'payment_method' => 'cc',
-			'language' => 'en',
-			'card_type' => 'american',
-		);
-		if ( $gateway != 'globalcollect' ) {
-			$params += array(
-				'card_num' => '378282246310005',
-				'expiration' => date( 'my', strtotime( '+1 year 1 month' ) ),
-				'cvv' => '001',
-			);
-		}
-		return true;
-	}
-
 	public function getParamDescription() {
 		return array(
 			'gateway' => 'Which payment gateway to use - payflowpro, globalcollect, etc.',
-			'test' => 'Set to true if you want to use bogus test data instead of supplying your own',
 			'amount' => 'The amount donated',
 			'currency_code' => 'Currency code',
 			'fname' => 'First name',
