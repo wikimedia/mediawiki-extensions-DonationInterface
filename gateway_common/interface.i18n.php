@@ -2570,7 +2570,7 @@ $messages['be'] = array(
 	'donate_interface-monthlybox-bottom' => 'Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Jsoby
@@ -2589,7 +2589,6 @@ $messages['be-tarask'] = array(
 	'donate_interface-submit-button' => 'Ахвяраваць',
 	'donate_interface-comment-message' => 'Маеце думкі, якімі хочаце падзяліцца са сьветам? Пакіньце тут паведамленьне не болей 200 сымбаляў:',
 	'donate_interface-comment-label' => 'Камэнтар:',
-	'donate_interface-anon-message' => 'Калі ласка, дадайце маё імя ў публічны сьпіс ахвяравальнікаў.',
 	'donate_interface-email-agreement' => 'Я згодны атрымліваць пэрыядычныя электронныя лісты з навінамі фундацыі «Вікімэдыя».',
 	'donate_interface-comment-title' => 'Публічны камэнтар',
 	'donate_interface-amount-error' => 'Калі ласка, увядзіце слушную суму',
@@ -2691,17 +2690,16 @@ $messages['be-tarask'] = array(
 	'donate_interface-bt-button' => 'Ахвяраваць банкаўскім пераводам',
 	'donate_interface-rt-button' => 'Ахвяраваць праз банк «$1»',
 	'donate_interface-ewallet-button' => 'Ахвяраваць праз $1',
-	'donate_interface-donor-legend' => 'Зьвесткі пра ахвяравальніка',
 	'donate_interface-card-legend' => 'Інфармацыя пра крэдытную картку',
 	'donate_interface-amount-legend' => 'Сума ахвяраваньня',
 	'donate_interface-cvv-link' => 'Дзе ён?',
+	'donate_interface-donor-legend' => 'Зьвесткі пра ахвяравальніка',
 	'donate_interface-donor-amount' => 'Сума:',
 	'donate_interface-donor-currency-label' => 'Валюта:',
 	'donate_interface-donor-email' => 'Адрас электроннай пошты:',
 	'donate_interface-donor-emailAdd' => 'Адрас электроннай пошты',
 	'donate_interface-donor-name' => 'Імя:',
 	'donate_interface-donor-fname' => 'Імя:',
-	'donate_interface-donor-address' => 'Адрас:',
 	'donate_interface-donor-mname' => 'Імя па бацьку:',
 	'donate_interface-donor-lname' => 'Прозьвішча:',
 	'donate_interface-donor-street' => 'Вуліца:',
@@ -2714,6 +2712,7 @@ $messages['be-tarask'] = array(
 	'donate_interface-donor-postal' => 'Паштовы індэкс:',
 	'donate_interface-donor-country' => 'Краіна/Рэгіён:',
 	'donate_interface-donor-zone' => 'Зона',
+	'donate_interface-donor-address' => 'Адрас:',
 	'donate_interface-donor-pobox' => 'А/с',
 	'donate_interface-donor-card' => 'Крэдытная картка:',
 	'donate_interface-donor-card-num' => 'Нумар карткі:',
@@ -2790,6 +2789,7 @@ $messages['be-tarask'] = array(
 	'donate_interface-noscript-msg' => 'Выглядае, што у Вас ня ўключаны JavaScript альбо Ваш браўзэр яго не падтрымлівае.
 Каб рабіць ахвяраваньне бясьпечным і зручным, нашая форма ахвяраваньня патрабуе JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Калі Вы ня можаце альбо не жадаеце ўключыць JavaScript, Вы можаце зрабіць ахвяраваньне наведаўшы:',
+	'donate_interface-anon-message' => 'Калі ласка, дадайце маё імя ў публічны сьпіс ахвяравальнікаў.',
 	'donate_interface-donate-wikipedia' => 'Ахвяраваць на Вікіпэдыю',
 	'donate_interface-or' => 'ці',
 	'donate_interface-your-information' => 'Зьвесткі пра Вас',
@@ -2861,7 +2861,7 @@ $messages['be-tarask'] = array(
 	'donate_interface-submit-my-secure-donation' => 'Адправіць маё ахвяраваньне празь бясьпечнае злучэньне',
 	'donate_interface-next' => 'Далей',
 	'donate_interface-continue' => 'Працягнуць',
-	'donate_interface-cancel' => 'Адмяніць',
+	'donate_interface-cancel' => 'Скасаваць',
 	'donate_interface-payment' => 'Плацеж',
 	'donate_interface-payment-type' => 'Тып плацяжу',
 	'donate_interface-month' => '$1 ($2)',
