@@ -921,6 +921,9 @@ $messages['ta'] = array(
 $messages['te'] = array(
 	'globalcollect_gateway-response-9130' => 'చెల్లని దేశం.',
 	'globalcollect_gateway-response-9150' => 'చెల్లని భాష.',
+	'globalcollect_gateway-response-400530' => 'చెల్లింపు పద్ధతి చెల్లదు.',
+	'globalcollect_gateway-response-21000150' => 'బ్యాంకు ఖాతా నెంబరు చెల్లదు.',
+	'globalcollect_gateway-response-21000155' => 'బ్యాంకు సంకేతం చెల్లదు.',
 );
 
 /** Tagalog (Tagalog)
