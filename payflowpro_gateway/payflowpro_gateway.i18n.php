@@ -170,7 +170,7 @@ $messages['ba'] = array(
 Зинһар, һуңыраҡ тағы ҡабатлап ҡарағыҙ.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Lloffiwr
@@ -435,7 +435,7 @@ Bitte nehmen Sie mit uns Kontakt auf, um Ihre Transaktion abzuschließen.',
 Bitte versuchen Sie es später noch einmal.',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Imre
  * @author Kghbln
  */
@@ -1328,7 +1328,7 @@ Jekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.',
 	'payflowpro_gateway-response-default' => "Kien hemm żball fl-ipproċessar tat-tranżazzjoni tiegħek. Jekk jogħġbok erġa' pprova.",
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Finnrind
  * @author Laaknor
  * @author Nghtwlkr
@@ -1415,7 +1415,7 @@ Neem alstublieft contact met ons op voor uw transactie.',
 Probeer het later nog een keer.',
 );
 
-/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
+/** Norwegian Nynorsk (norsk (nynorsk)‎)
  * @author Gunnernett
  * @author Nghtwlkr
  */
@@ -1779,7 +1779,7 @@ Prosimo, stopite v stik z nami za nadaljevanje vaše transakcije.',
 Prosimo, poskusite znova kasneje.',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -1797,7 +1797,7 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-response-125' => 'Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба.',
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬) */
+/** Serbian (Latin script) (srpski (latinica)‎) */
 $messages['sr-el'] = array(
 	'payflowprogateway' => 'Priložite novac',
 	'payflowpro_gateway-desc' => 'Obrađivanje kreditnih kartica preko Pejpala',
@@ -2138,7 +2138,7 @@ $messages['yue'] = array(
 請遲啲再試。',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Bencmq
  * @author Chenxiaoqino
  * @author Hydra
@@ -2167,7 +2167,7 @@ $messages['zh-hans'] = array(
 请稍后再试。',
 );
 
-/** Traditional Chinese (‪中文（繁體）‬)
+/** Traditional Chinese (中文（繁體）‎)
  * @author Anakmalaysia
  * @author Horacewai2
  * @author Liangent
