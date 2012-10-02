@@ -95,7 +95,7 @@ $messages['ast'] = array(
 Por favor, torna a intentalo más sero.',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Wizardist
  */
@@ -199,7 +199,7 @@ $messages['de'] = array(
 Bitte versuchen Sie es später noch einmal.',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Kghbln
  */
 $messages['de-formal'] = array(
@@ -645,7 +645,7 @@ $messages['ms'] = array(
 Sila cuba sebentar lagi.',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Jsoby
  */
 $messages['nb'] = array(
@@ -983,7 +983,7 @@ $messages['vi'] = array(
 Xin hãy thử lại sau.',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
