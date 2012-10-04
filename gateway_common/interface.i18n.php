@@ -13235,6 +13235,7 @@ $messages['is'] = array(
  * @author Jsoby
  * @author Karika
  * @author Lucas2
+ * @author Pgehres (WMF)
  * @author Ppena
  * @author Raoli
  * @author Ximo17
@@ -13584,7 +13585,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
 	'donate_interface-translate-redlink1' => 'Aiutaci a tradurre questa pagina.',
 	'donate_interface-translate-redlink2' => 'O mandare per e-mail la tua traduzione a translations@wikimedia.org',
 	'donate_interface-email-fallbackname' => 'amico della Wikimedia Foundation',
-	'donate_interface-email-subject' => 'Un Grazie dalla Wikimedia Foundation',
+	'donate_interface-email-subject' => 'Grazie dalla Wikimedia Foundation',
 	'donate_interface-email-unsub-title' => 'Cancellazione dalla Wikimedia Foundation',
 	'donate_interface-email-unsub-button' => "Annulla l'iscrizione",
 	'donate_interface-email-unsub-success' => 'Sei stato rimosso con successo dalla nostra mailing list',
@@ -13756,7 +13757,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-mname' => 'ミドルネーム',
 	'donate_interface-donor-lname' => '姓',
 	'donate_interface-donor-street' => '通り（番地）',
-	'donate_interface-donor-city' => '市（市町村）',
+	'donate_interface-donor-city' => '市町村',
 	'donate_interface-donor-island' => '島',
 	'donate_interface-donor-state' => '州（都道府県）',
 	'donate_interface-donor-zip' => '郵便番号',
@@ -13791,7 +13792,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-fname' => '名前（名）',
 	'donate_interface-error-msg-lname' => '姓',
 	'donate_interface-error-msg-street' => '通り住所（番地）',
-	'donate_interface-error-msg-city' => '市（市町村）',
+	'donate_interface-error-msg-city' => '市町村',
 	'donate_interface-error-msg-state' => '州（都道府県）',
 	'donate_interface-error-msg-zip' => '郵便番号',
 	'donate_interface-error-msg-postal' => '郵便番号',
@@ -20255,6 +20256,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 
 /** Oriya (ଓଡ଼ିଆ)
  * @author Ansumang
+ * @author MKar
  * @author Odisha1
  * @author Psubhashish
  */
@@ -20313,7 +20315,7 @@ $messages['or'] = array(
 	'donate_interface-INR' => 'ଭାରତୀୟ ଟଙ୍କା',
 	'donate_interface-JMD' => 'ଜାମାଇକା ଡଲାର',
 	'donate_interface-JOD' => 'ଜୋର୍ଡାନିଆ ଦିନାର',
-	'donate_interface-JPY' => 'ଜାପାନି ଇଏନ',
+	'donate_interface-JPY' => 'ଜାପାନି ୟେନ',
 	'donate_interface-KES' => 'କେନିଆ ସିଲିଙ୍ଗ',
 	'donate_interface-KRW' => 'ଦକ୍ଷିଣ କୋରିଆ ଉଅନ',
 	'donate_interface-KYD' => 'କେମାଣା ଦ୍ଵୀପପୁଞ୍ଜ ଡଲାର',
