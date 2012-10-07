@@ -13831,9 +13831,9 @@ $messages['ja'] = array(
 	'donate_interface-make-your-donation' => '今すぐ寄付を',
 	'donate_interface-state-in-us' => 'アメリカ合衆国国内の場合',
 	'donate_interface-comment' => 'コメント',
-	'donate_interface-first' => 'ファーストネーム（名）',
-	'donate_interface-middle' => 'ミドルネーム',
-	'donate_interface-last' => 'ラストネーム（氏）',
+	'donate_interface-first' => '名前 (名)',
+	'donate_interface-middle' => 'ミドル ネーム',
+	'donate_interface-last' => '名前 (姓)',
 	'donate_interface-other' => 'その他',
 	'donate_interface-noscript-msg' => 'JavaScript を有効にしていないか、ブラウザーが JavaScript に対応していません。
 安全で安心できる、快適な操作のため、この寄付フォームでは JavaScript を必須にしています。',
