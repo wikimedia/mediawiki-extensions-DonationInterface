@@ -25508,6 +25508,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
 /** Slovenian (slovenščina)
  * @author Artelind
  * @author Dbc334
+ * @author Eleassar
  * @author Irena Plahuta
  * @author Jsoby
  * @author MZaplotnik
@@ -25531,7 +25532,7 @@ $messages['sl'] = array(
 	'donate_interface-smallamount-error' => 'Prispevati morate vsaj $1',
 	'donate_interface-bigamount-error' => 'Donacij večjih od 10000 dolarjev ($1 $2) ne moremo sprejemati na naši spletni strani. Prosimo, da se obrnete na naše osebje na $3.',
 	'donate_interface-processing-error' => 'Prišlo je do napake pri obdelavi vašega zahtevka. 
-Na voljo ni nobenega obdelovalca.',
+Na razpolago ni nobenega obdelovalca.',
 	'donate_interface-AED' => 'dirham Združenih arabskih emiratov',
 	'donate_interface-ARS' => 'argentinski peso',
 	'donate_interface-AUD' => 'avstralski dolar',
