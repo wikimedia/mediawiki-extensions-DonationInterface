@@ -604,12 +604,16 @@ class DonationData {
 		if ( !($this->isSomething( 'amount' )) || !(preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amount' ) ) ) ) {
 			if ( $this->isSomething( 'amountGiven' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountGiven' ) ) ) {
 				$this->setVal( 'amount', number_format( $this->getVal( 'amountGiven' ), 2, '.', '' ) );
-			} elseif ( $this->isSomething( 'amount' ) && $this->getVal( 'amount' ) == '-1' ) {
-				$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
-			} else {
-				$this->setVal( 'amount', '0.00' );
 			}
+			elseif ( $this->isSomething( 'amount' ) && $this->getVal( 'amount' ) == '-1' ) {
+				if ( $this->isSomething( 'amountOther' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountOther' ) ) ) {
+					$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
+				}
+			}
+			$this->setVal( 'amount', '0.00' );
 		}
+		$this->expunge( 'amountGiven' );
+		$this->expunge( 'amountOther' );
 	}
 
 	/**
