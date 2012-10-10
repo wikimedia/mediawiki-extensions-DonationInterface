@@ -25287,12 +25287,13 @@ $messages['si'] = array(
  * @author Helix84
  * @author Jkjk
  * @author Jsoby
+ * @author Kusavica
  */
 $messages['sk'] = array(
 	'donate_interface' => 'Podporte nadáciu Wikimedia',
 	'donate_interface-desc' => 'Vstupná stránka darov, ktorá integruje rozšírenia brány',
 	'donate_interface-intro' => 'Prosím, zvoľte spôsob platby, čiastku a menu.',
-	'donate_interface-amount' => 'Čiastka daru:',
+	'donate_interface-amount' => 'Čiastka',
 	'donate_interface-other-amount' => 'Iná čiastka',
 	'donate_interface-currency' => 'Mena:',
 	'donate_interface-gateway' => 'Spôsob platby:',
@@ -25383,7 +25384,7 @@ Políčko pre podpis zvyčajne obsahuje postupnosť čísiel, ale iba posledné 
 <p>Kód sa <i>vždy</i> nachádza <i>nad</i> embosovaným (vyčnievajúcim) číslom karty na jej prednej strane.
 V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad číslom účtu.</p><br />',
 	'donate_interface-question-comment' => 'Máte otázky alebo komentáre? Kontaktujte Wikimedia Foundation: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Vaša kreditná karta bude bezpečne spracovaná.',
+	'donate_interface-donate-click' => 'Vaša kreditná/debetná karta bude bezpečne spracovaná.',
 	'donate_interface-otherways' => 'Existujú aj <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">ďalšie spôsoby ako darovať, vrátane PayPal, šeku alebo pošty</a>.',
 	'donate_interface-otherways-alt' => 'Existujú aj <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">iné spôsoby, ako darovať</a>, okrem iného aj šekom.',
 	'donate_interface-otherways-short' => 'Iné spôsoby, ako darovať',
@@ -25402,7 +25403,7 @@ V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad
 	'donate_interface-noscript-msg' => 'Zdá sa, že nemáte povolený JavaScript alebo ho váš prehliadač nepodporuje. 
 V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, náš darovací formulár vyžaduje JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Ak nemôžete alebo nechcete zapnúť JavaScript, môžete stále prispieť navštívením:',
-	'donate_interface-anon-message' => 'Prosím, uveďte moje meno (vedľa môjho komentára) vo verejnom zozname darcov.',
+	'donate_interface-anon-message' => 'Prosím, uveďte moje meno vo verejnom zozname darcov.',
 	'donate_interface-donate-wikipedia' => 'Darovať na Wikipédiu',
 	'donate_interface-or' => 'alebo',
 	'donate_interface-your-information' => 'Vaše osobné údaje',
@@ -25477,6 +25478,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
 	'donate_interface-cancel' => 'Zrušiť',
 	'donate_interface-payment' => 'Platba',
 	'donate_interface-payment-type' => 'Typ platby',
+	'donate_interface-month' => '$1 ($2)',
 	'donate_interface-please-complete' => 'Prosím, dokončite váš dar nižšie...',
 	'donate_interface-description' => 'Popis',
 	'donate_interface-donation' => 'Dar',
