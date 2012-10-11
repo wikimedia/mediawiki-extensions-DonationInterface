@@ -25389,7 +25389,7 @@ V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad
 	'donate_interface-otherways-alt' => 'Existujú aj <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">iné spôsoby, ako darovať</a>, okrem iného aj šekom.',
 	'donate_interface-otherways-short' => 'Iné spôsoby, ako darovať',
 	'donate_interface-paypal' => 'Máte účet PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Darujte prostredníctvom PayPalu</a>.',
-	'donate_interface-credit-storage-processing' => 'Neukladáme informácie o vašej kreditnej karte a vaše osobné údaje podliehajú našej politike <a href="//wikimediafoundation.org/wiki/Donor_policy">ochrany osobných údajov</a>.',
+	'donate_interface-credit-storage-processing' => 'Neukladáme informácie o vašej kreditnej karte a vaše osobné údaje podliehajú našej politike <a href="//wikimediafoundation.org/wiki/Donor_policy"> ochrany osobných údajov</a>.',
 	'donate_interface-token-mismatch' => 'Vaša relácia vypršala. Prosím, skúste vyplniť a odoslať formulár znova.',
 	'donate_interface-cc-form-header-personal' => 'Fakturačné údaje',
 	'donate_interface-cc-form-header-payment' => 'Platobné údaje',
@@ -25505,6 +25505,7 @@ V záujme zaistenia bezpečného, zabezpečeného a príjemného zážitku, ná�
 	'donate_interface-tshirt-confirmation' => 'Vaše tričko bude dodané v nižšie uvedenej veľkosti a jazyku:',
 	'donate_interface-donation-tshirt' => 'Darovanie (s ponukou trička)',
 	'donate_interface-state-dropdown-XX' => 'Mimo USA',
+	'donate_interface-rtbt-issuer_id' => 'Vybrať banku',
 );
 
 /** Slovenian (slovenščina)
