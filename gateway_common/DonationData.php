@@ -601,17 +601,20 @@ class DonationData {
 	 * normalizes them into the 'amount' field.  
 	 */
 	protected function setNormalizedAmount() {
-		if ( !($this->isSomething( 'amount' )) || !(preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amount' ) ) ) ) {
-			if ( $this->isSomething( 'amountGiven' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountGiven' ) ) ) {
-				$this->setVal( 'amount', number_format( $this->getVal( 'amountGiven' ), 2, '.', '' ) );
-			}
-			elseif ( $this->isSomething( 'amount' ) && $this->getVal( 'amount' ) == '-1' ) {
-				if ( $this->isSomething( 'amountOther' ) && preg_match( '/^\d+(\.(\d+)?)?$/', $this->getVal( 'amountOther' ) ) ) {
-					$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
-				}
-			}
+		if ( $this->getVal( 'amount' ) === 'Other' ){
+			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
+		}
+		
+		if ( ( !($this->isSomething( 'amount' )) || !is_numeric( $this->getVal( 'amount' ) ) ) 
+			&& ( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) ) ) {
+			$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
+		}
+		
+		if ( !($this->isSomething( 'amount' )) ){
 			$this->setVal( 'amount', '0.00' );
 		}
+		
+		$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
 	}
