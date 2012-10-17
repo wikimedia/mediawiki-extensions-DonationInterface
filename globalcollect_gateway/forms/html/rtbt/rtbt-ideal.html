@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	mw.loader.load('gc.form.rapidhtml.webitects.bt');
+    mw.loader.load('gc.form.rapidhtml.webitects.bt');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ["#general|escape",'#retryMsg|escape','#amount|escape'];
 	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
@@ -55,7 +55,7 @@
 											<td><label><input id="amountRadio4" type="radio" name="amountRadio" value="55" /> <span id="amountSpan4">55</span></label></td>
 											<td><label><input id="amountRadio5" type="radio" name="amountRadio" value="75" /> <span id="amountSpan5">75</span></label></td>
 											<td><label><input id="amountRadio6" type="radio" name="amountRadio" value="180" /> <span id="amountSpan6">180</span></label></td>
-											<td><input type="radio" name="amountRadio" id="input_amount_other" value="other" /> <label><span id="amountSpanOther"></span><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="%donate_interface-other%" placeholder="%donate_interface-other%"  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
+											<td><input type="radio" name="amountRadio" id="input_amount_other" value="Other" /> <label><span id="amountSpanOther"></span><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="%donate_interface-other%" placeholder="%donate_interface-other%"  onfocus="this.form.input_amount_other.checked=true;"/></label></td>
 										</tr>
 									</table>
 								</div>
@@ -122,7 +122,6 @@
 								<input type="hidden" value="@referrer" name="referrer"/>
 								<input type="hidden" value="@comment" name="comment"/>
 								<input type="hidden" value="@comment-option" name="comment-option"/>
-								<input type="hidden" value="1" name="email-opt"/>
 								<input type="hidden" value="@token" name="token"/>
 								<input type="hidden" value="@order_id"  name="order_id"/>
 								<input type="hidden" value="@numAttempt" name="numAttempt"/>
