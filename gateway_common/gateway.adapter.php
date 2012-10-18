@@ -300,7 +300,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->account_config = $acctConfig[ $this->account_name ];
 
-		$this->dataObj->addData( array(
+		$this->addData( array(
 			'gateway_account' => $this->account_name,
 		) );
 	}
@@ -2013,7 +2013,46 @@ abstract class GatewayAdapter implements GatewayType {
 			throw new MWException( "Transaction WMF Status $status is invalid." );
 		}
 		
+		$this->logTransactionWMFStatus( $status );
+		
 		$this->transaction_results['WMF_STATUS'] = $status;
+	}
+	
+	/**
+	 * Easily-child-overridable log component of setting the WMF transaction 
+	 * status, which will only ever be set at the very end of a transaction 
+	 * workflow.
+	 * @param type $status
+	 */
+	public function logTransactionWMFStatus( $status ){
+		$msg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ':' . $this->getData_Unstaged_Escaped( 'order_id' );
+		
+		$msg .= " FINAL STATUS: '$status' - ";
+		
+		//what do we want in here? 
+		//Attempted payment type, country of origin, $status, amount... campaign? 
+		//error message if one exists. 
+		$keys = array(
+			'payment_submethod',
+			'payment_method',
+			'country',
+			'utm_campaign',
+			'amount',
+			'currency_code',
+		);
+		
+		foreach ($keys as $key){
+			$msg .= $this->getData_Unstaged_Escaped( $key ) . ', ';
+		}
+		
+		$errors = $this->getTransactionErrors();
+		if (!empty($errors)){
+			foreach ( $errors as $code => $message ){
+				$msg .= " [$code]$message";
+			}
+		}
+		
+		self::log( $msg );
 	}
 
 	public function getTransactionMessage() {
@@ -2061,7 +2100,8 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Returns an array of errors. This should be an empty array on success.
+	 * Returns an array of errors, in the format $error_code => $error_message. 
+	 * This should be an empty array on transaction success.
 	 *
 	 * @return array
 	 */

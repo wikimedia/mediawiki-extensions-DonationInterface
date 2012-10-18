@@ -1378,12 +1378,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
-		
-				// WMFStatus will already be set if the transaction was unable to communicate properly.
-				if ( $this->getTransactionStatus() ) {
-					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
-				}
-
 				break;
 			case 'DO_BANKVALIDATION':
 				$data = $this->xmlChildrenToArray( $response, 'RESPONSE' );
