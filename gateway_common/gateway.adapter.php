@@ -185,6 +185,30 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $postdatadefaults;
 	protected $xmlDoc;
 	protected $dataObj;
+	
+	/**
+	 * $transaction_results is the member var that keeps track of the results of
+	 * the latest discrete transaction with the gateway. 
+	 * There could be multiple transaction with the gateway in any one donation. 
+	 * Expected keys:
+	 * - 'status' => boolean, denoting if there were internal errors on our end, 
+	 * or at the gateway. 
+	 * - 'message' => Originally supposed to be an i18n label, but somewhere 
+	 * along the line this just turned into a message that would be marginally
+	 * okay to display to a user.
+	 * - 'errors' => An array of error codes => error messages that are meant to
+	 * make it to the user. If there weren't any, this should be present and
+	 * empty after a transaction.
+	 * - 'action' => The validation action (anti-fraud results)
+	 * Keys that might also exist:
+	 * - 'WMF_STATUS' => The final outcome of an entire donation workflow.
+	 * - 'result' => Raw return data from the cURL transaction
+	 * - 'txn_message' - Special case internal messages about the success or
+	 * failure of the transaction. Not widely used.
+	 * - 'gateway_txn_id' - the gateway transaction ID
+	 * - 'data' - All PARSED transaction data.
+	 * 	 * @var type 
+	 */
 	protected $transaction_results;
 	protected $validation_errors;
 	protected $manual_errors = array();
@@ -306,7 +330,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Get the log message prefix
+	 * Get the log message prefix: Contribution Tracking ID, order_id, and a space.
 	 *
 	 * @return string 
 	 */
@@ -1064,7 +1088,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		// log that the transaction is essentially complete
-		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . " Transaction complete." );
+		self::log( $this->getLogMessagePrefix() . " Transaction complete." );
 
 		$this->debugarray[] = 'numAttempt = ' . $this->getData_Staged('numAttempt');
 
@@ -1952,6 +1976,11 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * Returns the 'result' key of $transaction_results, or false if none is 
+	 * present
+	 * @return mixed
+	 */
 	public function getTransactionRawResponse() {
 		if ( array_key_exists( 'result', $this->transaction_results ) ) {
 			return $this->transaction_results['result'];
@@ -1961,9 +1990,9 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * If it has been set: returns the Transaction Status in the 
-	 * $transaction_results array. Otherwise, returns false.
-	 * @return mixed Transaction results status, or false if not set.  
+	 * Returns the 'status' key of $transaction_results, or false if none is 
+	 * present. 
+	 * @return mixed
 	 */
 	public function getTransactionStatus() {
 		if ( is_array( $this->transaction_results ) && array_key_exists( 'status', $this->transaction_results ) ) {
@@ -2027,7 +2056,9 @@ abstract class GatewayAdapter implements GatewayType {
 	public function logTransactionWMFStatus( $status ){
 		$msg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ':' . $this->getData_Unstaged_Escaped( 'order_id' );
 		
-		$msg .= " FINAL STATUS: '$status' - ";
+		$action = $this->getValidationAction();
+
+		$msg .= " FINAL STATUS: '$status:$action' - ";
 		
 		//what do we want in here? 
 		//Attempted payment type, country of origin, $status, amount... campaign? 
@@ -2044,12 +2075,19 @@ abstract class GatewayAdapter implements GatewayType {
 		foreach ($keys as $key){
 			$msg .= $this->getData_Unstaged_Escaped( $key ) . ', ';
 		}
+
+//		I'm not convinced this bit is useful after seeing the loglines it produces.
+//		Turns out: Most of these are obfuscated for external use, and frankly I don't care about that.
+//		$errors = $this->getTransactionErrors();
+//		if (!empty($errors)){
+//			foreach ( $errors as $code => $message ){
+//				$msg .= " [$code]$message";
+//			}
+//		}
 		
-		$errors = $this->getTransactionErrors();
-		if (!empty($errors)){
-			foreach ( $errors as $code => $message ){
-				$msg .= " [$code]$message";
-			}
+		$txn_message = $this->getTransactionMessage();
+		if ( $txn_message ){
+			$msg .= " $txn_message";
 		}
 		
 		self::log( $msg );
@@ -2078,22 +2116,6 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getTransactionData() {
 		if ( array_key_exists( 'data', $this->transaction_results ) ) {
 			return $this->transaction_results['data'];
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Returns false if FORMACTION does not exist or string if it does exist
-	 *
-	 * @return false|string  
-	 */
-	public function getTransactionDataFormAction() {
-		
-		$data = $this->getTransactionData();
-		
-		if ( is_array( $data ) && array_key_exists( 'FORMACTION', $data ) ) {
-			return $data['FORMACTION'];
 		} else {
 			return false;
 		}

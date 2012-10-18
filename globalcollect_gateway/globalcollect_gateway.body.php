@@ -220,7 +220,7 @@ EOT;
 	 * Display information for bank transfer
 	 */
 	protected function displayBankTransferInformation() {
-		$results = $this->adapter->getTransactionAllResults();
+		$data = $this->getTransactionData();
 
 		$return = '';
 		$fields = array(
@@ -242,10 +242,10 @@ EOT;
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table', 'style' => 'width:600px; margin-left:auto; margin-right:auto;' ) );
 
 		foreach ( $fields as $field => $meta ) {
-			if ( isset( $results['data'][ $field ] ) ) {
+			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), $results['data'][ $field ] );
+				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), $data[ $field ] );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
@@ -273,8 +273,8 @@ EOT;
 	 */
 	protected function displayOnlineBankTransferInformation() {
 		global $wgScriptPath;
-
-		$results = $this->adapter->getTransactionAllResults();
+		
+		$data = $this->getTransactionData();
 
 		$return = '';
 		$fields = array(
@@ -290,10 +290,10 @@ EOT;
 
 		foreach ( $fields as $field => $meta ) {
 
-			if ( isset( $results['data'][ $field ] ) ) {
+			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'th', array(), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array(), $results['data'][ $field ] );
+				$return .= Xml::tags( 'td', array(), $data[ $field ] );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
