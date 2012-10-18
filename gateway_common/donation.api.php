@@ -59,7 +59,7 @@ class DonationApi extends ApiBase {
 		}
 		if ( $result['errors'] ) {
 			$outputResult['errors'] = $result['errors'];
-			$this->getResult()->setIndexedTagName( $outputResult['errors']. 'error' );
+			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
 		if ( $this->donationData ) {
