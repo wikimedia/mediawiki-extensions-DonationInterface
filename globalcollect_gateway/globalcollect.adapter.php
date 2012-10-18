@@ -1164,10 +1164,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		$order_status_results = false;
 		if ( !$cancelflag && !$problemflag ) {
-			$order_status_results = $this->getTransactionWMFStatus();
+//			$order_status_results = $this->getTransactionWMFStatus();
 			$txn_data = $this->getTransactionData();
-			$original_status_code = isset( $txn_data['STATUSID']) ? $txn_data['STATUSID'] : 'NOT SET';
-			if ( $is_orphan ){
+			$original_status_code = NULL;
+			if (isset($txn_data['STATUSID'])){
+				$original_status_code = $txn_data['STATUSID'];
+				$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $txn_data['STATUSID'] );
+			}
+			if ( $is_orphan && !is_null( $original_status_code ) ){
 				//save stats. 
 				if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
 					$this->orphanstats[$original_status_code] = 1;
@@ -1177,7 +1181,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 			if (!$order_status_results){
 				$problemflag = true;
-				$problemmessage = "We don't have a Transaction WMF Status after doing a GET_ORDERSTATUS.";
+				$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
 			}
 			switch ( $order_status_results ){
 				case 'failed' : 			
@@ -1258,8 +1262,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		if ( $problemflag ){
 			//we have probably had a communication problem that could mean stranded payments. 
-			$problemmessage = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ':' . $this->getData_Unstaged_Escaped( 'order_id' ) . ' ' . $problemmessage;
-			self::log( $problemmessage );
+			self::log( $this->getLogMessagePrefix() . $problemmessage );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
 				'status' => false,
@@ -1394,9 +1397,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'GET_ORDERSTATUS':
 				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
-				if (isset($data['STATUSID'])){
-					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
-				}
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				break;
 		}
@@ -1536,9 +1536,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function setBankValidationErrors() {
 
-		$results = $this->getTransactionAllResults();
-
-		$checks = $results['data'];
+		//TODO: Check to see why we're not pulling the errors array instead. 
+		$checks = $this->getTransactionData();
 
 		$errors = isset( $checks['errors'] ) ? $checks['errors'] : array();
 
@@ -1673,6 +1672,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $errCode ) {
 				case 300620:
 					// Oh no! We've already used this order # somewhere else! Restart!
+					self::log( $this->getLogMessagePrefix . "Order ID collission! Starting again." );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
@@ -2224,6 +2224,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$result = $avs_map[$this->getData_Unstaged_Escaped( 'avs_result' )];
 		return $result;
+	}
+	
+	/**
+	 * Returns false if FORMACTION does not exist or string if it does exist
+	 *
+	 * @return false|string  
+	 */
+	public function getTransactionDataFormAction() {
+		
+		$data = $this->getTransactionData();
+		
+		if ( is_array( $data ) && array_key_exists( 'FORMACTION', $data ) ) {
+			return $data['FORMACTION'];
+		} else {
+			return false;
+		}
 	}
 	
 }
