@@ -892,7 +892,7 @@ abstract class GatewayAdapter implements GatewayType {
 				// TODO: Add more intelligence here. Right now we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
 
-				self::log( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
+				self::log( $this->getLogMessagePrefix() . "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
 
 				// Force regen of the order_id
 				$this->dataObj->resetOrderId();
@@ -909,7 +909,7 @@ abstract class GatewayAdapter implements GatewayType {
 		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < 3 ) );
 
 		if ( $retryCount >= 3 ) {
-			self::log( "Transaction canceled after $retryCount retries.", LOG_ERR );
+			self::log( $this->getLogMessagePrefix() . "Transaction canceled after $retryCount retries.", LOG_ERR );
 		}
 
 		return $retval;
