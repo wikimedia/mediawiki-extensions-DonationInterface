@@ -1672,7 +1672,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $errCode ) {
 				case 300620:
 					// Oh no! We've already used this order # somewhere else! Restart!
-					self::log( $this->getLogMessagePrefix . "Order ID collission! Starting again." );
+					self::log( $this->getLogMessagePrefix() . "Order ID collission! Starting again." );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
