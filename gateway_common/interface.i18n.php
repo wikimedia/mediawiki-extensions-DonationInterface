@@ -5185,6 +5185,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
  * @author Hylle
  * @author Jon Harald Søby
  * @author Jsoby
+ * @author Kaare
  * @author McDutchie
  * @author Medic
  * @author Peter Alberti
@@ -5208,6 +5209,7 @@ $messages['da'] = array(
 	'donate_interface-comment-title' => 'Offentlig kommentar',
 	'donate_interface-amount-error' => 'Angiv venligst et gyldigt beløb',
 	'donate_interface-smallamount-error' => 'Du skal bidrage med mindst $1',
+	'donate_interface-bigamount-error' => 'Vi kan ikke acceptere bidrag større end USD 10.000 ($1 $2) via vores websted. Vær venlig at kontakte det af vores personale, der tager sig af større bidrag, på $3.',
 	'donate_interface-processing-error' => 'Der opstod en fejl under behandlingen af din forespørgsel.
 Ingen processorer er tilgængelige.',
 	'donate_interface-AED' => 'UAE-dirham',
@@ -5296,6 +5298,7 @@ Ingen processorer er tilgængelige.',
 	'donate_interface-accessible' => 'Denne side er kun tilgængelig fra donationssiden.',
 	'donate_interface-paypal-button' => 'Doner via PayPal',
 	'donate_interface-paypal-redirect' => 'Omdirigerer til PayPal…',
+	'donate_interface-amazon-button' => 'Doner via Amazon',
 	'donate_interface-cc-button' => 'Doner med kreditkort',
 	'donate_interface-ccdc-button' => 'Doner med kreditkort eller debetkort',
 	'donate_interface-dd-button' => 'Doner med bankoverførsel',
@@ -5323,6 +5326,7 @@ Ingen processorer er tilgængelige.',
 	'donate_interface-donor-zip' => 'Postnummer',
 	'donate_interface-donor-postal' => 'Postnummer',
 	'donate_interface-donor-country' => 'Land/region:',
+	'donate_interface-donor-zone' => 'Zone',
 	'donate_interface-donor-address' => 'Adresse',
 	'donate_interface-donor-pobox' => 'Postboks',
 	'donate_interface-donor-card' => 'Kreditkort',
@@ -5520,6 +5524,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-online_bank_transfer_message' => 'Telefon- og internetbank - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Vælg en bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Andre banker',
+	'donate_interface-sofortbanking' => 'Sofortbanking er en direkte, realtidsbankoverførsel gennem DIRECTebanking.com, som gør det muligt for dig, med det samme at iværsætte en bankoverførsel under din onlinedonation med brug af dine onlinebankoplysninger. Hvis din bankkonto ikke er onlinebanksaktiveret, kan du i stedet vælge "Doner via manuel bankoverførsel" på donationsforsiden.',
 	'donate_interface-dd-account_name' => 'Kontonavn',
 	'donate_interface-dd-account_number' => 'Kontonummer',
 	'donate_interface-dd-authorization_id' => 'Autoriserings-ID',
@@ -5540,6 +5545,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-email-unsub-delay' => 'Der kan gå op til fire dage før ændringerne slår igennem Vi undskylder eventuelle e-breve, du måtte modtage i mellemtiden. Hvis du har spørgsmål, kan du kontakte <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Der skete en fejl under behandling af forespørgslen. Kontakt venligst <donations@wikimedia.org>.',
 	'donate_interface-email-unsub-confirm' => 'Er du sikker på, at du ønsker at stoppe abbonnementet for <b>$1</b>?',
+	'donate_interface-email-unsub-warning' => 'Hermed vil du ikke modtage e-mail fra Wikimedia Foundation, sendt til dig som donor. Du vil fortsat kunne modtage e-mail på denne e-mail-adresse, hvis den er tilknyttet en konti i et af vores projekter. Hvis du har nogen spørgsmål, så kontakt <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a> på engelsk.',
 	'donate_interface-faqs' => 'Ofte stillede spørgsmål',
 	'donate_interface-tax-info' => 'Information om skattefradrag',
 	'donate_interface-informationsharing' => 'Når du donerer deler du oplysninger med Wikimedia Foundation, den almene organisation som driver Wikipedia og andre Wikimedia-projekter, og dens tjenesteudbydere i USA og andre steder, i henhold til vores privatlivspolitik. Vi sælger eller bytter ikke dine oplysninger med nogen. For flere oplysninger henvises der til <a href="//wikimediafoundation.org/wiki/Donor_policy/en">vores privatlivspolitik</a>.',
@@ -5557,7 +5563,10 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-monthlybox-yes' => 'Jep, gør det månedligt.',
 	'donate_interface-monthlybox-no' => 'NEJ, lad det være et engangsbidrag.',
 	'donate_interface-monthlybox-bottom' => 'Dit bidrag vil blive sikkert behandlet.',
+	'donate_interface-monthly-cancel' => 'Månedlige betalinger vil blive hævet af Wikimedia Foundation indtil du giver os besked om at stoppe dem.',
+	'donate_interface-onetime' => 'Foretag en engangsdonation',
 	'donate_interface-monthly-short' => 'Månedlig',
+	'donate_interface-onetime-short' => 'Engangs',
 	'donate_interface-securelogo-title' => 'Klik for at godkende - denne side valgte VeriSign SSL for at sikre e-handlen og de fortrolige oplysninger.',
 	'donate_interface-secureLogo-text' => 'Om SSL-certifikater',
 	'donate_interface-error-http-403' => 'Du har ikke tilladelse til at få adgang til denne side.',
