@@ -657,9 +657,11 @@ class DonationData {
 	 * @return A randomized order ID
 	 */
 	protected static function generateOrderId() {
-		$order_id = ( double ) microtime() * 1000000 . mt_rand( 1000, 9999 );
-
-		return $order_id;
+		if ( function_exists( $this->boss->generateOrderID ) ){
+			return $this->boss->generateOrderID();
+		} else {
+			return mt_rand( 1000, 9999999999 );
+		}
 	}
 
 	/**
