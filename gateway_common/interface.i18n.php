@@ -8957,6 +8957,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Quentinv57
  * @author Sherbrooke
  * @author Toto Azéro
+ * @author Urhixidur
  * @author Verdy p
  * @author Wyz
  */
@@ -9017,7 +9018,7 @@ Aucun processeur n’est disponible.',
 	'donate_interface-JMD' => 'dollar jamaïcain',
 	'donate_interface-JOD' => 'dinar jordanien',
 	'donate_interface-JPY' => 'yen japonais',
-	'donate_interface-KES' => 'shilling kenyan',
+	'donate_interface-KES' => 'shilling kényan',
 	'donate_interface-KRW' => 'won sud-coréen',
 	'donate_interface-KYD' => 'dollar des îles Caïmans',
 	'donate_interface-KZT' => 'tenge kazakhe',
