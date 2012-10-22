@@ -89,7 +89,7 @@ Probeer asseblief later weer.",
  * @author Mdupont
  */
 $messages['aln'] = array(
-	'payflowprogateway' => 'Asistenca Wikimedia',
+	'payflowprogateway' => 'Asistenca Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'PayPal kartë krediti të përpunimit Payflow Pro',
 );
 
@@ -125,7 +125,7 @@ $messages['ar'] = array(
  * @author Meno25
  */
 $messages['arz'] = array(
-	'payflowprogateway' => 'ادعم ويكيميديا',
+	'payflowprogateway' => 'ادعم ويكيميديا', # Fuzzy
 	'payflowpro_gateway-desc' => 'معالجه PayPal Payflow Pro لبطاقات الائتمان',
 	'payflowpro_gateway-response-0' => 'تمت الموافقه على تحويلك.
 شكرا لك على التبرع!',
@@ -752,7 +752,7 @@ Volyéd tornar èprovar pués aprés.',
  * @author Kwekubo
  */
 $messages['ga'] = array(
-	'payflowprogateway' => 'Tacaigh le Wikimedia',
+	'payflowprogateway' => 'Tacaigh le Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'Próiseáil chárta creidmheasa PayPal Payflow Pro',
 );
 
@@ -1202,7 +1202,7 @@ Probéiert et w.e.g. spéider nach eng Kéier.',
  * @author Ooswesthoesbes
  */
 $messages['li'] = array(
-	'payflowprogateway' => 'Steun Wikimedia',
+	'payflowprogateway' => 'Steun Wikimedia', # Fuzzy
 );
 
 /** Lithuanian (lietuvių)
@@ -1420,7 +1420,7 @@ Probeer het later nog een keer.',
  * @author Nghtwlkr
  */
 $messages['nn'] = array(
-	'payflowprogateway' => 'Støtt Wikimedia',
+	'payflowprogateway' => 'Støtt Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkorthandsaming',
 	'payflowpro_gateway-response-0' => 'Overføringa di har vorte godkjend.
 Takk for gåva di!',
@@ -1434,7 +1434,7 @@ Takk for gåva di!',
  * @author Cedric31
  */
 $messages['oc'] = array(
-	'payflowprogateway' => 'Sostenètz Wikimedia',
+	'payflowprogateway' => 'Sostenètz Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'Tractament par carta de credit PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Vòstre transaccion es estada aprovada.
 Mercés per vòstre don !',
@@ -1797,7 +1797,8 @@ $messages['sr-ec'] = array(
 	'payflowpro_gateway-response-125' => 'Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба.',
 );
 
-/** Serbian (Latin script) (srpski (latinica)‎) */
+/** Serbian (Latin script) (srpski (latinica)‎)
+ */
 $messages['sr-el'] = array(
 	'payflowprogateway' => 'Priložite novac',
 	'payflowpro_gateway-desc' => 'Obrađivanje kreditnih kartica preko Pejpala',
@@ -1917,7 +1918,7 @@ $messages['te'] = array(
  * @author Woraponboonkerd
  */
 $messages['th'] = array(
-	'payflowprogateway' => 'สนับสนุนวิกิมีเดีย',
+	'payflowprogateway' => 'สนับสนุนวิกิมีเดีย', # Fuzzy
 	'payflowpro_gateway-desc' => 'บริกาีร PayPal Payflow Pro สำหรับบัตรเครดิต',
 	'payflowpro_gateway-response-0' => 'รายการของคุณได้รับการอนุมัติแล้ว
 ขอบคุณสำหรับการบริจาค!',
@@ -1941,7 +1942,7 @@ $messages['th'] = array(
  * @author Hanberke
  */
 $messages['tk'] = array(
-	'payflowprogateway' => 'Wikimediany goldaň',
+	'payflowprogateway' => 'Wikimediany goldaň', # Fuzzy
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredit kartynyň işlenişi',
 	'payflowpro_gateway-response-0' => 'Tranzaksiýaňyz tassyklanyldy.
 Bagyşyňyz üçin sag boluň!',
@@ -2065,7 +2066,7 @@ $messages['ur'] = array(
  * @author Candalua
  */
 $messages['vec'] = array(
-	'payflowprogateway' => 'Juta Wikimedia',
+	'payflowprogateway' => 'Juta Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'Tratamento de carte de credito PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'La to transazion la xe stà aprovà.
 Grassie de la to donassion!',
@@ -2118,9 +2119,10 @@ $messages['yi'] = array(
 	'payflowprogateway' => 'גיט אײַער נדבה אַצינד',
 );
 
-/** Cantonese (粵語) */
+/** Cantonese (粵語)
+ */
 $messages['yue'] = array(
-	'payflowprogateway' => '支持 Wikimedia',
+	'payflowprogateway' => '支持 Wikimedia', # Fuzzy
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro 信用咭處理',
 	'payflowpro_gateway-response-0' => '你嘅交易已經批准咗。
 多謝你嘅捐款！',
@@ -2195,4 +2197,3 @@ $messages['zh-hant'] = array(
 	'payflowpro_gateway-response-default' => '在處理交易的過程中出錯。
 請稍後再試。',
 );
-
