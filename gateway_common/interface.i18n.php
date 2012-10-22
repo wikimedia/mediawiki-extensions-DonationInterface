@@ -476,6 +476,12 @@ $messages['qqq'] = array(
 	'donate_interface-comment-label' => '{{Identical|Comment}}',
 	'donate_interface-email-agreement' => 'Next to check box.',
 	'donate_interface-comment-title' => "Next to check box; to choose whether the donor's comment shall be publically viewable or not.",
+	'donate_interface-big-amount-display' => '{{notranslate}}',
+	'donate_interface-medium-amount-display' => '{{notranslate}}',
+	'donate_interface-small-amount-display' => '{{notranslate}}',
+	'donate_interface-big-amount-value' => '{{notranslate}}',
+	'donate_interface-medium-amount-value' => '{{notranslate}}',
+	'donate_interface-small-amount-value' => '{{notranslate}}',
 	'donate_interface-amount-error' => 'Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).',
 	'donate_interface-smallamount-error' => "Error message if the amount chosen is too low. \$1 is a variable (it does '''not''' mean \"one dollar\"), and will be replaced with an amount in the user's currency.",
 	'donate_interface-bigamount-error' => "Error message if the amount chosen is too high. Parameters:
@@ -865,20 +871,6 @@ See [[w:en:Check_digit]] for explanation of Check Digit.',
 	'donate_interface-secureLogo-text' => 'Text shown to donors for a link explaining more about SSL secure site certificates',
 );
 
-/** Magyar (magázó) (Magyar (magázó))
- * @author Dani
- */
-$messages['hu-formal'] = array(
-	'donate_interface-token-mismatch' => 'A munkamenet lejárt. Kérjük, töltse ki és küldje el újra az űrlapot.',
-);
-
-/** Turoyo (Ṫuroyo)
- * @author Ariyo
- */
-$messages['tru'] = array(
-	'donate_interface-language' => 'Leşono',
-);
-
 /** Afrikaans (Afrikaans)
  * @author Ansumang
  * @author Jsoby
@@ -890,7 +882,7 @@ $messages['af'] = array(
 	'donate_interface-desc' => 'Landingsblad vir skenkers wat met "gateway"-uitbreidings integreer',
 	'donate_interface-langonly-desc' => 'Bloot net DonationInterface stelsel boodskappe',
 	'donate_interface-intro' => "Kies 'n betaalmetode, bedrag, en geldeenheid.",
-	'donate_interface-amount' => 'Skenkingsbedrag:',
+	'donate_interface-amount' => 'Skenkingsbedrag:', # Fuzzy
 	'donate_interface-other-amount' => 'Ander bedrag',
 	'donate_interface-currency' => 'Geldeenheid:',
 	'donate_interface-gateway' => 'Metode van betaling:',
@@ -1002,10 +994,10 @@ U sal tipies \'n reeks nommers sien, maar net die laaste drie syfers is die CVV-
 <p>Die kode is <i>altyd bokant</i> die uitgekeepte rekeningnommer op die voorkant van die kaart. 
 In sommige gevalle is die kode aan die linkerkant van die kaart, maar steeds bo die rekeningnommer.</p><br />',
 	'donate_interface-question-comment' => 'Vrae of kommentaar? Kontak: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'U kreditkaartinligting sal verwerk word sodra u op "{{int:payflowpro_gateway-donor-submit}}" kliek.',
+	'donate_interface-donate-click' => 'U kreditkaartinligting sal verwerk word sodra u op "{{int:payflowpro_gateway-donor-submit}}" kliek.', # Fuzzy
 	'donate_interface-otherways' => 'Daar is <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">ander maniere om te gee, insluitend PayPal, tjek, of per pos</a>.',
 	'donate_interface-otherways-short' => 'Andere maniere om te gee',
-	'donate_interface-credit-storage-processing' => 'Ons stoor nie u kredietkaart se inligting nie, en u persoonlike inligting is onderhewig aan ons <a href="//wikimediafoundation.org/wiki/Donor_policy">privaatheidsbeleid</a>.',
+	'donate_interface-credit-storage-processing' => 'Ons stoor nie u kredietkaart se inligting nie, en u persoonlike inligting is onderhewig aan ons <a href="//wikimediafoundation.org/wiki/Donor_policy">privaatheidsbeleid</a>.', # Fuzzy
 	'donate_interface-token-mismatch' => 'U sessie het verval. Voltooi die vorm in en dien dit weer in.',
 	'donate_interface-cc-form-header-personal' => 'Betalingsinligting',
 	'donate_interface-cc-form-header-payment' => 'Betalingsinligting',
@@ -1016,7 +1008,7 @@ In sommige gevalle is die kode aan die linkerkant van die kaart, maar steeds bo 
 	'donate_interface-middle' => 'Middel',
 	'donate_interface-last' => 'Laaste',
 	'donate_interface-other' => 'Ander',
-	'donate_interface-anon-message' => 'Lys asseblief my naam (langs my opmerking) op die publiek lys van skenkers.',
+	'donate_interface-anon-message' => 'Lys asseblief my naam (langs my opmerking) op die publiek lys van skenkers.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Skenk op Wikipedia',
 	'donate_interface-or' => 'of',
 	'donate_interface-your-information' => 'U gegewens',
@@ -1147,7 +1139,7 @@ In sommige gevalle is die kode aan die linkerkant van die kaart, maar steeds bo 
 	'donate_interface-taxded-link-us' => 'Fiscale aftrekbaarheid inligting',
 	'donate_interface-legal-original' => "Dit is 'n vergunning vertaling. In die geval van 'n konflik tussen hierdie vertaling vir die Engelse weergawe, sal die Engelse weergawe regeer.",
 	'donate_interface-monthlybox-title' => 'Maak dit maandeliks?',
-	'donate_interface-monthlybox-amount' => 'Skenkingsbedrag',
+	'donate_interface-monthlybox-amount' => 'Skenkingsbedrag', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Seker, maak dit maandeliks',
 	'donate_interface-monthlybox-no' => "Nee, ek wil 'n eenmalige donasie maak",
 	'donate_interface-monthlybox-bottom' => 'Jou donasie sal veilig verwerk word nie.',
@@ -1165,7 +1157,7 @@ $messages['aln'] = array(
 	'donate_interface-accessible' => 'Kjo faqe është i arritshëm vetëm nga faqja e dhurimit.',
 	'donate_interface-card-legend' => 'informacion Credit card',
 	'donate_interface-amount-legend' => 'Shuma Donation',
-	'donate_interface-cvv-link' => 'Shembull',
+	'donate_interface-cvv-link' => 'Shembull', # Fuzzy
 	'donate_interface-donor-legend' => 'informacionin e Donatorëve',
 	'donate_interface-donor-amount' => 'Shuma:',
 	'donate_interface-donor-currency-label' => 'Valuta:',
@@ -1205,7 +1197,7 @@ $messages['anp'] = array(
 	'donate_interface' => 'विकिपीडिया कॆ मदद करॊ',
 	'donate_interface-desc' => 'गेटवे विस्तारयुक्त दान पृष्ठ',
 	'donate_interface-intro' => 'कृपा करी कॆ भुगतान विधि, राशि आरू मुद्रा चुनॊ.',
-	'donate_interface-amount' => 'दान राशि',
+	'donate_interface-amount' => 'दान राशि', # Fuzzy
 	'donate_interface-other-amount' => 'अन्य राशि',
 	'donate_interface-currency' => 'मुद्रा',
 	'donate_interface-gateway' => 'भुगतान विधि',
@@ -1411,7 +1403,7 @@ $messages['ar'] = array(
 	'donate_interface-question-comment' => 'ويكيبيديا مشروع لمؤسسة ويكيميديا. أسئلة أو تعليقات؟ راسل: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'نحن نحاول أن نسهل التبرع على الناس في جميع البلدان. الرجاء إعلامنا كيف نجعلها سهلة بالنسبة لك. أرسل اقتراحاتك إلى:problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'مشاكل بالتبرع?',
-	'donate_interface-donate-click' => 'ستتم معالجة بطاقتك الائتمانية بأمان.',
+	'donate_interface-donate-click' => 'ستتم معالجة بطاقتك الائتمانية بأمان.', # Fuzzy
 	'donate_interface-otherways' => 'توجد <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع من بينها استخدام PayPal أو شيك مصرفي أو البريد</a>.',
 	'donate_interface-otherways-alt' => 'توجد <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع</a>، من ضمنها عبر شيك مصرفي.',
 	'donate_interface-otherways-short' => 'وسائل أخرى للتبرع',
@@ -1630,7 +1622,7 @@ $messages['arz'] = array(
 	'donate_interface-accessible' => 'يمكن الوصول إلى هذه الصفحه فقط من صفحه التبرعات.',
 	'donate_interface-card-legend' => 'معلومات بطاقه الائتمان',
 	'donate_interface-amount-legend' => 'مقدار التبرع',
-	'donate_interface-cvv-link' => 'مثال',
+	'donate_interface-cvv-link' => 'مثال', # Fuzzy
 	'donate_interface-donor-legend' => 'معلومات المُتبرع',
 	'donate_interface-donor-amount' => 'المقدار:',
 	'donate_interface-donor-currency-label' => 'العملة:',
@@ -1671,7 +1663,7 @@ $messages['arz'] = array(
 	'donate_interface-error-msg-card_num' => 'رقم بطاقه الائتمان',
 	'donate_interface-error-msg-expiration' => 'تاريخ انتهاء صلاحيه البطاقة',
 	'donate_interface-error-msg-cvv' => 'رمز التحقق من البطاقه (CCV) من خلف بطاقتك',
-	'php-response-declined' => 'ألغى تحويلك.',
+	'php-response-declined' => 'ألغى تحويلك.', # Fuzzy
 	'donate_interface-thankyou' => 'شكرا لتبرعك!',
 	'donate_interface-post-transaction' => 'تفاصيل التحويل',
 	'donate_interface-cvv-explain' => '<h4>ما هى CVV؟</h4>
@@ -1682,10 +1674,10 @@ $messages['arz'] = array(
 <h4>أمريكان إكسبريس</h4>
 <p>الكود <i>دائما</i> موجود <i>أعلى</i> رقم الحساب المرفوع على وجه البطاقه.
 فى بعض الحالات، الكود موجود على الجانب الأيسر للبطاقه، لكن دائما أعلى رقم الحساب.</p><br />',
-	'donate_interface-question-comment' => 'ويكيبيديا مشروع لمؤسسه ويكيميديا. أسئله أو تعليقات؟ اتصل بمؤسسه ويكيميديا: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'بعد الضغط على "{{int:payflowpro_gateway-donor-submit}}"، معلومات بطاقتك الائتمانيه ستتم معالجتها.',
+	'donate_interface-question-comment' => 'ويكيبيديا مشروع لمؤسسه ويكيميديا. أسئله أو تعليقات؟ اتصل بمؤسسه ويكيميديا: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>', # Fuzzy
+	'donate_interface-donate-click' => 'بعد الضغط على "{{int:payflowpro_gateway-donor-submit}}"، معلومات بطاقتك الائتمانيه ستتم معالجتها.', # Fuzzy
 	'donate_interface-credit-storage-processing' => 'نحن لا نخزن معلومات بطاقتك الائتمانيه، وبياناتك الشخصيه معرضه لتوجد <a href="//wikimediafoundation.org/wiki/Donate/WaysToGive/ar">وسائل أخرى للتبرع من بينها PayPal والشيكات والبريد</a>.
-<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.',
+<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.', # Fuzzy
 );
 
 /** Assamese (অসমীয়া)
@@ -1905,7 +1897,7 @@ $messages['ba'] = array(
 	'donate_interface' => 'Викимедиа Фондына ярҙам',
 	'donate_interface-desc' => 'Иғәнә йыйыу бите, шлюз киңәйеүҙәре менән берләштереү',
 	'donate_interface-intro' => 'Зинһар, түләү ысулын, күләмен һәм валютаһын һайлағыҙ.',
-	'donate_interface-amount' => 'Иғәнә күләме:',
+	'donate_interface-amount' => 'Иғәнә күләме:', # Fuzzy
 	'donate_interface-other-amount' => 'Башҡа күләм',
 	'donate_interface-currency' => 'Валюта:',
 	'donate_interface-gateway' => 'Түләү ысулы:',
@@ -2082,12 +2074,12 @@ $messages['ba'] = array(
 <p>Код <i>һәр ваҡыт</i> картаның өҫкө яғында баҫып (ҡабартып) яҙылған иҫәп һанының <i>өҫтөндә</i> урынлашҡан.
 Ҡайһы берҙә код картаның һул яғында урынлашҡан була, әммә һәр ваҡыт иҫәп һанының өҫтөндә. </p><br />',
 	'donate_interface-question-comment' => 'Һорауҙарығыҙ, иҫкәрмәләрегеҙ бармы? Бәйләнеш өсөн: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Һеҙҙең кредит картағыҙ хәүефһеҙ эшкәртеләсәк.',
+	'donate_interface-donate-click' => 'Һеҙҙең кредит картағыҙ хәүефһеҙ эшкәртеләсәк.', # Fuzzy
 	'donate_interface-otherways' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">Иғәнә яһауҙың башҡа</a>, шул иҫәптәр PayPal, чек, почта аша түләү ысулдары бар.',
 	'donate_interface-otherways-alt' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">Иғәнә яһауҙың башҡа</a>, шул иҫәптәр чек аша түләү ысулдары бар.',
 	'donate_interface-otherways-short' => 'Иғәнә яһауҙың башҡа ысулдары',
 	'donate_interface-paypal' => 'PayPal иҫәп яҙмағыҙ бармы? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPal аша иғәнә яһарға</a>.',
-	'donate_interface-credit-storage-processing' => 'Беҙ һеҙҙең кредит картағыҙ тураһында мәғлүмәтте һаҡламайбыҙ, һәм һеҙҙең шәхси мәғлүмәт беҙҙең <a href="//wikimediafoundation.org/wiki/Donor_policy">сер тотоу сәйәсәте</a> менән һаҡлана.',
+	'donate_interface-credit-storage-processing' => 'Беҙ һеҙҙең кредит картағыҙ тураһында мәғлүмәтте һаҡламайбыҙ, һәм һеҙҙең шәхси мәғлүмәт беҙҙең <a href="//wikimediafoundation.org/wiki/Donor_policy">сер тотоу сәйәсәте</a> менән һаҡлана.', # Fuzzy
 	'donate_interface-token-mismatch' => 'Һеҙҙең сеансығыҙ тамамланған. Зинһар, форманы яңынан тултырып ебәрегеҙ.',
 	'donate_interface-cc-form-header-personal' => 'Түләү тураһында мәғлүмәт',
 	'donate_interface-cc-form-header-payment' => 'Түләү тураһында мәғлүмәт',
@@ -2101,7 +2093,7 @@ $messages['ba'] = array(
 	'donate_interface-noscript-msg' => 'Һеҙҙә JavaScript һүндерелгән, йәки браузерығыҙ уны ҡулланмай, шикелле.
 Хәүефһеҙлек, ышаныслы һәм уңайлы эшмәкәрлек маҡсаттарында, беҙҙең форма өсөн JavaScript талап ителә.',
 	'donate_interface-noscript-redirect-msg' => 'Әгәр һеҙ JavaScript-ты тоҡандырырға теләмәһәгеҙ, йәки тоҡандыра алмаһағыҙ, һеҙ киләһе биткә кереп иғәнә яһай алаһығыҙ:',
-	'donate_interface-anon-message' => 'Зинһар, дөйөм иғәнә биреүселәр исемлегендә минең исемемде (минең иҫкәрмәм янында) күрһәтегеҙ.',
+	'donate_interface-anon-message' => 'Зинһар, дөйөм иғәнә биреүселәр исемлегендә минең исемемде (минең иҫкәрмәм янында) күрһәтегеҙ.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Википедияға иғәнә бирергә',
 	'donate_interface-or' => 'йәки',
 	'donate_interface-your-information' => 'Үҙегеҙ тураһында мәғлүмәт',
@@ -2398,7 +2390,7 @@ $messages['be'] = array(
 У некаторых выпадках гэты код размешчаны на левым баку карты, але заўсёды вышэй нумару рахунку.</p><br />',
 	'donate_interface-question-comment' => 'Маюцца пытанні, заўвагі? Звяртайцеся <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Мы стараемся зрабіць так, каб людзям у кожнай краіне было прасцей рабіць ахвяраванні. Калі ласка, дайце нам ведаць, як мы маглі б спрасціць гэта для вас. Адпраўце свае прапановы па адрасе: problemsdonating@wikimedia.org.',
-	'donate_interface-donate-click' => 'Інфармацыя па вашай крэдытнай карце будзе апрацавана ў абароненым рэжыме.',
+	'donate_interface-donate-click' => 'Інфармацыя па вашай крэдытнай карце будзе апрацавана ў абароненым рэжыме.', # Fuzzy
 	'donate_interface-otherways' => 'Ёсць <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя спосабы зрабіць ахвяраванне</a>, у тым ліку праз PayPal, чэк, пошту.',
 	'donate_interface-otherways-alt' => 'Існуюць <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">іншыя спосабы зрабіць ахвяраванне</a>, у тым ліку чэкам.',
 	'donate_interface-otherways-short' => 'Іншыя спосабы зрабіць ахвяраванне',
@@ -2527,7 +2519,7 @@ $messages['be'] = array(
 	'donate_interface-bt-country_description' => 'Апісанне краіны (Country description)',
 	'donate_interface-bt-payment_reference' => 'Нумар плацежнага даручэння (Payment reference)',
 	'donate_interface-bt-swift_code' => 'Код Swift',
-	'donate_interface-bt-special_id' => 'Special ID',
+	'donate_interface-bt-special_id' => 'Special ID', # Fuzzy
 	'donate_interface-bt-information' => 'Адзнакі банка (Bank transfer information)',
 	'donate_interface-bt-finished' => 'Выканана',
 	'donate_interface-rtbt-issuer_id' => 'Выберыце банкі',
@@ -2536,7 +2528,7 @@ $messages['be'] = array(
 	'donate_interface-dd-account_number' => 'Нумар рахунку (Account Name)',
 	'donate_interface-dd-authorization_id' => 'Код аўтарызацыі (Authorization ID)',
 	'donate_interface-dd-bank_check_digit' => 'Контрольны лік (Bank check digit)',
-	'donate_interface-dd-bank_code' => 'Код банка',
+	'donate_interface-dd-bank_code' => 'Код банка', # Fuzzy
 	'donate_interface-dd-bank_name' => 'Назва банка',
 	'donate_interface-dd-branch_code' => 'Код аддзялення банка',
 	'donate_interface-dd-direct_debit_text' => 'Тэкст для прамога спісання',
@@ -2564,7 +2556,7 @@ $messages['be'] = array(
 	'donate_interface-legal-donorpolicy' => 'Робячы ахвяраванне, вы дзеліцеся інфармацыяй з Фондам Вікімедыя, некамерцыйнай арганізацыяй, якая забяспечвае працаздольнасць Вікіпедыі і іншых праектаў Вікімедыя, а таксама з яе пастаўшчыкамі паслуг у ЗША і іншых краінах у адпаведнасці з нашай палітыкай прыватнасці ахвярадаўцаў. Мы не даем і не прадаем вашу інфармацыю каму-небудзь яшчэ.',
 	'donate_interface-monthlybox-title' => 'Рабіць гэта штомесячна?',
 	'donate_interface-monthlybox-content' => 'Штомесячнае ахвяраванне будзе рабіцца 2 разы ў месяц. Вы можаце адмяніць яго ў любы момант.',
-	'donate_interface-monthlybox-amount' => 'Сума ахвяравання',
+	'donate_interface-monthlybox-amount' => 'Сума ахвяравання', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Канешне, рабіць гэта штомесячна',
 	'donate_interface-monthlybox-no' => 'Не, зрабіць аднаразовае ахвяраванне',
 	'donate_interface-monthlybox-bottom' => 'Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме.',
@@ -3126,7 +3118,7 @@ $messages['bg'] = array(
 	'donate_interface-question-comment' => 'Въпроси или коментари? Свържете се с <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Опитваме се да улесним хората по цял свят да правят своите дарения. Кажете ни как можем да улесним и Вас! Изпращайте предложенията си на адрес: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Имате проблеми с даряването?',
-	'donate_interface-donate-click' => 'Данните от кредитната ви карта ще бъдат обработени в защитен режим.',
+	'donate_interface-donate-click' => 'Данните от кредитната ви карта ще бъдат обработени в защитен режим.', # Fuzzy
 	'donate_interface-otherways' => 'Има и <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">други начини за дарение, например PayPal, с чек или по пощата</a>.',
 	'donate_interface-otherways-alt' => 'Има и <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">други начини за дарение</a>, включително с чек.',
 	'donate_interface-otherways-short' => 'Други начини за дарение',
@@ -3299,7 +3291,7 @@ $messages['bg'] = array(
 	'donate_interface-legal-donorpolicy' => 'Дарявайки, Вие споделяте информация с Фондация Уикимедия, некомерсиална организация, която поддържа Уикипедия и нейните сродните проекти, както и с нейните доставчици на услуги в САЩ и други места по света, които действат според политиката ни за защита на дарителите. Ние не продаваме и не търгуваме с Вашите данни.',
 	'donate_interface-monthlybox-title' => 'Искате ли да правите дарения ежемесечно?',
 	'donate_interface-monthlybox-content' => 'Месечните дарения се обработват на второ число всеки месец. Можете да откажете тези транзакции по всяко време.',
-	'donate_interface-monthlybox-amount' => 'Размер на дарението',
+	'donate_interface-monthlybox-amount' => 'Размер на дарението', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Да, искам да направя многократно дарение.',
 	'donate_interface-monthlybox-no' => 'Не, искам да направя еднократно дарение.',
 	'donate_interface-monthlybox-bottom' => 'Вашето дарение ще бъде обработено в защитен режим.',
@@ -3457,7 +3449,7 @@ $messages['bn'] = array(
 <p>কোডটি <i>সবমসয়</i> কার্ডের সামনের খাঁজকাটা অংশে উল্লেখিত অ্যাকাউন্ট নম্বরের <i>ওপরে</i> অবস্থিত।
 কিছু ক্ষেত্রে, কোডটি কার্ডের বাম পাশে উল্লেখিত থাকে, তবে তা সবসমই অ্যাকাউন্ট নম্বরের ওপরে থাকে।</p><br />',
 	'donate_interface-question-comment' => 'প্রশ্ন বা মন্তব্য? যোগাযোগ করুন: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'আপনার ক্রেডিট কার্ড নিরাপদভাবে প্রক্রিয়াকরণ হয়েছে।',
+	'donate_interface-donate-click' => 'আপনার ক্রেডিট কার্ড নিরাপদভাবে প্রক্রিয়াকরণ হয়েছে।', # Fuzzy
 	'donate_interface-otherways' => 'এখানে <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">পেপ্যাল, চেক বা মেইলসহ দানের অন্যান্য পন্থাও রয়েছে</a>।',
 	'donate_interface-otherways-alt' => 'এখানে চেক সহ, <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">অনুদানের অন্যান্য পন্থাও</a> রয়েছে।',
 	'donate_interface-otherways-short' => 'দানের অন্যান্য পন্থা',
@@ -3972,7 +3964,7 @@ $messages['bs'] = array(
 	'donate_interface' => 'Podržite Wikimediju',
 	'donate_interface-desc' => 'Stranica za doniranje koja se integrira u proširenja gatewaya',
 	'donate_interface-intro' => 'Molimo vas odaberite način plaćanja, iznos i valutu.',
-	'donate_interface-amount' => 'Iznos donacije:',
+	'donate_interface-amount' => 'Iznos donacije:', # Fuzzy
 	'donate_interface-other-amount' => 'Drugi iznos',
 	'donate_interface-currency' => 'Valuta:',
 	'donate_interface-gateway' => 'Način plaćanja:',
@@ -4063,12 +4055,12 @@ Obićno će panel za potpis imati serijske brojeve, ali samo zadnje tri cifre č
 <p>Kod se <i>uvijek</i> nalazi <i>iznad</i> naglašenog (izrezbarenog) broja računa na prednjoj strani kartice.
 U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek iznad broja računa.</p><br />',
 	'donate_interface-question-comment' => 'Pitanja ili komentari? Kontaktirajte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Vaša kreditna kartica će biti sigurno obrađena.',
+	'donate_interface-donate-click' => 'Vaša kreditna kartica će biti sigurno obrađena.', # Fuzzy
 	'donate_interface-otherways' => 'Ovdje su <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini da donirate, uključujući PayPal, ček ili mail</a>.',
 	'donate_interface-otherways-alt' => 'Ovdje su <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini da donirate</a>, uključujući i putem čeka.',
 	'donate_interface-otherways-short' => 'Drugi načini za doniranje',
 	'donate_interface-paypal' => 'Imate li PayPal račun? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Donirajte putem PayPal-a</a>.',
-	'donate_interface-credit-storage-processing' => 'Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su zaštićeni našim <a href="//wikimediafoundation.org/wiki/Donor_policy">pravilima o privatnosti</a>.',
+	'donate_interface-credit-storage-processing' => 'Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su zaštićeni našim <a href="//wikimediafoundation.org/wiki/Donor_policy">pravilima o privatnosti</a>.', # Fuzzy
 	'donate_interface-token-mismatch' => 'Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.',
 	'donate_interface-cc-form-header-personal' => 'Informacije o plaćanju',
 	'donate_interface-cc-form-header-payment' => 'Informacije o plaćanju',
@@ -4082,7 +4074,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-noscript-msg' => 'Izgleda da nemate omogućenu JavaScript ili je vaš preglednik ne podržava.
 Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacije zahtjeva JavaScriptu.',
 	'donate_interface-noscript-redirect-msg' => 'Ako ne možete ili ne želite omogućiti JavaScript, ipak možete doprinijeti posjetom na:',
-	'donate_interface-anon-message' => 'Molim pokažite moje ime (pored mog komentara) na javni spisak donatora.',
+	'donate_interface-anon-message' => 'Molim pokažite moje ime (pored mog komentara) na javni spisak donatora.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Donirajte na Wikipediji',
 	'donate_interface-or' => 'ili',
 	'donate_interface-your-information' => 'Vaše informacije',
@@ -4198,7 +4190,7 @@ $messages['ca'] = array(
 	'donate_interface' => 'Ajudeu Wikimedia',
 	'donate_interface-desc' => "Pàgina d'arribada de donatius que integra extensions de mòduls de pagament",
 	'donate_interface-intro' => "Escolliu el mètode de pagament, l'import i la divisa.",
-	'donate_interface-amount' => 'Import del donatiu:',
+	'donate_interface-amount' => 'Import del donatiu:', # Fuzzy
 	'donate_interface-other-amount' => 'Altra quantitat',
 	'donate_interface-currency' => 'Moneda:',
 	'donate_interface-gateway' => 'Mètode de pagament:',
@@ -4289,12 +4281,12 @@ Habitualment el panell de signatura tindrà una sèrie de números, però només
 <p> El codi <i>sempre</i> es troba <i>per sobre</i> del número de compte en relleu a la cara de la targeta.
 En alguns casos, el codi es troba al costat esquerre, però sempre per damunt del número de compte.</p><br />",
 	'donate_interface-question-comment' => 'Preguntes o comentaris? Contacte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'La vostra targeta de crèdit serà processada de manera segura.',
+	'donate_interface-donate-click' => 'La vostra targeta de crèdit serà processada de manera segura.', # Fuzzy
 	'donate_interface-otherways' => 'Hi ha <a href="//wikimediafoundation.org/wiki/Ways_to_Give/ca">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.',
 	'donate_interface-otherways-alt' => 'Hi ha <a href="//wikimediafoundation.org/wiki/Ways_to_Give/ca">altres maneres de donar</a>, incloent per xec.',
 	'donate_interface-otherways-short' => 'Altres maneres de donar',
 	'donate_interface-paypal' => 'Teniu un compte PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=ca&utm_source=$3&utm_medium=$4&utm_campaign=$5">Feu un donatiu amb PayPal</a>.',
-	'donate_interface-credit-storage-processing' => 'Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="//wikimediafoundation.org/wiki/Donor_policy">política de privadesa</a>.',
+	'donate_interface-credit-storage-processing' => 'Nosaltres no emmagatzemem la informació de la targeta de crèdit, i les vostres dades personals estan subjectes a la nostra <a href="//wikimediafoundation.org/wiki/Donor_policy">política de privadesa</a>.', # Fuzzy
 	'donate_interface-token-mismatch' => "La vostra sessió ha caducat. Proveu d'omplir i enviar de nou el formulari.",
 	'donate_interface-cc-form-header-personal' => 'Informació de facturació',
 	'donate_interface-cc-form-header-payment' => 'Informació del pagament',
@@ -4308,7 +4300,7 @@ En alguns casos, el codi es troba al costat esquerre, però sempre per damunt de
 	'donate_interface-noscript-msg' => 'Sembla que no teniu el JavaScript activat, o que el vostre navegador no és compatible. 
 Per a proporcionar una experiència segura i agradable, el nostre formulari de donatius requereix JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Si no podeu o no voleu habilitar el JavaScript, podeu contribuir accedint a:',
-	'donate_interface-anon-message' => 'Anoteu el meu nom (al costat del comentari) a la llista pública de donants.',
+	'donate_interface-anon-message' => 'Anoteu el meu nom (al costat del comentari) a la llista pública de donants.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Doneu a Wikipedia',
 	'donate_interface-or' => 'o',
 	'donate_interface-your-information' => 'La vostra informació',
@@ -11492,7 +11484,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-question-comment' => 'Pitanja ili komentari? Kontaktirajte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Trudimo se olakšati darivanje ljudima iz svih država. Recite nam kako vam možemo pomoći. Vaše prijedloge šaljite na: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Imate problema pri darivanju?',
-	'donate_interface-donate-click' => 'Vaša kreditna kartica biti će sigurno obrađena.',
+	'donate_interface-donate-click' => 'Vaša kreditna kartica biti će sigurno obrađena.', # Fuzzy
 	'donate_interface-otherways' => 'Postoje <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">i drugi načini za pomoć, uključujući PayPal, ček ili poštom</a>.',
 	'donate_interface-otherways-alt' => 'Postoje <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">i drugi načini darovanja</a>, uključujući i novčane čekove.',
 	'donate_interface-otherways-short' => 'Drugi načini za doniranje',
@@ -11665,7 +11657,7 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'donate_interface-legal-donorpolicy' => 'Darivanjem vi dijelite svoje podatke sa Zakladom Wikimedija, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke.',
 	'donate_interface-monthlybox-title' => 'Želite darivati redovni (mjesečni) prilog?',
 	'donate_interface-monthlybox-content' => 'Mjesečni prilozi se obrađuju drugog dana u mjesecu. Možete odustati kad god želite.',
-	'donate_interface-monthlybox-amount' => 'Iznos donacije',
+	'donate_interface-monthlybox-amount' => 'Iznos donacije', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Da, neka bude mjesečni prilog',
 	'donate_interface-monthlybox-no' => 'NE, ovo je jednokratno darivanje',
 	'donate_interface-monthlybox-bottom' => 'Vaša donacija biti će sigurno obrađena.',
@@ -12433,6 +12425,13 @@ $messages['hu'] = array(
 	'donate_interface-securelogo-title' => 'Kattints az ellenőrzéshez - Ez az oldal a VeriSign SSL-t választotta a biztonságos e-kereskedelemhez és a bizalmas kommunikációhoz.',
 	'donate_interface-secureLogo-text' => 'SSL tanúsítványokról',
 	'donate_interface-error-http-403' => 'Nincs jogosultsága ennek a lapnak az eléréséhez.',
+);
+
+/** Magyar (magázó) (Magyar (magázó))
+ * @author Dani
+ */
+$messages['hu-formal'] = array(
+	'donate_interface-token-mismatch' => 'A munkamenet lejárt. Kérjük, töltse ki és küldje el újra az űrlapot.',
 );
 
 /** Interlingua (interlingua)
@@ -13211,7 +13210,7 @@ $messages['io'] = array(
 	'donate_interface-EUR' => 'Euro',
 	'donate_interface-GBP' => 'Britaniana Pundo',
 	'donate_interface-USD' => 'Usana Dolaro',
-	'donate_interface-cvv-link' => 'Exemplo',
+	'donate_interface-cvv-link' => 'Exemplo', # Fuzzy
 	'donate_interface-donor-amount' => 'Sumo:',
 	'donate_interface-donor-currency-label' => 'Monetaro:',
 	'donate_interface-donor-name' => 'Nomo:',
@@ -14745,7 +14744,7 @@ $messages['kk-cyrl'] = array(
 $messages['km'] = array(
 	'donate_interface' => 'គាំទ្រវិគីមេឌា',
 	'donate_interface-intro' => 'សូមជ្រើសរើសរបៀបបង់ប្រាក់ ចំនួនទឹកប្រាក់ និង ឯកតា។',
-	'donate_interface-amount' => 'ចំនួនទឹកប្រាក់បរិច្ចាគ៖',
+	'donate_interface-amount' => 'ចំនួនទឹកប្រាក់បរិច្ចាគ៖', # Fuzzy
 	'donate_interface-other-amount' => 'ចំនួនទឹកប្រាក់ផ្សេងទៀត',
 	'donate_interface-currency' => 'ឯកតា៖',
 	'donate_interface-gateway' => 'របៀបបង់ប្រាក់៖',
@@ -14849,7 +14848,7 @@ $messages['km'] = array(
 	'donate_interface-middle' => 'ឈ្មោះកណ្ដាល',
 	'donate_interface-last' => 'ត្រកូល',
 	'donate_interface-other' => 'ផ្សេងទៀត',
-	'donate_interface-anon-message' => 'សូមដាក់ឈ្មោះខ្ញុំ (នៅក្បែរយោបល់ខ្ញុះ) នៅលើបញ្ជីអ្នកបរិច្ចាគសាធារណៈ។',
+	'donate_interface-anon-message' => 'សូមដាក់ឈ្មោះខ្ញុំ (នៅក្បែរយោបល់ខ្ញុះ) នៅលើបញ្ជីអ្នកបរិច្ចាគសាធារណៈ។', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'បរិច្ចាគលើវិគីភីឌា',
 	'donate_interface-or' => 'ឬ',
 	'donate_interface-your-information' => 'ព័ត៌មានអំពីអ្នក',
@@ -14956,7 +14955,7 @@ $messages['km'] = array(
 $messages['kn'] = array(
 	'donate_interface-submit-button' => 'ದೇಣಿಗೆ',
 	'donate_interface-comment-label' => 'ಟಿಪ್ಪಣಿ',
-	'donate_interface-cvv-link' => 'ಉದಾಹರಣೆ',
+	'donate_interface-cvv-link' => 'ಉದಾಹರಣೆ', # Fuzzy
 	'donate_interface-donor-city' => 'ನಗರ:',
 	'donate_interface-donor-state' => 'ರಾಜ್ಯ',
 	'donate_interface-donor-address' => 'ವಿಳಾಸ:',
@@ -15562,7 +15561,7 @@ de Schtadt en, woh De wonns.',
 	'donate_interface-other' => 'De Andere',
 	'donate_interface-noscript-msg' => 'Et schingk, dat en Dingem Brauser JavaSkrep nit zohjelohße es, udder Dinge Brauser doh jaa nit met ömjonn kann.
 Öm ene seschere un aanjenehme Endrock ze maache, jeiht uns Spändefommulaa nit der ohne JavaSkrep.
-',
+', # Fuzzy
 	'donate_interface-noscript-redirect-msg' => 'Wann De JavaSkrepp nit zohlohße kanns udder wells, dann kanns De emmer noch jät jävve. Jangk doför op di Sigg:',
 	'donate_interface-anon-message' => 'Donn minge Name en de öffentlesche Leß met de Schpänder.',
 	'donate_interface-donate-wikipedia' => 'Op de Wikipeedija jävve',
@@ -15634,7 +15633,7 @@ de Schtadt en, woh De wonns.',
 	'donate_interface-will-support-with-gift' => 'Esh donn de Wikimedija Shteftong öngerschtöze med en Jaav vun:',
 	'donate_interface-will-make-tax-deductible-gift' => 'Esh maachen en Jaav, di mer vun der Stüür afsäze kann, vun:',
 	'donate_interface-submit-my-secure-donation' => 'Donn ming seschere Jaav schecke
-',
+', # Fuzzy
 	'donate_interface-next' => 'Näächs',
 	'donate_interface-continue' => 'Wiggermaache!',
 	'donate_interface-cancel' => 'Stopp! Ophüre!',
@@ -16282,7 +16281,7 @@ $messages['li'] = array(
 	'donate_interface-post-transaction' => 'Transactiedetails',
 	'donate_interface-question-comment' => 'Vraoge of opmirkinge? Nöm den kóntak óp mit <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-problemsdonating' => "Perbleme bie 't donere?",
-	'donate_interface-donate-click' => 'Dien creditkaartinformatie weurt verwirk naodesse óp "{{int:payflowpro_gateway-donor-submit}}" kliks.',
+	'donate_interface-donate-click' => 'Dien creditkaartinformatie weurt verwirk naodesse óp "{{int:payflowpro_gateway-donor-submit}}" kliks.', # Fuzzy
 	'donate_interface-cc-form-header-personal' => 'Betalingsinfermasie',
 	'donate_interface-cc-form-header-payment' => 'Betalingsinfermasie',
 	'donate_interface-make-your-donation' => 'Doneer noe',
@@ -16604,7 +16603,7 @@ Paprastai šalia parašo yra nurodyta serija numerių, tačiau tik paskutiniai t
 Kai kada kodas gali būti kairėje kortelės pusėje, bet jis visuomet nurodytas virš sąskaitos numerio.</p><br />',
 	'donate_interface-question-comment' => 'Klausimai arba komentarai? Susisiekite: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Bandome padaryti taip, kad žmonėms, esantiems bet kurioje šalyje, būtų lengva paaukoti. Prašome pranešti, kaip mes galėtumėme Jums palengvinti aukojimo procesą. Savo pasiūlymus siųskite: problemsdonating@wikimedia.org.',
-	'donate_interface-donate-click' => 'Jūsų kreditinė kortelė bus saugiai apdorojama.',
+	'donate_interface-donate-click' => 'Jūsų kreditinė kortelė bus saugiai apdorojama.', # Fuzzy
 	'donate_interface-otherways' => 'Yra ir <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">kiti aukojimo būdai, įskaitant aukojimą per PayPal, čekiu ar paštu</a>.',
 	'donate_interface-otherways-alt' => 'Yra ir <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">kitų būdų paaukoti</a>, įskaitant ir aukojimą čekiu.',
 	'donate_interface-otherways-short' => 'Kiti aukojimo būdai',
@@ -16734,7 +16733,7 @@ Kad būtų užtikrinta saugi, apsaugota ir maloni aplinka, mūsų aukojimo forma
 	'donate_interface-bt-country_description' => 'Šalies aprašymas',
 	'donate_interface-bt-payment_reference' => 'Mokėjimo nuoroda',
 	'donate_interface-bt-swift_code' => 'Swift kodas',
-	'donate_interface-bt-special_id' => 'Specialusis numeris',
+	'donate_interface-bt-special_id' => 'Specialusis numeris', # Fuzzy
 	'donate_interface-bt-information' => 'Banko pavedimo informacija',
 	'donate_interface-bt-finished' => 'Baigta',
 	'donate_interface-obt-biller_id' => 'Sąskaitos teikėjo (Biller) kodas',
@@ -17038,7 +17037,7 @@ $messages['lv'] = array(
 	'donate_interface-error-msg-card_num' => 'kredītkartes numurs',
 	'donate_interface-error-msg-expiration' => 'kartes derīguma termiņš',
 	'donate_interface-error-msg-cvv' => 'CVV no jūsu kartes aizmugures',
-	'donate_interface-donate-error-try-a-different-card' => 'mēģiniet citu karti',
+	'donate_interface-donate-error-try-a-different-card' => 'mēģiniet citu karti', # Fuzzy
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Paldies par jūsu atbalstu!',
 	'donate_interface-otherways-short' => 'Citi veidi, kā ziedot',
 	'donate_interface-cc-form-header-payment' => 'Maksājuma informācija',
@@ -17200,7 +17199,7 @@ $messages['map-bms'] = array(
 	'donate_interface-ccdc-button' => 'Nyumbang nganggo kartu kredit/debit',
 	'donate_interface-dd-button' => 'Nyumbang nganggo debit langsung',
 	'donate_interface-bt-button' => 'Nyumbang nganggo transfer bank',
-	'donate_interface-rt-button' => 'Nyumbang liwat bank nganggo $1',
+	'donate_interface-rt-button' => 'Nyumbang liwat bank nganggo $1', # Fuzzy
 	'donate_interface-card-legend' => 'Informasi kartu kredit',
 	'donate_interface-amount-legend' => 'Jumlah sumbangan',
 	'donate_interface-cvv-link' => 'Neng endi sih kiye?',
@@ -17271,7 +17270,7 @@ Umume panel tanda tangan nduwe deretan angka, ningen mung telung digit paling mb
 Kadang-kadang, kode kiye ananenang sisi kiwe kartu, tetapi mesti nang duwure nomer rekening.</p><br />',
 	'donate_interface-question-comment' => 'Nduwe pitakonan utawa komentar? Hubungi: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Wikimedia Foundation kuwe kepengin anggere wong nang kabeh negara dadi gampang nek arep nyumbang. Monggo urun rembug kepriwe carane gawe gampang nggo Rika. Kirim baen sarane Rika maring: problemsdonating@wikimedia.org.',
-	'donate_interface-donate-click' => 'Sumbangane Rika bakal diproses nganggo cara sing aman.',
+	'donate_interface-donate-click' => 'Sumbangane Rika bakal diproses nganggo cara sing aman.', # Fuzzy
 	'donate_interface-otherways' => 'Ana <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">cara liyane nggo nyumbang, termasuke PayPal, cek, utawa surat</a>.',
 	'donate_interface-otherways-alt' => 'Ana <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">cara liyane nggo nyumbang</a>, termasuke nganggo cek.',
 	'donate_interface-otherways-short' => 'Cara liyane nggo nyumbang',
@@ -17401,7 +17400,7 @@ Ben teyeng nyediakna pengalaman sing aman lan nyenengna, formulir sumbangane per
 	'donate_interface-bt-country_description' => 'Deskripsi negara',
 	'donate_interface-bt-payment_reference' => 'Referensi pembayaran',
 	'donate_interface-bt-swift_code' => 'Kode SWIFT',
-	'donate_interface-bt-special_id' => 'ID Spesial',
+	'donate_interface-bt-special_id' => 'ID Spesial', # Fuzzy
 	'donate_interface-bt-information' => 'Informasi transfer bank',
 	'donate_interface-bt-finished' => 'Rampung',
 	'donate_interface-obt-biller_id' => 'Kode Biller',
@@ -17414,7 +17413,7 @@ Ben teyeng nyediakna pengalaman sing aman lan nyenengna, formulir sumbangane per
 	'donate_interface-dd-account_number' => 'Nomer rekening',
 	'donate_interface-dd-authorization_id' => 'ID otorisasi',
 	'donate_interface-dd-bank_check_digit' => 'Digit cek bank',
-	'donate_interface-dd-bank_code' => 'Kode bank',
+	'donate_interface-dd-bank_code' => 'Kode bank', # Fuzzy
 	'donate_interface-dd-bank_name' => 'Jeneng bank',
 	'donate_interface-dd-branch_code' => 'Kode cabang',
 	'donate_interface-dd-direct_debit_text' => 'Teks debit langsung',
@@ -17442,7 +17441,7 @@ Ben teyeng nyediakna pengalaman sing aman lan nyenengna, formulir sumbangane per
 	'donate_interface-legal-donorpolicy' => 'Dengan menyumbang, Anda membagikan informasi Anda ke Wikimedia Foundation, organisasi nirlaba yang menyediakan Wikipedia dan proyek Wikimedia lainnya, dan penyedia layanannya di Amerika Serikat dan tempat lainnya sesuai dengan kebijakan privasi kami. Kami tidak menjual ataupun mendagangkan informasi Anda ke siapapun.',
 	'donate_interface-monthlybox-title' => 'Digawe dadi rutin saben sasi?',
 	'donate_interface-monthlybox-content' => 'Sumbangan rutin saben sasi bakal diproses saben tanggal 2. Rika olih mbatalna kapan baen.',
-	'donate_interface-monthlybox-amount' => 'Jumlah sumbangan',
+	'donate_interface-monthlybox-amount' => 'Jumlah sumbangan', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Ya uwis, Inyong gelem nyumbang saben sasi',
 	'donate_interface-monthlybox-no' => 'Aja lah, Inyong nyumbang sepisan kiye baen',
 	'donate_interface-monthlybox-bottom' => 'Sumbangane Rika bakal diproses nganggo cara sing aman.',
@@ -18275,7 +18274,7 @@ $messages['mr'] = array(
 	'donate_interface-translate-redlink1' => 'या पानाच्या भाषांतरासाठी मदत करा',
 	'donate_interface-email-subject' => 'विकिमिडीया फाऊंडेशन आपले आभारी आहे.',
 	'donate_interface-currency-change' => 'बदल ?',
-	'donate_interface-monthlybox-amount' => 'देणगीची रक्कम',
+	'donate_interface-monthlybox-amount' => 'देणगीची रक्कम', # Fuzzy
 );
 
 /** Malay (Bahasa Melayu)
@@ -19035,7 +19034,7 @@ Sabiex tipprovdi esperjenza sigura u sempliċi, il-formola tad-donazzjoni tagħn
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
-	'donate_interface-amount' => 'Зяро лезксйармак максат:',
+	'donate_interface-amount' => 'Зяро лезксйармак максат:', # Fuzzy
 	'donate_interface-currency' => 'Валютась:',
 	'donate_interface-submit-button' => 'Лезксйармаконь максома',
 	'donate_interface-CHF' => 'Швейцариянь франк',
@@ -19573,6 +19572,9 @@ $messages['ne'] = array(
 	'donate_interface-comment-label' => 'टिप्पणी:',
 	'donate_interface-email-agreement' => 'विकिमीडिया फाउण्डेसनबाट सामयिक इमेल अद्यतन प्राप्त गर्न सहमत छु।',
 	'donate_interface-comment-title' => 'सार्वजनिक टिप्पणी',
+	'donate_interface-big-amount-display' => '$100',
+	'donate_interface-medium-amount-display' => '$75',
+	'donate_interface-small-amount-display' => '$30',
 	'donate_interface-amount-error' => 'कृपया एउटा वैध राशि दिनु्होस्',
 	'donate_interface-smallamount-error' => 'तपाईंले कमसेकम $1 दान गर्नुपर्छ',
 	'donate_interface-processing-error' => 'तपाईंको अनुरोधको प्रक्रिया पूरा गर्न लाग्दा एउटा त्रुटि भएकोछ।
@@ -20239,9 +20241,9 @@ Ingen prosessorar er tilgjengelege.',
 	'donate_interface-error-msg-expiration' => 'kortet sin utløpsdato',
 	'donate_interface-error-msg-cvv' => 'CVV frå baksida av kortet ditt',
 	'donate_interface-easydonate' => 'Me freistar gjera det lett for folk i alle land å donera. Lat oss få vita korleis me kunne gjort det lettare for deg. Send innspelet ditt til: problemsdonating@wikimedia.org',
-	'donate_interface-donate-click' => 'Etter å ha klikka  "{{int:payflowpro_gateway-donor-submit}}", vil kredittinformasjonen din verta gjennomgått.',
+	'donate_interface-donate-click' => 'Etter å ha klikka  "{{int:payflowpro_gateway-donor-submit}}", vil kredittinformasjonen din verta gjennomgått.', # Fuzzy
 	'donate_interface-otherways-short' => 'Andre måtar å gje på',
-	'donate_interface-credit-storage-processing' => 'Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href="//wikimediafoundation.org/wiki/Donor_policy">retningsliner for personvern</a>.',
+	'donate_interface-credit-storage-processing' => 'Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href="//wikimediafoundation.org/wiki/Donor_policy">retningsliner for personvern</a>.', # Fuzzy
 	'donate_interface-comment' => 'Kommentar',
 	'donate_interface-first' => 'Fyrste',
 	'donate_interface-last' => 'Siste',
@@ -20261,7 +20263,7 @@ $messages['oc'] = array(
 	'donate_interface' => 'Sosténer Wikimedia',
 	'donate_interface-desc' => "Pagina d'aterrissatge pels dons qu'intègra los moduls de pagament",
 	'donate_interface-intro' => 'Causissètz un mejan de pagament, un montant e una devisa.',
-	'donate_interface-amount' => 'Montant del don :',
+	'donate_interface-amount' => 'Montant del don :', # Fuzzy
 	'donate_interface-other-amount' => 'Autre montant',
 	'donate_interface-currency' => 'Devisa :',
 	'donate_interface-gateway' => 'Mejan de pagament :',
@@ -20270,7 +20272,7 @@ $messages['oc'] = array(
 	'donate_interface-comment-label' => 'Comentari :',
 	'donate_interface-email-agreement' => 'Accèpti de recebre de corrièls o letras d\'informacions de la part de Wikimedia Foundation.
 Vòstras donadas seràn pas jamai vendudas o escambiadas.
-Nòstra politica de respièch de la vida privada dels donators se tròba <a title="Donate/Donor Privacy" href="/wiki/Donate/Donor_Privacy">aicí</a>',
+Nòstra politica de respièch de la vida privada dels donators se tròba <a title="Donate/Donor Privacy" href="/wiki/Donate/Donor_Privacy">aicí</a>', # Fuzzy
 	'donate_interface-comment-title' => 'Comentari public',
 	'donate_interface-amount-error' => 'Picatz un montant valid',
 	'donate_interface-processing-error' => "Una error s'es producha al moment del tractament de vòstra requèsta. Cap de processor es pas disponible.",
@@ -20294,7 +20296,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
 	'donate_interface-accessible' => 'Aquesta pagina es pas accessibla que dempuèi la pagina de donacion.',
 	'donate_interface-card-legend' => 'Informacions sus la carta de credit',
 	'donate_interface-amount-legend' => 'Montant del don',
-	'donate_interface-cvv-link' => 'Exemple',
+	'donate_interface-cvv-link' => 'Exemple', # Fuzzy
 	'donate_interface-donor-legend' => 'Informacions sul donator',
 	'donate_interface-donor-amount' => 'Montant :',
 	'donate_interface-donor-currency-label' => 'Devisa :',
@@ -20335,7 +20337,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
 	'donate_interface-error-msg-card_num' => 'Numèro de carta de credit',
 	'donate_interface-error-msg-expiration' => "Data d'expiracion de la carta",
 	'donate_interface-error-msg-cvv' => "Lo CVV a l'esquina de vòstra carta",
-	'php-response-declined' => 'Vòstra transaccion es estada refusada.',
+	'php-response-declined' => 'Vòstra transaccion es estada refusada.', # Fuzzy
 	'donate_interface-thankyou' => 'Mercés plan per vòstre don !',
 	'donate_interface-post-transaction' => 'Detalhs de la transaccion',
 	'donate_interface-cvv-explain' => "<h4>Qu'es aquò CVV ?</h4>
@@ -20346,10 +20348,10 @@ Tipicament, la barra per la signatura conten una seria de nombres, mas solas las
 <h4>American Express</h4>
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
-	'donate_interface-question-comment' => 'Wikipèdia es un projècte de la Wikimedia Foundation. De questions o de comentaris ? Contactatz la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.',
-	'donate_interface-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="//wikimediafoundation.org/wiki/Donor_policy">politica de confidencialitat</a>.',
-	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.',
+	'donate_interface-question-comment' => 'Wikipèdia es un projècte de la Wikimedia Foundation. De questions o de comentaris ? Contactatz la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>', # Fuzzy
+	'donate_interface-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.', # Fuzzy
+	'donate_interface-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="//wikimediafoundation.org/wiki/Donor_policy">politica de confidencialitat</a>.', # Fuzzy
+	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.', # Fuzzy
 );
 
 /** Oriya (ଓଡ଼ିଆ)
@@ -22147,7 +22149,6 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 );
 
 /** Brazilian Portuguese (português do Brasil)
- * @author 555
  * @author Giro720
  * @author GoEThe
  * @author Jsoby
@@ -22157,6 +22158,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
  * @author Pedroca cerebral
  * @author Ppena
  * @author Raylton P. Sousa
+ * @author 555
  */
 $messages['pt-br'] = array(
 	'donate_interface' => 'Ajude a Wikimedia',
@@ -24042,7 +24044,7 @@ $messages['rue'] = array(
 	'donate_interface' => 'Підпора фонду Вікімедія',
 	'donate_interface-desc' => 'Цїлёва сторінка про приспівателїв, зєдночуюча інтерфейс ку платобным картам',
 	'donate_interface-intro' => 'Звольте собі способ плачіня, суму і валуту.',
-	'donate_interface-amount' => 'Сума приспевку:',
+	'donate_interface-amount' => 'Сума приспевку:', # Fuzzy
 	'donate_interface-other-amount' => 'Інша сума',
 	'donate_interface-currency' => 'Валута',
 	'donate_interface-gateway' => 'Способ платбы:',
@@ -24133,7 +24135,7 @@ $messages['rue'] = array(
 <p>Код є <i>все</i> уміщеный <i>над</i> выраженым (ембосованым) чіслом конта на ліцовім боцї карты.
 Даколи бывать код уміщеный на лівім боцї карты, але все є над чіслом конта.</p><br />',
 	'donate_interface-question-comment' => 'Вопросы або коментарї? Напипте на: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Інформації о кредітній картї будуть безпечно спрацованы.',
+	'donate_interface-donate-click' => 'Інформації о кредітній картї будуть безпечно спрацованы.', # Fuzzy
 	'donate_interface-otherways' => 'Може суть <a href="//wikimediafoundation.org/wiki/Ways_To_Give/cs">іншы способы зробити пожертву включаючі PayPal, шек або пошты</a>.',
 	'donate_interface-otherways-alt' => 'Можны суть <a href="//wikimediafoundation.org/wiki/Ways_To_Give/rue"> іншы способы, як пожертвовати>, враховано шеків.',
 	'donate_interface-otherways-short' => 'Іншы способы як пожертвовати',
@@ -24152,7 +24154,7 @@ $messages['rue'] = array(
 	'donate_interface-noscript-msg' => 'Відить ся, же не мате поволеный JavaScript або го ваш перезерач не підпорує.
 Про безпечность і комфортнїше овладаня наш формуларь пожертвованя потребує JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Як не можете або не хочете поволити JavaScript, іщі все можете пожертвовати на адресї:',
-	'donate_interface-anon-message' => 'Зазначте моє імя (вєдно з моїм коментарём) на публічнім списку донорів.',
+	'donate_interface-anon-message' => 'Зазначте моє імя (вєдно з моїм коментарём) на публічнім списку донорів.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Пожертвовати на Вікіпедію',
 	'donate_interface-or' => 'або',
 	'donate_interface-your-information' => 'Вашы дата',
@@ -24315,7 +24317,7 @@ $messages['sah'] = array(
 	'donate_interface' => 'Викимедианы өйүөххэйиҥ!',
 	'donate_interface-desc' => 'Араас ньыманнан сиэртибэлээһини холбуу көрдөрөр сирэй',
 	'donate_interface-intro' => 'Бука диэн, төлөбүр ньыматын, суумматын уонна валютатын тал.',
-	'donate_interface-amount' => 'Сиэртиэбэ сууммата:',
+	'donate_interface-amount' => 'Сиэртиэбэ сууммата:', # Fuzzy
 	'donate_interface-other-amount' => 'Атын суумма',
 	'donate_interface-currency' => 'Валютата:',
 	'donate_interface-gateway' => 'Төлөбүр көрүҥэ:',
@@ -24406,12 +24408,12 @@ $messages['sah'] = array(
 <p>Куод <i>куруук</i> счет нүөмэрин <i>үрдүгэр</i> баар буолар, каарта илин өттүгэр.
 Сороҕор каарта хаҥас өттүгэр баар буолар, ол эрээри счет нүөмэриттэн куруук үөһэ.</p><br />',
 	'donate_interface-question-comment' => 'Ыйытыы эбэтэр этии баар дуо? Манна суруй <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Кирэдьиит каартаҥ көмүскэллээх эрэсиимҥэ танастаныа',
+	'donate_interface-donate-click' => 'Кирэдьиит каартаҥ көмүскэллээх эрэсиимҥэ танастаныа', # Fuzzy
 	'donate_interface-otherways' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">Сиэртибэ атын көрүҥнэрэ</a> эмиэ бааллар, холобур PayPal, чек, почта.',
 	'donate_interface-otherways-alt' => 'Сиэртибэлээһини <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">атынннык эмиэ оҥоруохха</a> сөп, ол иһигэр баан чиэгинэн.',
 	'donate_interface-otherways-short' => 'Сиэртибэни ыытыы атын көрүҥнэрэ',
 	'donate_interface-paypal' => 'PayPal тиһиликкэ бэлиэтэммитиҥ дуо? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPal нөҥүө сиэртибэлээһин</a>.',
-	'donate_interface-credit-storage-processing' => 'Эн кредиткаҥ туһунан ханна да хаалбат, оттон эн тус бэйэҥ тускунан информацияны <a href="//wikimediafoundation.org/wiki/Политика_конфиденциальности_жертвователей">кистээһин сиэрэ</a> хааччахтыыр.',
+	'donate_interface-credit-storage-processing' => 'Эн кредиткаҥ туһунан ханна да хаалбат, оттон эн тус бэйэҥ тускунан информацияны <a href="//wikimediafoundation.org/wiki/Политика_конфиденциальности_жертвователей">кистээһин сиэрэ</a> хааччахтыыр.', # Fuzzy
 	'donate_interface-token-mismatch' => 'Сиэссийэҥ болдьоҕо бүппүт. Бука диэн форманы хат толор.',
 	'donate_interface-cc-form-header-personal' => 'Төлөбүр туһунан',
 	'donate_interface-cc-form-header-payment' => 'Төлөбүр туһунан',
@@ -24749,7 +24751,7 @@ U nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek izn
 	'donate_interface-question-comment' => 'Pitanja ili komentari? Kontaktirajte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Trudimo se olakšati darivanje ljudima iz svih država. Recite nam kako vam možemo pomoći. Vaše prijedloge šaljite na: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'Imate problema pri doniranju?',
-	'donate_interface-donate-click' => 'Vaša kreditna kartica će biti sigurno obrađena.',
+	'donate_interface-donate-click' => 'Vaša kreditna kartica će biti sigurno obrađena.', # Fuzzy
 	'donate_interface-otherways' => 'Ovdje su <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini da donirate, uključujući PayPal, ček ili mail</a>.',
 	'donate_interface-otherways-alt' => 'Ovdje su <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">drugi načini da donirate</a>, uključujući i putem čeka.',
 	'donate_interface-otherways-short' => 'Drugi načini za doniranje',
@@ -24922,7 +24924,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
 	'donate_interface-legal-donorpolicy' => 'Doniranjem vi dijelite svoje podatke sa Fondacijom Wikimedia, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke.',
 	'donate_interface-monthlybox-title' => 'Želite darivati redovni (mjesečni) prilog?',
 	'donate_interface-monthlybox-content' => 'Mjesečni prilozi se obrađuju drugog dana u mjesecu. Možete odustati kad god želite.',
-	'donate_interface-monthlybox-amount' => 'Iznos donacije',
+	'donate_interface-monthlybox-amount' => 'Iznos donacije', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Da, neka bude mjesečni prilog',
 	'donate_interface-monthlybox-no' => 'NE, ovo je jednokratno darivanje',
 	'donate_interface-monthlybox-bottom' => 'Vaša donacija biti će sigurno obrađena.',
@@ -25405,7 +25407,7 @@ V niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad
 	'donate_interface-otherways-alt' => 'Existujú aj <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">iné spôsoby, ako darovať</a>, okrem iného aj šekom.',
 	'donate_interface-otherways-short' => 'Iné spôsoby, ako darovať',
 	'donate_interface-paypal' => 'Máte účet PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Darujte prostredníctvom PayPalu</a>.',
-	'donate_interface-credit-storage-processing' => 'Neukladáme informácie o vašej kreditnej karte a vaše osobné údaje podliehajú našej politike <a href="//wikimediafoundation.org/wiki/Donor_policy"> ochrany osobných údajov</a>.',
+	'donate_interface-credit-storage-processing' => 'Neukladáme informácie o vašej kreditnej karte a vaše osobné údaje podliehajú našej politike <a href="//wikimediafoundation.org/wiki/Donor_policy"> ochrany osobných údajov</a>.', # Fuzzy
 	'donate_interface-token-mismatch' => 'Vaša relácia vypršala. Prosím, skúste vyplniť a odoslať formulár znova.',
 	'donate_interface-cc-form-header-personal' => 'Fakturačné údaje',
 	'donate_interface-cc-form-header-payment' => 'Platobné údaje',
@@ -26098,7 +26100,7 @@ Zakonisht hapësira ku ndodhet firma përmban një numër të caktuar shifrash, 
 Në disa raste, kodi ndodhet në anën e majtë të kartës, gjithmonë sipër numrit të llogarisë.</p><br />',
 	'donate_interface-question-comment' => 'Keni pyetje ose komente? : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Ne përpiqemi që ta bëjmë sa më të thjeshtë procesin e kontribuimit në çdo vend të botës. Ju lutemi, na thoni si mund ta bëjmë më të thjeshtë për ju. Dërgojini sugjerimet tuaja në adresën: problemsdonating@wikimedia.org.',
-	'donate_interface-donate-click' => 'Karta juaj e kreditit do të përpunohet në mënyre të sigurtë.',
+	'donate_interface-donate-click' => 'Karta juaj e kreditit do të përpunohet në mënyre të sigurtë.', # Fuzzy
 	'donate_interface-otherways' => 'Ka edhe <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">mënyra të tjera për të dhuruar, përfshi PayPal, çek, ose me postë</a>.',
 	'donate_interface-otherways-alt' => 'Ka edhe <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">mënyra të tjera për të dhuruar</a>, përfshi çekun bankar.',
 	'donate_interface-otherways-short' => 'Mënyra të tjera për të dhuruar',
@@ -26228,7 +26230,7 @@ Për të ofruar një eksperience sa më të sigurt dhe sa më të kënaqshme, fo
 	'donate_interface-bt-country_description' => 'Përshkrimi i vendit',
 	'donate_interface-bt-payment_reference' => 'Referenca e pagesës',
 	'donate_interface-bt-swift_code' => 'Kodi Swift',
-	'donate_interface-bt-special_id' => 'ID speciale',
+	'donate_interface-bt-special_id' => 'ID speciale', # Fuzzy
 	'donate_interface-bt-information' => 'Të dhënat e transfertës bankare',
 	'donate_interface-bt-finished' => 'Fund',
 	'donate_interface-obt-biller_id' => 'Kodi i faturëpagesave',
@@ -26269,7 +26271,7 @@ Për të ofruar një eksperience sa më të sigurt dhe sa më të kënaqshme, fo
 	'donate_interface-legal-donorpolicy' => 'Gjatë dhënies së kontributit ju shkëmbeni informacion me Fondacionin WIkimedia, organizatën jo fitimprurëse që drejton Wikipedia-n dhe projekte të tjera të Wikimedia-s, dhe ofruesin e saj të shërbimeve në SHBA dhe vende të tjera, sipas politikës tonë të anonimitetit të kontribuuesit. Ne nuk i shesim dhe as nuk i shkëmbejmë të dhënat tuaja me askënd.',
 	'donate_interface-monthlybox-title' => 'Dëshironi që të jetë mujor?',
 	'donate_interface-monthlybox-content' => 'Kontributet mujore përpunohen në datën 2 të çdo muaji. Ju mund ta anulloni në pdo kohë.',
-	'donate_interface-monthlybox-amount' => 'Vlera e kontributit',
+	'donate_interface-monthlybox-amount' => 'Vlera e kontributit', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Patjetër, bëje mujor',
 	'donate_interface-monthlybox-no' => 'JO, bëj kontribut vetëm për një herë',
 	'donate_interface-monthlybox-bottom' => 'Kontributi juaj do të përpunohet në mënyrë të sigurt.',
@@ -27445,7 +27447,7 @@ $messages['sw'] = array(
 	'donate_interface-email-agreement' => 'Nakubali nipokee taarifa mara kwa mara kwa barua pepe kutoka Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Maoni ya umma',
 	'donate_interface-amount-error' => 'Tafadhali ingiza kiasi halali',
-	'donate_interface-smallamount-error' => '$1 ni kiwango cha chini kinachoweza kupokelewa',
+	'donate_interface-smallamount-error' => '$1 ni kiwango cha chini kinachoweza kupokelewa', # Fuzzy
 	'donate_interface-processing-error' => 'Kumetokea hitilafu wakati wa uchakataji wa ombi lako.
 Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-AUD' => 'Dola ya Australia',
@@ -27466,9 +27468,9 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-accessible' => 'Ukarasa huu unapatikana katika ukurasa wa mchango tu.',
 	'donate_interface-paypal-button' => 'Changia kwa kupitia Paypal',
 	'donate_interface-cc-button' => 'Changia kwa kupitia kadi ya mkopo',
-	'donate_interface-bt-button' => 'Changia kwa uhawilisho wa benki',
-	'donate_interface-rt-button' => 'Changia kwa kupitia benki ya $1',
-	'donate_interface-ewallet-button' => 'Changia kwa kupitia $1',
+	'donate_interface-bt-button' => 'Changia kwa uhawilisho wa benki', # Fuzzy
+	'donate_interface-rt-button' => 'Changia kwa kupitia benki ya $1', # Fuzzy
+	'donate_interface-ewallet-button' => 'Changia kwa kupitia $1', # Fuzzy
 	'donate_interface-card-legend' => 'Taarifa ya kadi ya mkopo',
 	'donate_interface-amount-legend' => 'Kiasi cha mchango',
 	'donate_interface-cvv-link' => 'Iko wapi hii?',
@@ -27497,7 +27499,7 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
 	'donate_interface-card-name-discover' => 'Discover',
-	'donate_interface-error-msg-general' => 'Ilitokea hitilafu wakati wa kutekeleza ombi lako.',
+	'donate_interface-error-msg-general' => 'Ilitokea hitilafu wakati wa kutekeleza ombi lako.', # Fuzzy
 	'donate_interface-error-msg-nopaypal' => 'Kutokana na hitilafu ya kiufundi, hatuwezi kutuma maombi yako kwa PayPal. Tafadhali jaribu kutumia fomu yetu ya kawaida ya kuchangia kwa kupitia kadi ya malipo.',
 	'donate_interface-error-msg' => 'Tafadhali ingiza $1 yako',
 	'donate_interface-error-msg-js' => 'Tafadhali ingiza',
@@ -27524,8 +27526,8 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-error-msg-cvv' => 'CVV (kodi ya usalama) iliyopo nyuma ya kadi yako',
 	'donate_interface-error-msg-captcha' => 'Neno au namba ya Captcha uliyoingiza si sahihi. Tafadhali jaribu tena.',
 	'donate_interface-error-msg-captcha-please' => 'Kwa usalama wa kadi yako ya malipo, tafadhali andika herufi unazoziona hapo juu.',
-	'donate_interface-error-msg-genaricrequired' => 'Kisanduku hiki kinahitajika kijazwe',
-	'donate_interface-donate-error-thank-you-for-your-support' => 'Asante kwa mchango wako!',
+	'donate_interface-error-msg-genaricrequired' => 'Kisanduku hiki kinahitajika kijazwe', # Fuzzy
+	'donate_interface-donate-error-thank-you-for-your-support' => 'Asante kwa mchango wako!', # Fuzzy
 	'php-response-declined' => 'Malipo yako hayajakubaliwa.',
 	'donate_interface-thankyou' => 'Ahsante kwa mchango wako!',
 	'donate_interface-post-transaction' => 'Taarifa za malipo',
@@ -27538,9 +27540,9 @@ Kwa kawaida eneo la sahihi litakuwa na mlolongo wa namba, lakini ni tarakimu tat
 <p>Kodi iko <i>juu</i> ya namba iliyotunishwa, yaani namba ya akaunti iliyopo upande wa mbele ya kadi.
 Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> iko juu ya namba ya akaunti.</p><br />',
 	'donate_interface-question-comment' => 'Maswali au maoni? Wasiliana na: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-easydonate' => 'Tunajaribu kurahihisha njia ya kuchangia katika nchi zote. Tafadhali utujulishe namna gani tungeweza kurahihishia mambo ya kuchangia katika nchi yako. Tuma mapendekezo yako kwa: problemsdonating@wikimedia.org.',
+	'donate_interface-easydonate' => 'Tunajaribu kurahihisha njia ya kuchangia katika nchi zote. Tafadhali utujulishe namna gani tungeweza kurahihishia mambo ya kuchangia katika nchi yako. Tuma mapendekezo yako kwa: problemsdonating@wikimedia.org.', # Fuzzy
 	'donate_interface-problemsdonating' => 'Una shida kuchangia?',
-	'donate_interface-donate-click' => 'Kadi yako ya malipo itashughulikiwa salama.',
+	'donate_interface-donate-click' => 'Kadi yako ya malipo itashughulikiwa salama.', # Fuzzy
 	'donate_interface-otherways' => 'Kuna <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa kupitia PayPal, kwa hundi, au kwa posta</a>.',
 	'donate_interface-otherways-alt' => 'Kuna <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">njia zingine za kuchangia, kwa mfano kwa hundi</a>.',
 	'donate_interface-otherways-short' => 'Njia zingine za kuchangia.',
@@ -27661,54 +27663,54 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-tshirt-confirmation' => 'Fulana lako litasafirishwa katika ukubwa na lugha za hapo chini:',
 	'donate_interface-donation-tshirt' => 'Mchango (msaada wa fulana)',
 	'donate_interface-change' => 'Badilisha',
-	'donate_interface-select-credit-card' => 'Chagua kadi ya mkopo',
+	'donate_interface-select-credit-card' => 'Chagua kadi ya mkopo', # Fuzzy
 	'donate_interface-state-dropdown-YY' => 'Chagua jimbo',
 	'donate_interface-state-dropdown-XX' => 'Nje ya Marekani',
-	'donate_interface-bt-account_holder' => 'Mwenye akaunti',
-	'donate_interface-bt-bank_account_number' => 'Namba ya akaunti ya benki',
-	'donate_interface-bt-payment_reference' => 'Rejeo ya malipo',
-	'donate_interface-bt-swift_code' => 'Kodi ya SWIFT',
-	'donate_interface-bt-special_id' => 'Namba ya pekee inayotakiwa nchini kunaohusika',
-	'donate_interface-bt-information' => 'Maelezo ya uhawilisho wa benki',
-	'donate_interface-bt-finished' => 'Imekamilishwa',
-	'donate_interface-obt-customer_payment_reference' => 'Namba ya rejeo',
-	'donate_interface-obt-information' => 'Maelezo ya uhawilisho wa benki mkondoni',
+	'donate_interface-bt-account_holder' => 'Mwenye akaunti', # Fuzzy
+	'donate_interface-bt-bank_account_number' => 'Namba ya akaunti ya benki', # Fuzzy
+	'donate_interface-bt-payment_reference' => 'Rejeo ya malipo', # Fuzzy
+	'donate_interface-bt-swift_code' => 'Kodi ya SWIFT', # Fuzzy
+	'donate_interface-bt-special_id' => 'Namba ya pekee inayotakiwa nchini kunaohusika', # Fuzzy
+	'donate_interface-bt-information' => 'Maelezo ya uhawilisho wa benki', # Fuzzy
+	'donate_interface-bt-finished' => 'Imekamilishwa', # Fuzzy
+	'donate_interface-obt-customer_payment_reference' => 'Namba ya rejeo', # Fuzzy
+	'donate_interface-obt-information' => 'Maelezo ya uhawilisho wa benki mkondoni', # Fuzzy
 	'donate_interface-rtbt-issuer_id' => 'Chagua benki',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Benki zingine',
-	'donate_interface-dd-account_name' => 'Jina la akaunti',
-	'donate_interface-dd-account_number' => 'Namba ya akaunti',
-	'donate_interface-dd-authorization_id' => 'Namba ya kuidhinisha (Authorization ID)',
-	'donate_interface-dd-bank_check_digit' => 'Namba ya usahihi ya benki (check digit)',
-	'donate_interface-dd-bank_code' => 'Kodi ya benki',
-	'donate_interface-dd-bank_name' => 'Jina la benki',
-	'donate_interface-dd-branch_code' => 'Kodi ya tawi',
+	'donate_interface-dd-account_name' => 'Jina la akaunti', # Fuzzy
+	'donate_interface-dd-account_number' => 'Namba ya akaunti', # Fuzzy
+	'donate_interface-dd-authorization_id' => 'Namba ya kuidhinisha (Authorization ID)', # Fuzzy
+	'donate_interface-dd-bank_check_digit' => 'Namba ya usahihi ya benki (check digit)', # Fuzzy
+	'donate_interface-dd-bank_code' => 'Kodi ya benki', # Fuzzy
+	'donate_interface-dd-bank_name' => 'Jina la benki', # Fuzzy
+	'donate_interface-dd-branch_code' => 'Kodi ya tawi', # Fuzzy
 	'donate_interface-dd-iban' => 'IBAN',
-	'donate_interface-translate-bluelink' => 'Boresha tafsiri hii',
-	'donate_interface-translate-redlink1' => 'Saidia kutafsiri ukurasa huu.',
-	'donate_interface-translate-redlink2' => 'Au tuma uliotafsiri kwa barua pepe kwa translations@wikimedia.org',
-	'donate_interface-email-fallbackname' => 'rafiki wa Wikimedia Foundation',
-	'donate_interface-email-subject' => 'Asante kutoka kwa Wikimedia Foundation',
-	'donate_interface-email-unsub-title' => 'Kutopokea habari za Wikimedia Foundation',
-	'donate_interface-email-unsub-button' => 'Nisipokee habari',
-	'donate_interface-email-unsub-success' => 'Jina lako limetolewa kutoka katika orodha ya watu wanaopokea habari zetu',
-	'donate_interface-email-unsub-delay' => 'Badiliko hili linaweza kuchukua hadi siku nne kukamilishwa. Ukipokea barua pepe toka kwetu wakati huo, kumradhi. Ukiwa na maswali, uliza kwa anwani ya <donations@wikimedia.org>.',
-	'donate_interface-email-unsub-fail' => 'Kulitokea hitilafu wakati wa kutekeleza ombi lako. Tafadhali andika kwa <donations@wikimedia.org>.',
+	'donate_interface-translate-bluelink' => 'Boresha tafsiri hii', # Fuzzy
+	'donate_interface-translate-redlink1' => 'Saidia kutafsiri ukurasa huu.', # Fuzzy
+	'donate_interface-translate-redlink2' => 'Au tuma uliotafsiri kwa barua pepe kwa translations@wikimedia.org', # Fuzzy
+	'donate_interface-email-fallbackname' => 'rafiki wa Wikimedia Foundation', # Fuzzy
+	'donate_interface-email-subject' => 'Asante kutoka kwa Wikimedia Foundation', # Fuzzy
+	'donate_interface-email-unsub-title' => 'Kutopokea habari za Wikimedia Foundation', # Fuzzy
+	'donate_interface-email-unsub-button' => 'Nisipokee habari', # Fuzzy
+	'donate_interface-email-unsub-success' => 'Jina lako limetolewa kutoka katika orodha ya watu wanaopokea habari zetu', # Fuzzy
+	'donate_interface-email-unsub-delay' => 'Badiliko hili linaweza kuchukua hadi siku nne kukamilishwa. Ukipokea barua pepe toka kwetu wakati huo, kumradhi. Ukiwa na maswali, uliza kwa anwani ya <donations@wikimedia.org>.', # Fuzzy
+	'donate_interface-email-unsub-fail' => 'Kulitokea hitilafu wakati wa kutekeleza ombi lako. Tafadhali andika kwa <donations@wikimedia.org>.', # Fuzzy
 	'donate_interface-faqs' => 'Maswali yanayoulizwa mara kwa mara',
-	'donate_interface-tax-info' => 'Habari za kuweza kutoza mchango kutoka katika kodi',
-	'donate_interface-informationsharing' => 'Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href="//wikimediafoundation.org/wiki/Donor_policy/en">sera yetu ya wachangiaji</a>.',
-	'donate_interface-currency-change' => 'Badilisha?',
-	'donate_interface-taxded-link-int' => 'Maelezo ya kodi na mambo ya kisheria',
-	'donate_interface-taxded-link-us' => 'Habari za kuweza kutoza mchango kutoka katika kodi',
-	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation ni hisani isiyo na faida iliyoundwa Amerikani kufuatana na sheria ya US IRS Code Section 501(c)(3), na, kwa sababu hiyo, michango kutoka kwa watu au shirika zilizopo Amerika huweza kufaidika hali ya kuweza kutozwa kutoka katika kodi. Michango kutoka kwa watu au shirika nje ya Amerika haiwezi kufaidika hali ya kuweza kutozwa kutoka katika kodi ya Amerika wala mahali pengine; ikiwa hivyo, wachangiaji watafute ushauri kuhusu kodi nchini pao. Wikimedia haiombi michango kutoka kwa watu wala shirika zilizopo nchi zenye sheria zinazozuia au zinazoweka masharti hisani za kimataifa kama Wikimedia wasiombe fedha, wala haiombi nchini panapotolewa kodi kutoka kwa michango inayochangiwa kwa hisani za kimataifa.',
-	'donate_interface-taxded-msg-us' => 'Wikimedia Foundation ni hisani isiyo na faida iliyoundwa Amerikani kufuatana na sheria ya US IRS Code Section 501(c)(3), na, kwa sababu hiyo, michango kutoka kwa watu au shirika zilizopo Amerika huweza kufaidika hali ya kuweza kutozwa kutoka katika kodi.',
-	'donate_interface-legal-donorpolicy' => 'Unapochangia, unatuma habari zako kwa Wikimedia Foundation, ambaye ni shirika lisilolenga kupata faida, na lililoendesha Wikipedia na miradi mingine ya Wikimedia, pamoja na watoa huduma zake katika Amerika na mahali pengine, kwa kufuata sera yetu ya faragha ya mchangiaji. Hatuuzi habari zako kwa mtu wowote wala hatufanyi biashara nazo.',
-	'donate_interface-monthlybox-title' => 'Changia kila mwezi?',
-	'donate_interface-monthlybox-content' => 'Michango ya kila mwezi inatolewa tarehe ya pili kila mwezi. Unaweza kusimamisha kuchanga wakati wote.',
-	'donate_interface-monthlybox-amount' => 'Kiasi cha mchango',
-	'donate_interface-monthlybox-yes' => 'Ndiyo, nichangie kila mwezi',
-	'donate_interface-monthlybox-no' => 'Siyo, nichangie mara moja tu',
-	'donate_interface-monthlybox-bottom' => 'Mchango wako utashughulikiwa salama.',
-	'donate_interface-secureLogo-text' => 'Kuhusu Vyeti vya SSL',
+	'donate_interface-tax-info' => 'Habari za kuweza kutoza mchango kutoka katika kodi', # Fuzzy
+	'donate_interface-informationsharing' => 'Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href="//wikimediafoundation.org/wiki/Donor_policy/en">sera yetu ya wachangiaji</a>.', # Fuzzy
+	'donate_interface-currency-change' => 'Badilisha?', # Fuzzy
+	'donate_interface-taxded-link-int' => 'Maelezo ya kodi na mambo ya kisheria', # Fuzzy
+	'donate_interface-taxded-link-us' => 'Habari za kuweza kutoza mchango kutoka katika kodi', # Fuzzy
+	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation ni hisani isiyo na faida iliyoundwa Amerikani kufuatana na sheria ya US IRS Code Section 501(c)(3), na, kwa sababu hiyo, michango kutoka kwa watu au shirika zilizopo Amerika huweza kufaidika hali ya kuweza kutozwa kutoka katika kodi. Michango kutoka kwa watu au shirika nje ya Amerika haiwezi kufaidika hali ya kuweza kutozwa kutoka katika kodi ya Amerika wala mahali pengine; ikiwa hivyo, wachangiaji watafute ushauri kuhusu kodi nchini pao. Wikimedia haiombi michango kutoka kwa watu wala shirika zilizopo nchi zenye sheria zinazozuia au zinazoweka masharti hisani za kimataifa kama Wikimedia wasiombe fedha, wala haiombi nchini panapotolewa kodi kutoka kwa michango inayochangiwa kwa hisani za kimataifa.', # Fuzzy
+	'donate_interface-taxded-msg-us' => 'Wikimedia Foundation ni hisani isiyo na faida iliyoundwa Amerikani kufuatana na sheria ya US IRS Code Section 501(c)(3), na, kwa sababu hiyo, michango kutoka kwa watu au shirika zilizopo Amerika huweza kufaidika hali ya kuweza kutozwa kutoka katika kodi.', # Fuzzy
+	'donate_interface-legal-donorpolicy' => 'Unapochangia, unatuma habari zako kwa Wikimedia Foundation, ambaye ni shirika lisilolenga kupata faida, na lililoendesha Wikipedia na miradi mingine ya Wikimedia, pamoja na watoa huduma zake katika Amerika na mahali pengine, kwa kufuata sera yetu ya faragha ya mchangiaji. Hatuuzi habari zako kwa mtu wowote wala hatufanyi biashara nazo.', # Fuzzy
+	'donate_interface-monthlybox-title' => 'Changia kila mwezi?', # Fuzzy
+	'donate_interface-monthlybox-content' => 'Michango ya kila mwezi inatolewa tarehe ya pili kila mwezi. Unaweza kusimamisha kuchanga wakati wote.', # Fuzzy
+	'donate_interface-monthlybox-amount' => 'Kiasi cha mchango', # Fuzzy
+	'donate_interface-monthlybox-yes' => 'Ndiyo, nichangie kila mwezi', # Fuzzy
+	'donate_interface-monthlybox-no' => 'Siyo, nichangie mara moja tu', # Fuzzy
+	'donate_interface-monthlybox-bottom' => 'Mchango wako utashughulikiwa salama.', # Fuzzy
+	'donate_interface-secureLogo-text' => 'Kuhusu Vyeti vya SSL', # Fuzzy
 );
 
 /** Tamil (தமிழ்)
@@ -27901,7 +27903,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-question-comment' => 'வினாக்கள் அல்லது கருத்துகள்? தொடர்புகொள்க: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'நாங்கள் ஒவ்வொரு நாட்டிலுள்ள மக்களும் எளிமையாக நன்கொடையளிக்க வேண்டும் என முயன்று வருகிறோம். எப்படி எளிமைப்படுத்த வேண்டும் என்பதை எங்களுக்குத் தெரியப்படுத்துங்கள். உங்கள் ஆலோசனைகளை problemsdonating@wikimedia.org என்ற மின்னஞ்சல் முகவரிக்கு எழுதவும்.',
 	'donate_interface-problemsdonating' => 'நன்கொடையளிப்பதில் சிக்கலா ?',
-	'donate_interface-donate-click' => 'உங்கள் கடனட்டைப் பத்திரமாகச் செயலாக்கப்படும்.',
+	'donate_interface-donate-click' => 'உங்கள் கடனட்டைப் பத்திரமாகச் செயலாக்கப்படும்.', # Fuzzy
 	'donate_interface-otherways' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">பேபால், காசோலை, அஞ்சல் போன்ற பிற வகையான நன்கொடையளிப்பு வழிகளும் உள்ளன</a>.',
 	'donate_interface-otherways-alt' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">காசோலை போன்ற பிற வகையான நன்கொடையளிப்பு வழிகளும் உள்ளன</a>.',
 	'donate_interface-otherways-short' => 'நன்கொடையளிப்பதற்கான பிற வழிகள்',
@@ -28166,7 +28168,7 @@ $messages['te'] = array(
 	'donate_interface-otherways-alt' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">చెల్లించడానికి ఇతర మార్గాలు</a>, చెక్కుతో సహా, కూడా ఉన్నాయి.',
 	'donate_interface-otherways-short' => 'ఇవ్వడానికి ఇతర పద్ధతులు',
 	'donate_interface-paypal' => 'మీకు పేపాల్ ఖాతా ఉందా? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">పేపాల్ ద్వారా విరాళమివ్వండి</a>.',
-	'donate_interface-credit-storage-processing' => 'మీ క్రెడిట్ కార్డు సమాచారాన్ని మేము నిల్వచేయము, మరియు మీ వ్యక్తిగత సమాచారం మా <a href="//wikimediafoundation.org/wiki/Donor_policy">గోప్యతా విధానాని</a>కి లోబడి ఉంటుంది.',
+	'donate_interface-credit-storage-processing' => 'మీ క్రెడిట్ కార్డు సమాచారాన్ని మేము నిల్వచేయము, మరియు మీ వ్యక్తిగత సమాచారం మా <a href="//wikimediafoundation.org/wiki/Donor_policy">గోప్యతా విధానాని</a>కి లోబడి ఉంటుంది.', # Fuzzy
 	'donate_interface-cc-form-header-personal' => 'బిల్లింగ్ సమాచారం',
 	'donate_interface-cc-form-header-payment' => 'చెల్లింపు సమాచారం',
 	'donate_interface-make-your-donation' => 'ఇప్పుడు మీ విరాళాన్ని ఇవ్వండి',
@@ -28269,7 +28271,7 @@ $messages['te'] = array(
 	'donate_interface-currency-change' => 'మార్చాలా?',
 	'donate_interface-taxded-link-int' => 'పన్ను మరియు ఇతర చట్టపరమైన సమాచారం',
 	'donate_interface-taxded-link-us' => 'పన్ను తగ్గింపు సమాచారం',
-	'donate_interface-monthlybox-amount' => 'విరాళపు మొత్తం',
+	'donate_interface-monthlybox-amount' => 'విరాళపు మొత్తం', # Fuzzy
 );
 
 /** Tetum (tetun)
@@ -28326,7 +28328,7 @@ $messages['th'] = array(
 	'donate_interface-accessible' => 'หน้านี้สามารถเข้าถึงได้จากหน้าบริจาคเท่านั้น',
 	'donate_interface-card-legend' => 'ข้อมูลบัครเครดิต',
 	'donate_interface-amount-legend' => 'จำนวนเงินบริจาค',
-	'donate_interface-cvv-link' => 'ตัวอย่าง',
+	'donate_interface-cvv-link' => 'ตัวอย่าง', # Fuzzy
 	'donate_interface-donor-legend' => 'ข้อมูลผู้บริจาค',
 	'donate_interface-donor-amount' => 'จำนวนเงิน:',
 	'donate_interface-donor-currency-label' => 'สกุลเงิน:',
@@ -28373,7 +28375,7 @@ $messages['th'] = array(
 	'donate_interface-error-msg-card_num' => 'หมายเลขบัตรเครดิต',
 	'donate_interface-error-msg-expiration' => 'วันหมดอายุของบัตร',
 	'donate_interface-error-msg-cvv' => 'หมายเลข CVV ด้านหลังบัตรของคุณ',
-	'php-response-declined' => 'รายการของคุณถูกยกเลิก',
+	'php-response-declined' => 'รายการของคุณถูกยกเลิก', # Fuzzy
 	'donate_interface-thankyou' => 'ขอบคุณสำหรับการบริจาค!',
 	'donate_interface-post-transaction' => 'รายละเอียดของรายการ',
 	'donate_interface-cvv-explain' => '<h4>CVV คืออะไร?</h4>
@@ -28384,9 +28386,9 @@ $messages['th'] = array(
 <h4>ผู้ถือบัตร American Express</h4>
 <p>รหัสจะอยู่<i>ด้านบน</i>หมายเลขตัวนูนบนหน้าบัตร<i>เสมอ</i>
 ในบางกรณี รหัสจะอยู่ด้านซ้ายของบัตร แต่รหัสจะอยู่เหนือหมายเลขบัตรเสมอ</p><br />',
-	'donate_interface-question-comment' => 'วิกิพีเดียเป็นหนึ่งในโครงการในมูลนิธิวิกิมีเดีย หากมีข้อสงสัยหรือติชมประการใด กรุณาติดต่อที่ <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'หลังจากคลิก "{{int:payflowpro_gateway-donor-submit}}" บัตรเครดิตของคุณจะเข้าสู่กระบวนการตัดยอด',
-	'donate_interface-credit-storage-processing' => 'เราจะไม่เก็บข้อมูลของบัครเครดิตของคุณไว้ และข้อมูลส่วนตัวของคุณจะถูกนำไปใช้ภายใต้<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">นโยบายการรักษาความเป็นส่วนตัว</a>',
+	'donate_interface-question-comment' => 'วิกิพีเดียเป็นหนึ่งในโครงการในมูลนิธิวิกิมีเดีย หากมีข้อสงสัยหรือติชมประการใด กรุณาติดต่อที่ <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>', # Fuzzy
+	'donate_interface-donate-click' => 'หลังจากคลิก "{{int:payflowpro_gateway-donor-submit}}" บัตรเครดิตของคุณจะเข้าสู่กระบวนการตัดยอด', # Fuzzy
+	'donate_interface-credit-storage-processing' => 'เราจะไม่เก็บข้อมูลของบัครเครดิตของคุณไว้ และข้อมูลส่วนตัวของคุณจะถูกนำไปใช้ภายใต้<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">นโยบายการรักษาความเป็นส่วนตัว</a>', # Fuzzy
 	'donate_interface-anon-message' => 'กรุณาแสดงชื่อของฉันในรายนามผู้บริจาคสาธารณะ',
 );
 
@@ -28397,14 +28399,14 @@ $messages['th'] = array(
 $messages['tk'] = array(
 	'donate_interface' => 'Wikimediany goldaň',
 	'donate_interface-intro' => 'Töleg usulyny, summany we walýutany saýlaň.',
-	'donate_interface-amount' => 'Bagyş edilen summa:',
+	'donate_interface-amount' => 'Bagyş edilen summa:', # Fuzzy
 	'donate_interface-other-amount' => 'Başga summa',
 	'donate_interface-currency' => 'Walýuta:',
 	'donate_interface-gateway' => 'Töleg usuly:',
 	'donate_interface-submit-button' => 'Bagyş et',
 	'donate_interface-comment-message' => 'Dünýa bilen paýlaşjak pikiriňiz barmy? Şu ýere 200 simwola çenli ýazyp bilersiňiz:',
 	'donate_interface-comment-label' => 'Teswir:',
-	'donate_interface-email-agreement' => 'Geljekde Wikimedia fondunyň täzelik hatlaryny ýa-da e-poçtalaryny almaga ylalaşýaryn',
+	'donate_interface-email-agreement' => 'Geljekde Wikimedia fondunyň täzelik hatlaryny ýa-da e-poçtalaryny almaga ylalaşýaryn', # Fuzzy
 	'donate_interface-comment-title' => 'Köpçülige açyk teswir',
 	'donate_interface-amount-error' => 'Haýyş edýäris, dogry summa ýazyň',
 	'donate_interface-processing-error' => 'Talabyňyz işlenilýärkä, säwlik döredi.
@@ -28476,7 +28478,7 @@ Hiç bir prosessor elýeterli däl.',
 	'php-response-declined' => 'Tranzaksiýaňyzy kabul edip bolmady.',
 	'donate_interface-thankyou' => 'Bagyşyňyz üçin sag boluň!',
 	'donate_interface-post-transaction' => 'Geleşik jikme-jiklikleri',
-	'donate_interface-donate-click' => 'Kredit kartyňyz howpsuz işleniler.',
+	'donate_interface-donate-click' => 'Kredit kartyňyz howpsuz işleniler.', # Fuzzy
 	'donate_interface-cc-form-header-personal' => 'Töleg maglumatlary',
 	'donate_interface-cc-form-header-payment' => 'Töleg maglumaty',
 	'donate_interface-make-your-donation' => 'Şu wagt bagyş ediň',
@@ -28485,7 +28487,7 @@ Hiç bir prosessor elýeterli däl.',
 	'donate_interface-first' => 'Ilkinji',
 	'donate_interface-last' => 'Soňky',
 	'donate_interface-other' => 'Başga',
-	'donate_interface-anon-message' => 'Adymy (teswirimiň ýanynda) umumy bagyşçy sanawynda görkeziň.',
+	'donate_interface-anon-message' => 'Adymy (teswirimiň ýanynda) umumy bagyşçy sanawynda görkeziň.', # Fuzzy
 );
 
 /** Tagalog (Tagalog)
@@ -29080,7 +29082,7 @@ Uygun işlemci bulunmuyor.',
 	'donate_interface-error-msg-captcha-please' => 'Kredi kartı güvenliğiniz için, lütfen yukarıda gördüğünüz karakterleri girin.',
 	'donate_interface-error-msg-cookies' => "Lütfen tarayıcınızın çerezlerini ''(tanımlama bilgilerini)'' etkinleştirin.",
 	'donate_interface-error-msg-genaricrequired' => 'Bu alan gereklidir',
-	'donate_interface-donate-error-try-a-different-card' => 'farklı bir kart deneyin',
+	'donate_interface-donate-error-try-a-different-card' => 'farklı bir kart deneyin', # Fuzzy
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Desteğiniz için teşekkür ederiz!',
 	'php-response-declined' => 'İşleminiz kabul edilmedi.',
 	'donate_interface-thankyou' => 'Bağışınız için teşekkürler!',
@@ -29273,6 +29275,13 @@ Güvenli, emniyetli ve güzel bir deneyim sağlamak için, bağış formumuzda J
 	'donate_interface-error-http-403' => 'Bu sayfaya erişim izniniz yoktur.',
 );
 
+/** Turoyo (Ṫuroyo)
+ * @author Ariyo
+ */
+$messages['tru'] = array(
+	'donate_interface-language' => 'Leşono',
+);
+
 /** Tatar (Cyrillic script) (татарча)
  * @author Jsoby
  * @author Ильнар
@@ -29281,14 +29290,14 @@ $messages['tt-cyrl'] = array(
 	'donate_interface' => 'Викимедиа Фондына ярдәм итик!',
 	'donate_interface-desc' => 'Иганәләр җыю һәм киңәйтелмәләр кертүче - шлюзлар җите',
 	'donate_interface-intro' => 'Зинһар, түләү ысулын, сумманы һәм акча берәмлеген сайлагыз.',
-	'donate_interface-amount' => 'Иганә күләме:',
+	'donate_interface-amount' => 'Иганә күләме:', # Fuzzy
 	'donate_interface-other-amount' => 'Башка күләм',
 	'donate_interface-currency' => 'Акча берәмлеге:',
 	'donate_interface-gateway' => 'Түләү ысулы:',
 	'donate_interface-submit-button' => 'Иганә',
 	'donate_interface-comment-message' => 'Нидер әйтергә телисезме? Сез монда 200 хәрефкә кадәр үзегезнең хатыгызны калдыра аласыз:',
 	'donate_interface-comment-label' => 'Искәрмә:',
-	'donate_interface-email-agreement' => 'Мин Викимедиа Фондыннан хәбәрләр алырга риза.',
+	'donate_interface-email-agreement' => 'Мин Викимедиа Фондыннан хәбәрләр алырга риза.', # Fuzzy
 	'donate_interface-comment-title' => 'Гомум җәмәгатчелеккә бирелгән искәрмә',
 	'donate_interface-amount-error' => 'Зинһар, билгеле бер акча күләмен кертегез',
 	'donate_interface-processing-error' => 'Сезнең соравыгызны эшкәрткән вакытта хаталар килеп чыкты. Билгеле бер эшкәрткечләр юк.',
@@ -29360,7 +29369,7 @@ $messages['tt-cyrl'] = array(
 	'donate_interface-middle' => 'Әтиегезнең исеме',
 	'donate_interface-last' => 'Фамилия',
 	'donate_interface-other' => 'Башкалар',
-	'donate_interface-anon-message' => 'Зинһар, минем исемне (искәрмә янында)  иганә итүчеләр исемлегендә күрсәтегез.',
+	'donate_interface-anon-message' => 'Зинһар, минем исемне (искәрмә янында)  иганә итүчеләр исемлегендә күрсәтегез.', # Fuzzy
 	'donate_interface-donate-wikipedia' => 'Википедия өчен иганә ясау',
 	'donate_interface-or' => 'яки',
 	'donate_interface-your-information' => 'Сезнең турында мәгълүмат',
@@ -29874,14 +29883,14 @@ $messages['vec'] = array(
 	'donate_interface' => 'Juta Wikimedia',
 	'donate_interface-desc' => 'Pagina de donassion che integra le estension gateway',
 	'donate_interface-intro' => "Par piaser, siegli el metodo par pagar, l'inporto e el to scheo.",
-	'donate_interface-amount' => 'Inporto de la donassion:',
+	'donate_interface-amount' => 'Inporto de la donassion:', # Fuzzy
 	'donate_interface-other-amount' => 'Altro inporto',
 	'donate_interface-currency' => 'Scheo:',
 	'donate_interface-gateway' => 'Come paghito:',
 	'donate_interface-submit-button' => 'Dona',
 	'donate_interface-comment-message' => 'Gheto un pensiero da condivìdar col mondo? Buta zò massimo 200 carateri qua drento:',
 	'donate_interface-comment-label' => 'Comento:',
-	'donate_interface-email-agreement' => 'Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.',
+	'donate_interface-email-agreement' => 'Voi che me riva par posta eletronica tute le future notissie de la Fondassion Wikimedia.', # Fuzzy
 	'donate_interface-comment-title' => 'Comento publico',
 	'donate_interface-amount-error' => 'Par piaser, inserissi un inporto valido',
 	'donate_interface-processing-error' => 'Ghe xe stà un problema processando la to richiesta.
@@ -29963,10 +29972,10 @@ De solito in tel spassio de la firma se cata na serie de nùmari, ma solo i ulti
 <p>El còdese te lo cati <i>sempre</i> de sora del nùmaro de carta (in rilievo), sul davanti de la carta.
 Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sora del nùmaro de carta.</p><br />",
 	'donate_interface-question-comment' => 'Domande o comenti? Scrìveghe a: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Le informassion su la to carta de credito le vegnarà elaborà in tuta sicuressa.',
+	'donate_interface-donate-click' => 'Le informassion su la to carta de credito le vegnarà elaborà in tuta sicuressa.', # Fuzzy
 	'donate_interface-otherways' => 'Ghe xe anca <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.',
 	'donate_interface-paypal' => 'Gheto un conto su PayPal? <a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">Dona co PayPal</a>.',
-	'donate_interface-credit-storage-processing' => 'Noantri no se salvémo mia i dati de la to carta de credito, e i to dati personali i xe sogeti a la nostra <a href="//wikimediafoundation.org/wiki/Donor_policy">polìtega de riservadessa</a>.',
+	'donate_interface-credit-storage-processing' => 'Noantri no se salvémo mia i dati de la to carta de credito, e i to dati personali i xe sogeti a la nostra <a href="//wikimediafoundation.org/wiki/Donor_policy">polìtega de riservadessa</a>.', # Fuzzy
 	'donate_interface-token-mismatch' => 'Xe scadùa la session. Riprova da novo.',
 	'donate_interface-cc-form-header-personal' => 'Informassion de faturassion',
 	'donate_interface-cc-form-header-payment' => 'Informassion de pagamento',
@@ -29979,7 +29988,7 @@ Qualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sor
 	'donate_interface-noscript-msg' => "Pararìa che te gavi mia el JavaScript intacà, o el to browser no'l lo suporta mia.
 Par motivi de sicuressa, par el modulo de donassion ghe vole pa forsa JavaScript.",
 	'donate_interface-noscript-redirect-msg' => 'Se no te poli o no te voli intacar el JavaScript, te poli istesso contribuir visitando:',
-	'donate_interface-anon-message' => 'Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori.',
+	'donate_interface-anon-message' => 'Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori.', # Fuzzy
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -30550,7 +30559,7 @@ $messages['vro'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Kirodaq järgmädseq kaitsõmärgiq.',
 	'donate_interface-error-msg-cookies' => 'Lupaq uman võrgokaejan lisaprogrammõ (cookies).',
 	'donate_interface-error-msg-genaricrequired' => 'Seo rida um kohustuslik',
-	'donate_interface-donate-error-try-a-different-card' => 'proomiq tõist kaarti',
+	'donate_interface-donate-error-try-a-different-card' => 'proomiq tõist kaarti', # Fuzzy
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Aiteh abi iist!',
 	'php-response-declined' => 'Su ülekannõt saa-ai vasta võttaq.',
 	'donate_interface-thankyou' => 'Aiteh tugõmisõ iist!',
@@ -30566,7 +30575,7 @@ Mõnikõrd om kuud kaardi kura poolõ pääl, a om kõgõ kontonumbri kotsil.
 </p><br />',
 	'donate_interface-question-comment' => 'Küsümiisi vai kommõntaarõ? Kirodaq: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Mi püvvä tetäq egäst riigist masmisõ võimaligult kerges. Olõq hää, annaq meile teedäq, kuis mi saanuq taad suq jaos lihtsämbäs tetäq. Saadaq umaq soovitusõq aadrõsi pääle: problemsdonating@wikimedia.org.',
-	'donate_interface-donate-click' => 'Su kreeditkaardi teedüst hoiõtas kimmähe.',
+	'donate_interface-donate-click' => 'Su kreeditkaardi teedüst hoiõtas kimmähe.', # Fuzzy
 	'donate_interface-otherways' => 'Niisama saa <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">massaq läbi PayPali, tsekiga vai e-kiräga</a>.',
 	'donate_interface-otherways-alt' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">Massaq saa ka tõisildõ</a>, muu hulgan tsekiga.',
 	'donate_interface-otherways-short' => 'Tõõsõq masmisvõimalusõq',
@@ -30696,7 +30705,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 	'donate_interface-bt-country_description' => 'Riigi seletüs',
 	'donate_interface-bt-payment_reference' => 'Massu tunnusnummõr',
 	'donate_interface-bt-swift_code' => 'SWIFT-kuud',
-	'donate_interface-bt-special_id' => 'Eräle ID',
+	'donate_interface-bt-special_id' => 'Eräle ID', # Fuzzy
 	'donate_interface-bt-information' => 'Pangaülekande teedüs',
 	'donate_interface-bt-finished' => 'Valmis!',
 	'donate_interface-obt-biller_id' => 'Kuud (Biller Code)',
@@ -30737,7 +30746,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 	'donate_interface-legal-donorpolicy' => 'Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst.',
 	'donate_interface-monthlybox-title' => 'Milles mitte tukõq egä kuu?',
 	'donate_interface-monthlybox-content' => 'Egäkuulidsõq tugõmisõq võetasõq arvõ päält egä kuu 2. pääväl. Naidõ tegemise saat ütskõik kunas ärq lõpõtaq.',
-	'donate_interface-monthlybox-amount' => 'Mastav summa',
+	'donate_interface-monthlybox-amount' => 'Mastav summa', # Fuzzy
 	'donate_interface-monthlybox-yes' => 'Las ollaq päälegi kõrd kuun',
 	'donate_interface-monthlybox-no' => 'EIQ! Õnnõ üts kõrd!',
 	'donate_interface-monthlybox-bottom' => 'Su kreeditkaardi teedüst hoiõtas kimmähe.',
@@ -31042,7 +31051,7 @@ $messages['yue'] = array(
 	'donate_interface' => '支持Wikimedia',
 	'donate_interface-desc' => '捐綫登陸版整合嘅閘道擴展',
 	'donate_interface-intro' => '請揀一種俾錢方法、金額同貨幣。',
-	'donate_interface-amount' => '捐款金額：',
+	'donate_interface-amount' => '捐款金額：', # Fuzzy
 	'donate_interface-other-amount' => '其它金額',
 	'donate_interface-currency' => '貨幣：',
 	'donate_interface-gateway' => '俾錢方法：',
@@ -31051,7 +31060,7 @@ $messages['yue'] = array(
 	'donate_interface-comment-label' => '註解：',
 	'donate_interface-email-agreement' => "我同意收未來嘅Wikimedia Foundation嘅新聞紙或者電郵。
 我哋唔會賣或交易你嘅資料。
-我哋嘅捐錢者嘅私隱政策可以響<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>呢度</a>搵到",
+我哋嘅捐錢者嘅私隱政策可以響<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>呢度</a>搵到", # Fuzzy
 	'donate_interface-comment-title' => '公共註解',
 	'donate_interface-amount-error' => '請輸入一個有效嘅金額',
 	'donate_interface-processing-error' => '處理你嘅請求嗰陣出錯。
@@ -31076,7 +31085,7 @@ $messages['yue'] = array(
 	'donate_interface-accessible' => '呢一版只可以由捐錢版存取。',
 	'donate_interface-card-legend' => '信用咭資料',
 	'donate_interface-amount-legend' => '捐款金額',
-	'donate_interface-cvv-link' => '例',
+	'donate_interface-cvv-link' => '例', # Fuzzy
 	'donate_interface-donor-legend' => '捐錢者資料',
 	'donate_interface-donor-amount' => '金額：',
 	'donate_interface-donor-currency-label' => '貨幣：',
@@ -31120,7 +31129,7 @@ $messages['yue'] = array(
 	'donate_interface-error-msg-card_num' => '信用咭冧吧',
 	'donate_interface-error-msg-expiration' => '咭到期日',
 	'donate_interface-error-msg-cvv' => '你咭後嘅CVV',
-	'php-response-declined' => '你嘅交易已經拒絕咗。',
+	'php-response-declined' => '你嘅交易已經拒絕咗。', # Fuzzy
 	'donate_interface-post-transaction' => '交易細節',
 	'donate_interface-cvv-explain' => '<h4>乜嘢係CVV？</h4>
 <p>Cardholder Verification Value (CVV) 呢三位或四位數字係用來幫手肯定實際嘅咭係響咭持有者嘅情況之下響線上捐綫，幫手防止未認證或者濫用。</p>
@@ -31130,10 +31139,10 @@ $messages['yue'] = array(
 <h4>美國運通</h4>
 <p>個碼會響前面印出嘅戶口冧吧嘅上面。
 響一啲嘅情況，個碼會響張咭嘅左手邊，但係都一定會響戶口冧吧嘅上面。</p><br />',
-	'donate_interface-question-comment' => '維基百科係Wikimedia Foundation嘅其中一個計劃。問或解？聯絡Wikimedia Foundation：<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => '當撳咗 "{{int:payflowpro_gateway-donor-submit}}" 之後，你嘅信用咭資料將會被處理。',
-	'donate_interface-credit-storage-processing' => '基於我哋嘅<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">私隱政策</a>，我哋唔會保存你嘅信用咭資料，同埋你嘅個人資料。',
-	'donate_interface-anon-message' => '請列示我個名（響我嘅註解隔離）響個公共捐錢者度。',
+	'donate_interface-question-comment' => '維基百科係Wikimedia Foundation嘅其中一個計劃。問或解？聯絡Wikimedia Foundation：<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>', # Fuzzy
+	'donate_interface-donate-click' => '當撳咗 "{{int:payflowpro_gateway-donor-submit}}" 之後，你嘅信用咭資料將會被處理。', # Fuzzy
+	'donate_interface-credit-storage-processing' => '基於我哋嘅<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">私隱政策</a>，我哋唔會保存你嘅信用咭資料，同埋你嘅個人資料。', # Fuzzy
+	'donate_interface-anon-message' => '請列示我個名（響我嘅註解隔離）響個公共捐錢者度。', # Fuzzy
 );
 
 /** Simplified Chinese (中文（简体）‎)
@@ -31948,4 +31957,3 @@ $messages['zh-tw'] = array(
 	'donate_interface-NZD' => 'NZD:紐元',
 	'donate_interface-SGD' => 'SGD:新加坡幣',
 );
-

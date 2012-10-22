@@ -14,7 +14,8 @@ $messages['en'] = array(
 	'amazon_gateway-desc' => 'Amazon payment processing',
 );
 
-/** Message documentation (Message documentation) */
+/** Message documentation (Message documentation)
+ */
 $messages['qqq'] = array(
 	'amazongateway' => '{{Identical|Support Wikimedia}}',
 	'amazon_gateway-desc' => '{{desc}}',
@@ -193,4 +194,3 @@ $messages['tl'] = array(
 $messages['ur'] = array(
 	'amazongateway' => 'اب آپ عطیہ کر',
 );
-

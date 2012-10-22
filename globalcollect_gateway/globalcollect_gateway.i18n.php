@@ -892,8 +892,8 @@ $messages['sw'] = array(
 	'globalcollectgateway' => 'Changia sasa',
 	'globalcollect_gateway-response-9130' => 'Jina batili la nchi.',
 	'globalcollect_gateway-response-9150' => 'Lugha batili.',
-	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.',
-	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.',
+	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.', # Fuzzy
+	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.', # Fuzzy
 	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
 Tafadhali jaribu tena baadaye.',
 );
@@ -990,8 +990,8 @@ $messages['zh-hans'] = array(
 	'globalcollectgateway' => '马上捐款',
 );
 
-/** Traditional Chinese (中文（繁體）‎) */
+/** Traditional Chinese (中文（繁體）‎)
+ */
 $messages['zh-hant'] = array(
 	'globalcollectgateway' => '馬上捐款',
 );
-
