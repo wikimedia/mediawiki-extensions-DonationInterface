@@ -470,6 +470,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 //							'CVV',
 //							'EXPIRYDATE',
 //							'CREDITCARDNUMBER',
+							'AUTHENTICATIONINDICATOR',
 							'FIRSTNAME',
 							'SURNAME',
 							'STREET',
@@ -484,6 +485,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
+				'AUTHENTICATIONINDICATOR' => 0, //default to no 3DSecure ourselves
 			),
 		);
 
@@ -1872,8 +1874,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			if ( in_array( $this->staged_data['currency_code'], $authenticationIndicatorCurrencies ) ) {
 
-				// Implement AUTHENTICATIONINDICATOR
-				$this->addKeyToTransaction('AUTHENTICATIONINDICATOR');
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
 			}
 		}
