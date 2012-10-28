@@ -16784,7 +16784,7 @@ Kad būtų užtikrinta saugi, apsaugota ir maloni aplinka, mūsų aukojimo forma
 	'donate_interface-error-http-403' => 'Atleiskite, Jūs neturite leidimo patekti į šį puslapį.',
 );
 
-/** Lushai (Mizo ţawng)
+/** Mizo (Mizo ţawng)
  * @author RMizo
  */
 $messages['lus'] = array(
@@ -19573,9 +19573,6 @@ $messages['ne'] = array(
 	'donate_interface-comment-label' => 'टिप्पणी:',
 	'donate_interface-email-agreement' => 'विकिमीडिया फाउण्डेसनबाट सामयिक इमेल अद्यतन प्राप्त गर्न सहमत छु।',
 	'donate_interface-comment-title' => 'सार्वजनिक टिप्पणी',
-	'donate_interface-big-amount-display' => '$100',
-	'donate_interface-medium-amount-display' => '$75',
-	'donate_interface-small-amount-display' => '$30',
 	'donate_interface-amount-error' => 'कृपया एउटा वैध राशि दिनु्होस्',
 	'donate_interface-smallamount-error' => 'तपाईंले कमसेकम $1 दान गर्नुपर्छ',
 	'donate_interface-processing-error' => 'तपाईंको अनुरोधको प्रक्रिया पूरा गर्न लाग्दा एउटा त्रुटि भएकोछ।
