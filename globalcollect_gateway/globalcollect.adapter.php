@@ -597,7 +597,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
 			'types'	=> array( 'bt', ),
-			'validation' => array( 'creditCard' => false, )
+			'validation' => array( 'creditCard' => false, ),
+			'short_circuit_at' => 'first_iop',
 		);
 		
 		// Credit Cards
@@ -624,7 +625,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_methods['obt'] = array(
 			'label'	=> 'Online bank transfer',
 			'types'	=> array( 'bpay', ),
-			'validation' => array( 'creditCard' => false, )
+			'validation' => array( 'creditCard' => false, ),
+			'short_circuit_at' => 'first_iop',
 		);
 		
 		// Real Time Bank Transfers
@@ -1383,6 +1385,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
+				//if we're of a type that sends donors off never to return, we should record that here. 
+				$payment_info = $this->getPaymentMethodMeta( $this->getPaymentMethod() );
+				if ( array_key_exists( 'short_circuit_at', $payment_info ) && $payment_info['short_circuit_at'] === 'first_iop' ){
+					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
+				}
 				break;
 			case 'DO_BANKVALIDATION':
 				$data = $this->xmlChildrenToArray( $response, 'RESPONSE' );

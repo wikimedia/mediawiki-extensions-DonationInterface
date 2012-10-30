@@ -82,7 +82,7 @@ EOT;
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				$payment_method = $this->adapter->getPaymentMethod();
-				$payment_submethod = $this->adapter->getPaymentSubmethod();
+				//$payment_submethod = $this->adapter->getPaymentSubmethod();
 
 				// Check form for errors
 				$form_errors = $this->validateForm( $this->adapter->getPaymentSubmethodFormValidation() );
@@ -93,66 +93,50 @@ EOT;
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data
 					// Execute the proper transaction code:
+					
+					switch ( $payment_method ){
+						case 'cc': 
+							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
-					if ( $payment_method == 'cc' ) {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+							// Display an iframe for credit cards
+							if ( $this->executeIframeForCreditCard() ) {
+								$this->displayResultsForDebug();
+								// Nothing left to process
+								return;
+							}
+							break;
+							
+						case 'bt':
+						case 'obt':
+							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
-						// Display an iframe for credit cards
-						if ( $this->executeIframeForCreditCard() ) {
-							$this->displayResultsForDebug();
-							// Nothing left to process
-							return;
-						}
-					} elseif ( $payment_method == 'bt' ) {
+							if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+								return $this->displayEndTransactionInfo( $payment_method );
+							}
+							break;
+							
+						case 'dd':
+							$result = $this->adapter->do_transaction('Direct_Debit');
+							if (!$result['status']) {
+								// Attach the error messages to the form
+								$this->adapter->setBankValidationErrors();
+							}
+							break;
+							
+						case 'ew':
+						case 'rtbt':
+						case 'cash':
+							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+							$formAction = $this->adapter->getTransactionDataFormAction();
 
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-							return $this->displayBankTransferInformation();
-						}
-					} elseif ( $payment_method == 'dd' ) {
-
-						$result = $this->adapter->do_transaction('Direct_Debit');
-						if (!$result['status']) {
-							// Attach the error messages to the form
-							$this->adapter->setBankValidationErrors();
-						}
-					} elseif ( $payment_method == 'ew' ) {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						$formAction = $this->adapter->getTransactionDataFormAction();
-
-						// Redirect to the bank
-						if ( !empty( $formAction ) ) {
-							return $out->redirect( $formAction );
-						}
-					} elseif ( $payment_method == 'obt' ) {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-
-							return $this->displayOnlineBankTransferInformation();
-						}
-					} elseif ( $payment_method == 'rtbt' ) {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						$formAction = $this->adapter->getTransactionDataFormAction();
-
-						// Redirect to the bank
-						if ( !empty( $formAction ) ) {
-							return $out->redirect( $formAction );
-						}
-					} elseif ( $payment_method == 'cash' ) {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-						$formAction = $this->adapter->getTransactionDataFormAction();
-
-						// Redirect to the bank
-						if ( !empty( $formAction ) ) {
-							return $out->redirect( $formAction );
-						}
-					} else {
-						$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+							// Redirect to the bank
+							if ( !empty( $formAction ) ) {
+								return $out->redirect( $formAction );
+							}
+							break;
+						
+						default: 
+							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					}
 
 					return $this->resultHandler();
@@ -215,12 +199,23 @@ EOT;
 
 		return false;
 	}
+	
+	protected function displayEndTransactionInfo( $payment_method ){
+		switch ( $payment_method ){
+			case 'bt':
+				return $this->displayBankTransferInformation();
+				break;
+			case 'obt':
+				return $this->displayOnlineBankTransferInformation();
+				break;
+		}
+	}
 
 	/**
 	 * Display information for bank transfer
 	 */
 	protected function displayBankTransferInformation() {
-		$data = $this->getTransactionData();
+		$data = $this->adapter->getTransactionData();
 
 		$return = '';
 		$fields = array(
@@ -274,7 +269,7 @@ EOT;
 	protected function displayOnlineBankTransferInformation() {
 		global $wgScriptPath;
 		
-		$data = $this->getTransactionData();
+		$data = $this->adapter->getTransactionData();
 
 		$return = '';
 		$fields = array(
