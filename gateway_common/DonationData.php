@@ -540,14 +540,13 @@ class DonationData {
 			$currency = $this->getVal( 'currency_code' );
 		}
 		
-		if ( $currency ){
-			$this->setVal( 'currency_code', $currency );
-		} else {
+		//TODO: This is going to fail miserably if there's no country yet.
+		if ( !$currency ){
 			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
-			$country_default_currency = getNationalCurrency($this->getVal('country'));
-
-			$this->setVal('currency_code', $country_default_currency);
+			$currency = getNationalCurrency($this->getVal('country'));
 		}
+		
+		$this->setVal( 'currency_code', $currency );
 	}
 	
 	/**

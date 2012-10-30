@@ -994,8 +994,23 @@ abstract class Gateway_Form {
 		// make sure no other data that might overwrite posted data makes it into the URL
 		
 		$all_form_data = $this->gateway->getData_Unstaged_Escaped();
-		foreach ( $all_form_data as $key => $value ) {
-			unset( $query_array[$key] );
+		$keys_we_need_for_form_loading = array(
+			'form_name',
+			'ffname',
+			'country',
+			'currency',
+			'uselang'
+		);
+		$form_data_keys = array_keys( $all_form_data );
+		
+		foreach ( $query_array as $key => $value ){
+			if ( in_array( $key, $form_data_keys ) ){
+				if ( !in_array( $key, $keys_we_need_for_form_loading ) ){
+					unset( $query_array[$key] );
+				} else {
+					$query_array[$key] = $all_form_data[$key];
+				}
+			}
 		}
 
 		// construct the submission url
