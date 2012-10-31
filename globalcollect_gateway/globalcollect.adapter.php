@@ -1161,6 +1161,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//we filtered
 		if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
 			$cancelflag = true;
+			$add_antimessage = true; //don't retry: We've fraud-failed them intentionally.
 		} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
 		//can't communicate or internal error
 			$problemflag = true;
