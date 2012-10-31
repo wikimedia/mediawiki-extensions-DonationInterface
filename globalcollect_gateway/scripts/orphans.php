@@ -344,12 +344,12 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$rectified = true;
 		} else {
 			$this->adapter->log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
-			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) ){
+			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
 			
 			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
-			if ( strpos( $results['message'], "No processors are available." ) ){
+			if ( strpos( $results['message'], "No processors are available." ) === 0 ){
 				$rectified = true;
 			}
 		}

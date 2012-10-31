@@ -1270,7 +1270,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
 				'status' => false,
-				//TODO: appropriate messages. 
+				//DO NOT PREPEND $problemmessage WITH ANYTHING! 
+				//orphans.php is looking for specific things in position 0.
 				'message' => $problemmessage,
 				'errors' => array(
 					'1000000' => 'Transaction could not be processed due to an internal error.'
