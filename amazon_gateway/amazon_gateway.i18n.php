@@ -194,3 +194,11 @@ $messages['tl'] = array(
 $messages['ur'] = array(
 	'amazongateway' => 'اب آپ عطیہ کر',
 );
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'amazongateway' => 'Quyên góp ngay bây giờ',
+	'amazon_gateway-desc' => 'Xử lý thanh toán qua Amazon',
+);
