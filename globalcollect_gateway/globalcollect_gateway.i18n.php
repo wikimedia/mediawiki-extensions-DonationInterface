@@ -964,10 +964,12 @@ $messages['ur'] = array(
 );
 
 /** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
  * @author Trần Nguyễn Minh Huy
  */
 $messages['vi'] = array(
 	'globalcollectgateway' => 'Quyên góp ngay bây giờ',
+	'globalcollect_gateway-desc' => 'Xử lý thanh toán qua GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Quốc gia này không hợp lệ.',
 	'globalcollect_gateway-response-9140' => 'Loại tiền tệ không hợp lệ.',
 	'globalcollect_gateway-response-9150' => 'Ngôn ngữ không hợp lệ.',
@@ -979,6 +981,7 @@ $messages['vi'] = array(
 	'globalcollect_gateway-response-430285' => 'Giao dịch này không cho phép. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
 	'globalcollect_gateway-response-21000150' => 'Số tài khoản ngân hàng không hợp lệ.',
 	'globalcollect_gateway-response-21000155' => 'Mã ngân hàng không hợp lệ.',
+	'globalcollect_gateway-response-21000160' => 'Số tài khoản giro không hợp lệ.',
 	'globalcollect_gateway-response-default' => 'Đã xảy ra lỗi khi xử lý giao dịch của bạn.
 Xin hãy thử lại sau.',
 );
