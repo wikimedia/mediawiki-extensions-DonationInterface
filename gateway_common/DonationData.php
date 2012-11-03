@@ -136,6 +136,7 @@ class DonationData {
 				'form_name' => $wgRequest->getText( 'form_name', null ),
 				'ffname' => $wgRequest->getText( 'ffname', null ),
 				'recurring' => $wgRequest->getVal( 'recurring', null ), //boolean type
+				'recurring_paypal' => $wgRequest->getVal( 'recurring_paypal', null ), //boolean type, legacy key
 				'user_ip' => null, //placeholder. We'll make these in a minute.
 				'server_ip' => null,
 			);
@@ -391,6 +392,7 @@ class DonationData {
 			$this->setUtmSource();
 			$this->setNormalizedOrderIDs();
 			$this->setNormalizedAmount();
+			$this->setNormalizedRecurring();
 			$this->setGateway();
 			$this->setLanguage();
 			$this->setCountry(); //must do this AFTER setIPAddress...
@@ -636,6 +638,23 @@ class DonationData {
 		$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
+	}
+
+	/**
+	 * normalize helper function.
+	 * Takes all possible names for recurring and normalizes them into the 'recurring' field.
+	 */
+	protected function setNormalizedRecurring() {
+		if( $this->isSomething( 'recurring_paypal' ) && $this->getVal( 'recurring_paypal' ) == '1' ){
+			$this->setVal( 'recurring', true );
+			$this->expunge('recurring_paypal');
+		}
+		if( $this->isSomething( 'recurring' ) && $this->getVal( 'recurring' ) == '1'){
+			$this->setVal( 'recurring', true );
+		}
+		else{
+			$this->setVal( 'recurring', false );
+		}
 	}
 
 	/**

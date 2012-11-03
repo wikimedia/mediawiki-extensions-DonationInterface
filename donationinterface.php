@@ -44,6 +44,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'GlobalCollect' => false,
 	'Amazon' => false,
 	'Adyen' => false,
+	'Paypal' => false,
 	'FormChooser' => false,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
@@ -128,6 +129,12 @@ if ( $optionalParts['Adyen'] === true ){
 	$wgAutoloadClasses['AdyenAdapter'] = $donationinterface_dir . 'adyen_gateway/adyen.adapter.php';
 }
 
+if ( $optionalParts['Paypal'] === true ){
+	$wgAutoloadClasses['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.body.php';
+	$wgAutoloadClasses['PaypalGatewayResult'] = $donationinterface_dir . 'paypal_gateway/paypal_resultswitcher.body.php';
+	$wgAutoloadClasses['PaypalAdapter'] = $donationinterface_dir . 'paypal_gateway/paypal.adapter.php';
+}
+
 
 //Stomp classes
 if ($optionalParts['Stomp'] === true){
@@ -201,13 +208,6 @@ if ( $optionalParts['SystemStatus'] === true ){
  */
 $wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/rapidhtml/html";
 $wgDonationInterfaceTest = false;
-
-/**
- * The URL to redirect a transaction to PayPal
- * This should probably point to ContributionTracking.
- */
-$wgDonationInterfacePaypalURL = '';
-$wgDonationInterfaceRetrySeconds = 5;
 
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
@@ -422,6 +422,21 @@ if ( $optionalParts['Amazon'] === true ){
 	// does NOT accept unroutable development names, use the number instead
 	// even if it's 127.0.0.1
 	$wgAmazonGatewayReturnURL = "";
+}
+
+if ( $optionalParts['Paypal'] === true ){
+	$wgDonationInterfaceEnabledGateways[] = 'paypal';
+
+	$wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
+	$wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+	$wgPaypalGatewayReturnURL = ''; //'http://127.0.0.1/index.php/Special:PaypalGatewayResult';
+	$wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
+
+	$wgPaypalGatewayPriceFloor = 1.00;
+
+#	$wgPaypalGatewayAccountInfo['example'] = array(
+#		'AccountEmail' => "",
+#	);
 }
 
 if ( $optionalParts['Adyen'] === true ){
@@ -749,7 +764,11 @@ if ( $optionalParts['Adyen'] === true ){
 	$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
 	$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
 }
-
+//PayPal
+if ( $optionalParts['Paypal'] === true ){
+	$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
+	$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
+}
 
 /**
  * HOOKS
