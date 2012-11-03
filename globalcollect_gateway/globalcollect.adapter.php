@@ -340,13 +340,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 0, 70 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 100, 180 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 200 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending-poke', 200 ); //The cardholder was successfully authenticated... but we have to DO_FINISHPAYMENT
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 220, 280 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 300 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 310, 350 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'revised', 400 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending-poke', 525 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 550, 650 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending-poke', 525 ); //"The payment was challenged by your Fraud Ruleset and is pending" - we never see this.
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 550 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending-poke', 600 ); //Payments sit here until we SET_PAYMENT
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'pending', 625, 650 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 1000, 1050 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 1100, 99999 );
@@ -580,6 +582,30 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'SET_PAYMENT',
 				'VERSION' => '1.0'
+			),
+		);
+		
+		$this->transactions['DO_FINISHPAYMENT'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'ORDERID',
+							'EFFORTID',
+							'ATTEMPTID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_FINISHPAYMENT',
+				'VERSION' => '1.0',
 			),
 		);
 	}
@@ -1129,82 +1155,122 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
 		
-		$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
-		
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
+		$original_status_code = NULL;
+		
+		$loopcount = $this->getGlobal('RetryLoopCount');
+		$loops = 0;
+		
+		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 
-		if ( $is_orphan ){
-			if ( array_key_exists('data', $status_result) ) {
-				foreach ( $pull_vars as $theirkey => $ourkey) {
-					if ( array_key_exists($theirkey, $status_result['data']) ) {
-						$addme[$ourkey] = $status_result['data'][$theirkey];
+			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
+
+			if ( $is_orphan ){
+				if ( array_key_exists('data', $status_result) ) {
+					foreach ( $pull_vars as $theirkey => $ourkey) {
+						if ( array_key_exists($theirkey, $status_result['data']) ) {
+							$addme[$ourkey] = $status_result['data'][$theirkey];
+						}
 					}
 				}
+				$gotCVV = false;
+				if ( count( $addme ) ){
+					$gotCVV = true;
+					$this->addData( $addme );
+					$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
+					$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
+					$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+					$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
+					self::log( $logmsg );
+					if ( $loops === 0 ){ //only want to do this once - it's not going to change.
+						$this->runPreProcessHooks();
+					}
+					$status_result['action'] = $this->getValidationAction();
+				} 
 			}
-			$gotCVV = false;
-			if ( count( $addme ) ){
-				$gotCVV = true;
-				$this->addData( $addme );
-				$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
-				$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
-				$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-				$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-				self::log( $logmsg );
-				$this->runPreProcessHooks();
-				$status_result['action'] = $this->getValidationAction();
-			} 
-		}
-		
-		//we filtered
-		if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
-			$cancelflag = true;
-			$add_antimessage = true; //don't retry: We've fraud-failed them intentionally.
-		} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
-		//can't communicate or internal error
-			$problemflag = true;
-		}
-		
-		$order_status_results = false;
-		if ( !$cancelflag && !$problemflag ) {
-//			$order_status_results = $this->getTransactionWMFStatus();
-			$txn_data = $this->getTransactionData();
-			$original_status_code = NULL;
-			if (isset($txn_data['STATUSID'])){
-				$original_status_code = $txn_data['STATUSID'];
-				$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $txn_data['STATUSID'] );
-			}
-			if ( $is_orphan && !is_null( $original_status_code ) ){
-				//save stats. 
-				if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
-					$this->orphanstats[$original_status_code] = 1;
-				} else {
-					$this->orphanstats[$original_status_code] += 1;
-				}				
-			}
-			if (!$order_status_results){
+
+			//we filtered
+			if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
+				$cancelflag = true;
+				$add_antimessage = true; //don't retry: We've fraud-failed them intentionally.
+			} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
+			//can't communicate or internal error
 				$problemflag = true;
-				$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
 			}
-			switch ( $order_status_results ){
-				case 'failed' : 			
-				case 'revised' :  
-					$add_antimessage = true;
-					$cancelflag = true; //makes sure we don't try to confirm.
-					break;
-				case 'complete' :
-					$problemflag = true; //nothing to be done.
-					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
-					$add_antimessage = true;
-					break;
-				case 'pending' :
-					if ( $is_orphan && !$gotCVV ){
-						$problemflag = true; 
-						$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
-					} 
-			}	
+
+			$order_status_results = false;
+			if ( !$cancelflag && !$problemflag ) {
+	//			$order_status_results = $this->getTransactionWMFStatus();
+				$txn_data = $this->getTransactionData();
+				if (isset($txn_data['STATUSID'])){
+					if( is_null( $original_status_code ) ){
+						$original_status_code = $txn_data['STATUSID'];
+					}
+					$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $txn_data['STATUSID'] );
+				}
+				if ( $loops === 0 && $is_orphan && !is_null( $original_status_code ) ){
+					//save stats. 
+					if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
+						$this->orphanstats[$original_status_code] = 1;
+					} else {
+						$this->orphanstats[$original_status_code] += 1;
+					}				
+				}
+				if (!$order_status_results){
+					$problemflag = true;
+					$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
+				}
+				switch ( $order_status_results ){
+					case 'failed' : 			
+					case 'revised' :  
+						$add_antimessage = true;
+						$cancelflag = true; //makes sure we don't try to confirm.
+						break 2;
+					case 'complete' :
+						$problemflag = true; //nothing to be done.
+						$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
+						$add_antimessage = true;
+						break 2;
+					case 'pending-poke' :
+						if ( $is_orphan && !$gotCVV ){
+							$problemflag = true; 
+							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
+						}
+						
+						//none of this should ever execute for a transaction that doesn't use 3d secure...
+						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount-1 ) ){
+							self::log( $this->getLogMessagePrefix() . 'Running DO_FINISHPAYMENT ($loops)' );
+							
+							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
+							//Check the txn status and result code to see if we should bother continuing
+							if ( $this->getTransactionStatus() ){
+								self::log( $this->getLogMessagePrefix() . 'DO_FINISHPAYMENT ($loops) returned with status ID ' . $dopayment_result['STATUSID'] );
+								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_result['STATUSID'] ) === 'failed' ){
+									//ack and die. 
+									$problemflag = true; //nothing to be done.
+									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
+									$add_antimessage = true;
+									$this->setTransactionWMFStatus('failed');
+								}
+							} else {
+								self::log( $this->getLogMessagePrefix() . 'DO_FINISHPAYMENT ($loops) returned NOK' );
+							}
+							break;
+						}
+						
+						if ( $txn_data['STATUSID'] !== '200' ) {
+							break 2; //no need to loop.
+						}
+						
+					case 'pending' :
+						//if it's really pending at this point, we need to... 
+						//...leave it alone. If we're orphan slaying, this will stay in the queue. 
+						break 2;
+				}
+			}
 		}
 		
 		//if we got here with no problemflag, 
@@ -1409,6 +1475,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'GET_ORDERSTATUS':
 				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
+				break;
+			case 'DO_FINISHPAYMENT':
+				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				break;
 		}
 

@@ -272,6 +272,11 @@ $wgDonationInterfacePriceCeiling = '10000.00';
 $wgDonationInterfaceThankYouPage = 'Donate-thanks';
 $wgDonationInterfaceFailPage = 'Donate-error'; 
 
+/**
+ * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times. 
+ */
+$wgDonationInterfaceRetryLoopCount = 3;
+
 //GlobalCollect gateway globals
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgDonationInterfaceEnabledGateways[] = 'globalcollect';
