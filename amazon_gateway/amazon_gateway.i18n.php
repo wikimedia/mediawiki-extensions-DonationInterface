@@ -132,6 +132,14 @@ $messages['ja'] = array(
 	'amazon_gateway-desc' => 'Amazon での支払い処理',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'amazongateway' => '지금 기부해주세요',
+	'amazon_gateway-desc' => '아마존 결제 처리',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
