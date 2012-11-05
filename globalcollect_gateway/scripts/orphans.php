@@ -348,6 +348,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$rectified = true;
 			}
 			
+			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too. 
+			if ( array_key_exists('errors', $results) && array_key_exists('1000001', $results['errors']) ){
+				$rectified = true;
+			}
+			
 			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
 			if ( strpos( $results['message'], "No processors are available." ) === 0 ){
 				$rectified = true;
