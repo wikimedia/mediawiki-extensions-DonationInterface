@@ -344,6 +344,9 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-state-dropdown-YY'   => 'Select a state',
 	'donate_interface-state-dropdown-XX' => 'Outside the U.S.',
 
+	// Other
+	'donate_interface-cc-MX-instructions' => 'For security, some Mexican banks block online transactions. If your donation is not successful, we suggest you call your bank to authorize the online donation and try again.',
+
 	// Bank transfer (bt)
 	'donate_interface-bt-account_holder' => 'Account holder',
 	'donate_interface-bt-bank_account_number' => 'Bank account number',
@@ -797,6 +800,7 @@ There is no limit to the length of the message.",
 	'donate_interface-optional' => 'used to mark a field that is not required to be filled out',
 	'donate_interface-state-dropdown-YY' => "Label for the dropdown of US states. Only US states are shown, so don't translate this to your equivalent subdivision level.",
 	'donate_interface-state-dropdown-XX' => 'Option in the US state dropdown if you are not in the US.',
+	'donate_interface-cc-MX-instructions' => 'Instructions for donors in MX to contact their banks if their donation is declined.',
 	'donate_interface-bt-account_holder' => 'Bank transfer: Account holder',
 	'donate_interface-bt-bank_account_number' => 'Bank transfer: Bank account number',
 	'donate_interface-bt-country_description' => 'Bank transfer: Country description',
