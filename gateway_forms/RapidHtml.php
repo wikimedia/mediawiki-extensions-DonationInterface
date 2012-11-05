@@ -200,6 +200,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			} else {
 				$replace = '';
 			}
+			if ( $key === 'email' && $replace === 'nobody@wikimedia.org' ) {
+				$replace = '';
+			}
 			$form = str_replace( $token, $replace, $form );
 		}
 
