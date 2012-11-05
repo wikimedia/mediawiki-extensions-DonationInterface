@@ -1242,12 +1242,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
 						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount-1 ) ){
-							self::log( $this->getLogMessagePrefix() . 'Running DO_FINISHPAYMENT ($loops)' );
+							self::log( $this->getLogMessagePrefix() . "Running DO_FINISHPAYMENT ($loops)" );
 							
 							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
 							//Check the txn status and result code to see if we should bother continuing
 							if ( $this->getTransactionStatus() ){
-								self::log( $this->getLogMessagePrefix() . 'DO_FINISHPAYMENT ($loops) returned with status ID ' . $dopayment_result['STATUSID'] );
+								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_result['STATUSID'] );
 								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_result['STATUSID'] ) === 'failed' ){
 									//ack and die. 
 									$problemflag = true; //nothing to be done.
@@ -1256,7 +1256,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 									$this->setTransactionWMFStatus('failed');
 								}
 							} else {
-								self::log( $this->getLogMessagePrefix() . 'DO_FINISHPAYMENT ($loops) returned NOK' );
+								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned NOK" );
 							}
 							break;
 						}
@@ -1328,10 +1328,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//As it happens, we can't remove things from the queue here: It 
 			//takes way too dang long. (~5 seconds!)
 			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 
+			self::log( $this->getLogMessagePrefix() . "Adding Antimessage" );
 			$this->doLimboStompTransaction( true );
 		}
 		
-		if ( $problemflag ){
+		if ( $problemflag || $cancelflag ){
+			if ( $cancelflag ){ //cancel wins
+				$problemmessage = "Cancelling payment";
+				$errors = array( '1000001' => $problemmessage );
+			} else {
+				$errors = array( '1000000' => 'Transaction could not be processed due to an internal error.' );
+			}
+			
 			//we have probably had a communication problem that could mean stranded payments. 
 			self::log( $this->getLogMessagePrefix() . $problemmessage );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
@@ -1340,9 +1348,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				//DO NOT PREPEND $problemmessage WITH ANYTHING! 
 				//orphans.php is looking for specific things in position 0.
 				'message' => $problemmessage,
-				'errors' => array(
-					'1000000' => 'Transaction could not be processed due to an internal error.'
-				),
+				'errors' => $errors,
 				'action' => $this->getValidationAction(),
 			);
 			return $ret;
