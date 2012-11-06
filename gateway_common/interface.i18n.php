@@ -5901,6 +5901,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-optional' => 'optional',
 	'donate_interface-state-dropdown-YY' => 'Wählen Sie einen Staat',
 	'donate_interface-state-dropdown-XX' => 'Außerhalb der Vereinigten Staaten',
+	'donate_interface-cc-MX-instructions' => 'Aus Sicherheitsgründen blockieren einige mexikanische Banken Online-Transaktionen. Falls Ihre Spende erfolglos war, empfehlen wir Ihnen, Ihre Bank zu kontaktieren, um die Onlinespende zu autorisieren und es erneut zu versuchen.',
 	'donate_interface-bt-account_holder' => 'Kontoinhaber',
 	'donate_interface-bt-bank_account_number' => 'Kontonummer',
 	'donate_interface-bt-country_description' => 'Beschreibung des Staats',
@@ -7274,6 +7275,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Mor
  * @author Od1n
  * @author Paconcio
+ * @author Pgehres (WMF)
  * @author PoLuX124
  * @author Ppena
  * @author Translationista
@@ -7596,6 +7598,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-optional' => 'opcional',
 	'donate_interface-state-dropdown-YY' => 'Seleccione un Estado',
 	'donate_interface-state-dropdown-XX' => 'Fuera de los Estados Unidos.',
+	'donate_interface-cc-MX-instructions' => 'Algunos bancos de México, por seguridad, bloquean las tarjetas para cargos en internet. Si su donación es rechazada, sugerimos llamar a tu banco para que libere la autorización y intente nuevamente.',
 	'donate_interface-bt-account_holder' => 'Titular de la cuenta',
 	'donate_interface-bt-bank_account_number' => 'Número de cuenta bancaria',
 	'donate_interface-bt-country_description' => 'Descripción del país',
@@ -9289,6 +9292,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-optional' => 'facultatif',
 	'donate_interface-state-dropdown-YY' => 'Sélectionnez un État / une province',
 	'donate_interface-state-dropdown-XX' => 'Hors des États-Unis',
+	'donate_interface-cc-MX-instructions' => "Par sécurité, certaines banques mexicaines bloquent les transactions en ligne. Si votre donation a échoué, nous vous suggérons d'appeler votre banque pour autoriser la donation en ligne, puis réessayer.",
 	'donate_interface-bt-account_holder' => 'Titulaire du compte',
 	'donate_interface-bt-bank_account_number' => 'Numéro de compte bancaire',
 	'donate_interface-bt-country_description' => 'Description du pays',
@@ -10099,6 +10103,7 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'donate_interface-optional' => 'opcional',
 	'donate_interface-state-dropdown-YY' => 'Selecciona un estado',
 	'donate_interface-state-dropdown-XX' => 'Fóra dos EUA',
+	'donate_interface-cc-MX-instructions' => 'Como medida de seguridade, algúns bancos mexicanos bloquean as transaccións en liña. Se non completas a doazón, suxerimos que chames ao banco e autorices a doazón en liña. Logo, inténtao de novo.',
 	'donate_interface-bt-account_holder' => 'Titular da conta',
 	'donate_interface-bt-bank_account_number' => 'Número de conta bancaria',
 	'donate_interface-bt-country_description' => 'Descrición do país',
@@ -10885,6 +10890,7 @@ $messages['he'] = array(
 	'donate_interface-optional' => 'אופציונלי',
 	'donate_interface-state-dropdown-YY' => 'מדינה בארצות הברית',
 	'donate_interface-state-dropdown-XX' => 'מחוץ לארצות הברית',
+	'donate_interface-cc-MX-instructions' => 'לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקרות מקוונות. אם התרומה שלך אינה מלחיה, נ ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.',
 	'donate_interface-bt-account_holder' => 'בעל החשבון',
 	'donate_interface-bt-bank_account_number' => 'מספר חשבון הבנק',
 	'donate_interface-bt-country_description' => 'תיאור הארץ',
@@ -13577,6 +13583,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
 	'donate_interface-optional' => 'opzionale',
 	'donate_interface-state-dropdown-YY' => 'Seleziona uno Stato',
 	'donate_interface-state-dropdown-XX' => 'Fuori degli USA',
+	'donate_interface-cc-MX-instructions' => 'Per ragioni di sicurezza, alcune banche messicani bloccano le transazioni online. Se la tua donazione non è andata a buon fine, consigliamo di chiamare la vostra banca per autorizzare la donazione online e riprovare.',
 	'donate_interface-bt-account_holder' => 'Titolare del conto',
 	'donate_interface-bt-bank_account_number' => 'Numero del conto bancario',
 	'donate_interface-bt-country_description' => 'Descrizione del paese',
@@ -13964,6 +13971,7 @@ $messages['ja'] = array(
 	'donate_interface-optional' => '省略可能',
 	'donate_interface-state-dropdown-YY' => '州を選択',
 	'donate_interface-state-dropdown-XX' => 'アメリカ合衆国以外',
+	'donate_interface-cc-MX-instructions' => 'セキュリティ上の理由から、メキシコの銀行はオンライン送金を拒否します。寄付に失敗した場合は、ご利用中の銀行に電話をかけてオンライン寄付の認証を受けてからもう一度試すことをお勧めします。',
 	'donate_interface-bt-account_holder' => '口座名義人',
 	'donate_interface-bt-bank_account_number' => '口座番号',
 	'donate_interface-bt-country_description' => '国の説明',
@@ -17788,6 +17796,7 @@ $messages['mk'] = array(
 	'donate_interface-optional' => 'незадолжително',
 	'donate_interface-state-dropdown-YY' => 'Одберете сој. држава',
 	'donate_interface-state-dropdown-XX' => 'Надвор од САД',
+	'donate_interface-cc-MX-instructions' => 'Од безбедносни причини, некои мексикански банки ги запираат електронските префрлања. Доколку уплатата ви е неуспешна, ви препорачуваме да се јавите кај вашата банка за да ви ја овласти уплатата и да се обидете повторно.',
 	'donate_interface-bt-account_holder' => 'Имател на сметката',
 	'donate_interface-bt-bank_account_number' => 'Број на банкарската сметка',
 	'donate_interface-bt-country_description' => 'Опис на земјата',
