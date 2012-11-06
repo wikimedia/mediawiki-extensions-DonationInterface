@@ -171,7 +171,9 @@ table#payflow-table-donor{
 }
 
 /* Form Inputs */
-
+input.thirdwidth {
+    width: 85px;
+}
 input.halfwidth {
 	width: 137px;
 }
@@ -181,6 +183,10 @@ input.fullwidth {
 
 input.leftmar {
 	margin-left: 4px;
+}
+
+input.rightmar {
+    margin-right: 4px;
 }
 
 input#city.halfwidth.state {
