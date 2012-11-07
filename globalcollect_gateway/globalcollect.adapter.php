@@ -802,7 +802,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: AT
 		$this->payment_submethods['dd_at'] = array(
-			'paymentproductid'	=> 713,
+			'paymentproductid'	=> 703,
 			'label'	=> 'Direct debit: AT',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -811,7 +811,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: BE
 		$this->payment_submethods['dd_be'] = array(
-			'paymentproductid'	=> 716,
+			'paymentproductid'	=> 706,
 			'label'	=> 'Direct debit: BE',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -821,7 +821,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: CH
 		$this->payment_submethods['dd_ch'] = array(
-			'paymentproductid'	=> 717,
+			'paymentproductid'	=> 707,
 			'label'	=> 'Direct debit: CH',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -830,7 +830,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: DE
 		$this->payment_submethods['dd_de'] = array(
-			'paymentproductid'	=> 712,
+			'paymentproductid'	=> 702,
 			'label'	=> 'Direct debit: DE',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -839,7 +839,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: ES
 		$this->payment_submethods['dd_es'] = array(
-			'paymentproductid'	=> 719,
+			'paymentproductid'	=> 709,
 			'label'	=> 'Direct debit: ES',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -848,7 +848,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: FR
 		$this->payment_submethods['dd_fr'] = array(
-			'paymentproductid'	=> 714,
+			'paymentproductid'	=> 704,
 			'label'	=> 'Direct debit: FR',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -857,16 +857,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: GB
 		$this->payment_submethods['dd_gb'] = array(
-			'paymentproductid'	=> 715,
+			'paymentproductid'	=> 705,
 			'label'	=> 'Direct debit: GB',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 		 
 		// Direct debit: IT
 		$this->payment_submethods['dd_it'] = array(
-			'paymentproductid'	=> 718,
+			'paymentproductid'	=> 708,
 			'label'	=> 'Direct debit: IT',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -875,7 +875,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 
 		// Direct debit: NL
 		$this->payment_submethods['dd_nl'] = array(
-			'paymentproductid'	=> 711,
+			'paymentproductid'	=> 701,
 			'label'	=> 'Direct debit: NL',
 			'group'	=> 'dd',
 			'validation' => array(),
@@ -2060,6 +2060,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method']: false;
 		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod']: false;
+		
+		//Having to front-load the country in the payment submethod is pretty lame.
+		//If we don't have one deliberately set...
+		if (!$payment_submethod){
+			$trythis = $payment_method . '_' . strtolower( $this->getData_Unstaged_Escaped('country') );
+			if ( array_key_exists( $trythis, $this->payment_submethods ) ){
+				$payment_submethod = $trythis;
+			}
+		}
 
 		// These will be grouped and ordred by payment product id
 		switch ( $payment_submethod )  {
@@ -2147,8 +2156,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				
 			/* Default Case */
 			default:
-				
 				// Nothing is done in the default case.
+				// It's worth noting that at this point, it might not be an error.
 				break;
 		}
 

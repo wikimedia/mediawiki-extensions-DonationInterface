@@ -1235,7 +1235,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * problem. (timeout, bad URL, etc.) 
 	 */
 	protected function curl_transaction( $data ) {
-
 		// assign header data necessary for the curl_setopt() function
 		$this->getStopwatch( __FUNCTION__, true );
 
