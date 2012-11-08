@@ -398,6 +398,7 @@ class DonationData {
 			$this->setCurrencyCode(); // AFTER setCountry
 			$this->setFormClass();
 			$this->renameCardType();
+			$this->setEmail();
 			
 			$this->getValidationErrors();
 		}
@@ -768,6 +769,15 @@ class DonationData {
 			$this->setVal( 'premium_language', $language );
 		}
 		
+	}
+
+	/**
+	 * Normalize email to 'nobody' if nothing has been entered.
+	 */
+	protected function setEmail() {
+		if ( !$this->isSomething( 'email' ) ) {
+			$this->setVal( 'email', 'nobody@wikimedia.org' );
+		}
 	}
 
 	/**
