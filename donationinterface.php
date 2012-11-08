@@ -288,6 +288,15 @@ $wgDonationInterfaceOrphanCron = array(
 //	'max_per_execute' => '',
 );
 
+/**
+ * Forbidden countries. No donations will be allowed to come in from countries 
+ * in this list.
+ * All should be represented as all-caps ISO 3166-1 alpha-2
+ * This one global shouldn't ever be overridden per gateway. As it's probably 
+ * going to only conatin countries forbidden by law, there's no reason
+ * to override by gateway and as such it's always referenced directly. 
+ */
+$wgDonationInterfaceForbiddenCountries = array();
 
 //GlobalCollect gateway globals
 if ( $optionalParts['GlobalCollect'] === true ){

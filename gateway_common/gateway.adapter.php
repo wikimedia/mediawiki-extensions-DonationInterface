@@ -271,6 +271,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->non_fractional_currencies = array( 'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF' );
 		
 		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
+		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
 		$this->setPostDefaults( $postDefaults );
 		
@@ -881,7 +882,16 @@ abstract class GatewayAdapter implements GatewayType {
 	 *		key-value array.
 	 */
 	public function do_transaction( $transaction ) {
-
+		if ( !$this->validatedOK() ){
+			//If the data didn't validate okay, prevent all data transmissions.
+			$return = array(
+				'status' => false,
+				'message' => 'Failed data validation',
+				'errors' => $this->getAllErrors(),
+			);
+			return $return;
+		}
+		
 		$retryCount = 0;
 
 		do {

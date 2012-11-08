@@ -209,7 +209,16 @@ class DataValidator {
 					break;
 			}
 			
-			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;			
+			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;
+			
+			if ( $type === 'calculated'){
+				//try for the special "calculated" error message.
+				if ( self::wmfMessageExists( $error_message_field_string . '-calc', $language ) ) {
+					return wfMessage( $error_message_field_string . '-calc')->text();
+				}
+			}
+			
+			//try for the "invalid whatever" error message.
 			if ( self::wmfMessageExists( $error_message_field_string, $language ) ) {
 				return wfMessage( $error_message_field_string )->text();
 			}
@@ -355,6 +364,17 @@ class DataValidator {
 					case 'validate_card_type':
 						$check_type = 'calculated';
 						break;
+					case 'validate_country_allowed':
+						$check_type = 'calculated';
+						$instructions['non_empty']['country'] = 'validate_not_empty';
+						//@TODO: generic country validate here. I'm not too
+						//worried, as the purpose of this check is to blacklist
+						//specific values... but we should eventually be
+						//checking with the gateway to see if this country and
+						//payment type is valid.
+						//Or maybe that's more payment type validation territory...
+						//@TODO: Insert More Think Here
+						break;
 				}
 				$instructions[$check_type][$field] = $function_name;
 			}
@@ -416,6 +436,8 @@ class DataValidator {
 							$result = $self::$function( $data[$field] );
 						}
 						break;
+					default:
+						$result = self::$function( $data[$field] );
 				}
 				
 				$instructions['calculated'][$field] = $result;
@@ -479,6 +501,9 @@ class DataValidator {
 				break;
 			case 'gateway':
 				return 'validate_gateway';
+				break;
+			case 'country':
+				return 'validate_country_allowed';
 				break;
 		}
 
@@ -551,11 +576,12 @@ class DataValidator {
 	 * @return boolean True if $value is a reasonable credit card type, otherwise false.  
 	 */
 	protected static function validate_card_type( $value, $card_number = '' ) {
-		if ( !array_key_exists( $value, self::$card_types ) ){
-			return false;
-		}
-		
+		//@TODO: Find a better way to stop making assumptions about what payment
+		//type we're trying to be, in the data validadtor.
 		if ( $card_number != '' ){
+			if ( !array_key_exists( $value, self::$card_types ) ){
+				return false;
+			}
 			$calculated_card_type = self::getCardType( $card_number );
 			if ( $calculated_card_type != $value ){
 				return false;
@@ -680,6 +706,22 @@ class DataValidator {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Validate that the country is legally allowed to give us a donation. 
+	 * Failure here should halt everything, all the time. 
+	 * @param string $value The value to check
+	 * @return boolean true if we are allowed to accept donations from this
+	 * country, false if not. 
+	 */
+	public static function validate_country_allowed( $value ){
+		global $wgDonationInterfaceForbiddenCountries;
+		if ( in_array( strtoupper($value), $wgDonationInterfaceForbiddenCountries ) ){
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	/**

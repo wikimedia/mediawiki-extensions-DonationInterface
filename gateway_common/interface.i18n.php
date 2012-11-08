@@ -200,6 +200,7 @@ No processors are available.',
 	'donate_interface-error-msg-captcha-please' => "For your credit card security, please type the characters you see above.",
 	'donate_interface-error-msg-cookies' => 'Please enable cookies in your browser.',
 	'donate_interface-error-msg-genaricrequired' => 'This field is required',
+	'donate_interface-error-msg-country-calc' => 'Error - We are unable to accept your donation at this time.',
 	'donate_interface-donate-error-try-a-different-card' => 'Please [$1 try a different card] or one of our [$2 other ways to give] or contact us at $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'php-response-declined' => 'Your transaction could not be accepted.',
@@ -687,6 +688,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-captcha-please' => 'Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.',
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
 	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit',
+	'donate_interface-error-msg-country-calc' => 'This error message should only specify that we are unable to accept the donation at this time.',
 	'donate_interface-donate-error-try-a-different-card' => 'This message will be displayed in the the article /index.php/Donate-error. Parameters:
 * $1 is link back to the form to try another credit card.
 * $2 is link to other payment methods.
