@@ -27493,7 +27493,10 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-USD' => 'Dola ya Marekani',
 	'donate_interface-accessible' => 'Ukarasa huu unapatikana katika ukurasa wa mchango tu.',
 	'donate_interface-paypal-button' => 'Changia kwa kupitia Paypal',
+	'donate_interface-amazon-button' => 'Changia kwa kupitia Amazon', # Fuzzy
 	'donate_interface-cc-button' => 'Changia kwa kupitia kadi ya mkopo',
+	'donate_interface-ccdc-button' => 'Changia kwa kupitia kadi ya mkopo/benki', # Fuzzy
+	'donate_interface-dd-button' => 'Changia kwa direct debit', # Fuzzy
 	'donate_interface-bt-button' => 'Changia kwa uhawilisho wa benki', # Fuzzy
 	'donate_interface-rt-button' => 'Changia kwa kupitia benki ya $1', # Fuzzy
 	'donate_interface-ewallet-button' => 'Changia kwa kupitia $1', # Fuzzy
@@ -27510,11 +27513,17 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-donor-mname' => 'Jina la kati',
 	'donate_interface-donor-lname' => 'Jina la mwisho',
 	'donate_interface-donor-street' => 'Mtaa',
+	'donate_interface-donor-street-number' => 'Namba',
 	'donate_interface-donor-city' => 'Mji',
+	'donate_interface-donor-county' => 'Wilaya', # Fuzzy
+	'donate_interface-donor-island' => 'Ziwa',
 	'donate_interface-donor-state' => 'Jimbo',
+	'donate_interface-donor-zip' => 'Msimbo wa posta',
 	'donate_interface-donor-postal' => 'Simbo:',
 	'donate_interface-donor-country' => 'Nchi',
+	'donate_interface-donor-zone' => 'Ukanda',
 	'donate_interface-donor-address' => 'Anwani',
+	'donate_interface-donor-pobox' => 'SLP', # Fuzzy
 	'donate_interface-donor-card' => 'Kadi ya mkopo',
 	'donate_interface-donor-card-num' => 'Namba ya kadi',
 	'donate_interface-donor-expiration' => 'Tarehe itakayokwisha',
@@ -27529,6 +27538,7 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-error-msg-nopaypal' => 'Kutokana na hitilafu ya kiufundi, hatuwezi kutuma maombi yako kwa PayPal. Tafadhali jaribu kutumia fomu yetu ya kawaida ya kuchangia kwa kupitia kadi ya malipo.',
 	'donate_interface-error-msg' => 'Tafadhali ingiza $1 yako',
 	'donate_interface-error-msg-js' => 'Tafadhali ingiza',
+	'donate_interface-error-msg-validation' => 'Tafadhali rekebisha makosa katika fomu.', # Fuzzy
 	'donate_interface-error-msg-invalid-amount' => 'Tafadhali ingiza kiasi halali',
 	'donate_interface-error-msg-email' => 'Tafadhali ingiza anwani halali ya barua pepe',
 	'donate_interface-error-msg-card-num' => 'Tafadhali tumia aina ya kadi inayokubalika hapa na ingiza namba ya kadi halali',
@@ -27608,7 +27618,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-city-town' => 'Mji/Jiji',
 	'donate_interface-town-city' => 'Mji/Jiji',
 	'donate_interface-state-province' => 'Nchi/Mkoa',
-	'donate_interface-zip' => 'Kodi ya posta',
+	'donate_interface-zip' => 'Msimbo wa posta', # Fuzzy
 	'donate_interface-zip-code' => 'Kodi ya posta',
 	'donate_interface-zip-postal' => 'Kodi ya posta',
 	'donate_interface-zip-postal-code' => 'Kodi ya posta',
