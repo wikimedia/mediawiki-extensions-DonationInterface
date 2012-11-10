@@ -891,9 +891,13 @@ Försök igen senare.',
 $messages['sw'] = array(
 	'globalcollectgateway' => 'Changia sasa',
 	'globalcollect_gateway-response-9130' => 'Jina batili la nchi.',
+	'globalcollect_gateway-response-9140' => 'Aina batili ya fedha', # Fuzzy
 	'globalcollect_gateway-response-9150' => 'Lugha batili.',
+	'globalcollect_gateway-response-400530' => 'Njia batili ya kulipa', # Fuzzy
+	'globalcollect_gateway-response-430306' => 'Kadi yako ya mkopo imeisha. Tafadhali jaribu kadi nyingine ama njia nyingine ya kulipa inayowezekana.', # Fuzzy
 	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.', # Fuzzy
-	'globalcollect_gateway-response-21000155' => 'Kodi batili ya benki.', # Fuzzy
+	'globalcollect_gateway-response-21000150' => 'Namba batili ya akaunti ya benki', # Fuzzy
+	'globalcollect_gateway-response-21000155' => 'Msimbo batili ya benki.', # Fuzzy
 	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
 Tafadhali jaribu tena baadaye.',
 );
