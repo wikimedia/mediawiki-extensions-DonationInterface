@@ -27474,6 +27474,7 @@ $messages['sw'] = array(
 	'donate_interface-comment-title' => 'Maoni ya umma',
 	'donate_interface-amount-error' => 'Tafadhali ingiza kiasi halali',
 	'donate_interface-smallamount-error' => '$1 ni kiwango cha chini kinachoweza kupokelewa', # Fuzzy
+	'donate_interface-bigamount-error' => 'Hatuwezi kupokea michango inayozidi dola za Marekani 10000 ($2 $1) kwa kupitia tovuti. Tafadhali uwasiliane na idara yetu ya michango mikubwa kwa barua pepe iende $3.', # Fuzzy
 	'donate_interface-processing-error' => 'Kumetokea hitilafu wakati wa uchakataji wa ombi lako.
 Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-AUD' => 'Dola ya Australia',
@@ -27493,6 +27494,7 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-USD' => 'Dola ya Marekani',
 	'donate_interface-accessible' => 'Ukarasa huu unapatikana katika ukurasa wa mchango tu.',
 	'donate_interface-paypal-button' => 'Changia kwa kupitia Paypal',
+	'donate_interface-paypal-redirect' => 'Inaenda kwa PayPal...', # Fuzzy
 	'donate_interface-amazon-button' => 'Changia kwa kupitia Amazon', # Fuzzy
 	'donate_interface-cc-button' => 'Changia kwa kupitia kadi ya mkopo',
 	'donate_interface-ccdc-button' => 'Changia kwa kupitia kadi ya mkopo/benki', # Fuzzy
@@ -27562,7 +27564,9 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-error-msg-cvv' => 'CVV (kodi ya usalama) iliyopo nyuma ya kadi yako',
 	'donate_interface-error-msg-captcha' => 'Neno au namba ya Captcha uliyoingiza si sahihi. Tafadhali jaribu tena.',
 	'donate_interface-error-msg-captcha-please' => 'Kwa usalama wa kadi yako ya malipo, tafadhali andika herufi unazoziona hapo juu.',
+	'donate_interface-error-msg-cookies' => "Tafadhali wezesha 'cookies' katika kivinjari chako.", # Fuzzy
 	'donate_interface-error-msg-genaricrequired' => 'Kisanduku hiki kinahitajika kijazwe', # Fuzzy
+	'donate_interface-donate-error-try-a-different-card' => 'Tafadhali [$1 jaribu kadi nyingine] au [£2 njia nyingine ya kuchanga] au uwasiliane nasi kwa $3', # Fuzzy
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Asante kwa mchango wako!', # Fuzzy
 	'php-response-declined' => 'Malipo yako hayajakubaliwa.',
 	'donate_interface-thankyou' => 'Ahsante kwa mchango wako!',
@@ -27700,10 +27704,12 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-donation-tshirt' => 'Mchango (msaada wa fulana)',
 	'donate_interface-change' => 'Badilisha',
 	'donate_interface-select-credit-card' => 'Chagua kadi ya mkopo', # Fuzzy
+	'donate_interface-optional' => 'ya hiari', # Fuzzy
 	'donate_interface-state-dropdown-YY' => 'Chagua jimbo',
 	'donate_interface-state-dropdown-XX' => 'Nje ya Marekani',
 	'donate_interface-bt-account_holder' => 'Mwenye akaunti', # Fuzzy
 	'donate_interface-bt-bank_account_number' => 'Namba ya akaunti ya benki', # Fuzzy
+	'donate_interface-bt-country_description' => 'Taarifa za nchi', # Fuzzy
 	'donate_interface-bt-payment_reference' => 'Rejeo ya malipo', # Fuzzy
 	'donate_interface-bt-swift_code' => 'Kodi ya SWIFT', # Fuzzy
 	'donate_interface-bt-special_id' => 'Namba ya pekee inayotakiwa nchini kunaohusika', # Fuzzy
@@ -27720,6 +27726,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-dd-bank_code' => 'Kodi ya benki', # Fuzzy
 	'donate_interface-dd-bank_name' => 'Jina la benki', # Fuzzy
 	'donate_interface-dd-branch_code' => 'Kodi ya tawi', # Fuzzy
+	'donate_interface-dd-direct_debit_text' => "Maandishi ya 'direct debit'", # Fuzzy
 	'donate_interface-dd-iban' => 'IBAN',
 	'donate_interface-translate-bluelink' => 'Boresha tafsiri hii', # Fuzzy
 	'donate_interface-translate-redlink1' => 'Saidia kutafsiri ukurasa huu.', # Fuzzy
@@ -27731,6 +27738,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-email-unsub-success' => 'Jina lako limetolewa kutoka katika orodha ya watu wanaopokea habari zetu', # Fuzzy
 	'donate_interface-email-unsub-delay' => 'Badiliko hili linaweza kuchukua hadi siku nne kukamilishwa. Ukipokea barua pepe toka kwetu wakati huo, kumradhi. Ukiwa na maswali, uliza kwa anwani ya <donations@wikimedia.org>.', # Fuzzy
 	'donate_interface-email-unsub-fail' => 'Kulitokea hitilafu wakati wa kutekeleza ombi lako. Tafadhali andika kwa <donations@wikimedia.org>.', # Fuzzy
+	'donate_interface-email-unsub-confirm' => 'Una uhakika kwamba unataka kutolea  <b>$1</b> kutoka katika orodha ya watu wanaopokea habari zetu?', # Fuzzy
 	'donate_interface-faqs' => 'Maswali yanayoulizwa mara kwa mara',
 	'donate_interface-tax-info' => 'Habari za kuweza kutoza mchango kutoka katika kodi', # Fuzzy
 	'donate_interface-informationsharing' => 'Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href="//wikimediafoundation.org/wiki/Donor_policy/en">sera yetu ya wachangiaji</a>.', # Fuzzy
@@ -27746,7 +27754,11 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-monthlybox-yes' => 'Ndiyo, nichangie kila mwezi', # Fuzzy
 	'donate_interface-monthlybox-no' => 'Siyo, nichangie mara moja tu', # Fuzzy
 	'donate_interface-monthlybox-bottom' => 'Mchango wako utashughulikiwa salama.', # Fuzzy
+	'donate_interface-onetime' => 'Changia mara moja tu', # Fuzzy
+	'donate_interface-monthly-short' => 'Kila mwezi',
+	'donate_interface-onetime-short' => 'Mara moja tu', # Fuzzy
 	'donate_interface-secureLogo-text' => 'Kuhusu Vyeti vya SSL', # Fuzzy
+	'donate_interface-error-http-403' => 'Huruhusiwi kuona ukurasa huu.', # Fuzzy
 );
 
 /** Tamil (தமிழ்)
