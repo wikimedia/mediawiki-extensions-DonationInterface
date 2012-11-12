@@ -897,7 +897,7 @@ $messages['sw'] = array(
 	'globalcollect_gateway-response-430306' => 'Kadi yako ya mkopo imeisha. Tafadhali jaribu kadi nyingine ama njia nyingine ya kulipa inayowezekana.', # Fuzzy
 	'globalcollect_gateway-response-430330' => 'Namba batili ya kadi.', # Fuzzy
 	'globalcollect_gateway-response-21000150' => 'Namba batili ya akaunti ya benki', # Fuzzy
-	'globalcollect_gateway-response-21000155' => 'Msimbo batili ya benki.', # Fuzzy
+	'globalcollect_gateway-response-21000155' => 'Msimbo batili wa benki.',
 	'globalcollect_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
 Tafadhali jaribu tena baadaye.',
 );
