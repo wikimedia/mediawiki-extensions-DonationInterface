@@ -27473,8 +27473,8 @@ $messages['sw'] = array(
 	'donate_interface-email-agreement' => 'Nakubali nipokee taarifa mara kwa mara kwa barua pepe kutoka Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Maoni ya umma',
 	'donate_interface-amount-error' => 'Tafadhali ingiza kiasi halali',
-	'donate_interface-smallamount-error' => '$1 ni kiwango cha chini kinachoweza kupokelewa', # Fuzzy
-	'donate_interface-bigamount-error' => 'Hatuwezi kupokea michango inayozidi dola za Marekani 10000 ($2 $1) kwa kupitia tovuti. Tafadhali uwasiliane na idara yetu ya michango mikubwa kwa barua pepe iende $3.', # Fuzzy
+	'donate_interface-smallamount-error' => 'Jitahidi uchangie japo $1',
+	'donate_interface-bigamount-error' => 'Hatuwezi kupokea michango inayozidi dola za Marekani 10000 ($2 $1) kwa kupitia tovuti. Tafadhali wasiliana na idara yetu ya michango mikubwa kwa $3.',
 	'donate_interface-processing-error' => 'Kumetokea hitilafu wakati wa uchakataji wa ombi lako.
 Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-AUD' => 'Dola ya Australia',
@@ -27494,11 +27494,11 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-USD' => 'Dola ya Marekani',
 	'donate_interface-accessible' => 'Ukarasa huu unapatikana katika ukurasa wa mchango tu.',
 	'donate_interface-paypal-button' => 'Changia kwa kupitia Paypal',
-	'donate_interface-paypal-redirect' => 'Inaenda kwa PayPal...', # Fuzzy
-	'donate_interface-amazon-button' => 'Changia kwa kupitia Amazon', # Fuzzy
+	'donate_interface-paypal-redirect' => 'Inaelekezwa kwa PayPal...',
+	'donate_interface-amazon-button' => 'Changia kwa kupitia Amazon',
 	'donate_interface-cc-button' => 'Changia kwa kupitia kadi ya mkopo',
-	'donate_interface-ccdc-button' => 'Changia kwa kupitia kadi ya mkopo/benki', # Fuzzy
-	'donate_interface-dd-button' => 'Changia kwa direct debit', # Fuzzy
+	'donate_interface-ccdc-button' => 'Changia kwa kupitia kadi ya mkopo/benki',
+	'donate_interface-dd-button' => 'Changia kwa direct debit',
 	'donate_interface-bt-button' => 'Changia kwa uhawilisho wa benki', # Fuzzy
 	'donate_interface-rt-button' => 'Changia kwa kupitia benki ya $1', # Fuzzy
 	'donate_interface-ewallet-button' => 'Changia kwa kupitia $1', # Fuzzy
