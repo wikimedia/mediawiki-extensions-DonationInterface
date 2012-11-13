@@ -27529,7 +27529,7 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-donor-card' => 'Kadi ya mkopo',
 	'donate_interface-donor-card-num' => 'Namba ya kadi',
 	'donate_interface-donor-expiration' => 'Tarehe itakayokwisha',
-	'donate_interface-donor-security' => 'Kodi ya usalama',
+	'donate_interface-donor-security' => 'Msimbo wa usalama',
 	'donate_interface-donor-submit' => 'Michango',
 	'donate_interface-donor-currency-msg' => 'Mchango huu unalipwa kwa fedha ya $1',
 	'donate_interface-card-name-amex' => 'American Express',
@@ -27561,7 +27561,7 @@ Hakuna vichakataji vinavyopatikana.',
 	'donate_interface-error-msg-card_type' => 'aina ya kadi ya mkopo',
 	'donate_interface-error-msg-card_num' => 'namba ya kadi ya malipo',
 	'donate_interface-error-msg-expiration' => 'tarehe ya kadi kwisha',
-	'donate_interface-error-msg-cvv' => 'CVV (kodi ya usalama) iliyopo nyuma ya kadi yako',
+	'donate_interface-error-msg-cvv' => 'CVV (msimbo wa usalama) uliyopo nyuma ya kadi yako',
 	'donate_interface-error-msg-captcha' => 'Neno au namba ya Captcha uliyoingiza si sahihi. Tafadhali jaribu tena.',
 	'donate_interface-error-msg-captcha-please' => 'Kwa usalama wa kadi yako ya malipo, tafadhali andika herufi unazoziona hapo juu.',
 	'donate_interface-error-msg-cookies' => "Tafadhali wezesha 'cookies' katika kivinjari chako.", # Fuzzy
@@ -27575,10 +27575,10 @@ Hakuna vichakataji vinavyopatikana.',
 <p>Namba ya Kumthibitisha Mwenyekadi (CVV): Namba hii ina tarakimu tatu au nne. Namba inasaidia kuhakikisha kwamba yule anayelipa anaye kadi yenyewe papo hapo. Hii husaidia kuzuia matumizi yasiyoidhinishwa au ulaghai.</p>
 <h4>Visa, Mastercard</h4>
 <p>Namba yenye tarakimu 3 iko nyuma ya kadi yako, ndani ya eneo la sahihi. 
-Kwa kawaida eneo la sahihi litakuwa na mlolongo wa namba, lakini ni tarakimu tatu za mwisho tu ambazo ni kodi ya CVV.</p>
+Kwa kawaida eneo la sahihi litakuwa na mlolongo wa namba, lakini ni tarakimu tatu za mwisho tu ambazo ni msimbo wa CVV.</p>
 <h4>American Express</h4>
-<p>Kodi iko <i>juu</i> ya namba iliyotunishwa, yaani namba ya akaunti iliyopo upande wa mbele ya kadi.
-Wakati mwingine, kodi iko upande wa kushoto wa kadi, lakini <i>kila wakati</i> iko juu ya namba ya akaunti.</p><br />',
+<p>Msimbo uko <i>juu</i> ya namba iliyotunishwa, yaani namba ya akaunti iliyopo upande wa mbele ya kadi.
+Wakati mwingine, msimbo uko upande wa kushoto wa kadi, lakini <i>kila wakati</i> uko juu ya namba ya akaunti.</p><br />',
 	'donate_interface-question-comment' => 'Maswali au maoni? Wasiliana na: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Tunajaribu kurahihisha njia ya kuchangia katika nchi zote. Tafadhali utujulishe namna gani tungeweza kurahihishia mambo ya kuchangia katika nchi yako. Tuma mapendekezo yako kwa: problemsdonating@wikimedia.org.', # Fuzzy
 	'donate_interface-problemsdonating' => 'Una shida kuchangia?',
@@ -27623,10 +27623,10 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-town-city' => 'Mji/Jiji',
 	'donate_interface-state-province' => 'Nchi/Mkoa',
 	'donate_interface-zip' => 'Msimbo wa posta', # Fuzzy
-	'donate_interface-zip-code' => 'Kodi ya posta',
-	'donate_interface-zip-postal' => 'Kodi ya posta',
-	'donate_interface-zip-postal-code' => 'Kodi ya posta',
-	'donate_interface-billing-code' => 'Kodi ya posta ya kutuma ankara',
+	'donate_interface-zip-code' => 'Msimbo wa posta',
+	'donate_interface-zip-postal' => 'Msimbo wa posta',
+	'donate_interface-zip-postal-code' => 'Msimbo wa posta',
+	'donate_interface-billing-code' => 'Msimbo wa posta ya kutuma ankara',
 	'donate_interface-country' => 'Nchi',
 	'donate_interface-select-country' => 'Chagua nchi',
 	'donate_interface-confirm-email' => 'Thibitisha anwani ya barua pepe',
@@ -27653,7 +27653,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-select-year-of-expiration' => 'Chagua mwaka itakayokwisha',
 	'donate_interface-expires-question' => 'Itakwisha?',
 	'donate_interface-expires' => 'Itakwisha',
-	'donate_interface-card-security-code' => 'Kodi ya usalama wa kadi',
+	'donate_interface-card-security-code' => 'Msimbo wa usalama wa kadi',
 	'donate_interface-cvv' => 'CVV',
 	'donate_interface-cvv-number-abbreviated' => '# ya CVV',
 	'donate_interface-cvv2' => 'CVV2',
@@ -27711,7 +27711,7 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-bt-bank_account_number' => 'Namba ya akaunti ya benki', # Fuzzy
 	'donate_interface-bt-country_description' => 'Taarifa za nchi', # Fuzzy
 	'donate_interface-bt-payment_reference' => 'Rejeo ya malipo', # Fuzzy
-	'donate_interface-bt-swift_code' => 'Kodi ya SWIFT', # Fuzzy
+	'donate_interface-bt-swift_code' => 'Msimbo wa SWIFT', # Fuzzy
 	'donate_interface-bt-special_id' => 'Namba ya pekee inayotakiwa nchini kunaohusika', # Fuzzy
 	'donate_interface-bt-information' => 'Maelezo ya uhawilisho wa benki', # Fuzzy
 	'donate_interface-bt-finished' => 'Imekamilishwa', # Fuzzy
@@ -27723,9 +27723,9 @@ Ili kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa k
 	'donate_interface-dd-account_number' => 'Namba ya akaunti', # Fuzzy
 	'donate_interface-dd-authorization_id' => 'Namba ya kuidhinisha (Authorization ID)', # Fuzzy
 	'donate_interface-dd-bank_check_digit' => 'Namba ya usahihi ya benki (check digit)', # Fuzzy
-	'donate_interface-dd-bank_code' => 'Kodi ya benki', # Fuzzy
+	'donate_interface-dd-bank_code' => 'Msimbo wa benki', # Fuzzy
 	'donate_interface-dd-bank_name' => 'Jina la benki', # Fuzzy
-	'donate_interface-dd-branch_code' => 'Kodi ya tawi', # Fuzzy
+	'donate_interface-dd-branch_code' => 'Msimbo wa tawi', # Fuzzy
 	'donate_interface-dd-direct_debit_text' => "Maandishi ya 'direct debit'", # Fuzzy
 	'donate_interface-dd-iban' => 'IBAN',
 	'donate_interface-translate-bluelink' => 'Boresha tafsiri hii', # Fuzzy
@@ -30179,6 +30179,7 @@ Hiện tại không có tiến trình xử lý nào.',
 	'donate_interface-donor-state' => 'Bang:',
 	'donate_interface-donor-zip' => 'Số ZIP',
 	'donate_interface-donor-postal' => 'Mã bưu chính:',
+	'donate_interface-donor-postcode' => 'Mã bưu chính',
 	'donate_interface-donor-country' => 'Quốc gia/Lãnh thổ:',
 	'donate_interface-donor-zone' => 'Khu vực',
 	'donate_interface-donor-address' => 'Địa chỉ:',

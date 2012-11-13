@@ -1861,7 +1861,7 @@ Tafadhali wasiliana nasi ili kuendelea kushughulika malipo yako.',
 	'payflowpro_gateway-response-23' => 'Namba au tarehe ya kuisha kwa kadi yako ya malipo haipo sahihi.',
 	'payflowpro_gateway-response-4' => 'Kiasi batili.',
 	'payflowpro_gateway-response-24' => 'Namba au tarehe ya kuisha kwa kadi yako ya malipo haipo sahihi.',
-	'payflowpro_gateway-response-112' => 'Anwani au namba ya CVV yako (kodi ya usalama) haipo sahihi.',
+	'payflowpro_gateway-response-112' => 'Anwani au namba ya CVV yako (msimbo wa usalama) haipo sahihi.',
 	'payflowpro_gateway-response-125' => 'Malipo yako yamekataliwa na Huduma za Kuzuia Ulaghai.',
 	'payflowpro_gateway-response-125-2' => 'Kadi yako ya malipo haikuweza kuidhinishwa. Tafadhali hakikisha kwamba taarifa zote zilizotolewa zipo sawa na maelezo ya kadi yako, au jaribu kadi nyingine. Pia unaweza kuchangia kwa <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">njia nyingine</a> au unaweza kuwasiliana nasi hapo <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Ahsante kwa mchango wako.',
 	'payflowpro_gateway-response-default' => 'Ilitokea hitilafu wakati wa kufanya malipo yako.
