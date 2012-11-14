@@ -938,7 +938,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			if ( $this->getValidationAction() != 'process' ) {
 
-				self::log( "Failed failed pre-process checks for transaction type $transaction.", LOG_CRIT );
+				self::log( $this->getLogMessagePrefix() . "Failed failed pre-process checks for transaction type $transaction.", LOG_CRIT );
 				
 				$this->transaction_results = array(
 					'status' => false,
@@ -970,7 +970,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		} catch ( MWException $e ) {
 			
-			self::log( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(), LOG_CRIT );
+			self::log( $this->getLogMessagePrefix() . "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(), LOG_CRIT );
 			
 			$this->transaction_results = array(
 				'status' => false,
@@ -1018,7 +1018,7 @@ abstract class GatewayAdapter implements GatewayType {
 				$this->setTransactionResult( $this->getValidationAction(), 'action' );
 				
 			} else {
-				self::log( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
+				self::log( $this->getLogMessagePrefix() . "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
 			}
 
 			if ( is_array( $statuses ) ) { //only then will we consider doing this again. 
@@ -1241,15 +1241,25 @@ abstract class GatewayAdapter implements GatewayType {
 		// Basic variable init
 		$retval = false;    // By default return that we failed
 
-		$contributionTrackingId = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$logPrefix = $this->getLogMessagePrefix();
 		$gatewayName = self::getGatewayName();
+		$email = $this->getData_Unstaged_Escaped( 'email' );
+		
+		/**
+		 * This log line is pretty important. Usually when a donor contacts us
+		 * saying that they have experienced problems donating, the first thing
+		 * we have to do is associate a gateway transaction ID and ctid with an
+		 * email address. If the cURL function fails, we lose the ability to do
+		 * that association outside of this log line.
+		 */
+		$this->log( $logPrefix . "Initiating cURL for donor $email" );
 
 		// Initialize cURL and construct operation (also run hook)
 		$ch = curl_init();
 
 		$hookResult = wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) );
 		if ( $hookResult == false ) {
-			self::log( "$contributionTrackingId cURL transaction aborted on hook DonationInterfaceCurlInit", LOG_INFO );
+			self::log( "$logPrefix cURL transaction aborted on hook DonationInterfaceCurlInit", LOG_INFO );
 			$this->setValidationAction('reject');
 			return false;
 		}
@@ -1272,7 +1282,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$results = array();
 
 		while ( ( $i++ <= 3 ) && ( $continue === true )) {
-			self::log( "$contributionTrackingId Preparing to send transaction to $gatewayName" );
+			self::log( "$logPrefix Preparing to send transaction to $gatewayName" );
 
 			// Execute the cURL operation
 			$result = curl_exec( $ch );
@@ -1288,7 +1298,7 @@ abstract class GatewayAdapter implements GatewayType {
 					case 200:   // Everything is AWESOME
 						$continue = false;
 
-						self::log( "$contributionTrackingId Successful transaction to $gatewayName", LOG_DEBUG );
+						self::log( "$logPrefix Successful transaction to $gatewayName", LOG_DEBUG );
 						$this->setTransactionResult( $results );
 
 						$retval = true;
@@ -1297,7 +1307,7 @@ abstract class GatewayAdapter implements GatewayType {
 					case 400:   // Oh noes! Bad request.. BAD CODE, BAD BAD CODE!
 						$continue = false;
 
-						self::log( "$contributionTrackingId on $gatewayName returned (400) BAD REQUEST: $result", LOG_ERR );
+						self::log( "$logPrefix on $gatewayName returned (400) BAD REQUEST: $result", LOG_ERR );
 
 						// Even though there was an error, set the results. Amazon at least gives
 						// us useful XML return
@@ -1308,12 +1318,12 @@ abstract class GatewayAdapter implements GatewayType {
 
 					case 403:   // Hmm, forbidden? Maybe if we ask it nicely again...
 						$continue = true;
-						self::log( "$contributionTrackingId on $gatewayName returned (403) FORBIDDEN: $result", LOG_ALERT );
+						self::log( "$logPrefix on $gatewayName returned (403) FORBIDDEN: $result", LOG_ALERT );
 						break;
 
 					default:    // No clue what happened... break out and log it
 						$continue = false;
-						self::log( "$contributionTrackingId on $gatewayName failed remotely and returned ($httpCode): $result", LOG_ERR );
+						self::log( "$logPrefix on $gatewayName failed remotely and returned ($httpCode): $result", LOG_ERR );
 						break;
 				}
 			} else {
@@ -1322,7 +1332,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 				$errno = curl_errno( $ch );
 				$err = curl_error( $ch );
-				self::log( "$contributionTrackingId cURL transaction  to $gatewayName failed: ($errno) $err" );
+				self::log( "$logPrefix cURL transaction  to $gatewayName failed: ($errno) $err" );
 			}
 
 		} // End while cURL transaction hasn't returned something useful
@@ -1345,6 +1355,9 @@ abstract class GatewayAdapter implements GatewayType {
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 			$displayXML = $this->formatXmlString( $xmlString );
 			$realXML = new DomDocument( '1.0' );
+			//DO NOT alter the line below unless you are prepared to also alter the GC audit scripts.
+			//...and everything that references "Raw XML Response"
+			//@TODO: All three of those things.
 			self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ": Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
 			$realXML->loadXML( trim( $xmlString ) );
 			return $realXML;
@@ -2053,7 +2066,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param type $status
 	 */
 	public function logTransactionWMFStatus( $status ){
-		$msg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ':' . $this->getData_Unstaged_Escaped( 'order_id' );
+		$msg = $this->getLogMessagePrefix();
 		
 		$action = $this->getValidationAction();
 
