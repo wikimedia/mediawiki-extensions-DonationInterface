@@ -21,6 +21,8 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 */
 	public $errors = array( );
 
+	protected $qs_oid = null;
+
 	/**
 	 * Constructor - set up the new special page
 	 */
@@ -43,64 +45,40 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
 		$forbidden = false;
-		$qs_oid = 'undefined';
 		if ( !isset( $_GET['order_id'] ) ){
 			$forbidden = true;
 			$f_message = 'No order ID in the Querystring.';
 		} else {
-			$qs_oid = $_GET['order_id'];
-			if ( !$this->adapter->hasDonorDataInSession( 'order_id', $_GET['order_id'] ) ){
-				$forbidden = true;
-				$f_message = 'Requested order id not present in the session';
+			$this->qs_oid = $_GET[ 'order_id' ];
+			$result = $this->popout_if_iframe();
+			if ( $result ) {
+				return;
 			}
 		}
-		
+
+		if ( !$this->adapter->hasDonorDataInSession( 'order_id', $this->qs_oid ) ) {
+			$forbidden = true;
+			$f_message = 'Requested order id not present in the session';
+		}
+
 		if ( $forbidden ){
+			$this->adapter->log( $this->qs_oid . " Resultswitcher: forbidden for reason: {$f_message}" );
 			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
-		}
-
-		$referrer = $this->getRequest()->getHeader( 'referer' );
-		$liberated = false;
-		if ( array_key_exists( 'order_status', $_SESSION ) && array_key_exists( $qs_oid, $_SESSION['order_status'] ) ){
-			$liberated = true;
-		}
-
-		global $wgServer;
-		// @todo Whitelist! We only want to do this for servers we are configured to like!
-		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
-		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
-		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
-		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
-			$_SESSION['order_status'][$qs_oid] = 'liberated';
-			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $qs_oid);
-			// @todo Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
-			// @todo If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
-			if ( $forbidden ) {
-				$this->adapter->log("Resultswitcher: " . $qs_oid . "SHOULD BE FORBIDDEN. Reason: $f_message");
-			}
-			$out->allowClickjacking();
-			$out->addModules( 'iframe.liberator' );
 			return;
 		}
-		
+
 		$out->addExtensionStyle(
 			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
 			$this->adapter->getGlobal( 'CSSVersion' ) );
 
 		$this->setHeaders();
-		
-		if ( $forbidden ){
-			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Querystring Order ID: $qs_oid  Adapter Order ID: " . $this->adapter->getData_Unstaged_Escaped( 'order_id' ) );
-			return;
-		} else {
-			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $qs_oid );
-		}
+		$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $this->qs_oid );
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
 			$oid = $this->getRequest()->getText( 'order_id' );
-			
+
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) || !is_array( $_SESSION['order_status'][$oid] ) ) {
@@ -166,5 +144,39 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			// Return the referrer URL
 			return $returnto;
 		}
+	}
+
+	function popout_if_iframe() {
+		global $wgServer;
+
+		if ( ( $_SESSION
+				&& array_key_exists( 'order_status', $_SESSION )
+				&& array_key_exists( $this->qs_oid, $_SESSION['order_status'] ) )
+			|| isset( $_GET[ 'liberated' ] ) )
+		{
+			return;
+		}
+
+		// @todo Whitelist! We only want to do this for servers we are configured to like!
+		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
+		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
+		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
+		$referrer = $this->getRequest()->getHeader( 'referer' );
+		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
+			$_SESSION['order_status'][$this->qs_oid] = 'liberated';
+			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid);
+			// @todo Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
+			// @todo If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
+			/*
+			if ( $forbidden ) {
+				$this->adapter->log("Resultswitcher: " . $this->qs_oid . "SHOULD BE FORBIDDEN. Reason: $f_message");
+			}
+			*/
+			$this->getOutput()->allowClickjacking();
+			$this->getOutput()->addModules( 'iframe.liberator' );
+			return true;
+		}
+
+		$this->adapter->log( "Resultswitcher: good, it appears we are not in an iframe. Order ID {$this->qs_oid}" );
 	}
 }
