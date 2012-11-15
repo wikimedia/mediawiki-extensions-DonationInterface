@@ -457,6 +457,7 @@ class DonationData {
 			$default = true;
 			$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
 		}
+		$utm_source = $this->getVal( 'utm_source' );
 		
 		if ( !class_exists( $class_name ) ) {
 
@@ -466,8 +467,8 @@ class DonationData {
 			 */
 			if (!$default) {
 
-				$log_message = '"' . $class_name . '"';
-				$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+				$log_message = '[ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
+				$this->log( $this->getLogMessagePrefix() . 'Specified form class not found ' . $log_message , LOG_INFO );
 
 				$class_name_orig = $class_name;
 				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
@@ -477,8 +478,8 @@ class DonationData {
 				$this->setVal( 'form_name', $this->getGatewayGlobal( 'DefaultForm' ) );
 			} else {
 
-				$log_message = '"Could not find form [ ' . $class_name_orig . ' ], nor default form [ ' . $class_name . ' ]"';
-				$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+				$log_message = 'Specified form class not found [ ' . $class_name_orig . ' ], default form class not found [ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
+				$this->log( $this->getLogMessagePrefix() . $log_message , LOG_INFO );
 
 				// Unset class name
 				$class_name = null;
@@ -821,6 +822,18 @@ class DonationData {
 	 */
 	protected function getAnnoyingOrderIDLogLinePrefix() {
 		return $this->getVal( 'order_id' ) . ' ' . $this->getVal( 'i_order_id' ) . ': ';
+	}
+
+	/**
+	 * getLogMessagePrefix
+	 * Constructs and returns the standard ctid:order_id log line prefix. 
+	 * This should eat getAnnoyingOrderIDLogLinePrefix() everywhere, as soon as
+	 * we can audit all our external log parsing scripts to make sure we're not
+	 * going to break anything. 
+	 * @return string "ctid:order_id: " 
+	 */
+	protected function getLogMessagePrefix() {
+		return $this->getVal( 'contribution_tracking_id' ) . ' ' . $this->getVal( 'order_id' ) . ': ';
 	}
 
 	/**
