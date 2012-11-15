@@ -129,6 +129,7 @@ function countryCodes() {
 		"LI" => "Liechtenstein",
 		"LT" => "Lithuania",
 		"LU" => "Luxembourg",
+		"MC" => "Monaco",
 		"MO" => "Macao",
 		"MK" => "Macedonia, the Former Yugoslav Republic of",
 		"MG" => "Madagascar",
