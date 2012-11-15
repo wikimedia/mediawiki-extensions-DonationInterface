@@ -59,6 +59,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		if ( !$this->adapter->hasDonorDataInSession( 'order_id', $this->qs_oid ) ) {
 			$forbidden = true;
 			$f_message = 'Requested order id not present in the session';
+
+			if ( !$_SESSION ) {
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data." );
+			}
 		}
 
 		if ( $forbidden ){
@@ -163,6 +167,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
 		$referrer = $this->getRequest()->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
+			if ( !$_SESSION ) {
+				$this->adapter->log( "Resultswitcher: {$this-qs_oid} warning: iframed script cannot see session cookie." );
+			}
+
 			$_SESSION['order_status'][$this->qs_oid] = 'liberated';
 			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid);
 			// @todo Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
