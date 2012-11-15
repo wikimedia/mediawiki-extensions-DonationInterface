@@ -129,7 +129,7 @@ class GatewayForm extends UnlistedSpecialPage {
 			$page = $this->adapter->getGlobal( "FailPage" );
 
 			$log_message = '"Redirecting to [ ' . $page . ' ] "';
-			$this->log( '"Form class not found" ' . $log_message , LOG_INFO );
+			$this->log( $this->adapter->getLogMessagePrefix() . $log_message , LOG_INFO );
 
 			if ( $page ) {
 
