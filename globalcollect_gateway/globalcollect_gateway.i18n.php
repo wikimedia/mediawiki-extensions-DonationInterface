@@ -133,6 +133,28 @@ $messages['br'] = array(
 Klaskit en-dro a-benn ur pennadig.',
 );
 
+/** Czech (česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'globalcollectgateway' => 'Poskytnout příspěvek',
+	'globalcollect_gateway-desc' => 'Zpracování plateb přes GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Neplatná země.',
+	'globalcollect_gateway-response-9140' => 'Neplatná měna.',
+	'globalcollect_gateway-response-9150' => 'Neplatný jazyk.',
+	'globalcollect_gateway-response-400530' => 'Neplatná platební metoda.',
+	'globalcollect_gateway-response-430306' => 'Vaší platební kartě vypršela platnost. Zkuste jinou kartu nebo některý jiný způsob platby.',
+	'globalcollect_gateway-response-430330' => 'Neplatné číslo karty.',
+	'globalcollect_gateway-response-430421' => 'Vaši kreditní kartu se nepodařilo ověřit. Zkontrolujte, zda všechny informace odpovídají, nebo zkuste jinou kartu.',
+	'globalcollect_gateway-response-430360' => 'Transakci se nepodařilo autorizovat. Zkuste jinou kartu nebo některý jiný způsob platby.',
+	'globalcollect_gateway-response-430285' => 'Transakci se nepodařilo autorizovat. Zkuste jinou kartu nebo některý jiný způsob platby.',
+	'globalcollect_gateway-response-21000150' => 'Neplatné číslo bankovního účtu.',
+	'globalcollect_gateway-response-21000155' => 'Neplatný kód banky.',
+	'globalcollect_gateway-response-21000160' => 'Neplatné číslo žirového účtu.',
+	'globalcollect_gateway-response-default' => 'Při zpracovávání vaší transakce došlo k chybě.
+Zkuste to znovu o něco později.',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */

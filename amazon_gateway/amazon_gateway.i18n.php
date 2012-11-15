@@ -45,6 +45,14 @@ $messages['br'] = array(
 	'amazon_gateway-desc' => 'O tretiñ ar paeañ evit Amazon',
 );
 
+/** Czech (česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'amazongateway' => 'Poskytnout příspěvek',
+	'amazon_gateway-desc' => 'Zpracování plateb přes Amazon',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
