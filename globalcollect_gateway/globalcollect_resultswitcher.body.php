@@ -41,9 +41,6 @@ class GlobalCollectGatewayResult extends GatewayForm {
 
 		$out = $this->getOutput();
 
-		//no longer letting people in without these things. If this is
-		//preventing you from doing something, you almost certainly want to be 
-		//somewhere else. 
 		$forbidden = false;
 		if ( !isset( $_GET['order_id'] ) ){
 			$forbidden = true;
@@ -168,18 +165,12 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		$referrer = $this->getRequest()->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
 			if ( !$_SESSION ) {
-				$this->adapter->log( "Resultswitcher: {$this-qs_oid} warning: iframed script cannot see session cookie." );
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie." );
 			}
 
 			$_SESSION['order_status'][$this->qs_oid] = 'liberated';
 			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid);
-			// @todo Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
-			// @todo If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
-			/*
-			if ( $forbidden ) {
-				$this->adapter->log("Resultswitcher: " . $this->qs_oid . "SHOULD BE FORBIDDEN. Reason: $f_message");
-			}
-			*/
+
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
 			return true;
