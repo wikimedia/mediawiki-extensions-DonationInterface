@@ -170,7 +170,7 @@ class AmazonAdapter extends GatewayAdapter {
 			unset( $request_params[ 'title' ] );
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
-			$this->log("received callback from amazon with: $incoming", LOG_DEBUG);
+			$this->log_special("received callback from amazon with: $incoming", LOG_DEBUG);
 			$this->transactions[ $transaction ][ 'values' ][ 'AWSAccessKeyId' ] = $this->account_config[ 'AccessKey' ];
 			break;
 		}
@@ -184,7 +184,7 @@ class AmazonAdapter extends GatewayAdapter {
 			case 'Donate':
 				$this->addDonorDataToSession();
 				$query_str = $this->encodeQuery( $query );
-				$this->log("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
+				$this->log_special("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
 				
 				//always have to do this before a redirect. 
 				$this->dataObj->updateContributionTracking( true );
@@ -199,7 +199,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$query_str = $this->encodeQuery( $query );
 				$this->url .= "?{$query_str}&Signature={$signature}";
 
-				$this->log("At $transaction, query string: $query_str", LOG_DEBUG);
+				$this->log_special("At $transaction, query string: $query_str", LOG_DEBUG);
 
 				parent::do_transaction( $transaction );
 
@@ -219,7 +219,7 @@ class AmazonAdapter extends GatewayAdapter {
 				return;
 
 			default:
-				$this->log( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
+				$this->log_special( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
 				$this->setTransactionWMFStatus( 'failed' );
 				return;
 		}
@@ -250,7 +250,7 @@ class AmazonAdapter extends GatewayAdapter {
 				// We will however log it if we have a seemingly valid transaction id
 				if ( $txnid != null ) {
 					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-					$this->log( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
+					$this->log_special( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
 				}
 
 				$this->setTransactionWMFStatus( 'failed' );
@@ -277,7 +277,7 @@ class AmazonAdapter extends GatewayAdapter {
 				default:    // All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
-					$this->log( "Transaction failed with ($status) $errString", LOG_ERR );
+					$this->log_special( "Transaction failed with ($status) $errString", LOG_ERR );
 					$this->setTransactionWMFStatus( 'failed' );
 					break;
 			}
@@ -297,7 +297,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 	function processResponse( $response, &$retryVars = null ) {
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
-			$this->log( "Transaction failed in response data verification.", LOG_INFO );
+			$this->log_special( "Transaction failed in response data verification.", LOG_INFO );
 			$this->setTransactionWMFStatus( 'failed' );
 		}
 	}
@@ -395,4 +395,15 @@ class AmazonAdapter extends GatewayAdapter {
 		return '';
 	}
 
+    /**
+     * Wrapper for GatewayAdapter->log() to ensure we always have ctid
+     *
+     * @param $msg
+     * @param int $log_level
+     * @param string $log_id_suffix
+     */
+    protected function log_special( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+        $ctid = $this->getLogMessagePrefix();
+        $this->log( $ctid . $msg, $log_level, $log_id_suffix );
+    }
 }
