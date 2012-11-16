@@ -277,6 +277,18 @@ $wgDonationInterfaceFailPage = 'Donate-error';
  */
 $wgDonationInterfaceRetryLoopCount = 3;
 
+/**
+ * Orphan Cron settings global
+ */
+$wgDonationInterfaceOrphanCron = array(
+	'enable' => true,
+//	'override_command_line_params' => true,
+//	'function' => 'orphan_stomp',
+//	'target_execute_time' => 300,
+//	'max_per_execute' => '',
+);
+
+
 //GlobalCollect gateway globals
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgDonationInterfaceEnabledGateways[] = 'globalcollect';
