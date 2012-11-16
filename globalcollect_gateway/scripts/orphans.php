@@ -24,17 +24,28 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//have to turn this off here, until we know it's using the user's ip, and 
 		//not 127.0.0.1 during the batch process.
 		global $wgDonationInterfaceEnableIPVelocityFilter;
+		if ( !$this->getOrphanGlobal( 'enable' ) ){
+			echo "\nOrphan cron disabled. Have a nice day.";
+			return;
+		}
 		$wgDonationInterfaceEnableIPVelocityFilter = false;
 		
 		$func = 'parse_files';
-		if ( !empty( $_SERVER['argv'][1] ) ){
-			if ( $_SERVER['argv'][1] === 'stomp' ){
-				$func = 'orphan_stomp';
-				if ( !empty( $_SERVER['argv'][2] ) && is_numeric( $_SERVER['argv'][2] ) ){
-					$this->target_execute_time = $_SERVER['argv'][2];
+		if ( $this->getOrphanGlobal( 'override_command_line_params' ) ){
+			//do that
+			$func = $this->getOrphanGlobal( 'function' );
+			$this->target_execute_time = $this->getOrphanGlobal( 'target_execute_time' );
+			$this->max_per_execute = $this->getOrphanGlobal( 'max_per_execute' );
+		} else {
+			if ( !empty( $_SERVER['argv'][1] ) ){
+				if ( $_SERVER['argv'][1] === 'stomp' ){
+					$func = 'orphan_stomp';
+					if ( !empty( $_SERVER['argv'][2] ) && is_numeric( $_SERVER['argv'][2] ) ){
+						$this->target_execute_time = $_SERVER['argv'][2];
+					}
+				} elseif ( is_numeric( $_SERVER['argv'][1] ) ){
+					$this->max_per_execute = $_SERVER['argv'][1];
 				}
-			} elseif ( is_numeric( $_SERVER['argv'][1] ) ){
-				$this->max_per_execute = $_SERVER['argv'][1];
 			}
 		}
 		
@@ -83,10 +94,12 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
 			$orphans = $this->getStompOrphans();
 			while ( count( $orphans ) && $this->keepGoing() ){
+				echo count( $orphans ) . " orphans left this batch\n";
 				//..do stuff. 
 				foreach ( $orphans as $correlation_id => $orphan ) {
 					//process
 					if ( $this->keepGoing() ){
+						echo "Attempting to rectify orphan $correlation_id\n";
 						if ( $this->rectifyOrphan( $orphan ) ){
 							$this->addStompCorrelationIDToAckBucket( $correlation_id );
 							$this->handled_ids[$correlation_id] = 'rectified';
@@ -135,7 +148,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$final .= "\n   Status $status = $count";
 			}
 		}
-		$final .= " Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
+		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
 		$this->adapter->log($final);
 		echo $final;
 	}
@@ -156,7 +169,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 */
 	function getProcessElapsed(){
 		$elapsed = time() - $this->start_time;
-		echo "\nElapsed Time: $elapsed";
+		echo "Elapsed Time: $elapsed\n";
 		return $elapsed;
 	}
 	
@@ -190,6 +203,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		$count = 0;
 		while ( count( $antimessages ) > 10 && $this->keepGoing() ){ //if there's an antimessage, we can ack 'em all right now. 
+			echo "Colliding " . count( $antimessages ) . " antimessages\n";
 			$count += count( $antimessages );
 			foreach ( $antimessages as $message ){
 				//add the correlation ID to the ack bucket. 
@@ -214,6 +228,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	function getStompOrphans(){
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
 		$selector = "payment_method = 'cc'";
+		echo "Fetching 300 Orphans\n";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 		$orphans = array();
 		$false_orphans = array();
@@ -373,6 +388,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		echo $results['message'] . "\n";
 		
 		return $rectified;
+	}
+	
+	/**
+	 * Gets the global setting for the key passed in.
+	 * @param type $key
+	 */
+	function getOrphanGlobal( $key ){
+		global $wgDonationInterfaceOrphanCron;
+		if ( array_key_exists( $key, $wgDonationInterfaceOrphanCron ) ){
+			return $wgDonationInterfaceOrphanCron[$key];
+		} else {
+			return NULL;
+		}
 	}
 	
 	function getAllLogFileNames(){
