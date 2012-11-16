@@ -39,7 +39,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		
 		$data = array(
-			'wheeee' => 'yes'			
+			'wheeee' => 'yes'
 		);
 		$this->adapter = new GlobalCollectOrphanAdapter(array('external_data' => $data));
 		
@@ -55,7 +55,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	function orphan_stomp(){
 		echo "Orphan Stomp\n";
 		$this->removed_message_count = 0;
-		$this->now = time(); //time at start, thanks very much. 
+		$this->start_time = time();
 		
 		//I want to be clear on the problem I hope to prevent with this. 
 		//Say, for instance, we pull a legit orphan, and for whatever reason, can't completely rectify it. 
@@ -135,17 +135,29 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$final .= "\n   Status $status = $count";
 			}
 		}
+		$final .= " Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
 		$this->adapter->log($final);
 		echo $final;
 	}
 	
 	function keepGoing(){
-		$elapsed = time() - $this->now;
+		$elapsed = $this->getProcessElapsed();
 		if ( $elapsed < $this->target_execute_time ){
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * This will both return the elapsed process time, and echo something for 
+	 * the cronspammer.
+	 * @return int elapsed time since start in seconds
+	 */
+	function getProcessElapsed(){
+		$elapsed = time() - $this->start_time;
+		echo "\nElapsed Time: $elapsed";
+		return $elapsed;
 	}
 	
 	function addStompCorrelationIDToAckBucket( $correlation_id, $ackNow = false ){
@@ -218,7 +230,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					//check the timestamp to see if it's old enough. 
 					$decoded = json_decode($message->body, true);
 					if ( array_key_exists( 'date', $decoded ) ){
-						$elapsed = $this->now - $decoded['date'];
+						$elapsed = $this->start_time - $decoded['date'];
 						if ( $elapsed > $time_buffer ){
 							//we got ourselves an orphan! 
 							$correlation_id = $message->headers['correlation-id'];
