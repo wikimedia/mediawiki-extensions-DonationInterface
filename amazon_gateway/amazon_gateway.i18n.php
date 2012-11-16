@@ -204,6 +204,14 @@ $messages['tl'] = array(
 	'amazon_gateway-desc' => 'Pagsasagawa ng pagbabayad gamit ang Amazon',
 );
 
+/** Turkish (Türkçe)
+ * @author Emperyan
+ */
+$messages['tr'] = array(
+	'amazongateway' => 'Bağışınızı şimdi yapın',
+	'amazon_gateway-desc' => 'Amazon ödeme işlemleri',
+);
+
 /** Urdu (اردو)
  * @author පසිඳු කාවින්ද
  */
@@ -217,4 +225,12 @@ $messages['ur'] = array(
 $messages['vi'] = array(
 	'amazongateway' => 'Quyên góp ngay bây giờ',
 	'amazon_gateway-desc' => 'Xử lý thanh toán qua Amazon',
+);
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'amazongateway' => '马上捐款',
+	'amazon_gateway-desc' => '亚马逊支付程序',
 );

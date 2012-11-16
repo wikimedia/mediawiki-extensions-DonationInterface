@@ -975,6 +975,14 @@ $messages['tl'] = array(
 Mangyaring subukan muli mamaya.',
 );
 
+/** Turkish (Türkçe)
+ * @author Emperyan
+ */
+$messages['tr'] = array(
+	'globalcollectgateway' => 'Bağışınızı şimdi yapın',
+	'globalcollect_gateway-desc' => 'GlobalCollect ödeme işlemleri',
+);
+
 /** Urdu (اردو)
  * @author පසිඳු කාවින්ද
  */
@@ -1017,6 +1025,21 @@ Xin hãy thử lại sau.',
  */
 $messages['zh-hans'] = array(
 	'globalcollectgateway' => '马上捐款',
+	'globalcollect_gateway-desc' => 'GlobalCollect 支付程序',
+	'globalcollect_gateway-response-9130' => '无效的国家。',
+	'globalcollect_gateway-response-9140' => '无效的货币。',
+	'globalcollect_gateway-response-9150' => '无效的语言。',
+	'globalcollect_gateway-response-400530' => '无效的支付方法。',
+	'globalcollect_gateway-response-430306' => '您的信用卡已过期。请尝试使用其他卡或我们的其他支付方式。',
+	'globalcollect_gateway-response-430330' => '卡号无效。',
+	'globalcollect_gateway-response-430421' => '无法验证您的信用卡。请验证所有信息都匹配您的信用卡资料，或尝试使用其他卡。',
+	'globalcollect_gateway-response-430360' => '业务无法授权。请尝试使用其他卡或我们的其他支付方式。',
+	'globalcollect_gateway-response-430285' => '业务无法授权。请尝试使用其他卡或我们的其他支付方式。',
+	'globalcollect_gateway-response-21000150' => '无效的银行帐号。',
+	'globalcollect_gateway-response-21000155' => '无效的银行代码。',
+	'globalcollect_gateway-response-21000160' => '无效的转帐帐户号码。',
+	'globalcollect_gateway-response-default' => '处理您的交易过程中出错。
+请稍后重试。',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
