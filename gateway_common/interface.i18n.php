@@ -28564,7 +28564,7 @@ Hiç bir prosessor elýeterli däl.',
 $messages['tl'] = array(
 	'donate_interface' => 'Tangkilikin ang Wikimedia',
 	'donate_interface-desc' => 'Pahinang lapagan ng mga kaloob na nagsasama-sama ng mga dugtong ng daanang-tarangkahan',
-	'donate_interface-langonly-desc' => 'Nagtatambad lamang ng mga mensahe ng sistema ng Ugnayagang-Mukha ng Abuloy',
+	'donate_interface-langonly-desc' => 'Nagtatambad lamang ng mga mensahe ng sistemang DonationInterface',
 	'donate_interface-intro' => 'Mangyaring pumili ng isang paraan ng pagbabayad, halaga, at salapi.',
 	'donate_interface-amount' => 'Halaga',
 	'donate_interface-other-amount' => 'Ibang halaga',
