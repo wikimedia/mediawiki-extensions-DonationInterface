@@ -43,8 +43,8 @@ body.ltr #footer #footer-places {
 }
 
 #payflowpro_gateway-personal-info {
-	margin-right: 4em;
-	margin-bottom: 1em;
+/*	margin-right: 4em;
+	margin-bottom: 1em; */ /* This only seems to cause issues for RTL languages */
 }
 
 #payflowpro_gateway-form-submit, #payflowpro_gateway-form-submit-paypal {
