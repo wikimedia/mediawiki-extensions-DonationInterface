@@ -130,12 +130,27 @@ window.validate_personal = function( form ){
 
 	// validate email address
 	if( document.getElementById( 'emailAdd' ).value != '' && document.getElementById( 'emailAdd' ).value != mw.msg( 'donate_interface-donor-emailAdd' ) ) {
-		var apos = form.emailAdd.value.indexOf("@");
+		var invalid = false;
+
+        var apos = form.emailAdd.value.indexOf("@");
 		var dotpos = form.emailAdd.value.lastIndexOf(".");
 	
 		if( apos < 1 || dotpos-apos < 2 ) {
 			output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+            invalid = true;
 		}
+
+        var domain = form.emailAdd.value.substring( apos + 1 );
+
+        var invalids = ["..", "/", "\\", ",", "<", ">"];
+
+        for( i = 0; i < invalids.length && !invalid; i++ ){
+            if( domain.indexOf( invalids[i] ) != -1 ){
+                output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+                invalid = true;
+                break;
+            }
+        }
 	}
 	
 	// Make sure cookies are enabled
