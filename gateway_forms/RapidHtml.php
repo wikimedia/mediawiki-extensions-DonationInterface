@@ -212,18 +212,25 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$escape_error_tokens[] = "$token|escape";
 		}
 		$escape_errors = array();
+		
+		//TODO: $raw_errors might not be used anywhere. This is a band-aid to
+		//fix the thing throwing notices everywhere. We should determine if this
+		//is even a thing anymore, and nuke appropriately. 
+		$raw_errors = array();
 		foreach ( $this->form_errors as $error ) {
 			$error_c = str_replace( array("\r\n", "\n", "\r"), " ", $error );
-			if( is_array( $error_c ) ){
+			if( is_array( $error ) ){
 				$error_c = implode( " ", $error_c );
+				$error = implode( " ", $error );
 			}
 			$escape_errors[] = addslashes($error_c);
+			$raw_errors[] = $error;
 		}
 		$form = str_replace($escape_error_tokens, $escape_errors, $form);
 
 		// replace standard errors
-		$form = str_replace($this->error_tokens, $this->form_errors, $form);
-
+		$form = str_replace($this->error_tokens, $raw_errors, $form);
+		
 		// handle captcha
 		$form = str_replace( "@captcha", $this->getCaptchaHtml(), $form );
 
