@@ -323,7 +323,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
             # check to see if the parameter is, in fact, an element in DonationData
 			$param = $this->getEscapedValue( $matches[ 2 ][ $i ] );
-            if( $param ){
+            if( $param && !is_array( $param ) ){
                 # get the value of the element and super-escape
                 $var = $this->make_safe( $param, 'default' );
             }
