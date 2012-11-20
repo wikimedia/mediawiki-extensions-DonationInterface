@@ -44,6 +44,7 @@ class AmazonAdapter extends GatewayAdapter {
 			"buyerName" => "fname", // This is dealt with in processResponse()
 			"errorMessage" => "error_message",
 			"paymentMethod" => "payment_submethod",
+			"referenceId" => "contribution_tracking_id",
 			//"recipientEmail" => "merchant_email",
 			//"recipientName" => "merchant_name",
 			//"operation" => e.g. "pay"
@@ -74,20 +75,19 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transactions = array();
 		$this->transactions[ 'Donate' ] = array(
 			'request' => array(
+				'accessKey',
 				'amount',
-				'cobrandingStyle',
 				'collectShippingAddress',
 				'description',
 				'immediateReturn',
 				'returnUrl',
 				'isDonationWidget',
 				'processImmediate',
+				'referenceId',
 				'signatureMethod',
 				'signatureVersion',
-				'accessKey',
 			),
 			'values' => array(
-				'cobrandingStyle' => 'logo',
 				'collectShippingAddress' => '0',
 				'description' => 'Donation to the Wikimedia Foundation',
 				'immediateReturn' => '1',
@@ -251,10 +251,14 @@ class AmazonAdapter extends GatewayAdapter {
 				if ( $txnid != null ) {
 					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 					$this->log_special( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
+					if ( $this->getGlobal( 'UseOrderIdValidation' ) ) {
+						$this->setTransactionWMFStatus( 'failed' );
+						return;
+					}
+				} else {
+					$this->setTransactionWMFStatus( 'failed' );
+					return;
 				}
-
-				$this->setTransactionWMFStatus( 'failed' );
-				return;
 			}
 
 			// Third: we did have an outbound request; so let's look at what amazon is telling us
@@ -274,10 +278,10 @@ class AmazonAdapter extends GatewayAdapter {
 
 				case 'PF':  // Payment failed
 				case 'SE':  // This one is interesting; service failure... can we do something here?
-				default:    // All other errorz
+				default:	// All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
-					$this->log_special( "Transaction failed with ($status) $errString", LOG_ERR );
+					$this->log_special( "Transaction $txnid failed with ($status) $errString", LOG_ERR );
 					$this->setTransactionWMFStatus( 'failed' );
 					break;
 			}
@@ -395,15 +399,15 @@ class AmazonAdapter extends GatewayAdapter {
 		return '';
 	}
 
-    /**
-     * Wrapper for GatewayAdapter->log() to ensure we always have ctid
-     *
-     * @param $msg
-     * @param int $log_level
-     * @param string $log_id_suffix
-     */
-    protected function log_special( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-        $ctid = $this->getLogMessagePrefix();
-        $this->log( $ctid . $msg, $log_level, $log_id_suffix );
-    }
+	/**
+	 * Wrapper for GatewayAdapter->log() to ensure we always have ctid
+	 *
+	 * @param $msg
+	 * @param int $log_level
+	 * @param string $log_id_suffix
+	 */
+	protected function log_special( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+		$ctid = $this->getLogMessagePrefix();
+		$this->log( $ctid . $msg, $log_level, $log_id_suffix );
+	}
 }
