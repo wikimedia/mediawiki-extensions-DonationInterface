@@ -1996,6 +1996,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//straaaange postal codes...
 			$this->staged_data['zip'] = '0';
 		}
+		
+		//country-based zip grooming to make AVS (marginally) happy
+		switch ($this->getData_Staged( 'country' ) ){
+			case 'CA':
+				//Canada goes "A0A 0A0"
+				$this->staged_data['zip'] = strtoupper( $this->staged_data['zip'] );
+				//In the event that they only forgot the space, help 'em out.
+				$regex = '/[A-Z]{1}\d{1}[A-Z]{1}\d{1}[A-Z]{1}\d{1}/'; 
+				if ( strlen( $this->staged_data['zip'] ) === 6 && preg_match( $regex, $this->staged_data['zip'] ) ) {
+					$zip = $this->staged_data['zip'];
+					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
+				}
+				break;
+		}
 	}
 
 	/**
