@@ -2452,7 +2452,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// Lookup a score if it is defined
 		if ( isset( $countryMap[ $country ] ) ) {
-			$score = (integer) abs( $countryMap[ $country ] );
+			$score = (integer) $countryMap[ $country ];
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
