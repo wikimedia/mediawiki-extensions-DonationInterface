@@ -381,6 +381,7 @@ Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
 );
 
 /** Danish (dansk)
+ * @author Christian List
  * @author Jon Harald Søby
  * @author Peter Alberti
  */
@@ -390,7 +391,7 @@ $messages['da'] = array(
 	'payflowpro_gateway-response-0' => 'Din transaktion er blevet godkendt.
 Tak for din donation!',
 	'payflowpro_gateway-response-126' => 'Din overførsel afventer godkendelse.',
-	'payflowpro_gateway-response-126-2' => 'Nogle af de oplysninger, du har angivet, passer ikke til din kreditkortprofil, eller du har givet en meget stor gave. For din egen sikkerhed, er din donation i øjeblikket under revision, og vi vil give dig besked via den oplyste email-adresse, hvis vi ikke kan færdiggøre din donation. Venligst e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> , hvis du har nogle spørgsmål. Tak!',
+	'payflowpro_gateway-response-126-2' => 'Nogle af de oplysninger, du har angivet, passer ikke til din kreditkortprofil, eller du har givet en meget stor gave. For din egen sikkerhed, er din donation i øjeblikket under revision, og vi vil give dig besked via den oplyste e-mailadresse, hvis vi ikke kan færdiggøre din donation. Venligst e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>, hvis du har nogle spørgsmål. Tak!',
 	'payflowpro_gateway-response-12' => 'Du bedes kontakte firmaet, der har udstedt dit kreditkort, for flere oplysninger.',
 	'payflowpro_gateway-response-13' => 'Din transaktion kræver stemmegodkendelse.
 Vær så venlig at kontakte os for at fortsætte din transaktion.',
