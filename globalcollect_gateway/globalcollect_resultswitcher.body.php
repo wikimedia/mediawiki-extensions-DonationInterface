@@ -82,11 +82,24 @@ class GlobalCollectGatewayResult extends GatewayForm {
 
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
+				$prefix = $this->adapter->getLogMessagePrefix();
 				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) || !is_array( $_SESSION['order_status'][$oid] ) ) {
+
+					//@TODO: If you never, ever, ever see this, rip it out. 
+					//In all other cases, write kind of a lot of code. 
+					if ( array_key_exists( 'pending', $_SESSION ) ){
+						$started = $_SESSION['pending'];
+						//not sure what to do with this yet, but I sure want to know if it's happening. 
+						$this->adapter->log( $prefix . "Resultswitcher: Parallel Universe Unlocked. Start time: $started");
+					}
+					
+					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky. 
 					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+					unset( $_SESSION['pending'] );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
 					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
+					$this->adapter->log( $prefix . "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'] );
 				}
 				$result = $_SESSION['order_status'][$oid];
 				$this->displayResultsForDebug( $result );
