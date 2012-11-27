@@ -2497,7 +2497,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// Lookup a score if it is defined
 		if ( isset( $emailDomainMap[ $emailDomain ] ) ) {
-			$score = (integer) abs( $emailDomainMap[ $emailDomain ] );
+			$score = (integer) $emailDomainMap[ $emailDomain ];
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
@@ -2511,11 +2511,12 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This custom filter function checks the global variable:
 	 *
 	 * UtmCampaignMap
+	 * 
+	 * @TODO: All these regex map matching functions that are identical with
+	 * different internal var names are making me rilly mad. Collapse.
 	 *
 	 * How the score is tabulated:
-	 *  - If a campaign is not defined, a score of zero will be generated.
-	 *  - Generates a score based on the defined value.
-	 *  - Returns an integer.
+	 *  - Add the score(value) associated with each regex(key) in the map var.
 	 *
 	 * @see GatewayAdapter::$debugarray
 	 * @see GatewayAdapter::log()
@@ -2537,9 +2538,13 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->log( $msg, LOG_DEBUG );
 
-		// Lookup a score if it is defined
-		if ( isset( $campaignMap[ $campaign ] ) ) {
-			$score = (integer) $campaignMap[ $campaign ];
+		// If any of the defined regex patterns match, add the points.
+		if ( is_array( $campaignMap ) && !empty( $campaignMap ) ){
+			foreach ( $campaignMap as $regex => $points ){
+				if ( preg_match( $regex, $campaign ) ) {
+					$score = (integer) $points;
+				}
+			}
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
@@ -2554,10 +2559,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * UtmMediumMap
 	 *
+	 * @TODO: Again. Regex map matching functions, identical, with minor 
+	 * internal var names. Collapse.
+	 * 
 	 * How the score is tabulated:
-	 *  - If a medium is not defined, a score of zero will be generated.
-	 *  - Generates a score based on the defined value.
-	 *  - Returns an integer.
+	 *  - Add the score(value) associated with each regex(key) in the map var.
 	 *
 	 * @see GatewayAdapter::$debugarray
 	 * @see GatewayAdapter::log()
@@ -2579,9 +2585,13 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->log( $msg, LOG_DEBUG );
 
-		// Lookup a score if it is defined
-		if ( isset( $mediumMap[ $medium ] ) ) {
-			$score = (integer) $mediumMap[ $medium ];
+		// If any of the defined regex patterns match, add the points.
+		if ( is_array( $mediumMap ) && !empty( $mediumMap ) ){
+			foreach ( $mediumMap as $regex => $points ){
+				if ( preg_match( $regex, $medium ) ) {
+					$score = (integer) $points;
+				}
+			}
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
@@ -2596,10 +2606,10 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * UtmSourceMap
 	 *
+	 * @TODO: Argharghargh, inflated code! Collapse!
+	 *
 	 * How the score is tabulated:
-	 *  - If a source is not defined, a score of zero will be generated.
-	 *  - Generates a score based on the defined value.
-	 *  - Returns an integer.
+	 *  - Add the score(value) associated with each regex(key) in the map var.
 	 *
 	 * @see GatewayAdapter::$debugarray
 	 * @see GatewayAdapter::log()
@@ -2621,9 +2631,13 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->log( $msg, LOG_DEBUG );
 
-		// Lookup a score if it is defined
-		if ( isset( $sourceMap[ $source ] ) ) {
-			$score = (integer) $sourceMap[ $source ];
+		// If any of the defined regex patterns match, add the points.
+		if ( is_array( $sourceMap ) && !empty( $sourceMap ) ){
+			foreach ( $sourceMap as $regex => $points ){
+				if ( preg_match( $regex, $source ) ) {
+					$score = (integer) $points;
+				}
+			}
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
