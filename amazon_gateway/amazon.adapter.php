@@ -170,7 +170,7 @@ class AmazonAdapter extends GatewayAdapter {
 			unset( $request_params[ 'title' ] );
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
-			$this->log_special("received callback from amazon with: $incoming", LOG_DEBUG);
+			$this->log_special( "received callback from amazon with: $incoming", LOG_DEBUG );
 			$this->transactions[ $transaction ][ 'values' ][ 'AWSAccessKeyId' ] = $this->account_config[ 'AccessKey' ];
 			break;
 		}
@@ -184,7 +184,7 @@ class AmazonAdapter extends GatewayAdapter {
 			case 'Donate':
 				$this->addDonorDataToSession();
 				$query_str = $this->encodeQuery( $query );
-				$this->log_special("At $transaction, redirecting with query string: $query_str", LOG_DEBUG);
+				$this->log_special( "At $transaction, redirecting with query string: $query_str", LOG_DEBUG );
 				
 				//always have to do this before a redirect. 
 				$this->dataObj->updateContributionTracking( true );
@@ -199,7 +199,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$query_str = $this->encodeQuery( $query );
 				$this->url .= "?{$query_str}&Signature={$signature}";
 
-				$this->log_special("At $transaction, query string: $query_str", LOG_DEBUG);
+				$this->log_special( "At $transaction, query string: $query_str", LOG_DEBUG );
 
 				parent::do_transaction( $transaction );
 
@@ -265,6 +265,7 @@ class AmazonAdapter extends GatewayAdapter {
 			// about the transaction.
 			// todo: lots of other statuses we can interpret
 			// see: http://docs.amazonwebservices.com/AmazonSimplePay/latest/ASPAdvancedUserGuide/ReturnValueStatusCodes.html
+			$this->log_special( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ), LOG_INFO );
 			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
 				case 'PS':  // Payment success
 					$this->setTransactionWMFStatus( 'complete' );
@@ -285,6 +286,8 @@ class AmazonAdapter extends GatewayAdapter {
 					$this->setTransactionWMFStatus( 'failed' );
 					break;
 			}
+		} else {
+			$this->log_special( 'Apparently we attempted to process a transaction with WMF status... Odd', LOG_ERR );
 		}
 	}
 
@@ -297,6 +300,11 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 		$this->stageData();
+
+		$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
+		$email = $this->dataObj->getVal_Escaped( 'email' );
+
+		$this->log_special( "Added data to session for txnid $txnid. Now serving email $email.", LOG_INFO );
 	}
 
 	function processResponse( $response, &$retryVars = null ) {
