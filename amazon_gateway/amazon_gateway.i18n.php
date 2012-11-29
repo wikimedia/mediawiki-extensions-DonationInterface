@@ -92,6 +92,14 @@ $messages['eu'] = array(
 	'amazongateway' => 'Egin orain zure dohaintza',
 );
 
+/** Finnish (suomi)
+ * @author Nedergard
+ */
+$messages['fi'] = array(
+	'amazongateway' => 'Tee lahjoituksesi nyt',
+	'amazon_gateway-desc' => 'Amazon-maksujen käsittely',
+);
+
 /** French (français)
  * @author Erkethan
  */
