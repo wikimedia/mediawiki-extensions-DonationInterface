@@ -303,9 +303,11 @@ Palun proovi hiljem uuesti.',
 
 /** Finnish (suomi)
  * @author Alluk.
+ * @author Nedergard
  */
 $messages['fi'] = array(
 	'globalcollectgateway' => 'Tee lahjoitus nyt',
+	'globalcollect_gateway-desc' => 'GlobalCollect-maksujen käsittely',
 	'globalcollect_gateway-response-9130' => 'Virheellinen maa.',
 	'globalcollect_gateway-response-9140' => 'Virheellinen valuutta.',
 	'globalcollect_gateway-response-9150' => 'Virheellinen kieli.',
