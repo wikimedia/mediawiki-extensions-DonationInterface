@@ -66,7 +66,7 @@ EOT;
 			return;
 		}
 
-
+		$this->log( 'At gateway return with params: ' . json_encode( $this->getRequest()->getValues() ), LOG_INFO );
 		if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
 			$this->adapter->do_transaction( 'ProcessAmazonReturn' );
 
@@ -78,6 +78,8 @@ EOT;
 			else {
 				$out->redirect( $this->adapter->getFailPage() );
 			}
+		} else {
+			$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_INFO );
 		}
 	}
 }
