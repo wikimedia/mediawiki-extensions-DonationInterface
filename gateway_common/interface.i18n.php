@@ -23280,6 +23280,7 @@ Pentru a vă oferi o experiență sigură și plăcută, formularul nostru de do
 	'donate_interface-optional' => 'opțional',
 	'donate_interface-state-dropdown-YY' => 'Selectați un stat',
 	'donate_interface-state-dropdown-XX' => 'În afara Statelor Unite',
+	'donate_interface-cc-MX-instructions' => 'Din motive de securitate, anumite bănci mexicane au blocat tranzacțiile on-line. Dacă donația nu se finalizează, vă sugerăm să cereți băncii dumneavoastră autorizarea donațiilor on-line, după care să reîncercați.',
 	'donate_interface-bt-account_holder' => 'Titularul contului',
 	'donate_interface-bt-bank_account_number' => 'Numărul contului bancar',
 	'donate_interface-bt-country_description' => 'Descrierea țării',
