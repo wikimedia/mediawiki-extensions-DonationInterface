@@ -626,7 +626,7 @@ class DonationData {
 				'user_ip', //to help deal with fraudulent traffic.
 			);
 			foreach ( $keys as $key ){
-				$mess .= ' ' . $key . '=' . $this->getVal( 'key' );
+				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
 			$this->log( $mess );
 			$this->setVal('amount', 'invalid');
