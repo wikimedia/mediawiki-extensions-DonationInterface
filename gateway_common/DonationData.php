@@ -387,12 +387,12 @@ class DonationData {
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
+			$this->setIPAddresses();
 			$this->setUtmSource();
-			$this->setNormalizedAmount();
 			$this->setNormalizedOrderIDs();
+			$this->setNormalizedAmount();
 			$this->setGateway();
 			$this->setLanguage();
-			$this->setIPAddresses();
 			$this->setCountry(); //must do this AFTER setIPAddress...
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode(); // AFTER setCountry
@@ -613,6 +613,24 @@ class DonationData {
 		
 		if ( !($this->isSomething( 'amount' )) ){
 			$this->setVal( 'amount', '0.00' );
+		}
+		
+		if ( !is_numeric( $this->getVal( 'amount' ) ) ){
+			//fail validation later, log some things.
+			$mess = $this->getLogMessagePrefix() . 'Non-numeric Amount.';
+			$keys = array(
+				'amount',
+				'utm_source',
+				'utm_campaign',
+				'email',
+				'user_ip', //to help deal with fraudulent traffic.
+			);
+			foreach ( $keys as $key ){
+				$mess .= ' ' . $key . '=' . $this->getVal( 'key' );
+			}
+			$this->log( $mess );
+			$this->setVal('amount', 'invalid');
+			return;
 		}
 		
 		$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
