@@ -889,7 +889,7 @@ abstract class GatewayAdapter implements GatewayType {
 				'message' => 'Failed data validation',
 				'errors' => $this->getAllErrors(),
 			);
-			$this->log( $this->getLogMessagePrefix() . "Failed Validation. Aborting $transaction " . print_r( $this->getValidationErrors() ) );
+			$this->log( $this->getLogMessagePrefix() . "Failed Validation. Aborting $transaction " . print_r( $this->getValidationErrors(), true ) );
 			return $return;
 		}
 		
