@@ -74,6 +74,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		//have to do this again here. 
 		$this->reAddHardData();
+		
+		$this->revalidate();
 	}
 
 	public function addData( $dataArray ) {
