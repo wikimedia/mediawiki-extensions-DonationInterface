@@ -1935,7 +1935,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$types = array_flip( $types );
 		}
 
-		$card_type = $this->getData_Unstaged_Escaped('card_type');
+		$card_type = $this->staged_data['card_type']; //if I use unstaged here, SET_PAYMENT looses its mind for some reason.
+		//@TODO: Figure out why that is...
+		
 		if ( ( !is_null( $card_type ) ) && array_key_exists( $card_type, $types ) ) {
 			$this->staged_data['card_type'] = $types[$card_type];
 		} else {
