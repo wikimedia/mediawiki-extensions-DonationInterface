@@ -1935,7 +1935,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$types = array_flip( $types );
 		}
 
-		$card_type = $this->getData_Staged('card_type');
+		$card_type = $this->getData_Unstaged_Escaped('card_type');
 		if ( ( !is_null( $card_type ) ) && array_key_exists( $card_type, $types ) ) {
 			$this->staged_data['card_type'] = $types[$card_type];
 		} else {
@@ -1943,26 +1943,36 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//iono: maybe nothing? 
 		}
 
-		// This array contains all the card types that need AUTHENTICATIONINDICATOR
+		// This array contains all the card types that can use AUTHENTICATIONINDICATOR
 		$authenticationIndicatorTypes = array(
 			'1', // visa
 			'3', // mc
 		);
 
-		// This array contains all currencies that should implement AUTHENTICATIONINDICATOR
-		$authenticationIndicatorCurrencies = array(
-			'INR',
-		);
-
+		$enable3ds = false;
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
 		if ( in_array( $this->staged_data['card_type'], $authenticationIndicatorTypes ) ) {
-
-			if ( in_array( $this->staged_data['currency_code'], $authenticationIndicatorCurrencies ) ) {
-
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
+			$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
+			if ( array_key_exists( $currency, $ThreeDSecureRules ) ){
+				if ( !is_array( $ThreeDSecureRules[$currency] ) ){
+					if ( $ThreeDSecureRules[$currency] === $country ){
+						$enable3ds = true;
+					}
+				} else {
+					if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ){
+						$enable3ds = true;
+					}
+				}
 			}
 		}
+
+		if ( $enable3ds ){
+			$this->log( $this->getLogMessagePrefix() . "3dSecure enabled for $currency in $country");
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
+		}
 	}
-	
+
 	/**
 	 * Stage the street address. In the event that there isn't anything in
 	 * there, we need to send something along so that AVS checks get triggered
