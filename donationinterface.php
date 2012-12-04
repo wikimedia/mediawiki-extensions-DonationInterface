@@ -298,6 +298,18 @@ $wgDonationInterfaceOrphanCron = array(
  */
 $wgDonationInterfaceForbiddenCountries = array();
 
+/**
+ * 3D Secure enabled currencies (and countries) for Credit Card.
+ * An array in the form of currency => array of countries 
+ * (all-caps ISO 3166-1 alpha-2), or an empty array for all transactions in that
+ * currency regardless of country of origin.
+ * As this is a mandatroy check for all INR transactions, that rule made it into
+ * the default.  
+ */
+$wgDonationInterface3DSRules = array(
+	'INR' => array(), //all countries
+);
+
 //GlobalCollect gateway globals
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgDonationInterfaceEnabledGateways[] = 'globalcollect';
