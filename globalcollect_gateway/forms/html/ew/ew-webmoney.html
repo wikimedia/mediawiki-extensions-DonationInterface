@@ -38,7 +38,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <!--{% block name-email %}-->
+                            {% block optional_email %}
                             <tr>
                                 <td colspan="2">
                                     <select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
@@ -46,10 +46,11 @@
                                         <option value="AT">%donate_interface-country-dropdown-AT%</option>
                                         <option value="CY">%donate_interface-country-dropdown-CY%</option>
                                         <option value="DE">%donate_interface-country-dropdown-DE%</option>
-                                        <option value="EC">%donate_interface-country-dropdown-EC%</option>
+                                        <!--<option value="EC">%donate_interface-country-dropdown-EC%</option>-->
                                         <option value="ES">%donate_interface-country-dropdown-ES%</option>
                                         <option value="FI">%donate_interface-country-dropdown-FI%</option>
                                         <option value="FR">%donate_interface-country-dropdown-FR%</option>
+                                        <option value="GB">%donate_interface-country-dropdown-GB%</option>
                                         <option value="GR">%donate_interface-country-dropdown-GR%</option>
                                         <option value="IE">%donate_interface-country-dropdown-IE%</option>
                                         <option value="ME">%donate_interface-country-dropdown-ME%</option>
@@ -63,11 +64,12 @@
                             <tr>
                                 <td colspan="2">
                                     <select class="txt" id="currency_code" name="currency_code" value="@currency_code" >
-                                        <option value="USD">USD</option>
+                                        <!--<option value="USD">USD</option>-->
                                         <option value="EUR">EUR</option>
+                                        <option value="GBP">GBP</option>
                                         <option value="RUB">RUB</option>
-                                        <option value="UAH">UAH</option>
-                                        <option value="UZS">UZS</option>
+                                        <!--<option value="UAH">UAH</option>-->
+                                        <!--<option value="UZS">UZS</option>-->
                                     </select>
                                 </td>
                             </tr>
@@ -90,12 +92,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <input type="hidden" name="gateway" value="payflowpro" id="gateway" />
-                    <input type="hidden" name="returnto" value="Thank_You/en" />
+                    <input type="hidden" name="returnto" value="Thank_You/@language" />
                     <input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
                     <input type="hidden" value="@amount" name="amount">
-                    <!--<input type="hidden" value="@country" name="country" id="country" />-->
-                    <!--<input type="hidden" value="@currency_code" name="currency_code" />-->
                     <input type="hidden" value="@utm_source" name="utm_source"/>
                     <input type="hidden" value="@utm_medium" name="utm_medium"/>
                     <input type="hidden" value="@utm_campaign" name="utm_campaign"/>
@@ -112,13 +111,13 @@
                     <input type="hidden" value="ew" name="payment_method"/>
                     <input type="hidden" value="ew_webmoney" name="payment_submethod"/>
                     <!-- required fields omitted above -->
-                    <input type="hidden" value="John" name="fname" id="fname" />
-                    <input type="hidden" value="Doe" name="lname" id="lname" />
-                    <input type="hidden" value="n/a" name="street" id="street" />
-                    <input type="hidden" value="n/a" name="city" id="city" />
-                    <input type="hidden" value="XX" name="state" id="state" />
-                    <input type="hidden" value="00000" name="zip" id="zip" />
-                    <input type="hidden" value="nobody@wikimedia.org" name="emailAdd" id="emailAdd" />
+                    <input class="optional" type="hidden" value="" name="fname" id="fname" />
+                    <input class="optional" type="hidden" value="" name="lname" id="lname" />
+                    <input class="optional" type="hidden" value="" name="street" id="street" />
+                    <input class="optional" type="hidden" value="" name="city" id="city" />
+                    <input class="optional" type="hidden" value="" name="state" id="state" />
+                    <input class="optional" type="hidden" value="" name="zip" id="zip" />
+                    <input class="optional" type="hidden" value="" name="emailAdd" id="emailAdd" />
                 </form>
             </div>
             <p id="informationsharing">%donate_interface-informationsharing|url%</p>
