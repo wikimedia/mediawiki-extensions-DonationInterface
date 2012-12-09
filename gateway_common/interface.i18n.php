@@ -648,7 +648,9 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 
 An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.
 
-This is an error message which appears if one or more of the above fields is left empty.",
+This is an error message which appears if one or more of the above fields is left empty.
+
+See [https://bugzilla.wikimedia.org/show_bug.cgi?id=42898 bugzilla 42898]",
 	'donate_interface-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
@@ -8772,6 +8774,7 @@ $messages['fi'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Luottokorttisi turvallisuuden vuoksi, syötä yllä näkemäsi merkit.',
 	'donate_interface-error-msg-cookies' => 'Ota selaimesi evästeet käyttöön.',
 	'donate_interface-error-msg-genaricrequired' => 'Tämä kenttä on pakollinen',
+	'donate_interface-error-msg-country-calc' => 'Emme voi ottaa vastaan lahjoituksia tällä hetkellä.',
 	'donate_interface-donate-error-try-a-different-card' => 'Yritä [$1 toista korttia] tai jotain [$2 muista tavoista lahjoittaa] tai ota meihin yhteyttä osoitteella $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Kiitos tuestasi!',
 	'php-response-declined' => 'Pankkisiirtoasi ei voitu hyväksyä.',
@@ -18525,6 +18528,7 @@ Sila kembali ke laman terdahulu.',
 	'donate_interface-error-msg-captcha-please' => 'Untuk keselamatan kad kredit anda, sila taipkan aksara yang terpapar di atas.',
 	'donate_interface-error-msg-cookies' => "Sila bolehkan 'cookies' dalam pelayar anda.",
 	'donate_interface-error-msg-genaricrequired' => 'Ruangan ini wajib diisi',
+	'donate_interface-error-msg-country-calc' => 'Ralat - Kami tidak dapat menerima dermaan anda ketika ini.',
 	'donate_interface-donate-error-try-a-different-card' => 'Sila [$1 cuba kad yang berlainan] atau [$2 cara lain untuk menderma], atau hubungi kami di $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Terima kasih atas sokongan anda!',
 	'php-response-declined' => 'Transaksi anda tidak dapat diterima.',
@@ -19976,6 +19980,7 @@ $messages['nl'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Geef een antwoord op de vraag om aan te tonen dat u geen geautomatiseerd proces bent.',
 	'donate_interface-error-msg-cookies' => 'Activeer cookies in uw browser.',
 	'donate_interface-error-msg-genaricrequired' => 'Dit is een verplicht veld',
+	'donate_interface-error-msg-country-calc' => 'Fout. We kunnen uw gift op het moment niet accepteren.',
 	'donate_interface-donate-error-try-a-different-card' => 'Gebruik alstublieft [$1 een andere kaart], een van onze [$2 andere manieren om te geven] of neem contact met ons op via $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Dank u wel voor uw steun!',
 	'php-response-declined' => 'Uw transactie kon niet geaccepteerd worden.',
@@ -29478,6 +29483,7 @@ $messages['tt-cyrl'] = array(
  * @author Ahonc
  * @author Aleksandrit
  * @author Alex Khimich
+ * @author Base
  * @author Dim Grits
  * @author HomoSuperior
  * @author Jsoby
@@ -29593,6 +29599,7 @@ $messages['uk'] = array(
 	'donate_interface-accessible' => 'Ця сторінка доступна тільки зі сторінки збору пожертвувань.',
 	'donate_interface-paypal-button' => 'Пожертва через PayPal',
 	'donate_interface-paypal-redirect' => 'Перенаправлення на PayPal...',
+	'donate_interface-amazon-button' => 'Пожертвувати через Amazon',
 	'donate_interface-cc-button' => 'Пожертва за допомогою кредитної картки',
 	'donate_interface-ccdc-button' => 'Пожертва за допомогою кредитної/дебетної картки',
 	'donate_interface-dd-button' => 'Пожертва шляхом прямого списання з рахунку (Direct Debit)',
@@ -29612,12 +29619,17 @@ $messages['uk'] = array(
 	'donate_interface-donor-mname' => 'По батькові:',
 	'donate_interface-donor-lname' => 'Прізвище:',
 	'donate_interface-donor-street' => 'Вулиця:',
+	'donate_interface-donor-street-number' => 'Номер',
 	'donate_interface-donor-city' => 'Місто:',
+	'donate_interface-donor-county' => 'Країна',
+	'donate_interface-donor-island' => 'Острів',
 	'donate_interface-donor-state' => 'Штат:',
 	'donate_interface-donor-zip' => 'Індекс',
 	'donate_interface-donor-postal' => 'Поштовий індекс:',
 	'donate_interface-donor-country' => 'Країна/Регіон:',
+	'donate_interface-donor-zone' => 'Зона',
 	'donate_interface-donor-address' => 'Адреса:',
+	'donate_interface-donor-pobox' => 'Абонентська скринька',
 	'donate_interface-donor-card' => 'Кредитна картка:',
 	'donate_interface-donor-card-num' => 'Номер картки:',
 	'donate_interface-donor-expiration' => 'Дата закінчення строку дії:',
@@ -29658,6 +29670,7 @@ $messages['uk'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Для забезпечення безпеки вашої кредитної карти, будь ласка, введіть символи, які ви бачите вище.',
 	'donate_interface-error-msg-cookies' => 'Будь ласка, увімкніть «cookies» у вашому браузері.',
 	'donate_interface-error-msg-genaricrequired' => "Це поле є обов'язковим до заповнення.",
+	'donate_interface-error-msg-country-calc' => 'Помилка — Ми не можемо прийняти Вашу пожертву зараз.',
 	'donate_interface-donate-error-try-a-different-card' => "Будь ласка, [$1 спробуйте скористатися іншою карткою], одним із інших [$2 способів пожертви] чи зв'яжіться з нами через $3",
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Дякуємо за вашу підтримку!',
 	'php-response-declined' => 'Ваша транзакція не може бути прийнята.',
@@ -29853,6 +29866,9 @@ $messages['uk'] = array(
 	'donate_interface-monthlybox-no' => 'Ні, зробити одноразовий внесок',
 	'donate_interface-monthlybox-bottom' => 'Вашу пожертву буде оброблено в захищеному режимі.',
 	'donate_interface-monthly-cancel' => 'Щомісячні платежі будуть зніматися з рахунку, поки Ви не вкажете нам припинити їх.',
+	'donate_interface-onetime' => 'Зробити одноразове пожертвування',
+	'donate_interface-monthly-short' => 'Щомісячно',
+	'donate_interface-onetime-short' => 'Одноразово',
 	'donate_interface-securelogo-title' => 'Натисніть, щоб перевірити — цей сайт вибрала «VeriSign SSL» для захисту електронної комерції та конфіденційних комунікацій.',
 	'donate_interface-secureLogo-text' => 'Про сертифікати SSL',
 	'donate_interface-error-http-403' => 'Вибачте, у вас недостатньо прав для доступу до цієї сторінки.',
