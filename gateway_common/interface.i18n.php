@@ -634,23 +634,19 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
 
 \$1 is any one of a number of messages which are the names of fields, as follows:
-*{{msg-mw|Payflowpro gateway-error-msg-amount}}
-*{{msg-mw|Payflowpro gateway-error-msg-emailAdd}}
-*{{msg-mw|Payflowpro gateway-error-msg-fname}}
-*{{msg-mw|Payflowpro gateway-error-msg-lname}}
-*{{msg-mw|Payflowpro gateway-error-msg-street}}
-*{{msg-mw|Payflowpro gateway-error-msg-city}}
-*{{msg-mw|Payflowpro gateway-error-msg-state}}
-*{{msg-mw|Payflowpro gateway-error-msg-zip}}
-*{{msg-mw|Payflowpro gateway-error-msg-card_num}}
-*{{msg-mw|Payflowpro gateway-error-msg-expiration}}
-*{{msg-mw|Payflowpro gateway-error-msg-cvv}}
+*{{msg-mw|Donate interface-error-msg-amount}}
+*{{msg-mw|Donate interface-error-msg-emailAdd}}
+*{{msg-mw|Donate interface-error-msg-fname}}
+*{{msg-mw|Donate interface-error-msg-lname}}
+*{{msg-mw|Donate interface-error-msg-street}}
+*{{msg-mw|Donate interface-error-msg-city}}
+*{{msg-mw|Donate interface-error-msg-state}}
+*{{msg-mw|Donate interface-error-msg-zip}}
+*{{msg-mw|Donate interface-error-msg-card_num}}
+*{{msg-mw|Donate interface-error-msg-expiration}}
+*{{msg-mw|Donate interface-error-msg-cvv}}
 
-An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.
-
-This is an error message which appears if one or more of the above fields is left empty.
-
-See [https://bugzilla.wikimedia.org/show_bug.cgi?id=42898 bugzilla 42898]",
+An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.",
 	'donate_interface-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
@@ -13859,7 +13855,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-card_type' => 'クレジットカードの種類',
 	'donate_interface-error-msg-card_num' => 'クレジットカード番号',
 	'donate_interface-error-msg-expiration' => 'カードの有効期限',
-	'donate_interface-error-msg-cvv' => 'カード裏面のに記載されているカード照合番号',
+	'donate_interface-error-msg-cvv' => 'カード裏面に記載されているカード照合番号',
 	'donate_interface-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直してください。',
 	'donate_interface-error-msg-captcha-please' => 'クレジットカードの安全のため、上に示されている文字を入力してください。',
 	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
@@ -15968,6 +15964,7 @@ $messages['lb'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Fëllt w.e.g. de Captcha-Formulaire aus fir ze weisen datt Dir kee Roboter sidd.',
 	'donate_interface-error-msg-cookies' => "Aktivéiert d'Cookie w.e.g. an Ärem Browser",
 	'donate_interface-error-msg-genaricrequired' => 'Dëst Feld ass obligatoresch',
+	'donate_interface-error-msg-country-calc' => 'Feeler - Mir konnten Ären Don den Ament net unhuelen.',
 	'donate_interface-donate-error-try-a-different-card' => 'Probéiert w.e.g. [$1eng aner Kaart] oder eng vun eisen [$2 anere Méiglechkeete fir en Don ze maachen] oder kontaktéiert eis mat $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci fir Är Ënnerstëtzung!',
 	'php-response-declined' => 'Är Transaktioun konnt net akzeptéiert ginn.',
@@ -25784,6 +25781,7 @@ Na razpolago ni nobenega obdelovalca.',
 	'donate_interface-error-msg-captcha-please' => 'Zaradi varnosti vaše kreditne kartice vpišite znake, ki jih vidite zgoraj.',
 	'donate_interface-error-msg-cookies' => 'Prosimo, da omogočite piškotke v vašem brskalniku.',
 	'donate_interface-error-msg-genaricrequired' => 'Polje je obvezno.',
+	'donate_interface-error-msg-country-calc' => 'Napaka - Trenutno ne moremo sprejeti vašega prispevka.',
 	'donate_interface-donate-error-try-a-different-card' => 'Prosimo, [$1 poskusite z drugo kartico] ali uporabite enega od [$2 drugih načinov za prispevanje] ali pa nas kontaktirajte na $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Zahvaljujemo se vam za vašo podporo!',
 	'php-response-declined' => 'Vaše transakcije ni bilo mogoče sprejeti.',
