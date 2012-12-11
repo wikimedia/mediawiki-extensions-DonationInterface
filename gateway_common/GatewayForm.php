@@ -41,6 +41,15 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * Constructor
 	 */
 	public function __construct() {
+		
+		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
+		
+		//@TODO: Something with some elegance as soon as we're not staring down a multi-project hardware maintenance window in under an hour.
+		if( $wgContributionTrackingFundraiserMaintenance
+			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
+			$this->getOutput()->redirect( Title::newFromText("Special:FundraiserMaintenance")->getFullURL(), "302" );
+		}
+		
 		$me = get_called_class();
 		parent::__construct( $me );
 	}
