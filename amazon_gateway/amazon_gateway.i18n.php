@@ -220,6 +220,14 @@ $messages['tr'] = array(
 	'amazon_gateway-desc' => 'Amazon ödeme işlemleri',
 );
 
+/** Ukrainian (українська)
+ * @author Ата
+ */
+$messages['uk'] = array(
+	'amazongateway' => 'Зробіть Вашу пожертву зараз',
+	'amazon_gateway-desc' => 'Обробка платежу Amazon',
+);
+
 /** Urdu (اردو)
  * @author පසිඳු කාවින්ද
  */
