@@ -469,7 +469,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
  */
 $messages['qqq'] = array(
 	'donate_interface' => '{{Identical|Support Wikimedia}}',
-	'donate_interface-desc' => '{{desc}}',
+	'donate_interface-desc' => '{{desc|name=Donation Interface|url=http://www.mediawiki.org/wiki/Extension:DonationInterface}}',
 	'donate_interface-intro' => 'Message shown above the donate field prompting that tells people what to do.',
 	'donate_interface-amount' => 'Shown above the field where you choose the amount you want to donate.
 {{Identical|Amount}}',
