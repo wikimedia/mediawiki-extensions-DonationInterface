@@ -1057,7 +1057,7 @@ $messages['ja'] = array(
 	'payflowpro_gateway-response-125' => 'あなたの取引は詐欺防止サービスによって拒否されました。',
 	'payflowpro_gateway-response-125-2' => 'あなたのクレジットカードの妥当性が確認できませんでした。入力した情報すべてがクレジットカードの情報と一致しているか検証するか、または別のカードを試してください。<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">他の寄付方法</a>のどれかを利用したり、我々に <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> で連絡を取ることもできます。ご支援ありがとうございます。',
 	'payflowpro_gateway-response-default' => 'お取引の処理中にエラーが発生しました。
-後ほどまたお試しください。',
+後でもう一度試してください。',
 );
 
 /** Javanese (Basa Jawa)
