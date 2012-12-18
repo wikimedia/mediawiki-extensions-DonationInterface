@@ -1043,7 +1043,7 @@ $messages['ja'] = array(
 	'payflowprogateway' => '今すぐ寄付',
 	'payflowpro_gateway-desc' => 'PayPalのPayflow Proによるクレジットカード処理',
 	'payflowpro_gateway-response-0' => '取引は承認されました。
-ご寄付をありがとうございます！',
+ご寄付をありがとうございます!',
 	'payflowpro_gateway-response-126' => '取引は承認待ちです。',
 	'payflowpro_gateway-response-126-2' => '入力された情報の中にあなたのクレジットカード情報と一致しないものがあるか、または金額が非常に大きなものになっています。安全のため、この寄付は現在審査中となっており、寄付を完了させることができない場合は、指定されたメールアドレスを通じて通知いたします。質問があれば <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> にメールをお願いします。ありがとうございました！',
 	'payflowpro_gateway-response-12' => 'より詳しい情報はクレジットカード会社にお問い合わせください。',

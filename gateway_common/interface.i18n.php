@@ -13865,7 +13865,7 @@ $messages['ja'] = array(
 	'donate_interface-donate-error-try-a-different-card' => ' [ $1 別のカード] もしくは  [ $2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
 	'php-response-declined' => 'お取引が承認されませんでした。',
-	'donate_interface-thankyou' => 'ご寄付ありがとうございました！',
+	'donate_interface-thankyou' => 'ご寄付ありがとうございました!',
 	'donate_interface-post-transaction' => '取引詳細',
 	'donate_interface-cvv-explain' => '<h4>カード照合番号とは何ですか?</h4>
 <p>カード保有者照合番号(CVV)：3桁もしくは4桁の数値で、カードがその本来の所有者に物理的に所持されていることを保証するものです。これは無許可あるいは詐欺的な使用を防ぐ助けとなります。</p>
