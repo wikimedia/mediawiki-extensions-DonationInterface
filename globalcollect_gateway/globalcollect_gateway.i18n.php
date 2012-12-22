@@ -256,6 +256,20 @@ $messages['dsb'] = array(
 	'globalcollect_gateway-response-21000160' => 'Njepłaśiwy girokontowy numer.',
 );
 
+/** Greek (Ελληνικά)
+ * @author ZaDiak
+ */
+$messages['el'] = array(
+	'globalcollectgateway' => 'Κάντε τη δωρεά σας τώρα',
+	'globalcollect_gateway-response-9130' => 'Μη έγκυρη χώρα.',
+	'globalcollect_gateway-response-9140' => 'Μη έγκυρο νόμισμα.',
+	'globalcollect_gateway-response-9150' => 'Μη έγκυρη γλώσσα.',
+	'globalcollect_gateway-response-400530' => 'Μη έγκυρη μέθοδος πληρωμής.',
+	'globalcollect_gateway-response-430330' => 'Μη έγκυρος αριθμός κάρτας.',
+	'globalcollect_gateway-response-21000150' => 'Μη έγκυρος αριθμός λογαριασμού τράπεζας.',
+	'globalcollect_gateway-response-21000155' => 'Μη έγκυρος κωδικός τράπεζας.',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
@@ -299,6 +313,16 @@ $messages['et'] = array(
 	'globalcollect_gateway-response-21000160' => 'Vigane žiirokonto number.',
 	'globalcollect_gateway-response-default' => 'Ülekande käitlemisel ilmnes tõrge.
 Palun proovi hiljem uuesti.',
+);
+
+/** Persian (فارسی)
+ * @author Mjbmr
+ */
+$messages['fa'] = array(
+	'globalcollect_gateway-response-9130' => 'کشور نامعتبر.',
+	'globalcollect_gateway-response-9140' => 'ارز نامعتبر.',
+	'globalcollect_gateway-response-9150' => 'زبان نامعتبر.',
+	'globalcollect_gateway-response-430330' => 'شماره کارت نامعتبر.',
 );
 
 /** Finnish (suomi)
@@ -1067,7 +1091,11 @@ $messages['zh-hans'] = array(
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Shirayuki
  */
 $messages['zh-hant'] = array(
 	'globalcollectgateway' => '馬上捐款',
+	'globalcollect_gateway-response-9130' => '無效的國家。',
+	'globalcollect_gateway-response-9140' => '無效的貨幣。',
+	'globalcollect_gateway-response-9150' => '無效的語言。',
 );

@@ -7819,6 +7819,7 @@ $messages['et'] = array(
 	'donate_interface-donor-zip' => 'Sihtnumber',
 	'donate_interface-donor-postal' => 'Sihtnumber',
 	'donate_interface-donor-country' => 'Maa',
+	'donate_interface-donor-zone' => 'Tsoon',
 	'donate_interface-donor-address' => 'Aadress:',
 	'donate_interface-donor-pobox' => 'pk',
 	'donate_interface-donor-card' => 'Krediitkaart:',
@@ -8055,6 +8056,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 	'donate_interface-monthlybox-no' => 'EI! Ainult üks kord!',
 	'donate_interface-monthlybox-bottom' => 'Sinu annetust menetletakse turvaliselt.',
 	'donate_interface-monthly-cancel' => 'Igakuiselt kantakse Wikimedia Foundationile raha seni, kuni teatad, et ei soovi maksetega jätkata.',
+	'donate_interface-onetime' => 'Tee ühekordne annetus',
 	'donate_interface-monthly-short' => 'Igakuiselt',
 	'donate_interface-onetime-short' => 'Ühekordselt',
 	'donate_interface-securelogo-title' => 'Klõpsa logole verifitseerimiseks – see veebileht kasutab e-kaubanduse ja konfidentsiaalse suhtluse tarbeks VeriSign SSL-i.',
@@ -8315,6 +8317,7 @@ $messages['fa'] = array(
 	'donate_interface-accessible' => 'این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.',
 	'donate_interface-paypal-button' => 'از طریق پی پال بپردازید',
 	'donate_interface-paypal-redirect' => 'تغییرمسیر به پی‌پال…',
+	'donate_interface-amazon-button' => 'کمک مالی از طریق آمازون',
 	'donate_interface-cc-button' => 'از طریق کارت اعتباری بپردازید',
 	'donate_interface-ccdc-button' => 'پرداخت با کارت اعتباری/کارت دبیت',
 	'donate_interface-dd-button' => 'از طریق برداشت مستقیم کمک مالی کنید',
@@ -12973,6 +12976,7 @@ $messages['id'] = array(
 	'donate_interface-accessible' => 'Halaman ini hanya dapat diakses dari halaman donasi.',
 	'donate_interface-paypal-button' => 'Sumbang melalui PayPal',
 	'donate_interface-paypal-redirect' => 'Mengalihkan ke PayPal...',
+	'donate_interface-amazon-button' => 'Menyumbang melalui Amazon',
 	'donate_interface-cc-button' => 'Sumbang melalui kartu kredit',
 	'donate_interface-ccdc-button' => 'Sumbang melalui kartu kredit/debit',
 	'donate_interface-dd-button' => 'Sumbang melalui debit langsung',
@@ -14544,6 +14548,7 @@ $messages['ka'] = array(
 	'donate_interface-accessible' => 'ეს გვერდი ხელმისაწვდომია მხოლოდ შემოწირულობის გვერდიდან.',
 	'donate_interface-paypal-button' => 'შემოწირულობა PayPal-ით',
 	'donate_interface-paypal-redirect' => 'PayPal-ზე გადამისამართება…',
+	'donate_interface-amazon-button' => 'შეწირვა Amazon-ის საშუალებით',
 	'donate_interface-cc-button' => 'შემოწირულობა საკრედიტო ბარათით',
 	'donate_interface-ccdc-button' => 'შემოწირვა საკრედიტო/სადებეტო ბარათის საშუალებით',
 	'donate_interface-dd-button' => 'შემოწირვა ანგარიშიდან პირდაპირი ჩამოწერით',
@@ -21410,6 +21415,7 @@ $messages['pms'] = array(
 	'donate_interface-error-msg-captcha-please' => "Për piasì, ch'a compila torna la casela dla Captcha për prové ch'a l'é pa un trigomiro.",
 	'donate_interface-error-msg-cookies' => "Për piasì, ch'a abìlita ij bëscotin an sò navigador.",
 	'donate_interface-error-msg-genaricrequired' => "Ës camp-sì a l'é obligatòri",
+	'donate_interface-error-msg-country-calc' => 'Eror - I podoma pa aceté toa donassion al moment.',
 	'donate_interface-donate-error-try-a-different-card' => "Për piasì [$1 ch'a preuva na carta diferenta] o un-a ëd nòstre [$2 àutre manere ëd doné] o ch'an contata a $3",
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Mersì për sò agiut!',
 	'php-response-declined' => 'Toa transassion a peul pa esse acetà.',
@@ -21550,6 +21556,7 @@ Chèiche vire, ël còdes a l'é posissionà an sla snista dla carta, ma a l'é 
 	'donate_interface-optional' => 'opsional',
 	'donate_interface-state-dropdown-YY' => 'Selession-a në Stat',
 	'donate_interface-state-dropdown-XX' => 'Fòra djë Stat Unì',
+	'donate_interface-cc-MX-instructions' => "Për sicurëssa, chèiche banche messican-e a blòco le transassion an linia. Se soa donassion a riess pa, i-j sugerioma ch'a ciama soa banca për autorisé la donassion an linia e ch'a preuva torna.",
 	'donate_interface-bt-account_holder' => 'Proprietari dël cont',
 	'donate_interface-bt-bank_account_number' => 'Nùmer dël cont bancari',
 	'donate_interface-bt-country_description' => 'Descrission dël pais',
@@ -31275,6 +31282,7 @@ $messages['yue'] = array(
  * @author Kuailong
  * @author Liangent
  * @author Mys 721tx
+ * @author Shirayuki
  * @author Tommyang
  * @author Wilsonmess
  * @author Xiaomingyan
@@ -31383,6 +31391,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-XCD' => '东加勒比元',
 	'donate_interface-XOF' => '西非金融共同体法郎',
 	'donate_interface-ZAR' => '南非兰特',
+	'donate_interface-currency-display' => '$1（$2）',
 	'donate_interface-accessible' => '本页只能从资助页面访问',
 	'donate_interface-paypal-button' => '经PayPal捐款',
 	'donate_interface-paypal-redirect' => '重定向至PayPal...',
@@ -31671,6 +31680,7 @@ $messages['zh-hans'] = array(
  * @author Mark85296341
  * @author Oapbtommy
  * @author Pbdragonwang
+ * @author Shirayuki
  * @author Simon Shek
  * @author Waihorace
  */
@@ -31775,6 +31785,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-XCD' => '東加勒比元',
 	'donate_interface-XOF' => '西非法郎',
 	'donate_interface-ZAR' => '南非蘭特',
+	'donate_interface-currency-display' => '$1（$2）',
 	'donate_interface-accessible' => '本頁只能從資助頁面訪問',
 	'donate_interface-paypal-button' => '經 PayPal 捐款',
 	'donate_interface-paypal-redirect' => '重定向至PayPal...',

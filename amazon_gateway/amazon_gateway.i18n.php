@@ -132,6 +132,14 @@ $messages['hsb'] = array(
 	'amazon_gateway-desc' => 'Předźěłanje zapłaćenjow přez Amazon',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author Farras
+ */
+$messages['id'] = array(
+	'amazongateway' => 'Menyumbanglah sekarang',
+	'amazon_gateway-desc' => 'Pemrosesan pembayaran Amazon',
+);
+
 /** Italian (italiano)
  * @author Darth Kule
  */
@@ -146,6 +154,13 @@ $messages['it'] = array(
 $messages['ja'] = array(
 	'amazongateway' => '今すぐ寄付',
 	'amazon_gateway-desc' => 'Amazon での支払い処理',
+);
+
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'amazongateway' => 'გააკეთეთ თქვენი შემოწირულობა ახლავე',
 );
 
 /** Korean (한국어)
@@ -193,6 +208,15 @@ $messages['nl'] = array(
 $messages['pms'] = array(
 	'amazongateway' => 'Fà toa donassion adess',
 	'amazon_gateway-desc' => "Process ëd pagament d'Amazon",
+);
+
+/** Romanian (română)
+ * @author Firilacroco
+ * @author Minisarm
+ */
+$messages['ro'] = array(
+	'amazongateway' => 'Faceți o donație acum',
+	'amazon_gateway-desc' => 'Procesarea plăților prin Amazon',
 );
 
 /** Swedish (svenska)
