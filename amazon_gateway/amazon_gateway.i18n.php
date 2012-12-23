@@ -77,6 +77,14 @@ $messages['dsb'] = array(
 	'amazon_gateway-desc' => 'Pśeźěłanje zapłaśenjow pśez Amazon',
 );
 
+/** Esperanto (Esperanto)
+ * @author Yekrats
+ */
+$messages['eo'] = array(
+	'amazongateway' => 'Fari vian donacon nun',
+	'amazon_gateway-desc' => 'Pagado-traktado per Amazon',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  */
@@ -192,6 +200,14 @@ $messages['lb'] = array(
 $messages['mk'] = array(
 	'amazongateway' => 'Дарувајте сега',
 	'amazon_gateway-desc' => 'Обработка на уплати со Amazon',
+);
+
+/** Maltese (Malti)
+ * @author Chrisportelli
+ */
+$messages['mt'] = array(
+	'amazongateway' => 'Agħmel id-donazzjoni tiegħek issa',
+	'amazon_gateway-desc' => "Proċessar tal-ħlas permezz ta' Amazon",
 );
 
 /** Dutch (Nederlands)

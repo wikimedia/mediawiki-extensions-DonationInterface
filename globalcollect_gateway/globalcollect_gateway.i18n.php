@@ -270,6 +270,16 @@ $messages['el'] = array(
 	'globalcollect_gateway-response-21000155' => 'Μη έγκυρος κωδικός τράπεζας.',
 );
 
+/** Esperanto (Esperanto)
+ * @author Yekrats
+ */
+$messages['eo'] = array(
+	'globalcollectgateway' => 'Fari vian donacon nun',
+	'globalcollect_gateway-response-9130' => 'Malvalida lando.',
+	'globalcollect_gateway-response-9140' => 'Malvalida valuto.',
+	'globalcollect_gateway-response-9150' => 'Malvalida lingvo.',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
@@ -691,6 +701,18 @@ $messages['ms'] = array(
 	'globalcollect_gateway-response-21000160' => 'Nombor akaun giro tidak sah.',
 	'globalcollect_gateway-response-default' => 'Terdapat masalah dalam memproses transaksi anda. 
 Sila cuba sebentar lagi.',
+);
+
+/** Maltese (Malti)
+ * @author Chrisportelli
+ */
+$messages['mt'] = array(
+	'globalcollectgateway' => 'Agħmel id-donazzjoni tiegħek issa',
+	'globalcollect_gateway-response-9130' => 'Pajjiż invalidu.',
+	'globalcollect_gateway-response-9140' => 'Valuta invalida.',
+	'globalcollect_gateway-response-9150' => 'Lingwa invalida.',
+	'globalcollect_gateway-response-400530' => "Metodu ta' ħlas invalidu.",
+	'globalcollect_gateway-response-430330' => 'Numru tal-karta invalidu.',
 );
 
 /** Norwegian Bokmål (norsk (bokmål)‎)

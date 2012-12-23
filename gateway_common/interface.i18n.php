@@ -2943,6 +2943,7 @@ $messages['be-tarask'] = array(
  * @author Spiritia
  * @author Turin
  * @author Vladimir Penov
+ * @author පසිඳු කාවින්ද
  */
 $messages['bg'] = array(
 	'donate_interface' => 'Подкрепете Уикимедия',
@@ -3066,7 +3067,9 @@ $messages['bg'] = array(
 	'donate_interface-donor-mname' => 'Средно или бащино име:',
 	'donate_interface-donor-lname' => 'Фамилия:',
 	'donate_interface-donor-street' => 'Улица:',
+	'donate_interface-donor-street-number' => 'Число',
 	'donate_interface-donor-city' => 'Град:',
+	'donate_interface-donor-county' => 'Окръг',
 	'donate_interface-donor-state' => 'Държава:',
 	'donate_interface-donor-zip' => 'ЗИП код',
 	'donate_interface-donor-postal' => 'Пощенски код:',
@@ -3406,6 +3409,7 @@ $messages['bn'] = array(
 	'donate_interface-donor-mname' => 'মধ্য নাম',
 	'donate_interface-donor-lname' => 'নামের শেষাংশ',
 	'donate_interface-donor-street' => 'রাস্তা',
+	'donate_interface-donor-street-number' => 'নম্বর',
 	'donate_interface-donor-city' => 'শহর',
 	'donate_interface-donor-state' => 'প্রদেশ',
 	'donate_interface-donor-zip' => 'জিপ',
@@ -3582,12 +3586,15 @@ $messages['bn'] = array(
 	'donate_interface-optional' => 'ঐচ্ছিক',
 	'donate_interface-state-dropdown-XX' => 'যুক্তরাষ্ট্রের বাইরে',
 	'donate_interface-bt-bank_account_number' => 'ব্যাংক অ্যাকাউন্ট নম্বর',
+	'donate_interface-bt-finished' => 'সম্পন্ন',
 	'donate_interface-rtbt-issuer_id' => 'কোন ব্যাংক নির্বাচন করুন',
 	'donate_interface-dd-account_name' => 'অ্যাকাউন্ট নাম',
 	'donate_interface-dd-account_number' => 'অ্যাকাউন্ট নম্বর',
 	'donate_interface-dd-bank_name' => 'ব্যাংকের নাম',
 	'donate_interface-translate-bluelink' => 'এই অনুবাদের উন্নয়ন করুন',
 	'donate_interface-translate-redlink1' => 'এই পাতাটি অনুবাদ করতে সাহায্য করুন।',
+	'donate_interface-monthly-short' => 'মাসিক',
+	'donate_interface-onetime-short' => 'এক-কালিন',
 );
 
 /** Breton (brezhoneg)
@@ -7012,6 +7019,7 @@ Neniu procesoro estas atingebla.',
 	'donate_interface-accessible' => 'Ĉi tiu paĝo estas alirebla nur el la donacpaĝo.',
 	'donate_interface-paypal-button' => 'Donaci per PayPal',
 	'donate_interface-paypal-redirect' => 'Alidrektante al PayPal...',
+	'donate_interface-amazon-button' => 'Donaci per Amazon',
 	'donate_interface-cc-button' => 'Donaci per kreditkarto',
 	'donate_interface-ccdc-button' => 'Donaci per kredita/debeta karto',
 	'donate_interface-dd-button' => 'Donaci per rekta debeto',
@@ -7082,6 +7090,7 @@ Neniu procesoro estas atingebla.',
 	'donate_interface-error-msg-captcha-please' => 'Por la sekureco de via kreditkarto, bonvolu tajpi la jenajn signojn.',
 	'donate_interface-error-msg-cookies' => 'Bonvolu permesi kuketojn en via retumilo.',
 	'donate_interface-error-msg-genaricrequired' => 'Tiu ĉi kampo estas deviga',
+	'donate_interface-error-msg-country-calc' => 'Eraro - Ni maleblas akcepti vian donacon ĉi-momente.',
 	'donate_interface-donate-error-try-a-different-card' => 'Bonvolu [$1 provi alian karton] aŭ unu el niaj [$2 aliaj manieroj donaci] aŭ kontaktu nin ĉe $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Dankon pro via subteno!',
 	'php-response-declined' => 'Via transakcio ne povis esti akceptita.',
@@ -7272,6 +7281,9 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
 	'donate_interface-monthlybox-no' => 'Ne, kontribui nur unufoje nun',
 	'donate_interface-monthlybox-bottom' => 'Via donaco estos sekure traktika.',
 	'donate_interface-monthly-cancel' => 'Monataj pagoj estos debetataj de la Vikimedia Fondaĵo ĝis momento kiam vi petos nin ĉesi tion.',
+	'donate_interface-onetime' => 'Fari unuopan donacon',
+	'donate_interface-monthly-short' => 'Ĉiumonate',
+	'donate_interface-onetime-short' => 'Unuope',
 	'donate_interface-securelogo-title' => 'Klaku por kontroli - Tiu ĉi retejo elekti VeriSign SSL por sekura retkomerca kaj konfidenca komunikado.',
 	'donate_interface-secureLogo-text' => 'Pri SSL-atestiloj',
 	'donate_interface-error-http-403' => 'Vi ne havas permeson por aliri tiun ĉi paĝon.',
@@ -7792,6 +7804,7 @@ $messages['et'] = array(
 	'donate_interface-accessible' => 'See lehekülg on ligipääsetav ainult annetuslehekülje kaudu.',
 	'donate_interface-paypal-button' => 'Anneta PayPali kaudu',
 	'donate_interface-paypal-redirect' => 'Suunamine PayPali…',
+	'donate_interface-amazon-button' => 'Anneta Amazoni kaudu',
 	'donate_interface-cc-button' => 'Anneta krediitkaardiga',
 	'donate_interface-ccdc-button' => 'Anneta krediit- või deebetkaardiga',
 	'donate_interface-dd-button' => 'Anneta otseülekandega',
@@ -13047,6 +13060,7 @@ $messages['id'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Demi keamanan kartu kredit Anda, mohon ketik ulang karakter di atas.',
 	'donate_interface-error-msg-cookies' => 'Silakan aktifkan cookie di browser Anda.',
 	'donate_interface-error-msg-genaricrequired' => 'Bidang ini perlu diisi',
+	'donate_interface-error-msg-country-calc' => 'Kesalahan - Kami tidak dapat menerima donasi Anda saat ini.',
 	'donate_interface-donate-error-try-a-different-card' => 'Silakan [$1 coba kartu lain] atau satu di antara [$2 cara lain untuk menyumbang] atau hubungi kami di $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Terima kasih atas dukungan Anda!',
 	'php-response-declined' => 'Transaksi Anda tidak dapat diterima.',
@@ -13188,6 +13202,7 @@ Dalam rangka memberikan pengalaman yang aman dan menyenangkan, formulir sumbanga
 	'donate_interface-optional' => 'opsional',
 	'donate_interface-state-dropdown-YY' => 'Pilih negara bagian',
 	'donate_interface-state-dropdown-XX' => 'Di luar AS',
+	'donate_interface-cc-MX-instructions' => 'Untuk keamanan, beberapa bank Meksiko memblokir transaksi daring. Jika donasi Anda tidak berhasil, kami sarankan Anda menghubungi bank Anda untuk mengizinkan donasi daring dan coba lagi.',
 	'donate_interface-bt-account_holder' => 'Pemegang rekening',
 	'donate_interface-bt-bank_account_number' => 'Nomor rekening bank',
 	'donate_interface-bt-country_description' => 'Deskripsi negara',
@@ -13202,6 +13217,7 @@ Dalam rangka memberikan pengalaman yang aman dan menyenangkan, formulir sumbanga
 	'donate_interface-online_bank_transfer_message' => 'Perbankan Telepon & Internet - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Pilih Bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Bank lain',
+	'donate_interface-sofortbanking' => 'Sofortbanking adalah transfer bank real-time dan langsung melalui DIRECTebanking.com yang memungkinkan Anda untuk langsung melakukan transfer bank selama donasi daring dengan informasi perbankan daring Anda. Jika rekening bank Anda tidak diaktifkan dengan kemampuan daring, Anda mungkin ingin menggunakan opsi "Sumbang melalui transfer manual bank" pada halaman utama sumbangan.',
 	'donate_interface-dd-account_name' => 'Nama rekening',
 	'donate_interface-dd-account_number' => 'Nomor rekening',
 	'donate_interface-dd-authorization_id' => 'ID otorisasi',
@@ -13275,13 +13291,34 @@ $messages['io'] = array(
 /** Icelandic (íslenska)
  * @author Snævar
  * @author WiseWoman
+ * @author පසිඳු කාවින්ද
  */
 $messages['is'] = array(
 	'donate_interface' => 'Styrkja WIkimedia',
 	'donate_interface-currency' => 'Gjaldmiðill:',
 	'donate_interface-gateway' => 'Greiðsluaðferð:',
+	'donate_interface-comment-label' => 'Athugasemd:',
 	'donate_interface-DKK' => 'Dönsk króna',
+	'donate_interface-donor-name' => 'Nafn',
+	'donate_interface-donor-city' => 'Borg',
+	'donate_interface-donor-county' => 'Landið',
+	'donate_interface-error-msg-city' => 'borg',
+	'donate_interface-error-msg-country' => 'Land',
 	'donate_interface-otherways' => 'Það eru <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">aðrar leiðir til þess að styrkja, meðal annars með PayPal, ávísun og pósti</a>.',
+	'donate_interface-comment' => 'Athugasemd',
+	'donate_interface-first' => 'Fyrst',
+	'donate_interface-last' => 'Síðast',
+	'donate_interface-other' => 'Annað',
+	'donate_interface-title' => 'Titill',
+	'donate_interface-next' => 'Áfram',
+	'donate_interface-continue' => 'Halda áfram',
+	'donate_interface-cancel' => 'Hætta við',
+	'donate_interface-month' => '$1 ($2)',
+	'donate_interface-description' => 'Lýsing',
+	'donate_interface-language' => 'Tungumál:',
+	'donate_interface-back' => 'Til baka',
+	'donate_interface-select' => 'Velja',
+	'donate_interface-change' => 'Breyting',
 );
 
 /** Italian (italiano)
@@ -18915,6 +18952,7 @@ $messages['mt'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Għas-sigurtà tal-karta tal-kreditu tiegħek, jekk jogħġbok ikteb il-karattri li jidhru hawn fuq.',
 	'donate_interface-error-msg-cookies' => "Jekk jogħġbok attiva l-''cookies'' fil-browżer tiegħek.",
 	'donate_interface-error-msg-genaricrequired' => 'Dan il-qasam huwa obbligatorju',
+	'donate_interface-error-msg-country-calc' => 'Żball - Għall-mumemnt ma nistgħux naċċettaw id-donazzjoni tiegħek.',
 	'donate_interface-donate-error-try-a-different-card' => 'Jekk jogħġbok [$1 ipprova karta differenti] jew ara [$2 mod ieħor kif tagħti donazzjoni] jew inkella kkuntatjana fuq $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Grazzi tas-sosten tiegħek!',
 	'php-response-declined' => 'It-tranżazzjoni tiegħek ġiet aċċettata.',
@@ -25122,6 +25160,7 @@ $messages['si'] = array(
 	'donate_interface-accessible' => 'මෙම පිටුව වෙත පිවිසිය හැක්කේ පරිත්‍යාග පිටුවෙන් පමණි.',
 	'donate_interface-paypal-button' => 'පේපල් මගින් පරිත්‍යාග කරන්න',
 	'donate_interface-paypal-redirect' => 'පේපැල් වෙත යලි යොමු කරමින්…',
+	'donate_interface-amazon-button' => 'ඇමේසන් හරහා පරිත්‍යාග කරන්න',
 	'donate_interface-cc-button' => 'ණය පත මගින් පරිත්‍යාග කරන්න',
 	'donate_interface-ccdc-button' => 'ණය/හර පතක් මඟින් පරිත්‍යාග කරන්න',
 	'donate_interface-dd-button' => 'අණකර ණය මඟින් පරිත්‍යාග කරන',
