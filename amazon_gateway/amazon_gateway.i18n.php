@@ -218,6 +218,14 @@ $messages['nl'] = array(
 	'amazon_gateway-desc' => 'Betalingsverwerking via Amazon',
 );
 
+/** Polish (polski)
+ * @author Matma Rex
+ */
+$messages['pl'] = array(
+	'amazongateway' => 'Przekaż darowiznę',
+	'amazon_gateway-desc' => 'Przetwarzanie płatności Amazon',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Dragonòt
  */
@@ -233,6 +241,13 @@ $messages['pms'] = array(
 $messages['ro'] = array(
 	'amazongateway' => 'Faceți o donație acum',
 	'amazon_gateway-desc' => 'Procesarea plăților prin Amazon',
+);
+
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'amazongateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
 );
 
 /** Swedish (svenska)

@@ -4835,6 +4835,30 @@ $messages['cu'] = array(
 	'donate_interface-or' => 'или',
 );
 
+/** Chuvash (Чӑвашла)
+ * @author Salam
+ */
+$messages['cv'] = array(
+	'donate_interface-donor-name' => 'Ят:',
+	'donate_interface-donor-fname' => 'Ят:',
+	'donate_interface-donor-mname' => 'Ашшӗ ячӗ:',
+	'donate_interface-donor-lname' => 'Хушамат:',
+	'donate_interface-donor-street' => 'Урам:',
+	'donate_interface-donor-street-number' => 'Номер:',
+	'donate_interface-donor-city' => 'Хула (ял):',
+	'donate_interface-donor-county' => 'Округ:',
+	'donate_interface-donor-island' => 'Утрав:',
+	'donate_interface-donor-state' => 'Штат:',
+	'donate_interface-donor-zip' => 'Индекс:',
+	'donate_interface-donor-postal' => 'Пуштӑ индексӗ:',
+	'donate_interface-donor-country' => 'Ҫӗршыв е регион:',
+	'donate_interface-donor-zone' => 'Зона:',
+	'donate_interface-donor-address' => 'Адрес:',
+	'donate_interface-donor-pobox' => 'Абонент ещӗкӗ:',
+	'donate_interface-donor-card' => 'Кивҫен картти:',
+	'donate_interface-donor-card-num' => 'Карттӑ номерӗ:',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  * @author Pwyll
@@ -13842,7 +13866,7 @@ $messages['ja'] = array(
 	'donate_interface-ewallet-button' => '$1 経由で寄付します。',
 	'donate_interface-card-legend' => 'クレジットカード情報',
 	'donate_interface-amount-legend' => '寄付金額',
-	'donate_interface-cvv-link' => 'これはどこにありますか？',
+	'donate_interface-cvv-link' => 'これはどこにありますか?',
 	'donate_interface-donor-legend' => '寄付者情報',
 	'donate_interface-donor-amount' => '金額',
 	'donate_interface-donor-currency-label' => '通貨',
@@ -13914,14 +13938,14 @@ $messages['ja'] = array(
 <p>この3桁の数値はカード裏面の署名欄内に記載されています。通常、署名欄には何桁にもなる数値が載っていますが、最後の3桁のみがカード照合番号なります。</p>
 <h4>アメリカン・エキスプレス</h4>
 <p>この数値は<i>常に</i>、カード表面の浮き彫りになった会員番号の<i>上部に</i>記載されています。場合によっては、カード左側に記載されていることもありますが、常に会員番号の上部にあります。</p><br />',
-	'donate_interface-question-comment' => '質問や意見がありますか？<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>にご連絡ください。',
-	'donate_interface-easydonate' => '私たちは、どの国の人でも簡単にご寄付いただけるようにしようとしています。どうすればもっと簡単にできるかをお知らせください。ご提案はこちらまで： problemsdonating@wikimedia.org',
-	'donate_interface-problemsdonating' => '寄付の際に何か問題がありましたか？',
+	'donate_interface-question-comment' => '質問や意見がある場合は、<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>にお問い合わせください。',
+	'donate_interface-easydonate' => '私たちは、どの国の人でも簡単にご寄付いただけるようにしようとしています。どうすればもっと簡単にできるかをお知らせください。ご提案はこちらまで: problemsdonating@wikimedia.org',
+	'donate_interface-problemsdonating' => '寄付の際に何か問題がありましたか?',
 	'donate_interface-donate-click' => 'クレジットカードもしくはデビットカードは、安全に処理されます。',
 	'donate_interface-otherways' => '<a href="//wikimediafoundation.org/wiki/Ways_to_Give/ja">PayPalや小切手、郵送などその他の送金方法</a>もあります。',
 	'donate_interface-otherways-alt' => '小切手を含む<a href="//wikimediafoundation.org/wiki/Ways_to_Give/ja">その他の送金方法</a>があります。',
 	'donate_interface-otherways-short' => 'その他の方法',
-	'donate_interface-paypal' => 'PayPalのアカウントをお持ちですか？<a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPalでも寄付できます</a>。',
+	'donate_interface-paypal' => 'PayPalのアカウントをお持ちであれば、<a href="$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5">PayPalでも寄付できます</a>。',
 	'donate_interface-credit-storage-processing' => 'クレジットカード情報は保管されません。また、個人情報は<a href="//wikimediafoundation.org/wiki/Donor_policy">寄贈者の個人情報保護方針</a>の対象です。',
 	'donate_interface-token-mismatch' => 'セッションが期限切れです。もう一度入力して、フォームを送信してください。',
 	'donate_interface-cc-form-header-personal' => '課金情報',
@@ -14076,12 +14100,12 @@ $messages['ja'] = array(
 	'donate_interface-email-unsub-success' => 'メーリングリストを購読解除しました',
 	'donate_interface-email-unsub-delay' => '変更が反映されるまでには最大4日かかります。それまでにメールが配信されましたら申し訳ありません。何かご質問があれば、<donations@wikimedia.org>にご連絡ください。',
 	'donate_interface-email-unsub-fail' => '要求の処理エラーが発生しました、 <donations@wikimedia.org>にお問い合わせください。',
-	'donate_interface-email-unsub-confirm' => '本当に<b>$1</b>の購読を解除してよろしいですか？',
+	'donate_interface-email-unsub-confirm' => '<b>$1</b>を本当に購読解除しますか?',
 	'donate_interface-email-unsub-warning' => 'これにより、ウィキメディア財団はあなたを寄付者に送信するメールの送信先から除外しました。このメールアドレスがウィキメディア財団のプロジェクトのアカウントと関連付けられている場合は、以降もこのアドレスにメールが届く可能性があります。ご質問があれば <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a> にご連絡ください。',
 	'donate_interface-faqs' => 'よくある質問',
 	'donate_interface-tax-info' => '税控除の情報',
 	'donate_interface-informationsharing' => '<a href="//wikimediafoundation.org/wiki/Donor_policy/ja">寄付者に対するプライバシーの方針</a>に準じ、寄付するということは、ウィキペディアその他のウィキペディアプロジェクトをホストしている非営利組織ウィキメディア財団および米国内外にある、そのサービスプロバイダと寄付者の情報を共有することになります。私たちは寄付者の情報を誰にも販売または誰とも交換しません',
-	'donate_interface-currency-change' => '変更しますか？',
+	'donate_interface-currency-change' => '変更しますか?',
 	'donate_interface-bank_transfer_message' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect（グローバルコレクト）」として表示されることをご承知おきください。Global Collect（グローバルコレクト）はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。銀行振り込みの際に、ここで表示されている参照番号を忘れずに入れてください。質問や懸念がある場合は、 donations@wikimedia.org までお気軽にメールしてください。',
 	'donate_interface-taxded-link-int' => '税およびその他の法的な情報',
 	'donate_interface-taxded-link-us' => '税控除の情報',
@@ -14089,7 +14113,7 @@ $messages['ja'] = array(
 	'donate_interface-taxded-msg-us' => 'ウィキメディア財団は米国IRSコード501(c)(3)部に基づき設立された非営利慈善組織であるため、米国内の個人または団体からの寄付については、税控除の対象となる場合があります。',
 	'donate_interface-legal-original' => 'これは便宜上の翻訳です。この翻訳と英語版が競合した場合は、英語版に従って運用されます。',
 	'donate_interface-legal-donorpolicy' => '寄付することにより、あなたはご自身の情報をウィキペディアとその他のウィキメディアプロジェクトをホストする非営利組織ウィキメディア財団と、米国およびその他におけるそのサービスプロバイダーによって、寄付者に関するプライバシー・ ポリシーに基づいて共有することになります。私たちは個人情報を販売または交換することはありません。',
-	'donate_interface-monthlybox-title' => '毎月、寄付しますか？',
+	'donate_interface-monthlybox-title' => '毎月、寄付しますか?',
 	'donate_interface-monthlybox-content' => '毎月の寄付は、毎月2日に実行されます。いつでも取り消すことができます。',
 	'donate_interface-monthlybox-amount' => '月ごとの寄付金額',
 	'donate_interface-monthlybox-yes' => '毎月寄付します',
