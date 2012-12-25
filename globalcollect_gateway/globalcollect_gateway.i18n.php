@@ -790,6 +790,28 @@ $messages['pl'] = array(
 Spróbuj ponownie później.',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'globalcollectgateway' => 'Fà toa donassion adess',
+	'globalcollect_gateway-desc' => 'Elaborassion dij pagament GlobalCollect',
+	'globalcollect_gateway-response-9130' => 'Paìs pa bon.',
+	'globalcollect_gateway-response-9140' => 'Moneda pa bon-a.',
+	'globalcollect_gateway-response-9150' => 'Lenga nen bon-a',
+	'globalcollect_gateway-response-400530' => 'Métod ëd pagament pa bon.',
+	'globalcollect_gateway-response-430306' => "Toa carta ëd crédit a l'é scadùa. Për piasì preuva na carta diferenta o un dij nòst àutr métod ëd pagament.",
+	'globalcollect_gateway-response-430330' => 'Nùmer ëd carta pa bon.',
+	'globalcollect_gateway-response-430421' => "Toa carta ëd crédit a peul pa esse validà. Për piasì verìfica che tute j'anformassion a corispondo al profil ëd toa carta ëd crédit, o preuva na carta diferenta.",
+	'globalcollect_gateway-response-430360' => 'La transassion a peul pa esse autorisà. Për piasì preuva na carta diferenta o un dij nòst àutr métod ëd pagament.',
+	'globalcollect_gateway-response-430285' => 'La transassion a peul pa esse autorisà. Për piasì preuva na carta diferenta o un dij nòst àutr métod ëd pagament.',
+	'globalcollect_gateway-response-21000150' => 'Nùmer dël cont bancari pa bon.',
+	'globalcollect_gateway-response-21000155' => 'Còdes bancari pa bon.',
+	'globalcollect_gateway-response-21000160' => 'Nùmer dël cont ëd gir pa bon.',
+	'globalcollect_gateway-response-default' => "A l'é staje n'eror an processand toa transassion.
+Për piasì prova torna pì tard.",
+);
+
 /** Pashto (پښتو)
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */

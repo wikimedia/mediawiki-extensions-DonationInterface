@@ -1045,7 +1045,7 @@ $messages['ja'] = array(
 	'payflowpro_gateway-response-0' => '取引は承認されました。
 ご寄付をありがとうございます!',
 	'payflowpro_gateway-response-126' => '取引は承認待ちです。',
-	'payflowpro_gateway-response-126-2' => '入力された情報の中にあなたのクレジットカード情報と一致しないものがあるか、または金額が非常に大きなものになっています。安全のため、この寄付は現在審査中となっており、寄付を完了させることができない場合は、指定されたメールアドレスを通じて通知いたします。質問があれば <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> にメールをお願いします。ありがとうございました！',
+	'payflowpro_gateway-response-126-2' => '入力された情報の中にあなたのクレジットカード情報と一致しないものがあるか、または金額が非常に大きなものになっています。安全のため、この寄付は現在審査中となっており、寄付を完了させることができない場合は、指定されたメールアドレスにメールでお知らせします。質問がある場合は <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> にメールでお問い合わせください。ありがとうございました!',
 	'payflowpro_gateway-response-12' => 'より詳しい情報はクレジットカード会社にお問い合わせください。',
 	'payflowpro_gateway-response-13' => '取引には音声による認証が必要です。
 取引を続けるには私たちにお問い合わせください。',
@@ -1464,13 +1464,14 @@ $messages['or'] = array(
 
 /** Polish (polski)
  * @author Maire
+ * @author Matma Rex
  * @author Mikołka
  * @author Odder
  * @author Sp5uhe
  * @author Wpedzich
  */
 $messages['pl'] = array(
-	'payflowprogateway' => 'Przekaż darowiznę już teraz',
+	'payflowprogateway' => 'Przekaż darowiznę',
 	'payflowpro_gateway-desc' => 'PayPal obsługa kart kredytowych Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Transakcja została przeprowadzona.
 Dziękujemy za wsparcie!',
