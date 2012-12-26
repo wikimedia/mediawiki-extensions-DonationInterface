@@ -243,11 +243,20 @@ $messages['ro'] = array(
 	'amazon_gateway-desc' => 'Procesarea plăților prin Amazon',
 );
 
+/** Russian (русский)
+ * @author KPu3uC B Poccuu
+ */
+$messages['ru'] = array(
+	'amazongateway' => 'Сделать ваше пожертвование сейчас',
+	'amazon_gateway-desc' => 'Обработка платежей Amazon',
+);
+
 /** Sinhala (සිංහල)
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
 	'amazongateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
+	'amazon_gateway-desc' => 'ඇමේසන් ගෙවීම කරගෙන යමින්',
 );
 
 /** Swedish (svenska)
