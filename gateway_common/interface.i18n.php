@@ -13289,6 +13289,51 @@ Dalam rangka memberikan pengalaman yang aman dan menyenangkan, formulir sumbanga
 	'donate_interface-error-http-403' => 'Anda tidak memiliki izin untuk mengakses halaman ini.',
 );
 
+/** Igbo (Igbo)
+ * @author Ukabia
+ */
+$messages['ig'] = array(
+	'donate_interface-EUR' => 'Yuro',
+	'donate_interface-OMR' => 'Omani rial',
+	'donate_interface-donor-currency-label' => 'Okpogho',
+	'donate_interface-donor-name' => 'Áhà',
+	'donate_interface-donor-street' => 'Ókpóró',
+	'donate_interface-donor-street-number' => 'Ọ́nụ́ọ̀gụ̀gụ̀',
+	'donate_interface-donor-city' => 'Ama ukwu',
+	'donate_interface-donor-state' => 'Ọ́há',
+	'donate_interface-card-name-visa' => 'Viza',
+	'donate_interface-error-msg-city' => 'ama ukwu',
+	'donate_interface-error-msg-state' => 'ọ́há',
+	'donate_interface-first' => 'M̀bụ́',
+	'donate_interface-middle' => 'Ètítì',
+	'donate_interface-last' => "Nk'Ọ̀dụ̀",
+	'donate_interface-or' => 'ma',
+	'donate_interface-city-town' => 'Ama ukwu/Ama',
+	'donate_interface-town-city' => 'Ama/Ama ukwu',
+	'donate_interface-country' => 'Òbòdò',
+	'donate_interface-phone' => 'Ékwé ńtị̀',
+	'donate_interface-name-on-card' => 'Áhà nà kad',
+	'donate_interface-type-of-card' => 'Ùdì kad',
+	'donate_interface-card-type' => 'Ùdì kad',
+	'donate_interface-expires-question' => 'Gbá ọ́kà?',
+	'donate_interface-expires' => 'Gbá ọ́kà',
+	'donate_interface-cvv' => 'CVV',
+	'donate_interface-cvv-number-abbreviated' => 'CVV #',
+	'donate_interface-cvv2' => 'CVV2',
+	'donate_interface-cvv-number' => 'CVV number',
+	'donate_interface-next' => 'Nàíhú',
+	'donate_interface-continue' => 'Gawazie',
+	'donate_interface-cancel' => 'Emekwàlà',
+	'donate_interface-payment' => 'Nkwụmụ́gwọ́',
+	'donate_interface-payment-type' => 'Ùdì nkwụmụ́gwọ́',
+	'donate_interface-month' => '$1 ($2)',
+	'donate_interface-via-paypal' => "(n'ụ́zọ̀ PayPal)",
+	'donate_interface-language' => 'Ásụ̀sụ̀:',
+	'donate_interface-front' => 'Íhú',
+	'donate_interface-back' => 'Azú',
+	'donate_interface-change' => 'Ụmá',
+);
+
 /** Ido (Ido)
  * @author Malafaya
  */
@@ -23973,6 +24018,7 @@ $messages['ru'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Для безопасности вашей кредитной карты, пожалуйста, введите символы, которые вы видите выше.',
 	'donate_interface-error-msg-cookies' => 'Пожалуйста, включите «куки» (cookies) в своём браузере.',
 	'donate_interface-error-msg-genaricrequired' => 'Это поле обязательно для заполнения.',
+	'donate_interface-error-msg-country-calc' => 'Ошибка - мы не можем принять ваше пожертвование сейчас.',
 	'donate_interface-donate-error-try-a-different-card' => 'Пожалуйста, [$1 попробуйте другую карту] или выберите [$2 другой способ сделать пожертвование], либо свяжитесь с нами по адресу $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Спасибо за Вашу поддержку!',
 	'php-response-declined' => 'Ваша транзакция не может быть принята.',
@@ -24114,6 +24160,7 @@ $messages['ru'] = array(
 	'donate_interface-optional' => 'необязательное',
 	'donate_interface-state-dropdown-YY' => 'Выберите штат',
 	'donate_interface-state-dropdown-XX' => 'За пределами США',
+	'donate_interface-cc-MX-instructions' => 'Для обеспечения безопасности некоторые мексиканские банки блокируют онлайн-транзакции. Если ваше пожертвование не является успешным, мы предлагаем связаться с вашим банком для его санкционирования, и повторить попытку.',
 	'donate_interface-bt-account_holder' => 'Владелец счёта (Account holder)',
 	'donate_interface-bt-bank_account_number' => 'Номер счёта',
 	'donate_interface-bt-country_description' => 'Описание страны (Country description)',
