@@ -8634,6 +8634,7 @@ $messages['fa'] = array(
  * @author Str4nd
  * @author Tofu II
  * @author Veikk0.ma
+ * @author VezonThunder
  * @author ZeiP
  */
 $messages['fi'] = array(
@@ -8953,6 +8954,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 	'donate_interface-optional' => 'valinnainen',
 	'donate_interface-state-dropdown-YY' => 'Valitse osavaltio',
 	'donate_interface-state-dropdown-XX' => 'Yhdysvaltojen ulkopuolella',
+	'donate_interface-cc-MX-instructions' => 'Turvallisuussyistä jotkin meksikolaiset pankit estävät verkkomaksut. Jos lahjoituksesi epäonnistuu, suosittelemme soittamaan pankkiisi verkkolahjoituksen valtuuttamiseksi ja yrittämään uudelleen.',
 	'donate_interface-bt-account_holder' => 'Tilinomistaja',
 	'donate_interface-bt-bank_account_number' => 'Tilinumero',
 	'donate_interface-bt-country_description' => 'Maan kuvaus',
