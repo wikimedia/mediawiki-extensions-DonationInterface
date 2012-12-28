@@ -934,10 +934,12 @@ $messages['ru'] = array(
  */
 $messages['si'] = array(
 	'globalcollectgateway' => 'ඔබගේ පරිත්‍යාගය දැන් සපයන්න',
+	'globalcollect_gateway-desc' => 'GlobalCollect ගෙවීම ක්‍රියානනය වෙමින්',
 	'globalcollect_gateway-response-9130' => 'වලංගු නොවන රටකි.',
 	'globalcollect_gateway-response-9140' => 'වලංගු නොවන ව්‍යවහාරයකි.',
 	'globalcollect_gateway-response-9150' => 'වලංගු නොවන භාෂාවකි.',
 	'globalcollect_gateway-response-400530' => 'වලංගු නොවන ගෙවීම් ක්‍රමය.',
+	'globalcollect_gateway-response-430306' => 'ඔබේ ණයපත ඉකුත් වී ඇත. කරුණාකර වෙනත් කාඩ් පතක් භාවිතා කිරීම හෝ වෙනත් ගෙවීම් ක්‍රමයක් අනුගමනය කිරීම සිදු කරන්න.',
 	'globalcollect_gateway-response-430330' => 'වලංගු නොවන කාඩ්පත් අංකය.',
 	'globalcollect_gateway-response-21000150' => 'වලංගු නොවන බැංකු ගිණුම් අංකය.',
 	'globalcollect_gateway-response-21000155' => 'වලංගු නොවන බැංකු කේතය.',
