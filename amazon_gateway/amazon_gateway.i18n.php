@@ -77,6 +77,13 @@ $messages['dsb'] = array(
 	'amazon_gateway-desc' => 'Pśeźěłanje zapłaśenjow pśez Amazon',
 );
 
+/** Greek (Ελληνικά)
+ * @author ZaDiak
+ */
+$messages['el'] = array(
+	'amazongateway' => 'Κάντε τη δωρεά σας τώρα',
+);
+
 /** Esperanto (Esperanto)
  * @author Yekrats
  */
@@ -138,6 +145,14 @@ $messages['he'] = array(
 $messages['hsb'] = array(
 	'amazongateway' => 'Nětko darić',
 	'amazon_gateway-desc' => 'Předźěłanje zapłaćenjow přez Amazon',
+);
+
+/** Hungarian (magyar)
+ * @author Dj
+ */
+$messages['hu'] = array(
+	'amazongateway' => 'Adományozz most',
+	'amazon_gateway-desc' => 'Amazon fizetés feldolgozás',
 );
 
 /** Indonesian (Bahasa Indonesia)

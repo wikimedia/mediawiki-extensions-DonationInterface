@@ -943,6 +943,7 @@ $messages['si'] = array(
 	'globalcollect_gateway-response-430330' => 'වලංගු නොවන කාඩ්පත් අංකය.',
 	'globalcollect_gateway-response-21000150' => 'වලංගු නොවන බැංකු ගිණුම් අංකය.',
 	'globalcollect_gateway-response-21000155' => 'වලංගු නොවන බැංකු කේතය.',
+	'globalcollect_gateway-response-21000160' => 'වලංගු නොවන ගයිරෝ ගිණුම් අංකය.',
 );
 
 /** Slovenian (slovenščina)
