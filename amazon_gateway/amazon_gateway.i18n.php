@@ -45,6 +45,13 @@ $messages['br'] = array(
 	'amazon_gateway-desc' => 'O tretiñ ar paeañ evit Amazon',
 );
 
+/** Catalan (català)
+ * @author Arnaugir
+ */
+$messages['ca'] = array(
+	'amazongateway' => 'Feu ara un donatiu',
+);
+
 /** Czech (česky)
  * @author Mormegil
  */

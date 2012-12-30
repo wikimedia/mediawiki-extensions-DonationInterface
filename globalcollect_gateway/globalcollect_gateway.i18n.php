@@ -133,6 +133,17 @@ $messages['br'] = array(
 Klaskit en-dro a-benn ur pennadig.',
 );
 
+/** Catalan (català)
+ * @author Arnaugir
+ */
+$messages['ca'] = array(
+	'globalcollect_gateway-response-9130' => 'País incorrecte.',
+	'globalcollect_gateway-response-9140' => 'Moneda invàlida.',
+	'globalcollect_gateway-response-9150' => 'Idioma invàlid.',
+	'globalcollect_gateway-response-400530' => 'Mètode de pagament invàlid.',
+	'globalcollect_gateway-response-430330' => 'Número de targeta invàlid.',
+);
+
 /** Czech (česky)
  * @author Mormegil
  */
@@ -767,6 +778,16 @@ $messages['nl'] = array(
 	'globalcollect_gateway-response-21000155' => 'Ongeldige bankcode.',
 	'globalcollect_gateway-response-21000160' => 'Ongeldig girorekeningnummer.',
 	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van uw transactie.
+Probeer het later nog een keer.',
+);
+
+/** Nederlands (informeel)‎ (Nederlands (informeel)‎)
+ * @author Siebrand
+ */
+$messages['nl-informal'] = array(
+	'globalcollect_gateway-response-430306' => 'Je creditcard is verlopen. Probeer een andere kaart of een van onze andere betalingsmethoden.',
+	'globalcollect_gateway-response-430421' => 'Je creditcard kan niet worden gevalideerd. Controleer alsjeblieft of alle informatie overeenkomt met je creditcardgegevens, of gebruik een andere kaart.',
+	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van je transactie.
 Probeer het later nog een keer.',
 );
 
