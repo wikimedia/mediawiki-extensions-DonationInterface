@@ -224,6 +224,14 @@ $messages['mk'] = array(
 	'amazon_gateway-desc' => 'Обработка на уплати со Amazon',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'amazongateway' => 'Derma sekarang',
+	'amazon_gateway-desc' => 'Pemprosesan pembayaran Amazon',
+);
+
 /** Maltese (Malti)
  * @author Chrisportelli
  */
