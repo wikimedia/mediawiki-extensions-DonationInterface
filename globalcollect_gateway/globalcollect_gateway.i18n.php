@@ -469,6 +469,16 @@ $messages['he'] = array(
 	'globalcollect_gateway-response-default' => 'אירעה שגיאה בעיבוד העסקה שלך. נא לנסות שוב מאוחר יותר.',
 );
 
+/** Hindi (हिन्दी)
+ * @author Ansumang
+ */
+$messages['hi'] = array(
+	'globalcollect_gateway-response-9130' => 'अमान्य देश।',
+	'globalcollect_gateway-response-9140' => 'अमान्य राशि।',
+	'globalcollect_gateway-response-9150' => 'अवैध भाषा।',
+	'globalcollect_gateway-response-430330' => 'अमान्य कार्ड नंबर।',
+);
+
 /** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
@@ -987,6 +997,14 @@ $messages['sl'] = array(
 	'globalcollect_gateway-response-21000155' => 'Številka banke je napačna.',
 	'globalcollect_gateway-response-21000160' => 'Številka žiroračuna je napačna.',
 	'globalcollect_gateway-response-default' => 'Pri obdelavi vaše transakcije je prišlo do napake. Prosimo, poskusite pozneje.',
+);
+
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
+ * @author Rancher
+ */
+$messages['sr-ec'] = array(
+	'globalcollect_gateway-response-21000150' => 'Неисправан број рачуна.',
+	'globalcollect_gateway-response-21000155' => 'Неисправан банковни кôд.',
 );
 
 /** Swedish (svenska)
