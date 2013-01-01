@@ -636,6 +636,18 @@ $messages['ko'] = array(
 	'globalcollect_gateway-response-21000155' => '은행 코드가 잘못되었습니다.',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'globalcollect_gateway-response-9130' => 'Dat Land es onjöltesch.',
+	'globalcollect_gateway-response-9150' => 'De Schprooch es onjöltesch.',
+	'globalcollect_gateway-response-400530' => 'De aat zem Bezahle es onjöltesch.',
+	'globalcollect_gateway-response-430330' => 'Dä Kaat ier Nommer es onjöltesch.',
+	'globalcollect_gateway-response-21000155' => 'De Bank ier Nommer es onjöltesch.',
+	'globalcollect_gateway-response-21000160' => 'De Konto-Nommer es onjöltesch.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
