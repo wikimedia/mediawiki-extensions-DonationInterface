@@ -5347,6 +5347,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 );
 
 /** Danish (dansk)
+ * @author Christian List
  * @author Danmichaelo
  * @author Hylle
  * @author Jon Harald Søby
@@ -5535,6 +5536,7 @@ Ingen processorer er tilgængelige.',
 	'donate_interface-error-msg-captcha-please' => 'For dit kreditkorts sikkerhed, vær så venlig at indtaste tegnene, du ser ovenfor.',
 	'donate_interface-error-msg-cookies' => 'Vær så venlig at aktivere cookies i din browser.',
 	'donate_interface-error-msg-genaricrequired' => 'Dette felt skal udfyldes',
+	'donate_interface-error-msg-country-calc' => 'Fejl - vi kan ikke acceptere din donation på dette tidspunkt.',
 	'donate_interface-donate-error-try-a-different-card' => 'Venligst [$1 prøv et andet kort] eller en af vores [$2 andre måder at bidrage], eller kontakt os på $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Tak for din støtte!',
 	'php-response-declined' => 'Din transaktion kunne ikke godtages.',
@@ -5676,6 +5678,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-optional' => 'valgfri',
 	'donate_interface-state-dropdown-YY' => 'Vælg en stat',
 	'donate_interface-state-dropdown-XX' => 'Uden for USA',
+	'donate_interface-cc-MX-instructions' => 'For ekstra sikkerhed, blokere nogle mexicanske banker onlinetransaktioner. Hvis din donation ikke er vellykket, foreslår vi, du ringer til din bank for at tillade online donation, og prøv igen.',
 	'donate_interface-bt-account_holder' => 'Kontoindehaver',
 	'donate_interface-bt-bank_account_number' => 'Kontonummer',
 	'donate_interface-bt-country_description' => 'Landebeskrivelse',
@@ -23661,6 +23664,7 @@ $messages['roa-tara'] = array(
 	'donate_interface-comment-title' => 'Commende pubbleche',
 	'donate_interface-amount-error' => "Pe piacere mitte 'n'imborte valide",
 	'donate_interface-smallamount-error' => 'Tu hé ddà condrebbuì almene cu $1',
+	'donate_interface-bigamount-error' => "Non ge putime accettà donazziune superiore a 10.000 USD ($1 $2) da 'u site web. Pe piacere, condatte 'u staff pe riale cchiù granne a $3.",
 	'donate_interface-processing-error' => "Ha state 'n'errore duranne l'elabborazione d'a richiesta toje.
 Nisciune processore jè disponibbele.",
 	'donate_interface-AED' => "Dirham de l'Emirate Arabe Aunìte",
@@ -23750,6 +23754,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-accessible' => "Quèste pàgene jè accessibbele sule ad 'a pàgene de le donaziune.",
 	'donate_interface-paypal-button' => 'Done ausanne PayPal',
 	'donate_interface-paypal-redirect' => 'Reindirizzamènde a PayPal…',
+	'donate_interface-amazon-button' => 'Done cu Amazon',
 	'donate_interface-cc-button' => "Done ausanne 'a carte de credite",
 	'donate_interface-ccdc-button' => 'Done cu carte de credite/debite',
 	'donate_interface-dd-button' => 'Donare cu addebite derette',
