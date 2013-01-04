@@ -844,12 +844,13 @@ Spróbuj ponownie później.',
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
 	'globalcollectgateway' => 'Fà toa donassion adess',
 	'globalcollect_gateway-desc' => 'Elaborassion dij pagament GlobalCollect',
-	'globalcollect_gateway-response-9130' => 'Paìs pa bon.',
+	'globalcollect_gateway-response-9130' => 'Pais nen bon.',
 	'globalcollect_gateway-response-9140' => 'Moneda pa bon-a.',
 	'globalcollect_gateway-response-9150' => 'Lenga nen bon-a',
 	'globalcollect_gateway-response-400530' => 'Métod ëd pagament pa bon.',
@@ -945,6 +946,10 @@ Vă rugăm să reîncercați mai târziu.',
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'globalcollect_gateway-response-9130' => 'Nazione invalide.',
+	'globalcollect_gateway-response-9140' => 'monete invalide.',
+	'globalcollect_gateway-response-9150' => 'Lénghe invalide.',
+	'globalcollect_gateway-response-400530' => 'Meotde de pajamende invalide.',
 	'globalcollect_gateway-response-430330' => "Numere d'a carte invalide.",
 	'globalcollect_gateway-response-21000155' => "Codece d'a banghe invalide.",
 );
