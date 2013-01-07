@@ -11149,6 +11149,7 @@ $messages['he'] = array(
 
 /** Hindi (हिन्दी)
  * @author Ansumang
+ * @author Siddhartha Ghai
  */
 $messages['hi'] = array(
 	'donate_interface' => 'विकीमीडिया को समर्थन करें',
@@ -11267,8 +11268,8 @@ $messages['hi'] = array(
 	'donate_interface-donor-street' => 'स्ट्रीट',
 	'donate_interface-donor-street-number' => 'संख्या',
 	'donate_interface-donor-city' => 'शहर',
-	'donate_interface-donor-county' => 'देश',
-	'donate_interface-donor-island' => 'टापू',
+	'donate_interface-donor-county' => 'काउंटी',
+	'donate_interface-donor-island' => 'द्वीप',
 	'donate_interface-donor-state' => 'राज्य',
 	'donate_interface-donor-zip' => 'ज़िप',
 	'donate_interface-donor-postal' => 'पिनकोड',
@@ -26218,6 +26219,7 @@ Naš obrazec za darovanje zahteva JavaScript, ker vam z njim zagotovimo varno in
 	'donate_interface-optional' => 'neobvezno',
 	'donate_interface-state-dropdown-YY' => 'Izberite državo',
 	'donate_interface-state-dropdown-XX' => 'Izven ZDA',
+	'donate_interface-cc-MX-instructions' => 'Nekatere mehiške banke iz varnostnih razlogov preprečijo spletne prenose. Če vaša donacija ne bo uspešna, predlagamo, da pokličete svojo banko, da avtorizira spletno donacijo, in poskusite znova.',
 	'donate_interface-bt-account_holder' => 'Imetnik računa',
 	'donate_interface-bt-bank_account_number' => 'Številka transakcijskega računa',
 	'donate_interface-bt-country_description' => 'Opis države',

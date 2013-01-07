@@ -471,11 +471,12 @@ $messages['he'] = array(
 
 /** Hindi (हिन्दी)
  * @author Ansumang
+ * @author Siddhartha Ghai
  */
 $messages['hi'] = array(
 	'globalcollect_gateway-response-9130' => 'अमान्य देश।',
 	'globalcollect_gateway-response-9140' => 'अमान्य राशि।',
-	'globalcollect_gateway-response-9150' => 'अवैध भाषा।',
+	'globalcollect_gateway-response-9150' => 'अमान्य भाषा।',
 	'globalcollect_gateway-response-430330' => 'अमान्य कार्ड नंबर।',
 );
 
