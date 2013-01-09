@@ -651,17 +651,17 @@ An alternative to 'field' in the translation could be 'information'. If the tran
 	'donate_interface-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
-*{{msg-mw|Payflowpro gateway-error-msg-amount}}
-*{{msg-mw|Payflowpro gateway-error-msg-emailAdd}}
-*{{msg-mw|Payflowpro gateway-error-msg-fname}}
-*{{msg-mw|Payflowpro gateway-error-msg-lname}}
-*{{msg-mw|Payflowpro gateway-error-msg-street}}
-*{{msg-mw|Payflowpro gateway-error-msg-city}}
-*{{msg-mw|Payflowpro gateway-error-msg-state}}
-*{{msg-mw|Payflowpro gateway-error-msg-zip}}
-*{{msg-mw|Payflowpro gateway-error-msg-card_num}}
-*{{msg-mw|Payflowpro gateway-error-msg-expiration}}
-*{{msg-mw|Payflowpro gateway-error-msg-cvv}}
+*{{msg-mw|Donate interface-error-msg-amount}}
+*{{msg-mw|Donate interface-error-msg-emailAdd}}
+*{{msg-mw|Donate interface-error-msg-fname}}
+*{{msg-mw|Donate interface-error-msg-lname}}
+*{{msg-mw|Donate interface-error-msg-street}}
+*{{msg-mw|Donate interface-error-msg-city}}
+*{{msg-mw|Donate interface-error-msg-state}}
+*{{msg-mw|Donate interface-error-msg-zip}}
+*{{msg-mw|Donate interface-error-msg-card_num}}
+*{{msg-mw|Donate interface-error-msg-expiration}}
+*{{msg-mw|Donate interface-error-msg-cvv}}
 
 An alternative to 'field' in the translation could be 'information'.
 
@@ -13944,7 +13944,7 @@ $messages['ja'] = array(
 	'donate_interface-currency' => '通貨:',
 	'donate_interface-gateway' => '支払い方法:',
 	'donate_interface-submit-button' => '寄付',
-	'donate_interface-comment-message' => 'ご意見がございましたら、こちらに200字以内で記入してください：',
+	'donate_interface-comment-message' => 'ご意見がございましたら、こちらに200字以内で記入してください:',
 	'donate_interface-comment-label' => 'コメント:',
 	'donate_interface-email-agreement' => 'ウィキメディア財団が今後不定期に送信するメールを受け取ることに同意します。',
 	'donate_interface-comment-title' => '公開コメント',
@@ -14058,7 +14058,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-fname' => '名',
 	'donate_interface-donor-mname' => 'ミドルネーム',
 	'donate_interface-donor-lname' => '姓',
-	'donate_interface-donor-street' => '通り（番地）',
+	'donate_interface-donor-street' => '通り (番地)',
 	'donate_interface-donor-street-number' => '番地',
 	'donate_interface-donor-city' => '市町村',
 	'donate_interface-donor-island' => '島',
@@ -14094,7 +14094,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-emailAdd' => 'メールアドレス',
 	'donate_interface-error-msg-fname' => '名',
 	'donate_interface-error-msg-lname' => '姓',
-	'donate_interface-error-msg-street' => '通り住所（番地）',
+	'donate_interface-error-msg-street' => '通り住所 (番地)',
 	'donate_interface-error-msg-city' => '市町村',
 	'donate_interface-error-msg-state' => '都道府県・州',
 	'donate_interface-error-msg-zip' => 'ZIP コード',
@@ -14141,7 +14141,7 @@ $messages['ja'] = array(
 	'donate_interface-other' => 'その他',
 	'donate_interface-noscript-msg' => 'JavaScript を有効にしていないか、ブラウザーが JavaScript に対応していません。
 安全で安心できる、快適な操作のため、この寄付フォームでは JavaScript を必須にしています。',
-	'donate_interface-noscript-redirect-msg' => 'もしJavaScriptを有効にできない、あるいは有効にすることを望まない場合、こちらからも寄付可能です：',
+	'donate_interface-noscript-redirect-msg' => 'JavaScriptを有効にできない、または有効にしたくない場合は、こちらからも寄付できます:',
 	'donate_interface-anon-message' => '公開された寄付者の一覧に自分の名前を掲載してください。',
 	'donate_interface-donate-wikipedia' => 'ウィキペディアに寄付',
 	'donate_interface-or' => 'または',
@@ -14155,10 +14155,10 @@ $messages['ja'] = array(
 	'donate_interface-address-2' => '住所 2',
 	'donate_interface-address-lines' => '住所',
 	'donate_interface-address-line-2' => '2つ目の住所',
-	'donate_interface-street-address' => '通り住所（番地）',
-	'donate_interface-street-address-line-2' => '2つ目の通り住所（番地）',
-	'donate_interface-street-1' => '通り（番地）1',
-	'donate_interface-street-2' => '通り（番地）2',
+	'donate_interface-street-address' => '通り住所 (番地)',
+	'donate_interface-street-address-line-2' => '通り住所 (番地) 2',
+	'donate_interface-street-1' => '通り (番地) 1',
+	'donate_interface-street-2' => '通り (番地) 2',
 	'donate_interface-apartment-number' => '部屋番号',
 	'donate_interface-city-town' => '市/町',
 	'donate_interface-town-city' => '町/市',
@@ -14173,7 +14173,7 @@ $messages['ja'] = array(
 	'donate_interface-confirm-email' => 'メールアドレスの確認',
 	'donate_interface-phone' => '電話',
 	'donate_interface-telephone' => '電話',
-	'donate_interface-telephone-home' => '電話番号（自宅）',
+	'donate_interface-telephone-home' => '電話番号 (自宅)',
 	'donate_interface-billing-phone-number' => '請求先の電話番号',
 	'donate_interface-donation-information' => '寄付情報',
 	'donate_interface-cc-billing-information' => 'クレジットカードの支払い情報',
@@ -14242,7 +14242,7 @@ $messages['ja'] = array(
 	'donate_interface-wikipedia-translation' => '注意:「Wikipedia」はシャツの袖では「Wikipedia 10」の画像となり、翻訳されません。',
 	'donate_interface-on-the-back' => '背中に付ける文字:',
 	'donate_interface-tshirt-confirmation' => 'Tシャツは以下のサイズと言語で出荷されます:',
-	'donate_interface-donation-tshirt' => '寄付（Tシャツ購入）',
+	'donate_interface-donation-tshirt' => '寄付 (Tシャツ購入)',
 	'donate_interface-change' => '変更する',
 	'donate_interface-select-credit-card' => 'クレジットカードを選択',
 	'donate_interface-optional' => '省略可能',
@@ -14271,7 +14271,7 @@ $messages['ja'] = array(
 	'donate_interface-dd-bank_name' => '銀行名',
 	'donate_interface-dd-branch_code' => '支店コード',
 	'donate_interface-dd-direct_debit_text' => 'ダイレクトデビット用文章',
-	'donate_interface-dd-iban' => 'IBAN（国際銀行口座番号）',
+	'donate_interface-dd-iban' => 'IBAN (国際銀行口座番号)',
 	'donate_interface-translate-bluelink' => 'この翻訳を改善する',
 	'donate_interface-translate-redlink1' => 'このページの翻訳を手伝ってください。',
 	'donate_interface-translate-redlink2' => 'またはあなたの翻訳を translations@wikimedia.org にメールで送信してください',
@@ -14288,7 +14288,7 @@ $messages['ja'] = array(
 	'donate_interface-tax-info' => '税控除の情報',
 	'donate_interface-informationsharing' => '<a href="//wikimediafoundation.org/wiki/Donor_policy/ja">寄付者に対するプライバシーの方針</a>に準じ、寄付するということは、ウィキペディアその他のウィキペディアプロジェクトをホストしている非営利組織ウィキメディア財団および米国内外にある、そのサービスプロバイダと寄付者の情報を共有することになります。私たちは寄付者の情報を誰にも販売または誰とも交換しません',
 	'donate_interface-currency-change' => '変更しますか?',
-	'donate_interface-bank_transfer_message' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect（グローバルコレクト）」として表示されることをご承知おきください。Global Collect（グローバルコレクト）はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。銀行振り込みの際に、ここで表示されている参照番号を忘れずに入れてください。質問や懸念がある場合は、 donations@wikimedia.org までお気軽にメールしてください。',
+	'donate_interface-bank_transfer_message' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect (グローバルコレクト)」として表示されることをご承知おきください。Global Collect (グローバルコレクト) はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。銀行振り込みの際に、ここで表示されている参照番号を忘れずに入れてください。質問や懸念がある場合は、 donations@wikimedia.org までメールでお気軽にお問い合わせください。',
 	'donate_interface-taxded-link-int' => '税およびその他の法的な情報',
 	'donate_interface-taxded-link-us' => '税控除の情報',
 	'donate_interface-taxded-msg-int' => 'ウィキメディア財団は米国IRSコード501(c)(3)部に基づき設立された非営利慈善組織であるため、米国内の個人または団体からの寄付については、税控除の対象となる場合があります。米国外の個人または団体からの寄付は米国およびその他の国の税金控除の対象とならない場合があります。寄付者は地元の税金相談を受けてください。  重要なことには、ウィキメディアはウィキメディアのような国際慈善組織による募金活動を禁止または制限する、または当該の国際慈善組織への寄付に贈与税が課せられる管轄地内の個人または団体から寄付を求めることはありません。',
@@ -15453,7 +15453,7 @@ $messages['ko'] = array(
 	'donate_interface-thankyou' => '당신의 기부에 감사드립니다!',
 	'donate_interface-post-transaction' => '거래 세부 사항',
 	'donate_interface-cvv-explain' => '<h4>CVV가 무엇입니까?</h4>
-<p>카드 보유 확인 코드 (CVV): 3-4자리 숫자가 카드가 물리적으로 주인이 소유하고 있음을 확인하는 데 도움이 됩니다. 이는 승인되지 않은 사용이나 사기를 방지하는 데 도임이 됩니다.</p>
+<p>카드 보유 확인 코드 (CVV): 3-4자리 숫자가 카드가 물리적으로 주인이 소유하고 있음을 확인하는 데 도움이 됩니다. 승인되지 않은 사용이나 사기를 방지하는 데 도임이 됩니다.</p>
 <h4>비자카드, 마스터카드</h4>
 <p>3자리 숫자가 카드 뒷면의 서명란에 적혀 있습니다. 서명 란에 여러 숫자가 있지만 마지막 3자리 숫자만이 CVV 코드입니다.</p>
 <h4>아메리칸 엑스프레스</h4>
