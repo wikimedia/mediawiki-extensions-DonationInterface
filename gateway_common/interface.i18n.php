@@ -15287,8 +15287,8 @@ $messages['ko'] = array(
 	'donate_interface-amount-error' => '금액을 올바르게 입력해주세요',
 	'donate_interface-smallamount-error' => '최소한 $1 이상은 기부하셔야 합니다.',
 	'donate_interface-bigamount-error' => '웹사이트를 통해서는 미화 1만 달러($1 $2) 이상의 금액을 받을 수 없습니다. $3을 통해 고액 기부 담당 직원에게 문의하세요.',
-	'donate_interface-processing-error' => '당신의 요청을 처리하는 도중에 오류가 있었습니다.
-어떤 프로세서도 이용할 수 없습니다.',
+	'donate_interface-processing-error' => '요청을 처리하는 도중에 오류가 있었습니다.
+어떤 프로세서도 사용할 수 없습니다.',
 	'donate_interface-AED' => 'UAE 디르함',
 	'donate_interface-ARS' => '아르헨티나 페소',
 	'donate_interface-AUD' => '호주 달러',
@@ -15442,15 +15442,15 @@ $messages['ko'] = array(
 	'donate_interface-error-msg-card_num' => '신용 카드 번호',
 	'donate_interface-error-msg-expiration' => '카드 유효 기간',
 	'donate_interface-error-msg-cvv' => '카드 뒷면의 CVV',
-	'donate_interface-error-msg-captcha' => '당신이 입력한 Captcha 값이 잘못되었습니다. 다시 시도하세요.',
-	'donate_interface-error-msg-captcha-please' => '당신의 신용 카드 보안을 위해 위에 보이는 문자를 입력하세요.',
+	'donate_interface-error-msg-captcha' => '입력한 Captcha 값이 잘못되었습니다. 다시 시도하세요.',
+	'donate_interface-error-msg-captcha-please' => '신용 카드 보안을 위해 위에 보이는 문자를 입력하세요.',
 	'donate_interface-error-msg-cookies' => '브라우저에서 쿠키를 활성화하세요.',
 	'donate_interface-error-msg-genaricrequired' => '이 칸은 반드시 입력해야 합니다.',
 	'donate_interface-error-msg-country-calc' => '오류 - 이 시간에 기부를 승인할 수 없습니다.',
 	'donate_interface-donate-error-try-a-different-card' => '[$1 다른 카드로 시도] 하시거나 [$2 다른 기부 방법을 이용] 하시거나, $3으로 문의해 주시기 바랍니다.',
 	'donate_interface-donate-error-thank-you-for-your-support' => '후원해 주셔서 감사합니다.',
 	'php-response-declined' => '거래가 거부되었습니다.',
-	'donate_interface-thankyou' => '당신의 기부에 감사드립니다!',
+	'donate_interface-thankyou' => '기부에 감사드립니다!',
 	'donate_interface-post-transaction' => '거래 세부 사항',
 	'donate_interface-cvv-explain' => '<h4>CVV가 무엇입니까?</h4>
 <p>카드 보유 확인 코드 (CVV): 3-4자리 숫자가 카드가 물리적으로 주인이 소유하고 있음을 확인하는 데 도움이 됩니다. 승인되지 않은 사용이나 사기를 방지하는 데 도임이 됩니다.</p>
@@ -15462,7 +15462,7 @@ $messages['ko'] = array(
 	'donate_interface-question-comment' => '질문이나 의견이 있으신가요? 연락처: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => '모든 국가에서 쉽게 기부를 하실 수 있도록 하기 위해 노력하고 있습니다. 귀하의 경우 더 쉽게 하실 수 있는 방법이 있으시다면 알려주시기 바랍니다. 제안을 다음 주소로 보내주세요: problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => '기부하시는데 문제가 있습니까?',
-	'donate_interface-donate-click' => '당신의 신용/직불 카드 정보는 안전하게 처리될 것입니다.',
+	'donate_interface-donate-click' => '신용/직불 카드 정보는 안전하게 처리될 것입니다.',
 	'donate_interface-otherways' => ' <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">페이팔, 수표 그리고 우편</a>을 통해서도 기부하실 수 있습니다.',
 	'donate_interface-otherways-alt' => '수표를 통해 기부하는 것을 포함하여 <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">기부하실 수 있는 다른 방법</a>이 더 있습니다.',
 	'donate_interface-otherways-short' => '다른 기부 방법',
