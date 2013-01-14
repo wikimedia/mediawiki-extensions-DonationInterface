@@ -1220,6 +1220,7 @@ $messages['anp'] = array(
  * @author Ciphers
  * @author Jsoby
  * @author Meno25
+ * @author Mido
  * @author OsamaK
  * @author Peadara
  * @author Zanatos
@@ -1416,7 +1417,7 @@ $messages['ar'] = array(
 	'donate_interface-question-comment' => 'ويكيبيديا مشروع لمؤسسة ويكيميديا. أسئلة أو تعليقات؟ راسل: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'نحن نحاول أن نسهل التبرع على الناس في جميع البلدان. الرجاء إعلامنا كيف نجعلها سهلة بالنسبة لك. أرسل اقتراحاتك إلى:problemsdonating@wikimedia.org.',
 	'donate_interface-problemsdonating' => 'مشاكل في التبرع؟',
-	'donate_interface-donate-click' => 'الائتمان الخاصة بك/بطاقة السحب سوف تتم معالجتها بشكل أمن.',
+	'donate_interface-donate-click' => 'ستتم معالجة بطاقتك الائتمانية بأمان.',
 	'donate_interface-otherways' => 'توجد <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع من بينها استخدام PayPal أو شيك مصرفي أو البريد</a>.',
 	'donate_interface-otherways-alt' => 'توجد <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">وسائل أخرى للتبرع</a>، من ضمنها عبر شيك مصرفي.',
 	'donate_interface-otherways-short' => 'وسائل أخرى للتبرع',
