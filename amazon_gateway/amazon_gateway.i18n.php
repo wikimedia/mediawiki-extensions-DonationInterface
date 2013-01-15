@@ -273,6 +273,14 @@ $messages['ro'] = array(
 	'amazon_gateway-desc' => 'Procesarea plăților prin Amazon',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'amazongateway' => "Fà 'a donazziona toje mò",
+	'amazon_gateway-desc' => 'Procese de pajamende de Amazon',
+);
+
 /** Russian (русский)
  * @author KPu3uC B Poccuu
  */
