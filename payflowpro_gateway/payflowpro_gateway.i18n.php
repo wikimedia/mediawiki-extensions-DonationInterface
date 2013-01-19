@@ -1148,8 +1148,8 @@ $messages['ko'] = array(
 	'payflowpro_gateway-response-112' => '당신의 주소 또는 CVV 번호(보안 코드)가 잘못되었습니다.',
 	'payflowpro_gateway-response-125' => '당신의 거래가 사기 방지 시스템에 의해 거부되었습니다.',
 	'payflowpro_gateway-response-125-2' => '당신의 신용 카드를 확인할 수 없습니다. 모든 정보가 신용 카드 정보와 일치하는지 확인하거나 다른 카드를 이용해 주십시오. <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">다른 방법으로 기부</a>할 수도 있으며 <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>로 문의할 수도 있습니다. 후원에 감사드립니다.',
-	'payflowpro_gateway-response-default' => '거래를 처리하는 중에 오류가 발생했습니다.
-잠시 후에 다시 시도해주세요.',
+	'payflowpro_gateway-response-default' => '거래를 처리하는 동안 오류가 발생했습니다.
+나중에 다시 시도하세요.',
 );
 
 /** Colognian (Ripoarisch)
