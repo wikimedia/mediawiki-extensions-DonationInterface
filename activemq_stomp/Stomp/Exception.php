@@ -40,7 +40,7 @@ class Stomp_Exception extends Exception
     public function __construct( $message = null, $code = 0, $details = '' )
     {
         $this->_details = $details;
-        $message = "Stomp Error.  Check host connection.  Details suppressed for security.";
+        //$message = "Stomp Error.  Check host connection.  Details suppressed for security.";
         parent::__construct( $message, $code );
     }
 
