@@ -15,9 +15,10 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'amazongateway' => '{{Identical|Support Wikimedia}}',
+	'amazongateway' => '{{Identical|Make you donation now}}',
 	'amazon_gateway-desc' => '{{desc}}',
 );
 
