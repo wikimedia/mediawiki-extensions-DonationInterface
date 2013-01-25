@@ -39,12 +39,13 @@ Please try again later.',
  * @author Lloffiwr
  * @author Minh Nguyen
  * @author Purodha
+ * @author Shirayuki
  * @author Siebrand
  * @author Yekrats
  * @author Тест
  */
 $messages['qqq'] = array(
-	'payflowprogateway' => '{{Identical|Support Wikimedia}}',
+	'payflowprogateway' => '{{Identical|Make you donation now}}',
 	'payflowpro_gateway-desc' => '{{desc}}',
 	'payflowpro_gateway-response-0' => 'Message after the donation has gone through.',
 	'payflowpro_gateway-response-126' => "Message if the donation is done, but waiting for something beyond the user's control.",

@@ -30,9 +30,10 @@ Please try again later.',
 
 /** Message documentation (Message documentation)
  * @author Kaldari
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'globalcollectgateway' => '{{Identical|Support Wikimedia}}',
+	'globalcollectgateway' => '{{Identical|Make you donation now}}',
 	'globalcollect_gateway-desc' => '{{desc}}',
 	'globalcollect_gateway-response-9130' => 'Error message for invalid country.',
 	'globalcollect_gateway-response-9140' => 'Error message for invalid currency.',

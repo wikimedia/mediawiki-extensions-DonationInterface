@@ -716,7 +716,8 @@ This message was used during testing but as of 7 Dec 2010 is not in use.",
 	'donate_interface-token-mismatch' => 'Error message shown when the session has expired.',
 	'donate_interface-cc-form-header-personal' => '{{Identical|Personal information}}',
 	'donate_interface-cc-form-header-payment' => 'Header for part of form with information about payment (credit card).',
-	'donate_interface-make-your-donation' => 'The title of the donation page (the one shown in tabs and window titles).',
+	'donate_interface-make-your-donation' => 'The title of the donation page (the one shown in tabs and window titles).
+{{Identical|Make you donation now}}',
 	'donate_interface-comment' => '{{Identical|Comment}}',
 	'donate_interface-first' => "Field label. Refers to first name, and can be translated as 'first name' if needed.
 {{Identical|First}}",
@@ -29874,6 +29875,7 @@ $messages['ug-arab'] = array(
  * @author Olvin
  * @author Prima klasy4na
  * @author Sodmy
+ * @author Ата
  * @author Тест
  */
 $messages['uk'] = array(
@@ -30195,6 +30197,7 @@ $messages['uk'] = array(
 	'donate_interface-optional' => "необов'язкове",
 	'donate_interface-state-dropdown-YY' => 'Виберіть штат',
 	'donate_interface-state-dropdown-XX' => 'За межами США',
+	'donate_interface-cc-MX-instructions' => 'Для забезпечення безпеки деякі мексиканські банки блокують он-лайн транзакції. Якщо ваша пожертвування не вдалося, ми радимо Вам зателефонувати у Ваш банк, щоб підтвердити його, а потім спробувати ще раз.',
 	'donate_interface-bt-account_holder' => 'Власник рахунку',
 	'donate_interface-bt-bank_account_number' => 'Номер банківського рахунку',
 	'donate_interface-bt-country_description' => 'Опис країни',
@@ -30209,6 +30212,7 @@ $messages['uk'] = array(
 	'donate_interface-online_bank_transfer_message' => 'Телефонний та інтернет-банкінг - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Оберіть банк',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Інші банки',
+	'donate_interface-sofortbanking' => 'Sofortbanking — прямий банківський переказ у реальному часі через DIRECTebanking.com, який дозволяє Вам напряму ініціювати банківський переказ он-лайн з використанням Вашої банківської інформації. Якщо у Вашому банківському рахунку не ввімкнена можливість керування через інтернет, Ви можете використати опцію “Банківський переказ” на головній сторінці пожертв.',
 	'donate_interface-dd-account_name' => "Ім'я власника рахунку",
 	'donate_interface-dd-account_number' => 'Номер рахунку',
 	'donate_interface-dd-authorization_id' => 'Код авторизації',
