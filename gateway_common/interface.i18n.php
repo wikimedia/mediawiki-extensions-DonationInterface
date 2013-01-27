@@ -19795,7 +19795,7 @@ Donasjonsskjemaet vårt krever JavaScript.',
 	'donate_interface-error-http-403' => 'Du har ikke tilgang til denne siden.',
 );
 
-/** Nedersaksisch (Nedersaksisch)
+/** Nedersaksies (Nedersaksies)
  * @author Jsoby
  * @author Servien
  */
