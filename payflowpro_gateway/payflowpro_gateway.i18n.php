@@ -1358,7 +1358,7 @@ Kontakt oss for å fortsette din transaksjon.',
 Vennligst prøv igjen senere.',
 );
 
-/** Nedersaksisch (Nedersaksisch)
+/** Nedersaksies (Nedersaksies)
  * @author Krinkle
  * @author Servien
  */

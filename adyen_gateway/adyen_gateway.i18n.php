@@ -73,6 +73,16 @@ $messages['mk'] = array(
 Обидете се повторно.',
 );
 
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'adyengateway' => 'Doneer nu',
+	'adyen_gateway-desc' => 'Betalingsverwerking via Adyen',
+	'adyen_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van uw transactie.
+Probeer het later nog een keer.',
+);
+
 /** Russian (русский)
  * @author DCamer
  */
