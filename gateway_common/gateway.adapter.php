@@ -227,8 +227,9 @@ abstract class GatewayAdapter implements GatewayType {
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
-	const COMMUNICATION_TYPE = 'xml'; //this needs to be either 'xml' or 'namevalue'
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example. 
+	public $communication_type = 'xml'; //this needs to be either 'xml' or 'namevalue'
+	public $redirect = FALSE;
 
 	/**
 	 * Get @see GlobalCollectAdapter::$goToThankYouOn
@@ -967,6 +968,19 @@ abstract class GatewayAdapter implements GatewayType {
 			//TODO: Maybe move this to the pre_process functions? 
 			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
 
+			if ( $this->getCommunicationType() === 'redirect' ) {
+				wfRunHooks( 'GatewayHandoff', array( $this ) );
+
+				$this->addDonorDataToSession();
+
+				$this->transaction_results = array(
+					'status' => TRUE,
+					'action' => $this->getValidationAction(),
+					'redirect' => $this->url,
+				);
+				return $this->getTransactionAllResults();
+			}
+
 			// If the payment processor requires XML, package our data into XML.
 			if ( $this->getCommunicationType() === 'xml' ) {
 				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
@@ -1159,6 +1173,22 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			$this->current_transaction = $transaction_name;
 		}
+
+		// XXX WIP
+		$override_options = array(
+			'communication_type',
+			'url',
+		);
+		foreach ( $override_options as $key ) {
+			$override_val = $this->transaction_option( $key );
+			// XXX this hack should probably be pushed down to something
+			// like "setTransactionOptions" so that we can override with
+			// a NULL value when we need to
+			if ( $override_val !== NULL ) {
+				$this->$key = $override_val;
+			}
+		}
+
 	}
 
 	/**
@@ -1473,7 +1503,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 * package the donation data before we send it off to the payment processor, for example, 'xml'
 	 * or 'namevalue'.
 	 */
-	static function getCommunicationType() {
+	function getCommunicationType() {
+		if ( !empty( $this->communication_type ) ) {
+			return $this->communication_type;
+		}
+
 		$c = get_called_class();
 		return $c::COMMUNICATION_TYPE;
 	}
@@ -1918,62 +1952,25 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->staged_data[ $field ] = $value;
 		}
 	}
-	
-	function getPaypalRedirectURL() {
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
 
-		// update the utm source to set the payment instrument to pp rather than cc
-		$data['payment_method'] = 'pp';
-		$data['currency_code'] = ( !is_null( $currency ) ) ? $currency : 'USD';
+	protected function buildRequestParams() {
+		// Look up the request structure for our current transaction type in the transactions array
+		$structure = $this->getTransactionRequestStructure();
+		if ( !is_array( $structure ) ) {
+			return '';
+		}
 
-		// Add our response vars to the data object, and restage if necessary.
-		$this->addData( $data );
-		
-		//update contribution tracking
-		$this->dataObj->updateContributionTracking( true );
+		$queryparams = array();
 
-		$ret = self::getGlobal( "PaypalURL" ) . "/" . $this->staged_data['language'] . "?gateway=paypal&" . http_build_query( $this->getPaypalData() );
-		self::log( $ret );
-		return $ret;
-	}
-
-	protected function getPaypalData() {
-		$paypalkeys = array(
-			'contribution_tracking_id',
-			'comment',
-			'referrer',
-			'utm_source',
-			'utm_medium',
-			'utm_campaign',
-			'language',
-			'owa_session',
-			'owa_ref',
-			'tshirt',
-			'returnto',
-			'currency_code',
-			'fname',
-			'lname',
-			'email',
-			'address1',
-			'city',
-			'state',
-			'zip',
-			'country',
-			'address_override',
-			'recurring_paypal',
-			'amount',
-			'amountGiven',
-			'size',
-			'premium_language',
-		);
-		$ret = array();
-		foreach ( $paypalkeys as $key ){
-			$val = $this->getData_Unstaged_Escaped( $key );
-			if (!is_null( $val )){
-				$ret[$key] = $this->getData_Unstaged_Escaped( $key );
+		//we are going to assume a flat array, because... namevalue. 
+		foreach ( $structure as $fieldname ) {
+			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
+			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
+				$queryparams[ $fieldname ] = $fieldvalue;
 			}
 		}
-		return $ret;
+
+		return $queryparams;
 	}
 
 	public function getTransactionAllResults() {
@@ -2294,23 +2291,18 @@ abstract class GatewayAdapter implements GatewayType {
 	 * with this mechanism if we need to. 
 	 * @param string $option_value the name of the key we're looking for in the 
 	 * transaction definition. 
-	 * @return mixed the transaction's value for that key if it exists, or false.  
+	 * @return mixed the transaction's value for that key if it exists, or NULL.
 	 */
 	protected function transaction_option( $option_value ) {
 		//ooo, ugly. 
 		$transaction = $this->getCurrentTransaction();
 		if ( !$transaction ){
-			return false;
+			return NULL;
 		}
 		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
-			if ( $this->transactions[$transaction][$option_value] === true ) {
-				return true;
-			}
-			if ( !empty( $this->transactions[$transaction][$option_value] ) ) {
-				return $this->transactions[$transaction][$option_value];
-			}
+			return $this->transactions[$transaction][$option_value];
 		}
-		return false;
+		return NULL;
 	}
 
 	/**
