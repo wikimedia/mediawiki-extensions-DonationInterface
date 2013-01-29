@@ -35,6 +35,16 @@ $messages['de'] = array(
 Bitte versuche es erneut.',
 );
 
+/** French (français)
+ * @author Gomoko
+ */
+$messages['fr'] = array(
+	'adyengateway' => 'Faire un don maintenant',
+	'adyen_gateway-desc' => 'Traitement des paiements Adyen',
+	'adyen_gateway-response-default' => 'Une erreur est survenue lors du traitement de votre transaction.
+Veuillez réessayer ultérieurement.',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
