@@ -395,6 +395,8 @@ if ( $optionalParts['PayflowPro'] === true ){
 }
 
 if ( $optionalParts['Amazon'] === true ){
+	$wgDonationInterfaceEnabledGateways[] = 'amazon';
+
 	//n.b. "-Testing-" urls are not wired to anything, they're just here for
 	// your copy n paste pleasure.
 
