@@ -45,6 +45,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			'ffname' => $form
 		);
 
+		if( DataValidator::value_appears_in( 'redirect', $forms[$form] ) ){
+			$params['redirect'] = '1';
+		}
+
 		// Pass any other params that are set. We do not skip ffname or form_name because
 		// we wish to retain the query string override.
 		$excludeKeys = array( 'paymentmethod', 'submethod', 'title', 'recurring' );
