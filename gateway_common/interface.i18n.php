@@ -4227,6 +4227,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
  * @author Arnaugir
  * @author Jsoby
  * @author Martorell
+ * @author Pitort
  * @author SMP
  * @author Solde
  * @author Vriullop
@@ -4529,6 +4530,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-bt-information' => 'Informació de transferència bancària',
 	'donate_interface-bt-finished' => 'Acabat',
 	'donate_interface-obt-customer_payment_reference' => 'Referència #',
+	'donate_interface-dd-iban' => 'IBAN',
 );
 
 /** Sorani Kurdish (کوردی)
