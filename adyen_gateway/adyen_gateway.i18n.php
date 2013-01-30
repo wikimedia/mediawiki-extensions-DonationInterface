@@ -35,6 +35,16 @@ $messages['de'] = array(
 Bitte versuche es erneut.',
 );
 
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'adyengateway' => 'Haga su donación ahora',
+	'adyen_gateway-desc' => 'Procesamiento de pagos de Adyen',
+	'adyen_gateway-response-default' => 'Hubo un error al procesar su transacción.
+Inténtelo de nuevo más tarde.',
+);
+
 /** French (français)
  * @author Gomoko
  */
@@ -111,4 +121,23 @@ $messages['uk'] = array(
 	'adyen_gateway-desc' => 'Обробка платежу Adyen',
 	'adyen_gateway-response-default' => 'Під час обробки Вашої транзакції виникла помилка.
 Будь ласка, спробуйте пізніше.',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'adyengateway' => 'Quyên góp ngay bây giờ',
+	'adyen_gateway-desc' => 'Xử lý thanh toán qua Adyen',
+	'adyen_gateway-response-default' => 'Đã xảy ra lỗi khi xử lý giao dịch của bạn.
+Xin hãy thử lại sau.',
+);
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Simon Shek
+ */
+$messages['zh-hant'] = array(
+	'adyengateway' => '立刻進行捐款',
+	'adyen_gateway-desc' => 'Adyen付款進行中',
+	'adyen_gateway-response-default' => '在處理交易的過程中出錯。請稍後再試。',
 );
