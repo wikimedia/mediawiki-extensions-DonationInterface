@@ -4531,6 +4531,12 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-bt-finished' => 'Acabat',
 	'donate_interface-obt-customer_payment_reference' => 'Referència #',
 	'donate_interface-dd-iban' => 'IBAN',
+	'donate_interface-currency-change' => 'Ho voleu canviar?',
+	'donate_interface-monthlybox-title' => 'Ho voleu fer mensualment?',
+	'donate_interface-monthly-short' => 'Mensual',
+	'donate_interface-onetime-short' => 'Un sol cop',
+	'donate_interface-secureLogo-text' => 'Quant als certificats SSL',
+	'donate_interface-error-http-403' => 'No teniu els permisos necessaris per a accedir a aquesta pàgina.',
 );
 
 /** Sorani Kurdish (کوردی)

@@ -136,8 +136,10 @@ Klaskit en-dro a-benn ur pennadig.',
 
 /** Catalan (català)
  * @author Arnaugir
+ * @author Pitort
  */
 $messages['ca'] = array(
+	'globalcollectgateway' => 'Feu ara un donatiu',
 	'globalcollect_gateway-response-9130' => 'País incorrecte.',
 	'globalcollect_gateway-response-9140' => 'Moneda invàlida.',
 	'globalcollect_gateway-response-9150' => 'Idioma invàlid.',
