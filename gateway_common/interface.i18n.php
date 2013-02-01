@@ -23858,6 +23858,8 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-question-comment' => 'Domande o commende? Condatte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-problemsdonating' => "Probbleme cu 'a donazione?",
 	'donate_interface-donate-click' => "'A carte de credite/debite tune adda essere elabborate n'mode secure.",
+	'donate_interface-otherways' => 'Stonne <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">otre mode pe dà, \'ngludenne PayPal, verifiche, o poste</a>.',
+	'donate_interface-otherways-alt' => 'Stonne <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">otre mode pe dà</a>, \'ngludenne pe verifiche.',
 	'donate_interface-otherways-short' => 'Otre mode pe dà',
 	'donate_interface-token-mismatch' => "'A sessiona toje ha scadute. Pe piace pruève arrete a combilà e a confermà 'u module.",
 	'donate_interface-cc-form-header-personal' => 'Date de fatturazione',
@@ -24020,6 +24022,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-monthly-short' => 'Ogne mese',
 	'donate_interface-onetime-short' => "'Na vote",
 	'donate_interface-secureLogo-text' => "'Mbormazzione sus a le Certifecate SSL",
+	'donate_interface-error-http-403' => "Non ge tìne le permesse pe trasè jndr'à sta pàgene.",
 );
 
 /** Russian (русский)
