@@ -232,7 +232,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		} else {
 			// log potential tampering
 			if ( $this->log_fh )
-				$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch' );
+				$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch', LOG_ERR );
 		}
 
 		return FALSE;

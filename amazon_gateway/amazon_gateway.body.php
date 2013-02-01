@@ -79,7 +79,7 @@ EOT;
 				$out->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
-			$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_INFO );
+			$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
 		}
 	}
 }

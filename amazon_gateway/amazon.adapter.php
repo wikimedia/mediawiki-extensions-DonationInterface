@@ -282,12 +282,12 @@ class AmazonAdapter extends GatewayAdapter {
 				default:	// All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
-					$this->log_special( "Transaction $txnid failed with ($status) $errString", LOG_ERR );
+					$this->log_special( "Transaction $txnid failed with ($status) $errString", LOG_INFO );
 					$this->setTransactionWMFStatus( 'failed' );
 					break;
 			}
 		} else {
-			$this->log_special( 'Apparently we attempted to process a transaction with WMF status... Odd', LOG_ERR );
+			$this->log_special( 'Apparently we attempted to process a transaction with no WMF status... Odd', LOG_ERR );
 		}
 	}
 

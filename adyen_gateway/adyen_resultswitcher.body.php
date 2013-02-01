@@ -63,7 +63,7 @@ class AdyenGatewayResult extends GatewayForm {
 			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
 			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
 			if ( $forbidden ) {
-				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message");
+				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
 			}
 			$wgOut->allowClickjacking();
 			$wgOut->addModules( 'iframe.liberator' );
@@ -78,7 +78,7 @@ class AdyenGatewayResult extends GatewayForm {
 		$this->setHeaders();
 
 		if ( $forbidden ){
-			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
+			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid", LOG_CRIT );
 			return;
 		} else {
 			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $oid );
@@ -100,7 +100,7 @@ class AdyenGatewayResult extends GatewayForm {
 				$wgOut->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
-			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid" );
+			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
 		}
 	}
 
