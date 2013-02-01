@@ -951,7 +951,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			if ( $this->getValidationAction() != 'process' ) {
 
-				self::log( $this->getLogMessagePrefix() . "Failed failed pre-process checks for transaction type $transaction.", LOG_CRIT );
+				self::log( $this->getLogMessagePrefix() . "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
 				
 				$this->transaction_results = array(
 					'status' => false,
@@ -1081,7 +1081,7 @@ abstract class GatewayAdapter implements GatewayType {
 		} elseif ( !empty( $retryVars ) ) {
 			//nothing to process, so we have to build it manually
 
-			self::log( "$transaction Communication failed (errcode $errCode), will reattempt!", LOG_ALERT );
+			self::log( "$transaction Communication failed (errcode $errCode), will reattempt!", LOG_CRIT );
 
 			$this->transaction_results = array(
 				'status' => false,
@@ -1168,7 +1168,7 @@ abstract class GatewayAdapter implements GatewayType {
 	public function setCurrentTransaction( $transaction_name ){
 		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $transaction_name, $this->transactions ) ) {
 			$msg = self::getGatewayName() . ': Transaction Name "' . $transaction_name . '" undefined for this gateway.';
-			self::log( $msg, LOG_CRIT );
+			self::log( $msg, LOG_ALERT );
 			throw new MWException( $msg );
 		} else {
 			$this->current_transaction = $transaction_name;
@@ -1374,7 +1374,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 				$errno = curl_errno( $ch );
 				$err = curl_error( $ch );
-				self::log( "$logPrefix cURL transaction  to $gatewayName failed: ($errno) $err" );
+				self::log( "$logPrefix cURL transaction  to $gatewayName failed: ($errno) $err", LOG_ALERT );
 			}
 
 		} // End while cURL transaction hasn't returned something useful
@@ -1429,7 +1429,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$xmlStart = strpos( $rawResponse, '<' );
 		}
 		if ( $xmlStart == false ) { //Still false. Your Head Asplode.
-			self::log( "Completely Mangled Response:\n" . $rawResponse );
+			self::log( "Completely Mangled Response:\n" . $rawResponse, LOG_ERR );
 			return false;
 		}
 		$justXML = substr( $rawResponse, $xmlStart );
@@ -1444,7 +1444,29 @@ abstract class GatewayAdapter implements GatewayType {
 		return $result;
 	}
 
+	/**
+	 * Log messages out to syslog (if configured), or the wfDebugLog
+	 * @param string $msg The message to log
+	 * @param int $log_level Should be one of the following: 
+	 *	* LOG_EMERG - Actual meltdown in progress: Get everyone.
+	 *	* LOG_ALERT - Time to start paging people and failing things over
+	 *	* LOG_CRIT - Corrective action required, but you probably have some time.
+	 *	* LOG_ERR - Probably denotes a bug in the system.
+	 *	* LOG_WARNING - Not good, but will require eventual action to preserve stability
+	 *	* LOG_NOTICE - Unusual circumstances, but nothing imediately alarming
+	 *	* LOG_INFO - Nothing to see here. Business as usual.
+	 *	* LOG_DEBUG - Probably shouldn't use these unless we're in the process 
+	 * of diagnosing a relatively esoteric problem that only happens in the prod 
+	 * environment, which will require a settings change to start the data avalanche.
+	 * @param string $log_id_suffix Primarily used for shunting syslog messages off into alternative buckets.
+	 * @return null
+	 */
 	public static function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+		if ( !self::getGlobal('LogDebug') && $log_level === LOG_DEBUG ){
+			//stfu, then.
+			return;
+		}
+		
 		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
 
 		// if we're not using the syslog facility, use wfDebugLog
@@ -1771,7 +1793,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			default:
 				// No action
-				self::log( "STOMP transaction has no place to go for status $status :(", LOG_WARNING );
+				self::log( "STOMP transaction has no place to go for status $status :(", LOG_CRIT );
 				return;
 		}
 

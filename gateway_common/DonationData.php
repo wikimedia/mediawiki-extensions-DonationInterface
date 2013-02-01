@@ -468,7 +468,7 @@ class DonationData {
 			if (!$default) {
 
 				$log_message = '[ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
-				$this->log( $this->getLogMessagePrefix() . 'Specified form class not found ' . $log_message , LOG_INFO );
+				$this->log( $this->getLogMessagePrefix() . 'Specified form class not found ' . $log_message , LOG_ERR );
 
 				$class_name_orig = $class_name;
 				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
@@ -479,7 +479,7 @@ class DonationData {
 			} else {
 
 				$log_message = 'Specified form class not found [ ' . $class_name_orig . ' ], default form class not found [ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
-				$this->log( $this->getLogMessagePrefix() . $log_message , LOG_INFO );
+				$this->log( $this->getLogMessagePrefix() . $log_message , LOG_ALERT );
 
 				// Unset class name
 				$class_name = null;
@@ -628,7 +628,7 @@ class DonationData {
 			foreach ( $keys as $key ){
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
-			$this->log( $mess );
+			$this->log( $mess, LOG_DEBUG );
 			$this->setVal('amount', 'invalid');
 			return;
 		}

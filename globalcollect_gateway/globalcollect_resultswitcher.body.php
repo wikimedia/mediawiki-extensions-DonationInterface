@@ -58,12 +58,12 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			$f_message = 'Requested order id not present in the session';
 
 			if ( !$_SESSION ) {
-				$this->adapter->log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data." );
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data.", LOG_ERR );
 			}
 		}
 
 		if ( $forbidden ){
-			$this->adapter->log( $this->qs_oid . " Resultswitcher: forbidden for reason: {$f_message}" );
+			$this->adapter->log( $this->qs_oid . " Resultswitcher: forbidden for reason: {$f_message}", LOG_ERR );
 			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 			return;
 		}
@@ -90,7 +90,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 					if ( array_key_exists( 'pending', $_SESSION ) ){
 						$started = $_SESSION['pending'];
 						//not sure what to do with this yet, but I sure want to know if it's happening. 
-						$this->adapter->log( $prefix . "Resultswitcher: Parallel Universe Unlocked. Start time: $started");
+						$this->adapter->log( $prefix . "Resultswitcher: Parallel Universe Unlocked. Start time: $started", LOG_ALERT);
 					}
 					
 					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky. 
@@ -99,7 +99,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
 					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
-					$this->adapter->log( $prefix . "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'] );
+					$this->adapter->log( $prefix . "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'], LOG_ERR );
 				}
 				$result = $_SESSION['order_status'][$oid];
 				$this->displayResultsForDebug( $result );
@@ -121,16 +121,16 @@ class GlobalCollectGatewayResult extends GatewayForm {
 						$out->addHTML( "<br>Redirecting to page $go" );
 						$out->redirect( $go );
 					} else {
-						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid");
+						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid", LOG_ERR);
 					}
 				} else {
-					$this->adapter->log("Resultswitcher: No TransactionWMFStatus. Order ID: $oid");
+					$this->adapter->log("Resultswitcher: No TransactionWMFStatus. Order ID: $oid", LOG_ERR);
 				}
 			} else {
-				$this->adapter->log("Resultswitcher: Payment method is not cc. Order ID: $oid");
+				$this->adapter->log("Resultswitcher: Payment method is not cc. Order ID: $oid", LOG_ERR);
 			}
 		} else {
-			$this->adapter->log("Resultswitcher: Token Check Failed. Order ID: $oid");
+			$this->adapter->log("Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR);
 		}
 	}
 	
@@ -178,7 +178,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		$referrer = $this->getRequest()->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
 			if ( !$_SESSION ) {
-				$this->adapter->log( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie." );
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie.", LOG_ERR );
 			}
 
 			$_SESSION['order_status'][$this->qs_oid] = 'liberated';

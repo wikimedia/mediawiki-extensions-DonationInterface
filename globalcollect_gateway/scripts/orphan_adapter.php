@@ -146,7 +146,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 
 		//if we got here, we can't find anything else...
-		$this->log( "$ctid: FAILED to find UTM Source value. Using default." );
+		$this->log( "$ctid: FAILED to find UTM Source value. Using default.", LOG_ERR );
 		return $data;
 	}
 

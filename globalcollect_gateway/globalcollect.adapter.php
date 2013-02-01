@@ -1256,7 +1256,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 									$this->setTransactionWMFStatus('failed');
 								}
 							} else {
-								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned NOK" );
+								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned NOK", LOG_ERR );
 							}
 							break;
 						}
@@ -1341,7 +1341,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 			
 			//we have probably had a communication problem that could mean stranded payments. 
-			self::log( $this->getLogMessagePrefix() . $problemmessage );
+			self::log( $this->getLogMessagePrefix() . $problemmessage, LOG_ERR );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
 				'status' => false,
@@ -1600,7 +1600,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		
 		if ( $isWarning ) {
-			self::log('Got warnings from bank validation: '.print_r($data['errors'], TRUE));
+			self::log('Got warnings from bank validation: '.print_r($data['errors'], TRUE), LOG_ERR);
 			$return = 'complete';
 		}
 		
@@ -1758,7 +1758,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $errCode ) {
 				case 300620:
 					// Oh no! We've already used this order # somewhere else! Restart!
-					self::log( $this->getLogMessagePrefix() . "Order ID collission! Starting again." );
+					self::log( $this->getLogMessagePrefix() . "Order ID collission! Starting again.", LOG_ERR );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
