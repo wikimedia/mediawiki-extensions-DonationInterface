@@ -2134,7 +2134,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$msg .= " $txn_message";
 		}
 		
-		self::log( $msg );
+		self::log( $msg, LOG_INFO, '_payment_init' );
 	}
 
 	public function getTransactionMessage() {
