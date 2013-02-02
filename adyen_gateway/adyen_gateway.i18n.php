@@ -25,6 +25,15 @@ $messages['qqq'] = array(
 	'adyen_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
 
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'adyengateway' => 'Зрабіце ахвяраваньне зараз',
+	'adyen_gateway-desc' => 'Працэсінг плацяжоў Adyen',
+	'adyen_gateway-response-default' => 'У час апрацоўкі Вашай транзакцыі ўзьнікла памылка. Калі ласка, паспрабуйце зноў пазьней.',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
