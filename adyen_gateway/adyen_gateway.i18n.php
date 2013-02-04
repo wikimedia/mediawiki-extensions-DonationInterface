@@ -142,6 +142,16 @@ $messages['vi'] = array(
 Xin hãy thử lại sau.',
 );
 
+/** Simplified Chinese (中文（简体）‎)
+ * @author 乌拉跨氪
+ */
+$messages['zh-hans'] = array(
+	'adyengateway' => '马上捐款',
+	'adyen_gateway-desc' => 'Adyen支付进行中',
+	'adyen_gateway-response-default' => '在处理你的信息时出错。
+请稍候再试。',
+);
+
 /** Traditional Chinese (中文（繁體）‎)
  * @author Simon Shek
  */
