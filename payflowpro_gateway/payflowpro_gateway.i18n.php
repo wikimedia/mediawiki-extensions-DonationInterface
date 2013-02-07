@@ -1636,6 +1636,7 @@ Vă rugăm să reîncercați mai târziu.',
  */
 $messages['roa-tara'] = array(
 	'payflowprogateway' => "Fà 'a donazziona toje mò",
+	'payflowpro_gateway-desc' => "Processe d'a carte de credite de PayPal PayFlow Pro",
 	'payflowpro_gateway-response-0' => "'A transaziona toje ha state approvate.
 Grazie pa donazzione!",
 	'payflowpro_gateway-response-126' => "'A transaziona toje jè in attese de approvazione.",
