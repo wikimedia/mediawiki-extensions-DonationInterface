@@ -964,6 +964,7 @@ Vă rugăm să reîncercați mai târziu.',
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'globalcollectgateway' => "Fà 'a donazziona toje mò",
 	'globalcollect_gateway-response-9130' => 'Nazione invalide.',
 	'globalcollect_gateway-response-9140' => 'monete invalide.',
 	'globalcollect_gateway-response-9150' => 'Lénghe invalide.',

@@ -112,6 +112,16 @@ $messages['nl'] = array(
 Probeer het later nog een keer.',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'adyengateway' => "Fà 'a donazziona toje mò",
+	'adyen_gateway-desc' => 'Procese de pajamende de Adyen',
+	'adyen_gateway-response-default' => "S'è verifecate 'n'errore durande l'elaborazzione d'a transizione.
+Sì pregate de pruvà n'otre vote cchù nnande.",
+);
+
 /** Russian (русский)
  * @author DCamer
  */
