@@ -50,6 +50,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'FunctionsFilter' => false, //extra
 	'IPVelocityFilter' => false, //extra
 	'SessionVelocityFilter' => false, //extra
+	'SystemStatus' => false, //extra
 );
 
 foreach ($optionalParts as $subextension => $enabled){
@@ -186,6 +187,9 @@ if ( $optionalParts['SessionVelocityFilter'] === true ){
 if ( $optionalParts['FormChooser'] === true ){
 	$wgAutoloadClasses['GatewayFormChooser'] = $donationinterface_dir . 'special/GatewayFormChooser.php';
 
+}
+if ( $optionalParts['SystemStatus'] === true ){
+	$wgAutoloadClasses['SystemStatus'] = $donationinterface_dir . 'special/SystemStatus.php';
 }
 
 /**
@@ -720,6 +724,9 @@ if ( $optionalParts['Recaptcha'] === true ){
 
 if ( $optionalParts['FormChooser'] === true ){
 	$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
+}
+if ( $optionalParts['SystemStatus'] === true ){
+	$wgSpecialPages['SystemStatus'] = 'SystemStatus';
 }
 
 //GlobalCollect gateway special pages
