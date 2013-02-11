@@ -25,6 +25,16 @@ $messages['qqq'] = array(
 	'adyen_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'adyengateway' => 'Fai la to donación agora',
+	'adyen_gateway-desc' => "Procesamientu de pagos d'Adyen",
+	'adyen_gateway-response-default' => 'Hebo un fallu al procesar la to transaición.
+Por favor, torna a intentalo más sero.',
+);
+
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
