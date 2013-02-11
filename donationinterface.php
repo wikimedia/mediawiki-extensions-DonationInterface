@@ -425,6 +425,8 @@ if ( $optionalParts['Amazon'] === true ){
 }
 
 if ( $optionalParts['Adyen'] === true ){
+	$wgDonationInterfaceEnabledGateways[] = 'adyen';
+
 	$wgAdyenGatewayHtmlFormDir = $donationinterface_dir . 'adyen_gateway/forms/html';
 
 	$wgAdyenGatewayBaseURL = 'https://live.adyen.com';
