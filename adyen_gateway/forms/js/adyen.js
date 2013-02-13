@@ -47,7 +47,6 @@ window.displayCreditCardForm = function() {
 		'country': country,
 		'payment_method': 'cc',
 		'language': language,
-		'card_type': $( "input[name='cardtype']:checked" ).val().toLowerCase(),
 		'contribution_tracking_id': $( "input[name='contribution_tracking_id']" ).val(),
 		'numAttempt': $( "input[name='numAttempt']" ).val(),
 		'utm_source': $( "input[name='utm_source']" ).val(),
@@ -84,14 +83,14 @@ window.displayCreditCardForm = function() {
 						$( '#payment' ).empty();
 						// Insert the iframe into the form
 						$( '#payment' ).append(
-							'<iframe width="600" height="514" frameborder="0" name="adyen-iframe"></iframe>'
+							'<iframe width="400" height="225" frameborder="0" name="adyen-iframe"></iframe>'
 						);
 						var params = new Array();
 						$.each( data.gateway_params, function( key, value ) {
 							params.push('<input type="hidden" name="'+key+'" value="'+value+'" />');
 						} );
 						$( '#payment' ).append(
-							'<form method="post" action="'+data.result.formaction+'" target="adyen-iframe" id="fetch-iframe-form">'+params.join()+'</form>'
+							'<form method="post" action="'+data.result.formaction+'" target="adyen-iframe" id="fetch-iframe-form">'+params.join("")+'</form>'
 						);
 						$( '#payment #fetch-iframe-form' ).submit();
 					}
@@ -143,25 +142,10 @@ $( document ).ready( function () {
 
     $( "#paymentContinueBtn" ).live( "click", function() {
         if ( validate_personal( document.payment ) && validateAmount() ) {
-            $( "#payment" ).animate( { height:'314px' }, 1000 );
+            $( "#payment" ).animate( { height:'250px' }, 1000 );
             displayCreditCardForm();
             // hide the continue button so that people don't get confused with two of them
             $( "#paymentContinue" ).hide();
-        }
-    } );
-
-    // Set the cards to progress to step 3
-    $( ".cardradio" ).live( "click", function() {
-        if ( validate_personal( document.payment ) && validateAmount() ) {
-            $( "#payment" ).animate( { height:'314px' }, 1000 );
-            displayCreditCardForm();
-            // hide the continue button so that people don't get confused with two of them
-            $( "#paymentContinue" ).hide();
-        }
-        else {
-            // show the continue button to indicate how to get to step 3 since they
-            // have already clicked on a card image
-            $( "#paymentContinue" ).show();
         }
     } );
 } );
