@@ -47,7 +47,8 @@ class DataValidator {
 	 */
 	protected static $gateway_classes = array(
 		'globalcollect' => 'GlobalCollectAdapter',
-		'payflowpro' => 'PayflowProAdapter'
+		'payflowpro' => 'PayflowProAdapter',
+		'paypal' => 'PaypalAdapter',
 	);
 	
 	/**
