@@ -146,12 +146,12 @@ h1#firstHeading, div#contentSub {
 /* NEW STUFF */
 #greenBackground{
     padding:16px 24px;
-	width:300px;
+	width:400px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
 p#informationsharing, p#monthlycancel {
-    width: 318px;
+    width: 400px;
     padding: 0 15px;
     line-height: 14px;
     font-size: 11px;
@@ -173,10 +173,10 @@ table#payflow-table-donor{
 /* Form Inputs */
 
 input.halfwidth {
-	width: 137px;
+	width: 190px;
 }
 input.fullwidth {
-	width: 285px;
+	width: 392px;
 }
 
 input.leftmar {
@@ -184,14 +184,14 @@ input.leftmar {
 }
 
 input#city.halfwidth.state {
-	width:134px;
+	width:192px;
 }
 input#zip.halfwidth.state {
-	width:84px;
+	width:94px;
 	margin-left: 0;
 }
 select#state.us, select#state.au, select#state.ca {
-	width: 50px;
+	width: 90px;
 }
 
 
@@ -366,7 +366,7 @@ h1#firstHeading, div#contentSub {
 /* NEW STUFF */
 #greenBackground{
     padding:16px 24px;
-	width:300px;
+	width:400px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
@@ -388,43 +388,6 @@ h3.amount_header {
 
 table#payflow-table-donor{
     /*margin-left: 10px;*/
-}
-
-/* Form Inputs */
-
-input.halfwidth {
-	width: 137px;
-}
-input.fullwidth {
-	width: 285px;
-}
-
-input.leftmar {
-	margin-left: 4px;
-}
-
-input#city.halfwidth.state {
-	width:134px;
-}
-input#zip.halfwidth.state {
-	width:84px;
-	margin-left: 0;
-}
-select#state.us, select#state.au, select#state.ca {
-	width: 50px;
-}
-
-
-/* Specific element overrides */
-input#zip.ja {
-	width: 268px;
-}
-select#state.ja {
-	width:100%;
-}
-
-select#state.it {
-	width: auto;
 }
 
 /* From Webitects */
