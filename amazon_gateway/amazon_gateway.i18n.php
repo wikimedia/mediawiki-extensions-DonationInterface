@@ -18,7 +18,7 @@ $messages['en'] = array(
  * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'amazongateway' => '{{Identical|Make you donation now}}',
+	'amazongateway' => '{{Identical|Make your donation now}}',
 	'amazon_gateway-desc' => '{{desc}}',
 );
 

@@ -33,7 +33,7 @@ Please try again later.',
  * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'globalcollectgateway' => '{{Identical|Make you donation now}}',
+	'globalcollectgateway' => '{{Identical|Make your donation now}}',
 	'globalcollect_gateway-desc' => '{{desc}}',
 	'globalcollect_gateway-response-9130' => 'Error message for invalid country.',
 	'globalcollect_gateway-response-9140' => 'Error message for invalid currency.',
