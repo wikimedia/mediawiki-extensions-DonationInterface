@@ -14,25 +14,30 @@ $messages['en'] = array(
 	'paypal_gateway-desc' => 'Paypal payment processing',
 );
 
-/** Message documentation (Message documentation) */
+/** Message documentation (Message documentation)
+ * @author Fryed-peach
+ * @author Shirayuki
+ */
 $messages['qqq'] = array(
-	'paypalgateway' => '{{Identical|Support Wikimedia}}',
+	'paypalgateway' => '{{Identical|Make your donation now}}',
 	'paypal_gateway-desc' => '{{desc}}',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
 $messages['be-tarask'] = array(
 	'paypalgateway' => 'Зрабіце ахвяраваньне зараз',
-	'paypal_gateway-desc' => 'Працэсінг плацяжоў Paypal',
+	'paypal_gateway-desc' => 'Працэсінг плацяжоў Paypal', # Fuzzy
 );
 
 /** Breton (brezhoneg)
+ * @author Fulup
  * @author Y-M D
  */
 $messages['br'] = array(
 	'paypalgateway' => 'Grit ur roadenn bremañ',
+	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon', # Fuzzy
 );
 
 /** German (Deutsch)
@@ -44,7 +49,7 @@ $messages['de'] = array(
 	'paypal_gateway-desc' => 'Ermöglicht die Verarbeitung von Zahlungen über Paypal',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Kghbln
  */
 $messages['de-formal'] = array(
@@ -64,7 +69,7 @@ $messages['dsb'] = array(
  */
 $messages['es'] = array(
 	'paypalgateway' => 'Haz tu donación ahora',
-	'paypal_gateway-desc' => 'Proceso de pagos de Paypal',
+	'paypal_gateway-desc' => 'Proceso de pagos de Paypal', # Fuzzy
 );
 
 /** Basque (euskara)
@@ -95,7 +100,7 @@ $messages['gl'] = array(
  */
 $messages['he'] = array(
 	'paypalgateway' => 'לתרום עכשיו',
-	'paypal_gateway-desc' => 'עיבוד תשלומים של אמזון',
+	'paypal_gateway-desc' => 'עיבוד תשלומים של פייפאל',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -103,7 +108,7 @@ $messages['he'] = array(
  */
 $messages['hsb'] = array(
 	'paypalgateway' => 'Nětko darić',
-	'paypal_gateway-desc' => 'Předźěłanje zapłaćenjow přez Paypal',
+	'paypal_gateway-desc' => 'Předźěłanje zapłaćenjow přez Paypal', # Fuzzy
 );
 
 /** Italian (italiano)
@@ -127,6 +132,7 @@ $messages['ja'] = array(
  */
 $messages['lb'] = array(
 	'paypalgateway' => 'Maacht Ären Don elo',
+	'paypal_gateway-desc' => 'PayPal Bezuel-Mechanismus',
 );
 
 /** Macedonian (македонски)
@@ -142,7 +148,7 @@ $messages['mk'] = array(
  */
 $messages['nl'] = array(
 	'paypalgateway' => 'Doneer nu',
-	'paypal_gateway-desc' => 'Betalingsverwerking via Paypal',
+	'paypal_gateway-desc' => 'Betalingsverwerking via Paypal', # Fuzzy
 );
 
 /** Piedmontese (Piemontèis)
@@ -153,13 +159,29 @@ $messages['pms'] = array(
 	'paypal_gateway-desc' => "Process ëd pagament d'Paypal",
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'paypalgateway' => "Fà 'a donazziona toje mò",
+	'paypal_gateway-desc' => 'Procese de pajamende de Paypal',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor
  */
 $messages['tl'] = array(
 	'paypalgateway' => 'Magkaloob ka na ngayon',
-	'paypal_gateway-desc' => 'Pagsasagawa ng pagbabayad gamit ang Paypal',
+	'paypal_gateway-desc' => 'Pagsasagawa ng pagbabayad gamit ang Paypal', # Fuzzy
+);
+
+/** Ukrainian (українська)
+ * @author Ата
+ */
+$messages['uk'] = array(
+	'paypalgateway' => 'Зробіть Вашу пожертву зараз',
+	'paypal_gateway-desc' => 'Обробка платежу PayPal',
 );
 
 /** Urdu (اردو)
@@ -169,3 +191,10 @@ $messages['ur'] = array(
 	'paypalgateway' => 'اب آپ عطیہ کر',
 );
 
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'paypalgateway' => 'Quyên góp ngay bây giờ',
+	'paypal_gateway-desc' => 'Xử lý thanh toán qua PayPal',
+);

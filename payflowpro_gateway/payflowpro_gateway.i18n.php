@@ -45,7 +45,7 @@ Please try again later.',
  * @author Тест
  */
 $messages['qqq'] = array(
-	'payflowprogateway' => '{{Identical|Make you donation now}}',
+	'payflowprogateway' => '{{Identical|Make your donation now}}',
 	'payflowpro_gateway-desc' => '{{desc}}',
 	'payflowpro_gateway-response-0' => 'Message after the donation has gone through.',
 	'payflowpro_gateway-response-126' => "Message if the donation is done, but waiting for something beyond the user's control.",
@@ -1641,6 +1641,8 @@ $messages['roa-tara'] = array(
 Grazie pa donazzione!",
 	'payflowpro_gateway-response-126' => "'A transaziona toje jè in attese de approvazione.",
 	'payflowpro_gateway-response-12' => "Pè avè cchiù 'mbormazziune sì pregate de cundattà 'a società d'a toje carte de credite.",
+	'payflowpro_gateway-response-13' => "'A transaziona toje vole l'autorizzazione a vôsce.
+Pe piacere condattane pe condinuà 'a transazione.",
 	'payflowpro_gateway-response-114' => "Pè avè cchiù 'mbormazziune sì pregate de cundattà 'a società d'a toje carte de credite.",
 	'payflowpro_gateway-response-23' => "'U toje nomere d'a carte de credite o 'a date de scadenze non g'ète currette.",
 	'payflowpro_gateway-response-4' => 'Importe invalide.',

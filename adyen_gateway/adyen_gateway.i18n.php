@@ -20,7 +20,7 @@ Please try again later.',
  * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'adyengateway' => '{{Identical|Make you donation now}}',
+	'adyengateway' => '{{Identical|Make your donation now}}',
 	'adyen_gateway-desc' => '{{desc}}',
 	'adyen_gateway-response-default' => 'Error message if something went wrong on our side.',
 );
@@ -82,6 +82,16 @@ $messages['gl'] = array(
 	'adyen_gateway-desc' => 'Procesamento de pagamentos de Adyen',
 	'adyen_gateway-response-default' => 'Houbo un erro ao procesar a túa transacción.
 Por favor, inténtao de novo máis tarde.',
+);
+
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'adyengateway' => 'לתרום עכשיו',
+	'adyen_gateway-desc' => 'עיבוד תשלומים של Adyen',
+	'adyen_gateway-response-default' => 'אירעה שגיאה בעיבוד העסקה שלך.
+נא לנסות שוב מאוחר יותר.',
 );
 
 /** Italian (italiano)
