@@ -127,6 +127,13 @@ $messages['ja'] = array(
 	'paypal_gateway-desc' => 'Paypal での支払い処理',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'paypalgateway' => 'გააკეთეთ თქვენი შემოწირულობა ახლავე',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -141,6 +148,14 @@ $messages['lb'] = array(
 $messages['mk'] = array(
 	'paypalgateway' => 'Дарувајте сега',
 	'paypal_gateway-desc' => 'Обработка на уплати со Paypal',
+);
+
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'paypalgateway' => 'Derma sekarang',
+	'paypal_gateway-desc' => 'Pemprosesan pembayaran PayPal',
 );
 
 /** Dutch (Nederlands)
