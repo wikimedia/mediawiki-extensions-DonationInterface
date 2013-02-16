@@ -27555,6 +27555,7 @@ $messages['sv'] = array(
 	'donate_interface-comment-label' => 'Kommentar:',
 	'donate_interface-email-agreement' => 'Jag accepterar att ta emot enstaka uppdateringar från Wikimedia Foundation via e-post.',
 	'donate_interface-comment-title' => 'Offentlig kommentar',
+	'donate_interface-donation-description' => 'Donation till Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Ange ett giltigt belopp',
 	'donate_interface-smallamount-error' => 'Du måste bidra med minst $1',
 	'donate_interface-bigamount-error' => 'Vi kan inte acceptera gåvor över USD 10 000 ($1  $2) via vår webbplats. Kontakta gärna vår personal för stora gåvor på $3.',

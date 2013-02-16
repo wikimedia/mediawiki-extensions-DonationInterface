@@ -182,6 +182,14 @@ $messages['roa-tara'] = array(
 	'paypal_gateway-desc' => 'Procese de pajamende de Paypal',
 );
 
+/** Swedish (svenska)
+ * @author Ainali
+ */
+$messages['sv'] = array(
+	'paypalgateway' => 'Gör din donation nu',
+	'paypal_gateway-desc' => 'PayPal betalningshantering',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor

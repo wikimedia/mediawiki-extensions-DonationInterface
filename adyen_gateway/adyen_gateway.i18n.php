@@ -152,6 +152,16 @@ $messages['ru'] = array(
 Пожалуйста, повторите попытку позже.',
 );
 
+/** Swedish (svenska)
+ * @author Ainali
+ */
+$messages['sv'] = array(
+	'adyengateway' => 'Gör din donation nu',
+	'adyen_gateway-desc' => 'Adyen betalningshantering',
+	'adyen_gateway-response-default' => 'Ett fel uppstod när din transaktion behandlades.
+Försök igen senare.',
+);
+
 /** Ukrainian (українська)
  * @author Ата
  */
