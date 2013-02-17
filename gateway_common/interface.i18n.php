@@ -20195,6 +20195,7 @@ $messages['nl'] = array(
 	'donate_interface-comment-label' => 'Opmerking:',
 	'donate_interface-email-agreement' => 'Ik ga akkoord met het af en toe ontvangen van e-mails van de Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Publieke opmerking',
+	'donate_interface-donation-description' => 'Gift aan de Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Voer alstublieft een geldig bedrag in',
 	'donate_interface-smallamount-error' => 'U moet tenminste $1 bijdragen.',
 	'donate_interface-bigamount-error' => 'We kunnen geen giften van USD 10.000 of groter ($1 $2) accepteren via onze website. Neem alstublieft contact op met onze medewerkers voor grote giften via $3.',
