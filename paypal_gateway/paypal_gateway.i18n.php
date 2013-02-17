@@ -134,6 +134,14 @@ $messages['ka'] = array(
 	'paypalgateway' => 'გააკეთეთ თქვენი შემოწირულობა ახლავე',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'paypalgateway' => '지금 기부해주세요',
+	'paypal_gateway-desc' => '페이팔 결제 처리',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
@@ -163,7 +171,7 @@ $messages['ms'] = array(
  */
 $messages['nl'] = array(
 	'paypalgateway' => 'Doneer nu',
-	'paypal_gateway-desc' => 'Betalingsverwerking via Paypal', # Fuzzy
+	'paypal_gateway-desc' => 'Betalingsverwerking via PayPal',
 );
 
 /** Piedmontese (Piemontèis)
@@ -220,4 +228,13 @@ $messages['ur'] = array(
 $messages['vi'] = array(
 	'paypalgateway' => 'Quyên góp ngay bây giờ',
 	'paypal_gateway-desc' => 'Xử lý thanh toán qua PayPal',
+);
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Liangent
+ * @author Simon Shek
+ */
+$messages['zh-hant'] = array(
+	'paypalgateway' => '立刻捐款',
+	'paypal_gateway-desc' => '將PayPal註冊為捐助方式', # Fuzzy
 );

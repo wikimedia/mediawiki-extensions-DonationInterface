@@ -112,6 +112,16 @@ $messages['ja'] = array(
 	'adyen_gateway-desc' => 'Adyen での支払い処理',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'adyengateway' => '지금 기부해주세요',
+	'adyen_gateway-desc' => 'Adyen 결제 처리',
+	'adyen_gateway-response-default' => '거래를 처리하는 동안 오류가 발생했습니다.
+나중에 다시 시도하세요.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
