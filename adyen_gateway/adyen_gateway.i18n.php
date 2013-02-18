@@ -44,6 +44,13 @@ $messages['be-tarask'] = array(
 	'adyen_gateway-response-default' => 'У час апрацоўкі Вашай транзакцыі ўзьнікла памылка. Калі ласка, паспрабуйце зноў пазьней.',
 );
 
+/** Breton (brezhoneg)
+ * @author Fohanno
+ */
+$messages['br'] = array(
+	'adyengateway' => 'Grit ho tonezon bremañ',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

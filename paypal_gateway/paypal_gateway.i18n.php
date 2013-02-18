@@ -108,7 +108,7 @@ $messages['he'] = array(
  */
 $messages['hsb'] = array(
 	'paypalgateway' => 'Nětko darić',
-	'paypal_gateway-desc' => 'Předźěłanje zapłaćenjow přez Paypal', # Fuzzy
+	'paypal_gateway-desc' => 'Předźěłanje zapłaćenjow přez Paypal',
 );
 
 /** Italian (italiano)
@@ -228,6 +228,15 @@ $messages['ur'] = array(
 $messages['vi'] = array(
 	'paypalgateway' => 'Quyên góp ngay bây giờ',
 	'paypal_gateway-desc' => 'Xử lý thanh toán qua PayPal',
+);
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Bencmq
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'paypalgateway' => '马上捐款',
+	'paypal_gateway-desc' => '将PayPal注册为捐助方式',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
