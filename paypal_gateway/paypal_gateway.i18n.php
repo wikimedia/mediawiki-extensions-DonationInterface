@@ -11,7 +11,7 @@ $messages = array();
 /** English */
 $messages['en'] = array(
 	'paypalgateway' => 'Make your donation now',
-	'paypal_gateway-desc' => 'Paypal payment processing',
+	'paypal_gateway-desc' => 'PayPal payment processing',
 );
 
 /** Message documentation (Message documentation)
