@@ -28,7 +28,7 @@ $messages['qqq'] = array(
  */
 $messages['be-tarask'] = array(
 	'paypalgateway' => 'Зрабіце ахвяраваньне зараз',
-	'paypal_gateway-desc' => 'Працэсінг плацяжоў Paypal', # Fuzzy
+	'paypal_gateway-desc' => 'Працэсінг плацяжоў Paypal',
 );
 
 /** Breton (brezhoneg)
