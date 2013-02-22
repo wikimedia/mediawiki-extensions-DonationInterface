@@ -124,7 +124,7 @@ $messages['it'] = array(
  */
 $messages['ja'] = array(
 	'paypalgateway' => '今すぐ寄付',
-	'paypal_gateway-desc' => 'Paypal での支払い処理',
+	'paypal_gateway-desc' => 'PayPal での支払い処理',
 );
 
 /** Georgian (ქართული)
