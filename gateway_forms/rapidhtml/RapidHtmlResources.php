@@ -133,7 +133,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.dd' ] = array(
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
-	'styles' => 'css/gc.cc.css',
+	'styles' => 'css/gc.css',
 	'scripts' => array(
         'js/gc.js',
         'js/gc.cc.js'
@@ -143,7 +143,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
-	'styles' => 'css/gc.cc.css',
+	'styles' => 'css/gc.css',
 	'scripts' => array(
 //		'js/gc.js',
 		'js/gc.dd.js'
@@ -153,7 +153,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.ew' ] = array(
-	'styles' => 'css/gc.cc.css',
+	'styles' => 'css/gc.css',
 	'scripts' => array(
         'js/gc.js',
         'js/gc.ew.js'
