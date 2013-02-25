@@ -360,6 +360,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-bt-finished' => 'Finished',
 
 	// Online bank transfer (obt)
+	'donate_interface-obt-generic-name' => 'Online bank transfer',
 	'donate_interface-obt-biller_id' => 'Biller code',
 	'donate_interface-obt-customer_payment_reference' => 'Reference #',
 	'donate_interface-obt-information' => 'Online bank transfer information',
@@ -821,6 +822,7 @@ There is no limit to the length of the message.",
 	'donate_interface-bt-special_id' => 'Bank transfer: Label for country specific bank transfer information (for example ABA number for the USA)',
 	'donate_interface-bt-information' => 'Bank transfer: Bank transfer information',
 	'donate_interface-bt-finished' => 'Bank transfer: Finished - this is a link or a button to take the user to the Thank you page for their donation.',
+	'donate_interface-obt-generic-name' => 'Generic title for form or button that allows usage of the online bank transfer payment method.',
 	'donate_interface-obt-biller_id' => 'BPAY (Australian Online Bank Transfer) - The label for biller code',
 	'donate_interface-obt-customer_payment_reference' => 'BPAY (Australian Online Bank Transfer) - The customer reference number label',
 	'donate_interface-obt-information' => 'BPAY (Australian Online Bank Transfer) - The second level header on the web page',
