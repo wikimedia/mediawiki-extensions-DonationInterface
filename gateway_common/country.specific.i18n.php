@@ -13,6 +13,9 @@
 
 $messages = array();
 
+/* AU - Australia */
+$messages['en']['donate_interface-city-town-au'] = 'Suburb / Town';
+
 /* CI - Cô̫te d'Ivoire */
 $messages['en']['donate_interface-donor-lname-ci'] = 'Surname';
 $messages['en']['donate_interface-donor-postal-ci'] = 'Zone';
