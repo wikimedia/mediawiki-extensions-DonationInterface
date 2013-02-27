@@ -38,6 +38,12 @@
                                     </div>
                                 </td>
                             </tr>
+							<tr>
+								<td colspan="2">
+									<input class="halfwidth optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/>
+									<input class="halfwidth leftmar optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/>
+								</td>
+							</tr>
                             {% block optional_email %}
                             <tr>
                                 <td colspan="2">
@@ -111,13 +117,10 @@
                     <input type="hidden" value="ew" name="payment_method"/>
                     <input type="hidden" value="ew_webmoney" name="payment_submethod"/>
                     <!-- required fields omitted above -->
-                    <input class="optional" type="hidden" value="" name="fname" id="fname" />
-                    <input class="optional" type="hidden" value="" name="lname" id="lname" />
                     <input class="optional" type="hidden" value="" name="street" id="street" />
                     <input class="optional" type="hidden" value="" name="city" id="city" />
                     <input class="optional" type="hidden" value="" name="state" id="state" />
                     <input class="optional" type="hidden" value="" name="zip" id="zip" />
-                    <!--<input class="optional" type="hidden" value="" name="emailAdd" id="emailAdd" />-->
                 </form>
             </div>
             <p id="informationsharing">%donate_interface-informationsharing|url%</p>

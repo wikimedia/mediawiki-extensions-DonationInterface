@@ -66,10 +66,10 @@
 									<div id="billing-content" class="gainlayout">
 										<div id="billingErrorMessages" class="small"></div>
 										<div id="paymentErrorMessages" class="small"></div>
-										<!--<div class="name-fields">-->
-											<!--<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>-->
-											<!--<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>-->
-										<!--</div>-->
+										<div class="name-fields">
+											<span class="name-first"><input class="txt optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
+											<span class="name-last"><input class="txt optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
+										</div>
 										<div class="loc-fields nostate">
 											<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
 											<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
@@ -81,7 +81,7 @@
 												<!--</select>-->
 											<!--</span>-->
 										</div>
-										<!--<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>-->
+										<p><input class="txt optional" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
 										<table style="margin-top: 10px;" >
 											<tr><td>
 												<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
@@ -136,14 +136,11 @@
 								<input type="hidden" value="rtbt" name="payment_method"/>
 								<input type="hidden" value="rtbt_ideal" name="payment_submethod"/>
 								<!-- required fields omitted above -->
-								<input type="hidden" class="optional" value="" name="fname" id="fname" />
-								<input type="hidden" class="optional" value="" name="lname" id="lname" />
 								<input type="hidden" class="optional" value="" name="street" id="street" />
 								<input type="hidden" class="optional" value="" name="city" id="city" />
 								<input type="hidden" class="optional" value="" name="state" id="state" />
 								<input type="hidden" class="optional" value="@country" name="country" id="country" />
 								<input type="hidden" class="optional" value="" name="zip" id="zip" />
-								<input type="hidden" class="optional" value="" name="emailAdd" id="emailAdd" />
 							</form>
 							<div id="where-content">
 								{{LanguageSwitch|2011FR/core-appeal-whitebox-nodiv|@language}}
