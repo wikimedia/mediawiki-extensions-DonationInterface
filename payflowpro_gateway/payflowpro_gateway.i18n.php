@@ -15,7 +15,7 @@ $messages['en'] = array(
 	'payflowpro_gateway-response-0' => 'Your transaction has been approved.
 Thank you for your donation!',
 	'payflowpro_gateway-response-126' => 'Your transaction is pending approval.',
-	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided e-mail address if we cannot finalize your donation. Please e-mail <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
+	'payflowpro_gateway-response-126-2' => 'Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided email address if we cannot finalize your donation. Please email <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> if you have any questions. Thank you!',
 	'payflowpro_gateway-response-12' => 'Please contact your credit card company for further information.',
 	'payflowpro_gateway-response-13' => 'Your transaction requires voice authorization.
 Please contact us to continue your transaction.', // This will not apply to Wikimedia accounts
