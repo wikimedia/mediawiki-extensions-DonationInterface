@@ -129,6 +129,15 @@ $messages['ko'] = array(
 나중에 다시 시도하세요.',
 );
 
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'adyengateway' => 'Maacht Ären Don elo',
+	'adyen_gateway-response-default' => 'Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.
+Probéiert et w.e.g. spéider nach eng Kéier.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
