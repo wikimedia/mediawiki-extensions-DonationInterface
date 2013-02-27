@@ -479,7 +479,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		
 		if ( $problems ){
 			$message = 'Requested an unavailable or non-existent form.';
-			$this->adapter->log( $message . '' . $debug_message, LOG_ERR );
+			$this->gateway->log( $message . ' ' . $debug_message, LOG_ERR );
 			throw new MWException( $message ); # TODO: translate
 		}
 
