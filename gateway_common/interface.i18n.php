@@ -13957,6 +13957,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
  * @author Jsoby
  * @author Miya
  * @author Ohgi
+ * @author Pgehres (WMF)
  * @author Shirayuki
  * @author Whym
  * @author 藤田健士朗
@@ -14138,7 +14139,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
 	'donate_interface-error-msg-genaricrequired' => 'この欄は必須入力です',
 	'donate_interface-error-msg-country-calc' => 'エラー - 現時点ではあなたの寄付を承認できません。',
-	'donate_interface-donate-error-try-a-different-card' => ' [ $1 別のカード] もしくは  [ $2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
+	'donate_interface-donate-error-try-a-different-card' => ' [$1 別のカード] もしくは  [$2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
 	'php-response-declined' => 'お取引が承認されませんでした。',
 	'donate_interface-thankyou' => 'ご寄付ありがとうございました!',
@@ -16191,6 +16192,7 @@ $messages['lb'] = array(
 	'donate_interface-comment-label' => 'Bemierkung:',
 	'donate_interface-email-agreement' => "Ech sinn domat d'accord fir vun Zäit zu Zäit Zukunft Aktualisatioune per Mail vun der Wikimedia Foundation ze kréien.",
 	'donate_interface-comment-title' => 'Ëffentlech Bemierkung',
+	'donate_interface-donation-description' => "Don un d'Wikimedia Foundation",
 	'donate_interface-amount-error' => 'Gitt w.e.g. e valabele Betrag an',
 	'donate_interface-smallamount-error' => 'Dir musst mindestens $1 spenden',
 	'donate_interface-bigamount-error' => 'Mir kënnen iwwer eisen Internetsite keng Done vu méi wéi 10.000.- USD ($1 $2) unhuelen. Kontaktéiert w.e.g. eis Equipe fir grouss Donen iwwer $3.',
@@ -16504,6 +16506,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-bt-special_id' => 'Lännerspezifësch Informatioun',
 	'donate_interface-bt-information' => "Informatiounen iwwer d'Bankiwwerweisung",
 	'donate_interface-bt-finished' => 'Fäerdeg',
+	'donate_interface-obt-generic-name' => 'Online Iwwerweisung',
 	'donate_interface-obt-biller_id' => "Code vun deem deen d'Rechnung ausstellt",
 	'donate_interface-obt-customer_payment_reference' => 'Referenznummer',
 	'donate_interface-obt-information' => 'Informatiounen iwwer Online Bankiwwerweisungen',

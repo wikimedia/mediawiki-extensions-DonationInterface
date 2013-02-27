@@ -1640,6 +1640,7 @@ $messages['roa-tara'] = array(
 	'payflowpro_gateway-response-0' => "'A transaziona toje ha state approvate.
 Grazie pa donazzione!",
 	'payflowpro_gateway-response-126' => "'A transaziona toje jè in attese de approvazione.",
+	'payflowpro_gateway-response-126-2' => "Quacche 'mbormazione de chidde ca è date non ge soddisfane 'u profile d'a carte de credite toje, o tu è fatte 'nu riale granne assaije. Pa securezza toje, 'a donaziona toje ste momendaneamende sotte condrolle, pò te decime ausanne l'e-mail ce non ge putime accettà 'a donaziona toje. Pe piacere manne 'na mail a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ce tìne domande da fà. Grazie!",
 	'payflowpro_gateway-response-12' => "Pè avè cchiù 'mbormazziune sì pregate de cundattà 'a società d'a toje carte de credite.",
 	'payflowpro_gateway-response-13' => "'A transaziona toje vole l'autorizzazione a vôsce.
 Pe piacere condattane pe condinuà 'a transazione.",
@@ -1649,6 +1650,7 @@ Pe piacere condattane pe condinuà 'a transazione.",
 	'payflowpro_gateway-response-24' => "'U toje nomere d'a carte de credite o 'a date de scadenze non g'ète currette",
 	'payflowpro_gateway-response-112' => "'U toje 'nderizze o 'u numere d'u CVV (codece de sicurezze) non g'ète currette.",
 	'payflowpro_gateway-response-125' => "'A transizione jè state refiutate d'a Fraud Prevention Services.",
+	'payflowpro_gateway-response-125-2' => "'A carte de credite non ge pò essere validate. Pe piacere verifiche ca tutte le 'mbormaziune richieste soddisfane 'u profile d'a carte de credite, o pruève arrete cu 'na carta diverse. Tu puè pure ausà une de le nuèstre <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">otre mode pe dà</a> o condattane a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazie pe l'aijute tune.",
 	'payflowpro_gateway-response-default' => "S'è verifecate 'nu errore durande l'elaborazziune d'a transizione.
 Sì pregate de pruvà n'otre vote cchù nnande.",
 );
