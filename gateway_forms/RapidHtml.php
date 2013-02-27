@@ -427,25 +427,30 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
 
 		$problems = false;
+		$debug_message = '';
 		//make sure the requested form exists.
 		if ( !array_key_exists( $form_key, $allowedForms ) 
 			|| !array_key_exists( 'file', $allowedForms[$form_key] ) 
 			|| ( !file_exists( $allowedForms[$form_key]['file'] ) ) ) {
+			$debug_message = "Could not find form '$form_key'";
 			$problems = true;
 		}
 		
 		if ( !$problems ){
 			//make sure the requested form is cleared for this gateway
 			if ( !array_key_exists( 'gateway', $allowedForms[$form_key] ) ){
+				$debug_message = "No defined gateways for '$form_key'";
 				$problems = true;
 			} else {
 				$ident = $g->getIdentifier();
 				if ( is_array( $allowedForms[$form_key]['gateway'] ) ){
 					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ){
+						$debug_message = "$ident is not defined as an allowable gateway for '$form_key'";
 						$problems = true;
 					}
 				} else {
 					if ( $allowedForms[$form_key]['gateway'] != $ident ){
+						$debug_message = "$ident is not defined as the allowable gateway for '$form_key'";
 						$problems = true;
 					}
 				}
@@ -467,12 +472,15 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			}
 
 			if ( empty( $this->html_base_dir ) ){
+				$debug_message = "No valid html_base_dir for '$form_key' - '$build' was not whitelisted.";
 				$problems = true;
 			}
 		}
 		
 		if ( $problems ){
-			throw new MWException( 'Requested an unavailable or non-existent form.' ); # TODO: translate
+			$message = 'Requested an unavailable or non-existent form.';
+			$this->adapter->log( $message . '' . $debug_message, LOG_ERR );
+			throw new MWException( $message ); # TODO: translate
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
