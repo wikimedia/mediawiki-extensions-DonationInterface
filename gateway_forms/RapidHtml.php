@@ -119,12 +119,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// checking to see if there is a country-specific version of the form
 		if ( !empty( $country ) ) {
-			try{
-				$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
-				$this->set_html_file_path( htmlspecialchars( $country_based ) );
-			} catch ( MWException $mwe ) {
-				// no, there is not
-			}
+			$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
+			$this->set_html_file_path( htmlspecialchars( $country_based ), false );
 		}
 		// only keep looking if we still haven't found a form that works
 		if ( empty( $this->html_file_path ) ){
@@ -422,7 +418,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wgDonationInterfaceAllowedHtmlForms
 	 * @throws MWException
 	 */
-	public function set_html_file_path( $form_key ) {
+	public function set_html_file_path( $form_key, $fatal = true ) {
 		$g = $this->gateway;
 		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
 
@@ -478,9 +474,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 		
 		if ( $problems ){
-			$message = 'Requested an unavailable or non-existent form.';
-			$this->gateway->log( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') , LOG_ERR );
-			throw new MWException( $message ); # TODO: translate
+			if ( $fatal ){
+				$message = 'Requested an unavailable or non-existent form.';
+				$this->gateway->log( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') , LOG_ERR );
+				throw new MWException( $message ); # TODO: translate
+			} else {
+				return;
+			}
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
