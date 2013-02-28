@@ -22,7 +22,7 @@ EOT;
 // Extension credits that will show up on Special:Version
 $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'Donation Interface - Language Only',
-	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Jeremy Postlethwaite' ),
+	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Matt Walker', 'Adam Wight', 'Peter Gehres', 'Jeremy Postlethwaite' ),
 	'version' => '2.0.0',
 	'descriptionmsg' => 'donate_interface-langonly-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:DonationInterface',
