@@ -313,6 +313,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'SWIFTCODE'			=> 'swift_code',
 			'TRANSACTIONTYPE'	=> 'transaction_type', // dd:GB,NL
 			'ZIP'				=> 'zip',
+			'FISCALNUMBER'		=> 'fiscal_number', //Boletos
 		);
 	}
 	
@@ -1024,7 +1025,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 1503,
 			'label' => 'Boleto Bancario Brazil',
 			'group' => 'cash',
-			'validation' => array(),
 			'keys' => array(),
 		);
 	}
@@ -1085,6 +1085,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
+	//XXX kill all this validation.
 	/**
 	 * Get payment submethod form validation options
 	 *
@@ -1800,6 +1801,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//AVS checking for accounts that have AVS data tied to them.
 			'street',
 			'zip',
+			'fiscal_number',
 		);
 	}
 	
@@ -2155,6 +2157,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			 case 'cash_boleto':
 				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
+
+				$this->addKeyToTransaction('FISCALNUMBER');
 				break;
 
 			/* Online bank transfer */
@@ -2235,7 +2239,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 		}
 	}
-	
+
+	protected function stage_fiscal_number( $type = 'request' ) {
+		$this->log("XXX");
+		if ( $type != 'request' ){
+			return; //nothing to do here. 
+		}
+		
+		$this->staged_data['fiscal_number'] = preg_replace( "/[\.\/\-]/", "", $this->getData_Staged( 'fiscal_number' ) );
+	}
+
 	/**
 	 * Add keys to transaction for submethod
 	 *
