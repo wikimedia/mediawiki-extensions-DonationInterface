@@ -698,9 +698,9 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit',
 	'donate_interface-error-msg-country-calc' => 'This error message should only specify that we are unable to accept the donation at this time.',
 	'donate_interface-donate-error-try-a-different-card' => 'This message will be displayed in the the article /index.php/Donate-error. Parameters:
-* $1 is link back to the form to try another credit card.
-* $2 is link to other payment methods.
-* $3 is an e-mail address link such as: mailto:someone@example.com.',
+* $1 - link back to the form to try another credit card
+* $2 - link to other payment methods
+* $3 - an e-mail address link such as: mailto:someone@example.com',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'php-response-declined' => 'Error message if the translaction was declined.',
 	'donate_interface-thankyou' => 'A thank you for donating.',
@@ -13072,6 +13072,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
  * @author Jsoby
  * @author Kenrick95
  * @author Microcell
+ * @author Seddon
  */
 $messages['id'] = array(
 	'donate_interface' => 'Dukung Wikimedia',
@@ -13190,8 +13191,8 @@ $messages['id'] = array(
 	'donate_interface-donor-legend' => 'Informasi donor',
 	'donate_interface-donor-amount' => 'Nilai:',
 	'donate_interface-donor-currency-label' => 'Mata uang:',
-	'donate_interface-donor-email' => 'Alamat surel:',
-	'donate_interface-donor-emailAdd' => 'Alamat surel',
+	'donate_interface-donor-email' => 'Alamat email',
+	'donate_interface-donor-emailAdd' => 'Alamat email',
 	'donate_interface-donor-name' => 'Nama:',
 	'donate_interface-donor-fname' => 'Nama depan:',
 	'donate_interface-donor-mname' => 'Nama tengah:',
@@ -14139,7 +14140,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
 	'donate_interface-error-msg-genaricrequired' => 'この欄は必須入力です',
 	'donate_interface-error-msg-country-calc' => 'エラー - 現時点ではあなたの寄付を承認できません。',
-	'donate_interface-donate-error-try-a-different-card' => ' [$1 別のカード] もしくは  [$2 他の寄付方法] を試してください。または $3 までお問い合わせください。',
+	'donate_interface-donate-error-try-a-different-card' => '[$1 別のカード]や[$2 他の寄付方法]をお試しください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
 	'php-response-declined' => 'お取引が承認されませんでした。',
 	'donate_interface-thankyou' => 'ご寄付ありがとうございました!',
@@ -19071,6 +19072,7 @@ Untuk memastikan transaksi ini selamat, borang derma berikut memerlukan JavaScri
 	'donate_interface-bt-special_id' => 'Maklumat khusus kepada negara',
 	'donate_interface-bt-information' => 'Maklumat pemindahan bank',
 	'donate_interface-bt-finished' => 'Siap',
+	'donate_interface-obt-generic-name' => 'Pindahan bank secara online',
 	'donate_interface-obt-biller_id' => 'Kod biller',
 	'donate_interface-obt-customer_payment_reference' => 'No. Rujukan',
 	'donate_interface-obt-information' => 'Maklumat pemindahan bank online',

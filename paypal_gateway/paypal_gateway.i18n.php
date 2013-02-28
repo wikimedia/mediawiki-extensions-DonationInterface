@@ -79,6 +79,13 @@ $messages['eu'] = array(
 	'paypalgateway' => 'Egin orain zure dohaintza',
 );
 
+/** Finnish (suomi)
+ * @author Crt
+ */
+$messages['fi'] = array(
+	'paypal_gateway-desc' => 'PayPal-maksujen käsittely.',
+);
+
 /** French (français)
  * @author Erkethan
  */
