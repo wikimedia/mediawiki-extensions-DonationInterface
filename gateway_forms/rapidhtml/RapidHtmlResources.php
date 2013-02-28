@@ -145,7 +145,6 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 	'styles' => 'css/gc.css',
 	'scripts' => array(
-//		'js/gc.js',
 		'js/gc.dd.js'
 	),
 //	'dependencies' => array( 'di.form.core.validate' ),
@@ -155,8 +154,16 @@ $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 $wgResourceModules[ 'gc.form.rapidhtml.ew' ] = array(
 	'styles' => 'css/gc.css',
 	'scripts' => array(
-        'js/gc.js',
         'js/gc.ew.js'
+    ),
+	'dependencies' => array( 'di.form.core.validate' ),
+	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
+$wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
+	'styles' => 'css/gc.css',
+	'scripts' => array(
+        'js/gc.boletos.js'
     ),
 	'dependencies' => array( 'di.form.core.validate' ),
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',

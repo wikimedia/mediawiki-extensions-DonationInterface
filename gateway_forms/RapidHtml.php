@@ -69,6 +69,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@bank_name',
 		'@bank_check_digit',
         '@branch_code',
+		// Boletos
+		'@fiscal_number',
 		// Not actually data tokens, but available to you in html form:
 		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
@@ -99,6 +101,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'#state',
 		'#zip',
 		'#emailAdd',
+		'#fiscal_number',
 	);
 
 	public function __construct( &$gateway ) {
