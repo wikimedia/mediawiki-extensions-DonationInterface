@@ -206,7 +206,7 @@ class PayflowProAdapter extends GatewayAdapter {
 	 * Gets all the currency codes appropriate for this gateway
 	 * @return array of currency codes
 	 */
-	function getCurrencies() {
+	static function getCurrencies() {
 		$currencies = array(
 			'USD', // U.S. Dollar
 			'GBP', // British Pound

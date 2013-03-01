@@ -60,7 +60,24 @@ EOT;
 
 		$this->setHeaders();
 
+		$redirect = false;
 		if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
+			$redirect = true;
+		}
+		if ( $this->validateForm() ) {
+			$form_errors = $this->adapter->getValidationErrors();
+			if ( !array_diff( array( 'currency_code' ), array_keys( $form_errors ) ) ) {
+				// If the currency is invalid, fallback to USD and allow redirect.
+				$this->adapter->addData( array(
+					'amount' => "0.00",
+					'currency_code' => 'USD',
+				) );
+				$this->adapter->revalidate();
+			} else {
+				$redirect = false;
+			}
+		}
+		if ( $redirect ) {
 			if ( $this->getRequest()->getText( 'recurring', 0 ) ) {
 				$result = $this->adapter->do_transaction( 'DonateRecurring' );
 			} else {
@@ -70,11 +87,8 @@ EOT;
 			if ( !empty( $result['redirect'] ) ) {
 				$this->getOutput()->redirect( $result['redirect'] );
 			}
-
-			if ( !empty( $result[ 'errors' ] ) ) {
-				//XXX not passing specific errors to the user.
-				$this->getOutput()->redirect( $this->adapter->getFailPage() );
-			}
 		}
+
+		$this->displayForm();
 	}
 }

@@ -434,6 +434,8 @@ if ( $optionalParts['Paypal'] === true ){
 
 	$wgPaypalGatewayPriceFloor = 1.00;
 
+	$wgPaypalGatewayHtmlFormDir = $donationinterface_dir . 'paypal_gateway/forms/html';
+
 #	$wgPaypalGatewayAccountInfo['example'] = array(
 #		'AccountEmail' => "",
 #	);
@@ -1010,6 +1012,16 @@ if ( $optionalParts['PayflowPro'] === true ){
 	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
+}
+
+if ( $optionalParts['Adyen'] === true ){
+	$wgExtensionMessagesFiles['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.i18n.php';
+	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.alias.php';
+}
+
+if ( $optionalParts['Paypal'] === true ){
+	$wgExtensionMessagesFiles['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.i18n.php';
+	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.alias.php';
 }
 
 /**
