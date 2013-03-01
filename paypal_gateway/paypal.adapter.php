@@ -145,7 +145,7 @@ class PaypalAdapter extends GatewayAdapter {
 		}
 	}
 
-	function getCurrencies() {
+	static function getCurrencies() {
 		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
 		return array(
 			'AUD',
@@ -181,12 +181,18 @@ class PaypalAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function pre_process_donate() {
-		$validation_errors = DataValidator::validate( $this->getData_Unstaged_Escaped(), array( 'gateway', 'currency_code', 'amount' ) );
-		if ( !empty( $validation_errors )
-			|| !in_array( $this->getData_Unstaged_Escaped( 'currency_code' ), $this->getCurrencies() ) )
-		{
-			$this->setValidationAction( 'reject', TRUE );
+	public function validatedOK() {
+		$result = parent::validatedOK();
+
+		if ( !$result ) {
+			$validation_errors = $this->getValidationErrors();
+			if ( array_keys( $validation_errors ) === array( 'amount' )
+					and (!$this->staged_data['amount'] or (float)$this->staged_data['amount'] == 0 ) ) {
+				// ignore empty amount error
+				$result = true;
+			}
 		}
+
+		return $result;
 	}
 }

@@ -9,6 +9,7 @@ $wgDonationInterfaceRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/ra
 $wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/forms';
 $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 $wgAdyenRapidHtmlRemoteExtPath = 'DonationInterface/adyen_gateway/forms';
+$wgPaypalRapidHtmlRemoteExtPath = 'DonationInterface/paypal_gateway/forms';
 
 /**
  * LIGHTBOX
@@ -272,4 +273,10 @@ $wgResourceModules[ 'adyen.js' ] = array(
 	'scripts' => 'js/adyen.js',
 	'localBasePath' => dirname( __FILE__ ).'/../../adyen_gateway/forms',
 	'remoteExtPath' => $wgAdyenRapidHtmlRemoteExtPath,
+);
+
+$wgResourceModules[ 'paypal.js' ] = array(
+	'scripts' => 'js/paypal.js',
+	'localBasePath' => dirname( __FILE__ ).'/../../paypal_gateway/forms',
+	'remoteExtPath' => $wgPaypalRapidHtmlRemoteExtPath,
 );

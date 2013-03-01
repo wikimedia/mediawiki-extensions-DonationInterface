@@ -49,6 +49,7 @@ class DataValidator {
 		'globalcollect' => 'GlobalCollectAdapter',
 		'payflowpro' => 'PayflowProAdapter',
 		'paypal' => 'PaypalAdapter',
+		'adyen' => 'AdyenAdapter',
 	);
 	
 	/**
@@ -102,6 +103,7 @@ class DataValidator {
 				$error_token = 'emailAdd';
 				break;
 			case 'amount' :
+			case 'currency_code' :
 			case 'card_num':
 			case 'card_type':
 			case 'cvv':
@@ -369,9 +371,12 @@ class DataValidator {
 						$instructions['non_empty']['amount'] = 'validate_not_empty';
 						$instructions['valid_type']['amount'] = 'validate_numeric';
 						$instructions['non_empty']['currency_code'] = 'validate_not_empty';
-						$instructions['valid_type']['currency_code'] = self::getValidationFunction( 'currency_code' );
+						$instructions['valid_type']['currency_code'] = 'validate_alphanumeric';
 						$instructions['non_empty']['gateway'] = 'validate_not_empty';
 						$instructions['valid_type']['gateway'] = self::getValidationFunction( 'gateway' );
+						break;
+					case 'validate_currency_code':
+						$check_type = 'calculated';
 						break;
 					case 'validate_card_type':
 						$check_type = 'calculated';
@@ -441,6 +446,9 @@ class DataValidator {
 							$result = $self::$function( $data[$field], $data['currency_code'], $data['gateway'] );
 						} //otherwise, just don't do the validation. The other stuff will be complaining already. 
 						break;
+					case 'validate_currency_code':
+						$result = $self::$function( $data[$field], $data['gateway'] );
+						break;
 					case 'validate_card_type':
 						//the contingent field in this case isn't strictly required, so this is going to look funny. 
 						if ( array_key_exists( 'card_number', $instructions['valid_type'] ) && $instructions['valid_type']['card_number'] === true ){
@@ -451,7 +459,7 @@ class DataValidator {
 						}
 						break;
 					default:
-						$result = self::$function( $data[$field] );
+						$result = $self::$function( $data[$field] );
 				}
 				
 				$instructions['calculated'][$field] = $result;
@@ -503,26 +511,21 @@ class DataValidator {
 		switch ( $field ){
 			case 'email':
 				return 'validate_email';
-				break;
 			case 'amount': //we only have to do the one: It will have been normalized by now. 
 				return 'validate_amount'; //this one is interesting. Needs two params. 
-				break;
 			case 'card_num':
 				return 'validate_credit_card';
-				break;
 			case 'card_type':
 				return 'validate_card_type';
-				break;
 			case 'gateway':
 				return 'validate_gateway';
-				break;
 			case 'country':
 				return 'validate_country_allowed';
-				break;
 			case 'fname':
 			case 'lname':
 				return 'validate_name';
-				break;
+			case 'currency_code':
+				return 'validate_currency_code';
 		}
 
 		if ( in_array( $field, self::getNumericFields() ) ){
@@ -584,7 +587,22 @@ class DataValidator {
 		
 		return true;
 	}
-	
+
+	protected static function validate_currency_code( $value, $gateway ) {
+		if ( !$value ) {
+			return false;
+		}
+
+		$gateway_class = self::getGatewayClass($gateway);
+		if ( !$gateway_class ){
+			return false;
+		}
+
+		// FIXME: we should be checking currencies using the live gateway
+		// object, the result is often dependent on payment method/submethod,
+		// country, and so on.
+		return in_array( $value, $gateway_class::getCurrencies() );
+	}
 	
 	/**
 	 * validate_card_type

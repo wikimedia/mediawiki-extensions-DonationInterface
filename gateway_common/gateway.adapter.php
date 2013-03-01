@@ -99,7 +99,7 @@ interface GatewayType {
 	 */
 	function defineReturnValueMap();
 
-	function getCurrencies();
+	static function getCurrencies();
 }
 
 /**
