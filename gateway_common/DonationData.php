@@ -132,6 +132,7 @@ class DonationData {
 				'date_collect' => $wgRequest->getText( 'date_collect', null ),
 				'direct_debit_text' => $wgRequest->getText( 'direct_debit_text', null ),
 				'iban' => $wgRequest->getText( 'iban', null ),
+				'fiscal_number' => $wgRequest->getText( 'fiscal_number', null ),
 				'transaction_type' => $wgRequest->getText( 'transaction_type', null ),
 				'form_name' => $wgRequest->getText( 'form_name', null ),
 				'ffname' => $wgRequest->getText( 'ffname', null ),

@@ -901,6 +901,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-error-msg-card_num',
 		'donate_interface-error-msg-expiration',
 		'donate_interface-error-msg-cvv',
+		'donate_interface-error-msg-fiscal_number',
 		'donate_interface-error-msg-captcha',
 		'donate_interface-error-msg-captcha-please',
 		'donate_interface-error-msg-cookies',
