@@ -148,6 +148,13 @@ $messages['mk'] = array(
 Обидете се повторно.',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'adyengateway' => 'Derma sekarang',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
