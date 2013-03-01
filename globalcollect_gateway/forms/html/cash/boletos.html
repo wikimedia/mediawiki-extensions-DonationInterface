@@ -7,11 +7,12 @@
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
 </script>
-<style type="text/css">
-	tr#collapsingCity {
-		display: table-row;
-	}
-</style>
+<script type="text/javascript">
+$( document ).ready( function() {
+	$( ".collapsingCity input" ).removeClass( "optional" );
+	$( ".collapsingCity" ).css( "display", "table-row" );
+} );
+</script>
 
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0">

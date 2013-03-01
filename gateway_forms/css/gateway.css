@@ -187,6 +187,6 @@ select#state.us, select#state.au, select#state.ca {
 	width: 50px;
 }
 
-#collapsingCity {
+.collapsingCity {
 	display: none;
 }

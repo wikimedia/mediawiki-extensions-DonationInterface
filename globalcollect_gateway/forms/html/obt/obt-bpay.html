@@ -24,11 +24,12 @@
 	}
 </style>
 <![endif]-->
-<style type="text/css">
-	tr#collapsingCity {
-		display: table-row;
-	}
-</style>
+<script type="text/javascript">
+$( document ).ready( function() {
+	$( ".collapsingCity input" ).removeClass( "optional" );
+	$( ".collapsingCity" ).css( "display", "table-row" );
+} );
+</script>
 
 <div class="ltr">
 	<table id="layouttable">
