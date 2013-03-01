@@ -638,14 +638,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_methods['dd'] = array(
 			'label'	=> 'Direct Debit',
 			'types'	=> array( 'dd_at', 'dd_be', 'dd_ch', 'dd_de', 'dd_es','dd_fr', 'dd_gb', 'dd_it', 'dd_nl', ),
-			'validation' => array( 'creditCard' => false, )
+			'validation' => array( 'creditCard' => false, ),
+			'short_circuit_at' => 'first_iop',
 		);
 		
 		// eWallets
 		$this->payment_methods['ew'] = array(
 			'label'	=> 'eWallets',
 			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', 'ew_yandex' ),
-			'validation' => array( 'address' => false, 'creditCard' => false, )
+			'validation' => array( 'address' => false, 'creditCard' => false, ),
+			'short_circuit_at' => 'first_iop',
+			'additional_success_status' => array( 20 ),
 		);
 		
 		// Bank Transfers
@@ -660,12 +663,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
 			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweden', 'rtbt_enets', ),
+			'short_circuit_at' => 'first_iop',
+			'additional_success_status' => array( 20 ),
 		);
 
 		// Cash payments
 		$this->payment_methods['cash'] = array(
 			'label' => 'Cash payments',
 			'types' => array( 'cash_boleto', ),
+			'short_circuit_at' => 'first_iop',
+			'additional_success_status' => array( 20 ),
 		);
 
 	}
@@ -1464,6 +1471,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				//if we're of a type that sends donors off never to return, we should record that here. 
 				$payment_info = $this->getPaymentMethodMeta( $this->getPaymentMethod() );
 				if ( array_key_exists( 'short_circuit_at', $payment_info ) && $payment_info['short_circuit_at'] === 'first_iop' ){
+					if ( array_key_exists( 'additional_success_status', $payment_info ) && is_array( $payment_info['additional_success_status'] ) ){
+						foreach ( $payment_info['additional_success_status'] as $status ){
+							//mangle the definition of success.
+							$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', $status );
+						}
+					}
 					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
 				}
 				break;
