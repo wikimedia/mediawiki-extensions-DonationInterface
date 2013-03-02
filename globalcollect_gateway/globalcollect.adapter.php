@@ -2254,7 +2254,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	protected function stage_fiscal_number( $type = 'request' ) {
-		$this->log("XXX");
 		if ( $type != 'request' ){
 			return; //nothing to do here. 
 		}
