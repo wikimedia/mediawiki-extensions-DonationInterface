@@ -635,6 +635,7 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 {{Identical|Security code}}',
 	'donate_interface-donor-submit' => '{{Identical|Donate}}',
 	'donate_interface-donor-currency-msg' => '* $1 is 3 letter currency code',
+	'donate_interface-donor-fiscal_number' => '{{Identical|Fiscal number}}',
 	'donate_interface-card-name-discover' => "Trademark name of credit card Discover®, '''not''' the verb \"to discover\".",
 	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
@@ -699,6 +700,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
 	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit',
 	'donate_interface-error-msg-country-calc' => 'This error message should only specify that we are unable to accept the donation at this time.',
+	'donate_interface-error-msg-fiscal_number' => '{{Identical|Fiscal number}}',
 	'donate_interface-donate-error-try-a-different-card' => 'This message will be displayed in the the article /index.php/Donate-error. Parameters:
 * $1 - link back to the form to try another credit card
 * $2 - link to other payment methods
