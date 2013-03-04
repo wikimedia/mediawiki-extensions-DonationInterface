@@ -82,7 +82,15 @@ EOT;
 			if ( $this->adapter->posted ) {
 				// The form was submitted and the payment method has been set
 				$payment_method = $this->adapter->getPaymentMethod();
-				//$payment_submethod = $this->adapter->getPaymentSubmethod();
+
+				if ( $payment_method === 'dd'
+						and !$this->adapter->getPaymentSubmethod() ) {
+					// Synthesize a submethod based on the country.
+					$country_code = strtolower( $this->adapter->getData_Unstaged_Escaped( 'country' ) );
+					$this->adapter->addData( array(
+						'payment_submethod' => "dd_{$country_code}",
+					) );
+				}
 
 				// Check form for errors
 				$form_errors = $this->validateForm( $this->adapter->getPaymentSubmethodFormValidation() );
@@ -117,10 +125,6 @@ EOT;
 							
 						case 'dd':
 							$result = $this->adapter->do_transaction('Direct_Debit');
-							if (!$result['status']) {
-								// Attach the error messages to the form
-								$this->adapter->setBankValidationErrors();
-							}
 							break;
 							
 						case 'ew':
