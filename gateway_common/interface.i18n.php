@@ -210,7 +210,7 @@ No processors are available.',
 	'donate_interface-thankyou' => 'Thank you for your donation!',
 	'donate_interface-post-transaction' => 'Transaction details',
 	'donate_interface-cvv-explain' => '<h4>What is CVV?</h4>
-<p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorized or fraudulent use.</p>
+<p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder\'s possession. This helps to prevent unauthorized or fraudulent use.</p>
 <h4>Visa, MasterCard</h4>
 <p>The 3-digit code is located on the back of your card, inside the signature area.
 Typically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>
@@ -277,7 +277,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-pay-by-credit-card' => 'Pay by credit card',
 	'donate_interface-which-card' => 'Which card would you like to use',
 	'donate_interface-choose-donation-method' => 'Choose donation method',
-	'donate_interface-cardholders-name' => 'Cardholder’s name',
+	'donate_interface-cardholders-name' => "Cardholder's name",
 	'donate_interface-name-on-card' => 'Name on card',
 	'donate_interface-type-of-card' => 'Type of card',
 	'donate_interface-cards-accepted' => 'Cards accepted',
@@ -371,7 +371,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	// Real time bank transfer (rtbt)
 	'donate_interface-rtbt-issuer_id' => 'Choose a Bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Other banks',
-	'donate_interface-sofortbanking' => 'Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the “Donate by manual bank transfer” option on the main donation page.',
+	'donate_interface-sofortbanking' => 'Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the "Donate by manual bank transfer" option on the main donation page.',
 
 	// Direct debit (dd)
 	'donate_interface-dd-account_name' => 'Account name',
