@@ -1477,7 +1477,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', $status );
 						}
 					}
-					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
+					if ( $this->getTransactionStatus() ) {
+						$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
+					}
 				}
 				break;
 			case 'DO_BANKVALIDATION':
@@ -1624,33 +1626,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 
 		return $return;
-	}
-	
-	/**
-	 * Set the bank validation error messages for the client.
-	 *
-	 * @todo
-	 * - Only the first message will be returned. The reason is there are no translations for DO_BANKVALIDATION
-	 *
-	 * The messages have already been generated at this point. The purpose of
-	 * this method is to pass them to the view.
-	 */
-	public function setBankValidationErrors() {
-
-		//TODO: Check to see why we're not pulling the errors array instead. 
-		$checks = $this->getTransactionData();
-
-		$errors = isset( $checks['errors'] ) ? $checks['errors'] : array();
-
-		$errorsToBeDisplayed = array();
-		foreach ( $errors as $code => $error ) {
-			$errorsToBeDisplayed[ $code ] = $this->getErrorMapByCodeAndTranslate( $code );
-			
-			// This break is temporary. All errors will have the same message. Only display it once.
-			break;
-		}
-
-		$this->setTransactionResult( $errorsToBeDisplayed, 'errors' );
 	}
 	
 	/**
@@ -2140,6 +2115,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->dataConstraints['account_name']['length'] = 30;
 				$this->dataConstraints['account_number']['length'] = 10;
 				$this->dataConstraints['direct_debit_text']['length'] = 32;
+				$this->staged_data['transaction_type'] = '01';
 				break;
 			case 'dd_gb':
 				$this->staged_data['transaction_type'] = '01';

@@ -2,8 +2,8 @@
 	mw.loader.load('gc.form.rapidhtml.dd');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
-	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
+	var billingErrors = ['#fname|escape','#lname|escape','#street|escape','#city|escape','#country|escape','#emailAdd|escape'];
+	var paymentErrors = [];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
 </script>
@@ -38,22 +38,53 @@
 									</div>
 								</td>
 							</tr>
-							{% block personal-information country %}
+
+							<tr>
+								<td colspan="2">
+									<h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<input class="fullwidth" name="street" value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street">
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<input class="fullwidth" name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city">
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
+										<option value="">%donate_interface-select-country%</option>
+										@select_country
+									</select>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<input class="fullwidth" name="emailAdd" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
+								</td>
+							</tr>
 							<tr>
 								<td colspan="2">
 									<hr />
 								</td>
 							</tr>
+							{% block dd-bank-fields country %}
 							<tr>
 								<td colspan="2">
-									<input class="halfwidth" name="account_name" value="@account_name" type="text" title="%donate_interface-dd-account_name%" placeholder="%donate_interface-dd-account_name%" id="account_name"><input class="halfwidth leftmar" name="account_number" value="@account_number" type="text" title="%donate_interface-dd-account_number%" placeholder="%donate_interface-dd-account_number%" id="account_number">
-								</td>
-							</tr>
-
-							<tr>
-								<td colspan="2">
-									<input class="thirdwidth" name="bank_code" value="@bank_code" type="text" title="%donate_interface-dd-bank_code%" placeholder="%donate_interface-dd-bank_code%" id="bank_code"><input class="thirdwidth leftmar" name="branch_code" value="@branch_code" type="text" title="donate_interface-dd-branch_code" placeholder="%donate_interface-dd-branch_code%" id="branch_code"><input class="thirdwidth leftmar" name="bank_check_digit" value="@bank_check_digit" type="text" title="donate_interface-dd-bank_check_digit" placeholder="%donate_interface-dd-bank_check_digit%" id="bank_check_digit">
-
                                     <div id="bt-continue" style="margin-top: 10px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
 								</td>
 							</tr>
@@ -71,12 +102,9 @@
 							</tbody>
 						</table>
 					</div>
-					<input type="hidden" name="gateway" value="payflowpro" id="gateway" />
 					<input type="hidden" name="returnto" value="Thank_You/en" />
 					<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 					<input type="hidden" value="@amount" name="amount">
-					<!-- This should be included in the personal_information templates -->
-					<!--<input type="hidden" value="@country" name="country" id="country" />-->
 					<input type="hidden" value="@currency_code" name="currency_code" />
 					<input type="hidden" value="@utm_source" name="utm_source"/>
 					<input type="hidden" value="@utm_medium" name="utm_medium"/>

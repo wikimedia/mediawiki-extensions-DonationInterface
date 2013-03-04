@@ -147,7 +147,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 	'scripts' => array(
 		'js/gc.dd.js'
 	),
-//	'dependencies' => array( 'di.form.core.validate' ),
+	'dependencies' => array( 'di.form.core.validate' ),
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
