@@ -61,7 +61,6 @@ class DataValidator {
 		'visa',
 		'discover'
 	);
-
 	
 	/**
 	 * getNumericFields returns a list of DonationInterface fields that are 
@@ -166,21 +165,23 @@ class DataValidator {
 		//this is gonna get ugly up in here. 
 		//error_log( __FUNCTION__ . " $field, $type, $value " );
 
+		//NOTE: We are just using the next bit because it's convenient. 
+		//getErrorToken is actually for something entirely different: 
+		//Figuring out where on the form the error should land.  
+		$message_field = self::getErrorToken( $field );
+		if ( $field === 'expiration' ){
+			///the inevitable special case.
+			$message_field = $field;
+		}
+		//postal code is a weird one. More L10n than I18n. 
+		//'donate_interface-error-msg-postal' => 'postal code',
+
+		$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
+
 		//Empty messages should get: 
 		//'donate_interface-error-msg' => 'Please enter your $1';
 		//If they have no defined error message, give 'em the default. 
 		if ($type === 'non_empty'){
-			//NOTE: We are just using the next bit because it's convenient. 
-			//getErrorToken is actually for something entirely different: 
-			//Figuring out where on the form the error should land.  
-			$message_field = self::getErrorToken( $field );
-			if ( $field === 'expiration' ){
-				$message_field = $field;
-			}
-			//postal code is a weird one. More L10n than I18n. 
-			//'donate_interface-error-msg-postal' => 'postal code',
-			
-			$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
 			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
 				return wfMessage(
 					'donate_interface-error-msg',
@@ -210,18 +211,28 @@ class DataValidator {
 					break;
 			}
 			
-			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;
+			$error_message_string = 'donate_interface-error-msg-' . $suffix;
 			
 			if ( $type === 'calculated'){
 				//try for the special "calculated" error message.
-				if ( self::wmfMessageExists( $error_message_field_string . '-calc', $language ) ) {
-					return wfMessage( $error_message_field_string . '-calc')->text();
+				if ( self::wmfMessageExists( $error_message_string . '-calc', $language ) ) {
+					return wfMessage( $error_message_string . '-calc')->text();
 				}
 			}
 			
-			//try for the "invalid whatever" error message.
-			if ( self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMessage( $error_message_field_string )->text();
+//			//try for the "invalid whatever" error message.
+//			if ( self::wmfMessageExists( $error_message_string, $language ) ) {
+//				return wfMessage( $error_message_string )->text();
+//			}
+			
+			//try for new more specific default correction message
+			if ( $message_field != 'general' 
+				&& self::wmfMessageExists( $error_message_field_string, $language )
+				&& self::wmfMessageExists( 'donate_interface-error-msg-field-correction', $language ) ) {
+				return wfMessage(
+					'donate_interface-error-msg-field-correction',
+					wfMessage( $error_message_field_string )->text()
+				)->text();
 			}
 		}
 		
@@ -376,6 +387,8 @@ class DataValidator {
 						//Or maybe that's more payment type validation territory...
 						//@TODO: Insert More Think Here
 						break;
+					case 'validate_name':
+						$check_type = 'calculated';
 				}
 				$instructions[$check_type][$field] = $function_name;
 			}
@@ -442,7 +455,7 @@ class DataValidator {
 				}
 				
 				$instructions['calculated'][$field] = $result;
-				if ($result === false){ //implying we did the check, and it failed. 
+				if ($result === false){ //implying we did the check, and it failed.
 					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				}
 				
@@ -505,6 +518,10 @@ class DataValidator {
 				break;
 			case 'country':
 				return 'validate_country_allowed';
+				break;
+			case 'fname':
+			case 'lname':
+				return 'validate_name';
 				break;
 		}
 
@@ -723,6 +740,47 @@ class DataValidator {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * Some people are silly and enter their CC numbers as their name. This performs a luhn check
+	 * on the name to make sure it's not actually a potentially valid CC number.
+	 *
+	 * @param string $value Ze name!
+	 * @returns boolean True if the name is not suspiciously like a CC number
+	 */
+	public static function validate_name( $value ) {
+		$value = preg_replace( '/[^0-9]/', '', $value );
+		if ( is_numeric( $value ) ) {
+			return !DataValidator::luhn_check( $value );
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Performs a Luhn algorithm check on a string.
+	 *
+	 * @param $str
+	 *
+	 * @return bool True if the number was valid according to the algorithm
+	 */
+	public static function luhn_check( $str ) {
+		$odd = !strlen( $str ) % 2;
+		$sum = 0;
+
+		for( $i = 0; $i < strlen( $str ); $i++ ) {
+			$n = 0 + $str[$i];
+			$odd = !$odd;
+
+			if( $odd ) {
+				$sum += $n;
+			} else {
+				$x = 2 * $n;
+				$sum += ($x > 9) ? ($x - 9) : $x;
+			}
+		}
+		return( ( $sum % 10 ) == 0 );
 	}
 	
 	/**
