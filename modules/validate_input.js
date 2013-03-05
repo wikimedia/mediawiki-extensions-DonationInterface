@@ -177,7 +177,7 @@ window.validate_form = function( form ) {
 	var output = '';
 	var currField = '';
 	var i = 0;
-	var fields = ['fname','lname','street','city','zip', 'emailAdd', 'card_num','cvv','fiscal_number'],
+	var fields = ['fname','lname','street','city','zip', 'emailAdd', 'card_num','cvv','fiscal_number', 'account_name', 'account_number', 'authorization_id', 'bank_code', 'bank_check_digit', 'branch_code'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
 		if ( document.getElementById( fields[i] ) ) { // Make sure field exists
