@@ -252,11 +252,19 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
 		$this->query_minfraud( $minfraud_query );
 		
+		// Write the query/response to the log before we go mad.
+		$this->log_query();
+		
+		try {
+			$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
+		} 
+		catch( MWException $ex){
+			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
+			$log_message = 'Minfraud filter came back with some garbage. Assigning all the points.';
+			$this->cfo->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_ERR, '_fraud' );
+			$this->cfo->addRiskScore( 100, 'minfraud_filter' );
+		}
 
-		$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
-
-		// Write the query/response to the log
-		$this->log_query( $minfraud_query, '' );
 		return TRUE;
 	}
 

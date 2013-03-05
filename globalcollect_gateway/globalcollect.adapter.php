@@ -1167,6 +1167,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
 		$problemmessage = ''; //to be used in conjunction with the flag.
+		$problemseverity = LOG_ERR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
 		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
 		$original_status_code = NULL;
 		
@@ -1241,6 +1242,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					case 'complete' :
 						$problemflag = true; //nothing to be done.
 						$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
+						$problemseverity = LOG_INFO;
 						$add_antimessage = true;
 						break 2;
 					case 'pending-poke' :
@@ -1344,13 +1346,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( $problemflag || $cancelflag ){
 			if ( $cancelflag ){ //cancel wins
 				$problemmessage = "Cancelling payment";
+				$problemseverity = LOG_INFO;
 				$errors = array( '1000001' => $problemmessage );
 			} else {
 				$errors = array( '1000000' => 'Transaction could not be processed due to an internal error.' );
 			}
 			
 			//we have probably had a communication problem that could mean stranded payments. 
-			self::log( $this->getLogMessagePrefix() . $problemmessage, LOG_ERR );
+			self::log( $this->getLogMessagePrefix() . $problemmessage, $problemseverity );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
 				'status' => false,
