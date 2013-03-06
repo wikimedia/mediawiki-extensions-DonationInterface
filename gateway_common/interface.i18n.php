@@ -662,6 +662,28 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 *{{msg-mw|Donate interface-error-msg-cvv}}
 
 An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.",
+	'donate_interface-error-msg-field-correction' => 'Parameters:
+* $1 - any one of the following messages:
+** {{msg-mw|Donate interface-error-msg-amount}}
+** {{msg-mw|Donate interface-error-msg-emailAdd}}
+** {{msg-mw|Donate interface-error-msg-fname}}
+** {{msg-mw|Donate interface-error-msg-lname}}
+** {{msg-mw|Donate interface-error-msg-street}}
+** {{msg-mw|Donate interface-error-msg-city}}
+** {{msg-mw|Donate interface-error-msg-state}}
+** {{msg-mw|Donate interface-error-msg-zip}}
+** {{msg-mw|Donate interface-error-msg-postal}}
+** {{msg-mw|Donate interface-error-msg-country}}
+** {{msg-mw|Donate interface-error-msg-card type}}
+** {{msg-mw|Donate interface-error-msg-card num}}
+** {{msg-mw|Donate interface-error-msg-expiration}}
+** {{msg-mw|Donate interface-error-msg-cvv}}
+** {{msg-mw|Donate interface-error-msg-account name}}
+** {{msg-mw|Donate interface-error-msg-account number}}
+** {{msg-mw|Donate interface-error-msg-authorization id}}
+** {{msg-mw|Donate interface-error-msg-bank check digit}}
+** {{msg-mw|Donate interface-error-msg-bank code}}
+** {{msg-mw|Donate interface-error-msg-branch code}}',
 	'donate_interface-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
@@ -699,15 +721,21 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-postal' => 'Used in error message regarding the postal code field.
 {{Identical|Postal code}}',
 	'donate_interface-error-msg-country' => '{{Identical|Country}}',
-	'donate_interface-error-msg-account_name' => 'Used in error message regarding the account name',
-	'donate_interface-error-msg-account_number' => 'Used in error message regarding the account number',
-	'donate_interface-error-msg-authorization_id' => 'Used in error message regarding the authorization ID',
-	'donate_interface-error-msg-bank_check_digit' => 'Used in error message regarding the bank check digit',
-	'donate_interface-error-msg-bank_code' => 'Used in error message regarding the sort code',
-	'donate_interface-error-msg-branch_code' => 'Used in error message regarding the branch code',
 	'donate_interface-error-msg-card_num' => 'Used in error message regarding the credit card number field.',
 	'donate_interface-error-msg-expiration' => 'Used in error message regarding the card expiration date field.',
 	'donate_interface-error-msg-cvv' => 'Used in error message regarding the card security code field.',
+	'donate_interface-error-msg-account_name' => 'Used in error message regarding the account name.
+{{Identical|Account name}}',
+	'donate_interface-error-msg-account_number' => 'Used in error message regarding the account number.
+{{Identical|Account number}}',
+	'donate_interface-error-msg-authorization_id' => 'Used in error message regarding the authorization ID.
+{{Identical|Authorization ID}}',
+	'donate_interface-error-msg-bank_check_digit' => 'Used in error message regarding the bank check digit.
+{{Identical|Bank check digit}}',
+	'donate_interface-error-msg-bank_code' => 'Used in error message regarding the sort code.
+{{Identical|Sort code}}',
+	'donate_interface-error-msg-branch_code' => 'Used in error message regarding the branch code.
+{{Identical|Branch code}}',
 	'donate_interface-error-msg-captcha' => 'Error message if the user inputs the wrong [[w:en:CAPTCHA|CAPTCHA]].',
 	'donate_interface-error-msg-captcha-please' => 'Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.',
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
@@ -847,15 +875,21 @@ There is no limit to the length of the message.",
 	'donate_interface-online_bank_transfer_message' => 'BPAY (Australian Online Bank Transfer)  - The message displayed about the BPAY transaction.',
 	'donate_interface-rtbt-issuer_id' => 'Real time bank transfer: Select a Bank used to pick which bank the donor wishes to use for their donation',
 	'donate_interface-sofortbanking' => 'Description of Sofortbanking and instructions on how to use it.',
-	'donate_interface-dd-account_name' => 'Direct Debit: Account Name - Name of person who owns the Bank Account',
-	'donate_interface-dd-account_number' => 'Direct Debit: Account Number - Bank account number to be used for the Direct Debit',
-	'donate_interface-dd-authorization_id' => 'Direct Debit: Authorization ID',
+	'donate_interface-dd-account_name' => 'Direct Debit: Account Name - Name of person who owns the Bank Account.
+{{Identical|Account name}}',
+	'donate_interface-dd-account_number' => 'Direct Debit: Account Number - Bank account number to be used for the Direct Debit.
+{{Identical|Account number}}',
+	'donate_interface-dd-authorization_id' => 'Direct Debit: Authorization ID.
+{{Identical|Authorization ID}}',
 	'donate_interface-dd-bank_check_digit' => 'Direct Debit: Bank Check Digit
 
-See [[w:en:Check_digit]] for explanation of Check Digit.',
-	'donate_interface-dd-bank_code' => 'Direct Debit: Bank Code - Bank code number (sorting code)',
+See [[w:en:Check_digit]] for explanation of Check Digit.
+{{Identical|Bank check digit}}',
+	'donate_interface-dd-bank_code' => 'Direct Debit: Bank Code - Bank code number (sorting code).
+{{Identical|Sort code}}',
 	'donate_interface-dd-bank_name' => 'Direct Debit: Bank Name - Name of donors bank',
-	'donate_interface-dd-branch_code' => 'Direct Debit: Branch Code - Code for donors bank branch',
+	'donate_interface-dd-branch_code' => 'Direct Debit: Branch Code - Code for donors bank branch.
+{{Identical|Branch code}}',
 	'donate_interface-dd-direct_debit_text' => 'Direct Debit: Direct debit text. - text to be sent next to direct debit (rarely used)',
 	'donate_interface-dd-iban' => 'Direct Debit: International Bank Account Number - IBAN',
 	'donate_interface-pm-alipay' => '{{optional}}',
@@ -3807,7 +3841,7 @@ $messages['br'] = array(
 	'donate_interface-error-msg-js' => 'Lakait ho',
 	'donate_interface-error-msg-validation' => "C'hwennit ar fazioù er furmskrid mar plij.",
 	'donate_interface-error-msg-invalid-amount' => 'Merkit ur sammad reizh',
-	'donate_interface-error-msg-email' => "Merkit ur chomlec'h postel reizh",
+	'donate_interface-error-msg-email' => "Ebarzhit ur chomlec'h postel reizh, mar plij",
 	'donate_interface-error-msg-card-num' => 'Ebarzhit un niverenn kartenn-gred reizh evit unan eus ar seurtoù kartennoù-kred degemeret',
 	'donate_interface-error-msg-amex' => 'Merkit un niverenn gartenn American Express reizh.',
 	'donate_interface-error-msg-mc' => 'Merkit un niverenn gartenn MasterCard reizh.',
@@ -5941,6 +5975,7 @@ $messages['de'] = array(
 	'donate_interface-error-msg-general' => 'Beim Verarbeiten Ihrer Anfrage ist ein Fehler aufgetreten.',
 	'donate_interface-error-msg-nopaypal' => 'Aufgrund eines technischen Problems können wir keine Verbindung zu PayPal herstellen. Bitte nutzen Sie stattdessen das Formular für Kreditkartenspenden.',
 	'donate_interface-error-msg' => 'Das folgende Feld muss ausgefüllt sein: $1',
+	'donate_interface-error-msg-field-correction' => 'Bitte korrigieren Sie die Fehler in Ihrem/Ihrer $1',
 	'donate_interface-error-msg-js' => 'Das folgende Feld wird benötigt:',
 	'donate_interface-error-msg-validation' => 'Bitte korrigieren Sie die Fehler im Formular.',
 	'donate_interface-error-msg-invalid-amount' => 'Bitte einen gültigen Betrag eingeben',
@@ -5952,8 +5987,8 @@ $messages['de'] = array(
 	'donate_interface-error-msg-discover' => 'Bitte eine korrekte Kreditkartennummer für Discover angeben.',
 	'donate_interface-error-msg-amount' => 'Spendenbetrag',
 	'donate_interface-error-msg-emailAdd' => 'E-Mail-Adresse',
-	'donate_interface-error-msg-fname' => 'Vorname',
-	'donate_interface-error-msg-lname' => 'Nachname',
+	'donate_interface-error-msg-fname' => 'Vornamen',
+	'donate_interface-error-msg-lname' => 'Nachnamen',
 	'donate_interface-error-msg-street' => 'Straße',
 	'donate_interface-error-msg-city' => 'Ort',
 	'donate_interface-error-msg-state' => 'Staat',
@@ -5962,8 +5997,14 @@ $messages['de'] = array(
 	'donate_interface-error-msg-country' => 'Staat',
 	'donate_interface-error-msg-card_type' => 'Kreditkartentyp',
 	'donate_interface-error-msg-card_num' => 'Kreditkartennummer',
-	'donate_interface-error-msg-expiration' => 'Gültig bis',
+	'donate_interface-error-msg-expiration' => 'Kartenablaufdatum',
 	'donate_interface-error-msg-cvv' => 'Prüfnummer',
+	'donate_interface-error-msg-account_name' => 'Kontennamen',
+	'donate_interface-error-msg-account_number' => 'Kontonummer',
+	'donate_interface-error-msg-authorization_id' => 'Autorisierungskennung',
+	'donate_interface-error-msg-bank_check_digit' => 'Bankprüfziffer',
+	'donate_interface-error-msg-bank_code' => 'Bankleitzahl',
+	'donate_interface-error-msg-branch_code' => 'Filialleitzahl',
 	'donate_interface-error-msg-captcha' => 'Der eingegebene Bestätigungscode ist falsch. Bitte versuchen Sie es erneut.',
 	'donate_interface-error-msg-captcha-please' => 'Bitte geben Sie den Sicherheitscode ein, um zu bestätigen, dass Sie ein Mensch und kein Bot sind.',
 	'donate_interface-error-msg-cookies' => 'Bitte aktivieren Sie Cookies in Ihrem Browser.',
@@ -7085,8 +7126,11 @@ $messages['el'] = array(
 
 /** British English (British English)
  * @author Reedy
+ * @author Shirayuki
+ * @author Thehelpfulone
  */
 $messages['en-gb'] = array(
+	'donate_interface-error-msg-authorization_id' => 'Authorisation ID',
 	'donate_interface-cvv-explain' => '<h4>What is CVV?</h4>
 <p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorised or fraudulent use.</p>
 <h4>Visa, Mastercard</h4>
@@ -7095,6 +7139,15 @@ Typically the signature panel will have a series of numbers, but only the last t
 <h4>American Express</h4>
 <p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.
 In some instances, the code is located on the left side of the card, but is always above the account number.</p><br />',
+	'donate_interface-company-name' => 'Company or organisation name',
+	'donate_interface-cardholders-name' => "Cardholder's name",
+	'donate_interface-cc-MX-instructions' => 'For security, some Mexican banks block online transactions. If your donation is not successful, we suggest you call your bank to authorise the online donation and try again.',
+	'donate_interface-sofortbanking' => 'Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the "Donate by manual bank transfer" option on the main donation page.',
+	'donate_interface-dd-authorization_id' => 'Authorisation ID',
+	'donate_interface-email-unsub-delay' => 'Please allow up to four (4) days for the changes to take effect. We apologise for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>',
+	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
+	'donate_interface-bank_transfer_message' => "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.",
+	'donate_interface-legal-donorpolicy' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone.',
 );
 
 /** Esperanto (Esperanto)
@@ -9358,6 +9411,7 @@ Aucun processeur n’est disponible.',
 	'donate_interface-error-msg-general' => 'Une erreur est survenue lors du traitement de votre requête.',
 	'donate_interface-error-msg-nopaypal' => 'En raison d’un problème technique, nous ne pouvons pas envoyer votre requête à PayPal. Veuillez essayer notre formulaire classique de don par carte bancaire ou de crédit.',
 	'donate_interface-error-msg' => 'Veuillez entrer votre $1',
+	'donate_interface-error-msg-field-correction' => 'Veuillez corriger les erreurs dans votre $1',
 	'donate_interface-error-msg-js' => 'Veuillez entrer votre',
 	'donate_interface-error-msg-validation' => 'Veuillez corriger les erreurs dans le formulaire.',
 	'donate_interface-error-msg-invalid-amount' => 'Veuillez entrer un montant valide',
@@ -9381,6 +9435,12 @@ Aucun processeur n’est disponible.',
 	'donate_interface-error-msg-card_num' => 'numéro de carte bancaire ou de crédit',
 	'donate_interface-error-msg-expiration' => 'date d’expiration de la carte',
 	'donate_interface-error-msg-cvv' => 'le CVV situé au dos de votre carte',
+	'donate_interface-error-msg-account_name' => 'Nom de compte',
+	'donate_interface-error-msg-account_number' => 'Numéro de compte',
+	'donate_interface-error-msg-authorization_id' => 'ID d’autorisation',
+	'donate_interface-error-msg-bank_check_digit' => 'Chiffre de vérification bancaire',
+	'donate_interface-error-msg-bank_code' => 'Code de tri',
+	'donate_interface-error-msg-branch_code' => 'Code de guichet',
 	'donate_interface-error-msg-captcha' => 'La valeur de CAPTCHA que vous avez entrée est incorrecte. Veuillez réessayer.',
 	'donate_interface-error-msg-captcha-please' => 'Pour la sécurité de votre carte bancaire ou de crédit, veuillez saisir les caractères affichés ci-dessus.',
 	'donate_interface-error-msg-cookies' => 'Veuillez activer les cookies dans votre navigateur.',
@@ -10198,8 +10258,14 @@ $messages['gl'] = array(
 	'donate_interface-error-msg-card_num' => 'número da tarxeta de crédito',
 	'donate_interface-error-msg-expiration' => 'data de caducidade da tarxeta',
 	'donate_interface-error-msg-cvv' => 'número CVV (código de seguridade) da parte traseira da túa tarxeta',
-	'donate_interface-error-msg-captcha' => 'O valor do Captcha que escribiu é incorrecto. Inténteo de novo.',
-	'donate_interface-error-msg-captcha-please' => 'Encha o formulario do Captcha para demostrar que non é un bot.',
+	'donate_interface-error-msg-account_name' => 'Nome da conta',
+	'donate_interface-error-msg-account_number' => 'Número da conta',
+	'donate_interface-error-msg-authorization_id' => 'ID da autorización',
+	'donate_interface-error-msg-bank_check_digit' => 'Díxito de control bancario',
+	'donate_interface-error-msg-bank_code' => 'Código de ordenación',
+	'donate_interface-error-msg-branch_code' => 'Código da sucursal',
+	'donate_interface-error-msg-captcha' => 'O valor do CAPTCHA que escribiches é incorrecto. Inténtao de novo.',
+	'donate_interface-error-msg-captcha-please' => 'Pola seguridade da túa tarxeta de crédito, insire os caracteres que ves na caixa superior.',
 	'donate_interface-error-msg-cookies' => 'Activa as cookies do teu navegador.',
 	'donate_interface-error-msg-genaricrequired' => 'Este campo é obrigatorio',
 	'donate_interface-error-msg-country-calc' => 'Erro: Non é posible aceptar a túa doazón neste momento.',
@@ -14140,6 +14206,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-general' => '要求の処理中にエラーが発生しました。',
 	'donate_interface-error-msg-nopaypal' => '技術的なエラーが発生したため、PayPalに要求を送信できませんでした。通常のクレジットカードの寄付フォームを利用してみてください。',
 	'donate_interface-error-msg' => '以下の項目は必須です: $1',
+	'donate_interface-error-msg-field-correction' => '$1に誤りがあります。修正してください',
 	'donate_interface-error-msg-js' => '以下の項目を入力してください',
 	'donate_interface-error-msg-validation' => 'フォーム内のエラーを修正してください。',
 	'donate_interface-error-msg-invalid-amount' => '有効な金額を入力してください',
@@ -14163,6 +14230,12 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-card_num' => 'クレジットカード番号',
 	'donate_interface-error-msg-expiration' => 'カードの有効期限',
 	'donate_interface-error-msg-cvv' => 'カード裏面に記載されているカード照合番号',
+	'donate_interface-error-msg-account_name' => '口座名義',
+	'donate_interface-error-msg-account_number' => '口座番号',
+	'donate_interface-error-msg-authorization_id' => '認証ID',
+	'donate_interface-error-msg-bank_check_digit' => '銀行のチェックディジット',
+	'donate_interface-error-msg-bank_code' => 'ソートコード (Sort Code)',
+	'donate_interface-error-msg-branch_code' => '支店コード',
 	'donate_interface-error-msg-captcha' => '入力されたCAPTCHAの値が間違っています。もう一度やり直してください。',
 	'donate_interface-error-msg-captcha-please' => 'クレジットカードの安全のため、上に示されている文字を入力してください。',
 	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
@@ -18096,6 +18169,7 @@ $messages['mk'] = array(
 	'donate_interface-error-msg-general' => 'Се појави грешка при обработката на вашето барање.',
 	'donate_interface-error-msg-nopaypal' => 'Поради техничка грешка, не можеме да го испратиме вашето барање во PayPal. Наместо ова, послужете се со образецот за дарување со кредитна картичка.',
 	'donate_interface-error-msg' => 'Внесете $1',
+	'donate_interface-error-msg-field-correction' => 'Исправете ги грешките во: $1',
 	'donate_interface-error-msg-js' => 'Внесете',
 	'donate_interface-error-msg-validation' => 'Исправете ги грешките во образецот.',
 	'donate_interface-error-msg-invalid-amount' => 'Внесете правилен износ',
@@ -18119,6 +18193,12 @@ $messages['mk'] = array(
 	'donate_interface-error-msg-card_num' => 'број на кредитната картичка',
 	'donate_interface-error-msg-expiration' => 'кога истекува картичката',
 	'donate_interface-error-msg-cvv' => 'CVV-бројот од опачината на картичката',
+	'donate_interface-error-msg-account_name' => 'Име на сметката',
+	'donate_interface-error-msg-account_number' => 'Број на сметката',
+	'donate_interface-error-msg-authorization_id' => 'Назнака за овластување',
+	'donate_interface-error-msg-bank_check_digit' => 'Контролна цифра на банката',
+	'donate_interface-error-msg-bank_code' => 'Подред. код',
+	'donate_interface-error-msg-branch_code' => 'Код на филијалата',
 	'donate_interface-error-msg-captcha' => 'Внесената вредност во Captcha е неточна. Обидете се повторно.',
 	'donate_interface-error-msg-captcha-please' => 'Пополнете го образецот на Captcha за да докажете дека не сте бот.',
 	'donate_interface-error-msg-cookies' => 'Овозможете колачиња во прелистувачот.',

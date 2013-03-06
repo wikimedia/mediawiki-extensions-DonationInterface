@@ -284,6 +284,14 @@ $messages['el'] = array(
 	'globalcollect_gateway-response-21000155' => 'Μη έγκυρος κωδικός τράπεζας.',
 );
 
+/** British English (British English)
+ * @author Shirayuki
+ */
+$messages['en-gb'] = array(
+	'globalcollect_gateway-response-430360' => 'The transaction could not be authorised. Please try a different card or one of our other payment methods.',
+	'globalcollect_gateway-response-430285' => 'The transaction could not be authorised. Please try a different card or one of our other payment methods.',
+);
+
 /** Esperanto (Esperanto)
  * @author Yekrats
  */
