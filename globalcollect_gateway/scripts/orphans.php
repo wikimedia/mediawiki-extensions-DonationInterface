@@ -6,7 +6,7 @@
 
 $IP = getenv( 'MW_INSTALL_PATH' );
 if ( $IP === false ) {
-	$IP = dirname( _FILE_ ) . '/../../../..';
+	$IP = __DIR__ . '/../../../..';
 }
 
 //If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
