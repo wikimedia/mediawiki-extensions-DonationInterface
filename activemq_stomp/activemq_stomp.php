@@ -97,7 +97,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 	$result = $con->send( "/queue/$queueName", $message, $properties );
 
 	if ( !$result ) {
-		wfDebugLog( 'activemq_stomp', "Send to $queueName failed for this message: $message" );
+		throw new Exception( "Send to $queueName failed for this message: $message" );
 	}
 
 	$con->disconnect();

@@ -1776,7 +1776,9 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( !$this->getGlobal( 'EnableStomp' ) ){
 			return;
 		}
-		$this->debugarray[] = "Attempting Stomp Transaction!";
+
+		// send the thing.
+		$transaction = $this->getStompTransaction();
 
 		$queue = 'default';
 
@@ -1793,17 +1795,14 @@ abstract class GatewayAdapter implements GatewayType {
 
 			default:
 				// No action
-				self::log( "STOMP transaction has no place to go for status $status :(", LOG_CRIT );
+				self::log( $this->getLogMessagePrefix() . "STOMP transaction has no place to go for status $status :( " . json_encode( $transaction ), LOG_CRIT );
 				return;
 		}
-
-		// send the thing.
-		$transaction = $this->getStompTransaction();
 
 		try {
 			wfRunHooks( 'gwStomp', array( $transaction, $queue ) );
 		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
+			self::log( $this->getLogMessagePrefix() . "STOMP ERROR. Could not add message to '{$queue}' queue: {$e->getMessage()} " . json_encode( $transaction ) , LOG_CRIT );
 		}
 	}
 	
@@ -1830,7 +1829,7 @@ abstract class GatewayAdapter implements GatewayType {
 		try {
 			wfRunHooks( 'gwStomp', array( $transaction, 'limbo' ) );
 		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
+			self::log( $this->getLogMessagePrefix() . "STOMP ERROR. Could not add message to 'limbo' queue: {$e->getMessage()} " . json_encode( $transaction ) , LOG_CRIT );
 		}
 	}
 
