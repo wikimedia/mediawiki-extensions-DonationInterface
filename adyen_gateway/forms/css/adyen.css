@@ -179,10 +179,6 @@ input.fullwidth {
 	width: 285px;
 }
 
-input.leftmar {
-	margin-left: 4px;
-}
-
 input#city.halfwidth.state {
 	width:134px;
 }
