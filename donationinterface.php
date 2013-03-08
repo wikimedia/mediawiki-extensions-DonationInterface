@@ -861,8 +861,13 @@ $wgResourceModules['iframe.liberator'] = array(
 	'scripts' => 'iframe.liberator.js',
 	'position' => 'top'
 	) + $wgResourceTemplate;
+
 $wgResourceModules['donationInterface.skinOverride'] = array(
-	'styles' => 'skinOverride.css',
+	'scripts' => 'js/skinOverride.js',
+	'styles' => array(
+		'css/gateway.css',
+		'css/skinOverride.css',
+	),
 	'position' => 'top'
 	) + $wgResourceTemplate;
 
@@ -938,7 +943,7 @@ $wgResourceModules[ 'di.form.core.minimums' ] = array(
 // form validation resource
 $wgResourceModules[ 'di.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
-	'dependencies' => array( 'pfp.form.core.pfp_css', 'di.form.core.minimums', 'ext.donationInterface.errorMessages' ),
+	'dependencies' => array( 'di.form.core.minimums', 'ext.donationInterface.errorMessages' ),
 	'localBasePath' => $donationinterface_dir . 'modules',
 	'remoteExtPath' => 'DonationInterface/modules'
 );
@@ -984,14 +989,6 @@ $wgResourceModules[ 'pfp.form.core.api' ] = array(
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
 
-// Logo link override
-//TODO: Move this somewhere gateway-agnostic.
-$wgResourceModules[ 'pfp.core.logolink_override' ] = array(
-	'scripts' => 'logolink_override.js',
-	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
-
-);
 
 // Load the interface messages that are shared across multiple gateways
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
