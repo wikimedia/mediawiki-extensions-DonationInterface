@@ -33,8 +33,6 @@ class PaypalGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
-		
 		//no longer letting people in without these things. If this is 
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
@@ -49,11 +47,6 @@ class PaypalGatewayResult extends GatewayForm {
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
-		// XXX resourceloader?
-		$wgOut->addExtensionStyle(
-			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
-			$this->adapter->getGlobal( 'CSSVersion' ) );
-
 		$this->setHeaders();
 		
 		if ( $this->adapter->checkTokens() ) {
@@ -64,16 +57,16 @@ class PaypalGatewayResult extends GatewayForm {
 				switch ( $this->adapter->getTransactionWMFStatus() ) {
 				case 'complete':
 				case 'pending':
-					$wgOut->redirect( $this->adapter->getThankYouPage() );
+					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 					return;
 				}
 			}
-			$wgOut->redirect( $this->adapter->getFailPage() );
+			$this->getOutput()->redirect( $this->adapter->getFailPage() );
 */
-			$wgOut->redirect( $this->adapter->getThankYouPage() );
+			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 		} else {
 			$this->adapter->log("Resultswitcher: Token Check Failed. Order ID: $oid");
-			$wgOut->redirect( $this->adapter->getFailPage() );
+			$this->getOutput()->redirect( $this->adapter->getFailPage() );
 		}
 	}
 
