@@ -40,6 +40,14 @@ $messages['br'] = array(
 	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon', # Fuzzy
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'paypalgateway' => 'Rhoddwch nawr',
+	'paypal_gateway-desc' => 'Prosesu taliad PayPal',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
