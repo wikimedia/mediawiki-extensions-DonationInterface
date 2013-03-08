@@ -429,6 +429,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
 	'donate_interface-currency-change' => 'Change?',
 	'donate_interface-bank_transfer_message' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.',
+	'donate_interface-globalcollect-proxy' => 'Please notice that your statement will show \'Global Collect\' as the recipient of this gift. Global Collect is authorized to accept and process payments on behalf of Wikimedia Foundation.',
 
 	// Tax deductibility and other legalese
 	'donate_interface-taxded-link-int' => 'Tax and other legal information',
@@ -922,6 +923,8 @@ See [[w:en:Check_digit]] for explanation of Check Digit.
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
 	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
 	'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
+	'donate_interface-globalcollect-proxy' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
+
 	'donate_interface-taxded-link-int' => 'Link to information about tax deductibility and other legal information, to be used outside of the U.S.',
 	'donate_interface-taxded-link-us' => 'Link to information about tax deductibility, to be used inside of the U.S.',
 	'donate_interface-taxded-msg-int' => 'Legal information shown to international donors.',

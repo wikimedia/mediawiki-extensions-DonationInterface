@@ -146,6 +146,10 @@ p#informationsharing, p#monthlycancel {
     font-size: 11px;
 }
 
+p.finePrint {
+	font-size: 11px;
+}
+
 /*
 	The following should be in form css and not the gateway common css.
 	Commenting out due to conflicts, but leaving so that if it does break something,
