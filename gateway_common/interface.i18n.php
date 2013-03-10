@@ -924,7 +924,6 @@ See [[w:en:Check_digit]] for explanation of Check Digit.
 	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
 	'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
 	'donate_interface-globalcollect-proxy' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
-
 	'donate_interface-taxded-link-int' => 'Link to information about tax deductibility and other legal information, to be used outside of the U.S.',
 	'donate_interface-taxded-link-us' => 'Link to information about tax deductibility, to be used inside of the U.S.',
 	'donate_interface-taxded-msg-int' => 'Legal information shown to international donors.',
@@ -4602,9 +4601,26 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 
 /** Sorani Kurdish (کوردی)
  * @author Asoxor
+ * @author Calak
  */
 $messages['ckb'] = array(
 	'donate_interface' => 'پشتگیریی ویکیمیدیا بکە',
+	'donate_interface-EUR' => 'یورۆ',
+	'donate_interface-RUB' => 'ڕوبلی ڕووسی',
+	'donate_interface-USD' => 'دۆلاری ئەمریکی',
+	'donate_interface-donor-lname' => 'دواناو:',
+	'donate_interface-donor-street-number' => 'ژمارە',
+	'donate_interface-donor-city' => 'شار:',
+	'donate_interface-donor-county' => 'شارستان',
+	'donate_interface-donor-zone' => 'ناوچە',
+	'donate_interface-donor-address' => 'ناونیشان',
+	'donate_interface-error-msg-emailAdd' => 'ناونیشانی ئیمەیل',
+	'donate_interface-error-msg-lname' => 'دواناو:',
+	'donate_interface-error-msg-city' => 'شار:',
+	'donate_interface-other' => 'دیکە',
+	'donate_interface-title' => 'سەردێڕ',
+	'donate_interface-optional' => 'دڵخوازانە',
+	'donate_interface-monthly-short' => 'مانگانە',
 );
 
 /** Czech (česky)
@@ -5189,6 +5205,7 @@ $messages['cy'] = array(
 	'donate_interface-error-msg-general' => 'Cafwyd gwall wrth drin eich cais.',
 	'donate_interface-error-msg-nopaypal' => 'O ganlyniad i wall technegol, ni allwn anfon eich cais i PayPal. Os gwelwch yn dda ceisiwch ddefnyddio ein ffurflen rhoi â cherdyn credyd.',
 	'donate_interface-error-msg' => "Rhaid rhoi'r wybodaeth ganlynol: $1",
+	'donate_interface-error-msg-field-correction' => 'Cywirwch y camgymeriadau yn y blwch hwn: $1',
 	'donate_interface-error-msg-js' => "Rhaid rhoi'r wybodaeth ganlynol:",
 	'donate_interface-error-msg-validation' => 'Cywirwch y gwallau yn y ffurflen.',
 	'donate_interface-error-msg-invalid-amount' => 'Gofalwch osod swm dilys',
@@ -5215,6 +5232,7 @@ $messages['cy'] = array(
 	'donate_interface-error-msg-account_name' => "Enw'r cyfrif",
 	'donate_interface-error-msg-account_number' => 'Rhif y cyfrif',
 	'donate_interface-error-msg-authorization_id' => 'ID awdurdodi',
+	'donate_interface-error-msg-bank_check_digit' => 'Digid gwiriad y banc',
 	'donate_interface-error-msg-bank_code' => 'Cod Didoli',
 	'donate_interface-error-msg-branch_code' => 'Côd y gangen',
 	'donate_interface-error-msg-captcha' => "Mae'r hyn a roesoch yn y blwch Captcha yn anghywir. Ceisiwch eto os gwelwch yn dda.",
@@ -5381,7 +5399,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 	'donate_interface-dd-account_name' => "Enw'r cyfrif",
 	'donate_interface-dd-account_number' => 'Rhif y cyfrif',
 	'donate_interface-dd-authorization_id' => 'ID awdurdodi',
-	'donate_interface-dd-bank_check_digit' => 'Digid gwiriad banc',
+	'donate_interface-dd-bank_check_digit' => 'Digid gwiriad y banc',
 	'donate_interface-dd-bank_code' => 'Cod Didoli',
 	'donate_interface-dd-bank_name' => "Enw'r banc",
 	'donate_interface-dd-branch_code' => 'Côd y gangen',
@@ -5404,6 +5422,7 @@ Er mwyn darparu profiad diogel, sicr a dymunol, mae'n rhaid defnyddio JavaScript
 	'donate_interface-informationsharing' => "Wrth roi, rydych yn trosglwyddo manylion amdanoch i Sefydliad Wikimedia, sef y sefydliad di-elw sy'n gwesteia Wikipedia a phrosiectau eraill Wikimedia, ac i ddarparwyr gwasanaethau i Sefydliad Wikimedia yn UDA a mannau eraill a hynny'n unol â'n polisi preifatrwydd noddwyr. Nid ydym yn gwerthu eich manylion nac yn eu masnachu â neb. Am ragor o wybodaeth darllenwch <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">ein polisi preifatrwydd</a>.",
 	'donate_interface-currency-change' => 'Newid?',
 	'donate_interface-bank_transfer_message' => "Sylwer y bydd eich cyfriflen banc yn cofnodi'r rhodd fel taliad i 'Global Collect'. Mae Sefydliad Wicifryngau wedi awdurdodi Global Collect i dderbyn taliadau a'u prosesu ar eu rhan. Cofiwch gynnwys y cyfeirnod a ddangosir yma ar eich trosglwyddiad banc. Os oes cwestiynau neu bryderon gennych, mae croeso i chi anfon e-bost at donations@wikimedia.org.",
+	'donate_interface-globalcollect-proxy' => "Sylwer y bydd eich cyfriflen yn dangos mai 'Global Collect' sydd wedi derbyn y rhodd hon. Mae Global Collect wedi cael eu hawdurdodi i dderbyn taliadau a'u prosesu ar ran Sefydliad Wicifryngau.",
 	'donate_interface-taxded-link-int' => 'Gwybodaeth am dreth a chyfraith',
 	'donate_interface-taxded-link-us' => 'Gwybodaeth didynnu treth',
 	'donate_interface-taxded-msg-int' => "Elusen di-elw yw Sefydliad Wikimedia, wedi ei sefydlu yn yr Unol Daleithiau yn ôl Adran 501(c)(3) o'r US IRS Code, ac, oherwydd hynny, gall rhoddion oddi wrth unigolion neu sefydliadau sydd ar dir yr Unol Daleithiau gael eu didynnu wrth gyfrif treth. Nid yw rhoddion oddi wrth unigolion neu sefydliadau o'r tu allan i'r Unol Daleithiau yn debyg o allu cael eu didynnu oddi wrth gyfrif treth yn yr Unol Daleithiau; yn yr achosion hyn, dylai rhoddwyr ofyn am gyngor yn eu bro. Mae'n bwysig nodi nad yw Wikimedia yn ceisio codi arian oddi wrth unigolion na sefydliadau mewn unrhyw diriogaeth lle mae'r awdurdodau naill ai: 
@@ -6204,6 +6223,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-informationsharing' => 'Sie geben Ihre Informationen der Wikimedia Foundation preis, der Non-Profit-Organisation, die Wikipedia und andere Wikimedia-Projekte betreibt. Die Service-Provider in den USA und sonstigen Ländern entsprechen unseren Spenderdatenschutzrichtlinien. Wir verkaufen oder handeln nicht mit Ihren Daten. Für weitere Informationen lesen Sie bitte <a href="//wikimediafoundation.org/wiki/Donor_policy/de">unsere Spenderdatenschutzrichtlinien</a>.',
 	'donate_interface-currency-change' => 'Ändern?',
 	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie bitte eine E-Mail an donations@wikimedia.org.',
+	'donate_interface-globalcollect-proxy' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten.',
 	'donate_interface-taxded-link-int' => 'Steuer- und andere Rechtsinformationen',
 	'donate_interface-taxded-link-us' => 'Information über die steuerliche Absetzbarkeit',
 	'donate_interface-taxded-msg-int' => 'Die Wikimedia Foundation ist eine gemeinnützige Organisation, die in den USA nach den Vorgaben des „US IRS Code, Absatz 501(c)(3)“ gegründet wurde. Daher sind Spenden von Personen oder Organisationen aus den Vereinigten Staaten möglicherweise steuerlich absetzbar. Spenden von Personen oder Organisationen außerhalb der Vereinigten Staaten sind in den Vereinigten Staaten und anderen Staaten möglicherweise nicht steuerlich absetzbar. In diesen Fällen sollten sich die Spender vor Ort steuerlichen Rat einholen. Wikimedia strebt keine Spenden von Personen oder Organisationen an, die sich in Staaten befinden, deren Rechtsprechung Spendenaktionen internationaler gemeinnütziger Organisationen wie der Wikimedia Foundation verbietet oder beschränkt, oder in denen Schenkungssteuern auf Spenden an solche internationalen gemeinnützigen Organisationen erhoben werden.',
@@ -7156,6 +7176,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 	'donate_interface-email-unsub-delay' => 'Please allow up to four (4) days for the changes to take effect. We apologise for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>',
 	'donate_interface-informationsharing' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
 	'donate_interface-bank_transfer_message' => "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.",
+	'donate_interface-globalcollect-proxy' => "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation.",
 	'donate_interface-legal-donorpolicy' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone.',
 );
 
@@ -10463,6 +10484,7 @@ Para proporcionarche unha experiencia segura e agradable, o noso formulario de d
 	'donate_interface-informationsharing' => 'Ao realizar unha doazón, compartes a túa información coa Fundación Wikimedia, a organización sen fins de lucro que aloxa a Wikipedia e outros proxectos, e cos seus provedores de servizos nos EUA e outros lugares conforme á nosa política de protección de datos. Non vendemos nin comerciamos coa túa información. Se queres obter máis información lee a nosa <a href="//wikimediafoundation.org/wiki/Donor_policy/en">política de protección de datos</a>.',
 	'donate_interface-currency-change' => 'Cambiar?',
 	'donate_interface-bank_transfer_message' => 'Ten en conta que a túa declaración mostrará "Global Collect" como destinatario do agasallo. Global Collect está autorizado para aceptar e procesar os pagamentos en nome da Fundación Wikimedia. Lembra incluír o número de referencia proporcionado aquí na túa transferencia bancaria e síntete libre de enviar un correo a donations@wikimedia.org se tes calquera pregunta ou dúbida.',
+	'donate_interface-globalcollect-proxy' => 'Ten en conta que a túa declaración mostrará "Global Collect" como destinatario do agasallo. Global Collect está autorizado para aceptar e procesar os pagamentos en nome da Fundación Wikimedia.',
 	'donate_interface-taxded-link-int' => 'Taxas e outra información legal',
 	'donate_interface-taxded-link-us' => 'Información de desgravación fiscal',
 	'donate_interface-taxded-msg-int' => 'A Fundación Wikimedia é unha organización sen fins de lucro establecida nos Estados Unidos de América baixo a sección 501(c)(3) do código federal de impostos e, por este motivo, as doazóns procedentes de persoas ou entidades localizadas nos EUA poden beneficiarse da desgravación fiscal. As doazóns procedentes de persoas ou entidades localizadas fóra dos EUA poden non beneficiarse da desgravación fiscal nos EUA e outros lugares; nestes casos, os doantes deben buscar consello fiscal local. É importante saber que a Wikimedia non busca doazóns de persoas ou entidades localizadas en xurisdicións que prohiban ou restrinxan as actividades de recadación de fondos feitas por organizacións como a Wikimedia ou que apliquen taxas sobre as doazóns feitas a estas organizacións internacionais.',
@@ -18399,6 +18421,7 @@ $messages['mk'] = array(
 	'donate_interface-informationsharing' => 'Давајќи го овој прилог, вие ги споделувате информациите со Фондацијата Викимедија, непрофитната организација која раководи со Википедија и другите Викимедиини проекти, и нејзините услужители во САД и на други места, согласно нашите правила за приватност на дарителите. Ние не ги продаваме или разменуваме вашите информации со никого. Повеќе на страницата за <a href="//wikimediafoundation.org/wiki/Donor_policy/mk?uselang=mk">правила за дарителите</a>.',
 	'donate_interface-currency-change' => 'Друга валута?',
 	'donate_interface-bank_transfer_message' => 'На банковниот извештај ќе ви се појави „Global Collect“ како примач на подарокот. Global Collect е овластен да прифаќа и обработува плаќања во име на Фондацијата Викимедија. Не заборавајте во плаќањето (трансферот) да ја наведете и прикажаната назнака. Доколку имате прашања и поплаки, слободно обратете ни се на адресата donations@wikimedia.org.',
+	'donate_interface-globalcollect-proxy' => 'На потврдата ќе се стои „Global Collect“ како примач на подарокот. „Global Collect“ се овластени да ги обработуваат уплатите во име на Фондацијата Викимедија.',
 	'donate_interface-taxded-link-int' => 'Даноци и други правни информации',
 	'donate_interface-taxded-link-us' => 'Информации за даночното олеснување',
 	'donate_interface-taxded-msg-int' => 'Фондацијата Викимедија е непрофитна добротворна организација основана во САД согласно  „Законскиот правилник на Даночната управа на САД, Оддел 501(c)(3)“, и, од тие причини, доброволните прилози од физички и правни лица сместени во САД подлежат на даночно олеснување. Прилозите од лица вон САД може да не се подобни за даночно олеснување во САД или на друго место; во тие случаи, дарителите треба да се консултираат локално. Важно е да се напомене дека Викимедија не бара прилозиз од физички или правни лица сместени во државите каде ваквото прибирање на средства од страна на меѓународни добротворни организации како Викимедија е ограничено или забрането или каде ваквите прилози се оданочуваат.',
@@ -22784,6 +22807,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 );
 
 /** Brazilian Portuguese (português do Brasil)
+ * @author Adamw
  * @author Giro720
  * @author GoEThe
  * @author Jsoby
@@ -22935,6 +22959,7 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-donor-security' => 'Código de segurança:',
 	'donate_interface-donor-submit' => 'Doar',
 	'donate_interface-donor-currency-msg' => 'Esta doação está se realizando em $1',
+	'donate_interface-donor-fiscal_number' => 'CPF',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
@@ -22942,6 +22967,7 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-error-msg-general' => 'Ocorreu um erro ao processar o seu pedido.',
 	'donate_interface-error-msg-nopaypal' => 'Devido a um erro técnico, não podemos enviar o seu pedido para o PayPal. Tente utilizar o nosso formulário normal para doações por cartão de crédito, por favor.',
 	'donate_interface-error-msg' => 'Por favor, introduza $1',
+	'donate_interface-error-msg-field-correction' => 'Por favor corrija os erros no $1',
 	'donate_interface-error-msg-js' => 'Por favor introduza',
 	'donate_interface-error-msg-validation' => 'Por favor corrija os erros no formulário.',
 	'donate_interface-error-msg-invalid-amount' => 'Por favor digite uma quantia válida',
@@ -22970,6 +22996,7 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-error-msg-cookies' => 'Por favor permitir cookies em seu navegador.',
 	'donate_interface-error-msg-genaricrequired' => 'Este campo é obrigatório',
 	'donate_interface-error-msg-country-calc' => 'Erro- não foi possivel aceitar sua  doação neste momento',
+	'donate_interface-error-msg-fiscal_number' => 'CPF',
 	'donate_interface-donate-error-try-a-different-card' => 'Por favor, [$1 teste com um cartão diferente] ou com uma das [$2 diferentes formas de doar] ou entre em contato conosco no endereço $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Obrigado pelo seu apoio!',
 	'php-response-declined' => 'Não foi possível aceitar a sua transação.',
@@ -23151,6 +23178,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-informationsharing' => 'Ao doar, você compartilha suas informações com a Wikimedia Foundation, a organização sem fins lucrativos que abriga o Wikipedia e outros projetos da Wikimedia, e seus provedores de serviço nos EUA e em todos os lugares, em relação à nossa <a href="//wikimediafoundation.org/wiki/Donor_policy/en">política de privacidade de doadores</a>. Não vendemos ou comercializamos nossas informações com ninguém',
 	'donate_interface-currency-change' => 'Alterar?',
 	'donate_interface-bank_transfer_message' => "Por favor, observe que o seu extrato mostrará 'Global Collect' como o destinatário da doação. Global Collect está autorizado a aceitar e processar pagamentos em nome da Fundação Wikimedia. Lembre-se de incluir o número de referência fornecido aqui em sua transferência bancária e esteja à vontade para contatar donations@wikimedia.org se você tiver dúvidas.",
+	'donate_interface-globalcollect-proxy' => "Por favor, observe que o seu extrato mostrará 'Global Collect' como o destinatário da doação. Global Collect está autorizado a aceitar e processar pagamentos em nome da Fundação Wikimedia.",
 	'donate_interface-taxded-link-int' => 'Impostos e outras informações legais',
 	'donate_interface-taxded-link-us' => 'Informação sobre dedução fiscal',
 	'donate_interface-taxded-msg-int' => 'A Wikimedia Foundation é uma instituição de caridade sem fins lucrativos, estabelecida nos EUA sob a regulamentação US IRS Code Section 501(c)(3) e, por isso, as doações de pessoas ou entidades localizadas nos EUA podem se beneficiar do status de dedução fiscal. Doações de pessoas ou entidades localizadas fora dos EUA podem não ser elegíveis a deduções fiscais nos EUA e em outros lugares; nestes casos, os doadores devem buscar consultoria fiscal local.  Mais importante, a Wikimedia não busca doações de pessoas ou entidades localizadas em qualquer jurisdição que proíbe ou limita atividades de captação de fundos por instituições de caridade internacionais, como Wikimedia, ou aplica impostos sobre doações feitas para instituições de caridade locais.',
