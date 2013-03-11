@@ -157,8 +157,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $url;
 	protected $transactions;
 
-	public $non_fractional_currencies = array();
-
 	/**
 	 * $payment_methods will be defined by the adapter.
 	 *
@@ -269,9 +267,7 @@ abstract class GatewayAdapter implements GatewayType {
 				$external_data = $testData;
 			}
 		}
-		// these currencies cannot have cents.
-		$this->non_fractional_currencies = array( 'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF' );
-		
+
 		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 

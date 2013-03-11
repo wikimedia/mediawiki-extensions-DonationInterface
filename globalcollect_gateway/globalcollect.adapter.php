@@ -1886,7 +1886,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $type ) {
 			case 'request':
 				
-				if ( in_array( $this->staged_data['currency_code'], $this->non_fractional_currencies ) ) {
+				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {
 					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
 				}
 				
