@@ -636,7 +636,9 @@ class DonationData {
 			return;
 		}
 		
-		$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
+		if ( DataValidator::is_fractional_currency( $this->getVal( 'currency_code' ) ) ){
+			$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
+		}
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
 	}

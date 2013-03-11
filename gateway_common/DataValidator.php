@@ -961,4 +961,21 @@ class DataValidator {
 		}
 		return false;
 	}
+	
+	/**
+	 * More of a validation helper function. If an amount is ever expressed for 
+	 * the fractional currencies defined in this function,
+	 * they should not have an associated fractional amount (so: full integers only).
+	 * @param string $currency_code The three-digit currency code.
+	 * @return boolean
+	 */
+	public static function is_fractional_currency( $currency_code ){
+		// these currencies cannot have cents.
+		$non_fractional_currencies = array( 'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF' );
+		
+		if ( in_array( strtoupper( $currency_code ), $non_fractional_currencies ) ) {
+			return false;
+		}
+		return true;
+	}
 }
