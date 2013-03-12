@@ -643,7 +643,9 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 {{Identical|Security code}}',
 	'donate_interface-donor-submit' => '{{Identical|Donate}}',
 	'donate_interface-donor-currency-msg' => '* $1 is 3 letter currency code',
-	'donate_interface-donor-fiscal_number' => '{{Identical|Fiscal number}}',
+	'donate_interface-donor-fiscal_number' => "{{Identical|Fiscal number}}
+
+The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (Cadastro Nacional de Pessoas Jurídicas) number issued by the government of Brazil. As we only offer the 'Boletos' payment method in Brazil, which is what requires this, it probably only needs to be translated into Portuguese, Spanish, Italian, and German.",
 	'donate_interface-card-name-discover' => "Trademark name of credit card Discover®, '''not''' the verb \"to discover\".",
 	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
@@ -742,7 +744,9 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
 	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit',
 	'donate_interface-error-msg-country-calc' => 'This error message should only specify that we are unable to accept the donation at this time.',
-	'donate_interface-error-msg-fiscal_number' => '{{Identical|Fiscal number}}',
+	'donate_interface-error-msg-fiscal_number' => "{{Identical|Fiscal number}}
+
+The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (Cadastro Nacional de Pessoas Jurídicas) number issued by the government of Brazil. As we only offer the 'Boletos' payment method in Brazil, which is what requires this, it probably only needs to be translated into Portuguese, Spanish, Italian, and German.",
 	'donate_interface-donate-error-try-a-different-card' => 'This message will be displayed in the the article /index.php/Donate-error. Parameters:
 * $1 - link back to the form to try another credit card
 * $2 - link to other payment methods
@@ -20534,6 +20538,7 @@ $messages['nl'] = array(
 	'donate_interface-error-msg-cookies' => 'Activeer cookies in uw browser.',
 	'donate_interface-error-msg-genaricrequired' => 'Dit is een verplicht veld',
 	'donate_interface-error-msg-country-calc' => 'Fout. We kunnen uw gift op het moment niet accepteren.',
+	'donate_interface-error-msg-fiscal_number' => 'fiscaal nummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Gebruik alstublieft [$1 een andere kaart], een van onze [$2 andere manieren om te geven] of neem contact met ons op via $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Dank u wel voor uw steun!',
 	'php-response-declined' => 'Uw transactie kon niet geaccepteerd worden.',
@@ -28121,6 +28126,7 @@ För att tillhandahålla en säker, trygg och behaglig upplevelse, kräver vårt
 	'donate_interface-informationsharing' => 'Genom att donera delar du din information med Wikimedia Foundation, en ideell organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i USA och på andra håll i enlighet med vår sekretesspolicy för givaren. Vi säljer eller byter inte din information till någon. För mer information <a href="//wikimediafoundation.org/wiki/Donor_policy/en">läs våra givarpolicy</a>.',
 	'donate_interface-currency-change' => 'Ändra?',
 	'donate_interface-bank_transfer_message' => 'Observera att ert utdrag kommer att visa "Global Collect" som mottagare av denna gåva. Global Collect har befogats att acceptera och behandla betalningar på Wikimedia Foundations vägnar. Kom ihåg att inkludera referensnummer på utdraget på din banköverföring och kontakta gärna e-donations@wikimedia.org om du har några frågor eller problem.',
+	'donate_interface-globalcollect-proxy' => 'Observera att ditt kontobesked kommer att Visa "Global Collect" som mottagare av denna gåva. Global Collect har auktoriserats att acceptera och bearbeta betalningar å Wikimediastiftelsens vägnar.',
 	'donate_interface-taxded-link-int' => 'Skatt och annan juridisk information',
 	'donate_interface-taxded-link-us' => 'Information om avdragsgiltighet',
 	'donate_interface-taxded-msg-int' => 'Wikimedia Foundation är en ideell välgörenhetsorganisation etablerad i USA och under den Amerikanska skattelagstiftningen sektion 501(c)(3) kan donatorer i USA dra av gåvan från skattepliktig inkomst. Donationer från personer eller enheter som finns utanför Förenta staterna kanske inte kommer att vara berättigade till skatteavdrag i Förenta staterna och på andra håll. I sådana fall bör givare söka lokalt skatterådgivning. Wikimedia ber inte om donationer från personer eller enheter i någon jurisdiktion som förbjuder eller begränsar donationskampanjverksamhet genom internationella välgörenhetsorganisationer såsom Wikimedia, eller lägger på gåvoskatter på donationer till sådana internationella välgörenhetsorganisationer.',
