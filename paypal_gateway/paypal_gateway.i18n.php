@@ -107,7 +107,7 @@ $messages['fr'] = array(
  */
 $messages['gl'] = array(
 	'paypalgateway' => 'Fai a túa doazón agora',
-	'paypal_gateway-desc' => 'Procesamento de pagamentos de Paypal',
+	'paypal_gateway-desc' => 'Procesamento de pagamentos de PayPal',
 );
 
 /** Hebrew (עברית)
