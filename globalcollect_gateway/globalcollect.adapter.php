@@ -1313,6 +1313,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->unsetAllSessionData();
 					$add_antimessage = true;
 				} else {
+					$this->setTransactionWMFStatus( 'failed' );
 					$problemflag = true;
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
 				}
@@ -1504,11 +1505,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'DO_FINISHPAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
-				break;
-			case 'SET_PAYMENT':
-				if ( $this->getResponseStatus( $response ) ) {
-					$this->setTransactionWMFStatus( 'complete' );
-				}
 				break;
 		}
 
