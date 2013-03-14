@@ -926,8 +926,14 @@ See [[w:en:Check_digit]] for explanation of Check Digit.
 	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
 	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
-	'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
-	'donate_interface-globalcollect-proxy' => 'Message notifying donors that the recipient of the donation will show as Global Collect.',
+	'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.
+
+See also:
+* {{msg-mw|Donate interface-globalcollect-proxy}}',
+	'donate_interface-globalcollect-proxy' => 'Message notifying donors that the recipient of the donation will show as Global Collect.
+
+See also:
+* {{msg-mw|Donate interface-bank transfer message}}',
 	'donate_interface-taxded-link-int' => 'Link to information about tax deductibility and other legal information, to be used outside of the U.S.',
 	'donate_interface-taxded-link-us' => 'Link to information about tax deductibility, to be used inside of the U.S.',
 	'donate_interface-taxded-msg-int' => 'Legal information shown to international donors.',
@@ -14459,7 +14465,8 @@ $messages['ja'] = array(
 	'donate_interface-tax-info' => '税控除の情報',
 	'donate_interface-informationsharing' => '<a href="//wikimediafoundation.org/wiki/Donor_policy/ja">寄付者に対するプライバシーの方針</a>に準じ、寄付するということは、ウィキペディアその他のウィキペディアプロジェクトをホストしている非営利組織ウィキメディア財団および米国内外にある、そのサービスプロバイダと寄付者の情報を共有することになります。私たちは寄付者の情報を誰にも販売または誰とも交換しません',
 	'donate_interface-currency-change' => '変更しますか?',
-	'donate_interface-bank_transfer_message' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect (グローバルコレクト)」として表示されることをご承知おきください。Global Collect (グローバルコレクト) はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。銀行振り込みの際に、ここで表示されている参照番号を忘れずに入れてください。質問や懸念がある場合は、 donations@wikimedia.org までメールでお気軽にお問い合わせください。',
+	'donate_interface-bank_transfer_message' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect」(グローバルコレクト) として表示されることをご承知おきください。Global Collect (グローバルコレクト) はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。銀行振り込みの際に、ここで表示されている参照番号を忘れずに入れてください。質問や懸念がある場合は、 donations@wikimedia.org までメールでお気軽にお問い合わせください。',
+	'donate_interface-globalcollect-proxy' => 'あなたの取引明細には、 この寄付の受取者が「Global Collect」(グローバルコレクト) として表示されることをご承知おきください。Global Collect (グローバルコレクト) はウィキメディア財団への支払いを代行して受け付け、処理する権限を持っています。',
 	'donate_interface-taxded-link-int' => '税およびその他の法的な情報',
 	'donate_interface-taxded-link-us' => '税控除の情報',
 	'donate_interface-taxded-msg-int' => 'ウィキメディア財団は米国IRSコード501(c)(3)部に基づき設立された非営利慈善組織であるため、米国内の個人または団体からの寄付については、税控除の対象となる場合があります。米国外の個人または団体からの寄付は米国およびその他の国の税金控除の対象とならない場合があります。寄付者は地元の税金相談を受けてください。  重要なことには、ウィキメディアはウィキメディアのような国際慈善組織による募金活動を禁止または制限する、または当該の国際慈善組織への寄付に贈与税が課せられる管轄地内の個人または団体から寄付を求めることはありません。',
@@ -20374,7 +20381,7 @@ $messages['nl'] = array(
 	'donate_interface-comment-message' => 'Wilt u een gedachte delen met de wereld? Hieronder kunt u tot tweehonderd karakters kwijt:',
 	'donate_interface-comment-label' => 'Opmerking:',
 	'donate_interface-email-agreement' => 'Ik ga akkoord met het af en toe ontvangen van e-mails van de Wikimedia Foundation.',
-	'donate_interface-comment-title' => 'Publieke opmerking',
+	'donate_interface-comment-title' => 'Openbare reactie',
 	'donate_interface-donation-description' => 'Gift aan de Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Voer alstublieft een geldig bedrag in',
 	'donate_interface-smallamount-error' => 'U moet tenminste $1 bijdragen.',
