@@ -788,15 +788,17 @@ class DataValidator {
 		$sum = 0;
 
 		for( $i = 0; $i < strlen( $str ); $i++ ) {
-			$n = 0 + $str[$i];
-			$odd = !$odd;
-
-			if( $odd ) {
-				$sum += $n;
+			if ( $odd ) {
+				$sum += $str[$i];
 			} else {
-				$x = 2 * $n;
-				$sum += ($x > 9) ? ($x - 9) : $x;
+				if (( $str[$i] * 2 ) > 9 ) {
+					$sum += $str[$i] * 2 - 9;
+				} else {
+					$sum += $str[$i] * 2;
+				}
 			}
+
+			$odd = !$odd;
 		}
 		return( ( $sum % 10 ) == 0 );
 	}
