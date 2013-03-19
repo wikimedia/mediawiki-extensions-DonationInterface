@@ -394,6 +394,10 @@ class DataValidator {
 						break;
 					case 'validate_name':
 						$check_type = 'calculated';
+						break;
+					case 'validate_address':
+						$check_type = 'calculated';
+						break;
 				}
 				$instructions[$check_type][$field] = $function_name;
 			}
@@ -526,6 +530,9 @@ class DataValidator {
 				return 'validate_name';
 			case 'currency_code':
 				return 'validate_currency_code';
+			case 'city':
+			case 'street':
+				return 'validate_address';
 		}
 
 		if ( in_array( $field, self::getNumericFields() ) ){
@@ -550,6 +557,13 @@ class DataValidator {
 	protected static function validate_email( $value ){
 		// is email address valid?
 		$isEmail = Sanitizer::validateEmail( $value );
+		if ( $isEmail ) {
+			// Because people put CC numbers in this field too
+			$tmp = preg_replace( '/[^0-9]/', '', $value );
+			if ( is_numeric( $tmp ) ) {
+				$isEmail = !DataValidator::luhn_check( $value );
+			}
+		}
 		return $isEmail;
 	}
 	
@@ -765,9 +779,23 @@ class DataValidator {
 	 * on the name to make sure it's not actually a potentially valid CC number.
 	 *
 	 * @param string $value Ze name!
-	 * @returns boolean True if the name is not suspiciously like a CC number
+	 * @return boolean True if the name is not suspiciously like a CC number
 	 */
 	public static function validate_name( $value ) {
+		$value = preg_replace( '/[^0-9]/', '', $value );
+		if ( is_numeric( $value ) ) {
+			return !DataValidator::luhn_check( $value );
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Gets rid of numbers that pass luhn in address fields - @see validate_name
+	 * @param $value
+	 * @return bool True if suspiciously like a CC number
+	 */
+	public static function validate_address( $value ) {
 		$value = preg_replace( '/[^0-9]/', '', $value );
 		if ( is_numeric( $value ) ) {
 			return !DataValidator::luhn_check( $value );
