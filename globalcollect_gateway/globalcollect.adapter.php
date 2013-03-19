@@ -1691,6 +1691,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'MVR', // Maldives rufiyaa
 			'MXN', // Mexican peso
 			'MYR', // Malaysian ringgit
+			'NIO', // Nicaragua Cordoba
 			'NOK', // Norwegian krone
 			'NZD', // New Zealand dollar
 			'OMR', // Omani rial
