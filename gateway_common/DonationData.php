@@ -540,15 +540,18 @@ class DonationData {
 		if ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency', now: $currency" );
 		}
 		if ( $this->isSomething( 'currency_code' ) ) {
 			$currency = $this->getVal( 'currency_code' );
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency_code', now: $currency" );
 		}
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
 			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
 			$currency = getNationalCurrency($this->getVal('country'));
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'country', now: $currency" );
 		}
 		
 		$this->setVal( 'currency_code', $currency );
