@@ -7587,6 +7587,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Diego Grez
  * @author Drini
  * @author Fitoschido
+ * @author Glykanera
  * @author Jsoby
  * @author Locos epraix
  * @author McDutchie
@@ -7615,6 +7616,7 @@ $messages['es'] = array(
 	'donate_interface-comment-label' => 'Comentario:',
 	'donate_interface-email-agreement' => 'Estoy de acuerdo en recibir noticias por correo electrónico de la Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
+	'donate_interface-donation-description' => 'Donación a la Fundación Wikimedia',
 	'donate_interface-amount-error' => 'Introduce una cantidad válida',
 	'donate_interface-smallamount-error' => 'Debes contribuir con al menos $1',
 	'donate_interface-bigamount-error' => 'No podemos aceptar donaciones de más de 10000 USD ($1 $2) a través de nuestro sitio Web. Póngase en contacto con nuestro personal de grandes donaciones en $3 .',
@@ -7743,6 +7745,7 @@ $messages['es'] = array(
 	'donate_interface-donor-security' => 'Código de seguridad:',
 	'donate_interface-donor-submit' => 'Dona',
 	'donate_interface-donor-currency-msg' => 'Estad donación se está realizando en $1',
+	'donate_interface-donor-fiscal_number' => 'Número fiscal',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'MasterCard',
@@ -7750,6 +7753,7 @@ $messages['es'] = array(
 	'donate_interface-error-msg-general' => 'Hubo un error al procesar su solicitud.',
 	'donate_interface-error-msg-nopaypal' => 'Debido a un error técnico, no podemos enviar su solicitud a PayPal. Por favor, trate de usar nuestra formulario regular de donación con tarjeta de crédito.',
 	'donate_interface-error-msg' => 'Por favor, escribe tu $1',
+	'donate_interface-error-msg-field-correction' => 'Por favor, corrija los errores en su $1',
 	'donate_interface-error-msg-js' => 'Por favor, escribe tu',
 	'donate_interface-error-msg-validation' => 'Por favor, corrija los errores en el formulario.',
 	'donate_interface-error-msg-invalid-amount' => 'Por favor, escribe una cantidad válida',
@@ -7773,11 +7777,18 @@ $messages['es'] = array(
 	'donate_interface-error-msg-card_num' => 'número de tarjeta de crédito',
 	'donate_interface-error-msg-expiration' => 'fecha de vencimiento de la tarjeta',
 	'donate_interface-error-msg-cvv' => 'CVV del anverso de tu tarjeta',
+	'donate_interface-error-msg-account_name' => 'Nombre de cuenta',
+	'donate_interface-error-msg-account_number' => 'Número de cuenta',
+	'donate_interface-error-msg-authorization_id' => 'ID de autorización',
+	'donate_interface-error-msg-bank_check_digit' => 'Dígito de control del Banco',
+	'donate_interface-error-msg-bank_code' => 'Código del Banco',
+	'donate_interface-error-msg-branch_code' => 'Código de sucursal',
 	'donate_interface-error-msg-captcha' => 'El valor del captcha introducido es incorrecto. Por favor, inténtalo de nuevo.',
 	'donate_interface-error-msg-captcha-please' => 'Para la seguridad de su tarjeta de crédito, por favor escribe los caracteres que ves arriba.',
 	'donate_interface-error-msg-cookies' => 'Por favor, habilite las cookies en su navegador.',
 	'donate_interface-error-msg-genaricrequired' => 'Este campo es obligatorio',
 	'donate_interface-error-msg-country-calc' => 'Error - No es posible aceptar tu donación en este momento.',
+	'donate_interface-error-msg-fiscal_number' => 'número fiscal',
 	'donate_interface-donate-error-try-a-different-card' => 'Por favor [$1 probar una tarjeta diferente] o una de nuestras [$2 otras maneras de donar] o póngase en contacto con nosotros en $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Gracias por su apoyo!',
 	'php-response-declined' => 'Su transacción no puede ser aceptada.',
@@ -7928,6 +7939,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-bt-special_id' => 'Información específica de país',
 	'donate_interface-bt-information' => 'Información de transferencia bancaria',
 	'donate_interface-bt-finished' => 'Finalizada',
+	'donate_interface-obt-generic-name' => 'Transferencia bancaria por Internet',
 	'donate_interface-obt-biller_id' => 'Código de Facturador',
 	'donate_interface-obt-customer_payment_reference' => 'Referencia #',
 	'donate_interface-obt-information' => 'Información de la transferencia bancaria por Internet',
@@ -7961,6 +7973,7 @@ Para proporcionar una experiencia segura y agradable, nuestro formulario de dona
 	'donate_interface-informationsharing' => 'Al donar, esta compartiendo su información con la Fundación Wikimedia, la organización sin fines de lucro que alberga Wikipedia y otros proyectos de Wikimedia y sus proveedores de servicios en los Estados Unidos y en otros lugares conforme a nuestra política de privacidad de donantes. No venderemos ni comerciaremos su información con nadie. Para obtener más información, lea <a href="//wikimediafoundation.org/wiki/Donor_policy/en">nuestra política de donantes</a>.',
 	'donate_interface-currency-change' => 'Cambios',
 	'donate_interface-bank_transfer_message' => "Por favor tenga en cuenta que su declaración mostrará 'Global Collect' como el destinatario de este regalo. Global Collect está autorizado para aceptar y procesar los pagos en nombre de la Fundación Wikimedia. No olvide incluir el número de referencia que se muestra aquí en su transferencia bancaria y siéntase libre de enviarnos un correo electrónico a donations@wikimedia.org si tiene alguna pregunta o inquietud.",
+	'donate_interface-globalcollect-proxy' => 'Tenga en cuenta que el extracto bancario mostrará a "Global Collect" como destinatario de este regalo. Global Collect está autorizado para aceptar y procesar pagos en nombre de la Fundación Wikimedia.',
 	'donate_interface-taxded-link-int' => 'Impuestos e información legal',
 	'donate_interface-taxded-link-us' => 'Información de desgravación de impuestos',
 	'donate_interface-taxded-msg-int' => 'La Fundación Wikimedia es una organización de caridad sin fines de lucro establecida en Estados Unidos bajo la sección de código de IRS nos 501, y, por esa razón, donaciones de personas o entidades que se encuentran en los Estados Unidos pueden beneficiarse de estado deducibles de impuestos. Donaciones de personas o entidades situadas fuera de los Estados Unidos no pueden ser elegibles para las deducciones de impuestos en los Estados Unidos y en otros lugares; en tales casos, los donantes deben buscar asesoramiento impuesto local. Lo importante, Wikimedia no busca donaciones de personas o entidades que se encuentra en cualquier jurisdicción que prohíbe o restringe las actividades de recaudación de fondos por organizaciones benéficas internacionales como Wikimedia se aplica impuestos de regalo sobre las donaciones hechas a tales organizaciones benéficas internacionales.',
@@ -9285,6 +9298,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
 );
 
 /** French (français)
+ * @author Boniface
  * @author Crochet.david
  * @author DavidL
  * @author Erkethan
@@ -9321,7 +9335,7 @@ $messages['fr'] = array(
 	'donate_interface-donation-description' => 'Don à la Fondation Wikimédia',
 	'donate_interface-amount-error' => 'Veuillez entrer un montant valide',
 	'donate_interface-smallamount-error' => 'Vous devez contribuer au moins $1',
-	'donate_interface-bigamount-error' => 'Nous ne pouvons pas accepter les dons supérieurs à 10&nbsp;000 USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants adressé par courriel à $3.',
+	'donate_interface-bigamount-error' => "Nous ne pouvons pas accepter les dons supérieurs à 10&nbsp;000 USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter à l'adresse $3 notre équipe chargée des dons importants.",
 	'donate_interface-processing-error' => 'Une erreur est survenue lors du traitement de votre requête.
 Aucun processeur n’est disponible.',
 	'donate_interface-AED' => 'dirham des Émirats Arabes Unis',
@@ -9495,22 +9509,22 @@ Aucun processeur n’est disponible.',
 	'donate_interface-error-msg-genaricrequired' => 'Ce champ est obligatoire',
 	'donate_interface-error-msg-country-calc' => 'Erreur - Nous ne pouvons pas accepter votre don pour le moment.',
 	'donate_interface-error-msg-fiscal_number' => 'numéro fiscal',
-	'donate_interface-donate-error-try-a-different-card' => 'Veuillez [$1 essayer une autre carte] ou une de nos [$2 autres façons de donner] ou de communiquer avec nous à $3',
+	'donate_interface-donate-error-try-a-different-card' => 'Veuillez [$1 essayer une autre carte] ou l’une de nos [$2 autres façons de donner] ou bien nous contacter par courriel adressé à $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci pour votre soutien !',
 	'php-response-declined' => 'Votre transaction n’a pu être acceptée.',
 	'donate_interface-thankyou' => 'Merci pour votre don !',
 	'donate_interface-post-transaction' => 'Détails de la transaction',
 	'donate_interface-cvv-explain' => '<h4>Qu’est-ce que le CVV ?</h4>
-<p>La valeur de vérification de carte (CVV) : ces trois ou quatre chiffres permettent d’assurer que le détenteur de la carte physique a celle-ci en sa possession. Ceci aide à prévenir les usages frauduleux ou non autorisés.</p>
+<p>La valeur de vérification du détenteur de carte (CVV) : ces trois ou quatre chiffres permettent d’assurer que le détenteur de la carte physique a bien celle-ci en sa possession. Ceci aide à prévenir les usages frauduleux ou non autorisés.</p>
 <h4>Visa, Mastercard</h4>
 <p>Le code à trois chiffres est situé au verso de votre carte, dans la zone réservée à la signature.
-Typiquement, la zone pour la signature contient une série de nombres, mais seuls les trois derniers chiffres constituent le code CVV.</p>
+Typiquement, la zone pour la signature contient une série de chiffres, mais seuls les trois derniers chiffres constituent le code CVV.</p>
 <h4>American Express</h4>
-<p>Le code est <i>toujours</i> situé au recto de la carte, <i>au-dessus</i> du numéro (en relief) de compte.
+<p>Le code est <i>toujours</i> situé au recto de la carte, <i>au-dessus</i> du numéro de compte (en relief).
 Dans certains cas, le code est situé sur le côté gauche de la carte, mais il est toujours au-dessus du numéro de compte.</p><br />',
 	'donate_interface-question-comment' => 'Des questions ou commentaires ? Contactez : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => 'Nous nous efforçons de faciliter les dons des personnes de tous les pays. Veuillez nous faire savoir comment nous pourrions rendre cela encore plus facile pour vous. Envoyez vos suggestions à : problemsdonating@wikimedia.org.',
-	'donate_interface-problemsdonating' => 'Problèmes pour faire un don?',
+	'donate_interface-problemsdonating' => 'Problèmes pour faire un don ?',
 	'donate_interface-donate-click' => 'Votre carte bancaire ou de crédit/débit sera prise en charge de manière sécurisée.',
 	'donate_interface-otherways' => 'Il y a <a href="//wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’autres moyens de donner, notamment par PayPal, par chèque ou par courrier postal</a>.',
 	'donate_interface-otherways-alt' => 'Il y a <a href="//wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’autres moyens de donner</a>, notamment par chèque.',
@@ -9527,11 +9541,11 @@ Dans certains cas, le code est situé sur le côté gauche de la carte, mais il 
 	'donate_interface-middle' => 'Deuxième prénom',
 	'donate_interface-last' => 'Nom de famille',
 	'donate_interface-other' => 'Autre',
-	'donate_interface-noscript-msg' => 'Il semble que le JavaScript ne soit pas activé sur votre navigateur, ou alors il ne le supporte pas.
+	'donate_interface-noscript-msg' => 'Il semble que JavaScript ne soit pas activé sur votre navigateur, ou que ce dernier ne le supporte pas.
 Pour vous fournir une expérience sûre, sécurisée et agréable, notre formulaire de don nécessite JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Si vous ne pouvez pas ou ne voulez pas activer JavaScript, vous pouvez toujours contribuer en visitant :',
 	'donate_interface-anon-message' => 'Veuillez mentionner mon nom dans la liste publique des donateurs.',
-	'donate_interface-donate-wikipedia' => 'Faire un don sur Wikipédia',
+	'donate_interface-donate-wikipedia' => 'Faire un don à Wikipédia',
 	'donate_interface-or' => 'ou',
 	'donate_interface-your-information' => 'Vos informations',
 	'donate_interface-mailing-address' => 'Adresse postale',
@@ -9609,7 +9623,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-please-complete' => 'Veuillez compléter votre don ci-dessous...',
 	'donate_interface-description' => 'Description',
 	'donate_interface-donation' => 'Don',
-	'donate_interface-email-receipt' => 'Envoyer le courriel de reçu à',
+	'donate_interface-email-receipt' => 'Envoyer le reçu sous forme de courriel à',
 	'donate_interface-monthly-donation' => 'Faire un don mensuel',
 	'donate_interface-via-paypal' => '(via PayPal)',
 	'donate_interface-shirt-size' => 'Taille du t-shirt :',
@@ -9636,7 +9650,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-optional' => 'facultatif',
 	'donate_interface-state-dropdown-YY' => 'Sélectionnez un État / une province',
 	'donate_interface-state-dropdown-XX' => 'Hors des États-Unis',
-	'donate_interface-cc-MX-instructions' => "Par sécurité, certaines banques mexicaines bloquent les transactions en ligne. Si votre donation a échoué, nous vous suggérons d'appeler votre banque pour autoriser la donation en ligne, puis réessayer.",
+	'donate_interface-cc-MX-instructions' => 'Par sécurité, certaines banques mexicaines bloquent les transactions en ligne. Si votre don a échoué, nous vous suggérons d’appeler votre banque pour autoriser le don en ligne puis d’essayer à nouveau.',
 	'donate_interface-bt-account_holder' => 'Titulaire du compte',
 	'donate_interface-bt-bank_account_number' => 'Numéro de compte bancaire',
 	'donate_interface-bt-country_description' => 'Description du pays',
@@ -9652,7 +9666,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-online_bank_transfer_message' => 'Services bancaires par téléphone et Internet&nbsp;– BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Sélectionnez une banque',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Autres banques',
-	'donate_interface-sofortbanking' => "Sofortbanking est un transfert bancaire direct, en temps réel via DIRECTebanking.com qui vous permet de déclencher directement un virement bancaire lors de votre don en ligne avec vos informations bancaires en ligne. Si votre compte bancaire n'est pas activé avec des fonctionnalités en ligne, vous pouvez utiliser l'option « Don par virement bancaire manuel » sur la page principale de don.",
+	'donate_interface-sofortbanking' => 'Sofortbanking est un service de virement bancaire direct en temps réel via DIRECTebanking.com qui vous permet de déclencher directement un virement bancaire lors de votre don en ligne grâce à vos informations bancaires en ligne. Si votre compte bancaire n’est pas activé pour autoriser des fonctionnalités en ligne, vous pouvez utiliser l’option « Don par virement bancaire manuel » sur la page principale de don.',
 	'donate_interface-dd-account_name' => 'Nom du compte',
 	'donate_interface-dd-account_number' => 'Numéro de compte',
 	'donate_interface-dd-authorization_id' => 'Nº d’autorisation',
@@ -9662,6 +9676,7 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-dd-branch_code' => 'Code de l’agence',
 	'donate_interface-dd-direct_debit_text' => 'Libellé de débit direct',
 	'donate_interface-dd-iban' => 'IBAN',
+	'donate_interface-pm-westernunion' => 'Western Union',
 	'donate_interface-translate-bluelink' => 'Améliorer cette traduction',
 	'donate_interface-translate-redlink1' => 'Aidez à traduire cette page.',
 	'donate_interface-translate-redlink2' => 'Ou envoyez votre traduction à translations@wikimedia.org',
@@ -9673,17 +9688,17 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-email-unsub-delay' => 'Veuillez nous accorder quatre (4) jours pour que les modifications deviennent effectives. Nous nous excusons pour tous les courriels que vous pourriez encore recevoir durant ce temps. Si vous avez des questions, veuillez contacter <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'Une erreur est survenue lors du traitement de votre requête, merci de contacter <donations@wikimedia.org>.',
 	'donate_interface-email-unsub-confirm' => 'Vous êtes certain que vous souhaitez désabonner <b> $1 </b> ?',
-	'donate_interface-email-unsub-warning' => 'Cela vous désabonnera des courriels de la fondation Wikimedia qui vous sont envoyés en tant que donneur. Vous pouvez toujours recevoir des courriels à cette adresse si elle est associée à un compte d\'un de nos projets. Si vous avez des questions, veuillez contacter <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
+	'donate_interface-email-unsub-warning' => 'Cela vous désabonnera des courriels de la Fondation Wikimedia qui vous sont envoyés en tant que donateur. Vous pourriez encore recevoir des courriels à cette adresse si elle reste associée à un compte d’un de nos projets. Si vous avez des questions, veuillez nous contacter par courriel adressé à <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Foire aux questions',
 	'donate_interface-tax-info' => 'Informations sur les conditions de déductibilité fiscale',
-	'donate_interface-informationsharing' => 'En faisant un don, vous partagez vos données personnelles avec la Fondation Wikimedia, organisation à but non lucratif qui héberge Wikipédia et les autres projets Wikimedia, ainsi que ses prestataires aux États-Unis et ailleurs conformément à notre <a href="//wikimediafoundation.org/wiki/Donor_policy/fr">politique de gestion des données personnelles des utilisateurs</a>. Wikimedia s’interdit de vendre ou d’échanger vos données personnelles.',
+	'donate_interface-informationsharing' => 'En faisant un don, vous partagez vos données personnelles avec la Fondation Wikimedia, organisation à but non lucratif qui héberge Wikipédia et les autres projets Wikimedia, ainsi qu’avec ses prestataires situés aux États-Unis et ailleurs, conformément à notre <a href="//wikimediafoundation.org/wiki/Donor_policy/fr">politique de gestion des données personnelles des utilisateurs</a>. Wikimedia s’interdit de vendre ou d’échanger vos données personnelles.',
 	'donate_interface-currency-change' => 'Changer ?',
-	'donate_interface-bank_transfer_message' => 'Veuillez notez que votre relevé de compte mentionnera « Global Collect » en tant que destinataire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Wikimedia Foundation. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et soyez libre d’adresser vos courriels à donations@wikimedia.org si vous avez toutes questions ou préoccupations.',
-	'donate_interface-globalcollect-proxy' => "Veuillez noter que votre relevé indiquera 'Collecte globale' comme bénéficiaire de ce don. Collecte globale est autorisé à accepter et effectuer des paiements pour le compte de,la Fondation Wikimédia.",
+	'donate_interface-bank_transfer_message' => 'Veuillez notez que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Fondation Wikimedia. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et soyez libre d’adresser vos courriels à donations@wikimedia.org si vous avez toutes questions ou préoccupations.',
+	'donate_interface-globalcollect-proxy' => 'Veuillez noter que votre relevé indiquera « Global Collect » comme bénéficiaire de ce don. Global Collect est autorisé à accepter et prendre en charge des paiements pour le compte de la Fondation Wikimedia.',
 	'donate_interface-taxded-link-int' => 'Informations fiscales et juridiques',
 	'donate_interface-taxded-link-us' => 'Informations sur les conditions de déductibilité fiscale',
-	'donate_interface-taxded-msg-int' => 'La Fondation Wikimedia est une association à but non lucratif établie aux États-Unis, selon la section 501(c)(3) du Code fédéral des impôts et, de ce fait, les donateurs, personnes physiques ou morales situés aux États-Unis peuvent bénéficier de déductions fiscales. Les donateurs, personnes physiques ou morales situés hors des États-Unis peuvent ne pas avoir droit à ces déductions fiscales aux États-Unis ou ailleurs ; dans ce cas, nous prions les donateurs de se renseigner auprès d’un conseiller fiscal local. Note importante : Wikimedia ne cherche en aucun cas à collecter des dons auprès de personnes physiques ou morales situées dans des juridictions qui interdisent ou restreignent les activités de collecte de fonds au profit d’organisation caritatives internationales comme Wikimedia ou qui appliquent des taxes sur les dons faits à ces organisations caritatives internationales.',
-	'donate_interface-taxded-msg-us' => 'La Fondation Wikimedia est une organisation caritative à but non lucratif établie aux États-Unis, selon la section 501(c)(3) du Code fédéral des impôts et, de ce fait, les dons provenant de personnes physiques ou morales qui résident aux États-Unis peuvent bénéficier de déductions fiscales.',
+	'donate_interface-taxded-msg-int' => 'La Fondation Wikimedia est une association à but non lucratif établie aux États-Unis, selon la section 501(c)(3) du Code fédéral des impôts, et de ce fait, les personnes physiques ou morales situées aux États-Unis peuvent bénéficier de déductions fiscales relatives à leurs dons. Les personnes physiques ou morales situées hors des États-Unis peuvent ne pas avoir droit à ces déductions fiscales aux États-Unis ou ailleurs pour le montant de ces dons ; dans ce cas, nous prions les donateurs de se renseigner auprès d’un conseiller fiscal local. Note importante : Wikimedia ne cherche en aucun cas à collecter des dons auprès de personnes physiques ou morales situées dans des juridictions qui interdisent ou restreignent les activités de collecte de fonds au profit d’organisations caritatives internationales comme Wikimedia ou qui appliquent des taxes sur les dons effectués à destination de ces organisations caritatives internationales.',
+	'donate_interface-taxded-msg-us' => 'La Fondation Wikimedia est une organisation caritative à but non lucratif établie aux États-Unis, selon la section 501(c)(3) du Code fédéral des impôts ; pour cette raison, les personnes physiques ou morales qui résident aux États-Unis peuvent bénéficier de déductions fiscales relatives au montant de leur don à la Fondation.',
 	'donate_interface-legal-original' => 'Ceci est une traduction réalisée gracieusement par des volontaires. Au cas où surviendrait un conflit entre cette traduction et la version anglaise, seule la version anglaise prévaudra.',
 	'donate_interface-legal-donorpolicy' => 'Par votre don, vous acceptez que vos informations seront partagées avec la Fondation Wikimedia, l’organisation à but non lucratif qui héberge Wikipédia et d’autres projets Wikimedia, ainsi qu’avec ses fournisseurs de service aux États-Unis ou ailleurs, conformément à notre politique de gestion des données personnelles des donateurs. Nous ne vendons ni n’échangeons vos informations avec personne.',
 	'donate_interface-monthlybox-title' => 'Faire ce don mensuellement ?',
@@ -9692,13 +9707,13 @@ Pour vous fournir une expérience sûre, sécurisée et agréable, notre formula
 	'donate_interface-monthlybox-yes' => 'Bien sûr, le faire mensuellement',
 	'donate_interface-monthlybox-no' => 'NON, faire un don en une seule fois',
 	'donate_interface-monthlybox-bottom' => 'Votre don sera pris en charge de manière sécurisée.',
-	'donate_interface-monthly-cancel' => "Les paiements mensuels seront débités par la Fondation Wikimedia jusqu'à ce que vous nous demandiez de les arrêter.",
+	'donate_interface-monthly-cancel' => 'Les paiements mensuels seront débités par la Fondation Wikimedia jusqu’à ce que vous nous demandiez de les arrêter.',
 	'donate_interface-onetime' => 'Faire un don ponctuel',
 	'donate_interface-monthly-short' => 'Mensuel',
-	'donate_interface-onetime-short' => 'Une fois',
-	'donate_interface-securelogo-title' => 'Cliquez pour vérifier – Ce site a choisi SSL de VeriSign pour sécuriser les communications de commerce électronique et confidentielles.',
+	'donate_interface-onetime-short' => 'En une seule fois',
+	'donate_interface-securelogo-title' => 'Cliquez pour vérifier&nbsp;– Ce site a choisi VeriSign SSL pour sécuriser ses communications confidentielles et de commerce électronique.',
 	'donate_interface-secureLogo-text' => 'À propos des certificats SSL',
-	'donate_interface-error-http-403' => "Vous n'avez pas le droit d'accéder à cette page.",
+	'donate_interface-error-http-403' => 'Vous n’avez pas le droit d’accéder à cette page.',
 );
 
 /** Franco-Provençal (arpetan)
