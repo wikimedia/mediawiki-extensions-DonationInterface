@@ -934,6 +934,10 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->setValidationAction('process', true);
 				
 		try {
+			$currency = $this->getData_Staged( 'currency_code' );
+			$amount = $this->getData_Staged( 'amount' );
+			$this->log( $this->getLogMessagePrefix() . "Beginning internal transaction for $currency $amount" );
+
 			$this->setCurrentTransaction( $transaction );
 
 			//If we have any special pre-process instructions for this 
@@ -976,6 +980,10 @@ abstract class GatewayAdapter implements GatewayType {
 				);
 				return $this->getTransactionAllResults();
 			}
+
+			$currency = $this->getData_Staged( 'currency_code' );
+			$amount = $this->getData_Staged( 'amount' );
+			$this->log( $this->getLogMessagePrefix() . "Now building external transaction for $currency $amount" );
 
 			// If the payment processor requires XML, package our data into XML.
 			if ( $this->getCommunicationType() === 'xml' ) {
