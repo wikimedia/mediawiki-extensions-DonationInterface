@@ -812,6 +812,10 @@ class DataValidator {
 	 * @return bool True if the number was valid according to the algorithm
 	 */
 	public static function luhn_check( $str ) {
+		if ( count( $str ) < 12 ) {
+			return false;
+		}
+
 		$odd = !strlen( $str ) % 2;
 		$sum = 0;
 
