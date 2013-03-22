@@ -558,11 +558,7 @@ class DataValidator {
 		// is email address valid?
 		$isEmail = Sanitizer::validateEmail( $value );
 		if ( $isEmail ) {
-			// Because people put CC numbers in this field too
-			$tmp = preg_replace( '/[^0-9]/', '', $value );
-			if ( is_numeric( $tmp ) ) {
-				$isEmail = !DataValidator::luhn_check( $value );
-			}
+			$isEmail = !DataValidator::cc_number_exists_in_str( $value );
 		}
 		return $isEmail;
 	}
@@ -782,12 +778,7 @@ class DataValidator {
 	 * @return boolean True if the name is not suspiciously like a CC number
 	 */
 	public static function validate_name( $value ) {
-		$value = preg_replace( '/[^0-9]/', '', $value );
-		if ( is_numeric( $value ) ) {
-			return !DataValidator::luhn_check( $value );
-		} else {
-			return true;
-		}
+		return !DataValidator::cc_number_exists_in_str( $value );
 	}
 
 	/**
@@ -796,12 +787,70 @@ class DataValidator {
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
-		$value = preg_replace( '/[^0-9]/', '', $value );
-		if ( is_numeric( $value ) ) {
-			return !DataValidator::luhn_check( $value );
-		} else {
+		return !DataValidator::cc_number_exists_in_str( $value );
+	}
+
+	/**
+	 * Analyzes a string to see if any credit card numbers are hiding out in it
+	 *
+	 * @param $str
+	 *
+	 * @return bool True if a CC number was found sneaking about in the shadows
+	 */
+	public static function cc_number_exists_in_str( $str ) {
+		$luhnRegex = <<<EOT
+/
+(?#amex)(3[47][0-9]{13})|
+(?#bankcard)(5610[0-9]{12})|(56022[1-5][0-9]{10})|
+(?#diners carte blanche)(300[0-5][0-9]{11})|
+(?#diners intl)(36[0-9]{12})|
+(?#diners US CA)(5[4-5][0-9]{14})|
+(?#discover)(6011[0-9]{12})|(622[0-9]{13})|(64[4-5][0-9]{13})|(65[0-9]{14})|
+(?#InstaPayment)(63[7-9][0-9]{13})|
+(?#JCB)(35[2-8][0-9]{13})|
+(?#Laser)(6(304|7(06|09|71))[0-9]{12,15})|
+(?#Maestro)((5018|5020|5038|5893|6304|6759|6761|6762|6763|0604)[0-9]{8,15})|
+(?#MasterCard)(5[1-5][0-9]{14})|
+(?#Solo)((6334|6767)[0-9]{12,15})|
+(?#Switch)((4903|4905|4911|4936|6333|6759)[0-9]{12,15})|((564182|633110)[0-9]{10,13})|
+(?#Visa)(4([0-9]{15}|[0-9]{12}))
+/
+EOT;
+
+		$nonLuhnRegex = <<<EOT
+/
+(?#china union pay)(62[0-9]{14,17})|
+(?#diners enroute)((2014|2149)[0-9]{11})
+/
+EOT;
+
+		// Transform the regex to get rid of the new lines
+		$luhnRegex = preg_replace( '/\s/', '', $luhnRegex );
+		$nonLuhnRegex = preg_replace( '/\s/', '', $nonLuhnRegex );
+
+		// Remove common CC# delimiters
+		$str = preg_replace( '/[\s\-]/', '', $str );
+
+		// Now split the string on everything else and join again so the regexen have an 'easy' time
+		$str = join( ' ', preg_split( '/[^0-9]+/', $str, PREG_SPLIT_NO_EMPTY ) );
+
+		// First do we have any numbers that match a pattern but is not luhn checkable?
+		$matches = array();
+		if ( preg_match_all( $nonLuhnRegex, $str, $matches ) > 0 ) {
 			return true;
 		}
+
+		// Find potential CC numbers that do luhn check and run 'em
+		$matches = array();
+		preg_match_all( $luhnRegex, $str, $matches );
+		foreach ( $matches[0] as $candidate ) {
+			if ( DataValidator::luhn_check( $candidate ) ) {
+				return true;
+			}
+		}
+
+		// All our checks have failed; probably doesn't contain a CC number
+		return false;
 	}
 
 	/**
@@ -812,10 +861,6 @@ class DataValidator {
 	 * @return bool True if the number was valid according to the algorithm
 	 */
 	public static function luhn_check( $str ) {
-		if ( count( $str ) < 12 ) {
-			return false;
-		}
-
 		$odd = !strlen( $str ) % 2;
 		$sum = 0;
 
