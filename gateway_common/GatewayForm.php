@@ -49,6 +49,8 @@ class GatewayForm extends UnlistedSpecialPage {
 			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
 			$this->getOutput()->redirect( Title::newFromText("Special:FundraiserMaintenance")->getFullURL(), "302" );
 		}
+
+		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		
 		$me = get_called_class();
 		parent::__construct( $me );

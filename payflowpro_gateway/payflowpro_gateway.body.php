@@ -15,9 +15,6 @@ class PayflowProGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		// Hide unneeded interface elements
-		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
-
 		$this->setHeaders();
 
 		/**

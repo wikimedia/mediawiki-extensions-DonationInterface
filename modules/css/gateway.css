@@ -172,18 +172,12 @@ input.fullwidth {
 	width: 285px;
 }
 
-.ltr input.leftmar {
+input.leftmar {
 	margin-left: 4px;
 }
-.rtl input.leftmar {
-	margin-right: 4px;
-}
 
-.ltr input.rightmar {
+input.rightmar {
     margin-right: 4px;
-}
-.rtl input.rightmar {
-    margin-left: 4px;
 }
 
 input#city.halfwidth.state {

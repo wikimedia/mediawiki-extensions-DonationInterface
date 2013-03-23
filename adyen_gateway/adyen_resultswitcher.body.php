@@ -32,8 +32,6 @@ class AdyenGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgRequest, $wgOut, $wgExtensionAssetsPath;
-
 		$this->adapter = new AdyenAdapter();
 
 		//no longer letting people in without these things. If this is 
@@ -50,7 +48,7 @@ class AdyenGatewayResult extends GatewayForm {
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
-		$referrer = $wgRequest->getHeader( 'referer' );
+		$referrer = $this->getRequest()->getHeader( 'referer' );
 		$liberated = false;
 		if ( array_key_exists( 'order_status', $_SESSION ) && array_key_exists( $oid, $_SESSION[ 'order_status' ] ) && $_SESSION[ 'order_status' ][ $oid ] == 'liberated' ){
 			$liberated = true;
@@ -65,15 +63,10 @@ class AdyenGatewayResult extends GatewayForm {
 			if ( $forbidden ) {
 				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
 			}
-			$wgOut->allowClickjacking();
-			$wgOut->addModules( 'iframe.liberator' );
+			$this->getOutput()->allowClickjacking();
+			$this->getOutput()->addModules( 'iframe.liberator' );
 			return;
 		}
-
-		// XXX resourceloader?
-		$wgOut->addExtensionStyle(
-			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
-			$this->adapter->getGlobal( 'CSSVersion' ) );
 
 		$this->setHeaders();
 
@@ -87,17 +80,17 @@ class AdyenGatewayResult extends GatewayForm {
 		if ( $this->adapter->checkTokens() ) {
 
 			if ( $this->adapter->isResponse() ) {
-				$wgOut->allowClickjacking();
-				$wgOut->addModules( 'iframe.liberator' );
+				$this->getOutput()->allowClickjacking();
+				$this->getOutput()->addModules( 'iframe.liberator' );
 				if ( NULL === $this->adapter->processResponse() ) {
 					switch ( $this->adapter->getTransactionWMFStatus() ) {
 					case 'complete':
 					case 'pending':
-						$wgOut->redirect( $this->adapter->getThankYouPage() );
+						$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 						return;
 					}
 				}
-				$wgOut->redirect( $this->adapter->getFailPage() );
+				$this->getOutput()->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
 			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
