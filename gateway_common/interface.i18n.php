@@ -743,7 +743,7 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-captcha' => 'Error message if the user inputs the wrong [[w:en:CAPTCHA|CAPTCHA]].',
 	'donate_interface-error-msg-captcha-please' => 'Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.',
 	'donate_interface-error-msg-cookies' => "Error message if the user's browser has cookies disabled",
-	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required but not filled out when they try to submit.
+	'donate_interface-error-msg-genaricrequired' => 'Message displayed to a user if a field is required, but not filled out when they try to submit.
 {{Identical|Required}}',
 	'donate_interface-error-msg-country-calc' => 'This error message should only specify that we are unable to accept the donation at this time.',
 	'donate_interface-error-msg-fiscal_number' => "{{Identical|Fiscal number}}
@@ -767,7 +767,7 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 	'donate_interface-otherways-short' => 'Link to page informing about other ways to give. Shown below donate form.',
 	'donate_interface-paypal' => "Only 'Have a PayPal account' and 'Donate with PayPal' need translating. If the Jimmy Appeal letter has been published in your language then you should change the link from 'en' to 'zzz' where zzz is your language code.
 
-This message was used during testing but as of 7 Dec 2010 is not in use.",
+This message was used during testing, but as of 7 Dec 2010 is not in use.",
 	'donate_interface-credit-storage-processing' => 'Message assuring people their information is safe. Shown below donate form.',
 	'donate_interface-token-mismatch' => 'Error message shown when the session has expired.',
 	'donate_interface-cc-form-header-personal' => '{{Identical|Personal information}}',
