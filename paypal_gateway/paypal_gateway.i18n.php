@@ -197,6 +197,14 @@ $messages['pms'] = array(
 	'paypal_gateway-desc' => "Process ëd pagament d'Paypal",
 );
 
+/** Romanian (română)
+ * @author Minisarm
+ */
+$messages['ro'] = array(
+	'paypalgateway' => 'Faceți o donație acum',
+	'paypal_gateway-desc' => 'Procesarea plăților prin PayPal',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
@@ -219,7 +227,7 @@ $messages['sv'] = array(
  */
 $messages['tl'] = array(
 	'paypalgateway' => 'Magkaloob ka na ngayon',
-	'paypal_gateway-desc' => 'Pagsasagawa ng pagbabayad gamit ang Paypal', # Fuzzy
+	'paypal_gateway-desc' => 'Pagpuproseso ng bayad sa pamamagitan ng Paypal',
 );
 
 /** Ukrainian (українська)
