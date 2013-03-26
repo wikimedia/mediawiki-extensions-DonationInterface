@@ -141,7 +141,9 @@ class PaypalAdapter extends GatewayAdapter {
 			case 'Donate':
 			case 'DonateRecurring':
 				$this->transactions[ $transaction ][ 'url' ] = $this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
-				return parent::do_transaction( $transaction );
+				$result = parent::do_transaction( $transaction );
+				$this->setTransactionWMFStatus( 'complete' );
+				return $result;
 		}
 	}
 
@@ -179,20 +181,5 @@ class PaypalAdapter extends GatewayAdapter {
 		if ( array_key_exists( 'recurring_length', $this->staged_data ) && !$this->staged_data['recurring_length'] ) {
 			unset( $this->staged_data['recurring_length'] );
 		}
-	}
-
-	public function validatedOK() {
-		$result = parent::validatedOK();
-
-		if ( !$result ) {
-			$validation_errors = $this->getValidationErrors();
-			if ( array_keys( $validation_errors ) === array( 'amount' )
-					and (!$this->staged_data['amount'] or (float)$this->staged_data['amount'] == 0 ) ) {
-				// ignore empty amount error
-				$result = true;
-			}
-		}
-
-		return $result;
 	}
 }
