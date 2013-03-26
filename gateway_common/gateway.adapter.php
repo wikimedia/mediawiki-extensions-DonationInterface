@@ -301,6 +301,7 @@ abstract class GatewayAdapter implements GatewayType {
 			extract( $options );
 		}
 
+		// FIXME: this is not cool
 		$this->postdatadefaults = array(
 			'order_id' => '112358' . rand(),
 			'amount' => '11.38',
@@ -2184,6 +2185,8 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getFormClass() {
+		// FIXME: this is not actually a security hole, but looks like one.
+		// The logic to populate form_class should be moved out of DonationData
 		$form_class = $this->getData_Unstaged_Escaped( 'form_class' );
 		if ( ( $form_class ) && class_exists( $form_class ) ) {
 			return $form_class;

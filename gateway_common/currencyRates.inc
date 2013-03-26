@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * FIXME: script to generate regularly
  * Supplies rough (not up-to-date) conversion rates for currencies
  * Last updated November 3, 2011 (rounded)
  */
