@@ -30,7 +30,28 @@ class PaypalGateway extends GatewayForm {
 	 * Show the special page
 	 */
 	public function execute( $param ) {
+		global $wgExtensionAssetsPath;
+		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
+
 		$this->getOutput()->allowClickjacking();
+
+		$this->getOutput()->addExtensionStyle(
+			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
+			$CSSVersion );
+
+		// Hide unneeded interface elements
+		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
+
+		// Make the wiki logo not clickable.
+		// @fixme can this be moved into the form generators?
+		$js = <<<EOT
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("div#p-logo a").attr("href","#");
+});
+</script>
+EOT;
+		$this->getOutput()->addHeadItem( 'logolinkoverride', $js );
 
 		$this->setHeaders();
 

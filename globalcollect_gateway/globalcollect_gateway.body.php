@@ -39,7 +39,30 @@ class GlobalCollectGateway extends GatewayForm {
 	 * @return null|void
 	 */
 	public function execute( $par ) {
-		$this->getOutput()->allowClickjacking();
+		global $wgExtensionAssetsPath;
+		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
+
+		$out = $this->getOutput();
+
+		$out->allowClickjacking();
+
+		$out->addExtensionStyle(
+			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
+			$CSSVersion );
+
+		// Hide unneeded interface elements
+		$out->addModules( 'donationInterface.skinOverride' );
+
+		// Make the wiki logo not clickable.
+		// @fixme can this be moved into the form generators?
+		$js = <<<EOT
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("div#p-logo a").attr("href","#");
+});
+</script>
+EOT;
+		$out->addHeadItem( 'logolinkoverride', $js );
 
 		$this->setHeaders();
 
@@ -112,7 +135,7 @@ class GlobalCollectGateway extends GatewayForm {
 
 							// Redirect to the bank
 							if ( !empty( $formAction ) ) {
-								return $this->getOutput()->redirect( $formAction );
+								return $out->redirect( $formAction );
 							}
 							break;
 						

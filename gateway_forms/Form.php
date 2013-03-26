@@ -87,6 +87,18 @@ abstract class Gateway_Form {
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
 		
+		/**
+		 * if OWA is enabled, load the JS.  
+		 * 
+		 * We do this here (rather than in individual forms) because if OWA is 
+		 * enabled, we ALWAYS want to make sure it gets included.
+		 */
+		if ( defined( 'OWA' ) ) {
+			$this->loadOwaJs();
+		}
+		
+		$this->loadLogoLinkOverride();
+		
 		// This method should be overridden in the child class
 		$this->init();
 	}
@@ -99,6 +111,15 @@ abstract class Gateway_Form {
 	protected function init() {
 	}
 
+	/**
+	 * Override the link in the logo to redirect to a particular form
+	 * rather than the main page. Called by the form class constructor.
+	 */
+	public function loadLogoLinkOverride() {
+		global $wgOut;
+		$wgOut->addModules( 'pfp.core.logolink_override' );
+	}
+	
 	/**
 	 * Set the path to the CSS file for the form
 	 *
@@ -909,6 +930,22 @@ abstract class Gateway_Form {
 	protected function loadApiJs() {
 		global $wgOut;
 		$wgOut->addModules( 'pfp.form.core.api' );
+	}
+
+	/**
+	 * Loads the OWA javascript. 
+	 * if OWA is enabled, this is called by the main form constructor. 
+	 */
+	protected function loadOwaJs() {
+		global $wgOut, $wgExtensionAssetsPath;
+		$wgOut->addHeadItem( 'owa_tracker', '<script type="text/javascript" src="https://owa.wikimedia.org/owa/modules/base/js/owa.tracker-combined-min.js"></script>' );
+
+		$wgOut->addHeadItem( 'owa_get_info', '<script type="text/javascript" src="' .
+			$wgExtensionAssetsPath .
+			'/DonationInterface/payflowpro_gateway/owa_get_info.js?284"></script>' );
+		$wgOut->addHeadItem( 'owa_tracker_init', '<script type="text/javascript" src="' .
+			$wgExtensionAssetsPath .
+			'/DonationInterface/payflowpro_gateway/owa.tracker-combined-min.js?284"></script>' );
 	}
 
 	/**

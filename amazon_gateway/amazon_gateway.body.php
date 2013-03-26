@@ -34,7 +34,30 @@ class AmazonGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		$this->getOutput()->allowClickjacking();
+		global $wgExtensionAssetsPath;
+		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
+
+		$out = $this->getOutput();
+
+		$out->allowClickjacking();
+
+		$out->addExtensionStyle(
+			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
+			$CSSVersion );
+
+		// Hide unneeded interface elements
+		$out->addModules( 'donationInterface.skinOverride' );
+
+		// Make the wiki logo not clickable.
+		// @fixme can this be moved into the form generators?
+		$js = <<<EOT
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("div#p-logo a").attr("href","#");
+});
+</script>
+EOT;
+		$out->addHeadItem( 'logolinkoverride', $js );
 
 		$this->setHeaders();
 
@@ -50,10 +73,10 @@ class AmazonGateway extends GatewayForm {
 			$status = $this->adapter->getTransactionWMFStatus();
 
 			if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
-				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				$out->redirect( $this->adapter->getThankYouPage() );
 			}
 			else {
-				$this->getOutput()->redirect( $this->adapter->getFailPage() );
+				$out->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
 			$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );

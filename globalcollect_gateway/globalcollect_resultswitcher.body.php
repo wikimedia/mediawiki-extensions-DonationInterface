@@ -37,6 +37,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
+		global $wgExtensionAssetsPath;
+
+		$out = $this->getOutput();
+
 		$forbidden = false;
 		if ( !isset( $_GET['order_id'] ) ){
 			$forbidden = true;
@@ -63,6 +67,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 			return;
 		}
+
+		$out->addExtensionStyle(
+			$wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/gateway.css?284' .
+			$this->adapter->getGlobal( 'CSSVersion' ) );
 
 		$this->setHeaders();
 		$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $this->qs_oid );
@@ -110,8 +118,8 @@ class GlobalCollectGatewayResult extends GatewayForm {
 					}
 
 					if ( $go ) {
-						$this->getOutput()->addHTML( "<br>Redirecting to page $go" );
-						$this->getOutput()->redirect( $go );
+						$out->addHTML( "<br>Redirecting to page $go" );
+						$out->redirect( $go );
 					} else {
 						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid", LOG_ERR);
 					}
