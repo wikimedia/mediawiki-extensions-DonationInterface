@@ -35,6 +35,7 @@ $messages['en'] = array(
 	'donate_interface-bigamount-error' => 'We can not accept donations greater than USD 10000 ($1 $2) through our website. Please contact our major gifts staff at $3.',
 	'donate_interface-processing-error' => 'There has been an error processing your request.
 No processors are available.',
+	'donate_interface-fallback-currency-notice' => 'Your currency was unsupported. Processing will take place using $1, if you decide to continue.',
 
 // Currency translations
 	'donate_interface-AED' => 'UAE dirham',
@@ -508,6 +509,9 @@ $messages['qqq'] = array(
 * $2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
 * $3 is the e-mail address that the user should e-mail to give big gifts.",
 	'donate_interface-processing-error' => 'Error message.',
+	'donate_interface-fallback-currency-notice' => 'Notification that the donor\'s currency has been changed. Parameters:
+* $1 the currency code in which to continue the transaction.',
+
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
 	'donate_interface-AUD' => 'Used in drop-down field for currency.',
