@@ -40,6 +40,7 @@ class PaypalGateway extends GatewayForm {
 				// If the currency is invalid, fallback to USD
 				$oldCurrency = $this->getRequest()->getText( 'currency_code' );
 				$approxConverted = 0;
+				require_once( __DIR__ . '/../gateway_common/currencyRates.inc' );
 				$conversionRates = getCurrencyRates();
 				if ( array_key_exists( $oldCurrency, $conversionRates ) ) {
 					$approxConverted = floor( $this->getRequest()->getText( 'amount' ) / $conversionRates[$oldCurrency] );
