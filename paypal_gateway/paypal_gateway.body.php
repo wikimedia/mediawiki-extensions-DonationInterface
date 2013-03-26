@@ -28,16 +28,8 @@ class PaypalGateway extends GatewayForm {
 
 	/**
 	 * Show the special page
-	 *
-	 * @todo
-	 * - Finish error handling
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
 	 */
-	public function execute( $par ) {
-		global $wgExtensionAssetsPath;
-		$CSSVersion = $this->adapter->getGlobal( 'CSSVersion' );
-
+	public function execute( $param ) {
 		$this->getOutput()->allowClickjacking();
 
 		$this->getOutput()->addExtensionStyle(
@@ -60,24 +52,30 @@ EOT;
 
 		$this->setHeaders();
 
-		$redirect = false;
-		if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
-			$redirect = true;
-		}
 		if ( $this->validateForm() ) {
 			$form_errors = $this->adapter->getValidationErrors();
-			if ( !array_diff( array( 'currency_code' ), array_keys( $form_errors ) ) ) {
-				// If the currency is invalid, fallback to USD and allow redirect.
+			if ( array_key_exists( 'currency_code', $form_errors ) ) {
+				// If the currency is invalid, fallback to USD
+				$oldCurrency = $this->getRequest()->getText( 'currency_code' );
+				$approxConverted = 0;
+				$conversionRates = getCurrencyRates();
+				if ( array_key_exists( $oldCurrency, $conversionRates ) ) {
+					$approxConverted = floor( $this->getRequest()->getText( 'amount' ) / $conversionRates[$oldCurrency] );
+				}
+
 				$this->adapter->addData( array(
-					'amount' => "0.00",
+					'amount' => $approxConverted,
 					'currency_code' => 'USD',
 				) );
-				$this->adapter->revalidate();
-			} else {
-				$redirect = false;
+
+				// Notify user that this has happened
+				$this->adapter->addManualError( array(
+					'general' => $this->msg( 'donate_interface-fallback-currency-notice', 'USD' )->text(),
+				) );
+
+				$this->adapter->log( $this->adapter->getLogMessagePrefix() . "Unsupported currency forced to USD, user notified of action." );
 			}
-		}
-		if ( $redirect ) {
+		} else {
 			if ( $this->getRequest()->getText( 'recurring', 0 ) ) {
 				$result = $this->adapter->do_transaction( 'DonateRecurring' );
 			} else {

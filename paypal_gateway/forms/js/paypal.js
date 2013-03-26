@@ -35,7 +35,7 @@ $( document ).ready( function () {
 	}
 
 	$( "#paymentContinueBtn" ).live( "click", function() {
-		if ( validateAmount() && validate_form( document.payment ) ) {
+		if ( validateAmount() ) {
 			document.payment.action = actionURL;
 			document.payment.submit();
 		}

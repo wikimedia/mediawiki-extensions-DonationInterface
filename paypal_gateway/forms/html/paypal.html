@@ -2,11 +2,17 @@
 	mw.loader.load('paypal.js');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#country|escape','#emailAdd|escape'];
+	var billingErrors = [];
 	var paymentErrors = [];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
 </script>
+<style type="text/css">
+#selected-amount {
+	font-size: larger;
+	font-weight: bold;
+}
+</style>
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 	<tbody>
@@ -34,26 +40,17 @@
 						<tr>
 							<td colspan="2">
 								<div id="step1header">
-									<h3 class="amount_header">%donate_interface-amount-legend%:  <span id="selected-amount"><input class="halfwidth" type="text" width="4" name="amount" value="@amount" /> @currency_code</span></h3>
+									<h3 class="amount_header">%donate_interface-amount-legend%</h3>
+									<p><input class="halfwidth" type="text" width="4" name="amount" value="@amount" /> <span id="selected-amount">@currency_code</span></p>
 								</div>
 							</td>
 						</tr>
-						{% block personal-information country %}
                         <tr>
                             <td>
-								<div id="paymentContinue" style="margin-top: 10px;"> <input class="btn" id="paymentContinueBtn" type="button" value="%donate_interface-continue%" /></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div id="payment" class="gainlayout" style="height: 0;text-align: center;"></div>
-                            </td>
-                        </tr>
-						<tr>
-                            <td>
-                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
-                                    <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> %donate_interface-donate-click%
-                                </div>
+								<div id="paymentContinue" style="margin-top: 10px;">
+									<input class="btn" id="paymentContinueBtn" type="button" value="%donate_interface-continue%" />
+									<img style="margin-left: 25px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/paypal.png" alt="PayPal">
+								</div>
                             </td>
                         </tr>
 						</tbody>
@@ -61,8 +58,7 @@
 				</div>
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
-				<!-- This should be included in the personal_information templates -->
-				<!--<input type="hidden" value="@country" name="country" id="country" />-->
+				<input type="hidden" value="@country" name="country" id="country" />
 				<input type="hidden" value="@currency_code" name="currency_code" />
 				<input type="hidden" value="@utm_source" name="utm_source"/>
 				<input type="hidden" value="@utm_medium" name="utm_medium"/>
