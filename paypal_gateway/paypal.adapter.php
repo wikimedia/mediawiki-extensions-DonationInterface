@@ -172,7 +172,7 @@ class PaypalAdapter extends GatewayAdapter {
 			'CHF',
 			'TWD', // no fractions
 			'THB',
-			'TRY', // in-country only
+//			'TRY', // in-country only
 			'USD',
 		);
 	}
