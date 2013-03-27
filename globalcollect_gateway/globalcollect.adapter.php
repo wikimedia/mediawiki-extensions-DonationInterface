@@ -672,7 +672,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label' => 'Cash payments',
 			'types' => array( 'cash_boleto', ),
 			'short_circuit_at' => 'first_iop',
-			'additional_success_status' => array( 20 ),
+			'additional_success_status' => array( 55 ), //PENDING AT CUSTOMER - denotes they need to go to the bank, but we've done all we can.
 		);
 
 	}
