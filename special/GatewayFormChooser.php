@@ -42,7 +42,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$params = array(
 			'form_name' => "RapidHtml",
 			'appeal' => "JimmyQuote",
-			'ffname' => $form
+			'ffname' => $form,
+			'recurring' => $recurring,
 		);
 
 		if( DataValidator::value_appears_in( 'redirect', $forms[$form] ) ){
