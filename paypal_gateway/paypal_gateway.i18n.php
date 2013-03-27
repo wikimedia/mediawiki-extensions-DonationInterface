@@ -189,6 +189,14 @@ $messages['nl'] = array(
 	'paypal_gateway-desc' => 'Betalingsverwerking via PayPal',
 );
 
+/** Polish (polski)
+ * @author WTM
+ */
+$messages['pl'] = array(
+	'paypalgateway' => 'Przekaż darowiznę',
+	'paypal_gateway-desc' => 'Przetwarzanie płatności PayPal',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Dragonòt
  */
