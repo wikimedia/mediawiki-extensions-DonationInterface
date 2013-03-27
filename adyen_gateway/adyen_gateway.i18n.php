@@ -165,6 +165,14 @@ $messages['nl'] = array(
 Probeer het later nog een keer.',
 );
 
+/** Polish (polski)
+ * @author WTM
+ */
+$messages['pl'] = array(
+	'adyengateway' => 'Przekaż darowiznę',
+	'adyen_gateway-desc' => 'Przetwarzanie płatności Adyen',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */

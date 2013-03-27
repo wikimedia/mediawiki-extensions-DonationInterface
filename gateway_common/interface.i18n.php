@@ -509,9 +509,8 @@ $messages['qqq'] = array(
 * $2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
 * $3 is the e-mail address that the user should e-mail to give big gifts.",
 	'donate_interface-processing-error' => 'Error message.',
-	'donate_interface-fallback-currency-notice' => 'Notification that the donor\'s currency has been changed. Parameters:
-* $1 the currency code in which to continue the transaction.',
-
+	'donate_interface-fallback-currency-notice' => "Notification that the donor's currency has been changed. Parameters:
+* $1 the currency code in which to continue the transaction.",
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
 	'donate_interface-AUD' => 'Used in drop-down field for currency.',
@@ -5898,6 +5897,7 @@ $messages['de'] = array(
 	'donate_interface-smallamount-error' => 'Der Mindestbetrag ist $1',
 	'donate_interface-bigamount-error' => 'Wir können über unsere Website leider keine Spenden annehmen, deren Wert über USD 10.000 ($1 $2) liegt. Bitte kontaktieren Sie, unter der E-Mail-Adresse $3, unsere Großspenderbetreuung.',
 	'donate_interface-processing-error' => 'Es gab einen Verarbeitungsfehler Ihrer Anfrage. Es ist kein Prozess verfügbar.',
+	'donate_interface-fallback-currency-notice' => 'Ihre Währung wurde nicht unterstützt. Die Verarbeitung erfolgt mit $1, falls Sie sich für ein Fortfahren entscheiden.',
 	'donate_interface-AED' => 'VAE-Dirham',
 	'donate_interface-ARS' => 'Argentinischer Peso',
 	'donate_interface-AUD' => 'Australischer Dollar',
@@ -9325,6 +9325,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Sherbrooke
  * @author Toto Azéro
  * @author Urhixidur
+ * @author Valystant
  * @author Verdy p
  * @author Wyz
  */
@@ -9348,6 +9349,7 @@ $messages['fr'] = array(
 	'donate_interface-bigamount-error' => 'Nous ne pouvons pas accepter les dons supérieurs à 10&nbsp;000&nbsp;USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.',
 	'donate_interface-processing-error' => 'Une erreur est survenue lors du traitement de votre requête.
 Aucun organisme de paiement n’est disponible.',
+	'donate_interface-fallback-currency-notice' => 'Votre monnaie n’était pas supportée. Le traitement s’effectuera en utilisant $1, si vous décidez de continuer.',
 	'donate_interface-AED' => 'dirham des Émirats arabes unis',
 	'donate_interface-ARS' => 'peso argentin',
 	'donate_interface-AUD' => 'dollar australien',
@@ -9703,7 +9705,7 @@ Afin de vous fournir un processus sûr, sécurisé et agréable, notre formulair
 	'donate_interface-tax-info' => 'Informations sur les conditions de déductibilité fiscale',
 	'donate_interface-informationsharing' => 'En faisant un don, vous partagez vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui héberge Wikipédia et les autres projets Wikimedia, ainsi qu’avec ses prestataires situés aux États-Unis et ailleurs, conformément à notre politique en matière de gestion des données personnelles des donateurs. Nous ne vendons ni n’échangeons vos données personnelles. Pour plus d’informations, vous pouvez lire <a href="//wikimediafoundation.org/wiki/Donor_policy/fr">notre politique en matière de gestion des données personnelles des donateurs</a>.',
 	'donate_interface-currency-change' => 'Changer ?',
-	'donate_interface-bank_transfer_message' => 'Veuillez notez que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Wikimedia Foundation. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à donations@wikimedia.org si vous avez toute question ou préoccupation.',
+	'donate_interface-bank_transfer_message' => 'Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Wikimedia Foundation. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à donations@wikimedia.org si vous avez toute question ou préoccupation.',
 	'donate_interface-globalcollect-proxy' => 'Veuillez noter que votre relevé indiquera « Global Collect » comme bénéficiaire de ce don. Global Collect est autorisé à accepter et prendre en charge les paiements pour le compte de la Wikimedia Foundation.',
 	'donate_interface-taxded-link-int' => 'Informations fiscales et juridiques',
 	'donate_interface-taxded-link-us' => 'Informations sur les conditions de déductibilité fiscale',
@@ -18149,6 +18151,7 @@ $messages['mk'] = array(
 	'donate_interface-smallamount-error' => 'Прилогот мора да изнесува барем $1',
 	'donate_interface-bigamount-error' => 'Не можеме да прифатиме суми поголеми од 10.000 долари ($1 $2) преку нашето мрежно место. Обратете се кај надлежните за големи дарови на $3.',
 	'donate_interface-processing-error' => 'Се појави грешка при обработката на вашето барање. Нема достапни преработувачи.',
+	'donate_interface-fallback-currency-notice' => 'Вашата валута не е поддржана. Уплатата ќе биде во $1, доколку сакате да продолжите.',
 	'donate_interface-AED' => 'Емиратски дирам',
 	'donate_interface-ARS' => 'Аргентински пезос',
 	'donate_interface-AUD' => 'Австралиски долар',
@@ -20161,6 +20164,59 @@ Donasjonsskjemaet vårt krever JavaScript.',
 	'donate_interface-error-http-403' => 'Du har ikke tilgang til denne siden.',
 );
 
+/** Low German (Plattdüütsch)
+ * @author Joachim Mos
+ */
+$messages['nds'] = array(
+	'donate_interface-amount' => 'Bedrag',
+	'donate_interface-other-amount' => 'Anner Bedrag',
+	'donate_interface-currency' => 'Geldsoort:',
+	'donate_interface-EUR' => 'Euro',
+	'donate_interface-USD' => 'US-Dollar',
+	'donate_interface-donor-amount' => 'Bedrag',
+	'donate_interface-donor-currency-label' => 'Geldsoort',
+	'donate_interface-donor-email' => 'E-Mail-Adress',
+	'donate_interface-donor-emailAdd' => 'E-Mail-Adress',
+	'donate_interface-donor-name' => 'Naam',
+	'donate_interface-donor-fname' => 'Vörnaam',
+	'donate_interface-donor-lname' => 'Achternaam',
+	'donate_interface-donor-street' => 'Straat',
+	'donate_interface-donor-street-number' => 'Nummer',
+	'donate_interface-donor-city' => 'Stadt',
+	'donate_interface-donor-county' => 'Kreis',
+	'donate_interface-donor-island' => 'Eiland',
+	'donate_interface-donor-state' => 'Staat',
+	'donate_interface-donor-zip' => 'Postleedtall',
+	'donate_interface-donor-postal' => 'Postleedzahl',
+	'donate_interface-donor-country' => 'Staat/Distrikt',
+	'donate_interface-donor-address' => 'Adress',
+	'donate_interface-donor-card' => 'Kreditkoort',
+	'donate_interface-donor-card-num' => 'Koordnummer',
+	'donate_interface-donor-submit' => 'Spennen',
+	'donate_interface-donor-fiscal_number' => 'Stüernummer',
+	'donate_interface-card-name-amex' => 'American Express',
+	'donate_interface-card-name-visa' => 'Visa',
+	'donate_interface-card-name-mc' => 'MasterCard',
+	'donate_interface-card-name-discover' => 'Discover',
+	'donate_interface-error-msg-amount' => "Bedrag vun'e Spenne",
+	'donate_interface-error-msg-emailAdd' => 'E-Mail-Adress',
+	'donate_interface-error-msg-fname' => 'Vörnaam',
+	'donate_interface-error-msg-lname' => 'Achternaam',
+	'donate_interface-error-msg-street' => 'Straat',
+	'donate_interface-error-msg-city' => 'Stadt',
+	'donate_interface-error-msg-state' => 'Staat',
+	'donate_interface-error-msg-zip' => 'Postleedtall',
+	'donate_interface-error-msg-postal' => 'Postleedzahl',
+	'donate_interface-error-msg-country' => 'Land',
+	'donate_interface-error-msg-card_type' => 'Kreditkoorttyyp',
+	'donate_interface-error-msg-card_num' => 'Kreditkoortnummer',
+	'donate_interface-or' => 'oder',
+	'donate_interface-country' => 'Land',
+	'donate_interface-cancel' => 'Afbreken',
+	'donate_interface-change' => 'Ännern',
+	'donate_interface-dd-iban' => 'IBAN',
+);
+
 /** Nedersaksies (Nedersaksies)
  * @author Jsoby
  * @author Servien
@@ -21523,6 +21579,7 @@ $messages['pfl'] = array(
  * @author Lazowik
  * @author Mikołka
  * @author Sp5uhe
+ * @author WTM
  */
 $messages['pl'] = array(
 	'donate_interface' => 'Wspomóż Wikimedia',
@@ -21538,10 +21595,12 @@ $messages['pl'] = array(
 	'donate_interface-comment-label' => 'Komentarz',
 	'donate_interface-email-agreement' => 'Zgadzam się na okazjonalne otrzymywanie e‐mailem informacji o aktualnościach od Fundacji Wikimedia.',
 	'donate_interface-comment-title' => 'Komentarz publiczny',
+	'donate_interface-donation-description' => 'Darowizna na rzecz Fundacji Wikimedia',
 	'donate_interface-amount-error' => 'Proszę wpisać poprawną kwotę',
 	'donate_interface-smallamount-error' => 'Darowizna nie może być niższa niż $1',
 	'donate_interface-bigamount-error' => 'Nie możemy przyjmować dotacji większych niż USD 10000 ($1  $2) za pośrednictwem naszej strony. Prosimy o kontakt z naszym personelem zajmujący się poważnymi darowiznami przez $3 .',
 	'donate_interface-processing-error' => 'Wystąpił błąd podczas wykonywania operacji. Brak dostępnego procesora.',
+	'donate_interface-fallback-currency-notice' => 'Wskazana waluta nie jest obsługiwana. Jeśli zdecydujesz się kontynuować, zostanie zastosowane $1',
 	'donate_interface-AED' => 'AED – dirham Zjednoczonych Emiratów Arabskich',
 	'donate_interface-ARS' => 'ARS – peso argentyńskie',
 	'donate_interface-AUD' => 'AUD – dolar australijski',
@@ -30951,6 +31010,7 @@ $messages['vi'] = array(
 	'donate_interface-bigamount-error' => 'Chúng tôi không thể nhận khoản quyên góp hơn 10.000 USD (tức $1 $2) qua website của chúng tôi. Xin vui lòng liên lạc với nhân viên món quà lớn tại $3.',
 	'donate_interface-processing-error' => 'Đã xảy ra lỗi khi xử lý yêu cầu của bạn. 
 Hiện tại không có tiến trình xử lý nào.',
+	'donate_interface-fallback-currency-notice' => 'Đơn vị tiền tệ được chọn không được tồn tại. Nếu tiếp tục, khoản quyên góp của bạn sẽ được xử lý theo $1.',
 	'donate_interface-AED' => 'Dirham UAE',
 	'donate_interface-ARS' => 'Peso Argentina',
 	'donate_interface-AUD' => 'Đô la Úc',
