@@ -36,6 +36,7 @@ $messages['en'] = array(
 	'donate_interface-processing-error' => 'There has been an error processing your request.
 No processors are available.',
 	'donate_interface-fallback-currency-notice' => 'Your currency was unsupported. Processing will take place using $1, if you decide to continue.',
+	'donate_interface-maintenance-notice' => 'We apologize, but this type of payment has been temporarily disabled.',
 
 // Currency translations
 	'donate_interface-AED' => 'UAE dirham',
@@ -511,6 +512,8 @@ $messages['qqq'] = array(
 	'donate_interface-processing-error' => 'Error message.',
 	'donate_interface-fallback-currency-notice' => "Notification that the donor's currency has been changed. Parameters:
 * $1 the currency code in which to continue the transaction.",
+	'donate_interface-maintenance-notice' => 'Notification that this service is temporarily disabled for maintenance.',
+
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
 	'donate_interface-AUD' => 'Used in drop-down field for currency.',
