@@ -513,7 +513,6 @@ $messages['qqq'] = array(
 	'donate_interface-fallback-currency-notice' => "Notification that the donor's currency has been changed. Parameters:
 * $1 the currency code in which to continue the transaction.",
 	'donate_interface-maintenance-notice' => 'Notification that this service is temporarily disabled for maintenance.',
-
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
 	'donate_interface-AUD' => 'Used in drop-down field for currency.',
