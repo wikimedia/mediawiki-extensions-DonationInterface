@@ -7798,7 +7798,7 @@ $messages['es'] = array(
 	'donate_interface-error-msg-account_number' => 'Número de cuenta',
 	'donate_interface-error-msg-authorization_id' => 'ID de autorización',
 	'donate_interface-error-msg-bank_check_digit' => 'Dígito de control del Banco',
-	'donate_interface-error-msg-bank_code' => 'Código del Banco',
+	'donate_interface-error-msg-bank_code' => 'Código de sucursal',
 	'donate_interface-error-msg-branch_code' => 'Código de sucursal',
 	'donate_interface-error-msg-captcha' => 'El valor del captcha introducido es incorrecto. Por favor, inténtalo de nuevo.',
 	'donate_interface-error-msg-captcha-please' => 'Para la seguridad de su tarjeta de crédito, por favor escribe los caracteres que ves arriba.',
@@ -9326,6 +9326,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Jsoby
  * @author Kaldari
  * @author McDutchie
+ * @author Metroitendo
  * @author Peter17
  * @author PieRRoMaN
  * @author Quentinv57
@@ -9358,6 +9359,7 @@ $messages['fr'] = array(
 	'donate_interface-processing-error' => 'Une erreur est survenue lors du traitement de votre requête.
 Aucun organisme de paiement n’est disponible.',
 	'donate_interface-fallback-currency-notice' => 'Votre monnaie n’était pas supportée. Le traitement s’effectuera en utilisant $1, si vous décidez de continuer.',
+	'donate_interface-maintenance-notice' => 'Nous sommes désolés, mais ce type de paiement a été temporairement désactivé.',
 	'donate_interface-AED' => 'dirham des Émirats arabes unis',
 	'donate_interface-ARS' => 'peso argentin',
 	'donate_interface-AUD' => 'dollar australien',
@@ -20506,6 +20508,7 @@ $messages['ne'] = array(
  * @author Saruman
  * @author Siebrand
  * @author Tjcool007
+ * @author User555
  */
 $messages['nl'] = array(
 	'donate_interface' => 'Steun Wikimedia',
@@ -20526,6 +20529,8 @@ $messages['nl'] = array(
 	'donate_interface-smallamount-error' => 'U moet ten minste $1 bijdragen.',
 	'donate_interface-bigamount-error' => 'We kunnen geen giften van USD 10.000 of groter ($1 $2) accepteren via onze website. Neem alstublieft contact op met onze medewerkers voor grote giften via $3.',
 	'donate_interface-processing-error' => 'Er is een fout opgetreden bij het verwerken van uw verzoek. Er is geen verwerkingsdienst beschikbaar.',
+	'donate_interface-fallback-currency-notice' => 'Uw valuta was niet-ondersteunde. Verwerking vindt plaats met behulp van  $1 , als u besluit om door te gaan.',
+	'donate_interface-maintenance-notice' => 'Onze excuses, maar dit soort betaling tijdelijk is uitgeschakeld.',
 	'donate_interface-AED' => 'VAE-dirham',
 	'donate_interface-ARS' => 'Argentijnse peso',
 	'donate_interface-AUD' => 'Australische dollar',
@@ -27939,6 +27944,8 @@ $messages['sv'] = array(
 	'donate_interface-bigamount-error' => 'Vi kan inte acceptera gåvor över USD 10 000 ($1  $2) via vår webbplats. Kontakta gärna vår personal för stora gåvor på $3.',
 	'donate_interface-processing-error' => 'Det uppstod ett fel när din begäran behandlades. 
 Inga processorer finns tillgängliga.',
+	'donate_interface-fallback-currency-notice' => 'Din valuta var stöds inte. Processen kommer att använda $1 om du väljer att fortsätta.',
+	'donate_interface-maintenance-notice' => 'Vi ber om ursäkt, men denna typ av betalning är för tillfället otillgänglig.',
 	'donate_interface-AED' => 'Emiratisk dirham',
 	'donate_interface-ARS' => 'Argentinska peso',
 	'donate_interface-AUD' => 'Australiska dollar',
@@ -31024,6 +31031,7 @@ $messages['vi'] = array(
 	'donate_interface-processing-error' => 'Đã xảy ra lỗi khi xử lý yêu cầu của bạn. 
 Hiện tại không có tiến trình xử lý nào.',
 	'donate_interface-fallback-currency-notice' => 'Đơn vị tiền tệ được chọn không được tồn tại. Nếu tiếp tục, khoản quyên góp của bạn sẽ được xử lý theo $1.',
+	'donate_interface-maintenance-notice' => 'Rất tiếc, cách thanh toán này đang bị vô hiệu hóa tạm thời.',
 	'donate_interface-AED' => 'Dirham UAE',
 	'donate_interface-ARS' => 'Peso Argentina',
 	'donate_interface-AUD' => 'Đô la Úc',
