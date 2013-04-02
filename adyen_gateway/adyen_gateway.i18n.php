@@ -153,6 +153,9 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'adyengateway' => 'Derma sekarang',
+	'adyen_gateway-desc' => 'Pemprosesan pembayaran Adyen',
+	'adyen_gateway-response-default' => 'Terdapat masalah dalam memproses transaksi anda. 
+Sila cuba sebentar lagi.',
 );
 
 /** Dutch (Nederlands)

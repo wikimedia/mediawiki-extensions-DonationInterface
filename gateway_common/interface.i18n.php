@@ -19010,6 +19010,8 @@ $messages['ms'] = array(
 	'donate_interface-bigamount-error' => 'Kami tidak boleh menerima dermaan yang melebihi USD 10000 ($1 $2) melalui tapak web kami. Sila hubungi kakitangan dermaan utama kami di $3.',
 	'donate_interface-processing-error' => 'Terdapat masalah untuk memproses permintaan anda. 
 Sila kembali ke laman terdahulu.',
+	'donate_interface-fallback-currency-notice' => 'Mata wang anda tidak disokong. Pemprosesan akan dilakukan dengan menggunakan $1 jika anda ingin teruskan.',
+	'donate_interface-maintenance-notice' => 'Kami mohon maaf kerana jenis bayaran ini diberhentikan buat sementara waktu.',
 	'donate_interface-AED' => 'Dirham UAE',
 	'donate_interface-ARS' => 'Peso Argentina',
 	'donate_interface-AUD' => 'Dolar Australia',
