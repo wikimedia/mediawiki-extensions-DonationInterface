@@ -80,7 +80,11 @@ EOT;
 				$this->adapter->log( $this->adapter->getLogMessagePrefix() . "Unsupported currency forced to USD, user notified of action." );
 			}
 		} else {
-			if ( $this->getRequest()->getText( 'recurring', 0 ) ) {
+			// We also switch on the form name--if we're redirecting without stopping
+			// for user interaction, the form name is our only clue that this is recurring.
+			if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'paypal-recurring'
+				or $this->getRequest()->getText( 'recurring', 0 )
+			) {
 				$result = $this->adapter->do_transaction( 'DonateRecurring' );
 			} else {
 				$result = $this->adapter->do_transaction( 'Donate' );
