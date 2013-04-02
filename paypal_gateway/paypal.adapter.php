@@ -165,7 +165,7 @@ class PaypalAdapter extends GatewayAdapter {
 			'PHP',
 			'PLN',
 			'GBP',
-			'SGD',
+			/* 'SGD', // Only available for singaporian entities */
 			'SEK',
 			'CHF',
 			'TWD', // no fractions
