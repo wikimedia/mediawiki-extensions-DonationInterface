@@ -157,6 +157,14 @@ $messages['ko'] = array(
 	'paypal_gateway-desc' => '페이팔 결제 처리',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'paypalgateway' => 'Donn jäz schpände',
+	'paypal_gateway-desc' => 'Deiht <i lang="en">PayPal</i> als ene Wääsch för Spände enndraare.', # Fuzzy
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
