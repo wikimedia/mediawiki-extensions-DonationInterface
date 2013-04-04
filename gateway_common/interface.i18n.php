@@ -462,7 +462,10 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 
 );
 
-/** Message documentation (Message documentation)
+/** Message documentation (This is the name of the message documentation language code (qqq). Follow the rules of your languages and use small first letter if it doesn't capitalize language names always.
+
+It might be easier to translate it as "translation guidelines" or "translation help".
+{{Identical|Message documentation}})
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Hamilton Abreu
@@ -29953,7 +29956,7 @@ Upang makapagbigay ng isang ligtas, tiwasay at kaaya-ayang karanasan, ang pormul
 	'donate_interface-pm-giropay' => 'Giropay',
 	'donate_interface-pm-ideal' => 'Ideal',
 	'donate_interface-pm-nordea' => 'Nordea',
-	'donate_interface-pm-skrill' => 'Skrill',
+	'donate_interface-pm-skrill' => 'Moneybookers',
 	'donate_interface-pm-sofort' => 'Sofort',
 	'donate_interface-pm-webmoney' => 'Webmoney',
 	'donate_interface-pm-westernunion' => 'Western Union',
