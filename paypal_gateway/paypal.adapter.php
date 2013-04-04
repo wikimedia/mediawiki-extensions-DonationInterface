@@ -35,6 +35,7 @@ class PaypalAdapter extends GatewayAdapter {
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'recurring_length',
+			'locale',
 		);
 	}
 
@@ -48,6 +49,7 @@ class PaypalAdapter extends GatewayAdapter {
 			'custom' => 'contribution_tracking_id',
 			'a3' => 'amount',
 			'srt' => 'recurring_length',
+			'lc' => 'locale',
 		);
 	}
 
@@ -86,6 +88,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'no_note',
 				'return',
 				'custom',
+				'lc',
 			),
 			'values' => array(
 				'business' => $this->account_config[ 'AccountEmail' ],
@@ -115,6 +118,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'p3',
 				'src',
 				'srt',
+				'lc',
 			),
 			'values' => array(
 				'business' => $this->account_config[ 'AccountEmail' ],
@@ -180,6 +184,57 @@ class PaypalAdapter extends GatewayAdapter {
 	protected function stage_recurring_length( $mode = 'request' ) {
 		if ( array_key_exists( 'recurring_length', $this->staged_data ) && !$this->staged_data['recurring_length'] ) {
 			unset( $this->staged_data['recurring_length'] );
+		}
+	}
+
+	protected function stage_locale( $mode = 'request' ) {
+		$supported_countries = array(
+			'AU',
+			'AT',
+			'BE',
+			'BR',
+			'CA',
+			'CH',
+			'CN',
+			'DE',
+			'ES',
+			'GB',
+			'FR',
+			'IT',
+			'NL',
+			'PL',
+			'PT',
+			'RU',
+			'US',
+		);
+		$supported_full_locales = array(
+			'da_DK',
+			'he_IL',
+			'id_ID',
+			'jp_JP',
+			'no_NO',
+			'pt_BR',
+			'ru_RU',
+			'sv_SE',
+			'th_TH',
+			'tr_TR',
+			'zh_CN',
+			'zh_HK',
+			'zh_TW',
+		);
+
+		$this->log("locale");
+		if ( in_array( $this->staged_data['country'], $supported_countries ) ) {
+			$this->staged_data['locale'] = $this->staged_data['country'];
+		}
+
+		$fallbacks = Language::getFallbacksFor( strtolower( $this->staged_data['language'] ) );
+		foreach ( $fallbacks as $lang ) {
+			$locale = "{$this->staged_data['language']}_{$this->staged_data['country']}";
+			if ( in_array( $locale, $supported_full_locales ) ) {
+				$this->staged_data['locale'] = $locale;
+				return;
+			}
 		}
 	}
 }
