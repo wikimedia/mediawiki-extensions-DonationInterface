@@ -6489,7 +6489,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
  * @author Xoser
  */
 $messages['diq'] = array(
-	'donate_interface' => 'Wikipediya rê destek bide',
+	'donate_interface' => 'Wikimedya rê desteg be',
 	'donate_interface-desc' => 'Pelê bexş kerdişi ke extensiyonê gatewayi de keno.',
 	'donate_interface-intro' => 'Ma rica keno yew mebluga, dowiz u hacetê bexşi weçine.',
 	'donate_interface-amount' => 'Miktara bêcer',
@@ -16611,6 +16611,7 @@ $messages['lb'] = array(
 	'donate_interface-bigamount-error' => 'Mir kënnen iwwer eisen Internetsite keng Done vu méi wéi 10.000.- USD ($1 $2) unhuelen. Kontaktéiert w.e.g. eis Equipe fir grouss Donen iwwer $3.',
 	'donate_interface-processing-error' => 'Et gouf e Feeler beim behandele vun Ärer Ufro. Et ass kee Prozesseur disponibel.',
 	'donate_interface-fallback-currency-notice' => "Är Währung gouf net ënnerstëtzt. D'Beaarbechtung gëtt mat $1 gemaach, wann Dir decidéiert fir weiderzemaachen.",
+	'donate_interface-maintenance-notice' => 'Mir entschëllegen eis awer dës Manéier fir ze bezuelen gouf temporär ausgeschalt.',
 	'donate_interface-AED' => 'VAE-Dirham',
 	'donate_interface-ARS' => 'Argentinieche Peso',
 	'donate_interface-AUD' => 'Australeschen Dollar',
