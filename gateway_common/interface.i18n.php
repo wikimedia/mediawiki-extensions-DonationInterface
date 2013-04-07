@@ -462,10 +462,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 
 );
 
-/** Message documentation (This is the name of the message documentation language code (qqq). Follow the rules of your languages and use small first letter if it doesn't capitalize language names always.
-
-It might be easier to translate it as "translation guidelines" or "translation help".
-{{Identical|Message documentation}})
+/** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Hamilton Abreu
@@ -674,7 +671,9 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 *{{msg-mw|Donate interface-error-msg-cvv}}
 
 An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.",
-	'donate_interface-error-msg-field-correction' => 'Parameters:
+	'donate_interface-error-msg-field-correction' => 'If it is hard to translate without having GENDER on <code>$1</code>, translate "Please correct the errors in the field \'$1\'".
+
+Parameters:
 * $1 - any one of the following messages:
 ** {{msg-mw|Donate interface-error-msg-amount}}
 ** {{msg-mw|Donate interface-error-msg-emailAdd}}
@@ -4025,7 +4024,7 @@ $messages['br'] = array(
 	'donate_interface-donor-currency-label' => 'Teulenn',
 	'donate_interface-donor-email' => "Chomlec'h postel :",
 	'donate_interface-donor-emailAdd' => "Chomlec'h postel",
-	'donate_interface-donor-name' => 'Anv :',
+	'donate_interface-donor-name' => 'Anv',
 	'donate_interface-donor-fname' => 'Anv-bihan :',
 	'donate_interface-donor-mname' => 'Eil anv-bihan',
 	'donate_interface-donor-lname' => 'Anv-familh',
