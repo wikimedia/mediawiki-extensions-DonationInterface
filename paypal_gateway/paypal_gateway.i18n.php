@@ -23,6 +23,14 @@ $messages['qqq'] = array(
 	'paypal_gateway-desc' => '{{desc}}',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'paypalgateway' => 'Fai la to donación agora',
+	'paypal_gateway-desc' => 'Procesamientu de pagos de PayPal',
+);
+
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */

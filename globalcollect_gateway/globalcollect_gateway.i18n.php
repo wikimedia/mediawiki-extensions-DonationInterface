@@ -92,8 +92,8 @@ $messages['ast'] = array(
 	'globalcollect_gateway-response-21000150' => 'Númberu de cuenta bancaria inválidu.',
 	'globalcollect_gateway-response-21000155' => 'Códigu de bancu inválidu.',
 	'globalcollect_gateway-response-21000160' => 'Númberu de cuenta de xiru inválidu.',
-	'globalcollect_gateway-response-default' => 'Hebo un fallu al procesar la to transaición.
-Por favor, torna a intentalo más sero.',
+	'globalcollect_gateway-response-default' => 'Hebo un fallu al procesar la so operación.
+Por favor, vuelva a intentalo más sero.',
 );
 
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)

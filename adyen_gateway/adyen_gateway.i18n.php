@@ -31,8 +31,8 @@ $messages['qqq'] = array(
 $messages['ast'] = array(
 	'adyengateway' => 'Fai la to donación agora',
 	'adyen_gateway-desc' => "Procesamientu de pagos d'Adyen",
-	'adyen_gateway-response-default' => 'Hebo un fallu al procesar la to transaición.
-Por favor, torna a intentalo más sero.',
+	'adyen_gateway-response-default' => 'Hebo un fallu al procesar la so operación.
+Por favor, vuelva a intentalo más sero.',
 );
 
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
