@@ -967,13 +967,6 @@ $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
 
-// general PFP css
-$wgResourceModules[ 'pfp.form.core.pfp_css' ] = array(
-	'styles' => 'css/gateway.css',
-	'scripts' => array(),
-	'dependencies' => array(),
-) + $wgResourceTemplate;
-
 // TowStepTwoColumnLetter3
 $wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
 	'styles' => 'css/TwoStepTwoColumnLetter3.css',
