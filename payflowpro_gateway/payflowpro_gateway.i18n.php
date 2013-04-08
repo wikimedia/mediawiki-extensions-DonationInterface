@@ -1427,17 +1427,17 @@ $messages['nl'] = array(
 	'payflowpro_gateway-response-0' => 'Uw transactie is goedgekeurd.
 Dank u wel voor uw donatie!',
 	'payflowpro_gateway-response-126' => 'Uw transactie wacht op goedkeuring.',
-	'payflowpro_gateway-response-126-2' => 'Enige informatie die u hebt opgegeven komt niet overeen met het profiel van uw creditcard, of u hebt een zeer grote donatie geprobeerd te maken. Voor uw eigen veiligheid wordt uw donatie op dit moment gecontroleerd en we stellen u via het opgegeven e-mailadres op de hoogte als we uw donatie niet kunnen afronden. Neem alstublieft contact op via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> als u vragen hebt. Dank u wel!',
-	'payflowpro_gateway-response-12' => 'Neem alstublieft contact op met uw creditcardmaatschappij voor meer informatie.',
+	'payflowpro_gateway-response-126-2' => 'Enige informatie die u hebt opgegeven komt niet overeen met het profiel van uw creditcard, of u hebt een zeer grote donatie geprobeerd te maken. Voor uw eigen veiligheid wordt uw donatie op dit moment gecontroleerd en we stellen u via het opgegeven e-mailadres op de hoogte als we uw donatie niet kunnen afronden. Neem contact op via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> als u vragen hebt. Dank u wel!',
+	'payflowpro_gateway-response-12' => 'Neem contact op met uw creditcardmaatschappij voor meer informatie.',
 	'payflowpro_gateway-response-13' => 'Voor uw transactie is mondelinge toestemming vereist.
-Neem alstublieft contact met ons op voor uw transactie.',
-	'payflowpro_gateway-response-114' => 'Neem alstublieft contact op met uw creditcardmaatschappij voor meer informatie.',
+Neem contact met ons op voor uw transactie.',
+	'payflowpro_gateway-response-114' => 'Neem contact op met uw creditcardmaatschappij voor meer informatie.',
 	'payflowpro_gateway-response-23' => 'Het opgegeven creditcardnummer of de vervaldatum is onjuist.',
 	'payflowpro_gateway-response-4' => 'Ongeldig bedrag.',
 	'payflowpro_gateway-response-24' => 'Het opgegeven creditcardnummer of de vervaldatum is onjuist.',
 	'payflowpro_gateway-response-112' => 'Uw adres of CVV-nummer (veiligheidscode) is onjuist.',
 	'payflowpro_gateway-response-125' => 'Uw transactie is geweigerd door Fraud Prevention Services.',
-	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk uw creditcard te valideren. Controleer alstublieft of alle gegevens die u hebt opgegeven overeenkomen met uw creditkaartprofiel, of probeer te doneren met een andere creditkaart. U kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank u wel voor uw steun.',
+	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk uw creditcard te valideren. Controleer of alle gegevens die u hebt opgegeven overeenkomen met uw creditkaartprofiel, of probeer te doneren met een andere creditkaart. U kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank u wel voor uw steun.',
 	'payflowpro_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van uw transactie.
 Probeer het later nog een keer.',
 );
@@ -1449,14 +1449,14 @@ $messages['nl-informal'] = array(
 	'payflowpro_gateway-response-0' => 'Je transactie is goedgekeurd.
 Dank je wel voor je donatie!',
 	'payflowpro_gateway-response-126' => 'Je transactie wacht op goedkeuring.',
-	'payflowpro_gateway-response-126-2' => 'Enige informatie die je hebt opgegeven komt niet overeen met het profiel van je creditcard, of je hebt een zeer grote donatie geprobeerd te maken. Voor je eigen veiligheid wordt je donatie op dit moment gecontroleerd en we stellen je via het opgegeven e-mailadres op de hoogte als we je donatie niet kunnen afronden. Neem alsjeblieft contact op via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> als je vragen hebt. Dank je wel!',
-	'payflowpro_gateway-response-12' => 'Neem alsjeblieft contact op met je creditcardmaatschappij voor meer informatie.',
+	'payflowpro_gateway-response-126-2' => 'Enige informatie die je hebt opgegeven komt niet overeen met het profiel van je creditcard, of je hebt een zeer grote donatie geprobeerd te maken. Voor je eigen veiligheid wordt je donatie op dit moment gecontroleerd en we stellen je via het opgegeven e-mailadres op de hoogte als we je donatie niet kunnen afronden. Neem contact op via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> als je vragen hebt. Dank je wel!',
+	'payflowpro_gateway-response-12' => 'Neem contact op met je creditcardmaatschappij voor meer informatie.',
 	'payflowpro_gateway-response-13' => 'Voor je transactie is mondelinge toestemming vereist.
-Neem alsjeblieft contact met ons op voor je transactie.',
-	'payflowpro_gateway-response-114' => 'Neem alsjeblieft contact op met je creditcardmaatschappij voor meer informatie.',
+Neem contact met ons op voor je transactie.',
+	'payflowpro_gateway-response-114' => 'Neem contact op met je creditcardmaatschappij voor meer informatie.',
 	'payflowpro_gateway-response-112' => 'Je adres of CVV-nummer (veiligheidscode) is onjuist.',
 	'payflowpro_gateway-response-125' => 'Je transactie is geweigerd door Fraud Prevention Services.',
-	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk je creditcard te valideren. Controleer alsjeblieft of alle gegevens die je hebt opgegeven overeenkomen met je creditkaartprofiel, of probeer te doneren met een andere creditkaart. je kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank je wel voor je steun.',
+	'payflowpro_gateway-response-125-2' => 'Het was niet mogelijk je creditcard te valideren. Controleer of alle gegevens die je hebt opgegeven overeenkomen met je creditkaartprofiel, of probeer te doneren met een andere creditkaart. je kunt ook op <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">andere wijzen doneren</a> of contact met ons opnemen via <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Dank je wel voor je steun.',
 	'payflowpro_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van je transactie.
 Probeer het later nog een keer.',
 );
