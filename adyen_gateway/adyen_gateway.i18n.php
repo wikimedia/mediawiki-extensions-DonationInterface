@@ -129,6 +129,13 @@ $messages['ko'] = array(
 나중에 다시 시도하세요.',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'adyengateway' => 'Maach Ding Spände jäz',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */

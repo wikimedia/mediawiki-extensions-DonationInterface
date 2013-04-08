@@ -819,7 +819,7 @@ $messages['nl'] = array(
 	'globalcollect_gateway-response-400530' => 'Ongeldige betalingsmethode.',
 	'globalcollect_gateway-response-430306' => 'Uw creditcard is verlopen. Probeer een andere kaart of een van onze andere betalingsmethoden.',
 	'globalcollect_gateway-response-430330' => 'Ongeldig kaartnummer.',
-	'globalcollect_gateway-response-430421' => 'Uw creditcard kan niet worden gevalideerd. Controleer alstublieft of alle informatie overeenkomt met uw creditcardgegevens, of gebruik een andere kaart.',
+	'globalcollect_gateway-response-430421' => 'Uw creditcard kan niet worden gevalideerd. Controleer of alle informatie overeenkomt met uw creditcardgegevens, of gebruik een andere kaart.',
 	'globalcollect_gateway-response-430360' => 'De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.',
 	'globalcollect_gateway-response-430285' => 'De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.',
 	'globalcollect_gateway-response-21000150' => 'Ongeldig rekeningnummer.',
@@ -834,7 +834,7 @@ Probeer het later nog een keer.',
  */
 $messages['nl-informal'] = array(
 	'globalcollect_gateway-response-430306' => 'Je creditcard is verlopen. Probeer een andere kaart of een van onze andere betalingsmethoden.',
-	'globalcollect_gateway-response-430421' => 'Je creditcard kan niet worden gevalideerd. Controleer alsjeblieft of alle informatie overeenkomt met je creditcardgegevens, of gebruik een andere kaart.',
+	'globalcollect_gateway-response-430421' => 'Je creditcard kan niet worden gevalideerd. Controleer of alle informatie overeenkomt met je creditcardgegevens, of gebruik een andere kaart.',
 	'globalcollect_gateway-response-default' => 'Er is een fout opgetreden tijdens het verwerken van je transactie.
 Probeer het later nog een keer.',
 );
