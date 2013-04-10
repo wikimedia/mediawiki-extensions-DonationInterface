@@ -112,11 +112,14 @@ Si prega di riprovare più tardi.",
 );
 
 /** Japanese (日本語)
+ * @author Fryed-peach
  * @author Shirayuki
  */
 $messages['ja'] = array(
 	'adyengateway' => '今すぐ寄付',
 	'adyen_gateway-desc' => 'Adyen での支払い処理',
+	'adyen_gateway-response-default' => 'お取引の処理中にエラーが発生しました。
+後でもう一度試してください。',
 );
 
 /** Korean (한국어)

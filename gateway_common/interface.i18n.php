@@ -484,6 +484,7 @@ In order to provide a safe, secure and pleasant experience, our donation form re
 $messages['qqq'] = array(
 	'donate_interface' => '{{Identical|Support Wikimedia}}',
 	'donate_interface-desc' => '{{desc|name=Donation Interface|url=http://www.mediawiki.org/wiki/Extension:DonationInterface}}',
+	'donate_interface-langonly-desc' => '{{desc|name=Donation Interface - Language Only|url=http://www.mediawiki.org/wiki/Extension:DonationInterface}}',
 	'donate_interface-intro' => 'Message shown above the donate field prompting that tells people what to do.',
 	'donate_interface-amount' => 'Shown above the field where you choose the amount you want to donate.
 {{Identical|Amount}}',
@@ -506,12 +507,12 @@ $messages['qqq'] = array(
 	'donate_interface-smallamount-error' => "Error message if the amount chosen is too low. Parameters:
 * \$1 - a variable (it does '''not''' mean \"one dollar\"), and will be replaced with an amount in the user's currency",
 	'donate_interface-bigamount-error' => "Error message if the amount chosen is too high. Parameters:
-* $1 is the amount in the user's chosen currency.
-* $2 is the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS).
-* $3 is the e-mail address that the user should e-mail to give big gifts.",
+* $1 - the amount in the user's chosen currency
+* $2 - the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS)
+* $3 - the e-mail address that the user should e-mail to give big gifts",
 	'donate_interface-processing-error' => 'Error message.',
 	'donate_interface-fallback-currency-notice' => "Notification that the donor's currency has been changed. Parameters:
-* $1 the currency code in which to continue the transaction.",
+* $1 - the currency code in which to continue the transaction",
 	'donate_interface-maintenance-notice' => 'Notification that this service is temporarily disabled for maintenance.',
 	'donate_interface-AED' => 'Used in drop-down field for currency.',
 	'donate_interface-ARS' => 'Used in drop-down field for currency.',
@@ -652,7 +653,16 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-donor-fiscal_number' => "{{Identical|Fiscal number}}
 
 The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (Cadastro Nacional de Pessoas Jurídicas) number issued by the government of Brazil. As we only offer the 'Boletos' payment method in Brazil, which is what requires this, it probably only needs to be translated into Portuguese, Spanish, Italian, and German.",
-	'donate_interface-card-name-discover' => "Trademark name of credit card Discover®, '''not''' the verb \"to discover\".",
+	'donate_interface-card-name-amex' => 'Used as item in the "Credit card type" select box.
+{{Related|Donate interface-card}}',
+	'donate_interface-card-name-visa' => 'Used as item in the "Credit card type" select box.
+{{Related|Donate interface-card}}',
+	'donate_interface-card-name-mc' => 'Used as item in the "Credit card type" select box.
+{{Related|Donate interface-card}}',
+	'donate_interface-card-name-discover' => "Used as item in the \"Credit card type\" select box.
+
+Trademark name of credit card Discover®, '''not''' the verb \"to discover\".
+{{Related|Donate interface-card}}",
 	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
 	'donate_interface-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
@@ -732,6 +742,11 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-postal' => 'Used in error message regarding the postal code field.
 {{Identical|Postal code}}',
 	'donate_interface-error-msg-country' => '{{Identical|Country}}',
+	'donate_interface-error-msg-card_type' => 'Used as label for the radio buttons which have the following labels:
+* {{msg-mw|Donate interface-card-name-visa}}
+* {{msg-mw|Donate interface-card-name-mc}}
+* {{msg-mw|Donate interface-card-name-amex}}
+* {{msg-mw|Donate interface-card-name-discover}}',
 	'donate_interface-error-msg-card_num' => 'Used in error message regarding the credit card number field.',
 	'donate_interface-error-msg-expiration' => 'Used in error message regarding the card expiration date field.',
 	'donate_interface-error-msg-cvv' => 'Used in error message regarding the card security code field.',
@@ -781,6 +796,7 @@ This message was used during testing, but as of 7 Dec 2010 is not in use.",
 	'donate_interface-cc-form-header-payment' => 'Header for part of form with information about payment (credit card).',
 	'donate_interface-make-your-donation' => 'The title of the donation page (the one shown in tabs and window titles).
 {{Identical|Make your donation now}}',
+	'donate_interface-state-in-us' => '"US" means "United States (of America)".',
 	'donate_interface-comment' => '{{Identical|Comment}}',
 	'donate_interface-first' => "Field label. Refers to first name, and can be translated as 'first name' if needed.
 {{Identical|First}}",
@@ -791,6 +807,7 @@ This message was used during testing, but as of 7 Dec 2010 is not in use.",
 	'donate_interface-noscript-msg' => 'Error message shown if Javascript is disabled.',
 	'donate_interface-noscript-redirect-msg' => 'Line directly above the "Other ways to give" link if Javascript is disabled.',
 	'donate_interface-anon-message' => 'Next to check box.',
+	'donate_interface-donate-wikipedia' => 'Preceded by the submit button {{msg-mw|Donate interface-paypal-button}}, "-" and the message {{msg-mw|Donate interface-or}}.',
 	'donate_interface-or' => '{{Identical|Or}}',
 	'donate_interface-your-information' => 'Header above the personal information fields of the form.',
 	'donate_interface-mailing-address' => 'Label for mailing address field.',
@@ -14376,6 +14393,7 @@ $messages['ja'] = array(
 	'donate_interface-bigamount-error' => '10000 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。
 処理サービスを利用できません。',
+	'donate_interface-fallback-currency-notice' => 'あなたが希望する通貨には対応していません。続行される場合は、$1 を使って処理が進みます。',
 	'donate_interface-maintenance-notice' => '申し訳ありませんが、この種類のお支払いは一時的に無効になっています。',
 	'donate_interface-AED' => 'アラブ首長国連邦・ディルハム',
 	'donate_interface-ARS' => 'アルゼンチン・ペソ',
@@ -14498,6 +14516,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-security' => 'セキュリティコード',
 	'donate_interface-donor-submit' => '寄付',
 	'donate_interface-donor-currency-msg' => 'この寄付は$1で行われています',
+	'donate_interface-donor-fiscal_number' => '財務番号',
 	'donate_interface-card-name-amex' => 'アメリカン・エキスプレス',
 	'donate_interface-card-name-visa' => 'VISA',
 	'donate_interface-card-name-mc' => 'マスターカード',
@@ -14540,6 +14559,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-cookies' => 'ブラウザーの Cookie を有効にしてください。',
 	'donate_interface-error-msg-genaricrequired' => 'この欄は必須入力です',
 	'donate_interface-error-msg-country-calc' => 'エラー - 現時点ではあなたの寄付を承認できません。',
+	'donate_interface-error-msg-fiscal_number' => '財務番号',
 	'donate_interface-donate-error-try-a-different-card' => '[$1 別のカード]や[$2 他の寄付方法]をお試しください。または $3 までお問い合わせください。',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'ご支援いただきありがとうございます。',
 	'php-response-declined' => 'お取引が承認されませんでした。',
