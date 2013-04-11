@@ -1720,7 +1720,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'UYU', // Uruguayan peso
 			'USD', // U.S. dollar
 			'UZS', // Uzbekistani som
-			'VND', // Vietnamese dong
+// - removed temporarily (WorldPay)			'VND', // Vietnamese dong
 			'XAF', // Central African CFA franc
 			'XCD', // East Caribbean dollar
 			'XOF', // West African CFA franc
