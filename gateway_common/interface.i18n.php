@@ -6080,6 +6080,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 /** German (Deutsch)
  * @author ChrisiPK
  * @author Filzstift
+ * @author Geitost
  * @author Jsoby
  * @author Kghbln
  * @author Lyzzy
@@ -6100,7 +6101,7 @@ $messages['de'] = array(
 	'donate_interface-submit-button' => 'Spenden',
 	'donate_interface-comment-message' => 'Haben Sie einen Gedanken, den Sie mit der Welt teilen möchten? Er darf bis zu 200 Zeichen lang sein:',
 	'donate_interface-comment-label' => 'Kommentar:',
-	'donate_interface-email-agreement' => 'Ich bin damit einverstanden, gelegentlich per E-Mail aktuelle Informationen von der Wikimedia Foundation zu erhalten.',
+	'donate_interface-email-agreement' => "Ich bin damit einverstanden, gelegentlich per E-Mail aktuelle Informationen von der ''Wikimedia Foundation'' zu erhalten.",
 	'donate_interface-comment-title' => 'Öffentlicher Kommentar:',
 	'donate_interface-donation-description' => 'Spende an die Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Bitte einen gültigen Betrag eingeben',
@@ -14393,7 +14394,7 @@ $messages['ja'] = array(
 	'donate_interface-bigamount-error' => '10000 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。',
 	'donate_interface-processing-error' => '要求の処理中にエラーが発生しました。
 処理サービスを利用できません。',
-	'donate_interface-fallback-currency-notice' => 'あなたが希望する通貨には対応していません。続行される場合は、$1 を使って処理が進みます。',
+	'donate_interface-fallback-currency-notice' => 'ご希望の通貨には対応していません。続行される場合は、以降の処理に $1 を使用します。',
 	'donate_interface-maintenance-notice' => '申し訳ありませんが、この種類のお支払いは一時的に無効になっています。',
 	'donate_interface-AED' => 'アラブ首長国連邦・ディルハム',
 	'donate_interface-ARS' => 'アルゼンチン・ペソ',
@@ -16958,6 +16959,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-online_bank_transfer_message' => 'Telefon & Internet-Banking - BPAY®',
 	'donate_interface-rtbt-issuer_id' => 'Bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Aner Banken',
+	'donate_interface-sofortbanking' => 'Sofortbanking ass eng direkt Bankiwwerweisung déi an Echtzäit via DIRECTBanking.com gemaach gëtt. Et erlaabt Iech, direkt während dem Online-Don, eng Iwwerweisung mat den Informatiounen vun Ärem Online-Banking nozeverfolgen. Wann op Ärem Bankkont den Online-Banking fräigeschalt ass, kënnt Dir alternativ d\'Optioun "En Don mat enger manueller Iwwerweisung" op der Startsäit vun den Donen eraussichen.',
 	'donate_interface-dd-account_name' => 'Numm vum Kont',
 	'donate_interface-dd-account_number' => 'Kontonummer',
 	'donate_interface-dd-authorization_id' => 'Autorisatiounsnummer',
