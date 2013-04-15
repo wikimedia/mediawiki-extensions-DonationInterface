@@ -168,6 +168,15 @@ $messages['ms'] = array(
 Sila cuba sebentar lagi.',
 );
 
+/** Norwegian Bokmål (norsk bokmål)
+ */
+$messages['nb'] = array(
+	'adyengateway' => 'Gi nå',
+	'adyen_gateway-desc' => 'Betaling med Adyen',
+	'adyen_gateway-response-default' => 'Det oppsto en feil under behandlingen av din transaksjon.
+Vennligst prøv igjen senere.',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
