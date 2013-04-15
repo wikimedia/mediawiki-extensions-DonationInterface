@@ -241,6 +241,13 @@ $messages['mt'] = array(
 	'amazon_gateway-desc' => "Proċessar tal-ħlas permezz ta' Amazon",
 );
 
+/** Norwegian Bokmål (norsk bokmål)
+ */
+$messages['nb'] = array(
+	'amazongateway' => 'Gi nå',
+	'amazon_gateway-desc' => 'Betaling med Amazon',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */

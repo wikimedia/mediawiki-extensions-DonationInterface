@@ -197,6 +197,13 @@ $messages['ms'] = array(
 	'paypal_gateway-desc' => 'Pemprosesan pembayaran PayPal',
 );
 
+/** Norwegian Bokmål (norsk bokmål)
+ */
+$messages['nb'] = array(
+	'paypalgateway' => 'Gi nå',
+	'paypal_gateway-desc' => 'Betaling med PayPal',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
@@ -235,6 +242,15 @@ $messages['ro'] = array(
 $messages['roa-tara'] = array(
 	'paypalgateway' => "Fà 'a donazziona toje mò",
 	'paypal_gateway-desc' => 'Procese de pajamende de Paypal',
+);
+
+/** Russian (русский)
+ * @author Iluvatar
+ * @author Александр Сигачёв
+ */
+$messages['ru'] = array(
+	'paypalgateway' => 'Сделайте пожертвование сейчас',
+	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований', # Fuzzy
 );
 
 /** Swedish (svenska)
