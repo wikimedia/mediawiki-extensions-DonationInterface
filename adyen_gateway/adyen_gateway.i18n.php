@@ -136,7 +136,7 @@ $messages['ko'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
-	'adyengateway' => 'Maach Ding Spände jäz',
+	'adyengateway' => 'Maach Ding Schpände jäz',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
