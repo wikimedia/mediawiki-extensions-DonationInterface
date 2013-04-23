@@ -170,7 +170,7 @@ $messages['ko'] = array(
  */
 $messages['ksh'] = array(
 	'paypalgateway' => 'Donn jäz schpände',
-	'paypal_gateway-desc' => 'Deiht <i lang="en">PayPal</i> als ene Wääsch för Spände enndraare.', # Fuzzy
+	'paypal_gateway-desc' => 'Deiht <i lang="en">PayPal</i> als ene Wääsch för ze Schpände enndraare un di och affhandelle.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
