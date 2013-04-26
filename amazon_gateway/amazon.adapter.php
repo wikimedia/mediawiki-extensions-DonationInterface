@@ -84,10 +84,12 @@ class AmazonAdapter extends GatewayAdapter {
 				'isDonationWidget',
 				'processImmediate',
 				'referenceId',
+				//'signature',
 				'signatureMethod',
 				'signatureVersion',
 			),
 			'values' => array(
+				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
 				'description' => wfMsg( 'donate_interface-donation-description' ),
 				'immediateReturn' => '1',
@@ -98,12 +100,46 @@ class AmazonAdapter extends GatewayAdapter {
 			),
 			'redirect' => TRUE,
 		);
+
+		$this->transactions[ 'DonateMonthly' ] = array(
+			'request' => array(
+				'accessKey',
+				'amount',
+				'collectShippingAddress',
+				'description',
+				'immediateReturn',
+				'processImmediate',
+				'recurringFrequency',
+				'referenceId',
+				'returnUrl',
+				//'signature',
+				'signatureMethod',
+				'signatureVersion',
+				//'subscriptionPeriod',
+			),
+			'values' => array(
+				// FIXME: There is magick available if the names match.
+				'accessKey' => $this->account_config[ 'AccessKey' ],
+				'collectShippingAddress' => '0',
+				'description' => wfMsg( 'donate_interface-monthly-donation-description' ),
+				'immediateReturn' => '1',
+				'processImmediate' => '1',
+				'recurringFrequency' => "1 month",
+				'signatureMethod' => "HmacSHA256",
+				'signatureVersion' => "2",
+				// FIXME: this is the documented default, but passing it explicitly is buggy
+				//'subscriptionPeriod' => "forever",
+			),
+			'redirect' => TRUE,
+		);
+
 		$this->transactions[ 'VerifySignature' ] = array(
 			'request' => array(
 				'Action',
 				'HttpParameters',
 				'UrlEndPoint',
 				'Version',
+				//'Signature',
 				'SignatureMethod',
 				'SignatureVersion',
 				'AWSAccessKeyId',
@@ -111,6 +147,7 @@ class AmazonAdapter extends GatewayAdapter {
 			),
 			'values' => array(
 				'Action' => "VerifySignature",
+				'AWSAccessKeyId' => $this->account_config[ 'AccessKey' ],
 				'UrlEndPoint' => $this->getGlobal( "ReturnURL" ),
 				'Version' => "2010-08-28",
 				'SignatureMethod' => "HmacSHA256",
@@ -119,6 +156,7 @@ class AmazonAdapter extends GatewayAdapter {
 			),
 			'url' => $this->getGlobal( "FpsURL" ),
 		);
+
 		$this->transactions[ 'ProcessAmazonReturn' ] = array(
 			'request' => array(),
 			'values' => array(),
@@ -161,9 +199,9 @@ class AmazonAdapter extends GatewayAdapter {
 
 		switch ( $transaction ) {
 		case 'Donate':
+		case 'DonateMonthly':
 			//TODO parseurl... in case ReturnURL already has a query string
 			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$this->getGlobal( 'ReturnURL' )}?order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
-			$this->transactions[ $transaction ][ 'values' ][ 'accessKey' ] = $this->account_config[ 'AccessKey' ];
 			break;
 		case 'VerifySignature':
 			$request_params = $wgRequest->getValues();
@@ -171,7 +209,6 @@ class AmazonAdapter extends GatewayAdapter {
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
 			$this->log_special( "received callback from amazon with: $incoming", LOG_DEBUG );
-			$this->transactions[ $transaction ][ 'values' ][ 'AWSAccessKeyId' ] = $this->account_config[ 'AccessKey' ];
 			break;
 		}
 
@@ -182,6 +219,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 		switch ( $transaction ) {
 			case 'Donate':
+			case 'DonateMonthly':
 				$this->addDonorDataToSession();
 				$query_str = $this->encodeQuery( $query );
 				$this->log_special( "At $transaction, redirecting with query string: $query_str", LOG_DEBUG );

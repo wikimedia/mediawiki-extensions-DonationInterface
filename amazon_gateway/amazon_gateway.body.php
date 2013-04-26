@@ -39,7 +39,11 @@ class AmazonGateway extends GatewayForm {
 		$this->setHeaders();
 
 		if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
-			$this->adapter->do_transaction( 'Donate' );
+			if ( $this->getRequest()->getText( 'recurring', 0 ) ) {
+				$this->adapter->do_transaction( 'DonateMonthly' );
+			} else {
+				$this->adapter->do_transaction( 'Donate' );
+			}
 			return;
 		}
 
