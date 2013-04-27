@@ -1254,10 +1254,23 @@ $messages['zh-hans'] = array(
 
 /** Traditional Chinese (中文（繁體）‎)
  * @author Shirayuki
+ * @author Simon Shek
  */
 $messages['zh-hant'] = array(
 	'globalcollectgateway' => '馬上捐款',
+	'globalcollect_gateway-desc' => 'GlobalCollect付款處理',
 	'globalcollect_gateway-response-9130' => '無效的國家。',
 	'globalcollect_gateway-response-9140' => '無效的貨幣。',
 	'globalcollect_gateway-response-9150' => '無效的語言。',
+	'globalcollect_gateway-response-400530' => '付款方法有誤。',
+	'globalcollect_gateway-response-430306' => '您的信用卡已過期。請嘗試使用其他卡或我們的其他付款方式。',
+	'globalcollect_gateway-response-430330' => '卡號不正確。',
+	'globalcollect_gateway-response-430421' => '無法確認您的信用卡。請檢察所有信息與信用卡上的資料匹配，或嘗試使用其他卡。',
+	'globalcollect_gateway-response-430360' => '本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。',
+	'globalcollect_gateway-response-430285' => '本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。',
+	'globalcollect_gateway-response-21000150' => '銀行帳戶號碼不正確。',
+	'globalcollect_gateway-response-21000155' => '銀行代碼不正確。',
+	'globalcollect_gateway-response-21000160' => '轉帳帳戶編號不正確。',
+	'globalcollect_gateway-response-default' => '處理交易的過程中出錯。
+請稍後再試。',
 );
