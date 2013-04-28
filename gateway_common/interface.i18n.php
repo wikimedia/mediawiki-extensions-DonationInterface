@@ -20838,6 +20838,7 @@ $messages['nl'] = array(
 	'donate_interface-email-agreement' => 'Ik ga akkoord met het af en toe ontvangen van e-mails van de Wikimedia Foundation.',
 	'donate_interface-comment-title' => 'Openbare reactie',
 	'donate_interface-donation-description' => 'Gift aan de Wikimedia Foundation',
+	'donate_interface-monthly-donation-description' => 'Maandelijkse donatie aan de Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Voer een geldig bedrag in',
 	'donate_interface-smallamount-error' => 'U moet ten minste $1 bijdragen.',
 	'donate_interface-bigamount-error' => 'We kunnen geen giften van USD 10.000 of groter ($1 $2) accepteren via onze website. Neem contact op met onze medewerkers voor grote giften via $3.',
@@ -21907,6 +21908,7 @@ $messages['pfl'] = array(
 /** Polish (polski)
  * @author Bartek50003
  * @author BeginaFelicysym
+ * @author Chrumps
  * @author Lazowik
  * @author Mikołka
  * @author Sp5uhe
@@ -22084,6 +22086,9 @@ $messages['pl'] = array(
 	'donate_interface-error-msg-card_num' => 'numer karty kredytowej',
 	'donate_interface-error-msg-expiration' => 'datę ważności karty',
 	'donate_interface-error-msg-cvv' => 'kod CVV umieszczony z tyłu karty',
+	'donate_interface-error-msg-account_name' => 'Nazwa konta',
+	'donate_interface-error-msg-account_number' => 'Numer konta',
+	'donate_interface-error-msg-authorization_id' => 'Identyfikator autoryzacji',
 	'donate_interface-error-msg-captcha' => 'Przepisana przez Ciebie zawartość captcha jest nieprawidłowa. Spróbuj jeszcze raz.',
 	'donate_interface-error-msg-captcha-please' => 'Proszę wypełnić formularz captcha aby udowodnić, że nie jesteś botem.',
 	'donate_interface-error-msg-cookies' => 'Włącz ciasteczka w przeglądarce',
@@ -31345,6 +31350,7 @@ $messages['vi'] = array(
 	'donate_interface-email-agreement' => 'Tôi đồng ý thỉnh thoảng nhận các bản cập nhật từ Wikimedia Foundation qua thư điện tử.',
 	'donate_interface-comment-title' => 'Lời nhắn công khai',
 	'donate_interface-donation-description' => 'Khoản quyên góp cho Wikimedia Foundation',
+	'donate_interface-monthly-donation-description' => 'Khoản quyên góp hàng tháng cho Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Xin hãy nhập vào số tiền hợp lệ',
 	'donate_interface-smallamount-error' => 'Bạn phải quyên góp ít nhất $1',
 	'donate_interface-bigamount-error' => 'Chúng tôi không thể nhận khoản quyên góp hơn 10.000 USD (tức $1 $2) qua website của chúng tôi. Xin vui lòng liên lạc với nhân viên món quà lớn tại $3.',
