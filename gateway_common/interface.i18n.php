@@ -10393,6 +10393,7 @@ $messages['gl'] = array(
 	'donate_interface-email-agreement' => 'Acepto recibir correos electrónicos ocasionais da Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-donation-description' => 'Doazón á Fundación Wikimedia',
+	'donate_interface-monthly-donation-description' => 'Doazón mensual á Fundación Wikimedia',
 	'donate_interface-amount-error' => 'Por favor, escribe unha cantidade válida',
 	'donate_interface-smallamount-error' => 'Debes achegar, polo menos, $1',
 	'donate_interface-bigamount-error' => 'Non podemos aceptar doazóns superiores aos 10.000 dólares estadounidenses ($1 $2) a través da nosa páxina web. Ponte en contacto co noso persoal para os grandes agasallos no enderezo $3.',
