@@ -39,7 +39,6 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Stomp' => false,
 	'ConversionLog' => false, //this is definitely an Extra
 	'Minfraud' => false, //this is definitely an Extra
-	'Recaptcha' => false, //extra
 	'PayflowPro' => false,
 	'GlobalCollect' => false,
 	'Amazon' => false,
@@ -65,7 +64,6 @@ foreach ($optionalParts as $subextension => $enabled){
 			$subextension === 'FunctionsFilter' ||
 			$subextension === 'ConversionLog' ||
 			$subextension === 'Minfraud' ||
-			$subextension === 'Recaptcha' ||
 			$subextension === 'IPVelocityFilter' ||
 			$subextension === 'SessionVelocityFilter') {
 
@@ -174,11 +172,6 @@ if ( $optionalParts['SourceFilter'] === true ){
 //Functions Filter classes
 if ( $optionalParts['FunctionsFilter'] === true ){
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Functions'] = $donationinterface_dir . "extras/custom_filters/filters/functions/functions.body.php";
-}
-
-//Recaptcha classes
-if ( $optionalParts['Recaptcha'] === true ){
-	$wgAutoloadClasses['Gateway_Extras_ReCaptcha'] = $donationinterface_dir . "extras/recaptcha/recaptcha.body.php";
 }
 
 //Functions Filter classes
@@ -705,37 +698,6 @@ $wgDonationInterfaceUtmMediumMap = array();
  */
 $wgDonationInterfaceUtmSourceMap = array();
 
-//Recaptcha globals
-if ( $optionalParts['Recaptcha'] === true ){
-	/**
-	 * Public and Private reCaptcha keys
-	 *
-	 * These can be obtained at:
-	 *   http://www.google.com/recaptcha/whyrecaptcha
-	 */
-	$wgDonationInterfaceRecaptchaPublicKey = '';
-	$wgDonationInterfaceRecaptchaPrivateKey = '';
-
-	// Timeout (in seconds) for communicating with reCAPTCHA
-	$wgDonationInterfaceRecaptchaTimeout = 2;
-
-	/**
-	 * HTTP Proxy settings
-	 */
-	$wgDonationInterfaceRecaptchaUseHTTPProxy = false;
-	$wgDonationInterfaceRecaptchaHTTPProxy = false;
-
-	/**
-	 * Use SSL to communicate with reCaptcha
-	 */
-	$wgDonationInterfaceRecaptchaUseSSL = 1;
-
-	/**
-	 * The # of times to retry communicating with reCaptcha if communication fails
-	 * @var int
-	 */
-	$wgDonationInterfaceRecaptchaComsRetryLimit = 3;
-}
 
 /**
  * SPECIAL PAGES
@@ -816,12 +778,6 @@ if ( $optionalParts['Minfraud'] === true ){
 if ($optionalParts['ConversionLog'] === true){
 	// Sets the 'conversion log' as logger for post-processing
 	$wgHooks["GatewayPostProcess"][] = array( "Gateway_Extras_ConversionLog::onPostProcess" );
-}
-
-//Recaptcha hooks
-if ($optionalParts['Recaptcha'] === true){
-	// Set reCpatcha as plugin for 'challenge' action
-	$wgHooks["GatewayChallenge"][] = array( "Gateway_Extras_ReCaptcha::onChallenge" );
 }
 
 //Functions Filter hooks
