@@ -337,7 +337,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		// ADDITIONAL: log out what you did here, to... somewhere. 
 		// Preferably *before* you rewrite the Order ID file. 
 
-		//we may need to unset some hooks out here. Like... recaptcha. Makes no sense.
+		//we may need to unset some hooks out here. Anything that requires user interaction would make no sense here.
 		$i = 0;
 		foreach($payments as $payment_data){
 			if ($i < $this->max_per_execute){
