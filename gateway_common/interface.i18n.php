@@ -7816,6 +7816,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Glykanera
  * @author Jsoby
  * @author Locos epraix
+ * @author MarcoAurelio
  * @author McDutchie
  * @author MetalBrasil
  * @author Microcell
@@ -7843,6 +7844,7 @@ $messages['es'] = array(
 	'donate_interface-email-agreement' => 'Estoy de acuerdo en recibir noticias por correo electrónico de la Fundación Wikimedia.',
 	'donate_interface-comment-title' => 'Comentario público',
 	'donate_interface-donation-description' => 'Donación a la Fundación Wikimedia',
+	'donate_interface-monthly-donation-description' => 'Donación mensual a Wikimedia Foundation',
 	'donate_interface-amount-error' => 'Introduce una cantidad válida',
 	'donate_interface-smallamount-error' => 'Debes contribuir con al menos $1',
 	'donate_interface-bigamount-error' => 'No podemos aceptar donaciones de más de 10000 USD ($1 $2) a través de nuestro sitio Web. Póngase en contacto con nuestro personal de grandes donaciones en $3 .',
