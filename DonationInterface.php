@@ -282,8 +282,8 @@ $wgDonationInterfaceSMaxAge = 6000;
  * Configure price ceiling and floor for valid contribution amount.  Values
  * should be in USD.
  */
-$wgDonationInterfacePriceFloor = '1.00';
-$wgDonationInterfacePriceCeiling = '10000.00';
+$wgDonationInterfacePriceFloor = 1.00;
+$wgDonationInterfacePriceCeiling = 10000.00;
 
 /**
  * Default Thank You and Fail pages for all of donationinterface - language will be calc'd and appended at runtime.
@@ -431,6 +431,8 @@ if ( $optionalParts['Amazon'] === true ){
 	// does NOT accept unroutable development names, use the number instead
 	// even if it's 127.0.0.1
 	$wgAmazonGatewayReturnURL = "";
+
+	$wgAmazonGatewayHtmlFormDir = $donationinterface_dir . 'amazon_gateway/forms/html';
 }
 
 if ( $optionalParts['Paypal'] === true ){
@@ -440,8 +442,6 @@ if ( $optionalParts['Paypal'] === true ){
 	$wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 	$wgPaypalGatewayReturnURL = ''; //'http://127.0.0.1/index.php/Special:PaypalGatewayResult';
 	$wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
-
-	$wgPaypalGatewayPriceFloor = 1.00;
 
 	$wgPaypalGatewayHtmlFormDir = $donationinterface_dir . 'paypal_gateway/forms/html';
 

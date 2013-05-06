@@ -298,8 +298,8 @@ $wgResourceModules[ 'adyen.js' ] = array(
 	'remoteExtPath' => $wgAdyenRapidHtmlRemoteExtPath,
 );
 
-$wgResourceModules[ 'paypal.js' ] = array(
-	'scripts' => 'js/paypal.js',
-	'localBasePath' => dirname( __FILE__ ).'/../../paypal_gateway/forms',
-	'remoteExtPath' => $wgPaypalRapidHtmlRemoteExtPath,
+$wgResourceModules[ 'basicDonationForm' ] = array(
+	'scripts' => 'js/basicForm.js',
+	'localBasePath' => __DIR__,
+	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );

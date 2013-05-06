@@ -38,29 +38,35 @@ class AmazonGateway extends GatewayForm {
 
 		$this->setHeaders();
 
-		if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
-			if ( $this->getRequest()->getText( 'recurring', 0 ) ) {
-				$this->adapter->do_transaction( 'DonateMonthly' );
-			} else {
-				$this->adapter->do_transaction( 'Donate' );
-			}
-			return;
-		}
-
-		$this->log( 'At gateway return with params: ' . json_encode( $this->getRequest()->getValues() ), LOG_INFO );
-		if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
-			$this->adapter->do_transaction( 'ProcessAmazonReturn' );
-
-			$status = $this->adapter->getTransactionWMFStatus();
-
-			if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
-				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
-			}
-			else {
-				$this->getOutput()->redirect( $this->adapter->getFailPage() );
-			}
+		if ( $this->validateForm() ) {
+			$this->displayForm();
 		} else {
-			$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
+			if ( $this->getRequest()->getText( 'redirect', 0 ) ) {
+				if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'amazon-recurring'
+					||  $this->getRequest()->getText( 'recurring', 0 )
+				) {
+					$this->adapter->do_transaction( 'DonateMonthly' );
+				} else {
+					$this->adapter->do_transaction( 'Donate' );
+				}
+				return;
+			}
+
+			$this->log( 'At gateway return with params: ' . json_encode( $this->getRequest()->getValues() ), LOG_INFO );
+			if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
+				$this->adapter->do_transaction( 'ProcessAmazonReturn' );
+
+				$status = $this->adapter->getTransactionWMFStatus();
+
+				if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
+					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				}
+				else {
+					$this->getOutput()->redirect( $this->adapter->getFailPage() );
+				}
+			} else {
+				$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
+			}
 		}
 	}
 }

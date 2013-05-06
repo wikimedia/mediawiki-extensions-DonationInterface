@@ -73,7 +73,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	 *   - email - Validation requires non-empty: email
 	 *   - name - Validation requires non-empty: fname, lname
 	 *
-	 * @return boolean Returns true on an error-free validation, otherwise false.
+	 * @return boolean Returns false on an error-free validation, otherwise true.
 	 */
 	public function validateForm( $options = array() ) {
 		

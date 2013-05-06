@@ -44,12 +44,14 @@ class DataValidator {
 	/**
 	 * $gateway_classes
 	 * @var array A list of all possible gateway classes. 
+	 * FIXME: get rid of this
 	 */
 	protected static $gateway_classes = array(
 		'globalcollect' => 'GlobalCollectAdapter',
 		'payflowpro' => 'PayflowProAdapter',
 		'paypal' => 'PaypalAdapter',
 		'adyen' => 'AdyenAdapter',
+		'amazon' => 'AmazonAdapter',
 	);
 	
 	/**
