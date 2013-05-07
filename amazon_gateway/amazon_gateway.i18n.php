@@ -215,6 +215,7 @@ $messages['ksh'] = array(
  */
 $messages['lb'] = array(
 	'amazongateway' => 'Maacht Ären Don elo',
+	'amazon_gateway-desc' => 'Bezuele mat Amazon gëtt verschafft',
 );
 
 /** Macedonian (македонски)
