@@ -7,6 +7,8 @@
 class DonationApi extends ApiBase {
 	var $donationData, $gateway;
 	public function execute() {
+		global $wgDonationInterfaceTestMode;
+
 		$this->donationData = $this->extractRequestParams();
 
 		$this->gateway = $this->donationData['gateway'];
@@ -23,7 +25,11 @@ class DonationApi extends ApiBase {
 					$result = $gatewayObj->do_transaction( 'Card' );
 			}
 		} elseif ( $this->gateway == 'globalcollect' ) {
-			$gatewayObj = new GlobalCollectAdapter();
+			if ( $wgDonationInterfaceTestMode === true ) {
+				$gatewayObj = new TestingGlobalCollectAdapter();
+			} else {
+				$gatewayObj = new GlobalCollectAdapter();
+			}
 			switch ( $method ) {
 				// TODO: add other payment methods
 				case 'cc':
@@ -56,6 +62,9 @@ class DonationApi extends ApiBase {
 			}
 			if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
 				$outputResult['formaction'] = $result['data']['FORMACTION'];
+			}
+			if ( $gatewayObj->getMerchantID() === 'test' ) {
+				$outputResult['testform'] = true;
 			}
 			if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
 				$outputResult['responsemsg'] = $result['data']['RESPMSG'];

@@ -2323,7 +2323,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$checked[] = $oid;
 		}
 	}
-	
+
+	/**
+	 * For places that might need the merchant ID outside of the adapter
+	 */
+	public function getMerchantID() {
+		return $this->account_config[ 'MerchantID' ];
+	}
+
 	/**
 	 * getCVVResult is intended to be used by the functions filter, to 
 	 * determine if we want to fail the transaction ourselves or not. 
