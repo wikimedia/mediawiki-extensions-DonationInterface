@@ -32839,7 +32839,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-via-paypal' => '（通过 PayPal）',
 	'donate_interface-shirt-size' => 'T-恤大小：',
 	'donate_interface-shirt-size-2' => 'T-恤大小： $1',
-	'donate_interface-language' => '语言：',
+	'donate_interface-language' => '用户界面语言：',
 	'donate_interface-front' => '前面',
 	'donate_interface-back' => '后面',
 	'donate_interface-front-of-shirt' => '衣服前面',
@@ -32938,6 +32938,7 @@ $messages['zh-hans'] = array(
  * @author Shirayuki
  * @author Simon Shek
  * @author Waihorace
+ * @author Yfdyh000
  */
 $messages['zh-hant'] = array(
 	'donate_interface' => '資助維基媒體',
@@ -33248,7 +33249,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-via-paypal' => '（透過PayPal）',
 	'donate_interface-shirt-size' => 'T恤尺寸：',
 	'donate_interface-shirt-size-2' => 'T恤尺寸：$1',
-	'donate_interface-language' => '語言：',
+	'donate_interface-language' => '使用者介面語言：',
 	'donate_interface-front' => '前面',
 	'donate_interface-back' => '後面',
 	'donate_interface-front-of-shirt' => '衣服前面',
