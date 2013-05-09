@@ -159,19 +159,32 @@ class GlobalCollectGateway extends GatewayForm {
 	 */
 	protected function executeIframeForCreditCard() {
 		$formAction = $this->adapter->getTransactionDataFormAction();
+		$mercid = $this->adapter->getMerchantID();
+
+		$attrs = array(
+			'id' => 'globalcollectframe',
+			'name' => 'globalcollectframe',
+			'width' => '680',
+			'height' => '300'
+		);
 
 		if ( $formAction ) {
-			$paymentFrame = Xml::openElement( 'iframe', array(
-					'id' => 'globalcollectframe',
-					'name' => 'globalcollectframe',
-					'width' => '680',
-					'height' => '300',
-					'frameborder' => '0',
-					'style' => 'display:block;',
-					'src' => $formAction,
-				)
-			);
-			$paymentFrame .= Xml::closeElement( 'iframe' );
+			if ( $mercid === 'test' ) {
+				$paymentFrame = (
+					Xml::openElement( 'div', $attrs ) .
+					'<input type="button" id="globalcollect_gateway-fakesucceed"' .
+					'value="' . $this->msg( 'globalcollect_gateway-fakesucceed' ) . '" />' .
+					'<input type="button" id="globalcollect_gateway-fakefail"' .
+					'value="' . $this->msg( 'globalcollect_gateway-fakefail' ) . '" />' .
+					Xml::closeElement( 'div' )
+				);
+			} else {
+				$attrs['frameborder'] = '0';
+				$attrs['style'] = 'display:block;';
+				$attrs['src'] = $formAction;
+				$paymentFrame = Xml::openElement( 'iframe', $attrs );
+				$paymentFrame .= Xml::closeElement( 'iframe' );
+			}
 
 			$this->getOutput()->addHTML( $paymentFrame );
 

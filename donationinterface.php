@@ -29,6 +29,12 @@ $wgExtensionCredits['specialpage'][] = array(
 
 $donationinterface_dir = dirname( __FILE__ ) . '/';
 
+// Test mode (not for production!)
+// Set it if not defined
+if ( $wgDonationInterfaceTestMode !== true ) {
+	$wgDonationInterfaceTestMode = false;
+}
+
 /**
  * Figure out what we've got enabled.
  */
@@ -107,7 +113,12 @@ $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway
 if ( $optionalParts['GlobalCollect'] === true ){
 	$wgAutoloadClasses['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.body.php';
 	$wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_resultswitcher.body.php';
+
 	$wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
+
+	if ( $wgDonationInterfaceTestMode === true ) {
+		$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $donationinterface_dir . 'tests/includes/test_gateway/test.adapter.php';
+	}
 }
 
 //PayflowPro gateway classes
@@ -826,6 +837,14 @@ $wgResourceModules['donationInterface.skinOverride'] = array(
 	),
 	'position' => 'top'
 	) + $wgResourceTemplate;
+
+$wgResourceModules['donationInterface.test.rapidhtml'] = array(
+	'scripts' => 'tests/modules/gc.testinterface.js',
+	'dependencies' => array(
+		'mediawiki.Uri',
+		'gc.normalinterface'
+	)
+) + $wgResourceTemplate;
 
 // load any rapidhtml related resources
 require_once( $donationinterface_dir . 'gateway_forms/rapidhtml/RapidHtmlResources.php' );

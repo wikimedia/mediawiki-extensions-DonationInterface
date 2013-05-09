@@ -69,24 +69,20 @@ window.displayCreditCardForm = function() {
 		'dataType': 'json',
 		'type': 'GET',
 		'success': function( data ) {
-			if ( typeof data.error !== 'undefined' ) {
+			var $payment, $form, $succeedBtn, $failBtn, returnUrl;
+
+			if ( !data || data.error !== undefined ) {
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
-			} else if ( typeof data.result !== 'undefined' ) {
+			} else if ( data.result !== undefined ) {
 				if ( data.result.errors ) {
 					var errors = new Array();
 					$.each( data.result.errors, function( index, value ) {
 						alert( value ); // Show them the error
 						$( "#paymentContinue" ).show(); // Show continue button in 2nd section
 					} );
-				} else {
-					if ( data.result.formaction ) {
-						$( '#payment' ).empty();
-						// Insert the iframe into the form
-						$( '#payment' ).append(
-							'<iframe src="'+data.result.formaction+'" width="318" height="314" frameborder="0"></iframe>'
-						);
-					}
+				} else if ( data.result.formaction || data.result.testform ) {
+					mw.generatePaymentForm( data );
 				}
 			}
 		},
