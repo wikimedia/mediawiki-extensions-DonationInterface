@@ -276,7 +276,12 @@ class WorldPayAdapter extends GatewayAdapter {
 		foreach( self::$CARD_TYPES as $wpName => $ourName ) {
 			$this->payment_submethods[$ourName] = array(
 				'group'	=> 'cc',
-				'validation' => array( 'address' => false, 'amount' => true, 'email' => true, 'name' => true, ),
+				'validation' => array(
+					'address' => false,
+					'amount' => true,
+					'email' => true,
+					'name' => true,
+				),
 			);
 		}
 
