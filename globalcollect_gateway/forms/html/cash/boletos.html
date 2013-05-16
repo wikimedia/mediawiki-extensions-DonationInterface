@@ -2,7 +2,7 @@
 	mw.loader.load('gc.form.rapidhtml.boletos');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#country|escape','#emailAdd|escape'];
+	var billingErrors = ['#fname|escape','#lname|escape','#street|escape','#city|escape','#state|escape','#country|escape','#emailAdd|escape'];
 	var paymentErrors = ['#fiscal_number|escape'];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
@@ -45,11 +45,6 @@ $( document ).ready( function() {
 							</td>
 						</tr>
 						{% block personal-information country %}
-						<tr>
-							<td colspan="2">
-								<input class="fullwidth" name="fiscal_number" value="@fiscal_number" type="text" placeholder="%donate_interface-donor-fiscal_number%" id="fiscal_number">
-							</td>
-						</tr>
 						<tr>
 							<td colspan="2">
 								<hr />
