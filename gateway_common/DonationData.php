@@ -463,6 +463,7 @@ class DonationData {
 		$utm_source = $this->getVal( 'utm_source' );
 		
 		if ( !class_exists( $class_name ) ) {
+			$class_name_orig = $class_name;
 
 			/*
 			 * If $class_name is not the default form, then check to see if the
@@ -473,14 +474,12 @@ class DonationData {
 				$log_message = '[ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
 				$this->log( $this->getLogMessagePrefix() . 'Specified form class not found ' . $log_message , LOG_ERR );
 
-				$class_name_orig = $class_name;
 				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
 			}
 
 			if ( class_exists( $class_name ) ) {
 				$this->setVal( 'form_name', $this->getGatewayGlobal( 'DefaultForm' ) );
 			} else {
-
 				$log_message = 'Specified form class not found [ ' . $class_name_orig . ' ], default form class not found [ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
 				$this->log( $this->getLogMessagePrefix() . $log_message , LOG_ALERT );
 
@@ -611,9 +610,16 @@ class DonationData {
 		if ( $this->getVal( 'amount' ) === 'Other' ){
 			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
 		}
-		
-		if ( ( !($this->isSomething( 'amount' )) || !is_numeric( $this->getVal( 'amount' ) ) ) 
-			&& ( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) ) ) {
+
+		$amountIsNotValidSomehow = ( !( $this->isSomething( 'amount' )) ||
+			!is_numeric( $this->getVal( 'amount' ) ) ||
+			$this->getVal( 'amount' ) <= 0 );
+
+		if ( $amountIsNotValidSomehow &&
+			( $this->isSomething( 'amountGiven' ) && is_numeric( $this->getVal( 'amountGiven' ) ) ) ) {
+			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
+		} else if ( $amountIsNotValidSomehow &&
+			( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) ) ) {
 			$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
 		}
 		
@@ -621,6 +627,9 @@ class DonationData {
 			$this->setVal( 'amount', '0.00' );
 		}
 		
+		$this->expunge( 'amountGiven' );
+		$this->expunge( 'amountOther' );
+
 		if ( !is_numeric( $this->getVal( 'amount' ) ) ){
 			//fail validation later, log some things.
 			$mess = $this->getLogMessagePrefix() . 'Non-numeric Amount.';
@@ -644,8 +653,6 @@ class DonationData {
 		} else {
 			$this->setVal( 'amount', floor( $this->getVal( 'amount' ) ) );
 		}
-		$this->expunge( 'amountGiven' );
-		$this->expunge( 'amountOther' );
 	}
 
 	/**
