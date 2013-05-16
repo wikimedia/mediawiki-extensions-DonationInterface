@@ -155,7 +155,7 @@ class PaypalAdapter extends GatewayAdapter {
 		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
 		return array(
 			'AUD',
-			'BRL', // in-country only
+			//'BRL', // in-country only... it seems to work but I'm respecting the docs
 			'CAD',
 			'CZK',
 			'DKK',
@@ -164,7 +164,7 @@ class PaypalAdapter extends GatewayAdapter {
 			'HUF',
 			'ILS',
 			'JPY', // no fractions
-			'MYR',
+			//'MYR', //in-country only
 			'MXN',
 			'NOK',
 			'NZD',
