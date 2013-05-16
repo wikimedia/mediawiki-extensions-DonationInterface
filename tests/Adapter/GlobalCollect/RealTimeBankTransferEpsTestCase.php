@@ -41,7 +41,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId820() {
 		
@@ -66,7 +66,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId821() {
 		
@@ -91,7 +91,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId822() {
 		
@@ -116,7 +116,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId823() {
 		
@@ -141,7 +141,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId824() {
 		
@@ -166,7 +166,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId825() {
 		
@@ -191,7 +191,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId826() {
 		
@@ -216,7 +216,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId827() {
 		
@@ -241,7 +241,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId828() {
 		
@@ -266,7 +266,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId829() {
 		
@@ -291,7 +291,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase ex
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId831() {
 		

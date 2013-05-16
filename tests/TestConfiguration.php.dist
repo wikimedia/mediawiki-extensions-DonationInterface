@@ -65,7 +65,7 @@ define( 'TESTS_GATEWAY_DEFAULT', 'GlobalCollectGateway' );
  *
  * This is the default adapter that will be used to implement unit tests.
  */
-define( 'TESTS_ADAPTER_DEFAULT', 'GlobalCollectAdapter' );
+define( 'TESTS_ADAPTER_DEFAULT', 'TestingGlobalCollectAdapter' );
 
 /**
  * TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD
@@ -74,3 +74,8 @@ define( 'TESTS_ADAPTER_DEFAULT', 'GlobalCollectAdapter' );
  */
 define( 'TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD', '378282246310005' );
 
+/**
+ * Make sure the test setup is used, else we'll have the wrong classes.
+ */
+$wgDonationInterfaceTestMode = true;
+$wgDonationInterfaceMerchantID = 'test';

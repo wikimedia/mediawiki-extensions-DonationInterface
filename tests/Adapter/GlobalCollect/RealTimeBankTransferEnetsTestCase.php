@@ -39,7 +39,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase 
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
-	 * @covers GatewayAdapter::getData
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXml() {
 		
