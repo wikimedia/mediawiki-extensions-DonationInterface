@@ -386,11 +386,11 @@ class DonationData {
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
-			$this->setIPAddresses();
-			$this->setUtmSource();
 			$this->setNormalizedOrderIDs();
-			$this->setNormalizedAmount();
+			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
+			$this->setUtmSource();
+			$this->setNormalizedAmount();
 			$this->setGateway();
 			$this->setLanguage();
 			$this->setCountry(); //must do this AFTER setIPAddress...
@@ -660,11 +660,11 @@ class DonationData {
 	 * Takes all possible names for recurring and normalizes them into the 'recurring' field.
 	 */
 	protected function setNormalizedRecurring() {
-		if( $this->isSomething( 'recurring_paypal' ) && $this->getVal( 'recurring_paypal' ) == '1' ){
+		if( $this->isSomething( 'recurring_paypal' ) && $this->getVal( 'recurring_paypal' ) === '1' ){
 			$this->setVal( 'recurring', true );
 			$this->expunge('recurring_paypal');
 		}
-		if( $this->isSomething( 'recurring' ) && $this->getVal( 'recurring' ) == '1'){
+		if( $this->isSomething( 'recurring' ) && $this->getVal( 'recurring' ) === '1' ){
 			$this->setVal( 'recurring', true );
 		}
 		else{
@@ -1070,46 +1070,42 @@ class DonationData {
 	/**
 	 * normalize helper function.
 	 * 
-	 * Checks to see if the utm_source is set properly for the credit card
-	 * form including any cc form variants (identified by utm_source_id).  If
-	 * anything cc form related is out of place for the utm_source, this
-	 * will fix it.
-	 *
-	 * the utm_source is structured as: banner.landing_page.payment_instrument
+	 * the utm_source is structured as: banner.landing_page.payment_method_family
 	 */
 	protected function setUtmSource() {
 		
 		$utm_source = $this->getVal( 'utm_source' );
 		$utm_source_id = $this->getVal( 'utm_source_id' );
 		
-		//TODO: Seriously, you need to move this. 
-		if ( $this->isSomething('payment_method') ){
-			$payment_method = $this->getVal( 'payment_method' );
-		} else {
-			$payment_method = 'cc';
-		}
-		
-		// this is how the payment method portion of the utm_source should be defined
-		$correct_payment_method_source = ( $utm_source_id ) ? $payment_method . $utm_source_id . '.' . $payment_method : $payment_method;
+		$payment_method_family = PaymentMethod::getUtmSourceName(
+			$this->getVal( 'payment_method' ),
+			$this->getVal( 'recurring' )
+		);
 
-		// check to see if the utm_source is already correct - if so, return
-		if ( !is_null( $utm_source ) && preg_match( '/' . str_replace( ".", "\.", $correct_payment_method_source ) . '$/', $utm_source ) ) {
-			return; //nothing to do. 
-		}
+		$this->log( $this->getLogMessagePrefix() . "Setting utm_source payment method to {$payment_method_family}", LOG_INFO );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
 
-		// if there are no sourceparts element, then the banner portion of the string needs to be set.
-		// since we don't know what it is, set it to an empty string
-		if ( !count( $source_parts ) )
+		// If we don't have the banner or any utm_source, set it to the empty string.
+		if ( empty( $source_parts[0] ) ) {
 			$source_parts[0] = '';
+		}
 
-		// if the utm_source_id is set, set the landing page portion of the string to cc#
-		$source_parts[1] = ( $utm_source_id ) ? $payment_method . $utm_source_id : ( isset( $source_parts[1] ) ? $source_parts[1] : '' );
+		// If the utm_source_id is set, include that in the landing page
+		// portion of the string.
+		if ( $utm_source_id ) {
+			$source_parts[1] = $payment_method_family . $utm_source_id;
+		} else {
+			if ( empty( $source_parts[1] ) ) {
+				$source_parts[1] = '';
+			}
+		}
 
-		// the payment instrument portion should always be 'cc' if this method is being accessed
-		$source_parts[2] = $payment_method;
+		$source_parts[2] = $payment_method_family;
+		if ( empty( $source_parts[2] ) ) {
+			$source_parts[2] = '';
+		}
 
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );

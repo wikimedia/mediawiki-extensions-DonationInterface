@@ -113,6 +113,13 @@ class PayflowProAdapter extends GatewayAdapter {
 		);
 	}
 
+	function definePaymentMethods() {
+		$this->payment_methods = array(
+			'cc' => array(),
+		);
+		PaymentMethod::registerMethods( $this->payment_methods );
+	}
+
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 */
