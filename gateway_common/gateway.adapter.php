@@ -99,6 +99,13 @@ interface GatewayType {
 	 */
 	function defineReturnValueMap();
 
+	/**
+	 * Sets up the $payment_methods array.
+	 * Keys = unique name for this method
+	 * Values = metadata about the method
+	 */
+	function definePaymentMethods();
+
 	static function getCurrencies();
 }
 
@@ -282,6 +289,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->findAccount();
 		$this->defineAccountInfo();
 		$this->defineTransactions();
+		$this->definePaymentMethods();
 		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineDataConstraints();
@@ -661,7 +669,6 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( array_key_exists( $gateway_field_name, $this->accountInfo ) ) {
 			return $this->accountInfo[$gateway_field_name];
 		}
-
 
 		//If there's a value in the post data (name-translated by the var_map), use that.
 		if ( array_key_exists( $gateway_field_name, $this->var_map ) ) {
@@ -1218,7 +1225,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return	string
 	 */
 	public function getPaymentMethod() {
-
+		//FIXME: this should return the final calculated method
 		return $this->getData_Unstaged_Escaped('payment_method');
 	}
 
@@ -1230,13 +1237,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return	array	Returns the available payment methods for the specific adapter
 	 */
 	public function getPaymentMethods() {
-
-		// Define the payment methods if they have not been set yet.
-		if ( empty( $this->payment_methods ) ) {
-
-			$this->definePaymentMethods();
-		}
-
 		return $this->payment_methods;
 	}
 
@@ -1261,13 +1261,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return	array	Returns the available payment submethods for the specific adapter
 	 */
 	public function getPaymentSubmethods() {
-
-		// Define the payment methods if they have not been set yet.
-		if ( empty( $this->payment_submethods ) ) {
-
-			$this->definePaymentSubmethods();
-		}
-
 		return $this->payment_submethods;
 	}
 

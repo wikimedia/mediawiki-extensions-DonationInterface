@@ -180,6 +180,13 @@ class PaypalAdapter extends GatewayAdapter {
 		}
 	}
 
+	public function definePaymentMethods() {
+		$this->payment_methods = array(
+			'paypal' => array(),
+		);
+		PaymentMethod::registerMethods( $this->payment_methods );
+	}
+
 	static function getCurrencies() {
 		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
 		return array(
