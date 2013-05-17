@@ -67,9 +67,13 @@ abstract class Gateway_Form {
 		$this->gateway = & $gateway;
 		$this->test = $this->gateway->getGlobal( "Test" );
 		$gateway_errors = $this->gateway->getAllErrors();
+
+		// @codeCoverageIgnoreStart
 		if ( !is_array( $gateway_errors ) ){
 			$gateway_errors = array();
 		}
+		// @codeCoverageIgnoreEnd
+
 		$this->form_errors = array_merge( DataValidator::getEmptyErrorArray(), $gateway_errors );
 		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
@@ -134,9 +138,12 @@ abstract class Gateway_Form {
 		$form = '';
 		$form .= Xml::openElement( 'div', array( 'class' => 'payflow-cc-form-section', 'id' => 'payflowpro_gateway-donate-addl-info' ) );
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
+
+		// @codeCoverageIgnoreStart
 		if ($wgServer =="https://payments.wikimedia.org") { 
 			$form .= $this ->getSmallSecureLogo(); 
-		} else { 
+		} else {
+			// @codeCoverageIgnoreEnd
 			$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgExtensionAssetsPath . "/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) ); 
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
@@ -176,7 +183,9 @@ abstract class Gateway_Form {
 			if ( $this->getEscapedValue( 'country' ) ) {
 				$selected = ( $iso_value == $this->getEscapedValue( 'country' ) ) ? true : false;
 			} else {
+				// @codeCoverageIgnoreStart
 				$selected = ( $iso_value == $defaultCountry ) ? true : false; // Select default
+				// @codeCoverageIgnoreEnd
 			}
 			$country_options .= Xml::option( $full_name, $iso_value, $selected );
 		}
