@@ -27,6 +27,7 @@ require_once 'IntegrationTestCase.php';
 require_once 'FraudFiltersTestCase.php';
 require_once 'GatewayPageTestCase.php';
 require_once 'EncodingManglerTestCase.php';
+require_once 'Gateway_FormTestCase.php';
 
 /**
  * AllTests
@@ -62,7 +63,7 @@ class DonationInterface_AllTests
 		$suite->addTestSuite( 'DonationInterface_FraudFiltersTestCase' );
 		$suite->addTestSuite( 'GatewayPageTestCase' );
 		$suite->addTestSuite( 'EncodingManglerTestCase' );
-//		$suite->addTest(DonationInterface_Adapter_AllTests::suite());
+		$suite->addTestSuite( 'DonationInterface_Gateway_FormTestCase' );
 
 		return $suite;
 	}
