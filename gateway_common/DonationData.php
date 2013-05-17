@@ -31,8 +31,8 @@ class DonationData {
 	 * places in $wgRequest, or 'false' to gather the data the usual way. 
 	 * Default is false. 
 	 */
-	function __construct( $owning_class, $test = false, $data = false ) {
-		$this->boss = $owning_class;
+	function __construct( $owning_object, $test = false, $data = false ) {
+		$this->boss = $owning_object;
 		$this->gatewayID = $this->getGatewayIdentifier();
 		$this->populateData( $test, $data );
 	}
@@ -1370,11 +1370,7 @@ class DonationData {
 	 * @return mixed The name of the class if it exists, or false. 
 	 */
 	protected function getAdapterClass(){
-		if ( class_exists( $this->boss ) ) {
-			return $this->boss;
-		} else {
-			return false;
-		}
+		return get_class( $this->boss );
 	}
 	
 	/**
@@ -1455,7 +1451,7 @@ class DonationData {
 	 */
 	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
-			$this->validationErrors = DataValidator::validate( $this->normalized, $check_not_empty );
+			$this->validationErrors = DataValidator::validate( $this->boss, $this->normalized, $check_not_empty );
 		}
 		return $this->validationErrors;
 	}
