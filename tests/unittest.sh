@@ -174,6 +174,8 @@ PHPUNIT_COVERAGE_CLOVER_LINK=${UNITTEST_URL}
 PHPUNIT_COVERAGE_TESTDOX_LINK=${UNITTEST_URL}
 ################################################################################
 
+PHPUNIT_SHOULDCONFIGURE="yes"
+
 ################################################################################
 #
 # Loop through options to pass to phpunit.php
@@ -212,7 +214,8 @@ while [ -n "$1" ] ; do
 		
 		# no-configuration
 		-nc|--no-configuration)
-			PHPUNIT_OPTS="${PHPUNIT_OPTS} --no-configuration" 
+			PHPUNIT_OPTS="${PHPUNIT_OPTS} --no-configuration"
+			PHPUNIT_SHOULDCONFIGURE="no"
 			shift ;;
 		
 		# testdox-html
@@ -246,6 +249,11 @@ while [ -n "$1" ] ; do
 			shift ;;
 	esac
 done
+
+if [ "$PHPUNIT_SHOULDCONFIGURE" = "yes" ]; then
+	PHPUNIT_OPTS="${PHPUNIT_OPTS} --configuration phpunit.xml"
+fi
+
 ################################################################################
 #
 # Information statements
@@ -286,4 +294,4 @@ echo ""
 #set -n
 ################################################################################
 
-${PHPUNIT} ${PHPUNIT_OPTS} ${COMMAND_OPTIONS}
+${PHPUNIT} ${COMMAND_OPTIONS}
