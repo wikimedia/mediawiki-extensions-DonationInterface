@@ -37,6 +37,22 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
+		$req = $this->getRequest();
+		$fake = $req->getBool( 'fake' );
+		$fail = $req->getBool( 'fail' );
+
+		if ( $fake ) {
+			if ( $fail ) {
+				$go = $this->getDeclinedResultPage();
+			} else {
+				$go = $this->adapter->getThankYouPage();
+			}
+
+			$this->getOutput()->addHTML( "<br>Redirecting to page $go" );
+			$this->getOutput()->redirect( $go );
+			return;
+		}
+
 		$forbidden = false;
 		if ( !isset( $_GET['order_id'] ) ){
 			$forbidden = true;

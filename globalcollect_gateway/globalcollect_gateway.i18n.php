@@ -12,6 +12,8 @@ $messages = array();
 $messages['en'] = array(
 	'globalcollectgateway' => 'Make your donation now',
 	'globalcollect_gateway-desc' => 'GlobalCollect payment processing',
+	'globalcollect_gateway-fakesucceed' => 'Fake a successful payment',
+	'globalcollect_gateway-fakefail' => 'Fake a failed payment',
 	'globalcollect_gateway-response-9130' => 'Invalid country.',
 	'globalcollect_gateway-response-9140' => 'Invalid currency.',
 	'globalcollect_gateway-response-9150' => 'Invalid language.',
@@ -35,6 +37,8 @@ Please try again later.',
 $messages['qqq'] = array(
 	'globalcollectgateway' => '{{Identical|Make your donation now}}',
 	'globalcollect_gateway-desc' => '{{desc}}',
+	'globalcollect_gateway-fakesucceed' => 'This message is shown in a test environment. It labels a button that will signal a successful payment to the software.',
+	'globalcollect_gateway-fakefail' => 'This message is shown in a test environment. It labels a button that will signal a failed payment to the software.',
 	'globalcollect_gateway-response-9130' => 'Error message for invalid country.',
 	'globalcollect_gateway-response-9140' => 'Error message for invalid currency.',
 	'globalcollect_gateway-response-9150' => 'Error message for invalid language.',
