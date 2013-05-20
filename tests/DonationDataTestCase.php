@@ -35,9 +35,12 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function __construct(){
+		global $wgRequest;
+
 		parent::__construct();
+
 		$this->testData = array(
-			'amount' => '128',
+			'amount' => '128.00',
 			'email' => 'unittest@example.com',
 			'fname' => 'Testocres',
 			'mname' => 'S.',
@@ -65,7 +68,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'i_order_id' => '1234567890',
 			'numAttempt' => '5',
 			'referrer' => 'http://www.testing.com/',
-			'utm_source' => '..dd',
+			'utm_source' => '..cc',
 			'utm_medium' => 'large',
 			'utm_campaign' => 'yes',
 			'comment-option' => '',
@@ -76,9 +79,11 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'contribution_tracking_id' => '',
 			'data_hash' => '',
 			'action' => '',
-			'gateway' => 'chainlink',
+			'gateway' => 'DonationData',
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/importedTestData',
+			'user_ip' => $wgRequest->getIP(),
+			'server_ip' => $wgRequest->getIP(),
 		);
 
 	}
@@ -86,18 +91,18 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 
 	/**
 	 * @covers DonationData::__construct
-	 * @covers DonationData::getData
+	 * @covers DonationData::getDataEscaped
 	 * @covers DonationData::populateData
 	 * @covers DonationData::doCacheStuff
-	 * @covers DonationData::normalizeAndSanitize
-	 * @covers DonationData::getVal
 	 */
 	public function testConstruct(){
+		global $wgLanguageCode, $wgRequest;
+
 		$ddObj = new DonationData(''); //as if we were posted.
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
 			'amount' => '0.00',
-			'email' => '',
+			'email' => 'nobody@wikimedia.org',
 			'fname' => '',
 			'mname' => '',
 			'lname' => '',
@@ -114,7 +119,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'zip2' => '',
 			'country2' => '',
 			'size' => '',
-			'premium_language' => 'en',
+			'premium_language' => $wgLanguageCode,
 			'card_num' => '',
 			'card_type' => '',
 			'expiration' => '',
@@ -126,29 +131,55 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'utm_source' => '..cc',
 			'utm_medium' => '',
 			'utm_campaign' => '',
-			'language' => '',
-			'comment-option' => '',
+			'language' => $wgLanguageCode,
 			'comment' => '',
-			'email-opt' => '',
-			'test_string' => '',
 			'_cache_' => '',
 			'token' => '',
-			'contribution_tracking_id' => '',
 			'data_hash' => '',
 			'action' => '',
-			'gateway' => '',
+			'gateway' => 'DonationData',
 			'owa_session' => '',
 			'owa_ref' => '',
+			'street_supplemental' => '',
+			'currency' => '',
+			'payment_submethod' => '',
+			'issuer_id' => '',
+			'utm_source_id' => '',
+			'utm_key' => '',
+			'descriptor' => '',
+			'account_name' => '',
+			'account_number' => '',
+			'authorization_id' => '',
+			'bank_check_digit' => '',
+			'bank_name' => '',
+			'bank_code' => '',
+			'branch_code' => '',
+			'country_code_bank' => '',
+			'date_collect' => '',
+			'direct_debit_text' => '',
+			'iban' => '',
+			'fiscal_number' => '',
+			'transaction_type' => '',
+			'form_name' => '',
+			'ffname' => '',
+			'recurring' => '',
+			'recurring_paypal' => '',
+			'user_ip' => $wgRequest->getIP(),
+			'server_ip' => $wgRequest->getIP(),
+			'form_class' => '',
 		);
+		unset($returned['contribution_tracking_id']);
 		unset($returned['order_id']);
 		unset($returned['i_order_id']);
-		$this->assertEquals($returned, $expected, "Staged post data does not match expected (largely empty).");
+		$this->assertEquals($expected, $returned, "Staged post data does not match expected (largely empty).");
 	}
 
 	/**
 	 *
 	 */
 	public function testConstructAsTest(){
+		global $wgRequest;
+
 		$ddObj = new DonationData('', true); //test mode from the start, no data
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(
@@ -173,30 +204,39 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'premium_language' => 'es',
 			'card_num' => '378282246310005',
 			'card_type' => 'american',
-			'expiration' => '1012',
+			'expiration' => '0614',
 			'cvv' => '001',
 			'currency_code' => 'USD',
-			'payment_method' => '',
+			'payment_method' => 'cc',
 			'i_order_id' => '1234567890',
 			'numAttempt' => '0',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
-			'utm_source' => '..cc',
-			'utm_medium' => '',
-			'utm_campaign' => '',
+			'utm_source' => 'test_src..cc',
+			'utm_medium' => 'test_medium',
+			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
-			'comment-option' => '',
-			'comment' => '',
-			'email-opt' => '',
-			'test_string' => '',
+			'comment' => '0',
 			'token' => '',
-			'contribution_tracking_id' => '',
 			'data_hash' => '',
 			'action' => '',
-			'gateway' => 'payflowpro',
+			'gateway' => 'DonationData',
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/defaultTestData',
+			'street_supplemental' => '3rd floor',
+			'payment_submethod' => 'american',
+			'issuer_id' => '',
+			'utm_source_id' => '',
+			'user_ip' => '12.12.12.12',
+			'server_ip' => $wgRequest->getIP(),
+			'recurring' => '',
+			'form_class' => '',
 		);
+
+		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
+		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
+
 		unset($returned['order_id']);
+		unset($returned['contribution_tracking_id']);
 
 		$this->assertEquals($expected, $returned, "Staged default test data does not match expected.");
 	}
@@ -205,19 +245,35 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function testRepopulate(){
+		global $wgLanguageCode;
+
 		$expected = $this->testData;
-		//just unset a handfull... doesn't matter what, really.
+
+		// Some changes from the default
+		$expected['recurring'] = '';
+		$expected['language'] = $wgLanguageCode;
+		$expected['form_class'] = '';
+
+		// Just unset a handful... doesn't matter what, really.
 		unset($expected['comment-option']);
 		unset($expected['email-opt']);
 		unset($expected['test_string']);
 
-		$ddObj = new DonationData('');
-		$ddObj->populateData(true, $expected); //change to test mode with explicit test data
+		$ddObj = new DonationData( '', true, $expected ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		//unset these, because they're always new
-		unset($returned['order_id']);
-		unset($expected['order_id']);
-		$this->assertEquals($returned, $expected, "The forced test data did not populate as expected.");
+		$unsettable = array(
+			'order_id',
+			'i_order_id',
+			'contribution_tracking_id'
+		);
+
+		foreach ( $unsettable as $thing ) {
+			unset( $returned[$thing] );
+			unset( $expected[$thing] );
+		}
+
+		$this->assertEquals( $expected, $returned, "The forced test data did not populate as expected." );
 	}
 
 	/**
@@ -234,17 +290,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	/**
 	 *
 	 */
-	public function testGetVal(){
-		$data = $this->testData;
-		unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
-		$this->assertEquals($ddObj->getVal('zip'), null, "Zip should currently be nothing.");
-		$this->assertEquals($ddObj->getVal('lname'), 'McTestingyou', "Lname should currently be 'McTestingyou'.");
-	}
-
-	/**
-	 *
-	 */
 	public function testSetNormalizedAmount_amtGiven() {
 		$data = $this->testData;
 		$data['amount'] = 'this is not a number';
@@ -252,8 +297,8 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
 		$returned = $ddObj->getDataEscaped();
-		$this->assertEquals($returned['amount'], '42.50', "Amount was not properly reset");
-		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
+		$this->assertEquals( 42.50, $returned['amount'], "Amount was not properly reset" );
+		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
 	/**
@@ -266,22 +311,22 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
 		$returned = $ddObj->getDataEscaped();
-		$this->assertEquals($returned['amount'], 88.15, "Amount was not properly reset");
-		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
+		$this->assertEquals( 88.15, $returned['amount'], "Amount was not properly reset" );
+		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
 	/**
 	 *
 	 */
-	public function testSetNormalizedAmount_neagtiveAmount() {
+	public function testSetNormalizedAmount_negativeAmount() {
 		$data = $this->testData;
 		$data['amount'] = -1;
 		$data['amountOther'] = 3.25;
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
 		$returned = $ddObj->getDataEscaped();
-		$this->assertEquals($returned['amount'], 3.25, "Amount was not properly reset");
-		$this->assertTrue(!(array_key_exists('amountOther', $returned)), "amountOther should have been removed from the data");
+		$this->assertEquals(3.25, $returned['amount'], "Amount was not properly reset");
+		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
 	}
 
 	/**
@@ -295,9 +340,9 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		//unset($data['zip']);
 		$ddObj = new DonationData('', true, $data);
 		$returned = $ddObj->getDataEscaped();
-		$this->assertEquals($returned['amount'], 0.00, "Amount was not properly reset");
-		$this->assertTrue(!(array_key_exists('amountOther', $returned)), "amountOther should have been removed from the data");
-		$this->assertTrue(!(array_key_exists('amountGiven', $returned)), "amountGiven should have been removed from the data");
+		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset");
+		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
+		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data");
 	}
 
 	/**

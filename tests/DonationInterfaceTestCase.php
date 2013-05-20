@@ -95,7 +95,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - street: 123 Happy Street:
 	 * - city: Barcelona:
 	 * - state: XX:
-	 * - zip:
+	 * - zip: 0
 	 * - country: ES:
 	 * - //size: small
 	 * - currency: EUR:
@@ -131,24 +131,31 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$adapter = isset( $adapter ) ? (string) $adapter : TESTS_ADAPTER_DEFAULT ;
 		$gateway = isset( $gateway ) ? (string) $gateway : TESTS_GATEWAY_DEFAULT ;
 
+		if ( !class_exists( $adapter ) ) {
+			$message = 'Adapter "' . $adapter . '" does not seem to exist...';
+			throw new Exception( $message );
+		}
+
+		if ( !class_exists( $gateway ) ) {
+			$message = 'Gateway "' . $gateway . '" does not seem to exist...';
+			throw new Exception( $message );
+		}
+
+		$testAdapter = new $adapter();
+		$testGateway = new $gateway();
+
 		$form_name = isset( $form_name ) ? (string) $form_name : 'TwoStepAmount' ;
 
 		// This is used to make sure the gateway and adapter match for unit testing.
-		if ( $adapter == 'PayflowProAdapter' && $gateway == 'PayflowProGateway' ) {
-
+		if ( is_a( $testAdapter, 'PayflowProAdapter' ) && is_a( $testGateway, 'PayflowProGateway' ) ) {
 			$gatewayAdapterMatch = true;
-		}
-		elseif ( $adapter == 'GlobalCollectAdapter' && $gateway == 'GlobalCollectGateway' ) {
-
+		} elseif ( is_a( $testAdapter, 'GlobalCollectAdapter' ) && is_a( $testGateway, 'GlobalCollectGateway' ) ) {
 			$gatewayAdapterMatch = true;
-		}
-		else {
-
+		} else {
 			$gatewayAdapterMatch = false;
 		}
 		
 		if ( !$gatewayAdapterMatch ) {
-		
 			$message = 'Gateway (' . $gateway . ') does not match the adapter (' . $adapter . ').';
 			throw new Exception( $message );
 		}
@@ -170,7 +177,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$street		= isset( $street )		? (string) $street	: '123 Happy Street' ;
 		$city		= isset( $city )		? (string) $city	: 'Barcelona' ;
 		$state		= isset( $state )		? (string) $state	: 'XX' ;
-		$zip		= isset( $zip )			? (string) $zip		: '' ;
+		$zip		= isset( $zip )			? (string) $zip		: '0' ;
 		$country	= isset( $country )		? (string) $country	: 'ES' ;
 
 		
@@ -261,7 +268,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$options['city']		= 'Barcelona';
 		$options['state']		= 'XX';
-		$options['zip']			= '';
+		$options['zip']			= '0';
 		$options['country']		= 'ES';
 		$options['currency_code']	= 'EUR';
 		
@@ -276,6 +283,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * @return string    The expected XML request
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
+		global $wgRequest, $wgServer, $wgArticlePath, $wgDonationInterfaceThankYouPage;
 
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 
@@ -283,7 +291,14 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantID' ) . '</MERCHANTID><VERSION>1.0</VERSION></META>';
+		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantID' ) . '</MERCHANTID>';
+
+		if ( isset( $wgRequest ) ) {
+			$expected .=		'<IPADDRESS>' . $wgRequest->getIP() . '</IPADDRESS>';
+		}
+		
+		$expected .=			'<VERSION>1.0</VERSION>';
+		$expected .=		'</META>';
 		$expected .= 		'<PARAMS>';
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
@@ -292,6 +307,12 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
+
+		if ( isset( $wgRequest ) ) {
+			$expected .=			'<IPADDRESSCUSTOMER>' . $wgRequest->getIP() . '</IPADDRESSCUSTOMER>';
+		}
+
+		$expected .=				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 		$expected .= 			'</ORDER>';
 		$expected .= 			'<PAYMENT>';
 		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
@@ -300,12 +321,14 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
-		$expected .= 				'<RETURNURL>http://' . TESTS_HOSTNAME . '/index.php/Special:GlobalCollectGatewayResult?order_id=' . $orderId . '</RETURNURL>';
+		$expected .= 				'<RETURNURL>' . $wgServer . preg_replace( '#\\$1#', $wgDonationInterfaceThankYouPage . '/' . $options['testData']['language'], $wgArticlePath ) . '</RETURNURL>';
+		$expected .=				'<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
 		$expected .= 				'<FIRSTNAME>' . $options['testData']['fname'] . '</FIRSTNAME>';
 		$expected .= 				'<SURNAME>' . $options['testData']['lname'] . '</SURNAME>';
 		$expected .= 				'<STREET>' . $options['testData']['street'] . '</STREET>';
 		$expected .= 				'<CITY>' . $options['testData']['city'] . '</CITY>';
 		$expected .= 				'<STATE>' . $options['testData']['state'] . '</STATE>';
+		$expected .= 				'<ZIP>' . $options['testData']['zip'] . '</ZIP>';
 		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 
 		// Set the issuer id if it is passed.

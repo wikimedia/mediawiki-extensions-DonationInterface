@@ -110,12 +110,14 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		
 		$testAdapter = TESTS_ADAPTER_DEFAULT;
 		
-		$gateway = new $testAdapter( $options );
+		$adapter = new $testAdapter( $options );
+
+		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $adapter );
 
 		//please define this function only inside the TESTS_ADAPTER_DEFAULT, 
 		//which should be a test adapter object that descende from one of the 
 		//production adapters. 
-        $this->assertInstanceOf( 'DonationData', $gateway->getDonationData() );
+        $this->assertInstanceOf( 'DonationData', $adapter->getDonationData() );
 	}
 }
 
