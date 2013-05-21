@@ -137,6 +137,9 @@ $messages['ko'] = array(
  */
 $messages['ksh'] = array(
 	'adyengateway' => 'Maach Ding Schpände jäz',
+	'adyen_gateway-desc' => 'Lazze övver <i lang="en">Adyen</i>.',
+	'adyen_gateway-response-default' => 'Ene Fähler es opjetrodde beim Beärbeide vun dä Övverdraarong.
+Bes esu jood un versöhg et schpääder norr_ens.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
