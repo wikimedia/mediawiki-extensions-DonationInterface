@@ -207,7 +207,7 @@ $messages['ko'] = array(
  */
 $messages['ksh'] = array(
 	'amazongateway' => 'Donn jäz jävve',
-	'amazon_gateway-desc' => 'Lazze övver <i lang="en">Amazon</i>',
+	'amazon_gateway-desc' => 'Lazze övver <i lang="en">Amazon</i>.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
