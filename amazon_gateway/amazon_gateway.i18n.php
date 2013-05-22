@@ -61,6 +61,14 @@ $messages['cs'] = array(
 	'amazon_gateway-desc' => 'Zpracování plateb přes Amazon',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'amazongateway' => 'Rhoddwch nawr',
+	'amazon_gateway-desc' => 'Prosesu taliad trwy Amazon',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
