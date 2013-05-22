@@ -179,6 +179,8 @@ Zkuste to znovu o něco později.',
 $messages['cy'] = array(
 	'globalcollectgateway' => 'Rhoddwch nawr',
 	'globalcollect_gateway-desc' => 'Prosesu taliadau trwy GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Esgus bod taliad wedi llwyddo',
+	'globalcollect_gateway-fakefail' => 'Esgus bod taliad wedi methu',
 	'globalcollect_gateway-response-9130' => 'Gwlad annilys.',
 	'globalcollect_gateway-response-9140' => 'Arian breiniol annilys.',
 	'globalcollect_gateway-response-9150' => 'Iaith annilys.',
@@ -219,10 +221,13 @@ Prøv venligst igen senere.',
 
 /** German (Deutsch)
  * @author Kghbln
+ * @author Metalhead64
  */
 $messages['de'] = array(
 	'globalcollectgateway' => 'Jetzt spenden',
 	'globalcollect_gateway-desc' => 'Ermöglicht die Zahlungsabwicklung durch GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Eine erfolgreiche Zahlung vortäuschen',
+	'globalcollect_gateway-fakefail' => 'Eine fehlgeschlagene Zahlung vortäuschen',
 	'globalcollect_gateway-response-9130' => 'Ungültiger Staat.',
 	'globalcollect_gateway-response-9140' => 'Ungültige Währung.',
 	'globalcollect_gateway-response-9150' => 'Ungültige Sprache.',
@@ -991,6 +996,8 @@ Vă rugăm să reîncercați mai târziu.',
 $messages['roa-tara'] = array(
 	'globalcollectgateway' => "Fà 'a donazziona toje mò",
 	'globalcollect_gateway-desc' => 'Processe de pajamende GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => "Fause 'nu pajamende fatte",
+	'globalcollect_gateway-fakefail' => "Fause 'nu pajamende fallite",
 	'globalcollect_gateway-response-9130' => 'Nazione invalide.',
 	'globalcollect_gateway-response-9140' => 'monete invalide.',
 	'globalcollect_gateway-response-9150' => 'Lénghe invalide.',
