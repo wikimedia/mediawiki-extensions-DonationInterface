@@ -430,6 +430,8 @@ $messages['frp'] = array(
 $messages['gl'] = array(
 	'globalcollectgateway' => 'Fai a túa doazón agora',
 	'globalcollect_gateway-desc' => 'Procesamento de pagamentos de GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Finxir un pagamento correcto',
+	'globalcollect_gateway-fakefail' => 'Finxir un pagamento erróneo',
 	'globalcollect_gateway-response-9130' => 'O país non é válido.',
 	'globalcollect_gateway-response-9140' => 'A moeda non é válida.',
 	'globalcollect_gateway-response-9150' => 'A lingua non é válida.',
@@ -1184,10 +1186,13 @@ $messages['tr'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Ата
  */
 $messages['uk'] = array(
 	'globalcollectgateway' => 'Зробіть Вашу пожертву зараз',
 	'globalcollect_gateway-desc' => 'Шлюз обробки платежів GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Нібито успішний платіж',
+	'globalcollect_gateway-fakefail' => 'Нібито неуспішний платіж',
 	'globalcollect_gateway-response-9130' => 'Недопустима країна.',
 	'globalcollect_gateway-response-9140' => 'Недопустима валюта.',
 	'globalcollect_gateway-response-9150' => 'Недопустима мова.',
