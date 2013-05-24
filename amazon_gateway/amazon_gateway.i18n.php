@@ -369,3 +369,11 @@ $messages['zh-hans'] = array(
 	'amazongateway' => '马上捐款',
 	'amazon_gateway-desc' => '亚马逊支付程序',
 );
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Simon Shek
+ */
+$messages['zh-hant'] = array(
+	'amazongateway' => '立刻進行捐款',
+	'amazon_gateway-desc' => '亞馬遜支付程序',
+);
