@@ -1702,7 +1702,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'PHP', // Philippine peso
 			'PKR', // Pakistani rupee
 			'PLN', // Polish złoty
-			'PYG', // Paraguayan guaraní
+// - Removed temporarily for WellsFargo (23/05/13)			'PYG', // Paraguayan guaraní
 			'QAR', // Qatari rial
 			'RON', // Romanian leu
 			'RUB', // Russian ruble
