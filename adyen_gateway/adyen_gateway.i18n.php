@@ -51,6 +51,16 @@ $messages['br'] = array(
 	'adyengateway' => 'Grit ho tonezon bremañ',
 );
 
+/** Czech (česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'adyengateway' => 'Poskytnout příspěvek',
+	'adyen_gateway-desc' => 'Zpracování plateb přes Adyen',
+	'adyen_gateway-response-default' => 'Při zpracovávání vaší transakce došlo k chybě.
+Zkuste to znovu o něco později.',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
