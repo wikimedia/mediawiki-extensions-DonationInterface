@@ -48,6 +48,14 @@ $messages['br'] = array(
 	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon', # Fuzzy
 );
 
+/** Czech (česky)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'paypalgateway' => 'Poskytnout příspěvek',
+	'paypal_gateway-desc' => 'Zpracování plateb přes PayPal',
+);
+
 /** Welsh (Cymraeg)
  * @author Lloffiwr
  */
