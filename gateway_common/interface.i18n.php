@@ -839,7 +839,8 @@ This message was used during testing, but as of 7 Dec 2010 is not in use.",
 	'donate_interface-country' => '{{Identical|Country}}',
 	'donate_interface-select-country' => 'Label for the country selection dropdown.',
 	'donate_interface-confirm-email' => 'Label for confirm e-mail field.',
-	'donate_interface-phone' => 'Label for phone number field.',
+	'donate_interface-phone' => 'Label for phone number field.
+{{Identical|Phone}}',
 	'donate_interface-telephone' => 'Label for phone field.
 {{Identical|Telephone}}',
 	'donate_interface-telephone-home' => 'Label for home phone field.',
