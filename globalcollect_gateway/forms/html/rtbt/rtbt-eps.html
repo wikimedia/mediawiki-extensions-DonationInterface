@@ -59,50 +59,48 @@
 										</tr>
 									</table>
 								</div>
-								<div id="step2header"><h3>%donate_interface-cc-form-header-personal% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
-								<div id="step2wrapper">
-									<div id="billing-content" class="gainlayout">
-										<div id="billingErrorMessages" class="small"></div>
-										<div id="paymentErrorMessages" class="small"></div>
-										<div class="name-fields">
-											<!--<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>-->
-											<!--<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>-->
-										</div>
-										<div class="loc-fields nostate">
-											<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
-											<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
-											<!--<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>-->
-											<!--<span class="loc-country">-->
-												<!--<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">-->
-													<!--<option value="">%donate_interface-select-country%</option>-->
-													<!--<option value="AT">%donate_interface-country-dropdown-AT%</option>-->
-												<!--</select>-->
-											<!--</span>-->
-										</div>
-										<!--<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>-->
-										<table style="margin-top: 10px;" >
-											<tr><td>
-												<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
-													<option value="">%donate_interface-rtbt-issuer_id%...</option>
-													<option value="825">Hypo Tirol Bank</option>
-													<option value="829">Easy</option>
-													<option value="828">P.S.K.</option>
-													<option value="827">BAWAG</option>
-													<option value="826">Erste Bank und Sparkassen</option>
-													<option value="831">Sparda-Bank</option>
-													<option value="824">Bankhaus Spängler</option>
-													<option value="823">Voralberger HYPO</option>
-													<option value="822">NÖ HYPO</option>
-													<option value="821">Volksbanken Gruppe</option>
-													<option value="820">Raifeissen</option>
-													</select>
-
-												<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
-											</td><td>
-												<img style="margin-left: 5px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/eps-logo-square.gif" alt="eps">
-											</td></tr>
-										</table>
+								<h3>%donate_interface-cc-form-header-personal% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3>
+								<div id="billing-content" class="gainlayout">
+									<div id="billingErrorMessages" class="small"></div>
+									<div id="paymentErrorMessages" class="small"></div>
+									<div class="name-fields">
+										<!--<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>-->
+										<!--<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>-->
 									</div>
+									<div class="loc-fields nostate">
+										<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
+										<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
+										<!--<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>-->
+										<!--<span class="loc-country">-->
+											<!--<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">-->
+												<!--<option value="">%donate_interface-select-country%</option>-->
+												<!--<option value="AT">%donate_interface-country-dropdown-AT%</option>-->
+											<!--</select>-->
+										<!--</span>-->
+									</div>
+									<!--<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>-->
+									<table style="margin-top: 10px;" >
+										<tr><td>
+											<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
+												<option value="">%donate_interface-rtbt-issuer_id%...</option>
+												<option value="825">Hypo Tirol Bank</option>
+												<option value="829">Easy</option>
+												<option value="828">P.S.K.</option>
+												<option value="827">BAWAG</option>
+												<option value="826">Erste Bank und Sparkassen</option>
+												<option value="831">Sparda-Bank</option>
+												<option value="824">Bankhaus Spängler</option>
+												<option value="823">Voralberger HYPO</option>
+												<option value="822">NÖ HYPO</option>
+												<option value="821">Volksbanken Gruppe</option>
+												<option value="820">Raifeissen</option>
+												</select>
+
+											<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
+										</td><td>
+											<img style="margin-left: 5px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/eps-logo-square.gif" alt="eps">
+										</td></tr>
+									</table>
 								</div>
 
 

@@ -59,38 +59,35 @@
 										</tr>
 									</table>
 								</div>
-								<div id="step2header"><h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
-								<div id="step2wrapper">
-									<div id="billing-content" class="gainlayout">
-										<div id="billingErrorMessages" class="small"></div>
-										<div id="paymentErrorMessages" class="small"></div>
-										<div class="name-fields">
-											<span class="name-first"><input class="txt optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
-											<span class="name-last"><input class="txt optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
-										</div>
-										<div class="nostate">
-											<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
-											<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
-											<!--<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>-->
-											<span class="loc-country">
-												<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
-													<option value="">%donate_interface-select-country%</option>
-													<option value="GB">%donate_interface-country-dropdown-GB%</option>
-												</select>
-											</span>
-										</div>
-										<p><input class="txt optional" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
-										<table style="margin-top: 10px;" >
-											<tr><td>
-												<div id="bt-continue" style="margin-top: 7px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
-											</td><td>
-												<img style="margin-left: 100px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/sofortEn.png" alt="Sofort">
-											</td></tr>
-										</table>
+								<h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3>
+								<div id="billing-content" class="gainlayout">
+									<div id="billingErrorMessages" class="small"></div>
+									<div id="paymentErrorMessages" class="small"></div>
+									<div class="name-fields">
+										<span class="name-first"><input class="txt optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
+										<span class="name-last"><input class="txt optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
 									</div>
+									<div class="nostate">
+										<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
+										<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
+										<!--<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>-->
+										<span class="loc-country">
+											<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
+												<option value="">%donate_interface-select-country%</option>
+												<option value="GB">%donate_interface-country-dropdown-GB%</option>
+											</select>
+										</span>
+									</div>
+									<p><input class="txt optional" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
+									<table style="margin-top: 10px;" >
+										<tr><td>
+											<div id="bt-continue" style="margin-top: 7px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
+										</td><td>
+											<img style="margin-left: 100px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/sofortEn.png" alt="Sofort">
+										</td></tr>
+									</table>
 								</div>
 
-								
 
 								<input type="hidden" name="returnto" value="Thank_You/en" />
 								<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">

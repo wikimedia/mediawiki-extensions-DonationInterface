@@ -61,44 +61,42 @@
 								</div>
 
 
-								<div id="step2header"><h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
-								<div id="step2wrapper">
-									<div id="billing-content" class="gainlayout">
-										<div id="billingErrorMessages" class="small"></div>
-										<div id="paymentErrorMessages" class="small"></div>
-										<div class="name-fields">
-											<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
-											<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
-										</div>
-										
-										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
-										<table style="margin-top: 10px;" >
-											<tr><td>
-												<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
-													<option value="">%donate_interface-rtbt-issuer_id%...</option>
-													<optgroup>
-														<option value="31">ABN AMRO</option>
-														<option value="91">Friesland Bank</option>
-														<option value="721">ING</option>
-														<option value="21">Rabobank</option>
-														<option value="751">SNS Bank</option>
-													</optgroup>
-													<optgroup label="%donate_interface-rtbt-issuer_id-longlist%">
-														<option value="761">ASN Bank</option>
-                                                        <option value="801">Knab</option>
-														<option value="771">RegioBank</option>
-														<option value="511">Triodos Bank</option>
-														<option value="161">Van Lanschot Bankiers</option>
-													</optgroup>
-												</select>
-
-												<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
-											</td><td>
-												<img style="margin-left: 25px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/iDEAL-klein.gif" alt="IDEAL klein">
-											</td></tr>
-										</table>
-
+								<h3>%donate_interface-billing-address% <span class="mute" id="change-billing" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3>
+								<div id="billing-content" class="gainlayout">
+									<div id="billingErrorMessages" class="small"></div>
+									<div id="paymentErrorMessages" class="small"></div>
+									<div class="name-fields">
+										<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
+										<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
 									</div>
+
+									<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
+									<table style="margin-top: 10px;" >
+										<tr><td>
+											<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
+												<option value="">%donate_interface-rtbt-issuer_id%...</option>
+												<optgroup>
+													<option value="31">ABN AMRO</option>
+													<option value="91">Friesland Bank</option>
+													<option value="721">ING</option>
+													<option value="21">Rabobank</option>
+													<option value="751">SNS Bank</option>
+												</optgroup>
+												<optgroup label="%donate_interface-rtbt-issuer_id-longlist%">
+													<option value="761">ASN Bank</option>
+													<option value="801">Knab</option>
+													<option value="771">RegioBank</option>
+													<option value="511">Triodos Bank</option>
+													<option value="161">Van Lanschot Bankiers</option>
+												</optgroup>
+											</select>
+
+											<div id="bt-continue" style="margin-top: 15px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>
+										</td><td>
+											<img style="margin-left: 25px;" src="@script_path/extensions/DonationInterface/gateway_forms/includes/iDEAL-klein.gif" alt="IDEAL klein">
+										</td></tr>
+									</table>
+
 								</div>
 
 
