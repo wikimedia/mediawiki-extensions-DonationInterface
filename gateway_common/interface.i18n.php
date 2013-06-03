@@ -1809,7 +1809,7 @@ $messages['arz'] = array(
 <a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">سياستنا للخصوصية</a>.', # Fuzzy
 );
 
-/** Assamese (অসমীয়া)
+/** Assamese (অসমীয়া)
  * @author Bishnu Saikia
  */
 $messages['as'] = array(
@@ -16638,7 +16638,7 @@ Dinge Nohnaame enn.',
 	'donate_interface-pm-eps' => '<i lang="en">EPS</i>',
 	'donate_interface-pm-enets' => '<i lang="en">Enets</i>',
 	'donate_interface-pm-giropay' => '<i lang="en">Giropay</i>',
-	'donate_interface-pm-ideal' => '<i lang="en">Ideal</i>',
+	'donate_interface-pm-ideal' => '<i lang="en">Ideal</i>', # Fuzzy
 	'donate_interface-pm-nordea' => '<i lang="en">Nordea</i>',
 	'donate_interface-pm-skrill' => '<i lang="en">Moneybookers</i>',
 	'donate_interface-pm-sofort' => '<i lang="en">Sofort</i>',
@@ -20583,7 +20583,7 @@ $messages['nds'] = array(
 	'donate_interface-dd-iban' => 'IBAN',
 );
 
-/** Nedersaksies (Nedersaksies)
+/** Low Saxon (Netherlands) (Nedersaksies)
  * @author Jsoby
  * @author Servien
  */
@@ -21312,7 +21312,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-error-http-403' => 'Je hebt geen rechten om deze pagina te bekijken.',
 );
 
-/** Norwegian Nynorsk (norsk (nynorsk)‎)
+/** Norwegian Nynorsk (norsk nynorsk)
  * @author Gunnernett
  * @author Harald Khan
  * @author Jsoby
@@ -21517,7 +21517,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.', # Fuzzy
 );
 
-/** Oriya (ଓଡ଼ିଆ)
+/** Oriya (ଓଡ଼ିଆ)
  * @author Ansumang
  * @author MKar
  * @author Odisha1
@@ -24844,7 +24844,7 @@ Nisciune processore jè disponibbele.",
 	'donate_interface-pm-eps' => 'EPS',
 	'donate_interface-pm-enets' => 'Enets',
 	'donate_interface-pm-giropay' => 'Giropay',
-	'donate_interface-pm-ideal' => 'Ideal',
+	'donate_interface-pm-ideal' => 'Ideal', # Fuzzy
 	'donate_interface-pm-nordea' => 'Nordea',
 	'donate_interface-pm-skrill' => 'Skrill',
 	'donate_interface-pm-sofort' => 'Sofort',
@@ -30134,7 +30134,7 @@ Upang makapagbigay ng isang ligtas, tiwasay at kaaya-ayang karanasan, ang pormul
 	'donate_interface-pm-eps' => 'EPS',
 	'donate_interface-pm-enets' => 'Enets',
 	'donate_interface-pm-giropay' => 'Giropay',
-	'donate_interface-pm-ideal' => 'Ideal',
+	'donate_interface-pm-ideal' => 'Ideal', # Fuzzy
 	'donate_interface-pm-nordea' => 'Nordea',
 	'donate_interface-pm-skrill' => 'Moneybookers',
 	'donate_interface-pm-sofort' => 'Sofort',

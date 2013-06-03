@@ -23,6 +23,20 @@ $messages['qqq'] = array(
 	'paypal_gateway-desc' => '{{desc}}',
 );
 
+/** Afrikaans (Afrikaans)
+ * @author Naudefj
+ */
+$messages['af'] = array(
+	'paypal_gateway-desc' => "Registreer PayPal as 'n skenkingsmeganisme", # Fuzzy
+);
+
+/** Arabic (العربية)
+ * @author OsamaK
+ */
+$messages['ar'] = array(
+	'paypal_gateway-desc' => 'تسجل PayPal كآلية تبرع', # Fuzzy
+);
+
 /** Asturian (asturianu)
  * @author Xuacu
  */
@@ -46,6 +60,13 @@ $messages['be-tarask'] = array(
 $messages['br'] = array(
 	'paypalgateway' => 'Grit ur roadenn bremañ',
 	'paypal_gateway-desc' => 'Enrollañ a ra PayPal da wikefre evit ober un donezon', # Fuzzy
+);
+
+/** Bosnian (bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'paypal_gateway-desc' => 'Registruje PayPal kao mehanizam za donacije', # Fuzzy
 );
 
 /** Czech (česky)
@@ -80,12 +101,26 @@ $messages['de-formal'] = array(
 	'paypalgateway' => 'Spenden Sie jetzt',
 );
 
+/** Zazaki (Zazaki)
+ * @author Xoser
+ */
+$messages['diq'] = array(
+	'paypal_gateway-desc' => 'PayPal xo qeyd keno', # Fuzzy
+);
+
 /** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
 	'paypalgateway' => 'Něnto pósćiś',
 	'paypal_gateway-desc' => 'Pśeźěłanje zapłaśenjow pśez Paypal',
+);
+
+/** Esperanto (Esperanto)
+ * @author Yekrats
+ */
+$messages['eo'] = array(
+	'paypal_gateway-desc' => 'Registras Paypal-on kiel donacilo', # Fuzzy
 );
 
 /** Spanish (español)
@@ -126,6 +161,13 @@ $messages['gl'] = array(
 	'paypal_gateway-desc' => 'Procesamento de pagamentos de PayPal',
 );
 
+/** Swiss German (Alemannisch)
+ * @author Als-Holder
+ */
+$messages['gsw'] = array(
+	'paypal_gateway-desc' => 'Regischtriert PayPal as Spänd-Inschtrumänt', # Fuzzy
+);
+
 /** Hebrew (עברית)
  * @author Amire80
  */
@@ -140,6 +182,27 @@ $messages['he'] = array(
 $messages['hsb'] = array(
 	'paypalgateway' => 'Nětko darić',
 	'paypal_gateway-desc' => 'Předźěłanje zapłaćenjow přez Paypal',
+);
+
+/** Hungarian (magyar)
+ * @author Glanthor Reviol
+ */
+$messages['hu'] = array(
+	'paypal_gateway-desc' => 'PayPal regisztrálása mint adakozási mód', # Fuzzy
+);
+
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'paypal_gateway-desc' => 'Registra PayPal como mechanismo de donation', # Fuzzy
+);
+
+/** Indonesian (Bahasa Indonesia)
+ * @author IvanLanin
+ */
+$messages['id'] = array(
+	'paypal_gateway-desc' => 'Mendaftarkan PayPal sebagai suatu mekanisme donasi', # Fuzzy
 );
 
 /** Italian (italiano)
@@ -197,6 +260,13 @@ $messages['mk'] = array(
 	'paypal_gateway-desc' => 'Обработка на уплати со Paypal',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'paypal_gateway-desc' => 'സംഭാവനയ്ക്കുള്ള മാർഗ്ഗമായി പേപാൽ രജിസ്റ്റർ ചെയ്യുക', # Fuzzy
+);
+
 /** Malay (Bahasa Melayu)
  * @author Anakmalaysia
  */
@@ -220,6 +290,20 @@ $messages['nl'] = array(
 	'paypal_gateway-desc' => 'Betalingsverwerking via PayPal',
 );
 
+/** Norwegian Nynorsk (norsk nynorsk)
+ * @author Gunnernett
+ */
+$messages['nn'] = array(
+	'paypal_gateway-desc' => 'Registrerer PayPal som ein mogleg stad å gje gåver', # Fuzzy
+);
+
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'paypal_gateway-desc' => 'Inscritz PayPal coma mecanisme de donacion', # Fuzzy
+);
+
 /** Polish (polski)
  * @author WTM
  */
@@ -234,6 +318,13 @@ $messages['pl'] = array(
 $messages['pms'] = array(
 	'paypalgateway' => 'Fà toa donassion adess',
 	'paypal_gateway-desc' => "Process ëd pagament d'Paypal",
+);
+
+/** Portuguese (português)
+ * @author Hamilton Abreu
+ */
+$messages['pt'] = array(
+	'paypal_gateway-desc' => 'Regista o PayPal como mecanismo de contribuições monetárias', # Fuzzy
 );
 
 /** Romanian (română)
@@ -261,6 +352,13 @@ $messages['ru'] = array(
 	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований', # Fuzzy
 );
 
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
+ * @author Михајло Анђелковић
+ */
+$messages['sr-ec'] = array(
+	'paypal_gateway-desc' => 'Региструје PayPal као механизам за донације', # Fuzzy
+);
+
 /** Swedish (svenska)
  * @author Ainali
  */
@@ -278,6 +376,13 @@ $messages['tl'] = array(
 	'paypal_gateway-desc' => 'Pagpuproseso ng bayad sa pamamagitan ng Paypal',
 );
 
+/** Turkish (Türkçe)
+ * @author Joseph
+ */
+$messages['tr'] = array(
+	'paypal_gateway-desc' => "Bir bağış düzeneği olarak PayPal'ı kaydeder", # Fuzzy
+);
+
 /** Ukrainian (українська)
  * @author Ата
  */
@@ -291,6 +396,13 @@ $messages['uk'] = array(
  */
 $messages['ur'] = array(
 	'paypalgateway' => 'اب آپ عطیہ کر',
+);
+
+/** vèneto (vèneto)
+ * @author Candalua
+ */
+$messages['vec'] = array(
+	'paypal_gateway-desc' => 'Registra PayPal come mecanismo de donassion', # Fuzzy
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -316,5 +428,5 @@ $messages['zh-hans'] = array(
  */
 $messages['zh-hant'] = array(
 	'paypalgateway' => '立刻捐款',
-	'paypal_gateway-desc' => '將PayPal註冊為捐助方式', # Fuzzy
+	'paypal_gateway-desc' => '將PayPal註冊為捐助方式',
 );
