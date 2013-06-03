@@ -4837,6 +4837,13 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-error-http-403' => 'No teniu els permisos necessaris per a accedir a aquesta pàgina.',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'donate_interface-language' => 'Мотт:',
+);
+
 /** Sorani Kurdish (کوردی)
  * @author Asoxor
  * @author Calak
@@ -15998,6 +16005,7 @@ $messages['ko'] = array(
 	'donate_interface-donor-state' => '시/도/주:',
 	'donate_interface-donor-zip' => '우편 번호',
 	'donate_interface-donor-postal' => '우편 번호:',
+	'donate_interface-donor-postcode' => '우편 번호',
 	'donate_interface-donor-country' => '국가/지역:',
 	'donate_interface-donor-zone' => '구역',
 	'donate_interface-donor-address' => '주소:',
@@ -23331,6 +23339,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
  * @author Giro720
  * @author GoEThe
  * @author Jsoby
+ * @author Luckas
  * @author Luckas Blade
  * @author Luigipiccoli
  * @author MetalBrasil
@@ -23471,6 +23480,7 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-donor-zip' => 'CEP',
 	'donate_interface-donor-postal' => 'Código postal:',
 	'donate_interface-donor-country' => 'País/Região:',
+	'donate_interface-donor-zone' => 'Zona',
 	'donate_interface-donor-address' => 'Endereço:',
 	'donate_interface-donor-pobox' => 'Caixa Postal',
 	'donate_interface-donor-card' => 'Cartão de crédito:',
@@ -23511,6 +23521,9 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-error-msg-card_num' => 'número do cartão de crédito',
 	'donate_interface-error-msg-expiration' => 'a data de expiração do seu cartão',
 	'donate_interface-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
+	'donate_interface-error-msg-account_name' => 'Nome da conta',
+	'donate_interface-error-msg-account_number' => 'Número da conta',
+	'donate_interface-error-msg-authorization_id' => 'ID de autorização',
 	'donate_interface-error-msg-captcha' => 'O valor Captcha que introduziu está incorreto. Tente novamente, por favor.',
 	'donate_interface-error-msg-captcha-please' => 'Para segurança do seu cartão de crédito, por favor digite os caracteres mostrados acima',
 	'donate_interface-error-msg-cookies' => 'Por favor permitir cookies em seu navegador.',

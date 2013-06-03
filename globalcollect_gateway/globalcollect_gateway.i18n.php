@@ -84,6 +84,8 @@ $messages['ar'] = array(
 $messages['ast'] = array(
 	'globalcollectgateway' => 'Fai la to donación agora',
 	'globalcollect_gateway-desc' => 'Procesamientu de pagos de GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Finxir un pagu correutu',
+	'globalcollect_gateway-fakefail' => 'Finxir un pagu fallíu',
 	'globalcollect_gateway-response-9130' => 'País inválidu.',
 	'globalcollect_gateway-response-9140' => 'Moneda inválida.',
 	'globalcollect_gateway-response-9150' => 'Llingua inválida.',
@@ -394,10 +396,13 @@ Yritä myöhemmin uudelleen.',
 /** French (français)
  * @author Gomoko
  * @author IAlex
+ * @author Sherbrooke
  */
 $messages['fr'] = array(
 	'globalcollectgateway' => 'Faire un don maintenant',
 	'globalcollect_gateway-desc' => 'Traitement des paiements GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Simuler un paiement fructueux',
+	'globalcollect_gateway-fakefail' => 'Simuler un paiement raté',
 	'globalcollect_gateway-response-9130' => 'Pays invalide.',
 	'globalcollect_gateway-response-9140' => 'Monnaie invalide.',
 	'globalcollect_gateway-response-9150' => 'Langue invalide.',
