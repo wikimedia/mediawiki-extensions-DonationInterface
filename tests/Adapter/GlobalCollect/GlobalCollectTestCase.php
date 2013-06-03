@@ -31,7 +31,11 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  * @group GlobalCollect
  */
 class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends DonationInterfaceTestCase {
-
+	public function setUp() {
+		$options = $this->getGatewayAdapterTestDataFromSpain();
+		
+		$this->gatewayAdapter = new TestingGlobalCollectAdapter( $options );
+	}
 
 	/**
 	 * testDefineVarMap
@@ -42,15 +46,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	 * @covers GlobalCollectAdapter::defineVarMap 
 	 */
 	public function testDefineVarMap() {
-
 		global $wgGlobalCollectGatewayTest;
 
 		$wgGlobalCollectGatewayTest = true;
 
-		$options = $this->getGatewayAdapterTestDataFromSpain();
-		
-		$this->gatewayAdapter = new GlobalCollectAdapter( $options );
-		
 		$var_map = array(
 			'ORDERID' => 'order_id',
 			'AMOUNT' => 'amount',
@@ -110,7 +109,32 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		);
 		
 		$this->assertEquals( $var_map,  $this->gatewayAdapter->getVarMap() );
+	}
 
+	/**
+	 * @covers GlobalCollectAdapter::do_transaction
+	 * @covers GlobalCollectAdapter::transactionConfirm_CreditCard
+	 * @covers GlobalCollectAdapter::transactionDirect_Debit
+	 * @covers GatewayAdapter::do_transaction
+	 * @covers GatewayAdapter::do_transaction_internal
+	 */
+	public function testDoTransaction() {
+		$result = $this->gatewayAdapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+		$this->assertTrue(
+			$result['status']
+		);
+
+		$result = $this->gatewayAdapter->do_transaction( 'Direct_Debit' );
+
+		$this->assertTrue(
+			$result['status']
+		);
+
+		$result = $this->gatewayAdapter->do_transaction( 'Confirm_CreditCard' );
+
+		$this->assertTrue(
+			$result['status']
+		);
 	}
 }
-

@@ -183,7 +183,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$ddObj = new DonationData('', true); //test mode from the start, no data
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(
-			'amount' => '35',
+			'amount' => '35.00',
 			'email' => 'test@example.com',
 			'fname' => 'Tester',
 			'mname' => 'T.',
@@ -204,7 +204,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'premium_language' => 'es',
 			'card_num' => '378282246310005',
 			'card_type' => 'american',
-			'expiration' => '0614',
+			'expiration' => '0714',
 			'cvv' => '001',
 			'currency_code' => 'USD',
 			'payment_method' => 'cc',

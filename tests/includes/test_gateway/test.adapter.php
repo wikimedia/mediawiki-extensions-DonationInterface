@@ -56,28 +56,65 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 		// Get some DOM-looking things for the request body
 		$dom = new SimpleXMLElement( $data );
-		$request = array_shift( $dom->xpath( '/XML/REQUEST' ) );
+		$request = $dom->xpath( '/XML/REQUEST' );
+		$request = $request[0];
 
 		// Figure out the request type
-		$action = array_shift( $request->xpath( 'ACTION' ) )->asXML();
+		$action = $request->xpath( 'ACTION' );
+		$action = $action[0]->asXML();
 		$action = preg_replace( '#^<ACTION>(.*)</ACTION>$#', '\\1', $action );
 
-		if ( $action === 'INSERT_ORDERWITHPAYMENT' ) {
-			// Why can't we use absolute paths here? No real reason to
-			// spend time figuring it out.
-			$order = array_shift( $request->xpath( 'PARAMS/ORDER' ) );
-			$orderid = array_shift( $order->xpath( 'ORDERID' ) )->asXML();
-			$orderid = preg_replace( '#^<ORDERID>(.*)</ORDERID>$#', '\\1', $orderid );
-			$amount = array_shift( $order->xpath( 'AMOUNT' ) )->asXML();
-			$amount = preg_replace( '#^<AMOUNT>(.*)</AMOUNT>$#', '\\1', $amount );
-			$currency = array_shift( $order->xpath( 'CURRENCYCODE' ) )->asXML();
-			$currency = preg_replace( '#^<CURRENCY>(.*)</CURRENCY>$#', '\\1', $currency );
+		if ( $action === 'INSERT_ORDERWITHPAYMENT' ||
+				$action === 'GET_ORDERSTATUS' ||
+				$action === 'DO_FINISHPAYMENT' ) {
+			if ( $action === 'INSERT_ORDERWITHPAYMENT' ||
+					$action === 'GET_ORDERSTATUS' ) {
+				// Why can't we use absolute paths here? No real reason to
+				// spend time figuring it out.
+				$order = $request->xpath( 'PARAMS/ORDER' );
+				$order = $order[0];
+				$orderid = $order->xpath( 'ORDERID' );
+			} else if ( $action === 'DO_FINISHPAYMENT' ) {
+				$orderid = $request->xpath( 'PARAMS/PAYMENT/ORDERID' );
+			}
+
+			if ( $orderid ) {
+				$orderid = $orderid[0]->asXML();
+				$orderid = preg_replace( '#^<ORDERID>(.*)</ORDERID>$#', '\\1', $orderid );
+			}
+
+			if ( $action === 'INSERT_ORDERWITHPAYMENT' ) {
+				$amount = $order->xpath( 'AMOUNT' );
+				$amount = $amount[0]->asXML();
+				$amount = preg_replace( '#^<AMOUNT>(.*)</AMOUNT>$#', '\\1', $amount );
+				$currency = $order->xpath( 'CURRENCYCODE' );
+				$currency = $currency[0]->asXML();
+				$currency = preg_replace( '#^<CURRENCY>(.*)</CURRENCY>$#', '\\1', $currency );
+			}
 
 			// Constants
 			$refnum = '000000000000000000000000000000';
-			$statusid = '20';
+
+			switch ( $action ) {
+				case 'INSERT_ORDERWITHPAYMENT':
+					// Status pending
+					$statusid = '20';
+					break;
+
+				case 'GET_ORDERSTATUS':
+					// Status pending-poke
+					$statusid = '200';
+					break;
+
+				case 'DO_FINISHPAYMENT':
+					// Status complete
+					$statusid = '1000';
+					break;
+			}
+
 			$mac = 'maQKu1wA3aLG11UymxkvFHV2LbqLxZH12COp/JEZ/uo=';
 			$datetime = date( 'YmdHis' );
+			$mercid = 'test';
 
 			$formURI = '#';
 
@@ -88,7 +125,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 			$meta->addChild( 'REQUESTID', '1891851' );
 			$meta->addChild( 'RESPONSEDATETIME', $datetime );
 
-			$row = $response->addChild( 'ROW' );
+			if ( $action === 'INSERT_ORDERWITHPAYMENT' ||
+					$action === 'DO_FINISHPAYMENT' ) {
+				$row = $response->addChild( 'ROW' );
+			} else {
+				$row = $response->addChild( 'STATUS' );
+			}
+
 			$row->addChild( 'STATUSDATE', $datetime );
 			$row->addChild( 'PAYMENTREFERENCE', '0' );
 			$row->addChild( 'ADDITIONALREFERENCE', $orderid );
@@ -104,7 +147,14 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 			$row->addChild( 'RETURNMAC', 's1h645HHsQRpCEMpOa8IyfAEHtPig+N0cEYmt08LSrw=' );
 			$row->addChild( 'MAC', $mac );
 
+			if ( $action === 'GET_ORDERSTATUS' ) {
+				// It turns out that we're expected to send back some form of CVV.
+				$row->addChild( 'CVVRESULT', '123' );
+			}
+
 			$xmlresponse = $dom->asXML();
+		} else {
+			$xmlresponse = '<XML></XML>';
 		}
 
 		$results['result'] = (

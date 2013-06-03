@@ -1256,10 +1256,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							self::log( $this->getLogMessagePrefix() . "Running DO_FINISHPAYMENT ($loops)" );
 							
 							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
+							$dopayment_data = $dopayment_result['data'];
 							//Check the txn status and result code to see if we should bother continuing
 							if ( $this->getTransactionStatus() ){
-								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_result['STATUSID'] );
-								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_result['STATUSID'] ) === 'failed' ){
+								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
+								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === 'failed' ){
 									//ack and die. 
 									$problemflag = true; //nothing to be done.
 									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
