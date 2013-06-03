@@ -819,7 +819,7 @@ $messages['mt'] = array(
 	'globalcollect_gateway-response-430330' => 'Numru tal-karta invalidu.',
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎)
+/** Norwegian Bokmål (norsk bokmål)
  * @author Jsoby
  */
 $messages['nb'] = array(

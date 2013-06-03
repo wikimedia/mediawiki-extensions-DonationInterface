@@ -596,6 +596,7 @@ Bonvolu kontakti nin por plufari vian pagon.',
  * @author Drini
  * @author Fitoschido
  * @author Locos epraix
+ * @author MarcoAurelio
  * @author MetalBrasil
  * @author MisterWiki
  * @author Mor
@@ -1355,7 +1356,7 @@ Jekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.',
 	'payflowpro_gateway-response-default' => "Kien hemm żball fl-ipproċessar tat-tranżazzjoni tiegħek. Jekk jogħġbok erġa' pprova.",
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎)
+/** Norwegian Bokmål (norsk bokmål)
  * @author Finnrind
  * @author Laaknor
  * @author Nghtwlkr
@@ -1382,7 +1383,7 @@ Kontakt oss for å fortsette din transaksjon.',
 Vennligst prøv igjen senere.',
 );
 
-/** Nedersaksies (Nedersaksies)
+/** Low Saxon (Netherlands) (Nedersaksies)
  * @author Krinkle
  * @author Servien
  */
@@ -1461,7 +1462,7 @@ Neem contact met ons op voor je transactie.',
 Probeer het later nog een keer.',
 );
 
-/** Norwegian Nynorsk (norsk (nynorsk)‎)
+/** Norwegian Nynorsk (norsk nynorsk)
  * @author Gunnernett
  * @author Nghtwlkr
  */
@@ -1500,7 +1501,7 @@ Contactatz-nos per perseguir vòstra transaccion.',
 Tornatz ensajar mai tard.",
 );
 
-/** Oriya (ଓଡ଼ିଆ)
+/** Oriya (ଓଡ଼ିଆ)
  * @author Ansumang
  */
 $messages['or'] = array(
@@ -1574,6 +1575,7 @@ $messages['ps'] = array(
  * @author Giro720
  * @author GoEThe
  * @author Hamilton Abreu
+ * @author Luckas
  * @author Luckas Blade
  * @author Malafaya
  */
@@ -1601,6 +1603,7 @@ Por favor, tente novamente mais tarde.',
 /** Brazilian Portuguese (português do Brasil)
  * @author Giro720
  * @author GoEThe
+ * @author Luckas
  * @author Luckas Blade
  * @author MetalBrasil
  * @author Raylton P. Sousa
