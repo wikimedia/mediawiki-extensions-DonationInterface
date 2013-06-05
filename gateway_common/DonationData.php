@@ -690,6 +690,8 @@ class DonationData {
 			// TODO: Move this somewhere more sane! We shouldn't be doing anything with requests
 			// in normalization functions.
 			$id = $_GET['order_id'];
+		} elseif ( $this->boss == 'AdyenAdapter' && array_key_exists( 'merchantReference', $_GET ) ) {
+			$id = $_GET['merchantReference'];
 		} elseif ( ( $this->isSomething( 'order_id' ) ) && ( $idGenThisRequest == true ) ){
 			// An order ID already exists, therefore we do nothing
 			$id = $this->getVal( 'order_id' );
