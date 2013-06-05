@@ -2686,4 +2686,11 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $score;
 	}
+
+	/**
+	 * For places that might need the merchant ID outside of the adapter
+	 */
+	public function getMerchantID() {
+		return $this->account_config[ 'MerchantID' ];
+	}
 }

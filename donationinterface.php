@@ -31,7 +31,7 @@ $donationinterface_dir = dirname( __FILE__ ) . '/';
 
 // Test mode (not for production!)
 // Set it if not defined
-if ( $wgDonationInterfaceTestMode !== true ) {
+if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== true ) {
 	$wgDonationInterfaceTestMode = false;
 }
 
