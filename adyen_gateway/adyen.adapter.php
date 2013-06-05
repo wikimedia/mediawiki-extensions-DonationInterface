@@ -455,11 +455,10 @@ class AdyenAdapter extends GatewayAdapter {
 			$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
 
 			$result_code = isset( $request_vars[ 'authResult' ] ) ? $request_vars[ 'authResult' ] : '';
-			if ( $result_code == 'PENDING' ) {
+			if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
+				// Both of these are listed as pending because we have to submit a capture
+				// request on 'AUTHORIZATION' ipn message receipt.
 				$this->setTransactionWMFStatus( 'pending' );
-			}
-			elseif ( $result_code == 'AUTHORISED' ) {
-				$this->setTransactionWMFStatus( 'complete' );
 			}
 			else {
 				self::log( $log_prefix . "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
