@@ -23,6 +23,7 @@ class AdyenGatewayResult extends GatewayForm {
 	public $errors = array( );
 
 	public function __construct() {
+		$this->adapter = new AdyenAdapter();
 		parent::__construct();
 	}
 
@@ -32,7 +33,6 @@ class AdyenGatewayResult extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		$this->adapter = new AdyenAdapter();
 
 		//no longer letting people in without these things. If this is 
 		//preventing you from doing something, you almost certainly want to be 
