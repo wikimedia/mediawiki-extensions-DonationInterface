@@ -76,6 +76,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 	$properties = array(
 		'persistent' => 'true',
 		'payment_method' => $transaction['payment_method'],
+		'php-message-class' => $transaction['php-message-class'],
 	);
 
 	if ( array_key_exists( 'antimessage', $transaction ) ) {
