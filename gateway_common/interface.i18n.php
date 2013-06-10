@@ -8274,7 +8274,7 @@ $messages['et'] = array(
 	'donate_interface-smallamount-error' => 'Sa pead annetama vähemalt $1.',
 	'donate_interface-bigamount-error' => 'Me ei saa veebisaidi kaudu 10 000 dollarist ($1 $2) suuremaid annetusi vastu võtta. Palun võta suurannetajate teenindajaga ühendust aadressil $3.',
 	'donate_interface-processing-error' => 'Andmetöötluses on viga. Pole vabu menetluskanaleid.',
-	'donate_interface-AED' => 'AÜE dirham',
+	'donate_interface-AED' => 'AÜE dirhem',
 	'donate_interface-ARS' => 'Argentina peeso',
 	'donate_interface-AUD' => 'Austraalia dollar',
 	'donate_interface-BBD' => 'Barbadose dollar',
@@ -8375,7 +8375,7 @@ $messages['et'] = array(
 	'donate_interface-donor-amount' => 'Summa',
 	'donate_interface-donor-currency-label' => 'Vääring',
 	'donate_interface-donor-email' => 'E-posti aadress',
-	'donate_interface-donor-emailAdd' => 'Meiliaadress',
+	'donate_interface-donor-emailAdd' => 'E-posti aadress',
 	'donate_interface-donor-name' => 'Nimi',
 	'donate_interface-donor-fname' => 'Eesnimi',
 	'donate_interface-donor-mname' => 'Teine nimi:',
@@ -8438,7 +8438,7 @@ $messages['et'] = array(
 	'donate_interface-donate-error-try-a-different-card' => 'Palun proovi [$1 teistsugust kaarti], [$2 muud annetusviisi] või võta ühendust aadressil $3.',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Suur tänu toetuse eest!',
 	'php-response-declined' => 'Sinu ülekannet ei saa vastu võtta.',
-	'donate_interface-thankyou' => 'Täname Sind annetuse eest!',
+	'donate_interface-thankyou' => 'Aitäh annetuse eest!',
 	'donate_interface-post-transaction' => 'Ülekande üksikasjad',
 	'donate_interface-cvv-explain' => '<h4>Mis on CVV?</h4>
 <p>Krediitkaardi valideerimisväärtus (CVV): See on kolme- või neljakohaline arv, mis aitab kindlaks teha, kas kaart on tegelikult selle omaniku käes. See aitab ära hoida kaardi õigusetut kasutamist ja kaardipettusi.</p>
@@ -11210,6 +11210,7 @@ $messages['gu'] = array(
 /** Hebrew (עברית)
  * @author Amire80
  * @author Deror avi
+ * @author Inkbug
  * @author Jsoby
  * @author Ofrahod
  * @author YaronSh
@@ -11236,6 +11237,7 @@ $messages['he'] = array(
 	'donate_interface-processing-error' => 'חלה שגיאה בתהליך העיבוד של הבקשה. 
 אין מעבדים זמינים.',
 	'donate_interface-fallback-currency-notice' => 'אין תמיכה במטבע שלך. העיבוד יימשך באמצעות $1, בכפוף להסכמתך.',
+	'donate_interface-maintenance-notice' => 'אנו מתנצלים, אך התשלום באופן זה בוטל זמנית.',
 	'donate_interface-AED' => 'דירהם איחוד האמירויות הערביות',
 	'donate_interface-ARS' => 'פסו ארגנטינאי',
 	'donate_interface-AUD' => 'דולר אוסטרלי',
@@ -17416,6 +17418,7 @@ $messages['ln'] = array(
 );
 
 /** Lithuanian (lietuvių)
+ * @author Mantak111
  * @author Matasg
  */
 $messages['lt'] = array(
@@ -17559,6 +17562,7 @@ Nepriimamos apdorojimo užklausos.',
 	'donate_interface-donor-security' => 'Saugumo kodas',
 	'donate_interface-donor-submit' => 'Aukoti',
 	'donate_interface-donor-currency-msg' => 'Aukojimas yra atliekamas šia valiuta: $1',
+	'donate_interface-donor-fiscal_number' => 'Mokesčių numeris',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
@@ -17589,6 +17593,10 @@ Nepriimamos apdorojimo užklausos.',
 	'donate_interface-error-msg-card_num' => 'kreditinės kortelės numeris',
 	'donate_interface-error-msg-expiration' => 'kortelės galiojimo pabaigos data',
 	'donate_interface-error-msg-cvv' => 'CVV iš kitos jūsų kortelės pusės',
+	'donate_interface-error-msg-account_name' => 'Paskyros vardas',
+	'donate_interface-error-msg-account_number' => 'Paskyros numeris',
+	'donate_interface-error-msg-authorization_id' => 'Autorizacijos ID',
+	'donate_interface-error-msg-bank_code' => 'Rūšiavimo kodas',
 	'donate_interface-error-msg-captcha' => 'Blogai įvedėte Captcha apsaugos kodą. Bandykite dar kartą.',
 	'donate_interface-error-msg-captcha-please' => 'Dėl jūsų kredito kortelės saugimo, įveskite ženklus, kuriuos matote viršuje.',
 	'donate_interface-error-msg-cookies' => 'Prašome įjungti slapukus savo naršyklėje.',
@@ -17741,6 +17749,7 @@ Kad būtų užtikrinta saugi, apsaugota ir maloni aplinka, mūsų aukojimo forma
 	'donate_interface-bt-special_id' => 'Specialusis numeris', # Fuzzy
 	'donate_interface-bt-information' => 'Banko pavedimo informacija',
 	'donate_interface-bt-finished' => 'Baigta',
+	'donate_interface-obt-generic-name' => 'Elektroninio banko pavedimu',
 	'donate_interface-obt-biller_id' => 'Sąskaitos teikėjo (Biller) kodas',
 	'donate_interface-obt-customer_payment_reference' => 'Nuoroda #',
 	'donate_interface-obt-information' => 'Banko pavedimo informacija',
