@@ -93,8 +93,8 @@ $messages['ast'] = array(
 	'globalcollect_gateway-response-430306' => 'La tarxeta de créditu caducó. Por favor, prueba con otra tarxeta o con otru de los nuesos métodos de pagu.',
 	'globalcollect_gateway-response-430330' => 'Númberu de tarxeta inválidu.',
 	'globalcollect_gateway-response-430421' => 'Non se pudo validar la to tarxeta de créditu. Comprueba que tola información case cola del perfil de la tarxeta o prueba con otra tarxeta.',
-	'globalcollect_gateway-response-430360' => 'Non se pudo autorizar a transaición. Prueba con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
-	'globalcollect_gateway-response-430285' => 'Non se pudo autorizar a transaición. Prueba con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
+	'globalcollect_gateway-response-430360' => 'Nun pudo autorizase la trensaición. Pruebe con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
+	'globalcollect_gateway-response-430285' => 'Nun pudo autorizase a trensaición. Pruebe con una tarxeta diferente o con dalgún de los otros métodos de pagu.',
 	'globalcollect_gateway-response-21000150' => 'Númberu de cuenta bancaria inválidu.',
 	'globalcollect_gateway-response-21000155' => 'Códigu de bancu inválidu.',
 	'globalcollect_gateway-response-21000160' => 'Númberu de cuenta de xiru inválidu.',
@@ -1239,17 +1239,20 @@ $messages['ur'] = array(
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
  * @author Trần Nguyễn Minh Huy
+ * @author Tuankiet65
  */
 $messages['vi'] = array(
 	'globalcollectgateway' => 'Quyên góp ngay bây giờ',
 	'globalcollect_gateway-desc' => 'Xử lý thanh toán qua GlobalCollect',
-	'globalcollect_gateway-response-9130' => 'Quốc gia này không hợp lệ.',
+	'globalcollect_gateway-fakesucceed' => 'Làm giả một thanh toán thành công',
+	'globalcollect_gateway-fakefail' => 'Làm giả một thanh toán thất bại',
+	'globalcollect_gateway-response-9130' => 'Quốc gia không hợp lệ.',
 	'globalcollect_gateway-response-9140' => 'Loại tiền tệ không hợp lệ.',
 	'globalcollect_gateway-response-9150' => 'Ngôn ngữ không hợp lệ.',
 	'globalcollect_gateway-response-400530' => 'Phương thức thanh toán không hợp lệ.',
 	'globalcollect_gateway-response-430306' => 'Thẻ tín dụng của bạn đã hết hạn. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
 	'globalcollect_gateway-response-430330' => 'Mã số thẻ không hợp lệ.',
-	'globalcollect_gateway-response-430421' => 'Thẻ tín dụng của bạn không được xác nhận. Xin vui lòng kiểm chứng rằng tất cả thông tin phù hợp với hồ sơ thẻ tín dụng của bạn hoặc thử dùng một thẻ khác.',
+	'globalcollect_gateway-response-430421' => 'Thẻ tín dụng của bạn không thể xác nhận. Xin vui lòng kiểm chứng rằng tất cả thông tin phù hợp với hồ sơ thẻ tín dụng của bạn hoặc thử dùng một thẻ khác.',
 	'globalcollect_gateway-response-430360' => 'Giao dịch này không cho phép. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
 	'globalcollect_gateway-response-430285' => 'Giao dịch này không cho phép. Hãy thử dùng một thẻ khác hoặc một trong các phương thức thanh toán khác của chúng tôi.',
 	'globalcollect_gateway-response-21000150' => 'Số tài khoản ngân hàng không hợp lệ.',
