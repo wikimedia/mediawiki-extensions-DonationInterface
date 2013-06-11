@@ -61,6 +61,16 @@ $messages['cs'] = array(
 Zkuste to znovu o něco později.',
 );
 
+/** Welsh (Cymraeg)
+ * @author Lloffiwr
+ */
+$messages['cy'] = array(
+	'adyengateway' => 'Rhoi nawr',
+	'adyen_gateway-desc' => 'Prosesu taliad trwy Adyen',
+	'adyen_gateway-response-default' => "Cafwyd gwall wrth brosesu'ch taliad.
+Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
