@@ -4841,6 +4841,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
  * @author Умар
  */
 $messages['ce'] = array(
+	'donate_interface-description' => 'Цуьнах лаьцна',
 	'donate_interface-language' => 'Мотт:',
 );
 
