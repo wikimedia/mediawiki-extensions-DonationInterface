@@ -1102,11 +1102,14 @@ $messages['sr-ec'] = array(
 );
 
 /** Swedish (svenska)
+ * @author Jopparn
  * @author Warrakkk
  */
 $messages['sv'] = array(
 	'globalcollectgateway' => 'Ge ditt bidrag nu',
 	'globalcollect_gateway-desc' => 'GlobalCollect betalningshantering',
+	'globalcollect_gateway-fakesucceed' => 'Fejka en genomförd betalning',
+	'globalcollect_gateway-fakefail' => 'Fejka en misslyckad betalning',
 	'globalcollect_gateway-response-9130' => 'Ogiltig land.',
 	'globalcollect_gateway-response-9140' => 'Ogiltig valuta.',
 	'globalcollect_gateway-response-9150' => 'Ogiltigt språk.',
