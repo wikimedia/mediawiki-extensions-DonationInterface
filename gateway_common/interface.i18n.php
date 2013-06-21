@@ -891,7 +891,8 @@ Parameters:
 	'donate_interface-on-the-back' => 'Label for an image of the localized Wikipedia wordmark chosen by the donor',
 	'donate_interface-tshirt-confirmation' => 'Header for summary of t-shirt delivery, shown after the completion of the donation.',
 	'donate_interface-donation-tshirt' => 'This message is about "Donate and get a T-shirt".',
-	'donate_interface-change' => 'Action used for editing payment amount or other payment information',
+	'donate_interface-change' => 'Action used for editing payment amount or other payment information.
+{{Identical|Change}}',
 	'donate_interface-select-credit-card' => 'This is a label for selecting a credit card type',
 	'donate_interface-optional' => 'used to mark a field that is not required to be filled out.
 {{Identical|Optional}}',
@@ -960,7 +961,8 @@ See [[w:en:Check_digit]] for explanation of Check Digit.
 	'donate_interface-email-unsub-warning' => 'A warning that unsubscribing from donation requests will not unsubscribe from talk page notifications, etc.',
 	'donate_interface-faqs' => 'Link text to the frequently asked questions page',
 	'donate_interface-tax-info' => 'Link to information about the tax deducability of donations',
-	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.',
+	'donate_interface-currency-change' => 'Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.
+{{Identical|Change}}',
 	'donate_interface-bank_transfer_message' => 'Message notifying donors that the recipient of the donation will show as Global Collect.
 
 See also:
