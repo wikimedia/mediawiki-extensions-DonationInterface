@@ -6490,7 +6490,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 	'donate_interface-email-unsub-warning' => 'Hiermit entscheiden Sie sich, keine E-Mails mehr von der Wikimedia Foundation zu erhalten, die Spendern zugesandt werden. Sie könnten allerdings immer noch E-Mails erhalten, sofern diese E-Mail-Adresse mit einem Benutzerkonto eines Wikimedia-Projekts verknüpft ist. Im Fall von Fragen, können Sie sich gerne eine E-Mail an <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a> senden.',
 	'donate_interface-faqs' => 'Häufig gestellte Fragen',
 	'donate_interface-tax-info' => 'Information über die steuerliche Absetzbarkeit',
-	'donate_interface-informationsharing' => 'Sie geben Ihre Informationen der Wikimedia Foundation preis, der Non-Profit-Organisation, die Wikipedia und andere Wikimedia-Projekte betreibt. Die Service-Provider in den USA und sonstigen Ländern entsprechen unseren Spenderdatenschutzrichtlinien. Wir verkaufen oder handeln nicht mit Ihren Daten. Für weitere Informationen lesen Sie bitte <a href="//wikimediafoundation.org/wiki/Donor_policy/de">unsere Spenderdatenschutzrichtlinien</a>.',
+	'donate_interface-informationsharing' => "Sie geben Ihre Informationen der ''Wikimedia Foundation'' preis, der gemeinnützigen Organisation, die Wikipedia und andere Wikimedia-Projekte betreibt. Die Service-Provider in den USA und sonstigen Ländern entsprechen unseren Spenderdatenschutzrichtlinien. Wir verkaufen oder handeln nicht mit Ihren Daten. Sie können <a href=\"//wikimediafoundation.org/wiki/Donor_policy/de\">unsere Spenderdatenschutzrichtlinie</a> lesen, wo Sie weitere Informationen finden.",
 	'donate_interface-currency-change' => 'Ändern?',
 	'donate_interface-bank_transfer_message' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie bitte eine E-Mail an donations@wikimedia.org.',
 	'donate_interface-globalcollect-proxy' => 'Als Zahlungsempfänger wird „Global Collect“ auf Ihrem Kontoauszug angegeben. „Global Collect“ ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten.',
@@ -31288,6 +31288,13 @@ $messages['ur'] = array(
 	'donate_interface-dd-branch_code' => 'شاخ کوڈ',
 	'donate_interface-dd-direct_debit_text' => 'ڈائریکٹ ڈیبٹ کے متن',
 	'donate_interface-email-unsub-button' => 'رکنیت ختم',
+);
+
+/** Uzbek (oʻzbekcha)
+ * @author Sociologist
+ */
+$messages['uz'] = array(
+	'donate_interface-language' => 'Til:',
 );
 
 /** vèneto (vèneto)
