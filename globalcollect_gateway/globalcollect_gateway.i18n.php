@@ -604,6 +604,8 @@ Silakan coba lagi nanti.',
 $messages['it'] = array(
 	'globalcollectgateway' => 'Fai ora la tua donazione',
 	'globalcollect_gateway-desc' => 'Elaborazione dei pagamenti GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Simula un pagamento riuscito',
+	'globalcollect_gateway-fakefail' => 'Simula un pagamento non riuscito',
 	'globalcollect_gateway-response-9130' => 'Nazione non valida.',
 	'globalcollect_gateway-response-9140' => 'Valuta non valida.',
 	'globalcollect_gateway-response-9150' => 'Lingua non valida.',
