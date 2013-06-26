@@ -199,7 +199,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 	
 	function handleStompAntiMessages(){
-		$selector = "antimessage = 'true'";
+		$selector = "antimessage = 'true' AND gateway='globalcollect'";
 		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		$count = 0;
 		while ( count( $antimessages ) > 10 && $this->keepGoing() ){ //if there's an antimessage, we can ack 'em all right now. 
@@ -227,7 +227,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 */
 	function getStompOrphans(){
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
-		$selector = "payment_method = 'cc'";
+		$selector = "payment_method = 'cc' AND gateway='globalcollect'";
 		echo "Fetching 300 Orphans\n";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 		$orphans = array();
