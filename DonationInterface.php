@@ -4,7 +4,7 @@
  * Donation Interface
  *
  *  To install the DontaionInterface extension, put the following line in LocalSettings.php:
- *	require_once( "\$IP/extensions/DonationInterface/donationinterface.php" );
+ *	require_once( "\$IP/extensions/DonationInterface/DonationInterface.php" );
  *
  */
 
@@ -13,7 +13,7 @@
 if ( !defined( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
 To install the DontaionInterface extension, put the following line in LocalSettings.php:
-require_once( "\$IP/extensions/DonationInterface/donationinterface.php" );
+require_once( "\$IP/extensions/DonationInterface/DonationInterface.php" );
 EOT;
 	exit( 1 );
 }
