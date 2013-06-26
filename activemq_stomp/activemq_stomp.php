@@ -77,6 +77,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		'persistent' => 'true',
 		'payment_method' => $transaction['payment_method'],
 		'php-message-class' => $transaction['php-message-class'],
+		'gateway' => $transaction['gateway'],
 	);
 
 	if ( array_key_exists( 'antimessage', $transaction ) ) {
@@ -110,8 +111,8 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
  * Hook to send transaction information to ActiveMQ server
  * @deprecated Use sendSTOMP with $queue = 'pending' instead
  *
- * @param array $transaction Key-value array of staged and ready donation data. 
- * @return bool Just returns true all the time. Presumably an indication that 
+ * @param array $transaction Key-value array of staged and ready donation data.
+ * @return bool Just returns true all the time. Presumably an indication that
  * nothing exploded big enough to kill the whole thing.
  */
 function sendPendingSTOMP( $transaction ) {
@@ -122,8 +123,8 @@ function sendPendingSTOMP( $transaction ) {
  * Hook to send transaction information to ActiveMQ server
  * @deprecated Use sendSTOMP with $queue = 'limbo' instead
  *
- * @param array $transaction Key-value array of staged and ready donation data. 
- * @return bool Just returns true all the time. Presumably an indication that 
+ * @param array $transaction Key-value array of staged and ready donation data.
+ * @return bool Just returns true all the time. Presumably an indication that
  * nothing exploded big enough to kill the whole thing.
  */
 function sendLimboSTOMP( $transaction ) {
@@ -133,8 +134,8 @@ function sendLimboSTOMP( $transaction ) {
 /**
  * Assign correct values to the array of data to be sent to the ActiveMQ server
  * TODO: Probably something else. I don't like the way this works and neither do you.
- * 
- * Older notes follow:  
+ *
+ * Older notes follow:
  * TODO: include optout and comments option in the donation page
  * NOTES: includes middle name
  * Currency in receiving module has currency set to USD, should take passed variable for these
@@ -148,7 +149,7 @@ function sendLimboSTOMP( $transaction ) {
  */
 function createQueueMessage( $transaction ) {
 	// specifically designed to match the CiviCRM API that will handle it
-	// edit this array to include/ignore transaction data sent to the server	
+	// edit this array to include/ignore transaction data sent to the server
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 		'comment' => $transaction['comment'],
@@ -191,10 +192,10 @@ function createQueueMessage( $transaction ) {
 		'net' => $transaction['amount'],
 		'user_ip' => $transaction['user_ip'],
 		//the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
-		//The code there should also be fixed. 
-		'date' => ( int ) $transaction['date'], 
+		//The code there should also be fixed.
+		'date' => ( int ) $transaction['date'],
 	);
-	
+
 	//optional keys
 	$optional_keys = array(
 		'recurring',
@@ -218,9 +219,9 @@ function createQueueMessage( $transaction ) {
  * @return array
  */
 function unCreateQueueMessage( $transaction ) {
-	// For now, this function assumes that we have a complete queue message. 
-	// TODO: Something more robust and programmatic, as time allows. This whole file is just terrible. 
-	
+	// For now, this function assumes that we have a complete queue message.
+	// TODO: Something more robust and programmatic, as time allows. This whole file is just terrible.
+
 	$rekey = array(
 		'first_name' => 'fname',
 		'middle_name' => 'mname',
@@ -240,7 +241,7 @@ function unCreateQueueMessage( $transaction ) {
 //		'gross' => 'amount',
 //		'net' => 'amount',
 	);
-	
+
 	foreach ( $rekey as $stomp => $di ){
 		if ( isset( $transaction[$stomp] ) ){
 			$transaction[$di] = $transaction[$stomp];
@@ -253,19 +254,19 @@ function unCreateQueueMessage( $transaction ) {
 
 
 /**
- * Fetches all the messages in a queue that match the supplies selector. 
- * Limiting to a completely arbitrary 50, just in case something goes amiss somewhere. 
- * @param string $queue The target queue from which we would like to fetch things. 
+ * Fetches all the messages in a queue that match the supplies selector.
+ * Limiting to a completely arbitrary 50, just in case something goes amiss somewhere.
+ * @param string $queue The target queue from which we would like to fetch things.
  *	To simplify things, specify either 'verified', 'pending', or 'limbo'.
  * @param string $selector Could be anything that STOMP will regard as a valid selector. For our purposes, we will probably do things like:
  *	$selector = "JMSCorrelationID = 'globalcollect-6214814668'", or
  *	$selector = "payment_method = 'cc'";
- * @param int $limit The maximum number of messages we would like to pull off of the queue at one time. 
- * @return array an array of stomp messages, with a count of up to $limit. 
+ * @param int $limit The maximum number of messages we would like to pull off of the queue at one time.
+ * @return array an array of stomp messages, with a count of up to $limit.
  */
 function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 	global $wgStompQueueNames;
-	
+
 	static $selector_last = null;
 	if ( !is_null( $selector_last ) && $selector_last != $selector ){
 		$renew = true;
@@ -280,26 +281,26 @@ function stompFetchMessages( $queue, $selector = null, $limit = 50 ){
 	} else {
 		$queue = $wgStompQueueNames['default'];
 	}
-	
-	//This needs to be renewed every time we change the selectors. 
-	$stomp = getDIStompConnection( $renew ); 
-	
+
+	//This needs to be renewed every time we change the selectors.
+	$stomp = getDIStompConnection( $renew );
+
 	$properties = array( 'ack' => 'client' );
 	if ( !is_null( $selector ) ){
 		$properties['selector'] = $selector;
 	}
-	
+
 	$stomp->subscribe( '/queue/' . $queue, $properties );
 	$message = $stomp->readFrame();
-	
+
 	$return = array();
-	
+
 	while ( !empty( $message ) && count( $return ) < $limit ) {
 		$return[] = $message;
 		$stomp->subscribe( '/queue/' . $queue, $properties );
 		$message = $stomp->readFrame();
 	}
-	
+
 	return $return;
 }
 
@@ -323,7 +324,7 @@ function getDIStompConnection( $renew = false ){
 	static $conn = null;
 	if ( $conn === null || !$conn->isConnected() || $renew ) {
 		if ( $conn !== null && $conn->isConnected() ){
-			$conn->disconnect(); //just to be safe. 
+			$conn->disconnect(); //just to be safe.
 		}
 		// make a connection
 		$conn = new Stomp( $wgStompServer );
