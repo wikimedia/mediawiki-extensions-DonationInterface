@@ -1653,7 +1653,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'BND', // Brunei dollar
 			'BOB', // Bolivia boliviano
 			'BRL', // Brazilian real
-			'BSD', // Bahamian dollar
+// - Removed temporarily for WellsFargo (28/06/13)			'BSD', // Bahamian dollar
 			'BZD', // Belize dollar
 			'CAD', // Canadian dollar
 			'CHF', // Swiss franc
@@ -1682,7 +1682,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'JPY', // Japanese yen
 			'KES', // Kenyan shilling
 			'KRW', // South Korean won
-			'KYD', // Cayman Islands dollar
+// - Removed temporarily for WellsFargo (28/06/13)			'KYD', // Cayman Islands dollar
 			'KZT', // Kazakhstani tenge
 			'LBP', // Lebanese pound
 			'LKR', // Sri Lankan rupee
@@ -1720,11 +1720,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'UAH', // Ukrainian hryvnia
 			'UYU', // Uruguayan peso
 			'USD', // U.S. dollar
-			'UZS', // Uzbekistani som
+// - Removed temporarily for WellsFargo (28/06/13)			'UZS', // Uzbekistani som
 // - removed temporarily (WorldPay)			'VND', // Vietnamese dong
 			'XAF', // Central African CFA franc
 			'XCD', // East Caribbean dollar
-			'XOF', // West African CFA franc
+// - Removed temporarily for WellsFargo (28/06/13)			'XOF', // West African CFA franc
 			'ZAR', // South African rand
 		);
 		return $currencies;
