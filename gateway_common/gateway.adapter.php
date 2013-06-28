@@ -1854,7 +1854,8 @@ abstract class GatewayAdapter implements GatewayType {
 			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
 			'response' => $this->getTransactionMessage(),
 			'correlation-id' => $this->getCorrelationID(),
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage'
+			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
+			'gateway' => $this->getData_Unstaged_Escaped( 'gateway' ),
 		);
 
 		if ( $antiMessage == true ) {
