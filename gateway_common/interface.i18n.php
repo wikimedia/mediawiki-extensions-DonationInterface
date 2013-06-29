@@ -616,7 +616,8 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-ewallet-button' => 'Button to choose to donate via an eWallet. Parameters:
 * $1 is the name of an eWallet, like PayPal, Moneybookers, etc.',
 	'donate_interface-card-legend' => 'Header for part of the form that has information about the credit card itself.',
-	'donate_interface-amount-legend' => 'Where you choose what amount to donate.',
+	'donate_interface-amount-legend' => 'Where you choose what amount to donate.
+{{Identical|Donation amount}}',
 	'donate_interface-cvv-link' => 'Text for the link to show the user where to find the [[Wikipedia:Card security code|security code]] on their credit card.',
 	'donate_interface-donor-legend' => 'Header for the entire form where you fill out your personal information.',
 	'donate_interface-donor-amount' => '{{Identical|Amount}}',
@@ -733,7 +734,8 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-mc' => 'Error message for incorrect MasterCard number.',
 	'donate_interface-error-msg-visa' => 'Error message for incorrect Visa card number.',
 	'donate_interface-error-msg-discover' => 'Error message for invalid Discover card number.',
-	'donate_interface-error-msg-amount' => 'Used in error message regarding the donation amount field.',
+	'donate_interface-error-msg-amount' => 'Used in error message regarding the donation amount field.
+{{Identical|Donation amount}}',
 	'donate_interface-error-msg-emailAdd' => '{{Identical|E-mail address}}',
 	'donate_interface-error-msg-fname' => 'Used in error message regarding the first name field',
 	'donate_interface-error-msg-lname' => 'Used in error message regarding the last name field',
@@ -849,6 +851,8 @@ This message was used during testing, but as of 7 Dec 2010 is not in use.",
 	'donate_interface-cc-billing-information' => 'Header for credit card information part of the form.',
 	'donate_interface-pay-by-credit-card' => 'Text for the button to finish donation.',
 	'donate_interface-credit-card-number-abbreviated' => "Abbreviation of 'Credit Card Number'",
+	'donate_interface-expires-question' => '{{Identical|Expire}}',
+	'donate_interface-expires' => '{{Identical|Expire}}',
 	'donate_interface-cvv' => "Abbreviation of 'Card Verification Value'",
 	'donate_interface-cvv-number-abbreviated' => "Abbreviation of 'Card Verification Value Number'.
 
@@ -860,12 +864,14 @@ There is no limit to the length of the message.",
 	'donate_interface-next' => '{{Identical|Next}}',
 	'donate_interface-continue' => '{{Identical|Continue}}',
 	'donate_interface-cancel' => '{{Identical|Cancel}}',
+	'donate_interface-payment' => '{{Identical|Payment}}',
 	'donate_interface-month' => 'Expiration month for credit card. Appears in a drop-down list.
 
 Parameters:
 * $1 - the month number
 * $2 - the month name',
 	'donate_interface-description' => '{{Identical|Description}}',
+	'donate_interface-donation' => '{{Identical|Donation}}',
 	'donate_interface-email-receipt' => "Label for field which contains the e-mail address the donor's receipt will be mailed to.",
 	'donate_interface-monthly-donation' => 'Button label, 25 characters maximum',
 	'donate_interface-via-paypal' => 'This appears after the monthly donation button',
@@ -910,7 +916,8 @@ Parameters:
 {{Identical|Finished}}',
 	'donate_interface-obt-generic-name' => 'Generic title for form or button that allows usage of the online bank transfer payment method.',
 	'donate_interface-obt-biller_id' => 'BPAY (Australian Online Bank Transfer) - The label for biller code',
-	'donate_interface-obt-customer_payment_reference' => 'BPAY (Australian Online Bank Transfer) - The customer reference number label',
+	'donate_interface-obt-customer_payment_reference' => 'BPAY (Australian Online Bank Transfer) - The customer reference number label.
+{{Identical|Reference}}',
 	'donate_interface-obt-information' => 'BPAY (Australian Online Bank Transfer) - The second level header on the web page',
 	'donate_interface-online_bank_transfer_message' => 'BPAY (Australian Online Bank Transfer)  - The message displayed about the BPAY transaction.',
 	'donate_interface-rtbt-issuer_id' => 'Real time bank transfer: Select a Bank used to pick which bank the donor wishes to use for their donation',
@@ -14548,7 +14555,7 @@ $messages['ja'] = array(
 	'donate_interface-rt-button' => '$1銀行を通して寄付',
 	'donate_interface-ewallet-button' => '$1 経由で寄付します。',
 	'donate_interface-card-legend' => 'クレジットカード情報',
-	'donate_interface-amount-legend' => '寄付金額',
+	'donate_interface-amount-legend' => '寄付額',
 	'donate_interface-cvv-link' => 'これはどこにありますか?',
 	'donate_interface-donor-legend' => '寄付者情報',
 	'donate_interface-donor-amount' => '金額',
@@ -17097,6 +17104,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-informationsharing' => 'Wann Der en Don maacht, deelt Der Är perséinlech Donnéeë mat der Wikimedia Foundation, där Asbl, déi Wikipedia an aner Wikimedia-Projeten bedreift. D\'Service-Provider an den USA a soss Länner entspriechen eiser Dateschutzpolitik vun den Donateuren hiren Donnéeën. Mir verkafen oder handelen net mat Ären Donnéeën. Fir méi Informatiounen, liest w.e.gl. <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
 	'donate_interface-currency-change' => 'Änneren?',
 	'donate_interface-bank_transfer_message' => 'Op Ärem Kontos-Relevé gëtt "Global Collect" als den Emfänger vun Ärem Don uginn. Global Collect krut vun der Wikimedia Foundation den Opdrag, an hirem Numm Ären Don unzehuelen an ze verschaffen. Vergiesst w.e.gl. net, d\'Referenznummer, déi hei steet, op Ärem Virement unzeginn an zéckt net, eis en E-mail un donations@wikimedia.org ze schécken, wann der Froen hätt.',
+	'donate_interface-globalcollect-proxy' => 'Als Empfänger vun dësem Don steet "Global Collect" op Ärem Extrait vum Kont. Global Collect ass autoriséiert fir Done fir d\'Wikimedia Foundation entgéint ze huelen an ze verschaffen.',
 	'donate_interface-taxded-link-int' => 'Steier- a soss rechtlech Informatiounen',
 	'donate_interface-taxded-link-us' => "Informatiounen iwwer d'Konditioune fir Done vun de Steieren ofzesetzen",
 	'donate_interface-taxded-msg-int' => 'La Fondation Wikimedia est une association à but non lucratif établie aux États-Unis, selon la section 501(c)(3) du Code fédéral des impôts et, de ce fait, les donateurs, personnes physiques ou morales situés aux États-Unis peuvent bénéficier de déductions fiscales. Les donateurs, personnes physiques ou morales situés hors des États-Unis peuvent ne pas avoir droit à ces déductions fiscales aux États-Unis ou ailleurs ; dans ce cas, nous prions les donateurs de se renseigner auprès d’un conseiller fiscal local. Note importante : Wikimedia ne cherche en aucun cas à collecter des dons auprès de personnes physiques ou morales situées dans des juridictions qui interdisent ou restreignent les activités de collecte de fonds au profit d’organisation caritatives internationales comme Wikimedia ou qui appliquent des taxes sur les dons faits à ces organisations caritatives internationales.',
