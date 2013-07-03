@@ -817,25 +817,6 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the paypal button form element. 
-	 * This function is only used in TwoColumnPayPal.php. 
-	 * @return string
-	 */
-	protected function getPaypalButton() {
-		global $wgExtensionAssetsPath;
-		$scriptPath = "$wgExtensionAssetsPath/DonationInterface/gateway_forms/includes";
-
-		$form = '<tr>';
-		$form .= '<td class="paypal-button" colspan="2">';
-		$form .= Html::hidden( 'PaypalRedirect', false );
-		$form .= Xml::tags( 'div', array( ), '<a href="#" onclick="document.payment.PaypalRedirect.value=\'true\';document.payment.submit();"><img src="' . htmlspecialchars( $scriptPath ) . '/donate_with_paypal.gif"/></a>'
-		);
-		$form .= '</td>';
-		$form .= '</tr>';
-		return $form;
-	}
-
-	/**
 	 * Builds and returns the state dropdown form element. 
 	 * This function is not used by any RapidHTML forms.
 	 * @return string 

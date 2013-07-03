@@ -105,8 +105,6 @@ $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/D
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_TwoStepTwoColumn'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumn.php';
 $wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnLetter'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnLetter.php';
-$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnLetter3'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnLetter3.php';
-$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnLetterCA'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnLetterCA.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
 
 //GlobalCollect gateway classes
@@ -941,12 +939,6 @@ $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
-
-// TowStepTwoColumnLetter3
-$wgResourceModules[ 'pfp.form.TwoStepTwoColumnLetter3' ] = array(
-	'styles' => 'css/TwoStepTwoColumnLetter3.css',
-	'dependencies' => 'di.form.core.validate',
-) + $wgResourceTemplate;
 
 // API JS
 //TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section.

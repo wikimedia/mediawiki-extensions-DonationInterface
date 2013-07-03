@@ -272,20 +272,6 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects.ie6' ] = array(
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
 
-/**
- * globalcollect_test
- */
-$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test' ] = array(
-	'dependencies' => 'pfp.form.TwoStepTwoColumnLetter3',
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.globalcollect_test_2' ] = array(
-	'scripts' => 'js/globalcollect_test_2.js',
-	'dependencies' => 'pfp.form.rapidhtml.globalcollect_test',
-	'localBasePath' => dirname( __FILE__ ),
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
 
 /**
  * TwoStepTwoColumnLetter3 Deathmatch
@@ -297,11 +283,11 @@ $wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
-$wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3.orig' ] = array(
+$wgResourceModules['pfp.form.rapidhtml.TwoStepTwoColumnLetter3.orig'] = array (
 	'styles' => 'css/TwoStepTwoColumnLetter3-orig.css',
 	'scripts' => 'js/TwoStepTwoColumnLetter3.js',
-	'dependencies' => array( 'di.form.core.validate' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
+	'dependencies' => array ('di.form.core.validate'),
+	'localBasePath' => dirname( __FILE__ ) . '/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
 );
 
