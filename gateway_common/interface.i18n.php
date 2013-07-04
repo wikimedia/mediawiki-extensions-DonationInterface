@@ -32610,6 +32610,7 @@ $messages['yue'] = array(
  * @author Liangent
  * @author Mys 721tx
  * @author Shirayuki
+ * @author StephDC
  * @author Tommyang
  * @author Wilsonmess
  * @author Xiaomingyan
@@ -32636,6 +32637,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-smallamount-error' => '您需要至少捐助$1',
 	'donate_interface-bigamount-error' => '我们不能通过网站接受大于USD 10000（$1 $2）的捐款。请联系我们的礼物专员（$3）。',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
+	'donate_interface-maintenance-notice' => '很抱歉，这种类型的付款已被暂时禁用。',
 	'donate_interface-AED' => '阿联酋迪拉姆',
 	'donate_interface-ARS' => '阿根廷比索',
 	'donate_interface-AUD' => '澳大利亚元',
