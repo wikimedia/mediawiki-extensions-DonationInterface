@@ -625,7 +625,8 @@ $1 is the name of a currency. $2 is the corresponding currency code.',
 	'donate_interface-donor-email' => '{{Identical|E-mail address}}',
 	'donate_interface-donor-emailAdd' => '{{Identical|E-mail address}}',
 	'donate_interface-donor-name' => '{{Identical|Name}}',
-	'donate_interface-donor-fname' => 'Label for field containing first name.',
+	'donate_interface-donor-fname' => 'Label for field containing first name.
+{{Identical|First name}}',
 	'donate_interface-donor-fname-alt' => '{{optional}}',
 	'donate_interface-donor-mname' => 'Label for field to input middle name.',
 	'donate_interface-donor-lname' => 'Label for field to input last name.',
@@ -737,7 +738,8 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-amount' => 'Used in error message regarding the donation amount field.
 {{Identical|Donation amount}}',
 	'donate_interface-error-msg-emailAdd' => '{{Identical|E-mail address}}',
-	'donate_interface-error-msg-fname' => 'Used in error message regarding the first name field',
+	'donate_interface-error-msg-fname' => 'Used in error message regarding the first name field.
+{{Identical|First name}}',
 	'donate_interface-error-msg-lname' => 'Used in error message regarding the last name field',
 	'donate_interface-error-msg-street' => '{{Identical|Street}}',
 	'donate_interface-error-msg-city' => '{{Identical|City}}',
