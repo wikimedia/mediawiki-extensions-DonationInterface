@@ -861,14 +861,14 @@ EOT;
 	 * @return bool True if the number was valid according to the algorithm
 	 */
 	public static function luhn_check( $str ) {
-		$odd = !strlen( $str ) % 2;
+		$odd = (strlen( $str ) % 2);
 		$sum = 0;
 
 		for( $i = 0; $i < strlen( $str ); $i++ ) {
 			if ( $odd ) {
 				$sum += $str[$i];
 			} else {
-				if (( $str[$i] * 2 ) > 9 ) {
+				if ( ( $str[$i] * 2 ) > 9 ) {
 					$sum += $str[$i] * 2 - 9;
 				} else {
 					$sum += $str[$i] * 2;
