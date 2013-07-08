@@ -1040,6 +1040,8 @@ Pe piacere pruève arrete.",
 $messages['ru'] = array(
 	'globalcollectgateway' => 'Сделайте пожертвование сейчас',
 	'globalcollect_gateway-desc' => 'Шлюз обработки платежей GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Поддельный успешный платёж',
+	'globalcollect_gateway-fakefail' => 'Поддельный невыполненный платёж',
 	'globalcollect_gateway-response-9130' => 'Указана неподдерживаемая страна.',
 	'globalcollect_gateway-response-9140' => 'Указана неподдерживаемая валюта.',
 	'globalcollect_gateway-response-9150' => 'Указан неподдерживаемый язык.',
