@@ -345,11 +345,12 @@ $messages['roa-tara'] = array(
 
 /** Russian (русский)
  * @author Iluvatar
+ * @author Kaganer
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
 	'paypalgateway' => 'Сделайте пожертвование сейчас',
-	'paypal_gateway-desc' => 'Регистрирует PayPal в качестве механизма пожертвований', # Fuzzy
+	'paypal_gateway-desc' => 'Обработка платежей PayPal',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
