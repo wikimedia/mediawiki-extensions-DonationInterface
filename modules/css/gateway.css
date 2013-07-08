@@ -74,17 +74,6 @@ body.ltr #footer #footer-places {
 	width: 94px;
 }
 
-input.thirdwidth {
-    width: 85px;
-}
-input.halfwidth {
-	width: 137px;
-}
-input.fullwidth {
-	width: 285px;
-}
-
-
 #payflow-table-comment td.check-option {
 	padding-left: 3em;
 }
@@ -162,21 +151,21 @@ input.fullwidth { width: 254px; }
 */
 
 /* Form Inputs */
-input.thirdwidth {
+input.thirdwidth, select.thirdwidth {
     width: 85px;
 }
-input.halfwidth {
+input.halfwidth, select.halfwidth {
 	width: 137px;
 }
-input.fullwidth {
+input.fullwidth, select.fullwidth {
 	width: 285px;
 }
 
-input.leftmar {
+input.leftmar,select.leftmar {
 	margin-left: 4px;
 }
 
-input.rightmar {
+input.rightmar,select.rightmar {
     margin-right: 4px;
 }
 
