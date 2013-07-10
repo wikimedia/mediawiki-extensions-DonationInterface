@@ -59,6 +59,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		$request = $dom->xpath( '/XML/REQUEST' );
 		$request = $request[0];
 
+		throw new Exception( 'Blah' );
+
 		// Figure out the request type
 		$action = $request->xpath( 'ACTION' );
 		$action = $action[0]->asXML();
