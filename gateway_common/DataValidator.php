@@ -1040,23 +1040,51 @@ EOT;
 	}
 	
 	/**
-	 * Test to determine if a value either appears in the haystack in the case
-	 * of an array, or that the needle IS the haystack 
-	 * @param mixed $needle The value to match on
-	 * @param mixed $haystack Either an array, or a single value
+	 * Test to determine if a value appears in a haystack. The haystack may have
+	 * explicit +/- rules (a - will take precedence over a +; if there is no
+	 * + rule, but there is a - rule everything is implicitly accepted); and may
+	 * also have an 'ALL' condition.
+	 *
+	 * @param mixed $needle Value, or array of values, to match
+	 * @param mixed $haystack Value, or array of values, that are acceptable
 	 * @return bool
 	 */
-	public static function value_appears_in( $needle, $haystack ){
-		if ( !is_array( $haystack ) ){
-			if ( $needle === $haystack ){
+	public static function value_appears_in( $needle, $haystack ) {
+		$needle = ( is_array( $needle) ) ? $needle : array( $needle );
+		$haystack = ( is_array( $haystack) ) ? $haystack : array( $haystack );
+
+		$plusCheck = array_key_exists( '+', $haystack );
+		$minusCheck = array_key_exists( '-', $haystack );
+
+		if ( $plusCheck || $minusCheck ) {
+			// With +/- checks we will first explicitly deny anything in '-'
+			// Then if '+' is defined accept anything there
+			//    but if '+' is not defined we just let everything that wasn't denied by '-' through
+			// Otherwise we assume both were defined and deny everything :)
+
+			if ( $minusCheck && DataValidator::value_appears_in( $needle, $haystack['-'] ) ) {
+				return false;
+			}
+			if ( $plusCheck && DataValidator::value_appears_in( $needle, $haystack['+'] ) ) {
+				return true;
+			} elseif ( !$plusCheck ) {
+				// Implicit acceptance
 				return true;
 			}
-		} else {
-			if ( in_array( $needle, $haystack ) ) {
-				return true;
-			}
+			return false;
 		}
-		return false;
+
+		if ( ( count( $haystack ) === 1 ) && ( in_array( 'ALL', $haystack ) ) ) {
+			// If the haystack can accept anything, then whoo!
+			return true;
+		}
+
+		$result = array_intersect( $haystack, $needle );
+		if ( !empty( $result ) ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
