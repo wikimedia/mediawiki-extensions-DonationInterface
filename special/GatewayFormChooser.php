@@ -23,11 +23,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$paymentMethod = $this->getRequest()->getVal( 'paymentmethod', null );
 		$paymentSubMethod = $this->getRequest()->getVal( 'submethod', null );
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
+		$gateway = $this->getRequest()->getVal( 'gateway', null );
 		
 		//This is clearly going to go away before we deploy this bizniss. 
 		$testNewGetAll = $this->getRequest()->getVal( 'testGetAll', false );
 		if ( $testNewGetAll ){
-			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring );
+			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 			echo "<pre>" . print_r( $forms, true ) . "</pre>";
 			$form = self::pickOneForm( $forms, $currency, $country );
 			echo "<pre>I choose you, " . print_r( $form, true) . "!</pre>";
@@ -35,7 +36,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			die();
 		}
 
-		$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring );
+		$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 		$form = self::pickOneForm( $forms, $currency, $country );
 
 		// And... construct the URL
@@ -79,113 +80,83 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @param string $payment_method Optional payment method filter
 	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
 	 * @param boolean $recurring Whether or not we should return recurring forms. Default = false.
-	 * @return type 
+	 * @param string $gateway Optional gateway to force.
+	 * @return array
 	 */
-	static function getAllValidForms( $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false ){
+	static function getAllValidForms( $country = null, $currency = null, $payment_method = null,
+		$payment_submethod = null, $recurring = false, $gateway = null
+	) {
 		global $wgDonationInterfaceAllowedHtmlForms;
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
 		
-		//then remove the ones that we don't want. 
+		// First get all the valid and enabled gateways capable of processing shtuff
 		$valid_gateways = self::getAllEnabledGateways();
-		foreach ( $forms as $name => $meta ){
-			$unset = false;
-			
-			//filter on enabled gateways
-			if ( !array_key_exists( 'gateway', $meta ) ){
-				unset ( $forms[$name] );
-				continue; 
-			}
-			//if it's an array, any one will do. 
-			if ( is_array( $meta['gateway'] ) ){
-				$found = false;
-				foreach ( $meta['gateway'] as $index => $value ){
-					if ( DataValidator::value_appears_in( $value, $valid_gateways ) ){
-						$found = true;
-						break;
-					}
-				}
-				if ( !$found ){
-					$unset = true;
-				}
+		if ( $gateway !== null ) {
+			if ( in_array( $gateway, $valid_gateways ) ) {
+				$valid_gateways = array( $gateway );
 			} else {
-				if ( !DataValidator::value_appears_in( $meta['gateway'], $valid_gateways ) ){
-					$unset = true;
+				// Aaah; the requested gateway is not valid :'( Nothing to do but return nothing
+				return array();
+			}
+		}
+
+		// then remove the forms that we don't want.
+		foreach ( $forms as $name => $meta ) {
+			// Prefilter for sillyness
+			foreach ( array( 'gateway', 'payment_methods' ) as $paramName ) {
+				if ( !array_key_exists( $paramName, $meta ) ) {
+					unset( $forms[$name] );
+					continue 2;
 				}
 			}
-			
-			if ( $unset ){
+			foreach ( array( 'countries', 'currencies' ) as $paramName ) {
+				if ( !array_key_exists( $paramName, $meta ) ) {
+					$meta[$paramName] = 'ALL';
+				}
+			}
+
+			// filter on enabled gateways
+			if ( !DataValidator::value_appears_in( $meta['gateway'], $valid_gateways ) ) {
 				unset( $forms[$name] );
 				continue;
 			}
 			
 			//filter on country
-			if ( !is_null( $country ) ){
-				if ( array_key_exists( 'countries', $meta ) ){ //totally okay if it doesn't.
-					if ( array_key_exists( '+', $meta['countries'] ) ){
-						if ( !DataValidator::value_appears_in( $country, $meta['countries']['+'] ) ){
-							unset( $forms[$name] );
-							continue;
-						}
-					}
-					if ( array_key_exists( '-', $meta['countries'] ) ){
-						if ( DataValidator::value_appears_in( $country, $meta['countries']['-'] ) ){
-							unset( $forms[$name] );
-							continue;
-						}
-					}
-				}
-			}
-
-			//filter on currency
-			if ( !is_null( $currency ) ){
-				if ( array_key_exists( 'currencies', $meta ) ){ //totally okay if it doesn't.
-					if ( array_key_exists( '+', $meta['currencies'] ) ){
-						if ( !DataValidator::value_appears_in( $currency, $meta['currencies']['+'] ) ){
-							unset( $forms[$name] );
-							continue;
-						}
-					}
-					if ( array_key_exists( '-', $meta['currencies'] ) ){
-						if ( DataValidator::value_appears_in( $currency, $meta['currencies']['-'] ) ){
-							unset( $forms[$name] );
-							continue;
-						}
-					}
-				}
-			}
-			
-			//filter on payment method
-			if ( !array_key_exists( 'payment_methods', $meta ) ){ 
+			if ( !is_null( $country ) && !DataValidator::value_appears_in( $country, $meta['countries'] ) ) {
 				unset( $forms[$name] );
 				continue;
 			}
-			if ( !is_null( $payment_method ) ){
-				if ( !array_key_exists( $payment_method, $meta['payment_methods'] ) ){
+
+			//filter on currency
+			if ( !is_null( $currency ) && !DataValidator::value_appears_in( $currency, $meta['currencies'] ) ) {
+				unset( $forms[$name] );
+				continue;
+			}
+
+			//filter on payment method
+			if ( !is_null( $payment_method ) ) {
+				if ( !DataValidator::value_appears_in( $payment_method, array_keys( $meta['payment_methods'] ) ) ) {
+					// Well, the root payment method is invalid, so... die!
 					unset( $forms[$name] );
 					continue;
 				}
 				
 				//filter on payment submethod
 				//CURSES! I didn't want this to be buried down in here, but I guess it's sort of reasonable. Ish.
-				if ( !is_null( $payment_submethod ) ){
-					if ( !DataValidator::value_appears_in( $payment_submethod, $meta['payment_methods'][$payment_method] )
-						&& !DataValidator::value_appears_in( 'ALL', $meta['payment_methods'][$payment_method] ) ){
-						unset( $forms[$name] );
-						continue;
-					}
+				if (
+					!is_null( $payment_submethod ) &&
+					!DataValidator::value_appears_in( $payment_submethod, $meta['payment_methods'][$payment_method] )
+				) {
+					unset( $forms[$name] );
+					continue;
 				}
 			}
 			
 			//filter on recurring
-			if ( $recurring && !DataValidator::value_appears_in( 'recurring', $meta ) ){
+			if ( DataValidator::value_appears_in( 'recurring', $meta ) !== (bool)$recurring ) {
 				unset( $forms[$name] );
 				continue;
 			}
-			if ( !$recurring && DataValidator::value_appears_in( 'recurring', $meta ) ){
-				unset( $forms[$name] );
-				continue;
-			}
-			
 		}
 		return $forms;
 	}
