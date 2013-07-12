@@ -86,7 +86,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function getAllValidForms( $country = null, $currency = null, $payment_method = null,
 		$payment_submethod = null, $recurring = false, $gateway = null
 	) {
-		global $wgDonationInterfaceAllowedHtmlForms;
+		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceClassMap;
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
 		
 		// First get all the valid and enabled gateways capable of processing shtuff
@@ -101,7 +101,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// then remove the forms that we don't want.
-		foreach ( $forms as $name => $meta ) {
+		foreach ( $forms as $name => &$meta ) {
 			// Prefilter for sillyness
 			foreach ( array( 'gateway', 'payment_methods' ) as $paramName ) {
 				if ( !array_key_exists( $paramName, $meta ) ) {
@@ -115,6 +115,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				}
 			}
 
+			/** @var GatewayAdapter $adapterName */
+			$adapterName = $wgDonationInterfaceClassMap[$meta['gateway']];
+
 			// filter on enabled gateways
 			if ( !DataValidator::value_appears_in( $meta['gateway'], $valid_gateways ) ) {
 				unset( $forms[$name] );
@@ -127,8 +130,15 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				continue;
 			}
 
-			//filter on currency
-			if ( !is_null( $currency ) && !DataValidator::value_appears_in( $currency, $meta['currencies'] ) ) {
+			// Filter on currency; and if it's too generic we add what the adapter thinks it can support
+			if ( $meta['currencies'] === 'ALL' ) {
+				$meta['currencies'] = array( '+' => $adapterName::getCurrencies() );
+			} elseif( array_key_exists( '-', $meta['currencies'] ) && !array_key_exists( '+', $meta['currencies'] ) ) {
+				$meta['currencies']['+'] = $adapterName::getCurrencies();
+			}
+
+			if ( !is_null( $currency ) && !DataValidator::value_appears_in( $currency, $meta['currencies'] )
+			) {
 				unset( $forms[$name] );
 				continue;
 			}

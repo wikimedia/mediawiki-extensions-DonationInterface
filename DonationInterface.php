@@ -96,6 +96,8 @@ foreach ($optionalParts as $subextension => $enabled){
 /**
  * CLASSES
  */
+$wgDonationInterfaceClassMap = array();
+
 $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/DonationData.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayForm'] = $donationinterface_dir . 'gateway_common/GatewayForm.php';
@@ -109,6 +111,7 @@ $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway
 
 //GlobalCollect gateway classes
 if ( $optionalParts['GlobalCollect'] === true ){
+	$wgDonationInterfaceClassMap['globalcollect'] = 'GlobalCollectAdapter';
 	$wgAutoloadClasses['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.body.php';
 	$wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_resultswitcher.body.php';
 
@@ -121,22 +124,26 @@ if ( $optionalParts['GlobalCollect'] === true ){
 
 //PayflowPro gateway classes
 if ( $optionalParts['PayflowPro'] === true ){
+	$wgDonationInterfaceClassMap['payflopro'] = 'PayflowProAdapter';
 	$wgAutoloadClasses['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.body.php';
 	$wgAutoloadClasses['PayflowProAdapter'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro.adapter.php';
 }
 
 if ( $optionalParts['Amazon'] === true ){
+	$wgDonationInterfaceClassMap['amazon'] = 'AmazonAdapter';
 	$wgAutoloadClasses['AmazonGateway'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.body.php';
 	$wgAutoloadClasses['AmazonAdapter'] = $donationinterface_dir . 'amazon_gateway/amazon.adapter.php';
 }
 
 if ( $optionalParts['Adyen'] === true ){
+	$wgDonationInterfaceClassMap['adyen'] = 'AdyenAdapter';
 	$wgAutoloadClasses['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.body.php';
 	$wgAutoloadClasses['AdyenGatewayResult'] = $donationinterface_dir . 'adyen_gateway/adyen_resultswitcher.body.php';
 	$wgAutoloadClasses['AdyenAdapter'] = $donationinterface_dir . 'adyen_gateway/adyen.adapter.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){
+	$wgDonationInterfaceClassMap['paypal'] = 'PaypalAdapter';
 	$wgAutoloadClasses['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.body.php';
 	$wgAutoloadClasses['PaypalGatewayResult'] = $donationinterface_dir . 'paypal_gateway/paypal_resultswitcher.body.php';
 	$wgAutoloadClasses['PaypalAdapter'] = $donationinterface_dir . 'paypal_gateway/paypal.adapter.php';
