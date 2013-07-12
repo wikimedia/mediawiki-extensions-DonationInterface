@@ -18,14 +18,15 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	function execute( $par ) {
 
 		// Set the country parameter
-		$country = $this->getRequest()->getVal( 'country', null );
-		$currency = $this->getRequest()->getVal( 'currency', null );
-		$paymentMethod = $this->getRequest()->getVal( 'paymentmethod', null );
-		$paymentSubMethod = $this->getRequest()->getVal( 'submethod', null );
+		$coerceNull = function( $val ) { return ( $val === '' ) ? null : $val; };
+		$country = $coerceNull( $this->getRequest()->getVal( 'country', null ) );
+		$currency = $coerceNull( $this->getRequest()->getVal( 'currency', null ) );
+		$paymentMethod = $coerceNull( $this->getRequest()->getVal( 'paymentmethod', null ) );
+		$paymentSubMethod = $coerceNull( $this->getRequest()->getVal( 'submethod', null ) );
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
-		$gateway = $this->getRequest()->getVal( 'gateway', null );
-		
-		//This is clearly going to go away before we deploy this bizniss. 
+		$gateway = $coerceNull( $this->getRequest()->getVal( 'gateway', null ) );
+
+		//This is clearly going to go away before we deploy this bizniss.
 		$testNewGetAll = $this->getRequest()->getVal( 'testGetAll', false );
 		if ( $testNewGetAll ){
 			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
@@ -40,8 +41,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$form = self::pickOneForm( $forms, $currency, $country );
 
 		if ( $form === null ) {
+			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
+
 			GatewayAdapter::log(
-				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway'",
+				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'",
 				LOG_ERR
 			);
 			$this->getOutput()->showErrorPage( 'donate_interface-error-msg-general', 'donate_interface-error-no-form' );
