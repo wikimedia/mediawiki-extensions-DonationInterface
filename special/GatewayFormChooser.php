@@ -39,6 +39,15 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 		$form = self::pickOneForm( $forms, $currency, $country );
 
+		if ( $form === null ) {
+			GatewayAdapter::log(
+				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway'",
+				LOG_ERR
+			);
+			$this->getOutput()->showErrorPage( 'donate_interface-error-msg-general', 'donate_interface-error-no-form' );
+			return;
+		}
+
 		// And... construct the URL
 		$params = array(
 			'form_name' => "RapidHtml",
