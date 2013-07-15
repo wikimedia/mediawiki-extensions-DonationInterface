@@ -9219,6 +9219,7 @@ $messages['fa'] = array(
  * @author Nike
  * @author Olli
  * @author Str4nd
+ * @author Stryn
  * @author Tofu II
  * @author Veikk0.ma
  * @author VezonThunder
@@ -17856,6 +17857,7 @@ Kad būtų užtikrinta saugi, apsaugota ir maloni aplinka, mūsų aukojimo forma
 
 /** Mizo (Mizo ţawng)
  * @author RMizo
+ * @author Stryn
  */
 $messages['lus'] = array(
 	'donate_interface' => 'Wikimedia chhawmdàwlna',
@@ -21260,6 +21262,7 @@ $messages['nl'] = array(
 	'donate_interface-error-msg-fiscal_number' => 'fiscaal nummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Gebruik [$1 een andere kaart], een van onze [$2 andere manieren om te geven] of neem contact met ons op via $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Dank u wel voor uw steun!',
+	'donate_interface-error-no-form' => 'Er is geen donatieformulier aangetroffen voor uw parameters. Neem alstublieft contact op met [mailto:donate@wikimedia.org ons hulpteam] voor meer informatie.',
 	'php-response-declined' => 'Uw transactie kon niet geaccepteerd worden.',
 	'donate_interface-thankyou' => 'Dank u wel voor uw donatie!',
 	'donate_interface-post-transaction' => 'Transactiedetails',
@@ -21439,8 +21442,8 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-email-unsub-warning' => 'Hierdoor ontvangt u niet langer e-mails die Wikimedia aan u als donateur verzendt. Mogelijk ontvangt u nog steeds e-mails op dit e-mailadres als u een gebruiker op een van onze projecten hebt. Als u vragen hebt, neem dan contact op met <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Veel gestelde vragen',
 	'donate_interface-tax-info' => 'Fiscale aftrekbaarheid',
-	'donate_interface-informationsharing' => 'Deur n schenking te doon, deel jie joew gegevens mit de Wikimedia Foundation, de organisasie zonder winstoogmark die Wikipedie en aandere Wikimedia-projekten verzörgt, en heur dienstverleners in de Verenigden Staoten en elders, in overeenstemming mit ons gegevensbeleid veur donateurs. Wulen verkopen of verhaandelen joew gegevens niet. Meer informasie is nao te lezen in ons <a href="//wikimediafoundation.org/wiki/Donor_policy/nl">donateursbeleid</a>.',
-	'donate_interface-currency-change' => 'Wiezigen?',
+	'donate_interface-informationsharing' => 'Door te doneren, deelt u uw gegevens met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimediaprojecten host, en haar dienstverleners in de Verenigde Staten en elders, in overeenstemming met ons privacybeleid voor donateurs. Wij verkopen of verhandelen uw gegevens niet. Meer informatie is na te lezen in ons <a href="//wikimediafoundation.org/wiki/Donor_policy/nl">donateursbeleid</a>.',
+	'donate_interface-currency-change' => 'Wijzigen?',
 	'donate_interface-bank_transfer_message' => 'Bij uw overschrijvingsgegevens wordt "Global Collect" opgegeven als ontvanger van uw overschrijving. Global Collect mag namens de Wikimedia Foundation betalingen autoriseren en verwerken. Neem het referentienummer dat hier wordt genoemd op in uw overschrijving. Als u vragen of zorgen hebt, neem dan per e-mail contact met ons op via donations@wikimedia.org.',
 	'donate_interface-globalcollect-proxy' => 'Op uw afrekening komt te staan dat "Global Collect"  de ontvanger is van deze gift. Global Collect is gemachtigd om namens de Wikimedia Foundation betalingen te ontvangen en te verwerken.',
 	'donate_interface-taxded-link-int' => 'Belastingen en andere juridische informatie',
@@ -27399,6 +27402,7 @@ Naš obrazec za darovanje zahteva JavaScript, ker vam z njim zagotovimo varno in
 
 /** Albanian (shqip)
  * @author Dasius
+ * @author Stryn
  */
 $messages['sq'] = array(
 	'donate_interface' => 'Mbështesni Wikipedia-n',
