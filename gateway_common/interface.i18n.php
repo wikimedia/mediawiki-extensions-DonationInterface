@@ -7877,6 +7877,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Glykanera
  * @author Jsoby
  * @author Locos epraix
+ * @author Luis Felipe Schenone
  * @author MarcoAurelio
  * @author McDutchie
  * @author MetalBrasil
@@ -7911,6 +7912,7 @@ $messages['es'] = array(
 	'donate_interface-bigamount-error' => 'No podemos aceptar donaciones de más de 10000 USD ($1 $2) a través de nuestro sitio Web. Póngase en contacto con nuestro personal de grandes donaciones en $3 .',
 	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud. 
  No hay procesadores disponibles.',
+	'donate_interface-fallback-currency-notice' => 'Su moneda o divisa no es reconocida. Si desea continuar, el procesamiento se hará utilizando $1.',
 	'donate_interface-AED' => 'Dirham de Emiratos Árabes Unidos',
 	'donate_interface-ARS' => 'Peso argentino',
 	'donate_interface-AUD' => 'Dólar australiano',
@@ -14262,6 +14264,7 @@ Nessuna persona addetta all'elaborazione della richiesta è disponibile.",
 	'donate_interface-error-msg-fiscal_number' => 'codice fiscale',
 	'donate_interface-donate-error-try-a-different-card' => "Per favore [$1  provare con una carta diversa] oppure con [$2 un'altra modalità di donazione] oppure contattateci all'indirizzo $3",
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Grazie per il supporto!',
+	'donate_interface-error-no-form' => 'Non è stata trovata una donazione che corrisponda ai tuoi parametri. Contatta il [mailto:donate@wikimedia.org nostro team di aiuto] per ulteriori informazioni.',
 	'php-response-declined' => 'Questa transazione non può essere accettata.',
 	'donate_interface-thankyou' => 'Grazie per la tua donazione!',
 	'donate_interface-post-transaction' => 'Dettagli della transazione',
