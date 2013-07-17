@@ -20196,6 +20196,13 @@ $messages['myv'] = array(
 	'donate_interface-back-of-shirt' => 'Панар удалкс',
 );
 
+/** Mazanderani (مازِرونی)
+ * @author محک
+ */
+$messages['mzn'] = array(
+	'donate_interface-submit-button' => 'پول هاده',
+);
+
 /** Norwegian Bokmål (norsk bokmål)
  * @author Danmichaelo
  * @author Finnrind
