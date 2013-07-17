@@ -565,10 +565,13 @@ class DonationData {
 	 * assigned. 
 	 */
 	protected function handleContributionTrackingID(){
-		if ( !$this->isSomething( 'contribution_tracking_id' ) && 
-			( !$this->isCaching() ) ){
-			$this->saveContributionTracking();
-		} 
+		if ( !$this->isSomething( 'contribution_tracking_id' ) ) {
+			if ( !$this->isCaching() ) {
+				$this->saveContributionTracking();
+			} else {
+				$this->log( $this->getLogMessagePrefix() . "Declining to create a contribution_tracking record, because we are in cache mode." );
+			}
+		}
 	}
 	
 	/**
