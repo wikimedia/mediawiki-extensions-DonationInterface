@@ -1186,7 +1186,7 @@ class DonationData {
 		$tracked_contribution = $this->getCleanTrackingData();
 
 		// insert tracking data and get the tracking id
-		$result = self::insertContributionTracking( $tracked_contribution );
+		$result = $this->insertContributionTracking( $tracked_contribution );
 
 		$this->setVal( 'contribution_tracking_id', $result );
 
@@ -1202,9 +1202,10 @@ class DonationData {
 	 * @param array $tracking_data The array of tracking data to insert to contribution_tracking
 	 * @return mixed Contribution tracking ID or false on failure
 	 */
-	public static function insertContributionTracking( $tracking_data ) {
+	public function insertContributionTracking( $tracking_data ) {
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
+		// FIXME: impossible condition.
 		if ( !$db ) {
 			return false;
 		}
@@ -1218,6 +1219,7 @@ class DonationData {
 		if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
 			return $db->insertId();
 		} else {
+			$this->log( $this->getLogMessagePrefix() . 'Failed to create a new contribution_tracking record', LOG_ERR );
 			return false;
 		}
 	}
