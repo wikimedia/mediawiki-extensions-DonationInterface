@@ -318,10 +318,13 @@ $messages['eo'] = array(
 /** Spanish (español)
  * @author Armando-Martin
  * @author Bea.miau
+ * @author Larjona
  */
 $messages['es'] = array(
 	'globalcollectgateway' => 'Haga su donación ahora',
 	'globalcollect_gateway-desc' => 'Procesamiento de pagos de GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Simular un pago correcto',
+	'globalcollect_gateway-fakefail' => 'Simular un pago erróneo',
 	'globalcollect_gateway-response-9130' => 'País no válido',
 	'globalcollect_gateway-response-9140' => 'Moneda no válida',
 	'globalcollect_gateway-response-9150' => 'Idioma no válido.',

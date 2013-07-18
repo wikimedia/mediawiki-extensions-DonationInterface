@@ -5315,6 +5315,7 @@ $messages['cu'] = array(
 	'donate_interface-currency' => 'платьно срѣдьство :',
 	'donate_interface-submit-button' => 'даꙗниꙗ сътворѥниѥ',
 	'donate_interface-AUD' => 'аѵстралїискъ доларъ',
+	'donate_interface-BGN' => 'блъгарьскъ львъ',
 	'donate_interface-CAD' => 'канадьскъ доларъ',
 	'donate_interface-EUR' => 'єѵрѡ',
 	'donate_interface-RUB' => 'рѡсїискꙑи роубьл҄ь',
@@ -5323,7 +5324,9 @@ $messages['cu'] = array(
 	'donate_interface-cc-button' => 'даꙗниѥ ꙁаѩмьноѭ хартоѭ',
 	'donate_interface-donor-currency-label' => 'платьно срѣдьство',
 	'donate_interface-donor-name' => 'имѧ',
+	'donate_interface-donor-street' => 'оулица',
 	'donate_interface-donor-city' => 'градъ',
+	'donate_interface-donor-island' => 'островъ',
 	'donate_interface-donor-state' => 'властьна ѥдиница',
 	'donate_interface-donor-country' => 'дрьжава/страна',
 	'donate_interface-donor-card' => 'ꙁаѩмьна харта',
@@ -5334,6 +5337,10 @@ $messages['cu'] = array(
 	'donate_interface-error-msg-card_type' => 'ꙁаѩмьнꙑ хартꙑ тѷпъ',
 	'donate_interface-thankyou' => 'по даꙗниѭ тєбѣ вєльми благодарьщвлѭ !',
 	'donate_interface-or' => 'или',
+	'donate_interface-city-town' => 'градъ/сєлѥниѥ',
+	'donate_interface-town-city' => 'сєлѥниѥ/градъ',
+	'donate_interface-state-province' => 'дрьжава/область',
+	'donate_interface-country' => 'страна',
 );
 
 /** Chuvash (Чӑвашла)
@@ -7876,6 +7883,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Fitoschido
  * @author Glykanera
  * @author Jsoby
+ * @author Larjona
  * @author Locos epraix
  * @author Luis Felipe Schenone
  * @author MarcoAurelio
@@ -7913,6 +7921,7 @@ $messages['es'] = array(
 	'donate_interface-processing-error' => 'Se ha producido un error al procesar su solicitud. 
  No hay procesadores disponibles.',
 	'donate_interface-fallback-currency-notice' => 'Su moneda o divisa no es reconocida. Si desea continuar, el procesamiento se hará utilizando $1.',
+	'donate_interface-maintenance-notice' => 'Lo sentimos, pero se ha deshabilitado temporalmente este tipo de pago.',
 	'donate_interface-AED' => 'Dirham de Emiratos Árabes Unidos',
 	'donate_interface-ARS' => 'Peso argentino',
 	'donate_interface-AUD' => 'Dólar australiano',
@@ -24939,6 +24948,8 @@ Jndr'à certe case, 'u codece se iacchie a sinistre d'a carte, ma ste sembre sus
 	'donate_interface-middle' => 'Mmienze',
 	'donate_interface-last' => 'Urteme',
 	'donate_interface-other' => 'Otre',
+	'donate_interface-noscript-msg' => "Pare ca non ge tìne 'u JavaScript abbilitate, o 'u browser tune non g'u supporte.
+Pe avè 'n'esperienze secure e piacevole, 'u module nuèstre de donazziune vole 'u JavaScript.",
 	'donate_interface-noscript-redirect-msg' => 'Ce non ge puè o non ge vuè abbilità JavaScript, tu puè angore condrebbuì visitanne:',
 	'donate_interface-anon-message' => "Pe piacere elenghe 'u nome mije sus a l'elenghe pubbleche de le donature.",
 	'donate_interface-donate-wikipedia' => 'Ddone sus a Uicchipèdie',
@@ -32836,6 +32847,7 @@ $messages['yue'] = array(
  * @author Kuailong
  * @author Liangent
  * @author Mys 721tx
+ * @author Qiyue2001
  * @author Shirayuki
  * @author StephDC
  * @author Tommyang
@@ -32860,10 +32872,12 @@ $messages['zh-hans'] = array(
 	'donate_interface-email-agreement' => '我同意接收来自维基媒体基金会偶尔的电子邮件更新。',
 	'donate_interface-comment-title' => '公开的评论',
 	'donate_interface-donation-description' => '给维基媒体基金会的捐款',
+	'donate_interface-monthly-donation-description' => '维基媒体基金会的每月捐款',
 	'donate_interface-amount-error' => '请输入有效的数额',
 	'donate_interface-smallamount-error' => '您需要至少捐助$1',
 	'donate_interface-bigamount-error' => '我们不能通过网站接受大于USD 10000（$1 $2）的捐款。请联系我们的礼物专员（$3）。',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
+	'donate_interface-fallback-currency-notice' => '不支持您使用的货币。如果您決定继续，此次交易处理过程将使用 $1。',
 	'donate_interface-maintenance-notice' => '很抱歉，这种类型的付款已被暂时禁用。',
 	'donate_interface-AED' => '阿联酋迪拉姆',
 	'donate_interface-ARS' => '阿根廷比索',
@@ -32989,6 +33003,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-donor-security' => '安全码：',
 	'donate_interface-donor-submit' => '捐助',
 	'donate_interface-donor-currency-msg' => '这笔捐款使用的币种是$1',
+	'donate_interface-donor-fiscal_number' => '财政数',
 	'donate_interface-card-name-amex' => '美国运通',
 	'donate_interface-card-name-visa' => 'Visa卡',
 	'donate_interface-card-name-mc' => '万事达',
