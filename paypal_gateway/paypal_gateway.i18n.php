@@ -252,6 +252,14 @@ $messages['lb'] = array(
 	'paypal_gateway-desc' => 'PayPal Bezuel-Mechanismus',
 );
 
+/** Lithuanian (lietuvių)
+ * @author Eitvys200
+ */
+$messages['lt'] = array(
+	'paypalgateway' => 'Atlikite aukojimą dabar',
+	'paypal_gateway-desc' => 'PayPal mokėjimo apdorojimas',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */

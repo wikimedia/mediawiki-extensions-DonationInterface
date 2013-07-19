@@ -738,8 +738,14 @@ Probéiert et w.e.g. spéider nach eng Kéier.',
  * @author Eitvys200
  */
 $messages['lt'] = array(
+	'globalcollectgateway' => 'Paaukokite dabar',
 	'globalcollect_gateway-response-9130' => 'Neleistina šalis.',
+	'globalcollect_gateway-response-9140' => 'Negaliojanti valiuta.',
 	'globalcollect_gateway-response-9150' => 'Neleistina kalba.',
+	'globalcollect_gateway-response-400530' => 'Neleistinas mokėjimo būdas.',
+	'globalcollect_gateway-response-430330' => 'Negaliojantis kortelės numeris.',
+	'globalcollect_gateway-response-21000150' => 'Negaliojantis banko sąskaitos numeris.',
+	'globalcollect_gateway-response-21000155' => 'Neteisingas banko kodas.',
 );
 
 /** Macedonian (македонски)
