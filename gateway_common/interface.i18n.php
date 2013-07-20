@@ -5341,6 +5341,7 @@ $messages['cu'] = array(
 	'donate_interface-town-city' => 'сєлѥниѥ/градъ',
 	'donate_interface-state-province' => 'дрьжава/область',
 	'donate_interface-country' => 'страна',
+	'donate_interface-language' => 'ѩꙁꙑкъ :',
 );
 
 /** Chuvash (Чӑвашла)
@@ -7890,6 +7891,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author McDutchie
  * @author MetalBrasil
  * @author Microcell
+ * @author Miguel2706
  * @author Mor
  * @author Od1n
  * @author Paconcio
@@ -8091,6 +8093,7 @@ $messages['es'] = array(
 	'donate_interface-error-msg-fiscal_number' => 'número fiscal',
 	'donate_interface-donate-error-try-a-different-card' => 'Por favor [$1 probar una tarjeta diferente] o una de nuestras [$2 otras maneras de donar] o póngase en contacto con nosotros en $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Gracias por su apoyo!',
+	'donate_interface-error-no-form' => 'Nosotros fuimos incapaces de encontrar una forma de donación que coincida con sus parámetros. Póngase en contacto con [mailto:donate@wikimedia.org nuestro equipo de ayuda] para obtener más información.',
 	'php-response-declined' => 'Su transacción no puede ser aceptada.',
 	'donate_interface-thankyou' => 'Gracias por tu donación!',
 	'donate_interface-post-transaction' => 'Detalles de la transacción',
@@ -23177,6 +23180,7 @@ $messages['ps'] = array(
  * @author Hamilton Abreu
  * @author João Sousa
  * @author Jsoby
+ * @author Luckas
  * @author Malafaya
  * @author MetalBrasil
  * @author Pgehres (WMF)
@@ -23396,7 +23400,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-other' => 'Outro',
 	'donate_interface-noscript-msg' => 'Aparentemente o JavaScript não está activado, ou o seu browser não suporta JavaScript.
 O nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.',
-	'donate_interface-noscript-redirect-msg' => 'Se não pode ou não deseja activar o JavaScript, mesmo assim pode contribuir acedendo a:',
+	'donate_interface-noscript-redirect-msg' => 'Se não pode ou não deseja ativar o JavaScript, mesmo assim pode contribuir acedendo a:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome na lista pública de contribuintes.',
 	'donate_interface-donate-wikipedia' => 'Faça um donativo na Wikipédia',
 	'donate_interface-or' => 'ou',
