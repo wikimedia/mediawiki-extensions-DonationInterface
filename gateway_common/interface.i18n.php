@@ -4873,6 +4873,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
  * @author Умар
  */
 $messages['ce'] = array(
+	'donate_interface-title' => 'ЦӀе',
 	'donate_interface-expires' => 'Чекхйолу',
 	'donate_interface-description' => 'Цуьнах лаьцна',
 	'donate_interface-language' => 'Мотт:',
@@ -23199,7 +23200,7 @@ $messages['pt'] = array(
 	'donate_interface-submit-button' => 'Fazer donativo',
 	'donate_interface-comment-message' => 'Quer partilhar um pensamento com o mundo? Coloque até 200 caracteres aqui:',
 	'donate_interface-comment-label' => 'Comentário:',
-	'donate_interface-email-agreement' => 'Concordo em receber actualizações ocasionais da Wikimedia Foundation por correio electrónico.',
+	'donate_interface-email-agreement' => 'Concordo em receber atualizações ocasionais da Wikimedia Foundation por correio eletrónico.',
 	'donate_interface-comment-title' => 'Comentário público',
 	'donate_interface-amount-error' => 'Por favor, insira um montante válido',
 	'donate_interface-smallamount-error' => 'O montante mínimo é $1',
