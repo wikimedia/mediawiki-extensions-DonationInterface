@@ -17,14 +17,12 @@
     </td>
 </tr>
 <tr>
-    <td colspan="2">
+    <td>
         <input class="halfwidth" name="city" value="@city" type="text" title="%donate_interface-city-town%" placeholder="%donate_interface-city-town%" id="city">
     </td>
-</tr>
-<tr>
-    <td colspan="2" style="white-space: nowrap;">
-        <select id="state" name="state" value="@state" >
-            <option value="">%donate_interface-donor-state%</option>
+    <td>
+        <select id="state" name="state" value="@state" class="halfwidth leftmar" >
+            <option value="" disabled selected style='display:none;'>%donate_interface-donor-state%</option>
 			<option value="AC">Acre</option>
 			<option value="AL">Alagoas</option>
 			<option value="AP">Amapá</option>
