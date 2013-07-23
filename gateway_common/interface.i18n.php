@@ -23399,7 +23399,7 @@ Por vezes o código aparece do lado esquerdo, mas está sempre acima do número 
 	'donate_interface-middle' => 'Intermédios',
 	'donate_interface-last' => 'Último',
 	'donate_interface-other' => 'Outro',
-	'donate_interface-noscript-msg' => 'Aparentemente o JavaScript não está activado, ou o seu browser não suporta JavaScript.
+	'donate_interface-noscript-msg' => 'Aparentemente o JavaScript não está ativado, ou o seu browser não suporta JavaScript.
 O nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.',
 	'donate_interface-noscript-redirect-msg' => 'Se não pode ou não deseja ativar o JavaScript, mesmo assim pode contribuir acedendo a:',
 	'donate_interface-anon-message' => 'Por favor, listem o meu nome na lista pública de contribuintes.',
