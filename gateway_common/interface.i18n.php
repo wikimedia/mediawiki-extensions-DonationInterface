@@ -15959,11 +15959,14 @@ $messages['ko'] = array(
 	'donate_interface-email-agreement' => '위키미디어 재단의 새로운 소식을 가끔 이메일로 받는 데 동의합니다.',
 	'donate_interface-comment-title' => '공개 메시지',
 	'donate_interface-donation-description' => '위키미디어 재단의 기부',
+	'donate_interface-monthly-donation-description' => '위키미디어 재단에 매달 기부',
 	'donate_interface-amount-error' => '금액을 올바르게 입력해주세요',
 	'donate_interface-smallamount-error' => '최소한 $1 이상은 기부하셔야 합니다.',
 	'donate_interface-bigamount-error' => '웹사이트를 통해서는 미화 1만 달러($1 $2) 이상의 금액을 받을 수 없습니다. $3을 통해 고액 기부 담당 직원에게 문의하세요.',
 	'donate_interface-processing-error' => '요청을 처리하는 도중에 오류가 있었습니다.
 어떤 프로세서도 사용할 수 없습니다.',
+	'donate_interface-fallback-currency-notice' => '당신의 통화는 지원하지 않습니다. 계속하는 것을 결정한다면 이후 처리는 $1(을) 사용합니다.',
+	'donate_interface-maintenance-notice' => '죄송하지만, 이 유형의 지불은 일시적으로 비활성화되었습니다.',
 	'donate_interface-AED' => 'UAE 디르함',
 	'donate_interface-ARS' => '아르헨티나 페소',
 	'donate_interface-AUD' => '호주 달러',
@@ -16134,6 +16137,7 @@ $messages['ko'] = array(
 	'donate_interface-error-msg-fiscal_number' => '회계 번호',
 	'donate_interface-donate-error-try-a-different-card' => '[$1 다른 카드로 시도] 하시거나 [$2 다른 기부 방법을 이용] 하시거나, $3으로 문의해 주시기 바랍니다.',
 	'donate_interface-donate-error-thank-you-for-your-support' => '후원해 주셔서 감사합니다.',
+	'donate_interface-error-no-form' => '변수와 일치하는 기부 양식을 찾을 수 없습니다. 자세한 정보는 [mailto:donate@wikimedia.org 우리의 도움 팀]에 문의하시기 바랍니다.',
 	'php-response-declined' => '거래가 거부되었습니다.',
 	'donate_interface-thankyou' => '기부에 감사드립니다!',
 	'donate_interface-post-transaction' => '거래 세부 사항',
@@ -21086,6 +21090,7 @@ $messages['ne'] = array(
  * @author McDutchie
  * @author Microcell
  * @author Mihxil
+ * @author Pcoombe
  * @author Romaine
  * @author SPQRobin
  * @author Saruman
@@ -21442,7 +21447,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-rtbt-issuer_id' => 'Kies uw bank',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Overige banken',
 	'donate_interface-sofortbanking' => 'Sofortbanking is een directe bankoverschrijving via DIRECTebanking.com die overschrijving voor een online donatie met uw online bankgegevens mogelijk maakt. Als uw bankrekening nog geen onlinemogelijkheden heeft, dan kunt u gebruik maken van de optie "Via handmatige overschrijving doneren" op de hoofdpagina voor donaties.',
-	'donate_interface-dd-account_name' => 'Rekeningnaam',
+	'donate_interface-dd-account_name' => 'Rekeninghouder',
 	'donate_interface-dd-account_number' => 'Rekeningnummer',
 	'donate_interface-dd-authorization_id' => 'Autorisatie-ID',
 	'donate_interface-dd-bank_check_digit' => 'Controlecijfer bank',
@@ -21468,7 +21473,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 	'donate_interface-informationsharing' => 'Door te doneren, deelt u uw gegevens met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimediaprojecten host, en haar dienstverleners in de Verenigde Staten en elders, in overeenstemming met ons privacybeleid voor donateurs. Wij verkopen of verhandelen uw gegevens niet. Meer informatie is na te lezen in ons <a href="//wikimediafoundation.org/wiki/Donor_policy/nl">donateursbeleid</a>.',
 	'donate_interface-currency-change' => 'Wijzigen?',
 	'donate_interface-bank_transfer_message' => 'Bij uw overschrijvingsgegevens wordt "Global Collect" opgegeven als ontvanger van uw overschrijving. Global Collect mag namens de Wikimedia Foundation betalingen autoriseren en verwerken. Neem het referentienummer dat hier wordt genoemd op in uw overschrijving. Als u vragen of zorgen hebt, neem dan per e-mail contact met ons op via donations@wikimedia.org.',
-	'donate_interface-globalcollect-proxy' => 'Op uw afrekening komt te staan dat "Global Collect"  de ontvanger is van deze gift. Global Collect is gemachtigd om namens de Wikimedia Foundation betalingen te ontvangen en te verwerken.',
+	'donate_interface-globalcollect-proxy' => 'Op uw afschrift komt te staan dat "Global Collect" de ontvanger is van deze gift. Global Collect is gemachtigd om namens de Wikimedia Foundation betalingen te ontvangen en te verwerken.',
 	'donate_interface-taxded-link-int' => 'Belastingen en andere juridische informatie',
 	'donate_interface-taxded-link-us' => 'Fiscale aftrekbaarheid',
 	'donate_interface-taxded-msg-int' => 'De Wikimedia Foundation is een non-profit liefdadigheidsinstelling opgericht in de Verenigde Staten onder de "US IRS Code Section 501(c)(3)" en om die reden kunnen donaties van natuurlijke personen en rechtspersonen in de Verenigde Staten mogelijk gebruik maken van belastingaftrek. Donaties van natuurlijke personen of rechtspersonen die zijn gevestigd buiten de Verenigde Staten kunnen mogelijk geen gebruik maken van belastingaftrek in de Verenigde Staten of elders; in dergelijke gevallen adviseren we potentiële donateurs lokaal advies in te winnen. Wikimedia beoogt geen donaties van natuurlijke personen of rechtspersonen te werven die gevestigd zijn in een rechtsgebied dat geldinzamelingsacties door internationale liefdadigheidsinstellingen zoals Wikimedia verbiedt of beperkt, of giftenbelasting heft op donaties aan dergelijke internationale goede doelen.',
