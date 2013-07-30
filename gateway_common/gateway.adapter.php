@@ -268,7 +268,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
+		$this->dataObj = new DonationData( $this, self::getGlobal( 'Test' ), $external_data );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
 		$this->setPostDefaults( $postDefaults );
