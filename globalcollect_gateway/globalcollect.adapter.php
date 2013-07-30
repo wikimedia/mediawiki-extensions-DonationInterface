@@ -1043,7 +1043,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - These may need to move to the parent class
 	 *
 	 * @param    string    $payment_method    Payment methods contain payment submethods
-	 * @throws Exception
+	 * @throws MWException
 	 */
 	public function getPaymentMethodMeta( $payment_method ) {
 		
@@ -1053,7 +1053,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		else {
 			$message = 'The payment method [ ' . $payment_method . ' ] was not found.';
-			throw new Exception( $message );
+			throw new MWException( $message );
 		}
 	}
 
@@ -1065,7 +1065,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
 	 * @param array $options
-	 * @throws Exception
+	 * @throws MWException
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
@@ -1088,7 +1088,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		else {
 			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
-			throw new Exception( $message );
+			throw new MWException( $message );
 		}
 	}
 
