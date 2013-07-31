@@ -563,6 +563,8 @@ Próbáld meg később újra!',
 $messages['ia'] = array(
 	'globalcollectgateway' => 'Face un donation ora',
 	'globalcollect_gateway-desc' => 'Processamento de pagamentos GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Simular un pagamento succedite',
+	'globalcollect_gateway-fakefail' => 'Simular un pagamento fallite',
 	'globalcollect_gateway-response-9130' => 'Pais invalide.',
 	'globalcollect_gateway-response-9140' => 'Moneta invalide.',
 	'globalcollect_gateway-response-9150' => 'Lingua invalide.',

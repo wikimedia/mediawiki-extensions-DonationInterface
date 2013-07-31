@@ -171,6 +171,14 @@ $messages['hu'] = array(
 	'amazon_gateway-desc' => 'Amazon fizetés feldolgozás',
 );
 
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'amazongateway' => 'Face un donation ora',
+	'amazon_gateway-desc' => 'Pagamento con Amazon',
+);
+
 /** Indonesian (Bahasa Indonesia)
  * @author Farras
  */
