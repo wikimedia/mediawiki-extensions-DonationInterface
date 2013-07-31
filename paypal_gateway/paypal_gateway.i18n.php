@@ -195,7 +195,8 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
-	'paypal_gateway-desc' => 'Registra PayPal como mechanismo de donation', # Fuzzy
+	'paypalgateway' => 'Face un donation ora',
+	'paypal_gateway-desc' => 'Pagamento con PayPal',
 );
 
 /** Indonesian (Bahasa Indonesia)

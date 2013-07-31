@@ -121,6 +121,16 @@ $messages['he'] = array(
 נא לנסות שוב מאוחר יותר.',
 );
 
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'adyengateway' => 'Face un donation ora',
+	'adyen_gateway-desc' => 'Pagamento con Adyen',
+	'adyen_gateway-response-default' => 'Un error occurreva durante le tractamento de tu transaction.
+Per favor reproba plus tarde.',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
