@@ -4874,6 +4874,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
  */
 $messages['ce'] = array(
 	'donate_interface-title' => 'ЦӀе',
+	'donate_interface-select-country' => 'Пачхьалкх харжар',
 	'donate_interface-expires' => 'Чекхйолу',
 	'donate_interface-continue' => 'Кхин дӀа',
 	'donate_interface-description' => 'Цуьнах лаьцна',
