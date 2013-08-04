@@ -4132,6 +4132,7 @@ $messages['br'] = array(
 	'donate_interface-error-msg-cvv' => 'ar CVV zo ouzh kein ho kartenn',
 	'donate_interface-error-msg-account_name' => 'Anv ar gont',
 	'donate_interface-error-msg-account_number' => 'Niverenn ar gont',
+	'donate_interface-error-msg-bank_code' => 'Kod rummañ',
 	'donate_interface-error-msg-captcha' => "Faziek eo an talvoud captcha merket ganeoc'h.  Klaskit en-dro.",
 	'donate_interface-error-msg-captcha-please' => 'Evit surentez ho kartenn-gred, skrivit an arouezennoù a welit a-us.',
 	'donate_interface-error-msg-cookies' => 'Gweredekait an toupinoù en ho merdeer.',
@@ -4295,7 +4296,7 @@ A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant Jav
 	'donate_interface-dd-account_number' => 'Niverenn ar gont',
 	'donate_interface-dd-authorization_id' => 'Niv. aotre',
 	'donate_interface-dd-bank_check_digit' => 'Sifr gwiriañ ar bank',
-	'donate_interface-dd-bank_code' => 'Kod ar bank',
+	'donate_interface-dd-bank_code' => 'Kod rummañ',
 	'donate_interface-dd-bank_name' => 'Anv ar bank',
 	'donate_interface-dd-branch_code' => 'Kod an ajañs',
 	'donate_interface-dd-direct_debit_text' => 'Testenn dle eeun',
@@ -9644,6 +9645,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  * @author Valystant
  * @author Verdy p
  * @author Wyz
+ * @author Y-M D
  */
 $messages['fr'] = array(
 	'donate_interface' => 'Soutenir Wikimedia',
@@ -10002,7 +10004,7 @@ Afin de vous fournir un processus sûr, sécurisé et agréable, notre formulair
 	'donate_interface-dd-account_number' => 'Numéro de compte',
 	'donate_interface-dd-authorization_id' => 'Nº d’autorisation',
 	'donate_interface-dd-bank_check_digit' => 'Clé de contrôle bancaire',
-	'donate_interface-dd-bank_code' => 'code de tri',
+	'donate_interface-dd-bank_code' => 'Code de tri',
 	'donate_interface-dd-bank_name' => 'Nom de la banque',
 	'donate_interface-dd-branch_code' => 'Code de l’agence',
 	'donate_interface-dd-direct_debit_text' => 'Libellé du prélèvement bancaire',
