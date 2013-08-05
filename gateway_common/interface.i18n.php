@@ -31059,6 +31059,7 @@ $messages['ug-arab'] = array(
  * @author Ahonc
  * @author Aleksandrit
  * @author Alex Khimich
+ * @author Andriykopanytsia
  * @author Base
  * @author Dim Grits
  * @author HomoSuperior
@@ -31092,6 +31093,8 @@ $messages['uk'] = array(
 	'donate_interface-bigamount-error' => 'Ми не можемо через наш сайт прийняти пожертвування більше, ніж 10000 USD ($1 $2). Будь ласка, зверніться до наших співробітників з великих пожертвувань на $3.',
 	'donate_interface-processing-error' => 'Під час обробки вашого запиту виникла помилка.
 Немає доступних обробників.',
+	'donate_interface-fallback-currency-notice' => 'Ваша валюта не підтримується. Якщо ви вирішите продовжити, то обробку буде виконано у $1.',
+	'donate_interface-maintenance-notice' => 'Ми перепрошуємо, але цей тип платежу тимчасово вимкнений.',
 	'donate_interface-AED' => 'дірхам ОАЕ',
 	'donate_interface-ARS' => 'аргентинський песо',
 	'donate_interface-AUD' => 'австралійський долар',
@@ -31215,6 +31218,7 @@ $messages['uk'] = array(
 	'donate_interface-donor-security' => 'Захисний код:',
 	'donate_interface-donor-submit' => 'Пожертвувати',
 	'donate_interface-donor-currency-msg' => 'Це пожертвування здійснюється в $1',
+	'donate_interface-donor-fiscal_number' => 'Фіскальний номер',
 	'donate_interface-card-name-amex' => 'American Express',
 	'donate_interface-card-name-visa' => 'Visa',
 	'donate_interface-card-name-mc' => 'Mastercard',
@@ -31222,6 +31226,7 @@ $messages['uk'] = array(
 	'donate_interface-error-msg-general' => 'Помилка під час обробки Вашого запиту.',
 	'donate_interface-error-msg-nopaypal' => 'Через технічну помилку ми не можемо відправити ваш запит до PayPal.  Будь ласка, спробуйте скористатися нашою стандартною формою для пожертв з кредитної картки.',
 	'donate_interface-error-msg' => 'Необхідно ввести таку інформацію: $1',
+	'donate_interface-error-msg-field-correction' => 'Будь ласка, виправте помилки у полі «$1»',
 	'donate_interface-error-msg-js' => 'Необхідно ввести таку інформацію:',
 	'donate_interface-error-msg-validation' => 'Будь ласка, виправте помилки у формі.',
 	'donate_interface-error-msg-invalid-amount' => 'Будь ласка, введіть правильну суму',
@@ -31245,13 +31250,21 @@ $messages['uk'] = array(
 	'donate_interface-error-msg-card_num' => 'номер кредитної картки',
 	'donate_interface-error-msg-expiration' => 'дата закінчення терміну дії картки',
 	'donate_interface-error-msg-cvv' => 'CVV зі зворотнього боку вашої картки',
+	'donate_interface-error-msg-account_name' => "Ім'я власника рахунку",
+	'donate_interface-error-msg-account_number' => 'Номер рахунку',
+	'donate_interface-error-msg-authorization_id' => 'Код авторизації',
+	'donate_interface-error-msg-bank_check_digit' => 'Контрольне число банку',
+	'donate_interface-error-msg-bank_code' => 'Код банку',
+	'donate_interface-error-msg-branch_code' => 'Код банківського відділення',
 	'donate_interface-error-msg-captcha' => 'Ви ввели неправильне значення Captcha. Будь ласка, спробуйте ще раз.',
 	'donate_interface-error-msg-captcha-please' => 'Для забезпечення безпеки вашої кредитної карти, будь ласка, введіть символи, які ви бачите вище.',
 	'donate_interface-error-msg-cookies' => 'Будь ласка, увімкніть «cookies» у вашому браузері.',
 	'donate_interface-error-msg-genaricrequired' => "Це поле є обов'язковим до заповнення.",
 	'donate_interface-error-msg-country-calc' => 'Помилка — Ми не можемо прийняти Вашу пожертву зараз.',
+	'donate_interface-error-msg-fiscal_number' => 'фіскальний номер',
 	'donate_interface-donate-error-try-a-different-card' => "Будь ласка, [$1 спробуйте скористатися іншою карткою], одним із інших [$2 способів пожертви] чи зв'яжіться з нами через $3",
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Дякуємо за вашу підтримку!',
+	'donate_interface-error-no-form' => "Нам не вдалося знайти форму пожертви, що співпадає з вашими параметрами. Будь ласка, зв'яжіться з [mailto:donate@wikimedia.org нашою командою допомоги] за детальнішою інформацією.",
 	'php-response-declined' => 'Ваша транзакція не може бути прийнята.',
 	'donate_interface-thankyou' => 'Дякуємо за ваше пожертвування!',
 	'donate_interface-post-transaction' => 'Деталі транзакції',
@@ -31401,6 +31414,7 @@ $messages['uk'] = array(
 	'donate_interface-bt-special_id' => 'Специфічна інформація країни',
 	'donate_interface-bt-information' => 'Інформація про банківський переказ',
 	'donate_interface-bt-finished' => 'Виконано',
+	'donate_interface-obt-generic-name' => 'Банківський переказ онлайн',
 	'donate_interface-obt-biller_id' => 'Біллер (Biller) код',
 	'donate_interface-obt-customer_payment_reference' => 'Посилання #',
 	'donate_interface-obt-information' => 'Інформація про поточний банківський переказ',
@@ -31434,6 +31448,7 @@ $messages['uk'] = array(
 	'donate_interface-informationsharing' => 'Жертвуючи, ви ділитесь вашою інформацією із «Фондом Вікімедіа» — некомерційною організацією, яка підтримує проект Вікіпедія та інші проекти Вікімедіа і також з її постачальниками послуг у США та інших країнах, відповідно до політики конфіденційності до наших донорів. Ми не продаємо вашу особисту інформацію нікому та не торгуємо нею ні з ким. Для отримання додаткової інформації, будь ласка, прочитайте <a href="//wikimediafoundation.org/wiki/Donor_policy/en">нашу політику донорів</a>.',
 	'donate_interface-currency-change' => 'Змінити?',
 	'donate_interface-bank_transfer_message' => 'Будь ласка, зверніть увагу, що ваш звіт буде показувати одержувачем «Global Collect». Global Collect — організація, яка уповноважена приймати та оброблювати платежі від імені Фонду Вікімедіа. Не забудьте включити номер банківського переказу до перерахунку у свій банк та не соромтеся писати на адресу електронної пошти donations@wikimedia.org , якщо у вас є питання чи зауваження.',
+	'donate_interface-globalcollect-proxy' => 'Будь ласка, зауважте, що отримувачем цього подарунка буде вказано «Global Collect». Global Collect авторизовані приймати і обробляти платежі від імені Фонду Вікімедіа.',
 	'donate_interface-taxded-link-int' => 'Податки та інша законна інформація',
 	'donate_interface-taxded-link-us' => 'Інформація про звільнення пожертвувань від податків',
 	'donate_interface-taxded-msg-int' => '«Фонд Вікімедіа» - це некомерційна благодійна організація, заснована в США у відповідності зі статтею 501 (c) (3) Податкового кодексу США, - з цієї причини пожертвування від осіб або організацій, що знаходяться на території США, можуть не обкладатися податком. Роблячи пожертвування, особи чи організації, що знаходяться за межами США, не мають права на податкові відрахування ані в США, ані в інших країнах; в таких випадках дарувальникам слід звернутися за консультацією за місцевим податковим законодавством. Важливо відзначити, що Вікімедіа не звертається за пожертвуваннями до осіб або організацій, які перебувають в юрисдикції, що забороняє або обмежує благодійну діяльність міжнародних благодійних організацій, таких як Вікімедіа, або стягує податки на дарування з пожертвувань, зроблених на користь цих міжнародних благодійних організацій.',
