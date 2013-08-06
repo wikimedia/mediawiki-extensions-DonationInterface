@@ -356,6 +356,7 @@ if ( $optionalParts['GlobalCollect'] === true ){
 		'U' => true, //? //Issuer not certified for CVV2.
 		'Y' => false, //Server provider did not respond.
 		'0' => true, //No service available.
+		'' => false, //No code returned. All the points.
 	);
 	
 	$wgGlobalCollectGatewayAvsMap = array(
@@ -378,6 +379,7 @@ if ( $optionalParts['GlobalCollect'] === true ){
 		'Y' => 0, //Address (Street) and 5 digit Zip match.
 		'Z' => 50, //5 digit Zip matches, Address (Street) does not.
 		'0' => 25, //No service available.
+		'' => 100, //No code returned. All the points.
 	);	
 	
 }
