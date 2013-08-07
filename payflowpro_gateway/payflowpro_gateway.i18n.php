@@ -1204,6 +1204,7 @@ Versöhg_et schpääder noch ens.',
 
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
+ * @author Soued031
  */
 $messages['lb'] = array(
 	'payflowprogateway' => 'Maacht Ären Don elo',
@@ -1211,7 +1212,7 @@ $messages['lb'] = array(
 	'payflowpro_gateway-response-0' => 'Är Transaktioun gouf kzeptéiert.
 Merci fir Ären Don!',
 	'payflowpro_gateway-response-126' => 'Är Transaktiun muss nach akzeptéiert ginn.',
-	'payflowpro_gateway-response-126-2' => 'En Deel vun den Informatiounen déi Dir uginn hutt stëmmt net mat dem Profil vun Ärer Kreditkaart iwwereneen, oder Dir hutt e ganz groussen Don gemaach. Fir Är eege Sécherheet gëtt Ären Don elo iwwerpréift a mir informéieren Iech iwwer d\'E-Mailadress déi Dir uginn hutt wa mir Ären Don net ofschléisse kënnen. Schéckt eis w.e.g. e Mail op <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> wann Dir Froen hutt. Merci!',
+	'payflowpro_gateway-response-126-2' => 'En Deel vun den Informatiounen déi Dir uginn hutt stëmmt net mat dem Profil vun Ärer Kreditkaart iwwereneen, oder Dir hutt e ganz groussen Don gemaach. Fir Är eege Sécherheet gëtt Ären Don elo iwwerpréift a mir informéieren Iech iwwer d\'E-Mail-Adress déi Dir uginn hutt wa mir Ären Don net ofschléisse kënnen. Schéckt eis w.e.g. e Mail op <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> wann Dir Froen hutt. Merci!',
 	'payflowpro_gateway-response-12' => "Kontaktéiert d'Firma vun Ärer Krditkaart fir weider Informatiounen.",
 	'payflowpro_gateway-response-13' => 'Är Transaktioun muss duerch STëmmenerkennung autoriséiert ginn.
 Kontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.',
