@@ -16794,6 +16794,7 @@ $messages['ku-latn'] = array(
  * @author Jsoby
  * @author Les Meloures
  * @author Robby
+ * @author Soued031
  * @author Zinneke
  */
 $messages['lb'] = array(
@@ -16918,7 +16919,7 @@ $messages['lb'] = array(
 	'donate_interface-donor-legend' => 'Informatiounen iwwer den Donateur',
 	'donate_interface-donor-amount' => 'Betrag:',
 	'donate_interface-donor-currency-label' => 'Währung:',
-	'donate_interface-donor-email' => 'E-Mailadress:',
+	'donate_interface-donor-email' => 'E-Mail-Adress:',
 	'donate_interface-donor-emailAdd' => 'Mailadress',
 	'donate_interface-donor-name' => 'Numm',
 	'donate_interface-donor-fname' => 'Virnumm',
@@ -16961,7 +16962,7 @@ $messages['lb'] = array(
 	'donate_interface-error-msg-visa' => 'Gitt w.e.g. eng korrekt Nummer fir Visa an',
 	'donate_interface-error-msg-discover' => 'Gitt w.e.g. eng korrekt Nummer vun der Kaart fir Discover un',
 	'donate_interface-error-msg-amount' => 'Betrag vum Don',
-	'donate_interface-error-msg-emailAdd' => 'E-Mailadress',
+	'donate_interface-error-msg-emailAdd' => 'E-Mail-Adress',
 	'donate_interface-error-msg-fname' => 'Virnumm',
 	'donate_interface-error-msg-lname' => 'Familljennumm',
 	'donate_interface-error-msg-street' => 'Adress',
@@ -16998,7 +16999,7 @@ $messages['lb'] = array(
 Normalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëmmen déi lescht 3 Stellen sti fir den CVV-Code.</p>
 <h4>American Express</h4>
 <p>De Code steet <i>ëmmer iwwer</i> der agestantzter (ervirgehuewener) Kontosnummer op der viischter Säit vun der Kaart.
-Heiandsdo, steet de Code op der lenker Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
+Heiansdo, steet de Code op der lénkser Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
 	'donate_interface-question-comment' => 'Froen oder Bemierkungen? Kontaktéiert: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-easydonate' => "Mir wëllen, datt d'Leit aus alle Länner kënnen Done maachen. Sot eis w.e.gl., wéi mer d'Saach fir Iech méi einfach kënne maachen. Schéckt Är Suggestiounen un: problemsdonating@wikimedia.org.",
 	'donate_interface-problemsdonating' => 'Problemer fir en Don ze maachen?',
@@ -17049,7 +17050,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-billing-code' => "Postcode fir d'Rechnung",
 	'donate_interface-country' => 'Land',
 	'donate_interface-select-country' => "Sicht d'Land eraus",
-	'donate_interface-confirm-email' => 'E-Mailadress confirméieren',
+	'donate_interface-confirm-email' => 'E-Mail-Adress confirméieren',
 	'donate_interface-phone' => 'Telefon',
 	'donate_interface-telephone' => 'Telefon',
 	'donate_interface-telephone-home' => 'Tel. (doheem)',
