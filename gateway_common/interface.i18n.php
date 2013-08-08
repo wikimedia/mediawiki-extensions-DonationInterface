@@ -13605,6 +13605,7 @@ Pro poter fornir un experientia secur e agradabile, nostre formulario de donatio
 /** Indonesian (Bahasa Indonesia)
  * @author -iNu-
  * @author Farras
+ * @author Ilham151096
  * @author IvanLanin
  * @author Iwan Novirion
  * @author Jsoby
@@ -13785,7 +13786,7 @@ $messages['id'] = array(
 	'donate_interface-error-msg-cvv' => 'CVV di bagian belakang kartu kredit',
 	'donate_interface-error-msg-captcha' => 'Entri Captcha yang Anda masukkan salah. Silakan coba lagi.',
 	'donate_interface-error-msg-captcha-please' => 'Demi keamanan kartu kredit Anda, mohon ketik ulang karakter di atas.',
-	'donate_interface-error-msg-cookies' => 'Silakan aktifkan cookie di browser Anda.',
+	'donate_interface-error-msg-cookies' => 'Silakan aktifkan kuki di peramban Anda.',
 	'donate_interface-error-msg-genaricrequired' => 'Bidang ini perlu diisi',
 	'donate_interface-error-msg-country-calc' => 'Kesalahan - Kami tidak dapat menerima donasi Anda saat ini.',
 	'donate_interface-donate-error-try-a-different-card' => 'Silakan [$1 coba kartu lain] atau satu di antara [$2 cara lain untuk menyumbang] atau hubungi kami di $3',
