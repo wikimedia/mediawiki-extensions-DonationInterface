@@ -14102,6 +14102,7 @@ $messages['is'] = array(
  * @author Jsoby
  * @author Karika
  * @author Lucas2
+ * @author Nemo bis
  * @author Pgehres (WMF)
  * @author Pietrodn
  * @author Ppena
@@ -14477,7 +14478,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
 	'donate_interface-email-unsub-delay' => 'Attendi fino a 4 quattro giorni perché le modifiche abbiano effetto. Ci scusiamo per qualsiasi e-mail che riceverete durante questo periodo. Se hai delle domande contatta <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => "C'è stato un errore di elaborazione della tua richiesta, contatta <donations@wikimedia.org>.",
 	'donate_interface-email-unsub-confirm' => "Sei sicuro di voler annullare l'iscrizione <b> $1 </b>?",
-	'donate_interface-email-unsub-warning' => 'Disiscrivendoti, non riceverai più le email che Wikimedia Foundation spedisce ai donatori. Potresti ancora ricevere messaggi a questo indirizzo email qualora fosse associato a un account in uno dei nostri progetti. Se hai qualche domanda, contatta <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>. Grazie.',
+	'donate_interface-email-unsub-warning' => 'Disiscrivendoti, non riceverai più le email che Wikimedia Foundation spedisce ai donatori. Potresti ancora ricevere messaggi a questo indirizzo email qualora fosse associato a un\'utenza in uno dei nostri progetti. Se hai qualche domanda, contatta <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>. Grazie.',
 	'donate_interface-faqs' => 'Domande frequenti',
 	'donate_interface-tax-info' => 'Informazioni di deducibilità fiscale',
 	'donate_interface-informationsharing' => 'Con la vostra donazione, state condividendo le vostre informazioni con Wikimedia Foundation, l\'organizzazione senza scopo di lucro che ospita Wikipedia, altri progetti di Wikimedia e i suoi fornitori di servizi negli Stati Uniti e altrove conformemente alla nostra <a href="//wikimediafoundation.org/wiki/Donor_policy/it">politica sulla privacy del donatore</a>. Non vendiamo o commercializziamo i vostri dati.',
@@ -25107,6 +25108,7 @@ Pe avè 'n'esperienze secure e piacevole, 'u module nuèstre de donazziune vole 
 	'donate_interface-online_bank_transfer_message' => "Telefone & 'Ndernètte Banking - BPAY®",
 	'donate_interface-rtbt-issuer_id' => 'Banghe',
 	'donate_interface-rtbt-issuer_id-longlist' => 'Otre banghe',
+	'donate_interface-sofortbanking' => "Sofortbanking jè 'nu dirette, in tiembe reale Traferimende Bangarie cu DIRECTebanking.com ca permette de fà direttamende 'nu trasferimende bangarie duranne 'a donazione in linèe toje cu le 'mbormaziune tue. Ce 'u conde corrende tune non g'è abbilitate cu le funziune in linèe, tu puè ausà 'u \"trasferimende bangarie manuale pe le donaziune\" cumme opzione sus 'a pàgene prengepàle de le donaziune.",
 	'donate_interface-dd-account_name' => "Nome d'u cunde",
 	'donate_interface-dd-account_number' => "Numere d'u cunde",
 	'donate_interface-dd-authorization_id' => "ID de l'autorizzazzione",
