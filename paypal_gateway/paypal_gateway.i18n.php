@@ -260,6 +260,14 @@ $messages['lt'] = array(
 	'paypal_gateway-desc' => 'PayPal mokėjimo apdorojimas',
 );
 
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'paypalgateway' => 'Ziedot tagad',
+	'paypal_gateway-desc' => 'PayPal maksājumu apstrāde',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
