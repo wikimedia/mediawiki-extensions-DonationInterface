@@ -317,7 +317,7 @@ $messages['nn'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
-	'paypal_gateway-desc' => 'Inscritz PayPal coma mecanisme de donacion', # Fuzzy
+	'paypal_gateway-desc' => 'Tractament dels pagaments Paypal',
 );
 
 /** Polish (polski)
