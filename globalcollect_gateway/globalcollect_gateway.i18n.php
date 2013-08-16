@@ -109,6 +109,8 @@ Por favor, vuelva a intentalo más sero.',
 $messages['be-tarask'] = array(
 	'globalcollectgateway' => 'Зрабіце ахвяраваньне зараз',
 	'globalcollect_gateway-desc' => 'Шлюз апрацоўкі плацяжоў GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Імітаваць пасьпяховы плацёж',
+	'globalcollect_gateway-fakefail' => 'Імітаваць няўдалы плацёж',
 	'globalcollect_gateway-response-9130' => 'Няслушная краіна.',
 	'globalcollect_gateway-response-9140' => 'Няслушная валюта.',
 	'globalcollect_gateway-response-9150' => 'Няслушная мова.',

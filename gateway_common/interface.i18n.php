@@ -17025,6 +17025,7 @@ $messages['lb'] = array(
 	'donate_interface-error-msg-fiscal_number' => 'Steiernummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Probéiert w.e.g. [$1eng aner Kaart] oder eng vun eisen [$2 anere Méiglechkeete fir en Don ze maachen] oder kontaktéiert eis mat $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci fir Är Ënnerstëtzung!',
+	'donate_interface-error-no-form' => "Mir konnte kee Spendeformulaire fannen, deen Äre Parameter entsprécht. Kontaktéiert w.e.g. [mailto:donate@wikimedia.org eist 'help team'] fir méi Informatiounen.",
 	'php-response-declined' => 'Är Transaktioun konnt net akzeptéiert ginn.',
 	'donate_interface-thankyou' => 'Merci fir Ären Don!',
 	'donate_interface-post-transaction' => 'Detailer vun der Transaktioun',
@@ -21706,16 +21707,14 @@ $messages['oc'] = array(
 	'donate_interface' => 'Sosténer Wikimedia',
 	'donate_interface-desc' => "Pagina d'aterrissatge pels dons qu'intègra los moduls de pagament",
 	'donate_interface-intro' => 'Causissètz un mejan de pagament, un montant e una devisa.',
-	'donate_interface-amount' => 'Montant del don :', # Fuzzy
+	'donate_interface-amount' => 'Montant',
 	'donate_interface-other-amount' => 'Autre montant',
 	'donate_interface-currency' => 'Devisa :',
 	'donate_interface-gateway' => 'Mejan de pagament :',
 	'donate_interface-submit-button' => 'Far un don',
 	'donate_interface-comment-message' => 'Volètz transmetre una pensada al monde ? Notatz fins a 200 caractèrs çaiaprèp :',
 	'donate_interface-comment-label' => 'Comentari :',
-	'donate_interface-email-agreement' => 'Accèpti de recebre de corrièls o letras d\'informacions de la part de Wikimedia Foundation.
-Vòstras donadas seràn pas jamai vendudas o escambiadas.
-Nòstra politica de respièch de la vida privada dels donators se tròba <a title="Donate/Donor Privacy" href="/wiki/Donate/Donor_Privacy">aicí</a>', # Fuzzy
+	'donate_interface-email-agreement' => 'Accèpti de recebre de corrièls ocasionals de la part de la Fondacion Wikimedia per me tenir al fial.',
 	'donate_interface-comment-title' => 'Comentari public',
 	'donate_interface-amount-error' => 'Picatz un montant valid',
 	'donate_interface-processing-error' => "Una error s'es producha al moment del tractament de vòstra requèsta. Cap de processor es pas disponible.",
@@ -21739,7 +21738,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
 	'donate_interface-accessible' => 'Aquesta pagina es pas accessibla que dempuèi la pagina de donacion.',
 	'donate_interface-card-legend' => 'Informacions sus la carta de credit',
 	'donate_interface-amount-legend' => 'Montant del don',
-	'donate_interface-cvv-link' => 'Exemple', # Fuzzy
+	'donate_interface-cvv-link' => 'Ont es ?',
 	'donate_interface-donor-legend' => 'Informacions sul donator',
 	'donate_interface-donor-amount' => 'Montant :',
 	'donate_interface-donor-currency-label' => 'Devisa :',
@@ -21780,7 +21779,7 @@ Nòstra politica de respièch de la vida privada dels donators se tròba <a titl
 	'donate_interface-error-msg-card_num' => 'Numèro de carta de credit',
 	'donate_interface-error-msg-expiration' => "Data d'expiracion de la carta",
 	'donate_interface-error-msg-cvv' => "Lo CVV a l'esquina de vòstra carta",
-	'php-response-declined' => 'Vòstra transaccion es estada refusada.', # Fuzzy
+	'php-response-declined' => 'Vòstra transaccion a pas pogut èsser acceptada.',
 	'donate_interface-thankyou' => 'Mercés plan per vòstre don !',
 	'donate_interface-post-transaction' => 'Detalhs de la transaccion',
 	'donate_interface-cvv-explain' => "<h4>Qu'es aquò CVV ?</h4>
@@ -21791,7 +21790,7 @@ Tipicament, la barra per la signatura conten una seria de nombres, mas solas las
 <h4>American Express</h4>
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
-	'donate_interface-question-comment' => 'Wikipèdia es un projècte de la Wikimedia Foundation. De questions o de comentaris ? Contactatz la Wikimedia Foundation : <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>', # Fuzzy
+	'donate_interface-question-comment' => 'De questions o de comentaris ? Contactatz <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
 	'donate_interface-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.', # Fuzzy
 	'donate_interface-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="//wikimediafoundation.org/wiki/Donor_policy">politica de confidencialitat</a>.', # Fuzzy
 	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.', # Fuzzy

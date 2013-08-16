@@ -1482,7 +1482,7 @@ Takk for gåva di!',
  * @author Cedric31
  */
 $messages['oc'] = array(
-	'payflowprogateway' => 'Sostenètz Wikimedia', # Fuzzy
+	'payflowprogateway' => 'Far un don ara',
 	'payflowpro_gateway-desc' => 'Tractament par carta de credit PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'Vòstre transaccion es estada aprovada.
 Mercés per vòstre don !',
