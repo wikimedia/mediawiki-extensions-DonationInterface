@@ -386,6 +386,17 @@ class AmazonAdapter extends GatewayAdapter {
 		return $headers;
 	}
 
+	function getCurlBaseOpts() {
+		$opts = parent::getCurlBaseOpts();
+
+        $opts[CURLOPT_SSL_VERIFYPEER] = true;
+        $opts[CURLOPT_SSL_VERIFYHOST] = 2;
+        $opts[CURLOPT_CAINFO] = __DIR__ . "/ca-bundle.crt";
+        $opts[CURLOPT_CAPATH] = __DIR__ . "/ca-bundle.crt";
+
+		return $opts;
+	}
+
 	function getResponseData( $response ) {
 		// The XML string isn't really all that useful, so just return TRUE if the signature
 		// was verified
