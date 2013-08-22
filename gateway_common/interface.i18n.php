@@ -5569,6 +5569,7 @@ $messages['cy'] = array(
 	'donate_interface-error-msg-country-calc' => 'Gwall - Nid ydym yn gallu derbyn eich rhodd ar hyn o bryd.',
 	'donate_interface-donate-error-try-a-different-card' => "Defnyddiwch [$1 garden wahanol], un o'r [$2 ddwy ffordd wahanol o roi] neu chysylltwch a ni yn $3 os gwelwch yn dda",
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Diolch am eich cefnogaeth!',
+	'donate_interface-error-no-form' => "Nid lwyddwyd i ddod o hyd i ffurflen roi oedd yn cyfateb i'r cyfuniad sydd gennych o iaith, gwlad ac arian breiniol. Ysgrifennwch at  [mailto:donate@wikimedia.org ein tîm cynorthwyo] am fwy o wybodaeth.",
 	'php-response-declined' => 'Ni allai eich taliad gael ei dderbyn.',
 	'donate_interface-thankyou' => 'Diolch am eich rhodd!',
 	'donate_interface-post-transaction' => 'Manylion y taliad',
