@@ -720,6 +720,7 @@ Bes esu jood un versöhg et schpääder norr_ens.',
 $messages['lb'] = array(
 	'globalcollectgateway' => 'Maacht Ären Don elo',
 	'globalcollect_gateway-desc' => 'Ofwécklung vum Bezuelen duerch GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Eng Bezuelaktioun déi fonctionnéiert huet virtäuschen',
 	'globalcollect_gateway-response-9130' => 'Net valabelt Land.',
 	'globalcollect_gateway-response-9140' => 'Net valabel Währung.',
 	'globalcollect_gateway-response-9150' => 'Net valabel Sprooch.',
