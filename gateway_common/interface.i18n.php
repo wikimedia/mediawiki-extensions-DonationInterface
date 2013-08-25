@@ -11497,6 +11497,7 @@ $messages['he'] = array(
 	'donate_interface-error-msg-fiscal_number' => 'מספר הפיסקלי',
 	'donate_interface-donate-error-try-a-different-card' => 'נא [$1 לנסות כרטיס אחר] או [$2 אחת מהדרכים האחרות שלנו לתת] או צרו קשר אתנו דרך $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'תודה על תמיכתך!',
+	'donate_interface-error-no-form' => 'לא הצלחנו למצוא תרומה שתואמת לפרמטרים האלה. נא ליצור קשר [mailto:donate@wikimedia.org עם צוות העזרה שלנו] למידע נוסף.',
 	'php-response-declined' => 'הטרנזקציה לא התקבלה.',
 	'donate_interface-thankyou' => 'תודה על תרומתך!',
 	'donate_interface-post-transaction' => 'פרטי העברת הכספים',
