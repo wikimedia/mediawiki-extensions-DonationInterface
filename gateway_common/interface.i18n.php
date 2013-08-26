@@ -797,7 +797,14 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 	'donate_interface-otherways-short' => 'Link to page informing about other ways to give. Shown below donate form.',
 	'donate_interface-paypal' => "Only 'Have a PayPal account' and 'Donate with PayPal' need translating. If the Jimmy Appeal letter has been published in your language then you should change the link from 'en' to 'zzz' where zzz is your language code.
 
-This message was used during testing, but as of 7 Dec 2010 is not in use.",
+This message was used during testing, but as of 7 Dec 2010 is not in use.
+
+Parameters:
+* $1 - URL
+* $2 - form name
+* $3 - utm_source value
+* $4 - utm_medium value
+* $5 - utm_campaign value",
 	'donate_interface-credit-storage-processing' => 'Message assuring people their information is safe. Shown below donate form.',
 	'donate_interface-token-mismatch' => 'Error message shown when the session has expired.',
 	'donate_interface-cc-form-header-personal' => '{{Identical|Personal information}}',
@@ -32904,6 +32911,7 @@ $messages['yue'] = array(
  * @author Qiyue2001
  * @author Shirayuki
  * @author StephDC
+ * @author TianyinLee
  * @author Tommyang
  * @author Wilsonmess
  * @author Xiaomingyan
@@ -33103,6 +33111,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-error-msg-fiscal_number' => '财政编码',
 	'donate_interface-donate-error-try-a-different-card' => '请试用[$1 另外一个信用卡]或[$2 其他捐赠方法]，或者发送至$3来联络我们',
 	'donate_interface-donate-error-thank-you-for-your-support' => '感谢您的支持！',
+	'donate_interface-error-no-form' => '我们无法找到与您的参数相匹配的捐款方式。请联系[mailto:donate@wikimedia.org 我们的帮助团队]获得更多信息。',
 	'php-response-declined' => '您的交易被拒绝。',
 	'donate_interface-thankyou' => '感谢您的捐赠！',
 	'donate_interface-post-transaction' => '交易详情',
