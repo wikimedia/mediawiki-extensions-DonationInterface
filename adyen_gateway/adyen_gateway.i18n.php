@@ -210,6 +210,16 @@ $messages['nl'] = array(
 Probeer het later nog een keer.',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'adyengateway' => 'Far un don ara',
+	'adyen_gateway-desc' => 'Tractament dels pagaments Adyen',
+	'adyen_gateway-response-default' => "Una error s'es producha al moment del tractament de vòstra transaccion.
+Tornatz ensajar mai tard.",
+);
+
 /** Polish (polski)
  * @author WTM
  */

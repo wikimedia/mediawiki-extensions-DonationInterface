@@ -317,6 +317,7 @@ $messages['nn'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
+	'paypalgateway' => 'Fasètz un don ara',
 	'paypal_gateway-desc' => 'Tractament dels pagaments Paypal',
 );
 
