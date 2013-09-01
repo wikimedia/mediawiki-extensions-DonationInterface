@@ -238,6 +238,16 @@ $messages['pl'] = array(
 	'adyen_gateway-desc' => 'Przetwarzanie płatności Adyen',
 );
 
+/** Brazilian Portuguese (português do Brasil)
+ * @author Fúlvio
+ */
+$messages['pt-br'] = array(
+	'adyengateway' => 'Faça sua doação agora',
+	'adyen_gateway-desc' => 'Processamento de pagamentos Adyen',
+	'adyen_gateway-response-default' => 'Um erro ocorreu ao processar sua transação.
+Por favor, tente novamente mais tarde.',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */

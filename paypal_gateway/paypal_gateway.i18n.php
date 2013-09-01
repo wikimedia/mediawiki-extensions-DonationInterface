@@ -345,6 +345,14 @@ $messages['pt'] = array(
 	'paypal_gateway-desc' => 'Regista o PayPal como mecanismo de contribuições monetárias', # Fuzzy
 );
 
+/** Brazilian Portuguese (português do Brasil)
+ * @author Fúlvio
+ */
+$messages['pt-br'] = array(
+	'paypalgateway' => 'Faça a sua doação agora',
+	'paypal_gateway-desc' => 'Processamento de pagamentos PayPal',
+);
+
 /** Romanian (română)
  * @author Minisarm
  */
