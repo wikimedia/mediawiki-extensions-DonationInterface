@@ -838,7 +838,7 @@ Parameters:
 	'donate_interface-address-line-2' => 'Label for address line 2.',
 	'donate_interface-street-address' => 'Label for street address.',
 	'donate_interface-street-address-line-2' => 'Label for street address line 2 field.',
-	'donate_interface-street-1' => 'Label for street adress line 1 field.',
+	'donate_interface-street-1' => 'Label for street address line 1 field.',
 	'donate_interface-street-2' => 'Label for street address line 2 field.',
 	'donate_interface-apartment-number' => 'Apt. is probably an abbreviation for "Appartment", or "Flat". # usually stands for "number".',
 	'donate_interface-city-town' => 'Label for city field.',
