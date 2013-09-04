@@ -128,12 +128,15 @@ $messages['be-tarask'] = array(
 );
 
 /** Breton (brezhoneg)
+ * @author Fohanno
  * @author Fulup
  */
 $messages['br'] = array(
+	'globalcollectgateway' => 'Grit ho tonezon bremañ',
 	'globalcollect_gateway-response-9130' => 'Bro direizh.',
 	'globalcollect_gateway-response-9140' => 'Moneiz direizh.',
 	'globalcollect_gateway-response-9150' => 'Yezh direizh.',
+	'globalcollect_gateway-response-430306' => 'Diamzeret eo ho kartenn-vank. Klaskit ober gant ur gartenn all pe gant unan eus hon doareoù all da baeañ.',
 	'globalcollect_gateway-response-430330' => 'Niverenn gartenn direizh.',
 	'globalcollect_gateway-response-21000150' => 'Niverenn gont-vank direizh.',
 	'globalcollect_gateway-response-21000155' => 'Kod-bank direizh.',
