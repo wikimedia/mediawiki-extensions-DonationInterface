@@ -602,7 +602,9 @@ $messages['qqq'] = array(
 	'donate_interface-XOF' => 'Used in drop-down field for currency.',
 	'donate_interface-ZAR' => 'Used in drop-down field for currency.',
 	'donate_interface-currency-display' => '{{optional}}
-$1 is the name of a currency. $2 is the corresponding currency code.',
+Parameters:
+* $1 - the name of a currency
+* $2 - the corresponding currency code',
 	'donate_interface-accessible' => 'Error message if you try to go to "Special:PayFlowProGateway" from anywhere else than the donation form.',
 	'donate_interface-paypal-button' => 'Button to choose to donate via PayPal.',
 	'donate_interface-paypal-redirect' => 'Message to display while the page is redirecting to PayPal. This is displayed next to the button so it needs to be short if possible.',
@@ -670,22 +672,21 @@ Trademark name of credit card Discover®, '''not''' the verb \"to discover\".
 {{Related|Donate interface-card}}",
 	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
-	'donate_interface-error-msg' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required: \$1\".}}
-
-\$1 is any one of a number of messages which are the names of fields, as follows:
-*{{msg-mw|Donate interface-error-msg-amount}}
-*{{msg-mw|Donate interface-error-msg-emailAdd}}
-*{{msg-mw|Donate interface-error-msg-fname}}
-*{{msg-mw|Donate interface-error-msg-lname}}
-*{{msg-mw|Donate interface-error-msg-street}}
-*{{msg-mw|Donate interface-error-msg-city}}
-*{{msg-mw|Donate interface-error-msg-state}}
-*{{msg-mw|Donate interface-error-msg-zip}}
-*{{msg-mw|Donate interface-error-msg-card_num}}
-*{{msg-mw|Donate interface-error-msg-expiration}}
-*{{msg-mw|Donate interface-error-msg-cvv}}
-
-An alternative to 'field' in the translation could be 'information'. If the translation of 'your' is not the same for all possible fields then you could choose to omit 'your' from this message and include it instead in each of the field translations above.",
+	'donate_interface-error-msg' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required: $1".}}
+Parameters:
+* $1 - any one of a number of messages which are the names of fields, as follows:
+** {{msg-mw|Donate interface-error-msg-amount}}
+** {{msg-mw|Donate interface-error-msg-emailAdd}}
+** {{msg-mw|Donate interface-error-msg-fname}}
+** {{msg-mw|Donate interface-error-msg-lname}}
+** {{msg-mw|Donate interface-error-msg-street}}
+** {{msg-mw|Donate interface-error-msg-city}}
+** {{msg-mw|Donate interface-error-msg-state}}
+** {{msg-mw|Donate interface-error-msg-zip}}
+** {{msg-mw|Donate interface-error-msg-card_num}}
+** {{msg-mw|Donate interface-error-msg-expiration}}
+** {{msg-mw|Donate interface-error-msg-cvv}}
+An alternative to "field" in the translation could be "information". If the translation of "your" is not the same for all possible fields then you could choose to omit "your" from this message and include it instead in each of the field translations above.',
 	'donate_interface-error-msg-field-correction' => 'If it is hard to translate without having GENDER on <code>$1</code>, translate "Please correct the errors in the field \'$1\'".
 
 Parameters:
@@ -710,24 +711,31 @@ Parameters:
 ** {{msg-mw|Donate interface-error-msg-bank check digit}}
 ** {{msg-mw|Donate interface-error-msg-bank code}}
 ** {{msg-mw|Donate interface-error-msg-branch code}}',
-	'donate_interface-error-msg-js' => "{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: \"The following field is required:}}
+	'donate_interface-error-msg-js' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required:}}
 
 This message comes before any one of a number of messages which are the names of fields, as follows:
-*{{msg-mw|Donate interface-error-msg-amount}}
-*{{msg-mw|Donate interface-error-msg-emailAdd}}
-*{{msg-mw|Donate interface-error-msg-fname}}
-*{{msg-mw|Donate interface-error-msg-lname}}
-*{{msg-mw|Donate interface-error-msg-street}}
-*{{msg-mw|Donate interface-error-msg-city}}
-*{{msg-mw|Donate interface-error-msg-state}}
-*{{msg-mw|Donate interface-error-msg-zip}}
-*{{msg-mw|Donate interface-error-msg-card_num}}
-*{{msg-mw|Donate interface-error-msg-expiration}}
-*{{msg-mw|Donate interface-error-msg-cvv}}
+* {{msg-mw|Donate interface-error-msg-amount}}
+* {{msg-mw|Donate interface-error-msg-emailAdd}}
+* {{msg-mw|Donate interface-error-msg-fname}}
+* {{msg-mw|Donate interface-error-msg-lname}}
+* {{msg-mw|Donate interface-error-msg-street}}
+* {{msg-mw|Donate interface-error-msg-city}}
+* {{msg-mw|Donate interface-error-msg-state}}
+* {{msg-mw|Donate interface-error-msg-zip}}
+* {{msg-mw|Donate interface-error-msg-country}}
+* {{msg-mw|Donate interface-error-msg-card num}}
+* {{msg-mw|Donate interface-error-msg-expiration}}
+* {{msg-mw|Donate interface-error-msg-cvv}}
+* {{msg-mw|Donate interface-state-province}}
+* {{msg-mw|Donate interface-error-msg-issuer id}} - used, but undefined
+* {{msg-mw|Donate interface-error-msg-payment method}} - used, but undefined
+* {{msg-mw|Donate interface-error-msg-payment submethod}} - used, but undefined
+* " first name." (hard-coded, untranslatable)
+* " last name." (hard-coded, untranslatable)
 
-An alternative to 'field' in the translation could be 'information'.
+An alternative to \'field\' in the translation could be \'information\'.
 
-This is an error message which appears if one or more of the above fields is left empty.",
+This is an error message which appears if one or more of the above fields is left empty.',
 	'donate_interface-error-msg-validation' => 'Generic error message for form validation failure',
 	'donate_interface-error-msg-invalid-amount' => 'Error message for invalid amount (e.g. if you put a letter in the amount field).',
 	'donate_interface-error-msg-email' => 'Error message if the e-mail address is not valid (e.g. non-ASCII characters, spaces or lacking @).',
@@ -737,37 +745,54 @@ This is an error message which appears if one or more of the above fields is lef
 	'donate_interface-error-msg-visa' => 'Error message for incorrect Visa card number.',
 	'donate_interface-error-msg-discover' => 'Error message for invalid Discover card number.',
 	'donate_interface-error-msg-amount' => 'Used in error message regarding the donation amount field.
+{{Related|Donate interface-err-msg}}
 {{Identical|Donation amount}}',
-	'donate_interface-error-msg-emailAdd' => '{{Identical|E-mail address}}',
+	'donate_interface-error-msg-emailAdd' => '{{Related|Donate interface-err-msg}}
+{{Identical|E-mail address}}',
 	'donate_interface-error-msg-fname' => 'Used in error message regarding the first name field.
+{{Related|Donate interface-err-msg}}
 {{Identical|First name}}',
-	'donate_interface-error-msg-lname' => 'Used in error message regarding the last name field',
-	'donate_interface-error-msg-street' => '{{Identical|Street}}',
-	'donate_interface-error-msg-city' => '{{Identical|City}}',
-	'donate_interface-error-msg-state' => '{{Identical|State}}',
-	'donate_interface-error-msg-zip' => 'Used in error message regarding the zip code field.',
+	'donate_interface-error-msg-lname' => 'Used in error message regarding the last name field.
+{{Related|Donate interface-err-msg}}',
+	'donate_interface-error-msg-street' => '{{Related|Donate interface-err-msg}}
+{{Identical|Street}}',
+	'donate_interface-error-msg-city' => '{{Related|Donate interface-err-msg}}
+{{Identical|City}}',
+	'donate_interface-error-msg-state' => '{{Related|Donate interface-err-msg}}
+{{Identical|State}}',
+	'donate_interface-error-msg-zip' => 'Used in error message regarding the zip code field.
+{{Related|Donate interface-err-msg}}',
 	'donate_interface-error-msg-postal' => 'Used in error message regarding the postal code field.
+{{Related|Donate interface-err-msg}}
 {{Identical|Postal code}}',
-	'donate_interface-error-msg-country' => '{{Identical|Country}}',
-	'donate_interface-error-msg-card_type' => 'Used as label for the radio buttons which have the following labels:
-* {{msg-mw|Donate interface-card-name-visa}}
-* {{msg-mw|Donate interface-card-name-mc}}
-* {{msg-mw|Donate interface-card-name-amex}}
-* {{msg-mw|Donate interface-card-name-discover}}',
-	'donate_interface-error-msg-card_num' => 'Used in error message regarding the credit card number field.',
-	'donate_interface-error-msg-expiration' => 'Used in error message regarding the card expiration date field.',
-	'donate_interface-error-msg-cvv' => 'Used in error message regarding the card security code field.',
+	'donate_interface-error-msg-country' => '{{Related|Donate interface-err-msg}}
+{{Identical|Country}}',
+	'donate_interface-error-msg-card_type' => '{{Related|Donate interface-err-msg}}',
+	'donate_interface-error-msg-card_num' => 'Used in error message regarding the credit card number field.
+{{Related|Donate interface-err-msg}}',
+	'donate_interface-error-msg-expiration' => 'Used in error message regarding the card expiration date field.
+{{Related|Donate interface-err-msg}}',
+	'donate_interface-error-msg-cvv' => 'Used in error message regarding the card security code field.
+{{Related|Donate interface-err-msg}}',
 	'donate_interface-error-msg-account_name' => 'Used in error message regarding the account name.
+{{Related|Donate interface-err-msg}}
 {{Identical|Account name}}',
 	'donate_interface-error-msg-account_number' => 'Used in error message regarding the account number.
+{{Related|Donate interface-err-msg}}
 {{Identical|Account number}}',
 	'donate_interface-error-msg-authorization_id' => 'Used in error message regarding the authorization ID.
+{{Related|Donate interface-err-msg}}
 {{Identical|Authorization ID}}',
 	'donate_interface-error-msg-bank_check_digit' => 'Used in error message regarding the bank check digit.
+{{Related|Donate interface-err-msg}}
 {{Identical|Bank check digit}}',
 	'donate_interface-error-msg-bank_code' => 'Used in error message regarding the sort code.
+
+Preceded by {{msg-mw|Donate interface-error-msg-js}} and a whitespace.
+{{Related|Donate interface-err-msg}}
 {{Identical|Sort code}}',
 	'donate_interface-error-msg-branch_code' => 'Used in error message regarding the branch code.
+{{Related|Donate interface-err-msg}}
 {{Identical|Branch code}}',
 	'donate_interface-error-msg-captcha' => 'Error message if the user inputs the wrong [[w:en:CAPTCHA|CAPTCHA]].',
 	'donate_interface-error-msg-captcha-please' => 'Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.',
@@ -14693,7 +14718,7 @@ $messages['ja'] = array(
 	'donate_interface-error-msg-emailAdd' => 'メールアドレス',
 	'donate_interface-error-msg-fname' => '名',
 	'donate_interface-error-msg-lname' => '姓',
-	'donate_interface-error-msg-street' => '通り住所 (番地)',
+	'donate_interface-error-msg-street' => '通り住所(番地)',
 	'donate_interface-error-msg-city' => '市町村',
 	'donate_interface-error-msg-state' => '都道府県・州',
 	'donate_interface-error-msg-zip' => 'ZIP コード',
