@@ -656,7 +656,8 @@ Parameters:
 	'donate_interface-donor-security' => 'Label for the field where you put in the security code for your card.
 {{Identical|Security code}}',
 	'donate_interface-donor-submit' => '{{Identical|Donate}}',
-	'donate_interface-donor-currency-msg' => '* $1 is 3 letter currency code',
+	'donate_interface-donor-currency-msg' => 'Parameters:
+* $1 - 3 letter currency code. e.g. USD',
 	'donate_interface-donor-fiscal_number' => "{{Identical|Fiscal number}}
 
 The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (Cadastro Nacional de Pessoas Jurídicas) number issued by the government of Brazil. As we only offer the 'Boletos' payment method in Brazil, which is what requires this, it probably only needs to be translated into Portuguese, Spanish, Italian, and German.",
