@@ -21845,6 +21845,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.', # Fuzzy
 	'donate_interface-or' => 'o',
 	'donate_interface-title' => 'Títol',
+	'donate_interface-please-donate-today' => 'Fasètz un don uèi',
 );
 
 /** Oriya (ଓଡ଼ିଆ)
