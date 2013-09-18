@@ -721,6 +721,7 @@ Bes esu jood un versöhg et schpääder norr_ens.',
 
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
+ * @author Soued031
  */
 $messages['lb'] = array(
 	'globalcollectgateway' => 'Maacht Ären Don elo',
@@ -732,7 +733,7 @@ $messages['lb'] = array(
 	'globalcollect_gateway-response-400530' => 'Bezuelmethod net valabel.',
 	'globalcollect_gateway-response-430306' => 'Är Kreditkaart ass ofgelaf. Probéiert w.e.g. en aner Kaart oder eng vun eisen anere Méiglechkeete fir ze bezuelen.',
 	'globalcollect_gateway-response-430330' => "D'Kaartennummer ass net valabel.",
-	'globalcollect_gateway-response-430421' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all Informatiounen mat deene vun Ärer Kreditkaart iwwertenee stëmmen, oder probéiert eng aner Kaart.',
+	'globalcollect_gateway-response-430421' => 'Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all Informatioune mat deene vun Ärer Kreditkaart iwwerenee stëmmen, oder probéiert eng aner Kaart.',
 	'globalcollect_gateway-response-430360' => "D'Transaktioun konnt net autoriséiert ginn. Versicht et w.e.g. mat enger anerer Kaart oder enger anerer Method fir ze bezuelen.",
 	'globalcollect_gateway-response-430285' => "D'Transaktioun konnt net autoriséiert ginn. Versicht et w.e.g. mat enger anerer Kaart oder enger anerer Method fir ze bezuelen.",
 	'globalcollect_gateway-response-21000150' => "D'Kontonummer ass net valabel.",
