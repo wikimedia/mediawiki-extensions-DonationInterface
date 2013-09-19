@@ -66,7 +66,12 @@ class PaypalGateway extends GatewayForm {
 			) {
 				$result = $this->adapter->do_transaction( 'DonateRecurring' );
 			} else {
-				$result = $this->adapter->do_transaction( 'Donate' );
+				$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
+				if ( array_search( $country, $this->adapter->getGlobal( 'XclickCountries' ) ) !== false ) {
+					$result = $this->adapter->do_transaction( 'DonateXclick' );
+				} else {
+					$result = $this->adapter->do_transaction( 'Donate' );
+				}
 			}
 
 			if ( !empty( $result['redirect'] ) ) {

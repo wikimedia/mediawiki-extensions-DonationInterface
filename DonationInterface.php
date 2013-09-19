@@ -447,6 +447,8 @@ if ( $optionalParts['Paypal'] === true ){
 
 	$wgPaypalGatewayHtmlFormDir = $donationinterface_dir . 'paypal_gateway/forms/html';
 
+	$wgPaypalGatewayXclickCountries = array();
+
 #	$wgPaypalGatewayAccountInfo['example'] = array(
 #		'AccountEmail' => "",
 #	);

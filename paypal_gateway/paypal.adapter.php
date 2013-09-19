@@ -95,9 +95,37 @@ class PaypalAdapter extends GatewayAdapter {
 				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
 				'cmd' => '_donations',
 				'item_number' => 'DONATE',
-				'item_name' => wfMsg( 'donate_interface-donation-description' ),
+				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
 				'no_note' => 0,
 				'return' => $this->getGlobal( 'ReturnURL' ),
+			),
+			'communication_type' => 'redirect',
+		);
+		$this->transactions[ 'DonateXclick' ] = array(
+			'request' => array(
+				'cmd',
+				'item_number',
+				'item_name',
+				'cancel_return',
+				'no_note',
+				'return',
+				'business',
+				'no_shipping',
+				//'lc', // Causes issues when lc=CN for some reason; filed bug report
+				'amount',
+				'currency_code',
+				'country',
+				'custom'
+			),
+			'values' => array(
+				'item_number' => 'DONATE',
+				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
+				'no_note' => '1',
+				'return' => $this->getGlobal( 'ReturnURL' ),
+				'business' => $this->account_config[ 'AccountEmail' ],
+				'cmd' => '_xclick',
+				'no_shipping' => '1'
 			),
 			'communication_type' => 'redirect',
 		);
@@ -143,6 +171,7 @@ class PaypalAdapter extends GatewayAdapter {
 
 		switch ( $transaction ) {
 			case 'Donate':
+			case 'DonateXclick':
 			case 'DonateRecurring':
 				$this->transactions[ $transaction ][ 'url' ] = $this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
 				$result = parent::do_transaction( $transaction );
