@@ -289,6 +289,14 @@ $messages['pms'] = array(
 	'amazon_gateway-desc' => "Process ëd pagament d'Amazon",
 );
 
+/** Brazilian Portuguese (português do Brasil)
+ * @author Cainamarques
+ */
+$messages['pt-br'] = array(
+	'amazongateway' => 'Faça sua doação agora',
+	'amazon_gateway-desc' => 'Processamento de pagamentos da Amazon',
+);
+
 /** Romanian (română)
  * @author Firilacroco
  * @author Minisarm
