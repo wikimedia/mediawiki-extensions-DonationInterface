@@ -4335,6 +4335,7 @@ A-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant Jav
 	'donate_interface-bt-special_id' => 'Titouroù dibar diwar-benn ar vro',
 	'donate_interface-bt-information' => 'Titouroù a-zivout an dreuzvankadenn',
 	'donate_interface-bt-finished' => 'Echuet eo',
+	'donate_interface-obt-generic-name' => 'Treuzkasadenn vank enlinenn',
 	'donate_interface-obt-biller_id' => 'Kod fakturenn',
 	'donate_interface-obt-customer_payment_reference' => 'Daveenn #',
 	'donate_interface-obt-information' => 'Titouroù a-zivout an dreuzvankadenn enlinenn',
