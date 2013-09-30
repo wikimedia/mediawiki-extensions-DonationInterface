@@ -189,8 +189,12 @@ class AdyenAdapter extends GatewayAdapter {
 						array( 'FORMACTION' => $formaction ),
 						'data'
 					);
+					$requestParams = $this->buildRequestParams();
+					$this->log( $this->getLogMessagePrefix() .
+						"launching external iframe request: " . print_r( $requestParams, true )
+					);
 					$this->setTransactionResult(
-						$this->buildRequestParams(),
+						$requestParams,
 						'gateway_params'
 					);
 					$this->addDonorDataToSession();
@@ -445,12 +449,14 @@ class AdyenAdapter extends GatewayAdapter {
 			$request_vars = $_GET;
 			$log_prefix = $this->getLogMessagePrefix();
 
-			if ( !$this->checkResponseSignature( $request_vars ) ) {
-				self::log( $log_prefix . "Bad signature in reponse" );
-				return 'BAD_SIGNATURE';
-			}
+			self::log( $log_prefix . "Processing user return data: " . print_r( $request_vars, TRUE ) );
 
-			$oid = $this->unstaged_data[ 'order_id' ];
+			if ( !$this->checkResponseSignature( $request_vars ) ) {
+				self::log( $log_prefix . "Bad signature in response" );
+				return 'BAD_SIGNATURE';
+			} else {
+				self::log( $log_prefix . "Good signature", LOG_DEBUG );
+			}
 
 			$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
 
@@ -458,6 +464,7 @@ class AdyenAdapter extends GatewayAdapter {
 			if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 				// Both of these are listed as pending because we have to submit a capture
 				// request on 'AUTHORIZATION' ipn message receipt.
+				self::log( $log_prefix . "User came back as pending or authorised, placing in pending queue" );
 				$this->setTransactionWMFStatus( 'pending' );
 			}
 			else {
