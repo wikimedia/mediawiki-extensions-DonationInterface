@@ -15,15 +15,12 @@
  */
 class DonationData {
 	protected $normalized = array( );
-	public $boss;
+	protected $gateway;
 	protected $validationErrors = null;
 
 	/**
 	 * DonationData constructor
-	 * @param string $owning_class The name of the class that instantiated this 
-	 * instance of DonationData. This is used to grab gateway-specific functions 
-	 * and values, such as the logging function and gateway-specific global 
-	 * variables. 
+	 * @param GatewayAdapter $gateway
 	 * @param boolean $test Indicates if DonationData has been instantiated in 
 	 * testing mode. Default is false.
 	 * @param mixed $data An optional array of donation data that will, if 
@@ -31,8 +28,8 @@ class DonationData {
 	 * places in $wgRequest, or 'false' to gather the data the usual way. 
 	 * Default is false. 
 	 */
-	function __construct( $owning_object, $test = false, $data = false ) {
-		$this->boss = $owning_object;
+	function __construct( $gateway, $test = false, $data = false ) {
+		$this->gateway = $gateway;
 		$this->gatewayID = $this->getGatewayIdentifier();
 		$this->populateData( $test, $data );
 	}
@@ -693,7 +690,7 @@ class DonationData {
 			// TODO: Move this somewhere more sane! We shouldn't be doing anything with requests
 			// in normalization functions.
 			$id = $_GET['order_id'];
-		} elseif ( $this->boss == 'AdyenAdapter' && array_key_exists( 'merchantReference', $_GET ) ) {
+		} elseif ( $this->getAdapterClass() == 'AdyenAdapter' && array_key_exists( 'merchantReference', $_GET ) ) {
 			$id = $_GET['merchantReference'];
 		} elseif ( ( $this->isSomething( 'order_id' ) ) && ( $idGenThisRequest == true ) ){
 			// An order ID already exists, therefore we do nothing
@@ -1370,7 +1367,7 @@ class DonationData {
 	 * @return mixed The name of the class if it exists, or false. 
 	 */
 	protected function getAdapterClass(){
-		return get_class( $this->boss );
+		return get_class( $this->gateway );
 	}
 	
 	/**
@@ -1451,7 +1448,7 @@ class DonationData {
 	 */
 	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
-			$this->validationErrors = DataValidator::validate( $this->boss, $this->normalized, $check_not_empty );
+			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
 		}
 		return $this->validationErrors;
 	}
