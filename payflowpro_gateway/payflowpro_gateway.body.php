@@ -129,7 +129,7 @@ class PayflowProGateway extends GatewayForm {
 			$this->getOutput()->redirect( $thankyoupage );
 		} else {
 			// display response message
-			$this->getOutput()->addHTML( '<h3 class="response_message">' . $responseMsg . '</h3>' );
+			$this->getOutput()->addHTML( '<h3 class="response_message">' . htmlspecialchars( $responseMsg, ENT_QUOTES ) . '</h3>' );
 
 			// translate country code into text
 			$countries = GatewayForm::getCountries();
@@ -162,7 +162,7 @@ class PayflowProGateway extends GatewayForm {
 			$declinedDefault = $this->msg( 'php-response-declined' )->escaped();
 
 			// display response message
-			$this->getOutput()->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . $responseMsg . '</h3>' );
+			$this->getOutput()->addHTML( '<h3 class="response_message">' . $declinedDefault . ' ' . htmlspecialchars( $responseMsg, ENT_QUOTES ) . '</h3>' );
 		}
 	}
 

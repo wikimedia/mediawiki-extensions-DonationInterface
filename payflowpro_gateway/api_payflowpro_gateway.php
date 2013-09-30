@@ -81,7 +81,7 @@ class ApiPayflowProGateway extends ApiBase {
 		if ( isset( $params[ 'dispatch' ] ) && strlen( $params[ 'dispatch' ] ) ) {
 			$method = $this->getDispatchMethod( $params[ 'dispatch' ] );
 			if ( !in_array( $method, $this->validDispatchMethods ) || !method_exists( $this, $method ) ) {
-				$this->dieUsage( "Invalid dispatch method <<<$method>>> passed to the Donation Interface Gateway API.", 'unknown_method' );
+				$this->dieUsage( "Invalid dispatch method <<<" . htmlspecialchars( $method, ENT_QUOTES ) . ">>> passed to the Donation Interface Gateway API.", 'unknown_method' );
 			}
 
 			// make sure we have tracking data for get_required_dynamic_form_elements
