@@ -163,6 +163,13 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function definePaymentMethods() {
+		$this->payment_methods = array(
+			'amazon' => array(),
+		);
+		PaymentMethod::registerMethods( $this->payment_methods );
+	}
+
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();

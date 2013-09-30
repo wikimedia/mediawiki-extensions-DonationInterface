@@ -402,11 +402,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - GET_ORDERSTATUS
 	 */
 	public function defineTransactions() {
-
-		// Define the transaction types and groups
-		$this->definePaymentMethods();
-		$this->definePaymentSubmethods();
-		
 		$this->transactions = array( );
 
 		$this->transactions['DO_BANKVALIDATION'] = array(
@@ -616,14 +611,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * The credit card group has a catchall for unspecified payment types.
 	 */
-	protected function definePaymentMethods() {
+	public function definePaymentMethods() {
 		
 		$this->payment_methods = array();
 		
 		// Bank Transfers
 		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
-			'types'	=> array( 'bt', ),
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
@@ -631,13 +625,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Credit Cards
 		$this->payment_methods['cc'] = array(
 			'label'	=> 'Credit Cards',
-			'types'	=> array( '', 'visa', 'mc', 'amex', 'discover', 'maestro', 'solo', 'laser', 'jcb', 'cb', ),
 		);
 		
 		// Direct Debit
 		$this->payment_methods['dd'] = array(
 			'label'	=> 'Direct Debit',
-			'types'	=> array( 'dd_at', 'dd_be', 'dd_ch', 'dd_de', 'dd_es','dd_fr', 'dd_gb', 'dd_it', 'dd_nl', ),
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
@@ -645,7 +637,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// eWallets
 		$this->payment_methods['ew'] = array(
 			'label'	=> 'eWallets',
-			'types'	=> array( 'ew_cashu', 'ew_moneybookers', 'ew_paypal', 'ew_webmoney', 'ew_yandex' ),
 			'validation' => array( 'address' => false, 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 			'additional_success_status' => array( 20 ),
@@ -654,7 +645,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Bank Transfers
 		$this->payment_methods['obt'] = array(
 			'label'	=> 'Online bank transfer',
-			'types'	=> array( 'bpay', ),
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
@@ -662,7 +652,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Real Time Bank Transfers
 		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
-			'types'	=> array( 'rtbt_ideal', 'rtbt_eps', 'rtbt_sofortuberweisung', 'rtbt_nordea_sweden', 'rtbt_enets', ),
 			'short_circuit_at' => 'first_iop',
 			'additional_success_status' => array( 20 ),
 		);
@@ -670,19 +659,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Cash payments
 		$this->payment_methods['cash'] = array(
 			'label' => 'Cash payments',
-			'types' => array( 'cash_boleto', ),
 			'short_circuit_at' => 'first_iop',
 			'additional_success_status' => array( 55 ), //PENDING AT CUSTOMER - denotes they need to go to the bank, but we've done all we can.
 		);
 
-	}
+		// *** Define payment submethods ***
+		//TODO: deprecate submethod, everything is a first-class method.
 
-	/**
-	 * Define payment submethods
-	 *
-	 */
-	protected function definePaymentSubmethods() {
-		
 		$this->payment_submethods = array();
 
 		/*
@@ -709,7 +692,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods['bt'] = array(
 			'paymentproductid'	=> 11,
 			'label'	=> 'Bank Transfer',
-			'group'	=> 'bt',
 			'validation' => array(),
 			'keys' => array(),
 		);
@@ -1034,6 +1016,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group' => 'cash',
 			'keys' => array(),
 		);
+
+		PaymentMethod::registerMethods( $this->payment_methods );
+		PaymentMethod::registerMethods( $this->payment_submethods );
 	}
 
 	/**
@@ -2092,6 +2077,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$trythis = $payment_method . '_' . strtolower( $this->getData_Unstaged_Escaped('country') );
 			if ( array_key_exists( $trythis, $this->payment_submethods ) ){
 				$payment_submethod = $trythis;
+				$this->staged_data['payment_submethod'] = $payment_submethod;
 			}
 		}
 
@@ -2373,5 +2359,4 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			return false;
 		}
 	}
-	
 }
