@@ -234,7 +234,7 @@ class GlobalCollectGateway extends GatewayForm {
 			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), $data[ $field ] );
+				$return .= Xml::tags( 'td', array ('style' => 'padding-left:0.5em;'), htmlspecialchars( $data[$field], ENT_QUOTES ) );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
@@ -282,7 +282,7 @@ class GlobalCollectGateway extends GatewayForm {
 			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'th', array(), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array(), $data[ $field ] );
+				$return .= Xml::tags( 'td', array (), htmlspecialchars( $data[$field], ENT_QUOTES ) );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}

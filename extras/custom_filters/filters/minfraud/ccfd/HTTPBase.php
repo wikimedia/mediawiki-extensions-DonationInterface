@@ -192,8 +192,8 @@ class HTTPBase{
 
   function readIpAddressFromWeb() {
     //check if the curl module exists
-    $url = "http://www.maxmind.com/app/ws_ipaddr";
-    if (extension_loaded('curl')) {
+    $url = "https://www.maxmind.com/app/ws_ipaddr";
+		if (extension_loaded('curl')) {
       // open curl
       $ch = curl_init();
 
@@ -304,9 +304,9 @@ class HTTPBase{
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_URL, $url);
       curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 1);
 
-      //this option lets you store the result in a string 
+			//this option lets you store the result in a string 
       curl_setopt($ch, CURLOPT_POST,          1);
       curl_setopt($ch, CURLOPT_POSTFIELDS,    $query_string);
 

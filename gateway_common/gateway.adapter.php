@@ -1138,7 +1138,7 @@ abstract class GatewayAdapter implements GatewayType {
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_TIMEOUT => self::getGlobal( 'Timeout' ),
 			CURLOPT_FOLLOWLOCATION => 0,
-			CURLOPT_SSL_VERIFYPEER => 0,
+			CURLOPT_SSL_VERIFYPEER => 1,
 			CURLOPT_SSL_VERIFYHOST => 2,
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_POST => 1,

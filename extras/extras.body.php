@@ -93,7 +93,7 @@ abstract class Gateway_Extras {
 	 * @return bool
 	 */
 	public function compare_hash( $hash, $data ) {
-		if ( $hash == $this->generate_hash( $data ) ) {
+		if ( $hash === $this->generate_hash( $data ) ) {
 			return TRUE;
 		}
 

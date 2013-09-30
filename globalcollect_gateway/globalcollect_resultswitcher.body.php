@@ -150,22 +150,10 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		$displayData = $this->adapter->getData_Unstaged_Escaped();
 		$failpage = $this->adapter->getFailPage();
 
-		if ( $failpage ) {
-			return $failpage;
-		} else {
-			// Get the page we're going to send them back to.
-			$referrer = $displayData['referrer'];
-			$returnto = htmlspecialchars_decode( $referrer ); // escape for security
-			
-			// Set the response as failure so that an error message will be displayed when the form reloads.
-			$this->adapter->addData( array( 'response' => 'failure' ) );
-			
-			// Store their data in the session.
-			$this->adapter->addDonorDataToSession();
-			
-			// Return the referrer URL
-			return $returnto;
+		if ( !$failpage ) {
+			throw new MWException( __FUNCTION__ . ': No declined result page defined. Please define a FailPage global for ' . $this->adapter->getGatewayIdentifier() );
 		}
+		return $failpage;
 	}
 
 	function popout_if_iframe() {

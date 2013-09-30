@@ -986,7 +986,7 @@ class DonationData {
 			//and reset the token for next time. 
 			$this->token_refreshAllTokenEverything();
 		}
-		return $val == $sessionSaltedToken;
+		return $val === $sessionSaltedToken;
 	}
 
 	/**
