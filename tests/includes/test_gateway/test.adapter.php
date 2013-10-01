@@ -214,4 +214,12 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	public function getDonationData() {
 		return $this->dataObj;
 	}
+
+	public function _addCodeRange() {
+		return call_user_func_array(array($this, 'addCodeRange'), func_get_args());
+	}
+
+	public function _findCodeAction() {
+		return call_user_func_array(array($this, 'findCodeAction'), func_get_args());
+	}
 }

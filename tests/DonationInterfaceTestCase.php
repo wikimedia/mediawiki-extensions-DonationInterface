@@ -18,10 +18,7 @@
  * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
-/**
- * @see TestHelper.php
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'TestHelper.php';
+require_once __DIR__ . '/TestConfiguration.php';
 
 /**
  * @group		Fundraising
@@ -34,6 +31,9 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'TestHelper.php';
  */
 abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 {
+	protected $backupGlobalsBlacklist = array(
+		'wgHooks',
+	);
 
 	/**
 	 * This will be set by a test method with the adapter object.
@@ -237,13 +237,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			$return['testData']['gateway'] = 'payflowpro';	
 		}
 
-		$_SERVER = array();
-
-		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
-		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
-		$_SERVER['REQUEST_URI'] = '/index.php/Special:' . $gateway . '?form_name=' . $form_name;
-		
 		return $return;
 	}
 
