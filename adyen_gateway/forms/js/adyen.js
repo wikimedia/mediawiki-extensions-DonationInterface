@@ -73,26 +73,36 @@ window.displayCreditCardForm = function() {
 				$( "#paymentContinue" ).show(); // Show continue button in 2nd section
 			} else if ( typeof data.result !== 'undefined' ) {
 				if ( data.result.errors ) {
-					var errors = new Array();
+					var errors = [];
 					$.each( data.result.errors, function( index, value ) {
 						alert( value ); // Show them the error
 						$( "#paymentContinue" ).show(); // Show continue button in 2nd section
 					} );
 				} else {
 					if ( data.result.formaction && data.gateway_params ) {
-						$( '#payment' ).empty();
-						// Insert the iframe into the form
-						$( '#payment' ).append(
-							'<iframe width="400" height="225" frameborder="0" name="adyen-iframe"></iframe>'
-						);
-						var params = new Array();
-						$.each( data.gateway_params, function( key, value ) {
-							params.push('<input type="hidden" name="'+key+'" value="'+value+'" />');
+						var $payment = $( '#payment' ), $pForm;
+
+						// Empty the div; add the target iframe; then submit the request for the iframe contents
+						$payment.empty();
+						$payment.append( $( '<iframe></iframe>', {
+							'width': 400,
+							'height': 225,
+							'frameborder': 0,
+							'name': 'adyen-iframe'
+						} ) );
+
+						$pForm = $( '<form></form>', {
+							'method': 'post',
+							'action': data.result.formaction,
+							'target': 'adyen-iframe',
+							'id': 'fetch-iframe-form'
 						} );
-						$( '#payment' ).append(
-							'<form method="post" action="'+data.result.formaction+'" target="adyen-iframe" id="fetch-iframe-form">'+params.join("")+'</form>'
-						);
-						$( '#payment #fetch-iframe-form' ).submit();
+						$.each( data.gateway_params, function( key, value ) {
+							$pForm.append( $( '<input>', { 'type': 'hidden', 'name': key, 'value': value } ) );
+						} );
+						$payment.append( $pForm );
+
+						$payment.find( '#fetch-iframe-form' ).submit();
 					}
 				}
 			}
@@ -101,7 +111,9 @@ window.displayCreditCardForm = function() {
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
 		}
 	} );
-}/*
+}
+
+/*
  * The following variable are declared inline in webitects_2_3step.html:
  *   amountErrors, billingErrors, paymentErrors, scriptPath, actionURL
  */
