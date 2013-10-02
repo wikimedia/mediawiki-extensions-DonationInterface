@@ -143,7 +143,7 @@ function showAmount( e ) {
 	if( e.val() == "other" ){
 		e = $( "#other-amount" );
 	}
-	$( "#selected-amount" ).html( "$" + e.val() );
+	$("#selected-amount").text("$" + e.val());
 	$( "#change-amount" ).show();
 }
 
