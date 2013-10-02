@@ -158,7 +158,7 @@ window.showAmount = function( e ) {
     if( $( 'select[name="currency_code"]' ).length ){
         currency_code = $( 'select[name="currency_code"]' ).val();
     }
-	$( "#selected-amount" ).html( + e.val() + " " + currency_code );
+	$("#selected-amount").text(+e.val() + " " + currency_code);
 	$( "#change-amount" ).show();
 };
 
