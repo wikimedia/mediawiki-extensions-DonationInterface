@@ -504,21 +504,58 @@ class DonationData {
 	
 	/**
 	 * normalize helper function
-	 * Setting the country correctly.
-	 * If we have no country, we try to get something rational through GeoIP 
-	 * lookup.
+	 * Setting the country correctly. Country is... kinda important.
+	 * If we have no country, or nonsense, we try to get something rational
+	 * through GeoIP lookup.
 	 */
 	protected function setCountry() {
-		if ( !$this->isSomething('country') ){
-			// If no country was passed, try to do GeoIP lookup
+		$regen = true;
+		$country = '';
+
+		if ( $this->isSomething( 'country' ) ) {
+			$country = strtoupper( $this->getVal( 'country' ) );
+			if ( DataValidator::is_valid_iso_country_code( $country ) ) {
+				$regen = false;
+			} else {
+				//check to see if it's one of those other codes that comes out of CN, for the logs
+				//If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
+				//we're still going to try to regen.
+				$near_countries = array ( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
+				if ( !in_array( $country, $near_countries ) ) {
+					$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ": $country is not a country, or a recognized placeholder.", LOG_WARNING );
+				}
+			}
+		} else {
+			$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ': Country not set.', LOG_WARNING );
+		}
+
+		//try to regenerate the country if we still don't have a valid one yet
+		if ( $regen ) {
+			// If no valid country was passed, try to do GeoIP lookup
 			// Requires php5-geoip package
 			if ( function_exists( 'geoip_country_code_by_name' ) ) {
 				$ip = $this->getVal( 'user_ip' );
 				if ( IP::isValid( $ip ) ) {
-					$country = geoip_country_code_by_name( $ip );
-					$this->setVal('country', $country);
+					//I hate @suppression at least as much as you do, but this geoip function is being genuinely horrible.
+					//try/catch did not help me suppress the notice it emits when it can't find a host.
+					//The goggles; They do *nothing*.
+					$country = @geoip_country_code_by_name( $ip );
+					if ( !$country ) {
+						$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available.", LOG_WARNING );
+					}
 				}
+			} else {
+				$this->log( $this->getLogMessagePrefix() . 'GeoIP lookup function is missing! No country available.', LOG_WARNING );
 			}
+
+			//still nothing good? Give up.
+			if ( !DataValidator::is_valid_iso_country_code( $country ) ) {
+				$country = 'XX';
+			}
+		}
+
+		if ( $country != $this->getVal( 'country' ) ) {
+			$this->setVal( 'country', $country );
 		}
 	}
 	
@@ -536,18 +573,18 @@ class DonationData {
 		if ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency', now: $currency" );
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency', now: $currency", LOG_DEBUG );
 		}
 		if ( $this->isSomething( 'currency_code' ) ) {
 			$currency = $this->getVal( 'currency_code' );
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency_code', now: $currency" );
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency_code', now: $currency", LOG_DEBUG );
 		}
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
 			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
 			$currency = getNationalCurrency($this->getVal('country'));
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'country', now: $currency" );
+			$this->log( $this->getLogMessagePrefix() . "Got currency from 'country', now: $currency", LOG_DEBUG );
 		}
 		
 		$this->setVal( 'currency_code', $currency );
@@ -1160,13 +1197,6 @@ class DonationData {
 			if( $this->isSomething( 'ffname' ) ){
 				$tracking_data['payments_form'] .= '.' . $this->getVal( 'ffname' );
 			}
-		}
-
-		// @todo remove if-block after some period of time
-		if( !$wgContributionTrackingAnalyticsUpgrade ){
-			unset( $tracking_data['country'] );
-			unset( $tracking_data['form_amount'] );
-			unset( $tracking_data['payments_form'] );
 		}
 
 		return $tracking_data;
