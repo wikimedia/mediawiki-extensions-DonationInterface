@@ -638,7 +638,8 @@ Parameters:
 	'donate_interface-donor-street-number' => 'Label for field to input street number if separate from street',
 	'donate_interface-donor-city' => '{{Identical|City}}',
 	'donate_interface-donor-county' => 'Label for field with dropdown list of counties.',
-	'donate_interface-donor-island' => 'Label for field with dropdown list of islands.',
+	'donate_interface-donor-island' => 'Label for field with dropdown list of islands.
+{{Identical|Island}}',
 	'donate_interface-donor-state' => 'The donor is to select either an U.S. state or "Outside the U.S." 
 
 {{Identical|State}}',
@@ -25272,6 +25273,7 @@ Pe avè 'n'esperienze secure e piacevole, 'u module nuèstre de donazziune vole 
  * @author Kalan
  * @author MaxSem
  * @author Microcell
+ * @author Okras
  * @author Ole Yves
  * @author Prima klasy4na
  * @author Putnik
@@ -25469,6 +25471,7 @@ $messages['ru'] = array(
 	'donate_interface-error-msg-fiscal_number' => 'налоговый номер',
 	'donate_interface-donate-error-try-a-different-card' => 'Пожалуйста, [$1 попробуйте другую карту] или выберите [$2 другой способ сделать пожертвование], либо свяжитесь с нами по адресу $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Спасибо за Вашу поддержку!',
+	'donate_interface-error-no-form' => 'Мы не смогли найти форму пожертвований, соответствующую заданным вами параметрам. Пожалуйста, свяжитесь с [mailto:donate@wikimedia.org нашей командой поддержки] для получения дополнительной информации.',
 	'php-response-declined' => 'Ваша транзакция не может быть принята.',
 	'donate_interface-thankyou' => 'Спасибо за ваше пожертвование!',
 	'donate_interface-post-transaction' => 'Сведения о транзакции',
@@ -25617,6 +25620,7 @@ $messages['ru'] = array(
 	'donate_interface-bt-special_id' => 'Информация по конкретным странам',
 	'donate_interface-bt-information' => 'Отметки банка (Bank transfer information)',
 	'donate_interface-bt-finished' => 'Выполнено',
+	'donate_interface-obt-generic-name' => 'Банковский перевод через интернет',
 	'donate_interface-obt-biller_id' => 'Код (Biller code)',
 	'donate_interface-obt-customer_payment_reference' => 'Отметка (Reference #)',
 	'donate_interface-obt-information' => 'Отметки банка (Online bank transfer information)',
