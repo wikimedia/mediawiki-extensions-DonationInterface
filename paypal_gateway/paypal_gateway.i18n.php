@@ -128,7 +128,7 @@ $messages['eo'] = array(
  */
 $messages['es'] = array(
 	'paypalgateway' => 'Haz tu donación ahora',
-	'paypal_gateway-desc' => 'Proceso de pagos de Paypal', # Fuzzy
+	'paypal_gateway-desc' => 'Proceso de pagos de Paypal',
 );
 
 /** Basque (euskara)
