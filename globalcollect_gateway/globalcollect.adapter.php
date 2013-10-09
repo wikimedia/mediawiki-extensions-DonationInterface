@@ -2282,9 +2282,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	
 	protected function pre_process_insert_orderwithpayment(){
 		$this->incrementNumAttempt();
-		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
-			$this->addDonorDataToSession();
-		}
+		$this->addDonorDataToSession();
 	}
 	
 	/**

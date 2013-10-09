@@ -68,7 +68,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@bank_code',
 		'@bank_name',
 		'@bank_check_digit',
-        '@branch_code',
+		'@branch_code',
 		// Boletos
 		'@fiscal_number',
 		// Not actually data tokens, but available to you in html form:
@@ -79,6 +79,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @appeal_title -> name of the appeal title to load
 		// @verisign_logo -> placeholder to load the secure verisign logo
 		// @select_country -> generates a select containing all country names
+		'@ffname_retry', //form name for retries (used by error pages)
 	);
 
 	/**
@@ -486,6 +487,18 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			}
 		}
 
+		if ( array_key_exists( 'special_type', $allowedForms[$form_key] ) ) {
+			if ( $allowedForms[$form_key]['special_type'] === 'error' ) {
+				//add data we're going to need for the error page!
+				$back_form = $this->gateway->getLastRapidHTMLForm();
+				//If this is just the one thing, we might move this inside DonationData for clarity's sake...
+				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form ) ) );
+			}
+		} else {
+			//No special type... let's add this to the form stack and call it good.
+			$this->gateway->pushRapidHTMLForm( $form_key );
+		}
+
 		$this->html_file_path = $allowedForms[$form_key]['file'];
 	}
 
@@ -541,4 +554,5 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		return $output;
 	}
+
 }

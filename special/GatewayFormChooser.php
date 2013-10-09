@@ -51,17 +51,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			return;
 		}
 
-		// And... construct the URL
-		$params = array(
-			'form_name' => "RapidHtml",
-			'appeal' => "JimmyQuote",
-			'ffname' => $form,
+		$params = array (
 			'recurring' => $recurring,
 		);
-
-		if( DataValidator::value_appears_in( 'redirect', $forms[$form] ) ){
-			$params['redirect'] = '1';
-		}
 
 		// Pass any other params that are set. We do not skip ffname or form_name because
 		// we wish to retain the query string override.
@@ -73,17 +65,42 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			}
 		}
 
-		// set the default redirect
-		$redirectURL = $this->getTitleFor( ucfirst($forms[$form]['gateway']) . "Gateway" )->getLocalUrl( $params );
-
-		// This is an error condition, so we return something reasonable
-		// TODO: Figure out something better to do
-//		$redirectURL = "https://wikimediafoundation.org/wiki/Ways_to_Give";
+		$redirectURL = self::buildPaymentsFormURL( $form, $params );
 
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
 	}
-	
+
+	/**
+	 * $other_params will override everything except $form_key (ffname)
+	 * @param type $form_key
+	 * @param type $other_params
+	 */
+	static function buildPaymentsFormURL( $form_key, $other_params = array ( ) ) {
+		// And... construct the URL
+		$params = array (
+			'form_name' => "RapidHtml",
+			'appeal' => "JimmyQuote",
+			'ffname' => $form_key,
+		);
+
+		if ( array_key_exists( 'ffname', $other_params ) ) {
+			unset( $other_params['ffname'] );
+		}
+
+		$params = array_merge( $params, $other_params );
+
+		$form_info = self::getFormDefinition( $form_key );
+
+		if ( DataValidator::value_appears_in( 'redirect', $form_info ) ) {
+			$params['redirect'] = '1';
+		}
+
+		// set the default redirect
+		//TODO: this is going to be a problem here if we start defining more than one gateway per form.
+		return self::getTitleFor( ucfirst( $form_info['gateway'] ) . "Gateway" )->getLocalUrl( $params );
+	}
+
 	/**
 	 * Gets all the valid forms that match the provided paramters. 
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
@@ -182,7 +199,28 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 		return $forms;
 	}
-	
+
+	/**
+	 * Gets the array of settings and capability definitions for the form
+	 * specified in $form_key.
+	 * @global array $wgDonationInterfaceAllowedHtmlForms The global array
+	 * of whitelisted (enabled) RapidHTML forms.
+	 * @param string $form_key The name of the form (ffname) we're looking
+	 * for. Should map to a first-level key in
+	 * $wgDonationInterfaceAllowedHtmlForms.
+	 * @return array|boolean The settings and capability definitions for
+	 * that form in array format, or false if it isn't a valid and enabled
+	 * form.
+	 */
+	static function getFormDefinition( $form_key ) {
+		global $wgDonationInterfaceAllowedHtmlForms;
+		if ( array_key_exists( $form_key, $wgDonationInterfaceAllowedHtmlForms ) ) {
+			return $wgDonationInterfaceAllowedHtmlForms[$form_key];
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Return an array of all the currently enabled gateways. 
 	 * I had hoped there would be more to this...

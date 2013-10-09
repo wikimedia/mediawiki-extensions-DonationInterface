@@ -1747,6 +1747,16 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Pushes a RapidHTML form to the user's session, so we have the option
+	 * to usefully go back to the last available one.
+	 * This should only be used when we actually load a good one.
+	 * @param type $form
+	 */
+	public function pushRapidHTMLForm( $form ) {
+		$this->dataObj->pushRapidHTMLForm( $form );
+	}
+
+	/**
 	 * Destroys the session completely. 
 	 * Note: This will leave the cookie behind! It just won't go to anything at 
 	 * all. 
@@ -2688,4 +2698,15 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getMerchantID() {
 		return $this->account_config[ 'MerchantID' ];
 	}
+
+	/**
+	 * Get the 'ffname' of the last RapidHTML payment form that successfully
+	 * loaded for this session.
+	 * @return mixed ffname of the last valid payments form if there is one,
+	 * otherwise false.
+	 */
+	public function getLastRapidHTMLForm() {
+		return $this->dataObj->getLastRapidHTMLForm();
+	}
+
 }

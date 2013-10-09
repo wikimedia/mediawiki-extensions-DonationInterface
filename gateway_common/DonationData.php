@@ -157,20 +157,20 @@ class DonationData {
 	 * If donor session data has been set, pull the fields in the session that 
 	 * are populated, and merge that with the data set we already have. 
 	 */
-	protected function integrateDataFromSession(){
+	protected function integrateDataFromSession() {
+		/** if the thing coming in from the session isn't already something,
+		 * replace it.
+		 * if it is: assume that the session data was meant to be replaced
+		 * with better data.
+		 * ...unless it's an explicit $overwrite * */
 		if ( self::sessionExists() && array_key_exists( 'Donor', $_SESSION ) ) {
-			//if the thing coming in from the session isn't already something, 
-			//replace it. 
-			//if it is: assume that the session data was meant to be replaced 
-			//with better data.  
-			//...unless it's referrer. 
-			foreach ( $_SESSION['Donor'] as $key => $val ){
+			//fields that should always overwrite with their original values
+			$overwrite = array ( 'referrer' );
+			foreach ( $_SESSION['Donor'] as $key => $val ) {
 				if ( !$this->isSomething( $key ) ){
 					$this->setVal( $key, $val );
 				} else {
-					//TODO: Change this to a switch statement if we get more 
-					//fields in here. 
-					if ( $key === 'referrer' ){
+					if ( in_array( $key, $overwrite ) ) {
 						$this->setVal( $key, $val );
 					}
 				}
@@ -1289,11 +1289,47 @@ class DonationData {
 		self::ensureSession();
 		$donordata = $this->getStompMessageFields();
 		$donordata[] = 'order_id';
-		
+
 		foreach ( $donordata as $item ) {
 			if ( $this->isSomething( $item ) ) {
 				$_SESSION['Donor'][$item] = $this->getVal( $item );
 			}
+		}
+	}
+
+	/**
+	 * Add a RapidHTML Form (ffname) to this abridged history of where we've
+	 * been in this session. This lets us do things like construct useful
+	 * "back" links that won't crush all session everything.
+	 * @param string $form_key The 'ffname' that RapidHTML uses to load a
+	 * payments form. Additional: ffname maps to a first-level key in
+	 * $wgDonationInterfaceAllowedHtmlForms
+	 */
+	public function pushRapidHTMLForm( $form_key ) {
+		self::ensureSession();
+
+		if ( !array_key_exists( 'PaymentForms', $_SESSION ) || !is_array( $_SESSION['PaymentForms'] ) ) {
+			$_SESSION['PaymentForms'] = array ( );
+		}
+
+		//don't want duplicates
+		if ( $this->getLastRapidHTMLForm() != $form_key ) {
+			$_SESSION['PaymentForms'][] = $form_key;
+		}
+	}
+
+	/**
+	 * Get the 'ffname' of the last RapidHTML payment form that successfully
+	 * loaded for this session.
+	 * @return mixed ffname of the last valid payments form if there is one,
+	 * otherwise false.
+	 */
+	public function getLastRapidHTMLForm() {
+		self::ensureSession();
+		if ( !array_key_exists( 'PaymentForms', $_SESSION ) || !is_array( $_SESSION['PaymentForms'] ) ) {
+			return false;
+		} else {
+			return end( $_SESSION['PaymentForms'] );
 		}
 	}
 
@@ -1404,7 +1440,7 @@ class DonationData {
 	 * /extensions/DonationData/activemq_stomp/activemq_stomp.php
 	 * to somewhere in DonationData. 	 * 
 	 */
-	public function getStompMessageFields(){
+	public static function getStompMessageFields() {
 		$stomp_fields = array(
 			'contribution_tracking_id',
 			'optout',
@@ -1448,7 +1484,7 @@ class DonationData {
 		);
 		return $stomp_fields;
 	}
-	
+
 	/**
 	 * Basically, this is a wrapper for the $wgRequest wasPosted function that 
 	 * won't give us notices if we weren't even a web request. 
