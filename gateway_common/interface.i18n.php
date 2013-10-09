@@ -215,6 +215,7 @@ No processors are available.',
 	'donate_interface-error-msg-country-calc' => 'Error - We are unable to accept your donation at this time.',
 	'donate_interface-error-msg-fiscal_number' => 'fiscal number',
 	'donate_interface-donate-error-try-a-different-card' => 'Please [$1 try a different card] or one of our [$2 other ways to give] or contact us at $3',
+	'donate_interface-donate-error-try-again-html' => 'Please <a href="$1">try again</a>, try one of our <a href="$2">other ways to give</a>, or contact us at <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'donate_interface-error-no-form' => 'We were unable to find a donation form matching your parameters. Please contact [mailto:donate@wikimedia.org our help team] for more information.',
 	'php-response-declined' => 'Your transaction could not be accepted.',
@@ -809,6 +810,10 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 * $1 - link back to the form to try another credit card
 * $2 - link to other payment methods
 * $3 - an e-mail address link such as: mailto:someone@example.com',
+	'donate_interface-donate-error-try-again-html' => 'This html-formatted message will be used on dynamic error pages for all payment types. Parameters:
+* $1 - link back to the payments form most recently used by the donor, to try again
+* $2 - link to other payment methods
+* $3 - an e-mail address, where the donor can report problems. Example: problemsdonating@wikimedia.org',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'donate_interface-error-no-form' => 'Error message given if no form or payment method is available in this language/country/currency.',
 	'php-response-declined' => 'Error message if the translaction was declined.',
