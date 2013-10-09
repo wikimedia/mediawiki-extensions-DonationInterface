@@ -7532,6 +7532,7 @@ $messages['el'] = array(
  * @author Thehelpfulone
  */
 $messages['en-gb'] = array(
+	'donate_interface-maintenance-notice' => 'We apologise, but this type of payment has been temporarily disabled.',
 	'donate_interface-error-msg-authorization_id' => 'Authorisation ID',
 	'donate_interface-cvv-explain' => '<h4>What is CVV?</h4>
 <p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorised or fraudulent use.</p>
