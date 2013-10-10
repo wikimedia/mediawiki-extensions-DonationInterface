@@ -268,8 +268,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			return key ( $valid_forms );
 		}
 		
-		//Hell: we're still here. Throw a freaking dart. 
-		reset( $valid_forms );
-		return key ( $valid_forms );
+		//Hell: we're still here. Throw a freaking dart.
+		return array_rand( $valid_forms );
 	}
 }
