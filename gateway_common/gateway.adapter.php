@@ -369,6 +369,19 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return mixed Page URL in string format, or false if none is set.  
 	 */
 	public function getFailPage() {
+		//Prefer RapidFail.
+		if ( self::getGlobal( "RapidFailPage" ) ) {
+			$data = $this->getData_Unstaged_Escaped();
+
+			//choose which fail page to go for.
+			try {
+				$fail_ffname = GatewayFormChooser::getBestErrorForm( $data['gateway'], $data['payment_method'], $data['payment_submethod'] );
+			} catch ( Exception $e ) {
+				$this->log( $this->getLogMessagePrefix() . "Cannot determine best error form. " . $e->getMessage(), LOG_ERR );
+			}
+
+			return GatewayFormChooser::buildPaymentsFormURL( $fail_ffname, $this->getRetryData() );
+		}
 		$page = self::getGlobal( "FailPage" );
 		if ( $page ) {
 
@@ -2866,6 +2879,10 @@ abstract class GatewayAdapter implements GatewayType {
 	 * $wgDonationInterfaceAllowedHtmlForms
 	 */
 	public function session_pushRapidHTMLForm( $form_key ) {
+		if ( strlen( $form_key ) === 0 ) {
+			return;
+		}
+
 		self::session_ensure();
 
 		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
@@ -3035,6 +3052,20 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		return $match;
+	}
+
+	/**
+	 * Retrieve the data we will need in order to retry a payment.
+	 * This is useful in the event that we have just killed a session before
+	 * the next retry.
+	 * @return array Data required for a payment retry.
+	 */
+	public function getRetryData() {
+		$params = array ( );
+		foreach ( $this->dataObj->getRetryFields() as $field ) {
+			$params[$field] = $this->getData_Unstaged_Escaped( $field );
+		}
+		return $params;
 	}
 
 }

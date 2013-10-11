@@ -1181,6 +1181,25 @@ class DonationData {
 	}
 
 	/**
+	 * Returns an array of field names we need in order to retry a payment
+	 * after the session has been destroyed by... overzealousness.
+	 */
+	public static function getRetryFields() {
+		$fields = array (
+			'gateway',
+			'country',
+			'currency_code',
+			'amount',
+			'language',
+			'utm_source',
+			'utm_medium',
+			'utm_campaign',
+			'payment_method',
+		);
+		return $fields;
+	}
+
+	/**
 	 * Basically, this is a wrapper for the $wgRequest wasPosted function that 
 	 * won't give us notices if we weren't even a web request. 
 	 * I realize this is pretty lame. 

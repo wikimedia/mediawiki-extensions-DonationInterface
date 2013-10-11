@@ -490,8 +490,19 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			if ( $allowedForms[$form_key]['special_type'] === 'error' ) {
 				//add data we're going to need for the error page!
 				$back_form = $this->gateway->session_getLastRapidHTMLForm();
+
+				//TODO: What to do if $back_form doesn't exist, because session expire
+				//TODO: Also, what to do if they just have... no required data.
+
+				$params = array (
+					'gateway' => $this->gateway->getIdentifier()
+				);
+				if ( !$this->gateway->session_hasDonorData() ) {
+					$preserve = $this->gateway->getRetryData();
+					$params = array_merge( $preserve, $params );
+				}
 				//If this is just the one thing, we might move this inside DonationData for clarity's sake...
-				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form ) ) );
+				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ) );
 			}
 		} else {
 			//No special type... let's add this to the form stack and call it good.
