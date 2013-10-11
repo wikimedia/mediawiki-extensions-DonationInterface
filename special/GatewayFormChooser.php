@@ -306,7 +306,27 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			return key ( $valid_forms );
 		}
 		
-		//Hell: we're still here. Throw a freaking dart.
-		return array_rand( $valid_forms );
+		//Hell: we're still here. Throw a freaking dart
+		$total_weight = 0;
+		foreach ( array_keys( $valid_forms ) as $form_name ) {
+			if ( !array_key_exists( 'selection_weight', $valid_forms[$form_name] ) ) {
+				$valid_forms[$form_name]['selection_weight'] = 100;
+			}
+			$form_weight = $valid_forms[$form_name]['selection_weight'];
+			if ( $form_weight === 0 ) {
+				unset( $valid_forms[$form_name] );
+				continue;
+			}
+			$total_weight += $form_weight;
+		}
+		$count = 0;
+		$randN = rand( 1, $total_weight );
+		foreach ( $valid_forms as $form_name => $meta ) {
+			$count += $meta['selection_weight'];
+			if ( $randN <= $count ) {
+				return $form_name;
+			}
+		}
+		return null;
 	}
 }
