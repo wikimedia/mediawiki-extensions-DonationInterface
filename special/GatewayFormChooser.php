@@ -72,9 +72,16 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * Build a URL to a payments form, with the data that we have.
+	 * If we have supplied no form_key, it will build a URL to the form
+	 * chooser itself, so we can get a new one that satisfies the
+	 * requirements specified in $other_params
 	 * $other_params will override everything except $form_key (ffname)
-	 * @param type $form_key
-	 * @param type $other_params
+	 * @param string $form_key The ffname we would like to go back to. In
+	 * the event that none is supplied, you'll go back to the Form Chooser
+	 * to get one.
+	 * @param array $other_params An array of any params that DonationData
+	 * will harvest and understand.
 	 */
 	static function buildPaymentsFormURL( $form_key, $other_params = array ( ) ) {
 		// And... construct the URL
@@ -90,15 +97,38 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		$params = array_merge( $params, $other_params );
 
-		$form_info = self::getFormDefinition( $form_key );
+		$rechoose = false;
+		if ( !strlen( $form_key ) ) {
+			//send them to the form chooser itself.
+			$rechoose = true;
+		}
 
-		if ( DataValidator::value_appears_in( 'redirect', $form_info ) ) {
-			$params['redirect'] = '1';
+		$specialpage = '';
+		if ( $rechoose ) {
+			$specialpage = 'GatewayFormChooser';
+		} else {
+			$form_info = self::getFormDefinition( $form_key );
+
+			if ( DataValidator::value_appears_in( 'redirect', $form_info ) ) {
+				$params['redirect'] = '1';
+			}
+
+			//support for multi-gateway forms, and error forms
+			$gateway = $form_info['gateway'];
+
+			if ( is_array( $gateway ) ) {
+				if ( array_key_exists( 'gateway', $params ) && in_array( $params['gateway'], $gateway ) ) {
+					$gateway = $params['gateway'];
+				} else {
+					throw new MWException( __FUNCTION__ . " Cannot determine appropriate gateway to use for ffname '$form_key'. " );
+				}
+			}
+
+			$specialpage = ucfirst( $gateway ) . "Gateway";
 		}
 
 		// set the default redirect
-		//TODO: this is going to be a problem here if we start defining more than one gateway per form.
-		return self::getTitleFor( ucfirst( $form_info['gateway'] ) . "Gateway" )->getLocalUrl( $params );
+		return self::getTitleFor( $specialpage )->getLocalUrl( $params );
 	}
 
 	/**
@@ -152,7 +182,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				unset( $forms[$name] );
 				continue;
 			}
-			
+
+			// filter out all special forms (like error pages)
+			if ( array_key_exists( 'special_type', $meta ) ) {
+				unset( $forms[$name] );
+				continue;
+			}
+
 			//filter on country
 			if ( !is_null( $country ) && !DataValidator::value_appears_in( $country, $meta['countries'] ) ) {
 				unset( $forms[$name] );
@@ -329,4 +365,70 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 		return null;
 	}
+
+	/**
+	 * Get the best defined error form for all your error form needs!
+	 * ...based on gateway, method, and optional submethod.
+	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
+	 * @param string $gateway The gateway used for the payment that failed
+	 * @param string $payment_method The code for the payment method that failed
+	 * @param string $payment_submethod Code for the payment submethod that failed
+	 */
+	static function getBestErrorForm( $gateway, $payment_method, $payment_submethod = null ) {
+		global $wgDonationInterfaceAllowedHtmlForms;
+		$error_forms = array ( );
+		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $data ) {
+			if ( array_key_exists( 'special_type', $data ) && $data['special_type'] === 'error' ) {
+				$is_match = true;
+				$group = 2; //default group
+				//check to make sure it fits our needs.
+				if ( is_array( $data['gateway'] ) ) {
+					if ( !in_array( $gateway, $data['gateway'] ) ) {
+						$is_match = false;
+					}
+				} else { //not an array
+					if ( $data['gateway'] !== $gateway ) {
+						$is_match = false;
+					}
+				}
+
+				if ( $is_match ) {
+					//if no payment methods specified in the error form, we don't have to throw it away...
+					if ( array_key_exists( 'payment_methods', $data ) ) {
+						if ( !array_key_exists( $payment_method, $data['payment_methods'] ) ) {
+							//key exists, but we're not in there.
+							$is_match = false;
+						} else {
+							$group = 1; //payment method specificity
+							if ( !is_null( $payment_submethod ) && !in_array( $payment_submethod, $data['payment_methods'] ) && !in_array( 'ALL', $data['payment_methods'] ) ) {
+								$is_match = false;
+							} else {
+								$group = 0; //payment submethod specificity
+							}
+						}
+					}
+				}
+
+				if ( $is_match ) {
+					$error_forms[$group][$ffname] = $data;
+				}
+			}
+		}
+
+		if ( !sizeof( $error_forms ) ) {
+			throw new MWException( __FUNCTION__ . "No RapidHTML Error form found for gateway '$gateway', method '$payment_method', submethod '$payment_submethod'" );
+		}
+
+		//sort the error_forms by $group; get the most specific form defined
+		ksort( $error_forms );
+
+		//Currently, $error_forms[$group][$ffname] = $data,
+		//with the most specific error forms in the top $group.
+		//So, get rid of all but the top group and collapse.
+		$error_forms = reset( $error_forms ); //top group
+		//now, $error_forms[$ffname] = $data. So, return the top key.
+		reset( $error_forms ); //top form from that group (there must be at least one for the key to exist)
+		return key( $error_forms );
+	}
+
 }
