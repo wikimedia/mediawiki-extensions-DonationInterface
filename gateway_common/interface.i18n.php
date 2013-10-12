@@ -810,10 +810,12 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 * $1 - link back to the form to try another credit card
 * $2 - link to other payment methods
 * $3 - an e-mail address link such as: mailto:someone@example.com',
-	'donate_interface-donate-error-try-again-html' => 'This html-formatted message will be used on dynamic error pages for all payment types. Parameters:
+	'donate_interface-donate-error-try-again-html' => 'This html-formatted message will be used on dynamic error pages for all payment types.
+
+Parameters:
 * $1 - link back to the payments form most recently used by the donor, to try again
 * $2 - link to other payment methods
-* $3 - an e-mail address, where the donor can report problems. Example: problemsdonating@wikimedia.org',
+* $3 - an email address, where the donor can report problems. Example: problemsdonating@wikimedia.org',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Thank you for your support!',
 	'donate_interface-error-no-form' => 'Error message given if no form or payment method is available in this language/country/currency.',
 	'php-response-declined' => 'Error message if the translaction was declined.',
@@ -18833,6 +18835,7 @@ $messages['mk'] = array(
 	'donate_interface-error-msg-country-calc' => 'Грешка - Во моментов не можеме да ја примиме уплатата.',
 	'donate_interface-error-msg-fiscal_number' => 'фискален број',
 	'donate_interface-donate-error-try-a-different-card' => 'Ве молиме [$1 обидете се со друга картичка] или еден од [$2 другите начини на дарување], или пак контактирајте нè на $3',
+	'donate_interface-donate-error-try-again-html' => '<a href="$1">Обидете се повторно</a>, пробајте со <a href="$2">другите начини на дарување</a> или пак обратате ни се на <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Ви благодариме за Вашата поддршка!',
 	'donate_interface-error-no-form' => 'Не можам да проанјдам образец за доброволни прилози што одговара на зададените параметри. За повеќе информации, обратете се на нашето [mailto:donate@wikimedia.org биро за помош].',
 	'php-response-declined' => 'Плаќањето не е прифатено.',
@@ -25479,6 +25482,7 @@ $messages['ru'] = array(
 	'donate_interface-error-msg-country-calc' => 'Ошибка - мы не можем принять ваше пожертвование сейчас.',
 	'donate_interface-error-msg-fiscal_number' => 'налоговый номер',
 	'donate_interface-donate-error-try-a-different-card' => 'Пожалуйста, [$1 попробуйте другую карту] или выберите [$2 другой способ сделать пожертвование], либо свяжитесь с нами по адресу $3',
+	'donate_interface-donate-error-try-again-html' => 'Пожалуйста, <a href="$1">попробуйте ещё раз</a>, попробуйте один из <a href="$2">других способов пожертвования</a> или свяжитесь с нами по адресу <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Спасибо за Вашу поддержку!',
 	'donate_interface-error-no-form' => 'Мы не смогли найти форму пожертвований, соответствующую заданным вами параметрам. Пожалуйста, свяжитесь с [mailto:donate@wikimedia.org нашей командой поддержки] для получения дополнительной информации.',
 	'php-response-declined' => 'Ваша транзакция не может быть принята.',
@@ -31372,6 +31376,7 @@ $messages['uk'] = array(
 	'donate_interface-error-msg-country-calc' => 'Помилка — Ми не можемо прийняти Вашу пожертву зараз.',
 	'donate_interface-error-msg-fiscal_number' => 'фіскальний номер',
 	'donate_interface-donate-error-try-a-different-card' => "Будь ласка, [$1 спробуйте скористатися іншою карткою], одним із інших [$2 способів пожертви] чи зв'яжіться з нами через $3",
+	'donate_interface-donate-error-try-again-html' => 'Будь ласка, <a href="$1"> спробуйте ще раз</a>, спробуйте виконати один з наших <a href="$2"> інших способів, щоб подати</a>, або зв\'яжіться з нами по<a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Дякуємо за вашу підтримку!',
 	'donate_interface-error-no-form' => "Нам не вдалося знайти форму пожертви, що співпадає з вашими параметрами. Будь ласка, зв'яжіться з [mailto:donate@wikimedia.org нашою командою допомоги] за детальнішою інформацією.",
 	'php-response-declined' => 'Ваша транзакція не може бути прийнята.',
