@@ -193,6 +193,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 	function do_transaction( $transaction ) {
 		global $wgRequest, $wgOut;
+		$this->session_addDonorData();
 
 		$this->setCurrentTransaction( $transaction );
 
@@ -227,7 +228,6 @@ class AmazonAdapter extends GatewayAdapter {
 		switch ( $transaction ) {
 			case 'Donate':
 			case 'DonateMonthly':
-				$this->addDonorDataToSession();
 				$query_str = $this->encodeQuery( $query );
 				$this->log_special( "At $transaction, redirecting with query string: $query_str", LOG_DEBUG );
 				
@@ -248,24 +248,22 @@ class AmazonAdapter extends GatewayAdapter {
 
 				parent::do_transaction( $transaction );
 
-				if ( $this->getTransactionWMFStatus() == 'complete' ) {
+				if ( $this->getFinalStatus() == 'complete' ) {
 					$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
 					$this->runPostProcessHooks();
 					$this->doLimboStompTransaction( true );
 				}
-				$this->unsetAllSessionData();
 				return;
 
 			case 'ProcessAmazonReturn':
 				// What we need to do here is make sure
 				$this->addDataFromURI();
 				$this->analyzeReturnStatus();
-				$this->unsetAllSessionData();
 				return;
 
 			default:
 				$this->log_special( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				return;
 		}
 	}
@@ -279,30 +277,30 @@ class AmazonAdapter extends GatewayAdapter {
 
 	/**
 	 * Looks at the 'status' variable in the amazon return URL get string and places the data
-	 * in the appropriate WMF status and sends to STOMP.
+	 * in the appropriate Final Status and sends to STOMP.
 	 */
 	protected function analyzeReturnStatus() {
-		// We only want to analyze this if we don't already have a WMF status... Therefore we
+		// We only want to analyze this if we don't already have a Final Status... Therefore we
 		// won't overwrite things.
-		if ( $this->getTransactionWMFStatus() === false ) {
+		if ( $this->getFinalStatus() === false ) {
 
 			$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
 			$this->setTransactionResult( $txnid, 'gateway_txn_id' );
 
 			// Second make sure that the inbound request had a matching outbound session. If it
 			// doesn't we drop it.
-			if ( !$this->dataObj->hasDonorDataInSession( 'order_id', $this->getData_Unstaged_Escaped( 'order_id' ) ) ) {
+			if ( !self::session_hasDonorData( 'order_id', $this->getData_Unstaged_Escaped( 'order_id' ) ) ) {
 
 				// We will however log it if we have a seemingly valid transaction id
 				if ( $txnid != null ) {
 					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 					$this->log_special( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
 					if ( $this->getGlobal( 'UseOrderIdValidation' ) ) {
-						$this->setTransactionWMFStatus( 'failed' );
+						$this->finalizeInternalStatus( 'failed' );
 						return;
 					}
 				} else {
-					$this->setTransactionWMFStatus( 'failed' );
+					$this->finalizeInternalStatus( 'failed' );
 					return;
 				}
 			}
@@ -314,12 +312,12 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->log_special( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ), LOG_INFO );
 			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
 				case 'PS':  // Payment success
-					$this->setTransactionWMFStatus( 'complete' );
+					$this->finalizeInternalStatus( 'complete' );
 					$this->doStompTransaction();
 					break;
 
 				case 'PI':  // Payment initiated, it will complete later
-					$this->setTransactionWMFStatus( 'pending' );
+					$this->finalizeInternalStatus( 'pending' );
 					$this->doStompTransaction();
 					break;
 
@@ -329,11 +327,11 @@ class AmazonAdapter extends GatewayAdapter {
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
 					$this->log_special( "Transaction $txnid failed with ($status) $errString", LOG_INFO );
-					$this->setTransactionWMFStatus( 'failed' );
+					$this->finalizeInternalStatus( 'failed' );
 					break;
 			}
 		} else {
-			$this->log_special( 'Apparently we attempted to process a transaction with no WMF status... Odd', LOG_ERR );
+			$this->log_special( 'Apparently we attempted to process a transaction that already had a final status... Odd', LOG_ERR );
 		}
 	}
 
@@ -356,7 +354,7 @@ class AmazonAdapter extends GatewayAdapter {
 	function processResponse( $response, &$retryVars = null ) {
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
 			$this->log_special( "Transaction failed in response data verification.", LOG_INFO );
-			$this->setTransactionWMFStatus( 'failed' );
+			$this->finalizeInternalStatus( 'failed' );
 		}
 	}
 

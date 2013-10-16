@@ -44,7 +44,7 @@ interface GatewayType {
 	/**
 	 * Perform any additional processing on the response obtained from the server.
 	 *
-	 * @param array $response   The WMF response object array -> ie: data, errors, action...
+	 * @param array $response   The internal response object array -> ie: data, errors, action...
 	 * @param       $retryVars  null|array If the transaction suffered a recoverable error, this
 	 *  will be an array of all variables that need to be recreated and restaged.
 	 *
@@ -206,7 +206,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * empty after a transaction.
 	 * - 'action' => The validation action (anti-fraud results)
 	 * Keys that might also exist:
-	 * - 'WMF_STATUS' => The final outcome of an entire donation workflow.
+	 * - 'FINAL_STATUS' => The final outcome of an entire donation workflow.
 	 * - 'result' => Raw return data from the cURL transaction
 	 * - 'txn_message' - Special case internal messages about the success or
 	 * failure of the transaction. Not widely used.
@@ -283,8 +283,8 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 		
-		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
-		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
+		//checking to see if we have an edit token in the request...
+		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $wgRequest->getVal( 'token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -408,11 +408,12 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Checks the edit tokens in the user's session against the one gathered 
 	 * from populated form data.  
 	 * Adds a string to the debugarray, to make it a little easier to tell what 
-	 * happened if we turn the debug results on.  
+	 * happened if we turn the debug results on.
+	 * Only called from the .body pages
 	 * @return boolean true if match, else false.  
 	 */
 	public function checkTokens() {
-		$checkResult = $this->dataObj->token_checkTokens();
+		$checkResult = $this->token_checkTokens();
 
 		if ( $checkResult ) {
 			if ($this->dataObj->isCaching()){
@@ -888,6 +889,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *		key-value array.
 	 */
 	public function do_transaction( $transaction ) {
+		$this->session_addDonorData();
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
 			$return = array(
@@ -918,9 +920,6 @@ abstract class GatewayAdapter implements GatewayType {
 				$this->unstaged_data = $this->dataObj->getDataEscaped();
 				$this->staged_data = $this->unstaged_data;
 				$this->stageData();
-
-				// Refreshes any session data
-				$this->addDonorDataToSession();
 			}
 
 		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < 3 ) );
@@ -978,8 +977,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 			if ( $this->getCommunicationType() === 'redirect' ) {
 				wfRunHooks( 'GatewayHandoff', array( $this ) );
-
-				$this->addDonorDataToSession();
 
 				$this->transaction_results = array(
 					'status' => TRUE,
@@ -1064,7 +1061,7 @@ abstract class GatewayAdapter implements GatewayType {
 					if ( $txn_ok === false ) {
 						$stopflag = false;
 					} else {
-						if ( !in_array( $this->getTransactionWMFStatus(), $statuses ) ) {
+						if ( !in_array( $this->getFinalStatus(), $statuses ) ) {
 							$stopflag = false;
 						}
 					}
@@ -1637,9 +1634,9 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * addCodeRange is used to define ranges of response codes for major WMF
-	 * donation-making gateway transactions, that let us know what status bucket
-	 * to sort them into.
+	 * addCodeRange is used to define ranges of response codes for major
+	 * gateway transactions, that let us know what status bucket to sort
+	 * them into.
 	 * DO NOT DEFINE OVERLAPPING RANGES!
 	 * TODO: Make sure it won't let you add overlapping ranges. That would
 	 * probably necessitate the sort moving to here, too.
@@ -1657,7 +1654,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
 		//our choices here are: 
 		//TODO: Move this somewhere both this function and 
-		//setTransactionWMFStatus can get to it. 
+		//finalizeInternalStatus can get to it. 
 		$statuses = array(
 			'complete', 
 			'pending', 
@@ -1666,7 +1663,7 @@ abstract class GatewayAdapter implements GatewayType {
 			'revised'
 		);
 		if ( !in_array( $action, $statuses ) ) {
-			throw new MWException( "Transaction WMF Status $action is invalid." );
+			throw new MWException( "Internal Final Status $action is invalid." );
 		}
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
@@ -1735,44 +1732,12 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Adds donor data to the user's session, presumably for retrieval before we 
-	 * unset all the session data. 
-	 * An example of a time you would want to use this, is when fetching 
-	 * GlobalCollect's credit card iFrame. They need the donor data, but don't 
-	 * pass it back to us, so we have to hold on to it somehow prior to the 
-	 * point we save it to the database (on successful conversion)
-	 */
-	public function addDonorDataToSession() {
-		$this->dataObj->addDonorDataToSession();
-	}
-
-	/**
-	 * Pushes a RapidHTML form to the user's session, so we have the option
-	 * to usefully go back to the last available one.
-	 * This should only be used when we actually load a good one.
-	 * @param type $form
-	 */
-	public function pushRapidHTMLForm( $form ) {
-		$this->dataObj->pushRapidHTMLForm( $form );
-	}
-
-	/**
-	 * Destroys the session completely. 
-	 * Note: This will leave the cookie behind! It just won't go to anything at 
-	 * all. 
-	 */
-	function unsetAllSessionData() {
-		$this->dataObj->killAllSessionEverything();
-		$this->debugarray[] = 'Killed all the session everything.';
-	}
-
-	/**
 	 * Saves a stomp frame to the configured server and queue, based on the 
 	 * outcome of our current transaction. 
-	 * The big tricky thing here, is that we DO NOT SET a TransactionWMFStatus, 
+	 * The big tricky thing here, is that we DO NOT SET a FinalStatus, 
 	 * unless we have just learned what happened to a donation in progress, 
 	 * through performing the current transaction. 
-	 * To put it another way, getTransactionWMFStatus should always return 
+	 * To put it another way, getFinalStatus should always return 
 	 * false, unless it's new data about a new transaction. In that case, the 
 	 * outcome will be assigned and the proper stomp hook selected. 
 	 * 
@@ -1790,7 +1755,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$queue = 'default';
 
-		$status = $this->getTransactionWMFStatus();
+		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case 'complete':
 				$queue = 'default';
@@ -2056,24 +2021,24 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * If it has been set: returns the WMF Transaction Status in the 
+	 * If it has been set: returns the final payment status in the
 	 * $transaction_results array. This is the one we care about for switching 
 	 * on overall behavior. Otherwise, returns false.
-	 * @return mixed WMF Transaction results status, or false if not set. 
+	 * @return mixed Final Transaction results status, or false if not set.
 	 * Possible valid statuses are: 'complete', 'pending', 'pending-poke', 'failed' and 'revised'.
 	 */
-	public function getTransactionWMFStatus() {
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'WMF_STATUS', $this->transaction_results ) ) {
-			return $this->transaction_results['WMF_STATUS'];
+	public function getFinalStatus() {
+		if ( is_array( $this->transaction_results ) && array_key_exists( 'FINAL_STATUS', $this->transaction_results ) ) {
+			return $this->transaction_results['FINAL_STATUS'];
 		} else {
 			return false;
 		}
 	}
 
 	/**
-	 * Sets the WMF Transaction Status. This is the one we care about for
+	 * Sets the final payment status. This is the one we care about for
 	 * switching on behavior.
-	 * DO NOT SET THE WMF STATUS unless you've just taken an entire donation
+	 * DO NOT SET THE FINAL STATUS unless you've just taken an entire donation
 	 * process to completion: This status being set at all, denotes the very end
 	 * of the donation process on our end. Further attempts by the same user
 	 * will be seen as starting over.
@@ -2082,7 +2047,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * 'failed', 'revised'
 	 * @throws MWException
 	 */
-	public function setTransactionWMFStatus( $status ) {
+	public function finalizeInternalStatus( $status ) {
 		//our choices here are: 
 		$statuses = array(
 			'complete', 
@@ -2092,21 +2057,46 @@ abstract class GatewayAdapter implements GatewayType {
 			'revised'
 		);
 		if ( !in_array( $status, $statuses ) ) {
-			throw new MWException( "Transaction WMF Status $status is invalid." );
+			throw new MWException( "Transaction Final Status $status is invalid." );
 		}
-		
-		$this->logTransactionWMFStatus( $status );
-		
-		$this->transaction_results['WMF_STATUS'] = $status;
+
+		/**
+		 * Handle session stuff!
+		 * -Behavior-
+		 * * Always, always increment numAttempt.
+		 * * complete/pending/pending-poke: Reset for potential totally
+		 * new payment, but keep numAttempt and other antifraud things
+		 * (velocity data) around.
+		 * * failed: KEEP all donor data around unless numAttempt has
+		 * hit its max, but kill the ctid (in the likely case that it
+		 * was an honest mistake)
+		 */
+		$this->incrementNumAttempt();
+		$force = false;
+		switch ( $status ) {
+			case 'complete':
+			case 'pending':
+			case 'pending-poke':
+				$force = true;
+				break;
+			case 'failed':
+			case 'revised':
+				$force = false;
+				break;
+		}
+		$this->session_resetForNewAttempt( $force );
+
+		$this->logFinalStatus( $status );
+		$this->transaction_results['FINAL_STATUS'] = $status;
 	}
 	
 	/**
-	 * Easily-child-overridable log component of setting the WMF transaction 
-	 * status, which will only ever be set at the very end of a transaction 
-	 * workflow.
+	 * Easily-child-overridable log component of setting the final
+	 * transaction status, which will only ever be set at the very end of a
+	 * transaction workflow.
 	 * @param type $status
 	 */
-	public function logTransactionWMFStatus( $status ){
+	public function logFinalStatus( $status ){
 		$msg = $this->getLogMessagePrefix();
 		
 		$action = $this->getValidationAction();
@@ -2246,9 +2236,23 @@ abstract class GatewayAdapter implements GatewayType {
 		return $return;
 	}
 
-	public function incrementNumAttempt() {
-		$this->dataObj->incrementNumAttempt();
-		$this->refreshGatewayValueFromSource( 'numAttempt' );
+	/**
+	 * Adds one to the 'numAttempt' field we use to keep track of how many
+	 * times a donor has attempted a payment, in a session.
+	 * When they first show up (or get their token/session reset), it should
+	 * be set to '0'.
+	 */
+	protected function incrementNumAttempt() {
+		self::session_ensure();
+		$attempts = self::session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
+		if ( is_numeric( $attempts ) ) {
+			$attempts += 1;
+		} else {
+			//assume garbage = 0, so...
+			$attempts = 1;
+		}
+
+		$_SESSION['numAttempt'] = $attempts;
 	}
 
 	public function setHash( $hashval ) {
@@ -2298,7 +2302,6 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $this->getValidationAction() == 'reject' ) {
 			// expose a hook for external handling of trxns flagged for rejection
 			wfRunHooks( 'GatewayReject', array( &$this ) );
-			$this->unsetAllSessionData();
 		}
 	}
 
@@ -2412,25 +2415,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->action = 'process';
 		}
 		return $this->action;
-	}
-
-	/**
-	 * Checks to see if we have donor data in our session.
-	 * This can be useful for determining if a user should be at a certain point
-	 * in the workflow for certain gateways. For example: This is used on the
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to
-	 * determine if the user is actually in the process of making a credit card
-	 * transaction.
-	 * @param bool|string $key Optional: A particular key to check against the
-	 * donor data in session.
-	 * @param string $value Optional (unless $key is set): A value that the $key
-	 * should contain, in the donor session.
-	 * @return boolean true if the session contains donor data (and if the data
-	 * key matches, when key and value are set), and false if there is no donor
-	 * data (or if the key and value do not match)
-	 */
-	public function hasDonorDataInSession( $key = false, $value= '' ){
-		return $this->dataObj->hasDonorDataInSession( $key, $value );
 	}
 	
 	/**
@@ -2700,13 +2684,357 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Check to see if the session exists.
+	 */
+	public static function session_exists() {
+		if ( session_id() ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * session_ensure
+	 * Ensure that we have a session set for the current user.
+	 * If we do not have a session set for the current user,
+	 * start the session.
+	 * BE CAREFUL with this one, as creating sessions willy-nilly will break
+	 * squid caching for reasons that are not immediately obvious.
+	 * (See DonationData::doCacheStuff, and basically everything about setting
+	 * headers in $wgOut)
+	 */
+	public static function session_ensure() {
+		// if the session is already started, do nothing
+		if ( self::session_exists() ) {
+			return;
+		}
+
+		// otherwise, fire it up using global mw function wfSetupSession
+		wfSetupSession();
+	}
+
+	/**
+	 * Retrieve data from the sesion if it's set, and null if it's not.
+	 * @param string $key The array key to return from the session.
+	 * @param string $subkey Optional: The subkey to return from the session.
+	 * Only really makes sense if $key is an array.
+	 * @return mixed The session value if present, or null if it is not set.
+	 */
+	public static function session_getData( $key, $subkey = null ) {
+		if ( is_array( $_SESSION ) && array_key_exists( $key, $_SESSION ) ) {
+			if ( is_null( $subkey ) ) {
+				return $_SESSION[$key];
+			} else {
+				if ( is_array( $_SESSION[$key] ) && array_key_exists( $subkey, $_SESSION[$key] ) ) {
+					return $_SESSION[$key][$subkey];
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Checks to see if we have donor data in our session.
+	 * This can be useful for determining if a user should be at a certain point
+	 * in the workflow for certain gateways. For example: This is used on the
+	 * outside of the adapter in GlobalCollect's resultswitcher page, to
+	 * determine if the user is actually in the process of making a credit card
+	 * transaction.
+	 * @param bool|string $key Optional: A particular key to check against the
+	 * donor data in session.
+	 * @param string $value Optional (unless $key is set): A value that the $key
+	 * should contain, in the donor session.
+	 * @return boolean true if the session contains donor data (and if the data
+	 * key matches, when key and value are set), and false if there is no donor
+	 * data (or if the key and value do not match)
+	 */
+	public static function session_hasDonorData( $key = false, $value = '' ) {
+		if ( self::session_exists() && !is_null( self::session_getData( 'Donor' ) ) ) {
+			if ( $key === false ) {
+				return true;
+			}
+			if ( self::session_getData( 'Donor', $key ) === $value ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Unsets the session data, in the case that we've saved it for gateways
+	 * like GlobalCollect that require it to persist over here through their
+	 * iframe experience.
+	 */
+	public static function session_unsetDonorData() {
+		if ( self::session_hasDonorData() ) {
+			unset( $_SESSION['Donor'] );
+		}
+	}
+
+	/**
+	 * Removes any old donor data from the session, and adds the current set.
+	 * This will be used internally every time we call do_transaction.
+	 */
+	public function session_addDonorData() {
+		self::session_ensure();
+		$_SESSION['Donor'] = array ( );
+		$donordata = DonationData::getStompMessageFields();
+		$donordata[] = 'order_id';
+
+		foreach ( $donordata as $item ) {
+			$_SESSION['Donor'][$item] = $this->getData_Unstaged_Escaped( $item );
+		}
+	}
+
+	/**
+	 * This should kill the session as hard as possible.
+	 * It will leave the cookie behind, but everything it could possibly
+	 * reference will be gone.
+	 */
+	public function session_killAllEverything() {
+		//yes: We do need all of these things, to be sure we're killing the
+		//correct session data everywhere it could possibly be.
+		self::session_ensure(); //make sure we are killing the right thing.
+		session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
+		session_destroy(); //killed on the server.
+	}
+
+	/**
+	 * Destroys the session completely.
+	 * ...including session velocity data, and the form stack. So, you
+	 * probably just shouldn't. Please consider session_reset instead. Please.
+	 * Note: This will leave the cookie behind! It just won't go to anything at
+	 * all.
+	 */
+	public function session_unsetAllData() {
+		$this->session_killAllEverything();
+		$this->debugarray[] = 'Killed all the session everything.';
+	}
+
+	/**
+	 * For those times you want to have the user functionally start over
+	 * without, you know, cutting your entire head off like you do with
+	 * session_unsetAllData().
+	 * @param string $force Behavior Description:
+	 * $force = true: Reset for potential totally new payment, but keep
+	 * numAttempt and other antifraud things (velocity data) around.
+	 * $force = false: Keep all donor data around unless numAttempt has hit
+	 * its max, but kill the ctid (in the likely case that it was an honest
+	 * mistake)
+	 */
+	public function session_resetForNewAttempt( $force = false ) {
+		$reset = $force;
+		if ( self::session_getData( 'numAttempt' ) > 3 ) {
+			$reset = true;
+			$_SESSION['numAttempt'] = 0;
+		}
+
+		if ( $reset ) {
+			$this->session_unsetDonorData();
+			//leave the payment forms and antifraud data alone.
+			//but, under no circumstances should the gateway edit
+			//token appear in the preserve array...
+			$preserve_main = array (
+				'DonationInterface_SessVelocity',
+				'PaymentForms',
+				'numAttempt',
+				'order_status', //for post-payment activities
+			);
+			foreach ( $_SESSION as $key => $value ) {
+				if ( !in_array( $key, $preserve_main ) ) {
+					unset( $_SESSION[$key] );
+				}
+			}
+		} else {
+			//I'm sure we could put more here...
+			$soft_reset = array (
+				'contribution_tracking_id',
+				'order_id',
+			);
+			foreach ( $soft_reset as $reset_me ) {
+				unset( $_SESSION[$reset_me] );
+			}
+		}
+	}
+
+	/**
+	 * Add a RapidHTML Form (ffname) to this abridged history of where we've
+	 * been in this session. This lets us do things like construct useful
+	 * "back" links that won't crush all session everything.
+	 * @param string $form_key The 'ffname' that RapidHTML uses to load a
+	 * payments form. Additional: ffname maps to a first-level key in
+	 * $wgDonationInterfaceAllowedHtmlForms
+	 */
+	public function session_pushRapidHTMLForm( $form_key ) {
+		self::session_ensure();
+
+		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
+			$_SESSION['PaymentForms'] = array ( );
+		}
+
+		//don't want duplicates
+		if ( $this->session_getLastRapidHTMLForm() != $form_key ) {
+			$_SESSION['PaymentForms'][] = $form_key;
+		}
+	}
+
+	/**
 	 * Get the 'ffname' of the last RapidHTML payment form that successfully
 	 * loaded for this session.
 	 * @return mixed ffname of the last valid payments form if there is one,
 	 * otherwise false.
 	 */
-	public function getLastRapidHTMLForm() {
-		return $this->dataObj->getLastRapidHTMLForm();
+	public function session_getLastRapidHTMLForm() {
+		self::session_ensure();
+		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
+			return false;
+		} else {
+			return end( $_SESSION['PaymentForms'] );
+		}
+	}
+
+	/**
+	 * token_applyMD5AndSalt
+	 * Takes a clear-text token, and returns the MD5'd result of the token plus
+	 * the configured gateway salt.
+	 * @param string $clear_token The original, unsalted, unencoded edit token.
+	 * @return string The salted and MD5'd token.
+	 */
+	protected static function token_applyMD5AndSalt( $clear_token ) {
+		$salt = self::getGlobal( 'Salt' );
+
+		if ( is_array( $salt ) ) {
+			$salt = implode( "|", $salt );
+		}
+
+		$salted = md5( $clear_token . $salt ) . EDIT_TOKEN_SUFFIX;
+		return $salted;
+	}
+
+	/**
+	 * token_generateToken
+	 * Generate a random string to be used as an edit token.
+	 * @param string $padding A string with which we could pad out the random hex
+	 * further.
+	 * @return string
+	 */
+	public static function token_generateToken( $padding = '' ) {
+		$token = dechex( mt_rand() ) . dechex( mt_rand() );
+		return md5( $token . $padding );
+	}
+
+	/**
+	 * Establish an 'edit' token to help prevent CSRF, etc.
+	 *
+	 * We use this in place of $wgUser->editToken() b/c currently
+	 * $wgUser->editToken() is broken (apparently by design) for
+	 * anonymous users.  Using $wgUser->editToken() currently exposes
+	 * a security risk for non-authenticated users.  Until this is
+	 * resolved in $wgUser, we'll use our own methods for token
+	 * handling.
+	 *
+	 * Public so the api can get to it.
+	 *
+	 * @return string
+	 */
+	public static function token_getSaltedSessionToken() {
+		// make sure we have a session open for tracking a CSRF-prevention token
+		self::session_ensure();
+
+		$gateway_ident = self::getIdentifier();
+
+		if ( !isset( $_SESSION[$gateway_ident . 'EditToken'] ) ) {
+			// generate unsalted token to place in the session
+			$token = self::token_generateToken();
+			$_SESSION[$gateway_ident . 'EditToken'] = $token;
+		} else {
+			$token = $_SESSION[$gateway_ident . 'EditToken'];
+		}
+
+		return self::token_applyMD5AndSalt( $token );
+	}
+
+	/**
+	 * token_refreshAllTokenEverything
+	 * In the case where we have an expired session (token mismatch), we go
+	 * ahead and fix it for 'em for their next post. We do this by refreshing
+	 * everything that has to do with the edit token.
+	 */
+	protected function token_refreshAllTokenEverything() {
+		$unsalted = self::token_generateToken();
+		$gateway_ident = self::getIdentifier();
+		self::session_ensure();
+		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
+		$salted = $this->token_getSaltedSessionToken();
+
+		$this->addData( array ( 'token' => $salted ) );
+	}
+
+	/**
+	 * token_matchEditToken
+	 * Determine the validity of a token by checking it against the salted
+	 * version of the clear-text token we have already stored in the session.
+	 * On failure, it resets the edit token both in the session and in the form,
+	 * so they will match on the user's next load.
+	 *
+	 * @var string $val
+	 * @return bool
+	 */
+	protected function token_matchEditToken( $val ) {
+		// fetch a salted version of the session token
+		$sessionSaltedToken = $this->token_getSaltedSessionToken();
+		if ( $val != $sessionSaltedToken ) {
+			$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ": broken session data\n", LOG_DEBUG );
+			//and reset the token for next time.
+			$this->token_refreshAllTokenEverything();
+		}
+		return $val === $sessionSaltedToken;
+	}
+
+	/**
+	 * token_checkTokens
+	 * The main function to check the salted and MD5'd token we should have
+	 * saved and gathered from $wgRequest, against the clear-text token we
+	 * should have saved to the user's session.
+	 * token_getSaltedSessionToken() will start off the process if this is a
+	 * first load, and there's no saved token in the session yet.
+	 * @staticvar string $match
+	 * @return type
+	 */
+	protected function token_checkTokens() {
+		static $match = null; //because we only want to do this once per load.
+
+		if ( $match === null ) {
+			if ( $this->isCaching() ) {
+				//This makes sense.
+				//If all three conditions for caching are currently true, the
+				//last thing we want to do is screw it up by setting a session
+				//token before the page loads, because sessions break caching.
+				//The API will set the session and form token values immediately
+				//after that first page load, which is all we care about saving
+				//in the cache anyway.
+				return true;
+			}
+
+			// establish the edit token to prevent csrf
+			$token = $this->token_getSaltedSessionToken();
+
+			$this->log( $this->getLogMessagePrefix() . ' editToken: ' . $token, LOG_DEBUG );
+
+			// match token
+			if ( !$this->dataObj->isSomething( 'token' ) ) {
+				$this->addData( array ( 'token' => $token ) );
+			}
+			$token_check = $this->getData_Unstaged_Escaped( 'token' );
+
+			$match = $this->token_matchEditToken( $token_check );
+			if ( $this->dataObj->wasPosted() ) {
+				$this->log( $this->getLogMessagePrefix() . ' Submitted edit token: ' . $this->getData_Unstaged_Escaped( 'token' ), LOG_DEBUG );
+				$this->log( $this->getLogMessagePrefix() . ' Token match: ' . ($match ? 'true' : 'false' ), LOG_DEBUG );
+			}
+		}
+
+		return $match;
 	}
 
 }

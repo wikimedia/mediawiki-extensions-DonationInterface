@@ -38,7 +38,7 @@ class AdyenGatewayResult extends GatewayForm {
 		//preventing you from doing something, you almost certainly want to be 
 		//somewhere else. 
 		$forbidden = false;
-		if ( !$this->adapter->hasDonorDataInSession() ) {
+		if ( !$this->adapter->session_hasDonorData() ) {
 			$forbidden = true;
 			$f_message = 'No active donation in the session';
 		}
@@ -50,7 +50,7 @@ class AdyenGatewayResult extends GatewayForm {
 
 		$referrer = $this->getRequest()->getHeader( 'referer' );
 		$liberated = false;
-		if ( array_key_exists( 'order_status', $_SESSION ) && array_key_exists( $oid, $_SESSION[ 'order_status' ] ) && $_SESSION[ 'order_status' ][ $oid ] == 'liberated' ){
+		if ( $this->adapter->session_getData( 'order_status', $oid ) === 'liberated' ) {
 			$liberated = true;
 		}
 
@@ -83,7 +83,7 @@ class AdyenGatewayResult extends GatewayForm {
 				$this->getOutput()->allowClickjacking();
 				$this->getOutput()->addModules( 'iframe.liberator' );
 				if ( NULL === $this->adapter->processResponse() ) {
-					switch ( $this->adapter->getTransactionWMFStatus() ) {
+					switch ( $this->adapter->getFinalStatus() ) {
 					case 'complete':
 					case 'pending':
 						$this->getOutput()->redirect( $this->adapter->getThankYouPage() );

@@ -48,7 +48,6 @@ window.displayCreditCardForm = function() {
 		'payment_method': 'cc',
 		'language': language,
 		'contribution_tracking_id': $( "input[name='contribution_tracking_id']" ).val(),
-		'numAttempt': $( "input[name='numAttempt']" ).val(),
 		'utm_source': $( "input[name='utm_source']" ).val(),
 		'utm_campaign': $( "input[name='utm_campaign']" ).val(),
 		'utm_medium': $( "input[name='utm_medium']" ).val(),

@@ -158,7 +158,7 @@ class ApiPayflowProGateway extends ApiBase {
 		$order_id = $donationDataObj->getVal_Escaped( 'order_id' );
 
 		// fetch the CSRF prevention token and set it if it's not already set
-		$token = $donationDataObj->token_getSaltedSessionToken();
+		$token = $gateway_class::token_getSaltedSessionToken();
 
 		//I'd just call DD's saveContributionTracking, but we need all the parts out here. 
 		$tracking_data = $donationDataObj->getCleanTrackingData();

@@ -43,7 +43,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@currency_code', //'currency_code' => $wgRequest->getText( 'currency_code' ),
 		'@payment_method', // => $wgRequest->getText( 'payment_method' ),
 		'@order_id', // => $order_id,
-		'@numAttempt', // => $numAttempt,
 		'@referrer', // => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 		'@utm_source', // => self::getUtmSource(),
 		'@utm_medium', // => $wgRequest->getText( 'utm_medium' ),
@@ -490,13 +489,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( array_key_exists( 'special_type', $allowedForms[$form_key] ) ) {
 			if ( $allowedForms[$form_key]['special_type'] === 'error' ) {
 				//add data we're going to need for the error page!
-				$back_form = $this->gateway->getLastRapidHTMLForm();
+				$back_form = $this->gateway->session_getLastRapidHTMLForm();
 				//If this is just the one thing, we might move this inside DonationData for clarity's sake...
 				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form ) ) );
 			}
 		} else {
 			//No special type... let's add this to the form stack and call it good.
-			$this->gateway->pushRapidHTMLForm( $form_key );
+			$this->gateway->session_pushRapidHTMLForm( $form_key );
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];

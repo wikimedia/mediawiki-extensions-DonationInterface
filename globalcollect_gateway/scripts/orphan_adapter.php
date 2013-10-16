@@ -32,7 +32,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 	public function loadDataAndReInit( $data, $useDB = true ) {
 		$this->batch = true; //or the hooks will accumulate badness. 
-		//re-init all these arrays, because this is a batch thing. 
+		//re-init all these arrays, because this is a batch thing.
+		$this->session_killAllEverything(); // just to be sure
 		$this->hard_data = array( );
 		$this->transaction_results = array( );
 		$this->unstaged_data = array( );
@@ -160,7 +161,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->debugarray[] = "Attempting Stomp Transaction!";
 		$hook = '';
 
-		$status = $this->getTransactionWMFStatus();
+		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case 'complete':
 				$hook = 'gwStomp';
@@ -171,7 +172,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 				break;
 		}
 		if ( $hook === '' ) {
-			$this->debugarray[] = "No Stomp Hook Found for WMF_Status $status";
+			$this->debugarray[] = "No Stomp Hook Found for FINAL_STATUS $status";
 			return;
 		}
 

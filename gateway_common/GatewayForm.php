@@ -250,7 +250,7 @@ class GatewayForm extends UnlistedSpecialPage {
 	 * @todo
 	 * - This is being implemented in GlobalCollect
 	 * - Do we need to implement this for PayFlow Pro? Not yet!
-	 * - Do we only want to skip the Thank you page on getTransactionWMFStatus() => failed?
+	 * - Do we only want to skip the Thank you page on getFinalStatus() => failed?
 	 *
 	 * @return null
 	 */
@@ -260,7 +260,7 @@ class GatewayForm extends UnlistedSpecialPage {
 
 		// If transaction is anything, except failed, go to the thank you page.
 		
-		if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+		if ( in_array( $this->adapter->getFinalStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 
 			$thankyoupage = $this->adapter->getThankYouPage();
 	

@@ -167,6 +167,7 @@ class PaypalAdapter extends GatewayAdapter {
 	}
 
 	function do_transaction( $transaction ) {
+		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 
 		switch ( $transaction ) {
@@ -175,7 +176,7 @@ class PaypalAdapter extends GatewayAdapter {
 			case 'DonateRecurring':
 				$this->transactions[ $transaction ][ 'url' ] = $this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
 				$result = parent::do_transaction( $transaction );
-				$this->setTransactionWMFStatus( 'complete' );
+				$this->finalizeInternalStatus( 'complete' );
 				return $result;
 		}
 	}

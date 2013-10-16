@@ -95,7 +95,7 @@ class GlobalCollectGateway extends GatewayForm {
 						case 'obt':
 							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
-							if ( in_array( $this->adapter->getTransactionWMFStatus(), $this->adapter->getGoToThankYouOn() ) ) {
+							if ( in_array( $this->adapter->getFinalStatus(), $this->adapter->getGoToThankYouOn() ) ) {
 								return $this->displayEndTransactionInfo( $payment_method );
 							}
 							break;

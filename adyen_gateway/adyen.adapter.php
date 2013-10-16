@@ -166,6 +166,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * letting the rest behave normally. 
 	 */
 	function do_transaction( $transaction ) {
+		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 
 		if ( $this->transaction_option( 'iframe' ) ) {
@@ -204,7 +205,6 @@ class AdyenAdapter extends GatewayAdapter {
 						$requestParams,
 						'gateway_params'
 					);
-					$this->addDonorDataToSession();
 					$this->doLimboStompTransaction();
 					break;
 			}
@@ -472,17 +472,16 @@ class AdyenAdapter extends GatewayAdapter {
 				// Both of these are listed as pending because we have to submit a capture
 				// request on 'AUTHORIZATION' ipn message receipt.
 				self::log( $log_prefix . "User came back as pending or authorised, placing in pending queue" );
-				$this->setTransactionWMFStatus( 'pending' );
+				$this->finalizeInternalStatus( 'pending' );
 			}
 			else {
 				self::log( $log_prefix . "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
-				$this->unsetAllSessionData();
+				$this->finalizeInternalStatus( 'failed' );
 				return 'UNKNOWN';
 			}
 			$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
-			$this->setTransactionResult( $this->getTransactionWMFStatus(), 'txn_message' );
+			$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
 			$this->runPostProcessHooks();
-			$this->unsetAllSessionData();
 			$this->doLimboStompTransaction( TRUE ); // add antimessage
 			return null;
 		}
