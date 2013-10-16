@@ -95,7 +95,6 @@ class DonationData {
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
 				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
-				'numAttempt' => $wgRequest->getVal( 'numAttempt', '0' ),
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => $wgRequest->getText( 'utm_source' ),
 				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
@@ -163,7 +162,8 @@ class DonationData {
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
 		 * ...unless it's an explicit $overwrite * */
-		if ( self::sessionExists() && array_key_exists( 'Donor', $_SESSION ) ) {
+		$c = $this->getAdapterClass();
+		if ( $c::session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//fields that should always overwrite with their original values
 			$overwrite = array ( 'referrer' );
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
@@ -258,7 +258,6 @@ class DonationData {
 			'issuer_id' => '',
 			'order_id' => '1234567890',
 			'i_order_id' => '1234567890',
-			'numAttempt' => 0,
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
 			'utm_source' => 'test_src',
 			'utm_source_id' => null,
@@ -617,7 +616,7 @@ class DonationData {
 	public function isCaching(){
 		
 		static $cache = null;
-		
+
 		if ( is_null( $cache ) ){
 			if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
 				if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
@@ -630,8 +629,9 @@ class DonationData {
 		}
 		
 		 //this business could change at any second, and it will prevent us from 
-		 //caching, so we're going to keep asking if it's set. 
-		if (self::sessionExists()){
+		 //caching, so we're going to keep asking if it's set.
+		$c = $this->getAdapterClass();
+		if ( $c::session_exists() ) {
 			$cache = false;
 		}		
 		
@@ -928,183 +928,6 @@ class DonationData {
 	}
 
 	/**
-	 * Establish an 'edit' token to help prevent CSRF, etc.
-	 *
-	 * We use this in place of $wgUser->editToken() b/c currently
-	 * $wgUser->editToken() is broken (apparently by design) for
-	 * anonymous users.  Using $wgUser->editToken() currently exposes
-	 * a security risk for non-authenticated users.  Until this is
-	 * resolved in $wgUser, we'll use our own methods for token
-	 * handling.
-	 * 
-	 * Public so the api can get to it. 
-	 *
-	 * @return string
-	 */
-	public function token_getSaltedSessionToken() {
-
-		// make sure we have a session open for tracking a CSRF-prevention token
-		self::ensureSession();
-
-		$gateway_ident = $this->gatewayID;
-
-		if ( !isset( $_SESSION[$gateway_ident . 'EditToken'] ) ) {
-			// generate unsalted token to place in the session
-			$token = self::token_generateToken();
-			$_SESSION[$gateway_ident . 'EditToken'] = $token;
-		} else {
-			$token = $_SESSION[$gateway_ident . 'EditToken'];
-		}
-
-		return $this->token_applyMD5AndSalt( $token );
-	}
-	
-	/**
-	 * token_refreshAllTokenEverything
-	 * In the case where we have an expired session (token mismatch), we go 
-	 * ahead and fix it for 'em for their next post. We do this by refreshing 
-	 * everything that has to do with the edit token.
-	 */
-	protected function token_refreshAllTokenEverything(){
-		$unsalted = self::token_generateToken();	
-		$gateway_ident = $this->gatewayID;
-		self::ensureSession();
-		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
-		$salted = $this->token_getSaltedSessionToken();
-		$this->setVal( 'token', $salted );
-	}
-	
-	/**
-	 * token_applyMD5AndSalt
-	 * Takes a clear-text token, and returns the MD5'd result of the token plus 
-	 * the configured gateway salt.
-	 * @param string $clear_token The original, unsalted, unencoded edit token. 
-	 * @return string The salted and MD5'd token. 
-	 */
-	protected function token_applyMD5AndSalt( $clear_token ){
-		$salt = $this->getGatewayGlobal( 'Salt' );
-		
-		if ( is_array( $salt ) ) {
-			$salt = implode( "|", $salt );
-		}
-		
-		$salted = md5( $clear_token . $salt ) . EDIT_TOKEN_SUFFIX;
-		return $salted;
-	}
-
-
-	/**
-	 * token_generateToken
-	 * Generate a random string to be used as an edit token. 
-	 * @var string $padding A string with which we could pad out the random hex 
-	 * further. 
-	 * @return string
-	 */
-	public static function token_generateToken( $padding = '' ) {
-		$token = dechex( mt_rand() ) . dechex( mt_rand() );
-		return md5( $token . $padding );
-	}
-
-	/**
-	 * token_matchEditToken
-	 * Determine the validity of a token by checking it against the salted 
-	 * version of the clear-text token we have already stored in the session. 
-	 * On failure, it resets the edit token both in the session and in the form, 
-	 * so they will match on the user's next load. 
-	 *
-	 * @var string $val
-	 * @return bool
-	 */
-	protected function token_matchEditToken( $val ) {
-		// fetch a salted version of the session token
-		$sessionSaltedToken = $this->token_getSaltedSessionToken();
-		if ( $val != $sessionSaltedToken ) {
-			wfDebug( "DonationData::matchEditToken: broken session data\n" );
-			//and reset the token for next time. 
-			$this->token_refreshAllTokenEverything();
-		}
-		return $val === $sessionSaltedToken;
-	}
-
-	/**
-	 * ensureSession
-	 * Ensure that we have a session set for the current user.
-	 * If we do not have a session set for the current user,
-	 * start the session.
-	 * BE CAREFUL with this one, as creating sessions willy-nilly will break 
-	 * squid caching for reasons that are not immediately obvious. 
-	 * (See DonationData::doCacheStuff, and basically everything about setting 
-	 * headers in $wgOut)
-	 */
-	protected static function ensureSession() {
-		// if the session is already started, do nothing
-		if ( self::sessionExists() )
-			return;
-
-		// otherwise, fire it up using global mw function wfSetupSession
-		wfSetupSession();
-	}
-	
-	/**
-	 * sessionExists
-	 * Checks to see if the session exists without actually creating one. 
-	 * @return bool true if we have a session, otherwise false.  
-	 */
-	protected static function sessionExists() {
-		if ( session_id() )
-			return true;
-		return false;
-	}
-
-	/**
-	 * token_checkTokens
-	 * The main function to check the salted and MD5'd token we should have 
-	 * saved and gathered from $wgRequest, against the clear-text token we 
-	 * should have saved to the user's session. 
-	 * token_getSaltedSessionToken() will start off the process if this is a 
-	 * first load, and there's no saved token in the session yet. 
-	 * @global Webrequest $wgRequest
-	 * @staticvar string $match
-	 * @return type 
-	 */
-	public function token_checkTokens() {
-		global $wgRequest;
-		static $match = null; //because we only want to do this once per load.
-
-		if ( $match === null ) {
-			if ( $this->isCaching() ){
-				//This makes sense.
-				//If all three conditions for caching are currently true, the 
-				//last thing we want to do is screw it up by setting a session 
-				//token before the page loads, because sessions break caching. 
-				//The API will set the session and form token values immediately 
-				//after that first page load, which is all we care about saving 
-				//in the cache anyway. 
-				return true;
-			}
-
-			// establish the edit token to prevent csrf
-			$token = $this->token_getSaltedSessionToken();
-
-			$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' editToken: ' . $token, LOG_DEBUG );
-
-			// match token			
-			if ( !$this->isSomething( 'token' ) ){
-				$this->setVal( 'token', $token );				
-			}
-			$token_check = $this->getVal( 'token' );
-			
-			$match = $this->token_matchEditToken( $token_check );
-			if ( $wgRequest->wasPosted() ) {
-				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Submitted edit token: ' . $this->getVal( 'token' ), LOG_DEBUG );
-				$this->log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Token match: ' . ($match ? 'true' : 'false' ), LOG_DEBUG );
-			}
-		}
-
-		return $match;
-	}
-
-	/**
 	 * normalize helper function.
 	 * 
 	 * the utm_source is structured as: banner.landing_page.payment_method_family
@@ -1277,117 +1100,6 @@ class DonationData {
 	}
 
 	/**
-	 * addDonorDataToSession
-	 * Adds all the fields that are required to make a well-formed stomp 
-	 * message, to the user's session for later use. This mechanism is used by gateways that 
-	 * have a user being directed somewhere out of our control, and then coming 
-	 * back to complete a transaction. (Globalcollect Hosted Credit Card, for 
-	 * example)
-	 * 
-	 */
-	public function addDonorDataToSession() {
-		self::ensureSession();
-		$donordata = $this->getStompMessageFields();
-		$donordata[] = 'order_id';
-
-		foreach ( $donordata as $item ) {
-			if ( $this->isSomething( $item ) ) {
-				$_SESSION['Donor'][$item] = $this->getVal( $item );
-			}
-		}
-	}
-
-	/**
-	 * Add a RapidHTML Form (ffname) to this abridged history of where we've
-	 * been in this session. This lets us do things like construct useful
-	 * "back" links that won't crush all session everything.
-	 * @param string $form_key The 'ffname' that RapidHTML uses to load a
-	 * payments form. Additional: ffname maps to a first-level key in
-	 * $wgDonationInterfaceAllowedHtmlForms
-	 */
-	public function pushRapidHTMLForm( $form_key ) {
-		self::ensureSession();
-
-		if ( !array_key_exists( 'PaymentForms', $_SESSION ) || !is_array( $_SESSION['PaymentForms'] ) ) {
-			$_SESSION['PaymentForms'] = array ( );
-		}
-
-		//don't want duplicates
-		if ( $this->getLastRapidHTMLForm() != $form_key ) {
-			$_SESSION['PaymentForms'][] = $form_key;
-		}
-	}
-
-	/**
-	 * Get the 'ffname' of the last RapidHTML payment form that successfully
-	 * loaded for this session.
-	 * @return mixed ffname of the last valid payments form if there is one,
-	 * otherwise false.
-	 */
-	public function getLastRapidHTMLForm() {
-		self::ensureSession();
-		if ( !array_key_exists( 'PaymentForms', $_SESSION ) || !is_array( $_SESSION['PaymentForms'] ) ) {
-			return false;
-		} else {
-			return end( $_SESSION['PaymentForms'] );
-		}
-	}
-
-	/**
-	 * Checks to see if we have donor data in our session.
-	 * This can be useful for determining if a user should be at a certain point
-	 * in the workflow for certain gateways. For example: This is used on the
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to
-	 * determine if the user is actually in the process of making a credit card
-	 * transaction.
-	 * @param bool|string $key Optional: A particular key to check against the
-	 * donor data in session.
-	 * @param string $value Optional (unless $key is set): A value that the $key
-	 * should contain, in the donor session.
-	 * @return boolean true if the session contains donor data (and if the data
-	 * key matches, when key and value are set), and false if there is no donor
-	 * data (or if the key and value do not match)
-	 */
-	public function hasDonorDataInSession(  $key = false, $value= ''  ) {
-		if ( self::sessionExists() && array_key_exists( 'Donor', $_SESSION ) ) {
-			if ( $key == false ){
-				return true;
-			}
-			if ( array_key_exists($key, $_SESSION['Donor'] ) && $_SESSION['Donor'][$key] === $value ){
-				return true;
-			} else {
-				return false;
-			}
-			
-			
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Unsets the session data, in the case that we've saved it for gateways 
-	 * like GlobalCollect that require it to persist over here through their 
-	 * iframe experience. 
-	 */
-	public function unsetDonorSessionData() {
-		unset( $_SESSION['Donor'] );
-	}
-	
-	/**
-	 * This should kill the session as hard as possible.
-	 * It will leave the cookie behind, but everything it could possibly 
-	 * reference will be gone. 
-	 */
-	public function killAllSessionEverything() {
-		//yes: We do need all of these things, to be sure we're killing the 
-		//correct session data everywhere it could possibly be. 
-		self::ensureSession(); //make sure we are killing the right thing. 
-		session_unset(); //frees all registered session variables. At this point, they can still be re-registered. 
-		session_destroy(); //killed on the server. 
-	}
-
-	/**
 	 * Adds an array of data to the normalized array, and then re-normalizes it. 
 	 * NOTE: If any gateway is using this function, it should then immediately 
 	 * repopulate its own data set with the DonationData source, and then 
@@ -1405,23 +1117,6 @@ class DonationData {
 			}
 		}
 		$this->normalize();
-	}
-
-	/**
-	 * incrementNumAttempt
-	 * Adds one to the 'numAttempt' field we use to keep track of how many times 
-	 * a donor has tried to do something. 
-	 */
-	public function incrementNumAttempt() {
-		if ( $this->isSomething( 'numAttempt' ) ) {
-			$attempts = $this->getVal( 'numAttempt' );
-			if ( is_numeric( $attempts ) ) {
-				$this->setVal( 'numAttempt', $attempts + 1 );
-			} else {
-				//assume garbage = 0, so...
-				$this->setVal( 'numAttempt', 1 );
-			}
-		}
 	}
 
 	/**

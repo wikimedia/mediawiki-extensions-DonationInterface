@@ -493,7 +493,6 @@ abstract class Gateway_Form {
 				'token' => $this->getEscapedValue( 'token' ),
 				'order_id' => $this->getEscapedValue( 'order_id' ),
 				'i_order_id' => $this->getEscapedValue( 'i_order_id' ),
-				'numAttempt' => $this->getEscapedValue( 'numAttempt' ),
 				'contribution_tracking_id' => $this->getEscapedValue( 'contribution_tracking_id' ),
 				'data_hash' => $this->getEscapedValue( 'data_hash' ),
 				'action' => $this->getEscapedValue( 'action' ),
@@ -943,7 +942,7 @@ abstract class Gateway_Form {
 			'ffname',
 			'country',
 			'currency',
-			'uselang'
+			'language'
 		);
 		$form_data_keys = array_keys( $all_form_data );
 		

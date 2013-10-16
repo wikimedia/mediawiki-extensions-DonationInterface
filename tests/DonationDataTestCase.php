@@ -358,7 +358,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	public static function generateToken( $salt = '' ) {
 	function matchEditToken( $val, $salt = '' ) {
 	function unsetEditToken() {
-	public static function ensureSession() {
 	public function checkTokens() {
 	function wasPosted(){
 	function setUtmSource() {

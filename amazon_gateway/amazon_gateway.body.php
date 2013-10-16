@@ -56,7 +56,7 @@ class AmazonGateway extends GatewayForm {
 			if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
 				$this->adapter->do_transaction( 'ProcessAmazonReturn' );
 
-				$status = $this->adapter->getTransactionWMFStatus();
+				$status = $this->adapter->getFinalStatus();
 
 				if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
 					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );

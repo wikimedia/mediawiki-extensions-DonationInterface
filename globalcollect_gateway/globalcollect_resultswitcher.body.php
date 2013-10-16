@@ -65,7 +65,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			}
 		}
 
-		if ( !$this->adapter->hasDonorDataInSession( 'order_id', $this->qs_oid ) ) {
+		if ( !$this->adapter->session_hasDonorData( 'order_id', $this->qs_oid ) ) {
 			$forbidden = true;
 			$f_message = 'Requested order id not present in the session';
 
@@ -91,7 +91,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
 				$prefix = $this->adapter->getLogMessagePrefix();
-				if ( !array_key_exists( 'order_status', $_SESSION ) || !array_key_exists( $oid, $_SESSION['order_status'] ) || !is_array( $_SESSION['order_status'][$oid] ) ) {
+				if ( !is_array( $this->adapter->session_getData( 'order_status', $oid ) ) ) {
 
 					//@TODO: If you never, ever, ever see this, rip it out. 
 					//In all other cases, write kind of a lot of code. 
@@ -113,8 +113,8 @@ class GlobalCollectGatewayResult extends GatewayForm {
 				$this->displayResultsForDebug( $result );
 				//do the switching between the... stuff. 
 
-				if ( $this->adapter->getTransactionWMFStatus() ){
-					switch ( $this->adapter->getTransactionWMFStatus() ) {
+				if ( $this->adapter->getFinalStatus() ){
+					switch ( $this->adapter->getFinalStatus() ) {
 						case 'complete':
 						case 'pending':
 						case 'pending-poke':
@@ -132,7 +132,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid", LOG_ERR);
 					}
 				} else {
-					$this->adapter->log("Resultswitcher: No TransactionWMFStatus. Order ID: $oid", LOG_ERR);
+					$this->adapter->log("Resultswitcher: No FinalStatus. Order ID: $oid", LOG_ERR);
 				}
 			} else {
 				$this->adapter->log("Resultswitcher: Payment method is not cc. Order ID: $oid", LOG_ERR);
@@ -159,11 +159,7 @@ class GlobalCollectGatewayResult extends GatewayForm {
 	function popout_if_iframe() {
 		global $wgServer;
 
-		if ( ( $_SESSION
-				&& array_key_exists( 'order_status', $_SESSION )
-				&& array_key_exists( $this->qs_oid, $_SESSION['order_status'] ) )
-			|| isset( $_GET[ 'liberated' ] ) )
-		{
+		if ( ( $this->adapter->session_getData( 'order_status', $this->qs_oid ) === 'liberated' ) || isset( $_GET['liberated'] ) ) {
 			return;
 		}
 

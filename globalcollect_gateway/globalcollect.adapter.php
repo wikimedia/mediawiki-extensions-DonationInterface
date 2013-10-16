@@ -1099,7 +1099,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * chained together, we're catching those special ones in an overload and 
 	 * letting the rest behave normally. 
 	 */
-	public function do_transaction( $transaction ){
+	public function do_transaction( $transaction ) {
+		$this->session_addDonorData();
 		switch ( $transaction ){
 			case 'Confirm_CreditCard' :
 				$this->getStopwatch( 'Confirm_CreditCard', true );
@@ -1198,7 +1199,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			$order_status_results = false;
 			if ( !$cancelflag && !$problemflag ) {
-	//			$order_status_results = $this->getTransactionWMFStatus();
+	//			$order_status_results = $this->getFinalStatus();
 				$txn_data = $this->getTransactionData();
 				if (isset($txn_data['STATUSID'])){
 					if( is_null( $original_status_code ) ){
@@ -1250,7 +1251,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 									$problemflag = true; //nothing to be done.
 									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
 									$add_antimessage = true;
-									$this->setTransactionWMFStatus('failed');
+									$this->finalizeInternalStatus('failed');
 								}
 							} else {
 								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned NOK", LOG_ERR );
@@ -1292,14 +1293,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( !$cancelflag ){
 				$final = $this->do_transaction( 'SET_PAYMENT' );
 				if ( isset( $final['status'] ) && $final['status'] === true ) {
-					$this->setTransactionWMFStatus( 'complete' );
+					$this->finalizeInternalStatus( 'complete' );
 					//get the old status from the first txn, and add in the part where we set the payment. 
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
-					$this->unsetAllSessionData();
 					$add_antimessage = true;
 				} else {
-					$this->setTransactionWMFStatus( 'failed' );
+					$this->finalizeInternalStatus( 'failed' );
 					$problemflag = true;
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
 				}
@@ -1312,12 +1312,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					 * In fact, GC will error out if we try to do that, and tell 
 					 * us there is nothing to cancel.
 					 */
-					$this->setTransactionWMFStatus( 'failed' );
-					$this->unsetAllSessionData();
+					$this->finalizeInternalStatus( 'failed' );
 					$add_antimessage = true;
 				} else {
 					//in case we got wiped out, set the final status to what it was before. 
-					$this->setTransactionWMFStatus( $order_status_results );
+					$this->finalizeInternalStatus( $order_status_results );
 				}
 			}
 		}
@@ -1366,7 +1365,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$result = $this->do_transaction('INSERT_ORDERWITHPAYMENT');
 			if (isset($result['status']) && $result['status'])
 			{  
-				if ($this->getTransactionWMFStatus() == 'pending-poke')
+				if ($this->getFinalStatus() == 'pending-poke')
 				{
 					$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $this->getData_Staged('payment_product');
 
@@ -1376,12 +1375,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$result = $this->do_transaction('SET_PAYMENT');
 					if (isset($result['status']) && $result['status'] === true)
 					{
-						$this->setTransactionWMFStatus( 'complete' );
+						$this->finalizeInternalStatus( 'complete' );
 						$this->runPostProcessHooks();  //stomp is in here
 						$this->doLimboStompTransaction( true );
-						$this->unsetAllSessionData();
 					} else {
-						$this->setTransactionWMFStatus( 'failed' );
+						$this->finalizeInternalStatus( 'failed' );
 						//get the old status from the first txn, and add in the part where we set the payment. 
 						$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					}
@@ -1470,7 +1468,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						}
 					}
 					if ( $this->getTransactionStatus() ) {
-						$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
+						$this->finalizeInternalStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] )  );
 					}
 				}
 				break;
@@ -1481,9 +1479,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data['CHECKSPERFORMED'] = $this->xmlGetChecks( $response );
 				$data['VALIDATIONID'] = $this->xmlChildrenToArray( $response, 'VALIDATIONID' );
 
-				// WMFStatus will already be set if the transaction was unable to communicate properly.
+				// Final Status will already be set if the transaction was unable to communicate properly.
 				if ( $this->getTransactionStatus() ) {
-					$this->setTransactionWMFStatus( $this->checkDoBankValidation( $data ) );
+					$this->finalizeInternalStatus( $this->checkDoBankValidation( $data ) );
 				}
 
 				break;
@@ -2278,11 +2276,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->staged_data['returnto'] = $this->getThankYouPage();
 			}
 		}
-	}
-	
-	protected function pre_process_insert_orderwithpayment(){
-		$this->incrementNumAttempt();
-		$this->addDonorDataToSession();
 	}
 	
 	/**

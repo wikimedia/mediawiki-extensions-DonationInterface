@@ -152,47 +152,47 @@ class PayflowProAdapter extends GatewayAdapter {
 		switch ( $resultCode ) {
 			case '0':
 				$errors['1'] = wfMessage( 'payflowpro_gateway-response-0' )->text();
-				$this->setTransactionWMFStatus( 'complete' );
+				$this->finalizeInternalStatus( 'complete' );
 				break;
 			case '126':
 				$errors['5'] = wfMessage( 'payflowpro_gateway-response-126-2' )->text();
-				$this->setTransactionWMFStatus( 'pending' );
+				$this->finalizeInternalStatus( 'pending' );
 				break;
 			case '12':
 				$errors['2'] = wfMessage( 'payflowpro_gateway-response-12' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '13':
 				$errors['2'] = wfMessage( 'payflowpro_gateway-response-13' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '114':
 				$errors['2'] = wfMessage( 'payflowpro_gateway-response-114' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '4':
 				$errors['3'] = wfMessage( 'payflowpro_gateway-response-4' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '23':
 				$errors['3'] = wfMessage( 'payflowpro_gateway-response-23' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '24':
 				$errors['3'] = wfMessage( 'payflowpro_gateway-response-24' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '112':
 				$errors['3'] = wfMessage( 'payflowpro_gateway-response-112' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '125':
 				$errors['3'] = wfMessage( 'payflowpro_gateway-response-125-2' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 				break;
 			default:
 				$errors['4'] = wfMessage( 'payflowpro_gateway-response-default' )->text();
-				$this->setTransactionWMFStatus( 'failed' );
+				$this->finalizeInternalStatus( 'failed' );
 		}
 
 		return $errors;
@@ -228,7 +228,7 @@ class PayflowProAdapter extends GatewayAdapter {
 	/**
 	 * Perform any additional processing on the response obtained from the server.
 	 *
-	 * @param array $response   The WMF response object array -> ie: data, errors, action...
+	 * @param array $response   The internal response object array -> ie: data, errors, action...
 	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
 	 *  an array of all variables that need to be recreated and restaged.
 	 */
@@ -255,7 +255,6 @@ class PayflowProAdapter extends GatewayAdapter {
 	}
 	
 	protected function pre_process_card(){
-		$this->incrementNumAttempt();
 		$this->runPreProcessHooks();
 	}
 	
