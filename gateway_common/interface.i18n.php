@@ -17052,6 +17052,7 @@ $messages['lb'] = array(
 	'donate_interface-error-msg-country-calc' => 'Feeler - Mir konnten Ären Don den Ament net unhuelen.',
 	'donate_interface-error-msg-fiscal_number' => 'Steiernummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Probéiert w.e.g. [$1eng aner Kaart] oder eng vun eisen [$2 anere Méiglechkeete fir en Don ze maachen] oder kontaktéiert eis mat $3',
+	'donate_interface-donate-error-try-again-html' => '<a href="$1">Probéiert w.e.g. nach eng Kéier</a>, probéiert eng vun den <a href="$2">anere Méiere fir en Don ze maachen</a>, oder kontaktéiert eis iwwer <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci fir Är Ënnerstëtzung!',
 	'donate_interface-error-no-form' => "Mir konnte kee Spendeformulaire fannen, deen Äre Parameter entsprécht. Kontaktéiert w.e.g. [mailto:donate@wikimedia.org eist 'help team'] fir méi Informatiounen.",
 	'php-response-declined' => 'Är Transaktioun konnt net akzeptéiert ginn.',
