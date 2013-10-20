@@ -6147,7 +6147,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-on-the-back' => 'Med dette på bagsiden:',
 	'donate_interface-tshirt-confirmation' => 'Din t-shirt vil blive afsendt i størrelsen og på sproget angivet nedenfor:',
 	'donate_interface-donation-tshirt' => 'Donation (t-shirt tilbud)',
-	'donate_interface-change' => 'Ændr',
+	'donate_interface-change' => 'Ændre',
 	'donate_interface-select-credit-card' => 'Vælg kreditkort',
 	'donate_interface-optional' => 'valgfri',
 	'donate_interface-state-dropdown-YY' => 'Vælg en stat',
@@ -11339,6 +11339,7 @@ $messages['gu'] = array(
 /** Hebrew (עברית)
  * @author Amire80
  * @author Deror avi
+ * @author Guycn1
  * @author Inkbug
  * @author Jsoby
  * @author Ofrahod
@@ -11535,6 +11536,7 @@ $messages['he'] = array(
 	'donate_interface-error-msg-country-calc' => 'שגיאה – איננו יכולים לקבל את תרומתך כעת.',
 	'donate_interface-error-msg-fiscal_number' => 'מספר הפיסקלי',
 	'donate_interface-donate-error-try-a-different-card' => 'נא [$1 לנסות כרטיס אחר] או [$2 אחת מהדרכים האחרות שלנו לתת] או צרו קשר אתנו דרך $3',
+	'donate_interface-donate-error-try-again-html' => 'נא <a href="$1">לנסות שוב</a>, לנסות <a href="$2">אחת מהדרכים האחרות שלנו לתרום</a>, או ליצור אתנו קשר בכתובת <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'תודה על תמיכתך!',
 	'donate_interface-error-no-form' => 'לא הצלחנו למצוא תרומה שתואמת לפרמטרים האלה. נא ליצור קשר [mailto:donate@wikimedia.org עם צוות העזרה שלנו] למידע נוסף.',
 	'php-response-declined' => 'הטרנזקציה לא התקבלה.',
@@ -11613,7 +11615,7 @@ $messages['he'] = array(
 	'donate_interface-card-type' => 'סוג כרטיס',
 	'donate_interface-credit-card-type' => 'סוג כרטיס האשראי',
 	'donate_interface-credit-card-number' => 'מספר כרטיס האשראי',
-	'donate_interface-credit-card-number-abbreviated' => "מס' כרטיס האשראי",
+	'donate_interface-credit-card-number-abbreviated' => 'מספר כרטיס האשראי',
 	'donate_interface-credit-card-expiration' => 'תאריך תפוגה של כרטיס האשראי',
 	'donate_interface-card-expiration' => 'פקיעת התוקף של הכרטיס',
 	'donate_interface-select-month-of-expiration' => 'נא לבחור את חודש התפוגה',
@@ -11673,7 +11675,7 @@ $messages['he'] = array(
 	'donate_interface-optional' => 'אופציונלי',
 	'donate_interface-state-dropdown-YY' => 'מדינה בארצות הברית',
 	'donate_interface-state-dropdown-XX' => 'מחוץ לארצות הברית',
-	'donate_interface-cc-MX-instructions' => 'לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקרות מקוונות. אם התרומה שלך אינה מלחיה, נ ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.',
+	'donate_interface-cc-MX-instructions' => 'לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקרות מקוונות. אם התרומה שלך אינה מלחיה, אנו ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.',
 	'donate_interface-bt-account_holder' => 'בעל החשבון',
 	'donate_interface-bt-bank_account_number' => 'מספר חשבון הבנק',
 	'donate_interface-bt-country_description' => 'תיאור הארץ',
