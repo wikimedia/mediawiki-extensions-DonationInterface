@@ -162,6 +162,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// then remove the forms that we don't want.
 		foreach ( $forms as $name => &$meta ) {
 			// Prefilter for sillyness
+			// filter out all special forms (like error pages)
+			if ( array_key_exists( 'special_type', $meta ) ) {
+				unset( $forms[$name] );
+				continue;
+			}
+
 			foreach ( array( 'gateway', 'payment_methods' ) as $paramName ) {
 				if ( !array_key_exists( $paramName, $meta ) ) {
 					unset( $forms[$name] );
@@ -174,17 +180,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				}
 			}
 
-			/** @var GatewayAdapter $adapterName */
-			$adapterName = $wgDonationInterfaceClassMap[$meta['gateway']];
-
 			// filter on enabled gateways
 			if ( !DataValidator::value_appears_in( $meta['gateway'], $valid_gateways ) ) {
-				unset( $forms[$name] );
-				continue;
-			}
-
-			// filter out all special forms (like error pages)
-			if ( array_key_exists( 'special_type', $meta ) ) {
 				unset( $forms[$name] );
 				continue;
 			}
