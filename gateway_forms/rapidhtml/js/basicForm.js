@@ -6,35 +6,24 @@ $( document ).ready( function () {
 	var billingErrorString = "";
 	var paymentErrorString = "";
 
-	// generate formatted errors to display
-	var temp = [];
-	for ( var e in amountErrors )
-		if ( amountErrors[e] != "" )
-			temp[temp.length] = amountErrors[e];
-	amountErrorString = temp.join( "<br />" );
+	// lookup formatted errors to display
+	var searchVars = [ amountErrors, billingErrors, paymentErrors ];
+	var errorMessages = [];
+	for ( var errorFields in searchVars ) {
+		for ( var field in errorFields ) {
+			if ( errorFields[field] ) {
+				errorMessages.push( errorFields[field] );
+			}
+		}
+	}
+	errorString = errorMessages.join( "<br />" );
 
-	temp = [];
-	for ( var f in billingErrors )
-		if ( billingErrors[f] != "" )
-			temp[temp.length] = billingErrors[f];
-	billingErrorString = temp.join( "<br />" );
-
-	temp = [];
-	for ( var g in paymentErrors )
-		if ( paymentErrors[g] != "" )
-			temp[temp.length] = paymentErrors[g];
-	paymentErrorString = temp.join( "<br />" );
-
-	// show the errors
-	if ( amountErrorString != "" ) {
-		$( "#topError" ).html( amountErrorString );
-	} else if ( billingErrorString != "" ) {
-		$( "#topError" ).html( billingErrorString );
-	} else if ( paymentErrorString != "" ) {
-		$( "#topError" ).html( paymentErrorString );
+	if ( errorString ) {
+		$( "#topError" ).html( errorString );
 	}
 
 	$( "#paymentContinueBtn" ).click( function() {
+		// FIXME: generalize validation
 		if ( validateAmount() ) {
 			document.payment.action = actionURL;
 			document.payment.submit();
