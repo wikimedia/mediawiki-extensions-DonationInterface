@@ -1781,6 +1781,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'street',
 			'zip',
 			'fiscal_number',
+			'branch_code', //Direct Debit. Need to zero-pad this up to a minimum of 4 now
 		);
 	}
 	
@@ -2003,6 +2004,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
 				}
 				break;
+		}
+	}
+
+	/**
+	 * Stage branch code for Direct Debit.
+	 * GC gets mad when we don't send something with at least length 4, here...
+	 * ...so according to them, we should zero-pad out to 4 digits.
+	 * @param string $type request|response
+	 */
+	protected function stage_branch_code( $type = 'request' ) {
+		if ( $type === 'request' ) {
+			$this->staged_data['branch_code'] = str_pad( $this->staged_data['branch_code'], 4, "0", STR_PAD_LEFT );
 		}
 	}
 
