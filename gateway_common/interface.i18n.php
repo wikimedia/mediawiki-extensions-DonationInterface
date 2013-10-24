@@ -16010,6 +16010,7 @@ $messages['kn'] = array(
 
 /** Korean (한국어)
  * @author Freebiekr
+ * @author Hym411
  * @author Idh0854
  * @author Joshuajh
  * @author Jsoby
@@ -16210,6 +16211,7 @@ $messages['ko'] = array(
 	'donate_interface-error-msg-country-calc' => '오류 - 이 시간에 기부를 승인할 수 없습니다.',
 	'donate_interface-error-msg-fiscal_number' => '회계 번호',
 	'donate_interface-donate-error-try-a-different-card' => '[$1 다른 카드로 시도] 하시거나 [$2 다른 기부 방법을 이용] 하시거나, $3으로 문의해 주시기 바랍니다.',
+	'donate_interface-donate-error-try-again-html' => '<a href="$1">다시 시도하세요</a>, <a href="$2">다른 기부 방법을 시도해 보거나</a>,<a href="mailto:$3">$3</a>로 연락하세요.',
 	'donate_interface-donate-error-thank-you-for-your-support' => '후원해 주셔서 감사합니다.',
 	'donate_interface-error-no-form' => '변수와 일치하는 기부 양식을 찾을 수 없습니다. 자세한 정보는 [mailto:donate@wikimedia.org 우리의 도움 팀]에 문의하시기 바랍니다.',
 	'php-response-declined' => '거래가 거부되었습니다.',
@@ -28644,6 +28646,7 @@ Naš obrazac za darivanje zahteva javaskript da bismo vam obezbedili sigurno, be
 
 /** Swedish (svenska)
  * @author Ainali
+ * @author Bengt B
  * @author Boivie
  * @author Cohan
  * @author Danmichaelo
@@ -28851,7 +28854,9 @@ Inga processorer finns tillgängliga.',
 	'donate_interface-error-msg-country-calc' => 'Ett fel har uppstått - vi kan för tillfället inte ta emot din donation.',
 	'donate_interface-error-msg-fiscal_number' => 'skattenummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Vänligen [$1 prova ett annat kort] eller någon av våra [$2 andra sätt att ge] eller kontakta oss på $3',
+	'donate_interface-donate-error-try-again-html' => 'Vänligen <a href="$1">försök igen</a>, pröva en av våra<a href="$2">andra sätt att ge</a>, eller kontakta oss via <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Tack för ditt stöd!',
+	'donate_interface-error-no-form' => 'Vi kunde inte hitta en donation som matchar dina parametrar. Kontakta [mailto:donate@wikimedia.org vårt hjälp-team] för mer information.',
 	'php-response-declined' => 'Din transaktion har blivit avvisad.',
 	'donate_interface-thankyou' => 'Tack för din donation!',
 	'donate_interface-post-transaction' => 'Transaktionsdetaljer',
