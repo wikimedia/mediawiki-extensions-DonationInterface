@@ -99,7 +99,7 @@ window.validate_personal = function( form ){
 	var fields = ['fname','lname','street','city','zip', 'emailAdd'],
 		numFields = fields.length;
 	for( i = 0; i < numFields; i++ ) {
-		if ( document.getElementById( fields[i] ) ) { // Make sure field exists
+		if ( $( '#' + fields[i] ).length > 0 ) { // Make sure field exists
 			// See if the field is empty or equal to the placeholder
 			if ( !$( '#' + fields[i] ).hasClass( 'optional' )
 				&& ( !document.getElementById( fields[i] ).value.trim()
