@@ -255,6 +255,28 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * 
+	 * @param string $form_key
+	 * @return boolean
+	 */
+	static function isSupportedCountry( $country_iso, $form_key ) {
+		static $countries = array ( );
+		if ( !array_key_exists( $form_key, $countries ) ) {
+			$def = self::getFormDefinition( $form_key );
+			if ( array_key_exists( 'countries', $def ) ) {
+				$countries[$form_key] = $def['countries'];
+			} else {
+				$countries[$form_key] = 'ALL';
+			}
+		}
+
+		if ( DataValidator::value_appears_in( $country_iso, $countries[$form_key] ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Return an array of all the currently enabled gateways. 
 	 * I had hoped there would be more to this...
 	 * @global type $wgDonationInterfaceEnabledGateways

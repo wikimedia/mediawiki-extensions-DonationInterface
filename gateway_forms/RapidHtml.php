@@ -551,8 +551,21 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string An option list containing all supported countries
 	 */
 	function getCountryDropdown() {
-		# get the list of supported countries
+		global $wgDonationInterfaceForbiddenCountries;
+
+		//returns an array of iso_code => country name
 		$countries = GatewayForm::getCountries();
+
+		//unset blacklisted countries first
+		foreach ( $wgDonationInterfaceForbiddenCountries as $country_code ) {
+			unset( $countries[$country_code] );
+		}
+		//only use countries from that array that are represented in the form definition
+		foreach ( $countries as $code => $name ) {
+			if ( !GatewayFormChooser::isSupportedCountry( $code, $this->gateway->getData_Unstaged_Escaped( 'ffname' ) ) ) {
+				unset( $countries[$code] );
+			}
+		}
 
 		$output = "";
 
