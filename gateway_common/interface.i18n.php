@@ -19418,6 +19418,7 @@ $messages['ml'] = array(
 );
 
 /** Marathi (मराठी)
+ * @author V.narsikar
  * @author संतोष दहिवळ
  */
 $messages['mr'] = array(
@@ -19450,12 +19451,12 @@ $messages['mr'] = array(
 	'donate_interface-credit-card-type' => 'क्रेडिट कार्ड प्रकार',
 	'donate_interface-credit-card-number' => 'क्रेडिट कार्ड क्रमांक',
 	'donate_interface-credit-card-number-abbreviated' => 'क्रेडिट कार्ड #',
-	'donate_interface-credit-card-expiration' => 'क्रेडिट कार्ड समाप्ती',
-	'donate_interface-card-expiration' => 'कार्ड समाप्ती',
+	'donate_interface-credit-card-expiration' => 'क्रेडिट कार्ड समाप्ती दिनांक',
+	'donate_interface-card-expiration' => 'कार्ड समाप्ती दिनांक',
 	'donate_interface-select-month-of-expiration' => 'समाप्तीचा महिना निवडा',
 	'donate_interface-select-year-of-expiration' => 'समाप्तीचे वर्ष निवडा',
 	'donate_interface-card-security-code' => 'कार्ड सुरक्षा संकेतांक',
-	'donate_interface-what-is-this' => 'हे तपासा?',
+	'donate_interface-what-is-this' => 'हे काय आहे?',
 	'donate_interface-next' => 'पुढे',
 	'donate_interface-continue' => 'पुढे चालू',
 	'donate_interface-cancel' => 'रद्द करा',
@@ -19464,7 +19465,7 @@ $messages['mr'] = array(
 	'donate_interface-change' => 'बदल',
 	'donate_interface-state-dropdown-YY' => 'राज्य निवडा',
 	'donate_interface-bt-bank_account_number' => 'बॅंक खाते क्रमांक',
-	'donate_interface-bt-finished' => 'समाप्त',
+	'donate_interface-bt-finished' => 'पूर्ण झाले',
 	'donate_interface-rtbt-issuer_id' => 'बॅंक निवडा',
 	'donate_interface-rtbt-issuer_id-longlist' => 'इतर बॅंका',
 	'donate_interface-dd-account_name' => 'खाते नाव',
@@ -32191,7 +32192,7 @@ $messages['vo'] = array(
 	'donate_interface-donor-street' => 'Süt:',
 	'donate_interface-donor-city' => 'Zif:',
 	'donate_interface-donor-state' => 'Tat:',
-	'donate_interface-donor-address' => 'Ladet:',
+	'donate_interface-donor-address' => 'Ladet',
 );
 
 /** Võro (Võro)
