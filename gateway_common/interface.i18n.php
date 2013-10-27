@@ -21844,7 +21844,7 @@ Tipicament, la barra per la signatura conten una seria de nombres, mas solas las
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
 	'donate_interface-question-comment' => 'De questions o de comentaris ? Contactatz <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'Aprèp aver clicat sus "{{int:payflowpro_gateway-donor-submit}}", las informacions de vòstra carta de credit seràn tractadas.', # Fuzzy
+	'donate_interface-donate-click' => "Vòstra carta bancària o de crèdit/debit serà presa en carga d'un biais securizat.",
 	'donate_interface-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="//wikimediafoundation.org/wiki/Donor_policy">politica de confidencialitat</a>.', # Fuzzy
 	'donate_interface-cc-form-header-personal' => 'Informacions de facturacion',
 	'donate_interface-comment' => 'Comentari',
