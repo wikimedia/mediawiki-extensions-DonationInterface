@@ -899,6 +899,13 @@ $messages['nl-informal'] = array(
 Probeer het later nog een keer.',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'globalcollect_gateway-response-21000155' => 'Còde bancari invalid.',
+);
+
 /** Pälzisch (Pälzisch)
  * @author Manuae
  */
