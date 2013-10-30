@@ -21713,17 +21713,27 @@ Ingen prosessorar er tilgjengelege.',
 	'donate_interface-error-msg-expiration' => 'kortet sin utløpsdato',
 	'donate_interface-error-msg-cvv' => 'CVV frå baksida av kortet ditt',
 	'donate_interface-easydonate' => 'Me freistar gjera det lett for folk i alle land å donera. Lat oss få vita korleis me kunne gjort det lettare for deg. Send innspelet ditt til: problemsdonating@wikimedia.org',
+	'donate_interface-problemsdonating' => 'Vanskar med å gje?',
 	'donate_interface-donate-click' => 'Etter å ha klikka  "{{int:payflowpro_gateway-donor-submit}}", vil kredittinformasjonen din verta gjennomgått.', # Fuzzy
 	'donate_interface-otherways-short' => 'Andre måtar å gje på',
 	'donate_interface-credit-storage-processing' => 'Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href="//wikimediafoundation.org/wiki/Donor_policy">retningsliner for personvern</a>.', # Fuzzy
+	'donate_interface-make-your-donation' => 'Gje ei gåve no',
 	'donate_interface-comment' => 'Kommentar',
 	'donate_interface-first' => 'Fyrste',
 	'donate_interface-last' => 'Siste',
+	'donate_interface-other' => 'Anna i',
 	'donate_interface-anon-message' => 'Vis namnet mitt (ved sida av kommentaren min) på den offentlege lista over gjevarar.',
+	'donate_interface-rtbt-issuer_id' => 'Vel ein bank',
+	'donate_interface-rtbt-issuer_id-longlist' => 'Andre bankar',
 	'donate_interface-dd-bank_name' => 'Banknamn',
 	'donate_interface-translate-bluelink' => 'Betra denne omsetjinga',
 	'donate_interface-translate-redlink1' => 'Hjelp til med å setja om sida.',
 	'donate_interface-faqs' => 'Vanlege spørsmål',
+	'donate_interface-tax-info' => 'Informasjon om skattefrådrag',
+	'donate_interface-currency-change' => 'Endra?',
+	'donate_interface-monthly-cancel' => 'Månadlege betalingar vil utførast av Wikimedia-stiftinga fram til du bed oss om å stogga dei.',
+	'donate_interface-monthly-short' => 'Månadleg',
+	'donate_interface-onetime-short' => 'Éingongs',
 );
 
 /** Occitan (occitan)
