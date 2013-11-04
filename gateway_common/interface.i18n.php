@@ -6644,6 +6644,7 @@ Um eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf 
 
 /** Zazaki (Zazaki)
  * @author Erdemaslancan
+ * @author Gorizon
  * @author Jsoby
  * @author Mirzali
  * @author Xoser
@@ -6656,7 +6657,7 @@ $messages['diq'] = array(
 	'donate_interface-other-amount' => 'Miktarê bini',
 	'donate_interface-currency' => 'Dowiz:',
 	'donate_interface-gateway' => 'Ti seni dano:',
-	'donate_interface-submit-button' => 'Beğş',
+	'donate_interface-submit-button' => 'Bèc',
 	'donate_interface-comment-message' => 'Eka yew fiqirê tu est? Tiya de 200 karekteran de binuse:',
 	'donate_interface-comment-label' => 'Vatış:',
 	'donate_interface-email-agreement' => 'Ju ju fın Weqıf dê Wikimedia E-postayê ke birê ezo êna qebul kena.',
@@ -21932,7 +21933,7 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-middle' => 'Segond prenom',
 	'donate_interface-last' => "Nom d'ostal",
 	'donate_interface-other' => 'Autre',
-	'donate_interface-anon-message' => 'Listatz mon nom (a la seguida de mon comentari) dins la lista publica dels donators.', # Fuzzy
+	'donate_interface-anon-message' => 'Mencionatz mon nom dins la lista publica dels donators.',
 	'donate_interface-donate-wikipedia' => 'Far un don a Wikipèdia',
 	'donate_interface-or' => 'o',
 	'donate_interface-your-information' => 'Vòstras informacions',
