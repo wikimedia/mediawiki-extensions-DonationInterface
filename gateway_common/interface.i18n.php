@@ -910,6 +910,7 @@ There is no limit to the length of the message.",
 	'donate_interface-continue' => '{{Identical|Continue}}',
 	'donate_interface-cancel' => '{{Identical|Cancel}}',
 	'donate_interface-payment' => '{{Identical|Payment}}',
+	'donate_interface-payment-type' => '{{Identical|Payment type}}',
 	'donate_interface-month' => 'Expiration month for credit card. Appears in a drop-down list.
 
 Parameters:
