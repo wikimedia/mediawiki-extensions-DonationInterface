@@ -697,11 +697,11 @@ class DonationData {
 	 * Takes all possible names for recurring and normalizes them into the 'recurring' field.
 	 */
 	protected function setNormalizedRecurring() {
-		if( $this->isSomething( 'recurring_paypal' ) && $this->getVal( 'recurring_paypal' ) === '1' ){
+		if ( $this->isSomething( 'recurring_paypal' ) && ( $this->getVal( 'recurring_paypal' ) === '1' || $this->getVal( 'recurring_paypal' ) === 'true' ) ) {
 			$this->setVal( 'recurring', true );
 			$this->expunge('recurring_paypal');
 		}
-		if( $this->isSomething( 'recurring' ) && $this->getVal( 'recurring' ) === '1' ){
+		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' ) ) {
 			$this->setVal( 'recurring', true );
 		}
 		else{
