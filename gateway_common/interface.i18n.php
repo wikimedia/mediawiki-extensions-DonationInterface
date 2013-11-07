@@ -636,7 +636,8 @@ Parameters:
 	'donate_interface-donor-lname' => 'Label for field to input last name.',
 	'donate_interface-donor-lname-alt' => '{{optional}}',
 	'donate_interface-donor-street' => '{{Identical|Street}}',
-	'donate_interface-donor-street-number' => 'Label for field to input street number if separate from street',
+	'donate_interface-donor-street-number' => 'Label for field to input street number if separate from street.
+{{Identical|Number}}',
 	'donate_interface-donor-city' => '{{Identical|City}}',
 	'donate_interface-donor-county' => 'Label for field with dropdown list of counties.',
 	'donate_interface-donor-island' => 'Label for field with dropdown list of islands.
@@ -4932,6 +4933,7 @@ $messages['ce'] = array(
 	'donate_interface-continue' => 'Кхин дӀа',
 	'donate_interface-description' => 'Цуьнах лаьцна',
 	'donate_interface-language' => 'Мотт:',
+	'donate_interface-back' => 'ТӀехьара агӀо',
 	'donate_interface-select' => 'Барам:',
 	'donate_interface-translate-bluelink' => 'Нисде хӀара гоч',
 );
