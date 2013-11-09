@@ -632,8 +632,10 @@ Parameters:
 	'donate_interface-donor-fname' => 'Label for field containing first name.
 {{Identical|First name}}',
 	'donate_interface-donor-fname-alt' => '{{optional}}',
-	'donate_interface-donor-mname' => 'Label for field to input middle name.',
-	'donate_interface-donor-lname' => 'Label for field to input last name.',
+	'donate_interface-donor-mname' => 'Label for field to input middle name.
+{{Identical|Middle name}}',
+	'donate_interface-donor-lname' => 'Label for field to input last name.
+{{Identical|Last name}}',
 	'donate_interface-donor-lname-alt' => '{{optional}}',
 	'donate_interface-donor-street' => '{{Identical|Street}}',
 	'donate_interface-donor-street-number' => 'Label for field to input street number if separate from street.
@@ -645,7 +647,8 @@ Parameters:
 	'donate_interface-donor-state' => 'The donor is to select either an U.S. state or "Outside the U.S." 
 
 {{Identical|State}}',
-	'donate_interface-donor-zip' => 'Placeholder for zip code field. This should be 7 characters maximum.',
+	'donate_interface-donor-zip' => 'Placeholder for zip code field. This should be 7 characters maximum.
+{{Identical|Zip}}',
 	'donate_interface-donor-postal' => 'Label for field to input postal code.
 {{Identical|Postal code}}',
 	'donate_interface-donor-postcode' => '{{optional}}',
@@ -757,7 +760,8 @@ This is an error message which appears if one or more of the above fields is lef
 {{Related|Donate interface-err-msg}}
 {{Identical|First name}}',
 	'donate_interface-error-msg-lname' => 'Used in error message regarding the last name field.
-{{Related|Donate interface-err-msg}}',
+{{Related|Donate interface-err-msg}}
+{{Identical|Last name}}',
 	'donate_interface-error-msg-street' => '{{Related|Donate interface-err-msg}}
 {{Identical|Street}}',
 	'donate_interface-error-msg-city' => '{{Related|Donate interface-err-msg}}
@@ -879,7 +883,8 @@ Parameters:
 	'donate_interface-city-town' => 'Label for city field.',
 	'donate_interface-town-city' => 'Label for city field.',
 	'donate_interface-state-province' => 'Label for state/province field.',
-	'donate_interface-zip' => 'Label for zip code field.',
+	'donate_interface-zip' => 'Label for zip code field.
+{{Identical|Zip}}',
 	'donate_interface-zip-code' => 'Label for zip code field.',
 	'donate_interface-zip-postal' => 'Label for zip/postal code field.',
 	'donate_interface-zip-postal-code' => 'Label for zip/postal code field.',
@@ -14711,7 +14716,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-city' => '市町村',
 	'donate_interface-donor-island' => '島',
 	'donate_interface-donor-state' => '都道府県・州',
-	'donate_interface-donor-zip' => 'ZIPコード',
+	'donate_interface-donor-zip' => 'ZIP コード',
 	'donate_interface-donor-postal' => '郵便番号',
 	'donate_interface-donor-country' => '国/地域',
 	'donate_interface-donor-address' => '住所',
