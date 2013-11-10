@@ -12418,7 +12418,7 @@ Kako bismo Vam pružili sigurno i ugodno iskustvo, naš formular za donaciju zah
 	'donate_interface-shipping-address-same' => 'Adresa za dostavu je ista kao i adresa za račune.',
 	'donate_interface-only-billing-address' => 'Majice se mogu slati samo na adresu za slanje računa.',
 	'donate_interface-donation-must-equal' => 'Donacija mora biti jednaka $1 ili veća.',
-	'donate_interface-thank-you' => 'Hvala vam! Vaša donacija je primljena.',
+	'donate_interface-thank-you' => 'Hvala vam! Vaša je donacija primljena.',
 	'donate_interface-wikipedia-translation' => 'Molimo zapamtite: "Wikipedia" na rukavima majice je crtež "Wikipedia 10", koji se ne prevodi.',
 	'donate_interface-on-the-back' => 'S ovim na leđima:',
 	'donate_interface-tshirt-confirmation' => 'Vaša majica će biti poslana u veličini i na jeziku prikazanom ispod:',
