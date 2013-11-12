@@ -854,7 +854,8 @@ Parameters:
 	'donate_interface-comment' => '{{Identical|Comment}}',
 	'donate_interface-first' => "Field label. Refers to first name, and can be translated as 'first name' if needed.
 {{Identical|First}}",
-	'donate_interface-middle' => 'Field label. Refers to "middle name", and can be translated as \'middle name\' if needed.',
+	'donate_interface-middle' => 'Field label. Refers to "middle name", and can be translated as \'middle name\' if needed.
+{{Identical|Middle}}',
 	'donate_interface-last' => "Field label. Refers to last name, and can be translated as 'last name' or other term usual in your language, if needed.
 {{Identical|Last}}",
 	'donate_interface-other' => '{{Identical|Other}}',
@@ -6771,7 +6772,7 @@ $messages['diq'] = array(
 	'donate_interface-donor-lname' => 'Nameyê eşir:',
 	'donate_interface-donor-street' => 'Cagde',
 	'donate_interface-donor-street-number' => 'Nımre',
-	'donate_interface-donor-city' => 'Sûke',
+	'donate_interface-donor-city' => 'Suk',
 	'donate_interface-donor-county' => 'Qeze',
 	'donate_interface-donor-island' => 'Ada',
 	'donate_interface-donor-state' => 'Eyalet:',
