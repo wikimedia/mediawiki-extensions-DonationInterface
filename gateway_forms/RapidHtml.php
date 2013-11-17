@@ -445,10 +445,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$problems = false;
 		$debug_message = '';
 		//make sure the requested form exists.
-		if ( !array_key_exists( $form_key, $allowedForms ) 
-			|| !array_key_exists( 'file', $allowedForms[$form_key] ) 
-			|| ( !file_exists( $allowedForms[$form_key]['file'] ) ) ) {
+		if ( !array_key_exists( $form_key, $allowedForms ) ) {
 			$debug_message = "Could not find form '$form_key'";
+			$problems = true;
+		} elseif ( !array_key_exists( 'file', $allowedForms[$form_key] ) ) {
+			$debug_message = "Form config for '$form_key' is missing 'file' value";
+			$problems = true;
+		} elseif ( !file_exists( $allowedForms[$form_key]['file'] ) ) {
+			$debug_message = "Form template is missing for '$form_key', looking for file: {$allowedForms[$form_key]['file']}";
 			$problems = true;
 		}
 		
