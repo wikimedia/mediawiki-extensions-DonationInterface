@@ -929,7 +929,8 @@ Parameters:
 	'donate_interface-monthly-donation' => 'Button label, 25 characters maximum',
 	'donate_interface-via-paypal' => 'This appears after the monthly donation button',
 	'donate_interface-shirt-size' => 'This is a label for a select list of shirt sizes',
-	'donate_interface-shirt-size-2' => 'Label for field to choose t-shirt size.',
+	'donate_interface-shirt-size-2' => 'Label for field to choose t-shirt size. Parameters:
+* $1 - size',
 	'donate_interface-language' => 'This is a label for a select list of languages a shirt can be printed in
 {{Identical|Language}}',
 	'donate_interface-front' => 'This is a label for an image of the front of a shirt',
