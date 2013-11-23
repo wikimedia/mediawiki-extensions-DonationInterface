@@ -7961,6 +7961,7 @@ Por provizi sekuran kaj plaĉan sperton, nia donaco-formularo devigas JavaScript
  * @author Drini
  * @author Fitoschido
  * @author Glykanera
+ * @author Ihojose
  * @author Jsoby
  * @author Larjona
  * @author Locos epraix
@@ -8170,6 +8171,7 @@ $messages['es'] = array(
 	'donate_interface-error-msg-country-calc' => 'Error - No es posible aceptar tu donación en este momento.',
 	'donate_interface-error-msg-fiscal_number' => 'número fiscal',
 	'donate_interface-donate-error-try-a-different-card' => 'Por favor [$1 probar una tarjeta diferente] o una de nuestras [$2 otras maneras de donar] o póngase en contacto con nosotros en $3',
+	'donate_interface-donate-error-try-again-html' => 'Por favor <a href="$1">intenta nuevamente</a>, pruebe una de nuestras <a href="$2">maneras para dar</a>, o póngase en contacto con nosotros en <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Gracias por su apoyo!',
 	'donate_interface-error-no-form' => 'Nosotros fuimos incapaces de encontrar una forma de donación que coincida con sus parámetros. Póngase en contacto con [mailto:donate@wikimedia.org nuestro equipo de ayuda] para obtener más información.',
 	'php-response-declined' => 'Su transacción no puede ser aceptada.',
