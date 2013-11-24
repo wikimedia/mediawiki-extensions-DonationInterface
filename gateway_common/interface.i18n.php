@@ -13269,6 +13269,13 @@ $messages['hu-formal'] = array(
 	'donate_interface-token-mismatch' => 'A munkamenet lejárt. Kérjük, töltse ki és küldje el újra az űrlapot.',
 );
 
+/** Armenian (Հայերեն)
+ * @author M hamlet
+ */
+$messages['hy'] = array(
+	'donate_interface-token-mismatch' => 'Ձեր սեսիայի ժամկետն անցել է։ Խնդրում ենք, փորձեք նորից լրացնել և ուղարկել ֆորման։',
+);
+
 /** Interlingua (interlingua)
  * @author Jsoby
  * @author McDutchie
