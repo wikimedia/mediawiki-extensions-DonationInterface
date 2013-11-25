@@ -6158,7 +6158,7 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-on-the-back' => 'Med dette på bagsiden:',
 	'donate_interface-tshirt-confirmation' => 'Din t-shirt vil blive afsendt i størrelsen og på sproget angivet nedenfor:',
 	'donate_interface-donation-tshirt' => 'Donation (t-shirt tilbud)',
-	'donate_interface-change' => 'Ændre',
+	'donate_interface-change' => 'Ændr',
 	'donate_interface-select-credit-card' => 'Vælg kreditkort',
 	'donate_interface-optional' => 'valgfri',
 	'donate_interface-state-dropdown-YY' => 'Vælg en stat',
@@ -20272,7 +20272,7 @@ Sabiex tipprovdi esperjenza sigura u sempliċi, il-formola tad-donazzjoni tagħn
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
-	'donate_interface-amount' => 'Зяро лезксйармак максат:', # Fuzzy
+	'donate_interface-amount' => 'Зяро',
 	'donate_interface-currency' => 'Валютась:',
 	'donate_interface-submit-button' => 'Лезксйармаконь максома',
 	'donate_interface-CHF' => 'Швейцариянь франк',
@@ -33183,7 +33183,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-smallamount-error' => '您需要至少捐助$1',
 	'donate_interface-bigamount-error' => '我们不能通过网站接受大于USD 10000（$1 $2）的捐款。请联系我们的礼物专员（$3）。',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
-	'donate_interface-fallback-currency-notice' => '不支持您使用的货币。如果您決定继续，此次交易处理过程将使用 $1。',
+	'donate_interface-fallback-currency-notice' => '不支持你的货币。如果你决定继续，将使用$1处理。',
 	'donate_interface-maintenance-notice' => '很抱歉，这种类型的付款已被暂时禁用。',
 	'donate_interface-AED' => '阿联酋迪拉姆',
 	'donate_interface-ARS' => '阿根廷比索',
