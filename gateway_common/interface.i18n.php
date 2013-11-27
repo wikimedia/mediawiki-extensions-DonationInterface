@@ -4933,6 +4933,7 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
  * @author Умар
  */
 $messages['ce'] = array(
+	'donate_interface-error-msg-genaricrequired' => 'ХӀара юззар тӀехь ду.',
 	'donate_interface-title' => 'ЦӀе',
 	'donate_interface-select-country' => 'Пачхьалкх харжар',
 	'donate_interface-expires' => 'Чекхйолу',
@@ -14584,6 +14585,7 @@ Per fornire un servizio sicuro e semplice, il nostro modulo di donazione richied
  * @author Akaniji
  * @author Aotake
  * @author Aphaia
+ * @author BryghtShadow
  * @author Fryed-peach
  * @author Jsoby
  * @author Miya
@@ -14725,6 +14727,7 @@ $messages['ja'] = array(
 	'donate_interface-donor-street' => '通り (番地)',
 	'donate_interface-donor-street-number' => '番地',
 	'donate_interface-donor-city' => '市町村',
+	'donate_interface-donor-county' => '郡',
 	'donate_interface-donor-island' => '島',
 	'donate_interface-donor-state' => '都道府県・州',
 	'donate_interface-donor-zip' => 'ZIP コード',
