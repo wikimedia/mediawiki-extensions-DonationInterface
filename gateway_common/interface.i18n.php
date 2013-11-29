@@ -4617,6 +4617,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
  * @author Arnaugir
  * @author Jsoby
  * @author Martorell
+ * @author Papapep
  * @author Pitort
  * @author SMP
  * @author Solde
@@ -4787,7 +4788,7 @@ No hi ha processadors disponibles.',
 	'donate_interface-error-msg-cvv' => 'CVV de la part posterior de la targeta',
 	'donate_interface-error-msg-captcha' => 'El text de Captcha que heu introduït és incorrecte. Si us plau, intenteu-ho novament.',
 	'donate_interface-error-msg-captcha-please' => 'Per la seguretat de la vostra targeta de crèdit, escriviu els caràcters que apareixen aquí dalt.',
-	'php-response-declined' => 'No ha estat possible acceptar la vostra transacció.',
+	'php-response-declined' => "No s'ha pogut acceptar la vostra transacció.",
 	'donate_interface-thankyou' => 'Gràcies pel donatiu!',
 	'donate_interface-post-transaction' => 'Detalls de la transacció',
 	'donate_interface-cvv-explain' => "<h4> Què és el CVV? </h4>
