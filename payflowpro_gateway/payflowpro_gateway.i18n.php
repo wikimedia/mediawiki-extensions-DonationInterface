@@ -329,14 +329,15 @@ Molimo pokušajte kasnije.',
 /** Catalan (català)
  * @author Aleator
  * @author Martorell
+ * @author Papapep
  * @author SMP
  * @author Solde
  */
 $messages['ca'] = array(
 	'payflowprogateway' => 'Feu ara un donatiu',
 	'payflowpro_gateway-desc' => 'Processament de targetes de crèdit amb PayPal Payflow Pro',
-	'payflowpro_gateway-response-0' => 'La transacció ha estat aprovada.
-Gràcies pel donatiu!',
+	'payflowpro_gateway-response-0' => "S'ha aprovat la transacció.
+Gràcies pel donatiu!",
 	'payflowpro_gateway-response-126' => "La transacció està pendent d'aprovació.",
 	'payflowpro_gateway-response-126-2' => 'Part de la informació que ens heu proporcionat no coincideix amb el vostre perfil de targeta de crèdit, o bé heu fet un donatiu molt gran. Per a la vostra pròpia seguretat, el donatiu és objecte d\'examen, i us notificarem a través de l\'adreça de correu electrònic facilitada, si no podem finalitzar el donatiu. Podeu enviar un missatge a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> si teniu alguna pregunta. Gràcies!',
 	'payflowpro_gateway-response-12' => 'Poseu-vos en contacte amb la companyia de la targeta de crèdit per a més informació.',
@@ -347,7 +348,7 @@ Poseu-vos en contacte amb nosaltres per continuar amb la transacció.',
 	'payflowpro_gateway-response-4' => 'Quantitat no vàlida.',
 	'payflowpro_gateway-response-24' => 'La data de caducitat o el número de targeta de crèdit és incorrecte.',
 	'payflowpro_gateway-response-112' => "L'adreça o el codi de seguretat CVV és incorrecte.",
-	'payflowpro_gateway-response-125' => 'La vostra transacció ha estat rebutjada pel Servei de Prevenció del Frau.',
+	'payflowpro_gateway-response-125' => 'El Servei de Prevenció del Frau ha rebutjat la vostra transacció.',
 	'payflowpro_gateway-response-125-2' => 'No s\'ha pogut validar la vostra targeta de crèdit. Si us plau, verifiqueu que tota la informació facilitada correspongui al vostre perfil de targeta de crèdit, o proveu amb una altra targeta. També podeu usar una altra de les nostres <a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">formes de donar</a> o podeu posar-vos en contacte amb nosaltres a <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. Gràcies pel vostre suport.',
 	'payflowpro_gateway-response-default' => 'Hi ha hagut un error en processar la vostra transacció. Torneu-ho a provar més tard.',
 );
