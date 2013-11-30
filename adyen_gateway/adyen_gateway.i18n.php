@@ -236,6 +236,8 @@ Tornatz ensajar mai tard.",
 $messages['pl'] = array(
 	'adyengateway' => 'Przekaż darowiznę',
 	'adyen_gateway-desc' => 'Przetwarzanie płatności Adyen',
+	'adyen_gateway-response-default' => 'Wystąpił błąd podczas przeprowadzania transakcji.
+Spróbuj ponownie później.',
 );
 
 /** Brazilian Portuguese (português do Brasil)

@@ -916,10 +916,13 @@ $messages['pfl'] = array(
 /** Polish (polski)
  * @author Mikołka
  * @author Sp5uhe
+ * @author WTM
  */
 $messages['pl'] = array(
 	'globalcollectgateway' => 'Przekaż darowiznę',
 	'globalcollect_gateway-desc' => 'Przetwarzanie płatności GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'Symulacja udanej wpłaty',
+	'globalcollect_gateway-fakefail' => 'Symulacja nieudanej wpłaty',
 	'globalcollect_gateway-response-9130' => 'Nieprawidłowy kraj.',
 	'globalcollect_gateway-response-9140' => 'Nieprawidłowa waluta.',
 	'globalcollect_gateway-response-9150' => 'Nieprawidłowy język.',
