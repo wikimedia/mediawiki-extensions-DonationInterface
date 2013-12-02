@@ -181,6 +181,13 @@ $messages['lb'] = array(
 Probéiert et w.e.g. spéider nach eng Kéier.',
 );
 
+/** لوری (لوری)
+ * @author Mogoeilor
+ */
+$messages['lrc'] = array(
+	'adyengateway' => 'هومیاری پیلی تونه ایسه انجوم بئیت',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
