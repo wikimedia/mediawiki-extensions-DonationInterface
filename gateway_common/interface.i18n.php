@@ -11356,6 +11356,7 @@ $messages['gu'] = array(
  * @author Amire80
  * @author Deror avi
  * @author Guycn1
+ * @author Guycn2
  * @author Inkbug
  * @author Jsoby
  * @author Ofrahod
@@ -11733,7 +11734,7 @@ $messages['he'] = array(
 	'donate_interface-tax-info' => 'מידע על פטור ממס',
 	'donate_interface-informationsharing' => 'באמצעות תרומתכם אתם משתפים מידע עם קרן ויקימדיה, מוסד ללא כוונת רווח שמארח את ויקיפדיה ואת מיזמי ויקימדיה האחרים, ועם ספקי השירות שלה בארצות הברית ובמקומות אחרים, בהתאם למדיניות פרטיות התורמים שלנו. איננו מוכרים את המידע שלכם או סוחרים בו עם שום ישות. למידע נוסף אנא קִראו <a href="//wikimediafoundation.org/wiki/Donor_policy/en">מדיניות התורמים שלנו</a>.',
 	'donate_interface-currency-change' => 'שינוי?',
-	'donate_interface-bank_transfer_message' => 'שים לב ששמו של מקבל התרומה שיופיע בדו"ח שלך יהיה Global Collect. זהו הגוף המורשה לטפל בתשלומים לזכות קרן ויקימדיה. בהעברה הבנקאית, זכור לציין את מספר האסמכתה שתקבל. אל תהסס לשלוח דוא"ל עם כל שאלה או חשש לכתובת donations@wikimedia.org.',
+	'donate_interface-bank_transfer_message' => 'שימו לב ששמו של מקבל התרומה שיופיע בדו"ח שלכם יהיה Global Collect. זהו הגוף המורשה לטפל בתשלומים לזכות קרן ויקימדיה. בהעברה הבנקאית, זִכרו לציין את מספר האסמכתה שתקבלו. אל תהססו לשלוח דוא"ל עם כל שאלה או חשש לכתובת donations@wikimedia.org.',
 	'donate_interface-globalcollect-proxy' => 'נא לשים לב לכך שבפירוט הפעולות שלך יהיה כתוב Global Collect בתור מקבל התרומה הזאת. ל־Global Collect יש אישור לקבל ולעבד תשלומים בשם קרן ויקימדיה.',
 	'donate_interface-taxded-link-int' => 'מסים ומידע משפטי נוסף',
 	'donate_interface-taxded-link-us' => 'מידע על פטור ממס',
@@ -21384,6 +21385,7 @@ $messages['nl'] = array(
 	'donate_interface-error-msg-country-calc' => 'Fout. We kunnen uw gift op het moment niet accepteren.',
 	'donate_interface-error-msg-fiscal_number' => 'fiscaal nummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Gebruik [$1 een andere kaart], een van onze [$2 andere manieren om te geven] of neem contact met ons op via $3',
+	'donate_interface-donate-error-try-again-html' => '<a href="$1">Probeer het opnieuw</a>, probeer een van onze <a href="$2">andere manieren om te geven</a> of neem contact met ons op via <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Dank u wel voor uw steun!',
 	'donate_interface-error-no-form' => 'Er is geen donatieformulier aangetroffen voor uw parameters. Neem alstublieft contact op met [mailto:donate@wikimedia.org ons hulpteam] voor meer informatie.',
 	'php-response-declined' => 'Uw transactie kon niet geaccepteerd worden.',
