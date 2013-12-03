@@ -3068,4 +3068,20 @@ abstract class GatewayAdapter implements GatewayType {
 		return $params;
 	}
 
+	/**
+	 * isValidSpecialForm: Tells us if the ffname supplied is a valid
+	 * special form for the current gateway.
+	 * @var string $ffname The form name we want to try
+	 * @return boolean True if this is a valid special form, otherwise false
+	 */
+	public function isValidSpecialForm( $ffname ){
+		$defn = GatewayFormChooser::getFormDefinition( $ffname );
+		if ( is_array( $defn ) &&
+			DataValidator::value_appears_in( $this->getIdentifier(), $defn['gateway'] ) &&
+			array_key_exists( 'special_type', $defn ) ){
+				return true;
+		}
+		return false;
+	}
+
 }
