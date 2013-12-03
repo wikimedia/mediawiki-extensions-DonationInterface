@@ -65,7 +65,12 @@ class AmazonGateway extends GatewayForm {
 					$this->getOutput()->redirect( $this->adapter->getFailPage() );
 				}
 			} else {
-				$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
+				$specialform = $this->getRequest()->getText( 'ffname', null );
+				if ( !is_null( $specialform ) && $this->adapter->isValidSpecialForm( $specialform ) ){
+					$this->displayForm();
+				} else {
+					$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
+				}
 			}
 		}
 	}
