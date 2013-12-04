@@ -7170,6 +7170,7 @@ Wótergi kod jo na lěwem boku kórty, ale jo pśecej wušej kontowego numera.</
  * @author Jsoby
  * @author McDutchie
  * @author Omnipaedista
+ * @author Shirayuki
  * @author ZaDiak
  */
 $messages['el'] = array(
@@ -7506,7 +7507,7 @@ $messages['el'] = array(
 	'donate_interface-dd-account_number' => 'Αριθμός λογαριασμού',
 	'donate_interface-dd-authorization_id' => 'Ταυτότητα Άδειας',
 	'donate_interface-dd-bank_check_digit' => 'Τραπεζικός κωδικός ελέγχου',
-	'donate_interface-dd-bank_code' => '',
+	'donate_interface-dd-bank_code' => 'Sort Code', # Fuzzy
 	'donate_interface-dd-bank_name' => 'Επωνυμία Τράπεζας',
 	'donate_interface-dd-branch_code' => 'Κωδικός υποκαταστήματος',
 	'donate_interface-dd-direct_debit_text' => 'Κείμενο άμεσης χρέωσης',
@@ -11685,7 +11686,7 @@ $messages['he'] = array(
 	'donate_interface-thank-you' => 'תודה! תרומתך התקבלה.',
 	'donate_interface-wikipedia-translation' => 'שימו לב: המילה "Wikipedia" בשרוול החולצה תופיע כחלק מהסמל של "Wikipedia 10", שאינו מתורגם.',
 	'donate_interface-on-the-back' => 'לשים את זה על הגב:',
-	'donate_interface-tshirt-confirmation' => 'החולצה שלכם תישלח במידה ובשפה שלהלן:',
+	'donate_interface-tshirt-confirmation' => 'החולצה שלך תישלח במידה ובשפה שלהלן:',
 	'donate_interface-donation-tshirt' => 'תרומה (וקבלת חולצה)',
 	'donate_interface-change' => 'שינוי',
 	'donate_interface-select-credit-card' => 'בחירת כרטיס אשראי',
@@ -11722,14 +11723,14 @@ $messages['he'] = array(
 	'donate_interface-translate-redlink1' => 'עזרו לתרגם את הדף הזה.',
 	'donate_interface-translate-redlink2' => 'או שלחו את התרגום שלכם לכתובת translations@wikimedia.org',
 	'donate_interface-email-fallbackname' => 'ידיד קרן ויקימדיה',
-	'donate_interface-email-subject' => 'תודה לכם מקרן ויקימדיה',
+	'donate_interface-email-subject' => 'תודה לך מקרן ויקימדיה',
 	'donate_interface-email-unsub-title' => 'ביטול מינוי לקרן ויקימדיה',
 	'donate_interface-email-unsub-button' => 'ביטול מינוי',
-	'donate_interface-email-unsub-success' => 'כתובתכם הוסרה בהצלחה מרשימת התפוצה שלנו',
+	'donate_interface-email-unsub-success' => 'כתובתך הוסרה בהצלחה מרשימת התפוצה שלנו',
 	'donate_interface-email-unsub-delay' => 'השינויים ייכנסו לתוקף תוך ארבעה (4) ימים. אנו מתנצלים על מכתבים שתקבלו בזמן הזה. אם יש לכם שאלות כלשהן, אנא צרו קשר עם <donations@wikimedia.org>',
 	'donate_interface-email-unsub-fail' => 'אירעה שגיאה בעיבוד הבקשה שלכם, אנא צרו קשר עם <donations@wikimedia.org>.',
 	'donate_interface-email-unsub-confirm' => 'האם ברצונך לבטל את המינוי של כתובת <b>$1</b>?',
-	'donate_interface-email-unsub-warning' => 'זה יוציא אותך מרשימת התפוצה שקרן ויקימדיה צירפה אותך אליה כשתרמת. ייתכן שעדיין תקבל מכתבים לכתובת הזאת אם היא משויכת לחשבון באחד המיזמים שלנו. אם יש לך שאלות כלשהו, נא ליצור קשר עם <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
+	'donate_interface-email-unsub-warning' => 'זה יוציא אתכם מרשימת התפוצה שקרן ויקימדיה צירפה אתכם אליה כשתרמתם. ייתכן שעדיין תקבלו מכתבים לכתובת הזאת אם היא משויכת לחשבון באחד המיזמים שלנו. אם יש לכם שאלות כלשהן, נא ליצור קשר עם <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'שאלות נפוצות',
 	'donate_interface-tax-info' => 'מידע על פטור ממס',
 	'donate_interface-informationsharing' => 'באמצעות תרומתכם אתם משתפים מידע עם קרן ויקימדיה, מוסד ללא כוונת רווח שמארח את ויקיפדיה ואת מיזמי ויקימדיה האחרים, ועם ספקי השירות שלה בארצות הברית ובמקומות אחרים, בהתאם למדיניות פרטיות התורמים שלנו. איננו מוכרים את המידע שלכם או סוחרים בו עם שום ישות. למידע נוסף אנא קִראו <a href="//wikimediafoundation.org/wiki/Donor_policy/en">מדיניות התורמים שלנו</a>.',
@@ -33546,8 +33547,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-taxded-link-us' => '减税信息',
 	'donate_interface-taxded-msg-int' => '维基媒体基金会是根据美国国内税法(IRS Code)第501(c)(3)条的规定在美国创建的非营
 利性慈善组织。因此，美国境内个人或实体的捐款可以享有减免税款的优惠政策。但美国境外的个人或实体捐款则没有资格享受美国和其他国家的减免税款优惠。在这种情况下，捐款人应寻求当地税务建议。值得注意的是，有些司法管辖区会禁止或限制国际慈善机构（如维基媒体）的募捐活动，或者对向国际慈善机构捐赠的款物征收赠与税，因此维基媒体不会向此类地区的个人或实体寻求捐款。',
-	'donate_interface-taxded-msg-us' => '维基媒体基金会是根据美国国内税法(IRS Code)第501(c)(3)条的规定在美国创建的非营
-利性慈善组织。因此，美国境内个人或实体的捐款可以享有减免税款的优惠政策。',
+	'donate_interface-taxded-msg-us' => '维基媒体基金会是根据美国国内税法(IRS Code)第501(c)(3)条的规定在美国创建的非营利性慈善组织。因此，美国境内个人或实体的捐款可以享有减免税款的优惠政策。',
 	'donate_interface-legal-original' => '此为转译。如果此译文同英文版存在任何矛盾，以英文版为准。',
 	'donate_interface-legal-donorpolicy' => '选择捐赠，意味着您将根据我们的捐赠者隐私政策，同运营维基百科和其他维基媒体计划的非营利性组织——维基媒体基金会，以及它在美国及其他地方的服务提供商分享您的个人信息。我们不会向任何人出售或交易您的信息。',
 	'donate_interface-monthlybox-title' => '是否每月捐款？',
