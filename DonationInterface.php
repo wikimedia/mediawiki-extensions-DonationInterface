@@ -106,8 +106,6 @@ $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/P
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
-$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumn'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumn.php';
-$wgAutoloadClasses['Gateway_Form_TwoStepTwoColumnLetter'] = $donationinterface_dir . 'gateway_forms/TwoStepTwoColumnLetter.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
 
 //GlobalCollect gateway classes
@@ -232,7 +230,7 @@ $wgDonationInterfaceSaveCommStats = false;
 
 $wgDonationInterfaceCSSVersion = 1;
 $wgDonationInterfaceTimeout = 5;
-$wgDonationInterfaceDefaultForm = 'TwoStepTwoColumnLetter';
+$wgDonationInterfaceDefaultForm = 'RapidHtml';
 
 /**
  * A string or array of strings for making tokens more secure
