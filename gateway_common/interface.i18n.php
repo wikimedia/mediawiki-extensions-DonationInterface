@@ -31245,6 +31245,7 @@ $messages['tt-cyrl'] = array(
 
 /** Uyghur (Arabic script) (ئۇيغۇرچە)
  * @author Sahran
+ * @author Tel'et
  */
 $messages['ug-arab'] = array(
 	'donate_interface-amount' => 'مىقدارى',
@@ -31301,7 +31302,7 @@ $messages['ug-arab'] = array(
 	'donate_interface-expires' => 'ۋاقتى ئۆتتى',
 	'donate_interface-make-a-donation' => 'ئىئانە',
 	'donate_interface-next' => 'كەينى',
-	'donate_interface-continue' => 'داۋاملاشتۇر',
+	'donate_interface-continue' => 'داۋامى',
 	'donate_interface-cancel' => 'ۋاز كەچ',
 	'donate_interface-payment' => 'تۆلەش',
 	'donate_interface-month' => '$1 ($2)',
