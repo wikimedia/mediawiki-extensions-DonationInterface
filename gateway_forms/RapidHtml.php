@@ -126,7 +126,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$this->set_html_file_path( $ffname );
 			} catch ( MWException $mwe ) {
 				$message = $this->gateway->getLogMessagePrefix() . "Could not load form '$ffname'";
-				$this->log( $message, LOG_ERR );
+				$this->gateway->log( $message, LOG_ERR );
 			}
 		}
 

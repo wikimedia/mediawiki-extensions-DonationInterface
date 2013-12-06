@@ -238,7 +238,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 					continue;
 				}
 			}
-			
+
+			// NOOOOES.
+			// ...but actually yes.
+			if ( $recurring === 'false' || $recurring === '0' ) {
+				$recurring = false;
+			}
+
 			//filter on recurring
 			if ( DataValidator::value_appears_in( 'recurring', $meta ) !== ( bool ) $recurring ) {
 				unset( $forms[$name] );

@@ -3095,6 +3095,11 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$ffname = $data['ffname'];
 
+		//easy stuff first:
+		if ( $this->isValidSpecialForm( $ffname ) ) {
+			return;
+		}
+
 //		'country' might = 'XX'
 		$country = $data['country'];
 		if ( $country === 'XX' ) {
@@ -3118,7 +3123,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->addData( array ( 'ffname' => $ffname . "-$country" ) );
 
 			//I'm only doing this for serious legacy purposes. This mess needs to stop itself. To help with the mess-stopping...
-			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname . -$country' works. utm_source = '$utm', referrer = '$ref'";
+			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname-$country' works. utm_source = '$utm', referrer = '$ref'";
 			$this->log( $this->getLogMessagePrefix() . $message, LOG_WARNING );
 		} else {
 			//Invalid form. Go get one that is valid, and squak in the error logs.
