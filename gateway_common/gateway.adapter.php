@@ -294,6 +294,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineVarMap();
 		$this->defineDataConstraints();
 		$this->defineReturnValueMap();
+		$this->setValidForm();
 
 		$this->stageData();
 	}
@@ -3082,6 +3083,52 @@ abstract class GatewayAdapter implements GatewayType {
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Make sure that we've got a valid ffname so we don't have to screw
+	 * around with this in RapidHTML when we try to load it and fail.
+	 */
+	public function setValidForm() {
+		//check to see if the current ffname exists, and is loadable.
+		$data = $this->getData_Unstaged_Escaped();
+
+		$ffname = $data['ffname'];
+
+//		'country' might = 'XX'
+		$country = $data['country'];
+		if ( $country === 'XX' ) {
+			$country = null;
+		}
+
+		$currency = $data['currency_code'];
+		$payment_method = $data['payment_method'];
+		$payment_submethod = $data['payment_submethod'];
+		$recurring = $data['recurring'];
+		$gateway = $data['gateway'];
+
+		//for the error messages
+		$utm = $data['utm_source'];
+		$ref = $data['referrer']; //make it actually possible to debug this hot mess
+
+		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+			return;
+		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+			//if the country-specific version exists, use that.
+			$this->addData( array ( 'ffname' => $ffname . "-$country" ) );
+
+			//I'm only doing this for serious legacy purposes. This mess needs to stop itself. To help with the mess-stopping...
+			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname . -$country' works. utm_source = '$utm', referrer = '$ref'";
+			$this->log( $this->getLogMessagePrefix() . $message, LOG_WARNING );
+		} else {
+			//Invalid form. Go get one that is valid, and squak in the error logs.
+			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
+			$this->addData( array ( 'ffname' => $new_ff ) );
+
+			//now construct a useful error message
+			$message = "ffname '$ffname' is invalid. Assigning ffname '$new_ff'. utm_source = '$utm', referrer = '$ref'";
+			$this->log( $this->getLogMessagePrefix() . $message, LOG_ERR );
+		}
 	}
 
 }
