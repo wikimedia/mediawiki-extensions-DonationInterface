@@ -37,8 +37,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			die();
 		}
 
-		$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
-		$form = self::pickOneForm( $forms, $currency, $country );
+		$form = self::getOneValidForm( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 
 		if ( $form === null ) {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
@@ -132,7 +131,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Gets all the valid forms that match the provided paramters. 
+	 * Gets all the valid forms that match the provided paramters.
+	 * These parameters should exactly match the params in getOneValidForm.
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
 	 * @param string $country Optional country code filter
 	 * @param string $currency Optional currency code filter
@@ -147,7 +147,22 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	) {
 		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceClassMap;
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
-		
+
+		//Destroy all optional params that have no values and should be null.
+		$optionals = array (
+			'country',
+			'currency',
+			'payment_method',
+			'payment_submethod',
+			'gateway'
+		);
+
+		foreach ( $optionals as $var ) {
+			if ( $$var === '' ) {
+				$$var = null;
+			}
+		}
+
 		// First get all the valid and enabled gateways capable of processing shtuff
 		$valid_gateways = self::getAllEnabledGateways();
 		if ( $gateway !== null ) {
@@ -225,12 +240,35 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			}
 			
 			//filter on recurring
-			if ( DataValidator::value_appears_in( 'recurring', $meta ) !== (bool)$recurring ) {
+			if ( DataValidator::value_appears_in( 'recurring', $meta ) !== ( bool ) $recurring ) {
 				unset( $forms[$name] );
 				continue;
 			}
 		}
 		return $forms;
+	}
+
+	/**
+	 * Gets one valid forms that match the provided paramters.
+	 * These parameters should exactly match the params in getAllValidForms.
+	 * @param string $country Optional country code filter
+	 * @param string $currency Optional currency code filter
+	 * @param string $payment_method Optional payment method filter
+	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
+	 * @param boolean $recurring Whether or not we should return recurring forms. Default = false.
+	 * @param string $gateway Optional gateway to force.
+	 * @return array
+	 */
+	static function getOneValidForm( $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false, $gateway = null
+	) {
+		$forms = self::getAllValidForms( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
+		$form = self::pickOneForm( $forms, $currency, $country );
+
+		//TODO:
+		//This here, would be an excellent place to default to
+		//"sorry, we don't support that thing you're trying to do."
+
+		return $form;
 	}
 
 	/**
@@ -263,7 +301,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		static $countries = array ( );
 		if ( !array_key_exists( $form_key, $countries ) ) {
 			$def = self::getFormDefinition( $form_key );
-			if ( array_key_exists( 'countries', $def ) ) {
+			if ( !$def ) {
+				$countries[$form_key] = 'INVALID';
+			} else if ( array_key_exists( 'countries', $def ) ) {
 				$countries[$form_key] = $def['countries'];
 			} else {
 				$countries[$form_key] = 'ALL';
@@ -271,6 +311,25 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		if ( DataValidator::value_appears_in( $country_iso, $countries[$form_key] ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Checks to see if the ffname supplied is a valid form for the rest of the supplied params.
+	 * @param type $ffname The form name to check.
+	 * @param string $country Optional country code filter
+	 * @param string $currency Optional currency code filter
+	 * @param string $payment_method Optional payment method filter
+	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
+	 * @param boolean $recurring Whether or not we should return recurring forms. Default = false.
+	 * @param string $gateway Optional gateway to force.
+	 * @return bool True if the supplied form matches the requirements, otherwise false
+	 */
+	static function isValidForm( $ffname, $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false, $gateway = null ) {
+		$forms = self::getAllValidForms( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
+		if ( is_array( $forms ) && array_key_exists( $ffname, $forms ) ) {
 			return true;
 		}
 		return false;

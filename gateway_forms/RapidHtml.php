@@ -111,8 +111,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$this->loadValidateJs();
 		
-		// Not sure if we should be using $wgRequest here. Depends if we want the normalized one or not.
-		$country = $wgRequest->getText( 'country', '' );
+		$country = $this->gateway->getData_Unstaged_Escaped( 'country' );
+		$ffname = $this->gateway->getData_Unstaged_Escaped( 'ffname' );
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );
 		if ( $error ) {
@@ -120,17 +120,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$form_errors['general'][] = htmlspecialchars( $error );
 		}
 
-		// checking to see if there is a country-specific version of the form
-		if ( !empty( $country ) ) {
-			$country_based = $wgRequest->getText( 'ffname', 'default' ) . '-' . $country;
-			$this->set_html_file_path( htmlspecialchars( $country_based ), false );
-		}
 		// only keep looking if we still haven't found a form that works
 		if ( empty( $this->html_file_path ) ){
-			try{
-				$this->set_html_file_path( htmlspecialchars( $wgRequest->getText( 'ffname', 'default' ) ) );
+			try {
+				$this->set_html_file_path( $ffname );
 			} catch ( MWException $mwe ) {
-				$this->set_html_file_path( 'default' );
+				$message = $this->gateway->getLogMessagePrefix() . "Could not load form '$ffname'";
+				$this->log( $message, LOG_ERR );
 			}
 		}
 
