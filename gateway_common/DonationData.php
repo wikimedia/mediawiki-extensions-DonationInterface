@@ -92,6 +92,8 @@ class DonationData {
 				'currency_code' => $wgRequest->getVal( 'currency_code' ),
 				'payment_method' => $wgRequest->getText( 'payment_method', null ),  // NOTE: If things are breaking because session data is overwriting this; please fix elsewhere!
 				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
+				'paymentmethod' => $wgRequest->getText( 'paymentmethod', null ), //used by the FormChooser (and the newest banners) for some reason.
+				'submethod' => $wgRequest->getText( 'submethod', null ), //same as above. Ideally, the newer banners would stop using these vars and go back to the old ones...
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
 				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
 				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
@@ -388,6 +390,7 @@ class DonationData {
 			$this->setNormalizedOrderIDs();
 			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
+			$this->setNormalizedPaymentMethod(); //need to do this before utm_source.
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
 			$this->setGateway();
@@ -744,6 +747,57 @@ class DonationData {
 
 		$this->setVal( 'order_id', $id );
 		$this->setVal( 'i_order_id', $id );
+	}
+
+	/**
+	 * normalize helper function.
+	 * Collapses the various versions of payment method and submethod.
+	 *
+	 * @return null
+	 */
+	protected function setNormalizedPaymentMethod() {
+		$method = '';
+		$submethod = '';
+		// payment_method and payment_submethod are currently preferred within DonationInterface
+		if ( $this->isSomething( 'payment_method' ) ) {
+			$method = $this->getVal( 'payment_method' );
+
+			//but they can come in a little funny.
+			$exploded = explode( '.', $method );
+			if ( count( $exploded ) > 1 ) {
+				$method = $exploded[0];
+				$submethod = $exploded[1];
+			}
+		}
+
+		if ( $this->isSomething( 'payment_submethod' ) ) {
+			if ( $submethod != '' ) {
+				//squak a little if they don't match, and pick one.
+				if ( $submethod != $this->getVal( 'payment_submethod' ) ) {
+					$message = $this->getLogMessagePrefix() . "Submethod normalization conflict!: ";
+					$message .= 'payment_submethod = ' . $this->getVal( 'payment_submethod' );
+					$message .= ", and exploded payment_method = '$submethod'. Going with the first option.";
+					$this->log( $message, LOG_DEBUG );
+				}
+			}
+			$submethod = $this->getVal( 'payment_submethod' );
+		}
+
+		if ( $this->isSomething( 'paymentmethod' ) ) { //gross. Why did we do this?
+			//...okay. So, if we have this value, we've likely just come in from the form chooser,
+			//which has just used *this* value to choose a form with.
+			//so, go ahead and prefer this version, and then immediately nuke it.
+			$method = $this->getVal( 'paymentmethod' );
+			$this->expunge( 'paymentmethod' );
+		}
+
+		if ( $this->isSomething( 'submethod' ) ) { //same deal
+			$submethod = $this->getVal( 'submethod' );
+			$this->expunge( 'submethod' );
+		}
+
+		$this->setVal( 'payment_method', $method );
+		$this->setVal( 'payment_submethod', $submethod );
 	}
 
 	/**
