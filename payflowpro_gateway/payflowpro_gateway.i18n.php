@@ -353,7 +353,7 @@ Poseu-vos en contacte amb nosaltres per continuar amb la transacció.',
 	'payflowpro_gateway-response-default' => 'Hi ha hagut un error en processar la vostra transacció. Torneu-ho a provar més tard.',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Danny B.
  * @author Jkjk
  * @author Matěj Grabovský

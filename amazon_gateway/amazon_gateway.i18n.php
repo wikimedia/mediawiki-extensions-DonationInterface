@@ -53,7 +53,7 @@ $messages['ca'] = array(
 	'amazongateway' => 'Feu ara un donatiu',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Mormegil
  */
 $messages['cs'] = array(
