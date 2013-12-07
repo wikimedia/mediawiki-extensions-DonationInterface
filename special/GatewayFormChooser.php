@@ -66,17 +66,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		$redirectURL = self::buildPaymentsFormURL( $form, $params );
 
-		$debug_mess = __FUNCTION__;
-		$ctid = @$GET['contribution_tracking_id'];
-		if ( !is_null( $ctid ) ) {
-			$debug_mess .= " $ctid";
-		}
-		$debug_mess .= " GatewayFormChooser built URL '$redirectURL' for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway'.";
-		GatewayAdapter::log( $debug_mess, LOG_DEBUG );
-
-		error_log( $debug_mess );
-
-
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
 	}
@@ -281,15 +270,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$forms = self::getAllValidForms( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
 		$form = self::pickOneForm( $forms, $currency, $country );
 
-		//done playing.
-		$debug_mess = __FUNCTION__;
-		$ctid = @$GET['contribution_tracking_id'];
-		if ( !is_null( $ctid ) ) {
-			$debug_mess .= " $ctid";
-		}
-		$debug_mess .= " Selected '$form' for country '$country', currency '$currency', method '$payment_method', submethod '$payment_submethod', recurring: '$recurring', gateway '$gateway'.";
-		GatewayAdapter::log( $debug_mess, LOG_DEBUG );
-
 		//TODO:
 		//This here, would be an excellent place to default to
 		//"sorry, we don't support that thing you're trying to do."
@@ -358,15 +338,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		if ( is_array( $forms ) && array_key_exists( $ffname, $forms ) ) {
 			return true;
 		}
-
-		$debug_mess = __FUNCTION__;
-		$ctid = @$GET['contribution_tracking_id'];
-		if ( !is_null( $ctid ) ) {
-			$debug_mess .= " $ctid";
-		}
-		$debug_mess .= " Form '$ffname' found to be invalid for country '$country', currency '$currency', method '$payment_method', submethod '$payment_submethod', recurring: '$recurring', gateway '$gateway'.";
-		GatewayAdapter::log( $debug_mess, LOG_DEBUG );
-
 		return false;
 	}
 
