@@ -4971,7 +4971,7 @@ $messages['ckb'] = array(
 	'donate_interface-monthly-short' => 'مانگانە',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Chmee2
  * @author Danny B.
  * @author Jkjk
@@ -5376,7 +5376,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-error-http-403' => 'Nemáte oprávnění k přístupu na tuto stránku.',
 );
 
-/** Church Slavic (словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+/** Church Slavic (словѣньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
  * @author ОйЛ
  */
 $messages['cu'] = array(
@@ -9724,7 +9724,7 @@ Jotta turvallinen ja miellyttävä lahjoituskokemus annettaisiin, lahjoituslomak
  */
 $messages['fr'] = array(
 	'donate_interface' => 'Soutenir Wikimedia',
-	'donate_interface-desc' => 'Page d’atterrissage qui intègre les modules d’interface pour les dons',
+	'donate_interface-desc' => 'Page de destination de don qui intègre des extensions de la passerelle',
 	'donate_interface-langonly-desc' => 'Exposer seulement les messages système de DonationInterface.',
 	'donate_interface-intro' => 'Veuillez choisir un moyen de paiement, un montant et une devise.',
 	'donate_interface-amount' => 'Montant',
@@ -9734,7 +9734,7 @@ $messages['fr'] = array(
 	'donate_interface-submit-button' => 'Faire un don',
 	'donate_interface-comment-message' => 'Vous souhaitez transmettre une pensée au monde ? Inscrivez jusqu’à 200 caractères :',
 	'donate_interface-comment-label' => 'Commentaire :',
-	'donate_interface-email-agreement' => 'J’accepte de recevoir des courriels occasionnels de la part de la Fondation Wikimédia pour me tenir au courant.',
+	'donate_interface-email-agreement' => 'J’accepte de recevoir des courriels occasionnels de la part de la Wikimedia Foundation pour me tenir au courant.',
 	'donate_interface-comment-title' => 'Commentaire public',
 	'donate_interface-donation-description' => 'Don à la Wikimedia Foundation',
 	'donate_interface-monthly-donation-description' => 'Don mensuel à la Fondation Wikimedia',
@@ -9753,10 +9753,10 @@ Aucun organisme de paiement n’est disponible.',
 	'donate_interface-BGN' => 'lev bulgare',
 	'donate_interface-BHD' => 'dinar bahreïni',
 	'donate_interface-BMD' => 'dollar des Bermudes',
-	'donate_interface-BND' => 'dollar de Brunéi',
+	'donate_interface-BND' => 'dollar de Brunei',
 	'donate_interface-BOB' => 'boliviano bolivien',
 	'donate_interface-BRL' => 'réal brésilien',
-	'donate_interface-BSD' => 'dollar bahaméen',
+	'donate_interface-BSD' => 'dollar des Bahamas',
 	'donate_interface-BZD' => 'dollar de Belize',
 	'donate_interface-CAD' => 'dollar canadien',
 	'donate_interface-CHF' => 'franc suisse',
@@ -9820,7 +9820,7 @@ Aucun organisme de paiement n’est disponible.',
 	'donate_interface-TTD' => 'dollar de Trinité-et-Tobago',
 	'donate_interface-TWD' => 'nouveau dollar taïwanais',
 	'donate_interface-UAH' => 'hryvnia ukrainienne',
-	'donate_interface-USD' => 'dollar des États-Unis',
+	'donate_interface-USD' => 'dollar américain',
 	'donate_interface-UYU' => 'peso uruguayen',
 	'donate_interface-UZS' => 'sum ouzbèke',
 	'donate_interface-VND' => 'dong vietnamien',
@@ -9918,7 +9918,7 @@ Aucun organisme de paiement n’est disponible.',
 	'donate_interface-error-msg-fiscal_number' => 'numéro fiscal',
 	'donate_interface-donate-error-try-a-different-card' => 'Veuillez [$1 essayer une autre carte] ou l’une de nos [$2 autres façons de donner] ou bien nous contacter par courriel adressé à $3',
 	'donate_interface-donate-error-try-again-html' => 'Veuillez <a href="$1">réessayer</a>, essayer un de nos <a href="$2">autres moyens fournis</a>, ou nous contacter à <a href="mailto:$3">$3</a>',
-	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci pour votre soutien !',
+	'donate_interface-donate-error-thank-you-for-your-support' => 'Merci de votre soutien !',
 	'donate_interface-error-no-form' => 'Nous n’avons pas pu trouver de formulaire de don correspondant à vos paramètres. Veuillez contacter  [mailto:donate@wikimedia.org notre équipe de soutien] pour plus d’information.',
 	'php-response-declined' => 'Votre transaction n’a pu être acceptée.',
 	'donate_interface-thankyou' => 'Merci pour votre don !',
@@ -9932,7 +9932,7 @@ Typiquement, la zone pour la signature contient une série de chiffres, mais seu
 <p>Le code est <i>toujours</i> situé au recto de la carte, <i>au-dessus</i> du numéro de compte (en relief).
 Dans certains cas, le code est situé sur le côté gauche de la carte, mais il est toujours au-dessus du numéro de compte.</p><br />',
 	'donate_interface-question-comment' => 'Des questions ou commentaires ? Contactez <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-easydonate' => 'Nous nous efforçons de faciliter les dons pour les personnes de tous les pays. Veuillez nous faire savoir comment nous pourrions rendre cela encore plus facile pour vous. Envoyez vos suggestions à problemsdonating@wikimedia.org.',
+	'donate_interface-easydonate' => 'Nous nous efforçons de faciliter les dons pour les personnes de tous les pays. Veuillez nous faire savoir comment nous pourrions rendre cela encore plus facile pour vous. Envoyez vos suggestions à <a href="mailto:problemsdonating@wikimedia.org">problemsdonating@wikimedia.org</a>.',
 	'donate_interface-problemsdonating' => 'Problèmes pour faire un don ?',
 	'donate_interface-donate-click' => 'Votre carte bancaire ou de crédit/débit sera prise en charge de manière sécurisée.',
 	'donate_interface-otherways' => 'Il y a <a href="//wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’autres moyens de donner, notamment par PayPal, par chèque ou par courrier postal</a>.',
@@ -10092,16 +10092,16 @@ Afin de vous fournir un processus sûr, sécurisé et agréable, notre formulair
 	'donate_interface-email-subject' => 'Merci à vous de la part de la Wikimedia Foundation',
 	'donate_interface-email-unsub-title' => 'Se désabonner de la Wikimedia Foundation',
 	'donate_interface-email-unsub-button' => 'Se désabonner',
-	'donate_interface-email-unsub-success' => 'Vous avez bien été retiré de notre liste de diffusion',
-	'donate_interface-email-unsub-delay' => 'Veuillez nous accorder quatre (4) jours pour que les modifications deviennent effectives. Nous nous excusons pour tous les courriels que vous pourriez encore recevoir durant ce temps. Si vous avez des questions, veuillez contacter <donations@wikimedia.org>',
-	'donate_interface-email-unsub-fail' => 'Une erreur est survenue lors du traitement de votre requête, merci de contacter <donations@wikimedia.org>.',
+	'donate_interface-email-unsub-success' => 'Votre nom a bien été retiré de notre liste de diffusion',
+	'donate_interface-email-unsub-delay' => 'Veuillez nous accorder quatre (4) jours pour que les modifications deviennent effectives. Nous nous excusons pour tous les courriels que vous pourriez encore recevoir durant ce temps. Si vous avez des questions, veuillez contacter <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
+	'donate_interface-email-unsub-fail' => 'Une erreur est survenue lors du traitement de votre requête, merci de contacter <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-email-unsub-confirm' => 'Vous êtes certain que vous souhaitez désabonner <b>$1</b> ?',
 	'donate_interface-email-unsub-warning' => 'Cela vous désabonnera des courriels de la Wikimedia Foundation qui vous sont envoyés en tant que donateur. Vous pourriez encore recevoir des courriels à cette adresse si elle reste associée à un compte d’un de nos projets. Si vous avez des questions, veuillez nous contacter par courriel adressé à <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Foire aux questions',
 	'donate_interface-tax-info' => 'Informations sur les conditions de déductibilité fiscale',
 	'donate_interface-informationsharing' => 'En faisant un don, vous partagez vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui héberge Wikipédia et les autres projets Wikimedia, ainsi qu’avec ses prestataires situés aux États-Unis et ailleurs, conformément à notre politique en matière de gestion des données personnelles des donateurs. Nous ne vendons ni n’échangeons vos données personnelles. Pour plus d’informations, vous pouvez lire <a href="//wikimediafoundation.org/wiki/Donor_policy/fr">notre politique en matière de gestion des données personnelles des donateurs</a>.',
 	'donate_interface-currency-change' => 'Changer ?',
-	'donate_interface-bank_transfer_message' => 'Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Wikimedia Foundation. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à donations@wikimedia.org si vous avez toute question ou préoccupation.',
+	'donate_interface-bank_transfer_message' => 'Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est le prestataire autorisé à accepter et traiter les paiements au nom de la Wikimedia Foundation. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>. si vous avez toute question ou préoccupation.',
 	'donate_interface-globalcollect-proxy' => 'Veuillez noter que votre relevé indiquera « Global Collect » comme bénéficiaire de ce don. Global Collect est autorisé à accepter et prendre en charge les paiements pour le compte de la Wikimedia Foundation.',
 	'donate_interface-taxded-link-int' => 'Informations fiscales et juridiques',
 	'donate_interface-taxded-link-us' => 'Informations sur les conditions de déductibilité fiscale',

@@ -69,7 +69,7 @@ $messages['bs'] = array(
 	'paypal_gateway-desc' => 'Registruje PayPal kao mehanizam za donacije', # Fuzzy
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Mormegil
  */
 $messages['cs'] = array(
@@ -102,10 +102,12 @@ $messages['de-formal'] = array(
 );
 
 /** Zazaki (Zazaki)
+ * @author Marmase
  * @author Xoser
  */
 $messages['diq'] = array(
-	'paypal_gateway-desc' => 'PayPal xo qeyd keno', # Fuzzy
+	'paypalgateway' => 'Bêca xo newke bıkerê',
+	'paypal_gateway-desc' => 'PayPal ğo qeyd keno',
 );
 
 /** Lower Sorbian (dolnoserbski)
