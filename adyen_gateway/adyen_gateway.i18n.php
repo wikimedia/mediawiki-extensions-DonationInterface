@@ -51,7 +51,7 @@ $messages['br'] = array(
 	'adyengateway' => 'Grit ho tonezon bremañ',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Mormegil
  */
 $messages['cs'] = array(
