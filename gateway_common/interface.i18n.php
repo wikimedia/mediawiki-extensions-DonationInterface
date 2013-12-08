@@ -8140,7 +8140,7 @@ $messages['es'] = array(
 	'donate_interface-error-msg-field-correction' => 'Por favor, corrija los errores en su $1',
 	'donate_interface-error-msg-js' => 'Por favor, escribe tu',
 	'donate_interface-error-msg-validation' => 'Por favor, corrija los errores en el formulario.',
-	'donate_interface-error-msg-invalid-amount' => 'Por favor, escribe una cantidad válida',
+	'donate_interface-error-msg-invalid-amount' => 'Escribe una cantidad válida',
 	'donate_interface-error-msg-email' => 'Por favor, escribe una dirección de correo electrónico válida',
 	'donate_interface-error-msg-card-num' => 'Introduce un número de tarjeta de crédito válido para uno de los tipos de tarjetas de crédito aceptadas',
 	'donate_interface-error-msg-amex' => 'Por favor, escribe un número de tarjeta American Express correcto',
@@ -21320,7 +21320,7 @@ $messages['nl'] = array(
 	'donate_interface-donor-email' => 'E-mailadres:',
 	'donate_interface-donor-emailAdd' => 'E-mailadres',
 	'donate_interface-donor-name' => 'Naam:',
-	'donate_interface-donor-fname' => 'Voornaam:',
+	'donate_interface-donor-fname' => 'Voornaam',
 	'donate_interface-donor-mname' => 'Tussenvoegsel:',
 	'donate_interface-donor-lname' => 'Achternaam:',
 	'donate_interface-donor-street' => 'Straat:',
@@ -21391,7 +21391,7 @@ $messages['nl'] = array(
 	'donate_interface-error-no-form' => 'Er is geen donatieformulier aangetroffen voor uw parameters. Neem alstublieft contact op met [mailto:donate@wikimedia.org ons hulpteam] voor meer informatie.',
 	'php-response-declined' => 'Uw transactie kon niet geaccepteerd worden.',
 	'donate_interface-thankyou' => 'Dank u wel voor uw donatie!',
-	'donate_interface-post-transaction' => 'Transactiedetails',
+	'donate_interface-post-transaction' => 'Transactiegegevens',
 	'donate_interface-cvv-explain' => '<h4>Wat is CVV?</h4>
 <p>Cardholder Verification Value (Kaarhouder verificatiewaarde - CVV): dit getal van drie of vier cijfers zorgt ervoor dat te controleren is of de kaart echt in handen is van degene die online een donatie doet en helpt ongeoorloofd of frauduleus gebruik te voorkomen.</p>
 <h4>Visa, Mastercard</h4>
