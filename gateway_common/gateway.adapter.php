@@ -3133,6 +3133,35 @@ abstract class GatewayAdapter implements GatewayType {
 			//now construct a useful error message
 			$message = "ffname '$ffname' is invalid. Assigning ffname '$new_ff'. utm_source = '$utm', referrer = '$ref'";
 			$this->log( $this->getLogMessagePrefix() . $message, LOG_ERR );
+
+			//Turn these off by setting the LogDebug global to false.
+			$this->log( "GET: " . json_encode( $_GET ), LOG_DEBUG );
+			$this->log( "POST: " . json_encode( $_POST ), LOG_DEBUG );
+
+			$dontwannalog = array (
+				'user_ip',
+				'server_ip',
+				'descriptor',
+				'account_name',
+				'account_number',
+				'authorization_id',
+				'bank_check_digit',
+				'bank_name',
+				'bank_code',
+				'branch_code',
+				'country_code_bank',
+				'date_collect',
+				'direct_debit_text',
+				'iban',
+				'fiscal_number',
+			);
+
+			foreach ( $data as $key => $val ) {
+				if ( in_array( $key, $dontwannalog ) ) {
+					unset( $data[$key] );
+				}
+			}
+			$this->log( "Truncated DonationData: " . json_encode( $data ), LOG_DEBUG );
 		}
 	}
 
