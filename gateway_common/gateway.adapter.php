@@ -3118,6 +3118,12 @@ abstract class GatewayAdapter implements GatewayType {
 
 		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			return;
+		} else if ( $this->session_getLastRapidHTMLForm() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
+			$new_ff = $this->session_getLastRapidHTMLForm();
+			$this->addData( array ( 'ffname' => $new_ff ) );
+
+			//and debug log a little
+			$this->log( "Setting form to last successful ('$new_ff')", LOG_DEBUG );
 		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			//if the country-specific version exists, use that.
 			$this->addData( array ( 'ffname' => $ffname . "-$country" ) );
