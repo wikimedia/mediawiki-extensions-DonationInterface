@@ -23868,6 +23868,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 
 /** Brazilian Portuguese (português do Brasil)
  * @author Adamw
+ * @author Fitoschido
  * @author Giro720
  * @author GoEThe
  * @author Jsoby
@@ -24114,7 +24115,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-street-address-line-2' => 'Rua (linha 2)',
 	'donate_interface-street-1' => 'Rua 1',
 	'donate_interface-street-2' => 'Rua 2',
-	'donate_interface-apartment-number' => 'Nº do apartamento',
+	'donate_interface-apartment-number' => 'N.º do apartamento',
 	'donate_interface-city-town' => 'Cidade/Localidade',
 	'donate_interface-town-city' => 'Localidade/Cidade',
 	'donate_interface-state-province' => 'Estado',
