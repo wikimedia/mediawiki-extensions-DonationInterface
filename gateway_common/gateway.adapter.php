@@ -990,7 +990,11 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
 
 			if ( $this->getCommunicationType() === 'redirect' ) {
-				wfRunHooks( 'GatewayHandoff', array( $this ) );
+				wfRunHooks( 'GatewayHandoff', array ( $this ) );
+
+				//in the event that we have a redirect transaction that never displays the form,
+				//save this most recent one before we leave.
+				$this->session_pushRapidHTMLForm( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
 				$this->transaction_results = array(
 					'status' => TRUE,
