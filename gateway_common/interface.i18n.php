@@ -33363,6 +33363,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-error-msg-country-calc' => '错误 - 我们无法接受您在此时的捐款。',
 	'donate_interface-error-msg-fiscal_number' => '财政编码',
 	'donate_interface-donate-error-try-a-different-card' => '请试用[$1 另外一个信用卡]或[$2 其他捐赠方法]，或者发送至$3来联络我们',
+	'donate_interface-donate-error-try-again-html' => '请<a href="$1">重试</a>，尝试我们的<a href="$2">其他支付方式</a>，或与我们联系：<a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => '感谢您的支持！',
 	'donate_interface-error-no-form' => '我们无法找到与您的参数相匹配的捐款方式。请联系[mailto:donate@wikimedia.org 我们的帮助团队]获得更多信息。',
 	'php-response-declined' => '您的交易被拒绝。',
@@ -33545,6 +33546,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-informationsharing' => '捐款后，您将与维基媒体基金会共享您的信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并遵照我们的<a href="//wikimediafoundation.org/wiki/Donor_policy/zh-hans">《捐款人隐私政策》</a>管理美国和其他国家/地区的服务提供商。我们不会向任何人出售或交易您的信息',
 	'donate_interface-currency-change' => '修改？',
 	'donate_interface-bank_transfer_message' => '请注意您的账单会显示该捐赠的收款人为“Global Collect”。Global Collect被授权代表维基媒体基金会接受并处理捐款。请记得在您银行转帐时将这里提供的数字加在附言中，如有任何问题或疑虑，欢迎垂询 donations@wikimedia.org 。',
+	'donate_interface-globalcollect-proxy' => '请注意，您的账单将显示“Global Collect”作为这份礼物的收款人。Global Collect是已经过维基媒体基金会授权的接受和处理付款的代表。',
 	'donate_interface-taxded-link-int' => '税务及其他法律信息',
 	'donate_interface-taxded-link-us' => '减税信息',
 	'donate_interface-taxded-msg-int' => '维基媒体基金会是根据美国国内税法(IRS Code)第501(c)(3)条的规定在美国创建的非营
