@@ -16021,18 +16021,20 @@ $messages['km'] = array(
 );
 
 /** Kannada (ಕನ್ನಡ)
+ * @author Dimension10
  * @author Nayvik
  * @author VASANTH S.N.
  */
 $messages['kn'] = array(
 	'donate_interface-submit-button' => 'ದೇಣಿಗೆ',
-	'donate_interface-comment-label' => 'ಟಿಪ್ಪಣಿ',
+	'donate_interface-comment-label' => 'ಟಿಪ್ಪಣಿ :',
 	'donate_interface-cvv-link' => 'ಉದಾಹರಣೆ', # Fuzzy
 	'donate_interface-donor-city' => 'ನಗರ:',
 	'donate_interface-donor-state' => 'ರಾಜ್ಯ',
 	'donate_interface-donor-address' => 'ವಿಳಾಸ:',
 	'donate_interface-error-msg-city' => 'ನಗರ',
 	'donate_interface-error-msg-state' => 'ರಾಜ್ಯ',
+	'donate_interface-comment' => 'ಟಿಪ್ಪಣಿ',
 );
 
 /** Korean (한국어)
@@ -17119,7 +17121,7 @@ Heiansdo, steet de Code op der lénkser Säit vun der Kaart, awer e steet ëmmer
 	'donate_interface-other' => 'Anerer',
 	'donate_interface-noscript-msg' => 'Et gesäit sou aus wéi wann Dir JavaScript net ageschalt hätt, oder Äre Browser ënnerstëtzt en net.
 Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire vun den Donen JavaSCript.',
-	'donate_interface-noscript-redirect-msg' => 'Wann Dir JavaSript net aschalte kënnt oder wëllt, kënnt Dir trotzdem en Don maachen wann Dir op dës Websäit gitt:',
+	'donate_interface-noscript-redirect-msg' => 'Wann Dir JavaSript net aschalte kënnt oder wëllt, kënnt Dir trotzdeem en Don maachen wann Dir op dës Websäit gitt:',
 	'donate_interface-anon-message' => 'Setzt mäin Numm w.e.g. op déi ëffentlech Lëscht vun den Donateuren.',
 	'donate_interface-donate-wikipedia' => 'Maacht en Don op Wikipedia',
 	'donate_interface-or' => 'oder',
