@@ -846,6 +846,7 @@ $messages['gu'] = array(
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author Guycn2
  * @author Rotemliss
  * @author YaronSh
  */
@@ -853,18 +854,18 @@ $messages['he'] = array(
 	'payflowprogateway' => 'הבעת תמיכתך בוויקימדיה כעת',
 	'payflowpro_gateway-desc' => 'עיבוד תשלום בכרטיס אשראי PayPal Payflow Pro',
 	'payflowpro_gateway-response-0' => 'העברת הכספים אושרה.
-תודה על תרומתכם!',
+תודה על תרומתך!',
 	'payflowpro_gateway-response-126' => 'העברת הכספים ממתינה לאישור.',
 	'payflowpro_gateway-response-126-2' => 'חלק מהפרטים שהזנת אינם תואמים לפרופיל כרטיס האשראי שלך או שהענקת מתנה גדולה מדי. לביטחונך, התרומה שלך נבדקת כעת ואנו נודיע לך דרך כתובת הדוא״ל שסיפקת במידה שלא נוכל לקבל את תרומתך. נא לשלוח דוא״ל אל <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a> אם יש לך שאלות כלשהן.  תודה לך!',
 	'payflowpro_gateway-response-12' => 'נא ליצור קשר עם חברת האשראי שלך למידע נוסף.',
-	'payflowpro_gateway-response-13' => 'העברת הכספים מצידכם דורשת אימות קולי.
+	'payflowpro_gateway-response-13' => 'העברת הכספים מצדכם דורשת אימות קולי.
 אנא צרו איתנו קשר כדי להמשיך בהעברת הכספים.',
 	'payflowpro_gateway-response-114' => 'אנא צרו קשר עם חברת האשראי שלכם למידע נוסף.',
 	'payflowpro_gateway-response-23' => 'מספר כרטיס האשראי או תאריך התפוגה אינם נכונים.',
 	'payflowpro_gateway-response-4' => 'הסכום שגוי.',
 	'payflowpro_gateway-response-24' => 'תאריך תפוגת כרטיס האשראי שלך אינו נכון.',
 	'payflowpro_gateway-response-112' => 'הכתובת או קוד הביטחון שלך אינם נכונים.',
-	'payflowpro_gateway-response-125' => 'העברת הכספים מצידכם נדחתה על ידי השירותים למניעת ההונאה.',
+	'payflowpro_gateway-response-125' => 'העברת הכספים מצדכם נדחתה על־ידי השירותים למניעת הונאה.',
 	'payflowpro_gateway-response-125-2' => 'לא ניתן לאמת את כרטיס האשראי שלך. נא לוודא שכל הפרטים המופיעים להלן תואמים לפרופיל כרטיס האשראי שלך או פשוט לנסות כרטיס אחר. ניתן גם להשתמש באחת מ<a href="http://wikimediafoundation.org/wiki/Ways_to_Give/en">הדרכים האחות לתת</a> או ליצור אתנו קשר בכתובת <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>. תודה לך על תמיכתך.',
 	'payflowpro_gateway-response-default' => 'אירעה שגיאה בעיבוד הבקשה שלך.
 נא לנסות שוב מאוחר יותר.',
