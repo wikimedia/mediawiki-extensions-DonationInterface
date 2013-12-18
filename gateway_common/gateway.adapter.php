@@ -352,8 +352,8 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * getThankYouPage should either return a full page url, or false. 
-	 * @global type $wgLang
+	 * getThankYouPage should either return a full page url, or false.
+	 *
 	 * @return mixed Page URL in string format, or false if none is set. 
 	 */
 	public function getThankYouPage() {
@@ -396,23 +396,27 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * For pages we intend to redirect to. This function will take either a full 
 	 * URL or a page title, and turn it into a URL with the appropriate language 
-	 * appended onto the end. 
+	 * appended onto the end.
+	 *
 	 * @param string $url Either a wiki page title, or a URL to an external wiki 
-	 * page title. 
-	 * @return string A URL  
+	 * page title.
+	 *
+	 * @return string A URL
 	 */
-	protected function appendLanguageAndMakeURL( $url ){
+	protected function appendLanguageAndMakeURL( $url ) {
 		$language = $this->getData_Unstaged_Escaped( 'language' );
-		//make sure we don't already have the language in there...
-		$dirs = explode('/', $url);
-		if ( !is_array($dirs) || !in_array( $language, $dirs ) ){
-			$url = $url . "/$language";
-		}
 		
-		if ( strpos( $url, 'http' ) === 0) { 
-			return $url;
-		} else { //this isn't a url yet.
-			$returnTitle = Title::newFromText( $url );
+		if ( ( strpos( $url, 'http' ) === 0 ) || ( strpos( $url, '//' ) === 0 ) ) {
+			return http_build_url(
+				wfParseUrl( $url ),
+				array(
+					 'path' => $language,
+				),
+				HTTP_URL_JOIN_PATH
+			);
+		} else {
+			// this isn't a url yet, must be a mediawiki page
+			$returnTitle = Title::newFromText( "{$url}/{$language}" );
 			$url = $returnTitle->getFullURL();
 			return $url;
 		}
