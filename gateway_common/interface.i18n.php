@@ -6053,13 +6053,13 @@ I nogle tilfælde er koden placeret på venstre side af kortet, men altid over k
 	'donate_interface-token-mismatch' => 'Din session er udløbet. Prøv at udfylde og indsende formularen igen.',
 	'donate_interface-cc-form-header-personal' => 'Faktureringsoplysninger',
 	'donate_interface-cc-form-header-payment' => 'Betalingsoplysninger',
-	'donate_interface-make-your-donation' => 'Doner nu',
+	'donate_interface-make-your-donation' => 'Giv dit bidrag nu',
 	'donate_interface-state-in-us' => 'hvis i USA',
 	'donate_interface-comment' => 'Kommentar',
 	'donate_interface-first' => 'Fornavn',
 	'donate_interface-middle' => 'Mellemnavn',
 	'donate_interface-last' => 'Efternavn',
-	'donate_interface-other' => 'Andet beløb',
+	'donate_interface-other' => 'Andet',
 	'donate_interface-noscript-msg' => 'Det lader til, at du ikke har JavaScript slået til, eller at din browser ikke understøtter det.
 For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donationsform JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Hvis du ikke kan eller ikke ønsker at slå JavaScript til, kan du stadigvæk bidrage ved at besøge:',
@@ -6076,8 +6076,8 @@ For at kunne tilbyde en tryg, sikker og behagelig oplevelse kræver vores donati
 	'donate_interface-address-2' => 'Adresse 2',
 	'donate_interface-address-lines' => 'Adresselinjer',
 	'donate_interface-address-line-2' => 'Adresse (linje 2)',
-	'donate_interface-street-address' => 'Gadeadresse',
-	'donate_interface-street-address-line-2' => 'Gadeadresse (linje 2)',
+	'donate_interface-street-address' => 'Gade/vej',
+	'donate_interface-street-address-line-2' => 'Gade/vej (linje 2)',
 	'donate_interface-street-1' => 'Gade 1',
 	'donate_interface-street-2' => 'Gade 2',
 	'donate_interface-apartment-number' => 'Lejl.',
@@ -10530,6 +10530,13 @@ $messages['fur'] = array(
 	'donate_interface-comment-label' => 'Coment:',
 	'donate_interface-comment-title' => 'Coment public',
 	'donate_interface-donor-name' => 'Non',
+);
+
+/** Western Frisian (Frysk)
+ * @author Kening Aldgilles
+ */
+$messages['fy'] = array(
+	'donate_interface-cancel' => 'Ofbrekke',
 );
 
 /** Irish (Gaeilge)
