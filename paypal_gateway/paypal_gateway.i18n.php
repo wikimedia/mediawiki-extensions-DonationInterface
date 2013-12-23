@@ -69,6 +69,13 @@ $messages['bs'] = array(
 	'paypal_gateway-desc' => 'Registruje PayPal kao mehanizam za donacije', # Fuzzy
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'paypalgateway' => 'ГӀо де хӀинца',
+);
+
 /** Czech (čeština)
  * @author Mormegil
  */
