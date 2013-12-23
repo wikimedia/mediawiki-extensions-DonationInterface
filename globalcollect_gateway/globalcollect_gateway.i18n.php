@@ -159,6 +159,13 @@ $messages['ca'] = array(
 	'globalcollect_gateway-response-430330' => 'Número de targeta invàlid.',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'globalcollectgateway' => 'ГӀо де хӀинца',
+);
+
 /** Czech (čeština)
  * @author Mormegil
  */

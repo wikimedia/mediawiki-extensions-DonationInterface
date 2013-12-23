@@ -353,6 +353,13 @@ Poseu-vos en contacte amb nosaltres per continuar amb la transacció.',
 	'payflowpro_gateway-response-default' => 'Hi ha hagut un error en processar la vostra transacció. Torneu-ho a provar més tard.',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'payflowprogateway' => 'ГӀо де хӀинца',
+);
+
 /** Czech (čeština)
  * @author Danny B.
  * @author Jkjk

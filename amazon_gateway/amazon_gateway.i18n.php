@@ -53,6 +53,13 @@ $messages['ca'] = array(
 	'amazongateway' => 'Feu ara un donatiu',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'amazongateway' => 'ГӀо де хӀинца',
+);
+
 /** Czech (čeština)
  * @author Mormegil
  */
