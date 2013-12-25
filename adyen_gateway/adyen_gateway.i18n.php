@@ -78,6 +78,16 @@ $messages['cy'] = array(
 Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
 );
 
+/** Danish (dansk)
+ * @author Christian List
+ */
+$messages['da'] = array(
+	'adyengateway' => 'Giv dit bidrag nu',
+	'adyen_gateway-desc' => 'Betaling med Adyen',
+	'adyen_gateway-response-default' => 'Der opstod en fejl under behandlingen af din transaktion.
+Prøv venligst igen senere.',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */

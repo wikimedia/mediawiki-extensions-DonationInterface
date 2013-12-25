@@ -215,10 +215,11 @@ Ceisiwch eto ymhen tipyn.',
 );
 
 /** Danish (dansk)
+ * @author Christian List
  * @author Peter Alberti
  */
 $messages['da'] = array(
-	'globalcollectgateway' => 'Doner nu',
+	'globalcollectgateway' => 'Giv dit bidrag nu',
 	'globalcollect_gateway-desc' => 'Håndtering af betaling via GlobalCollect',
 	'globalcollect_gateway-response-9130' => 'Ugyldigt land.',
 	'globalcollect_gateway-response-9140' => 'Ugyldig valuta.',
