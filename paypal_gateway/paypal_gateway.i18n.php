@@ -92,6 +92,14 @@ $messages['cy'] = array(
 	'paypal_gateway-desc' => 'Prosesu taliad PayPal',
 );
 
+/** Danish (dansk)
+ * @author Christian List
+ */
+$messages['da'] = array(
+	'paypalgateway' => 'Giv dit bidrag nu',
+	'paypal_gateway-desc' => 'Betaling med PayPal',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64

@@ -76,6 +76,14 @@ $messages['cy'] = array(
 	'amazon_gateway-desc' => 'Prosesu taliad trwy Amazon',
 );
 
+/** Danish (dansk)
+ * @author Christian List
+ */
+$messages['da'] = array(
+	'amazongateway' => 'Giv dit bidrag nu',
+	'amazon_gateway-desc' => 'Betaling med Amazon',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64

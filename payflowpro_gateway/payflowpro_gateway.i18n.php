@@ -419,7 +419,7 @@ Ceisiwch eto ymhen ychydig, os gwelwch yn dda.",
  * @author Peter Alberti
  */
 $messages['da'] = array(
-	'payflowprogateway' => 'Doner nu',
+	'payflowprogateway' => 'Giv dit bidrag nu',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kreditkorthåndtering',
 	'payflowpro_gateway-response-0' => 'Din transaktion er blevet godkendt.
 Tak for din donation!',
