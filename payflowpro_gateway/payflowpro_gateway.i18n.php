@@ -1475,9 +1475,10 @@ Probeer het later nog een keer.',
 /** Norwegian Nynorsk (norsk nynorsk)
  * @author Gunnernett
  * @author Nghtwlkr
+ * @author Njardarlogar
  */
 $messages['nn'] = array(
-	'payflowprogateway' => 'Støtt Wikimedia', # Fuzzy
+	'payflowprogateway' => 'Gje no',
 	'payflowpro_gateway-desc' => 'PayPal Payflow Pro kredittkorthandsaming',
 	'payflowpro_gateway-response-0' => 'Overføringa di har vorte godkjend.
 Takk for gåva di!',
