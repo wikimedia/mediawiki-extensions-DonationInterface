@@ -98,6 +98,16 @@ $messages['de'] = array(
 Bitte versuche es erneut.',
 );
 
+/** Lower Sorbian (dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'adyengateway' => 'Něnto pósćiś',
+	'adyen_gateway-desc' => 'Pśeźěłanje płaśenjow pśez Adyen',
+	'adyen_gateway-response-default' => 'Pśi pśeźěłowanju twójeje transakcije jo zmólka nastała.
+Pšosym wopytaj pózdźej hyšći raz.',
+);
+
 /** Spanish (español)
  * @author Fitoschido
  */
@@ -136,6 +146,16 @@ $messages['he'] = array(
 	'adyen_gateway-desc' => 'עיבוד תשלומים של Adyen',
 	'adyen_gateway-response-default' => 'אירעה שגיאה בעיבוד העסקה שלך.
 נא לנסות שוב מאוחר יותר.',
+);
+
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'adyengateway' => 'Nětko darić',
+	'adyen_gateway-desc' => 'Předźěłanje zapłaćenjow přez Adyen',
+	'adyen_gateway-response-default' => 'Při předźěłowanju wašeje transakcije je zmylk wustupił.
+Prošu spytajće pozdźišo hišće raz.',
 );
 
 /** Interlingua (interlingua)
@@ -302,6 +322,16 @@ $messages['sv'] = array(
 	'adyen_gateway-desc' => 'Adyen betalningshantering',
 	'adyen_gateway-response-default' => 'Ett fel uppstod när din transaktion behandlades.
 Försök igen senare.',
+);
+
+/** Tagalog (Tagalog)
+ * @author Sky Harbor
+ */
+$messages['tl'] = array(
+	'adyengateway' => 'Magkaloob ka na ngayon',
+	'adyen_gateway-desc' => 'Pagpoproseso ng bayad gamit ang Adyen',
+	'adyen_gateway-response-default' => 'Nagkaroon ng kamalian sa pagsasagawa ng inyong transaksiyon.
+Mangyaring subukan muli mamaya.',
 );
 
 /** Ukrainian (українська)
