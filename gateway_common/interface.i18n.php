@@ -8945,6 +8945,7 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Americophile
+ * @author Armin1392
  * @author Ebraminio
  * @author Huji
  * @author Jsoby
@@ -8972,8 +8973,11 @@ $messages['fa'] = array(
 	'donate_interface-monthly-donation-description' => 'اهدای ماهانه به بنیاد ویکی‌مدیا',
 	'donate_interface-amount-error' => 'لطفاً یک مبلغ معتبر وارد کنید',
 	'donate_interface-smallamount-error' => 'شما حداقل باید $1 کمک کنید',
+	'donate_interface-bigamount-error' => 'ما نمی‌توانیم کمک‌های بیشتر از ۱۰۰۰۰ دلار ($1 $2) را از طریق وب‌سایت‌مان بپذیریم.لطفاً با کارمندان هدایای بزرگ ما در $3 تماس بگیرید.',
 	'donate_interface-processing-error' => 'خطایی در پردازش درخواست شما رخ داد.
 هیچ پردازشگری در دسترس نیست.',
+	'donate_interface-fallback-currency-notice' => 'ازر شما پشتیبانی نشده.اگر تصمیم به ادامه دارید، روند جایش را به استفاده از $1 خواهد‌ داد.',
+	'donate_interface-maintenance-notice' => 'عذرخواهی می‌کنیم، اما این نوع پرداخت موقتاً غیرفعال شده‌است.',
 	'donate_interface-AED' => 'درهم امارات',
 	'donate_interface-ARS' => 'پزوی آرژانتین',
 	'donate_interface-AUD' => 'دلار استرالیا',
@@ -9143,7 +9147,10 @@ $messages['fa'] = array(
 	'donate_interface-error-msg-genaricrequired' => 'این گزینه الزامی‌است',
 	'donate_interface-error-msg-country-calc' => 'خطا--ما قادر به قبول کمک مالی‌تان را در این زمان نیستیم.',
 	'donate_interface-error-msg-fiscal_number' => 'کد اقتصادی',
+	'donate_interface-donate-error-try-a-different-card' => 'لطفاً [$1 کارت‌های مختلف را امتحان کنید] یا یکی از [$2 روش‌های دیگر برای دادن] ما یا با ما در $3 تماس بگیرید',
+	'donate_interface-donate-error-try-again-html' => 'لطفاً <a href="$1">try again</a>، یکی از <a href="$2">other ways to give</a> ما را امتحان کنید، یا با ما در <a href="mailto:$3">$3</a> تماس بگیرید.',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'از حمایتتان سپاسگزاریم!',
+	'donate_interface-error-no-form' => 'ما قادر به پیدا کردن شکل کمک مطابق پارامتر‌های شما نبودیم.لطفاً برای اطلاعات بیشتر با [mailto:donate@wikimedia.org our help team] تماس بگیرید.',
 	'php-response-declined' => 'انتقال وجه شما مورد قبول نبود.',
 	'donate_interface-thankyou' => 'سپاس از بابت کمک مالی‌تان!',
 	'donate_interface-post-transaction' => 'جزئیات انتقال وجه',
@@ -9281,6 +9288,7 @@ $messages['fa'] = array(
 	'donate_interface-optional' => 'اختیاری',
 	'donate_interface-state-dropdown-YY' => 'ایالت را انتخاب کنید',
 	'donate_interface-state-dropdown-XX' => 'خارج از ایالات متحده',
+	'donate_interface-cc-MX-instructions' => 'برای امنیت، بعضی از بانک‌های مکزیکی تراکنش‌های آنلاین خود را متوقف می‌کنند. اگر کمک شما موفقیت‌آمیز نیست، ما پیشنهاد می‌کنیم به بانک خود برای اجازهٔ کمک آنلاین زنگ بزنید و ذوباره سعی کنید.',
 	'donate_interface-bt-account_holder' => 'صاحب حساب',
 	'donate_interface-bt-bank_account_number' => 'شماره حساب بانکی',
 	'donate_interface-bt-country_description' => 'توصیف کشور',
@@ -9333,6 +9341,7 @@ $messages['fa'] = array(
 	'donate_interface-monthlybox-yes' => 'بله، ماهانه‌اش کنید',
 	'donate_interface-monthlybox-no' => 'نه، یک بار خواهم پرداخت',
 	'donate_interface-monthlybox-bottom' => 'کمک مالی شما به طور ایمن پردازش خواهد شد.',
+	'donate_interface-monthly-cancel' => 'پرداخت‌های ماهانه توسط بنیاد ویکی‌مدیا تا زمانی مانند وقتی که‌ شما ما را برای  قطع ادامهٔ آنها مطلع می‌کنید،وارد حساب خواهد شد.',
 	'donate_interface-onetime' => 'یک بار اهدا کنید',
 	'donate_interface-monthly-short' => 'ماهیانه',
 	'donate_interface-onetime-short' => 'یک بار',

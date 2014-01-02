@@ -118,6 +118,16 @@ $messages['es'] = array(
 Inténtelo de nuevo más tarde.',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'adyengateway' => 'کمک خود را اکنون وضع کنید',
+	'adyen_gateway-desc' => 'روند پرداخت آدیِن',
+	'adyen_gateway-response-default' => 'یک خطا در تراکنش شما در جریان بود.
+لطفاً بعداً دوباره امتحان کنید.',
+);
+
 /** French (français)
  * @author Gomoko
  */
