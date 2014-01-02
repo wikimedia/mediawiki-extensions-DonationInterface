@@ -155,6 +155,14 @@ $messages['eu'] = array(
 	'paypalgateway' => 'Egin orain zure dohaintza',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'paypalgateway' => 'اکنون کمک خود را وضع کنید',
+	'paypal_gateway-desc' => 'روند پرداخت پی‌پال',
+);
+
 /** Finnish (suomi)
  * @author Crt
  */

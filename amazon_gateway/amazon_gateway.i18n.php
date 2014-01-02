@@ -138,6 +138,14 @@ $messages['eu'] = array(
 	'amazongateway' => 'Egin orain zure dohaintza',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'amazongateway' => 'کمک خود را اکنون وضع کنید',
+	'amazon_gateway-desc' => 'روند پرداخت آمازون',
+);
+
 /** Finnish (suomi)
  * @author Nedergard
  */
