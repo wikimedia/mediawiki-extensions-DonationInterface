@@ -33228,6 +33228,7 @@ $messages['yue'] = array(
  * @author Jsoby
  * @author Kuailong
  * @author Liangent
+ * @author Liuxinyu970226
  * @author Mys 721tx
  * @author Qiyue2001
  * @author Shirayuki
@@ -33258,7 +33259,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-monthly-donation-description' => '维基媒体基金会的每月捐款',
 	'donate_interface-amount-error' => '请输入有效的数额',
 	'donate_interface-smallamount-error' => '您需要至少捐助$1',
-	'donate_interface-bigamount-error' => '我们不能通过网站接受大于USD 10000（$1 $2）的捐款。请联系我们的礼物专员（$3）。',
+	'donate_interface-bigamount-error' => '我们不能通过网站接受大于10000美元（$1 $2）的捐款。请联系我们的礼物专员（$3）。',
 	'donate_interface-processing-error' => '处理您的请求时出错了。没有可用的处理器。',
 	'donate_interface-fallback-currency-notice' => '不支持你的货币。如果你决定继续，将使用$1处理。',
 	'donate_interface-maintenance-notice' => '很抱歉，这种类型的付款已被暂时禁用。',
@@ -33282,8 +33283,8 @@ $messages['zh-hans'] = array(
 	'donate_interface-COP' => '哥伦比亚比索',
 	'donate_interface-CRC' => '哥斯达黎加科隆',
 	'donate_interface-CZK' => '捷克克朗',
-	'donate_interface-DKK' => '丹迈克朗',
-	'donate_interface-DOP' => '多明尼加比索',
+	'donate_interface-DKK' => '丹麦克朗',
+	'donate_interface-DOP' => '多米尼加比索',
 	'donate_interface-DZD' => '阿尔及利亚第纳尔',
 	'donate_interface-EEK' => '爱沙尼亚克伦尼',
 	'donate_interface-EGP' => '埃及镑',
@@ -33588,6 +33589,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-online_bank_transfer_message' => '电话和网络银行 - BPAY®',
 	'donate_interface-rtbt-issuer_id' => '选择一家银行',
 	'donate_interface-rtbt-issuer_id-longlist' => '其他银行',
+	'donate_interface-sofortbanking' => 'Sofortbanking是仿真的，模拟现实时间允许您与您的网上银行之间触发银行转账而不会泄露信息（因为我们全日启用EV级HTTPS）的网站，位于DIRECTebanking.com。如果您的账户尚不支持我们的在线仿真转账服务，您可能需要使用“通过手动银行转账”以使用我们的其他服务。',
 	'donate_interface-dd-account_name' => '帐户名称',
 	'donate_interface-dd-account_number' => '账号',
 	'donate_interface-dd-authorization_id' => '授权ID',
