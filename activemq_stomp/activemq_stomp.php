@@ -72,12 +72,28 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		return true;
 	}
 
+	static $version = null;
+	if ( !$version ) {
+		global $donationinterface_version;
+		if ( !empty( $donationinterface_version ) ) {
+			$version = $donationinterface_version;
+		} else {
+			$version = 'unknown';
+		}
+	}
+
 	// Create the message and associated properties
 	$properties = array(
 		'persistent' => 'true',
 		'payment_method' => $transaction['payment_method'],
 		'php-message-class' => $transaction['php-message-class'],
 		'gateway' => $transaction['gateway'],
+		'source_name' => 'DonationInterface',
+		'source_type' => 'payments',
+		'source_host' => wfHostname(),
+		'source_run_id' => getmypid(),
+		'source_version' => $version,
+		'source_enqueued_time' => time(),
 	);
 
 	if ( array_key_exists( 'antimessage', $transaction ) ) {
