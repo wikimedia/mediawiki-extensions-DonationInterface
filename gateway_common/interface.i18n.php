@@ -3731,6 +3731,7 @@ $messages['bg'] = array(
 );
 
 /** Bengali (বাংলা)
+ * @author Aftab1995
  * @author Bellayet
  * @author Ehsanulhb
  * @author Jsoby
@@ -3879,7 +3880,7 @@ $messages['bn'] = array(
 <p>কোডটি <i>সবমসয়</i> কার্ডের সামনের খাঁজকাটা অংশে উল্লেখিত অ্যাকাউন্ট নম্বরের <i>ওপরে</i> অবস্থিত।
 কিছু ক্ষেত্রে, কোডটি কার্ডের বাম পাশে উল্লেখিত থাকে, তবে তা সবসমই অ্যাকাউন্ট নম্বরের ওপরে থাকে।</p><br />',
 	'donate_interface-question-comment' => 'প্রশ্ন বা মন্তব্য? যোগাযোগ করুন: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
-	'donate_interface-donate-click' => 'আপনার ক্রেডিট কার্ড নিরাপদভাবে প্রক্রিয়াকরণ হয়েছে।', # Fuzzy
+	'donate_interface-donate-click' => 'আপনার ক্রেডিট / ডেবিট কার্ড নিরাপদভাবে প্রক্রিয়াকরণ হয়েছে।',
 	'donate_interface-otherways' => 'এখানে <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">পেপ্যাল, চেক বা মেইলসহ দানের অন্যান্য পন্থাও রয়েছে</a>।',
 	'donate_interface-otherways-alt' => 'এখানে চেক সহ, <a href="//wikimediafoundation.org/wiki/Ways_to_Give/en">অনুদানের অন্যান্য পন্থাও</a> রয়েছে।',
 	'donate_interface-otherways-short' => 'দানের অন্যান্য পন্থা',
