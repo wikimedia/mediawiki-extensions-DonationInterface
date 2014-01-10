@@ -19562,7 +19562,7 @@ $messages['mr'] = array(
 	'donate_interface-translate-redlink1' => 'या पानाच्या भाषांतरासाठी मदत करा',
 	'donate_interface-email-subject' => 'विकिमिडीया फाऊंडेशन आपले आभारी आहे.',
 	'donate_interface-currency-change' => 'बदल ?',
-	'donate_interface-monthlybox-amount' => 'देणगीची रक्कम', # Fuzzy
+	'donate_interface-monthlybox-amount' => 'मासिक देणगीची रक्कम',
 );
 
 /** Malay (Bahasa Melayu)
