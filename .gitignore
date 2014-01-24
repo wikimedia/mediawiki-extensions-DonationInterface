@@ -3,4 +3,5 @@
 *.kate-swp
 .*.swp
 /tests
-version.php
+
+.version-stamp
