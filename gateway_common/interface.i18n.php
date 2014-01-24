@@ -4203,6 +4203,7 @@ $messages['br'] = array(
 	'donate_interface-error-msg-captcha-please' => 'Evit surentez ho kartenn-gred, skrivit an arouezennoù a welit a-us.',
 	'donate_interface-error-msg-cookies' => 'Gweredekait an toupinoù en ho merdeer.',
 	'donate_interface-error-msg-genaricrequired' => 'Rekis eo leuniañ ar vaezienn-mañ',
+	'donate_interface-error-msg-country-calc' => "Fazi - Ne c'hallomp ket degemer ho tonezon evit bremañ.",
 	'donate_interface-error-msg-fiscal_number' => 'Niverenn gemedel',
 	'donate_interface-donate-error-try-a-different-card' => 'GRit gant [$1 ur gartenn all] pe unan eus hon [$2 doareoù all da reiñ] pe neuze deuit e darempred ganeomp e $3',
 	'donate_interface-donate-error-thank-you-for-your-support' => "Trugarez deoc'h evit ho skoazell !",
