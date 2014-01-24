@@ -2,4 +2,5 @@
 *~
 *.kate-swp
 .*.swp
-version.php
+
+.version-stamp

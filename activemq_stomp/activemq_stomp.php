@@ -72,13 +72,14 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		return true;
 	}
 
-	static $version = null;
-	if ( !$version ) {
-		global $donationinterface_version;
-		if ( !empty( $donationinterface_version ) ) {
-			$version = $donationinterface_version;
+	static $sourceRevision = null;
+	if ( !$sourceRevision ) {
+		$versionStampPath = __DIR__ . "/../.version-stamp";
+		$versionId = file_get_contents( $versionStampPath );
+		if ( $versionId !== false ) {
+			$sourceRevision = $versionId;
 		} else {
-			$version = 'unknown';
+			$sourceRevision = 'unknown';
 		}
 	}
 
@@ -92,7 +93,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		'source_type' => 'payments',
 		'source_host' => wfHostname(),
 		'source_run_id' => getmypid(),
-		'source_version' => $version,
+		'source_version' => $sourceRevision,
 		'source_enqueued_time' => time(),
 	);
 
