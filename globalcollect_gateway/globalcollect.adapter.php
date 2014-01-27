@@ -1705,6 +1705,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'USD', // U.S. dollar
 // - Removed temporarily for WellsFargo (28/06/13)			'UZS', // Uzbekistani som
 // - removed temporarily (WorldPay)			'VND', // Vietnamese dong
+			'VEF', // Venezuelan bolívar
 			'XAF', // Central African CFA franc
 			'XCD', // East Caribbean dollar
 // - Removed temporarily for WellsFargo (28/06/13)			'XOF', // West African CFA franc
