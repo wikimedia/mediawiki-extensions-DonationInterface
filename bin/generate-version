@@ -1,21 +1,10 @@
 #!/bin/bash
 #
-# This script should be run manually before deploying to production.  When
-# run with no arguments, it will create a file DonationInterface/version.php,
-# if you wish to store the output elsewhere, pass the file path as argument 1.
+# This script can be run manually, to populate the .version-stamp file.
 #
-# Also, LocalSettings.php must require the generated file.  If the version is
-# not found at runtime, the string "unknown" is used instead.
+# If the version is not found at runtime, the string "unknown" is used instead.
 
-if [ "x$1" == "x" ]; then
-	root_dir="$(dirname $0)/.."
-	dest="$root_dir/version.php"
-else
-	dest="$1"
-fi
+dest="$(dirname $0)/../.version-stamp"
 head_rev=$(git rev-parse --verify HEAD)
 
-cat > $dest <<EOF
-<?php
-\$donationinterface_version = "$head_rev";
-EOF
+echo -n "$head_rev" > $dest
