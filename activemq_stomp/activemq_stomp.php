@@ -54,7 +54,7 @@ function efStompTest( $input, $args, &$parser ) {
  * nothing exploded big enough to kill the whole thing.
  */
 function sendSTOMP( $transaction, $queue = 'default' ) {
-	global $wgStompServer, $wgStompQueueNames;
+	global $IP, $wgStompServer, $wgStompQueueNames;
 
 	// Find the queue name
 	if ( array_key_exists( $transaction['payment_method'] . "-$queue", $wgStompQueueNames ) ) {
@@ -74,7 +74,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 
 	static $sourceRevision = null;
 	if ( !$sourceRevision ) {
-		$versionStampPath = __DIR__ . "/../.version-stamp";
+		$versionStampPath = "$IP/.version-stamp";
 		$versionId = file_get_contents( $versionStampPath );
 		if ( $versionId !== false ) {
 			$sourceRevision = $versionId;
