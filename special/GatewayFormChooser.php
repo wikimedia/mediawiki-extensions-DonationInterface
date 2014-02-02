@@ -85,7 +85,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function buildPaymentsFormURL( $form_key, $other_params = array ( ) ) {
 		// And... construct the URL
 		$params = array (
-			'form_name' => "RapidHtml",
 			'appeal' => "JimmyQuote",
 			'ffname' => $form_key,
 		);
@@ -281,7 +280,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * Gets the array of settings and capability definitions for the form
 	 * specified in $form_key.
 	 * @global array $wgDonationInterfaceAllowedHtmlForms The global array
-	 * of whitelisted (enabled) RapidHTML forms.
+	 * of whitelisted (enabled) forms.
 	 * @param string $form_key The name of the form (ffname) we're looking
 	 * for. Should map to a first-level key in
 	 * $wgDonationInterfaceAllowedHtmlForms.
@@ -464,6 +463,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $data ) {
 			if ( array_key_exists( 'special_type', $data ) && $data['special_type'] === 'error' ) {
 				$is_match = true;
+				# XXX what is this magick?  Do something less evil.
 				$group = 2; //default group
 				//check to make sure it fits our needs.
 				if ( is_array( $data['gateway'] ) ) {
@@ -500,7 +500,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		if ( !sizeof( $error_forms ) ) {
-			throw new MWException( __FUNCTION__ . "No RapidHTML Error form found for gateway '$gateway', method '$payment_method', submethod '$payment_submethod'" );
+			throw new MWException( __FUNCTION__ . "No error form found for gateway '$gateway', method '$payment_method', submethod '$payment_submethod'" );
 		}
 
 		//sort the error_forms by $group; get the most specific form defined

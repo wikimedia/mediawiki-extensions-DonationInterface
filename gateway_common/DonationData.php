@@ -398,7 +398,6 @@ class DonationData {
 			$this->setCountry(); //must do this AFTER setIPAddress...
 			$this->handleContributionTrackingID();
 			$this->setCurrencyCode(); // AFTER setCountry
-			$this->setFormClass();
 			$this->renameCardType();
 			$this->setEmail();
 			
@@ -431,65 +430,6 @@ class DonationData {
 		
 	}
 	
-	/**
-	 * normalize helper function
-	 * Sets the form class we will be using. 
-	 * In the case that we are using forms, form_name will be harvested from 
-	 * $wgRequest by populateData. If we are coming from somewhere that does not 
-	 * use a form interface (like an api call), this logic should be skipped. 
-	 * 
-	 * For any specified form, if it is enabled and available, the class would 
-	 * have been autoloaded at this point. If it is not enabled and available, 
-	 * we will check the default for the calling gateway, and failing that, 
-	 * form_class will be set to null, which should result in a redirect.
-	 *
-	 * Do not actually try to load the forms here.
-	 * Do determine if the requested forms will load or not.
-	 *
-	 * @see GatewayForm::displayForm()
-	 */
-	protected function setFormClass(){
-
-		// Is this the default form
-		$default = false;
-
-		if ( $this->isSomething( 'form_name' ) ){
-			$class_name = "Gateway_Form_" . $this->getVal( 'form_name' );
-		} else {
-			$default = true;
-			$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
-		}
-		$utm_source = $this->getVal( 'utm_source' );
-		
-		if ( !class_exists( $class_name ) ) {
-			$class_name_orig = $class_name;
-
-			/*
-			 * If $class_name is not the default form, then check to see if the
-			 * default form is available.
-			 */
-			if (!$default) {
-
-				$log_message = '[ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
-				$this->log( $this->getLogMessagePrefix() . 'Specified form class not found ' . $log_message , LOG_ERR );
-
-				$class_name = "Gateway_Form_" . $this->getGatewayGlobal( 'DefaultForm' );
-			}
-
-			if ( class_exists( $class_name ) ) {
-				$this->setVal( 'form_name', $this->getGatewayGlobal( 'DefaultForm' ) );
-			} else {
-				$log_message = 'Specified form class not found [ ' . $class_name_orig . ' ], default form class not found [ ' . $class_name . ' ] utm_source = "' . $utm_source . '"';
-				$this->log( $this->getLogMessagePrefix() . $log_message , LOG_ALERT );
-
-				// Unset class name
-				$class_name = null;
-			}
-		}
-
-		$this->setVal( 'form_class', $class_name );		
-	}
-
 	/**
 	 * munge the legacy card_type field into payment_submethod
 	 */
