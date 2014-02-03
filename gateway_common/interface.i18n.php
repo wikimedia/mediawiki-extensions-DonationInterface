@@ -5101,7 +5101,7 @@ Není dostupný žádný platební procesor.',
 	'donate_interface-NZD' => 'novozélandský dolar',
 	'donate_interface-OMR' => 'ománský rial',
 	'donate_interface-PAB' => 'panamská balboa',
-	'donate_interface-PEN' => 'peruánský nový sol',
+	'donate_interface-PEN' => 'peruánský nuevo sol',
 	'donate_interface-PHP' => 'filipínské peso',
 	'donate_interface-PKR' => 'pákistánská rupie',
 	'donate_interface-PLN' => 'polský zlotý',
@@ -5392,7 +5392,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-email-unsub-warning' => 'Tímto se odhlásíte z příjmu e-mailů, které vám jako dárci posílala Wikimedia Foundation. I nadále můžete dostávat další e-maily na tuto e-mailovou adresu, pokud je přiřazena k účtu na některém z našich projektů. Pokud máte jakékoli otázky, napište na <a href="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Často kladené otázky',
 	'donate_interface-tax-info' => 'Informace o nároku na odpočet daně',
-	'donate_interface-informationsharing' => 'Vaším darováním sdělujete informace nadaci Wikimedia, neziskové organizaci provozující Wikipedii a další projekty Wikimedia, a jejím partnerům, v souladu s pravidly o ochraně soukromí dárců. Tyto informace nikomu neprodáme, ani s nimy nebudeme nijak obchodovat. Více si o tom můžete přečíst na <a href="//wikimediafoundation.org/wiki/Donor_policy/en"> - pravidla ochrany soukromí dárců</a>.',
+	'donate_interface-informationsharing' => 'Vaším darováním sdělujete informace nadaci Wikimedia, neziskové organizaci provozující Wikipedii a další projekty Wikimedia, a jejím partnerům, v souladu s pravidly o ochraně soukromí dárců. Tyto informace nikomu neprodáme, ani s nimy nebudeme nijak obchodovat. Více si o tom můžete přečíst v <a href="//wikimediafoundation.org/wiki/Donor_policy/en"> pravidlech ochrany soukromí dárců</a>.',
 	'donate_interface-currency-change' => 'Změnit?',
 	'donate_interface-bank_transfer_message' => 'Upozorňujeme, že na vašem výpise bude jako příjemce tohoto daru uveden „Global Collect“. Global Collect je pověřen přijímáním a zpracováním plateb jménem Wikimedia Foundation. Nezapomeňte v bankovním převodu uvést zde poskytnuté referenční číslo, a pokud máte jakékoli dotazy či obavy, neváhejte nám poslat e-mail na donations@wikimedia.org.',
 	'donate_interface-globalcollect-proxy' => 'Povšimněte si prosím, že ve vašem výpisu bude jako příjemce tohoto daru uveden „Global Collect“, který je oprávněn přijímat a zpracovávat platby pro Wikimedia Foundation.',
@@ -13166,7 +13166,7 @@ $messages['hu'] = array(
 	'donate_interface-error-msg-genaricrequired' => 'Kötelező mező',
 	'donate_interface-error-msg-country-calc' => 'Hiba - most nem tudjuk elfogadni az adományát',
 	'donate_interface-error-msg-fiscal_number' => 'adózási szám',
-	'donate_interface-donate-error-try-a-different-card' => 'Kérjük [próbáljon másik kártyát megadni: $1] vagy [alkalmazza az adakozás egyéb módjait: $2], vagy lépjen kapcsolatba velünk: $3',
+	'donate_interface-donate-error-try-a-different-card' => 'Kérjük [$1 próbáljon másik kártyát megadni], vagy [$2 válassza az adományozás egyéb módjait], vagy lépjen kapcsolatba velünk: $3',
 	'donate_interface-donate-error-try-again-html' => 'Kérlek <a href="$1">próbáld újra</a>, próbáld ki az <a href="$2">egyéb támogatási lehetőségeket</a>, vagy vedd fel velünk a kapcsolatot ezen a címen: <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Köszönjük a támogatást!',
 	'donate_interface-error-no-form' => 'Nem találtunk a paramétereidnek megfelelő adományozási űrlapot. További információért kérlek fordulj a [mailto:donate@wikimedia.org segítőinkhez],',
@@ -13194,9 +13194,9 @@ $messages['hu'] = array(
 	'donate_interface-make-your-donation' => 'Adakozz most!',
 	'donate_interface-state-in-us' => 'az Egyesült Államokon belül',
 	'donate_interface-comment' => 'Megjegyzés',
-	'donate_interface-first' => 'Első',
+	'donate_interface-first' => 'Keresztnév',
 	'donate_interface-middle' => 'Második keresztnév',
-	'donate_interface-last' => 'Utolsó',
+	'donate_interface-last' => 'Családi név',
 	'donate_interface-other' => 'Egyéb',
 	'donate_interface-noscript-msg' => 'Úgy tűnik, nincs engedélyezve a JavaScript, vagy a böngésző nem támogatja. A biztonságos és kellemes élmény érdekében az adományozási formához szükséges a JavaScript.',
 	'donate_interface-noscript-redirect-msg' => 'Ha nem tudod vagy nem akarod használni a JavaScriptet, akkor látogasd meg ezt:',
@@ -13341,7 +13341,7 @@ $messages['hu'] = array(
 	'donate_interface-email-unsub-success' => 'Sikeresen leiratkoztál a levelezési listánkról',
 	'donate_interface-email-unsub-delay' => 'Kérlek, várj négy (4) napot, a változtatások ennyi idő alatt lépnek életbe. Elnézésedet kérjük, ha a köztes időben küldött levelek kellemetlenséget okoznak. Ha kérdésed van, írj a <donations@wikimedia.org> címre.',
 	'donate_interface-email-unsub-fail' => 'Hiba történt a kérés feldolgozása közben, kérlek, írj a <donations@wikimedia.org> címre.',
-	'donate_interface-email-unsub-confirm' => 'Biztosan le akarsz iratkozni ezzel a címmel <b> $1 </b>?',
+	'donate_interface-email-unsub-confirm' => 'Biztosan le akarsz iratkozni a <b>$1</b> címmel?',
 	'donate_interface-email-unsub-warning' => 'Ezzel leiratkozol a Wikimédia Alapítványtól kapott levelekről, mint adományozó. Ha más projektekben is ezt az email címet adtad meg, azoktól még érkezhetnek levelek. Kérdés esetén írj erre a címre:  <a ref="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Gyakran ismételt kérdések',
 	'donate_interface-tax-info' => 'Adózással kapcsolatos információk',
@@ -25589,6 +25589,7 @@ Pe avè 'n'esperienze secure e piacevole, 'u module nuèstre de donazziune vole 
  * @author Ole Yves
  * @author Prima klasy4na
  * @author Putnik
+ * @author Rubin16
  * @author Александр Сигачёв
  * @author Хомелка
  */
@@ -25610,9 +25611,9 @@ $messages['ru'] = array(
 	'donate_interface-monthly-donation-description' => 'Ежемесячное пожертвование Фонду Викимедиа',
 	'donate_interface-amount-error' => 'Пожалуйста, введите корректную сумму',
 	'donate_interface-smallamount-error' => 'Вы должны внести по крайней мере $1',
-	'donate_interface-bigamount-error' => 'Мы не можем принять пожертвования больше чем 10000 USD ($1 $2) через наш сайт. Пожалуйста, свяжитесь с нашим персоналом по большим пожертвованиям по $3.',
+	'donate_interface-bigamount-error' => 'Мы не можем принять пожертвования больше чем 10000 USD ($1 $2) через наш сайт. Пожалуйста, свяжитесь с нашими специалистами по большим пожертвованиям через $3.',
 	'donate_interface-processing-error' => 'При обработке вашего запроса возникла ошибка. Нет доступных процессоров.',
-	'donate_interface-fallback-currency-notice' => 'Ваша валюта не поддерживается. Если вы решили продолжить, обработка будет выполнена через $1.',
+	'donate_interface-fallback-currency-notice' => 'Ваша валюта не поддерживается. Если вы решите продолжить, обработка будет выполнена через $1.',
 	'donate_interface-maintenance-notice' => 'Мы приносим свои извинения, но этот тип оплаты был временно отключен.',
 	'donate_interface-AED' => 'дирхам ОАЭ',
 	'donate_interface-ARS' => 'аргентинское песо',
