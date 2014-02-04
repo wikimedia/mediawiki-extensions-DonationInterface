@@ -40,7 +40,7 @@ $messages['pt']['donate_interface-donor-lname-cv'] = 'Apelido';
 /* ET - Ethiopia */
 $messages['en']['donate_interface-donor-lname-et'] = 'Surname';
 
-/* GQ - Equitorial Guinea */
+/* GQ - Equatorial Guinea */
 $messages['en']['donate_interface-donor-fname-gq'] = 'Forename';
 $messages['en']['donate_interface-donor-lname-gq'] = 'Surname';
 
