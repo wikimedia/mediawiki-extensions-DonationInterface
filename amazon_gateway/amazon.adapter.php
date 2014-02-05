@@ -45,9 +45,6 @@ class AmazonAdapter extends GatewayAdapter {
 			"errorMessage" => "error_message",
 			"paymentMethod" => "payment_submethod",
 			"referenceId" => "contribution_tracking_id",
-			//"recipientEmail" => "merchant_email",
-			//"recipientName" => "merchant_name",
-			//"operation" => e.g. "pay"
 		);
 	}
 
@@ -325,7 +322,16 @@ class AmazonAdapter extends GatewayAdapter {
 					$this->doStompTransaction();
 					break;
 
+				case 'SS':  // Subscription success -- processing handled by the IPN listener
+					$this->finalizeInternalStatus('complete');
+					break;
+
+				case 'SI':  // Subscription initiated -- processing handled by the IPN listener
+					$this->finalizeInternalStatus('pending');
+					break;
+
 				case 'PF':  // Payment failed
+				case 'SF':  // Subscription failed
 				case 'SE':  // This one is interesting; service failure... can we do something here?
 				default:	// All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
