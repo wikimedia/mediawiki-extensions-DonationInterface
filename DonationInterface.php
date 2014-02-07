@@ -564,7 +564,7 @@ if ( $optionalParts['Minfraud'] === true ){
 	 * running low on minfraud queries. Will continue to send
 	 * once per day until the limit is once again over the limit.
 	 */
-	$wgDonationInterfaceMinfraudAlarmLimit = 25000;
+	$wgDonationInterfaceMinFraudAlarmLimit = 25000;
 }
 
 //Referrer Filter globals
