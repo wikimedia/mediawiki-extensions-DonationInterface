@@ -254,6 +254,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		
 		// Write the query/response to the log before we go mad.
 		$this->log_query();
+		$this->health_check();
 		
 		try {
 			$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
@@ -385,5 +386,32 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		}
 
 		return TRUE;
+	}
+
+	/**
+	 * Perform a health check on minfraud data; send an email alarm on violation.
+	 *
+	 * Right now this only checks the number of queries remaining.
+	 */
+	protected function health_check() {
+		global $wgEmergencyContact, $wgServerName, $wgMemc;
+
+		if ( array_key_exists( 'queriesRemaining', $this->minfraudResponse ) ) {
+			$queries = intval( $this->minfraudResponse['queriesRemaining'] );
+
+			if ( $queries < $this->gateway_adapter->getGlobal( 'MinfraudAlarmLimit' ) ) {
+				$key = wfMemcKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
+				$lastAlarmAt = $wgMemc->get( $key ) | 0;
+				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
+					$wgMemc->set( $key, time() );
+					UserMailer::send(
+						$wgEmergencyContact,
+						'donationinterface@' . $wgServerName,
+						'Minfraud Queries Remaining Low',
+						'Queries remaining: ' . $queries
+					);
+				}
+			}
+		}
 	}
 }

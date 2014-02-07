@@ -10,6 +10,10 @@ abstract class Gateway_Extras {
 	 * @var
 	 */
 	public $log_fh = NULL;
+
+	/**
+	 * @var GatewayAdapter
+	 */
 	public $gateway_adapter;
 
 	public function __construct( &$gateway_adapter ) {
