@@ -558,6 +558,13 @@ if ( $optionalParts['Minfraud'] === true ){
 
 	// Timeout in seconds for communicating with MaxMind
 	$wgMinFraudTimeout = 2;
+
+	/**
+	 * When to send an email to $wgEmergencyContact that we're
+	 * running low on minfraud queries. Will continue to send
+	 * once per day until the limit is once again over the limit.
+	 */
+	$wgDonationInterfaceMinfraudAlarmLimit = 25000;
 }
 
 //Referrer Filter globals
