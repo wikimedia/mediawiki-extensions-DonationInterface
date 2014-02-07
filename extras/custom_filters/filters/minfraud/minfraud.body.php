@@ -399,17 +399,27 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		if ( array_key_exists( 'queriesRemaining', $this->minfraudResponse ) ) {
 			$queries = intval( $this->minfraudResponse['queriesRemaining'] );
 
-			if ( $queries < $this->gateway_adapter->getGlobal( 'MinfraudAlarmLimit' ) ) {
+			if ( $queries < $this->gateway_adapter->getGlobal( 'MinFraudAlarmLimit' ) ) {
+				$this->gateway_adapter->log( "MinFraud alarm limit reached! Queries remaining: $queries", LOG_WARNING );
+
 				$key = wfMemcKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
 				$lastAlarmAt = $wgMemc->get( $key ) | 0;
 				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
-					$wgMemc->set( $key, time() );
-					UserMailer::send(
-						$wgEmergencyContact,
-						'donationinterface@' . $wgServerName,
-						'Minfraud Queries Remaining Low',
+					$wgMemc->set( $key, time(), ( 60 * 60 * 48 ) );
+					$this->gateway_adapter->log( "MinFraud alarm on query limit -- sending email" );
+
+					$result = UserMailer::send(
+						new MailAddress( $wgEmergencyContact ),
+						new MailAddress( 'donationinterface@' . gethostname() ),
+						"Minfraud Queries Remaining Low ({$queries})",
 						'Queries remaining: ' . $queries
 					);
+					if ( !$result->isGood() ) {
+						$this->gateway_adapter->log(
+							"Could not send MinFraud query limit email: " . $result->errors[0]->message,
+							LOG_ERR
+						);
+					}
 				}
 			}
 		}
