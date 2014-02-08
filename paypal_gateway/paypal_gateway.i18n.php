@@ -365,9 +365,10 @@ $messages['pms'] = array(
 
 /** Portuguese (português)
  * @author Hamilton Abreu
+ * @author Imperadeiro98
  */
 $messages['pt'] = array(
-	'paypal_gateway-desc' => 'Regista o PayPal como mecanismo de contribuições monetárias', # Fuzzy
+	'paypal_gateway-desc' => 'Pagamento do PayPal a ser processado',
 );
 
 /** Brazilian Portuguese (português do Brasil)

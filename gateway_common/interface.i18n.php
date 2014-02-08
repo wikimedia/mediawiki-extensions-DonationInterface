@@ -8816,6 +8816,7 @@ Turvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScr
 /** Basque (euskara)
  * @author An13sa
  * @author Jsoby
+ * @author Subi
  * @author පසිඳු කාවින්ද
  */
 $messages['eu'] = array(
@@ -8873,6 +8874,10 @@ $messages['eu'] = array(
 	'donate_interface-donor-expiration' => 'Iraungipen data:',
 	'donate_interface-donor-security' => 'Segurtasun kodea:',
 	'donate_interface-donor-submit' => 'Dohaintza egin',
+	'donate_interface-card-name-amex' => 'American Express',
+	'donate_interface-card-name-visa' => 'Visa',
+	'donate_interface-card-name-mc' => 'MasterCard',
+	'donate_interface-card-name-discover' => 'Discover',
 	'donate_interface-error-msg' => 'Mesedez idatzi zure $1',
 	'donate_interface-error-msg-js' => 'Mesedez idatzi zure',
 	'donate_interface-error-msg-invalid-amount' => 'Mesedez idatzi baliozko kopurua',
@@ -8949,6 +8954,7 @@ $messages['eu'] = array(
 	'donate_interface-state-dropdown-XX' => 'AEBetatik kanpo',
 	'donate_interface-dd-account_name' => 'Kontuaren izena',
 	'donate_interface-dd-iban' => 'IBAN',
+	'donate_interface-monthly-short' => 'Hilero',
 );
 
 /** Persian (فارسی)
