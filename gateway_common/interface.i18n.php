@@ -5352,7 +5352,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-optional' => 'nepovinné',
 	'donate_interface-state-dropdown-YY' => 'Zvolte stát',
 	'donate_interface-state-dropdown-XX' => 'Mimo USA',
-	'donate_interface-cc-MX-instructions' => 'Z bezpečnostních důvodů některé mexické banky blokují online transakce. Pokud váš příspěvek neprojde, doporučujeme zavolat do vaší banky, povolit online příspěvek a zkusit to znovu.',
+	'donate_interface-cc-MX-instructions' => 'Z bezpečnostních důvodů některé mexické banky blokují online transakce. Pokud váš příspěvek neprojde, doporučujeme zavolat do vaší banky, schválit online příspěvek a zkusit to znovu.',
 	'donate_interface-bt-account_holder' => 'Majitel účtu',
 	'donate_interface-bt-bank_account_number' => 'Číslo bankovního účtu',
 	'donate_interface-bt-country_description' => 'Popis země',
@@ -5412,7 +5412,7 @@ Kvůli bezpečnosti a pohodlnějšímu ovládání náš darovací formulář vy
 	'donate_interface-onetime' => 'Poskytnout jednorázový příspěvek',
 	'donate_interface-monthly-short' => 'Měsíčně',
 	'donate_interface-onetime-short' => 'Jednorázový',
-	'donate_interface-securelogo-title' => 'Klepněte pro ověření – Tento server si zvolil VeriSign SSL pro zabezpečené internetové obchodování a důvěrnou komunikaci',
+	'donate_interface-securelogo-title' => 'Klepněte pro ověření – Tento server si zvolil VeriSign SSL pro zabezpečené internetové obchodování a důvěrnou komunikaci.',
 	'donate_interface-secureLogo-text' => 'O certifikátech SSL',
 	'donate_interface-error-http-403' => 'Nemáte oprávnění k přístupu na tuto stránku.',
 );
