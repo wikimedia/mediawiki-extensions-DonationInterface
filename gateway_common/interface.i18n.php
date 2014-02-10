@@ -677,7 +677,8 @@ The fiscal number in this case is a CPF (Cadastro de Pessoas Físicas) or CNPJ (
 	'donate_interface-card-name-discover' => "Used as item in the \"Credit card type\" select box.
 
 Trademark name of credit card Discover®, '''not''' the verb \"to discover\".
-{{Related|Donate interface-card}}",
+{{Related|Donate interface-card}}
+{{Identical|Discover}}",
 	'donate_interface-error-msg-general' => 'A generic error message.',
 	'donate_interface-error-msg-nopaypal' => 'Error message.',
 	'donate_interface-error-msg' => '{{doc-important|If grammatical issues in your language prevent you from translating this literally, translate the following: "The following field is required: $1".}}
@@ -9091,8 +9092,8 @@ $messages['fa'] = array(
 	'donate_interface-donor-legend' => 'اطلاعات اهداکننده',
 	'donate_interface-donor-amount' => 'مبلغ:',
 	'donate_interface-donor-currency-label' => 'واحد پول:',
-	'donate_interface-donor-email' => 'نشانی پست الکترونیکی:',
-	'donate_interface-donor-emailAdd' => 'نشانی پست الکترونیکی:',
+	'donate_interface-donor-email' => 'نشانی رایانامه:',
+	'donate_interface-donor-emailAdd' => 'نشانی رایانامه:',
 	'donate_interface-donor-name' => 'نام',
 	'donate_interface-donor-fname' => 'نام:',
 	'donate_interface-donor-mname' => 'نام میانی:',
@@ -9129,7 +9130,7 @@ $messages['fa'] = array(
 	'donate_interface-error-msg-js' => 'لطفاً وارد کنید',
 	'donate_interface-error-msg-validation' => 'لطفاً خطاهای فرم را تصحیح کنید.',
 	'donate_interface-error-msg-invalid-amount' => 'لطفاً یک مبلغ معتبر وارد کنید',
-	'donate_interface-error-msg-email' => 'لطفاً یک نشانی پست الکترونیکی معتبر وارد کنید',
+	'donate_interface-error-msg-email' => 'لطفاً یک نشانی رایانامه‌ای معتبر وارد کنید',
 	'donate_interface-error-msg-card-num' => 'لطفاً شماره کارت اعتباری صحیح را برای یکی از انواع کارت‌های مورد قبول، وارد کنید',
 	'donate_interface-error-msg-amex' => 'لطفاً شمارهٔ کارت صحیح را برای American Express وارد کنید.',
 	'donate_interface-error-msg-mc' => 'لطفاً شمارهٔ کارت صحیح را برای مستر کارت وارد کنید.',
@@ -9225,7 +9226,7 @@ $messages['fa'] = array(
 	'donate_interface-billing-code' => 'نشانی پستی صدور صورت حساب',
 	'donate_interface-country' => 'کشور',
 	'donate_interface-select-country' => 'کشور را انتخاب کنید',
-	'donate_interface-confirm-email' => 'تأیید پست الکترونیکی',
+	'donate_interface-confirm-email' => 'تأیید رایانامه',
 	'donate_interface-phone' => 'تلفن',
 	'donate_interface-telephone' => 'تلفن',
 	'donate_interface-telephone-home' => 'تلفن (منزل)',
@@ -9275,7 +9276,7 @@ $messages['fa'] = array(
 	'donate_interface-please-complete' => 'لطفاً کمک مالی خود را در مقابل کامل کنید...',
 	'donate_interface-description' => 'توضیحات',
 	'donate_interface-donation' => 'کمک مالی',
-	'donate_interface-email-receipt' => 'ارسال رسید به پست الکترونیکی',
+	'donate_interface-email-receipt' => 'ارسال رسید به رایانامه',
 	'donate_interface-monthly-donation' => 'ماهانه کمک مالی کنید',
 	'donate_interface-via-paypal' => '(از طریق پی‌پال)',
 	'donate_interface-shirt-size' => 'اندازه تی‌شرت:',
@@ -12979,6 +12980,7 @@ Zo by so wěsty, zwjeselacy přewjedźenje zawěsćiło, trjeba naš darjenski f
  * @author Glanthor Reviol
  * @author Jsoby
  * @author Misibacsi
+ * @author Pcoombe
  * @author Samat
  * @author Tgr
  */
@@ -13351,7 +13353,7 @@ $messages['hu'] = array(
 	'donate_interface-email-unsub-warning' => 'Ezzel leiratkozol a Wikimédia Alapítványtól kapott levelekről, mint adományozó. Ha más projektekben is ezt az email címet adtad meg, azoktól még érkezhetnek levelek. Kérdés esetén írj erre a címre:  <a ref="mailto:donations@wikimedia.org">donations@wikimedia.org</a>.',
 	'donate_interface-faqs' => 'Gyakran ismételt kérdések',
 	'donate_interface-tax-info' => 'Adózással kapcsolatos információk',
-	'donate_interface-informationsharing' => 'Az adományozás során megadott adataidat a Wikimédia Alapítvány (a Wikipédiát és társait üzemeltető nonprofit szervezet) és annak internetszolgáltatói fogják megkapni. Az adataidat nem adjuk ki harmadik félnek. Részletekért lásd <a href="//wikimediafoundation.org/wiki/Donor_policy/en">az adatvédelmi szabályzatunkat</a>.',
+	'donate_interface-informationsharing' => 'Az adományozás során megadott adataidat a Wikimédia Alapítvány (a Wikipédiát és társait üzemeltető nonprofit szervezet) és annak szolgáltatói fogják megkapni. Az adataidat nem adjuk ki harmadik félnek. Részletekért lásd <a href="//wikimediafoundation.org/wiki/Donor_policy/en">az adatvédelmi szabályzatunkat</a>.',
 	'donate_interface-currency-change' => 'Módosítod?',
 	'donate_interface-bank_transfer_message' => 'A bankszámlakivonatodon „Global Collect” fog az adományod címzettjeként megjelenni. A Global Collect a Wikimédia Alapítvány részére és megbízásából fogadja és dolgozza fel az adományokat. Ne felejtsd el feltüntetni az itt megadott bizonylatszámot a banki átutalásodban, és ha bármi kérdésed van, írj a donations@wikimedia.org címre.',
 	'donate_interface-globalcollect-proxy' => 'A bankszámlakivonatodon „Global Collect” fog az adományod címzettjeként megjelenni. A Global Collect a Wikimédia Alapítvány részére és megbízásából fogadja és dolgozza fel az adományokat.',
@@ -13360,7 +13362,7 @@ $messages['hu'] = array(
 	'donate_interface-taxded-msg-int' => 'A Wikimédia Alapítvány egy amerikai non-profit közhasznú szervezet, ezért az Amerikai Egyesült Államokban az adományozók az átadott összeget leírhatják az adójukból. Az USA-n kívül az adomány nem feltétlenül írható le az adóból; az ezzel kapcsolatos kérdésekkel érdemes helyi adótanácsadóhoz fordulni. A Wikimédia nem gyűjt adományokat azokon a helyeken, ahol a nemzetközi közhasznú szervezetek számára tilos adományt gyűjteni, vagy az ilyen adományok adóköteles ajándéknak minősülnek.',
 	'donate_interface-taxded-msg-us' => 'A Wikimédia Alapítvány egy amerikai non-profit közhasznú szervezet, ezért az Amerikai Egyesült Államokban az adományozók az átadott összeget leírhatják az adójukból.',
 	'donate_interface-legal-original' => 'Ez egy közösségi fordítás. Amennyiben a ellentmondás van ezen fordítás és az angol verzió között, az angol verzió az irányadó.',
-	'donate_interface-legal-donorpolicy' => 'Az adományozáskor megadott információidat a Wikimédia Alapítvány (a Wikipédiát és társait üzemeltető közhasznú szervezet) és annak internetszolgáltatói fogják kezelni. Az adataidat az adatvédelmi útmutatónknak megfelelően kezeljük, és harmadik félnek nem adjuk ki.',
+	'donate_interface-legal-donorpolicy' => 'Az adományozáskor megadott információidat a Wikimédia Alapítvány (a Wikipédiát és társait üzemeltető közhasznú szervezet) és annak szolgáltatói fogják kezelni. Az adataidat az adatvédelmi útmutatónknak megfelelően kezeljük, és harmadik félnek nem adjuk ki.',
 	'donate_interface-monthlybox-title' => 'Legyen havi?',
 	'donate_interface-monthlybox-content' => 'A havi adományozás minden hónap 2-án kerül feldolgozásra. Bármikor megszüntetheted.',
 	'donate_interface-monthlybox-amount' => 'Havi adomány nagysága',
