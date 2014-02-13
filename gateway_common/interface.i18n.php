@@ -16158,6 +16158,7 @@ $messages['kn'] = array(
  * @author Jsoby
  * @author Klutzy
  * @author Kwj2772
+ * @author Priviet
  * @author 관인생략
  * @author 아라
  */
@@ -16547,7 +16548,7 @@ $messages['ko'] = array(
 	'donate_interface-monthlybox-content' => '매월 기부는 매월 2<sup>일</sup>에 처리됩니다. 언제든지 취소할 수 있습니다.',
 	'donate_interface-monthlybox-amount' => '매월 기부 금액',
 	'donate_interface-monthlybox-yes' => '물론입니다, 매월 하겠습니다.',
-	'donate_interface-monthlybox-no' => '아니오, 한 번만 기부 할 것 입니다.',
+	'donate_interface-monthlybox-no' => '아니오, 한 번만 기부 하겠습니다.',
 	'donate_interface-monthlybox-bottom' => '기부하신 내용은 안전하게 처리 될 것입니다.',
 	'donate_interface-monthly-cancel' => '매월 기부는 중단을 알릴 때까지 위키미디어 재단에 의해 청구됩니다.',
 	'donate_interface-onetime' => '한 번만 기부하기',
