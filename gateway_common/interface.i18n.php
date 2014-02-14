@@ -33230,13 +33230,14 @@ $messages['yi'] = array(
 );
 
 /** Cantonese (粵語)
+ * @author Antonytse
  * @author Jsoby
  */
 $messages['yue'] = array(
 	'donate_interface' => '支持Wikimedia',
 	'donate_interface-desc' => '捐綫登陸版整合嘅閘道擴展',
 	'donate_interface-intro' => '請揀一種俾錢方法、金額同貨幣。',
-	'donate_interface-amount' => '捐款金額：', # Fuzzy
+	'donate_interface-amount' => '金額',
 	'donate_interface-other-amount' => '其它金額',
 	'donate_interface-currency' => '貨幣：',
 	'donate_interface-gateway' => '俾錢方法：',
