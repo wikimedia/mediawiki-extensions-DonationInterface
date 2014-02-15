@@ -1828,7 +1828,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	function getAvailableLanguages(){
 		$languages = array(
 			'ar', //Arabic
-			'cz', //Czech
+			'cs', //Czech
 			'da', //Danish
 			'nl', //Dutch
 			'en', //English
