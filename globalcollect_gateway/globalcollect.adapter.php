@@ -1843,7 +1843,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'ja', //Japanese
 			'ko', //Korean
 			'no', //Norwegian
-			'po', //Polish
+			'pl', //Polish
 			'pt', //Portuguese
 			'ro', //Romanian
 			'sl', //Slovene
