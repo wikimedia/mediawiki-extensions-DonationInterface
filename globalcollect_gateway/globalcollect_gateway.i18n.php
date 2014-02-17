@@ -734,6 +734,8 @@ $messages['ko'] = array(
 $messages['ksh'] = array(
 	'globalcollectgateway' => 'Maach Ding Schpände jäz',
 	'globalcollect_gateway-desc' => 'Et Bezahle övver <i lang="en">GlobalCollect</i> möjjelesch maache un afhandelle.',
+	'globalcollect_gateway-fakesucceed' => 'Donn esu, wi wänn et Bezahle jeflupp hätt',
+	'globalcollect_gateway-fakefail' => 'Donn esu, wi wänn et Bezahle nit jeflupp hätt',
 	'globalcollect_gateway-response-9130' => 'Dat Land es onjöltesch.',
 	'globalcollect_gateway-response-9140' => 'Di Zoot Jäld es onbikannnt.',
 	'globalcollect_gateway-response-9150' => 'De Schprooch es onjöltesch.',
