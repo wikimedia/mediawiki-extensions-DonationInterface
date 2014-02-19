@@ -133,6 +133,7 @@ $messages['be-tarask'] = array(
  */
 $messages['br'] = array(
 	'globalcollectgateway' => 'Grit ho tonezon bremañ',
+	'globalcollect_gateway-fakefail' => "Ober van d'ober ur paeamant c'hwitet",
 	'globalcollect_gateway-response-9130' => 'Bro direizh.',
 	'globalcollect_gateway-response-9140' => 'Moneiz direizh.',
 	'globalcollect_gateway-response-9150' => 'Yezh direizh.',
