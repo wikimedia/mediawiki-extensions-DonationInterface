@@ -62,6 +62,12 @@ class PaypalAdapter extends GatewayAdapter {
 	function getResponseData( $response ) {}
 	function processResponse( $response, &$retryVars = null ) {}
 	function defineDataConstraints() {}
+	function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'generate' => FALSE,
+		);
+	}
+	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
 
@@ -153,7 +159,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
 				'cmd' => '_xclick-subscriptions',
 				'item_number' => 'DONATE',
-				'item_name' => wfMsg( 'donate_interface-donation-description' ),
+				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
 				'no_note' => 0,
 				'return' => $this->getGlobal( 'ReturnURL' ),
 				// recurring fields

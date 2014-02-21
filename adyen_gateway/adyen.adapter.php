@@ -50,6 +50,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'zip',
 			'billing_signature',
 			'hpp_signature',
+			'fraud_score',
 		);
 	}
 	
@@ -97,6 +98,22 @@ class AdyenAdapter extends GatewayAdapter {
 			'skinCode' => 'skin_code',
 		);
 	}
+
+	/**
+	 * Sets up the $order_id_meta array.
+	 * Should contain the following keys/values:
+	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'type' => numeric, or alphanumeric
+	 * 'length' => $max_charlen
+	 */
+	public function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'alt_locations' => array ( '_GET' => 'merchantReference' ),
+			'generate' => TRUE,
+		);
+	}
+
+	function setGatewayDefaults() {}
 
 	/**
 	 * Define transactions
@@ -163,7 +180,11 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * Because GC has some processes that involve more than one do_transaction 
 	 * chained together, we're catching those special ones in an overload and 
-	 * letting the rest behave normally. 
+	 * letting the rest behave normally.
+	 * @TODO: If this is a pattern we want to be able to reuse, it should be
+	 * represented in the base class.
+	 * I can't help but feel like it's bad that the parent's do_transaction
+	 * is never used at all.
 	 */
 	function do_transaction( $transaction ) {
 		$this->session_addDonorData();
@@ -178,6 +199,7 @@ class AdyenAdapter extends GatewayAdapter {
 				case 'donate':
 					$formaction = $this->getGlobal( 'BaseURL' ) . '/hpp/pay.shtml';
 					$this->runPreProcessHooks();
+					$this->addData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						self::log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
@@ -434,6 +456,8 @@ class AdyenAdapter extends GatewayAdapter {
 		return $currencies;
 	}
 
+	//@TODO: Determine why this is being overloaded here.
+	//This looks like a var-renamed copy of the parent. :[
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
@@ -519,7 +543,11 @@ class AdyenAdapter extends GatewayAdapter {
 	}
 
 	protected function stage_risk_score( $type = 'request' ) {
-		$this->staged_data[ 'risk_score' ] = (string)round( $this->risk_score );
+		//This isn't smart enough to grab a new value here;
+		//Late-arriving values have to trigger a restage via addData or
+		//this will always equil the risk_score at the time of object
+		//construction. Still need the formatting, though.
+		$this->staged_data['risk_score'] = ( string ) round( $this->staged_data['risk_score'] );
 	}
 
 	protected function stage_hpp_signature( $type = 'request' ) {
