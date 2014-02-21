@@ -492,7 +492,6 @@ abstract class Gateway_Form {
 				'payment_submethod' => !is_null( $this->getEscapedValue( 'payment_submethod' ) ) ? $this->getEscapedValue( 'payment_submethod' ) : '',
 				'token' => $this->getEscapedValue( 'token' ),
 				'order_id' => $this->getEscapedValue( 'order_id' ),
-				'i_order_id' => $this->getEscapedValue( 'i_order_id' ),
 				'contribution_tracking_id' => $this->getEscapedValue( 'contribution_tracking_id' ),
 				'data_hash' => $this->getEscapedValue( 'data_hash' ),
 				'action' => $this->getEscapedValue( 'action' ),

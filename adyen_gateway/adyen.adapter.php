@@ -99,6 +99,20 @@ class AdyenAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Sets up the $order_id_meta array.
+	 * Should contain the following keys/values:
+	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'type' => numeric, or alphanumeric
+	 * 'length' => $max_charlen
+	 */
+	public function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'alt_locations' => array ( '_GET' => 'merchantReference' ),
+			'generate' => FALSE,
+		);
+	}
+
+	/**
 	 * Define transactions
 	 */
 	function defineTransactions() {

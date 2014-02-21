@@ -51,10 +51,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Define dataConstraints
-	 *
-	 * @todo
-	 * - card_type: what do we do about this one? It is also payment_product.
-	 *
 	 */
 	public function defineDataConstraints() {
 		
@@ -183,10 +179,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			
 			//'ORDERID'				=> 'order_id'				N10
 			'order_id'				=> array( 'type' => 'numeric',			'length' => 10, ),
-			
-			// This is mapped to other things
-			//'PAYMENTPRODUCTID'	=> 'card_type'				AN50
-			'card_type'				=> array( 'type' => 'numeric',			'length' => 5, ),
+
+			//PAYMENTPRODUCTID
 			'payment_product'		=> array( 'type' => 'numeric',			'length' => 5, ),
 			
 			//'PAYMENTREFERENCE'	=> 'payment_reference'		AN20
@@ -300,9 +294,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'IPADDRESSCUSTOMER'	=> 'user_ip',
 			'ISSUERID'			=> 'issuer_id',
 			'LANGUAGECODE'		=> 'language',
-			'MERCHANTREFERENCE'	=> 'order_id',
+			'MERCHANTREFERENCE' => 'contribution_tracking_id', //new as of Feb 2014. See also the staging function.
 			'ORDERID'			=> 'order_id',
-			'PAYMENTPRODUCTID'	=> 'card_type',
+			'PAYMENTPRODUCTID' => 'payment_product',
 			'PAYMENTREFERENCE'	=> 'payment_reference',
 			'PROVINCIA'			=> 'provincia', // dd:ES
 			'RETURNURL'			=> 'returnto',
@@ -321,14 +315,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Setting some GC-specific defaults. 
 	 * @param array $options These get extracted in the parent.
 	 */
-	function setPostDefaults( $options = array() ) {
-		parent::setPostDefaults( $options );
-		$this->postdatadefaults['attempt_id'] = '1';
-		$this->postdatadefaults['effort_id'] = '1';
+	function setGatewayDefaults( $options = array ( ) ) {
+		$returnTitle = isset( $options['returnTitle'] ) ? $options['returnTitle'] : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
+		$returnTo = isset( $options['returnTo'] ) ? $options['returnTo'] : $returnTitle->getFullURL();
 
-		$returnTitle = isset($options['returnTitle']) ? $options['returnTitle'] : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-		$returnTo = isset($options['returnTo']) ? $options['returnTo'] : $returnTitle->getFullURL();
-		$this->postdatadefaults['returnto'] = $returnTo;
+		$defaults = array (
+			'returnto' => $returnTo,
+			'attempt_id' => '1',
+			'effort_id' => '1',
+		);
+
+		$this->addData( $defaults );
 	}
 
 	/**
@@ -357,6 +354,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		
 		$this->defineGoToThankYouOn();
+	}
+
+	/**
+	 * Sets up the $order_id_meta array.
+	 * Should contain the following keys/values:
+	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'type' => numeric, or alphanumeric
+	 * 'length' => $max_charlen
+	 */
+	public function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'alt_locations' => array ( '_GET' => 'order_id' ),
+			'generate' => TRUE, //freaking FINALLY.
+		);
 	}
 
 	/**
@@ -1140,13 +1151,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			self::log( $logmsg );
 		} else { //this is an orphan transaction. 
-			$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
 			$is_orphan = true;
 			//have to change this code range: All these are usually "pending" and 
 			//that would still be true...
 			//...aside from the fact that if the user has gotten this far, they left 
 			//the part where they could add more data. 
-			//By now, "incomplete" definitely means "failed" for 0-70. 
+			//By now, "incomplete" definitely means "failed" for 0-70.
+			error_log( __FUNCTION__ . " thinks we're an orphan." );
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
 		
@@ -1163,7 +1174,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
-
 			if ( $is_orphan ){
 				if ( array_key_exists('data', $status_result) ) {
 					foreach ( $pull_vars as $theirkey => $ourkey) {
@@ -1176,7 +1186,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				if ( count( $addme ) ){
 					$gotCVV = true;
 					$this->addData( $addme );
-					$this->staged_data['order_id'] = $this->staged_data['i_order_id'];
 					$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
 					$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 					$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
@@ -1290,7 +1299,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 			}
 			
-			if ( !$cancelflag ){
+			if ( !$cancelflag ) {
 				$final = $this->do_transaction( 'SET_PAYMENT' );
 				if ( isset( $final['status'] ) && $final['status'] === true ) {
 					$this->finalizeInternalStatus( 'complete' );
@@ -1367,8 +1376,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			{  
 				if ($this->getFinalStatus() == 'pending-poke')
 				{
-					$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $this->getData_Staged('payment_product');
-
 					$txn_data = $this->getTransactionData();
 					$original_status_code = isset( $txn_data['STATUSID']) ? $txn_data['STATUSID'] : 'NOT SET';
 
@@ -1458,7 +1465,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				$data['PAYMENT'] = $this->xmlChildrenToArray( $response, 'PAYMENT' );
-				//if we're of a type that sends donors off never to return, we should record that here. 
+
+				//if we have no order ID yet (or it's somehow wrong), retrieve it and put it in the usual place.
+				if ( array_key_exists( 'ORDERID', $data ) && ( $data['ORDERID'] != $this->getData_Unstaged_Escaped( 'order_id' ) ) ) {
+					$this->log( "inside " . $data['ORDERID'] );
+					$this->normalizeOrderID( $data['ORDERID'] );
+					$this->log( print_r( $this->getOrderIDMeta(), true ) );
+					$this->addData( array ( 'order_id' => $data['ORDERID'] ) );
+					$this->log( print_r( $this->getOrderIDMeta(), true ) );
+					$this->session_addDonorData();
+				}
+
+				$this->log( __FUNCTION__ . ': order_id = ' . $this->getData_Unstaged_Escaped( 'order_id' ) );
+
+				//if we're of a type that sends donors off never to return, we should record that here.
 				$payment_info = $this->getPaymentMethodMeta( $this->getPaymentMethod() );
 				if ( array_key_exists( 'short_circuit_at', $payment_info ) && $payment_info['short_circuit_at'] === 'first_iop' ){
 					if ( array_key_exists( 'additional_success_status', $payment_info ) && is_array( $payment_info['additional_success_status'] ) ){
@@ -1739,13 +1759,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			switch ( $errCode ) {
 				case 300620:
-					// Oh no! We've already used this order # somewhere else! Restart!
+				// Oh no! We've already used this order # somewhere else! Restart!
 					self::log( $this->getLogMessagePrefix() . "Order ID collission! Starting again.", LOG_ERR );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
-
+				case 400120:
+					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
+					* TODO: They already gave us money or failed...
+					* but have probably been forbidden from resultswitcher due to session weirdness.
+					* What should we actually do with these people, other than the default error log?
+					* Special error page saying that they may already have donated?
+					* Please note: I have no idea if this happens IRL.
+					* I did wrench my test instance into doing this a couple times, though.
+					*/
 				default:
+					$this->log( __FUNCTION__ . " Error $errCode : $errMsg", LOG_ERR );
 					break;
 			}
 		}
@@ -1766,13 +1795,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//OUR field names. 
 		$this->staged_vars = array(
 			'amount',
-			'card_type',
 			//'card_num',
 			'returnto',
 			'payment_method',
 			'payment_submethod',
+			'payment_product',
 			'issuer_id',
 			'order_id', //This may or may not oughta-be-here...
+			'contribution_tracking_id',
 			'language',
 			'recurring',
 			'country',
@@ -1897,65 +1927,74 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage: card_type
-	 *
-	 * @param string	$type	request|response
+	 * Stage: payment_product
+	 * Stages the payment product ID for GC.
+	 * Not what I had in mind to begin with, but this *completely* blew up.
 	 */
-	protected function stage_card_type( $type = 'request' ) {
+	public function stage_payment_product( $type = 'request' ) {
+		//cc used to look in card_type, but that's been an alias for payment_submethod for a while. DD takes care of it.
+		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method'] : false;
+		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod'] : false;
 
-		$types = array(
-			'visa' => '1',
-			'amex' => '2',
-			'mc' => '3',
-			'maestro' => '117',
-			'solo' => '118',
-			'laser' => '124',
-			'jcb' => '125',
-			'discover' => '128',
-			'cb' => '130',
-		);
+		if ( $payment_method === 'cc' ) {
+			//basically do what used to be stage_card_type.
+			$types = array (
+				'visa' => '1',
+				'amex' => '2',
+				'mc' => '3',
+				'maestro' => '117',
+				'solo' => '118',
+				'laser' => '124',
+				'jcb' => '125',
+				'discover' => '128',
+				'cb' => '130',
+			);
 
-		if ( $type === 'response' ) {
-			$types = array_flip( $types );
-		}
+			if ( $type === 'response' ) {
+				$types = array_flip( $types );
+			}
 
-		$card_type = $this->staged_data['card_type']; //if I use unstaged here, SET_PAYMENT looses its mind for some reason.
-		//@TODO: Figure out why that is...
-		
-		if ( ( !is_null( $card_type ) ) && array_key_exists( $card_type, $types ) ) {
-			$this->staged_data['card_type'] = $types[$card_type];
-		} else {
-			//$this->staged_data['card_type'] = '';
-			//iono: maybe nothing? 
-		}
+			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $types ) ) {
+				$this->staged_data['payment_product'] = $types[$payment_submethod];
+			} else {
+				$this->log( "Could not find a cc payment product for '$payment_submethod'", LOG_ERR );
+			}
 
-		// This array contains all the card types that can use AUTHENTICATIONINDICATOR
-		$authenticationIndicatorTypes = array(
-			'1', // visa
-			'3', // mc
-		);
+			// This array contains all the card types that can use AUTHENTICATIONINDICATOR
+			$authenticationIndicatorTypes = array (
+				'1', // visa
+				'3', // mc
+			);
 
-		$enable3ds = false;
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-		$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
-		if ( in_array( $this->staged_data['card_type'], $authenticationIndicatorTypes ) ) {
-			$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
-			if ( array_key_exists( $currency, $ThreeDSecureRules ) ){
-				if ( !is_array( $ThreeDSecureRules[$currency] ) ){
-					if ( $ThreeDSecureRules[$currency] === $country ){
-						$enable3ds = true;
-					}
-				} else {
-					if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ){
-						$enable3ds = true;
+			$enable3ds = false;
+			$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+			$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
+			if ( in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes ) ) {
+				$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
+				if ( array_key_exists( $currency, $ThreeDSecureRules ) ) {
+					if ( !is_array( $ThreeDSecureRules[$currency] ) ) {
+						if ( $ThreeDSecureRules[$currency] === $country ) {
+							$enable3ds = true;
+						}
+					} else {
+						if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ) {
+							$enable3ds = true;
+						}
 					}
 				}
 			}
-		}
 
-		if ( $enable3ds ){
-			$this->log( $this->getLogMessagePrefix() . "3dSecure enabled for $currency in $country");
-			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
+			if ( $enable3ds ) {
+				$this->log( $this->getLogMessagePrefix() . "3dSecure enabled for $currency in $country" );
+				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
+			}
+		} else {
+			//everything that isn't cc.
+			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
+				$this->staged_data['payment_product'] = $this->payment_submethods[$payment_submethod]['paymentproductid'];
+			} else {
+				$this->log( "Could not find a payment product for '$payment_submethod' in payment_submethods array", LOG_ERR );
+			}
 		}
 	}
 
@@ -2034,8 +2073,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->staged_data['date_collect'] = gmdate('Ymd');
 		$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
 		
-		$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 		$this->var_map['COUNTRYCODEBANK'] = 'country';
 
 		$this->dataConstraints['iban']['length'] = 21;
@@ -2057,10 +2094,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$this->staged_data['descriptor'] = 'Wikimedia Foundation/Wikipedia';
 
-		$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 		$this->var_map['COUNTRYCODEBANK'] = 'country';
-		
-		$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
 
 		// eWallets custom keys
 		$this->addKeysToTransactionForSubmethod( $payment_submethod );
@@ -2108,8 +2142,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				if ( $this->staged_data['country'] == 'KR' ) {
 					$this->dataConstraints['direct_debit_text']['city'] = 50;
 				}
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 
 			/* Direct Debit */
@@ -2150,30 +2182,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			
 			/* Cash payments */
 			 case 'cash_boleto':
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-
 				$this->addKeyToTransaction('FISCALNUMBER');
-				break;
-
-			/* Online bank transfer */
-			case 'bpay':
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
-				break;
-			
-			/* Real time bank transfer */
-			case 'rtbt_nordea_sweden':
-			case 'rtbt_enets':
-			case 'rtbt_sofortuberweisung':
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 				break;
 			
 			case 'rtbt_eps':
 			case 'rtbt_ideal':
-				$this->staged_data['payment_product'] = $this->payment_submethods[ $payment_submethod ]['paymentproductid'];
-				$this->var_map['PAYMENTPRODUCTID'] = 'payment_product';
 
 				$this->addKeysToTransactionForSubmethod( $payment_submethod );
 				
@@ -2196,7 +2209,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Stage: recurring
 	 * Adds the recurring payment pieces to the structure of 
@@ -2233,6 +2246,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['PURCHASETYPE'] = '1';
 				break;
 		}
+	}
+
+	protected function stage_contribution_tracking_id( $type = 'request' ) {
+		$ctid = $this->staged_data['contribution_tracking_id'];
+		if ( $type === 'request' ) {
+			//append timestamp to ctid
+			$ctid .= '.' . (time() % 100000); //least significant five
+		} elseif ( $type === 'response' ) {
+			$ctid = explode( '.', $ctid );
+			$ctid = $ctid[0];
+		}
+		$this->staged_data['contribution_tracking_id'] = $ctid;
 	}
 
 	protected function stage_fiscal_number( $type = 'request' ) {
@@ -2279,7 +2304,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				//TODO: This needs to be more robust (like actually pulling the 
 				//qstring keys, resetting the values, and putting it all back)
 				//but for now it'll keep us alive. 
-				if ( !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ){
+				if ( $this->getOrderIDMeta( 'generate' ) && !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ) {
 					$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
 					$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
 				}
@@ -2347,21 +2372,5 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$result = $avs_map[$this->getData_Unstaged_Escaped( 'avs_result' )];
 		return $result;
-	}
-	
-	/**
-	 * Returns false if FORMACTION does not exist or string if it does exist
-	 *
-	 * @return false|string  
-	 */
-	public function getTransactionDataFormAction() {
-		
-		$data = $this->getTransactionData();
-		
-		if ( is_array( $data ) && array_key_exists( 'FORMACTION', $data ) ) {
-			return $data['FORMACTION'];
-		} else {
-			return false;
-		}
 	}
 }

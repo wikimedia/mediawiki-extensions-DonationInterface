@@ -101,7 +101,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - currency: EUR:
 	 * - payment_method:
 	 * - //order_id: 5038287830
-	 * - //i_order_id: 1234567890
 	 * - numAttempt: 0
 	 * - referrer: http:// . TESTS_HOSTNAME . /index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount:
 	 * - utm_source: ..gc_bt:
@@ -203,7 +202,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			//'size' => 'small',
 			'currency_code' => $currency,
 			//'order_id' => '5038287830',
-			//'i_order_id' => '1234567890',
 			'numAttempt' => 0,
 			'referrer' => 'http://' . TESTS_HOSTNAME . '/index.php/Special:' . $gateway . '?form_name=' . $form_name,
 			'utm_source' => '..gc_bt',
