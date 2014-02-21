@@ -718,7 +718,9 @@ class DonationData {
 	 */
 	protected function setNormalizedOrderIDs() {
 		$override = null;
-		//TODO: Something here if you want to override. (batch mode)
+		if ( $this->gateway->isBatchProcessor() ) {
+			$override = $this->getVal( 'order_id' );
+		}
 		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override ) );
 	}
 

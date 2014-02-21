@@ -349,7 +349,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
 	function setGateway(){
 	function doCacheStuff(){
-	function getAnnoyingOrderIDLogLinePrefix(){
 	public function getEditToken( $salt = '' ) {
 	public static function generateToken( $salt = '' ) {
 	function matchEditToken( $val, $salt = '' ) {
