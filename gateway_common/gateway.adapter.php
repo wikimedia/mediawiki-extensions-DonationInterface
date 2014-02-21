@@ -106,6 +106,25 @@ interface GatewayType {
 	 */
 	function definePaymentMethods();
 
+	/**
+	 * Sets up the $order_id_meta array.
+	 * Should contain the following keys/values:
+	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'type' => numeric, or alphanumeric
+	 * 'length' => $max_charlen
+	 */
+	function defineOrderIDMeta();
+
+	/**
+	 * Called in the constructor, this function should be used to define
+	 * pieces of default data particular to the gateway. It will be up to
+	 * the child class to poke the data through to the data object
+	 * (probably with $this->addData()).
+	 * DO NOT set default payment information here (or anywhere, really).
+	 * That would be naughty.
+	 */
+	function setGatewayDefaults();
+
 	static function getCurrencies();
 }
 
@@ -187,7 +206,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
-	protected $postdatadefaults;
 	protected $xmlDoc;
 	protected $dataObj;
 	
@@ -275,11 +293,12 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
+		$this->defineOrderIDMeta(); //must happen before we go to DD.
+		$this->defineDataConstraints(); //must also happen before we go to DD
+
 		$this->dataObj = new DonationData( $this, self::getGlobal( 'Test' ), $external_data );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
-		$this->setPostDefaults( $postDefaults );
-		
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 		
@@ -292,33 +311,11 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->definePaymentMethods();
 		$this->defineErrorMap();
 		$this->defineVarMap();
-		$this->defineDataConstraints();
 		$this->defineReturnValueMap();
 		$this->setValidForm();
 
+		$this->setGatewayDefaults();
 		$this->stageData();
-	}
-
-	/**
-	 * Override this in children if you want different defaults. 
-	 * TODO: Move all this default-type functionality into the DonationData class. 
-	 */
-	function setPostDefaults( $options = array() ) {
-
-		// Extract the options
-		if ( is_array( $options ) ) {
-			extract( $options );
-		}
-
-		// FIXME: this is not cool
-		$this->postdatadefaults = array(
-			'order_id' => '112358' . rand(),
-			'amount' => '11.38',
-			'currency_code' => 'USD',
-			'language' => 'en',
-			'country' => 'US',
-			'card_type' => 'visa',
-		);
 	}
 
 	/**
@@ -701,10 +698,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 				$tempValue = '';
 
-				if ( $tempField && isset( $this->postdatadefaults[ $tempField ] ) ) {
-					$tempValue = $this->postdatadefaults[ $tempField ];
-				}
-
 				return $tempValue;
 			}
 		}
@@ -781,6 +774,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * curl'd off to the remote server. 
 	 */
 	protected function buildRequestXML() {
+		$this->log( __FUNCTION__ . ': order_id = ' . $this->getData_Unstaged_Escaped( 'order_id' ) );
 		$this->xmlDoc = new DomDocument( '1.0' );
 		$node = $this->xmlDoc->createElement( 'XML' );
 
@@ -928,7 +922,7 @@ abstract class GatewayAdapter implements GatewayType {
 				self::log( $this->getLogMessagePrefix() . "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
 
 				// Force regen of the order_id
-				$this->dataObj->resetOrderId();
+				$this->regenerateOrderID();
 
 				// Pull anything changed from dataObj
 				$this->unstaged_data = $this->dataObj->getDataEscaped();
@@ -950,6 +944,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * recoverable errors but that do require the entire transaction to be repeated.
 	 */
 	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
+		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
 		//reset, in case this isn't our first time. 
 		$this->transaction_results = array();
 		$this->setValidationAction('process', true);
@@ -1178,7 +1173,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$headers = array(
 			'Content-Type: text/' . $this->getCommunicationType() . '; charset=utf-8',
 			'X-VPS-Client-Timeout: 45',
-			'X-VPS-Request-ID:' . $this->postdatadefaults['order_id'],
+			'X-VPS-Request-ID:' . $this->getData_Staged( 'order_id' ),
 		);
 		return $headers;
 	}
@@ -1879,19 +1874,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->getIdentifier() . '-' . $this->getData_Unstaged_Escaped('order_id');
 	}
 
-	function smooshVarsForStaging() {
-
-		foreach ( $this->staged_vars as $field ) {
-			$val = $this->getData_Staged( $field );
-			if ( is_null( $val ) or $val === '' ) {
-				if ( array_key_exists( $field, $this->postdatadefaults ) ) {
-					$this->staged_data[$field] = $this->postdatadefaults[$field];
-				}
-			}
-			//what do we do in the event that we're still nothing? (just move on.)
-		}
-	}
-
 	/**
 	 * Executes the specified function in $this, if one exists. 
 	 * NOTE: THIS WILL LCASE YOUR FUNCTION_NAME. 
@@ -1918,7 +1900,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->staged_data = $this->unstaged_data;
 		}
 		$this->defineStagedVars();
-		$this->smooshVarsForStaging(); //yup, we do need to do this seperately. 
 		//If we tried to piggyback off the same loop, all the vars wouldn't be ready, and some staging functions will require 
 		//multiple variables.
 		foreach ( $this->staged_vars as $field ) {
@@ -3173,6 +3154,237 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 			$this->log( "Truncated DonationData: " . json_encode( $data ), LOG_DEBUG );
 		}
+	}
+
+	/**
+	 */
+	public function buildOrderIDSources() {
+		static $built = false;
+
+		if ( $built ) { //once per request is plenty
+			return;
+		}
+
+		//pull all order ids and variants from all their usual locations
+		$locations = array (
+			'_GET' => 'order_id',
+			'_POST' => 'order_id',
+			'_SESSION' => array ( 'Donor' => 'order_id' ),
+		);
+
+		$alt_locations = $this->getOrderIDMeta( 'alt_locations' );
+		if ( $alt_locations && is_array( $alt_locations ) ) {
+			foreach ( $alt_locations as $var => $key ) {
+				$locations[$var] = $key;
+			}
+		}
+
+		//Now pull all the locations and populate the candidate array.
+		$oid_candidates = array ( );
+
+		foreach ( $locations as $var => $key ) {
+			//using a horribly redundant switch here until php supports superglobals with $$. Arglebarglefargle!
+			switch ( $var ) {
+				case "_GET" :
+					if ( array_key_exists( $key, $_GET ) ) {
+						$oid_candidates[$var] = $_GET[$key];
+					}
+					break;
+				case "_POST" :
+					if ( array_key_exists( $key, $_POST ) ) {
+						$oid_candidates[$var] = $_POST[$key];
+					}
+				case "_SESSION" :
+					if ( $this->session_exists() ) {
+						if ( is_array( $key ) ) {
+							foreach ( $key as $subkey => $subvalue ) {
+								if ( array_key_exists( $subkey, $_SESSION ) && array_key_exists( $subvalue, $_SESSION[$subkey] ) ) {
+									$oid_candidates['_SESSION' . $subkey . $subvalue] = $_SESSION[$subkey][$subvalue];
+								}
+							}
+						} else {
+							if ( array_key_exists( $key, $_SESSION ) ) {
+								$oid_candidates[$var] = $_SESSION[$key];
+							}
+						}
+					}
+					break;
+				default :
+					if ( !is_array( $key ) && array_key_exists( $key, $$var ) ) {
+						//simple case first. This is a direct key in $var.
+						$oid_candidates[$var] = $$var[$key];
+					}
+					if ( is_array( $key ) ) {
+						foreach ( $key as $subkey => $subvalue ) {
+							if ( array_key_exists( $subkey, $$var ) && array_key_exists( $subvalue, $$var[$subkey] ) ) {
+								$oid_candidates[$var . $subkey . $subvalue] = $$var[$subkey][$subvalue];
+							}
+						}
+					}
+					break;
+			}
+		}
+
+		//unset every invalid candidate
+		foreach ( $oid_candidates as $source => $value ) {
+			if ( empty( $value ) || !$this->validateDataConstraintsMet( 'order_id', $value ) ) {
+				unset( $oid_candidates[$source] );
+			}
+		}
+
+		$this->order_id_candidates = $oid_candidates;
+		$built = true;
+	}
+
+	function validateDataConstraintsMet( $field, $value ) {
+		$met = true;
+
+		if ( is_array( $this->dataConstraints ) && array_key_exists( $field, $this->dataConstraints ) ) {
+			$type = $this->dataConstraints[$field]['type'];
+			$length = $this->dataConstraints[$field]['length'];
+			switch ( $type ) {
+				case 'numeric' :
+					if ( !is_numeric( $value ) ) {
+						$met = false;
+					}
+					break;
+				case 'alphanumeric' :
+					//TODO: Something better here.
+					break;
+				default:
+					//fail closed.
+					$met = false;
+			}
+
+			if ( strlen( $value ) > $length ) {
+				$met = false;
+			}
+
+			return $met;
+		}
+	}
+
+	/**
+	 * This function is meant to be run by the DonationData class, both
+	 * before and after any communication has been done that might retrieve
+	 * an order ID.
+	 * To put it another way: If we are meant to be getting the OrderID from
+	 * a piece of gateway communication that hasn't been done yet, this
+	 * should return NULL. I think.
+	 */
+	public function normalizeOrderID( $override = null ) {
+		$selected = false;
+		$source = null;
+		$value = null;
+		if ( !is_null( $override ) && $this->validateDataConstraintsMet( 'order_id', $override ) ) {
+			//just do it.
+			$selected = true;
+			$source = 'override';
+			$value = $override;
+		} else {
+			//we are not overriding. Exit if we've been here before and decided something.
+			if ( $this->getOrderIDMeta( 'final' ) ) {
+				return $this->getOrderIDMeta( 'final' );
+			}
+		}
+
+		$this->buildOrderIDSources(); //make sure all possible preexisting data is ready to go
+
+		//If there's anything in the candidate array, take it. It's already in default order of preference.
+		if ( !$selected && is_array( $this->order_id_candidates ) && !empty( $this->order_id_candidates ) ) {
+			$selected = true;
+			reset( $this->order_id_candidates );
+			$source = key( $this->order_id_candidates );
+			$value = $this->order_id_candidates[$source];
+		}
+
+		if ( !$selected && !array_key_exists( 'generated', $this->order_id_candidates ) && $this->getOrderIDMeta( 'generate' ) ) {
+			$selected = true;
+			$source = 'generated';
+			$value = $this->generateOrderID();
+			$this->order_id_candidates[$source] = $value; //so we don't regen accidentally
+		}
+
+		if ( $selected ) {
+			$this->setOrderIDMeta( 'final', $value );
+			$this->setOrderIDMeta( 'final_source', $source );
+		}
+	}
+
+	/**
+	 * Default orderID generation
+	 * This used to be done in DonationData, but gateways should control
+	 * the format here. Override this in child classes. 
+	 * @return int A freshly generated order ID
+	 */
+	public function generateOrderID() {
+		$order_id = ( string ) mt_rand( 1000, 9999999999 );
+		return $order_id;
+	}
+
+	public function regenerateOrderID() {
+		$id = null;
+		if ( $this->getOrderIDMeta( 'generate' ) ) {
+			$id = $this->generateOrderID();
+			$source = 'regenerated';  //This implies the try number is > 1.
+			$this->order_id_candidates[$source] = $id;
+			//alter the meta with the new data
+			$this->setOrderIDMeta( 'final', $id );
+			$this->setOrderIDMeta( 'final_source', 'regenerated' );
+		} else {
+			//we are not regenerating ourselves, but we need a new one...
+			//so, blank it and wait.
+			$this->order_id_candidates = array ( );
+			unset( $this->order_id_meta['final'] );
+			unset( $this->order_id_meta['final_source'] );
+		}
+
+		//tell DD about it
+		$this->addData( array ( 'order_id' => $id ) );
+		return $id;
+	}
+
+	/**
+	 * Returns the FORMATTED data harvested from the reply, or false if it is not set.
+	 * @return mixed An array of returned data, or false.
+	 */
+	public function getTransaction() {
+		if ( array_key_exists( 'data', $this->transaction_results ) ) {
+			return $this->transaction_results['data'];
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * returns the orderID Meta
+	 * @param string $key The key to retrieve. Optional.
+	 * @return mixed|false Data requested, or false if it is not set.
+	 */
+	public function getOrderIDMeta( $key = false ) {
+		$data = $this->order_id_meta;
+		if ( !is_array( $data ) ) {
+			return false;
+		}
+
+		if ( $key ) {
+			//just return the key if it exists
+			if ( array_key_exists( $key, $data ) ) {
+				return $data[$key];
+			}
+		} else {
+			return $data;
+		}
+	}
+
+	/**
+	 * sets more orderID Meta, so we can remember things about what we chose
+	 * to go with in later logic.
+	 * @param string $key The key to set.
+	 * @param mixed $value The value to set.
+	 */
+	public function setOrderIDMeta( $key, $value ) {
+		$this->order_id_meta[$key] = $value;
 	}
 
 }

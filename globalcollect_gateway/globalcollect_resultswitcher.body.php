@@ -54,18 +54,20 @@ class GlobalCollectGatewayResult extends GatewayForm {
 		}
 
 		$forbidden = false;
-		if ( !isset( $_GET['order_id'] ) ){
+		if ( !isset( $_GET['order_id'] ) && !isset( $_GET['REF'] ) ) {
 			$forbidden = true;
 			$f_message = 'No order ID in the Querystring.';
 		} else {
-			$this->qs_oid = $_GET[ 'order_id' ];
+			isset( $_GET['order_id'] ) ? $this->qs_oid = $_GET['order_id'] : $this->qs_oid = null;
 			$result = $this->popout_if_iframe();
 			if ( $result ) {
 				return;
 			}
 		}
 
-		if ( !$this->adapter->session_hasDonorData( 'order_id', $this->qs_oid ) ) {
+		$session_oid = $this->adapter->session_getData( 'Donor', 'order_id' );
+
+		if ( is_null( $session_oid ) || ( ($this->qs_oid !== $session_oid) && strpos( $_GET['REF'], ( string ) $session_oid ) === false ) ) {
 			$forbidden = true;
 			$f_message = 'Requested order id not present in the session';
 
