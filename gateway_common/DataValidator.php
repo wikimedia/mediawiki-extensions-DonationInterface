@@ -37,6 +37,7 @@ class DataValidator {
 		'account_number',
 		'expiration',
 		'order_id',
+		'i_order_id',
 		'numAttempt'
 	);
 	

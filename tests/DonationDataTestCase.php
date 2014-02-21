@@ -65,6 +65,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'cvv' => '665',
 			'currency_code' => 'USD',
 			'payment_method' => '',
+			'i_order_id' => '1234567890',
 			'numAttempt' => '5',
 			'referrer' => 'http://www.testing.com/',
 			'utm_source' => '..cc',
@@ -169,6 +170,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		);
 		unset($returned['contribution_tracking_id']);
 		unset($returned['order_id']);
+		unset($returned['i_order_id']);
 		$this->assertEquals($expected, $returned, "Staged post data does not match expected (largely empty).");
 	}
 
@@ -206,6 +208,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'cvv' => '001',
 			'currency_code' => 'USD',
 			'payment_method' => 'cc',
+			'i_order_id' => '1234567890',
 			'numAttempt' => '0',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
 			'utm_source' => 'test_src..cc',
@@ -261,6 +264,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		//unset these, because they're always new
 		$unsettable = array(
 			'order_id',
+			'i_order_id',
 			'contribution_tracking_id'
 		);
 

@@ -2,7 +2,7 @@
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	//Data we know to be good, that we always want to re-assert after a load or an addData. 
-	//so far: order_id and the utm data we pull from contribution tracking. 
+	//so far: order_id, i_order_id, and the utm data we pull from contribution tracking. 
 	protected $hard_data = array( );
 
 	public function unstage_data( $data = array( ), $final = true ) {
@@ -40,6 +40,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->staged_data = array( );
 
 		$this->hard_data['order_id'] = $data['order_id'];
+		$this->hard_data['i_order_id'] = $data['order_id'];
 
 		$this->dataObj = new DonationData( $this, false, $data );
 
@@ -62,9 +63,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->staged_data = $this->unstaged_data;
 
+		$this->setPostDefaults();
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
+		$this->defineDataConstraints();
 		$this->defineAccountInfo();
 		$this->defineReturnValueMap();
 

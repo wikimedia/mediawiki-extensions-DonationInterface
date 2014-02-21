@@ -252,6 +252,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 							$order_id = explode('-', $correlation_id);
 							$order_id = $order_id[1];
 							$decoded['order_id'] = $order_id;
+							$decoded['i_order_id'] = $order_id;
 							$decoded = unCreateQueueMessage($decoded);
 							$decoded['card_num'] = '';
 							$orphans[$correlation_id] = $decoded;
@@ -325,6 +326,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$payments[$key]['parsed'] = $parsed;
 			$payments[$key]['unstaged'] = $this->adapter->unstage_data($parsed);
 			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];
+			$payments[$key]['unstaged']['i_order_id'] = $payments[$key]['unstaged']['order_id'];
 			foreach ($additional_fields as $val){
 				if (!array_key_exists($val, $payments[$key]['unstaged'])){
 					$payments[$key]['unstaged'][$val] = null;
