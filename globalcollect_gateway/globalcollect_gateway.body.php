@@ -126,13 +126,15 @@ class GlobalCollectGateway extends GatewayForm {
 			} else {
 				// Display form
 
-				// See GlobalCollectAdapter::stage_returnto()
-				$oid = $this->getRequest()->getText( 'order_id' );
-				if ( $oid ) {
-					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
-					$this->displayResultsForDebug();
-				}
-
+				//TODO: NO.
+				//This probably has something to do with the dumbass way that bt, rtbt, and dd were done.
+				//
+//				// See GlobalCollectAdapter::stage_returnto()
+//				$oid = $this->getRequest()->getText( 'order_id' );
+//				if ( $oid ) {
+//					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
+//					$this->displayResultsForDebug();
+//				}
 				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere.
 				//All we seem to be doing with it now, is internal adapter logic outside of the adapter.
 				$data = $this->adapter->getData_Unstaged_Escaped();

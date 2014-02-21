@@ -77,12 +77,9 @@ define( 'TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD', '378282246310005'
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
  */
+/** DonationInterface General Settings **/
 $wgDonationInterfaceTestMode = true;
 $wgDonationInterfaceMerchantID = 'test';
-
-$wgGlobalCollectGatewayAccountInfo['test'] = array(
-	'MerchantID' => 'test',
-);
 
 $wgDonationInterfaceAllowedHtmlForms = array(
 	'test' => array(
@@ -90,3 +87,36 @@ $wgDonationInterfaceAllowedHtmlForms = array(
 );
 
 $wgDonationInterfaceThankYouPage = wfExpandUrl( '/Donate-thanks' );
+
+
+/** GlobalCollect **/
+$wgGlobalCollectGatewayAccountInfo = array ( );
+$wgGlobalCollectGatewayAccountInfo['test'] = array (
+	'MerchantID' => 'test',
+);
+
+
+/** Paypal **/
+$wgPaypalGatewayAccountInfo = array ( );
+$wgPaypalGatewayAccountInfo['testing'] = array (
+	'AccountEmail' => 'phpunittesting@wikimedia.org',
+);
+$wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; //whatever, doesn't matter.
+
+
+/** Amazon **/
+$wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
+$wgAmazonGatewayAccountInfo['test'] = array (
+	'AccessKey' => 'testkey',
+	'SecretKey' => 'testsecret',
+	'PaymentsAccountID' => 'testaccountid',
+	'IpnOverride' => 'https://test.wikimedia.org/amazon',
+);
+
+/** Adyen * */
+$wgAdyenGatewayBaseURL = 'https://testorwhatever.adyen.com';
+$wgAdyenGatewayAccountInfo['test'] = array (
+	'AccountName' => 'wikitest',
+	'SharedSecret' => 'long-cat-is-long',
+	'SkinCode' => 'testskin',
+);

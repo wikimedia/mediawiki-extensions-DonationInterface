@@ -25,6 +25,9 @@
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'includes/test_gateway/test.adapter.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GatewayAdapterTestCase.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollect/AllTests.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PayPal/AllTests.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Amazon/AllTests.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Adyen/AllTests.php';
 
 /**
  * AllTests
@@ -54,8 +57,11 @@ class DonationInterface_Adapter_AllTests
 	{
 		$suite = new PHPUnit_Framework_TestSuite( 'Donation Interface - Adapter Suite' );
 
-		$suite->addTestSuite( 'DonationInterface_Adapter_GatewayAdapterTestCase' );                                                             
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_AllTests' );                                                             
+		$suite->addTestSuite( 'DonationInterface_Adapter_GatewayAdapterTestCase' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_AllTests' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_PayPal_AllTests' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_Amazon_AllTests' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_Adyen_AllTests' );
 
 		return $suite;
 	}

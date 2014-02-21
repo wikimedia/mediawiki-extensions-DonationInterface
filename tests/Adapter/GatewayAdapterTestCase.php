@@ -43,6 +43,8 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 
 	public function __construct() {
 		global $wgDonationInterfaceAllowedHtmlForms;
+		global $wgGlobalCollectGatewayTest;
+		$wgGlobalCollectGatewayTest = true;
 		parent::__construct();
 
 		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (
@@ -63,7 +65,7 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		$class = $this->testAdapterClass;
 
 		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
-		$gateway = $this->getGateway_DefaultObject( $options );
+		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
 	}
@@ -78,8 +80,7 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
 		
 		$options = $this->getDonorTestData();
-
-		$gateway = $this->getGateway_DefaultObject( $options );
+		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $gateway );
 

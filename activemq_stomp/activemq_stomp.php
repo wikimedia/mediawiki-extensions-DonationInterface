@@ -75,9 +75,8 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 	static $sourceRevision = null;
 	if ( !$sourceRevision ) {
 		$versionStampPath = "$IP/.version-stamp";
-		$versionId = file_get_contents( $versionStampPath );
-		if ( $versionId !== false ) {
-			$sourceRevision = trim( $versionId );
+		if ( file_exists( $versionStampPath ) ) {
+			$sourceRevision = trim( file_get_contents( $versionStampPath ) );
 		} else {
 			$sourceRevision = 'unknown';
 		}

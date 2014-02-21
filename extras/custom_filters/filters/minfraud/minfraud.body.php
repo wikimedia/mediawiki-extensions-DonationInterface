@@ -146,7 +146,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			"bin" => "card_num",
 			"txnID" => "contribution_tracking_id"
 		);
-		
+
 		$this->minfraudQuery = array();
 
 		// minfraud license key
@@ -174,8 +174,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 				case "domain": // get just the domain from the email address
 					$newdata[$value] = substr( strstr( $data[$value], '@' ), 1 );
 					break;
-				case "bin": // get just the first 6 digits from CC#
-					$newdata[$value] = substr( $data[$value], 0, 6 );
+				case "bin": // get just the first 6 digits from CC#... if we have one. 
+					$bin = '';
+					if ( isset( $data[$value] ) ) {
+						$bin = substr( $data[$value], 0, 6 );
+					}
+					$newdata[$value] = $bin;
 					break;
 				case "country":
 					$newdata[$value] = $country_codes[$data[$value]];

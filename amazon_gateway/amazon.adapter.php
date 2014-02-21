@@ -57,6 +57,12 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 	function defineReturnValueMap() {}
 	function defineDataConstraints() {}
+	function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'generate' => TRUE,
+		);
+	}
+	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
 
@@ -89,7 +95,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'values' => array(
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMsg( 'donate_interface-donation-description' ),
+				'description' => wfMessage( 'donate_interface-donation-description' )->text(),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'isDonationWidget' => '1',
@@ -121,7 +127,7 @@ class AmazonAdapter extends GatewayAdapter {
 				// FIXME: There is magick available if the names match.
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMsg( 'donate_interface-monthly-donation-description' ),
+				'description' => wfMessage( 'donate_interface-monthly-donation-description' )->text(),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'processImmediate' => '1',
@@ -171,6 +177,8 @@ class AmazonAdapter extends GatewayAdapter {
 		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
+	//@TODO: If the only reason this is being overloaded here is the sort,
+	//call the parent and ksort the result. This looks mostly copied. :[
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
@@ -235,6 +243,7 @@ class AmazonAdapter extends GatewayAdapter {
 				//always have to do this before a redirect. 
 				$this->dataObj->updateContributionTracking( true );
 
+				//@TODO: This shouldn't be happening here. Oh Amazon... Why can't you be more like PayPalAdapter?
 				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
 				return;
 

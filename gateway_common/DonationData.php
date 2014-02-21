@@ -81,8 +81,7 @@ class DonationData {
 				'paymentmethod' => $wgRequest->getText( 'paymentmethod', null ), //used by the FormChooser (and the newest banners) for some reason.
 				'submethod' => $wgRequest->getText( 'submethod', null ), //same as above. Ideally, the newer banners would stop using these vars and go back to the old ones...
 				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
-				'order_id' => $wgRequest->getText( 'order_id', null ), //as far as I know, this won't actually ever pull anything back.
-				'i_order_id' => $wgRequest->getText( 'i_order_id', null ), //internal id for each contribution attempt
+				'order_id' => $wgRequest->getText( 'order_id', null ),
 				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
 				'utm_source' => $wgRequest->getText( 'utm_source' ),
 				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
@@ -235,7 +234,6 @@ class DonationData {
 			'payment_submethod' => '', //cards have no payment submethods. 
 			'issuer_id' => '',
 			'order_id' => '1234567890',
-			'i_order_id' => '1234567890',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
 			'utm_source' => 'test_src',
 			'utm_source_id' => null,
@@ -292,7 +290,8 @@ class DonationData {
 	 * For Internal Use Only! External objects should use getVal_Escaped.
 	 * @param string $key The data field you would like to retrieve directly 
 	 * from $this->normalized. 
-	 * @return mixed The normalized value of that $key. 
+	 * @return mixed The normalized value of that $key, or null if it isn't
+	 * something.
 	 */
 	protected function getVal( $key ) {
 		if ( $this->isSomething( $key ) ) {
@@ -339,7 +338,6 @@ class DonationData {
 			'utm_source',
 			'amount',
 			'order_id',
-			'i_order_id',
 			'gateway',
 			'optout',
 			'anonymous',
@@ -629,39 +627,16 @@ class DonationData {
 
 	/**
 	 * normalize helper function.
-	 * Ensures that order_id and i_order_id are ready to go, depending on what 
-	 * comes in populated or not, and where it came from.
+	 * Gets an appropriate orderID from the gateway class.
 	 *
 	 * @return null
 	 */
-	protected function setNormalizedOrderIDs( ) {
-		static $idGenThisRequest = false;
-		$id = null;
-
-		// We need to obtain and set the order_id every time this function is called. If there's
-		// one already in existence (ie: in the GET string) we will use that one.
-		if ( array_key_exists( 'order_id', $_GET ) ) {
-			// This must come only from the get string. It's there to process return calls.
-			// TODO: Move this somewhere more sane! We shouldn't be doing anything with requests
-			// in normalization functions.
-			$id = $_GET['order_id'];
-		} elseif ( $this->getAdapterClass() == 'AdyenAdapter' && array_key_exists( 'merchantReference', $_GET ) ) {
-			$id = $_GET['merchantReference'];
-		} elseif ( ( $this->isSomething( 'order_id' ) ) && ( $idGenThisRequest == true ) ){
-			// An order ID already exists, therefore we do nothing
-			$id = $this->getVal( 'order_id' );
-		} else {
-			// Apparently we need a new one
-			$idGenThisRequest = true;
-			$id = $this->generateOrderId();
+	protected function setNormalizedOrderIDs() {
+		$override = null;
+		if ( $this->gateway->isBatchProcessor() ) {
+			$override = $this->getVal( 'order_id' );
 		}
-
-		// HACK: We used to have i_order_id remain consistent; but that might confuse things,
-		// so now it just follows order_id; and we only keep it for legacy reasons (ie: I have
-		// no idea what it would do if I removed it.)
-
-		$this->setVal( 'order_id', $id );
-		$this->setVal( 'i_order_id', $id );
+		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override ) );
 	}
 
 	/**
@@ -713,17 +688,6 @@ class DonationData {
 
 		$this->setVal( 'payment_method', $method );
 		$this->setVal( 'payment_submethod', $submethod );
-	}
-
-	/**
-	 * Generate an order id
-	 *
-	 * @return A randomized order ID
-	 */
-	protected static function generateOrderId() {
-		//$order_id = ( double ) microtime() * 1000000 . mt_rand( 1000, 9999 );
-		$order_id = (string) mt_rand( 1000, 9999999999 );
-		return $order_id;
 	}
 
 	/**
@@ -855,7 +819,7 @@ class DonationData {
 		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $this->isCaching() ) {
-			self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Cache requested', LOG_DEBUG );
+			self::log( $this->getLogMessagePrefix() . ' Cache requested', LOG_DEBUG );
 			$this->setVal( 'token', 'cache' );
 
 			// if we have squid caching enabled, set the maxage
@@ -863,33 +827,15 @@ class DonationData {
 			$maxAge = $this->getGatewayGlobal( 'SMaxAge' );
 			
 			if ( $wgUseSquid && ( $maxAge !== false ) ) {
-				self::log( $this->getAnnoyingOrderIDLogLinePrefix() . ' Setting s-max-age: ' . $maxAge, LOG_DEBUG );
+				self::log( $this->getLogMessagePrefix() . ' Setting s-max-age: ' . $maxAge, LOG_DEBUG );
 				$wgOut->setSquidMaxage( $maxAge );
 			}
 		}
 	}
 
 	/**
-	 * getAnnoyingOrderIDLogLinePrefix
-	 * Constructs and returns the annoying order ID log line prefix. 
-	 * This has moved from being annoyingly all over the place in the edit token 
-	 * logging code before it was functionalized, to being annoying to look at 
-	 * in the logs because the two numbers in the prefix are frequently 
-	 * identical (and large).
-	 * TODO: Determine if anything actually looks at both of those numbers, in 
-	 * order to make this less annoying. Rename on success. 
-	 * @return string Annoying Order ID Log Line Prefix in all its dubious glory. 
-	 */
-	protected function getAnnoyingOrderIDLogLinePrefix() {
-		return $this->getVal( 'order_id' ) . ' ' . $this->getVal( 'i_order_id' ) . ': ';
-	}
-
-	/**
 	 * getLogMessagePrefix
 	 * Constructs and returns the standard ctid:order_id log line prefix. 
-	 * This should eat getAnnoyingOrderIDLogLinePrefix() everywhere, as soon as
-	 * we can audit all our external log parsing scripts to make sure we're not
-	 * going to break anything. 
 	 * @return string "ctid:order_id: " 
 	 */
 	protected function getLogMessagePrefix() {
@@ -1203,15 +1149,6 @@ class DonationData {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Resets the order ID and re-normalizes the data set. This effectively creates a new
-	 * transaction.
-	 */
-	public function resetOrderId() {
-		$this->expunge( 'order_id' );
-		$this->normalize();
 	}
 
 	/**

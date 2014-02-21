@@ -66,12 +66,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
-		$_SERVER = array ( );
-
-		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
-		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
-		$_SERVER['SCRIPT_NAME'] = __FILE__;
+		$this->resetAllEnv();
 
 		parent::__construct();
 	}
@@ -97,7 +92,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$wgGlobalCollectGatewayTest = true;
 
-		$this->gatewayAdapter = $this->getGateway_DefaultObject( $options );
+		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 
 		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
@@ -140,7 +135,9 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			),
 		);
 		//default to US
-		$donortestdata[''] = $donortestdata['US'];
+		if ( $country === '' ) {
+			$country = 'US';
+		}
 
 		if ( array_key_exists( $country, $donortestdata ) ) {
 			$donortestdata = array_merge( $this->initial_vars, $donortestdata[$country] );
@@ -161,8 +158,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		global $wgRequest, $wgServer, $wgArticlePath, $wgDonationInterfaceThankYouPage;
 
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
-		//@TODO: After the refactor, use the next line for merchantreference instead of $orderID.
-//		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
+		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
 		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
 		$expected  = '<?xml version="1.0"?>' . "\n";
 		$expected .= '<XML>';
@@ -183,7 +179,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 				'<CURRENCYCODE>' . $options['currency_code'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
-		$expected .= '<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
+		$expected .= '<MERCHANTREFERENCE>' . $merchantref . '</MERCHANTREFERENCE>';
 
 		if ( isset( $wgRequest ) ) {
 			$expected .=			'<IPADDRESSCUSTOMER>' . $wgRequest->getIP() . '</IPADDRESSCUSTOMER>';
@@ -222,7 +218,18 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 	}
 
-	function getGateway_DefaultObject( $external_data = null ) {
+	/**
+	 * Get a fresh gateway object of the type specified in the variable
+	 * $this->testAdapterClass.
+	 * @param array $external_data If you want to shoehorn in some external
+	 * data, do that here.
+	 * @param array $setup_hacks An array of things that override stuff in
+	 * the constructor of the gateway object that I can't get to without
+	 * refactoring the whole thing. @TODO: Refactor the gateway adapter
+	 * constructor.
+	 * @return \class The new relevant gateway adapter object.
+	 */
+	function getFreshGatewayObject( $external_data = null, $setup_hacks = null ) {
 		$p1 = null;
 		if ( !is_null( $external_data ) ) {
 			$p1 = array (
@@ -230,9 +237,26 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 			);
 		}
 
+		if ( !is_null( $setup_hacks ) ) {
+			$p1 = array_merge( $p1, $setup_hacks );
+		}
+
 		$class = $this->testAdapterClass;
 		$gateway = new $class( $p1 );
+
 		return $gateway;
+	}
+
+	function resetAllEnv() {
+		$_SESSION = array ( );
+		$_GET = array ( );
+		$_POST = array ( );
+
+		$_SERVER = array ( );
+		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
+		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
+		$_SERVER['SCRIPT_NAME'] = __FILE__;
 	}
 
 }

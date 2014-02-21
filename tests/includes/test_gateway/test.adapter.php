@@ -24,9 +24,28 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	/**
 	 * Also set a useful MerchantID.
 	 */
-	public function __construct( $options = array() ) {
-		parent::__construct( $options );
-		$this->account_config['MerchantID'] = 'test';
+	public function __construct( $options = array ( ) ) {
+		if ( is_null( $options ) ) {
+			$options = array ( );
+		}
+
+		//I hate myself for this part, and so do you.
+		//Deliberately not fixing the actual problem for this patchset.
+		//@TODO: Change the way the constructor works in all adapter
+		//objects, such that the mess I am about to make is no longer
+		//necessary. A patchset may already be near-ready for this...
+		if ( array_key_exists( 'order_id_meta', $options ) ) {
+			$this->order_id_meta = $options['order_id_meta'];
+			unset( $options['order_id_meta'] );
+		}
+		if ( array_key_exists( 'batch_mode', $options ) ) {
+			$this->batch = $options['batch_mode'];
+			unset( $options['batch_mode'] );
+		}
+
+		$this->options = $options;
+
+		parent::__construct( $this->options );
 	}
 
 	/**
@@ -52,7 +71,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		}
 
 		// Construct fake response
-		$results = array();
+		$results = array ( );
 
 		// Get some DOM-looking things for the request body
 		$dom = new SimpleXMLElement( $data );
@@ -74,6 +93,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 				$order = $request->xpath( 'PARAMS/ORDER' );
 				$order = $order[0];
 				$orderid = $order->xpath( 'ORDERID' );
+				$merchant_ref = $order->xpath( 'MERCHANTREFERENCE' );
 			} else if ( $action === 'DO_FINISHPAYMENT' ) {
 				$orderid = $request->xpath( 'PARAMS/PAYMENT/ORDERID' );
 			}
@@ -81,6 +101,11 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 			if ( $orderid ) {
 				$orderid = $orderid[0]->asXML();
 				$orderid = preg_replace( '#^<ORDERID>(.*)</ORDERID>$#', '\\1', $orderid );
+			}
+
+			if ( $merchant_ref ) {
+				$merchant_ref = $merchant_ref[0]->asXML();
+				$merchant_ref = preg_replace( '#^<MERCHANTREFERENCE>(.*)</MERCHANTREFERENCE>$#', '\\1', $merchant_ref );
 			}
 
 			if ( $action === 'INSERT_ORDERWITHPAYMENT' ) {
@@ -134,9 +159,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 			$row->addChild( 'STATUSDATE', $datetime );
 			$row->addChild( 'PAYMENTREFERENCE', '0' );
-			$row->addChild( 'ADDITIONALREFERENCE', $orderid );
-			$row->addChild( 'ORDERID', $orderid );
-			$row->addChild( 'EXTERNALREFERENCE', $orderid );
+			$row->addChild( 'EXTERNALREFERENCE', $merchant_ref );
+			$row->addChild( 'ADDITIONALREFERENCE', $merchant_ref );
+			if ( $orderid ) {
+				$row->addChild( 'ORDERID', $orderid );
+			} else {
+				$row->addChild( 'ORDERID', $this->generateOrderID() );
+			}
 			$row->addChild( 'EFFORTID', '1' );
 			$row->addChild( 'REF', $refnum );
 			$row->addChild( 'FORMACTION', $formURI );
@@ -231,4 +260,67 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
 	}
 
+	/**
+	 * @TODO: Get rid of this and the override mechanism as soon as you
+	 * refactor the constructor into something reasonable.
+	 * @return type
+	 */
+	public function defineOrderIDMeta() {
+		if ( isset( $this->order_id_meta ) ) {
+			return;
+		}
+		parent::defineOrderIDMeta();
+	}
+
 }
+
+
+
+/**
+ * TestingPaypalAdapter
+ * @TODO: Extend/damage things here. I'm sure we'll need it eventually...
+ */
+class TestingPaypalAdapter extends PaypalAdapter {
+	
+}
+
+/**
+ * TestingAmazonAdapter
+ */
+class TestingAmazonAdapter extends AmazonAdapter {
+	public function _buildRequestParams() {
+		return $this->buildRequestParams();
+	}
+
+}
+
+/**
+ * TestingAdyenAdapter
+ */
+class TestingAdyenAdapter extends AdyenAdapter {
+	public function _buildRequestParams() {
+		return $this->buildRequestParams();
+	}
+
+	//kill the minfraid hook, because it's ruining my life right now.
+	//@TODO: That minfraud jerk needs its own isolated tests anyway.
+	//The problem: Something about an automatic DNS lookup writing a temp file.
+	//@see DonationInterface/extras/custom_filters/filters/minfraud/ccfd/HTTPBase.php, line 72ish.
+	//That piece of code is a total warn machine.
+	function runPreProcessHooks() {
+		return;
+	}
+
+	public function _getData_Staged() {
+		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
+	}
+
+	/**
+	 * So we can fake a risk score
+	 */
+	public function setRiskScore( $score ) {
+		$this->risk_score = $score;
+	}
+
+}
+
