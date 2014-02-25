@@ -281,7 +281,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$testData = isset( $testData ) ? $testData : false;
 		$external_data = isset( $external_data ) ? $external_data : false; //not test data: Regular type. 
-		$postDefaults = isset( $postDefaults ) ? $postDefaults : false;
 		
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
@@ -3308,6 +3307,9 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $selected ) {
 			$this->setOrderIDMeta( 'final', $value );
 			$this->setOrderIDMeta( 'final_source', $source );
+		} elseif ( $this->getOrderIDMeta( 'generate' ) ) {
+			//I'd dump the whole oid meta array here, but it's pretty much guaranteed to be empty if we're here at all.
+			$this->log( __FUNCTION__ . ": Unable to determine what oid to use, in generate mode.", LOG_ERR );
 		}
 	}
 

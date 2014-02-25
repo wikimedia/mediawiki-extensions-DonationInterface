@@ -120,7 +120,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	 * - owa_ref: http://localhost/defaultTestData
 	 *
 	 * @throws Exception
-	 * @return array    Contains: postDefaults, testData
+	 * @return array    Contains: testData
 	 */
 	public function getGatewayAdapterTestData( $options = array() ) {
 		
@@ -181,11 +181,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 
 		
 		$return = array();
-		
-		$return['postDefaults'] = array(
-			'returnTitle'	=> true,
-			'returnTo'	=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:' . $gateway . 'Result',
-		);
 
 		$return['testData'] = array(
 			'amount' => $amount,
