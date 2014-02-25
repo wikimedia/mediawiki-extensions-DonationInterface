@@ -520,10 +520,13 @@ Bitte versuech s speter nonemol.',
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author Yona b
  */
 $messages['he'] = array(
 	'globalcollectgateway' => 'תִרמו עכשיו',
 	'globalcollect_gateway-desc' => 'עיבוד תשלומים של GlobalCollect',
+	'globalcollect_gateway-fakesucceed' => 'מדמה תשלום מוצלח',
+	'globalcollect_gateway-fakefail' => 'מדמה תשלום שנכשל',
 	'globalcollect_gateway-response-9130' => 'מדינה בלתי־תקינה.',
 	'globalcollect_gateway-response-9140' => 'מטבע בלתי־תקין.',
 	'globalcollect_gateway-response-9150' => 'שפה בלתי־תקינה.',
