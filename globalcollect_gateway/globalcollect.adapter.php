@@ -1157,7 +1157,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//...aside from the fact that if the user has gotten this far, they left 
 			//the part where they could add more data. 
 			//By now, "incomplete" definitely means "failed" for 0-70.
-			error_log( __FUNCTION__ . " thinks we're an orphan." );
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
 		
@@ -1932,7 +1931,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Not what I had in mind to begin with, but this *completely* blew up.
 	 */
 	public function stage_payment_product( $type = 'request' ) {
-		//cc used to look in card_type, but that's been an alias for payment_submethod for a while. DD takes care of it.
+		//cc used to look in card_type, but that's been an alias for payment_submethod for a while. DonationData takes care of it.
 		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method'] : false;
 		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod'] : false;
 

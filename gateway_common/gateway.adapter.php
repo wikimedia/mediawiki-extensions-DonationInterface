@@ -108,10 +108,41 @@ interface GatewayType {
 
 	/**
 	 * Sets up the $order_id_meta array.
+	 * @TODO: Data Item Class. There should be a class that keeps track of
+	 * the metadata for every field we use (everything that currently comes
+	 * back from DonationData), that can be overridden per gateway. Revisit
+	 * this in a more universal way when that time comes.
+	 *
+	 * In general, $order_id_meta contains default data about how we
+	 * handle/create/gather order_id, which needs to be defined on a
+	 * per-gateway basis. Once $order_id_meta has been used to decide the
+	 * order_id for the current request, it will also be used to keep
+	 * information about the origin and state of the order_id data.
+	 *
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
-	 * 'type' => numeric, or alphanumeric
-	 * 'length' => $max_charlen
+	 * 'alt_locations' => array( $dataset_name, $dataset_key )
+	 *	** alt_locations is intended to contain a list of arrays that
+	 *	are always available (or should be), from which we can pull the
+	 *	order_id.
+	 *	** Examples of valid things to throw in $dataset_name are $_GET,
+	 *	$_POST, $_SESSION (though they should be expressed in the arary
+	 *	without the dollar prefix)
+	 *	** $dataset_key : The key in the associated dataset that is
+	 *	expected to contain the order_id. Probably going to be order_id
+	 *	if we are generating the dataset internally. Probably something
+	 *	else if a gateway is posting or getting back to us in a
+	 *	resultswitcher situation.
+	 *	** These should be expressed in $order_id_meta in order of
+	 *	preference / authority.
+	 * 'generate' => boolean value. True if we will be generating our own
+	 *	order IDs, false if we are deferring order_id generation to the
+	 *	gateway.
+	 *
+	 * Will eventually contain the following keys/values:
+	 * 'final'=> The value that we have chosen as the valid order ID for
+	 *	this request.
+	 * 'final_source' => Where we ultimately decided to grab the value we
+	 *	chose to stuff in 'final'.
 	 */
 	function defineOrderIDMeta();
 
@@ -292,8 +323,8 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		$this->defineOrderIDMeta(); //must happen before we go to DD.
-		$this->defineDataConstraints(); //must also happen before we go to DD
+		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
+		$this->defineDataConstraints(); //must also happen before we go to DonationData.
 
 		$this->dataObj = new DonationData( $this, self::getGlobal( 'Test' ), $external_data );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
@@ -773,7 +804,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * curl'd off to the remote server. 
 	 */
 	protected function buildRequestXML() {
-		$this->log( __FUNCTION__ . ': order_id = ' . $this->getData_Unstaged_Escaped( 'order_id' ) );
 		$this->xmlDoc = new DomDocument( '1.0' );
 		$node = $this->xmlDoc->createElement( 'XML' );
 
@@ -3156,6 +3186,16 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * buildOrderIDSources: Uses the 'alt_locations' array in the order id
+	 * metadata, to build an array of all possible candidates for order_id.
+	 * This will also weed out candidates that do not meet the
+	 * gateway-specific data constraints for that field, and are therefore
+	 * invalid.
+	 *
+	 * @TODO: Data Item Class. There should be a class that keeps track of
+	 * the metadata for every field we use (everything that currently comes
+	 * back from DonationData), that can be overridden per gateway. Revisit
+	 * this in a more universal way when that time comes.
 	 */
 	public function buildOrderIDSources() {
 		static $built = false;
@@ -3235,6 +3275,13 @@ abstract class GatewayAdapter implements GatewayType {
 		$built = true;
 	}
 
+	/**
+	 * Validates that the gateway-specific data constraints for this field
+	 * have been met.
+	 * @param string $field The field name we're checking
+	 * @param mixed $value The candidate value of the field we want to check
+	 * @return boolean True if it's a valid value for that field, false if it isn't.
+	 */
 	function validateDataConstraintsMet( $field, $value ) {
 		$met = true;
 
@@ -3243,6 +3290,9 @@ abstract class GatewayAdapter implements GatewayType {
 			$length = $this->dataConstraints[$field]['length'];
 			switch ( $type ) {
 				case 'numeric' :
+					//@TODO: Determine why the DataValidator's type validation functions are protected.
+					//If there is no good answer, use those.
+					//In fact, we should probably just port the whole thing over there. Derp.
 					if ( !is_numeric( $value ) ) {
 						$met = false;
 					}
@@ -3258,9 +3308,8 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( strlen( $value ) > $length ) {
 				$met = false;
 			}
-
-			return $met;
 		}
+		return $met;
 	}
 
 	/**
@@ -3270,6 +3319,15 @@ abstract class GatewayAdapter implements GatewayType {
 	 * To put it another way: If we are meant to be getting the OrderID from
 	 * a piece of gateway communication that hasn't been done yet, this
 	 * should return NULL. I think.
+	 * @param string $override The pre-determined value of order_id.
+	 * When you want to normalize an order_id to something you have already
+	 * sorted out (anything running in batch mode is a good candidate - you
+	 * have probably grabbed a preexisting order_id from some external data
+	 * source in that case), short-circuit the hunting process and just take
+	 * the override's word for order_id's final value.
+	 * Also used when receiving the order_id from external sources
+	 * (example: An API response)
+	 * @return string The normalized value of order_id
 	 */
 	public function normalizeOrderID( $override = null ) {
 		$selected = false;
@@ -3307,10 +3365,13 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $selected ) {
 			$this->setOrderIDMeta( 'final', $value );
 			$this->setOrderIDMeta( 'final_source', $source );
+			return $value;
 		} elseif ( $this->getOrderIDMeta( 'generate' ) ) {
 			//I'd dump the whole oid meta array here, but it's pretty much guaranteed to be empty if we're here at all.
 			$this->log( __FUNCTION__ . ": Unable to determine what oid to use, in generate mode.", LOG_ERR );
 		}
+
+		return null;
 	}
 
 	/**
@@ -3341,7 +3402,7 @@ abstract class GatewayAdapter implements GatewayType {
 			unset( $this->order_id_meta['final_source'] );
 		}
 
-		//tell DD about it
+		//tell DonationData about it
 		$this->addData( array ( 'order_id' => $id ) );
 		return $id;
 	}
