@@ -1960,6 +1960,7 @@ $messages['ta'] = array(
 );
 
 /** Telugu (తెలుగు)
+ * @author Chaduvari
  * @author Veeven
  */
 $messages['te'] = array(
@@ -1977,7 +1978,7 @@ $messages['te'] = array(
 	'payflowpro_gateway-response-24' => 'మీ క్రెడిట్ కార్డు నెంబరు లేదా కాలపరిమితి తేదీ తప్పు.',
 	'payflowpro_gateway-response-112' => 'మీ చిరునామా లేదా CVV సంఖ్య (భద్రతా సంకేతం) సరైనది కాదు.',
 	'payflowpro_gateway-response-125' => 'మీ లావాదేవీని మోసాల నియంత్రణా సేవలు తిరస్కరించాయి.',
-	'payflowpro_gateway-response-default' => 'మీ లావాదేవీని జరిపించడంలో పొరపాటు దొర్లింది. దయచేసి కాసేపాగి మళ్ళీ ప్రయత్నించండి.',
+	'payflowpro_gateway-response-default' => 'మీ లావాదేవీని జరిపించడంలో లోపం దొర్లింది. కాసేపాగి మళ్ళీ ప్రయత్నించండి.',
 );
 
 /** Thai (ไทย)

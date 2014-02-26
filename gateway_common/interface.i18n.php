@@ -30083,6 +30083,7 @@ In some instances, the code is located on the left side of the card, but is alwa
 );
 
 /** Telugu (తెలుగు)
+ * @author Chaduvari
  * @author Jsoby
  * @author Veeven
  */
@@ -30100,7 +30101,7 @@ $messages['te'] = array(
 	'donate_interface-comment-title' => 'బహిరంగ వ్యాఖ్య',
 	'donate_interface-amount-error' => 'దయచేసి సరైన మొత్తాన్ని పేర్కొనండి',
 	'donate_interface-smallamount-error' => 'మీరు కనీసం $1 ఇవ్వాలి.',
-	'donate_interface-processing-error' => 'మీ అభ్యర్థనని ప్రక్రియాపనం చేయడంలో ఒక పొరపాటు జరిగింది.
+	'donate_interface-processing-error' => 'మీ అభ్యర్థనని ప్రక్రియాపనం చేయడంలో ఒక లోపం జరిగింది.
 ప్రక్రియాపకాలు ఏమీ అందుబాటులో లేవు.',
 	'donate_interface-ARS' => 'అర్జెంటీనియా పెసో',
 	'donate_interface-AUD' => 'ఆస్ట్రేలియా డాలర్',
