@@ -131,6 +131,7 @@ class GatewayForm extends UnlistedSpecialPage {
 		global $wgOut;
 
 		$form_class = $this->getFormClass();
+		// TODO: use interface.  static ctor.
 		if ( $form_class && class_exists( $form_class ) ){
 			$form_obj = new $form_class( $this->adapter );
 			$form = $form_obj->getForm();
