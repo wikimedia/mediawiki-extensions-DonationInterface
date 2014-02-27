@@ -26,7 +26,6 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
 /**
  * 
  * @group Fundraising
- * @group Gateways
  * @group DonationInterface
  * @group GlobalCollect
  * @group RealTimeBankTransfer
@@ -53,7 +52,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 21,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -78,7 +80,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 31,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -103,7 +108,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 91,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -128,7 +136,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 161,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -153,7 +164,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 511,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -178,7 +192,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 721,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -203,7 +220,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 751,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -228,7 +248,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 761,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
@@ -253,7 +276,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 			'issuer_id' => 771,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}

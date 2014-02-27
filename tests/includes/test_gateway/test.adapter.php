@@ -222,4 +222,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	public function _findCodeAction() {
 		return call_user_func_array(array($this, 'findCodeAction'), func_get_args());
 	}
+
+	public function _buildRequestXML() {
+		return call_user_func_array( array ( $this, 'buildRequestXML' ), func_get_args() );
+	}
+
+	public function _getData_Staged() {
+		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
+	}
+
 }

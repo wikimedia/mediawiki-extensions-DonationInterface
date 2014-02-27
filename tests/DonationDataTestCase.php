@@ -25,8 +25,8 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestC
 
 /**
  * @group Fundraising
+ * @group DonationInterface
  * @group Splunge
- * @group Gateways
  * @author Katie Horn <khorn@wikimedia.org>
  */
 class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
@@ -36,6 +36,9 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 */
 	public function __construct(){
 		global $wgRequest;
+
+		$adapterclass = TESTS_ADAPTER_DEFAULT;
+		$this->testAdapterClass = $adapterclass;
 
 		parent::__construct();
 
@@ -65,7 +68,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'cvv' => '665',
 			'currency_code' => 'USD',
 			'payment_method' => '',
-			'i_order_id' => '1234567890',
+			'payment_submethod' => '',
 			'numAttempt' => '5',
 			'referrer' => 'http://www.testing.com/',
 			'utm_source' => '..cc',
@@ -98,7 +101,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	public function testConstruct(){
 		global $wgLanguageCode, $wgRequest;
 
-		$ddObj = new DonationData(''); //as if we were posted.
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ) ); //as if we were posted.
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
 			'amount' => '0.00',
@@ -110,7 +113,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'city' => '',
 			'state' => '',
 			'zip' => '',
-			'country' => '',
+			'country' => 'XX',
 			'fname2' => '',
 			'lname2' => '',
 			'street2' => '',
@@ -126,7 +129,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'cvv' => '',
 			'currency_code' => '',
 			'payment_method' => '',
-			'numAttempt' => '0',
 			'referrer' => '',
 			'utm_source' => '..cc',
 			'utm_medium' => '',
@@ -137,7 +139,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'token' => '',
 			'data_hash' => '',
 			'action' => '',
-			'gateway' => 'DonationData',
+			'gateway' => 'globalcollect',
 			'owa_session' => '',
 			'owa_ref' => '',
 			'street_supplemental' => '',
@@ -166,7 +168,9 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'recurring_paypal' => '',
 			'user_ip' => $wgRequest->getIP(),
 			'server_ip' => $wgRequest->getIP(),
-			'form_class' => '',
+//			'form_class' => 'Gateway_Form_RapidHtml',	//@TODO: This will probably come back after the refactor.
+			'paymentmethod' => '',
+			'submethod' => '',
 		);
 		unset($returned['contribution_tracking_id']);
 		unset($returned['order_id']);
@@ -180,7 +184,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	public function testConstructAsTest(){
 		global $wgRequest;
 
-		$ddObj = new DonationData('', true); //test mode from the start, no data
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true ); //test mode from the start, no data
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(
 			'amount' => '35.00',
@@ -204,12 +208,10 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'premium_language' => 'es',
 			'card_num' => '378282246310005',
 			'card_type' => 'american',
-			'expiration' => '0714',
+			'expiration' => '0315',
 			'cvv' => '001',
 			'currency_code' => 'USD',
 			'payment_method' => 'cc',
-			'i_order_id' => '1234567890',
-			'numAttempt' => '0',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
 			'utm_source' => 'test_src..cc',
 			'utm_medium' => 'test_medium',
@@ -219,7 +221,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'token' => '',
 			'data_hash' => '',
 			'action' => '',
-			'gateway' => 'DonationData',
+			'gateway' => 'globalcollect',
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/defaultTestData',
 			'street_supplemental' => '3rd floor',
@@ -229,7 +231,8 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'user_ip' => '12.12.12.12',
 			'server_ip' => $wgRequest->getIP(),
 			'recurring' => '',
-			'form_class' => '',
+			'i_order_id' => '1234567890', //@TODO: Another post-refactor data cleanup change. This line and the next one.
+//			'form_class' => 'Gateway_Form_RapidHtml',
 		);
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
@@ -252,14 +255,15 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		// Some changes from the default
 		$expected['recurring'] = '';
 		$expected['language'] = $wgLanguageCode;
-		$expected['form_class'] = '';
+		$expected['form_class'] = 'Gateway_Form_RapidHtml';
+		$expected['gateway'] = 'globalcollect';
 
 		// Just unset a handful... doesn't matter what, really.
 		unset($expected['comment-option']);
 		unset($expected['email-opt']);
 		unset($expected['test_string']);
 
-		$ddObj = new DonationData( '', true, $expected ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $expected ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		//unset these, because they're always new
 		$unsettable = array(
@@ -281,8 +285,9 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 */
 	public function testIsSomething(){
 		$data = $this->testData;
-		unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
+		unset( $data['zip'] );
+
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$this->assertEquals($ddObj->isSomething('zip'), false, "Zip should currently be nothing.");
 		$this->assertEquals($ddObj->isSomething('lname'), true, "Lname should currently be something.");
 	}
@@ -295,7 +300,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amount'] = 'this is not a number';
 		$data['amountGiven'] = 42.50;
 		//unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 42.50, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
@@ -309,7 +314,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amount'] = 88.15;
 		$data['amountGiven'] = 42.50;
 		//unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 88.15, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
@@ -323,7 +328,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amount'] = -1;
 		$data['amountOther'] = 3.25;
 		//unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals(3.25, $returned['amount'], "Amount was not properly reset");
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
@@ -338,7 +343,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amountGiven'] = 'wombat';
 		$data['amountOther'] = 'macedonia';
 		//unset($data['zip']);
-		$ddObj = new DonationData('', true, $data);
+		$ddObj = new DonationData( $this->getGateway_DefaultObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset");
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");

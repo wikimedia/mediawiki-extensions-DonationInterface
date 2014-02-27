@@ -36,11 +36,19 @@ require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'DonationInt
  * classes. 
  * 
  * @group Fundraising
- * @group Splunge
- * @group Gateways
  * @group DonationInterface
+ * @group Splunge
  */
 class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterfaceTestCase {
+
+	public function __construct() {
+		global $wgDonationInterfaceAllowedHtmlForms;
+		parent::__construct();
+
+		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (
+			'gateway' => 'GlobalCollect', //RAR.
+		);
+	}
 
 	/**
 	 *
@@ -51,32 +59,13 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 	 */
 	public function testConstructor() {
 
-		global $wgGlobalCollectGatewayTest;
+		$options = $this->getDonorTestData();
+		$class = $this->testAdapterClass;
 
-		$wgGlobalCollectGatewayTest = true;
+		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
+		$gateway = $this->getGateway_DefaultObject( $options );
 
-		$_SERVER = array();
-
-		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
-		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
-		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
-
-		$payment_product_id = 11;
-		
-		$optionsForTestData = array(
-			'form_name' => 'TwoStepAmount',
-			'payment_method' => 'bt',
-			'payment_submethod' => 'bt',
-		);
-
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
-		
-		$testAdapter = TESTS_ADAPTER_DEFAULT;
-		
-		$gateway = new $testAdapter( $options );
-
-        $this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
+		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
 	}
 
 	/**
@@ -86,37 +75,18 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 	 */
 	public function testConstructorHasDonationData() {
 
-		global $wgGlobalCollectGatewayTest;
-
-		$wgGlobalCollectGatewayTest = true;
-
-		$_SERVER = array();
-
-		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
-		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
-
-		$payment_product_id = 11;
 		
-		$optionsForTestData = array(
-			'form_name' => 'TwoStepAmount',
-			'payment_method' => 'bt',
-			'payment_submethod' => 'bt',
-		);
+		$options = $this->getDonorTestData();
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
-		
-		$testAdapter = TESTS_ADAPTER_DEFAULT;
-		
-		$adapter = new $testAdapter( $options );
+		$gateway = $this->getGateway_DefaultObject( $options );
 
-		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $adapter );
+		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $gateway );
 
 		//please define this function only inside the TESTS_ADAPTER_DEFAULT, 
 		//which should be a test adapter object that descende from one of the 
 		//production adapters. 
-        $this->assertInstanceOf( 'DonationData', $adapter->getDonationData() );
+		$this->assertInstanceOf( 'DonationData', $gateway->getDonationData() );
 	}
 }
 

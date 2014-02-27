@@ -19,6 +19,7 @@
  */
 
 require_once __DIR__ . '/TestConfiguration.php';
+require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
 
 /**
  * @group		Fundraising
@@ -36,11 +37,47 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	);
 
 	/**
+	 * Returns an array of the vars we expect to be set before people hit payments.
+	 * @var array
+	 */
+	public $initial_vars = array (
+		'ffname' => 'testytest',
+		'referrer' => 'www.yourmom.com', //please don't go there.
+		'order_id' => '10000',
+		'branch_code' => '', //@TODO: Figure out why getting rid of this is a problem.
+		'currency_code' => 'USD', //@TODO: Same here. I think it's because the data is coming in through... unusual paths.
+		'street' => 'ugh', //@TODO: And again. :/
+		'zip' => '0', //@TODO: And again. :/
+	);
+
+	/**
 	 * This will be set by a test method with the adapter object.
 	 *
 	 * @var GatewayAdapter	$gatewayAdapter
 	 */
 	protected $gatewayAdapter;
+
+	public function __construct() {
+
+		//Just in case you got here without running the configuration...
+		global $wgDonationInterfaceTestMode;
+		$wgDonationInterfaceTestMode = true;
+
+		$adapterclass = TESTS_ADAPTER_DEFAULT;
+		$this->testAdapterClass = $adapterclass;
+
+		$_SERVER = array ( );
+
+		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
+		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
+
+		parent::__construct();
+	}
+
+	protected function setupServer() {
+
+	}
 
 	/**
 	 * buildRequestXmlForGlobalCollect
@@ -59,11 +96,11 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		
 		$wgGlobalCollectGatewayTest = true;
 
-		$this->gatewayAdapter = new GlobalCollectTestAdapter( $options );
+		$this->gatewayAdapter = $this->getGateway_DefaultObject( $options );
 
 		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
-		$request = trim( $this->gatewayAdapter->executeBuildRequestXML() );
+		$request = trim( $this->gatewayAdapter->_buildRequestXML() );
 
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 		
@@ -71,201 +108,45 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * This fetches test data to be used for gateway adapters.
 	 *
-	 * This method also sets up $_SERVER
-	 *
-	 * The returned result is populated with a test user from Spain, attempting
-	 * a bank transfer for 350 EUR.
-	 *
-	 * @param array    $options
-	 *
-	 * Options that may need to be set:
-	 * - adapter: (string) Defaults to TESTS_ADAPTER_DEFAULT
-	 * - gateway: (string) Defaults to TESTS_GATEWAY_DEFAULT
-	 * - test: (boolean) $test may be legacy code, use with caution.
-	 *
-	 * This test data has these defaults:
-	 * - amount: Amount is set to an integer, by default, for the amount of 350
-	 * - payment_method: bt
-	 * - payment_submethod: bt
-	 * - email: TESTS_EMAIL
-	 * - fname: Testy:
-	 * - lname: Testerton:
-	 * - street: 123 Happy Street:
-	 * - city: Barcelona:
-	 * - state: XX:
-	 * - zip: 0
-	 * - country: ES:
-	 * - //size: small
-	 * - currency: EUR:
-	 * - payment_method:
-	 * - //order_id: 5038287830
-	 * - //i_order_id: 1234567890
-	 * - numAttempt: 0
-	 * - referrer: http:// . TESTS_HOSTNAME . /index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount:
-	 * - utm_source: ..gc_bt:
-	 * - utm_medium: null
-	 * - utm_campaign: null
-	 * - language: en:
-	 * - comment-option:
-	 * - comment:
-	 * - email-opt: 1
-	 * - test_string:
-	 * - token:
-	 * - contribution_tracking_id:
-	 * - data_hash:
-	 * - action:
-	 * - gateway: globalcollect:
-	 * - owa_session:
-	 * - owa_ref: http://localhost/defaultTestData
-	 *
-	 * @throws Exception
-	 * @return array    Contains: postDefaults, testData
+	 * @param string $country The country we want the test user to be from.
+	 * @return array Donor data to use
+	 * @throws MWException when there is no data available for the requested country
 	 */
-	public function getGatewayAdapterTestData( $options = array() ) {
-		
-		extract( $options );
-
-		
-		$adapter = isset( $adapter ) ? (string) $adapter : TESTS_ADAPTER_DEFAULT ;
-		$gateway = isset( $gateway ) ? (string) $gateway : TESTS_GATEWAY_DEFAULT ;
-
-		if ( !class_exists( $adapter ) ) {
-			$message = 'Adapter "' . $adapter . '" does not seem to exist...';
-			throw new Exception( $message );
-		}
-
-		if ( !class_exists( $gateway ) ) {
-			$message = 'Gateway "' . $gateway . '" does not seem to exist...';
-			throw new Exception( $message );
-		}
-
-		$testAdapter = new $adapter();
-		$testGateway = new $gateway();
-
-		$form_name = isset( $form_name ) ? (string) $form_name : 'TwoStepAmount' ;
-
-		// This is used to make sure the gateway and adapter match for unit testing.
-		if ( is_a( $testAdapter, 'PayflowProAdapter' ) && is_a( $testGateway, 'PayflowProGateway' ) ) {
-			$gatewayAdapterMatch = true;
-		} elseif ( is_a( $testAdapter, 'GlobalCollectAdapter' ) && is_a( $testGateway, 'GlobalCollectGateway' ) ) {
-			$gatewayAdapterMatch = true;
-		} else {
-			$gatewayAdapterMatch = false;
-		}
-		
-		if ( !$gatewayAdapterMatch ) {
-			$message = 'Gateway (' . $gateway . ') does not match the adapter (' . $adapter . ').';
-			throw new Exception( $message );
-		}
-
-		// $test may be legacy code, use with caution.
-		$test = isset( $test ) ? (boolean) $test : true ;
-		$return['test'] = $test;
-		
-		$payment_method		= isset( $payment_method )		? (string) $payment_method : 'bt' ;
-		$payment_submethod	= isset( $payment_submethod )	? (string) $payment_submethod : 'bt' ;
-		$issuer_id			= isset( $issuer_id )			? (string) $issuer_id : '' ;
-		$amount				= isset( $amount )				? $amount : 350 ;
-		$currency			= isset( $currency )			? (string) $currency : 'EUR' ;
-		$language			= isset( $language )			? (string) $language	: 'en' ;
-
-		$email		= isset( $email )		? (string) $email	: TESTS_EMAIL ;
-		$fname		= isset( $fname )		? (string) $fname	: 'Testy' ;
-		$lname		= isset( $lname )		? (string) $lname	: 'Testerton' ;
-		$street		= isset( $street )		? (string) $street	: '123 Happy Street' ;
-		$city		= isset( $city )		? (string) $city	: 'Barcelona' ;
-		$state		= isset( $state )		? (string) $state	: 'XX' ;
-		$zip		= isset( $zip )			? (string) $zip		: '0' ;
-		$country	= isset( $country )		? (string) $country	: 'ES' ;
-
-		
-		$return = array();
-		
-		$return['postDefaults'] = array(
-			'returnTitle'	=> true,
-			'returnTo'	=> 'http://' . TESTS_HOSTNAME . '/index.php/Special:' . $gateway . 'Result',
+	public function getDonorTestData( $country = '' ) {
+		$donortestdata = array (
+			'US' => array ( //default
+				'city' => 'San Francisco',
+				'state' => 'CA',
+				'zip' => '94105',
+				'currency_code' => 'USD',
+				'street' => '123 Fake Street',
+				'fname' => 'Firstname',
+				'lname' => 'Surname',
+				'amount' => '1.55',
+				'language' => 'en',
+			),
+			'ES' => array (
+				'city' => 'Barcelona',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Calle Fake',
+				'fname' => 'Nombre',
+				'lname' => 'Apellido',
+				'amount' => '1.55',
+				'language' => 'es',
+			),
 		);
+		//default to US
+		$donortestdata[''] = $donortestdata['US'];
 
-		$return['testData'] = array(
-			'amount' => $amount,
-			'payment_method' => $payment_method,
-			'payment_submethod' => $payment_submethod,
-			'email' => $email,
-			'fname' => $fname,
-			'lname' => $lname,
-			'street' => $street,
-			'city' => $city,
-			'state' => $state,
-			'zip' => $zip,
-			'country' => $country,
-			//'size' => 'small',
-			'currency_code' => $currency,
-			//'order_id' => '5038287830',
-			//'i_order_id' => '1234567890',
-			'numAttempt' => 0,
-			'referrer' => 'http://' . TESTS_HOSTNAME . '/index.php/Special:' . $gateway . '?form_name=' . $form_name,
-			'utm_source' => '..gc_bt',
-			'utm_medium' => null,
-			'utm_campaign' => null,
-			'language' => $language,
-			'comment-option' => '',
-			'comment' => '',
-			'email-opt' => 1,
-			'test_string' => '',
-			'token' => '',
-			'contribution_tracking_id' => '',
-			'data_hash' => '',
-			'action' => '',
-			'gateway' => '',
-			'owa_session' => '',
-			'owa_ref' => 'http://localhost/defaultTestData',
-		);
-		
-		// Set the issuer id if available
-		if ( !empty( $issuer_id ) ) {
-			
-			$return['testData']['issuer_id'] = $issuer_id;
+		if ( array_key_exists( $country, $donortestdata ) ) {
+			$donortestdata = array_merge( $this->initial_vars, $donortestdata[$country] );
+			$donortestdata['country'] = $country;
+			return $donortestdata;
 		}
-		
-		// Set the gateway
-		if ( $gateway == 'GlobalCollectGateway' ) {
-			$return['testData']['gateway'] = 'globalcollect';	
-		}
-		elseif ( $gateway == 'PayflowProGateway' ) {
-			$return['testData']['gateway'] = 'payflowpro';	
-		}
-
-		return $return;
-	}
-
-	/**
-	 * This fetches test data to be used for gateway adapters.
-	 *
-	 * The returned result is populated with a test user from Spain, attempting
-	 * a bank transfer for 350 EUR.
-	 *
-	 * If you need more locations to test, implement another method like this
-	 * one, overriding options as needed.
-	 *
-	 * Use the naming conventions with:
-	 * - From<Location>
-	 * - Using<BankTransfer>
-	 *
-	 * The above parameters would map to: getGatewayAdapterTestDataFromSpainUsingBankTransfer()
-	 *
- 	 * @see DonationInterfaceTestCase::getGatewayAdapterTestData()
-	 */
-	public function getGatewayAdapterTestDataFromSpain( $options = array() ) {
-		
-		$options['city']		= 'Barcelona';
-		$options['state']		= 'XX';
-		$options['zip']			= '0';
-		$options['country']		= 'ES';
-		$options['currency_code']	= 'EUR';
-		
-		return $this->getGatewayAdapterTestData( $options );
+		throw new MWException( __FUNCTION__ . ": No donor data for country '$country'" );
 	}
 
 	/**
@@ -279,7 +160,9 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		global $wgRequest, $wgServer, $wgArticlePath, $wgDonationInterfaceThankYouPage;
 
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
-
+		//@TODO: After the refactor, use the next line for merchantreference instead of $orderID.
+//		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
+		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
 		$expected  = '<?xml version="1.0"?>' . "\n";
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
@@ -295,11 +178,11 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 		'<PARAMS>';
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
-		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency_code'] . '</CURRENCYCODE>';
-		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
-		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
-		$expected .= 				'<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
+		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['currency_code'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
+		$expected .= '<MERCHANTREFERENCE>' . $orderId . '</MERCHANTREFERENCE>';
 
 		if ( isset( $wgRequest ) ) {
 			$expected .=			'<IPADDRESSCUSTOMER>' . $wgRequest->getIP() . '</IPADDRESSCUSTOMER>';
@@ -309,19 +192,19 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 			'</ORDER>';
 		$expected .= 			'<PAYMENT>';
 		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
-		$expected .= 				'<AMOUNT>' . $options['testData']['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['testData']['currency_code'] . '</CURRENCYCODE>';
-		$expected .= 				'<LANGUAGECODE>' . $options['testData']['language'] . '</LANGUAGECODE>';
-		$expected .= 				'<COUNTRYCODE>' . $options['testData']['country'] . '</COUNTRYCODE>';
+		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<CURRENCYCODE>' . $options['currency_code'] . '</CURRENCYCODE>';
+		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
+		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
-		$expected .= 				'<RETURNURL>' . $wgServer . preg_replace( '#\\$1#', $wgDonationInterfaceThankYouPage . '/' . $options['testData']['language'], $wgArticlePath ) . '</RETURNURL>';
+		$expected .= 				'<RETURNURL>' . $wgDonationInterfaceThankYouPage . '/' . $options['language'] . '</RETURNURL>';
 		$expected .=				'<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
-		$expected .= 				'<FIRSTNAME>' . $options['testData']['fname'] . '</FIRSTNAME>';
-		$expected .= 				'<SURNAME>' . $options['testData']['lname'] . '</SURNAME>';
-		$expected .= 				'<STREET>' . $options['testData']['street'] . '</STREET>';
-		$expected .= 				'<CITY>' . $options['testData']['city'] . '</CITY>';
-		$expected .= 				'<STATE>' . $options['testData']['state'] . '</STATE>';
-		$expected .= 				'<ZIP>' . $options['testData']['zip'] . '</ZIP>';
+		$expected .= 				'<FIRSTNAME>' . $options['fname'] . '</FIRSTNAME>';
+		$expected .= 				'<SURNAME>' . $options['lname'] . '</SURNAME>';
+		$expected .= 				'<STREET>' . $options['street'] . '</STREET>';
+		$expected .= 				'<CITY>' . $options['city'] . '</CITY>';
+		$expected .= 				'<STATE>' . $options['state'] . '</STATE>';
+		$expected .= 				'<ZIP>' . $options['zip'] . '</ZIP>';
 		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 
 		// Set the issuer id if it is passed.
@@ -337,4 +220,18 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		return $expected;
 		
 	}
+
+	function getGateway_DefaultObject( $external_data = null ) {
+		$p1 = null;
+		if ( !is_null( $external_data ) ) {
+			$p1 = array (
+				'external_data' => $external_data,
+			);
+		}
+
+		$class = $this->testAdapterClass;
+		$gateway = new $class( $p1 );
+		return $gateway;
+	}
+
 }

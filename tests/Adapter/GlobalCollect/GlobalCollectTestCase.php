@@ -26,15 +26,14 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
 /**
  * 
  * @group Fundraising
- * @group Gateways
  * @group DonationInterface
  * @group GlobalCollect
  */
 class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends DonationInterfaceTestCase {
 	public function setUp() {
-		$options = $this->getGatewayAdapterTestDataFromSpain();
-		
-		$this->gatewayAdapter = new TestingGlobalCollectAdapter( $options );
+
+		$options = $this->getDonorTestData();
+		$this->gatewayAdapter = $this->getGateway_DefaultObject( $options );
 	}
 
 	/**
@@ -56,11 +55,11 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 			'CURRENCYCODE' => 'currency_code',
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
-			'MERCHANTREFERENCE' => 'order_id',
+			'MERCHANTREFERENCE' => 'order_id', //@TODO: Switch to 'contribution_tracking_id' after the refactor
 			'RETURNURL' => 'returnto', 
 			'IPADDRESS' => 'server_ip',
 			'ISSUERID' => 'issuer_id',
-			'PAYMENTPRODUCTID' => 'payment_product',
+			'PAYMENTPRODUCTID' => 'card_type', //@TODO: Switch to 'payment_product' after the refactor
 			'CVV' => 'cvv',
 			'EXPIRYDATE' => 'expiration',
 			'CREDITCARDNUMBER' => 'card_num',
@@ -109,32 +108,5 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		);
 		
 		$this->assertEquals( $var_map,  $this->gatewayAdapter->getVarMap() );
-	}
-
-	/**
-	 * @covers GlobalCollectAdapter::do_transaction
-	 * @covers GlobalCollectAdapter::transactionConfirm_CreditCard
-	 * @covers GlobalCollectAdapter::transactionDirect_Debit
-	 * @covers GatewayAdapter::do_transaction
-	 * @covers GatewayAdapter::do_transaction_internal
-	 */
-	public function testDoTransaction() {
-		$result = $this->gatewayAdapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-		$this->assertTrue(
-			$result['status']
-		);
-
-		$result = $this->gatewayAdapter->do_transaction( 'Direct_Debit' );
-
-		$this->assertTrue(
-			$result['status']
-		);
-
-		$result = $this->gatewayAdapter->do_transaction( 'Confirm_CreditCard' );
-
-		$this->assertTrue(
-			$result['status']
-		);
 	}
 }

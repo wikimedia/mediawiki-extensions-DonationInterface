@@ -26,7 +26,6 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
 /**
  *
  * @group Fundraising
- * @group Gateways
  * @group DonationInterface
  * @group GlobalCollect
  * @group BankTransfer
@@ -50,7 +49,9 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 			'payment_product_id' => 11,
 		);
 
-		$options = $this->getGatewayAdapterTestDataFromSpain( $optionsForTestData );
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
