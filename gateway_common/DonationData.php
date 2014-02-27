@@ -214,7 +214,7 @@ class DonationData {
 		$cards = array( 'american' );
 		$card_nums = array(
 			'american' => array(
-				378282246310005
+				'378282246310005'
 			),
 		);
 

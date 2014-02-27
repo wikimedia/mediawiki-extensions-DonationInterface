@@ -3200,7 +3200,8 @@ abstract class GatewayAdapter implements GatewayType {
 	public function buildOrderIDSources() {
 		static $built = false;
 
-		if ( $built ) { //once per request is plenty
+		if ( $built && isset( $this->order_id_candidates ) ) { //once per request is plenty
+			echo __FUNCTION__ . ": Built!\n";
 			return;
 		}
 
