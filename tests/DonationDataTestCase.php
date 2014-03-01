@@ -208,7 +208,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'premium_language' => 'es',
 			'card_num' => '378282246310005',
 			'card_type' => 'american',
-			'expiration' => '0315',
+			'expiration' => '0415',
 			'cvv' => '001',
 			'currency_code' => 'USD',
 			'payment_method' => 'cc',

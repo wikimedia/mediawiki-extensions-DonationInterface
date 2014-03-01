@@ -51,7 +51,7 @@ define( 'TESTS_HOSTNAME', 'localhost' );
  *
  * An email address to use in case test send mail
  */
-define( 'TESTS_EMAIL', 'no-reply@wikimedia.org' );
+define( 'TESTS_EMAIL', 'nobody@wikimedia.org' );
 
 /**
  * TESTS_GATEWAY_DEFAULT
@@ -79,3 +79,14 @@ define( 'TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD', '378282246310005'
  */
 $wgDonationInterfaceTestMode = true;
 $wgDonationInterfaceMerchantID = 'test';
+
+$wgGlobalCollectGatewayAccountInfo['test'] = array(
+	'MerchantID' => 'test',
+);
+
+$wgDonationInterfaceAllowedHtmlForms = array(
+	'test' => array(
+	),
+);
+
+$wgDonationInterfaceThankYouPage = wfExpandUrl( '/Donate-thanks' );

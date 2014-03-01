@@ -71,6 +71,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
+		$_SERVER['SCRIPT_NAME'] = __FILE__;
 
 		parent::__construct();
 	}
