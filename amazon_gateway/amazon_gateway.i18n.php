@@ -361,6 +361,13 @@ $messages['sv'] = array(
 	'amazon_gateway-desc' => 'Amazons betalningsprocess',
 );
 
+/** Telugu (తెలుగు)
+ * @author Chaduvari
+ */
+$messages['te'] = array(
+	'amazongateway' => 'ఇప్పుడే విరాళమివ్వండి',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor

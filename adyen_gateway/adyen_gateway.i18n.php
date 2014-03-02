@@ -334,6 +334,15 @@ $messages['sv'] = array(
 Försök igen senare.',
 );
 
+/** Telugu (తెలుగు)
+ * @author Chaduvari
+ */
+$messages['te'] = array(
+	'adyengateway' => 'ఇప్పుడే విరాళమివ్వండి',
+	'adyen_gateway-response-default' => 'మీ లావాదేవీని జరిపించడంలో లోపం దొర్లింది. 
+తరువాత మళ్ళీ ప్రయత్నించండి.',
+);
+
 /** Tagalog (Tagalog)
  * @author Sky Harbor
  */

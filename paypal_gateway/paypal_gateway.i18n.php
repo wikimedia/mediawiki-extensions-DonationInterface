@@ -420,6 +420,13 @@ $messages['sv'] = array(
 	'paypal_gateway-desc' => 'PayPal betalningshantering',
 );
 
+/** Telugu (తెలుగు)
+ * @author Chaduvari
+ */
+$messages['te'] = array(
+	'paypalgateway' => 'ఇప్పుడే విరాళమివ్వండి',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  * @author Sky Harbor
