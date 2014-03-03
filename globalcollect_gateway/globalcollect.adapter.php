@@ -1846,6 +1846,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'pl', //Polish
 			'pt', //Portuguese
 			'ro', //Romanian
+			'ru', //Russian
 			'sl', //Slovene
 			'es', //Spanish
 			'sw', //Swahili
