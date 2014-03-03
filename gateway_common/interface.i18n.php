@@ -30550,6 +30550,7 @@ $messages['tet'] = array(
 );
 
 /** Thai (ไทย)
+ * @author Pcoombe
  * @author Woraponboonkerd
  */
 $messages['th'] = array(
@@ -30656,6 +30657,7 @@ $messages['th'] = array(
 	'donate_interface-donate-click' => 'หลังจากคลิก "{{int:payflowpro_gateway-donor-submit}}" บัตรเครดิตของคุณจะเข้าสู่กระบวนการตัดยอด', # Fuzzy
 	'donate_interface-credit-storage-processing' => 'เราจะไม่เก็บข้อมูลของบัครเครดิตของคุณไว้ และข้อมูลส่วนตัวของคุณจะถูกนำไปใช้ภายใต้<a href="//wikimediafoundation.org/wiki/Wikimedia:Privacy_policy">นโยบายการรักษาความเป็นส่วนตัว</a>', # Fuzzy
 	'donate_interface-anon-message' => 'กรุณาแสดงชื่อของฉันในรายนามผู้บริจาคสาธารณะ',
+	'donate_interface-informationsharing' => 'ในการบริจาค คุณจะยอมรับตาม<a class="localize" target="_blank" href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_policy">นโยบายรักษาความเป็นส่วนตัวของผู้บริจาค</a> และยอมรับที่จะแบ่งปันข้อมูลของท่านให้กับ<a class="localize" target="_blank" href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility">มูลนิธิวิกิมีเดีย</a>และผู้ให้บริการของมูลนิธิฯ ในสหรัฐอเมริกาและที่อื่นๆ',
 );
 
 /** Turkmen (Türkmençe)
