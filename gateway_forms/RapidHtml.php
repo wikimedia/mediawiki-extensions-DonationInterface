@@ -28,7 +28,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@amountOther', // => $wgRequest->getText( 'amountOther' ),
 		'@emailAdd', //'email' => $wgRequest->getText( 'emailAdd' ),
 		'@fname', // => $wgRequest->getText( 'fname' ),
-		'@mname', // => $wgRequest->getText( 'mname' ),
 		'@lname', // => $wgRequest->getText( 'lname' ),
 		'@street_supplemental', // => $wgRequest->getText( 'street_supplemental' ), MUST BE BEFORE @street
 		'@street', // => $wgRequest->getText( 'street' ),
@@ -49,8 +48,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@utm_campaign', // => $wgRequest->getText( 'utm_campaign' ),
 		// try to honor the user-set language (uselang), otherwise the language set in the URL (language)
 		'@language', // => $wgRequest->getText( 'uselang', $wgRequest->getText( 'language' ) ),
-		'@comment-option', // => $wgRequest->getText( 'comment-option' ),
-		'@comment', // => $wgRequest->getText( 'comment' ),
 		'@email-opt', // => $wgRequest->getText( 'email-opt' ),
 		'@test_string', // => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 		'@token', // => $token,

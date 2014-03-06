@@ -304,7 +304,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		$log_message = '';
 
-		$log_message .= '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'comment' ) ) . '"';
 		$log_message .= "\t" . '"' . date( 'c' ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'amount' ) . ' ' . $this->gateway_adapter->getData_Unstaged_Escaped( 'currency_code' ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudQuery ) ) . '"';

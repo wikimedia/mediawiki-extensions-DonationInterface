@@ -480,10 +480,7 @@ abstract class Gateway_Form {
 				'utm_campaign' => $this->getEscapedValue( 'utm_campaign' ),
 				'language' => $this->getEscapedValue( 'language' ),
 				'referrer' => $this->getEscapedValue( 'referrer' ),
-				'comment' => $this->getEscapedValue( 'comment' ),
-				'comment-option' => $this->getEscapedValue( 'comment-option' ),
 				'email-opt' => $this->getEscapedValue( 'email-opt' ),
-				'size' => $this->getEscapedValue( 'size' ),
 				'premium_language' => $this->getEscapedValue( 'premium_language' ),
 				// process has been disabled - may no longer be needed. 
 				//'process' => !is_null( $this->getEscapedValue( 'process' ) ) ? $this->getEscapedValue( 'process' ) : 'CreditCard',
@@ -752,47 +749,6 @@ abstract class Gateway_Form {
 		$form .= '<td>' . Xml::input( 'fname', '30', $this->getEscapedValue( 'fname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . Xml::escapeJsString( wfMessage( 'donate_interface-donor-fname' )->text() ) . '\' )', 'maxlength' => '25', 'class' => 'required', 'id' => 'fname' ) ) .
 			Xml::input( 'lname', '30', $this->getEscapedValue( 'lname' ), array( 'type' => 'text', 'onfocus' => 'clearField( this, \'' . Xml::escapeJsString( wfMessage( 'donate_interface-donor-lname' )->text() ) . '\' )', 'maxlength' => '25', 'id' => 'lname' ) ) . '</td>';
 		$form .= "</tr>";
-		return $form;
-	}
-
-	/**
-	 * Builds and returns the comment message. 
-	 * This function is not used by any RapidHTML forms.
-	 * @return string 
-	 */
-	protected function getCommentMessageField() {
-		$form = '<tr>';
-		$form .= '<td colspan="2">';
-		$form .= Xml::tags( 'p', array( ), wfMessage( 'donate_interface-comment-message' )->escaped() );
-		$form .= '</td>';
-		$form .= '</tr>';
-		return $form;
-	}
-
-	/**
-	 * Builds and returns the comment form field. 
-	 * This function is not used by any RapidHTML forms.
-	 * @return string 
-	 */
-	protected function getCommentField() {
-		$form = '<tr>';
-		$form .= '<td class="label">' . Xml::label( wfMessage( 'donate_interface-comment' )->text(), 'comment' ) . '</td>';
-		$form .= '<td>' . Xml::input( 'comment', '30', $this->getEscapedValue( 'comment' ), array( 'type' => 'text', 'maxlength' => '200', 'class' => 'fullwidth' ) ) . '</td>';
-		$form .= '</tr>';
-		return $form;
-	}
-
-	/**
-	 * Builds and returns the comment option checkbox. 
-	 * This function is not used by any RapidHTML forms.
-	 * @return string 
-	 */
-	protected function getCommentOptionField() {
-		$comment_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'comment-option' ) : true;
-		$form = '<tr>';
-		$form .= '<td class="check-option" colspan="2">' . Xml::check( 'comment-option', $comment_opt_value );
-		$form .= ' ' . Xml::label( wfMessage( 'donate_interface-anon-message' )->text(), 'comment-option' ) . '</td>';
-		$form .= '</tr>';
 		return $form;
 	}
 
