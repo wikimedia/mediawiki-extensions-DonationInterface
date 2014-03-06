@@ -153,8 +153,6 @@ function sendLimboSTOMP( $transaction ) {
  * TODO: Probably something else. I don't like the way this works and neither do you.
  *
  * Older notes follow:
- * TODO: include optout and comments option in the donation page
- * NOTES: includes middle name
  * Currency in receiving module has currency set to USD, should take passed variable for these
  * PAssed both ISO and country code, no need to look up
  * 'gateway' = payflowpro (is this correct?)
@@ -169,32 +167,18 @@ function createQueueMessage( $transaction ) {
 	// edit this array to include/ignore transaction data sent to the server
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
-		'comment' => $transaction['comment'],
-		'size' => $transaction['size'],
 		'premium_language' => $transaction['premium_language'],
 		'utm_source' => $transaction['utm_source'],
-		'utm_medium' => $transaction['utm_medium'],
-		'utm_campaign' => $transaction['utm_campaign'],
 		'language' => $transaction['language'],
 		'referrer' => $transaction['referrer'],
 		'email' => $transaction['email'],
 		'first_name' => $transaction['fname'],
-		'middle_name' => $transaction['mname'],
 		'last_name' => $transaction['lname'],
 		'street_address' => $transaction['street'],
-		'supplemental_address_1' => $transaction[ 'street_supplemental' ],
 		'city' => $transaction['city'],
 		'state_province' => $transaction['state'],
 		'country' => $transaction['country'],
 		'postal_code' => $transaction['zip'],
-		'first_name_2' => $transaction['fname2'],
-		'last_name_2' => $transaction['lname2'],
-		'street_address_2' => $transaction['street2'],
-		'supplemental_address_2' => '',
-		'city_2' => $transaction['city2'],
-		'state_province_2' => $transaction['state2'],
-		'country_2' => $transaction['country2'],
-		'postal_code_2' => $transaction['zip2'],
 		'gateway' => $transaction['gateway'],
 		'gateway_account' => $transaction['gateway_account'],
 		'gateway_txn_id' => $transaction['gateway_txn_id'],
@@ -218,11 +202,20 @@ function createQueueMessage( $transaction ) {
 		'recurring',
 		'optout',
 		'anonymous',
+		'street_supplemental',
+		'utm_campaign',
+		'utm_medium',
 	);
 	foreach ( $optional_keys as $key ) {
 		if ( isset( $transaction[ $key ] ) ) {
 			$message[ $key ] = $transaction[ $key ];
 		}
+	}
+
+	//as this is just the one thing, I can't think of a way to do this that isn't actually more annoying. :/
+	if ( isset( $message['street_supplemental'] ) ) {
+		$message['supplemental_address_1'] = $message['street_supplemental'];
+		unset( $message['street_supplemental'] );
 	}
 
 	return $message;
@@ -241,17 +234,10 @@ function unCreateQueueMessage( $transaction ) {
 
 	$rekey = array(
 		'first_name' => 'fname',
-		'middle_name' => 'mname',
 		'last_name' => 'lname',
 		'street_address' => 'street',
 		'state_province' => 'state',
 		'postal_code' => 'zip',
-		'first_name_2' => 'fname2',
-		'last_name_2' => 'lname2',
-		'street_address_2' => 'street2',
-		'city_2' => 'city2',
-		'state_province_2' => 'state2',
-		'postal_code_2' => 'zip2',
 //		'currency' => 'currency_code',
 		'original_currency' => 'currency_code',
 		'original_gross' => 'amount',

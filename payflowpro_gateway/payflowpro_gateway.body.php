@@ -138,7 +138,7 @@ class PayflowProGateway extends GatewayForm {
 				'title' => array( $this->msg( 'donate_interface-post-transaction' )->text() ),
 				'amount' => array( $this->msg( 'donate_interface-donor-amount' )->text(), $data['amount'] ),
 				'email' => array( $this->msg( 'donate_interface-donor-email' )->text(), $data['email'] ),
-				'name' => array( $this->msg( 'donate_interface-donor-name' )->text(), $data['fname'], $data['mname'], $data['lname'] ),
+				'name' => array( $this->msg( 'donate_interface-donor-name' )->text(), $data['fname'], $data['lname'] ),
 				'address' => array( $this->msg( 'donate_interface-donor-address' )->text(), $data['street'], $data['city'], $data['state'], $data['zip'], $countries[$data['country']] ),
 			);
 

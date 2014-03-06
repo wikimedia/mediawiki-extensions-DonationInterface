@@ -305,19 +305,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//fields that have generated notices if they're not there. 
 		$additional_fields = array(
 			'card_num',
-			'comment',
-			'size',
 			'utm_medium',
 			'utm_campaign',
 			'referrer',
-			'mname',
-			'fname2',
-			'lname2',
-			'street2',
-			'city2',
-			'state2',
-			'country2',
-			'zip2',			
 		);
 		
 		foreach ($payments as $key => $payment_data){
