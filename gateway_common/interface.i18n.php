@@ -9493,6 +9493,7 @@ $messages['fa'] = array(
  * @author Nedergard
  * @author Nike
  * @author Olli
+ * @author Pxos
  * @author Str4nd
  * @author Stryn
  * @author Tarmo
@@ -9863,7 +9864,7 @@ Lahjoituslomakkeemme sujuva ja turvallinen toiminta vaatii JavaScriptin.',
 	'donate_interface-translate-redlink2' => 'Tai lähetä käännöksesi sähköpostilla osoitteeseen translations@wikimedia.org',
 	'donate_interface-email-fallbackname' => 'Wikimedia-säätiön ystävä',
 	'donate_interface-email-subject' => 'Kiitokset Wikimedia-säätiöltä',
-	'donate_interface-email-unsub-title' => 'Peru Wikimedia-säätiön tilaus',
+	'donate_interface-email-unsub-title' => 'Lopeta Wikimedia-säätiön tilaus',
 	'donate_interface-email-unsub-button' => 'Peruuta tilaus',
 	'donate_interface-email-unsub-success' => 'Sinut on onnistuneesti poistettu postituslistaltamme',
 	'donate_interface-email-unsub-delay' => 'Anna ainakin neljä (4) päivää aikaa muutosten voimaantulolle. Pahoittelemme, jos saat sähköpostia tänä aikana. Jos sinulla on kysymyksiä, voit käyttää seuraavaa sähköpostiosoitetta <donations@wikimedia.org>',
@@ -23927,6 +23928,9 @@ Nenhuma das plataformas está disponível.',
 	'donate_interface-error-msg-card_num' => 'o seu número de cartão de crédito',
 	'donate_interface-error-msg-expiration' => 'a data de expiração do seu cartão',
 	'donate_interface-error-msg-cvv' => 'o código de segurança (CVV) no verso do cartão',
+	'donate_interface-error-msg-account_name' => 'Nome da conta',
+	'donate_interface-error-msg-account_number' => 'Número da conta',
+	'donate_interface-error-msg-authorization_id' => 'ID de autorização',
 	'donate_interface-error-msg-captcha' => 'O valor do captcha que introduziu está incorreto. Tente novamente, por favor.',
 	'donate_interface-error-msg-captcha-please' => 'Preencha o formulário Captcha para provar que não é um robô, por favor.',
 	'donate_interface-error-msg-cookies' => 'Ative o uso de "cookies" no seu browser, por favor.',
@@ -24079,6 +24083,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-bt-special_id' => 'Informações específicas do país',
 	'donate_interface-bt-information' => 'Informação de transferência bancária',
 	'donate_interface-bt-finished' => 'Finalizada',
+	'donate_interface-obt-generic-name' => 'Transferência bancária online',
 	'donate_interface-obt-biller_id' => 'Código do banco (biller code)',
 	'donate_interface-obt-customer_payment_reference' => 'Número de referência',
 	'donate_interface-obt-information' => 'Informação de transferência bancária online',
@@ -24112,6 +24117,7 @@ O nosso formulário de donativos necessita do JavaScript para lhe proporcionar u
 	'donate_interface-informationsharing' => 'Ao fazer um donativo, está a partilhar a sua informação com a Fundação Wikimedia, a organização sem fins lucrativos que aloja a Wikipédia e outros projetos Wikimedia, e com os seus fornecedores de serviços nos Estados Unidos e outros locais, conforme a nossa política de privacidade de benfeitores. Não vendemos nem comercializamos a sua informação. Para mais detalhes, consulte a <a href="//wikimediafoundation.org/wiki/Donor_policy/pt">política de privacidade de benfeitores</a>',
 	'donate_interface-currency-change' => 'Alterar?',
 	'donate_interface-bank_transfer_message' => "Note que o seu extrato bancário mostrará 'Global Collect' como destinatária do donativo. A Global Collect está autorizada a aceitar e processar pagamentos em nome da Wikimedia Foundation. Lembre-se de incluir na sua transferência bancária o número de referência fornecido aqui e contacte donations@wikimedia.org se tiver quaisquer dúvidas ou preocupações.",
+	'donate_interface-globalcollect-proxy' => "Note que o seu extrato bancário mostrará 'Global Collect' como destinatária do donativo. A Global Collect está autorizada a aceitar e processar pagamentos em nome da Wikimedia Foundation.",
 	'donate_interface-taxded-link-int' => 'Impostos e outras informações legais',
 	'donate_interface-taxded-link-us' => 'Informação sobre dedução fiscal',
 	'donate_interface-taxded-msg-int' => 'A Wikimedia Foundation é uma instituição de caridade sem fins lucrativos, estabelecida nos Estados Unidos ao abrigo da regulamentação US IRS Code Section 501(c)(3) e, por isso, os donativos de pessoas ou entidades localizadas nos Estados Unidos podem beneficiar de uma dedução fiscal. Donativos de pessoas ou entidades localizadas fora dos Estados Unidos podem não ser elegíveis para dedução fiscal nos Estados Unidos ou noutros locais; nestes casos, os benfeitores devem procurar aconselhamento fiscal local. A Wikimedia não procura captar donativos de pessoas ou entidades localizadas em qualquer jurisdição que proíba ou limite atividades de captação de fundos por instituições de caridade internacionais, como a Wikimedia, ou que aplique impostos sobre os donativos feitos a tais instituições.',
