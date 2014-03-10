@@ -1957,7 +1957,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $types ) ) {
 				$this->staged_data['payment_product'] = $types[$payment_submethod];
 			} else {
-				$this->log( "Could not find a cc payment product for '$payment_submethod'", LOG_ERR );
+				if ( !empty( $payment_submethod ) ) {
+					$this->log( "Could not find a cc payment product for '$payment_submethod'", LOG_ERR );
+				}
 			}
 
 			// This array contains all the card types that can use AUTHENTICATIONINDICATOR
