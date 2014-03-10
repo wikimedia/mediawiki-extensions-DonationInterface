@@ -4738,6 +4738,7 @@ Da bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacij
 /** Catalan (català)
  * @author Aleator
  * @author Arnaugir
+ * @author Jrobell
  * @author Jsoby
  * @author Martorell
  * @author Papapep
@@ -4923,6 +4924,7 @@ Habitualment el panell de signatura tindrà una sèrie de números, però només
 <p> El codi <i>sempre</i> es troba <i>per sobre</i> del número de compte en relleu a la cara de la targeta.
 En alguns casos, el codi es troba al costat esquerre, però sempre per damunt del número de compte.</p><br />",
 	'donate_interface-question-comment' => 'Preguntes o comentaris? Contacte: <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-problemsdonating' => 'Tens problemes amb la teva donació?',
 	'donate_interface-donate-click' => 'La vostra targeta de crèdit serà processada de manera segura.', # Fuzzy
 	'donate_interface-otherways' => 'Hi ha <a href="//wikimediafoundation.org/wiki/Ways_to_Give/ca">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.',
 	'donate_interface-otherways-alt' => 'Hi ha <a href="//wikimediafoundation.org/wiki/Ways_to_Give/ca">altres maneres de donar</a>, incloent per xec.',
@@ -5045,7 +5047,17 @@ Per a proporcionar una experiència segura i agradable, el nostre formulari de d
 	'donate_interface-bt-finished' => 'Acabat',
 	'donate_interface-obt-customer_payment_reference' => 'Referència #',
 	'donate_interface-dd-iban' => 'IBAN',
+	'donate_interface-faqs' => 'Respostes a preguntes frequënts',
+	'donate_interface-tax-info' => 'Informació de deducció fiscal',
+	'donate_interface-informationsharing' => 'Al donar, estàs compartint la teva informació amb la Wikimedia
+Foundation, una organització sense ànim de lucre que manté la Viquipèdia i altres projectes Viquimèdia, i els proveïdors de serveis d\'Internet als Estats Units i altres llocs d\'acord amb la nostra política de privacitat. No vendrem o farem us comercial de la teva informació amb ningú. Per a més informació, si us plau, llig <a href="//wikimediafoundation.org/wiki/Donor_policy/en">la nostra política sobre donants. </a>.',
 	'donate_interface-currency-change' => 'Ho voleu canviar?',
+	'donate_interface-legal-donorpolicy' => "Al donar, estàs compartint la teva informació amb la Wikimedia
+Foundation, una organització sense ànim de lucre que manté la Viquipèdia i
+altres projectes Viquimèdia, i els proveïdors de serveis d'Internet als
+Estats Units i altres llocs d'acord amb la nostra política de privacitat.
+No vendrem o farem us comercial de la teva informació amb ningú. Per a més
+informació, si us plau, llig la nostra política sobre donants.",
 	'donate_interface-monthlybox-title' => 'Ho voleu fer mensualment?',
 	'donate_interface-monthly-short' => 'Mensual',
 	'donate_interface-onetime-short' => 'Un sol cop',
