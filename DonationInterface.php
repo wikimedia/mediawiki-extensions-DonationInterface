@@ -861,6 +861,11 @@ $wgResourceModules['donationInterface.test.rapidhtml'] = array(
 	)
 ) + $wgResourceTemplate;
 
+$wgResourceModules['jquery.payment'] = array(
+	'scripts' => 'jquery.payment/jquery.payment.js',
+	'dependencies' => array( 'jquery' )
+) + $wgResourceTemplate;;
+
 // load any rapidhtml related resources
 require_once( $donationinterface_dir . 'gateway_forms/rapidhtml/RapidHtmlResources.php' );
 
