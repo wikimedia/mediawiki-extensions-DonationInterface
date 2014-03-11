@@ -50,6 +50,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Amazon' => true,
 	'Adyen' => true,
 	'Paypal' => true,
+	'WorldPay' => true,
 	'FormChooser' => true,
 	'ReferrerFilter' => false, //extra
 	'SourceFilter' => false, //extra
@@ -146,6 +147,12 @@ if ( $optionalParts['Paypal'] === true ){
 	$wgAutoloadClasses['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.body.php';
 	$wgAutoloadClasses['PaypalGatewayResult'] = $donationinterface_dir . 'paypal_gateway/paypal_resultswitcher.body.php';
 	$wgAutoloadClasses['PaypalAdapter'] = $donationinterface_dir . 'paypal_gateway/paypal.adapter.php';
+}
+
+if ( $optionalParts['WorldPay'] === true ){
+	$wgDonationInterfaceClassMap['worldpay'] = 'WorldPayAdapter';
+	$wgAutoloadClasses['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.body.php';
+	$wgAutoloadClasses['WorldPayAdapter'] = $donationinterface_dir . 'worldpay_gateway/worldpay.adapter.php';
 }
 
 
@@ -468,6 +475,20 @@ if ( $optionalParts['Adyen'] === true ){
 #	);
 }
 
+if ( $optionalParts['WorldPay'] === true ) {
+	$wgDonationInterfaceEnabledGateways[] = 'worldpay';
+
+	$wgAdyenGatewayHtmlFormDir = $donationinterface_dir . 'worldpay_gateway/forms/html';
+
+	$wgWorldPayGatewayURL = 'https://live.adyen.com';
+
+#	$wgWorldPayGatewayAccountInfo['example'] = array(
+#		'AccountName' => ''; // account identifier, not login name
+#		'SharedSecret' => ''; // entered in the skin editor
+#		'SkinCode' => '';
+#	);
+}
+
 //Stomp globals
 if ($optionalParts['Stomp'] === true){
 	$wgStompServer = "";
@@ -759,6 +780,10 @@ if ( $optionalParts['Paypal'] === true ){
 	$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
 	$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 }
+//WorldPay
+if ( $optionalParts['WorldPay'] === true ){
+	$wgSpecialPages['WorldPayGateway'] = 'WorldPayGateway';
+}
 
 /**
  * HOOKS
@@ -1001,6 +1026,11 @@ if ( $optionalParts['Adyen'] === true ){
 if ( $optionalParts['Paypal'] === true ){
 	$wgExtensionMessagesFiles['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.alias.php';
+}
+
+if ( $optionalParts['WorldPay'] === true ){
+	$wgExtensionMessagesFiles['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.i18n.php';
+	$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.alias.php';
 }
 
 /**

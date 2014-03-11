@@ -1,0 +1,174 @@
+<script type="text/javascript">
+	mw.loader.using(
+		[ 'jquery.payment' ],
+		function() {
+			//$( '#adyen-encrypted-form-number' ).payment( 'formatCardNumber' );
+			//$( '#expiry' ).payment( 'formatCardExpiry' );
+			//$( '#adyen-encrypted-form-cvc' ).payment( 'formatCardCVC' );
+		}
+	);
+
+	// these must go through RapidHTML and thus are inline
+	var amountErrors = ['#general|escape', '#retryMsg|escape', '#amount|escape'];
+	var billingErrors = [
+		'#fname|escape', '#lname|escape', '#city|escape', '#country|escape', '#street|escape',
+		'#state|escape', '#zip|escape', '#emailAdd|escape'
+	];
+	var paymentErrors = ['#card_num|escape', '#card_type|escape', '#cvv|escape'];
+	var actionURL = "@action";
+	var scriptPath = "@script_path";
+</script>
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tbody>
+	<tr>
+		<td id="appeal" valign="top">
+			{{LanguageSwitch|2011FR/@appeal/text|@language}}
+		</td>
+		<td id="donate" valign="top">
+			<div id="greenBackground" class="">
+				<noscript>
+					<div id="noscript">
+						<p id="noscript-msg">%donate_interface-noscript-msg%</p>
+
+						<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
+
+						<p id="noscript-redirect-link">
+							<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
+						</p>
+					</div>
+				</noscript>
+				<p id="topError" class="creditcard-error-msg"></p>
+
+				<form name="payment" method="post" action="@action" novalidate>
+					<div id="payflowpro_gateway-personal-info">
+						<table id="payflow-table-donor">
+							<tbody>
+							<tr>
+								<td colspan="2">
+									<div id="step1header">
+										<h3 class="amount_header">%donate_interface-amount-legend%: <span
+											id="selected-amount">{% block donation-amount currency_code %}</span></h3>
+									</div>
+								</td>
+							</tr>
+							{% block personal-information country %}
+							<tr>
+								<td>
+									<h3>%donate_interface-card-legend%</h3>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" id="adyen-encrypted-form-holder-name" size="20"
+										   autocomplete="off" data-encrypted-name="holderName"
+										   placeholder="%donate_interface-donor-name%"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" id="adyen-encrypted-form-number" size="20" pattern="\d*"
+										   autocomplete="off" data-encrypted-name="number"
+										   placeholder="%donate_interface-donor-card-num%"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" id="adyen-encrypted-form-cvc" size="4" pattern="\d*"
+										   autocomplete="off" data-encrypted-name="cvc"
+										   placeholder="%donate_interface-card-security-code%"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" id="expiry" size="9" pattern="\d*" autocomplete="off"
+										   data-encrypted-name="expiryMonth"
+										   placeholder="%donate_interface-card-expiration%"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<dl class="">
+										<dd class="field" style="margin-bottom: 0; margin-left: 0;">
+											<div id="paymentSubmit" style="margin-top: 10px;"><input class="btn"
+																									 id="paymentSubmitBtn"
+																									 type="button"
+																									 value="%donate_interface-continue%"/>
+											</div>
+										</dd>
+									</dl>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div id="payment" class="gainlayout" style="height: 0;text-align: center;"></div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
+										<img
+											src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif"
+											style="vertical-align:baseline;margin-right:4px;">
+										%donate_interface-donate-click%
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<input type="hidden" id="adyen-encrypted-form-expiry-generationtime" value="@timestamp"
+						   data-encrypted-name="generationtime"/>
+
+					<input type="hidden" name="returnto" value="Thank_You/en"/>
+					<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
+					<input type="hidden" value="@amount" name="amount">
+					<!-- This should be included in the personal_information templates -->
+					<!--<input type="hidden" value="@country" name="country" id="country" />-->
+					<input type="hidden" value="@expiration" name="expiration" id="expiration"/>
+					<input type="hidden" value="@currency_code" name="currency_code"/>
+					<input type="hidden" value="@utm_source" name="utm_source"/>
+					<input type="hidden" value="@utm_medium" name="utm_medium"/>
+					<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
+					<input type="hidden" value="@language" name="language"/>
+					<input type="hidden" value="@referrer" name="referrer"/>
+					<input type="hidden" value="@comment" name="comment"/>
+					<input type="hidden" value="@comment-option" name="comment-option"/>
+					<input type="hidden" value="1" name="email-opt"/>
+					<input type="hidden" value="@token" name="token"/>
+					<input type="hidden" value="@order_id" name="order_id"/>
+					<input type="hidden" value="@contribution_tracking_id" name="contribution_tracking_id"/>
+					<input type="hidden" value="@data_hash" name="data_hash"/>
+					<input type="hidden" value="@owa_session" name="owa_session"/>
+					<input type="hidden" value="@owa_ref" name="owa_ref"/>
+					<input type="hidden" value="@gateway" name="gateway"/>
+					<input type="hidden" value="cc" name="payment_method"/>
+				</form>
+			</div>
+			<p id="informationsharing">%donate_interface-informationsharing|url%</p>
+			<table>
+				<tr>
+					<td>
+						<ul id="moreinfolinks">
+							<li><a
+								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&country=@country&language=@language&uselang=@language}}">%donate_interface-problemsdonating%</a>
+							</li>
+							<li><a
+								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a>
+							</li>
+							<li><a
+								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a>
+							</li>
+							<li><a
+								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=@language&uselang=@language&country=@country">%donate_interface-tax-info%</a>
+							</li>
+						</ul>
+					</td>
+					<td>@verisign_logo</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</tbody>
+</table>
