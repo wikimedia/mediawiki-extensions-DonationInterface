@@ -14,9 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- *
- * @since		r98249
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -28,6 +25,7 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollect/AllTests
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PayPal/AllTests.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Amazon/AllTests.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'Adyen/AllTests.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'WorldPay/AllTests.php';
 
 /**
  * AllTests
@@ -62,6 +60,7 @@ class DonationInterface_Adapter_AllTests
 		$suite->addTestSuite( 'DonationInterface_Adapter_PayPal_AllTests' );
 		$suite->addTestSuite( 'DonationInterface_Adapter_Amazon_AllTests' );
 		$suite->addTestSuite( 'DonationInterface_Adapter_Adyen_AllTests' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_WorldPay_AllTests' );
 
 		return $suite;
 	}

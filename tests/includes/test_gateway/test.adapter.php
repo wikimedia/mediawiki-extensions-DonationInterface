@@ -324,3 +324,10 @@ class TestingAdyenAdapter extends AdyenAdapter {
 
 }
 
+/**
+ * TestingWorldPayAdapter
+ */
+class TestingWorldPayAdapter extends WorldPayAdapter {
+
+}
+

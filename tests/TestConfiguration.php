@@ -113,10 +113,17 @@ $wgAmazonGatewayAccountInfo['test'] = array (
 	'IpnOverride' => 'https://test.wikimedia.org/amazon',
 );
 
-/** Adyen * */
+/** Adyen **/
 $wgAdyenGatewayBaseURL = 'https://testorwhatever.adyen.com';
 $wgAdyenGatewayAccountInfo['test'] = array (
 	'AccountName' => 'wikitest',
 	'SharedSecret' => 'long-cat-is-long',
 	'SkinCode' => 'testskin',
+);
+
+/** WorldPay **/
+$wgWorldPayGatewayAccountInfo['test'] = array (
+	'AccountName' => 'testname',
+	'AccountPassword' => 'testpass',
+	'AccountNumber' => '123456',
 );
