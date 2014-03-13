@@ -774,17 +774,15 @@ class DonationData {
 	protected function setLanguage() {
 		global $wgLang;
 		$language = false;
-		
+
 		if ( $this->isSomething( 'uselang' ) ) {
 			$language = $this->getVal( 'uselang' );
 		} elseif ( $this->isSomething( 'language' ) ) {
 			$language = $this->getVal( 'language' );
 		}
 		
-		if ( $language == false
-			|| !Language::isValidBuiltInCode( $this->normalized['language'] ) )
-		{
-			$language = $wgLang->getCode() ;
+		if ( $language == false || !Language::isValidBuiltInCode( $language ) ) {
+			$language = $wgLang->getCode();
 		}
 		
 		$this->setVal( 'language', $language );

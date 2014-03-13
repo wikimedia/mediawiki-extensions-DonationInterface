@@ -3,10 +3,7 @@ window.displayCreditCardForm = function() {
 	// Load wait spinner
 	$( '#payment' ).append( '<br/><br/><br/><img alt="loading" src="'+mw.config.get( 'wgScriptPath' )+'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
 	var language = 'en'; // default value is English
-	var matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
-	if ( matches && matches[1] ) {
-		language = matches[1];
-	}
+	language = $( "input[name='language']" ).val();
 	
 	var currencyField = document.getElementById( 'input_currency_code' );
 	var currency_code = '';
