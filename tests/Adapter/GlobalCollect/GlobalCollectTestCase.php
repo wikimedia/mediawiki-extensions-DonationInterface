@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -207,6 +205,18 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		);
 		
 		$this->assertEquals( $var_map, $gateway->getVarMap() );
+	}
+
+	public function testLanguageStaging() {
+		$options = $this->getDonorTestData( 'NO' );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->_stageData();
+
+		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->resetAllEnv();
 	}
 
 }

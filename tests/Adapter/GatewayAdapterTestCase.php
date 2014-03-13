@@ -89,5 +89,22 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		//production adapters. 
 		$this->assertInstanceOf( 'DonationData', $gateway->getDonationData() );
 	}
+
+	public function testLanguageChange() {
+		$options = $this->getDonorTestData( 'US' );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'en', "'US' donor's language was inproperly set. Should be 'en'" );
+		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		//so we know it tried to screw with the session and such.
+
+		$options = $this->getDonorTestData( 'NO' );
+		$gateway = $this->getFreshGatewayObject( $options );
+		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->resetAllEnv();
+	}
+
 }
 

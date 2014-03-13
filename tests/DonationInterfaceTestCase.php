@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 require_once __DIR__ . '/TestConfiguration.php';
@@ -131,6 +129,17 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 				'lname' => 'Apellido',
 				'amount' => '1.55',
 				'language' => 'es',
+			),
+			'NO' => array (
+				'city' => 'Oslo',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Fake Gate',
+				'fname' => 'Fornavn',
+				'lname' => 'Etternavn',
+				'amount' => '1.55',
+				'language' => 'no',
 			),
 		);
 		//default to US

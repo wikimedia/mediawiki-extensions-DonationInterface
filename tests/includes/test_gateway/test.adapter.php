@@ -260,6 +260,10 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
 	}
 
+	public function _stageData() {
+		$this->stageData();
+	}
+
 	/**
 	 * @TODO: Get rid of this and the override mechanism as soon as you
 	 * refactor the constructor into something reasonable.

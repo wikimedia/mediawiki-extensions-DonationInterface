@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
- * @author Katie Horn <khorn@wikimedia.org>
  */
 
 /**
@@ -27,7 +25,6 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestC
  * @group Fundraising
  * @group DonationInterface
  * @group Splunge
- * @author Katie Horn <khorn@wikimedia.org>
  */
 class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 
@@ -265,7 +262,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = 'this is not a number';
 		$data['amountGiven'] = 42.50;
-		//unset($data['zip']);
 		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 42.50, $returned['amount'], "Amount was not properly reset" );
@@ -279,7 +275,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = 88.15;
 		$data['amountGiven'] = 42.50;
-		//unset($data['zip']);
 		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 88.15, $returned['amount'], "Amount was not properly reset" );
@@ -293,7 +288,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = -1;
 		$data['amountOther'] = 3.25;
-		//unset($data['zip']);
 		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals(3.25, $returned['amount'], "Amount was not properly reset");
@@ -308,12 +302,43 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		$data['amount'] = 'splunge';
 		$data['amountGiven'] = 'wombat';
 		$data['amountOther'] = 'macedonia';
-		//unset($data['zip']);
 		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getDataEscaped();
 		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset");
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data");
+	}
+
+	/**
+	 *
+	 */
+	public function testSetNormalizedLanguage_uselang() {
+		$data = $this->testData;
+		unset( $data['uselang'] );
+		unset( $data['language'] );
+
+		$data['uselang'] = 'no';
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
+		$returned = $ddObj->getDataEscaped();
+		$this->assertEquals( 'no', $returned['language'], "Language 'no' was normalized out of existance. Sad." );
+		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );
+	}
+
+	/**
+	 *
+	 */
+	public function testSetNormalizedLanguage_language() {
+		$data = $this->testData;
+		unset( $data['uselang'] );
+		unset( $data['language'] );
+
+		$data['language'] = 'no';
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), true, $data ); //change to test mode with explicit test data
+		$returned = $ddObj->getDataEscaped();
+		$this->assertEquals( 'no', $returned['language'], "Language 'no' was normalized out of existance. Sad." );
+		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );
 	}
 
 	/**
