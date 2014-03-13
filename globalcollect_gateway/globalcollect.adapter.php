@@ -1812,7 +1812,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'street',
 			'zip',
 			'fiscal_number',
-			'branch_code', //Direct Debit. Need to zero-pad this up to a minimum of 4 now
+			'branch_code', //Direct Debit
+			'account_number', //Direct Debit
+			'bank_code', //Direct Debit
 		);
 	}
 	
@@ -2051,14 +2053,47 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage branch code for Direct Debit.
-	 * GC gets mad when we don't send something with at least length 4, here...
-	 * ...so according to them, we should zero-pad out to 4 digits.
+	 * Stage branch_code for Direct Debit.
+	 * Check the data constraints, and zero-pad out to that number where possible.
+	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
 	 * @param string $type request|response
 	 */
 	protected function stage_branch_code( $type = 'request' ) {
-		if ( $type === 'request' ) {
-			$this->staged_data['branch_code'] = str_pad( $this->staged_data['branch_code'], 4, "0", STR_PAD_LEFT );
+		if ( $type === 'request' && isset( $this->staged_data['branch_code'] ) ) {
+			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['branch_code'], $this->dataConstraints['branch_code']['length'] );
+			if ( $newval ) {
+				$this->staged_data['branch_code'] = $newval;
+			}
+		}
+	}
+
+	/**
+	 * Stage bank_code for Direct Debit.
+	 * Check the data constraints, and zero-pad out to that number where possible.
+	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
+	 * @param string $type request|response
+	 */
+	protected function stage_bank_code( $type = 'request' ) {
+		if ( $type === 'request' && isset( $this->staged_data['bank_code'] ) ) {
+			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['bank_code'], $this->dataConstraints['bank_code']['length'] );
+			if ( $newval ) {
+				$this->staged_data['bank_code'] = $newval;
+			}
+		}
+	}
+
+	/**
+	 * Stage account_number for Direct Debit.
+	 * Check the data constraints, and zero-pad out to that number where possible.
+	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
+	 * @param string $type request|response
+	 */
+	protected function stage_account_number( $type = 'request' ) {
+		if ( $type === 'request' && isset( $this->staged_data['account_number'] ) ) {
+			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['account_number'], $this->dataConstraints['account_number']['length'] );
+			if ( $newval ) {
+				$this->staged_data['account_number'] = $newval;
+			}
 		}
 	}
 
