@@ -1971,6 +1971,7 @@ abstract class GatewayAdapter implements GatewayType {
 				}
 				
 				if ( !empty( $length ) && !empty( $value ) ) {
+					//Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
 					$value = substr( $value, 0, $length );
 				}
 				

@@ -44,7 +44,6 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		'ffname' => 'testytest',
 		'referrer' => 'www.yourmom.com', //please don't go there.
 		'order_id' => '10000',
-		'branch_code' => '', //@TODO: Figure out why getting rid of this is a problem.
 		'currency_code' => 'USD', //@TODO: Same here. I think it's because the data is coming in through... unusual paths.
 		'street' => 'ugh', //@TODO: And again. :/
 		'zip' => '0', //@TODO: And again. :/
@@ -208,7 +207,20 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		if ( isset( $optionsForTestData['issuer_id'] ) ) {
 			$expected .= 				'<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
 		}
-		
+
+
+		// If we're doing Direct Debit...
+		//@TODO: go ahead and split this out into a "Get the direct debit I_OWP XML block function" the second this gets even slightly annoying.
+		if ( $optionsForTestData['payment_method'] === 'dd' ) {
+			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; //is this cheating? Probably.
+			$expected .= '<ACCOUNTNAME>' . $optionsForTestData['account_name'] . '</ACCOUNTNAME>';
+			$expected .= '<ACCOUNTNUMBER>' . $optionsForTestData['account_number'] . '</ACCOUNTNUMBER>';
+			$expected .= '<BANKCODE>' . $optionsForTestData['bank_code'] . '</BANKCODE>';
+			$expected .= '<BRANCHCODE>' . $optionsForTestData['branch_code'] . '</BRANCHCODE>';
+			$expected .= '<BANKCHECKDIGIT>' . $optionsForTestData['bank_check_digit'] . '</BANKCHECKDIGIT>';
+			$expected .= '<DIRECTDEBITTEXT>' . $optionsForTestData['direct_debit_text'] . '</DIRECTDEBITTEXT>';
+		}
+
 		$expected .= 			'</PAYMENT>';
 		$expected .= 		'</PARAMS>';
 		$expected .= 	'</REQUEST>';

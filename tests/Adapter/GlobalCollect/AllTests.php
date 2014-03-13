@@ -14,45 +14,19 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- *
- * @since		r98249
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
-/**
- * @see DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollectTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'BankTransferTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferEnetsTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferEpsTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferIdealTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferNordeaSwedenTestCase.php';
-
-/**
- * @see DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'RealTimeBankTransferSofortuberweisungTestCase.php';
+//@TODO: This, in all the other AllTests files, or better yet: Somewhere central.
+//Deeply tired of this. This crap should clearly be automatic for all the test
+//files, when they exist... or we'll think we're running tests that are, in
+//reality, being ignored. So angry.
+if ( $handle = opendir( dirname( __FILE__ ) ) ) {
+	while ( ( $file = readdir( $handle ) ) !== false ) {
+		if ( strpos( $file, 'TestCase.php' ) ) {
+			require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $file;
+		}
+	}
+}
 
 /**
  * AllTests
@@ -86,23 +60,16 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase' );                                                             
 
 		// Bank transfer tests
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_BankTransferTestCase' );                                                             
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_BankTransferTestCase' );
+
+		//Direct Debit tests
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_DirectDebitTestCase' );
 
 		// Real time bank transfer tests
-		
-		// eNets
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase' );
-		
-		// eps Online-Überweisung
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase' );
-		
-		// Ideal
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase' );
-		
-		// Nordea (Sweden)
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase' );
-		
-		// eNETS
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );                                                             
 
 		return $suite;

@@ -21,6 +21,7 @@
  */
 require_once 'Adapter/AllTests.php';
 require_once 'DonationDataTestCase.php';
+require_once 'DataValidatorTestCase.php';
 
 /**
  * AllTests
