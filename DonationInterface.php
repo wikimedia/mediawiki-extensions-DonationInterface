@@ -478,15 +478,18 @@ if ( $optionalParts['Adyen'] === true ){
 if ( $optionalParts['WorldPay'] === true ) {
 	$wgDonationInterfaceEnabledGateways[] = 'worldpay';
 
-	$wgAdyenGatewayHtmlFormDir = $donationinterface_dir . 'worldpay_gateway/forms/html';
+	$wgWorldPayGatewayHtmlFormDir = $donationinterface_dir . 'worldpay_gateway/forms/html';
 
-	$wgWorldPayGatewayURL = 'https://live.adyen.com';
+	$wgWorldPayGatewayURL = 'https://some.url.here';
 
-#	$wgWorldPayGatewayAccountInfo['example'] = array(
-#		'AccountName' => ''; // account identifier, not login name
-#		'SharedSecret' => ''; // entered in the skin editor
-#		'SkinCode' => '';
-#	);
+	/*
+	$wgWorldPayGatewayAccountInfo['default'] = array(
+		'Test' => 1,
+		'MerchantId' => 00000,
+		'Username' => 'suchuser',
+		'Password' => 'suchsecret',
+	);
+	*/
 }
 
 //Stomp globals

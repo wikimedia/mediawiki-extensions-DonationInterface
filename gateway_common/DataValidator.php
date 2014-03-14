@@ -51,6 +51,7 @@ class DataValidator {
 		'paypal' => 'PaypalAdapter',
 		'adyen' => 'AdyenAdapter',
 		'amazon' => 'AmazonAdapter',
+		'worldpay' => 'WorldPayAdapter'
 	);
 	
 	/**

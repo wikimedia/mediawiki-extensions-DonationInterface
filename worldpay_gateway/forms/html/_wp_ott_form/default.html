@@ -1,0 +1,33 @@
+<input type="hidden" value="@wp_one_time_token" name="OTT" id="wp_one_time_token"/>
+
+<tr>
+	<td>
+		<h3>%donate_interface-card-legend%</h3>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="text" id="accountNumber" size="20" pattern="\d*"
+			   autocomplete="off"
+			   placeholder="%donate_interface-donor-card-num%"/>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="text" id="cvc" size="4" pattern="\d*"
+			   autocomplete="off"
+			   placeholder="%donate_interface-card-security-code%"/>
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="text" id="expiry" size="9" pattern="\d*" autocomplete="off"
+			   placeholder="%donate_interface-card-expiration%"/>
+	</td>
+</tr>
+
+<tr>
+	<td style="margin-top: 10px;">
+		<input class="btn" id="paymentSubmitBtn" type="button" value="%donate_interface-continue%" />
+	</td>
+</tr>

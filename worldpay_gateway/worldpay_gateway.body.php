@@ -27,7 +27,7 @@ class WorldPayGateway extends GatewayForm {
 	 */
 	public function __construct() {
 		$this->adapter = new WorldPayAdapter();
-		parent::__construct(); //the next layer up will know who we are.
+		parent::__construct();
 	}
 
 	/**
@@ -39,8 +39,29 @@ class WorldPayGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		$this->getOutput()->addModules( 'jquery.payment' );
+		$this->getOutput()->addModules( 'ext.donationinterface.worldpay' );
 		$this->setHeaders();
 
+		// dispatch forms/handling
+		if ( $this->adapter->checkTokens() ) {
+			if ( $this->adapter->posted ) {
+				// Check form for errors
+				$form_errors = $this->validateForm();
+
+				if ( $form_errors ) {
+					$this->displayForm();
+				} else {
+				// The submitted form data is valid, so process it
+
+				}
+			} else {
+				$this->adapter->do_transaction( 'GenerateToken' );
+				$this->displayForm();
+			}
+		} else { //token mismatch
+			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
+		}
 	}
 }

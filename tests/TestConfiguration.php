@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /*
@@ -123,7 +121,8 @@ $wgAdyenGatewayAccountInfo['test'] = array (
 
 /** WorldPay **/
 $wgWorldPayGatewayAccountInfo['test'] = array (
-	'AccountName' => 'testname',
-	'AccountPassword' => 'testpass',
-	'AccountNumber' => '123456',
+	'Username' => 'testname',
+	'Password' => 'testpass',
+	'MerchantId' => '123456',
+	'Test' => true,
 );
