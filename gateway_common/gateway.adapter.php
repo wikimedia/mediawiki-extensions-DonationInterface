@@ -805,9 +805,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return string The raw transaction in xml format, ready to be 
 	 * curl'd off to the remote server. 
 	 */
-	protected function buildRequestXML() {
+	protected function buildRequestXML( $rootElement = 'XML' ) {
 		$this->xmlDoc = new DomDocument( '1.0' );
-		$node = $this->xmlDoc->createElement( 'XML' );
+		$node = $this->xmlDoc->createElement( $rootElement );
 
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();

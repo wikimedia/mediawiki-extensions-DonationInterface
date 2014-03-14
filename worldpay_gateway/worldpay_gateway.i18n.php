@@ -10,7 +10,9 @@ $messages = array();
 
 /** English */
 $messages['en'] = array(
+	'worldpaygateway' => 'Make your donation now',
 );
 
 $messages['qqq'] = array(
+	'worldpaygateway' => '{{Identical|Make your donation now}}',
 );

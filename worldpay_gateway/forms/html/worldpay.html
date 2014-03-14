@@ -40,7 +40,7 @@
 				</noscript>
 				<p id="topError" class="creditcard-error-msg"></p>
 
-				<form name="payment" method="post" action="@action" novalidate>
+				<form name="payment" method="post" action="@wp_process_url" novalidate>
 					<div id="payflowpro_gateway-personal-info">
 						<table id="payflow-table-donor">
 							<tbody>
@@ -53,52 +53,7 @@
 								</td>
 							</tr>
 							{% block personal-information country %}
-							<tr>
-								<td>
-									<h3>%donate_interface-card-legend%</h3>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="text" id="adyen-encrypted-form-holder-name" size="20"
-										   autocomplete="off" data-encrypted-name="holderName"
-										   placeholder="%donate_interface-donor-name%"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="text" id="adyen-encrypted-form-number" size="20" pattern="\d*"
-										   autocomplete="off" data-encrypted-name="number"
-										   placeholder="%donate_interface-donor-card-num%"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="text" id="adyen-encrypted-form-cvc" size="4" pattern="\d*"
-										   autocomplete="off" data-encrypted-name="cvc"
-										   placeholder="%donate_interface-card-security-code%"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="text" id="expiry" size="9" pattern="\d*" autocomplete="off"
-										   data-encrypted-name="expiryMonth"
-										   placeholder="%donate_interface-card-expiration%"/>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<dl class="">
-										<dd class="field" style="margin-bottom: 0; margin-left: 0;">
-											<div id="paymentSubmit" style="margin-top: 10px;"><input class="btn"
-																									 id="paymentSubmitBtn"
-																									 type="button"
-																									 value="%donate_interface-continue%"/>
-											</div>
-										</dd>
-									</dl>
-								</td>
-							</tr>
+							{% block wp_ott_form country %}
 							<tr>
 								<td>
 									<div id="payment" class="gainlayout" style="height: 0;text-align: center;"></div>
@@ -118,23 +73,12 @@
 						</table>
 					</div>
 
-					<input type="hidden" id="adyen-encrypted-form-expiry-generationtime" value="@timestamp"
-						   data-encrypted-name="generationtime"/>
-
-					<input type="hidden" name="returnto" value="Thank_You/en"/>
-					<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
-					<input type="hidden" value="@amount" name="amount">
 					<!-- This should be included in the personal_information templates -->
-					<!--<input type="hidden" value="@country" name="country" id="country" />-->
-					<input type="hidden" value="@expiration" name="expiration" id="expiration"/>
-					<input type="hidden" value="@currency_code" name="currency_code"/>
 					<input type="hidden" value="@utm_source" name="utm_source"/>
 					<input type="hidden" value="@utm_medium" name="utm_medium"/>
 					<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
 					<input type="hidden" value="@language" name="language"/>
 					<input type="hidden" value="@referrer" name="referrer"/>
-					<input type="hidden" value="@comment" name="comment"/>
-					<input type="hidden" value="@comment-option" name="comment-option"/>
 					<input type="hidden" value="1" name="email-opt"/>
 					<input type="hidden" value="@token" name="token"/>
 					<input type="hidden" value="@order_id" name="order_id"/>

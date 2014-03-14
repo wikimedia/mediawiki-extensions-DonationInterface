@@ -76,6 +76,10 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @verisign_logo -> placeholder to load the secure verisign logo
 		// @select_country -> generates a select containing all country names
 		'@ffname_retry', //form name for retries (used by error pages)
+
+		// WorldPay Variables
+		'@wp_one_time_token',
+		'@wp_process_url',
 	);
 
 	/**
@@ -248,7 +252,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	public function add_messages( $html ) {
 		global $wgRequest, $wgOut, $wgDonationInterfaceMessageLinks;
-		if( $wgRequest->getText( 'debug', 'false' ) == 'true' ){
+		if( $wgRequest->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}
@@ -303,7 +307,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
      */
 	public function replace_blocks( $html ){
 		global $wgRequest;
-		if( $wgRequest->getText( 'debug', 'false' ) == 'true' ){
+		if( $wgRequest->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}
