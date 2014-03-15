@@ -5102,10 +5102,12 @@ $messages['ce'] = array(
 	'donate_interface-language' => 'Мотт:',
 	'donate_interface-back' => 'ТӀехьара агӀо',
 	'donate_interface-select' => 'Барам:',
+	'donate_interface-change' => 'Хийцам бе',
 	'donate_interface-translate-bluelink' => 'Нисде хӀара гоч',
 	'donate_interface-faqs' => 'Дукха луш долу хаттарш',
 	'donate_interface-tax-info' => 'ГӀодечаран тӀера налог дӀаяккхарах лаьцна хаам',
 	'donate_interface-informationsharing' => 'ГӀо дин аша шай хаам «Викимедиан фондан» ло — иза ю коммерци йоцу организаци оцо Википедин кхин Викимедиан проекташан  АЦШхь а кхин пачхьалкхашкахь йолу сервесашан а болх бан гӀо до тхан къайлаха политикан сацамца. Оха хьох лаьцна хаам ца боьхка. Хьажа мадарра <a href="//wikimediafoundation.org/wiki/Donor_policy/ru">',
+	'donate_interface-currency-change' => 'Хийцам бой?',
 	'donate_interface-taxded-link-us' => 'ГӀодечаран тӀера налог дӀаяккхарах лаьцна хаам',
 	'donate_interface-monthlybox-title' => 'Де хӀара хӀора баттахь?',
 	'donate_interface-monthlybox-amount' => 'Баттахь деш долу гӀо',
@@ -9876,7 +9878,7 @@ Lahjoituslomakkeemme sujuva ja turvallinen toiminta vaatii JavaScriptin.',
 	'donate_interface-translate-redlink2' => 'Tai lähetä käännöksesi sähköpostilla osoitteeseen translations@wikimedia.org',
 	'donate_interface-email-fallbackname' => 'Wikimedia-säätiön ystävä',
 	'donate_interface-email-subject' => 'Kiitokset Wikimedia-säätiöltä',
-	'donate_interface-email-unsub-title' => 'Lopeta Wikimedia-säätiön tilaus',
+	'donate_interface-email-unsub-title' => 'Lopeta Wikimedia-säätiön sähköpostien tilaus',
 	'donate_interface-email-unsub-button' => 'Peruuta tilaus',
 	'donate_interface-email-unsub-success' => 'Sinut on onnistuneesti poistettu postituslistaltamme',
 	'donate_interface-email-unsub-delay' => 'Anna ainakin neljä (4) päivää aikaa muutosten voimaantulolle. Pahoittelemme, jos saat sähköpostia tänä aikana. Jos sinulla on kysymyksiä, voit käyttää seuraavaa sähköpostiosoitetta <donations@wikimedia.org>',
@@ -17453,7 +17455,7 @@ Fir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire
 	'donate_interface-will-support-with-gift' => 'Ech maachen en Don vun:',
 	'donate_interface-will-make-tax-deductible-gift' => 'Ech maachen en don den ech vun de Steieren ofsetze ka vun:',
 	'donate_interface-next' => 'Nächst',
-	'donate_interface-continue' => 'Weiderfueren',
+	'donate_interface-continue' => 'Virufueren',
 	'donate_interface-cancel' => 'Ofbriechen',
 	'donate_interface-payment' => 'Bezuelen',
 	'donate_interface-payment-type' => 'Bezuelmanéier',
@@ -21915,6 +21917,7 @@ Om ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.',
 /** Norwegian Nynorsk (norsk nynorsk)
  * @author Gunnernett
  * @author Harald Khan
+ * @author Jrobell
  * @author Jsoby
  * @author Nghtwlkr
  * @author Njardarlogar
@@ -22008,6 +22011,7 @@ Ingen prosessorar er tilgjengelege.',
 	'donate_interface-donate-click' => 'Etter å ha klikka  "{{int:payflowpro_gateway-donor-submit}}", vil kredittinformasjonen din verta gjennomgått.', # Fuzzy
 	'donate_interface-otherways-short' => 'Andre måtar å gje på',
 	'donate_interface-credit-storage-processing' => 'Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href="//wikimediafoundation.org/wiki/Donor_policy">retningsliner for personvern</a>.', # Fuzzy
+	'donate_interface-cc-form-header-personal' => 'Betalingsinformasjon',
 	'donate_interface-make-your-donation' => 'Gje ei gåve no',
 	'donate_interface-comment' => 'Kommentar',
 	'donate_interface-first' => 'Fyrste',
