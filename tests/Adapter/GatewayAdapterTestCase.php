@@ -14,7 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @author Katie Horn <khorn@wikimedia.org>
  */
 
 /**
@@ -68,6 +67,10 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
+
+		$this->resetAllEnv();
+		$gateway = $this->getFreshGatewayObject( $options = array ( ) );
+		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway, "Having trouble constructing a blank adapter." );
 	}
 
 	/**

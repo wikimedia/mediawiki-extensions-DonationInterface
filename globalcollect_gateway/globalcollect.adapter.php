@@ -1902,6 +1902,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param string	$type	request|response
 	 */
 	protected function stage_amount( $type = 'request' ) {
+		if ( !isset( $this->staged_data['amount'] ) || !isset( $this->staged_data['currency_code'] ) ) {
+			//can't do anything with amounts at all. Just go home.
+			return;
+		}
 		switch ( $type ) {
 			case 'request':
 				
@@ -1975,7 +1979,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$enable3ds = false;
 			$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
 			$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
-			if ( in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes ) ) {
+			if ( isset( $this->staged_data['payment_product'] ) && in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes ) ) {
 				$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
 				if ( array_key_exists( $currency, $ThreeDSecureRules ) ) {
 					if ( !is_array( $ThreeDSecureRules[$currency] ) ) {
@@ -1996,7 +2000,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		} else {
 			//everything that isn't cc.
-			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
+			if ( (!empty( $payment_submethod ) ) && array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
 				$this->staged_data['payment_product'] = $this->payment_submethods[$payment_submethod]['paymentproductid'];
 			} else {
 				$this->log( "Could not find a payment product for '$payment_submethod' in payment_submethods array", LOG_ERR );
@@ -2012,7 +2016,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * if the address line contains no numerical data. 
 	 * @param string $type request|response
 	 */
-	protected function stage_street( $type = 'request') {
+	protected function stage_street( $type = 'request' ) {
+		if ( !isset( $this->staged_data['street'] ) ) {
+			//nothing to do.
+			return;
+		}
 		if ( $type === 'request' ){
 			$is_garbage = false;
 			$street = trim( $this->staged_data['street'] );
@@ -2031,7 +2039,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * at all. 
 	 * @param string $type request|response
 	 */
-	protected function stage_zip( $type = 'request') {
+	protected function stage_zip( $type = 'request' ) {
+		if ( !isset( $this->staged_data['zip'] ) ) {
+			//nothing to do.
+			return;
+		}
 		if ( $type === 'request' && strlen( trim( $this->staged_data['zip'] ) ) === 0  ){
 			//it would be nice to check for more here, but the world has some 
 			//straaaange postal codes...

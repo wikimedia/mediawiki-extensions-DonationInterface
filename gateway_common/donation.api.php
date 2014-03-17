@@ -17,8 +17,12 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
+		$gateway_opts = array (
+			'api_request' => 'true'
+		);
+
 		if ( $this->gateway == 'payflowpro' ) {
-			$gatewayObj = new PayflowProAdapter();
+			$gatewayObj = new PayflowProAdapter( $gateway_opts );
 			switch ( $method ) {
 				// TODO: add other payment methods
 				default:
@@ -26,9 +30,9 @@ class DonationApi extends ApiBase {
 			}
 		} elseif ( $this->gateway == 'globalcollect' ) {
 			if ( $wgDonationInterfaceTestMode === true ) {
-				$gatewayObj = new TestingGlobalCollectAdapter();
+				$gatewayObj = new TestingGlobalCollectAdapter( $gateway_opts );
 			} else {
-				$gatewayObj = new GlobalCollectAdapter();
+				$gatewayObj = new GlobalCollectAdapter( $gateway_opts );
 			}
 			switch ( $method ) {
 				// TODO: add other payment methods
@@ -39,7 +43,7 @@ class DonationApi extends ApiBase {
 					$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
 			}
 		} elseif ( $this->gateway == 'adyen' ) {
-			$gatewayObj = new AdyenAdapter();
+			$gatewayObj = new AdyenAdapter( $gateway_opts );
 			$result = $gatewayObj->do_transaction( 'donate' );
 		} else {
 			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );

@@ -270,6 +270,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public $posted = false;
 	protected $batch = false;
+	protected $api_request = false;
 
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -299,13 +300,10 @@ abstract class GatewayAdapter implements GatewayType {
 	public function __construct( $options = array() ) {
 		global $wgRequest;
 
-		//TODO: EXTRACT MUST DIE.
-		// Extract the options
-		extract( $options );
+		$testData = isset( $options['testData'] ) ? $options['testData'] : false;
+		$external_data = isset( $options['external_data'] ) ? $options['external_data'] : false; //not test data: Regular type.
+		$api_request = isset( $options['api_request'] ) ? $options['api_request'] : false; //Are we handling an API request?
 
-		$testData = isset( $testData ) ? $testData : false;
-		$external_data = isset( $external_data ) ? $external_data : false; //not test data: Regular type. 
-		
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
 			// Only submit test data if we are in test mode.
@@ -314,6 +312,11 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $testData ){
 				$external_data = $testData;
 			}
+		}
+
+		//so we know we can skip all the visual stuff. 
+		if ( $api_request ) {
+			$this->setApiRequest();
 		}
 
 		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
@@ -2465,7 +2468,28 @@ abstract class GatewayAdapter implements GatewayType {
 			return $this->batch;
 		}
 	}
-	
+
+	/**
+	 * Tell the gateway that it is going to be used for an API request, so
+	 * it can bypass setting up all the visual components.
+	 * @param boolean $set True if this is an API request, false if not.
+	 */
+	public function setApiRequest( $set = true ) {
+		$this->api_request = $set;
+	}
+
+	/**
+	 * Find out if we're an API request or not.
+	 * @return boolean true if we are, otherwise false.
+	 */
+	public function isApiRequest() {
+		if ( !property_exists( $this, 'api_request' ) ) {
+			return false;
+		} else {
+			return $this->api_request;
+		}
+	}
+
 	public function getOriginalValidationErrors( ){
 		return $this->dataObj->getValidationErrors();
 	}
@@ -3097,31 +3121,42 @@ abstract class GatewayAdapter implements GatewayType {
 	 * around with this in RapidHTML when we try to load it and fail.
 	 */
 	public function setValidForm() {
-		//check to see if the current ffname exists, and is loadable.
-		$data = $this->getData_Unstaged_Escaped();
-
-		$ffname = $data['ffname'];
-
-		//easy stuff first:
-		if ( $this->isValidSpecialForm( $ffname ) ) {
+		//do we even need the visual stuff? 
+		if ( $this->isApiRequest() || $this->isBatchProcessor() ) {
 			return;
 		}
 
-//		'country' might = 'XX'
-		$country = $data['country'];
-		if ( $country === 'XX' ) {
-			$country = null;
+		//check to see if the current ffname exists, and is loadable.
+		$data = $this->getData_Unstaged_Escaped();
+
+		$ffname = null;
+		if ( isset( $data['ffname'] ) ) {
+			$ffname = $data['ffname'];
+
+			//easy stuff first:
+			if ( $this->isValidSpecialForm( $ffname ) ) {
+				return;
+			}
 		}
 
-		$currency = $data['currency_code'];
-		$payment_method = $data['payment_method'];
-		$payment_submethod = $data['payment_submethod'];
-		$recurring = $data['recurring'];
-		$gateway = $data['gateway'];
+//		'country' might = 'XX' - CN does this when it's deeply confused.
+		if ( !isset( $data['country'] ) || $data['country'] === 'XX' ) {
+			$country = null;
+		} else {
+			$country = $data['country'];
+		}
+
+		//harumph. Remind me again why I hate @ suppression so much?
+		$currency = isset( $data['currency_code'] ) ? $data['currency_code'] : null;
+		$payment_method = isset( $data['payment_method'] ) ? $data['payment_method'] : null;
+		$payment_submethod = isset( $data['payment_method'] ) ? $data['payment_method'] : null;
+		$recurring = isset( $data['recurring'] ) ? $data['recurring'] : null;
+		$gateway = isset( $data['gateway'] ) ? $data['gateway'] : null;
 
 		//for the error messages
-		$utm = $data['utm_source'];
-		$ref = $data['referrer']; //make it actually possible to debug this hot mess
+		$utm = isset( $data['utm_source'] ) ? $data['utm_source'] : null;
+		$ref = isset( $data['referrer'] ) ? $data['referrer'] : null;
+		//make it actually possible to debug this hot mess
 
 		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			return;
