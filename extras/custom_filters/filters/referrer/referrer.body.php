@@ -34,6 +34,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 				$this->cfo->addRiskScore( $risk_score_modifier, 'referrer' );
 
 				// log it
+				//TODO: This sucks.
 				$log_msg = "\"" . addslashes( $referrer ) . "\"";
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->getRiskScore() . "\"";

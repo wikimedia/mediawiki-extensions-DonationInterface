@@ -132,21 +132,13 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		// Analyze the filter results
 		if ( $score >= $threshold ) {
 			// Ahh!!! Failure!!! Sloooooooow doooowwwwnnnn
-			$this->gateway_adapter->log(
-				$this->gateway_adapter->getLogMessagePrefix() .
-					"SessionVelocity: Rejecting request due to of " . $score,
-				LOG_ALERT
-			);
+			$this->gateway_adapter->log( "SessionVelocity: Rejecting request due to of " . $score, LOG_ALERT );
 			$retval = false;
 		} else {
 			$retval = true;
 		}
 
-		$this->gateway_adapter->log(
-			$this->gateway_adapter->getLogMessagePrefix() .
-				"SessionVelocity: ($gateway, $transaction) Score: $score, AllowAction: $retval, DecayRate: $decayRate, Threshold: $threshold",
-			LOG_DEBUG
-		);
+		$this->gateway_adapter->log( "SessionVelocity: ($gateway, $transaction) Score: $score, AllowAction: $retval, DecayRate: $decayRate, Threshold: $threshold", LOG_DEBUG );
 
 		return $retval;
 	}

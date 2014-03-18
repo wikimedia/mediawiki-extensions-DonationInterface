@@ -437,11 +437,11 @@ class DonationData {
 				//we're still going to try to regen.
 				$near_countries = array ( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
 				if ( !in_array( $country, $near_countries ) ) {
-					$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ": $country is not a country, or a recognized placeholder.", LOG_WARNING );
+					$this->log( __FUNCTION__ . ": $country is not a country, or a recognized placeholder.", LOG_WARNING );
 				}
 			}
 		} else {
-			$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ': Country not set.', LOG_WARNING );
+			$this->log( __FUNCTION__ . ': Country not set.', LOG_WARNING );
 		}
 
 		//try to regenerate the country if we still don't have a valid one yet
@@ -456,11 +456,11 @@ class DonationData {
 					//The goggles; They do *nothing*.
 					$country = @geoip_country_code_by_name( $ip );
 					if ( !$country ) {
-						$this->log( $this->getLogMessagePrefix() . __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available.", LOG_WARNING );
+						$this->log( __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available.", LOG_WARNING );
 					}
 				}
 			} else {
-				$this->log( $this->getLogMessagePrefix() . 'GeoIP lookup function is missing! No country available.', LOG_WARNING );
+				$this->log( 'GeoIP lookup function is missing! No country available.', LOG_WARNING );
 			}
 
 			//still nothing good? Give up.
@@ -484,22 +484,22 @@ class DonationData {
 		//at this point, we can have either currency, or currency_code.
 		//-->>currency_code has the authority!<<-- 
 		$currency = false;
-		
+
 		if ( $this->isSomething( 'currency' ) ) {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency', now: $currency", LOG_DEBUG );
+			$this->log( "Got currency from 'currency', now: $currency", LOG_DEBUG );
 		}
 		if ( $this->isSomething( 'currency_code' ) ) {
 			$currency = $this->getVal( 'currency_code' );
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'currency_code', now: $currency", LOG_DEBUG );
+			$this->log( "Got currency from 'currency_code', now: $currency", LOG_DEBUG );
 		}
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
 			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
 			$currency = getNationalCurrency($this->getVal('country'));
-			$this->log( $this->getLogMessagePrefix() . "Got currency from 'country', now: $currency", LOG_DEBUG );
+			$this->log( "Got currency from 'country', now: $currency", LOG_DEBUG );
 		}
 		
 		$this->setVal( 'currency_code', $currency );
@@ -518,7 +518,7 @@ class DonationData {
 			if ( !$this->isCaching() ) {
 				$this->saveContributionTracking();
 			} else {
-				$this->log( $this->getLogMessagePrefix() . "Declining to create a contribution_tracking record, because we are in cache mode." );
+				$this->log( "Declining to create a contribution_tracking record, because we are in cache mode." );
 			}
 		}
 	}
@@ -585,7 +585,7 @@ class DonationData {
 
 		if ( !is_numeric( $this->getVal( 'amount' ) ) ){
 			//fail validation later, log some things.
-			$mess = $this->getLogMessagePrefix() . 'Non-numeric Amount.';
+			$mess = 'Non-numeric Amount.';
 			$keys = array(
 				'amount',
 				'utm_source',
@@ -664,7 +664,7 @@ class DonationData {
 			if ( $submethod != '' ) {
 				//squak a little if they don't match, and pick one.
 				if ( $submethod != $this->getVal( 'payment_submethod' ) ) {
-					$message = $this->getLogMessagePrefix() . "Submethod normalization conflict!: ";
+					$message = "Submethod normalization conflict!: ";
 					$message .= 'payment_submethod = ' . $this->getVal( 'payment_submethod' );
 					$message .= ", and exploded payment_method = '$submethod'. Going with the first option.";
 					$this->log( $message, LOG_DEBUG );
@@ -707,14 +707,16 @@ class DonationData {
 	/**
 	 * log: This grabs the adapter class that instantiated DonationData, and
 	 * uses its log function.
+	 * @TODO: Once the DonationData constructor does less, we can stop using
+	 * the static log function in the gateway. As it is, we're trying to log
+	 * things as we're constructing, when as far as the gateway cares we
+	 * don't exist yet. Very circular.
 	 * @param string $message The message to log.
 	 * @param int|string $log_level
 	 */
-	protected function log( $message, $log_level=LOG_INFO ) {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'log' ) )){
-			$c::log( $message, $log_level );
-		}
+	protected function log( $message, $log_level = LOG_INFO ) {
+		$message = $this->getLogMessagePrefix() . $message;
+		$this->gateway->_log( $message, $log_level );
 	}
 
 	/**
@@ -817,7 +819,7 @@ class DonationData {
 		//TODO: Wow, name.
 		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
 		if ( $this->isCaching() ) {
-			self::log( $this->getLogMessagePrefix() . ' Cache requested', LOG_DEBUG );
+			$this->log( 'Cache requested', LOG_DEBUG );
 			$this->setVal( 'token', 'cache' );
 
 			// if we have squid caching enabled, set the maxage
@@ -825,7 +827,7 @@ class DonationData {
 			$maxAge = $this->getGatewayGlobal( 'SMaxAge' );
 			
 			if ( $wgUseSquid && ( $maxAge !== false ) ) {
-				self::log( $this->getLogMessagePrefix() . ' Setting s-max-age: ' . $maxAge, LOG_DEBUG );
+				$this->log( 'Setting s-max-age: ' . $maxAge, LOG_DEBUG );
 				$wgOut->setSquidMaxage( $maxAge );
 			}
 		}
@@ -833,11 +835,13 @@ class DonationData {
 
 	/**
 	 * getLogMessagePrefix
-	 * Constructs and returns the standard ctid:order_id log line prefix. 
-	 * @return string "ctid:order_id: " 
+	 * Constructs and returns the standard ctid:order_id log line prefix.
+	 * The gateway function of identical name now calls this one, because
+	 * DonationData always has fresher data.
+	 * @return string "ctid:order_id " 
 	 */
-	protected function getLogMessagePrefix() {
-		return $this->getVal( 'contribution_tracking_id' ) . ' ' . $this->getVal( 'order_id' ) . ': ';
+	public function getLogMessagePrefix() {
+		return $this->getVal( 'contribution_tracking_id' ) . ':' . $this->getVal( 'order_id' ) . ' ';
 	}
 
 	/**
@@ -855,7 +859,7 @@ class DonationData {
 			$this->getVal( 'recurring' )
 		);
 
-		$this->log( $this->getLogMessagePrefix() . "Setting utm_source payment method to {$payment_method_family}", LOG_INFO );
+		$this->log( "Setting utm_source payment method to {$payment_method_family}", LOG_INFO );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
@@ -981,7 +985,7 @@ class DonationData {
 		if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
 			return $db->insertId();
 		} else {
-			$this->log( $this->getLogMessagePrefix() . 'Failed to create a new contribution_tracking record', LOG_ERR );
+			$this->log( 'Failed to create a new contribution_tracking record', LOG_ERR );
 			return false;
 		}
 	}

@@ -57,14 +57,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	protected function curl_transaction( $data ) {
 		$retval = false;
-		$logPrefix = $this->getLogMessagePrefix();
 		$email = $this->getData_Unstaged_Escaped( 'email' );
-		$this->log( $logPrefix . "Initiating fake cURL request for donor $email" );
+		$this->log( "Initiating fake cURL request for donor $email" );
 
 		// Run hooks
 		$hookResult = wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) );
 		if ( $hookResult === false ) {
-			self::log( "$logPrefix fake cURL transaction aborted on hook
+			$this->log( "fake cURL transaction aborted on hook
 				DonationInterfaceCurlInit", LOG_INFO );
 			$this->setValidationAction( 'reject' );
 			return false;

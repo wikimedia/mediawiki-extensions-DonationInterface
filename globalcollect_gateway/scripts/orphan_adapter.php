@@ -90,8 +90,18 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 	}
 
-	public static function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
+	/**
+	 * Unfortunate, but we have to overload this here, or change the way we
+	 * build that identifier.
+	 * @param string $msg
+	 * @param type $log_level
+	 * @param type $nothing
+	 * @return type
+	 */
+	public function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
 		$identifier = 'orphans:' . self::getIdentifier() . "_gateway_trxn";
+
+		$msg = $this->getLogMessagePrefix() . $msg;
 
 		// if we're not using the syslog facility, use wfDebugLog
 		if ( !self::getGlobal( 'UseSyslog' ) ) {
@@ -195,7 +205,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		try {
 			wfRunHooks( $hook, array( $transaction ) );
 		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage(), LOG_CRIT );
+			$this->log( "STOMP ERROR. Could not add message. " . $e->getMessage(), LOG_CRIT );
 		}
 	}
 

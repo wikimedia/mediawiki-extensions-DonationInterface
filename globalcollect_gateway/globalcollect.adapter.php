@@ -1146,10 +1146,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$is_orphan = false;
 		if ( count( $addme ) ){ //nothing unusual here. 
 			$this->addData( $addme );
-			$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
-			$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-			self::log( $logmsg );
+			$this->log( $logmsg );
 		} else { //this is an orphan transaction. 
 			$is_orphan = true;
 			//have to change this code range: All these are usually "pending" and 
@@ -1185,10 +1184,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				if ( count( $addme ) ){
 					$gotCVV = true;
 					$this->addData( $addme );
-					$logmsg = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ': ';
-					$logmsg .= 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+					$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 					$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-					self::log( $logmsg );
+					$this->log( $logmsg );
 					if ( $loops === 0 ){ //only want to do this once - it's not going to change.
 						$this->runPreProcessHooks();
 					}
@@ -1248,13 +1246,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
 						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount-1 ) ){
-							self::log( $this->getLogMessagePrefix() . "Running DO_FINISHPAYMENT ($loops)" );
-							
+							$this->log( "Running DO_FINISHPAYMENT ($loops)" );
+
 							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
 							$dopayment_data = $dopayment_result['data'];
 							//Check the txn status and result code to see if we should bother continuing
 							if ( $this->getTransactionStatus() ){
-								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
+								$this->log( "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
 								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === 'failed' ){
 									//ack and die. 
 									$problemflag = true; //nothing to be done.
@@ -1263,7 +1261,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 									$this->finalizeInternalStatus('failed');
 								}
 							} else {
-								self::log( $this->getLogMessagePrefix() . "DO_FINISHPAYMENT ($loops) returned NOK", LOG_ERR );
+								$this->log( "DO_FINISHPAYMENT ($loops) returned NOK", LOG_ERR );
 							}
 							break;
 						}
@@ -1334,7 +1332,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//As it happens, we can't remove things from the queue here: It 
 			//takes way too dang long. (~5 seconds!)
 			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 
-			self::log( $this->getLogMessagePrefix() . "Adding Antimessage" );
+			$this->log( 'Adding Antimessage' );
 			$this->doLimboStompTransaction( true );
 		}
 		
@@ -1348,7 +1346,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 			
 			//we have probably had a communication problem that could mean stranded payments. 
-			self::log( $this->getLogMessagePrefix() . $problemmessage, $problemseverity );
+			$this->log( $problemmessage, $problemseverity );
 			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
 			$ret = array(
 				'status' => false,
@@ -1475,8 +1473,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->log( print_r( $this->getOrderIDMeta(), true ) );
 					$this->session_addDonorData();
 				}
-
-				$this->log( __FUNCTION__ . ': order_id = ' . $this->getData_Unstaged_Escaped( 'order_id' ) );
 
 				//if we're of a type that sends donors off never to return, we should record that here.
 				$payment_info = $this->getPaymentMethodMeta( $this->getPaymentMethod() );
@@ -1627,7 +1623,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		
 		if ( $isWarning ) {
-			self::log('Got warnings from bank validation: '.print_r($data['errors'], TRUE), LOG_ERR);
+			$this->log( 'Got warnings from bank validation: ' . print_r( $data['errors'], TRUE ), LOG_ERR );
 			$return = 'complete';
 		}
 		
@@ -1760,7 +1756,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			switch ( $errCode ) {
 				case 300620:
 				// Oh no! We've already used this order # somewhere else! Restart!
-					self::log( $this->getLogMessagePrefix() . "Order ID collission! Starting again.", LOG_ERR );
+					$this->log( 'Order ID collission! Starting again.', LOG_ERR );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
@@ -1990,7 +1986,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 
 			if ( $enable3ds ) {
-				$this->log( $this->getLogMessagePrefix() . "3dSecure enabled for $currency in $country" );
+				$this->log( "3dSecure enabled for $currency in $country" );
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
 			}
 		} else {
