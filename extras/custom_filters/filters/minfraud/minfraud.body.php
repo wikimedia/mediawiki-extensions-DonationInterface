@@ -266,7 +266,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		catch( MWException $ex){
 			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
 			$log_message = 'Minfraud filter came back with some garbage. Assigning all the points.';
-			$this->cfo->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_ERR, '_fraud' );
+			$this->cfo->gateway_adapter->log( '"addRiskScore" ' . $log_message, LOG_ERR, '_fraud' );
 			$this->cfo->addRiskScore( 100, 'minfraud_filter' );
 		}
 
@@ -313,7 +313,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudQuery ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $encoded_response ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' ) ) . '"';
-		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"minFraud query" ' . $log_message , LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( '"minFraud query" ' . $log_message , LOG_INFO, '_fraud' );
 	}
 
 	/**

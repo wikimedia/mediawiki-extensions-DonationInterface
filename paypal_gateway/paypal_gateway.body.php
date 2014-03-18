@@ -56,7 +56,7 @@ class PaypalGateway extends GatewayForm {
 					'general' => $this->msg( 'donate_interface-fallback-currency-notice', 'USD' )->text(),
 				) );
 
-				$this->adapter->log( $this->adapter->getLogMessagePrefix() . "Unsupported currency forced to USD, user notified of action." );
+				$this->adapter->log( "Unsupported currency forced to USD, user notified of action." );
 			}
 		} else {
 			// We also switch on the form name--if we're redirecting without stopping

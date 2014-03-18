@@ -266,7 +266,6 @@ class PaypalAdapter extends GatewayAdapter {
 			'zh_TW',
 		);
 
-		$this->log("locale");
 		if ( in_array( $this->staged_data['country'], $supported_countries ) ) {
 			$this->staged_data['locale'] = $this->staged_data['country'];
 		}

@@ -46,7 +46,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			} else {
 				$count = count( $stored );
 				$this->gateway_adapter->debugarray[] = "Found a memcached bit of data for $user_ip: " . print_r($stored, true);
-				$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter: $user_ip has $count hits" );
+				$this->gateway_adapter->log( "IPVelocityFilter: $user_ip has $count hits" );
 				if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ){
 					$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
 					//cool off, sucker. Muahahaha. 
@@ -73,7 +73,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	function connectToMemcache(){
 		//this needs Memcached to work.
 		if ( !class_exists('Memcached') ){
-			$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter says Memcached class does not exist.", LOG_ALERT );
+			$this->gateway_adapter->log( "IPVelocityFilter says Memcached class does not exist.", LOG_ALERT );
 			return false; //can't proceed... 
 		}
 		
@@ -83,7 +83,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ($ret){
 			return true;
 		} else {
-			$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter unable to connect to memcache host " . $this->gateway_adapter->getGlobal( 'MemcacheHost' ), LOG_ALERT );
+			$this->gateway_adapter->log( "IPVelocityFilter unable to connect to memcache host " . $this->gateway_adapter->getGlobal( 'MemcacheHost' ), LOG_ALERT );
 			return false;
 		}
 	}
@@ -122,7 +122,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 		$ret = $this->cache_obj->set( $user_ip, self::addNowToVelocityData( $oldvalue, $timeout ), $timeout );
 		if (!$ret){
-			$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . " IPVelocityFilter unable to set new memcache data.", LOG_ALERT );
+			$this->gateway_adapter->log( "IPVelocityFilter unable to set new memcache data.", LOG_ALERT );
 		}
 	}
 	

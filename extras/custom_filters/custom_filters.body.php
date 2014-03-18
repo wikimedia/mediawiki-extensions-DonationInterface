@@ -21,15 +21,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 * @var array
 	 */
 	public $action_ranges;
-	
-	/**
-	 * Define a standard log prefix with contribution tracking id, and order id,
-	 * to use as a prefix in all our logging. 
-	 * TODO: Move this out to the gateway adapter once we have time to determine 
-	 * that changing the way we log things isn't going to break our utils. 
-	 * @var string
-	 */
-	public $log_msg_prefix;
 
 	/**
 	 * A container for an instance of self
@@ -41,7 +32,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
-		$this->log_msg_prefix = $this->gateway_adapter->getLogMessagePrefix();
 	}
 
 	/**
@@ -76,7 +66,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		}
 
 		$log_message = "\"$source added a score of $score\"";
-		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
 		$this->risk_score[$source] = $score;
 
 		$this->gateway_adapter->addRiskScore( $score );
@@ -111,10 +101,10 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		$log_message = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
-		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"Filtered" ' . $log_message , LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( '"Filtered" ' . $log_message, LOG_INFO, '_fraud' );
 
 		$log_message = '"' . addslashes( json_encode( $this->risk_score ) ) . '"';
-		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"CustomFiltersScores" ' . $log_message, LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( '"CustomFiltersScores" ' . $log_message, LOG_INFO, '_fraud' );
 
 		$utm = array(
 			'utm_campaign' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_campaign' ),
@@ -122,7 +112,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			'utm_source' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' ),
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
-		$this->gateway_adapter->log( $this->gateway_adapter->getLogMessagePrefix() . '"utm" ' . $log_message, LOG_INFO, '_fraud' );
+		$this->gateway_adapter->log( '"utm" ' . $log_message, LOG_INFO, '_fraud' );
 		return TRUE;
 	}
 
