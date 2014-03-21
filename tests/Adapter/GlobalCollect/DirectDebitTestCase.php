@@ -66,7 +66,7 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTestCase extends Donati
 			'direct_debit_text' => 'testy test test',
 		);
 		$dd_info_expected = array (
-			'branch_code' => '00123', //5
+			'branch_code' => '0123', //4, apparently.
 			'account_name' => 'Henry',
 			'account_number' => '0000000021', //10
 			'bank_code' => '0037', //4

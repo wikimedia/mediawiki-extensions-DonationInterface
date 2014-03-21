@@ -1435,6 +1435,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 				if ( $childnode->nodeName === "MESSAGE" ) {
 					$message = $childnode->nodeValue;
+					//I am hereby done screwing around with GC field constraint violations.
+					//They vary between ***and within*** payment types, and their docs are a joke.
+					if ( in_string( 'DOES NOT HAVE LENGTH', $message ) ) {
+						$this->log( $message, LOG_ERR ); 
+					}
 				}
 			}
 
@@ -2201,6 +2206,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->dataConstraints['account_name']['length'] = 30;
 				$this->dataConstraints['account_number']['length'] = 10;
 				$this->dataConstraints['bank_code']['length'] = 4;
+				$this->dataConstraints['branch_code']['length'] = 4;
 				$this->dataConstraints['direct_debit_text']['length'] = 40;
 				break;
 			case 'dd_fr':
