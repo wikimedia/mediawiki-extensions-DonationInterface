@@ -388,6 +388,7 @@ Palun proovi hiljem uuesti.',
 
 /** Persian (فارسی)
  * @author Armin1392
+ * @author Ebraminio
  * @author Mjbmr
  */
 $messages['fa'] = array(
@@ -401,7 +402,7 @@ $messages['fa'] = array(
 	'globalcollect_gateway-response-400530' => 'روش پرداخت نامعتبر.',
 	'globalcollect_gateway-response-430306' => 'کارت اعتباری شما منقضی شده‌است.لطفاً کارت دیگری یا یکی از روش‌های دیگر پرداخت را امتحان کنید.',
 	'globalcollect_gateway-response-430330' => 'شماره کارت نامعتبر.',
-	'globalcollect_gateway-response-430421' => 'کارت اعتباری شما نتوانست تایید شود.لطفاً همهٔ اطلاعات را منطبق با مشخصات کارت اعتباری خود بررسی کنید، یا کارت دیگری را امتحان کنید.',
+	'globalcollect_gateway-response-430421' => 'کارت اعتباری شما نتوانست تأیید شود. لطفاً همهٔ اطلاعات را منطبق با مشخصات کارت اعتباری خود بررسی کنید، یا کارت دیگری را امتحان کنید.',
 	'globalcollect_gateway-response-430360' => 'تراکنش نتوانست مجاز شود. لطفاً کارت دیگری یا روش‌های دیگر پرداخت ما را امتحان کنید.',
 	'globalcollect_gateway-response-430285' => 'تراکنش نتوانست مجاز شود. لطفاً کارت دیگری یا روش‌های دیگر پرداخت ما را امتحان کنید.',
 	'globalcollect_gateway-response-21000150' => 'شماره حساب بانکی نامعتبر.',
