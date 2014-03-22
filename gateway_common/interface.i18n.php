@@ -11564,6 +11564,7 @@ Fir e sichere, sterigsfreji un chummligi Abwicklig brucht unser Spändeformular 
 );
 
 /** Gujarati (ગુજરાતી)
+ * @author KartikMistry
  * @author Rangilo Gujarati
  */
 $messages['gu'] = array(
@@ -11574,6 +11575,15 @@ $messages['gu'] = array(
 	'donate_interface-currency' => 'ચલણ:',
 	'donate_interface-gateway' => 'ચુકવણી પદ્ધતિ:',
 	'donate_interface-submit-button' => 'દાન',
+	'donate_interface-EUR' => 'યુરો',
+	'donate_interface-donor-name' => 'નામ',
+	'donate_interface-donor-city' => 'શહેર',
+	'donate_interface-donor-county' => 'દેશ',
+	'donate_interface-donor-island' => 'ટાપુ',
+	'donate_interface-donor-state' => 'રાજ્ય',
+	'donate_interface-error-msg-city' => 'શહેર',
+	'donate_interface-error-msg-state' => 'રાજ્ય',
+	'donate_interface-thankyou' => 'તમારા દાન માટે આભાર!',
 );
 
 /** Hebrew (עברית)
