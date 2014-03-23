@@ -22218,6 +22218,9 @@ $messages['oc'] = array(
 	'donate_interface-error-msg-bank_check_digit' => 'clau de contraròtle bancari',
 	'donate_interface-error-msg-bank_code' => 'còde de triada',
 	'donate_interface-error-msg-branch_code' => 'còde de guichet',
+	'donate_interface-error-msg-genaricrequired' => 'Aqueste camp es obligatòri',
+	'donate_interface-error-msg-fiscal_number' => 'numèro fiscal',
+	'donate_interface-donate-error-thank-you-for-your-support' => 'Mercé per vòstre sosten !',
 	'php-response-declined' => 'Vòstra transaccion a pas pogut èsser acceptada.',
 	'donate_interface-thankyou' => 'Mercés plan per vòstre don !',
 	'donate_interface-post-transaction' => 'Detalhs de la transaccion',
@@ -22230,9 +22233,15 @@ Tipicament, la barra per la signatura conten una seria de nombres, mas solas las
 <p>Lo còde es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.
 Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
 	'donate_interface-question-comment' => 'De questions o de comentaris ? Contactatz <a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>',
+	'donate_interface-problemsdonating' => 'Problèmas per far un don ?',
 	'donate_interface-donate-click' => "Vòstra carta bancària o de crèdit/debit serà presa en carga d'un biais securizat.",
+	'donate_interface-otherways' => 'I a <a href="//wikimediafoundation.org/wiki/Donate/WaysToGive/fr">d’autres mejans de donar, amai per PayPal, per chèc o per corrièr postal</a>.',
+	'donate_interface-otherways-short' => 'Autres mejans de donar',
 	'donate_interface-credit-storage-processing' => 'Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href="//wikimediafoundation.org/wiki/Donor_policy">politica de confidencialitat</a>.', # Fuzzy
 	'donate_interface-cc-form-header-personal' => 'Informacions de facturacion',
+	'donate_interface-cc-form-header-payment' => 'Informacion sul pagament',
+	'donate_interface-make-your-donation' => 'Far un don ara',
+	'donate_interface-state-in-us' => 'se sètz als Estats Units',
 	'donate_interface-comment' => 'Comentari',
 	'donate_interface-first' => 'Prenom',
 	'donate_interface-middle' => 'Segond prenom',
@@ -22297,6 +22306,8 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-verification-number' => 'Numèro de verificacion',
 	'donate_interface-what-is-this' => 'Qu’es aquò ?',
 	'donate_interface-please-donate-today' => 'Fasètz un don uèi',
+	'donate_interface-donate-now' => 'Fasètz un don tre ara',
+	'donate_interface-please-select-gift-amount' => 'Seleccionatz un montant de don.',
 	'donate_interface-select-gift-amount' => 'Seleccionatz lo montant del don',
 	'donate_interface-select-amount' => 'Seleccionatz lo montant',
 	'donate_interface-make-a-donation' => 'Far un don',
@@ -22320,14 +22331,37 @@ Dins d'unes cases, lo còde es situat sul costat d'esquèrra de la carta, mas es
 	'donate_interface-select' => 'Seleccionar',
 	'donate_interface-shipping-address' => 'Adreça de liurason',
 	'donate_interface-change' => 'Cambiar',
+	'donate_interface-select-credit-card' => 'Seleccionatz la carta bancària o de crèdit',
 	'donate_interface-optional' => 'facultatiu',
+	'donate_interface-state-dropdown-YY' => 'Seleccionatz un Estat / una província',
+	'donate_interface-state-dropdown-XX' => 'Fòra dels Estats Units',
+	'donate_interface-bt-account_holder' => 'Titular del compte',
+	'donate_interface-bt-bank_account_number' => 'Numèro de compte bancari',
+	'donate_interface-bt-country_description' => 'Descripcion del país',
+	'donate_interface-bt-payment_reference' => 'Referéncia del pagament',
+	'donate_interface-bt-swift_code' => 'Còde Swift',
+	'donate_interface-bt-special_id' => 'Informacion especifica al país',
+	'donate_interface-bt-information' => 'Informacions de transferiment bancari',
+	'donate_interface-bt-finished' => 'Acabat',
+	'donate_interface-obt-generic-name' => 'Virament bancari en linha',
+	'donate_interface-obt-biller_id' => 'Còde del facturièr',
+	'donate_interface-obt-customer_payment_reference' => 'Referéncia nº',
+	'donate_interface-obt-information' => 'Informacions de transferiment bancari en linha',
+	'donate_interface-online_bank_transfer_message' => "Servicis bancaris per telefòn e Internet – ''BPAY®''",
+	'donate_interface-rtbt-issuer_id' => 'Seleccionatz una banca',
+	'donate_interface-rtbt-issuer_id-longlist' => 'Autras bancas',
+	'donate_interface-dd-account_name' => 'Nom del compte',
+	'donate_interface-dd-account_number' => 'Numèro de compte',
+	'donate_interface-dd-authorization_id' => 'Nº d’autorizacion',
 	'donate_interface-dd-bank_check_digit' => 'Clau de contraròtle bancari',
 	'donate_interface-dd-bank_code' => 'Còde de triada',
 	'donate_interface-dd-bank_name' => 'Nom de la banca',
 	'donate_interface-dd-branch_code' => 'Còde de l’agéncia',
+	'donate_interface-dd-direct_debit_text' => 'Libellat del prelevament bancari',
 	'donate_interface-dd-iban' => 'IBAN',
 	'donate_interface-translate-bluelink' => 'Melhorar aquesta traduccion',
 	'donate_interface-translate-redlink1' => 'Ajudatz a tradusir aquesta pagina.',
+	'donate_interface-email-unsub-button' => 'Se desabonar',
 );
 
 /** Oriya (ଓଡ଼ିଆ)
@@ -33992,7 +34026,7 @@ $messages['zh-hans'] = array(
 	'donate_interface-cc-MX-instructions' => '为了安全，一些墨西哥银行阻止在线交易。如果您的捐款不成功，我们建议您致电您的银行，授权网上捐款并再试一次。',
 	'donate_interface-bt-account_holder' => '开户人',
 	'donate_interface-bt-bank_account_number' => '银行账户号码',
-	'donate_interface-bt-country_description' => '国家描述',
+	'donate_interface-bt-country_description' => '国家说明',
 	'donate_interface-bt-payment_reference' => '付款附言',
 	'donate_interface-bt-swift_code' => 'Swift码',
 	'donate_interface-bt-special_id' => '特定于国家的信息',
@@ -34067,6 +34101,7 @@ $messages['zh-hans'] = array(
  * @author Shirayuki
  * @author Simon Shek
  * @author Waihorace
+ * @author Xiaomingyan
  * @author Yfdyh000
  */
 $messages['zh-hant'] = array(
@@ -34370,7 +34405,7 @@ $messages['zh-hant'] = array(
 	'donate_interface-payment-type' => '付款類型',
 	'donate_interface-month' => '$1 ($2)',
 	'donate_interface-please-complete' => '請在下面填寫您捐贈...',
-	'donate_interface-description' => '描述',
+	'donate_interface-description' => '說明',
 	'donate_interface-donation' => '捐款',
 	'donate_interface-email-receipt' => '電郵收據至',
 	'donate_interface-monthly-donation' => '每月捐款',

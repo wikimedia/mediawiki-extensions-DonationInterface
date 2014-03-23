@@ -296,6 +296,14 @@ $messages['nl'] = array(
 	'amazon_gateway-desc' => 'Betalingsverwerking via Amazon',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'amazongateway' => 'Far un don ara',
+	'amazon_gateway-desc' => 'Tractament dels pagaments Amazon',
+);
+
 /** Polish (polski)
  * @author Matma Rex
  */
