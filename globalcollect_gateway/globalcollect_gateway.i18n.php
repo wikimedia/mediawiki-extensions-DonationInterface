@@ -140,6 +140,7 @@ $messages['br'] = array(
 	'globalcollect_gateway-response-400530' => 'Doare paeañ direizh.',
 	'globalcollect_gateway-response-430306' => 'Diamzeret eo ho kartenn-vank. Klaskit ober gant ur gartenn all pe gant unan eus hon doareoù all da baeañ.',
 	'globalcollect_gateway-response-430330' => 'Niverenn gartenn direizh.',
+	'globalcollect_gateway-response-430421' => "N'eus ket bet gallet gwiriekaat ho kartenn-vank. Gwiriit an titouroù war ho kartenn, mar plij, pe esaeit gant ur gartenn all.",
 	'globalcollect_gateway-response-21000150' => 'Niverenn gont-vank direizh.',
 	'globalcollect_gateway-response-21000155' => 'Kod-bank direizh.',
 	'globalcollect_gateway-response-21000160' => 'Niverenn gont an dreuzvankadenn direizh.',

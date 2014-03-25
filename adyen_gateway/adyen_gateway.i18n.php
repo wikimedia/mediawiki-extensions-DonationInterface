@@ -49,6 +49,7 @@ $messages['be-tarask'] = array(
  */
 $messages['br'] = array(
 	'adyengateway' => 'Grit ho tonezon bremañ',
+	'adyen_gateway-desc' => 'O treiñ ar paeamant Adyen',
 );
 
 /** Chechen (нохчийн)
