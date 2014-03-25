@@ -7052,7 +7052,7 @@ $messages['diq'] = array(
 	'donate_interface-payment-type' => 'Babeta dayışin',
 	'donate_interface-month' => '$1 ($2)',
 	'donate_interface-description' => 'Şınasnayış',
-	'donate_interface-donation' => 'Bêcdayin',
+	'donate_interface-donation' => 'Yarmetiya perey',
 	'donate_interface-via-paypal' => "(PayPal'î sera)",
 	'donate_interface-shirt-size' => 'Ebata T-shirt:',
 	'donate_interface-shirt-size-2' => 'Ebata T-shirt: $1',
@@ -29215,6 +29215,7 @@ Naš obrazac za darivanje zahteva javaskript da bismo vam obezbedili sigurno, be
  * @author Diupwijk
  * @author GameOn
  * @author Jsoby
+ * @author Lokal Profil
  * @author Nghtwlkr
  * @author Per
  * @author Tobulos1
@@ -29416,9 +29417,9 @@ Inga processorer finns tillgängliga.',
 	'donate_interface-error-msg-country-calc' => 'Ett fel har uppstått - vi kan för tillfället inte ta emot din donation.',
 	'donate_interface-error-msg-fiscal_number' => 'skattenummer',
 	'donate_interface-donate-error-try-a-different-card' => 'Vänligen [$1 prova ett annat kort] eller någon av våra [$2 andra sätt att ge] eller kontakta oss på $3',
-	'donate_interface-donate-error-try-again-html' => 'Vänligen <a href="$1">försök igen</a>, pröva en av våra<a href="$2">andra sätt att ge</a>, eller kontakta oss via <a href="mailto:$3">$3</a>',
+	'donate_interface-donate-error-try-again-html' => 'Vänligen <a href="$1">försök igen</a>, pröva en av våra <a href="$2">andra sätt att ge</a>, eller kontakta oss på <a href="mailto:$3">$3</a>',
 	'donate_interface-donate-error-thank-you-for-your-support' => 'Tack för ditt stöd!',
-	'donate_interface-error-no-form' => 'Vi kunde inte hitta en donation som matchar dina parametrar. Kontakta [mailto:donate@wikimedia.org vårt hjälp-team] för mer information.',
+	'donate_interface-error-no-form' => 'Vi kunde inte hitta ett donationsformulär som matchar dina parametrar. Vänligen kontakta [mailto:donate@wikimedia.org vårt hjälp-team] för mer information.',
 	'php-response-declined' => 'Din transaktion har blivit avvisad.',
 	'donate_interface-thankyou' => 'Tack för din donation!',
 	'donate_interface-post-transaction' => 'Transaktionsdetaljer',
