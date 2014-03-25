@@ -97,7 +97,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 		
-		$this->assertEquals($expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.');
+		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.' );
 	}
 
 	/**
@@ -210,7 +210,12 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$expected .= 				'<CITY>' . $options['city'] . '</CITY>';
 		$expected .= 				'<STATE>' . $options['state'] . '</STATE>';
 		$expected .= 				'<ZIP>' . $options['zip'] . '</ZIP>';
-		$expected .= 				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+
+		// Set the issuer id if it is passed.
+		if ( isset( $optionsForTestData['descriptor'] ) ) {
+			$expected .= '<DESCRIPTOR>' . $optionsForTestData['descriptor'] . '</DESCRIPTOR>';
+		}
 
 		// Set the issuer id if it is passed.
 		if ( isset( $optionsForTestData['issuer_id'] ) ) {

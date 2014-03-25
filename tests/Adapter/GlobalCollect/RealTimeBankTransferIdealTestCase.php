@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r100822
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -283,5 +281,24 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
+
+	public function testFormAction() {
+
+		$optionsForTestData = array (
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_ideal',
+			'issuer_id' => 771,
+		);
+
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+
+		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
+		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
+		$action = $this->gatewayAdapter->getTransactionDataFormAction();
+		$this->assertEquals( "rtbt_ideal_url_placeholder", $action, "The rtbt_ideal formation is off." );
+	}
+
 }
 

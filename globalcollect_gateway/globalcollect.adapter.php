@@ -2413,4 +2413,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$result = $avs_map[$this->getData_Unstaged_Escaped( 'avs_result' )];
 		return $result;
 	}
+
+	/**
+	 * Used by ewallets, rtbt, and cash (boletos) to retrieve the URL we should
+	 * be posting the form data to. 
+	 *
+	 * @return string|false Returns FORMACTION if one exists in the transaction response, else false.
+	 */
+	public function getTransactionDataFormAction() {
+
+		$data = $this->getTransactionData();
+
+		if ( is_array( $data ) && array_key_exists( 'FORMACTION', $data ) ) {
+			return $data['FORMACTION'];
+		} else {
+			return false;
+		}
+	}
+
 }

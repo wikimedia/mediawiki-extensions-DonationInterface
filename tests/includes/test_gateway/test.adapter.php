@@ -140,7 +140,10 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 			$datetime = date( 'YmdHis' );
 			$mercid = 'test';
 
-			$formURI = '#';
+			//@TODO: Something better here.
+			//I'm not too worried about it right now, though, so
+			//long as this placehilder comes out the other end.
+			$formURI = $this->getData_Unstaged_Escaped( 'payment_submethod' ) . '_url_placeholder';
 
 			$response = $request->addChild( 'RESPONSE' );
 			$response->addChild( 'RESULT', 'OK' );

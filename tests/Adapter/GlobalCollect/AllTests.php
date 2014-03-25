@@ -70,7 +70,8 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTestCase' );
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase' );
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTestCase' );
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );                                                             
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_YandexTestCase' );
 
 		return $suite;
 	}
