@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Woraponboonkerd"
+        ]
+    },
+    "payflowprogateway": "สนับสนุนวิกิมีเดีย",
+    "payflowpro_gateway-desc": "บริกาีร PayPal Payflow Pro สำหรับบัตรเครดิต",
+    "payflowpro_gateway-response-0": "รายการของคุณได้รับการอนุมัติแล้ว\nขอบคุณสำหรับการบริจาค!",
+    "payflowpro_gateway-response-126": "รายการของคุณกำลังรอการอนุมัติ",
+    "payflowpro_gateway-response-126-2": "ข้อมูลบางอย่างที่คุณกรอกไม่ตรงกับข้อมูลของบัตรเครดิตของคุณ หรือคุณบริจาคเป็นจำนวนมาก เพื่อความปลอดภัยของตัวคุณ การบริจาคของคุณกำลังอยู่ในระหว่างการตรวจสอบ และเราจะแจ้งให้คุณทราบทางอีเมล์ที่คุณกรอกไว้แล้วหากเราไม่สามารถรับเงินบริจาคจากคุณได้ กรุณาอีเมล์มาที่ <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ถ้าคุณมีคำถามอื่นๆ ขอบคุณ!",
+    "payflowpro_gateway-response-12": "กรุณาติดต่อบริษัทผู้ออกบัตรสำหรับข้อมูลเพิ่มเติม",
+    "payflowpro_gateway-response-13": "รายการของคุณต้องการการยืนยันทางเสียง\nกรุณาติดต่อเราเพื่อดำเนินการรายการนี้ต่อ",
+    "payflowpro_gateway-response-114": "กรุณาติดต่อบริษัทผู้ออกบัตรสำหรับข้อมูลเพิ่มเติม",
+    "payflowpro_gateway-response-23": "หมายเลขบัตรเครดิตหรือวันหมดอายุไม่ถูกต้อง",
+    "payflowpro_gateway-response-4": "จำนวนเงินไม่ถูกต้อง",
+    "payflowpro_gateway-response-24": "หมายเลขบัตรเครดิตหรือวันหมดอายุไม่ถูกต้อง",
+    "payflowpro_gateway-response-112": "ที่อยู่หรือหมายเลข CVV ไม่ถูกต้อง",
+    "payflowpro_gateway-response-125": "รายการของคุณได้ถูกยกเลิกโดยบริการป้องกันการฉ้อโกง",
+    "payflowpro_gateway-response-125-2": "ไม่สามารถยืนยันบัตรเครดิตของคุณได้ กรุณาตรวจสอบข้อมูลที่กรอกไว้ทั้งหมดเพื่อให้ตรงกับข้อมูลของบัตรเครดิตของคุณ คุณสามารถ<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">บริจาคด้วยวิธีอื่น</a> หรือติดต่อเราที่ <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. ขอบคุณสำหรับการสนับสนุนของคุณ",
+    "payflowpro_gateway-response-default": "เกิดความผิดพลาดในการทำรายการของคุณ\nกรุณาลองใหม่ภายหลัง"
+}

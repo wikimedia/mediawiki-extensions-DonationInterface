@@ -1,0 +1,38 @@
+{
+    "@metadata": {
+        "authors": [
+            "Botuzhaleny-sodamo"
+        ]
+    },
+    "donate_interface-amount": "Зяро",
+    "donate_interface-currency": "Валютась:",
+    "donate_interface-submit-button": "Лезксйармаконь максома",
+    "donate_interface-CHF": "Швейцариянь франк",
+    "donate_interface-DKK": "Даниянь крона",
+    "donate_interface-EUR": "эвро",
+    "donate_interface-HUF": "Венгриянь форинт",
+    "donate_interface-JPY": "Япониянь йена",
+    "donate_interface-NOK": "Норвегиянь крона",
+    "donate_interface-NZD": "Од Зеландиянь доллар",
+    "donate_interface-SEK": "Швециянь крона",
+    "donate_interface-paypal-button": "Максомс лезксйармак PayPal вельде",
+    "donate_interface-donor-name": "Леметь:",
+    "donate_interface-donor-street": "Ульцат:",
+    "donate_interface-donor-city": "Ошот:",
+    "donate_interface-donor-state": "Штатот:",
+    "donate_interface-donor-postal": "Почтань индексэзэ:",
+    "donate_interface-donor-country": "Масторот/йонксот:",
+    "donate_interface-donor-address": "Сёрма паргот:",
+    "donate_interface-donor-submit": "Лезксйармаконь максома",
+    "donate_interface-error-msg-fname": "лем",
+    "donate_interface-error-msg-lname": "фамилия",
+    "donate_interface-error-msg-city": "ошот",
+    "donate_interface-error-msg-state": "штатот",
+    "donate_interface-error-msg-zip": "индексэть",
+    "donate_interface-error-msg-country": "мастор",
+    "donate_interface-city-town": "Ош/Веле",
+    "donate_interface-town-city": "Веле/Ош",
+    "donate_interface-donate-now": "Макста лезксйармак нейке",
+    "donate_interface-front-of-shirt": "Панар икелькс",
+    "donate_interface-back-of-shirt": "Панар удалкс"
+}

@@ -1,0 +1,24 @@
+{
+    "@metadata": {
+        "authors": [
+            "Farras",
+            "IvanLanin",
+            "Kenrick95"
+        ]
+    },
+    "payflowprogateway": "Menyumbanglah sekarang",
+    "payflowpro_gateway-desc": "Pemrosesan kartu credit PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Transaksi Anda telah disetujui.\nTerima kasih atas sumbangan Anda!",
+    "payflowpro_gateway-response-126": "Transaksi Anda menunggu persetujuan.",
+    "payflowpro_gateway-response-126-2": "Beberapa informasi yang Anda berikan tidak sesuai dengan profil kartu kredit Anda atau Anda memberikan donasi yang terlalu besar. Untuk keamanan Anda, donasi Anda kini sedang ditinjau dan kami akan memberi tahu Anda melalui alamat surel yang diberikan jika kami tidak dapat merampungkan donasi Anda. Harap sureli <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> jika Anda punya pertanyaan. Terima kasih!",
+    "payflowpro_gateway-response-12": "Silakan hubungi penyedia kartu kredit Anda untuk informasi lebih lanjut.",
+    "payflowpro_gateway-response-13": "Transaksi Anda membutuhkan otorisasi suara.\nSilakan hubungi kami untuk melanjutkan transaksi Anda.",
+    "payflowpro_gateway-response-114": "Silakan hubungi penyedia kartu kredit Anda untuk informasi lebih lanjut.",
+    "payflowpro_gateway-response-23": "Nomor atau tanggal kedaluwarsa kartu kredit Anda salah.",
+    "payflowpro_gateway-response-4": "Nilai tidak benar.",
+    "payflowpro_gateway-response-24": "Nomor atau tanggal kedaluwarsa kartu kredit Anda salah.",
+    "payflowpro_gateway-response-112": "Alamat atau nomor CVV (kode keamanan) Anda salah.",
+    "payflowpro_gateway-response-125": "Transaksi Anda telah ditolak oleh Fraud Prevention Services.",
+    "payflowpro_gateway-response-125-2": "Kartu kredit Anda tidak dapat divalidasi. Harap verifikasikan bahwa semua informasi yang disediakan sesuai dengan profil kartu kredit, atau cobalah kartu yang berbeda. Anda juga dapat menggunakan salah satu <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/id\">cara lain untuk menyumbang</a> atau hubungi kami di <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Terima kasih atas dukungan Anda.",
+    "payflowpro_gateway-response-default": "Terjadi kesalahan dalam pemrosesan transaksi Anda.\nSilakan coba lagi nanti."
+}

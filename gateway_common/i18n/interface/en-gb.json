@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Reedy",
+            "Shirayuki",
+            "Thehelpfulone"
+        ]
+    },
+    "donate_interface-maintenance-notice": "We apologise, but this type of payment has been temporarily disabled.",
+    "donate_interface-error-msg-authorization_id": "Authorisation ID",
+    "donate_interface-cvv-explain": "<h4>What is CVV?</h4>\n<p>Cardholder Verification Value (CVV): These three or four digit numbers help ensure that the physical card is in the cardholder’s possession. This helps to prevent unauthorised or fraudulent use.</p>\n<h4>Visa, Mastercard</h4>\n<p>The 3-digit code is located on the back of your card, inside the signature area.\nTypically the signature panel will have a series of numbers, but only the last three digits make up the CVV code.</p>\n<h4>American Express</h4>\n<p>The code is <i>always</i> located <i>above</i> the embossed (raised) account number on the face of the card.\nIn some instances, the code is located on the left side of the card, but is always above the account number.</p><br />",
+    "donate_interface-company-name": "Company or organisation name",
+    "donate_interface-cardholders-name": "Cardholder's name",
+    "donate_interface-cc-MX-instructions": "For security, some Mexican banks block online transactions. If your donation is not successful, we suggest you call your bank to authorise the online donation and try again.",
+    "donate_interface-sofortbanking": "Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the \"Donate by manual bank transfer\" option on the main donation page.",
+    "donate_interface-dd-authorization_id": "Authorisation ID",
+    "donate_interface-email-unsub-delay": "Please allow up to four (4) days for the changes to take effect. We apologise for any emails you receive during this time. If you have any questions, please contact <donations@wikimedia.org>",
+    "donate_interface-informationsharing": "By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">our donor policy</a>.",
+    "donate_interface-bank_transfer_message": "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email donations@wikimedia.org if you have any questions or concerns.",
+    "donate_interface-globalcollect-proxy": "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation.",
+    "donate_interface-legal-donorpolicy": "By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone."
+}

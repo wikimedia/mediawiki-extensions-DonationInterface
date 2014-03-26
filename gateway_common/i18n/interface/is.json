@@ -1,0 +1,34 @@
+{
+    "@metadata": {
+        "authors": [
+            "Snævar",
+            "WiseWoman",
+            "පසිඳු කාවින්ද"
+        ]
+    },
+    "donate_interface": "Styrkja WIkimedia",
+    "donate_interface-currency": "Gjaldmiðill:",
+    "donate_interface-gateway": "Greiðsluaðferð:",
+    "donate_interface-comment-label": "Athugasemd:",
+    "donate_interface-DKK": "Dönsk króna",
+    "donate_interface-donor-name": "Nafn",
+    "donate_interface-donor-city": "Borg",
+    "donate_interface-donor-county": "Landið",
+    "donate_interface-error-msg-city": "borg",
+    "donate_interface-error-msg-country": "Land",
+    "donate_interface-otherways": "Það eru <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">aðrar leiðir til þess að styrkja, meðal annars með PayPal, ávísun og pósti</a>.",
+    "donate_interface-comment": "Athugasemd",
+    "donate_interface-first": "Fyrst",
+    "donate_interface-last": "Síðast",
+    "donate_interface-other": "Annað",
+    "donate_interface-title": "Titill",
+    "donate_interface-next": "Áfram",
+    "donate_interface-continue": "Halda áfram",
+    "donate_interface-cancel": "Hætta við",
+    "donate_interface-month": "$1 ($2)",
+    "donate_interface-description": "Lýsing",
+    "donate_interface-language": "Tungumál:",
+    "donate_interface-back": "Til baka",
+    "donate_interface-select": "Velja",
+    "donate_interface-change": "Breyting"
+}

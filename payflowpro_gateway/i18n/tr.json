@@ -1,0 +1,24 @@
+{
+    "@metadata": {
+        "authors": [
+            "Emperyan",
+            "Joseph",
+            "Vito Genovese"
+        ]
+    },
+    "payflowprogateway": "Bağışınızı şimdi yapın",
+    "payflowpro_gateway-desc": "PayPal Payflow Pro kredi kartı işlemi",
+    "payflowpro_gateway-response-0": "İşleminiz onaylandı.\nBağışınız için teşekkürler!",
+    "payflowpro_gateway-response-126": "İşleminiz onay bekliyor.",
+    "payflowpro_gateway-response-126-2": "Vermiş olduğunuz bazı bilgiler kredi kartı profiliniz ile uyuşmuyor, ya da çok büyük bir hediye yaptınız. Kendi güvenliğiniz için, bağışınız gözden geçirme altındadır, ve eğer bağışınızı neticelendiremezsek, sizi verdiğiniz e-posta adresi aracılığıyla bilgilendireceğiz. Eğer sorunuz varsa lütfen <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> adresine e-posta atın. Teşekkürler!",
+    "payflowpro_gateway-response-12": "Daha fazla bilgi için lütfen kredi kartı şirketinizle irtibata geçin.",
+    "payflowpro_gateway-response-13": "İşleminiz ses yetkilendirmesi istiyor.\nİşleminize devam edebilmek için lütfen bizimle irtibata geçin.",
+    "payflowpro_gateway-response-114": "Daha fazla bilgi için lütfen kredi kartı şirketinizle irtibata geçin.",
+    "payflowpro_gateway-response-23": "Kredi kartı numaranız ya da son kullanma tarihi doğru değil.",
+    "payflowpro_gateway-response-4": "Geçersiz miktar.",
+    "payflowpro_gateway-response-24": "Kredi kartı numaranız ya da son kullanma tarihi doğru değil.",
+    "payflowpro_gateway-response-112": "Adresiniz ya da CVV numaranız (güvenlik kodu) doğru değil.",
+    "payflowpro_gateway-response-125": "İşleminiz Fraud Prevention Services tarafından reddedildi.",
+    "payflowpro_gateway-response-125-2": "Kredi kartınız doğrulanamadı. Lütfen verdiğiniz tüm bilgilerin kredi kartınız profiliniz ile ile uyuştuğunu doğrulayın, ya da farklı bir kart deneyin. Ayrıca, <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">vermenin diğer yolları'nı</a> kullanabilir ya da bizimle <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> adresinde ilteişime geçebilirsiniz. Desteğiniz için teşekkürler.",
+    "payflowpro_gateway-response-default": "İşleminiz işlenirken bir hata oluştu.\nLütfen daha sonra tekrar deneyin."
+}

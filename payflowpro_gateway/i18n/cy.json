@@ -1,0 +1,24 @@
+{
+    "@metadata": {
+        "authors": [
+            "Arwel Parry",
+            "Lloffiwr",
+            "Reedy"
+        ]
+    },
+    "payflowprogateway": "Rhoddwch nawr",
+    "payflowpro_gateway-desc": "Prosesu cerdyn credyd gyda PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Cadarnhawyd eich taliad.\nDiolch am roi!",
+    "payflowpro_gateway-response-126": "Mae'ch taliad yn disgwyl cadarnhad.",
+    "payflowpro_gateway-response-126-2": "Nid oedd rhai o'r manylion a roesoch yn cyfateb â'ch proffil cerdyn credyd, ynteu mae'ch rhodd yn un mawr iawn. Er mwyn eich diogelu, rydym wrthi'n bwrw golwg dros eich rhodd. Os na allwn gwblhau'ch rhodd, fe rown wybod ichi mewn e-bost at y cyfeiriad y rhoesoch i ni. Anfonwch e-bost at <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> os ydych am holi rhywbeth, os gwelwch yn dda. Diolch!",
+    "payflowpro_gateway-response-12": "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
+    "payflowpro_gateway-response-13": "Mae angen awdurdodi'ch taliad â'ch llais.\nCysylltwch â ni er mwyn parhau gyda'ch taliad.",
+    "payflowpro_gateway-response-114": "Cysylltwch â'r cwmni sy'n darparu'ch cerdyn credyd i gael rhagor o wybodaeth.",
+    "payflowpro_gateway-response-23": "Mae manylion naill ai rhif eich cerdyn neu'r dyddiad y daw i ben yn anghywir.",
+    "payflowpro_gateway-response-4": "Swm annilys.",
+    "payflowpro_gateway-response-24": "Mae manylion naill ai rhif eich cerdyn neu'r dyddiad y daw i ben yn anghywir.",
+    "payflowpro_gateway-response-112": "Mae manylion naill ai'ch cyfeiriad neu rhif CVV eich cerdyn (y cod diogelwch) yn anghywir.",
+    "payflowpro_gateway-response-125": "Gwrthodwyd eich taliad gan y Gwasanaethau Atal Twyll.",
+    "payflowpro_gateway-response-125-2": "Ni lwyddwyd i ddilysu'ch cerdyn credyd. Sicrhewch bod y manylion a roesoch yn cyfateb â'ch proffil cerdyn credyd, neu ceisiwch ddefnyddio cerdyn arall. Gallwch hefyd ddefnyddio <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">modd arall o roi</a>, neu anfon e-bost atom yn <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Diolch am eich cefnogaeth.",
+    "payflowpro_gateway-response-default": "Cafwyd gwall wrth brosesu'ch taliad.\nCeisiwch eto ymhen ychydig, os gwelwch yn dda."
+}

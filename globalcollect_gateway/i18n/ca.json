@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Arnaugir",
+            "Pitort"
+        ]
+    },
+    "globalcollectgateway": "Feu ara un donatiu",
+    "globalcollect_gateway-response-9130": "País incorrecte.",
+    "globalcollect_gateway-response-9140": "Moneda invàlida.",
+    "globalcollect_gateway-response-9150": "Idioma invàlid.",
+    "globalcollect_gateway-response-400530": "Mètode de pagament invàlid.",
+    "globalcollect_gateway-response-430330": "Número de targeta invàlid."
+}

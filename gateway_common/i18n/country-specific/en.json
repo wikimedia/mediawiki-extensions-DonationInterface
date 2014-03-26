@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "donate_interface-city-town-au": "Suburb / Town",
+    "donate_interface-donor-lname-ci": "Surname",
+    "donate_interface-donor-postal-ci": "Zone",
+    "donate_interface-donor-lname-cm": "Surname",
+    "donate_interface-donor-fname-cv": "Forename",
+    "donate_interface-donor-lname-cv": "Surname",
+    "donate_interface-donor-lname-et": "Surname",
+    "donate_interface-donor-fname-gq": "Forename",
+    "donate_interface-donor-lname-gq": "Surname",
+    "donate_interface-donor-lname-ke": "Surname",
+    "donate_interface-donor-lname-mg": "Surname",
+    "donate_interface-donor-postal-mg": "Postcode",
+    "donate_interface-donor-lname-mr": "Surname",
+    "donate_interface-donor-lname-sn": "Surname",
+    "donate_interface-donor-postal-sn": "Postcode",
+    "donate_interface-donor-lname-tz": "Surname",
+    "donate_interface-donor-lname-ug": "Surname"
+}

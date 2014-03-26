@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Michawiki"
+        ]
+    },
+    "payflowprogateway": "Něnto pósćiś",
+    "payflowpro_gateway-desc": "Pśeźěłowanje kreditoweje kórty PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Twója transakcija jo se pśizwóliła.\nŹěkujomy s za twój dar!",
+    "payflowpro_gateway-response-126": "Twója transakcija caka na pśizwólenje.",
+    "payflowpro_gateway-response-126-2": "Někotare z informacijow, kótarež sćo pódał, njewótpowěduju profiloju wašeje kredtineje kórty, abo sy wjelgin wjeliki dar pósćił. Za wašu wěstotu waš dar pśekontrolěrujo se tuchylu, a buźomy was informěrowaś pśez pódanu e-mailowu adresu, jolic njamóžomy wašo pósćiwanje dokóńcyś. Pšosym pósćelśo e-mail na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>, jolic maśo pšašanja. Źěkujomy se!",
+    "payflowpro_gateway-response-12": "Pšosym staj se ze swójim pśedewześim kreditoweje kórty za dalšne informacije do zwiska.",
+    "payflowpro_gateway-response-13": "Twója transakcija pomina se głosowu awtorizaciju.\nPšosym staj se z nami do zwiska, aby z transakciju pókšacował.",
+    "payflowpro_gateway-response-114": "Pšosym staj se ze swójim pśedewześim kreditoweje kórty za dalšne informacije do zwiska.",
+    "payflowpro_gateway-response-23": "Cysło twójeje kreditoweje kórty abo datum spadnjenja jo wopak.",
+    "payflowpro_gateway-response-4": "Njepłaśiwa suma.",
+    "payflowpro_gateway-response-24": "Cysło twójeje kreditoweje kórty abo datum spadnjenja jo wopak.",
+    "payflowpro_gateway-response-112": "Twója adresa abo CVV-cysło (wěstotny kod) jo wopak.",
+    "payflowpro_gateway-response-125": "Twója transakcija jo se wot Fraud Prevention Services wótpokazała.",
+    "payflowpro_gateway-response-125-2": "Waša kreditna kórta njedajo se pśekotnrolěrowaś. Pšosym pśeglědajśo, lěc wše pódane informacije wótpowěduju profiloju wašeje kreditneje kórty abo wopytajśo drugu kórtu. Móžoš teke jadnu z našych <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">drugich pósćiwańskich móžnosćow</a> wužywaś abo se z nami pśez <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> do zwiska stajiś. Źěkujomy se za wašu pódpěru.",
+    "payflowpro_gateway-response-default": "Pśi pśeźěłowanju twójeje transakcije jo zmólka nastała.\nPšosym wopytaj pózdźej hyšći raz."
+}

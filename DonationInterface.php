@@ -22,7 +22,7 @@ EOT;
 $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'Donation Interface',
 	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Matt Walker', 'Adam Wight', 'Peter Gehres', 'Jeremy Postlethwaite' ),
-	'version' => '2.0.0',
+	'version' => '2.1.0',
 	'descriptionmsg' => 'donationinterface-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:DonationInterface',
 );
@@ -1001,37 +1001,47 @@ $wgResourceModules[ 'pfp.form.core.api' ] = array(
 
 
 // Load the interface messages that are shared across multiple gateways
+$wgMessagesDirs['DonateInterface'] = __DIR__ . 'gateway_common/i18n/interface';
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
+$wgMessagesDirs['DonateInterfaceAlt'] = __DIR__ . 'gateway_common/i18n/country-specific';
 $wgExtensionMessagesFiles['DonateInterfaceAlt'] = $donationinterface_dir . 'gateway_common/country.specific.i18n.php';
+$wgMessagesDirs['GatewayCountries'] = __DIR__ . 'gateway_common/i18n/countries';
 $wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
+$wgMessagesDirs['GatewayUSStates'] = __DIR__ . 'gateway_common/i18n/us-states';
 $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
+$wgMessagesDirs['GatewayCAProvinces'] = __DIR__ . 'gateway_common/i18n/canada-provinces';
 $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
 
 //GlobalCollect gateway magical globals
-//TODO: all the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
+// @todo All the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
+	$wgMessagesDirs['GlobalCollectGateway'] = __DIR__ . 'globalcollect_gateway/i18n';
 	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
 	$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
 }
 
 //PayflowPro gateway magical globals
 if ( $optionalParts['PayflowPro'] === true ){
+	$wgMessagesDirs['PayflowProGateway'] = __DIR__ . 'payflowpro_gateway/i18n';
 	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
 }
 
 if ( $optionalParts['Adyen'] === true ){
+	$wgMessagesDirs['AdyenGateway'] = __DIR__ . 'adyen_gateway/i18n';
 	$wgExtensionMessagesFiles['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.i18n.php';
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.alias.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){
+	$wgMessagesDirs['PaypalGateway'] = __DIR__ . 'paypal_gateway/i18n';
 	$wgExtensionMessagesFiles['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.alias.php';
 }
 
 if ( $optionalParts['WorldPay'] === true ){
+	$wgMessagesDirs['WorldPayGateway'] = __DIR__ . 'worldpay_gateway/i18n';
 	$wgExtensionMessagesFiles['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.i18n.php';
 	$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.alias.php';
 }

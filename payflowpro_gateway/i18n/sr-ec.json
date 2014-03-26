@@ -1,0 +1,18 @@
+{
+    "@metadata": {
+        "authors": [
+            "Rancher",
+            "Михајло Анђелковић"
+        ]
+    },
+    "payflowprogateway": "Приложите новац",
+    "payflowpro_gateway-desc": "Обрађивање кредитних картица преко Пејпала",
+    "payflowpro_gateway-response-0": "Ваш пренос новца је одобрен.\nХвала вам на подршци!",
+    "payflowpro_gateway-response-126": "Ваш пренос новца чека на одобрење.",
+    "payflowpro_gateway-response-12": "Обратите се компанији која вам је издала кредитну картицу за више детаља.",
+    "payflowpro_gateway-response-114": "Обратите се компанији која вам је издала кредитну картицу за више детаља.",
+    "payflowpro_gateway-response-23": "Број ваше кредитне картице или датум истека је неисправан.",
+    "payflowpro_gateway-response-4": "Неисправан износ.",
+    "payflowpro_gateway-response-24": "Број ваше кредитне картице или датум истека је неисправан.",
+    "payflowpro_gateway-response-125": "Ваш пренос новца је одбијен од стране Службе за превенцију злоупотреба."
+}
