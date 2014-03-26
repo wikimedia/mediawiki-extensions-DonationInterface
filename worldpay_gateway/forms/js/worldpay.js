@@ -20,17 +20,17 @@
  *
  * @file
  */
-$( document ).ready( function () {
+( function ( $, mw ) {
 	var $accountNumber = $( '#accountNumber' ),
 		$accountExpiry = $( '#expiry' ),
 		$accountCVC = $( '#cvc' );
 
 	/**
-	 * Attempt to validate form data before tokenization and DI submission
+	 * Attempt to validate, on the client side, the form data.
 	 *
-	 * @returns {boolean} True if all data is valid
+	 * @returns {boolean} True if all checked form data is valid
 	 */
-	function validateData() {
+	function validateClientSide() {
 		var cardType = $.payment.cardType( $accountNumber.val() ),
 			expiry = $accountExpiry.payment( 'cardExpiryVal' );
 
@@ -42,55 +42,99 @@ $( document ).ready( function () {
 	}
 
 	/**
-	 * Submit a tokenization request to worldpay
+	 * Submit some form fields up to DonationInterface for remote
+	 * verification and storage into the session.
+	 *
+	 * If validation is successful, the successCallback will be
+	 * invoked.
 	 */
-	function tokenizeCcData() {
+	function validateServerSide( successCallback ) {
+		var api = new mw.Api(),
+			fields = [
+				// All forms
+				'fname', 'lname', 'emailAdd',
+				'email-opt',
+				'utm_source','utm_medium','utm_campaign','referrer',
+				'gateway','payment_method','language','token',
+				'order_id','contribution_tracking_id',
+
+				// AVS Countries
+				'street','city','state','zip','country',
+
+				// Scary things
+				'cvc'
+			];
+
+		postdata = {
+			action: 'di_wp_validate',
+			format: 'json'
+		};
+		$.each( fields, function( idx, val ) {
+			postdata[val] = $( '#' + val ).val();
+		});
+
+		$.ajax({
+			'url': mw.util.wikiScript( 'api' ),
+			'data': postdata,
+			'dataType': 'json',
+			'type': 'POST',
+			'success': function( data ) {
+				// XXX: Currently assuming that verification succeeded
+				successCallback();
+			},
+			error: function( xhr ) {
+				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+			}
+		});
+	}
+
+	/**
+	 * Submit a tokenization request to worldpay. We don't send the
+	 * CVV to them in this request because we wont be able to see
+	 * the validation result. We also don't send the full address
+	 * because we will submit that at authorization time.
+	 */
+	function submitFormForTokenization() {
 		var expiry = $accountExpiry.payment( 'cardExpiryVal' ),
 			$form = $( 'form[name="payment"]' );
 
+		function addHFtoF( name, value ) {
+			$form.append( $( '<input />', {
+				'type': 'hidden',
+				'name': name,
+				'value': value
+			}));
+		}
+
 		// Add the required elements to the form
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'Action',
-			'value': 'Add'
-		}));
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'AcctName',
-			'value': [ $( '#fname' ).val(), $( '#lname' ).val()].join( ' ' ).trim(),
-		}));
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'AcctNumber',
-			'value': $accountNumber.val(),
-		}));
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'ExpMonth',
-			'value': expiry.month
-		}));
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'ExpYear',
-			'value': expiry.year
-		}));
-		$form.append( $( '<input />', {
-			'type': 'hidden',
-			'name': 'CVN',
-			'value': $accountCVC.val()
-		}));
+		addHFtoF( 'Action', 'Add' );
+		addHFtoF( 'AcctName', [ $( '#fname' ).val(), $( '#lname' ).val()].join( ' ' ).trim() );
+		addHFtoF( 'AcctNumber', $accountNumber.val().replace(/\s+/g, '') );
+		addHFtoF( 'ExpMonth', expiry.month );
+		addHFtoF( 'ExpYear', expiry.year );
+
+		// Add some optional elements that are just nice to have
+		addHFtoF( 'FirstName', $( '#fname' ).val() );
+		addHFtoF( 'LastName', $( '#lname' ).val() );
+		addHFtoF( 'Email', $( '#emailAdd' ).val() );
 
 		$form.submit();
 	}
 
-	// Initialize jQuery.stripe
-	$accountNumber.payment( 'formatCardNumber' );
-	$accountExpiry.payment( 'formatCardExpiry' );
-	$accountCVC.payment( 'formatCardCVC' );
+	/**
+	 * Initialization
+	 */
+	$( document ).ready( function () {
+		// Initialize jQuery.stripe
+		$accountNumber.payment( 'formatCardNumber' );
+		$accountExpiry.payment( 'formatCardExpiry' );
+		$accountCVC.payment( 'formatCardCVC' );
 
-	$( '#paymentSubmitBtn' ).click(function() {
-		if ( validateData() ) {
-			tokenizeCcData();
-		}
+		$( '#paymentSubmitBtn' ).click(function() {
+			if ( validateClientSide() ) {
+				validateServerSide( submitFormForTokenization );
+			}
+			return false;
+		});
 	});
-});
+})( jQuery, mediaWiki );

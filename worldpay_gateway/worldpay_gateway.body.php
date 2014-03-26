@@ -44,16 +44,13 @@ class WorldPayGateway extends GatewayForm {
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
-			if ( $this->adapter->posted ) {
-				// Check form for errors
-				$form_errors = $this->validateForm();
+			$ott = $this->getRequest()->getText( 'OTT' );
+			if ( $ott ) {
+				// Obtain all the form data from tokenization server
+				$this->adapter->do_transaction( 'QueryTokenData' );
+				// Assuming that everything went correctly
+				$this->adapter->do_transaction( 'AuthorizePayment' );
 
-				if ( $form_errors ) {
-					$this->displayForm();
-				} else {
-				// The submitted form data is valid, so process it
-
-				}
 			} else {
 				$this->adapter->do_transaction( 'GenerateToken' );
 				$this->displayForm();

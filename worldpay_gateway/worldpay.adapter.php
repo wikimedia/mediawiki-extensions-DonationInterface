@@ -33,36 +33,69 @@ class WorldPayAdapter extends GatewayAdapter {
 		parent::__construct();
 	}
 
-	function getResponseStatus( $response ) {}
-
-	function getResponseErrors( $response ) {
-		// XXX Fill this out; likely looking at the StrId and MessageCode
-	}
-
-	function getResponseData( $response ) {
-		$data = array( );
-
-		$transaction = $this->getCurrentTransaction();
-
-		switch ( $transaction ) {
-			case 'GenerateToken':
-				$data = $this->xmlChildrenToArray( $response, 'TMSTN' );
-				$this->addData( array(
-					'wp_one_time_token' => $data['OTT'],
-					'wp_process_url' => $data['OTTProcessURL'],
-					'wp_rdid' => $data['RDID']
-				));
-		}
-
-		return $data;
-	}
-
-
-	public function processResponse( $response, &$retryVars = null ) {}
-
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'returnto',
+			'wp_acctname',
+			'wp_storeid',
+			'iso_currency_id'
+		);
+	}
+
+	function defineAccountInfo() {
+		$this->accountInfo = array(
+			'IsTest' => $this->account_config[ 'Test' ],
+			'MerchantId' => $this->account_config[ 'MerchantId' ],
+			'UserName' => $this->account_config[ 'Username' ],
+			'UserPassword' => $this->account_config[ 'Password' ],
+
+			'StoreIDs' => $this->account_config[ 'StoreIDs' ],
+		);
+	}
+
+	function defineDataConstraints() {}
+
+	function defineReturnValueMap() {}
+
+	function definePaymentMethods() {
+		$this->payment_methods = array();
+		$this->payment_submethods = array();
+
+		$this->payment_methods['cc'] = array(
+			'label'	=> 'Credit Cards',
+		);
+
+		$this->payment_submethods[''] = array(
+			'paymentproductid'	=> 0,
+			'label'	=> 'Any',
+			'group'	=> 'cc',
+			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+			'keys' => array(),
+		);
+	}
+
+	function defineOrderIDMeta() {
+		$this->order_id_meta = array (
+			'generate' => TRUE,
+		);
+	}
+
+	function setGatewayDefaults() {
+		$this->addData( array(
+			'region_code'  => 0  // TODO: geolocating this into the right region...
+		));
+	}
+
+	static function getCurrencies() {
+		return array(
+			'BZD',
+			'CAD',
+			'CHF',
+			'EUR',
+			'GBP',
+			'NOK',
+			'SEK',
+			'VEF'
 		);
 	}
 
@@ -95,9 +128,94 @@ class WorldPayAdapter extends GatewayAdapter {
 				'Action' => 'A',            // Add a card to OTT
 			),
 		);
+
+		$this->transactions['QueryTokenData'] = array(
+			'request' => array(
+				'VersionUsed',
+				'TransactionType',
+				'Timeout',
+				'RequestType',
+
+				'IsTest',
+				'MerchantId',
+				'UserName',
+				'UserPassword',
+
+				'OrderNumber',
+				'OTT'
+			),
+			'values' => array(
+				'VersionUsed' => 6,
+				'TransactionType' => 'RD',  // Redirect
+				'Timeout' => 60000,         // 60 seconds
+				'RequestType' => 'Q'        // Query one time token data
+			)
+		);
+
+		$this->transactions['AuthorizePayment'] = array(
+			'request' => array(
+				'VersionUsed',
+				'TransactionType',
+				'Timeout',
+				'RequestType',
+				'TRXSource',
+				'MOP',
+				'IsVerify',
+
+				'IsTest',
+				'MerchantId',
+				'UserName',
+				'UserPassword',
+
+				'StoreID',
+				'OrderNumber',
+				'CustomerId',
+				'CurrencyId',
+				'Amount',
+				'CardId',
+				'REMOTE_ADDR',
+
+				'AcctName',
+				'FirstName',
+				'LastName',
+				'Address1',
+				'City',
+				'StateCode',
+				'ZipCode',
+				'CountryCode',
+				'Email',
+
+				'CVN'
+			),
+			'values' => array(
+				'VersionUsed' => 6,
+				'TransactionType' => 'PT',  // PaymentTrust
+				'Timeout' => 60000,         // 60 seconds
+				'RequestType' => 'A',       // Authorize a payment
+				'TRXSource' => 4,           // Card not present (web order) transaction
+				'MOP' => 'CC',              // Credit card transaction
+				'IsVerify' => 1,            // Perform CVV and AVS verification
+			)
+		);
+
+		$this->transactions['DepositPayment'] = array(
+			'request' => array(
+
+			),
+			'values' => array(
+
+			)
+		);
 	}
 
-	function defineErrorMap() {}
+	function defineErrorMap() {
+		$this->error_map = array(
+			// Internal messages
+			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
+			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+		);
+	}
 
 	function defineVarMap() {
 		$this->var_map = array(
@@ -105,54 +223,22 @@ class WorldPayAdapter extends GatewayAdapter {
 			'CustomerId'        => 'contribution_tracking_id',
 			'OTTRegion'         => 'region_code',
 			'OTTResultURL'      => 'returnto',
-		);
-	}
-
-	function defineAccountInfo() {
-		$this->accountInfo = array(
-			'IsTest' => $this->account_config[ 'Test' ],
-			'MerchantId' => $this->account_config[ 'MerchantId' ],
-			'UserName' => $this->account_config[ 'Username' ],
-			'UserPassword' => $this->account_config[ 'Password' ],
-		);
-	}
-
-	function defineDataConstraints() {}
-	function defineReturnValueMap() {}
-
-	function definePaymentMethods() {
-		$this->payment_methods = array();
-		$this->payment_submethods = array();
-
-		$this->payment_methods['cc'] = array(
-			'label'	=> 'Credit Cards',
-		);
-
-		$this->payment_submethods[''] = array(
-			'paymentproductid'	=> 0,
-			'label'	=> 'Any',
-			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
-			'keys' => array(),
-		);
-	}
-
-	function defineOrderIDMeta() {
-		$this->order_id_meta = array (
-			'generate' => TRUE,
-		);
-	}
-
-	function setGatewayDefaults() {
-		$this->addData( array(
-			'region_code'  => 0  // TODO: geolocating this into the right region...
-		));
-	}
-
-
-	static function getCurrencies() {
-		return array(
-			'USD',
+			'OTT'               => 'wp_one_time_token',
+			'CardId'            => 'wp_card_id',
+			'Amount'            => 'amount',
+			'FirstName'         => 'fname',
+			'LastName'          => 'lname',
+			'Address1'          => 'street',
+			'City'              => 'city',
+			'StateCode'         => 'state',
+			'ZipCode'           => 'zip',
+			'CountryCode'       => 'country',
+			'Email'             => 'email',
+			'REMOTE_ADDR'       => 'user_ip',
+			'StoreID'           => 'wp_storeid',
+			'CurrencyId'        => 'iso_currency_id',
+			'AcctName'          => 'wp_acctname',
+			'CVN'               => 'cvv',
 		);
 	}
 
@@ -163,12 +249,56 @@ class WorldPayAdapter extends GatewayAdapter {
 			case 'GenerateToken':
 				// XXX: This has no error handling yet... eep!
 				$result = parent::do_transaction( $transaction );
-				// XXX: Might want to do the this->addData call here instead of in the parse response function
+
+				$this->addData( array(
+					'wp_one_time_token' => $result['data']['OTT'],
+					'wp_process_url' => $result['data']['OTTProcessURL'],
+					'wp_rdid' => $result['data']['RDID']
+				));
+
+				// Save the OTT to the session for later
+				$this->session_addDonorData();
 				break;
 
 			case 'QueryTokenData':
+				// XXX: Still no error handling
+				$result = parent::do_transaction( $transaction );
+
+				$this->addData( array(
+					'wp_card_id' => $result['data']['CardId'],
+					'wp_card_type' => $result['data']['CreditCardType'],
+				));
+				break;
+
+			case 'AuthorizePayment':
+				$this->addData( array( 'cvv' => $this->get_cvv() ) );
+				$this->store_cvv_in_session( null ); // Remove the CVV from the session
+				$result = parent::do_transaction( $transaction );
+				break;
+
+			case 'DepositPayment':
 				break;
 		}
+	}
+
+	function getResponseStatus( $response ) {
+		$ok = null;
+
+		foreach( $response->getElementsByTagName('MessageCode') as $node) {
+			if ( $node->nodeValue ) {
+				// TODO: This is a numeric code we should do something with
+				$ok = true;
+			}
+		}
+		return ( is_null( $ok ) ? false : $ok );
+	}
+
+	function getResponseErrors( $response ) {}
+
+	public function processResponse( $response, &$retryVars = null ) {}
+
+	function getResponseData( $response ) {
+		return $this->xmlChildrenToArray( $response, 'TMSTN' );
 	}
 
 	protected function buildRequestXML( $rootElement = 'TMSTN' ) {
@@ -180,8 +310,122 @@ class WorldPayAdapter extends GatewayAdapter {
 
 		$this->staged_data['returnto'] = str_replace(
 			'$1',
-			'Special:WorldPayGateway?token=' . $this->token_getSaltedSessionToken(),
+			'Special:WorldPayGateway?token=' . rawurlencode( $this->token_getSaltedSessionToken() ),
 			$wgServer . $wgArticlePath
 		);
+	}
+
+	protected function stage_wp_acctname( $type = 'request' ) {
+		$this->staged_data['wp_acctname'] = implode( ' ', array(
+			$this->getData_Unstaged_Escaped( 'fname' ),
+			$this->getData_Unstaged_Escaped( 'lname' )
+		));
+	}
+
+	protected function stage_wp_storeid( $type = 'request' ) {
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		if ( array_key_exists( $currency, $this->accountInfo['StoreIDs'] ) ) {
+			$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$currency];
+		} else {
+			if ( $this->getCurrentTransaction() === 'AuthorizePayment' ) {
+				throw new MWException( 'Store not configured for currency. Cannot perform auth request.' );
+			}
+		}
+	}
+
+	protected function stage_iso_currency_id( $type = 'request' ) {
+		// From Appendix B of the integration manual; apparently these are ISO standard codes...
+		$currency_codes = array(
+			'AUD' => '36',
+			'ATS' => '40',
+			'BHD' => '48',
+			'BEF' => '56',
+			'BMD' => '60',
+			'BRL' => '986',
+			'CAD' => '124',
+			'COP' => '170',
+			'CYP' => '196',
+			'CZK' => '203',
+			'DKK' => '208',
+			'DOP' => '214',
+			'EUR' => '978',
+			'FIM' => '246',
+			'FRF' => '250',
+			'XPF' => '953',
+			'DEM' => '280',
+			'GRD' => '300',
+			'HKD' => '344',
+			'HUF' => '348',
+			'INR' => '356',
+			'IDR' => '360',
+			'IEP' => '372',
+			'ILS' => '376',
+			'ITL' => '380',
+			'JMD' => '388',
+			'JPY' => '392',
+			'JOD' => '400',
+			'KRW' => '410',
+			'KWD' => '414',
+			'LUF' => '442',
+			'MYR' => '458',
+			'MVR' => '462',
+			'MTL' => '470',
+			'MXN' => '484',
+			'MAD' => '504',
+			'NLG' => '528',
+			'NZD' => '554',
+			'NOK' => '578',
+			'OMR' => '512',
+			'PAB' => '590',
+			'PHP' => '608',
+			'PLN' => '985',
+			'PTE' => '620',
+			'QAR' => '634',
+			'RUB' => '643',
+			'SAR' => '682',
+			'SGD' => '702',
+			'ZAR' => '710',
+			'ESP' => '724',
+			'SEK' => '752',
+			'CHF' => '756',
+			'TWD' => '901',
+			'THB' => '764',
+			'TRL' => '792',
+			'TRY' => '949',
+			'AED' => '784',
+			'GBP' => '826',
+			'USD' => '840',
+			'UZS' => '860',
+			'VEB' => '862',
+			'VND' => '704',
+		);
+
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		if ( array_key_exists( $currency, $currency_codes ) ) {
+			$this->staged_data['iso_currency_id'] = $currency_codes[$currency];
+		}
+	}
+
+	public function session_addDonorData() {
+		parent::session_addDonorData();
+		// XXX: We might end up moving this into a STOMP required field,
+		// but I don't know yet so kludging it in here so we have it for later
+		$_SESSION['Donor']['wp_one_time_token'] = $this->getData_Unstaged_Escaped( 'wp_one_time_token' );
+	}
+
+	public function store_cvv_in_session( $cvv ) {
+		if ( !is_null( $cvv ) ) {
+			$_SESSION['Donor_protected']['cvv'] = $cvv;
+		} else {
+			unset( $_SESSION['Donor_protected']['cvv'] );
+		}
+	}
+
+	protected function get_cvv() {
+		if ( isset( $_SESSION['Donor_protected']['cvv'] ) ) {
+			return $_SESSION['Donor_protected']['cvv'];
+		} else {
+			return null;
+		}
 	}
 }
