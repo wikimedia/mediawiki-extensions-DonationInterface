@@ -153,6 +153,9 @@ if ( $optionalParts['WorldPay'] === true ){
 	$wgDonationInterfaceClassMap['worldpay'] = 'WorldPayAdapter';
 	$wgAutoloadClasses['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.body.php';
 	$wgAutoloadClasses['WorldPayAdapter'] = $donationinterface_dir . 'worldpay_gateway/worldpay.adapter.php';
+
+	$wgAPIModules['di_wp_validate'] = 'WorldPayValidateApi';
+	$wgAutoloadClasses['WorldPayValidateApi'] = $donationinterface_dir . 'worldpay_gateway/worldpay.api.php';
 }
 
 
@@ -488,6 +491,10 @@ if ( $optionalParts['WorldPay'] === true ) {
 		'MerchantId' => 00000,
 		'Username' => 'suchuser',
 		'Password' => 'suchsecret',
+
+		'StoreIDs' => array(
+			CURRENCY => StoreID
+		),
 	);
 	*/
 }
