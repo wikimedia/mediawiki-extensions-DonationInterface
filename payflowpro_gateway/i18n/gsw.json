@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "Als-Chlämens",
+            "Als-Holder"
+        ]
+    },
+    "payflowprogateway": "Jetz spände",
+    "payflowpro_gateway-desc": "Kreditcharte verwände iber PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Dyy Transaktion isch uusgfiert wore.\nDankschen fir Dyy Spände!",
+    "payflowpro_gateway-response-126": "Dyy Transaktion isch no hängig.",
+    "payflowpro_gateway-response-126-2": "E Teil vu dr Informatione, wu Du aagee hesch, passe nit zue Dyym Kreditcharte-Profil oder Du hesch e seli große Betrag gspändet. Zue Dyyre eigene Sicherheit wird Dyy Spände zur Zyt iberprieft, un mir mälden is bi Dir iber d E-Mail-Adräss, wu du aagee hesch, wänn mer Dyy Spände nit chenne abschließe. Bitte schryb e Mail an <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>, wänn Du Froge hesch. Dankschen!",
+    "payflowpro_gateway-response-12": "Bitte nimm Kontakt uf zue Dyyre Charte-Firma fir meh Informatione.",
+    "payflowpro_gateway-response-13": "Fir Dyy Transaktion brucht s e Stimmeerchännig.\nBitte nimm Kontakt zuen is uf go Dyy Transaktio wyterfiere.",
+    "payflowpro_gateway-response-114": "Bitte nimm Kontakt uf zue Dyyre Kreditcharte-Firma fir meh Informatione.",
+    "payflowpro_gateway-response-23": "Dyy Kreditchartenummere oder s Verfallsdatum isch nit korrekt.",
+    "payflowpro_gateway-response-4": "Nit giltige Betrag.",
+    "payflowpro_gateway-response-24": "Dyy Kreditchartenummere oder s Verfallsdatum isch nit korrekt.",
+    "payflowpro_gateway-response-112": "Dyy Adräss oder d CVV-Nummere (Gheimnummere) isch nit korrekt.",
+    "payflowpro_gateway-response-125": "Dyy Transaktion isch dur Fraud Prevention Services abbroche wore.",
+    "payflowpro_gateway-response-125-2": "Dyy Kreditcharte het nit chenne validert wäre. Bitte iberprief, eb alli Infomatione, wu Du aagee hesch, zue Dyyre Kreditcharte passe oder versuech s mit ere andre Charte. Du chasch au ne <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andre Wäg ebis z spände</a> versueche oder nimm Kontakt uf zue uns iber <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dankschen fir Dyy Unterstitzig.",
+    "payflowpro_gateway-response-default": "S het e Fähler gee bi dr Uusfierig vu Dyyre Transaktion.\nBitte versuech s speter nonemol."
+}

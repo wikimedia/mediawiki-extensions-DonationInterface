@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "Lloffiwr",
+            "Muddyb Blast Producer"
+        ]
+    },
+    "payflowprogateway": "Changia sasa",
+    "payflowpro_gateway-desc": "Kutekeleza malipo ya kadi ya malipo kwa kupitia PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Malipo yako yamepitishwa. \nAhsante kwa mchango wako!",
+    "payflowpro_gateway-response-126": "Shughuli yako yanasubiri kuidhinishwa.",
+    "payflowpro_gateway-response-126-2": "Baadhi ya taarifa ulizozitoa hazikuendana na taarifa kamili za kadi yako ya malipo, ama umetoa mchango mkubwa sana. Kwa ajili ya usalama wako, mchango wako unachunguzwa. Tutakutaarifu kupitia anwani ya barua pepe uliyoitaja, iwapo tutashindwa kukamilisha mchango wako. Tafadhali tuma barua pepe kwa <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> kama una maswali. Ahsante!",
+    "payflowpro_gateway-response-12": "Tafadhali wasiliana na kampuni ya kadi yako ya malipo ili kupata maelezo zaidi.",
+    "payflowpro_gateway-response-13": "Malipo yako yanahitaji uidhinishaji kwa njia ya sauti. \nTafadhali wasiliana nasi ili kuendelea kushughulika malipo yako.",
+    "payflowpro_gateway-response-114": "Tafadhali wasiliana na kampuni ya kadi yako ya malipo ili kupata maelezo zaidi.",
+    "payflowpro_gateway-response-23": "Namba au tarehe ya kuisha kwa kadi yako ya malipo haipo sahihi.",
+    "payflowpro_gateway-response-4": "Kiasi batili.",
+    "payflowpro_gateway-response-24": "Namba au tarehe ya kuisha kwa kadi yako ya malipo haipo sahihi.",
+    "payflowpro_gateway-response-112": "Anwani au namba ya CVV yako (msimbo wa usalama) haipo sahihi.",
+    "payflowpro_gateway-response-125": "Malipo yako yamekataliwa na Huduma za Kuzuia Ulaghai.",
+    "payflowpro_gateway-response-125-2": "Kadi yako ya malipo haikuweza kuidhinishwa. Tafadhali hakikisha kwamba taarifa zote zilizotolewa zipo sawa na maelezo ya kadi yako, au jaribu kadi nyingine. Pia unaweza kuchangia kwa <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">njia nyingine</a> au unaweza kuwasiliana nasi hapo <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ahsante kwa mchango wako.",
+    "payflowpro_gateway-response-default": "Ilitokea hitilafu wakati wa kufanya malipo yako.\nTafadhali jaribu tena baadaye."
+}

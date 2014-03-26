@@ -1,0 +1,38 @@
+{
+    "@metadata": {
+        "authors": [
+            "Xqt"
+        ]
+    },
+    "donate_interface-comment-label": "Aamaerricking:",
+    "donate_interface-AUD": "Australische Dollar",
+    "donate_interface-CAD": "Kanadische Dollar",
+    "donate_interface-CHF": "Schweizer Franken",
+    "donate_interface-EUR": "Eiro",
+    "donate_interface-GBP": "Britisch Pfund",
+    "donate_interface-USD": "U.S. Dollar",
+    "donate_interface-cvv-link": "Wu iss daer?",
+    "donate_interface-donor-name": "Naame:",
+    "donate_interface-donor-lname": "Familie-Naame:",
+    "donate_interface-donor-street": "Schtrooss:",
+    "donate_interface-donor-city": "Schtadt:",
+    "donate_interface-donor-state": "Schtaat:",
+    "donate_interface-donor-country": "Land/Gegend:",
+    "donate_interface-donor-address": "Adress:",
+    "donate_interface-error-msg-lname": "Familie-Naame",
+    "donate_interface-comment": "Aamaericking",
+    "donate_interface-or": "odder",
+    "donate_interface-title": "Titel",
+    "donate_interface-street-1": "Schtrooss 1",
+    "donate_interface-street-2": "Schtrooss 2",
+    "donate_interface-city-town": "Schtadt/Taun",
+    "donate_interface-town-city": "Taun/Schtadt",
+    "donate_interface-country": "Land",
+    "donate_interface-phone": "Foohn",
+    "donate_interface-telephone": "Foohn-Nummer",
+    "donate_interface-telephone-home": "Foohn (deheem)",
+    "donate_interface-next": "Neegschte",
+    "donate_interface-language": "Schprooch:",
+    "donate_interface-select": "Grees:",
+    "donate_interface-dd-iban": "IBAN"
+}

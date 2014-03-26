@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "ArnoLagrange",
+            "Yekrats"
+        ]
+    },
+    "payflowprogateway": "Donacu nun",
+    "payflowpro_gateway-desc": "PayPal Payflow Pro kreditkarta proceso",
+    "payflowpro_gateway-response-0": "Via pago estis aprobita.\nDankon pro via donaco!",
+    "payflowpro_gateway-response-126": "Via pago atendas aprobon.",
+    "payflowpro_gateway-response-126-2": "Iom da la informo kiun vi provizis ne kongruis vian kreditkartan profilon, aŭ vi faris tre grandan donacon. Por via propra sekureco, via mondonaco nune estas kontrolota, kaj ni notigos vin per la provizita retadreso se ni ne povas finigi vian donacon. Bonvolu retpoŝti <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> se vi havas iun ajn demandojn. Dankon!",
+    "payflowpro_gateway-response-12": "Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.",
+    "payflowpro_gateway-response-13": "Via pago postulas voĉan rajtigon. \nBonvolu kontakti nin por plufari vian pagon.",
+    "payflowpro_gateway-response-114": "Bonvolu kontakti vian kreditkartan firmaon por pliaj informoj.",
+    "payflowpro_gateway-response-23": "Via kreditkarta numero aŭ validlimdato estas malĝusta.",
+    "payflowpro_gateway-response-4": "Malvalida monsumo.",
+    "payflowpro_gateway-response-24": "Via kreditkarta numero aŭ validlimdato estas malĝusta.",
+    "payflowpro_gateway-response-112": "Via adreso aŭ sekureca kodo estas malĝusta.",
+    "payflowpro_gateway-response-125": "Via pago estis malaprobita de Kontraŭfraŭdaj Servoj.",
+    "payflowpro_gateway-response-125-2": "Via kreditkarto ne estis validigebla. Bonvolu verigi ke ĉiu provizita informo kongruas vian kreditkartan profilon, aŭ utiligi alian karton. Vi ankaŭ povas uzi unu el niaj <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">aliaj metodoj por donaci</a> aŭ kontakti nin ĉe <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dankon pro via subteno.",
+    "payflowpro_gateway-response-default": "Estis eraro traktante vian pagon. Bonvolu provi denove pli poste."
+}

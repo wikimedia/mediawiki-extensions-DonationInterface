@@ -1,0 +1,24 @@
+{
+    "@metadata": {
+        "authors": [
+            "Erdemaslancan",
+            "Mirzali",
+            "Xoser"
+        ]
+    },
+    "payflowprogateway": "Bêca xo newke bıkerê",
+    "payflowpro_gateway-desc": "PayPal Payflow Pro prosesa kardê krediyi",
+    "payflowpro_gateway-response-0": "Transactionê ti testiq biyo.\nBexşê ti ra ma zaf teşkur kenê!",
+    "payflowpro_gateway-response-126": "Gurwekerdışê şıma araşt kerdış paweno",
+    "payflowpro_gateway-response-126-2": "Tayê melumato ke to dayo, ebe karta krediyê profili ra yewbini nêgêno, ya zi to meblağo de gırd da. Seba emniyetê xo, beğşê to nıka qontrol beno, u ma ebe email adresa daiye ra to rê rışenime eke beğşê to qebul nêbi. Kerem ke, persê to ke estê be <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ra ma rê email bırışe. Weş u war be!",
+    "payflowpro_gateway-response-12": "Ma rica keno ser kardê kredi xo ra bank ra kontak bike.",
+    "payflowpro_gateway-response-13": "Qe transaksiyon ti ra otorizationo veng lazim o. \nMa rica kenê mar ra yew mesaj bişawi ke ma transaksiyon tu biqedi.",
+    "payflowpro_gateway-response-114": "Ma rica keno bankê xo ra kontak bike ser kardê kredi xo.",
+    "payflowpro_gateway-response-23": "Ma rica keno ser kardê kredi xo ra bank ra kontak bike.",
+    "payflowpro_gateway-response-4": "Meblagê raşti.",
+    "payflowpro_gateway-response-24": "Numreyê kard ê kredi tu ya zi wextê kard ê kredi raşt niyo.",
+    "payflowpro_gateway-response-112": "Numreyê CVV kardê kredi tu ya zi adresê tu raşt niyo.",
+    "payflowpro_gateway-response-125": "Fraud Prevention Services trasaktion tu kebul nikena.",
+    "payflowpro_gateway-response-125-2": "Karta krediyê to nêşaye tesdiq bo. Kerem ke, melumato ke pêro dayo be karta krediyê profiliê to yewbini gêno wa qontrol ke, ya zi karta de bine bıcerrebne. Tı şena yewê da ê ma <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">be raya bine dayış</a> bıgurênê ya zi ma de be <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> temas kewe. Seba beğşê xo weş u war be!",
+    "payflowpro_gateway-response-default": "Transaction tu de yew gelet biyo.\nMa rica kenê reyna dest bi bike."
+}

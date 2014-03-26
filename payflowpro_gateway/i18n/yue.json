@@ -1,0 +1,18 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "payflowprogateway": "支持 Wikimedia",
+    "payflowpro_gateway-desc": "PayPal Payflow Pro 信用咭處理",
+    "payflowpro_gateway-response-0": "你嘅交易已經批准咗。\n多謝你嘅捐款！",
+    "payflowpro_gateway-response-126": "你嘅交易等緊批准。",
+    "payflowpro_gateway-response-12": "請聯絡你嘅信用咭公司去拎更詳細嘅資料。",
+    "payflowpro_gateway-response-13": "你嘅交易需要音訊認證。\n請聯絡我地去繼續你嘅交易。",
+    "payflowpro_gateway-response-114": "請聯絡你嘅信用咭公司去拎更詳細嘅資料。",
+    "payflowpro_gateway-response-23": "你張信用咭冧吧或者到期日唔正確。",
+    "payflowpro_gateway-response-4": "無效嘅金額。",
+    "payflowpro_gateway-response-24": "你張信用咭冧吧或者到期日唔正確。",
+    "payflowpro_gateway-response-112": "你嘅地址或者CVV冧吧 (安全碼) 唔正確。",
+    "payflowpro_gateway-response-125": "你嘅交易已經畀欺詐防止服務拒絕咗。",
+    "payflowpro_gateway-response-default": "當處理緊你嘅交易嗰陣出錯。\n請遲啲再試。"
+}

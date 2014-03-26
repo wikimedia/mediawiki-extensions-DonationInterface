@@ -1,0 +1,26 @@
+{
+    "@metadata": {
+        "authors": [
+            "Aushulz",
+            "Beta16",
+            "Blaisorblade",
+            "F. Cosoleto",
+            "Karika"
+        ]
+    },
+    "payflowprogateway": "Fai ora la tua donazione",
+    "payflowpro_gateway-desc": "Gestione carta di credito PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "La transazione è stata approvata.\nGrazie per la tua donazione!",
+    "payflowpro_gateway-response-126": "La transazione è in attesa di approvazione.",
+    "payflowpro_gateway-response-126-2": "Parte delle informazioni che sono state fornite non corrispondono al profilo della carta di credito usata, oppure è stata fatta una grande donazione. Per sicurezza, la donazione verrà esaminata e si riceverà una notifica via email, usando l'indirizzo fornito, nel caso non sia possibile concluderla. Se desiderate contattarci, potete inviare una email a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazie!",
+    "payflowpro_gateway-response-12": "Contatta la compagnia della tua carta di credito per ulteriori informazioni.",
+    "payflowpro_gateway-response-13": "Questa transazione richiede una autorizzazione a voce.\nPuoi contattarci per proseguire con la transazione.",
+    "payflowpro_gateway-response-114": "Contatta la compagnia della tua carta di credito per ulteriori informazioni.",
+    "payflowpro_gateway-response-23": "Il tuo numero di carta di credito o la data di scadenza non è corretto.",
+    "payflowpro_gateway-response-4": "Importo non valido.",
+    "payflowpro_gateway-response-24": "Il tuo numero di carta di credito o la data di scadenza non è corretto.",
+    "payflowpro_gateway-response-112": "L'indirizzo o il numero CVV (codice di sicurezza) non è corretto.",
+    "payflowpro_gateway-response-125": "La transazione non è stata accettata dal Fraud Prevention Services.",
+    "payflowpro_gateway-response-125-2": "La convalida della carta di credito usata non è riuscita. Verificare che tutte le informazioni fornite corrispondano al profilo della propria carta di credito, o provare con una differente carta. È possibile usare anche <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">altri modi per donare</a> o contattarci all'indirizzo <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazie per il tuo sostegno.",
+    "payflowpro_gateway-response-default": "Si è verificato un errore durante l'elaborazione della transazione.\nSi prega di riprovare più tardi."
+}

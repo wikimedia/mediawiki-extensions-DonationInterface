@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "WTM"
+        ]
+    },
+    "paypalgateway": "Przekaż darowiznę",
+    "paypal_gateway-desc": "Przetwarzanie płatności PayPal"
+}

@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "Robby",
+            "Soued031"
+        ]
+    },
+    "payflowprogateway": "Maacht Ären Don elo",
+    "payflowpro_gateway-desc": "Behandele vun der Kreditkaart PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Är Transaktioun gouf kzeptéiert.\nMerci fir Ären Don!",
+    "payflowpro_gateway-response-126": "Är Transaktiun muss nach akzeptéiert ginn.",
+    "payflowpro_gateway-response-126-2": "En Deel vun den Informatiounen déi Dir uginn hutt stëmmt net mat dem Profil vun Ärer Kreditkaart iwwereneen, oder Dir hutt e ganz groussen Don gemaach. Fir Är eege Sécherheet gëtt Ären Don elo iwwerpréift a mir informéieren Iech iwwer d'E-Mail-Adress déi Dir uginn hutt wa mir Ären Don net ofschléisse kënnen. Schéckt eis w.e.g. e Mail op <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> wann Dir Froen hutt. Merci!",
+    "payflowpro_gateway-response-12": "Kontaktéiert d'Firma vun Ärer Krditkaart fir weider Informatiounen.",
+    "payflowpro_gateway-response-13": "Är Transaktioun muss duerch STëmmenerkennung autoriséiert ginn.\nKontaktéiert eis w.e.g. fir mat Ärer Transaktioun weiderzefueren.",
+    "payflowpro_gateway-response-114": "Kontaktéiert d'Firma vun Ärer Kreditkaart fir méi Informatiounen.",
+    "payflowpro_gateway-response-23": "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
+    "payflowpro_gateway-response-4": "Net valabele Betrag.",
+    "payflowpro_gateway-response-24": "D'Nummer vun Ärer Kreditkaart oder den Datum wou d'Kaart ofleeft si falsch.",
+    "payflowpro_gateway-response-112": "Är Adress oder CVV-Nummer (Sécherheetscode) ass net richteg.",
+    "payflowpro_gateway-response-125": "Är Transaktioun gouf net vun de Servicer, déi sech ëm d'Verhënnerung vun der Fraude bekëmmeren, akzeptéiert.",
+    "payflowpro_gateway-response-125-2": "Är Kreditkaart konnt net validéiert ginn. Kuckt w.e.g. no ob all déi Informatiounen déi Dir uginn hutt mat dem Profil vun Ärer Kreditkaart iwwereneestëmmt oder probéiert mat enger anerer Kaart. Dir kënnt och op eng vun eisen anere <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">Manéiere fir ze spenden</a> benotzen oder eis iwwer <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> kontaktéieren. Merci fir Är Ënnerstëtzung.",
+    "payflowpro_gateway-response-default": "Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.\nProbéiert et w.e.g. spéider nach eng Kéier."
+}

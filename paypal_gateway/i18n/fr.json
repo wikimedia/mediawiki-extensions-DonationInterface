@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Erkethan"
+        ]
+    },
+    "paypalgateway": "Faites un don maintenant",
+    "paypal_gateway-desc": "Traitement des paiements Paypal"
+}

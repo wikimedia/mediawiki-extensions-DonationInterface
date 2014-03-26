@@ -1,0 +1,32 @@
+{
+    "@metadata": {
+        "authors": [
+            "George Animal",
+            "Gomada"
+        ]
+    },
+    "donate_interface": "Piştgiriyê bide Wîkîmedyayê",
+    "donate_interface-comment-label": "Şîrove:",
+    "donate_interface-CAD": "Dolarên Kanadayê",
+    "donate_interface-CZK": "Korunayên Çekî",
+    "donate_interface-EUR": "Ewro",
+    "donate_interface-JPY": "Yenê Japon",
+    "donate_interface-SEK": "Kronên Swêdî",
+    "donate_interface-USD": "Dolarên DYA'yê",
+    "donate_interface-donor-name": "Nav",
+    "donate_interface-donor-fname": "Pêşnav",
+    "donate_interface-donor-mname": "Navê navîn",
+    "donate_interface-donor-lname": "Paşnav",
+    "donate_interface-donor-street": "Kûçe",
+    "donate_interface-donor-street-number": "Hejmar",
+    "donate_interface-donor-city": "Bajar",
+    "donate_interface-donor-island": "Girav",
+    "donate_interface-donor-state": "Dewlet",
+    "donate_interface-donor-country": "Welat/Herêm",
+    "donate_interface-donor-address": "Navnîşan",
+    "donate_interface-error-msg-fname": "nav",
+    "donate_interface-error-msg-lname": "paşnav",
+    "donate_interface-error-msg-city": "bajar",
+    "donate_interface-error-msg-state": "dewlet",
+    "donate_interface-error-msg-country": "welat"
+}

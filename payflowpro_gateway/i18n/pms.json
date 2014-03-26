@@ -1,0 +1,23 @@
+{
+    "@metadata": {
+        "authors": [
+            "Borichèt",
+            "Dragonòt"
+        ]
+    },
+    "payflowprogateway": "Fà toa donassion adess",
+    "payflowpro_gateway-desc": "Tratament ëd le carte ëd crédit PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "Toa transassion a l'é stàita aprovà.\nMersì për toa donassion!",
+    "payflowpro_gateway-response-126": "Toa transassion a speta l'aprovassion.",
+    "payflowpro_gateway-response-126-2": "Cheidun-e dj'anformassion ch'it l'has dàit a corispondo pa al profil ëd toa carta ëd crédit, o it l'has fàit un cadò motobin gròss. Për toa sicurëssa, toa donassion a l'é al moment sota revision, e noi it avisroma con la pòsta eletrònica dàita se i podoma pa finalisé toa donassion. Për piasì scriv a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> s'it l'has dle chestion. Mersì!",
+    "payflowpro_gateway-response-12": "Për piasì contata la companìa ëd toa carta ëd crédit për d'àutre anformassion.",
+    "payflowpro_gateway-response-13": "Toa transassion a veul autorisassion a vos.\nPër piasì contatne për continué toa transassion.",
+    "payflowpro_gateway-response-114": "Për piasì contata la companìa ëd toa carta ëd crédit për d'àutre anformassion.",
+    "payflowpro_gateway-response-23": "Ël nùmer ëd carta ëd crédit o la data dë scadensa a son pa bon.",
+    "payflowpro_gateway-response-4": "Ampòrt pa bon.",
+    "payflowpro_gateway-response-24": "Tò nùmer ëd carta ëd crédit o la data dë scadensa a son pa bon.",
+    "payflowpro_gateway-response-112": "Toa adrëssa o nùmer CVV (còdes ëd sicurëssa) a son pa bon.",
+    "payflowpro_gateway-response-125": "Toa transassion a l'é stàita arfudà dai Servissi ëd Prevension ëd le Fregadure.",
+    "payflowpro_gateway-response-125-2": "Toa carta ëd crédit a peul pa esse validà. Për piasì verìfica che tute j'anformassion dàite a corispondo a tò profil ëd carta ëd crédit, o preuva na carta diferenta. It peule ëdcò dovré un-a dle nòstre <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">àutre manere ëd dé</a> o contatene a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Mersì për tò sosten.",
+    "payflowpro_gateway-response-default": "A l'é staje n'eror an processand toa transassion.\nPër piasì prova torna pì tard."
+}

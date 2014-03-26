@@ -1,0 +1,35 @@
+{
+    "@metadata": {
+        "authors": [
+            "Cbrown1023",
+            "Crazymadlover",
+            "Dferg",
+            "Diego Grez",
+            "Drini",
+            "Fitoschido",
+            "Locos epraix",
+            "MarcoAurelio",
+            "MetalBrasil",
+            "MisterWiki",
+            "Mor",
+            "Od1n",
+            "Translationista",
+            "Vivaelcelta"
+        ]
+    },
+    "payflowprogateway": "Haga su donación ahora",
+    "payflowpro_gateway-desc": "Procesando tarjeta de crédito PayPal Payflow Pro",
+    "payflowpro_gateway-response-0": "La transacción ha sido aprobada.\n¡Gracias por tu donación!",
+    "payflowpro_gateway-response-126": "Tu transacción está pendiente de ser aprobada.",
+    "payflowpro_gateway-response-126-2": "La información que has dado no coincide con tu perfil de tarjeta de crédito, o haz hecho un regalo muy grande. Por tu propia seguridad, tu donación aún se encuentra bajo estudio, y te notificaremos por medio del correo electrónico que has dado si no pudimos finalizar tu donación. Por favor envíe un correo electrónico a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> si tiene cualquier pregunta. ¡Gracias!",
+    "payflowpro_gateway-response-12": "Por favor, contacta con la compañía de tu tarjeta de crédito para más información.",
+    "payflowpro_gateway-response-13": "Tu transacción requiere de autorización de palabra.\nPor favor contáctanos para continuar la transacción.",
+    "payflowpro_gateway-response-114": "Por favor, contacta con la compañía de tu tarjeta de crédito para más información.",
+    "payflowpro_gateway-response-23": "La fecha de vencimiento de tu tarjeta de crédito es incorrecta.",
+    "payflowpro_gateway-response-4": "Cantidad inválida.",
+    "payflowpro_gateway-response-24": "La fecha de vencimiento de tu tarjeta de crédito es incorrecta.",
+    "payflowpro_gateway-response-112": "Tu dirección o número CVV (código de seguridad) son incorrectos.",
+    "payflowpro_gateway-response-125": "Tu transacción ha sido rechazada por los Servicios de Prevención de Fraudes (Fraud Prevention Services).",
+    "payflowpro_gateway-response-125-2": "Tu tarjeta de crédito no pudo ser validada. Por favor verifique que toda la información dada coincide con tu perfil de tarjeta de crédito, o prueba con una tarjeta diferente. Puedes usar también una de nuestras <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">otras formas de dar</a> o contactarnos a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Gracias por tu apoyo.",
+    "payflowpro_gateway-response-default": "Hubo un error procesando tu transacción.\nPor favor intente mas tarde."
+}
