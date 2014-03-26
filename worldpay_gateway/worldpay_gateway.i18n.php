@@ -16,3 +16,4 @@ $messages['en'] = array(
 $messages['qqq'] = array(
 	'worldpaygateway' => '{{Identical|Make your donation now}}',
 );
+
