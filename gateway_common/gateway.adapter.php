@@ -348,7 +348,12 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Determine which account to use for this session
 	 */
 	protected function findAccount() {
-		$acctConfig = self::getGlobal( 'AccountInfo' ); 
+		$acctConfig = self::getGlobal( 'AccountInfo' );
+
+		//this is causing warns in Special:SpecialPages
+		if ( !$acctConfig ) {
+			return;
+		}
 
 		//TODO crazy logic to determine which account we want
 		$accounts = array_keys( $acctConfig );
@@ -2938,7 +2943,19 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
 			return false;
 		} else {
-			return end( $_SESSION['PaymentForms'] );
+			$ffname = end( $_SESSION['PaymentForms'] );
+			if ( !$ffname ) {
+				return false;
+			}
+			$data = $this->getData_Unstaged_Escaped();
+			//have to check to see if the last loaded form is *still* valid.
+			if ( GatewayFormChooser::isValidForm(
+				$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
+			) {
+				return $ffname;
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -3149,7 +3166,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//harumph. Remind me again why I hate @ suppression so much?
 		$currency = isset( $data['currency_code'] ) ? $data['currency_code'] : null;
 		$payment_method = isset( $data['payment_method'] ) ? $data['payment_method'] : null;
-		$payment_submethod = isset( $data['payment_method'] ) ? $data['payment_method'] : null;
+		$payment_submethod = isset( $data['payment_submethod'] ) ? $data['payment_submethod'] : null;
 		$recurring = isset( $data['recurring'] ) ? $data['recurring'] : null;
 		$gateway = isset( $data['gateway'] ) ? $data['gateway'] : null;
 
