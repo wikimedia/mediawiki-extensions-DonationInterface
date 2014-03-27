@@ -525,6 +525,11 @@ class AdyenAdapter extends GatewayAdapter {
 	 * @param string	$type	request|response
 	 */
 	protected function stage_amount( $type = 'request' ) {
+		if ( !isset( $this->staged_data['amount'] ) || !isset( $this->staged_data['currency_code'] ) ) {
+			//can't do anything with amounts at all. Just go home.
+			return;
+		}
+
 		switch ( $type ) {
 			case 'request':
 				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {

@@ -41,10 +41,7 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 	public $initial_vars = array (
 		'ffname' => 'testytest',
 		'referrer' => 'www.yourmom.com', //please don't go there.
-		'order_id' => '10000',
-		'currency_code' => 'USD', //@TODO: Same here. I think it's because the data is coming in through... unusual paths.
-		'street' => 'ugh', //@TODO: And again. :/
-		'zip' => '0', //@TODO: And again. :/
+		'currency_code' => 'USD',
 	);
 
 	/**
