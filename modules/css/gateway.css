@@ -116,7 +116,9 @@ body.ltr #footer #footer-places {
 	display: none;
 }
 
-#bodyContent input[type="text"], textarea {
+#bodyContent input[type="text"],
+#bodyContent input[type="email"],
+textarea {
 	border: 1px solid #C0C0C0;
 	padding: 3px;
 }
