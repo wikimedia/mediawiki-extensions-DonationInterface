@@ -318,29 +318,34 @@ class WorldPayAdapter extends GatewayAdapter {
 
 	}
 
-	public function processResponse( $response, &$retryVars = null ) {}
+	/**
+	 *
+	 * @param type $response
+	 * @param type $retryVars
+	 */
+	public function processResponse( $response, &$retryVars = null ) {
+
+		switch ( $this->getCurrentTransaction() ) {
+			case 'AuthorizePayment':
+				$pull_vars = array (
+					'CVNMatch' => 'cvv_result',
+					'AddressMatch' => 'avs_address',
+					'PostalCodeMatch' => 'avs_zip',
+					'PTTID' => 'wp_pttid'
+				);
+				$addme = array ( );
+				foreach ( $pull_vars as $theirs => $ours ) {
+					if ( isset( $response['data'][$theirs] ) ) {
+						$addme[$ours] = $response['data'][$theirs];
+					}
+				}
+				$this->addData( $addme );
+				break;
+		}
+	}
 
 	function getResponseData( $response ) {
 		$data = $this->xmlChildrenToArray( $response, 'TMSTN' );
-
-		//have to do this here, so this data is available for the
-		//AuthorizePayment post process hook.
-		if ( $this->getCurrentTransaction() === 'AuthorizePayment' ) {
-			$pull_vars = array (
-				'CVNMatch' => 'cvv_result',
-				'AddressMatch' => 'avs_address',
-				'PostalCodeMatch' => 'avs_zip',
-				'PTTID' => 'wp_pttid'
-			);
-			$addme = array ( );
-			foreach ( $pull_vars as $theirs => $ours ) {
-				if ( isset( $data[$theirs] ) ) {
-					$addme[$ours] = $data[$theirs];
-				}
-			}
-			$this->addData( $addme );
-		}
-
 		return $data;
 	}
 
