@@ -44,7 +44,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'CustomFilters' => false, //Also gets set in the next loop.
 	'Stomp' => false,
 	'ConversionLog' => false, //this is definitely an Extra
-	'Minfraud' => false, //this is definitely an Extra
+	'Minfraud' => true, //this is definitely an Extra
 	'PayflowPro' => false,
 	'GlobalCollect' => true,
 	'Amazon' => true,
@@ -52,9 +52,9 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Paypal' => true,
 	'WorldPay' => true,
 	'FormChooser' => true,
-	'ReferrerFilter' => false, //extra
-	'SourceFilter' => false, //extra
-	'FunctionsFilter' => false, //extra
+	'ReferrerFilter' => true, //extra
+	'SourceFilter' => true, //extra
+	'FunctionsFilter' => true, //extra
 	'IPVelocityFilter' => false, //extra
 	'SessionVelocityFilter' => false, //extra
 	'SystemStatus' => false, //extra
@@ -65,6 +65,9 @@ foreach ($optionalParts as $subextension => $enabled){
 	global $$globalname;
 	if ( isset( $$globalname ) && $$globalname === true ) {
 		$optionalParts[$subextension] = true;
+	}
+
+	if ( $optionalParts[$subextension] === true ) {
 		//this is getting annoying.
 		if ( $subextension === 'ReferrerFilter' ||
 			$subextension === 'SourceFilter' ||
@@ -89,10 +92,8 @@ foreach ($optionalParts as $subextension => $enabled){
 				$wgDonationInterfaceEnableCustomFilters = true; //override this for specific gateways to disable
 			}
 		}
-
 	}
 }
-
 
 /**
  * CLASSES
@@ -170,7 +171,7 @@ if ($optionalParts['Extras'] === true){
 }
 
 //Custom Filters classes
-if ($optionalParts['CustomFilters'] === true){
+if ( $optionalParts['CustomFilters'] === true ) {
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters'] = $donationinterface_dir . "extras/custom_filters/custom_filters.body.php";
 }
 
@@ -195,7 +196,7 @@ if ( $optionalParts['SourceFilter'] === true ){
 }
 
 //Functions Filter classes
-if ( $optionalParts['FunctionsFilter'] === true ){
+if ( $optionalParts['FunctionsFilter'] === true ) {
 	$wgAutoloadClasses['Gateway_Extras_CustomFilters_Functions'] = $donationinterface_dir . "extras/custom_filters/filters/functions/functions.body.php";
 }
 
@@ -497,6 +498,43 @@ if ( $optionalParts['WorldPay'] === true ) {
 		),
 	);
 	*/
+
+	$wgWorldPayGatewayCvvMap = array (
+		'0' => false, //No Match
+		'1' => true, //Match
+		'2' => false, //Not Checked
+		'3' => false, //Issuer is Not Certified or Unregistered
+		'4' => false, //Should have CVV2 on card - ??
+		'5' => false, //CVC1 Incorrect
+		'6' => false, //No service available.
+		'7' => false, //No code returned. All the points.
+		'8' => false, //No code returned. All the points.
+		'9' => false, //Not Performed
+		//(occurs when CVN value was not present in the STN string
+		//or when transaction was not sent to the acquiring bank)
+		'' => false, //No code returned. All the points.
+	);
+
+	$wgWorldPayGatewayAvsAddressMap = array (
+		'0' => 50, //No Match
+		'1' => 0, //Match
+		'2' => 12, //Not Checked/Not Available
+		'3' => 50, //Issuer is Not Certified or Unregistered
+		'4' => 12, //Not Supported
+		'9' => 50, //Not Performed (occurs when Address1, Address2 and Address3 values were not present in the STN string or when transaction was not sent to the acquiring bank)
+		'' => 50, //No code returned. All the points.
+	);
+
+	$wgWorldPayGatewayAvsZipMap = array (
+		'0' => 50, //No Match
+		'1' => 0, //Match
+		'2' => 12, //Not Checked/Not Available
+		'3' => 0, //9 digit zipcode match
+		'4' => 0, //5 digit zipcode match
+		'5' => 12, //Not Supported
+		'9' => 50, //Not Performed (occurs when ZipCode value was not present in the STN string or when transaction was not sent to the acquiring bank)
+		'' => 50, //No code returned. All the points.
+	);
 }
 
 //Stomp globals
@@ -811,7 +849,7 @@ if ($optionalParts['Stomp'] === true){
 }
 
 //Custom Filters hooks
-if ($optionalParts['CustomFilters'] === true){
+if ( $optionalParts['CustomFilters'] === true ) {
 	$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 }
 

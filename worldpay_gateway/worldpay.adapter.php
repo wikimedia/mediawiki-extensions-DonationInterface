@@ -29,8 +29,8 @@ class WorldPayAdapter extends GatewayAdapter {
 	public $communication_type = 'xml';
 	public $redirect = FALSE;
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $options = array ( ) ) {
+		parent::__construct( $options );
 	}
 
 	function defineStagedVars() {
@@ -300,7 +300,26 @@ class WorldPayAdapter extends GatewayAdapter {
 	public function processResponse( $response, &$retryVars = null ) {}
 
 	function getResponseData( $response ) {
-		return $this->xmlChildrenToArray( $response, 'TMSTN' );
+		$data = $this->xmlChildrenToArray( $response, 'TMSTN' );
+
+		//have to do this here, so this data is available for the
+		//AuthorizePayment post process hook.
+		if ( $this->getCurrentTransaction() === 'AuthorizePayment' ) {
+			$pull_vars = array (
+				'CVNMatch' => 'cvv_result',
+				'AddressMatch' => 'avs_address',
+				'PostalCodeMatch' => 'avs_zip',
+			);
+			$addme = array ( );
+			foreach ( $pull_vars as $theirs => $ours ) {
+				if ( isset( $data[$theirs] ) ) {
+					$addme[$ours] = $data[$theirs];
+				}
+			}
+			$this->addData( $addme );
+		}
+
+		return $data;
 	}
 
 	protected function buildRequestXML( $rootElement = 'TMSTN' ) {
@@ -446,6 +465,52 @@ class WorldPayAdapter extends GatewayAdapter {
 	 */
 	protected function post_process_authorizepayment() {
 		$this->runAntifraudHooks();
+	}
+
+	/**
+	 * getCVVResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 */
+	public function getCVVResult() {
+		$cvv_result = '';
+		if ( is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ) {
+			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
+		}
+
+		$cvv_map = $this->getGlobal( 'CvvMap' );
+
+		$result = $cvv_map[$cvv_result];
+		return $result;
+	}
+
+	/**
+	 * getAVSResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 *
+	 * In WorldPay, we get two values back that we get to synthesize
+	 * together: One for address, and one for zip.
+	 */
+	public function getAVSResult() {
+		$avs_address = '';
+		$avs_zip = '';
+
+		if ( !is_null( $this->getData_Unstaged_Escaped( 'avs_address' ) ) ) {
+			$avs_address = $this->getData_Unstaged_Escaped( 'avs_address' );
+		}
+
+		if ( !is_null( $this->getData_Unstaged_Escaped( 'avs_zip' ) ) ) {
+			$avs_zip = $this->getData_Unstaged_Escaped( 'avs_zip' );
+		}
+		//Best guess here:
+		//Scale of 0 - 100, of Problem we think this result is likely to cause.
+
+		$avs_address_map = $this->getGlobal( 'AvsAddressMap' );
+		$avs_zip_map = $this->getGlobal( 'AvsZipMap' );
+
+		$result = $avs_address_map[$avs_address];
+		$result += $avs_zip_map[$avs_zip];
+
+		return $result;
 	}
 
 }
