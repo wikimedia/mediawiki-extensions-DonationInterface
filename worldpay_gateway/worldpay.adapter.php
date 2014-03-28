@@ -38,7 +38,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			'returnto',
 			'wp_acctname',
 			'wp_storeid',
-			'iso_currency_id'
+			'iso_currency_id',
+			'donation_desc'
 		);
 	}
 
@@ -200,10 +201,27 @@ class WorldPayAdapter extends GatewayAdapter {
 
 		$this->transactions['DepositPayment'] = array(
 			'request' => array(
+				'VersionUsed',
+				'TransactionType',
+				'Timeout',
+				'RequestType',
 
+				'IsTest',
+				'MerchantId',
+				'UserName',
+				'UserPassword',
+
+				'OrderNumber',
+				'CurrencyId',
+				'Amount',
+				'PTTID',
+				'NarrativeStatement1',
 			),
 			'values' => array(
-
+				'VersionUsed' => 6,
+				'TransactionType' => 'PT',  // PaymentTrust
+				'Timeout' => 60000,         // 60 seconds
+				'RequestType' => 'D'        // Deposit an authorized payment
 			)
 		);
 	}
@@ -239,6 +257,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			'CurrencyId'        => 'iso_currency_id',
 			'AcctName'          => 'wp_acctname',
 			'CVN'               => 'cvv',
+			'PTTID'             => 'wp_pttid',
+			'NarrativeStatement1' => 'donation_desc',
 		);
 	}
 
@@ -277,6 +297,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				break;
 
 			case 'DepositPayment':
+				$result = parent::do_transaction( $transaction );
 				break;
 		}
 	}
@@ -309,6 +330,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				'CVNMatch' => 'cvv_result',
 				'AddressMatch' => 'avs_address',
 				'PostalCodeMatch' => 'avs_zip',
+				'PTTID' => 'wp_pttid'
 			);
 			$addme = array ( );
 			foreach ( $pull_vars as $theirs => $ours ) {
@@ -425,6 +447,11 @@ class WorldPayAdapter extends GatewayAdapter {
 		if ( array_key_exists( $currency, $currency_codes ) ) {
 			$this->staged_data['iso_currency_id'] = $currency_codes[$currency];
 		}
+	}
+
+	protected function stage_donation_desc( $type = 'request' ) {
+		// TODO: Make this translatable.
+		$this->staged_data['donation_desc'] = substr( 'Donation to the Wikimedia Foundation', 0, 50 );
 	}
 
 	public function session_addDonorData() {
