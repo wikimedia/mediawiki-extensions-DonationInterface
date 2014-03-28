@@ -50,6 +50,8 @@ class WorldPayGateway extends GatewayForm {
 				$this->adapter->do_transaction( 'QueryTokenData' );
 				// Assuming that everything went correctly
 				$this->adapter->do_transaction( 'AuthorizePayment' );
+				// And that one too
+				$this->adapter->do_transaction( 'DepositPayment' );
 
 			} else {
 				$this->adapter->do_transaction( 'GenerateToken' );
