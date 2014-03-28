@@ -56,8 +56,6 @@ class WorldPayAdapter extends GatewayAdapter {
 
 	function defineDataConstraints() {}
 
-	function defineReturnValueMap() {}
-
 	function definePaymentMethods() {
 		$this->payment_methods = array();
 		$this->payment_submethods = array();
@@ -233,6 +231,40 @@ class WorldPayAdapter extends GatewayAdapter {
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
 			'internal-0002' => 'donate_interface-processing-error', // Communication failure
 		);
+	}
+
+	function defineReturnValueMap() {
+		// We just have a large list of return values from WP; with no real indication
+		// of what operations will return which codes. So; I I conservatively mapped
+		// every code.
+
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2000, 2001 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2051 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2061, 2080 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2112 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2200, 2804 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2831, 2804 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2831, 2990 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 3216, 3614 );
+		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 4206, 4700 );
+
+
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2000, 2001 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2040, 2050 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2051 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2053, 2055 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2061, 2080 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2112 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2122 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'complete', 2150, 2180 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'complete', 2100, 2106 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2200, 2804 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2830 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2831, 2804 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 3050 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 3216, 3614 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'complete', 3100 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 4206, 4700 );
 	}
 
 	function defineVarMap() {
