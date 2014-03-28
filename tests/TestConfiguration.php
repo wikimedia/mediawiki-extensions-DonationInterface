@@ -129,3 +129,18 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 		'EUR' => 'eur_store_id',
 	)
 );
+$wgWorldPayGatewayURL = 'https://test.worldpay.com';
+
+$wgMinFraudLicenseKey = 'testkey';
+$wgMinFraudTimeout = 1;
+$wgDonationInterfaceMinFraudServers = array ( "minfraud.wikimedia.org" );
+
+//still can't quite handle mindfraud by itself yet, so default like this. 
+//I will turn it on for individual tests in which I want to verify that it at
+//least fails closed when enabled.
+$wgDonationInterfaceEnableMinfraud = false;
+
+//...but we want these. 
+$wgDonationInterfaceEnableFunctionsFilter = true;
+$wgDonationInterfaceEnableReferrerFilter = true;
+$wgDonationInterfaceEnableSourceFilter = true;

@@ -24,6 +24,7 @@ require_once 'DonationDataTestCase.php';
 require_once 'DataValidatorTestCase.php';
 require_once 'FormChooserTestCase.php';
 require_once 'IntegrationTestCase.php';
+require_once 'FraudFiltersTestCase.php';
 
 /**
  * AllTests
@@ -55,6 +56,7 @@ class DonationInterface_AllTests
 		$suite->addTestSuite( 'DonationInterface_DonationDataTestCase' );
 		$suite->addTestSuite( 'DonationInterface_FormChooserTestCase' );
 		$suite->addTestSuite( 'DonationInterface_IntegrationTestCase' );
+		$suite->addTestSuite( 'DonationInterface_FraudFiltersTestCase' );
 //		$suite->addTest(DonationInterface_Adapter_AllTests::suite());
 
 		return $suite;

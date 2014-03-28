@@ -40,8 +40,6 @@ class DonationInterface_Adapter_Adyen_TestCase extends DonationInterfaceTestCase
 		$init = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$gateway->setRiskScore( 83 );
-
 		$gateway->do_transaction( 'donate' );
 		$ret = $gateway->_buildRequestParams();
 
@@ -64,7 +62,7 @@ class DonationInterface_Adapter_Adyen_TestCase extends DonationInterfaceTestCase
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'en',
 			'shopperEmail' => 'nobody@wikimedia.org',
-			'offset' => 83, //which is what we set above
+			'offset' => 51.5, //once we construct the FraudFiltersTestCase, it should land here.
 		);
 
 		//deal with problem keys.

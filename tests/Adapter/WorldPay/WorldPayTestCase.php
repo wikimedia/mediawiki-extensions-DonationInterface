@@ -46,4 +46,21 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 
 		$this->assertInstanceOf( 'TestingWorldPayAdapter', $gateway );
 	}
+
+	/**
+	 * Test the AntiFraud hooks
+	 */
+	function testAntiFraudHooks() {
+		$options = $this->getDonorTestData( 'US' );
+		$options['utm_source'] = "somethingmedia";
+		$options['email'] = "somebody@wikipedia.org";
+
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->runAntifraudHooks();
+
+		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( 113, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+	}
+
 }

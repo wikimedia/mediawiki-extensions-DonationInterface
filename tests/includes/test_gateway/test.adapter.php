@@ -291,6 +291,25 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		$this->testlog[$log_level][] = $msg;
 	}
 
+	//@TODO: That minfraud jerk needs its own isolated tests.
+	function runAntifraudHooks() {
+		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
+		ob_start();
+
+		//now screw around with the batch settings to trick the fraud filters into triggering
+		$is_batch = $this->isBatchProcessor();
+		$this->batch = true;
+
+		parent::runAntifraudHooks();
+
+		$this->batch = $is_batch;
+		ob_end_clean();
+	}
+
+	public function getRiskScore() {
+		return $this->risk_score;
+	}
+
 }
 
 
@@ -300,7 +319,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
  * @TODO: Extend/damage things here. I'm sure we'll need it eventually...
  */
 class TestingPaypalAdapter extends PaypalAdapter {
-	
+
 }
 
 /**
@@ -317,17 +336,26 @@ class TestingAmazonAdapter extends AmazonAdapter {
  * TestingAdyenAdapter
  */
 class TestingAdyenAdapter extends AdyenAdapter {
+
+	public $testlog = array ( );
+
 	public function _buildRequestParams() {
 		return $this->buildRequestParams();
 	}
 
-	//kill the minfraid hook, because it's ruining my life right now.
-	//@TODO: That minfraud jerk needs its own isolated tests anyway.
-	//The problem: Something about an automatic DNS lookup writing a temp file.
-	//@see DonationInterface/extras/custom_filters/filters/minfraud/ccfd/HTTPBase.php, line 72ish.
-	//That piece of code is a total warn machine.
+	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
-		return;
+		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
+		ob_start();
+
+		//now screw around with the batch settings to trick the fraud filters into triggering
+		$is_batch = $this->isBatchProcessor();
+		$this->batch = true;
+
+		parent::runAntifraudHooks();
+
+		$this->batch = $is_batch;
+		ob_end_clean();
 	}
 
 	public function _getData_Staged() {
@@ -341,12 +369,55 @@ class TestingAdyenAdapter extends AdyenAdapter {
 		$this->risk_score = $score;
 	}
 
+	/**
+	 * Trap the error log so we can use it in testing
+	 * @param type $msg
+	 * @param type $log_level
+	 * @param type $log_id_suffix
+	 */
+	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+		//I don't care about the suffix right now, particularly.
+		$this->testlog[$log_level][] = $msg;
+	}
+
 }
 
 /**
  * TestingWorldPayAdapter
  */
 class TestingWorldPayAdapter extends WorldPayAdapter {
+
+	public $testlog = array ( );
+
+	//@TODO: That minfraud jerk needs its own isolated tests.
+	function runAntifraudHooks() {
+		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
+		ob_start();
+
+		//now screw around with the batch settings to trick the fraud filters into triggering
+		$is_batch = $this->isBatchProcessor();
+		$this->batch = true;
+
+		parent::runAntifraudHooks();
+
+		$this->batch = $is_batch;
+		ob_end_clean();
+	}
+
+	/**
+	 * Trap the error log so we can use it in testing
+	 * @param type $msg
+	 * @param type $log_level
+	 * @param type $log_id_suffix
+	 */
+	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+		//I don't care about the suffix right now, particularly.
+		$this->testlog[$log_level][] = $msg;
+	}
+
+	public function getRiskScore() {
+		return $this->risk_score;
+	}
 
 }
 
