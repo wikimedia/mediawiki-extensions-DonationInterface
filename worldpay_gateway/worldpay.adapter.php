@@ -238,6 +238,239 @@ class WorldPayAdapter extends GatewayAdapter {
 		// of what operations will return which codes. So; I I conservatively mapped
 		// every code.
 
+		/* From the integration manual; this is the list of all possible return codes
+		 *  2000	Received no answer from banking network. Resend transaction.
+		 *  2001	No need to do this transaction.
+		 *  2040	Request submitted and waiting for Finalization.
+		 *  2050	Request submitted and waiting for processing to be completed next cycle.
+		 *  2051	Cannot find the BTID for the original request.
+		 *  2053	Notification Received.
+		 *  2055	The request in a pending state at the payment provider.
+		 *  2061	Validation/Verification Failure.
+		 *  2062	Identification supplied is invalid.
+		 *  2080	Voided.
+		 *  2100	Transaction Authorized/Approved.
+		 *  2101	Validated.
+		 *  2102	Verified.
+		 *  2103	Prenoted.
+		 *  2104	Transaction was approved - Base 24.
+		 *  2105	Notification Cleared.
+		 *  2106	Certegy warrants the item presented.
+		 *  2112	The request is duplication of original transaction, it is voided.
+		 *  2122	Cheque verified, not ACH-able, Auth Only.
+		 *  2135	ACH bank Balance info obtained.
+		 *  2150	Deposit request previously submitted has been processed successfully.
+		 *  2160	Refund request previously submitted has been processed successfully.
+		 *  2170	Cancellation request has been processed successfully.
+		 *  2180	Transaction voided successfully.
+		 *  2200	Transaction Declined/Not Authorized/Not Settled.
+		 *  2201	Acquirer/Issuer does not allow this transaction.
+		 *  2202	Cancellation declined by issuer/acquirer.
+		 *  2203	Cancellation transaction failed.
+		 *  2204	Card was authorized but AVS did not match. Contact client.
+		 *  2205	Service provider does not allow this transaction.
+		 *  2206	Incoming record currency type does not match system stored currency.
+		 *  2208	Invalid merchant account number.
+		 *  2210	Bad check digit, length, or other credit card problem.
+		 *  2212	Card has expired or incorrect date entered. Confirm date.
+		 *  2214	Card has expired.
+		 *  2216	Amount sent was 0 or unreadable.
+		 *  2218	Method of payment is invalid for this account number.
+		 *  2219	The specific card will not accept payment.
+		 *  2220	Method of payment is invalid for this merchant.
+		 *  2222	Invalid information entered.
+		 *  2223	No Sort code or Account Number in Payback system.
+		 *  2224	Specific and relevant data within transaction is inaccurate or missing.
+		 *  2226	Same transaction had been submitted.
+		 *  2228	Issuer does not allow this transaction.
+		 *  2229	Processor permits only one deposit request per authorization.
+		 *  2230	Invalid merchant account number.
+		 *  2232	Invalid issuer or institution.
+		 *  2234	Invalid response code.
+		 *  2235	Currency code submitted is different than code submitted with original authorization request.
+		 *  2236	Invalid for credit.
+		 *  2237	Invalid refund not allowed (CFT).
+		 *  2238	Invalid for debit.
+		 *  2240	Amex CID is incorrect.
+		 *  2242	Honour with ID.
+		 *  2248	Invalid Transaction
+		 *  2280	Switch/Solo - Incorrect start date or requires an issue number. Please correct.
+		 *  2282	Switch/Solo - 1-digit number submitted when 2-digit number should have been sent. Please correct.
+		 *  2284	Switch/Solo - a format issue, re-examine transaction layout. Please correct.
+		 *  2286	Bank not supported by Switch.
+		 *  2300	No card record.
+		 *  2302	Invalid bank routing number.
+		 *  2304	Missing the cheque writer’s name.
+		 *  2306	Bank account has been closed.
+		 *  2308	Account type is invalid or missing. Deposit transactions only.
+		 *  2310	Account does not exist.
+		 *  2312	Account number does not correspond to the individual.
+		 *  2314	Account holder deceased. No further debits will be accepted by the bank.
+		 *  2316	Beneficiary deceased. No further debits will be accepted by the bank.
+		 *  2318	The funds in this account are unavailable. No further debits will be accepted by the bank.
+		 *  2320	Customer has refused to allow the transaction.
+		 *  2322	Banking institute does not accept ACH transactions (For US ECP).
+		 *  2324	Account number is incorrect.
+		 *  2326	Customer has notified their bank not to accept these transactions.
+		 *  2328	Customer has not authorized bank to accept these transactions.
+		 *  2330	Pertains to Canadian ECP only.
+		 *  2332	Format of account number does not pass check digit routine for that institution. (For CDN ECP).
+		 *  2334	Invalid characters in account number.
+		 *  2350	Card has surpassed daily transaction amount limit.
+		 *  2351	Surpassed daily transaction amount limit.
+		 *  2352	The limit of number of times used for the card has been surpassed.
+		 *  2354	Card has surpassed its credit limit.
+		 *  2356	Enter a lesser amount.
+		 *  2357	Try Lesser Amount / Whole Dollar Only.
+		 *  2358	No credit amount.
+		 *  2360	Card is limited to one purchase.
+		 *  2362	Over Sav limit.
+		 *  2364	Over Sav frequency.
+		 *  2366	Card not supported.
+		 *  2368	Invalid PIN.
+		 *  2370	 Allowable PIN tries exceeded.
+		 *  2372	PIN required.
+		 *  2374	Card failed MOD 10 check verification.
+		 *  2380	Account number appears on negative file.
+		 *  2382	Stop Payment Issued.
+		 *  2384	Enter Whole Dollar Amount.
+		 *  2386	Unauthorized Usage.
+		 *  2400	PTLF full.
+		 *  2401	Fraud suspected.
+		 *  2402	Unable to process transaction.
+		 *  2403	Duplicate transaction.
+		 *  2404	Cutoff in progress.
+		 *  2405	Incorrect PIN.
+		 *  2406	PIN tries exceeded.
+		 *  2407	Exceeds withdrawal frequency.
+		 *  2410	Invalid 3D Secure Data.
+		 *  2420	There is more than one error.
+		 *  2430	Validation Fails Internal Check.
+		 *  2431	Validation Fails Name Check.
+		 *  2432	Validation Fails Routing Check.
+		 *  2440	FirstName or LastName Invalid.
+		 *  2610	Timeout waiting for host response.
+		 *  2611	Internal timeout.
+		 *  2612	Authorization host system is temporarily unavailable.
+		 *  2613	Acquirer Cannot Process Transaction at This Time. Please Retry.
+		 *  2614	Authorization host network could not reach the bank, which issued the card or Acquirer.
+		 *  2615	Bank Timeout error / Re-Send
+		 *  2616	Invalid issuer or institution.
+		 *  2618	Unidentified error. Unable to process transaction.
+		 *  2620	Unable to process transaction due to system malfunction.
+		 *  2622	Unable to authorize due to system malfunction.
+		 *  2624	Merchant information incomplete.
+		 *  2626	Invalid CVN value.
+		 *  2627	The track2 format information is incorrect.
+		 *  2628	Merchant not Support this transaction.
+		 *  2630	No such store ID for the merchant.
+		 *  2632	Invalid authcode.
+		 *  2634	Invalid format.
+		 *  2636	Invalid message type.
+		 *  2638	Invalid POS system type.
+		 *  2640	A message has be sent to reverse previous time out transaction.
+		 *  2642	This TrxSource is not supported by the bank.
+		 *  2644	Not enough Terminal IDs at the time of transaction.
+		 *  2646	Acquirer cannot process transaction.
+		 *  2648	Retain card, no reason specified.
+		 *  2649	DOB Does not Match Records.
+		 *  2650	Resubmit with DOB.
+		 *  2700	General error for PC card.
+		 *  2702	Amount is invalid.
+		 *  2704	Line items do not add up to summary total.
+		 *  2706	Not supported for batch.
+		 *  2712	Mandatory field is invalid or missing.
+		 *  2714	Total line items do not add up.
+		 *  2716	Line items missing.
+		 *  2718	Commodity code is invalid or missing.
+		 *  2720	Cross border information is invalid or missing.
+		 *  2722	Not a purchase card.
+		 *  2802	One of the ICC parameters submitted was invalid.
+		 *  2804	The requested transaction was not found.
+		 *  2830	Request in progress
+		 *  2831	Partial Approval
+		 *  2832	Restricted Card
+		 *  2833	Exceeds Withdrawal Amount Limit
+		 *  2844	Cannot Verify PIN
+		 *  2845	No Cashback Allowed
+		 *  2846	System Error
+		 *  2847	Chargeback
+		 *  2848	Cannot Route to Issuer
+		 *  2849	Max Refund Reached
+		 *  2850	Over floor Limit
+		 *  2952	Card issuer wants card returned. Call issuer.
+		 *  2954	Card reported as lost/stolen.
+		 *  2956	Generic decline. No other information is being provided by the issuer.
+		 *  2958	Issuer wants voice contact with cardholder.
+		 *  2960	Insufficient funds.
+		 *  2962	Issuer has declined request because CVV2 edit failed.
+		 *  2964	Delinquent account.
+		 *  2966	Prepaid card load failed.
+		 *  2968	Prepaid card load limit exceeded.
+		 *  2970	Velocity limit exceeded.
+		 *  2972	Prepaid card process permission denied.
+		 *  2974	Prepaid card invalid account ID.
+		 *  2990	Cancellation is going to reverse the authorization.
+		 *  3050	Transaction pending.
+		 *  3051	A new rate is assigned for the transaction.
+		 *  3052	Transaction waiting for placement approve then refund.
+		 *  3100	FX transaction approved.
+		 *  3111	Transaction rate escalated.
+		 *  3170	Transaction cancelled successfully.
+		 *  3171	Transaction refunded.
+		 *  3200	Rate requested has expired and no new rate is available.
+		 *  3203	The deposit/refund transaction being cancelled cannot be because it has already been submitted.
+		 *  3204	Cancellation disabled in merchant set-up.
+		 *  3206	Invalid currency of record.
+		 *  3207	Exchange currency not setup in merchant account.
+		 *  3208	Conversion to same currency redundant.
+		 *  3209	Cannot convert to requested currency.
+		 *  3210	Currency submitted does not match the original rate request.
+		 *  3216	Invalid amount.
+		 *  3217	FXID submitted is invalid.
+		 *  3218	Unexpected error.
+		 *  3219	Credit card is not valid for this transaction.
+		 *  3220	Currency of card not supported.
+		 *  3224	One or more required parameters are not present.
+		 *  3226	Duplicated transaction.
+		 *  3228	Generic error message for invalid transactions.
+		 *  3321	Invalid account data.
+		 *  3341	Quoted rate is not executable.
+		 *  3354	Refund is over the original value of the deal.
+		 *  3361	Quoted rate is invalid.
+		 *  3362	Expired rate cannot be escalated.
+		 *  3371	Rate has been revoked.
+		 *  3381	Transaction min/max limits reached.
+		 *  3391	Batch size exceeds the Maximum allowable size transaction/payment not written to database.
+		 *  3614	FX system cannot be reached.
+		 *  3781	Refund disabled in merchant set-up.
+		 *  3783	Refund cannot be processed.
+		 *  3785	Refund beyond maximum time period.
+		 *  4050	Cardholder enrolled for 3D Secure.
+		 *  4100	Cardholder answered password/challenge question correctly.
+		 *  4101	Cardholder authentication attempted.
+		 *  4200	Cardholder not enrolled for 3D Secure.
+		 *  4202	Credit card is not recognized as a 3D Secure card.
+		 *  4203	Cardholder enrolment not verified.
+		 *  4204	Cardholder failed to answer password/challenge question.
+		 *  4206	Invalid currency.
+		 *  4208	Invalid merchant account number.
+		 *  4210	Invalid credit card number.
+		 *  4212	Invalid credit card expiration date.
+		 *  4216	Invalid amount.
+		 *  4224	Specific and relevant data within transaction is inaccurate or missing.
+		 *  4225	The MessageId value from the acquirer was not in the expected format.
+		 *  4228	Invalid transaction.
+		 *  4230	Merchant Not Participating in 3D Secure.
+		 *  4240	Enrolment process failed.
+		 *  4242	Authentication process failed.
+		 *  4614	MPI not available.
+		 *  4616	Directory server not available.
+		 *  4618	Internal MPI error.
+		 *  4626	Invalid SecureId.
+		 *  4700	3D Secure transaction already processed.
+		 */
+
 		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2000, 2001 );
 		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2051 );
 		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2061, 2080 );
