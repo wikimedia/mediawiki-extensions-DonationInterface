@@ -1188,7 +1188,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 					$this->log( $logmsg );
 					if ( $loops === 0 ){ //only want to do this once - it's not going to change.
-						$this->runPreProcessHooks();
+						$this->runAntifraudHooks();
 					}
 					$status_result['action'] = $this->getValidationAction();
 				} 
@@ -2388,7 +2388,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
 		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){
-			$this->runPreProcessHooks();
+			$this->runAntifraudHooks();
 			$checked[] = $oid;
 		}
 	}

@@ -326,7 +326,7 @@ class TestingAdyenAdapter extends AdyenAdapter {
 	//The problem: Something about an automatic DNS lookup writing a temp file.
 	//@see DonationInterface/extras/custom_filters/filters/minfraud/ccfd/HTTPBase.php, line 72ish.
 	//That piece of code is a total warn machine.
-	function runPreProcessHooks() {
+	function runAntifraudHooks() {
 		return;
 	}
 

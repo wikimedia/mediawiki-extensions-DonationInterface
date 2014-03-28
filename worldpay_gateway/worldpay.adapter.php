@@ -293,7 +293,9 @@ class WorldPayAdapter extends GatewayAdapter {
 		return ( is_null( $ok ) ? false : $ok );
 	}
 
-	function getResponseErrors( $response ) {}
+	function getResponseErrors( $response ) {
+
+	}
 
 	public function processResponse( $response, &$retryVars = null ) {}
 
@@ -428,4 +430,22 @@ class WorldPayAdapter extends GatewayAdapter {
 			return null;
 		}
 	}
+
+	/**
+	 * More should go here.
+	 * @TODO: Once we get some data back from AuthorizePayment, addData here
+	 * for AVS results, CVV results, and whatever else they tell us that
+	 * would be helpful.
+	 * @TODO: And furthermore, you will need to either pull the GC functions
+	 * for AVS and CVV checking into the parent and use those, or make new
+	 * ones here. I'd vastly prefer that the GC ones get reused unless
+	 * there's a seriously good reason to go custom.
+	 *
+	 * Even more will probably need to go here once we start thinking about
+	 * things like !cc payment types, and batch operations.
+	 */
+	protected function post_process_authorizepayment() {
+		$this->runAntifraudHooks();
+	}
+
 }

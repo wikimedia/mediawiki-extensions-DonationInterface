@@ -125,4 +125,7 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 	'Password' => 'testpass',
 	'MerchantId' => '123456',
 	'Test' => true,
+	'StoreIDs' => array (
+		'EUR' => 'eur_store_id',
+	)
 );
