@@ -994,8 +994,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 			//If we have any special pre-process instructions for this 
 			//transaction, do 'em. 
-			//NOTE: If you want your transaction to fire off the pre-process 
-			//hooks, you need to run $this->runPreProcessHooks in a function 
+			//NOTE: If you want your transaction to fire off the antifraud
+			//hooks, you need to run $this->runAntifraudHooks(); in a function
 			//called 
 			//	'pre_process' . strtolower($transaction) 
 			//in the appropriate gateway object. 
@@ -2321,7 +2321,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This function is most likely to be called through 
 	 * executeFunctionIfExists, early on in do_transaction. 
 	 */
-	function runPreProcessHooks() {
+	function runAntifraudHooks() {
 		// allow any external validators to have their way with the data
 		$this->log( 'Preparing to run custom filters' );
 		wfRunHooks( 'GatewayValidate', array( &$this ) );

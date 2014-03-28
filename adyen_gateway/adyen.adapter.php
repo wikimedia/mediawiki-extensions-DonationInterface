@@ -198,7 +198,7 @@ class AdyenAdapter extends GatewayAdapter {
 			switch ( $transaction ) {
 				case 'donate':
 					$formaction = $this->getGlobal( 'BaseURL' ) . '/hpp/pay.shtml';
-					$this->runPreProcessHooks();
+					$this->runAntifraudHooks();
 					$this->addData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
