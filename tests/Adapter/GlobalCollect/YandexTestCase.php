@@ -69,7 +69,7 @@ class DonationInterface_Adapter_GlobalCollect_YandexTestCase extends DonationInt
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
 		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "ew_yandex_url_placeholder", $action, "The yandex formation is off." );
+		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (yandex)." );
 	}
 
 }

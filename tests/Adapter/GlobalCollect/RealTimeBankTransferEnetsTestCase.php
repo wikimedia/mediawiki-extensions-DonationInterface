@@ -70,7 +70,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase 
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
 		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "rtbt_enets_url_placeholder", $action, "The enets formation is off." );
+		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (enets)." );
 	}
 
 }

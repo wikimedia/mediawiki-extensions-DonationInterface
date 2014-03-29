@@ -1370,13 +1370,13 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->log( "Preparing to send transaction to $gatewayName" );
 
 			// Execute the cURL operation
-			$result = curl_exec( $ch );
+			$result = $this->curl_exec( $ch );
 			$results['result'] = $result;
 
 			if ( $results['result'] !== false ) {
 				// The cURL operation was at least successful, what happened in it?
 
-				$results['headers'] = curl_getinfo( $ch );
+				$results['headers'] = $this->curl_getinfo( $ch );
 				$httpCode = $results['headers']['http_code'];
 
 				switch ( $httpCode ) {
@@ -1415,7 +1415,7 @@ abstract class GatewayAdapter implements GatewayType {
 				// Well the cURL transaction failed for some reason or another. Try again!
 				$continue = true;
 
-				$errno = curl_errno( $ch );
+				$errno = $this->curl_errno( $ch );
 				$err = curl_error( $ch );
 				$this->log( "cURL transaction  to $gatewayName failed: ($errno) $err", LOG_ALERT );
 			}
@@ -1427,6 +1427,35 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
 		return $retval;
+	}
+
+	/**
+	 * Wrapper for the real curl_exec so we can override with magic for unit tests.
+	 * @param resource $ch curl handle (returned from curl_init)
+	 * @return mixed True or the result on success (depends if
+	 * CURLOPT_RETURNTRANSFER is set or not). False on total failure.
+	 */
+	protected function curl_exec( $ch ) {
+		return curl_exec( $ch );
+	}
+
+	/**
+	 * Wrapper for the real curl_getinfo so we can override with magic for unit tests.
+	 * @param resource $ch curl handle (returned from curl_init)
+	 * @param int $opt The specific info or null for all of it
+	 * @return mixed an array, string, or false on total failure.
+	 */
+	protected function curl_getinfo( $ch, $opt = null ) {
+		return curl_getinfo( $ch, $opt );
+	}
+
+	/**
+	 * Wrapper for the real curl_errno so we can override with magic for unit tests.
+	 * @param resource $ch curl handle (returned from curl_init)
+	 * @return int the error number or 0 if none occurred
+	 */
+	protected function curl_errno( $ch ) {
+		return curl_errno( $ch );
 	}
 
 	/**

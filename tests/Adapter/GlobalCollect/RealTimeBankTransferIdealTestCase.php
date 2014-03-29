@@ -297,7 +297,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
 		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "rtbt_ideal_url_placeholder", $action, "The rtbt_ideal formation is off." );
+		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (ideal)." );
 	}
 
 }
