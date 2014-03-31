@@ -70,7 +70,7 @@ class GlobalCollectGateway extends GatewayForm {
 				}
 
 				// Check form for errors
-				$form_errors = $this->validateForm( $this->adapter->getPaymentSubmethodFormValidation() );
+				$form_errors = $this->adapter->validateSubmethodData();
 
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {

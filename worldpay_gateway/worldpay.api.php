@@ -20,7 +20,11 @@ class WorldPayValidateApi extends ApiBase {
 
 		// Do some validity checking and what not
 		if ( $adapter->checkTokens() ) {
-			// TODO: moar checking!
+			$form_errors = $adapter->validateSubmethodData();
+			$this->getResult()->addValue( null, 'result', $adapter->getAllErrors() );
+			if ( $form_errors ) {
+				return;
+			}
 
 			// Store the CVC into the session
 			$adapter->store_cvv_in_session( $this->getParameter( 'cvc' ) );
@@ -39,6 +43,9 @@ class WorldPayValidateApi extends ApiBase {
 	}
 
 	public function mustBePosted() {
+		// This API must be posted because we submit the CVV inside it. If it
+		// was allowed to be in the GET request, that would be caught inside
+		// URL logging / analytics which we cannot have.
 		return true;
 	}
 }
