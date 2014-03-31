@@ -21,17 +21,15 @@ class DonationData {
 	/**
 	 * DonationData constructor
 	 * @param GatewayAdapter $gateway
-	 * @param boolean $test Indicates if DonationData has been instantiated in 
-	 * testing mode. Default is false.
 	 * @param mixed $data An optional array of donation data that will, if 
 	 * present, circumvent the usual process of gathering the data from various 
 	 * places in $wgRequest, or 'false' to gather the data the usual way. 
 	 * Default is false. 
 	 */
-	function __construct( $gateway, $test = false, $data = false ) {
+	function __construct( $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->getGatewayIdentifier();
-		$this->populateData( $test, $data );
+		$this->populateData( $data );
 	}
 
 	/**
@@ -40,20 +38,17 @@ class DonationData {
 	 * if present, normalize the data regardless of the source, and handle the 
 	 * caching variables.  
 	 * @global Webrequest $wgRequest 
-	 * @param boolean $test Indicates if DonationData has been instantiated in 
-	 * testing mode. Default is false.
 	 * @param mixed $external_data An optional array of donation data that will, 
 	 * if present, circumvent the usual process of gathering the data from 
 	 * various places in $wgRequest, or 'false' to gather the data the usual way. 
 	 * Default is false. 
 	 */
-	protected function populateData( $test = false, $external_data = false ) {
+	protected function populateData( $external_data = false ) {
 		global $wgRequest;
 		$this->normalized = array( );
-		if ( is_array( $external_data ) ){
+		if ( is_array( $external_data ) ) {
+			//I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
-		} elseif ( $test ) {
-			$this->populateData_Test();
 		} else {
 			$this->normalized = array(
 				'amount' => $wgRequest->getText( 'amount', null ),
@@ -91,8 +86,6 @@ class DonationData {
 				// Pull both of these here. We can logic out which one to use in the normalize bits. 
 				'language' => $wgRequest->getText( 'language', null ),
 				'uselang' => $wgRequest->getText( 'uselang', null ),
-				// test_string has been disabled - may no longer be needed.
-				//'test_string' => $wgRequest->getText( 'process' ), // for showing payflow string during testing
 				'_cache_' => $wgRequest->getText( '_cache_', null ),
 				'token' => $wgRequest->getText( 'token', null ),
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
@@ -180,75 +173,6 @@ class DonationData {
 	 */
 	public function getDataUnescaped() {
 		return $this->normalized;
-	}
-
-	/**
-	 * populateData helper function.
-	 * If there is no external data provided upon DonationData construct, and
-	 * the object was instantiated in test mode, populateData_Test in intended
-	 * to provide a baseline minimum of data with which to run tests without
-	 * exploding.
-	 * Populates $this->normalized.
-	 * TODO: Implement an override for the test data, in the event that a
-	 * partial data array is provided when DonationData is instantiated.
-	 * @param array|bool $testdata Intended to implement an override for any values
-	 * that may be provided on instantiation.
-	 */
-	protected function populateData_Test( $testdata = false ) {
-		// define arrays of cc's and cc #s for random selection
-		$cards = array( 'american' );
-		$card_nums = array(
-			'american' => array(
-				'378282246310005', //@TODO: GET RID OF THIS. Whole function. Gone.
-			),
-		);
-
-		// randomly select a credit card
-		$card_index = array_rand( $cards );
-
-		// randomly select a credit card #
-		$card_num_index = array_rand( $card_nums[$cards[$card_index]] );
-
-		//This array should be populated with general test defaults, or 
-		//(preferably)  mappings to random stuff... if we keep this around at all.
-		//Certainly nothing pulled from a form post or get. 
-		$this->normalized = array(
-			'amount' => "35",
-			'amountOther' => '',
-			'email' => 'test@example.com',
-			'fname' => 'Tester',
-			'lname' => 'Testington',
-			'street' => '548 Market St.',
-			'street_supplemental' => '3rd floor',
-			'city' => 'San Francisco',
-			'state' => 'CA',
-			'zip' => '94104',
-			'country' => 'US',
-			'premium_language' => 'es',
-			'card_num' => $card_nums[$cards[$card_index]][$card_num_index],
-			'card_type' => $cards[$card_index],
-			'expiration' => date( 'my', strtotime( '+1 year 1 month' ) ),
-			'cvv' => '001',
-			'currency_code' => 'USD',
-			'payment_method' => 'cc',
-			'payment_submethod' => '', //cards have no payment submethods. 
-			'issuer_id' => '',
-			'order_id' => '1234567890',
-			'referrer' => 'http://www.baz.test.com/index.php?action=foo&action=bar',
-			'utm_source' => 'test_src',
-			'utm_source_id' => null,
-			'utm_medium' => 'test_medium',
-			'utm_campaign' => 'test_campaign',
-			'language' => 'en',
-			'token' => '',
-			'contribution_tracking_id' => '',
-			'data_hash' => '',
-			'action' => '',
-			'gateway' => 'payflowpro',
-			'owa_session' => '',
-			'owa_ref' => 'http://localhost/defaultTestData',
-			'user_ip' => '12.12.12.12',
-		);
 	}
 
 	/**

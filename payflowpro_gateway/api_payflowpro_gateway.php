@@ -153,7 +153,7 @@ class ApiPayflowProGateway extends ApiBase {
 		 */
 		$tracking_data = $this->parseTrackingData( json_decode( $params[ 'tracking_data' ], true ) );
 		//instantiate a new DonationData that behaves like it's owned by the correct gateway. 
-		$donationDataObj = new DonationData( $gateway_class, false, $tracking_data );
+		$donationDataObj = new DonationData( $gateway_class, $tracking_data );
 		// fetch the order_id
 		$order_id = $donationDataObj->getVal_Escaped( 'order_id' );
 
