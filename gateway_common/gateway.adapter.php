@@ -1442,11 +1442,10 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Wrapper for the real curl_getinfo so we can override with magic for unit tests.
 	 * @param resource $ch curl handle (returned from curl_init)
-	 * @param int $opt The specific info or null for all of it
 	 * @return mixed an array, string, or false on total failure.
 	 */
-	protected function curl_getinfo( $ch, $opt = 0 ) {
-		return curl_getinfo( $ch, $opt );
+	protected function curl_getinfo( $ch ) {
+		return curl_getinfo( $ch );
 	}
 
 	/**
