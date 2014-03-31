@@ -322,7 +322,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
 		$this->defineDataConstraints(); //must also happen before we go to DonationData.
 
-		$this->dataObj = new DonationData( $this, self::getGlobal( 'Test' ), $external_data );
+		$this->dataObj = new DonationData( $this, $external_data );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
 		$this->unstaged_data = $this->dataObj->getDataEscaped();

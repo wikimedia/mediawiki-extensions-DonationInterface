@@ -41,7 +41,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->hard_data['order_id'] = $data['order_id'];
 
-		$this->dataObj = new DonationData( $this, false, $data );
+		$this->dataObj = new DonationData( $this, $data );
 
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 
