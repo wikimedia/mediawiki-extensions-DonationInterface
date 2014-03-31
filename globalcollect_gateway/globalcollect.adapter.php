@@ -1054,58 +1054,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Get payment submethod meta
-	 *
-	 * @todo
-	 * - These may need to move to the parent class
-	 *
-	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
-	 * @param array $options
-	 * @throws MWException
-	 */
-	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
-		
-		extract( $options );
-		
-		$log = isset( $log ) ? (boolean) $log : false ;
-		
-		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
-			
-			if ( $log ) {
-				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
-			}
-			
-			// Ensure that the validation index is set.
-			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
-				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
-			}
-			
-			return $this->payment_submethods[ $payment_submethod ];
-		}
-		else {
-			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
-			throw new MWException( $message );
-		}
-	}
-
-	//XXX kill all this validation.
-	/**
-	 * Get payment submethod form validation options
-	 *
-	 * @todo
-	 * - These may need to move to the parent class
-	 *
-	 * @param array $options
-	 * @return    array
-	 */
-	public function getPaymentSubmethodFormValidation( $options = array() ) {
-		
-		$meta = $this->getPaymentSubmethodMeta( $this->getPaymentSubmethod() );
-		
-		return $meta['validation'];
-	}
-	
-	/**
 	 * Because GC has some processes that involve more than one do_transaction 
 	 * chained together, we're catching those special ones in an overload and 
 	 * letting the rest behave normally. 

@@ -534,6 +534,12 @@ class WorldPayAdapter extends GatewayAdapter {
 			case 'GenerateToken':
 				// XXX: This has no error handling yet... eep!
 				$result = parent::do_transaction( $transaction );
+				if ( $result['errors'] ) {
+					// Crap something happened!
+
+					// TODO: Something useful
+					return false;
+				}
 
 				$this->addData( array(
 					'wp_one_time_token' => $result['data']['OTT'],
