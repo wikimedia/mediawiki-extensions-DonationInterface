@@ -1445,7 +1445,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param int $opt The specific info or null for all of it
 	 * @return mixed an array, string, or false on total failure.
 	 */
-	protected function curl_getinfo( $ch, $opt = null ) {
+	protected function curl_getinfo( $ch, $opt = 0 ) {
 		return curl_getinfo( $ch, $opt );
 	}
 
