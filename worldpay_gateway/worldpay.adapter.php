@@ -54,7 +54,66 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineDataConstraints() {}
+	function defineDataConstraints() {
+		$this->dataConstraints = array(
+			// AcctName
+			'wp_acctname' => array( 'type' => 'alphanumeric', 'length' => 30 ),
+
+			// Address1
+			'street' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// Amount
+			'amount' => array( 'type' => 'numeric' ),
+
+			// CardId
+			'wp_card_id' => array( 'type' => 'numeric' ),
+
+			// City
+			'city' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// CountryCode
+			'country' => array( 'type' => 'alphanumeric', 'length' => 2 ),
+
+			// CurrencyId
+			'iso_currency_id' => array( 'type' => 'numeric' ),
+
+			// CVN
+			'cvv' => array( 'type' => 'numeric' ),
+
+			// Email
+			'email' => array( 'type' => 'alphanumeric', 'length' => 50 ),
+
+			// FirstName
+			'fname' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// LastName
+			'lname' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// NarrativeStatement1
+			'donation_desc' => array( 'type' => 'alphanumeric', 'length' => 50 ),
+
+			// OrderNumber
+			'order_id' => array( 'type' => 'alphanumeric', 'length' => 35 ),
+
+			// OTTRegion
+			'region_code' => array( 'type' => 'numeric' ),
+
+			// OTTResultURL
+			'returnto' => array( 'type' => 'alphanumeric', 'length' => 255 ),
+
+			// PTTID
+			'wp_pttid' => array( 'type' => 'numeric' ),
+
+			// REMOTE_ADDR
+			'user_ip' => array( 'type' => 'alphanumeric', 'length' => 100 ),
+
+			// StateCode
+			'state' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// ZipCode
+			'zip' => array( 'type' => 'alphanumeric', 'length' => 30 ),
+		);
+	}
 
 	function definePaymentMethods() {
 		$this->payment_methods = array();
