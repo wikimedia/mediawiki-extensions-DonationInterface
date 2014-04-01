@@ -874,38 +874,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * This is a throwback to a road we nearly went down, 
-	 * with ajax and client-side token replacement. The idea was, if this was 
-	 * set to true, we would simply pass the fully-formed transaction structure 
-	 * with our tokenized var names in the spots where form values would usually 
-	 * go, so we could fetch the structure and have some client-side voodoo 
-	 * populate the transaction so we wouldn't have to touch the data at all.
-	 * At this point, very likely cruft that can be removed, but as I'm not 100% 
-	 * on that point, I'm keeping it for now.
-	 * @param string $transaction The current transaction. 
-	 * @return string XML transaction with the form values tokenized instead of 
-	 * populated.  
-	 */
-	public function buildTransactionFormat( $transaction ) {
-		$this->setCurrentTransaction( $transaction );
-		$this->xmlDoc = new DomDocument( '1.0' );
-		$node = $this->xmlDoc->createElement( 'XML' );
-
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return '';
-		}
-
-		$this->buildTransactionNodes( $structure, $node, true );
-		$this->xmlDoc->appendChild( $node );
-		$xml = $this->xmlDoc->saveXML();
-		$xmlStart = strpos( $xml, "<XML>" );
-		$xml = substr( $xml, $xmlStart );
-
-		return $xml;
-	}
-
-	/**
 	 * Performs a transaction through the gateway. Optionally may reattempt the transaction if
 	 * a recoverable gateway error occurred.
 	 *
@@ -978,179 +946,147 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Called from do_transaction() in order to be able to deal with transactions that had
 	 * recoverable errors but that do require the entire transaction to be repeated.
+	 *
+	 * This function has the following extension hooks:
+	 *  * pre_process_<strtolower($transaction)>
+	 *    Called before the transaction is processed; intended to call setValidationAction()
+	 *    if the transaction should not be performed. Anti-fraud can be performed in this
+	 *    hook by calling $this->runAntifraudHooks().
+	 *
+	 *  * MediaWiki hook GatewayHandoff
+	 *    Called if the gateway tranaction type is 'redirect'
+	 *
+	 *  * post_process_<strtolower($transaction)>
+	 *
+	 * @param string    $transaction Name of the transaction being performed
+	 * @param &string() $retryVars Reference to an array of variables that caused the
+	 *                  transaction to fail.
+	 *
+	 * @return bool
 	 */
 	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
 		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
-		//reset, in case this isn't our first time. 
-		$this->transaction_results = array();
-		$this->setValidationAction('process', true);
-				
-		try {
-			$currency = $this->getData_Staged( 'currency_code' );
-			$amount = $this->getData_Staged( 'amount' );
-			$this->log( "Beginning internal transaction for $currency $amount" );
 
+		//reset, in case this isn't our first time.
+		$this->setTransactionResult( array() );
+		$this->setValidationAction('process', true);
+		$errCode = null;
+
+		/* --- Build the transaction string for cURL --- */
+		try {
 			$this->setCurrentTransaction( $transaction );
 
-			//If we have any special pre-process instructions for this 
-			//transaction, do 'em. 
-			//NOTE: If you want your transaction to fire off the antifraud
-			//hooks, you need to run $this->runAntifraudHooks(); in a function
-			//called 
-			//	'pre_process' . strtolower($transaction) 
-			//in the appropriate gateway object. 
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
-
 			if ( $this->getValidationAction() != 'process' ) {
-
 				$this->log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
-
-				$this->transaction_results = array(
-					'status' => false,
-					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-					'errors' => array(
-						'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-					),
-					'action' => $this->getValidationAction(),
+				$this->setTransactionResult(
+					array(
+						'status' => false,
+						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						'errors' => array(
+							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						),
+						'action' => $this->getValidationAction(),
+					)
 				);
-			
 				return $this->getTransactionAllResults();
 			}
 
 			//TODO: Maybe move this to the pre_process functions? 
 			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
 
-			if ( $this->getCommunicationType() === 'redirect' ) {
+			$commType = $this->getCommunicationType();
+			if ( $commType === 'redirect' ) {
 				wfRunHooks( 'GatewayHandoff', array ( $this ) );
 
 				//in the event that we have a redirect transaction that never displays the form,
 				//save this most recent one before we leave.
 				$this->session_pushRapidHTMLForm( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
-				$this->transaction_results = array(
+				$this->setTransactionResult( array(
 					'status' => TRUE,
 					'action' => $this->getValidationAction(),
 					'redirect' => $this->url,
-				);
+				));
 				return $this->getTransactionAllResults();
-			}
 
-			$currency = $this->getData_Staged( 'currency_code' );
-			$amount = $this->getData_Staged( 'amount' );
-			$this->log( "Now building external transaction for $currency $amount" );
-
-			// If the payment processor requires XML, package our data into XML.
-			if ( $this->getCommunicationType() === 'xml' ) {
+			} elseif ( $commType === 'xml' ) {
 				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
 				$curlme = $this->buildRequestXML(); // build the XML
 				$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
-			}
 
-			// If the payment processor requires name/value pairs, package our data into name/value pairs.
-			if ( $this->getCommunicationType() === 'namevalue' ) {
+			} elseif ( $commType === 'namevalue' ) {
 				$this->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
 				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
 				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
+
+			} else {
+				throw new MWException( "Communication type of '{$commType}' unknown" );
 			}
 		} catch ( MWException $e ) {
-			
 			$this->log( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(), LOG_CRIT );
 
-			$this->transaction_results = array(
+			$this->setTransactionResult( array(
 				'status' => false,
 				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
 				'errors' => array(
 					'internal-0001' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
 				),
 				'action' => $this->getValidationAction(),
-			);
+			));
 			
 			return $this->getTransactionAllResults();
 		}
 
-		//start looping here, if we're the sort of transaction that needs to do that. 
-		$stopflag = false;
-		$counter = 0;
-		$errCode = null;
-		$statuses = $this->transaction_option( 'loop_for_status' );
+		/* --- Do the cURL request --- */
 		$this->getStopwatch( __FUNCTION__, true );
-		while ( $stopflag === false ) {
-			$stopflag = true;
-			$counter += 1;
-			$txn_ok = $this->curl_transaction( $curlme );
+		$txn_ok = $this->curl_transaction( $curlme );
+		if ( $txn_ok === true ) { //We have something to slice and dice.
+			$this->log( "RETURNED FROM CURL:" . print_r( $this->getTransactionAllResults(), true ) );
 
-			if ( $txn_ok === true ) { //We have something to slice and dice. 
-				$this->log( "RETURNED FROM CURL:" . print_r( $this->getTransactionAllResults(), true ) );
+			//set the status of the response. This is the COMMUNICATION status, and has nothing
+			//to do with the result of the transaction.
+			$formatted = $this->getFormattedResponse( $this->getTransactionRawResponse() );
+			$this->setTransactionResult( $this->getResponseStatus( $formatted ), 'status' );
 
-				//set the status of the response. This is the COMMUNICATION status, and has nothing
-				//to do with the result of the transaction. 
-				$formatted = $this->getFormattedResponse( $this->getTransactionRawResponse() );
-				$this->setTransactionResult( $this->getResponseStatus( $formatted ), 'status' );
+			//set errors
+			//TODO: This "errors" business is becoming a bit of a misnomer, as the result code and message
+			//are frequently packaged togther in the same place, whether the transaction passed or failed.
+			$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
 
-				//set errors
-				//TODO: This "errors" business is becoming a bit of a misnomer, as the result code and message
-				//are frequently packaged togther in the same place, whether the transaction passed or failed. 
-				$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
+			//if we're still okay (hey, even if we're not), get relevant data.
+			$this->setTransactionResult( $this->getResponseData( $formatted ), 'data' );
 
-				//if we're still okay (hey, even if we're not), get relevent data.
-				$this->setTransactionResult( $this->getResponseData( $formatted ), 'data' );
+			// Process the formatted response data. This will then drive the result action
+			$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
 
-				// Process the formatted response data. This will then drive the result action
-				$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
-				
-				//well, almost all. 
-				$this->setTransactionResult( $this->getValidationAction(), 'action' );
-				
-			} else {
-				$this->log( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
-			}
+			//well, almost all.
+			$this->setTransactionResult( $this->getValidationAction(), 'action' );
 
-			if ( is_array( $statuses ) ) { //only then will we consider doing this again. 
-				if ( $this->getStopwatch( __FUNCTION__ ) < self::getGlobal( "RetrySeconds" ) ) {
-					if ( $txn_ok === false ) {
-						$stopflag = false;
-					} else {
-						if ( !in_array( $this->getFinalStatus(), $statuses ) ) {
-							$stopflag = false;
-						}
-					}
-				}
-			}
-		}
+		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
+			$this->log( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ), LOG_ERR );
 
-		//Log out how many times we looped, and what the clock is now. 
-		$this->saveCommunicationStats( __FUNCTION__, $transaction, "counter = $counter" );
-
-		if ( $txn_ok === false ) {
-			//nothing to process, so we have to build it manually
-			
-			$this->log( "$transaction Communication Failed!", LOG_CRIT );
-
-			$this->transaction_results = array(
+			$this->setTransactionResult( array(
 				'status' => false,
 				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 				'errors' => array(
 					'internal-0002' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 				),
 				'action' => $this->getValidationAction(),
-			);
-			
-			return $this->getTransactionAllResults();
-		} elseif ( !empty( $retryVars ) ) {
-			//nothing to process, so we have to build it manually
+			));
+		}
 
+		// Log out how much time it took for the cURL request
+		$this->saveCommunicationStats( __FUNCTION__, $transaction );
+
+		if ( !empty( $retryVars ) ) {
 			$this->log( "$transaction Communication failed (errcode $errCode), will reattempt!", LOG_CRIT );
 
-			$this->transaction_results = array(
-				'status' => false,
-				'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
-				'errors' => array(
-					$errCode => $this->getErrorMapByCodeAndTranslate( $errCode ),
-				),
-				'action' => $this->getValidationAction(),
-			);
-
-			return $this->getTransactionAllResults();
+			// Set this by key so that the result object still has all the cURL data
+			$this->setTransactionResult( false, 'status' );
+			$this->setTransactionResult( $this->getErrorMapByCodeAndTranslate( $errCode ), 'message' );
+			$this->setTransactionResult( array( $errCode => $this->getErrorMapByCodeAndTranslate( $errCode ) ), 'errors' );
+			$this->setTransactionResult( $this->getValidationAction(), 'action' );
 		}
 
 		//If we have any special post-process instructions for this 
@@ -1159,16 +1095,9 @@ abstract class GatewayAdapter implements GatewayType {
 		//hooks, you need to run $this->runPostProcessHooks in a function 
 		//called 
 		//	'post_process' . strtolower($transaction) 
-		//in the appropriate gateway object. 
-		$this->executeIfFunctionExists( 'post_process_' . $transaction );
-
-		//TODO: Actually pull these from somewhere legit. 
-		if ( $this->getTransactionStatus() === true ) {
-			$this->setTransactionResult( "$transaction Transaction Successful!", 'message' );
-		} elseif ( $this->getTransactionStatus() === false ) {
-			$this->setTransactionResult( "$transaction Transaction FAILED!", 'message' );
-		} else {
-			$this->setTransactionResult( "$transaction Transaction... weird. I have no idea what happened there.", 'message' );
+		//in the appropriate gateway object.
+		if ( $txn_ok && empty( $retryVars ) ) {
+			$this->executeIfFunctionExists( 'post_process_' . $transaction );
 		}
 
 		// log that the transaction is essentially complete
@@ -1177,7 +1106,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->debugarray[] = 'numAttempt = ' . $this->getData_Staged('numAttempt');
 
 		return $this->getTransactionAllResults();
-		
 	}
 
 	function getCurlBaseOpts() {
@@ -2050,6 +1978,24 @@ abstract class GatewayAdapter implements GatewayType {
 		return $queryparams;
 	}
 
+	/**
+	 * The results of the most recent cURL transaction.
+	 *
+	 * Standard keys are:
+	 *   status  - Boolean value that indicates if the completed without errors
+	 *             @see getTransactionStatus()
+	 *   headers - HTTP headers returned from cURL
+	 *   result  - HTTP body request string returned from cURL
+	 *             @see getTransactionRawResponse()
+	 *   message - Debug string; used for describing extra data for logging
+	 *             @see getTransactionMessage()
+	 *   errors  - Array of <error code> => <i18n message for user display>
+	 *             @see getTransactionErrors
+	 *   action  - The validation action at the end of the request
+	 *   data    - Processed data array
+	 *
+	 * @return bool|string[] False if there are no results
+	 */
 	public function getTransactionAllResults() {
 		if ( $this->transaction_results && is_array( $this->transaction_results ) ) {
 			return $this->transaction_results;
@@ -2067,7 +2013,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param mixed $key Optional: A specific key to set, or false (default) to 
 	 * reset the entire result array. 
 	 */
-	public function setTransactionResult( $value, $key = false ) {
+	public function setTransactionResult( $value = array(), $key = false ) {
 		if ( $key === false ) {
 			$this->transaction_results = $value;
 		} else {
@@ -2197,15 +2143,6 @@ abstract class GatewayAdapter implements GatewayType {
 		foreach ($keys as $key){
 			$msg .= $this->getData_Unstaged_Escaped( $key ) . ', ';
 		}
-
-//		I'm not convinced this bit is useful after seeing the loglines it produces.
-//		Turns out: Most of these are obfuscated for external use, and frankly I don't care about that.
-//		$errors = $this->getTransactionErrors();
-//		if (!empty($errors)){
-//			foreach ( $errors as $code => $message ){
-//				$msg .= " [$code]$message";
-//			}
-//		}
 		
 		$txn_message = $this->getTransactionMessage();
 		if ( $txn_message ){

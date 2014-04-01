@@ -203,14 +203,14 @@ class AdyenAdapter extends GatewayAdapter {
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
-						$this->transaction_results = array(
+						$this->setTransactionResult( array(
 							'status' => false,
 							'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 							'errors' => array(
 								'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 							),
 							'action' => $this->getValidationAction(),
-						);
+						));
 						break;
 					}
 					$this->stageData();

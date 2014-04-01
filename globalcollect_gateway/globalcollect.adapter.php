@@ -535,13 +535,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'GET_ORDERSTATUS',
 				'VERSION' => '2.0'
 			),
-//			'loop_for_status' => array(
-//				//'pending',
-//				'pending-poke',
-//				'complete',
-//				'failed',
-//				'revised',
-//			)
 		);
 		
 		$this->transactions['CANCEL_PAYMENT'] = array(
@@ -1385,7 +1378,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$message = $childnode->nodeValue;
 					//I am hereby done screwing around with GC field constraint violations.
 					//They vary between ***and within*** payment types, and their docs are a joke.
-					if ( in_string( 'DOES NOT HAVE LENGTH', $message ) ) {
+					if ( strpos( $message, 'DOES NOT HAVE LENGTH' ) !== false ) {
 						$this->log( $message, LOG_ERR ); 
 					}
 				}
