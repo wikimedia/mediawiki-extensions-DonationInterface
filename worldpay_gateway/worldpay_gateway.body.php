@@ -46,16 +46,25 @@ class WorldPayGateway extends GatewayForm {
 		if ( $this->adapter->checkTokens() ) {
 			$ott = $this->getRequest()->getText( 'OTT' );
 			if ( $ott ) {
-				// Obtain all the form data from tokenization server
-				$this->adapter->do_transaction( 'QueryTokenData' );
-				// Assuming that everything went correctly
-				$this->adapter->do_transaction( 'AuthorizePayment' );
-				// And that one too
-				$this->adapter->do_transaction( 'DepositPayment' );
+				$this->adapter->do_transaction( 'QueryAuthorizeDeposit' );
+				if ( $this->adapter->getFinalStatus() === 'failed' ) {
+					$this->getOutput()->redirect( $this->adapter->getFailPage() );
+				} else {
+					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				}
+
+			} elseif ( $this->adapter->isValidSpecialForm( $this->getRequest()->getVal( 'ffname', '' ) ) ) {
+				// We're in an error form; just display it
+				$this->displayForm();
 
 			} else {
+				// Show the initial payments form
 				$this->adapter->do_transaction( 'GenerateToken' );
-				$this->displayForm();
+				if ( $this->adapter->getTransactionStatus() ) {
+					$this->displayForm();
+				} else {
+					$this->getOutput()->redirect( $this->adapter->getFailPage() );
+				}
 			}
 		} else { //token mismatch
 			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
