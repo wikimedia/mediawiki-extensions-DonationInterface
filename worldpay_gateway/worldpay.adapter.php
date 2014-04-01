@@ -552,7 +552,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'complete', 2100, 2106 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2200, 2804 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2830 );
-		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2831, 2804 );
+		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2831, 2990 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 3050 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 3216, 3614 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'complete', 3100 );
@@ -587,65 +587,99 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	public function do_transaction( $transaction ) {
-		$this->url = $this->getGlobal( "URL" );
+		$this->url = $this->getGlobal( 'URL' );
 
 		switch ( $transaction ) {
 			case 'GenerateToken':
-				// XXX: This has no error handling yet... eep!
 				$result = parent::do_transaction( $transaction );
-				if ( $result['errors'] ) {
-					// Crap something happened!
-
-					// TODO: Something useful
-					return false;
+				if ( !$result['errors'] ) {
+					// Save the OTT to the session for later
+					$this->session_addDonorData();
 				}
-
-				$this->addData( array(
-					'wp_one_time_token' => $result['data']['OTT'],
-					'wp_process_url' => $result['data']['OTTProcessURL'],
-					'wp_rdid' => $result['data']['RDID']
-				));
-
-				// Save the OTT to the session for later
-				$this->session_addDonorData();
+				return $result;
 				break;
 
-			case 'QueryTokenData':
-				// XXX: Still no error handling
-				$result = parent::do_transaction( $transaction );
+			case 'QueryAuthorizeDeposit':
+				// Obtain all the form data from tokenization server
+				$result = $this->do_transaction( 'QueryTokenData' );
+				if ( !$this->getTransactionStatus() ) {
+					$this->log( 'Failed transaction because QueryTokenData failed', LOG_ERR );
+					$this->finalizeInternalStatus( 'failed' );
+					return $result;
+				}
 
-				$this->addData( array(
-					'wp_card_id' => $result['data']['CardId'],
-					'wp_card_type' => $result['data']['CreditCardType'],
-				));
+				// If we managed to successfully get the token details; attempt to authorize the payment
+				$result = $this->do_transaction( 'AuthorizePayment' );
+				if ( !$this->getTransactionStatus() ) {
+					$this->log( 'Failed transaction because AuthorizePayment failed' );
+					$this->finalizeInternalStatus( 'failed' );
+					return $result;
+				}
+				$result_status = $this->findCodeAction(
+					'AuthorizePayment', 'MessageCode', $result['data']['MessageCode'] );
+				if ( $result_status ) {
+					$this->log( "Finalizing transaction at AuthorizePayment to {$result_status}" );
+					$this->finalizeInternalStatus( $result_status );
+					return $result;
+				}
+
+				// We've successfully passed fraud checks and authorized, deposit the payment
+				$result = $this->do_transaction( 'DepositPayment' );
+				if ( !$this->getTransactionStatus() ) {
+					$this->log( 'Failed transaction because DepositPayment failed' );
+					$this->finalizeInternalStatus( 'failed' );
+					return $result;
+				}
+				$result_status = $this->findCodeAction(
+					'DepositPayment', 'MessageCode', $result['data']['MessageCode'] );
+				if ( $result_status ) {
+					$this->log( "Finalizing transaction at DepositPayment to {$result_status}" );
+					$this->finalizeInternalStatus( $result_status );
+				} else {
+					$this->log(
+						'Finalizing transaction at DepositPayment to failed because MessageCode (' .
+						$result['data']['MessageCode'] .') was unknown.',
+						LOG_ERR
+					);
+					$this->finalizeInternalStatus( 'failed' );
+				}
+				return $result;
 				break;
 
 			case 'AuthorizePayment':
 				$this->addData( array( 'cvv' => $this->get_cvv() ) );
 				$this->store_cvv_in_session( null ); // Remove the CVV from the session
-				$result = parent::do_transaction( $transaction );
+				return parent::do_transaction( $transaction );
 				break;
 
-			case 'DepositPayment':
-				$result = parent::do_transaction( $transaction );
+			default:
+				return parent::do_transaction( $transaction );
 				break;
 		}
 	}
 
+	/**
+	 * Will return true if the $response looks like it has data in it.
+	 *
+	 * True response processing will happen in processResponse().
+	 *
+	 * @param DOMDocument $response
+	 *
+	 * @return bool
+	 */
 	function getResponseStatus( $response ) {
-		$ok = null;
-
-		foreach( $response->getElementsByTagName('MessageCode') as $node) {
-			if ( $node->nodeValue ) {
-				// TODO: This is a numeric code we should do something with
-				$ok = true;
-			}
+		foreach( $response->getElementsByTagName( 'MessageCode' ) as $node) {
+			return true;
 		}
-		return ( is_null( $ok ) ? false : $ok );
+		return false;
 	}
 
+	/**
+	 * Will return an empty array; errors can only be detected in processData()
+	 * @param DOMDocument $response
+	 */
 	function getResponseErrors( $response ) {
-
+		return array();
 	}
 
 	/**
@@ -654,22 +688,60 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * @param type $retryVars
 	 */
 	public function processResponse( $response, &$retryVars = null ) {
+		$self = $this;
+		$addData = function( $pull_vars ) use ( $response, $self ) {
+			$emptyVars = array();
+			$addme = array ( );
+			foreach ( $pull_vars as $theirs => $ours ) {
+				if ( isset( $response['data'][$theirs] ) ) {
+					$addme[$ours] = $response['data'][$theirs];
+				} else {
+					$emptyVars[] = $theirs;
+				}
+			}
+			$self->addData( $addme );
+			return $emptyVars;
+		};
+		$setFailOnEmpty = function( $emptyVars ) use ( $response, $self ) {
+			if ( count( $emptyVars ) !== 0 ) {
+				$self->setTransactionResult( false, 'status' );
+				$self->setTransactionResult( array(
+						'internal-0001' => $self->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+						'errors',
+					));
+				$code = isset( $response['data']['MessageCode'] ) ? $response['data']['MessageCode'] : 'None given';
+				$message = isset( $response['data']['Message'] ) ? $response['data']['Message'] : 'None given';
+				$self->setTransactionResult(
+					"Transaction failed (empty vars): ({$code}) {$message}",
+					'message'
+				);
+			}
+		};
 
 		switch ( $this->getCurrentTransaction() ) {
+			case 'GenerateToken':
+				$setFailOnEmpty( $addData( array(
+					'OTT' => 'wp_one_time_token',
+					'OTTProcessURL' => 'wp_process_url',
+					'RDID' => 'wp_rdid',
+				)));
+				break;
+
+			case 'QueryTokenData':
+				$setFailOnEmpty( $addData( array(
+					'CardId' => 'wp_card_id',
+					'CreditCardType' => 'wp_card_type',
+				)));
+				break;
+
 			case 'AuthorizePayment':
-				$pull_vars = array (
+				$setFailOnEmpty( $addData( array(
 					'CVNMatch' => 'cvv_result',
 					'AddressMatch' => 'avs_address',
 					'PostalCodeMatch' => 'avs_zip',
 					'PTTID' => 'wp_pttid'
-				);
-				$addme = array ( );
-				foreach ( $pull_vars as $theirs => $ours ) {
-					if ( isset( $response['data'][$theirs] ) ) {
-						$addme[$ours] = $response['data'][$theirs];
-					}
-				}
-				$this->addData( $addme );
+				)));
+
 				break;
 		}
 	}
