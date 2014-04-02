@@ -1,36 +1,33 @@
 <tr>
-	<td colspan="2">
+	<td>
 		<h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
 	</td>
 </tr>
 <tr>
-	<td colspan="2">
-		<input class="halfwidth" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+	<td>
+		<input class="halfwidth" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth pull-right" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
 	</td>
 </tr>
 <tr>
-	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-	<td colspan="2">
-		<input class="fullwidth" value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street">
+	<td>
+		<input value="@street" type="text" title="%donate_interface-donor-street%" placeholder="%donate_interface-donor-street%" id="street">
 	</td>
 </tr>
 <tr>
-	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-	<td colspan="2">
-		<input class="halfwidth" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip"><input class="halfwidth leftmar" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city">
-	</td>
-</tr>
-<tr style="display: none;">
-	<td colspan="2">
+	<td>
+
+		<input class="halfwidth" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city"><input class="halfwidth pull-right" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
 		<input type="hidden" value="XX" id="state" />
 	</td>
 </tr>
 <tr>
-    <td colspan="2">
+    <td>
         <select class="txt" id="country" value="@country" placeholder="%donate_interface-country%">
             <option value="">%donate_interface-select-country%</option>
 			@select_country
@@ -38,7 +35,7 @@
     </td>
 </tr>
 <tr>
-	<td colspan="2">
-		<input class="fullwidth" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
+	<td>
+		<input value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
 	</td>
 </tr>

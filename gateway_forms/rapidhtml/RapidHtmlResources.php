@@ -300,7 +300,7 @@ $wgResourceModules[ 'adyen.js' ] = array(
 );
 
 $wgResourceModules[ 'ext.donationinterface.worldpay' ] = array(
-	'styles' => 'css/worldpay.css',
+	'styles' => array('css/worldpay.css', 'css/bootstrap.css'),
 	'scripts' => 'js/worldpay.js',
 	'dependencies' => array ('di.form.core.validate', 'jquery.payment'),
 	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
