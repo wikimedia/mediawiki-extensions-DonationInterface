@@ -6,28 +6,42 @@
 	</td>
 </tr>
 <tr>
-	<td>
-		<input type="text" id="accountNumber" size="20" pattern="\d*"
+		<input type="text" id="accountNumber" class="form-control" pattern="\d*"
 			   autocomplete="off"
 			   placeholder="%donate_interface-donor-card-num%"/>
-	</td>
+		<span id="smCC">
+			<span class="glyphicon glyphicon-credit-card"></span>
+			<input type="text" class="form-control" id="cvc" pattern="\d*"
+				   autocomplete="off"
+				   placeholder="%donate_interface-card-security-code%"/>
+		
+			<input type="text" class="form-control" id="expiry" pattern="\d*" autocomplete="off"
+				   placeholder="%donate_interface-card-expiration%"/>
+		</span>
 </tr>
-<tr>
-	<td>
-		<input type="text" id="cvc" size="4" pattern="\d*"
-			   autocomplete="off"
-			   placeholder="%donate_interface-card-security-code%"/>
-	</td>
-</tr>
-<tr>
-	<td>
-		<input type="text" id="expiry" size="9" pattern="\d*" autocomplete="off"
-			   placeholder="%donate_interface-card-expiration%"/>
-	</td>
-</tr>
-
-<tr>
-	<td style="margin-top: 10px;">
-		<input class="btn" id="paymentSubmitBtn" type="button" value="%donate_interface-continue%" />
-	</td>
-</tr>
+<div class="legalWell">
+				<div class="row-fluid">
+					<p id="informationsharing">%donate_interface-informationsharing|url%</p>
+				</div>
+				<div class="row-fluid">
+					<table id="moreinfolinks">
+						<tr>
+							<td><a
+							href="https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&country=@country&language=@language&uselang=@language}}">%donate_interface-problemsdonating%</a></td>
+						
+							<td><a
+							href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a></td>
+						</tr>
+						<tr>
+							<td><a
+							href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a>
+							</td>
+							<td><a
+							href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=@language&uselang=@language&country=@country">%donate_interface-tax-info%</a></td>
+						</tr>
+					</table>
+				</div>
+				<div class="row-fluid">
+					<input class="btn btn-info btn-large" class="form-control" id="paymentSubmitBtn" type="button" value="%donate_interface-continue%" />
+				</div>
+</div>

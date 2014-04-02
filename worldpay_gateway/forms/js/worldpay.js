@@ -21,6 +21,15 @@
  * @file
  */
 ( function ( $, mw ) {
+
+	//hack for janky form style. todo: standardize all forms so this can be removed.
+	//$('h3').removeClass('cc_header');
+	$('input').removeClass('halfwidth').removeClass('leftmar').addClass('form-control');
+	$('#lname').addClass('pull-right');
+	$('#zip').addClass('pull-right');
+	$('#smCC').addClass('pull-right');
+	$('#emailAdd').addClass('pull-right');
+
 	var $accountNumber = $( '#accountNumber' ),
 		$accountExpiry = $( '#expiry' ),
 		$accountCVC = $( '#cvc' );
