@@ -14,11 +14,6 @@ table#donation_amount td.amount_header {
 table#donation_amount td.amount_data {
 	background-color:#daf2db;
 }
-h3.cc_header {
-	padding-bottom: 0;
-	margin-bottom: 0;
-	font-weight: normal;
-}
 div#payflowpro_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
@@ -144,21 +139,24 @@ h1#firstHeading, div#contentSub {
 }
 
 /* NEW STUFF */
-#greenBackground{
+#greenBackground, div.donor{
 	padding:16px 24px;
-	width:400px;
+	width:550px;
 	background-color:#CCE7CD;
-	border:1px solid #5EAC58;
+	border: none;
+	margin-bottom: 10px;
 }
 p#informationsharing, p#monthlycancel {
-	width: 400px;
+	width: 100%;
 	padding: 0 15px;
-	line-height: 14px;
-	font-size: 11px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 140%;
 }
-ul#moreinfolinks li{
-	list-style: none !important;
-	list-style-image: none !important;
+#moreinfolinks {
+	width: 100%;
+	text-align: center;
+	margin: 1em 0;
 }
 h3.amount_header {
 	padding: 0 0 0.4em 0;
@@ -170,13 +168,55 @@ table#payflow-table-donor{
 	/*margin-left: 10px;*/
 }
 
-/* Form Inputs */
+#accountNumber {
+	width: 240px;
+	display: inline;
+}
+
+#cvc, #expiry {
+	width: 95px;
+	display: inline;
+	margin-left: 2px;
+}
+
+#smCC .glyphicon-credit-card {
+	font-size: 1.4em;
+	margin-left: -5px;
+}
+
+#state {
+	height: 27px;
+}
+.legalWell {
+	background-color: rgba(255,255,255,0.3);
+	padding: 2em;
+	margin-top:1em;
+}
+
+/* Form `s */
+#greenBackground input[type="text"] {
+	margin-bottom:10px;
+}	
+
+.payflowpro_gateway-table-donor {
+
+}
+
+#city.form-control, #emailAdd.form-control {
+	width: 300px;
+	display: inline;
+}
+
+#zip.form-control {
+	width: 160px;
+	display: inline;
+}
 
 input.halfwidth {
-	width: 190px;
+	width: 100px;
 }
 input.fullwidth {
-	width: 392px;
+	width: 400px;
 }
 
 input.invalid {
@@ -184,18 +224,43 @@ input.invalid {
 }
 
 input#city.halfwidth.state {
-	width:192px;
+	width:100px;
 }
 input#zip.halfwidth.state {
 	width:94px;
 	margin-left: 0;
 }
 select#state.us, select#state.au, select#state.ca {
-	width: 90px;
+	width: 160px;
+	height: 30px;
+	line-height: 170%;
+	background: none;
+	margin-top: .3em;
+	background-color: #f5f5f5;
+}
+#donate tr{
+	padding: 1em;
 }
 
 
 /* Specific element overrides */
+.personalInfo {
+	padding: 15px;
+}
+.formControl {
+	margin-left: 0;
+}
+#fname, #lname {
+	width: 49%;
+	display: inline;
+}
+#street {
+	width: 100%;
+}
+#zip, #state {
+	width: 50%;
+	display: inline;
+}
 input#zip.ja {
 	width: 268px;
 }

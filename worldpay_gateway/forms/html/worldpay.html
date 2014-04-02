@@ -18,101 +18,76 @@
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
 </script>
-
-<table width="100%" cellspacing="0" cellpadding="0" border="0">
-	<tbody>
-	<tr>
-		<td id="appeal" valign="top">
+<div class="container">
+	<div class="row-fluid">
+		<div class="span3" id="appeal" valign="top">
 			{{LanguageSwitch|2011FR/@appeal/text|@language}}
-		</td>
-		<td id="donate" valign="top">
-			<div id="greenBackground" class="">
-				<noscript>
-					<div id="noscript">
-						<p id="noscript-msg">%donate_interface-noscript-msg%</p>
+		</div>
+		<div class="span9 pull-right">
+			<div id="donate" class="row-fluid" valign="top">
+				<div class="span12" id="greenBackground">
+					<div class="row-fluid">
+						<noscript>
+							<div id="noscript">
+								<p id="noscript-msg">%donate_interface-noscript-msg%</p>
 
-						<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
+								<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
 
-						<p id="noscript-redirect-link">
-							<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
-						</p>
+								<p id="noscript-redirect-link">
+									<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
+								</p>
+							</div>
+						</noscript>
+						<p id="topError" class="creditcard-error-msg"></p>
 					</div>
-				</noscript>
-				<p id="topError" class="creditcard-error-msg"></p>
 
-				<form name="payment" method="post" action="@wp_process_url" novalidate>
-					<div id="payflowpro_gateway-personal-info">
-						<table id="payflow-table-donor">
-							<tbody>
-							<tr>
-								<td colspan="2">
-									<div id="step1header">
+					<div class="row-fluid">
+						<form name="payment" method="post" action="@wp_process_url" novalidate>
+							<div id="payflowpro_gateway_gateway-personal-info">
+									
+								<div class="personalInfo">
+									<div id="step1header" class="alert alert-success">
 										<h3 class="amount_header">%donate_interface-amount-legend%: <span
 											id="selected-amount">{% block donation-amount currency_code %}</span></h3>
 									</div>
-								</td>
-							</tr>
-							{% block personal-information country %}
-							{% block wp_ott_form country %}
-							<tr>
-								<td>
-									<div id="payment" class="gainlayout" style="height: 0;text-align: center;"></div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
-										<img
-											src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif"
-											style="vertical-align:baseline;margin-right:4px;">
-										%donate_interface-donate-click%
-									</div>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
 
-					<!-- This should be included in the personal_information templates -->
-					<input type="hidden" value="@utm_source" id="utm_source"/>
-					<input type="hidden" value="@utm_medium" id="utm_medium"/>
-					<input type="hidden" value="@utm_campaign" id="utm_campaign"/>
-					<input type="hidden" value="@language" id="language"/>
-					<input type="hidden" value="@referrer" id="referrer"/>
-					<input type="hidden" value="1" id="email-opt"/>
-					<input type="hidden" value="@token" id="token"/>
-					<input type="hidden" value="@order_id" id="order_id"/>
-					<input type="hidden" value="@contribution_tracking_id" id="contribution_tracking_id"/>
-					<input type="hidden" value="@data_hash" id="data_hash"/>
-					<input type="hidden" value="@owa_session" id="owa_session"/>
-					<input type="hidden" value="@owa_ref" id="owa_ref"/>
-					<input type="hidden" value="@gateway" id="gateway"/>
-					<input type="hidden" value="cc" id="payment_method"/>
-				</form>
+									{% block personal-information country %}
+
+								{% block wp_ott_form country %}
+								</div>
+						
+								<div id="payment" class="gainlayout" style="height: 0;text-align: center;"></div>
+							
+								<div class="mw-donate-submessage" id="payflowpro_gateway_gateway-donate-submessage">
+									<img
+										src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif"
+										style="vertical-align:baseline;margin-right:4px;">
+									%donate_interface-donate-click%
+								</div>
+									
+								
+							</div>
+
+							<!-- This should be included in the personal_information templates -->
+							<input type="hidden" value="@utm_source" id="utm_source"/>
+							<input type="hidden" value="@utm_medium" id="utm_medium"/>
+							<input type="hidden" value="@utm_campaign" id="utm_campaign"/>
+							<input type="hidden" value="@language" id="language"/>
+							<input type="hidden" value="@referrer" id="referrer"/>
+							<input type="hidden" value="1" id="email-opt"/>
+							<input type="hidden" value="@token" id="token"/>
+							<input type="hidden" value="@order_id" id="order_id"/>
+							<input type="hidden" value="@contribution_tracking_id" id="contribution_tracking_id"/>
+							<input type="hidden" value="@data_hash" id="data_hash"/>
+							<input type="hidden" value="@owa_session" id="owa_session"/>
+							<input type="hidden" value="@owa_ref" id="owa_ref"/>
+							<input type="hidden" value="@gateway" id="gateway"/>
+							<input type="hidden" value="cc" id="payment_method"/>
+						</form>
+					</div>
+				</div>
+				<span class="pull-right">@verisign_logo	</span>
 			</div>
-			<p id="informationsharing">%donate_interface-informationsharing|url%</p>
-			<table>
-				<tr>
-					<td>
-						<ul id="moreinfolinks">
-							<li><a
-								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&country=@country&language=@language&uselang=@language}}">%donate_interface-problemsdonating%</a>
-							</li>
-							<li><a
-								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=@language&uselang=@language&country=@country">%donate_interface-otherways-short%</a>
-							</li>
-							<li><a
-								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=@language&uselang=@language&country=@country">%donate_interface-faqs%</a>
-							</li>
-							<li><a
-								href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=@language&uselang=@language&country=@country">%donate_interface-tax-info%</a>
-							</li>
-						</ul>
-					</td>
-					<td>@verisign_logo</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	</tbody>
-</table>
+		</div>	
+	</div>
+</div>
