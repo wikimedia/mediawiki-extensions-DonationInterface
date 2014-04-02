@@ -3528,4 +3528,92 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->order_id_meta[$key] = $value;
 	}
 
+	/**
+	 * Get payment submethod meta
+	 *
+	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
+	 * @throws MWException
+	 */
+	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
+		if ( is_null( $payment_submethod ) ) {
+			$payment_submethod = $this->getPaymentSubmethod();
+		}
+
+		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
+			$this->log( 'Getting metadata for payment submethod: ' . ( string ) $payment_submethod );
+
+			// Ensure that the validation index is set.
+			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
+				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
+			}
+
+			return $this->payment_submethods[ $payment_submethod ];
+		}
+		else {
+			throw new MWException( "The payment submethod [ {$payment_submethod} ] was not found." );
+		}
+	}
+
+	/**
+	 * Checks current dataset for validation errors
+     *
+	 * In addition to all non-optional validation which verifies that all
+	 * populated fields contain an appropriate data type, each submethod may
+	 * require certain field groups to be non-empty. These will be expressed
+	 * in the 'validation' key for the submethod metadata. Options are:
+	 *   - address - Validation requires non-empty: street, city, state, zip
+	 *   - amount - Validation requires non-empty: amount
+	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
+	 *   - email - Validation requires non-empty: email
+	 *   - name - Validation requires non-empty: fname, lname
+	 *
+	 * @return boolean Returns false on an error-free validation, otherwise true.
+	 */
+	public function validateSubmethodData() {
+		$submethodMeta = $this->getPaymentSubmethodMeta();
+
+		$check_not_empty = array();
+
+		foreach ( $submethodMeta['validation'] as $option ){
+			$add_checks = array();
+			switch( $option ){
+				case 'address' :
+					$add_checks = array(
+						'street',
+						'city',
+						'state',
+						'country',
+						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
+						//however, that's not happening in this class in the code I'm replacing, so...
+						//TODO: Something clever in the DataValidator with data groups like these.
+					);
+					break;
+				case 'amount' :
+					$add_checks[] = 'amount';
+					break;
+				case 'creditCard' :
+					$add_checks = array(
+						'card_num',
+						'cvv',
+						'expiration',
+						'card_type'
+					);
+					break;
+				case 'email' :
+					$add_checks[] = 'email';
+					break;
+				case 'name' :
+					$add_checks = array(
+						'fname',
+						'lname'
+					);
+					break;
+			}
+			$check_not_empty = array_merge( $check_not_empty, $add_checks );
+		}
+
+		$validated_ok = $this->revalidate( $check_not_empty );
+
+		return !$validated_ok;
+	}
 }

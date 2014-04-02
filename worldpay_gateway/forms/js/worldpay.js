@@ -79,8 +79,18 @@
 			'dataType': 'json',
 			'type': 'POST',
 			'success': function( data ) {
-				// XXX: Currently assuming that verification succeeded
-				successCallback();
+				if (data.result.length > 0) {
+					// Form fields have errors; each subkey in this array
+					// corresponds to a form field with an error
+					// TODO: This sucks; improve it
+					var msg = [];
+					$.each( data.result, function( idx, str ) {
+						msg.push( str )
+					});
+					window.alert( msg.join( '\n' ) );
+				} else {
+					successCallback();
+				}
 			},
 			error: function( xhr ) {
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
