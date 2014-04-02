@@ -32,8 +32,6 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function __construct(){
-		global $wgRequest;
-
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
@@ -43,11 +41,12 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 
 	public static function setupMoreForms() {
 		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceHtmlFormDir,
-		$wgPaypalGatewayHtmlFormDir, $wgAmazonGatewayHtmlFormDir;
+		$wgGlobalCollectGatewayHtmlFormDir, $wgPaypalGatewayHtmlFormDir,
+		$wgAmazonGatewayHtmlFormDir, $wgDonationInterfaceFormDirs;
 
 		$form_dirs = array (
 			'default' => $wgDonationInterfaceHtmlFormDir,
-			'gc' => $wgDonationInterfaceHtmlFormDir,
+			'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 			'paypal' => $wgPaypalGatewayHtmlFormDir,
 			'amazon' => $wgAmazonGatewayHtmlFormDir,
 		);
@@ -104,6 +103,7 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 
 
 		$wgDonationInterfaceAllowedHtmlForms = array_merge( $wgDonationInterfaceAllowedHtmlForms, $moreForms );
+		$wgDonationInterfaceFormDirs = $form_dirs;
 	}
 
 	function testGetOneValidForm_CC_SpecificCountry() {

@@ -60,9 +60,6 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
 		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 	/**
@@ -97,9 +94,6 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "DonateRecurring" transaction not constructing the expected redirect URL' );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 	/**
@@ -129,9 +123,6 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "DonateXclick" transaction not constructing the expected redirect URL' );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 }
