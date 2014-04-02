@@ -210,7 +210,12 @@ class WorldPayAdapter extends GatewayAdapter {
 			)
 		);
 
-		$this->transactions['AuthorizePayment'] = array(
+		// NOTE: There are TWO authorize steps for WorldPay, when you set IsVerify=1
+		// the transaction is immediately canceled on WPs end but we get back
+		// AVS and CVV check details. Therefore AuthorizePaymentForDeposit shadows
+		// AuthorizePaymentForFraud, but does not submit the CVV (because we no longer
+		// have it, and it is no longer required), and does not set IsVerify.
+		$this->transactions['AuthorizePaymentForFraud'] = array(
 			'request' => array(
 				'VersionUsed',
 				'TransactionType',
@@ -252,9 +257,13 @@ class WorldPayAdapter extends GatewayAdapter {
 				'RequestType' => 'A',       // Authorize a payment
 				'TRXSource' => 4,           // Card not present (web order) transaction
 				'MOP' => 'CC',              // Credit card transaction
-				'IsVerify' => 1,            // Perform CVV and AVS verification
+				'IsVerify' => 1,            // Perform CVV and AVS verification for account (deposit not allowed)
 			)
 		);
+
+		$this->transactions['AuthorizePaymentForDeposit'] = $this->transactions['AuthorizePaymentForFraud'];
+		unset( $this->transactions['AuthorizePaymentForDeposit']['request']['cvn'] );
+		$this->transactions['AuthorizePaymentForDeposit']['values']['IsVerify'] = 0;
 
 		$this->transactions['DepositPayment'] = array(
 			'request' => array(
@@ -530,16 +539,25 @@ class WorldPayAdapter extends GatewayAdapter {
 		 *  4700	3D Secure transaction already processed.
 		 */
 
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2000, 2001 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2051 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2061, 2080 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2112 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2200, 2804 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2831, 2804 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 2831, 2990 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 3216, 3614 );
-		$this->addCodeRange( 'AuthorizePayment', 'MessageCode', 'failed', 4206, 4700 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2000, 2001 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2051 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2061, 2080 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2112 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2200, 2804 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2831, 2804 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2831, 2990 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 3216, 3614 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 4206, 4700 );
 
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2000, 2001 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2051 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2061, 2080 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2112 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2200, 2804 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2831, 2804 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 2831, 2990 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 3216, 3614 );
+		$this->addCodeRange( 'AuthorizePaymentForDeposit', 'MessageCode', 'failed', 4206, 4700 );
 
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'failed', 2000, 2001 );
 		$this->addCodeRange( 'DepositPayment', 'MessageCode', 'pending', 2040, 2050 );
@@ -608,17 +626,34 @@ class WorldPayAdapter extends GatewayAdapter {
 					return $result;
 				}
 
-				// If we managed to successfully get the token details; attempt to authorize the payment
-				$result = $this->do_transaction( 'AuthorizePayment' );
+				// If we managed to successfully get the token details; perform an authorization
+				// with bank verification for fraud checks.
+				$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
 				if ( !$this->getTransactionStatus() ) {
-					$this->log( 'Failed transaction because AuthorizePayment failed' );
+					$this->log( 'Failed transaction because AuthorizePaymentForFraud failed' );
 					$this->finalizeInternalStatus( 'failed' );
 					return $result;
 				}
 				$result_status = $this->findCodeAction(
-					'AuthorizePayment', 'MessageCode', $result['data']['MessageCode'] );
+					'AuthorizePaymentForFraud', 'MessageCode', $result['data']['MessageCode'] );
 				if ( $result_status ) {
-					$this->log( "Finalizing transaction at AuthorizePayment to {$result_status}" );
+					$this->log( "Finalizing transaction at AuthorizePaymentForFraud to {$result_status}" );
+					$this->finalizeInternalStatus( $result_status );
+					return $result;
+				}
+
+				// If we're here, we managed to pass our fraud filters. Tell the bank to
+				// hold the funds for deposit
+				$result = $this->do_transaction( 'AuthorizePaymentForDeposit' );
+				if ( !$this->getTransactionStatus() ) {
+					$this->log( 'Failed transaction because AuthorizePaymentForDeposit failed' );
+					$this->finalizeInternalStatus( 'failed' );
+					return $result;
+				}
+				$result_status = $this->findCodeAction(
+					'AuthorizePaymentForDeposit', 'MessageCode', $result['data']['MessageCode'] );
+				if ( $result_status ) {
+					$this->log( "Finalizing transaction at AuthorizePaymentForDeposit to {$result_status}" );
 					$this->finalizeInternalStatus( $result_status );
 					return $result;
 				}
@@ -646,7 +681,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				return $result;
 				break;
 
-			case 'AuthorizePayment':
+			case 'AuthorizePaymentForFraud':
 				$this->addData( array( 'cvv' => $this->get_cvv() ) );
 				$this->store_cvv_in_session( null ); // Remove the CVV from the session
 				return parent::do_transaction( $transaction );
@@ -734,14 +769,19 @@ class WorldPayAdapter extends GatewayAdapter {
 				)));
 				break;
 
-			case 'AuthorizePayment':
+			case 'AuthorizePaymentForFraud':
 				$setFailOnEmpty( $addData( array(
 					'CVNMatch' => 'cvv_result',
 					'AddressMatch' => 'avs_address',
 					'PostalCodeMatch' => 'avs_zip',
 					'PTTID' => 'wp_pttid'
 				)));
+				break;
 
+			case 'AuthorizePaymentForDeposit':
+				$setFailOnEmpty( $addData( array(
+					'PTTID' => 'wp_pttid'
+				)));
 				break;
 		}
 	}
@@ -777,7 +817,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		if ( array_key_exists( $currency, $this->accountInfo['StoreIDs'] ) ) {
 			$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$currency];
 		} else {
-			if ( $this->getCurrentTransaction() === 'AuthorizePayment' ) {
+			if ( $this->getCurrentTransaction() === 'AuthorizePaymentForFraud' ) {
 				throw new MWException( 'Store not configured for currency. Cannot perform auth request.' );
 			}
 		}
@@ -886,7 +926,7 @@ class WorldPayAdapter extends GatewayAdapter {
 
 	/**
 	 * More should go here.
-	 * @TODO: Once we get some data back from AuthorizePayment, addData here
+	 * @TODO: Once we get some data back from AuthorizePaymentForFraud, addData here
 	 * for AVS results, CVV results, and whatever else they tell us that
 	 * would be helpful.
 	 * @TODO: And furthermore, you will need to either pull the GC functions
@@ -897,7 +937,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * Even more will probably need to go here once we start thinking about
 	 * things like !cc payment types, and batch operations.
 	 */
-	protected function post_process_authorizepayment() {
+	protected function post_process_authorizepaymentforfraud() {
 		$this->runAntifraudHooks();
 	}
 
