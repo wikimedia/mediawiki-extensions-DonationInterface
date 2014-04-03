@@ -75,6 +75,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @appeal_title -> name of the appeal title to load
 		// @verisign_logo -> placeholder to load the secure verisign logo
 		// @select_country -> generates a select containing all country names
+		// @noscript -> Some stuff in a noscript node
 		'@ffname_retry', //form name for retries (used by error pages)
 
 		// WorldPay Variables
@@ -233,11 +234,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// handle script path
 		$form = str_replace( "@script_path", $wgScriptPath, $form );
 
-		// handle script path
+		// handle verisign logo
 		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo(), $form );
 
 		// handle country drop-down
 		$form = str_replace( "@select_country", $this->getCountryDropdown(), $form );
+
+		// handle noscript
+		$form = str_replace( "@noscript", $this->getNoScript(), $form );
 
 		$form = $this->fix_dropdowns( $form );
 
