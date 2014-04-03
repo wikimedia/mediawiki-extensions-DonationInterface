@@ -848,7 +848,6 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generate HTML for <noscript> tags
-	 * This function is not used by any RapidHTML forms.
 	 * For displaying when a user does not have Javascript enabled in their browser.
 	 */
 	protected function getNoScript() {
@@ -951,7 +950,7 @@ abstract class Gateway_Form {
 		$form .= '</table>';
 		return $form;
 	}
-	
+
 	/**
 	 * Pulls normalized and escaped data from the $gateway object. 
 	 * For more information, see GatewayAdapter::getData_Unstaged_Escaped in 
