@@ -31,6 +31,13 @@ class WorldPayValidateApi extends ApiBase {
 
 			// Save everything else into the session
 			$adapter->session_addDonorData();
+		} else {
+			// Don't let people continue if they failed a token check!
+			$this->getResult()->addValue(
+				null,
+				'result',
+				array( 'token-mismatch' => $this->msg( 'donate_interface-token-mismatch' )->text() )
+			);
 		}
 	}
 

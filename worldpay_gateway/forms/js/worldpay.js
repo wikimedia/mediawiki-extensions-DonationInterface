@@ -58,8 +58,7 @@
 	 * invoked.
 	 */
 	function validateServerSide( successCallback ) {
-		var api = new mw.Api(),
-			fields = [
+		var fields = [
 				// All forms
 				'fname', 'lname', 'emailAdd',
 				'email-opt',
@@ -72,12 +71,12 @@
 
 				// Scary things
 				'cvc'
-			];
+			],
+			postdata = {
+				action: 'di_wp_validate',
+				format: 'json'
+			};
 
-		postdata = {
-			action: 'di_wp_validate',
-			format: 'json'
-		};
 		$.each( fields, function( idx, val ) {
 			postdata[val] = $( '#' + val ).val();
 		});
@@ -88,21 +87,21 @@
 			'dataType': 'json',
 			'type': 'POST',
 			'success': function( data ) {
-				if (data.result.length > 0) {
-					// Form fields have errors; each subkey in this array
-					// corresponds to a form field with an error
+				var errors = [];
+				// Form fields have errors; each subkey in this array
+				// corresponds to a form field with an error
+				$.each( data.result, function( idx, str ) {
+					errors.push( str );
+				});
+				if (errors.length > 0) {
 					// TODO: This sucks; improve it
-					var msg = [];
-					$.each( data.result, function( idx, str ) {
-						msg.push( str )
-					});
-					window.alert( msg.join( '\n' ) );
+					window.alert( errors.join( '\n' ) );
 				} else {
 					successCallback();
 				}
 			},
 			error: function( xhr ) {
-				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 			}
 		});
 	}
