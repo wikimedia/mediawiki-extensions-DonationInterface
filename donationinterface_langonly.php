@@ -1,10 +1,10 @@
-<?php 
+<?php
 /**
  * Donation Interface - Lang only
- * 
+ *
  * When installed, this will *ONLY* load i18n messages from DonationInterface. This
  * will not expose any other DonationInterface functionality.
- * 
+ *
  * To install the DontaionInterface extension, put the following line in LocalSettings.php:
  * require_once( "\$IP/extensions/DonationInterface/donationinterface_langonly.php" );
  *
@@ -31,15 +31,21 @@ $wgExtensionCredits['specialpage'][] = array(
 $donationinterface_dir = dirname( __FILE__ ) . '/';
 
 // Load the interface messages that are shared across all gateways
+$wgMessagesDirs['DonateInterface'] = __DIR__ . '/gateway_common/i18n/interface';
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
+$wgMessagesDirs['GatewayCountries'] = __DIR__ . '/gateway_common/i18n/countries';
 $wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
+$wgMessagesDirs['GatewayUSStates'] = __DIR__ . '/gateway_common/i18n/us-states';
 $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
+$wgMessagesDirs['GatewayCAProvinces'] = __DIR__ . '/gateway_common/i18n/canada-provinces';
 $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
 
 // PayflowPro-specific messaging
+$wgMessagesDirs['PayflowProGateway'] = __DIR__ . '/payflowpro_gateway/i18n';
 $wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
 $wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 
 // GlobalCollect-specific messaging
+$wgMessagesDirs['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/i18n';
 $wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
 $wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
