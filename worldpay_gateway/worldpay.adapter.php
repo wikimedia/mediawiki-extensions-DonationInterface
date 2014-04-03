@@ -561,7 +561,6 @@ class WorldPayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2061, 2080 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2112 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2200, 2804 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2831, 2804 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2831, 2990 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 3216, 3614 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 4206, 4700 );
