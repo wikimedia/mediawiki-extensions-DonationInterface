@@ -9,7 +9,7 @@ class WorldPayValidateApi extends ApiBase {
 		'order_id','contribution_tracking_id',
 
 		// AVS Countries
-		'street','state','zip','country',
+		'street','state','zip','country','city',
 
 		// Scary things
 		'cvc'
