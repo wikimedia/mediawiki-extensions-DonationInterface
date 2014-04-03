@@ -492,10 +492,13 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 	
 	/**
-	 * A helper function to let us stash extra data after the form has been submitted.
-	 * @param array $dataArray An associative array of data.
+	 *  A helper function to let us stash extra data after the form has been submitted.
+	 *
+	 * @param array  $dataArray An associative array of data.
+	 * @param string $pipelineStage 'request' to the gateway or 'response' from the
+	 *                              gateway depending on what you're actually doing.
 	 */
-	public function addData( $dataArray ) {
+	public function addData( $dataArray, $pipelineStage = 'request' ) {
 		$this->dataObj->addData( $dataArray );
 
 		$calculated_fields = $this->dataObj->getCalculatedFields();
@@ -512,7 +515,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//function, to calculate any other staged var. 
 		$changed_staged_vars = array_intersect( $this->staged_vars, $data_fields );
 		if ( count( $changed_staged_vars ) ) {
-			$this->stageData();
+			$this->stageData( $pipelineStage );
 		}
 	}
 
