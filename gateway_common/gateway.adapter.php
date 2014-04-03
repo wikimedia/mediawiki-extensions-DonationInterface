@@ -3511,9 +3511,13 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$check_not_empty = array();
 
-		foreach ( $submethodMeta['validation'] as $option ){
+		foreach ( $submethodMeta['validation'] as $type => $enabled ){
+			if ( $enabled !== true ) {
+				continue;
+			}
+
 			$add_checks = array();
-			switch( $option ){
+			switch( $type ){
 				case 'address' :
 					$add_checks = array(
 						'street',
