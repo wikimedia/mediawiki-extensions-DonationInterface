@@ -641,10 +641,12 @@ class WorldPayAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( 'failed' );
 					return $result;
 				}
-				$result_status = $this->findCodeAction(
-					'AuthorizePaymentForFraud', 'MessageCode', $result['data']['MessageCode'] );
+				$code = $result['data']['MessageCode'];
+				$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
 				if ( $result_status ) {
-					$this->log( "Finalizing transaction at AuthorizePaymentForFraud to {$result_status}" );
+					$this->log(
+						"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
+					);
 					$this->finalizeInternalStatus( $result_status );
 					return $result;
 				}
@@ -656,15 +658,17 @@ class WorldPayAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( 'failed' );
 					return $result;
 				}
-				$result_status = $this->findCodeAction(
-					'AuthorizeAndDepositPayment', 'MessageCode', $result['data']['MessageCode'] );
+				$code = $result['data']['MessageCode'];
+				$result_status = $this->findCodeAction( 'AuthorizeAndDepositPayment', 'MessageCode', $code );
 				if ( $result_status ) {
-					$this->log( "Finalizing transaction at AuthorizeAndDepositPayment to {$result_status}" );
+					$this->log(
+						"Finalizing transaction at AuthorizeAndDepositPayment to {$result_status}. Code: {$code}"
+					);
 					$this->finalizeInternalStatus( $result_status );
 				} else {
 					$this->log(
 						'Finalizing transaction at AuthorizeAndDepositPayment to failed because MessageCode (' .
-						$result['data']['MessageCode'] .') was unknown.',
+						$code .') was unknown.',
 						LOG_ERR
 					);
 					$this->finalizeInternalStatus( 'failed' );
