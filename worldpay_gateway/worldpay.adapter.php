@@ -634,20 +634,22 @@ class WorldPayAdapter extends GatewayAdapter {
 
 				// If we managed to successfully get the token details; perform an authorization
 				// with bank verification for fraud checks.
-				$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
-				if ( !$this->getTransactionStatus() ) {
-					$this->log( 'Failed transaction because AuthorizePaymentForFraud failed' );
-					$this->finalizeInternalStatus( 'failed' );
-					return $result;
-				}
-				$code = $result['data']['MessageCode'];
-				$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
-				if ( $result_status ) {
-					$this->log(
-						"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
-					);
-					$this->finalizeInternalStatus( $result_status );
-					return $result;
+				if ( $this->getGlobal( 'NoFraudIntegrationTest' ) !== true ) {
+					$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
+					if ( !$this->getTransactionStatus() ) {
+						$this->log( 'Failed transaction because AuthorizePaymentForFraud failed' );
+						$this->finalizeInternalStatus( 'failed' );
+						return $result;
+					}
+					$code = $result['data']['MessageCode'];
+					$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
+					if ( $result_status ) {
+						$this->log(
+							"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
+						);
+						$this->finalizeInternalStatus( $result_status );
+						return $result;
+					}
 				}
 
 				// We've successfully passed fraud checks; authorize and deposit the payment

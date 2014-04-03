@@ -486,6 +486,11 @@ if ( $optionalParts['WorldPay'] === true ) {
 
 	$wgWorldPayGatewayURL = 'https://some.url.here';
 
+	/**
+	 * Set this to true if fraud checks should be disabled for integration testing
+	 */
+	$wgWorldPayGatewayNoFraudIntegrationTest = false;
+
 	/*
 	$wgWorldPayGatewayAccountInfo['default'] = array(
 		'Test' => 1,
