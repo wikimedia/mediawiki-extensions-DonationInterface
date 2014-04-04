@@ -62,9 +62,6 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
 		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 	/**
@@ -96,9 +93,6 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
 		$this->assertEquals( $expected, $ret, 'Amazon "DonateMonthly" transaction not building the expected request params' );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 }

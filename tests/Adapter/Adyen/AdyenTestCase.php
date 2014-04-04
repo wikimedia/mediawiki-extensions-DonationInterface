@@ -80,9 +80,6 @@ class DonationInterface_Adapter_Adyen_TestCase extends DonationInterfaceTestCase
 
 		$this->assertEquals( $expected, $ret, 'Adyen "donate" transaction not constructing the expected redirect URL' );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Adyen order_id is null, and we need one for 'merchantReference'" );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 }

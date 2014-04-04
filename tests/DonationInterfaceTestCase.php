@@ -18,6 +18,8 @@
 
 require_once __DIR__ . '/TestConfiguration.php';
 require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
+require_once dirname( __FILE__ ) . '/includes/test_form/test.gateway.forms.php';
+require_once dirname( __FILE__ ) . '/includes/test_request/test.request.php';
 
 /**
  * @group		Fundraising
@@ -28,8 +30,7 @@ require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
  * @category	UnitTesting
  * @package		Fundraising_QueueHandling
  */
-abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
-{
+abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected $backupGlobalsBlacklist = array(
 		'wgHooks',
 	);
@@ -60,13 +61,16 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
-		$this->resetAllEnv();
-
 		parent::__construct();
 	}
 
-	protected function setupServer() {
+	protected function setUp() {
+		parent::setUp();
+	}
 
+	protected function tearDown() {
+		$this->resetAllEnv();
+		parent::tearDown();
 	}
 
 	/**
@@ -280,6 +284,88 @@ abstract class DonationInterfaceTestCase extends PHPUnit_Framework_TestCase
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['SCRIPT_NAME'] = __FILE__;
+	}
+
+	/**
+	 * Instantiates the $special_page_class with supplied $initial_vars,
+	 * yoinks the html output from the output buffer, loads that into a
+	 * DomDocument and performs asserts on the results per the checks
+	 * supplied in $perform_these_checks.
+	 * Optional: Asserts that the gateway has logged nothing at ERROR level.
+	 *
+	 * @param class $special_page_class A testing descendant of GatewayForm
+	 * @param array $initial_vars Array that will be loaded straight into a
+	 * test version of $wgRequest.
+	 * @param array $perform_these_checks Array of checks to perform in the
+	 * following format:
+	 * $perform_these_checks[$element_id][$check_to_perform][$expected_result]
+	 * So far, $check_to_perform can be either 'nodename' or 'innerhtml'
+	 * @param boolean $fail_on_log_errors When true, this will fail the
+	 * current test if there are entries in the gateway's error log.
+	 */
+	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false ) {
+		global $wgOut;
+
+		$globals = array (
+			'wgRequest' => new TestingRequest( $initial_vars, false ),
+			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
+		);
+//		$this->setMwGlobals( 'wgRequest', new TestingRequest( $initial_vars, false ) );
+		$this->setMwGlobals( $globals );
+//		$wgRequest = new TestingRequest( $initial_vars, false );
+//		$wgTitle = Title::newFromText( 'nonsense is apparently fine' );
+
+		ob_start();
+		$formpage = new $special_page_class();
+		$formpage->execute( NULL );
+		$wgOut->output();
+		$form_html = ob_get_contents();
+		ob_end_clean();
+
+		// In the event that something goes crazy, uncomment the next line for much easier local debugging
+		// file_put_contents( '/tmp/xmlout.txt', $form_html );
+		$log = $formpage->adapter->testlog;
+
+		$this->assertTrue( is_array( $log ), "Missing the adapter testlog" );
+		if ( $fail_on_log_errors ) {
+			//for our purposes, an "error" is LOG_ERR or less.
+			$checklogs = array (
+				LOG_ERR => "Oops: We've got LOG_ERRors.",
+				LOG_CRIT => "Critical errors!",
+				LOG_ALERT => "Log Alerts!",
+				LOG_EMERG => "Logs says the servers are actually on fire.",
+			);
+
+			$message = false;
+			foreach ( $checklogs as $level => $levelmessage ) {
+				if ( array_key_exists( $level, $log ) ) {
+					$message = $levelmessage . ' ' . print_r( $log[$level], true ) . "\n";
+				}
+			}
+
+			$this->assertFalse( $message, $message ); //ha
+		}
+
+		$dom_thingy = new DomDocument();
+		$dom_thingy->loadHTML( $form_html );
+
+		foreach ( $perform_these_checks as $id => $checks ) {
+			$input_node = $dom_thingy->getElementById( $id );
+			$this->assertNotNull( $input_node, "Couldn't find the '$id' element" );
+			foreach ( $checks as $name => $expected ) {
+				switch ( $name ) {
+					case 'nodename':
+						$this->assertEquals( $expected, $input_node->nodeName, "The node with id '$id' is not an '$expected'. It is a " . $input_node->nodeName );
+						break;
+					case 'innerhtml':
+						$this->assertEquals( $expected, $input_node->nodeValue, "The node with id '$id' does not have value '$expected'. It has value " . $input_node->nodeValue );
+						break;
+				}
+			}
+		}
+
+		//because do_transaction is totally expected to leave session artifacts...
+//		$wgRequest = new FauxRequest();
 	}
 
 }

@@ -87,9 +87,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	public function testConstruct(){
 		global $wgLanguageCode, $wgRequest;
 
-		//session schrapnel from elsewhere will kill this test
-		$this->resetAllEnv();
-
 		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ) ); //as if we were posted.
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
@@ -122,7 +119,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'owa_session' => '',
 			'owa_ref' => '',
 			'street_supplemental' => '',
-			'currency' => '',
 			'payment_submethod' => '',
 			'issuer_id' => '',
 			'utm_source_id' => '',
@@ -198,7 +194,7 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'recurring' => '',
 		);
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), $expected ); //test mode from the start, no data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ), $expected ); //external data
 		$returned = $ddObj->getDataEscaped();
 
 
@@ -209,6 +205,86 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 		unset($returned['contribution_tracking_id']);
 
 		$this->assertEquals($expected, $returned, "Staged default test data does not match expected.");
+	}
+
+	/**
+	 * Test construction with data jammed in $_GET.
+	 */
+	public function testConstructWithFauxRequest() {
+		global $wgRequest;
+
+		$expected = array (
+			'amount' => '35.00',
+			'email' => 'testingdata@wikimedia.org',
+			'fname' => 'Tester',
+			'lname' => 'Testington',
+			'street' => '548 Market St.',
+			'city' => 'San Francisco',
+			'state' => 'CA',
+			'zip' => '94104',
+			'country' => 'US',
+			'premium_language' => 'es',
+			'card_num' => '378282246310005',
+			'card_type' => 'american',
+			'expiration' => '0415',
+			'cvv' => '001',
+			'currency_code' => 'USD',
+			'payment_method' => 'cc',
+			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
+			'utm_source' => 'test_src..cc',
+			'utm_medium' => 'test_medium',
+			'utm_campaign' => 'test_campaign',
+			'language' => 'en',
+			'token' => '',
+			'data_hash' => '',
+			'action' => '',
+			'gateway' => 'globalcollect',
+			'owa_session' => '',
+			'owa_ref' => 'http://localhost/getTestData',
+			'street_supplemental' => '3rd floor',
+			'payment_submethod' => 'american',
+			'issuer_id' => '',
+			'utm_source_id' => '',
+			'user_ip' => $wgRequest->getIP(),
+			'server_ip' => $wgRequest->getIP(),
+			'recurring' => '',
+			'ffname' => '',
+			'posted' => '',
+			//wow, just look at all the unset near-garbage we should address:
+			'paymentmethod' => '',
+			'submethod' => '',
+			'utm_key' => '',
+			'_cache_' => '',
+			'descriptor' => '',
+			'account_name' => '',
+			'account_number' => '',
+			'authorization_id' => '',
+			'bank_check_digit' => '',
+			'bank_name' => '',
+			'bank_code' => '',
+			'branch_code' => '',
+			'country_code_bank' => '',
+			'date_collect' => '',
+			'direct_debit_text' => '',
+			'iban' => '',
+			'fiscal_number' => '',
+			'transaction_type' => '',
+			'form_name' => '',
+			'recurring_paypal' => '',
+		);
+
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $expected, false ) );
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( $this->initial_vars ) ); //Get all data from $_GET
+		$returned = $ddObj->getDataEscaped();
+
+		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
+		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
+
+		unset( $returned['order_id'] );
+		unset( $returned['contribution_tracking_id'] );
+
+		$this->assertEquals( $expected, $returned, "Staged default test data does not match expected." );
 	}
 
 	/**

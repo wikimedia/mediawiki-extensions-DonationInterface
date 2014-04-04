@@ -106,7 +106,6 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		$options = $this->getDonorTestData( 'NO' );
 		$gateway = $this->getFreshGatewayObject( $options );
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
-		$this->resetAllEnv();
 	}
 
 }

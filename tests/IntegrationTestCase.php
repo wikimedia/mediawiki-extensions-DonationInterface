@@ -32,8 +32,6 @@ class DonationInterface_IntegrationTestCase extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function __construct(){
-		global $wgRequest;
-
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
@@ -43,7 +41,6 @@ class DonationInterface_IntegrationTestCase extends DonationInterfaceTestCase {
 
 	//this is meant to simulate a user choosing paypal, then going back and choosing GC.
 	public function testBackClickPayPalToGC() {
-		$this->resetAllEnv();
 		$this->testAdapterClass = 'TestingPayPalAdapter';
 		$options = $this->getDonorTestData( 'US' );
 //		unset( $options['ffname'] );

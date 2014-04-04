@@ -81,9 +81,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		//conflicting order_id in init data, $_POST and $SESSION, explicit GC generation, batch mode
 		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE ), 'batch_mode' => TRUE, ) );
 		$this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
-
-		//clean up what we haven't already
-		$this->resetAllEnv();
 	}
 
 	/**
@@ -129,9 +126,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'No order_id was retrieved from INSERT_ORDERWITHPAYMENT' );
-
-		//because do_transaction is totally expected to leave session artifacts...
-		$this->resetAllEnv();
 	}
 
 	/**
@@ -216,7 +210,26 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$gateway->_stageData();
 
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
-		$this->resetAllEnv();
+	}
+
+	public function testGCFormLoad() {
+		$init = $this->getDonorTestData();
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+
+		$assertNodes = array (
+			'cc-mc' => array (
+				'nodename' => 'input'
+			),
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '$1.55',
+			)
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 }

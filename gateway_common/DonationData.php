@@ -54,7 +54,8 @@ class DonationData {
 				'amount' => $wgRequest->getText( 'amount', null ),
 				'amountGiven' => $wgRequest->getText( 'amountGiven', null ),
 				'amountOther' => $wgRequest->getText( 'amountOther', null ),
-				'email' => $wgRequest->getText( 'emailAdd' ),
+				'email' => $wgRequest->getText( 'email' ),
+				'emailAdd' => $wgRequest->getText( 'emailAdd' ), //@TODO: Kill this legacy field for increased happiness. Er, once production does the same.
 				'fname' => $wgRequest->getText( 'fname' ),
 				'lname' => $wgRequest->getText( 'lname' ),
 				'street' => $wgRequest->getText( 'street' ),
@@ -66,7 +67,7 @@ class DonationData {
 				'premium_language' => $wgRequest->getText( 'premium_language', null ),
 				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
 				'card_type' => $wgRequest->getText( 'card_type' ),
-				'expiration' => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
+				'expiration' => $wgRequest->getText( 'expiration' ),
 				'cvv' => $wgRequest->getText( 'cvv' ),
 				//Leave both of the currencies here, in case something external didn't get the memo.
 				'currency' => $wgRequest->getVal( 'currency' ),
@@ -413,8 +414,7 @@ class DonationData {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
 			$this->log( "Got currency from 'currency', now: $currency", LOG_DEBUG );
-		}
-		if ( $this->isSomething( 'currency_code' ) ) {
+		} elseif ( $this->isSomething( 'currency_code' ) ) {
 			$currency = $this->getVal( 'currency_code' );
 			$this->log( "Got currency from 'currency_code', now: $currency", LOG_DEBUG );
 		}
@@ -427,6 +427,7 @@ class DonationData {
 		}
 		
 		$this->setVal( 'currency_code', $currency );
+		$this->expunge( 'currency', $currency );  //honestly, we don't want this.
 	}
 	
 	/**
@@ -721,12 +722,26 @@ class DonationData {
 	}
 
 	/**
-	 * Normalize email to 'nobody' if nothing has been entered.
+	 * Normalize email
+	 * Check regular name, and horrible old name for values (preferring the
+	 * reasonable name over the legacy version)
+	 * Set the value to 'nobody@wikimedia.org' if nothing has been entered.
 	 */
 	protected function setEmail() {
-		if ( !$this->isSomething( 'email' ) ) {
-			$this->setVal( 'email', 'nobody@wikimedia.org' );
+		$email = null;
+
+		if ( $this->isSomething( 'email' ) ) {
+			$email = $this->getVal( 'email' );
+		} elseif ( $this->isSomething( 'emailAdd' ) ) {
+			$email = $this->getVal( 'emailAdd' );
 		}
+
+		if ( is_null( $email ) ) {
+			$email = 'nobody@wikimedia.org';
+		}
+
+		$this->setVal( 'email', $email );
+		$this->expunge( 'emailAdd' );
 	}
 
 	/**

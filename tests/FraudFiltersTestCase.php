@@ -32,8 +32,6 @@ class DonationInterface_FraudFiltersTestCase extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function __construct(){
-		global $wgRequest;
-
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
