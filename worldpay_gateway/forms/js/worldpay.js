@@ -52,22 +52,28 @@
 		return ( $( 'input.invalid' ).length === 0 );
 	}
 
+	/**
+	 * Validate individual credit card fields are getting filled in.
+	 *
+	 * Show and hide errors as appropriate.
+	 */
 	function validate_cc(){
-		if($($accountNumber).hasClass('invalid')){
-			$('.ccNumberError').addClass('show');
-		} else if(!$($accountNumber).hasClass('invalid')){
-			$('.ccNumberError').removeClass('show').addClass('hide');
-		}
-		if($($accountExpiry).hasClass('invalid')){
-			$('.ccExpiryError').addClass('show');
-		} else if(!$($accountExpiry).hasClass('invalid')){
-			$('.ccExpiryError').removeClass('show').addClass('hide');
-		}
-		if($($accountCVC).hasClass('invalid')){
-			$('.ccCVCError').addClass('show');
-		} else if(!$($accountCVC).hasClass('invalid')){
-			$('.ccCVCError').removeClass('show').addClass('hide');
-		}
+		var types = [ 
+			{ '.ccNumberError': $accountNumber }, 
+			{ '.ccExpiryError': $accountExpiry }, 
+			{ '.ccCVCError': $accountCVC }
+		];
+
+		types.forEach( function( type ){
+			for(key in type){
+				if($(type[key]).hasClass('invalid')){
+					$(key).addClass('show');
+				} else if(!$(type[key]).hasClass('invalid')){
+					$(key).removeClass('show').addClass('hide');
+				}
+			}
+		});
+			
 	}
 
 	/**
