@@ -47,7 +47,27 @@
 		$accountExpiry.toggleClass( 'invalid', !$.payment.validateCardExpiry( expiry ) );
 		$accountCVC.toggleClass( 'invalid', !$.payment.validateCardCVC( $accountCVC.val(), cardType ) );
 
+		validate_cc();
+
 		return ( $( 'input.invalid' ).length === 0 );
+	}
+
+	function validate_cc(){
+		if($($accountNumber).hasClass('invalid')){
+			$('.ccNumberError').addClass('show');
+		} else if(!$($accountNumber).hasClass('invalid')){
+			$('.ccNumberError').removeClass('show').addClass('hide');
+		}
+		if($($accountExpiry).hasClass('invalid')){
+			$('.ccExpiryError').addClass('show');
+		} else if(!$($accountExpiry).hasClass('invalid')){
+			$('.ccExpiryError').removeClass('show').addClass('hide');
+		}
+		if($($accountCVC).hasClass('invalid')){
+			$('.ccCVCError').addClass('show');
+		} else if(!$($accountCVC).hasClass('invalid')){
+			$('.ccCVCError').removeClass('show').addClass('hide');
+		}
 	}
 
 	/**
@@ -158,7 +178,8 @@
 		$( '#paymentSubmitBtn' ).click(function() {
 			if ( validateClientSide() ) {
 				validateServerSide( submitFormForTokenization );
-			}
+			} 
+			validate_personal( $('#worldpayForm') );
 			return false;
 		});
 	});
