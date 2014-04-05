@@ -29,6 +29,26 @@ class WorldPayAdapter extends GatewayAdapter {
 	public $communication_type = 'xml';
 	public $redirect = FALSE;
 
+	/**
+	 * @var string[] Card types (as returned by WP) mapped to what we call them
+	 */
+	static $cardTypes = array(
+		'VI' => 'visa',
+		'AX' => 'amex',
+		'BE' => 'visa-beneficial',
+		'CB' => 'cb',
+		'DC' => 'diners',
+		'DI' => 'discover',
+		'JC' => 'jcb',
+		'MC' => 'mc',
+		'SW' => 'solo',
+		'VE' => 'visa-electron',
+		'VD' => 'visa-debit',
+		'MA' => 'maestro',
+		'MD' => 'mc-debit',
+		'XX' => '',
+	);
+
 	public function __construct( $options = array ( ) ) {
 		parent::__construct( $options );
 	}
@@ -39,7 +59,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			'wp_acctname',
 			'wp_storeid',
 			'iso_currency_id',
-			'donation_desc'
+			'donation_desc',
+			'payment_submethod',
 		);
 	}
 
@@ -123,13 +144,16 @@ class WorldPayAdapter extends GatewayAdapter {
 			'label'	=> 'Credit Cards',
 		);
 
-		$this->payment_submethods[''] = array(
-			'paymentproductid'	=> 0,
-			'label'	=> 'Any',
-			'group'	=> 'cc',
-			'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
-			'keys' => array(),
-		);
+		$this->payment_submethods = array();
+		foreach( self::$cardTypes as $wpName => $ourName ) {
+			$this->payment_submethods[$ourName] = array(
+				'group'	=> 'cc',
+				'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
+			);
+		}
+
+		PaymentMethod::registerMethods( $this->payment_methods );
+		PaymentMethod::registerMethods( $this->payment_submethods );
 	}
 
 	function defineOrderIDMeta() {
@@ -730,7 +754,7 @@ class WorldPayAdapter extends GatewayAdapter {
 					$emptyVars[] = $theirs;
 				}
 			}
-			$self->addData( $addme );
+			$self->addData( $addme, 'response' );
 			return $emptyVars;
 		};
 		$setFailOnEmpty = function( $emptyVars ) use ( $response, $self ) {
@@ -761,7 +785,7 @@ class WorldPayAdapter extends GatewayAdapter {
 			case 'QueryTokenData':
 				$setFailOnEmpty( $addData( array(
 					'CardId' => 'wp_card_id',
-					'CreditCardType' => 'wp_card_type',
+					'CreditCardType' => 'payment_submethod',
 				)));
 				break;
 
@@ -770,12 +794,6 @@ class WorldPayAdapter extends GatewayAdapter {
 					'CVNMatch' => 'cvv_result',
 					'AddressMatch' => 'avs_address',
 					'PostalCodeMatch' => 'avs_zip',
-					'PTTID' => 'wp_pttid'
-				)));
-				break;
-
-			case 'AuthorizePaymentForDeposit':
-				$setFailOnEmpty( $addData( array(
 					'PTTID' => 'wp_pttid'
 				)));
 				break;
@@ -895,6 +913,18 @@ class WorldPayAdapter extends GatewayAdapter {
 	protected function stage_donation_desc( $type = 'request' ) {
 		// TODO: Make this translatable.
 		$this->staged_data['donation_desc'] = substr( 'Donation to the Wikimedia Foundation', 0, 50 );
+	}
+
+	protected function stage_payment_submethod( $type = 'request' ) {
+		if ( $type == 'response' ) {
+			$paymentMethod = $this->getData_Unstaged_Escaped( 'payment_method' );
+			$paymentSubmethod = $this->getData_Unstaged_Escaped( 'payment_submethod' );
+			if ( $paymentMethod == 'cc' ) {
+				if ( array_key_exists( $paymentSubmethod, self::$cardTypes ) ) {
+					$this->unstaged_data['payment_submethod'] = self::$cardTypes[$paymentSubmethod];
+				}
+			}
+		}
 	}
 
 	public function session_addDonorData() {
