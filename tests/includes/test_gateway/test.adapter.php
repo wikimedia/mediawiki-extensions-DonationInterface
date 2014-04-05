@@ -19,6 +19,7 @@
 /**
  * TestingGlobalCollectAdapter
  *
+ * TODO: Add dependency injection to the base class so we don't have to repeat code here.
  */
 class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	public $testlog = array ( );
@@ -105,9 +106,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
-		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
-		ob_start();
-
 		//now screw around with the batch settings to trick the fraud filters into triggering
 		$is_batch = $this->isBatchProcessor();
 		$this->batch = true;
@@ -115,7 +113,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		parent::runAntifraudHooks();
 
 		$this->batch = $is_batch;
-		ob_end_clean();
 	}
 
 	public function getRiskScore() {
@@ -314,9 +311,6 @@ class TestingAdyenAdapter extends AdyenAdapter {
 
 	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
-		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
-		ob_start();
-
 		//now screw around with the batch settings to trick the fraud filters into triggering
 		$is_batch = $this->isBatchProcessor();
 		$this->batch = true;
@@ -324,7 +318,6 @@ class TestingAdyenAdapter extends AdyenAdapter {
 		parent::runAntifraudHooks();
 
 		$this->batch = $is_batch;
-		ob_end_clean();
 	}
 
 	public function _getData_Staged() {
@@ -413,9 +406,6 @@ class TestingWorldPayAdapter extends WorldPayAdapter {
 
 	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
-		//grabbing the output buffer to prevent minfraud being stupid from ruining my test.
-		ob_start();
-
 		//now screw around with the batch settings to trick the fraud filters into triggering
 		$is_batch = $this->isBatchProcessor();
 		$this->batch = true;
@@ -423,7 +413,6 @@ class TestingWorldPayAdapter extends WorldPayAdapter {
 		parent::runAntifraudHooks();
 
 		$this->batch = $is_batch;
-		ob_end_clean();
 	}
 
 	/**

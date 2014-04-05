@@ -86,9 +86,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 */
 	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
 
-		global $wgGlobalCollectGatewayTest;
+		global $wgDonationInterfaceTest;
 		
-		$wgGlobalCollectGatewayTest = true;
+		$wgDonationInterfaceTest = true;
 
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 

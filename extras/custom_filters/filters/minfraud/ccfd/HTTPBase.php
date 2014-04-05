@@ -67,6 +67,10 @@ class HTTPBase{
 
   //this function queries the servers
   function query() {
+    if ( $this->gateway_adapter->getGlobal( 'Test' ) ) {
+        return 0;
+    }
+
     //query every server in the list
     if (!$this->useDNS){
       $ipstr = $this->readIpAddressFromCache();

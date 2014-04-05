@@ -42,8 +42,8 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 
 	public function __construct() {
 		global $wgDonationInterfaceAllowedHtmlForms;
-		global $wgGlobalCollectGatewayTest;
-		$wgGlobalCollectGatewayTest = true;
+		global $wgDonationInterfaceTest;
+		$wgDonationInterfaceTest = true;
 		parent::__construct();
 
 		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (

@@ -261,6 +261,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->health_check();
 		
 		try {
+			if ( !isset( $this->minfraudResponse['riskScore'] ) ) {
+				throw new MWException( "No response at all from minfraud." );
+			}
+
 			$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
 		} 
 		catch( MWException $ex){
@@ -344,6 +348,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->get_ccfd()->input( $minfraud_query );
 		$this->get_ccfd()->query();
 		$this->minfraudResponse = $this->get_ccfd()->output();
+		if ( !$this->minfraudResponse ) {
+			$this->minfraudResponse = array();
+		}
 	}
 
 	/**

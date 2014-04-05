@@ -101,7 +101,6 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 			'payment_methods' => array ( 'paypal' => 'ALL' ),
 		);
 
-
 		$wgDonationInterfaceAllowedHtmlForms = array_merge( $wgDonationInterfaceAllowedHtmlForms, $moreForms );
 		$wgDonationInterfaceFormDirs = $form_dirs;
 	}
