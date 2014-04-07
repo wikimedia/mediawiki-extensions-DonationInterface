@@ -648,56 +648,8 @@ class WorldPayAdapter extends GatewayAdapter {
 				break;
 
 			case 'QueryAuthorizeDeposit':
-				// Obtain all the form data from tokenization server
-				$result = $this->do_transaction( 'QueryTokenData' );
-				if ( !$this->getTransactionStatus() ) {
-					$this->log( 'Failed transaction because QueryTokenData failed', LOG_ERR );
-					$this->finalizeInternalStatus( 'failed' );
-					return $result;
-				}
-
-				// If we managed to successfully get the token details; perform an authorization
-				// with bank verification for fraud checks.
-				if ( $this->getGlobal( 'NoFraudIntegrationTest' ) !== true ) {
-					$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
-					if ( !$this->getTransactionStatus() ) {
-						$this->log( 'Failed transaction because AuthorizePaymentForFraud failed' );
-						$this->finalizeInternalStatus( 'failed' );
-						return $result;
-					}
-					$code = $result['data']['MessageCode'];
-					$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
-					if ( $result_status ) {
-						$this->log(
-							"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
-						);
-						$this->finalizeInternalStatus( $result_status );
-						return $result;
-					}
-				}
-
-				// We've successfully passed fraud checks; authorize and deposit the payment
-				$result = $this->do_transaction( 'AuthorizeAndDepositPayment' );
-				if ( !$this->getTransactionStatus() ) {
-					$this->log( 'Failed transaction because AuthorizeAndDepositPayment failed' );
-					$this->finalizeInternalStatus( 'failed' );
-					return $result;
-				}
-				$code = $result['data']['MessageCode'];
-				$result_status = $this->findCodeAction( 'AuthorizeAndDepositPayment', 'MessageCode', $code );
-				if ( $result_status ) {
-					$this->log(
-						"Finalizing transaction at AuthorizeAndDepositPayment to {$result_status}. Code: {$code}"
-					);
-					$this->finalizeInternalStatus( $result_status );
-				} else {
-					$this->log(
-						'Finalizing transaction at AuthorizeAndDepositPayment to failed because MessageCode (' .
-						$code .') was unknown.',
-						LOG_ERR
-					);
-					$this->finalizeInternalStatus( 'failed' );
-				}
+				$result = $this->do_transaction_QueryAuthorizeDeposit();
+				$this->runPostProcessHooks();
 				return $result;
 				break;
 
@@ -1010,6 +962,68 @@ class WorldPayAdapter extends GatewayAdapter {
 		$result = $avs_address_map[$avs_address];
 		$result += $avs_zip_map[$avs_zip];
 
+		return $result;
+	}
+
+	/**
+	 * Wrapper function for the big 'finalize the payment' meta transaction
+	 *
+	 * Will run the QueryTokenData, AuthorizePaymentForFraud, and
+	 * AuthorizeAndDepositPayment API calls.
+	 *
+	 * @return array Transaction status
+	 */
+	protected function do_transaction_QueryAuthorizeDeposit() {
+		// Obtain all the form data from tokenization server
+		$result = $this->do_transaction( 'QueryTokenData' );
+		if ( !$this->getTransactionStatus() ) {
+			$this->log( 'Failed transaction because QueryTokenData failed', LOG_ERR );
+			$this->finalizeInternalStatus( 'failed' );
+			return $result;
+		}
+
+		// If we managed to successfully get the token details; perform an authorization
+		// with bank verification for fraud checks.
+		if ( $this->getGlobal( 'NoFraudIntegrationTest' ) !== true ) {
+			$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
+			if ( !$this->getTransactionStatus() ) {
+				$this->log( 'Failed transaction because AuthorizePaymentForFraud failed' );
+				$this->finalizeInternalStatus( 'failed' );
+				return $result;
+			}
+			$code = $result[ 'data' ][ 'MessageCode' ];
+			$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
+			if ( $result_status ) {
+				$this->log(
+					"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
+				);
+				$this->finalizeInternalStatus( $result_status );
+				return $result;
+			}
+		}
+
+		// We've successfully passed fraud checks; authorize and deposit the payment
+		$result = $this->do_transaction( 'AuthorizeAndDepositPayment' );
+		if ( !$this->getTransactionStatus() ) {
+			$this->log( 'Failed transaction because AuthorizeAndDepositPayment failed' );
+			$this->finalizeInternalStatus( 'failed' );
+			return $result;
+		}
+		$code = $result[ 'data' ][ 'MessageCode' ];
+		$result_status = $this->findCodeAction( 'AuthorizeAndDepositPayment', 'MessageCode', $code );
+		if ( $result_status ) {
+			$this->log(
+				"Finalizing transaction at AuthorizeAndDepositPayment to {$result_status}. Code: {$code}"
+			);
+			$this->finalizeInternalStatus( $result_status );
+		} else {
+			$this->log(
+				'Finalizing transaction at AuthorizeAndDepositPayment to failed because MessageCode (' .
+				$code . ') was unknown.',
+				LOG_ERR
+			);
+			$this->finalizeInternalStatus( 'failed' );
+		}
 		return $result;
 	}
 
