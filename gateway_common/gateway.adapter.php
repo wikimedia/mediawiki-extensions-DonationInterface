@@ -1425,12 +1425,12 @@ abstract class GatewayAdapter implements GatewayType {
 
 	function stripXMLResponseHeaders( $rawResponse ) {
 		$xmlStart = strpos( $rawResponse, '<?xml' );
-		if ( $xmlStart == false ) {
+		if ( $xmlStart === false ) {
 			//I totally saw this happen one time. No XML, just <RESPONSE>...
 			//...Weaken to almost no error checking.  Buckle up!
 			$xmlStart = strpos( $rawResponse, '<' );
 		}
-		if ( $xmlStart == false ) { //Still false. Your Head Asplode.
+		if ( $xmlStart === false ) { //Still false. Your Head Asplode.
 			$this->log( "Completely Mangled Response:\n" . $rawResponse, LOG_ERR );
 			return false;
 		}
