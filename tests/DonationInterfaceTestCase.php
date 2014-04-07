@@ -318,7 +318,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		ob_start();
 		$formpage = new $special_page_class();
 		$formpage->execute( NULL );
-		$wgOut->output();
+		$formpage->getOutput()->output();
 		$form_html = ob_get_contents();
 		ob_end_clean();
 
@@ -347,9 +347,23 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 
 		$dom_thingy = new DomDocument();
-		$dom_thingy->loadHTML( $form_html );
+		if ( $form_html ) {
+			$dom_thingy->loadHTML( $form_html );
+		}
 
 		foreach ( $perform_these_checks as $id => $checks ) {
+			if ( $id == 'headers' ) {
+				foreach ( $checks as $name => $expected ) {
+					switch ( $name ) {
+						case 'redirect':
+							$actual = $formpage->getRequest()->response()->getheader( $name );
+							$this->assertEquals( $expected, $actual, "Expected header '$name' to be '$expected', found '$redirect' instead." );
+							break;
+					}
+				}
+				continue;
+			}
+
 			$input_node = $dom_thingy->getElementById( $id );
 			$this->assertNotNull( $input_node, "Couldn't find the '$id' element" );
 			foreach ( $checks as $name => $expected ) {
