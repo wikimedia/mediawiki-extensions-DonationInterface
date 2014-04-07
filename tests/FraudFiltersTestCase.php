@@ -54,10 +54,10 @@ class DonationInterface_FraudFiltersTestCase extends DonationInterfaceTestCase {
 		);
 
 		$wgDonationInterfaceCustomFiltersRefRules = array (
-			'/donate\-error/i' => 5,
+			'/donate-error/i' => 5,
 		);
 
-		$wgDonationInterfaceCustomFiltersSrcRules = array ( '/wikimedia.org/i' => 80 );
+		$wgDonationInterfaceCustomFiltersSrcRules = array ( '/wikimedia\.org/i' => 80 );
 
 		$wgDonationInterfaceCustomFiltersFunctions = array (
 			'getScoreCountryMap' => 50,
@@ -80,7 +80,7 @@ class DonationInterface_FraudFiltersTestCase extends DonationInterfaceTestCase {
 		);
 
 		$wgDonationInterfaceUtmCampaignMap = array (
-			'/^(C14\_)/' => 14,
+			'/^(C14_)/' => 14,
 			'/^(spontaneous)/' => 5
 		);
 		$wgDonationInterfaceUtmSourceMap = array (
