@@ -34,3 +34,11 @@ class TestingGlobalCollectGateway extends GlobalCollectGateway {
 
 }
 
+class TestingWorldPayGateway extends WorldPayGateway {
+
+	public function __construct() {
+		$this->adapter = new TestingWorldPayAdapter();
+		GatewayForm::__construct(); //DANGER: See main class comments.
+	}
+
+}

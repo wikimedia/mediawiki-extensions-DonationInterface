@@ -54,7 +54,7 @@ class WorldPayGateway extends GatewayForm {
 				}
 
 			} else {
-				// Show either the initial error form or an error form
+				// Show either the initial form or an error form
 				$this->adapter->session_addDonorData();
 				$this->displayForm();
 			}

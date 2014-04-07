@@ -42,13 +42,15 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 	public static function setupMoreForms() {
 		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceHtmlFormDir,
 		$wgGlobalCollectGatewayHtmlFormDir, $wgPaypalGatewayHtmlFormDir,
-		$wgAmazonGatewayHtmlFormDir, $wgDonationInterfaceFormDirs;
+		$wgAmazonGatewayHtmlFormDir, $wgWorldPayGatewayHtmlFormDir,
+		$wgDonationInterfaceFormDirs;
 
 		$form_dirs = array (
 			'default' => $wgDonationInterfaceHtmlFormDir,
 			'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 			'paypal' => $wgPaypalGatewayHtmlFormDir,
 			'amazon' => $wgAmazonGatewayHtmlFormDir,
+			'worldpay' => $wgWorldPayGatewayHtmlFormDir,
 		);
 
 		$moreForms = array ( );
@@ -99,6 +101,12 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 			'file' => $form_dirs['paypal'] . '/paypal.html',
 			'gateway' => 'paypal',
 			'payment_methods' => array ( 'paypal' => 'ALL' ),
+		);
+
+		$moreForms['worldpay'] = array (
+			'file' => $form_dirs['worldpay'] . '/worldpay.html',
+			'gateway' => 'worldpay',
+			'payment_methods' => array ( 'cc' => 'ALL' ),
 		);
 
 		$wgDonationInterfaceAllowedHtmlForms = array_merge( $wgDonationInterfaceAllowedHtmlForms, $moreForms );

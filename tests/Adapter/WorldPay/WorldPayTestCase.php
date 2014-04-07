@@ -84,4 +84,60 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->assertEquals( '0', preg_match( '/CNV/', $logline ), 'The "Cleaned" logline contained CVN data!' );
 	}
 
+	function testWorldPayFormLoad() {
+		$init = $this->getDonorTestData();
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'worldpay';
+		$init['currency_code'] = 'EUR';
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname' => array(
+				'nodename' => 'input',
+				'value' => 'Firstname',
+			),
+			'lname' => array(
+				'nodename' => 'input',
+				'value' => 'Surname',
+			),
+			'street' => array(
+				'nodename' => 'input',
+				'value' => '123 Fake Street',
+			),
+			'city' => array(
+				'nodename' => 'input',
+				'value' => 'San Francisco',
+			),
+			'zip' => array(
+				'nodename' => 'input',
+				'value' => '94105',
+			),
+			'country' => array(
+				'nodename' => 'input',
+				'value' => 'US',
+			),
+			'emailAdd' => array(
+				'nodename' => 'input',
+				'value' => '',
+			),
+			'language' => array(
+				'nodename' => 'input',
+				'value' => 'en',
+			),
+			/* FIXME: fails
+			'state' => array(
+				'nodename' => 'select',
+				'selected' => 'CA',
+			),
+			*/
+		);
+
+		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+	}
+
 }

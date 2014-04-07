@@ -275,6 +275,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	function resetAllEnv() {
+		global $wgOut;
+
 		$_SESSION = array ( );
 		$_GET = array ( );
 		$_POST = array ( );
@@ -306,10 +308,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false ) {
 		global $wgOut;
 
+		// Nasty hack to clear output from any previous tests.
+		$mainContext = RequestContext::getMain();
+		$newOutput = new OutputPage( $mainContext );
+		$mainContext->setOutput( $newOutput );
+
 		$globals = array (
 			'wgRequest' => new TestingRequest( $initial_vars, false ),
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
+			'wgOut' => $newOutput,
 		);
+
 //		$this->setMwGlobals( 'wgRequest', new TestingRequest( $initial_vars, false ) );
 		$this->setMwGlobals( $globals );
 //		$wgRequest = new TestingRequest( $initial_vars, false );
@@ -347,8 +356,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 
 		$dom_thingy = new DomDocument();
+		//// DEBUGGING, foo
+		// if (property_exists($this, 'FOO')) {
+		// 	error_log(var_export($formpage->getRequest()->response()->getheader('Location'), true));
+		// 	error_log(var_export($form_html, true));
+		// }
+
 		if ( $form_html ) {
-			$dom_thingy->loadHTML( $form_html );
+			// p.s. i'm SERIOUS about the character encoding.
+			$dom_thingy->loadHTML( '<?xml encoding="UTF-8">' . $form_html );
+			$dom_thingy->encoding = 'UTF-8';
 		}
 
 		foreach ( $perform_these_checks as $id => $checks ) {
@@ -373,6 +390,24 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 						break;
 					case 'innerhtml':
 						$this->assertEquals( $expected, $input_node->nodeValue, "The node with id '$id' does not have value '$expected'. It has value " . $input_node->nodeValue );
+						break;
+					case 'value':
+						$this->assertEquals( $expected, $input_node->getAttribute('value'), "The node with id '$id' does not have value '$expected'. It has value " . $input_node->getAttribute('value') );
+						break;
+					case 'selected':
+						$selected = null;
+						if ( $input_node->nodeName === 'select' ) {
+							$options = $input_node->getElementsByTagName( 'option' );
+							foreach ( $options as $option ) {
+								if ( $option->hasAttribute( 'selected' ) ) {
+									$selected = $option->getAttribute( 'value' );
+									break;
+								}
+							}
+							$this->assertEquals( $expected, $selected, "The node with id '$id' does not have option '$expected' selected. It has value '$selected'." );
+						} else {
+							$this->fail( "Attempted to test for selected value on non-select node, id '$id'" );
+						}
 						break;
 				}
 			}
