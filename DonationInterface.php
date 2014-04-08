@@ -498,6 +498,8 @@ if ( $optionalParts['WorldPay'] === true ) {
 		'Username' => 'suchuser',
 		'Password' => 'suchsecret',
 
+		'DefaultCurrency' => CURRENCY
+
 		'StoreIDs' => array(
 			CURRENCY => StoreID
 		),
