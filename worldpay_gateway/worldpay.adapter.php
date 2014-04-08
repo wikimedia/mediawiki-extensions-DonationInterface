@@ -32,7 +32,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	/**
 	 * @var string[] Card types (as returned by WP) mapped to what we call them
 	 */
-	static $cardTypes = array(
+	static $CARD_TYPES = array(
 		'VI' => 'visa',
 		'AX' => 'amex',
 		'BE' => 'visa-beneficial',
@@ -47,6 +47,76 @@ class WorldPayAdapter extends GatewayAdapter {
 		'MA' => 'maestro',
 		'MD' => 'mc-debit',
 		'XX' => '',
+	);
+
+	/**
+	 * @var string[] ISO Currency code letters to numbers (from appendix B of the
+	 * integration manual). These are also apparently all the currencies that
+	 * WorldPay can support.
+	 */
+	static $CURRENCY_CODES = array(
+		'AUD' => '36',
+		'ATS' => '40',
+		'BHD' => '48',
+		'BEF' => '56',
+		'BMD' => '60',
+		'BRL' => '986',
+		'CAD' => '124',
+		'COP' => '170',
+		'CYP' => '196',
+		'CZK' => '203',
+		'DKK' => '208',
+		'DOP' => '214',
+		'EUR' => '978',
+		'FIM' => '246',
+		'FRF' => '250',
+		'XPF' => '953',
+		'DEM' => '280',
+		'GRD' => '300',
+		'HKD' => '344',
+		'HUF' => '348',
+		'INR' => '356',
+		'IDR' => '360',
+		'IEP' => '372',
+		'ILS' => '376',
+		'ITL' => '380',
+		'JMD' => '388',
+		'JPY' => '392',
+		'JOD' => '400',
+		'KRW' => '410',
+		'KWD' => '414',
+		'LUF' => '442',
+		'MYR' => '458',
+		'MVR' => '462',
+		'MTL' => '470',
+		'MXN' => '484',
+		'MAD' => '504',
+		'NLG' => '528',
+		'NZD' => '554',
+		'NOK' => '578',
+		'OMR' => '512',
+		'PAB' => '590',
+		'PHP' => '608',
+		'PLN' => '985',
+		'PTE' => '620',
+		'QAR' => '634',
+		'RUB' => '643',
+		'SAR' => '682',
+		'SGD' => '702',
+		'ZAR' => '710',
+		'ESP' => '724',
+		'SEK' => '752',
+		'CHF' => '756',
+		'TWD' => '901',
+		'THB' => '764',
+		'TRL' => '792',
+		'TRY' => '949',
+		'AED' => '784',
+		'GBP' => '826',
+		'USD' => '840',
+		'UZS' => '860',
+		'VEB' => '862',
+		'VND' => '704',
 	);
 
 	public function __construct( $options = array ( ) ) {
@@ -145,7 +215,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 
 		$this->payment_submethods = array();
-		foreach( self::$cardTypes as $wpName => $ourName ) {
+		foreach( self::$CARD_TYPES as $wpName => $ourName ) {
 			$this->payment_submethods[$ourName] = array(
 				'group'	=> 'cc',
 				'validation' => array( 'address' => true, 'amount' => true, 'email' => true, 'name' => true, ),
@@ -169,16 +239,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	static function getCurrencies() {
-		return array(
-			'BZD',
-			'CAD',
-			'CHF',
-			'EUR',
-			'GBP',
-			'NOK',
-			'SEK',
-			'VEF'
-		);
+		return array_keys( self::$CURRENCY_CODES );
 	}
 
 	function defineTransactions() {
@@ -781,84 +842,23 @@ class WorldPayAdapter extends GatewayAdapter {
 	protected function stage_wp_storeid( $type = 'request' ) {
 		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
 		if ( array_key_exists( $currency, $this->accountInfo['StoreIDs'] ) ) {
+			// If we have the currency setup; settle into that
 			$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$currency];
 		} else {
-			if ( $this->getCurrentTransaction() === 'AuthorizePaymentForFraud' ) {
+			// Otherwise settle into whatever the default it
+			$defaultStore = $this->getGlobal( 'DefaultCurrency' );
+			if ( array_key_exists( $defaultStore, $this->accountInfo['StoreIDs'] ) ) {
+				$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$defaultStore];
+			} elseif ( $this->getCurrentTransaction() === 'AuthorizePaymentForFraud' ) {
 				throw new MWException( 'Store not configured for currency. Cannot perform auth request.' );
 			}
 		}
 	}
 
 	protected function stage_iso_currency_id( $type = 'request' ) {
-		// From Appendix B of the integration manual; apparently these are ISO standard codes...
-		$currency_codes = array(
-			'AUD' => '36',
-			'ATS' => '40',
-			'BHD' => '48',
-			'BEF' => '56',
-			'BMD' => '60',
-			'BRL' => '986',
-			'CAD' => '124',
-			'COP' => '170',
-			'CYP' => '196',
-			'CZK' => '203',
-			'DKK' => '208',
-			'DOP' => '214',
-			'EUR' => '978',
-			'FIM' => '246',
-			'FRF' => '250',
-			'XPF' => '953',
-			'DEM' => '280',
-			'GRD' => '300',
-			'HKD' => '344',
-			'HUF' => '348',
-			'INR' => '356',
-			'IDR' => '360',
-			'IEP' => '372',
-			'ILS' => '376',
-			'ITL' => '380',
-			'JMD' => '388',
-			'JPY' => '392',
-			'JOD' => '400',
-			'KRW' => '410',
-			'KWD' => '414',
-			'LUF' => '442',
-			'MYR' => '458',
-			'MVR' => '462',
-			'MTL' => '470',
-			'MXN' => '484',
-			'MAD' => '504',
-			'NLG' => '528',
-			'NZD' => '554',
-			'NOK' => '578',
-			'OMR' => '512',
-			'PAB' => '590',
-			'PHP' => '608',
-			'PLN' => '985',
-			'PTE' => '620',
-			'QAR' => '634',
-			'RUB' => '643',
-			'SAR' => '682',
-			'SGD' => '702',
-			'ZAR' => '710',
-			'ESP' => '724',
-			'SEK' => '752',
-			'CHF' => '756',
-			'TWD' => '901',
-			'THB' => '764',
-			'TRL' => '792',
-			'TRY' => '949',
-			'AED' => '784',
-			'GBP' => '826',
-			'USD' => '840',
-			'UZS' => '860',
-			'VEB' => '862',
-			'VND' => '704',
-		);
-
 		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-		if ( array_key_exists( $currency, $currency_codes ) ) {
-			$this->staged_data['iso_currency_id'] = $currency_codes[$currency];
+		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
+			$this->staged_data['iso_currency_id'] = self::$CURRENCY_CODES[$currency];
 		}
 	}
 
@@ -872,8 +872,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			$paymentMethod = $this->getData_Unstaged_Escaped( 'payment_method' );
 			$paymentSubmethod = $this->getData_Unstaged_Escaped( 'payment_submethod' );
 			if ( $paymentMethod == 'cc' ) {
-				if ( array_key_exists( $paymentSubmethod, self::$cardTypes ) ) {
-					$this->unstaged_data['payment_submethod'] = self::$cardTypes[$paymentSubmethod];
+				if ( array_key_exists( $paymentSubmethod, self::$CARD_TYPES ) ) {
+					$this->unstaged_data['payment_submethod'] = self::$CARD_TYPES[$paymentSubmethod];
 				}
 			}
 		}
