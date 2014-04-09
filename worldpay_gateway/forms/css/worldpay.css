@@ -153,10 +153,14 @@ p#informationsharing, p#monthlycancel {
 	text-align: center;
 	line-height: 140%;
 }
+/* TODO: move common rules to shared css */
 #moreinfolinks {
 	width: 100%;
-	text-align: center;
 	margin: 1em 0;
+}
+ul#moreinfolinks li{
+    list-style: none !important;
+    list-style-image: none !important;
 }
 h3.amount_header {
 	padding: 0 0 0.4em 0;

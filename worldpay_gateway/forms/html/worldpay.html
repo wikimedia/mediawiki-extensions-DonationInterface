@@ -26,20 +26,8 @@
 		<div class="span9 pull-right">
 			<div id="donate" class="row-fluid" valign="top">
 				<div class="span12" id="greenBackground">
-					<div class="row-fluid">
-						<noscript>
-							<div id="noscript">
-								<p id="noscript-msg">%donate_interface-noscript-msg%</p>
-
-								<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
-
-								<p id="noscript-redirect-link">
-									<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
-								</p>
-							</div>
-						</noscript>
-						<p id="topError" class="creditcard-error-msg"></p>
-					</div>
+					@noscript
+					<p id="topError" class="creditcard-error-msg"></p>
 
 					<div class="row-fluid">
 						<form name="payment" method="post" action="@wp_process_url" novalidate>
@@ -86,8 +74,11 @@
 						</form>
 					</div>
 				</div>
+				<div>
+					{% block moreinfolinks %}
+				</div>
 				<span class="pull-right">@verisign_logo	</span>
 			</div>
-		</div>	
+		</div>
 	</div>
 </div>
