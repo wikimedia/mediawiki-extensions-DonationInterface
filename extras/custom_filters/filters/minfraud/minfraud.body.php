@@ -91,7 +91,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		$this->cfo = &$custom_filter_object;
 
-		require_once( dirname( __FILE__ ) . "/ccfd/CreditCardFraudDetection.php" );
+		require_once( dirname( __FILE__ ) . "/ccfd/src/CreditCardFraudDetection.php" );
 
 		global $wgMinFraudLicenseKey;
 
@@ -283,11 +283,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	public function get_ccfd() {
 		if ( !$this->ccfd ) {
-			$this->ccfd = new CreditCardFraudDetection( $this->gateway_adapter );
+			$this->ccfd = new CreditCardFraudDetection();
 			
 			// Override the minFraud API servers
 			if ( !empty( $this->minFraudServers ) && is_array( $this->minFraudServers )  ) {
-				
 				$this->ccfd->server = $this->minFraudServers;
 			}
 		}
@@ -344,10 +343,15 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	public function query_minfraud( array $minfraud_query ) {
 		global $wgMinFraudTimeout;
-		$this->get_ccfd()->timeout = $wgMinFraudTimeout;
-		$this->get_ccfd()->input( $minfraud_query );
-		$this->get_ccfd()->query();
-		$this->minfraudResponse = $this->get_ccfd()->output();
+		$ccfd = $this->get_ccfd();
+		$ccfd->timeout = $wgMinFraudTimeout;
+		$ccfd->input( $minfraud_query );
+		if ( $this->gateway_adapter->getGlobal( 'Test' ) ) {
+			$this->minfraudResponse = 0;
+		} else {
+			$ccfd->query();
+			$this->minfraudResponse = $ccfd->output();
+		}
 		if ( !$this->minfraudResponse ) {
 			$this->minfraudResponse = array();
 		}

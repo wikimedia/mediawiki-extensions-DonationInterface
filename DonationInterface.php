@@ -267,19 +267,6 @@ $wgDonationInterfaceHeader = NULL;
 $wgDonationInterfaceNoScriptRedirect = null;
 
 /**
- * Proxy settings
- *
- * If you need to use an HTTP proxy for outgoing traffic,
- * set wgPayflowProGatewayUseHTTPProxy=TRUE and set $wgPayflowProGatewayHTTPProxy
- * to the proxy desination.
- *  eg:
- *  $wgPayflowProGatewayUseHTTPProxy=TRUE;
- *  $wgPayflowProGatewayHTTPProxy='192.168.1.1:3128'
- */
-$wgDonationInterfaceUseHTTPProxy = FALSE;
-$wgDonationInterfaceHTTPProxy = '';
-
-/**
  * Set the max-age value for Squid
  *
  * If you have Squid enabled for caching, use this variable to configure

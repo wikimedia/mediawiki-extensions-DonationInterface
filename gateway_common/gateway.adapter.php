@@ -1128,11 +1128,6 @@ abstract class GatewayAdapter implements GatewayType {
 			CURLOPT_POST => 1,
 		);
 
-		// set proxy settings if necessary
-		if ( self::getGlobal( 'UseHTTPProxy' ) ) {
-			$opts[CURLOPT_HTTPPROXYTUNNEL] = 1;
-			$opts[CURLOPT_PROXY] = self::getGlobal( 'HTTPProxy' );
-		}
 		return $opts;
 	}
 
