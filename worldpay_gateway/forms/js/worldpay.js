@@ -129,8 +129,8 @@
 		addHFtoF( 'Action', 'Add' );
 		addHFtoF( 'AcctName', [ $( '#fname' ).val(), $( '#lname' ).val()].join( ' ' ).trim() );
 		addHFtoF( 'AcctNumber', $accountNumber.val().replace(/\s+/g, '') );
-		addHFtoF( 'ExpMonth', expiry.month );
-		addHFtoF( 'ExpYear', expiry.year );
+		addHFtoF( 'ExpMonth', ( '0' + expiry.month ).slice( -2 ) );
+		addHFtoF( 'ExpYear', ( '000' + expiry.year ).slice( -4 ) );
 
 		// Add some optional elements that are just nice to have
 		addHFtoF( 'FirstName', $( '#fname' ).val() );
