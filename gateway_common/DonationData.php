@@ -728,15 +728,14 @@ class DonationData {
 	 * Set the value to 'nobody@wikimedia.org' if nothing has been entered.
 	 */
 	protected function setEmail() {
-		$email = null;
-
-		if ( $this->isSomething( 'email' ) ) {
+		// Look at the old style value (because that's canonical if populated first)
+		$email = $this->getVal( 'emailAdd' );
+		if ( is_null( $email ) ) {
 			$email = $this->getVal( 'email' );
-		} elseif ( $this->isSomething( 'emailAdd' ) ) {
-			$email = $this->getVal( 'emailAdd' );
 		}
 
 		if ( is_null( $email ) ) {
+			// We still have nothing, populate with default
 			$email = 'nobody@wikimedia.org';
 		}
 
