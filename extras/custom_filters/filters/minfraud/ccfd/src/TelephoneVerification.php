@@ -4,8 +4,8 @@ class TelephoneVerification extends HTTPBase {
   var $server;
   var $numservers;
   var $API_VERSION;
-  function __construct( &$gateway_adapter ) {
-    parent::__construct( &$gateway_adapter );
+  function TelephoneVerification(){
+    $this->HTTPBase();
     $this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash
