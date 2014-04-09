@@ -25,8 +25,8 @@ class CreditCardFraudDetection extends HTTPBase {
   var $numservers;
   var $API_VERSION;
 
-  function __construct( &$gateway_adapter ) {
-    parent::__construct( $gateway_adapter );
+  function CreditCardFraudDetection() {
+    $this->HTTPBase();
     $this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash
@@ -55,26 +55,31 @@ class CreditCardFraudDetection extends HTTPBase {
     $this->allowed_fields["passwordMD5"] = 1;
     $this->allowed_fields["user_agent"] = 1;
     $this->allowed_fields["accept_language"] = 1;
-
+    $this->allowed_fields["avs_result"] = 1;
+    $this->allowed_fields["cvv_result"] = 1;
+    $this->allowed_fields["order_amount"] = 1;
+    $this->allowed_fields["order_currency"] = 1;
+    $this->allowed_fields["shopID"] = 1;
+    $this->allowed_fields["txn_type"] = 1;
 
     $this->num_allowed_fields = count($this->allowed_fields);
 
     //set the url of the web service
     $this->url = "app/ccv2r";
     $this->check_field = "countryMatch";
-    $this->server = array("minfraud.maxmind.com");
+    $this->server = array( "minfraud.maxmind.com", "minfraud-us-east.maxmind.com", "minfraud-us-west.maxmind.com");
     $this->numservers = count($this->server);
-    $this->API_VERSION = 'PHP/1.50';
+    $this->API_VERSION = 'PHP/1.54';
   }
 
   function filter_field($key, $value) {
     if ($key == 'emailMD5'){
-      if (preg_match('/\@/',$value)){
-	return md5(strtolower($value));
+      if (strpos($value, '@') !== false){
+        return md5(strtolower($value));
       }
     } else if ($key == 'usernameMD5' || $key == 'passwordMD5') {
       if (strlen($value) != 32) {
-	return md5(strtolower($value));
+        return md5(strtolower($value));
       }
     }
     return $value;

@@ -31,27 +31,12 @@ class HTTPBase{
   var $timeout;
   var $debug;
   var $check_field;
-  var $wsIpaddrRefreshTimeout;
-  var $wsIpaddrCacheFile;
-  var $useDNS;
-  var $ipstr;
-  var $gateway_adapter;
-
-	//TODO: Instead of passing the gateway_adapter all over the place, we might consider integrating everything for real.
-  function __construct( &$gateway_adapter ) {
-    $this->gateway_adapter = &$gateway_adapter;
+  function HTTPBase() {
     $this->isSecure = 0;
     $this->debug = 0;
     $this->timeout = 0;
     // use countryMatch to validate the results. It is avail in all minfraud answeres
     $this->check_field = "countryMatch";
-    $this->wsIpaddrRefreshTimeout = 18000;
-    $this->wsIpaddrCacheFile = $this->_getTempDir()."/maxmind.ws.cache";
-    if ($this->debug == 1) {
-      print "wsIpaddrRefreshTimeout: " . $this->wsIpaddrRefreshTimeout . "\n";
-      print "wsIpaddrCacheFile: " . $this->wsIpaddrCacheFile . "\n";
-      print "useDNS: " . $this->useDNS . "\n";
-    }
   }
 
   // this function sets the checked field
@@ -67,35 +52,7 @@ class HTTPBase{
 
   //this function queries the servers
   function query() {
-    if ( $this->gateway_adapter->getGlobal( 'Test' ) ) {
-        return 0;
-    }
 
-    //query every server in the list
-    if (!$this->useDNS){
-      $ipstr = $this->readIpAddressFromCache();
-      if ($this->debug == 1){
-        print "using ip addresses, IPs are " . $ipstr . "\n";
-      }
-    }
-    // query every server using its ip address
-    // if there was success reading the ip addresses
-    // from the web or the cache file
-    if ($ipstr) {
-      $ipaddr = explode(";",$ipstr);
-      $numipaddr = count($ipaddr);
-      for ($i = 0;$i < $numipaddr;$i++){
-        $result = $this->querySingleServer($ipaddr[$i]);
-        if ($this->debug == 1) {
-	  print "ip address: " . $ipaddr[$i] . "\n";
-	  print "result: " . $result . "\n";
-	}
-        if ($result) {
-	  return $result;
-	}
-      }
-    }
-    
     // query every server using its domain name
     for ($i = 0; $i < $this->numservers; $i++ ) {
       $result = $this->querySingleServer($this->server[$i]);
@@ -116,12 +73,12 @@ class HTTPBase{
     for ($i = 0; $i < $numinputkeys; $i++) {
       $key = $inputkeys[$i];
       if ($this->allowed_fields[$key] == 1) {
-        //if key is a allowed field then store it in 
+        //if key is a allowed field then store it in
         //the hash named queries
         $this->queries[$key] = urlencode($this->filter_field($key, $vars[$key]));
       } else {
         print "invalid input $key - perhaps misspelled field?";
-	return 0;
+        return 0;
       }
     }
     $this->queries["clientAPI"] = $this->API_VERSION;
@@ -134,126 +91,11 @@ class HTTPBase{
 
   //this function returns the output from the server
   function output() {
-    return $this->outputstr; 
-  }
-
-  // write the ip Addresses and the time right now to
-  // the cache file
-  function writeIpAddressToCache($filename,$ipstr) {
-    $datetime = time();
-    $fh = fopen($this->wsIpaddrCacheFile,'w');
-    fwrite($fh,$ipstr . "\n");
-    fwrite($fh,$datetime . "\n");
-    fclose($fh);
-    if ($this->debug == 1) {
-      print "writing ip address to cache\n";
-      print "ip str: " . $ipstr . "\n";
-      print "date time: " . $datetime . "\n";
-    }
-  }
-      
-  function readIpAddressFromCache() {
-    // if the cache file exists then
-    // read the ip addresses and the time
-    // IPs were cached
-    if (file_exists($this->wsIpaddrCacheFile)) {
-      $fh = fopen($this->wsIpaddrCacheFile,'r');
-      $ipstr = fgets($fh,1024);
-      $ipstr = rtrim($ipstr);
-      $datetime  = fgets($fh,1024);
-      $datetime = rtrim($datetime);
-      fclose($fh);
-    } else {
-      //otherwise, this thing complains loudly when the file doesn't exist. 
-      $datetime = time();
-      $ipstr = false;
-    }
-     
-    // if the ip addresses expired or don't exist then
-    // get them from the web and write 
-    // them to the cache file
-    if (((time() - $datetime) > $this->wsIpaddrRefreshTimeout) | (!$ipstr)) {
-      $tryIpstr = $this->readIpAddressFromWeb();
-      if ($tryIpstr) {
-        $ipstr = $tryIpstr;
-      } else {
-	if ($this->debug == 1){
-	  print "Warning, unable to get ws_ipaddr from www.maxmind.com\n";
-        }
-      }
-      // we write to cache whether or not we were able to get $tryIpStr, since
-      // in case DNS goes down, we don't want to check app/ws_ipaddr over and over
-      $this->writeIpAddressToCache($this->wsIpaddrCacheFile,$ipstr);
-    }
-    if ($this->debug == 1){
-      print "reading ip address from cache\n";
-      print "ip str: " . $ipstr . "\n";
-      print "date time: " . $datetime . "\n";
-    }
-    //return the ip addresses
-    return $ipstr;     
-  }
-
-  function readIpAddressFromWeb() {
-    //check if the curl module exists
-    $url = "https://www.maxmind.com/app/ws_ipaddr";
-		if (extension_loaded('curl')) {
-      // open curl
-      $ch = curl_init();
-
-      // set curl options
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_URL, $url);
-      curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-
-      //get the content
-      $content = curl_exec($ch);
-      $content = rtrim($content);
-      if ($this->debug == 1) {
-        print "using curl\n";
-      }
-    } else {
-      // we using HTTP without curl
-
-      // parse the url to get
-      // host, path and query
-      $url3 = parse_url($url);
-      $host = $url3["host"];
-      $path = $url3["path"];
-
-      // open the connection
-      $fp = fsockopen ($host, 80, $errno, $errstr, $this->timeout);
-      if ($fp) {
-        // send the request
-        fputs ($fp, "GET $path HTTP/1.0\nHost: " . $host . "\n\n");
-        while (!feof($fp)) {
-          $buf .= fgets($fp, 128);
-        }
-        $lines = preg_split("/\n/", $buf);
-        // get the content
-        $content = $lines[count($lines)-1];
-        //close the connection
-        fclose($fp);
-      }
-      if ($this->debug == 1) {
-        print "using fsockopen\n";
-      }
-    }
-    if ($this->debug == 1) {
-      print "readIpAddressFromWeb found ip addresses: " . $content . "\n";
-    }
-    // TODO fix regexp so that it checks if it only has IP addresses
-    if (preg_match( "/([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/",$content)) {
-      return $content;
-    } 
-    return "";
+    return $this->outputstr;
   }
 
   // this function queries a single server
   function querySingleServer($server) {
-    $useHTTPProxy = $this->gateway_adapter->getGlobal( 'UseHTTPProxy' );
-    $HTTPProxy = $this->gateway_adapter->getGlobal( 'HTTPProxy' );
-
     // check if we using the Secure HTTPS proctol
     if ($this->isSecure == 1) {
       $scheme = "https://";  // Secure HTTPS proctol
@@ -265,13 +107,13 @@ class HTTPBase{
     $numquerieskeys = count($this->queries); // get the number of keys in the hash called queries
     $querieskeys = array_keys($this->queries); // get a array of keys in the hash called queries
     if ($this->debug == 1) {
-      print "number of query keys " . $numquerieskeys . "\n";
+      print "number of query keys " + $numquerieskeys + "\n";
     }
 
     $query_string = "";
 
     for ($i = 0; $i < $numquerieskeys; $i++) {
-      //for each element in the hash called queries 
+      //for each element in the hash called queries
       //append the key and value of the element to the query string
       $key = $querieskeys[$i];
       $value = $this->queries[$key];
@@ -308,17 +150,11 @@ class HTTPBase{
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_URL, $url);
       curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-      curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 2 );
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,0);
 
-			//this option lets you store the result in a string 
+      //this option lets you store the result in a string
       curl_setopt($ch, CURLOPT_POST,          1);
       curl_setopt($ch, CURLOPT_POSTFIELDS,    $query_string);
-
-      // set proxy settings if necessary
-      if ( $useHTTPProxy ) {
-        curl_setopt( $ch, CURLOPT_HTTPPROXYTUNNEL, 1 );
-        curl_setopt( $ch, CURLOPT_PROXY, $HTTPProxy );
-      }
 
       //get the content
       $content = curl_exec($ch);
@@ -334,13 +170,13 @@ class HTTPBase{
 //      if ($e > 0) {
         //we get a error msg print it
 //        print "Received error message $e from curl: " . curl_error($ch) . "\n";
-//	return 0;
+//        return 0;
 //      }
       //close curl
       curl_close($ch);
     } else {
       //curl does not exist
-      //use the fsockopen function, 
+      //use the fsockopen function,
       //the fgets function and the fclose function
       if ($this->debug == 1) {
         print "using fsockopen for querySingleServer\n";
@@ -360,7 +196,7 @@ class HTTPBase{
         $url3 = parse_url($url);
         $host = $url3["host"];
         $path = $url3["path"];
-	$query =  $url3["query"];
+        $query =  $url3["query"];
 
         //open the connection
         $fp = fsockopen ($host, 80, $errno, $errstr, $this->timeout);
@@ -371,14 +207,14 @@ class HTTPBase{
           while (!feof($fp)) {
             $buf .= fgets($fp, 128);
           }
-          $lines = preg_split("/\n/", $buf);
+          $lines = split("\n", $buf);
           // get the content
           $content = $lines[count($lines)-1];
           //close the connection
           fclose($fp);
         } else {
-	  return 0;
-	}
+          return 0;
+        }
       } else {
         //secure HTTPS requires CURL
         print "error: you need to install curl if you want secure HTTPS or specify the variable to be $ccfs->isSecure = 0";
@@ -393,7 +229,7 @@ class HTTPBase{
     // the string content and store them
     // the hash named outputstr
 
-    // split content into pairs containing both 
+    // split content into pairs containing both
     // the key and the value
     $keyvaluepairs = explode(";",$content);
 
@@ -418,34 +254,6 @@ class HTTPBase{
       return 0;
     }
     return 1;
-  }
-
-  function _getTempDir() {
-    if (ini_get('upload_tmp_dir')) {
-      return ini_get('upload_tmp_dir');
-    }
-
-    if (substr(PHP_OS, 0, 3) != 'WIN') {
-      return '/tmp';
-    }
-
-    if (isset($_ENV['TMP'])) {
-      return $_ENV['TMP'];
-    }
-
-    if (isset($_ENV['TEMP'])) {
-      return $_ENV['TEMP'];
-    }
-
-    if (is_dir('c:\\windows\\temp')) {
-      return 'c:\\windows\\temp';
-    }
-
-    if (is_dir('c:\\winnt\\temp')) {
-      return 'c:\\winnt\\temp';
-    }
-
-    return '.';
   }
 }
 ?>
