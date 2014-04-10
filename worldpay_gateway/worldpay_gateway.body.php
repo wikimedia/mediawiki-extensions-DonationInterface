@@ -53,18 +53,10 @@ class WorldPayGateway extends GatewayForm {
 					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 				}
 
-			} elseif ( $this->adapter->isValidSpecialForm( $this->getRequest()->getVal( 'ffname', '' ) ) ) {
-				// We're in an error form; just display it
-				$this->displayForm();
-
 			} else {
-				// Show the initial payments form
-				$this->adapter->do_transaction( 'GenerateToken' );
-				if ( $this->adapter->getTransactionStatus() ) {
-					$this->displayForm();
-				} else {
-					$this->getOutput()->redirect( $this->adapter->getFailPage() );
-				}
+				// Show either the initial error form or an error form
+				$this->adapter->session_addDonorData();
+				$this->displayForm();
 			}
 		} else { //token mismatch
 			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
