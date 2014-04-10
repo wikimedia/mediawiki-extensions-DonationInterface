@@ -48,4 +48,8 @@ class WorldPayValidateApi extends ApiBase {
 		// URL logging / analytics which we cannot have.
 		return true;
 	}
+
+	public function isReadMode() {
+		return false;
+	}
 }
