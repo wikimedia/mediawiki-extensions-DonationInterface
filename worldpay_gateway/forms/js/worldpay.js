@@ -87,17 +87,19 @@
 			'dataType': 'json',
 			'type': 'POST',
 			'success': function( data ) {
-				var errors = [];
-				// Form fields have errors; each subkey in this array
-				// corresponds to a form field with an error
-				$.each( data.result, function( idx, str ) {
-					errors.push( str );
-				});
-				if (errors.length > 0) {
+				if ( data.errors ) {
 					// TODO: This sucks; improve it
+					// Form fields have errors; each subkey in this array
+					// corresponds to a form field with an error
+					var errors = [];
+					$.each( data.errors, function( idx, str ) {
+						errors.push( str );
+					});
 					window.alert( errors.join( '\n' ) );
+				} else if ( data.ottResult ) {
+					successCallback( data.ottResult );
 				} else {
-					successCallback();
+					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				}
 			},
 			error: function( xhr ) {
@@ -112,9 +114,14 @@
 	 * the validation result. We also don't send the full address
 	 * because we will submit that at authorization time.
 	 */
-	function submitFormForTokenization() {
+	function submitFormForTokenization( ottResult ) {
+		/*jshint camelcase: false */
+
 		var expiry = $accountExpiry.payment( 'cardExpiryVal' ),
 			$form = $( 'form[name="payment"]' );
+
+		$form.prop( 'action', ottResult.wp_process_url );
+		$( '#wp_one_time_token' ).val( ottResult.wp_one_time_token );
 
 		function addHFtoF( name, value ) {
 			$form.append( $( '<input />', {

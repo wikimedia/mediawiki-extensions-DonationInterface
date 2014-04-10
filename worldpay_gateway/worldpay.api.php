@@ -21,8 +21,20 @@ class WorldPayValidateApi extends ApiBase {
 		// Do some validity checking and what not
 		if ( $adapter->checkTokens() ) {
 			$form_errors = $adapter->validateSubmethodData();
-			$this->getResult()->addValue( null, 'result', $adapter->getAllErrors() );
 			if ( $form_errors ) {
+				$this->getResult()->addValue( null, 'errors', $adapter->getAllErrors() );
+				return;
+			}
+
+			// See if we can get a token
+			$adapter->do_transaction( 'GenerateToken' );
+			if ( $adapter->getTransactionStatus() ) {
+				$this->getResult()->addValue( null, 'ottResult', array(
+					'wp_one_time_token' => $adapter->getData_Unstaged_Escaped( 'wp_one_time_token' ),
+					'wp_process_url' => $adapter->getData_Unstaged_Escaped( 'wp_process_url' )
+				));
+			} else {
+				$this->getResult()->addValue( null, 'errors', $adapter->getTransactionErrors() );
 				return;
 			}
 
@@ -35,7 +47,7 @@ class WorldPayValidateApi extends ApiBase {
 			// Don't let people continue if they failed a token check!
 			$this->getResult()->addValue(
 				null,
-				'result',
+				'errors',
 				array( 'token-mismatch' => $this->msg( 'donate_interface-token-mismatch' )->text() )
 			);
 		}
