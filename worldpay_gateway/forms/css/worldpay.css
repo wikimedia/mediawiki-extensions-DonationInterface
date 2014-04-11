@@ -179,7 +179,7 @@ table#payflow-table-donor{
 }
 
 #cvc, #expiry {
-	width: 95px;
+	width: 105px;
 	display: inline;
 	margin-left: 2px;
 }
