@@ -278,6 +278,7 @@ abstract class GatewayAdapter implements GatewayType {
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example. 
 	public $communication_type = 'xml'; //this needs to be either 'xml' or 'namevalue'
 	public $redirect = FALSE;
+	public $log_outbound = FALSE; //This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
 
 	/**
 	 * Get @see GlobalCollectAdapter::$goToThankYouOn
@@ -825,7 +826,30 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->buildTransactionNodes( $structure, $node );
 		$this->xmlDoc->appendChild( $node );
-		return $this->xmlDoc->saveXML();
+		$return = $this->xmlDoc->saveXML();
+
+		if ( $this->log_outbound ) {
+			$message = "Request XML: ";
+			$full_structure = $this->transactions[$this->getCurrentTransaction()]; //if we've gotten this far, this exists.
+			if ( array_key_exists( 'never_log', $full_structure ) ) { //Danger Zone!
+				$message = "Cleaned $message";
+				//keep these totally separate. Do not want to risk sensitive information (like cvv) making it anywhere near the log.
+				$this->xmlDoc = new DomDocument( '1.0' );
+				$log_node = $this->xmlDoc->createElement( $rootElement );
+				//remove all never_log nodes from the structure
+				$log_structure = $this->cleanTransactionStructureForLogs( $structure, $full_structure['never_log'] );
+				$this->buildTransactionNodes( $log_structure, $log_node );
+				$this->xmlDoc->appendChild( $log_node );
+				$logme = $this->xmlDoc->saveXML();
+			} else {
+				//...safe zone. 
+				$logme = $return;
+			}
+			$this->log( $message . $logme );
+		}
+
+
+		return $return;
 	}
 
 	/**
@@ -854,6 +878,27 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		//not actually returning anything. It's all side-effects. Because I suck like that. 
+	}
+
+	/**
+	 * Recursively sink through a transaction structure array to remove all
+	 * nodes that we can't have showing up in the server logs.
+	 * Mostly for CVV: If we log those, we are all fired.
+	 * @param array $structure The transaction structure that we want to clean.
+	 * @param array $never_log An array of values we should never log. These values should be the gateway's transaciton nodes, rather than our normal values.
+	 * @return array $structure stripped of all references to the values in $never_log
+	 */
+	protected function cleanTransactionStructureForLogs( $structure, $never_log ) {
+		foreach ( $structure as $node => $value ) {
+			if ( is_array( $value ) ) {
+				$structure[$node] = $this->cleanTransactionStructureForLogs( $value, $never_log );
+			} else {
+				if ( in_array( $value, $never_log ) ) {
+					unset( $structure[$node] );
+				}
+			}
+		}
+		return $structure;
 	}
 
 	/**
