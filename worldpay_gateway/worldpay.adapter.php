@@ -343,6 +343,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				'TRXSource' => 4,           // Card not present (web order) transaction
 				'MOP' => 'CC',              // Credit card transaction
 				'IsVerify' => 1,            // Perform CVV and AVS verification for account (deposit not allowed)
+				'Amount' => '0.10',			// Perform a small amount authorization (just enough to trigger it)
 			)
 		);
 
