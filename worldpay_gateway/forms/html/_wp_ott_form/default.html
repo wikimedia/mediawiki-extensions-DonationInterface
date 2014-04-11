@@ -8,12 +8,11 @@
 			   autocomplete="off"
 			   placeholder="%donate_interface-donor-card-num%"/>
 		<span id="smCC">
+			<input type="text" class="form-control" id="expiry" pattern="\d*" autocomplete="off"
+				   placeholder="%donate_interface-card-expiration%"/>
 			<input type="text" class="form-control" id="cvc" pattern="\d*"
 				   autocomplete="off"
 				   placeholder="%donate_interface-card-security-code%"/>
-		
-			<input type="text" class="form-control" id="expiry" pattern="\d*" autocomplete="off"
-				   placeholder="%donate_interface-card-expiration%"/>
 		</span>
 		<div class="ccError ccNumberError">&bull; %donate_interface-error-msg-card-num%</div>
 		<div class="ccError ccExpiryError">&bull; %donate_interface-error-msg-expiration%</div>
