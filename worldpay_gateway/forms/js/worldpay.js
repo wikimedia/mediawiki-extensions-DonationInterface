@@ -185,7 +185,7 @@
 			if ( validateClientSide() ) {
 				validateServerSide( submitFormForTokenization );
 			} 
-			validate_personal( $('#worldpayForm') );
+			validate_personal( document.getElementById('worldpayform') );
 			return false;
 		});
 	});

@@ -1,7 +1,9 @@
-<input type="hidden" value="@wp_one_time_token" name="OTT" id="wp_one_time_token"/>
+<div class="row-fluid">
+	<input type="hidden" value="@wp_one_time_token" name="OTT" id="wp_one_time_token"/>
+	<h3 class="ccAreaHeader">%donate_interface-card-legend%</h3>
+</div>
 
-		<h3>%donate_interface-card-legend%</h3>
-
+<div class="row-fluid">
 		<input type="text" id="accountNumber" class="form-control" pattern="\d*"
 			   autocomplete="off"
 			   placeholder="%donate_interface-donor-card-num%"/>
@@ -13,9 +15,10 @@
 			<input type="text" class="form-control" id="expiry" pattern="\d*" autocomplete="off"
 				   placeholder="%donate_interface-card-expiration%"/>
 		</span>
-		<div class="ccError ccNumberError">Invalid credit card number.</div>
-		<div class="ccError ccExpiryError">Invalid expiration date.</div>
-		<div class="ccError ccCVCError">Invalid CVC code.</div>
+		<div class="ccError ccNumberError">&bull; %donate_interface-error-msg-card-num%</div>
+		<div class="ccError ccExpiryError">&bull; %donate_interface-error-msg-expiration%</div>
+		<div class="ccError ccCVCError">&bull; %donate_interface-error-msg-cvv%</div>
+</div>
 		
 
 <div class="legalWell">
