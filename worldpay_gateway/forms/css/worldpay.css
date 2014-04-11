@@ -157,6 +157,7 @@ p#informationsharing, p#monthlycancel {
 #moreinfolinks {
 	width: 100%;
 	margin: 1em 0;
+	text-align: center;
 }
 ul#moreinfolinks li{
     list-style: none !important;
@@ -183,13 +184,13 @@ table#payflow-table-donor{
 	margin-left: 2px;
 }
 
-#state {
-	height: 27px;
-}
 .legalWell {
 	background-color: rgba(255,255,255,0.3);
 	padding: 2em;
 	margin-top:1em;
+}
+.ccAreaHeader {
+	width: 100%;
 }
 
 /* Form `s */
@@ -229,12 +230,12 @@ input#zip.halfwidth.state {
 	width:94px;
 	margin-left: 0;
 }
-select#state.us, select#state.au, select#state.ca {
+select#state.us, select#state.au, select#state.ca, select#country {
 	width: 160px;
 	height: 30px;
 	line-height: 170%;
 	background: none;
-	margin-top: .3em;
+	margin-top: .2em;
 	background-color: #f5f5f5;
 }
 #donate tr{
