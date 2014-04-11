@@ -28,6 +28,7 @@ class WorldPayAdapter extends GatewayAdapter {
 
 	public $communication_type = 'xml';
 	public $redirect = FALSE;
+	public $log_outbound = TRUE;
 
 	/**
 	 * @var string[] Card types (as returned by WP) mapped to what we call them
@@ -344,7 +345,10 @@ class WorldPayAdapter extends GatewayAdapter {
 				'MOP' => 'CC',              // Credit card transaction
 				'IsVerify' => 1,            // Perform CVV and AVS verification for account (deposit not allowed)
 				'Amount' => '0.10',			// Perform a small amount authorization (just enough to trigger it)
-			)
+			),
+			'never_log' => array (
+				'CVN'
+			),
 		);
 
 		// NOTE: This transaction type is actually a 'Sale' transaction but that

@@ -63,4 +63,25 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->assertEquals( 113, $gateway->getRiskScore(), 'RiskScore is not as expected' );
 	}
 
+	/**
+	 * Just making sure we can instantiate the thing without blowing up completely
+	 */
+	function testNeverLog() {
+		$options = $this->getDonorTestData();
+		$options['cvv'] = '123';
+		$class = $this->testAdapterClass;
+
+		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$this->assertInstanceOf( 'TestingWorldPayAdapter', $gateway );
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Request XML/' );
+
+		$this->assertType( 'string', $logline, "We did not receive exactly one logline back that contains request XML" );
+		$this->assertEquals( '1', preg_match( '/Cleaned/', $logline ), 'The logline did not come back marked as "Cleaned".' );
+		$this->assertEquals( '0', preg_match( '/CNV/', $logline ), 'The "Cleaned" logline contained CVN data!' );
+	}
+
 }

@@ -382,4 +382,33 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 //		$wgRequest = new FauxRequest();
 	}
 
+	/**
+	 * Finds a relevant line/lines in a gateway's log array
+	 * @param test adapter $gateway The gateway that should have the log line you're looking for.
+	 * @param integer $log_level A standard level that the line should... get logged at.
+	 * @param string $match A regex to match against the log lines.
+	 * @return mixed The full log line that matches the $match, an array if there were multiples, or false if none were found.
+	 */
+	public function getGatewayLogMatches( $gateway, $log_level, $match ) {
+		$log = $gateway->testlog;
+		if ( !array_key_exists( $log_level, $log ) ) {
+			return false;
+		}
+
+		$return = array ( );
+		foreach ( $log[$log_level] as $line ) {
+			if ( preg_match( $match, $line ) ) {
+				$return[] = $line;
+			}
+		}
+
+		if ( empty( $return ) ) {
+			return false;
+		}
+		if ( sizeof( $return ) === 1 ) {
+			return $return[0];
+		}
+		return $return;
+	}
+
 }
