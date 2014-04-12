@@ -140,4 +140,23 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
 	}
 
+	function testPaymentFormSubmit() {
+		$init = $this->getDonorTestData();
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'worldpay';
+		$init['currency_code'] = 'EUR';
+
+		$init['OTT'] = 'SALT123456789';
+
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => 'https://wikimediafoundation.org/wiki/Thank_You/en',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+	}
+
 }

@@ -84,7 +84,7 @@ $wgDonationInterfaceAllowedHtmlForms = array(
 	),
 );
 
-$wgDonationInterfaceThankYouPage = wfExpandUrl( '/Donate-thanks' );
+$wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
 
 
 /** GlobalCollect **/

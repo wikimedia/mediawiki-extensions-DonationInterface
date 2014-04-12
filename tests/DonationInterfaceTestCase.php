@@ -275,8 +275,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	function resetAllEnv() {
-		global $wgOut;
-
 		$_SESSION = array ( );
 		$_GET = array ( );
 		$_POST = array ( );
@@ -306,23 +304,20 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * current test if there are entries in the gateway's error log.
 	 */
 	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false ) {
-		global $wgOut;
-
 		// Nasty hack to clear output from any previous tests.
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
+		$newRequest = new TestingRequest( $initial_vars, false );
+		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
 
 		$globals = array (
-			'wgRequest' => new TestingRequest( $initial_vars, false ),
+			'wgRequest' => $newRequest,
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
 			'wgOut' => $newOutput,
 		);
 
-//		$this->setMwGlobals( 'wgRequest', new TestingRequest( $initial_vars, false ) );
 		$this->setMwGlobals( $globals );
-//		$wgRequest = new TestingRequest( $initial_vars, false );
-//		$wgTitle = Title::newFromText( 'nonsense is apparently fine' );
 
 		ob_start();
 		$formpage = new $special_page_class();
@@ -371,15 +366,13 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		foreach ( $perform_these_checks as $id => $checks ) {
 			if ( $id == 'headers' ) {
 				foreach ( $checks as $name => $expected ) {
-					switch ( $name ) {
-						case 'redirect':
-							$actual = $formpage->getRequest()->response()->getheader( $name );
-							$this->assertEquals( $expected, $actual, "Expected header '$name' to be '$expected', found '$redirect' instead." );
-							break;
-					}
+					$actual = $formpage->getRequest()->response()->getheader( $name );
+					$this->assertEquals( $expected, $actual, "Expected header '$name' to be '$expected', found '$actual' instead." );
+					break;
 				}
 				continue;
 			}
+			unset( $perform_these_checks['headers'] );
 
 			$input_node = $dom_thingy->getElementById( $id );
 			$this->assertNotNull( $input_node, "Couldn't find the '$id' element" );
