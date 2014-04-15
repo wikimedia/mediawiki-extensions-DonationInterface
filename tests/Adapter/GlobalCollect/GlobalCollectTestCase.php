@@ -213,7 +213,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	}
 
 	public function testGCFormLoad() {
-		$init = $this->getDonorTestData();
+		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -226,7 +226,11 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtml' => '$1.55',
-			)
+			),
+			'state' => array (
+				'nodename' => 'select',
+				'selected' => 'CA',
+			),
 		);
 
 		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );

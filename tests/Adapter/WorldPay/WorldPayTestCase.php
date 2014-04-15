@@ -129,12 +129,10 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 				'nodename' => 'input',
 				'value' => 'en',
 			),
-			/* FIXME: fails
 			'state' => array(
 				'nodename' => 'select',
 				'selected' => 'CA',
 			),
-			*/
 		);
 
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
@@ -153,6 +151,48 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$assertNodes = array(
 			'headers' => array(
 				'Location' => 'https://wikimediafoundation.org/wiki/Thank_You/en',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+	}
+
+	function testWorldPayFormLoad_FR() {
+		$init = $this->getDonorTestData( 'FR' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'worldpay';
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname' => array (
+				'nodename' => 'input',
+				'value' => 'Prénom',
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'value' => 'Nom',
+			),
+			'street' => array (
+				'nodename' => 'input',
+				'value' => '123 Rue Faux',
+			),
+			'city' => array (
+				'nodename' => 'input',
+				'value' => 'Versailles',
+			),
+			'zip' => array (
+				'nodename' => 'input',
+				'value' => '',
+			),
+			'country' => array (
+				'nodename' => 'select',
+				'value' => 'FR',
+				'selected' => 'FR'
 			),
 		);
 

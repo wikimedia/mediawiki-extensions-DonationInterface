@@ -142,6 +142,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'no',
 			),
+			'FR' => array (
+				'city' => 'Versailles',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Rue Faux',
+				'fname' => 'Prénom',
+				'lname' => 'Nom',
+				'amount' => '1.55',
+				'language' => 'fr',
+			),
 		);
 		//default to US
 		if ( $country === '' ) {

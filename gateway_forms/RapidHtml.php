@@ -355,6 +355,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 	/**
 	 * Set dropdowns to "selected' where appropriate
+	 *
+	 * @TODO: Something that is less dumb. This is way too repeatey and
+	 * ...hard-codey. How about we grab everything in the html that's a
+	 * select, and ask something in the gateway about what option ought to
+	 * be selected?
 	 * 
 	 * This is basically a hackish fix to make sure that dropdowns stay 
 	 * 'sticky' on form submit.  This could no doubt be better.
@@ -363,7 +368,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	public function fix_dropdowns( $html ) {
 		// currency code
-		$start = strpos( $html, 'name="currency_code"' );
+		$start = strpos( $html, 'id="currency_code"' );
 		if ( $start ) {
 			$currency_code = $this->getEscapedValue( 'currency_code' );
 			$end = strpos( $html, '</select>', $start );
@@ -374,7 +379,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// mos
 		$month = substr( $this->getEscapedValue( 'expiration' ), 0, 2 );
-		$start = strpos( $html, 'name="mos"' );
+		$start = strpos( $html, 'id="mos"' );
 		if ( $start ) {
 			$end = strpos( $html, '</select>', $start );
 			$str = substr( $html, $start, ( $end - $start ) );
@@ -384,7 +389,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// year
 		$year = substr( $this->getEscapedValue( 'expiration' ), 2, 2 );
-		$start = strpos( $html, 'name="year"' );
+		$start = strpos( $html, 'id="year"' );
 		if ( $start ) {
 			$end = strpos( $html, '</select>', $start );
 			$str = substr( $html, $start, ( $end - $start ) );
@@ -395,7 +400,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		// state
 		$state = $this->getEscapedValue( 'state' );
-		$start = strpos( $html, 'name="state"' );
+		$start = strpos( $html, 'id="state"' );
 		if ( $start ) {
 			$end = strpos( $html, '</select>', $start );
 			$str = substr( $html, $start, ( $end - $start ) );
@@ -405,7 +410,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		//country
 		$country = $this->getEscapedValue( 'country' );
-		$start = strpos( $html, 'name="country"' );
+		$start = strpos( $html, 'id="country"' );
 		if ( $start ) {
 			$end = strpos( $html, '</select>', $start );
 			$str = substr( $html, $start, ( $end - $start ) );
