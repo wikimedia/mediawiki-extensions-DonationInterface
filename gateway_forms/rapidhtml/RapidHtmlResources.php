@@ -305,6 +305,7 @@ $wgResourceModules[ 'ext.donationinterface.worldpay' ] = array(
 	'dependencies' => array ('di.form.core.validate', 'jquery.payment'),
 	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
 	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
+	'position' => 'top',
 );
 
 $wgResourceModules[ 'basicDonationForm' ] = array(
