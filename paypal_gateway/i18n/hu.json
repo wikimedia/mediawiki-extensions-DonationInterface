@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Glanthor Reviol"
-        ]
-    },
-    "paypal_gateway-desc": "PayPal regisztrálása mint adakozási mód"
+	"@metadata": {
+		"authors": [
+			"Glanthor Reviol"
+		]
+	},
+	"paypal_gateway-desc": "PayPal regisztrálása mint adakozási mód"
 }

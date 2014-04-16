@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Naudefj"
-        ]
-    },
-    "payflowprogateway": "Skenk nou",
-    "payflowpro_gateway-desc": "Kredietkaart-verwerking via PayPal se PayFlow Pro",
-    "payflowpro_gateway-response-0": "U transaksie is goedgekeur.\nBaie dankie vir u skenking!",
-    "payflowpro_gateway-response-126": "U transaksie wag tans vir goedkeuring.",
-    "payflowpro_gateway-response-126-2": "Van die inligting wat u verskaf het stem nie met u kredietkaart ooreen nie, of u het 'n baie groot donasie probeer maak. Vir u veiligheid word u donasie tans hersien, en ons sal u per die e-posadres wat u verskaf het in kennis stel as ons nie u donasie kan finaliseer nie. Stuur 'n e-pos aan <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> as u nog vrae het. Dankie!",
-    "payflowpro_gateway-response-12": "Kontak asseblief u kredietkaart-verskaffer vir verdere inligting.",
-    "payflowpro_gateway-response-13": "U transaksie vereis mondelinge toestemming.\nKontak ons asseblief om voort te gaan met u transaksie.",
-    "payflowpro_gateway-response-114": "Kontak asseblief u kredietkaart-verskaffer vir verdere inligting.",
-    "payflowpro_gateway-response-23": "U kredietkaart-nommer of die vervaldatum is verkeerd.",
-    "payflowpro_gateway-response-4": "Ongeldig bedrag.",
-    "payflowpro_gateway-response-24": "Die kredietkaart-nommer of vervaldatum is verkeerd.",
-    "payflowpro_gateway-response-112": "U adres of CVV-nommer (veiligheidskode) is verkeerd.",
-    "payflowpro_gateway-response-125": "U transaksie is deur Bedrog-voorkomingsdienste afgekeur.",
-    "payflowpro_gateway-response-125-2": "U kredietkaart kon nie gevalideer word nie. Bevestig asseblief dat alle inligting verskaf ooreenstem met u kredietkaart se profiel, of probeer 'n ander kaart. U kan ook deur <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">ander maniere gee</a> of kontak ons by <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dankie vir u ondersteuning.",
-    "payflowpro_gateway-response-default": "Daar was 'n fout met die verwerking van u transaksie.\nProbeer asseblief later weer."
+	"@metadata": {
+		"authors": [
+			"Naudefj"
+		]
+	},
+	"payflowprogateway": "Skenk nou",
+	"payflowpro_gateway-desc": "Kredietkaart-verwerking via PayPal se PayFlow Pro",
+	"payflowpro_gateway-response-0": "U transaksie is goedgekeur.\nBaie dankie vir u skenking!",
+	"payflowpro_gateway-response-126": "U transaksie wag tans vir goedkeuring.",
+	"payflowpro_gateway-response-126-2": "Van die inligting wat u verskaf het stem nie met u kredietkaart ooreen nie, of u het 'n baie groot donasie probeer maak. Vir u veiligheid word u donasie tans hersien, en ons sal u per die e-posadres wat u verskaf het in kennis stel as ons nie u donasie kan finaliseer nie. Stuur 'n e-pos aan <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> as u nog vrae het. Dankie!",
+	"payflowpro_gateway-response-12": "Kontak asseblief u kredietkaart-verskaffer vir verdere inligting.",
+	"payflowpro_gateway-response-13": "U transaksie vereis mondelinge toestemming.\nKontak ons asseblief om voort te gaan met u transaksie.",
+	"payflowpro_gateway-response-114": "Kontak asseblief u kredietkaart-verskaffer vir verdere inligting.",
+	"payflowpro_gateway-response-23": "U kredietkaart-nommer of die vervaldatum is verkeerd.",
+	"payflowpro_gateway-response-4": "Ongeldig bedrag.",
+	"payflowpro_gateway-response-24": "Die kredietkaart-nommer of vervaldatum is verkeerd.",
+	"payflowpro_gateway-response-112": "U adres of CVV-nommer (veiligheidskode) is verkeerd.",
+	"payflowpro_gateway-response-125": "U transaksie is deur Bedrog-voorkomingsdienste afgekeur.",
+	"payflowpro_gateway-response-125-2": "U kredietkaart kon nie gevalideer word nie. Bevestig asseblief dat alle inligting verskaf ooreenstem met u kredietkaart se profiel, of probeer 'n ander kaart. U kan ook deur <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">ander maniere gee</a> of kontak ons by <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dankie vir u ondersteuning.",
+	"payflowpro_gateway-response-default": "Daar was 'n fout met die verwerking van u transaksie.\nProbeer asseblief later weer."
 }

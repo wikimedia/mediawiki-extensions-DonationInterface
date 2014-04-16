@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Iluvatar",
-            "Kaganer",
-            "Александр Сигачёв"
-        ]
-    },
-    "paypalgateway": "Сделайте пожертвование сейчас",
-    "paypal_gateway-desc": "Обработка платежей PayPal"
+	"@metadata": {
+		"authors": [
+			"Iluvatar",
+			"Kaganer",
+			"Александр Сигачёв"
+		]
+	},
+	"paypalgateway": "Сделайте пожертвование сейчас",
+	"paypal_gateway-desc": "Обработка платежей PayPal"
 }

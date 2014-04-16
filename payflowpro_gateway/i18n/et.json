@@ -1,20 +1,20 @@
 {
-    "@metadata": {
-        "authors": [
-            "Avjoska",
-            "Pikne"
-        ]
-    },
-    "payflowprogateway": "Anneta kohe",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro krediitkaardi käitlus",
-    "payflowpro_gateway-response-0": "Sinu ülekanne on heakskiidetud. \nAitäh annetamast.",
-    "payflowpro_gateway-response-126": "Sinu ülekanne ootab heakskiitu.",
-    "payflowpro_gateway-response-12": "Lisainfo krediitkaardi väljastanud ettevõttelt.",
-    "payflowpro_gateway-response-114": "Lisateave krediitkaardi väljastanud ettevõttelt.",
-    "payflowpro_gateway-response-23": "Krediitkaardinumber või aegumistähtaeg on vale.",
-    "payflowpro_gateway-response-4": "Vigane summa.",
-    "payflowpro_gateway-response-24": "Krediitkaardinumber või aegumistähtaeg on vale.",
-    "payflowpro_gateway-response-112": "Aadress või turvakood on vale.",
-    "payflowpro_gateway-response-125": "Pettuste ennetamise teenused on ülekande tagasi lükanud.",
-    "payflowpro_gateway-response-default": "Sinu ülekande töötlemisel tekkis viga.\nPalun ürita hiljem uuesti."
+	"@metadata": {
+		"authors": [
+			"Avjoska",
+			"Pikne"
+		]
+	},
+	"payflowprogateway": "Anneta kohe",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro krediitkaardi käitlus",
+	"payflowpro_gateway-response-0": "Sinu ülekanne on heakskiidetud. \nAitäh annetamast.",
+	"payflowpro_gateway-response-126": "Sinu ülekanne ootab heakskiitu.",
+	"payflowpro_gateway-response-12": "Lisainfo krediitkaardi väljastanud ettevõttelt.",
+	"payflowpro_gateway-response-114": "Lisateave krediitkaardi väljastanud ettevõttelt.",
+	"payflowpro_gateway-response-23": "Krediitkaardinumber või aegumistähtaeg on vale.",
+	"payflowpro_gateway-response-4": "Vigane summa.",
+	"payflowpro_gateway-response-24": "Krediitkaardinumber või aegumistähtaeg on vale.",
+	"payflowpro_gateway-response-112": "Aadress või turvakood on vale.",
+	"payflowpro_gateway-response-125": "Pettuste ennetamise teenused on ülekande tagasi lükanud.",
+	"payflowpro_gateway-response-default": "Sinu ülekande töötlemisel tekkis viga.\nPalun ürita hiljem uuesti."
 }

@@ -1,27 +1,27 @@
 {
-    "@metadata": {
-        "authors": [
-            "Giro720",
-            "GoEThe",
-            "Luckas",
-            "Luckas Blade",
-            "MetalBrasil",
-            "Raylton P. Sousa"
-        ]
-    },
-    "payflowprogateway": "Faça o seu doação agora",
-    "payflowpro_gateway-desc": "Processamento de cartões de crédito pela plataforma PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "A transação foi aprovada.\nAgradecemos a sua doação!",
-    "payflowpro_gateway-response-126": "A transação foi submetida para aprovação.",
-    "payflowpro_gateway-response-126-2": "Alguma informação que você forneceu não corresponde ao perfil do seu cartão de crédito, ou então você fez a doação de montante muito significativo. Por segurança, o seu donativo está sob análise no momento. Se não pudermos finalizar o processo, será enviada uma notificação para o e-mail fornecido. Em caso de dúvidas contate-nos, por favor, no endereço <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Obrigado!",
-    "payflowpro_gateway-response-12": "Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.",
-    "payflowpro_gateway-response-13": "A transação requer autorização por viva voz.\nPor favor, contate-nos para continuar a transação.",
-    "payflowpro_gateway-response-114": "Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.",
-    "payflowpro_gateway-response-23": "O número do cartão ou a data de expiração estão incorretos.",
-    "payflowpro_gateway-response-4": "Quantia inválida.",
-    "payflowpro_gateway-response-24": "O número do cartão ou a data de expiração estão incorretos.",
-    "payflowpro_gateway-response-112": "O endereço ou o código de segurança (CVV) estão incorretos.",
-    "payflowpro_gateway-response-125": "A transação foi recusada pela Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Não foi possível validar o seu cartão de crédito. Por favor, verifique se toda a informação fornecida coincide com o perfil do seu cartão de crédito. Você pode também usar um dos nossos <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">outros métodos para fazer doação</a> ou contatar-nos no endereço <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Obrigado pelo seu apoio.",
-    "payflowpro_gateway-response-default": "Ocorreu um erro no processamento desta transação.\nPor favor tente novamente mais tarde."
+	"@metadata": {
+		"authors": [
+			"Giro720",
+			"GoEThe",
+			"Luckas",
+			"Luckas Blade",
+			"MetalBrasil",
+			"Raylton P. Sousa"
+		]
+	},
+	"payflowprogateway": "Faça o seu doação agora",
+	"payflowpro_gateway-desc": "Processamento de cartões de crédito pela plataforma PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "A transação foi aprovada.\nAgradecemos a sua doação!",
+	"payflowpro_gateway-response-126": "A transação foi submetida para aprovação.",
+	"payflowpro_gateway-response-126-2": "Alguma informação que você forneceu não corresponde ao perfil do seu cartão de crédito, ou então você fez a doação de montante muito significativo. Por segurança, o seu donativo está sob análise no momento. Se não pudermos finalizar o processo, será enviada uma notificação para o e-mail fornecido. Em caso de dúvidas contate-nos, por favor, no endereço <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Obrigado!",
+	"payflowpro_gateway-response-12": "Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.",
+	"payflowpro_gateway-response-13": "A transação requer autorização por viva voz.\nPor favor, contate-nos para continuar a transação.",
+	"payflowpro_gateway-response-114": "Por favor entre em contato com a companhia do seu cartão de crédito para mais informações.",
+	"payflowpro_gateway-response-23": "O número do cartão ou a data de expiração estão incorretos.",
+	"payflowpro_gateway-response-4": "Quantia inválida.",
+	"payflowpro_gateway-response-24": "O número do cartão ou a data de expiração estão incorretos.",
+	"payflowpro_gateway-response-112": "O endereço ou o código de segurança (CVV) estão incorretos.",
+	"payflowpro_gateway-response-125": "A transação foi recusada pela Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Não foi possível validar o seu cartão de crédito. Por favor, verifique se toda a informação fornecida coincide com o perfil do seu cartão de crédito. Você pode também usar um dos nossos <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">outros métodos para fazer doação</a> ou contatar-nos no endereço <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Obrigado pelo seu apoio.",
+	"payflowpro_gateway-response-default": "Ocorreu um erro no processamento desta transação.\nPor favor tente novamente mais tarde."
 }

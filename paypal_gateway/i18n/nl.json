@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Siebrand"
-        ]
-    },
-    "paypalgateway": "Doneer nu",
-    "paypal_gateway-desc": "Betalingsverwerking via PayPal"
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"paypalgateway": "Doneer nu",
+	"paypal_gateway-desc": "Betalingsverwerking via PayPal"
 }

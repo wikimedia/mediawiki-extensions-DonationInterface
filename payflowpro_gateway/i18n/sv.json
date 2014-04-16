@@ -1,28 +1,28 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ainali",
-            "Boivie",
-            "Cohan",
-            "GameOn",
-            "Nghtwlkr",
-            "Per",
-            "Tobulos1"
-        ]
-    },
-    "payflowprogateway": "Donera nu",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro kreditkortsbearbetning",
-    "payflowpro_gateway-response-0": "Transaktionen har godkänts.\nTack för din gåva!",
-    "payflowpro_gateway-response-126": "Transaktionen väntar på godkännande.",
-    "payflowpro_gateway-response-126-2": "Något av informationen du angav matchade inte din kreditkortsprofil, eller så gav du en väldigt stor gåva. För din egen säkerhet så granskas din donation nu, och vi kommer att meddela till den angivna epost-adressen om vi inte kan slutföra din donation. Vänligen eposta till <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> om du har några frågor. Tack!",
-    "payflowpro_gateway-response-12": "Kontakta utställaren av ditt kreditkort för mer information.",
-    "payflowpro_gateway-response-13": "Transaktionen kräver röstgodkännande.\nKontakta oss för att gå vidare med transaktionen.",
-    "payflowpro_gateway-response-114": "Vänligen kontakta utställaren av ditt kreditkort för mer information.",
-    "payflowpro_gateway-response-23": "Ditt kreditkortsnummer eller utgångsdatum är felaktigt.",
-    "payflowpro_gateway-response-4": "Ogiltigt belopp.",
-    "payflowpro_gateway-response-24": "Ditt kreditkortsnummer eller utgångsdatum är felaktigt.",
-    "payflowpro_gateway-response-112": "Din adress eller CVV nummer (säkerhetskod) är felaktig.",
-    "payflowpro_gateway-response-125": "Din transaktion har blivit avvisad av Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Ditt kreditkort kunde inte godkännas. Vänligen kontrollera att all information stämmer med dina kreditkortsdata eller prova ett annat kort. Du kan också använda ett av de <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andra sätt att ge ett bidrag</a> eller kontakta oss på <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Tack för att du stöttar oss.",
-    "payflowpro_gateway-response-default": "Ett fel uppstod när din transaktion behandlades.\nFörsök igen senare."
+	"@metadata": {
+		"authors": [
+			"Ainali",
+			"Boivie",
+			"Cohan",
+			"GameOn",
+			"Nghtwlkr",
+			"Per",
+			"Tobulos1"
+		]
+	},
+	"payflowprogateway": "Donera nu",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro kreditkortsbearbetning",
+	"payflowpro_gateway-response-0": "Transaktionen har godkänts.\nTack för din gåva!",
+	"payflowpro_gateway-response-126": "Transaktionen väntar på godkännande.",
+	"payflowpro_gateway-response-126-2": "Något av informationen du angav matchade inte din kreditkortsprofil, eller så gav du en väldigt stor gåva. För din egen säkerhet så granskas din donation nu, och vi kommer att meddela till den angivna epost-adressen om vi inte kan slutföra din donation. Vänligen eposta till <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> om du har några frågor. Tack!",
+	"payflowpro_gateway-response-12": "Kontakta utställaren av ditt kreditkort för mer information.",
+	"payflowpro_gateway-response-13": "Transaktionen kräver röstgodkännande.\nKontakta oss för att gå vidare med transaktionen.",
+	"payflowpro_gateway-response-114": "Vänligen kontakta utställaren av ditt kreditkort för mer information.",
+	"payflowpro_gateway-response-23": "Ditt kreditkortsnummer eller utgångsdatum är felaktigt.",
+	"payflowpro_gateway-response-4": "Ogiltigt belopp.",
+	"payflowpro_gateway-response-24": "Ditt kreditkortsnummer eller utgångsdatum är felaktigt.",
+	"payflowpro_gateway-response-112": "Din adress eller CVV nummer (säkerhetskod) är felaktig.",
+	"payflowpro_gateway-response-125": "Din transaktion har blivit avvisad av Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Ditt kreditkort kunde inte godkännas. Vänligen kontrollera att all information stämmer med dina kreditkortsdata eller prova ett annat kort. Du kan också använda ett av de <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andra sätt att ge ett bidrag</a> eller kontakta oss på <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Tack för att du stöttar oss.",
+	"payflowpro_gateway-response-default": "Ett fel uppstod när din transaktion behandlades.\nFörsök igen senare."
 }

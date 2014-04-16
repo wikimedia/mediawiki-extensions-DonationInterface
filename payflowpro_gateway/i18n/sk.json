@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Helix84"
-        ]
-    },
-    "payflowprogateway": "Darovať teraz",
-    "payflowpro_gateway-desc": "Spracovanie kreditnej karty PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "Vaša transakcia bola schválená.\nĎakujeme za váš dar!",
-    "payflowpro_gateway-response-126": "Vaša transakcia čaká na schválenie.",
-    "payflowpro_gateway-response-126-2": "Niektoré z informácií, ktoré ste uviedli sa nezhodovali s tými v profile vašej kreditnej karty alebo ste zadali príliš veľkú čiastku daru. Pre vašu vlastnú bezpečnosť váš dar teraz podlieha kontrole a upozorníme vás na emailovú adresu, ktorú ste poskytli, ak by sme nemohli váš dar dokončiť. V prípade akýchkoľvek otázok prosím píšte na adresu <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ďakujeme!",
-    "payflowpro_gateway-response-12": "Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.",
-    "payflowpro_gateway-response-13": "Vaša transakcia vyžaduje overenie hlasom,\nKontaktujte nás prosím, aby sme mohli pokračovať vo vašej transakcii.",
-    "payflowpro_gateway-response-114": "Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.",
-    "payflowpro_gateway-response-23": "Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.",
-    "payflowpro_gateway-response-4": "Neplatná čiastka.",
-    "payflowpro_gateway-response-24": "Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.",
-    "payflowpro_gateway-response-112": "Vaša adresa alebo číslo CVV (bezpečnostný kód) nie sú správne.",
-    "payflowpro_gateway-response-125": "Vašu transakciu zamietli Služby na ochranu fondov.",
-    "payflowpro_gateway-response-125-2": "Vašu kreditnú kartu nebolo možné overiť. Prosím, overte, že všetky uvedené informácie sa zhodujú s uvedenými v profile vašej kreditnej karty alebo skúste inú kartu. Môžete tiež využiť jeden z <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">iných spôsobov darovania</a> alebo nás kontaktovať na adrese <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ďakujeme za vašu podporu.",
-    "payflowpro_gateway-response-default": "Nastala chyba pri spracovaní vašej transakcie.\nSkúste to prosím opäť neskôr."
+	"@metadata": {
+		"authors": [
+			"Helix84"
+		]
+	},
+	"payflowprogateway": "Darovať teraz",
+	"payflowpro_gateway-desc": "Spracovanie kreditnej karty PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "Vaša transakcia bola schválená.\nĎakujeme za váš dar!",
+	"payflowpro_gateway-response-126": "Vaša transakcia čaká na schválenie.",
+	"payflowpro_gateway-response-126-2": "Niektoré z informácií, ktoré ste uviedli sa nezhodovali s tými v profile vašej kreditnej karty alebo ste zadali príliš veľkú čiastku daru. Pre vašu vlastnú bezpečnosť váš dar teraz podlieha kontrole a upozorníme vás na emailovú adresu, ktorú ste poskytli, ak by sme nemohli váš dar dokončiť. V prípade akýchkoľvek otázok prosím píšte na adresu <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ďakujeme!",
+	"payflowpro_gateway-response-12": "Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.",
+	"payflowpro_gateway-response-13": "Vaša transakcia vyžaduje overenie hlasom,\nKontaktujte nás prosím, aby sme mohli pokračovať vo vašej transakcii.",
+	"payflowpro_gateway-response-114": "Ďalšie informácie sa dozviete od spoločnosti, ktorá vydala vašu kreditnú kartu.",
+	"payflowpro_gateway-response-23": "Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.",
+	"payflowpro_gateway-response-4": "Neplatná čiastka.",
+	"payflowpro_gateway-response-24": "Číslo alebo dátum expirácie vašej kreditnej karty nie je správne.",
+	"payflowpro_gateway-response-112": "Vaša adresa alebo číslo CVV (bezpečnostný kód) nie sú správne.",
+	"payflowpro_gateway-response-125": "Vašu transakciu zamietli Služby na ochranu fondov.",
+	"payflowpro_gateway-response-125-2": "Vašu kreditnú kartu nebolo možné overiť. Prosím, overte, že všetky uvedené informácie sa zhodujú s uvedenými v profile vašej kreditnej karty alebo skúste inú kartu. Môžete tiež využiť jeden z <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">iných spôsobov darovania</a> alebo nás kontaktovať na adrese <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ďakujeme za vašu podporu.",
+	"payflowpro_gateway-response-default": "Nastala chyba pri spracovaní vašej transakcie.\nSkúste to prosím opäť neskôr."
 }

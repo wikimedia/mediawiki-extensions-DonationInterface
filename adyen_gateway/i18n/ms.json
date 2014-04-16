@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Anakmalaysia"
-        ]
-    },
-    "adyengateway": "Derma sekarang",
-    "adyen_gateway-desc": "Pemprosesan pembayaran Adyen",
-    "adyen_gateway-response-default": "Terdapat masalah dalam memproses transaksi anda. \nSila cuba sebentar lagi."
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia"
+		]
+	},
+	"adyengateway": "Derma sekarang",
+	"adyen_gateway-desc": "Pemprosesan pembayaran Adyen",
+	"adyen_gateway-response-default": "Terdapat masalah dalam memproses transaksi anda. \nSila cuba sebentar lagi."
 }

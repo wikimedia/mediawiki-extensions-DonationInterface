@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Karthi.dr"
-        ]
-    },
-    "donate_interface-submit-button": "Daan",
-    "donate_interface-donor-name": "Naam",
-    "donate_interface-donor-submit": "Daan",
-    "donate_interface-language": "Bhasa:"
+	"@metadata": {
+		"authors": [
+			"Karthi.dr"
+		]
+	},
+	"donate_interface-submit-button": "Daan",
+	"donate_interface-donor-name": "Naam",
+	"donate_interface-donor-submit": "Daan",
+	"donate_interface-language": "Bhasa:"
 }

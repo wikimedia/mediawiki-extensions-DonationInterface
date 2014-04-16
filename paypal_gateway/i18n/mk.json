@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Bjankuloski06"
-        ]
-    },
-    "paypalgateway": "Дарувајте сега",
-    "paypal_gateway-desc": "Обработка на уплати со Paypal"
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"paypalgateway": "Дарувајте сега",
+	"paypal_gateway-desc": "Обработка на уплати со Paypal"
 }

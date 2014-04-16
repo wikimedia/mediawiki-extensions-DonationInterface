@@ -1,18 +1,18 @@
 {
-    "@metadata": {
-        "authors": [
-            "Dimension10",
-            "Nayvik",
-            "VASANTH S.N."
-        ]
-    },
-    "donate_interface-submit-button": "ದೇಣಿಗೆ",
-    "donate_interface-comment-label": "ಟಿಪ್ಪಣಿ :",
-    "donate_interface-cvv-link": "ಉದಾಹರಣೆ",
-    "donate_interface-donor-city": "ನಗರ:",
-    "donate_interface-donor-state": "ರಾಜ್ಯ",
-    "donate_interface-donor-address": "ವಿಳಾಸ:",
-    "donate_interface-error-msg-city": "ನಗರ",
-    "donate_interface-error-msg-state": "ರಾಜ್ಯ",
-    "donate_interface-comment": "ಟಿಪ್ಪಣಿ"
+	"@metadata": {
+		"authors": [
+			"Dimension10",
+			"Nayvik",
+			"VASANTH S.N."
+		]
+	},
+	"donate_interface-submit-button": "ದೇಣಿಗೆ",
+	"donate_interface-comment-label": "ಟಿಪ್ಪಣಿ :",
+	"donate_interface-cvv-link": "ಉದಾಹರಣೆ",
+	"donate_interface-donor-city": "ನಗರ:",
+	"donate_interface-donor-state": "ರಾಜ್ಯ",
+	"donate_interface-donor-address": "ವಿಳಾಸ:",
+	"donate_interface-error-msg-city": "ನಗರ",
+	"donate_interface-error-msg-state": "ರಾಜ್ಯ",
+	"donate_interface-comment": "ಟಿಪ್ಪಣಿ"
 }

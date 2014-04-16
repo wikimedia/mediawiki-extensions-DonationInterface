@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Hamilton Abreu",
-            "Imperadeiro98"
-        ]
-    },
-    "paypal_gateway-desc": "Pagamento do PayPal a ser processado"
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu",
+			"Imperadeiro98"
+		]
+	},
+	"paypal_gateway-desc": "Pagamento do PayPal a ser processado"
 }

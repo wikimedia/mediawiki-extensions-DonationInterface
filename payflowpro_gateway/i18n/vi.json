@@ -1,24 +1,24 @@
 {
-    "@metadata": {
-        "authors": [
-            "Minh Nguyen",
-            "Trần Nguyễn Minh Huy",
-            "Vinhtantran"
-        ]
-    },
-    "payflowprogateway": "Quyên góp ngay bây giờ",
-    "payflowpro_gateway-desc": "Xử lý thẻ tín dụng dùng PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "Giao dịch của bạn đã được chứng nhận.\nCảm ơn sự đóng góp của bạn!",
-    "payflowpro_gateway-response-126": "Giao dịch của bạn đang chờ được chứng nhận.",
-    "payflowpro_gateway-response-126-2": "Một số thông tin mà bạn cung cấp không đúng với hồ sơ thẻ tín dụng của bạn, hoặc bạn đã đóng góp rất nhiều tiền. Để bảo vệ tài khoản của bạn, chúng tôi hiện đang xem xét sự đóng góp của bạn. Nếu trường hợp chúng tôi không thể hoàn thành sự đóng góp của bạn, chúng tôi sẽ liên lạc với bạn qua địa chỉ thư điện tử mà bạn cung cấp. Nếu có thắc mắc gì, xin hãy gửi thư điện tử cho <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Cảm ơn!",
-    "payflowpro_gateway-response-12": "Xin liên hệ với công ty thẻ tín dụng của bạn để biết thêm chi tiết.",
-    "payflowpro_gateway-response-13": "Giao dịch này cần xác nhận bằng điện thoại.\nXin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao dịch.",
-    "payflowpro_gateway-response-114": "Xin hãy liên lạc công ty thẻ tín dụng để biết thêm thông tin.",
-    "payflowpro_gateway-response-23": "Số thẻ tín dụng của bạn hoặc ngày hết hạn không đúng.",
-    "payflowpro_gateway-response-4": "Số tiền không hợp lệ.",
-    "payflowpro_gateway-response-24": "Số thẻ tín dụng hoặc ngày hết hạn không đúng.",
-    "payflowpro_gateway-response-112": "Địa chỉ hoặc mã CCV (mã bảo mật) của bạn không đúng.",
-    "payflowpro_gateway-response-125": "Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.",
-    "payflowpro_gateway-response-125-2": "Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Bạn cũng có thể <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi\">quyên góp bằng cách khác</a> hoặc liên lạc với chúng tôi tại <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Cảm ơn sự hỗ trợ của bạn.",
-    "payflowpro_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau."
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen",
+			"Trần Nguyễn Minh Huy",
+			"Vinhtantran"
+		]
+	},
+	"payflowprogateway": "Quyên góp ngay bây giờ",
+	"payflowpro_gateway-desc": "Xử lý thẻ tín dụng dùng PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "Giao dịch của bạn đã được chứng nhận.\nCảm ơn sự đóng góp của bạn!",
+	"payflowpro_gateway-response-126": "Giao dịch của bạn đang chờ được chứng nhận.",
+	"payflowpro_gateway-response-126-2": "Một số thông tin mà bạn cung cấp không đúng với hồ sơ thẻ tín dụng của bạn, hoặc bạn đã đóng góp rất nhiều tiền. Để bảo vệ tài khoản của bạn, chúng tôi hiện đang xem xét sự đóng góp của bạn. Nếu trường hợp chúng tôi không thể hoàn thành sự đóng góp của bạn, chúng tôi sẽ liên lạc với bạn qua địa chỉ thư điện tử mà bạn cung cấp. Nếu có thắc mắc gì, xin hãy gửi thư điện tử cho <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Cảm ơn!",
+	"payflowpro_gateway-response-12": "Xin liên hệ với công ty thẻ tín dụng của bạn để biết thêm chi tiết.",
+	"payflowpro_gateway-response-13": "Giao dịch này cần xác nhận bằng điện thoại.\nXin hãy liên lạc với chúng tôi để tiếp tục thực hiện giao dịch.",
+	"payflowpro_gateway-response-114": "Xin hãy liên lạc công ty thẻ tín dụng để biết thêm thông tin.",
+	"payflowpro_gateway-response-23": "Số thẻ tín dụng của bạn hoặc ngày hết hạn không đúng.",
+	"payflowpro_gateway-response-4": "Số tiền không hợp lệ.",
+	"payflowpro_gateway-response-24": "Số thẻ tín dụng hoặc ngày hết hạn không đúng.",
+	"payflowpro_gateway-response-112": "Địa chỉ hoặc mã CCV (mã bảo mật) của bạn không đúng.",
+	"payflowpro_gateway-response-125": "Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.",
+	"payflowpro_gateway-response-125-2": "Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Bạn cũng có thể <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi\">quyên góp bằng cách khác</a> hoặc liên lạc với chúng tôi tại <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Cảm ơn sự hỗ trợ của bạn.",
+	"payflowpro_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau."
 }

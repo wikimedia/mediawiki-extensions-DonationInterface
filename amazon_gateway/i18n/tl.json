@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "AnakngAraw",
-            "Sky Harbor"
-        ]
-    },
-    "amazongateway": "Magkaloob ka na ngayon",
-    "amazon_gateway-desc": "Pagsasagawa ng pagbabayad gamit ang Amazon"
+	"@metadata": {
+		"authors": [
+			"AnakngAraw",
+			"Sky Harbor"
+		]
+	},
+	"amazongateway": "Magkaloob ka na ngayon",
+	"amazon_gateway-desc": "Pagsasagawa ng pagbabayad gamit ang Amazon"
 }

@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chrisportelli"
-        ]
-    },
-    "payflowprogateway": "Agħmel id-donazzjoni tiegħek issa",
-    "payflowpro_gateway-desc": "Ġestjoni tal-karta tal-kreditu PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "It-transazzjoni tiegħek ġiet approvata.\nGrazzi tad-donazzjoni tiegħek!",
-    "payflowpro_gateway-response-126": "It-transazzjoni tiegħek qegħda tistenna li tiġi approvata.",
-    "payflowpro_gateway-response-126-2": "Ċerti dettalji li tajt ma qablux mal-profil tal-karta tal-kreditu tiegħek, jew inkella għamilt donazzjoni kbira. Għas-sigurtà tiegħek, id-donazzjoni tiegħek qegħda tiġi reviżjonata, u aħna ngħarrfuk permezz tal-indirizz elettroniku li provdejt f'każ li t-transazzjoni ma tistax titkompla. Jekk għandek xi mistoqsijiet, ibgħatilna ittra-e fuq <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazzi!",
-    "payflowpro_gateway-response-12": "Jekk jogħġbok ikkuntattja lill-kumpanija tal-karta tal-kreditu tiegħek għal aktar informazzjoni.",
-    "payflowpro_gateway-response-13": "It-transazzjoni tiegħek għandha bżonn awtorizzazzjoni bil-vuċi.\nJekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.",
-    "payflowpro_gateway-response-114": "Jekk jogħġbok ikkuntattja lill-kumpanija tal-karta tal-kreditu tiegħek għal aktar informazzjoni.",
-    "payflowpro_gateway-response-23": "In-numru tal-karta tal-kreditu tiegħek jew id-data ta' skadenza hija żbaljata.",
-    "payflowpro_gateway-response-4": "Ammont invalidu.",
-    "payflowpro_gateway-response-24": "In-numru tal-karta tal-kreditu tiegħek jew id-data ta' skadenza hija żbaljata.",
-    "payflowpro_gateway-response-112": "L-indirizz tiegħek jew in-numru CVV (kodiċi ta' sigurtà) huwa żbaljat.",
-    "payflowpro_gateway-response-125": "It-transazzjoni tiegħek ġiet rifjutata mill-Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Il-karta tal-kreditu tiegħek ma setgħetx tiġi valdiata. Jekk jogħġbok ivverfika li kull informazzjoni li tajt taqbel mal-profil tal-karta tal-kreditu tiegħek, jew prova b'karta differenti. Tista' wkoll tagħżel wieħed mill-ħafna <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">modi oħra kif tagħti donazzjoni</a> jew ikkuntatjana fuq <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazzi tas-sosten tiegħek.",
-    "payflowpro_gateway-response-default": "Kien hemm żball fl-ipproċessar tat-tranżazzjoni tiegħek. Jekk jogħġbok erġa' pprova."
+	"@metadata": {
+		"authors": [
+			"Chrisportelli"
+		]
+	},
+	"payflowprogateway": "Agħmel id-donazzjoni tiegħek issa",
+	"payflowpro_gateway-desc": "Ġestjoni tal-karta tal-kreditu PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "It-transazzjoni tiegħek ġiet approvata.\nGrazzi tad-donazzjoni tiegħek!",
+	"payflowpro_gateway-response-126": "It-transazzjoni tiegħek qegħda tistenna li tiġi approvata.",
+	"payflowpro_gateway-response-126-2": "Ċerti dettalji li tajt ma qablux mal-profil tal-karta tal-kreditu tiegħek, jew inkella għamilt donazzjoni kbira. Għas-sigurtà tiegħek, id-donazzjoni tiegħek qegħda tiġi reviżjonata, u aħna ngħarrfuk permezz tal-indirizz elettroniku li provdejt f'każ li t-transazzjoni ma tistax titkompla. Jekk għandek xi mistoqsijiet, ibgħatilna ittra-e fuq <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazzi!",
+	"payflowpro_gateway-response-12": "Jekk jogħġbok ikkuntattja lill-kumpanija tal-karta tal-kreditu tiegħek għal aktar informazzjoni.",
+	"payflowpro_gateway-response-13": "It-transazzjoni tiegħek għandha bżonn awtorizzazzjoni bil-vuċi.\nJekk jogħġbok ikkuntatjana sabiex tkompli t-transazzjoni tiegħek.",
+	"payflowpro_gateway-response-114": "Jekk jogħġbok ikkuntattja lill-kumpanija tal-karta tal-kreditu tiegħek għal aktar informazzjoni.",
+	"payflowpro_gateway-response-23": "In-numru tal-karta tal-kreditu tiegħek jew id-data ta' skadenza hija żbaljata.",
+	"payflowpro_gateway-response-4": "Ammont invalidu.",
+	"payflowpro_gateway-response-24": "In-numru tal-karta tal-kreditu tiegħek jew id-data ta' skadenza hija żbaljata.",
+	"payflowpro_gateway-response-112": "L-indirizz tiegħek jew in-numru CVV (kodiċi ta' sigurtà) huwa żbaljat.",
+	"payflowpro_gateway-response-125": "It-transazzjoni tiegħek ġiet rifjutata mill-Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Il-karta tal-kreditu tiegħek ma setgħetx tiġi valdiata. Jekk jogħġbok ivverfika li kull informazzjoni li tajt taqbel mal-profil tal-karta tal-kreditu tiegħek, jew prova b'karta differenti. Tista' wkoll tagħżel wieħed mill-ħafna <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">modi oħra kif tagħti donazzjoni</a> jew ikkuntatjana fuq <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazzi tas-sosten tiegħek.",
+	"payflowpro_gateway-response-default": "Kien hemm żball fl-ipproċessar tat-tranżazzjoni tiegħek. Jekk jogħġbok erġa' pprova."
 }

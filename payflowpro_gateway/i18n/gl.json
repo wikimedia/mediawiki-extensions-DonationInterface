@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Toliño"
-        ]
-    },
-    "payflowprogateway": "Fai a túa doazón agora",
-    "payflowpro_gateway-desc": "Procesamento por tarxeta de crédito de PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "A túa transacción foi aprobada.\nGrazas pola doazón!",
-    "payflowpro_gateway-response-126": "A túa transacción está pendente de aprobación.",
-    "payflowpro_gateway-response-126-2": "Algún dato da información que proporcionaches non coincide co perfil da túa tarxeta de crédito; ou pode ser que fixeras un agasallo moi grande. Pola túa propia seguridade, a túa doazón está sendo revisada nestes intres e serás notificado a través do enderezo de correo electrónico que deches se non podemos finalizar a túa doazón. Envía un correo electrónico a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> se tes algunha dúbida. Grazas!",
-    "payflowpro_gateway-response-12": "Ponte en contacto coa empresa da túa tarxeta de crédito para obter máis información.",
-    "payflowpro_gateway-response-13": "A túa transacción esixe unha autorización de voz.\nPonte en contacto connosco para continuar con esta operación.",
-    "payflowpro_gateway-response-114": "Ponte en contacto coa empresa da túa tarxeta de crédito para obter máis información.",
-    "payflowpro_gateway-response-23": "O número da túa tarxeta de crédito ou a data de caducidade é incorrecto.",
-    "payflowpro_gateway-response-4": "A cantidade non é válida.",
-    "payflowpro_gateway-response-24": "O número da túa tarxeta de crédito ou a data de caducidade é incorrecto.",
-    "payflowpro_gateway-response-112": "O teu enderezo ou número CVV (código de seguridade) é incorrecto.",
-    "payflowpro_gateway-response-125": "A túa transacción foi rexeitada polo servizo de prevención de fraudes.",
-    "payflowpro_gateway-response-125-2": "A túa tarxeta de crédito non se puido validar. Por favor, comproba que toda a información que proporcionaches coincide coa do perfil da túa tarxeta de crédito, ou intenta empregar outra tarxeta. Tamén podes utilizar calquera dos <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">outros xeitos de doar</a> ou porte en contacto connosco no correo electrónico <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazas polo teu apoio.",
-    "payflowpro_gateway-response-default": "Houbo un erro ao procesar a túa transacción.\nPor favor, inténtao de novo máis tarde."
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"payflowprogateway": "Fai a túa doazón agora",
+	"payflowpro_gateway-desc": "Procesamento por tarxeta de crédito de PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "A túa transacción foi aprobada.\nGrazas pola doazón!",
+	"payflowpro_gateway-response-126": "A túa transacción está pendente de aprobación.",
+	"payflowpro_gateway-response-126-2": "Algún dato da información que proporcionaches non coincide co perfil da túa tarxeta de crédito; ou pode ser que fixeras un agasallo moi grande. Pola túa propia seguridade, a túa doazón está sendo revisada nestes intres e serás notificado a través do enderezo de correo electrónico que deches se non podemos finalizar a túa doazón. Envía un correo electrónico a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> se tes algunha dúbida. Grazas!",
+	"payflowpro_gateway-response-12": "Ponte en contacto coa empresa da túa tarxeta de crédito para obter máis información.",
+	"payflowpro_gateway-response-13": "A túa transacción esixe unha autorización de voz.\nPonte en contacto connosco para continuar con esta operación.",
+	"payflowpro_gateway-response-114": "Ponte en contacto coa empresa da túa tarxeta de crédito para obter máis información.",
+	"payflowpro_gateway-response-23": "O número da túa tarxeta de crédito ou a data de caducidade é incorrecto.",
+	"payflowpro_gateway-response-4": "A cantidade non é válida.",
+	"payflowpro_gateway-response-24": "O número da túa tarxeta de crédito ou a data de caducidade é incorrecto.",
+	"payflowpro_gateway-response-112": "O teu enderezo ou número CVV (código de seguridade) é incorrecto.",
+	"payflowpro_gateway-response-125": "A túa transacción foi rexeitada polo servizo de prevención de fraudes.",
+	"payflowpro_gateway-response-125-2": "A túa tarxeta de crédito non se puido validar. Por favor, comproba que toda a información que proporcionaches coincide coa do perfil da túa tarxeta de crédito, ou intenta empregar outra tarxeta. Tamén podes utilizar calquera dos <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">outros xeitos de doar</a> ou porte en contacto connosco no correo electrónico <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grazas polo teu apoio.",
+	"payflowpro_gateway-response-default": "Houbo un erro ao procesar a túa transacción.\nPor favor, inténtao de novo máis tarde."
 }

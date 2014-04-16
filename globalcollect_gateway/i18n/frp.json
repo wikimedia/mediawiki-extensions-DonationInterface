@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "ChrisPtDe"
-        ]
-    },
-    "globalcollectgateway": "Balyéd orendrêt",
-    "globalcollect_gateway-response-9130": "Payis envalido.",
-    "globalcollect_gateway-response-9140": "Monéya envalida.",
-    "globalcollect_gateway-response-9150": "Lengoua envalida.",
-    "globalcollect_gateway-response-400530": "Moyen de payement envalido.",
-    "globalcollect_gateway-response-430330": "Numerô de cârta envalido."
+	"@metadata": {
+		"authors": [
+			"ChrisPtDe"
+		]
+	},
+	"globalcollectgateway": "Balyéd orendrêt",
+	"globalcollect_gateway-response-9130": "Payis envalido.",
+	"globalcollect_gateway-response-9140": "Monéya envalida.",
+	"globalcollect_gateway-response-9150": "Lengoua envalida.",
+	"globalcollect_gateway-response-400530": "Moyen de payement envalido.",
+	"globalcollect_gateway-response-430330": "Numerô de cârta envalido."
 }

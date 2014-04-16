@@ -1,24 +1,24 @@
 {
-    "@metadata": {
-        "authors": [
-            "Christian List",
-            "Jon Harald Søby",
-            "Peter Alberti"
-        ]
-    },
-    "payflowprogateway": "Giv dit bidrag nu",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro kreditkorthåndtering",
-    "payflowpro_gateway-response-0": "Din transaktion er blevet godkendt.\nTak for din donation!",
-    "payflowpro_gateway-response-126": "Din overførsel afventer godkendelse.",
-    "payflowpro_gateway-response-126-2": "Nogle af de oplysninger, du har angivet, passer ikke til din kreditkortprofil, eller du har givet en meget stor gave. For din egen sikkerhed, er din donation i øjeblikket under revision, og vi vil give dig besked via den oplyste e-mailadresse, hvis vi ikke kan færdiggøre din donation. Venligst e-mail \u003Ca href=\"mailto:donate@wikimedia.org\"\u003Edonate@wikimedia.org\u003C/a\u003E, hvis du har nogle spørgsmål. Tak!",
-    "payflowpro_gateway-response-12": "Du bedes kontakte firmaet, der har udstedt dit kreditkort, for flere oplysninger.",
-    "payflowpro_gateway-response-13": "Din transaktion kræver stemmegodkendelse.\nVær så venlig at kontakte os for at fortsætte din transaktion.",
-    "payflowpro_gateway-response-114": "Du bedes kontakte firmaet, der har udstedt dit kreditkort, for flere oplysninger.",
-    "payflowpro_gateway-response-23": "Dit kreditkortnummer eller udløbsdatoen er forkert.",
-    "payflowpro_gateway-response-4": "Ugyldigt beløb.",
-    "payflowpro_gateway-response-24": "Dit kreditkortnummer eller udløbsdatoen er forkert.",
-    "payflowpro_gateway-response-112": "Din adresse eller dit CVV-nummer (sikkerhedskode) er forkert.",
-    "payflowpro_gateway-response-125": "Din transaktion er blevet afvist af Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Dit kreditkort kunne ikke valideres. Vær så venlig at kontrollere at alle opgivne oplysninger svarer til din kreditkortprofil eller prøv et andet kort. Du kan også bruge en af vores \u003Ca href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\"\u003Eandre måder at give på\u003C/a\u003E eller kontakte os på \u003Ca href=\"mailto:donate@wikimedia.org\"\u003Edonate@wikimedia.org\u003C/a\u003E. Tak for din støtte.",
-    "payflowpro_gateway-response-default": "Der opstod en fejl under behandlingen af din transaktion.\nPrøv venligst igen senere."
+	"@metadata": {
+		"authors": [
+			"Christian List",
+			"Jon Harald Søby",
+			"Peter Alberti"
+		]
+	},
+	"payflowprogateway": "Giv dit bidrag nu",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro kreditkorthåndtering",
+	"payflowpro_gateway-response-0": "Din transaktion er blevet godkendt.\nTak for din donation!",
+	"payflowpro_gateway-response-126": "Din overførsel afventer godkendelse.",
+	"payflowpro_gateway-response-126-2": "Nogle af de oplysninger, du har angivet, passer ikke til din kreditkortprofil, eller du har givet en meget stor gave. For din egen sikkerhed, er din donation i øjeblikket under revision, og vi vil give dig besked via den oplyste e-mailadresse, hvis vi ikke kan færdiggøre din donation. Venligst e-mail <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>, hvis du har nogle spørgsmål. Tak!",
+	"payflowpro_gateway-response-12": "Du bedes kontakte firmaet, der har udstedt dit kreditkort, for flere oplysninger.",
+	"payflowpro_gateway-response-13": "Din transaktion kræver stemmegodkendelse.\nVær så venlig at kontakte os for at fortsætte din transaktion.",
+	"payflowpro_gateway-response-114": "Du bedes kontakte firmaet, der har udstedt dit kreditkort, for flere oplysninger.",
+	"payflowpro_gateway-response-23": "Dit kreditkortnummer eller udløbsdatoen er forkert.",
+	"payflowpro_gateway-response-4": "Ugyldigt beløb.",
+	"payflowpro_gateway-response-24": "Dit kreditkortnummer eller udløbsdatoen er forkert.",
+	"payflowpro_gateway-response-112": "Din adresse eller dit CVV-nummer (sikkerhedskode) er forkert.",
+	"payflowpro_gateway-response-125": "Din transaktion er blevet afvist af Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Dit kreditkort kunne ikke valideres. Vær så venlig at kontrollere at alle opgivne oplysninger svarer til din kreditkortprofil eller prøv et andet kort. Du kan også bruge en af vores <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andre måder at give på</a> eller kontakte os på <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Tak for din støtte.",
+	"payflowpro_gateway-response-default": "Der opstod en fejl under behandlingen af din transaktion.\nPrøv venligst igen senere."
 }

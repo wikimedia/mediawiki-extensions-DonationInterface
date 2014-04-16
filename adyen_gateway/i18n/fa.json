@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Armin1392"
-        ]
-    },
-    "adyengateway": "کمک خود را اکنون وضع کنید",
-    "adyen_gateway-desc": "روند پرداخت آدیِن",
-    "adyen_gateway-response-default": "یک خطا در تراکنش شما در جریان بود.\nلطفاً بعداً دوباره امتحان کنید."
+	"@metadata": {
+		"authors": [
+			"Armin1392"
+		]
+	},
+	"adyengateway": "کمک خود را اکنون وضع کنید",
+	"adyen_gateway-desc": "روند پرداخت آدیِن",
+	"adyen_gateway-response-default": "یک خطا در تراکنش شما در جریان بود.\nلطفاً بعداً دوباره امتحان کنید."
 }

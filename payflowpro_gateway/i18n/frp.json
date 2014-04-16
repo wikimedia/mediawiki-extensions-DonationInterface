@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "ChrisPtDe"
-        ]
-    },
-    "payflowprogateway": "Balyéd orendrêt",
-    "payflowpro_gateway-desc": "Trètament per cârta de crèdit PayPal Payflow Pro.",
-    "payflowpro_gateway-response-0": "Voutra transaccion at étâ aprovâ.\nGrant-marci por voutron don !",
-    "payflowpro_gateway-response-126": "Voutra transaccion est aprés étre aprovâ.",
-    "payflowpro_gateway-response-126-2": "Quârques enformacions que vos éd balyês corrèspondont pas u profil de voutra cârta banquère, ou ben vos éd semondu un montent bien hôt. Por voutra prôpra sècuritât, voutron don est orendrêt en cors de contrôlo, et pués nos vos prèvindrens per l’adrèce èlèctronica que vos éd balyê se nos parvegnens pas a concllure voutron don. Por tota quèstion, volyéd adrèciér un mèssâjo a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grant-marci !",
-    "payflowpro_gateway-response-12": "Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.",
-    "payflowpro_gateway-response-13": "Voutra transaccion at fôta d’una ôtorisacion vocala.\nVos volyéd veriér vers nos por porsiuvre voutra transaccion.",
-    "payflowpro_gateway-response-114": "Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.",
-    "payflowpro_gateway-response-23": "Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.",
-    "payflowpro_gateway-response-4": "Montent envalido.",
-    "payflowpro_gateway-response-24": "Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.",
-    "payflowpro_gateway-response-112": "Voutra adrèce ou ben lo numerô CVV (code de sècuritât) est fôx.",
-    "payflowpro_gateway-response-125": "Voutra transaccion at étâ refusâ per los Sèrviços de prèvencion de les frôdes.",
-    "payflowpro_gateway-response-125-2": "Voutra cârta banquère at pas possu étre validâ. Volyéd controlar que totes les enformacions balyês corrèspondont u profil de voutra cârta banquère, ou ben èprovâd avouéc una ôtra cârta. Vos pouede asse-ben utilisar <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">d’ôtros moyens de balyér</a> ou ben vos veriér vers nos a l’adrèce <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Nos vos remarciens por voutron sotin.",
-    "payflowpro_gateway-response-default": "Una èrror est arrevâ pendent lo trètament de voutra transaccion.\nVolyéd tornar èprovar pués aprés."
+	"@metadata": {
+		"authors": [
+			"ChrisPtDe"
+		]
+	},
+	"payflowprogateway": "Balyéd orendrêt",
+	"payflowpro_gateway-desc": "Trètament per cârta de crèdit PayPal Payflow Pro.",
+	"payflowpro_gateway-response-0": "Voutra transaccion at étâ aprovâ.\nGrant-marci por voutron don !",
+	"payflowpro_gateway-response-126": "Voutra transaccion est aprés étre aprovâ.",
+	"payflowpro_gateway-response-126-2": "Quârques enformacions que vos éd balyês corrèspondont pas u profil de voutra cârta banquère, ou ben vos éd semondu un montent bien hôt. Por voutra prôpra sècuritât, voutron don est orendrêt en cors de contrôlo, et pués nos vos prèvindrens per l’adrèce èlèctronica que vos éd balyê se nos parvegnens pas a concllure voutron don. Por tota quèstion, volyéd adrèciér un mèssâjo a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Grant-marci !",
+	"payflowpro_gateway-response-12": "Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.",
+	"payflowpro_gateway-response-13": "Voutra transaccion at fôta d’una ôtorisacion vocala.\nVos volyéd veriér vers nos por porsiuvre voutra transaccion.",
+	"payflowpro_gateway-response-114": "Vos volyéd veriér vers lo fornissor de voutra cârta de crèdit por més d’enformacions.",
+	"payflowpro_gateway-response-23": "Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.",
+	"payflowpro_gateway-response-4": "Montent envalido.",
+	"payflowpro_gateway-response-24": "Voutron numerô de cârta de crèdit ou ben la dâta d’èxpiracion est fôssa.",
+	"payflowpro_gateway-response-112": "Voutra adrèce ou ben lo numerô CVV (code de sècuritât) est fôx.",
+	"payflowpro_gateway-response-125": "Voutra transaccion at étâ refusâ per los Sèrviços de prèvencion de les frôdes.",
+	"payflowpro_gateway-response-125-2": "Voutra cârta banquère at pas possu étre validâ. Volyéd controlar que totes les enformacions balyês corrèspondont u profil de voutra cârta banquère, ou ben èprovâd avouéc una ôtra cârta. Vos pouede asse-ben utilisar <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">d’ôtros moyens de balyér</a> ou ben vos veriér vers nos a l’adrèce <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Nos vos remarciens por voutron sotin.",
+	"payflowpro_gateway-response-default": "Una èrror est arrevâ pendent lo trètament de voutra transaccion.\nVolyéd tornar èprovar pués aprés."
 }

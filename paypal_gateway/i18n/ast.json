@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Xuacu"
-        ]
-    },
-    "paypalgateway": "Fai la to donación agora",
-    "paypal_gateway-desc": "Procesamientu de pagos de PayPal"
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"paypalgateway": "Fai la to donación agora",
+	"paypal_gateway-desc": "Procesamientu de pagos de PayPal"
 }

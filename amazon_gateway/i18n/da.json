@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Christian List"
-        ]
-    },
-    "amazongateway": "Giv dit bidrag nu",
-    "amazon_gateway-desc": "Betaling med Amazon"
+	"@metadata": {
+		"authors": [
+			"Christian List"
+		]
+	},
+	"amazongateway": "Giv dit bidrag nu",
+	"amazon_gateway-desc": "Betaling med Amazon"
 }

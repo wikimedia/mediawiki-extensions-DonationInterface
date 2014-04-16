@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Michawiki"
-        ]
-    },
-    "paypalgateway": "Něnto pósćiś",
-    "paypal_gateway-desc": "Pśeźěłanje zapłaśenjow pśez Paypal"
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"paypalgateway": "Něnto pósćiś",
+	"paypal_gateway-desc": "Pśeźěłanje zapłaśenjow pśez Paypal"
 }

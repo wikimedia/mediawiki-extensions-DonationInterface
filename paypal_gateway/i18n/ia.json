@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "McDutchie"
-        ]
-    },
-    "paypalgateway": "Face un donation ora",
-    "paypal_gateway-desc": "Pagamento con PayPal"
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"paypalgateway": "Face un donation ora",
+	"paypal_gateway-desc": "Pagamento con PayPal"
 }

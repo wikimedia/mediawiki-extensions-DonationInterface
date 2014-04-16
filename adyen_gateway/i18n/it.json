@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Beta16"
-        ]
-    },
-    "adyengateway": "Fai ora la tua donazione",
-    "adyen_gateway-desc": "Esecuzione del pagamento con Adyen",
-    "adyen_gateway-response-default": "Si è verificato un errore durante l'elaborazione della transazione.\nSi prega di riprovare più tardi."
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"adyengateway": "Fai ora la tua donazione",
+	"adyen_gateway-desc": "Esecuzione del pagamento con Adyen",
+	"adyen_gateway-response-default": "Si è verificato un errore durante l'elaborazione della transazione.\nSi prega di riprovare più tardi."
 }

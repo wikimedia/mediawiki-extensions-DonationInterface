@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Armando-Martin"
-        ]
-    },
-    "amazongateway": "Haz tu donación ahora",
-    "amazon_gateway-desc": "Proceso de pagos de Amazon"
+	"@metadata": {
+		"authors": [
+			"Armando-Martin"
+		]
+	},
+	"amazongateway": "Haz tu donación ahora",
+	"amazon_gateway-desc": "Proceso de pagos de Amazon"
 }

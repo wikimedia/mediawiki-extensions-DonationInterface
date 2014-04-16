@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "OsamaK"
-        ]
-    },
-    "paypal_gateway-desc": "تسجل PayPal كآلية تبرع"
+	"@metadata": {
+		"authors": [
+			"OsamaK"
+		]
+	},
+	"paypal_gateway-desc": "تسجل PayPal كآلية تبرع"
 }

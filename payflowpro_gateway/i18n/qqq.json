@@ -1,33 +1,33 @@
 {
-    "@metadata": {
-        "authors": [
-            "EugeneZelenko",
-            "Fryed-peach",
-            "Hamilton Abreu",
-            "Jsoby",
-            "Kghbln",
-            "Lloffiwr",
-            "Minh Nguyen",
-            "Purodha",
-            "Shirayuki",
-            "Siebrand",
-            "Yekrats",
-            "Тест"
-        ]
-    },
-    "payflowprogateway": "{{Identical|Make your donation now}}",
-    "payflowpro_gateway-desc": "{{desc}}",
-    "payflowpro_gateway-response-0": "Message after the donation has gone through.",
-    "payflowpro_gateway-response-126": "Message if the donation is done, but waiting for something beyond the user's control.",
-    "payflowpro_gateway-response-126-2": "",
-    "payflowpro_gateway-response-12": "Message if there is something wrong with the card.",
-    "payflowpro_gateway-response-13": "Message if the card requires voice authorization.",
-    "payflowpro_gateway-response-114": "Message after the donate form is done, asking for the user to contact his/her credit card company.",
-    "payflowpro_gateway-response-23": "Final message if the credit card number or expiration is wrong.",
-    "payflowpro_gateway-response-4": "Error message for invalid amount.",
-    "payflowpro_gateway-response-24": "Error message for card number or expiration date.",
-    "payflowpro_gateway-response-112": "Error message for address or CVV number.",
-    "payflowpro_gateway-response-125": "Error message if the transaction is declined automatically.",
-    "payflowpro_gateway-response-125-2": "Error message if the card could not be validated.",
-    "payflowpro_gateway-response-default": "Error message if something went wrong on our side."
+	"@metadata": {
+		"authors": [
+			"EugeneZelenko",
+			"Fryed-peach",
+			"Hamilton Abreu",
+			"Jsoby",
+			"Kghbln",
+			"Lloffiwr",
+			"Minh Nguyen",
+			"Purodha",
+			"Shirayuki",
+			"Siebrand",
+			"Yekrats",
+			"Тест"
+		]
+	},
+	"payflowprogateway": "{{Identical|Make your donation now}}",
+	"payflowpro_gateway-desc": "{{desc}}",
+	"payflowpro_gateway-response-0": "Message after the donation has gone through.",
+	"payflowpro_gateway-response-126": "Message if the donation is done, but waiting for something beyond the user's control.",
+	"payflowpro_gateway-response-126-2": "",
+	"payflowpro_gateway-response-12": "Message if there is something wrong with the card.",
+	"payflowpro_gateway-response-13": "Message if the card requires voice authorization.",
+	"payflowpro_gateway-response-114": "Message after the donate form is done, asking for the user to contact his/her credit card company.",
+	"payflowpro_gateway-response-23": "Final message if the credit card number or expiration is wrong.",
+	"payflowpro_gateway-response-4": "Error message for invalid amount.",
+	"payflowpro_gateway-response-24": "Error message for card number or expiration date.",
+	"payflowpro_gateway-response-112": "Error message for address or CVV number.",
+	"payflowpro_gateway-response-125": "Error message if the transaction is declined automatically.",
+	"payflowpro_gateway-response-125-2": "Error message if the card could not be validated.",
+	"payflowpro_gateway-response-default": "Error message if something went wrong on our side."
 }

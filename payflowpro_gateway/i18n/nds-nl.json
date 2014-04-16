@@ -1,23 +1,23 @@
 {
-    "@metadata": {
-        "authors": [
-            "Krinkle",
-            "Servien"
-        ]
-    },
-    "payflowprogateway": "Noen geld schenken",
-    "payflowpro_gateway-desc": "Kredietkaortverwarking via PayPal PayFlow Pro",
-    "payflowpro_gateway-response-0": "Joew storting is goedekeurd!\nBedankt veur de schenking!",
-    "payflowpro_gateway-response-126": "Joew storting wacht op goedkeuring.",
-    "payflowpro_gateway-response-126-2": "Der is wat informasie da'j op-egeven hebben, en niet t zelfde is as op t prefiel van joew kredietkaorte, of je hebben eprobeerd um n alderbarstens grote schenking te doon. Veur joew eigen veiligheid wörden disse schenking op dit moment nao-ekeken en wie laoten t joe weten via t op-egeven netpostadres a'w de schenking niet kunnen verwarken. Neem kontakt op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> a'j nog vragen hebben. Bedank!",
-    "payflowpro_gateway-response-12": "Neem kontakt op mit de kredietkaortmaotschappieje veur meer informasie.",
-    "payflowpro_gateway-response-13": "Veur disse storting mö'j mondelinge toestemming geven.\nNeem kontakt op mit ons veur de storting.",
-    "payflowpro_gateway-response-114": "Neem kontakt op mit de kredietkaortmaotschappieje veur meer informasie.",
-    "payflowpro_gateway-response-23": "t Nummer van disse kredietkaorte is vervuilen of verkeerd.",
-    "payflowpro_gateway-response-4": "Ongeldig bedrag.",
-    "payflowpro_gateway-response-24": "t Nummer van de kredietkaorte is vervuilen of verkeerd.",
-    "payflowpro_gateway-response-112": "Joew adres of CVV-nummer (beveiligingskode) is verkeerd.",
-    "payflowpro_gateway-response-125": "Joew storting is aofewezen deur Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Der kon niet bevestigd wörden dat joew kredietkaorte geldig is. Kiek effen nao of alle gegevens die'j op-egeven hebben t zelfde bin as op t kredietkaortprefiel, of probeer n schenking te doon mit n aandere kredietkaorte, a'j dat hebben. Je kunnen oek op <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">aandere menieren geld schenken</a> of kontakt mit ons opnemen via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Bedank veur joe steun.",
-    "payflowpro_gateway-response-default": "Der gung wat fout mit de storting.\nProbeer t laoter weer."
+	"@metadata": {
+		"authors": [
+			"Krinkle",
+			"Servien"
+		]
+	},
+	"payflowprogateway": "Noen geld schenken",
+	"payflowpro_gateway-desc": "Kredietkaortverwarking via PayPal PayFlow Pro",
+	"payflowpro_gateway-response-0": "Joew storting is goedekeurd!\nBedankt veur de schenking!",
+	"payflowpro_gateway-response-126": "Joew storting wacht op goedkeuring.",
+	"payflowpro_gateway-response-126-2": "Der is wat informasie da'j op-egeven hebben, en niet t zelfde is as op t prefiel van joew kredietkaorte, of je hebben eprobeerd um n alderbarstens grote schenking te doon. Veur joew eigen veiligheid wörden disse schenking op dit moment nao-ekeken en wie laoten t joe weten via t op-egeven netpostadres a'w de schenking niet kunnen verwarken. Neem kontakt op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> a'j nog vragen hebben. Bedank!",
+	"payflowpro_gateway-response-12": "Neem kontakt op mit de kredietkaortmaotschappieje veur meer informasie.",
+	"payflowpro_gateway-response-13": "Veur disse storting mö'j mondelinge toestemming geven.\nNeem kontakt op mit ons veur de storting.",
+	"payflowpro_gateway-response-114": "Neem kontakt op mit de kredietkaortmaotschappieje veur meer informasie.",
+	"payflowpro_gateway-response-23": "t Nummer van disse kredietkaorte is vervuilen of verkeerd.",
+	"payflowpro_gateway-response-4": "Ongeldig bedrag.",
+	"payflowpro_gateway-response-24": "t Nummer van de kredietkaorte is vervuilen of verkeerd.",
+	"payflowpro_gateway-response-112": "Joew adres of CVV-nummer (beveiligingskode) is verkeerd.",
+	"payflowpro_gateway-response-125": "Joew storting is aofewezen deur Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Der kon niet bevestigd wörden dat joew kredietkaorte geldig is. Kiek effen nao of alle gegevens die'j op-egeven hebben t zelfde bin as op t kredietkaortprefiel, of probeer n schenking te doon mit n aandere kredietkaorte, a'j dat hebben. Je kunnen oek op <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">aandere menieren geld schenken</a> of kontakt mit ons opnemen via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Bedank veur joe steun.",
+	"payflowpro_gateway-response-default": "Der gung wat fout mit de storting.\nProbeer t laoter weer."
 }
