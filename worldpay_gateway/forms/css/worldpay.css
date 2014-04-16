@@ -1,86 +1,38 @@
-table#donation_amount {
-	background-color:transparent;
-	border:1px solid #AAAAAA;
-	border-collapse:collapse;
-	width: 600px;
+/* Get rid of the unwanted background */
+#mw-page-base {
+	display: none;
 }
-table#donation_amount td {
-	border:1px solid #AAAAAA;
+
+/* Move the form up */
+#mw-head-base {
+	height: 1em !important;
 }
-table#donation_amount td.amount_header {
-	background-color:#eef2f7;
-	font-size:90%;
+
+/* Hiding various things */
+table {
+	background-color: transparent;
 }
-table#donation_amount td.amount_data {
-	background-color:#daf2db;
+div#content {
+	background-color: transparent !important;
+	background-image: none !important;
 }
-div#payflowpro_gateway-donate-addl-info-text {
-	font-size: 90%;
-	line-height: 120%;
-	padding-top: 12px;
+#footer {
+	background-image: none !important;
 }
+h1#firstHeading, div#contentSub {
+	display: none;
+}
+
+/* areas shared with other gateways */
 div#payflowpro_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
 }
-#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
-	white-space: nowrap;
-	display: block;
-	padding-right: 1em;
-	text-align: right;
-	width: 94px;
-}
-
-
-.payflow-cc-form-section {
-	float: none;
-	margin-right: 0em;
-	margin-bottom: 1em;
-}
-
-#payflowpro_gateway-cc_form_container {
-	width: 100%;
-}
-
-#payflowpro_gateway-cc_form_form {
-	width: 475px;
-	float: right;
-	margin-left: 2em;
-	padding-left: 2em;
-	border-left: 1px solid #BBBBBB;
-}
-
-#payflowpro_gateway-cc_form_letter {
-	height: 100%;
-}
-
-#payflowpro_gateway-cc_form_letter p {
-	font-size: 1.125em;
-	margin-bottom: 1.2em;
-}
-
 #payflowpro_gateway-personal-info {
 	margin-right:0 !important;
 }
 
-#payflowpro_gateway-donate-addl-info-secure-logos {
-	float: left;
-	margin-right: 2em;
-}
-
-#payflowpro_gateway-cc_form_letter_inside {
-	padding-top: .5em;
-}
-
-#payflowpro_gateway-cc_otherways {
-	padding-top: .5em;
-	display: block;
-}
-#payflowpro_gateway-donate-addl-info {
-	margin-top:2em !important;
-	margin-bottom:1em !important;
-}
-
+/* appeal styles */
 #appeal {
 	background-color:transparent;
 	border-color:transparent;
@@ -99,8 +51,6 @@ div#payflowpro_gateway-donate-submessage {
 	margin-bottom:1em;
 	padding:0.2em 0;
 }
-#donate {
-}
 #donate-head {
 	border:none;
 	font-size:1.5em;
@@ -113,169 +63,82 @@ div#payflowpro_gateway-donate-submessage {
 	margin-bottom:1em;
 }
 
-/* Move the form up */
-#mw-head-base {
-	height: 1em !important;
+/* Forms and form partials */
+/* TODO: move common rules to shared css */
+.formCol {
+	width:425px !important;
 }
-
-/* Hiding content border */
-table {
-	background-color: transparent;
-}
-div#content {
-	background-color: transparent !important;
-	background-image: none !important;
-}
-div#mw-head-base {
-	background-image: none !important;
-}
-#footer {
-	background-image: none !important;
-}
-
-/* Hiding stuff we don't need */
-h1#firstHeading, div#contentSub {
-	display: none;
-}
-
-/* NEW STUFF */
 #greenBackground, div.donor{
-	padding:16px 24px;
-	width:550px;
 	background-color:#CCE7CD;
 	border: none;
 	margin-bottom: 10px;
+	padding: 15px;
 }
-p#informationsharing, p#monthlycancel {
-	width: 100%;
-	padding: 0 15px;
-	font-size: 12px;
-	text-align: center;
-	line-height: 140%;
+#greenBackground input[type="text"] {
+	margin-bottom: 6px !important;
 }
-/* TODO: move common rules to shared css */
-#moreinfolinks {
-	width: 100%;
-	margin: 1em 0;
-	text-align: center;
+#step1header {
+	padding: 1em;
 }
-ul#moreinfolinks li{
-    list-style: none !important;
-    list-style-image: none !important;
-}
-h3.amount_header {
-	padding: 0 0 0.4em 0;
-	margin-bottom: 0;
-	font-weight: normal;
-}
-
-table#payflow-table-donor{
-	/*margin-left: 10px;*/
-}
-
-#accountNumber {
-	width: 240px;
-	display: inline;
-}
-
-#cvc, #expiry {
-	width: 105px;
-	display: inline;
-	margin-left: 2px;
-}
-
-.legalWell {
-	background-color: rgba(255,255,255,0.3);
-	padding: 2em;
-	margin-top:1em;
+input.invalid {
+	border: 2px solid red !important;
 }
 .ccAreaHeader {
 	width: 100%;
 }
-
-/* Form `s */
-#greenBackground input[type="text"] {
-	margin-bottom:10px;
-}	
-
-.payflowpro_gateway-table-donor {
-
-}
-
-#city.form-control, #emailAdd.form-control {
-	width: 300px;
-	display: inline;
-}
-
-#zip.form-control {
-	width: 160px;
-	display: inline;
-}
-
-input.halfwidth {
-	width: 100px;
-}
-input.fullwidth {
-	width: 400px;
-}
-
-input.invalid {
-	border: 2px solid red !important;
-}
-
-input#city.halfwidth.state {
-	width:100px;
-}
-input#zip.halfwidth.state {
-	width:94px;
-	margin-left: 0;
-}
 select#state.us, select#state.au, select#state.ca, select#country {
-	width: 160px;
 	height: 30px;
+	width: 100%;
 	line-height: 170%;
 	background: none;
 	margin-top: .2em;
 	background-color: #f5f5f5;
 }
-#donate tr{
-	padding: 1em;
+#paymentSubmitBtn {
+	margin: 10px 0 10px 0;
 }
+#wpContainer {
+	margin-top: 6em;
+}
+#wpContainer label {
+	color: #333;
+	font-style: italic;
+	overflow: hidden;
+	margin-bottom: -1px;
+}
+#wpContainer h3.cc_header {
+	margin-top: 0 !important;
+}
+
+/* Legal text and informational links */
+p#informationsharing, p#monthlycancel {
+	width: 100%;
+	padding: 0;
+	font-size: 12px;
+	text-align: left;
+	line-height: 140%;
+}
+#wpContainer ul{
+	list-style-type: none !important;
+	margin:0;
+}
+ul#moreinfolinks li{
+    list-style: none !important;
+    list-style-image: none !important;
+    float: left;
+    clear: both;
+}
+#step1header{
+	background-color: #dff0d8;
+	height: 35px;
+}
+
+/* Error styles */
 .ccError {
 	display: none;
 	color: red;
 	font-weight: bold;
 	font-size: 12px;
-}
-
-
-/* Specific element overrides */
-.personalInfo {
-	padding: 15px;
-}
-.formControl {
-	margin-left: 0;
-}
-#fname, #lname {
-	width: 49%;
-	display: inline;
-}
-#street {
-	width: 100%;
-}
-#zip, #state {
-	width: 50%;
-	display: inline;
-}
-input#zip.ja {
-	width: 268px;
-}
-select#state.ja {
-	width:100%;
-}
-
-select#state.it {
-	width: auto;
 }
 
 /* From Webitects */
@@ -290,3 +153,7 @@ select#state.it {
 .form .options-v { margin-top: 5px; }
 .options-v li { padding-left: 25px; text-indent: -25px; }
 
+/* Bootstrap tweaks */
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	padding: 0 3px 0 3px !important;
+}

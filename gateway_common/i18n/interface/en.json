@@ -281,7 +281,7 @@
     "donate_interface-select-year-of-expiration": "Select year of expiration",
     "donate_interface-expires-question": "Expires?",
     "donate_interface-expires": "Expires",
-    "donate_interface-card-security-code": "Card security code",
+    "donate_interface-card-security-code": "Security code",
     "donate_interface-cvv": "CVV",
     "donate_interface-cvv-number-abbreviated": "CVV #",
     "donate_interface-cvv2": "CVV2",

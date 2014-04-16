@@ -177,23 +177,6 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 				'nodename' => 'input',
 				'value' => 'Nom',
 			),
-			'street' => array (
-				'nodename' => 'input',
-				'value' => '123 Rue Faux',
-			),
-			'city' => array (
-				'nodename' => 'input',
-				'value' => 'Versailles',
-			),
-			'zip' => array (
-				'nodename' => 'input',
-				'value' => '',
-			),
-			'country' => array (
-				'nodename' => 'select',
-				'value' => 'FR',
-				'selected' => 'FR'
-			),
 		);
 
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
