@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Fryed-peach",
-            "Shirayuki"
-        ]
-    },
-    "paypalgateway": "{{Identical|Make your donation now}}",
-    "paypal_gateway-desc": "{{desc}}"
+	"@metadata": {
+		"authors": [
+			"Fryed-peach",
+			"Shirayuki"
+		]
+	},
+	"paypalgateway": "{{Identical|Make your donation now}}",
+	"paypal_gateway-desc": "{{desc}}"
 }

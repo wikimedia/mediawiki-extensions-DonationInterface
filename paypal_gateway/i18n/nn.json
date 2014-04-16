@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Gunnernett"
-        ]
-    },
-    "paypal_gateway-desc": "Registrerer PayPal som ein mogleg stad å gje gåver"
+	"@metadata": {
+		"authors": [
+			"Gunnernett"
+		]
+	},
+	"paypal_gateway-desc": "Registrerer PayPal som ein mogleg stad å gje gåver"
 }

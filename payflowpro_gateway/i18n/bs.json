@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "CERminator"
-        ]
-    },
-    "payflowprogateway": "Donirajte sada",
-    "payflowpro_gateway-desc": "Procesiranje kreditnih kartica preko PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "Vaša transakcija je odobrena.\nHvala Vam za Vašu donaciju!",
-    "payflowpro_gateway-response-126": "Vaša transakcija čeka na provjeru.",
-    "payflowpro_gateway-response-126-2": "Neke informacije koje ste unijeli ne odgovaraju vašem profilu kreditne kartice, ili ste unijeli veoma veliki poklon. Za vašu sigurnost, vaša donacije je trenutno pod provjerom i mi ćemo vas obavijestiti putem navedenog e-maila ako ne uspijemo okončati vašu donaciju. Molimo pošaljite e-mail na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ako imate nekih pitanja. Hvala vam!",
-    "payflowpro_gateway-response-12": "Molimo kontaktirajte vašu kompaniju koja izdaje kreditnu karticu za daljnje informacije.",
-    "payflowpro_gateway-response-13": "Vaša transakcija zahtjeva glasovnu potvrdu.\nMolimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.",
-    "payflowpro_gateway-response-114": "Molimo kontaktirajte vašu kompaniju koja izdaje kreditne kartice za daljnje informacije.",
-    "payflowpro_gateway-response-23": "Vaš broj kreditne kartice ili datum isteka nisu tačni.",
-    "payflowpro_gateway-response-4": "Nevaljan iznos.",
-    "payflowpro_gateway-response-24": "Vaš broj kreditne kartice ili datum isteka nisu tačni.",
-    "payflowpro_gateway-response-112": "Vaša adresa ili CVV broj (sigurnosni kod) nisu tačni.",
-    "payflowpro_gateway-response-125": "Vaša transakcija je odbijena od strane Službe za prevenciju zloupotreba.",
-    "payflowpro_gateway-response-125-2": "Vaša kreditna kartica nije mogla biti provjerena. Molimo provjerite da li svi navedeni podaci odgovaraju profilu vaše kreditne kartice ili pokušajte drugu karticu. Također možete koristiti neki od naših <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">drugih načina za doniranje</a> ili nas kontaktirate na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Hvala vam za vašu podršku.",
-    "payflowpro_gateway-response-default": "Desila se greška pri procesiranju vaše transakcije.\nMolimo pokušajte kasnije."
+	"@metadata": {
+		"authors": [
+			"CERminator"
+		]
+	},
+	"payflowprogateway": "Donirajte sada",
+	"payflowpro_gateway-desc": "Procesiranje kreditnih kartica preko PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "Vaša transakcija je odobrena.\nHvala Vam za Vašu donaciju!",
+	"payflowpro_gateway-response-126": "Vaša transakcija čeka na provjeru.",
+	"payflowpro_gateway-response-126-2": "Neke informacije koje ste unijeli ne odgovaraju vašem profilu kreditne kartice, ili ste unijeli veoma veliki poklon. Za vašu sigurnost, vaša donacije je trenutno pod provjerom i mi ćemo vas obavijestiti putem navedenog e-maila ako ne uspijemo okončati vašu donaciju. Molimo pošaljite e-mail na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ako imate nekih pitanja. Hvala vam!",
+	"payflowpro_gateway-response-12": "Molimo kontaktirajte vašu kompaniju koja izdaje kreditnu karticu za daljnje informacije.",
+	"payflowpro_gateway-response-13": "Vaša transakcija zahtjeva glasovnu potvrdu.\nMolimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.",
+	"payflowpro_gateway-response-114": "Molimo kontaktirajte vašu kompaniju koja izdaje kreditne kartice za daljnje informacije.",
+	"payflowpro_gateway-response-23": "Vaš broj kreditne kartice ili datum isteka nisu tačni.",
+	"payflowpro_gateway-response-4": "Nevaljan iznos.",
+	"payflowpro_gateway-response-24": "Vaš broj kreditne kartice ili datum isteka nisu tačni.",
+	"payflowpro_gateway-response-112": "Vaša adresa ili CVV broj (sigurnosni kod) nisu tačni.",
+	"payflowpro_gateway-response-125": "Vaša transakcija je odbijena od strane Službe za prevenciju zloupotreba.",
+	"payflowpro_gateway-response-125-2": "Vaša kreditna kartica nije mogla biti provjerena. Molimo provjerite da li svi navedeni podaci odgovaraju profilu vaše kreditne kartice ili pokušajte drugu karticu. Također možete koristiti neki od naših <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">drugih načina za doniranje</a> ili nas kontaktirate na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Hvala vam za vašu podršku.",
+	"payflowpro_gateway-response-default": "Desila se greška pri procesiranju vaše transakcije.\nMolimo pokušajte kasnije."
 }

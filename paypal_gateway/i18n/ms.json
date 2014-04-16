@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Anakmalaysia"
-        ]
-    },
-    "paypalgateway": "Derma sekarang",
-    "paypal_gateway-desc": "Pemprosesan pembayaran PayPal"
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia"
+		]
+	},
+	"paypalgateway": "Derma sekarang",
+	"paypal_gateway-desc": "Pemprosesan pembayaran PayPal"
 }

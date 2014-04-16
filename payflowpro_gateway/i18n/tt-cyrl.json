@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ильнар"
-        ]
-    },
-    "payflowprogateway": "Сез хәзер үк иганә ясый аласыз",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro кредит карталарын куллану",
-    "payflowpro_gateway-response-0": "Керткән иганәгез өчен бик зур рәхмәт сезгә!",
-    "payflowpro_gateway-response-126": "Сезнең транзакция тикшерүне көтә."
+	"@metadata": {
+		"authors": [
+			"Ильнар"
+		]
+	},
+	"payflowprogateway": "Сез хәзер үк иганә ясый аласыз",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro кредит карталарын куллану",
+	"payflowpro_gateway-response-0": "Керткән иганәгез өчен бик зур рәхмәт сезгә!",
+	"payflowpro_gateway-response-126": "Сезнең транзакция тикшерүне көтә."
 }

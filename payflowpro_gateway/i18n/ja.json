@@ -1,29 +1,29 @@
 {
-    "@metadata": {
-        "authors": [
-            "Akaniji",
-            "Aphaia",
-            "Fryed-peach",
-            "Kanon und wikipedia",
-            "Ohgi",
-            "Shirayuki",
-            "Whym",
-            "青子守歌"
-        ]
-    },
-    "payflowprogateway": "今すぐ寄付",
-    "payflowpro_gateway-desc": "PayPalのPayflow Proによるクレジットカード処理",
-    "payflowpro_gateway-response-0": "取引は承認されました。\nご寄付をありがとうございます!",
-    "payflowpro_gateway-response-126": "取引は承認待ちです。",
-    "payflowpro_gateway-response-126-2": "入力された情報の中にあなたのクレジットカード情報と一致しないものがあるか、または金額が非常に大きなものになっています。安全のため、この寄付は現在審査中となっており、寄付を完了させることができない場合は、指定されたメールアドレスにメールでお知らせします。質問がある場合は <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> にメールでお問い合わせください。ありがとうございました!",
-    "payflowpro_gateway-response-12": "より詳しい情報はクレジットカード会社にお問い合わせください。",
-    "payflowpro_gateway-response-13": "取引には音声による認証が必要です。\n取引を続けるには私たちにお問い合わせください。",
-    "payflowpro_gateway-response-114": "より詳しい情報はクレジットカード会社にお問い合わせください。",
-    "payflowpro_gateway-response-23": "クレジットカード番号あるいは有効期限が正しくありません。",
-    "payflowpro_gateway-response-4": "金額が正しくありません。",
-    "payflowpro_gateway-response-24": "クレジットカード番号あるいは有効期限が正しくありません。",
-    "payflowpro_gateway-response-112": "住所あるいはカード照合番号 (セキュリティコード) が正しくありません。",
-    "payflowpro_gateway-response-125": "あなたの取引は詐欺防止サービスによって拒否されました。",
-    "payflowpro_gateway-response-125-2": "クレジットカードの妥当性を確認できませんでした。入力した情報すべてがクレジットカードの情報と一致しているか検証するか、または別のカードを試してください。<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">他の寄付方法</a>のいずれかを利用したり、私たちに <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> で連絡を取ることもできます。ご支援ありがとうございます。",
-    "payflowpro_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度試してください。"
+	"@metadata": {
+		"authors": [
+			"Akaniji",
+			"Aphaia",
+			"Fryed-peach",
+			"Kanon und wikipedia",
+			"Ohgi",
+			"Shirayuki",
+			"Whym",
+			"青子守歌"
+		]
+	},
+	"payflowprogateway": "今すぐ寄付",
+	"payflowpro_gateway-desc": "PayPalのPayflow Proによるクレジットカード処理",
+	"payflowpro_gateway-response-0": "取引は承認されました。\nご寄付をありがとうございます!",
+	"payflowpro_gateway-response-126": "取引は承認待ちです。",
+	"payflowpro_gateway-response-126-2": "入力された情報の中にあなたのクレジットカード情報と一致しないものがあるか、または金額が非常に大きなものになっています。安全のため、この寄付は現在審査中となっており、寄付を完了させることができない場合は、指定されたメールアドレスにメールでお知らせします。質問がある場合は <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> にメールでお問い合わせください。ありがとうございました!",
+	"payflowpro_gateway-response-12": "より詳しい情報はクレジットカード会社にお問い合わせください。",
+	"payflowpro_gateway-response-13": "取引には音声による認証が必要です。\n取引を続けるには私たちにお問い合わせください。",
+	"payflowpro_gateway-response-114": "より詳しい情報はクレジットカード会社にお問い合わせください。",
+	"payflowpro_gateway-response-23": "クレジットカード番号あるいは有効期限が正しくありません。",
+	"payflowpro_gateway-response-4": "金額が正しくありません。",
+	"payflowpro_gateway-response-24": "クレジットカード番号あるいは有効期限が正しくありません。",
+	"payflowpro_gateway-response-112": "住所あるいはカード照合番号 (セキュリティコード) が正しくありません。",
+	"payflowpro_gateway-response-125": "あなたの取引は詐欺防止サービスによって拒否されました。",
+	"payflowpro_gateway-response-125-2": "クレジットカードの妥当性を確認できませんでした。入力した情報すべてがクレジットカードの情報と一致しているか検証するか、または別のカードを試してください。<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">他の寄付方法</a>のいずれかを利用したり、私たちに <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> で連絡を取ることもできます。ご支援ありがとうございます。",
+	"payflowpro_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度試してください。"
 }

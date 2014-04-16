@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Rancher"
-        ]
-    },
-    "globalcollect_gateway-response-21000150": "Неисправан број рачуна.",
-    "globalcollect_gateway-response-21000155": "Неисправан банковни кôд."
+	"@metadata": {
+		"authors": [
+			"Rancher"
+		]
+	},
+	"globalcollect_gateway-response-21000150": "Неисправан број рачуна.",
+	"globalcollect_gateway-response-21000155": "Неисправан банковни кôд."
 }

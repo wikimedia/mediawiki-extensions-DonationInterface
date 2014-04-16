@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joetaras"
-        ]
-    },
-    "amazongateway": "Fà 'a donazziona toje mò",
-    "amazon_gateway-desc": "Procese de pajamende de Amazon"
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"amazongateway": "Fà 'a donazziona toje mò",
+	"amazon_gateway-desc": "Procese de pajamende de Amazon"
 }

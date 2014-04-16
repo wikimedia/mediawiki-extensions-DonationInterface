@@ -1,27 +1,27 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ebraminio",
-            "Huji",
-            "Mjbmr",
-            "Sahim",
-            "Wayiran",
-            "ZxxZxxZ"
-        ]
-    },
-    "payflowprogateway": "همینک اهدا کنید",
-    "payflowpro_gateway-desc": "پردازش کارت اعتباری PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "انتقال وجه شما تأیید شده است.\nتشکر از کمک مالی شما!",
-    "payflowpro_gateway-response-126": "انتقال وجه شما در انتظار تأیید است.",
-    "payflowpro_gateway-response-126-2": "برخی از اطلاعاتی که ارائه کردید با پروندهٔ کارت اعتباری‌تان همخوانی نداشت، یا آنکه هدیهٔ بسیار بزرگی اهداء کردید. برای امنیت خودتان، کمک مالی شما هم‌اکنون در حال بازبینی است، و اگر ما نتوانستیم کمک مالی شما را نهایی کنیم، از طریق نشانی رایانامه ارائه‌شده به شما خبر خواهیم داد. اگر سوالی دارید، لطفاً به رایانامهٔ ما \u003Ca href=\"mailto:donate@wikimedia.org\"\u003Edonate@wikimedia.org\u003C/a\u003E بفرستید. سپاسگزاریم",
-    "payflowpro_gateway-response-12": "لطفاً با شرکت کارت اعتباری برای اطلاعات بیشتر تماس بگیرید.",
-    "payflowpro_gateway-response-13": "انتقال وجه شما به مجوز صوتی نیاز دارد.\nلطفاً برای ادامهٔ انتقال وجه با ما تماس بگیرید.",
-    "payflowpro_gateway-response-114": "لطفاً با شرکت کارت اعتباری برای اطلاعات بیشتر تماس بگیرید.",
-    "payflowpro_gateway-response-23": "شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.",
-    "payflowpro_gateway-response-4": "مبلغ نامعتبر",
-    "payflowpro_gateway-response-24": "شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.",
-    "payflowpro_gateway-response-112": "نشانی شما یا شمارهٔ CVV (کد امنیتی) نادرست است.",
-    "payflowpro_gateway-response-125": "انتقال وجه شما توسط ''خدمات جلوگیری از کلاه‌برداری'' رد شده است.",
-    "payflowpro_gateway-response-125-2": "کارت اعتباری شما نتوانست تأیید اعتبار شود. لطفاً تأیید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از \u003Ca href=\"http://wikimediafoundation.org/wiki/ارسال\"\u003Eدیگر راه‌های ما برای اعطا\u003C/a\u003E استفاده کنید یا از طریق \u003Ca href=\"mailto:donate@wikimedia.org\"\u003Edonate@wikimedia.org\u003C/a\u003E با ما تماس بگیرید. از حمایت شما سپاسگزاریم.",
-    "payflowpro_gateway-response-default": "برای پردازش تراکنش شما خطا وجود دارد.\nلطفاً دوباره تلاش کنید."
+	"@metadata": {
+		"authors": [
+			"Ebraminio",
+			"Huji",
+			"Mjbmr",
+			"Sahim",
+			"Wayiran",
+			"ZxxZxxZ"
+		]
+	},
+	"payflowprogateway": "همینک اهدا کنید",
+	"payflowpro_gateway-desc": "پردازش کارت اعتباری PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "انتقال وجه شما تأیید شده است.\nتشکر از کمک مالی شما!",
+	"payflowpro_gateway-response-126": "انتقال وجه شما در انتظار تأیید است.",
+	"payflowpro_gateway-response-126-2": "برخی از اطلاعاتی که ارائه کردید با پروندهٔ کارت اعتباری‌تان همخوانی نداشت، یا آنکه هدیهٔ بسیار بزرگی اهداء کردید. برای امنیت خودتان، کمک مالی شما هم‌اکنون در حال بازبینی است، و اگر ما نتوانستیم کمک مالی شما را نهایی کنیم، از طریق نشانی رایانامه ارائه‌شده به شما خبر خواهیم داد. اگر سوالی دارید، لطفاً به رایانامهٔ ما <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> بفرستید. سپاسگزاریم",
+	"payflowpro_gateway-response-12": "لطفاً با شرکت کارت اعتباری برای اطلاعات بیشتر تماس بگیرید.",
+	"payflowpro_gateway-response-13": "انتقال وجه شما به مجوز صوتی نیاز دارد.\nلطفاً برای ادامهٔ انتقال وجه با ما تماس بگیرید.",
+	"payflowpro_gateway-response-114": "لطفاً با شرکت کارت اعتباری برای اطلاعات بیشتر تماس بگیرید.",
+	"payflowpro_gateway-response-23": "شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.",
+	"payflowpro_gateway-response-4": "مبلغ نامعتبر",
+	"payflowpro_gateway-response-24": "شمارهٔ کارت اعتباری یا تاریخ انقضایتان معتبر نیست.",
+	"payflowpro_gateway-response-112": "نشانی شما یا شمارهٔ CVV (کد امنیتی) نادرست است.",
+	"payflowpro_gateway-response-125": "انتقال وجه شما توسط ''خدمات جلوگیری از کلاه‌برداری'' رد شده است.",
+	"payflowpro_gateway-response-125-2": "کارت اعتباری شما نتوانست تأیید اعتبار شود. لطفاً تأیید کنید که همهٔ اطلاعات ارائه‌شده با پروندهٔ کارت اعتباری شما همخوانی دارد، یا یک کارت اعتباری دیگر را بیازمایید. شما همچنین می‌توانید از <a href=\"http://wikimediafoundation.org/wiki/ارسال\">دیگر راه‌های ما برای اعطا</a> استفاده کنید یا از طریق <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> با ما تماس بگیرید. از حمایت شما سپاسگزاریم.",
+	"payflowpro_gateway-response-default": "برای پردازش تراکنش شما خطا وجود دارد.\nلطفاً دوباره تلاش کنید."
 }

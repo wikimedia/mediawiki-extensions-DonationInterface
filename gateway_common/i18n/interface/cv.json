@@ -1,25 +1,25 @@
 {
-    "@metadata": {
-        "authors": [
-            "Salam"
-        ]
-    },
-    "donate_interface-donor-name": "Ят:",
-    "donate_interface-donor-fname": "Ят:",
-    "donate_interface-donor-mname": "Ашшӗ ячӗ:",
-    "donate_interface-donor-lname": "Хушамат:",
-    "donate_interface-donor-street": "Урам:",
-    "donate_interface-donor-street-number": "Номер:",
-    "donate_interface-donor-city": "Хула (ял):",
-    "donate_interface-donor-county": "Округ:",
-    "donate_interface-donor-island": "Утрав:",
-    "donate_interface-donor-state": "Штат:",
-    "donate_interface-donor-zip": "Индекс:",
-    "donate_interface-donor-postal": "Пуштӑ индексӗ:",
-    "donate_interface-donor-country": "Ҫӗршыв е регион:",
-    "donate_interface-donor-zone": "Зона:",
-    "donate_interface-donor-address": "Адрес:",
-    "donate_interface-donor-pobox": "Абонент ещӗкӗ:",
-    "donate_interface-donor-card": "Кивҫен картти:",
-    "donate_interface-donor-card-num": "Карттӑ номерӗ:"
+	"@metadata": {
+		"authors": [
+			"Salam"
+		]
+	},
+	"donate_interface-donor-name": "Ят:",
+	"donate_interface-donor-fname": "Ят:",
+	"donate_interface-donor-mname": "Ашшӗ ячӗ:",
+	"donate_interface-donor-lname": "Хушамат:",
+	"donate_interface-donor-street": "Урам:",
+	"donate_interface-donor-street-number": "Номер:",
+	"donate_interface-donor-city": "Хула (ял):",
+	"donate_interface-donor-county": "Округ:",
+	"donate_interface-donor-island": "Утрав:",
+	"donate_interface-donor-state": "Штат:",
+	"donate_interface-donor-zip": "Индекс:",
+	"donate_interface-donor-postal": "Пуштӑ индексӗ:",
+	"donate_interface-donor-country": "Ҫӗршыв е регион:",
+	"donate_interface-donor-zone": "Зона:",
+	"donate_interface-donor-address": "Адрес:",
+	"donate_interface-donor-pobox": "Абонент ещӗкӗ:",
+	"donate_interface-donor-card": "Кивҫен картти:",
+	"donate_interface-donor-card-num": "Карттӑ номерӗ:"
 }

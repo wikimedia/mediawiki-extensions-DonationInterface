@@ -1,26 +1,26 @@
 {
-    "@metadata": {
-        "authors": [
-            "AdiJapan",
-            "Cin",
-            "Firilacroco",
-            "Minisarm",
-            "Stelistcristi"
-        ]
-    },
-    "payflowprogateway": "Donați acum",
-    "payflowpro_gateway-desc": "Prelucrează cardul de credit PayPal Payflow Pro",
-    "payflowpro_gateway-response-0": "Tranzacția dumneavoastră a fost aprobată.\nVă mulțumim pentru donație!",
-    "payflowpro_gateway-response-126": "Tranzacția dumneavoastră este în curs de aprobare.",
-    "payflowpro_gateway-response-126-2": "Anumite informații pe care le-ați furnizat nu se potrivesc cu profilul cardului de credit sau ați făcut un cadou foarte consistent. Pentru siguranța dumneavoastră, donația este în curs de verificare, urmând să vă înștiințăm, în cazul în care acesta nu poate fi finalizată, prin intermediul adresei de e-mail oferite. Dacă aveți întrebări vă rugăm să ne contactați la <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Vă mulțumim!",
-    "payflowpro_gateway-response-12": "Vă rugăm să contactați compania emitentă a cardului dumneavoastră de credit pentru informații suplimentare.",
-    "payflowpro_gateway-response-13": "Tranzacția dumneavoastră necesită autorizare vocală.\nContactați-ne pentru a vă continua tranzacția.",
-    "payflowpro_gateway-response-114": "Vă rugăm să contactați compania emitentă a cardului dumneavoastră de credit pentru informații suplimentare.",
-    "payflowpro_gateway-response-23": "Numărul cardului de credit sau data expirării este incorect(ă).",
-    "payflowpro_gateway-response-4": "Sumă incorectă.",
-    "payflowpro_gateway-response-24": "Numărul cardului de credit sau data expirării este incorect(ă).",
-    "payflowpro_gateway-response-112": "Adresa dumneavoastră sau codul CCV (cod de securitate) este incorect(ă).",
-    "payflowpro_gateway-response-125": "Tranzacția dumneavoastră a fost respinsă de către serviciile de prevenire a fraudelor.",
-    "payflowpro_gateway-response-125-2": "Cardul dumneavoastră de credit nu a putut fi validat. Vă rugăm să verificați dacă toate informațiile introduse corespund profilului cardului sau să reîncercați cu un alt card de credit. Puteți de asemenea utiliza celelalte <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">modalități de donare</a> sau ne puteți contacta la <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Vă mulțumim pentru sprijinul acordat.",
-    "payflowpro_gateway-response-default": "S-a produs o eroare în timpul procesării tranzacției dumneavoastră.\nVă rugăm să reîncercați mai târziu."
+	"@metadata": {
+		"authors": [
+			"AdiJapan",
+			"Cin",
+			"Firilacroco",
+			"Minisarm",
+			"Stelistcristi"
+		]
+	},
+	"payflowprogateway": "Donați acum",
+	"payflowpro_gateway-desc": "Prelucrează cardul de credit PayPal Payflow Pro",
+	"payflowpro_gateway-response-0": "Tranzacția dumneavoastră a fost aprobată.\nVă mulțumim pentru donație!",
+	"payflowpro_gateway-response-126": "Tranzacția dumneavoastră este în curs de aprobare.",
+	"payflowpro_gateway-response-126-2": "Anumite informații pe care le-ați furnizat nu se potrivesc cu profilul cardului de credit sau ați făcut un cadou foarte consistent. Pentru siguranța dumneavoastră, donația este în curs de verificare, urmând să vă înștiințăm, în cazul în care acesta nu poate fi finalizată, prin intermediul adresei de e-mail oferite. Dacă aveți întrebări vă rugăm să ne contactați la <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Vă mulțumim!",
+	"payflowpro_gateway-response-12": "Vă rugăm să contactați compania emitentă a cardului dumneavoastră de credit pentru informații suplimentare.",
+	"payflowpro_gateway-response-13": "Tranzacția dumneavoastră necesită autorizare vocală.\nContactați-ne pentru a vă continua tranzacția.",
+	"payflowpro_gateway-response-114": "Vă rugăm să contactați compania emitentă a cardului dumneavoastră de credit pentru informații suplimentare.",
+	"payflowpro_gateway-response-23": "Numărul cardului de credit sau data expirării este incorect(ă).",
+	"payflowpro_gateway-response-4": "Sumă incorectă.",
+	"payflowpro_gateway-response-24": "Numărul cardului de credit sau data expirării este incorect(ă).",
+	"payflowpro_gateway-response-112": "Adresa dumneavoastră sau codul CCV (cod de securitate) este incorect(ă).",
+	"payflowpro_gateway-response-125": "Tranzacția dumneavoastră a fost respinsă de către serviciile de prevenire a fraudelor.",
+	"payflowpro_gateway-response-125-2": "Cardul dumneavoastră de credit nu a putut fi validat. Vă rugăm să verificați dacă toate informațiile introduse corespund profilului cardului sau să reîncercați cu un alt card de credit. Puteți de asemenea utiliza celelalte <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">modalități de donare</a> sau ne puteți contacta la <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Vă mulțumim pentru sprijinul acordat.",
+	"payflowpro_gateway-response-default": "S-a produs o eroare în timpul procesării tranzacției dumneavoastră.\nVă rugăm să reîncercați mai târziu."
 }

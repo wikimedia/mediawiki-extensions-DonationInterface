@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joseph"
-        ]
-    },
-    "paypal_gateway-desc": "Bir bağış düzeneği olarak PayPal'ı kaydeder"
+	"@metadata": {
+		"authors": [
+			"Joseph"
+		]
+	},
+	"paypal_gateway-desc": "Bir bağış düzeneği olarak PayPal'ı kaydeder"
 }

@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Wizardist"
-        ]
-    },
-    "amazongateway": "Зрабіце ахвяраваньне зараз",
-    "amazon_gateway-desc": "Працэсінг плацяжоў Amazon"
+	"@metadata": {
+		"authors": [
+			"Wizardist"
+		]
+	},
+	"amazongateway": "Зрабіце ахвяраваньне зараз",
+	"amazon_gateway-desc": "Працэсінг плацяжоў Amazon"
 }

@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "IvanLanin"
-        ]
-    },
-    "paypal_gateway-desc": "Mendaftarkan PayPal sebagai suatu mekanisme donasi"
+	"@metadata": {
+		"authors": [
+			"IvanLanin"
+		]
+	},
+	"paypal_gateway-desc": "Mendaftarkan PayPal sebagai suatu mekanisme donasi"
 }

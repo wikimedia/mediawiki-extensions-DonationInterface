@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ата"
-        ]
-    },
-    "adyengateway": "Зробіть Вашу пожертву зараз",
-    "adyen_gateway-desc": "Обробка платежу Adyen",
-    "adyen_gateway-response-default": "Під час обробки Вашої транзакції виникла помилка.\nБудь ласка, спробуйте пізніше."
+	"@metadata": {
+		"authors": [
+			"Ата"
+		]
+	},
+	"adyengateway": "Зробіть Вашу пожертву зараз",
+	"adyen_gateway-desc": "Обробка платежу Adyen",
+	"adyen_gateway-response-default": "Під час обробки Вашої транзакції виникла помилка.\nБудь ласка, спробуйте пізніше."
 }

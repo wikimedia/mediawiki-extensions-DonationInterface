@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Darth Kule"
-        ]
-    },
-    "paypalgateway": "Fai ora la tua donazione",
-    "paypal_gateway-desc": "Esecuzione del pagamento con Paypal"
+	"@metadata": {
+		"authors": [
+			"Darth Kule"
+		]
+	},
+	"paypalgateway": "Fai ora la tua donazione",
+	"paypal_gateway-desc": "Esecuzione del pagamento con Paypal"
 }

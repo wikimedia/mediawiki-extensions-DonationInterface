@@ -1,15 +1,15 @@
 {
-    "@metadata": {
-        "authors": [
-            "Gunnernett",
-            "Nghtwlkr",
-            "Njardarlogar"
-        ]
-    },
-    "payflowprogateway": "Gje no",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro kredittkorthandsaming",
-    "payflowpro_gateway-response-0": "Overføringa di har vorte godkjend.\nTakk for gåva di!",
-    "payflowpro_gateway-response-126": "Pengeoverføringa di ventar på godkjenning",
-    "payflowpro_gateway-response-23": "Kredittkortnummeret ditt eller utløpsdatoen er ikkje rett.",
-    "payflowpro_gateway-response-125": "Overføringa di har vorte avvist av tenesta som skal hindra svindel."
+	"@metadata": {
+		"authors": [
+			"Gunnernett",
+			"Nghtwlkr",
+			"Njardarlogar"
+		]
+	},
+	"payflowprogateway": "Gje no",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro kredittkorthandsaming",
+	"payflowpro_gateway-response-0": "Overføringa di har vorte godkjend.\nTakk for gåva di!",
+	"payflowpro_gateway-response-126": "Pengeoverføringa di ventar på godkjenning",
+	"payflowpro_gateway-response-23": "Kredittkortnummeret ditt eller utløpsdatoen er ikkje rett.",
+	"payflowpro_gateway-response-125": "Overføringa di har vorte avvist av tenesta som skal hindra svindel."
 }

@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Matma Rex"
-        ]
-    },
-    "amazongateway": "Przekaż darowiznę",
-    "amazon_gateway-desc": "Przetwarzanie płatności Amazon"
+	"@metadata": {
+		"authors": [
+			"Matma Rex"
+		]
+	},
+	"amazongateway": "Przekaż darowiznę",
+	"amazon_gateway-desc": "Przetwarzanie płatności Amazon"
 }

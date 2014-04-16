@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Mormegil"
-        ]
-    },
-    "paypalgateway": "Poskytnout příspěvek",
-    "paypal_gateway-desc": "Zpracování plateb přes PayPal"
+	"@metadata": {
+		"authors": [
+			"Mormegil"
+		]
+	},
+	"paypalgateway": "Poskytnout příspěvek",
+	"paypal_gateway-desc": "Zpracování plateb přes PayPal"
 }

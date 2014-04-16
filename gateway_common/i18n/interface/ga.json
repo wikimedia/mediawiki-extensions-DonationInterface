@@ -1,20 +1,20 @@
 {
-    "@metadata": {
-        "authors": [
-            "පසිඳු කාවින්ද"
-        ]
-    },
-    "donate_interface-comment-label": "Nóta tráchta:",
-    "donate_interface-donor-name": "Ainm",
-    "donate_interface-comment": "Nóta tráchta",
-    "donate_interface-last": "deireanach",
-    "donate_interface-other": "Eile",
-    "donate_interface-title": "Teideal",
-    "donate_interface-cvv": "CVV",
-    "donate_interface-cvv-number-abbreviated": "CVV #",
-    "donate_interface-cvv2": "CVV2",
-    "donate_interface-next": "Ar aghaidh",
-    "donate_interface-cancel": "Cealaigh",
-    "donate_interface-month": "$1 ($2)",
-    "donate_interface-language": "Teanga:"
+	"@metadata": {
+		"authors": [
+			"පසිඳු කාවින්ද"
+		]
+	},
+	"donate_interface-comment-label": "Nóta tráchta:",
+	"donate_interface-donor-name": "Ainm",
+	"donate_interface-comment": "Nóta tráchta",
+	"donate_interface-last": "deireanach",
+	"donate_interface-other": "Eile",
+	"donate_interface-title": "Teideal",
+	"donate_interface-cvv": "CVV",
+	"donate_interface-cvv-number-abbreviated": "CVV #",
+	"donate_interface-cvv2": "CVV2",
+	"donate_interface-next": "Ar aghaidh",
+	"donate_interface-cancel": "Cealaigh",
+	"donate_interface-month": "$1 ($2)",
+	"donate_interface-language": "Teanga:"
 }

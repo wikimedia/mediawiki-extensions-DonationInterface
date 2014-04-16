@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Purodha"
-        ]
-    },
-    "paypalgateway": "Donn jäz schpände",
-    "paypal_gateway-desc": "Deiht <i lang=\"en\">PayPal</i> als ene Wääsch för ze Schpände enndraare un di och affhandelle."
+	"@metadata": {
+		"authors": [
+			"Purodha"
+		]
+	},
+	"paypalgateway": "Donn jäz schpände",
+	"paypal_gateway-desc": "Deiht <i lang=\"en\">PayPal</i> als ene Wääsch för ze Schpände enndraare un di och affhandelle."
 }

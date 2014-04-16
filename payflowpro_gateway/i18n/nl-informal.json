@@ -1,17 +1,17 @@
 {
-    "@metadata": {
-        "authors": [
-            "Siebrand"
-        ]
-    },
-    "payflowpro_gateway-response-0": "Je transactie is goedgekeurd.\nDank je wel voor je donatie!",
-    "payflowpro_gateway-response-126": "Je transactie wacht op goedkeuring.",
-    "payflowpro_gateway-response-126-2": "Enige informatie die je hebt opgegeven komt niet overeen met het profiel van je creditcard, of je hebt een zeer grote donatie geprobeerd te maken. Voor je eigen veiligheid wordt je donatie op dit moment gecontroleerd en we stellen je via het opgegeven e-mailadres op de hoogte als we je donatie niet kunnen afronden. Neem contact op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> als je vragen hebt. Dank je wel!",
-    "payflowpro_gateway-response-12": "Neem contact op met je creditcardmaatschappij voor meer informatie.",
-    "payflowpro_gateway-response-13": "Voor je transactie is mondelinge toestemming vereist.\nNeem contact met ons op voor je transactie.",
-    "payflowpro_gateway-response-114": "Neem contact op met je creditcardmaatschappij voor meer informatie.",
-    "payflowpro_gateway-response-112": "Je adres of CVV-nummer (veiligheidscode) is onjuist.",
-    "payflowpro_gateway-response-125": "Je transactie is geweigerd door Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Het was niet mogelijk je creditcard te valideren. Controleer of alle gegevens die je hebt opgegeven overeenkomen met je creditkaartprofiel, of probeer te doneren met een andere creditkaart. je kunt ook op <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andere wijzen doneren</a> of contact met ons opnemen via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dank je wel voor je steun.",
-    "payflowpro_gateway-response-default": "Er is een fout opgetreden tijdens het verwerken van je transactie.\nProbeer het later nog een keer."
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"payflowpro_gateway-response-0": "Je transactie is goedgekeurd.\nDank je wel voor je donatie!",
+	"payflowpro_gateway-response-126": "Je transactie wacht op goedkeuring.",
+	"payflowpro_gateway-response-126-2": "Enige informatie die je hebt opgegeven komt niet overeen met het profiel van je creditcard, of je hebt een zeer grote donatie geprobeerd te maken. Voor je eigen veiligheid wordt je donatie op dit moment gecontroleerd en we stellen je via het opgegeven e-mailadres op de hoogte als we je donatie niet kunnen afronden. Neem contact op via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> als je vragen hebt. Dank je wel!",
+	"payflowpro_gateway-response-12": "Neem contact op met je creditcardmaatschappij voor meer informatie.",
+	"payflowpro_gateway-response-13": "Voor je transactie is mondelinge toestemming vereist.\nNeem contact met ons op voor je transactie.",
+	"payflowpro_gateway-response-114": "Neem contact op met je creditcardmaatschappij voor meer informatie.",
+	"payflowpro_gateway-response-112": "Je adres of CVV-nummer (veiligheidscode) is onjuist.",
+	"payflowpro_gateway-response-125": "Je transactie is geweigerd door Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Het was niet mogelijk je creditcard te valideren. Controleer of alle gegevens die je hebt opgegeven overeenkomen met je creditkaartprofiel, of probeer te doneren met een andere creditkaart. je kunt ook op <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andere wijzen doneren</a> of contact met ons opnemen via <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dank je wel voor je steun.",
+	"payflowpro_gateway-response-default": "Er is een fout opgetreden tijdens het verwerken van je transactie.\nProbeer het later nog een keer."
 }

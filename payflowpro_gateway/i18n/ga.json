@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Kwekubo"
-        ]
-    },
-    "payflowprogateway": "Tacaigh le Wikimedia",
-    "payflowpro_gateway-desc": "Próiseáil chárta creidmheasa PayPal Payflow Pro"
+	"@metadata": {
+		"authors": [
+			"Kwekubo"
+		]
+	},
+	"payflowprogateway": "Tacaigh le Wikimedia",
+	"payflowpro_gateway-desc": "Próiseáil chárta creidmheasa PayPal Payflow Pro"
 }

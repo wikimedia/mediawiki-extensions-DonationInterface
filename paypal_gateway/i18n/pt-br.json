@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Fúlvio"
-        ]
-    },
-    "paypalgateway": "Faça a sua doação agora",
-    "paypal_gateway-desc": "Processamento de pagamentos PayPal"
+	"@metadata": {
+		"authors": [
+			"Fúlvio"
+		]
+	},
+	"paypalgateway": "Faça a sua doação agora",
+	"paypal_gateway-desc": "Processamento de pagamentos PayPal"
 }

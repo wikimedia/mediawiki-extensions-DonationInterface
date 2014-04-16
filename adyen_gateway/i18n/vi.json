@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Minh Nguyen"
-        ]
-    },
-    "adyengateway": "Quyên góp ngay bây giờ",
-    "adyen_gateway-desc": "Xử lý thanh toán qua Adyen",
-    "adyen_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau."
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen"
+		]
+	},
+	"adyengateway": "Quyên góp ngay bây giờ",
+	"adyen_gateway-desc": "Xử lý thanh toán qua Adyen",
+	"adyen_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau."
 }

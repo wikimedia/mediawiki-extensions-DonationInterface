@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Wizardist"
-        ]
-    },
-    "paypalgateway": "Зрабіце ахвяраваньне зараз",
-    "paypal_gateway-desc": "Працэсінг плацяжоў Paypal"
+	"@metadata": {
+		"authors": [
+			"Wizardist"
+		]
+	},
+	"paypalgateway": "Зрабіце ахвяраваньне зараз",
+	"paypal_gateway-desc": "Працэсінг плацяжоў Paypal"
 }

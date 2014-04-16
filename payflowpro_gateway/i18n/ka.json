@@ -1,19 +1,19 @@
 {
-    "@metadata": {
-        "authors": [
-            "BRUTE",
-            "David1010",
-            "Dawid Deutschland",
-            "Temuri rajavi"
-        ]
-    },
-    "payflowprogateway": "გაიღე  თანხა ახლავე",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro საკრედიტო ბარათების დამუშავება",
-    "payflowpro_gateway-response-0": "თქვენი ტრანზაქცია დამტკიცებულია.\nგმადლობთ შემოწირულობისათვის!",
-    "payflowpro_gateway-response-126": "თქვენი გადარიცხვა ელოდება დამტკიცებას.",
-    "payflowpro_gateway-response-12": "დამატებითი ინფორმაციისათვის გთხოვთ, დაუკავშირდით თქვენი საკრედიტო ბარათის კომპანიას.",
-    "payflowpro_gateway-response-23": "თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.",
-    "payflowpro_gateway-response-4": "არასწორი თანხა.",
-    "payflowpro_gateway-response-24": "თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.",
-    "payflowpro_gateway-response-112": "თქვენი მისამართი ან CVV ნომერი (უსაფრთხოების კოდი) არასწორია."
+	"@metadata": {
+		"authors": [
+			"BRUTE",
+			"David1010",
+			"Dawid Deutschland",
+			"Temuri rajavi"
+		]
+	},
+	"payflowprogateway": "გაიღე  თანხა ახლავე",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro საკრედიტო ბარათების დამუშავება",
+	"payflowpro_gateway-response-0": "თქვენი ტრანზაქცია დამტკიცებულია.\nგმადლობთ შემოწირულობისათვის!",
+	"payflowpro_gateway-response-126": "თქვენი გადარიცხვა ელოდება დამტკიცებას.",
+	"payflowpro_gateway-response-12": "დამატებითი ინფორმაციისათვის გთხოვთ, დაუკავშირდით თქვენი საკრედიტო ბარათის კომპანიას.",
+	"payflowpro_gateway-response-23": "თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.",
+	"payflowpro_gateway-response-4": "არასწორი თანხა.",
+	"payflowpro_gateway-response-24": "თქვენი საკრედიტო ბარათის ნომერი ან ვადის გასვლის თარიღი არასწორია.",
+	"payflowpro_gateway-response-112": "თქვენი მისამართი ან CVV ნომერი (უსაფრთხოების კოდი) არასწორია."
 }

@@ -1,26 +1,26 @@
 {
-    "@metadata": {
-        "authors": [
-            "AwamerT",
-            "Meno25",
-            "OsamaK",
-            "ترجمان05",
-            "زكريا"
-        ]
-    },
-    "payflowprogateway": "تبرع الآن",
-    "payflowpro_gateway-desc": "معالجة PayPal Payflow Pro لبطاقات الائتمان",
-    "payflowpro_gateway-response-0": "اعتمدت حوالتك.\nشكرا لك على التبرع!",
-    "payflowpro_gateway-response-126": "حوالتك تنتظر الموافقة.",
-    "payflowpro_gateway-response-126-2": "بعض من المعلومات التي وفرتها لم تطابق ملف بطاقتك الائتمانية، أو أنت قمت بتبرع كبير جدا. لتأمينك، تبرعك حاليا تحت المراجعة، وسنخطرك من خلال عنوان البريد الإلكتروني الموفر لو لم نتمكن من إنهاء تبرعك. من فضلك راسل <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> لو لديك أي أسئلة. شكرا لك!",
-    "payflowpro_gateway-response-12": "من فضلك اتصل بشركة بطاقة ائتمانك لمزيد من المعلومات.",
-    "payflowpro_gateway-response-13": "تتطلب حوالتك الاستيثاق بالصوت.\nمن فضلك اتصل بنا لتكمل الحوالة",
-    "payflowpro_gateway-response-114": "من فضلك اتصل بشركة بطاقة ائتمانك لمزيد من المعلومات.",
-    "payflowpro_gateway-response-23": "رقم بطاقة ائتمانك أو تاريخ انتهائها غير صحيح.",
-    "payflowpro_gateway-response-4": "قيمة غير صالحة.",
-    "payflowpro_gateway-response-24": "رقم بطاقة ائتمانك أو تاريخ انتهائها غير صالح.",
-    "payflowpro_gateway-response-112": "عنوانك أو رقم CVV (كود الأمان) غير صحيح.",
-    "payflowpro_gateway-response-125": "ألغت Fraud Prevention Services تحويلك.",
-    "payflowpro_gateway-response-125-2": "بطاقتك الائتمانية لم يمكن التحقق منها. من فضلك تأكد من أن كل المعلومات الموفرة تطابق ملف بطاقتك الائتمانية، أو جرب بطاقة أخرى. يمكنك أيضا استخدام إحدى <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">وسائلنا الاخرى للعطاء</a> أو اتصل بنا في <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. شكرا لدعمك.",
-    "payflowpro_gateway-response-default": "ثمة خطأ أثناء تنفيذ التحويل.\nمن فضلك حاول مرة أخرى."
+	"@metadata": {
+		"authors": [
+			"AwamerT",
+			"Meno25",
+			"OsamaK",
+			"ترجمان05",
+			"زكريا"
+		]
+	},
+	"payflowprogateway": "تبرع الآن",
+	"payflowpro_gateway-desc": "معالجة PayPal Payflow Pro لبطاقات الائتمان",
+	"payflowpro_gateway-response-0": "اعتمدت حوالتك.\nشكرا لك على التبرع!",
+	"payflowpro_gateway-response-126": "حوالتك تنتظر الموافقة.",
+	"payflowpro_gateway-response-126-2": "بعض من المعلومات التي وفرتها لم تطابق ملف بطاقتك الائتمانية، أو أنت قمت بتبرع كبير جدا. لتأمينك، تبرعك حاليا تحت المراجعة، وسنخطرك من خلال عنوان البريد الإلكتروني الموفر لو لم نتمكن من إنهاء تبرعك. من فضلك راسل <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> لو لديك أي أسئلة. شكرا لك!",
+	"payflowpro_gateway-response-12": "من فضلك اتصل بشركة بطاقة ائتمانك لمزيد من المعلومات.",
+	"payflowpro_gateway-response-13": "تتطلب حوالتك الاستيثاق بالصوت.\nمن فضلك اتصل بنا لتكمل الحوالة",
+	"payflowpro_gateway-response-114": "من فضلك اتصل بشركة بطاقة ائتمانك لمزيد من المعلومات.",
+	"payflowpro_gateway-response-23": "رقم بطاقة ائتمانك أو تاريخ انتهائها غير صحيح.",
+	"payflowpro_gateway-response-4": "قيمة غير صالحة.",
+	"payflowpro_gateway-response-24": "رقم بطاقة ائتمانك أو تاريخ انتهائها غير صالح.",
+	"payflowpro_gateway-response-112": "عنوانك أو رقم CVV (كود الأمان) غير صحيح.",
+	"payflowpro_gateway-response-125": "ألغت Fraud Prevention Services تحويلك.",
+	"payflowpro_gateway-response-125-2": "بطاقتك الائتمانية لم يمكن التحقق منها. من فضلك تأكد من أن كل المعلومات الموفرة تطابق ملف بطاقتك الائتمانية، أو جرب بطاقة أخرى. يمكنك أيضا استخدام إحدى <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">وسائلنا الاخرى للعطاء</a> أو اتصل بنا في <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. شكرا لدعمك.",
+	"payflowpro_gateway-response-default": "ثمة خطأ أثناء تنفيذ التحويل.\nمن فضلك حاول مرة أخرى."
 }

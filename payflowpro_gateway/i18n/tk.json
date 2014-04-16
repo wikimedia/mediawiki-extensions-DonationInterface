@@ -1,20 +1,20 @@
 {
-    "@metadata": {
-        "authors": [
-            "Hanberke"
-        ]
-    },
-    "payflowprogateway": "Wikimediany goldaň",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro kredit kartynyň işlenişi",
-    "payflowpro_gateway-response-0": "Tranzaksiýaňyz tassyklanyldy.\nBagyşyňyz üçin sag boluň!",
-    "payflowpro_gateway-response-126": "Tranzaksiýaňyzyň tassyklamasyna garaşylýar.",
-    "payflowpro_gateway-response-12": "Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.",
-    "payflowpro_gateway-response-13": "Tranzaksiýaňyz ses ygtyýarlandyrmasyny talap edýär.\nTranzaksiýaňyza dowam etmek üçin biziň bilen habarlaşyň.",
-    "payflowpro_gateway-response-114": "Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.",
-    "payflowpro_gateway-response-23": "Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.",
-    "payflowpro_gateway-response-4": "Nädogry summa.",
-    "payflowpro_gateway-response-24": "Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.",
-    "payflowpro_gateway-response-112": "Adresiňiz ýa-da CVV belgiňiz (howpsuzlyk kody) nädogry.",
-    "payflowpro_gateway-response-125": "Tranzaksiýaňyz Fraud Prevention Services tarapyndan yzyna gaýtaryldy.",
-    "payflowpro_gateway-response-default": "Tranzaksiýaňyz işlenýärkä säwlik döredi.\nSoňra gaýtadan synaň."
+	"@metadata": {
+		"authors": [
+			"Hanberke"
+		]
+	},
+	"payflowprogateway": "Wikimediany goldaň",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro kredit kartynyň işlenişi",
+	"payflowpro_gateway-response-0": "Tranzaksiýaňyz tassyklanyldy.\nBagyşyňyz üçin sag boluň!",
+	"payflowpro_gateway-response-126": "Tranzaksiýaňyzyň tassyklamasyna garaşylýar.",
+	"payflowpro_gateway-response-12": "Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.",
+	"payflowpro_gateway-response-13": "Tranzaksiýaňyz ses ygtyýarlandyrmasyny talap edýär.\nTranzaksiýaňyza dowam etmek üçin biziň bilen habarlaşyň.",
+	"payflowpro_gateway-response-114": "Goşmaça maglumat üçin kredit kart kompaniýaňyz bilen habarlaşyň.",
+	"payflowpro_gateway-response-23": "Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.",
+	"payflowpro_gateway-response-4": "Nädogry summa.",
+	"payflowpro_gateway-response-24": "Kredit kart belgiňiz ýa-da onuň gutarýan senesi nädogry.",
+	"payflowpro_gateway-response-112": "Adresiňiz ýa-da CVV belgiňiz (howpsuzlyk kody) nädogry.",
+	"payflowpro_gateway-response-125": "Tranzaksiýaňyz Fraud Prevention Services tarapyndan yzyna gaýtaryldy.",
+	"payflowpro_gateway-response-default": "Tranzaksiýaňyz işlenýärkä säwlik döredi.\nSoňra gaýtadan synaň."
 }

@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Michawiki"
-        ]
-    },
-    "payflowprogateway": "Nětko darić",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro předźěłowanje kreditneje karty",
-    "payflowpro_gateway-response-0": "Waša transakcija bu schwalena.\nDźakujemy so za waš dar!",
-    "payflowpro_gateway-response-126": "Waša transakcija hišće na schwalenje čaka.",
-    "payflowpro_gateway-response-126-2": "Někotre z informacijow, kotrež sće podał, njewotpowěduja profilej wašeje kreditneje karty abo sy jara wulki dar darił. Za wašu wěstotu so dar tuchwilu přepruwuje, a zdźělimy wam přez podatu e-mejlowu adresu, jeli njemóžemy waše darjenje dokónčić. Prošu pósćelće e-mejl na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>, jeli maće prašenja. Dźakujemy so!",
-    "payflowpro_gateway-response-12": "Prošu stajće so ze swojim předewzaćom kreditneje karty za dalše informacije do zwiska.",
-    "payflowpro_gateway-response-13": "Waša transakcija wužaduje hłosowu awtorizaciju.\nProšu stajće so z nami do zwiska, zo byšće ze swoju transakciju pokročował.",
-    "payflowpro_gateway-response-114": "Prošu stajće so ze swojim předewzaćom kreditneje karty za dalše informacije do zwiska.",
-    "payflowpro_gateway-response-23": "Čisło wašeje kreditneje karty abo datum spadnjenja je wopak.",
-    "payflowpro_gateway-response-4": "Njepłaćiwa suma.",
-    "payflowpro_gateway-response-24": "Čisło wašeje kreditneje karty abo datum spadnjenja je wopak.",
-    "payflowpro_gateway-response-112": "Waša adresa abo CVV-čisło (wěstotny kod) je wopak.",
-    "payflowpro_gateway-response-125": "Waša transakcija bu wot Fraud Prevention Services wotpokazana.",
-    "payflowpro_gateway-response-125-2": "Waša kreditna karta njehodźi so přepruwować. Prošu pruwuj, hač wšě podate informacije profilej wašeje kreditneje karty wotpowěduja abo spytajće druhu kartu. Móžeće tež jednu z našich <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">druhich darjenskich móžnosćow</a> wužiwać abo so z nami přez <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> do zwiska stajić. Dźakujemy so za wašu podpěru.",
-    "payflowpro_gateway-response-default": "Při předźěłowanju wašeje transakcije je zmylk wustupił.\nProšu spytajće pozdźišo hišće raz."
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"payflowprogateway": "Nětko darić",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro předźěłowanje kreditneje karty",
+	"payflowpro_gateway-response-0": "Waša transakcija bu schwalena.\nDźakujemy so za waš dar!",
+	"payflowpro_gateway-response-126": "Waša transakcija hišće na schwalenje čaka.",
+	"payflowpro_gateway-response-126-2": "Někotre z informacijow, kotrež sće podał, njewotpowěduja profilej wašeje kreditneje karty abo sy jara wulki dar darił. Za wašu wěstotu so dar tuchwilu přepruwuje, a zdźělimy wam přez podatu e-mejlowu adresu, jeli njemóžemy waše darjenje dokónčić. Prošu pósćelće e-mejl na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>, jeli maće prašenja. Dźakujemy so!",
+	"payflowpro_gateway-response-12": "Prošu stajće so ze swojim předewzaćom kreditneje karty za dalše informacije do zwiska.",
+	"payflowpro_gateway-response-13": "Waša transakcija wužaduje hłosowu awtorizaciju.\nProšu stajće so z nami do zwiska, zo byšće ze swoju transakciju pokročował.",
+	"payflowpro_gateway-response-114": "Prošu stajće so ze swojim předewzaćom kreditneje karty za dalše informacije do zwiska.",
+	"payflowpro_gateway-response-23": "Čisło wašeje kreditneje karty abo datum spadnjenja je wopak.",
+	"payflowpro_gateway-response-4": "Njepłaćiwa suma.",
+	"payflowpro_gateway-response-24": "Čisło wašeje kreditneje karty abo datum spadnjenja je wopak.",
+	"payflowpro_gateway-response-112": "Waša adresa abo CVV-čisło (wěstotny kod) je wopak.",
+	"payflowpro_gateway-response-125": "Waša transakcija bu wot Fraud Prevention Services wotpokazana.",
+	"payflowpro_gateway-response-125-2": "Waša kreditna karta njehodźi so přepruwować. Prošu pruwuj, hač wšě podate informacije profilej wašeje kreditneje karty wotpowěduja abo spytajće druhu kartu. Móžeće tež jednu z našich <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">druhich darjenskich móžnosćow</a> wužiwać abo so z nami přez <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> do zwiska stajić. Dźakujemy so za wašu podpěru.",
+	"payflowpro_gateway-response-default": "Při předźěłowanju wašeje transakcije je zmylk wustupił.\nProšu spytajće pozdźišo hišće raz."
 }

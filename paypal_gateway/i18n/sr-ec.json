@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Михајло Анђелковић"
-        ]
-    },
-    "paypal_gateway-desc": "Региструје PayPal као механизам за донације"
+	"@metadata": {
+		"authors": [
+			"Михајло Анђелковић"
+		]
+	},
+	"paypal_gateway-desc": "Региструје PayPal као механизам за донације"
 }

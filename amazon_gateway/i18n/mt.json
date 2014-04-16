@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chrisportelli"
-        ]
-    },
-    "amazongateway": "Agħmel id-donazzjoni tiegħek issa",
-    "amazon_gateway-desc": "Proċessar tal-ħlas permezz ta' Amazon"
+	"@metadata": {
+		"authors": [
+			"Chrisportelli"
+		]
+	},
+	"amazongateway": "Agħmel id-donazzjoni tiegħek issa",
+	"amazon_gateway-desc": "Proċessar tal-ħlas permezz ta' Amazon"
 }

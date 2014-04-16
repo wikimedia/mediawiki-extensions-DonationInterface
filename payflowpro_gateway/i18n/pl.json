@@ -1,27 +1,27 @@
 {
-    "@metadata": {
-        "authors": [
-            "Maire",
-            "Matma Rex",
-            "Mikołka",
-            "Odder",
-            "Sp5uhe",
-            "Wpedzich"
-        ]
-    },
-    "payflowprogateway": "Przekaż darowiznę",
-    "payflowpro_gateway-desc": "PayPal obsługa kart kredytowych Payflow Pro",
-    "payflowpro_gateway-response-0": "Transakcja została przeprowadzona.\nDziękujemy za wsparcie!",
-    "payflowpro_gateway-response-126": "Transakcja oczekuje na potwierdzenie.",
-    "payflowpro_gateway-response-126-2": "Część z podanych informacji była niezgodna z profilem karty kredytowej lub kwota darowizny była bardzo wysoka. Dla Twojego bezpieczeństwa, transakcja zostanie dodatkowo sprawdzona. Poinformujemy Cię pod podanym przez Ciebie adresem e‐mail, jeśli darowizna nie zostanie wykonana. Swoje pytania możesz kierować pod adres <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dziękujemy.",
-    "payflowpro_gateway-response-12": "Skontaktuj się z wystawcą karty aby uzyskać dokładniejszą informację.",
-    "payflowpro_gateway-response-13": "Transakcja wymaga autoryzacji głosowej.\nSkontaktuj się z nami w celu kontynuowania transakcji.",
-    "payflowpro_gateway-response-114": "Skontaktuj się z wystawcą karty, aby uzyskać szczegółowe informacje.",
-    "payflowpro_gateway-response-23": "Numer karty kredytowej lub data ważności są nieprawidłowe.",
-    "payflowpro_gateway-response-4": "Nieprawidłowa kwota.",
-    "payflowpro_gateway-response-24": "Numer karty kredytowej lub data ważności są nieprawidłowe.",
-    "payflowpro_gateway-response-112": "Adres lub kod zabezpieczający CVV są nieprawidłowe.",
-    "payflowpro_gateway-response-125": "Transakcja została odrzucona przez system zapobiegania nadużyciom.",
-    "payflowpro_gateway-response-125-2": "Nie udało się zweryfikować danych karty kredytowej. Prosimy o sprawdzenie, czy podane informacje odpowiadają tym w profilu karty, lub o spróbowanie transakcji z użyciem innej karty. Można skorzystać z <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">innych sposobów złożenia darowizny</a>, lub skontaktować się z Wikimedia Foundation pod adresem <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dziękujemy za wsparcie.",
-    "payflowpro_gateway-response-default": "Wystąpił błąd podczas przeprowadzania transakcji.\nSpróbuj ponownie później."
+	"@metadata": {
+		"authors": [
+			"Maire",
+			"Matma Rex",
+			"Mikołka",
+			"Odder",
+			"Sp5uhe",
+			"Wpedzich"
+		]
+	},
+	"payflowprogateway": "Przekaż darowiznę",
+	"payflowpro_gateway-desc": "PayPal obsługa kart kredytowych Payflow Pro",
+	"payflowpro_gateway-response-0": "Transakcja została przeprowadzona.\nDziękujemy za wsparcie!",
+	"payflowpro_gateway-response-126": "Transakcja oczekuje na potwierdzenie.",
+	"payflowpro_gateway-response-126-2": "Część z podanych informacji była niezgodna z profilem karty kredytowej lub kwota darowizny była bardzo wysoka. Dla Twojego bezpieczeństwa, transakcja zostanie dodatkowo sprawdzona. Poinformujemy Cię pod podanym przez Ciebie adresem e‐mail, jeśli darowizna nie zostanie wykonana. Swoje pytania możesz kierować pod adres <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dziękujemy.",
+	"payflowpro_gateway-response-12": "Skontaktuj się z wystawcą karty aby uzyskać dokładniejszą informację.",
+	"payflowpro_gateway-response-13": "Transakcja wymaga autoryzacji głosowej.\nSkontaktuj się z nami w celu kontynuowania transakcji.",
+	"payflowpro_gateway-response-114": "Skontaktuj się z wystawcą karty, aby uzyskać szczegółowe informacje.",
+	"payflowpro_gateway-response-23": "Numer karty kredytowej lub data ważności są nieprawidłowe.",
+	"payflowpro_gateway-response-4": "Nieprawidłowa kwota.",
+	"payflowpro_gateway-response-24": "Numer karty kredytowej lub data ważności są nieprawidłowe.",
+	"payflowpro_gateway-response-112": "Adres lub kod zabezpieczający CVV są nieprawidłowe.",
+	"payflowpro_gateway-response-125": "Transakcja została odrzucona przez system zapobiegania nadużyciom.",
+	"payflowpro_gateway-response-125-2": "Nie udało się zweryfikować danych karty kredytowej. Prosimy o sprawdzenie, czy podane informacje odpowiadają tym w profilu karty, lub o spróbowanie transakcji z użyciem innej karty. Można skorzystać z <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">innych sposobów złożenia darowizny</a>, lub skontaktować się z Wikimedia Foundation pod adresem <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Dziękujemy za wsparcie.",
+	"payflowpro_gateway-response-default": "Wystąpił błąd podczas przeprowadzania transakcji.\nSpróbuj ponownie później."
 }

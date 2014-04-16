@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "WTM"
-        ]
-    },
-    "adyengateway": "Przekaż darowiznę",
-    "adyen_gateway-desc": "Przetwarzanie płatności Adyen",
-    "adyen_gateway-response-default": "Wystąpił błąd podczas przeprowadzania transakcji.\nSpróbuj ponownie później."
+	"@metadata": {
+		"authors": [
+			"WTM"
+		]
+	},
+	"adyengateway": "Przekaż darowiznę",
+	"adyen_gateway-desc": "Przetwarzanie płatności Adyen",
+	"adyen_gateway-response-default": "Wystąpił błąd podczas przeprowadzania transakcji.\nSpróbuj ponownie później."
 }

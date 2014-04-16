@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Lloffiwr"
-        ]
-    },
-    "paypalgateway": "Rhoddwch nawr",
-    "paypal_gateway-desc": "Prosesu taliad PayPal"
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"paypalgateway": "Rhoddwch nawr",
+	"paypal_gateway-desc": "Prosesu taliad PayPal"
 }

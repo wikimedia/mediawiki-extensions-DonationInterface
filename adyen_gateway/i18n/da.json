@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Christian List"
-        ]
-    },
-    "adyengateway": "Giv dit bidrag nu",
-    "adyen_gateway-desc": "Betaling med Adyen",
-    "adyen_gateway-response-default": "Der opstod en fejl under behandlingen af din transaktion.\nPrøv venligst igen senere."
+	"@metadata": {
+		"authors": [
+			"Christian List"
+		]
+	},
+	"adyengateway": "Giv dit bidrag nu",
+	"adyen_gateway-desc": "Betaling med Adyen",
+	"adyen_gateway-response-default": "Der opstod en fejl under behandlingen af din transaktion.\nPrøv venligst igen senere."
 }
