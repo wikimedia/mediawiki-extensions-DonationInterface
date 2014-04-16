@@ -339,11 +339,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
             # take that h@k3rs
             if( file_exists( $filepath . $var . '.html' ) ){
                 # replace the template block with the actual template
-                $template = file_get_contents( $filepath . $var . '.html' );
+                $template = $this->replace_blocks( file_get_contents( $filepath . $var . '.html' ) );
                 $html = str_replace( $matches[ 0 ][ $i ], $template, $html );
             } elseif( file_exists( $filepath . 'default.html' ) ){
                 # replace the template block with the default template
-                $template = file_get_contents( $filepath . 'default.html' );
+                $template = $this->replace_blocks( file_get_contents( $filepath . 'default.html' ) );
                 $html = str_replace( $matches[ 0 ][ $i ], $template, $html );
             } else {
                 # replace the template call with nothing at all
