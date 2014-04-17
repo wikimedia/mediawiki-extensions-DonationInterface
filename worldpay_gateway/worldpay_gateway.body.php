@@ -39,7 +39,8 @@ class WorldPayGateway extends GatewayForm {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		$this->getOutput()->addModules( 'ext.donationinterface.worldpay' );
+		$this->getOutput()->addModules( 'ext.donationinterface.worldpay.styles' ); //loads early
+		$this->getOutput()->addModules( 'ext.donationinterface.worldpay.code' ); //loads at normal time
 		$this->setHeaders();
 
 		// dispatch forms/handling
