@@ -299,13 +299,18 @@ $wgResourceModules[ 'adyen.js' ] = array(
 	'remoteExtPath' => $wgAdyenRapidHtmlRemoteExtPath,
 );
 
-$wgResourceModules[ 'ext.donationinterface.worldpay' ] = array(
+$wgResourceModules['ext.donationinterface.worldpay.styles'] = array (
 	'styles' => array('css/worldpay.css', 'css/bootstrap.css'),
-	'scripts' => 'js/worldpay.js',
-	'dependencies' => array ('di.form.core.validate', 'jquery.payment'),
 	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
 	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
 	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.worldpay.code'] = array (
+	'scripts' => 'js/worldpay.js',
+	'dependencies' => array ( 'di.form.core.validate', 'jquery.payment' ),
+	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
+	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
 );
 
 $wgResourceModules[ 'basicDonationForm' ] = array(
