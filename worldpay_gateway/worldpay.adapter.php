@@ -188,7 +188,6 @@ class WorldPayAdapter extends GatewayAdapter {
 			'wp_acctname',
 			'wp_storeid',
 			'iso_currency_id',
-			'donation_desc',
 			'payment_submethod',
 		);
 	}
@@ -238,9 +237,6 @@ class WorldPayAdapter extends GatewayAdapter {
 
 			// LastName
 			'lname' => array( 'type' => 'alphanumeric', 'length' => 60 ),
-
-			// NarrativeStatement1
-			'donation_desc' => array( 'type' => 'alphanumeric', 'length' => 50 ),
 
 			// OrderNumber
 			'order_id' => array( 'type' => 'alphanumeric', 'length' => 35 ),
@@ -443,8 +439,6 @@ class WorldPayAdapter extends GatewayAdapter {
 				'ZipCode',
 				'CountryCode',
 				'Email',
-
-				'NarrativeStatement1',
 			),
 			'values' => array(
 				'VersionUsed' => 6,
@@ -754,7 +748,6 @@ class WorldPayAdapter extends GatewayAdapter {
 			'AcctName'          => 'wp_acctname',
 			'CVN'               => 'cvv',
 			'PTTID'             => 'wp_pttid',
-			'NarrativeStatement1' => 'donation_desc',
 		);
 	}
 
@@ -924,11 +917,6 @@ class WorldPayAdapter extends GatewayAdapter {
 		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
 			$this->staged_data['iso_currency_id'] = self::$CURRENCY_CODES[$currency];
 		}
-	}
-
-	protected function stage_donation_desc( $type = 'request' ) {
-		// TODO: Make this translatable.
-		$this->staged_data['donation_desc'] = substr( 'Donation to the Wikimedia Foundation', 0, 50 );
 	}
 
 	protected function stage_payment_submethod( $type = 'request' ) {
