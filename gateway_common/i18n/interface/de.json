@@ -282,7 +282,7 @@
 	"donate_interface-select-year-of-expiration": "Ablaufjahr wählen",
 	"donate_interface-expires-question": "Gültig bis?",
 	"donate_interface-expires": "Gültig bis",
-	"donate_interface-card-security-code": "Kreditkartenprüfnummer",
+	"donate_interface-card-security-code": "Prüfnummer",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CCV-Nr.",
 	"donate_interface-cvv2": "CVV2",

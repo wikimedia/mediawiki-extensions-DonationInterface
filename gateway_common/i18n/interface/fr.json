@@ -299,7 +299,7 @@
 	"donate_interface-select-year-of-expiration": "Sélectionnez l’année d’expiration",
 	"donate_interface-expires-question": "Expiration ?",
 	"donate_interface-expires": "Date d’expiration",
-	"donate_interface-card-security-code": "Cryptogramme visuel de la carte",
+	"donate_interface-card-security-code": "Code de sécurité",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "Nº CVV",
 	"donate_interface-cvv2": "CVV2",

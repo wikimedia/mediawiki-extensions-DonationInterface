@@ -282,7 +282,7 @@
 	"donate_interface-select-year-of-expiration": "有効期限の年を選択",
 	"donate_interface-expires-question": "期限切れ?",
 	"donate_interface-expires": "期限切れ",
-	"donate_interface-card-security-code": "カードのセキュリティコード",
+	"donate_interface-card-security-code": "セキュリティコード",
 	"donate_interface-cvv": "カード照合番号",
 	"donate_interface-cvv-number-abbreviated": "カード照合番号",
 	"donate_interface-cvv2": "カード照合番号2",
