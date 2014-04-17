@@ -279,7 +279,7 @@
 	"donate_interface-select-year-of-expiration": "Vyberte rok konce platnosti",
 	"donate_interface-expires-question": "Platná do?",
 	"donate_interface-expires": "Platná do",
-	"donate_interface-card-security-code": "Bezpečnostní kód na kartě",
+	"donate_interface-card-security-code": "Bezpečnostní kód",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV kód",
 	"donate_interface-cvv2": "CVV2",

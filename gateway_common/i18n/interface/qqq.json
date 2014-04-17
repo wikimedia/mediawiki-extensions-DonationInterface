@@ -288,6 +288,7 @@
 	"donate_interface-credit-card-number-abbreviated": "Abbreviation of 'Credit Card Number'",
 	"donate_interface-expires-question": "{{Identical|Expire}}",
 	"donate_interface-expires": "{{Identical|Expire}}",
+	"donate_interface-card-security-code": "{{Identical|Security code}}",
 	"donate_interface-cvv": "Abbreviation of 'Card Verification Value'",
 	"donate_interface-cvv-number-abbreviated": "Abbreviation of 'Card Verification Value Number'.\n\nThere is no limit to the length of the message.",
 	"donate_interface-cvv2": "Abbreviation of 'Card Verification Value 2'",

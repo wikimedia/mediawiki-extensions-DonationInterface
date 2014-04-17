@@ -280,7 +280,7 @@
 	"donate_interface-select-year-of-expiration": "נא לבחור את שנת התפוגה",
 	"donate_interface-expires-question": "פג?",
 	"donate_interface-expires": "פג",
-	"donate_interface-card-security-code": "קוד האבטחה של הכרטיס",
+	"donate_interface-card-security-code": "קוד האבטחה",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
