@@ -140,6 +140,9 @@ ul#moreinfolinks li{
 	font-weight: bold;
 	font-size: 12px;
 }
+.error-box {
+	margin-top: 10em !important;
+}
 
 /* From Webitects */
 /* Options */
