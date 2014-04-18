@@ -295,7 +295,7 @@
 	"donate_interface-select-year-of-expiration": "选择有效期限截止年份",
 	"donate_interface-expires-question": "到期？",
 	"donate_interface-expires": "到期",
-	"donate_interface-card-security-code": "卡片安全代码",
+	"donate_interface-card-security-code": "安全代码",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
