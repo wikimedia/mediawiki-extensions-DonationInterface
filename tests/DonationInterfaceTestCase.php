@@ -20,6 +20,7 @@ require_once __DIR__ . '/TestConfiguration.php';
 require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
 require_once dirname( __FILE__ ) . '/includes/test_form/test.gateway.forms.php';
 require_once dirname( __FILE__ ) . '/includes/test_request/test.request.php';
+require_once dirname( __FILE__ ) . '/includes/test_language/test.language.php';
 
 /**
  * @group		Fundraising
@@ -321,11 +322,15 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$newRequest = new TestingRequest( $initial_vars, false );
 		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
+		$newLang = new TestingLanguage();
+		//this should be more robust, but... might have to work for now.
+		$newLang->forceLang( $initial_vars['language'] );
 
 		$globals = array (
 			'wgRequest' => $newRequest,
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
 			'wgOut' => $newOutput,
+			'wgLang' => $newLang,
 		);
 
 		$this->setMwGlobals( $globals );

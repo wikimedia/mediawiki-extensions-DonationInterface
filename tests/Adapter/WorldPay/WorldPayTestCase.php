@@ -133,6 +133,10 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 				'nodename' => 'select',
 				'selected' => 'CA',
 			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read our donor policy.',
+			),
 		);
 
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
@@ -176,6 +180,10 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 			'lname' => array (
 				'nodename' => 'input',
 				'value' => 'Nom',
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
 			),
 		);
 
