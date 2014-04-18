@@ -13,7 +13,8 @@
 			"Pietrodn",
 			"Ppena",
 			"Raoli",
-			"Ximo17"
+			"Ximo17",
+			"Toadino2"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -285,7 +286,7 @@
 	"donate_interface-select-year-of-expiration": "Seleziona l'anno di scadenza",
 	"donate_interface-expires-question": "Scadenza?",
 	"donate_interface-expires": "Scadenza",
-	"donate_interface-card-security-code": "Codice di sicurezza della carta",
+	"donate_interface-card-security-code": "Codice di sicurezza",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV n°",
 	"donate_interface-cvv2": "CVV2",

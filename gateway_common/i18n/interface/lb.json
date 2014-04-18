@@ -278,7 +278,7 @@
 	"donate_interface-select-year-of-expiration": "Sicht d'Joer vum Enn vun der Gëltegkeet eraus",
 	"donate_interface-expires-question": "Gülteg bis?",
 	"donate_interface-expires": "Gülteg bis",
-	"donate_interface-card-security-code": "Sécherheetscode vun der Kaart",
+	"donate_interface-card-security-code": "Sécherheetscode",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV-No.",
 	"donate_interface-cvv2": "CVV2",

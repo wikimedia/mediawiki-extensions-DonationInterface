@@ -14,7 +14,8 @@
 			"MetalBrasil",
 			"Pgehres (WMF)",
 			"Ppena",
-			"SandroHc"
+			"SandroHc",
+			"Imperadeiro98"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
@@ -276,7 +277,7 @@
 	"donate_interface-select-year-of-expiration": "Selecione o ano de expiração",
 	"donate_interface-expires-question": "Expira em?",
 	"donate_interface-expires": "Expira",
-	"donate_interface-card-security-code": "Código de segurança do cartão",
+	"donate_interface-card-security-code": "Código de segurança",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "Nº CVV",
 	"donate_interface-cvv2": "CVV2",

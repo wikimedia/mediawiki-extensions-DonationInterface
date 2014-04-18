@@ -298,7 +298,7 @@
 	"donate_interface-select-year-of-expiration": "Seleccionar el año de vencimiento",
 	"donate_interface-expires-question": "¿Vence?",
 	"donate_interface-expires": "Expira",
-	"donate_interface-card-security-code": "Código de seguridad de la tarjeta",
+	"donate_interface-card-security-code": "Código de seguridad",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
