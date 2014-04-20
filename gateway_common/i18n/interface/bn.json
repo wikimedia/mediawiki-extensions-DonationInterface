@@ -212,7 +212,7 @@
 	"donate_interface-select-year-of-expiration": "মেয়াদ উত্তীর্ণের বছর নির্বাচন করুন",
 	"donate_interface-expires-question": "মেয়াদ উত্তীর্ণ?",
 	"donate_interface-expires": "মেয়াদোত্তীর্ণ হবে",
-	"donate_interface-card-security-code": "কার্ডের নিরাপত্তা কোড",
+	"donate_interface-card-security-code": "নিরাপত্তা কোড",
 	"donate_interface-cvv": "সিভিভি",
 	"donate_interface-cvv-number-abbreviated": "সিভিভি #",
 	"donate_interface-cvv2": "সিভিভি২",
