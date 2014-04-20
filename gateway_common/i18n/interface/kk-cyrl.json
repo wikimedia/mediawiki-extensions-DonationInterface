@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"GaiJin",
-			"Kaztrans"
+			"Kaztrans",
+			"Arystanbek"
 		]
 	},
 	"donate_interface": "Уикимедиа Қорын қолдайық!",
@@ -10,5 +11,6 @@
 	"donate_interface-other-amount": "Басқа сома",
 	"donate_interface-currency": "Валюта:",
 	"donate_interface-gateway": "Төлеу әдісі:",
-	"donate_interface-submit-button": "Жәрдем ету"
+	"donate_interface-submit-button": "Жәрдем ету",
+	"donate_interface-card-security-code": "Қауіпсіздік коды"
 }

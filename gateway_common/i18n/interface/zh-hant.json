@@ -13,7 +13,8 @@
 			"Simon Shek",
 			"Waihorace",
 			"Xiaomingyan",
-			"Yfdyh000"
+			"Yfdyh000",
+			"Spring Roll Conan"
 		]
 	},
 	"donate_interface": "資助維基媒體",
@@ -284,7 +285,7 @@
 	"donate_interface-select-year-of-expiration": "選擇到期年份",
 	"donate_interface-expires-question": "過期？",
 	"donate_interface-expires": "過期",
-	"donate_interface-card-security-code": "信用卡安全碼",
+	"donate_interface-card-security-code": "安全碼",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",

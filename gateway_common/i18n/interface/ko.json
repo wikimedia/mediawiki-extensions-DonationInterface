@@ -10,7 +10,8 @@
 			"Kwj2772",
 			"Priviet",
 			"관인생략",
-			"아라"
+			"아라",
+			"Namoroka"
 		]
 	},
 	"donate_interface": "위키미디어를 지원해주세요",
@@ -155,7 +156,7 @@
 	"donate_interface-donor-card": "신용 카드:",
 	"donate_interface-donor-card-num": "카드 번호:",
 	"donate_interface-donor-expiration": "유효 기한",
-	"donate_interface-donor-security": "보안 코드:",
+	"donate_interface-donor-security": "보안 코드",
 	"donate_interface-donor-submit": "기부",
 	"donate_interface-donor-currency-msg": "기부는 $1로 이루어집니다.",
 	"donate_interface-donor-fiscal_number": "회계 번호",
@@ -283,7 +284,7 @@
 	"donate_interface-select-year-of-expiration": "유효기간 연도 선택",
 	"donate_interface-expires-question": "만료되었습니까?",
 	"donate_interface-expires": "유효 기한",
-	"donate_interface-card-security-code": "카드 보안 코드",
+	"donate_interface-card-security-code": "보안 코드",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV 값",
 	"donate_interface-cvv2": "CVV2",
