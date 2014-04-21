@@ -1146,6 +1146,20 @@ abstract class GatewayAdapter implements GatewayType {
 		//in the appropriate gateway object.
 		if ( $txn_ok && empty( $retryVars ) ) {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
+			if ( $this->getValidationAction() != 'process' ) {
+				$this->log( "Failed post-process checks for transaction type $transaction.", LOG_INFO );
+				$this->setTransactionResult(
+					array(
+						'status' => false,
+						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						'errors' => array(
+							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						),
+						'action' => $this->getValidationAction(),
+					)
+				);
+				return $this->getTransactionAllResults();
+			}
 		}
 
 		// log that the transaction is essentially complete
