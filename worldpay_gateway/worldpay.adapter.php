@@ -977,7 +977,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 */
 	public function getCVVResult() {
 		$cvv_result = '';
-		if ( is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ) {
+		if ( !is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ) {
 			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
 		}
 
