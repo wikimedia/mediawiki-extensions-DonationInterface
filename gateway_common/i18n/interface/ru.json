@@ -20,7 +20,8 @@
 			"Putnik",
 			"Rubin16",
 			"Александр Сигачёв",
-			"Хомелка"
+			"Хомелка",
+			"Meshkov.a"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -292,7 +293,7 @@
 	"donate_interface-select-year-of-expiration": "Выберите год истечения срока действия",
 	"donate_interface-expires-question": "До какой даты действует?",
 	"donate_interface-expires": "Истекает",
-	"donate_interface-card-security-code": "Защитный код карты",
+	"donate_interface-card-security-code": "Защитный код",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",

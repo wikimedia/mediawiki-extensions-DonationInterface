@@ -279,7 +279,7 @@
 	"donate_interface-select-year-of-expiration": "Izberite leto poteka",
 	"donate_interface-expires-question": "Veljavna do?",
 	"donate_interface-expires": "Veljavno do",
-	"donate_interface-card-security-code": "Varnostna koda kartice",
+	"donate_interface-card-security-code": "Varnostna koda",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "Št. CVV",
 	"donate_interface-cvv2": "CVV 2",

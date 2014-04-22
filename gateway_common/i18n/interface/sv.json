@@ -290,7 +290,7 @@
 	"donate_interface-select-year-of-expiration": "Välj år för förfallodatum",
 	"donate_interface-expires-question": "Upphör att gälla?",
 	"donate_interface-expires": "Upphör att gälla",
-	"donate_interface-card-security-code": "Kortets säkerhetskod",
+	"donate_interface-card-security-code": "Säkerhetskod",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
