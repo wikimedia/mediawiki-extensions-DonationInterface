@@ -191,4 +191,22 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
 	}
 
+	/**
+	 * Testing that we can retrieve the cvv_match value and run antifraud on it correctly
+	 */
+	function testAntifraudCVVMatch() {
+		$options = $this->getDonorTestData(); //don't really care: We'll be using the dummy response directly.
+		$class = $this->testAdapterClass;
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		$this->assertEquals( '1', $gateway->getData_Unstaged_Escaped( 'cvv_result' ), 'cvv_result was not set after AuthorizePaymentForFraud' );
+		$this->assertTrue( $gateway->getCVVResult(), 'getCVVResult not passing somebody with a match.' );
+
+		//and now, for fun, test a wrong code.
+		$gateway->addData( array ( 'cvv_result' => '2' ), 'response' );
+		$this->assertFalse( $gateway->getCVVResult(), 'getCVVResult not failing somebody with garbage.' );
+	}
+
 }
