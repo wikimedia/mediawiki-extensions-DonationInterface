@@ -3,7 +3,8 @@
 		"authors": [
 			"AnakngAraw",
 			"Jsoby",
-			"Sky Harbor"
+			"Sky Harbor",
+			"Jojit fb"
 		]
 	},
 	"donate_interface": "Tangkilikin ang Wikimedia",
@@ -185,8 +186,8 @@
 	"donate_interface-error-msg-card_num": "bilang ng tarhetang pang-utang",
 	"donate_interface-error-msg-expiration": "petsa ng pagkawalang-bisa ng tarheta",
 	"donate_interface-error-msg-cvv": "CVV mula sa likod ng tarheta mo",
-	"donate_interface-error-msg-account_name": "Pangalan ng kuwenta",
-	"donate_interface-error-msg-account_number": "Bilang ng kuwenta",
+	"donate_interface-error-msg-account_name": "Pangalan ng account",
+	"donate_interface-error-msg-account_number": "Numero ng account",
 	"donate_interface-error-msg-bank_check_digit": "Bilang pantiyak ng bangko",
 	"donate_interface-error-msg-bank_code": "Kodigo ng Pag-uuri",
 	"donate_interface-error-msg-branch_code": "Kodigo ng sangay",
@@ -327,8 +328,8 @@
 	"donate_interface-optional": "opsiyonal",
 	"donate_interface-state-dropdown-YY": "Pumili ng estado",
 	"donate_interface-state-dropdown-XX": "Nasa labas ng Estados Unidos",
-	"donate_interface-bt-account_holder": "May-hawak ng kuwenta",
-	"donate_interface-bt-bank_account_number": "Bilang ng kuwenta sa bangko",
+	"donate_interface-bt-account_holder": "May-hawak ng account",
+	"donate_interface-bt-bank_account_number": "Numero ng account sa bangko",
 	"donate_interface-bt-country_description": "Paglalarawan ng bansa",
 	"donate_interface-bt-payment_reference": "Sanggunian sa pagbayad",
 	"donate_interface-bt-swift_code": "Kodigong Swift",
@@ -342,8 +343,8 @@
 	"donate_interface-rtbt-issuer_id": "Pumili ng Bangko",
 	"donate_interface-rtbt-issuer_id-longlist": "Ibang mga bangko",
 	"donate_interface-sofortbanking": "Ang Sofortbanking ay isang tuwiran, nasa tunay na panahong Paglilipat na Pambangko sa pamamagitan ng DIRECTebanking.com na nagpapahintulot sa iyo na tuwirang kumalabit ng isang paglilipat na pambangko habang nagaganap ang pag-aabuloy na nakalinya sa Internet sa pamamagitan ng iyong impormasyon ng pagbabangko na nakalinya sa Internet. Kapag hindi pinagana ang iyong akawnt ng bangko na mayroong mga kakayahang nakalinya sa Internet, maaaring naisin mong gamitin ang mapipili na \"Mag-abuloy sa pamamagitan ng kinakamay na paglilipat na pangbangko\" na nasa pangunahing pahina ng donasyon.",
-	"donate_interface-dd-account_name": "Pangalan ng kuwenta",
-	"donate_interface-dd-account_number": "Bilang ng kuwenta",
+	"donate_interface-dd-account_name": "Pangalan ng account",
+	"donate_interface-dd-account_number": "Numero ng account",
 	"donate_interface-dd-authorization_id": "ID ng pagbibigay ng kapangyarihan",
 	"donate_interface-dd-bank_check_digit": "Bilang pantiyak ng bangko",
 	"donate_interface-dd-bank_code": "Kodigo ng pag-uuri",
