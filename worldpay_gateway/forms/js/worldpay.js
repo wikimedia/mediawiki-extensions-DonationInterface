@@ -114,14 +114,17 @@
 						errors.push( str );
 					});
 					window.alert( errors.join( '\n' ) );
+					$( '#paymentSubmitBtn' ).removeClass('disabled');
 				} else if ( data.ottResult ) {
 					successCallback( data.ottResult );
 				} else {
 					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+					$( '#paymentSubmitBtn' ).removeClass('disabled');
 				}
 			},
 			error: function( xhr ) {
 				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				$( '#paymentSubmitBtn' ).removeClass('disabled');
 			}
 		});
 	}
@@ -174,9 +177,12 @@
 		$accountCVC.payment( 'formatCardCVC' );
 
 		$( '#paymentSubmitBtn' ).click(function() {
+			$( '#paymentSubmitBtn' ).addClass('disabled');
 			if ( validateClientSide() ) {
 				validateServerSide( submitFormForTokenization );
-			} 
+			} else {
+				$( '#paymentSubmitBtn' ).removeClass('disabled');
+			}
 			validate_personal( document.getElementById('worldpayform') );
 			return false;
 		});
