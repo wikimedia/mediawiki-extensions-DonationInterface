@@ -2015,6 +2015,63 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * Stage the street address. In the event that there isn't anything in
+	 * there, we need to send something along so that AVS checks get triggered
+	 * at all.
+	 * The zero is intentional: Allegedly, Some banks won't perform the check
+	 * if the address line contains no numerical data.
+	 * @param string $type request|response
+	 */
+	protected function stage_street( $type = 'request' ) {
+		if ( !isset( $this->staged_data['street'] ) ) {
+			//nothing to do.
+			return;
+		}
+		if ( $type === 'request' ){
+			$is_garbage = false;
+			$street = trim( $this->staged_data['street'] );
+			( strlen( $street ) === 0 ) ? $is_garbage = true : null;
+			( !DataValidator::validate_not_just_punctuation( $street ) ) ? $is_garbage = true : null;
+
+			if ( $is_garbage ){
+				$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
+			}
+		}
+	}
+
+	/**
+	 * Stage the zip. In the event that there isn't anything in
+	 * there, we need to send something along so that AVS checks get triggered
+	 * at all.
+	 * @param string $type request|response
+	 */
+	protected function stage_zip( $type = 'request' ) {
+		if ( !isset( $this->staged_data['zip'] ) ) {
+			//nothing to do.
+			return;
+		}
+		if ( $type === 'request' && strlen( trim( $this->staged_data['zip'] ) ) === 0  ){
+			//it would be nice to check for more here, but the world has some
+			//straaaange postal codes...
+			$this->staged_data['zip'] = '0';
+		}
+
+		//country-based zip grooming to make AVS (marginally) happy
+		switch ($this->getData_Staged( 'country' ) ){
+			case 'CA':
+				//Canada goes "A0A 0A0"
+				$this->staged_data['zip'] = strtoupper( $this->staged_data['zip'] );
+				//In the event that they only forgot the space, help 'em out.
+				$regex = '/[A-Z]{1}\d{1}[A-Z]{1}\d{1}[A-Z]{1}\d{1}/';
+				if ( strlen( $this->staged_data['zip'] ) === 6 && preg_match( $regex, $this->staged_data['zip'] ) ) {
+					$zip = $this->staged_data['zip'];
+					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
+				}
+				break;
+		}
+	}
+
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
