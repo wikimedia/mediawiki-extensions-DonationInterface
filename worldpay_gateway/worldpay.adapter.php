@@ -866,6 +866,7 @@ class WorldPayAdapter extends GatewayAdapter {
 					'PostalCodeMatch' => 'avs_zip',
 					'PTTID' => 'wp_pttid'
 				)));
+				$this->dataObj->expunge( 'cvv' );
 				break;
 		}
 	}
