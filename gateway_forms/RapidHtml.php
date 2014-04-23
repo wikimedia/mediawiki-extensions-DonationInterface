@@ -356,10 +356,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	/**
 	 * Set dropdowns to "selected' where appropriate
 	 *
-	 * @TODO: Something that is less dumb. This is way too repeatey and
-	 * ...hard-codey. How about we grab everything in the html that's a
-	 * select, and ask something in the gateway about what option ought to
-	 * be selected?
+	 * @TODO: We shouldn't be adding a selected attribute to the <select>
 	 * 
 	 * This is basically a hackish fix to make sure that dropdowns stay 
 	 * 'sticky' on form submit.  This could no doubt be better.
@@ -367,55 +364,25 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string
 	 */
 	public function fix_dropdowns( $html ) {
-		// currency code
-		$start = strpos( $html, 'id="currency_code"' );
-		if ( $start ) {
-			$currency_code = $this->getEscapedValue( 'currency_code' );
-			$end = strpos( $html, '</select>', $start );
-			$str = substr( $html, $start, ( $end - $start ) );
-			$str = str_replace( 'value="' . $currency_code . '"', 'value="' . $currency_code . '" selected="selected"', $str );
-			$html = substr_replace( $html, $str, $start, $end - $start );
-		}
+		$matches;
+		preg_match_all( '|<select id="([^"]+)".*?value="([^"]+)".*?</select>|is', $html, $matches );
 
-		// mos
-		$month = substr( $this->getEscapedValue( 'expiration' ), 0, 2 );
-		$start = strpos( $html, 'id="mos"' );
-		if ( $start ) {
-			$end = strpos( $html, '</select>', $start );
-			$str = substr( $html, $start, ( $end - $start ) );
-			$str = str_replace( 'value="' . $month . '"', 'value="' . $month . '" selected="selected"', $str );
-			$html = substr_replace( $html, $str, $start, $end - $start );
-		}
+		$numMatches = count( $matches[0] );
 
-		// year
-		$year = substr( $this->getEscapedValue( 'expiration' ), 2, 2 );
-		$start = strpos( $html, 'id="year"' );
-		if ( $start ) {
-			$end = strpos( $html, '</select>', $start );
-			$str = substr( $html, $start, ( $end - $start ) );
-			// dbl extra huge hack alert!  note the '20' prefix...
-			$str = str_replace( 'value="20' . $year . '"', 'value="20' . $year . '" selected="selected"', $str );
-			$html = substr_replace( $html, $str, $start, $end - $start );
-		}
+		for ( $i = 0; $i < $numMatches; $i++ ) {
+			$element = array();
+			$value = $matches[2][$i];
 
-		// state
-		$state = $this->getEscapedValue( 'state' );
-		$start = strpos( $html, 'id="state"' );
-		if ( $start ) {
-			$end = strpos( $html, '</select>', $start );
-			$str = substr( $html, $start, ( $end - $start ) );
-			$str = str_replace( 'value="' . $state . '"', 'value="' . $state . '" selected="selected"', $str );
-			$html = substr_replace( $html, $str, $start, $end - $start );
-		}
+			if ( $value && preg_match( "|<option.*?value=\"{$value}\".*?</option>|ie", $matches[0][$i], $element ) ) {
+				// Remove the default selected, if any
+				$result = str_replace( 'selected', '', $matches[0][$i] );
 
-		//country
-		$country = $this->getEscapedValue( 'country' );
-		$start = strpos( $html, 'id="country"' );
-		if ( $start ) {
-			$end = strpos( $html, '</select>', $start );
-			$str = substr( $html, $start, ( $end - $start ) );
-			$str = str_replace( 'value="' . $country . '"', 'value="' . $country . '" selected="selected"', $str );
-			$html = substr_replace( $html, $str, $start, $end - $start );
+				// Define the new selected element
+				$result = str_replace( "value=\"{$value}\"", "value=\"{$value}\" selected", $result );
+
+				// Replace the whole block
+				$html = str_replace( $matches[0][$i], $result, $html );
+			}
 		}
 
 		return $html;
