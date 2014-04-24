@@ -3259,6 +3259,19 @@ abstract class GatewayAdapter implements GatewayType {
 		$ref = isset( $data['referrer'] ) ? $data['referrer'] : null;
 		//make it actually possible to debug this hot mess
 
+		$logObj = array(
+			'ffname' => $ffname,
+			'country' => $country,
+			'currency' => $currency,
+			'payment_method' => $payment_method,
+			'payment_submethod' => $payment_submethod,
+			'recurring' => $recurring,
+			'gateway' => $gateway,
+			'utm' => $utm,
+			'referrer' => $ref
+		);
+		$this->log( "Attempting to set a valid form for the combination: " . json_encode( $logObj ), LOG_INFO );
+
 		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			return;
 		} else if ( $this->session_getLastRapidHTMLForm() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
@@ -3280,8 +3293,11 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->addData( array ( 'ffname' => $new_ff ) );
 
 			//now construct a useful error message
-			$message = "ffname '$ffname' is invalid. Assigning ffname '$new_ff'. utm_source = '$utm', referrer = '$ref'";
-			$this->log( $message, LOG_ERR );
+			$this->log(
+				"ffname '{$ffname}' is invalid. Assigning ffname '{$new_ff}'. " .
+				"I currently am choosing for: " . json_encode( $logObj ),
+				LOG_ERR
+			);
 
 			//Turn these off by setting the LogDebug global to false.
 			$this->log( "GET: " . json_encode( $_GET ), LOG_DEBUG );
@@ -3303,6 +3319,7 @@ abstract class GatewayAdapter implements GatewayType {
 				'direct_debit_text',
 				'iban',
 				'fiscal_number',
+				'cvv',
 			);
 
 			foreach ( $data as $key => $val ) {
