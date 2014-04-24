@@ -102,9 +102,8 @@ select#state.us, select#state.au, select#state.ca, select#country {
 }
 #wpContainer label {
 	color: #333;
-	font-style: italic;
 	overflow: hidden;
-	margin-bottom: -1px;
+	margin-bottom: -5px;
 }
 #wpContainer h3.cc_header {
 	margin-top: 0 !important;
