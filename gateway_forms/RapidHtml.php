@@ -365,13 +365,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	public function fix_dropdowns( $html ) {
 		$matches;
-		preg_match_all( '|<select id="([^"]+)".*?value="([^"]+)".*?</select>|is', $html, $matches );
+		preg_match_all( '|<select id="([^"]+)".*</select>|is', $html, $matches );
 
 		$numMatches = count( $matches[0] );
 
 		for ( $i = 0; $i < $numMatches; $i++ ) {
 			$element = array();
-			$value = $matches[2][$i];
+			$value = $this->getEscapedValue( $matches[1][$i] );
 
 			if ( $value && preg_match( "|<option.*?value=\"{$value}\".*?</option>|ie", $matches[0][$i], $element ) ) {
 				// Remove the default selected, if any
