@@ -125,9 +125,17 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 	'Password' => 'testpass',
 	'MerchantId' => '123456',
 	'Test' => true,
+	'TokenizingMerchantID' => '123456',
 	'StoreIDs' => array (
-		'EUR' => 'eur_store_id',
-	)
+		'*/*/EUR' => array( 123456, 'eur_store_id' ),
+		'*/*/USD' => array( 123456, 'usd_store_id' ),
+	),
+	'MerchantIDs' => array(
+		123456 => array(
+			'Username' => 'testname2',
+			'Password' => 'testpass2',
+		),
+	),
 );
 $wgWorldPayGatewayURL = 'https://test.worldpay.com';
 
