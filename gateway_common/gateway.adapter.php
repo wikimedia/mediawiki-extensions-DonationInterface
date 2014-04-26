@@ -1927,7 +1927,39 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $transaction;
 	}
-	
+
+	/**
+	 * For making freeform stomp messages.
+	 * As these are all non-critical, we don't need to be as strict as we have been with the other stuff.
+	 * But, we've got to have some standards.
+	 * @param array $transaction The fields that we are interested in sending.
+	 * @return array The fields that will actually be sent. So, $transaction ++ some other things we think we're likely to always need.
+	 */
+	public function makeFreeformStompTransaction( $transaction ) {
+		if ( !array_key_exists( 'php-message-class', $transaction ) ) {
+			$this->log( "Trying to send a freeform STOMP message with no class defined. Bad programmer.", LOG_WARNING );
+			$transaction['php-message-class'] = 'undefined-loser-message';
+		}
+
+		//bascially, add all the stuff we have come to take for granted, because syslog.
+		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
+		$transaction['correlation-id'] = $this->getCorrelationID();
+		$transaction['date'] = ( int ) time(); //I know this looks odd. Just trust me here.
+		$transaction['server'] = wfHostname();
+
+		$these_too = array (
+			'gateway',
+			'contribution_tracking_id',
+			'order_id',
+			'payment_method', //the stomp sender gets mad if we don't have this. @TODO: Stop being lazy someday.
+		);
+		foreach ( $these_too as $field ) {
+			$transaction[$field] = $this->getData_Unstaged_Escaped( $field );
+		}
+
+		return $transaction;
+	}
+
 	protected function getCorrelationID(){
 		return $this->getIdentifier() . '-' . $this->getData_Unstaged_Escaped('order_id');
 	}
@@ -2220,6 +2252,9 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->session_resetForNewAttempt( $force );
 
 		$this->logFinalStatus( $status );
+
+		$this->sendFinalStatusMessage( $status );
+
 		$this->transaction_results['FINAL_STATUS'] = $status;
 	}
 	
@@ -2256,6 +2291,36 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		
 		$this->log( $msg, LOG_INFO, '_payment_init' );
+	}
+
+	public function sendFinalStatusMessage( $status ) {
+		$transaction = array (
+			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceFinalStatus',
+			'validation_action' => $this->getValidationAction(),
+			'payments_final_status' => $status,
+		);
+
+		//add more keys here if you want it in the db equivalent of the payments-init queue.
+		//for now, though, just taking the ones that make it to the logs.
+		$keys = array (
+			'payment_submethod',
+			'payment_method',
+			'country',
+			'amount',
+			'currency_code',
+		);
+
+		foreach ( $keys as $key ) {
+			$transaction[$key] = $this->getData_Unstaged_Escaped( $key );
+		}
+
+		$transaction = $this->makeFreeformStompTransaction( $transaction );
+
+		try {
+			wfRunHooks( 'gwFreeformStomp', array ( $transaction, 'payments-init' ) );
+		} catch ( Exception $e ) {
+			$this->log( 'Unable to send payments-init message', LOG_ERR );
+		}
 	}
 
 	public function getTransactionMessage() {
