@@ -14,7 +14,8 @@
 			"Waihorace",
 			"Xiaomingyan",
 			"Yfdyh000",
-			"Spring Roll Conan"
+			"Spring Roll Conan",
+			"Cwlin0416"
 		]
 	},
 	"donate_interface": "資助維基媒體",
@@ -192,8 +193,8 @@
 	"donate_interface-error-msg-country": "國家",
 	"donate_interface-error-msg-card_type": "信用卡類型",
 	"donate_interface-error-msg-card_num": "信用卡號碼",
-	"donate_interface-error-msg-expiration": "卡失效日期",
-	"donate_interface-error-msg-cvv": "你的卡背面的CVV",
+	"donate_interface-error-msg-expiration": "請輸入卡片的到期日期",
+	"donate_interface-error-msg-cvv": "請輸入 CVV 代碼，通常顯示在卡片的背面",
 	"donate_interface-error-msg-account_name": "帳戶名稱",
 	"donate_interface-error-msg-account_number": "帳號",
 	"donate_interface-error-msg-authorization_id": "授權ID",
