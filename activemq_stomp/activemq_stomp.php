@@ -100,7 +100,13 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		$message = '';
 		$properties['antimessage'] = 'true';
 	} else {
-		$message = json_encode( createQueueMessage( $transaction ) );
+		if ( array_key_exists( 'freeform', $transaction ) ) {
+			$message = $transaction;
+			unset( $message['freeform'] );
+		} else {
+			$message = createQueueMessage( $transaction );
+		}
+		$message = json_encode( $message );
 	}
 
 	if ( array_key_exists( 'correlation-id', $transaction ) ) {
@@ -145,6 +151,19 @@ function sendPendingSTOMP( $transaction ) {
  */
 function sendLimboSTOMP( $transaction ) {
 	return sendSTOMP( $transaction, 'limbo' );
+}
+
+/**
+ * Hook to send transaction information to ActiveMQ server
+ * @deprecated Use sendSTOMP with $queue = 'limbo' instead
+ *
+ * @param array $transaction Key-value array of staged and ready donation data.
+ * @return bool Just returns true all the time. Presumably an indication that
+ * nothing exploded big enough to kill the whole thing.
+ */
+function sendFreeformSTOMP( $transaction, $queue ) {
+	$transaction['freeform'] = true;
+	return sendSTOMP( $transaction, $queue );
 }
 
 /**

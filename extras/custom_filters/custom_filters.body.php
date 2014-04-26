@@ -113,6 +113,28 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->gateway_adapter->log( '"utm" ' . $log_message, LOG_INFO, '_fraud' );
+
+		//add a message to the fraud stats queue, so we can shovel it into the fredge.
+		$stomp_msg = array (
+			'validation_action' => $localAction,
+			'risk_score' => $this->getRiskScore(),
+			'score_breakdown' => $this->risk_score,
+			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceAntifraud',
+			'user_ip' => $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ),
+		);
+		//If we need much more here to help combat fraud, we could just
+		//start stuffing the whole maxmind query in the fredge, too.
+		//Legal said ok... but this seems a bit excessive to me at the
+		//moment. 
+
+		$stomp_msg = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
+
+		try {
+			wfRunHooks( 'gwFreeformStomp', array ( $stomp_msg, 'payments-antifraud' ) );
+		} catch ( Exception $e ) {
+			$this->log( 'Unable to send payments-antifraud message', LOG_ERR );
+		}
+
 		return TRUE;
 	}
 

@@ -534,7 +534,9 @@ if ($optionalParts['Stomp'] === true){
 	$wgStompQueueNames = array(
 		'default' => 'test-default',    // Previously known as $wgStompQueueName
 		'pending' => 'test-pending',    // Previously known as $wgPendingStompQueueName
-		'limbo' => 'test-limbo',        // Previously known as $wgLimboStompQueueName
+		'limbo' => 'test-limbo', // Previously known as $wgLimboStompQueueName
+		'payments-antifraud' => 'payments-antifraud', //noncritical: Basically shoving the fraud log into a database.
+		'payments-init' => 'payments-init', //noncritical: same as above with the payments-initial log
 	);
 }
 
@@ -831,6 +833,7 @@ if ($optionalParts['Stomp'] === true){
 	$wgHooks['gwStomp'][] = 'sendSTOMP';
 	$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
 	$wgHooks['gwLimboStomp'][] = 'sendLimboSTOMP';
+	$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
 }
 
 //Custom Filters hooks
