@@ -191,7 +191,7 @@
 	"donate_interface-error-msg-country": "Nazione",
 	"donate_interface-error-msg-card_type": "tipo di carta di credito",
 	"donate_interface-error-msg-card_num": "numero della carta di credito",
-	"donate_interface-error-msg-expiration": "scadenza della carta di credito",
+	"donate_interface-error-msg-expiration": "Inserisci la data di scadenza della carta",
 	"donate_interface-error-msg-cvv": "CVV dal retro della carta",
 	"donate_interface-error-msg-account_name": "Nome del titolare del conto",
 	"donate_interface-error-msg-account_number": "Numero di conto",
