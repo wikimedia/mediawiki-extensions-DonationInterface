@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Anakmalaysia",
-			"Diagramma Della Verita"
+			"Diagramma Della Verita",
+			"Pizza1016"
 		]
 	},
 	"donate_interface": "Sokonglah Wikimedia",
@@ -18,7 +19,7 @@
 	"donate_interface-comment-label": "Komen:",
 	"donate_interface-email-agreement": "Saya bersetuju untuk menerima kemas kini e-mel sekali-sekala daripada Yayasan Wikimedia.",
 	"donate_interface-comment-title": "Komen umum",
-	"donate_interface-donation-description": "Derma kepada Yayasan Wikimedia",
+	"donate_interface-donation-description": "Sumbangan kepada Yayasan Wikimedia",
 	"donate_interface-monthly-donation-description": "Sumbangan bulanan kepada Yayasan Wikimedia",
 	"donate_interface-amount-error": "Sila masukkan jumlah yang sah",
 	"donate_interface-smallamount-error": "Anda mesti menyumbangkan sekurang-kurangya $1",
@@ -34,7 +35,7 @@
 	"donate_interface-BGN": "Lev Bulgaria",
 	"donate_interface-BHD": "Dolar Bahrain",
 	"donate_interface-BMD": "Dolar Bermuda",
-	"donate_interface-BND": "Dolar Brunei",
+	"donate_interface-BND": "Ringgit Brunei",
 	"donate_interface-BOB": "Boliviano Bolivia",
 	"donate_interface-BRL": "Real Brazil",
 	"donate_interface-BSD": "Dolar Bahamas",
@@ -130,8 +131,10 @@
 	"donate_interface-donor-emailAdd": "Alamat e-mel",
 	"donate_interface-donor-name": "Nama",
 	"donate_interface-donor-fname": "Nama pertama",
+	"donate_interface-donor-fname-alt": "Nama depan",
 	"donate_interface-donor-mname": "Nama tengah",
 	"donate_interface-donor-lname": "Nama keluarga",
+	"donate_interface-donor-lname-alt": "Nama keluarga",
 	"donate_interface-donor-street": "Jalan",
 	"donate_interface-donor-street-number": "Nombor",
 	"donate_interface-donor-city": "Bandar",
@@ -140,6 +143,7 @@
 	"donate_interface-donor-state": "Negeri",
 	"donate_interface-donor-zip": "Poskod",
 	"donate_interface-donor-postal": "Poskod",
+	"donate_interface-donor-postcode": "Poskod",
 	"donate_interface-donor-country": "Negara/Wilayah",
 	"donate_interface-donor-zone": "Zon",
 	"donate_interface-donor-address": "Alamat",
@@ -180,8 +184,8 @@
 	"donate_interface-error-msg-country": "negara",
 	"donate_interface-error-msg-card_type": "jenis kad kredit",
 	"donate_interface-error-msg-card_num": "nombor kad kredit",
-	"donate_interface-error-msg-expiration": "tarikh luput kad",
-	"donate_interface-error-msg-cvv": "CVV pada belakang kad anda",
+	"donate_interface-error-msg-expiration": "Sila masukkan tarikh luput kad anda",
+	"donate_interface-error-msg-cvv": "Sila masukkan kod CVV, biasanya dicetakkan pada belakang kad anda",
 	"donate_interface-error-msg-account_name": "Nama akaun",
 	"donate_interface-error-msg-account_number": "Nama akaun",
 	"donate_interface-error-msg-authorization_id": "ID Pengesahan",
@@ -390,5 +394,5 @@
 	"donate_interface-onetime-short": "Sekali sahaja",
 	"donate_interface-securelogo-title": "Klik untuk Sahkan - Tapak web ini memilih VeriSign SSL untuk perdagangan elektronik yang selamat dan perhubungan sulit.",
 	"donate_interface-secureLogo-text": "Perihal Sijil SSL",
-	"donate_interface-error-http-403": "Anda tiada kebenaran untuk mengakses laman ini."
+	"donate_interface-error-http-403": "Anda tiada kebenaran untuk memasuk laman ini."
 }
