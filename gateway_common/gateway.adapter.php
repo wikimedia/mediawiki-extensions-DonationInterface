@@ -460,11 +460,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$checkResult = $this->token_checkTokens();
 
 		if ( $checkResult ) {
-			if ($this->dataObj->isCaching()){
-				$this->debugarray[] = 'Token Not Checked (Caching Enabled)';
-			} else {
-				$this->debugarray[] = 'Token Match';
-			}
+			$this->debugarray[] = 'Token Match';
 		} else {
 			$this->debugarray[] = 'Token MISMATCH';
 		}
@@ -545,10 +541,6 @@ abstract class GatewayAdapter implements GatewayType {
 				return null;
 			}
 		}
-	}
-
-	function isCaching() {
-		return $this->dataObj->isCaching();
 	}
 
 	/**
@@ -2827,10 +2819,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Ensure that we have a session set for the current user.
 	 * If we do not have a session set for the current user,
 	 * start the session.
-	 * BE CAREFUL with this one, as creating sessions willy-nilly will break
-	 * squid caching for reasons that are not immediately obvious.
-	 * (See DonationData::doCacheStuff, and basically everything about setting
-	 * headers in $wgOut)
 	 */
 	public static function session_ensure() {
 		// if the session is already started, do nothing
@@ -3155,17 +3143,6 @@ abstract class GatewayAdapter implements GatewayType {
 		static $match = null; //because we only want to do this once per load.
 
 		if ( $match === null ) {
-			if ( $this->isCaching() ) {
-				//This makes sense.
-				//If all three conditions for caching are currently true, the
-				//last thing we want to do is screw it up by setting a session
-				//token before the page loads, because sessions break caching.
-				//The API will set the session and form token values immediately
-				//after that first page load, which is all we care about saving
-				//in the cache anyway.
-				return true;
-			}
-
 			// establish the edit token to prevent csrf
 			$token = $this->token_getSaltedSessionToken();
 

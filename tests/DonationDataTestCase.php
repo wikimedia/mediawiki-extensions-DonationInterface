@@ -82,7 +82,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 	 * @covers DonationData::__construct
 	 * @covers DonationData::getDataEscaped
 	 * @covers DonationData::populateData
-	 * @covers DonationData::doCacheStuff
 	 */
 	public function testConstruct(){
 		global $wgLanguageCode, $wgRequest;
@@ -111,7 +110,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'utm_medium' => '',
 			'utm_campaign' => '',
 			'language' => $wgLanguageCode,
-			'_cache_' => '',
 			'token' => '',
 			'data_hash' => '',
 			'action' => '',
@@ -254,7 +252,6 @@ class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
 			'paymentmethod' => '',
 			'submethod' => '',
 			'utm_key' => '',
-			'_cache_' => '',
 			'descriptor' => '',
 			'account_name' => '',
 			'account_number' => '',

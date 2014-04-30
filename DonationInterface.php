@@ -267,15 +267,6 @@ $wgDonationInterfaceHeader = NULL;
 $wgDonationInterfaceNoScriptRedirect = null;
 
 /**
- * Set the max-age value for Squid
- *
- * If you have Squid enabled for caching, use this variable to configure
- * the s-max-age for cached requests.
- * @var int Time in seconds
- */
-$wgDonationInterfaceSMaxAge = 6000;
-
-/**
  * Configure price ceiling and floor for valid contribution amount.  Values
  * should be in USD.
  */

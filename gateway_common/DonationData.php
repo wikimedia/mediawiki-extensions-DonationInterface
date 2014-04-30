@@ -87,7 +87,6 @@ class DonationData {
 				// Pull both of these here. We can logic out which one to use in the normalize bits. 
 				'language' => $wgRequest->getText( 'language', null ),
 				'uselang' => $wgRequest->getText( 'uselang', null ),
-				'_cache_' => $wgRequest->getText( '_cache_', null ),
 				'token' => $wgRequest->getText( 'token', null ),
 				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
 				'data_hash' => $wgRequest->getText( 'data_hash' ),
@@ -124,8 +123,6 @@ class DonationData {
 		
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
-
-		$this->doCacheStuff();
 
 		$this->normalize();
 
@@ -440,43 +437,8 @@ class DonationData {
 	 */
 	protected function handleContributionTrackingID(){
 		if ( !$this->isSomething( 'contribution_tracking_id' ) ) {
-			if ( !$this->isCaching() ) {
-				$this->saveContributionTracking();
-			} else {
-				$this->log( "Declining to create a contribution_tracking record, because we are in cache mode." );
-			}
+			$this->saveContributionTracking();
 		}
-	}
-	
-	/**
-	 * Tells us if we think we're in caching mode or not. 
-	 * @staticvar string $cache Keeps track of the mode so we don't have to 
-	 * calculate it from the data fields more than once. 
-	 * @return boolean true if we are going to be caching, false if we aren't. 
-	 */
-	public function isCaching(){
-		
-		static $cache = null;
-
-		if ( is_null( $cache ) ){
-			if ( $this->getVal( '_cache_' ) === 'true' ){ //::head. hit. keyboard.::
-				if ( $this->isSomething( 'utm_source_id' ) && !is_null( 'utm_source_id' ) ){
-					$cache = true;
-				}
-			}
-			if ( is_null( $cache ) ){
-				$cache = false;
-			}
-		}
-		
-		 //this business could change at any second, and it will prevent us from 
-		 //caching, so we're going to keep asking if it's set.
-		$c = $this->getAdapterClass();
-		if ( $c::session_exists() ) {
-			$cache = false;
-		}		
-		
-		return $cache;
 	}
 	
 	/**
@@ -741,34 +703,6 @@ class DonationData {
 
 		$this->setVal( 'email', $email );
 		$this->expunge( 'emailAdd' );
-	}
-
-	/**
-	 * This function sets the token to the string 'cache' if we're caching, and 
-	 * then sets the s-maxage header to whatever you specify for the SMaxAge.
-	 * NOTES: The bit where we setSquidMaxage will not work at all, under two 
-	 * conditions: 
-	 * The user has a session ID.
-	 * The mediawiki_session cookie is set in the user's browser.
-	 * @global bool $wgUseSquid
-	 * @global type $wgOut 
-	 */
-	protected function doCacheStuff() {
-		//TODO: Wow, name.
-		// if _cache_ is requested by the user, do not set a session/token; dynamic data will be loaded via ajax
-		if ( $this->isCaching() ) {
-			$this->log( 'Cache requested', LOG_DEBUG );
-			$this->setVal( 'token', 'cache' );
-
-			// if we have squid caching enabled, set the maxage
-			global $wgUseSquid, $wgOut;
-			$maxAge = $this->getGatewayGlobal( 'SMaxAge' );
-			
-			if ( $wgUseSquid && ( $maxAge !== false ) ) {
-				$this->log( 'Setting s-max-age: ' . $maxAge, LOG_DEBUG );
-				$wgOut->setSquidMaxage( $maxAge );
-			}
-		}
 	}
 
 	/**
