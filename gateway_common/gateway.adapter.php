@@ -1157,7 +1157,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// log that the transaction is essentially complete
 		$this->log( " Transaction complete." );
 
-		$this->debugarray[] = 'numAttempt = ' . $this->getData_Staged('numAttempt');
+		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
 
 		return $this->getTransactionAllResults();
 	}
