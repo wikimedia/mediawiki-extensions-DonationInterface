@@ -21,7 +21,8 @@
 			"Rubin16",
 			"Александр Сигачёв",
 			"Хомелка",
-			"Meshkov.a"
+			"Meshkov.a",
+			"Lockal"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -198,8 +199,8 @@
 	"donate_interface-error-msg-country": "страна",
 	"donate_interface-error-msg-card_type": "тип кредитной карты",
 	"donate_interface-error-msg-card_num": "номер кредитной карты",
-	"donate_interface-error-msg-expiration": "дата окончания действия карты",
-	"donate_interface-error-msg-cvv": "CVV с обратной стороны вашей карты",
+	"donate_interface-error-msg-expiration": "Введите дату истечения срока действия карты",
+	"donate_interface-error-msg-cvv": "Введите код CVV, обычно указываемый на обратной стороне карты",
 	"donate_interface-error-msg-account_name": "Владелец счёта (Account Name)",
 	"donate_interface-error-msg-account_number": "Номер счета",
 	"donate_interface-error-msg-authorization_id": "Код авторизации (Authorization ID)",
