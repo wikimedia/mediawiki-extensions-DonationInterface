@@ -463,11 +463,9 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	function defineReturnValueMap() {
-		// We just have a large list of return values from WP; with no real indication
-		// of what operations will return which codes. So; I I conservatively mapped
-		// every code.
-
 		/* From the integration manual; this is the list of all possible return codes
+		 * (excluding the 3000 series which are foreign exchange system errors which we don't use)
+		 *
 		 *  2000	Received no answer from banking network. Resend transaction.
 		 *  2001	No need to do this transaction.
 		 *  2040	Request submitted and waiting for Finalization.
@@ -557,7 +555,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		 *  2364	Over Sav frequency.
 		 *  2366	Card not supported.
 		 *  2368	Invalid PIN.
-		 *  2370	 Allowable PIN tries exceeded.
+		 *  2370	Allowable PIN tries exceeded.
 		 *  2372	PIN required.
 		 *  2374	Card failed MOD 10 check verification.
 		 *  2380	Account number appears on negative file.
@@ -640,41 +638,6 @@ class WorldPayAdapter extends GatewayAdapter {
 		 *  2972	Prepaid card process permission denied.
 		 *  2974	Prepaid card invalid account ID.
 		 *  2990	Cancellation is going to reverse the authorization.
-		 *  3050	Transaction pending.
-		 *  3051	A new rate is assigned for the transaction.
-		 *  3052	Transaction waiting for placement approve then refund.
-		 *  3100	FX transaction approved.
-		 *  3111	Transaction rate escalated.
-		 *  3170	Transaction cancelled successfully.
-		 *  3171	Transaction refunded.
-		 *  3200	Rate requested has expired and no new rate is available.
-		 *  3203	The deposit/refund transaction being cancelled cannot be because it has already been submitted.
-		 *  3204	Cancellation disabled in merchant set-up.
-		 *  3206	Invalid currency of record.
-		 *  3207	Exchange currency not setup in merchant account.
-		 *  3208	Conversion to same currency redundant.
-		 *  3209	Cannot convert to requested currency.
-		 *  3210	Currency submitted does not match the original rate request.
-		 *  3216	Invalid amount.
-		 *  3217	FXID submitted is invalid.
-		 *  3218	Unexpected error.
-		 *  3219	Credit card is not valid for this transaction.
-		 *  3220	Currency of card not supported.
-		 *  3224	One or more required parameters are not present.
-		 *  3226	Duplicated transaction.
-		 *  3228	Generic error message for invalid transactions.
-		 *  3321	Invalid account data.
-		 *  3341	Quoted rate is not executable.
-		 *  3354	Refund is over the original value of the deal.
-		 *  3361	Quoted rate is invalid.
-		 *  3362	Expired rate cannot be escalated.
-		 *  3371	Rate has been revoked.
-		 *  3381	Transaction min/max limits reached.
-		 *  3391	Batch size exceeds the Maximum allowable size transaction/payment not written to database.
-		 *  3614	FX system cannot be reached.
-		 *  3781	Refund disabled in merchant set-up.
-		 *  3783	Refund cannot be processed.
-		 *  3785	Refund beyond maximum time period.
 		 *  4050	Cardholder enrolled for 3D Secure.
 		 *  4100	Cardholder answered password/challenge question correctly.
 		 *  4101	Cardholder authentication attempted.
@@ -700,31 +663,18 @@ class WorldPayAdapter extends GatewayAdapter {
 		 *  4700	3D Secure transaction already processed.
 		 */
 
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2000, 2001 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2051 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2061, 2080 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2112 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2200, 2804 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2831, 2990 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 3216, 3614 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 4206, 4700 );
+		// PaymentTrust codes
+		// Anything other than 2050 or 2100 must be treated as failure for PT-A or PT-S or PT-R.
+		// Anything other than 2170 must be treated as failure for PT-C.
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2000, 2049 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2051, 2099 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2101, 2999 );
 
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2000, 2001 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'pending', 2040, 2050 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2051 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'pending', 2053, 2055 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2061, 2080 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2112 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'pending', 2122 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2150, 2180 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2100, 2106 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2200, 2804 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'pending', 2830 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2831, 2990 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'pending', 3050 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 3216, 3614 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 3100 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 4206, 4700 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2000, 2049 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2050 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2051, 2099 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2100 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2101, 2999 );
 	}
 
 	function defineVarMap() {
