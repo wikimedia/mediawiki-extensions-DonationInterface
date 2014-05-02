@@ -241,7 +241,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$this->log( "At $transaction, redirecting with query string: $query_str", LOG_DEBUG );
 				
 				//always have to do this before a redirect. 
-				$this->dataObj->updateContributionTracking( true );
+				$this->dataObj->saveContributionTrackingData();
 
 				//@TODO: This shouldn't be happening here. Oh Amazon... Why can't you be more like PayPalAdapter?
 				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
