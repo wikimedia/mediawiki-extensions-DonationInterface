@@ -2965,11 +2965,10 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			//I'm sure we could put more here...
 			$soft_reset = array (
-				'contribution_tracking_id',
 				'order_id',
 			);
 			foreach ( $soft_reset as $reset_me ) {
-				unset( $_SESSION[$reset_me] );
+				unset( $_SESSION['Donor'][$reset_me] );
 			}
 		}
 	}
@@ -3450,9 +3449,13 @@ abstract class GatewayAdapter implements GatewayType {
 	 * the override's word for order_id's final value.
 	 * Also used when receiving the order_id from external sources
 	 * (example: An API response)
+	 *
+	 * @param DonationData $dataObj Reference to the donation data object when
+	 * we're creating the order ID in the constructor of the object (and thus
+	 * do not yet have a reference to it.)
 	 * @return string The normalized value of order_id
 	 */
-	public function normalizeOrderID( $override = null ) {
+	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		$selected = false;
 		$source = null;
 		$value = null;
@@ -3481,7 +3484,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( !$selected && !array_key_exists( 'generated', $this->order_id_candidates ) && $this->getOrderIDMeta( 'generate' ) ) {
 			$selected = true;
 			$source = 'generated';
-			$value = $this->generateOrderID();
+			$value = $this->generateOrderID( $dataObj );
 			$this->order_id_candidates[$source] = $value; //so we don't regen accidentally
 		}
 
@@ -3500,10 +3503,15 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Default orderID generation
 	 * This used to be done in DonationData, but gateways should control
-	 * the format here. Override this in child classes. 
+	 * the format here. Override this in child classes.
+	 *
+	 * @param DonationData $dataObj Reference to the donation data object
+	 * when we are forced to create the order ID during construction of it
+	 * and thus do not already have a reference. THIS IS A HACK! /me vomits
+	 *
 	 * @return int A freshly generated order ID
 	 */
-	public function generateOrderID() {
+	public function generateOrderID( $dataObj = null ) {
 		$order_id = ( string ) mt_rand( 1000, 9999999999 );
 		return $order_id;
 	}
