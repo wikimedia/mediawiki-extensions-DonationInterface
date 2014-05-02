@@ -534,7 +534,7 @@ class DonationData {
 		if ( $this->gateway->isBatchProcessor() ) {
 			$override = $this->getVal( 'order_id' );
 		}
-		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override ) );
+		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override, $this ) );
 	}
 
 	/**
