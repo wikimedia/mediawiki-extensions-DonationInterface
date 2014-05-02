@@ -162,7 +162,7 @@ class ApiPayflowProGateway extends ApiBase {
 
 		//I'd just call DonationData's saveContributionTracking, but we need all the parts out here.
 		$tracking_data = $donationDataObj->getCleanTrackingData();
-		$contribution_tracking_id = $donationDataObj::insertContributionTracking( $tracking_data );
+		$contribution_tracking_id = $donationDataObj::saveContributionTrackingData( $tracking_data );
 
 		// this try/catch design pattern stolen from ClickTracking/ApiSpecialClickTracking.php
 		try {

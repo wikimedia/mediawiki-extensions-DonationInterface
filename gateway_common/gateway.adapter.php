@@ -1033,7 +1033,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 
 			//TODO: Maybe move this to the pre_process functions? 
-			$this->dataObj->updateContributionTracking( defined( 'OWA' ) );
+			$this->dataObj->saveContributionTrackingData();
 
 			$commType = $this->getCommunicationType();
 			if ( $commType === 'redirect' ) {
