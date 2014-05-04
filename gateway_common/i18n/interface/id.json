@@ -10,7 +10,8 @@
 			"Jsoby",
 			"Kenrick95",
 			"Microcell",
-			"Seddon"
+			"Seddon",
+			"C5st4wr6ch"
 		]
 	},
 	"donate_interface": "Dukung Wikimedia",
@@ -282,7 +283,7 @@
 	"donate_interface-select-year-of-expiration": "Pilih tahun kedaluwarsa",
 	"donate_interface-expires-question": "Kedaluwarsa?",
 	"donate_interface-expires": "Kedaluwarsa",
-	"donate_interface-card-security-code": "Kode keamanan kartu",
+	"donate_interface-card-security-code": "Kode keamanan",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
