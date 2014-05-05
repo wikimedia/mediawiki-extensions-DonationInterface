@@ -282,6 +282,7 @@ class DonationData {
 	 */
 	protected function normalize() {
 		if ( !empty( $this->normalized ) ) {
+			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
 			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
@@ -291,11 +292,14 @@ class DonationData {
 			$this->setGateway();
 			$this->setLanguage();
 			$this->setCountry(); //must do this AFTER setIPAddress...
-			$this->handleContributionTrackingID();
 			$this->setCurrencyCode(); // AFTER setCountry
 			$this->renameCardType();
 			$this->setEmail();
-			
+
+			if ( $updateCtRequired ) {
+				$this->saveContributionTrackingData();
+			}
+
 			$this->getValidationErrors();
 		}
 	}
@@ -433,12 +437,19 @@ class DonationData {
 	 * in the Contribution tracking table, and that row is assigned to the 
 	 * current contribution we're tracking. 
 	 * If a contribution tracking id is already present, no new rows will be 
-	 * assigned. 
+	 * assigned.
+	 *
+	 * @return bool True if a new record was created
 	 */
-	protected function handleContributionTrackingID(){
+	protected function handleContributionTrackingID() {
 		if ( !$this->isSomething( 'contribution_tracking_id' ) ) {
-			$this->saveContributionTracking();
+			$ctid = $this->saveContributionTrackingData();
+			if ( $ctid ) {
+				$this->setVal( 'contribution_tracking_id', $ctid );
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	/**
@@ -815,77 +826,46 @@ class DonationData {
 	}
 
 	/**
-	 * Saves a NEW ROW in the Contribution Tracking table and returns the new ID. 
-	 * @return boolean true if we got a contribution tracking # back, false if 
-	 * something went wrong.  
-	 */
-	public function saveContributionTracking() {
-
-		$tracked_contribution = $this->getCleanTrackingData();
-
-		// insert tracking data and get the tracking id
-		$result = $this->insertContributionTracking( $tracked_contribution );
-
-		$this->setVal( 'contribution_tracking_id', $result );
-
-		if ( !$result ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Insert a record into the contribution_tracking table
+	 * Inserts a new or updates a record in the contribution_tracking table.
 	 *
-	 * @param array $tracking_data The array of tracking data to insert to contribution_tracking
 	 * @return mixed Contribution tracking ID or false on failure
 	 */
-	public function insertContributionTracking( $tracking_data ) {
+	public function saveContributionTrackingData() {
+		$ctid = $this->getVal( 'contribution_tracking_id' );
+		$tracking_data = $this->getCleanTrackingData( true );
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
-		// FIXME: impossible condition.
 		if ( !$db ) {
+			// TODO: This might be a critical failure; do we want to throw an exception instead?
+			$this->log( 'Failed to create a connect to contribution_tracking database', LOG_ERR );
 			return false;
 		}
 
-		// set the time stamp if it's not already set
-		if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
-			$tracking_data['ts'] = $db->timestamp();
-		}
-
-		// Store the contribution data
-		if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
-			return $db->insertId();
+		if ( $ctid ) {
+			// We're updating a record, but only if we actually have data to update
+			if ( count( $tracking_data ) ) {
+				$db->update(
+					'contribution_tracking',
+					$tracking_data,
+					array( 'id' => $ctid )
+				);
+			}
 		} else {
-			$this->log( 'Failed to create a new contribution_tracking record', LOG_ERR );
-			return false;
-		}
-	}
+			// We need a new record
+			// set the time stamp if it's not already set
+			if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
+				$tracking_data['ts'] = $db->timestamp();
+			}
 
-	/**
-	 * Update contribution_tracking table
-	 *
-	 * @param bool $force If set to true, will ensure that contribution tracking is updated
-	 */
-	public function updateContributionTracking( $force = false ) {
-		// ony update contrib tracking if we're coming from a single-step landing page
-		// which we know with cc# in utm_source or if force=true or if contribution_tracking_id is not set
-		if ( !$force &&
-			!preg_match( "/cc[0-9]/", $this->getVal( 'utm_source' ) ) &&
-			is_numeric( $this->getVal( 'contribution_tracking_id' ) ) ) {
-			return;
+			// Store the contribution data
+			if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
+				$ctid =  $db->insertId();
+			} else {
+				$this->log( 'Failed to create a new contribution_tracking record', LOG_ERR );
+				return false;
+			}
 		}
-
-		$db = ContributionTrackingProcessor::contributionTrackingConnection();
-
-		// if contrib tracking id is not already set, we need to insert the data, otherwise update
-		if ( !$this->getVal( 'contribution_tracking_id' ) ) {
-			$tracked_contribution = $this->getCleanTrackingData();
-			$this->setVal( 'contribution_tracking_id', $this->insertContributionTracking( $tracked_contribution ) );
-		} else {
-			$tracked_contribution = $this->getCleanTrackingData( true );
-			$db->update( 'contribution_tracking', $tracked_contribution, array( 'id' => $this->getVal( 'contribution_tracking_id' ) ) );
-		}
+		return $ctid;
 	}
 
 	/**
