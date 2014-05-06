@@ -358,30 +358,42 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 *
 	 * @TODO: We shouldn't be adding a selected attribute to the <select>
 	 * 
-	 * This is basically a hackish fix to make sure that dropdowns stay 
-	 * 'sticky' on form submit.  This could no doubt be better.
 	 * @param $html
 	 * @return string
 	 */
 	public function fix_dropdowns( $html ) {
 		$matches;
-		preg_match_all( '|<select id="([^"]+)".*</select>|is', $html, $matches );
+		preg_match_all( '|<select.*>.*?</select>|is', $html, $matches );
 
 		$numMatches = count( $matches[0] );
 
 		for ( $i = 0; $i < $numMatches; $i++ ) {
-			$element = array();
-			$value = $this->getEscapedValue( $matches[1][$i] );
 
-			if ( $value && preg_match( "|<option.*?value=\"{$value}\".*?</option>|ie", $matches[0][$i], $element ) ) {
-				// Remove the default selected, if any
-				$result = str_replace( 'selected', '', $matches[0][$i] );
+			$domthingy = new DOMDocument();
+			$domthingy->loadHTML( $matches[0][$i] );
 
-				// Define the new selected element
-				$result = str_replace( "value=\"{$value}\"", "value=\"{$value}\" selected", $result );
+			$select_element = $domthingy->getElementsByTagName( 'select' )->item( 0 );
+			$select_element->removeAttribute( 'value' );
+			$id = $select_element->getAttribute( 'id' );
+			$value = false;
+			if ( $id ) {
+				$value = $this->getEscapedValue( $id );
+			}
+
+			if ( $value ) {
+				$optionlist = $domthingy->getElementsByTagName( 'option' );
+				$option_count = $optionlist->length;
+
+				for ( $j = 0; $j < $option_count; $j++ ) {
+					if ( $optionlist->item( $j )->getAttribute( 'value' ) === $value ) {
+						$optionlist->item( $j )->setAttribute( 'selected', true );
+					} else {
+						$optionlist->item( $j )->removeAttribute( 'selected' );
+					}
+				}
 
 				// Replace the whole block
-				$html = str_replace( $matches[0][$i], $result, $html );
+				$html = str_replace( $matches[0][$i], $domthingy->saveHTML( $select_element ), $html );
 			}
 		}
 
