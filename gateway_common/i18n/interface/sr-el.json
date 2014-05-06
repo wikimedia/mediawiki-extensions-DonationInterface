@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Rancher",
-			"Vecanoi"
+			"Vecanoi",
+			"Milicevic01"
 		]
 	},
 	"donate_interface": "Podržite Vikimediju",
@@ -172,8 +173,8 @@
 	"donate_interface-error-msg-country": "zemlja",
 	"donate_interface-error-msg-card_type": "vrsta kreditne kartice",
 	"donate_interface-error-msg-card_num": "broj kreditne karte",
-	"donate_interface-error-msg-expiration": "datum isteka kartice",
-	"donate_interface-error-msg-cvv": "CVV broj sa zadnje strane kartice",
+	"donate_interface-error-msg-expiration": "Unesite datum isteka kartice",
+	"donate_interface-error-msg-cvv": "Unesite CVV broj, uglavnom se nalazi na zadnjoj strani kartice.",
 	"donate_interface-error-msg-captcha": "Uneta vrednost potvrdnog koda je neispravna. Pokušajte ponovo.",
 	"donate_interface-error-msg-captcha-please": "Unesite znakove koje vidite iznad da dokažete da niste bot.",
 	"donate_interface-error-msg-cookies": "Omogućite kolačiće na pregledaču.",
