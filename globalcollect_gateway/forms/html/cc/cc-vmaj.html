@@ -16,16 +16,8 @@
 		</td>
 		<td id="donate" valign="top">
 			<div id="greenBackground" class="">
-			<noscript>
-				<div id="noscript">
-					<p id="noscript-msg">%donate_interface-noscript-msg%</p>
-					<p id="noscript-redirect-msg">%donate_interface-noscript-redirect-msg%</p>
-					<p id="noscript-redirect-link">
-						<a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country">https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=DonateNonJS&language=@language&uselang=@language&country=@country</a>
-					</p>
-				</div>
-			</noscript>
-			<p id="topError" class="creditcard-error-msg"></p>
+				@noscript
+				<p id="topError" class="creditcard-error-msg"></p>
 
 			<form name="payment" method="post" action="@action">
 				<div id="payflowpro_gateway-personal-info">
