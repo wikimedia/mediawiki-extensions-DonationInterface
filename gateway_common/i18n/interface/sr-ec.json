@@ -3,7 +3,8 @@
 		"authors": [
 			"Nikola Smolenski",
 			"Rancher",
-			"Михајло Анђелковић"
+			"Михајло Анђелковић",
+			"Milicevic01"
 		]
 	},
 	"donate_interface": "Подржите Викимедију",
@@ -173,8 +174,8 @@
 	"donate_interface-error-msg-country": "земља",
 	"donate_interface-error-msg-card_type": "врста кредитне картице",
 	"donate_interface-error-msg-card_num": "број кредитне карте",
-	"donate_interface-error-msg-expiration": "датум истека картице",
-	"donate_interface-error-msg-cvv": "CVV број са задње стране картице",
+	"donate_interface-error-msg-expiration": "Унесите датум истека картице",
+	"donate_interface-error-msg-cvv": "Унесите CVV број, углавном се налази на задњој страни картице.",
 	"donate_interface-error-msg-captcha": "Унета вредност потврдног кода је неисправна. Покушајте поново.",
 	"donate_interface-error-msg-captcha-please": "Унесите знакове које видите изнад да докажете да нисте бот.",
 	"donate_interface-error-msg-cookies": "Омогућите колачиће на прегледачу.",
