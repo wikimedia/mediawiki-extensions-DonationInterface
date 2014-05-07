@@ -184,8 +184,8 @@
 	"donate_interface-error-msg-country": "negara",
 	"donate_interface-error-msg-card_type": "jenis kad kredit",
 	"donate_interface-error-msg-card_num": "nombor kad kredit",
-	"donate_interface-error-msg-expiration": "Sila masukkan tarikh luput kad anda",
-	"donate_interface-error-msg-cvv": "Sila masukkan kod CVV, biasanya dicetakkan pada belakang kad anda",
+	"donate_interface-error-msg-expiration": "Sila isikan tarikh tamat tempoh kad anda",
+	"donate_interface-error-msg-cvv": "Sila isikan kod CVV yang biasanya tertera pada belakang kad anda",
 	"donate_interface-error-msg-account_name": "Nama akaun",
 	"donate_interface-error-msg-account_number": "Nama akaun",
 	"donate_interface-error-msg-authorization_id": "ID Pengesahan",
@@ -394,5 +394,5 @@
 	"donate_interface-onetime-short": "Sekali sahaja",
 	"donate_interface-securelogo-title": "Klik untuk Sahkan - Tapak web ini memilih VeriSign SSL untuk perdagangan elektronik yang selamat dan perhubungan sulit.",
 	"donate_interface-secureLogo-text": "Perihal Sijil SSL",
-	"donate_interface-error-http-403": "Anda tiada kebenaran untuk memasuk laman ini."
+	"donate_interface-error-http-403": "Anda tidak dibenarkan untuk memasuki laman ini."
 }
