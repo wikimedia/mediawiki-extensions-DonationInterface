@@ -6,6 +6,8 @@
 	},
 	"globalcollectgateway": "Faceți o donație acum",
 	"globalcollect_gateway-desc": "Procesarea plății prin GlobalCollect",
+	"globalcollect_gateway-fakesucceed": "Imită o plată efectuată cu succes",
+	"globalcollect_gateway-fakefail": "Imită o plată nereușită",
 	"globalcollect_gateway-response-9130": "Țară incorectă.",
 	"globalcollect_gateway-response-9140": "Monedă incorectă.",
 	"globalcollect_gateway-response-9150": "Limbă incorectă.",
