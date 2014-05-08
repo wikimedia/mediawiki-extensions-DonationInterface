@@ -17,6 +17,13 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	protected $html_base_dir = '';
 
 	/**
+	 * The directory that is the default/universally shared base dir.
+	 * So, $wgDonationInterfaceHtmlFormDir
+	 * @var string
+	 */
+	protected $html_default_base_dir = '';
+
+	/**
 	 * Tokens used in HTML form for data replacement
 	 * 
 	 * Note that these NEED to be in the same order as the variables in $data in 
@@ -107,7 +114,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	);
 
 	public function __construct( &$gateway ) {
-		global $wgRequest;
+		global $wgRequest, $wgDonationInterfaceHtmlFormDir;
 		parent::__construct( $gateway );
 		$form_errors = $this->form_errors;
 
@@ -141,6 +148,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 			$form_errors['general'] = $general_errors;
 		}
+
+		$this->html_default_base_dir = $wgDonationInterfaceHtmlFormDir;
 		
 		// if this form needs to support squid caching, handle the magic
 		$this->handle_cacheability();
@@ -303,12 +312,12 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		return $html;
 	}
 
-    /**
-     * Replaces basic template blocks in forms with the template elements
-     *
-     * @param string $html Form with tokens as placeholders for messages
-     * @return string The HTML form containing translated messages
-     */
+	/**
+	 * Replaces basic template blocks in forms with the template elements
+	 *
+	 * @param string $html Form with tokens as placeholders for messages
+	 * @return string The HTML form containing translated messages
+	 */
 	public function replace_blocks( $html ){
 		global $wgRequest;
 		if( $wgRequest->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
@@ -322,34 +331,44 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		# look for the start block and switching variable
 		preg_match_all( "/{%\s*block ([a-zA-Z0-9_-]+)\s*([a-zA-Z0-9_-]*)\s*%}/i", $html, $matches );
 		
-		foreach( $matches[ 1 ] as $i => $key ){
+		foreach ( $matches[1] as $i => $key ) {
 			# $matches[ 1 ] is specified in the code, not user input
-			$filepath = $this->html_base_dir . '/_' . $matches[ 1 ][ $i ] . '/';
+			$filepath[0] = $this->html_base_dir . '/_' . $matches[1][$i] . '/';
+			if ($this->html_default_base_dir != $this->html_base_dir){
+				$filepath[1] = $this->html_default_base_dir . '/_' . $matches[1][$i] . '/';
+			}
 
-            $var = 'default';
+			$var = 'default';
 
-            # check to see if the parameter is, in fact, an element in DonationData
-			$param = $this->getEscapedValue( $matches[ 2 ][ $i ] );
-            if( $param && !is_array( $param ) ){
-                # get the value of the element and super-escape
-                $var = $this->make_safe( $param, 'default' );
-            }
+			# check to see if the parameter is, in fact, an element in DonationData
+			$param = $this->getEscapedValue( $matches[2][$i] );
+			if ( $param && !is_array( $param ) ) {
+				# get the value of the element and super-escape
+				$var = $this->make_safe( $param, 'default' );
+			}
 
-            # oh, and we only allow with the extension .html
-            # take that h@k3rs
-            if( file_exists( $filepath . $var . '.html' ) ){
-                # replace the template block with the actual template
-                $template = $this->replace_blocks( file_get_contents( $filepath . $var . '.html' ) );
-                $html = str_replace( $matches[ 0 ][ $i ], $template, $html );
-            } elseif( file_exists( $filepath . 'default.html' ) ){
-                # replace the template block with the default template
-                $template = $this->replace_blocks( file_get_contents( $filepath . 'default.html' ) );
-                $html = str_replace( $matches[ 0 ][ $i ], $template, $html );
-            } else {
-                # replace the template call with nothing at all
-                $html = str_replace( $matches[ 0 ][ $i ], '', $html );
-            }
-		}	
+			# oh, and we only allow with the extension .html
+			# take that h@k3rs
+			$found_file = false;
+			foreach ( $filepath as $try_this_path ) {
+				if (!$found_file){
+					if ( file_exists( $try_this_path . $var . '.html' ) ) {
+						# replace the template block with the specific template
+						$found_file = $try_this_path . $var . '.html';
+					} elseif ( file_exists( $try_this_path . 'default.html' ) ) {
+						# replace the template block with the default template
+						$found_file = $try_this_path . 'default.html';
+					}
+				}
+			}
+			if ( $found_file ){
+				$template = $this->replace_blocks( file_get_contents( $found_file ) );
+				$html = str_replace( $matches[0][$i], $template, $html );
+			} else {
+				# replace the template call with nothing at all
+				$html = str_replace( $matches[0][$i], '', $html );
+			}
+		}
 		return $html;
 	}
 
