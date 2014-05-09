@@ -309,7 +309,7 @@
 	"donate_interface-shirt-size": "This is a label for a select list of shirt sizes",
 	"donate_interface-shirt-size-2": "Label for field to choose t-shirt size. Parameters:\n* $1 - size",
 	"donate_interface-language": "This is a label for a select list of languages a shirt can be printed in\n{{Identical|Language}}",
-	"donate_interface-front": "This is a label for an image of the front of a shirt",
+	"donate_interface-front": "This is a label for an image of the front of a shirt.\n{{Identical|Front}}",
 	"donate_interface-back": "This is a label for an image of the back of a shirt\n{{Identical|Back}}",
 	"donate_interface-front-of-shirt": "Caption for picture of front of t-shirt",
 	"donate_interface-back-of-shirt": "Caption for picture of back of t-shirt",
