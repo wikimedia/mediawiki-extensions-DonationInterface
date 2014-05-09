@@ -1004,46 +1004,6 @@ class DonationData {
 		}
 		return false;
 	}
-
-	/**
-	 * Take data from the return get string; must be in the passed in var_map. After calling this
-	 * function data will need to be restated.
-	 *
-	 * @param $var_map
-	 */
-	public function addVarMapDataFromURI( $var_map ) {
-		global $wgRequest;
-
-		// Obtain data parameters for STOMP message injection
-		//n.b. these request vars were from the _previous_ api call
-		$add_data = array();
-		foreach ( $var_map as $gateway_key => $normal_key ) {
-			$value = $wgRequest->getVal( $gateway_key, null );
-			if ( !empty( $value ) ) {
-				// Deal with some fun special cases
-				switch ( $gateway_key ) {
-					case 'transactionAmount':
-						list ($currency, $amount) = explode( ' ', $value );
-						$add_data[ 'currency' ] = $currency;
-						$add_data[ 'amount' ] = $amount;
-						break;
-
-					case 'buyerName':
-						list ($fname, $lname) = explode( ' ', $value, 2 );
-						$add_data[ 'fname' ] = $fname;
-						$add_data[ 'lname' ] = $lname;
-						break;
-
-					default:
-						$add_data[ $normal_key ] = $value;
-						break;
-				}
-			}
-		}
-
-		//TODO: consider prioritizing the session vars
-		$this->addData( $add_data );
-	}
 }
 
 ?>

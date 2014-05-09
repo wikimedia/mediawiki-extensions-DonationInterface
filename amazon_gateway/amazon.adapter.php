@@ -358,11 +358,48 @@ class AmazonAdapter extends GatewayAdapter {
 	 * Adds translated data from the URI string into donation data
 	 */
 	function addDataFromURI() {
-		$this->dataObj->addVarMapDataFromURI( $this->var_map );
+		global $wgRequest;
 
-		$this->unstaged_data = $this->dataObj->getDataEscaped();
-		$this->staged_data = $this->unstaged_data;
-		$this->stageData();
+		// Obtain data parameters for STOMP message injection
+		//n.b. these request vars were from the _previous_ api call
+		$add_data = array();
+		foreach ( $this->var_map as $gateway_key => $normal_key ) {
+			$value = $wgRequest->getVal( $gateway_key, null );
+			if ( !empty( $value ) ) {
+				// Deal with some fun special cases
+				switch ( $gateway_key ) {
+					case 'transactionAmount':
+						list ($currency, $amount) = explode( ' ', $value );
+						$add_data['currency'] = $currency;
+						$add_data['amount'] = $amount;
+						break;
+
+					case 'buyerName':
+						list ($fname, $lname) = explode( ' ', $value, 2 );
+						$add_data['fname'] = $fname;
+						$add_data['lname'] = $lname;
+						break;
+					case 'paymentMethod':
+						$submethods = array (
+							'Credit Card' => 'amazon_cc',
+							'Amazon Payments Balance' => 'amazon_wallet',
+						);
+						if ( array_key_exists( $value, $submethods ) ) {
+							$add_data['payment_submethod'] = $submethods[$value];
+						} else {
+							//We don't rely on this anywhere serious, but I want to know about it anyway.
+							$this->log( "Amazon just coughed up a surprise payment submethod of '$value'.", LOG_ERR );
+							$add_data['payment_submethod'] = 'unknown';
+						}
+						break;
+					default:
+						$add_data[ $normal_key ] = $value;
+						break;
+				}
+			}
+		}
+		//TODO: consider prioritizing the session vars
+		$this->addData( $add_data ); //using the gateway's addData function restages everything
 
 		$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
 		$email = $this->dataObj->getVal_Escaped( 'email' );
