@@ -215,7 +215,7 @@
 	"donate_interface-otherways-short": "Други начини на дарување",
 	"donate_interface-paypal": "Имате сметка на PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Дарувајте со PayPal</a>.",
 	"donate_interface-credit-storage-processing": "Ние не ги чуваме податоците од кредитните картички. Покрај ова, Вашите лични податоци подлежат на <a href=\"//wikimediafoundation.org/wiki/Donor_policy/mk?uselang=mk\">правилата за приватноста на дарителите</a>.",
-	"donate_interface-token-mismatch": "Сесијата ви истече.  Пополнете го образецот и поднесете го повторно.",
+	"donate_interface-token-mismatch": "Седницата ви истече.  Пополнете го образецот и поднесете го повторно.",
 	"donate_interface-cc-form-header-personal": "Наплатни податоци",
 	"donate_interface-cc-form-header-payment": "Лични податоци",
 	"donate_interface-make-your-donation": "Дарувајте со доброволен прилог сега",
