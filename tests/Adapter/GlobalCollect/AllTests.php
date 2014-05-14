@@ -57,7 +57,9 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 		$suite = new PHPUnit_Framework_TestSuite( 'Donation Interface - Adapter Suite' );
 
 		// General adapter tests
-		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase' );                                                             
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase' );
+		// Orphan Slayer tests
+		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase' );
 
 		// Bank transfer tests
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_BankTransferTestCase' );

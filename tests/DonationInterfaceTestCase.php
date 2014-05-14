@@ -277,7 +277,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 
 		if ( !is_null( $setup_hacks ) ) {
-			$p1 = array_merge( $p1, $setup_hacks );
+			if ( !is_null( $p1 ) ) {
+				$p1 = array_merge( $p1, $setup_hacks );
+			} else {
+				$p1 = $setup_hacks;
+			}
 		}
 
 		$class = $this->testAdapterClass;
@@ -344,26 +348,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		// In the event that something goes crazy, uncomment the next line for much easier local debugging
 		// file_put_contents( '/tmp/xmlout.txt', $form_html );
-		$log = $formpage->adapter->testlog;
 
-		$this->assertTrue( is_array( $log ), "Missing the adapter testlog" );
 		if ( $fail_on_log_errors ) {
-			//for our purposes, an "error" is LOG_ERR or less.
-			$checklogs = array (
-				LOG_ERR => "Oops: We've got LOG_ERRors.",
-				LOG_CRIT => "Critical errors!",
-				LOG_ALERT => "Log Alerts!",
-				LOG_EMERG => "Logs says the servers are actually on fire.",
-			);
-
-			$message = false;
-			foreach ( $checklogs as $level => $levelmessage ) {
-				if ( array_key_exists( $level, $log ) ) {
-					$message = $levelmessage . ' ' . print_r( $log[$level], true ) . "\n";
-				}
-			}
-
-			$this->assertFalse( $message, $message ); //ha
+			$this->verifyNoLogErrors( $formpage->adapter );
 		}
 
 		$dom_thingy = new DomDocument();
@@ -424,6 +411,33 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		//because do_transaction is totally expected to leave session artifacts...
 //		$wgRequest = new FauxRequest();
+	}
+
+	/**
+	 * Asserts that $gateway has no log entries of LOG_ERR or worse.
+	 * @param object $gateway The gateway to check
+	 */
+	function verifyNoLogErrors( $gateway ) {
+		$log = $gateway->testlog;
+
+		$this->assertTrue( is_array( $log ), "Missing the adapter testlog" );
+
+		//for our purposes, an "error" is LOG_ERR or less.
+		$checklogs = array (
+			LOG_ERR => "Oops: We've got LOG_ERRors.",
+			LOG_CRIT => "Critical errors!",
+			LOG_ALERT => "Log Alerts!",
+			LOG_EMERG => "Logs says the servers are actually on fire.",
+		);
+
+		$message = false;
+		foreach ( $checklogs as $level => $levelmessage ) {
+			if ( array_key_exists( $level, $log ) ) {
+				$message = $levelmessage . ' ' . print_r( $log[$level], true ) . "\n";
+			}
+		}
+
+		$this->assertFalse( $message, $message ); //ha
 	}
 
 	/**

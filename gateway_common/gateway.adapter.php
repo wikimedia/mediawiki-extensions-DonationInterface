@@ -304,6 +304,10 @@ abstract class GatewayAdapter implements GatewayType {
 		$testData = isset( $options['testData'] ) ? $options['testData'] : false;
 		$external_data = isset( $options['external_data'] ) ? $options['external_data'] : false; //not test data: Regular type.
 		$api_request = isset( $options['api_request'] ) ? $options['api_request'] : false; //Are we handling an API request?
+		if ( array_key_exists( 'batch_mode', $options ) ) {
+			$this->batch = $options['batch_mode'];
+			unset( $options['batch_mode'] );
+		}
 
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
