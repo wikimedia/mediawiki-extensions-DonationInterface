@@ -3,7 +3,12 @@
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	//Data we know to be good, that we always want to re-assert after a load or an addData. 
 	//so far: order_id and the utm data we pull from contribution tracking. 
-	protected $hard_data = array( );
+	protected $hard_data = array ( );
+
+	public function __construct() {
+		$this->batch = true; //always batch if we're using this object.
+		parent::__construct( $options = array ( ) );
+	}
 
 	public function unstage_data( $data = array( ), $final = true ) {
 		$unstaged = array( );
@@ -31,7 +36,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	public function loadDataAndReInit( $data, $useDB = true ) {
-		$this->batch = true; //or the hooks will accumulate badness. 
 		//re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
 		$this->setTransactionResult();
@@ -76,15 +80,20 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->revalidate();
 	}
 
-	public function addData( $dataArray ) {
-		parent::addData( $dataArray );
+	public function addData( $dataArray, $pipelineStage = 'request' ) {
+		parent::addData( $dataArray, $pipelineStage );
 		$this->reAddHardData();
 	}
 
 	private function reAddHardData() {
 		//anywhere else, and this would constitute abuse of the system.
 		//so don't do it. 
-		foreach ( $this->hard_data as $key => $val ) {
+		$data = $this->hard_data;
+
+		if ( array_key_exists( 'order_id', $data ) ) {
+			$this->normalizeOrderID( $data['order_id'] );
+		}
+		foreach ( $data as $key => $val ) {
 			$this->unstaged_data[$key] = $val;
 			$this->staged_data[$key] = $val;
 		}
