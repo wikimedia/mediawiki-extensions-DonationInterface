@@ -89,12 +89,7 @@
 
 			<div class="row-fluid formCol">
 				<div class="col-md-6 pull-left">
-					<ul id="moreinfolinks">
-						<li><a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&amp;basic=true&amp;country=@country&amp;language=@language&amp;uselang=@language" target="blank">%donate_interface-problemsdonating%</a></li>
-						<li><a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give&amp;language=@language&amp;uselang=@language&amp;country=@country" target="blank">%donate_interface-otherways-short%</a></li>
-						<li><a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=FAQ&amp;language=@language&amp;uselang=@language&amp;country=@country" target="blank">%donate_interface-faqs%</a></li>
-						<li><a href="https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;language=@language&amp;uselang=@language&amp;country=@country" target="blank">%donate_interface-tax-info%</a></li>
-					</ul>
+					{% block moreinfolinks %}
 				</div>
 				<div class="col-md-6 formCol">
 					<span class="pull-right">@verisign_logo	</span>
