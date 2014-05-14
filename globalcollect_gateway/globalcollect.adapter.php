@@ -1940,11 +1940,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
 			}
 		} else {
-			//everything that isn't cc.
-			if ( (!empty( $payment_submethod ) ) && array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
-				$this->staged_data['payment_product'] = $this->payment_submethods[$payment_submethod]['paymentproductid'];
+			if ( !empty( $payment_submethod ) ) {
+				//everything that isn't cc.
+				if ( array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
+					$this->staged_data['payment_product'] = $this->payment_submethods[$payment_submethod]['paymentproductid'];
+				} else {
+					$this->log( "Could not find a payment product for '$payment_submethod' in payment_submethods array", LOG_ERR );
+				}
 			} else {
-				$this->log( "Could not find a payment product for '$payment_submethod' in payment_submethods array", LOG_ERR );
+				$this->log( "payment_submethod found to be empty. Probably okay though.", LOG_DEBUG );
 			}
 		}
 	}
