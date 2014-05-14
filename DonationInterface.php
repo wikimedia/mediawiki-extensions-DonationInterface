@@ -824,9 +824,6 @@ if ( $optionalParts['WorldPay'] === true ){
  * HOOKS
  */
 
-//Unit tests
-$wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';
-
 //Stomp hooks
 if ($optionalParts['Stomp'] === true){
 	$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
@@ -1087,11 +1084,6 @@ if ( $optionalParts['WorldPay'] === true ){
 if ($optionalParts['Stomp'] === true){
 	require_once( $donationinterface_dir . 'activemq_stomp/activemq_stomp.php'  );
 	$wgAutoloadClasses['Stomp'] = $donationinterface_dir . 'activemq_stomp/Stomp.php';
-}
-
-function efDonationInterfaceUnitTests( &$files ) {
-	$files[] = dirname( __FILE__ ) . '/tests/AllTests.php';
-	return true;
 }
 
 unset( $optionalParts );
