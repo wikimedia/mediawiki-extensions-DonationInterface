@@ -20,10 +20,14 @@
  * A really dumb adapter.
  */
 class TestingGenericAdapter extends GatewayAdapter {
+	use TTestingAdapter;
 
-	public static $fakeGlobals = array();
+	/**
+	 * A list of fake errors that is returned each time revalidate() is called.
+	 */
+	public $errorsForRevalidate = array();
 
-	public static $fakeIdentifier;
+	public $revalidateCount = 0;
 
 	public static $acceptedCurrencies = array();
 
@@ -31,22 +35,20 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
+	public function revalidate($check_not_empty = array()) {
+		if ( !empty( $this->errorsForRevalidate ) ) {
+			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
+			if ( $fakeErrors !== null ) {
+				$this->revalidateCount++;
+				$this->setValidationErrors( $fakeErrors );
+				return empty( $fakeErrors );
+			}
+		}
+		return parent::revalidate($check_not_empty);
+	}
+
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		return '12345';
-	}
-
-	public static function getGlobal( $name ) {
-		if ( array_key_exists( $name, TestingGenericAdapter::$fakeGlobals ) ) {
-			return TestingGenericAdapter::$fakeGlobals[$name];
-		}
-		return parent::getGlobal( $name );
-	}
-
-	public static function getIdentifier() {
-		if ( self::$fakeIdentifier ) {
-			return self::$fakeIdentifier;
-		}
-		return GatewayAdapter::getIdentifier();
 	}
 
 	public function loadConfig() {
@@ -78,6 +80,9 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public function defineVarMap() {
+	}
+
+	public function processResponse( $response ) {
 	}
 
 	public function setGatewayDefaults( $options = array() ) {

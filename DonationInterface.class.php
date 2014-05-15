@@ -84,6 +84,7 @@ class DonationInterface {
 		$wgAutoloadClasses['TestingPaypalLegacyAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalLegacyAdapter.php';
 
 		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
+		$wgAutoloadClasses['TTestingAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 
 		return true;
 	}
