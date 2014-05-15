@@ -284,7 +284,7 @@
 	"donate_interface-select-year-of-expiration": "Vervaljaar",
 	"donate_interface-expires-question": "Vervalt?",
 	"donate_interface-expires": "Vervalt",
-	"donate_interface-card-security-code": "Beveiligingscode kaart",
+	"donate_interface-card-security-code": "Beveiligingscode",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV-nummer",
 	"donate_interface-cvv2": "CVV2",
