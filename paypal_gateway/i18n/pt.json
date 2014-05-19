@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Hamilton Abreu",
-			"Imperadeiro98"
+			"Imperadeiro98",
+			"Fúlvio"
 		]
 	},
+	"paypalgateway": "Faça sua doação agora",
 	"paypal_gateway-desc": "Pagamento do PayPal a ser processado"
 }
