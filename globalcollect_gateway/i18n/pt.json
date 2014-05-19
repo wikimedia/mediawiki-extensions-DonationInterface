@@ -2,11 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Hamilton Abreu",
-			"João Sousa"
+			"João Sousa",
+			"Fúlvio"
 		]
 	},
 	"globalcollectgateway": "Faça o seu donativo agora",
 	"globalcollect_gateway-desc": "Processamento de pagamentos GlobalCollect",
+	"globalcollect_gateway-fakesucceed": "Simular um pagamento bem-sucedido",
+	"globalcollect_gateway-fakefail": "Simular um pagamento mal-sucedido",
 	"globalcollect_gateway-response-9130": "País inválido.",
 	"globalcollect_gateway-response-9140": "Divisa inválida.",
 	"globalcollect_gateway-response-9150": "Língua inválida.",
