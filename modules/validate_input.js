@@ -131,18 +131,19 @@ window.validate_personal = function( form ){
 	}
 
 	// validate email address
-	if ( $.trim( document.getElementById( 'emailAdd' ).value ) && document.getElementById( 'emailAdd' ).value != mw.msg( 'donate_interface-donor-emailAdd' ) ) {
+	var $emailAdd = document.getElementById( 'emailAdd' );
+	if ( $.trim( $emailAdd.value ) && $emailAdd.value != mw.msg( 'donate_interface-donor-emailAdd' ) ) {
 		var invalid = false;
 
-        var apos = form.emailAdd.value.indexOf("@");
-		var dotpos = form.emailAdd.value.lastIndexOf(".");
+        var apos = $emailAdd.value.indexOf("@");
+		var dotpos = $emailAdd.value.lastIndexOf(".");
 	
 		if( apos < 1 || dotpos-apos < 2 ) {
 			output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
             invalid = true;
 		}
 
-        var domain = form.emailAdd.value.substring( apos + 1 );
+        var domain = $emailAdd.value.substring( apos + 1 );
 
         var invalids = ["..", "/", "\\", ",", "<", ">"];
 
@@ -212,9 +213,10 @@ window.validate_form = function( form ) {
 	}
 
 	// validate email address
-	if ( $.trim( document.getElementById( 'emailAdd' ).value ) && document.getElementById( 'emailAdd' ).value != mw.msg( 'donate_interface-donor-emailAdd' ) ) {
-		var apos = form.emailAdd.value.indexOf("@");
-		var dotpos = form.emailAdd.value.lastIndexOf(".");
+	var $emailAdd = document.getElementById( 'emailAdd' );
+	if ( $.trim( $emailAdd.value ) && $emailAdd.value != mw.msg( 'donate_interface-donor-emailAdd' ) ) {
+		var apos = $emailAdd.value.indexOf("@");
+		var dotpos = $emailAdd.value.lastIndexOf(".");
 	
 		if( apos < 1 || dotpos-apos < 2 ) {
 			output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
