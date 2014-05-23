@@ -186,7 +186,6 @@ class WorldPayAdapter extends GatewayAdapter {
 		$this->staged_vars = array(
 			'returnto',
 			'wp_acctname',
-			'wp_storeid',
 			'iso_currency_id',
 			'payment_submethod',
 			'zip',
@@ -197,10 +196,8 @@ class WorldPayAdapter extends GatewayAdapter {
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'IsTest' => $this->account_config[ 'Test' ],
-			'MerchantId' => $this->account_config[ 'MerchantId' ],
-			'UserName' => $this->account_config[ 'Username' ],
-			'UserPassword' => $this->account_config[ 'Password' ],
-
+			'TokenizingMerchantID' => $this->account_config[ 'TokenizingMerchantID' ],
+			'MerchantIDs' => $this->account_config[ 'MerchantIDs' ],
 			'StoreIDs' => $this->account_config[ 'StoreIDs' ],
 		);
 	}
@@ -700,11 +697,16 @@ class WorldPayAdapter extends GatewayAdapter {
 			'AcctName'          => 'wp_acctname',
 			'CVN'               => 'cvv',
 			'PTTID'             => 'wp_pttid',
+			'UserName'          => 'username',
+			'UserPassword'      => 'user_password',
+			'MerchantId'        => 'wp_merchant_id'
 		);
 	}
 
 	public function do_transaction( $transaction ) {
 		$this->url = $this->getGlobal( 'URL' );
+
+		$this->loadRoutingInfo( $transaction );
 
 		switch ( $transaction ) {
 			case 'GenerateToken':
@@ -849,22 +851,6 @@ class WorldPayAdapter extends GatewayAdapter {
 		));
 	}
 
-	protected function stage_wp_storeid( $type = 'request' ) {
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-		if ( array_key_exists( $currency, $this->accountInfo['StoreIDs'] ) ) {
-			// If we have the currency setup; settle into that
-			$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$currency];
-		} else {
-			// Otherwise settle into whatever the default it
-			$defaultStore = $this->getGlobal( 'DefaultCurrency' );
-			if ( array_key_exists( $defaultStore, $this->accountInfo['StoreIDs'] ) ) {
-				$this->staged_data['wp_storeid'] = $this->accountInfo['StoreIDs'][$defaultStore];
-			} elseif ( $this->getCurrentTransaction() === 'AuthorizePaymentForFraud' ) {
-				throw new MWException( 'Store not configured for currency. Cannot perform auth request.' );
-			}
-		}
-	}
-
 	protected function stage_iso_currency_id( $type = 'request' ) {
 		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
 		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
@@ -881,6 +867,51 @@ class WorldPayAdapter extends GatewayAdapter {
 					$this->unstaged_data['payment_submethod'] = self::$CARD_TYPES[$paymentSubmethod];
 				}
 			}
+		}
+	}
+
+	protected function loadRoutingInfo( $transaction ) {
+		switch ( $transaction ) {
+			case 'QueryAuthorizeDeposit':
+				break;
+			case 'GenerateToken':
+			case 'QueryTokenData':
+				$mid = $this->account_config['TokenizingMerchantID'];
+				$this->staged_data['wp_merchant_id'] = $mid;
+				$this->staged_data['username'] = $this->account_config['MerchantIDs'][$mid]['Username'];
+				$this->staged_data['user_password'] = $this->account_config['MerchantIDs'][$mid]['Password'];
+				break;
+			default:
+				$submethod = $this->getData_Unstaged_Escaped( 'payment_submethod' );
+				$country = $this->getData_Unstaged_Escaped( 'country' );
+				$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+
+				$merchantId = null;
+				$storeId = null;
+				foreach( $this->account_config['StoreIDs'] as $storeConfig => $info ) {
+					list( $storeSubmethod, $storeCountry, $storeCurrency ) = explode( '/', $storeConfig );
+					if ( ( $submethod === $storeSubmethod || $storeSubmethod === '*' ) &&
+						( $country === $storeCountry || $storeCountry === '*' ) &&
+						$currency === $storeCurrency
+					) {
+						list( $merchantId, $storeId ) = $info;
+						$this->log( "Using MID: {$merchantId}, SID: {$storeId} for " .
+							"submethod: {$submethod}, country: {$country}, currency: {$currency}."
+						);
+						break;
+					}
+				}
+
+				if ( !$merchantId ) {
+					throw new MWException( 'Could not find account information for ' .
+						"submethod: {$submethod}, country: {$country}, currency: {$currency}." );
+				} else {
+					$this->staged_data['wp_merchant_id'] = $merchantId;
+					$this->staged_data['username'] = $this->account_config['MerchantIDs'][$merchantId]['Username'];
+					$this->staged_data['user_password'] = $this->account_config['MerchantIDs'][$merchantId]['Password'];
+					$this->staged_data['wp_storeid'] = $storeId;
+				}
+				break;
 		}
 	}
 
