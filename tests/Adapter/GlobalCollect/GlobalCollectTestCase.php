@@ -81,6 +81,14 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		//conflicting order_id in init data, $_POST and $SESSION, explicit GC generation, batch mode
 		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE ), 'batch_mode' => TRUE, ) );
 		$this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
+
+		//make sure that decimal numbers are rejected by GC. Should be a toss and regen
+		$init['order_id'] = '2143.0';
+		unset( $_POST['order_id'] );
+		unset( $_SESSION['Donor']['order_id'] );
+		//conflicting order_id in init data, $_POST and $SESSION, explicit GC generation, batch mode
+		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE, 'disallow_decimals' => TRUE ), 'batch_mode' => TRUE, ) );
+		$this->assertNotEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true' );
 	}
 
 	/**
