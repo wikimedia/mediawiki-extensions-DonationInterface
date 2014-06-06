@@ -3486,6 +3486,12 @@ abstract class GatewayAdapter implements GatewayType {
 					//In fact, we should probably just port the whole thing over there. Derp.
 					if ( !is_numeric( $value ) ) {
 						$met = false;
+					} elseif ( $field === 'order_id' && $this->getOrderIDMeta( 'disallow_decimals' ) ) { //haaaaaack...
+						//it's a numeric string, so all the number functions (like is_float) always return false. Because, string.
+						if ( strpos( $value, '.' ) !== false ) {
+							//we don't want decimals. Something is wrong. Regen.
+							$met = false;
+						}
 					}
 					break;
 				case 'alphanumeric' :

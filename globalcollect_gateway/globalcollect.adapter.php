@@ -367,6 +367,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->order_id_meta = array (
 			'alt_locations' => array ( '_GET' => 'order_id' ),
 			'generate' => TRUE, //freaking FINALLY.
+			'disallow_decimals' => true, //hacky hack hack...
 		);
 	}
 
