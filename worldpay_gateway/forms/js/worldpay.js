@@ -33,7 +33,8 @@
 	 */
 	function validateClientSide() {
 		var cardType = $.payment.cardType( $accountNumber.val() ),
-			expiry = $accountExpiry.payment( 'cardExpiryVal' );
+			expiry = $accountExpiry.payment( 'cardExpiryVal' ),
+			personalResult = validate_personal( document.getElementById( 'worldpayform' ) );
 
 		$accountNumber.toggleClass( 'invalid', !$.payment.validateCardNumber( $accountNumber.val() ) );
 		$accountExpiry.toggleClass( 'invalid', !$.payment.validateCardExpiry( expiry ) );
@@ -41,7 +42,7 @@
 
 		validate_cc();
 
-		return ( $( 'input.invalid' ).length === 0 );
+		return ( personalResult && $( 'input.invalid' ).length === 0 );
 	}
 
 	/**
@@ -183,7 +184,6 @@
 			} else {
 				$( '#paymentSubmitBtn' ).removeClass('disabled');
 			}
-			validate_personal( document.getElementById('worldpayform') );
 			return false;
 		});
 	});
