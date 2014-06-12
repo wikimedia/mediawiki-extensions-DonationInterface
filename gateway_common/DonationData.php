@@ -44,7 +44,6 @@ class DonationData {
 	 * Default is false. 
 	 */
 	protected function populateData( $external_data = false ) {
-		global $wgRequest;
 		$this->normalized = array( );
 		if ( is_array( $external_data ) ) {
 			//I don't care if you're a test or not. At all.
@@ -346,13 +345,13 @@ class DonationData {
 	 * Sets user_ip and server_ip. 
 	 */
 	protected function setIPAddresses(){
-		global $wgRequest;
 		//if we are coming in from the orphan slayer, the client ip should 
 		//already be populated with something un-local, and we'd want to keep 
 		//that.
 		if ( !$this->isSomething( 'user_ip' ) || $this->getVal( 'user_ip' ) === '127.0.0.1' ){
-			if ( isset($wgRequest) ){
-				$this->setVal( 'user_ip', $wgRequest->getIP() );
+			$userIp = WmfFramework::getIP();
+			if ( $userIp ) {
+				$this->setVal( 'user_ip', $userIp );
 			}
 		}
 		
@@ -413,10 +412,11 @@ class DonationData {
 			// Requires php5-geoip package
 			if ( function_exists( 'geoip_country_code_by_name' ) ) {
 				$ip = $this->getVal( 'user_ip' );
-				if ( IP::isValid( $ip ) ) {
+				if ( WmfFramework::validateIP( $ip ) ) {
 					//I hate @suppression at least as much as you do, but this geoip function is being genuinely horrible.
 					//try/catch did not help me suppress the notice it emits when it can't find a host.
 					//The goggles; They do *nothing*.
+					// TODO: to change error_reporting is less worse?
 					$country = @geoip_country_code_by_name( $ip );
 					if ( !$country ) {
 						$this->log( __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available.", LOG_WARNING );
@@ -708,7 +708,6 @@ class DonationData {
 	 * already set coming in (had been defaulting to english). 
 	 */
 	protected function setLanguage() {
-		global $wgLang;
 		$language = false;
 
 		if ( $this->isSomething( 'uselang' ) ) {
@@ -717,8 +716,8 @@ class DonationData {
 			$language = $this->getVal( 'language' );
 		}
 		
-		if ( $language == false || !Language::isValidBuiltInCode( $language ) ) {
-			$language = $wgLang->getCode();
+		if ( $language == false || !WmfFramework::isValidBuiltInLanguageCode( $language ) ) {
+			$language = WmfFramework::getLanguageCode();
 		}
 		
 		$this->setVal( 'language', $language );
@@ -1023,10 +1022,9 @@ class DonationData {
 	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 */
 	public function wasPosted(){
-		global $wgRequest;
 		static $posted = null;
 		if ($posted === null){
-			$posted = (array_key_exists('REQUEST_METHOD', $_SERVER) && $wgRequest->wasPosted());
+			$posted = (array_key_exists('REQUEST_METHOD', $_SERVER) && WmfFramework::isPosted());
 		}
 		return $posted; 
 	}

@@ -95,7 +95,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'values' => array(
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'isDonationWidget' => '1',
@@ -127,7 +127,7 @@ class AmazonAdapter extends GatewayAdapter {
 				// FIXME: There is magick available if the names match.
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMessage( 'donate_interface-monthly-donation-description' )->text(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'processImmediate' => '1',
