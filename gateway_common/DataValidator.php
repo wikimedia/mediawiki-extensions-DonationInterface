@@ -47,6 +47,7 @@ class DataValidator {
 	 * $gateway_classes
 	 * @var array A list of all possible gateway classes. 
 	 */
+	//XXX
 	protected static $gateway_classes = array(
 		'globalcollect' => 'GlobalCollectAdapter',
 		'payflowpro' => 'PayflowProAdapter'
@@ -180,8 +181,8 @@ class DataValidator {
 			//'donate_interface-error-msg-postal' => 'postal code',
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
-			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMsg( 'donate_interface-error-msg', wfMsg( $error_message_field_string ) );
+			if ( $message_field != 'general' && WMF_Framework::messageExists( $error_message_field_string, $language ) ) {
+				return WMF_Framework::format_message( 'donate_interface-error-msg', WMF_Framework::format_message( $error_message_field_string ) );
 			} 
 		}
 		
@@ -219,77 +220,16 @@ class DataValidator {
 			}
 			
 			$error_message_field_string = 'donate_interface-error-msg-' . $suffix;			
-			if ( self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMsg( $error_message_field_string );
+			if ( WMF_Framework::messageExists( $error_message_field_string, $language ) ) {
+				return WMF_Framework::format_message( $error_message_field_string );
 			}
 		}
 		
 		//ultimate defaultness. 
-		return wfMsg( 'donate_interface-error-msg-general' );		
+		return WMF_Framework::format_message( 'donate_interface-error-msg-general' );		
 	}
 	
 	
-	/**
-	 * wmfMessageExists returns true if a translatable message has been defined 
-	 * for the string and language that have been passed in, false if none is 
-	 * present. 
-	 * @param string $msg_key The message string to look up.
-	 * @param string $language A valid mediawiki language code.
-	 * @return boolean - true if message exists, otherwise false.
-	 */
-	public static function wmfMessageExists( $msg_key, $language ){
-		$language = strtolower( $language );
-		if ( wfMessage( $msg_key )->inLanguage( $language )->exists() ){
-			# if we are looking for English, we already know the answer
-			if ( $language == 'en' ){
-				return true;
-			}
-
-			# get the english version of the message
-			$msg_en = wfMessage( $msg_key )->inLanguage( 'en' )->text();
-			# attempt to get the message in the specified language
-			$msg_lang = wfMessage( $msg_key )->inLanguage( $language )->text();
-
-			# if the messages are the same, the message fellback to English, return false
-			return strcmp( $msg_en, $msg_lang ) != 0;
-		}
-		return false;
-	}
-
-	/**
-	 * wfLangSpecificFallback - returns the text of the first existant message
-	 * in the requested language. If no messages are found in that language, the
-	 * function returns the first existant fallback message.
-	 *
-	 * @param $language the requested language
-	 * @return String the text of the first existant message
-	 * @throws MWException if no message keys are specified
-	 */
-	public static function wfLangSpecificFallback( $language='en', $msg_keys=array() ){
-
-		if ( count( $msg_keys ) < 1 ){
-			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
-		}
-
-		# look for the first message that exists
-		foreach ( $msg_keys as $m ){
-			if ( self::wmfMessageExists( $m, $language) ){
-				return wfMessage( $m )->inLanguage( $language )->text();
-			}
-		}
-
-		# we found nothing in the requested language, return the first fallback message that exists
-		foreach ( $msg_keys as $m ){
-			if ( wfMessage( $m )->inLanguage( $language )->exists() ){
-				return wfMessage( $m )->inLanguage( $language )->text();
-			}
-		}
-
-		# somehow we still don't have a message, return a default error message
-		return wfMessage( $msg_keys[0] )->text();
-	}
-
-
 	/**
 	 * validate
 	 * Run all the validation rules we have defined against a (hopefully 
@@ -383,7 +323,7 @@ class DataValidator {
 			} else {
 				$instructions['non_empty'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
+				throw new WmfPaymentAdapterException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
 			}
 		}
 		
@@ -398,7 +338,7 @@ class DataValidator {
 			} else {
 				$instructions['valid_type'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
+				throw new WmfPaymentAdapterException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
 			}
 		}
 		
@@ -435,7 +375,7 @@ class DataValidator {
 			} else {
 				$instructions['calculated'][$field] === 'exception';
 				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
+				throw new WmfPaymentAdapterException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
 //		error_log( __FUNCTION__ . " " . print_r( $instructions, true ) );
@@ -513,7 +453,7 @@ class DataValidator {
 	 */
 	protected static function validate_email( $value ){
 		// is email address valid?
-		$isEmail = User::isValidEmailAddr( $value );
+		$isEmail = WMF_Framework::is_valid_email( $value );
 		return $isEmail;
 	}
 	
@@ -711,6 +651,7 @@ class DataValidator {
 	 */
 	public static function convert_to_usd( $currency_code, $amount ) {
 		require_once( dirname( __FILE__ ) . '/currencyRates.inc' );
+
 		$rates = getCurrencyRates();
 		$code = strtoupper( $currency_code );
 		if ( array_key_exists( $code, $rates ) ) {
@@ -753,12 +694,11 @@ class DataValidator {
 	 * @return string A valid mediawiki language code. 
 	 */
 	public static function getLanguage( $data ) {
-		global $wgLang;
 		if ( array_key_exists( 'language', $data )
-			&& Language::isValidBuiltInCode( $data['language'] ) ) {
+			&& WMF_Framework::is_valid_builtin_language_code( $data['language'] ) ) {
 			return $data['language'];
 		} else {
-			return $wgLang->getCode();
+			return WMF_Framework::get_language_code();
 		}		
 	}
 	

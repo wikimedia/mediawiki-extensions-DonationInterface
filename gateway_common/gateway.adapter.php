@@ -194,6 +194,14 @@ abstract class GatewayAdapter implements GatewayType {
 	const COMMUNICATION_TYPE = 'xml'; //this needs to be either 'xml' or 'namevalue'
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example. 
 
+	protected $valid_statuses = array(
+		'complete', 
+		'pending', 
+		'pending-poke', 
+		'failed', 
+		'revised',
+	);
+
 	/**
 	 * Get @see GlobalCollectAdapter::$goToThankYouOn
 	 *
@@ -213,44 +221,32 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-		global $wgRequest;
+		$defaults = array(
+			'testData' => false,
+			'external_data' => false,
+			'postDefaults' => false,
+		);
+		$options = array_merge($options, $defaults);
 
-		//TODO: EXTRACT MUST DIE.
-		// Extract the options
-		extract( $options );
-
-		$testData = isset( $testData ) ? $testData : false;
-		$external_data = isset( $external_data ) ? $external_data : false; //not test data: Regular type. 
-		$postDefaults = isset( $postDefaults ) ? $postDefaults : false;
-		
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
 			// Only submit test data if we are in test mode.
 		} else {
 			$this->url = self::getGlobal( 'TestingURL' );
-			if ( $testData ){
-				$external_data = $testData;
+			if ( $options['testData'] ){
+				$options['external_data'] = $options['testData'];
 			}
 		}
 		
-		$this->dataObj = new DonationData( get_called_class(), self::getGlobal( 'Test' ), $external_data );
+		$this->setPostDefaults( $options['postDefaults'] );
 
-		$this->setPostDefaults( $postDefaults );
-		
-		$this->unstaged_data = $this->dataObj->getDataEscaped();
-		$this->staged_data = $this->unstaged_data;
-		
-		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
-		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) ) );
-
-		$this->defineTransactions();
-		$this->defineErrorMap();
-		$this->defineVarMap();
-		$this->defineDataConstraints();
-		$this->defineAccountInfo();
-		$this->defineReturnValueMap();
-
-		$this->stageData();
+		$this->load_request_data($options['external_data']);
+	}
+	
+	function getNumAttempt()
+	{
+		//XXX
+		//( !is_null( $wgRequest->getVal( 'numAttempt', null ) ) )
 	}
 
 	/**
@@ -259,23 +255,12 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	function setPostDefaults( $options = array() ) {
 
-		// Extract the options
-		if ( is_array( $options ) ) {
-			extract( $options );
-		}
-
-		//TODO: The next two lines belong in the globalcollect adapter. >:[
-		$returnTitle = isset( $returnTitle ) ? $returnTitle : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-		$returnTo = isset( $returnTo ) ? $returnTo : $returnTitle->getFullURL();
-
 		$this->postdatadefaults = array(
 			'order_id' => '112358' . rand(),
 			'amount' => '11.38',
 			'currency_code' => 'USD',
 			'language' => 'en',
 			'country' => 'US',
-			'returnto' => $returnTo,
-			'card_type' => 'visa',
 		);
 	}
 
@@ -290,60 +275,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->log_msg_prefix .= ':' . $this->getData_Unstaged_Escaped( 'order_id' ) . ' ';
 
 		return $this->log_msg_prefix;
-	}
-
-	/**
-	 * getThankYouPage should either return a full page url, or false. 
-	 * @global type $wgLang
-	 * @return mixed Page URL in string format, or false if none is set. 
-	 */
-	public function getThankYouPage() {
-		$page = self::getGlobal( "ThankYouPage" );
-		if ( $page ) {
-			$page = $this->appendLanguageAndMakeURL( $page );
-		}
-		return $page;
-	}
-
-	/**
-	 * getFailPage should either return a full page url, or false. 
-	 * @global type $wgLang
-	 * @return mixed Page URL in string format, or false if none is set.  
-	 */
-	public function getFailPage() {
-		$page = self::getGlobal( "FailPage" );
-		if ( $page ) {
-
-			$language = $this->getData_Unstaged_Escaped( 'language' );
-
-			$page .= '?uselang=' . $language;
-		}
-		return $page;
-	}
-	
-	/**
-	 * For pages we intend to redirect to. This function will take either a full 
-	 * URL or a page title, and turn it into a URL with the appropriate language 
-	 * appended onto the end. 
-	 * @param string $url Either a wiki page title, or a URL to an external wiki 
-	 * page title. 
-	 * @return string A URL  
-	 */
-	protected function appendLanguageAndMakeURL( $url ){
-		$language = $this->getData_Unstaged_Escaped( 'language' );
-		//make sure we don't already have the language in there...
-		$dirs = explode('/', $url);
-		if ( !is_array($dirs) || !in_array( $language, $dirs ) ){
-			$url = $url . "/$language";
-		}
-		
-		if ( strpos( $url, 'http' ) === 0) { 
-			return $url;
-		} else { //this isn't a url yet.
-			$returnTitle = Title::newFromText( $url );
-			$url = $returnTitle->getFullURL();
-			return $url;
-		}
 	}
 
 	/**
@@ -468,26 +399,13 @@ abstract class GatewayAdapter implements GatewayType {
 		static $gotten = array(); //cache. 
 		if ( !array_key_exists( $varname, $gotten ) ) {
 			$globalname = self::getGlobalPrefix() . $varname;
-			global $$globalname;
-			if ( !isset( $$globalname ) ) {
+			$value = WMF_Framework::get_global($globalname);
+			if ( !isset( $value ) ) {
 				$globalname = "wgDonationInterface" . $varname;
-				global $$globalname; //set or not. This is fine. 
 			}
-			$gotten[$varname] = $$globalname;
+			$gotten[$varname] = WMF_Framework::get_global($globalname);
 		}
 		return $gotten[$varname];
-	}
-
-	/**
-	 * getVarMap
-	 *
-	 * This method was added for unit testing.
-	 *
-	 * @return	array	Returns @see GatewayAdapter::$var_map
-	 */
-	public function getVarMap() {
-
-		return $this->var_map;
 	}
 
 	/**
@@ -508,23 +426,20 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getErrorMap( $code = null, $options = array() ) {
 
-		if ( isset( $options['code'] ) ) {
-			unset( $options['code'] );
-		}
-		
-		extract( $options );
-
-		global $messages;
-		
 		if ( is_null( $code ) ) {
 			return $this->error_map;
 		}
+		
+		$defaults = array(
+			'translate' => false,
+		);
+		$options = array_merge($options, $defaults);
 
-		$translate = isset( $translate ) ? (boolean) $translate : false ;
+		$options['translate'] = (boolean) $options['translate'];
 		
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
 		
-		$translatedMessage = wfMsg( $response_message );
+		$translatedMessage = WMF_Framework::format_message( $response_message );
 		
 		// Check to see if an error message exists in translation
 		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
@@ -536,10 +451,10 @@ abstract class GatewayAdapter implements GatewayType {
 		// If the $code does not exist, use the default code: 0
 		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
 		
-		$translatedMessage = ( $translate && empty( $translatedMessage ) ) ? wfMsg( $this->error_map[ $code ] ) : $translatedMessage; 
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WMF_Framework::format_message( $this->error_map[ $code ] ) : $translatedMessage; 
 		
 		// Check to see if we return the translated message.
-		$message = ( $translate ) ? $translatedMessage : $this->error_map[ $code ];
+		$message = ( $options['translate'] ) ? $translatedMessage : $this->error_map[ $code ];
 		
 		return $message;
 	}
@@ -586,7 +501,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( empty( $this->transactions ) ) {
 			$msg = self::getGatewayName() . ': Transactions structure is empty! No transaction can be constructed.';
 			self::log( $msg, LOG_CRIT );
-			throw new MWException( $msg );
+			throw new WmfPaymentAdapterException( $msg );
 		}
 		//Ensures we are using the correct transaction structure for our various lookups. 
 		$transaction = $this->getCurrentTransaction();
@@ -639,7 +554,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//Complain furiously, for your code is faulty. 
 		$msg = self::getGatewayName() . ': Requested value ' . $gateway_field_name . ' cannot be found in the transactions structure.';
 		self::log( $msg, LOG_CRIT );
-		throw new MWException( $msg );
+		throw new WmfPaymentAdapterException( $msg );
 	}
 
 	/**
@@ -661,7 +576,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			$msg = self::getGatewayName() . ": $transaction request structure is empty! No transaction can be constructed.";
 			self::log( $msg, LOG_CRIT );
-			throw new MWException( $msg );
+			throw new WmfPaymentAdapterException( $msg );
 		}
 
 		return $this->transactions[$transaction]['request'];
@@ -832,7 +747,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//reset, in case this isn't our first time. 
 		$this->transaction_results = array();
 		$this->setValidationAction('process', true); 
-				
+
 		try {
 			$this->setCurrentTransaction( $transaction );
 
@@ -866,18 +781,18 @@ abstract class GatewayAdapter implements GatewayType {
 
 			// If the payment processor requires XML, package our data into XML.
 			if ( $this->getCommunicationType() === 'xml' ) {
-				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
+				//$this->getStopwatch( "buildRequestXML", true ); // begin profiling
 				$curlme = $this->buildRequestXML(); // build the XML
-				$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
+				//$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
 			}
 
 			// If the payment processor requires name/value pairs, package our data into name/value pairs.
 			if ( $this->getCommunicationType() === 'namevalue' ) {
-				$this->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
+				//$this->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
 				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
-				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
+				//$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
 			}
-		} catch ( MWException $e ) {
+		} catch ( WmfPaymentAdapterException $e ) {
 			
 			self::log( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage(), LOG_CRIT );
 			
@@ -934,7 +849,7 @@ abstract class GatewayAdapter implements GatewayType {
 					if ( $txn_ok === false ) {
 						$stopflag = false;
 					} else {
-						if ( !in_array( $this->getTransactionWMFStatus(), $statuses ) ) {
+						if ( !$this->validTransactionWMFStatus() ) {
 							$stopflag = false;
 						}
 					}
@@ -943,7 +858,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		//Log out how many times we looped, and what the clock is now. 
-		$this->saveCommunicationStats( __FUNCTION__, $transaction, "counter = $counter" );
+		//$this->saveCommunicationStats( __FUNCTION__, $transaction, "counter = $counter" );
 
 		if ( $txn_ok === false ) { //nothing to process, so we have to build it manually
 			
@@ -988,13 +903,33 @@ abstract class GatewayAdapter implements GatewayType {
 		
 	}
 
+	function load_request_data($data)
+	{
+		$this->dataObj = new DonationData( self::getGatewayAdapterClass(), self::getGlobal( 'Test' ), $data );
+		
+		$this->unstaged_data = $this->dataObj->getDataEscaped();
+		$this->staged_data = $this->unstaged_data;
+		
+		//If we ever put numAttempt in the session, we'll probably want to re-examine which form value we want to use here. 
+		$this->posted = ( $this->dataObj->wasPosted() && $this->getNumAttempt() );
+
+		$this->defineTransactions();
+		$this->defineErrorMap();
+		$this->defineVarMap();
+		$this->defineDataConstraints();
+		$this->defineAccountInfo();
+		$this->defineReturnValueMap();
+
+		$this->stageData();
+	}
+
 	function getCurlBaseOpts() {
 		//I chose to return this as a function so it's easy to override. 
 		//TODO: probably this for all the junk I currently have stashed in the constructor.
 		//...maybe. 
 		$opts = array(
 			CURLOPT_URL => $this->url,
-			CURLOPT_USERAGENT => Http::userAgent(),
+			CURLOPT_USERAGENT => WMF_Framework::user_agent(),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_TIMEOUT => self::getGlobal( 'Timeout' ),
@@ -1034,7 +969,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $transaction_name, $this->transactions ) ) {
 			$msg = self::getGatewayName() . ': Transaction Name "' . $transaction_name . '" undefined for this gateway.';
 			self::log( $msg, LOG_CRIT );
-			throw new MWException( $msg );
+			throw new WmfPaymentAdapterException( $msg );
 		} else {
 			$this->current_transaction = $transaction_name;
 		}
@@ -1176,7 +1111,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
+		//$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
 
 		if ( $results['headers']['http_code'] != 200 ) {
 			$results['result'] = false;
@@ -1217,17 +1152,7 @@ abstract class GatewayAdapter implements GatewayType {
 	public static function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
 		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
 
-		// if we're not using the syslog facility, use wfDebugLog
-		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			wfDebugLog( $identifier, $msg );
-			return;
-		}
-
-		// otherwise, use syslogging
-		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
-		$msg = str_replace( "\t", " ", $msg );
-		syslog( $log_level, $msg );
-		closelog();
+		WMF_Framework::log( "{$identifier}: {$msg}" );
 	}
 
 	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
@@ -1274,22 +1199,22 @@ abstract class GatewayAdapter implements GatewayType {
 	 * or 'namevalue'.
 	 */
 	static function getCommunicationType() {
-		$c = get_called_class();
+		$c = self::getGatewayAdapterClass();
 		return $c::COMMUNICATION_TYPE;
 	}
 
 	static function getGatewayName() {
-		$c = get_called_class();
+		$c = self::getGatewayAdapterClass();
 		return $c::GATEWAY_NAME;
 	}
 
 	static function getGlobalPrefix() {
-		$c = get_called_class();
+		$c = self::getGatewayAdapterClass();
 		return $c::GLOBAL_PREFIX;
 	}
 
 	static function getIdentifier() {
-		$c = get_called_class();
+		$c = self::getGatewayAdapterClass();
 		return $c::IDENTIFIER;
 	}
 
@@ -1314,60 +1239,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$clock = round( $now - $start[$string], 4 );
 		self::log( "Clock at $string: $clock ($now)" );
 		return $clock;
-	}
-
-	/**
-	 *
-	 * @param string $function This is the function name that identifies the 
-	 * stopwatch that should have already been started with the getStopwatch 
-	 * function.
-	 * @param string $additional Additional information about the thing we're 
-	 * currently timing. Meant to be easily searchable.  
-	 * @param string $vars Intended to be particular values of any variables 
-	 * that might be of interest. 
-	 */
-	public function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
-		static $saveStats = null;
-		static $saveDB = null;
-
-		if ( $saveStats === null ){
-			$saveStats = self::getGlobal( 'SaveCommStats' );
-		}
-		
-		if ( !$saveStats ){
-			return;
-		}
-		
-		if ( $saveDB === null ){
-			$db = ContributionTrackingProcessor::contributionTrackingConnection();
-			if ( $db->tableExists( 'communication_stats' ) ) {
-				$saveDB = true;
-			} else {
-				$saveDB = false;
-			}
-		}
-		
-		$params = array(
-			'contribution_id' => $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'duration' => $this->getStopwatch( $function ),
-			'gateway' => self::getGatewayName(),
-			'function' => $function,
-			'vars' => $vars,
-			'additional' => $additional,
-		);
-		
-		if ( $saveDB ){ 
-			$db = ContributionTrackingProcessor::contributionTrackingConnection();
-			$params['ts'] = $db->timestamp();
-			$db->insert( 'communication_stats', $params );
-		} else {
-			//save to syslog. But which syslog? 
-			$msg = '';
-			foreach ($params as $key=>$val){
-				$msg .= "$key:$val - ";
-			}
-			self::log($msg, LOG_INFO, '_commstats');
-		}
 	}
 
 	function xmlChildrenToArray( $xml, $nodename ) {
@@ -1399,18 +1270,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * code range. If omitted, it will make a range of one value: The lower bound.
 	 */
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
-		//our choices here are: 
-		//TODO: Move this somewhere both this function and 
-		//setTransactionWMFStatus can get to it. 
-		$statuses = array(
-			'complete', 
-			'pending', 
-			'pending-poke', 
-			'failed', 
-			'revised'
-		);
-		if ( !in_array( $action, $statuses ) ) {
-			throw new MWException( "Transaction WMF Status $action is invalid." );
+		if ( !$this->validTransactionWMFStatus($action) ) {
+			throw new WmfPaymentAdapterException( "Transaction WMF Status $action is invalid." );
 		}
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
@@ -1500,118 +1361,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->debugarray[] = 'Killed all the session everything.';
 	}
 
-	/**
-	 * Saves a stomp frame to the configured server and queue, based on the 
-	 * outcome of our current transaction. 
-	 * The big tricky thing here, is that we DO NOT SET a TransactionWMFStatus, 
-	 * unless we have just learned what happened to a donation in progress, 
-	 * through performing the current transaction. 
-	 * To put it another way, getTransactionWMFStatus should always return 
-	 * false, unless it's new data about a new transaction. In that case, the 
-	 * outcome will be assigned and the proper stomp hook selected. 
-	 * 
-	 * Probably called in runPostProcessHooks(), which is itself most likely to 
-	 * be called through executeFunctionIfExists, later on in do_transaction. 
-	 * @return null 
-	 */
-	protected function doStompTransaction() {
-		if ( !$this->getGlobal( 'EnableStomp' ) ){
-			return;
-		}
-		$this->debugarray[] = "Attempting Stomp Transaction!";
-		$hook = '';
-
-		$status = $this->getTransactionWMFStatus();
-		switch ( $status ) {
-			case 'complete':
-				$hook = 'gwStomp';
-				break;
-			case 'pending':
-			case 'pending-poke':
-				$hook = 'gwPendingStomp';
-				break;
-		}
-		if ( $hook === '' ) {
-			$this->debugarray[] = "No Stomp Hook Found for WMF_Status $status";
-			return;
-		}
-
-		// send the thing.
-		$transaction = array(
-			'response' => $this->getTransactionMessage(),
-			'date' => time(),
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			//'language' => '',
-		);
-		$transaction += $this->getData_Unstaged_Escaped();
-
-		try {
-			wfRunHooks( $hook, array( $transaction ) );
-		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
-		}
-	}
-	
-	
-	/**
-	 * Function that adds a stomp message to a special 'limbo' queue, for data 
-	 * that is either highly likely or completely guaranteed to be bifurcated by 
-	 * handing the ball to a third-party process. 
-	 * TODO: Functionalize some of the code copied from doStompTransaction.  
-	 * @return null 
-	 */
-	protected function doLimboStompTransaction( $antimessage = false ) {
-		if ( !$this->getGlobal( 'EnableStomp' ) ){
-			return;
-		}
-		
-		if ($this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc'){
-			global $wgCCLimboStompQueueName;
-			if ( !isset( $wgCCLimboStompQueueName ) || $wgCCLimboStompQueueName === false ){
-				return;
-			}
-		} else {
-			global $wgLimboStompQueueName;
-			if ( !isset( $wgLimboStompQueueName ) || $wgLimboStompQueueName === false ){
-				return;
-			}
-		}
-		
-		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
-		$hook = 'gwLimboStomp';
-
-		$stomp_fields = $this->dataObj->getStompMessageFields();
-		
-		if ($antimessage){
-			$transaction = array(
-				'date' => time(),
-				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-				'correlation-id' => $this->getCorrelationID(),
-				'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
-				'antimessage' => 'true'
-			);
-		} else {
-			$transaction = array(
-				'response' => $this->getTransactionMessage(),
-				'date' => time(),
-				'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-				'correlation-id' => $this->getCorrelationID(),
-				'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
-			);
-			
-			$unstaged_local = array();
-			foreach ( $stomp_fields as $field ){	
-				$unstaged_local[$field] = $this->getData_Unstaged_Escaped( $field );
-			}
-			$transaction = array_merge( $unstaged_local, $transaction );
-		}
-
-		try {
-			wfRunHooks( $hook, array( $transaction ) );
-		} catch ( Exception $e ) {
-			self::log( "STOMP ERROR. Could not add message. " . $e->getMessage() , LOG_CRIT );
-		}
-	}
 	
 	protected function getCorrelationID(){
 		return $this->getIdentifier() . '-' . $this->getData_Unstaged_Escaped('order_id');
@@ -1720,47 +1469,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $ret;
 	}
 
-	protected function getPaypalData() {
-		$paypalkeys = array(
-			'contribution_tracking_id',
-			'comment',
-			'referrer',
-			'comment-option',
-			'utm_source',
-			'utm_medium',
-			'utm_campaign',
-			'email-opt',
-			'language',
-			'owa_session',
-			'owa_ref',
-			'tshirt',
-			'returnto',
-			'currency_code',
-			'fname',
-			'lname',
-			'email',
-			'address1',
-			'city',
-			'state',
-			'zip',
-			'country',
-			'address_override',
-			'recurring_paypal',
-			'amount',
-			'amountGiven',
-			'size',
-			'premium_language',
-		);
-		$ret = array();
-		foreach ( $paypalkeys as $key ){
-			$val = $this->getData_Unstaged_Escaped( $key );
-			if (!is_null( $val )){
-				$ret[$key] = $this->getData_Unstaged_Escaped( $key );
-			}
-		}
-		return $ret;
-	}
-
 	public function getTransactionAllResults() {
 		if ( $this->transaction_results && is_array( $this->transaction_results ) ) {
 			return $this->transaction_results;
@@ -1822,6 +1530,13 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	public function validTransactionWMFStatus( $status = null ) {
+		if ( $status == null ) {
+			$status = $this->getTransactionWMFStatus();
+		}
+		return in_array( $status, $this->valid_statuses );
+	}
+
 	/**
 	 * Sets the WMF Transaction Status. This is the one we care about for 
 	 * switching on behavior. 
@@ -1834,16 +1549,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * 'failed', 'revised'
 	 */
 	public function setTransactionWMFStatus( $status ) {
-		//our choices here are: 
-		$statuses = array(
-			'complete', 
-			'pending', 
-			'pending-poke', 
-			'failed', 
-			'revised'
-		);
-		if ( !in_array( $status, $statuses ) ) {
-			throw new MWException( "Transaction WMF Status $status is invalid." );
+		if ( !$this->validTransactionWMFStatus($status) ) {
+			throw new WmfPaymentAdapterException( "Transaction WMF Status $status is invalid." );
 		}
 		
 		$this->transaction_results['WMF_STATUS'] = $status;
@@ -1916,7 +1623,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getGatewayAdapterClass() {
+	static function getGatewayAdapterClass() {
 		return get_called_class();
 	}
 
@@ -1992,7 +1699,7 @@ abstract class GatewayAdapter implements GatewayType {
 	function runPreProcessHooks() {
 		// allow any external validators to have their way with the data
 		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . " Preparing to query MaxMind" );
-		wfRunHooks( 'GatewayValidate', array( &$this ) );
+		self::runHooks( 'GatewayValidate', array( &$this ) );
 		self::log( $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . ' Finished querying Maxmind' );
 
 		//DO NOT set some variable as getValidationAction() here, and keep 
@@ -2001,34 +1708,27 @@ abstract class GatewayAdapter implements GatewayType {
 		// if the transaction was flagged for review
 		if ( $this->getValidationAction() == 'review' ) {
 			// expose a hook for external handling of trxns flagged for review
-			wfRunHooks( 'GatewayReview', array( &$this ) );
+			self::runHooks( 'GatewayReview', array( &$this ) );
 		}
 
 		// if the transaction was flagged to be 'challenged'
 		if ( $this->getValidationAction() == 'challenge' ) {
 			// expose a hook for external handling of trxns flagged for challenge (eg captcha)
-			wfRunHooks( 'GatewayChallenge', array( &$this ) );
+			self::runHooks( 'GatewayChallenge', array( &$this ) );
 		}
 
 		// if the transaction was flagged for rejection
 		if ( $this->getValidationAction() == 'reject' ) {
 			// expose a hook for external handling of trxns flagged for rejection
-			wfRunHooks( 'GatewayReject', array( &$this ) );
+			self::runHooks( 'GatewayReject', array( &$this ) );
 			$this->unsetAllSessionData();
 		}
 	}
 
-	/**
-	 * Runs all the post-process hooks that have been enabled and configured in 
-	 * donationdata.php and/or LocalSettings.php, including the ActiveMQ/Stomp 
-	 * hooks. 
-	 * This function is most likely to be called through 
-	 * executeFunctionIfExists, later on in do_transaction. 
-	 */
 	protected function runPostProcessHooks() {
-		// expose a hook for any post processing
-		wfRunHooks( 'GatewayPostProcess', array( &$this ) ); //conversion log (at least)
-		$this->doStompTransaction();
+		self::runHooks( 'GatewayPostProcess', array( &$this ) );
+		//XXX existing code will need to add a stomp postproc hook
+		//- $this->doStompTransaction();
 	}
 
 	/**
@@ -2103,7 +1803,7 @@ abstract class GatewayAdapter implements GatewayType {
 			'reject' => 3,
 		);
 		if ( !isset( $actions[$action] ) ) {
-			throw new MWException( "Action $action is invalid." );
+			throw new WmfPaymentAdapterException( "Action $action is invalid." );
 		}
 
 		if ( $reset ) {
@@ -2391,4 +2091,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return $score;
 	}
+}
+
+class WmfPaymentAdapterException extends Exception
+{
 }

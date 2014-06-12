@@ -16,10 +16,8 @@
  *
  */
 
-/**
- * GlobalCollectAdapter
- *
- */
+require_once 'gateway.adapter.php';
+
 class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
@@ -181,8 +179,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'LANGUAGECODE'		=> 'language'				AN2
 			'language'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
 			
-			//'MERCHANTREFERENCE'	=> 'order_id'				AN50
-			'order_id'				=> array( 'type' => 'alphanumeric',		'length' => 50, ),
+			//'MERCHANTREFERENCE'	=> 'order_id'				AN30
+			'order_id'				=> array( 'type' => 'alphanumeric',		'length' => 30, ),
 			
 			//'ORDERID'				=> 'order_id'				N10
 			'order_id'				=> array( 'type' => 'numeric',			'length' => 10, ),
@@ -327,6 +325,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		parent::setPostDefaults( $options );
 		$this->postdatadefaults['attempt_id'] = '1';
 		$this->postdatadefaults['effort_id'] = '1';
+
+		//XXX Return url should be set by calling code anyway.
+		//$returnTitle = isset( $returnTitle ) ? $returnTitle : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
+		//$returnTo = isset( $returnTo ) ? $returnTo : $returnTitle->getFullURL();
+		//$this->postdatadefaults['returnto'] = $returnTo;
 	}
 
 	/**
@@ -468,6 +471,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 //							'CVV',
 //							'EXPIRYDATE',
 //							'CREDITCARDNUMBER',
+							'AUTHENTICATIONINDICATOR',
 							'FIRSTNAME',
 							'SURNAME',
 							'STREET',
@@ -482,6 +486,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
+				'AUTHENTICATIONINDICATOR' => 0, //default to no 3DSecure ourselves
 			),
 		);
 
@@ -514,6 +519,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					'PARAMS' => array(
 						'ORDER' => array(
 							'ORDERID',
+							'EFFORTID',
 						),
 					)
 				)
@@ -576,6 +582,37 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'SET_PAYMENT',
 				'VERSION' => '1.0'
+			),
+		);
+		
+		$this->transactions['DO_PAYMENT'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'MERCHANTREFERENCE',
+							'ORDERID',
+							'EFFORTID',
+							'PAYMENTPRODUCTID',
+							'AMOUNT',
+							'CURRENCYCODE',
+							'HOSTEDINDICATOR',
+							'AUTHENTICATIONINDICATOR'
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_PAYMENT',
+				'VERSION' => '1.0',
+				'HOSTEDINDICATOR' => '0',
+				'AUTHENTICATIONINDICATOR' => '0',
 			),
 		);
 	}
@@ -1003,7 +1040,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		else {
 			$message = 'The payment method [ ' . $payment_method . ' ] was not found.';
-			throw new Exception( $message );
+			throw new WmfPaymentAdapterException( $message );
 		}
 	}
 	
@@ -1017,13 +1054,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod, $options = array() ) {
 		
-		extract( $options );
-		
-		$log = isset( $log ) ? (boolean) $log : false ;
+		$defaults = array(
+			'log' => false,
+		);
+		$options = array_merge($options, $defaults);
+		$options['log'] = (boolean) $options['log'];
 		
 		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
 			
-			if ( $log ) {
+			if ( $options['log'] ) {
 				$this->log( 'Getting payment submethod: ' . ( string ) $payment_submethod );
 			}
 			
@@ -1036,7 +1075,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		else {
 			$message = 'The payment submethod [ ' . $payment_submethod . ' ] was not found.';
-			throw new Exception( $message );
+			throw new WmfPaymentAdapterException( $message );
 		}
 	}
 	
@@ -1068,13 +1107,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
 				return $result;
 				break;
+			case 'Recurring_Charge' :
+				return $this->transactionRecurring_Charge();
 			default:
 				return parent::do_transaction( $transaction );
 		}
 	}
 	
 	
-	private function transactionConfirm_CreditCard(){
+	protected function transactionConfirm_CreditCard(){
 		global $wgRequest; //this is for pulling vars straight from the querystring
 		$pull_vars = array(
 			'CVVRESULT' => 'cvv_result',
@@ -1234,7 +1275,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//As it happens, we can't remove things from the queue here: It 
 			//takes way too dang long. (~5 seconds!)
 			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 
-			$this->doLimboStompTransaction( true );
+			//XXX
+			//$this->doLimboStompTransaction( true );
 		}
 		
 		if ( $problemflag ){
@@ -1256,6 +1298,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 //		return something better... if we need to!
 		return $status_result;
+	}
+
+	/**
+	 * Process a subsequent (effort_id > 1) charge.
+	 */
+	protected function transactionRecurring_Charge()
+	{
+		$result = $this->do_transaction('DO_PAYMENT');
+		if ($result['status'])
+		{
+			$result = $this->do_transaction('GET_ORDERSTATUS');
+			if ($result['status'] && $this->getTransactionWMFStatus() == 'pending')
+			{
+				$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $result['data']['PAYMENTPRODUCTID'];
+				$result = $this->do_transaction('SET_PAYMENT');
+			}
+		}
+		return $result;
 	}
 	
 	/**
@@ -1281,11 +1341,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function getResponseStatus( $response ) {
 
-		$aok = true;
+		$aok = FALSE;
 
 		foreach ( $response->getElementsByTagName( 'RESULT' ) as $node ) {
-			if ( array_key_exists( $node->nodeValue, $this->return_value_map ) && $this->return_value_map[$node->nodeValue] !== true ) {
-				$aok = false;
+			if ( array_key_exists( $node->nodeValue, $this->return_value_map ) && $this->return_value_map[$node->nodeValue] === TRUE ) {
+				$aok = TRUE;
 			}
 		}
 
@@ -1361,6 +1421,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 				break;
 			case 'GET_ORDERSTATUS':
+				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
+				if (isset($data['STATUSID'])){
+					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
+				}
+				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
+				break;
+			case 'DO_PAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
 				if (isset($data['STATUSID'])){
 					$this->setTransactionWMFStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
@@ -1505,7 +1572,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				
 				$message = 'Unknown check result: (' . $checkResult . ')';
 				
-				throw new MWException( $message );
+				throw new WmfPaymentAdapterException( $message );
 			}
 		}
 		
@@ -1696,14 +1763,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		switch ( $type ) {
 			case 'request':
-				if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
-					$fallbacks = Language::getFallbacksFor( $language );
-					foreach ( $fallbacks as $fallback ) {
-						if ( in_array( $fallback, $this->getAvailableLanguages() ) ) {
-							$language = $fallback;
-							break;
-						}
-					}
+				$count = 0;
+				//Count's just there making sure we don't get stuck here. 
+				while ( !in_array( $language, $this->getAvailableLanguages() ) && $count < 3 ){
+					// Get the fallback language
+					$language = Language::getFallbackFor( $language );
+					$count += 1;
 				}
 
 				if ( !in_array( $language, $this->getAvailableLanguages() ) ){
@@ -2094,7 +2159,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} else {
 				
 				// Do we want to set this here?
-				$this->staged_data['returnto'] = $this->getThankYouPage();
+				//XXX no.
+				//$this->staged_data['returnto'] = $this->getThankYouPage();
 			}
 		}
 	}
@@ -2116,7 +2182,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ($action != 'failed'){
-				$this->doLimboStompTransaction();
+				//XXX
+				//$this->doLimboStompTransaction();
 			}
 		}
 	}
