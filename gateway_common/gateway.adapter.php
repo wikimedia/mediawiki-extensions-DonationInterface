@@ -280,6 +280,14 @@ abstract class GatewayAdapter implements GatewayType {
 	public $redirect = FALSE;
 	public $log_outbound = FALSE; //This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
 
+	protected $valid_statuses = array(
+		'complete', 
+		'pending', 
+		'pending-poke', 
+		'failed', 
+		'revised',
+	);
+
 	/**
 	 * Get @see GlobalCollectAdapter::$goToThankYouOn
 	 *
@@ -1727,18 +1735,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return void
 	 */
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
-		//our choices here are: 
-		//TODO: Move this somewhere both this function and 
-		//finalizeInternalStatus can get to it. 
-		$statuses = array(
-			'complete', 
-			'pending', 
-			'pending-poke', 
-			'failed', 
-			'revised'
-		);
-		if ( !in_array( $action, $statuses ) ) {
-			throw new MWException( "Internal Final Status $action is invalid." );
+		if ( !$this->validTransactionWMFStatus( $action ) ) {
+			throw new MWException( "Transaction WMF Status $action is invalid." );
 		}
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
@@ -2204,6 +2202,13 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	public function validTransactionWMFStatus( $status = null ) {
+		if ( $status == null ) {
+			$status = $this->getTransactionWMFStatus();
+		}
+		return in_array( $status, $this->valid_statuses );
+	}
+
 	/**
 	 * Sets the final payment status. This is the one we care about for
 	 * switching on behavior.
@@ -2217,16 +2222,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @throws MWException
 	 */
 	public function finalizeInternalStatus( $status ) {
-		//our choices here are: 
-		$statuses = array(
-			'complete', 
-			'pending', 
-			'pending-poke', 
-			'failed', 
-			'revised'
-		);
-		if ( !in_array( $status, $statuses ) ) {
-			throw new MWException( "Transaction Final Status $status is invalid." );
+		if ( !$this->validTransactionWMFStatus( $status ) ) {
+			throw new MWException( "Transaction WMF Status $status is invalid." );
 		}
 
 		/**
