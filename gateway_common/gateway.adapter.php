@@ -2202,7 +2202,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	public function validTransactionWMFStatus( $status = null ) {
 		if ( $status == null ) {
-			$status = $this->getTransactionWMFStatus();
+			$status = $this->getFinalStatus();
 		}
 		return in_array( $status, $this->valid_statuses );
 	}

@@ -528,6 +528,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					'PARAMS' => array(
 						'ORDER' => array(
 							'ORDERID',
+							'EFFORTID',
 						),
 					)
 				)
@@ -607,6 +608,37 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'values' => array(
 				'ACTION' => 'DO_FINISHPAYMENT',
 				'VERSION' => '1.0',
+			),
+		);
+
+		$this->transactions['DO_PAYMENT'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'MERCHANTREFERENCE',
+							'ORDERID',
+							'EFFORTID',
+							'PAYMENTPRODUCTID',
+							'AMOUNT',
+							'CURRENCYCODE',
+							'HOSTEDINDICATOR',
+							'AUTHENTICATIONINDICATOR',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_PAYMENT',
+				'VERSION' => '1.0',
+				'HOSTEDINDICATOR' => '0',
+				'AUTHENTICATIONINDICATOR' => '0',
 			),
 		);
 	}
@@ -1065,6 +1097,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$result = $this->transactionDirect_Debit();
 				$this->saveCommunicationStats( 'Direct_Debit', $transaction );
 				return $result;
+			case 'Recurring_Charge' :
+				return $this->transactionRecurring_Charge();
 			default:
 				return parent::do_transaction( $transaction );
 		}
@@ -1312,8 +1346,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return $status_result;
 	}
 
-	protected function transactionDirect_Debit() {
+	/**
+	 * Process a non-initial effort_id charge.
+	 */
+	protected function transactionRecurring_Charge() {
+		$result = $this->do_transaction('DO_PAYMENT');
+		if ($result['status']) {
+			$result = $this->do_transaction('GET_ORDERSTATUS');
+			$data = $this->getTransactionData();
+			$orderStatus = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
+			if ( $this->getTransactionStatus() && $orderStatus == 'pending-poke' ) {
+				$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $result['data']['PAYMENTPRODUCTID'];
+				$result = $this->do_transaction('SET_PAYMENT');
+			}
+		}
+		return $result;
+	}
 
+    protected function transactionDirect_Debit() {
 		$result = $this->do_transaction('DO_BANKVALIDATION');
 		if ($result['status'])
 		{
@@ -1460,6 +1510,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'DO_FINISHPAYMENT':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
+				break;
+			case 'DO_PAYMENT':
+				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
+				if ( isset( $data['STATUSID'] ) ) {
+					$this->finalizeInternalStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
+				} else {
+					$this->finalizeInternalStatus( 'failed' );
+				}
+				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				break;
 		}
 
