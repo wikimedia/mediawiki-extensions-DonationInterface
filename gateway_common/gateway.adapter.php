@@ -307,16 +307,19 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @param array	$options
 	 *   OPTIONAL - You may set options for testing
-	 *   - testData - Submit test data 
+	 *   - external_data - array, data from unusual sources (such as test fixture)
+	 *   - api_request - Boolean, this is an api request, do not perform UI actions
 	 *
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
 		global $wgRequest;
 
-		$testData = isset( $options['testData'] ) ? $options['testData'] : false;
-		$external_data = isset( $options['external_data'] ) ? $options['external_data'] : false; //not test data: Regular type.
-		$api_request = isset( $options['api_request'] ) ? $options['api_request'] : false; //Are we handling an API request?
+		$defaults = array(
+			'external_data' => null,
+			'api_request' => false,
+		);
+		$options = array_merge( $defaults, $options );
 		if ( array_key_exists( 'batch_mode', $options ) ) {
 			$this->batch = $options['batch_mode'];
 			unset( $options['batch_mode'] );
@@ -324,23 +327,19 @@ abstract class GatewayAdapter implements GatewayType {
 
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
-			// Only submit test data if we are in test mode.
 		} else {
 			$this->url = self::getGlobal( 'TestingURL' );
-			if ( $testData ){
-				$external_data = $testData;
-			}
 		}
 
 		//so we know we can skip all the visual stuff. 
-		if ( $api_request ) {
+		if ( $options['api_request'] ) {
 			$this->setApiRequest();
 		}
 
 		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
 		$this->defineDataConstraints(); //must also happen before we go to DonationData.
 
-		$this->dataObj = new DonationData( $this, $external_data );
+		$this->dataObj = new DonationData( $this, $options['external_data'] );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
@@ -629,18 +628,15 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getErrorMap( $code = null, $options = array() ) {
 
-		if ( isset( $options['code'] ) ) {
-			unset( $options['code'] );
-		}
-		
-		extract( $options );
-
 		if ( is_null( $code ) ) {
 			return $this->error_map;
 		}
-
-		$translate = isset( $translate ) ? (boolean) $translate : false ;
 		
+		$defaults = array(
+			'translate' => false,
+		);
+		$options = array_merge( $defaults, $options );
+
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
 		
 		$translatedMessage = wfMessage( $response_message )->text();
@@ -655,10 +651,10 @@ abstract class GatewayAdapter implements GatewayType {
 		// If the $code does not exist, use the default code: 0
 		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
 		
-		$translatedMessage = ( $translate && empty( $translatedMessage ) ) ? wfMessage( $this->error_map[ $code ] )->text() : $translatedMessage;
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? wfMessage( $this->error_map[ $code ] )->text() : $translatedMessage; 
 		
 		// Check to see if we return the translated message.
-		$message = ( $translate ) ? $translatedMessage : $this->error_map[ $code ];
+		$message = ( $options['translate'] ) ? $translatedMessage : $this->error_map[ $code ];
 		
 		return $message;
 	}
