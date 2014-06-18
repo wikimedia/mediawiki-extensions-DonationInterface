@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Joseph"
+			"Joseph",
+			"Sayginer"
 		]
 	},
-	"paypal_gateway-desc": "Bir bağış düzeneği olarak PayPal'ı kaydeder"
+	"paypalgateway": "Şimdi bağışta bulunun",
+	"paypal_gateway-desc": "PayPal ödemesi işleniyor"
 }
