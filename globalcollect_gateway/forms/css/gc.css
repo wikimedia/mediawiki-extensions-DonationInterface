@@ -73,7 +73,7 @@ div#payflowpro_gateway-donate-submessage {
 	margin-right: 2em;
 }
 
-#payflowpro_gateway-cc_form_letter_inside {	
+#payflowpro_gateway-cc_form_letter_inside {
 	padding-top: .5em;
 }
 
@@ -157,7 +157,6 @@ h3.amount_header {
 table#payflow-table-donor{
     /*margin-left: 10px;*/
 }
-
 
 /* Specific element overrides */
 input#zip.ja {
