@@ -51,9 +51,9 @@
 	 * Show and hide errors as appropriate.
 	 */
 	function validate_cc(){
-		var types = [ 
-			{ '.ccNumberError': $accountNumber }, 
-			{ '.ccExpiryError': $accountExpiry }, 
+		var types = [
+			{ '.ccNumberError': $accountNumber },
+			{ '.ccExpiryError': $accountExpiry },
 			{ '.ccCVCError': $accountCVC }
 		];
 
@@ -66,7 +66,7 @@
 				}
 			}
 		});
-			
+
 	}
 
 	/**
@@ -166,6 +166,17 @@
 		addHFtoF( 'Email', $( '#emailAdd' ).val() );
 
 		$form.submit();
+	};
+
+	function submitForm() {
+		$( '#paymentSubmitBtn' ).addClass('disabled');
+
+		if ( validateClientSide() ) {
+			validateServerSide( submitFormForTokenization );
+		} else {
+			$( '#paymentSubmitBtn' ).removeClass('disabled');
+		}
+		return false;
 	}
 
 	/**
@@ -177,14 +188,16 @@
 		$accountExpiry.payment( 'formatCardExpiry' );
 		$accountCVC.payment( 'formatCardCVC' );
 
-		$( '#paymentSubmitBtn' ).click(function() {
-			$( '#paymentSubmitBtn' ).addClass('disabled');
-			if ( validateClientSide() ) {
-				validateServerSide( submitFormForTokenization );
-			} else {
-				$( '#paymentSubmitBtn' ).removeClass('disabled');
+		$( '.form-control' ).keypress( function(e) {
+			if( e.which == 13) {
+				submitForm();
 			}
-			return false;
+		} );
+
+		$( '#paymentSubmitBtn' ).click(function() {
+			submitForm();
 		});
+
+
 	});
 })( jQuery, mediaWiki );
