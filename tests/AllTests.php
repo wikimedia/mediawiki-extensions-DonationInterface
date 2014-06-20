@@ -53,6 +53,7 @@ class DonationInterface_AllTests
 		$suite = new PHPUnit_Framework_TestSuite( 'Donation Interface Suite' );
 
 		$suite->addTestSuite( 'DonationInterface_Adapter_AllTests' );
+		$suite->addTestSuite( 'DataValidatorTestCase' );
 		$suite->addTestSuite( 'DonationInterface_DonationDataTestCase' );
 		$suite->addTestSuite( 'DonationInterface_FormChooserTestCase' );
 		$suite->addTestSuite( 'DonationInterface_IntegrationTestCase' );
