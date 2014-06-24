@@ -924,7 +924,6 @@ $wgResourceModules['donationInterface.test.rapidhtml'] = array(
 
 $wgResourceModules['jquery.payment'] = array(
 	'scripts' => 'jquery.payment/jquery.payment.js',
-	'dependencies' => array( 'jquery' )
 ) + $wgResourceTemplate;;
 
 // load any rapidhtml related resources
