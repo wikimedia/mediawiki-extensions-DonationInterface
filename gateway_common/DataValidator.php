@@ -371,7 +371,7 @@ class DataValidator {
 						//Note: We could do something like also validate amount not empty, and then that it's numeric
 						//That way we'd get more precisely granular error messages. 
 						$check_type = 'calculated';
-						$instructions['non_empty']['amount'] = 'validate_not_empty';
+						$instructions['non_empty']['amount'] = 'validate_non_zero';
 						$instructions['valid_type']['amount'] = 'validate_numeric';
 						$instructions['non_empty']['currency_code'] = 'validate_not_empty';
 						$instructions['valid_type']['currency_code'] = 'validate_alphanumeric';
@@ -412,7 +412,7 @@ class DataValidator {
 		$language = self::getLanguage( $data );
 		
 		foreach ( $instructions['non_empty'] as $field => $function ){
-			if ( method_exists( $self, $function ) && $function === 'validate_not_empty' ) {
+			if ( method_exists( $self, $function ) ) {
 				if ( $self::$function( $field, $data ) ){
 					$instructions['non_empty'][$field] = true;
 				} else {
@@ -426,15 +426,19 @@ class DataValidator {
 		}
 		
 		foreach ( $instructions['valid_type'] as $field => $function ){
+			$errorToken = self::getErrorToken( $field );
+			if ( array_key_exists( $errorToken, $errors ) ) {
+				continue;
+			}
 			if ( method_exists( $self, $function ) ) {
 				if ( $self::$function( $data[$field] ) ){
 					$instructions['valid_type'][$field] = true;
 				} else {
 					$instructions['valid_type'][$field] = false;
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
+					$errors[ $errorToken ] = self::getErrorMessage( $field, 'valid_type', $language );
 				}
 			} else {
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'valid_type', $language );
+				$errors[ $errorToken ] = self::getErrorMessage( $field, 'valid_type', $language );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
 			}
 		}
@@ -442,6 +446,10 @@ class DataValidator {
 		//don't bail out now. Just don't set errors for calculated fields that 
 		//have failures in their dependencies. 
 		foreach ( $instructions['calculated'] as $field => $function ){
+			$errorToken = self::getErrorToken( $field );
+			if ( array_key_exists( $errorToken, $errors ) ) {
+				continue;
+			}
 			if ( method_exists( $self, $function ) ) {
 				//each of these is going to have its own set of overly 
 				//complicated rules and things to check, or we wouldn't be down 
@@ -471,11 +479,11 @@ class DataValidator {
 				
 				$instructions['calculated'][$field] = $result;
 				if ($result === false){ //implying we did the check, and it failed.
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
+					$errors[ $errorToken ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				}
 				
 			} else {
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
+				$errors[ $errorToken ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
@@ -727,6 +735,20 @@ class DataValidator {
 		return true;
 	}
 	
+	/**
+	 * Checks to make sure that the $value is present in the $data array, and not equivalent to zero.
+	 * @param string $value The value to check for non-zeroness.
+	 * @param array $data The whole data set.
+	 * @return boolean True if the $value is not missing or zero, otherwise false.
+	 */
+	protected static function validate_non_zero( $value, $data ){
+		if ( !array_key_exists( $value, $data ) || is_null( $data[$value] ) || $data[$value] === '' 
+			|| preg_match('/^0+(\.0+)?$/', $data[$value])){
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * validate_alphanumeric
 	 * Checks to make sure the value is populated with an alphanumeric value...
