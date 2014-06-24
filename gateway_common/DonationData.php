@@ -595,11 +595,9 @@ class DonationData {
 	 *
 	 * @param $value string The value of the array
 	 * @param $key string The key of the array
-	 * @param $flags int The flag constant for htmlspecialchars
-	 * @param $double_encode bool Whether or not to double-encode strings
 	 */
-	protected function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
-		$value = htmlspecialchars( $value, $flags, 'UTF-8', $double_encode );
+	protected function sanitizeInput( &$value, $key ) {
+		$value = htmlspecialchars( $value, ENT_COMPAT, 'UTF-8', false );
 	}
 
 	/**

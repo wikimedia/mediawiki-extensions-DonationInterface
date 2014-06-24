@@ -381,7 +381,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string
 	 */
 	public function fix_dropdowns( $html ) {
-		$matches;
+		$matches = null;
 		preg_match_all( '|<select.*>.*?</select>|is', $html, $matches );
 
 		$numMatches = count( $matches[0] );
