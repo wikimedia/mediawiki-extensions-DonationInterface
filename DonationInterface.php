@@ -244,6 +244,20 @@ $wgDonationInterfaceTimeout = 5;
 $wgDonationInterfaceDefaultForm = 'RapidHtml';
 
 /**
+ * If set to a currency code, gateway forms will try to convert amounts
+ * in unsupported currencies to the fallback instead of just showing
+ * an unsupported currency error.
+ */
+$wgDonationInterfaceFallbackCurrency = false;
+
+/**
+ * When this is true and an unsupported currency has been converted to the
+ * fallback (see above), we show an interstitial page notifying the user
+ * of the conversion before sending the donation to the gateway.
+ */
+$wgDonationInterfaceNotifyOnConvert = true;
+
+/**
  * A string or array of strings for making tokens more secure
  *
  * Please set this!  If you do not, tokens are easy to get around, which can

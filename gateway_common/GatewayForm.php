@@ -116,8 +116,22 @@ class GatewayForm extends UnlistedSpecialPage {
 			}
 			$check_not_empty = array_merge( $check_not_empty, $add_checks );
 		}
-		
+
 		$validated_ok = $this->adapter->revalidate( $check_not_empty );
+
+		$converted = $this->fallbackToDefaultCurrency();
+		if ( $converted ) {
+			$validated_ok = $this->adapter->revalidate( $check_not_empty );
+			$notify = $this->adapter->getGlobal( 'NotifyOnConvert' );
+
+			if ( $notify || !$validated_ok ) {
+				$this->adapter->addManualError( array(
+					'general' => $this->msg( 'donate_interface-fallback-currency-notice', 
+											 $this->adapter->getGlobal( 'FallbackCurrency' ) )->text()
+				) );
+				$validated_ok = false;
+			}
+		}
 
 		return !$validated_ok;
 	}
@@ -303,6 +317,58 @@ class GatewayForm extends UnlistedSpecialPage {
 		}
 		
 		return $this->displayForm();
+	}
+
+	/**
+	 * If a currency code error exists and fallback currency conversion is 
+	 * enabled for this adapter, convert intended amount to default currency.
+	 *
+	 * @return boolean whether currency conversion was performed
+	 */
+	protected function fallbackToDefaultCurrency() {
+		$defaultCurrency = $this->adapter->getGlobal( 'FallbackCurrency' );
+		if ( !$defaultCurrency ) {
+			return false;
+		}
+		$form_errors = $this->adapter->getValidationErrors();
+		if ( !$form_errors || !array_key_exists( 'currency_code', $form_errors ) ) {
+			return false;
+		}
+		// If the currency is invalid, fallback to default.
+		// Our conversion rates are all relative to USD, so use that as an
+		// intermediate currency if converting between two others.
+		$oldCurrency = $this->adapter->getData_Unstaged_Escaped( 'currency_code' );
+		if ( $oldCurrency === $defaultCurrency ) {
+			$adapterClass = $this->adapter->getGatewayAdapterClass();
+			throw new MWException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
+		}
+		$oldAmount = $this->adapter->getData_Unstaged_Escaped( 'amount' );
+		$usdAmount = 0.0;
+		$newAmount = 0;
+
+		require_once( __DIR__ . '/../gateway_common/currencyRates.inc' );
+		$conversionRates = getCurrencyRates();
+		if ( $oldCurrency === 'USD' ) {
+			$usdAmount = $oldAmount;
+		}
+		elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
+			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
+		}
+
+		if ( $defaultCurrency === 'USD' ) {
+			$newAmount = floor( $usdAmount );
+		}
+		elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
+			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
+		}
+
+		$this->adapter->addData( array(
+			'amount' => $newAmount,
+			'currency_code' => $defaultCurrency
+		) );
+
+		$this->adapter->log( 'Unsupported currency $oldCurrency forced to $defaultCurrency' );
+		return true;
 	}
 
 }

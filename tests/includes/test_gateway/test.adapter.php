@@ -17,6 +17,83 @@
  */
 
 /**
+ * A really dumb adapter.
+ */
+class TestingGenericAdapter extends GatewayAdapter {
+
+	public $errorsForRevalidate = array();
+	public $revalidateCount = 0;
+	public static $fakeGlobals = array();
+
+	public function revalidate($check_not_empty = array()) {
+		$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
+		if ( $fakeErrors !== null ) {
+			$this->revalidateCount++;
+			$this->setValidationErrors( $fakeErrors );
+			return empty( $fakeErrors );
+		}
+		return parent::revalidate($check_not_empty);
+	}
+
+	public function normalizeOrderID( $override = null, $dataObj = null ) {
+		return '12345';
+	}
+
+	public static function getGlobal( $name ) {
+		if ( array_key_exists( $name, TestingGenericAdapter::$fakeGlobals ) ) {
+			return TestingGenericAdapter::$fakeGlobals[$name];
+		}
+		return parent::getGlobal( $name );
+	}
+
+	public function defineAccountInfo() {
+	}
+
+	public function defineDataConstraints() {
+	}
+
+	public function defineErrorMap() {
+	}
+
+	public function defineOrderIDMeta() {
+	}
+
+	public function definePaymentMethods() {
+	}
+
+	public function defineReturnValueMap() {
+	}
+
+	public function defineStagedVars() {
+	}
+
+	public function defineTransactions() {
+	}
+
+	public function defineVarMap() {
+	}
+
+	public function getResponseData($response) {
+	}
+
+	public function getResponseErrors($response) {
+	}
+
+	public function getResponseStatus($response) {
+	}
+
+	public function processResponse($response, &$retryVars = null) {
+	}
+
+	public function setGatewayDefaults() {
+	}
+
+	public static function getCurrencies() {
+	}
+
+}
+
+/**
  * TestingGlobalCollectAdapter
  *
  * TODO: Add dependency injection to the base class so we don't have to repeat code here.
