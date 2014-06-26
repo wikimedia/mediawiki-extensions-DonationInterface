@@ -139,9 +139,6 @@ $wgResourceModules[ 'gc.normalinterface' ] = array(
 	'scripts' => array(
 		'js/gc.interface.js'
 	),
-	'dependencies' => array(
-		'mediawiki',
-	),
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
