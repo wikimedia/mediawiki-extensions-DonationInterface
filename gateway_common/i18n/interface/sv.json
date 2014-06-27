@@ -205,7 +205,7 @@
 	"donate_interface-error-msg-branch_code": "Bankfilialens kod",
 	"donate_interface-error-msg-captcha": "Det Captcha-värde du gav är felaktigt. Försök igen.",
 	"donate_interface-error-msg-captcha-please": "För ditt kreditkorts säkerhet, skriv de tecken du ser ovan.",
-	"donate_interface-error-msg-cookies": "Du måste aktivera cookies i din webbläsare.",
+	"donate_interface-error-msg-cookies": "Du måste aktivera kakor i din webbläsare.",
 	"donate_interface-error-msg-genaricrequired": "Detta fält är obligatoriskt",
 	"donate_interface-error-msg-country-calc": "Ett fel har uppstått - vi kan för tillfället inte ta emot din donation.",
 	"donate_interface-error-msg-fiscal_number": "skattenummer",
