@@ -1,0 +1,6 @@
+{
+	"preset": "wikimedia",
+
+	"requireCamelCaseOrUpperCaseIdentifiers": null,
+	"requireDotNotation": null
+}

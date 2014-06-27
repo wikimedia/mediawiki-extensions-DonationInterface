@@ -1,3 +1,4 @@
+/*global validatePaymentForm:true, setAmount:true*/
 /**
  * GlobalCollect Validation
  *
@@ -7,7 +8,7 @@
  *
  * @since r100950
  */
- 
+
 /*******************************************************************************
 
 Helpers
@@ -20,8 +21,8 @@ Helpers
  * @param object field
  * @param string field
  */
-window.clearField = function( field, defaultValue ) {
-	if (field.value == defaultValue) {
+window.clearField = function ( field, defaultValue ) {
+	if (field.value === defaultValue) {
 		field.value = '';
 		field.style.color = 'black';
 	}
@@ -32,8 +33,8 @@ window.clearField = function( field, defaultValue ) {
  *
  * @param mixed varname
  */
-function isset( varname ){
-    return typeof( varname ) != "undefined";
+function isset( varname ) {
+	return typeof( varname ) !== 'undefined';
 }
 
 /**
@@ -43,24 +44,26 @@ function isset( varname ){
  */
 function empty( value ) {
 
-    var key;
- 
-    if ( value === '' || value === 0 || value === '0' || value === null || value === false || typeof value === 'undefined' ) {
-        return true;
-    }
-    else if ( typeof value == 'object' ) {
-        for ( key in value ) {
-            return false;
-        }
-        return true;
-    }
- 
-    return false;
+	var key;
+
+	if (
+		value === '' || value === 0 || value === '0' ||
+		value === null || value === false || typeof value === 'undefined'
+		) {
+		return true;
+	} else if ( typeof value === 'object' ) {
+		for ( key in value ) {
+			return false;
+		}
+		return true;
+	}
+
+	return false;
 }
- 
+
 /*******************************************************************************
 
-Form Methods 
+Form Methods
 
 *******************************************************************************/
 
@@ -69,10 +72,9 @@ Form Methods
  *
  * @param object e	The element
  */
-setAmount = function( e ) {
-	$('input[name="amount"]').val(e.val());
+setAmount = function ( e ) {
+	$( 'input[name="amount"]' ).val( e.val() );
 };
-
 
 /*******************************************************************************
 
@@ -85,50 +87,51 @@ Validate Elements
  *
  */
 function validateElementAmount( options ) {
-    
+
 	// Need to distinguish between single amount field and radio buttons.
-	$().ready(function() {
+	$().ready( function () {
 
 		var amountSelector = '#amount';
-		
-		// Check to see if the element exists
-		if ( $("input[name='amountRadio']").length ) {
-			amountSelector = "input[name='amountRadio']";
-			$( amountSelector ).click(function(){ setAmount($(this)); });
 
-			$("#other-amount").focus(function(){ $('#input_amount_other').prop('checked', true); });
-			$("#other-amount").change(function(){ setAmount($(this)); });
+		// Check to see if the element exists
+		if ( $( 'input[name="amountRadio"]' ).length ) {
+			amountSelector = 'input[name="amountRadio"]';
+			$( amountSelector ).click( function () { setAmount( $( this ) ); } );
+
+			$( '#other-amount' ).focus(
+					function () { $( '#input_amount_other' ).prop( 'checked', true ); }
+				);
+			$( '#other-amount' ).change( function () { setAmount( $( this ) ); } );
 		}
-		
+
 		/**
 		 * Convert to an integer value because we will not test for:
 		 * - 1.00
 		 * - 0.00
 		 * - 1,00
 		 */
-		jQuery.validator.addMethod("requirefunds", function(value, element, params) {
-			
-			var integerValue = parseInt( value );
-			
+		jQuery.validator.addMethod('requirefunds', function (value, element, params) {
+
+			var integerValue = parseInt( value, 10 );
+
 			if ( isset( params.min ) ) {
-				params.min = parseInt( params.min );
-			}
-			else {
+				params.min = parseInt( params.min, 10 );
+			} else {
 				params.min = 0;
 			}
-			
+
 			return integerValue >= params.min;
 		}, mw.msg( 'donate_interface-error-msg-invalid-amount' ) );
 
-        $( amountSelector ).rules("add", 
-            {
-                required: true,
-				requirefunds: { 
+		$( amountSelector ).rules('add',
+			{
+				required: true,
+				requirefunds: {
 					min: 1
 				}
-            }
-        );
-    });
+			}
+		);
+	});
 }
 
 /**
@@ -136,20 +139,22 @@ function validateElementAmount( options ) {
  *
  */
 function validateElementEmail( options ) {
-    
-	$().ready(function() {
 
-        $("#emailAdd").rules("add", 
-            {
-                required: true,
-                email: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-emailAdd' ),
-                    email: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-emailAdd' )
-                }
-            }
-        );
-    });
+	$().ready( function () {
+
+		$('#emailAdd').rules('add',
+			{
+				required: true,
+				email: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-emailAdd' ),
+					email: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-emailAdd' )
+				}
+			}
+		);
+	});
 }
 
 /**
@@ -157,18 +162,19 @@ function validateElementEmail( options ) {
  *
  */
 function validateElementFirstName( options ) {
-    
-	$().ready(function() {
 
-        $("#fname").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-fname' )
-                }
-            }
-        );
-    });
+	$().ready( function () {
+
+		$('#fname').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-fname' )
+				}
+			}
+		);
+	});
 }
 
 /**
@@ -176,18 +182,19 @@ function validateElementFirstName( options ) {
  *
  */
 function validateElementLastName( options ) {
-    
-	$().ready(function() {
 
-        $("#lname").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-lname' )
+	$().ready( function () {
+
+		$('#lname').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-lname' )
 				}
-            }
-        );
-    });
+			}
+		);
+	});
 }
 
 /**
@@ -195,18 +202,19 @@ function validateElementLastName( options ) {
  *
  */
 function validateElementStreet( options ) {
-    
-	$().ready(function() {
 
-        $("#street").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-street' )
+	$().ready( function () {
+
+		$('#street').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-street' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
@@ -214,18 +222,19 @@ function validateElementStreet( options ) {
  *
  */
 function validateElementCity( options ) {
-    
-	$().ready(function() {
 
-        $("#city").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-city' )
+	$().ready( function () {
+
+		$('#city').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-city' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
@@ -238,44 +247,47 @@ function validateElementCity( options ) {
  */
 function validateElementState( options ) {
 
-	$().ready(function() {
+	$().ready( function () {
 
 		// Do not try to validate state if the field does not exist.
-		if ( !$("#state").length ) {
+		if ( !$('#state').length ) {
 			return;
 		}
 
-        $("#state").rules("add", 
-            {
-                required: true,
-                notEqual: 'YY',
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ),
-                    notEqual: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' )
+		$('#state').rules('add',
+			{
+				required: true,
+				notEqual: 'YY',
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-state-province' ),
+					notEqual: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-state-province' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
  * Validate the element: zip
  *
- */
+ * JDF 2014-06-27: Commented out because looks to be unused
 function validateElementZip( options ) {
-    
-	$().ready(function() {
 
-        $("#zip").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-zip' )
+	$().ready( function () {
+		$( '#zip' ).rules( 'add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-zip' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
+*/
 
 /**
  * Validate the element: country
@@ -285,18 +297,18 @@ function validateElementZip( options ) {
  *
  */
 function validateElementCountry( options ) {
-    
-	$().ready(function() {
 
-        $("#country").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' )
+	$().ready( function () {
+		$('#country').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-country' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
@@ -307,20 +319,20 @@ function validateElementCountry( options ) {
  *
  */
 function validateElementCardNumber( options ) {
-    
-	$().ready(function() {
 
-        $("#card_num").rules("add", 
-            {
-                required: true,
-                //creditcard: true,
-                //creditcardtypes: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-card_num' )
+	$().ready( function () {
+		$('#card_num').rules('add',
+			{
+				required: true,
+				//creditcard: true,
+				//creditcardtypes: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-card_num' )
 				}
-            }
-        );
-    });
+			}
+		);
+	});
 }
 
 /**
@@ -328,18 +340,18 @@ function validateElementCardNumber( options ) {
  *
  */
 function validateElementCvv( options ) {
-    
-	$().ready(function() {
 
-        $("#cvv").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-cvv' )
+	$().ready( function () {
+		$( '#cvv' ).rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-cvv' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
@@ -347,19 +359,19 @@ function validateElementCvv( options ) {
  *
  */
 function validateElementPaymentMethod( options ) {
-    
-	$().ready(function() {
 
+	$().ready( function () {
 		// Hidden elements do not have ids
-		$('#' + options.formId + " input[name=payment_method]").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_method' )
+		$('#' + options.formId + ' input[name=payment_method]').rules('add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-payment_method' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /**
@@ -367,19 +379,19 @@ function validateElementPaymentMethod( options ) {
  *
  */
 function validateElementPaymentSubmethod( options ) {
-    
-	$().ready(function() {
 
+	$().ready( function () {
 		// Hidden elements do not have ids
-		$('#' + options.formId + " input[name=payment_submethod]").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-payment_submethod' )
+		$( '#' + options.formId + ' input[name=payment_submethod]' ).rules( 'add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-payment_submethod' )
 				}
-            }
-        );
-    });
+			}
+		);
+	});
 }
 
 /**
@@ -387,18 +399,17 @@ function validateElementPaymentSubmethod( options ) {
  *
  */
 function validateElementIssuerId( options ) {
-    
-	$().ready(function() {
-
-        $("#issuer_id").rules("add", 
-            {
-                required: true,
-                messages: {
-                    required: mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-issuer_id' )
+	$().ready( function () {
+		$( '#issuer_id' ).rules( 'add',
+			{
+				required: true,
+				messages: {
+					required: mw.msg( 'donate_interface-error-msg-js' ) +
+						' ' + mw.msg( 'donate_interface-error-msg-issuer_id' )
 				}
-            }
-        );
-    });
+			}
+		);
+	} );
 }
 
 /*******************************************************************************
@@ -409,7 +420,7 @@ Validate Element Groups
 
 /**
  * Validate GlobalCollect payment forms
- * 
+ *
  * See how to implement error containers
  * @link http://jquery.bassistance.de/validate/demo/errorcontainer-demo.html
  *
@@ -418,14 +429,14 @@ Validate Element Groups
  * - Validation does not ignore hidden fields.
  * - This attaches a listener for a form submit event. When the form is submitted, it is captured and validated.
  */
-$().ready(function() {
+$().ready( function () {
 
 	if ( !isset( validatePaymentForm.formId ) ) {
 		validatePaymentForm.formId = '';
 	}
 
 	if ( empty( validatePaymentForm.formId ) ) {
-		
+
 		// An id must be specified to validate the form.
 		return;
 	}
@@ -434,11 +445,11 @@ $().ready(function() {
 	var validateOptions = {
 		//ignore: ':hidden',
 	};
-	
-	/* 
+
+	/*
 	 * This is where everything happens: .validate( validateOptions );
 	 */
-	$("#" + validatePaymentForm.formId).validate( validateOptions );
+	$( '#' + validatePaymentForm.formId ).validate( validateOptions );
 
 	// Check for payment_method
 	if ( !isset( validatePaymentForm.payment_method ) ) {
@@ -458,19 +469,15 @@ $().ready(function() {
 	/*
 	 * Setup default validations based on payment_method
 	 */
-	
-	if ( validatePaymentForm.payment_method == 'cc' ) {
-		
+
+	if ( validatePaymentForm.payment_method === 'cc' ) {
+
 		// card_num and cvv are not validated on our site.
 		validatePaymentForm.validate.state = true;
-	}
-	else if ( validatePaymentForm.payment_method == 'bt' ) {
-		
+	} else if ( validatePaymentForm.payment_method === 'bt' ) {
 		validatePaymentForm.validate.payment = true;
 		validatePaymentForm.validate.state = false;
-	}
-	else if ( validatePaymentForm.payment_method == 'rtbt' ) {
-		
+	} else if ( validatePaymentForm.payment_method === 'rtbt' ) {
 		validatePaymentForm.validate.payment = true;
 		validatePaymentForm.validate.state = false;
 	}
@@ -478,14 +485,11 @@ $().ready(function() {
 	/*
 	 * Setup default validations based on payment_submethod
 	 */
-	
-	if ( validatePaymentForm.payment_submethod == 'rtbt_ideal' ) {
-		
+
+	if ( validatePaymentForm.payment_submethod === 'rtbt_ideal' ) {
 		// Ideal requires issuer_id
 		validatePaymentForm.validate.issuerId = true;
-	}
-	else if ( validatePaymentForm.payment_submethod == 'rtbt_eps' ) {
-		
+	} else if ( validatePaymentForm.payment_submethod === 'rtbt_eps' ) {
 		// eps requires issuer_id
 		validatePaymentForm.validate.issuerId = true;
 	}
@@ -493,37 +497,37 @@ $().ready(function() {
 	/*
 	 * Standard elements groups to validate
 	 */
-	
+
 	// Options: Validate address
 	if ( !isset( validatePaymentForm.validate.address ) ) {
 		validatePaymentForm.validate.address = true;
 	}
-	
+
 	// Options: Validate amount
 	if ( !isset( validatePaymentForm.validate.amount ) ) {
 		validatePaymentForm.validate.amount = true;
 	}
-	
+
 	// Options: Validate creditCard
 	if ( !isset( validatePaymentForm.validate.creditCard ) ) {
 		validatePaymentForm.validate.creditCard = false;
 	}
-	
+
 	// Options: Validate email
 	if ( !isset( validatePaymentForm.validate.email ) ) {
 		validatePaymentForm.validate.email = true;
 	}
-	
+
 	// Options: Validate issuerId
 	if ( !isset( validatePaymentForm.validate.issuerId ) ) {
 		validatePaymentForm.validate.issuerId = false;
 	}
-	
+
 	// Options: Validate name
 	if ( !isset( validatePaymentForm.validate.name ) ) {
 		validatePaymentForm.validate.name = true;
 	}
-	
+
 	// Options: Validate payment
 	if ( !isset( validatePaymentForm.validate.payment ) ) {
 		validatePaymentForm.validate.payment = false;
@@ -537,44 +541,44 @@ $().ready(function() {
 	if ( validatePaymentForm.validate.address ) {
 		validateElementStreet( validatePaymentForm );
 		validateElementCity( validatePaymentForm );
-		
+
 		if ( validatePaymentForm.validate.state ) {
 			validateElementState( validatePaymentForm );
 		}
-		
+
 		validateElementCountry( validatePaymentForm );
-		
+
 		// Zip is not ready
 		//validateElementZip( validatePaymentForm );
 	}
-	
+
 	// Validate: amount
 	if ( validatePaymentForm.validate.amount ) {
 		validateElementAmount( validatePaymentForm );
 	}
-	
+
 	// Validate: creditCard
 	if ( validatePaymentForm.validate.creditCard ) {
 		validateElementCardNumber( validatePaymentForm );
 		validateElementCvv( validatePaymentForm );
 	}
-	
+
 	// Validate: email
 	if ( validatePaymentForm.validate.email ) {
 		validateElementEmail( validatePaymentForm );
 	}
-	
+
 	// Validate: name
 	if ( validatePaymentForm.validate.name ) {
 		validateElementFirstName( validatePaymentForm );
 		validateElementLastName( validatePaymentForm );
 	}
-	
+
 	// Validate: payment
 	if ( validatePaymentForm.validate.payment ) {
 		validateElementPaymentMethod( validatePaymentForm );
 		validateElementPaymentSubmethod( validatePaymentForm );
-	
+
 		// Validate: issuer_id
 		if ( validatePaymentForm.validate.issuerId ) {
 			validateElementIssuerId( validatePaymentForm );
@@ -582,4 +586,3 @@ $().ready(function() {
 	}
 
 });
-

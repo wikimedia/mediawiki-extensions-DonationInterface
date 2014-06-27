@@ -4,3 +4,4 @@
 .*.swp
 
 .version-stamp
+node_modules
