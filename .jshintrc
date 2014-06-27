@@ -26,17 +26,24 @@
 	"plusplus": false,
 	"regexp": true,
 	"strict": false,
+	"es3": true,
 	// Relaxing
-	"es5": false,
 	"multistr": true,
 	"smarttabs": true,
+	"camelcase": false,  // !!!!
 	// Environment
 	"browser": true,
+	"devel":true,
 	"jquery": true,
 	// Legacy
 	"nomen": true,
 
 	"predef": [
-		"mediaWiki"
+		"mediaWiki",
+		"mw",
+		"amountErrors",
+		"billingErrors",
+		"paymentErrors",
+		"actionURL"
 	]
 }

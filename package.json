@@ -1,0 +1,19 @@
+{
+  "name": "DonationInterface",
+  "description": "Wikimedia donation interface",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DonationInterface.git"
+  },
+  "devDependencies": {
+    "grunt": "0.4.2",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-banana-checker": "0.1.0",
+    "grunt-jscs-checker": "0.6.0"
+  }
+}

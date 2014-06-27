@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"James D. Forrester"
+		]
+	},
+	"donate_interface-province-dropdown-YY": "Label to prompt the user to select a Province.",
+	"donate_interface-province-dropdown-XX": "Label for non-residents.",
+	"donate_interface-province-dropdown-AB": "Label for Alberta.",
+	"donate_interface-province-dropdown-BC": "Label for British Columbia.",
+	"donate_interface-province-dropdown-MB": "Label for Manitoba.",
+	"donate_interface-province-dropdown-NB": "Label for New Bruswick.",
+	"donate_interface-province-dropdown-NL": "Label for Newfoundland and Labrador.",
+	"donate_interface-province-dropdown-NT": "Label for the Northwest Territories.",
+	"donate_interface-province-dropdown-NS": "Label for Nova Scotia.",
+	"donate_interface-province-dropdown-NU": "Label for Nunavut.",
+	"donate_interface-province-dropdown-ON": "Label for Ontario.",
+	"donate_interface-province-dropdown-PE": "Label for Prince Edward Island.",
+	"donate_interface-province-dropdown-QC": "Label for Quebec.",
+	"donate_interface-province-dropdown-SK": "Label for Saskatchewan.",
+	"donate_interface-province-dropdown-YT": "Label for Yukon."
+}

@@ -5,22 +5,22 @@
 
 ( function ( mw, $ ) {
 
-mw.generatePaymentForm = function ( data ) {
-	var $form = $( '<iframe>' )
-		.attr( {
-			src: data.result.formaction,
-			width: 318,
-			height: 314,
-			frameborder: 0
-		} );
+	mw.generatePaymentForm = function ( data ) {
+		var $form = $( '<iframe>' )
+			.attr( {
+				src: data.result.formaction,
+				width: 318,
+				height: 314,
+				frameborder: 0
+			} );
 
-	this.loadPaymentForm( $form );
-};
+		this.loadPaymentForm( $form );
+	};
 
-mw.loadPaymentForm = function ( $form ) {
-	var $payment = $( '#payment' );
+	mw.loadPaymentForm = function ( $form ) {
+		var $payment = $( '#payment' );
 
-	$payment.html( $form );
-};
+		$payment.html( $form );
+	};
 
 }( mediaWiki, jQuery ) );

@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"James D. Forrester"
+		]
+	},
+	"donate_interface-city-town-au": "Label for city in Australia",
+	"donate_interface-donor-lname-ci": "Labe for last name in Côte d'Ivoire",
+	"donate_interface-donor-postal-ci": "Labe for postal district in Côte d'Ivoire",
+	"donate_interface-donor-lname-cm": "Labe for last name in Cameroon",
+	"donate_interface-donor-fname-cv": "Labe for first name in Cape Verde",
+	"donate_interface-donor-lname-cv": "Labe for last name in Cape Verde",
+	"donate_interface-donor-lname-et": "Labe for last name in Ethiopia",
+	"donate_interface-donor-fname-gq": "Labe for first name in Equatorial Guinea",
+	"donate_interface-donor-lname-gq": "Labe for last name in Equatorial Guinea",
+	"donate_interface-donor-lname-ke": "Labe for last name in Kenya",
+	"donate_interface-donor-lname-mg": "Labe for last name in Madagascar",
+	"donate_interface-donor-postal-mg": "Labe for postcode in Madagascar",
+	"donate_interface-donor-lname-mr": "Labe for last name in Mauritania",
+	"donate_interface-donor-lname-sn": "Labe for last name in Senegal",
+	"donate_interface-donor-postal-sn": "Labe for postcode in Senegal",
+	"donate_interface-donor-lname-tz": "Labe for last name in Tanzania",
+	"donate_interface-donor-lname-ug": "Labe for last name in Uganda"
+}

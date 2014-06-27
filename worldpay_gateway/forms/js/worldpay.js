@@ -1,3 +1,4 @@
+/*global validate_personal:true*/
 /**
  * This file is part of the DonationInterface Extension to MediaWiki
  * https://www.mediawiki.org/wiki/Extension:DonationInterface
@@ -50,22 +51,23 @@
 	 *
 	 * Show and hide errors as appropriate.
 	 */
-	function validate_cc(){
+	function validate_cc() {
 		var types = [
-			{ '.ccNumberError': $accountNumber },
-			{ '.ccExpiryError': $accountExpiry },
-			{ '.ccCVCError': $accountCVC }
-		];
+				{ '.ccNumberError': $accountNumber },
+				{ '.ccExpiryError': $accountExpiry },
+				{ '.ccCVCError': $accountCVC }
+			];
 
-		types.forEach( function( type ){
-			for(key in type){
-				if($(type[key]).hasClass('invalid')){
-					$(key).addClass('show');
-				} else if(!$(type[key]).hasClass('invalid')){
-					$(key).removeClass('show').addClass('hide');
+		types.forEach( function ( type ) {
+			var key;
+			for ( key in type) {
+				if ( $( type[key] ).hasClass('invalid') ) {
+					$( key ).addClass( 'show' );
+				} else if ( !$( type[key] ).hasClass( 'invalid' ) ) {
+					$( key ).removeClass( 'show' ).addClass('hide' );
 				}
 			}
-		});
+		} );
 
 	}
 
@@ -81,12 +83,12 @@
 				// All forms
 				'fname', 'lname', 'emailAdd',
 				'email-opt',
-				'utm_source','utm_medium','utm_campaign','referrer',
-				'gateway','payment_method','language','token',
-				'order_id','contribution_tracking_id',
+				'utm_source', 'utm_medium', 'utm_campaign', 'referrer',
+				'gateway', 'payment_method', 'language', 'token',
+				'order_id', 'contribution_tracking_id',
 
 				// AVS Countries
-				'street','city','state','zip','country',
+				'street', 'city', 'state', 'zip', 'country',
 
 				// Scary things
 				'cvc'
@@ -96,22 +98,22 @@
 				format: 'json'
 			};
 
-		$.each( fields, function( idx, val ) {
+		$.each( fields, function ( idx, val ) {
 			postdata[val] = $( '#' + val ).val();
 		});
 
 		$.ajax({
-			'url': mw.util.wikiScript( 'api' ),
-			'data': postdata,
-			'dataType': 'json',
-			'type': 'POST',
-			'success': function( data ) {
+			url: mw.util.wikiScript( 'api' ),
+			data: postdata,
+			dataType: 'json',
+			type: 'POST',
+			success: function ( data ) {
 				if ( data.errors ) {
 					// TODO: This sucks; improve it
 					// Form fields have errors; each subkey in this array
 					// corresponds to a form field with an error
 					var errors = [];
-					$.each( data.errors, function( idx, str ) {
+					$.each( data.errors, function ( idx, str ) {
 						errors.push( str );
 					});
 					window.alert( errors.join( '\n' ) );
@@ -123,7 +125,7 @@
 					$( '#paymentSubmitBtn' ).removeClass('disabled');
 				}
 			},
-			error: function( xhr ) {
+			error: function ( xhr ) {
 				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				$( '#paymentSubmitBtn' ).removeClass('disabled');
 			}
@@ -147,15 +149,15 @@
 
 		function addHFtoF( name, value ) {
 			$form.append( $( '<input />', {
-				'type': 'hidden',
-				'name': name,
-				'value': value
+				type: 'hidden',
+				name: name,
+				value: value
 			}));
 		}
 
 		// Add the required elements to the form
 		addHFtoF( 'Action', 'Add' );
-		addHFtoF( 'AcctName', [ $( '#fname' ).val(), $( '#lname' ).val()].join( ' ' ).trim() );
+		addHFtoF( 'AcctName', [ $( '#fname' ).val(), $( '#lname' ).val() ].join( ' ' ).trim() );
 		addHFtoF( 'AcctNumber', $accountNumber.val().replace(/\s+/g, '') );
 		addHFtoF( 'ExpMonth', ( '0' + expiry.month ).slice( -2 ) );
 		addHFtoF( 'ExpYear', ( '000' + expiry.year ).slice( -4 ) );
@@ -166,7 +168,7 @@
 		addHFtoF( 'Email', $( '#emailAdd' ).val() );
 
 		$form.submit();
-	};
+	}
 
 	function submitForm() {
 		$( '#paymentSubmitBtn' ).addClass('disabled');
@@ -188,16 +190,14 @@
 		$accountExpiry.payment( 'formatCardExpiry' );
 		$accountCVC.payment( 'formatCardCVC' );
 
-		$( '.form-control' ).keypress( function(e) {
-			if( e.which == 13) {
+		$( '.form-control' ).keypress( function (e) {
+			if ( e.which === 13 ) {
 				submitForm();
 			}
 		} );
 
-		$( '#paymentSubmitBtn' ).click(function() {
+		$( '#paymentSubmitBtn' ).click( function () {
 			submitForm();
-		});
-
-
+		} );
 	});
 })( jQuery, mediaWiki );

@@ -5,3 +5,4 @@
 /tests
 
 .version-stamp
+node_modules
