@@ -50,72 +50,88 @@ class DonationData {
 			//I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
 		} else {
-			$this->normalized = array(
-				'amount' => $wgRequest->getText( 'amount', null ),
-				'amountGiven' => $wgRequest->getText( 'amountGiven', null ),
-				'amountOther' => $wgRequest->getText( 'amountOther', null ),
-				'email' => $wgRequest->getText( 'email' ),
-				'emailAdd' => $wgRequest->getText( 'emailAdd' ), //@TODO: Kill this legacy field for increased happiness. Er, once production does the same.
-				'fname' => $wgRequest->getText( 'fname' ),
-				'lname' => $wgRequest->getText( 'lname' ),
-				'street' => $wgRequest->getText( 'street' ),
-				'street_supplemental' => $wgRequest->getText( 'street_supplemental' ),
-				'city' => $wgRequest->getText( 'city' ),
-				'state' => $wgRequest->getText( 'state' ),
-				'zip' => $wgRequest->getText( 'zip' ),
-				'country' => $wgRequest->getText( 'country' ),
-				'premium_language' => $wgRequest->getText( 'premium_language', null ),
-				'card_num' => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
-				'card_type' => $wgRequest->getText( 'card_type' ),
-				'expiration' => $wgRequest->getText( 'expiration' ),
-				'cvv' => $wgRequest->getText( 'cvv' ),
-				//Leave both of the currencies here, in case something external didn't get the memo.
-				'currency' => $wgRequest->getVal( 'currency' ),
-				'currency_code' => $wgRequest->getVal( 'currency_code' ),
-				'payment_method' => $wgRequest->getText( 'payment_method', null ),  // NOTE: If things are breaking because session data is overwriting this; please fix elsewhere!
-				'payment_submethod' => $wgRequest->getText( 'payment_submethod', null ), // Used by GlobalCollect for payment types
-				'paymentmethod' => $wgRequest->getText( 'paymentmethod', null ), //used by the FormChooser (and the newest banners) for some reason.
-				'submethod' => $wgRequest->getText( 'submethod', null ), //same as above. Ideally, the newer banners would stop using these vars and go back to the old ones...
-				'issuer_id' => $wgRequest->getText( 'issuer_id' ),
-				'order_id' => $wgRequest->getText( 'order_id', null ),
-				'referrer' => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
-				'utm_source' => $wgRequest->getText( 'utm_source' ),
-				'utm_source_id' => $wgRequest->getVal( 'utm_source_id', null ),
-				'utm_medium' => $wgRequest->getText( 'utm_medium' ),
-				'utm_campaign' => $wgRequest->getText( 'utm_campaign' ),
-				'utm_key' => $wgRequest->getText( 'utm_key' ),
-				// Pull both of these here. We can logic out which one to use in the normalize bits. 
-				'language' => $wgRequest->getText( 'language', null ),
-				'uselang' => $wgRequest->getText( 'uselang', null ),
-				'token' => $wgRequest->getText( 'token', null ),
-				'contribution_tracking_id' => $wgRequest->getText( 'contribution_tracking_id' ),
-				'data_hash' => $wgRequest->getText( 'data_hash' ),
-				'action' => $wgRequest->getText( 'action' ),
-				'gateway' => $wgRequest->getText( 'gateway' ), //likely to be reset shortly by setGateway();
-				'owa_session' => $wgRequest->getText( 'owa_session', null ),
-				'owa_ref' => $wgRequest->getText( 'owa_ref', null ),
-				'descriptor' => $wgRequest->getText( 'descriptor', null ),
 
-				'account_name' => $wgRequest->getText( 'account_name', null ),
-				'account_number' => $wgRequest->getText( 'account_number', null ),
-				'authorization_id' => $wgRequest->getText( 'authorization_id', null ),
-				'bank_check_digit' => $wgRequest->getText( 'bank_check_digit', null ),
-				'bank_name' => $wgRequest->getText( 'bank_name', null ),
-				'bank_code' => $wgRequest->getText( 'bank_code', null ),
-				'branch_code' => $wgRequest->getText( 'branch_code', null ),
-				'country_code_bank' => $wgRequest->getText( 'country_code_bank', null ),
-				'date_collect' => $wgRequest->getText( 'date_collect', null ),
-				'direct_debit_text' => $wgRequest->getText( 'direct_debit_text', null ),
-				'iban' => $wgRequest->getText( 'iban', null ),
-				'fiscal_number' => $wgRequest->getText( 'fiscal_number', null ),
-				'transaction_type' => $wgRequest->getText( 'transaction_type', null ),
-				'form_name' => $wgRequest->getText( 'form_name', null ),
-				'ffname' => $wgRequest->getText( 'ffname', null ),
-				'recurring' => $wgRequest->getVal( 'recurring', null ), //boolean type
-				'recurring_paypal' => $wgRequest->getVal( 'recurring_paypal', null ), //boolean type, legacy key
-				'user_ip' => null, //placeholder. We'll make these in a minute.
-				'server_ip' => null,
+			/**
+			 * $varNames now just contains all the vars we want to
+			 * get poked through to gateways in some form or other,
+			 * from a get or post. We handle the actual
+			 * normalization in normalize() helpers, below.
+			 * @TODO: It would be really neat if the gateways kept
+			 * track of all the things that ***only they will ever
+			 * need***, and could interject those needs here...
+			 * Then we could really clean up.
+			 * @TODO also: Think about putting log alarms on the
+			 * keys we want to see disappear forever, complete with
+			 * ffname and referrer for easy total destruction.
+			 */
+			$varNames = array (
+				'amount',
+				'amountGiven',
+				'amountOther',
+				'email',
+				'emailAdd',
+				'fname',
+				'lname',
+				'street',
+				'street_supplemental',
+				'city',
+				'state',
+				'zip',
+				'country',
+				'premium_language',
+				'card_num',
+				'card_type',
+				'expiration',
+				'cvv',
+				'currency',
+				'currency_code',
+				'payment_method',
+				'payment_submethod',
+				'paymentmethod', //used by the FormChooser (and the newest banners) for some reason.
+				'submethod', //same as above. Ideally, the newer banners would stop using these vars and go back to the old ones...
+				'issuer_id',
+				'order_id',
+				'referrer',
+				'utm_source',
+				'utm_source_id',
+				'utm_medium',
+				'utm_campaign',
+				'utm_key',
+				'language',
+				'uselang',
+				'token',
+				'contribution_tracking_id',
+				'data_hash',
+				'action',
+				'gateway',
+				'owa_session',
+				'owa_ref',
+				'descriptor',
+				'account_name',
+				'account_number',
+				'authorization_id',
+				'bank_check_digit',
+				'bank_name',
+				'bank_code',
+				'branch_code',
+				'country_code_bank',
+				'date_collect',
+				'direct_debit_text',
+				'iban',
+				'fiscal_number',
+				'transaction_type',
+				'form_name',
+				'ffname',
+				'recurring',
+				'recurring_paypal',
+				'user_ip',
+				'server_ip',
 			);
+
+			foreach ( $varNames as $var ) {
+				$this->normalized[$var] = $this->sourceHarvest( $var );
+			}
+
 			if ( !$this->wasPosted() ) {
 				$this->setVal( 'posted', false );
 			}
@@ -126,8 +142,27 @@ class DonationData {
 
 		$this->normalize();
 
+		$this->expungeNulls();
 	}
-	
+
+	/**
+	 * Harvest a varname from its source - post, get, maybe even session eventually.
+	 * @TODO: Provide a way that gateways can override default behavior here for individual keys.
+	 * @global Webrequest $wgRequest
+	 * @param string $var The incoming var name we need to get a value for
+	 * @return mixed The final value of the var, or null if we don't actually have it.
+	 */
+	protected function sourceHarvest( $var ) {
+		global $wgRequest;
+		$ret = $wgRequest->getText( $var, null ); //all strings is just fine.
+		//getText never returns null: It just casts do an empty string. Soooo...
+		if ( $ret === '' && !array_key_exists( $var, $_POST ) && !array_key_exists( $var, $_GET ) ) {
+			$ret = null; //not really there, so stop pretending.
+		}
+
+		return $ret;
+	}
+
 	/**
 	 * populateData helper function 
 	 * If donor session data has been set, pull the fields in the session that 
@@ -284,6 +319,7 @@ class DonationData {
 		if ( !empty( $this->normalized ) ) {
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
+			$this->setReferrer();
 			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
 			$this->setNormalizedPaymentMethod(); //need to do this before utm_source.
@@ -295,6 +331,7 @@ class DonationData {
 			$this->setCurrencyCode(); // AFTER setCountry
 			$this->renameCardType();
 			$this->setEmail();
+			$this->setCardNum();
 
 			if ( $updateCtRequired ) {
 				$this->saveContributionTrackingData();
@@ -715,6 +752,25 @@ class DonationData {
 	}
 
 	/**
+	 * Normalize card number by removing spaces if we have to.
+	 */
+	protected function setCardNum() {
+		if ( $this->isSomething( 'card_num' ) ) {
+			$this->setVal( 'card_num', str_replace( ' ', '', $this->getVal( 'card_num' ) ) );
+		}
+	}
+
+	/**
+	 * Normalize referrer either by passing on the original, or grabbing it in the first place.
+	 */
+	protected function setReferrer() {
+		global $wgRequest;
+		if ( !$this->isSomething( 'referrer' ) ) {
+			$this->setVal( 'referrer', $wgRequest->getHeader( 'referer' ) ); //grumble grumble real header not a real word grumble.
+		}
+	}
+
+	/**
 	 * getLogMessagePrefix
 	 * Constructs and returns the standard ctid:order_id log line prefix.
 	 * The gateway function of identical name now calls this one, because
@@ -1002,6 +1058,15 @@ class DonationData {
 		}
 		return false;
 	}
+
+	private function expungeNulls() {
+		foreach ( $this->normalized as $key => $val ) {
+			if ( is_null( $val ) ) {
+				$this->expunge( $key );
+			}
+		}
+	}
+
 }
 
 ?>
