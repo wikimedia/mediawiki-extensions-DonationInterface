@@ -367,7 +367,7 @@ class GatewayForm extends UnlistedSpecialPage {
 			'currency_code' => $defaultCurrency
 		) );
 
-		$this->adapter->log( 'Unsupported currency $oldCurrency forced to $defaultCurrency' );
+		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
 	}
 
