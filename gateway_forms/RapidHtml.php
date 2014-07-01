@@ -386,6 +386,10 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$numMatches = count( $matches[0] );
 
+		//@TODO: When we have more time, deal with matches that are
+		//commented out in very specific ways in the source template.
+		//Can cause explode.
+
 		for ( $i = 0; $i < $numMatches; $i++ ) {
 
 			$domthingy = new DOMDocument();
