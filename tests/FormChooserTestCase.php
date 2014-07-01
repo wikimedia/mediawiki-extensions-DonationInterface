@@ -97,6 +97,14 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 			'countries' => array ( '-' => 'VN' )
 		);
 
+		$moreForms['rtbt-ideal'] = array (
+			'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal.html',
+			'gateway' => 'globalcollect',
+			'payment_methods' => array ( 'rtbt' => 'rtbt_ideal' ),
+			'countries' => array ( '+' => 'NL' ),
+			'currencies' => array ( '+' => 'EUR' ),
+		);
+
 		$moreForms['paypal'] = array (
 			'file' => $form_dirs['paypal'] . '/paypal.html',
 			'gateway' => 'paypal',

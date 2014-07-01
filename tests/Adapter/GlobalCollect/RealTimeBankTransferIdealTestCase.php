@@ -31,6 +31,35 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
 class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase extends DonationInterfaceTestCase {
 
 	/**
+	 * Test for ideal form loading
+	 */
+	public function testGCFormLoad_rtbt_Ideal() {
+		$init = $this->getDonorTestData( 'NL' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'rtbt';
+		$init['ffname'] = 'rtbt-ideal';
+
+		$assertNodes = array (
+			//can't do the selected-amount test here, because apparently javascript. So...
+
+			'amount' => array (
+				'nodename' => 'input',
+				'value' => '1.55',
+			),
+			'currency_code' => array (
+				'nodename' => 'input',
+				'value' => 'EUR',
+			),
+			'country' => array (
+				'nodename' => 'input',
+				'value' => 'NL',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
 	 * testBuildRequestXmlWithIssuerId21
 	 *
 	 * Rabobank: 21

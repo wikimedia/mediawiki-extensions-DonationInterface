@@ -69,17 +69,6 @@
 										<span class="name-first"><input class="txt optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>
 										<span class="name-last"><input class="txt optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>
 									</div>
-									<div class="loc-fields nostate">
-										<!--<span class="loc-street"><input class="txt" id="street" name="street" title="%donate_interface-donor-street%" value="@street" placeholder="%donate_interface-donor-street%"/></span>-->
-										<!--<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-donor-postal%" value="@zip" placeholder="%donate_interface-donor-postal%"/></span>-->
-										<!--<span class="loc-city"><input class="txt" id="city" name="city" title="%donate_interface-donor-city%" value="@city" placeholder="%donate_interface-donor-city%"/></span>-->
-										<!--<span class="loc-country">-->
-											<!--<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">-->
-												<!--<option value="">%donate_interface-select-country%</option>-->
-												<!--<option value="AT">%donate_interface-country-dropdown-AT%</option>-->
-											<!--</select>-->
-										<!--</span>-->
-									</div>
 									<p><input class="txt optional" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
 									<table style="margin-top: 10px;" >
 										<tr><td>
@@ -111,8 +100,8 @@
 
 								<input type="hidden" name="returnto" value="Thank_You/en" />
 								<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
-								<input type="hidden" value="@amount" name="amount" />
-								<input type="hidden" value="EUR" name="currency_code" />
+								<input type="hidden" value="@amount" name="amount" id="amount"/>
+								<input type="hidden" value="EUR" name="currency_code" id="currency_code"/>
 								<input type="hidden" value="@utm_source" name="utm_source"/>
 								<input type="hidden" value="@utm_medium" name="utm_medium"/>
 								<input type="hidden" value="@utm_campaign" name="utm_campaign"/>
