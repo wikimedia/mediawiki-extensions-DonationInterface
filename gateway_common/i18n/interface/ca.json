@@ -11,7 +11,8 @@
 			"SMP",
 			"Solde",
 			"Vriullop",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Fitoschido"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -303,7 +304,7 @@
 	"donate_interface-bt-finished": "Acabat",
 	"donate_interface-obt-customer_payment_reference": "Referència #",
 	"donate_interface-dd-iban": "IBAN",
-	"donate_interface-faqs": "Respostes a preguntes frequënts",
+	"donate_interface-faqs": "Respostes a preguntes freqüents",
 	"donate_interface-tax-info": "Informació de deducció fiscal",
 	"donate_interface-informationsharing": "Al donar, estàs compartint la teva informació amb la Wikimedia\nFoundation, una organització sense ànim de lucre que manté la Viquipèdia i altres projectes Viquimèdia, i els proveïdors de serveis d'Internet als Estats Units i altres llocs d'acord amb la nostra política de privacitat. No vendrem o farem us comercial de la teva informació amb ningú. Per a més informació, si us plau, llig <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">la nostra política sobre donants. </a>.",
 	"donate_interface-currency-change": "Ho voleu canviar?",
