@@ -1305,8 +1305,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return $status_result;
 	}
 
-    protected function transactionDirect_Debit()
-    {  
+	protected function transactionDirect_Debit() {
+
 		$result = $this->do_transaction('DO_BANKVALIDATION');
 		if ($result['status'])
 		{
@@ -1707,6 +1707,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
+				case 430285: //most common declined cc code.
+					break; //don't need to hear about these at all.
 				case 400120:
 					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					* TODO: They already gave us money or failed...
@@ -1716,6 +1718,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					* Please note: I have no idea if this happens IRL.
 					* I did wrench my test instance into doing this a couple times, though.
 					*/
+				case 20001000 : //REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
 				default:
 					$this->log( __FUNCTION__ . " Error $errCode : $errMsg", LOG_ERR );
 					break;
