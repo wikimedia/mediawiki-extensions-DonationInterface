@@ -1077,19 +1077,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
 		);
-		$addme = array();
+		$qsResults = array();
 		foreach ( $pull_vars as $theirkey => $ourkey) {
 			$tmp = $wgRequest->getVal( $theirkey, null );
-			if ( !is_null( $tmp ) ) { 
-				$addme[$ourkey] = $tmp;
+			if ( !is_null( $tmp ) ) {
+				$qsResults[$ourkey] = $tmp;
 			}
 		}
 		
 		$is_orphan = false;
-		if ( count( $addme ) ){ //nothing unusual here. 
-			$this->addData( $addme );
-			$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
+		if ( count( $qsResults ) ){ //nothing unusual here.
+			$this->addData( $qsResults );
+			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
 		} else { //this is an orphan transaction. 
 			$is_orphan = true;
@@ -1110,30 +1110,37 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		
 		$loopcount = $this->getGlobal('RetryLoopCount');
 		$loops = 0;
-		
-		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 
+		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
+			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
-			if ( $is_orphan ){
-				if ( array_key_exists('data', $status_result) ) {
-					foreach ( $pull_vars as $theirkey => $ourkey) {
-						if ( array_key_exists($theirkey, $status_result['data']) ) {
-							$addme[$ourkey] = $status_result['data'][$theirkey];
-						}
+			$xmlResults = array(
+				'cvv_result' => '',
+				'avs_result' => ''
+			);
+			if ( array_key_exists('data', $status_result) ) {
+				foreach ( $pull_vars as $theirkey => $ourkey) {
+					if ( !array_key_exists( $theirkey, $status_result['data'] ) ) {
+						continue;
+					}
+					$gotCVV = true;
+					$xmlResults[$ourkey] = $status_result['data'][$theirkey];
+					if ( array_key_exists( $ourkey, $qsResults ) && $qsResults[$ourkey] != $xmlResults[$ourkey] ) {
+						$problemflag = true;
+						$problemmessage = "$theirkey value '$qsResults[$ourkey]' from querystring does not match value '$xmlResults[$ourkey]' from GET_ORDERSTATUS XML";
 					}
 				}
-				$gotCVV = false;
-				if ( count( $addme ) ){
-					$gotCVV = true;
-					$this->addData( $addme );
-					$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-					$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-					$this->log( $logmsg );
-					if ( $loops === 0 ){ //only want to do this once - it's not going to change.
-						$this->runAntifraudHooks();
-					}
-					$status_result['action'] = $this->getValidationAction();
-				} 
+			}
+			$this->addData( $xmlResults );
+			$logmsg = 'CVV Result from XML: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$logmsg .= ', AVS Result from XML: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
+			$this->log( $logmsg );
+
+			if ( $is_orphan ) {
+				if ( $loops === 0 ){ //only want to do this once - it's not going to change.
+					$this->runAntifraudHooks();
+				}
+				$status_result['action'] = $this->getValidationAction();
 			}
 
 			//we filtered
