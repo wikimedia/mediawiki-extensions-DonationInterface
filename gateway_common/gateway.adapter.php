@@ -3301,18 +3301,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$ref = isset( $data['referrer'] ) ? $data['referrer'] : null;
 		//make it actually possible to debug this hot mess
 
-		$logObj = array(
-			'ffname' => $ffname,
-			'country' => $country,
-			'currency' => $currency,
-			'payment_method' => $payment_method,
-			'payment_submethod' => $payment_submethod,
-			'recurring' => $recurring,
-			'gateway' => $gateway,
-			'utm' => $utm,
-			'referrer' => $ref
-		);
-		$this->log( "Attempting to set a valid form for the combination: " . json_encode( $logObj ), LOG_INFO );
+		$this->log( "Attempting to set a valid form for the combination: " . $this->getLogDebugJSON(), LOG_INFO );
 
 		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			return;
@@ -3337,8 +3326,7 @@ abstract class GatewayAdapter implements GatewayType {
 			//now construct a useful error message
 			$this->log(
 				"ffname '{$ffname}' is invalid. Assigning ffname '{$new_ff}'. " .
-				"I currently am choosing for: " . json_encode( $logObj ),
-				LOG_ERR
+				"I currently am choosing for: " . $this->getLogDebugJSON(), LOG_ERR
 			);
 
 			//Turn these off by setting the LogDebug global to false.
@@ -3745,4 +3733,34 @@ abstract class GatewayAdapter implements GatewayType {
 
 		return !$validated_ok;
 	}
+
+	/**
+	 * Returns some useful debugging JSON we can append to loglines for
+	 * increaded debugging happiness.
+	 * This is working pretty well for debugging FormChooser problems, so
+	 * let's use it other places. Still, this should probably still be used
+	 * sparingly...
+	 * @return string JSON-encoded donation data
+	 */
+	public function getLogDebugJSON() {
+		$logObj = array (
+			'ffname',
+			'country',
+			'currency',
+			'payment_method',
+			'payment_submethod',
+			'recurring',
+			'gateway',
+			'utm_source',
+			'referrer',
+		);
+
+		foreach ( $logObj as $key => $value ) {
+			$logObj[$value] = $this->getData_Unstaged_Escaped( $value );
+			unset( $logObj[$key] );
+		}
+
+		return json_encode( $logObj );
+	}
+
 }

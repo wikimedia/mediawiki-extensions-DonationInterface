@@ -1707,18 +1707,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					break;
+				case 430260: //wow: If we were a point of sale, we'd be calling security.
 				case 430285: //most common declined cc code.
+				case 430306: //Expired card.
+				case 430330: //invalid card number
+				case 430396: //not authorized to cardholder, whatever that means.
+				case 430409: //Declined, because "referred". wth does that even.
+				case 430415: //Declined for "security violation"
+				case 430424: //Declined, because "SYSTEM_MALFUNCTION". I have no words.
+				case 430692: //cvv2 declined
 					break; //don't need to hear about these at all.
+
+				case 20001000 : //REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
+				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
+					//say something painful here.
+					$errMsg = 'Blocking validation problems with this payment. Investigation required! ' . $this->getLogDebugJSON();
 				case 400120:
 					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
-					* TODO: They already gave us money or failed...
-					* but have probably been forbidden from resultswitcher due to session weirdness.
-					* What should we actually do with these people, other than the default error log?
-					* Special error page saying that they may already have donated?
-					* Please note: I have no idea if this happens IRL.
-					* I did wrench my test instance into doing this a couple times, though.
-					*/
-				case 20001000 : //REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
+					 * They already gave us money or failed...
+					 * but have probably been forbidden from resultswitcher due to session weirdness.
+					 * What should we actually do with these people, other than the default error log?
+					 * Special error page saying that they may already have donated?
+					 * @TODO: This absolutely happens IRL. Attempt to handle gracefully once we figure out what that means.
+					 */
 				default:
 					$this->log( __FUNCTION__ . " Error $errCode : $errMsg", LOG_ERR );
 					break;
