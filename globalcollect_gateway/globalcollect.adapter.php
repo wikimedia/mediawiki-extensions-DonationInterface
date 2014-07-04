@@ -1091,24 +1091,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
-		} else { //this is an orphan transaction. 
+		} else { //this is an orphan transaction.
 			$is_orphan = true;
-			//have to change this code range: All these are usually "pending" and 
+			//have to change this code range: All these are usually "pending" and
 			//that would still be true...
-			//...aside from the fact that if the user has gotten this far, they left 
-			//the part where they could add more data. 
+			//...aside from the fact that if the user has gotten this far, they left
+			//the part where they could add more data.
 			//By now, "incomplete" definitely means "failed" for 0-70.
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
 		
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
-		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it. 
+		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it.
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$problemseverity = LOG_ERR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
 		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
 		$original_status_code = NULL;
-		
-		$loopcount = $this->getGlobal('RetryLoopCount');
+
+		$loopcount = $this->getGlobal( 'RetryLoopCount' );
 		$loops = 0;
 
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
