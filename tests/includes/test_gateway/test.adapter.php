@@ -125,6 +125,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
+	 * Clear the static globals cache.
+	 */
+	public static function clearGlobalsCache() {
+		self::$globalsCache = array ( );
+	}
+
+	/**
 	 * Returns the variable $this->dataObj which should be an instance of
 	 * DonationData.
 	 *
