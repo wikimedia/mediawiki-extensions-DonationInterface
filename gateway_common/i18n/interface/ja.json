@@ -122,7 +122,7 @@
 	"donate_interface-ZAR": "南アフリカ ランド",
 	"donate_interface-accessible": "このページは寄付ページからのみ参照できます。",
 	"donate_interface-paypal-button": "PayPal経由で寄付",
-	"donate_interface-paypal-redirect": "PayPalにリダイレクト中…",
+	"donate_interface-paypal-redirect": "PayPalにリダイレクト中...",
 	"donate_interface-amazon-button": "Amazon経由で寄付",
 	"donate_interface-cc-button": "クレジットカードで寄付",
 	"donate_interface-ccdc-button": "クレジットカード/デビットカードで寄付",
