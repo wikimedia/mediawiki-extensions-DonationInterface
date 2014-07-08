@@ -271,6 +271,11 @@ abstract class GatewayAdapter implements GatewayType {
 	public $posted = false;
 	protected $batch = false;
 	protected $api_request = false;
+	/**
+	 * Holds the global values we've already looked up.  Used in getGlobal.
+	 * @staticvar array
+	 */
+	protected static $globalsCache = array ( );
 
 	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants. 
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -566,9 +571,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 * wish to override the default value for all gateways. 
 	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
 	 * that value will override the default settings.
+	 * Caches found values in self::$globalsCache
 	 *
-	 * @staticvar array $gotten A cache of all the globals we've already... 
-	 * gotten. 
 	 * @param string $varname The global value we're looking for. It will first
 	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX, 
 	 * plus the $varname value. If that doesn't come up with anything that has 
@@ -578,22 +582,21 @@ abstract class GatewayAdapter implements GatewayType {
 	 * the configured value for Donation Interface if it exists or not. 
 	 */
 	static function getGlobal( $varname ) {
-		static $gotten = array ( ); //cache.
 		//adding another layer of depth here, in case you're working with two gateways in the same request.
 		//That does, in fact, ruin everything. :/
-		if ( !array_key_exists( self::getGlobalPrefix(), $gotten ) ) {
-			$gotten[self::getGlobalPrefix()] = array ( );
+		if ( !array_key_exists( self::getGlobalPrefix(), self::$globalsCache ) ) {
+			self::$globalsCache[self::getGlobalPrefix()] = array ( );
 		}
-		if ( !array_key_exists( $varname, $gotten[self::getGlobalPrefix()] ) ) {
+		if ( !array_key_exists( $varname, self::$globalsCache[self::getGlobalPrefix()] ) ) {
 			$globalname = self::getGlobalPrefix() . $varname;
 			global $$globalname;
 			if ( !isset( $$globalname ) ) {
 				$globalname = "wgDonationInterface" . $varname;
 				global $$globalname; //set or not. This is fine. 
 			}
-			$gotten[self::getGlobalPrefix()][$varname] = $$globalname;
+			self::$globalsCache[self::getGlobalPrefix()][$varname] = $$globalname;
 		}
-		return $gotten[self::getGlobalPrefix()][$varname];
+		return self::$globalsCache[self::getGlobalPrefix()][$varname];
 	}
 
 	/**
