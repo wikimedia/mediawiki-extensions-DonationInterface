@@ -10,7 +10,8 @@
 			"Reza1615",
 			"Sahim",
 			"Wayiran",
-			"ZxxZxxZ"
+			"ZxxZxxZ",
+			"Rtemis"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -189,8 +190,8 @@
 	"donate_interface-error-msg-country": "کشور",
 	"donate_interface-error-msg-card_type": "نوع کارت اعتباری",
 	"donate_interface-error-msg-card_num": "شمارهٔ کارت اعتباری",
-	"donate_interface-error-msg-expiration": "تاریخ انقضای کارت",
-	"donate_interface-error-msg-cvv": "سی‌سی‌وی از پشت کارت شما",
+	"donate_interface-error-msg-expiration": "لطفا تاریخ انقضای کارت خود را وارد کنید",
+	"donate_interface-error-msg-cvv": "سی‌وی‌وی (رمز سوم) را وارد کنید معمولا پشت کارت نوشته شده است",
 	"donate_interface-error-msg-account_name": "نام حساب",
 	"donate_interface-error-msg-account_number": "شماره حساب",
 	"donate_interface-error-msg-authorization_id": "شناسه مجوز",
