@@ -142,6 +142,83 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	}
 
 	/**
+	 * Just run the GET_ORDERSTATUS transaction and make sure we load the data
+	 */
+	function testGetOrderStatus() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+
+		$gateway = $this->getFreshGatewayObject( $init, null );
+
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+
+		$data = $gateway->getTransactionData();
+
+		$this->assertEquals( 'N', $data['CVVRESULT'], 'CVV Result not loaded from XML response' );
+	}
+
+	/**
+	 * We should skip the API call if we're already suspicious
+	 */
+	function testGetOrderStatusSkipsIfFail() {
+		DonationInterface_FraudFiltersTestCase::setupFraudMaps();
+
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'swhiplash@wikipedia.org'; //configured as a fraudy domain
+
+		$gateway = $this->getFreshGatewayObject( $init, null );
+
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+
+		$data = $gateway->getTransactionData();
+
+		$this->assertEquals( null, $data['CVVRESULT'], 'preprocess should stop API call if fraud detected' );
+	}
+
+	/**
+	 * Ensure the Confirm_CreditCard transaction prefers CVVRESULT from the XML
+	 * over any value from the querystring
+	 */
+	function testConfirmCreditCardPrefersXmlCvv() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init, null );
+
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+
+		$this->assertEquals( 'N', $gateway->getData_Unstaged_Escaped('cvv_result'), 'CVV Result not taken from XML response' );
+	}
+
+	/**
+	 * If querystring and XML have different CVVRESULT, that's awfully fishy
+	 */
+	function testConfirmCreditCardFailsOnCvvResultConflict() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init, null );
+
+		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+
+		$this->assertFalse( $result['status'], 'Credit card should fail if querystring and XML have different CVVRESULT' );
+	}
+
+	/**
 	 * testDefineVarMap
 	 *
 	 * This is tested with a bank transfer from Spain.
