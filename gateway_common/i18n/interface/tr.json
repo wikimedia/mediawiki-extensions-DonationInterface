@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Suelnur",
 			"Tarkovsky",
-			"Vito Genovese"
+			"Vito Genovese",
+			"Sayginer"
 		]
 	},
 	"donate_interface": "Wikimedia'yı destekleyin",
@@ -115,7 +116,7 @@
 	"donate_interface-ZAR": "Güney Afrika randı",
 	"donate_interface-accessible": "Bu sayfa sadece bağış sayfasından erişilebilirdir.",
 	"donate_interface-paypal-button": "PayPal ile bağış yap",
-	"donate_interface-paypal-redirect": "PayPal'a yeniden yönlendiriliyor...",
+	"donate_interface-paypal-redirect": "PayPal'a yönlendiriliyor...",
 	"donate_interface-amazon-button": "Amazon üzerinden bağış",
 	"donate_interface-cc-button": "Kredi kartı ile bağış yap",
 	"donate_interface-ccdc-button": "Kredi kartı/bankamatik kartı ile bağış",
