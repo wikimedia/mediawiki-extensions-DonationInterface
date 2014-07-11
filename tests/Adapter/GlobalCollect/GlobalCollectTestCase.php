@@ -359,4 +359,27 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
 	}
 
+	/**
+	 * Tests to make sure that certain error codes returned from GC will or
+	 * will not create payments error loglines.
+	 */
+	function testCCLogsOnGatewayError() {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['ffname'] = 'cc-vmad';
+
+		//this should not throw any payments errors: Just an invalid card.
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '430285' );
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+		$this->verifyNoLogErrors( $gateway );
+
+		//Now test one we want to throw a payments error
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '21000050' );
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_ERR, '/Investigation required!/' );
+		$this->assertType( 'string', $logline, 'GC Error 21000050 is not generating the expected payments log error' );
+	}
+
 }
