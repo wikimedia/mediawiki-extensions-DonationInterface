@@ -13,7 +13,8 @@
 			"Shirayuki",
 			"Whym",
 			"藤田健士朗",
-			"青子守歌"
+			"青子守歌",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -204,6 +205,7 @@
 	"donate_interface-error-msg-country-calc": "エラー - 現時点ではあなたの寄付を承認できません。",
 	"donate_interface-error-msg-fiscal_number": "財務番号",
 	"donate_interface-donate-error-try-a-different-card": "[$1 別のカード]や[$2 他の寄付方法]をお試しください。または $3 までお問い合わせください。",
+	"donate_interface-donate-error-try-again-html": "もう一度<a href=\"$1\">お試し</a>いただくか、別の<a href=\"$2\">寄付方法</a>、または<a href=\"mailto:$3\">$3</a>までお問い合わせください。",
 	"donate_interface-donate-error-thank-you-for-your-support": "ご支援いただきありがとうございます。",
 	"php-response-declined": "お取引が承認されませんでした。",
 	"donate_interface-thankyou": "ご寄付ありがとうございました!",
