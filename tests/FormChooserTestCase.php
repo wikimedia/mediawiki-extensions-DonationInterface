@@ -143,6 +143,21 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 		}
 	}
 
+	function testMaintenanceMode_Redirect() {
+		global $wgContributionTrackingFundraiserMaintenance;
+		$wgContributionTrackingFundraiserMaintenance = true;
+
+		$expectedLocation = Title::newFromText('Special:FundraiserMaintenance')->getFullURL();
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => $expectedLocation
+			),
+		);
+		$initial = array(
+			'language' => 'en'
+		);
+		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
+	}
 }
 
 
