@@ -44,7 +44,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	 * Non-exhaustive integration tests to verify that order_id
 	 * normalization works as expected with different settings and
 	 * conditions in theGlobalCollect adapter
-	 * @covers normalizeOrderID
+	 * @covers GatewayAdapter::normalizeOrderID
 	 */
 	public function testnormalizeOrderID() {
 		$init = $this->initial_vars;
@@ -99,8 +99,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	/**
 	 * Non-exhaustive integration tests to verify that order_id, when in
 	 * self-generation mode, won't regenerate until it is told to.
-	 * @covers normalizeOrderID
-	 * @covers regenerateOrderID
+	 * @covers GatewayAdapter::normalizeOrderID
+	 * @covers GatewayAdapter::regenerateOrderID
 	 */
 	function testStickyGeneratedOrderID() {
 		$init = $this->initial_vars;
