@@ -1330,7 +1330,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if (isset($result['status']) && $result['status'] === true)
 					{
 						$this->finalizeInternalStatus( 'complete' );
-						$this->runPostProcessHooks();  //stomp is in here
 						$this->doLimboStompTransaction( true );
 					} else {
 						$this->finalizeInternalStatus( 'failed' );
