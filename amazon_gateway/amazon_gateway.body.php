@@ -30,10 +30,8 @@ class AmazonGateway extends GatewayForm {
 	 *
 	 * @todo
 	 * - Finish error handling
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
 	 */
-	public function execute( $par ) {
+	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
 		$this->setHeaders();

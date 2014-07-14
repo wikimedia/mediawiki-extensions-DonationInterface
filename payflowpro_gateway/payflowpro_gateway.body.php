@@ -11,10 +11,8 @@ class PayflowProGateway extends GatewayForm {
 
 	/**
 	 * Show the special page
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
 	 */
-	public function execute( $par ) {
+	protected function handleRequest() {
 		$this->setHeaders();
 
 		/**

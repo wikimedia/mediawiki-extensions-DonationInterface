@@ -34,11 +34,8 @@ class GlobalCollectGateway extends GatewayForm {
 	 *
 	 * @todo
 	 * - Finish error handling
-	 *
-	 * @param $par string|null: parameter passed to the page or null
-	 * @return null|void
 	 */
-	public function execute( $par ) {
+	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
 		$this->setHeaders();

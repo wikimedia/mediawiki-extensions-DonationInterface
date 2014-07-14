@@ -29,10 +29,8 @@ class AdyenGatewayResult extends GatewayForm {
 
 	/**
 	 * Show the special page
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
 	 */
-	public function execute( $par ) {
+	protected function handleRequest() {
 
 		//no longer letting people in without these things. If this is 
 		//preventing you from doing something, you almost certainly want to be 
