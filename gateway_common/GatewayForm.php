@@ -41,15 +41,6 @@ abstract class GatewayForm extends UnlistedSpecialPage {
 	 * Constructor
 	 */
 	public function __construct() {
-		
-		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
-		
-		//@TODO: Something with some elegance as soon as we're not staring down a multi-project hardware maintenance window in under an hour.
-		if( $wgContributionTrackingFundraiserMaintenance
-			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
-			$this->getOutput()->redirect( Title::newFromText("Special:FundraiserMaintenance")->getFullURL(), "302" );
-		}
-
 		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		
 		$me = get_called_class();
@@ -62,6 +53,13 @@ abstract class GatewayForm extends UnlistedSpecialPage {
 	 * @param $par Mixed: parameter passed to the page or null
 	 */
 	public function execute( $par ) {
+		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
+
+		if( $wgContributionTrackingFundraiserMaintenance
+			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
+			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
+			return;
+		}
 		$this->handleRequest();
 	}
 
