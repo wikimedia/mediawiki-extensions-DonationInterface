@@ -43,7 +43,7 @@ class PaypalGatewayResult extends GatewayForm {
 		}
 		
 		if ( $forbidden ){
-			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
