@@ -125,4 +125,22 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 		$this->assertEquals( $expected, $res, 'Paypal "DonateXclick" transaction not constructing the expected redirect URL' );
 	}
 
+	/**
+	 * Integration test to verify that the Paypal gateway shows an error message when validation fails.
+	 */
+	function testShowFormOnError() {
+		$init = $this->getDonorTestData();
+		$init['OTT'] = 'SALT123456789';
+		$init['amount'] = '-100.00';
+		$_SESSION['Donor'] = $init;
+		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
+		$assertNodes = array(
+			'mw-content-text' => array(
+				'innerhtmlmatches' => "/.*$errorMessage.*/"
+			)
+		);
+
+		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false );
+	}
+
 }

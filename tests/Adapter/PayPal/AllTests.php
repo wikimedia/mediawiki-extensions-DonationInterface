@@ -19,6 +19,7 @@
  * @see DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase
  */
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PayPalTestCase.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PayPalResultSwitcherTestCase.php';
 
 /**
  * AllTests
@@ -49,6 +50,7 @@ class DonationInterface_Adapter_PayPal_AllTests {
 
 		// general PayPal tests
 		$suite->addTestSuite( 'DonationInterface_Adapter_PayPal_TestCase' );
+		$suite->addTestSuite( 'PayPalResultSwitcherTestCase' );
 
 		return $suite;
 	}
