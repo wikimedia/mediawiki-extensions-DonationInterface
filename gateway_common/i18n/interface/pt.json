@@ -216,6 +216,7 @@
 	"donate_interface-donate-error-try-again-html": "Por favor, <a href=\"$1\">tente novamente</a>, tente outra de nossas <a href=\"$2\">maneiras para dar</a> ou contacte-nos em <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Obrigado pelo seu apoio!",
 	"donate_interface-error-no-form": "Fomos incapazes de encontrar uma doação que coincidam com seus parâmetros. Por favor, contacte [mailto:donate@wikimedia.org nossa equipa de ajuda] para mais informações.",
+	"donate_interface-error-no-form-html": "Não fomos capazes de encontrar uma forma de doação que preencha os seus parâmetros. Por favor, tente uma das <a href=\"$1\">nossas outras formas de pagamento</a>, ou contacte-nos através de <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Não foi possível aceitar a transacção.",
 	"donate_interface-thankyou": "Agradecemos o donativo!",
 	"donate_interface-post-transaction": "Detalhes da transacção",

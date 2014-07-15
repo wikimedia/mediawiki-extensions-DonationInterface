@@ -202,6 +202,7 @@
 	"donate_interface-donate-error-try-again-html": "Prosíme, <a href=\"$1\">zkuste to znovu</a>, zkuste jednu z <a href=\"$2\">jiných možností jak přispět</a> nebo nás kontaktujte na <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Děkujeme za Vaši podporu!",
 	"donate_interface-error-no-form": "Nepodařilo se nám najít dárcovský formulář odpovídající vašim parametrům. Prosíme, kontaktujte [mailto:donate@wikimedia.org náš tým podpory] pro další informace.",
+	"donate_interface-error-no-form-html": "Nepodařilo se nám najít formulář pro přispění odpovídající vašim parametrům. Zkuste prosím jeden z <a href=\"$1\">jiných způsobů, jak přispět</a>, nebo nás kontaktujte na <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Vaše transakce nemohla být přijata.",
 	"donate_interface-thankyou": "Děkujeme za váš příspěvek!",
 	"donate_interface-post-transaction": "Podrobnosti transakce",
