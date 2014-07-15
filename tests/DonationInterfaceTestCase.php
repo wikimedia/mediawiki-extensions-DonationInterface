@@ -398,6 +398,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 					case 'innerhtml':
 						$this->assertEquals( $expected, $input_node->nodeValue, "The node with id '$id' does not have value '$expected'. It has value " . $input_node->nodeValue );
 						break;
+					case 'innerhtmlmatches':
+						$this->assertEquals( 1, preg_match($expected, $input_node->nodeValue), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . $input_node->nodeValue );
+						break;
 					case 'value':
 						$this->assertEquals( $expected, $input_node->getAttribute('value'), "The node with id '$id' does not have value '$expected'. It has value " . $input_node->getAttribute('value') );
 						break;
