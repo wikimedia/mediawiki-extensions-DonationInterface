@@ -213,6 +213,7 @@
 	"donate_interface-donate-error-try-again-html": "Vänligen <a href=\"$1\">försök igen</a>, pröva en av våra <a href=\"$2\">andra sätt att ge</a>, eller kontakta oss på <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Tack för ditt stöd!",
 	"donate_interface-error-no-form": "Vi kunde inte hitta ett donationsformulär som matchar dina parametrar. Vänligen kontakta [mailto:donate@wikimedia.org vårt hjälp-team] för mer information.",
+	"donate_interface-error-no-form-html": "Vi kunde inte hitta ett donationsformulär som motsvarar dina parametrar. Vänligen pröva ett av våra <a href=\"\"$1\">andra sätt att ge</a>, eller kontakta oss på <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Din transaktion har blivit avvisad.",
 	"donate_interface-thankyou": "Tack för din donation!",
 	"donate_interface-post-transaction": "Transaktionsdetaljer",
