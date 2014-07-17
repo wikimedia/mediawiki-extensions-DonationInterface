@@ -17,6 +17,6 @@
 	"payflowpro_gateway-response-24": "El númberu de la so tarxeta de créditu o la data de caducidá ye incorreutu.",
 	"payflowpro_gateway-response-112": "La so direición o'l númberu CVV (códigu de seguridá) ye incorreutu.",
 	"payflowpro_gateway-response-125": "La so operación refugóse pol Serviciu de prevención del fraude.",
-	"payflowpro_gateway-response-125-2": "La so tarxeta de créditu nun pudo validase. Por favor, compruebe que tola información que proporcionó coincide cola del perfil de la tarxeta de créditu, o pruebe con otra tarxeta. Tamién pue usar cualquier otra de les <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">maneres de facer donaciones</a> o ponese'n contautu con nós en <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Gracies pol so encontu.",
+	"payflowpro_gateway-response-125-2": "La to tarxeta de créditu nun pudo validase. Por favor, comprueba que tola información qu'apurristi coincide cola del perfil de la tarxeta de créditu, o pruebe con otra tarxeta. Tamién pues usar cualquier otra de les <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">maneres de facer donaciones</a> o comunicate con nós en <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Gracies pol to encontu.",
 	"payflowpro_gateway-response-default": "Hebo un fallu al procesar la so operación.\nPor favor, vuelva a intentalo más sero."
 }
