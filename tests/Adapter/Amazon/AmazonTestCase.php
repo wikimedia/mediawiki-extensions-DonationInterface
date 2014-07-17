@@ -95,4 +95,60 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 		$this->assertEquals( $expected, $ret, 'Amazon "DonateMonthly" transaction not building the expected request params' );
 	}
 
+	/**
+	 * Verify that the Amazon adapter populates return data from URI.
+	 */
+	function testAmazonGatewayReturn() {
+		$url_vars = array (
+			'transactionAmount' => 'USD 123',
+			'buyerEmail' => 'suzy@reba.net',
+			'transactionDate' => '2014-07-13',
+			'buyerName' => 'Suzy Greenberg',
+			'paymentMethod' => 'Credit Card',
+			'referenceId' => '12345',
+		);
+		$fake_request = new TestingRequest( $url_vars, false );
+		$this->setMwGlobals( array ( 'wgRequest' => $fake_request ) );
+
+		$init = $this->getDonorTestData();
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'ProcessAmazonReturn' );
+		$ret = $gateway->getData_Unstaged_Escaped();
+
+		$expected = array (
+			'currency_code' => 'USD',
+			'amount' => '123.00',
+			'email' => 'suzy@reba.net',
+			'fname' => 'Suzy',
+			'lname' => 'Greenberg',
+			'payment_submethod' => 'amazon_cc',
+			'contribution_tracking_id' => '12345',
+			'date_collect' => '2014-07-13',
+		);
+
+		foreach ($expected as $key => $value) {
+			$this->assertEquals( $value, $ret[$key], 'Amazon "ProcessAmazonReturn" transaction not populating data from the URI as expected' );	
+		}
+	}
+
+	/**
+	 * Integration test to verify that the Amazon gateway shows an error message when validation fails.
+	 */
+	function testShowFormOnError() {
+		$init = $this->getDonorTestData();
+		$init['OTT'] = 'SALT123456789';
+		$init['amount'] = '-100.00';
+		$init['ffname'] = 'amazon';
+		$_SESSION['Donor'] = $init;
+		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
+		$assertNodes = array(
+			'mw-content-text' => array(
+				'innerhtmlmatches' => "/.*$errorMessage.*/"
+			)
+		);
+
+		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false );
+	}
+
 }
