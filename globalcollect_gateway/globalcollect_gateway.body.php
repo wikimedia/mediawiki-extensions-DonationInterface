@@ -249,9 +249,9 @@ class GlobalCollectGateway extends GatewayForm {
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 
-		$url = $this->adapter->getThankYouPage() . $queryString;
+		$encUrl = Xml::encodeJsVar( $this->adapter->getThankYouPage() . $queryString );
 
-		$link = HTML::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = '$url'" ) );
+		$link = HTML::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
 		$return .= Xml::tags( 'p', array( 'style' => 'text-align:center;' ), $link );
 		$return .= Xml::closeElement( 'div' );  // $id
@@ -313,9 +313,9 @@ class GlobalCollectGateway extends GatewayForm {
 
 		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
 
-		$url = $this->adapter->getThankYouPage() . $queryString;
+		$encUrl = Xml::encodeJsVar( $this->adapter->getThankYouPage() . $queryString );
 
-		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = '$url'" ) );
+		$link = HTML::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
 		$return .= Xml::tags( 'p', array(), $link );
 		$return .= Xml::closeElement( 'div' );  // $id
