@@ -202,6 +202,7 @@
 	"donate_interface-donate-error-try-again-html": "Xin vui lòng <a href=\"$1\">thử lại</a> hay thử <a href=\"$2\">quyên góp qua một phương tiện khác</a>, hoặc liên lạc với chúng tôi tại <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Chân thành cảm ơn vì sự hỗ trợ của bạn!",
 	"donate_interface-error-no-form": "Chúng tôi không tìm thấy biểu mẫu quyên góp phù hợp với các thông tin của bạn. Xin vui lòng liên lạc với [mailto:donate@wikimedia.org nhóm trợ giúp] để biết thêm chi tiết.",
+	"donate_interface-error-no-form-html": "Chúng tôi không tìm thấy một biểu mẫu phù hợp các thông số của bạn. Xin vui lòng thử một trong những <a href=\"$1\">cách quyên góp khác</a> hoặc liên lạc với chúng tôi tại <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Không thể nhận giao dịch của bạn.",
 	"donate_interface-thankyou": "Cảm ơn sự quyên góp của bạn!",
 	"donate_interface-post-transaction": "Chi tiết giao dịch",
