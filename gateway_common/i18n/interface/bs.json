@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"CERminator",
-			"Jsoby"
+			"Jsoby",
+			"KWiki"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -205,7 +206,7 @@
 	"donate_interface-donation-must-equal": "Donacija mora biti jednaka $1 ili veća.",
 	"donate_interface-thank-you": "Hvala vam! Vaša donacija je primljena.",
 	"donate_interface-wikipedia-translation": "Molimo zapamtite: \"Wikipedia\" na rukavima majice je crtež \"Wikipedia 10\", koji se ne prevodi.",
-	"donate_interface-on-the-back": "Sa ovim na leđima:",
+	"donate_interface-on-the-back": "S ovim na leđima:",
 	"donate_interface-tshirt-confirmation": "Vaša majica će biti poslana u veličini i na jeziku prikazanom ispod:",
 	"donate_interface-donation-tshirt": "Donacija (ponuda majica)",
 	"donate_interface-state-dropdown-XX": "Izvan SAD"
