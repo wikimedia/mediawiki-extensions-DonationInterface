@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Shirayuki",
-			"Simon Shek"
+			"Simon Shek",
+			"LNDDYL"
 		]
 	},
 	"globalcollectgateway": "馬上捐款",
@@ -15,7 +16,7 @@
 	"globalcollect_gateway-response-400530": "付款方法有誤。",
 	"globalcollect_gateway-response-430306": "您的信用卡已過期。請嘗試使用其他卡或我們的其他付款方式。",
 	"globalcollect_gateway-response-430330": "卡號不正確。",
-	"globalcollect_gateway-response-430421": "無法確認您的信用卡。請檢察所有信息與信用卡上的資料匹配，或嘗試使用其他卡。",
+	"globalcollect_gateway-response-430421": "無法確認您的信用卡。請檢察所有資訊與信用卡上的資料匹配，或嘗試使用其他卡。",
 	"globalcollect_gateway-response-430360": "本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。",
 	"globalcollect_gateway-response-430285": "本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。",
 	"globalcollect_gateway-response-21000150": "銀行帳戶號碼不正確。",

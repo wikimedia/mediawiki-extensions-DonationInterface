@@ -6,7 +6,8 @@
 			"Liangent",
 			"Mark85296341",
 			"Pbdragonwang",
-			"Waihorace"
+			"Waihorace",
+			"LNDDYL"
 		]
 	},
 	"payflowprogateway": "現在捐款",
@@ -20,7 +21,7 @@
 	"payflowpro_gateway-response-23": "您的信用卡號碼或有效期有誤。",
 	"payflowpro_gateway-response-4": "無效的數額。",
 	"payflowpro_gateway-response-24": "您的信用卡號或有效期有誤。",
-	"payflowpro_gateway-response-112": "您的地址或CVV碼（安全碼）有誤。",
+	"payflowpro_gateway-response-112": "您的位址或CVV碼（安全碼）有誤。",
 	"payflowpro_gateway-response-125": "反欺詐系統拒絕了您的捐獻。",
 	"payflowpro_gateway-response-125-2": "您的信用卡無法被驗證。請確保您所提供的資料與信用卡的資料相符，或者換另外一張信用卡再試一次。您可以使用我們其他的<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">捐款方式</a>，或與<a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>聯絡。再次感謝您的支持。",
 	"payflowpro_gateway-response-default": "在處理交易的過程中出錯。\n請稍後再試。"
