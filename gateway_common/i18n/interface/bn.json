@@ -133,7 +133,7 @@
 	"donate_interface-error-msg-country": "দেশ",
 	"donate_interface-error-msg-card_type": "ক্রেডিট কার্ডের ধরন",
 	"donate_interface-error-msg-card_num": "ক্রেডিট কার্ড নম্বর",
-	"donate_interface-error-msg-expiration": "কার্ডের মেয়াদ উত্তীর্ণের তারিখ",
+	"donate_interface-error-msg-expiration": "দয়া করে কার্ডের মেয়াদ উত্তীর্ণের তারিখ লিখুন",
 	"donate_interface-error-msg-cvv": "কার্ডের পেছনের সিভিভি নম্বর",
 	"donate_interface-error-msg-captcha": "আপনি যে ক্যাপচা মান প্রবেশ করিয়েছেন তা সঠিক নয়। অনুগ্রহপূর্বক আবার চেষ্টা করুন।",
 	"donate_interface-error-msg-captcha-please": "আপনার কেডিট কার্ডের নিরাপত্তার জন্য, অনুগ্রহপূর্বক নিচে প্রদর্শিত অক্ষরগুলো টাইপ করুন।",
