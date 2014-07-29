@@ -213,6 +213,7 @@
 	"donate_interface-donate-error-try-again-html": "Будь ласка, <a href=\"$1\">спробуйте ще раз</a>, спробуйте один з наших <a href=\"$2\">інших способів пожертви</a> або зв'яжіться з нами через <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Дякуємо за вашу підтримку!",
 	"donate_interface-error-no-form": "Нам не вдалося знайти форму пожертви, що співпадає з вашими параметрами. Будь ласка, зв'яжіться з [mailto:donate@wikimedia.org нашою командою допомоги] за детальнішою інформацією.",
+	"donate_interface-error-no-form-html": "Ми не змогли знайти пожертвування із заданими Вами параметрами. Будь ласка, спробуйте один з наших <a href=\"$1\">інших способів</a> або напишіть нам на <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Ваша транзакція не може бути прийнята.",
 	"donate_interface-thankyou": "Дякуємо за вашу пожертву!",
 	"donate_interface-post-transaction": "Деталі транзакції",
