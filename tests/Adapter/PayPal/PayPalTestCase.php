@@ -28,8 +28,13 @@ require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . '
  */
 class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCase {
 
-	public function __construct() {
-		parent::__construct();
+	/**
+	 * @param $name string The name of the test case
+	 * @param $data array Any parameters read from a dataProvider
+	 * @param $dataName string|int The name or index of the data set
+	 */
+	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
+		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = 'TestingPaypalAdapter';
 	}
 
