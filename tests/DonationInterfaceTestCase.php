@@ -401,10 +401,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 						$this->assertEquals( $expected, $input_node->nodeName, "The node with id '$id' is not an '$expected'. It is a " . $input_node->nodeName );
 						break;
 					case 'innerhtml':
-						$this->assertEquals( $expected, $input_node->nodeValue, "The node with id '$id' does not have value '$expected'. It has value " . $input_node->nodeValue );
+						$this->assertEquals( $expected, self::getInnerHTML( $input_node ), "The node with id '$id' does not have value '$expected'. It has value " . self::getInnerHTML( $input_node ) );
 						break;
 					case 'innerhtmlmatches':
-						$this->assertEquals( 1, preg_match($expected, $input_node->nodeValue), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . $input_node->nodeValue );
+						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
 						break;
 					case 'value':
 						$this->assertEquals( $expected, $input_node->getAttribute('value'), "The node with id '$id' does not have value '$expected'. It has value " . $input_node->getAttribute('value') );
@@ -488,4 +488,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return $return;
 	}
 
+	static function getInnerHTML( $node ) {
+		$innerHTML = '';
+		$children = $node->childNodes;
+		foreach ( $children as $child ) {
+			$innerHTML .= $child->ownerDocument->saveXML( $child );
+		}
+		return $innerHTML;
+	}
 }
