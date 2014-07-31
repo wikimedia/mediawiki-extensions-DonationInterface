@@ -75,6 +75,9 @@ class DonationInterface_Adapter_GlobalCollect_AllTests
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase' );
 		$suite->addTestSuite( 'DonationInterface_Adapter_GlobalCollect_YandexTestCase' );
 
+		// Form load test cases
+		$suite->addTestSuite( 'GlobalCollectFormLoadTestCase' );
+
 		return $suite;
 	}
 }

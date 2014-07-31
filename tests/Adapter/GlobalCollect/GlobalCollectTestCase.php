@@ -307,63 +307,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
-	public function testGCFormLoad() {
-		$init = $this->getDonorTestData( 'US' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['ffname'] = 'cc-vmad';
-
-		$assertNodes = array (
-			'cc-mc' => array (
-				'nodename' => 'input'
-			),
-			'selected-amount' => array (
-				'nodename' => 'span',
-				'innerhtml' => '$1.55',
-			),
-			'state' => array (
-				'nodename' => 'select',
-				'selected' => 'CA',
-			),
-		);
-
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
-	}
-
-	function testGCFormLoad_FR() {
-		$init = $this->getDonorTestData( 'FR' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['ffname'] = 'cc-vmaj';
-
-		$assertNodes = array (
-			'selected-amount' => array (
-				'nodename' => 'span',
-				'innerhtml' => '€1.55',
-			),
-			'fname' => array (
-				'nodename' => 'input',
-				'value' => 'Prénom',
-			),
-			'lname' => array (
-				'nodename' => 'input',
-				'value' => 'Nom',
-			),
-			'informationsharing' => array (
-				'nodename' => 'p',
-				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
-			),
-			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'FR',
-			),
-		);
-
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
-	}
-
 	/**
 	 * Tests to make sure that certain error codes returned from GC will or
 	 * will not create payments error loglines.

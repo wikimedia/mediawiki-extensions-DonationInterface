@@ -197,6 +197,55 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 	}
 
 	/**
+	 * Make sure Belgian form loads in all of that country's supported languages
+	 * @dataProvider belgiumLanguageProvider
+	 */
+	public function testWorldPayFormLoad_BE( $language ) {
+		$init = $this->getDonorTestData( 'BE' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'worldpay';
+		$init['language'] = $language;
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname-label' => array (
+				'nodename' => 'label',
+				'innerhtml' => wfMessage( 'donate_interface-donor-fname' )->inLanguage( $language )->text(),
+			),
+			'lname-label' => array (
+				'nodename' => 'label',
+				'innerhtml' => wfMessage( 'donate_interface-donor-lname' )->inLanguage( $language )->text(),
+			),
+			'emailAdd-label' => array (
+				'nodename' => 'label',
+				'innerhtml' => wfMessage( 'donate_interface-donor-email' )->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Supported languages for Belgium
+	 */
+	public function belgiumLanguageProvider() {
+		return array(
+			array( 'nl' ),
+			array( 'de' ),
+			array( 'fr' ),
+		);
+	}
+
+	/**
 	 * Testing that we can retrieve the cvv_match value and run antifraud on it correctly
 	 */
 	function testAntifraudCVVMatch() {
