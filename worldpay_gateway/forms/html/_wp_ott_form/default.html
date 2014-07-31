@@ -16,7 +16,7 @@
 
 <div class="row-fluid">
 	<div class="col-md-6">
-		<label>%donate_interface-donor-card-num%</label>
+		<label for="accountNumber" id="accountNumber-label">%donate_interface-donor-card-num%</label>
 		<input type="text" id="accountNumber" class="form-control" pattern="\d*"
 			   autocomplete="off"
 			   placeholder='1111 1111 1111 1111'/>
@@ -24,12 +24,12 @@
 
 	<span id="smCC">
 		<div class="col-md-3">
-			<label>%donate_interface-donor-expiration%</label>
+			<label for="expiry" id="expiry-label">%donate_interface-donor-expiration%</label>
 			<input type="text" class="form-control" id="expiry" pattern="\d*" autocomplete="off"
 			   placeholder='05/2015'/>
 		</div>
 		<div class="col-md-3">
-			<label>%donate_interface-cvv%</label>
+			<label for="cvc" id="cvc-label">%donate_interface-cvv%</label>
 			<input type="text" class="form-control" id="cvc" pattern="\d*"
 				   autocomplete="off"
 				   placeholder='123'/>
