@@ -40,11 +40,16 @@ require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'DonationInt
  */
 class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterfaceTestCase {
 
-	public function __construct() {
+	/**
+	 * @param $name string The name of the test case
+	 * @param $data array Any parameters read from a dataProvider
+	 * @param $dataName string|int The name or index of the data set
+	 */
+	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		global $wgDonationInterfaceAllowedHtmlForms;
 		global $wgDonationInterfaceTest;
 		$wgDonationInterfaceTest = true;
-		parent::__construct();
+		parent::__construct( $name, $data, $dataName );
 
 		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (
 			'gateway' => 'GlobalCollect', //RAR.

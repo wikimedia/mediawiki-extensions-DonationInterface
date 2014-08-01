@@ -29,13 +29,15 @@ require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestC
 class DonationInterface_IntegrationTestCase extends DonationInterfaceTestCase {
 
 	/**
-	 *
+	 * @param $name string The name of the test case
+	 * @param $data array Any parameters read from a dataProvider
+	 * @param $dataName string|int The name or index of the data set
 	 */
-	public function __construct(){
+	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
-		parent::__construct();
+		parent::__construct( $name, $data, $dataName );
 //		self::setupMoreForms();
 	}
 

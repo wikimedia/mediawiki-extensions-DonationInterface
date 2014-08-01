@@ -53,7 +53,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 */
 	protected $gatewayAdapter;
 
-	public function __construct() {
+	/**
+	 * @param $name string The name of the test case
+	 * @param $data array Any parameters read from a dataProvider
+	 * @param $dataName string|int The name or index of the data set
+	 */
+	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 
 		//Just in case you got here without running the configuration...
 		global $wgDonationInterfaceTestMode;
@@ -62,7 +67,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
-		parent::__construct();
+		parent::__construct( $name, $data, $dataName );
 	}
 
 	protected function setUp() {
