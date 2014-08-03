@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Glanthor Reviol"
+			"Glanthor Reviol",
+			"Misibacsi"
 		]
 	},
-	"paypal_gateway-desc": "PayPal regisztrálása mint adakozási mód"
+	"paypal_gateway-desc": "PayPal fizetés feldolgozása"
 }

@@ -284,7 +284,7 @@
 	"donate_interface-select-year-of-expiration": "Válaszd ki a lejárat évét",
 	"donate_interface-expires-question": "Lejárat?",
 	"donate_interface-expires": "Lejárat",
-	"donate_interface-card-security-code": "A kártya biztonsági kódja",
+	"donate_interface-card-security-code": "Biztonsági kód",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV-szám",
 	"donate_interface-cvv2": "CVV2",
