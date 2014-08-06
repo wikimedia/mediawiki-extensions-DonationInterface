@@ -70,6 +70,87 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 	}
 
 	/**
+	 * Integration test to verify that the Donate transaction works as expected
+	 * in Canada (English and French) when all necessary data is present.
+	 *
+	 * @dataProvider canadaLanguageProvider
+	 */
+	function testDoTransactionDonate_CA( $language ) {
+		$init = $this->getDonorTestData( 'CA' );
+		$init['language'] = $language;
+		$init['currency_code'] = 'USD';
+		$this->setLanguage( $language );
+		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
+
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'Donate' );
+		$ret = $gateway->_buildRequestParams();
+
+		$expected = array (
+			'accessKey' => 'testkey',
+			'amount' => $init['amount'],
+			'collectShippingAddress' => '0',
+			'description' => $donateText,
+			'immediateReturn' => '1',
+			'ipnUrl' => 'https://test.wikimedia.org/amazon',
+			'isDonationWidget' => '1',
+			'processImmediate' => '1',
+			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'signatureMethod' => 'HmacSHA256',
+			'signatureVersion' => '2',
+		);
+
+		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
+		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
+	}
+
+	/**
+	 * Integration test to verify that the Amazon gateway converts Canadian
+	 * dollars before redirecting
+	 *
+	 * @dataProvider canadaLanguageProvider
+	 */
+	function testCanadianDollarConversion( $language ) {
+		$init = $this->getDonorTestData( 'CA' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'amazon';
+		$init['ffname'] = 'amazon';
+		$init['language'] = $language;
+		$init['redirect'] = 1;
+		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
+
+		$rates = getCurrencyRates();
+		$cadRate = $rates['CAD'];
+
+		$expectedAmount = floor( $init['amount'] / $cadRate );
+
+		TestingAmazonAdapter::$fakeGlobals = array(
+			'FallbackCurrency' => 'USD',
+			'NotifyOnConvert' => false,
+		);
+		$that = $this; //needed for PHP pre-5.4
+		$redirectTest = function( $location ) use ( $expectedAmount, $donateText, $that ) {
+			$actual = array();
+			parse_str( $location, $actual );
+			$that->assertTrue( is_numeric( $actual['amount'] ) );
+			$difference = abs( floatval( $actual['amount'] ) - $expectedAmount );
+			$that->assertTrue( $difference <= 1 );
+			$that->assertEquals( $donateText, $actual['description'] );
+		};
+
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => $redirectTest,
+			)
+		);
+		$this->verifyFormOutput( 'TestingAmazonGateway', $init, $assertNodes, false );
+
+		TestingAmazonAdapter::$fakeGlobals = array();
+	}
+
+	/**
 	 * Integration test to verify that the DonateMonthly transaction works as expected when all necessary data is present.
 	 */
 	function testDoTransactionDonateMonthly() {

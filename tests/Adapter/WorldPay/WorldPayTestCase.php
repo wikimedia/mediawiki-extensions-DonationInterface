@@ -235,17 +235,6 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 	}
 
 	/**
-	 * Supported languages for Belgium
-	 */
-	public function belgiumLanguageProvider() {
-		return array(
-			array( 'nl' ),
-			array( 'de' ),
-			array( 'fr' ),
-		);
-	}
-
-	/**
 	 * Testing that we can retrieve the cvv_match value and run antifraud on it correctly
 	 */
 	function testAntifraudCVVMatch() {

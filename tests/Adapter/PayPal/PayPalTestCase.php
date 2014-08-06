@@ -182,14 +182,37 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 	}
 
 	/**
-	 * Supported languages for Belgium
+	 * Integration test to verify that the Donate transaction works as expected
+	 * in Canada for English and French
+	 *
+	 * @dataProvider belgiumLanguageProvider
 	 */
-	public function belgiumLanguageProvider() {
-		return array(
-			array( 'nl' ),
-			array( 'de' ),
-			array( 'fr' ),
+	function testDoTransactionDonate_CA( $language ) {
+		$init = $this->getDonorTestData( 'CA' );
+		$init['language'] = $language;
+		$this->setLanguage( $language );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
+		$ret = $gateway->do_transaction( 'Donate' );
+		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+
+		$expected = array (
+			'amount' => $init['amount'],
+			'currency_code' => 'CAD',
+			'country' => 'CA',
+			'business' => 'phpunittesting@wikimedia.org',
+			'cmd' => '_donations',
+			'item_name' => $donateText,
+			'item_number' => 'DONATE',
+			'no_note' => '0',
+			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'lc' => 'CA',
+			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
+			'return' => $gateway->getGlobal( 'ReturnURL' ),
 		);
+
+		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
+		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
 	}
 
 	/**
