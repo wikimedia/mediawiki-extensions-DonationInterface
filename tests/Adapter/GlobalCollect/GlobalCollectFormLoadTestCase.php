@@ -87,6 +87,42 @@ class GlobalCollectFormLoadTestCase extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Ensure that form loads for Italy
+	 */
+	public function testGlobalCollectFormLoad_IT() {
+		$init = $this->getDonorTestData( 'IT' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( 'it' )->text(),
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( 'it' )->text(),
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text(),
+			),
+			'country' => array (
+				'nodename' => 'select',
+				'selected' => 'IT',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
 	 * Make sure Belgian form loads in all of that country's supported languages
 	 * @dataProvider belgiumLanguageProvider
 	 */

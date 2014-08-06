@@ -191,4 +191,34 @@ class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCas
 			array( 'fr' ),
 		);
 	}
+
+	/**
+	 * Integration test to verify that the Donate transaction works as expected in Italy
+	 */
+	function testDoTransactionDonate_IT() {
+		$init = $this->getDonorTestData( 'IT' );
+		$this->setLanguage( 'it' );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( 'it' )->text();
+		$ret = $gateway->do_transaction( 'Donate' );
+		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+
+		$expected = array (
+			'amount' => $init['amount'],
+			'currency_code' => $init['currency_code'],
+			'country' => 'IT',
+			'business' => 'phpunittesting@wikimedia.org',
+			'cmd' => '_donations',
+			'item_name' => $donateText,
+			'item_number' => 'DONATE',
+			'no_note' => '0',
+			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'lc' => 'IT',
+			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
+			'return' => $gateway->getGlobal( 'ReturnURL' ),
+		);
+
+		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
+		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
+	}
 }
