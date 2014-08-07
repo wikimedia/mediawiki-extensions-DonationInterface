@@ -33,10 +33,8 @@ class GlobalCollectGatewayResult extends GatewayForm {
 
 	/**
 	 * Show the special page
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
 	 */
-	public function execute( $par ) {
+	protected function handleRequest() {
 		$req = $this->getRequest();
 		$fake = $req->getBool( 'fake' );
 		$fail = $req->getBool( 'fail' );

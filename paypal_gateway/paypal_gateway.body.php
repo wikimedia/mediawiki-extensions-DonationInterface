@@ -29,7 +29,7 @@ class PaypalGateway extends GatewayForm {
 	/**
 	 * Show the special page
 	 */
-	public function execute( $param ) {
+	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
 		$this->setHeaders();
