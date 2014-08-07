@@ -170,6 +170,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'nl',
 			),
+			'BE' => array (
+				'city' => 'Antwerp',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 nep straat',
+				'fname' => 'Voornaam',
+				'lname' => 'Achternaam',
+				'amount' => '1.55',
+				'language' => 'nl',
+			),
 		);
 		//default to US
 		if ( $country === '' ) {
@@ -342,18 +353,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$newRequest = new TestingRequest( $initial_vars, false );
 		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
-		$newLang = new TestingLanguage();
-		//this should be more robust, but... might have to work for now.
-		$newLang->forceLang( $initial_vars['language'] );
 
 		$globals = array (
 			'wgRequest' => $newRequest,
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
 			'wgOut' => $newOutput,
-			'wgLang' => $newLang,
 		);
 
 		$this->setMwGlobals( $globals );
+
+		$this->setLanguage( $initial_vars['language'] );
 
 		ob_start();
 		$formpage = new $special_page_class();
@@ -486,6 +495,21 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			return $return[0];
 		}
 		return $return;
+	}
+
+	/**
+	 * Set global language for the duration of the test
+	 *
+	 * @param string $language language code to force
+	 */
+	protected function setLanguage( $language ) {
+		$newLang = new TestingLanguage();
+		//this should be more robust, but... might have to work for now.
+		$newLang->forceLang( $language );
+
+		$this->setMwGlobals( array (
+			'wgLang' => $newLang,
+		) );
 	}
 
 	static function getInnerHTML( $node ) {

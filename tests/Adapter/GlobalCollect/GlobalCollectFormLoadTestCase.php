@@ -1,0 +1,175 @@
+<?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
+
+/**
+ * @see DonationInterfaceTestCase
+ */
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
+
+/**
+ *
+ * @group Fundraising
+ * @group DonationInterface
+ * @group GlobalCollect
+ */
+class GlobalCollectFormLoadTestCase extends DonationInterfaceTestCase {
+
+	public function testGCFormLoad() {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+
+		$assertNodes = array (
+			'cc-mc' => array (
+				'nodename' => 'input'
+			),
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '$1.55',
+			),
+			'state' => array (
+				'nodename' => 'select',
+				'selected' => 'CA',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	function testGCFormLoad_FR() {
+		$init = $this->getDonorTestData( 'FR' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname' => array (
+				'nodename' => 'input',
+				'value' => 'Prénom',
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'value' => 'Nom',
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
+			),
+			'country' => array (
+				'nodename' => 'select',
+				'selected' => 'FR',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Make sure Belgian form loads in all of that country's supported languages
+	 * @dataProvider belgiumLanguageProvider
+	 */
+	public function testGlobalCollectFormLoad_BE( $language ) {
+		$init = $this->getDonorTestData( 'BE' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+		$init['language'] = $language;
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '€1.55',
+			),
+			'fname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+			),
+			'country' => array (
+				'nodename' => 'select',
+				'selected' => 'BE',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Make sure Belgian form loads in all of that country's supported languages
+	 * @dataProvider belgiumLanguageProvider
+	 */
+	public function testGlobalCollectSofortLoad_BE( $language ) {
+		$init = $this->getDonorTestData( 'BE' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'rtbt';
+		$init['payment_submethod'] = 'rtbt_sofortuberweisung';
+		$init['ffname'] = 'rtbt-sofo';
+		$init['language'] = $language;
+
+		$assertNodes = array (
+			'fname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
+			),
+			'emailAdd' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-email')->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+			),
+			'country' => array (
+				'nodename' => 'select',
+				'selected' => 'BE',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Supported languages for Belgium
+	 */
+	public function belgiumLanguageProvider() {
+		return array(
+			array( 'nl' ),
+			array( 'de' ),
+			array( 'fr' ),
+		);
+	}
+}

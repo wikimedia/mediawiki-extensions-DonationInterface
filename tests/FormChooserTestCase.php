@@ -115,6 +115,17 @@ class DonationInterface_FormChooserTestCase extends DonationInterfaceTestCase {
 			'currencies' => array ( '+' => 'EUR' ),
 		);
 
+		$moreForms['rtbt-sofo'] = array(
+			'file' => $form_dirs['gc'] . '/rtbt/rtbt-sofo.html',
+			'gateway' => 'globalcollect',
+			'countries' => array(
+				'+' => array( 'AT', 'BE', 'CH', 'DE' ),
+				'-' => 'GB'
+			),
+			'currencies' => array( '+' => 'EUR' ),
+			'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
+		);
+
 		$moreForms['paypal'] = array (
 			'file' => $form_dirs['paypal'] . '/paypal.html',
 			'gateway' => 'paypal',
