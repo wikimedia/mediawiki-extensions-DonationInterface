@@ -16,7 +16,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	function execute( $par ) {
+		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
 
+		if( $wgContributionTrackingFundraiserMaintenance
+			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
+			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
+			return;
+		}
 		// Set the country parameter
 		$coerceNull = function( $val ) { return ( $val === '' ) ? null : $val; };
 		$country = $coerceNull( $this->getRequest()->getVal( 'country', null ) );
