@@ -208,4 +208,50 @@ class GlobalCollectFormLoadTestCase extends DonationInterfaceTestCase {
 			array( 'fr' ),
 		);
 	}
+
+	/**
+	 * Make sure Canadian CC form loads in English and French
+	 * @dataProvider canadaLanguageProvider
+	 */
+	public function testGlobalCollectFormLoad_CA( $language ) {
+		$init = $this->getDonorTestData( 'CA' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vma';
+		$init['language'] = $language;
+
+		$assertNodes = array (
+			'selected-amount' => array (
+				'nodename' => 'span',
+				'innerhtml' => '1.55 CAD',
+			),
+			'fname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
+			),
+			'lname' => array (
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array (
+				'nodename' => 'p',
+				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+			),
+			'state' => array (
+				'nodename' => 'select',
+				'selected' => 'SK',
+			),
+			'zip' => array (
+				'nodename' => 'input',
+				'value' => $init['zip'],
+			),
+			'country' => array (
+				'nodename' => 'input',
+				'value' => 'CA',
+			),
+		);
+
+		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
 }

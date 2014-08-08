@@ -192,6 +192,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'it',
 			),
+			'CA' => array (
+				'city' => 'Saskatoon',
+				'state' => 'SK',
+				'zip' => 'S7K 0J5',
+				'currency_code' => 'CAD',
+				'street' => '123 Fake Street',
+				'fname' => 'Firstname',
+				'lname' => 'Surname',
+				'amount' => '1.55',
+				'language' => 'en',
+			),
 		);
 		//default to US
 		if ( $country === '' ) {
@@ -204,6 +215,27 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			return $donortestdata;
 		}
 		throw new MWException( __FUNCTION__ . ": No donor data for country '$country'" );
+	}
+
+	/**
+	 * Supported languages for Belgium
+	 */
+	public function belgiumLanguageProvider() {
+		return array(
+			array( 'nl' ),
+			array( 'de' ),
+			array( 'fr' ),
+		);
+	}
+
+	/**
+	 * Supported languages for Canada
+	 */
+	public function canadaLanguageProvider() {
+		return array(
+			array( 'en' ),
+			array( 'fr' ),
+		);
 	}
 
 	/**

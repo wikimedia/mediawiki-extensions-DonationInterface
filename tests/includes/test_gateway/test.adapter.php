@@ -320,6 +320,16 @@ class TestingPaypalAdapter extends PaypalAdapter {
  * TestingAmazonAdapter
  */
 class TestingAmazonAdapter extends AmazonAdapter {
+
+	public static $fakeGlobals = array();
+
+	public static function getGlobal( $name ) {
+		if ( array_key_exists( $name, TestingAmazonAdapter::$fakeGlobals ) ) {
+			return TestingAmazonAdapter::$fakeGlobals[$name];
+		}
+		return parent::getGlobal( $name );
+	}
+
 	public function _buildRequestParams() {
 		return $this->buildRequestParams();
 	}

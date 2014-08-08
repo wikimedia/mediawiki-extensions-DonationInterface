@@ -42,3 +42,10 @@ class TestingWorldPayGateway extends WorldPayGateway {
 	}
 
 }
+
+class TestingAmazonGateway extends AmazonGateway {
+	public function __construct() {
+		$this->adapter = new TestingAmazonAdapter();
+		GatewayForm::__construct();
+	}
+}
