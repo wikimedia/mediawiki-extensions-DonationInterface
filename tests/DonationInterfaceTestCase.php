@@ -406,7 +406,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			if ( $id == 'headers' ) {
 				foreach ( $checks as $name => $expected ) {
 					$actual = $formpage->getRequest()->response()->getheader( $name );
-					$this->assertEquals( $expected, $actual, "Expected header '$name' to be '$expected', found '$actual' instead." );
+					$this->performCheck( $actual, $expected, "header '$name'");
 					break;
 				}
 				continue;
@@ -418,16 +418,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			foreach ( $checks as $name => $expected ) {
 				switch ( $name ) {
 					case 'nodename':
-						$this->assertEquals( $expected, $input_node->nodeName, "The node with id '$id' is not an '$expected'. It is a " . $input_node->nodeName );
+						$this->performCheck( $input_node->nodeName, $expected, "name of node with id '$id'");
 						break;
 					case 'innerhtml':
-						$this->assertEquals( $expected, self::getInnerHTML( $input_node ), "The node with id '$id' does not have value '$expected'. It has value " . self::getInnerHTML( $input_node ) );
+						$this->performCheck( self::getInnerHTML( $input_node ), $expected, "innerHTML of node '$id'");
 						break;
 					case 'innerhtmlmatches':
 						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
 						break;
 					case 'value':
-						$this->assertEquals( $expected, $input_node->getAttribute('value'), "The node with id '$id' does not have value '$expected'. It has value " . $input_node->getAttribute('value') );
+						$this->performCheck( $input_node->getAttribute('value'), $expected, "value of node with id '$id'");
 						break;
 					case 'selected':
 						$selected = null;
@@ -439,7 +439,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 									break;
 								}
 							}
-							$this->assertEquals( $expected, $selected, "The node with id '$id' does not have option '$expected' selected. It has value '$selected'." );
+							$this->performCheck( $selected, $expected, "selected option value of node with id '$id'");
 						} else {
 							$this->fail( "Attempted to test for selected value on non-select node, id '$id'" );
 						}
@@ -452,6 +452,23 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 //		$wgRequest = new FauxRequest();
 	}
 
+	/**
+	 * Performs some sort of assertion on a value.
+	 *
+	 * @param string $value the value to test
+	 * @param string|callable $check
+	 *  if $check is callable, it is called with argument $value
+	 *  otherwise, $value is asserted to be equal to $check
+	 * @param string $label identifies the value in assertion failures
+	 * @return void
+	 */
+	function performCheck( $value, $check, $label = 'Tested value' ) {
+		if ( is_callable( $check ) ) {
+			$check( $value );
+			return;
+		}
+		$this->assertEquals( $check, $value, "Expected $label to be $check, found $value instead.");
+	}
 	/**
 	 * Asserts that $gateway has no log entries of LOG_ERR or worse.
 	 * @param object $gateway The gateway to check
