@@ -12,7 +12,8 @@
 			"Solde",
 			"Vriullop",
 			"පසිඳු කාවින්ද",
-			"Fitoschido"
+			"Fitoschido",
+			"Toniher"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -126,7 +127,7 @@
 	"donate_interface-donor-legend": "Dades del donant",
 	"donate_interface-donor-amount": "Quantitat:",
 	"donate_interface-donor-currency-label": "Moneda:",
-	"donate_interface-donor-email": "Adreça d'e-mail:",
+	"donate_interface-donor-email": "Adreça electrònica",
 	"donate_interface-donor-emailAdd": "Adreça de correu electrònic",
 	"donate_interface-donor-name": "Nom:",
 	"donate_interface-donor-fname": "Nom:",
