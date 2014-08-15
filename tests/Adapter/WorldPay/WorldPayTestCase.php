@@ -252,4 +252,15 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->assertFalse( $gateway->getCVVResult(), 'getCVVResult not failing somebody with garbage.' );
 	}
 
+	/**
+	 * Ensure we're staging a punctuation-stripped version of the email address in merchant_reference_2
+	 */
+	function testMerchantReference2() {
+		$options = $this->getDonorTestData();
+		$options['email'] = 'little+teapot@short.stout.com';
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->_stageData();
+		$staged = $gateway->_getData_Staged( 'merchant_reference_2' );
+		$this->assertEquals( 'little teapot short stout com', $staged );
+	}
 }

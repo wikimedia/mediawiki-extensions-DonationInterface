@@ -573,6 +573,13 @@ class TestingWorldPayAdapter extends WorldPayAdapter {
 		);
 	}
 
+	public function _stageData() {
+		$this->stageData();
+	}
+
+	public function _getData_Staged( $val = '' ) {
+		return $this->getData_Staged( $val );
+	}
 }
 
 /**

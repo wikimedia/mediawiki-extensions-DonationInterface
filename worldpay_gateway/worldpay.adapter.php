@@ -190,6 +190,7 @@ class WorldPayAdapter extends GatewayAdapter {
 			'payment_submethod',
 			'zip',
 			'street',
+			'merchant_reference_2',
 		);
 	}
 
@@ -257,6 +258,9 @@ class WorldPayAdapter extends GatewayAdapter {
 
 			// ZipCode
 			'zip' => array( 'type' => 'alphanumeric', 'length' => 30 ),
+
+			// MerchantReference2
+			'merchant_reference_2' => array( 'type' => 'alphanumeric', 'length' => 60 ),
 		);
 	}
 
@@ -438,6 +442,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				'ZipCode',
 				'CountryCode',
 				'Email',
+				'MerchantReference2',
 			),
 			'values' => array(
 				'VersionUsed' => 6,
@@ -699,7 +704,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			'PTTID'             => 'wp_pttid',
 			'UserName'          => 'username',
 			'UserPassword'      => 'user_password',
-			'MerchantId'        => 'wp_merchant_id'
+			'MerchantId'        => 'wp_merchant_id',
+			'MerchantReference2'=> 'merchant_reference_2'
 		);
 	}
 
@@ -868,6 +874,12 @@ class WorldPayAdapter extends GatewayAdapter {
 				}
 			}
 		}
+	}
+
+	protected function stage_merchant_reference_2( $type = 'request' ) {
+		$email = $this->getData_Unstaged_Escaped( 'email' );
+		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
+		$this->staged_data['merchant_reference_2'] = $alphanumeric;
 	}
 
 	protected function loadRoutingInfo( $transaction ) {
