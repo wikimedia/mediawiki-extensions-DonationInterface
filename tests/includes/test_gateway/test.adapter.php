@@ -135,7 +135,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 * Returns the variable $this->dataObj which should be an instance of
 	 * DonationData.
 	 *
-	 * @returns DonationData
+	 * @return DonationData
 	 */
 	public function getDonationData() {
 		return $this->dataObj;
@@ -622,7 +622,7 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 * Returns the variable $this->dataObj which should be an instance of
 	 * DonationData.
 	 *
-	 * @returns DonationData
+	 * @return DonationData
 	 */
 	public function getDonationData() {
 		return $this->dataObj;
