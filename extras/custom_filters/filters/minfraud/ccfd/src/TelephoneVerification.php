@@ -1,9 +1,9 @@
 <?php
 require_once ("HTTPBase.php");
 class TelephoneVerification extends HTTPBase {
-  var $server;
-  var $numservers;
-  var $API_VERSION;
+  public $server;
+  public $numservers;
+  public $API_VERSION;
   function TelephoneVerification(){
     $this->HTTPBase();
     $this->isSecure = 1;    // use HTTPS by default

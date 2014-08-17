@@ -21,9 +21,9 @@
 
 require_once ("HTTPBase.php");
 class CreditCardFraudDetection extends HTTPBase {
-  var $server;
-  var $numservers;
-  var $API_VERSION;
+  public $server;
+  public $numservers;
+  public $API_VERSION;
 
   function CreditCardFraudDetection() {
     $this->HTTPBase();
