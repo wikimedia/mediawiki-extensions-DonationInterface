@@ -5,7 +5,7 @@
  * Call with api.php?action=donate
  */
 class DonationApi extends ApiBase {
-	var $donationData, $gateway;
+	public $donationData, $gateway;
 	public function execute() {
 		global $wgDonationInterfaceTestMode;
 
