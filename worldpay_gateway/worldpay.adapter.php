@@ -836,8 +836,27 @@ class WorldPayAdapter extends GatewayAdapter {
 		return $data;
 	}
 
-	protected function buildRequestXML( $rootElement = 'TMSTN' ) {
-		return 'StringIn=' . str_replace( "\n", '', parent::buildRequestXML( $rootElement ) );
+	// WorldPay is apparently not very worldly in the ways of alphabets
+	protected function buildRequestXML( $rootElement = 'TMSTN', $encoding = 'ISO-8859-1' ) {
+		$xml = parent::buildRequestXML( $rootElement, $encoding );
+		return 'StringIn=' . str_replace( "\n", '', $xml );
+	}
+
+	// override the charset from the parent function
+	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
+		$original = parent::getTransactionSpecificValue( $gateway_field_name, $token );
+		return EncodingMangler::singleton()->transliterate( $original );
+	}
+
+	// override the charset from the parent function
+	function getCurlBaseHeaders() {
+		$headers = parent::getCurlBaseHeaders();
+		foreach ( $headers as $index => $header ) {
+			if ( substr( $header, 0, 13 ) == 'Content-Type:' ) {
+				$headers[$index] = preg_replace( '/\bcharset=utf-8\b/', 'charset=iso-8859-1', $header, 1 );
+			}
+		}
+		return $headers;
 	}
 
 	protected function stage_returnto( $type = 'request' ) {
