@@ -101,6 +101,7 @@ foreach ($optionalParts as $subextension => $enabled){
 $wgDonationInterfaceClassMap = array();
 
 $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/DonationData.php';
+$wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayForm'] = $donationinterface_dir . 'gateway_common/GatewayForm.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
