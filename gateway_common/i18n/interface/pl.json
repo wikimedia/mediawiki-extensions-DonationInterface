@@ -28,7 +28,7 @@
 	"donate_interface-monthly-donation-description": "Comiesięczna darowizna na rzecz Wikimedia Foundation",
 	"donate_interface-amount-error": "Proszę wpisać poprawną kwotę",
 	"donate_interface-smallamount-error": "Darowizna nie może być niższa niż $1",
-	"donate_interface-bigamount-error": "Nie możemy przyjmować dotacji większych niż USD 10000 ($1  $2) za pośrednictwem naszej strony. Prosimy o kontakt z naszym personelem zajmujący się poważnymi darowiznami przez $3 .",
+	"donate_interface-bigamount-error": "Nie możemy przyjmować dotacji większych niż 10&nbsp;000&nbsp;USD ($1  $2) za pośrednictwem naszej strony. Prosimy o kontakt z naszym personelem zajmujący się wysokimi darowiznami przez $3.",
 	"donate_interface-processing-error": "Wystąpił błąd podczas wykonywania operacji. Brak dostępnego procesora.",
 	"donate_interface-fallback-currency-notice": "Wskazana waluta nie jest obsługiwana. Jeśli zdecydujesz się kontynuować, zostanie zastosowane $1",
 	"donate_interface-maintenance-notice": "Przepraszamy, ale ten rodzaj płatności został tymczasowo wyłączony.",
