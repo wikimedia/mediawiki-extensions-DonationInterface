@@ -493,6 +493,7 @@ class TestingAdyenAdapter extends AdyenAdapter {
 class TestingWorldPayAdapter extends WorldPayAdapter {
 
 	public $testlog = array ( );
+	public $curled = '';
 
 	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
@@ -532,6 +533,11 @@ class TestingWorldPayAdapter extends WorldPayAdapter {
 	 */
 	public function setDummyCurlResponseCode( $code ) {
 		$this->dummyCurlResponseCode = $code;
+	}
+
+	protected function curl_transaction( $data ) {
+		$this->curled = $data;
+		return parent::curl_transaction( $data );
 	}
 
 	/**

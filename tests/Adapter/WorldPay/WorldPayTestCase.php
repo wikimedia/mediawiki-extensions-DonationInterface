@@ -263,4 +263,24 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$staged = $gateway->_getData_Staged( 'merchant_reference_2' );
 		$this->assertEquals( 'little teapot short stout com', $staged );
 	}
+
+	function testTransliterateUtf8forEurocentricProcessor() {
+		$options = $this->getDonorTestData();
+		$options['fname'] = 'Barnabáš';
+		$options['lname'] = 'Voříšek';
+		$options['street'] = 'Truhlářská 320/62';
+		$options['city'] = 'České Budějovice';
+		$class = $this->testAdapterClass;
+
+		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->_stageData();
+		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
+		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
+		$this->assertEquals( 'Barnabás', $xml->FirstName );
+		$this->assertEquals( 'Vorísek', $xml->LastName );
+		$this->assertEquals( 'Truhlárská 320/62', $xml->Address1 );
+		$this->assertEquals( 'Ceské Budejovice', $xml->City );
+	}
 }
