@@ -254,7 +254,7 @@
 	"donate_interface-select-year-of-expiration": "Seleccioneu l'any de caducitat",
 	"donate_interface-expires-question": "Caduca?",
 	"donate_interface-expires": "Caduca",
-	"donate_interface-card-security-code": "Codi de seguretat de la targeta",
+	"donate_interface-card-security-code": "Codi de seguretat",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "Núm. CVV",
 	"donate_interface-cvv2": "CVV2",
