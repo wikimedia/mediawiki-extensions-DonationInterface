@@ -1,6 +1,6 @@
 <?php
 
-class AdyenGatewayResult extends GatewayForm {
+class AdyenGatewayResult extends GatewayPage {
 
 	/**
 	 * Defines the action to take on a Adyen transaction.

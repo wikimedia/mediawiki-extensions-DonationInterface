@@ -162,7 +162,7 @@ abstract class Gateway_Form {
 		$country_options = '';
 
 		// create a new array of countries with potentially translated country names for alphabetizing later
-		foreach ( GatewayForm::getCountries() as $iso_value => $full_name ) {
+		foreach ( GatewayPage::getCountries() as $iso_value => $full_name ) {
 			$countries[$iso_value] = wfMessage( 'donate_interface-country-dropdown-' . $iso_value )->text();
 		}
 

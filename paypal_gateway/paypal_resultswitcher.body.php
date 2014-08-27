@@ -1,6 +1,6 @@
 <?php
 
-class PaypalGatewayResult extends GatewayForm {
+class PaypalGatewayResult extends GatewayPage {
 
 	/**
 	 * Defines the action to take on a Paypal transaction.

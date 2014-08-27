@@ -1,6 +1,6 @@
 <?php
 
-class GlobalCollectGatewayResult extends GatewayForm {
+class GlobalCollectGatewayResult extends GatewayPage {
 	/**
 	 * Defines the action to take on a GlobalCollect transaction.
 	 *

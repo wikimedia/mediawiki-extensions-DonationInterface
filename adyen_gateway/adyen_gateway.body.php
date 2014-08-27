@@ -20,7 +20,7 @@
  * AdyenGateway
  *
  */
-class AdyenGateway extends GatewayForm {
+class AdyenGateway extends GatewayPage {
 
 	/**
 	 * Constructor - set up the new special page

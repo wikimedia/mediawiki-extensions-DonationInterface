@@ -18,7 +18,7 @@
 
 require_once __DIR__ . '/TestConfiguration.php';
 require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
-require_once dirname( __FILE__ ) . '/includes/test_form/test.gateway.forms.php';
+require_once dirname( __FILE__ ) . '/includes/test_page/test.gateway.pages.php';
 require_once dirname( __FILE__ ) . '/includes/test_request/test.request.php';
 require_once dirname( __FILE__ ) . '/includes/test_language/test.language.php';
 
@@ -379,7 +379,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * supplied in $perform_these_checks.
 	 * Optional: Asserts that the gateway has logged nothing at ERROR level.
 	 *
-	 * @param class $special_page_class A testing descendant of GatewayForm
+	 * @param class $special_page_class A testing descendant of GatewayPage
 	 * @param array $initial_vars Array that will be loaded straight into a
 	 * test version of $wgRequest.
 	 * @param array $perform_these_checks Array of checks to perform in the

@@ -16,7 +16,7 @@
  *
  */
 
-class AmazonGateway extends GatewayForm {
+class AmazonGateway extends GatewayPage {
 	/**
 	 * Constructor - set up the new special page
 	 */

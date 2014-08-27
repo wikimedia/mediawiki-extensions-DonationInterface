@@ -20,7 +20,7 @@
  * @see DonationInterface_Adapter_ServerTestCase
  */
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'includes/test_gateway/test.adapter.php';
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'includes/test_form/test.gateway.forms.php';
+require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'includes/test_page/test.gateway.pages.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GatewayAdapterTestCase.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'GlobalCollect/AllTests.php';
 require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'PayPal/AllTests.php';
