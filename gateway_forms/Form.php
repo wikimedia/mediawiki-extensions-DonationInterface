@@ -407,12 +407,9 @@ abstract class Gateway_Form {
 	 */
 	public function generateAmountByRadio( $options = array() ) {
 		
-		//TODO: Stop using extract. 
-		extract( $options );
-
-		$showCardsOnCurrencyChange = isset( $showCardsOnCurrencyChange ) ? (boolean) $showCardsOnCurrencyChange : true;
-		$displayCurrencyDropdown = isset( $displayCurrencyDropdown ) ? (boolean) $displayCurrencyDropdown : true;
-		$setCurrency = isset( $setCurrency ) ? (string) $setCurrency : '';
+		$showCardsOnCurrencyChange = isset( $options['showCardsOnCurrencyChange'] ) ? (boolean) $options['showCardsOnCurrencyChange'] : true;
+		$displayCurrencyDropdown = isset( $options['displayCurrencyDropdown'] ) ? (boolean) $options['displayCurrencyDropdown'] : true;
+		$setCurrency = isset( $options['setCurrency'] ) ? (string) $options['setCurrency'] : '';
 		$displayCurrencyDropdown = empty( $setCurrency ) ? $displayCurrencyDropdown : false;
 
 		$amount = !is_null( $this->getEscapedValue( 'amount' ) ) ? (string) $this->getEscapedValue( 'amount' ) : '0';
