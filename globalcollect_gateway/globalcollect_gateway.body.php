@@ -20,7 +20,7 @@
  * GlobalCollectGateway
  *
  */
-class GlobalCollectGateway extends GatewayForm {
+class GlobalCollectGateway extends GatewayPage {
 	/**
 	 * Constructor - set up the new special page
 	 */

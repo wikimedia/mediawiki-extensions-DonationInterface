@@ -1,6 +1,6 @@
 <?php
 
-class PayflowProGateway extends GatewayForm {
+class PayflowProGateway extends GatewayPage {
 	/**
 	 * Constructor - set up the new special page
 	 */
@@ -130,7 +130,7 @@ class PayflowProGateway extends GatewayForm {
 			$this->getOutput()->addHTML( '<h3 class="response_message">' . htmlspecialchars( $responseMsg, ENT_QUOTES ) . '</h3>' );
 
 			// translate country code into text
-			$countries = GatewayForm::getCountries();
+			$countries = GatewayPage::getCountries();
 
 			$rows = array(
 				'title' => array( $this->msg( 'donate_interface-post-transaction' )->text() ),

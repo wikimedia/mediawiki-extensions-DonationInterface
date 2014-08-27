@@ -17,14 +17,14 @@
  */
 
 /**
- * GatewayForm
+ * GatewayPage
  * This class is the generic unlisted special page in charge of actually 
  * displaying the form. Each gateway will have one or more direct descendants of 
  * this class, with most of the gateway-specific control logic in its handleRequest
  * function. For instance: extensions/DonationInterface/globalcollect_gateway/globalcollect_gateway.body.php
  *
  */
-abstract class GatewayForm extends UnlistedSpecialPage {
+abstract class GatewayPage extends UnlistedSpecialPage {
 	/**
 	 * An array of form errors
 	 * @var array $errors
@@ -385,5 +385,3 @@ abstract class GatewayForm extends UnlistedSpecialPage {
 	}
 
 }
-
-//end of GatewayForm class definiton

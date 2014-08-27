@@ -16,7 +16,7 @@
  *
  */
 
-class PaypalGateway extends GatewayForm {
+class PaypalGateway extends GatewayPage {
 
 	/**
 	 * Constructor - set up the new special page

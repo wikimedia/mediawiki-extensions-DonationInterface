@@ -164,7 +164,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->minfraudQuery['accept_language'] = $wgRequest->getHeader( 'accept-language' );
 
 		// fetch the array of country codes
-		$country_codes = GatewayForm::getCountries();
+		$country_codes = GatewayPage::getCountries();
 
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {

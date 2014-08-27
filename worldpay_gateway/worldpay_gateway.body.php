@@ -20,7 +20,7 @@
  * WorldPayGateway
  *
  */
-class WorldPayGateway extends GatewayForm {
+class WorldPayGateway extends GatewayPage {
 
 	/**
 	 * Constructor - set up the new special page

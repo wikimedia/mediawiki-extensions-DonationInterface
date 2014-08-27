@@ -563,7 +563,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		global $wgDonationInterfaceForbiddenCountries;
 
 		//returns an array of iso_code => country name
-		$countries = GatewayForm::getCountries();
+		$countries = GatewayPage::getCountries();
 
 		//unset blacklisted countries first
 		foreach ( $wgDonationInterfaceForbiddenCountries as $country_code ) {
