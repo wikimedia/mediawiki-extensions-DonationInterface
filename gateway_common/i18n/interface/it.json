@@ -180,7 +180,7 @@
 	"donate_interface-error-msg-visa": "Si prega di inserire un numero di carta corretto per Visa.",
 	"donate_interface-error-msg-discover": "Si prega di inserire un numero di carta corretto per Discover.",
 	"donate_interface-error-msg-amount": "importo della donazione",
-	"donate_interface-error-msg-emailAdd": "indirizzo e-mail",
+	"donate_interface-error-msg-emailAdd": "indirizzo email",
 	"donate_interface-error-msg-fname": "nome",
 	"donate_interface-error-msg-lname": "cognome",
 	"donate_interface-error-msg-street": "via",

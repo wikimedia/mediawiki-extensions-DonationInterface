@@ -7,11 +7,12 @@
 			"Mark85296341",
 			"Pbdragonwang",
 			"Waihorace",
-			"LNDDYL"
+			"LNDDYL",
+			"Cwlin0416"
 		]
 	},
 	"payflowprogateway": "現在捐款",
-	"payflowpro_gateway-desc": "PayPal Payflow Pro信用卡處理",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro 信用卡處理",
 	"payflowpro_gateway-response-0": "您的交易已經成功。\n感謝您的捐助！",
 	"payflowpro_gateway-response-126": "您的交易正在等待確認中。",
 	"payflowpro_gateway-response-126-2": "你提供的部份資料可能與你的信用卡資料不符，或者你作出了一個大數量的捐款；為確保你的安全，你的捐款正在審核中，如果你的捐款不成功，我們將會透過你填入的電郵通知你。如有查詢，請電郵至<a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>。",
@@ -19,9 +20,9 @@
 	"payflowpro_gateway-response-13": "您的交易需要語音授權。\n請聯絡我們以完成您的這筆交易。",
 	"payflowpro_gateway-response-114": "請聯絡您的信用卡公司提供進一步資料。",
 	"payflowpro_gateway-response-23": "您的信用卡號碼或有效期有誤。",
-	"payflowpro_gateway-response-4": "無效的數額。",
+	"payflowpro_gateway-response-4": "無效的金額。",
 	"payflowpro_gateway-response-24": "您的信用卡號或有效期有誤。",
-	"payflowpro_gateway-response-112": "您的位址或CVV碼（安全碼）有誤。",
+	"payflowpro_gateway-response-112": "您的位址或 CVV 碼 (安全碼) 有誤。",
 	"payflowpro_gateway-response-125": "反欺詐系統拒絕了您的捐獻。",
 	"payflowpro_gateway-response-125-2": "您的信用卡無法被驗證。請確保您所提供的資料與信用卡的資料相符，或者換另外一張信用卡再試一次。您可以使用我們其他的<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">捐款方式</a>，或與<a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>聯絡。再次感謝您的支持。",
 	"payflowpro_gateway-response-default": "在處理交易的過程中出錯。\n請稍後再試。"
