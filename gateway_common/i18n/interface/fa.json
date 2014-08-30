@@ -11,7 +11,8 @@
 			"Sahim",
 			"Wayiran",
 			"ZxxZxxZ",
-			"Rtemis"
+			"Rtemis",
+			"Alirezaaa"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -108,7 +109,7 @@
 	"donate_interface-TND": "دینار تونس",
 	"donate_interface-TRY": "لیر ترکیه",
 	"donate_interface-TTD": "دلار ترینیداد و توباگو",
-	"donate_interface-TWD": "دلار جدید تایوان",
+	"donate_interface-TWD": "دلار تازه تایوان",
 	"donate_interface-UAH": "گریونای اوکراین",
 	"donate_interface-USD": "دلار آمریکا",
 	"donate_interface-UYU": "پزوی اروگوئه",
@@ -118,6 +119,7 @@
 	"donate_interface-XCD": "دلار کارائیب شرقی",
 	"donate_interface-XOF": "فرانک سی‌اف‌ای آفریقای غربی",
 	"donate_interface-ZAR": "راند آفریقای جنوبی",
+	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-accessible": "این صفحه تنها از صفحهٔ کمک مالی قابل‌دسترس است.",
 	"donate_interface-paypal-button": "از طریق پی پال بپردازید",
 	"donate_interface-paypal-redirect": "تغییرمسیر به پی‌پال…",

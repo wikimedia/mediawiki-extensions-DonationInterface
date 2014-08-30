@@ -11,7 +11,7 @@
 	"payflowpro_gateway-desc": "PayPal PayFlow Pro obrada kreditnih kartica",
 	"payflowpro_gateway-response-0": "Vaša transakcija je odobrena.\nHvala Vam za Vašu donaciju!",
 	"payflowpro_gateway-response-126": "Vaša transakcija čeka odobrenje.",
-	"payflowpro_gateway-response-126-2": "Neke informacije koje ste unijeli ne odgovaraju vašem profilu kreditne kartice, ili ste unijeli veoma veliki poklon. Za vašu sigurnost, vaša donacije je trenutno pod provjerom, obavijestiti ćemo Vas putem navedenog e-maila ako ne uspijemo izvršiti vašu donaciju. Molimo pošaljite e-mail na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ako imate nekih pitanja. Hvala Vam!",
+	"payflowpro_gateway-response-126-2": "Neke informacije koje ste unijeli ne odgovaraju Vašem profilu kreditne kartice, ili ste mnogo darovali. Za Vašu sigurnost, Vaša je donacija trenutačno pod provjerom, obavijestit ćemo Vas putem navedene elektroničke pošte ako ne uspijemo izvršiti Vašu donaciju. Molimo pošaljite e-poruku na <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> ako imate nekih pitanja. Hvala Vam!",
 	"payflowpro_gateway-response-12": "Molimo obratite se vašoj tvrtki koja Vam je izdala kreditnu karticu za daljnje informacije.",
 	"payflowpro_gateway-response-13": "Vaša transakcija zahtjeva glasovnu potvrdu.\nMolimo kontaktirajte nas da biste mogli nastaviti vašu transakciju.",
 	"payflowpro_gateway-response-114": "Molimo obratite se vašoj tvrtki koja Vam je izdala kreditnu karticu za daljnje informacije.",
