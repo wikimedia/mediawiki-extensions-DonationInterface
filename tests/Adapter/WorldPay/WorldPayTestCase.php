@@ -191,6 +191,10 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 				'nodename' => 'p',
 				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
 			),
+			'country' => array (
+				'nodename' => 'input',
+				'value' => 'FR',
+			),
 		);
 
 		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
