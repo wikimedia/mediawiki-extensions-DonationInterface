@@ -337,7 +337,7 @@
 	"donate_interface-donation-tshirt": "捐款 (T 恤優惠)",
 	"donate_interface-change": "修改",
 	"donate_interface-select-credit-card": "選擇信用卡類型",
-	"donate_interface-optional": "可選",
+	"donate_interface-optional": "選填",
 	"donate_interface-state-dropdown-YY": "選擇州別",
 	"donate_interface-state-dropdown-XX": "在美國以外",
 	"donate_interface-cc-MX-instructions": "基於安全，一些墨西哥銀行阻止線上交易。如果您的捐款不成功，我們建議您致電您的銀行，授權線上捐款，並再試一次。",
