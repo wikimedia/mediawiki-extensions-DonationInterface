@@ -2,9 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Fohanno"
 		]
 	},
 	"paypalgateway": "Grit ur roadenn bremañ",
-	"paypal_gateway-desc": "Enrollañ a ra PayPal da wikefre evit ober un donezon"
+	"paypal_gateway-desc": "O tretiñ ar paeañ PayPal"
 }
