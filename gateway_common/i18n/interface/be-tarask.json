@@ -5,7 +5,8 @@
 			"Jim-by",
 			"Jsoby",
 			"Wizardist",
-			"Zedlik"
+			"Zedlik",
+			"Red Winged Duck"
 		]
 	},
 	"donate_interface": "Падтрымайце фундацыю «Вікімэдыя»",
@@ -183,7 +184,7 @@
 	"donate_interface-error-msg-country": "краіна",
 	"donate_interface-error-msg-card_type": "тып крэдытнай карткі",
 	"donate_interface-error-msg-card_num": "нумар крэдытнай карткі",
-	"donate_interface-error-msg-expiration": "дата сканчэньня дзеяньня карткі",
+	"donate_interface-error-msg-expiration": "Калі ласка, увядзіце дату сканчэньня дзеяньня карткі",
 	"donate_interface-error-msg-cvv": "код бясьпекі з адваротнага боку Вашай карткі",
 	"donate_interface-error-msg-account_name": "Імя рахунку (Account name)",
 	"donate_interface-error-msg-account_number": "Нумар рахунку",
