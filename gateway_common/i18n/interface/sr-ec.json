@@ -20,6 +20,7 @@
 	"donate_interface-comment-label": "Коментар:",
 	"donate_interface-email-agreement": "Слажем се да повремено добијам е-обавештења од Задужбине Викимедија.",
 	"donate_interface-comment-title": "Јавни коментар",
+	"donate_interface-monthly-donation-description": "Месечни прилози Задужбини Викимедије",
 	"donate_interface-amount-error": "Унесите исправан износ",
 	"donate_interface-smallamount-error": "Прилог мора да износи барем $1.",
 	"donate_interface-processing-error": "Дошло је до грешке при обрађивању захтева.\nНема доступних обрађивача.",
