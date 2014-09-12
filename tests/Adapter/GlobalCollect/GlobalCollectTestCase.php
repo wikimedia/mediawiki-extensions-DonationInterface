@@ -51,7 +51,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	 * conditions in theGlobalCollect adapter
 	 * @covers GatewayAdapter::normalizeOrderID
 	 */
-	public function testnormalizeOrderID() {
+	public function testNormalizeOrderID() {
 		$init = $this->initial_vars;
 		unset( $init['order_id'] );
 
@@ -155,7 +155,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$gateway = $this->getFreshGatewayObject( $init, null );
+		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 
@@ -175,7 +175,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'swhiplash@wikipedia.org'; //configured as a fraudy domain
 
-		$gateway = $this->getFreshGatewayObject( $init, null );
+		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 
@@ -197,7 +197,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->setMwGlobals( 'wgRequest',
 			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
 
-		$gateway = $this->getFreshGatewayObject( $init, null );
+		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
@@ -216,7 +216,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->setMwGlobals( 'wgRequest',
 			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
 
-		$gateway = $this->getFreshGatewayObject( $init, null );
+		$gateway = $this->getFreshGatewayObject( $init );
 
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
 
