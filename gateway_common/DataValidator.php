@@ -939,8 +939,7 @@ EOT;
 	 * @return float
 	 */
 	public static function convert_to_usd( $currency_code, $amount ) {
-		require_once( dirname( __FILE__ ) . '/currencyRates.inc' );
-		$rates = getCurrencyRates();
+		$rates = CurrencyRates::getCurrencyRates();
 		$code = strtoupper( $currency_code );
 		if ( array_key_exists( $code, $rates ) ) {
 			$usd_amount = $amount / $rates[$code];
