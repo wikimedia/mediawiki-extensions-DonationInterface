@@ -359,8 +359,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$usdAmount = 0.0;
 		$newAmount = 0;
 
-		require_once( __DIR__ . '/../gateway_common/currencyRates.inc' );
-		$conversionRates = getCurrencyRates();
+		$conversionRates = CurrencyRates::getCurrencyRates();
 		if ( $oldCurrency === 'USD' ) {
 			$usdAmount = $oldAmount;
 		}

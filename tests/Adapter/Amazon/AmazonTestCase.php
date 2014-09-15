@@ -121,7 +121,7 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 		$init['redirect'] = 1;
 		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
 
-		$rates = getCurrencyRates();
+		$rates = CurrencyRates::getCurrencyRates();
 		$cadRate = $rates['CAD'];
 
 		$expectedAmount = floor( $init['amount'] / $cadRate );

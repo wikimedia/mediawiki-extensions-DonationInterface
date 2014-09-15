@@ -1,4 +1,4 @@
-// If you change these, also change in currencyRates.inc.
+// If you change these, also change in CurrencyRates.php.
 
 /********************************************************
  ****** DO NOT USE STRINGS FOR THE FOLLOWING VALUES *****
