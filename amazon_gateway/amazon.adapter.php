@@ -514,7 +514,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 *
 	 * @return string|void Nothing :)
 	 */
-	protected function buildRequestXML( $rootElement = null ) {
+	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
 		return '';
 	}
 }
