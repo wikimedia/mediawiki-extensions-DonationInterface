@@ -287,4 +287,33 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$this->assertEquals( 'Truhlárská 320/62', $xml->Address1 );
 		$this->assertEquals( 'Ceské Budejovice', $xml->City );
 	}
+
+	/**
+	 * Check that whacky #.# format orderid is unmolested by order_id_meta validation.
+	 */
+	function testWackyOrderIdPassedValidation() {
+		$init = $this->initial_vars;
+
+        $init['order_id'] = '2143.0';
+        unset( $_POST['order_id'] );
+        unset( $_SESSION['Donor']['order_id'] );
+        $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
+        $this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'Decimal Order ID is allowed by orderIdMeta validation' );
+	}
+
+	/**
+	 * Check that order_id is built from contribution_tracking id.
+	 */
+	function testWackyOrderIdBasedOnContributionTracking() {
+		$init = $this->initial_vars;
+
+        $init['contribution_tracking_id'] = mt_rand();
+        $_SESSION['numAttempt'] = 2;
+        unset( $_POST['order_id'] );
+        $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
+		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['numAttempt']}";
+        $this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'Decimal Order ID is correctly built from Contribution Tracking ID.' );
+	}
 }
