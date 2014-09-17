@@ -3466,7 +3466,7 @@ abstract class GatewayAdapter implements GatewayType {
 			switch ( $type ) {
 				case 'numeric' :
 					//@TODO: Determine why the DataValidator's type validation functions are protected.
-					//If there is no good answer, use those.
+					//There is no good answer, use those.
 					//In fact, we should probably just port the whole thing over there. Derp.
 					if ( !is_numeric( $value ) ) {
 						$met = false;

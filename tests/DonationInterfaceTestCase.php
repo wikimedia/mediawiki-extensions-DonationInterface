@@ -338,7 +338,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * constructor.
 	 * @return \class The new relevant gateway adapter object.
 	 */
-	function getFreshGatewayObject( $external_data = null, $setup_hacks = null ) {
+	function getFreshGatewayObject( $external_data = null, $setup_hacks = array() ) {
 		$p1 = null;
 		if ( !is_null( $external_data ) ) {
 			$p1 = array (
@@ -346,7 +346,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			);
 		}
 
-		if ( !is_null( $setup_hacks ) ) {
+		if ( $setup_hacks ) {
 			if ( !is_null( $p1 ) ) {
 				$p1 = array_merge( $p1, $setup_hacks );
 			} else {
@@ -356,6 +356,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		$class = $this->testAdapterClass;
 		$gateway = new $class( $p1 );
+
+		// FIXME: Find a more elegant way to hackity hacken hack.
+		// We want to override any define- functions with hacky values.
+		foreach ( $setup_hacks as $field => $value ) {
+			$gateway->$field = $value;
+		}
 
 		return $gateway;
 	}
