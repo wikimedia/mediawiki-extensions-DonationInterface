@@ -261,7 +261,7 @@
 	"donate_interface-select-year-of-expiration": "Elektu jaron de findatiĝon",
 	"donate_interface-expires-question": "Kiam findatiĝos?",
 	"donate_interface-expires": "Eksvalidiĝas",
-	"donate_interface-card-security-code": "Sekureca kodo de kreditkarto",
+	"donate_interface-card-security-code": "Sekureca kodo",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "Nº CVV",
 	"donate_interface-cvv2": "CVV2",

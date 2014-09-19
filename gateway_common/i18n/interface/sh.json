@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"OC Ripper"
+			"OC Ripper",
+			"KWiki"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -194,7 +195,7 @@
 	"donate_interface-comment": "Komentar",
 	"donate_interface-first": "Prvo",
 	"donate_interface-middle": "Srednje",
-	"donate_interface-last": "Zadnje",
+	"donate_interface-last": "Posljednje",
 	"donate_interface-other": "Ostalo",
 	"donate_interface-noscript-msg": "Izgleda da nemate omogućenu JavaScript ili je vaš preglednik ne podržava.\nDa bi ste omogućili sigurno, provjerenu i lahku uslugu, naš obrazac za donacije zahtjeva JavaScriptu.",
 	"donate_interface-noscript-redirect-msg": "Ako ne možete ili ne želite omogućiti JavaScript, ipak možete doprinijeti posjetom na:",
