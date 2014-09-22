@@ -19,6 +19,7 @@
 	"donate_interface-comment-label": "Komentar:",
 	"donate_interface-email-agreement": "Slažem se da povremeno dobijam e-obaveštenja od Zadužbine Vikimedija.",
 	"donate_interface-comment-title": "Javni komentar",
+	"donate_interface-monthly-donation-description": "Mesečni prilozi Zadužbini Vikimedije",
 	"donate_interface-amount-error": "Unesite ispravan iznos",
 	"donate_interface-smallamount-error": "Prilog mora da iznosi barem $1.",
 	"donate_interface-processing-error": "Došlo je do greške pri obrađivanju zahteva.\nNema dostupnih obrađivača.",
@@ -362,6 +363,8 @@
 	"donate_interface-monthlybox-yes": "Da, neka bude mesečni",
 	"donate_interface-monthlybox-no": "Ne, neka bude jednokratan",
 	"donate_interface-monthlybox-bottom": "Vaš prilog će biti bezbedno obrađen.",
+	"donate_interface-monthly-short": "Mesečno",
+	"donate_interface-onetime-short": "Jednokratno",
 	"donate_interface-securelogo-title": "Kliknite da potvrdite. Ovo mrežno mesto je odabralo VeriSign SSL za bezbedno e-bankarstvo i poverljive prepiske.",
 	"donate_interface-secureLogo-text": "O potvrdama SSL",
 	"donate_interface-error-http-403": "Nemate dozvolu da pristupite ovoj stranici."
