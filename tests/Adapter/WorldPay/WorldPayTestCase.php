@@ -257,6 +257,21 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 	}
 
 	/**
+	 * Ensure we don't give too high a risk score when AVS address / zip match was not performed 
+	 */
+	function testAntifraudAllowsAvsNotPerformed() {
+		$options = $this->getDonorTestData('FR'); //don't really care: We'll be using the dummy response directly.
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 9000 );
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		$this->assertEquals( '9', $gateway->getData_Unstaged_Escaped( 'avs_address' ), 'avs_address was not set after AuthorizePaymentForFraud' );
+		$this->assertEquals( '9', $gateway->getData_Unstaged_Escaped( 'avs_zip' ), 'avs_zip was not set after AuthorizePaymentForFraud' );		
+		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult returning too high a score for AVS not performed.' );
+	}
+
+	/**
 	 * Ensure we're staging a punctuation-stripped version of the email address in merchant_reference_2
 	 */
 	function testMerchantReference2() {
