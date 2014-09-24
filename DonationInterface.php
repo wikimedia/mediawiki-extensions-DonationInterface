@@ -522,7 +522,7 @@ if ( $optionalParts['WorldPay'] === true ) {
 		'2' => 12, //Not Checked/Not Available
 		'3' => 50, //Issuer is Not Certified or Unregistered
 		'4' => 12, //Not Supported
-		'9' => 50, //Not Performed (occurs when Address1, Address2 and Address3 values were not present in the STN string or when transaction was not sent to the acquiring bank)
+		'9' => 12, //Not Performed (occurs when Address1, Address2 and Address3 values were not present in the STN string or when transaction was not sent to the acquiring bank)
 		'' => 50, //No code returned. All the points.
 	);
 
@@ -533,7 +533,7 @@ if ( $optionalParts['WorldPay'] === true ) {
 		'3' => 0, //9 digit zipcode match
 		'4' => 0, //5 digit zipcode match
 		'5' => 12, //Not Supported
-		'9' => 50, //Not Performed (occurs when ZipCode value was not present in the STN string or when transaction was not sent to the acquiring bank)
+		'9' => 12, //Not Performed (occurs when ZipCode value was not present in the STN string or when transaction was not sent to the acquiring bank)
 		'' => 50, //No code returned. All the points.
 	);
 }
