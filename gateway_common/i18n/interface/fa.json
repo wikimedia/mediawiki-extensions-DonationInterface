@@ -12,7 +12,8 @@
 			"Wayiran",
 			"ZxxZxxZ",
 			"Rtemis",
-			"Alirezaaa"
+			"Alirezaaa",
+			"MohandesWiki"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -331,7 +332,7 @@
 	"donate_interface-only-billing-address": "پیراهن‌ها فقط می‌توانند به نشانی صورت حساب فرستاده شوند.",
 	"donate_interface-donation-must-equal": "مبلغ اهدائی باید برابر $1 و یا بیشتر باشد.",
 	"donate_interface-thank-you": "از شما متشکرم! کمک مالی شما دریافت شد.",
-	"donate_interface-wikipedia-translation": "لطفاً توجه داشته باشید: «ویکی‌پدیا» در آستین پیراهن به صورت تصویر «Wikipedia 10» است که ترجمه نشده‌است.",
+	"donate_interface-wikipedia-translation": "لطفا توجه داشته باشید: \"ویکیپدیا\" در آستین پیراهن خواهد \"ویکی 10\" گرافیک که ترجمه نشده است.",
 	"donate_interface-on-the-back": "با این در پشت:",
 	"donate_interface-tshirt-confirmation": "تی‌شرت شما با اندازه و زبان مقابل ارسال خواهد شد:",
 	"donate_interface-donation-tshirt": "کمک مالی (عرضهٔ تی‌شرت)",
