@@ -228,33 +228,28 @@ class DonationInterface_Gateway_FormTestCase extends DonationInterfaceTestCase {
 	 * @covers Gateway_Form::generateCurrencyDropdown
 	 */
 	public function testGenerateCurrencyDropdown(){
-		$expected = '<select name="currency_code" id="input_currency_code" onchange="">';
-		$currencies = $this->form->gateway->getCurrencies();
+		$currencies = array_flip( $this->form->gateway->getCurrencies() );
 
-		foreach ( $currencies as $curr ) {
-			$expected .= '<option value="' . $curr;
+		$dom_thingy = new DOMDocument();
 
-			if ( $curr === 'USD' ) {
-				$expected .= '" selected="';
+		$dom_thingy->encoding = 'UTF-8';
+		$dom_thingy->loadHTML( '<?xml encoding="UTF-8">' . $this->form->generateCurrencyDropdown() );
+
+		$select_node = $dom_thingy->getElementById( 'input_currency_code' );
+		$this->assertEquals( 'currency_code', $select_node->getAttribute( 'name' ) );
+		
+		foreach ( $select_node->childNodes as $option ) {
+			$currency = $option->getAttribute( 'value' );
+			$this->assertNotNull( $currencies[$currency], 'Currency node generated for non-existent ' . $currency );
+			$msg = wfMessage( 'donate_interface-' . $currency );
+			if ( ! $msg->inContentLanguage()->isBlank() ) {
+				$this->assertEquals( $msg, $option->nodeValue, 'Option text wrong for currency ' . $currency );
 			}
-
-			$expected .= '">';
-
-			$msg = wfMessage( 'donate_interface-' . $curr );
-			if ( $msg->inContentLanguage()->isBlank() ) {
-				$expected .= htmlentities( $msg->text() );
-			} else {
-				$expected .= $msg->text();
+			if ( $currency === 'USD' ) {
+				$this->assertNotNull( $option->getAttribute( 'selected' ) );
 			}
-
-			$expected .= '</option>';
+			unset( $currencies[$currency] );
 		}
-
-		$expected .= '</select>';
-
-		$this->assertEquals(
-			$expected,
-			$this->form->generateCurrencyDropdown()
-		);
+		$this->assertEmpty( $currencies, 'Did not generate options for all currencies!' );
 	}
 }
