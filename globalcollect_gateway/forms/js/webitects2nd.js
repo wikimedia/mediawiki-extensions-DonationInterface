@@ -55,7 +55,11 @@ $( document ).ready( function () {
 	} );
 
 	$( '#bt-continueBtn' ).live( 'click', function () {
+		if ( $( '#bt-continueBtn' ).hasClass( 'disabled' ) ) {
+			return false;
+		}
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
+			$( '#bt-continueBtn' ).addClass( 'disabled' );
 			document.paypalcontribution.action = actionURL;
 			document.paypalcontribution.submit();
 		}
