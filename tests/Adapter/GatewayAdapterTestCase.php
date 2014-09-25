@@ -113,5 +113,33 @@ class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterface
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
+	/**
+	 * Make sure data is cleared out when changing gateways.
+	 * In particular, ensure order IDs aren't leaking.
+	 */
+	public function testResetOnGatewaySwitch() {
+		//Fill the session with some Amazon stuff
+		$init = $this->getDonorTestData( 'FR' );
+		$init['contribution_tracking_id'] = mt_rand();
+		$amazon_gateway = new TestingAmazonAdapter( array (
+				'external_data' => $init,
+		) );
+		$amazon_gateway->do_transaction( 'Donate' );
+
+		$this->assertEquals( 'amazon', $_SESSION['Donor']['gateway'], 'Test setup failed.' );
+
+		//Then simpulate switching to Worldpay
+		$_SESSION['numAttempt'] = 2;
+        unset( $_POST['order_id'] );
+
+		$worldpay_gateway = new TestingWorldPayAdapter( array (
+				'external_data' => $init,
+		) );
+		$worldpay_gateway->batch_mode = TRUE;
+
+		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['numAttempt']}";
+        $this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'Order ID was not regenerated on gateway switch!' );
+	}
 }
 
