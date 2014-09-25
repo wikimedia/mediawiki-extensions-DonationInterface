@@ -338,6 +338,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
 		$this->defineDataConstraints(); //must also happen before we go to DonationData.
+		$this->session_resetOnGatewaySwitch(); //clear out the old stuff before DD snarfs it.
 
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
@@ -3035,6 +3036,20 @@ abstract class GatewayAdapter implements GatewayType {
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $_SESSION['Donor'][$reset_me] );
 			}
+		}
+	}
+
+	/**
+	 * Check to see if we've changed gateways, and throw out the garbage
+	 * from the old gateway if so.  Prevents order_id leakage!
+	 */
+	protected function session_resetOnGatewaySwitch() {
+		if ( !$this->session_exists() ) {
+			return;
+		}
+		$old_gateway = $this->session_getData( 'Donor', 'gateway' );
+		if ( $old_gateway !== null && $old_gateway !== $this::IDENTIFIER ) {
+			$this->session_resetForNewAttempt( true );
 		}
 	}
 
