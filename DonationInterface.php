@@ -1105,7 +1105,8 @@ if ($optionalParts['Stomp'] === true){
 }
 
 function efDonationInterfaceUnitTests( &$files ) {
-	$files[] = dirname( __FILE__ ) . '/tests/AllTests.php';
+	$files[] = __DIR__ . '/tests/AllTests.php';
+
 	return true;
 }
 

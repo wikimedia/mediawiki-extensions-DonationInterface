@@ -17,55 +17,25 @@
  */
 
 /**
+ * Suite containing all DonationInterface test cases
+ *
  * @see DonationInterface_Adapter_AllTests
  */
-require_once 'Adapter/AllTests.php';
-require_once 'DonationDataTestCase.php';
-require_once 'DataValidatorTestCase.php';
-require_once 'FormChooserTestCase.php';
-require_once 'IntegrationTestCase.php';
-require_once 'FraudFiltersTestCase.php';
-require_once 'GatewayPageTestCase.php';
-require_once 'EncodingManglerTestCase.php';
-require_once 'Gateway_FormTestCase.php';
-
-/**
- * AllTests
- */
-class DonationInterface_AllTests
+class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite
 {
+	function __construct() {
+		parent::__construct( 'DonationInterface test suite' );
 
-	/**
-	 * Run the main test and load any parameters if needed.
-	 *
-	 */
-	public static function main()
-	{
-		$parameters = array();
-
-		PHPUnit_TextUI_TestRunner::run( self::suite(), $parameters );
+		$suffixes = array(
+			'Test.php',
+			'TestCase.php',
+		);
+		$fileIterator = new File_Iterator_Facade();
+		$files = $fileIterator->getFilesAsArray( __DIR__, $suffixes );
+		$this->addTestFiles( $files );
 	}
 
-	/**
-	 * Run test suites
-	 *
-	 * @return PHPUnit_Framework_TestSuite
-	 */
-	public static function suite()
-	{
-		$suite = new PHPUnit_Framework_TestSuite( 'Donation Interface Suite' );
-
-		$suite->addTestSuite( 'DonationInterface_Adapter_AllTests' );
-		$suite->addTestSuite( 'DataValidatorTestCase' );
-		$suite->addTestSuite( 'DonationInterface_DonationDataTestCase' );
-		$suite->addTestSuite( 'DonationInterface_FormChooserTestCase' );
-		$suite->addTestSuite( 'DonationInterface_IntegrationTestCase' );
-		$suite->addTestSuite( 'DonationInterface_FraudFiltersTestCase' );
-		$suite->addTestSuite( 'GatewayPageTestCase' );
-		$suite->addTestSuite( 'EncodingManglerTestCase' );
-		$suite->addTestSuite( 'DonationInterface_Gateway_FormTestCase' );
-
-		return $suite;
+	static public function suite() {
+		return new self();
 	}
 }
-
