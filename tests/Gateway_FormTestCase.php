@@ -18,11 +18,6 @@
  */
 
 /**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
-/**
  * Only here so we can run unit tests.
  */
 class TestGatewayForm extends Gateway_Form {
@@ -204,9 +199,7 @@ class DonationInterface_Gateway_FormTestCase extends DonationInterfaceTestCase {
 	 * @covers Gateway_Form::generateStateDropdown
 	 */
 	public function testGenerateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/../gateway_forms/includes/stateAbbreviations.inc' );
-
-		$states = statesMenuXML();
+		$states = StateAbbreviations::statesMenuXML();
 		$expected = '<select name="state" id="state">';
 
 		foreach ( $states as $val => $state ) {

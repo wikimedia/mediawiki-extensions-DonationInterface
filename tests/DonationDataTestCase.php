@@ -17,11 +17,6 @@
  */
 
 /**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
-/**
  * @group Fundraising
  * @group DonationInterface
  * @group Splunge

@@ -18,11 +18,6 @@
  */
 
 /**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
-/**
  * 
  * @group Fundraising
  * @group DonationInterface

@@ -16,11 +16,6 @@
  *
  */
 
-/**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
 class TestingGatewayPage extends GatewayPage {
 	public function __construct() {
 		//nothing!
