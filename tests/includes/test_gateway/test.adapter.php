@@ -595,7 +595,6 @@ class TestingWorldPayAdapter extends WorldPayAdapter {
  * TODO: Poke own eye out before you notice that multiple inheritance would, if
  * available, cause this file to deflate by 4/5ths. 
  */
-require_once dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . DIRECTORY_SEPARATOR . 'globalcollect_gateway/scripts/orphan_adapter.php';
 
 class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 

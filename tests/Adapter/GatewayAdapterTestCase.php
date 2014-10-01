@@ -17,11 +17,6 @@
  */
 
 /**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
-/**
  * TODO: Test everything. 
  * Make sure all the basic functions in the gateway_adapter are tested here. 
  * Also, the extras and their hooks firing properly and... that the fail score 

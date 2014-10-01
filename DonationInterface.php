@@ -107,6 +107,7 @@ $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
+$wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
@@ -119,10 +120,7 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	$wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_resultswitcher.body.php';
 
 	$wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
-
-	if ( $wgDonationInterfaceTestMode === true ) {
-		$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $donationinterface_dir . 'tests/includes/test_gateway/test.adapter.php';
-	}
+	$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/scripts/orphan_adapter.php';
 }
 
 //PayflowPro gateway classes
@@ -1105,7 +1103,22 @@ if ($optionalParts['Stomp'] === true){
 }
 
 function efDonationInterfaceUnitTests( &$files ) {
-	$files[] = __DIR__ . '/tests/AllTests.php';
+	global $wgAutoloadClasses;
+
+	$testDir = __DIR__ . '/tests/';
+
+	$files[] = $testDir . 'AllTests.php';
+
+	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+
+	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+
+	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
+	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
 
 	return true;
 }

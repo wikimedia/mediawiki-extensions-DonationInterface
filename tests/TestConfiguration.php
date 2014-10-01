@@ -59,6 +59,27 @@ define( 'TESTS_ADAPTER_DEFAULT', 'TestingGlobalCollectAdapter' );
  */
 define( 'TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD', '378282246310005' );
 
+global $wgDonationInterfaceTestMode,
+	$wgDonationInterfaceMerchantID,
+	$wgDonationInterfaceAllowedHtmlForms,
+	$wgDonationInterfaceThankYouPage,
+	$wgGlobalCollectGatewayAccountInfo,
+	$wgPaypalGatewayAccountInfo,
+	$wgPaypalGatewayReturnURL,
+	$wgAmazonGatewayReturnURL,
+	$wgAmazonGatewayAccountInfo,
+	$wgAdyenGatewayBaseURL,
+	$wgAdyenGatewayAccountInfo,
+	$wgWorldPayGatewayAccountInfo,
+	$wgWorldPayGatewayURL,
+	$wgMinFraudLicenseKey,
+	$wgMinFraudTimeout,
+	$wgDonationInterfaceMinFraudServers,
+	$wgDonationInterfaceEnableMinfraud,
+	$wgDonationInterfaceEnableFunctionsFilter,
+	$wgDonationInterfaceEnableReferrerFilter,
+	$wgDonationInterfaceEnableSourceFilter;
+
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
  */

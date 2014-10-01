@@ -16,12 +16,6 @@
  *
  */
 
-require_once __DIR__ . '/TestConfiguration.php';
-require_once dirname( __FILE__ ) . '/includes/test_gateway/test.adapter.php';
-require_once dirname( __FILE__ ) . '/includes/test_page/test.gateway.pages.php';
-require_once dirname( __FILE__ ) . '/includes/test_request/test.request.php';
-require_once dirname( __FILE__ ) . '/includes/test_language/test.language.php';
-
 /**
  * @group		Fundraising
  * @group		QueueHandling
