@@ -170,6 +170,14 @@ select#state.it {
 	width: auto;
 }
 
+select#state.au {
+	width:109px;
+}
+
+#emailAdd {
+	width:137px;
+}
+
 /* From Webitects */
 /* Options */
 .form .options-h, .form .options-v { margin: 0; }

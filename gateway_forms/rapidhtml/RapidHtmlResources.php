@@ -70,6 +70,7 @@ $wgResourceModules[ 'di.form.rapidhtml.webitects.2nd' ] = array(
 );
 
 // GlobalCollect
+
 $wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
 	'styles' => '',
 	'scripts' => array(
@@ -263,7 +264,7 @@ $wgResourceModules[ 'pfp.form.rapidhtml.webitects_2stepB' ] = array(
 $wgResourceModules[ 'pfp.form.rapidhtml.webitects.ie6' ] = array(
 	'dependencies' => array(
 		'di.form.rapidhtml.webitects.ie6',
-		'pfp.form.rapidhtml.webitects',	
+		'pfp.form.rapidhtml.webitects',
 	),
 	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
 	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
