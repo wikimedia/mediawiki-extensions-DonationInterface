@@ -171,12 +171,17 @@
 	}
 
 	function submitForm() {
-		$( '#paymentSubmitBtn' ).addClass('disabled');
+		var button = $( '#paymentSubmitBtn' );
+		if ( button.hasClass( 'disabled' ) ) {
+			return false;
+		}
+
+		button.addClass( 'disabled' );
 
 		if ( validateClientSide() ) {
 			validateServerSide( submitFormForTokenization );
 		} else {
-			$( '#paymentSubmitBtn' ).removeClass('disabled');
+			button.removeClass( 'disabled' );
 		}
 		return false;
 	}

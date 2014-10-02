@@ -318,9 +318,7 @@ abstract class Gateway_Form {
 	 * @return string The entire HTML select element for the state dropdown list
 	 */
 	public function generateStateDropdown() {
-		require_once( dirname( __FILE__ ) . '/includes/stateAbbreviations.inc' );
-
-		$states = statesMenuXML();
+		$states = StateAbbreviations::statesMenuXML();
 
 		$state_opts = '';
 

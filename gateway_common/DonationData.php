@@ -552,7 +552,8 @@ class DonationData {
 			$this->setVal( 'recurring', true );
 			$this->expunge('recurring_paypal');
 		}
-		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' ) ) {
+		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' || $this->getVal( 'recurring' ) === true )
+		) {
 			$this->setVal( 'recurring', true );
 		}
 		else{
@@ -796,7 +797,8 @@ class DonationData {
 			$this->getVal( 'recurring' )
 		);
 
-		$this->log( "Setting utm_source payment method to {$payment_method_family}", LOG_INFO );
+		$recurring = ($this->getVal( 'recurring' ) ? 'true' : 'false');
+		$this->log( "Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_INFO );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
