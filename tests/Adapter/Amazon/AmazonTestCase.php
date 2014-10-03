@@ -33,6 +33,11 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 		$this->testAdapterClass = 'TestingAmazonAdapter';
 	}
 
+	public function tearDown() {
+		TestingAmazonAdapter::$fakeGlobals = array();
+		parent::tearDown();
+	}
+
 	/**
 	 * Integration test to verify that the Donate transaction works as expected when all necessary data is present.
 	 */
@@ -62,6 +67,20 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
 		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
+	}
+
+	function testReturnURLAppendQuerystring() {
+		$init = $this->getDonorTestData();
+		$gateway = $this->getFreshGatewayObject( $init );
+		TestingAmazonAdapter::$fakeGlobals = array(
+			'ReturnURL' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon'
+		);
+
+		$gateway->do_transaction( 'Donate' );
+		$ret = $gateway->_buildRequestParams();
+		$expected = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' );
+		 
+		$this->assertEquals( $expected, $ret['returnUrl'], 'Amazon "Donate" transaction not building the expected returnUrl' );
 	}
 
 	/**
@@ -141,8 +160,6 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 			)
 		);
 		$this->verifyFormOutput( 'TestingAmazonGateway', $init, $assertNodes, false );
-
-		TestingAmazonAdapter::$fakeGlobals = array();
 	}
 
 	/**
