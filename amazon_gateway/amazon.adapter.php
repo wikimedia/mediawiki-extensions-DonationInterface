@@ -95,7 +95,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'values' => array(
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'isDonationWidget' => '1',
@@ -127,7 +127,7 @@ class AmazonAdapter extends GatewayAdapter {
 				// FIXME: There is magick available if the names match.
 				'accessKey' => $this->account_config[ 'AccessKey' ],
 				'collectShippingAddress' => '0',
-				'description' => wfMessage( 'donate_interface-monthly-donation-description' )->text(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'immediateReturn' => '1',
 				'ipnUrl' => $this->account_config['IpnOverride'],
 				'processImmediate' => '1',
@@ -217,8 +217,12 @@ class AmazonAdapter extends GatewayAdapter {
 		switch ( $transaction ) {
 		case 'Donate':
 		case 'DonateMonthly':
-			//TODO parseurl... in case ReturnURL already has a query string
-			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$this->getGlobal( 'ReturnURL' )}?order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$return_url = $this->getGlobal( 'ReturnURL' );
+			//check if ReturnURL already has a query string			
+			$return_query = parse_url( $return_url, PHP_URL_QUERY );
+			$return_url .= ( $return_query ? '&' : '?' );
+			$return_url .= "ffname=amazon&order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = $return_url;
 			break;
 		case 'VerifySignature':
 			$request_params = $wgRequest->getValues();

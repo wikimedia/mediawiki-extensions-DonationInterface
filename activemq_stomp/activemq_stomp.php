@@ -35,7 +35,7 @@ function efStompTest( $input, $args, &$parser ) {
 
 	$output = "STOMP Test page";
 
-	wfRunHooks( 'gwStomp', array( &$transaction ) );
+	WmfFramework::runHooks( 'gwStomp', array( &$transaction ) );
 
 	return $output;
 }
@@ -64,7 +64,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 	} else {
 		// Sane default...
 		$queueName = "test-$queue";
-		wfDebugLog( "We should consider adding a queue name entry for $queue", LOG_WARNING );
+		WmfFramework::debugLog( 'stomp', "We should consider adding a queue name entry for $queue" );
 	}
 
 	// If it turns out the queue name is false or empty, we don't actually want to use this queue
@@ -90,7 +90,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 		'gateway' => $transaction['gateway'],
 		'source_name' => 'DonationInterface',
 		'source_type' => 'payments',
-		'source_host' => wfHostname(),
+		'source_host' => WmfFramework::getHostname(),
 		'source_run_id' => getmypid(),
 		'source_version' => $sourceRevision,
 		'source_enqueued_time' => time(),

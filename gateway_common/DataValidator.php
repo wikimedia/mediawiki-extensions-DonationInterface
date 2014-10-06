@@ -187,10 +187,10 @@ class DataValidator {
 		//If they have no defined error message, give 'em the default. 
 		if ($type === 'non_empty'){
 			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
-				return wfMessage(
+				return WmfFramework::formatMessage(
 					'donate_interface-error-msg',
-					wfMessage( $error_message_field_string )->text()
-				)->text();
+					WmfFramework::formatMessage( $error_message_field_string )
+				);
 			} 
 		}
 		
@@ -220,28 +220,28 @@ class DataValidator {
 			if ( $type === 'calculated'){
 				//try for the special "calculated" error message.
 				if ( self::wmfMessageExists( $error_message_string . '-calc', $language ) ) {
-					return wfMessage( $error_message_string . '-calc')->text();
+					return WmfFramework::formatMessage($error_message_string . '-calc');
 				}
 			}
 			
 //			//try for the "invalid whatever" error message.
 //			if ( self::wmfMessageExists( $error_message_string, $language ) ) {
-//				return wfMessage( $error_message_string )->text();
+//				return WmfFramework::formatMessage( $error_message_string );
 //			}
 			
 			//try for new more specific default correction message
 			if ( $message_field != 'general' 
 				&& self::wmfMessageExists( $error_message_field_string, $language )
 				&& self::wmfMessageExists( 'donate_interface-error-msg-field-correction', $language ) ) {
-				return wfMessage(
+				return WmfFramework::formatMessage(
 					'donate_interface-error-msg-field-correction',
-					wfMessage( $error_message_field_string )->text()
-				)->text();
+					WmfFramework::formatMessage( $error_message_field_string )
+				);
 			}
 		}
 		
 		//ultimate defaultness. 
-		return wfMessage( 'donate_interface-error-msg-general' )->text();
+		return WmfFramework::formatMessage( 'donate_interface-error-msg-general' );
 	}
 	
 	
@@ -255,16 +255,16 @@ class DataValidator {
 	 */
 	public static function wmfMessageExists( $msg_key, $language ){
 		$language = strtolower( $language );
-		if ( wfMessage( $msg_key )->inLanguage( $language )->exists() ){
+		if ( WmfFramework::messageExists( $msg_key, $language ) ){
 			# if we are looking for English, we already know the answer
 			if ( $language == 'en' ){
 				return true;
 			}
 
 			# get the english version of the message
-			$msg_en = wfMessage( $msg_key )->inLanguage( 'en' )->text();
+			$msg_en = WmfFramework::formatMessage( $msg_key, 'en' );
 			# attempt to get the message in the specified language
-			$msg_lang = wfMessage( $msg_key )->inLanguage( $language )->text();
+			$msg_lang = WmfFramework::formatMessage( $msg_key, $language );
 
 			# if the messages are the same, the message fellback to English, return false
 			return strcmp( $msg_en, $msg_lang ) != 0;
@@ -290,20 +290,20 @@ class DataValidator {
 
 		# look for the first message that exists
 		foreach ( $msg_keys as $m ){
-			if ( self::wmfMessageExists( $m, $language) ){
-				return wfMessage( $m )->inLanguage( $language )->text();
+			if ( self::wmfMessageExists( $m, $language ) ){
+				return WmfFramework::formatMessage( $m, $language );
 			}
 		}
 
 		# we found nothing in the requested language, return the first fallback message that exists
 		foreach ( $msg_keys as $m ){
-			if ( wfMessage( $m )->inLanguage( $language )->exists() ){
-				return wfMessage( $m )->inLanguage( $language )->text();
+			if ( WmfFramework::messageExists( $m, $language ) ){
+				return WmfFramework::formatMessage( $m, $language );
 			}
 		}
 
 		# somehow we still don't have a message, return a default error message
-		return wfMessage( $msg_keys[0] )->text();
+		return WmfFramework::formatMessage( $msg_keys[0] );
 	}
 
 
@@ -565,16 +565,11 @@ class DataValidator {
 	 * address. 
 	 * @return boolean True if $value is a valid email address, otherwise false.  
 	 */
-	protected static function validate_email( $value ){
-		// is email address valid?
-		$isEmail = Sanitizer::validateEmail( $value );
-		if ( $isEmail ) {
-			$isEmail = !DataValidator::cc_number_exists_in_str( $value );
-		}
-		return $isEmail;
+	protected static function validate_email( $value ) {
+		return WmfFramework::validateEmail( $value )
+			&& !DataValidator::cc_number_exists_in_str( $value );
 	}
-	
-	
+
 	/**
 	 * validate_amount
 	 * Determines if the $value passed in is a valid amount. 
@@ -981,12 +976,11 @@ EOT;
 	 * @return string A valid mediawiki language code. 
 	 */
 	public static function getLanguage( $data ) {
-		global $wgLang;
 		if ( array_key_exists( 'language', $data )
-			&& Language::isValidBuiltInCode( $data['language'] ) ) {
+			&& WmfFramework::isValidBuiltInLanguageCode( $data['language'] ) ) {
 			return $data['language'];
 		} else {
-			return $wgLang->getCode();
+			return WmfFramework::getLanguageCode();
 		}		
 	}
 	
