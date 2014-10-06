@@ -151,47 +151,47 @@ class PayflowProAdapter extends GatewayAdapter {
 
 		switch ( $resultCode ) {
 			case '0':
-				$errors['1'] = wfMessage( 'payflowpro_gateway-response-0' )->text();
+				$errors['1'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-0' );
 				$this->finalizeInternalStatus( 'complete' );
 				break;
 			case '126':
-				$errors['5'] = wfMessage( 'payflowpro_gateway-response-126-2' )->text();
+				$errors['5'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-126-2' );
 				$this->finalizeInternalStatus( 'pending' );
 				break;
 			case '12':
-				$errors['2'] = wfMessage( 'payflowpro_gateway-response-12' )->text();
+				$errors['2'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-12' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '13':
-				$errors['2'] = wfMessage( 'payflowpro_gateway-response-13' )->text();
+				$errors['2'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-13' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '114':
-				$errors['2'] = wfMessage( 'payflowpro_gateway-response-114' )->text();
+				$errors['2'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-114' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '4':
-				$errors['3'] = wfMessage( 'payflowpro_gateway-response-4' )->text();
+				$errors['3'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-4' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '23':
-				$errors['3'] = wfMessage( 'payflowpro_gateway-response-23' )->text();
+				$errors['3'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-23' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '24':
-				$errors['3'] = wfMessage( 'payflowpro_gateway-response-24' )->text();
+				$errors['3'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-24' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '112':
-				$errors['3'] = wfMessage( 'payflowpro_gateway-response-112' )->text();
+				$errors['3'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-112' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			case '125':
-				$errors['3'] = wfMessage( 'payflowpro_gateway-response-125-2' )->text();
+				$errors['3'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-125-2' );
 				$this->finalizeInternalStatus( 'failed' );
 				break;
 			default:
-				$errors['4'] = wfMessage( 'payflowpro_gateway-response-default' )->text();
+				$errors['4'] = WmfFramework::formatMessage( 'payflowpro_gateway-response-default' );
 				$this->finalizeInternalStatus( 'failed' );
 		}
 

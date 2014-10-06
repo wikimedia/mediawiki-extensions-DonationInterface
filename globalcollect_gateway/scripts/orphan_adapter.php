@@ -114,7 +114,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		// if we're not using the syslog facility, use wfDebugLog
 		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			wfDebugLog( $identifier, $msg );
+			WmfFramework::debugLog( $identifier, $msg );
 			return;
 		}
 
@@ -212,7 +212,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$transaction += $this->getData_Unstaged_Escaped();
 
 		try {
-			wfRunHooks( $hook, array( $transaction ) );
+			WmfFramework::runHooks( $hook, array( $transaction ) );
 		} catch ( Exception $e ) {
 			$this->log( "STOMP ERROR. Could not add message. " . $e->getMessage(), LOG_CRIT );
 		}

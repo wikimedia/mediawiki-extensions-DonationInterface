@@ -358,7 +358,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineReturnValueMap();
 		$this->setValidForm();
 
-		$this->setGatewayDefaults();
+		$this->setGatewayDefaults( $options );
 		$this->stageData();
 	}
 
@@ -400,7 +400,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * getThankYouPage should either return a full page url, or false. 
-	 * @global type $wgLang
 	 * @return mixed Page URL in string format, or false if none is set. 
 	 */
 	public function getThankYouPage() {
@@ -413,7 +412,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * getFailPage should either return a full page url, or false. 
-	 * @global type $wgLang
 	 * @return mixed Page URL in string format, or false if none is set.  
 	 */
 	public function getFailPage() {
@@ -640,7 +638,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
 		
-		$translatedMessage = wfMessage( $response_message )->text();
+		$translatedMessage = WmfFramework::formatMessage( $response_message );
 		
 		// Check to see if an error message exists in translation
 		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
@@ -652,8 +650,8 @@ abstract class GatewayAdapter implements GatewayType {
 		// If the $code does not exist, use the default code: 0
 		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
 		
-		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? wfMessage( $this->error_map[ $code ] )->text() : $translatedMessage; 
-		
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $this->error_map[$code] ) : $translatedMessage;
+
 		// Check to see if we return the translated message.
 		$message = ( $options['translate'] ) ? $translatedMessage : $this->error_map[ $code ];
 		
@@ -1049,7 +1047,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			$commType = $this->getCommunicationType();
 			if ( $commType === 'redirect' ) {
-				wfRunHooks( 'GatewayHandoff', array ( $this ) );
+				WmfFramework::runHooks( 'GatewayHandoff', array ( $this ) );
 
 				//in the event that we have a redirect transaction that never displays the form,
 				//save this most recent one before we leave.
@@ -1180,7 +1178,7 @@ abstract class GatewayAdapter implements GatewayType {
 		//...maybe. 
 		$opts = array(
 			CURLOPT_URL => $this->url,
-			CURLOPT_USERAGENT => Http::userAgent(),
+			CURLOPT_USERAGENT => WmfFramework::getUserAgent(),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_TIMEOUT => self::getGlobal( 'Timeout' ),
@@ -1331,7 +1329,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// Initialize cURL and construct operation (also run hook)
 		$ch = curl_init();
 
-		$hookResult = wfRunHooks( 'DonationInterfaceCurlInit', array( &$this ) );
+		$hookResult = WmfFramework::runHooks( 'DonationInterfaceCurlInit', array( &$this ) );
 		if ( $hookResult == false ) {
 			$this->log( 'cURL transaction aborted on hook DonationInterfaceCurlInit', LOG_INFO );
 			$this->setValidationAction('reject');
@@ -1549,7 +1547,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// if we're not using the syslog facility, use wfDebugLog
 		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			wfDebugLog( $identifier, $msg );
+			WmfFramework::debugLog( $identifier, $msg );
 			return;
 		}
 
@@ -1846,7 +1844,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		try {
-			wfRunHooks( 'gwStomp', array( $transaction, $queue ) );
+			WmfFramework::runHooks( 'gwStomp', array( $transaction, $queue ) );
 		} catch ( Exception $e ) {
 			$this->log( "STOMP ERROR. Could not add message to '{$queue}' queue: {$e->getMessage()} " . json_encode( $transaction ), LOG_CRIT );
 		}
@@ -1873,7 +1871,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$transaction = $this->getStompTransaction( $antiMessage );
 
 		try {
-			wfRunHooks( 'gwStomp', array( $transaction, 'limbo' ) );
+			WmfFramework::runHooks( 'gwStomp', array( $transaction, 'limbo' ) );
 		} catch ( Exception $e ) {
 			$this->log( "STOMP ERROR. Could not add message to 'limbo' queue: {$e->getMessage()} " . json_encode( $transaction ), LOG_CRIT );
 		}
@@ -1947,7 +1945,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
 		$transaction['correlation-id'] = $this->getCorrelationID();
 		$transaction['date'] = ( int ) time(); //I know this looks odd. Just trust me here.
-		$transaction['server'] = wfHostname();
+		$transaction['server'] = WmfFramework::getHostname();
 
 		$these_too = array (
 			'gateway',
@@ -2318,7 +2316,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$transaction = $this->makeFreeformStompTransaction( $transaction );
 
 		try {
-			wfRunHooks( 'gwFreeformStomp', array ( $transaction, 'payments-init' ) );
+			WmfFramework::runHooks( 'gwFreeformStomp', array ( $transaction, 'payments-init' ) );
 		} catch ( Exception $e ) {
 			$this->log( 'Unable to send payments-init message', LOG_ERR );
 		}
@@ -2461,7 +2459,7 @@ abstract class GatewayAdapter implements GatewayType {
 	function runAntifraudHooks() {
 		// allow any external validators to have their way with the data
 		$this->log( 'Preparing to run custom filters' );
-		wfRunHooks( 'GatewayValidate', array( &$this ) );
+		WmfFramework::runHooks( 'GatewayValidate', array( &$this ) );
 		$this->log( 'Finished running custom filters' );
 
 		//DO NOT set some variable as getValidationAction() here, and keep 
@@ -2470,19 +2468,19 @@ abstract class GatewayAdapter implements GatewayType {
 		// if the transaction was flagged for review
 		if ( $this->getValidationAction() == 'review' ) {
 			// expose a hook for external handling of trxns flagged for review
-			wfRunHooks( 'GatewayReview', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayReview', array( &$this ) );
 		}
 
 		// if the transaction was flagged to be 'challenged'
 		if ( $this->getValidationAction() == 'challenge' ) {
 			// expose a hook for external handling of trxns flagged for challenge (eg captcha)
-			wfRunHooks( 'GatewayChallenge', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayChallenge', array( &$this ) );
 		}
 
 		// if the transaction was flagged for rejection
 		if ( $this->getValidationAction() == 'reject' ) {
 			// expose a hook for external handling of trxns flagged for rejection
-			wfRunHooks( 'GatewayReject', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayReject', array( &$this ) );
 		}
 	}
 
@@ -2495,7 +2493,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected function runPostProcessHooks() {
 		// expose a hook for any post processing
-		wfRunHooks( 'GatewayPostProcess', array( &$this ) ); //conversion log (at least)
+		WmfFramework::runHooks( 'GatewayPostProcess', array( &$this ) );
 		$this->doStompTransaction();
 	}
 
@@ -2893,7 +2891,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		// otherwise, fire it up using global mw function wfSetupSession
-		wfSetupSession();
+		WmfFramework::setupSession();
 	}
 
 	/**

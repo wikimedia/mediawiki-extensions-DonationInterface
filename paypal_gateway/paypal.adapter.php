@@ -101,7 +101,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
 				'cmd' => '_donations',
 				'item_number' => 'DONATE',
-				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'no_note' => 0,
 				'return' => $this->getGlobal( 'ReturnURL' ),
 			),
@@ -125,7 +125,7 @@ class PaypalAdapter extends GatewayAdapter {
 			),
 			'values' => array(
 				'item_number' => 'DONATE',
-				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
 				'no_note' => '1',
 				'return' => $this->getGlobal( 'ReturnURL' ),
@@ -159,7 +159,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
 				'cmd' => '_xclick-subscriptions',
 				'item_number' => 'DONATE',
-				'item_name' => wfMessage( 'donate_interface-donation-description' )->text(),
+				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'no_note' => 0,
 				'return' => $this->getGlobal( 'ReturnURL' ),
 				// recurring fields
