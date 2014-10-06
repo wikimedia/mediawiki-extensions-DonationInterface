@@ -217,8 +217,11 @@ class AmazonAdapter extends GatewayAdapter {
 		switch ( $transaction ) {
 		case 'Donate':
 		case 'DonateMonthly':
-			//TODO parseurl... in case ReturnURL already has a query string
-			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$this->getGlobal( 'ReturnURL' )}?order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$return_url = $this->getGlobal( 'ReturnURL' );
+			//check if ReturnURL already has a query string			
+			$return_query = parse_url( $return_url, PHP_URL_QUERY );
+			$return_url .= ( $return_query ? '&' : '?' );
+			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$return_url}order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
 			break;
 		case 'VerifySignature':
 			$request_params = $wgRequest->getValues();
