@@ -60,7 +60,7 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 			'isDonationWidget' => '1',
 			'processImmediate' => '1',
 			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'signatureMethod' => 'HmacSHA256',
 			'signatureVersion' => '2',
 		);
@@ -69,16 +69,20 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
 	}
 
+	/**
+	 * Make sure the order ID is appended correctly if the ReturnURL already has
+	 * querystring parameters
+	 */
 	function testReturnURLAppendQuerystring() {
 		$init = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $init );
 		TestingAmazonAdapter::$fakeGlobals = array(
-			'ReturnURL' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon'
+			'ReturnURL' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?platypus=awesome'
 		);
 
 		$gateway->do_transaction( 'Donate' );
 		$ret = $gateway->_buildRequestParams();
-		$expected = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$expected = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?platypus=awesome&ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' );
 		 
 		$this->assertEquals( $expected, $ret['returnUrl'], 'Amazon "Donate" transaction not building the expected returnUrl' );
 	}
@@ -111,7 +115,7 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 			'isDonationWidget' => '1',
 			'processImmediate' => '1',
 			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'signatureMethod' => 'HmacSHA256',
 			'signatureVersion' => '2',
 		);
@@ -183,7 +187,7 @@ class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCas
 			'ipnUrl' => 'https://test.wikimedia.org/amazon',
 			'processImmediate' => '1',
 			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'signatureMethod' => 'HmacSHA256',
 			'signatureVersion' => '2',
 			'recurringFrequency' => '1 month',

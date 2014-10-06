@@ -221,7 +221,8 @@ class AmazonAdapter extends GatewayAdapter {
 			//check if ReturnURL already has a query string			
 			$return_query = parse_url( $return_url, PHP_URL_QUERY );
 			$return_url .= ( $return_query ? '&' : '?' );
-			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = "{$return_url}order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$return_url .= "ffname=amazon&order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
+			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = $return_url;
 			break;
 		case 'VerifySignature':
 			$request_params = $wgRequest->getValues();
