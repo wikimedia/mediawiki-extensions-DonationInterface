@@ -840,7 +840,8 @@ if ( $optionalParts['WorldPay'] === true ){
  */
 
 //Unit tests
-$wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';
+// MediaWiki tests are disabled for the Drupal branch.
+// $wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';
 
 //Stomp hooks
 if ($optionalParts['Stomp'] === true){
