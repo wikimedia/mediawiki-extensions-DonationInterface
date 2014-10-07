@@ -60,7 +60,7 @@ class WmfFramework {
 	 * @return boolean - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language ) {
-		return strlen( self::format_message( $msg_key ) ) > 0;
+		return strlen( self::formatMessage( $msg_key ) ) > 0;
 	}
 
 	static function getUserAgent() {
@@ -69,10 +69,5 @@ class WmfFramework {
 
 	static function isPosted() {
 		return false;
-	}
-}
-
-if ( !class_exists( 'MWException' ) ) {
-	class MWException extends Exception {
 	}
 }
