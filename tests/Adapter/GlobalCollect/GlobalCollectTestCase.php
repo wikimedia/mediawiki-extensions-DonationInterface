@@ -325,4 +325,30 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->assertType( 'string', $logline, 'GC Error 21000050 is not generating the expected payments log error' );
 	}
 
+	/**
+	 * Tests to make sure that certain error codes returned from GC will
+	 * trigger order cancellation, even if retryable errors also exist.
+	 * @dataProvider mcNoRetryCodeProvider
+	 */
+	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['ffname'] = 'cc-vmad';
+
+		//Expired card should not retry, even if there's an order id collision
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( $code );
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
+	}
+
+	public function mcNoRetryCodeProvider() {
+		return array(
+			array( '430260' ),
+			array( '430306' ),
+			array( '430330' ),
+			array( '430354' ),
+			array( '430357' ),
+		);
+	}
 }
