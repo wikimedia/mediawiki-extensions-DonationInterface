@@ -240,11 +240,12 @@ function createQueueMessage( $transaction ) {
 }
 
 /**
- * Well, code comments are good; but I have no clue what this actually does...
- * TODO: Determine WTH this code actually does and why
- * @param $transaction
+ * Called by the orphan rectifier to change a queue message back into a gateway
+ * transaction array, basically undoing the mappings from createQueueMessage
  *
- * @return array
+ * @param array $transaction STOMP message
+ *
+ * @return array message with queue keys remapped to gateway keys
  */
 function unCreateQueueMessage( $transaction ) {
 	// For now, this function assumes that we have a complete queue message.

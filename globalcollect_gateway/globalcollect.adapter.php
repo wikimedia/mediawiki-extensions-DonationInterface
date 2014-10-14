@@ -374,7 +374,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Define goToThankYouOn
 	 *
-	 * The statuses defined in @see GlobalCollectAdapter::$goToThankYouOn will
+	 * The statuses defined in @see GatewayAdapter::$goToThankYouOn will
 	 * allow a completed form to go to the Thank you page.
 	 *
 	 * Allowed:
@@ -1395,7 +1395,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
-	 * @param array	$response	The response array
+	 * @param DomDocument	$response	The response XML loaded into a DomDocument
 	 * @return bool
 	 */
 	public function getResponseStatus( $response ) {
