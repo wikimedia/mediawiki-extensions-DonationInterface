@@ -1767,11 +1767,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$retErrCode = $errCode;
 					break;
 				case 430260: //wow: If we were a point of sale, we'd be calling security.
+				case 430357: //lost or stolen card
+					// These two get all the cancel treatment below, plus some extra
+					// IP velocity spanking.
+					if ( $this->getGlobal( 'EnableIPVelocityFilter' ) ) {
+						Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
+					}
 				case 430306: //Expired card.
 				case 430330: //invalid card number
 				case 430354: //issuer unknown
-				case 430357: //lost or stolen card
-					// All of these should stop us from retrying at all
+					// All five these should stop us from retrying at all
 					// Null out the retry vars and return immediately
 					$retryVars = null;
 					$this->log( "Got error code $errCode, not retrying to avoid MasterCard fines.", LOG_INFO );
