@@ -349,14 +349,4 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent an antimessage!" );
 		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
 	}
-
-	public function mcNoRetryCodeProvider() {
-		return array(
-			array( '430260' ),
-			array( '430306' ),
-			array( '430330' ),
-			array( '430354' ),
-			array( '430357' ),
-		);
-	}
 }

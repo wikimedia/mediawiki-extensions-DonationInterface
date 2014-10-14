@@ -616,6 +616,8 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 
 	public $testlog = array ( );
 
+	public $curled = array ( );
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -719,6 +721,11 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 */
 	public function setDummyCurlResponseCode( $code ) {
 		$this->dummyCurlResponseCode = $code;
+	}
+
+	protected function curl_transaction( $data ) {
+		$this->curled[] = $data;
+		return parent::curl_transaction( $data );
 	}
 
 	/**
