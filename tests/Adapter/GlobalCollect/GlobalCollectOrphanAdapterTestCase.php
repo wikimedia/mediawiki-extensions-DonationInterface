@@ -18,7 +18,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
@@ -143,7 +143,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase exte
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
-				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
+				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
 			),
 			'country' => array (
 				'nodename' => 'select',
