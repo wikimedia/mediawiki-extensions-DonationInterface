@@ -334,12 +334,20 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
+		//Make it not look like an orphan
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'CVVRESULT' => 'M',
+				'AVSRESULT' => '0'
+			), false ) );
 
-		//Expired card should not retry, even if there's an order id collision
+		//Toxic card should not retry, even if there's an order id collision
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
+		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent an antimessage!" );
+		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
 	}
 
 	public function mcNoRetryCodeProvider() {
