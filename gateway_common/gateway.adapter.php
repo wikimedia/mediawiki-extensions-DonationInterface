@@ -1042,8 +1042,10 @@ abstract class GatewayAdapter implements GatewayType {
 				return $this->getTransactionAllResults();
 			}
 
-			//TODO: Maybe move this to the pre_process functions?
-			$this->dataObj->saveContributionTrackingData();
+			if ( !$this->isBatchProcessor() ) {
+				//TODO: Maybe move this to the pre_process functions?
+				$this->dataObj->saveContributionTrackingData();
+			}
 
 			$commType = $this->getCommunicationType();
 			if ( $commType === 'redirect' ) {
@@ -1675,7 +1677,7 @@ abstract class GatewayAdapter implements GatewayType {
 			return;
 		}
 
-		if ( $saveDB === null ){
+		if ( $saveDB === null && !$this->isBatchProcessor() ) {
 			$db = ContributionTrackingProcessor::contributionTrackingConnection();
 			if ( $db->tableExists( 'communication_stats' ) ) {
 				$saveDB = true;
