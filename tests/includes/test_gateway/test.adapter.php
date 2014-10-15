@@ -101,6 +101,8 @@ class TestingGenericAdapter extends GatewayAdapter {
 class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	public $testlog = array ( );
 
+	public $curled = array ( );
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -211,6 +213,11 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	public function setDummyCurlResponseCode( $code ) {
 		$this->dummyCurlResponseCode = $code;
+	}
+
+	protected function curl_transaction( $data ) {
+		$this->curled[] = $data;
+		return parent::curl_transaction( $data );
 	}
 
 	/**
