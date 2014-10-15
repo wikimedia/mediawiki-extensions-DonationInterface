@@ -865,6 +865,15 @@ class WorldPayAdapter extends GatewayAdapter {
 				$this->dataObj->expunge( 'cvv' );
 				break;
 		}
+		if ( isset( $response['data']['MessageCode'] ) ) {
+			$code = $response['data']['MessageCode'];
+			// 'Retain card' or 'Card stolen'.  Penalize the IP
+			if ( ( $code == '2648' || $code == '2952' || $code == '2954' )
+				&& $this->getGlobal( 'EnableIPVelocityFilter' )
+			) {
+				Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
+			}
+		}
 		return $return;
 	}
 
