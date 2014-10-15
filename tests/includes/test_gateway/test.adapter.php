@@ -103,6 +103,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $curled = array ( );
 
+	public $limbo_stomps = array ( );
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -175,6 +177,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		parent::defineOrderIDMeta();
 	}
 
+	/**
+	 * Stub out the limboStomp fn and record the calls
+	 * @param type $antiMessage
+	 */
+	public function doLimboStompTransaction( $antiMessage = false ) {
+		$this->limbo_stomps[] = $antiMessage;
+	}
 	/**
 	* Trap the error log so we can use it in testing
 	* @param type $msg
