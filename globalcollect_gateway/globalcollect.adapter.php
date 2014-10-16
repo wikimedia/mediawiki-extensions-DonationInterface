@@ -234,7 +234,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
 			'internal-0002' => 'donate_interface-processing-error', // Communication failure
-			
+			'internal-0003' => 'donate_interface-processing-error', // Toxic card, don't retry on pain of $1000+ fine
+
 			// Do bank validation messages
 			//'dbv-50'	=> 'globalcollect_gateway-response-dbv-50', // Account number format incorrect
 			//'dbv-80'	=> 'globalcollect_gateway-response-dbv-80', // Account details missing
@@ -1125,6 +1126,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
+			//add an antimessage for everything but orphans
+			$this->log( 'Adding Antimessage' );
+			$this->doLimboStompTransaction( true );
 		} else { //this is an orphan transaction.
 			$is_orphan = true;
 			//have to change this code range: All these are usually "pending" and
@@ -1139,7 +1143,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it.
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$problemseverity = LOG_ERR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
-		$add_antimessage = false; //this tells us if we should add an antimessage when we are done or not.
 		$original_status_code = NULL;
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
@@ -1170,7 +1173,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg .= ', AVS Result from XML: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
 
-			if ( $is_orphan ) {
+			if ( array_key_exists( 'force_cancel', $status_result ) && $status_result['force_cancel'] ) {
+				$cancelflag = true; //don't retry or MasterCard will fine us
+			}
+
+			if ( $is_orphan && !$cancelflag ) {
 				if ( $loops === 0 ){ //only want to do this once - it's not going to change.
 					$this->runAntifraudHooks();
 				}
@@ -1179,8 +1186,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			//we filtered
 			if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
-				$cancelflag = true;
-				$add_antimessage = true; //don't retry: We've fraud-failed them intentionally.
+				$cancelflag = true; //don't retry: We've fraud-failed them intentionally.
 			} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
 			//can't communicate or internal error
 				$problemflag = true;
@@ -1210,16 +1216,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
 				}
 				switch ( $order_status_results ){
-					case 'failed' : 			
-					case 'revised' :  
-						$add_antimessage = true;
+					case 'failed' :
+					case 'revised' :
 						$cancelflag = true; //makes sure we don't try to confirm.
 						break 2;
 					case 'complete' :
 						$problemflag = true; //nothing to be done.
 						$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
 						$problemseverity = LOG_INFO;
-						$add_antimessage = true;
 						break 2;
 					case 'pending-poke' :
 						if ( $is_orphan && !$gotCVV ){
@@ -1240,7 +1244,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 									//ack and die. 
 									$problemflag = true; //nothing to be done.
 									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
-									$add_antimessage = true;
 									$this->finalizeInternalStatus('failed');
 								}
 							} else {
@@ -1303,20 +1306,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					 * us there is nothing to cancel.
 					 */
 					$this->finalizeInternalStatus( 'failed' );
-					$add_antimessage = true;
 				} else {
 					//in case we got wiped out, set the final status to what it was before. 
 					$this->finalizeInternalStatus( $order_status_results );
 				}
 			}
-		}
-		
-		if ( $add_antimessage && !$is_orphan ) {
-			//As it happens, we can't remove things from the queue here: It 
-			//takes way too dang long. (~5 seconds!)
-			//So, instead, I'll add an anti-message and deal with it later. (~.01 seconds) 
-			$this->log( 'Adding Antimessage' );
-			$this->doLimboStompTransaction( true );
 		}
 		
 		if ( $problemflag || $cancelflag ){
@@ -1773,9 +1767,27 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$retErrCode = $errCode;
 					break;
 				case 430260: //wow: If we were a point of sale, we'd be calling security.
-				case 430285: //most common declined cc code.
+				case 430357: //lost or stolen card
+					// These two get all the cancel treatment below, plus some extra
+					// IP velocity spanking.
+					if ( $this->getGlobal( 'EnableIPVelocityFilter' ) ) {
+						Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
+					}
 				case 430306: //Expired card.
 				case 430330: //invalid card number
+				case 430354: //issuer unknown
+					// All five these should stop us from retrying at all
+					// Null out the retry vars and return immediately
+					$retryVars = null;
+					$this->log( "Got error code $errCode, not retrying to avoid MasterCard fines.", LOG_INFO );
+					$this->setTransactionResult( true, 'force_cancel' );
+					$this->setTransactionResult( array(
+							'internal-0003' => $this->getErrorMapByCodeAndTranslate( 'internal-0003' ),
+						),
+						'errors'
+					);
+					return $errCode;
+				case 430285: //most common declined cc code.
 				case 430396: //not authorized to cardholder, whatever that means.
 				case 430409: //Declined, because "referred". wth does that even.
 				case 430415: //Declined for "security violation"

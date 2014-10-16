@@ -104,15 +104,19 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * @param array $oldvalue The value we've just pulled from memcache for this 
 	 * ip address
 	 * @param bool $fail If this entry was added on the filter being tripped
+	 * @param bool $toxic If we're adding this entry to penalize a toxic card
 	 */
-	function addNowToMemcachedValue( $oldvalue = null, $fail = false ){
+	function addNowToMemcachedValue( $oldvalue = null, $fail = false, $toxic = false ){
 		//need to be connected first. 
 		if ( is_null( $oldvalue ) ){
 			$oldvalue = $this->getMemcachedValue();
 		}
 		
 		$timeout = null;
-		if ( $fail ){
+		if ( $toxic ) {
+			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityToxicDuration' );
+		}
+		if ( is_null($timeout) && $fail ){
 			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityFailDuration' );
 		}
 		if ( is_null($timeout) ){
@@ -164,6 +168,25 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * Add a hit to this IP's history for a toxic card.  This is designed to be
+	 * called outside of the usual filter callbacks so we record nasty attempts
+	 * even when the filters aren't called.
+	 */
+	public static function penalize( &$gateway ) {
+		$gateway->log( 'IPVelocityFilter penalizing IP address '
+			. $gateway->getData_Unstaged_Escaped( 'user_ip' )
+			. ' for toxic card attempt.', LOG_INFO );
+
+		$velocity = Gateway_Extras_CustomFilters_IP_Velocity::singleton(
+			$gateway,
+			Gateway_Extras_CustomFilters::singleton( $gateway )
+		);
+		if ( $velocity->connectToMemcache() ) {
+			$velocity->addNowToMemcachedValue( null, false, true );
+		}
 	}
 
 }
