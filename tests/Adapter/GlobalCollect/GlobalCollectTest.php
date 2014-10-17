@@ -22,7 +22,7 @@
  * @group DonationInterface
  * @group GlobalCollect
  */
-class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -163,7 +163,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	 * We should skip the API call if we're already suspicious
 	 */
 	function testGetOrderStatusSkipsIfFail() {
-		DonationInterface_FraudFiltersTestCase::setupFraudMaps();
+		DonationInterface_FraudFiltersTest::setupFraudMaps();
 
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';

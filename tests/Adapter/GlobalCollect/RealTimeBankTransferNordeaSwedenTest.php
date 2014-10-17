@@ -14,6 +14,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
+ * @since		r100823
+ * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -21,9 +23,9 @@
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
- * @group Yandex
+ * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_YandexTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTest extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml
@@ -36,36 +38,18 @@ class DonationInterface_Adapter_GlobalCollect_YandexTestCase extends DonationInt
 	public function testBuildRequestXml() {
 		
 		$optionsForTestData = array(
-			'payment_method' => 'ew',
-			'payment_submethod' => 'ew_yandex',
-			'payment_product_id' => 849,
-			'descriptor' => 'Wikimedia Foundation/Wikipedia', //all ewallets have this
+			'form_name' => 'TwoStepAmount',
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_nordea_sweden',
+			'payment_product_id' => 805,
 		);
 
 		//somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
-		unset( $options['descriptor'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
-
-	public function testFormAction() {
-		$optionsForTestData = array (
-			'payment_method' => 'ew',
-			'payment_submethod' => 'ew_yandex',
-		);
-
-		//somewhere else?
-		$options = $this->getDonorTestData( 'ES' );
-		$options = array_merge( $options, $optionsForTestData );
-
-		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
-		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
-		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (yandex)." );
-	}
-
 }
 

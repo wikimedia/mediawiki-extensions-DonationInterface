@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group DIIntegration
  */
-class DonationInterface_IntegrationTestCase extends DonationInterfaceTestCase {
+class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

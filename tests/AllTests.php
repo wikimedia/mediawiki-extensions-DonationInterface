@@ -31,7 +31,6 @@ class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite
 
 		$suffixes = array(
 			'Test.php',
-			'TestCase.php',
 		);
 		$fileIterator = new File_Iterator_Facade();
 		$files = $fileIterator->getFilesAsArray( __DIR__, $suffixes );

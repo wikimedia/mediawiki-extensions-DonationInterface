@@ -33,7 +33,7 @@
  * @group DonationInterface
  * @group Splunge
  */
-class DonationInterface_Adapter_GatewayAdapterTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

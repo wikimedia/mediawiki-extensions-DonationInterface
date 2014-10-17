@@ -22,7 +22,7 @@
  * @group DonationInterface
  * @group WorldPay
  */
-class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

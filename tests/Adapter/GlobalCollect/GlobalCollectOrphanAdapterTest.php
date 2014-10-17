@@ -24,7 +24,7 @@
  * @group GlobalCollect
  * @group OrphanSlayer
  */
-class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

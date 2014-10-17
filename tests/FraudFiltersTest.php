@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group FormChooser
  */
-class DonationInterface_FraudFiltersTestCase extends DonationInterfaceTestCase {
+class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

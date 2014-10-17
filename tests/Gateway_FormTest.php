@@ -33,7 +33,7 @@ class TestGatewayForm extends Gateway_Form {
  * @group DonationInterface
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
-class DonationInterface_Gateway_FormTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Gateway_FormTest extends DonationInterfaceTestCase {
 	protected $adapter;
 	protected $form;
 

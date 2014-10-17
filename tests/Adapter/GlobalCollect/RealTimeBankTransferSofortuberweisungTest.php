@@ -14,18 +14,18 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r98249
+ * @since		r100824
  * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
- *
+ * 
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
- * @group BankTransfer
+ * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTest extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml
@@ -39,11 +39,12 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTestCase extends Donat
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
-			'payment_method' => 'bt',
-			'payment_submethod' => 'bt',
-			'payment_product_id' => 11,
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_sofortuberweisung',
+			'payment_product_id' => 836,
 		);
 
+		//somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );

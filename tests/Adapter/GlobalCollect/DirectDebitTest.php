@@ -23,7 +23,7 @@
  * @group GlobalCollect
  * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_DirectDebitTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml

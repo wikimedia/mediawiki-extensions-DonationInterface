@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group PayPal
  */
-class DonationInterface_Adapter_PayPal_TestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

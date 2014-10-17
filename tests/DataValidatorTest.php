@@ -21,7 +21,7 @@
  * @group	GlobalCollect
  * @category	UnitTesting
  */
-class DataValidatorTestCase  extends PHPUnit_Framework_TestCase {
+class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 	/**
 	 * Test the Luhn check algorithm
 	 * @dataProvider luhnDataProvider

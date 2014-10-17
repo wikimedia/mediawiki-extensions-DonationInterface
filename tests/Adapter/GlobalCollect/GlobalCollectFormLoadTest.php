@@ -22,7 +22,7 @@
  * @group DonationInterface
  * @group GlobalCollect
  */
-class GlobalCollectFormLoadTestCase extends DonationInterfaceTestCase {
+class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 
 	public function testGCFormLoad() {
 		$init = $this->getDonorTestData( 'US' );
