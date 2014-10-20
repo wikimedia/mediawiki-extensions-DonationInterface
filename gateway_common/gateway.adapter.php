@@ -188,7 +188,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $error_map = array();
 
 	/**
-	 * @see GatewayAdapter::defineGoToThankYouOn()
+	 * @see GlobalCollectAdapter::defineGoToThankYouOn()
 	 *
 	 * @var	array	$goToThankYouOn
 	 */
@@ -254,7 +254,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * failure of the transaction. Not widely used.
 	 * - 'gateway_txn_id' - the gateway transaction ID
 	 * - 'data' - All PARSED transaction data.
-	 * 	 * @var type
+	 * @var array
 	 */
 	protected $transaction_results;
 	protected $validation_errors;
@@ -294,8 +294,7 @@ abstract class GatewayAdapter implements GatewayType {
 	);
 
 	/**
-	 * Get @see GlobalCollectAdapter::$goToThankYouOn
-	 *
+	 * Get @see GatewayAdapter::$goToThankYouOn
 	 */
 	public function getGoToThankYouOn() {
 
@@ -1654,7 +1653,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 *
 	 * @param string $function This is the function name that identifies the
 	 * stopwatch that should have already been started with the getStopwatch
 	 * function.
@@ -1985,7 +1983,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 *
 	 * @param string $type Whatever types of staging you feel like having in your child class.
 	 * ...but usually request and response. I think.
 	 */
