@@ -153,6 +153,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'fr',
 			),
+			// Fiji is configured as a snowflake to test special treatment for certain store IDs
+			'FJ' => array (
+				'city' => 'Suva',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Fake Street',
+				'fname' => 'FirstName',
+				'lname' => 'LastName',
+				'amount' => '1.55',
+				'language' => 'en',
+			),
 			'NL' => array (
 				'city' => 'Amsterdam',
 				'state' => 'XX',

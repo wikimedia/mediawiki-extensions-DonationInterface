@@ -376,4 +376,36 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
         $this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Decimal Order ID is correctly built from Contribution Tracking ID.' );
 	}
+
+	/**
+	 * Ensure processResponse doesn't fail trxn for special accounts when AVS
+	 * nodes are missing.
+	 */
+	function testProcessResponseAllowsSnowflakeAVSMissing() {
+		$options = $this->getDonorTestData( 'FJ' ); // 'FJ' store ID is set up as a special exception
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 'snowflake' );
+		$results = $gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		// internal-0001 is the error code processRespose adds for missing nodes
+		$this->assertFalse( array_key_exists( 'internal-0001', $results['errors'] ),
+			'processResponse is failing a special snowflake account with a response missing AVS nodes' );
+	}
+
+	/**
+	 * Ensure we don't give too high a risk score for special accounts when
+	 * AVS address / zip match was not performed and CVV reports failure
+	 */
+	function testAntifraudAllowsSnowflakeAVSMissingAndCVVMismatch() {
+		$options = $this->getDonorTestData( 'FJ' ); // 'FJ' store ID is set up as a special exception
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 'snowflake' );
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		$this->assertTrue( $gateway->getCVVResult(), 'getCVVResult failing snowflake account' );
+
+		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult giving snowflake account too high a risk score' );
+	}
 }
