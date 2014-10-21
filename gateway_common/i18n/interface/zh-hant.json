@@ -133,7 +133,7 @@
 	"donate_interface-dd-button": "透過直接借記捐款",
 	"donate_interface-bt-button": "銀行轉帳捐款",
 	"donate_interface-rt-button": "透過 $1 銀行捐款",
-	"donate_interface-ewallet-button": "通過 $1 捐贈",
+	"donate_interface-ewallet-button": "透過 $1 捐贈",
 	"donate_interface-card-legend": "信用卡資訊",
 	"donate_interface-amount-legend": "捐款金額",
 	"donate_interface-cvv-link": "它在哪裡？",
