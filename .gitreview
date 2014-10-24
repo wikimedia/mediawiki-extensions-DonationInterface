@@ -2,5 +2,5 @@
 host=gerrit.wikimedia.org
 port=29418
 project=mediawiki/extensions/DonationInterface.git
-defaultbranch=deploy-payments_1.22
+defaultbranch=deployment
 defaultrebase=0
