@@ -714,6 +714,20 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 	}
 
+	/**
+	 * Check if the currently-staged store ID is configured for special treatment.
+	 * Certain store IDs (just FR so far) do not get AVS results, and always get
+	 * a 'fail' result for CVV.  These are configured in the account_config's
+	 * SpecialSnowflakeStoreIDs array.
+	 *
+	 * @return bool Whether currently staged account is special
+	 */
+	private function is_snowflake_account() {
+		return array_key_exists( 'SpecialSnowflakeStoreIDs', $this->account_config )
+			&& array_key_exists( 'wp_storeid', $this->staged_data )
+			&& in_array( $this->staged_data['wp_storeid'], $this->account_config['SpecialSnowflakeStoreIDs'] );
+	}
+
 	public function do_transaction( $transaction ) {
 		$this->url = $this->getGlobal( 'URL' );
 
@@ -856,14 +870,28 @@ class WorldPayAdapter extends GatewayAdapter {
 				break;
 
 			case 'AuthorizePaymentForFraud':
-				$return = $setFailOnEmpty( $addData( array(
-					'CVNMatch' => 'cvv_result',
+				// StoreIDs for certain countries (just FR so far) get XML responses
+				// with no AVS results and no 'CVNMatch' node.
+				$needfulThings = $this->is_snowflake_account() ? array( 
+					'PTTID' => 'wp_pttid',
+				) : array(
 					'AddressMatch' => 'avs_address',
 					'PostalCodeMatch' => 'avs_zip',
-					'PTTID' => 'wp_pttid'
-				) ) );
+					'PTTID' => 'wp_pttid',
+					'CVNMatch' => 'cvv_result',
+				);
+				$return = $setFailOnEmpty( $addData( $needfulThings ) );
 				$this->dataObj->expunge( 'cvv' );
 				break;
+		}
+		if ( isset( $response['data']['MessageCode'] ) ) {
+			$code = $response['data']['MessageCode'];
+			// 'Retain card' or 'Card stolen'.  Penalize the IP
+			if ( ( $code == '2648' || $code == '2952' || $code == '2954' )
+				&& $this->getGlobal( 'EnableIPVelocityFilter' )
+			) {
+				Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
+			}
 		}
 		return $return;
 	}
@@ -1028,6 +1056,11 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not.
 	 */
 	public function getCVVResult() {
+		// Special accounts always return false, but we let them through
+		if ( $this->is_snowflake_account() ) {
+			return true;
+		}
+
 		$cvv_result = '';
 		if ( !is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ) {
 			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
@@ -1047,6 +1080,11 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * together: One for address, and one for zip.
 	 */
 	public function getAVSResult() {
+		// Special accounts are missing the AVS nodes, but we don't fail them.
+		if ( $this->is_snowflake_account() ) {
+			return 0;
+		}
+
 		$avs_address = '';
 		$avs_zip = '';
 
