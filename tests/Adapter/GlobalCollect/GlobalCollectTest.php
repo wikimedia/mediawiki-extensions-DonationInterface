@@ -22,7 +22,7 @@
  * @group DonationInterface
  * @group GlobalCollect
  */
-class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -163,7 +163,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 	 * We should skip the API call if we're already suspicious
 	 */
 	function testGetOrderStatusSkipsIfFail() {
-		DonationInterface_FraudFiltersTestCase::setupFraudMaps();
+		DonationInterface_FraudFiltersTest::setupFraudMaps();
 
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
@@ -325,4 +325,28 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTestCase extends Dona
 		$this->assertType( 'string', $logline, 'GC Error 21000050 is not generating the expected payments log error' );
 	}
 
+	/**
+	 * Tests to make sure that certain error codes returned from GC will
+	 * trigger order cancellation, even if retryable errors also exist.
+	 * @dataProvider mcNoRetryCodeProvider
+	 */
+	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['ffname'] = 'cc-vmad';
+		//Make it not look like an orphan
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'CVVRESULT' => 'M',
+				'AVSRESULT' => '0'
+			), false ) );
+
+		//Toxic card should not retry, even if there's an order id collision
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( $code );
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
+		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent an antimessage!" );
+		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
+	}
 }

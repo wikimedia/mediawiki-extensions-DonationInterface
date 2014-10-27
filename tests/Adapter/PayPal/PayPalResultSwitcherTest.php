@@ -20,7 +20,7 @@
  * @group DonationInterface
  * @group PayPal
  */
-class PayPalResultSwitcherTestCase extends DonationInterfaceTestCase {
+class PayPalResultSwitcherTest extends DonationInterfaceTestCase {
 
 	function testSuccessfulRedirect() {
 		$init = $this->getDonorTestData( 'FR' );

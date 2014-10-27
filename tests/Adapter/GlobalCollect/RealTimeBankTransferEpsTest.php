@@ -14,6 +14,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
+ * @since		r100820
+ * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -23,55 +25,26 @@
  * @group GlobalCollect
  * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEpsTest extends DonationInterfaceTestCase {
 
 	/**
-	 * Test for ideal form loading
-	 */
-	public function testGCFormLoad_rtbt_Ideal() {
-		$init = $this->getDonorTestData( 'NL' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'rtbt';
-		$init['ffname'] = 'rtbt-ideal';
-
-		$assertNodes = array (
-			//can't do the selected-amount test here, because apparently javascript. So...
-
-			'amount' => array (
-				'nodename' => 'input',
-				'value' => '1.55',
-			),
-			'currency_code' => array (
-				'nodename' => 'input',
-				'value' => 'EUR',
-			),
-			'country' => array (
-				'nodename' => 'input',
-				'value' => 'NL',
-			),
-		);
-
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
-	}
-
-	/**
-	 * testBuildRequestXmlWithIssuerId21
+	 * testBuildRequestXmlWithIssuerId820
 	 *
-	 * Rabobank: 21
+	 * Raifeissen: 820
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId21() {
+	public function testBuildRequestXmlWithIssuerId820() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 21,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 820,
 		);
 
 		//somewhere else?
@@ -83,23 +56,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId31
+	 * testBuildRequestXmlWithIssuerId821
 	 *
-	 * ABN AMRO: 31
+	 * Volksbanken Gruppe: 821
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId31() {
+	public function testBuildRequestXmlWithIssuerId821() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 31,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 821,
 		);
 
 		//somewhere else?
@@ -111,23 +84,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId91
+	 * testBuildRequestXmlWithIssuerId822
 	 *
-	 * Friesland Bank: 91
+	 * NÖ HYPO: 822
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId91() {
+	public function testBuildRequestXmlWithIssuerId822() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 91,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 822,
 		);
 
 		//somewhere else?
@@ -139,23 +112,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId161
+	 * testBuildRequestXmlWithIssuerId823
 	 *
-	 * Van Lanschot Bankiers: 161
+	 * Voralberger HYPO: 823
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId161() {
+	public function testBuildRequestXmlWithIssuerId823() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 161,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 823,
 		);
 
 		//somewhere else?
@@ -167,23 +140,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId511
+	 * testBuildRequestXmlWithIssuerId824
 	 *
-	 * Triodos Bank: 511
+	 * Bankhaus Spängler: 824
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId511() {
+	public function testBuildRequestXmlWithIssuerId824() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 511,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 824,
 		);
 
 		//somewhere else?
@@ -195,23 +168,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId721
+	 * testBuildRequestXmlWithIssuerId825
 	 *
-	 * ING: 721
+	 * Hypo Tirol Bank: 825
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId721() {
+	public function testBuildRequestXmlWithIssuerId825() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 721,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 825,
 		);
 
 		//somewhere else?
@@ -223,23 +196,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId751
+	 * testBuildRequestXmlWithIssuerId826
 	 *
-	 * SNS Bank: 751
+	 * Erste Bank und Sparkassen: 826
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId751() {
+	public function testBuildRequestXmlWithIssuerId826() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 751,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 826,
 		);
 
 		//somewhere else?
@@ -251,23 +224,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId761
+	 * testBuildRequestXmlWithIssuerId827
 	 *
-	 * ASN Bank: 761
+	 * BAWAG: 827
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId761() {
+	public function testBuildRequestXmlWithIssuerId827() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 761,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 827,
 		);
 
 		//somewhere else?
@@ -279,23 +252,23 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 	}
 
 	/**
-	 * testBuildRequestXmlWithIssuerId771
+	 * testBuildRequestXmlWithIssuerId828
 	 *
-	 * RegioBank: 771
+	 * P.S.K.: 828
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
-	public function testBuildRequestXmlWithIssuerId771() {
+	public function testBuildRequestXmlWithIssuerId828() {
 		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'payment_product_id' => 809,
-			'issuer_id' => 771,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 828,
 		);
 
 		//somewhere else?
@@ -306,23 +279,59 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTestCase 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
 
-	public function testFormAction() {
-
-		$optionsForTestData = array (
+	/**
+	 * testBuildRequestXmlWithIssuerId829
+	 *
+	 * Easy: 829
+	 *
+	 * @covers GatewayAdapter::__construct
+	 * @covers GatewayAdapter::setCurrentTransaction
+	 * @covers GatewayAdapter::buildRequestXML
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
+	 */
+	public function testBuildRequestXmlWithIssuerId829() {
+		
+		$optionsForTestData = array(
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_ideal',
-			'issuer_id' => 771,
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 829,
 		);
 
 		//somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
 
-		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
-		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
-		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (ideal)." );
+		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
 
+	/**
+	 * testBuildRequestXmlWithIssuerId831
+	 *
+	 * Sparda-Bank: 831
+	 *
+	 * @covers GatewayAdapter::__construct
+	 * @covers GatewayAdapter::setCurrentTransaction
+	 * @covers GatewayAdapter::buildRequestXML
+	 * @covers GatewayAdapter::getData_Unstaged_Escaped
+	 */
+	public function testBuildRequestXmlWithIssuerId831() {
+		
+		$optionsForTestData = array(
+			'form_name' => 'TwoStepAmount',
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_eps',
+			'payment_product_id' => 856,
+			'issuer_id' => 831,
+		);
+
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+		unset( $options['payment_product_id'] );
+
+		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
+	}
 }
 

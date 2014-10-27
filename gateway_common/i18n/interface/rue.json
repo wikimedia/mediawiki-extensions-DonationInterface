@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Gazeb",
-			"Jsoby"
+			"Jsoby",
+			"Tkalyn"
 		]
 	},
 	"donate_interface": "Підпора фонду Вікімедія",
@@ -196,7 +197,7 @@
 	"donate_interface-back": "Зозаду",
 	"donate_interface-front-of-shirt": "Перед трічка",
 	"donate_interface-back-of-shirt": "Зад трічка",
-	"donate_interface-select-a-size": "Быберьте великость.",
+	"donate_interface-select-a-size": "Просиме, выберьте великость.",
 	"donate_interface-select": "Великость:",
 	"donate_interface-shipping-address": "Адреса доданя",
 	"donate_interface-shipping-address-different": "Моя адреса доданя ся різнить од моёй фактурачной адресы.",

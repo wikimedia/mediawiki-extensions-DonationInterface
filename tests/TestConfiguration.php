@@ -135,6 +135,7 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 	'Test' => true,
 	'TokenizingMerchantID' => '123456',
 	'StoreIDs' => array (
+		'*/FJ/EUR' => array( 123456, 'fj_store_id' ),
 		'*/*/EUR' => array( 123456, 'eur_store_id' ),
 		'*/*/USD' => array( 123456, 'usd_store_id' ),
 	),
@@ -143,6 +144,10 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 			'Username' => 'testname2',
 			'Password' => 'testpass2',
 		),
+	),
+	// Test special treatment - allow 'fail' CVV and missing AVS nodes
+	'SpecialSnowflakeStoreIDs' => array(
+		'fj_store_id',
 	),
 );
 $wgWorldPayGatewayURL = 'https://test.worldpay.com';

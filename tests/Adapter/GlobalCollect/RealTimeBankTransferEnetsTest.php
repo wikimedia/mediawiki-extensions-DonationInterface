@@ -14,8 +14,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * @since		r100824
- * @author		Jeremy Postlethwaite <jpostlethwaite@wikimedia.org>
  */
 
 /**
@@ -25,7 +23,7 @@
  * @group GlobalCollect
  * @group RealTimeBankTransfer
  */
-class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweisungTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTest extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml
@@ -40,8 +38,8 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweis
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_sofortuberweisung',
-			'payment_product_id' => 836,
+			'payment_submethod' => 'rtbt_enets',
+			'payment_product_id' => 810,
 		);
 
 		//somewhere else?
@@ -51,5 +49,24 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferSofortuberweis
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
+
+	public function testFormAction() {
+
+		$optionsForTestData = array (
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_enets',
+			'payment_product_id' => 810,
+		);
+
+		//somewhere else?
+		$options = $this->getDonorTestData( 'ES' );
+		$options = array_merge( $options, $optionsForTestData );
+
+		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
+		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
+		$action = $this->gatewayAdapter->getTransactionDataFormAction();
+		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (enets)." );
+	}
+
 }
 

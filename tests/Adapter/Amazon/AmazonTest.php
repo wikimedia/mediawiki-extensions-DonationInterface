@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group Amazon
  */
-class DonationInterface_Adapter_Amazon_TestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

@@ -21,9 +21,9 @@
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
- * @group RealTimeBankTransfer
+ * @group Yandex
  */
-class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_YandexTest extends DonationInterfaceTestCase {
 
 	/**
 	 * testBuildRequestXml
@@ -36,26 +36,25 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase 
 	public function testBuildRequestXml() {
 		
 		$optionsForTestData = array(
-			'form_name' => 'TwoStepAmount',
-			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_enets',
-			'payment_product_id' => 810,
+			'payment_method' => 'ew',
+			'payment_submethod' => 'ew_yandex',
+			'payment_product_id' => 849,
+			'descriptor' => 'Wikimedia Foundation/Wikipedia', //all ewallets have this
 		);
 
 		//somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
+		unset( $options['descriptor'] );
 
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
 
 	public function testFormAction() {
-
 		$optionsForTestData = array (
-			'payment_method' => 'rtbt',
-			'payment_submethod' => 'rtbt_enets',
-			'payment_product_id' => 810,
+			'payment_method' => 'ew',
+			'payment_submethod' => 'ew_yandex',
 		);
 
 		//somewhere else?
@@ -65,7 +64,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferEnetsTestCase 
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
 		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
 		$action = $this->gatewayAdapter->getTransactionDataFormAction();
-		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (enets)." );
+		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (yandex)." );
 	}
 
 }

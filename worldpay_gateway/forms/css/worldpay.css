@@ -69,7 +69,7 @@ div#payflowpro_gateway-donate-submessage {
 /* Forms and form partials */
 /* TODO: move common rules to shared css */
 .formCol {
-	width:425px !important;
+	width:465px !important;
 }
 #greenBackground, div.donor{
 	background-color:#CCE7CD;
@@ -107,6 +107,7 @@ select#state.us, select#state.au, select#state.ca, select#country {
 	color: #333;
 	overflow: hidden;
 	margin-bottom: -5px;
+	max-height: 1.6em;
 }
 #wpContainer h3.cc_header {
 	margin-top: 0 !important;

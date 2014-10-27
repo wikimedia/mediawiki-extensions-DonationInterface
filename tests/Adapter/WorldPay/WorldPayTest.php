@@ -17,12 +17,12 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group WorldPay
  */
-class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -184,7 +184,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
-				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
+				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
 			),
 			'country' => array (
 				'nodename' => 'input',
@@ -252,7 +252,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 	}
 
 	/**
-	 * Ensure we don't give too high a risk score when AVS address / zip match was not performed 
+	 * Ensure we don't give too high a risk score when AVS address / zip match was not performed
 	 */
 	function testAntifraudAllowsAvsNotPerformed() {
 		$options = $this->getDonorTestData('FR'); //don't really care: We'll be using the dummy response directly.
@@ -262,8 +262,58 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
 
 		$this->assertEquals( '9', $gateway->getData_Unstaged_Escaped( 'avs_address' ), 'avs_address was not set after AuthorizePaymentForFraud' );
-		$this->assertEquals( '9', $gateway->getData_Unstaged_Escaped( 'avs_zip' ), 'avs_zip was not set after AuthorizePaymentForFraud' );		
+		$this->assertEquals( '9', $gateway->getData_Unstaged_Escaped( 'avs_zip' ), 'avs_zip was not set after AuthorizePaymentForFraud' );
 		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult returning too high a score for AVS not performed.' );
+	}
+
+	/**
+	 * Check to make sure we don't run antifraud filters (and burn a minfraud query) when we know the transaction has already failed
+	 */
+	function testAntifraudNotPerformedOnGatewayError() {
+		$options = $this->getDonorTestData( 'FR' ); //don't really care: We'll be using the dummy response directly.
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 2208 ); //account problems
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		//assert that:
+		//#1 - the gateway object has an appropriate transaction error set
+		//#2 - antifraud checks were not performed.
+
+		//check for the error code that corresponds to the transaction coming back with a failure, rather than the one that we use for fraud fail.
+		$errors = $gateway->getTransactionErrors();
+		$this->assertTrue( !empty( $errors ), 'No errors in getTransactionErrors after a bad "AuthorizePaymentForFraud"' );
+		$this->assertTrue( array_key_exists( 'internal-0001', $errors ), 'Unexpected error code' );
+
+		//check more things to make sure we didn't run any fraud filters
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Preparing to run custom filters/' );
+		$this->assertFalse( $logline, 'According to the logs, we ran antifraud filters and should not have' );
+		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+
+	}
+
+	/**
+	 * Check to make sure we do run antifraud filters when we know the transaction is okay to go
+	 */
+	function testAntifraudPerformedOnGatewayNoError() {
+		$options = $this->getDonorTestData( 'FR' ); //don't really care: We'll be using the dummy response directly.
+		$options['email'] = 'test@something.com';
+
+		$gateway = $this->getFreshGatewayObject( $options );
+//		$gateway->setDummyGatewayResponseCode( 2208 ); //account problems
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		//assert that:
+		//#1 - the gateway object has no errors set
+		//#2 - antifraud checks were performed.
+		$errors = $gateway->getTransactionErrors();
+		$this->assertTrue( empty( $errors ), 'Errors assigned in getTransactionErrors after a good "AuthorizePaymentForFraud"' );
+		//check more things to make sure we did run the fraud filters
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/CustomFiltersScores/' );
+		$this->assertType( 'string', $logline, 'No antifraud filters were run, according to the logs' );
+		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
 	}
 
 	/**
@@ -325,5 +375,37 @@ class DonationInterface_Adapter_WorldPay_WorldPayTestCase extends DonationInterf
 		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['numAttempt']}";
         $this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Decimal Order ID is correctly built from Contribution Tracking ID.' );
+	}
+
+	/**
+	 * Ensure processResponse doesn't fail trxn for special accounts when AVS
+	 * nodes are missing.
+	 */
+	function testProcessResponseAllowsSnowflakeAVSMissing() {
+		$options = $this->getDonorTestData( 'FJ' ); // 'FJ' store ID is set up as a special exception
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 'snowflake' );
+		$results = $gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		// internal-0001 is the error code processRespose adds for missing nodes
+		$this->assertFalse( array_key_exists( 'internal-0001', $results['errors'] ),
+			'processResponse is failing a special snowflake account with a response missing AVS nodes' );
+	}
+
+	/**
+	 * Ensure we don't give too high a risk score for special accounts when
+	 * AVS address / zip match was not performed and CVV reports failure
+	 */
+	function testAntifraudAllowsSnowflakeAVSMissingAndCVVMismatch() {
+		$options = $this->getDonorTestData( 'FJ' ); // 'FJ' store ID is set up as a special exception
+
+		$gateway = $this->getFreshGatewayObject( $options );
+		$gateway->setDummyGatewayResponseCode( 'snowflake' );
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+
+		$this->assertTrue( $gateway->getCVVResult(), 'getCVVResult failing snowflake account' );
+
+		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult giving snowflake account too high a risk score' );
 	}
 }

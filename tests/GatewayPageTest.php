@@ -30,7 +30,7 @@ class TestingGatewayPage extends GatewayPage {
  * @group DonationInterface
  * @group GatewayPage
  */
-class GatewayPageTestCase extends MediaWikiTestCase {
+class GatewayPageTest extends MediaWikiTestCase {
 
 	protected $page;
 	protected $adapter;

@@ -18,13 +18,13 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
  * @group OrphanSlayer
  */
-class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -143,7 +143,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase exte
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
-				'innerhtml' => 'En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la Fondation Wikipedia et ses prestataires de services situés aux Etats-Unis et ailleurs, dont les lois sur la protection de la vie privée ne sont pas forcement équivalentes aux vôtres.',
+				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
 			),
 			'country' => array (
 				'nodename' => 'select',
@@ -152,5 +152,30 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTestCase exte
 		);
 
 		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Tests to make sure that certain error codes returned from GC will
+	 * trigger order cancellation, even if retryable errors also exist.
+	 * @dataProvider mcNoRetryCodeProvider
+	 */
+	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
+		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+
+		//Toxic card should not retry, even if there's an order id collision
+		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
+		$init['ffname'] = 'cc-vmad';
+		$init['order_id'] = '55555';
+		$init['email'] = 'innocent@clean.com';
+		$gateway->loadDataAndReInit( $init, $useDB = false );
+		
+		$gateway->setDummyGatewayResponseCode( $code );
+		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
+		$this->assertEquals( false, $result['status'], "Error code $code should mean status of do_transaction is false" );
+		$this->assertTrue( array_key_exists( 'errors', $result ), 'Orphan adapter needs to see the errors to consider it rectified' );
+		$this->assertTrue( array_key_exists('1000001', $result['errors'] ), 'Orphan adapter needs error 1000001 to consider it rectified' );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
+		$this->assertType( 'string', $logline, "GC Error $code is not generating the expected payments log error" );
 	}
 }

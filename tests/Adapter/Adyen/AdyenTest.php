@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group Adyen
  */
-class DonationInterface_Adapter_Adyen_TestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

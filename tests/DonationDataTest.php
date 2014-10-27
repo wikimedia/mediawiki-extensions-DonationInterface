@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group Splunge
  */
-class DonationInterface_DonationDataTestCase extends DonationInterfaceTestCase {
+class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

@@ -456,11 +456,14 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	function defineErrorMap() {
+		//Well, this is probably going to get annoying as soon as we want to get specific here.
+		//We can't just use numbers here: We're going to have to break it out by request and number.
 		$this->error_map = array(
 			// Internal messages
 			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
 			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+			'internal-0003' => 'donate_interface-processing-error', // Some error code returned from one of the daisy-chained requests.
 		);
 	}
 
@@ -668,6 +671,8 @@ class WorldPayAdapter extends GatewayAdapter {
 		// PaymentTrust codes
 		// Anything other than 2050 or 2100 must be treated as failure for PT-A or PT-S or PT-R.
 		// Anything other than 2170 must be treated as failure for PT-C.
+		// ***LOOK AT THIS COMMENT: If you add AuthorizePaymentForFraud success statuses here,
+		// you will need to whack a finalizeInternalStatus in do_transaction_QueryAuthorizeDeposit
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2000, 2049 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2051, 2099 );
 		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2101, 2999 );
@@ -707,6 +712,20 @@ class WorldPayAdapter extends GatewayAdapter {
 			'MerchantId'        => 'wp_merchant_id',
 			'MerchantReference2'=> 'merchant_reference_2'
 		);
+	}
+
+	/**
+	 * Check if the currently-staged store ID is configured for special treatment.
+	 * Certain store IDs (just FR so far) do not get AVS results, and always get
+	 * a 'fail' result for CVV.  These are configured in the account_config's
+	 * SpecialSnowflakeStoreIDs array.
+	 *
+	 * @return bool Whether currently staged account is special
+	 */
+	private function is_snowflake_account() {
+		return array_key_exists( 'SpecialSnowflakeStoreIDs', $this->account_config )
+			&& array_key_exists( 'wp_storeid', $this->staged_data )
+			&& in_array( $this->staged_data['wp_storeid'], $this->account_config['SpecialSnowflakeStoreIDs'] );
 	}
 
 	public function do_transaction( $transaction ) {
@@ -760,11 +779,40 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Will return an empty array; errors can only be detected in processData()
-	 * @param DOMDocument $response
+	 * Check the response data for error conditions, and return them.
+	 *
+	 * If the site has $wgDonationInterfaceDisplayDebug = true, then the real
+	 * messages will be sent to the client. Messages will not be translated or
+	 * obfuscated.
+	 *
+	 * @param DOMDocument	$response	The XML response data all loaded into a DOMDocument
+	 * @return array
 	 */
 	function getResponseErrors( $response ) {
-		return array();
+		$code = false;
+		$message = false;
+		$errors = array( );
+
+		//only expecting one code / message. Everything else would be extreme edgecase time
+		foreach ( $response->getElementsByTagName( 'MessageCode' ) as $node ) {
+			$code = $node->nodeValue;
+			break;
+		}
+		foreach ( $response->getElementsByTagName( 'Message' ) as $node ) {
+			$message = $node->nodeValue;
+			break;
+		}
+
+		if ( $code ) {
+			//determine if the response code is, in fact, an error.
+			$action = $this->findCodeAction( $this->getCurrentTransaction(), 'MessageCode', $code );
+			if ( $action === 'failed' ) {
+				//use generic internals, I think.
+				//I can't tell if I'm being lazy here, or if we genuinely don't need to get specific with this.
+				$errors[$code] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( 'internal-0003' );
+			}
+		}
+		return $errors;
 	}
 
 	/**
@@ -775,60 +823,77 @@ class WorldPayAdapter extends GatewayAdapter {
 	public function processResponse( $response, &$retryVars = null ) {
 		$self = $this;
 		$addData = function( $pull_vars ) use ( $response, $self ) {
-			$emptyVars = array();
-			$addme = array ( );
-			foreach ( $pull_vars as $theirs => $ours ) {
-				if ( isset( $response['data'][$theirs] ) ) {
-					$addme[$ours] = $response['data'][$theirs];
-				} else {
-					$emptyVars[] = $theirs;
+				$emptyVars = array( );
+				$addme = array( );
+				foreach ( $pull_vars as $theirs => $ours ) {
+					if ( isset( $response['data'][$theirs] ) ) {
+						$addme[$ours] = $response['data'][$theirs];
+					} else {
+						$emptyVars[] = $theirs;
+					}
 				}
-			}
-			$self->addData( $addme, 'response' );
-			return $emptyVars;
-		};
+				$self->addData( $addme, 'response' );
+				return $emptyVars;
+			};
 		$setFailOnEmpty = function( $emptyVars ) use ( $response, $self ) {
-			if ( count( $emptyVars ) !== 0 ) {
-				$self->setTransactionResult( false, 'status' );
-				$self->setTransactionResult( array(
-						'internal-0001' => $self->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-						'errors',
-					));
-				$code = isset( $response['data']['MessageCode'] ) ? $response['data']['MessageCode'] : 'None given';
-				$message = isset( $response['data']['Message'] ) ? $response['data']['Message'] : 'None given';
-				$self->setTransactionResult(
-					"Transaction failed (empty vars): ({$code}) {$message}",
-					'message'
-				);
-			}
-		};
+				if ( count( $emptyVars ) !== 0 ) {
+					$self->setTransactionResult( false, 'status' );
+					$self->setTransactionResult( array(
+						'internal-0001' => $self->getErrorMapByCodeAndTranslate( 'internal-0001' )),
+					'errors'
+					);
+					$code = isset( $response['data']['MessageCode'] ) ? $response['data']['MessageCode'] : 'None given';
+					$message = isset( $response['data']['Message'] ) ? $response['data']['Message'] : 'None given';
+					$self->setTransactionResult(
+						"Transaction failed (empty vars): ({$code}) {$message}", 'message'
+					);
+					return $code;
+				}
+				return null;
+			};
 
+		$return = null;
 		switch ( $this->getCurrentTransaction() ) {
 			case 'GenerateToken':
-				$setFailOnEmpty( $addData( array(
+				$return = $setFailOnEmpty( $addData( array(
 					'OTT' => 'wp_one_time_token',
 					'OTTProcessURL' => 'wp_process_url',
 					'RDID' => 'wp_rdid',
-				)));
+				) ) );
 				break;
 
 			case 'QueryTokenData':
-				$setFailOnEmpty( $addData( array(
+				$return = $setFailOnEmpty( $addData( array(
 					'CardId' => 'wp_card_id',
 					'CreditCardType' => 'payment_submethod',
-				)));
+				) ) );
 				break;
 
 			case 'AuthorizePaymentForFraud':
-				$setFailOnEmpty( $addData( array(
-					'CVNMatch' => 'cvv_result',
+				// StoreIDs for certain countries (just FR so far) get XML responses
+				// with no AVS results and no 'CVNMatch' node.
+				$needfulThings = $this->is_snowflake_account() ? array( 
+					'PTTID' => 'wp_pttid',
+				) : array(
 					'AddressMatch' => 'avs_address',
 					'PostalCodeMatch' => 'avs_zip',
-					'PTTID' => 'wp_pttid'
-				)));
+					'PTTID' => 'wp_pttid',
+					'CVNMatch' => 'cvv_result',
+				);
+				$return = $setFailOnEmpty( $addData( $needfulThings ) );
 				$this->dataObj->expunge( 'cvv' );
 				break;
 		}
+		if ( isset( $response['data']['MessageCode'] ) ) {
+			$code = $response['data']['MessageCode'];
+			// 'Retain card' or 'Card stolen'.  Penalize the IP
+			if ( ( $code == '2648' || $code == '2952' || $code == '2954' )
+				&& $this->getGlobal( 'EnableIPVelocityFilter' )
+			) {
+				Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
+			}
+		}
+		return $return;
 	}
 
 	function getResponseData( $response ) {
@@ -991,6 +1056,11 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not.
 	 */
 	public function getCVVResult() {
+		// Special accounts always return false, but we let them through
+		if ( $this->is_snowflake_account() ) {
+			return true;
+		}
+
 		$cvv_result = '';
 		if ( !is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ) {
 			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
@@ -1010,6 +1080,11 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * together: One for address, and one for zip.
 	 */
 	public function getAVSResult() {
+		// Special accounts are missing the AVS nodes, but we don't fail them.
+		if ( $this->is_snowflake_account() ) {
+			return 0;
+		}
+
 		$avs_address = '';
 		$avs_zip = '';
 
@@ -1064,6 +1139,10 @@ class WorldPayAdapter extends GatewayAdapter {
 				$this->log(
 					"Finalizing transaction at AuthorizePaymentForFraud to {$result_status}. Code: {$code}"
 				);
+				//NOOOOO.
+				//Except: Sure. For now. The only reason this works here, though,
+				//is that all the success statuses for intermediate transactions
+				//are not defined in defineReturnValueMap().
 				$this->finalizeInternalStatus( $result_status );
 				return $result;
 			}

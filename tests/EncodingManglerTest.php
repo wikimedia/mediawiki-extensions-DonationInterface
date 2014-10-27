@@ -21,7 +21,7 @@
  * @group	EncodingMangler
  * @category	UnitTesting
  */
-class EncodingManglerTestCase extends PHPUnit_Framework_TestCase {
+class EncodingManglerTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Keep the accented characters that we can represent

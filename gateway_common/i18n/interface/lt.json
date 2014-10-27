@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mantak111",
-			"Matasg"
+			"Matasg",
+			"Hugo.arg"
 		]
 	},
 	"donate_interface": "Parama Wikimedia fondui",
@@ -15,7 +16,7 @@
 	"donate_interface-gateway": "Mokėjimo būdas:",
 	"donate_interface-submit-button": "Aukoti",
 	"donate_interface-comment-message": "Norėtumėte savo mintimis pasidalinti su pasauliu? Čia galite įvesti iki 200 ženklų tekstą:",
-	"donate_interface-comment-label": "Komentaras:",
+	"donate_interface-comment-label": "Paaiškinimas:",
 	"donate_interface-email-agreement": "Sutinku gauti retus elektroninio pašto pranešimus iš Wikimedia Foundation.",
 	"donate_interface-comment-title": "Viešas komentaras",
 	"donate_interface-amount-error": "Prašome įvesti tinkamą sumą",

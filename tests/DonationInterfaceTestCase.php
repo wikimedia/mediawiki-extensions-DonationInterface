@@ -153,6 +153,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'fr',
 			),
+			// Fiji is configured as a snowflake to test special treatment for certain store IDs
+			'FJ' => array (
+				'city' => 'Suva',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Fake Street',
+				'fname' => 'FirstName',
+				'lname' => 'LastName',
+				'amount' => '1.55',
+				'language' => 'en',
+			),
 			'NL' => array (
 				'city' => 'Amsterdam',
 				'state' => 'XX',
@@ -229,6 +241,20 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return array(
 			array( 'en' ),
 			array( 'fr' ),
+		);
+	}
+
+	/**
+	 * Transaction codes for GC and GC orphan adapters not to be retried
+	 * on pain of $1000+ fines by MasterCard
+	 */
+	public function mcNoRetryCodeProvider() {
+		return array(
+			array( '430260' ),
+			array( '430306' ),
+			array( '430330' ),
+			array( '430354' ),
+			array( '430357' ),
 		);
 	}
 

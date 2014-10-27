@@ -17,17 +17,12 @@
  */
 
 /**
- * @see DonationInterfaceTestCase
- */
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . DIRECTORY_SEPARATOR . 'DonationInterfaceTestCase.php';
-
-/**
  * 
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
  */
-class DonationInterface_Adapter_GlobalCollect_RecurringTestCase extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case

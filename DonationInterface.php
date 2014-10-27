@@ -659,6 +659,8 @@ $wgDonationInterfaceMemcachePort = '11211';
 $wgDonationInterfaceIPVelocityFailScore = 100;
 $wgDonationInterfaceIPVelocityTimeout = 60 * 5;	//5 minutes in seconds
 $wgDonationInterfaceIPVelocityThreshhold = 3;	//3 transactions per timeout
+//$wgDonationInterfaceIPVelocityToxicDuration can be set to penalize IP addresses
+//that attempt to use cards reported stolen.
 //$wgDonationInterfaceIPVelocityFailDuration is also something you can set...
 //If you leave it blank, it will use the VelocityTimeout as a default.
 
@@ -1063,33 +1065,33 @@ $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gate
 //GlobalCollect gateway magical globals
 // @todo All the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
-	$wgMessagesDirs['GlobalCollectGateway'] = __DIR__ . 'globalcollect_gateway/i18n';
+	$wgMessagesDirs['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/i18n';
 	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
 	$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
 }
 
 //PayflowPro gateway magical globals
 if ( $optionalParts['PayflowPro'] === true ){
-	$wgMessagesDirs['PayflowProGateway'] = __DIR__ . 'payflowpro_gateway/i18n';
+	$wgMessagesDirs['PayflowProGateway'] = __DIR__ . '/payflowpro_gateway/i18n';
 	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
 	$wgAjaxExportList[] = "fnPayflowProofofWork";
 }
 
 if ( $optionalParts['Adyen'] === true ){
-	$wgMessagesDirs['AdyenGateway'] = __DIR__ . 'adyen_gateway/i18n';
+	$wgMessagesDirs['AdyenGateway'] = __DIR__ . '/adyen_gateway/i18n';
 	$wgExtensionMessagesFiles['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.i18n.php';
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.alias.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){
-	$wgMessagesDirs['PaypalGateway'] = __DIR__ . 'paypal_gateway/i18n';
+	$wgMessagesDirs['PaypalGateway'] = __DIR__ . '/paypal_gateway/i18n';
 	$wgExtensionMessagesFiles['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.alias.php';
 }
 
 if ( $optionalParts['WorldPay'] === true ){
-	$wgMessagesDirs['WorldPayGateway'] = __DIR__ . 'worldpay_gateway/i18n';
+	$wgMessagesDirs['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/i18n';
 	$wgExtensionMessagesFiles['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.i18n.php';
 	$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.alias.php';
 }
@@ -1114,10 +1116,13 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
 
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
 	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
 	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
 
 	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
 	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';

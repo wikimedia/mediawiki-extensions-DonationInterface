@@ -101,6 +101,10 @@ class TestingGenericAdapter extends GatewayAdapter {
 class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	public $testlog = array ( );
 
+	public $curled = array ( );
+
+	public $limbo_stomps = array ( );
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -174,6 +178,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
+	 * Stub out the limboStomp fn and record the calls
+	 * @param type $antiMessage
+	 */
+	public function doLimboStompTransaction( $antiMessage = false ) {
+		$this->limbo_stomps[] = $antiMessage;
+	}
+	/**
 	* Trap the error log so we can use it in testing
 	* @param type $msg
 	* @param type $log_level
@@ -211,6 +222,11 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	public function setDummyCurlResponseCode( $code ) {
 		$this->dummyCurlResponseCode = $code;
+	}
+
+	protected function curl_transaction( $data ) {
+		$this->curled[] = $data;
+		return parent::curl_transaction( $data );
 	}
 
 	/**
@@ -600,6 +616,8 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 
 	public $testlog = array ( );
 
+	public $curled = array ( );
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -703,6 +721,11 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 */
 	public function setDummyCurlResponseCode( $code ) {
 		$this->dummyCurlResponseCode = $code;
+	}
+
+	protected function curl_transaction( $data ) {
+		$this->curled[] = $data;
+		return parent::curl_transaction( $data );
 	}
 
 	/**
