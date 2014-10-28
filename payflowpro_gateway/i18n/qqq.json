@@ -29,5 +29,10 @@
 	"payflowpro_gateway-response-112": "Error message for address or CVV number.",
 	"payflowpro_gateway-response-125": "Error message if the transaction is declined automatically.",
 	"payflowpro_gateway-response-125-2": "Error message if the card could not be validated.",
-	"payflowpro_gateway-response-default": "Error message if something went wrong on our side."
+	"payflowpro_gateway-response-default": "Error message if something went wrong on our side.",
+	"apihelp-pfp-description": "{{doc-apihelp-description|pfp}}",
+	"apihelp-pfp-param-dispatch": "{{doc-apihelp-param|pfp|dispatch}}",
+	"apihelp-pfp-param-tracking_data": "{{doc-apihelp-param|pfp|tracking_data}}",
+	"apihelp-pfp-param-gateway": "{{doc-apihelp-param|pfp|gateway}}",
+	"apihelp-pfp-param-payment_method": "{{doc-apihelp-param|pfp|payment_method}}"
 }

@@ -34,6 +34,9 @@ class ApiPayflowProGateway extends ApiBase {
 		}
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return array(
 			'Exposes API interaction with the PayflowPro Gateway extension.',
@@ -57,6 +60,9 @@ class ApiPayflowProGateway extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array(
 			'dispatch' => 'the API method from which to return data',
@@ -106,10 +112,6 @@ class ApiPayflowProGateway extends ApiBase {
 				$this->dieUsage( "Tracking data requires 'pageref' and 'url' tracking bits.", 'invalid_tracking' );
 			}
 		}
-	}
-
-	public function getVersion() {
-		return __CLASS__ . ': $Id$';
 	}
 
 	/**
