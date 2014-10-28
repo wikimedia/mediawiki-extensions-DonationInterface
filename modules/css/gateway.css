@@ -175,11 +175,11 @@ input#city.halfwidth.state {
 	width:134px;
 }
 input#zip.halfwidth.state {
-	width:84px;
+	width:76px;
 	margin-left: 0;
 }
 select#state.us, select#state.au, select#state.ca {
-	width: 50px;
+	width: 60px;
 }
 
 .collapsingCity {
