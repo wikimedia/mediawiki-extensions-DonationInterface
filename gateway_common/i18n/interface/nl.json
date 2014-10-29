@@ -377,7 +377,7 @@
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden tijdens de verwerking. Neem contact op met <donations@wikimedia.org>.",
 	"donate_interface-email-unsub-confirm": "Weet u zeker dat u het e-mailadres <b>$1</b> wilt uitschrijven?",
 	"donate_interface-email-unsub-warning": "Hierdoor ontvangt u niet langer e-mails die Wikimedia aan u als donateur verzendt. Mogelijk ontvangt u nog steeds e-mails op dit e-mailadres als u een gebruiker op een van onze projecten hebt. Als u vragen hebt, neem dan contact op met <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
-	"donate_interface-faqs": "Veel gestelde vragen",
+	"donate_interface-faqs": "Veelgestelde vragen",
 	"donate_interface-tax-info": "Fiscale aftrekbaarheid",
 	"donate_interface-informationsharing": "Door te doneren, deelt u uw gegevens met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimediaprojecten host, en haar dienstverleners in de Verenigde Staten en elders, in overeenstemming met ons privacybeleid voor donateurs. Wij verkopen of verhandelen uw gegevens niet. Meer informatie is na te lezen in ons <a href=\"//wikimediafoundation.org/wiki/Donor_policy/nl\">donateursbeleid</a>.",
 	"donate_interface-currency-change": "Wijzigen?",
