@@ -135,6 +135,9 @@ class DonationApi extends ApiBase {
 		return $param;
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getParamDescription() {
 		return array(
 			'gateway' => 'Which payment gateway to use - payflowpro, globalcollect, etc.',
@@ -166,6 +169,9 @@ class DonationApi extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getDescription() {
 		return array(
 			'This API allow you to submit a donation to the Wikimedia Foundation using a',
@@ -173,13 +179,22 @@ class DonationApi extends ApiBase {
 		);
 	}
 
+	/**
+	 * @deprecated since MediaWiki core 1.25
+	 */
 	public function getExamples() {
 		return array(
 			'api.php?action=donate&gateway=payflowpro&amount=2.00&currency_code=USD',
 		);
 	}
 
-	public function getVersion() {
-		return __CLASS__ . ': $Id: DonationApi.php 1.0 kaldari $';
+	/**
+	 * @see ApiBase::getExamplesMessages()
+	 */
+	protected function getExamplesMessages() {
+		return array(
+			'action=donate&gateway=payflowpro&amount=2.00&currency_code=USD'
+				=> 'apihelp-donate-example-1',
+		);
 	}
 }
