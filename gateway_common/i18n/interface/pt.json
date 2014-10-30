@@ -409,5 +409,15 @@
 	"donate_interface-onetime-short": "Único",
 	"donate_interface-securelogo-title": "Clique para verificação - Este site escolheu VeriSign SSL para proteger o comércio eletrónico e comunicações confidenciais.",
 	"donate_interface-secureLogo-text": "Acerca dos certificados SSL",
-	"donate_interface-error-http-403": "Não tem permissões para aceder a esta página."
+	"donate_interface-error-http-403": "Não tem permissões para aceder a esta página.",
+	"apihelp-donate-param-fname": "Primeiro nome.",
+	"apihelp-donate-param-lname": "Último nome.",
+	"apihelp-donate-param-city": "Cidade.",
+	"apihelp-donate-param-zip": "Código postal.",
+	"apihelp-donate-param-emailAdd": "Endereço de correio eletrónico.",
+	"apihelp-donate-param-card_num": "Número de cartão de crédito.",
+	"apihelp-donate-param-card_type": "Tipo de cartão de crédito.",
+	"apihelp-donate-param-payment_method": "Método de pagamento a utilizar.",
+	"apihelp-donate-param-language": "Código de idioma.",
+	"apihelp-donate-example-1": "Faça um donativo"
 }

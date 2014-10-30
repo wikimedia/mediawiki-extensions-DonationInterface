@@ -16,7 +16,8 @@
 			"Yfdyh000",
 			"Spring Roll Conan",
 			"Cwlin0416",
-			"LNDDYL"
+			"LNDDYL",
+			"Liuxinyu970226"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -144,7 +145,7 @@
 	"donate_interface-donor-emailAdd": "電郵信箱",
 	"donate_interface-donor-name": "姓名：",
 	"donate_interface-donor-fname": "名：",
-	"donate_interface-donor-mname": "中間名：",
+	"donate_interface-donor-mname": "中間名",
 	"donate_interface-donor-lname": "姓：",
 	"donate_interface-donor-street": "街道",
 	"donate_interface-donor-street-number": "編號",

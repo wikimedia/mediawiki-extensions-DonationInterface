@@ -6,7 +6,8 @@
 			"Shanmugamp7",
 			"Surya Prakash.S.A.",
 			"TRYPPN",
-			"மதனாஹரன்"
+			"மதனாஹரன்",
+			"ElangoRamanujam"
 		]
 	},
 	"donate_interface": "விக்கிமீடியாவை ஆதரிக்கவும்",
@@ -332,5 +333,6 @@
 	"donate_interface-monthly-short": "மாதாந்திரம்",
 	"donate_interface-onetime-short": "ஒரு முறை",
 	"donate_interface-secureLogo-text": "SSL சான்றிதழ்கள் பற்றி",
-	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை."
+	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை.",
+	"apihelp-donate-param-emailAdd": "மின்னஞ்சல் முகவரி."
 }

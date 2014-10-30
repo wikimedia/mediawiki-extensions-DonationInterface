@@ -393,5 +393,13 @@
 	"donate_interface-onetime-short": "Eemol",
 	"donate_interface-securelogo-title": "Klickt fir nozekucken - Dëse Site huet VeriSign SSL erausgesicht fir sécher e-commerce a vertraulech Kommunikatioun.",
 	"donate_interface-secureLogo-text": "Iwwer SSL-Certificaten",
-	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen"
+	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen",
+	"apihelp-donate-param-currency_code": "Code vun der Währung.",
+	"apihelp-donate-param-fname": "Virnumm.",
+	"apihelp-donate-param-lname": "Familljennumm.",
+	"apihelp-donate-param-emailAdd": "E-Mail-Adress.",
+	"apihelp-donate-param-country": "Lännercode.",
+	"apihelp-donate-param-card_type": "Kreditkaartentyp.",
+	"apihelp-donate-param-language": "Sproochcode.",
+	"apihelp-donate-example-1": "En Don maachen"
 }

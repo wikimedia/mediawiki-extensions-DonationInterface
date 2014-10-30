@@ -24,5 +24,10 @@
 	"payflowpro_gateway-response-112": "Ihre Anschrift oder der Sicherheitscode (CVV) ist falsch.",
 	"payflowpro_gateway-response-125": "Ihre Transaktion wurde durch den Betrugs-Vorbeuge-Service abgelehnt.",
 	"payflowpro_gateway-response-125-2": "Ihre Kreditkarte kann nicht geprüft werden. Bitte bestätigen Sie, dass alle Informationen mit Ihrem Kreditkartenprofil übereinstimmen oder versuchen Sie es mit einer anderen Karte. Sie können auch unsere <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">anderen Spendemöglichkeiten</a> ausprobieren oder kontaktieren Sie uns unter der E_Mail-Adresse <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Vielen Dank.",
-	"payflowpro_gateway-response-default": "Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.\nBitte versuchen Sie es später noch einmal."
+	"payflowpro_gateway-response-default": "Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.\nBitte versuchen Sie es später noch einmal.",
+	"apihelp-pfp-description": "Zeigt API-Interaktion mit der Erweiterung „PayflowPro Gateway“.",
+	"apihelp-pfp-param-dispatch": "Die API-Methode, von der die Daten zurückgegeben werden sollen.",
+	"apihelp-pfp-param-tracking_data": "Eine JSON-formatierte Datenzeichenfolge zum Einfügen in contribution_tracking.",
+	"apihelp-pfp-param-gateway": "Der aktuelle Gateway.",
+	"apihelp-pfp-param-payment_method": "Die aktuelle Zahlungsmethode."
 }

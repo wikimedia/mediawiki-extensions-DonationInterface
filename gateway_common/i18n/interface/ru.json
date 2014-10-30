@@ -410,5 +410,21 @@
 	"donate_interface-onetime-short": "Один раз",
 	"donate_interface-securelogo-title": "Нажмите, чтобы проверить — этот сайт выбрал VeriSign SSL для обеспечения безопасности электронной коммерции и конфиденциальных сообщений.",
 	"donate_interface-secureLogo-text": "О сертификатах SSL",
-	"donate_interface-error-http-403": "Извините, у вас недостаточно прав для доступа к этой странице."
+	"donate_interface-error-http-403": "Извините, у вас недостаточно прав для доступа к этой странице.",
+	"apihelp-donate-param-gateway": "Какой платёжный шлюз использовать: payflowpro, globalcollect и т. д.",
+	"apihelp-donate-param-amount": "Сумма пожертвования.",
+	"apihelp-donate-param-currency_code": "Код валюты.",
+	"apihelp-donate-param-fname": "Имя.",
+	"apihelp-donate-param-lname": "Фамилия.",
+	"apihelp-donate-param-city": "Город.",
+	"apihelp-donate-param-zip": "Почтовый индекс.",
+	"apihelp-donate-param-emailAdd": "Адрес электронной почты.",
+	"apihelp-donate-param-country": "Код страны.",
+	"apihelp-donate-param-card_num": "Номер кредитной карты.",
+	"apihelp-donate-param-card_type": "Тип кредитной карты.",
+	"apihelp-donate-param-expiration": "Срок окончания действия.",
+	"apihelp-donate-param-cvv": "Код безопасности CVV.",
+	"apihelp-donate-param-payment_method": "Используемый способ оплаты.",
+	"apihelp-donate-param-language": "Код языка.",
+	"apihelp-donate-example-1": "Сделать пожертвование"
 }
