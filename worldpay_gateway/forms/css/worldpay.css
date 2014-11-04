@@ -76,6 +76,8 @@ div#payflowpro_gateway-donate-submessage {
 	border: none;
 	margin-bottom: 10px;
 	padding: 15px;
+	min-height: 200px;
+	overflow: auto;
 }
 #greenBackground input[type="text"] {
 	margin-bottom: 6px !important;
@@ -124,6 +126,16 @@ select#state.us, select#state.au, select#state.ca, select#country {
     background-color: #ffffff !important;
     border-color: #cccccc !important;
     background-image: linear-gradient( #ffffff, #cccccc ) !important;
+}
+
+#ddTestOptions label {
+	padding: 0 3px;
+	margin: 0 7px 0 0;
+	overflow: visible;
+}
+
+#ddTestCCArea {
+	margin-top: 7px;
 }
 
 /* Legal text and informational links */
