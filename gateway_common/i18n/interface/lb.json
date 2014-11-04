@@ -397,6 +397,7 @@
 	"apihelp-donate-param-currency_code": "Code vun der Währung.",
 	"apihelp-donate-param-fname": "Virnumm.",
 	"apihelp-donate-param-lname": "Familljennumm.",
+	"apihelp-donate-param-zip": "Post-Code.",
 	"apihelp-donate-param-emailAdd": "E-Mail-Adress.",
 	"apihelp-donate-param-country": "Lännercode.",
 	"apihelp-donate-param-card_type": "Kreditkaartentyp.",
