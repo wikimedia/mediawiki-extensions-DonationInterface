@@ -204,5 +204,9 @@
 		$( '#paymentSubmitBtn' ).click( function () {
 			submitForm();
 		} );
+
+		$( '#ddTestOptions').click( function () {
+			$( '#ddTestCCArea' ).removeClass('hide').addClass('show');
+		});
 	});
 })( jQuery, mediaWiki );
