@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kening Aldgilles"
+			"Kening Aldgilles",
+			"Robin0van0der0vliet"
 		]
 	},
-	"donate_interface-cancel": "Ofbrekke"
+	"donate_interface-cancel": "Annulearje",
+	"donate_interface-language": "Taal:"
 }
