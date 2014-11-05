@@ -449,6 +449,27 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	}
 
 	/**
+	 * Check that we send different OrderNumbers for each transaction in a donation.
+	 */
+	function testDistinctOrderNumberForEachTxn() {
+		$options = $this->getDonorTestData();
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$getOrderNumber = function() use ( $gateway ) {
+			$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
+			return $xml->OrderNumber;
+		};
+
+		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
+		$fraudOrderNumber = $getOrderNumber();
+		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
+		$saleOrderNumber = $getOrderNumber();
+
+		$this->assertNotEquals( $fraudOrderNumber, $saleOrderNumber,
+			'Sending same OrderNumber for both fraud auth and sale.' );
+	}
+
+	/**
 	 * doPayment should return an empty result with normal data
 	 */
 	function testDoPaymentSuccess() {
