@@ -1844,7 +1844,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			default:
 				// No action
-				$this->log( "STOMP transaction has no place to go for status $status :( " . json_encode( $transaction ), LOG_CRIT );
+				$this->log( "STOMP transaction has no place to go for status $status. This is probably completely normal." );
 				return;
 		}
 
