@@ -8,7 +8,8 @@
 			"Ohgi",
 			"Shirayuki",
 			"Whym",
-			"青子守歌"
+			"青子守歌",
+			"SkyDaisy9"
 		]
 	},
 	"payflowprogateway": "今すぐ寄付",
@@ -25,5 +26,6 @@
 	"payflowpro_gateway-response-112": "住所あるいはカード照合番号 (セキュリティコード) が正しくありません。",
 	"payflowpro_gateway-response-125": "あなたの取引は詐欺防止サービスによって拒否されました。",
 	"payflowpro_gateway-response-125-2": "クレジットカードの妥当性を確認できませんでした。入力した情報すべてがクレジットカードの情報と一致しているか検証するか、または別のカードを試してください。<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">他の寄付方法</a>のいずれかを利用したり、私たちに <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> で連絡を取ることもできます。ご支援ありがとうございます。",
-	"payflowpro_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度試してください。"
+	"payflowpro_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度試してください。",
+	"apihelp-pfp-description": " APIのPayflowPro Gateway 拡張との交信を公開します。"
 }

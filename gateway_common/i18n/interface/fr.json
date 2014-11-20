@@ -24,7 +24,8 @@
 			"Verdy p",
 			"Wyz",
 			"Y-M D",
-			"Pcoombe"
+			"Pcoombe",
+			"Windes"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -417,5 +418,23 @@
 	"donate_interface-onetime-short": "En une seule fois",
 	"donate_interface-securelogo-title": "Cliquez pour vérifier&nbsp;– Ce site a choisi <i>VeriSign SSL</i> pour sécuriser ses communications confidentielles et de commerce électronique.",
 	"donate_interface-secureLogo-text": "À propos des certificats SSL",
-	"donate_interface-error-http-403": "Vous n’avez pas le droit d’accéder à cette page."
+	"donate_interface-error-http-403": "Vous n’avez pas le droit d’accéder à cette page.",
+	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",
+	"apihelp-donate-param-amount": "Le montant du don.",
+	"apihelp-donate-param-fname": "Prénom",
+	"apihelp-donate-param-lname": "Nom",
+	"apihelp-donate-param-street": "Première ligne d'adresse.",
+	"apihelp-donate-param-street_supplemental": "Deuxième ligne d'adresse.",
+	"apihelp-donate-param-city": "Ville.",
+	"apihelp-donate-param-zip": "Code postal",
+	"apihelp-donate-param-emailAdd": "Adresse de courriel.",
+	"apihelp-donate-param-country": "Code du pays",
+	"apihelp-donate-param-card_num": "Numéro de carte bancaire.",
+	"apihelp-donate-param-card_type": "Type de carte bancaire ou de crédit",
+	"apihelp-donate-param-expiration": "Date d’expiration",
+	"apihelp-donate-param-cvv": "Cryptogramme CVV.",
+	"apihelp-donate-param-payment_method": "Méthode de paiement à utiliser.",
+	"apihelp-donate-param-language": "Code de langue",
+	"apihelp-donate-param-utm_medium": "Variable de suivi.",
+	"apihelp-donate-example-1": "Faire un don"
 }

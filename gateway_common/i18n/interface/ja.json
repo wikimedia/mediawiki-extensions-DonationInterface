@@ -15,7 +15,8 @@
 			"藤田健士朗",
 			"青子守歌",
 			"Jrobell",
-			"Pcoombe"
+			"Pcoombe",
+			"SkyDaisy9"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -400,5 +401,7 @@
 	"donate_interface-onetime-short": "一度だけ",
 	"donate_interface-securelogo-title": "クリックして確認 - このサイトは電子商取引の安全と通信の秘密保持のためにVeriSign SSLを用いています。",
 	"donate_interface-secureLogo-text": "SSL 証明書について",
-	"donate_interface-error-http-403": "あなたにはこのページへのアクセス権がありません。"
+	"donate_interface-error-http-403": "あなたにはこのページへのアクセス権がありません。",
+	"apihelp-donate-param-currency_code": "通貨のコードです。",
+	"apihelp-donate-param-order_id": "IDを申請して下さい。(すでに寄付を開始されている場合)"
 }

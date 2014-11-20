@@ -20,5 +20,10 @@
 	"payflowpro_gateway-response-112": "Địa chỉ hoặc mã CCV (mã bảo mật) của bạn không đúng.",
 	"payflowpro_gateway-response-125": "Giao dịch của bạn đã bị Dịch vụ Ngăn chặn Giả mạo từ chối.",
 	"payflowpro_gateway-response-125-2": "Không thể xác nhận thẻ tín dụng của bạn. Xin hãy chắc chắn rằng tất cả các thông tin đúng với hồ sơ thẻ tín dụng của bạn hoặc thử một thẻ tín dụng khác. Bạn cũng có thể <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en?uselang=vi\">quyên góp bằng cách khác</a> hoặc liên lạc với chúng tôi tại <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Cảm ơn sự hỗ trợ của bạn.",
-	"payflowpro_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau."
+	"payflowpro_gateway-response-default": "Đã xảy ra lỗi khi xử lý giao dịch của bạn.\nXin hãy thử lại sau.",
+	"apihelp-pfp-description": "Cung cấp API để tương tác với phần mở rộng PayflowPro Gateway.",
+	"apihelp-pfp-param-dispatch": "Phương thức API để cho ra dữ liệu.",
+	"apihelp-pfp-param-tracking_data": "Chuỗi dữ liệu dưới dụng JSON để đưa vào contribution_tracking.",
+	"apihelp-pfp-param-gateway": "Cổng hiện tại.",
+	"apihelp-pfp-param-payment_method": "Phương pháp thanh toán hiện tại."
 }

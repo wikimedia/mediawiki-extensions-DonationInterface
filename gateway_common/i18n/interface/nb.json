@@ -392,5 +392,6 @@
 	"donate_interface-onetime-short": "Én gang",
 	"donate_interface-securelogo-title": "Klikk for å verifisere – denne siden bruker VeriSign SSL for sikker e-handel og konfidensiell kommunikasjon.",
 	"donate_interface-secureLogo-text": "Om SSL-sertifikater",
-	"donate_interface-error-http-403": "Du har ikke tilgang til denne siden."
+	"donate_interface-error-http-403": "Du har ikke tilgang til denne siden.",
+	"apihelp-donate-param-city": "By."
 }

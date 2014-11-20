@@ -8,7 +8,8 @@
 			"Hamilton Abreu",
 			"Luckas",
 			"Luckas Blade",
-			"Malafaya"
+			"Malafaya",
+			"Vitorvicentevalente"
 		]
 	},
 	"payflowprogateway": "Faça o seu donativo agora",
@@ -25,5 +26,6 @@
 	"payflowpro_gateway-response-112": "O endereço ou o código de segurança (CVV) estão incorrectos.",
 	"payflowpro_gateway-response-125": "A transacção foi recusada pela Fraud Prevention Services.",
 	"payflowpro_gateway-response-125-2": "Não foi possível validar o seu cartão de crédito. Por favor, verifique que toda a informação fornecida coincide com o perfil do seu cartão de crédito. Pode também usar um dos nossos <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">outros métodos para fazer donativos</a> ou contactar-nos no endereço <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Obrigado pelo seu apoio.",
-	"payflowpro_gateway-response-default": "Ocorreu um erro no processamento desta transacção.\nPor favor, tente novamente mais tarde."
+	"payflowpro_gateway-response-default": "Ocorreu um erro no processamento desta transacção.\nPor favor, tente novamente mais tarde.",
+	"apihelp-pfp-param-payment_method": "O método de pagamento atual."
 }

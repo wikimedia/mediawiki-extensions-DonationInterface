@@ -21,5 +21,10 @@
 	"payflowpro_gateway-response-112": "הכתובת או קוד הביטחון שלך אינם נכונים.",
 	"payflowpro_gateway-response-125": "העברת הכספים מצדכם נדחתה על־ידי השירותים למניעת הונאה.",
 	"payflowpro_gateway-response-125-2": "לא ניתן לאמת את כרטיס האשראי שלך. נא לוודא שכל הפרטים המופיעים להלן תואמים לפרופיל כרטיס האשראי שלך או פשוט לנסות כרטיס אחר. ניתן גם להשתמש באחת מ<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">הדרכים האחות לתת</a> או ליצור אתנו קשר בכתובת <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. תודה לך על תמיכתך.",
-	"payflowpro_gateway-response-default": "אירעה שגיאה בעיבוד הבקשה שלך.\nנא לנסות שוב מאוחר יותר."
+	"payflowpro_gateway-response-default": "אירעה שגיאה בעיבוד הבקשה שלך.\nנא לנסות שוב מאוחר יותר.",
+	"apihelp-pfp-description": "חושף תקשורת של API עם ההרחבה PayflowPro Gateway.",
+	"apihelp-pfp-param-dispatch": "שיטת API שממנה יחזרו נתונים.",
+	"apihelp-pfp-param-tracking_data": "מחרוזת JSON של נתונים שיוכנסו ל־contribution_tracking.",
+	"apihelp-pfp-param-gateway": "השער הנוכחי.",
+	"apihelp-pfp-param-payment_method": "שיטת התשלום הנוכחית."
 }

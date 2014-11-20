@@ -1,20 +1,25 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "payflowprogateway": "Make your donation now",
-    "payflowpro_gateway-desc": "PayPal Payflow Pro credit card processing",
-    "payflowpro_gateway-response-0": "Your transaction has been approved.\nThank you for your donation!",
-    "payflowpro_gateway-response-126": "Your transaction is pending approval.",
-    "payflowpro_gateway-response-126-2": "Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided email address if we cannot finalize your donation. Please email <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> if you have any questions. Thank you!",
-    "payflowpro_gateway-response-12": "Please contact your credit card company for further information.",
-    "payflowpro_gateway-response-13": "Your transaction requires voice authorization.\nPlease contact us to continue your transaction.",
-    "payflowpro_gateway-response-114": "Please contact your credit card company for further information.",
-    "payflowpro_gateway-response-23": "Your credit card number or expiration date is incorrect.",
-    "payflowpro_gateway-response-4": "Invalid amount.",
-    "payflowpro_gateway-response-24": "Your credit card number or expiration date is incorrect.",
-    "payflowpro_gateway-response-112": "Your address or CVV number (security code) is incorrect.",
-    "payflowpro_gateway-response-125": "Your transaction has been declined by Fraud Prevention Services.",
-    "payflowpro_gateway-response-125-2": "Your credit card could not be validated. Please verify that all provided information matches your credit card profile, or try a different card. You can also use one of our <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">other ways to give</a> or contact us at <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Thank you for your support.",
-    "payflowpro_gateway-response-default": "There was an error processing your transaction.\nPlease try again later."
+	"@metadata": {
+		"authors": []
+	},
+	"payflowprogateway": "Make your donation now",
+	"payflowpro_gateway-desc": "PayPal Payflow Pro credit card processing",
+	"payflowpro_gateway-response-0": "Your transaction has been approved.\nThank you for your donation!",
+	"payflowpro_gateway-response-126": "Your transaction is pending approval.",
+	"payflowpro_gateway-response-126-2": "Some of the information you provided did not match your credit card profile, or you made a very large gift. For your own security, your donation is currently under review, and we will notify you through the provided email address if we cannot finalize your donation. Please email <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> if you have any questions. Thank you!",
+	"payflowpro_gateway-response-12": "Please contact your credit card company for further information.",
+	"payflowpro_gateway-response-13": "Your transaction requires voice authorization.\nPlease contact us to continue your transaction.",
+	"payflowpro_gateway-response-114": "Please contact your credit card company for further information.",
+	"payflowpro_gateway-response-23": "Your credit card number or expiration date is incorrect.",
+	"payflowpro_gateway-response-4": "Invalid amount.",
+	"payflowpro_gateway-response-24": "Your credit card number or expiration date is incorrect.",
+	"payflowpro_gateway-response-112": "Your address or CVV number (security code) is incorrect.",
+	"payflowpro_gateway-response-125": "Your transaction has been declined by Fraud Prevention Services.",
+	"payflowpro_gateway-response-125-2": "Your credit card could not be validated. Please verify that all provided information matches your credit card profile, or try a different card. You can also use one of our <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">other ways to give</a> or contact us at <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Thank you for your support.",
+	"payflowpro_gateway-response-default": "There was an error processing your transaction.\nPlease try again later.",
+	"apihelp-pfp-description": "Exposes API interaction with the PayflowPro Gateway extension.",
+	"apihelp-pfp-param-dispatch": "The API method from which to return data.",
+	"apihelp-pfp-param-tracking_data": "A JSON formatted string of data to insert into contribution_tracking.",
+	"apihelp-pfp-param-gateway": "The current gateway.",
+	"apihelp-pfp-param-payment_method": "The current payment method."
 }
