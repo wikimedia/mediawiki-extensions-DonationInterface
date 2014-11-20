@@ -70,7 +70,7 @@ class DonationInterface_Gateway_FormTest extends DonationInterfaceTestCase {
 		$expected .=			wfMessage( 'donate_interface-otherways-short' )->text();
 		$expected .=		'</p>';
 		$expected .=		'<p class="">';
-		$expected .=			wfMessage( 'donate_interface-credit-storage-processing' )->text();
+		$expected .= 			wfMessage( 'donate_interface-informationsharing' )->text();
 		$expected .=		'</p>';
 		$expected .=		'<p class="">';
 		$expected .=			wfMessage( 'donate_interface-question-comment' )->text();
@@ -230,7 +230,7 @@ class DonationInterface_Gateway_FormTest extends DonationInterfaceTestCase {
 
 		$select_node = $dom_thingy->getElementById( 'input_currency_code' );
 		$this->assertEquals( 'currency_code', $select_node->getAttribute( 'name' ) );
-		
+
 		foreach ( $select_node->childNodes as $option ) {
 			$currency = $option->getAttribute( 'value' );
 			$this->assertNotNull( $currencies[$currency], 'Currency node generated for non-existent ' . $currency );

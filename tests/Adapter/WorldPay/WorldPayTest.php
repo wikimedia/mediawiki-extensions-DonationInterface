@@ -135,7 +135,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
-				'innerhtml' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
+				'innerhtml' => "By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donor policy</a>. Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. We do not sell or trade your information to anyone. For more information please read our <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donor policy</a>."
 			),
 		);
 

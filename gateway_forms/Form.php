@@ -20,10 +20,10 @@ abstract class Gateway_Form {
 	 *
 	 * @var string
 	 */
-	//TODO: Determine what this is, and either take measures to reference 
-	//something closer to the source data via the gateway object, or get rid of 
-	//it. If this is (as the comment suggests) also the name of the form, 
-	//my vote goes for option 2. 
+	//TODO: Determine what this is, and either take measures to reference
+	//something closer to the source data via the gateway object, or get rid of
+	//it. If this is (as the comment suggests) also the name of the form,
+	//my vote goes for option 2.
 	public $form_id = 'payment';
 
 	/**
@@ -43,9 +43,9 @@ abstract class Gateway_Form {
 	 * @var string
 	 */
 	protected $captcha_html;
-	
+
 	/**
-	 * Tells us if we're paypal only or not. 
+	 * Tells us if we're paypal only or not.
 	 * @var boolean
 	 */
 	public $paypal = false; // true for paypal only version
@@ -81,7 +81,7 @@ abstract class Gateway_Form {
 		 *  add form-specific css - the path can be set in child classes
 		 *  using $this->setStylePath, which should be called before
 		 *  calling parent::__construct()
-		 *  
+		 *
 		 *  @TODO ditch this and start using ResourceLoader. Perhaps do something
 		 *  similar to how resources are getting loaded in TwoStepTwoColumn and
 		 *  its children.
@@ -90,14 +90,14 @@ abstract class Gateway_Form {
 			$this->setStylePath();
 		}
 		$wgOut->addExtensionStyle( $this->getStylePath() );
-		
+
 		// This method should be overridden in the child class
 		$this->init();
 	}
 
 	/**
 	 * Initialize the form
-	 * Called by the main Form construtror, this was clearly meant to be 
+	 * Called by the main Form construtror, this was clearly meant to be
 	 * overridden where necessary in child classes.
 	 */
 	protected function init() {
@@ -140,16 +140,16 @@ abstract class Gateway_Form {
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-secure-logos' ) );
 
 		// @codeCoverageIgnoreStart
-		if ($wgServer =="https://payments.wikimedia.org") { 
-			$form .= $this ->getSmallSecureLogo(); 
+		if ($wgServer =="https://payments.wikimedia.org") {
+			$form .= $this ->getSmallSecureLogo();
 		} else {
 			// @codeCoverageIgnoreEnd
-			$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgExtensionAssetsPath . "/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) ); 
+			$form .= Xml::tags( 'p', array( 'class' => '' ), Xml::openElement( 'img', array( 'src' => $wgExtensionAssetsPath . "/DonationInterface/gateway_forms/includes/rapidssl_ssl_certificate-nonanimated.png" ) ) );
 		}
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-secure-logos
 		$form .= Xml::openElement( 'div', array( 'id' => 'payflowpro_gateway-donate-addl-info-text' ) );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-otherways-short' )->text() );
-		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-credit-storage-processing' )->text() );
+		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-informationsharing' )->text() );
 		$form .= Xml::tags( 'p', array( 'class' => '' ), wfMessage( 'donate_interface-question-comment' )->text() );
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info-text
 		$form .= Xml::closeElement( 'div' ); // close div#payflowpro_gateway-donate-addl-info
@@ -206,8 +206,8 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generate the menu select of credit cards
-	 * getCreditCardTypeField helper function, and getCreditCardTypeField is 
-	 * only used by TwoStepTwoColumn.php. 
+	 * getCreditCardTypeField helper function, and getCreditCardTypeField is
+	 * only used by TwoStepTwoColumn.php.
 	 *
 	 * @fixme Abstract out the setting of avaiable cards
 	 * @return string
@@ -243,7 +243,7 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Generates the expiry month dropdown form element. 
+	 * Generates the expiry month dropdown form element.
 	 * This function is not used by any RapidHTML forms.
 	 * @return string HTML
 	 */
@@ -279,7 +279,7 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Generates the expiry year dropdown form element. 
+	 * Generates the expiry year dropdown form element.
 	 * This function is not used by any RapidHTML forms.
 	 * @return string
 	 */
@@ -357,25 +357,25 @@ abstract class Gateway_Form {
 	 * @return string The entire HTML select for the currency dropdown
 	 */
 	public function generateCurrencyDropdown( $defaultCurrencyCode = 'USD', $showCardsOnCurrencyChange = false ) {
-		
+
 		// Get an array of currency codes from the current payment gateway
 		$availableCurrencies = $this->gateway->getCurrencies();
-		
+
 		// If a currency has already been posted, use that, otherwise use the default.
 		if ( $this->getEscapedValue( 'currency_code' ) ) {
 			$selectedCurrency = $this->getEscapedValue( 'currency_code' );
 		} else {
 			$selectedCurrency = $defaultCurrencyCode;
 		}
-		
+
 		$currencyOpts = ''; // Initialize variable for the select list options
 
 		// generate dropdown of currency opts
 		foreach ( $availableCurrencies as $currencyCode ) {
-		
+
 			// Should this option be selected?
 			$selected = ( $selectedCurrency == $currencyCode ) ? true : false;
-			
+
 			$optionText = wfMessage( 'donate_interface-' . $currencyCode )->text(); // name of the currency
 
 			$currencyOpts .= Xml::option( $optionText, $currencyCode, $selected );
@@ -396,9 +396,9 @@ abstract class Gateway_Form {
 
 	/**
 	 * Generates the radio buttons for selecting a donation amount
-	 * This function appears to be used only by the Universal Test form, and as 
-	 * such should be moved to that class and away from the class all the forms 
-	 * are eventually descended from. 
+	 * This function appears to be used only by the Universal Test form, and as
+	 * such should be moved to that class and away from the class all the forms
+	 * are eventually descended from.
 	 *
 	 * @param	array	$options
 	 *
@@ -410,10 +410,10 @@ abstract class Gateway_Form {
 	 * @todo
 	 * - Use Xml object to generate form elements.
 	 *
-	 * @return string Returns an html table of radio buttons for the amount. 
+	 * @return string Returns an html table of radio buttons for the amount.
 	 */
 	public function generateAmountByRadio( $options = array() ) {
-		
+
 		$showCardsOnCurrencyChange = isset( $options['showCardsOnCurrencyChange'] ) ? (boolean) $options['showCardsOnCurrencyChange'] : true;
 		$displayCurrencyDropdown = isset( $options['displayCurrencyDropdown'] ) ? (boolean) $options['displayCurrencyDropdown'] : true;
 		$setCurrency = isset( $options['setCurrency'] ) ? (string) $options['setCurrency'] : '';
@@ -423,14 +423,14 @@ abstract class Gateway_Form {
 
 		// Treat values as string for comparison
 		$amountValues = array('5', '10', '20', '35', '50', '100', '250',);
-		
+
 		$isOther = in_array( $amount, $amountValues) ? false : true;
 		$amountOther = $isOther ? $amount : '';
-		
+
 		$checked = 'checked="checked" ';
 		// The text to return
 		$return  = '';
-		
+
 		$return .= '<table id="amount-radio">';
 		$return .= '	<tr>';
 		$return .= '		<td><label><input type="radio" name="amountRadio" value="5" ' . ( $amount == '5' ? $checked : '' ) . '/> 5</label></td>';
@@ -445,18 +445,18 @@ abstract class Gateway_Form {
 		$return .= '		<td>';
 		$return .= '			<input type="radio" name="amountRadio" id="input_amount_other" value="other" ' . ( $isOther ? $checked : '' ) . ' />';
 		$return .= '			<label><input type="text" class="txt-sm hint"  name="amountGiven" size="4" id="other-amount" title="Other..."  onfocus="" value="' . htmlspecialchars( $amountOther ) . '" /></label>';
-		
+
 		// Add hidden amount field for validation
 		$return .= Html::hidden( 'amount', $amount );
-		
+
 		// Set currency
 		if ( !empty( $setCurrency ) ) {
 			$return .= Html::hidden( 'currency_code', $setCurrency );
 		}
-		
+
 		$return .= '		</td>';
 		$return .= '	</tr>';
-		
+
 		if ( $displayCurrencyDropdown ) {
 			$return .= '	<tr>';
 			$return .= '		<td colspan="4" >';
@@ -464,9 +464,9 @@ abstract class Gateway_Form {
 			$return .= '		</td>';
 			$return .= '	</tr>';
 		}
-		
+
 		$return .= '</table>';
-		
+
 		return $return;
 	}
 
@@ -486,7 +486,7 @@ abstract class Gateway_Form {
 				'referrer' => $this->getEscapedValue( 'referrer' ),
 				'email-opt' => $this->getEscapedValue( 'email-opt' ),
 				'premium_language' => $this->getEscapedValue( 'premium_language' ),
-				// process has been disabled - may no longer be needed. 
+				// process has been disabled - may no longer be needed.
 				//'process' => !is_null( $this->getEscapedValue( 'process' ) ) ? $this->getEscapedValue( 'process' ) : 'CreditCard',
 				// payment_method is no longer set to: processed
 				'payment_method' => !is_null( $this->getEscapedValue( 'payment_method' ) ) ? $this->getEscapedValue( 'payment_method' ) : '',
@@ -545,8 +545,8 @@ abstract class Gateway_Form {
 
 	/**
 	 * generateBannerHeader
-	 * Generates a banner header based on the existance of set masthead data, 
-	 * and/or a gateway header defined in LocalSettings. 
+	 * Generates a banner header based on the existance of set masthead data,
+	 * and/or a gateway header defined in LocalSettings.
 	 * This function is not used by any RapidHTML forms.
 	 */
 	protected function generateBannerHeader() {
@@ -564,26 +564,26 @@ abstract class Gateway_Form {
 			$header = str_replace( '@language', $this->getEscapedValue( 'language' ), $header );
 			$template = $wgOut->parse( htmlspecialchars( $header, ENT_COMPAT, 'UTF-8', false ) );
 		}
-		
+
 		// make sure that we actually have a matching template to display so we don't display the 'redlink'
 		if ( strlen( $template ) && !preg_match( '/redlink\=1/', $template ) ) {
 			$wgOut->addHtml( $template );
 		}
 	}
-	
+
 	/**
-	 * generateTextTemplate: Loads the text from the appropraite template. 
+	 * generateTextTemplate: Loads the text from the appropraite template.
 	 * This function is not used by any RapidHTML forms.
 	 * @return string
 	 */
 	protected function generateTextTemplate() {
 		global $wgOut, $wgRequest;
 		$text_template = $wgRequest->getText( 'text_template', '2010/JimmyAppealLong' );
-		
+
 		// @todo Determine if this next line is really as silly as it looks. I don't think we should be using $wgRequest here at all.
 		//(See DonationData::setLanguage())
 		if ( $wgRequest->getText( 'language' ) ) $text_template .= '/' . $this->getEscapedValue( 'language' );
-		
+
 		$template = ( strlen( $text_template ) ) ? $wgOut->parse( '{{' . htmlspecialchars( $text_template, ENT_COMPAT, 'UTF-8', false ) . '}}' ) : '';
 		// if the template doesn't exist, prevent the display of the red link
 		if ( preg_match( '/redlink\=1/', $template ) ) $template = NULL;
@@ -593,7 +593,7 @@ abstract class Gateway_Form {
 	/**
 	 * Builds and returns the email form field
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getEmailField() {
 		// email
@@ -609,9 +609,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the amount form field. 
+	 * Builds and returns the amount form field.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getAmountField() {
 		$otherChecked = false;
@@ -640,9 +640,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * getCardnumberField builds and returns the credit card number field. 
+	 * getCardnumberField builds and returns the credit card number field.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getCardnumberField() {
 		$card_num = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'card_num' ) : '';
@@ -668,7 +668,7 @@ abstract class Gateway_Form {
 	/**
 	 * Builds and returns the cvv form field
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getCvvField() {
 		$cvv = ( $this->gateway->getGlobal( "Test" ) ) ? $this->getEscapedValue( 'cvv' ) : '';
@@ -685,9 +685,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the street form element. 
+	 * Builds and returns the street form element.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getStreetField() {
 		$form = '<tr>';
@@ -702,9 +702,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * getCityField builds and returns the city form element. 
+	 * getCityField builds and returns the city form element.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getCityField() {
 		$form = '<tr>';
@@ -719,9 +719,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the zip (postal) code form element. 
+	 * Builds and returns the zip (postal) code form element.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getZipField() {
 		$form = '<tr>';
@@ -736,9 +736,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the name-related form controls. 
+	 * Builds and returns the name-related form controls.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getNameField() {
 		$form = '<tr>';
@@ -758,7 +758,7 @@ abstract class Gateway_Form {
 	/**
 	 * Builds and returns the email-opt checkbox.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getEmailOptField() {
 		$email_opt_value = ( $this->gateway->posted ) ? $this->getEscapedValue( 'email-opt' ) : true;
@@ -775,9 +775,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the state dropdown form element. 
+	 * Builds and returns the state dropdown form element.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getStateField() {
 		$form = '<tr>';
@@ -791,10 +791,10 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the country form element. 
+	 * Builds and returns the country form element.
 	 * This function is not used by any RapidHTML forms.
 	 * @param null $defaultCountry
-	 * @return string 
+	 * @return string
 	 */
 	protected function getCountryField( $defaultCountry = null ) {
 		$form = '<tr>';
@@ -808,9 +808,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the card type dropdown. 
+	 * Builds and returns the card type dropdown.
 	 * This function is only used by TwoStepTwoColumn.php
-	 * @return string 
+	 * @return string
 	 */
 	protected function getCreditCardTypeField() {
 		$form = '<tr>';
@@ -821,9 +821,9 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Builds and returns the credit card expiry form controls. 
+	 * Builds and returns the credit card expiry form controls.
 	 * This function is not used by any RapidHTML forms.
-	 * @return string 
+	 * @return string
 	 */
 	protected function getExpiryField() {
 		$form = '<tr>';
@@ -834,7 +834,7 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Uses resource loader to load the form validation javascript. 
+	 * Uses resource loader to load the form validation javascript.
 	 */
 	protected function loadValidateJs() {
 		global $wgOut;
@@ -842,8 +842,8 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Uses the resource loader to add the api client side javascript, usually 
-	 * only when the form is caching. 
+	 * Uses the resource loader to add the api client side javascript, usually
+	 * only when the form is caching.
 	 */
 	protected function loadApiJs() {
 		global $wgOut;
@@ -893,7 +893,7 @@ abstract class Gateway_Form {
 		unset( $query_array['_cache_'] );
 
 		// make sure no other data that might overwrite posted data makes it into the URL
-		
+
 		$all_form_data = $this->gateway->getData_Unstaged_Escaped();
 		$keys_we_need_for_form_loading = array(
 			'form_name',
@@ -903,7 +903,7 @@ abstract class Gateway_Form {
 			'language'
 		);
 		$form_data_keys = array_keys( $all_form_data );
-		
+
 		foreach ( $query_array as $key => $value ){
 			if ( in_array( $key, $form_data_keys ) ){
 				if ( !in_array( $key, $keys_we_need_for_form_loading ) ){
@@ -920,26 +920,26 @@ abstract class Gateway_Form {
 
 	/**
 	 * Get the form id
-	 * This function appears to be used only by the Universal Test form, and as 
-	 * such should be moved to that class and away from the class all the forms 
-	 * are eventually descended from. 
+	 * This function appears to be used only by the Universal Test form, and as
+	 * such should be moved to that class and away from the class all the forms
+	 * are eventually descended from.
 	 * @return	string
 	 */
 	protected function getFormId() {
-		//TODO: Determine what this is, and either take measures to reference 
+		//TODO: Determine what this is, and either take measures to reference
 		//something closer to the source data, move it to a child class, or get rid of it.
 		return $this->form_id;
 	}
 
 	/**
 	 * Get the form name
-	 * This function appears to be used only by the Universal Test form, and as 
-	 * such should be moved to that class and away from the class all the forms 
-	 * are eventually descended from. 
+	 * This function appears to be used only by the Universal Test form, and as
+	 * such should be moved to that class and away from the class all the forms
+	 * are eventually descended from.
 	 * @return	string
 	 */
 	protected function getFormName() {
-		
+
 		return $this->getEscapedValue( 'form_name' );
 	}
 
@@ -956,12 +956,12 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Pulls normalized and escaped data from the $gateway object. 
-	 * For more information, see GatewayAdapter::getData_Unstaged_Escaped in 
+	 * Pulls normalized and escaped data from the $gateway object.
+	 * For more information, see GatewayAdapter::getData_Unstaged_Escaped in
 	 * $IP/extensions/DonationData/gateway_common/gateway.adapter.php
 	 * @param string $key The value to fetch from the adapter.
 	 * @return mixed The escaped value in the adapter, or null if none exists.
-	 * Note: The value could still be a blank string in some cases. 
+	 * Note: The value could still be a blank string in some cases.
 	 */
 	protected function getEscapedValue( $key ) {
 		return $this->gateway->getData_Unstaged_Escaped( $key );
