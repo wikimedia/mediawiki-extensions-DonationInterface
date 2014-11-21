@@ -22,7 +22,8 @@
 			"Тест",
 			"Pcoombe",
 			"James D. Forrester",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Amire80"
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
@@ -240,7 +241,6 @@
 	"donate_interface-otherways-alt": "Message informing people about other ways to donate. Shown below donation form.",
 	"donate_interface-otherways-short": "Link to page informing about other ways to give. Shown below donate form.",
 	"donate_interface-paypal": "''This message was used during testing, but as of 7 Dec 2010 is '''not in use'''.''\n\nOnly 'Have a PayPal account' and 'Donate with PayPal' need translating. If the Jimmy Appeal letter has been published in your language then you should change the link from 'en' to 'zzz' where zzz is your language code.\n\nParameters:\n* $1 - URL\n*: '''''Note :''' Ideally the URL in this message should just be \"$1\" without having to worry about other parameters when translating the text of the message, to ease maintenance of its format/encoding, if the [[Special:PayflowProGateway]] page needs such a change or needs more parameters: for example the value of the \"text_template\" parameter which is the old \"2010/JimmyAppealLong\" page, or if this page needs to be rotated within a list, or if it depends on the selected language. The donator page should then build the URL itself.''\n* $2 - form name\n* $3 - utm_source value\n*: '''''Note :''' The editable language code \"en\" before this parameter should be in a separate translatable item.''\n* $4 - utm_medium value\n* $5 - utm_campaign value",
-	"donate_interface-credit-storage-processing": "Message assuring people their information is safe. Shown below donate form.",
 	"donate_interface-token-mismatch": "Error message shown when the session has expired.",
 	"donate_interface-cc-form-header-personal": "{{Identical|Personal information}}",
 	"donate_interface-cc-form-header-payment": "Header for part of form with information about payment (credit card).",
@@ -412,7 +412,7 @@
 	"donate_interface-email-unsub-warning": "A warning that unsubscribing from donation requests will not unsubscribe from talk page notifications, etc.",
 	"donate_interface-faqs": "Link text to the frequently asked questions page.\n{{Identical|Frequently asked questions}}",
 	"donate_interface-tax-info": "Link to information about the tax deducability of donations",
-	"donate_interface-informationsharing": "Information sharing disclaimer",
+	"donate_interface-informationsharing": "Information sharing disclaimer.\n\n\"and its service providers\" can be read as \"and '''with''' its service providers\".",
 	"donate_interface-currency-change": "Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.\n{{Identical|Change}}",
 	"donate_interface-bank_transfer_message": "Message notifying donors that the recipient of the donation will show as Global Collect.\n\nSee also:\n* {{msg-mw|Donate interface-globalcollect-proxy}}",
 	"donate_interface-globalcollect-proxy": "Message notifying donors that the recipient of the donation will show as Global Collect.\n\nSee also:\n* {{msg-mw|Donate interface-bank transfer message}}",
@@ -421,7 +421,6 @@
 	"donate_interface-taxded-msg-int": "Legal information shown to international donors.",
 	"donate_interface-taxded-msg-us": "Tax deductibility shown to U.S. donors.",
 	"donate_interface-legal-original": "Message notifying users that the English version of legal pages is the prevalent one.",
-	"donate_interface-legal-donorpolicy": "Message telling donors about the Donor Privacy Policy.",
 	"donate_interface-monthlybox-title": "Header for box prompting users to change from one-time donation to a recurring monthly donation.",
 	"donate_interface-monthlybox-content": "Information about when and how monthly donations are processed.",
 	"donate_interface-monthlybox-amount": "Label for the field for the donation amount.",

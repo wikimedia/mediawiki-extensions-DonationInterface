@@ -8,7 +8,8 @@
 			"Mikołka",
 			"Odder",
 			"Sp5uhe",
-			"WTM"
+			"WTM",
+			"Darellur"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -215,7 +216,6 @@
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Darowizny można przekazać</a> również w inny sposób, na przykład za pomocą czeku.",
 	"donate_interface-otherways-short": "Inne sposoby zrobienia darowizny",
 	"donate_interface-paypal": "Masz konto PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Wpłać poprzez PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Nie przechowujemy numerów kart kredytowych darczyńców, zaś powierzone informacje osobiste podlegają ochronie zgodnie z naszą <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">polityką prywatności</a>.",
 	"donate_interface-token-mismatch": "Sesja wygasła. Spróbuj jeszcze raz wypełnić i przesłać formularz.",
 	"donate_interface-cc-form-header-personal": "Informacje o wpłatach",
 	"donate_interface-cc-form-header-payment": "Informacja o wpłacie",
@@ -373,7 +373,7 @@
 	"donate_interface-email-unsub-warning": "Spowoduje to usunięcie Ciebie listy mailingowej Wikimedia Foundation jako darczyńcy. Możesz jednakże nadal otrzymywać wiadomości e‐mail, jeżeli jesteś zarejestrowany jako uczestnik jednego z naszych projektów. Jeśli masz pytania, skontaktuj się z <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
 	"donate_interface-faqs": "Często zadawane pytania",
 	"donate_interface-tax-info": "Informacje o możliwości odliczenia od podatku",
-	"donate_interface-informationsharing": "Wykonując darowiznę, udostępniasz swoje dane Wikimedia Foundation – organizacji non–profit, która obsługuje Wikipedię i inne projekty Wikimedia oraz jej dostawcom usług w Stanach Zjednoczonych i w każdym innym miejscu, zgodnie z naszą polityką prywatności dotyczącą darczyńców. Nie sprzedamy i nie wymienimy Twoich danych z nikim innym. Szczegółowe informacje znajdują się pod adresem <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">our donor policy</a>.",
+	"donate_interface-informationsharing": "Wykonując darowiznę, zgadzasz się na udostępnienie swoich danych Wikimedia Foundation – organizacji non–profit, która obsługuje Wikipedię i inne projekty Wikimedia oraz jej dostawcom usług zgodnie z naszą <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">polityką prywatności darczyńców</a>. Wikimedia Foundation i jej dostawcy usług są zlokalizowani w Stanach Zjednoczonych i w innych krajach których prawa prywatności mogą nie być pdobne do twoich. Nie sprzedamy i nie wymienimy Twoich danych z nikim innym. Szczegółowe informacje o naszej polityce prywatności darczyńców znajdują się adresem <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\"></a>.",
 	"donate_interface-currency-change": "Zmienić?",
 	"donate_interface-bank_transfer_message": "Proszę odnotować, że Twoje zgłoszenie wskaże \"Global Collect\" jako odbiorcę darowizny. Global Collect jest upoważniony do przyjmowania i przetwarzania płatności na rzecz Fundacji Wikimedia. Pamiętaj, aby podać numer referencyjny podany przy przelewie bankowym. W razie jakichkolwiek pytań lub wątpliwości pisz do donations@wikimedia.org",
 	"donate_interface-globalcollect-proxy": "Prosimy pamiętać, że jako odbiorca darowizny widnieć będzie \"Global Collect\". Global Collect jest upoważnione do przyjmowania i przetwarzania płatności w imieniu Wikimedia Foundation.",
@@ -382,7 +382,6 @@
 	"donate_interface-taxded-msg-int": "Fundacja Wikimedia jest organizacją non-profit zarejestrowaną w Stanach Zjednoczonych pod US IRS Code Section 501(c)(3). Z tego powodu darowizny od osób lub podmiotów ze Stanów Zjednoczonych mogą być kwalifikowane do ulg podatkowych. Darowizny od osób lub podmiotów spoza Stanów Zjednoczonych mogą nie podlegać  ulgom podatkowym w Stanach Zjednoczonych i poza nimi; w takich przypadkach darczyńcy powinni zasięgnąć porady co do podatków obowiązujących lokalnie. Szczególnie, Fundacja Wikimedia nie oczekuje darowizn od osób lub podmiotów znajdujących się pod jakąkolwiek jurysdykcją, która zakazuje lub ogranicza zbieranie darowizn przez międzynarodowe organizacje charytatywne, takie jak Wikimedia lub nakłada dodatkowe podatki na darowizny złożone takim międzynarodowym organizacjom.",
 	"donate_interface-taxded-msg-us": "Fundacja Wikimedia jest organizacją non-profit zarejestrowaną w Stanach Zjednoczonych pod US IRS Code Section 501(c)(3). Z tego powodu darowizny od osób lub podmiotów ze Stanów Zjednoczonych mogą być kwalifikowane do ulg podatkowych.",
 	"donate_interface-legal-original": "Polskie tłumaczenie służy jedynie jako tekst pomocniczy. W przypadku wystąpienia nieścisłości między tłumaczeniem a wersją anglojęzyczną, wiążącym jest tekst w języku angielskim.",
-	"donate_interface-legal-donorpolicy": "Wykonując darowiznę, udostępniasz swoje dane Wikimedia Foundation – organizacji non–profit, która obsługuje Wikipedię i inne projekty Wikimedia oraz jej dostawcom usług w Stanach Zjednoczonych i w każdym innym miejscu, zgodnie z naszą polityką prywatności dotyczącą darczyńców. Nie sprzedamy i nie wymienimy Twoich danych z nikim innym.",
 	"donate_interface-monthlybox-title": "Czy chcesz złożyć zlecenie stałe realizowane raz w miesiącu?",
 	"donate_interface-monthlybox-content": "Zlecenie stałe jest realizowane każdego drugiego dnia miesiąca. Możesz je anulować w dowolnym momencie.",
 	"donate_interface-monthlybox-amount": "Kwota miesięcznej darowizny",
