@@ -11,5 +11,6 @@
 	"donate_interface-country": "Lân",
 	"donate_interface-next": "Folgjende",
 	"donate_interface-cancel": "Annulearje",
-	"donate_interface-language": "Taal:"
+	"donate_interface-language": "Taal:",
+	"donate_interface-back": "Foarige"
 }
