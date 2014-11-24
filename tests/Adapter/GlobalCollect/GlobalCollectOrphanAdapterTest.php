@@ -121,39 +121,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
 	}
 
-	function testGCFormLoad_FR() {
-		$init = $this->getDonorTestData( 'FR' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['ffname'] = 'cc-vmaj';
-
-		$assertNodes = array (
-			'selected-amount' => array (
-				'nodename' => 'span',
-				'innerhtml' => '€1.55',
-			),
-			'fname' => array (
-				'nodename' => 'input',
-				'value' => 'Prénom',
-			),
-			'lname' => array (
-				'nodename' => 'input',
-				'value' => 'Nom',
-			),
-			'informationsharing' => array (
-				'nodename' => 'p',
-				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
-			),
-			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'FR',
-			),
-		);
-
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
-	}
-
 	/**
 	 * Tests to make sure that certain error codes returned from GC will
 	 * trigger order cancellation, even if retryable errors also exist.
@@ -168,7 +135,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@clean.com';
 		$gateway->loadDataAndReInit( $init, $useDB = false );
-		
+
 		$gateway->setDummyGatewayResponseCode( $code );
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );

@@ -68,10 +68,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'value' => 'Nom',
 			),
-			'informationsharing' => array (
-				'nodename' => 'p',
-				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
-			),
 			'country' => array (
 				'nodename' => 'select',
 				'selected' => 'FR',
