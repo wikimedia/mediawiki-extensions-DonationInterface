@@ -66,6 +66,6 @@ class WmfFramework {
 
 	static function isPosted() {
 		global $wgRequest;
-		$wgRequest->wasPosted();
+		return $wgRequest->wasPosted();
 	}
 }
