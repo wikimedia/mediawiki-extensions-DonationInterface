@@ -1,0 +1,71 @@
+/* This page is currently used to provide css for testing the Global Collect payment systems. Please do not edit without talking to James Alexander or Ryan Kaldari */
+
+body#pageGetMissingData {
+  background-color: transparent;
+}
+
+table.ORB_TABLE_FIELDS td {
+  padding: 5px 0;
+}
+div.ORB_INSTRUCTIONS {
+  display: none;
+}
+.ORB_INPUT {
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 1px #DDDDDD inset;
+  padding: 0.3em;
+  vertical-align: middle;
+}
+.ORB_SELECT {
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  padding: 0.3em;
+  width: 120px;
+}
+td.ORB_TD_ERRORLEFT {
+  display: none;
+}
+input#F1136 {
+  margin-right: 4px;
+  width: 50px;
+}
+#MANDATORY_F1009, #MANDATORY_F1010 {
+  display: none;
+}
+div.ORB_BUTTONELEMENT {
+  margin-left: 0;
+}
+.ORB_BUTTON {
+  font-size: 12px;
+  font-weight: normal;
+  width: 15em;
+}
+input#btnCancel {
+  display: none;
+}
+
+/* Add some margins to the CVV Help pop-up page */
+div#divCVVHelp {
+  margin: 1em;
+}
+/* Hide "Press this button to return to the shop..." message */
+span.ORB_BUTTONHELPTEXT {
+  display: none;
+}
+
+/* Hide the drop down with only one option (why does this even exist...) */
+select#selectCard {
+  display: none;
+}
+
+/* bold cvv window title */
+td.Heading1 {
+  font-weight: bold;
+}
+
+/* Credit card number and CVV inputs should always be left-to-right */
+input#F1009, input#F1136 {
+  /* @noflip */
+  direction: ltr;
+}

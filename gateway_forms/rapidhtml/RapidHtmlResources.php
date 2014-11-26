@@ -205,6 +205,11 @@ $wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'gc.iframe' ] = array(
+	'styles' => 'css/iframe.css',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
 
 /*************************************************************
  *************************************************************
