@@ -33,12 +33,6 @@ abstract class Gateway_Form {
 	public $form_errors;
 
 	/**
-	 * The full path to CSS for the current form
-	 * @var string
-	 */
-	protected $style_path;
-
-	/**
 	 * A string to hold the HTML to display a cpatcha
 	 * @var string
 	 */
@@ -77,20 +71,6 @@ abstract class Gateway_Form {
 		$this->form_errors = array_merge( DataValidator::getEmptyErrorArray(), $gateway_errors );
 		$this->paypal = $wgRequest->getBool( 'paypal', false );
 
-		/**
-		 *  add form-specific css - the path can be set in child classes
-		 *  using $this->setStylePath, which should be called before
-		 *  calling parent::__construct()
-		 *
-		 *  @TODO ditch this and start using ResourceLoader. Perhaps do something
-		 *  similar to how resources are getting loaded in TwoStepTwoColumn and
-		 *  its children.
-		 */
-		if ( !strlen( $this->getStylePath() ) ) {
-			$this->setStylePath();
-		}
-		$wgOut->addExtensionStyle( $this->getStylePath() );
-
 		// This method should be overridden in the child class
 		$this->init();
 	}
@@ -101,31 +81,6 @@ abstract class Gateway_Form {
 	 * overridden where necessary in child classes.
 	 */
 	protected function init() {
-	}
-
-	/**
-	 * Set the path to the CSS file for the form
-	 *
-	 * This should be a full path, perhaps taking advantage of $wgScriptPath.
-	 * If you do not pass the path to the method, the style path will default
-	 * to the default css in css/Form.css
-	 * @param string $style_path
-	 */
-	public function setStylePath( $style_path = null ) {
-		global $wgExtensionAssetsPath;
-		if ( !$style_path ) {
-			// load the default form CSS if the style path not explicitly set
-			$style_path = $wgExtensionAssetsPath . '/DonationInterface/gateway_forms/css/Form.css';
-		}
-		$this->style_path = $style_path;
-	}
-
-	/**
-	 * Get the path to CSS
-	 * @return String
-	 */
-	public function getStylePath() {
-		return $this->style_path;
 	}
 
 	/**
