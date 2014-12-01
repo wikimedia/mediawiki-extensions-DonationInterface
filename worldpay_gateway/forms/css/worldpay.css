@@ -91,7 +91,14 @@ input.invalid {
 .ccAreaHeader {
 	width: 100%;
 }
-select#state.us, select#state.au, select#state.ca, select#country {
+.ccAreaHeader > .row-fluid > .pull-left {
+	height: 25px;
+}
+select#state.us,
+select#state.gb,
+select#state.au,
+select#state.ca,
+select#country {
 	height: 30px;
 	width: 100%;
 	line-height: 170%;
