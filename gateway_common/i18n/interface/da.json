@@ -12,7 +12,8 @@
 			"Peter Alberti",
 			"Sarrus",
 			"Tjernobyl",
-			"Zilvador"
+			"Zilvador",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Støt Wikimedia",
@@ -219,7 +220,6 @@
 	"donate_interface-otherways-alt": "Der er <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">andre måder at give på</a>, herunder med check.",
 	"donate_interface-otherways-short": "Andre måder at give",
 	"donate_interface-paypal": "Har du en PayPal-konto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Doner via PayPal</a>",
-	"donate_interface-credit-storage-processing": "Vi gemmer ikke dine kreditkortoplysninger, og dine personlige oplysninger er underlagt vores <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politik angående donor fortrolighed</a>.",
 	"donate_interface-token-mismatch": "Din session er udløbet. Prøv at udfylde og indsende formularen igen.",
 	"donate_interface-cc-form-header-personal": "Faktureringsoplysninger",
 	"donate_interface-cc-form-header-payment": "Betalingsoplysninger",
@@ -377,7 +377,7 @@
 	"donate_interface-email-unsub-warning": "Hermed vil du ikke modtage e-mail fra Wikimedia Foundation, sendt til dig som donor. Du vil fortsat kunne modtage e-mail på denne e-mailadresse, hvis den er tilknyttet en konti i et af vores projekter. Hvis du har nogen spørgsmål, så kontakt <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a> på engelsk.",
 	"donate_interface-faqs": "Ofte stillede spørgsmål",
 	"donate_interface-tax-info": "Information om skattefradrag",
-	"donate_interface-informationsharing": "Når du donerer deler du oplysninger med Wikimedia Foundation, den almene organisation som driver Wikipedia og andre Wikimedia-projekter, og dens tjenesteudbydere i USA og andre steder, i henhold til vores privatlivspolitik. Vi sælger eller bytter ikke dine oplysninger med nogen. For flere oplysninger henvises der til <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">vores privatlivspolitik</a>.",
+	"donate_interface-informationsharing": "Ved at donere accepterer du at dele dine personlige oplysninger med Wikimedia Foundation, den nonprofit-organisation der hoster Wikipedia og andre Wikimedia-projekter, og dets tjenesteudbydere i henhold til vores <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donorpolitik</a>. Wikimedia Foundation og dets tjenesteudbydere er hjemhørende i USA og i andre lande, hvis love om beskyttelse af personlige oplysninger ikke nødvendigvis svarer til dit land. Vi sælger eller forhandler ikke dine oplysninger til andre. Yderligere oplysninger herom findes i vores <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donorpolitik</a>.",
 	"donate_interface-currency-change": "Ændre?",
 	"donate_interface-bank_transfer_message": "Bemærk at bankudskriften vil vise \"Global Collect\" som modtager af gaven. Global Collect har beføjelser til at tage imod betalinger på vegne af Wikimedia Foundation. Husk at angive referencenummeret, som opgives her, på bankoverførslen, og send gerne en e-mail til donations@wikimedia.org, hvis du har spørgsmål eller kommentarer.",
 	"donate_interface-globalcollect-proxy": "Bemærk at dit kontoudtog vil vise \"Global Collect\" som modtager af denne gave. Global Collect er bemyndiget til at acceptere og behandle betalinger på vegne af Wikimedia Foundation.",
@@ -386,7 +386,6 @@
 	"donate_interface-taxded-msg-int": "Wikimedia Foundation er en velgørende nonprofitorganisation etableret i USA under US IRS Code Section 501(c)(3), og derfor kan personer og organisationer i USA få skattefradrag for donationer. Bidrag fra personer eller organisationer fra andre lande kan muligvis ikke få skattefradrag i USA og andre steder; i sådanne tilfælde bør bidragydere søge juridiske oplysninger lokalt. Vigtigt: Wikimedia søger ikke donationer fra personer eller organisationer i områder, som ikke tillader eller indskrænker indsamlingsaktiviteter af internationale, velgørende organisationer som Wikimedia eller beskatter donationer til internationale velgørende organisationer.",
 	"donate_interface-taxded-msg-us": "Wikimedia Foundation er en velgørende nonprofitorganisation i USA under US IRS Code Section 501(c)(3), og donationer fra personer eller organisationer i USA kan derfor muligvis få skattefradrag for donationer til Wikimedia.",
 	"donate_interface-legal-original": "Denne oversættelse er udført af frivillige. Hvis der er uoverensstemmelser mellem oversættelsen og den engelsksproglige udgave, er det den engelske udgave, der gælder.",
-	"donate_interface-legal-donorpolicy": "Ved at bidrage, deler du oplysninger med Wikimedia Foundation, den almene organisationen som driver Wikipedia og andre Wikimedia-projekter, samt dens tjenesteudbydere i USA og andre steder, i henhold til vores privatlivspolitik. Vi sælger eller udveksler ikke dine oplysninger med nogen.",
 	"donate_interface-monthlybox-title": "Gør det til en månedlig indbetaling?",
 	"donate_interface-monthlybox-content": "Månedlige bidrag behandles den anden dag i hver måned. Du kan stoppe indbetalingerne til enhver tid.",
 	"donate_interface-monthlybox-amount": "Månedligt donationsbeløb",

@@ -153,6 +153,15 @@ input.fullwidth { width: 254px; }
 */
 
 /* Form Inputs */
+/* Override the sitedir-ltr input direction */
+body.rtl input {
+	/* @noflip */
+	direction: rtl;
+}
+input#emailAdd {
+	/* @noflip */
+	direction: ltr;
+}
 input.thirdwidth, select.thirdwidth {
     width: 85px;
 }
