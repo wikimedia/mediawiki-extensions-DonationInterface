@@ -69,8 +69,8 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'value' => 'Nom',
 			),
 			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'FR',
+				'nodename' => 'input',
+				'value' => 'FR',
 			),
 		);
 
@@ -105,8 +105,8 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text(),
 			),
 			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'IT',
+				'nodename' => 'input',
+				'value' => 'IT',
 			),
 		);
 
@@ -143,8 +143,8 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
 			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'BE',
+				'nodename' => 'input',
+				'value' => 'BE',
 			),
 		);
 
