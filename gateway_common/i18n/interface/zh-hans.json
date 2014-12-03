@@ -440,5 +440,6 @@
 	"apihelp-donate-param-utm_source": "追踪变量。",
 	"apihelp-donate-param-utm_campaign": "追踪变量。",
 	"apihelp-donate-param-utm_medium": "追踪变量。",
+	"apihelp-donate-param-referrer": "原始推荐人。",
 	"apihelp-donate-example-1": "捐款"
 }
