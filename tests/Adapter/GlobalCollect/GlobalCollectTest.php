@@ -17,7 +17,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
@@ -114,7 +114,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->normalizeOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Re-normalized order_id has changed without explicit regeneration.' );
 
-		//this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything. 
+		//this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything.
 		$gateway->generateOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'function generateOrderID auto-changed the selected order ID. Not cool.' );
 
@@ -223,8 +223,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 *
 	 * This is tested with a bank transfer from Spain.
 	 *
-	 * @covers GlobalCollectAdapter::__construct 
-	 * @covers GlobalCollectAdapter::defineVarMap 
+	 * @covers GlobalCollectAdapter::__construct
+	 * @covers GlobalCollectAdapter::defineVarMap
 	 */
 	public function testDefineVarMap() {
 
@@ -237,7 +237,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'contribution_tracking_id',
-			'RETURNURL' => 'returnto', 
+			'RETURNURL' => 'returnto',
 			'IPADDRESS' => 'server_ip',
 			'ISSUERID' => 'issuer_id',
 			'PAYMENTPRODUCTID' => 'payment_product',
@@ -287,7 +287,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'TRANSACTIONTYPE' => 'transaction_type',
 			'FISCALNUMBER' => 'fiscal_number',
 		);
-		
+
 		$this->assertEquals( $var_map, $gateway->getVarMap() );
 	}
 
@@ -323,6 +323,14 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$logline = $this->getGatewayLogMatches( $gateway, LOG_ERR, '/Investigation required!/' );
 		$this->assertType( 'string', $logline, 'GC Error 21000050 is not generating the expected payments log error' );
+
+		//Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '20001000-expiry' );
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+		$this->verifyNoLogErrors( $gateway );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/processResponse:.*EXPIRYDATE/' );
+		$this->assertType( 'string', $logline, 'GC Error 20001000-expiry is not generating the expected payments log line' );
 	}
 
 	/**

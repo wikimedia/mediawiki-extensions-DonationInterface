@@ -29,7 +29,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
 	 *
-	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $key ][] = $value 
+	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $key ][] = $value
 	 */
 	protected function addKeyToTransaction( $value, $type = 'PAYMENT' ) {
 
@@ -44,7 +44,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function defineAccountInfo() {
 		$this->accountInfo = array(
 			'MERCHANTID' => $this->account_config[ 'MerchantID' ],
-			//'IPADDRESS' => '', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm. 
+			//'IPADDRESS' => '', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
 			'VERSION' => "1.0",
 		);
 	}
@@ -53,20 +53,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Define dataConstraints
 	 */
 	public function defineDataConstraints() {
-		
+
 		$this->dataConstraints = array(
-			
+
 			// General fields
 
 			//'ACCOUNTHOLDER'		=> 'account_holder',		AN50
 			'account_holder'		=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'ACCOUNTNAME'			=> 'account_name'			AN35
 			'account_name'			=> array( 'type' => 'alphanumeric',		'length' => 35, ),
-			
+
 			//'ACCOUNTNUMBER'		=> 'account_number'			AN30
 			'account_number'		=> array( 'type' => 'alphanumeric',		'length' => 30, ),
-			
+
 			//'ADDRESSLINE1E'		=> 'address_line_1e'		AN35
 			'address_line_1e'		=> array( 'type' => 'alphanumeric',		'length' => 35, ),
 
@@ -81,47 +81,47 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			//'ATTEMPTID'			=> 'attempt_id'				N5
 			'attempt_id'			=> array( 'type' => 'numeric',			'length' => 5, ),
-			
+
 			// Did not find this one
 			//'AUTHORISATIONID'		=> 'authorization_id'		AN18
 			'authorization_id'		=> array( 'type' => 'alphanumeric',		'length' => 18, ),
-			
+
 			//'AMOUNT'				=> 'amount'					N12
 			'amount'				=> array( 'type' => 'numeric',			'length' => 12, ),
-			
+
 			//'BANKACCOUNTNUMBER'	=> 'bank_account_number'	AN50
 			'bank_account_number'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'BANKAGENZIA'			=> 'bank_agenzia'			AN30
 			'bank_agenzia'			=> array( 'type' => 'alphanumeric',		'length' => 30, ),
 
 			//'BANKCHECKDIGIT'		=> 'bank_check_digit'		AN2
 			'bank_check_digit'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
-			
+
 			//'BANKCODE'			=> 'bank_code'				N5
 			'bank_code'				=> array( 'type' => 'numeric',			'length' => 5, ),
-			
+
 			//'BANKFILIALE'			=> 'bank_filiale'			AN30
 			'bank_filiale'			=> array( 'type' => 'alphanumeric',		'length' => 30, ),
 
 			//'BANKNAME'			=> 'bank_name'				AN40
 			'bank_name'				=> array( 'type' => 'alphanumeric',		'length' => 40, ),
-			
+
 			//'BRANCHCODE'			=> 'branch_code'			N5
 			'branch_code'			=> array( 'type' => 'numeric',			'length' => 5, ),
-			
+
 			//'CITY'				=> 'city'					AN40
 			'city'					=> array( 'type' => 'alphanumeric',		'length' => 40, ),
-			
+
 			//'COUNTRYCODE'			=> 'country'				AN2
 			'country'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
-			
+
 			//'COUNTRYCODEBANK'		=> 'country_code_bank'		AN2
 			'country_code_bank'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
-			
+
 			//'COUNTRYDESCRIPTION'	=> 'country_description'	AN50
 			'country_description'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'CUSTOMERBANKCITY'	=> 'customer_bank_city'		AN50
 			'customer_bank_city'	=> array( 'type' => 'alphanumeric',		'length' => 50, ),
 
@@ -136,78 +136,78 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			//'CREDITCARDNUMBER'	=> 'card_num'				N19
 			'card_num'				=> array( 'type' => 'numeric',			'length' => 19, ),
-			
+
 			//'CURRENCYCODE'		=> 'currency_code'			AN3
 			'currency_code'			=> array( 'type' => 'alphanumeric',		'length' => 3, ),
-			
+
 			//'CVV'					=> 'cvv'					N4
 			'cvv'					=> array( 'type' => 'numeric',			'length' => 4, ),
-			
+
 			//'DATECOLLECT'			=> 'date_collect'			D8	YYYYMMDD
 			'date_collect'			=> array( 'type' => 'date',				'length' => 8, ),
-			
+
 			//'DIRECTDEBITTEXT'		=> 'direct_debit_text'		AN50
 			'direct_debit_text'		=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'DOMICILIO'			=> 'domicilio'				AN30
 			'domicilio'				=> array( 'type' => 'alphanumeric',		'length' => 30, ),
 
 			//'EFFORTID'			=> 'effort_id'				N5
 			'effort_id'				=> array( 'type' => 'numeric',			'length' => 5, ),
-			
+
 			//'EMAIL'				=> 'email'					AN70
 			'email'					=> array( 'type' => 'alphanumeric',		'length' => 70, ),
-			
+
 			//'EXPIRYDATE'			=> 'expiration'				N4	MMYY
 			'expiration'			=> array( 'type' => 'numeric',			'length' => 4, ),
-			
+
 			//'FIRSTNAME'			=> 'fname'					AN15
 			'fname'					=> array( 'type' => 'alphanumeric',		'length' => 15, ),
-			
+
 			//'IBAN'				=> 'iban'					AN50
 			// IBAN is AN21 on direct debit
 			'iban'					=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'IPADDRESS'			=> 'user_ip'				AN32
 			'user_ip'				=> array( 'type' => 'alphanumeric',		'length' => 32, ),
-			
+
 			//'ISSUERID'			=> 'issuer_id'				N4
 			'issuer_id'				=> array( 'type' => 'numeric',			'length' => 4, ),
-			
+
 			//'LANGUAGECODE'		=> 'language'				AN2
 			'language'				=> array( 'type' => 'alphanumeric',		'length' => 2, ),
-			
+
 			//'ORDERID'				=> 'order_id'				N10
 			'order_id'				=> array( 'type' => 'numeric',			'length' => 10, ),
 
 			//PAYMENTPRODUCTID
 			'payment_product'		=> array( 'type' => 'numeric',			'length' => 5, ),
-			
+
 			//'PAYMENTREFERENCE'	=> 'payment_reference'		AN20
 			'payment_reference'		=> array( 'type' => 'alphanumeric',		'length' => 20, ),
-			
+
 			//'PROVINCIA'			=> 'provincia'				AN30
 			'provincia'				=> array( 'type' => 'alphanumeric',		'length' => 30, ),
 
 			//'RETURNURL'			=> 'returnto'				AN512
 			'returnto'				=> array( 'type' => 'alphanumeric',		'length' => 512, ),
-			
+
 			//'SPECIALID'			=> 'special_id'				AN255
 			'special_id'			=> array( 'type' => 'alphanumeric',		'length' => 255, ),
-			
+
 			//'STATE'				=> 'state'					AN35
 			'state'					=> array( 'type' => 'alphanumeric',		'length' => 35, ),
-			
+
 			//'STREET'				=> 'street'					AN50
 			'street'				=> array( 'type' => 'alphanumeric',		'length' => 50, ),
-			
+
 			//'SURNAME'				=> 'lname'					AN35
 			'lname'					=> array( 'type' => 'alphanumeric',		'length' => 35, ),
-			
+
 			//'SWIFTCODE'			=> 'swift_code'				AN255
 			// This is AN11 for several payment types we are not dealing with yet.
 			'swift_code'			=> array( 'type' => 'alphanumeric',		'length' => 255, ),
-			
+
 			//'TRANSACTIONTYPE'		=> 'transaction_type'		AN2
 			'transaction_type'		=> array( 'type' => 'alphanumeric',		'length' => 2, ),
 
@@ -223,13 +223,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - Add: Error messages
 	 */
 	public function defineErrorMap() {
-		
+
 		$this->error_map = array(
 			0		=> 'globalcollect_gateway-response-default',
 			300620  => 'donate_interface-processing-error',      // Order ID already used in a previous transaction
-			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.	
+			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.
 			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
-			
+
 			// Internal messages
 			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
@@ -241,10 +241,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//'dbv-80'	=> 'globalcollect_gateway-response-dbv-80', // Account details missing
 			//'dbv-330'	=> 'globalcollect_gateway-response-dbv-330', // Check digit format is incorrect
 			//'dbv-340'	=> 'globalcollect_gateway-response-dbv-340', // Branch code not submitted
-			
+
 		);
 	}
-	
+
 	/**
 	 * Define var_map
 	 *
@@ -252,7 +252,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - RETURNURL: Find out where the returnto URL is supposed to be coming from.
 	 */
 	public function defineVarMap() {
-		
+
 		$this->var_map = array(
 			'ACCOUNTHOLDER'		=> 'account_holder',
 			'ACCOUNTNAME'		=> 'account_name',
@@ -311,9 +311,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'FISCALNUMBER'		=> 'fiscal_number', //Boletos
 		);
 	}
-	
+
 	/**
-	 * Setting some GC-specific defaults. 
+	 * Setting some GC-specific defaults.
 	 * @param array $options These get extracted in the parent.
 	 */
 	function setGatewayDefaults( $options = array ( ) ) {
@@ -352,8 +352,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'complete', 1000, 1050 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 1100, 99999 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 100000, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
-		
-		
+
+
 		$this->defineGoToThankYouOn();
 	}
 
@@ -390,7 +390,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 */
 	public function defineGoToThankYouOn() {
-		
+
 		$this->goToThankYouOn = array(
 			'complete',
 			'pending',
@@ -398,7 +398,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'revised',
 		);
 	}
-	
+
 	/**
 	 * Define transactions
 	 *
@@ -539,7 +539,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '2.0'
 			),
 		);
-		
+
 		$this->transactions['CANCEL_PAYMENT'] = array(
 			'request' => array(
 				'REQUEST' => array(
@@ -563,7 +563,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '1.0'
 			),
 		);
-		
+
 		$this->transactions['SET_PAYMENT'] = array(
 			'request' => array(
 				'REQUEST' => array(
@@ -587,7 +587,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '1.0'
 			),
 		);
-		
+
 		$this->transactions['DO_FINISHPAYMENT'] = array(
 			'request' => array(
 				'REQUEST' => array(
@@ -643,35 +643,35 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			),
 		);
 	}
-	
+
 	/**
 	 * Define payment methods
 	 *
 	 * The credit card group has a catchall for unspecified payment types.
 	 */
 	public function definePaymentMethods() {
-		
+
 		$this->payment_methods = array();
-		
+
 		// Bank Transfers
 		$this->payment_methods['bt'] = array(
 			'label'	=> 'Bank transfer',
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
-		
+
 		// Credit Cards
 		$this->payment_methods['cc'] = array(
 			'label'	=> 'Credit Cards',
 		);
-		
+
 		// Direct Debit
 		$this->payment_methods['dd'] = array(
 			'label'	=> 'Direct Debit',
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
-		
+
 		// eWallets
 		$this->payment_methods['ew'] = array(
 			'label'	=> 'eWallets',
@@ -679,14 +679,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'short_circuit_at' => 'first_iop',
 			'additional_success_status' => array( 20 ),
 		);
-		
+
 		// Bank Transfers
 		$this->payment_methods['obt'] = array(
 			'label'	=> 'Online bank transfer',
 			'validation' => array( 'creditCard' => false, ),
 			'short_circuit_at' => 'first_iop',
 		);
-		
+
 		// Real Time Bank Transfers
 		$this->payment_methods['rtbt'] = array(
 			'label'	=> 'Real time bank transfer',
@@ -710,9 +710,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 * Default => Credit Card
 		 *
 		 * Every payment_method should have a payment_submethod.
-		 * This is just a catch to sure some validation happens. 
+		 * This is just a catch to sure some validation happens.
 		 */
-		 
+
 		// None specified - This is a catchall to validate all options for credit cards.
 		$this->payment_submethods[''] = array(
 			'paymentproductid'	=> 0,
@@ -725,7 +725,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		/*
 		 * Bank transfers
 		 */
-		 
+
 		// Bank Transfer
 		$this->payment_submethods['bt'] = array(
 			'paymentproductid'	=> 11,
@@ -737,7 +737,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		/*
 		 * Credit Card
 		 */
-		 
+
 		// Visa
 		$this->payment_submethods['visa'] = array(
 			'paymentproductid'	=> 1,
@@ -746,7 +746,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// MasterCard
 		$this->payment_submethods['mc'] = array(
 			'paymentproductid'	=> 3,
@@ -755,7 +755,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// American Express
 		$this->payment_submethods['amex'] = array(
 			'paymentproductid'	=> 2,
@@ -764,7 +764,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Maestro
 		$this->payment_submethods['maestro'] = array(
 			'paymentproductid'	=> 117,
@@ -773,7 +773,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Solo
 		$this->payment_submethods['solo'] = array(
 			'paymentproductid'	=> 118,
@@ -782,7 +782,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Laser
 		$this->payment_submethods['laser'] = array(
 			'paymentproductid'	=> 124,
@@ -791,7 +791,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// JCB
 		$this->payment_submethods['jcb'] = array(
 			'paymentproductid'	=> 125,
@@ -800,7 +800,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Discover
 		$this->payment_submethods['discover'] = array(
 			'paymentproductid'	=> 128,
@@ -809,7 +809,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// CB
 		$this->payment_submethods['cb'] = array(
 			'paymentproductid'	=> 130,
@@ -827,7 +827,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 *
 		 * - keys: These values, which can be found in $this->var_map, will only be put in the request, if they are populated from the form or staging.
 		 */
-		 
+
 		// Direct debit: AT
 		$this->payment_submethods['dd_at'] = array(
 			'paymentproductid'	=> 703,
@@ -836,7 +836,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
-		 
+
 		// Direct debit: BE
 		$this->payment_submethods['dd_be'] = array(
 			'paymentproductid'	=> 706,
@@ -846,7 +846,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
 			//'keys' => array( /*'ACCOUNTNAME',*/ 'ACCOUNTNUMBER', 'AUTHORISATIONID', /*'BANKCHECKDIGIT',*/ 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
-		 
+
 		// Direct debit: CH
 		$this->payment_submethods['dd_ch'] = array(
 			'paymentproductid'	=> 707,
@@ -855,7 +855,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', /*'BANKNAME',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', 'IBAN', ),
 		);
-		 
+
 		// Direct debit: DE
 		$this->payment_submethods['dd_de'] = array(
 			'paymentproductid'	=> 702,
@@ -864,7 +864,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
-		 
+
 		// Direct debit: ES
 		$this->payment_submethods['dd_es'] = array(
 			'paymentproductid'	=> 709,
@@ -873,7 +873,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', /*'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', /*'DOMICILIO', 'PROVINCIA',*/ ),
 		);
-		 
+
 		// Direct debit: FR
 		$this->payment_submethods['dd_fr'] = array(
 			'paymentproductid'	=> 704,
@@ -882,7 +882,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', 'DIRECTDEBITTEXT', ),
 		);
-		 
+
 		// Direct debit: GB
 		$this->payment_submethods['dd_gb'] = array(
 			'paymentproductid'	=> 705,
@@ -891,7 +891,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
-		 
+
 		// Direct debit: IT
 		$this->payment_submethods['dd_it'] = array(
 			'paymentproductid'	=> 708,
@@ -900,7 +900,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', /*'BANKFILIALE',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', ),
 		);
-		 
+
 		// Direct debit: NL
 		$this->payment_submethods['dd_nl'] = array(
 			'paymentproductid'	=> 701,
@@ -913,7 +913,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		/*
 		 * eWallets
 		 */
-		 
+
 		// eWallets PayPal
 		$this->payment_submethods['ew_paypal'] = array(
 			'paymentproductid'	=> 840,
@@ -922,7 +922,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// eWallets WebMoney
 		$this->payment_submethods['ew_webmoney'] = array(
 			'paymentproductid'	=> 841,
@@ -940,7 +940,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// eWallets Moneybookers
 		$this->payment_submethods['ew_moneybookers'] = array(
 			'paymentproductid'	=> 843,
@@ -949,7 +949,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// eWallets cashU
 		$this->payment_submethods['ew_cashu'] = array(
 			'paymentproductid'	=> 845,
@@ -962,7 +962,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		/*
 		 * Online bank transfers
 		 */
-		 
+
 		// Online Bank Transfer Bpay
 		$this->payment_submethods['bpay'] = array(
 			'paymentproductid'	=> 500,
@@ -975,7 +975,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		/*
 		 * Real time bank transfers
 		 */
-		 
+
 		// Nordea (Sweden)
 		$this->payment_submethods['rtbt_nordea_sweden'] = array(
 			'paymentproductid'	=> 805,
@@ -984,7 +984,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Ideal
 		$this->payment_submethods['rtbt_ideal'] = array(
 			'paymentproductid'	=> 809,
@@ -992,7 +992,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'rtbt',
 			'validation' => array(),
 			'keys' => array(),
-			'issuerids' => array( 
+			'issuerids' => array(
 				771	=> 'SNS Regio Bank',
 				161	=> 'Van Lanschot Bankiers',
 				31	=> 'ABN AMRO',
@@ -1005,7 +1005,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				801 => 'Knab',
 			)
 		);
-		 
+
 		// eNETS
 		$this->payment_submethods['rtbt_enets'] = array(
 			'paymentproductid'	=> 810,
@@ -1014,7 +1014,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// Sofortuberweisung/DIRECTebanking
 		$this->payment_submethods['rtbt_sofortuberweisung'] = array(
 			'paymentproductid'	=> 836,
@@ -1023,7 +1023,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'validation' => array(),
 			'keys' => array(),
 		);
-		 
+
 		// eps Online-Überweisung
 		$this->payment_submethods['rtbt_eps'] = array(
 			'paymentproductid'	=> 856,
@@ -1031,7 +1031,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group'	=> 'rtbt',
 			'validation' => array(),
 			'keys' => array(),
-			'issuerids' => array( 
+			'issuerids' => array(
 				824	=> 'Bankhaus Spängler',
 				825	=> 'Hypo Tirol Bank',
 				822	=> 'NÖ HYPO',
@@ -1069,9 +1069,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @throws MWException
 	 */
 	public function getPaymentMethodMeta( $payment_method ) {
-		
+
 		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
-			
+
 			return $this->payment_methods[ $payment_method ];
 		}
 		else {
@@ -1081,9 +1081,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Because GC has some processes that involve more than one do_transaction 
-	 * chained together, we're catching those special ones in an overload and 
-	 * letting the rest behave normally. 
+	 * Because GC has some processes that involve more than one do_transaction
+	 * chained together, we're catching those special ones in an overload and
+	 * letting the rest behave normally.
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
@@ -1104,8 +1104,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				return parent::do_transaction( $transaction );
 		}
 	}
-	
-	
+
+
 	private function transactionConfirm_CreditCard(){
 		global $wgRequest; //this is for pulling vars straight from the querystring
 		$pull_vars = array(
@@ -1119,7 +1119,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$qsResults[$ourkey] = $tmp;
 			}
 		}
-		
+
 		$is_orphan = false;
 		if ( count( $qsResults ) ){ //nothing unusual here.
 			$this->addData( $qsResults );
@@ -1138,7 +1138,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//By now, "incomplete" definitely means "failed" for 0-70.
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', 'failed', 0, 70 );
 		}
-		
+
 		$cancelflag = false; //this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; //this will get set to true, if we can't continue and need to give up and just log the hell out of it.
 		$problemmessage = ''; //to be used in conjunction with the flag.
@@ -1204,12 +1204,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $txn_data['STATUSID'] );
 				}
 				if ( $loops === 0 && $is_orphan && !is_null( $original_status_code ) ){
-					//save stats. 
+					//save stats.
 					if (!isset($this->orphanstats) || !isset( $this->orphanstats[$original_status_code] ) ){
 						$this->orphanstats[$original_status_code] = 1;
 					} else {
 						$this->orphanstats[$original_status_code] += 1;
-					}				
+					}
 				}
 				if (!$order_status_results){
 					$problemflag = true;
@@ -1227,10 +1227,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						break 2;
 					case 'pending-poke' :
 						if ( $is_orphan && !$gotCVV ){
-							$problemflag = true; 
+							$problemflag = true;
 							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
 						}
-						
+
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
 						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount-1 ) ){
 							$this->log( "Running DO_FINISHPAYMENT ($loops)" );
@@ -1241,7 +1241,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							if ( $this->getTransactionStatus() ){
 								$this->log( "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
 								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === 'failed' ){
-									//ack and die. 
+									//ack and die.
 									$problemflag = true; //nothing to be done.
 									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
 									$this->finalizeInternalStatus('failed');
@@ -1251,21 +1251,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							}
 							break;
 						}
-						
+
 						if ( $txn_data['STATUSID'] !== '200' ) {
 							break 2; //no need to loop.
 						}
-						
+
 					case 'pending' :
-						//if it's really pending at this point, we need to... 
-						//...leave it alone. If we're orphan slaying, this will stay in the queue. 
+						//if it's really pending at this point, we need to...
+						//...leave it alone. If we're orphan slaying, this will stay in the queue.
 						break 2;
 				}
 			}
 		}
-		
-		//if we got here with no problemflag, 
-		//confirm or cancel the payment based on $cancelflag 
+
+		//if we got here with no problemflag,
+		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
 			if ( isset( $status_result['data'] ) && is_array( $status_result['data'] ) ){
 				//if they're set, get CVVRESULT && AVSRESULT
@@ -1282,12 +1282,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->addData( $addme );
 				}
 			}
-			
+
 			if ( !$cancelflag ) {
 				$final = $this->do_transaction( 'SET_PAYMENT' );
 				if ( isset( $final['status'] ) && $final['status'] === true ) {
 					$this->finalizeInternalStatus( 'complete' );
-					//get the old status from the first txn, and add in the part where we set the payment. 
+					//get the old status from the first txn, and add in the part where we set the payment.
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
 					$add_antimessage = true;
@@ -1298,21 +1298,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 			} else {
 				if ($order_status_results === false){
-					//we didn't do the check, because we're going to fail the thing. 
+					//we didn't do the check, because we're going to fail the thing.
 					/**
-					 * No need to send an explicit CANCEL_PAYMENT here, because 
-					 * the payment has not been set. 
-					 * In fact, GC will error out if we try to do that, and tell 
+					 * No need to send an explicit CANCEL_PAYMENT here, because
+					 * the payment has not been set.
+					 * In fact, GC will error out if we try to do that, and tell
 					 * us there is nothing to cancel.
 					 */
 					$this->finalizeInternalStatus( 'failed' );
 				} else {
-					//in case we got wiped out, set the final status to what it was before. 
+					//in case we got wiped out, set the final status to what it was before.
 					$this->finalizeInternalStatus( $order_status_results );
 				}
 			}
 		}
-		
+
 		if ( $problemflag || $cancelflag ){
 			if ( $cancelflag ){ //cancel wins
 				$problemmessage = "Cancelling payment";
@@ -1321,13 +1321,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} else {
 				$errors = array( '1000000' => 'Transaction could not be processed due to an internal error.' );
 			}
-			
-			//we have probably had a communication problem that could mean stranded payments. 
+
+			//we have probably had a communication problem that could mean stranded payments.
 			$this->log( $problemmessage, $problemseverity );
-			//hurm. It would be swell if we had a message that told the user we had some kind of internal error. 
+			//hurm. It would be swell if we had a message that told the user we had some kind of internal error.
 			$ret = array(
 				'status' => false,
-				//DO NOT PREPEND $problemmessage WITH ANYTHING! 
+				//DO NOT PREPEND $problemmessage WITH ANYTHING!
 				//orphans.php is looking for specific things in position 0.
 				'message' => $problemmessage,
 				'errors' => $errors,
@@ -1335,7 +1335,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			);
 			return $ret;
 		}
-		
+
 //		return something better... if we need to!
 		return $status_result;
 	}
@@ -1364,7 +1364,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['HOSTEDINDICATOR'] = 0;
 			$result = $this->do_transaction('INSERT_ORDERWITHPAYMENT');
 			if (isset($result['status']) && $result['status'])
-			{  
+			{
 				if ($this->getFinalStatus() == 'pending-poke')
 				{
 					$txn_data = $this->getTransactionData();
@@ -1377,7 +1377,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						$this->doLimboStompTransaction( true );
 					} else {
 						$this->finalizeInternalStatus( 'failed' );
-						//get the old status from the first txn, and add in the part where we set the payment. 
+						//get the old status from the first txn, and add in the part where we set the payment.
 						$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					}
 				}
@@ -1385,7 +1385,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
         }
         return $result;
     }
-	
+
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
@@ -1407,11 +1407,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
-	 * return a key/value array of codes (if they exist) and messages. 
+	 * return a key/value array of codes (if they exist) and messages.
 	 *
 	 * If the site has $wgDonationInterfaceDisplayDebug = true, then the real
 	 * messages will be sent to the client. Messages will not be translated or
-	 * obfuscated. 
+	 * obfuscated.
 	 *
 	 * @param array	$response	The response array
 	 * @return array
@@ -1427,10 +1427,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 				if ( $childnode->nodeName === "MESSAGE" ) {
 					$message = $childnode->nodeValue;
+					$this->setTransactionResult( $message, 'raw_error_msg'); //this is a hack. @TODO: Refactor all 3rd party error handling
 					//I am hereby done screwing around with GC field constraint violations.
 					//They vary between ***and within*** payment types, and their docs are a joke.
 					if ( strpos( $message, 'DOES NOT HAVE LENGTH' ) !== false ) {
-						$this->log( $message, LOG_ERR ); 
+						$this->log( $message, LOG_ERR );
 					}
 				}
 			}
@@ -1441,7 +1442,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Harvest the data we need back from the gateway. 
+	 * Harvest the data we need back from the gateway.
 	 * return a key/value array
 	 *
 	 * When we set lookup error code ranges, we use GET_ORDERSTATUS as the key for search
@@ -1520,7 +1521,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Parse the response object for the checked validations 
+	 * Parse the response object for the checked validations
 	 *
 	 * @param DOMDocument	$response	The response object
 	 * @return array
@@ -1533,19 +1534,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$checks = $response->getElementsByTagName( 'CHECK' );
 
 		foreach ( $checks as $check ) {
-			
+
 			// Get the check code
 			$checkCode = $check->getElementsByTagName('CHECKCODE')->item(0)->nodeValue;
-			
+
 			// Remove zero paddding
 			$checkCode = ltrim( $checkCode, '0');
-			
+
 			// Convert it too an integer
 			settype( $checkCode, 'integer' );
-			
+
 			$data['CHECKS'][ $checkCode ] = $check->getElementsByTagName('CHECKRESULT')->item(0)->nodeValue;
 		}
-		
+
 		// Sort the error codes
 		ksort( $data['CHECKS'] );
 
@@ -1585,9 +1586,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$isError = 0;
 		$isWarning = 0;
 		$isNotChecked = 0;
-		
+
 		$return = 'failed';
-		
+
 		if ( !is_array( $checks['CHECKS'] ) ) {
 			// Should we trigger an error if no checks are performed?
 			// For now, just return failed.
@@ -1596,11 +1597,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// We only mark validation as a failure if we have warnings or errors.
 		$return = 'complete';
-		
+
 		foreach ( $checks['CHECKS'] as $checkCode => $checkResult ) {
 			// Prefix error codes with dbv for DO_BANKVALIDATION
 			$code = 'dbv-' . $checkCode;
-			
+
 			if ( $checkResult == 'ERROR' ) {
 				$isError++;
 
@@ -1618,28 +1619,28 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data['errors'][ $code ] = $this->getErrorMap( $code );
 			} else {
 				$message = 'Unknown check result: (' . $checkResult . ')';
-				
+
 				throw new MWException( $message );
 			}
 		}
-		
+
 		// The return text needs to match something in @see $this->defineGoToThankYouOn()
 		if ( $isPass ) {
 			$return = 'complete';
 		}
-		
+
 		if ( $isWarning ) {
 			$this->log( 'Got warnings from bank validation: ' . print_r( $data['errors'], TRUE ), LOG_ERR );
 			$return = 'complete';
 		}
-		
+
 		if ( $isError ) {
 			$return = 'failed';
 		}
 
 		return $return;
 	}
-	
+
 	/**
 	 * Gets all the currency codes appropriate for this gateway
 	 * @return array of currency codes
@@ -1748,7 +1749,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function processResponse( $response, &$retryVars = null ) {
 		//set the transaction result message
 		$responseStatus = isset( $response['data']['STATUSID'] ) ? $response['data']['STATUSID'] : '';
-		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC. 
+		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC.
 		$this->setTransactionResult( $this->getData_Unstaged_Escaped( 'order_id' ), 'gateway_txn_id' );
 
 		$retErrCode = null;
@@ -1796,6 +1797,25 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					break; //don't need to hear about these at all.
 
 				case 20001000 : //REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
+					//look in the message for more clues.
+					//Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
+					//The only way to tell is to search the English message.
+					//@TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in getResponseErrors; It is very silly that this is here at all.
+					$raw = $this->getTransactionAllResults();
+					$raw = $raw['raw_error_msg'];
+					$not_errors = array( //add more of these stupid things here, if log noise makes you want to
+						'/NULL VALUE NOT ALLOWED FOR EXPIRYDATE/',
+						'/DID NOT PASS THE LUHNCHECK/',
+					);
+					foreach ($not_errors as $regex){
+						if ( preg_match( $regex, $raw ) ){
+							//not a system error, but definitely the end of the payment attempt. Log it to info and leave.
+							$this->log(__FUNCTION__ . ": $raw", LOG_INFO);
+							return $errCode;
+						}
+					}
+
+
 				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					//say something painful here.
 					$errMsg = 'Blocking validation problems with this payment. Investigation required! ' . $this->getLogDebugJSON();
@@ -1823,10 +1843,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * Credit cards staged_vars are set to ensure form failures on validation in
 	 * the default case. This should prevent accidental form submission with
-	 * unknown transaction types. 
+	 * unknown transaction types.
 	 */
 	public function defineStagedVars() {
-		//OUR field names. 
+		//OUR field names.
 		$this->staged_vars = array(
 			'amount',
 			//'card_num',
@@ -1851,10 +1871,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'bank_code', //Direct Debit
 		);
 	}
-	
+
 	protected function stage_language( $type = 'request' ) {
 		$language = strtolower( $this->staged_data['language'] );
-		
+
 		switch ( $type ) {
 			case 'request':
 				if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
@@ -1882,14 +1902,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 				break;
 		}
-		
+
 		$this->staged_data['language'] = $language;
-			
+
 	}
-	
+
 	/**
-	 * OUR language codes which are available to use in GlobalCollect. 
-	 * @return string 
+	 * OUR language codes which are available to use in GlobalCollect.
+	 * @return string
 	 */
 	function getAvailableLanguages(){
 		$languages = array(
@@ -1921,11 +1941,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'tr', //Turkish
 			'ur', //Urdu
 			'vi', //Vietnamese
-			'zh', //the REAL chinese code. 
+			'zh', //the REAL chinese code.
 		);
 		return $languages;
 	}
-	
+
 	/**
 	 * Stage: amount
 	 *
@@ -1941,11 +1961,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		switch ( $type ) {
 			case 'request':
-				
+
 				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {
 					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
 				}
-				
+
 				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
 
 				break;
@@ -2103,7 +2123,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$this->staged_data['date_collect'] = gmdate('Ymd');
 		$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
-		
+
 		$this->var_map['COUNTRYCODEBANK'] = 'country';
 
 		$this->dataConstraints['iban']['length'] = 21;
@@ -2130,7 +2150,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// eWallets custom keys
 		$this->addKeysToTransactionForSubmethod( $payment_submethod );
 	}
-	
+
 	/**
 	 * Stage: payment_method
 	 *
@@ -2144,10 +2164,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - DIRECTDEBITTEXT will need to be translated. This is what appears on the bank statement for donations for a client. This is hardcoded to: Wikimedia Foundation
 	 */
 	protected function stage_payment_method( $type = 'request' ) {
-		
+
 		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method']: false;
 		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod']: false;
-		
+
 		//Having to front-load the country in the payment submethod is pretty lame.
 		//If we don't have one deliberately set...
 		if (!$payment_submethod){
@@ -2160,10 +2180,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// These will be grouped and ordred by payment product id
 		switch ( $payment_submethod )  {
-			
+
 			/* Bank transfer */
 			case 'bt':
-				
+
 				// Brazil
 				if ( $this->staged_data['country'] == 'BR' ) {
 					$this->dataConstraints['direct_debit_text']['city'] = 50;
@@ -2211,20 +2231,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$this->dataConstraints['bank_code']['length'] = 5;
 				$this->dataConstraints['direct_debit_text']['length'] = 32;
 				break;
-			
+
 			/* Cash payments */
 			 case 'cash_boleto':
 				$this->addKeyToTransaction('FISCALNUMBER');
 				break;
-			
+
 			case 'rtbt_eps':
 			case 'rtbt_ideal':
 
 				$this->addKeysToTransactionForSubmethod( $payment_submethod );
-				
+
 				$this->addKeyToTransaction('ISSUERID');
 				break;
-				
+
 			/* Default Case */
 			default:
 				// Nothing is done in the default case.
@@ -2244,7 +2264,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Stage: recurring
-	 * Adds the recurring payment pieces to the structure of 
+	 * Adds the recurring payment pieces to the structure of
 	 * INSERT_ORDERWITHPAYMENT if the recurring field is populated.
 	 *
 	 * @param string	$type	request|response
@@ -2257,19 +2277,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['ORDERTYPE'] = '4';
 		}
 	}
-	
+
 	/**
 	 * Stage: country
-	 * This should be a catch-all for establishing weird country-based rules. 
+	 * This should be a catch-all for establishing weird country-based rules.
 	 * Right now, we only have the one, but there could be more here later.
 	 *
 	 * @param string	$type	request|response
 	 */
 	protected function stage_country( $type = 'request' ){
 		if ( $type != 'request' ){
-			return; //nothing to do here. 
+			return; //nothing to do here.
 		}
-		
+
 		switch ( $this->getData_Staged( 'country' ) ){
 			case 'AR' :
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
@@ -2294,9 +2314,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	protected function stage_fiscal_number( $type = 'request' ) {
 		if ( $type != 'request' ){
-			return; //nothing to do here. 
+			return; //nothing to do here.
 		}
-		
+
 		$this->staged_data['fiscal_number'] = preg_replace( "/[\.\/\-]/", "", $this->getData_Staged( 'fiscal_number' ) );
 	}
 
@@ -2308,53 +2328,53 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// If there are no keys to add, do not proceed.
 		if ( !is_array( $this->payment_submethods[ $payment_submethod ]['keys'] ) ) {
-			
+
 			return;
 		}
-		
+
 		foreach ( $this->payment_submethods[ $payment_submethod ]['keys'] as $key ) {
 
 			$this->addKeyToTransaction( $key );
 		}
 	}
-	
+
 	/**
 	 * Stage: returnto
 	 *
 	 * @param string	$type	request|response
 	 */
 	protected function stage_returnto( $type = 'request' ) {
-		
+
 		if ( $type === 'request' ) {
 
 			// Get the default returnto
 			$returnto = $this->getData_Staged( 'returnto' );
-			
+
 			if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
-				
-				// Add order ID to the returnto URL, only if it's not already there. 
-				//TODO: This needs to be more robust (like actually pulling the 
+
+				// Add order ID to the returnto URL, only if it's not already there.
+				//TODO: This needs to be more robust (like actually pulling the
 				//qstring keys, resetting the values, and putting it all back)
-				//but for now it'll keep us alive. 
+				//but for now it'll keep us alive.
 				if ( $this->getOrderIDMeta( 'generate' ) && !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ) {
 					$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
 					$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
 				}
-				
+
 			} else {
-				
+
 				// Do we want to set this here?
 				$this->staged_data['returnto'] = $this->getThankYouPage();
 			}
 		}
 	}
-	
+
 	/**
-	 * post-process function for INSERT_ORDERWITHPAYMENT. 
-	 * This gets called by executeIfFunctionExists, in do_transaction. 
+	 * post-process function for INSERT_ORDERWITHPAYMENT.
+	 * This gets called by executeIfFunctionExists, in do_transaction.
 	 */
 	protected function post_process_insert_orderwithpayment(){
-		//yeah, we absolutely want to do this for every one of these. 
+		//yeah, we absolutely want to do this for every one of these.
 		if ( $this->getTransactionStatus() === true ) {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
@@ -2363,7 +2383,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 	}
-	
+
 	protected function pre_process_get_orderstatus(){
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
@@ -2374,30 +2394,30 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * getCVVResult is intended to be used by the functions filter, to 
-	 * determine if we want to fail the transaction ourselves or not. 
+	 * getCVVResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
 	 */
 	public function getCVVResult(){
 		if ( is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ){
 			return null;
 		}
-		
+
 		$cvv_map = $this->getGlobal( 'CvvMap' );
-		
+
 		$result = $cvv_map[$this->getData_Unstaged_Escaped( 'cvv_result' )];
 		return $result;
 
-	}	
-	
+	}
+
 	/**
-	 * getAVSResult is intended to be used by the functions filter, to 
-	 * determine if we want to fail the transaction ourselves or not. 
+	 * getAVSResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
 	 */
 	public function getAVSResult(){
 		if ( is_null( $this->getData_Unstaged_Escaped( 'avs_result' ) ) ){
 			return null;
 		}
-		//Best guess here: 
+		//Best guess here:
 		//Scale of 0 - 100, of Problem we think this result is likely to cause.
 
 		$avs_map = $this->getGlobal( 'AvsMap' );
@@ -2408,7 +2428,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Used by ewallets, rtbt, and cash (boletos) to retrieve the URL we should
-	 * be posting the form data to. 
+	 * be posting the form data to.
 	 *
 	 * @return string|false Returns FORMACTION if one exists in the transaction response, else false.
 	 */
