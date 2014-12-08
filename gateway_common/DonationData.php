@@ -797,7 +797,7 @@ class DonationData {
 		);
 
 		$recurring = ($this->getVal( 'recurring' ) ? 'true' : 'false');
-		$this->log( "Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_INFO );
+		$this->log( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_DEBUG );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
