@@ -67,7 +67,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 		if ( is_null( $session_oid ) || ( ($this->qs_oid !== $session_oid) && strpos( $_GET['REF'], ( string ) $session_oid ) === false ) ) {
 			$forbidden = true;
-			$f_message = 'Requested order id not present in the session';
+			$f_message = "Requested order id not present in the session. (session_oid = '$session_oid')";
 
 			if ( !$_SESSION ) {
 				$this->adapter->log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data.", LOG_ERR );

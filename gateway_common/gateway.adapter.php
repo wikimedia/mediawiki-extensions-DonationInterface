@@ -2967,6 +2967,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This will be used internally every time we call do_transaction.
 	 */
 	public function session_addDonorData() {
+		$this->log( __FUNCTION__ . ': Refreshing all donor data', LOG_INFO );
 		self::session_ensure();
 		$_SESSION['Donor'] = array ( );
 		$donordata = DonationData::getStompMessageFields();
@@ -3021,6 +3022,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		if ( $reset ) {
+			$this->log( __FUNCTION__ . ': Unsetting session donor data', LOG_INFO );
 			$this->session_unsetDonorData();
 			//leave the payment forms and antifraud data alone.
 			//but, under no circumstances should the gateway edit
@@ -3031,10 +3033,15 @@ abstract class GatewayAdapter implements GatewayType {
 				'numAttempt',
 				'order_status', //for post-payment activities
 			);
+			$msg = '';
 			foreach ( $_SESSION as $key => $value ) {
 				if ( !in_array( $key, $preserve_main ) ) {
+					$msg .= "$key, "; //always one extra comma; Don't care.
 					unset( $_SESSION[$key] );
 				}
+			}
+			if ( $msg != '' ) {
+				$this->log( __FUNCTION__ . ": Unset the following session keys: $msg", LOG_INFO );
 			}
 		} else {
 			//I'm sure we could put more here...
@@ -3044,6 +3051,7 @@ abstract class GatewayAdapter implements GatewayType {
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $_SESSION['Donor'][$reset_me] );
 			}
+			$this->log( __FUNCTION__ . ': Soft reset, order_id only', LOG_INFO );
 		}
 	}
 
