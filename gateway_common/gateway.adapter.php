@@ -394,6 +394,10 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return string
 	 */
 	public function getLogMessagePrefix() {
+		if ( !is_object( $this->dataObj ) ) {
+			//please avoid exploding; It's just a log line.
+			return 'Constructing!';
+		}
 		return $this->dataObj->getLogMessagePrefix();
 	}
 
