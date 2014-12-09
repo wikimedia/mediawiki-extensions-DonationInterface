@@ -357,4 +357,50 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent an antimessage!" );
 		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
 	}
+
+	/**
+	 * Tests to see that we don't claim we're going to retry when we aren't
+	 * going to. For GC, we really only want to retry on code 300620
+	 */
+	public function testNoDupeOrderId( ) {
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'action'=>'donate',
+				'amount'=>'3.00',
+				'card_type'=>'amex',
+				'city'=>'Hollywood',
+				'contribution_tracking_id'=>'22901382',
+				'country'=>'US',
+				'currency_code'=>'USD',
+				'emailAdd'=>'FaketyFake@gmail.com',
+				'fname'=>'Fakety',
+				'format'=>'json',
+				'gateway'=>'globalcollect',
+				'language'=>'en',
+				'lname'=>'Fake',
+				'payment_method'=>'cc',
+				'referrer'=>'http://en.wikipedia.org/wiki/Main_Page',
+				'state'=>'MA',
+				'street'=>'99 Fake St',
+				'utm_campaign'=>'C14_en5C_dec_dsk_FR',
+				'utm_medium'=>'sitenotice',
+				'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
+				'zip'=>'90210'
+			), false ) );
+
+		$gateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$gateway->setDummyGatewayResponseCode( 'Exception' );
+		try {
+			$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		}
+		catch ( Exception $e ) {
+			// totally expected this
+		}
+		$first = $gateway->curled[0];
+		//simulate another request coming in before we get anything back from GC
+		$anotherGateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$anotherGateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$second = $anotherGateway->curled[0];
+		$this->assertFalse( $first == $second, 'Two calls to the api did the same thing');
+	}
 }

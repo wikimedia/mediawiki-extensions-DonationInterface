@@ -236,6 +236,9 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		$code = '';
 		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
 			$code = '_' . $this->dummyGatewayResponseCode;
+			if ( $this->dummyGatewayResponseCode == 'Exception' ) {
+				throw new Exception('blah!');
+			}
 		}
 
 		//could start stashing these in a further-down subdir if payment type starts getting in the way,
