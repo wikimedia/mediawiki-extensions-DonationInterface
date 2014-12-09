@@ -972,7 +972,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$retryVars = null;
 			$retval = $this->do_transaction_internal( $transaction, $retryVars );
 
-			if ( $retryVars !== null ) {
+			if ( !empty( $retryVars ) ) {
 				// TODO: Add more intelligence here. Right now we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
 
