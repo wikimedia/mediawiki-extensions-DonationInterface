@@ -257,6 +257,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			array( '430357' ),
 		);
 	}
+	
+	public function benignNoRetryCodeProvider() {
+		return array(
+			array( '430285' ),
+		);
+	}
 
 	/**
 	 * Get the expected XML request from GlobalCollect

@@ -359,8 +359,12 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
-	 * Tests to see that we don't claim we're going to retry when we aren't
-	 * going to. For GC, we really only want to retry on code 300620
+	 * Tests that two API requests don't send the same order ID and merchant
+	 * reference.  This was the case when users doubleclicked and we were
+	 * using the last 5 digits of time in seconds as a suffix.  We want to see
+	 * what happens when a 2nd request comes in while the 1st is still waiting
+	 * for a CURL response, so here we fake that situation by having CURL throw
+	 * an exception during the 1st response.
 	 */
 	public function testNoDupeOrderId( ) {
 		$this->setMwGlobals( 'wgRequest',
@@ -402,5 +406,31 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$anotherGateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		$second = $anotherGateway->curled[0];
 		$this->assertFalse( $first == $second, 'Two calls to the api did the same thing');
+	}
+
+	/**
+	 * Tests to see that we don't claim we're going to retry when we aren't
+	 * going to. For GC, we really only want to retry on code 300620
+	 * @dataProvider benignNoRetryCodeProvider
+	 */
+	public function testNoClaimRetryOnBoringCodes( $code ) {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['ffname'] = 'cc-vmad';
+		//Make it not look like an orphan
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'CVVRESULT' => 'M',
+				'AVSRESULT' => '0'
+			), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( $code );
+		$start_id = $gateway->_getData_Staged( 'order_id' );
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$finish_id = $gateway->_getData_Staged( 'order_id' );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Repeating transaction on request for vars:/' );
+		$this->assertEmpty( $logline, "Log says we are going to repeat the transaction for code $code, but that is not true" );
+		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");
 	}
 }
