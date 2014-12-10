@@ -2304,7 +2304,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$ctid = $this->staged_data['contribution_tracking_id'];
 		if ( $type === 'request' ) {
 			//append timestamp to ctid
-			$ctid .= '.' . (time() % 100000); //least significant five
+			$ctid .= '.' . (( microtime( true ) * 1000 ) % 100000); //least significant five
 		} elseif ( $type === 'response' ) {
 			$ctid = explode( '.', $ctid );
 			$ctid = $ctid[0];
