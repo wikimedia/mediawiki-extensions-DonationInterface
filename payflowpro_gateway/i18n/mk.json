@@ -20,8 +20,8 @@
 	"payflowpro_gateway-response-125": "Вашето плаќање е одбиено од страна на Службата за спречување на финансиски криминал (Fraud Prevention Services)",
 	"payflowpro_gateway-response-125-2": "Вашата кредитна картичка не можеше да се потврди. Проверете дали сите доставени податоци се совпаѓаат со профилот на вашата кредитна картичка, или пак обидете се со друга картичка. Можете и да искористите еден од <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">другите начини на дарување</a> или да нè исконтактирате на <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Ви благодариме за поддршката.",
 	"payflowpro_gateway-response-default": "Настана грешка при обработката на плаќањето.\nОбидете се повторно.",
-	"apihelp-pfp-description": "Ја изложува меѓусебната работа на прилогот со порталскиот додаток PayflowPro.",
-	"apihelp-pfp-param-dispatch": "Прилошкиот метод по кој ќе се добиваат податоците.",
+	"apihelp-pfp-description": "Ја изложува меѓусебната работа на извршникот со порталскиот додаток PayflowPro.",
+	"apihelp-pfp-param-dispatch": "Извршничкиот метод по кој ќе се добиваат податоците.",
 	"apihelp-pfp-param-tracking_data": "Низа податоци во JSON-формат за вметнување во contribution_tracking.",
 	"apihelp-pfp-param-gateway": "Тековниот портал.",
 	"apihelp-pfp-param-payment_method": "Тековниот начин на плаќање."
