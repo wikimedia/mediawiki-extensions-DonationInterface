@@ -1,24 +1,3 @@
-table#donation_amount {
-	background-color:transparent;
-	border:1px solid #AAAAAA;
-	border-collapse:collapse;
-	width: 394px;
-}
-table#donation_amount td {
-	border:1px solid #AAAAAA;
-}
-table#donation_amount td.amount_header {
-	background-color:#eef2f7;
-	font-size:90%;
-}
-table#donation_amount td.amount_data {
-	background-color:#daf2db;
-}
-h3.cc_header {
-	padding-bottom: 0;
-	margin-bottom: 0;
-	font-weight: normal;
-}
 div#payflowpro_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
@@ -35,35 +14,11 @@ div#payflowpro_gateway-donate-submessage {
     text-align: right;
     width: 94px;
 }
-
-
 .payflow-cc-form-section {
     float: none;
     margin-right: 0;
     margin-bottom: 1em;
 }
-
-#payflowpro_gateway-cc_form_container {
-    width: 100%;
-}
-
-#payflowpro_gateway-cc_form_form {
-    width: 475px;
-    float: right;
-    margin-left: 2em;
-    padding-left: 2em;
-    border-left: 1px solid #BBBBBB;
-}
-
-#payflowpro_gateway-cc_form_letter {
-    height: 100%;
-}
-
-#payflowpro_gateway-cc_form_letter p {
-    font-size: 1.125em;
-    margin-bottom: 1.2em;
-}
-
 #payflowpro_gateway-personal-info {
 	margin-right:0 !important;
 }
@@ -73,14 +28,6 @@ div#payflowpro_gateway-donate-submessage {
 	margin-right: 2em;
 }
 
-#payflowpro_gateway-cc_form_letter_inside {
-	padding-top: .5em;
-}
-
-#payflowpro_gateway-cc_otherways {
-	padding-top: .5em;
-	display: block;
-}
 #payflowpro_gateway-donate-addl-info {
 	margin-top:2em !important;
 	margin-bottom:1em !important;
@@ -103,8 +50,6 @@ div#payflowpro_gateway-donate-submessage {
 	font-size:1.125em;
 	margin-bottom:1em;
 	padding:0.2em 0;
-}
-#donate {
 }
 #donate-head {
 	border:none;
@@ -148,16 +93,9 @@ ul#moreinfolinks li{
     list-style: none !important;
     list-style-image: none !important;
 }
-h3.amount_header {
-	padding: 0 0 0.4em 0;
-	margin-bottom: 0;
-	font-weight: normal;
-}
-
 table#payflow-table-donor{
     /*margin-left: 10px;*/
 }
-
 /* Specific element overrides */
 input#zip.ja {
 	width: 268px;
@@ -242,6 +180,7 @@ textarea::-moz-placeholder { opacity: 1; }
   border-bottom: 1px solid #cbcbcb;
   margin-bottom: 1.0em!important;
   padding: 0 0 1.0em!important;
+  font-weight: normal;
 }
 
 .amount_header span {
@@ -256,6 +195,8 @@ textarea::-moz-placeholder { opacity: 1; }
   color: #7c7c7c;
   text-align: center;
   margin-bottom: 1em;
+  padding-bottom: 0;
+  font-weight: normal;
 }
 
 div.donor { width: auto !important; }
