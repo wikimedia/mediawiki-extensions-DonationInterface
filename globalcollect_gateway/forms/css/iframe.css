@@ -7,7 +7,10 @@ body#pageGetMissingData {
 table.ORB_TABLE_FIELDS td {
   padding: 5px 0;
 }
-div.ORB_INSTRUCTIONS {
+table td.ORB_TD_ERRORRIGHT, table td.ORB_TD_ERRORLEFT {
+  padding:0;
+}
+div.ORB_INSTRUCTIONS, div.ORB_INSTRUCTIONTEXT {
   display: none;
 }
 .ORB_INPUT {
@@ -68,4 +71,32 @@ td.Heading1 {
 input#F1009, input#F1136 {
   /* @noflip */
   direction: ltr;
+}
+
+input, select {
+    background-color: #f6f6f6;
+    padding: 1em !important;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 0 !important;
+    color: #006699;
+    cursor: pointer;
+    margin-bottom: .2em;
+}
+
+input.ORB_SELECT:first-child {
+    margin-right: 2%;
+}
+
+input#btnSubmit {
+    text-transform: uppercase;
+    font-size: 1.3em;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: .6em !important;
 }
