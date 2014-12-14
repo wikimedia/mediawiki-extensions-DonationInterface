@@ -8,7 +8,8 @@
 			"Jsoby",
 			"Nodar Kherkheulidze",
 			"Temuri rajavi",
-			"გიორგიმელა"
+			"გიორგიმელა",
+			"MIKHEIL"
 		]
 	},
 	"donate_interface": "მხარი დაუჭირეთ ვიკიმედიას!",
@@ -195,7 +196,6 @@
 	"donate_interface-otherways-alt": "არსებობს გადახდის<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">სხვა გზებიც</a>, მათ შორის ჩეკის საშუალებითაც.",
 	"donate_interface-otherways-short": "გადახდის სხვა საშუალებები",
 	"donate_interface-paypal": "გაქვთ PayPal-ის ანგარიში? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">შემოწირეთ PayPal-ის დახმარებით</a>.",
-	"donate_interface-credit-storage-processing": "ჩვენ არ ვინახავთ თქვენი საკრედიტო ბარათის ინფორმაციას, თქვენი პირადი მონაცემების მიმართ მოქმედებს ჩვენი <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">დონორების კონფიდენციალურობის პოლიტიკა</a>.",
 	"donate_interface-cc-form-header-personal": "საბილინგო ინფორმაცია",
 	"donate_interface-cc-form-header-payment": "ინფორმაცია გადახდზე",
 	"donate_interface-make-your-donation": "გაიღეთ  თანხა ახლავე",
@@ -337,7 +337,7 @@
 	"donate_interface-email-unsub-fail": "თქვენი მოთხოვნის დამუშავება ვერ მოხერხდა, გთხოვთ დაგვიკავშირდით <donations@wikimedia.org>.",
 	"donate_interface-email-unsub-confirm": "დარწმუნებული ხართ, რომ გსურთ გამოწერის გაუქმება <b>$1</b>?",
 	"donate_interface-faqs": "ხშირად დასმული შეკითხვები",
-	"donate_interface-informationsharing": "შემოწირულობის გაკეთებისას თქვენ უზიარებთ გარკვეულ ინფორმაციას „ფონდ ვიკიმედიას“ - არაკომერციულ ორგანიზაციას, რომელიც უძღვება „ვიკიპედიასა“ და დობილ პროექტებს, ასევე აშშ-სა და სხვა ქვეყნებში განთავსებულ სერვერულ პროვაიდერებთან  <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">შემომწირველის ინფორმაციის კონფიდენციალობის პოლიტიკის თანახმად.</a>. ჩვენ არ ვყიდით ინფორმაციას თქვენს შესახებ და არავის არ გადავცემთ მას.",
+	"donate_interface-informationsharing": "შემოწირულობის გაკეთებისას თქვენ უზიარებთ გარკვეულ ინფორმაციას „ფონდ ვიკიმედიას“ - არაკომერციულ ორგანიზაციას, რომელიც უძღვება „ვიკიპედიასა“ და სხვა დობილ პროექტებს, ასევე აშშ-სა და სხვა ქვეყნებში განთავსებულ სერვერულ პროვაიდერებთან  <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">, შემომწირველის ინფორმაციის კონფიდენციალობის პოლიტიკის თანახმად.</a>, რომელთა კონფიდენციალურობის პოლირიკაც შესაძლოა არ ემთხვეოდეს თქვენსას. ჩვენ არ ვყიდით ინფორმაციას თქვენს შესახებ და არავის არ გადავცემთ მას. მეტი ინფორმაციისათვის, გთხოვთ გაეცნოთ <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donor policy</a>.",
 	"donate_interface-currency-change": "შევცვალო?",
 	"donate_interface-taxded-link-int": "გადასახადები და სხვა სამართლებრივი ინფორმაცია",
 	"donate_interface-taxded-link-us": "ინფორმაცია შემოწირულობების გადასახადებისაგან გათავისუფლების შესახებ",
