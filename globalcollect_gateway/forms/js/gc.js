@@ -1,8 +1,8 @@
 window.displayCreditCardForm = function () {
 	$( '#payment' ).empty();
 	// Load wait spinner
-	$( '#payment' ).append( '<br/><br/><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
-		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
+	$( '#payment' ).append( '<br/><br/><div style="text-align:center"><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
+		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" /></div>' );
 
 	var currencyField, currency_code, stateField, state, countryField, country, sendData,
 		language = 'en'; // default value is English
