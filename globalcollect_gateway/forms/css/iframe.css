@@ -74,7 +74,7 @@ input#F1009, input#F1136 {
 }
 
 input, select {
-    background-color: #f6f6f6;
+    background-color: #f6f6f6 !important;
     padding: 1em !important;
     -moz-box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
