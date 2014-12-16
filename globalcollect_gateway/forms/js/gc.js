@@ -63,7 +63,7 @@ window.displayCreditCardForm = function () {
 		sendData.street_supplemental = $( 'input[name="street_supplemental"]' ).val();
 	}
 
-	$('.cardradio').prop('disabled', true);
+	mediaWiki.toggleCreditCardRadios( false );
 
 	$.ajax( {
 		url: mw.util.wikiScript( 'api' ),
@@ -91,7 +91,7 @@ window.displayCreditCardForm = function () {
 		complete: function ( xhr ) {
 			// Make sure our radio buttons are reenabled at some point.
 			window.setTimeout( function () {
-				$( '.cardradio' ).prop( 'disabled', false );
+				mediaWiki.toggleCreditCardRadios( true );
 			}, 5000 );
 		}
 	} );
