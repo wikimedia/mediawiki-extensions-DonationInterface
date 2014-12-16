@@ -3,7 +3,8 @@
 		"authors": [
 			"CERminator",
 			"Jsoby",
-			"KWiki"
+			"KWiki",
+			"Palapa"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -97,7 +98,6 @@
 	"donate_interface-otherways-alt": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate</a>, uključujući i putem čeka.",
 	"donate_interface-otherways-short": "Drugi načini za doniranje",
 	"donate_interface-paypal": "Imate li PayPal račun? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donirajte putem PayPal-a</a>.",
-	"donate_interface-credit-storage-processing": "Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su zaštićeni našim <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravilima o privatnosti</a>.",
 	"donate_interface-token-mismatch": "Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.",
 	"donate_interface-cc-form-header-personal": "Informacije o plaćanju",
 	"donate_interface-cc-form-header-payment": "Informacije o plaćanju",
@@ -162,7 +162,7 @@
 	"donate_interface-select-year-of-expiration": "Odaberite godinu isteka roka važenja",
 	"donate_interface-expires-question": "Ističe?",
 	"donate_interface-expires": "Ističe",
-	"donate_interface-card-security-code": "Sigurnosni kod kartice",
+	"donate_interface-card-security-code": "Sigurnosni kod",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV br.",
 	"donate_interface-cvv2": "CVV2",
