@@ -123,6 +123,10 @@ textarea {
 	padding: 3px;
 }
 
+#greenBackground {
+	display: inline-block;
+}
+
 #greenBackground,
 div.donor {
     padding:16px 24px;
