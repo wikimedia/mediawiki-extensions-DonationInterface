@@ -82,11 +82,9 @@ window.displayCreditCardForm = function () {
 					mw.generatePaymentForm( data );
 				}
 			}
-			$('.cardradio').prop('disabled', false);
 		},
 		error: function ( xhr ) {
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
-			$('.cardradio').prop('disabled', false);
 		}
 	} );
 };
