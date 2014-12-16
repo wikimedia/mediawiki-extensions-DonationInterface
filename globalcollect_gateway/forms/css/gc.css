@@ -283,6 +283,7 @@ input.fullwidth { width: 100% !important; }
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
+  cursor: pointer;
 }
 #cards li:hover { background: #9f9f9f; }
 #cards li:active { background: #929292; }
