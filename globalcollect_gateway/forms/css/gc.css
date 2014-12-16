@@ -285,8 +285,8 @@ input.fullwidth { width: 100% !important; }
   border-radius: 4px;
   cursor: pointer;
 }
-#cards li:hover { background: #9f9f9f; }
-#cards li:active { background: #929292; }
+#cards.enabled li:hover { background: #9f9f9f; }
+#cards.enabled li:active { background: #929292; }
 #cards li input {
   display: block;
   width: 100%;
