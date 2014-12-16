@@ -69,4 +69,12 @@ $( document ).ready( function () {
 			$( '#paymentContinue' ).show();
 		}
 	} );
+
+	$( '#cards li' ).click( function (event) {
+		$( this ).find( 'input' ).click();
+	} );
+
+	$( '#cards li input' ).click( function (event) {
+		event.stopPropagation();
+	} );
 } );
