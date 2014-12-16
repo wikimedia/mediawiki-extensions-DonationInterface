@@ -55,14 +55,10 @@ $( document ).ready( function () {
 	} );
 
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).live( 'change', function (event) {
-
-		$('.cardradio').prop('disabled', true);
-
+	$( '.cardradio' ).live( 'click', function () {
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '314px' }, 1000 );
 			displayCreditCardForm();
-
 			// hide the continue button so that people don't get confused with two of them
 			$( '#paymentContinue' ).hide();
 		} else {
