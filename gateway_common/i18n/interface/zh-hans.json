@@ -26,7 +26,8 @@
 			"Mywood",
 			"Impersonator 1",
 			"Duolaimi",
-			"Linforest"
+			"Linforest",
+			"JLeow00"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -164,6 +165,7 @@
 	"donate_interface-donor-county": "国家",
 	"donate_interface-donor-island": "岛屿",
 	"donate_interface-donor-state": "州",
+	"donate_interface-donor-province": "省",
 	"donate_interface-donor-zip": "邮政编码",
 	"donate_interface-donor-postal": "邮政编码",
 	"donate_interface-donor-postcode": "邮政编码",
