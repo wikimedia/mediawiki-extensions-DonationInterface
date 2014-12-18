@@ -239,7 +239,7 @@ class GlobalCollectGateway extends GatewayPage {
 		}
 						
 		$return .= Xml::openElement( 'tr', array() );
-		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;', 'colspan' => '2' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
+		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement( 'tr' );
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
@@ -289,7 +289,7 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 		$return .= Xml::openElement( 'table' ); //open info table
 		$return .= Xml::openElement( 'tr' );
-		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+		$return .= Xml::openElement ( 'td' );
 		$return .= Xml::tags( 'p', array(), $this->msg( 'donate_interface-online_bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );
@@ -302,7 +302,7 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );
 		$return .= Xml::openElement ( 'tr' );
-		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+		$return .= Xml::openElement ( 'td' );
 		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518');
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );
