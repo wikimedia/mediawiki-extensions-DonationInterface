@@ -30,7 +30,7 @@ $( document ).ready( function() {
 					<table id="payflow-table-donor">
 						<tbody>
 						<tr>
-							<td colspan="2">
+							<td>
 								<div id="step1header">
 									<h3 class="amount_header">%donate_interface-amount-legend%:  <span id="selected-amount">{% block donation-amount currency_code %}</span></h3>
 								</div>
@@ -38,13 +38,13 @@ $( document ).ready( function() {
 						</tr>
 						{% block personal-information country %}
 						<tr>
-							<td colspan="2">
+							<td>
 								<hr />
 								<p class="finePrint">%donate_interface-globalcollect-proxy%</p>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td>
 								<div id="bt-continue" style="margin-top: 10px;"> <input class="btn" id="continueBtn" type="button" value="%donate_interface-continue%" /></div>
 							</td>
 						</tr>
