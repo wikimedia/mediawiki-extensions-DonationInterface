@@ -7,7 +7,8 @@
 			"GameOn",
 			"Nghtwlkr",
 			"Per",
-			"Tobulos1"
+			"Tobulos1",
+			"Lokal Profil"
 		]
 	},
 	"payflowprogateway": "Donera nu",
@@ -24,5 +25,10 @@
 	"payflowpro_gateway-response-112": "Din adress eller CVV nummer (säkerhetskod) är felaktig.",
 	"payflowpro_gateway-response-125": "Din transaktion har blivit avvisad av Fraud Prevention Services.",
 	"payflowpro_gateway-response-125-2": "Ditt kreditkort kunde inte godkännas. Vänligen kontrollera att all information stämmer med dina kreditkortsdata eller prova ett annat kort. Du kan också använda ett av de <a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">andra sätt att ge ett bidrag</a> eller kontakta oss på <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>. Tack för att du stöttar oss.",
-	"payflowpro_gateway-response-default": "Ett fel uppstod när din transaktion behandlades.\nFörsök igen senare."
+	"payflowpro_gateway-response-default": "Ett fel uppstod när din transaktion behandlades.\nFörsök igen senare.",
+	"apihelp-pfp-description": "Visar API-interaktionen med PayflowPro Gateway-tillägget.",
+	"apihelp-pfp-param-dispatch": "Den API-metod för vilken data returneras.",
+	"apihelp-pfp-param-tracking_data": "En JSON-formaterad sträng av data att infoga i contribution_tracking.",
+	"apihelp-pfp-param-gateway": "Den aktuella gatewayen.",
+	"apihelp-pfp-param-payment_method": "Den aktuella betalningsmetoden."
 }
