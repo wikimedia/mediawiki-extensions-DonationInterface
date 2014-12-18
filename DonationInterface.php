@@ -105,6 +105,7 @@ $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/Do
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
+$wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
@@ -1043,7 +1044,7 @@ $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 //TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section.
 $wgResourceModules[ 'pfp.form.core.api' ] = array(
 	'scripts' => 'pfp_api_controller.js',
-	'dependencies' => array( 'mediawiki.util', 'jquery.json' ),
+	'dependencies' => array( 'mediawiki.util' ),
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );
@@ -1117,8 +1118,10 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
