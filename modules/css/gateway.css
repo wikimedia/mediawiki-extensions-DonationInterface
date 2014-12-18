@@ -143,6 +143,7 @@ p#informationsharing, p#monthlycancel {
 
 p.finePrint {
 	font-size: 11px;
+	white-space: normal;
 }
 
 /*
@@ -166,35 +167,145 @@ input#emailAdd {
 	/* @noflip */
 	direction: ltr;
 }
-input.thirdwidth, select.thirdwidth {
-    width: 85px;
-}
-input.halfwidth, select.halfwidth {
-	width: 137px;
-}
-input.fullwidth, select.fullwidth {
-	width: 285px;
+
+#payflow-table-donor {
+	white-space: nowrap;
 }
 
-input.leftmar,select.leftmar {
-	margin-left: 4px;
+.fullwidth { width: 100% }
+
+.halfwidth { width: 50%; }
+.halfwidth:not(:first-child) {
+	margin-left: 2%;
+	width: 48%;
 }
 
-input.rightmar,select.rightmar {
-    margin-right: 4px;
-}
-
-input#city.halfwidth.state {
-	width:134px;
-}
-input#zip.halfwidth.state {
-	width:76px;
-	margin-left: 0;
-}
-select#state.us, select#state.au, select#state.ca {
-	width: 60px;
+.thirdwidth:first-child { width: 34%; }
+.thirdwidth:not(:first-child) {
+	margin-left: 2%;
+	width: 31%;
 }
 
 .collapsingCity {
 	display: none;
+}
+
+/* From 2014 appeal */
+* {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* Slurped from https://payments.wikimedia.org/index.php?title=MediaWiki:Common.css&oldid=2183 */
+#mw-panel div.portal {
+   display: none !important;
+}
+div#footer #footer-icons {
+   display: none !important;
+}
+
+/*table#secureLogo {
+   border: 5px solid red;
+}*/
+
+
+a[href^="https://"], .link-https {
+ background-image: none !important;
+ padding: 0 !important;
+}
+
+div#content {
+ border: none;
+}
+
+/* Respond to small viewport */
+@media screen and (max-width: 981px) {
+    /* Overall layout */
+    div#content {
+        margin: 0;
+        padding: 1em;
+    }
+    #mw-navigation {
+        display: none;
+    }
+    #appeal {
+        display: none;
+    }
+    #donate {
+        display: block;
+    }
+    div#greenBackground {
+        padding: 1em;
+        width: inherit;
+    }
+    table#payflow-table-donor {
+        width: 100%;
+    }
+
+    /* Form - Amount/Payment Method */
+    #radiobuttons-table-header,
+    td.radiobuttons-cell,
+    .frequency-options,
+    .payment-method-button {
+        font-size: 2em;
+    }
+
+    .radiobuttons-cell {
+        padding: 0.5em;
+    }
+
+    input.payment-method-button {
+        padding: 1em;
+    }
+
+    /* Form - Contact/Donation Info */
+    td#donate form input[type="text"],
+    td#donate form input[type="email"],
+    td#donate form select,
+    td#donate form input#fname,
+    td#donate form input#lname,
+    td#donate form input#account_name,
+    td#donate form input#account_number,
+    td#donate form input#bank_code {
+        display: block;
+        font-size: 1.6em;
+        width: 94% !important;
+        margin:  5px 0 !important;
+        padding: 10px 3%;
+    }
+
+    .options-h li {
+        margin-right: 1em;
+    }
+
+    p#informationsharing, ul#moreinfolinks {
+        font-size: 1em;
+        line-height: 1.35em;
+        width: inherit;
+        padding: 1em;
+    }
+
+    #cards img {
+        height: 30px;
+        margin: 15px 15px 15px 0;
+    }
+
+    /* -- iDEAL -- */
+    #billing-content .name-fields span {
+        margin: 0;
+        width: 100%;
+    }
+    #billing-content select,
+    #billing-content input.txt,
+    #billing-content input.btn {
+        font-size: 1.2em;
+        margin: 5px 0 !important;
+        padding: 10px;
+    }
+    #donate, #donate-content {
+        width: inherit;
+    }
+    /* -- end iDEAL -- */
+
 }
