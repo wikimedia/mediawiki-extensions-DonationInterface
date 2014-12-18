@@ -109,7 +109,8 @@ $wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gat
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
-$wgAutoloadClasses['WmfFramework'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
+$wgAutoloadClasses['WmfFramework_Mediawiki'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
+require_once( 'gateway_common/WmfFramework.php' );
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';

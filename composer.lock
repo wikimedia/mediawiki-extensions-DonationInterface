@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a39ba08e819b55fff00334f929244e1a",
+    "hash": "db6cee8ab8789bf27fcaad9549734a6d",
     "packages": [
         {
             "name": "fusesource/stomp-php",
