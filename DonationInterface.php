@@ -105,6 +105,7 @@ $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/Do
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
+$wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
@@ -928,14 +929,6 @@ $wgResourceModules['donationInterface.skinOverride'] = array(
 	'position' => 'top'
 	) + $wgResourceTemplate;
 
-$wgResourceModules['donationInterface.test.rapidhtml'] = array(
-	'scripts' => 'tests/modules/gc.testinterface.js',
-	'dependencies' => array(
-		'mediawiki.Uri',
-		'gc.normalinterface'
-	)
-) + $wgResourceTemplate;
-
 $wgResourceModules['jquery.payment'] = array(
 	'scripts' => 'jquery.payment/jquery.payment.js',
 ) + $wgResourceTemplate;;
@@ -1040,7 +1033,7 @@ $wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
 //TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section.
 $wgResourceModules[ 'pfp.form.core.api' ] = array(
 	'scripts' => 'pfp_api_controller.js',
-	'dependencies' => array( 'mediawiki.util', 'jquery.json' ),
+	'dependencies' => array( 'mediawiki.util' ),
 	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
 	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
 );

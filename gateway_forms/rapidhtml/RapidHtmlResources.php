@@ -144,20 +144,6 @@ $wgResourceModules[ 'gc.normalinterface' ] = array(
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
 
-$wgResourceModules['donationInterface.test.rapidhtml'] = array(
-	'scripts' => 'modules/gc.testinterface.js',
-	'dependencies' => array(
-		'mediawiki.Uri',
-		'gc.normalinterface'
-	),
-	'messages' => array(
-		'globalcollect_gateway-fakesucceed',
-		'globalcollect_gateway-fakefail'
-	),
-	'localBasePath' => dirname( __FILE__ ) . '/../../tests',
-	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
-) + $wgResourceTemplate;
-
 $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 	'styles' => 'css/gc.css',
 	'scripts' => array(
@@ -171,12 +157,6 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
-
-if ( $wgDonationInterfaceTestMode === true ) {
-	$wgResourceModules[ 'gc.form.rapidhtml.cc' ]['dependencies'][] = 'donationInterface.test.rapidhtml';
-} else {
-	$wgResourceModules[ 'gc.form.rapidhtml.cc' ]['dependencies'][] = 'gc.normalinterface';
-}
 
 $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 	'styles' => 'css/gc.css',
