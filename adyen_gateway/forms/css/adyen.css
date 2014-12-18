@@ -170,39 +170,6 @@ table#payflow-table-donor{
     /*margin-left: 10px;*/
 }
 
-/* Form Inputs */
-
-input.halfwidth {
-	width: 190px;
-}
-input.fullwidth {
-	width: 392px;
-}
-
-input#city.halfwidth.state {
-	width:192px;
-}
-input#zip.halfwidth.state {
-	width:94px;
-	margin-left: 0;
-}
-select#state.us, select#state.au, select#state.ca {
-	width: 90px;
-}
-
-
-/* Specific element overrides */
-input#zip.ja {
-	width: 268px;
-}
-select#state.ja {
-	width:100%;
-}
-
-select#state.it {
-	width: auto;
-}
-
 /* From Webitects */
 /* Options */
 .form .options-h, .form .options-v { margin: 0; }

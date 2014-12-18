@@ -39,7 +39,7 @@
 
 							<tr>
 								<td>
-									<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+									<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
 								</td>
 							</tr>
 
@@ -57,12 +57,10 @@
 
 							<tr>
 								<td>
-									<select class="txt" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
+									<select class="txt halfwidth" id="country" name="country" value="@country" placeholder="%donate_interface-country%">
 										<option value="">%donate_interface-select-country%</option>
 										@select_country
 									</select>
-								</td>
-								<td>
 									<input name="zip" class="halfwidth" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
 								</td>
 							</tr>

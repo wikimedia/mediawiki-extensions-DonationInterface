@@ -5,7 +5,7 @@
 </tr>
 <tr>
 	<td>
-		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
 	</td>
 </tr>
 <tr>
@@ -18,8 +18,7 @@
 </tr>
 <tr>
 	<td>
-		<input class="halfwidth state" name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city">
-		<select id="state" name="state" class="ca" value="@state" >
+		<input class="thirdwidth" name="city" value="@city" type="text" title="%donate_interface-donor-city%" placeholder="%donate_interface-donor-city%" id="city"><select id="state" name="state" class="ca thirdwidth" value="@state" >
 			<option value="" disabled selected>%donate_interface-donor-province%</option>
 			<option value="AB">AB</option>
 			<option value="BC">BC</option>
@@ -34,8 +33,7 @@
 			<option value="QC">QC</option>
 			<option value="SK">SK</option>
 			<option value="YT">YT</option>
-		</select>
-		<input name="zip" class="halfwidth leftmar state" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
+		</select><input name="zip" class="thirdwidth state" value="@zip" type="text" title="%donate_interface-postal%" placeholder="%donate_interface-donor-postal%" id="zip">
 	</td>
 </tr>
 <tr style="display: none;">
