@@ -260,18 +260,17 @@ div#content {
     }
 
     /* Form - Contact/Donation Info */
-    td#donate form input[type="text"],
-    td#donate form input[type="email"],
+    table#payflow-table-donor td {
+        padding: 0;
+    }
     td#donate form select,
-    td#donate form input#fname,
-    td#donate form input#lname,
-    td#donate form input#account_name,
-    td#donate form input#account_number,
-    td#donate form input#bank_code {
+    td#donate form input {
         display: block;
+        float: left;
+        clear: both;
         font-size: 1.6em;
-        width: 94% !important;
-        margin:  5px 0 !important;
+        width: 100%;
+        margin:  5px 0;
         padding: 10px 3%;
     }
 
