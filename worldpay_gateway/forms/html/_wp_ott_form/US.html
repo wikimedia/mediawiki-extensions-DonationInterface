@@ -30,7 +30,8 @@
 			   placeholder='05/2015'/>
 		</div>
 		<div class="col-md-3">
-			<label for="cvc" id="cvc-label">%donate_interface-cvv%</label>
+			<label for="cvc" id="cvc-label">%donate_interface-cvv% <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/questionmark.png" id="cvv-info" ></label>
+			<div id="cvv-codes"><img src="@script_path/extensions/DonationInterface/gateway_forms/includes/security-code.png" /></div>
 			<input type="text" class="form-control" id="cvc" pattern="\d*"
 				   autocomplete="off"
 				   placeholder='123'/>

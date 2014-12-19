@@ -282,7 +282,7 @@
 	"donate_interface-expires-question": "פג?",
 	"donate_interface-expires": "פג",
 	"donate_interface-card-security-code": "קוד האבטחה",
-	"donate_interface-cvv": "3 ספרות בגב הכרטיס",
+	"donate_interface-cvv": "קוד ביטחון",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
 	"donate_interface-cvv-number": "מספר CVV",

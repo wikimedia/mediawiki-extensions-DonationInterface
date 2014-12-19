@@ -203,3 +203,19 @@ ul#moreinfolinks li{
 	/* @noflip */
 	direction: ltr;
 }
+
+img#cvv-info {
+  vertical-align: top;
+  cursor: pointer;
+}
+#cvv-codes {
+  background-color: white;
+  border: 1px solid #c0c0c0;
+  bottom: 100%;
+  display: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 3px;
+  border-radius: 4px;
+}
