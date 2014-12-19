@@ -285,9 +285,15 @@ div#content {
         padding: 1em;
     }
 
+	#cards label {
+		display: inline-block;
+		width: 100%;
+		float: left;
+	} 
+
     #cards img {
         height: 30px;
-        margin: 15px 15px 15px 0;
+        margin: 10px auto;
     }
 
     /* -- iDEAL -- */
