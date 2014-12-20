@@ -158,6 +158,9 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
 
+// NOTE deployment branch only, ordinarily there is a testing conditional here.
+$wgResourceModules[ 'gc.form.rapidhtml.cc' ]['dependencies'][] = 'gc.normalinterface';
+
 $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 	'styles' => 'css/gc.css',
 	'scripts' => array(
