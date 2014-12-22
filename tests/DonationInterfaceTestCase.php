@@ -485,7 +485,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 						$this->performCheck( $input_node->nodeName, $expected, "name of node with id '$id'");
 						break;
 					case 'innerhtml':
-						$this->performCheck( self::getInnerHTML( $input_node ), $expected, "innerHTML of node '$id'");
+						$actual_html = self::getInnerHTML( $input_node );
+						// Strip comments
+						$actual_html = preg_replace( '/<!--[^>]*-->/', '', $actual_html );
+						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'");
 						break;
 					case 'innerhtmlmatches':
 						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
