@@ -364,6 +364,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			}
 			if ( $found_file ){
 				$template = $this->replace_blocks( file_get_contents( $found_file ) );
+
+				$relative_path = $found_file;
+				$base_pos = strpos( $found_file, 'DonationInterface' );
+				if ( $base_pos !== false ) {
+					$relative_path = substr( $found_file, $base_pos );
+				}
+
+				$template = "<!-- Generated from: {$relative_path} -->{$template}<!-- end {$relative_path} -->";
 				$html = str_replace( $matches[0][$i], $template, $html );
 			} else {
 				# replace the template call with nothing at all
