@@ -77,4 +77,17 @@ $( document ).ready( function () {
 	$( '#cards li input' ).click( function (event) {
 		event.stopPropagation();
 	} );
+
+	// Card choice LI should only hover/clicky when enabled.
+	mediaWiki.toggleCreditCardRadios( true );
 } );
+
+mediaWiki.toggleCreditCardRadios = function (enabled) {
+	$( '.cardradio' ).prop( 'disabled', !enabled );
+
+	if ( enabled ) {
+		$( '#cards' ).addClass( 'enabled' );
+	} else {
+		$( '#cards' ).removeClass( 'enabled' );
+	}
+};
