@@ -303,7 +303,7 @@ input.fullwidth { width: 100% !important; }
   clear: both;
 }
 .btn {
-  background-color: #367fb4 !important;
+  background-color: #757575 !important;
   color: #fff !important;
   width: 100%;
   text-transform: uppercase;
@@ -313,8 +313,10 @@ input.fullwidth { width: 100% !important; }
   border-radius: 4px;
   padding: .6em !important;
 }
-
-.btn:hover { background-color: #1d5278 !important; }
+.btn.enabled {
+  background-color: #367fb4 !important;
+}
+.btn.enabled:hover { background-color: #1d5278 !important; }
 .btn:active {
   -moz-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);

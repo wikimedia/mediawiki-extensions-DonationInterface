@@ -80,14 +80,17 @@ $( document ).ready( function () {
 
 	// Card choice LI should only hover/clicky when enabled.
 	mediaWiki.toggleCreditCardRadios( true );
+
+	// Reset any selected radio buttons in case of page reload
+	$( '.cardradio' ).attr( 'checked', false );
 } );
 
 mediaWiki.toggleCreditCardRadios = function (enabled) {
-	$( '.cardradio' ).prop( 'disabled', !enabled );
+	$( '.cardradio, #paymentContinueBtn' ).prop( 'disabled', !enabled );
 
 	if ( enabled ) {
-		$( '#cards' ).addClass( 'enabled' );
+		$( '#cards, #paymentContinueBtn' ).addClass( 'enabled' );
 	} else {
-		$( '#cards' ).removeClass( 'enabled' );
+		$( '#cards, #paymentContinueBtn' ).removeClass( 'enabled' );
 	}
 };

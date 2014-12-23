@@ -73,9 +73,11 @@ window.displayCreditCardForm = function () {
 		success: function ( data ) {
 			if ( !data || data.error !== undefined ) {
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				$( '#payment' ).empty(); // Hide spinner
 				$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 			} else if ( data.result !== undefined ) {
 				if ( data.result.errors ) {
+					$( '#payment' ).empty(); // Hide spinner
 					$.each( data.result.errors, function ( index, value ) {
 						alert( value ); // Show them the error
 						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
@@ -86,6 +88,7 @@ window.displayCreditCardForm = function () {
 			}
 		},
 		error: function ( xhr ) {
+			$( '#payment' ).empty(); // Hide spinner
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
 		},
 		complete: function ( xhr ) {
