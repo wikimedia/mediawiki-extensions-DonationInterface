@@ -176,7 +176,8 @@ textarea::-moz-placeholder { opacity: 1; }
 div.donor { width: auto !important; }
 div.donor { width: 100% !important; }
 
-#payflow-table-donor input,
+#payflow-table-donor input[type="text"],
+#payflow-table-donor input[type="email"],
 #payflow-table-donor select {
   background-color: #f6f6f6;
   padding: 1em !important;
@@ -192,13 +193,15 @@ div.donor { width: 100% !important; }
   margin-bottom: .2em;
 }
 
-#payflow-table-donor input:hover,
+#payflow-table-donor input[type="text"]:hover,
+#payflow-table-donor input[type="email"]:hover,
 #payflow-table-donor select:hover {
   background: #003955;
   color: #fff;
 }
 
-#payflow-table-donor input:focus,
+#payflow-table-donor input[type="text"]:focus,
+#payflow-table-donor input[type="email"]:focus,
 #payflow-table-donor select:focus {
   background: #fff;
   color: #00476b;
