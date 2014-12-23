@@ -63,6 +63,8 @@ window.displayCreditCardForm = function () {
 		sendData.street_supplemental = $( 'input[name="street_supplemental"]' ).val();
 	}
 
+	$('.cardradio').prop('disabled', true);
+
 	$.ajax( {
 		url: mw.util.wikiScript( 'api' ),
 		data: sendData,
@@ -85,6 +87,12 @@ window.displayCreditCardForm = function () {
 		},
 		error: function ( xhr ) {
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+		},
+		complete: function ( xhr ) {
+			// Make sure our radio buttons are reenabled at some point.
+			window.setTimeout( function () {
+				$( '.cardradio' ).prop( 'disabled', false );
+			}, 5000 );
 		}
 	} );
 };
