@@ -7,7 +7,10 @@ body#pageGetMissingData {
 table.ORB_TABLE_FIELDS td {
   padding: 5px 0;
 }
-div.ORB_INSTRUCTIONS {
+table td.ORB_TD_ERRORRIGHT, table td.ORB_TD_ERRORLEFT {
+  padding:0;
+}
+div.ORB_INSTRUCTIONS, div.ORB_INSTRUCTIONTEXT {
   display: none;
 }
 .ORB_INPUT {
