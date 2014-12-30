@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Imre",
-			"פוילישער"
+			"פוילישער",
+			"Har-wradim"
 		]
 	},
 	"donate_interface": "שטיצט וויקימעדיע",
@@ -20,7 +21,7 @@
 	"donate_interface-monthly-donation-description": "מאנאטלעכע נדבה צו דער וויקימעדיע פונדאציע",
 	"donate_interface-amount-error": "ביטע גיט אַרייַן אַ גילטיקע סומע",
 	"donate_interface-smallamount-error": "איר דארפט בײַשטײַערן כאטש $1",
-	"donate_interface-processing-error": "ס'איז געשען א פעלער ביים פראצעסירן אײַער בקשה.\nנישט פאראן קיין פראצעסאר.",
+	"donate_interface-processing-error": "ס'איז געשען א פֿעלער ביים פראצעסירן אײַער בקשה.\nנישט פֿאַראַן קיין פראצעסאר.",
 	"donate_interface-AED": "פאראייניקטע אראבישע עמיראטן דירהאם",
 	"donate_interface-ARS": "ארגענטינישער פעסא",
 	"donate_interface-AUD": "אויסטראַלישער טאָלער",
@@ -247,7 +248,7 @@
 	"donate_interface-select-a-size": "ביטע קלויבט א גרייס.",
 	"donate_interface-select": "אויסוויילן",
 	"donate_interface-shipping-address": "ליפערן אדרעס",
-	"donate_interface-shipping-address-different": "מײַן ליפערן אדרעס איז אנדערש פון מײַן חשבון אדרעס.",
+	"donate_interface-shipping-address-different": "מיין ליפערן אַדרעס איז אַנדערש פון מיין חשבון אַדרעס.",
 	"donate_interface-shipping-address-same": "ליפערן אדרעס גלייך ווי חשבון אדרעס.",
 	"donate_interface-donation-must-equal": "די נדבה מוז זיין כאטש $1.",
 	"donate_interface-thank-you": "ייש\"כ! מ'האט באקומען אייער נדבה.",
