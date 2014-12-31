@@ -1364,7 +1364,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$results = array();
 
 		while ( ( $i++ <= 3 ) && ( $continue === true )) {
-			$this->log( "Preparing to send transaction to $gatewayName" );
+			$this->log( "Preparing to send {$this->getCurrentTransaction()} transaction to $gatewayName" );
 
 			// Execute the cURL operation
 			$result = $this->curl_exec( $ch );
