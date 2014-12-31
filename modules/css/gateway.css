@@ -130,7 +130,7 @@ textarea {
 #greenBackground,
 div.donor {
     padding:16px 24px;
-	width:300px;
+	min-width:300px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
