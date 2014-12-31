@@ -177,6 +177,7 @@ div.donor { width: auto !important; }
 div.donor { width: 100% !important; }
 
 #payflow-table-donor input[type="text"],
+#payflow-table-donor input:not([type]),
 #payflow-table-donor input[type="email"],
 #payflow-table-donor select {
   background-color: #f6f6f6;
