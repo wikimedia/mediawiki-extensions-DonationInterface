@@ -96,25 +96,6 @@ ul#moreinfolinks li{
 table#payflow-table-donor{
     /*margin-left: 10px;*/
 }
-/* Specific element overrides */
-input#zip.ja {
-	width: 268px;
-}
-select#state.ja {
-	width:100%;
-}
-
-select#state.it {
-	width: auto;
-}
-
-select#state.au {
-	width:109px;
-}
-
-#emailAdd {
-	width:137px;
-}
 
 /* From Webitects */
 /* Options */
@@ -127,13 +108,6 @@ select#state.au {
 .options-h li:last-child { margin: 0; }
 .form .options-v { margin-top: 5px; }
 .options-v li { padding-left: 25px; text-indent: -25px; }
-
-/* From 2014 appeal */
-* {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
 
 input:-moz-placeholder     { opacity: 1; }
 input::-moz-placeholder    { opacity: 1; }
@@ -238,27 +212,6 @@ div.donor { width: 100% !important; }
 
 #payflow-table-donor select { padding: .9em 1em !important; line-height: 40px; }
 
-input#city { width: 170px !important; }
-input#zip { width: 98px !important; }
-
-select#state.us,
-select#state.au,
-select#state.ca {
-  width: 85px;
-}
-
-select#state.gb {
-	width: 100%;
-}
-
-select#country {
-	width: 100%;
-}
-
-#payflow-table-donor input.halfwidth { width: 48%; }
-#payflow-table-donor input.halfwidth:first-child { margin-right:2%; }
-
-input.fullwidth { width: 100% !important; }
 .mw-donate-submessage {
   text-transform: uppercase;
   font-size: .75em !important;
