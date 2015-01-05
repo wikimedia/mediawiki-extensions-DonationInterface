@@ -941,6 +941,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'keys' => array(),
 		);
 
+		// eWallets Alipay
+		$this->payment_submethods['ew_alipay'] = array(
+			'paymentproductid'	=> 861,
+			'label'	=> 'eWallets: Alipay',
+			'group'	=> 'ew',
+			'validation' => array(),
+			'keys' => array(),
+		);
+
 		// eWallets Moneybookers
 		$this->payment_submethods['ew_moneybookers'] = array(
 			'paymentproductid'	=> 843,
