@@ -107,14 +107,17 @@ $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
+$wgAutoloadClasses['NationalCurrencies'] = $donationinterface_dir . 'gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
-$wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
 require_once( 'gateway_common/WmfFramework.php' );
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
+$wgAutoloadClasses['CountryCodes'] = $donationinterface_dir . 'gateway_forms/includes/CountryCodes.php';
+$wgAutoloadClasses['ProvinceAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/ProvinceAbbreviations.php';
+$wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/StateAbbreviations.php';
 
 //GlobalCollect gateway classes
 if ( $optionalParts['GlobalCollect'] === true ){
