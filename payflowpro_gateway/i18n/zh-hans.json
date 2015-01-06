@@ -7,7 +7,8 @@
 			"Kuailong",
 			"Liangent",
 			"Wilsonmess",
-			"Linforest"
+			"Linforest",
+			"Yfdyh000"
 		]
 	},
 	"payflowprogateway": "现在捐款",
@@ -25,6 +26,8 @@
 	"payflowpro_gateway-response-125": "反欺诈系统拒绝了您的捐献。",
 	"payflowpro_gateway-response-125-2": "无法验证您的信用卡。请确保您所提供的信息与信用卡资料信息相符，或者换一张信用卡再试一次。您可以使用我们其他的<a href=\"http://wikimediafoundation.org/wiki/Ways_to_Give/en\">捐款方式</a>，或者与<a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>联系。再次感谢您的支持。",
 	"payflowpro_gateway-response-default": "在处理交易的过程中出错。\n请稍后再试。",
+	"apihelp-pfp-description": "展露与PayflowPro Gateway扩展交互的API。",
+	"apihelp-pfp-param-tracking_data": "要插入到contribution_tracking的一个JSON格式的数据字符串。",
 	"apihelp-pfp-param-gateway": "当前的网关。",
 	"apihelp-pfp-param-payment_method": "当前的付款方法。"
 }
