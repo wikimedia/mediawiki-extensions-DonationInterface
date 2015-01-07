@@ -33,19 +33,3 @@ class TestingGlobalCollectGateway extends GlobalCollectGateway {
 	}
 
 }
-
-class TestingWorldPayGateway extends WorldPayGateway {
-
-	public function __construct() {
-		$this->adapter = new TestingWorldPayAdapter();
-		GatewayPage::__construct(); //DANGER: See main class comments.
-	}
-
-}
-
-class TestingAmazonGateway extends AmazonGateway {
-	public function __construct() {
-		$this->adapter = new TestingAmazonAdapter();
-		GatewayPage::__construct();
-	}
-}

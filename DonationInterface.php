@@ -1118,14 +1118,14 @@ function efDonationInterfaceUnitTests( &$files ) {
 
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
-	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/TestingAmazonGateway.php';
 	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
 	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
-	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
 	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
 	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
 	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldPayAdapter.php';
-	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/TestingWorldPayGateway.php';
 
 	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
 	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
