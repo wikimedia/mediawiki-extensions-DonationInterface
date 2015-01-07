@@ -1116,15 +1116,15 @@ function efDonationInterfaceUnitTests( &$files ) {
 
 	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
 
-	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
-	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
+	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
 	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
-	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
-	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
 	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
-	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
-	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
-	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
+	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
+	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldPayAdapter.php';
 	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
 
 	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
