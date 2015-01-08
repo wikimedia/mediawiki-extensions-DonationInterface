@@ -22,6 +22,10 @@ class PaymentMethod {
 	static protected $specs = array();
 
 	/**
+	 * Register a list of payment methods
+	 *
+	 * FIXME: static ownership of gateway specs is bad
+	 *
 	 * @param array $methods_meta map of name => method specification
 	 */
 	static public function registerMethods( $methods_meta ) {
@@ -38,6 +42,8 @@ class PaymentMethod {
 	}
 
 	/**
+	 * Get the specification for this payment method
+	 *
 	 * @param string $method
 	 *
 	 * @return array|null method specification data
@@ -51,6 +57,8 @@ class PaymentMethod {
 
 	/**
 	 * Convert a unique payment method name into the method/submethod form
+	 *
+	 * The compound form should be deprecated in favor of 
 	 *
 	 * @param string $id unique method identifier
 	 * @return list( $payment_method, $payment_submethod )
@@ -101,10 +109,10 @@ class PaymentMethod {
 	}
 
 	/**
+	 * TODO: implement this function
 	 * @return true if this payment method is complete enough to begin a transaction
 	 */
 	static public function isCompletelySpecified( $id ) {
-		//TODO
 		if ( $id === 'cc' ) return false;
 		return true;
 	}
@@ -123,7 +131,9 @@ class PaymentMethod {
 	}
 
 	/**
-	 * @return the most general ancestor of a given payment $method
+	 * Get the high-level family for this method
+	 *
+	 * @return string the most general ancestor of a given payment $method
 	 */
 	static public function getFamily( $method ) {
 		while ( $parent = PaymentMethod::getParent( $method ) ) {
