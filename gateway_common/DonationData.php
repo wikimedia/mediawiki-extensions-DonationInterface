@@ -744,17 +744,23 @@ class DonationData {
 	 * the utm_source is structured as: banner.landing_page.payment_method_family
 	 */
 	protected function setUtmSource() {
-		
 		$utm_source = $this->getVal( 'utm_source' );
 		$utm_source_id = $this->getVal( 'utm_source_id' );
-		
-		$payment_method_family = PaymentMethod::getUtmSourceName(
-			$this->getVal( 'payment_method' ),
-			$this->getVal( 'recurring' )
-		);
 
-		$recurring = ($this->getVal( 'recurring' ) ? 'true' : 'false');
-		$this->log( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_DEBUG );
+		if ( $this->getVal( 'payment_method' ) ) {
+			$method_object = PaymentMethod::newFromCompoundName(
+				$this->gateway,
+				$this->getVal( 'payment_method' ),
+				$this->getVal( 'payment_submethod' ),
+				$this->getVal( 'recurring' )
+			);
+			$utm_payment_method_family = $method_object->getUtmSourceName();
+		} else {
+			$utm_payment_method_family = '';
+		}
+
+		$recurring_str = var_export( $this->getVal( 'recurring' ), true );
+		$this->log( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring_str}, utm_source = {$utm_payment_method_family}", LOG_DEBUG );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
@@ -767,14 +773,14 @@ class DonationData {
 		// If the utm_source_id is set, include that in the landing page
 		// portion of the string.
 		if ( $utm_source_id ) {
-			$source_parts[1] = $payment_method_family . $utm_source_id;
+			$source_parts[1] = $utm_payment_method_family . $utm_source_id;
 		} else {
 			if ( empty( $source_parts[1] ) ) {
 				$source_parts[1] = '';
 			}
 		}
 
-		$source_parts[2] = $payment_method_family;
+		$source_parts[2] = $utm_payment_method_family;
 		if ( empty( $source_parts[2] ) ) {
 			$source_parts[2] = '';
 		}

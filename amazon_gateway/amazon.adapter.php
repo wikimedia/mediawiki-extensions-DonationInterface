@@ -174,7 +174,11 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->payment_methods = array(
 			'amazon' => array(),
 		);
-		PaymentMethod::registerMethods( $this->payment_methods );
+
+		$this->payment_submethods = array(
+			'amazon_cc' => array(),
+			'amazon_wallet' => array(),
+		);
 	}
 
 	protected function buildRequestParams() {

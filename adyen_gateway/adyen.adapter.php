@@ -168,7 +168,6 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->payment_methods = array(
 			'cc' => array(),
 		);
-		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
 	protected function getAllowedPaymentMethods() {

@@ -1062,9 +1062,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'group' => 'cash',
 			'keys' => array(),
 		);
-
-		PaymentMethod::registerMethods( $this->payment_methods );
-		PaymentMethod::registerMethods( $this->payment_submethods );
 	}
 
 	/**

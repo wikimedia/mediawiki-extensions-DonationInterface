@@ -288,9 +288,6 @@ class WorldPayAdapter extends GatewayAdapter {
 				),
 			);
 		}
-
-		PaymentMethod::registerMethods( $this->payment_methods );
-		PaymentMethod::registerMethods( $this->payment_submethods );
 	}
 
 	function defineOrderIDMeta() {

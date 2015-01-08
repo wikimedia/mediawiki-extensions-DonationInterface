@@ -335,8 +335,12 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->setApiRequest();
 		}
 
-		$this->defineOrderIDMeta(); //must happen before we go to DonationData.
-		$this->defineDataConstraints(); //must also happen before we go to DonationData.
+		// The following needs to be set up before we initialize DonationData.
+		// TODO: move the rest of the initialization here
+		$this->defineOrderIDMeta();
+		$this->defineDataConstraints();
+		$this->definePaymentMethods();
+
 		$this->session_resetOnGatewaySwitch(); //clear out the old stuff before DD snarfs it.
 
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
@@ -351,7 +355,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->findAccount();
 		$this->defineAccountInfo();
 		$this->defineTransactions();
-		$this->definePaymentMethods();
 		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineReturnValueMap();

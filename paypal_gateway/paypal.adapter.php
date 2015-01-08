@@ -191,7 +191,6 @@ class PaypalAdapter extends GatewayAdapter {
 		$this->payment_methods = array(
 			'paypal' => array(),
 		);
-		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
 	static function getCurrencies() {

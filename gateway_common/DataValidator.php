@@ -749,7 +749,7 @@ EOT;
 	/**
 	 * Calculates and returns the card type for a given credit card number. 
 	 * @param numeric $card_num A credit card number.
-	 * @return mixed 'american', 'mastercard', 'visa', 'discover', or false. 
+	 * @return string|bool 'amex', 'mc', 'visa', 'discover', or false. 
 	 */
 	public static function getCardType( $card_num ) {
 		// validate that credit card number entered is correct and set the card type
