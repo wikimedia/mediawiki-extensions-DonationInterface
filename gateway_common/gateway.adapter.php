@@ -3676,9 +3676,31 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Get payment method meta
+	 *
+	 * @param string|null $payment_method Defaults to the current payment method, if null.
+	 *
+	 * @throws MWException
+	 */
+	public function getPaymentMethodMeta( $payment_method = null ) {
+		if ( $payment_method === null ) {
+			$payment_method = $this->getPaymentMethod();
+		}
+
+		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
+
+			return $this->payment_methods[ $payment_method ];
+		}
+		else {
+			$message = "The payment method [{$payment_method}] was not found.";
+			throw new MWException( $message );
+		}
+	}
+
+	/**
 	 * Get payment submethod meta
 	 *
-	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
+	 * @param    string|null    $payment_submethod    Payment submethods are mapped to paymentproductid
 	 * @throws MWException
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
@@ -3697,7 +3719,7 @@ abstract class GatewayAdapter implements GatewayType {
 			return $this->payment_submethods[ $payment_submethod ];
 		}
 		else {
-			throw new MWException( "The payment submethod [ {$payment_submethod} ] was not found." );
+			throw new MWException( "The payment submethod [{$payment_submethod}] was not found." );
 		}
 	}
 

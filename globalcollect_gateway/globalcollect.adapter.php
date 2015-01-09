@@ -1069,27 +1069,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Get payment method meta
-	 *
-	 * @todo
-	 * - These may need to move to the parent class
-	 *
-	 * @param    string    $payment_method    Payment methods contain payment submethods
-	 * @throws MWException
-	 */
-	public function getPaymentMethodMeta( $payment_method ) {
-
-		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
-
-			return $this->payment_methods[ $payment_method ];
-		}
-		else {
-			$message = 'The payment method [ ' . $payment_method . ' ] was not found.';
-			throw new MWException( $message );
-		}
-	}
-
-	/**
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and
 	 * letting the rest behave normally.
@@ -1482,7 +1461,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 
 				//if we're of a type that sends donors off never to return, we should record that here.
-				$payment_info = $this->getPaymentMethodMeta( $this->getPaymentMethod() );
+				$payment_info = $this->getPaymentMethodMeta();
 				if ( array_key_exists( 'short_circuit_at', $payment_info ) && $payment_info['short_circuit_at'] === 'first_iop' ){
 					if ( array_key_exists( 'additional_success_status', $payment_info ) && is_array( $payment_info['additional_success_status'] ) ){
 						foreach ( $payment_info['additional_success_status'] as $status ){
