@@ -40,17 +40,6 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$this->setHeaders();
 
-		/**
-		 *  handle PayPal redirection
-		 *
-		 *  if paypal redirection is enabled ($wgPayflowProGatewayPaypalURL must be defined)
-		 *  and the PaypalRedirect form value must be true
-		 */
-		if ( $this->getRequest()->getText( 'PaypalRedirect', 0 ) ) {
-			$this->paypalRedirect();
-			return;
-		}
-
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			if ( $this->adapter->posted ) {
@@ -78,6 +67,8 @@ class GlobalCollectGateway extends GatewayPage {
 					
 					switch ( $payment_method ){
 						case 'cc': 
+							// FIXME: we don't actually use this code path, it's done from gc.cc.js instead.
+
 							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 							// Display an iframe for credit cards
