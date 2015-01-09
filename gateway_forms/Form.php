@@ -314,6 +314,7 @@ abstract class Gateway_Form {
 	public function generateCurrencyDropdown( $defaultCurrencyCode = 'USD', $showCardsOnCurrencyChange = false ) {
 
 		// Get an array of currency codes from the current payment gateway
+		// FIXME: static function
 		$availableCurrencies = $this->gateway->getCurrencies();
 
 		// If a currency has already been posted, use that, otherwise use the default.
