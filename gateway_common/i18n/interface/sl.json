@@ -7,7 +7,8 @@
 			"Irena Plahuta",
 			"Jsoby",
 			"MZaplotnik",
-			"Yerpo"
+			"Yerpo",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podprite Wikimedijo",
@@ -148,7 +149,7 @@
 	"donate_interface-donor-zone": "Območje",
 	"donate_interface-donor-address": "Naslov:",
 	"donate_interface-donor-pobox": "Poštni predal",
-	"donate_interface-donor-card": "Kreditna kartica:",
+	"donate_interface-donor-card": "Kreditna kartica",
 	"donate_interface-donor-card-num": "Številka kartice:",
 	"donate_interface-donor-expiration": "Datum veljavnosti",
 	"donate_interface-donor-security": "Varnostna koda",

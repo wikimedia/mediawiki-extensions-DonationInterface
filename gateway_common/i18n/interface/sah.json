@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"HalanTul",
-			"Jsoby"
+			"Jsoby",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Викимедианы өйүөххэйиҥ!",
@@ -56,7 +57,7 @@
 	"donate_interface-donor-postal": "Почтатын ииндэксэ:",
 	"donate_interface-donor-country": "Дойдута",
 	"donate_interface-donor-address": "Аадырыһа:",
-	"donate_interface-donor-card": "Кирэдьиит каартата:",
+	"donate_interface-donor-card": "Кирэдьиит каартата",
 	"donate_interface-donor-card-num": "Каарта нүөмэрэ:",
 	"donate_interface-donor-expiration": "Бүтэр болдьоҕо:",
 	"donate_interface-donor-security": "CVV куода:",
@@ -96,7 +97,6 @@
 	"donate_interface-otherways-alt": "Сиэртибэлээһини <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">атынннык эмиэ оҥоруохха</a> сөп, ол иһигэр баан чиэгинэн.",
 	"donate_interface-otherways-short": "Сиэртибэни ыытыы атын көрүҥнэрэ",
 	"donate_interface-paypal": "PayPal тиһиликкэ бэлиэтэммитиҥ дуо? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">PayPal нөҥүө сиэртибэлээһин</a>.",
-	"donate_interface-credit-storage-processing": "Эн кредиткаҥ туһунан ханна да хаалбат, оттон эн тус бэйэҥ тускунан информацияны <a href=\"//wikimediafoundation.org/wiki/Политика_конфиденциальности_жертвователей\">кистээһин сиэрэ</a> хааччахтыыр.",
 	"donate_interface-token-mismatch": "Сиэссийэҥ болдьоҕо бүппүт. Бука диэн форманы хат толор.",
 	"donate_interface-cc-form-header-personal": "Төлөбүр туһунан",
 	"donate_interface-cc-form-header-payment": "Төлөбүр туһунан",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jsoby",
-			"Ильнар"
+			"Ильнар",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярдәм итик!",
@@ -56,7 +57,7 @@
 	"donate_interface-donor-postal": "Почта индексы:",
 	"donate_interface-donor-country": "Ил / регион:",
 	"donate_interface-donor-address": "Адрес:",
-	"donate_interface-donor-card": "Кредит картасы:",
+	"donate_interface-donor-card": "Кредит картасы",
 	"donate_interface-donor-card-num": "Карты номеры:",
 	"donate_interface-donor-expiration": "Куллану вакыты:",
 	"donate_interface-donor-security": "Саклану коды:",

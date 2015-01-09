@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Võrok"
+			"Võrok",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Toeq Wikimediat",
@@ -131,7 +132,7 @@
 	"donate_interface-donor-postal": "Tsihtnummõr",
 	"donate_interface-donor-country": "Maa",
 	"donate_interface-donor-address": "Aadrõs:",
-	"donate_interface-donor-card": "Kreeditkaart:",
+	"donate_interface-donor-card": "Kreeditkaart",
 	"donate_interface-donor-card-num": "Kaardi nummõr",
 	"donate_interface-donor-expiration": "Vanasminemise aig",
 	"donate_interface-donor-security": "Kaitsõkuud",
@@ -184,7 +185,6 @@
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Massaq saa ka tõisildõ</a>, muu hulgan tsekiga.",
 	"donate_interface-otherways-short": "Tõõsõq masmisvõimalusõq",
 	"donate_interface-paypal": "Kas sul om PayPali konto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Massaq PayPaliga</a>.",
-	"donate_interface-credit-storage-processing": "Mi hoia-ai alalõ su kreeditkaarditeedüst ja su eräteedüse pruukminõ om piiret <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">tugõmisõ privaatsuspõhimõttidõga</a>.",
 	"donate_interface-token-mismatch": "Sinu pruukmiskõrd om läbi. Olõq hää, proomiq vorm vahtsõst ärq täütäq ja ära saataq.",
 	"donate_interface-cc-form-header-personal": "Arvõ saatmisõ teedüs",
 	"donate_interface-cc-form-header-payment": "Masmisteedüs",
@@ -345,7 +345,6 @@
 	"donate_interface-taxded-msg-int": "Vikimeediä Tsihtasotus (Wikimedia Foundation) om USA-n luud mittekassusaamisasotus, miä tüütäs USA massusäädüse lõikõ 501(c)(3) perrä, tuuperäst võivaq USA tugõjaq saiaq ummi tugõmiisi päält massusoodustuisi. Välästpuult USAd tettüq massuq pruugi-i saiaq massuvabastust USA-n ega muial; aśa kotsilõ saa täpsämbähe perrä küssüq uma maa massusäädüisi aśatundjisdõ käest. Vikimeediä ei pallõq tugõmist noilt mailt, miä piirdväq vai kiildväq Vikimeediä tüüpi riikevaihõliidsi häätegemisasotuisi rahakorjamiisi vai pandvaq naidõ tugõmiisilõ pääle kinkmismassõ.",
 	"donate_interface-taxded-msg-us": "Vikimeediä Tsihtasotus (Wikimedia Foundation) om USA-n luud mittekasusaamisasotus, miä tüütäs USA massusäädüse lõikõ 501(c)(3) perrä, tuuperäst võivaq USA tugõjaq saiaq ummi tugõmiisi päält massusoodustuisi.",
 	"donate_interface-legal-original": "Seo om vabatahtligu tett ümbrepandminõ. Ku seo ümbrepandminõ lätt lahko inglüskeelitsest tekstist, tulõ ülembäs pitäq inglüskeelist teksti.",
-	"donate_interface-legal-donorpolicy": "Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst.",
 	"donate_interface-monthlybox-title": "Milles mitte tukõq egä kuu?",
 	"donate_interface-monthlybox-content": "Egäkuulidsõq tugõmisõq võetasõq arvõ päält egä kuu 2. pääväl. Naidõ tegemise saat ütskõik kunas ärq lõpõtaq.",
 	"donate_interface-monthlybox-amount": "Mastav summa",

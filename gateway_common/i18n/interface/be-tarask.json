@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Wizardist",
 			"Zedlik",
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Падтрымайце фундацыю «Вікімэдыя»",
@@ -148,7 +149,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрас:",
 	"donate_interface-donor-pobox": "А/с",
-	"donate_interface-donor-card": "Крэдытная картка:",
+	"donate_interface-donor-card": "Крэдытная картка",
 	"donate_interface-donor-card-num": "Нумар карткі:",
 	"donate_interface-donor-expiration": "Дата сканчэньня дзеяньня:",
 	"donate_interface-donor-security": "Код бясьпекі:",

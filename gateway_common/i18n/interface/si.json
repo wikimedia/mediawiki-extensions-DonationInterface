@@ -4,7 +4,8 @@
 			"Jsoby",
 			"Singhalawap",
 			"චතුනි අලහප්පෙරුම",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "විකිමාධ්‍යට සහය දක්වන්න",
@@ -141,7 +142,7 @@
 	"donate_interface-donor-zone": "කලාපය",
 	"donate_interface-donor-address": "ලිපිනය",
 	"donate_interface-donor-pobox": "තැ.පෙ.",
-	"donate_interface-donor-card": "ණය පත:",
+	"donate_interface-donor-card": "ණය පත",
 	"donate_interface-donor-card-num": "කාඩ් පත් අංකය:",
 	"donate_interface-donor-expiration": "කල් ඉකුත්වීම් දිනය:",
 	"donate_interface-donor-security": "සුරක්ෂිත කේතය",
@@ -195,7 +196,6 @@
 	"donate_interface-otherways-alt": "මෙහි චෙක්පත් මගින්ද ඇතුළුව <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/si\">දීමට ඇති වෙනත් මාර්ග තිබේ</a>.",
 	"donate_interface-otherways-short": "දීමට හැකි වෙනත් ක්‍රම",
 	"donate_interface-paypal": "පේපැල් ගිණුමක් තිබේද? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=si&utm_source=$3&utm_medium=$4&utm_campaign=$5\">පේපැල් සමඟ පරිත්‍යාග කරන්න</a>.",
-	"donate_interface-credit-storage-processing": "අප විසින් ඔබගේ ණය පතෙහි තොරතුරු සහ ඔබගේ පුද්ගලික දත්ත අපගේ  <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">පෞද්ගලිකත්ව ප්‍රතිපත්ති</a> විෂයට අනුව ආරක්ෂා පිණිස තබා නොගන්නෙමු.",
 	"donate_interface-token-mismatch": "ඔබගේ වාරය කල් ඉකුත් වුණි.  කරුණාකර අයදුම්පත නැවත පුරවා යොමමින් උත්සහ කරන්න.",
 	"donate_interface-cc-form-header-personal": "බිල්පත් තොරතුරු",
 	"donate_interface-cc-form-header-payment": "ගෙවීම් තොරතුරු",

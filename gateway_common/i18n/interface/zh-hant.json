@@ -17,7 +17,8 @@
 			"Spring Roll Conan",
 			"Cwlin0416",
 			"LNDDYL",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -159,7 +160,7 @@
 	"donate_interface-donor-zone": "區域",
 	"donate_interface-donor-address": "地址：",
 	"donate_interface-donor-pobox": "郵政信箱",
-	"donate_interface-donor-card": "信用卡：",
+	"donate_interface-donor-card": "信用卡",
 	"donate_interface-donor-card-num": "信用卡號碼：",
 	"donate_interface-donor-expiration": "到期日：",
 	"donate_interface-donor-security": "安全碼：",

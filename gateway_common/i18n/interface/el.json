@@ -8,7 +8,8 @@
 			"McDutchie",
 			"Omnipaedista",
 			"Shirayuki",
-			"ZaDiak"
+			"ZaDiak",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -146,7 +147,7 @@
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Διεύθυνση:",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "Πιστωτική κάρτα:",
+	"donate_interface-donor-card": "Πιστωτική κάρτα",
 	"donate_interface-donor-card-num": "Αριθμός κάρτας:",
 	"donate_interface-donor-expiration": "Ημερομηνία λήξης:",
 	"donate_interface-donor-security": "Κωδικός ασφαλείας:",

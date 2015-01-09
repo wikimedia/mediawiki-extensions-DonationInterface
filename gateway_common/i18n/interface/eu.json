@@ -4,7 +4,8 @@
 			"An13sa",
 			"Jsoby",
 			"Subi",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Lagundu Wikimedia",
@@ -56,7 +57,7 @@
 	"donate_interface-donor-postal": "Posta kodea:",
 	"donate_interface-donor-country": "Herrialdea/Lurraldea:",
 	"donate_interface-donor-address": "Helbidea:",
-	"donate_interface-donor-card": "Kreditu txartela:",
+	"donate_interface-donor-card": "Kreditu txartela",
 	"donate_interface-donor-card-num": "Txartel zenbakia:",
 	"donate_interface-donor-expiration": "Iraungipen data:",
 	"donate_interface-donor-security": "Segurtasun kodea:",

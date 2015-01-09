@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"OC Ripper",
-			"KWiki"
+			"KWiki",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -132,7 +133,7 @@
 	"donate_interface-donor-postal": "Poštanski broj:",
 	"donate_interface-donor-country": "Država / Regija",
 	"donate_interface-donor-address": "Adresa",
-	"donate_interface-donor-card": "Kreditna kartica:",
+	"donate_interface-donor-card": "Kreditna kartica",
 	"donate_interface-donor-card-num": "Broj kartice:",
 	"donate_interface-donor-expiration": "Datum isteka:",
 	"donate_interface-donor-security": "Sigurnosni kod:",
@@ -186,7 +187,6 @@
 	"donate_interface-otherways-alt": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate</a>, uključujući i putem čeka.",
 	"donate_interface-otherways-short": "Drugi načini za doniranje",
 	"donate_interface-paypal": "Imate li PayPal račun? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donirajte putem PayPal-a</a>.",
-	"donate_interface-credit-storage-processing": "Ne čuvamo podatke o kreditnim karticama. Pored toga, vaši lični podaci podliježu našim <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravilima o privatnosti davaoca</a>.",
 	"donate_interface-token-mismatch": "Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.",
 	"donate_interface-cc-form-header-personal": "Informacije o plaćanju",
 	"donate_interface-cc-form-header-payment": "Informacije o plaćanju",
@@ -349,7 +349,6 @@
 	"donate_interface-taxded-msg-int": "Fondacija Wikimedia je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama. Donacije državljana drugih država ili pravnih osoba izvan SAD možda ne podliježu poreznim olakšicama u SAD ili drugim državama; u tom slučaju donatore savjetujemo da potraže savjet u svojoj državi. Važno je napomenuti da Wikimedia ne traži priloge od fizičkih ili pravnih osoba smještenih u državama u kojima je ovakvo prikupljanje sredstava za međunarodne dobrotvorne organizacije poput Wikimedije ograničeno ili zabranjeno, ili kad se ovakvi prilozi oporezuju.",
 	"donate_interface-taxded-msg-us": "Fondacija Wikimedia je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama.",
 	"donate_interface-legal-original": "Ovo je neslužbeni prijevod. U slučaju njegovog neslaganja s engleskim originalom engleski original ima prednost.",
-	"donate_interface-legal-donorpolicy": "Doniranjem vi dijelite svoje podatke sa Fondacijom Wikimedia, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke.",
 	"donate_interface-monthlybox-title": "Želite darivati redovni (mjesečni) prilog?",
 	"donate_interface-monthlybox-content": "Mjesečni prilozi se obrađuju drugog dana u mjesecu. Možete odustati kad god želite.",
 	"donate_interface-monthlybox-amount": "Iznos donacije",

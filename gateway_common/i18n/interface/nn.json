@@ -7,7 +7,8 @@
 			"Jsoby",
 			"Nghtwlkr",
 			"Njardarlogar",
-			"Ranveig"
+			"Ranveig",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -72,7 +73,7 @@
 	"donate_interface-donor-postal": "Postnummer:",
 	"donate_interface-donor-country": "Land/region:",
 	"donate_interface-donor-address": "Adresse:",
-	"donate_interface-donor-card": "Kredittkort:",
+	"donate_interface-donor-card": "Kredittkort",
 	"donate_interface-donor-card-num": "Kortnummer:",
 	"donate_interface-donor-expiration": "Utløpsdato:",
 	"donate_interface-donor-security": "Tryggleikskode:",
@@ -95,7 +96,6 @@
 	"donate_interface-problemsdonating": "Vanskar med å gje?",
 	"donate_interface-donate-click": "Etter å ha klikka  \"{{int:payflowpro_gateway-donor-submit}}\", vil kredittinformasjonen din verta gjennomgått.",
 	"donate_interface-otherways-short": "Andre måtar å gje på",
-	"donate_interface-credit-storage-processing": "Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">retningsliner for personvern</a>.",
 	"donate_interface-cc-form-header-personal": "Betalingsinformasjon",
 	"donate_interface-make-your-donation": "Gje ei gåve no",
 	"donate_interface-comment": "Kommentar",

@@ -6,7 +6,8 @@
 			"Spiritia",
 			"Turin",
 			"Vladimir Penov",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Подкрепете Уикимедия",
@@ -147,7 +148,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Пощенска кутия",
-	"donate_interface-donor-card": "Кредитна карта:",
+	"donate_interface-donor-card": "Кредитна карта",
 	"donate_interface-donor-card-num": "Номер на картата:",
 	"donate_interface-donor-expiration": "Дата на изтичане:",
 	"donate_interface-donor-security": "Код за сигурност:",

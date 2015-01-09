@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Joetaras",
-			"Reder"
+			"Reder",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Sostiene UicchiMedia",
@@ -147,7 +148,7 @@
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Indirizze:",
 	"donate_interface-donor-pobox": "Caselle postale",
-	"donate_interface-donor-card": "Carte de credite:",
+	"donate_interface-donor-card": "Carte de credite",
 	"donate_interface-donor-card-num": "Numere d'a carte:",
 	"donate_interface-donor-expiration": "Date de scadenze",
 	"donate_interface-donor-security": "Codece de securezze",
@@ -212,7 +213,6 @@
 	"donate_interface-otherways-alt": "Stonne <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">otre mode pe dà</a>, 'ngludenne pe verifiche.",
 	"donate_interface-otherways-short": "Otre mode pe dà",
 	"donate_interface-paypal": "Tìne 'nu cunde PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Ddone cu PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Nuje non ge memorizzame le 'mbormaziune de le carte de credite tune, e le date personale so soggette a le nostre <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">regole de privacy de le donature</a>.",
 	"donate_interface-token-mismatch": "'A sessiona toje ha scadute. Pe piace pruève arrete a combilà e a confermà 'u module.",
 	"donate_interface-cc-form-header-personal": "Date de fatturazione",
 	"donate_interface-cc-form-header-payment": "Date de pajamènde",
@@ -390,7 +390,6 @@
 	"donate_interface-taxded-link-int": "Tasse e otre 'mbormazzione legale",
 	"donate_interface-taxded-link-us": "'Mbormazione sus 'a deducibbeletate fiscale",
 	"donate_interface-legal-original": "Queste jè 'na traduzione de cortesìe. Ce accappe 'nu conflitte 'mbrà sta traduzione e quedde in Inglese, venge quedde in Inglese.",
-	"donate_interface-legal-donorpolicy": "Donanne, ste condivide le 'mbormaziune tune cu Wikimedia Foundation, l'associazione senze lucre ca ospitesce Uicchipèdie e otre pruggette de Uicchimedia, e 'u fornitore de servizie jndr'à l'U.S.A. e jndr'à l'otre vanne rispettanne le regole nuèstre d'a privacy. Non ge vennime o commerciame le 'mbormaziune tune a nisciune.",
 	"donate_interface-monthlybox-title": "'A vuè fàce ogne mise?",
 	"donate_interface-monthlybox-content": "Le donaziune mensile avènene processate ogne 2 de ogne mese. Tu le puè scangellà quanne vuè.",
 	"donate_interface-monthlybox-amount": "'Mborte d'a donazzione mensile",

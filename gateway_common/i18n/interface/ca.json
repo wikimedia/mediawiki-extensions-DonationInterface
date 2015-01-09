@@ -13,7 +13,8 @@
 			"Vriullop",
 			"පසිඳු කාවින්ද",
 			"Fitoschido",
-			"Toniher"
+			"Toniher",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -145,7 +146,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Adreça:",
 	"donate_interface-donor-pobox": "Apartat de correus",
-	"donate_interface-donor-card": "Targeta de crèdit:",
+	"donate_interface-donor-card": "Targeta de crèdit",
 	"donate_interface-donor-card-num": "Número de targeta:",
 	"donate_interface-donor-expiration": "Data d'expiració:",
 	"donate_interface-donor-security": "Codi de seguretat:",

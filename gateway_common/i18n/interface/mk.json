@@ -3,7 +3,8 @@
 		"authors": [
 			"Bjankuloski06",
 			"Jsoby",
-			"Rancher"
+			"Rancher",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Поддржете ја Викимедија",
@@ -149,7 +150,7 @@
 	"donate_interface-donor-zone": "Подрачје",
 	"donate_interface-donor-address": "Адреса:",
 	"donate_interface-donor-pobox": "Пошт. фах",
-	"donate_interface-donor-card": "Кредитна картичка:",
+	"donate_interface-donor-card": "Кредитна картичка",
 	"donate_interface-donor-card-num": "Број на картичката:",
 	"donate_interface-donor-expiration": "Датум на истекување",
 	"donate_interface-donor-security": "Сигурносен код:",

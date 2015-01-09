@@ -15,7 +15,8 @@
 			"Raylton P. Sousa",
 			"555",
 			"Smmvinicius",
-			"OTAVIO1981"
+			"OTAVIO1981",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -156,7 +157,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Endereço:",
 	"donate_interface-donor-pobox": "Caixa Postal",
-	"donate_interface-donor-card": "Cartão de crédito:",
+	"donate_interface-donor-card": "Cartão de crédito",
 	"donate_interface-donor-card-num": "Número do cartão:",
 	"donate_interface-donor-expiration": "Data de término:",
 	"donate_interface-donor-security": "Código de segurança:",
@@ -223,7 +224,6 @@
 	"donate_interface-otherways-alt": "Há <a href=\"//wikimediafoundation.org/wiki/Coleta_de_fundos\">outras formas de contribuir</a>, incluindo por cheque.",
 	"donate_interface-otherways-short": "Outras formas de contribuir",
 	"donate_interface-paypal": "Você tem uma conta PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Doe através do PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Não armazenamos informação do seu cartão de crédito e os seus dados particulares estão sujeitos à nossa <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">política de privacidade</a>.",
 	"donate_interface-token-mismatch": "A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.",
 	"donate_interface-cc-form-header-personal": "Informações da fatura",
 	"donate_interface-cc-form-header-payment": "Informações do pagamento",
@@ -390,7 +390,6 @@
 	"donate_interface-taxded-msg-int": "A Wikimedia Foundation é uma instituição de caridade sem fins lucrativos, estabelecida nos EUA sob a regulamentação US IRS Code Section 501(c)(3) e, por isso, as doações de pessoas ou entidades localizadas nos EUA podem se beneficiar do status de dedução fiscal. Doações de pessoas ou entidades localizadas fora dos EUA podem não ser elegíveis a deduções fiscais nos EUA e em outros lugares; nestes casos, os doadores devem buscar consultoria fiscal local.  Mais importante, a Wikimedia não busca doações de pessoas ou entidades localizadas em qualquer jurisdição que proíbe ou limita atividades de captação de fundos por instituições de caridade internacionais, como Wikimedia, ou aplica impostos sobre doações feitas para instituições de caridade locais.",
 	"donate_interface-taxded-msg-us": "A Wikimedia Foundation é uma instituição de caridade sem fins lucrativos, estabelecida nos EUA sob a regulamentação US IRS Code Section 501(c)(3) e, por isso, as doações de pessoas ou entidades localizadas nos EUA podem se beneficiar do status de dedução fiscal.",
 	"donate_interface-legal-original": "Esta tradução é uma cortesia. No caso de conflito entre esta tradução e a versão em inglês, prevalecerá a versão em inglês.",
-	"donate_interface-legal-donorpolicy": "Ao fazer uma doação, está a partilhar a sua informação com a Wikimedia Foundation, a organização sem fins lucrativos que aloja a Wikipédia e outros projetos Wikimedia, e com os seus fornecedores de serviços nos Estados Unidos e outros locais conforme a nossa política de privacidade para doadores. Não vendemos ou ou comercializamos a sua informação.",
 	"donate_interface-monthlybox-title": "Quer programar uma doação mensal?",
 	"donate_interface-monthlybox-content": "As doações mensais são processadas no dia 2 de cada mês. Você pode cancelar a qualquer momento.",
 	"donate_interface-monthlybox-amount": "Doação mensal",

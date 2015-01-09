@@ -22,7 +22,8 @@
 			"Александр Сигачёв",
 			"Хомелка",
 			"Meshkov.a",
-			"Lockal"
+			"Lockal",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -163,7 +164,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Абонементный ящик",
-	"donate_interface-donor-card": "Кредитная карта:",
+	"donate_interface-donor-card": "Кредитная карта",
 	"donate_interface-donor-card-num": "Номер карты:",
 	"donate_interface-donor-expiration": "Срок окончания действия:",
 	"donate_interface-donor-security": "Код безопасности:",

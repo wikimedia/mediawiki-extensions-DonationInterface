@@ -9,7 +9,8 @@
 			"Mormegil",
 			"Paxt",
 			"Spiffyk",
-			"Utar"
+			"Utar",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podpora nadace Wikimedia",
@@ -150,7 +151,7 @@
 	"donate_interface-donor-zone": "Zóna",
 	"donate_interface-donor-address": "Adresa:",
 	"donate_interface-donor-pobox": "Poštovní přihrádka",
-	"donate_interface-donor-card": "Kreditní karta:",
+	"donate_interface-donor-card": "Kreditní karta",
 	"donate_interface-donor-card-num": "Číslo karty:",
 	"donate_interface-donor-expiration": "Konec platnosti:",
 	"donate_interface-donor-security": "Bezpečnostní kód:",

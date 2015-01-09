@@ -5,7 +5,8 @@
 			"Haqmar",
 			"Jsoby",
 			"Ләйсән",
-			"Рустам Нурыев"
+			"Рустам Нурыев",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярҙам",
@@ -138,7 +139,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Абонемент ҡумтаһы",
-	"donate_interface-donor-card": "Кредит картаһы:",
+	"donate_interface-donor-card": "Кредит картаһы",
 	"donate_interface-donor-card-num": "Карт номеры:",
 	"donate_interface-donor-expiration": "Һуңғы ҡулланыу ваҡыты:",
 	"donate_interface-donor-security": "Именлек коды:",

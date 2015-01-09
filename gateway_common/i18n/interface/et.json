@@ -5,7 +5,8 @@
 			"Avjoska",
 			"Jsoby",
 			"Oop",
-			"Pikne"
+			"Pikne",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Toeta Wikimediat",
@@ -145,7 +146,7 @@
 	"donate_interface-donor-zone": "Tsoon",
 	"donate_interface-donor-address": "Aadress:",
 	"donate_interface-donor-pobox": "pk",
-	"donate_interface-donor-card": "Krediitkaart:",
+	"donate_interface-donor-card": "Krediitkaart",
 	"donate_interface-donor-card-num": "Krediitkaardi nr",
 	"donate_interface-donor-expiration": "Aegumistähtaeg",
 	"donate_interface-donor-security": "Turvakood",

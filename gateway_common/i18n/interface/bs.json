@@ -4,7 +4,8 @@
 			"CERminator",
 			"Jsoby",
 			"KWiki",
-			"Palapa"
+			"Palapa",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -58,7 +59,7 @@
 	"donate_interface-donor-postal": "Poštanski broj:",
 	"donate_interface-donor-country": "Država/Regija:",
 	"donate_interface-donor-address": "Adresa:",
-	"donate_interface-donor-card": "Kreditna kartica:",
+	"donate_interface-donor-card": "Kreditna kartica",
 	"donate_interface-donor-card-num": "Broj kartice:",
 	"donate_interface-donor-expiration": "Datum isteka:",
 	"donate_interface-donor-security": "Sigurnosni kod:",

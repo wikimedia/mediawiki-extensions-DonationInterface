@@ -4,7 +4,8 @@
 			"Jsoby",
 			"Minh Nguyen",
 			"Trần Nguyễn Minh Huy",
-			"Vinhtantran"
+			"Vinhtantran",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Hỗ trợ Wikimedia",
@@ -149,7 +150,7 @@
 	"donate_interface-donor-zone": "Khu vực",
 	"donate_interface-donor-address": "Địa chỉ:",
 	"donate_interface-donor-pobox": "Hộp P.O. Box",
-	"donate_interface-donor-card": "Thẻ tín dụng:",
+	"donate_interface-donor-card": "Thẻ tín dụng",
 	"donate_interface-donor-card-num": "Mã số thẻ:",
 	"donate_interface-donor-expiration": "Ngày hết hạn:",
 	"donate_interface-donor-security": "Mã bảo mật",

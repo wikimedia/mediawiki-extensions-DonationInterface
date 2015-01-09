@@ -3,7 +3,8 @@
 		"authors": [
 			"Boulaur",
 			"Cedric31",
-			"Jsoby"
+			"Jsoby",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Sosténer Wikimedia",
@@ -137,7 +138,7 @@
 	"donate_interface-donor-zone": "Zòna",
 	"donate_interface-donor-address": "Adreça :",
 	"donate_interface-donor-pobox": "Bóstia postala",
-	"donate_interface-donor-card": "Carta de credit :",
+	"donate_interface-donor-card": "Carta de credit",
 	"donate_interface-donor-card-num": "Numèro de carta :",
 	"donate_interface-donor-expiration": "Data d'expiracion :",
 	"donate_interface-donor-security": "Còde de seguretat :",
@@ -188,7 +189,6 @@
 	"donate_interface-donate-click": "Vòstra carta bancària o de crèdit/debit serà presa en carga d'un biais securizat.",
 	"donate_interface-otherways": "I a <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/fr\">d’autres mejans de donar, amai per PayPal, per chèc o per corrièr postal</a>.",
 	"donate_interface-otherways-short": "Autres mejans de donar",
-	"donate_interface-credit-storage-processing": "Salvam pas las donadas de vòstra carta de credit e vòstras informacions personalas son somesas a nòstra <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politica de confidencialitat</a>.",
 	"donate_interface-cc-form-header-personal": "Informacions de facturacion",
 	"donate_interface-cc-form-header-payment": "Informacion sul pagament",
 	"donate_interface-make-your-donation": "Far un don ara",

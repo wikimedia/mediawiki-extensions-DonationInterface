@@ -4,7 +4,8 @@
 			"Ansumang",
 			"Jsoby",
 			"Naudefj",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ondersteun Wikipedia",
@@ -70,7 +71,7 @@
 	"donate_interface-donor-zone": "Sone",
 	"donate_interface-donor-address": "Adres:",
 	"donate_interface-donor-pobox": "Posbus",
-	"donate_interface-donor-card": "Kredietkaart:",
+	"donate_interface-donor-card": "Kredietkaart",
 	"donate_interface-donor-card-num": "Kaartnommer:",
 	"donate_interface-donor-expiration": "Vervaldatum:",
 	"donate_interface-donor-security": "Beveiligingskode:",
@@ -119,7 +120,6 @@
 	"donate_interface-donate-click": "U kreditkaartinligting sal verwerk word sodra u op \"{{int:payflowpro_gateway-donor-submit}}\" kliek.",
 	"donate_interface-otherways": "Daar is <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">ander maniere om te gee, insluitend PayPal, tjek, of per pos</a>.",
 	"donate_interface-otherways-short": "Andere maniere om te gee",
-	"donate_interface-credit-storage-processing": "Ons stoor nie u kredietkaart se inligting nie, en u persoonlike inligting is onderhewig aan ons <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">privaatheidsbeleid</a>.",
 	"donate_interface-token-mismatch": "U sessie het verval. Voltooi die vorm in en dien dit weer in.",
 	"donate_interface-cc-form-header-personal": "Betalingsinligting",
 	"donate_interface-cc-form-header-payment": "Betalingsinligting",

@@ -11,7 +11,8 @@
 			"Purodha",
 			"Tbleher",
 			"Umherirrender",
-			"Jrobell"
+			"Jrobell",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Unterstützen Sie Wikimedia",
@@ -153,7 +154,7 @@
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Anschrift:",
 	"donate_interface-donor-pobox": "Postfach",
-	"donate_interface-donor-card": "Kreditkarte:",
+	"donate_interface-donor-card": "Kreditkarte",
 	"donate_interface-donor-card-num": "Kreditkartennr.:",
 	"donate_interface-donor-expiration": "Gültig bis:",
 	"donate_interface-donor-security": "Sicherheitscode:",

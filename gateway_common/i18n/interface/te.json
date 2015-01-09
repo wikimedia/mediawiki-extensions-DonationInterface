@@ -3,7 +3,8 @@
 		"authors": [
 			"Chaduvari",
 			"Jsoby",
-			"Veeven"
+			"Veeven",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "వికీమీడియాకి తోడ్పడండి",
@@ -137,7 +138,7 @@
 	"donate_interface-donor-zone": "జోన్",
 	"donate_interface-donor-address": "చిరునామా",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "క్రెడిట్ కార్డు:",
+	"donate_interface-donor-card": "క్రెడిట్ కార్డు",
 	"donate_interface-donor-card-num": "కార్డు నెంబరు:",
 	"donate_interface-donor-expiration": "కాలంచెల్లు తేదీ:",
 	"donate_interface-donor-security": "భద్రతా సంకేతం:",
@@ -187,7 +188,6 @@
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">చెల్లించడానికి ఇతర మార్గాలు</a>, చెక్కుతో సహా, కూడా ఉన్నాయి.",
 	"donate_interface-otherways-short": "ఇవ్వడానికి ఇతర పద్ధతులు",
 	"donate_interface-paypal": "మీకు పేపాల్ ఖాతా ఉందా? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">పేపాల్ ద్వారా విరాళమివ్వండి</a>.",
-	"donate_interface-credit-storage-processing": "మీ క్రెడిట్ కార్డు సమాచారాన్ని మేము నిల్వచేయము. మీ వ్యక్తిగత సమాచారం మా <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">దాత గోప్యతా విధానాని</a>కి లోబడి ఉంటుంది.",
 	"donate_interface-token-mismatch": "మీ సెషనుకు కాలం చెల్లింది. ఫారమును తిరిగి పూర్తి చేసి పంపేందుకు ప్రయత్నించండి.",
 	"donate_interface-cc-form-header-personal": "బిల్లింగ్ సమాచారం",
 	"donate_interface-cc-form-header-payment": "చెల్లింపు సమాచారం",

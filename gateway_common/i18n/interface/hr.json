@@ -8,7 +8,8 @@
 			"Rancher",
 			"Roberta F.",
 			"SpeedyGonsales",
-			"Tivek"
+			"Tivek",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -142,7 +143,7 @@
 	"donate_interface-donor-postal": "Poštanski broj",
 	"donate_interface-donor-country": "Država / Regija",
 	"donate_interface-donor-address": "Adresa",
-	"donate_interface-donor-card": "Kreditna kartica:",
+	"donate_interface-donor-card": "Kreditna kartica",
 	"donate_interface-donor-card-num": "Broj kartice:",
 	"donate_interface-donor-expiration": "Datum isteka:",
 	"donate_interface-donor-security": "Sigurnosni kod:",
@@ -196,7 +197,6 @@
 	"donate_interface-otherways-alt": "Postoje <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">i drugi načini darovanja</a>, uključujući i novčane čekove.",
 	"donate_interface-otherways-short": "Drugi načini za doniranje",
 	"donate_interface-paypal": "Imate li PayPal račun? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donirajte putem PayPal-a</a>.",
-	"donate_interface-credit-storage-processing": "Mi ne pohranjujemo informacije o vašoj kreditnoj kartici, a vaši osobni podatci zaštićeni su našim <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravilima o privatnosti darivatelja</a>.",
 	"donate_interface-token-mismatch": "Vaša sesija je istekla. Molimo pokušajte ponovo popuniti i podnijeti obrazac.",
 	"donate_interface-cc-form-header-personal": "Informacije o plaćanju",
 	"donate_interface-cc-form-header-payment": "Informacije o plaćanju",
@@ -359,7 +359,6 @@
 	"donate_interface-taxded-msg-int": "Zaklada Wikimedija je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama. Donacije državljana drugih država ili pravnih osoba izvan SAD možda ne podliježu poreznim olakšicama u SAD ili drugim državama; u tom slučaju darivatelje savjetujemo da potraže savjet u svojoj državi. Važno je napomenuti da Wikimedija ne traži priloge od fizičkih ili pravnih osoba smještenih u državama u kojima je ovakvo prikupljanje sredstava za međunarodne dobrotvorne organizacije poput Wikimedije ograničeno ili zabranjeno, ili kad se ovakvi prilozi oporezuju.",
 	"donate_interface-taxded-msg-us": "Zaklada Wikimedija je neprofitna dobrotvorna organizacija osnovana u SAD prema „Zakonskom pravilniku za Poreznu upravu u SAD, članak 501(c)(3)“, i, iz tog razloga, dobrovoljni prilozi od fizičkih i pravnih osoba koje žive u SAD podliježu poreznim olakšicama.",
 	"donate_interface-legal-original": "Ovo je neslužbeni prijevod. U slučaju njegovog neslaganja s engleskim izvornikom engleski izvornik ima prednost.",
-	"donate_interface-legal-donorpolicy": "Darivanjem vi dijelite svoje podatke sa Zakladom Wikimedija, neprofitnom organizacijom koja financira i održava Wikipediju i druge Wikimedijine projekte, s njenim dobavljačima u SAD i drugim mjestima u skladu s našim pravilima o privatnosti donatora. Mi ne prodajemo niti razmjenjujemo vaše podatke.",
 	"donate_interface-monthlybox-title": "Želite darivati redovni (mjesečni) prilog?",
 	"donate_interface-monthlybox-content": "Mjesečni prilozi se obrađuju drugog dana u mjesecu. Možete odustati kad god želite.",
 	"donate_interface-monthlybox-amount": "Iznos donacije",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Jsoby",
 			"McDutchie",
-			"Toliño"
+			"Toliño",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Apoia a Wikimedia",
@@ -147,7 +148,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Enderezo:",
 	"donate_interface-donor-pobox": "Caixa postal",
-	"donate_interface-donor-card": "Tarxeta de crédito:",
+	"donate_interface-donor-card": "Tarxeta de crédito",
 	"donate_interface-donor-card-num": "Número da tarxeta:",
 	"donate_interface-donor-expiration": "Data de caducidade:",
 	"donate_interface-donor-security": "Código de seguridade:",
@@ -214,7 +215,6 @@
 	"donate_interface-otherways-alt": "Existen outros <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">xeitos de doar</a>, incluíndo os cheques.",
 	"donate_interface-otherways-short": "Outros xeitos de doar",
 	"donate_interface-paypal": "Tes unha conta no PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Doa mediante o PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Non gardamos información da túa tarxeta de crédito, e os teus datos persoais están suxeitos á nosa <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">política de protección de datos</a>.",
 	"donate_interface-token-mismatch": "A túa sesión caducou. Intenta encher e enviar o formulario de novo.",
 	"donate_interface-cc-form-header-personal": "Información de facturación",
 	"donate_interface-cc-form-header-payment": "Información do pagamento",
@@ -381,7 +381,6 @@
 	"donate_interface-taxded-msg-int": "A Fundación Wikimedia é unha organización sen fins de lucro establecida nos Estados Unidos de América baixo a sección 501(c)(3) do código federal de impostos e, por este motivo, as doazóns procedentes de persoas ou entidades localizadas nos EUA poden beneficiarse da desgravación fiscal. As doazóns procedentes de persoas ou entidades localizadas fóra dos EUA poden non beneficiarse da desgravación fiscal nos EUA e outros lugares; nestes casos, os doantes deben buscar consello fiscal local. É importante saber que a Wikimedia non busca doazóns de persoas ou entidades localizadas en xurisdicións que prohiban ou restrinxan as actividades de recadación de fondos feitas por organizacións como a Wikimedia ou que apliquen taxas sobre as doazóns feitas a estas organizacións internacionais.",
 	"donate_interface-taxded-msg-us": "A Fundación Wikimedia é unha organización sen fins de lucro establecida nos Estados Unidos de América baixo a sección 501(c)(3) do código federal de impostos e, por este motivo, as doazóns procedentes de persoas ou entidades localizadas nos EUA poden beneficiarse da desgravación fiscal.",
 	"donate_interface-legal-original": "Esta é unha tradución realizada por voluntarios. En caso de conflito entre esta tradución e a versión en inglés, prevalecerá a versión en inglés.",
-	"donate_interface-legal-donorpolicy": "Ao realizar unha doazón, compartes a túa información coa Fundación Wikimedia, a organización sen fins de lucro que aloxa a Wikipedia e outros proxectos, e cos seus provedores de servizos nos EUA e outros lugares conforme á nosa política de protección de datos. Non vendemos nin comerciamos coa túa información.",
 	"donate_interface-monthlybox-title": "Facela mensualmente?",
 	"donate_interface-monthlybox-content": "As doazóns mensuais procésanse o segundo día de cada mes. Podes cancelalas en calquera momento.",
 	"donate_interface-monthlybox-amount": "Importe da doazón mensual",

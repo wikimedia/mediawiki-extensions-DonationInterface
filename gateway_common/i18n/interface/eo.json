@@ -4,7 +4,8 @@
 			"ArnoLagrange",
 			"Blahma",
 			"Jsoby",
-			"Yekrats"
+			"Yekrats",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Subteni Fondaĵon Wikimedia",
@@ -141,7 +142,7 @@
 	"donate_interface-donor-zone": "Zono",
 	"donate_interface-donor-address": "Adreso:",
 	"donate_interface-donor-pobox": "Poŝtkesto",
-	"donate_interface-donor-card": "Kreditkarto:",
+	"donate_interface-donor-card": "Kreditkarto",
 	"donate_interface-donor-card-num": "Kartnumero:",
 	"donate_interface-donor-expiration": "Valida ĝis:",
 	"donate_interface-donor-security": "Sekureca kodo:",
@@ -196,7 +197,6 @@
 	"donate_interface-otherways-alt": "Estas <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">aliaj metodoj doni</a>, inkluzivante ĉekon.",
 	"donate_interface-otherways-short": "Aliaj metodoj por donaci",
 	"donate_interface-paypal": "Ĉu vi havas PayPal-konton? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donaci per PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Ni ne tenos informon pri via kreditkaro, kaj via personaj datenoj estas regulita de nia <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">regularo pri privateco por donacintoj</a>.",
 	"donate_interface-token-mismatch": "Via seanco eksvalidiĝis.  Bonvolu provi plemumi kaj sendi la formularon denove.",
 	"donate_interface-cc-form-header-personal": "Informo pri fakturo",
 	"donate_interface-cc-form-header-payment": "Paga informo",

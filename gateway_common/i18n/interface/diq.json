@@ -5,7 +5,8 @@
 			"Gorizon",
 			"Jsoby",
 			"Mirzali",
-			"Xoser"
+			"Xoser",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Wikimedya rê desteg be",
@@ -132,7 +133,7 @@
 	"donate_interface-donor-zone": "Ware",
 	"donate_interface-donor-address": "Adrese:",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "Kardê krediti:",
+	"donate_interface-donor-card": "Kardê krediti",
 	"donate_interface-donor-card-num": "Amarê Kardi:",
 	"donate_interface-donor-expiration": "Wextê qediyayisi:",
 	"donate_interface-donor-security": "Kodê pawitisi:",

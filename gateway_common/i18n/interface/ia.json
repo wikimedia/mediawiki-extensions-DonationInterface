@@ -3,7 +3,8 @@
 		"authors": [
 			"Jsoby",
 			"McDutchie",
-			"Microcell"
+			"Microcell",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Supportar Wikimedia",
@@ -145,7 +146,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Adresse:",
 	"donate_interface-donor-pobox": "Cassa postal",
-	"donate_interface-donor-card": "Carta de credito:",
+	"donate_interface-donor-card": "Carta de credito",
 	"donate_interface-donor-card-num": "Numero del carta:",
 	"donate_interface-donor-expiration": "Data de expiration:",
 	"donate_interface-donor-security": "Codice de securitate:",

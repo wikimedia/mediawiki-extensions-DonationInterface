@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Hanberke",
-			"Jsoby"
+			"Jsoby",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Wikimediany goldaň",
@@ -55,7 +56,7 @@
 	"donate_interface-donor-postal": "Poçta indeksi:",
 	"donate_interface-donor-country": "Ýurt/sebit:",
 	"donate_interface-donor-address": "Adres:",
-	"donate_interface-donor-card": "Kredit karty:",
+	"donate_interface-donor-card": "Kredit karty",
 	"donate_interface-donor-card-num": "Kart belgisi:",
 	"donate_interface-donor-expiration": "Gutarýan möhleti:",
 	"donate_interface-donor-security": "Howpsuzlyk kody:",

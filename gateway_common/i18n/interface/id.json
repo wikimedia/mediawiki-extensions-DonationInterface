@@ -11,7 +11,8 @@
 			"Kenrick95",
 			"Microcell",
 			"Seddon",
-			"C5st4wr6ch"
+			"C5st4wr6ch",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Dukung Wikimedia",
@@ -152,7 +153,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Alamat:",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "Kartu kredit:",
+	"donate_interface-donor-card": "Kartu kredit",
 	"donate_interface-donor-card-num": "Nomor kartu:",
 	"donate_interface-donor-expiration": "Tanggal kedaluwarsa:",
 	"donate_interface-donor-security": "Kode keamanan:",
@@ -218,7 +219,6 @@
 	"donate_interface-otherways-alt": "Ada <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">cara lain untuk menyumbang</a>, termasuk dengan cek.",
 	"donate_interface-otherways-short": "Cara lain untuk menyumbang",
 	"donate_interface-paypal": "Memiliki akun PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Menyumbang dengan PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Kami tidak menyimpan informasi kartu kredit Anda dan data pribadi Anda diperlakukan sesuai dengan <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">kebijakan privasi</a> kami.",
 	"donate_interface-token-mismatch": "Sesi Anda telah berakhir. Silakan coba mengisi formulir dan mengirimkannya lagi.",
 	"donate_interface-cc-form-header-personal": "Informasi penagihan",
 	"donate_interface-cc-form-header-payment": "Informasi pembayaran",
@@ -385,7 +385,6 @@
 	"donate_interface-taxded-msg-int": "Wikimedia Foundation adalah sebuah badan amal nirlaba yang didirikan di Amerika Serikat di bawah <i>US IRS Code Section 501(c)(3)</i>, dan, oleh karena itu, sumbangan dari perorangan atau badan yang terletak di Amerika Serikat dapat memperoleh keuntungan dengan status pembebasan pajak. Sumbangan dari perorangan atau badan yang terletak di luar Amerika Serikat mungkin tidak layak untuk pengurangan pajak di dalam Amerika Serikat dan tempat lainnya; dalam kasus tersebut, penyumbang sebaiknya meminta nasihat penasihat pajak. Secara penting, Wikimedia tidak mencari sumbangan dari perorangan atau badan di daerah yuridiksi apapun yang melarang atau membatasi aktivitas penggalangan dana oleh badan amal internasional seperti Wikimedia atau memberlakukan pajak hadiah di sumbangan yang dibuat untuk badan amal internasional.",
 	"donate_interface-taxded-msg-us": "Wikimedia Foundation adalah sebuah badan amal nirlaba yang didirikan di Amerika Serikat di bawah <i>US IRS Code Section 501(c)(3)</i>, dan, oleh karena itu, sumbangan dari perorangan atau badan yang terletak di Amerika Serikat dapat memperoleh keuntungan dengan status pembebasan pajak.",
 	"donate_interface-legal-original": "Ini adalah terjemahan sumber. Jika terjadi konflik antara terjemahan ini dengan versi bahasa Inggrisnya, maka versi bahasa Inggris akan digunakan.",
-	"donate_interface-legal-donorpolicy": "Dengan menyumbang, Anda membagikan informasi Anda ke Wikimedia Foundation, organisasi nirlaba yang menyediakan Wikipedia dan proyek Wikimedia lainnya, dan penyedia layanannya di Amerika Serikat dan tempat lainnya sesuai dengan kebijakan privasi kami. Kami tidak menjual ataupun mendagangkan informasi Anda ke siapapun.",
 	"donate_interface-monthlybox-title": "Buatkan jadi bulanan?",
 	"donate_interface-monthlybox-content": "Penyumbangan bulanan diproses pada tanggal 2 setiap bulan. Anda dapat membatalkannya setiap saat.",
 	"donate_interface-monthlybox-amount": "Jumlah donasi bulanan",

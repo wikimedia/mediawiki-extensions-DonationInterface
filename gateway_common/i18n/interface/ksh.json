@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Purodha"
+			"Purodha",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ongerschtöz Wikimeedija!",
@@ -146,7 +147,7 @@
 	"donate_interface-donor-zone": "Poß-Zoon",
 	"donate_interface-donor-address": "Addräß:",
 	"donate_interface-donor-pobox": "Poßfach",
-	"donate_interface-donor-card": "Kredditkaat:",
+	"donate_interface-donor-card": "Kredditkaat",
 	"donate_interface-donor-card-num": "Kaatenummer",
 	"donate_interface-donor-expiration": "Läuf uß aam",
 	"donate_interface-donor-security": "Kood för de Sescherheijt:",

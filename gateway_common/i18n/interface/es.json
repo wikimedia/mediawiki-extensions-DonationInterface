@@ -28,7 +28,8 @@
 			"Translationista",
 			"Vivaelcelta",
 			"Macofe",
-			"Jrobell"
+			"Jrobell",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -170,7 +171,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Dirección:",
 	"donate_interface-donor-pobox": "Apartado de correos",
-	"donate_interface-donor-card": "Tarjeta de crédito:",
+	"donate_interface-donor-card": "Tarjeta de crédito",
 	"donate_interface-donor-card-num": "Número de tarjeta:",
 	"donate_interface-donor-expiration": "Fecha de vencimiento:",
 	"donate_interface-donor-security": "Código de seguridad:",
