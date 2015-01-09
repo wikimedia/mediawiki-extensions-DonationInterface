@@ -459,8 +459,7 @@ class DonationData {
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
-			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
-			$currency = getNationalCurrency($this->getVal('country'));
+			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->log( "Got currency from 'country', now: $currency", LOG_DEBUG );
 		}
 		

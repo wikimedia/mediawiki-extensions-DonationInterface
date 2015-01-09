@@ -266,8 +266,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return array
 	 */
 	public static function getCountries() {
-		require_once( dirname( __FILE__ ) . '/../gateway_forms/includes/countryCodes.inc' );
-		return countryCodes();
+		return CountryCodes::getCountryCodes();
 	}
 
 	/**
