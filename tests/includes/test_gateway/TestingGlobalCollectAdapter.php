@@ -127,13 +127,14 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	/**
 	 * Load in some dummy response XML so we can test proper response processing
+	 * @throws RuntimeException
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
 		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
 			$code = '_' . $this->dummyGatewayResponseCode;
 			if ( $this->dummyGatewayResponseCode == 'Exception' ) {
-				throw new Exception('blah!');
+				throw new RuntimeException('blah!');
 			}
 		}
 

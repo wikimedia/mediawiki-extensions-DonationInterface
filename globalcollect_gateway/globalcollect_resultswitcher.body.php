@@ -145,12 +145,13 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	/**
 	 * Get the URL to redirect to when the transaction has been declined. This will be the form the
 	 * user came from with all the data and an error message.
+	 * @throws RuntimeException
 	 */
 	function getDeclinedResultPage() {
 		$failpage = $this->adapter->getFailPage();
 
 		if ( !$failpage ) {
-			throw new MWException( __FUNCTION__ . ': No declined result page defined. Please define a FailPage global for ' . $this->adapter->getGatewayIdentifier() );
+			throw new RuntimeException( __FUNCTION__ . ': No declined result page defined. Please define a FailPage global for ' . $this->adapter->getGatewayIdentifier() );
 		}
 		return $failpage;
 	}

@@ -38,13 +38,14 @@ class TestingAstropayAdapter extends AstropayAdapter {
 
 	/**
 	 * Load in some dummy response JSON so we can test proper response processing
+	 * @throws RuntimeException
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
 		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
 			$code = '_' . $this->dummyGatewayResponseCode;
 			if ( $this->dummyGatewayResponseCode === 'Exception' ) {
-				throw new Exception( 'blah!' );
+				throw new RuntimeException( 'blah!' );
 			}
 		}
 
@@ -62,7 +63,7 @@ class TestingAstropayAdapter extends AstropayAdapter {
 		if ( file_exists( $file_path ) ) {
 			return file_get_contents( $file_path );
 		} else {
-			throw new Exception( "File $file_path does not exist.\n" );
+			throw new RuntimeException( "File $file_path does not exist.\n" );
 		}
 	}
 

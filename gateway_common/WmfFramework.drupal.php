@@ -21,16 +21,22 @@ class WmfFramework_Drupal {
 		return 'localhost';
 	}
 
+	/**
+	 * @throws BadMethodCallException
+	 */
 	static function formatMessage( $message_identifier ) {
-		return "NO MSG FOUND for ".$message_identifier;
+		throw new BadMethodCallException( "Not implemented" );
 	}
 
 	static function runHooks( $func, $args ) {
 		return true;
 	}
 
+	/**
+	 * @throws BadMethodCallException
+	 */
 	static function getLanguageCode() {
-		throw new Exception( "Not implemented" );
+		throw new BadMethodCallException( "Not implemented" );
 	}
 
 	static function isUseSquid() {

@@ -989,6 +989,9 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 	}
 
+	/**
+	 * @throws RuntimeException
+	 */
 	protected function loadRoutingInfo( $transaction ) {
 		switch ( $transaction ) {
 			case 'QueryAuthorizeDeposit':
@@ -1022,7 +1025,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				}
 
 				if ( !$merchantId ) {
-					throw new MWException( 'Could not find account information for ' .
+					throw new RuntimeException( 'Could not find account information for ' .
 						"submethod: {$submethod}, country: {$country}, currency: {$currency}." );
 				} else {
 					$this->staged_data['wp_merchant_id'] = $merchantId;

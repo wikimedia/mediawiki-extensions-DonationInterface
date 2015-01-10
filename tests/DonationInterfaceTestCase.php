@@ -114,7 +114,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 *
 	 * @param string $country The country we want the test user to be from.
 	 * @return array Donor data to use
-	 * @throws MWException when there is no data available for the requested country
+	 * @throws OutOfBoundsException when there is no data available for the requested country
 	 */
 	public function getDonorTestData( $country = '' ) {
 		$donortestdata = array (
@@ -253,7 +253,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			$donortestdata['country'] = $country;
 			return $donortestdata;
 		}
-		throw new MWException( __FUNCTION__ . ": No donor data for country '$country'" );
+		throw new OutOfBoundsException( __FUNCTION__ . ": No donor data for country '$country'" );
 	}
 
 	/**

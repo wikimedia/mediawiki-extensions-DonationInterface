@@ -1641,7 +1641,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * @param array    $data    The data array
 	 *
-	 * @throws MWException
+	 * @throws UnexpectedValueException
 	 * @return boolean
 	 */
 	public function checkDoBankValidation( &$data ) {
@@ -1685,7 +1685,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} else {
 				$message = 'Unknown check result: (' . $checkResult . ')';
 
-				throw new MWException( $message );
+				throw new UnexpectedValueException( $message );
 			}
 		}
 

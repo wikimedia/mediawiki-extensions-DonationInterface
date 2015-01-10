@@ -61,9 +61,12 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		}
 	}
 
+	/**
+	 * @throws InvalidArgumentException
+	 */
 	public function addRiskScore( $score, $source ){
 		if ( !is_numeric( $score ) ){
-			throw new MWException(__FUNCTION__ . " Cannot add $score to risk score (not numeric). Source: $source" );
+			throw new InvalidArgumentException(__FUNCTION__ . " Cannot add $score to risk score (not numeric). Source: $source" );
 		}
 		if ( !is_array( $this->risk_score ) ){
 			if ( is_numeric( $this->risk_score ) ){
@@ -81,6 +84,9 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	}
 	
 
+	/**
+	 * @throws InvalidArgumentException
+	 */
 	public function getRiskScore() {
 
 		if ( is_numeric( $this->risk_score ) ) {
@@ -94,7 +100,8 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			return $total;
 
 		} else {
-			throw new MWException( __FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
+			// TODO: We should catch this during setRiskScore.
+			throw new InvalidArgumentException( __FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
 		}
 	}
 	

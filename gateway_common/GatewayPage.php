@@ -305,6 +305,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * enabled for this adapter, convert intended amount to default currency.
 	 *
 	 * @return boolean whether currency conversion was performed
+	 * @throws DomainException
 	 */
 	protected function fallbackToDefaultCurrency() {
 		$defaultCurrency = $this->adapter->getGlobal( 'FallbackCurrency' );
@@ -321,7 +322,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$oldCurrency = $this->adapter->getData_Unstaged_Escaped( 'currency_code' );
 		if ( $oldCurrency === $defaultCurrency ) {
 			$adapterClass = $this->adapter->getGatewayAdapterClass();
-			throw new MWException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
+			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
 		$oldAmount = $this->adapter->getData_Unstaged_Escaped( 'amount' );
 		$usdAmount = 0.0;
