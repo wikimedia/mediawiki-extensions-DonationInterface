@@ -16,15 +16,6 @@
  *
  */
 
-class TestingGatewayPage extends GatewayPage {
-	public function __construct() {
-		//nothing!
-	}
-	protected function handleRequest() {
-		//also nothing!
-	}
-}
-
 /**
  * @group Fundraising
  * @group DonationInterface
@@ -53,6 +44,8 @@ class GatewayPageTest extends MediaWikiTestCase {
 
 		$this->page->validateForm();
 
+		$this->assertTrue( $this->adapter->validatedOK() );
+
 		$manualErrors = $this->adapter->getManualErrors();
 		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'USD' )->text();
 		$this->assertEquals( $msg, $manualErrors['general'] );
@@ -77,6 +70,8 @@ class GatewayPageTest extends MediaWikiTestCase {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
 
 		$this->page->validateForm();
+
+		$this->assertTrue( $this->adapter->validatedOK() );
 
 		$manualErrors = $this->adapter->getManualErrors();
 		$this->assertEquals( null, $manualErrors['general'] );
