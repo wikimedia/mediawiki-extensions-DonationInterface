@@ -275,6 +275,7 @@
 	"donate_interface-city-town": "Label for city field.",
 	"donate_interface-town-city": "Label for city field.",
 	"donate_interface-state-province": "Label for state/province field.",
+	"donate_interface-postal": "Label for postal code field.",
 	"donate_interface-zip": "Label for zip code field.\n{{Identical|Zip}}",
 	"donate_interface-zip-code": "Label for zip code field.",
 	"donate_interface-zip-postal": "Label for zip/postal code field.",

@@ -22,5 +22,6 @@
 	"apihelp-di_wp_validate-param-zip": "",
 	"apihelp-di_wp_validate-param-country": "",
 	"apihelp-di_wp_validate-param-city": "",
-	"apihelp-di_wp_validate-param-cvc": ""
+	"apihelp-di_wp_validate-param-cvc": "",
+	"testingworldpaygateway": "WorldPay Testing"
 }

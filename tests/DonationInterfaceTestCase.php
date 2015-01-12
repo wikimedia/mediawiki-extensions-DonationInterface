@@ -515,6 +515,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			}
 		}
 
+		// Are there untranslated boogers?
+		if ( preg_match_all( '/&lt;[^<]+(&gt;|>)/', $form_html, $matches ) ) {
+			$this->fail( 'Untranslated messages present: ' . implode( ', ', $matches[0] ) );
+		}
+
 		//because do_transaction is totally expected to leave session artifacts...
 //		$wgRequest = new FauxRequest();
 	}
