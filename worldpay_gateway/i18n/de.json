@@ -4,5 +4,6 @@
 			"Metalhead64"
 		]
 	},
-	"worldpaygateway": "Spende jetzt"
+	"worldpaygateway": "Spende jetzt",
+	"testingworldpaygateway": "WorldPay-Test"
 }
