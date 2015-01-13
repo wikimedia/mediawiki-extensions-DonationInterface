@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Kusavica",
 			"Sudo77(new)",
-			"Pcoombe"
+			"Pcoombe",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -120,6 +121,7 @@
 	"donate_interface-post-transaction": "Podrobnosti transakcie",
 	"donate_interface-cvv-explain": "<h4>Čo je CVV?</h4>\n<p>Cardholder Verification Value (CVV): Tieto tri alebo štyri číslice pomáhajú pri uistení, že kartu fyzicky drží jej vlastník. Tým sa predchádza neoprávnenému alebo podvodnému použitiu.</p>\n<h4>Visa, Mastercard</h4>\n<p>3-číslicový kód sa nachádza na zadnej strane vašej karty v oblasti pre podpis.\nPolíčko pre podpis zvyčajne obsahuje postupnosť čísiel, ale iba posledné tri číslice sú kód CVV.</p>\n<h4>American Express</h4>\n<p>Kód sa <i>vždy</i> nachádza <i>nad</i> embosovaným (vyčnievajúcim) číslom karty na jej prednej strane.\nV niektorých prípadoch sa kód nachádza na ľavej strane karty, ale vždy nad číslom účtu.</p><br />",
 	"donate_interface-question-comment": "Máte otázky alebo komentáre? Kontaktujte Wikimedia Foundation: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-problemsdonating": "Máte problém s darovaním?",
 	"donate_interface-donate-click": "Vaša kreditná/debetná karta bude bezpečne spracovaná.",
 	"donate_interface-otherways": "Existujú aj <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">ďalšie spôsoby ako darovať, vrátane PayPal, šeku alebo pošty</a>.",
 	"donate_interface-otherways-alt": "Existujú aj <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">iné spôsoby, ako darovať</a>, okrem iného aj šekom.",
@@ -238,5 +240,6 @@
 	"donate_interface-tshirt-confirmation": "Vaše tričko bude dodané v nižšie uvedenej veľkosti a jazyku:",
 	"donate_interface-donation-tshirt": "Darovanie (s ponukou trička)",
 	"donate_interface-state-dropdown-XX": "Mimo USA",
-	"donate_interface-rtbt-issuer_id": "Vybrať banku"
+	"donate_interface-rtbt-issuer_id": "Vybrať banku",
+	"donate_interface-informationsharing": "Svojim príspevkom súhlasíte so sprístupnením osobných informácií nadácii Wikimedia Foundation, neziskovej organizácii, ktorá spravuje Wikipediu a iné projekty Wikimedia, a jej poskytovateľom služieb v súlade s našimi <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravidlami darcovstva</a>. Nadácia Wikimedia Foundation a jej poskytovatelia služieb majú sídlo v USA a v iných krajinách, ktorých právne predpisy týkajúce sa ochrany súkromia nemusia byť rovnaké ako právne predpisy vo Vašej krajine. Vaše informácie nikomu nepredávame ani s nimi neobchodujeme. Ďalšie informácie nájdete v našich <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravidlách darcovstva</a>."
 }
