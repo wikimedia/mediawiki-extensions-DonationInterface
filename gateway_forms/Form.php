@@ -441,7 +441,6 @@ abstract class Gateway_Form {
 				'language' => $this->getEscapedValue( 'language' ),
 				'referrer' => $this->getEscapedValue( 'referrer' ),
 				'email-opt' => $this->getEscapedValue( 'email-opt' ),
-				'premium_language' => $this->getEscapedValue( 'premium_language' ),
 				// process has been disabled - may no longer be needed.
 				//'process' => !is_null( $this->getEscapedValue( 'process' ) ) ? $this->getEscapedValue( 'process' ) : 'CreditCard',
 				// payment_method is no longer set to: processed

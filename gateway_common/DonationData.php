@@ -77,7 +77,6 @@ class DonationData {
 				'state',
 				'zip',
 				'country',
-				'premium_language',
 				'card_num',
 				'card_type',
 				'expiration',
@@ -298,7 +297,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'language',
-			'premium_language',
 			'contribution_tracking_id', //sort of...
 			'currency_code',
 			'user_ip',
@@ -703,8 +701,6 @@ class DonationData {
 	 * normalize helper function.
 	 * If the language has not yet been set or is not valid, pulls the language code 
 	 * from the current global language object. 
-	 * Also sets the premium_language as the calculated language if it's not 
-	 * already set coming in (had been defaulting to english). 
 	 */
 	protected function setLanguage() {
 		$language = false;
@@ -721,11 +717,6 @@ class DonationData {
 		
 		$this->setVal( 'language', $language );
 		$this->expunge( 'uselang' );
-		
-		if ( !$this->isSomething( 'premium_language' ) ){
-			$this->setVal( 'premium_language', $language );
-		}
-		
 	}
 
 	/**
@@ -964,7 +955,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'size',
-			'premium_language',
 			'utm_source',
 			'utm_medium',
 			'utm_campaign',

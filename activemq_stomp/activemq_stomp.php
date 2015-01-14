@@ -185,7 +185,6 @@ function createQueueMessage( $transaction ) {
 	// edit this array to include/ignore transaction data sent to the server
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
-		'premium_language' => $transaction['premium_language'],
 		'utm_source' => $transaction['utm_source'],
 		'language' => $transaction['language'],
 		'referrer' => $transaction['referrer'],
