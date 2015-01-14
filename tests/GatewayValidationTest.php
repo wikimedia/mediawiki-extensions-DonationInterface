@@ -87,8 +87,6 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testCurrencyCodeError() {
-		$this->markTestSkipped( 'Currency validation is currently untestable, because order cannot be controlled.' );
-
 		$this->adapter->addData( array(
 			'amount' => '2.99',
 			'country' => 'US',
