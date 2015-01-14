@@ -400,9 +400,9 @@ class DataValidator {
 		foreach ( $instructions['non_empty'] as $field => $function ){
 			if ( method_exists( $self, $function ) ) {
 				if ( $self::$function( $field, $data ) ){
-					$instructions['non_empty'][$field] = true;
+					$results['non_empty'][$field] = true;
 				} else {
-					$instructions['non_empty'][$field] = false;
+					$results['non_empty'][$field] = false;
 					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
 				}
 			} else {
@@ -418,9 +418,9 @@ class DataValidator {
 			}
 			if ( method_exists( $self, $function ) ) {
 				if ( $self::$function( $data[$field] ) ){
-					$instructions['valid_type'][$field] = true;
+					$results['valid_type'][$field] = true;
 				} else {
-					$instructions['valid_type'][$field] = false;
+					$results['valid_type'][$field] = false;
 					$errors[ $errorToken ] = self::getErrorMessage( $field, 'valid_type', $language );
 				}
 			} else {
@@ -443,7 +443,7 @@ class DataValidator {
 				$result = null;
 				switch ( $function ){
 					case 'validate_amount':
-						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $instructions ) ){
+						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $instructions, $results ) ){
 							$priceFloor = $gateway->getGlobal( 'PriceFloor' );
 							$priceCeiling = $gateway->getGlobal( 'PriceCeiling' );
 							$result = $self::$function( $data[$field], $data['currency_code'], $priceFloor, $priceCeiling );
@@ -465,8 +465,9 @@ class DataValidator {
 						$result = $self::$function( $data[$field] );
 				}
 				
-				$instructions['calculated'][$field] = $result;
-				if ($result === false){ //implying we did the check, and it failed.
+				$results['calculated'][$field] = $result;
+				if ($result === false){
+					// We did the check, and it failed.
 					$errors[ $errorToken ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
 				}
 				
@@ -475,6 +476,7 @@ class DataValidator {
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
+
 		return $errors;
 	}
 	
@@ -486,18 +488,20 @@ class DataValidator {
 	 * all fields required to validate the original have, themselves, passed 
 	 * validation. 
 	 * @param array $fields An array of field names to check.
-	 * @param array $instruction_results The $instructions array used in the 
-	 * validate function. 
+	 * @param array $instructions The validation instructions.
+	 * @param array $results Intermediate result of validation.
 	 * @return boolean true if all fields specified in $fields passed their 
 	 * non_empty and valid_type validation. Otherwise, false.
 	 */
-	protected static function checkValidationPassed( $fields, $instruction_results ){
+	protected static function checkValidationPassed( $fields, $instructions, $results ){
 		foreach ( $fields as $field ){
-			if ( !array_key_exists( $field, $instruction_results['non_empty'] ) || $instruction_results['non_empty'][$field] !== true ){
-				return false;
-			}
-			if ( !array_key_exists( $field, $instruction_results['valid_type'] ) || $instruction_results['valid_type'][$field] !== true ){
-				return false;
+			foreach ( $instructions as $validation_type => $instruction_fields ) {
+				if ( array_key_exists( $field, $instruction_fields )
+					&& array_key_exists( $validation_type, $results )
+					&& $results[$validation_type][$field] !== true
+				) {
+					return false;
+				}
 			}
 		}
 		return true;
