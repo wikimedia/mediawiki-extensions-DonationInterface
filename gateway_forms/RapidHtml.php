@@ -75,7 +75,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// Boletos
 		'@fiscal_number',
 		// Not actually data tokens, but available to you in html form:
-		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
 		// @action -> generate correct form action for this form
 		// @appeal -> name of the appeal text to load
@@ -238,9 +237,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// replace standard errors
 		$form = str_replace($this->error_tokens, $raw_errors, $form);
 		
-		// handle captcha
-		$form = str_replace( "@captcha", $this->getCaptchaHtml(), $form );
-
 		// handle script path
 		$form = str_replace( "@script_path", $wgScriptPath, $form );
 
