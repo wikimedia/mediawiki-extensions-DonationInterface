@@ -28,7 +28,7 @@ class DonationData {
 	 */
 	function __construct( $gateway, $data = false ) {
 		$this->gateway = $gateway;
-		$this->gatewayID = $this->getGatewayIdentifier();
+		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->populateData( $data );
 	}
 
@@ -174,8 +174,7 @@ class DonationData {
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
 		 * ...unless it's an explicit $overwrite * */
-		$c = $this->getAdapterClass();
-		if ( $c::session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
+		if ( $this->gateway->session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//fields that should always overwrite with their original values
 			$overwrite = array ( 'referrer' );
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
@@ -652,42 +651,6 @@ class DonationData {
 	protected function log( $message, $log_level = LOG_INFO ) {
 		$message = $this->getLogMessagePrefix() . $message;
 		$this->gateway->_log( $message, $log_level );
-	}
-
-	/**
-	 * getGatewayIdentifier
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getIdentifier' function. Used for normalizing the 
-	 * 'gateway' value, and stashing and retrieving the edit token (and other 
-	 * things, where needed) in the session. 
-	 * @return type 
-	 */
-	protected function getGatewayIdentifier() {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
-			return $c::getIdentifier();
-		} else {
-			return 'DonationData';
-		}
-	}
-
-	/**
-	 * getGatewayGlobal
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getGlobal' function for the $varname passed in. Used 
-	 * to determine gateway-specific configuration settings. 
-	 * @param string $varname the global variable (minus prefix) that we want to 
-	 * check. 
-	 * @return mixed  The value of the gateway global if it exists. Else, the 
-	 * value of the Donation Interface global if it exists. Else, null.
-	 */
-	protected function getGatewayGlobal( $varname ) {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
-			return $c::getGlobal( $varname );
-		} else {
-			return false;
-		}
 	}
 
 	/**

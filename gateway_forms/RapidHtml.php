@@ -432,8 +432,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @throws MWException
 	 */
 	public function set_html_file_path( $form_key, $fatal = true ) {
-		$g = $this->gateway;
-		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
+		$allowedForms = $this->gateway->getGlobal( 'AllowedHtmlForms' );
 
 		$problems = false;
 		$debug_message = '';
@@ -455,7 +454,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$debug_message = "No defined gateways for '$form_key'";
 				$problems = true;
 			} else {
-				$ident = $g->getIdentifier();
+				$ident = $this->gateway->getIdentifier();
 				if ( is_array( $allowedForms[$form_key]['gateway'] ) ){
 					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ){
 						$debug_message = "$ident is not defined as an allowable gateway for '$form_key'";
@@ -472,7 +471,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		
 		if ( !$problems ){
 			//now, figure out what whitelisted form directory this is a part of. 
-			$allowedDirs = $g::getGlobal( 'FormDirs' );
+			$allowedDirs = $this->gateway->getGlobal( 'FormDirs' );
 			$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
 			$build = '';
 			for( $i=0; $i<count( $dirparts ); ++$i ){

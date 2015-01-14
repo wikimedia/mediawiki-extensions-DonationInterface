@@ -46,8 +46,7 @@ abstract class Gateway_Form {
 	 * For displaying when a user does not have Javascript enabled in their browser.
 	 */
 	protected function getNoScript() {
-		$g = $this->gateway;
-		$noScriptRedirect = $g::getGlobal( 'NoScriptRedirect' );
+		$noScriptRedirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
 
 		$form = '<noscript>';
 		$form .= '<div id="noscript">';
