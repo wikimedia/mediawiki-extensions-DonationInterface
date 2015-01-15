@@ -32,6 +32,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnabledGateways' => array( 'donation' ), // base class.  awkward.
 			'wgDonationInterfacePriceFloor' => 2.00,
+			'wgDonationInterfacePriceCeiling' => 100.00,
 		) );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
@@ -46,7 +47,8 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->adapter->addData( array(
 			'amount' => '2.00',
 			'country' => 'US',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
+			'email' => 'foo@localhost.net',
 		) );
 
 		$this->page->validateForm();
@@ -58,7 +60,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->adapter->addData( array(
 			'amount' => '1.99',
 			'country' => 'US',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 		) );
 
 		$this->page->validateForm();
@@ -67,5 +69,101 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$errors = $this->adapter->getValidationErrors();
 		$this->assertArrayHasKey( 'amount', $errors );
+	}
+
+	public function testHighAmountError() {
+		$this->adapter->addData( array(
+			'amount' => '100.99',
+			'country' => 'US',
+			'currency' => 'USD',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'amount', $errors );
+	}
+
+	public function testCurrencyCodeError() {
+		$this->markTestSkipped( 'Currency validation is currently untestable, because order cannot be controlled.' );
+
+		$this->adapter->addData( array(
+			'amount' => '2.99',
+			'country' => 'US',
+			'currency' => 'ZZZ',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'currency_code', $errors );
+	}
+
+	public function testCountryError() {
+		// TODO: also validate and test country=ZZ and XX
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceForbiddenCountries' => array( 'XX' )
+		) );
+
+		$this->adapter->addData( array(
+			'amount' => '2.99',
+			'country' => 'XX',
+			'currency' => 'USD',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'country', $errors );
+	}
+
+	public function testEmailError() {
+		$this->adapter->addData( array(
+			'amount' => '2.99',
+			'currency' => 'USD',
+			'email' => 'foo',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'emailAdd', $errors );
+	}
+
+	public function testSpuriousCcError() {
+		$this->adapter->addData( array(
+			'amount' => '2.99',
+			'currency' => 'USD',
+			'fname' => '4111111111111111',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'fname', $errors );
+	}
+
+	public function testMissingFieldError() {
+		$this->adapter->addData( array(
+			'amount' => '2.99',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'currency_code', $errors );
 	}
 }
