@@ -29,6 +29,8 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public $revalidateCount = 0;
 	public static $fakeGlobals = array();
 
+	public static $acceptedCurrencies = array();
+
 	public function revalidate($check_not_empty = array()) {
 		if ( $this->errorsForRevalidate ) {
 			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
@@ -95,6 +97,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public static function getCurrencies() {
+		return TestingGenericAdapter::$acceptedCurrencies;
 	}
 
 }

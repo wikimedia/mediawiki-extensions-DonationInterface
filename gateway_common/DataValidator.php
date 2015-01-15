@@ -9,6 +9,7 @@
  * order to use it any/everywhere. 
  * 
  * @author khorn
+ * @author awight
  */
 class DataValidator {
 	
@@ -39,21 +40,7 @@ class DataValidator {
 		'order_id',
 		'numAttempt'
 	);
-	
-	/**
-	 * $gateway_classes
-	 * @var array A list of all possible gateway classes. 
-	 * FIXME: get rid of this
-	 */
-	protected static $gateway_classes = array(
-		'globalcollect' => 'GlobalCollectAdapter',
-		'payflowpro' => 'PayflowProAdapter',
-		'paypal' => 'PaypalAdapter',
-		'adyen' => 'AdyenAdapter',
-		'amazon' => 'AmazonAdapter',
-		'worldpay' => 'WorldPayAdapter'
-	);
-	
+
 	/**
 	 * $card_types
 	 * @var array A list of SOME card types we recognize
@@ -276,6 +263,7 @@ class DataValidator {
 	 * wfLangSpecificFallback - returns the text of the first existant message
 	 * in the requested language. If no messages are found in that language, the
 	 * function returns the first existant fallback message.
+	 * TODO: Belongs somewhere very else.
 	 *
 	 * @param string $language the code of the requested language
 	 * @param array $msg_keys
@@ -322,7 +310,7 @@ class DataValidator {
 	 * the main DonationInterface Form class to display. The array will be empty
 	 * if no errors were generated and everything passed OK.
 	 */
-	public static function validate( $gateway, $data, $check_not_empty = array()  ){
+	public static function validate( GatewayAdapter $gateway, $data, $check_not_empty = array()  ){
 		//return the array of errors that should be generated on validate.
 		//just the same way you'd do it if you were a form passing the error array around. 
 		
@@ -334,8 +322,6 @@ class DataValidator {
 		 * Third: Do validation that depends on multiple fields (making sure you 
 		 * validated that all the required fields exist on step 1, regardless of 
 		 * $check_not_empty)
-		 * 
-		 * So, we need to know what we're about to do for #3 before we actually do #1. 
 		 * 
 		 * $check_not_empty should contain an array of values that need to be populated. 
 		 * One likely candidate for a source there, is the required stomp fields as defined in DonationData. 
@@ -458,11 +444,13 @@ class DataValidator {
 				switch ( $function ){
 					case 'validate_amount':
 						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $instructions ) ){
-							$result = $self::$function( $data[$field], $data['currency_code'], $data['gateway'] );
+							$priceFloor = $gateway->getGlobal( 'PriceFloor' );
+							$priceCeiling = $gateway->getGlobal( 'PriceCeiling' );
+							$result = $self::$function( $data[$field], $data['currency_code'], $priceFloor, $priceCeiling );
 						} //otherwise, just don't do the validation. The other stuff will be complaining already. 
 						break;
 					case 'validate_currency_code':
-						$result = $self::$function( $data[$field], $data['gateway'] );
+						$result = $self::$function( $data[$field], $gateway->getCurrencies() );
 						break;
 					case 'validate_card_type':
 						//the contingent field in this case isn't strictly required, so this is going to look funny. 
@@ -487,8 +475,6 @@ class DataValidator {
 				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
-//		error_log( __FUNCTION__ . " " . print_r( $instructions, true ) );
-//		error_log( print_r( $errors, true ) );
 		return $errors;
 	}
 	
@@ -572,29 +558,20 @@ class DataValidator {
 
 	/**
 	 * validate_amount
+	 *
 	 * Determines if the $value passed in is a valid amount. 
-	 * NOTE: You will need to make sure that currency_code is populated before 
-	 * you get here. 
 	 * @param string $value The piece of data that is supposed to be an amount. 
-	 * @param string $currency_code Valid amounts depend on there being a 
-	 * currency code also. This also needs to be passed in. 
-	 * @param string $gateway The gateway needs to be provided so we can 
-	 * determine that gateway's current price floor and ceiling.  
+	 * @param string $currency_code The amount was given in this currency.
+	 * @param float $priceFloor Minimum valid amount (USD).
+	 * @param float $priceCeiling Maximum valid amount (USD).
+	 *
 	 * @return boolean True if $value is a valid amount, otherwise false.  
 	 */
-	protected static function validate_amount( $value, $currency_code, $gateway ){
+	protected static function validate_amount( $value, $currency_code, $priceFloor, $priceCeiling ) {
 		if ( !$value || !$currency_code || !is_numeric( $value ) ) {
 			return false;
 		}
-		
-		// check amount
-		$gateway_class = self::getGatewayClass($gateway);
-		if ( !$gateway_class ){
-			return false;
-		}
-		
-		$priceFloor = $gateway_class::getGlobal( 'PriceFloor' );
-		$priceCeiling = $gateway_class::getGlobal( 'PriceCeiling' );
+
 		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $value ) ||
 			( ( float ) self::convert_to_usd( $currency_code, $value ) < ( float ) $priceFloor ||
 			( float ) self::convert_to_usd( $currency_code, $value ) > ( float ) $priceCeiling ) ) {
@@ -604,20 +581,12 @@ class DataValidator {
 		return true;
 	}
 
-	protected static function validate_currency_code( $value, $gateway ) {
+	protected static function validate_currency_code( $value, $acceptedCurrencies ) {
 		if ( !$value ) {
 			return false;
 		}
 
-		$gateway_class = self::getGatewayClass($gateway);
-		if ( !$gateway_class ){
-			return false;
-		}
-
-		// FIXME: we should be checking currencies using the live gateway
-		// object, the result is often dependent on payment method/submethod,
-		// country, and so on.
-		return in_array( $value, $gateway_class::getCurrencies() );
+		return in_array( $value, $acceptedCurrencies );
 	}
 	
 	/**
@@ -667,6 +636,7 @@ class DataValidator {
 	 * @return boolean True if $value is a valid boolean, otherwise false.  
 	 */
 	protected static function validate_boolean( $value ){
+		// FIXME: this doesn't do the strict comparison we intended.  'hello' would match the "case true" statement.
 		switch ($value) {
 			case 0:
 			case '0':
@@ -706,14 +676,11 @@ class DataValidator {
 	 * @return boolean True if $value is a valid gateway, otherwise false
 	 */
 	protected static function validate_gateway( $value ){
-		if ( self::getGatewayClass( $value ) ){
-			return true;
-		}
-		
-		return false;
+		global $wgDonationInterfaceEnabledGateways;
+
+		return in_array( $value, $wgDonationInterfaceEnabledGateways, true );
 	}
-	
-	
+
 	/**
 	 * validate_not_empty
 	 * Checks to make sure that the $value is present in the $data array, and not null or an empty string. 
@@ -899,23 +866,7 @@ EOT;
 		}
 		return( ( $sum % 10 ) == 0 );
 	}
-	
-	/**
-	 * getGatewayClass
-	 * This exists to enable things like logging to the correct gateway, and 
-	 * retrieving gateway-specific globals. 
-	 * @param string $gateway The gateway identifier. 
-	 * @return string The name of the gateway class associated with that 
-	 * identifier, or false if none exists. 
-	 */
-	protected static function getGatewayClass( $gateway ) {
-		if ( array_key_exists( $gateway, self::$gateway_classes ) && class_exists( self::$gateway_classes[$gateway] ) ){
-			return self::$gateway_classes[$gateway];
-		}
-		return false;
-	}
-	
-	
+
 	/**
 	 * Convert an amount for a particular currency to an amount in USD
 	 *
@@ -939,7 +890,7 @@ EOT;
 		if ( array_key_exists( $code, $rates ) ) {
 			$usd_amount = $amount / $rates[$code];
 		} else {
-			$usd_amount = $amount;
+			throw new Exception( 'Bad programmer!  Bad currency made it too far through the portcullis' );
 		}
 		return $usd_amount;
 	}
@@ -1010,51 +961,22 @@ EOT;
 	}
 
 	/**
-	 * Eventually, this function should pull from here and memcache.
-	 * @staticvar array $blacklist A cached and expanded blacklist
+	 * Check whether IP matches a block list
+	 *
+	 * TODO: We might want to store the expanded list in memcache.
+	 *
 	 * @param string $ip The IP addx we want to check
-	 * @param string $list_name The global list, ostensibly full of IP addresses,
-	 * that we want to check against.
-	 * @param string $gateway The gateway we're concerned with. Only matters if,
-	 * for instance, $wgDonationInterfaceIPBlacklist is different from
-	 * $wgGlobalcollectGatewayIPBlacklist for some silly reason.
+	 * @param array $ip_list IP list to check against
 	 * @throws MWException
 	 * @return bool
 	 */
-	public static function ip_is_listed( $ip, $list_name, $gateway = '' ) {
-		//cache this mess
-		static $ip_list_cache = array();
-		$globalIPLists = array(
-			'IPWhitelist',
-			'IPBlacklist',
-		);
-		
-		if ( !in_array( $list_name, $globalIPLists ) ){
-			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No recognized global list of IPs called $list_name. Do better." );
+	public static function ip_is_listed( $ip, $ip_list ) {
+		$expanded = array();
+		foreach ( $ip_list as $address ){
+			$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
 		}
-		
-		$class = self::getGatewayClass( $gateway );
-		if ( !$class ){
-			$class = 'GatewayAdapter';
-		}
-		
-		if ( !array_key_exists( $class, $ip_list_cache ) || !array_key_exists( $list_name, $ip_list_cache[$class] ) ){
-			//go get it and expand the block entries
-			$list = $class::getGlobal( $list_name );
-			$expanded = array();
-			foreach ( $list as $address ){
-				$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
-			}
-			$ip_list_cache[$class][$list_name] = $expanded;
-			//TODO: This seems like an excellent time to stash this expanded 
-			//thing in memcache. Later, we can look for that value earlier. Yup.
-		}
-		
-		if ( in_array( $ip, $ip_list_cache[$class][$list_name] ) ){
-			return true;
-		} else {
-			return false;
-		}
+
+		return in_array( $ip, $expanded, true );
 	}
 	
 	/**

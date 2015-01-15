@@ -313,6 +313,8 @@ class DonationData {
 	 * be called multiple times against the same array.
 	 */
 	protected function normalize() {
+		// FIXME: there's a ghost invocation during DonationData construction.
+		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();

@@ -61,7 +61,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'Session Velocity onFilter hook!';
-		return self::singleton( $gateway_adapter )->filter( $gateway_adapter );
+		return self::singleton( $gateway_adapter )->filter();
 	}
 
 	/**
@@ -72,13 +72,13 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 *
 	 * @return bool Hook return, false stops processing of the hook chain
 	 */
-	private function filter( &$gateway_adapter ) {
+	private function filter() {
 
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
 		// Determine IP status before doing anything complex
-		$wl = DataValidator::ip_is_listed( $user_ip, 'IPWhitelist', $gateway_adapter->getIdentifier() );
-		$bl = DataValidator::ip_is_listed( $user_ip, 'IPBlacklist', $gateway_adapter->getIdentifier() );
+		$wl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPWhitelist' ) );
+		$bl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPBlacklist' ) );
 
 		if ( $wl ) {
 			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in whitelist.";
@@ -95,12 +95,12 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		}
 
 		// Obtain some useful information
-		$gateway = $gateway_adapter->getIdentifier();
-		$transaction = $gateway_adapter->getCurrentTransaction();
+		$gateway = $this->gateway_adapter->getIdentifier();
+		$transaction = $this->gateway_adapter->getCurrentTransaction();
 		$cRequestTime = $_SERVER['REQUEST_TIME'];
 
-		$decayRate = $this->getVar( 'DecayRate', $transaction, $gateway_adapter );
-		$threshold = $this->getVar( 'Threshold', $transaction, $gateway_adapter );
+		$decayRate = $this->getVar( 'DecayRate', $transaction );
+		$threshold = $this->getVar( 'Threshold', $transaction );
 
 		// Initialize the filter
 		if ( !array_key_exists( self::SESS_ROOT, $_SESSION ) ) {
@@ -122,7 +122,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		// Update the filter if it's stale
 		if ( $cRequestTime != $lastTime ) {
 			$score = max( 0, $score - ( ( $cRequestTime - $lastTime ) * $decayRate ) );
-			$score += $this->getVar( 'HitScore', $transaction, $gateway_adapter );
+			$score += $this->getVar( 'HitScore', $transaction );
 
 			// Store the results
 			$_SESSION[self::SESS_ROOT][$gateway][$transaction][$this::SESS_SCORE] = $score;
@@ -148,14 +148,13 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 *
 	 * @param string    $baseVar  The root name of the variable
 	 * @param string    $txn      The name of the transaction
-	 * @param object    $gateway  The current gateway object
 	 *
 	 * @return mixed    The contents of the configuration variable
 	 */
-	private function getVar( $baseVar, $txn, &$gateway ) {
-		$var = $gateway->getGlobal( 'SessionVelocity_' . $txn . '_' . $baseVar );
+	private function getVar( $baseVar, $txn ) {
+		$var = $this->gateway_adapter->getGlobal( 'SessionVelocity_' . $txn . '_' . $baseVar );
 		if ( !isset( $var ) ) {
-			$var = $gateway->getGlobal( 'SessionVelocity_' . $baseVar );
+			$var = $this->gateway_adapter->getGlobal( 'SessionVelocity_' . $baseVar );
 		}
 
 		return $var;
