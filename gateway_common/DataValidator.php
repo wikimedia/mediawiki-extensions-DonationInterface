@@ -894,7 +894,7 @@ EOT;
 		if ( array_key_exists( $code, $rates ) ) {
 			$usd_amount = $amount / $rates[$code];
 		} else {
-			throw new Exception( 'Bad programmer!  Bad currency made it too far through the portcullis' );
+			throw new MWException( 'Bad programmer!  Bad currency made it too far through the portcullis' );
 		}
 		return $usd_amount;
 	}
