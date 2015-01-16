@@ -138,9 +138,11 @@ class DonationData {
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
-		$this->normalize();
+		if ( $this->normalized ) {
+			$this->normalize();
 
-		$this->expungeNulls();
+			$this->expungeNulls();
+		}
 	}
 
 	/**
