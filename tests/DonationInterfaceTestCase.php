@@ -277,7 +277,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
 		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
-		$expected  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+		$expected  = '<?xml version="1.0" encoding="UTF-8"?' . ">\n";
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
