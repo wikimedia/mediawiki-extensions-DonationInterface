@@ -365,6 +365,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
 			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
 		}
+		else {
+			// We can't convert from this unknown currency.
+			return false;
+		}
 
 		if ( $defaultCurrency === 'USD' ) {
 			$newAmount = floor( $usdAmount );
