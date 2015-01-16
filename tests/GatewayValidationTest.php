@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group GatewayPage
  */
-class GatewayValidationTest extends MediaWikiTestCase {
+class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	protected $page;
 	protected $adapter;
