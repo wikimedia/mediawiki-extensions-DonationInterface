@@ -12,66 +12,6 @@
  * @author awight
  */
 class DataValidator {
-	
-	/**
-	 * $boolean_fields
-	 * @var array All fields that should validate as boolean values
-	 */
-	protected static $boolean_fields = array(
-		'_cache_',
-		'anonymous',
-		'optout',
-		'recurring',
-		'posted',
-	); 
-	
-	/**
-	 * $numeric_fields
-	 * @var array All fields that should validate as numeric
-	 */
-	protected static $numeric_fields = array(
-		'amount',
-		'amountGiven',
-		'amountOther',
-		'cvv',
-		'contribution_tracking_id',
-		'account_number',
-		'expiration',
-		'order_id',
-		'numAttempt'
-	);
-
-	/**
-	 * $card_types
-	 * @var array A list of SOME card types we recognize
-	 */
-	protected static $card_types = array( 
-		'amex',
-		'mc',
-		'visa',
-		'discover'
-	);
-	
-	/**
-	 * getNumericFields returns a list of DonationInterface fields that are 
-	 * expected to contain numeric values. 
-	 * @return array A non-ordered array of field names. 
-	 */
-	public static function getNumericFields(){
-		return self::$numeric_fields;
-	}
-	
-	
-	/**
-	 * getBooleanFields returns a list of DonationInterface fields that are 
-	 * expected to contain boolean values. 
-	 * @return array A non-ordered array of field names. 
-	 */
-	public static function getBooleanFields(){
-		return self::$boolean_fields;
-	}
-	
-	
 	/**
 	 * getErrorToken, intended to be used by classes that exist relatively close 
 	 * to the form classes, returns the error token (defined on the forms) that 
@@ -82,7 +22,6 @@ class DataValidator {
 	 * RapidHTML. 
 	 */
 	public static function getErrorToken( $field ){
-		$error_token = 'general';
 		switch ( $field ) {
 			case 'amountGiven' :
 			case 'amountOther' :
@@ -104,6 +43,9 @@ class DataValidator {
 			case 'state':
 			case 'zip':
 				$error_token = $field;
+				break;
+			default:
+				$error_token = 'general';
 				break;
 		}
 		return $error_token;
@@ -143,7 +85,7 @@ class DataValidator {
 	 * that is causing the error.
 	 * @param string $type - The type of error being caused, from a set.
 	 *    Possible values are:
-	 *        'non_empty' - the value is required and not currently present
+	 *        'not_empty' - the value is required and not currently present
 	 *        'valid_type' - in general, the wrong format
 	 *        'calculated' - fields that failed some kind of multiple-field data
 	 * integrity check.
@@ -172,7 +114,7 @@ class DataValidator {
 		//Empty messages should get: 
 		//'donate_interface-error-msg' => 'Please enter your $1';
 		//If they have no defined error message, give 'em the default. 
-		if ($type === 'non_empty'){
+		if ($type === 'not_empty'){
 			if ( $message_field != 'general' && self::wmfMessageExists( $error_message_field_string, $language ) ) {
 				return WmfFramework::formatMessage(
 					'donate_interface-error-msg',
@@ -190,9 +132,6 @@ class DataValidator {
 			switch ($token){
 				case 'amount': 
 					$suffix = 'invalid-amount';
-					break;
-				case 'emailAdd': 
-					$suffix = 'email';
 					break;
 				case 'card_num': //god damn it.
 					$suffix = 'card_num'; //more defaultness.
@@ -236,6 +175,7 @@ class DataValidator {
 	 * wmfMessageExists returns true if a translatable message has been defined 
 	 * for the string and language that have been passed in, false if none is 
 	 * present. 
+	 * TODO: move
 	 * @param string $msg_key The message string to look up.
 	 * @param string $language A valid mediawiki language code.
 	 * @return boolean - true if message exists, otherwise false.
@@ -331,149 +271,116 @@ class DataValidator {
 		 * look at it to make sure it's complete, and in order...
 		 * ...and do it. 
 		 */
-		
-		$instructions = array(
-			'non_empty' => array(),
-			'valid_type' => array(), //simple 'valid_type' check functions only have one parameter.
-			'calculated' => array(), //'calculated' check functions depend on (or optionally have) more than one value.
+
+		// Define all default validations.
+		$validations = array(
+			'not_empty' => array(
+				'amount',
+				'country',
+				'currency_code',
+				'gateway',
+			),
+			'valid_type' => array(
+				'_cache_' => 'validate_boolean',
+				'account_number' => 'validate_numeric',
+				'amount' => 'validate_numeric',
+				'amountGiven' => 'validate_numeric',
+				'amountOther' => 'validate_numeric',
+				'anonymous' => 'validate_boolean',
+				'contribution_tracking_id' => 'validate_numeric',
+				'currency_code' => 'validate_alphanumeric',
+				'gateway' => 'validate_alphanumeric',
+				'numAttempt' => 'validate_numeric',
+				'optout' => 'validate_boolean',
+				'order_id' => 'validate_numeric',
+				'posted' => 'validate_boolean',
+				'recurring' => 'validate_boolean',
+			),
+			// Note that order matters for this group, dependencies must come first.
+			'calculated' => array(
+				'address' => 'validate_address',
+				'city' => 'validate_address',
+				'country' => 'validate_country_allowed',
+				'email' => 'validate_email',
+				'street' => 'validate_address',
+				'currency_code' => 'validate_currency_code',
+				'gateway' => 'validate_gateway',
+				'fname' => 'validate_name',
+				'lname' => 'validate_name',
+				'name' => 'validate_name',
+
+				// Depends on currency_code and gateway.
+				'amount' => 'validate_amount',
+			),
 		);
-		
-		if ( !is_array( $check_not_empty ) ){
-			$check_not_empty = array( $check_not_empty );
+
+		// Additional fields we should check for emptiness.
+		if ( $check_not_empty ) {
+			$validations['not_empty'] = array_unique( array_merge(
+				$check_not_empty, $validations['not_empty']
+			) );
 		}
-		
-		foreach ( $check_not_empty as $field ){ 
-			$instructions['non_empty'][$field] = 'validate_not_empty';
-		}		
-		
-		foreach ( $data as $field => $value ){
-			//first, unset everything that's an empty string, or null, as there's nothing to validate. 
-			if ( $value !== '' && !is_null( $value ) ){
-			
-				$function_name = self::getValidationFunction( $field );
-				$check_type = 'valid_type';
-				switch ( $function_name ) {
-					case 'validate_amount':
-						//Note: We could do something like also validate amount not empty, and then that it's numeric
-						//That way we'd get more precisely granular error messages. 
-						$check_type = 'calculated';
-						$instructions['non_empty']['amount'] = 'validate_non_zero';
-						$instructions['valid_type']['amount'] = 'validate_numeric';
-						$instructions['non_empty']['currency_code'] = 'validate_not_empty';
-						$instructions['valid_type']['currency_code'] = 'validate_alphanumeric';
-						$instructions['non_empty']['gateway'] = 'validate_not_empty';
-						$instructions['valid_type']['gateway'] = self::getValidationFunction( 'gateway' );
-						break;
-					case 'validate_currency_code':
-						$check_type = 'calculated';
-						break;
-					case 'validate_card_type':
-						$check_type = 'calculated';
-						break;
-					case 'validate_country_allowed':
-						$check_type = 'calculated';
-						$instructions['non_empty']['country'] = 'validate_not_empty';
-						//@TODO: generic country validate here. I'm not too
-						//worried, as the purpose of this check is to blacklist
-						//specific values... but we should eventually be
-						//checking with the gateway to see if this country and
-						//payment type is valid.
-						//Or maybe that's more payment type validation territory...
-						//@TODO: Insert More Think Here
-						break;
-					case 'validate_name':
-						$check_type = 'calculated';
-						break;
-					case 'validate_address':
-						$check_type = 'calculated';
-						break;
-				}
-				$instructions[$check_type][$field] = $function_name;
-			}
-		}
-		
+
 		$errors = array();
-		
-		$self = get_called_class();
-		$language = self::getLanguage( $data );
-		
-		foreach ( $instructions['non_empty'] as $field => $function ){
-			if ( method_exists( $self, $function ) ) {
-				if ( $self::$function( $field, $data ) ){
-					$results['non_empty'][$field] = true;
+
+		$language = DataValidator::guessLanguage( $data );
+
+		foreach ( $validations as $phase => $fields ) {
+			foreach ( $fields as $key => $custom ) {
+				// Here we decode list vs map elements.
+				if ( is_numeric( $key ) ) {
+					$field = $custom;
+					$validation_function = "validate_{$phase}";
 				} else {
-					$results['non_empty'][$field] = false;
-					$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
+					$field = $key;
+					$validation_function = $custom;
 				}
-			} else {
-				$errors[ self::getErrorToken( $field ) ] = self::getErrorMessage( $field, 'non_empty', $language );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('non_empty' rule for $field )" );
-			}
-		}
-		
-		foreach ( $instructions['valid_type'] as $field => $function ){
-			$errorToken = self::getErrorToken( $field );
-			if ( array_key_exists( $errorToken, $errors ) ) {
-				continue;
-			}
-			if ( method_exists( $self, $function ) ) {
-				if ( $self::$function( $data[$field] ) ){
-					$results['valid_type'][$field] = true;
-				} else {
-					$results['valid_type'][$field] = false;
-					$errors[ $errorToken ] = self::getErrorMessage( $field, 'valid_type', $language );
+
+				if ( !isset( $data[$field] ) ) {
+					if ( $phase !== 'not_empty' ) {
+						// Skip if not required and nothing to validate.
+						continue;
+					} else {
+						// Stuff with nothing.
+						$data[$field] = null;
+					}
 				}
-			} else {
-				$errors[ $errorToken ] = self::getErrorMessage( $field, 'valid_type', $language );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('valid_type' rule for $field)" );
-			}
-		}
-		
-		//don't bail out now. Just don't set errors for calculated fields that 
-		//have failures in their dependencies. 
-		foreach ( $instructions['calculated'] as $field => $function ){
-			$errorToken = self::getErrorToken( $field );
-			if ( array_key_exists( $errorToken, $errors ) ) {
-				continue;
-			}
-			if ( method_exists( $self, $function ) ) {
-				//each of these is going to have its own set of overly 
-				//complicated rules and things to check, or we wouldn't be down 
-				//here in the calculated section. 
+
+				// Skip if we've already determined this field group is invalid.
+				$errorToken = self::getErrorToken( $field );
+				if ( array_key_exists( $errorToken, $errors ) ) {
+					continue;
+				}
+
+				// Prepare to call the thing.
+				$callable = array( 'DataValidator', $validation_function );
+				if ( !is_callable( $callable ) ) {
+					throw new Exception( __FUNCTION__ . " BAD PROGRAMMER. No function {$validation_function} for $field" );
+				}
 				$result = null;
-				switch ( $function ){
+				// Handle special cases.
+				switch ( $validation_function ) {
 					case 'validate_amount':
-						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $instructions, $results ) ){
+						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $results ) ){
 							$priceFloor = $gateway->getGlobal( 'PriceFloor' );
 							$priceCeiling = $gateway->getGlobal( 'PriceCeiling' );
-							$result = $self::$function( $data[$field], $data['currency_code'], $priceFloor, $priceCeiling );
+							$result = call_user_func( $callable, $data[$field], $data['currency_code'], $priceFloor, $priceCeiling );
 						} //otherwise, just don't do the validation. The other stuff will be complaining already. 
 						break;
 					case 'validate_currency_code':
-						$result = $self::$function( $data[$field], $gateway->getCurrencies() );
-						break;
-					case 'validate_card_type':
-						//the contingent field in this case isn't strictly required, so this is going to look funny. 
-						if ( array_key_exists( 'card_number', $instructions['valid_type'] ) && $instructions['valid_type']['card_number'] === true ){
-							//if it's there, it had better match up.
-							$result = $self::$function( $data[$field], $data['card_number'] );
-						} else {
-							$result = $self::$function( $data[$field] );
-						}
+						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies() );
 						break;
 					default:
-						$result = $self::$function( $data[$field] );
+						$result = call_user_func( $callable, $data[$field] );
+						break;
 				}
-				
-				$results['calculated'][$field] = $result;
-				if ($result === false){
+
+				// Store results.
+				$results[$phase][$field] = $result;
+				if ( $result === false ) {
 					// We did the check, and it failed.
-					$errors[ $errorToken ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
+					$errors[$errorToken] = self::getErrorMessage( $field, $phase, $language );
 				}
-				
-			} else {
-				$errors[ $errorToken ] = self::getErrorMessage( $field, 'calculated', $language, $data[$field] );
-				throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No $function function. ('calculated' rule for $field)" );
 			}
 		}
 
@@ -488,17 +395,15 @@ class DataValidator {
 	 * all fields required to validate the original have, themselves, passed 
 	 * validation. 
 	 * @param array $fields An array of field names to check.
-	 * @param array $instructions The validation instructions.
 	 * @param array $results Intermediate result of validation.
 	 * @return boolean true if all fields specified in $fields passed their 
-	 * non_empty and valid_type validation. Otherwise, false.
+	 * not_empty and valid_type validation. Otherwise, false.
 	 */
-	protected static function checkValidationPassed( $fields, $instructions, $results ){
+	protected static function checkValidationPassed( $fields, $results ){
 		foreach ( $fields as $field ){
-			foreach ( $instructions as $validation_type => $instruction_fields ) {
-				if ( array_key_exists( $field, $instruction_fields )
-					&& array_key_exists( $validation_type, $results )
-					&& $results[$validation_type][$field] !== true
+			foreach ( $results as $phase => $results_fields ) {
+				if ( array_key_exists( $field, $results_fields )
+					&& $results_fields[$field] !== true
 				) {
 					return false;
 				}
@@ -506,48 +411,7 @@ class DataValidator {
 		}
 		return true;
 	}
-	
-	
-	/**
-	 * getValidationFunction returns the function to use to validate the given field. 
-	 * @param string $field The name of the field we need to validate. 
-	 */
-	static function getValidationFunction( $field ){
-		switch ( $field ){
-			case 'email':
-				return 'validate_email';
-			case 'amount': //we only have to do the one: It will have been normalized by now. 
-				return 'validate_amount'; //this one is interesting. Needs two params. 
-			case 'card_num':
-				return 'validate_credit_card';
-			case 'card_type':
-				return 'validate_card_type';
-			case 'gateway':
-				return 'validate_gateway';
-			case 'country':
-				return 'validate_country_allowed';
-			case 'fname':
-			case 'lname':
-				return 'validate_name';
-			case 'currency_code':
-				return 'validate_currency_code';
-			case 'city':
-			case 'street':
-				return 'validate_address';
-		}
 
-		if ( in_array( $field, self::getNumericFields() ) ){
-			return 'validate_numeric';
-		}
-		
-		if ( in_array( $field, self::getBooleanFields() ) ){
-			return 'validate_boolean';
-		}
-		
-		return 'validate_alphanumeric'; //Yeah, this won't work.  
-	}
-	
-	
 	/**
 	 * validate_email
 	 * Determines if the $value passed in is a valid email address. 
@@ -694,25 +558,8 @@ class DataValidator {
 	 * @param array $data The whole data set. 
 	 * @return boolean True if the $value is not missing or empty, otherwise false.
 	 */
-	protected static function validate_not_empty( $value, $data ){
-		if ( !array_key_exists( $value, $data ) || is_null( $data[$value] ) || $data[$value] === '' ){
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Checks to make sure that the $value is present in the $data array, and not equivalent to zero.
-	 * @param string $value The value to check for non-zeroness.
-	 * @param array $data The whole data set.
-	 * @return boolean True if the $value is not missing or zero, otherwise false.
-	 */
-	protected static function validate_non_zero( $value, $data ){
-		if ( !array_key_exists( $value, $data ) || is_null( $data[$value] ) || $data[$value] === '' 
-			|| preg_match('/^0+(\.0+)?$/', $data[$value])){
-			return false;
-		}
-		return true;
+	protected static function validate_not_empty( $value ){
+		return ( $value !== null && $value !== '' );
 	}
 
 	/**
@@ -756,9 +603,9 @@ class DataValidator {
 		global $wgDonationInterfaceForbiddenCountries;
 		if ( in_array( strtoupper($value), $wgDonationInterfaceForbiddenCountries ) ){
 			return false;
-		} else {
-			return true;
 		}
+		// TODO: return DataValidator::is_valid_iso_country_code( $value );
+		return true;
 	}
 
 	/**
@@ -921,16 +768,15 @@ EOT;
 	}
 	
 	/**
-	 * getLanguage
-	 * Returns a valid mediawiki language code to use for all the 
-	 * DonationInterface translations.
+	 * Returns a valid mediawiki language code to use for all the DonationInterface translations.
+	 *
 	 * Will only look at the currently configured language if the 'language' key 
 	 * doesn't exist in the data set: Users may not have a language preference 
 	 * set if we're bouncing between mediawiki instances for payments.
 	 * @param array $data A normalized DonationInterface data set. 
 	 * @return string A valid mediawiki language code. 
 	 */
-	public static function getLanguage( $data ) {
+	public static function guessLanguage( $data ) {
 		if ( array_key_exists( 'language', $data )
 			&& WmfFramework::isValidBuiltInLanguageCode( $data['language'] ) ) {
 			return $data['language'];
