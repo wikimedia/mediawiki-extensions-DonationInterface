@@ -341,12 +341,6 @@ if ( $optionalParts['GlobalCollect'] === true ){
 #	);
 
 	$wgGlobalCollectGatewayHtmlFormDir = $donationinterface_dir . 'globalcollect_gateway/forms/html';
-	//this really should be redefined in LocalSettings.
-	$wgDonationInterfaceAllowedHtmlForms['lightbox1_gc'] = array(
-		'file' => $wgGlobalCollectGatewayHtmlFormDir .'/lightbox1.html',
-		'gateway' => 'globalcollect',
-		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' ))
-	);
 	
 	$wgGlobalCollectGatewayCvvMap = array(
 		'M' => true, //CVV check performed and valid value.
