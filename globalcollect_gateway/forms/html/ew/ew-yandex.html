@@ -20,8 +20,8 @@
 				<p id="topError" class="creditcard-error-msg"></p>
 
 			<form name="paypalcontribution" method="post" action="@action">
-				<div id="payflowpro_gateway-personal-info">
-					<table id="payflow-table-donor">
+				<div id="payment_gateway-personal-info">
+					<table id="payment-table-donor">
 						<tbody>
 						<tr>
 							<td>
@@ -55,7 +55,7 @@
 						</tbody>
 					</table>
 				</div>
-				<input type="hidden" name="gateway" value="payflowpro" id="gateway" />
+				<input type="hidden" name="gateway" value="globalcollect" id="gateway" />
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="@amount" name="amount">

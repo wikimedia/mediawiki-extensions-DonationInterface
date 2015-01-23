@@ -1,34 +1,34 @@
-div#payflowpro_gateway-donate-addl-info-text {
+div#payment_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
     padding-top: 12px;
 }
-div#payflowpro_gateway-donate-submessage {
+div#payment_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
 }
-#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
+#payment-table-donor td.label, #payment-table-comment td.label, #payment-table-cc td.label {
 	white-space: nowrap;
     display: block;
     padding-right: 1em;
     text-align: right;
     width: 94px;
 }
-.payflow-cc-form-section {
+.payment-cc-form-section {
     float: none;
     margin-right: 0;
     margin-bottom: 1em;
 }
-#payflowpro_gateway-personal-info {
+#payment_gateway-personal-info {
 	margin-right:0 !important;
 }
 
-#payflowpro_gateway-donate-addl-info-secure-logos {
+#payment_gateway-donate-addl-info-secure-logos {
 	float: left;
 	margin-right: 2em;
 }
 
-#payflowpro_gateway-donate-addl-info {
+#payment_gateway-donate-addl-info {
 	margin-top:2em !important;
 	margin-bottom:1em !important;
 }
@@ -93,7 +93,7 @@ ul#moreinfolinks li{
     list-style: none !important;
     list-style-image: none !important;
 }
-table#payflow-table-donor{
+table#payment-table-donor{
     /*margin-left: 10px;*/
 }
 
@@ -176,10 +176,10 @@ textarea::-moz-placeholder { opacity: 1; }
 div.donor { width: auto !important; }
 div.donor { width: 100% !important; }
 
-#payflow-table-donor input[type="text"],
-#payflow-table-donor input:not([type]),
-#payflow-table-donor input[type="email"],
-#payflow-table-donor select {
+#payment-table-donor input[type="text"],
+#payment-table-donor input:not([type]),
+#payment-table-donor input[type="email"],
+#payment-table-donor select {
   background-color: #f6f6f6;
   padding: 1em !important;
   -moz-box-shadow: 0 1px 1px rgba(0,0,0,.2), inset 0 0 0 1px rgba(0,0,0,.1);
@@ -194,16 +194,16 @@ div.donor { width: 100% !important; }
   margin-bottom: .2em;
 }
 
-#payflow-table-donor input[type="text"]:hover,
-#payflow-table-donor input[type="email"]:hover,
-#payflow-table-donor select:hover {
+#payment-table-donor input[type="text"]:hover,
+#payment-table-donor input[type="email"]:hover,
+#payment-table-donor select:hover {
   background: #003955;
   color: #fff;
 }
 
-#payflow-table-donor input[type="text"]:focus,
-#payflow-table-donor input[type="email"]:focus,
-#payflow-table-donor select:focus {
+#payment-table-donor input[type="text"]:focus,
+#payment-table-donor input[type="email"]:focus,
+#payment-table-donor select:focus {
   background: #fff;
   color: #00476b;
   -moz-box-shadow: inset 0 1px 3px rgba(0,0,1,.5), inset 0 0 0 1px rgba(0,0,0,.1);
@@ -211,7 +211,7 @@ div.donor { width: 100% !important; }
   box-shadow: inset 0 1px 3px rgba(0,0,1,.5), inset 0 0 0 1px rgba(0,0,0,.1);
 }
 
-#payflow-table-donor select { padding: .9em 1em !important; line-height: 40px; }
+#payment-table-donor select { padding: .9em 1em !important; line-height: 40px; }
 
 .mw-donate-submessage {
   text-transform: uppercase;

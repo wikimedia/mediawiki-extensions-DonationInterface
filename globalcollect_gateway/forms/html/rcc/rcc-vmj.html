@@ -20,8 +20,8 @@
 				<p id="topError" class="creditcard-error-msg"></p>
 
 			<form name="payment" method="post" action="@action">
-				<div id="payflowpro_gateway-personal-info">
-					<table id="payflow-table-donor">
+				<div id="payment_gateway-personal-info">
+					<table id="payment-table-donor">
 						<tbody>
 						<tr>
 							<td>
@@ -54,7 +54,7 @@
                         </tr>
 						<tr>
                             <td>
-                                <div class="mw-donate-submessage" id="payflowpro_gateway-donate-submessage">
+                                <div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
                                     <img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> %donate_interface-donate-click%
                                 </div>
                             </td>
@@ -62,7 +62,7 @@
 						</tbody>
 					</table>
 				</div>
-				<input type="hidden" name="gateway" value="payflowpro" id="gateway" />
+				<input type="hidden" name="gateway" value="globalcollect" id="gateway" />
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="@amount" name="amount">

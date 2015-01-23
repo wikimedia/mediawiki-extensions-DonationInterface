@@ -2,7 +2,7 @@
 
 abstract class Gateway_Form {
 	/**
-	 * An array of form errors, passed from the payflow pro object
+	 * An array of form errors, passed from the gateway form object
 	 * @var array
 	 */
 	public $form_errors;

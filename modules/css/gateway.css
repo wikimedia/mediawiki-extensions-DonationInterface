@@ -38,51 +38,51 @@ body.ltr #footer #footer-places {
 	margin-bottom: 1em;
 }
 
-.payflow-cc-form-section {
+.payment-cc-form-section {
 	float: left;
 }
 
-#payflowpro_gateway-personal-info {
+#payment_gateway-personal-info {
 /*	margin-right: 4em;
 	margin-bottom: 1em; */ /* This only seems to cause issues for RTL languages */
 }
 
-#payflowpro_gateway-form-submit, #payflowpro_gateway-form-submit-paypal {
+#payment_gateway-form-submit, #payment_gateway-form-submit-paypal {
 	margin-top: 1.2em;
 	text-align: center;
 	margin-bottom: 1em;
 }
 
-#payflowpro_gateway-donate-addl-info {
+#payment_gateway-donate-addl-info {
 	margin-top: 4em;
 	margin-bottom: 4em;
 	clear: both;
 }
 
-#payflow-table-cc td {
+#payment-table-cc td {
 	text-align: left;
 }
 
-#payflow-table-donor, #payflow-table-cc, #payflow-table-paypal {
+#payment-table-donor, #payment-table-cc, #payment-table-paypal {
 	background-color: transparent;
 }
 
-#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
+#payment-table-donor td.label, #payment-table-comment td.label, #payment-table-cc td.label {
 	text-align: right;
 	display: block;
 	padding-right: 1em;
 	width: 94px;
 }
 
-#payflow-table-comment td.check-option {
+#payment-table-comment td.check-option {
 	padding-left: 3em;
 }
 
-#payflow-table-donor td {
+#payment-table-donor td {
 	text-align: left;
 }
 
-#payflowpro_gateway-donate-addl-info-secure-logos {
+#payment_gateway-donate-addl-info-secure-logos {
         float: left;
         margin-right: 2em;
 }
@@ -168,7 +168,7 @@ input#emailAdd {
 	direction: ltr;
 }
 
-#payflow-table-donor {
+#payment-table-donor {
 	white-space: nowrap;
 }
 
@@ -239,7 +239,7 @@ div#content {
         padding: 1em;
         width: inherit;
     }
-    table#payflow-table-donor {
+    table#payment-table-donor {
         width: 100%;
     }
 
@@ -260,7 +260,7 @@ div#content {
     }
 
     /* Form - Contact/Donation Info */
-    table#payflow-table-donor td {
+    table#payment-table-donor td {
         padding: 0;
     }
     td#donate form select,

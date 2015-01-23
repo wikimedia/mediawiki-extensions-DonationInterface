@@ -26,14 +26,14 @@ window.clearField2 = function ( field, defaultValue ) {
 };
 
 window.switchToPayPal = function () {
-	document.getElementById('payflow-table-cc').style.display = 'none';
-	document.getElementById('payflowpro_gateway-form-submit').style.display = 'none';
-	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'block';
+	document.getElementById('payment-table-cc').style.display = 'none';
+	document.getElementById('payment_gateway-form-submit').style.display = 'none';
+	document.getElementById('payment_gateway-form-submit-paypal').style.display = 'block';
 };
 window.switchToCreditCard = function () {
-	document.getElementById('payflow-table-cc').style.display = 'table';
-	document.getElementById('payflowpro_gateway-form-submit').style.display = 'block';
-	document.getElementById('payflowpro_gateway-form-submit-paypal').style.display = 'none';
+	document.getElementById('payment-table-cc').style.display = 'table';
+	document.getElementById('payment_gateway-form-submit').style.display = 'block';
+	document.getElementById('payment_gateway-form-submit-paypal').style.display = 'none';
 };
 
 /**
