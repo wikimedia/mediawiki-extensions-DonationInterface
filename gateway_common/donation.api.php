@@ -21,14 +21,7 @@ class DonationApi extends ApiBase {
 			'api_request' => 'true'
 		);
 
-		if ( $this->gateway == 'payflowpro' ) {
-			$gatewayObj = new PayflowProAdapter( $gateway_opts );
-			switch ( $method ) {
-				// TODO: add other payment methods
-				default:
-					$result = $gatewayObj->do_transaction( 'Card' );
-			}
-		} elseif ( $this->gateway == 'globalcollect' ) {
+		if ( $this->gateway == 'globalcollect' ) {
 			if ( $wgDonationInterfaceTestMode === true ) {
 				$gatewayObj = new TestingGlobalCollectAdapter( $gateway_opts );
 			} else {
@@ -140,7 +133,7 @@ class DonationApi extends ApiBase {
 	 */
 	public function getParamDescription() {
 		return array(
-			'gateway' => 'Which payment gateway to use - payflowpro, globalcollect, etc.',
+			'gateway' => 'Which payment gateway to use - adyen, globalcollect, etc.',
 			'amount' => 'The amount donated',
 			'currency_code' => 'Currency code',
 			'fname' => 'First name',
@@ -184,7 +177,7 @@ class DonationApi extends ApiBase {
 	 */
 	public function getExamples() {
 		return array(
-			'api.php?action=donate&gateway=payflowpro&amount=2.00&currency_code=USD',
+			'api.php?action=donate&gateway=globalcollect&amount=2.00&currency_code=USD',
 		);
 	}
 
@@ -193,7 +186,7 @@ class DonationApi extends ApiBase {
 	 */
 	protected function getExamplesMessages() {
 		return array(
-			'action=donate&gateway=payflowpro&amount=2.00&currency_code=USD'
+			'action=donate&gateway=globalcollect&amount=2.00&currency_code=USD'
 				=> 'apihelp-donate-example-1',
 		);
 	}

@@ -61,7 +61,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@contribution_tracking_id', // => $wgRequest->getText( 'contribution_tracking_id' ),
 		'@data_hash', // => $wgRequest->getText( 'data_hash' ),
 		'@action', // => $wgRequest->getText( 'action' ),
-		'@gateway', // => 'payflowpro', // this may need to become dynamic in the future
+		'@gateway', // => 'globalcollect', // this may need to become dynamic in the future
 		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
         // Direct Debit Fields
@@ -150,9 +150,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 
 		$this->html_default_base_dir = $wgDonationInterfaceHtmlFormDir;
-		
-		// if this form needs to support squid caching, handle the magic
-		$this->handle_cacheability();
 	}
 
 	/**
@@ -527,18 +524,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
-	}
-
-	/**
-	 * Load API js if this form needs to support cacheing
-	 */
-	public function handle_cacheability() {
-		//We may change this from checking one thing in $wgRequest, to a 
-		//reference to $this->gateway->isCaching(). Little more robust. 
-		global $wgRequest;
-		if ( $wgRequest->getText( '_cache_', false )) {
-			$this->loadApiJs();
-		}
 	}
 
 	/**

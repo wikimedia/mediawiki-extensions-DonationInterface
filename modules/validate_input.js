@@ -1,4 +1,4 @@
-/*global sajax_do_call:true, checkSession:true, wgCurrencyMinimums:true, alert:true*/
+/*global wgCurrencyMinimums:true, alert:true*/
 window.addEvent = function ( obj, evType, fn ) {
 	if ( obj.addEventListener ) {
 		obj.addEventListener( evType, fn, false );
@@ -10,10 +10,6 @@ window.addEvent = function ( obj, evType, fn ) {
 	}
 
 	return false;
-};
-
-window.getIfSessionSet = function () {
-	sajax_do_call( 'efPayflowGatewayCheckSession', [], checkSession );
 };
 
 window.clearField = function ( field, defaultValue ) {

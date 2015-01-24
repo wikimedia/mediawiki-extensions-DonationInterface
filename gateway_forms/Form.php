@@ -42,15 +42,6 @@ abstract class Gateway_Form {
 	}
 
 	/**
-	 * Uses the resource loader to add the api client side javascript, usually
-	 * only when the form is caching.
-	 */
-	protected function loadApiJs() {
-		global $wgOut;
-		$wgOut->addModules( 'pfp.form.core.api' );
-	}
-
-	/**
 	 * Generate HTML for <noscript> tags
 	 * For displaying when a user does not have Javascript enabled in their browser.
 	 */

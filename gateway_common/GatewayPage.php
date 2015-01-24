@@ -151,8 +151,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Build and display form to user
-	 *
-	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function displayForm() {
 		global $wgOut;
@@ -276,7 +274,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 *
 	 * @todo
 	 * - This is being implemented in GlobalCollect
-	 * - Do we need to implement this for PayFlow Pro? Not yet!
 	 * - Do we only want to skip the Thank you page on getFinalStatus() => failed?
 	 *
 	 * @return null
