@@ -68,9 +68,6 @@ div#payment_gateway-donate-submessage {
 
 /* Forms and form partials */
 /* TODO: move common rules to shared css */
-.formCol {
-	width:465px !important;
-}
 #greenBackground, div.donor{
 	background-color:#CCE7CD;
 	border: none;
