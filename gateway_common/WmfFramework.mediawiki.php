@@ -1,6 +1,6 @@
 <?php
 
-class WmfFramework {
+class WmfFramework_Mediawiki {
 	static function debugLog( $identifier, $msg ) {
 		wfDebugLog( $identifier, $msg );
 	}

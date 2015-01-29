@@ -17,7 +17,8 @@
 			"Spring Roll Conan",
 			"Cwlin0416",
 			"LNDDYL",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -125,7 +126,6 @@
 	"donate_interface-XOF": "西非法郎",
 	"donate_interface-ZAR": "南非蘭特",
 	"donate_interface-currency-display": "$1（$2）",
-	"donate_interface-accessible": "本頁只能從資助頁面存取",
 	"donate_interface-paypal-button": "經 PayPal 捐款",
 	"donate_interface-paypal-redirect": "重新導向至 PayPal...",
 	"donate_interface-amazon-button": "透過亞馬遜捐款",
@@ -159,7 +159,7 @@
 	"donate_interface-donor-zone": "區域",
 	"donate_interface-donor-address": "地址：",
 	"donate_interface-donor-pobox": "郵政信箱",
-	"donate_interface-donor-card": "信用卡：",
+	"donate_interface-donor-card": "信用卡",
 	"donate_interface-donor-card-num": "信用卡號碼：",
 	"donate_interface-donor-expiration": "到期日：",
 	"donate_interface-donor-security": "安全碼：",
@@ -222,7 +222,6 @@
 	"donate_interface-otherways": "還可以透過<a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/zh-hant\">其他途徑捐助，包括 PayPal，支票或郵件</a>。",
 	"donate_interface-otherways-alt": "還可以透過<a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/zh-hant\">其他方式</a>捐款，包括使用支票。",
 	"donate_interface-otherways-short": "其他捐款方式",
-	"donate_interface-paypal": "有 PayPal 帳號？<a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">用 PayPal 捐助</a>.",
 	"donate_interface-token-mismatch": "您的連線階段已過期，請重新填寫並送出表單。",
 	"donate_interface-cc-form-header-personal": "帳號資料",
 	"donate_interface-cc-form-header-payment": "付款資訊",

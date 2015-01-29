@@ -21,7 +21,7 @@ EOT;
 // Extension credits that will show up on Special:Version
 $wgExtensionCredits['specialpage'][] = array(
 	'name' => 'Donation Interface',
-	'author' => array( 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Matt Walker', 'Adam Wight', 'Peter Gehres', 'Jeremy Postlethwaite' ),
+	'author' => array( 'Elliott Eggleston', 'Katie Horn', 'Ryan Kaldari' , 'Arthur Richards', 'Sherah Smith', 'Matt Walker', 'Adam Wight', 'Peter Gehres', 'Jeremy Postlethwaite' ),
 	'version' => '2.1.0',
 	'descriptionmsg' => 'donationinterface-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:DonationInterface',
@@ -45,7 +45,6 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Stomp' => false,
 	'ConversionLog' => false, //this is definitely an Extra
 	'Minfraud' => true, //this is definitely an Extra
-	'PayflowPro' => false,
 	'GlobalCollect' => true,
 	'Amazon' => true,
 	'Adyen' => true,
@@ -107,13 +106,17 @@ $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
+$wgAutoloadClasses['NationalCurrencies'] = $donationinterface_dir . 'gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
-$wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/stateAbbreviations.inc';
-$wgAutoloadClasses['WmfFramework'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
+$wgAutoloadClasses['WmfFramework_Mediawiki'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
+require_once( 'gateway_common/WmfFramework.php' );
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
+$wgAutoloadClasses['CountryCodes'] = $donationinterface_dir . 'gateway_forms/includes/CountryCodes.php';
+$wgAutoloadClasses['ProvinceAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/ProvinceAbbreviations.php';
+$wgAutoloadClasses['StateAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/StateAbbreviations.php';
 
 //GlobalCollect gateway classes
 if ( $optionalParts['GlobalCollect'] === true ){
@@ -123,13 +126,6 @@ if ( $optionalParts['GlobalCollect'] === true ){
 
 	$wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
 	$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/scripts/orphan_adapter.php';
-}
-
-//PayflowPro gateway classes
-if ( $optionalParts['PayflowPro'] === true ){
-	$wgDonationInterfaceClassMap['payflopro'] = 'PayflowProAdapter';
-	$wgAutoloadClasses['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.body.php';
-	$wgAutoloadClasses['PayflowProAdapter'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro.adapter.php';
 }
 
 if ( $optionalParts['Amazon'] === true ){
@@ -271,7 +267,7 @@ $wgDonationInterfaceSalt = $wgSecretKey;
 /**
  * A string that can contain wikitext to display at the head of the credit card form
  *
- * This string gets run like so: $wg->addHtml( $wg->Parse( $wgpayflowGatewayHeader ))
+ * This string gets run like so: $wg->addHtml( $wg->Parse( $wgGlobalCollectGatewayHeader ))
  * You can use '@language' as a placeholder token to extract the user's language.
  *
  */
@@ -345,12 +341,6 @@ if ( $optionalParts['GlobalCollect'] === true ){
 #	);
 
 	$wgGlobalCollectGatewayHtmlFormDir = $donationinterface_dir . 'globalcollect_gateway/forms/html';
-	//this really should be redefined in LocalSettings.
-	$wgDonationInterfaceAllowedHtmlForms['lightbox1_gc'] = array(
-		'file' => $wgGlobalCollectGatewayHtmlFormDir .'/lightbox1.html',
-		'gateway' => 'globalcollect',
-		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' ))
-	);
 	
 	$wgGlobalCollectGatewayCvvMap = array(
 		'M' => true, //CVV check performed and valid value.
@@ -386,31 +376,6 @@ if ( $optionalParts['GlobalCollect'] === true ){
 		'' => 100, //No code returned. All the points.
 	);	
 	
-}
-
-//PayflowPro gateway globals
-if ( $optionalParts['PayflowPro'] === true ){
-	$wgDonationInterfaceEnabledGateways[] = 'payflowpro';
-	$wgPayflowProGatewayURL = 'https://payflowpro.paypal.com';
-	$wgPayflowProGatewayTestingURL = 'https://pilot-payflowpro.paypal.com'; // Payflow testing URL
-
-#	$wgPayflowProGatewayAccountInfo['example'] = array(
-#		'PartnerID' => '', // PayPal or original authorized reseller
-#		'VendorID' => '', // paypal merchant login ID
-#		'UserID' => '', // if one or more users are set up, authorized user ID, else same as VENDOR
-#		'Password' => '', // merchant login password
-#	);
-
-	$wgPayflowProGatewayHtmlFormDir = $donationinterface_dir . 'payflowpro_gateway/forms/html';
-
-	$wgDonationInterfaceAllowedHtmlForms['lightbox1_pfp'] = array(
-		'file' => $wgPayflowProGatewayHtmlFormDir .'/lightbox1.html',
-		'gateway' => 'payflowpro',
-		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' ))
-	);
-	
-	//defaults to not doing the new fail page redirect. 
-	$wgPayflowProGatewayFailPage = false;
 }
 
 if ( $optionalParts['Amazon'] === true ){
@@ -815,10 +780,6 @@ if ( $optionalParts['GlobalCollect'] === true ){
 	$wgSpecialPages['GlobalCollectGateway'] = 'GlobalCollectGateway';
 	$wgSpecialPages['GlobalCollectGatewayResult'] = 'GlobalCollectGatewayResult';
 }
-//PayflowPro gateway special pages
-if ( $optionalParts['PayflowPro'] === true ){
-	$wgSpecialPages['PayflowProGateway'] = 'PayflowProGateway';
-}
 //Amazon Simple Payment gateway special pages
 if ( $optionalParts['Amazon'] === true ){
 	$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
@@ -898,12 +859,6 @@ if ( $optionalParts['SessionVelocityFilter'] === true ) {
 // enable the API
 $wgAPIModules['donate'] = 'DonationApi';
 $wgAutoloadClasses['DonationApi'] = $donationinterface_dir . 'gateway_common/donation.api.php';
-
-//Payflowpro API
-if ( $optionalParts['PayflowPro'] === true ){
-	$wgAPIModules['pfp'] = 'ApiPayflowProGateway';
-	$wgAutoloadClasses['ApiPayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/api_payflowpro_gateway.php';
-}
 
 
 /**
@@ -1010,77 +965,47 @@ $wgResourceModules[ 'di.form.core.validate' ] = array(
 	'remoteExtPath' => 'DonationInterface/modules'
 );
 
-// form placeholders
-//TODO: Move this somewhere gateway-agnostic.
-$wgResourceModules[ 'pfp.form.core.placeholders' ] = array(
-	'scripts' => 'form_placeholders.js',
-	'dependencies' => 'di.form.core.validate',
-	'messages' => array(
-		'donate_interface-donor-fname',
-		'donate_interface-donor-lname',
-		'donate_interface-donor-street',
-		'donate_interface-donor-city',
-		'donate_interface-donor-state',
-		'donate_interface-donor-postal',
-		'donate_interface-donor-country',
-		'donate_interface-donor-address',
-	),
-	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
-);
-
-// API JS
-//TODO: Either move this somewhere gateway-agnostic, or move it to the pfp installer section.
-$wgResourceModules[ 'pfp.form.core.api' ] = array(
-	'scripts' => 'pfp_api_controller.js',
-	'dependencies' => array( 'mediawiki.util' ),
-	'localBasePath' => $donationinterface_dir . 'payflowpro_gateway',
-	'remoteExtPath' => 'DonationInterface/payflowpro_gateway',
-);
-
 
 // Load the interface messages that are shared across multiple gateways
-$wgMessagesDirs['DonateInterface'] = __DIR__ . '/gateway_common/i18n/interface';
+$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/interface';
 $wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
-$wgMessagesDirs['DonateInterfaceAlt'] = __DIR__ . '/gateway_common/i18n/country-specific';
+$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/country-specific';
 $wgExtensionMessagesFiles['DonateInterfaceAlt'] = $donationinterface_dir . 'gateway_common/country.specific.i18n.php';
-$wgMessagesDirs['GatewayCountries'] = __DIR__ . '/gateway_common/i18n/countries';
+$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/countries';
 $wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
-$wgMessagesDirs['GatewayUSStates'] = __DIR__ . '/gateway_common/i18n/us-states';
+$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/us-states';
 $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
-$wgMessagesDirs['GatewayCAProvinces'] = __DIR__ . '/gateway_common/i18n/canada-provinces';
+$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/canada-provinces';
 $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
+
+if ( $optionalParts['Amazon'] === true ){
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/amazon_gateway/i18n';
+	$wgExtensionMessagesFiles['AmazonGateway'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.i18n.php';
+	$wgExtensionMessagesFiles['AmazonGatewayAlias'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.alias.php';
+}
 
 //GlobalCollect gateway magical globals
 // @todo All the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 if ( $optionalParts['GlobalCollect'] === true ){
-	$wgMessagesDirs['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/i18n';
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/globalcollect_gateway/i18n';
 	$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
 	$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
 }
 
-//PayflowPro gateway magical globals
-if ( $optionalParts['PayflowPro'] === true ){
-	$wgMessagesDirs['PayflowProGateway'] = __DIR__ . '/payflowpro_gateway/i18n';
-	$wgExtensionMessagesFiles['PayflowProGateway'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.i18n.php';
-	$wgExtensionMessagesFiles['PayflowProGatewayAlias'] = $donationinterface_dir . 'payflowpro_gateway/payflowpro_gateway.alias.php';
-	$wgAjaxExportList[] = "fnPayflowProofofWork";
-}
-
 if ( $optionalParts['Adyen'] === true ){
-	$wgMessagesDirs['AdyenGateway'] = __DIR__ . '/adyen_gateway/i18n';
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/adyen_gateway/i18n';
 	$wgExtensionMessagesFiles['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.i18n.php';
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.alias.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){
-	$wgMessagesDirs['PaypalGateway'] = __DIR__ . '/paypal_gateway/i18n';
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/paypal_gateway/i18n';
 	$wgExtensionMessagesFiles['PaypalGateway'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.i18n.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'paypal_gateway/paypal_gateway.alias.php';
 }
 
 if ( $optionalParts['WorldPay'] === true ){
-	$wgMessagesDirs['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/i18n';
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
 	$wgExtensionMessagesFiles['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.i18n.php';
 	$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.alias.php';
 }
@@ -1093,6 +1018,32 @@ if ( $optionalParts['WorldPay'] === true ){
 if ($optionalParts['Stomp'] === true){
 	require_once( $donationinterface_dir . 'activemq_stomp/activemq_stomp.php'  );
 	$wgAutoloadClasses['Stomp'] = $donationinterface_dir . 'activemq_stomp/Stomp.php';
+}
+
+function efDonationInterfaceUnitTests( &$files ) {
+	global $wgAutoloadClasses;
+
+	$testDir = __DIR__ . '/tests/';
+
+	$files[] = $testDir . 'AllTests.php';
+
+	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+
+	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
+	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/test.gateway.pages.php';
+
+	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
+	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
+
+	return true;
 }
 
 unset( $optionalParts );

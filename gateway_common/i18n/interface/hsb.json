@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jsoby",
-			"Michawiki"
+			"Michawiki",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Wikimediju podpěrać",
@@ -106,7 +107,6 @@
 	"donate_interface-XCD": "Wuchodnokaribiski dolar",
 	"donate_interface-XOF": "Zapadnoafriski CFA-franc",
 	"donate_interface-ZAR": "Južnoafriski rand",
-	"donate_interface-accessible": "Tuta stronje je jenož wot strony darow přistupna.",
 	"donate_interface-paypal-button": "Přez PayPal darić",
 	"donate_interface-paypal-redirect": "Dale posrědkuje so do PayPa...",
 	"donate_interface-amazon-button": "Přez Amazon darić",
@@ -140,7 +140,7 @@
 	"donate_interface-donor-zone": "Cona",
 	"donate_interface-donor-address": "Adresa:",
 	"donate_interface-donor-pobox": "Póstowy fach",
-	"donate_interface-donor-card": "Kreditna karta:",
+	"donate_interface-donor-card": "Kreditna karta",
 	"donate_interface-donor-card-num": "Kartowe čisło:",
 	"donate_interface-donor-expiration": "Datum spadnjenja:",
 	"donate_interface-donor-security": "Wěstotny kod:",
@@ -203,8 +203,6 @@
 	"donate_interface-otherways": "Su tež <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">druhe móžnosće, zo byšće darił, na přikład PayPal, šek abo póst</a>.",
 	"donate_interface-otherways-alt": "Su tež <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">druhe móžnosće, zo byšće darił</a>, inkluziwnje šek.",
 	"donate_interface-otherways-short": "Druhe móžnosće darjenja (jendźelsce)",
-	"donate_interface-paypal": "Maće konto PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Darće přez PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Njeskładujemy informacije twojeje kreditneje karty a twoje wosobinske daty podleža našim <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">prawidłam priwatnośce</a>.",
 	"donate_interface-token-mismatch": "Waše posedźenje je spadnjene. Prošu wupjelnće a wotpósćelće formular hišće raz.",
 	"donate_interface-cc-form-header-personal": "Zličbowanske informaciej",
 	"donate_interface-cc-form-header-payment": "Płaćenske informacije",

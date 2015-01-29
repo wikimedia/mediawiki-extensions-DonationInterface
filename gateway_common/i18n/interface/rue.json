@@ -3,7 +3,8 @@
 		"authors": [
 			"Gazeb",
 			"Jsoby",
-			"Tkalyn"
+			"Tkalyn",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Підпора фонду Вікімедія",
@@ -37,7 +38,6 @@
 	"donate_interface-SEK": "шведьска коруна",
 	"donate_interface-SGD": "сінґапурьскый долар",
 	"donate_interface-USD": "долар США",
-	"donate_interface-accessible": "Тота сторінка є доступна лем зо сторінкы про приспіваня.",
 	"donate_interface-paypal-button": "Пожертвованя через PayPal",
 	"donate_interface-cc-button": "Пожертвованя за помочі кредітной карты",
 	"donate_interface-card-legend": "Інформація о кредітнїй картї",
@@ -57,7 +57,7 @@
 	"donate_interface-donor-postal": "Поштовый код",
 	"donate_interface-donor-country": "Країна/Реґіон:",
 	"donate_interface-donor-address": "Адреса:",
-	"donate_interface-donor-card": "Кредітна карта:",
+	"donate_interface-donor-card": "Кредітна карта",
 	"donate_interface-donor-card-num": "Чісло карты:",
 	"donate_interface-donor-expiration": "Конець платности",
 	"donate_interface-donor-security": "Безпечностный код",
@@ -96,8 +96,6 @@
 	"donate_interface-otherways": "Може суть <a href=\"//wikimediafoundation.org/wiki/Ways_To_Give/cs\">іншы способы зробити пожертву включаючі PayPal, шек або пошты</a>.",
 	"donate_interface-otherways-alt": "Можны суть <a href=\"//wikimediafoundation.org/wiki/Ways_To_Give/rue\"> іншы способы, як пожертвовати>, враховано шеків.",
 	"donate_interface-otherways-short": "Іншы способы як пожертвовати",
-	"donate_interface-paypal": "Маєте конто PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Пожертвовати через PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Інформації о вашій кредітній картї не уховаваме і на вашы вшыткы особны дата ся односять нашы <a href=\"//wikimediafoundation.org/wiki/Donor_policy\"> правила охраны пріватного жывота</a>.",
 	"donate_interface-token-mismatch": "Ваше сиджіня ся скінчіло. Просиме, спробуйте знову формуларь выповнити і одослати.",
 	"donate_interface-cc-form-header-personal": "Інформації о платбі",
 	"donate_interface-cc-form-header-payment": "Інформації о платбі",

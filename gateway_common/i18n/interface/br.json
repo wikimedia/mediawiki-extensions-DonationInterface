@@ -5,7 +5,8 @@
 			"Fulup",
 			"Gwendal",
 			"Jsoby",
-			"Y-M D"
+			"Y-M D",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Skoazellañ Wikimedia",
@@ -111,7 +112,6 @@
 	"donate_interface-XCD": "Dollar Karib ar reter",
 	"donate_interface-XOF": "Lur CFA ar C'hornôg",
 	"donate_interface-ZAR": "Rand Suafrika",
-	"donate_interface-accessible": "N'haller mont d'ar bajenn-mañ nemet dre pajenn an donezonoù",
 	"donate_interface-paypal-button": "Ober ur prof gant PayPal",
 	"donate_interface-paypal-redirect": "Oc'h adkas davet PayPal…",
 	"donate_interface-amazon-button": "Reiñ dre Amazon",
@@ -145,7 +145,7 @@
 	"donate_interface-donor-zone": "Takad",
 	"donate_interface-donor-address": "Chomlec'h :",
 	"donate_interface-donor-pobox": "Boest PO",
-	"donate_interface-donor-card": "Kartenn-gred :",
+	"donate_interface-donor-card": "Kartenn-gred",
 	"donate_interface-donor-card-num": "Niverenn ar gartenn :",
 	"donate_interface-donor-expiration": "Deiziad termen :",
 	"donate_interface-donor-security": "Kod surentez :",
@@ -208,8 +208,6 @@
 	"donate_interface-otherways": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Doareoù all zo da reiñ, evel gant PayPal, dre chekenn pe dre lizher</a>.",
 	"donate_interface-otherways-alt": "Bez' ez eus <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">doareoù all da reiñ</a>, evel dre chekenn, da skouer.",
 	"donate_interface-otherways-short": "Doareoù all da reiñ",
-	"donate_interface-paypal": "Hag ur gont PayPal ho peus? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Reiñ dre PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Ne viromp ket roadennoù ho kartenn-gred ha gwarezet eo an titouroù personel a resevomp dre hor <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politikerezh prevezded</a>.",
 	"donate_interface-token-mismatch": "Ho talc'h a zo deuet d'an termen. Klaskit mar plij da leuniañ ha da gas en-dro ar furmskrid.",
 	"donate_interface-cc-form-header-personal": "Titouroù paeañ",
 	"donate_interface-cc-form-header-payment": "Titouroù paeañ",

@@ -5,7 +5,8 @@
 			"Gorizon",
 			"Jsoby",
 			"Mirzali",
-			"Xoser"
+			"Xoser",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Wikimedya rê desteg be",
@@ -105,7 +106,6 @@
 	"donate_interface-XCD": "Dolera Kerayiban dê Ayani",
 	"donate_interface-XOF": "CFA franga Afrika da Perayen",
 	"donate_interface-ZAR": "RAnda Veroci Afrika",
-	"donate_interface-accessible": "Ena pela teyna pelê bexş kerdişi ra a beno.",
 	"donate_interface-ewallet-button": "Ray da $1 ra bêc",
 	"donate_interface-card-legend": "Enformasyonê Kard ê Krediti",
 	"donate_interface-amount-legend": "Miktarê Bêcer",
@@ -132,7 +132,7 @@
 	"donate_interface-donor-zone": "Ware",
 	"donate_interface-donor-address": "Adrese:",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "Kardê krediti:",
+	"donate_interface-donor-card": "Karta kredi",
 	"donate_interface-donor-card-num": "Amarê Kardi:",
 	"donate_interface-donor-expiration": "Wextê qediyayisi:",
 	"donate_interface-donor-security": "Kodê pawitisi:",
@@ -173,7 +173,6 @@
 	"donate_interface-problemsdonating": "Problemê bêcdayış?",
 	"donate_interface-donate-click": "Kerta şıma Kredi / banka usul dê emelina do bıkariyo.",
 	"donate_interface-otherways-short": "Qan dê bêcer zewbi ray",
-	"donate_interface-paypal": "PayPal hesabê şıma esto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">PayPal ya bêc bıdê</a>.",
 	"donate_interface-comment": "Mışewre",
 	"donate_interface-first": "Sıfteyên",
 	"donate_interface-middle": "Dıdınki",

@@ -589,6 +589,8 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->staged_data['billing_signature'] = $this->calculateSignature( $sig_values );
 	}
 
+	// TODO: make the signature code more reusable.  Generalize the idea of
+	// mapping keys and fetching matching values.
 	protected function getGatewayKeys( $keys ) {
 		$staged = array();
 		$staging_map = array_flip( $this->var_map );

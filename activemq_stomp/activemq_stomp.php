@@ -173,19 +173,18 @@ function sendFreeformSTOMP( $transaction, $queue ) {
  * Older notes follow:
  * Currency in receiving module has currency set to USD, should take passed variable for these
  * PAssed both ISO and country code, no need to look up
- * 'gateway' = payflowpro (is this correct?)
+ * 'gateway' = globalcollect, e.g.
  * 'date' is sent as $date("r") so it can be translated with strtotime like Paypal transactions (correct?)
  * 'gross', 'original_gross', and 'net' are all set to amount, no fees are included in these transactions
- * Payflows ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
+ * Processor txn ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
  * Order ID (generated with transaction) is assigned to 'contribution_tracking_id'?
- * Response from Payflow is assigned to 'response'
+ * Response from processor is assigned to 'response'
  */
 function createQueueMessage( $transaction ) {
 	// specifically designed to match the CiviCRM API that will handle it
 	// edit this array to include/ignore transaction data sent to the server
 	$message = array(
 		'contribution_tracking_id' => $transaction['contribution_tracking_id'],
-		'premium_language' => $transaction['premium_language'],
 		'utm_source' => $transaction['utm_source'],
 		'language' => $transaction['language'],
 		'referrer' => $transaction['referrer'],

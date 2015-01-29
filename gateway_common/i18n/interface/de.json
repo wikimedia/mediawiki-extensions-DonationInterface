@@ -11,7 +11,8 @@
 			"Purodha",
 			"Tbleher",
 			"Umherirrender",
-			"Jrobell"
+			"Jrobell",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Unterstützen Sie Wikimedia",
@@ -118,7 +119,6 @@
 	"donate_interface-XCD": "Ostkaribischer Dollar",
 	"donate_interface-XOF": "CFA-Franc BCEAO",
 	"donate_interface-ZAR": "Südafrikanischer Rand",
-	"donate_interface-accessible": "Diese Seite kann nur über die Spendenseite erreicht werden.",
 	"donate_interface-paypal-button": "Per PayPal spenden",
 	"donate_interface-paypal-redirect": "Es wird zu PayPal umgeleitet …",
 	"donate_interface-amazon-button": "Über Amazon spenden",
@@ -153,7 +153,7 @@
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Anschrift:",
 	"donate_interface-donor-pobox": "Postfach",
-	"donate_interface-donor-card": "Kreditkarte:",
+	"donate_interface-donor-card": "Kreditkarte",
 	"donate_interface-donor-card-num": "Kreditkartennr.:",
 	"donate_interface-donor-expiration": "Gültig bis:",
 	"donate_interface-donor-security": "Sicherheitscode:",
@@ -219,7 +219,6 @@
 	"donate_interface-otherways": "Es gibt auch <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/de\">andere Möglichkeiten zu spenden, einschließlich PayPal oder Scheck</a>.",
 	"donate_interface-otherways-alt": "Es gibt auch <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/de\">andere Möglichkeiten zu spenden, auch per Scheck</a>.",
 	"donate_interface-otherways-short": "Andere Möglichkeiten zu spenden",
-	"donate_interface-paypal": "Verfügen Sie du über ein PayPal-Konto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Spende per PayPal</a>.",
 	"donate_interface-token-mismatch": "Ihre Sitzung ist abgelaufen. Bitte füllen Sie das Formular erneut aus und senden es nochmals ab.",
 	"donate_interface-cc-form-header-personal": "Persönliche Informationen",
 	"donate_interface-cc-form-header-payment": "Zahlungsinformationen",
@@ -400,7 +399,7 @@
 	"donate_interface-secureLogo-text": "Über SSL-Zertifikate",
 	"donate_interface-error-http-403": "Sie haben nicht die erforderliche Berechtigung, um diese Seite aufzurufen.",
 	"apihelp-donate-description": "Diese API ermöglicht dir eine Spende an die Wikimedia Foundation mithilfe einer Vielzahl an Zahlungsprozessoren.",
-	"apihelp-donate-param-gateway": "Welcher Zahlungsgateway verwendet werden soll: payflowpro, globalcollect etc.",
+	"apihelp-donate-param-gateway": "Welcher Zahlungsgateway verwendet werden soll: adyen, globalcollect etc.",
 	"apihelp-donate-param-amount": "Der gespendete Betrag.",
 	"apihelp-donate-param-currency_code": "Währungscode.",
 	"apihelp-donate-param-fname": "Vorname.",

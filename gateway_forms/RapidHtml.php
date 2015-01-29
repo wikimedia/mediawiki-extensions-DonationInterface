@@ -61,7 +61,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@contribution_tracking_id', // => $wgRequest->getText( 'contribution_tracking_id' ),
 		'@data_hash', // => $wgRequest->getText( 'data_hash' ),
 		'@action', // => $wgRequest->getText( 'action' ),
-		'@gateway', // => 'payflowpro', // this may need to become dynamic in the future
+		'@gateway', // => 'globalcollect', // this may need to become dynamic in the future
 		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
         // Direct Debit Fields
@@ -75,7 +75,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// Boletos
 		'@fiscal_number',
 		// Not actually data tokens, but available to you in html form:
-		// @captcha -> the captcha form
 		// @script_path -> maps to $wgScriptPath 
 		// @action -> generate correct form action for this form
 		// @appeal -> name of the appeal text to load
@@ -151,9 +150,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 
 		$this->html_default_base_dir = $wgDonationInterfaceHtmlFormDir;
-		
-		// if this form needs to support squid caching, handle the magic
-		$this->handle_cacheability();
 	}
 
 	/**
@@ -238,9 +234,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// replace standard errors
 		$form = str_replace($this->error_tokens, $raw_errors, $form);
 		
-		// handle captcha
-		$form = str_replace( "@captcha", $this->getCaptchaHtml(), $form );
-
 		// handle script path
 		$form = str_replace( "@script_path", $wgScriptPath, $form );
 
@@ -439,16 +432,19 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @throws MWException
 	 */
 	public function set_html_file_path( $form_key, $fatal = true ) {
-		$g = $this->gateway;
-		$allowedForms = $g::getGlobal( 'AllowedHtmlForms' );
+		$allowedForms = $this->gateway->getGlobal( 'AllowedHtmlForms' );
 
 		$problems = false;
 		$debug_message = '';
 		//make sure the requested form exists.
-		if ( !array_key_exists( $form_key, $allowedForms ) 
-			|| !array_key_exists( 'file', $allowedForms[$form_key] ) 
-			|| ( !file_exists( $allowedForms[$form_key]['file'] ) ) ) {
+		if ( !array_key_exists( $form_key, $allowedForms ) ) {
 			$debug_message = "Could not find form '$form_key'";
+			$problems = true;
+		} elseif ( !array_key_exists( 'file', $allowedForms[$form_key] ) ) {
+			$debug_message = "Form config for '$form_key' is missing 'file' value";
+			$problems = true;
+		} elseif ( !file_exists( $allowedForms[$form_key]['file'] ) ) {
+			$debug_message = "Form template is missing for '$form_key', looking for file: {$allowedForms[$form_key]['file']}";
 			$problems = true;
 		}
 		
@@ -458,7 +454,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$debug_message = "No defined gateways for '$form_key'";
 				$problems = true;
 			} else {
-				$ident = $g->getIdentifier();
+				$ident = $this->gateway->getIdentifier();
 				if ( is_array( $allowedForms[$form_key]['gateway'] ) ){
 					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ){
 						$debug_message = "$ident is not defined as an allowable gateway for '$form_key'";
@@ -475,7 +471,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		
 		if ( !$problems ){
 			//now, figure out what whitelisted form directory this is a part of. 
-			$allowedDirs = $g::getGlobal( 'FormDirs' );
+			$allowedDirs = $this->gateway->getGlobal( 'FormDirs' );
 			$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
 			$build = '';
 			for( $i=0; $i<count( $dirparts ); ++$i ){
@@ -527,18 +523,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
-	}
-
-	/**
-	 * Load API js if this form needs to support cacheing
-	 */
-	public function handle_cacheability() {
-		//We may change this from checking one thing in $wgRequest, to a 
-		//reference to $this->gateway->isCaching(). Little more robust. 
-		global $wgRequest;
-		if ( $wgRequest->getText( '_cache_', false )) {
-			$this->loadApiJs();
-		}
 	}
 
 	/**

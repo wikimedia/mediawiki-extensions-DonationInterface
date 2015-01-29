@@ -13,7 +13,8 @@
 			"Vriullop",
 			"පසිඳු කාවින්ද",
 			"Fitoschido",
-			"Toniher"
+			"Toniher",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -111,7 +112,6 @@
 	"donate_interface-XCD": "Dòlar del Carib de l'Est",
 	"donate_interface-XOF": "Frànc CFA de l'Àfrica de l'oest",
 	"donate_interface-ZAR": "Rand sudafricà",
-	"donate_interface-accessible": "Aquesta pàgina només és accessible des de la pàgina de donatius.",
 	"donate_interface-paypal-button": "Dóna a través de PayPal",
 	"donate_interface-paypal-redirect": "Redireccionant a PayPal...",
 	"donate_interface-amazon-button": "Dona via Amazon",
@@ -145,7 +145,7 @@
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Adreça:",
 	"donate_interface-donor-pobox": "Apartat de correus",
-	"donate_interface-donor-card": "Targeta de crèdit:",
+	"donate_interface-donor-card": "Targeta de crèdit",
 	"donate_interface-donor-card-num": "Número de targeta:",
 	"donate_interface-donor-expiration": "Data d'expiració:",
 	"donate_interface-donor-security": "Codi de seguretat:",
@@ -188,7 +188,6 @@
 	"donate_interface-otherways": "Hi ha <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/ca\">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.",
 	"donate_interface-otherways-alt": "Hi ha <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/ca\">altres maneres de donar</a>, incloent per xec.",
 	"donate_interface-otherways-short": "Altres maneres de donar",
-	"donate_interface-paypal": "Teniu un compte PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=ca&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Feu un donatiu amb PayPal</a>.",
 	"donate_interface-token-mismatch": "La vostra sessió ha caducat. Proveu d'omplir i enviar de nou el formulari.",
 	"donate_interface-cc-form-header-personal": "Informació de facturació",
 	"donate_interface-cc-form-header-payment": "Informació del pagament",

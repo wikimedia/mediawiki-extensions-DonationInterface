@@ -27,11 +27,11 @@ h1#firstHeading, div#contentSub {
 }
 
 /* areas shared with other gateways */
-div#payflowpro_gateway-donate-submessage {
+div#payment_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
 }
-#payflowpro_gateway-personal-info {
+#payment_gateway-personal-info {
 	margin-right:0 !important;
 }
 
@@ -68,9 +68,6 @@ div#payflowpro_gateway-donate-submessage {
 
 /* Forms and form partials */
 /* TODO: move common rules to shared css */
-.formCol {
-	width:465px !important;
-}
 #greenBackground, div.donor{
 	background-color:#CCE7CD;
 	border: none;

@@ -7,7 +7,8 @@
 			"Jsoby",
 			"Nghtwlkr",
 			"Njardarlogar",
-			"Ranveig"
+			"Ranveig",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -46,7 +47,6 @@
 	"donate_interface-SEK": "Svenske kroner",
 	"donate_interface-SGD": "Singapore Dollar",
 	"donate_interface-USD": "USA-dollar",
-	"donate_interface-accessible": "Denne sida er berre tilgjengeleg frå sida for gåver.",
 	"donate_interface-paypal-button": "Gje gjennom PayPal",
 	"donate_interface-cc-button": "Gje med kredittkort",
 	"donate_interface-ccdc-button": "Gje med kreditt-/debetkort",
@@ -72,7 +72,7 @@
 	"donate_interface-donor-postal": "Postnummer:",
 	"donate_interface-donor-country": "Land/region:",
 	"donate_interface-donor-address": "Adresse:",
-	"donate_interface-donor-card": "Kredittkort:",
+	"donate_interface-donor-card": "Kredittkort",
 	"donate_interface-donor-card-num": "Kortnummer:",
 	"donate_interface-donor-expiration": "Utløpsdato:",
 	"donate_interface-donor-security": "Tryggleikskode:",
@@ -93,9 +93,7 @@
 	"donate_interface-error-msg-cvv": "CVV frå baksida av kortet ditt",
 	"donate_interface-easydonate": "Me freistar gjera det lett for folk i alle land å donera. Lat oss få vita korleis me kunne gjort det lettare for deg. Send innspelet ditt til: problemsdonating@wikimedia.org",
 	"donate_interface-problemsdonating": "Vanskar med å gje?",
-	"donate_interface-donate-click": "Etter å ha klikka  \"{{int:payflowpro_gateway-donor-submit}}\", vil kredittinformasjonen din verta gjennomgått.",
 	"donate_interface-otherways-short": "Andre måtar å gje på",
-	"donate_interface-credit-storage-processing": "Me lagrar ikkje informasjon om kredittkortet ditt, og persondata er underlagt våre <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">retningsliner for personvern</a>.",
 	"donate_interface-cc-form-header-personal": "Betalingsinformasjon",
 	"donate_interface-make-your-donation": "Gje ei gåve no",
 	"donate_interface-comment": "Kommentar",

@@ -28,7 +28,7 @@ class DonationData {
 	 */
 	function __construct( $gateway, $data = false ) {
 		$this->gateway = $gateway;
-		$this->gatewayID = $this->getGatewayIdentifier();
+		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->populateData( $data );
 	}
 
@@ -77,7 +77,6 @@ class DonationData {
 				'state',
 				'zip',
 				'country',
-				'premium_language',
 				'card_num',
 				'card_type',
 				'expiration',
@@ -139,9 +138,11 @@ class DonationData {
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
-		$this->normalize();
+		if ( $this->normalized ) {
+			$this->normalize();
 
-		$this->expungeNulls();
+			$this->expungeNulls();
+		}
 	}
 
 	/**
@@ -173,8 +174,7 @@ class DonationData {
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
 		 * ...unless it's an explicit $overwrite * */
-		$c = $this->getAdapterClass();
-		if ( $c::session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
+		if ( $this->gateway->session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//fields that should always overwrite with their original values
 			$overwrite = array ( 'referrer' );
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
@@ -298,7 +298,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'language',
-			'premium_language',
 			'contribution_tracking_id', //sort of...
 			'currency_code',
 			'user_ip',
@@ -315,6 +314,8 @@ class DonationData {
 	 * be called multiple times against the same array.
 	 */
 	protected function normalize() {
+		// FIXME: there's a ghost invocation during DonationData construction.
+		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
@@ -459,8 +460,7 @@ class DonationData {
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
-			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
-			$currency = getNationalCurrency($this->getVal('country'));
+			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->log( "Got currency from 'country', now: $currency", LOG_DEBUG );
 		}
 		
@@ -654,42 +654,6 @@ class DonationData {
 	}
 
 	/**
-	 * getGatewayIdentifier
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getIdentifier' function. Used for normalizing the 
-	 * 'gateway' value, and stashing and retrieving the edit token (and other 
-	 * things, where needed) in the session. 
-	 * @return type 
-	 */
-	protected function getGatewayIdentifier() {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
-			return $c::getIdentifier();
-		} else {
-			return 'DonationData';
-		}
-	}
-
-	/**
-	 * getGatewayGlobal
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getGlobal' function for the $varname passed in. Used 
-	 * to determine gateway-specific configuration settings. 
-	 * @param string $varname the global variable (minus prefix) that we want to 
-	 * check. 
-	 * @return mixed  The value of the gateway global if it exists. Else, the 
-	 * value of the Donation Interface global if it exists. Else, null.
-	 */
-	protected function getGatewayGlobal( $varname ) {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
-			return $c::getGlobal( $varname );
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * normalize helper function.
 	 * Sets the gateway to be the gateway that called this class in the first 
 	 * place.
@@ -704,8 +668,6 @@ class DonationData {
 	 * normalize helper function.
 	 * If the language has not yet been set or is not valid, pulls the language code 
 	 * from the current global language object. 
-	 * Also sets the premium_language as the calculated language if it's not 
-	 * already set coming in (had been defaulting to english). 
 	 */
 	protected function setLanguage() {
 		$language = false;
@@ -722,11 +684,6 @@ class DonationData {
 		
 		$this->setVal( 'language', $language );
 		$this->expunge( 'uselang' );
-		
-		if ( !$this->isSomething( 'premium_language' ) ){
-			$this->setVal( 'premium_language', $language );
-		}
-		
 	}
 
 	/**
@@ -965,7 +922,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'size',
-			'premium_language',
 			'utm_source',
 			'utm_medium',
 			'utm_campaign',

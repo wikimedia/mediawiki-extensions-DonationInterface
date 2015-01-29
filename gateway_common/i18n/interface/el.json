@@ -8,7 +8,8 @@
 			"McDutchie",
 			"Omnipaedista",
 			"Shirayuki",
-			"ZaDiak"
+			"ZaDiak",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -112,7 +113,6 @@
 	"donate_interface-XOF": "Φράγκο CFA Δυτικής Αφρικής",
 	"donate_interface-ZAR": "Ραντ Νοτίου Αφρικής",
 	"donate_interface-currency-display": "$1 ($2)",
-	"donate_interface-accessible": "Αυτή η σελίδα είναι προσβάσιμη μόνο από τη σελίδα δωρεάς.",
 	"donate_interface-paypal-button": "Δωρίστε μέσω PayPal",
 	"donate_interface-paypal-redirect": "Ανακατεύθυνση προς PayPal…",
 	"donate_interface-amazon-button": "Δωρεά μέσω Amazon",
@@ -146,7 +146,7 @@
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Διεύθυνση:",
 	"donate_interface-donor-pobox": "PO Box",
-	"donate_interface-donor-card": "Πιστωτική κάρτα:",
+	"donate_interface-donor-card": "Πιστωτική κάρτα",
 	"donate_interface-donor-card-num": "Αριθμός κάρτας:",
 	"donate_interface-donor-expiration": "Ημερομηνία λήξης:",
 	"donate_interface-donor-security": "Κωδικός ασφαλείας:",
@@ -199,7 +199,6 @@
 	"donate_interface-otherways": "Υπάρχουν <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">άλλοι τρόποι για να δώσετε, όπως το PayPal,  η επιταγή, ή το ταχυδρομείο</a>.",
 	"donate_interface-otherways-alt": "Υπάρχουν <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">άλλοι τρόποι για να δωρίσετε, όπως το PayPal,  η επιταγή, ή το ταχυδρομείο</a>.",
 	"donate_interface-otherways-short": "Άλλοι τρόποι για να δώσετε",
-	"donate_interface-paypal": "Έχετε λογαριασμό PayPal; <a href=\"<span class=\" notranslate\"=\"\">$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name= $2 & text_template = 2010/JimmyAppealLong & γλώσσα = en & utm_source = $3 & utm_medium = $4 & utm_campaign = $5 \"> Δωρίστε μέσω PayPal</a>.",
 	"donate_interface-token-mismatch": "Συνεδρία σας έληξε.  Παρακαλούμε δοκιμάστε να συμπληρώσετε και να υποβάλετε ξανά τη φόρμα.",
 	"donate_interface-cc-form-header-personal": "Πληροφορίες χρέωσης",
 	"donate_interface-cc-form-header-payment": "Πληροφορίες πληρωμής",

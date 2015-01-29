@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Purodha"
+			"Purodha",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Ongerschtöz Wikimeedija!",
@@ -109,7 +110,6 @@
 	"donate_interface-XOF": "CFA-Frangke uß Wäßaffreka",
 	"donate_interface-ZAR": "Rand uß Söödaffrika",
 	"donate_interface-currency-display": "$1&nbsp;($2)",
-	"donate_interface-accessible": "Heh di Sigg es bloß vun de Schpändesigg uß zo han.",
 	"donate_interface-paypal-button": "Spende övver <i lang=\"en\">PayPal</i>",
 	"donate_interface-paypal-redirect": "Ömleide noh <i lang=\"en\">PayPal</i>…",
 	"donate_interface-amazon-button": "Övve <i lang=\"en\">Amazon</i> schpände",
@@ -146,11 +146,10 @@
 	"donate_interface-donor-zone": "Poß-Zoon",
 	"donate_interface-donor-address": "Addräß:",
 	"donate_interface-donor-pobox": "Poßfach",
-	"donate_interface-donor-card": "Kredditkaat:",
+	"donate_interface-donor-card": "Kredditkaat",
 	"donate_interface-donor-card-num": "Kaatenummer",
 	"donate_interface-donor-expiration": "Läuf uß aam",
 	"donate_interface-donor-security": "Kood för de Sescherheijt:",
-	"donate_interface-donor-submit": "{{int:Payflowpro gateway-submit-button}}",
 	"donate_interface-donor-currency-msg": "Di Spende es en $1 jemaat woode.",
 	"donate_interface-donor-fiscal_number": "De Steuernommer",
 	"donate_interface-card-name-amex": "<i lang=\"en\">American Express</i>",
@@ -205,11 +204,9 @@
 	"donate_interface-question-comment": "Häs De Froore udder Aanmärkunge? Dann schriiv aan: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-easydonate": "Mer ärbeide draan, dat emr et en jeedem Land op de Ääd einfach maache, jät ze jävve. Saat bescheid, wi mer et eijfacher för Desch maache künne. Donn Ding Vörschlääsch aan problemsdonating@wikimedia.org schecke.",
 	"donate_interface-problemsdonating": "Probleme beim Schpände?",
-	"donate_interface-donate-click": "Wann De op „{{int:Payflowpro gateway-submit-button}}“ jekleck häs, wääde Ding Kredittkaatedaate udder Debbitkaatedaate sescher verschlößelt beärbeit.",
 	"donate_interface-otherways": "Ehr hat och <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/de\">ander Wääje, ze spände, wi met <i lang=\"en\">PayPal</i>, met Schecks, udder met <i lang=\"en\">e-mail</i></a>.",
 	"donate_interface-otherways-alt": "Ehr hat och <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/de\">ander Müjjeleschkeite, ze spände</a>,  och met Scheck.",
 	"donate_interface-otherways-short": "Ander Müjjeleschkeite ze jävve",
-	"donate_interface-paypal": "Häs De e Konto bei <i lang=\"en\">PayPal</i>? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Jif met <i lang=\"en\">PayPal</i></a>.",
 	"donate_interface-token-mismatch": "Do bes nit mieh enjelogg. Bes esu jood un donn dat Fommulaa norr_ens ußfölle un affschecke.",
 	"donate_interface-cc-form-header-personal": "Enfommazjuhne övver de Rääschnong",
 	"donate_interface-cc-form-header-payment": "Enfommazjuhne övver et Bezahle",

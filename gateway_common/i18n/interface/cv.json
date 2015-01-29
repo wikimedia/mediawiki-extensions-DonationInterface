@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Salam"
+			"Salam",
+			"Pcoombe"
 		]
 	},
 	"donate_interface-donor-name": "Ят:",
@@ -20,6 +21,6 @@
 	"donate_interface-donor-zone": "Зона:",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Абонент ещӗкӗ:",
-	"donate_interface-donor-card": "Кивҫен картти:",
+	"donate_interface-donor-card": "Кивҫен картти",
 	"donate_interface-donor-card-num": "Карттӑ номерӗ:"
 }

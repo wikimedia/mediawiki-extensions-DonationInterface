@@ -6,7 +6,8 @@
 			"Spiritia",
 			"Turin",
 			"Vladimir Penov",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Подкрепете Уикимедия",
@@ -113,7 +114,6 @@
 	"donate_interface-XCD": "източнокарибски долар",
 	"donate_interface-XOF": "западноафрикански ЦФА франк",
 	"donate_interface-ZAR": "южноафрикански ранд",
-	"donate_interface-accessible": "Тази страница е достъпна само от страницата за дарение.",
 	"donate_interface-paypal-button": "Даряване с PayPal",
 	"donate_interface-paypal-redirect": "Пренасочване към PayPal…",
 	"donate_interface-amazon-button": "Дарение чрез Amazon",
@@ -147,7 +147,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Пощенска кутия",
-	"donate_interface-donor-card": "Кредитна карта:",
+	"donate_interface-donor-card": "Кредитна карта",
 	"donate_interface-donor-card-num": "Номер на картата:",
 	"donate_interface-donor-expiration": "Дата на изтичане:",
 	"donate_interface-donor-security": "Код за сигурност:",
@@ -211,7 +211,6 @@
 	"donate_interface-otherways": "Има и <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">други начини за дарение, например PayPal, с чек или по пощата</a>.",
 	"donate_interface-otherways-alt": "Има и <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">други начини за дарение</a>, включително с чек.",
 	"donate_interface-otherways-short": "Други начини за дарение",
-	"donate_interface-paypal": "Имате сметка в PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Направете дарение с PayPal</a>.",
 	"donate_interface-token-mismatch": "Вашата сесия е изтекла. Опитайте отново да попълните и изпратите формуляра.",
 	"donate_interface-cc-form-header-personal": "Информация за фактуриране",
 	"donate_interface-cc-form-header-payment": "Информация за плащане",
@@ -391,7 +390,7 @@
 	"donate_interface-secureLogo-text": "Относно SSL сертификатите",
 	"donate_interface-error-http-403": "Нямате разрешение за достъп до тази страница.",
 	"apihelp-donate-description": "Този API интерфейс ви позволява да направите дарение на Фондация Уикимедия, избирайки измежду разнообразни услуги по обработка на плащанията.",
-	"apihelp-donate-param-gateway": "Коя система за разплащания да се използва - payflowpro, globalcollect, и т.н.",
+	"apihelp-donate-param-gateway": "Коя система за разплащания да се използва - adyen, globalcollect, и т.н.",
 	"apihelp-donate-param-amount": "Дарената сума.",
 	"apihelp-donate-param-currency_code": "Код на валутата.",
 	"apihelp-donate-param-fname": "Собствено име.",

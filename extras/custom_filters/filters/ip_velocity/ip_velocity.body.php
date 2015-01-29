@@ -23,12 +23,12 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 		
 		//first, handle the whitelist / blacklist before you do anything else. 
-		if ( DataValidator::ip_is_listed( $user_ip, 'IPWhitelist' ) ){
+		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPWhitelist' ) ) ) {
 			$this->gateway_adapter->debugarray[] = "IP present in whitelist.";
 			$this->cfo->addRiskScore( 0, 'IPWhitelist' );
 			return true;
 		}
-		if ( DataValidator::ip_is_listed( $user_ip, 'IPBlacklist' ) ){
+		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPBlacklist' ) ) ) {
 			$this->gateway_adapter->debugarray[] = "IP present in blacklist.";
 			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
 			return true;

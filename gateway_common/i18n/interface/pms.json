@@ -3,7 +3,8 @@
 		"authors": [
 			"Borichèt",
 			"Dragonòt",
-			"Jsoby"
+			"Jsoby",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Giuté Wikimedia",
@@ -106,7 +107,6 @@
 	"donate_interface-XCD": "Dòlar dij Caràib orientaj",
 	"donate_interface-XOF": "Franch CFA d'Àfrica ossidental",
 	"donate_interface-ZAR": "Rand sudafrican",
-	"donate_interface-accessible": "Sta pàgina-sì a l'é mach acessìbil da la pàgina ëd donassion",
 	"donate_interface-paypal-button": "Fé na donassion con PayPal",
 	"donate_interface-paypal-redirect": "Ridiression a PayPal...",
 	"donate_interface-amazon-button": "Doné via Amazon",
@@ -140,7 +140,7 @@
 	"donate_interface-donor-zone": "Zòna",
 	"donate_interface-donor-address": "Adrëssa:",
 	"donate_interface-donor-pobox": "Casela Postal",
-	"donate_interface-donor-card": "Carta ëd crédit:",
+	"donate_interface-donor-card": "Carta ëd crédit",
 	"donate_interface-donor-card-num": "Nùmer ëd carta:",
 	"donate_interface-donor-expiration": "Data scadensa:",
 	"donate_interface-donor-security": "Còdes ëd sicurëssa:",
@@ -194,8 +194,6 @@
 	"donate_interface-otherways": "A-i é <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">d'àutre manere ëd doné, comprèis PayPal, s-cianchet, o pòsta</a>.",
 	"donate_interface-otherways-alt": "A-i é <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">d'àutre manere ëd fé na donassion</a>, comprèis jë s-cianchèt.",
 	"donate_interface-otherways-short": "Àutre manere për fé dle donassion",
-	"donate_interface-paypal": "Ha-lo un cont PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Ch'a eufra con PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Noi i memorisoma pa j'anformassion ëd soa carta ëd crédit, e ij sò dat përsonaj a son soget a nòstre <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">régole ëd confidensialità dël donator</a>.",
 	"donate_interface-token-mismatch": "Soa session a l'é terminà. Për piasì, ch'a preuva a ampinì e a mandé torna ël formolari.",
 	"donate_interface-cc-form-header-personal": "Anformassion dël pagament",
 	"donate_interface-cc-form-header-payment": "Anformassion ëd pagament",
@@ -360,7 +358,6 @@
 	"donate_interface-taxded-msg-int": "La Fondassion Wikimedia a l'é n'organisassion sensa but ëd guadagn stabilìa ant jë Stat Unì conforma a la session 501 (c)(3c) dël còdes US IRS, e, për sta rason, donassion da përson-e o entità postà ant jë Stat Unì a peulo beneficié dlë stat d'ardussion dle taje. Donassion da përson-e o entità postà fòra djë Stat Unì a peulo pa usufruì dla dedussion dle taje ant jë Stat Unì o fòra; an costi cas, ij donator a dovrìo vardé le disposissin dle taje locaj. Amportant, Wikimedia a veul pa 'd donassion da përson-e o entità postà an qualsëssìa giurisdission ch'a proibiss o a strenz j'atività ëd cujìa ëd fond da d'organisassion antërnassionaj com Wikipedia o ch'a àplico dle taje su donassion fàite a coste organisassion antërnassionaj.",
 	"donate_interface-taxded-msg-us": "La Fondassion Wikimedia a l'é n'organisassion sensa but ëd guadagn postà ant jë Stat Unì sota la session 501 (c)(3) dël còdes US IRS, e, për sta rason, donassion da përson-e o entità postà ant jë Stat Unì a peulo beneficié dlë stat d'ardussion dle taje.",
 	"donate_interface-legal-original": "Costa a l'é na tradussion ëd cortesìa. Ant ël cas d'un conflit tra sta tradussion e la version Anglèisa, la version Anglèisa a l'avrà la precedensa.",
-	"donate_interface-legal-donorpolicy": "An donand, a partagia soe anformassion con la Fondassion Wikimedia, l'organisassion sensa but ëd guadagn ch'a òspita Wikipedia e j'àutri proget Wikimedia, e ij sò fornidor ëd servissi ant jë Stat Unì e d'àutre part ai sens ëd nòstre régole d'arservatëssa dij donator. Noi i vendoma ni i scangioma soe anformassion con gnun.",
 	"donate_interface-monthlybox-title": "Felo mensilment?",
 	"donate_interface-monthlybox-content": "Le donassion mensij a son tratà al 2 ëd minca mèis. A peul ëscanceleje an qualsëssìa moment.",
 	"donate_interface-monthlybox-amount": "Total ëd la donassion mensil",

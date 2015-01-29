@@ -5,7 +5,8 @@
 			"Avjoska",
 			"Jsoby",
 			"Oop",
-			"Pikne"
+			"Pikne",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Toeta Wikimediat",
@@ -111,7 +112,6 @@
 	"donate_interface-XOF": "Lääne-Aafrika CFA frank",
 	"donate_interface-ZAR": "Lõuna-Aafrika Vabariigi rand",
 	"donate_interface-currency-display": "$1 ($2)",
-	"donate_interface-accessible": "See lehekülg on ligipääsetav ainult annetuslehekülje kaudu.",
 	"donate_interface-paypal-button": "Anneta PayPali kaudu",
 	"donate_interface-paypal-redirect": "Suunamine PayPali…",
 	"donate_interface-amazon-button": "Anneta Amazoni kaudu",
@@ -145,7 +145,7 @@
 	"donate_interface-donor-zone": "Tsoon",
 	"donate_interface-donor-address": "Aadress:",
 	"donate_interface-donor-pobox": "pk",
-	"donate_interface-donor-card": "Krediitkaart:",
+	"donate_interface-donor-card": "Krediitkaart",
 	"donate_interface-donor-card-num": "Krediitkaardi nr",
 	"donate_interface-donor-expiration": "Aegumistähtaeg",
 	"donate_interface-donor-security": "Turvakood",
@@ -201,7 +201,6 @@
 	"donate_interface-otherways": "Samuti on võimalik <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">annetada läbi PayPali, tšekiga või e-kirja teel</a>.",
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Annetada saab ka teisiti</a>, muu hulgas tšekiga.",
 	"donate_interface-otherways-short": "Teised annetamisviisid",
-	"donate_interface-paypal": "Kas sul on PayPali konto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Anneta läbi PayPali</a>.",
 	"donate_interface-token-mismatch": "Sinu seanss on aegunud. Palun proovi vormi uuesti täita ja saata.",
 	"donate_interface-cc-form-header-personal": "Arveldusandmed",
 	"donate_interface-cc-form-header-payment": "Makseandmed",

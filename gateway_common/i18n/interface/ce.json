@@ -23,7 +23,6 @@
 	"donate_interface-thankyou": "Баркалла гӀодарна!",
 	"donate_interface-problemsdonating": "Цатарло ахча дӀадахьийта?",
 	"donate_interface-otherways-short": "Ахча дохьуьйту кхин таронаш",
-	"donate_interface-paypal": "ДӀаяздина PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">ГӀоде PayPal чухула</a>.",
 	"donate_interface-cc-form-header-personal": "Ахча дӀадахьийтаран хаам",
 	"donate_interface-make-your-donation": "ГӀо де хӀинца",
 	"donate_interface-other": "Кхин ахчан дукхалла",

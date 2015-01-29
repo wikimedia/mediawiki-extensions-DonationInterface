@@ -5,7 +5,8 @@
 			"Haqmar",
 			"Jsoby",
 			"Ләйсән",
-			"Рустам Нурыев"
+			"Рустам Нурыев",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярҙам",
@@ -105,7 +106,6 @@
 	"donate_interface-XCD": "көнсығыш кариб доллары",
 	"donate_interface-XOF": "көнбайыш африка КФА франкы",
 	"donate_interface-ZAR": "көньяҡ африка ранды",
-	"donate_interface-accessible": "Был биткә иғәнә йыйыу бите аша ғына керергә мөмкин.",
 	"donate_interface-paypal-button": "PayPal аша иғәнә итегеҙ",
 	"donate_interface-paypal-redirect": "PayPal-ға йүнәлтеү...",
 	"donate_interface-cc-button": "Кредит картаһы менән иғәнә",
@@ -138,7 +138,7 @@
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Абонемент ҡумтаһы",
-	"donate_interface-donor-card": "Кредит картаһы:",
+	"donate_interface-donor-card": "Кредит картаһы",
 	"donate_interface-donor-card-num": "Карт номеры:",
 	"donate_interface-donor-expiration": "Һуңғы ҡулланыу ваҡыты:",
 	"donate_interface-donor-security": "Именлек коды:",
@@ -184,7 +184,6 @@
 	"donate_interface-otherways": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Иғәнә яһауҙың башҡа</a>, шул иҫәптәр PayPal, чек, почта аша түләү ысулдары бар.",
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">Иғәнә яһауҙың башҡа</a>, шул иҫәптәр чек аша түләү ысулдары бар.",
 	"donate_interface-otherways-short": "Иғәнә яһауҙың башҡа ысулдары",
-	"donate_interface-paypal": "PayPal иҫәп яҙмағыҙ бармы? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">PayPal аша иғәнә яһарға</a>.",
 	"donate_interface-token-mismatch": "Һеҙҙең сеансығыҙ тамамланған. Зинһар, форманы яңынан тултырып ебәрегеҙ.",
 	"donate_interface-cc-form-header-personal": "Түләү тураһында мәғлүмәт",
 	"donate_interface-cc-form-header-payment": "Түләү тураһында мәғлүмәт",
