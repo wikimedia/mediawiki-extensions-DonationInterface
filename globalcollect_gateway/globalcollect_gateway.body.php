@@ -55,11 +55,8 @@ class GlobalCollectGateway extends GatewayPage {
 					) );
 				}
 
-				// Check form for errors
-				$form_errors = $this->adapter->validateSubmethodData();
-
 				// If there were errors, redisplay form, otherwise proceed to next step
-				if ( $form_errors ) {
+				if ( $this->validateForm() ) {
 					$this->displayForm();
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data

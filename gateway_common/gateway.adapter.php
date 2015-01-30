@@ -2648,8 +2648,81 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->dataObj->getValidationErrors();
 	}
 
-	//TODO: Maybe validate on $unstaged_data directly?
-	public function revalidate( $check_not_empty = array() ){
+	/**
+	 * Build list of required fields
+	 *
+	 * @return array of field names
+	 */
+	protected function buildRequiredFields() {
+		$required_fields = array();
+
+		try {
+			// TODO: This should work for method-level validation, not just submethod.
+			$submethodMeta = $this->getPaymentSubmethodMeta();
+
+			foreach ( $submethodMeta['validation'] as $type => $enabled ) {
+				if ( $enabled !== true ) {
+					continue;
+				}
+
+				switch ( $type ) {
+					case 'address' :
+						$check_not_empty = array(
+							'street',
+							'city',
+							'state',
+							'country',
+							'zip', //this should really be added or removed, depending on the country and/or gateway requirements. 
+							//however, that's not happening in this class in the code I'm replacing, so... 
+							//TODO: Something clever in the DataValidator with data groups like these. 
+						);
+						break;
+					case 'amount' :
+						$check_not_empty = array( 'amount' );
+						break;
+					case 'creditCard' :
+						$check_not_empty = array(
+							'card_num',
+							'cvv',
+							'expiration',
+							'card_type'
+						);
+						break;
+					case 'email' :
+						$check_not_empty = array( 'email' );
+						break;
+					case 'name' :
+						$check_not_empty = array(
+							'fname',
+							'lname'
+						);
+						break;
+					default:
+						$this->log( "bad required group name: {$option}", LOG_ERR );
+						continue;
+				}
+
+				if ( $check_not_empty ) {
+					$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
+				}
+			}
+		} catch ( MWException $ex ) {
+			// pass.  There is no submethod defined and the programmer has been lazy.
+		}
+
+		return $required_fields;
+	}
+
+	/**
+	 * Check donation data for validity
+	 *
+	 * @return boolean true if validation passes
+	 *
+	 * TODO: Maybe validate on $unstaged_data directly? 
+	 */
+	public function revalidate() {
+		$check_not_empty = $this->buildRequiredFields();
+
 		$validation_errors = $this->dataObj->getValidationErrors( true, $check_not_empty );
 		$this->setValidationErrors( $validation_errors );
 		return $this->validatedOK();
@@ -3721,73 +3794,6 @@ abstract class GatewayAdapter implements GatewayType {
 		else {
 			throw new MWException( "The payment submethod [{$payment_submethod}] was not found." );
 		}
-	}
-
-	/**
-	 * Checks current dataset for validation errors
-     *
-	 * In addition to all non-optional validation which verifies that all
-	 * populated fields contain an appropriate data type, each submethod may
-	 * require certain field groups to be non-empty. These will be expressed
-	 * in the 'validation' key for the submethod metadata. Options are:
-	 *   - address - Validation requires non-empty: street, city, state, zip
-	 *   - amount - Validation requires non-empty: amount
-	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
-	 *   - email - Validation requires non-empty: email
-	 *   - name - Validation requires non-empty: fname, lname
-	 *
-	 * @return boolean Returns false on an error-free validation, otherwise true.
-	 */
-	public function validateSubmethodData() {
-		$submethodMeta = $this->getPaymentSubmethodMeta();
-
-		$check_not_empty = array();
-
-		foreach ( $submethodMeta['validation'] as $type => $enabled ){
-			if ( $enabled !== true ) {
-				continue;
-			}
-
-			$add_checks = array();
-			switch( $type ){
-				case 'address' :
-					$add_checks = array(
-						'street',
-						'city',
-						'state',
-						'country',
-						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
-						//however, that's not happening in this class in the code I'm replacing, so...
-						//TODO: Something clever in the DataValidator with data groups like these.
-					);
-					break;
-				case 'amount' :
-					$add_checks[] = 'amount';
-					break;
-				case 'creditCard' :
-					$add_checks = array(
-						'card_num',
-						'cvv',
-						'expiration',
-						'card_type'
-					);
-					break;
-				case 'email' :
-					$add_checks[] = 'email';
-					break;
-				case 'name' :
-					$add_checks = array(
-						'fname',
-						'lname'
-					);
-					break;
-			}
-			$check_not_empty = array_merge( $check_not_empty, $add_checks );
-		}
-
-		$validated_ok = $this->revalidate( $check_not_empty );
-
-		return !$validated_ok;
 	}
 
 	/**

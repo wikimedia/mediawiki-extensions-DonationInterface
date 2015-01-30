@@ -710,10 +710,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		 * Default => Credit Card
 		 *
 		 * Every payment_method should have a payment_submethod.
-		 * This is just a catch to sure some validation happens.
+		 * This is just a catch-all to ensure some validation happens.
+		 * FIXME: I don't think this clause gets used.
 		 */
-
-		// None specified - This is a catchall to validate all options for credit cards.
 		$this->payment_submethods[''] = array(
 			'paymentproductid'	=> 0,
 			'label'	=> 'Any',
