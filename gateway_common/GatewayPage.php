@@ -76,15 +76,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * little to do with being contained within what in an ideal world would be 
 	 * a piece of mostly UI, this function needs to be moved inside the gateway 
 	 * adapter class.
-	 * @param array	$options
-	 *   OPTIONAL - In addition to all non-optional validation which verifies 
-	 *   that all populated fields contain an appropriate data type, you may 
-	 *   require certain field groups to be non-empty.
-	 *   - address - Validation requires non-empty: street, city, state, zip
-	 *   - amount - Validation requires non-empty: amount
-	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
-	 *   - email - Validation requires non-empty: email
-	 *   - name - Validation requires non-empty: fname, lname
 	 *
 	 * @return boolean Returns false on an error-free validation, otherwise true.
 	 * FIXME: that return value seems backwards to me.
