@@ -191,6 +191,7 @@ class WorldPayAdapter extends GatewayAdapter {
 			'zip',
 			'street',
 			'merchant_reference_2',
+			'narrative_statement_1',
 		);
 	}
 
@@ -261,6 +262,9 @@ class WorldPayAdapter extends GatewayAdapter {
 
 			// MerchantReference2
 			'merchant_reference_2' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// NarrativeStatement1
+			'narrative_statement_1' => array( 'type' => 'alphanumeric', 'length' => 50 ),
 		);
 	}
 
@@ -715,7 +719,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			'UserName'          => 'username',
 			'UserPassword'      => 'user_password',
 			'MerchantId'        => 'wp_merchant_id',
-			'MerchantReference2'=> 'merchant_reference_2'
+			'MerchantReference2'=> 'merchant_reference_2',
+			'NarrativeStatement1'=> 'narrative_statement_1',
 		);
 	}
 
@@ -969,6 +974,13 @@ class WorldPayAdapter extends GatewayAdapter {
 		$email = $this->getData_Unstaged_Escaped( 'email' );
 		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
 		$this->staged_data['merchant_reference_2'] = $alphanumeric;
+	}
+
+	protected function stage_narrative_statement_1( $type = 'request' ) {
+		$this->staged_data['narrative_statement_1'] = WmfFramework::formatMessage(
+			'donate_interface-statement',
+			$this->getData_Unstaged_Escaped( 'contribution_tracking_id' )
+		);
 	}
 
 	protected function loadRoutingInfo( $transaction ) {
