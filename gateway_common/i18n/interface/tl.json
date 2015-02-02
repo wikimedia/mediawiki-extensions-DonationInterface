@@ -4,7 +4,8 @@
 			"AnakngAraw",
 			"Jsoby",
 			"Sky Harbor",
-			"Jojit fb"
+			"Jojit fb",
+			"Leeheonjin"
 		]
 	},
 	"donate_interface": "Tangkilikin ang Wikimedia",
@@ -208,7 +209,6 @@
 	"donate_interface-otherways": "Mayroong <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">ibang mga paraan upang makapagbigay, kasama ang PayPal, tseke, o liham</a>.",
 	"donate_interface-otherways-alt": "Mayroong <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">iba pang paraan ng pagbibigay</a>, kasama ang paggamit ng tseke.",
 	"donate_interface-otherways-short": "Ibang mga paraan ng pagbibigay",
-	"donate_interface-credit-storage-processing": "Hindi namin itinatabi ang kabatiran ng iyong tarhetang pang-utang, at ang iyong personal na datos ay sakop ng aming <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">patakaran sa paglilihim ng mga tagapagkaloob</a>.",
 	"donate_interface-token-mismatch": "Nagwakas na ang inilaang oras para sa iyo.  Mangyari pong subukang punan at ipasa muli ang pormularyo.",
 	"donate_interface-cc-form-header-personal": "Kabatiran sa pagbabayad",
 	"donate_interface-cc-form-header-payment": "Kabatiran sa pagbabayad",
@@ -386,7 +386,6 @@
 	"donate_interface-taxded-msg-int": "Ang Pundasyong Wikimedia ay isang mahabaging organisasyong 'di-kumikinabang na itinatag sa Estados Unidos sa ilalim ng Seksiyong 501(c)(3) ng Kodigo ng IRS (ang Palingkuran ng Rentas Internas) ng Estados Unidos, at, dahil sa kadahilanang iyan, ang mga kaloob magmula sa mga tao o mga entidad na nasa loob ng Estados Unidos ay maaaring makinabang mula sa kalagayang mapagkakaltasan sa buwis. Ang mga kaloob na nagmula sa mga tao o mga entidad na nasa labas ng Estados Unidos ay maaaring hindi maging karapat-dapat para sa pagkakaltas sa buwis sa loob ng Estados Unidos at sa iba pang mga pook; sa ganiyang mga kaso, dapat humanap ang mga tagapagkaloob ng lokal na payong pambuwis. Mahalaga ring tandaan na ang Wikimedia ay hindi nangangalap ng mga kaloob mula sa mga tao o mga entidad na nakalagak sa anumang hurisdiksiyon na nagbabawal o naghihigpit sa mga gawain ng paglalagom-puhunan ng mga mahabaging organisasyong pandaigdig katulad ng Wikimedia o naglalapat ng mga buwis sa mga handog sa mga kaloob na inihandog sa mga mahabaging organisasyong pandaigdig.",
 	"donate_interface-taxded-msg-us": "Ang Pundasyong Wikimedia ay isang mahabaging organisasyong 'di-kumikinabang na itinatag sa Estados Unidos sa ilalim ng Seksiyong 501(c)(3) ng Kodigo ng IRS (ang Palingkuran ng Rentas Internas) ng Estados Unidos, at, dahil sa kadahilanang iyan, ang mga kaloob mula sa mga tao o mga entidad na nasa loob ng Estados Unidos ay maaaring makinabang mula sa kalagayang mapagkakaltasan sa buwis.",
 	"donate_interface-legal-original": "Isa itong salinwika na pangkagandahang-loob. Sa pagkakataon ng isang salungatan sa pagitan ng salinwikang ito at ng bersiyong Ingles, mangingibabaw ang bersiyong nasa Ingles.",
-	"donate_interface-legal-donorpolicy": "Sa pamamagitan ng pagkakaloob, ipinamamahagi mo ang iyong impormasyon sa Pundasyong Wikimedia, ang organisasyong 'di-kumikinabang na nagpapasinaya ng Wikipedia at ng iba pang mga proyekto ng Wikimedia, at ng mga manlalaan nito sa loob ng Estados Unidos at sa iba pang mga pook alinsunod sa aming patakaran sa paglilihim ng tagapagkaloob. Hindi namin ipinagbibili o ikinakalakal ang iyong impormasyon kaninuman.",
 	"donate_interface-monthlybox-title": "Gawing buwanan?",
 	"donate_interface-monthlybox-content": "Ipinoproseso ang mga buwanang ambag sa ika-2 ng bawa't buwan.  Maaari mo itong kanselahin sa anumang oras.",
 	"donate_interface-monthlybox-amount": "Buwanang halaga ng kaloob",
@@ -399,5 +398,6 @@
 	"donate_interface-onetime-short": "Isang ulit",
 	"donate_interface-securelogo-title": "I-klik upang Matiyak - Pinili ng sayt na ito ang VeriSign SSL para sa ligtas na e-komersiyo at lihim na komunikasyon,",
 	"donate_interface-secureLogo-text": "Tungkol sa mga Sertipikong SSL",
-	"donate_interface-error-http-403": "Wala kang pahintulot na puntahan ang pahinang ito."
+	"donate_interface-error-http-403": "Wala kang pahintulot na puntahan ang pahinang ito.",
+	"apihelp-donate-param-gateway": "Aling gateway na pang-bayad ang gagamitin - adyen, globalcollect, atbp."
 }
