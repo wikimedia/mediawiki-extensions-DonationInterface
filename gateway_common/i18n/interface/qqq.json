@@ -434,6 +434,7 @@
 	"donate_interface-securelogo-title": "Link 'title' that is shown to donors when they hover over the Verisign secure site logo that appears on donation forms",
 	"donate_interface-secureLogo-text": "Text shown to donors for a link explaining more about SSL secure site certificates",
 	"donate_interface-error-http-403": "Error prompt if the user is not allowed to access the page",
+	"donate_interface-statement": "Text to appear on donor's credit card statement.  '''$1''' is the contribution tracking id.",
 	"apihelp-donate-description": "{{doc-apihelp-description|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",
 	"apihelp-donate-param-amount": "{{doc-apihelp-param|donate|amount}}",
