@@ -452,6 +452,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				'CountryCode',
 				'Email',
 				'MerchantReference2',
+				'NarrativeStatement1',
 			),
 			'values' => array(
 				'VersionUsed' => 6,
