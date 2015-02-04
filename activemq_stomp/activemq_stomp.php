@@ -175,7 +175,6 @@ function sendFreeformSTOMP( $transaction, $queue ) {
  * PAssed both ISO and country code, no need to look up
  * 'gateway' = globalcollect, e.g.
  * 'date' is sent as $date("r") so it can be translated with strtotime like Paypal transactions (correct?)
- * 'gross', 'original_gross', and 'net' are all set to amount, no fees are included in these transactions
  * Processor txn ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
  * Order ID (generated with transaction) is assigned to 'contribution_tracking_id'?
  * Response from processor is assigned to 'response'
@@ -203,11 +202,8 @@ function createQueueMessage( $transaction ) {
 		'payment_submethod' => $transaction['payment_submethod'],
 		'response' => $transaction['response'],
 		'currency' => $transaction['currency_code'],
-		'original_currency' => $transaction['currency_code'],
-		'original_gross' => $transaction['amount'],
 		'fee' => '0',
 		'gross' => $transaction['amount'],
-		'net' => $transaction['amount'],
 		'user_ip' => $transaction['user_ip'],
 		//the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
 		//The code there should also be fixed.
@@ -256,11 +252,8 @@ function unCreateQueueMessage( $transaction ) {
 		'street_address' => 'street',
 		'state_province' => 'state',
 		'postal_code' => 'zip',
-//		'currency' => 'currency_code',
-		'original_currency' => 'currency_code',
-		'original_gross' => 'amount',
-//		'gross' => 'amount',
-//		'net' => 'amount',
+		'currency' => 'currency_code',
+		'gross' => 'amount',
 	);
 
 	foreach ( $rekey as $stomp => $di ){
