@@ -404,4 +404,17 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 
 		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult giving snowflake account too high a risk score' );
 	}
+
+	function testNarrativeStatement1() {
+		$class = $this->testAdapterClass;
+		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
+		$options = $this->getDonorTestData();
+		$options['contribution_tracking_id'] = mt_rand();
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->_stageData();
+		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
+		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
+		$this->assertEquals( "Wikimedia {$options['contribution_tracking_id']}", $xml->NarrativeStatement1 );
+	}
 }
