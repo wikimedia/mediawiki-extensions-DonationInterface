@@ -335,4 +335,114 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
 	}
+
+	/**
+	 * Respond to a donation request
+	 */
+	protected function handleDonationRequest() {
+		$this->setHeaders();
+
+		// TODO: this is where we should feed GPCS parameters into DonationData.
+
+		// dispatch forms/handling
+		if ( $this->adapter->checkTokens() ) {
+			// If the user posted to this form, or we've been sent here with an
+			// immediate "redirect=1" param, try to process the transaction.
+			if ( $this->adapter->posted
+				|| $this->adapter->getData_Unstaged_Escaped( 'redirect' )
+			) {
+				// Check form for errors
+				$form_errors = $this->validateForm();
+
+				// If there were errors, redisplay form, otherwise proceed to next step
+				if ( $form_errors ) {
+					$this->displayForm();
+				} else {
+					$this->processPayment();
+				}
+			} else {
+				$this->adapter->session_addDonorData();
+				$this->displayForm();
+			}
+		} else { //token mismatch
+			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
+		}
+	}
+
+	/**
+	 * Render a resultswitcher page
+	 */
+	protected function handleResultRequest() {
+		//no longer letting people in without these things. If this is
+		//preventing you from doing something, you almost certainly want to be
+		//somewhere else.
+		$forbidden = false;
+		if ( !$this->adapter->session_hasDonorData() ) {
+			$forbidden = true;
+			$f_message = 'No active donation in the session';
+		}
+
+		if ( $forbidden ){
+			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+		}
+		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
+
+		$referrer = $this->getRequest()->getHeader( 'referer' );
+		$liberated = false;
+		if ( $this->adapter->session_getData( 'order_status', $oid ) === 'liberated' ) {
+			$liberated = true;
+		}
+
+		global $wgServer;
+		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
+			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
+			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $oid);
+			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
+			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
+			if ( $forbidden ) {
+				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
+			}
+			$this->getOutput()->allowClickjacking();
+			$this->getOutput()->addModules( 'iframe.liberator' );
+			return;
+		}
+
+		$this->setHeaders();
+
+		if ( $forbidden ){
+			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid", LOG_CRIT );
+			return;
+		} else {
+			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $oid );
+		}
+
+		if ( $this->adapter->checkTokens() ) {
+			if ( $this->adapter->isResponse() ) {
+				$this->getOutput()->allowClickjacking();
+				$this->getOutput()->addModules( 'iframe.liberator' );
+				if ( NULL === $this->adapter->processResponse() ) {
+					switch ( $this->adapter->getFinalStatus() ) {
+					case 'complete':
+					case 'pending':
+						$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+						return;
+					}
+				}
+				$this->getOutput()->redirect( $this->adapter->getFailPage() );
+			}
+		} else {
+			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
+		}
+	}
+
+	/**
+	 * Ask the adapter to perform a payment
+	 *
+	 * Route the donor based on the response.
+	 */
+	protected function processPayment() {
+		$this->renderResponse( $this->adapter->doPayment() );
+	}
 }
