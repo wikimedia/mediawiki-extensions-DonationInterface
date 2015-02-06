@@ -177,26 +177,10 @@ class AmazonAdapter extends GatewayAdapter {
 		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
-	//@TODO: If the only reason this is being overloaded here is the sort,
-	//call the parent and ksort the result. This looks mostly copied. :[
 	protected function buildRequestParams() {
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return '';
-		}
-
-		$queryparams = array();
-
-		//we are going to assume a flat array, because... namevalue. 
-		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
-			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryparams[ $fieldname ] = $fieldvalue;
-			}
-		}
-
+		$queryparams = parent::buildRequestParams();
 		ksort( $queryparams );
+
 		return $queryparams;
 	}
 
