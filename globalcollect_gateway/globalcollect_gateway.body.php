@@ -38,162 +38,25 @@ class GlobalCollectGateway extends GatewayPage {
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
-		$this->setHeaders();
-
-		// dispatch forms/handling
-		if ( $this->adapter->checkTokens() ) {
-			if ( $this->adapter->posted ) {
-				// The form was submitted and the payment method has been set
-				$payment_method = $this->adapter->getPaymentMethod();
-
-				if ( $payment_method === 'dd'
-						and !$this->adapter->getPaymentSubmethod() ) {
-					// Synthesize a submethod based on the country.
-					$country_code = strtolower( $this->adapter->getData_Unstaged_Escaped( 'country' ) );
-					$this->adapter->addRequestData( array(
-						'payment_submethod' => "dd_{$country_code}",
-					) );
-				}
-
-				// If there were errors, redisplay form, otherwise proceed to next step
-				if ( $this->validateForm() ) {
-					$this->displayForm();
-				} else { // The submitted form data is valid, so process it
-					// allow any external validators to have their way with the data
-					// Execute the proper transaction code:
-					
-					switch ( $payment_method ){
-						case 'cc': 
-							// FIXME: we don't actually use this code path, it's done from gc.cc.js instead.
-
-							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-							// Display an iframe for credit cards
-							if ( $this->executeIframeForCreditCard() ) {
-								$this->displayResultsForDebug();
-								// Nothing left to process
-								return;
-							}
-							break;
-							
-						case 'bt':
-						case 'obt':
-							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-							if ( in_array( $this->adapter->getFinalStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-								return $this->displayEndTransactionInfo( $payment_method );
-							}
-							break;
-							
-						case 'dd':
-							$result = $this->adapter->do_transaction('Direct_Debit');
-							break;
-							
-						case 'ew':
-						case 'rtbt':
-						case 'cash':
-							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-							$formAction = $this->adapter->getTransactionDataFormAction();
-
-							// Redirect to the bank
-							if ( !empty( $formAction ) ) {
-								return $this->getOutput()->redirect( $formAction );
-							}
-							break;
-						
-						default: 
-							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-					}
-
-					return $this->resultHandler();
-
-				}
-			} else {
-				// Display form
-
-				//TODO: NO.
-				//This probably has something to do with the dumbass way that bt, rtbt, and dd were done.
-				//
-//				// See GlobalCollectAdapter::stage_returnto()
-//				$oid = $this->getRequest()->getText( 'order_id' );
-//				if ( $oid ) {
-//					$this->adapter->do_transaction( 'GET_ORDERSTATUS' );
-//					$this->displayResultsForDebug();
-//				}
-				//TODO: Get rid of $data out here completely, by putting this logic inside the adapter somewhere.
-				//All we seem to be doing with it now, is internal adapter logic outside of the adapter.
-				$data = $this->adapter->getData_Unstaged_Escaped();
-
-				// If the result of the previous transaction was failure, set the retry message.
-				if ( $data && array_key_exists( 'response', $data ) && $data['response'] == 'failure' ) {
-					$error['retryMsg'] = $this->msg( 'php-response-declined' )->text();
-					$this->adapter->addManualError( $error );
-				}
-
-				$this->displayForm();
-			}
-		} else { //token mismatch
-			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' )->text();
-			$this->adapter->addManualError( $error );
-			$this->displayForm();
-		}
+		$this->handleDonationRequest();
 	}
 
-	/**
-	 * Execute iframe for credit card
-	 *
-	 * @return boolean	Returns true if formaction exists for iframe.
-	 */
-	protected function executeIframeForCreditCard() {
-		$formAction = $this->adapter->getTransactionDataFormAction();
-		$mercid = $this->adapter->getMerchantID();
-
-		$attrs = array(
-			'id' => 'globalcollectframe',
-			'name' => 'globalcollectframe',
-			'width' => '680',
-			'height' => '300'
-		);
-
-		if ( $formAction ) {
-			if ( $mercid === 'test' ) {
-				$paymentFrame = (
-					Xml::openElement( 'div', $attrs ) .
-					'<input type="button" id="globalcollect_gateway-fakesucceed"' .
-					'value="' . $this->msg( 'globalcollect_gateway-fakesucceed' ) . '" />' .
-					'<input type="button" id="globalcollect_gateway-fakefail"' .
-					'value="' . $this->msg( 'globalcollect_gateway-fakefail' ) . '" />' .
-					Xml::closeElement( 'div' )
-				);
-			} else {
-				$attrs['frameborder'] = '0';
-				$attrs['style'] = 'display:block;';
-				$attrs['src'] = $formAction;
-				$paymentFrame = Xml::openElement( 'iframe', $attrs );
-				$paymentFrame .= Xml::closeElement( 'iframe' );
-			}
-
-			$this->getOutput()->addHTML( $paymentFrame );
-
-			return true;
-		}
-
-		return false;
-	}
-	
-	protected function displayEndTransactionInfo( $payment_method ){
-		switch ( $payment_method ){
-			case 'bt':
-				return $this->displayBankTransferInformation();
-				break;
-			case 'obt':
-				return $this->displayOnlineBankTransferInformation();
-				break;
+	protected function renderResponse( PaymentResult $result ) {
+		// FIXME: This workaround can be deleted once we convert
+		// these two result pages to render using normal templates.
+		if ( $result->getForm() === 'end-bt' ) {
+			$this->displayBankTransferInformation();
+		} elseif ( $result->getForm() === 'end-obt' ) {
+			$this->displayOnlineBankTransferInformation();
+		} else {
+			parent::renderResponse( $result );
 		}
 	}
 
 	/**
 	 * Display information for bank transfer
+	 *
+	 * @deprecated
 	 */
 	protected function displayBankTransferInformation() {
 		$data = $this->adapter->getTransactionData();
@@ -241,11 +104,13 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::tags( 'p', array( 'style' => 'text-align:center;' ), $link );
 		$return .= Xml::closeElement( 'div' );  // $id
 
-		return $this->getOutput()->addHTML( $return );
+		$this->getOutput()->addHTML( $return );
 	}
 
 	/**
 	 * Display information for online bank transfer
+	 *
+	 * @deprecated
 	 */
 	protected function displayOnlineBankTransferInformation() {
 		global $wgScriptPath;
@@ -305,6 +170,6 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::tags( 'p', array(), $link );
 		$return .= Xml::closeElement( 'div' );  // $id
 
-		return $this->getOutput()->addHTML( $return );
+		$this->getOutput()->addHTML( $return );
 	}
 }

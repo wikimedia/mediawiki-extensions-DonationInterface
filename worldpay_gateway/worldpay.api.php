@@ -18,6 +18,8 @@ class WorldPayValidateApi extends ApiBase {
 	public function execute() {
 		$adapter = new WorldPayAdapter( array( 'api_request' => true ) );
 
+		// FIXME: move this workflow into the adapter class.
+
 		// Do some validity checking and what not
 		if ( $adapter->checkTokens() ) {
 			$adapter->revalidate();

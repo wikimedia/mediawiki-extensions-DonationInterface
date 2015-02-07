@@ -172,6 +172,24 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function doPayment() {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$resultData = $this->do_transaction( 'DonateRecurring' );
+		} else {
+			$country = $this->getData_Unstaged_Escaped( 'country' );
+			if ( in_array( $country, $this->getGlobal( 'XclickCountries' ) ) ) {
+				$resultData = $this->do_transaction( 'DonateXclick' );
+			} else {
+				$resultData = $this->do_transaction( 'Donate' );
+			}
+		}
+
+		return PaymentResult::fromResults(
+			$resultData,
+			$this->getFinalStatus()
+		);
+	}
+
 	function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );

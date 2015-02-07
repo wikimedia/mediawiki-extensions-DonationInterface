@@ -100,4 +100,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return TestingGenericAdapter::$acceptedCurrencies;
 	}
 
+	public function doPayment() {
+	}
 }

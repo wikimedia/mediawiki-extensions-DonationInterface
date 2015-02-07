@@ -24,11 +24,12 @@
  *     in the URL's GET params.
  */
 class PaymentResult {
-	protected $iframe = false;
-	protected $form = false;
-	protected $redirect = false;
-	protected $refresh = false;
+	protected $iframe;
+	protected $form;
+	protected $redirect;
+	protected $refresh;
 	protected $errors = array();
+	protected $failed;
 
 	protected function __construct() {
 	}
@@ -63,11 +64,18 @@ class PaymentResult {
 		return $response;
 	}
 
+	static public function newFailure() {
+		$response = new PaymentResult();
+		$response->failed = true;
+		return $response;
+	}
+
 	static public function newEmpty() {
 		$response = new PaymentResult();
 		$response->errors = array(
 			'internal-0000' => 'Internal error: no results yet.',
 		);
+		$response->failed = true;
 		return $response;
 	}
 
@@ -91,9 +99,29 @@ class PaymentResult {
 		return $this->errors;
 	}
 
-	static public function fromResultsArray( $data ) {
+	public function isFailed() {
+		return $this->failed;
+	}
+
+	/**
+	 * Build a PaymentResult object from adapter results
+	 *
+	 * @param array $data getTransactionAllResults contents.
+	 * @param string $finalStatus final transaction status.
+	 */
+	static public function fromResults( $data, $finalStatus ) {
+		if ( $finalStatus === 'failed' ) {
+			return PaymentResult::newFailure();
+		}
 		if ( $data === false ) {
 			return PaymentResult::newEmpty();
+		}
+		if ( array_key_exists( 'errors', $data )
+			&& $data['errors']
+		) {
+			// TODO: We will probably want the ability to refresh to a new form
+			// as well and display errors at the same time.
+			return PaymentResult::newRefresh( $data['errors'] );
 		}
 		if ( array_key_exists( 'redirect', $data ) ) {
 			return PaymentResult::newRedirect( $data['redirect'] );
