@@ -29,7 +29,8 @@
 			"Vivaelcelta",
 			"Macofe",
 			"Jrobell",
-			"Pcoombe"
+			"Pcoombe",
+			"JasterTDC"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -413,5 +414,6 @@
 	"donate_interface-onetime-short": "Una sola vez",
 	"donate_interface-securelogo-title": "Haga clic para comprobar - este sitio eligió VeriSign SSL para proteger el comercio en línea y comunicaciones confidenciales.",
 	"donate_interface-secureLogo-text": "Acerca de los certificados SSL",
-	"donate_interface-error-http-403": "No tiene permiso para acceder a esta página"
+	"donate_interface-error-http-403": "No tiene permiso para acceder a esta página",
+	"donate_interface-statement": "Wikimedia $1"
 }
