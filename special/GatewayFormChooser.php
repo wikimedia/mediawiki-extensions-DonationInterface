@@ -48,7 +48,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		if ( $form === null ) {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
 
-			GatewayAdapter::_log(
+			DonationLogger::log(
 				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'",
 				LOG_ERR
 			);

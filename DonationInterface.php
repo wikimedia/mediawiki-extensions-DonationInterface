@@ -101,6 +101,8 @@ $wgDonationInterfaceClassMap = array();
 
 $wgAutoloadClasses['CurrencyRates'] = $donationinterface_dir . 'gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/DonationData.php';
+$wgAutoloadClasses['DonationLogger'] = $donationinterface_dir . 'gateway_common/DonationLogger.php';
+$wgAutoloadClasses['DonationLoggerContext'] = $donationinterface_dir . 'gateway_common/DonationLoggerContext.php';
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
