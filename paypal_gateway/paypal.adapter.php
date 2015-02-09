@@ -26,7 +26,7 @@ class PaypalAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 
 		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
-			$this->addData(
+			$this->addRequestData(
 				array( 'payment_method' => 'paypal' )
 			);
 		}
@@ -224,13 +224,13 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function stage_recurring_length( $mode = 'request' ) {
+	protected function stage_recurring_length() {
 		if ( array_key_exists( 'recurring_length', $this->staged_data ) && !$this->staged_data['recurring_length'] ) {
 			unset( $this->staged_data['recurring_length'] );
 		}
 	}
 
-	protected function stage_locale( $mode = 'request' ) {
+	protected function stage_locale() {
 		$supported_countries = array(
 			'AU',
 			'AT',
@@ -266,13 +266,13 @@ class PaypalAdapter extends GatewayAdapter {
 			'zh_TW',
 		);
 
-		if ( in_array( $this->staged_data['country'], $supported_countries ) ) {
-			$this->staged_data['locale'] = $this->staged_data['country'];
+		if ( in_array( $this->unstaged_data['country'], $supported_countries ) ) {
+			$this->staged_data['locale'] = $this->unstaged_data['country'];
 		}
 
-		$fallbacks = Language::getFallbacksFor( strtolower( $this->staged_data['language'] ) );
+		$fallbacks = Language::getFallbacksFor( strtolower( $this->unstaged_data['language'] ) );
 		foreach ( $fallbacks as $lang ) {
-			$locale = "{$this->staged_data['language']}_{$this->staged_data['country']}";
+			$locale = "{$this->unstaged_data['language']}_{$this->unstaged_data['country']}";
 			if ( in_array( $locale, $supported_full_locales ) ) {
 				$this->staged_data['locale'] = $locale;
 				return;

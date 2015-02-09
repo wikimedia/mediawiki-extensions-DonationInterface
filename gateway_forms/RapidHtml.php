@@ -515,7 +515,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 					$params = array_merge( $preserve, $params );
 				}
 				//If this is just the one thing, we might move this inside DonationData for clarity's sake...
-				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ) );
+				$this->gateway->addRequestData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ) );
 			}
 		} else {
 			//No special type... let's add this to the form stack and call it good.

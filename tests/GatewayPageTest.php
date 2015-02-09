@@ -29,7 +29,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		$this->page = new TestingGatewayPage();
 		$this->adapter = new TestingGenericAdapter();
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '120',
 			'currency_code' => 'SGD' ) );
 		$this->adapter->errorsForRevalidate[0] = array( 'currency_code' => 'blah' );

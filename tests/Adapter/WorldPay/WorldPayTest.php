@@ -243,7 +243,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->assertTrue( $gateway->getCVVResult(), 'getCVVResult not passing somebody with a match.' );
 
 		//and now, for fun, test a wrong code.
-		$gateway->addData( array ( 'cvv_result' => '2' ), 'response' );
+		$gateway->addResponseData( array ( 'cvv_result' => '2' ) );
 		$this->assertFalse( $gateway->getCVVResult(), 'getCVVResult not failing somebody with garbage.' );
 	}
 
