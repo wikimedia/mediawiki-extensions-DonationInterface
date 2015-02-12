@@ -15,7 +15,8 @@
 			"Tobulos1",
 			"Warrakkk",
 			"WikiPhoenix",
-			"Jrobell"
+			"Jrobell",
+			"Jenniesarina"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -404,5 +405,6 @@
 	"donate_interface-securelogo-title": "Klicka för att verifiera - denna sajt använder VeriSign SSL för säker e-handel och konfidentiell kommunikation.",
 	"donate_interface-secureLogo-text": "Om SSLcertifikat",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
+	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-fname": "Förnamn."
 }

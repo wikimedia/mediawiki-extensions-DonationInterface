@@ -27,7 +27,8 @@
 			"Pcoombe",
 			"Windes",
 			"Jrobell",
-			"Element303"
+			"Element303",
+			"Macofe"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -418,7 +419,7 @@
 	"donate_interface-securelogo-title": "Cliquez pour vérifier&nbsp;– Ce site a choisi <i>VeriSign SSL</i> pour sécuriser ses communications confidentielles et de commerce électronique.",
 	"donate_interface-secureLogo-text": "À propos des certificats SSL",
 	"donate_interface-error-http-403": "Vous n’avez pas le droit d’accéder à cette page.",
-	"donate_interface-statement": "Don à la Fondation Wikimedia $1",
+	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "Le montant du don.",
