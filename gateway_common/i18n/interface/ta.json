@@ -6,7 +6,8 @@
 			"Shanmugamp7",
 			"Surya Prakash.S.A.",
 			"TRYPPN",
-			"மதனாஹரன்"
+			"மதனாஹரன்",
+			"ElangoRamanujam"
 		]
 	},
 	"donate_interface": "விக்கிமீடியாவை ஆதரிக்கவும்",
@@ -103,7 +104,6 @@
 	"donate_interface-UZS": "உசுபெக்கிசுத்தானியச் சொம்",
 	"donate_interface-VND": "வியட்நாமியத் தொங்கு",
 	"donate_interface-XCD": "கீழ்க்கரீபிய இடாலர்",
-	"donate_interface-accessible": "இப்பக்கம் நன்கொடைப் பக்கத்திலிருந்து மட்டுமே அணுகத்தக்கது.",
 	"donate_interface-paypal-button": "PayPal வழியே நன்கொடை அளிக்கவும்",
 	"donate_interface-paypal-redirect": "PayPal க்கு வழிமாற்றப்படுகிறது…",
 	"donate_interface-cc-button": "கடனட்டை வழியே நன்கொடை அளிக்கவும்",
@@ -187,7 +187,6 @@
 	"donate_interface-otherways": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">பேபால், காசோலை, அஞ்சல் போன்ற பிற வகையான நன்கொடையளிப்பு வழிகளும் உள்ளன</a>.",
 	"donate_interface-otherways-alt": "<a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">காசோலை போன்ற பிற வகையான நன்கொடையளிப்பு வழிகளும் உள்ளன</a>.",
 	"donate_interface-otherways-short": "நன்கொடையளிப்பதற்கான பிற வழிகள்",
-	"donate_interface-paypal": "பேபால் கணக்கு உள்ளதா? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">பேபால் மூலம் நன்கொடையளிக்கவும்</a>.",
 	"donate_interface-credit-storage-processing": "நாங்கள் உங்களது கடனட்டைத் தகவல்களைச் சேமிப்பதில்லை. மேலும் எங்களது <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">நன்கொடையாளர் தனியுரிமைக் கொள்கை</a> அடிப்படையில் உங்கள் சொந்தத் தகவல்களையும் சேமிப்பதில்லை.",
 	"donate_interface-token-mismatch": "உங்களது அமர்வு காலாவதியாகிவிட்டது. மீண்டும் படிவத்தை நிரப்பி மறுமுறை சமர்ப்பிக்கவும்.",
 	"donate_interface-cc-form-header-personal": "இரசீது தகவல்",
@@ -332,5 +331,6 @@
 	"donate_interface-monthly-short": "மாதாந்திரம்",
 	"donate_interface-onetime-short": "ஒரு முறை",
 	"donate_interface-secureLogo-text": "SSL சான்றிதழ்கள் பற்றி",
-	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை."
+	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை.",
+	"apihelp-donate-param-emailAdd": "மின்னஞ்சல் முகவரி."
 }

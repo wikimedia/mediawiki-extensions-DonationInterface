@@ -14,7 +14,8 @@
 			"Ppena",
 			"Raoli",
 			"Ximo17",
-			"Toadino2"
+			"Toadino2",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -121,7 +122,6 @@
 	"donate_interface-XCD": "Dollaro dei Caraibi Orientali",
 	"donate_interface-XOF": "Franco CFA BCEAO",
 	"donate_interface-ZAR": "Rand Sudafricano",
-	"donate_interface-accessible": "Questa pagina è accessibile soltanto dalla pagina delle donazioni.",
 	"donate_interface-paypal-button": "Dona tramite PayPal",
 	"donate_interface-paypal-redirect": "Redirezione a PayPal…",
 	"donate_interface-amazon-button": "Dona con Amazon",
@@ -221,8 +221,6 @@
 	"donate_interface-otherways": "Sono possibili <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">altri modi per donare, tra cui PayPal, assegno o posta</a>.",
 	"donate_interface-otherways-alt": "Sono possibili <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">altri modi per donare</a>, anche con assegno.",
 	"donate_interface-otherways-short": "Altri modi per donare",
-	"donate_interface-paypal": "Hai un conto PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Dona con PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Noi non conserviamo informazioni della tua carta di credito, e i vostri dati personali sono soggetto alla nostra <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politica sulla privacy dei donatori</a>.",
 	"donate_interface-token-mismatch": "La sessione è scaduta. Prova compilando e inviando nuovamente il modulo.",
 	"donate_interface-cc-form-header-personal": "Dati di fatturazione",
 	"donate_interface-cc-form-header-payment": "Informazioni sul pagamento",
@@ -380,7 +378,7 @@
 	"donate_interface-email-unsub-warning": "Disiscrivendoti, non riceverai più le email che Wikimedia Foundation spedisce ai donatori. Potresti ancora ricevere messaggi a questo indirizzo email qualora fosse associato a un'utenza in uno dei nostri progetti. Se hai qualche domanda, contatta <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>. Grazie.",
 	"donate_interface-faqs": "Domande frequenti",
 	"donate_interface-tax-info": "Informazioni di deducibilità fiscale",
-	"donate_interface-informationsharing": "Con la vostra donazione, state condividendo le vostre informazioni con Wikimedia Foundation, l'organizzazione senza scopo di lucro che ospita Wikipedia, altri progetti di Wikimedia e i suoi fornitori di servizi negli Stati Uniti e altrove conformemente alla nostra <a href=\"//wikimediafoundation.org/wiki/Donor_policy/it\">politica sulla privacy del donatore</a>. Non vendiamo o commercializziamo i vostri dati.",
+	"donate_interface-informationsharing": "Tramite le proprie donazioni, l’utente accetta di condividere le sue informazioni personali con Wikimedia Foundation, l’organizzazione no profit che ospita Wikipedia e altri progetti Wikimedia, e i suoi fornitori di servizi ai sensi della nostra <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politica sulle donazioni</a>.  Wikimedia Foundation e i suoi fornitori di servizi sono ubicati negli Stati Uniti e in altri Paesi in cui le leggi sulla privacy potrebbero non essere equivalenti a quelle del proprio Paese. Non vendiamo o commercializziamo le informazioni dell’utente. Per ulteriori informazioni, consultare la nostra <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">politica sulle donazioni</a>.",
 	"donate_interface-currency-change": "Valuta?",
 	"donate_interface-bank_transfer_message": "Nota che il tuo estratto conto mostrerà \"Global Collect\" come destinatario di questa donazione. La Global Collect è autorizzata ad accettare ed elaborare pagamenti per conto della Wikimedia Foundation. Ricordati di inserire il numero di riferimento fornito qui sul bonifico bancario e non esitare a scrivere un'email a donations@wikimedia.org per domande o dubbi.",
 	"donate_interface-globalcollect-proxy": "Nota che il tuo estratto conto mostrerà \"Global Collect\" come destinatario di questa donazione. La Global Collect è autorizzata ad accettare ed elaborare pagamenti per conto della Wikimedia Foundation.",
@@ -389,7 +387,6 @@
 	"donate_interface-taxded-msg-int": "Wikimedia Foundation è un'istituzione benefica senza scopo di lucro con sede negli Stati Uniti regolata dalle Sezione 501 (c)(3) del Codice IRS statunitense secondo il quale le donazioni effettuate da individui o entità negli Stati Uniti sono detraibili dalle tasse. Le donazioni da parte di individui o entità al di fuori degli Stati Uniti non possono usufruire delle detrazioni fiscali negli Stati Uniti e in altri luoghi; in questi casi i donatori devono rivolgersi a un consulente fiscale locale.  Va rilevato in particolare che, Wikimedia non sollecita donazioni a persone o entità situate in qualsiasi giurisdizione che proibisce o limita le attività di raccolta di fondi di istituzioni benefiche internazionali quale Wikimedia o applica imposte sulle donazioni effettuate a tali istituzioni benefiche internazionali.",
 	"donate_interface-taxded-msg-us": "Wikimedia Foundation è un'istituzione benefica senza scopo di lucro con sede negli Stati Uniti regolata dalle Sezione 501 (c)(3) del Codice IRS statunitense secondo il quale le donazioni effettuate da individui o entità negli Stati Uniti sono detraibili dalle tasse.",
 	"donate_interface-legal-original": "Questa è una traduzione di cortesia. In caso di conflitto tra questa traduzione e la versione inglese, la versione inglese ha sempre la meglio.",
-	"donate_interface-legal-donorpolicy": "Donando, condividi le tue informazioni con la Wikimedia Foundation, un'organizzazione no-profit che ospita Wikipedia e altri progetti Wikimedia, ed i suoi fornitori di servizi negli Stati Uniti e altrove, in conformità alla nostra politica sulla privacy del donatore. Non vendiamo o scambiamo i tuoi dati con nessuno.",
 	"donate_interface-monthlybox-title": "La vuoi fare ogni mese?",
 	"donate_interface-monthlybox-content": "Le donazioni mensili vengono elaborate il 2 di ogni mese. Puoi annullare ciò in qualsiasi momento.",
 	"donate_interface-monthlybox-amount": "Importo della donazione mensile",

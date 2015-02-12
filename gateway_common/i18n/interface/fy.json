@@ -1,8 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kening Aldgilles"
+			"Kening Aldgilles",
+			"Robin0van0der0vliet"
 		]
 	},
-	"donate_interface-cancel": "Ofbrekke"
+	"donate_interface-currency": "Faluta:",
+	"donate_interface-donor-currency-label": "Faluta",
+	"donate_interface-donor-province": "Provinsje",
+	"donate_interface-error-msg-country": "lân",
+	"donate_interface-country": "Lân",
+	"donate_interface-next": "Folgjende",
+	"donate_interface-cancel": "Annulearje",
+	"donate_interface-language": "Taal:",
+	"donate_interface-back": "Foarige"
 }

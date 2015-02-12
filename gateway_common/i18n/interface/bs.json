@@ -3,7 +3,9 @@
 		"authors": [
 			"CERminator",
 			"Jsoby",
-			"KWiki"
+			"KWiki",
+			"Palapa",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -37,7 +39,6 @@
 	"donate_interface-SEK": "Švedska kruna",
 	"donate_interface-SGD": "Singapurski dolar",
 	"donate_interface-USD": "Američki dolar",
-	"donate_interface-accessible": "Ova stranica je dostupna samo sa stranice za donacije.",
 	"donate_interface-paypal-button": "Donirajte putem PayPal",
 	"donate_interface-cc-button": "Donirajte putem kreditne kartice",
 	"donate_interface-card-legend": "Informacije o kreditnoj kartici",
@@ -57,7 +58,7 @@
 	"donate_interface-donor-postal": "Poštanski broj:",
 	"donate_interface-donor-country": "Država/Regija:",
 	"donate_interface-donor-address": "Adresa:",
-	"donate_interface-donor-card": "Kreditna kartica:",
+	"donate_interface-donor-card": "Kreditna kartica",
 	"donate_interface-donor-card-num": "Broj kartice:",
 	"donate_interface-donor-expiration": "Datum isteka:",
 	"donate_interface-donor-security": "Sigurnosni kod:",
@@ -96,8 +97,6 @@
 	"donate_interface-otherways": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate, uključujući PayPal, ček ili mail</a>.",
 	"donate_interface-otherways-alt": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate</a>, uključujući i putem čeka.",
 	"donate_interface-otherways-short": "Drugi načini za doniranje",
-	"donate_interface-paypal": "Imate li PayPal račun? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donirajte putem PayPal-a</a>.",
-	"donate_interface-credit-storage-processing": "Mi ne čuvamo informacije o vašoj kreditnoj kartici a vaši lični podaci su zaštićeni našim <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravilima o privatnosti</a>.",
 	"donate_interface-token-mismatch": "Vaša sesija je istekla. Molimo pokušajte ispuniti i poslati obrazac ponovo.",
 	"donate_interface-cc-form-header-personal": "Informacije o plaćanju",
 	"donate_interface-cc-form-header-payment": "Informacije o plaćanju",
@@ -162,7 +161,7 @@
 	"donate_interface-select-year-of-expiration": "Odaberite godinu isteka roka važenja",
 	"donate_interface-expires-question": "Ističe?",
 	"donate_interface-expires": "Ističe",
-	"donate_interface-card-security-code": "Sigurnosni kod kartice",
+	"donate_interface-card-security-code": "Sigurnosni kod",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV br.",
 	"donate_interface-cvv2": "CVV2",

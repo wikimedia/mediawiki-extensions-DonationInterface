@@ -1,8 +1,8 @@
 window.displayCreditCardForm = function () {
 	$( '#payment' ).empty();
 	// Load wait spinner
-	$( '#payment' ).append( '<br/><br/><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
-		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
+	$( '#payment' ).append( '<br/><br/><div style="text-align:center"><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
+		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" /></div>' );
 
 	var currencyField, currency_code, stateField, state, countryField, country, sendData,
 		language = 'en'; // default value is English
@@ -63,6 +63,8 @@ window.displayCreditCardForm = function () {
 		sendData.street_supplemental = $( 'input[name="street_supplemental"]' ).val();
 	}
 
+	mediaWiki.toggleCreditCardRadios( false );
+
 	$.ajax( {
 		url: mw.util.wikiScript( 'api' ),
 		data: sendData,
@@ -71,9 +73,11 @@ window.displayCreditCardForm = function () {
 		success: function ( data ) {
 			if ( !data || data.error !== undefined ) {
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				$( '#payment' ).empty(); // Hide spinner
 				$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 			} else if ( data.result !== undefined ) {
 				if ( data.result.errors ) {
+					$( '#payment' ).empty(); // Hide spinner
 					$.each( data.result.errors, function ( index, value ) {
 						alert( value ); // Show them the error
 						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
@@ -84,7 +88,14 @@ window.displayCreditCardForm = function () {
 			}
 		},
 		error: function ( xhr ) {
+			$( '#payment' ).empty(); // Hide spinner
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+		},
+		complete: function ( xhr ) {
+			// Make sure our radio buttons are reenabled at some point.
+			window.setTimeout( function () {
+				mediaWiki.toggleCreditCardRadios( true );
+			}, 5000 );
 		}
 	} );
 };

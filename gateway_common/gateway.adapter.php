@@ -222,6 +222,11 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $payment_submethods = array();
 
 	/**
+	 * @var DonationLoggerContext
+	 */
+	protected $loggerContext;
+
+	/**
 	 * Staged variables. This is affected by the transaction type.
 	 *
 	 * @var array $staged_vars
@@ -324,6 +329,13 @@ abstract class GatewayAdapter implements GatewayType {
 			unset( $options['batch_mode'] );
 		}
 
+		$this->loggerContext = new DonationLoggerContext( array(
+			'debug' => self::getGlobal( 'LogDebug' ),
+			'syslog' => self::getGlobal( 'UseSyslog' ),
+			'identifier' => self::getIdentifier(),
+			'getLogMessagePrefix' => array( $this, 'getLogMessagePrefix' ),
+		) );
+
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
 		} else {
@@ -394,6 +406,10 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return string
 	 */
 	public function getLogMessagePrefix() {
+		if ( !is_object( $this->dataObj ) ) {
+			//please avoid exploding; It's just a log line.
+			return 'Constructing!';
+		}
 		return $this->dataObj->getLogMessagePrefix();
 	}
 
@@ -968,7 +984,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$retryVars = null;
 			$retval = $this->do_transaction_internal( $transaction, $retryVars );
 
-			if ( $retryVars !== null ) {
+			if ( !empty( $retryVars ) ) {
 				// TODO: Add more intelligence here. Right now we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
 
@@ -1360,7 +1376,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$results = array();
 
 		while ( ( $i++ <= 3 ) && ( $continue === true )) {
-			$this->log( "Preparing to send transaction to $gatewayName" );
+			$this->log( "Preparing to send {$this->getCurrentTransaction()} transaction to $gatewayName" );
 
 			// Execute the cURL operation
 			$result = $this->curl_exec( $ch );
@@ -1526,42 +1542,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return null
 	 */
 	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		if ( !self::getGlobal('LogDebug') && $log_level === LOG_DEBUG ){
-			//stfu, then.
-			return;
-		}
-
-		$msg = $this->getLogMessagePrefix() . $msg;
-		self::_log( $msg, $log_level, $log_id_suffix );
-	}
-
-	/**
-	 * DO NOT USE THIS FUNCTION UNLESS YOU CAN'T INSTANTIATE.
-	 * /sadface
-	 * @param type $msg
-	 * @param type $log_level
-	 * @param type $log_id_suffix
-	 * @return type
-	 */
-	public static function _log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		if ( !self::getGlobal( 'LogDebug' ) && $log_level === LOG_DEBUG ) {
-			//stfu, then.
-			return;
-		}
-
-		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
-
-		// if we're not using the syslog facility, use wfDebugLog
-		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			WmfFramework::debugLog( $identifier, $msg );
-			return;
-		}
-
-		// otherwise, use syslogging
-		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
-		$msg = str_replace( "\t", " ", $msg );
-		syslog( $log_level, $msg );
-		closelog();
+		DonationLogger::log( $msg, $log_level, $log_id_suffix );
 	}
 
 	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
@@ -1844,7 +1825,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			default:
 				// No action
-				$this->log( "STOMP transaction has no place to go for status $status :( " . json_encode( $transaction ), LOG_CRIT );
+				$this->log( "STOMP transaction has no place to go for status $status. This is probably completely normal." );
 				return;
 		}
 
@@ -2644,8 +2625,81 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->dataObj->getValidationErrors();
 	}
 
-	//TODO: Maybe validate on $unstaged_data directly?
-	public function revalidate( $check_not_empty = array() ){
+	/**
+	 * Build list of required fields
+	 *
+	 * @return array of field names
+	 */
+	protected function buildRequiredFields() {
+		$required_fields = array();
+
+		try {
+			// TODO: This should work for method-level validation, not just submethod.
+			$submethodMeta = $this->getPaymentSubmethodMeta();
+
+			foreach ( $submethodMeta['validation'] as $type => $enabled ) {
+				if ( $enabled !== true ) {
+					continue;
+				}
+
+				switch ( $type ) {
+					case 'address' :
+						$check_not_empty = array(
+							'street',
+							'city',
+							'state',
+							'country',
+							'zip', //this should really be added or removed, depending on the country and/or gateway requirements. 
+							//however, that's not happening in this class in the code I'm replacing, so... 
+							//TODO: Something clever in the DataValidator with data groups like these. 
+						);
+						break;
+					case 'amount' :
+						$check_not_empty = array( 'amount' );
+						break;
+					case 'creditCard' :
+						$check_not_empty = array(
+							'card_num',
+							'cvv',
+							'expiration',
+							'card_type'
+						);
+						break;
+					case 'email' :
+						$check_not_empty = array( 'email' );
+						break;
+					case 'name' :
+						$check_not_empty = array(
+							'fname',
+							'lname'
+						);
+						break;
+					default:
+						$this->log( "bad required group name: {$option}", LOG_ERR );
+						continue;
+				}
+
+				if ( $check_not_empty ) {
+					$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
+				}
+			}
+		} catch ( MWException $ex ) {
+			// pass.  There is no submethod defined and the programmer has been lazy.
+		}
+
+		return $required_fields;
+	}
+
+	/**
+	 * Check donation data for validity
+	 *
+	 * @return boolean true if validation passes
+	 *
+	 * TODO: Maybe validate on $unstaged_data directly? 
+	 */
+	public function revalidate() {
+		$check_not_empty = $this->buildRequiredFields();
+
 		$validation_errors = $this->dataObj->getValidationErrors( true, $check_not_empty );
 		$this->setValidationErrors( $validation_errors );
 		return $this->validatedOK();
@@ -2967,6 +3021,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This will be used internally every time we call do_transaction.
 	 */
 	public function session_addDonorData() {
+		$this->log( __FUNCTION__ . ': Refreshing all donor data', LOG_INFO );
 		self::session_ensure();
 		$_SESSION['Donor'] = array ( );
 		$donordata = DonationData::getStompMessageFields();
@@ -3021,6 +3076,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		if ( $reset ) {
+			$this->log( __FUNCTION__ . ': Unsetting session donor data', LOG_INFO );
 			$this->session_unsetDonorData();
 			//leave the payment forms and antifraud data alone.
 			//but, under no circumstances should the gateway edit
@@ -3031,10 +3087,15 @@ abstract class GatewayAdapter implements GatewayType {
 				'numAttempt',
 				'order_status', //for post-payment activities
 			);
+			$msg = '';
 			foreach ( $_SESSION as $key => $value ) {
 				if ( !in_array( $key, $preserve_main ) ) {
+					$msg .= "$key, "; //always one extra comma; Don't care.
 					unset( $_SESSION[$key] );
 				}
+			}
+			if ( $msg != '' ) {
+				$this->log( __FUNCTION__ . ": Unset the following session keys: $msg", LOG_INFO );
 			}
 		} else {
 			//I'm sure we could put more here...
@@ -3044,6 +3105,7 @@ abstract class GatewayAdapter implements GatewayType {
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $_SESSION['Donor'][$reset_me] );
 			}
+			$this->log( __FUNCTION__ . ': Soft reset, order_id only', LOG_INFO );
 		}
 	}
 
@@ -3664,9 +3726,31 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Get payment method meta
+	 *
+	 * @param string|null $payment_method Defaults to the current payment method, if null.
+	 *
+	 * @throws MWException
+	 */
+	public function getPaymentMethodMeta( $payment_method = null ) {
+		if ( $payment_method === null ) {
+			$payment_method = $this->getPaymentMethod();
+		}
+
+		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
+
+			return $this->payment_methods[ $payment_method ];
+		}
+		else {
+			$message = "The payment method [{$payment_method}] was not found.";
+			throw new MWException( $message );
+		}
+	}
+
+	/**
 	 * Get payment submethod meta
 	 *
-	 * @param    string    $payment_submethod    Payment submethods are mapped to paymentproductid
+	 * @param    string|null    $payment_submethod    Payment submethods are mapped to paymentproductid
 	 * @throws MWException
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
@@ -3685,75 +3769,8 @@ abstract class GatewayAdapter implements GatewayType {
 			return $this->payment_submethods[ $payment_submethod ];
 		}
 		else {
-			throw new MWException( "The payment submethod [ {$payment_submethod} ] was not found." );
+			throw new MWException( "The payment submethod [{$payment_submethod}] was not found." );
 		}
-	}
-
-	/**
-	 * Checks current dataset for validation errors
-     *
-	 * In addition to all non-optional validation which verifies that all
-	 * populated fields contain an appropriate data type, each submethod may
-	 * require certain field groups to be non-empty. These will be expressed
-	 * in the 'validation' key for the submethod metadata. Options are:
-	 *   - address - Validation requires non-empty: street, city, state, zip
-	 *   - amount - Validation requires non-empty: amount
-	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
-	 *   - email - Validation requires non-empty: email
-	 *   - name - Validation requires non-empty: fname, lname
-	 *
-	 * @return boolean Returns false on an error-free validation, otherwise true.
-	 */
-	public function validateSubmethodData() {
-		$submethodMeta = $this->getPaymentSubmethodMeta();
-
-		$check_not_empty = array();
-
-		foreach ( $submethodMeta['validation'] as $type => $enabled ){
-			if ( $enabled !== true ) {
-				continue;
-			}
-
-			$add_checks = array();
-			switch( $type ){
-				case 'address' :
-					$add_checks = array(
-						'street',
-						'city',
-						'state',
-						'country',
-						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
-						//however, that's not happening in this class in the code I'm replacing, so...
-						//TODO: Something clever in the DataValidator with data groups like these.
-					);
-					break;
-				case 'amount' :
-					$add_checks[] = 'amount';
-					break;
-				case 'creditCard' :
-					$add_checks = array(
-						'card_num',
-						'cvv',
-						'expiration',
-						'card_type'
-					);
-					break;
-				case 'email' :
-					$add_checks[] = 'email';
-					break;
-				case 'name' :
-					$add_checks = array(
-						'fname',
-						'lname'
-					);
-					break;
-			}
-			$check_not_empty = array_merge( $check_not_empty, $add_checks );
-		}
-
-		$validated_ok = $this->revalidate( $check_not_empty );
-
-		return !$validated_ok;
 	}
 
 	/**

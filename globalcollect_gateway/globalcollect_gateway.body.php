@@ -40,17 +40,6 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$this->setHeaders();
 
-		/**
-		 *  handle PayPal redirection
-		 *
-		 *  if paypal redirection is enabled ($wgPayflowProGatewayPaypalURL must be defined)
-		 *  and the PaypalRedirect form value must be true
-		 */
-		if ( $this->getRequest()->getText( 'PaypalRedirect', 0 ) ) {
-			$this->paypalRedirect();
-			return;
-		}
-
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			if ( $this->adapter->posted ) {
@@ -66,11 +55,8 @@ class GlobalCollectGateway extends GatewayPage {
 					) );
 				}
 
-				// Check form for errors
-				$form_errors = $this->adapter->validateSubmethodData();
-
 				// If there were errors, redisplay form, otherwise proceed to next step
-				if ( $form_errors ) {
+				if ( $this->validateForm() ) {
 					$this->displayForm();
 				} else { // The submitted form data is valid, so process it
 					// allow any external validators to have their way with the data
@@ -78,6 +64,8 @@ class GlobalCollectGateway extends GatewayPage {
 					
 					switch ( $payment_method ){
 						case 'cc': 
+							// FIXME: we don't actually use this code path, it's done from gc.cc.js instead.
+
 							$this->adapter->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 							// Display an iframe for credit cards
@@ -239,7 +227,7 @@ class GlobalCollectGateway extends GatewayPage {
 		}
 						
 		$return .= Xml::openElement( 'tr', array() );
-		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;', 'colspan' => '2' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
+		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement( 'tr' );
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
@@ -289,7 +277,7 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 		$return .= Xml::openElement( 'table' ); //open info table
 		$return .= Xml::openElement( 'tr' );
-		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+		$return .= Xml::openElement ( 'td' );
 		$return .= Xml::tags( 'p', array(), $this->msg( 'donate_interface-online_bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );
@@ -302,7 +290,7 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );
 		$return .= Xml::openElement ( 'tr' );
-		$return .= Xml::openElement ( 'td', array( 'colspan' => '2' ) );
+		$return .= Xml::openElement ( 'td' );
 		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518');
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::closeElement ( 'tr' );

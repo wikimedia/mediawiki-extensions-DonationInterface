@@ -1,24 +1,23 @@
 <tr>
-	<td colspan="2">
+	<td>
 		<h3 class="cc_header">%donate_interface-cc-form-header-personal%<img src="@script_path/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
 	</td>
 </tr>
 <tr>
-	<td colspan="2">
-		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth leftmar" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
+	<td>
+		<input class="halfwidth" name="fname" value="@fname" type="text" placeholder="%donate_interface-donor-fname%" id="fname"><input class="halfwidth" name="lname" value="@lname" type="text" placeholder="%donate_interface-donor-lname%" id="lname">
 	</td>
 </tr>
 <tr>
-	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-	<td colspan="2"><span class="creditcard-error-msg"></span></td>
+	<td><span class="creditcard-error-msg"></span></td>
 </tr>
 <tr>
-	<td colspan="2" style="white-space: nowrap;">
-		<label>State:</label>
+	<td>
 		<select id="state" name="state" class="au" value="@state" >
-			<option value=""></option>
+			<option value="" disabled selected>%donate_interface-donor-state%</option>
 			<option value="ACT">ACT</option>
 			<option value="NSW">NSW</option>
 			<option value="NT">NT</option>
@@ -28,11 +27,15 @@
 			<option value="VIC">VIC</option>
 			<option value="WA">WA</option>
 		</select>
+	</td>
+</tr>
+<tr>
+	<td>
 		<input class="fullwidth" name="emailAdd" value="@emailAdd" type="text" title="%donate_interface-donor-email%" placeholder="%donate_interface-donor-email%" id="emailAdd">
 	</td>
 </tr>
 <tr style="display: none;">
-	<td colspan="2">
+	<td>
 		<input type="hidden" value="AU" name="country" id="country" />
 	</td>
 </tr>

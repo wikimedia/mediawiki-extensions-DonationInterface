@@ -3,7 +3,8 @@
 		"authors": [
 			"Geimeris",
 			"GreenZeb",
-			"Papuass"
+			"Papuass",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Atbalsti Wikimedia",
@@ -100,7 +101,6 @@
 	"donate_interface-XCD": "Austrumkarību dolārs",
 	"donate_interface-XOF": "Rietumāfrikas Republikas franks",
 	"donate_interface-ZAR": "Dienvidāfrikas rends",
-	"donate_interface-accessible": "Šī lapa ir pieejama tikai no ziedojumu lapas.",
 	"donate_interface-paypal-button": "Ziedot ar PayPal",
 	"donate_interface-paypal-redirect": "Pāradresē uz PayPal…",
 	"donate_interface-cc-button": "Ziedot ar kredītkarti",
@@ -206,7 +206,10 @@
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Uzlabot šo tulkojumu",
 	"donate_interface-faqs": "Bieži uzdotie jautājumi",
+	"donate_interface-informationsharing": "Ziedojot jūs piekrītat savas personīgās informācijas kopīgošanai ar Wikimedia Foundation (bezpeļņas organizāciju, kas nodrošina Wikipedia un citu Wikimedia projektu mitināšanu) un tā pakalpojumu sniedzējiem saskaņā ar <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">mūsu ziedotāju politiku</a>. Wikimedia Foundation un tā pakalpojumu sniedzēji atrodas Amerikas Savienotajās Valstīs un citās valstīs, kuru privātuma tiesību akti var neatbilst tiesību aktiem jūsu valstī. Mēs jūsu informāciju nevienam nepārdosim un netirgosim. Lai saņemtu plašāku informāciju, lūdzu, izlasiet <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">mūsu ziedotāju politiku</a>.",
 	"donate_interface-taxded-link-int": "Nodokļu un cita juridiskā informācija",
 	"donate_interface-monthlybox-amount": "Ikmēneša ziedojuma summa",
+	"donate_interface-monthly-short": "Ikmēneša",
+	"donate_interface-onetime-short": "Vienu reizi",
 	"donate_interface-secureLogo-text": "Par SSL sertifikātiem"
 }

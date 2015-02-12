@@ -204,5 +204,23 @@
 		$( '#paymentSubmitBtn' ).click( function () {
 			submitForm();
 		} );
+
+		$( '#ddTestOptions').click( function () {
+			$( '#ddTestCCArea' ).removeClass('hide').addClass('show');
+		});
+		$( '#cvv-info' ).hover( function () {
+			$( '#cvv-codes' ).show();
+		}, function () {
+			$( '#cvv-codes' ).hide();
+		});
+		$( '#cvv-info' ).click( function () {
+			$( '#cvv-codes' ).addClass( 'popped' ).show();
+			$( 'body' ).addClass( 'pop-shown' );
+			return false;
+		});
+		$( document ).on( 'click', 'body.pop-shown', function () {
+			$( '.popped' ).removeClass( 'popped' ).hide();
+			$( 'body' ).removeClass( 'pop-shown' );
+		});
 	});
 })( jQuery, mediaWiki );

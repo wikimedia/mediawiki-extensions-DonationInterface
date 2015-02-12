@@ -19,16 +19,28 @@ class DonationData {
 	protected $validationErrors = null;
 
 	/**
+	 * @var DonationLoggerContext
+	 */
+	protected $loggerContext;
+
+	/**
 	 * DonationData constructor
 	 * @param GatewayAdapter $gateway
 	 * @param mixed $data An optional array of donation data that will, if 
 	 * present, circumvent the usual process of gathering the data from various 
 	 * places in $wgRequest, or 'false' to gather the data the usual way. 
-	 * Default is false. 
+	 * Default is false.
 	 */
 	function __construct( $gateway, $data = false ) {
 		$this->gateway = $gateway;
-		$this->gatewayID = $this->getGatewayIdentifier();
+		$this->gatewayID = $this->gateway->getIdentifier();
+
+		// Push a new context on so we can use our own getLogMessagePrefix
+		// before the adapter knows we exist.
+		$this->loggerContext = new DonationLoggerContext( array(
+			'getLogMessagePrefix' => array( $this, 'getLogMessagePrefix' ),
+		) );
+
 		$this->populateData( $data );
 	}
 
@@ -77,7 +89,6 @@ class DonationData {
 				'state',
 				'zip',
 				'country',
-				'premium_language',
 				'card_num',
 				'card_type',
 				'expiration',
@@ -139,9 +150,11 @@ class DonationData {
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
-		$this->normalize();
+		if ( $this->normalized ) {
+			$this->normalize();
 
-		$this->expungeNulls();
+			$this->expungeNulls();
+		}
 	}
 
 	/**
@@ -173,8 +186,7 @@ class DonationData {
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
 		 * ...unless it's an explicit $overwrite * */
-		$c = $this->getAdapterClass();
-		if ( $c::session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
+		if ( $this->gateway->session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
 			//fields that should always overwrite with their original values
 			$overwrite = array ( 'referrer' );
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
@@ -298,7 +310,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'language',
-			'premium_language',
 			'contribution_tracking_id', //sort of...
 			'currency_code',
 			'user_ip',
@@ -315,6 +326,8 @@ class DonationData {
 	 * be called multiple times against the same array.
 	 */
 	protected function normalize() {
+		// FIXME: there's a ghost invocation during DonationData construction.
+		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
@@ -459,8 +472,7 @@ class DonationData {
 		
 		//TODO: This is going to fail miserably if there's no country yet.
 		if ( !$currency ){
-			require_once( dirname( __FILE__ ) . '/nationalCurrencies.inc' );
-			$currency = getNationalCurrency($this->getVal('country'));
+			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->log( "Got currency from 'country', now: $currency", LOG_DEBUG );
 		}
 		
@@ -639,54 +651,11 @@ class DonationData {
 	}
 
 	/**
-	 * log: This grabs the adapter class that instantiated DonationData, and
-	 * uses its log function.
-	 * @TODO: Once the DonationData constructor does less, we can stop using
-	 * the static log function in the gateway. As it is, we're trying to log
-	 * things as we're constructing, when as far as the gateway cares we
-	 * don't exist yet. Very circular.
 	 * @param string $message The message to log.
 	 * @param int|string $log_level
 	 */
 	protected function log( $message, $log_level = LOG_INFO ) {
-		$message = $this->getLogMessagePrefix() . $message;
-		$this->gateway->_log( $message, $log_level );
-	}
-
-	/**
-	 * getGatewayIdentifier
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getIdentifier' function. Used for normalizing the 
-	 * 'gateway' value, and stashing and retrieving the edit token (and other 
-	 * things, where needed) in the session. 
-	 * @return type 
-	 */
-	protected function getGatewayIdentifier() {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getIdentifier' ) ) ){
-			return $c::getIdentifier();
-		} else {
-			return 'DonationData';
-		}
-	}
-
-	/**
-	 * getGatewayGlobal
-	 * This grabs the adapter class that instantiated DonationData, and returns 
-	 * the result of its 'getGlobal' function for the $varname passed in. Used 
-	 * to determine gateway-specific configuration settings. 
-	 * @param string $varname the global variable (minus prefix) that we want to 
-	 * check. 
-	 * @return mixed  The value of the gateway global if it exists. Else, the 
-	 * value of the Donation Interface global if it exists. Else, null.
-	 */
-	protected function getGatewayGlobal( $varname ) {
-		$c = $this->getAdapterClass();
-		if ( $c && is_callable( array( $c, 'getGlobal' ) ) ){
-			return $c::getGlobal( $varname );
-		} else {
-			return false;
-		}
+		DonationLogger::log( $message, $log_level );
 	}
 
 	/**
@@ -704,8 +673,6 @@ class DonationData {
 	 * normalize helper function.
 	 * If the language has not yet been set or is not valid, pulls the language code 
 	 * from the current global language object. 
-	 * Also sets the premium_language as the calculated language if it's not 
-	 * already set coming in (had been defaulting to english). 
 	 */
 	protected function setLanguage() {
 		$language = false;
@@ -722,11 +689,6 @@ class DonationData {
 		
 		$this->setVal( 'language', $language );
 		$this->expunge( 'uselang' );
-		
-		if ( !$this->isSomething( 'premium_language' ) ){
-			$this->setVal( 'premium_language', $language );
-		}
-		
 	}
 
 	/**
@@ -797,7 +759,7 @@ class DonationData {
 		);
 
 		$recurring = ($this->getVal( 'recurring' ) ? 'true' : 'false');
-		$this->log( "Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_INFO );
+		$this->log( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring}, utm_source = {$payment_method_family}", LOG_DEBUG );
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
@@ -965,7 +927,6 @@ class DonationData {
 			'optout',
 			'anonymous',
 			'size',
-			'premium_language',
 			'utm_source',
 			'utm_medium',
 			'utm_campaign',

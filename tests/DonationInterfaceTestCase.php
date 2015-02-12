@@ -257,6 +257,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			array( '430357' ),
 		);
 	}
+	
+	public function benignNoRetryCodeProvider() {
+		return array(
+			array( '430285' ),
+		);
+	}
 
 	/**
 	 * Get the expected XML request from GlobalCollect
@@ -271,7 +277,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
 		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
-		$expected  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+		$expected  = '<?xml version="1.0" encoding="UTF-8"?' . ">\n";
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
@@ -479,7 +485,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 						$this->performCheck( $input_node->nodeName, $expected, "name of node with id '$id'");
 						break;
 					case 'innerhtml':
-						$this->performCheck( self::getInnerHTML( $input_node ), $expected, "innerHTML of node '$id'");
+						$actual_html = self::getInnerHTML( $input_node );
+						// Strip comments
+						$actual_html = preg_replace( '/<!--[^>]*-->/', '', $actual_html );
+						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'");
 						break;
 					case 'innerhtmlmatches':
 						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
@@ -504,6 +513,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 						break;
 				}
 			}
+		}
+
+		// Are there untranslated boogers?
+		if ( preg_match_all( '/&lt;[^<]+(&gt;|>)/', $form_html, $matches ) ) {
+			$this->fail( 'Untranslated messages present: ' . implode( ', ', $matches[0] ) );
 		}
 
 		//because do_transaction is totally expected to leave session artifacts...

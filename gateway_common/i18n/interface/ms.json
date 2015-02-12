@@ -111,7 +111,6 @@
 	"donate_interface-XOF": "Franc CFA Afrika Barat",
 	"donate_interface-ZAR": "Rand Afrika Selatan",
 	"donate_interface-currency-display": "$1 ($2)",
-	"donate_interface-accessible": "Laman ini hanya akan dipaparkan melalui laman sumbangan",
 	"donate_interface-paypal-button": "Derma melalui PayPal",
 	"donate_interface-paypal-redirect": "Melencong ke PayPal...",
 	"donate_interface-amazon-button": "Derma melalui Amazon",
@@ -213,8 +212,6 @@
 	"donate_interface-otherways": "Terdapat <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">cara lain untuk memberikan sumbangan, termasuklah melalui PayPal, cek atau pos</a>.",
 	"donate_interface-otherways-alt": "Terdapat <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">cara lain untuk memberikan sumbangan</a>, termasuklah melalui cek.",
 	"donate_interface-otherways-short": "Cara-cara lain untuk menyumbang",
-	"donate_interface-paypal": "Adakah anda mempunyai akaun PayPal? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Berikan sumbangan melalui PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Kami tidak akan menyimpan sebarang maklumat kad kredit dan data peribadi anda yang tertakluk dalam <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">dasar privasi penderma</a> kami.",
 	"donate_interface-token-mismatch": "Sesi anda telah tamat. Sila cuba mengisi borang dan hantarkannya sekali lagi.",
 	"donate_interface-cc-form-header-personal": "Maklumat pembayaran",
 	"donate_interface-cc-form-header-payment": "Maklumat pembayaran",
@@ -381,7 +378,6 @@
 	"donate_interface-taxded-msg-int": "Yayasan Wikimedia ialah sebuah badan amal yang bukan bermotif keuntungan yang ditubuhkan di Amerika Syarikat di bawah Hukum IRS AS, Seksyen 501(c)(3), oleh itu dermaan daripada orang-orang atau entiti-entiti yang terletak di Amerika Syarikat boleh mendapat manfaat daripada potong cukai. Dermaan daripada orang-orang atau entiti-entiti yang terletak di luar Amerika Syarikat mungkin tidak layak untuk potongan cukai di Amerika Syarikat dan negara lain; dalam hal sebegini, penderma wajar mendapat nasihat percukaian setempat. Penting sekali, Wikimedia tidak mengharapkan dermaan daripada orang-orang atau entiti-entiti yang terletak dalam sebarang bidang kuasa yang melarang atau menyekat kegiatan mengumpul dana oleh badan amal antarabangsa seperti Wikimedia, atau mengenakan cukai hadiah pada dermaan-dermaan yang dibuat kepada badan amal antarabangsa yang sedemikian.",
 	"donate_interface-taxded-msg-us": "Yayasan Wikimedia ialah sebuah badan amal bukan bermotif keuntungan yang ditubuhkan di Amerika Syarikat di bawah Hukum IRS AS, Seksyen 501(c)(3), oleh itu dermaan daripada orang-orang atau entiti-entiti yang terletak di Amerika Syarikat boleh mendapat manfaat daripada taraf boleh potong cukai.",
 	"donate_interface-legal-original": "Ini merupakan terjemahan ihsan. Sekiranya berlaku percanggahan antara terjemahan ini dan versi bahasa Inggeris, maka versi bahasa Inggeris diutamakan.",
-	"donate_interface-legal-donorpolicy": "Dengan menderma, anda berkongsi maklumat anda dengan Yayasan Wikimedia, pertubuhan bukan bermotif keuntungan yang mengendalikan pelayaran Wikipedia dan projek-projek Wikimedia yang lain, serta penyedia-penyedia perkhidmatannya di Amerika Syarikat dan negara-negara lain yang menurut dasar privasi penderma kami. Kami tidak menjual atau memperdagangkan maklumat anda kepada sesiapa.",
 	"donate_interface-monthlybox-title": "Jadikan dermaan bulanan?",
 	"donate_interface-monthlybox-content": "Dermaan bulanan diproseskan pada 2hb setiap bulan. Anda boleh membatalkannya pada bila-bila masa.",
 	"donate_interface-monthlybox-amount": "Jumlah dermaan bulanan",
@@ -394,5 +390,6 @@
 	"donate_interface-onetime-short": "Sekali sahaja",
 	"donate_interface-securelogo-title": "Klik untuk Sahkan - Tapak web ini memilih VeriSign SSL untuk perdagangan elektronik yang selamat dan perhubungan sulit.",
 	"donate_interface-secureLogo-text": "Perihal Sijil SSL",
-	"donate_interface-error-http-403": "Anda tidak dibenarkan untuk memasuki laman ini."
+	"donate_interface-error-http-403": "Anda tidak dibenarkan untuk memasuki laman ini.",
+	"donate_interface-statement": "Wikimedia $1"
 }

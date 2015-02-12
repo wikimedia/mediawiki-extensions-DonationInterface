@@ -1,0 +1,108 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "db6cee8ab8789bf27fcaad9549734a6d",
+    "packages": [
+        {
+            "name": "fusesource/stomp-php",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dejanb/stomp-php.git",
+                "reference": "4ac51c0abee05078e198faf13f48c056a72f8f8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dejanb/stomp-php/zipball/4ac51c0abee05078e198faf13f48c056a72f8f8c",
+                "reference": "4ac51c0abee05078e198faf13f48c056a72f8f8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "FuseSource": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Dejan Bosnanac",
+                    "email": "dejan@nighttale.net",
+                    "homepage": "http://www.nighttale.net"
+                },
+                {
+                    "name": "Sören Rohweder",
+                    "email": "s.rohweder@blage.net",
+                    "homepage": "http://www.monofone.de"
+                }
+            ],
+            "description": "stomp support for PHP",
+            "homepage": "http://github.com/dejanb/stomp-php",
+            "keywords": [
+                "activeMQ",
+                "jms",
+                "messaging",
+                "stomp"
+            ],
+            "time": "2013-02-23 17:34:44"
+        },
+        {
+            "name": "minfraud/http",
+            "version": "v1.60",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/ccfd-api-php.git",
+                "reference": "553ceffe363185e20e17045d5058aba2154a6faf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/ccfd-api-php/zipball/553ceffe363185e20e17045d5058aba2154a6faf",
+                "reference": "553ceffe363185e20e17045d5058aba2154a6faf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/HTTPBase.php",
+                    "src/CreditCardFraudDetection.php",
+                    "src/TelephoneVerification.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1+"
+            ],
+            "authors": [
+                {
+                    "name": "MaxMind, Inc.",
+                    "email": "support@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind minFraud HTTP API",
+            "homepage": "https://github.com/maxmind/ccfd-api-php",
+            "keywords": [
+                "fraud",
+                "maxmind",
+                "minfraud"
+            ],
+            "time": "2014-07-23 16:34:20"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
+}

@@ -38,51 +38,51 @@ body.ltr #footer #footer-places {
 	margin-bottom: 1em;
 }
 
-.payflow-cc-form-section {
+.payment-cc-form-section {
 	float: left;
 }
 
-#payflowpro_gateway-personal-info {
+#payment_gateway-personal-info {
 /*	margin-right: 4em;
 	margin-bottom: 1em; */ /* This only seems to cause issues for RTL languages */
 }
 
-#payflowpro_gateway-form-submit, #payflowpro_gateway-form-submit-paypal {
+#payment_gateway-form-submit, #payment_gateway-form-submit-paypal {
 	margin-top: 1.2em;
 	text-align: center;
 	margin-bottom: 1em;
 }
 
-#payflowpro_gateway-donate-addl-info {
+#payment_gateway-donate-addl-info {
 	margin-top: 4em;
 	margin-bottom: 4em;
 	clear: both;
 }
 
-#payflow-table-cc td {
+#payment-table-cc td {
 	text-align: left;
 }
 
-#payflow-table-donor, #payflow-table-cc, #payflow-table-paypal {
+#payment-table-donor, #payment-table-cc, #payment-table-paypal {
 	background-color: transparent;
 }
 
-#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
+#payment-table-donor td.label, #payment-table-comment td.label, #payment-table-cc td.label {
 	text-align: right;
 	display: block;
 	padding-right: 1em;
 	width: 94px;
 }
 
-#payflow-table-comment td.check-option {
+#payment-table-comment td.check-option {
 	padding-left: 3em;
 }
 
-#payflow-table-donor td {
+#payment-table-donor td {
 	text-align: left;
 }
 
-#payflowpro_gateway-donate-addl-info-secure-logos {
+#payment_gateway-donate-addl-info-secure-logos {
         float: left;
         margin-right: 2em;
 }
@@ -123,10 +123,14 @@ textarea {
 	padding: 3px;
 }
 
+#greenBackground {
+	display: inline-block;
+}
+
 #greenBackground,
 div.donor {
     padding:16px 24px;
-	width:300px;
+	min-width:300px;
     background-color:#CCE7CD;
 	border:1px solid #5EAC58;
 }
@@ -139,6 +143,7 @@ p#informationsharing, p#monthlycancel {
 
 p.finePrint {
 	font-size: 11px;
+	white-space: normal;
 }
 
 /*
@@ -153,35 +158,159 @@ input.fullwidth { width: 254px; }
 */
 
 /* Form Inputs */
-input.thirdwidth, select.thirdwidth {
-    width: 85px;
+/* Override the sitedir-ltr input direction */
+body.rtl input {
+	/* @noflip */
+	direction: rtl;
 }
-input.halfwidth, select.halfwidth {
-	width: 137px;
-}
-input.fullwidth, select.fullwidth {
-	width: 285px;
-}
-
-input.leftmar,select.leftmar {
-	margin-left: 4px;
+input#emailAdd {
+	/* @noflip */
+	direction: ltr;
 }
 
-input.rightmar,select.rightmar {
-    margin-right: 4px;
+#payment-table-donor {
+	white-space: nowrap;
 }
 
-input#city.halfwidth.state {
-	width:134px;
+.fullwidth { width: 100% }
+
+.halfwidth { width: 50%; }
+.halfwidth:not(:first-child) {
+	margin-left: 2%;
+	width: 48%;
 }
-input#zip.halfwidth.state {
-	width:84px;
-	margin-left: 0;
-}
-select#state.us, select#state.au, select#state.ca {
-	width: 50px;
+
+.thirdwidth:first-child { width: 34%; }
+.thirdwidth:not(:first-child) {
+	margin-left: 2%;
+	width: 31%;
 }
 
 .collapsingCity {
 	display: none;
+}
+
+/* From 2014 appeal */
+* {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* Slurped from https://payments.wikimedia.org/index.php?title=MediaWiki:Common.css&oldid=2183 */
+#mw-panel div.portal {
+   display: none !important;
+}
+div#footer #footer-icons {
+   display: none !important;
+}
+
+/*table#secureLogo {
+   border: 5px solid red;
+}*/
+
+
+a[href^="https://"], .link-https {
+ background-image: none !important;
+ padding: 0 !important;
+}
+
+div#content {
+ border: none;
+}
+
+/* Respond to small viewport */
+@media screen and (max-width: 981px) {
+    /* Overall layout */
+    div#content {
+        margin: 0;
+        padding: 1em;
+    }
+    #mw-navigation {
+        display: none;
+    }
+    #appeal {
+        display: none;
+    }
+    #donate {
+        display: block;
+    }
+    div#greenBackground {
+        padding: 1em;
+        width: inherit;
+    }
+    table#payment-table-donor {
+        width: 100%;
+    }
+
+    /* Form - Amount/Payment Method */
+    #radiobuttons-table-header,
+    td.radiobuttons-cell,
+    .frequency-options,
+    .payment-method-button {
+        font-size: 2em;
+    }
+
+    .radiobuttons-cell {
+        padding: 0.5em;
+    }
+
+    input.payment-method-button {
+        padding: 1em;
+    }
+
+    /* Form - Contact/Donation Info */
+    table#payment-table-donor td {
+        padding: 0;
+    }
+    td#donate form select,
+    td#donate form input {
+        display: block;
+        float: left;
+        clear: both;
+        font-size: 1.6em;
+        width: 100%;
+        margin:  5px 0;
+        padding: 10px 3%;
+    }
+
+    .options-h li {
+        margin-right: 1em;
+    }
+
+    p#informationsharing, ul#moreinfolinks {
+        font-size: 1em;
+        line-height: 1.35em;
+        width: inherit;
+        padding: 1em;
+    }
+
+	#cards label {
+		display: inline-block;
+		width: 100%;
+		float: left;
+	} 
+
+    #cards img {
+        height: 30px;
+        margin: 10px auto;
+    }
+
+    /* -- iDEAL -- */
+    #billing-content .name-fields span {
+        margin: 0;
+        width: 100%;
+    }
+    #billing-content select,
+    #billing-content input.txt,
+    #billing-content input.btn {
+        font-size: 1.2em;
+        margin: 5px 0 !important;
+        padding: 10px;
+    }
+    #donate, #donate-content {
+        width: inherit;
+    }
+    /* -- end iDEAL -- */
+
 }

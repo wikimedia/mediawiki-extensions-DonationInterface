@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Imre",
-			"פוילישער"
+			"פוילישער",
+			"Har-wradim"
 		]
 	},
 	"donate_interface": "שטיצט וויקימעדיע",
@@ -16,9 +17,11 @@
 	"donate_interface-comment-label": "הערה:",
 	"donate_interface-email-agreement": "כ'בין מסכים צו באקומען דערהיינטיקונגען פון דער וויקימעדיע פונדאציע דורך ע־פאסט פון צייט צו צייט.",
 	"donate_interface-comment-title": "עפֿנטליכע הערה",
+	"donate_interface-donation-description": "נדבה צו דער וויקימעדיע פונדאציע",
+	"donate_interface-monthly-donation-description": "מאנאטלעכע נדבה צו דער וויקימעדיע פונדאציע",
 	"donate_interface-amount-error": "ביטע גיט אַרייַן אַ גילטיקע סומע",
 	"donate_interface-smallamount-error": "איר דארפט בײַשטײַערן כאטש $1",
-	"donate_interface-processing-error": "ס'איז געשען א פעלער ביים פראצעסירן אײַער בקשה.\nנישט פאראן קיין פראצעסאר.",
+	"donate_interface-processing-error": "ס'איז געשען א פֿעלער ביים פראצעסירן אײַער בקשה.\nנישט פֿאַראַן קיין פראצעסאר.",
 	"donate_interface-AED": "פאראייניקטע אראבישע עמיראטן דירהאם",
 	"donate_interface-ARS": "ארגענטינישער פעסא",
 	"donate_interface-AUD": "אויסטראַלישער טאָלער",
@@ -70,9 +73,10 @@
 	"donate_interface-MUR": "מארישעס רופיע",
 	"donate_interface-MVR": "מאלדיוון רופֿיא",
 	"donate_interface-MXN": "מעקסיקאנישער פעסא",
+	"donate_interface-NOK": "נארוועגישע קראנע",
+	"donate_interface-NZD": "נייזילאנדער דאלאר",
 	"donate_interface-SEK": "שוועדישע קראנע",
 	"donate_interface-USD": "אמעריקאנער דאלאר",
-	"donate_interface-accessible": "דעם בלאט קען מען דערגרייכן נאר פונעם בײַשטײַער בלאט",
 	"donate_interface-paypal-button": "בײַשטײַערן דורך PayPal",
 	"donate_interface-cc-button": "בײַשטײַערן מיט א קרעדיט קארטע",
 	"donate_interface-card-legend": "קרעדיט־קארטל אינפארמאציע",
@@ -124,6 +128,13 @@
 	"donate_interface-error-msg-card_type": "קרעדיט קארטע טיפ",
 	"donate_interface-error-msg-card_num": "קרעדיט־קאַרטל נומער",
 	"donate_interface-error-msg-expiration": "ביטע גיט ארים דער קארטעס אויסלאז דאטע",
+	"donate_interface-error-msg-account_name": "קאנטע נאמען",
+	"donate_interface-error-msg-account_number": "קאנטע נומער",
+	"donate_interface-error-msg-authorization_id": "אויטאריזאציע קאד",
+	"donate_interface-error-msg-bank_check_digit": "באנק קאטראל ציפער",
+	"donate_interface-error-msg-bank_code": "סארט קאד",
+	"donate_interface-error-msg-branch_code": "פיליאל קאד",
+	"donate_interface-error-msg-genaricrequired": "דאס פעלד איז נויטבאר",
 	"donate_interface-donate-error-thank-you-for-your-support": "א דאנק פאר אייער אונטערשטיצונג!",
 	"php-response-declined": "מ'האט נישט אקצעפטירט אייער טראנסאקציע.",
 	"donate_interface-thankyou": "א דאנק פאר אייער בײַשטײַער!",
@@ -135,7 +146,6 @@
 	"donate_interface-otherways": "עס זענען פֿאראן <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">נאך וועגן צו געבן, אײַנשליסלעך PayPal, טשעק, אדער פאסט</a>.",
 	"donate_interface-otherways-alt": "עס זענען פֿאראן <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">נאך וועגן צו געבן</a>, אײַנשליסלעך מיט א טשעק.",
 	"donate_interface-otherways-short": "אנדערע וועגן בײַצושטייערן",
-	"donate_interface-credit-storage-processing": "מיר שפייכלערן נישט איין אייער קרעדיט קארטע אינפארמאציע, און אײַער פערזענלעכן דאטן ליגט אונטער אונזער <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">בײַשטײַערער פריוואטקייט  פאליטיק</a>.",
 	"donate_interface-cc-form-header-personal": "דעביטירונג אינפארמאציע",
 	"donate_interface-cc-form-header-payment": "באצאלן אינפארמאציע",
 	"donate_interface-make-your-donation": "גיט אײַער נדבה אַצינד",
@@ -237,7 +247,7 @@
 	"donate_interface-select-a-size": "ביטע קלויבט א גרייס.",
 	"donate_interface-select": "אויסוויילן",
 	"donate_interface-shipping-address": "ליפערן אדרעס",
-	"donate_interface-shipping-address-different": "מײַן ליפערן אדרעס איז אנדערש פון מײַן חשבון אדרעס.",
+	"donate_interface-shipping-address-different": "מיין ליפערן אַדרעס איז אַנדערש פון מיין חשבון אַדרעס.",
 	"donate_interface-shipping-address-same": "ליפערן אדרעס גלייך ווי חשבון אדרעס.",
 	"donate_interface-donation-must-equal": "די נדבה מוז זיין כאטש $1.",
 	"donate_interface-thank-you": "ייש\"כ! מ'האט באקומען אייער נדבה.",
@@ -278,5 +288,6 @@
 	"donate_interface-currency-change": "טוישן?",
 	"donate_interface-taxded-link-int": "שטייער און אנדער לעגאלע אינפארמאציע",
 	"donate_interface-taxded-link-us": "שטייער אפרעכענען אינפארמאציע",
+	"donate_interface-monthly-short": "מאנאטלעך",
 	"donate_interface-onetime-short": "איינמאליק"
 }

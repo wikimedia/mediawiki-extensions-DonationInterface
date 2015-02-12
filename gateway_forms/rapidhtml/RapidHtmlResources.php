@@ -1,46 +1,13 @@
 <?php
 /**
  * For defining RapidHtml ResourceLoader resourcses
- *
- * This file is included in DonationInterface/payflowpro_gateway.php
  */
 
 $wgDonationInterfaceRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/rapidhtml';
-$wgPayflowRapidHtmlRemoteExtPath = 'DonationInterface/payflowpro_gateway/forms';
 $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 $wgAdyenRapidHtmlRemoteExtPath = 'DonationInterface/adyen_gateway/forms';
 $wgPaypalRapidHtmlRemoteExtPath = 'DonationInterface/paypal_gateway/forms';
 $wgWorldPayRapidHtmlRemoteExtPath = 'DonationInterface/worldpay_gateway/forms';
-
-/**
- * LIGHTBOX
- */
-// RapidHtml lightbox form resources
-$wgResourceModules[ 'pfp.form.rapidhtml.lightbox' ] = array(
-	'scripts' => array(
-		'js/lightbox1.js',
-	),
-	'styles' => array(
-		'css/lightbox1.css',
-	),
-	'dependencies' => array(
-		'jquery.ui.widget',
-		'jquery.ui.mouse',
-		'jquery.ui.position',
-		'jquery.ui.draggable',
-		'jquery.ui.resizable',
-		'jquery.ui.button',
-		'jquery.ui.dialog',
-		'ext.donationInterface.errorMessages',
-	),
-	'messages' => array(
-		'donate_interface-cc-button',
-		'donate_interface-ccdc-button',
-		'donate_interface-paypal-button',
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
 
 /**
  * webitects
@@ -205,89 +172,15 @@ $wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
 	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'gc.iframe' ] = array(
+	'styles' => 'css/iframe.css',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
 
 /*************************************************************
  *************************************************************
  *************************************************************/
-
-// PayflowPro
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects' ] = array(
-	'styles' => '',
-	'scripts' => 'js/webitects_2_3step.js',
-	'dependencies' => array(
-		'di.form.rapidhtml.webitects',
-		'di.form.core.validate'
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects.2nd' ] = array(
-	'styles' => '',
-	'scripts' => 'js/webitects2nd.js',
-	'dependencies' => array(
-		'di.form.rapidhtml.webitects',
-		'di.form.core.validate'
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects.2nd.US' ] = array(
-	'styles' => '',
-	'scripts' => 'js/webitects2nd-US.js',
-	'dependencies' => array(
-		'pfp.form.rapidhtml.webitects',
-		'di.form.core.validate'
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2step' ] = array(
-	'styles' => '',
-	'scripts' => 'js/webitects_2_2step.js',
-	'dependencies' => array(
-		'di.form.rapidhtml.webitects.2nd',
-		'di.form.core.validate'
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects_2stepB' ] = array(
-	'styles' => '',
-	'scripts' => 'js/webitects_2_2stepB.js',
-	'dependencies' => array(
-		'di.form.core.validate',
-		'di.form.rapidhtml.webitects'
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules[ 'pfp.form.rapidhtml.webitects.ie6' ] = array(
-	'dependencies' => array(
-		'di.form.rapidhtml.webitects.ie6',
-		'pfp.form.rapidhtml.webitects',
-	),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-
-
-/**
- * TwoStepTwoColumnLetter3 Deathmatch
- */
-$wgResourceModules[ 'pfp.form.rapidhtml.TwoStepTwoColumnLetter3' ] = array(
-	'styles' => 'css/TwoStepTwoColumnLetter3.css',
-	'scripts' => 'js/TwoStepTwoColumnLetter3.js',
-	'dependencies' => array( 'di.form.core.validate' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
-$wgResourceModules['pfp.form.rapidhtml.TwoStepTwoColumnLetter3.orig'] = array (
-	'styles' => 'css/TwoStepTwoColumnLetter3-orig.css',
-	'scripts' => 'js/TwoStepTwoColumnLetter3.js',
-	'dependencies' => array ('di.form.core.validate'),
-	'localBasePath' => dirname( __FILE__ ) . '/../../payflowpro_gateway/forms',
-	'remoteExtPath' => $wgPayflowRapidHtmlRemoteExtPath,
-);
 
 $wgResourceModules[ 'adyen.js' ] = array(
 	'styles' => 'css/adyen.css',

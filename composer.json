@@ -13,6 +13,13 @@
 			"globalcollect_gateway",
 			"paypal_gateway",
 			"worldpay_gateway"
+		],
+		"files": [
+			"gateway_common/WmfFramework.php"
 		]
+	},
+	"require": {
+		"fusesource/stomp-php": "2.*",
+		"minfraud/http": "~1.60"
 	}
 }

@@ -17,7 +17,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
@@ -114,7 +114,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->normalizeOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Re-normalized order_id has changed without explicit regeneration.' );
 
-		//this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything. 
+		//this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything.
 		$gateway->generateOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'function generateOrderID auto-changed the selected order ID. Not cool.' );
 
@@ -223,8 +223,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 *
 	 * This is tested with a bank transfer from Spain.
 	 *
-	 * @covers GlobalCollectAdapter::__construct 
-	 * @covers GlobalCollectAdapter::defineVarMap 
+	 * @covers GlobalCollectAdapter::__construct
+	 * @covers GlobalCollectAdapter::defineVarMap
 	 */
 	public function testDefineVarMap() {
 
@@ -237,7 +237,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'contribution_tracking_id',
-			'RETURNURL' => 'returnto', 
+			'RETURNURL' => 'returnto',
 			'IPADDRESS' => 'server_ip',
 			'ISSUERID' => 'issuer_id',
 			'PAYMENTPRODUCTID' => 'payment_product',
@@ -287,7 +287,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'TRANSACTIONTYPE' => 'transaction_type',
 			'FISCALNUMBER' => 'fiscal_number',
 		);
-		
+
 		$this->assertEquals( $var_map, $gateway->getVarMap() );
 	}
 
@@ -323,6 +323,14 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$logline = $this->getGatewayLogMatches( $gateway, LOG_ERR, '/Investigation required!/' );
 		$this->assertType( 'string', $logline, 'GC Error 21000050 is not generating the expected payments log error' );
+
+		//Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '20001000-expiry' );
+		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+		$this->verifyNoLogErrors( $gateway );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/processResponse:.*EXPIRYDATE/' );
+		$this->assertType( 'string', $logline, 'GC Error 20001000-expiry is not generating the expected payments log line' );
 	}
 
 	/**
@@ -348,5 +356,81 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
 		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent an antimessage!" );
 		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
+	}
+
+	/**
+	 * Tests that two API requests don't send the same order ID and merchant
+	 * reference.  This was the case when users doubleclicked and we were
+	 * using the last 5 digits of time in seconds as a suffix.  We want to see
+	 * what happens when a 2nd request comes in while the 1st is still waiting
+	 * for a CURL response, so here we fake that situation by having CURL throw
+	 * an exception during the 1st response.
+	 */
+	public function testNoDupeOrderId( ) {
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'action'=>'donate',
+				'amount'=>'3.00',
+				'card_type'=>'amex',
+				'city'=>'Hollywood',
+				'contribution_tracking_id'=>'22901382',
+				'country'=>'US',
+				'currency_code'=>'USD',
+				'emailAdd'=>'FaketyFake@gmail.com',
+				'fname'=>'Fakety',
+				'format'=>'json',
+				'gateway'=>'globalcollect',
+				'language'=>'en',
+				'lname'=>'Fake',
+				'payment_method'=>'cc',
+				'referrer'=>'http://en.wikipedia.org/wiki/Main_Page',
+				'state'=>'MA',
+				'street'=>'99 Fake St',
+				'utm_campaign'=>'C14_en5C_dec_dsk_FR',
+				'utm_medium'=>'sitenotice',
+				'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
+				'zip'=>'90210'
+			), false ) );
+
+		$gateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$gateway->setDummyGatewayResponseCode( 'Exception' );
+		try {
+			$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		}
+		catch ( Exception $e ) {
+			// totally expected this
+		}
+		$first = $gateway->curled[0];
+		//simulate another request coming in before we get anything back from GC
+		$anotherGateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$anotherGateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$second = $anotherGateway->curled[0];
+		$this->assertFalse( $first == $second, 'Two calls to the api did the same thing');
+	}
+
+	/**
+	 * Tests to see that we don't claim we're going to retry when we aren't
+	 * going to. For GC, we really only want to retry on code 300620
+	 * @dataProvider benignNoRetryCodeProvider
+	 */
+	public function testNoClaimRetryOnBoringCodes( $code ) {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['ffname'] = 'cc-vmad';
+		//Make it not look like an orphan
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array(
+				'CVVRESULT' => 'M',
+				'AVSRESULT' => '0'
+			), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( $code );
+		$start_id = $gateway->_getData_Staged( 'order_id' );
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$finish_id = $gateway->_getData_Staged( 'order_id' );
+		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Repeating transaction on request for vars:/' );
+		$this->assertEmpty( $logline, "Log says we are going to repeat the transaction for code $code, but that is not true" );
+		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");
 	}
 }

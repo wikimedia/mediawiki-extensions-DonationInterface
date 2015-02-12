@@ -20,20 +20,19 @@
 				<p id="topError" class="creditcard-error-msg"></p>
 
 			<form name="paypalcontribution" method="post" action="@action">
-				<div id="payflowpro_gateway-personal-info">
-					<table id="payflow-table-donor">
+				<div id="payment_gateway-personal-info">
+					<table id="payment-table-donor">
 						<tbody>
 						<tr>
-							<td colspan="2">
+							<td>
 								<div id="step1header">
 									<h3 class="amount_header">%donate_interface-amount-legend%:  <span id="selected-amount">{% block donation-amount currency_code %}</span></h3>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								<input class="halfwidth optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/>
-								<input class="halfwidth leftmar optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/>
+							<td>
+								<input class="halfwidth optional" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/><input class="halfwidth optional" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/>
 							</td>
 						</tr>
 						{% block optional_email %}
@@ -56,7 +55,7 @@
 						</tbody>
 					</table>
 				</div>
-				<input type="hidden" name="gateway" value="payflowpro" id="gateway" />
+				<input type="hidden" name="gateway" value="globalcollect" id="gateway" />
 				<input type="hidden" name="returnto" value="Thank_You/en" />
 				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="@amount" name="amount">

@@ -1,6 +1,6 @@
 <?php
 
-class WmfFramework {
+class WmfFramework_Drupal {
 	static function debugLog( $identifier, $msg ) {
 		watchdog( 'DonationInterface', "{$identifier}: {$msg}", NULL, WATCHDOG_DEBUG );
 	}

@@ -52,13 +52,6 @@ define( 'TESTS_GATEWAY_DEFAULT', 'GlobalCollectGateway' );
  */
 define( 'TESTS_ADAPTER_DEFAULT', 'TestingGlobalCollectAdapter' );
 
-/**
- * TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD
- *
- * A "valid" test American Express Card for PayFlowPro.
- */
-define( 'TESTS_PFP_CREDIT_CARDS_AMEREICAN_EXPRESS_VALID_CARD', '378282246310005' );
-
 global $wgDonationInterfaceTestMode,
 	$wgDonationInterfaceMerchantID,
 	$wgDonationInterfaceAllowedHtmlForms,

@@ -87,62 +87,24 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 *   - name - Validation requires non-empty: fname, lname
 	 *
 	 * @return boolean Returns false on an error-free validation, otherwise true.
+	 * FIXME: that return value seems backwards to me.
 	 */
-	public function validateForm( $options = array() ) {
-		
-		$check_not_empty = array();
-		
-		foreach ( $options as $option ){
-			$add_checks = array();
-			switch( $option ){
-				case 'address' :
-					$add_checks = array(
-						'street',
-						'city',
-						'state',
-						'country',
-						'zip', //this should really be added or removed, depending on the country and/or gateway requirements. 
-						//however, that's not happening in this class in the code I'm replacing, so... 
-						//TODO: Something clever in the DataValidator with data groups like these. 
-					);
-					break;
-				case 'amount' :
-					$add_checks[] = 'amount';
-					break;
-				case 'creditCard' :
-					$add_checks = array(
-						'card_num',
-						'cvv',
-						'expiration',
-						'card_type'
-					);
-					break;
-				case 'email' :
-					$add_checks[] = 'email';
-					break;
-				case 'name' :
-					$add_checks = array(
-						'fname',
-						'lname'
-					);
-					break;
-			}
-			$check_not_empty = array_merge( $check_not_empty, $add_checks );
-		}
+	public function validateForm() {
 
-		$validated_ok = $this->adapter->revalidate( $check_not_empty );
+		$validated_ok = $this->adapter->revalidate();
 
-		$converted = $this->fallbackToDefaultCurrency();
-		if ( $converted ) {
-			$validated_ok = $this->adapter->revalidate( $check_not_empty );
-			$notify = $this->adapter->getGlobal( 'NotifyOnConvert' );
+		if ( !$validated_ok ) {
+			if ( $this->fallbackToDefaultCurrency() ) {
+				$validated_ok = $this->adapter->revalidate();
+				$notify = $this->adapter->getGlobal( 'NotifyOnConvert' );
 
-			if ( $notify || !$validated_ok ) {
-				$this->adapter->addManualError( array(
-					'general' => $this->msg( 'donate_interface-fallback-currency-notice', 
-											 $this->adapter->getGlobal( 'FallbackCurrency' ) )->text()
-				) );
-				$validated_ok = false;
+				if ( $notify || !$validated_ok ) {
+					$this->adapter->addManualError( array(
+						'general' => $this->msg( 'donate_interface-fallback-currency-notice', 
+												 $this->adapter->getGlobal( 'FallbackCurrency' ) )->text()
+					) );
+					$validated_ok = false;
+				}
 			}
 		}
 
@@ -151,8 +113,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Build and display form to user
-	 *
-	 * The message at the top of the form can be edited in the payflow_gateway.i18n.php file
 	 */
 	public function displayForm() {
 		global $wgOut;
@@ -266,8 +226,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return array
 	 */
 	public static function getCountries() {
-		require_once( dirname( __FILE__ ) . '/../gateway_forms/includes/countryCodes.inc' );
-		return countryCodes();
+		return CountryCodes::getCountryCodes();
 	}
 
 	/**
@@ -277,7 +236,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 *
 	 * @todo
 	 * - This is being implemented in GlobalCollect
-	 * - Do we need to implement this for PayFlow Pro? Not yet!
 	 * - Do we only want to skip the Thank you page on getFinalStatus() => failed?
 	 *
 	 * @return null
@@ -366,6 +324,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
 			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
 		}
+		else {
+			// We can't convert from this unknown currency.
+			return false;
+		}
 
 		if ( $defaultCurrency === 'USD' ) {
 			$newAmount = floor( $usdAmount );
@@ -382,5 +344,4 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
 	}
-
 }

@@ -8,7 +8,8 @@
 			"McDutchie",
 			"Nghtwlkr",
 			"Sjurhamre",
-			"Zilvador"
+			"Zilvador",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -114,7 +115,6 @@
 	"donate_interface-XCD": "Østkaribiske dollar",
 	"donate_interface-XOF": "Vestafrikanske CFA-franc",
 	"donate_interface-ZAR": "Sørafrikanske rand",
-	"donate_interface-accessible": "Denne siden er bare tilgjengelig fra giversiden.",
 	"donate_interface-paypal-button": "Donér via PayPal",
 	"donate_interface-paypal-redirect": "Omdirigerer til PayPal…",
 	"donate_interface-amazon-button": "Donér via Amazon",
@@ -211,8 +211,6 @@
 	"donate_interface-otherways": "Det finnes <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/nb\">andre måter å gi på, inklusive PayPal, sjekk eller post</a>.",
 	"donate_interface-otherways-alt": "Det finnes <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">andre måter å gi på</a>, blant annet med sjekk.",
 	"donate_interface-otherways-short": "Andre måter å gi",
-	"donate_interface-paypal": "Har du en PayPal-konto? <a href=\"$1/index.php/Special:PayflowProGateway?_cache_=true&paypal=true&masthead=none&form_name=$2&text_template=2010/JimmyAppealLong&language=en&utm_source=$3&utm_medium=$4&utm_campaign=$5\">Donér via PayPal</a>.",
-	"donate_interface-credit-storage-processing": "Vi lagrer ikke din kredittkortinformasjon, og dine persondata er underlagt våre <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">retningslinjer for personvern for donorer</a>.",
 	"donate_interface-token-mismatch": "Økten din har utløpt. Prøv å fylle ut og sende inn skjemaet på nytt.",
 	"donate_interface-cc-form-header-personal": "Faktureringsinformasjon",
 	"donate_interface-cc-form-header-payment": "Betalingsinformasjon",
@@ -370,7 +368,7 @@
 	"donate_interface-email-unsub-warning": "Dette vil reservere deg mot e-poster fra Wikimedia Foundation sendt til deg som donor. Du kan fortsatt motta e-poster på denne adressen om den er knyttet til en konto på en av våre prosjekter. Om du har spørsmål, kontakt <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
 	"donate_interface-faqs": "Ofte stilte spørsmål",
 	"donate_interface-tax-info": "Informasjon om skattefradrag",
-	"donate_interface-informationsharing": "Ved å donere deler du informasjon med Wikimedia Foundation, den ideelle organisasjonen som driver Wikipedia og andre Wikimedia-prosjekter, og dens tjenestetilbydere i USA og andre steder, i samsvar med vår donorpolicy. Vi selger eller bytter ikke din informasjon med noen. For mer informasjon, se <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">vår donorpolicy</a>.",
+	"donate_interface-informationsharing": "Ved å donere, godtar du å dele personopplysningene dine med Wikimedia Foundation, den ideelle organisasjonen som står bak Wikipedia og andre Wikimedia-prosjekter, og med organisasjonens tjenesteleverandører i henhold til vår <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donorpolicy</a>. Wikimedia Foundation og organisasjonens tjenesteleverandører holder til i De forente stater og i andre land hvor personvernlovene kan være ulike de norske. Vi hverken selger eller tilbyr personopplysningene dine til andre. Nærmere informasjon finner du i vår <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donorpolicy</a>.",
 	"donate_interface-currency-change": "Endre?",
 	"donate_interface-bank_transfer_message": "Merk at bankutskriften vil vise «Global Collect» som mottaker av denne gaven. Global Collect tar imot betalinger på vegne av Wikimedia Foundation. Husk å angi referansenummeret som oppgis her på bankoverføringen, og send gjerne en e-post til donations@wikimedia.org om du har spørsmål eller innspill.",
 	"donate_interface-globalcollect-proxy": "Merk at kontoutskriften vil vise «Global Collect» som mottaker av denne gaven. Global Collect tar imot og behandler betalinger på vegne av Wikimedia Foundation.",
@@ -379,7 +377,6 @@
 	"donate_interface-taxded-msg-int": "Wikimedia Foundation er en ideell organisasjon etablert i USA under ''US IRS Code Section 501(c)(3)'', og derfor kan personer og organisasjoner i USA få skattefradrag for gaver. donasjoner fra personer eller organisasjoner fra andre land kan muligens ikke få skattefradrag andre steder; i slike tilfeller bør givere søke skatteråd lokalt. Viktig: Wikimedia søker ikke gaver fra personer eller organisasjoner i jurisdiksjoner som ikke tillater eller innskrenker innsamlingsaktiviteter av internasjonale veldedige organisasjon som Wikimedia, eller skattelegger gaver gitt til internasjonale veldedige organisasjoner.",
 	"donate_interface-taxded-msg-us": "Wikimedia Foundation er en ideell veldedig organisasjon i USA under ''US IRS Code Section 501(c)(3)'', og gaver fra personer eller organisasjoner i USA kan derfor få skattefradrag på gaver til Wikimedia.",
 	"donate_interface-legal-original": "Denne oversettelsen er gjort av frivillige. Om det er uoverensstemmelser mellom denne oversettelsen og den engelskspråklige utgaven har den engelskspråklige utgaven presedens.",
-	"donate_interface-legal-donorpolicy": "Ved å donere deler du informasjon med Wikimedia Foundation, den idelle organisasjonen som driver Wikipedia og andre Wikimedia-prosjekter, og dens tjenestetilbydere i USA og andre steder, i samsvar med vår donorpolicy. Vi selger eller utveksler ikke din informasjon med noen.",
 	"donate_interface-monthlybox-title": "Gjør det til en månedlig gave?",
 	"donate_interface-monthlybox-content": "Månedlige gaver trekkes den andre hver måned. Du kan avslutte avtalen når som helst.",
 	"donate_interface-monthlybox-amount": "Månedlig gavebeløp",
@@ -392,5 +389,6 @@
 	"donate_interface-onetime-short": "Én gang",
 	"donate_interface-securelogo-title": "Klikk for å verifisere – denne siden bruker VeriSign SSL for sikker e-handel og konfidensiell kommunikasjon.",
 	"donate_interface-secureLogo-text": "Om SSL-sertifikater",
-	"donate_interface-error-http-403": "Du har ikke tilgang til denne siden."
+	"donate_interface-error-http-403": "Du har ikke tilgang til denne siden.",
+	"apihelp-donate-param-city": "By."
 }

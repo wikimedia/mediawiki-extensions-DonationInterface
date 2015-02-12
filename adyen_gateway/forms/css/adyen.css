@@ -19,16 +19,16 @@ h3.cc_header {
 	margin-bottom: 0;
 	font-weight: normal;
 }
-div#payflowpro_gateway-donate-addl-info-text {
+div#payment_gateway-donate-addl-info-text {
 	font-size: 90%;
 	line-height: 120%;
     padding-top: 12px;
 }
-div#payflowpro_gateway-donate-submessage {
+div#payment_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
 }
-#payflow-table-donor td.label, #payflow-table-comment td.label, #payflow-table-cc td.label {
+#payment-table-donor td.label, #payment-table-comment td.label, #payment-table-cc td.label {
 	white-space: nowrap;
     display: block;
     padding-right: 1em;
@@ -37,17 +37,17 @@ div#payflowpro_gateway-donate-submessage {
 }
 
 
-.payflow-cc-form-section {
+.payment-cc-form-section {
     float: none;
     margin-right: 0em;
     margin-bottom: 1em;
 }
 
-#payflowpro_gateway-cc_form_container {
+#payment_gateway-cc_form_container {
     width: 100%;
 }
 
-#payflowpro_gateway-cc_form_form {
+#payment_gateway-cc_form_form {
     width: 475px;
     float: right;
     margin-left: 2em;
@@ -55,33 +55,33 @@ div#payflowpro_gateway-donate-submessage {
     border-left: 1px solid #BBBBBB;
 }
 
-#payflowpro_gateway-cc_form_letter {
+#payment_gateway-cc_form_letter {
     height: 100%;
 }
 
-#payflowpro_gateway-cc_form_letter p {
+#payment_gateway-cc_form_letter p {
     font-size: 1.125em;
     margin-bottom: 1.2em;
 }
 
-#payflowpro_gateway-personal-info {
+#payment_gateway-personal-info {
 	margin-right:0 !important;
 }
 
-#payflowpro_gateway-donate-addl-info-secure-logos {
+#payment_gateway-donate-addl-info-secure-logos {
 	float: left;
 	margin-right: 2em;
 }
 
-#payflowpro_gateway-cc_form_letter_inside {	
+#payment_gateway-cc_form_letter_inside {	
 	padding-top: .5em;
 }
 
-#payflowpro_gateway-cc_otherways {
+#payment_gateway-cc_otherways {
 	padding-top: .5em;
 	display: block;
 }
-#payflowpro_gateway-donate-addl-info {
+#payment_gateway-donate-addl-info {
 	margin-top:2em !important;
 	margin-bottom:1em !important;
 }
@@ -166,41 +166,8 @@ h3.amount_header {
 	font-weight: normal;
 }
 
-table#payflow-table-donor{
+table#payment-table-donor{
     /*margin-left: 10px;*/
-}
-
-/* Form Inputs */
-
-input.halfwidth {
-	width: 190px;
-}
-input.fullwidth {
-	width: 392px;
-}
-
-input#city.halfwidth.state {
-	width:192px;
-}
-input#zip.halfwidth.state {
-	width:94px;
-	margin-left: 0;
-}
-select#state.us, select#state.au, select#state.ca {
-	width: 90px;
-}
-
-
-/* Specific element overrides */
-input#zip.ja {
-	width: 268px;
-}
-select#state.ja {
-	width:100%;
-}
-
-select#state.it {
-	width: auto;
 }
 
 /* From Webitects */

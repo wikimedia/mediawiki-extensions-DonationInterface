@@ -2679,6 +2679,7 @@ input[type="button"].btn-block {
           transition: height 0.35s ease;
 }
 
+/*
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../fonts/glyphicons-halflings-regular.eot');
@@ -2700,6 +2701,7 @@ input[type="button"].btn-block {
 .glyphicon:empty {
   width: 1em;
 }
+*/
 
 .glyphicon-asterisk:before {
   content: "\2a";

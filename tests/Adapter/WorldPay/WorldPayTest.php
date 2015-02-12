@@ -135,7 +135,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
-				'innerhtml' => 'By donating, you are sharing your information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers in the U.S. and elsewhere pursuant to our donor privacy policy. We do not sell or trade your information to anyone. For more information please read <a href="//wikimediafoundation.org/wiki/Donor_policy/en">our donor policy</a>.',
+				'innerhtml' => "By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donor policy</a>. Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. We do not sell or trade your information to anyone. For more information please read our <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">donor policy</a>."
 			),
 		);
 
@@ -181,10 +181,6 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			'lname' => array (
 				'nodename' => 'input',
 				'value' => 'Nom',
-			),
-			'informationsharing' => array (
-				'nodename' => 'p',
-				'innerhtml' => "En faisant ce don, vous acceptez notre politique de confidentialité en matière de donation ainsi que de partager vos données personnelles avec la <a href=\"https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Tax_Deductibility&amp;country=FR&amp;language=fr&amp;uselang=fr\">Fondation Wikimédia</a> et ses prestataires de services situés aux Etats-Unis et ailleurs.",
 			),
 			'country' => array (
 				'nodename' => 'input',
@@ -407,5 +403,18 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->assertTrue( $gateway->getCVVResult(), 'getCVVResult failing snowflake account' );
 
 		$this->assertTrue( $gateway->getAVSResult() < 25, 'getAVSResult giving snowflake account too high a risk score' );
+	}
+
+	function testNarrativeStatement1() {
+		$class = $this->testAdapterClass;
+		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
+		$options = $this->getDonorTestData();
+		$options['contribution_tracking_id'] = mt_rand();
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->_stageData();
+		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
+		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
+		$this->assertEquals( "Wikimedia {$options['contribution_tracking_id']}", $xml->NarrativeStatement1 );
 	}
 }

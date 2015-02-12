@@ -55,10 +55,12 @@ $( document ).ready( function () {
 	} );
 
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).live( 'click', function () {
+	$( '.cardradio' ).live( 'change', function (event) {
+
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '314px' }, 1000 );
 			displayCreditCardForm();
+
 			// hide the continue button so that people don't get confused with two of them
 			$( '#paymentContinue' ).hide();
 		} else {
@@ -67,4 +69,28 @@ $( document ).ready( function () {
 			$( '#paymentContinue' ).show();
 		}
 	} );
+
+	$( '#cards li' ).click( function (event) {
+		$( this ).find( 'input' ).click();
+	} );
+
+	$( '#cards li input' ).click( function (event) {
+		event.stopPropagation();
+	} );
+
+	// Card choice LI should only hover/clicky when enabled.
+	mediaWiki.toggleCreditCardRadios( true );
+
+	// Reset any selected radio buttons in case of page reload
+	$( '.cardradio' ).attr( 'checked', false );
 } );
+
+mediaWiki.toggleCreditCardRadios = function (enabled) {
+	$( '.cardradio, #paymentContinueBtn' ).prop( 'disabled', !enabled );
+
+	if ( enabled ) {
+		$( '#cards, #paymentContinueBtn' ).addClass( 'enabled' );
+	} else {
+		$( '#cards, #paymentContinueBtn' ).removeClass( 'enabled' );
+	}
+};
