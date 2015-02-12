@@ -50,7 +50,7 @@ class AmazonGateway extends GatewayPage {
 				return;
 			}
 
-			$this->log( 'At gateway return with params: ' . json_encode( $this->getRequest()->getValues() ), LOG_INFO );
+			DonationLogger::log( 'At gateway return with params: ' . json_encode( $this->getRequest()->getValues() ), LOG_INFO );
 			if ( $this->adapter->checkTokens() && $this->getRequest()->getText( 'status' ) ) {
 				$this->adapter->do_transaction( 'ProcessAmazonReturn' );
 
@@ -67,7 +67,7 @@ class AmazonGateway extends GatewayPage {
 				if ( !is_null( $specialform ) && $this->adapter->isValidSpecialForm( $specialform ) ){
 					$this->displayForm();
 				} else {
-					$this->log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
+					DonationLogger::log( 'Failed to process gateway return. Tokens bad or no status.', LOG_ERR );
 				}
 			}
 		}

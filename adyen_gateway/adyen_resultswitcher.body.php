@@ -55,11 +55,11 @@ class AdyenGatewayResult extends GatewayPage {
 		global $wgServer;
 		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
 			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
-			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $oid);
+			DonationLogger::log("Resultswitcher: Popping out of iframe for Order ID " . $oid);
 			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
 			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
 			if ( $forbidden ) {
-				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
+				DonationLogger::log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
 			}
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
@@ -69,10 +69,10 @@ class AdyenGatewayResult extends GatewayPage {
 		$this->setHeaders();
 
 		if ( $forbidden ){
-			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid", LOG_CRIT );
+			DonationLogger::log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid", LOG_CRIT );
 			return;
 		} else {
-			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $oid );
+			DonationLogger::log( "Resultswitcher: OK to process Order ID: " . $oid );
 		}
 
 		if ( $this->adapter->checkTokens() ) {
@@ -91,7 +91,7 @@ class AdyenGatewayResult extends GatewayPage {
 				$this->getOutput()->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
-			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
+			DonationLogger::log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
 		}
 	}
 
