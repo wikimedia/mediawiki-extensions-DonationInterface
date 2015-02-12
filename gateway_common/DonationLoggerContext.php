@@ -48,10 +48,10 @@ class DonationLoggerContext {
 	static protected $settingsStack;
 
 	/**
-	 * The key of the current instance's config in $settingsStack
-	 * @var int
+	 * Settings added by the current instance
+	 * @var array
 	 */
-	protected $localSettingsKey;
+	protected $localSettings = array();
 
 	/**
 	 * Initializes settingsStack and public properties with default values
@@ -76,16 +76,48 @@ class DonationLoggerContext {
 	 */
 	public function __construct( $config ) {
 		self::initialize();
+		$this->pushSettings( $config );
+	}
+
+	/**
+	 * Allows a class that already has a context instance to selectively
+	 * override certain properties
+	 * @param array $config
+	 * @see __construct
+	 */
+	public function pushSettings( $config ) {
 		self::$settingsStack[] = $config;
-		$this->localSettingsKey = array_search( $config, self::$settingsStack, true );
+		array_push( $this->localSettings, $config );
 		self::setCurrent();
 	}
 
-	public function __destruct() {
-		if ( isset( $this->localSettingsKey ) ) {
-			unset( self::$settingsStack[$this->localSettingsKey] );
-			self::setCurrent();
+	/**
+	 * Undo the last pushSettings.  If you call it too many times, it'll even
+	 * undo the settings you used to construct this instance.  But that's wierd.
+	 * @return array The settings you just removed
+	 */
+	public function popSettings() {
+		if ( !$this->localSettings ) {
+			throw new MWException( 'Bad programmer!  You called popSettings at least one too many times!' );
 		}
+		$config = $this->popInternal();
+		self::setCurrent();
+		return $config;
+	}
+
+	public function __destruct() {
+		while ( $this->localSettings ) {
+			$this->popInternal();
+		}
+		self::setCurrent();
+	}
+
+	protected function popInternal() {
+		$config = array_pop( $this->localSettings );
+		// strict search to find same array instance
+		$index = array_search( $config, self::$settingsStack, true );
+		unset( self::$settingsStack[$index] );
+		return $config;
 	}
 
 	/**
