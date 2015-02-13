@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Incomplete shim library for processing payments from Drupal
+ *
+ * Please note that some functionality is still unsupported, because it
+ * relies on unported MediaWiki dependencies, or stubs here such as
+ * getLanguageCode.  The only code path in active use is to make recurring
+ * charges through GlobalCollect.
+ */
 class WmfFramework_Drupal {
 	static function debugLog( $identifier, $msg ) {
 		watchdog( 'DonationInterface', "{$identifier}: {$msg}", NULL, WATCHDOG_DEBUG );
