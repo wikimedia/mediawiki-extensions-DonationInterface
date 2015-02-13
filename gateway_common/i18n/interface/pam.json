@@ -4,5 +4,6 @@
 			"Leeheonjin"
 		]
 	},
+	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, globalcollect, etc."
 }
