@@ -14,7 +14,8 @@
 			"පසිඳු කාවින්ද",
 			"Fitoschido",
 			"Toniher",
-			"Pcoombe"
+			"Pcoombe",
+			"Macofe"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -311,5 +312,6 @@
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Un sol cop",
 	"donate_interface-secureLogo-text": "Quant als certificats SSL",
-	"donate_interface-error-http-403": "No teniu els permisos necessaris per a accedir a aquesta pàgina."
+	"donate_interface-error-http-403": "No teniu els permisos necessaris per a accedir a aquesta pàgina.",
+	"donate_interface-statement": "Wikimedia $1"
 }
