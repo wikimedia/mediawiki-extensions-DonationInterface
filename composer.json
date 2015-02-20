@@ -1,5 +1,5 @@
 {
-	"name": "wikimedia/DonationInterface",
+	"name": "wikimedia/donation-interface",
 	"description": "Wikimedia Foundation payment processing library",
 	"license": "GPL-2.0",
 	"support": {
