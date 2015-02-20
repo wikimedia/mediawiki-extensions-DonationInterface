@@ -3189,7 +3189,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$salt = implode( "|", $salt );
 		}
 
-		$salted = md5( $clear_token . $salt ) . EDIT_TOKEN_SUFFIX;
+		$salted = md5( $clear_token . $salt ) . User::EDIT_TOKEN_SUFFIX;
 		return $salted;
 	}
 
