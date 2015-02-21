@@ -70,18 +70,18 @@ class GlobalCollectGatewayResult extends GatewayPage {
 			$f_message = "Requested order id not present in the session. (session_oid = '$session_oid')";
 
 			if ( !$_SESSION ) {
-				DonationLogger::log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data.", LOG_ERR );
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data.", LOG_ERR );
 			}
 		}
 
 		if ( $forbidden ){
-			DonationLogger::log( $this->qs_oid . " Resultswitcher: forbidden for reason: {$f_message}", LOG_ERR );
+			$this->adapter->log( $this->qs_oid . " Resultswitcher: forbidden for reason: {$f_message}", LOG_ERR );
 			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 			return;
 		}
 
 		$this->setHeaders();
-		DonationLogger::log( "Resultswitcher: OK to process Order ID: " . $this->qs_oid );
+		$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $this->qs_oid );
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
@@ -97,7 +97,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 					if ( array_key_exists( 'pending', $_SESSION ) ){
 						$started = $_SESSION['pending'];
 						//not sure what to do with this yet, but I sure want to know if it's happening. 
-						DonationLogger::log( "Resultswitcher: Parallel Universe Unlocked. Start time: $started", LOG_ALERT );
+						$this->adapter->log( "Resultswitcher: Parallel Universe Unlocked. Start time: $started", LOG_ALERT );
 					}
 					
 					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky. 
@@ -106,7 +106,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
 					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
-					DonationLogger::log( "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'], LOG_ERR );
+					$this->adapter->log( "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'], LOG_ERR );
 				}
 				$result = $_SESSION['order_status'][$oid];
 				$this->displayResultsForDebug( $result );
@@ -128,16 +128,16 @@ class GlobalCollectGatewayResult extends GatewayPage {
 						$this->getOutput()->addHTML( "<br>Redirecting to page $go" );
 						$this->getOutput()->redirect( $go );
 					} else {
-						DonationLogger::log("Resultswitcher: No redirect defined. Order ID: $oid", LOG_ERR);
+						$this->adapter->log("Resultswitcher: No redirect defined. Order ID: $oid", LOG_ERR);
 					}
 				} else {
-					DonationLogger::log("Resultswitcher: No FinalStatus. Order ID: $oid", LOG_ERR);
+					$this->adapter->log("Resultswitcher: No FinalStatus. Order ID: $oid", LOG_ERR);
 				}
 			} else {
-				DonationLogger::log("Resultswitcher: Payment method is not cc. Order ID: $oid", LOG_ERR);
+				$this->adapter->log("Resultswitcher: Payment method is not cc. Order ID: $oid", LOG_ERR);
 			}
 		} else {
-			DonationLogger::log("Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR);
+			$this->adapter->log("Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR);
 		}
 	}
 	
@@ -169,17 +169,17 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		$referrer = $this->getRequest()->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
 			if ( !$_SESSION ) {
-				DonationLogger::log( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie.", LOG_ERR );
+				$this->adapter->log( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie.", LOG_ERR );
 			}
 
 			$_SESSION['order_status'][$this->qs_oid] = 'liberated';
-			DonationLogger::log("Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid);
+			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid);
 
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
 			return true;
 		}
 
-		DonationLogger::log( "Resultswitcher: good, it appears we are not in an iframe. Order ID {$this->qs_oid}" );
+		$this->adapter->log( "Resultswitcher: good, it appears we are not in an iframe. Order ID {$this->qs_oid}" );
 	}
 }

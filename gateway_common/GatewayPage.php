@@ -119,7 +119,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$page = $this->adapter->getGlobal( "FailPage" );
 
 			$log_message = '"Redirecting to [ ' . $page . ' ] "';
-			DonationLogger::log( $log_message, LOG_INFO );
+			$this->log( $log_message, LOG_INFO );
 
 			if ( $page ) {
 
@@ -209,7 +209,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @param int|string $log_level The severity level of the message.
 	 */
 	public function log( $msg, $log_level=LOG_INFO ) {
-		DonationLogger::log( $msg, $log_level );
+		$this->adapter->log( $msg, $log_level );
 	}
 
 	/**
@@ -332,7 +332,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			'currency_code' => $defaultCurrency
 		) );
 
-		DonationLogger::log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
+		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
 	}
 }
