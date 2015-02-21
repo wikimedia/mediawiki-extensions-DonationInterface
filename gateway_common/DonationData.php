@@ -19,28 +19,16 @@ class DonationData {
 	protected $validationErrors = null;
 
 	/**
-	 * @var DonationLoggerContext
-	 */
-	protected $loggerContext;
-
-	/**
 	 * DonationData constructor
 	 * @param GatewayAdapter $gateway
 	 * @param mixed $data An optional array of donation data that will, if 
 	 * present, circumvent the usual process of gathering the data from various 
 	 * places in $wgRequest, or 'false' to gather the data the usual way. 
-	 * Default is false.
+	 * Default is false. 
 	 */
 	function __construct( $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->gateway->getIdentifier();
-
-		// Push a new context on so we can use our own getLogMessagePrefix
-		// before the adapter knows we exist.
-		$this->loggerContext = new DonationLoggerContext( array(
-			'getLogMessagePrefix' => array( $this, 'getLogMessagePrefix' ),
-		) );
-
 		$this->populateData( $data );
 	}
 
@@ -651,11 +639,18 @@ class DonationData {
 	}
 
 	/**
+	 * log: This grabs the adapter class that instantiated DonationData, and
+	 * uses its log function.
+	 * @TODO: Once the DonationData constructor does less, we can stop using
+	 * the static log function in the gateway. As it is, we're trying to log
+	 * things as we're constructing, when as far as the gateway cares we
+	 * don't exist yet. Very circular.
 	 * @param string $message The message to log.
 	 * @param int|string $log_level
 	 */
 	protected function log( $message, $log_level = LOG_INFO ) {
-		DonationLogger::log( $message, $log_level );
+		$message = $this->getLogMessagePrefix() . $message;
+		$this->gateway->_log( $message, $log_level );
 	}
 
 	/**

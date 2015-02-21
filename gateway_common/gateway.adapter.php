@@ -222,11 +222,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $payment_submethods = array();
 
 	/**
-	 * @var DonationLoggerContext
-	 */
-	protected $loggerContext;
-
-	/**
 	 * Staged variables. This is affected by the transaction type.
 	 *
 	 * @var array $staged_vars
@@ -328,13 +323,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->batch = $options['batch_mode'];
 			unset( $options['batch_mode'] );
 		}
-
-		$this->loggerContext = new DonationLoggerContext( array(
-			'debug' => self::getGlobal( 'LogDebug' ),
-			'syslog' => self::getGlobal( 'UseSyslog' ),
-			'identifier' => self::getIdentifier(),
-			'getLogMessagePrefix' => array( $this, 'getLogMessagePrefix' ),
-		) );
 
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
@@ -1542,7 +1530,42 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return null
 	 */
 	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		DonationLogger::log( $msg, $log_level, $log_id_suffix );
+		if ( !self::getGlobal('LogDebug') && $log_level === LOG_DEBUG ){
+			//stfu, then.
+			return;
+		}
+
+		$msg = $this->getLogMessagePrefix() . $msg;
+		self::_log( $msg, $log_level, $log_id_suffix );
+	}
+
+	/**
+	 * DO NOT USE THIS FUNCTION UNLESS YOU CAN'T INSTANTIATE.
+	 * /sadface
+	 * @param type $msg
+	 * @param type $log_level
+	 * @param type $log_id_suffix
+	 * @return type
+	 */
+	public static function _log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
+		if ( !self::getGlobal( 'LogDebug' ) && $log_level === LOG_DEBUG ) {
+			//stfu, then.
+			return;
+		}
+
+		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
+
+		// if we're not using the syslog facility, use wfDebugLog
+		if ( !self::getGlobal( 'UseSyslog' ) ) {
+			WmfFramework::debugLog( $identifier, $msg );
+			return;
+		}
+
+		// otherwise, use syslogging
+		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
+		$msg = str_replace( "\t", " ", $msg );
+		syslog( $log_level, $msg );
+		closelog();
 	}
 
 	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
