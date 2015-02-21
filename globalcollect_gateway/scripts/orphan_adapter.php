@@ -8,9 +8,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	public function __construct() {
 		$this->batch = true; //always batch if we're using this object.
 		parent::__construct( $options = array ( ) );
-		$this->loggerContext->pushSettings( array(
-			'identifier' => 'orphans:' . self::getIdentifier() . "_gateway_trxn"
-		) );
 	}
 
 	public function unstage_data( $data = array( ), $final = true ) {
@@ -100,6 +97,31 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			$this->unstaged_data[$key] = $val;
 			$this->staged_data[$key] = $val;
 		}
+	}
+
+	/**
+	 * Unfortunate, but we have to overload this here, or change the way we
+	 * build that identifier.
+	 * @param string $msg
+	 * @param type $log_level
+	 * @param type $nothing
+	 * @return type
+	 */
+	public function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
+		$identifier = 'orphans:' . self::getIdentifier() . "_gateway_trxn";
+
+		$msg = $this->getLogMessagePrefix() . $msg;
+
+		// if we're not using the syslog facility, use wfDebugLog
+		if ( !self::getGlobal( 'UseSyslog' ) ) {
+			WmfFramework::debugLog( $identifier, $msg );
+			return;
+		}
+
+		// otherwise, use syslogging
+		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
+		syslog( $log_level, $msg );
+		closelog();
 	}
 
 	public function getUTMInfoFromDB() {

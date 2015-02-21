@@ -88,7 +88,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				sleep(2); //two seconds. 
 			}
 		}
-		DonationLogger::log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
+		$this->adapter->log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 		
 		if ( $this->keepGoing() ){
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
@@ -149,7 +149,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
-		DonationLogger::log($final);
+		$this->adapter->log($final);
 		echo $final;
 	}
 	
@@ -217,7 +217,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		}
 		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
-		DonationLogger::log("Found $count antimessages.");
+		$this->adapter->log("Found $count antimessages.");
 		return $count;
 	}
 	
@@ -355,10 +355,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		if ($results['status']){
-			DonationLogger::log( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
+			$this->adapter->log( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
 			$rectified = true;
 		} else {
-			DonationLogger::log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
+			$this->adapter->log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
 			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
