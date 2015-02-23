@@ -173,7 +173,7 @@ interface LogPrefixProvider {
  * GatewayAdapter
  *
  */
-abstract class GatewayAdapter implements GatewayType {
+abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * $dataConstraints provides information on how to handle variables.

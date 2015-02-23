@@ -48,6 +48,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected $gatewayAdapter;
 
 	/**
+	 * @var TestingDonationLogger
+	 */
+	protected $testLogger;
+
+	/**
 	 * @param $name string The name of the test case
 	 * @param $data array Any parameters read from a dataProvider
 	 * @param $dataName string|int The name or index of the data set
@@ -65,11 +70,14 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	protected function setUp() {
+		$this->testLogger = new TestingDonationLogger();
+		DonationLoggerFactory::$overrideLogger = $this->testLogger;
 		parent::setUp();
 	}
 
 	protected function tearDown() {
 		$this->resetAllEnv();
+		DonationLoggerFactory::$overrideLogger = null;
 		parent::tearDown();
 	}
 
@@ -593,6 +601,26 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 		if ( sizeof( $return ) === 1 ) {
 			return $return[0];
+		}
+		return $return;
+	}
+
+	/**
+	 * Version of @see getGatewayLogMatches, but checking the mock PSR-3 logger.
+	 * @param string $log_level One of the constants in \Psr\Log\LogLevel
+	 * @param string $match A regex to match against the log lines.
+	 * @return array All log lines that match $match.
+	 */
+	public function getLogMatches( $log_level, $match ) {
+		$log = $this->testLogger->messages;
+		if ( !array_key_exists( $log_level, $log ) ) {
+			return false;
+		}
+		$return = array ( );
+		foreach ( $log[$log_level] as $line ) {
+			if ( preg_match( $match, $line ) ) {
+				$return[] = $line;
+			}
 		}
 		return $return;
 	}
