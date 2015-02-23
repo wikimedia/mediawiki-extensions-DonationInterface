@@ -230,7 +230,7 @@ class AmazonAdapter extends GatewayAdapter {
 			unset( $request_params[ 'title' ] );
 			$incoming = http_build_query( $request_params, '', '&' );
 			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
-			$this->log( "received callback from amazon with: $incoming", LOG_DEBUG );
+			$this->logger->debug( "received callback from amazon with: $incoming" );
 			break;
 		}
 
@@ -243,7 +243,7 @@ class AmazonAdapter extends GatewayAdapter {
 			case 'Donate':
 			case 'DonateMonthly':
 				$query_str = $this->encodeQuery( $query );
-				$this->log( "At $transaction, redirecting with query string: $query_str", LOG_DEBUG );
+				$this->logger->debug( "At $transaction, redirecting with query string: $query_str" );
 				
 				//always have to do this before a redirect. 
 				$this->dataObj->saveContributionTrackingData();
@@ -259,7 +259,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$query_str = $this->encodeQuery( $query );
 				$this->url .= "?{$query_str}&Signature={$signature}";
 
-				$this->log( "At $transaction, query string: $query_str", LOG_DEBUG );
+				$this->logger->debug( "At $transaction, query string: $query_str" );
 
 				parent::do_transaction( $transaction );
 
@@ -277,7 +277,7 @@ class AmazonAdapter extends GatewayAdapter {
 				break;
 
 			default:
-				$this->log( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
+				$this->logger->critical( "At $transaction; THIS IS NOT DEFINED!" );
 				$this->finalizeInternalStatus( 'failed' );
 		}
 
@@ -310,7 +310,7 @@ class AmazonAdapter extends GatewayAdapter {
 				// We will however log it if we have a seemingly valid transaction id
 				if ( $txnid != null ) {
 					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-					$this->log( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required.", LOG_ALERT );
+					$this->logger->alert( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required." );
 					if ( $this->getGlobal( 'UseOrderIdValidation' ) ) {
 						$this->finalizeInternalStatus( 'failed' );
 						return;
@@ -325,7 +325,7 @@ class AmazonAdapter extends GatewayAdapter {
 			// about the transaction.
 			// todo: lots of other statuses we can interpret
 			// see: http://docs.amazonwebservices.com/AmazonSimplePay/latest/ASPAdvancedUserGuide/ReturnValueStatusCodes.html
-			$this->log( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ), LOG_INFO );
+			$this->logger->info( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ) );
 			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
 				case 'PS':  // Payment success
 					$this->finalizeInternalStatus( 'complete' );
@@ -351,12 +351,12 @@ class AmazonAdapter extends GatewayAdapter {
 				default:	// All other errorz
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
-					$this->log( "Transaction $txnid failed with ($status) $errString", LOG_INFO );
+					$this->logger->info( "Transaction $txnid failed with ($status) $errString" );
 					$this->finalizeInternalStatus( 'failed' );
 					break;
 			}
 		} else {
-			$this->log( 'Apparently we attempted to process a transaction that already had a final status... Odd', LOG_ERR );
+			$this->logger->error( 'Apparently we attempted to process a transaction that already had a final status... Odd' );
 		}
 	}
 
@@ -394,7 +394,7 @@ class AmazonAdapter extends GatewayAdapter {
 							$add_data['payment_submethod'] = $submethods[$value];
 						} else {
 							//We don't rely on this anywhere serious, but I want to know about it anyway.
-							$this->log( "Amazon just coughed up a surprise payment submethod of '$value'.", LOG_ERR );
+							$this->logger->error( "Amazon just coughed up a surprise payment submethod of '$value'." );
 							$add_data['payment_submethod'] = 'unknown';
 						}
 						break;
@@ -410,12 +410,12 @@ class AmazonAdapter extends GatewayAdapter {
 		$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
 		$email = $this->dataObj->getVal_Escaped( 'email' );
 
-		$this->log( "Added data to session for txnid $txnid. Now serving email $email.", LOG_INFO );
+		$this->logger->info( "Added data to session for txnid $txnid. Now serving email $email." );
 	}
 
 	function processResponse( $response, &$retryVars = null ) {
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
-			$this->log( "Transaction failed in response data verification.", LOG_INFO );
+			$this->logger->info( "Transaction failed in response data verification." );
 			$this->finalizeInternalStatus( 'failed' );
 		}
 	}

@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * @group Fundraising
@@ -58,8 +59,8 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'cc-vmad', $ffname, "GC did not load the expected form." );
 
 		$errors = '';
-		if ( array_key_exists( LOG_ERR, $gateway->testlog ) ) {
-			foreach ( $gateway->testlog[LOG_ERR] as $msg ) {
+		if ( array_key_exists( LogLevel::ERROR, $this->testLogger->messages ) ) {
+			foreach ( $this->testLogger->messages[LogLevel::ERROR] as $msg ) {
 				$errors += "$msg\n";
 			}
 		}
@@ -67,5 +68,3 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	}
 
 }
-
-

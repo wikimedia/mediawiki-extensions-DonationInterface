@@ -203,7 +203,7 @@ class AdyenAdapter extends GatewayAdapter {
 					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
-						$this->log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
+						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
 						$this->setTransactionResult( array(
 							'status' => false,
 							'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
@@ -221,7 +221,7 @@ class AdyenAdapter extends GatewayAdapter {
 						'data'
 					);
 					$requestParams = $this->buildRequestParams();
-					$this->log( "launching external iframe request: " . print_r( $requestParams, true )
+					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
 					$this->setTransactionResult(
 						$requestParams,
@@ -479,13 +479,13 @@ class AdyenAdapter extends GatewayAdapter {
 		if ( $response === NULL ) { // convert GET data
 			$request_vars = $_GET;
 
-			$this->log( "Processing user return data: " . print_r( $request_vars, TRUE ) );
+			$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
 
 			if ( !$this->checkResponseSignature( $request_vars ) ) {
-				$this->log( "Bad signature in response" );
+				$this->logger->info( "Bad signature in response" );
 				return 'BAD_SIGNATURE';
 			} else {
-				$this->log( "Good signature", LOG_DEBUG );
+				$this->logger->debug( "Good signature" );
 			}
 
 			$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
@@ -494,11 +494,11 @@ class AdyenAdapter extends GatewayAdapter {
 			if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 				// Both of these are listed as pending because we have to submit a capture
 				// request on 'AUTHORIZATION' ipn message receipt.
-				$this->log( "User came back as pending or authorised, placing in pending queue" );
+				$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
 				$this->finalizeInternalStatus( 'pending' );
 			}
 			else {
-				$this->log( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
+				$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
 				$this->finalizeInternalStatus( 'failed' );
 				return 'UNKNOWN';
 			}
@@ -508,7 +508,7 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->doLimboStompTransaction( TRUE ); // add antimessage
 			return null;
 		}
-		$this->log( "No response from gateway" );
+		$this->logger->info( "No response from gateway" );
 		return 'NO_RESPONSE';
 	}
 
