@@ -1,4 +1,5 @@
 <?php
+use Psr\Log\LogLevel;
 
 /**
  * An abstract class for gateway 'extras'
@@ -6,63 +7,38 @@
 abstract class Gateway_Extras {
 
 	/**
-	 * File handle for log file
-	 * @var
-	 */
-	public $log_fh = NULL;
-
-	/**
 	 * @var GatewayAdapter
 	 */
 	public $gateway_adapter;
 
-	public function __construct( &$gateway_adapter ) {
-		$this->gateway_adapter = &$gateway_adapter;
-
-		$extrasLog = $this->gateway_adapter->getGlobal( 'ExtrasLog' );
-		// prepare the log file if the user has specified one
-		if ( strlen( $extrasLog ) > 0 )
-			$this->prepare_log_file( $extrasLog );
-	}
+	/**
+	 * Sends messages to the blah_gateway_trxn log
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $transaction_logger;
 
 	/**
-	 * Prepare logging mechanism
-	 * 
-	 * If 'syslog' is specified, we can use the syslogger.  If a file
-	 * is specified, we'll writ to the file.  Otherwise, do nothing.
-	 *
-	 * @param string $log_file Path to log file
+	 * Sends messages to the standard gateway log
+	 * @var \Psr\Log\LoggerInterface
 	 */
-	protected function prepare_log_file( $log_file ) {
+	protected $gateway_logger;
 
-		if ( strtolower( $log_file ) == "syslog" ) {
-
-			$this->log_fh = 'syslog';
-		} elseif ( is_file( $log_file ) ) {
-
-			$this->log_fh = fopen( $log_file, 'a+' );
-		} else {
-
-			$this->log_fh = null;
-		}
+	public function __construct( &$gateway_adapter ) {
+		$this->gateway_adapter = &$gateway_adapter;
+		$this->transaction_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_trxn' );
+		$this->gateway_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter );
 	}
 
 	/**
 	 * Writes message to the log
 	 *
-	 * If a log file does not exist and we are not using syslog,
-	 * do nothing.
-	 * @fixme Perhaps lack of log file can be handled better?
+	 * @fixme Do formatting with a Monolog formatter
 	 * @param string $id
 	 * @param string $status
 	 * @param string $data
-	 * @param int $log_level
+	 * @param string $log_level One of the constants defined in @see \Psr\Log\LogLevel
 	 */
-	public function log( $id = '', $status = '', $data = '', $log_level=LOG_INFO ) {
-		if ( !$this->log_fh ) {
-			echo "what log file?";
-			return;
-		}
+	public function log( $id = '', $status = '', $data = '', $log_level = LogLevel::INFO ) {
 
 		// format the message
 		$msg = '"' . date( 'c' ) . '"';
@@ -70,14 +46,10 @@ abstract class Gateway_Extras {
 		$msg .= "\t" . '"' . $status . '"';
 		$msg .= "\t" . $data . "\n";
 
-		// write to the log
-		if ( $this->log_fh == 'syslog' ) { //use syslog facility
-			// replace tabs with spaces - maybe do this universally?  cuz who needs tabs.
-			$msg = str_replace( "\t", " ", $msg );
-			$this->gateway_adapter->log( $msg, $log_level, '_trxn' );
-		} else { //write to file
-			fwrite( $this->log_fh, $msg );
-		}
+		// replace tabs with spaces - maybe do this universally?  cuz who needs tabs.
+		$msg = str_replace( "\t", " ", $msg );
+
+		$this->transaction_logger->log( $log_level, $msg );
 	}
 
 	/**
@@ -103,13 +75,4 @@ abstract class Gateway_Extras {
 
 		return FALSE;
 	}
-
-	/**
-	 * Close the open log file handler if it's open
-	 */
-	public function __destruct() {
-		if ( is_resource( $this->log_fh ) )
-			fclose( $this->log_fh );
-	}
-
 }

@@ -44,10 +44,6 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		return self::$instance;
 	}
 
-	public function __construct( &$gateway_adapter ) {
-		parent::__construct( $gateway_adapter );
-	}
-
 	/**
 	 * @static Filter hook chain gateway function
 	 *
@@ -132,13 +128,13 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		// Analyze the filter results
 		if ( $score >= $threshold ) {
 			// Ahh!!! Failure!!! Sloooooooow doooowwwwnnnn
-			$this->gateway_adapter->log( "SessionVelocity: Rejecting request due to of " . $score, LOG_ALERT );
+			$this->gateway_logger->alert( "SessionVelocity: Rejecting request due to of " . $score );
 			$retval = false;
 		} else {
 			$retval = true;
 		}
 
-		$this->gateway_adapter->log( "SessionVelocity: ($gateway, $transaction) Score: $score, AllowAction: $retval, DecayRate: $decayRate, Threshold: $threshold", LOG_DEBUG );
+		$this->gateway_logger->debug( "SessionVelocity: ($gateway, $transaction) Score: $score, AllowAction: $retval, DecayRate: $decayRate, Threshold: $threshold" );
 
 		return $retval;
 	}

@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  *
@@ -282,8 +283,8 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->assertTrue( array_key_exists( 'internal-0001', $errors ), 'Unexpected error code' );
 
 		//check more things to make sure we didn't run any fraud filters
-		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Preparing to run custom filters/' );
-		$this->assertFalse( $logline, 'According to the logs, we ran antifraud filters and should not have' );
+		$loglines = $this->getLogMatches( LogLevel::INFO, '/Preparing to run custom filters/' );
+		$this->assertEmpty( $loglines, 'According to the logs, we ran antifraud filters and should not have' );
 		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
 
@@ -306,8 +307,8 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$errors = $gateway->getTransactionErrors();
 		$this->assertTrue( empty( $errors ), 'Errors assigned in getTransactionErrors after a good "AuthorizePaymentForFraud"' );
 		//check more things to make sure we did run the fraud filters
-		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/CustomFiltersScores/' );
-		$this->assertType( 'string', $logline, 'No antifraud filters were run, according to the logs' );
+		$loglines = $this->getLogMatches( LogLevel::INFO, '/CustomFiltersScores/' );
+		$this->assertNotEmpty( $loglines, 'No antifraud filters were run, according to the logs' );
 		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
 	}
