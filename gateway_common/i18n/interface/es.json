@@ -341,7 +341,7 @@
 	"donate_interface-shipping-address": "Dirección de envío",
 	"donate_interface-shipping-address-different": "Mi dirección de envío es diferente de la dirección de facturación.",
 	"donate_interface-shipping-address-same": "Dirección de envío misma que la dirección de facturación.",
-	"donate_interface-only-billing-address": "Camisas sólo pueden ser enviados a su dirección de facturación.",
+	"donate_interface-only-billing-address": "Solo se pueden enviar las camisetas a la dirección de facturación.",
 	"donate_interface-donation-must-equal": "Donación debe ser igual a $1 o más.",
 	"donate_interface-thank-you": "¡Gracias! Su donación se ha recibido.",
 	"donate_interface-wikipedia-translation": "Tenga en cuenta: \"Wikipedia\" en la manga de la camisa será la \"Wikipedia 10\" gráfica, que no está traducido.",
