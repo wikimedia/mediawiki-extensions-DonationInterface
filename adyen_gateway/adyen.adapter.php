@@ -199,7 +199,7 @@ class AdyenAdapter extends GatewayAdapter {
 				case 'donate':
 					$formaction = $this->getGlobal( 'BaseURL' ) . '/hpp/pay.shtml';
 					$this->runAntifraudHooks();
-					$this->addData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
+					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
@@ -516,44 +516,15 @@ class AdyenAdapter extends GatewayAdapter {
 	protected function stage_language( $type = 'request' ) {
 	*/
 
-	/**
-	 * Stage: amount
-	 *
-	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
-	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
-	 *
-	 * @param string	$type	request|response
-	 */
-	protected function stage_amount( $type = 'request' ) {
-		if ( !isset( $this->staged_data['amount'] ) || !isset( $this->staged_data['currency_code'] ) ) {
-			//can't do anything with amounts at all. Just go home.
-			return;
-		}
-
-		switch ( $type ) {
-			case 'request':
-				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {
-					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
-				}
-
-				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
-				break;
-
-			case 'response':
-				$this->staged_data['amount'] = $this->staged_data['amount'] / 100;
-				break;
-		}
-	}
-
-	protected function stage_risk_score( $type = 'request' ) {
+	protected function stage_risk_score() {
 		//This isn't smart enough to grab a new value here;
 		//Late-arriving values have to trigger a restage via addData or
 		//this will always equil the risk_score at the time of object
 		//construction. Still need the formatting, though.
-		$this->staged_data['risk_score'] = ( string ) round( $this->staged_data['risk_score'] );
+		$this->staged_data['risk_score'] = ( string ) round( $this->unstaged_data['risk_score'] );
 	}
 
-	protected function stage_hpp_signature( $type = 'request' ) {
+	protected function stage_hpp_signature() {
 		$keys = array(
 			'amount',
 			'currency_code',
@@ -577,7 +548,7 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->staged_data['hpp_signature'] = $this->calculateSignature( $sig_values );
 	}
 
-	protected function stage_billing_signature( $type = 'request' ) {
+	protected function stage_billing_signature() {
 		$keys = array(
 			'street',
 			'city',

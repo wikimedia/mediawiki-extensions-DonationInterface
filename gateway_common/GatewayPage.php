@@ -327,7 +327,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
 		}
 
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => $newAmount,
 			'currency_code' => $defaultCurrency
 		) );

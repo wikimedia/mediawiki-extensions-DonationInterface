@@ -150,7 +150,7 @@ interface GatewayType {
 	 * Called in the constructor, this function should be used to define
 	 * pieces of default data particular to the gateway. It will be up to
 	 * the child class to poke the data through to the data object
-	 * (probably with $this->addData()).
+	 * (probably with $this->addRequestData()).
 	 * DO NOT set default payment information here (or anywhere, really).
 	 * That would be naughty.
 	 */
@@ -378,7 +378,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$this->account_config = $acctConfig[ $this->account_name ];
 
-		$this->addData( array(
+		$this->addRequestData( array(
 			'gateway_account' => $this->account_name,
 		) );
 	}
@@ -507,20 +507,18 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 *  A helper function to let us stash extra data after the form has been submitted.
+	 * A helper function to let us stash extra data after the form has been submitted.
 	 *
 	 * @param array  $dataArray An associative array of data.
-	 * @param string $pipelineStage 'request' to the gateway or 'response' from the
-	 *                              gateway depending on what you're actually doing.
 	 */
-	public function addData( $dataArray, $pipelineStage = 'request' ) {
+	public function addRequestData( $dataArray ) {
 		$this->dataObj->addData( $dataArray );
 
 		$calculated_fields = $this->dataObj->getCalculatedFields();
 		$data_fields = array_keys( $dataArray );
 		$data_fields = array_merge( $data_fields, $calculated_fields );
 
-		foreach ( $data_fields as $value){
+		foreach ( $data_fields as $value ) {
 			$this->refreshGatewayValueFromSource( $value );
 		}
 
@@ -530,8 +528,23 @@ abstract class GatewayAdapter implements GatewayType {
 		//function, to calculate any other staged var.
 		$changed_staged_vars = array_intersect( $this->staged_vars, $data_fields );
 		if ( count( $changed_staged_vars ) ) {
-			$this->stageData( $pipelineStage );
+			$this->stageData();
 		}
+	}
+
+	/**
+	 * Stash and process response data.
+	 *
+	 * @param array  $dataArray An associative array of data.
+	 */
+	public function addResponseData( $dataArray ) {
+		foreach ( $dataArray as $key => $value ) {
+			$this->staged_data[$key] = $value;
+		}
+
+		$this->unstageData();
+
+		$this->dataObj->addData( $this->unstaged_data );
 	}
 
 	/**
@@ -1989,25 +2002,38 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * @param string $type Whatever types of staging you feel like having in your child class.
-	 * ...but usually request and response. I think.
+	 * Run any staging functions provided by the adapter
 	 */
-	protected function stageData( $type = 'request' ) {
-		if ( $type === 'request' ){
-			//reset from our normalized unstaged data so we never double-stage
-			$this->staged_data = $this->unstaged_data;
-		}
+	protected function stageData() {
+		// Copy data, the default is to not change the values.
+		//reset from our normalized unstaged data so we never double-stage
+		$this->staged_data = $this->unstaged_data;
+
+		// This allows transactions to each stage different data.
 		$this->defineStagedVars();
-		//If we tried to piggyback off the same loop, all the vars wouldn't be ready, and some staging functions will require
-		//multiple variables.
+
 		foreach ( $this->staged_vars as $field ) {
 			$function_name = 'stage_' . $field;
-			$this->executeIfFunctionExists( $function_name, $type );
+			$this->executeIfFunctionExists( $function_name );
 		}
 
 		// Format the staged data
-		if ($type === 'request'){
-			$this->formatStagedData();
+		$this->formatStagedData();
+	}
+
+	/**
+	 * Run any unstaging functions to decode processor responses
+	 */
+	protected function unstageData() {
+		// Copy from staged data, 
+		$this->unstaged_data = $this->staged_data;
+
+		// FIXME: we should have a list of unstaged_vars for each transaction.
+		$this->defineStagedVars();
+
+		foreach ( $this->staged_vars as $field ) {
+			$function_name = 'unstage_' . $field;
+			$this->executeIfFunctionExists( $function_name );
 		}
 	}
 
@@ -2047,57 +2073,86 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+ 	/**
+ 	 * Stage: amount
+ 	 *
+ 	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
+ 	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
+ 	 */
+ 	protected function stage_amount() {
+ 		if ( !$this->getData_Unstaged_Escaped( 'amount' )
+			|| !$this->getData_Unstaged_Escaped( 'currency_code' )
+		) {
+ 			//can't do anything with amounts at all. Just go home.
+			unset( $this->staged_data['amount'] );
+ 			return;
+ 		}
+
+		$amount = $this->getData_Unstaged_Escaped( 'amount' );
+		if ( !DataValidator::is_fractional_currency( $this->getData_Unstaged_Escaped( 'currency_code' ) ) ) {
+			$amount = floor( $amount );
+		}
+
+		$this->staged_data['amount'] = $amount * 100;
+	}
+
+	protected function unstage_amount() {
+		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' ) / 100;
+	}
+
 	/**
-	 * Stage the street address. In the event that there isn't anything in
-	 * there, we need to send something along so that AVS checks get triggered
-	 * at all.
+	 * Stage the street address
+	 *
+	 * In the event that there isn't anything in there, we need to send
+	 * something along so that AVS checks get triggered at all.
+	 *
 	 * The zero is intentional: Allegedly, Some banks won't perform the check
 	 * if the address line contains no numerical data.
-	 * @param string $type request|response
 	 */
-	protected function stage_street( $type = 'request' ) {
-		if ( !isset( $this->staged_data['street'] ) ) {
+	protected function stage_street() {
+		if ( !isset( $this->unstaged_data['street'] ) ) {
 			//nothing to do.
 			return;
 		}
-		if ( $type === 'request' ){
-			$is_garbage = false;
-			$street = trim( $this->staged_data['street'] );
-			( strlen( $street ) === 0 ) ? $is_garbage = true : null;
-			( !DataValidator::validate_not_just_punctuation( $street ) ) ? $is_garbage = true : null;
 
-			if ( $is_garbage ){
-				$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
-			}
+		$is_garbage = false;
+		$street = trim( $this->unstaged_data['street'] );
+		( strlen( $street ) === 0 ) ? $is_garbage = true : null;
+		( !DataValidator::validate_not_just_punctuation( $street ) ) ? $is_garbage = true : null;
+
+		if ( $is_garbage ){
+			$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
 		}
 	}
 
 	/**
-	 * Stage the zip. In the event that there isn't anything in
-	 * there, we need to send something along so that AVS checks get triggered
-	 * at all.
-	 * @param string $type request|response
+	 * Stage the zip / postal code
+	 *
+	 * In the event that there isn't anything in there, we need to send
+	 * something along so that AVS checks get triggered at all.
 	 */
-	protected function stage_zip( $type = 'request' ) {
-		if ( !isset( $this->staged_data['zip'] ) ) {
+	protected function stage_zip() {
+		if ( !isset( $this->unstaged_data['zip'] ) ) {
 			//nothing to do.
 			return;
 		}
-		if ( $type === 'request' && strlen( trim( $this->staged_data['zip'] ) ) === 0  ){
+		if ( strlen( trim( $this->unstaged_data['zip'] ) ) === 0  ){
 			//it would be nice to check for more here, but the world has some
 			//straaaange postal codes...
-			$this->staged_data['zip'] = '0';
+			$this->unstaged_data['zip'] = '0';
 		}
 
 		//country-based zip grooming to make AVS (marginally) happy
-		switch ($this->getData_Staged( 'country' ) ){
+		switch ($this->getData_Unstaged_Escaped( 'country' ) ){
 			case 'CA':
 				//Canada goes "A0A 0A0"
-				$this->staged_data['zip'] = strtoupper( $this->staged_data['zip'] );
+				$this->staged_data['zip'] = strtoupper( $this->unstaged_data['zip'] );
 				//In the event that they only forgot the space, help 'em out.
 				$regex = '/[A-Z]{1}\d{1}[A-Z]{1}\d{1}[A-Z]{1}\d{1}/';
-				if ( strlen( $this->staged_data['zip'] ) === 6 && preg_match( $regex, $this->staged_data['zip'] ) ) {
-					$zip = $this->staged_data['zip'];
+				if ( strlen( $this->staged_data['zip'] ) === 6
+					&& preg_match( $regex, $this->unstaged_data['zip'] )
+				) {
+					$zip = $this->unstaged_data['zip'];
 					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
 				}
 				break;
@@ -3272,7 +3327,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
 		$salted = $this->token_getSaltedSessionToken();
 
-		$this->addData( array ( 'token' => $salted ) );
+		$this->addRequestData( array ( 'token' => $salted ) );
 	}
 
 	/**
@@ -3322,7 +3377,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			// match token
 			if ( !$this->dataObj->isSomething( 'token' ) ) {
-				$this->addData( array ( 'token' => $token ) );
+				$this->addRequestData( array ( 'token' => $token ) );
 			}
 			$token_check = $this->getData_Unstaged_Escaped( 'token' );
 
@@ -3414,13 +3469,13 @@ abstract class GatewayAdapter implements GatewayType {
 			return;
 		} else if ( $this->session_getLastRapidHTMLForm() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
 			$new_ff = $this->session_getLastRapidHTMLForm();
-			$this->addData( array ( 'ffname' => $new_ff ) );
+			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//and debug log a little
 			$this->log( "Setting form to last successful ('$new_ff')", LOG_DEBUG );
 		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			//if the country-specific version exists, use that.
-			$this->addData( array ( 'ffname' => $ffname . "-$country" ) );
+			$this->addRequestData( array ( 'ffname' => $ffname . "-$country" ) );
 
 			//I'm only doing this for serious legacy purposes. This mess needs to stop itself. To help with the mess-stopping...
 			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname-$country' works. utm_source = '$utm', referrer = '$ref'";
@@ -3428,7 +3483,7 @@ abstract class GatewayAdapter implements GatewayType {
 		} else {
 			//Invalid form. Go get one that is valid, and squak in the error logs.
 			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
-			$this->addData( array ( 'ffname' => $new_ff ) );
+			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//now construct a useful error message
 			$this->log(
@@ -3701,7 +3756,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		//tell DonationData about it
-		$this->addData( array ( 'order_id' => $id ) );
+		$this->addRequestData( array ( 'order_id' => $id ) );
 		return $id;
 	}
 

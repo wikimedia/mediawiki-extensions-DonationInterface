@@ -300,7 +300,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	function setGatewayDefaults() {
-		$this->addData( array(
+		$this->addRequestData( array(
 			'region_code'  => 0  // TODO: geolocating this into the right region...
 		));
 	}
@@ -762,7 +762,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				break;
 
 			case 'AuthorizePaymentForFraud':
-				$this->addData( array( 'cvv' => $this->get_cvv() ) );
+				$this->addRequestData( array( 'cvv' => $this->get_cvv() ) );
 				$this->store_cvv_in_session( null ); // Remove the CVV from the session
 				return parent::do_transaction( $transaction );
 				break;
@@ -843,7 +843,7 @@ class WorldPayAdapter extends GatewayAdapter {
 						$emptyVars[] = $theirs;
 					}
 				}
-				$self->addData( $addme, 'response' );
+				$self->addResponseData( $addme );
 				return $emptyVars;
 			};
 		$setFailOnEmpty = function( $emptyVars ) use ( $response, $self ) {
@@ -935,7 +935,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		return $headers;
 	}
 
-	protected function stage_returnto( $type = 'request' ) {
+	protected function stage_returnto() {
 		global $wgServer, $wgArticlePath;
 
 		$this->staged_data['returnto'] = str_replace(
@@ -945,39 +945,37 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function stage_wp_acctname( $type = 'request' ) {
+	protected function stage_wp_acctname() {
 		$this->staged_data['wp_acctname'] = implode( ' ', array(
 			$this->getData_Unstaged_Escaped( 'fname' ),
 			$this->getData_Unstaged_Escaped( 'lname' )
 		));
 	}
 
-	protected function stage_iso_currency_id( $type = 'request' ) {
+	protected function stage_iso_currency_id() {
 		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
 		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
 			$this->staged_data['iso_currency_id'] = self::$CURRENCY_CODES[$currency];
 		}
 	}
 
-	protected function stage_payment_submethod( $type = 'request' ) {
-		if ( $type == 'response' ) {
-			$paymentMethod = $this->getData_Unstaged_Escaped( 'payment_method' );
-			$paymentSubmethod = $this->getData_Unstaged_Escaped( 'payment_submethod' );
-			if ( $paymentMethod == 'cc' ) {
-				if ( array_key_exists( $paymentSubmethod, self::$CARD_TYPES ) ) {
-					$this->unstaged_data['payment_submethod'] = self::$CARD_TYPES[$paymentSubmethod];
-				}
+	protected function unstage_payment_submethod() {
+		$paymentMethod = $this->getData_Staged( 'payment_method' );
+		$paymentSubmethod = $this->getData_Staged( 'payment_submethod' );
+		if ( $paymentMethod == 'cc' ) {
+			if ( array_key_exists( $paymentSubmethod, self::$CARD_TYPES ) ) {
+				$this->unstaged_data['payment_submethod'] = self::$CARD_TYPES[$paymentSubmethod];
 			}
 		}
 	}
 
-	protected function stage_merchant_reference_2( $type = 'request' ) {
+	protected function stage_merchant_reference_2() {
 		$email = $this->getData_Unstaged_Escaped( 'email' );
 		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
 		$this->staged_data['merchant_reference_2'] = $alphanumeric;
 	}
 
-	protected function stage_narrative_statement_1( $type = 'request' ) {
+	protected function stage_narrative_statement_1() {
 		$this->staged_data['narrative_statement_1'] = WmfFramework::formatMessage(
 			'donate_interface-statement',
 			$this->getData_Unstaged_Escaped( 'contribution_tracking_id' )

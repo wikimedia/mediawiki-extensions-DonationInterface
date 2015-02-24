@@ -44,7 +44,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPassesValidation() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.00',
 			'country' => 'US',
 			'currency' => 'USD',
@@ -57,7 +57,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testLowAmountError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '1.99',
 			'country' => 'US',
 			'currency' => 'USD',
@@ -72,7 +72,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testHighAmountError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '100.99',
 			'country' => 'US',
 			'currency' => 'USD',
@@ -87,7 +87,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testCurrencyCodeError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
 			'country' => 'US',
 			'currency' => 'ZZZ',
@@ -108,7 +108,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceForbiddenCountries' => array( 'XX' )
 		) );
 
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
 			'country' => 'XX',
 			'currency' => 'USD',
@@ -123,7 +123,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testEmailError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
 			'currency' => 'USD',
 			'email' => 'foo',
@@ -138,7 +138,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testSpuriousCcError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
 			'currency' => 'USD',
 			'fname' => '4111111111111111',
@@ -153,7 +153,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testMissingFieldError() {
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
 		) );
 

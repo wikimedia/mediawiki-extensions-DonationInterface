@@ -80,8 +80,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$this->revalidate();
 	}
 
-	public function addData( $dataArray, $pipelineStage = 'request' ) {
-		parent::addData( $dataArray, $pipelineStage );
+	public function addRequestData( $dataArray ) {
+		parent::addRequestData( $dataArray );
 		$this->reAddHardData();
 	}
 

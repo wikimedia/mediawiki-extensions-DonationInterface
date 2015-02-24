@@ -26,7 +26,7 @@ class AmazonAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 
 		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
-			$this->addData(
+			$this->addRequestData(
 				array( 'payment_method' => 'amazon' )
 			);
 		}
@@ -387,7 +387,7 @@ class AmazonAdapter extends GatewayAdapter {
 			}
 		}
 		//TODO: consider prioritizing the session vars
-		$this->addData( $add_data ); //using the gateway's addData function restages everything
+		$this->addResponseData( $add_data ); //using the gateway's addData function restages everything
 
 		$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
 		$email = $this->dataObj->getVal_Escaped( 'email' );

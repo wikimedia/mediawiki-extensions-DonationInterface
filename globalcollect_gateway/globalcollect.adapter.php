@@ -326,7 +326,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'effort_id' => '1',
 		);
 
-		$this->addData( $defaults );
+		$this->addRequestData( $defaults );
 	}
 
 	/**
@@ -1108,8 +1108,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 
 		$is_orphan = false;
-		if ( count( $qsResults ) ){ //nothing unusual here.
-			$this->addData( $qsResults );
+		if ( count( $qsResults ) ){
+			// Nothing unusual here.  Oh, except we are reading query parameters from
+			// what we hope is a redirect back from the processor, caused by an earlier
+			// transaction.
+			$this->addResponseData( $qsResults );
 			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
@@ -1155,7 +1158,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					}
 				}
 			}
-			$this->addData( $xmlResults );
+			$this->addResponseData( $xmlResults );
 			$logmsg = 'CVV Result from XML: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from XML: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->log( $logmsg );
@@ -1266,7 +1269,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 
 				if ( count( $addme ) ){
-					$this->addData( $addme );
+					$this->addResponseData( $addme );
 				}
 			}
 
@@ -1454,7 +1457,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->log( "inside " . $data['ORDERID'] );
 					$this->normalizeOrderID( $data['ORDERID'] );
 					$this->log( print_r( $this->getOrderIDMeta(), true ) );
-					$this->addData( array ( 'order_id' => $data['ORDERID'] ) );
+					$this->addRequestData( array ( 'order_id' => $data['ORDERID'] ) );
 					$this->log( print_r( $this->getOrderIDMeta(), true ) );
 					$this->session_addDonorData();
 				}
@@ -1859,39 +1862,38 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function stage_language( $type = 'request' ) {
-		$language = strtolower( $this->staged_data['language'] );
+	protected function stage_language() {
+		$language = strtolower( $this->getData_Unstaged_Escaped( 'language' ) );
 
-		switch ( $type ) {
-			case 'request':
-				if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
-					$fallbacks = Language::getFallbacksFor( $language );
-					foreach ( $fallbacks as $fallback ) {
-						if ( in_array( $fallback, $this->getAvailableLanguages() ) ) {
-							$language = $fallback;
-							break;
-						}
-					}
+		if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
+			$fallbacks = Language::getFallbacksFor( $language );
+			foreach ( $fallbacks as $fallback ) {
+				if ( in_array( $fallback, $this->getAvailableLanguages() ) ) {
+					$language = $fallback;
+					break;
 				}
+			}
+		}
 
-				if ( !in_array( $language, $this->getAvailableLanguages() ) ){
-					$language = 'en';
-				}
+		if ( !in_array( $language, $this->getAvailableLanguages() ) ){
+			$language = 'en';
+		}
 
-				if ( $language === 'zh' ) { //Handles GC's mutant Chinese code.
-					$language = 'sc';
-				}
-
-				break;
-			case 'response':
-				if ( $language === 'sc' ){
-					$language = 'zh';
-				}
-				break;
+		if ( $language === 'zh' ) { //Handles GC's mutant Chinese code.
+			$language = 'sc';
 		}
 
 		$this->staged_data['language'] = $language;
+	}
 
+	protected function unstage_language() {
+		$language = strtolower( $this->staged_data['language'] );
+
+		if ( $language === 'sc' ){
+			$language = 'zh';
+		}
+
+		$this->unstaged_data['language'] = $language;
 	}
 
 	/**
@@ -1934,43 +1936,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage: amount
-	 *
-	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
-	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
-	 *
-	 * @param string	$type	request|response
-	 */
-	protected function stage_amount( $type = 'request' ) {
-		if ( !isset( $this->staged_data['amount'] ) || !isset( $this->staged_data['currency_code'] ) ) {
-			//can't do anything with amounts at all. Just go home.
-			return;
-		}
-		switch ( $type ) {
-			case 'request':
-
-				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {
-					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
-				}
-
-				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
-
-				break;
-			case 'response':
-				$this->staged_data['amount'] = $this->staged_data['amount'] / 100;
-				break;
-		}
-	}
-
-	/**
 	 * Stage: card_num
-	 *
-	 * @param string	$type	request|response
 	 */
-	protected function stage_card_num( $type = 'request' ) {
-		//I realize that the $type isn't used. Voodoo.
-		if ( array_key_exists( 'card_num', $this->staged_data ) ) {
-			$this->staged_data['card_num'] = str_replace( ' ', '', $this->staged_data['card_num'] );
+	protected function stage_card_num() {
+		if ( array_key_exists( 'card_num', $this->unstaged_data ) ) {
+			$this->staged_data['card_num'] = str_replace( ' ', '', $this->unstaged_data['card_num'] );
 		}
 	}
 
@@ -1979,7 +1949,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stages the payment product ID for GC.
 	 * Not what I had in mind to begin with, but this *completely* blew up.
 	 */
-	public function stage_payment_product( $type = 'request' ) {
+	public function stage_payment_product() {
 		//cc used to look in card_type, but that's been an alias for payment_submethod for a while. DonationData takes care of it.
 		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method'] : false;
 		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod'] : false;
@@ -1997,10 +1967,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'discover' => '128',
 				'cb' => '130',
 			);
-
-			if ( $type === 'response' ) {
-				$types = array_flip( $types );
-			}
 
 			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $types ) ) {
 				$this->staged_data['payment_product'] = $types[$payment_submethod];
@@ -2034,6 +2000,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 			}
 
+			// FIXME: that's one hell of a staging function.  Move this to a do_transaction helper.
 			if ( $enable3ds ) {
 				$this->log( "3dSecure enabled for $currency in $country" );
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
@@ -2056,43 +2023,37 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stage branch_code for Direct Debit.
 	 * Check the data constraints, and zero-pad out to that number where possible.
 	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 * @param string $type request|response
 	 */
-	protected function stage_branch_code( $type = 'request' ) {
-		if ( $type === 'request' && isset( $this->staged_data['branch_code'] ) ) {
-			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['branch_code'], $this->dataConstraints['branch_code']['length'] );
-			if ( $newval ) {
-				$this->staged_data['branch_code'] = $newval;
-			}
-		}
+	protected function stage_branch_code() {
+		$this->stageAndZeroPad( 'branch_code' );
 	}
 
 	/**
 	 * Stage bank_code for Direct Debit.
 	 * Check the data constraints, and zero-pad out to that number where possible.
 	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 * @param string $type request|response
 	 */
-	protected function stage_bank_code( $type = 'request' ) {
-		if ( $type === 'request' && isset( $this->staged_data['bank_code'] ) ) {
-			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['bank_code'], $this->dataConstraints['bank_code']['length'] );
-			if ( $newval ) {
-				$this->staged_data['bank_code'] = $newval;
-			}
-		}
+	protected function stage_bank_code() {
+		$this->stageAndZeroPad( 'bank_code' );
 	}
 
 	/**
 	 * Stage account_number for Direct Debit.
 	 * Check the data constraints, and zero-pad out to that number where possible.
 	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 * @param string $type request|response
 	 */
-	protected function stage_account_number( $type = 'request' ) {
-		if ( $type === 'request' && isset( $this->staged_data['account_number'] ) ) {
-			$newval = DataValidator::getZeroPaddedValue( $this->staged_data['account_number'], $this->dataConstraints['account_number']['length'] );
+	protected function stage_account_number() {
+		$this->stageAndZeroPad( 'account_number' );
+	}
+
+	/**
+	 * Helper to stage a zero-padded number
+	 */
+	protected function stageAndZeroPad( $key ) {
+		if ( isset( $this->unstaged_data[$key] ) ) {
+			$newval = DataValidator::getZeroPaddedValue( $this->unstaged_data[$key], $this->dataConstraints[$key]['length'] );
 			if ( $newval ) {
-				$this->staged_data['account_number'] = $newval;
+				$this->staged_data[$key] = $newval;
 			}
 		}
 	}
@@ -2101,9 +2062,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stage: setupStagePaymentMethodForDirectDebit
 	 *
 	 * @param string	$payment_submethod
-	 * @param string	$type	request|response
 	 */
-	protected function setupStagePaymentMethodForDirectDebit( $payment_submethod, $type = 'request' ) {
+	protected function setupStagePaymentMethodForDirectDebit( $payment_submethod ) {
 
 		// DATECOLLECT is required on all Direct Debit
 		$this->addKeyToTransaction('DATECOLLECT');
@@ -2123,9 +2083,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stage: setupStagePaymentMethodForEWallets
 	 *
 	 * @param string	$payment_submethod
-	 * @param string	$type	request|response
 	 */
-	protected function setupStagePaymentMethodForEWallets( $payment_submethod, $type = 'request' ) {
+	protected function setupStagePaymentMethodForEWallets( $payment_submethod ) {
 
 		// DESCRIPTOR is required on WebMoney, assuming it is required for all.
 		$this->addKeyToTransaction('DESCRIPTOR');
@@ -2141,8 +2100,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Stage: payment_method
 	 *
-	 * @param string	$type	request|response
-	 *
 	 * @todo
 	 * - Need to implement this for credit card if necessary
 	 * - ISSUERID will need to provide a dropdown for rtbt_eps and rtbt_ideal.
@@ -2150,10 +2107,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - DATECOLLECT is using gmdate('Ymd')
 	 * - DIRECTDEBITTEXT will need to be translated. This is what appears on the bank statement for donations for a client. This is hardcoded to: Wikimedia Foundation
 	 */
-	protected function stage_payment_method( $type = 'request' ) {
-
-		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method']: false;
-		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod']: false;
+	protected function stage_payment_method() {
+		$payment_method = array_key_exists( 'payment_method', $this->unstaged_data ) ? $this->unstaged_data['payment_method']: false;
+		$payment_submethod = array_key_exists( 'payment_submethod', $this->unstaged_data ) ? $this->unstaged_data['payment_submethod']: false;
 
 		//Having to front-load the country in the payment submethod is pretty lame.
 		//If we don't have one deliberately set...
@@ -2165,19 +2121,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 
-		// These will be grouped and ordred by payment product id
+		// These will be grouped and ordered by payment product id
 		switch ( $payment_submethod )  {
 
 			/* Bank transfer */
 			case 'bt':
 
 				// Brazil
-				if ( $this->staged_data['country'] == 'BR' ) {
+				if ( $this->unstaged_data['country'] == 'BR' ) {
 					$this->dataConstraints['direct_debit_text']['city'] = 50;
 				}
 
 				// Korea - Manual does not specify North or South
-				if ( $this->staged_data['country'] == 'KR' ) {
+				if ( $this->unstaged_data['country'] == 'KR' ) {
 					$this->dataConstraints['direct_debit_text']['city'] = 50;
 				}
 				break;
@@ -2241,10 +2197,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		switch ($payment_method) {
 		case 'dd':
-			$this->setupStagePaymentMethodForDirectDebit( $payment_submethod, $type);
+			$this->setupStagePaymentMethodForDirectDebit( $payment_submethod );
 			break;
 		case 'ew':
-			$this->setupStagePaymentMethodForEWallets( $payment_submethod, $type);
+			$this->setupStagePaymentMethodForEWallets( $payment_submethod );
 			break;
 		}
 	}
@@ -2253,11 +2209,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stage: recurring
 	 * Adds the recurring payment pieces to the structure of
 	 * INSERT_ORDERWITHPAYMENT if the recurring field is populated.
-	 *
-	 * @param string	$type	request|response
 	 */
-	protected function stage_recurring( $type = 'request' ){
-		if ( ! $this->getData_Staged( 'recurring' ) ){
+	protected function stage_recurring(){
+		if ( !$this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			return;
 		} else {
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'ORDERTYPE';
@@ -2269,15 +2223,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Stage: country
 	 * This should be a catch-all for establishing weird country-based rules.
 	 * Right now, we only have the one, but there could be more here later.
-	 *
-	 * @param string	$type	request|response
 	 */
-	protected function stage_country( $type = 'request' ){
-		if ( $type != 'request' ){
-			return; //nothing to do here.
-		}
-
-		switch ( $this->getData_Staged( 'country' ) ){
+	protected function stage_country() {
+		switch ( $this->getData_Unstaged_Escaped( 'country' ) ){
 			case 'AR' :
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
 				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'PURCHASETYPE';
@@ -2287,24 +2235,22 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function stage_contribution_tracking_id( $type = 'request' ) {
-		$ctid = $this->staged_data['contribution_tracking_id'];
-		if ( $type === 'request' ) {
-			//append timestamp to ctid
-			$ctid .= '.' . (( microtime( true ) * 1000 ) % 100000); //least significant five
-		} elseif ( $type === 'response' ) {
-			$ctid = explode( '.', $ctid );
-			$ctid = $ctid[0];
-		}
+	protected function stage_contribution_tracking_id() {
+		$ctid = $this->unstaged_data['contribution_tracking_id'];
+		//append timestamp to ctid
+		$ctid .= '.' . (( microtime( true ) * 1000 ) % 100000); //least significant five
 		$this->staged_data['contribution_tracking_id'] = $ctid;
 	}
 
-	protected function stage_fiscal_number( $type = 'request' ) {
-		if ( $type != 'request' ){
-			return; //nothing to do here.
-		}
+	protected function unstage_contribution_tracking_id() {
+		$ctid = $this->staged_data['contribution_tracking_id'];
+		$ctid = explode( '.', $ctid );
+		$ctid = $ctid[0];
+		$this->unstaged_data['contribution_tracking_id'] = $ctid;
+	}
 
-		$this->staged_data['fiscal_number'] = preg_replace( "/[\.\/\-]/", "", $this->getData_Staged( 'fiscal_number' ) );
+	protected function stage_fiscal_number() {
+		$this->staged_data['fiscal_number'] = preg_replace( "/[\.\/\-]/", "", $this->getData_Unstaged_Escaped( 'fiscal_number' ) );
 	}
 
 	/**
@@ -2327,32 +2273,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Stage: returnto
-	 *
-	 * @param string	$type	request|response
 	 */
-	protected function stage_returnto( $type = 'request' ) {
+	protected function stage_returnto() {
+		// Get the default returnto
+		$returnto = $this->getData_Unstaged_Escaped( 'returnto' );
 
-		if ( $type === 'request' ) {
-
-			// Get the default returnto
-			$returnto = $this->getData_Staged( 'returnto' );
-
-			if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ){
-
-				// Add order ID to the returnto URL, only if it's not already there.
-				//TODO: This needs to be more robust (like actually pulling the
-				//qstring keys, resetting the values, and putting it all back)
-				//but for now it'll keep us alive.
-				if ( $this->getOrderIDMeta( 'generate' ) && !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ) {
-					$queryArray = array( 'order_id' => $this->staged_data['order_id'] );
-					$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
-				}
-
-			} else {
-
-				// Do we want to set this here?
-				$this->staged_data['returnto'] = $this->getThankYouPage();
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
+			// Add order ID to the returnto URL, only if it's not already there.
+			//TODO: This needs to be more robust (like actually pulling the
+			//qstring keys, resetting the values, and putting it all back)
+			//but for now it'll keep us alive.
+			if ( $this->getOrderIDMeta( 'generate' ) && !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ) {
+				$queryArray = array( 'order_id' => $this->unstaged_data['order_id'] );
+				$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
 			}
+		} else {
+			// FIXME: Do we want to set this here?
+			$this->staged_data['returnto'] = $this->getThankYouPage();
 		}
 	}
 

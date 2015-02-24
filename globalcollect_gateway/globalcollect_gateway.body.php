@@ -50,7 +50,7 @@ class GlobalCollectGateway extends GatewayPage {
 						and !$this->adapter->getPaymentSubmethod() ) {
 					// Synthesize a submethod based on the country.
 					$country_code = strtolower( $this->adapter->getData_Unstaged_Escaped( 'country' ) );
-					$this->adapter->addData( array(
+					$this->adapter->addRequestData( array(
 						'payment_submethod' => "dd_{$country_code}",
 					) );
 				}
