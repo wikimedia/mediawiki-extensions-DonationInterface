@@ -51,14 +51,21 @@ class PaymentMethod {
 		$method->name = PaymentMethod::parseCompoundMethod( $method_name, $submethod_name );
 		$method->is_recurring = $is_recurring;
 
-		$spec = null;
-		if ( $submethod_name ) {
-			$spec = $gateway->getPaymentSubmethodMeta( $submethod_name );
+		try {
+			// FIXME: I don't like that we're couple to the gateway already.
+			$spec = null;
+			if ( $submethod_name ) {
+				$spec = $gateway->getPaymentSubmethodMeta( $submethod_name );
+			}
+			if ( $spec === null ) {
+				$spec = $gateway->getPaymentMethodMeta( $method_name );
+			}
+			$method->spec = $spec;
+		} catch ( MWException $ex ) {
+			// Return empty method.
+			$method->name = "none";
+			$method->spec = array();
 		}
-		if ( $spec === null ) {
-			$spec = $gateway->getPaymentMethodMeta( $method_name );
-		}
-		$method->spec = $spec;
 
 		return $method;
 	}
