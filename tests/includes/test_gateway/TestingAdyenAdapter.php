@@ -5,8 +5,6 @@
  */
 class TestingAdyenAdapter extends AdyenAdapter {
 
-	public $testlog = array ( );
-
 	public function _buildRequestParams() {
 		return $this->buildRequestParams();
 	}
@@ -24,17 +22,6 @@ class TestingAdyenAdapter extends AdyenAdapter {
 
 	public function _getData_Staged() {
 		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
-	}
-
-	/**
-	 * Trap the error log so we can use it in testing
-	 * @param type $msg
-	 * @param type $log_level
-	 * @param type $log_id_suffix
-	 */
-	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		//I don't care about the suffix right now, particularly.
-		$this->testlog[$log_level][] = $msg;
 	}
 
 	/**

@@ -38,9 +38,16 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public $adapter;
 
 	/**
+	 * Gateway-specific logger
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		
 		$me = get_called_class();
@@ -119,7 +126,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$page = $this->adapter->getGlobal( "FailPage" );
 
 			$log_message = '"Redirecting to [ ' . $page . ' ] "';
-			$this->log( $log_message, LOG_INFO );
+			$this->logger->info( $log_message );
 
 			if ( $page ) {
 
@@ -201,15 +208,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$wgOut->addHTML( "No Debug Array" );
 		}
-	}
-
-	/**
-	 * logs messages to the current gateway adapter's configured log location
-	 * @param string $msg The message to log
-	 * @param int|string $log_level The severity level of the message.
-	 */
-	public function log( $msg, $log_level=LOG_INFO ) {
-		$this->adapter->log( $msg, $log_level );
 	}
 
 	/**
@@ -332,7 +330,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			'currency_code' => $defaultCurrency
 		) );
 
-		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
+		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
 	}
 
@@ -409,11 +407,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		global $wgServer;
 		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
 			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
-			$this->adapter->log("Resultswitcher: Popping out of iframe for Order ID " . $oid);
+			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
 			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
 			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
 			if ( $forbidden ) {
-				$this->adapter->log("Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message", LOG_ERR);
+				$this->logger->error( "Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message" );
 			}
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
@@ -423,10 +421,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$this->setHeaders();
 
 		if ( $forbidden ){
-			$this->adapter->log( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid", LOG_CRIT );
+			$this->logger->critical( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
 			return;
 		} else {
-			$this->adapter->log( "Resultswitcher: OK to process Order ID: " . $oid );
+			$this->logger->info( "Resultswitcher: OK to process Order ID: " . $oid );
 		}
 
 		if ( $this->adapter->checkTokens() ) {
@@ -444,7 +442,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$this->getOutput()->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
-			$this->adapter->log( "Resultswitcher: Token Check Failed. Order ID: $oid", LOG_ERR );
+			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
 	}
 

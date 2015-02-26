@@ -133,7 +133,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$this->set_html_file_path( $ffname );
 			} catch ( MWException $mwe ) {
 				$message = "Could not load form '$ffname'";
-				$this->gateway->log( $message, LOG_ERR );
+				$this->logger->error( $message );
 				$this->set_html_file_path( 'error-noform' );
 			}
 		}
@@ -491,7 +491,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( $problems ){
 			if ( $fatal ){
 				$message = 'Requested an unavailable or non-existent form.';
-				$this->gateway->log( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') , LOG_ERR );
+				$this->logger->error( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') );
 				throw new MWException( $message ); # TODO: translate
 			} else {
 				return;

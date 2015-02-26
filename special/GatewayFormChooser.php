@@ -11,7 +11,13 @@
  */
 class GatewayFormChooser extends UnlistedSpecialPage {
 
+	/**
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger;
+
 	function __construct() {
+		$this->logger = DonationLoggerFactory::getLogger();
 		parent::__construct( 'GatewayFormChooser' );
 	}
 
@@ -48,9 +54,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		if ( $form === null ) {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
 
-			GatewayAdapter::_log(
-				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'",
-				LOG_ERR
+			$this->logger->error(
+				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'"
 			);
 			$this->getOutput()->showErrorPage( 'donate_interface-error-msg-general', 'donate_interface-error-no-form' );
 			return;

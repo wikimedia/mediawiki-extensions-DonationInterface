@@ -1555,62 +1555,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $result;
 	}
 
-	/**
-	 * Log messages out to syslog (if configured), or the wfDebugLog
-	 * @param string $msg The message to log
-	 * @param int $log_level Should be one of the following:
-	 *	* LOG_EMERG - Actual meltdown in progress: Get everyone.
-	 *	* LOG_ALERT - Time to start paging people and failing things over
-	 *	* LOG_CRIT - Corrective action required, but you probably have some time.
-	 *	* LOG_ERR - Probably denotes a bug in the system.
-	 *	* LOG_WARNING - Not good, but will require eventual action to preserve stability
-	 *	* LOG_NOTICE - Unusual circumstances, but nothing imediately alarming
-	 *	* LOG_INFO - Nothing to see here. Business as usual.
-	 *	* LOG_DEBUG - Probably shouldn't use these unless we're in the process
-	 * of diagnosing a relatively esoteric problem that only happens in the prod
-	 * environment, which will require a settings change to start the data avalanche.
-	 * @param string $log_id_suffix Primarily used for shunting syslog messages off into alternative buckets.
-	 * @return null
-	 */
-	public function log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		if ( !self::getGlobal('LogDebug') && $log_level === LOG_DEBUG ){
-			//stfu, then.
-			return;
-		}
-
-		$msg = $this->getLogMessagePrefix() . $msg;
-		self::_log( $msg, $log_level, $log_id_suffix );
-	}
-
-	/**
-	 * DO NOT USE THIS FUNCTION UNLESS YOU CAN'T INSTANTIATE.
-	 * /sadface
-	 * @param type $msg
-	 * @param type $log_level
-	 * @param type $log_id_suffix
-	 * @return type
-	 */
-	public static function _log( $msg, $log_level = LOG_INFO, $log_id_suffix = '' ) {
-		if ( !self::getGlobal( 'LogDebug' ) && $log_level === LOG_DEBUG ) {
-			//stfu, then.
-			return;
-		}
-
-		$identifier = self::getIdentifier() . "_gateway" . $log_id_suffix;
-
-		// if we're not using the syslog facility, use wfDebugLog
-		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			WmfFramework::debugLog( $identifier, $msg );
-			return;
-		}
-
-		// otherwise, use syslogging
-		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
-		$msg = str_replace( "\t", " ", $msg );
-		syslog( $log_level, $msg );
-		closelog();
-	}
-
 	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
 	function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
