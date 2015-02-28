@@ -118,8 +118,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$form_errors = $this->form_errors;
 
 		$this->loadValidateJs();
-		
-		$country = $this->gateway->getData_Unstaged_Escaped( 'country' );
+
 		$ffname = $this->gateway->getData_Unstaged_Escaped( 'ffname' );
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );

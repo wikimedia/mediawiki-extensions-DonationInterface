@@ -793,7 +793,6 @@ class DonationData {
 	 * @return array Clean tracking data 
 	 */
 	public function getCleanTrackingData( $unset = false ) {
-		global $wgContributionTrackingAnalyticsUpgrade;
 
 		// define valid tracking fields
 		$tracking_fields = array(

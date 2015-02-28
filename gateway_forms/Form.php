@@ -19,7 +19,6 @@ abstract class Gateway_Form {
 	abstract function getForm();
 
 	public function __construct( &$gateway ) {
-		global $wgOut, $wgRequest;
 
 		$this->gateway = & $gateway;
 		$gateway_errors = $this->gateway->getAllErrors();

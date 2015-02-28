@@ -1277,7 +1277,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//get the old status from the first txn, and add in the part where we set the payment.
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					$this->runPostProcessHooks();  //stomp is in here
-					$add_antimessage = true;
+					$add_antimessage = true; //TODO: use or remove
 				} else {
 					$this->finalizeInternalStatus( 'failed' );
 					$problemflag = true;

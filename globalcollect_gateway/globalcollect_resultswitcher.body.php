@@ -146,7 +146,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	 * user came from with all the data and an error message.
 	 */
 	function getDeclinedResultPage() {
-		$displayData = $this->adapter->getData_Unstaged_Escaped();
 		$failpage = $this->adapter->getFailPage();
 
 		if ( !$failpage ) {

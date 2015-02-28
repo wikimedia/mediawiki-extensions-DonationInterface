@@ -754,13 +754,8 @@ abstract class GatewayAdapter implements GatewayType {
 				//if it was sent, use that.
 				return $staged;
 			} else {
-				//return the default for that form value
-
-				$tempField = $this->var_map[ $gateway_field_name ];
-
-				$tempValue = '';
-
-				return $tempValue;
+				//return blank string
+				return '';
 			}
 		}
 
@@ -2748,7 +2743,7 @@ abstract class GatewayAdapter implements GatewayType {
 						);
 						break;
 					default:
-						$this->log( "bad required group name: {$option}", LOG_ERR );
+						$this->log( "bad required group name: {$type}", LOG_ERR );
 						continue;
 				}
 
@@ -3736,7 +3731,7 @@ abstract class GatewayAdapter implements GatewayType {
 	public function regenerateOrderID() {
 		$id = null;
 		if ( $this->getOrderIDMeta( 'generate' ) ) {
-			$id = $this->generateOrderID();
+			$id = $this->generateOrderID(); // should we pass $this->dataObj?
 			$source = 'regenerated';  //This implies the try number is > 1.
 			$this->order_id_candidates[$source] = $id;
 			//alter the meta with the new data

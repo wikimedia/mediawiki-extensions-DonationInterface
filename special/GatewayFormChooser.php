@@ -150,7 +150,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function getAllValidForms( $country = null, $currency = null, $payment_method = null,
 		$payment_submethod = null, $recurring = false, $gateway = null
 	) {
-		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceClassMap;
+		global $wgDonationInterfaceAllowedHtmlForms;
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
 
 		//Destroy all optional params that have no values and should be null.
