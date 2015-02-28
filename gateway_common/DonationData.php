@@ -200,14 +200,6 @@ class DonationData {
 	}
 
 	/**
-	 * Returns an array of normalized (but unescaped) donation data
-	 * @return array 
-	 */
-	public function getDataUnescaped() {
-		return $this->normalized;
-	}
-
-	/**
 	 * Tells you if a value in $this->normalized is something or not. 
 	 * @param string $key The field you would like to determine if it exists in 
 	 * a usable way or not. 
@@ -904,14 +896,6 @@ class DonationData {
 			}
 		}
 		$this->normalize();
-	}
-
-	/**
-	 * Gets the name of the adapter class that instantiated DonationData. 
-	 * @return mixed The name of the class if it exists, or false. 
-	 */
-	protected function getAdapterClass(){
-		return get_class( $this->gateway );
 	}
 	
 	/**

@@ -27,13 +27,6 @@ class TestingAdyenAdapter extends AdyenAdapter {
 	}
 
 	/**
-	 * So we can fake a risk score
-	 */
-	public function setRiskScore( $score ) {
-		$this->risk_score = $score;
-	}
-
-	/**
 	 * Trap the error log so we can use it in testing
 	 * @param type $msg
 	 * @param type $log_level

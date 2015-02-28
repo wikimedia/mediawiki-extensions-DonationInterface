@@ -373,36 +373,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	}
 
 	/**
-	 * Validates the minfraud_query for minimum required fields
-	 *
-	 * This is a pretty dumb validator.  It just checks to see if
-	 * there is a value for a required field and if its length is > 0
-	 *
-	 * @param array $minfraud_query The array you would pass to minfraud in a query
-	 * @return boolean
-	 */
-	public function validate_minfraud_query( array $minfraud_query ) {
-		// array of minfraud required fields
-		$reqd_fields = array(
-			'license_key',
-			'i',
-			'city',
-			'region',
-			'postal',
-			'country'
-		);
-
-		foreach ( $reqd_fields as $reqd_field ) {
-			if ( !isset( $minfraud_query[$reqd_field] ) ||
-				strlen( $minfraud_query[$reqd_field] ) < 1 ) {
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
-	/**
 	 * Perform a health check on minfraud data; send an email alarm on violation.
 	 *
 	 * Right now this only checks the number of queries remaining.

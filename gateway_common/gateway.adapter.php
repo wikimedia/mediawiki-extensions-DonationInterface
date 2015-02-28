@@ -2508,14 +2508,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->dataObj->expunge( 'data_hash' );
 	}
 
-	public function setActionHash( $hashval ) {
-		$this->dataObj->setVal( 'action', $hashval );
-	}
-
-	public function unsetActionHash() {
-		$this->dataObj->expunge( 'action' );
-	}
-
 	/**
 	 * Runs all the pre-process hooks that have been enabled and configured in
 	 * donationdata.php and/or LocalSettings.php
@@ -3761,18 +3753,6 @@ abstract class GatewayAdapter implements GatewayType {
 		//tell DonationData about it
 		$this->addRequestData( array ( 'order_id' => $id ) );
 		return $id;
-	}
-
-	/**
-	 * Returns the FORMATTED data harvested from the reply, or false if it is not set.
-	 * @return mixed An array of returned data, or false.
-	 */
-	public function getTransaction() {
-		if ( array_key_exists( 'data', $this->transaction_results ) ) {
-			return $this->transaction_results['data'];
-		} else {
-			return false;
-		}
 	}
 
 	/**
