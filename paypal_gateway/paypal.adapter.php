@@ -270,8 +270,9 @@ class PaypalAdapter extends GatewayAdapter {
 		}
 
 		$fallbacks = Language::getFallbacksFor( strtolower( $this->unstaged_data['language'] ) );
+		array_unshift( $fallbacks, strtolower( $this->unstaged_data['language'] ) );
 		foreach ( $fallbacks as $lang ) {
-			$locale = "{$this->unstaged_data['language']}_{$this->unstaged_data['country']}";
+			$locale = "{$lang}_{$this->unstaged_data['country']}";
 			if ( in_array( $locale, $supported_full_locales ) ) {
 				$this->staged_data['locale'] = $locale;
 				return;
