@@ -15,11 +15,13 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * @group Fundraising
  * @group DonationInterface
  * @group Splunge
+ * @group DonationData
  */
 class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
@@ -207,6 +209,28 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		unset( $returned['contribution_tracking_id'] );
 
 		$this->assertEquals( $expected, $returned, "Staged default test data does not match expected." );
+	}
+
+	/**
+	 * Check that constructor outputs certain information to logs
+	 */
+	public function testDebugLog() {
+		$expected = array (
+			'payment_method' => 'cc',
+			'utm_source' => 'test_src..cc',
+			'utm_medium' => 'test_medium',
+			'utm_campaign' => 'test_campaign',
+			'payment_submethod' => 'amex',
+			'currency_code' => 'USD',
+		);
+
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $expected, false ) );
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
+		$matches = $this->getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = false, utm_source = cc$/' );
+		$this->assertNotEmpty( $matches );
+		$matches = $this->getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency_code', now: USD$/" );
+		$this->assertNotEmpty( $matches );
 	}
 
 	/**
