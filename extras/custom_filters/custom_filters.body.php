@@ -1,4 +1,5 @@
 <?php
+use Psr\Log\LogLevel;
 
 class Gateway_Extras_CustomFilters extends Gateway_Extras {
 
@@ -27,11 +28,18 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 */
 	static $instance;
 
+	/**
+	 * Sends messages to the blah_gateway_fraud log
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $fraud_logger;
+
 	public function __construct( &$gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
+		$this->fraud_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_fraud' );
 	}
 
 	/**
@@ -66,7 +74,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		}
 
 		$log_message = "\"$source added a score of $score\"";
-		$this->gateway_adapter->log( '"addRiskScore" ' . $log_message , LOG_INFO, '_fraud' );
+		$this->fraud_logger->info( '"addRiskScore" ' . $log_message );
 		$this->risk_score[$source] = $score;
 
 		$this->gateway_adapter->addRiskScore( $score );
@@ -101,10 +109,10 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		$this->gateway_adapter->setValidationAction( $localAction );
 
 		$log_message = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
-		$this->gateway_adapter->log( '"Filtered" ' . $log_message, LOG_INFO, '_fraud' );
+		$this->fraud_logger->info( '"Filtered" ' . $log_message );
 
 		$log_message = '"' . addslashes( json_encode( $this->risk_score ) ) . '"';
-		$this->gateway_adapter->log( '"CustomFiltersScores" ' . $log_message, LOG_INFO, '_fraud' );
+		$this->fraud_logger->info( '"CustomFiltersScores" ' . $log_message );
 
 		$utm = array(
 			'utm_campaign' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_campaign' ),
@@ -112,7 +120,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			'utm_source' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' ),
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
-		$this->gateway_adapter->log( '"utm" ' . $log_message, LOG_INFO, '_fraud' );
+		$this->fraud_logger->info( '"utm" ' . $log_message );
 
 		//add a message to the fraud stats queue, so we can shovel it into the fredge.
 		$stomp_msg = array (
@@ -132,7 +140,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		try {
 			WmfFramework::runHooks( 'gwFreeformStomp', array ( $stomp_msg, 'payments-antifraud' ) );
 		} catch ( Exception $e ) {
-			$this->log( 'Unable to send payments-antifraud message', LOG_ERR );
+			$this->log( 'Unable to send payments-antifraud message', LogLevel::ERROR );
 		}
 
 		return TRUE;
