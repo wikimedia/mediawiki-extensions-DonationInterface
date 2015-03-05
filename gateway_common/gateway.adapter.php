@@ -157,6 +157,13 @@ interface GatewayType {
 	function setGatewayDefaults();
 
 	static function getCurrencies();
+
+	/**
+	 * Attempt the default transaction for the current DonationData
+	 *
+	 * @return PaymentResult hints for the next donor interaction
+	 */
+	function doPayment();
 }
 
 /**

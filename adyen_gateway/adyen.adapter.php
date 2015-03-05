@@ -176,13 +176,15 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	function doPayment() {
+		return PaymentResult::fromResults(
+			$this->do_transaction( 'donate' ),
+			$this->getFinalStatus()
+		);
+	}
+
 	/**
-	 * Because GC has some processes that involve more than one do_transaction 
-	 * chained together, we're catching those special ones in an overload and 
-	 * letting the rest behave normally.
-	 * @TODO: If this is a pattern we want to be able to reuse, it should be
-	 * represented in the base class.
-	 * I can't help but feel like it's bad that the parent's do_transaction
+	 * FIXME: I can't help but feel like it's bad that the parent's do_transaction
 	 * is never used at all.
 	 */
 	function do_transaction( $transaction ) {

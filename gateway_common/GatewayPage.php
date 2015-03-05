@@ -346,18 +346,16 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
-			// If the user posted to this form, or we've been sent here with an
-			// immediate "redirect=1" param, try to process the transaction.
-			if ( $this->adapter->posted
-				|| $this->adapter->getData_Unstaged_Escaped( 'redirect' )
-			) {
+			if ( $this->isProcessImmediate() ) {
 				// Check form for errors
+				// FIXME: Should this be rolled into adapter.doPayment?
 				$form_errors = $this->validateForm();
 
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
 					$this->displayForm();
 				} else {
+					// Attempt to process the payment, and render the response.
 					$this->processPayment();
 				}
 			} else {
@@ -365,10 +363,22 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$this->displayForm();
 			}
 		} else { //token mismatch
-			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
+			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' );
 			$this->adapter->addManualError( $error );
 			$this->displayForm();
 		}
+	}
+
+	/**
+	 * Determine if we should attempt to process the payment now
+	 *
+	 * @return bool True if we should attempt processing.
+	 */
+	protected function isProcessImmediate() {
+		// If the user posted to this form, or we've been sent here with an
+		// immediate "redirect=1" param, try to process the transaction.
+		return $this->adapter->posted
+			|| $this->adapter->getData_Unstaged_Escaped( 'redirect' ) === '1';
 	}
 
 	/**
@@ -395,6 +405,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$liberated = true;
 		}
 
+		// XXX need to know whether we were in an iframe or not.
 		global $wgServer;
 		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
 			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
@@ -444,5 +455,63 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	protected function processPayment() {
 		$this->renderResponse( $this->adapter->doPayment() );
+	}
+
+	/**
+	 * Take UI action suggested by the payment result
+	 */
+	protected function renderResponse( PaymentResult $result ) {
+		if ( $result->isFailed() ) {
+			$this->getOutput()->redirect( $this->adapter->getFailPage() );
+		} elseif ( $url = $result->getRedirect() ) {
+			$this->getOutput()->redirect( $url );
+		} elseif ( $url = $result->getIframe() ) {
+			// Show a form containing an iframe.
+
+			// Well, that's sketchy.  See TODO in renderIframe: we should
+			// accomplish this entirely by passing an iframeSrcUrl parameter
+			// to the template.
+			$this->displayForm();
+
+			$this->renderIframe( $url );
+		} elseif ( $form = $result->getForm() ) {
+			// Show another form.
+
+			$this->adapter->addRequestData( array(
+				'ffname' => $form,
+			) );
+			$this->displayForm();
+		} elseif ( $errors = $result->getErrors() ) {
+			// FIXME: Creepy.  Currently, the form inspects adapter errors.  Use
+			// the stuff encapsulated in PaymentResult instead.
+			$this->displayForm();
+		} else {
+			// Success.
+			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+		}
+	}
+
+	/**
+	 * Append iframe
+	 *
+	 * TODO: Should be rendered by the template.
+	 *
+	 * @param string $url
+	 */
+	protected function renderIframe( $url ) {
+		$attrs = array(
+			'id' => 'paymentiframe',
+			'name' => 'paymentiframe',
+			'width' => '680',
+			'height' => '300'
+		);
+
+		$attrs['frameborder'] = '0';
+		$attrs['style'] = 'display:block;';
+		$attrs['src'] = $url;
+		$paymentFrame = Xml::openElement( 'iframe', $attrs );
+		$paymentFrame .= Xml::closeElement( 'iframe' );
+
+		$this->getOutput()->addHTML( $paymentFrame );
 	}
 }

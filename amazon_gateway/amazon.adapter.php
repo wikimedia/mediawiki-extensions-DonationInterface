@@ -188,6 +188,19 @@ class AmazonAdapter extends GatewayAdapter {
 		return $queryparams;
 	}
 
+	public function doPayment() {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$resultData = $this->do_transaction( 'DonateMonthly' );
+		} else {
+			$resultData = $this->do_transaction( 'Donate' );
+		}
+
+		return PaymentResult::fromResults(
+			$resultData,
+			$this->getFinalStatus()
+		);
+	}
+
 	function do_transaction( $transaction ) {
 		global $wgRequest, $wgOut;
 		$this->session_addDonorData();
@@ -237,7 +250,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 				//@TODO: This shouldn't be happening here. Oh Amazon... Why can't you be more like PayPalAdapter?
 				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
-				return;
+				break;
 
 			case 'VerifySignature':
 				// We don't currently use this. In fact we just ignore the return URL signature.
@@ -255,19 +268,20 @@ class AmazonAdapter extends GatewayAdapter {
 					$this->runPostProcessHooks();
 					$this->doLimboStompTransaction( true );
 				}
-				return;
+				break;
 
 			case 'ProcessAmazonReturn':
 				// What we need to do here is make sure
 				$this->addDataFromURI();
 				$this->analyzeReturnStatus();
-				return;
+				break;
 
 			default:
 				$this->log( "At $transaction; THIS IS NOT DEFINED!", LOG_CRIT );
 				$this->finalizeInternalStatus( 'failed' );
-				return;
 		}
+
+		return $this->getTransactionAllResults();
 	}
 
 	static function getCurrencies() {
@@ -492,6 +506,8 @@ class AmazonAdapter extends GatewayAdapter {
 				if ( $childnode->nodeName === "Message" ) {
 					$message = $childnode->nodeValue;
 				}
+				// TODO: Convert to internal codes and translate.
+				// $errors[$code] = $message;
 			}
 		}
 		return $errors;

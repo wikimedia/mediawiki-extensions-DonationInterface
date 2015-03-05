@@ -1064,6 +1064,64 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function doPayment() {
+		$payment_method = $this->getPaymentMethod();
+
+		// FIXME: this should happen during normalization, and before validatation.
+		if ( $payment_method === 'dd'
+				and !$this->getPaymentSubmethod() ) {
+			// Synthesize a submethod based on the country.
+			$country_code = strtolower( $this->getData_Unstaged_Escaped( 'country' ) );
+			$this->addRequestData( array(
+				'payment_submethod' => "dd_{$country_code}",
+			) );
+		}
+
+		// Execute the proper transaction code:
+		switch ( $payment_method ) {
+			case 'cc': 
+				// FIXME: we don't actually use this code path, it's done from gc.cc.js instead.
+
+				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+				// Display an iframe for credit cards
+				return PaymentResult::newIframe( $this->getTransactionDataFormAction() );
+
+			case 'bt':
+			case 'obt':
+				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+
+				if ( in_array( $this->getFinalStatus(), $this->getGoToThankYouOn() ) ) {
+					return PaymentResult::newForm( 'end-' . $payment_method );
+				}
+				break;
+				
+			case 'dd':
+				$this->do_transaction('Direct_Debit');
+				break;
+				
+			case 'ew':
+			case 'rtbt':
+			case 'cash':
+				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+				$formAction = $this->getTransactionDataFormAction();
+
+				// Redirect to the bank
+				if ( $formAction ) {
+					return PaymentResult::newRedirect( $formAction );
+				}
+				break;
+			
+			default: 
+				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		}
+
+		return PaymentResult::fromResults(
+			$this->getTransactionAllResults(),
+			$this->getFinalStatus()
+		);
+	}
+
 	/**
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and

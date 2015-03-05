@@ -736,6 +736,13 @@ class WorldPayAdapter extends GatewayAdapter {
 			&& in_array( $this->staged_data['wp_storeid'], $this->account_config['SpecialSnowflakeStoreIDs'] );
 	}
 
+	public function doPayment() {
+		return PaymentResult::fromResults(
+			$this->do_transaction( 'QueryAuthorizeDeposit' ),
+			$this->getFinalStatus()
+		);
+	}
+
 	public function do_transaction( $transaction ) {
 		$this->url = $this->getGlobal( 'URL' );
 
