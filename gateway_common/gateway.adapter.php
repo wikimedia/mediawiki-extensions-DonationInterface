@@ -166,6 +166,9 @@ interface GatewayType {
 	function doPayment();
 }
 
+interface LogPrefixProvider {
+	function getLogMessagePrefix();
+}
 /**
  * GatewayAdapter
  *
@@ -1653,6 +1656,9 @@ abstract class GatewayAdapter implements GatewayType {
 		return $c::IDENTIFIER;
 	}
 
+	static function getLogIdentifier() {
+		return self::getIdentifier() . '_gateway';
+	}
 	/**
 	 * getStopwatch keeps track of how long things take, for logging,
 	 * output, determining if we should loop on some method again... whatever.

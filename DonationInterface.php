@@ -101,16 +101,19 @@ $wgDonationInterfaceClassMap = array();
 
 $wgAutoloadClasses['CurrencyRates'] = $donationinterface_dir . 'gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/DonationData.php';
+$wgAutoloadClasses['DonationLoggerFactory'] = $donationinterface_dir . 'gateway_common/DonationLoggerFactory.php';
+$wgAutoloadClasses['DonationLogProcessor'] = $donationinterface_dir . 'gateway_common/DonationLogProcessor.php';
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = $donationinterface_dir . 'gateway_common/DataValidator.php';
+$wgAutoloadClasses['LogPrefixProvider'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['NationalCurrencies'] = $donationinterface_dir . 'gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['PaymentResult'] = $donationinterface_dir . 'gateway_common/PaymentResult.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
-require_once( 'gateway_common/WmfFramework.php' );
+$wgAutoloadClasses['WmfFrameworkLogHandler'] = $donationinterface_dir . 'gateway_common/WmfFrameworkLogHandler.php';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
@@ -1060,3 +1063,15 @@ function efDonationInterfaceUnitTests( &$files ) {
 }
 
 unset( $optionalParts );
+
+// Include composer's autoload if the vendor directory exists.  If we have been
+// included via Composer, our dependencies should already be autoloaded at the
+// top level.
+// Note that in WMF's continuous integration, we can still only use stuff from
+// Composer if it is already in Mediawiki's vendor directory, such as monolog
+$vendorAutoload = __DIR__ . '/vendor/autoload.php';
+if ( file_exists( $vendorAutoload ) ) {
+	require_once ( $vendorAutoload );
+} else {
+	require_once ( 'gateway_common/WmfFramework.php' );
+}
