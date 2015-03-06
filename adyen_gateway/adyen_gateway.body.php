@@ -31,37 +31,11 @@ class AdyenGateway extends GatewayPage {
 	}
 
 	/**
-	 * Show the special page
-	 *
-	 * @todo
-	 * - Finish error handling
+	 * TODO: Finish Adyen error handling
 	 */
 	protected function handleRequest() {
 		$this->getOutput()->addModules( 'adyen.js' );
 
-		$this->setHeaders();
-
-		// dispatch forms/handling
-		if ( $this->adapter->checkTokens() ) {
-
-			if ( $this->adapter->posted ) {
-
-				// Check form for errors
-				$form_errors = $this->validateForm();
-
-				// If there were errors, redisplay form, otherwise proceed to next step
-				if ( $form_errors ) {
-					$this->displayForm();
-				}
-			}
-			else {
-				$this->displayForm();
-			}
-		} else { //token mismatch
-			$error['general']['token-mismatch'] = wfMsg( 'donate_interface-token-mismatch' );
-			$this->adapter->addManualError( $error );
-			$this->displayForm();
-		}
+		$this->handleDonationRequest();
 	}
-
 }
