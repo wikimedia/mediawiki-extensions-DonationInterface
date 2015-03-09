@@ -78,11 +78,11 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->assertInstanceOf( 'TestingWorldPayAdapter', $gateway );
 		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
 
-		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, '/Request XML/' );
+		$loglines = $this->getLogMatches( LogLevel::INFO, '/Request XML/' );
 
-		$this->assertType( 'string', $logline, "We did not receive exactly one logline back that contains request XML" );
-		$this->assertEquals( '1', preg_match( '/Cleaned/', $logline ), 'The logline did not come back marked as "Cleaned".' );
-		$this->assertEquals( '0', preg_match( '/CNV/', $logline ), 'The "Cleaned" logline contained CVN data!' );
+		$this->assertEquals( 1, count( $loglines ), "We did not receive exactly one logline back that contains request XML" );
+		$this->assertEquals( 1, preg_match( '/Cleaned/', $loglines[0] ), 'The logline did not come back marked as "Cleaned".' );
+		$this->assertEquals( 0, preg_match( '/CNV/', $loglines[0] ), 'The "Cleaned" logline contained CVN data!' );
 	}
 
 	function testWorldPayFormLoad() {

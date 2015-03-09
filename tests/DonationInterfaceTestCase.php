@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * @group		Fundraising
@@ -458,7 +459,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// file_put_contents( '/tmp/xmlout.txt', $form_html );
 
 		if ( $fail_on_log_errors ) {
-			$this->verifyNoLogErrors( $formpage->adapter );
+			$this->verifyNoLogErrors();
 		}
 
 		$dom_thingy = new DomDocument();
@@ -550,20 +551,19 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$this->assertEquals( $check, $value, "Expected $label to be $check, found $value instead.");
 	}
 	/**
-	 * Asserts that $gateway has no log entries of LOG_ERR or worse.
-	 * @param object $gateway The gateway to check
+	 * Asserts that there are no log entries of LOG_ERR or worse.
 	 */
-	function verifyNoLogErrors( $gateway ) {
-		$log = $gateway->testlog;
+	function verifyNoLogErrors( ) {
+		$log = $this->testLogger->messages;
 
-		$this->assertTrue( is_array( $log ), "Missing the adapter testlog" );
+		$this->assertTrue( is_array( $log ), "Missing the test log" );
 
 		//for our purposes, an "error" is LOG_ERR or less.
 		$checklogs = array (
-			LOG_ERR => "Oops: We've got LOG_ERRors.",
-			LOG_CRIT => "Critical errors!",
-			LOG_ALERT => "Log Alerts!",
-			LOG_EMERG => "Logs says the servers are actually on fire.",
+			LogLevel::ERROR => "Oops: We've got LOG_ERRors.",
+			LogLevel::CRITICAL => "Critical errors!",
+			LogLevel::ALERT => "Log Alerts!",
+			LogLevel::EMERGENCY => "Logs says the servers are actually on fire.",
 		);
 
 		$message = false;
@@ -578,35 +578,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	/**
 	 * Finds a relevant line/lines in a gateway's log array
-	 * @param test adapter $gateway The gateway that should have the log line you're looking for.
-	 * @param integer $log_level A standard level that the line should... get logged at.
-	 * @param string $match A regex to match against the log lines.
-	 * @return mixed The full log line that matches the $match, an array if there were multiples, or false if none were found.
-	 */
-	public function getGatewayLogMatches( $gateway, $log_level, $match ) {
-		$log = $gateway->testlog;
-		if ( !array_key_exists( $log_level, $log ) ) {
-			return false;
-		}
-
-		$return = array ( );
-		foreach ( $log[$log_level] as $line ) {
-			if ( preg_match( $match, $line ) ) {
-				$return[] = $line;
-			}
-		}
-
-		if ( empty( $return ) ) {
-			return false;
-		}
-		if ( sizeof( $return ) === 1 ) {
-			return $return[0];
-		}
-		return $return;
-	}
-
-	/**
-	 * Version of @see getGatewayLogMatches, but checking the mock PSR-3 logger.
 	 * @param string $log_level One of the constants in \Psr\Log\LogLevel
 	 * @param string $match A regex to match against the log lines.
 	 * @return array All log lines that match $match.

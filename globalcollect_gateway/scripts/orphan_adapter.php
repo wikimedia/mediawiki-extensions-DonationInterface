@@ -5,6 +5,10 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	//so far: order_id and the utm data we pull from contribution tracking. 
 	protected $hard_data = array ( );
 
+	public static function getLogIdentifier() {
+		return 'orphans:' . self::getIdentifier() . "_gateway_trxn";
+	}
+
 	public function __construct() {
 		$this->batch = true; //always batch if we're using this object.
 		parent::__construct( $options = array ( ) );
@@ -99,31 +103,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 	}
 
-	/**
-	 * Unfortunate, but we have to overload this here, or change the way we
-	 * build that identifier.
-	 * @param string $msg
-	 * @param type $log_level
-	 * @param type $nothing
-	 * @return type
-	 */
-	public function log( $msg, $log_level = LOG_INFO, $nothing = null ) {
-		$identifier = 'orphans:' . self::getIdentifier() . "_gateway_trxn";
-
-		$msg = $this->getLogMessagePrefix() . $msg;
-
-		// if we're not using the syslog facility, use wfDebugLog
-		if ( !self::getGlobal( 'UseSyslog' ) ) {
-			WmfFramework::debugLog( $identifier, $msg );
-			return;
-		}
-
-		// otherwise, use syslogging
-		openlog( $identifier, LOG_ODELAY, LOG_SYSLOG );
-		syslog( $log_level, $msg );
-		closelog();
-	}
-
 	public function getUTMInfoFromDB() {
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
@@ -156,14 +135,14 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 				foreach ( $data as $key => $val ) {
 					$msg .= "$key = $val ";
 				}
-				$this->log( "$ctid: Found UTM Data. $msg" );
+				$this->logger->info( "$ctid: Found UTM Data. $msg" );
 				echo "$msg\n";
 				return $data;
 			}
 		}
 
 		//if we got here, we can't find anything else...
-		$this->log( "$ctid: FAILED to find UTM Source value. Using default.", LOG_ERR );
+		$this->logger->error( "$ctid: FAILED to find UTM Source value. Using default." );
 		return $data;
 	}
 
@@ -214,7 +193,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		try {
 			WmfFramework::runHooks( $hook, array( $transaction ) );
 		} catch ( Exception $e ) {
-			$this->log( "STOMP ERROR. Could not add message. " . $e->getMessage(), LOG_CRIT );
+			$this->logger->critical( "STOMP ERROR. Could not add message. " . $e->getMessage() );
 		}
 	}
 

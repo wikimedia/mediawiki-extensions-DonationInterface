@@ -16,6 +16,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  *
@@ -51,7 +52,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 		$this->assertInstanceOf( $class, $gateway );
 
-		$this->verifyNoLogErrors( $gateway );
+		$this->verifyNoLogErrors();
 	}
 
 
@@ -73,7 +74,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$gateway->loadDataAndReInit( $data, $useDB = false );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '444444', 'loadDataAndReInit failed to stick OrderID' );
 
-		$this->verifyNoLogErrors( $gateway );
+		$this->verifyNoLogErrors();
 	}
 
 	public function testBatchOrderID_no_generate() {
@@ -94,7 +95,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$gateway->loadDataAndReInit( $data, $useDB = false );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '777777', 'loadDataAndReInit failed to stick OrderID on second batch item' );
 
-		$this->verifyNoLogErrors( $gateway );
+		$this->verifyNoLogErrors();
 	}
 
 	public function testGCFormLoad() {
@@ -142,7 +143,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$this->assertEquals( false, $result['status'], "Error code $code should mean status of do_transaction is false" );
 		$this->assertTrue( array_key_exists( 'errors', $result ), 'Orphan adapter needs to see the errors to consider it rectified' );
 		$this->assertTrue( array_key_exists('1000001', $result['errors'] ), 'Orphan adapter needs error 1000001 to consider it rectified' );
-		$logline = $this->getGatewayLogMatches( $gateway, LOG_INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
-		$this->assertType( 'string', $logline, "GC Error $code is not generating the expected payments log error" );
+		$loglines = $this->getLogMatches( LogLevel::INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
+		$this->assertNotEmpty( $loglines, "GC Error $code is not generating the expected payments log error" );
 	}
 }

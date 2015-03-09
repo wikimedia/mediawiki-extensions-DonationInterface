@@ -53,7 +53,8 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			'wheeee' => 'yes'
 		);
 		$this->adapter = new GlobalCollectOrphanAdapter(array('external_data' => $data));
-		
+		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
+
 		//Now, actually do the processing. 
 		if ( method_exists( $this, $func ) ) {
 			$this->{$func}();
@@ -88,7 +89,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				sleep(2); //two seconds. 
 			}
 		}
-		$this->adapter->log( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
+		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 		
 		if ( $this->keepGoing() ){
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
@@ -149,7 +150,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
-		$this->adapter->log($final);
+		$this->logger->info( $final );
 		echo $final;
 	}
 	
@@ -217,7 +218,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
 		}
 		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
-		$this->adapter->log("Found $count antimessages.");
+		$this->logger->info( "Found $count antimessages." );
 		return $count;
 	}
 	
@@ -355,10 +356,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		if ($results['status']){
-			$this->adapter->log( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
+			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
 			$rectified = true;
 		} else {
-			$this->adapter->log( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
+			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
 			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
