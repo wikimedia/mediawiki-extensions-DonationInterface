@@ -1,3 +1,0 @@
-[submodule "vendor"]
-	path = vendor
-	url = https://gerrit.wikimedia.org/r/mediawiki/extensions/DonationInterface/vendor
