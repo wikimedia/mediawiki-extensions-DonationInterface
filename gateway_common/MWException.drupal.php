@@ -1,4 +1,6 @@
 <?php
 
-class MWException extends Exception {
+if ( !defined( 'MEDIAWIKI' ) ) {
+	class MWException extends Exception {
+	}
 }
