@@ -1,5 +1,6 @@
 <?php
 use Monolog\Logger;
+use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\SyslogHandler;
 
 /**
@@ -40,10 +41,13 @@ class DonationLoggerFactory {
 		$logThreshold = $debug ? Logger::DEBUG : Logger::INFO;
 
 		if ( $useSyslog ) {
-			$handler = new SyslogHandler( $identifier, LOG_USER, $logThreshold );
+			$handler = new SyslogHandler( $identifier, LOG_USER, $logThreshold, true, 0 );
 		} else {
 			$handler = new WmfFrameworkLogHandler( $identifier, $logThreshold );
 		}
+
+		$formatter = new LineFormatter( '%message%' );
+		$handler->setFormatter( $formatter );
 
 		if ( $prefixer === null ) {
 			$prefixer = $gateway;
