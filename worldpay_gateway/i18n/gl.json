@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Banjo"
 		]
 	},
-	"worldpaygateway": "Fai a túa doazón agora"
+	"worldpaygateway": "Fai a túa doazón agora",
+	"testingworldpaygateway": "Proba de WorldPay"
 }
