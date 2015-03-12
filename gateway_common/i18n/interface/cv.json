@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Salam",
-			"Pcoombe"
+			"Pcoombe",
+			"Chuvash2014"
 		]
 	},
 	"donate_interface-donor-name": "Ят:",
 	"donate_interface-donor-fname": "Ят:",
 	"donate_interface-donor-mname": "Ашшӗ ячӗ:",
-	"donate_interface-donor-lname": "Хушамат:",
-	"donate_interface-donor-street": "Урам:",
+	"donate_interface-donor-lname": "Хушамат",
+	"donate_interface-donor-street": "Урам",
 	"donate_interface-donor-street-number": "Номер:",
 	"donate_interface-donor-city": "Хула (ял):",
 	"donate_interface-donor-county": "Округ:",
@@ -17,7 +18,7 @@
 	"donate_interface-donor-state": "Штат:",
 	"donate_interface-donor-zip": "Индекс:",
 	"donate_interface-donor-postal": "Пуштӑ индексӗ:",
-	"donate_interface-donor-country": "Ҫӗршыв е регион:",
+	"donate_interface-donor-country": "Çĕршыв/Регион",
 	"donate_interface-donor-zone": "Зона:",
 	"donate_interface-donor-address": "Адрес:",
 	"donate_interface-donor-pobox": "Абонент ещӗкӗ:",

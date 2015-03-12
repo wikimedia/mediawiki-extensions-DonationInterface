@@ -168,7 +168,6 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->payment_methods = array(
 			'cc' => array(),
 		);
-		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
 	protected function getAllowedPaymentMethods() {
@@ -177,13 +176,15 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	function doPayment() {
+		return PaymentResult::fromResults(
+			$this->do_transaction( 'donate' ),
+			$this->getFinalStatus()
+		);
+	}
+
 	/**
-	 * Because GC has some processes that involve more than one do_transaction 
-	 * chained together, we're catching those special ones in an overload and 
-	 * letting the rest behave normally.
-	 * @TODO: If this is a pattern we want to be able to reuse, it should be
-	 * represented in the base class.
-	 * I can't help but feel like it's bad that the parent's do_transaction
+	 * FIXME: I can't help but feel like it's bad that the parent's do_transaction
 	 * is never used at all.
 	 */
 	function do_transaction( $transaction ) {
@@ -199,10 +200,10 @@ class AdyenAdapter extends GatewayAdapter {
 				case 'donate':
 					$formaction = $this->getGlobal( 'BaseURL' ) . '/hpp/pay.shtml';
 					$this->runAntifraudHooks();
-					$this->addData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
+					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
-						$this->log( "Failed pre-process checks for transaction type $transaction.", LOG_INFO );
+						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
 						$this->setTransactionResult( array(
 							'status' => false,
 							'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
@@ -220,7 +221,7 @@ class AdyenAdapter extends GatewayAdapter {
 						'data'
 					);
 					$requestParams = $this->buildRequestParams();
-					$this->log( "launching external iframe request: " . print_r( $requestParams, true )
+					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
 					$this->setTransactionResult(
 						$requestParams,
@@ -478,13 +479,13 @@ class AdyenAdapter extends GatewayAdapter {
 		if ( $response === NULL ) { // convert GET data
 			$request_vars = $_GET;
 
-			$this->log( "Processing user return data: " . print_r( $request_vars, TRUE ) );
+			$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
 
 			if ( !$this->checkResponseSignature( $request_vars ) ) {
-				$this->log( "Bad signature in response" );
+				$this->logger->info( "Bad signature in response" );
 				return 'BAD_SIGNATURE';
 			} else {
-				$this->log( "Good signature", LOG_DEBUG );
+				$this->logger->debug( "Good signature" );
 			}
 
 			$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
@@ -493,11 +494,11 @@ class AdyenAdapter extends GatewayAdapter {
 			if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 				// Both of these are listed as pending because we have to submit a capture
 				// request on 'AUTHORIZATION' ipn message receipt.
-				$this->log( "User came back as pending or authorised, placing in pending queue" );
+				$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
 				$this->finalizeInternalStatus( 'pending' );
 			}
 			else {
-				$this->log( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
+				$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
 				$this->finalizeInternalStatus( 'failed' );
 				return 'UNKNOWN';
 			}
@@ -507,7 +508,7 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->doLimboStompTransaction( TRUE ); // add antimessage
 			return null;
 		}
-		$this->log( "No response from gateway" );
+		$this->logger->info( "No response from gateway" );
 		return 'NO_RESPONSE';
 	}
 
@@ -516,44 +517,15 @@ class AdyenAdapter extends GatewayAdapter {
 	protected function stage_language( $type = 'request' ) {
 	*/
 
-	/**
-	 * Stage: amount
-	 *
-	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
-	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
-	 *
-	 * @param string	$type	request|response
-	 */
-	protected function stage_amount( $type = 'request' ) {
-		if ( !isset( $this->staged_data['amount'] ) || !isset( $this->staged_data['currency_code'] ) ) {
-			//can't do anything with amounts at all. Just go home.
-			return;
-		}
-
-		switch ( $type ) {
-			case 'request':
-				if ( !DataValidator::is_fractional_currency( $this->staged_data['currency_code'] ) ) {
-					$this->staged_data['amount'] = floor( $this->staged_data['amount'] );
-				}
-
-				$this->staged_data['amount'] = $this->staged_data['amount'] * 100;
-				break;
-
-			case 'response':
-				$this->staged_data['amount'] = $this->staged_data['amount'] / 100;
-				break;
-		}
-	}
-
-	protected function stage_risk_score( $type = 'request' ) {
+	protected function stage_risk_score() {
 		//This isn't smart enough to grab a new value here;
 		//Late-arriving values have to trigger a restage via addData or
 		//this will always equil the risk_score at the time of object
 		//construction. Still need the formatting, though.
-		$this->staged_data['risk_score'] = ( string ) round( $this->staged_data['risk_score'] );
+		$this->staged_data['risk_score'] = ( string ) round( $this->unstaged_data['risk_score'] );
 	}
 
-	protected function stage_hpp_signature( $type = 'request' ) {
+	protected function stage_hpp_signature() {
 		$keys = array(
 			'amount',
 			'currency_code',
@@ -577,7 +549,7 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->staged_data['hpp_signature'] = $this->calculateSignature( $sig_values );
 	}
 
-	protected function stage_billing_signature( $type = 'request' ) {
+	protected function stage_billing_signature() {
 		$keys = array(
 			'street',
 			'city',

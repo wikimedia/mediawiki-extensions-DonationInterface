@@ -52,5 +52,6 @@
 	"donate_interface-monthlybox-yes": "Дера де хӀара хӀора баттахь",
 	"donate_interface-monthly-cancel": "Хьан счёт тӀера хӀора баттахь ахча хьа оьцур ду ахьа дӀасаца де алаца.",
 	"donate_interface-monthly-short": "ХӀора баттахь",
-	"donate_interface-onetime-short": "Цхьаъ бен"
+	"donate_interface-onetime-short": "Цхьаъ бен",
+	"donate_interface-statement": "$1 Викикимеди"
 }

@@ -216,5 +216,6 @@
 	"donate_interface-dd-account_number": "گڼون شمېره",
 	"donate_interface-dd-bank_name": "بانک نوم",
 	"donate_interface-currency-change": "بدلول؟",
-	"donate_interface-monthly-short": "مياشتينی"
+	"donate_interface-monthly-short": "مياشتينی",
+	"donate_interface-statement": "ويکيمېډيا $1"
 }

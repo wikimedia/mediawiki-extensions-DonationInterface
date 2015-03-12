@@ -38,9 +38,16 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public $adapter;
 
 	/**
+	 * Gateway-specific logger
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		
 		$me = get_called_class();
@@ -76,15 +83,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * little to do with being contained within what in an ideal world would be 
 	 * a piece of mostly UI, this function needs to be moved inside the gateway 
 	 * adapter class.
-	 * @param array	$options
-	 *   OPTIONAL - In addition to all non-optional validation which verifies 
-	 *   that all populated fields contain an appropriate data type, you may 
-	 *   require certain field groups to be non-empty.
-	 *   - address - Validation requires non-empty: street, city, state, zip
-	 *   - amount - Validation requires non-empty: amount
-	 *   - creditCard - Validation requires non-empty: card_num, cvv, expiration and card_type
-	 *   - email - Validation requires non-empty: email
-	 *   - name - Validation requires non-empty: fname, lname
 	 *
 	 * @return boolean Returns false on an error-free validation, otherwise true.
 	 * FIXME: that return value seems backwards to me.
@@ -128,7 +126,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$page = $this->adapter->getGlobal( "FailPage" );
 
 			$log_message = '"Redirecting to [ ' . $page . ' ] "';
-			$this->log( $log_message, LOG_INFO );
+			$this->logger->info( $log_message );
 
 			if ( $page ) {
 
@@ -210,15 +208,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$wgOut->addHTML( "No Debug Array" );
 		}
-	}
-
-	/**
-	 * logs messages to the current gateway adapter's configured log location
-	 * @param string $msg The message to log
-	 * @param int|string $log_level The severity level of the message.
-	 */
-	public function log( $msg, $log_level=LOG_INFO ) {
-		$this->adapter->log( $msg, $log_level );
 	}
 
 	/**
@@ -336,12 +325,191 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
 		}
 
-		$this->adapter->addData( array(
+		$this->adapter->addRequestData( array(
 			'amount' => $newAmount,
 			'currency_code' => $defaultCurrency
 		) );
 
-		$this->adapter->log( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
+		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 		return true;
+	}
+
+	/**
+	 * Respond to a donation request
+	 */
+	protected function handleDonationRequest() {
+		$this->setHeaders();
+
+		// TODO: this is where we should feed GPCS parameters into DonationData.
+
+		// dispatch forms/handling
+		if ( $this->adapter->checkTokens() ) {
+			if ( $this->isProcessImmediate() ) {
+				// Check form for errors
+				// FIXME: Should this be rolled into adapter.doPayment?
+				$form_errors = $this->validateForm();
+
+				// If there were errors, redisplay form, otherwise proceed to next step
+				if ( $form_errors ) {
+					$this->displayForm();
+				} else {
+					// Attempt to process the payment, and render the response.
+					$this->processPayment();
+				}
+			} else {
+				$this->adapter->session_addDonorData();
+				$this->displayForm();
+			}
+		} else { //token mismatch
+			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' );
+			$this->adapter->addManualError( $error );
+			$this->displayForm();
+		}
+	}
+
+	/**
+	 * Determine if we should attempt to process the payment now
+	 *
+	 * @return bool True if we should attempt processing.
+	 */
+	protected function isProcessImmediate() {
+		// If the user posted to this form, or we've been sent here with an
+		// immediate "redirect=1" param, try to process the transaction.
+		return $this->adapter->posted
+			|| $this->adapter->getData_Unstaged_Escaped( 'redirect' ) === '1';
+	}
+
+	/**
+	 * Render a resultswitcher page
+	 */
+	protected function handleResultRequest() {
+		//no longer letting people in without these things. If this is
+		//preventing you from doing something, you almost certainly want to be
+		//somewhere else.
+		$forbidden = false;
+		if ( !$this->adapter->session_hasDonorData() ) {
+			$forbidden = true;
+			$f_message = 'No active donation in the session';
+		}
+
+		if ( $forbidden ){
+			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+		}
+		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
+
+		$referrer = $this->getRequest()->getHeader( 'referer' );
+		$liberated = false;
+		if ( $this->adapter->session_getData( 'order_status', $oid ) === 'liberated' ) {
+			$liberated = true;
+		}
+
+		// XXX need to know whether we were in an iframe or not.
+		global $wgServer;
+		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
+			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
+			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
+			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
+			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
+			if ( $forbidden ) {
+				$this->logger->error( "Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message" );
+			}
+			$this->getOutput()->allowClickjacking();
+			$this->getOutput()->addModules( 'iframe.liberator' );
+			return;
+		}
+
+		$this->setHeaders();
+
+		if ( $forbidden ){
+			$this->logger->critical( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
+			return;
+		} else {
+			$this->logger->info( "Resultswitcher: OK to process Order ID: " . $oid );
+		}
+
+		if ( $this->adapter->checkTokens() ) {
+			if ( $this->adapter->isResponse() ) {
+				$this->getOutput()->allowClickjacking();
+				$this->getOutput()->addModules( 'iframe.liberator' );
+				if ( NULL === $this->adapter->processResponse() ) {
+					switch ( $this->adapter->getFinalStatus() ) {
+					case 'complete':
+					case 'pending':
+						$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+						return;
+					}
+				}
+				$this->getOutput()->redirect( $this->adapter->getFailPage() );
+			}
+		} else {
+			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
+		}
+	}
+
+	/**
+	 * Ask the adapter to perform a payment
+	 *
+	 * Route the donor based on the response.
+	 */
+	protected function processPayment() {
+		$this->renderResponse( $this->adapter->doPayment() );
+	}
+
+	/**
+	 * Take UI action suggested by the payment result
+	 */
+	protected function renderResponse( PaymentResult $result ) {
+		if ( $result->isFailed() ) {
+			$this->getOutput()->redirect( $this->adapter->getFailPage() );
+		} elseif ( $url = $result->getRedirect() ) {
+			$this->getOutput()->redirect( $url );
+		} elseif ( $url = $result->getIframe() ) {
+			// Show a form containing an iframe.
+
+			// Well, that's sketchy.  See TODO in renderIframe: we should
+			// accomplish this entirely by passing an iframeSrcUrl parameter
+			// to the template.
+			$this->displayForm();
+
+			$this->renderIframe( $url );
+		} elseif ( $form = $result->getForm() ) {
+			// Show another form.
+
+			$this->adapter->addRequestData( array(
+				'ffname' => $form,
+			) );
+			$this->displayForm();
+		} elseif ( $errors = $result->getErrors() ) {
+			// FIXME: Creepy.  Currently, the form inspects adapter errors.  Use
+			// the stuff encapsulated in PaymentResult instead.
+			$this->displayForm();
+		} else {
+			// Success.
+			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+		}
+	}
+
+	/**
+	 * Append iframe
+	 *
+	 * TODO: Should be rendered by the template.
+	 *
+	 * @param string $url
+	 */
+	protected function renderIframe( $url ) {
+		$attrs = array(
+			'id' => 'paymentiframe',
+			'name' => 'paymentiframe',
+			'width' => '680',
+			'height' => '300'
+		);
+
+		$attrs['frameborder'] = '0';
+		$attrs['style'] = 'display:block;';
+		$attrs['src'] = $url;
+		$paymentFrame = Xml::openElement( 'iframe', $attrs );
+		$paymentFrame .= Xml::closeElement( 'iframe' );
+
+		$this->getOutput()->addHTML( $paymentFrame );
 	}
 }

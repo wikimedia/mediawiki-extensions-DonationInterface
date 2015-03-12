@@ -19,72 +19,55 @@
  * for most reporting.
  */
 class PaymentMethod {
-	static protected $specs = array();
+	/**
+	 * @var GatewayAdapter $gateway
+	 */
+	protected $gateway;
+
+	protected $name;
+
+	protected $is_recurring;
 
 	/**
-	 * Register a list of payment methods
-	 *
-	 * FIXME: static ownership of gateway specs is bad
-	 *
-	 * @param array $methods_meta map of name => method specification
+	 * Gateway definition for this payment method
 	 */
-	static public function registerMethods( $methods_meta ) {
-		// TODO: The registration needs to be reworked.  One of the more
-		// important issues is that several processors implement similar-enough
-		// methods (eg, "cc"), and they should each maintain separate metadata.
+	protected $spec;
 
-		foreach ( $methods_meta as $name => $meta ) {
-			if ( !array_key_exists( $name, self::$specs ) ) {
-				self::$specs[$name] = array();
+	/**
+	 * Build a new PaymentMethod object from an name pair
+	 *
+	 * @param GatewayAdapter $gateway
+	 * @param string $method_name
+	 * @param string $submethod_name
+	 * @param bool $is_recurring
+	 *
+	 * @return PaymentMethod
+	 */
+	public static function newFromCompoundName(
+		GatewayAdapter $gateway, $method_name, $submethod_name, $is_recurring
+	) {
+		$method = new PaymentMethod();
+		$method->gateway = $gateway;
+		$method->name = PaymentMethod::parseCompoundMethod( $method_name, $submethod_name );
+		$method->is_recurring = $is_recurring;
+
+		try {
+			// FIXME: I don't like that we're couple to the gateway already.
+			$spec = null;
+			if ( $submethod_name ) {
+				$spec = $gateway->getPaymentSubmethodMeta( $submethod_name );
 			}
-			self::$specs[$name] = $meta + self::$specs[$name];
-		}
-	}
-
-	/**
-	 * Get the specification for this payment method
-	 *
-	 * @param string $method
-	 *
-	 * @return array|null method specification data
-	 */
-	static protected function getMethodMeta( $method ) {
-		if ( array_key_exists( $method, self::$specs ) ) {
-			return self::$specs[$method];
-		}
-		return null;
-	}
-
-	/**
-	 * Convert a unique payment method name into the method/submethod form
-	 *
-	 * The compound form should be deprecated in favor of 
-	 *
-	 * @param string $id unique method identifier
-	 * @return list( $payment_method, $payment_submethod )
-	 */
-	static public function getCompoundMethod( $id ) {
-		if ( !PaymentMethod::isCompletelySpecified( $id ) ) {
-			$payment_method = $id;
-			$payment_submethod = null;
-		} elseif ( strpos( "_", $id ) !== false ) {
-			// Use the first segment as the method, and the remainder as submethod
-			$segments = explode( "_", $id );
-			$payment_method = array_shift( $segments );
-
-			// If the remainder is a valid method, use it as the submethod.
-			// Otherwise, we want something like (dd, dd_fr), so reuse the whole id.
-			$remainder = implode( "_", $segments );
-			if ( PaymentMethod::getMethodMeta( $remainder ) ) {
-				$payment_submethod = $remainder;
-			} else {
-				$payment_submethod = $id;
+			if ( $spec === null ) {
+				$spec = $gateway->getPaymentMethodMeta( $method_name );
 			}
-		} else {
-			$payment_method = $id;
-			$payment_submethod = $id;
+			$method->spec = $spec;
+		} catch ( MWException $ex ) {
+			// Return empty method.
+			$method->name = "none";
+			$method->spec = array();
 		}
-		return array( $payment_method, $payment_submethod );
+
+		return $method;
 	}
 
 	/**
@@ -98,34 +81,48 @@ class PaymentMethod {
 	 * @return string unique method id
 	 */
 	static public function parseCompoundMethod( $bareMethod, $subMethod ) {
-		$parts = explode( '_', $subMethod );
+		$parts = array();
+		if ( $subMethod ) {
+			$parts = explode( '_', $subMethod );
+		}
 		array_unshift( $parts, $bareMethod );
 
-		if ( $parts[0] === $parts[1] ) {
+		if ( count( $parts ) > 1 && $parts[0] === $parts[1] ) {
 			array_shift( $parts );
 		}
 
 		return implode( '_', $parts );
+	}
+ 
+
+	/**
+	 * Get the gateway's specification for this payment method
+	 *
+	 * @return array method specification data
+	 */
+	public function getMethodMeta() {
+		return $this->spec;
 	}
 
 	/**
 	 * TODO: implement this function
 	 * @return true if this payment method is complete enough to begin a transaction
 	 */
-	static public function isCompletelySpecified( $id ) {
-		if ( $id === 'cc' ) return false;
+	public function isCompletelySpecified() {
+		if ( $this->name === 'cc' ) return false;
 		return true;
 	}
 
 	/**
 	 * @return true if the $method descends from a more general $ancestor method, or if they are equal.
 	 */
-	static public function isInstanceOf( $method, $ancestor ) {
+	public function isInstanceOf( $ancestor ) {
+		$method = $this;
 		do {
-			if ( $method === $ancestor ) {
+			if ( $method->name === $ancestor ) {
 				return true;
 			}
-		} while ( $method = PaymentMethod::getParent( $method ) );
+		} while ( $method = $method->getParent() );
 
 		return false;
 	}
@@ -133,37 +130,32 @@ class PaymentMethod {
 	/**
 	 * Get the high-level family for this method
 	 *
-	 * @return string the most general ancestor of a given payment $method
+	 * @return PaymentMethod the most general ancestor of this method
 	 */
-	static public function getFamily( $method ) {
-		while ( $parent = PaymentMethod::getParent( $method ) ) {
+	public function getFamily() {
+		$method = $this;
+		while ( $parent = $method->getParent() ) {
 			$method = $parent;
 		}
 		return $method;
 	}
 
 	/**
-	 * @param string $method
-	 *
-	 * @return string|null parent method name
+	 * @return PaymentMethod|null parent method or null if there is no parent
 	 */
-	static protected function getParent( $method ) {
-		$meta = PaymentMethod::getMethodMeta( $method );
-		if ( $meta and array_key_exists( 'group', $meta ) ) {
-			return $meta['group'];
+	protected function getParent() {
+		if ( array_key_exists( 'group', $this->spec ) ) {
+			return PaymentMethod::newFromCompoundName( $this->gateway, $this->spec['group'], null, $this->is_recurring );
 		}
 		return null;
 	}
 
 	/**
-	 * @param string $method
-	 * @param boolean $recurring
-	 *
-	 * @return normalized utm_source payment method component
+	 * @return string normalized utm_source payment method component
 	 */
-	static public function getUtmSourceName( $method, $recurring ) {
-		$source = PaymentMethod::getFamily( $method );
-		if ( $recurring ) {
+	public function getUtmSourceName() {
+		$source = $this->getFamily()->name;
+		if ( $this->is_recurring ) {
 			$source = "r" . $source;
 		}
 		return $source;

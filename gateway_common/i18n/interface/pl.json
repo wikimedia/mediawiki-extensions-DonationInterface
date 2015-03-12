@@ -393,6 +393,7 @@
 	"donate_interface-securelogo-title": "Kliknij aby sprawdzić – ta strona używa VeriSign SSL dla zabezpieczenia wymiany poufnych danych.",
 	"donate_interface-secureLogo-text": "Informacje o certyfikatach SSL",
 	"donate_interface-error-http-403": "Nie masz uprawnień do dostępu do tej strony.",
+	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-currency_code": "Kod waluty.",
 	"apihelp-donate-param-fname": "Imię.",
 	"apihelp-donate-param-lname": "Nazwisko.",

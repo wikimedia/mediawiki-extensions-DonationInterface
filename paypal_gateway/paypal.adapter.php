@@ -26,7 +26,7 @@ class PaypalAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 
 		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
-			$this->addData(
+			$this->addRequestData(
 				array( 'payment_method' => 'paypal' )
 			);
 		}
@@ -172,6 +172,24 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function doPayment() {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$resultData = $this->do_transaction( 'DonateRecurring' );
+		} else {
+			$country = $this->getData_Unstaged_Escaped( 'country' );
+			if ( in_array( $country, $this->getGlobal( 'XclickCountries' ) ) ) {
+				$resultData = $this->do_transaction( 'DonateXclick' );
+			} else {
+				$resultData = $this->do_transaction( 'Donate' );
+			}
+		}
+
+		return PaymentResult::fromResults(
+			$resultData,
+			$this->getFinalStatus()
+		);
+	}
+
 	function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
@@ -191,7 +209,6 @@ class PaypalAdapter extends GatewayAdapter {
 		$this->payment_methods = array(
 			'paypal' => array(),
 		);
-		PaymentMethod::registerMethods( $this->payment_methods );
 	}
 
 	static function getCurrencies() {
@@ -224,13 +241,13 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function stage_recurring_length( $mode = 'request' ) {
+	protected function stage_recurring_length() {
 		if ( array_key_exists( 'recurring_length', $this->staged_data ) && !$this->staged_data['recurring_length'] ) {
 			unset( $this->staged_data['recurring_length'] );
 		}
 	}
 
-	protected function stage_locale( $mode = 'request' ) {
+	protected function stage_locale() {
 		$supported_countries = array(
 			'AU',
 			'AT',
@@ -266,13 +283,14 @@ class PaypalAdapter extends GatewayAdapter {
 			'zh_TW',
 		);
 
-		if ( in_array( $this->staged_data['country'], $supported_countries ) ) {
-			$this->staged_data['locale'] = $this->staged_data['country'];
+		if ( in_array( $this->unstaged_data['country'], $supported_countries ) ) {
+			$this->staged_data['locale'] = $this->unstaged_data['country'];
 		}
 
-		$fallbacks = Language::getFallbacksFor( strtolower( $this->staged_data['language'] ) );
+		$fallbacks = Language::getFallbacksFor( strtolower( $this->unstaged_data['language'] ) );
+		array_unshift( $fallbacks, strtolower( $this->unstaged_data['language'] ) );
 		foreach ( $fallbacks as $lang ) {
-			$locale = "{$this->staged_data['language']}_{$this->staged_data['country']}";
+			$locale = "{$lang}_{$this->unstaged_data['country']}";
 			if ( in_array( $locale, $supported_full_locales ) ) {
 				$this->staged_data['locale'] = $locale;
 				return;

@@ -32,32 +32,13 @@ class PaypalGateway extends GatewayPage {
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
-		$this->setHeaders();
-
-		if ( $this->validateForm() ) {
-			$this->displayForm();
-			return;
+		if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'paypal-recurring' ) {
+			// FIXME: do this in the form param harvesting step
+			$this->adapter->addData( array(
+				'recurring' => 1,
+			) );
 		}
 
-		// We also switch on the form name--if we're redirecting without stopping
-		// for user interaction, the form name is our only clue that this is recurring.
-		if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'paypal-recurring'
-			or $this->getRequest()->getText( 'recurring', 0 )
-		) {
-			$result = $this->adapter->do_transaction( 'DonateRecurring' );
-		} else {
-			$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
-			if ( array_search( $country, $this->adapter->getGlobal( 'XclickCountries' ) ) !== false ) {
-				$result = $this->adapter->do_transaction( 'DonateXclick' );
-			} else {
-				$result = $this->adapter->do_transaction( 'Donate' );
-			}
-		}
-
-		if ( !empty( $result['redirect'] ) ) {
-			$this->getOutput()->redirect( $result['redirect'] );
-		}
-
-		$this->displayForm();
+		$this->handleDonationRequest();
 	}
 }

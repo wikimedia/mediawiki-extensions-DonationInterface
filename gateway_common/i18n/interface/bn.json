@@ -6,7 +6,8 @@
 			"Ehsanulhb",
 			"Jsoby",
 			"Wikitanvir",
-			"Aftabuzzaman"
+			"Aftabuzzaman",
+			"Aashaa"
 		]
 	},
 	"donate_interface": "উইকিমিডিয়াকে সাহায্য করুন",
@@ -297,6 +298,7 @@
 	"donate_interface-monthlybox-no": "না, এটিকে এক-কালীন দান হিসাবে বানান",
 	"donate_interface-monthly-short": "মাসিক",
 	"donate_interface-onetime-short": "এক-কালীন",
+	"donate_interface-statement": "উইকিমিডিয়া $1",
 	"apihelp-donate-param-currency_code": "মুদ্রা কোড.",
 	"apihelp-donate-param-fname": "নামের প্রথমাংশ.",
 	"apihelp-donate-param-lname": "নামের শেষাংশ.",

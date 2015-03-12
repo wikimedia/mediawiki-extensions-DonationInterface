@@ -17,7 +17,8 @@
 			"Jrobell",
 			"Pcoombe",
 			"SkyDaisy9",
-			"Takot"
+			"Takot",
+			"아라"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -153,6 +154,7 @@
 	"donate_interface-donor-state": "都道府県・州",
 	"donate_interface-donor-zip": "ZIP コード",
 	"donate_interface-donor-postal": "郵便番号",
+	"donate_interface-donor-postcode": "郵便番号",
 	"donate_interface-donor-country": "国/地域",
 	"donate_interface-donor-address": "住所",
 	"donate_interface-donor-pobox": "私書箱",

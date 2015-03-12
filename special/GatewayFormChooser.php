@@ -11,7 +11,13 @@
  */
 class GatewayFormChooser extends UnlistedSpecialPage {
 
+	/**
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger;
+
 	function __construct() {
+		$this->logger = DonationLoggerFactory::getLogger();
 		parent::__construct( 'GatewayFormChooser' );
 	}
 
@@ -48,9 +54,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		if ( $form === null ) {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
 
-			GatewayAdapter::_log(
-				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'",
-				LOG_ERR
+			$this->logger->error(
+				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'"
 			);
 			$this->getOutput()->showErrorPage( 'donate_interface-error-msg-general', 'donate_interface-error-no-form' );
 			return;
@@ -150,7 +155,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function getAllValidForms( $country = null, $currency = null, $payment_method = null,
 		$payment_submethod = null, $recurring = false, $gateway = null
 	) {
-		global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceClassMap;
+		global $wgDonationInterfaceAllowedHtmlForms;
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
 
 		//Destroy all optional params that have no values and should be null.

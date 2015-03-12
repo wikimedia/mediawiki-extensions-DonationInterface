@@ -15,7 +15,9 @@
 			"Tobulos1",
 			"Warrakkk",
 			"WikiPhoenix",
-			"Jrobell"
+			"Jrobell",
+			"Jenniesarina",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -234,7 +236,7 @@
 	"donate_interface-first": "Förnamn",
 	"donate_interface-middle": "Mellannamn",
 	"donate_interface-last": "Efternamn",
-	"donate_interface-other": "Annat",
+	"donate_interface-other": "Valfritt belopp",
 	"donate_interface-noscript-msg": "Det verkar som om du inte har JavaScript aktiverat alternativt att din webbläsare inte stödjer det. \nFör att tillhandahålla en säker, trygg och behaglig upplevelse kräver vårt donationsformulär JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Om du inte kan eller inte vill aktivera JavaScript, kan du bidra ändå genom att besöka:",
 	"donate_interface-anon-message": "Visa mitt namn på den offentliga givarlistan.",
@@ -404,5 +406,6 @@
 	"donate_interface-securelogo-title": "Klicka för att verifiera - denna sajt använder VeriSign SSL för säker e-handel och konfidentiell kommunikation.",
 	"donate_interface-secureLogo-text": "Om SSLcertifikat",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
+	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-fname": "Förnamn."
 }

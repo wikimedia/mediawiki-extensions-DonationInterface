@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * Gateway_Extras_CustomFilters_MinFraud
@@ -78,16 +79,23 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	public static $instance;
 
 	/**
+	 * Sends messages to the blah_gateway_fraud log
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $fraud_logger;
+
+	/**
 	 * Constructor
 	 *
 	 * @param GatewayAdapter    $gateway_adapter    Gateway adapter instance
-	 * @param GatewayAdapter    $custom_filter_object    Gateway adapter instance
+	 * @param Gateway_Extras_CustomFilters    $custom_filter_object    Instance of Custom filter object
 	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
 	 * @throws MWException
 	 */
 	public function __construct( &$gateway_adapter, &$custom_filter_object, $license_key = NULL ) {
 
 		parent::__construct( $gateway_adapter );
+		$this->fraud_logger = DonationLoggerFactory::getLogger( $gateway_adapter, '_fraud' );
 
 		$this->cfo = &$custom_filter_object;
 
@@ -235,8 +243,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			}
 		} else {
 			// log potential tampering
-			if ( $this->log_fh )
-				$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch', LOG_ERR );
+			$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch', LogLevel::ERROR );
 		}
 
 		return FALSE;
@@ -270,7 +277,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		catch( MWException $ex){
 			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
 			$log_message = 'Minfraud filter came back with some garbage. Assigning all the points.';
-			$this->cfo->gateway_adapter->log( '"addRiskScore" ' . $log_message, LOG_ERR, '_fraud' );
+			$this->fraud_logger->error( '"addRiskScore" ' . $log_message );
 			$this->cfo->addRiskScore( 100, 'minfraud_filter' );
 		}
 
@@ -316,7 +323,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$log_message .= "\t" . '"' . addslashes( json_encode( $this->minfraudQuery ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( json_encode( $encoded_response ) ) . '"';
 		$log_message .= "\t" . '"' . addslashes( $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' ) ) . '"';
-		$this->gateway_adapter->log( '"minFraud query" ' . $log_message , LOG_INFO, '_fraud' );
+		$this->fraud_logger->info( '"minFraud query" ' . $log_message );
 	}
 
 	/**
@@ -373,36 +380,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	}
 
 	/**
-	 * Validates the minfraud_query for minimum required fields
-	 *
-	 * This is a pretty dumb validator.  It just checks to see if
-	 * there is a value for a required field and if its length is > 0
-	 *
-	 * @param array $minfraud_query The array you would pass to minfraud in a query
-	 * @return boolean
-	 */
-	public function validate_minfraud_query( array $minfraud_query ) {
-		// array of minfraud required fields
-		$reqd_fields = array(
-			'license_key',
-			'i',
-			'city',
-			'region',
-			'postal',
-			'country'
-		);
-
-		foreach ( $reqd_fields as $reqd_field ) {
-			if ( !isset( $minfraud_query[$reqd_field] ) ||
-				strlen( $minfraud_query[$reqd_field] ) < 1 ) {
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
-	/**
 	 * Perform a health check on minfraud data; send an email alarm on violation.
 	 *
 	 * Right now this only checks the number of queries remaining.
@@ -414,13 +391,13 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			$queries = intval( $this->minfraudResponse['queriesRemaining'] );
 
 			if ( $queries < $this->gateway_adapter->getGlobal( 'MinFraudAlarmLimit' ) ) {
-				$this->gateway_adapter->log( "MinFraud alarm limit reached! Queries remaining: $queries", LOG_WARNING );
+				$this->gateway_logger->warning( "MinFraud alarm limit reached! Queries remaining: $queries" );
 
 				$key = wfMemcKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
 				$lastAlarmAt = $wgMemc->get( $key ) | 0;
 				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
 					$wgMemc->set( $key, time(), ( 60 * 60 * 48 ) );
-					$this->gateway_adapter->log( "MinFraud alarm on query limit -- sending email" );
+					$this->gateway_logger->info( "MinFraud alarm on query limit -- sending email" );
 
 					$result = UserMailer::send(
 						new MailAddress( $wgEmergencyContact ),
@@ -429,9 +406,8 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 						'Queries remaining: ' . $queries
 					);
 					if ( !$result->isGood() ) {
-						$this->gateway_adapter->log(
-							"Could not send MinFraud query limit email: " . $result->errors[0]->message,
-							LOG_ERR
+						$this->gateway_logger->error(
+							"Could not send MinFraud query limit email: " . $result->errors[0]->message
 						);
 					}
 				}

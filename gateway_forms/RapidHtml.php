@@ -118,8 +118,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$form_errors = $this->form_errors;
 
 		$this->loadValidateJs();
-		
-		$country = $this->gateway->getData_Unstaged_Escaped( 'country' );
+
 		$ffname = $this->gateway->getData_Unstaged_Escaped( 'ffname' );
 		// Get error passed via query string
 		$error = $wgRequest->getText( 'error' );
@@ -134,7 +133,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$this->set_html_file_path( $ffname );
 			} catch ( MWException $mwe ) {
 				$message = "Could not load form '$ffname'";
-				$this->gateway->log( $message, LOG_ERR );
+				$this->logger->error( $message );
 				$this->set_html_file_path( 'error-noform' );
 			}
 		}
@@ -492,7 +491,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( $problems ){
 			if ( $fatal ){
 				$message = 'Requested an unavailable or non-existent form.';
-				$this->gateway->log( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') , LOG_ERR );
+				$this->logger->error( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') );
 				throw new MWException( $message ); # TODO: translate
 			} else {
 				return;
@@ -515,7 +514,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 					$params = array_merge( $preserve, $params );
 				}
 				//If this is just the one thing, we might move this inside DonationData for clarity's sake...
-				$this->gateway->addData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ) );
+				$this->gateway->addRequestData( array ( 'ffname_retry' => GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ) );
 			}
 		} else {
 			//No special type... let's add this to the form stack and call it good.

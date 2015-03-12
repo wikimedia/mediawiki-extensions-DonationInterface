@@ -8,6 +8,12 @@ abstract class Gateway_Form {
 	public $form_errors;
 
 	/**
+	 * Gateway-specific logger
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger;
+
+	/**
 	 * Required method for returning the full HTML for a form.
 	 *
 	 * Code invoking forms will expect this method to be set.  Requiring only
@@ -19,9 +25,9 @@ abstract class Gateway_Form {
 	abstract function getForm();
 
 	public function __construct( &$gateway ) {
-		global $wgOut, $wgRequest;
 
 		$this->gateway = & $gateway;
+		$this->logger = DonationLoggerFactory::getLogger( $gateway );
 		$gateway_errors = $this->gateway->getAllErrors();
 
 		// @codeCoverageIgnoreStart

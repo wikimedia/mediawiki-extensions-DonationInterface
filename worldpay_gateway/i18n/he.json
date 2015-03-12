@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pcoombe"
+			"Pcoombe",
+			"Amire80"
 		]
 	},
-	"worldpaygateway": "תִרמו עכשיו"
+	"worldpaygateway": "תִרמו עכשיו",
+	"testingworldpaygateway": "בדיקות WorldPay"
 }

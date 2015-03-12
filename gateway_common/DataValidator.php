@@ -555,7 +555,6 @@ class DataValidator {
 	 * Anything else that is 'falseish' is still perfectly valid to have as a data point. 
 	 * TODO: Consider doing this in a batch. 
 	 * @param string $value The value to check for non-emptyness.
-	 * @param array $data The whole data set. 
 	 * @return boolean True if the $value is not missing or empty, otherwise false.
 	 */
 	protected static function validate_not_empty( $value ){
@@ -750,7 +749,7 @@ EOT;
 	/**
 	 * Calculates and returns the card type for a given credit card number. 
 	 * @param numeric $card_num A credit card number.
-	 * @return mixed 'american', 'mastercard', 'visa', 'discover', or false. 
+	 * @return string|bool 'amex', 'mc', 'visa', 'discover', or false. 
 	 */
 	public static function getCardType( $card_num ) {
 		// validate that credit card number entered is correct and set the card type
