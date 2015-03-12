@@ -34,7 +34,7 @@ class PaypalGateway extends GatewayPage {
 
 		if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'paypal-recurring' ) {
 			// FIXME: do this in the form param harvesting step
-			$this->adapter->addData( array(
+			$this->adapter->addRequestData( array(
 				'recurring' => 1,
 			) );
 		}
