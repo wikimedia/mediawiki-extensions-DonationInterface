@@ -44,7 +44,7 @@ class AmazonGateway extends GatewayPage {
 					||  $this->getRequest()->getText( 'recurring', 0 )
 				) {
 					// FIXME: do this in the form param harvesting step
-					$this->adapter->addData( array(
+					$this->adapter->addRequestData( array(
 						'recurring' => 1,
 					) );
 				}
