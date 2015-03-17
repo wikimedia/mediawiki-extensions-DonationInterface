@@ -197,4 +197,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 	}
 
+	/**
+	 * Override live adapter with a no-op since orphan doesn't have any new info
+	 * before GET_ORDERSTATUS
+	 */
+	protected function pre_process_get_orderstatus() { }
 }

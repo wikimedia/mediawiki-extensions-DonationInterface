@@ -146,4 +146,25 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$loglines = $this->getLogMatches( LogLevel::INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
 		$this->assertNotEmpty( $loglines, "GC Error $code is not generating the expected payments log error" );
 	}
+
+	/**
+	 * Don't fraud-fail someone for bad CVV if GET_ORDERSTATUS
+	 * comes back with STATUSID 25 and no CVVRESULT
+	 * @group CvvResult
+	 */
+	function testConfirmCreditCardStatus25() {
+		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+
+		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
+		$init['ffname'] = 'cc-vmad';
+		$init['order_id'] = '55555';
+		$init['email'] = 'innocent@clean.com';
+
+		$gateway->loadDataAndReInit( $init, $useDB = false );
+		$gateway->setDummyGatewayResponseCode( '25' );
+
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$action = $gateway->getValidationAction();
+		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on STATUSID 25' );
+	}
 }

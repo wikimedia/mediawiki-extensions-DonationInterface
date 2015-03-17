@@ -161,6 +161,28 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
+	 * Don't fraud-fail someone for bad CVV if GET_ORDERSTATUS
+	 * comes back with STATUSID 25 and no CVVRESULT
+	 * @group CvvResult
+	 */
+	function testConfirmCreditCardStatus25() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '25' );
+
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$action = $gateway->getValidationAction();
+		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on STATUSID 25' );
+	}
+
+	/**
 	 * We should skip the API call if we're already suspicious
 	 */
 	function testGetOrderStatusSkipsIfFail() {
