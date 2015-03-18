@@ -1190,6 +1190,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$problemseverity = LogLevel::ERROR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
 		$original_status_code = NULL;
+		$ran_hooks = false;
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
 		$loops = 0;
@@ -1223,9 +1224,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$cancelflag = true; //don't retry or MasterCard will fine us
 			}
 
-			if ( $is_orphan && !$cancelflag ) {
-				if ( $loops === 0 ){ //only want to do this once - it's not going to change.
+			if ( $is_orphan && !$cancelflag && isset( $status_result['data'] ) ) {
+				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_result['data']['STATUSID'] );
+				if ( $action === 'pending-poke' && !$ran_hooks ){ //only want to do this once - it's not going to change.
 					$this->runAntifraudHooks();
+					$ran_hooks = true;
 				}
 				$status_result['action'] = $this->getValidationAction();
 			}
@@ -1275,6 +1278,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						if ( $is_orphan && !$gotCVV ){
 							$problemflag = true;
 							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
+						}
+						if ( !$ran_hooks ) {
+							$problemflag = true;
+							$problemmessage = 'On the brink of payment confirmation without running antifraud hooks';
+							$problemseverity = LogLevel::ERROR;
+							break 2;
 						}
 
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
