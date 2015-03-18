@@ -1198,6 +1198,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
+			if ( !$is_orphan ) {
+				// live users get antifraud hooks run in this txn's pre-process
+				$ran_hooks = true;
+			}
 			$xmlResults = array(
 				'cvv_result' => '',
 				'avs_result' => ''
