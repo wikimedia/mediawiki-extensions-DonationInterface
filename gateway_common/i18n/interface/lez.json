@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Soul Train"
+		]
+	},
+	"donate_interface-BRL": "Бразилиядин реал",
+	"donate_interface-CAD": "Канададин доллар",
+	"donate_interface-CHF": "Швейцариядин франк",
+	"donate_interface-GBP": "Британиядин Стерлингдин фунт",
+	"donate_interface-JPY": "Япониядин иена",
+	"donate_interface-KZT": "Къазакъстандин тенге",
+	"donate_interface-RUB": "Урусатдин рубль",
+	"donate_interface-TRY": "Турциядин лира",
+	"donate_interface-USD": "АСШ-дин доллар",
+	"donate_interface-UYU": "Уругвайдин песо"
+}
