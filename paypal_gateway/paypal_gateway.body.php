@@ -41,4 +41,13 @@ class PaypalGateway extends GatewayPage {
 
 		$this->handleDonationRequest();
 	}
+
+	/**
+	 * Always attempt to pass through transparently.
+	 *
+	 * @see GatewayPage::isProcessImmediate()
+	 */
+	protected function isProcessImmediate() {
+		return true;
+	}
 }
