@@ -4,5 +4,6 @@
 			"Gomoko"
 		]
 	},
-	"worldpaygateway": "Faire un don maintenant"
+	"worldpaygateway": "Faire un don maintenant",
+	"testingworldpaygateway": "Test de WorldPay"
 }
