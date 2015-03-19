@@ -126,6 +126,27 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Integration test to verify that the Paypal gateway redirects when validation is successful.
+	 */
+	function testRedirectFormOnValid() {
+		$init = $this->getDonorTestData();
+		$_SESSION['Donor'] = $init;
+
+		$that = $this;
+		$redirectTest = function( $location ) use ( $that, $init ) {
+			parse_str( parse_url( $location, PHP_URL_QUERY ), $actual );
+			$that->assertEquals( $init['amount'], $actual['amount'] );
+		};
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => $redirectTest,
+			)
+		);
+
+		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false );
+	}
+
+	/**
 	 * Integration test to verify that the Paypal gateway shows an error message when validation fails.
 	 */
 	function testShowFormOnError() {
