@@ -373,10 +373,19 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return bool True if we should attempt processing.
 	 */
 	protected function isProcessImmediate() {
-		// If the user posted to this form, or we've been sent here with an
-		// immediate "redirect=1" param, try to process the transaction.
-		return $this->adapter->posted
-			|| $this->adapter->getData_Unstaged_Escaped( 'redirect' ) === '1';
+		// If the user posted to this form, process immediately.
+		if ( $this->adapter->posted ) {
+			return true;
+		}
+
+		// Otherwise, respect the "redirect" parameter.  If it is "1", try to
+		// skip the interstitial page.  If it's "0", do not process immediately.
+		$redirect = $this->adapter->getData_Unstaged_Escaped( 'redirect' );
+		if ( $redirect !== null ) {
+			return ( $redirect === '1' || $redirect === 'true' );
+		}
+
+		return false;
 	}
 
 	/**

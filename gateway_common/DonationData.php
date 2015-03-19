@@ -127,6 +127,7 @@ class DonationData implements LogPrefixProvider {
 				'ffname',
 				'recurring',
 				'recurring_paypal',
+				'redirect',
 				'user_ip',
 				'server_ip',
 			);
