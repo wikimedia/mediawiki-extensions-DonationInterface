@@ -33,6 +33,12 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$this->testAdapterClass = 'TestingPaypalAdapter';
 	}
 
+	public function tearDown() {
+		TestingPaypalAdapter::$fakeGlobals = array();
+
+		parent::tearDown();
+	}
+
 	/**
 	 * Integration test to verify that the Donate transaction works as expected when all necessary data is present.
 	 */
@@ -40,8 +46,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$ret = $gateway->do_transaction( 'Donate' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'amount' => $init['amount'],
@@ -66,13 +72,12 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	 * Integration test to verify that the DonateRecurring transaction works as expected when all necessary data is present.
 	 */
 	function testDoTransactionDonateRecurring() {
-		global $wgPaypalGatewayRecurringLength;
-
 		$init = $this->getDonorTestData();
+		$init['recurring'] = '1';
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$ret = $gateway->do_transaction( 'DonateRecurring' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'a3' => $init['amount'], //obviously.
@@ -101,10 +106,15 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	 */
 	function testDoTransactionDonateXclick() {
 		$init = $this->getDonorTestData();
+
+		TestingPaypalAdapter::$fakeGlobals = array(
+			'XclickCountries' => array( $init['country'] ),
+		);
+
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$ret = $gateway->do_transaction( 'DonateXclick' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'amount' => $init['amount'],
@@ -151,7 +161,6 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	 */
 	function testShowFormOnError() {
 		$init = $this->getDonorTestData();
-		$init['OTT'] = 'SALT123456789';
 		$init['amount'] = '-100.00';
 		$_SESSION['Donor'] = $init;
 		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
@@ -175,8 +184,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$this->setLanguage( $language );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
-		$ret = $gateway->do_transaction( 'Donate' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'amount' => $init['amount'],
@@ -209,8 +218,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$this->setLanguage( $language );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
-		$ret = $gateway->do_transaction( 'Donate' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'amount' => $init['amount'],
@@ -239,8 +248,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$this->setLanguage( 'it' );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( 'it' )->text();
-		$ret = $gateway->do_transaction( 'Donate' );
-		parse_str( parse_url( $ret['redirect'], PHP_URL_QUERY ), $res );
+		$ret = $gateway->doPayment();
+		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
 			'amount' => $init['amount'],

@@ -5,6 +5,8 @@
  * @TODO: Extend/damage things here. I'm sure we'll need it eventually...
  */
 class TestingPaypalAdapter extends PaypalAdapter {
+	public static $fakeGlobals = array();
+
 	/**
 	 * Set the error code you want the dummy response to return
 	 */
@@ -58,4 +60,10 @@ class TestingPaypalAdapter extends PaypalAdapter {
 		);
 	}
 
+	public static function getGlobal( $name ) {
+		if ( array_key_exists( $name, TestingPaypalAdapter::$fakeGlobals ) ) {
+			return TestingPaypalAdapter::$fakeGlobals[$name];
+		}
+		return parent::getGlobal( $name );
+	}
 }
