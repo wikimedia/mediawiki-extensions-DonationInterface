@@ -141,7 +141,7 @@
 	"donate_interface-donor-legend": "捐助者資料",
 	"donate_interface-donor-amount": "金額：",
 	"donate_interface-donor-currency-label": "貨幣：",
-	"donate_interface-donor-email": "電子郵件地址：",
+	"donate_interface-donor-email": "電子郵件地址",
 	"donate_interface-donor-emailAdd": "電子郵件信箱",
 	"donate_interface-donor-name": "姓名：",
 	"donate_interface-donor-fname": "名：",
@@ -401,5 +401,6 @@
 	"donate_interface-error-http-403": "你沒有存取這個頁面的權限。",
 	"apihelp-donate-param-fname": "名。",
 	"apihelp-donate-param-city": "城市。",
+	"apihelp-donate-param-emailAdd": "電子郵件位址。",
 	"apihelp-donate-param-language": "語言代碼。"
 }
