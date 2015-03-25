@@ -27,8 +27,8 @@
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
-	"donate_interface-desc": "{{desc|name=Donation Interface|url=http://www.mediawiki.org/wiki/Extension:DonationInterface}}",
-	"donate_interface-langonly-desc": "{{desc|name=Donation Interface - Language Only|url=http://www.mediawiki.org/wiki/Extension:DonationInterface}}",
+	"donate_interface-desc": "{{desc|name=Donation Interface|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
+	"donate_interface-langonly-desc": "{{desc|name=Donation Interface - Language Only|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
 	"donate_interface-intro": "Message shown above the donate field prompting that tells people what to do.",
 	"donate_interface-amount": "Shown above the field where you choose the amount you want to donate.\n{{Identical|Amount}}",
 	"donate_interface-other-amount": "Field shown before the field where you input a custom amount to donate (not one of the preset amounts).",

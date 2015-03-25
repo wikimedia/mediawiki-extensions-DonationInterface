@@ -32,13 +32,6 @@ class PaypalGateway extends GatewayPage {
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
 
-		if ( $this->getRequest()->getText( 'ffname', 'default' ) === 'paypal-recurring' ) {
-			// FIXME: do this in the form param harvesting step
-			$this->adapter->addRequestData( array(
-				'recurring' => 1,
-			) );
-		}
-
 		$this->handleDonationRequest();
 	}
 
