@@ -275,7 +275,7 @@ class DataValidator {
 		// Define all default validations.
 		$validations = array(
 			'not_empty' => array(
-				'amount',
+				'amount' => 'validate_non_zero',
 				'country',
 				'currency_code',
 				'gateway',
@@ -625,6 +625,21 @@ class DataValidator {
 	 */
 	public static function validate_address( $value ) {
 		return !DataValidator::cc_number_exists_in_str( $value );
+	}
+
+	/**
+	 * Checks to make sure that the $value is present in the $data array, and not equivalent to zero.
+	 * @param string $value The value to check for non-zeroness.
+	 * @param array $data The whole data set.
+	 * @return boolean True if the $value is not missing or zero, otherwise false.
+	 */
+	public static function validate_non_zero( $value ) {
+		if ( $value === null || $value === ''
+			|| preg_match( '/^0+(\.0+)?$/', $value )
+		) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
