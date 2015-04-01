@@ -140,6 +140,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'es',
 			),
+			'Catalonia' => array (
+				'city' => 'Barcelona',
+				'state' => 'XX',
+				'zip' => '0',
+				'currency_code' => 'EUR',
+				'street' => '123 Calle Fake',
+				'fname' => 'Nombre',
+				'lname' => 'Apellido',
+				'amount' => '1.55',
+				'language' => 'ca',
+			),
 			'NO' => array (
 				'city' => 'Oslo',
 				'state' => 'XX',

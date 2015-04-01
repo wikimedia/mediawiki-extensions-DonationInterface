@@ -1955,16 +1955,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->staged_data['language'] = $language;
 	}
 
-	protected function unstage_language() {
-		$language = strtolower( $this->staged_data['language'] );
-
-		if ( $language === 'sc' ){
-			$language = 'zh';
-		}
-
-		$this->unstaged_data['language'] = $language;
-	}
-
 	/**
 	 * OUR language codes which are available to use in GlobalCollect.
 	 * @return string

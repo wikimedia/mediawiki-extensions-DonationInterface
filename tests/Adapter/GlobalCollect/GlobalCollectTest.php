@@ -325,6 +325,21 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
+	public function testLanguageFallback() {
+		$options = $this->getDonorTestData( 'Catalonia' );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$gateway->_stageData();
+
+		// Requesting the fallback language from the gateway.
+		$this->assertEquals( 'en', $gateway->_getData_Staged( 'language' ) );
+
+		// Preferred language is not damaged by side effects.
+		$this->assertEquals( 'ca', $gateway->getData_Unstaged_Escaped( 'language' ) );
+	}
+
 	/**
 	 * Tests to make sure that certain error codes returned from GC will or
 	 * will not create payments error loglines.
