@@ -56,4 +56,40 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'Not setting URL to transaction-specific value.'
 		);
 	}
+
+	/**
+	 * Test the NewInvoice transaction is making a sane request and signing
+	 * it correctly
+	 */
+	function testNewInvoiceRequest() {
+		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
+		$_SESSION['Donor']['order_id'] = '123456789';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'NewInvoice' );
+		parse_str( $gateway->curled[0], $actual );
+
+		$expected = array(
+			'x_login' => 'createlogin',
+			'x_trans_key' => 'createpass',
+			'x_invoice' => '123456789',
+			'x_amount' => '100.00',
+			'x_currency' => 'BRL',
+			'x_bank' => 'TE',
+			'x_country' => 'BR',
+			'x_description' => wfMessage( 'donate_interface-donation-description' )->inLanguage( $init['language'] )->text(),
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_cpf' => '00003456789',
+			'x_name' => 'Nome Apelido',
+			'x_email' => 'nobody@wikimedia.org',
+			'x_address' => 'Rua Falso 123',
+			'x_zip' => '01110-111',
+			'x_city' => 'São Paulo',
+			'x_state' => 'SP',
+			'control' => '5853FD808AA10839CB268ED2D1D6D4E8D8FECA88E4A8D66477369C0CA8AA4B42',
+			'type' => 'json',
+		);
+		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
+	}
 }

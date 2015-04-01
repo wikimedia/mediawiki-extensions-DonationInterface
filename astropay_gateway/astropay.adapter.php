@@ -287,6 +287,48 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 	}
 
+	/**
+	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to add a
+	 * calculated signature.
+	 * @param string $gateway_field_name
+	 * @param boolean $token
+	 * @return mixed
+	 */
+	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
+		if ( $gateway_field_name === 'control' ) {
+			$message = $this->getData_Staged( 'order_id' ) . 'V'
+				. $this->getData_Staged( 'amount' ) . 'I'
+				. $this->getData_Staged( 'donor_id' ) . '2'
+				. $this->getData_Staged( 'bank_code' ) . '1'
+				. $this->getData_Staged( 'fiscal_number' ) . 'H'
+				. /* bdate omitted */ 'G'
+				. $this->getData_Staged( 'email' ) .'Y'
+				. $this->getData_Staged( 'zip' ) . 'A'
+				. $this->getData_Staged( 'street' ) . 'P'
+				. $this->getData_Staged( 'city' ) . 'S'
+				. $this->getData_Staged( 'state' ) . 'P';
+			return $this->calculateSignature( $message );
+		}
+		return parent::getTransactionSpecificValue( $gateway_field_name, $token );
+	}
+
+	/*
+	 * Seems more sane to do it this way than provide a single input box
+	 * and try to parse out fname and lname.
+	 */
+	protected function stage_full_name() {
+		$this->staged_data['full_name'] = $this->unstaged_data['fname'] . ' ' . $this->unstaged_data['lname'];
+	}
+
+	/**
+	 * They need a 20 char string for a customer ID, so let's generate one from
+	 * the donor's email address.
+	 */
+	protected function stage_donor_id() {
+		$hashed = sha1( $this->unstaged_data['email'] );
+		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
+	}
+
 	function getResponseStatus( $response ) {
 	}
 
