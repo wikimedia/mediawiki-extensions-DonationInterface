@@ -325,7 +325,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
-	public function testLanguageFallback() {
+	public function testLanguageFallbackStaging() {
 		$options = $this->getDonorTestData( 'Catalonia' );
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
@@ -335,9 +335,31 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		// Requesting the fallback language from the gateway.
 		$this->assertEquals( 'en', $gateway->_getData_Staged( 'language' ) );
+	}
 
-		// Preferred language is not damaged by side effects.
-		$this->assertEquals( 'ca', $gateway->getData_Unstaged_Escaped( 'language' ) );
+	/**
+	 * Make sure unstaging functions don't overwrite core donor data.
+	 */
+	public function testAddResponseData_underzealous() {
+		$options = $this->getDonorTestData( 'Catalonia' );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		// This will set staged_data['language'] = 'en'.
+		$gateway->_stageData();
+
+		$ctid = mt_rand();
+
+		$gateway->addResponseData( array(
+			'contribution_tracking_id' => $ctid . '.1',
+		) );
+
+		// Desired vars were written into normalized data.
+		$this->assertEquals( $ctid, $gateway->getDonationData()->getVal_Escaped( 'contribution_tracking_id' ) );
+
+		// Language was not overwritten.
+		$this->assertEquals( 'ca', $gateway->getDonationData()->getVal_Escaped( 'language' ) );
 	}
 
 	/**

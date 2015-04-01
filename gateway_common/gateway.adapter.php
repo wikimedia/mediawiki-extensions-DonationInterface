@@ -603,7 +603,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->unstageData();
 
-		$this->dataObj->addData( $this->unstaged_data );
+		// Only copy the affected values back into the normalized data.
+		$newlyUnstagedData = array();
+		foreach ( $dataArray as $key => $stagedValue ) {
+			if ( array_key_exists( $key, $this->unstaged_data ) ) {
+				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
+			}
+		}
+		$this->dataObj->addData( $newlyUnstagedData );
 	}
 
 	/**
