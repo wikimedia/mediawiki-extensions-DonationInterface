@@ -33,7 +33,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * The gateway adapter object
-	 * @var object $adapter
+	 * @var GatewayAdapter $adapter
 	 */
 	public $adapter;
 
