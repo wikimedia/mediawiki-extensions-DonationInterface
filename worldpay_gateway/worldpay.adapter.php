@@ -26,7 +26,6 @@ class WorldPayAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'worldpay';
 	const GLOBAL_PREFIX = 'wgWorldPayGateway';
 
-	public $communication_type = 'xml';
 	public $redirect = FALSE;
 	public $log_outbound = TRUE;
 
@@ -180,6 +179,10 @@ class WorldPayAdapter extends GatewayAdapter {
 
 	public function __construct( $options = array ( ) ) {
 		parent::__construct( $options );
+	}
+
+	public function getCommunicationType() {
+		return 'xml';
 	}
 
 	function defineStagedVars() {

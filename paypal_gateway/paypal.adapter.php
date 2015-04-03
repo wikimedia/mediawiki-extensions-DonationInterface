@@ -19,8 +19,11 @@
 class PaypalAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Paypal';
 	const IDENTIFIER = 'paypal';
-	const COMMUNICATION_TYPE = 'namevalue';
 	const GLOBAL_PREFIX = 'wgPaypalGateway';
+
+	public function getCommunicationType() {
+		return 'redirect';
+	}
 
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
@@ -105,7 +108,6 @@ class PaypalAdapter extends GatewayAdapter {
 				'no_note' => 0,
 				'return' => $this->getGlobal( 'ReturnURL' ),
 			),
-			'communication_type' => 'redirect',
 		);
 		$this->transactions[ 'DonateXclick' ] = array(
 			'request' => array(
@@ -133,7 +135,6 @@ class PaypalAdapter extends GatewayAdapter {
 				'cmd' => '_xclick',
 				'no_shipping' => '1'
 			),
-			'communication_type' => 'redirect',
 		);
 		$this->transactions[ 'DonateRecurring' ] = array(
 			'request' => array(
@@ -168,7 +169,6 @@ class PaypalAdapter extends GatewayAdapter {
 				'src' => '1',
 				'srt' => $this->getGlobal( 'RecurringLength' ), // number of installments
 			),
-			'communication_type' => 'redirect',
 		);
 	}
 

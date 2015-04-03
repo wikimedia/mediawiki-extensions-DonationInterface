@@ -31,6 +31,10 @@ class TestingGenericAdapter extends GatewayAdapter {
 
 	public static $acceptedCurrencies = array();
 
+	public function getCommunicationType() {
+		return 'xml';
+	}
+
 	public function revalidate($check_not_empty = array()) {
 		if ( $this->errorsForRevalidate ) {
 			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];

@@ -24,8 +24,11 @@ use Psr\Log\LogLevel;
 class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
-	public $communication_type = 'xml';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
+
+	public function getCommunicationType() {
+		return 'xml';
+	}
 
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.

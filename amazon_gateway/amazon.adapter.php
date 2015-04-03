@@ -19,7 +19,6 @@
 class AmazonAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Amazon';
 	const IDENTIFIER = 'amazon';
-	public $communication_type = 'xml';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
 	function __construct( $options = array() ) {
@@ -30,6 +29,13 @@ class AmazonAdapter extends GatewayAdapter {
 				array( 'payment_method' => 'amazon' )
 			);
 		}
+	}
+
+	public function getCommunicationType() {
+		if ( $this->transaction_option( 'redirect' ) ) {
+			return 'redirect';
+		}
+		return 'xml';
 	}
 
 	function defineStagedVars() {}
