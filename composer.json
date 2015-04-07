@@ -20,6 +20,6 @@
 	},
 	"require": {
 		"psr/log": "1.0.0",
-		"monolog/monolog": "1.7.0"
+		"monolog/monolog": "1.12.0"
 	}
 }
