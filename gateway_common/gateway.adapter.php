@@ -1270,12 +1270,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	function getCurlBaseHeaders() {
-		$content_type = 'plain';
+		$content_type = 'application/x-www-form-urlencoded';
 		if ( $this->getCommunicationType() === 'xml' ) {
-			$content_type = 'xml';
+			$content_type = 'text/xml';
 		}
 		$headers = array(
-			'Content-Type: text/' . $content_type . '; charset=utf-8',
+			'Content-Type: ' . $content_type . '; charset=utf-8',
 			'X-VPS-Client-Timeout: 45',
 			'X-VPS-Request-ID:' . $this->getData_Staged( 'order_id' ),
 		);
