@@ -1423,9 +1423,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
 
-		foreach ( $curl_opts as $option => $value ) {
-			curl_setopt( $ch, $option, $value );
-		}
+		curl_setopt_array( $ch, $curl_opts );
 
 		// As suggested in the PayPal developer forum sample code, try more than once to get a
 		// response in case there is a general network issue
