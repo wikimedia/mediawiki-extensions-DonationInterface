@@ -229,6 +229,19 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'en',
 			),
+			'BR' => array (
+				'city' => 'São Paulo',
+				'state' => 'SP',
+				'zip' => '01110-111',
+				'currency_code' => 'BRL',
+				'fiscal_number' => '00003456789',
+				'bank_code' => 'TE',
+				'street' => 'Rua Falso 123',
+				'fname' => 'Nome',
+				'lname' => 'Apelido',
+				'amount' => '100',
+				'language' => 'pt',
+			),
 		);
 		//default to US
 		if ( $country === '' ) {
@@ -382,7 +395,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * the constructor of the gateway object that I can't get to without
 	 * refactoring the whole thing. @TODO: Refactor the gateway adapter
 	 * constructor.
-	 * @return \class The new relevant gateway adapter object.
+	 * @return GatewayAdapter The new relevant gateway adapter object.
 	 */
 	function getFreshGatewayObject( $external_data = null, $setup_hacks = array() ) {
 		$p1 = null;

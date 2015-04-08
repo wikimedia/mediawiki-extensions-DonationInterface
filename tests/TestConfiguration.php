@@ -63,6 +63,9 @@ global $wgDonationInterfaceTestMode,
 	$wgAmazonGatewayAccountInfo,
 	$wgAdyenGatewayBaseURL,
 	$wgAdyenGatewayAccountInfo,
+	$wgAstropayGatewayURL,
+	$wgAstropayGatewayTestingURL,
+	$wgAstropayGatewayAccountInfo,
 	$wgWorldPayGatewayAccountInfo,
 	$wgWorldPayGatewayURL,
 	$wgMinFraudLicenseKey,
@@ -118,6 +121,21 @@ $wgAdyenGatewayAccountInfo['test'] = array (
 	'AccountName' => 'wikitest',
 	'SharedSecret' => 'long-cat-is-long',
 	'SkinCode' => 'testskin',
+);
+
+/** Astropay **/
+$wgAstropayGatewayURL = 'https://astropay.example.com/';
+$wgAstropayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
+$wgAstropayGatewayAccountInfo['test'] = array (
+	'Create' => array(
+		'Login' => 'createlogin',
+		'Password' => 'createpass',
+	),
+	'Status' => array(
+		'Login' => 'statuslogin',
+		'Password' => 'statuspass',
+	),
+	'SecretKey' => 'NanananananananananananananananaBatman',
 );
 
 /** WorldPay **/

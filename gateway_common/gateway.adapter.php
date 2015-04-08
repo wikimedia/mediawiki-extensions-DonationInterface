@@ -1260,8 +1260,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//I chose to return this as a function so it's easy to override.
 		//TODO: probably this for all the junk I currently have stashed in the constructor.
 		//...maybe.
+		$path = $this->transaction_option( 'path' );
+		if ( !$path ) {
+			$path = '';
+		}
 		$opts = array(
-			CURLOPT_URL => $this->url,
+			CURLOPT_URL => $this->url . $path,
 			CURLOPT_USERAGENT => WmfFramework::getUserAgent(),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1,
