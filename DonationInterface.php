@@ -43,6 +43,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'Extras' => false, //this one gets set in the next loop, so don't bother.
 	'CustomFilters' => false, //Also gets set in the next loop.
 	'Stomp' => false,
+	'Queue' => false,
 	'ConversionLog' => false, //this is definitely an Extra
 	'Minfraud' => true, //this is definitely an Extra
 	'GlobalCollect' => true,
@@ -104,6 +105,7 @@ $wgAutoloadClasses['CurrencyRates'] = $donationinterface_dir . 'gateway_common/C
 $wgAutoloadClasses['DonationData'] = $donationinterface_dir . 'gateway_common/DonationData.php';
 $wgAutoloadClasses['DonationLoggerFactory'] = $donationinterface_dir . 'gateway_common/DonationLoggerFactory.php';
 $wgAutoloadClasses['DonationLogProcessor'] = $donationinterface_dir . 'gateway_common/DonationLogProcessor.php';
+$wgAutoloadClasses['DonationQueue'] = $donationinterface_dir . 'gateway_common/DonationQueue.php';
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
@@ -558,6 +560,64 @@ if ($optionalParts['Stomp'] === true){
 		'payments-init' => 'payments-init', //noncritical: same as above with the payments-initial log
 	);
 }
+
+/**
+ * @global array $wgDonationInterfaceDefaultQueueServer
+ *
+ * Common development defaults for the queue server.
+ * TODO: Default to a builtin backend such as Memcache or pure-PHP.
+ */
+$wgDonationInterfaceDefaultQueueServer = array(
+	'backend' => array(
+		'type' => '\PHPQueue\Backend\Stomp',
+		'uri' => 'tcp://localhost:61613',
+		'read_timeout' => '1',
+	),
+	'expiry' => '30 days',
+);
+
+/**
+ * @global array $wgDonationInterfaceQueues
+ *
+ * This is a mapping from queue name to attributes.  It's not necessary to
+ * list queues here, but the built-in queues are listed for convenience.
+ *
+ * Default values are taken from $wgDonationInterfaceDefaultQueueServer, and
+ * values given here will override the defaults.
+ *
+ * The array key is the queue name as it is referred to from code, although the
+ * actual queue name used in the backend may be overridden, see below.
+ *
+ * Unrecognized options will be passed along to the queue backend constructor,
+ * but the following have special meaning to DonationQueue:
+ *     type - Class name of the queue backend.
+ *     expiry - The default lifespan of messages in this queue (days).
+ *     name - Backend can map to a named queue, rather than default to the
+ *         queue key as it appears in the $wgDonationInterfaceQueues array.
+ */
+$wgDonationInterfaceQueues = array(
+	// Incoming donations that we think have been paid for.
+	'completed' => array(),
+	// So-called limbo queue for GlobalCollect, where we store donor personal
+	// information while waiting for the donor to return from iframe or a
+	// redirect.  It's very important that this data is not stored anywhere
+	// permanent such as logs or the database, until we know this person
+	// finished making a donation.
+	'globalcollect-cc-limbo' => array(),
+	// The general limbo queue (see above). FIXME: deprecated?
+	'limbo' => array(),
+	// Where limbo messages go to die, if the orphan slayer decides they are
+	// still in one of the pending states.  FIXME: who reads from this queue?
+	'pending' => array(),
+
+	// Non-critical queues
+
+	// These messages will be shoved into the fraud database (see
+	// crm/modules/fredge).
+	'payments-antifraud' => array(),
+	// These are shoved into the payments-initial database.
+	'payments-init' => array(),
+);
 
 //Extras globals - required for ANY optional class that is considered an "extra".
 if ($optionalParts['Extras'] === true){
@@ -1088,7 +1148,7 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$files[] = $testDir . 'AllTests.php';
 
 	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
-
+	$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
 	$wgAutoloadClasses['TestingAstropayAdapter'] = $testDir . 'includes/test_gateway/TestingAstropayAdapter.php';
