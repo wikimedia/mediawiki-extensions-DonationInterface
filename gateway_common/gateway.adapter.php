@@ -1249,7 +1249,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// log that the transaction is essentially complete
-		$this->logger->info( " Transaction complete." );
+		$this->logger->info( 'Transaction complete.' );
 
 		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
 
@@ -1757,6 +1757,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param	string			$transaction
 	 * @param	string			$key			The key to lookup in the transaction such as STATUSID
 	 * @param	integer|string	$code			This gets converted to an integer if the values is numeric.
+	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 *
 	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
 	 */
@@ -2649,11 +2650,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return type
 	 */
 	public function isBatchProcessor(){
-		if (!property_exists($this, 'batch')){
-			return false;
-		} else {
-			return $this->batch;
-		}
+		return $this->batch;
 	}
 
 	/**

@@ -14,6 +14,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		parent::__construct( $options = array ( ) );
 	}
 
+	// FIXME: Get rid of this.
 	public function unstage_data( $data = array( ), $final = true ) {
 		$unstaged = array( );
 		foreach ( $data as $key => $val ) {
@@ -31,6 +32,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			}
 		}
 		if ( $final ) {
+			// FIXME
 			$this->stageData( 'response' );
 		}
 		foreach ( $unstaged as $key => $val ) {
@@ -39,6 +41,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $unstaged;
 	}
 
+	// FIXME: This needs some serious code reuse trickery.
 	public function loadDataAndReInit( $data, $useDB = true ) {
 		//re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
