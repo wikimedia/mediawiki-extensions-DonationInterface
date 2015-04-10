@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Fúlvio"
 		]
 	},
-	"astropaygateway": "Faça a sua doação agora"
+	"astropaygateway": "Faça a sua doação agora",
+	"astropay_gateway-desc": "Processamento de pagamentos Astropay"
 }

@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tusca"
+			"Tusca",
+			"Macofe"
 		]
 	},
-	"astropaygateway": "Haga su donación ahora",
-	"astropay_gateway-desc": "Astropay payment processing"
+	"astropaygateway": "Haz tu donación ahora",
+	"astropay_gateway-desc": "Procesamiento de pagos Astropay"
 }
