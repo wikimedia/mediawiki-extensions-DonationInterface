@@ -3,10 +3,11 @@
 		"authors": [
 			"Shirayuki",
 			"Simon Shek",
-			"LNDDYL"
+			"LNDDYL",
+			"Liuxinyu970226"
 		]
 	},
-	"globalcollectgateway": "馬上捐款",
+	"globalcollectgateway": "立刻進行捐款",
 	"globalcollect_gateway-desc": "GlobalCollect付款處理",
 	"globalcollect_gateway-fakesucceed": "測試一次付款成功",
 	"globalcollect_gateway-fakefail": "測試一次付款失敗",
