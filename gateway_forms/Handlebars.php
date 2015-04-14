@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * Gateway form rendering using Handlebars
+ */
 class Gateway_Form_Handlebars extends Gateway_Form {
+	/**
+	 * @var string Janky way to keep track of the template file path that will
+	 * be used as the main entry point for rendering.
+	 */
 	protected $topLevelForm;
 
+	/**
+	 * @param GatewayAdapter $gateway The live adapter object that is used as
+	 * the source for donor data and capabilities discovery.
+	 */
 	public function __construct( GatewayAdapter $gateway ) {
 		parent::__construct( $gateway );
 
@@ -12,7 +23,9 @@ class Gateway_Form_Handlebars extends Gateway_Form {
 	}
 
 	/**
-	 * Return the HTML form with data added
+	 * Return the rendered HTML form, using template parameters from the gateway object
+	 *
+	 * @return string
 	 */
 	public function getForm() {
 		$data = $this->gateway->getData_Unstaged_Escaped();
