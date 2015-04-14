@@ -31,7 +31,7 @@ class Gateway_Form_Handlebars extends Gateway_Form {
 		$data = $this->gateway->getData_Unstaged_Escaped();
 
 		$template = file_get_contents( $this->topLevelForm );
-		if ( !$template ) {
+		if ( $template === false ) {
 			throw new Exception( "Template file unavailable: [{$this->topLevelForm}]" );
 		}
 
