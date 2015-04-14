@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group GatewayPage
  */
-class HandlebarsFormTest extends DonationInterfaceTestCase {
+class MustacheFormTest extends DonationInterfaceTestCase {
 	protected $form;
 	protected $adapter;
 
@@ -44,15 +44,15 @@ class HandlebarsFormTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Render a few simple handlebars files and match the output
+	 * Render a few simple Mustache files and match the output
 	 *
 	 * @dataProvider formCases
 	 */
 	public function testRendering( $name, $regexp ) {
 		$this->setMwGlobals( array(
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/handlebars/{$name}.handlebars",
+			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/{$name}.mustache",
 		) );
-		$this->form = new Gateway_Form_Handlebars( $this->adapter );
+		$this->form = new Gateway_Form_Mustache( $this->adapter );
 		$html = $this->form->getForm();
 
 		$this->assertRegExp( $regexp, $html );
@@ -64,9 +64,9 @@ class HandlebarsFormTest extends DonationInterfaceTestCase {
 	 */
 	public function testNoTemplateFile() {
 		$this->setMwGlobals( array(
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/handlebars/DONOTCREATE.handlebars",
+			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
 		) );
-		$this->form = new Gateway_Form_Handlebars( $this->adapter );
+		$this->form = new Gateway_Form_Mustache( $this->adapter );
 		// Suppress the error cos: we know.
 		$html = @$this->form->getForm();
 

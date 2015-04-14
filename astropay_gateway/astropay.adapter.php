@@ -26,7 +26,7 @@ class AstropayAdapter extends GatewayAdapter {
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
 
 	public function getFormClass() {
-		return 'Gateway_Form_Handlebars';
+		return 'Gateway_Form_Mustache';
 	}
 
 	public function getCommunicationType() {
