@@ -134,4 +134,20 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log.$/' );
 		$this->assertNotEmpty( $logged );
 	}
+
+	/**
+	 * do_transaction should set redirect key when we get a valid response.
+	 */
+	function testRedirectOnSuccess() {
+		$init = $this->getDonorTestData( 'BR' );
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'NewInvoice' );
+
+		// from the test response
+		$expected = 'https://sandbox.astropaycard.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
+		$results = $gateway->getTransactionAllResults();
+		$this->assertEquals( $expected, $results['redirect'],
+			'do_transaction is not setting the right redirect' );
+	}
 }

@@ -368,6 +368,18 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function getResponseData( $response ) {
+		$data = array();
+
+		switch( $this->getCurrentTransaction() ) {
+			case 'NewInvoice':
+				if ( $response !== NULL && isset( $response['link'] ) ) {
+					// aargh, side effects!
+					$this->setTransactionResult( $response['link'], 'redirect' );
+					$data['redirect'] = $response['link'];
+				}
+				break;
+		}
+		return $data;
 	}
 
 	static function getCurrencies() {
