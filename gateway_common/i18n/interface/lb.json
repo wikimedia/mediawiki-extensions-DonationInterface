@@ -376,6 +376,7 @@
 	"donate_interface-secureLogo-text": "Iwwer SSL-Certificaten",
 	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen",
 	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-param-amount": "De Betrag vum Don",
 	"apihelp-donate-param-currency_code": "Code vun der Währung.",
 	"apihelp-donate-param-fname": "Virnumm.",
 	"apihelp-donate-param-lname": "Familljennumm.",
