@@ -330,9 +330,41 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function getResponseStatus( $response ) {
+		if ( $response === NULL || !isset( $response['status'] ) ) {
+			return false;
+		}
+		return $response['status'] === '0';
 	}
 
 	function getResponseErrors( $response ) {
+		$logged = false;
+		$errors = array();
+
+		if ( $response === NULL ) {
+			$logged = 'Astropay response was not valid JSON.  Full response: ' .
+				$this->getTransactionRawResponse();
+			$this->logger->error( $logged );
+		} else if ( !isset( $response['status'] ) ) {
+			$logged = 'Astropay response does not have a status code.  Full response: ' .
+				$this->getTransactionRawResponse();
+			$this->logger->error( $logged );
+		} else if ( $response['status'] !== '0' ) {
+			$logged = "Astropay response has non-zero status {$response['status']}.  ";
+			if ( isset( $response['desc'] ) ) {
+				$logged .= 'Error description: ' . $response['desc'];
+			} else {
+				$logged .= 'Full response: ' . $this->getTransactionRawResponse();
+			}
+			$this->logger->warning( $logged );
+		}
+
+		if ( $logged ) {
+			$generic = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
+			$debug = $this->getGlobal( 'DisplayDebug' );
+			$errors[] = $debug ? $logged : $generic;
+		}
+
+		return $errors;
 	}
 
 	function getResponseData( $response ) {

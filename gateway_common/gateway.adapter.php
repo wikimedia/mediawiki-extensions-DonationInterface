@@ -1538,10 +1538,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * about.  For instance: If it's XML, we only want correctly-formatted XML.
 	 * Headers must be killed off.
 	 * @param string $rawResponse hot off the curl
-	 * @return string|DomDocument depending on $this->getResponseType
+	 * @return string|DomDocument|array depending on $this->getResponseType
 	 */
 	function getFormattedResponse( $rawResponse ) {
-		if ( $this->getResponseType() == 'xml' ) {
+		$type = $this->getResponseType();
+		if ( $type === 'xml' ) {
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 			$displayXML = $this->formatXmlString( $xmlString );
 			$realXML = new DomDocument( '1.0' );
@@ -1552,9 +1553,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$realXML->loadXML( trim( $xmlString ) );
 			return $realXML;
 		}
-		// For anything else, just delete all the headers and the blank line after
-		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse );
+		// For anything else, delete all the headers and the blank line after
+		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
+		if ( $type === 'json' ) {
+			return json_decode( $noHeaders, true );
+		}
 		return $noHeaders;
 	}
 

@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use \Psr\Log\LogLevel;
 
 /**
  *
@@ -91,5 +92,46 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'type' => 'json',
 		);
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
+	}
+
+	/**
+	 * When Astropay sends back valid JSON with status "0", we should set txn
+	 * status to true and errors should be empty.
+	 */
+	function testStatusNoErrors() {
+		$init = $this->getDonorTestData( 'BR' );
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'NewInvoice' );
+
+		$this->assertEquals( true, $gateway->getTransactionStatus(),
+			'Transaction status should be true for code "0"' );
+
+		$this->assertEmpty( $gateway->getTransactionErrors(),
+			'Transaction errors should be empty for code "0"' );
+	}
+
+	/**
+	 * When Astropay sends back valid JSON with status "1", we should set txn
+	 * status to false and error array to generic error and log a warning.
+	 */
+	function testStatusErrors() {
+		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '1' );
+
+		$gateway->do_transaction( 'NewInvoice' );
+
+		$this->assertEquals( false, $gateway->getTransactionStatus(),
+			'Transaction status should be false for code "1"' );
+
+		$expected = array(
+			wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text()
+		);
+		$this->assertEquals( $expected, $gateway->getTransactionErrors(),
+			'Wrong error for code "1"' );
+		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log.$/' );
+		$this->assertNotEmpty( $logged );
 	}
 }
