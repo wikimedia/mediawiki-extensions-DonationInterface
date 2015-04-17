@@ -243,7 +243,7 @@
 	"donate_interface-token-mismatch": "会话已经过期。请您重新填写并提交表单。",
 	"donate_interface-cc-form-header-personal": "账户信息",
 	"donate_interface-cc-form-header-payment": "付款信息",
-	"donate_interface-make-your-donation": "现在就进行捐款",
+	"donate_interface-make-your-donation": "马上捐款",
 	"donate_interface-state-in-us": "如果在美国境内",
 	"donate_interface-comment": "评论",
 	"donate_interface-first": "名",
