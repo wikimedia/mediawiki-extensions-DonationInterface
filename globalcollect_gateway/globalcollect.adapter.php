@@ -2381,13 +2381,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * determine if we want to fail the transaction ourselves or not.
 	 */
 	public function getCVVResult(){
-		if ( is_null( $this->getData_Unstaged_Escaped( 'cvv_result' ) ) ){
+		$from_processor = $this->getData_Unstaged_Escaped( 'cvv_result' );
+		if ( is_null( $from_processor ) ){
 			return null;
 		}
 
 		$cvv_map = $this->getGlobal( 'CvvMap' );
 
-		$result = $cvv_map[$this->getData_Unstaged_Escaped( 'cvv_result' )];
+		if ( !isset( $cvv_map[$from_processor] ) ) {
+			$this->logger->warning( "Unrecognized cvv_result '$from_processor'" );
+			return false;
+		}
+
+		$result = $cvv_map[$from_processor];
 		return $result;
 
 	}
