@@ -183,6 +183,29 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
+	 * If CVVRESULT is unrecognized, fraud-fail and warn
+	 * @group CvvResult
+	 */
+	function testConfirmCreditCardBadCVVResult() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+
+		$this->setMwGlobals( 'wgRequest',
+			new FauxRequest( array( 'CVVRESULT' => ' ' ), false ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '800' );
+
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$result = $gateway->getCvvResult();
+		$this->assertEquals( false, $result, 'Gateway should fraud fail if CVVRESULT is not mapped' );
+		$matches = $this->getLogMatches( LogLevel::WARNING, "/Unrecognized cvv_result ' '$/" );
+		$this->assertNotEmpty( $matches, 'Did not log expected warning on unmapped CVVRESULT' );
+	}
+
+	/**
 	 * We should skip the API call if we're already suspicious
 	 */
 	function testGetOrderStatusSkipsIfFail() {
