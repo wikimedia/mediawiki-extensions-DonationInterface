@@ -1091,6 +1091,11 @@ class WorldPayAdapter extends GatewayAdapter {
 
 		$cvv_map = $this->getGlobal( 'CvvMap' );
 
+		if ( !isset( $cvv_map[$cvv_result] ) ) {
+			$this->logger->warning( "Unrecognized cvv_result '$cvv_result'" );
+			return false;
+		}
+
 		$result = $cvv_map[$cvv_result];
 		return $result;
 	}
