@@ -65,6 +65,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$language = $this->getRequest()->getVal( 'language' );
 		if ( $language ) {
 			RequestContext::getMain()->setLanguage( $language );
+			global $wgLang;
+			$wgLang = RequestContext::getMain()->getLanguage();
 		}
 
 		if( $wgContributionTrackingFundraiserMaintenance
