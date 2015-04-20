@@ -317,7 +317,14 @@ class AstropayAdapter extends GatewayAdapter {
 	 * and try to parse out fname and lname.
 	 */
 	protected function stage_full_name() {
-		$this->staged_data['full_name'] = $this->unstaged_data['fname'] . ' ' . $this->unstaged_data['lname'];
+		$name_parts = array();
+		if ( isset( $this->unstaged_data['fname'] ) ) {
+			$name_parts[] = $this->unstaged_data['fname'];
+		}
+		if ( isset( $this->unstaged_data['lname'] ) ) {
+			$name_parts[] = $this->unstaged_data['lname'];
+		}
+		$this->staged_data['full_name'] = implode( ' ', $name_parts );
 	}
 
 	/**
