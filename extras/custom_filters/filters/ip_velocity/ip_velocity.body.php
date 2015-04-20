@@ -4,13 +4,13 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	/**
 	 * Container for an instance of self
-	 * @var object
+	 * @var Gateway_Extras_CustomFilters_IP_Velocity
 	 */
 	static $instance;
 
 	/**
 	 * Custom filter object holder
-	 * @var object
+	 * @var Gateway_Extras_CustomFilters
 	 */
 	public $cfo;
 

@@ -14,6 +14,11 @@ abstract class Gateway_Form {
 	protected $logger;
 
 	/**
+	 * @var GatewayAdapter
+	 */
+	protected $gateway;
+
+	/**
 	 * Required method for returning the full HTML for a form.
 	 *
 	 * Code invoking forms will expect this method to be set.  Requiring only
@@ -24,9 +29,9 @@ abstract class Gateway_Form {
 	 */
 	abstract function getForm();
 
-	public function __construct( &$gateway ) {
+	public function __construct( $gateway ) {
 
-		$this->gateway = & $gateway;
+		$this->gateway = $gateway;
 		$this->logger = DonationLoggerFactory::getLogger( $gateway );
 		$gateway_errors = $this->gateway->getAllErrors();
 

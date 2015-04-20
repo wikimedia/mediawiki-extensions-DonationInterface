@@ -17,7 +17,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 
 	/**
 	 * Container for an instance of self
-	 * @var object
+	 * @var Gateway_Extras_SessionVelocityFilter
 	 */
 	static $instance;
 
@@ -35,7 +35,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 *
 	 * @param $gateway_adapter
 	 *
-	 * @return object
+	 * @return Gateway_Extras_SessionVelocityFilter
 	 */
 	private static function singleton( &$gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {

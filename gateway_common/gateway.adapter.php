@@ -164,6 +164,23 @@ interface GatewayType {
 	 * @return PaymentResult hints for the next donor interaction
 	 */
 	function doPayment();
+
+	/**
+	 * Data format for outgoing requests to the processor.
+	 * Must be one of 'xml', 'namevalue' (for POST), or 'redirect'.
+	 * May depend on current transaction.
+	 *
+	 * @return string
+	 */
+	function getCommunicationType();
+
+	/**
+	 * Data format for responses coming back from the processor.
+	 * Should be 'xml' // TODO: json
+	 *
+	 * @return string
+	 */
+	function getResponseType();
 }
 
 interface LogPrefixProvider {
@@ -309,8 +326,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example.
-	public $communication_type = 'xml'; //this needs to be either 'xml' or 'namevalue'
-	public $redirect = FALSE;
+
 	public $log_outbound = FALSE; //This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
 
 	protected $valid_statuses = array(
@@ -320,6 +336,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		'failed',
 		'revised',
 	);
+
+	/**
+	 * Default response type to be the same as communication type.
+	 * @return string
+	 */
+	public function getResponseType() {
+		return $this->getCommunicationType();
+	}
 
 	/**
 	 * Get @see GatewayAdapter::$goToThankYouOn
@@ -579,7 +603,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->unstageData();
 
-		$this->dataObj->addData( $this->unstaged_data );
+		// Only copy the affected values back into the normalized data.
+		$newlyUnstagedData = array();
+		foreach ( $dataArray as $key => $stagedValue ) {
+			if ( array_key_exists( $key, $this->unstaged_data ) ) {
+				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
+			}
+		}
+		$this->dataObj->addData( $newlyUnstagedData );
 	}
 
 	/**
@@ -845,7 +876,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		foreach ( $structure as $fieldname ) {
 			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryvals[] = $fieldname . '[' . strlen( $fieldvalue ) . ']=' . $fieldvalue;
+				$queryvals[] = $fieldname . '=' . $fieldvalue;
 			}
 		}
 
@@ -1229,8 +1260,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//I chose to return this as a function so it's easy to override.
 		//TODO: probably this for all the junk I currently have stashed in the constructor.
 		//...maybe.
+		$path = $this->transaction_option( 'path' );
+		if ( !$path ) {
+			$path = '';
+		}
 		$opts = array(
-			CURLOPT_URL => $this->url,
+			CURLOPT_URL => $this->url . $path,
 			CURLOPT_USERAGENT => WmfFramework::getUserAgent(),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1,
@@ -1246,8 +1281,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	function getCurlBaseHeaders() {
+		$content_type = 'application/x-www-form-urlencoded';
+		if ( $this->getCommunicationType() === 'xml' ) {
+			$content_type = 'text/xml';
+		}
 		$headers = array(
-			'Content-Type: text/' . $this->getCommunicationType() . '; charset=utf-8',
+			'Content-Type: ' . $content_type . '; charset=utf-8',
 			'X-VPS-Client-Timeout: 45',
 			'X-VPS-Request-ID:' . $this->getData_Staged( 'order_id' ),
 		);
@@ -1274,7 +1313,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// XXX WIP
 		$override_options = array(
-			'communication_type',
 			'url',
 		);
 		foreach ( $override_options as $key ) {
@@ -1396,9 +1434,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
 
-		foreach ( $curl_opts as $option => $value ) {
-			curl_setopt( $ch, $option, $value );
-		}
+		curl_setopt_array( $ch, $curl_opts );
 
 		// As suggested in the PayPal developer forum sample code, try more than once to get a
 		// response in case there is a general network issue
@@ -1501,10 +1537,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Take the entire response string, and strip everything we don't care
 	 * about.  For instance: If it's XML, we only want correctly-formatted XML.
 	 * Headers must be killed off.
-	 * return a string.
+	 * @param string $rawResponse hot off the curl
+	 * @return string|DomDocument|array depending on $this->getResponseType
 	 */
 	function getFormattedResponse( $rawResponse ) {
-		if ( $this->getCommunicationType() == 'xml' ) {
+		$type = $this->getResponseType();
+		if ( $type === 'xml' ) {
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 			$displayXML = $this->formatXmlString( $xmlString );
 			$realXML = new DomDocument( '1.0' );
@@ -1515,21 +1553,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$realXML->loadXML( trim( $xmlString ) );
 			return $realXML;
 		}
-		elseif ( $this->getCommunicationType() == 'namevalue' ) {
-			$nvString = $this->stripNameValueResponseHeaders( $rawResponse );
-
-			// prepare NVP response for sorting and outputting
-			$responseArray = array( );
-
-			$result_arr = explode( "&", $nvString );
-			foreach ( $result_arr as $result_pair ) {
-				list( $key, $value ) = preg_split( "/=/", $result_pair, 2 );
-				$responseArray[ $key ] = $value;
-			}
-
-			$this->logger->info( "Here is the response as an array: " . print_r( $responseArray, true ) );
-			return $responseArray;
+		// For anything else, delete all the headers and the blank line after
+		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
+		$this->logger->info( "Raw Response:" . $noHeaders );
+		if ( $type === 'json' ) {
+			return json_decode( $noHeaders, true );
 		}
+		return $noHeaders;
 	}
 
 	function stripXMLResponseHeaders( $rawResponse ) {
@@ -1546,13 +1576,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$justXML = substr( $rawResponse, $xmlStart );
 		$this->setTransactionResult( $justXML, 'unparsed_data' );
 		return $justXML;
-	}
-
-	function stripNameValueResponseHeaders( $rawResponse ) {
-		//XXX gateway-specific string:
-		$result = strstr( $rawResponse, 'RESULT' );
-		$this->setTransactionResult( $result, 'unparsed_data' );
-		return $result;
 	}
 
 	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
@@ -1591,20 +1614,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		endwhile;
 
 		return $result;
-	}
-
-	/**
-	 * Get the communication type from the gateway class. The communication type is how we need to
-	 * package the donation data before we send it off to the payment processor, for example, 'xml'
-	 * or 'namevalue'.
-	 */
-	function getCommunicationType() {
-		if ( !empty( $this->communication_type ) ) {
-			return $this->communication_type;
-		}
-
-		$c = get_called_class();
-		return $c::COMMUNICATION_TYPE;
 	}
 
 	static function getGatewayName() {

@@ -24,8 +24,11 @@ use Psr\Log\LogLevel;
 class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
-	public $communication_type = 'xml';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
+
+	public function getCommunicationType() {
+		return 'xml';
+	}
 
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
@@ -1155,6 +1158,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
 		);
+		// FIXME: Refactor as normal unstaging.
 		$qsResults = array();
 		foreach ( $pull_vars as $theirkey => $ourkey) {
 			$tmp = $wgRequest->getVal( $theirkey, null );
@@ -1202,6 +1206,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				// live users get antifraud hooks run in this txn's pre-process
 				$ran_hooks = true;
 			}
+			// FIXME: Refactor as normal unstaging.
 			$xmlResults = array(
 				'cvv_result' => '',
 				'avs_result' => ''
@@ -1327,6 +1332,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
 			if ( isset( $status_result['data'] ) && is_array( $status_result['data'] ) ){
+				// FIXME: Refactor as normal unstaging.
 				//if they're set, get CVVRESULT && AVSRESULT
 				$pull_vars['EFFORTID'] = 'effort_id';
 				$pull_vars['ATTEMPTID'] = 'attempt_id';
@@ -2431,5 +2437,4 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			return false;
 		}
 	}
-
 }

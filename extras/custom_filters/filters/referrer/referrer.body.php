@@ -4,13 +4,13 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 
 	/**
 	 * Container for an instance of self
-	 * @var object
+	 * @var Gateway_Extras_CustomFilters_Referrer
 	 */
 	static $instance;
 
 	/**
 	 * Custom filter object holder
-	 * @var object
+	 * @var Gateway_Extras_CustomFilters
 	 */
 	public $cfo;
 

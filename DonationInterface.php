@@ -48,6 +48,7 @@ $optionalParts = array( //define as fail closed. This variable will be unset bef
 	'GlobalCollect' => true,
 	'Amazon' => true,
 	'Adyen' => true,
+	'Astropay' => true,
 	'Paypal' => true,
 	'WorldPay' => true,
 	'FormChooser' => true,
@@ -117,6 +118,7 @@ $wgAutoloadClasses['WmfFrameworkLogHandler'] = $donationinterface_dir . 'gateway
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
+$wgAutoloadClasses['Gateway_Form_Mustache'] = $donationinterface_dir . 'gateway_forms/Mustache.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
 $wgAutoloadClasses['CountryCodes'] = $donationinterface_dir . 'gateway_forms/includes/CountryCodes.php';
 $wgAutoloadClasses['ProvinceAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/ProvinceAbbreviations.php';
@@ -143,6 +145,13 @@ if ( $optionalParts['Adyen'] === true ){
 	$wgAutoloadClasses['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.body.php';
 	$wgAutoloadClasses['AdyenGatewayResult'] = $donationinterface_dir . 'adyen_gateway/adyen_resultswitcher.body.php';
 	$wgAutoloadClasses['AdyenAdapter'] = $donationinterface_dir . 'adyen_gateway/adyen.adapter.php';
+}
+
+if ( $optionalParts['Astropay'] === true ){
+	$wgDonationInterfaceClassMap['astropay'] = 'AstropayAdapter';
+	$wgAutoloadClasses['AstropayGateway'] = $donationinterface_dir . 'astropay_gateway/astropay_gateway.body.php';
+	$wgAutoloadClasses['AstropayGatewayResult'] = $donationinterface_dir . 'astropay_gateway/astropay_resultswitcher.body.php';
+	$wgAutoloadClasses['AstropayAdapter'] = $donationinterface_dir . 'astropay_gateway/astropay.adapter.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){
@@ -229,6 +238,11 @@ if ( $optionalParts['SystemStatus'] === true ){
  */
 $wgDonationInterfaceHtmlFormDir = dirname( __FILE__ ) . "/gateway_forms/rapidhtml/html";
 $wgDonationInterfaceTest = false;
+
+/**
+ * Default top-level template file.
+ */
+$wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
 
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
@@ -439,6 +453,26 @@ if ( $optionalParts['Adyen'] === true ){
 #		'AccountName' => ''; // account identifier, not login name
 #		'SharedSecret' => ''; // entered in the skin editor
 #		'SkinCode' => '';
+#	);
+}
+
+if ( $optionalParts['Astropay'] === true ){
+	$wgDonationInterfaceEnabledGateways[] = 'astropay';
+
+	$wgAstropayGatewayHtmlFormDir = $donationinterface_dir . 'astropay_gateway/forms/html';
+	// Set base URLs here.  Individual transactions have their own paths
+	$wgAstropayGatewayURL = 'https://astropaycard.com/';
+	$wgAstropayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
+#	$wgAstropayGatewayAccountInfo['example'] = array(
+#		'Create' => array( // For creating invoices
+#			'Login' => '',
+#			'Password' => '',
+#		),
+#		'Status' => array( // For checking payment status
+#			'Login' => '',
+#			'Password' => '',
+#		),
+#		'SecretKey' => '', // For signing requests and verifying responses
 #	);
 }
 
@@ -793,6 +827,11 @@ if ( $optionalParts['Adyen'] === true ){
 	$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
 	$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
 }
+//Astropay gateway special pages
+if ( $optionalParts['Astropay'] === true ){
+	$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
+	$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
+}
 //PayPal
 if ( $optionalParts['Paypal'] === true ){
 	$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
@@ -1000,6 +1039,12 @@ if ( $optionalParts['Adyen'] === true ){
 	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/adyen_gateway/i18n';
 	$wgExtensionMessagesFiles['AdyenGateway'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.i18n.php';
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = $donationinterface_dir . 'adyen_gateway/adyen_gateway.alias.php';
+}
+
+if ( $optionalParts['Astropay'] === true ){
+	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/astropay_gateway/i18n';
+	$wgExtensionMessagesFiles['AstropayGateway'] = $donationinterface_dir . 'astropay_gateway/astropay_gateway.i18n.php';
+	$wgExtensionMessagesFiles['AstropayGatewayAlias'] = $donationinterface_dir . 'astropay_gateway/astropay_gateway.alias.php';
 }
 
 if ( $optionalParts['Paypal'] === true ){

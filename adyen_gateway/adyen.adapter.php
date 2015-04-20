@@ -23,8 +23,11 @@
 class AdyenAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Adyen';
 	const IDENTIFIER = 'adyen';
-	const COMMUNICATION_TYPE = 'namevalue';
 	const GLOBAL_PREFIX = 'wgAdyenGateway';
+
+	public function getCommunicationType() {
+		return 'namevalue';
+	}
 
 	function defineAccountInfo() {
 		$this->accountInfo = array(
