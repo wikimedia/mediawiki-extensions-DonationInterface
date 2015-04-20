@@ -118,7 +118,7 @@ $wgAutoloadClasses['WmfFrameworkLogHandler'] = $donationinterface_dir . 'gateway
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = $donationinterface_dir . 'gateway_forms/Form.php';
-$wgAutoloadClasses['Gateway_Form_Handlebars'] = $donationinterface_dir . 'gateway_forms/Handlebars.php';
+$wgAutoloadClasses['Gateway_Form_Mustache'] = $donationinterface_dir . 'gateway_forms/Mustache.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = $donationinterface_dir . 'gateway_forms/RapidHtml.php';
 $wgAutoloadClasses['CountryCodes'] = $donationinterface_dir . 'gateway_forms/includes/CountryCodes.php';
 $wgAutoloadClasses['ProvinceAbbreviations'] = $donationinterface_dir . 'gateway_forms/includes/ProvinceAbbreviations.php';
@@ -242,7 +242,7 @@ $wgDonationInterfaceTest = false;
 /**
  * Default top-level template file.
  */
-$wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/handlebars/index.html.handlebars';
+$wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
 
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.

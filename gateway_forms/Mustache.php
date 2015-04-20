@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Gateway form rendering using Handlebars
+ * Gateway form rendering using Mustache
  */
-class Gateway_Form_Handlebars extends Gateway_Form {
+class Gateway_Form_Mustache extends Gateway_Form {
 	/**
 	 * @var string Janky way to keep track of the template file path that will
 	 * be used as the main entry point for rendering.
