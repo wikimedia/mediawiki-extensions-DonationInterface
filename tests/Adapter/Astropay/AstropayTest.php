@@ -150,4 +150,51 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$this->assertEquals( $expected, $results['redirect'],
 			'do_transaction is not setting the right redirect' );
 	}
+
+	/**
+	 * PaymentStatus transaction should interpret the delimited response
+	 */
+	function testPaymentStatus() {
+		$init = $this->getDonorTestData( 'BR' );
+		$_SESSION['Donor']['order_id'] = '123456789';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'PaymentStatus' );
+
+		// from the test response
+		$expected = array(
+			'result' => '9',
+			'x_amount' => '100.00',
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_invoice' => '123456789',
+			'PT' => '1',
+			'x_control' => '0656B92DF44B814D48D84FED2F444CCA1E991A24A365FBEECCCA15B73CC08C2A',
+			'x_document' => '987654321',
+			'x_bank' => 'TE',
+			'x_payment_type' => '03',
+			'x_bank_name' => 'GNB',
+			'x_currency' => 'BRL',
+		);
+		$results = $gateway->getTransactionData();
+		$this->assertEquals( $expected, $results,
+			'PaymentStatus response not interpreted correctly' );
+		$valid = $gateway->verifyStatusSignature( $results );
+		$this->assertTrue( $valid, 'Signature should be interpreted as valid' );
+	}
+
+	/**
+	 * Invalid signature should be recognized as such.
+	 */
+	function testInvalidSignature() {
+		$init = $this->getDonorTestData( 'BR' );
+		$_SESSION['Donor']['order_id'] = '123456789';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->setDummyGatewayResponseCode( 'badsig' );
+		$gateway->do_transaction( 'PaymentStatus' );
+
+		$results = $gateway->getTransactionData();
+		$valid = $gateway->verifyStatusSignature( $results );
+		$this->assertFalse( $valid, 'Signature should not be interpreted as valid' );
+	}
 }

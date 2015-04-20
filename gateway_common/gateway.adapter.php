@@ -1559,6 +1559,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( $type === 'json' ) {
 			return json_decode( $noHeaders, true );
 		}
+		if ( $type === 'delimited' ) {
+			$delimiter = $this->transaction_option( 'response_delimiter' );
+			$keys = $this->transaction_option( 'response_keys' );
+			if ( !$delimiter || !$keys ) {
+				throw new MWException( 'Delimited transactions must define both response_delimiter and response_keys options' );
+			}
+			$values = explode( $delimiter, trim( $noHeaders ) );
+			$combined = array_combine( $keys, $values );
+			if ( $combined === FALSE ) {
+				throw new MWException( 'Wrong number of values found in delimited response.');
+			}
+			return $combined;
+		}
 		return $noHeaders;
 	}
 

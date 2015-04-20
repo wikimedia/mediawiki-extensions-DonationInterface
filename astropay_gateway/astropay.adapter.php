@@ -34,6 +34,10 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	public function getResponseType() {
+		$override = $this->transaction_option( 'response_type' );
+		if ( $override ) {
+			return $override;
+		}
 		return 'json';
 	}
 
@@ -107,6 +111,14 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
+		// 6: Transaction not found in the system
+		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 6 );
+		// 7: Pending transaction awaiting approval
+		$this->addCodeRange( 'PaymentStatus', 'result', 'pending', 7 );
+		// 8: Operation rejected by bank
+		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 8 );
+		// 9: Amount Paid.  Transaction successfully concluded
+		$this->addCodeRange( 'PaymentStatus', 'result', 'complete', 9 );
 	}
 
 	/**
@@ -171,6 +183,36 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_login' => $this->accountInfo['Create']['Login'],
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'type' => 'json',
+			)
+		);
+
+		$this->transactions[ 'PaymentStatus' ] = array(
+			'path' => '/apd/webpaystatus',
+			'request' => array(
+				'x_login',
+				'x_trans_key',
+				'x_invoice',
+			),
+			'values' => array(
+				'x_login' => $this->accountInfo['Status']['Login'],
+				'x_trans_key' => $this->accountInfo['Status']['Password'],
+			),
+			'response_type' => 'delimited',
+			'response_delimiter' => '|',
+			'response_keys' => array(
+				'result', // status code
+				'x_iduser',
+				'x_invoice',
+				'x_amount',
+				'PT', // 0 for production, 1 for test
+				'x_control', // signature, calculated like control string
+							// called 'Sign' in docs, but renamed here for consistency
+							// with parameter POSTed to resultswitcher.
+				'x_document', // unique id at Astropay
+				'x_bank',
+				'x_payment_type',
+				'x_bank_name',
+				'x_currency',
 			)
 		);
 	}
@@ -385,6 +427,10 @@ class AstropayAdapter extends GatewayAdapter {
 					$data['redirect'] = $response['link'];
 				}
 				break;
+			case 'PaymentStatus':
+				// getFormattedResponse has already parsed the response into an array
+				$data = $response;
+				break;
 		}
 		return $data;
 	}
@@ -405,6 +451,22 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function processResponse( $response = null, &$retryVars = null ) {
+	}
+
+	/**
+	 * Check whether a status message has a valid signature.
+	 * @param array $data
+	 *        Requires 'result', 'x_amount', 'x_invoice', and 'x_control' keys
+	 * @return boolean true when signature is valid, otherwise false
+	 */
+	function verifyStatusSignature( $data ) {
+		$message = $this->accountInfo['Status']['Login'] .
+			$data['result'] .
+			$data['x_amount'] .
+			$data['x_invoice'];
+		$signature = $this->calculateSignature( $message );
+
+		return ( $signature === $data['x_control'] );
 	}
 
 	protected function calculateSignature( $message ) {
