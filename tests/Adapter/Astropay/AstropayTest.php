@@ -127,7 +127,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'Transaction status should be false for code "1"' );
 
 		$expected = array(
-			wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text()
+			'internal-0000' => wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text()
 		);
 		$this->assertEquals( $expected, $gateway->getTransactionErrors(),
 			'Wrong error for code "1"' );

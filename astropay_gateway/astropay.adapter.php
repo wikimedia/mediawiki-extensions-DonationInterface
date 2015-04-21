@@ -24,6 +24,7 @@ class AstropayAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Astropay';
 	const IDENTIFIER = 'astropay';
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
+	const DUPLICATE_ORDER_ID_ERROR = 'DUPLICATE_ORDER_ID_ERROR';
 
 	public function getFormClass() {
 		return 'Gateway_Form_Mustache';
@@ -70,7 +71,8 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function defineErrorMap() {
 		$this->error_map = array(
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
+			self::DUPLICATE_ORDER_ID_ERROR => 'donate_interface-processing-error', // Order ID already used in a previous transaction
 		);
 	}
 
@@ -390,6 +392,7 @@ class AstropayAdapter extends GatewayAdapter {
 	function getResponseErrors( $response ) {
 		$logged = false;
 		$errors = array();
+		$code = 'internal-0000';
 
 		if ( $response === NULL ) {
 			$logged = 'Astropay response was not valid JSON.  Full response: ' .
@@ -402,6 +405,11 @@ class AstropayAdapter extends GatewayAdapter {
 		} else if ( $response['status'] !== '0' ) {
 			$logged = "Astropay response has non-zero status {$response['status']}.  ";
 			if ( isset( $response['desc'] ) ) {
+				// They don't give us codes to distinguish failure modes, so we
+				// have to parse the description.
+				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
+					$code = $this::DUPLICATE_ORDER_ID_ERROR;
+				}
 				$logged .= 'Error description: ' . $response['desc'];
 			} else {
 				$logged .= 'Full response: ' . $this->getTransactionRawResponse();
@@ -412,7 +420,7 @@ class AstropayAdapter extends GatewayAdapter {
 		if ( $logged ) {
 			$generic = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
 			$debug = $this->getGlobal( 'DisplayDebug' );
-			$errors[] = $debug ? $logged : $generic;
+			$errors[$code] = $debug ? $logged : $generic;
 		}
 
 		return $errors;
@@ -453,6 +461,17 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function processResponse( $response = null, &$retryVars = null ) {
+		switch( $this->getCurrentTransaction() ) {
+			case 'NewInvoice':
+				$errors = $this->getTransactionErrors();
+				if ( isset( $errors[self::DUPLICATE_ORDER_ID_ERROR] ) ) {
+					$this->logger->error( 'Order ID collision! Starting again.' );
+					$retryVars[] = 'order_id';
+					return self::DUPLICATE_ORDER_ID_ERROR;
+				}
+				break;
+		}
+		return null;
 	}
 
 	/**
