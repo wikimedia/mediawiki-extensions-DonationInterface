@@ -8,6 +8,11 @@ class AstropayGatewayResult extends GatewayPage {
 	}
 
 	protected function handleRequest() {
+		$this->adapter->setCurrentTransaction( 'ProcessReturn' );
+
+		$params = $this->getRequest()->getValues();
+		$this->adapter->addResponseData( $params );
+
 		$this->handleResultRequest();
 	}
 }

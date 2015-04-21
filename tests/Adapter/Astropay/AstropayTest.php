@@ -197,4 +197,58 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$valid = $gateway->verifyStatusSignature( $results );
 		$this->assertFalse( $valid, 'Signature should not be interpreted as valid' );
 	}
+
+	/**
+	 * If status is paid and signature is correct, processResponse should return
+	 * null and final status should be 'completed'
+	 */
+	function testSuccessfulReturn() {
+		$init = $this->getDonorTestData( 'BR' );
+		$_SESSION['Donor']['order_id'] = '123456789';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		// Next lines mimic Astropay resultswitcher
+		$gateway->setCurrentTransaction( 'ProcessReturn' );
+		$gateway->addResponseData( array(
+			'result' => '9',
+			'x_amount' => '100.00',
+			'x_amount_usd' => '42.05',
+			'x_control' => 'DDF89085AC70C0B0628150C51D64419D8592769F2439E3936570E26D24881730',
+			'x_description' => 'Donation to the Wikimedia Foundation',
+			'x_document' => '32869',
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_invoice' => '123456789',
+		) );
+
+		$result = $gateway->processResponse( null );
+		$status = $gateway->getFinalStatus();
+		$this->assertNull( $result );
+		$this->assertEquals( 'complete', $status );
+	}
+
+	/**
+	 * If payment is rejected, final status should be 'failed'
+	 */
+	function testRejectedReturn() {
+		$init = $this->getDonorTestData( 'BR' );
+		$_SESSION['Donor']['order_id'] = '123456789';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->setCurrentTransaction( 'ProcessReturn' );
+		$gateway->addResponseData( array(
+			'result' => '8', // rejected by bank
+			'x_amount' => '100.00',
+			'x_amount_usd' => '42.05',
+			'x_control' => '706F57BC3E74906B14B1DEB946F027104513797CC62AC0F5107BC98F42D5DC95',
+			'x_description' => 'Donation to the Wikimedia Foundation',
+			'x_document' => '32869',
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_invoice' => '123456789',
+		) );
+
+		$result = $gateway->processResponse( null );
+		$status = $gateway->getFinalStatus();
+		$this->assertNull( $result );
+		$this->assertEquals( 'failed', $status );
+	}
 }

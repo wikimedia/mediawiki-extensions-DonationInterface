@@ -219,6 +219,20 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_currency',
 			)
 		);
+
+		// Not for running with do_transaction, just a handy place to keep track
+		// of what we expect POSTed to the resultswitcher.
+		$this->transactions[ 'ProcessReturn' ] = array(
+			'request' => array(
+				'result',
+				'x_invoice',
+				'x_iduser',
+				'x_description',
+				'x_document',
+				'x_amount',
+				'x_control',
+			)
+		);
 	}
 
 	public function definePaymentMethods() {
@@ -462,6 +476,21 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function processResponse( $response = null, &$retryVars = null ) {
 		switch( $this->getCurrentTransaction() ) {
+			case 'PaymentStatus':
+				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
+					$this->logger->error( 'Bad signature in response to PaymentStatus call.' );
+					return 'BAD_SIGNATURE';
+				}
+				break;
+			case 'ProcessReturn':
+				if ( !$this->verifyStatusSignature( $this->staged_data ) ) {
+					$this->logger->error( 'Bad signature in data POSTed to resultswitcher' );
+					return 'BAD_SIGNATURE';
+				}
+				$status = $this->findCodeAction( 'PaymentStatus', 'result', $this->staged_data['result'] );
+				$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
+				$this->finalizeInternalStatus( $status );
+				break;
 			case 'NewInvoice':
 				$errors = $this->getTransactionErrors();
 				if ( isset( $errors[self::DUPLICATE_ORDER_ID_ERROR] ) ) {
@@ -481,7 +510,13 @@ class AstropayAdapter extends GatewayAdapter {
 	 * @return boolean true when signature is valid, otherwise false
 	 */
 	function verifyStatusSignature( $data ) {
-		$message = $this->accountInfo['Status']['Login'] .
+		if ( $this->getCurrentTransaction() === 'ProcessReturn' ) {
+			$login = $this->accountInfo['Create']['Login'];
+		} else {
+			$login = $this->accountInfo['Status']['Login'];
+		}
+
+		$message = $login .
 			$data['result'] .
 			$data['x_amount'] .
 			$data['x_invoice'];
@@ -495,5 +530,14 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
+	}
+
+	function isResponse() {
+		// We expect the resultswitcher page has fed us with enough POSTed
+		// params to verify a signature
+		return isset( $this->staged_data['result'] ) &&
+			isset( $this->staged_data['x_amount'] ) &&
+			isset( $this->staged_data['x_invoice'] ) &&
+			isset( $this->staged_data['x_control'] );
 	}
 }
