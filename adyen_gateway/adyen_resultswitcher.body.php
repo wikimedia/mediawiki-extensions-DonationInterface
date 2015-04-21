@@ -10,4 +10,8 @@ class AdyenGatewayResult extends GatewayPage {
 	protected function handleRequest() {
 		$this->handleResultRequest();
 	}
+
+	protected function isReturnFramed() {
+		return true;
+	}
 }

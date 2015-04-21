@@ -394,6 +394,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * Whether or not the user comes back to the resultswitcher in an iframe
+	 * @return boolean true if we need to pop out of an iframe, otherwise false
+	 */
+	protected function isReturnFramed() {
+		return false;
+	}
+
+	/**
 	 * Render a resultswitcher page
 	 */
 	protected function handleResultRequest() {
@@ -419,7 +427,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		// XXX need to know whether we were in an iframe or not.
 		global $wgServer;
-		if ( ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
+		if ( $this->isReturnFramed() && ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
 			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
 			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
 			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.

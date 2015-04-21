@@ -3856,4 +3856,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return json_encode( $logObj );
 	}
 
+	/**
+	 * Indicates if the current request is a user returning from the payment
+	 * processor with some information in the GET/POST.
+	 * @return boolean
+	 */
+	function isResponse() {
+		return false;
+	}
 }
