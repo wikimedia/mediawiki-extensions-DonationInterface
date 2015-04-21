@@ -84,11 +84,11 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'x_cpf' => '00003456789',
 			'x_name' => 'Nome Apelido',
 			'x_email' => 'nobody@wikimedia.org',
-			'x_address' => 'Rua Falso 123',
-			'x_zip' => '01110-111',
-			'x_city' => 'São Paulo',
-			'x_state' => 'SP',
-			'control' => '5853FD808AA10839CB268ED2D1D6D4E8D8FECA88E4A8D66477369C0CA8AA4B42',
+			// 'x_address' => 'Rua Falso 123',
+			// 'x_zip' => '01110-111',
+			// 'x_city' => 'São Paulo',
+			// 'x_state' => 'SP',
+			'control' => 'AF895D1D5514842A0BC424FBC8EF9CB89E3DFBC6A4A1BA5BBC664020D6A0A476',
 			'type' => 'json',
 		);
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );

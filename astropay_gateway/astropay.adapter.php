@@ -156,10 +156,12 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_cpf',
 				'x_name',
 				'x_email',
-				'x_address',
-				'x_zip',
-				'x_city',
-				'x_state',
+				// Omitting the following optional fields
+				// 'x_bdate',
+				// 'x_address',
+				// 'x_zip',
+				// 'x_city',
+				// 'x_state',
 				'control',
 				'type',
 			),
@@ -345,10 +347,10 @@ class AstropayAdapter extends GatewayAdapter {
 				. $this->getData_Staged( 'fiscal_number' ) . 'H'
 				. /* bdate omitted */ 'G'
 				. $this->getData_Staged( 'email' ) .'Y'
-				. $this->getData_Staged( 'zip' ) . 'A'
-				. $this->getData_Staged( 'street' ) . 'P'
-				. $this->getData_Staged( 'city' ) . 'S'
-				. $this->getData_Staged( 'state' ) . 'P';
+				. /* zip omitted */ 'A'
+				. /* street omitted */ 'P'
+				. /* city omitted */ 'S'
+				. /* state omitted */ 'P';
 			return $this->calculateSignature( $message );
 		}
 		return parent::getTransactionSpecificValue( $gateway_field_name, $token );
