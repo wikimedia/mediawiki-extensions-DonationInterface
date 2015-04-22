@@ -1,3 +1,4 @@
+{{{ template_trail }}}
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 	<tbody>
 	<tr>
@@ -38,25 +39,25 @@
 						<tr>
 							<td>
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number">
+						</td>
+						</tr>
+						<tr>
+						<td>
+								{{> payment_method }}
+						</td>
+						</tr>
+						<tr>
+							<td>
+								<div id="payment" class="gainlayout" style="height: 0;text-align: left;"></div>
 							</td>
 						</tr>
-                        <tr>
-                            <td>
-								{{> payment_method }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-							    <div id="payment" class="gainlayout" style="height: 0;text-align: left;"></div>
-                            </td>
-                        </tr>
 						<tr>
-                            <td>
-                                <div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
-                                    <img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> {{ l10n "donate_interface-donate-click" }}
-                                </div>
-                            </td>
-                        </tr>
+							<td>
+								<div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
+									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> {{ l10n "donate_interface-donate-click" }}
+								</div>
+							</td>
+						</tr>
 						</tbody>
 					</table>
 				</div>

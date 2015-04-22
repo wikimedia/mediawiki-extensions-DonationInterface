@@ -841,7 +841,23 @@ $wgResourceModules['donationInterface.test.rapidhtml'] = array(
 
 $wgResourceModules['jquery.payment'] = array(
 	'scripts' => 'jquery.payment/jquery.payment.js',
-) + $wgResourceTemplate;;
+) + $wgResourceTemplate;
+
+//Forms
+$wgResourceModules['ext.donationinterface.mustache.styles'] = array (
+	'styles' => array(
+		'forms.css'
+	),
+	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
+	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache',
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
+	'scripts' => 'forms.js',
+	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
+	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
+);
 
 // load any rapidhtml related resources
 require_once( __DIR__ . '/gateway_forms/rapidhtml/RapidHtmlResources.php' );

@@ -157,4 +157,21 @@ abstract class Gateway_Form {
 		// theoretically this is overkill, but better safe than sorry
 		return wfEscapeWikiText( htmlspecialchars( $stripped ) );
 	}
+
+	public function getResources() {
+		return array();
+	}
+
+	/**
+	 * Given an absolute file path, returns path relative to extension base dir.
+	 * @param string $absolutePath
+	 * @return string path relative to DonationInterface/
+	 */
+	protected function sanitizePath( $absolutePath ) {
+		$base_pos = strpos( $absolutePath, 'DonationInterface' );
+		if ( $base_pos !== false ) {
+			return substr( $absolutePath, $base_pos );
+		}
+		return $absolutePath;
+	}
 }
