@@ -16,6 +16,9 @@
  *
  */
 
+/**
+ * @see https://amazonpayments.s3.amazonaws.com/FPS_ASP_Guides/ASP_Advanced_Users_Guide.pdf
+ */
 class AmazonAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Amazon';
 	const IDENTIFIER = 'amazon';
@@ -277,7 +280,8 @@ class AmazonAdapter extends GatewayAdapter {
 				break;
 
 			case 'ProcessAmazonReturn':
-				// What we need to do here is make sure
+				// What we need to do here is make sure THE WHAT
+				// FIXME: This is resultswitcher logic.
 				$this->addDataFromURI();
 				$this->analyzeReturnStatus();
 				break;
@@ -368,6 +372,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 	/**
 	 * Adds translated data from the URI string into donation data
+	 * FIXME: This should be done by unstaging functions.
 	 */
 	function addDataFromURI() {
 		global $wgRequest;
@@ -530,5 +535,12 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
 		return '';
+	}
+
+	/**
+	 * Amount is returned as a dollar amount, so override base class division by 100.
+	 */
+	protected function unstage_amount() {
+		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' );
 	}
 }

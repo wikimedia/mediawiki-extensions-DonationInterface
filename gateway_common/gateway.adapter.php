@@ -601,7 +601,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->staged_data[$key] = $value;
 		}
 
-		$this->unstageData();
+		$this->unstageData( $dataArray );
 
 		// Only copy the affected values back into the normalized data.
 		$newlyUnstagedData = array();
@@ -1993,11 +1993,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $function_name The name of the function you're hoping to
 	 * execute.
 	 * @param mixed $parameter That's right: For now you only get one.
+	 * @return bool True if a function was found and executed.
 	 */
 	function executeIfFunctionExists( $function_name, $parameter = null ) {
 		$function_name = strtolower( $function_name ); //Because, that's why.
 		if ( method_exists( $this, $function_name ) ) {
 			$this->{$function_name}( $parameter );
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -2023,17 +2027,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Run any unstaging functions to decode processor responses
+	 *
+	 * @param array $data response data
 	 */
-	protected function unstageData() {
-		// Copy from staged data, 
-		$this->unstaged_data = $this->staged_data;
-
-		// FIXME: we should have a list of unstaged_vars for each transaction.
-		$this->defineStagedVars();
-
-		foreach ( $this->staged_vars as $field ) {
+	protected function unstageData( $data ) {
+		foreach ( $data as $field => $value ) {
+			// Run custom unstaging function if available.
 			$function_name = 'unstage_' . $field;
-			$this->executeIfFunctionExists( $function_name );
+			$isUnstaged = $this->executeIfFunctionExists( $function_name );
+
+			// Otherwise, copy the value directly.
+			if ( !$isUnstaged ) {
+				$this->unstaged_data[$field] = $this->staged_data[$field];
+			}
 		}
 	}
 
