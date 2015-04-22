@@ -19,8 +19,16 @@
 		]
 	},
 	"require": {
+		"coderkungfu/php-queue": "dev-master",
+		"fusesource/stomp-php": "2.1.*",
 		"psr/log": "1.0.0",
 		"monolog/monolog": "1.12.0",
 		"zordius/lightncandy": "0.18"
-	}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/adamwight/php-queue.git"
+		}
+	]
 }
