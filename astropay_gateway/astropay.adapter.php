@@ -24,6 +24,7 @@ class AstropayAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Astropay';
 	const IDENTIFIER = 'astropay';
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
+	const DUPLICATE_ORDER_ID_ERROR = 'DUPLICATE_ORDER_ID_ERROR';
 
 	public function getFormClass() {
 		return 'Gateway_Form_Mustache';
@@ -34,6 +35,10 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	public function getResponseType() {
+		$override = $this->transaction_option( 'response_type' );
+		if ( $override ) {
+			return $override;
+		}
 		return 'json';
 	}
 
@@ -66,7 +71,8 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function defineErrorMap() {
 		$this->error_map = array(
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
+			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
+			self::DUPLICATE_ORDER_ID_ERROR => 'donate_interface-processing-error', // Order ID already used in a previous transaction
 		);
 	}
 
@@ -107,6 +113,14 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
+		// 6: Transaction not found in the system
+		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 6 );
+		// 7: Pending transaction awaiting approval
+		$this->addCodeRange( 'PaymentStatus', 'result', 'pending', 7 );
+		// 8: Operation rejected by bank
+		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 8 );
+		// 9: Amount Paid.  Transaction successfully concluded
+		$this->addCodeRange( 'PaymentStatus', 'result', 'complete', 9 );
 	}
 
 	/**
@@ -144,10 +158,12 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_cpf',
 				'x_name',
 				'x_email',
-				'x_address',
-				'x_zip',
-				'x_city',
-				'x_state',
+				// Omitting the following optional fields
+				// 'x_bdate',
+				// 'x_address',
+				// 'x_zip',
+				// 'x_city',
+				// 'x_state',
 				'control',
 				'type',
 			),
@@ -171,6 +187,50 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_login' => $this->accountInfo['Create']['Login'],
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'type' => 'json',
+			)
+		);
+
+		$this->transactions[ 'PaymentStatus' ] = array(
+			'path' => '/apd/webpaystatus',
+			'request' => array(
+				'x_login',
+				'x_trans_key',
+				'x_invoice',
+			),
+			'values' => array(
+				'x_login' => $this->accountInfo['Status']['Login'],
+				'x_trans_key' => $this->accountInfo['Status']['Password'],
+			),
+			'response_type' => 'delimited',
+			'response_delimiter' => '|',
+			'response_keys' => array(
+				'result', // status code
+				'x_iduser',
+				'x_invoice',
+				'x_amount',
+				'PT', // 0 for production, 1 for test
+				'x_control', // signature, calculated like control string
+							// called 'Sign' in docs, but renamed here for consistency
+							// with parameter POSTed to resultswitcher.
+				'x_document', // unique id at Astropay
+				'x_bank',
+				'x_payment_type',
+				'x_bank_name',
+				'x_currency',
+			)
+		);
+
+		// Not for running with do_transaction, just a handy place to keep track
+		// of what we expect POSTed to the resultswitcher.
+		$this->transactions[ 'ProcessReturn' ] = array(
+			'request' => array(
+				'result',
+				'x_invoice',
+				'x_iduser',
+				'x_description',
+				'x_document',
+				'x_amount',
+				'x_control',
 			)
 		);
 	}
@@ -303,10 +363,10 @@ class AstropayAdapter extends GatewayAdapter {
 				. $this->getData_Staged( 'fiscal_number' ) . 'H'
 				. /* bdate omitted */ 'G'
 				. $this->getData_Staged( 'email' ) .'Y'
-				. $this->getData_Staged( 'zip' ) . 'A'
-				. $this->getData_Staged( 'street' ) . 'P'
-				. $this->getData_Staged( 'city' ) . 'S'
-				. $this->getData_Staged( 'state' ) . 'P';
+				. /* zip omitted */ 'A'
+				. /* street omitted */ 'P'
+				. /* city omitted */ 'S'
+				. /* state omitted */ 'P';
 			return $this->calculateSignature( $message );
 		}
 		return parent::getTransactionSpecificValue( $gateway_field_name, $token );
@@ -317,7 +377,14 @@ class AstropayAdapter extends GatewayAdapter {
 	 * and try to parse out fname and lname.
 	 */
 	protected function stage_full_name() {
-		$this->staged_data['full_name'] = $this->unstaged_data['fname'] . ' ' . $this->unstaged_data['lname'];
+		$name_parts = array();
+		if ( isset( $this->unstaged_data['fname'] ) ) {
+			$name_parts[] = $this->unstaged_data['fname'];
+		}
+		if ( isset( $this->unstaged_data['lname'] ) ) {
+			$name_parts[] = $this->unstaged_data['lname'];
+		}
+		$this->staged_data['full_name'] = implode( ' ', $name_parts );
 	}
 
 	/**
@@ -339,6 +406,7 @@ class AstropayAdapter extends GatewayAdapter {
 	function getResponseErrors( $response ) {
 		$logged = false;
 		$errors = array();
+		$code = 'internal-0000';
 
 		if ( $response === NULL ) {
 			$logged = 'Astropay response was not valid JSON.  Full response: ' .
@@ -351,6 +419,11 @@ class AstropayAdapter extends GatewayAdapter {
 		} else if ( $response['status'] !== '0' ) {
 			$logged = "Astropay response has non-zero status {$response['status']}.  ";
 			if ( isset( $response['desc'] ) ) {
+				// They don't give us codes to distinguish failure modes, so we
+				// have to parse the description.
+				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
+					$code = $this::DUPLICATE_ORDER_ID_ERROR;
+				}
 				$logged .= 'Error description: ' . $response['desc'];
 			} else {
 				$logged .= 'Full response: ' . $this->getTransactionRawResponse();
@@ -361,7 +434,7 @@ class AstropayAdapter extends GatewayAdapter {
 		if ( $logged ) {
 			$generic = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
 			$debug = $this->getGlobal( 'DisplayDebug' );
-			$errors[] = $debug ? $logged : $generic;
+			$errors[$code] = $debug ? $logged : $generic;
 		}
 
 		return $errors;
@@ -377,6 +450,10 @@ class AstropayAdapter extends GatewayAdapter {
 					$this->setTransactionResult( $response['link'], 'redirect' );
 					$data['redirect'] = $response['link'];
 				}
+				break;
+			case 'PaymentStatus':
+				// getFormattedResponse has already parsed the response into an array
+				$data = $response;
 				break;
 		}
 		return $data;
@@ -398,6 +475,54 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function processResponse( $response = null, &$retryVars = null ) {
+		switch( $this->getCurrentTransaction() ) {
+			case 'PaymentStatus':
+				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
+					$this->logger->error( 'Bad signature in response to PaymentStatus call.' );
+					return 'BAD_SIGNATURE';
+				}
+				break;
+			case 'ProcessReturn':
+				if ( !$this->verifyStatusSignature( $this->staged_data ) ) {
+					$this->logger->error( 'Bad signature in data POSTed to resultswitcher' );
+					return 'BAD_SIGNATURE';
+				}
+				$status = $this->findCodeAction( 'PaymentStatus', 'result', $this->staged_data['result'] );
+				$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
+				$this->finalizeInternalStatus( $status );
+				break;
+			case 'NewInvoice':
+				$errors = $this->getTransactionErrors();
+				if ( isset( $errors[self::DUPLICATE_ORDER_ID_ERROR] ) ) {
+					$this->logger->error( 'Order ID collision! Starting again.' );
+					$retryVars[] = 'order_id';
+					return self::DUPLICATE_ORDER_ID_ERROR;
+				}
+				break;
+		}
+		return null;
+	}
+
+	/**
+	 * Check whether a status message has a valid signature.
+	 * @param array $data
+	 *        Requires 'result', 'x_amount', 'x_invoice', and 'x_control' keys
+	 * @return boolean true when signature is valid, otherwise false
+	 */
+	function verifyStatusSignature( $data ) {
+		if ( $this->getCurrentTransaction() === 'ProcessReturn' ) {
+			$login = $this->accountInfo['Create']['Login'];
+		} else {
+			$login = $this->accountInfo['Status']['Login'];
+		}
+
+		$message = $login .
+			$data['result'] .
+			$data['x_amount'] .
+			$data['x_invoice'];
+		$signature = $this->calculateSignature( $message );
+
+		return ( $signature === $data['x_control'] );
 	}
 
 	protected function calculateSignature( $message ) {
@@ -405,5 +530,14 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
+	}
+
+	function isResponse() {
+		// We expect the resultswitcher page has fed us with enough POSTed
+		// params to verify a signature
+		return isset( $this->staged_data['result'] ) &&
+			isset( $this->staged_data['x_amount'] ) &&
+			isset( $this->staged_data['x_invoice'] ) &&
+			isset( $this->staged_data['x_control'] );
 	}
 }

@@ -181,4 +181,12 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 		$this->logger->info( "Resultswitcher: good, it appears we are not in an iframe. Order ID {$this->qs_oid}" );
 	}
+
+	/**
+	 * Overriding so the answer is correct in case we refactor handleRequest
+	 * to use base class's handleResultRequest method.
+	 */
+	protected function isReturnFramed() {
+		return true;
+	}
 }

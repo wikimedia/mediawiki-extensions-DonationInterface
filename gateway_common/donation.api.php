@@ -22,6 +22,7 @@ class DonationApi extends ApiBase {
 		);
 
 		if ( $this->gateway == 'globalcollect' ) {
+			// FIXME: no test code path in prod
 			if ( $wgDonationInterfaceTestMode === true ) {
 				$gatewayObj = new TestingGlobalCollectAdapter( $gateway_opts );
 			} else {

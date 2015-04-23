@@ -601,7 +601,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->staged_data[$key] = $value;
 		}
 
-		$this->unstageData();
+		$this->unstageData( $dataArray );
 
 		// Only copy the affected values back into the normalized data.
 		$newlyUnstagedData = array();
@@ -1249,7 +1249,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// log that the transaction is essentially complete
-		$this->logger->info( " Transaction complete." );
+		$this->logger->info( 'Transaction complete.' );
 
 		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
 
@@ -1559,6 +1559,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( $type === 'json' ) {
 			return json_decode( $noHeaders, true );
 		}
+		if ( $type === 'delimited' ) {
+			$delimiter = $this->transaction_option( 'response_delimiter' );
+			$keys = $this->transaction_option( 'response_keys' );
+			if ( !$delimiter || !$keys ) {
+				throw new MWException( 'Delimited transactions must define both response_delimiter and response_keys options' );
+			}
+			$values = explode( $delimiter, trim( $noHeaders ) );
+			$combined = array_combine( $keys, $values );
+			if ( $combined === FALSE ) {
+				throw new MWException( 'Wrong number of values found in delimited response.');
+			}
+			return $combined;
+		}
 		return $noHeaders;
 	}
 
@@ -1757,6 +1770,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param	string			$transaction
 	 * @param	string			$key			The key to lookup in the transaction such as STATUSID
 	 * @param	integer|string	$code			This gets converted to an integer if the values is numeric.
+	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 *
 	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
 	 */
@@ -1979,11 +1993,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $function_name The name of the function you're hoping to
 	 * execute.
 	 * @param mixed $parameter That's right: For now you only get one.
+	 * @return bool True if a function was found and executed.
 	 */
 	function executeIfFunctionExists( $function_name, $parameter = null ) {
 		$function_name = strtolower( $function_name ); //Because, that's why.
 		if ( method_exists( $this, $function_name ) ) {
 			$this->{$function_name}( $parameter );
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -2009,17 +2027,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Run any unstaging functions to decode processor responses
+	 *
+	 * @param array $data response data
 	 */
-	protected function unstageData() {
-		// Copy from staged data, 
-		$this->unstaged_data = $this->staged_data;
-
-		// FIXME: we should have a list of unstaged_vars for each transaction.
-		$this->defineStagedVars();
-
-		foreach ( $this->staged_vars as $field ) {
+	protected function unstageData( $data ) {
+		foreach ( $data as $field => $value ) {
+			// Run custom unstaging function if available.
 			$function_name = 'unstage_' . $field;
-			$this->executeIfFunctionExists( $function_name );
+			$isUnstaged = $this->executeIfFunctionExists( $function_name );
+
+			// Otherwise, copy the value directly.
+			if ( !$isUnstaged ) {
+				$this->unstaged_data[$field] = $this->staged_data[$field];
+			}
 		}
 	}
 
@@ -2649,11 +2669,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return type
 	 */
 	public function isBatchProcessor(){
-		if (!property_exists($this, 'batch')){
-			return false;
-		} else {
-			return $this->batch;
-		}
+		return $this->batch;
 	}
 
 	/**
@@ -3846,4 +3862,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return json_encode( $logObj );
 	}
 
+	/**
+	 * Indicates if the current request is a user returning from the payment
+	 * processor with some information in the GET/POST.
+	 * @return boolean
+	 */
+	function isResponse() {
+		return false;
+	}
 }

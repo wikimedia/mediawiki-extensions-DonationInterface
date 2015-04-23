@@ -4,5 +4,6 @@
 			"Xuacu"
 		]
 	},
-	"worldpaygateway": "Fai la to donación agora"
+	"worldpaygateway": "Fai la to donación agora",
+	"testingworldpaygateway": "Prueba de WorldPay"
 }

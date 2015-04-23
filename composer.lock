@@ -4,8 +4,169 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a4155b409938e9f59f43bdcb6dd9ae7",
+    "hash": "71939115f5853cac8ed171bb13bd8b59",
     "packages": [
+        {
+            "name": "clio/clio",
+            "version": "0.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nramenta/clio.git",
+                "reference": "6a9f600b73fa213e817d5c1e67a4641aecd156ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nramenta/clio/zipball/6a9f600b73fa213e817d5c1e67a4641aecd156ef",
+                "reference": "6a9f600b73fa213e817d5c1e67a4641aecd156ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Clio": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nofriandi Ramenta",
+                    "email": "nramenta@gmail.com"
+                }
+            ],
+            "description": "Lightweight utility and helper classes for CLI applications",
+            "keywords": [
+                "cli",
+                "console",
+                "daemon"
+            ],
+            "time": "2014-06-22 14:49:41"
+        },
+        {
+            "name": "coderkungfu/php-queue",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamwight/php-queue.git",
+                "reference": "02f10dad5177ea9f44a2c2e03622b1a535d791bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamwight/php-queue/zipball/02f10dad5177ea9f44a2c2e03622b1a535d791bb",
+                "reference": "02f10dad5177ea9f44a2c2e03622b1a535d791bb",
+                "shasum": ""
+            },
+            "require": {
+                "clio/clio": "@stable",
+                "monolog/monolog": "~1.3",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "amazonwebservices/aws-sdk-for-php": "dev-master",
+                "aws/aws-sdk-php": "dev-master",
+                "ext-memcache": "*",
+                "iron-io/iron_mq": "dev-master",
+                "microsoft/windowsazure": "dev-master",
+                "mrpoundsign/pheanstalk-5.3": "dev-master",
+                "predis/predis": "v0.8.0"
+            },
+            "suggest": {
+                "Respect/Rest": "For a REST server to post job data",
+                "amazonwebservices/aws-sdk-for-php": "For AWS SQS backend support (legacy version)",
+                "aws/aws-sdk-php": "For AWS SQS backend support",
+                "clio/clio": "Support for daemonizing PHP CLI runner",
+                "fusesource/stomp-php": "For the STOMP backend",
+                "iron-io/iron_mq": "For IronMQ backend support",
+                "microsoft/windowsazure": "For Windows Azure Service Bus backend support",
+                "mrpoundsign/pheanstalk-5.3": "For Beanstalkd backend support",
+                "pecl-mongodb": "For MongoDB backend support",
+                "predis/predis": "For Redis backend support"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPQueue": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Cheng",
+                    "email": "mcheng.work@gmail.com"
+                }
+            ],
+            "description": "A unified front-end for different queuing backends. Includes a REST server, CLI interface and daemon runners.",
+            "homepage": "http://github.com/CoderKungfu/php-queue",
+            "keywords": [
+                "queue",
+                "transaction"
+            ],
+            "support": {
+                "source": "https://github.com/adamwight/php-queue/tree/STOMP"
+            },
+            "time": "2015-04-12 02:54:17"
+        },
+        {
+            "name": "fusesource/stomp-php",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dejanb/stomp-php.git",
+                "reference": "4ac51c0abee05078e198faf13f48c056a72f8f8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dejanb/stomp-php/zipball/4ac51c0abee05078e198faf13f48c056a72f8f8c",
+                "reference": "4ac51c0abee05078e198faf13f48c056a72f8f8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "FuseSource": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Dejan Bosnanac",
+                    "email": "dejan@nighttale.net",
+                    "homepage": "http://www.nighttale.net"
+                },
+                {
+                    "name": "Sören Rohweder",
+                    "email": "s.rohweder@blage.net",
+                    "homepage": "http://www.monofone.de"
+                }
+            ],
+            "description": "stomp support for PHP",
+            "homepage": "http://github.com/dejanb/stomp-php",
+            "keywords": [
+                "activeMQ",
+                "jms",
+                "messaging",
+                "stomp"
+            ],
+            "time": "2013-02-23 17:34:44"
+        },
         {
             "name": "monolog/monolog",
             "version": "1.12.0",
@@ -167,7 +328,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "coderkungfu/php-queue": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
