@@ -375,7 +375,7 @@
 	"donate_interface-monthlybox-yes": "Gerne monatlich",
 	"donate_interface-monthlybox-no": "NEIN, einmalig spenden",
 	"donate_interface-monthlybox-bottom": "Ihre Spende wird sicher verarbeitet.",
-	"donate_interface-monthly-cancel": "Feste monatliche Zahlungen werden so lange von der Wikimedia Foundation am Monatstag der ersten Spende belastet, bis Sie uns über die Einstellung benachrichtigen. Spenden, die am 29., 30. oder 31. des Monats eingeleitet wurden, wiederholen sich am letzten Tag des Monats für kürzere Monate, so nah am Originaldatum wie möglich. Für Fragen kontaktieren Sie bitte donate@wikimedia.org.",
+	"donate_interface-monthly-cancel": "Für wiederkehrende Spenden werden feste monatliche Zahlungen so lange von der Wikimedia Foundation am Monatstag der ersten Spende belastet, bis Sie uns über die Einstellung benachrichtigen. Spenden, die am 29., 30. oder 31. des Monats eingeleitet wurden, wiederholen sich am letzten Tag des Monats für kürzere Monate, so nah am Originaldatum wie möglich. Für Fragen kontaktieren Sie bitte donate@wikimedia.org.",
 	"donate_interface-onetime": "Einmalig spenden",
 	"donate_interface-monthly-short": "Monatlich",
 	"donate_interface-onetime-short": "Einmalig",
