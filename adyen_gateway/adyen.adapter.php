@@ -237,12 +237,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return $this->getTransactionAllResults();
 	}
 
-	function isResponse() {
-		global $wgRequest;
-		$authResult = $wgRequest->getVal( 'authResult' );
-		return !empty( $authResult );
-	}
-
 	function getResponseStatus( $response ) {
 	}
 
@@ -478,41 +472,40 @@ class AdyenAdapter extends GatewayAdapter {
 		return $queryvals;
 	}
 
-	function processResponse( $response = null, &$retryVars = null ) {
-		if ( $response === NULL ) { // convert GET data
-			$request_vars = $_GET;
-
-			$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
-
-			if ( !$this->checkResponseSignature( $request_vars ) ) {
-				$this->logger->info( "Bad signature in response" );
-				return 'BAD_SIGNATURE';
-			} else {
-				$this->logger->debug( "Good signature" );
-			}
-
-			$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
-
-			$result_code = isset( $request_vars[ 'authResult' ] ) ? $request_vars[ 'authResult' ] : '';
-			if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
-				// Both of these are listed as pending because we have to submit a capture
-				// request on 'AUTHORIZATION' ipn message receipt.
-				$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
-				$this->finalizeInternalStatus( 'pending' );
-			}
-			else {
-				$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
-				$this->finalizeInternalStatus( 'failed' );
-				return 'UNKNOWN';
-			}
-			$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
-			$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
-			$this->runPostProcessHooks();
-			$this->doLimboStompTransaction( TRUE ); // add antimessage
-			return null;
+	function processResponse( $response, &$retryVars = null ) {
+		if ( empty( $response ) || empty ( $response['data'] ) ) {
+			$this->logger->info( "No response from gateway" );
+			return ResponseCodes::NO_RESPONSE;
 		}
-		$this->logger->info( "No response from gateway" );
-		return 'NO_RESPONSE';
+		$request_vars = $response['data'];
+		$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
+
+		if ( !$this->checkResponseSignature( $request_vars ) ) {
+			$this->logger->info( "Bad signature in response" );
+			return ResponseCodes::BAD_SIGNATURE;
+		} else {
+			$this->logger->debug( "Good signature" );
+		}
+
+		$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
+
+		$result_code = isset( $request_vars[ 'authResult' ] ) ? $request_vars[ 'authResult' ] : '';
+		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
+			// Both of these are listed as pending because we have to submit a capture
+			// request on 'AUTHORIZATION' ipn message receipt.
+			$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
+			$this->finalizeInternalStatus( 'pending' );
+		}
+		else {
+			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
+			$this->finalizeInternalStatus( 'failed' );
+			return ResponseCodes::UNKNOWN;
+		}
+		$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
+		$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
+		$this->runPostProcessHooks();
+		$this->doLimboStompTransaction( TRUE ); // add antimessage
+		return null;
 	}
 
 	/**

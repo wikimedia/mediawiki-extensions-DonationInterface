@@ -115,6 +115,7 @@ $wgAutoloadClasses['LogPrefixProvider'] = $donationinterface_dir . 'gateway_comm
 $wgAutoloadClasses['NationalCurrencies'] = $donationinterface_dir . 'gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = $donationinterface_dir . 'gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['PaymentResult'] = $donationinterface_dir . 'gateway_common/PaymentResult.php';
+$wgAutoloadClasses['ResponseCodes'] = $donationinterface_dir . 'gateway_common/ResponseCodes.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = $donationinterface_dir . 'gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = $donationinterface_dir . 'gateway_common/WmfFrameworkLogHandler.php';
 

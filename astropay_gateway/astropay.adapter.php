@@ -24,7 +24,6 @@ class AstropayAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Astropay';
 	const IDENTIFIER = 'astropay';
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
-	const DUPLICATE_ORDER_ID_ERROR = 'DUPLICATE_ORDER_ID_ERROR';
 
 	public function getFormClass() {
 		return 'Gateway_Form_Mustache';
@@ -72,7 +71,7 @@ class AstropayAdapter extends GatewayAdapter {
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
-			self::DUPLICATE_ORDER_ID_ERROR => 'donate_interface-processing-error', // Order ID already used in a previous transaction
+			ResponseCodes::DUPLICATE_ORDER_ID => 'donate_interface-processing-error', // Order ID already used in a previous transaction
 		);
 	}
 
@@ -422,7 +421,7 @@ class AstropayAdapter extends GatewayAdapter {
 				// They don't give us codes to distinguish failure modes, so we
 				// have to parse the description.
 				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
-					$code = $this::DUPLICATE_ORDER_ID_ERROR;
+					$code = ResponseCodes::DUPLICATE_ORDER_ID;
 				}
 				$logged .= 'Error description: ' . $response['desc'];
 			} else {
@@ -474,29 +473,35 @@ class AstropayAdapter extends GatewayAdapter {
 		return $currencies;
 	}
 
-	function processResponse( $response = null, &$retryVars = null ) {
+	function processResponse( $response, &$retryVars = null ) {
 		switch( $this->getCurrentTransaction() ) {
 			case 'PaymentStatus':
 				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
 					$this->logger->error( 'Bad signature in response to PaymentStatus call.' );
-					return 'BAD_SIGNATURE';
+					return ResponseCodes::BAD_SIGNATURE;
 				}
 				break;
 			case 'ProcessReturn':
-				if ( !$this->verifyStatusSignature( $this->staged_data ) ) {
+				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
 					$this->logger->error( 'Bad signature in data POSTed to resultswitcher' );
-					return 'BAD_SIGNATURE';
+					return ResponseCodes::BAD_SIGNATURE;
 				}
-				$status = $this->findCodeAction( 'PaymentStatus', 'result', $this->staged_data['result'] );
+				if ( isset( $response['data']['x_document'] ) ) {
+					$this->setTransactionResult( $response['data']['x_document'], 'gateway_txn_id' );
+				} else {
+					$this->logger->error( 'Astropay did not post back their transaction ID in x_document' );
+					return ResponseCodes::MISSING_TRANSACTION_ID;
+				}
+				$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['data']['result'] );
 				$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 				$this->finalizeInternalStatus( $status );
 				break;
 			case 'NewInvoice':
 				$errors = $this->getTransactionErrors();
-				if ( isset( $errors[self::DUPLICATE_ORDER_ID_ERROR] ) ) {
+				if ( isset( $errors[ResponseCodes::DUPLICATE_ORDER_ID] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
 					$retryVars[] = 'order_id';
-					return self::DUPLICATE_ORDER_ID_ERROR;
+					return ResponseCodes::DUPLICATE_ORDER_ID;
 				}
 				break;
 		}
@@ -530,14 +535,5 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
-	}
-
-	function isResponse() {
-		// We expect the resultswitcher page has fed us with enough POSTed
-		// params to verify a signature
-		return isset( $this->staged_data['result'] ) &&
-			isset( $this->staged_data['x_amount'] ) &&
-			isset( $this->staged_data['x_invoice'] ) &&
-			isset( $this->staged_data['x_control'] );
 	}
 }
