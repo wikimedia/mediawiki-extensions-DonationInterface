@@ -171,6 +171,9 @@ class DonationQueue {
 
 		// What is this?  Make one.
 		$className = $serverConfig['type'];
+		if ( !class_exists( $className ) ) {
+			throw new RuntimeException( "Queue backend class not found: [$className]" );
+		}
 		return new $className( $serverConfig );
 	}
 

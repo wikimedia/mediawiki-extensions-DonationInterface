@@ -1832,46 +1832,29 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * through performing the current transaction.
 	 * To put it another way, getFinalStatus should always return
 	 * false, unless it's new data about a new transaction. In that case, the
-	 * outcome will be assigned and the proper stomp hook selected.
+	 * outcome will be assigned and the proper queue selected.
 	 *
 	 * Probably called in runPostProcessHooks(), which is itself most likely to
 	 * be called through executeFunctionIfExists, later on in do_transaction.
-	 * @return null
 	 */
 	protected function doStompTransaction() {
-		if ( !$this->getGlobal( 'EnableStomp' ) ){
-			return;
-		}
-
-		// send the thing.
-		$transaction = $this->getStompTransaction();
-
-		$queue = 'default';
-
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case 'complete':
-				$queue = 'default';
+				$this->pushMessage( 'complete' );
 				break;
 
 			case 'pending':
 			case 'pending-poke':
-				$queue = 'pending';
+				// FIXME: I don't understand what the pending queue does.
+				$this->pushMessage( 'pending' );
 				break;
 
 			default:
 				// No action
-				$this->logger->info( "STOMP transaction has no place to go for status $status. This is probably completely normal." );
-				return;
-		}
-
-		try {
-			WmfFramework::runHooks( 'gwStomp', array( $transaction, $queue ) );
-		} catch ( Exception $e ) {
-			$this->logger->critical( "STOMP ERROR. Could not add message to '{$queue}' queue: {$e->getMessage()} " . json_encode( $transaction ) );
+				$this->logger->info( "Not sending queue message for status {$status}." );
 		}
 	}
-
 
 	/**
 	 * Function that adds a stomp message to a special 'limbo' queue, for data
@@ -2566,6 +2549,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		WmfFramework::runHooks( 'GatewayPostProcess', array( &$this ) );
 
 		$this->doStompTransaction();
+	}
+
+	protected function pushMessage( $queue ) {
+		$this->logger->info( "Pushing transaction to queue [$queue]" );
+		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
 	}
 
 	/**
