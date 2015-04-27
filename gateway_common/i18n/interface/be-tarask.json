@@ -166,7 +166,7 @@
 	"donate_interface-error-msg-js": "Калі ласка, увядзіце",
 	"donate_interface-error-msg-validation": "Калі ласка, выпраўце памылкі ў форме.",
 	"donate_interface-error-msg-invalid-amount": "Калі ласка, увядзіце слушную суму",
-	"donate_interface-error-msg-email": "Калі ласка, увядзіце слушны адрас электроннай пошты",
+	"donate_interface-error-msg-email": "Калі ласка, увядзіце слушны адрас электроннай пошты, напрыклад, name@domain.com",
 	"donate_interface-error-msg-card-num": "Калі ласка, увядзіце слушны нумар крэдытнай карткі для аднаго з прынятых тыпаў крэдытных картак",
 	"donate_interface-error-msg-amex": "Калі ласка, увядзіце слушны нумар карткі American Express.",
 	"donate_interface-error-msg-mc": "Калі ласка, увядзіце слушны код карткі MasterCard.",

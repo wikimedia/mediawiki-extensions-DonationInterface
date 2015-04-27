@@ -29,7 +29,8 @@
 			"Linforest",
 			"JLeow00",
 			"Hudafu",
-			"Jiang123aa"
+			"Jiang123aa",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -397,7 +398,7 @@
 	"donate_interface-monthlybox-yes": "好，进行每月捐赠",
 	"donate_interface-monthlybox-no": "不，进行单次捐赠",
 	"donate_interface-monthlybox-bottom": "您的捐赠会被安全地处理。",
-	"donate_interface-monthly-cancel": "对于循环捐款，维基媒体基金会将每月固定的报酬在当月第一次捐赠纪念日里计入收入栏，直至您通知我们停止为止。起始于当月29、30、31日的捐款将在短月份的最后一天重新计算收益，并尽可能地接近原来的日期。如有疑问请联系donate@wikimedia.org。",
+	"donate_interface-monthly-cancel": "对经常捐赠人而言，每月固定支付将记入维基媒体基金会账户，根据首次捐赠日期月月重复，直到您通知我们停止。每月29、30或31号开始的捐赠将会在较短月份的最后一天重复，尽量与原日期靠近。如有疑问，敬请联系donate@wikimedia.org 。",
 	"donate_interface-onetime": "进行单次捐赠",
 	"donate_interface-monthly-short": "每月",
 	"donate_interface-onetime-short": "单次",
