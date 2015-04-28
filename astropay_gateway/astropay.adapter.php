@@ -344,6 +344,12 @@ class AstropayAdapter extends GatewayAdapter {
 			$this->do_transaction( 'NewInvoice' ),
 			$this->getFinalStatus()
 		);
+		if ( $result->getRedirect() ) {
+			$this->unstage_payment_submethod();
+			$this->doLimboStompTransaction();
+			$this->setLimboMessage();
+		}
+		return $result;
 	}
 
 	/**
