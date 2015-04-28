@@ -427,9 +427,10 @@ $wgStompQueueNames = array(
  *
  * Common development defaults for the queue server.
  * TODO: Default to a builtin backend such as PDO?
+ * FIXME: Note that this must be an instance of FifoQueueStore.
  */
 $wgDonationInterfaceDefaultQueueServer = array(
-	'type' => '\PHPQueue\Backend\Stomp',
+	'type' => 'PHPQueue\Backend\Stomp',
 	'uri' => 'tcp://localhost:61613',
 	'read_timeout' => '1',
 	'expiry' => '30 days',
@@ -462,9 +463,19 @@ $wgDonationInterfaceQueues = array(
 	// redirect.  It's very important that this data is not stored anywhere
 	// permanent such as logs or the database, until we know this person
 	// finished making a donation.
-	'globalcollect-cc-limbo' => array(),
+	// FIXME: Note that this must be an instance of KeyValueStore.
+	'globalcollect-cc-limbo' => array(
+		'type' => 'PHPQueue\Backend\Memcache',
+		'servers' => array( 'localhost' ),
+		# 30 days, in seconds
+		'expiry' => 2592000,
+	),
 	// The general limbo queue (see above). FIXME: deprecated?
-	'limbo' => array(),
+	'limbo' => array(
+		'type' => 'PHPQueue\Backend\Memcache',
+		'servers' => array( 'localhost' ),
+		'expiry' => 2592000,
+	),
 	// Where limbo messages go to die, if the orphan slayer decides they are
 	// still in one of the pending states.  FIXME: who reads from this queue?
 	'pending' => array(),

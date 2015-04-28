@@ -25,6 +25,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
+	const GC_CC_LIMBO_QUEUE = 'globalcollect-cc-limbo';
 
 	public function getCommunicationType() {
 		return 'xml';
@@ -1178,6 +1179,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->logger->info( $logmsg );
 			//add an antimessage for everything but orphans
 			$this->logger->info( 'Adding Antimessage' );
+			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
+			// TODO: Stop mirroring to STOMP
 			$this->doLimboStompTransaction( true );
 		} else { //this is an orphan transaction.
 			$is_orphan = true;
@@ -1355,8 +1358,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 					//get the old status from the first txn, and add in the part where we set the payment.
 					$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
-					$this->runPostProcessHooks();  //stomp is in here
-					$add_antimessage = true; //TODO: use or remove
+					$this->runPostProcessHooks();  // Queueing is in here.
 				} else {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 					$problemflag = true;
@@ -1439,12 +1441,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if (isset($result['status']) && $result['status'] === true)
 					{
 						$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+						// TODO: Stop emitting antimessage.
 						$this->doLimboStompTransaction( true );
 					} else {
 						$this->finalizeInternalStatus( FinalStatus::FAILED );
 						//get the old status from the first txn, and add in the part where we set the payment.
 						$this->setTransactionResult( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code, 'txn_message' );
 					}
+
+					// We won't need the limbo message again, either way, so cancel it.
+					$this->deleteLimboMessage();
 				}
             }
         }
@@ -2387,7 +2393,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $action != FinalStatus::FAILED ){
+				// TODO: Stop mirroring to STOMP.
 				$this->doLimboStompTransaction();
+				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
+					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
+				} else {
+					$this->setLimboMessage();
+				}
 			}
 		}
 	}
