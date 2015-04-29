@@ -36,6 +36,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	 */
 	protected function handleRequest() {
 		$req = $this->getRequest();
+		// TODO: Don't do that.
 		$fake = $req->getBool( 'fake' );
 		$fail = $req->getBool( 'fail' );
 
