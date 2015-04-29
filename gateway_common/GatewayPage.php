@@ -74,7 +74,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
 			return;
 		}
-		$this->handleRequest();
+
+		try {
+			$this->handleRequest();
+		} catch ( Exception $ex ) {
+			$this->logger->error( "Gateway page errored out due to: " . $ex->getMessage() );
+			$this->displayFailPage();
+		}
 	}
 
 	/**
@@ -129,20 +135,28 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$form = $form_obj->getForm();
 			$wgOut->addHTML( $form );
 		} else {
-
-			$page = $this->adapter->getGlobal( "FailPage" );
-
-			$log_message = '"Redirecting to [ ' . $page . ' ] "';
-			$this->logger->info( $log_message );
-
-			if ( $page ) {
-
-				$language = $this->getRequest()->getVal( 'language' );
-				$page = wfAppendQuery( $page, array( 'uselang' => $language ) );
-			}
-
-			$wgOut->redirect( $page );
+			$this->displayFailPage();
 		}
+	}
+
+	/**
+	 * Display a generic failure page
+	 */
+	public function displayFailPage() {
+		global $wgOut;
+
+		$page = $this->adapter->getGlobal( "FailPage" );
+
+		$log_message = "Redirecting to [{$page}]";
+		$this->logger->info( $log_message );
+
+		// FIXME: And if !page, redirect does not work below.
+		if ( $page ) {
+			$language = $this->getRequest()->getVal( 'language' );
+			$page = wfAppendQuery( $page, array( 'uselang' => $language ) );
+		}
+
+		$wgOut->redirect( $page );
 	}
 
 	/**
