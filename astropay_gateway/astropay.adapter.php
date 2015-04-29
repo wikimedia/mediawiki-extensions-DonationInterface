@@ -250,9 +250,9 @@ class AstropayAdapter extends GatewayAdapter {
 			// Name: ASTROPAY TESTING
 			// Birthdate: 04/03/1984
 			$this->payment_submethods['test'] = array(
-				'bankcode'	=> 'TE',
-				'label'	=> 'GNB',
-				'group'	=> 'cc',
+				'bankcode' => 'TE',
+				'label' => 'GNB',
+				'group' => 'cc',
 				'validation' => array(),
 				'keys' => array(),
 			);
@@ -260,91 +260,96 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Visa
 		$this->payment_submethods['visa'] = array(
-			'bankcode'	=> 'VI',
-			'label'	=> 'Visa',
-			'group'	=> 'cc',
+			'bankcode' => 'VI',
+			'label' => 'Visa',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// MasterCard
 		$this->payment_submethods['mc'] = array(
-			'bankcode'	=> 'MC',
-			'label'	=> 'MasterCard',
-			'group'	=> 'cc',
+			'bankcode' => 'MC',
+			'label' => 'MasterCard',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// American Express
 		$this->payment_submethods['amex'] = array(
-			'bankcode'	=> 'AE',
-			'label'	=> 'American Express',
-			'group'	=> 'cc',
+			'bankcode' => 'AE',
+			'label' => 'American Express',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// Visa Debit
 		$this->payment_submethods['visa_debit'] = array(
-			'paymentproductid'	=> 'VD',
-			'label'	=> 'Visa Debit',
-			'group'	=> 'cc',
+			'bankcode' => 'VD',
+			'label' => 'Visa Debit',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// MasterCard debit
 		$this->payment_submethods['mc_debit'] = array(
-			'bankcode'	=> 'MD',
-			'label'	=> 'Mastercard Debit',
-			'group'	=> 'cc',
+			'bankcode' => 'MD',
+			'label' => 'Mastercard Debit',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// Elo (Brazil-only)
 		$this->payment_submethods['elo'] = array(
-			'bankcode'	=> 'EL',
-			'label'	=> 'Elo',
-			'group'	=> 'cc',
+			'bankcode' => 'EL',
+			'label' => 'Elo',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// Diners Club
 		$this->payment_submethods['dc'] = array(
-			'bankcode'	=> 'DC',
-			'label'	=> 'Diners Club',
-			'group'	=> 'cc',
+			'bankcode' => 'DC',
+			'label' => 'Diners Club',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// Hipercard
 		$this->payment_submethods['hiper'] = array(
-			'bankcode'	=> 'HI',
-			'label'	=> 'Hipercard',
-			'group'	=> 'cc',
+			'bankcode' => 'HI',
+			'label' => 'Hipercard',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 
 		// Argencard
 		$this->payment_submethods['argen'] = array(
-			'bankcode'	=> 'AG',
-			'label'	=> 'Argencard',
-			'group'	=> 'cc',
+			'bankcode' => 'AG',
+			'label' => 'Argencard',
+			'group' => 'cc',
 			'validation' => array(),
 			'keys' => array(),
 		);
 	}
 
 	function doPayment() {
-		return PaymentResult::fromResults(
+		$result = PaymentResult::fromResults(
 			$this->do_transaction( 'NewInvoice' ),
 			$this->getFinalStatus()
 		);
+		if ( $result->getRedirect() ) {
+			$this->unstage_payment_submethod();
+			$this->doLimboStompTransaction();
+		}
+		return $result;
 	}
 
 	/**
@@ -394,6 +399,20 @@ class AstropayAdapter extends GatewayAdapter {
 	protected function stage_donor_id() {
 		$hashed = sha1( $this->unstaged_data['email'] );
 		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
+	}
+
+	protected function unstage_payment_submethod() {
+		$method = $this->getData_Staged( 'payment_method' );
+		$bank = $this->getData_Staged( 'bank_code' );
+		$filter = function( $submethod ) use ( $method, $bank ) {
+			return $submethod['group'] === $method && $submethod['bankcode'] === $bank;
+		};
+		$candidates = array_filter( $this->payment_submethods, $filter );
+		if ( count( $candidates ) !== 1 ) {
+			throw new UnexpectedValueException( "No unique payment submethod defined for payment method $method and bank code $bank." );
+		}
+		$keys = array_keys( $candidates );
+		$this->unstaged_data['payment_submethod'] = $keys[0];
 	}
 
 	static function getCurrencies() {
