@@ -160,6 +160,7 @@
 	"donate_interface-error-msg-cvv": "Lūdzu, ievadiet CVV kodu, kurš parasti atrodams kartes aizmugurē",
 	"donate_interface-donate-error-try-a-different-card": "mēģiniet citu karti",
 	"donate_interface-donate-error-thank-you-for-your-support": "Paldies par jūsu atbalstu!",
+	"donate_interface-problemsdonating": "Vai ir kādas problēmas saistībā ar ziedošanu?",
 	"donate_interface-donate-click": "Tiks veikta droša kredītkartes/debetkartes apstrāde",
 	"donate_interface-otherways-short": "Citi veidi, kā ziedot",
 	"donate_interface-cc-form-header-personal": "Norēķinu informācija",
