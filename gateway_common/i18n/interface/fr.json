@@ -396,7 +396,7 @@
 	"donate_interface-monthlybox-yes": "Bien sûr, le faire mensuellement",
 	"donate_interface-monthlybox-no": "NON, faire un don une seule fois",
 	"donate_interface-monthlybox-bottom": "Votre don sera effectué de manière sécurisée.",
-	"donate_interface-monthly-cancel": "Les paiements mensuels fixés seront débités par la Fondation Wikimédia à la date anniversaire mensuelle de la première donation, jusqu’à ce que vous nous demandiez de les arrêter. Les donations démarrées le 29, 30 ou 31 du mois se répéteront le dernier jour du mois, pour les mois plus courts, aussi près que possible de la date d’origine. Pour toute question, veuillez contacter donate@wikimedia.org.",
+	"donate_interface-monthly-cancel": "Pour les donateurs réguliers, un montant fixe vous sera prélevé chaque mois par la Wikimedia Foundation à la date anniversaire mensuelle de votre premier don et ce jusqu'à ce que vous nous informiez que vous souhaitez y mettre fin. Pour les dons faits le 29, 30 ou 31 du mois, le prélèvement sera effectué au dernier jour du  mois pour les mois les plus courts, à la date la plus proche possible de celle du premier don. Pour toutes questions, veuillez contacter donate@wikimedia.org.",
 	"donate_interface-onetime": "Faire un don ponctuel",
 	"donate_interface-monthly-short": "Mensuel",
 	"donate_interface-onetime-short": "En une seule fois",

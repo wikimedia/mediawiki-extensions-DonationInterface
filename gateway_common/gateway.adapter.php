@@ -1908,12 +1908,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *  current time.
 	 *
 	 * @return array Pass this return array to STOMP :)
+	 *
+	 * TODO: Stop saying "STOMP".
 	 */
 	protected function getStompTransaction( $antiMessage = false, $recoverTimestamp = false ) {
 		$transaction = array(
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
 			'response' => $this->getTransactionMessage(),
+			// Can this be deprecated?
 			'correlation-id' => $this->getCorrelationID(),
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'gateway' => $this->getData_Unstaged_Escaped( 'gateway' ),
@@ -2561,6 +2564,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function runPostProcessHooks() {
 		// expose a hook for any post processing
 		WmfFramework::runHooks( 'GatewayPostProcess', array( &$this ) );
+
 		$this->doStompTransaction();
 	}
 
