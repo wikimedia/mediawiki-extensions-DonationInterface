@@ -72,6 +72,7 @@ $wgAutoloadClasses['GlobalCollectGatewayResult'] = $donationinterface_dir . 'glo
 
 $wgAutoloadClasses['GlobalCollectAdapter'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect.adapter.php';
 $wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/scripts/orphan_adapter.php';
+$wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_gateway/scripts/orphans.php';
 
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = $donationinterface_dir . 'amazon_gateway/amazon_gateway.body.php';
@@ -209,10 +210,8 @@ $wgDonationInterfaceRetryLoopCount = 3;
  */
 $wgDonationInterfaceOrphanCron = array(
 	'enable' => true,
-//	'override_command_line_params' => true,
-//	'function' => 'orphan_stomp',
-//	'target_execute_time' => 300,
-//	'max_per_execute' => '',
+	'target_execute_time' => 300,
+	'max_per_execute' => '',
 );
 
 /**

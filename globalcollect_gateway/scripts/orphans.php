@@ -16,11 +16,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	protected $killfiles = array();
 	protected $order_ids = array();
-	protected $max_per_execute = 500; //only really used if you're going by-file.
-	protected $target_execute_time = 30; //(seconds) - only used by the stomp option.
+	protected $target_execute_time;
+	protected $max_per_execute; //only really used if you're going by-file.
 	protected $adapter;
 	
-	function execute(){
+	public function execute() {
 		//have to turn this off here, until we know it's using the user's ip, and 
 		//not 127.0.0.1 during the batch process.
 		global $wgDonationInterfaceEnableIPVelocityFilter;
@@ -30,25 +30,8 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$wgDonationInterfaceEnableIPVelocityFilter = false;
 
-		$func = 'parse_files';
-		if ( $this->getOrphanGlobal( 'override_command_line_params' ) ){
-			//do that
-			$func = $this->getOrphanGlobal( 'function' );
-			$this->target_execute_time = $this->getOrphanGlobal( 'target_execute_time' );
-			$this->max_per_execute = $this->getOrphanGlobal( 'max_per_execute' );
-		} else {
-			if ( !empty( $_SERVER['argv'][1] ) ){
-				if ( $_SERVER['argv'][1] === 'stomp' ){
-					$func = 'orphan_stomp';
-					if ( !empty( $_SERVER['argv'][2] ) && is_numeric( $_SERVER['argv'][2] ) ){
-						$this->target_execute_time = $_SERVER['argv'][2];
-					}
-				} elseif ( is_numeric( $_SERVER['argv'][1] ) ){
-					$this->max_per_execute = $_SERVER['argv'][1];
-				}
-			}
-		}
-		
+		$this->target_execute_time = $this->getOrphanGlobal( 'target_execute_time' );
+		$this->max_per_execute = $this->getOrphanGlobal( 'max_per_execute' );
 
 		// FIXME: Is this just to trigger batch mode?
 		$data = array(
@@ -58,15 +41,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
 		//Now, actually do the processing. 
-		if ( method_exists( $this, $func ) ) {
-			$this->{$func}();
-		} else {
-			echo "There's no $func in Orphan Rectifying!\n";
-			die();
-		}
+		$this->orphan_stomp();
 	}
-	
-	function orphan_stomp(){
+
+	protected function orphan_stomp(){
 		echo "Orphan Stomp\n";
 		$this->removed_message_count = 0;
 		$this->start_time = time();
@@ -102,6 +80,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				foreach ( $orphans as $correlation_id => $orphan ) {
 					//process
 					if ( $this->keepGoing() ){
+						// TODO: Maybe we can simplify by checking that modified time < job start time.
 						echo "Attempting to rectify orphan $correlation_id\n";
 						if ( $this->rectifyOrphan( $orphan ) ){
 							// TODO: Stop mirroring to STOMP.
@@ -160,9 +139,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		echo $final;
 	}
 	
-	function keepGoing(){
+	protected function keepGoing(){
 		$elapsed = $this->getProcessElapsed();
-		if ( $elapsed < $this->target_execute_time ){
+		if ( $elapsed < $this->target_execute_time ) {
 			return true;
 		} else {
 			return false;
@@ -174,7 +153,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 * the cronspammer.
 	 * @return int elapsed time since start in seconds
 	 */
-	function getProcessElapsed(){
+	protected function getProcessElapsed(){
 		$elapsed = time() - $this->start_time;
 		echo "Elapsed Time: $elapsed\n";
 		return $elapsed;
@@ -233,8 +212,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 
 	/**
-	 * Returns an array of **at most** 300 decoded orphans that we don't think we've rectified yet. 
-	 * @return array keys are the correlation_id, and the values are the decoded stomp message body. 
+	 * Returns an array of at most $batch_size decoded orphans that we don't
+	 * think we've rectified yet. 
+	 *
+	 * @return array keys are the correlation_id, and the values are the
+	 *     decoded stomp message body. 
 	 */
 	protected function getStompOrphans(){
 		// TODO: Remove STOMP block.
@@ -364,13 +346,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 	
 	/**
-	 * Uses the Orphan Adapter to rectify a single orphan. Returns a boolean letting the caller know if
+	 * Uses the Orphan Adapter to rectify (complete the charge for) a single orphan. Returns a boolean letting the caller know if
 	 * the orphan has been fully rectified or not. 
 	 * @param array $data Some set of orphan data. 
 	 * @param boolean $query_contribution_tracking A flag specifying if we should query the contribution_tracking table or not.
 	 * @return boolean True if the orphan has been rectified, false if not. 
 	 */
-	function rectifyOrphan( $data, $query_contribution_tracking = true ){
+	protected function rectifyOrphan( $data, $query_contribution_tracking = true ){
 		echo 'Rectifying Orphan ' . $data['order_id'] . "\n";
 		$rectified = false;
 		
@@ -403,8 +385,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	/**
 	 * Gets the global setting for the key passed in.
 	 * @param type $key
+	 *
+	 * FIXME: Reuse GatewayAdapter::getGlobal.
 	 */
-	function getOrphanGlobal( $key ){
+	protected function getOrphanGlobal( $key ){
 		global $wgDonationInterfaceOrphanCron;
 		if ( array_key_exists( $key, $wgDonationInterfaceOrphanCron ) ){
 			return $wgDonationInterfaceOrphanCron[$key];
@@ -525,10 +509,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		return $array;
 	}
-	
 }
 
-$maintClass = "GlobalCollectOrphanRectifier";
-require_once( "$IP/maintenance/doMaintenance.php" );
-
-
+$maintClass = 'GlobalCollectOrphanRectifier';
+require_once RUN_MAINTENANCE_IF_MAIN;
