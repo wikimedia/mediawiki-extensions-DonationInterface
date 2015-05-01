@@ -218,17 +218,16 @@ class AdyenAdapter extends GatewayAdapter {
 						break;
 					}
 					$this->stageData();
+					$requestParams = $this->buildRequestParams();
 
 					$this->setTransactionResult(
-						array( 'FORMACTION' => $formaction ),
+						array(
+							'FORMACTION' => $formaction,
+							'gateway_params' => $requestParams,
+						),
 						'data'
 					);
-					$requestParams = $this->buildRequestParams();
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
-					);
-					$this->setTransactionResult(
-						$requestParams,
-						'gateway_params'
 					);
 					$this->doLimboStompTransaction();
 					break;
@@ -502,6 +501,7 @@ class AdyenAdapter extends GatewayAdapter {
 			return ResponseCodes::UNKNOWN;
 		}
 		$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
+		// FIXME: Why put that two places in transaction_result?
 		$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
 		$this->runPostProcessHooks();
 		$this->doLimboStompTransaction( TRUE ); // add antimessage

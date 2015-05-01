@@ -61,6 +61,9 @@ class DonationApi extends ApiBase {
 			if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
 				$outputResult['formaction'] = $result['data']['FORMACTION'];
 			}
+			if ( array_key_exists( 'gateway_params', $result['data'] ) ) {
+				$outputResult['gateway_params'] = $result['data']['gateway_params'];
+			}
 			if ( $gatewayObj->getMerchantID() === 'test' ) {
 				$outputResult['testform'] = true;
 			}
@@ -78,9 +81,6 @@ class DonationApi extends ApiBase {
 
 		if ( $this->donationData ) {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
-		}
-		if ( array_key_exists( 'gateway_params', $result ) ) {
-			$this->getResult()->addValue( null, 'gateway_params', $result['gateway_params'] );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
