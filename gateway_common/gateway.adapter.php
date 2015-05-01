@@ -27,23 +27,6 @@ interface GatewayType {
 	//all the particulars of the child classes. Aaaaall.
 
 	/**
-	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
-	 */
-	function getResponseStatus( $response );
-
-	/**
-	 * Parse the response to get the errors in a format we can log and otherwise deal with.
-	 * return a key/value array of codes (if they exist) and messages.
-	 */
-	function getResponseErrors( $response );
-
-	/**
-	 * Harvest the data we need back from the gateway.
-	 * return a key/value array
-	 */
-	function getResponseData( $response );
-
-	/**
 	 * Perform any additional processing on the response obtained from the server.
 	 *
 	 * @param array $response   The internal response object array -> ie: data, errors, action...
@@ -1154,15 +1137,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			//set the status of the response. This is the COMMUNICATION status, and has nothing
 			//to do with the result of the transaction.
 			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
-			$this->setTransactionResult( $this->getResponseStatus( $formatted ), 'status' );
+			$this->setTransactionResult( $this->parseResponseCommunicationStatus( $formatted ), 'status' );
 
 			//set errors
 			//TODO: This "errors" business is becoming a bit of a misnomer, as the result code and message
 			//are frequently packaged togther in the same place, whether the transaction passed or failed.
-			$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
+			$this->setTransactionResult( $this->parseResponseErrors( $formatted ), 'errors' );
 
 			//if we're still okay (hey, even if we're not), get relevant data.
-			$this->setTransactionResult( $this->getResponseData( $formatted ), 'data' );
+			$this->setTransactionResult( $this->parseResponseData( $formatted ), 'data' );
 
 			// Process the formatted response data. This will then drive the result action
 			$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
@@ -1506,6 +1489,31 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function curl_errno( $ch ) {
 		return curl_errno( $ch );
+	}
+
+	/**
+	 * Check the response for general sanity - e.g. correct data format, keys exists
+	 * @return boolean true if response looks sane
+	 */
+	protected function parseResponseCommunicationStatus( $response ) {
+		return true;
+	}
+
+	/**
+	 * Parse the response to get the errors in a format we can log and otherwise deal with.
+	 * @return array a key/value array of codes (if they exist) and messages.
+	 */
+	protected function parseResponseErrors( $response ) {
+		return array();
+	}
+
+	/**
+	 * This is only public for the orphan script.
+	 * Harvest the data we need back from the gateway.
+	 * @return array a key/value array
+	 */
+	public function parseResponseData( $response ) {
+		return array();
 	}
 
 	/**

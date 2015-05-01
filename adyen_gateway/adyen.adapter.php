@@ -235,15 +235,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return $this->getTransactionAllResults();
 	}
 
-	function getResponseStatus( $response ) {
-	}
-
-	function getResponseErrors( $response ) {
-	}
-
-	function getResponseData( $response ) {
-	}
-
 	static function getCurrencies() {
 		// See http://www.adyen.com/platform/all-countries-all-currencies/
 		// This should be the list of all global "acceptance currencies".  Not

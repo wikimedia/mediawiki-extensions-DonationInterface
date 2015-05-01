@@ -395,14 +395,14 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
 	}
 
-	function getResponseStatus( $response ) {
+	function parseResponseCommunicationStatus( $response ) {
 		if ( $response === NULL || !isset( $response['status'] ) ) {
 			return false;
 		}
 		return $response['status'] === '0';
 	}
 
-	function getResponseErrors( $response ) {
+	function parseResponseErrors( $response ) {
 		$logged = false;
 		$errors = array();
 		$code = 'internal-0000';
@@ -439,7 +439,7 @@ class AstropayAdapter extends GatewayAdapter {
 		return $errors;
 	}
 
-	function getResponseData( $response ) {
+	public function parseResponseData( $response ) {
 		$data = array();
 
 		switch( $this->getCurrentTransaction() ) {

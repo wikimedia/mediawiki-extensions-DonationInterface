@@ -312,7 +312,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		foreach ($payments as $key => $payment_data){
 			$xml->loadXML($payment_data['xml']);
-			$parsed = $this->adapter->getResponseData($xml);
+			$parsed = $this->adapter->parseResponseData($xml);
 			$payments[$key]['parsed'] = $parsed;
 			$payments[$key]['unstaged'] = $this->adapter->unstage_data($parsed);
 			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];

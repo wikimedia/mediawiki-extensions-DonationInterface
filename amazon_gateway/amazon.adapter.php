@@ -475,7 +475,8 @@ class AmazonAdapter extends GatewayAdapter {
 		return $opts;
 	}
 
-	function getResponseData( $response ) {
+	// FIXME: this should return an array, dagnabbit!
+	public function parseResponseData( $response ) {
 		// The XML string isn't really all that useful, so just return TRUE if the signature
 		// was verified
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
@@ -490,7 +491,7 @@ class AmazonAdapter extends GatewayAdapter {
 		return FALSE;
 	}
 
-	public function getResponseStatus( $response ) {
+	function parseResponseCommunicationStatus( $response ) {
 		$aok = false;
 
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
@@ -505,7 +506,7 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	// @todo FIXME: This doesn't go anywhere.
-	function getResponseErrors( $response ) {
+	function parseResponseErrors( $response ) {
 		$errors = array( );
 		foreach ( $response->getElementsByTagName( 'Error' ) as $node ) {
 			$code = '';

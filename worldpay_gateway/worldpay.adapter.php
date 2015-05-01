@@ -789,7 +789,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 *
 	 * @return bool
 	 */
-	function getResponseStatus( $response ) {
+	function parseResponseCommunicationStatus( $response ) {
 		foreach( $response->getElementsByTagName( 'MessageCode' ) as $node) {
 			return true;
 		}
@@ -806,7 +806,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * @param DOMDocument	$response	The XML response data all loaded into a DOMDocument
 	 * @return array
 	 */
-	function getResponseErrors( $response ) {
+	function parseResponseErrors( $response ) {
 		$code = false;
 		$message = false;
 		$errors = array( );
@@ -914,7 +914,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		return $return;
 	}
 
-	function getResponseData( $response ) {
+	public function parseResponseData( $response ) {
 		$data = $this->xmlChildrenToArray( $response, 'TMSTN' );
 		return $data;
 	}

@@ -1457,7 +1457,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param DomDocument	$response	The response XML loaded into a DomDocument
 	 * @return bool
 	 */
-	public function getResponseStatus( $response ) {
+	public function parseResponseCommunicationStatus( $response ) {
 
 		$aok = true;
 
@@ -1481,7 +1481,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param array	$response	The response array
 	 * @return array
 	 */
-	public function getResponseErrors( $response ) {
+	public function parseResponseErrors( $response ) {
 		$errors = array( );
 		foreach ( $response->getElementsByTagName( 'ERROR' ) as $node ) {
 			$code = '';
@@ -1521,7 +1521,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param DOMDocument	$response	The response object
 	 * @return array
 	 */
-	public function getResponseData( $response ) {
+	public function parseResponseData( $response ) {
 		$data = array( );
 
 		$transaction = $this->getCurrentTransaction();
@@ -1868,7 +1868,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//look in the message for more clues.
 					//Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
 					//The only way to tell is to search the English message.
-					//@TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in getResponseErrors; It is very silly that this is here at all.
+					//@TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in parseResponseErrors; It is very silly that this is here at all.
 					$enhanced = $this->transaction_response->getErrors();
 					// Matching previous behavior, which set a random transaction_response
 					// key to the raw message of the last error inspected
