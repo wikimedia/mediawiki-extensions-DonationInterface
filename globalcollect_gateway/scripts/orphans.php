@@ -363,9 +363,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
-			
+
 			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too. 
-			if ( array_key_exists('errors', $results) && array_key_exists('1000001', $results['errors']) ){
+			if ( isset( $results['errors'] ) && array_key_exists('1000001', $results['errors']) ){
 				$rectified = true;
 			}
 			

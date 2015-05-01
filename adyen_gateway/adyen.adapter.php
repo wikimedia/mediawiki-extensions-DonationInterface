@@ -500,7 +500,7 @@ class AdyenAdapter extends GatewayAdapter {
 			return ResponseCodes::UNKNOWN;
 		}
 		$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
-		// FIXME: Why put that two places in transaction_result?
+		// FIXME: Why put that two places in transaction_response?
 		$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
 		$this->runPostProcessHooks();
 		$this->doLimboStompTransaction( TRUE ); // add antimessage

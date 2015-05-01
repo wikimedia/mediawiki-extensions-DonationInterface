@@ -17,6 +17,8 @@
  *
  */
 
+use Psr\Log\LogLevel;
+
 /**
  * GatewayType Interface
  *
@@ -279,28 +281,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $payment_init_logger;
 
 	/**
-	 * $transaction_results is the member var that keeps track of the results of
+	 * $transaction_response is the member var that keeps track of the results of
 	 * the latest discrete transaction with the gateway.
-	 * There could be multiple transaction with the gateway in any one donation.
-	 * Expected keys:
-	 * - 'status' => boolean, denoting if there were internal errors on our end,
-	 * or at the gateway.
-	 * - 'message' => Originally supposed to be an i18n label, but somewhere
-	 * along the line this just turned into a message that would be marginally
-	 * okay to display to a user.
-	 * - 'errors' => An array of error codes => error messages that are meant to
-	 * make it to the user. If there weren't any, this should be present and
-	 * empty after a transaction.
-	 * Keys that might also exist:
-	 * - 'FINAL_STATUS' => The final outcome of an entire donation workflow.
-	 * - 'result' => Raw return data from the cURL transaction
-	 * - 'txn_message' - Special case internal messages about the success or
-	 * failure of the transaction. Not widely used.
-	 * - 'gateway_txn_id' - the gateway transaction ID
-	 * - 'data' - All PARSED transaction data.
-	 * @var array
+	 * @var PaymentTransactionResponse
 	 */
-	protected $transaction_results;
+	protected $transaction_response;
 	/**
 	 * @var string When the smoke clears, this should be set to one of the
 	 * constants defined in @see FinalStatus
@@ -1168,7 +1153,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			//set the status of the response. This is the COMMUNICATION status, and has nothing
 			//to do with the result of the transaction.
-			$formatted = $this->getFormattedResponse( $this->getTransactionRawResponse() );
+			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
 			$this->setTransactionResult( $this->getResponseStatus( $formatted ), 'status' );
 
 			//set errors
@@ -1427,27 +1412,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// response in case there is a general network issue
 		$continue = true;
 		$i = 1;
-		$results = array();
+		$curl_response = false;
 
 		while ( ( $i++ <= 3 ) && ( $continue === true )) {
 			$this->logger->info( "Preparing to send {$this->getCurrentTransaction()} transaction to $gatewayName" );
 
 			// Execute the cURL operation
-			$result = $this->curl_exec( $ch );
-			$results['result'] = $result;
+			$curl_response = $this->curl_exec( $ch );
 
-			if ( $results['result'] !== false ) {
+			if ( $curl_response !== false ) {
 				// The cURL operation was at least successful, what happened in it?
 
-				$results['headers'] = $this->curl_getinfo( $ch );
-				$httpCode = $results['headers']['http_code'];
+				$headers = $this->curl_getinfo( $ch );
+				$httpCode = $headers['http_code'];
 
 				switch ( $httpCode ) {
 					case 200:   // Everything is AWESOME
 						$continue = false;
 
 						$this->logger->debug( "Successful transaction to $gatewayName" );
-						$this->setTransactionResult( $results );
+						$this->transaction_response->setRawResponse( $curl_response );
 
 						$retval = true;
 						break;
@@ -1455,23 +1439,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					case 400:   // Oh noes! Bad request.. BAD CODE, BAD BAD CODE!
 						$continue = false;
 
-						$this->logger->error( "$gatewayName returned (400) BAD REQUEST: $result" );
+						$this->logger->error( "$gatewayName returned (400) BAD REQUEST: $curl_response" );
 
 						// Even though there was an error, set the results. Amazon at least gives
 						// us useful XML return
-						$this->setTransactionResult( $results );
+						$this->transaction_response->setRawResponse( $curl_response );
 
 						$retval = true;
 						break;
 
 					case 403:   // Hmm, forbidden? Maybe if we ask it nicely again...
 						$continue = true;
-						$this->logger->alert( "$gatewayName returned (403) FORBIDDEN: $result" );
+						$this->logger->alert( "$gatewayName returned (403) FORBIDDEN: $curl_response" );
 						break;
 
 					default:    // No clue what happened... break out and log it
 						$continue = false;
-						$this->logger->error( "$gatewayName failed remotely and returned ($httpCode): $result" );
+						$this->logger->error( "$gatewayName failed remotely and returned ($httpCode): $curl_response" );
 						break;
 				}
 			} else {
@@ -1487,7 +1471,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// Clean up and return
 		curl_close( $ch );
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
+		$log_results = array(
+			'result' => $curl_response,
+			'headers' => $headers,
+		);
+		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
 
 		return $retval;
 	}
@@ -1576,7 +1564,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return false;
 		}
 		$justXML = substr( $rawResponse, $xmlStart );
-		$this->setTransactionResult( $justXML, 'unparsed_data' );
 		return $justXML;
 	}
 
@@ -2157,14 +2144,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * TODO: get rid of this shim, expose the getters we need externally
 	 * The results of the most recent cURL transaction.
 	 *
 	 * Standard keys are:
 	 *   status  - Boolean value that indicates if the completed without errors
 	 *             @see getTransactionStatus()
-	 *   headers - HTTP headers returned from cURL
 	 *   result  - HTTP body request string returned from cURL
-	 *             @see getTransactionRawResponse()
 	 *   message - Debug string; used for describing extra data for logging
 	 *             @see getTransactionMessage()
 	 *   errors  - Array of <error code> => <i18n message for user display>
@@ -2174,59 +2160,113 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return bool|string[] False if there are no results
 	 */
 	public function getTransactionAllResults() {
-		if ( $this->transaction_results && is_array( $this->transaction_results ) ) {
-			return $this->transaction_results;
-		} else {
+		if ( !$this->transaction_response ) {
 			return false;
 		}
+		$errors = array();
+		$complicated = $this->transaction_response->getErrors();
+		if ( $complicated ) {
+			// Transform errors to legacy format
+			$simplify = function( $error ) {
+				return $error['message'];
+			};
+			$errors = array_map( $simplify, $complicated );
+		}
+		return array(
+			'result' => $this->transaction_response->getRawResponse(),
+			'status' => $this->transaction_response->getCommunicationStatus(),
+			'errors' => $errors,
+			'message' => $this->transaction_response->getMessage(),
+			'gateway_txn_id' => $this->transaction_response->getGatewayTransactionId(),
+			'data' => $this->transaction_response->getData(),
+			'force_cancel' => $this->transaction_response->getForceCancel(),
+			'redirect' => $this->transaction_response->getRedirect(),
+			'txn_message' => $this->transaction_response->getTxnMessage(),
+		);
 	}
 
 	/**
+	 * TODO: get rid of this shim, expose the setters we need to use externally
 	 * SetTransactionResult sets the gateway adapter object's
-	 * $transaction_results value.
+	 * $transaction_response value.
 	 * If a $key is specified, it only sets the specified key's value. If no
 	 * $key is specified, it resets the value of the entire array.
-	 * @param mixed $value The value to set in $transaction_results
+	 * @param mixed $value The value to set in $transaction_response
 	 * @param mixed $key Optional: A specific key to set, or false (default) to
 	 * reset the entire result array.
+	 * @deprecated
 	 */
 	public function setTransactionResult( $value = array(), $key = false ) {
 		if ( $key === false ) {
-			$this->transaction_results = $value;
-		} else {
-			$this->transaction_results[$key] = $value;
+			$this->transaction_response = new PaymentTransactionResponse();
+			foreach ( $value as $vKey => $vVal ) {
+				$this->setTransactionResult( $vVal, $vKey );
+			}
+			return;
+		}
+		if ( !$this->transaction_response ) {
+			$this->transaction_response = new PaymentTransactionResponse();
+		}
+		switch( $key ) {
+		case 'result':
+			$this->transaction_response->setRawResponse( $value );
+			break;
+		case 'errors':
+			// Transform from legacy code => message format
+			$enhance = function ( $message ) {
+				if ( is_array( $message ) ) {
+					return $message;
+				}
+				return array(
+					'debugInfo' => '',
+					'message' => $message,
+					'logLevel' => LogLevel::INFO,
+				);
+			};
+			$enhanced = array_map( $enhance, $value );
+			$this->transaction_response->setErrors( $enhanced );
+			break;
+		case 'message':
+			$this->transaction_response->setMessage( $value );
+			break;
+		case 'gateway_txn_id':
+			$this->transaction_response->setGatewayTransactionId( $value );
+			break;
+		case 'status':
+			$this->transaction_response->setCommunicationStatus( $value );
+			break;
+		case 'data':
+			$this->transaction_response->setData( $value );
+			break;
+		case 'force_cancel':
+			$this->transaction_response->setForceCancel( $value );
+			break;
+		case 'txn_message':
+			$this->transaction_response->setTxnMessage( $value );
+			break;
+		case 'redirect':
+			$this->transaction_response->setRedirect( $value );
+			break;
+		default:
+			throw new UnexpectedValueException( "Bad transaction result key $key" );
 		}
 	}
 
 	/**
-	 * Returns the 'result' key of $transaction_results, or false if none is
-	 * present
-	 * @return mixed
-	 */
-	public function getTransactionRawResponse() {
-		if ( array_key_exists( 'result', $this->transaction_results ) ) {
-			return $this->transaction_results['result'];
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Returns the 'status' key of $transaction_results, or false if none is
+	 * Returns the transaction communication status, or false if not set
 	 * present.
 	 * @return mixed
 	 */
 	public function getTransactionStatus() {
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'status', $this->transaction_results ) ) {
-			return $this->transaction_results['status'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getCommunicationStatus() ) {
+			return $this->transaction_response->getCommunicationStatus();
 		}
+		return false;
 	}
 
 	/**
-	 * If it has been set: returns the final payment status in the
-	 * $transaction_results array. This is the one we care about for switching
+	 * If it has been set: returns the final payment status in the $final_status
+	 * member variable. This is the one we care about for switching
 	 * on overall behavior. Otherwise, returns false.
 	 * @return mixed Final Transaction results status, or false if not set.
 	 * Should be one of the constants defined in @see FinalStatus
@@ -2350,20 +2390,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @return string|boolean
+	 */
 	public function getTransactionMessage() {
-		if ( $this->transaction_results && array_key_exists( 'txn_message', $this->transaction_results ) ) {
-			return $this->transaction_results['txn_message'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getTxnMessage() ) {
+			return $this->transaction_response->getTxnMessage();
 		}
+		return false;
 	}
 
+	/**
+	 * @deprecated
+	 * @return string|boolean
+	 */
 	public function getTransactionGatewayTxnID() {
-		if ( $this->transaction_results && array_key_exists( 'gateway_txn_id', $this->transaction_results ) ) {
-			return $this->transaction_results['gateway_txn_id'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getGatewayTransactionId() ) {
+			return $this->transaction_response->getGatewayTransactionId();
 		}
+		return false;
 	}
 
 	/**
@@ -2371,11 +2417,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed An array of returned data, or false.
 	 */
 	public function getTransactionData() {
-		if ( array_key_exists( 'data', $this->transaction_results ) ) {
-			return $this->transaction_results['data'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getData() ) {
+			return $this->transaction_response->getData();
 		}
+		return false;
 	}
 
 	/**
@@ -2386,8 +2431,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getTransactionErrors() {
 
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'errors', $this->transaction_results ) ) {
-			return $this->transaction_results['errors'];
+		if ( $this->transaction_response && $this->transaction_response->getErrors() ) {
+			$simplify = function( $error ) {
+				return $error['message'];
+			};
+			return array_map( $simplify, $this->transaction_response->getErrors() );
 		} else {
 			return array();
 		}

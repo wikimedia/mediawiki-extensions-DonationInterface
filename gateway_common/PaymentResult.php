@@ -123,7 +123,7 @@ class PaymentResult {
 			// as well and display errors at the same time.
 			return PaymentResult::newRefresh( $data['errors'] );
 		}
-		if ( array_key_exists( 'redirect', $data ) ) {
+		if ( isset( $data['redirect'] ) ) {
 			return PaymentResult::newRedirect( $data['redirect'] );
 		}
 		return PaymentResult::newSuccess();

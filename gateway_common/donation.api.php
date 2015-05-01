@@ -45,14 +45,14 @@ class DonationApi extends ApiBase {
 
 		//$normalizedData = $gatewayObj->getData_Unstaged_Escaped();
 		$outputResult = array();
-		if ( array_key_exists( 'message', $result ) ) {
+		if ( isset( $result['message'] ) ) {
 			$outputResult['message'] = $result['message'];
 		}
-		if ( array_key_exists( 'status', $result ) ) {
+		if ( isset( $result['status'] ) ) {
 			$outputResult['status'] = $result['status'];
 		}
 
-		if ( array_key_exists( 'data', $result ) ) {
+		if ( isset( $result['data'] ) ) {
 			if ( array_key_exists( 'PAYMENT', $result['data'] )
 				&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
 			{
@@ -74,7 +74,7 @@ class DonationApi extends ApiBase {
 				$outputResult['orderid'] = $result['data']['ORDERID'];
 			}
 		}
-		if ( array_key_exists( 'errors', $result ) && $result['errors'] ) {
+		if ( isset( $result['errors'] ) ) {
 			$outputResult['errors'] = $result['errors'];
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}

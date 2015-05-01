@@ -1212,7 +1212,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'cvv_result' => '',
 				'avs_result' => ''
 			);
-			if ( array_key_exists('data', $status_result) ) {
+			if ( isset($status_result['data'] ) ) {
 				foreach ( $pull_vars as $theirkey => $ourkey) {
 					if ( !array_key_exists( $theirkey, $status_result['data'] ) ) {
 						continue;
@@ -1486,13 +1486,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		foreach ( $response->getElementsByTagName( 'ERROR' ) as $node ) {
 			$code = '';
 			$message = '';
+			$debugInfo = '';
 			foreach ( $node->childNodes as $childnode ) {
 				if ( $childnode->nodeName === "CODE" ) {
 					$code = $childnode->nodeValue;
 				}
 				if ( $childnode->nodeName === "MESSAGE" ) {
 					$message = $childnode->nodeValue;
-					$this->setTransactionResult( $message, 'raw_error_msg'); //this is a hack. @TODO: Refactor all 3rd party error handling
+					$debugInfo = $message;
 					//I am hereby done screwing around with GC field constraint violations.
 					//They vary between ***and within*** payment types, and their docs are a joke.
 					if ( strpos( $message, 'DOES NOT HAVE LENGTH' ) !== false ) {
@@ -1501,7 +1502,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 			}
 
-			$errors[ $code ] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( $code );
+			$errors[ $code ] = array(
+				'logLevel' => LogLevel::ERROR,
+				'message' => ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( $code ),
+				'debugInfo' => $debugInfo,
+			);
 		}
 		return $errors;
 	}
@@ -1864,8 +1869,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
 					//The only way to tell is to search the English message.
 					//@TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in getResponseErrors; It is very silly that this is here at all.
-					$raw = $this->getTransactionAllResults();
-					$raw = $raw['raw_error_msg'];
+					$enhanced = $this->transaction_response->getErrors();
+					// Matching previous behavior, which set a random transaction_response
+					// key to the raw message of the last error inspected
+					$raw = '';
+					foreach ( $enhanced as $code => $errArray ) {
+						$raw = $errArray['debugInfo'];
+					}
 					$not_errors = array( //add more of these stupid things here, if log noise makes you want to
 						'/NULL VALUE NOT ALLOWED FOR EXPIRYDATE/',
 						'/DID NOT PASS THE LUHNCHECK/',
