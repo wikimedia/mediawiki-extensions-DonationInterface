@@ -439,6 +439,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( !array_key_exists( $form_key, $allowedForms ) ) {
 			$debug_message = "Could not find form '$form_key'";
 			$problems = true;
+		} elseif ( empty( $allowedForms[$form_key] ) ) {
+			$debug_message = "Form '$form_key' is disabled by configuration.";
+			$problems = true;
 		} elseif ( !array_key_exists( 'file', $allowedForms[$form_key] ) ) {
 			$debug_message = "Form config for '$form_key' is missing 'file' value";
 			$problems = true;

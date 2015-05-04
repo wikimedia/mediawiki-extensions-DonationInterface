@@ -12,7 +12,7 @@
 # Alert the user that this is not a valid entry point to MediaWiki if they try to access the special pages file directly.
 if ( !defined( 'MEDIAWIKI' ) ) {
 	echo <<<EOT
-To install the DontaionInterface extension, put the following line in LocalSettings.php:
+To install the DonationInterface extension, put the following line in LocalSettings.php:
 require_once( "\$IP/extensions/DonationInterface/DonationInterface.php" );
 EOT;
 	exit( 1 );
@@ -710,7 +710,15 @@ $wgExtensionFunctions[] = function() {
 	global $wgDonationInterfaceEnabledGateways,
 		$wgDonationInterfaceEnableCustomFilters,
 		$wgSpecialPages,
-		$wgHooks;
+		$wgHooks,
+		$wgDonationInterfaceFormDirs,
+		$wgDonationInterfaceHtmlFormDir,
+		$wgAdyenGatewayHtmlFormDir,
+		$wgAmazonGatewayHtmlFormDir,
+		$wgGlobalCollectGatewayHtmlFormDir,
+		$wgPaypalGatewayHtmlFormDir,
+		$wgPayflowProGatewayHtmlFormDir,
+		$wgWorldPayGatewayHtmlFormDir;
 
 	/**
 	 * Figure out what we've got enabled.
@@ -854,6 +862,29 @@ $wgExtensionFunctions[] = function() {
 	if ( $optionalParts['SessionVelocityFilter'] === true ) {
 		$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
 	}
+
+	// Set up form template directories.
+	$form_dirs = array(
+		'default' => $wgDonationInterfaceHtmlFormDir,
+		'gc' => $wgGlobalCollectGatewayHtmlFormDir,
+		'paypal' => $wgPaypalGatewayHtmlFormDir,
+		'amazon' => $wgAmazonGatewayHtmlFormDir,
+	//	'pfp' => $wgPayflowProGatewayHtmlFormDir,
+	);
+
+	if ( $wgDonationInterfaceEnableAdyen === true ) {
+		$form_dirs['adyen'] = $wgAdyenGatewayHtmlFormDir;
+	}
+	if ( $wgDonationInterfaceEnableWorldPay === true ) {
+		$form_dirs['worldpay'] = $wgWorldPayGatewayHtmlFormDir;
+	}
+	$wgDonationInterfaceFormDirs = array_merge(
+		$form_dirs,
+		$wgDonationInterfaceFormDirs
+	);
+
+	// Load the default form settings
+	require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 };
 
 //Unit tests
@@ -1018,6 +1049,19 @@ $wgExtensionMessagesFiles['PaypalGatewayAlias'] = $donationinterface_dir . 'payp
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
 $wgExtensionMessagesFiles['WorldPayGateway'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.i18n.php';
 $wgExtensionMessagesFiles['WorldPayGatewayAlias'] = $donationinterface_dir . 'worldpay_gateway/worldpay_gateway.alias.php';
+
+/**
+ * See default values in DonationInterfaceFormSettings.php.  Note that any values
+ * set in LocalSettings.php are array_merged into the defaults, which allows you
+ * to override specific forms.  Please completely specify forms when overriding,
+ * or disable by setting to an empty array or false.
+ */
+$wgDonationInterfaceAllowedHtmlForms = array();
+
+/**
+ * Base directories for each gateway's form templates.
+ */
+$wgDonationInterfaceFormDirs = array();
 
 /**
  * FUNCTIONS
