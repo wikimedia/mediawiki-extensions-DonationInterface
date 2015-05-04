@@ -85,7 +85,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineVarMap() {
 	}
 
-	public function processResponse($response, &$retryVars = null) {
+	public function processResponse( $response ) {
 	}
 
 	public function setGatewayDefaults() {

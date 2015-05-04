@@ -199,8 +199,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * If status is paid and signature is correct, processResponse should return
-	 * null and final status should be 'completed'
+	 * If status is paid and signature is correct, processResponse should not
+	 * throw exception and final status should be 'completed'
 	 */
 	function testSuccessfulReturn() {
 		$init = $this->getDonorTestData( 'BR' );
@@ -222,9 +222,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			)
 		);
 
-		$result = $gateway->processResponse( $response );
+		$gateway->processResponse( $response );
 		$status = $gateway->getFinalStatus();
-		$this->assertNull( $result );
 		$this->assertEquals( FinalStatus::COMPLETE, $status );
 	}
 
@@ -250,9 +249,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			)
 		);
 
-		$result = $gateway->processResponse( $response );
+		$gateway->processResponse( $response );
 		$status = $gateway->getFinalStatus();
-		$this->assertNull( $result );
 		$this->assertEquals( FinalStatus::FAILED, $status );
 	}
 }

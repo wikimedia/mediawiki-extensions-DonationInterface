@@ -473,24 +473,38 @@ class AstropayAdapter extends GatewayAdapter {
 		return $currencies;
 	}
 
-	function processResponse( $response, &$retryVars = null ) {
+	function processResponse( $response ) {
+		// May need to initialize transaction_response, as we can be called by
+		// GatewayPage to process responses outside of do_transaction
+		if ( !$this->transaction_response ) {
+			$this->transaction_response = new PaymentTransactionResponse();
+		}
 		switch( $this->getCurrentTransaction() ) {
 			case 'PaymentStatus':
 				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
 					$this->logger->error( 'Bad signature in response to PaymentStatus call.' );
-					return ResponseCodes::BAD_SIGNATURE;
+					throw new ResponseProcessingException(
+						'Bad signature in response to PaymentStatus call.',
+						ResponseCodes::BAD_SIGNATURE
+					);
 				}
 				break;
 			case 'ProcessReturn':
 				if ( !$this->verifyStatusSignature( $response['data'] ) ) {
-					$this->logger->error( 'Bad signature in data POSTed to resultswitcher' );
-					return ResponseCodes::BAD_SIGNATURE;
+					$this->logger->error( 'Bad signature in data POSTed to resultswitcher.' );
+					throw new ResponseProcessingException(
+						'Bad signature in data POSTed to resultswitcher.',
+						ResponseCodes::BAD_SIGNATURE
+					);
 				}
 				if ( isset( $response['data']['x_document'] ) ) {
-					$this->setTransactionResult( $response['data']['x_document'], 'gateway_txn_id' );
+					$this->transaction_response->setGatewayTransactionId( $response['data']['x_document'] );
 				} else {
 					$this->logger->error( 'Astropay did not post back their transaction ID in x_document' );
-					return ResponseCodes::MISSING_TRANSACTION_ID;
+					throw new ResponseProcessingException(
+						'Astropay did not post back their transaction ID in x_document',
+						ResponseCodes::MISSING_TRANSACTION_ID
+					);
 				}
 				$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['data']['result'] );
 				$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
@@ -500,12 +514,14 @@ class AstropayAdapter extends GatewayAdapter {
 				$errors = $this->getTransactionErrors();
 				if ( isset( $errors[ResponseCodes::DUPLICATE_ORDER_ID] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
-					$retryVars[] = 'order_id';
-					return ResponseCodes::DUPLICATE_ORDER_ID;
+					throw new ResponseProcessingException(
+						'Order ID collision! Starting again.',
+						ResponseCodes::DUPLICATE_ORDER_ID,
+						array( 'order_id' )
+					);
 				}
 				break;
 		}
-		return null;
 	}
 
 	/**

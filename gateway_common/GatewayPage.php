@@ -477,13 +477,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// and getResponseData first.  Maybe do_transaction with a
 			// communication_type of 'incoming' and a way to provide the
 			// adapter the GET/POST params harvested here.
-			if ( NULL === $this->adapter->processResponse( $response ) ) {
-				switch ( $this->adapter->getFinalStatus() ) {
-				case FinalStatus::COMPLETE:
-				case FinalStatus::PENDING:
-					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
-					return;
-				}
+			$this->adapter->processResponse( $response );
+			switch ( $this->adapter->getFinalStatus() ) {
+			case FinalStatus::COMPLETE:
+			case FinalStatus::PENDING:
+				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				return;
 			}
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );

@@ -60,7 +60,7 @@ class PaypalAdapter extends GatewayAdapter {
 		$this->accountInfo = array();
 	}
 	function defineReturnValueMap() {}
-	function processResponse( $response, &$retryVars = null ) {}
+	function processResponse( $response ) {}
 	function defineDataConstraints() {}
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array (

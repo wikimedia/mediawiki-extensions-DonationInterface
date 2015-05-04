@@ -27,15 +27,15 @@ interface GatewayType {
 	//all the particulars of the child classes. Aaaaall.
 
 	/**
-	 * Perform any additional processing on the response obtained from the server.
+	 * Perform any additional processing on the response obtained from the server
+	 * and set properties of transaction_response
 	 *
-	 * @param array $response   The internal response object array -> ie: data, errors, action...
-	 * @param       $retryVars  null|array If the transaction suffered a recoverable error, this
-	 *  will be an array of all variables that need to be recreated and restaged.
+	 * TODO: feed this the raw (or formatted) response and have it determine status, errors, and data
+	 * @param array $response The internal response object as an array
 	 *
-	 * @return An actionable error code if it happened.
+	 * @throws ResponseProcessingException with an actionable error code and any variables to retry
 	 */
-	public function processResponse( $response, &$retryVars = null );
+	public function processResponse( $response );
 
 	/**
 	 * Should be a list of our variables that need special staging.
@@ -1148,7 +1148,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->setTransactionResult( $this->parseResponseData( $formatted ), 'data' );
 
 			// Process the formatted response data. This will then drive the result action
-			$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
+			try{
+				$this->processResponse( $this->getTransactionAllResults() );
+			} catch ( ResponseProcessingException $ex ) {
+				$errCode = $ex->getErrorCode();
+				$retryVars = $ex->getRetryVars();
+			}
 
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
 			$this->logger->error( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
@@ -2245,9 +2250,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			break;
 		case 'data':
 			$this->transaction_response->setData( $value );
-			break;
-		case 'force_cancel':
-			$this->transaction_response->setForceCancel( $value );
 			break;
 		case 'txn_message':
 			$this->transaction_response->setTxnMessage( $value );

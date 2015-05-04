@@ -1806,27 +1806,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Process the response
+	 * Process the response and set transaction_response properties
 	 *
-	 * @param array	$response   The response array
-	 * @param       $retryVars  If the transaction suffered a recoverable error, this will be
-	 *  an array of all variables that need to be recreated and restaged.
+	 * @param array	$response The response array
 	 *
-	 * @return An actionable error code if it happened.
+	 * @throws ResponseProcessingException with code and potentially retry vars.
 	 */
-	public function processResponse( $response, &$retryVars = null ) {
+	public function processResponse( $response ) {
 		//set the transaction result message
 		$responseStatus = isset( $response['data']['STATUSID'] ) ? $response['data']['STATUSID'] : '';
-		$this->setTransactionResult( "Response Status: " . $responseStatus, 'txn_message' ); //TODO: Translate for GC.
-		$this->setTransactionResult( $this->getData_Unstaged_Escaped( 'order_id' ), 'gateway_txn_id' );
+		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); //TODO: Translate for GC.
+		$this->transaction_response->setGatewayTransactionId( $this->getData_Unstaged_Escaped( 'order_id' ) );
 
 		$retErrCode = null;
+		$retErrMsg = '';
+		$retryVars = array();
 
 		// We are also curious to know if there were any recoverable errors
 		foreach ( $response['errors'] as $errCode => $errMsg ) {
-			if ( $retryVars === null ) {
-				$retryVars = array();
-			}
 
 			switch ( $errCode ) {
 				case 300620:
@@ -1834,6 +1831,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->logger->error( 'Order ID collission! Starting again.' );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
+					$retErrMsg = $errMsg;
 					break;
 				case 430260: //wow: If we were a point of sale, we'd be calling security.
 				case 430357: //lost or stolen card
@@ -1846,16 +1844,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				case 430330: //invalid card number
 				case 430354: //issuer unknown
 					// All five these should stop us from retrying at all
-					// Null out the retry vars and return immediately
+					// Null out the retry vars and throw error immediately
 					$retryVars = null;
 					$this->logger->info( "Got error code $errCode, not retrying to avoid MasterCard fines." );
-					$this->setTransactionResult( true, 'force_cancel' );
-					$this->setTransactionResult( array(
-							'internal-0003' => $this->getErrorMapByCodeAndTranslate( 'internal-0003' ),
-						),
-						'errors'
+					// TODO: move forceCancel - maybe to the exception?
+					$this->transaction_response->setForceCancel( true );
+					$this->transaction_response->setErrors( array(
+							'internal-0003' => array(
+								'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0003' ),
+							)
+						)
 					);
-					return $errCode;
+					throw new ResponseProcessingException(
+						"Got error code $errCode, not retrying to avoid MasterCard fines.",
+						$errCode
+					);
 				case 430285: //most common declined cc code.
 				case 430396: //not authorized to cardholder, whatever that means.
 				case 430409: //Declined, because "referred". wth does that even.
@@ -1884,7 +1887,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						if ( preg_match( $regex, $raw ) ){
 							//not a system error, but definitely the end of the payment attempt. Log it to info and leave.
 							$this->logger->info( __FUNCTION__ . ": $raw" );
-							return $errCode;
+							throw new ResponseProcessingException(
+								$errMsg,
+								$errCode
+							);
 						}
 					}
 
@@ -1905,8 +1911,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					break;
 			}
 		}
-
-		return $retErrCode;
+		if ( $retErrCode ) {
+			throw new ResponseProcessingException(
+				$retErrMsg,
+				$retErrCode,
+				$retryVars
+			);
+		}
 	}
 
 	/**

@@ -424,7 +424,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Added data to session for txnid $txnid. Now serving email $email." );
 	}
 
-	function processResponse( $response, &$retryVars = null ) {
+	function processResponse( $response ) {
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
 			$this->logger->info( "Transaction failed in response data verification." );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
