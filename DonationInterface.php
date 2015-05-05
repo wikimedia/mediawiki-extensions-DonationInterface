@@ -566,14 +566,12 @@ if ($optionalParts['Stomp'] === true){
  * @global array $wgDonationInterfaceDefaultQueueServer
  *
  * Common development defaults for the queue server.
- * TODO: Default to a builtin backend such as Memcache or pure-PHP.
+ * TODO: Default to a builtin backend such as PDO?
  */
 $wgDonationInterfaceDefaultQueueServer = array(
-	'backend' => array(
-		'type' => '\PHPQueue\Backend\Stomp',
-		'uri' => 'tcp://localhost:61613',
-		'read_timeout' => '1',
-	),
+	'type' => '\PHPQueue\Backend\Stomp',
+	'uri' => 'tcp://localhost:61613',
+	'read_timeout' => '1',
 	'expiry' => '30 days',
 );
 
