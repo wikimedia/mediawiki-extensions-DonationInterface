@@ -210,16 +210,14 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		// Next lines mimic Astropay resultswitcher
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
-			'data' => array(
-				'result' => '9',
-				'x_amount' => '100.00',
-				'x_amount_usd' => '42.05',
-				'x_control' => 'DDF89085AC70C0B0628150C51D64419D8592769F2439E3936570E26D24881730',
-				'x_description' => 'Donation to the Wikimedia Foundation',
-				'x_document' => '32869',
-				'x_iduser' => '08feb2d12771bbcfeb86',
-				'x_invoice' => '123456789',
-			)
+			'result' => '9',
+			'x_amount' => '100.00',
+			'x_amount_usd' => '42.05',
+			'x_control' => 'DDF89085AC70C0B0628150C51D64419D8592769F2439E3936570E26D24881730',
+			'x_description' => 'Donation to the Wikimedia Foundation',
+			'x_document' => '32869',
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_invoice' => '123456789',
 		);
 
 		$gateway->processResponse( $response );
@@ -237,16 +235,14 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
-			'data' => array(
-				'result' => '8', // rejected by bank
-				'x_amount' => '100.00',
-				'x_amount_usd' => '42.05',
-				'x_control' => '706F57BC3E74906B14B1DEB946F027104513797CC62AC0F5107BC98F42D5DC95',
-				'x_description' => 'Donation to the Wikimedia Foundation',
-				'x_document' => '32869',
-				'x_iduser' => '08feb2d12771bbcfeb86',
-				'x_invoice' => '123456789',
-			)
+			'result' => '8', // rejected by bank
+			'x_amount' => '100.00',
+			'x_amount_usd' => '42.05',
+			'x_control' => '706F57BC3E74906B14B1DEB946F027104513797CC62AC0F5107BC98F42D5DC95',
+			'x_description' => 'Donation to the Wikimedia Foundation',
+			'x_document' => '32869',
+			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_invoice' => '123456789',
 		);
 
 		$gateway->processResponse( $response );

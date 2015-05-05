@@ -50,7 +50,7 @@ class AmazonAdapter extends GatewayAdapter {
 			"status" => "gateway_status",
 			"buyerEmail" => "email",
 			"transactionDate" => "date_collect",
-			"buyerName" => "fname", // This is dealt with in processResponse()
+			"buyerName" => "fname", // This is dealt with in addDataFromURI()
 			"errorMessage" => "error_message",
 			"paymentMethod" => "payment_submethod",
 			"referenceId" => "contribution_tracking_id",
@@ -424,8 +424,28 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Added data to session for txnid $txnid. Now serving email $email." );
 	}
 
-	function processResponse( $response ) {
-		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
+	/**
+	 * We would call this function for the VerifySignature transaction, if we
+	 * ever used that.
+	 * @param DomDocument $response
+	 * @throws ResponseProcessingException
+	 */
+	public function processResponse( $response ) {
+		$this->transaction_response->setErrors( $this->parseResponseErrors( $response ) );
+		if ( $this->getCurrentTransaction() !== 'VerifySignature' ) {
+			return;
+		}
+		$statuses = $response->getElementsByTagName( 'VerificationStatus' );
+		$verified = false;
+		$commStatus = false;
+		foreach ( $statuses as $node ) {
+			$commStatus = true;
+			if ( strtolower( $node->nodeValue ) == 'success' ) {
+				$verified = true;
+			}
+		}
+		$this->transaction_response->setCommunicationStatus( $commStatus );
+		if ( !$verified ) {
 			$this->logger->info( "Transaction failed in response data verification." );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
@@ -473,22 +493,6 @@ class AmazonAdapter extends GatewayAdapter {
         $opts[CURLOPT_CAPATH] = __DIR__ . "/ca-bundle.crt";
 
 		return $opts;
-	}
-
-	// FIXME: this should return an array, dagnabbit!
-	public function parseResponseData( $response ) {
-		// The XML string isn't really all that useful, so just return TRUE if the signature
-		// was verified
-		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
-			$statuses = $response->getElementsByTagName( 'VerificationStatus' );
-			foreach ( $statuses as $node ) {
-				if ( strtolower( $node->nodeValue ) == 'success' ) {
-					return TRUE;
-				}
-			}
-		}
-
-		return FALSE;
 	}
 
 	function parseResponseCommunicationStatus( $response ) {

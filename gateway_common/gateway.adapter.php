@@ -27,13 +27,12 @@ interface GatewayType {
 	//all the particulars of the child classes. Aaaaall.
 
 	/**
-	 * Perform any additional processing on the response obtained from the server
-	 * and set properties of transaction_response
-	 *
-	 * TODO: feed this the raw (or formatted) response and have it determine status, errors, and data
-	 * @param array $response The internal response object as an array
-	 *
-	 * @throws ResponseProcessingException with an actionable error code and any variables to retry
+	 * Process the API response obtained from the payment processor and set
+	 * properties of transaction_response
+	 * @param array|DomDocument $response Cleaned-up response returned from
+	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @throws ResponseProcessingException with an actionable error code and any
+	 *         variables to retry
 	 */
 	public function processResponse( $response );
 
@@ -1134,22 +1133,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( $txn_ok === true ) { //We have something to slice and dice.
 			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->getTransactionAllResults(), true ) );
 
-			//set the status of the response. This is the COMMUNICATION status, and has nothing
-			//to do with the result of the transaction.
+			// Decode the response according to $this->getResponseType
 			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
-			$this->setTransactionResult( $this->parseResponseCommunicationStatus( $formatted ), 'status' );
 
-			//set errors
-			//TODO: This "errors" business is becoming a bit of a misnomer, as the result code and message
-			//are frequently packaged togther in the same place, whether the transaction passed or failed.
-			$this->setTransactionResult( $this->parseResponseErrors( $formatted ), 'errors' );
-
-			//if we're still okay (hey, even if we're not), get relevant data.
-			$this->setTransactionResult( $this->parseResponseData( $formatted ), 'data' );
-
-			// Process the formatted response data. This will then drive the result action
+			// Process the formatted response. This will then drive the result action
 			try{
-				$this->processResponse( $this->getTransactionAllResults() );
+				$this->processResponse( $formatted );
 			} catch ( ResponseProcessingException $ex ) {
 				$errCode = $ex->getErrorCode();
 				$retryVars = $ex->getRetryVars();

@@ -834,8 +834,17 @@ class WorldPayAdapter extends GatewayAdapter {
 		return $errors;
 	}
 
+	/**
+	 * @param DomDocument $response
+	 */
 	public function processResponse( $response ) {
-		$data = $response['data'];
+		$this->transaction_response->setCommunicationStatus(
+			$this->parseResponseCommunicationStatus( $response )
+		);
+		$errors = $this->parseResponseErrors( $response );
+		$this->transaction_response->setErrors( $errors );
+		$data = $this->parseResponseData( $response );
+		$this->transaction_response->setData( $data );
 		switch ( $this->getCurrentTransaction() ) {
 			case 'GenerateToken':
 				$this->addRequiredData( $data, array(

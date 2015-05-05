@@ -468,11 +468,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getOutput()->allowClickjacking();
 			// FIXME: do we really need this again?
 			$this->getOutput()->addModules( 'iframe.liberator' );
-			// processResponse expects something with data, so let's feed it
-			// all the GET and POST vars
-			$response = array(
-				'data' => $this->getRequest()->getValues(),
-			);
+			// processResponse expects some data, so let's feed it all the
+			// GET and POST vars
+			$response = $this->getRequest()->getValues();
 			// TODO: run the whole set of getResponseStatus, getResponseErrors
 			// and getResponseData first.  Maybe do_transaction with a
 			// communication_type of 'incoming' and a way to provide the

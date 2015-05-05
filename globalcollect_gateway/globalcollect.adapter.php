@@ -1808,13 +1808,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Process the response and set transaction_response properties
 	 *
-	 * @param array	$response The response array
+	 * @param DomDocument $response Cleaned-up XML from the GlobalCollect API
 	 *
 	 * @throws ResponseProcessingException with code and potentially retry vars.
 	 */
 	public function processResponse( $response ) {
+		$this->transaction_response->setCommunicationStatus(
+			$this->parseResponseCommunicationStatus( $response )
+		);
+		$errors = $this->parseResponseErrors( $response );
+		$this->transaction_response->setErrors( $errors );
+		$data = $this->parseResponseData( $response );
+		$this->transaction_response->setData( $data );
 		//set the transaction result message
-		$responseStatus = isset( $response['data']['STATUSID'] ) ? $response['data']['STATUSID'] : '';
+		$responseStatus = isset( $data['STATUSID'] ) ? $data['STATUSID'] : '';
 		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); //TODO: Translate for GC.
 		$this->transaction_response->setGatewayTransactionId( $this->getData_Unstaged_Escaped( 'order_id' ) );
 
@@ -1823,8 +1830,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$retryVars = array();
 
 		// We are also curious to know if there were any recoverable errors
-		foreach ( $response['errors'] as $errCode => $errMsg ) {
-
+		foreach ( $errors as $errCode => $errObj ) {
+			$errMsg = $errObj['message'];
 			switch ( $errCode ) {
 				case 300620:
 				// Oh no! We've already used this order # somewhere else! Restart!
@@ -1872,21 +1879,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
 					//The only way to tell is to search the English message.
 					//@TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in parseResponseErrors; It is very silly that this is here at all.
-					$enhanced = $this->transaction_response->getErrors();
-					// Matching previous behavior, which set a random transaction_response
-					// key to the raw message of the last error inspected
-					$raw = '';
-					foreach ( $enhanced as $code => $errArray ) {
-						$raw = $errArray['debugInfo'];
-					}
 					$not_errors = array( //add more of these stupid things here, if log noise makes you want to
 						'/NULL VALUE NOT ALLOWED FOR EXPIRYDATE/',
 						'/DID NOT PASS THE LUHNCHECK/',
 					);
-					foreach ($not_errors as $regex){
-						if ( preg_match( $regex, $raw ) ){
+					foreach ( $not_errors as $regex ){
+						if ( preg_match( $regex, $errObj['debugInfo'] ) ){
 							//not a system error, but definitely the end of the payment attempt. Log it to info and leave.
-							$this->logger->info( __FUNCTION__ . ": $raw" );
+							$this->logger->info( __FUNCTION__ . ": {$errObj['debugInfo']}" );
 							throw new ResponseProcessingException(
 								$errMsg,
 								$errCode

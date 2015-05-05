@@ -461,20 +461,24 @@ class AdyenAdapter extends GatewayAdapter {
 		return $queryvals;
 	}
 
-	function processResponse( $response ) {
+	/**
+	 * For Adyen, we only call this on the donor's return to the ResultSwitcher
+	 * @param array $response GET/POST params from request
+	 * @throws ResponseProcessingException
+	 */
+	public function processResponse( $response ) {
 		// Always called outside do_transaction, so just make a new response object
 		$this->transaction_response = new PaymentTransactionResponse();
-		if ( empty( $response ) || empty( $response['data'] ) ) {
+		if ( empty( $response ) ) {
 			$this->logger->info( "No response from gateway" );
 			throw new ResponseProcessingException(
 				'No response from gateway',
 				ResponseCodes::NO_RESPONSE
 			);
 		}
-		$request_vars = $response['data'];
-		$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
+		$this->logger->info( "Processing user return data: " . print_r( $response, TRUE ) );
 
-		if ( !$this->checkResponseSignature( $request_vars ) ) {
+		if ( !$this->checkResponseSignature( $response ) ) {
 			$this->logger->info( "Bad signature in response" );
 			throw new ResponseProcessingException(
 				'Bad signature in response',
@@ -483,9 +487,9 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 		$this->logger->debug( 'Good signature' );
 
-		$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
+		$gateway_txn_id = isset( $response['pspReference'] ) ? $response['pspReference'] : '';
 
-		$result_code = isset( $request_vars[ 'authResult' ] ) ? $request_vars[ 'authResult' ] : '';
+		$result_code = isset( $response['authResult'] ) ? $response['authResult'] : '';
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
@@ -494,9 +498,9 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 		else {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
+			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
 			throw new ResponseProcessingException(
-				"Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ),
+				"Negative response from gateway. Full response: " . print_r( $response, TRUE ),
 				ResponseCodes::UNKNOWN
 			);
 		}
