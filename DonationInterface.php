@@ -107,6 +107,7 @@ $wgAutoloadClasses['DonationLoggerFactory'] = $donationinterface_dir . 'gateway_
 $wgAutoloadClasses['DonationLogProcessor'] = $donationinterface_dir . 'gateway_common/DonationLogProcessor.php';
 $wgAutoloadClasses['DonationQueue'] = $donationinterface_dir . 'gateway_common/DonationQueue.php';
 $wgAutoloadClasses['EncodingMangler'] = $donationinterface_dir . 'gateway_common/EncodingMangler.php';
+$wgAutoloadClasses['FinalStatus'] = $donationinterface_dir . 'gateway_common/FinalStatus.php';
 $wgAutoloadClasses['GatewayAdapter'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = $donationinterface_dir . 'gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = $donationinterface_dir . 'gateway_common/gateway.adapter.php';

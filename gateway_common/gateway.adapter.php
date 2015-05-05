@@ -302,6 +302,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @var array
 	 */
 	protected $transaction_results;
+	/**
+	 * @var string When the smoke clears, this should be set to one of the
+	 * constants defined in @see FinalStatus
+	 */
+	protected $final_status;
 	protected $validation_errors;
 	protected $manual_errors = array();
 	protected $current_transaction;
@@ -328,14 +333,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example.
 
 	public $log_outbound = FALSE; //This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
-
-	protected $valid_statuses = array(
-		'complete',
-		'pending',
-		'pending-poke',
-		'failed',
-		'revised',
-	);
 
 	/**
 	 * Default response type to be the same as communication type.
@@ -1097,6 +1094,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		//reset, in case this isn't our first time.
 		$this->setTransactionResult( array() );
+		$this->final_status = false;
 		$this->setValidationAction('process', true);
 		$errCode = null;
 
@@ -1748,8 +1746,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $transaction The transaction these codes map to.
 	 * @param string $key The (incoming) field name containing the numeric codes
 	 * we're defining here.
-	 * @param string $action Limited to the values 'complete', 'pending',
-	 * 'pending-poke', 'failed' and 'revised'.
+	 * @param string $action One of the constants defined in @see FinalStatus.
 	 * @param int $lower The integer value of the lower-bound in this code range.
 	 * @param int $upper Optional: The integer value of the upper-bound in the
 	 * code range. If omitted, it will make a range of one value: The lower bound.
@@ -1757,9 +1754,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return void
 	 */
 	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
-		if ( !$this->validTransactionWMFStatus( $action ) ) {
-			throw new UnexpectedValueException( "Transaction WMF Status $action is invalid." );
-		}
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
 		} else {
@@ -1774,7 +1768,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param	string			$key			The key to lookup in the transaction such as STATUSID
 	 * @param	integer|string	$code			This gets converted to an integer if the values is numeric.
 	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
-	 *
+	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
 	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
 	 */
 	public function findCodeAction( $transaction, $key, $code ) {
@@ -1843,12 +1837,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function doStompTransaction() {
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
-			case 'complete':
+			case FinalStatus::COMPLETE:
 				$this->pushMessage( 'complete' );
 				break;
 
-			case 'pending':
-			case 'pending-poke':
+			case FinalStatus::PENDING:
+			case FinalStatus::PENDING_POKE:
 				// FIXME: I don't understand what the pending queue does.
 				$this->pushMessage( 'pending' );
 				break;
@@ -2248,21 +2242,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * $transaction_results array. This is the one we care about for switching
 	 * on overall behavior. Otherwise, returns false.
 	 * @return mixed Final Transaction results status, or false if not set.
-	 * Possible valid statuses are: 'complete', 'pending', 'pending-poke', 'failed' and 'revised'.
+	 * Should be one of the constants defined in @see FinalStatus
 	 */
 	public function getFinalStatus() {
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'FINAL_STATUS', $this->transaction_results ) ) {
-			return $this->transaction_results['FINAL_STATUS'];
+		if ( $this->final_status ) {
+			return $this->final_status;
 		} else {
 			return false;
 		}
-	}
-
-	public function validTransactionWMFStatus( $status = null ) {
-		if ( $status == null ) {
-			$status = $this->getFinalStatus();
-		}
-		return in_array( $status, $this->valid_statuses );
 	}
 
 	/**
@@ -2273,14 +2260,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * of the donation process on our end. Further attempts by the same user
 	 * will be seen as starting over.
 	 * @param string $status The final status of one discrete donation attempt,
-	 * can be one of five values: 'complete', 'pending', 'pending-poke',
-	 * 'failed', 'revised'
+	 * can be one of constants defined in @see FinalStatus
 	 * @throws UnexpectedValueException
 	 */
 	public function finalizeInternalStatus( $status ) {
-		if ( !$this->validTransactionWMFStatus( $status ) ) {
-			throw new UnexpectedValueException( "Transaction WMF Status $status is invalid." );
-		}
 
 		/**
 		 * Handle session stuff!
@@ -2296,13 +2279,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->incrementNumAttempt();
 		$force = false;
 		switch ( $status ) {
-			case 'complete':
-			case 'pending':
-			case 'pending-poke':
+			case FinalStatus::COMPLETE:
+			case FinalStatus::PENDING:
+			case FinalStatus::PENDING_POKE:
 				$force = true;
 				break;
-			case 'failed':
-			case 'revised':
+			case FinalStatus::FAILED:
+			case FinalStatus::REVISED:
 				$force = false;
 				break;
 		}
@@ -2312,14 +2295,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->sendFinalStatusMessage( $status );
 
-		$this->transaction_results['FINAL_STATUS'] = $status;
+		$this->final_status = $status;
 	}
 
 	/**
 	 * Easily-child-overridable log component of setting the final
 	 * transaction status, which will only ever be set at the very end of a
 	 * transaction workflow.
-	 * @param type $status
+	 * @param string $status one of the constants defined in @see FinalStatus
 	 */
 	public function logFinalStatus( $status ){
 		$action = $this->getValidationAction();

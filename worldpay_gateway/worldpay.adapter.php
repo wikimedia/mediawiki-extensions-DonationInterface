@@ -683,15 +683,15 @@ class WorldPayAdapter extends GatewayAdapter {
 		// Anything other than 2170 must be treated as failure for PT-C.
 		// ***LOOK AT THIS COMMENT: If you add AuthorizePaymentForFraud success statuses here,
 		// you will need to whack a finalizeInternalStatus in do_transaction_QueryAuthorizeDeposit
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2000, 2049 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2051, 2099 );
-		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', 'failed', 2101, 2999 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', FinalStatus::FAILED, 2000, 2049 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', FinalStatus::FAILED, 2051, 2099 );
+		$this->addCodeRange( 'AuthorizePaymentForFraud', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2000, 2049 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2050 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2051, 2099 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'complete', 2100 );
-		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', 'failed', 2101, 2999 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2000, 2049 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::COMPLETE, 2050 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2051, 2099 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::COMPLETE, 2100 );
+		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 	}
 
 	function defineVarMap() {
@@ -824,7 +824,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		if ( $code ) {
 			//determine if the response code is, in fact, an error.
 			$action = $this->findCodeAction( $this->getCurrentTransaction(), 'MessageCode', $code );
-			if ( $action === 'failed' ) {
+			if ( $action === FinalStatus::FAILED ) {
 				//use generic internals, I think.
 				//I can't tell if I'm being lazy here, or if we genuinely don't need to get specific with this.
 				$errors[$code] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( 'internal-0003' );
@@ -1151,7 +1151,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		$result = $this->do_transaction( 'QueryTokenData' );
 		if ( !$this->getTransactionStatus() ) {
 			$this->logger->error( 'Failed transaction because QueryTokenData failed' );
-			$this->finalizeInternalStatus( 'failed' );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return $result;
 		}
 
@@ -1161,7 +1161,7 @@ class WorldPayAdapter extends GatewayAdapter {
 			$result = $this->do_transaction( 'AuthorizePaymentForFraud' );
 			if ( !$this->getTransactionStatus() ) {
 				$this->logger->info( 'Failed transaction because AuthorizePaymentForFraud failed' );
-				$this->finalizeInternalStatus( 'failed' );
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
 				return $result;
 			}
 			$code = $result[ 'data' ][ 'MessageCode' ];
@@ -1183,7 +1183,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		$result = $this->do_transaction( 'AuthorizeAndDepositPayment' );
 		if ( !$this->getTransactionStatus() ) {
 			$this->logger->info( 'Failed transaction because AuthorizeAndDepositPayment failed' );
-			$this->finalizeInternalStatus( 'failed' );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return $result;
 		}
 		$code = $result[ 'data' ][ 'MessageCode' ];
@@ -1198,7 +1198,7 @@ class WorldPayAdapter extends GatewayAdapter {
 				'Finalizing transaction at AuthorizeAndDepositPayment to failed because MessageCode (' .
 				$code . ') was unknown.'
 			);
-			$this->finalizeInternalStatus( 'failed' );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 		return $result;
 	}

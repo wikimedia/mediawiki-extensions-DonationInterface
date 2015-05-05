@@ -272,7 +272,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 				parent::do_transaction( $transaction );
 
-				if ( $this->getFinalStatus() == 'complete' ) {
+				if ( $this->getFinalStatus() === FinalStatus::COMPLETE ) {
 					$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
 					$this->runPostProcessHooks();
 					$this->doLimboStompTransaction( true );
@@ -288,7 +288,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 			default:
 				$this->logger->critical( "At $transaction; THIS IS NOT DEFINED!" );
-				$this->finalizeInternalStatus( 'failed' );
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 
 		return $this->getTransactionAllResults();
@@ -322,11 +322,11 @@ class AmazonAdapter extends GatewayAdapter {
 					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 					$this->logger->alert( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required." );
 					if ( $this->getGlobal( 'UseOrderIdValidation' ) ) {
-						$this->finalizeInternalStatus( 'failed' );
+						$this->finalizeInternalStatus( FinalStatus::FAILED );
 						return;
 					}
 				} else {
-					$this->finalizeInternalStatus( 'failed' );
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
 					return;
 				}
 			}
@@ -338,21 +338,21 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->logger->info( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ) );
 			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
 				case 'PS':  // Payment success
-					$this->finalizeInternalStatus( 'complete' );
+					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 					$this->doStompTransaction();
 					break;
 
 				case 'PI':  // Payment initiated, it will complete later
-					$this->finalizeInternalStatus( 'pending' );
+					$this->finalizeInternalStatus( FinalStatus::PENDING );
 					$this->doStompTransaction();
 					break;
 
 				case 'SS':  // Subscription success -- processing handled by the IPN listener
-					$this->finalizeInternalStatus('complete');
+					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 					break;
 
 				case 'SI':  // Subscription initiated -- processing handled by the IPN listener
-					$this->finalizeInternalStatus('pending');
+					$this->finalizeInternalStatus( FinalStatus::PENDING );
 					break;
 
 				case 'PF':  // Payment failed
@@ -362,7 +362,7 @@ class AmazonAdapter extends GatewayAdapter {
 					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
 					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
 					$this->logger->info( "Transaction $txnid failed with ($status) $errString" );
-					$this->finalizeInternalStatus( 'failed' );
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
 					break;
 			}
 		} else {
@@ -427,7 +427,7 @@ class AmazonAdapter extends GatewayAdapter {
 	function processResponse( $response, &$retryVars = null ) {
 		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
 			$this->logger->info( "Transaction failed in response data verification." );
-			$this->finalizeInternalStatus( 'failed' );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 	}
 

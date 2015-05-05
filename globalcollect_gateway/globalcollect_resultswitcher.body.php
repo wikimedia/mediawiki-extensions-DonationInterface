@@ -115,12 +115,12 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 				if ( $this->adapter->getFinalStatus() ){
 					switch ( $this->adapter->getFinalStatus() ) {
-						case 'complete':
-						case 'pending':
-						case 'pending-poke':
+						case FinalStatus::COMPLETE:
+						case FinalStatus::PENDING:
+						case FinalStatus::PENDING_POKE:
 							$go = $this->adapter->getThankYouPage();
 							break;
-						case 'failed':
+						case FinalStatus::FAILED:
 							$go = $this->getDeclinedResultPage();
 							break;
 					}

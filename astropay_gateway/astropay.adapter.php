@@ -113,13 +113,13 @@ class AstropayAdapter extends GatewayAdapter {
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
 		// 6: Transaction not found in the system
-		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 6 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 6 );
 		// 7: Pending transaction awaiting approval
-		$this->addCodeRange( 'PaymentStatus', 'result', 'pending', 7 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::PENDING, 7 );
 		// 8: Operation rejected by bank
-		$this->addCodeRange( 'PaymentStatus', 'result', 'failed', 8 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 8 );
 		// 9: Amount Paid.  Transaction successfully concluded
-		$this->addCodeRange( 'PaymentStatus', 'result', 'complete', 9 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::COMPLETE, 9 );
 	}
 
 	/**

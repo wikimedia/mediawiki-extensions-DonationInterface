@@ -493,11 +493,11 @@ class AdyenAdapter extends GatewayAdapter {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
 			$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
-			$this->finalizeInternalStatus( 'pending' );
+			$this->finalizeInternalStatus( FinalStatus::PENDING );
 		}
 		else {
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
-			$this->finalizeInternalStatus( 'failed' );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return ResponseCodes::UNKNOWN;
 		}
 		$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );

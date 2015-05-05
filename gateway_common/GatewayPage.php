@@ -479,8 +479,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// adapter the GET/POST params harvested here.
 			if ( NULL === $this->adapter->processResponse( $response ) ) {
 				switch ( $this->adapter->getFinalStatus() ) {
-				case 'complete':
-				case 'pending':
+				case FinalStatus::COMPLETE:
+				case FinalStatus::PENDING:
 					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 					return;
 				}

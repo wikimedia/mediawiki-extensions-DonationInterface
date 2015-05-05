@@ -225,7 +225,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$result = $gateway->processResponse( $response );
 		$status = $gateway->getFinalStatus();
 		$this->assertNull( $result );
-		$this->assertEquals( 'complete', $status );
+		$this->assertEquals( FinalStatus::COMPLETE, $status );
 	}
 
 	/**
@@ -253,6 +253,6 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$result = $gateway->processResponse( $response );
 		$status = $gateway->getFinalStatus();
 		$this->assertNull( $result );
-		$this->assertEquals( 'failed', $status );
+		$this->assertEquals( FinalStatus::FAILED, $status );
 	}
 }

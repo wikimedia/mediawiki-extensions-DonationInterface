@@ -161,11 +161,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
-			case 'complete':
+			case FinalStatus::COMPLETE:
 				$hook = 'gwStomp';
 				break;
-			case 'pending':
-			case 'pending-poke':
+			case FinalStatus::PENDING:
+			case FinalStatus::PENDING_POKE:
 				$hook = 'gwPendingStomp';
 				break;
 		}
