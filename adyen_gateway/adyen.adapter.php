@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * AdyenAdapter
@@ -193,6 +194,7 @@ class AdyenAdapter extends GatewayAdapter {
 	function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
+		$this->transaction_response = new PaymentTransactionResponse();
 
 		if ( $this->transaction_option( 'iframe' ) ) {
 			// slightly different than other gateways' iframe method,
@@ -207,25 +209,25 @@ class AdyenAdapter extends GatewayAdapter {
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-						$this->setTransactionResult( array(
-							'status' => false,
-							'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-							'errors' => array(
-								'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						$message = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
+						$this->transaction_response->setCommunicationStatus( false );
+						$this->transaction_response->setMessage( $message );
+						$this->transaction_response->setErrors( array(
+							'internal-0000' => array(
+								'message' => $message,
+								'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
+								'logLevel' => LogLevel::INFO
 							),
-						));
+						) );
 						break;
 					}
 					$this->stageData();
 					$requestParams = $this->buildRequestParams();
 
-					$this->setTransactionResult(
-						array(
-							'FORMACTION' => $formaction,
-							'gateway_params' => $requestParams,
-						),
-						'data'
-					);
+					$this->transaction_response->setData( array(
+						'FORMACTION' => $formaction,
+						'gateway_params' => $requestParams,
+					) );
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
 					$this->doLimboStompTransaction();
