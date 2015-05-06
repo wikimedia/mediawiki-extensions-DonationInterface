@@ -1091,6 +1091,7 @@ $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/us-stat
 $wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/canada-provinces';
 $wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
+$wgExtensionMessagesFiles['GatewayAliases'] = $donationinterface_dir . 'DonationInterface.alias.php';
 
 if ( $optionalParts['Amazon'] === true ){
 	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/amazon_gateway/i18n';
