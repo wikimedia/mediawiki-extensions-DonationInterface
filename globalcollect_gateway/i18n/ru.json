@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kaganer",
-			"Александр Сигачёв"
+			"Александр Сигачёв",
+			"Okras"
 		]
 	},
 	"globalcollectgateway": "Сделайте пожертвование сейчас",
@@ -21,5 +22,6 @@
 	"globalcollect_gateway-response-21000150": "Неправильный номер банковского счёта.",
 	"globalcollect_gateway-response-21000155": "Неправильный код банка.",
 	"globalcollect_gateway-response-21000160": "Неправильный номер счёта giro.",
-	"globalcollect_gateway-response-default": "При обработке вашей транзакции возникла ошибка.\nПожалуйста, повторите попытку позже."
+	"globalcollect_gateway-response-default": "При обработке вашей транзакции возникла ошибка.\nПожалуйста, повторите попытку позже.",
+	"testingglobalcollectgateway": "Тестирование GlobalCollect"
 }
