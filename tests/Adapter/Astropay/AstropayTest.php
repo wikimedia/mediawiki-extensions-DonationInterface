@@ -112,8 +112,23 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * When Astropay sends back valid JSON with status "1", we should set txn
-	 * status to false and error array to generic error and log a warning.
+	 * If astropay sends back non-JSON, communication status should be false
+	 */
+	function testGibberishResponse() {
+		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( 'notJson' );
+
+		$gateway->do_transaction( 'NewInvoice' );
+
+		$this->assertEquals( false, $gateway->getTransactionStatus(),
+			'Transaction status should be false for bad format' );
+	}
+
+	/**
+	 * When Astropay sends back valid JSON with status "1", we should set
+	 * error array to generic error and log a warning.
 	 */
 	function testStatusErrors() {
 		$init = $this->getDonorTestData( 'BR' );
@@ -122,9 +137,6 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$gateway->setDummyGatewayResponseCode( '1' );
 
 		$gateway->do_transaction( 'NewInvoice' );
-
-		$this->assertEquals( false, $gateway->getTransactionStatus(),
-			'Transaction status should be false for code "1"' );
 
 		$expected = array(
 			'internal-0000' => wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text()
@@ -178,8 +190,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$results = $gateway->getTransactionData();
 		$this->assertEquals( $expected, $results,
 			'PaymentStatus response not interpreted correctly' );
-		$valid = $gateway->verifyStatusSignature( $results );
-		$this->assertTrue( $valid, 'Signature should be interpreted as valid' );
+		// Should not throw exception
+		$gateway->verifyStatusSignature( $results );
 	}
 
 	/**
@@ -194,8 +206,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'PaymentStatus' );
 
 		$results = $gateway->getTransactionData();
-		$valid = $gateway->verifyStatusSignature( $results );
-		$this->assertFalse( $valid, 'Signature should not be interpreted as valid' );
+		$this->setExpectedException( 'ResponseProcessingException' );
+		$gateway->verifyStatusSignature( $results );
 	}
 
 	/**

@@ -396,55 +396,6 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
 	}
 
-	function parseResponseCommunicationStatus( $response ) {
-		if ( $response === NULL || !isset( $response['status'] ) ) {
-			return false;
-		}
-		return $response['status'] === '0';
-	}
-
-	function parseResponseErrors( $response ) {
-		$logme = false;
-		$errors = array();
-		$code = 'internal-0000';
-		$level = LogLevel::ERROR;
-
-		if ( $response === NULL ) {
-			$logme = 'Astropay response was not valid JSON.  Full response: ' .
-				$this->transaction_response->getRawResponse();
-		} else if ( !isset( $response['status'] ) ) {
-			$logme = 'Astropay response does not have a status code.  Full response: ' .
-				$this->transaction_response->getRawResponse();
-		} else if ( $response['status'] !== '0' ) {
-			$logme = "Astropay response has non-zero status {$response['status']}.  ";
-			if ( isset( $response['desc'] ) ) {
-				// They don't give us codes to distinguish failure modes, so we
-				// have to parse the description.
-				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
-					$code = ResponseCodes::DUPLICATE_ORDER_ID;
-				}
-				$logme .= 'Error description: ' . $response['desc'];
-			} else {
-				$logme .= 'Full response: ' . $this->transaction_response->getRawResponse();
-			}
-			$level = LogLevel::WARNING;
-		}
-
-		if ( $logme ) {
-			$this->logger->log( $level, $logme );
-			//TODO: move translation and debug display out of this fn
-			$generic = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
-			$debug = $this->getGlobal( 'DisplayDebug' );
-			$errors[$code] = array(
-				'logLevel' => $level,
-				'debugInfo' => $debug,
-				'message' => $debug ? $logme : $generic
-			);
-		}
-
-		return $errors;
-	}
-
 	static function getCurrencies() {
 		$currencies = array(
 			'ARS', // Argentinian peso
@@ -473,12 +424,6 @@ class AstropayAdapter extends GatewayAdapter {
 		if ( !$this->transaction_response ) {
 			$this->transaction_response = new PaymentTransactionResponse();
 		}
-		$this->transaction_response->setCommunicationStatus(
-			$this->parseResponseCommunicationStatus( $response )
-		);
-		$this->transaction_response->setErrors(
-			$this->parseResponseErrors( $response )
-		);
 		$this->transaction_response->setData( $response );
 		if ( !$response ) {
 			throw new ResponseProcessingException(
@@ -487,39 +432,60 @@ class AstropayAdapter extends GatewayAdapter {
 			);
 		}
 		switch( $this->getCurrentTransaction() ) {
-			case 'PaymentStatus':
-				if ( !$this->verifyStatusSignature( $response ) ) {
-					$this->logger->error( 'Bad signature in response to PaymentStatus call.' );
-					throw new ResponseProcessingException(
-						'Bad signature in response to PaymentStatus call.',
-						ResponseCodes::BAD_SIGNATURE
-					);
-				}
-				break;
-			case 'ProcessReturn':
-				if ( !$this->verifyStatusSignature( $response ) ) {
-					$this->logger->error( 'Bad signature in data POSTed to resultswitcher.' );
-					throw new ResponseProcessingException(
-						'Bad signature in data POSTed to resultswitcher.',
-						ResponseCodes::BAD_SIGNATURE
-					);
-				}
-				if ( isset( $response['x_document'] ) ) {
-					$this->transaction_response->setGatewayTransactionId( $response['x_document'] );
-				} else {
-					$this->logger->error( 'Astropay did not post back their transaction ID in x_document' );
-					throw new ResponseProcessingException(
-						'Astropay did not post back their transaction ID in x_document',
-						ResponseCodes::MISSING_TRANSACTION_ID
-					);
-				}
-				$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
-				$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
-				$this->finalizeInternalStatus( $status );
-				break;
-			case 'NewInvoice':
-				$errors = $this->getTransactionErrors();
-				if ( isset( $errors[ResponseCodes::DUPLICATE_ORDER_ID] ) ) {
+		case 'PaymentStatus':
+			$this->processStatusResponse( $response );
+			break;
+		case 'ProcessReturn':
+			$this->processStatusResponse( $response );
+			if ( !isset( $response['x_document'] ) ) {
+				$this->logger->error( 'Astropay did not post back their transaction ID in x_document' );
+				throw new ResponseProcessingException(
+					'Astropay did not post back their transaction ID in x_document',
+					ResponseCodes::MISSING_TRANSACTION_ID
+				);
+			}
+			$this->transaction_response->setGatewayTransactionId( $response['x_document'] );
+			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
+			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
+			$this->finalizeInternalStatus( $status );
+			break;
+		case 'NewInvoice':
+			$this->processNewInvoiceResponse( $response );
+			if ( isset( $response['link'] ) ) {
+				$this->setTransactionResult( $response['link'], 'redirect' );
+			}
+			break;
+		}
+	}
+
+	/**
+	 * Sets communication status and errors for responses to NewInvoice
+	 * @param array $response
+	 */
+	protected function processNewInvoiceResponse( $response ) {
+		if ( !isset( $response['status'] ) ) {
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->logger->error( 'Astropay response does not have a status code' );
+			throw new ResponseProcessingException(
+				'Astropay response does not have a status code',
+				ResponseCodes::MISSING_REQUIRED_DATA
+			);
+		}
+		$this->transaction_response->setCommunicationStatus( true );
+		if ( $response['status'] === '0' ) {
+			if ( !isset( $response['link'] ) ) {
+				$this->logger->error( 'Astropay NewInvoice success has no link' );
+				throw new ResponseProcessingException(
+					'Astropay NewInvoice success has no link',
+					ResponseCodes::MISSING_REQUIRED_DATA
+				);
+			}
+		} else {
+			$logme = "Astropay response has non-zero status {$response['status']}";
+			if ( isset( $response['desc'] ) ) {
+				// They don't give us codes to distinguish failure modes, so we
+				// have to parse the description.
+				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
@@ -527,10 +493,49 @@ class AstropayAdapter extends GatewayAdapter {
 						array( 'order_id' )
 					);
 				}
-				if ( isset( $response['link'] ) ) {
-					$this->setTransactionResult( $response['link'], 'redirect' );
-				}
-				break;
+				$logme .= 'Error description: ' . $response['desc'];
+			} else {
+				$logme .= 'Full response: ' . $this->getTransactionRawResponse();
+			}
+			$this->logger->warning( $logme );
+			$this->transaction_response->setErrors( array(
+				'internal-0000' => array (
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+					'debugInfo' => $logme,
+					'logLevel' => LogLevel::WARNING
+				)
+			) );
+		}
+	}
+
+	/**
+	 * Sets communication status and errors for responses to PaymentStatus or
+	 * parameters POSTed back to ResultSwitcher
+	 * @param array $response
+	 */
+	protected function processStatusResponse( $response ) {
+		if ( !isset( $response['result'] ) ||
+			 !isset( $response['x_amount'] ) ||
+			 !isset( $response['x_invoice'] ) ||
+			 !isset( $response['x_control'] ) ) {
+			$this->transaction_response->setCommunicationStatus( false );
+			$message = 'Astropay response missing one or more required keys.  Full response: '
+				. print_r( $response, true );
+			$this->logger->error( $message );
+			throw new ResponseProcessingException( $message, ResponseCodes::MISSING_REQUIRED_DATA );
+		}
+		$this->verifyStatusSignature( $response );
+		if ( $response['result'] === '6' ) {
+			$logme = 'Astropay reports they cannot find the transaction for order ID ' .
+				$this->getData_Unstaged_Escaped( 'order_id' );
+			$this->logger->error( $logme );
+			$this->transaction_response->setErrors( array(
+				'internal-0000' => array (
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+					'debugInfo' => $logme,
+					'logLevel' => LogLevel::ERROR
+				)
+			) );
 		}
 	}
 
@@ -538,7 +543,7 @@ class AstropayAdapter extends GatewayAdapter {
 	 * Check whether a status message has a valid signature.
 	 * @param array $data
 	 *        Requires 'result', 'x_amount', 'x_invoice', and 'x_control' keys
-	 * @return boolean true when signature is valid, otherwise false
+	 * @throws ResponseProcessingException if signature is invalid
 	 */
 	function verifyStatusSignature( $data ) {
 		if ( $this->getCurrentTransaction() === 'ProcessReturn' ) {
@@ -553,7 +558,11 @@ class AstropayAdapter extends GatewayAdapter {
 			$data['x_invoice'];
 		$signature = $this->calculateSignature( $message );
 
-		return ( $signature === $data['x_control'] );
+		if ( $signature !== $data['x_control'] ) {
+			$message = 'Bad signature in transaction ' . $this->getCurrentTransaction();
+			$this->logger->error( $message );
+			throw new ResponseProcessingException( $message, ResponseCodes::BAD_SIGNATURE );
+		}
 	}
 
 	protected function calculateSignature( $message ) {

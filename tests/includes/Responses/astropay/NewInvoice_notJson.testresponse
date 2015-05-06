@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Server: nginx/1.7.9
+Date: Wed, 08 Apr 2015 00:19:52 GMT
+Content-Type: text/xml; charset=UTF-8
+Content-Length: 132
+Connection: keep-alive
+X-Powered-By: PHP/5.3.27
+
+<?xml version = "1.0"?>
+<XML>
+	<ERROR>Your request was so malformed I'm sending you a response in a different format</ERROR>
+</XML>
