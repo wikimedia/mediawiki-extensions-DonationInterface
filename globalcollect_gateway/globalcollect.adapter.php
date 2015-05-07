@@ -1202,6 +1202,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
+			$validationAction = $this->getValidationAction();
 			if ( !$is_orphan ) {
 				// live users get antifraud hooks run in this txn's pre-process
 				$ran_hooks = true;
@@ -1239,11 +1240,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->runAntifraudHooks();
 					$ran_hooks = true;
 				}
-				$status_result['action'] = $this->getValidationAction();
+				$validationAction = $this->getValidationAction();
 			}
 
 			//we filtered
-			if ( array_key_exists( 'action', $status_result ) && $status_result['action'] != 'process' ){
+			if ( $validationAction !== 'process' ){
 				$cancelflag = true; //don't retry: We've fraud-failed them intentionally.
 			} elseif ( array_key_exists( 'status', $status_result ) && $status_result['status'] === false ) {
 			//can't communicate or internal error
@@ -1396,7 +1397,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				//orphans.php is looking for specific things in position 0.
 				'message' => $problemmessage,
 				'errors' => $errors,
-				'action' => $this->getValidationAction(),
 			);
 			return $ret;
 		}

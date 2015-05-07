@@ -291,7 +291,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * - 'errors' => An array of error codes => error messages that are meant to
 	 * make it to the user. If there weren't any, this should be present and
 	 * empty after a transaction.
-	 * - 'action' => The validation action (anti-fraud results)
 	 * Keys that might also exist:
 	 * - 'FINAL_STATUS' => The final outcome of an entire donation workflow.
 	 * - 'result' => Raw return data from the cURL transaction
@@ -1019,8 +1018,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *		numeric codes (even if we have to make them up ourselves) and
 	 *		human-readable assessments of what happened, probably straight from
 	 *		the gateway.
-	 *	'action' = What the pre-commit hooks said we should go do with ourselves.
-	 *		If none were fired, this will be set to 'process'
 	 *	'data' = The data passed back to us from the transaction, in a nice
 	 *		key-value array.
 	 */
@@ -1112,7 +1109,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'errors' => array(
 							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 						),
-						'action' => $this->getValidationAction(),
 					)
 				);
 				return $this->getTransactionAllResults();
@@ -1133,7 +1129,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 				$this->setTransactionResult( array(
 					'status' => TRUE,
-					'action' => $this->getValidationAction(),
 					'redirect' => $this->url,
 				));
 				return $this->getTransactionAllResults();
@@ -1160,7 +1155,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'errors' => array(
 					'internal-0001' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
 				),
-				'action' => $this->getValidationAction(),
 			));
 
 			return $this->getTransactionAllResults();
@@ -1188,9 +1182,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// Process the formatted response data. This will then drive the result action
 			$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
 
-			//well, almost all.
-			$this->setTransactionResult( $this->getValidationAction(), 'action' );
-
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
 			$this->logger->error( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
 
@@ -1200,7 +1191,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'errors' => array(
 					'internal-0002' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 				),
-				'action' => $this->getValidationAction(),
 			));
 		}
 
@@ -1214,7 +1204,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->setTransactionResult( false, 'status' );
 			$this->setTransactionResult( $this->getErrorMapByCodeAndTranslate( $errCode ), 'message' );
 			$this->setTransactionResult( array( $errCode => $this->getErrorMapByCodeAndTranslate( $errCode ) ), 'errors' );
-			$this->setTransactionResult( $this->getValidationAction(), 'action' );
 		}
 
 		//if we have set errors by this point, the transaction is not okay
@@ -1240,7 +1229,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'errors' => array(
 							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 						),
-						'action' => $this->getValidationAction(),
 					)
 				);
 				return $this->getTransactionAllResults();
@@ -2181,7 +2169,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *             @see getTransactionMessage()
 	 *   errors  - Array of <error code> => <i18n message for user display>
 	 *             @see getTransactionErrors
-	 *   action  - The validation action at the end of the request
 	 *   data    - Processed data array
 	 *
 	 * @return bool|string[] False if there are no results

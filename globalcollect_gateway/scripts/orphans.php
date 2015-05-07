@@ -356,7 +356,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		if ($results['status']){
-			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
+			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $this->adapter->getValidationAction() );
 			$rectified = true;
 		} else {
 			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );

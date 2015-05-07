@@ -213,7 +213,6 @@ class AdyenAdapter extends GatewayAdapter {
 							'errors' => array(
 								'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
 							),
-							'action' => $this->getValidationAction(),
 						));
 						break;
 					}
