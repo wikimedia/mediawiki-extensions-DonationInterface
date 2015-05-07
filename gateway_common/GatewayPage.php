@@ -305,6 +305,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * enabled for this adapter, convert intended amount to default currency.
 	 *
 	 * @return boolean whether currency conversion was performed
+	 * @throws DomainException
 	 */
 	protected function fallbackToDefaultCurrency() {
 		$defaultCurrency = $this->adapter->getGlobal( 'FallbackCurrency' );
@@ -321,7 +322,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$oldCurrency = $this->adapter->getData_Unstaged_Escaped( 'currency_code' );
 		if ( $oldCurrency === $defaultCurrency ) {
 			$adapterClass = $this->adapter->getGatewayAdapterClass();
-			throw new MWException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
+			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
 		$oldAmount = $this->adapter->getData_Unstaged_Escaped( 'amount' );
 		$usdAmount = 0.0;
@@ -459,29 +460,35 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$this->setHeaders();
 
 		if ( $forbidden ){
-			$this->logger->critical( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
-			return;
-		} else {
-			$this->logger->info( "Resultswitcher: OK to process Order ID: " . $oid );
+			throw new RuntimeException( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
 		}
+		$this->logger->info( "Resultswitcher: OK to process Order ID: " . $oid );
 
 		if ( $this->adapter->checkTokens() ) {
-			if ( $this->adapter->isResponse() ) {
-				$this->getOutput()->allowClickjacking();
-				$this->getOutput()->addModules( 'iframe.liberator' );
-				if ( NULL === $this->adapter->processResponse() ) {
-					switch ( $this->adapter->getFinalStatus() ) {
-					case 'complete':
-					case 'pending':
-						$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
-						return;
-					}
+			$this->getOutput()->allowClickjacking();
+			// FIXME: do we really need this again?
+			$this->getOutput()->addModules( 'iframe.liberator' );
+			// processResponse expects something with data, so let's feed it
+			// all the GET and POST vars
+			$response = array(
+				'data' => $this->getRequest()->getValues(),
+			);
+			// TODO: run the whole set of getResponseStatus, getResponseErrors
+			// and getResponseData first.  Maybe do_transaction with a
+			// communication_type of 'incoming' and a way to provide the
+			// adapter the GET/POST params harvested here.
+			if ( NULL === $this->adapter->processResponse( $response ) ) {
+				switch ( $this->adapter->getFinalStatus() ) {
+				case FinalStatus::COMPLETE:
+				case FinalStatus::PENDING:
+					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+					return;
 				}
-				$this->getOutput()->redirect( $this->adapter->getFailPage() );
 			}
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
+		$this->getOutput()->redirect( $this->adapter->getFailPage() );
 	}
 
 	/**

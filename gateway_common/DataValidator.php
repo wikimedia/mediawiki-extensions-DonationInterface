@@ -207,13 +207,13 @@ class DataValidator {
 	 *
 	 * @param string $language the code of the requested language
 	 * @param array $msg_keys
-	 * @throws MWException
+	 * @throws InvalidArgumentException
 	 * @return String the text of the first existant message
 	 */
 	public static function wfLangSpecificFallback( $language='en', $msg_keys=array() ){
 
 		if ( count( $msg_keys ) < 1 ){
-			throw new MWException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
+			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
 		}
 
 		# look for the first message that exists
@@ -245,7 +245,7 @@ class DataValidator {
 	 * on. If this is not populated, no fields will throw errors for being empty,
 	 * UNLESS they are required for a field that uses them for more complex
 	 * validation (the 'calculated' phase).
-	 * @throws MWException
+	 * @throws BadMethodCallException
 	 * @return array An array of errors in a format ready for any derivitive of
 	 * the main DonationInterface Form class to display. The array will be empty
 	 * if no errors were generated and everything passed OK.
@@ -355,7 +355,7 @@ class DataValidator {
 				// Prepare to call the thing.
 				$callable = array( 'DataValidator', $validation_function );
 				if ( !is_callable( $callable ) ) {
-					throw new Exception( __FUNCTION__ . " BAD PROGRAMMER. No function {$validation_function} for $field" );
+					throw new BadMethodCallException( __FUNCTION__ . " BAD PROGRAMMER. No function {$validation_function} for $field" );
 				}
 				$result = null;
 				// Handle special cases.
@@ -748,6 +748,7 @@ EOT;
 	 * @param string $currency_code
 	 * @param float $amount
 	 * @return float
+	 * @throws UnexpectedValueException
 	 */
 	public static function convert_to_usd( $currency_code, $amount ) {
 		$rates = CurrencyRates::getCurrencyRates();
@@ -755,7 +756,7 @@ EOT;
 		if ( array_key_exists( $code, $rates ) ) {
 			$usd_amount = $amount / $rates[$code];
 		} else {
-			throw new MWException( 'Bad programmer!  Bad currency made it too far through the portcullis' );
+			throw new UnexpectedValueException( 'Bad programmer!  Bad currency made it too far through the portcullis' );
 		}
 		return $usd_amount;
 	}
@@ -831,7 +832,6 @@ EOT;
 	 *
 	 * @param string $ip The IP addx we want to check
 	 * @param array $ip_list IP list to check against
-	 * @throws MWException
 	 * @return bool
 	 */
 	public static function ip_is_listed( $ip, $ip_list ) {

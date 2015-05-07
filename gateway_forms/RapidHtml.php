@@ -131,7 +131,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( empty( $this->html_file_path ) ){
 			try {
 				$this->set_html_file_path( $ffname );
-			} catch ( MWException $mwe ) {
+			} catch ( Exception $mwe ) {
 				$message = "Could not load form '$ffname'";
 				$this->logger->error( $message );
 				$this->set_html_file_path( 'error-noform' );
@@ -428,7 +428,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * Set the path to the HTML file for a requested rapid html form.
 	 *
 	 * @param string $form_key The array key defining the whitelisted form path to fetch from $wgDonationInterfaceAllowedHtmlForms
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function set_html_file_path( $form_key, $fatal = true ) {
 		$allowedForms = $this->gateway->getGlobal( 'AllowedHtmlForms' );
@@ -438,6 +438,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		//make sure the requested form exists.
 		if ( !array_key_exists( $form_key, $allowedForms ) ) {
 			$debug_message = "Could not find form '$form_key'";
+			$problems = true;
+		} elseif ( empty( $allowedForms[$form_key] ) ) {
+			$debug_message = "Form '$form_key' is disabled by configuration.";
 			$problems = true;
 		} elseif ( !array_key_exists( 'file', $allowedForms[$form_key] ) ) {
 			$debug_message = "Form config for '$form_key' is missing 'file' value";
@@ -492,7 +495,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			if ( $fatal ){
 				$message = 'Requested an unavailable or non-existent form.';
 				$this->logger->error( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') );
-				throw new MWException( $message ); # TODO: translate
+				throw new RuntimeException( $message );
 			} else {
 				return;
 			}

@@ -26,13 +26,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * Return the rendered HTML form, using template parameters from the gateway object
 	 *
 	 * @return string
+	 * @throw RuntimeException
 	 */
 	public function getForm() {
 		$data = $this->gateway->getData_Unstaged_Escaped();
 
 		$template = file_get_contents( $this->topLevelForm );
 		if ( $template === false ) {
-			throw new Exception( "Template file unavailable: [{$this->topLevelForm}]" );
+			throw new RuntimeException( "Template file unavailable: [{$this->topLevelForm}]" );
 		}
 
 		// TODO: Use MW-core implementation, once we're on REL1_25.
@@ -43,14 +44,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			)
 		);
 		if ( !$code ) {
-			throw new Exception( 'Couldn\'t compile template!' );
+			throw new RuntimeException( 'Couldn\'t compile template!' );
 		}
 		if ( substr( $code, 0, 5 ) === '<?php' ) {
 			$code = substr( $code, 5 );
 		}
 		$renderer = eval( $code );
 		if ( !is_callable( $renderer ) ) {
-			throw new Exception( 'Can\'t run compiled template!' );
+			throw new RuntimeException( 'Can\'t run compiled template!' );
 		}
 
 		$html = call_user_func( $renderer, $data, array() );

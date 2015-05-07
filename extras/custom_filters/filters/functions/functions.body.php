@@ -19,6 +19,9 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		$this->cfo = & $custom_filter_object;
 	}
 
+	/**
+	 * @throws UnexpectedValueException
+	 */
 	public function filter() {
 
 		$functions = $this->gateway_adapter->getGlobal( 'CustomFiltersFunctions' );
@@ -34,7 +37,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 					$score = $score * $risk_score_modifier / 100;
 				} else {
 //					error_log("Function Filter: $function_name returned $score");
-					throw new MWException( "Filter functions are returning somekinda nonsense." );
+					throw new UnexpectedValueException( "Filter functions are returning somekinda nonsense." );
 				}
 
 				$this->cfo->addRiskScore( $score, $function_name );

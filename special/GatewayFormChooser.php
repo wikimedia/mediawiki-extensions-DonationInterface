@@ -92,6 +92,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * to get one.
 	 * @param array $other_params An array of any params that DonationData
 	 * will harvest and understand.
+	 * @throw UnexpectedValueException
 	 */
 	static function buildPaymentsFormURL( $form_key, $other_params = array ( ) ) {
 		// And... construct the URL
@@ -129,6 +130,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				if ( array_key_exists( 'gateway', $params ) && in_array( $params['gateway'], $gateway ) ) {
 					$gateway = $params['gateway'];
 				} else {
+					// TODO: Throw an UnexpectedValueException, once we've updated payments mw-core.
 					throw new MWException( __FUNCTION__ . " Cannot determine appropriate gateway to use for ffname '$form_key'. " );
 				}
 			}
@@ -467,6 +469,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @param string $gateway The gateway used for the payment that failed
 	 * @param string $payment_method The code for the payment method that failed
 	 * @param string $payment_submethod Code for the payment submethod that failed
+	 * @throws RuntimeException
 	 */
 	static function getBestErrorForm( $gateway, $payment_method, $payment_submethod = null ) {
 		global $wgDonationInterfaceAllowedHtmlForms;
@@ -511,6 +514,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		if ( !sizeof( $error_forms ) ) {
+			// TODO: Throw an RuntimeException, once we've updated payments mw-core.
 			throw new MWException( __FUNCTION__ . "No error form found for gateway '$gateway', method '$payment_method', submethod '$payment_submethod'" );
 		}
 

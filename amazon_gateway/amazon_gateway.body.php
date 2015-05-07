@@ -60,7 +60,8 @@ class AmazonGateway extends GatewayPage {
 
 				$status = $this->adapter->getFinalStatus();
 
-				if ( ( $status == 'complete' ) || ( $status == 'pending' ) ) {
+				// FIXME: Isn't this why we have $goToThankYouOn?
+				if ( $status === FinalStatus::COMPLETE || $status === FinalStatus::PENDING ) {
 					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 				}
 				else {

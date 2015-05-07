@@ -90,7 +90,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @param GatewayAdapter    $gateway_adapter    Gateway adapter instance
 	 * @param Gateway_Extras_CustomFilters    $custom_filter_object    Instance of Custom filter object
 	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function __construct( &$gateway_adapter, &$custom_filter_object, $license_key = NULL ) {
 
@@ -105,7 +105,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		// set the minfraud license key, go no further if we don't have it
 		if ( !$license_key && !$wgMinFraudLicenseKey ) {
-			throw new MWException( "minFraud license key required but not present." );
+			throw new RuntimeException( "minFraud license key required but not present." );
 		}
 		$this->minfraudLicenseKey = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
 		
@@ -269,12 +269,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		
 		try {
 			if ( !isset( $this->minfraudResponse['riskScore'] ) ) {
-				throw new MWException( "No response at all from minfraud." );
+				throw new RuntimeException( "No response at all from minfraud." );
 			}
 
 			$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
 		} 
-		catch( MWException $ex){
+		catch( Exception $ex){
 			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
 			$log_message = 'Minfraud filter came back with some garbage. Assigning all the points.';
 			$this->fraud_logger->error( '"addRiskScore" ' . $log_message );

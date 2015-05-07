@@ -61,7 +61,7 @@ class PaymentMethod {
 				$spec = $gateway->getPaymentMethodMeta( $method_name );
 			}
 			$method->spec = $spec;
-		} catch ( MWException $ex ) {
+		} catch ( Exception $ex ) {
 			// Return empty method.
 			$method->name = "none";
 			$method->spec = array();

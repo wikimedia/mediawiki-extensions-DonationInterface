@@ -4,5 +4,6 @@
 			"Okras"
 		]
 	},
-	"worldpaygateway": "Сделайте пожертвование сейчас"
+	"worldpaygateway": "Сделайте пожертвование сейчас",
+	"testingworldpaygateway": "Тестирование WorldPay"
 }

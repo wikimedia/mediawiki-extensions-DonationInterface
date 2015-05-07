@@ -200,7 +200,7 @@ class PaypalAdapter extends GatewayAdapter {
 			case 'DonateRecurring':
 				$this->transactions[ $transaction ][ 'url' ] = $this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
 				$result = parent::do_transaction( $transaction );
-				$this->finalizeInternalStatus( 'complete' );
+				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				return $result;
 		}
 	}

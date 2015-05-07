@@ -110,7 +110,7 @@ class PaymentResult {
 	 * @param string $finalStatus final transaction status.
 	 */
 	static public function fromResults( $data, $finalStatus ) {
-		if ( $finalStatus === 'failed' ) {
+		if ( $finalStatus === FinalStatus::FAILED ) {
 			return PaymentResult::newFailure();
 		}
 		if ( $data === false ) {

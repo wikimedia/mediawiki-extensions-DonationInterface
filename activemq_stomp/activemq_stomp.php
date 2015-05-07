@@ -52,6 +52,7 @@ function efStompTest( $input, $args, &$parser ) {
  *
  * @return bool Just returns true all the time. Presumably an indication that
  * nothing exploded big enough to kill the whole thing.
+ * @throws RuntimeException
  */
 function sendSTOMP( $transaction, $queue = 'default' ) {
 	global $IP, $wgStompServer, $wgStompQueueNames;
@@ -121,7 +122,7 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
 	$result = $con->send( "/queue/$queueName", $message, $properties );
 
 	if ( !$result ) {
-		throw new Exception( "Send to $queueName failed for this message: $message" );
+		throw new RuntimeException( "Send to $queueName failed for this message: $message" );
 	}
 
 	$con->disconnect();
