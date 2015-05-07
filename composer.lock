@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamwight/php-queue.git",
-                "reference": "02f10dad5177ea9f44a2c2e03622b1a535d791bb"
+                "reference": "fc0dae393b967d79c17d89853e67e23f0c27e6e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adamwight/php-queue/zipball/02f10dad5177ea9f44a2c2e03622b1a535d791bb",
-                "reference": "02f10dad5177ea9f44a2c2e03622b1a535d791bb",
+                "url": "https://api.github.com/repos/adamwight/php-queue/zipball/fc0dae393b967d79c17d89853e67e23f0c27e6e9",
+                "reference": "fc0dae393b967d79c17d89853e67e23f0c27e6e9",
                 "shasum": ""
             },
             "require": {
@@ -114,9 +114,9 @@
                 "transaction"
             ],
             "support": {
-                "source": "https://github.com/adamwight/php-queue/tree/STOMP"
+                "source": "https://github.com/adamwight/php-queue/tree/master"
             },
-            "time": "2015-04-12 02:54:17"
+            "time": "2015-05-07 09:18:14"
         },
         {
             "name": "fusesource/stomp-php",
