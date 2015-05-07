@@ -3797,7 +3797,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
-			$this->logger->info( 'Getting metadata for payment submethod: ' . ( string ) $payment_submethod );
+			$this->logger->debug( 'Getting metadata for payment submethod: ' . ( string ) $payment_submethod );
 
 			// Ensure that the validation index is set.
 			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
