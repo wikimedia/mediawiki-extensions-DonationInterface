@@ -7,10 +7,12 @@
  */
 class PaymentTransactionResponse {
 	/**
-	 * @var array keys are error codes, values are themselves arrays with keys
-	 * debugInfo (string), logLevel (Psr\Log\LogLevel), and message (string)
-	 * If there weren't any, this should be present and
-	 * empty after a transaction.
+	 * @var array keys are error codes, values are themselves arrays of the form
+	 *		'message' => 'for public consumption',
+	 *		'debugInfo' => 'diagnostic information',
+	 *		'logLevel' => LogLevel::WARNING
+	 * If there weren't any, this should be present and empty after a
+	 * transaction.
 	 */
 	protected $errors;
 
@@ -109,6 +111,15 @@ class PaymentTransactionResponse {
 	 */
 	public function setErrors( $errors ) {
 		$this->errors = $errors;
+	}
+
+	/**
+	 * Add an error to the internal $errors array
+	 * @param string $code identifies the error type
+	 * @param array $error as specified in @see errors
+	 */
+	public function addError( $code, $error ) {
+		$this->errors[$code] = $error;
 	}
 
 	/**

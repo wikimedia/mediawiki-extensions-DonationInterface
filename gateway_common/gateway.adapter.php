@@ -1153,6 +1153,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			} catch ( ResponseProcessingException $ex ) {
 				$errCode = $ex->getErrorCode();
 				$retryVars = $ex->getRetryVars();
+				$this->transaction_response->addError( $errCode, array(
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+					'debugInfo' => $ex->getMessage(),
+					'logLevel' => LogLevel::ERROR
+				) );
 			}
 
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
