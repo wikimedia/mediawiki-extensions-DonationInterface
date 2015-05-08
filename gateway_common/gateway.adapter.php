@@ -1069,9 +1069,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
 
 		//reset, in case this isn't our first time.
-		$this->setTransactionResult( array() );
+		$this->transaction_response = new PaymentTransactionResponse();
 		$this->final_status = false;
-		$this->setValidationAction('process', true);
+		$this->setValidationAction( 'process', true );
 		$errCode = null;
 
 		/* --- Build the transaction string for cURL --- */
@@ -1081,15 +1081,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-				$this->setTransactionResult(
-					array(
-						'status' => false,
+				$this->transaction_response->setCommunicationStatus( false );
+				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+				$this->transaction_response->setErrors( array(
+					'internal-0000' => array(
+						'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
 						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'errors' => array(
-							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						),
+						'logLevel' => LogLevel::INFO
 					)
-				);
+				) );
 				return $this->getTransactionAllResults();
 			}
 
@@ -1106,10 +1106,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				//save this most recent one before we leave.
 				$this->session_pushRapidHTMLForm( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
-				$this->setTransactionResult( array(
-					'status' => TRUE,
-					'redirect' => $this->url,
-				));
+				$this->transaction_response->setCommunicationStatus( true );
+				$this->transaction_response->setRedirect( $this->url );
 				return $this->getTransactionAllResults();
 
 			} elseif ( $commType === 'xml' ) {
@@ -1126,15 +1124,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				throw new UnexpectedValueException( "Communication type of '{$commType}' unknown" );
 			}
 		} catch ( Exception $e ) {
-			$this->logger->critical( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage() );
+			$this->logger->critical( 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage() );
 
-			$this->setTransactionResult( array(
-				'status' => false,
-				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-				'errors' => array(
-					'internal-0001' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-				),
-			));
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0001' ) );
+			$this->transaction_response->setErrors( array(
+				'internal-0001' => array(
+					'debugInfo' => 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage(),
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+					'logLevel' => LogLevel::CRITICAL
+				)
+			) );
 
 			return $this->getTransactionAllResults();
 		}
@@ -1162,15 +1162,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
-			$this->logger->error( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
+			$this->logger->error( 'Transaction Communication failed' . print_r( $this->getTransactionAllResults(), true ) );
 
-			$this->setTransactionResult( array(
-				'status' => false,
-				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
-				'errors' => array(
-					'internal-0002' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
-				),
-			));
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0002' ) );
+			$this->transaction_response->setErrors( array(
+				'internal-0002' => array(
+					'debugInfo' => 'Transaction Communication failed' . print_r( $this->getTransactionAllResults(), true ),
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
+					'logLevel' => LogLevel::ERROR
+				)
+			) );
 		}
 
 		// Log out how much time it took for the cURL request
@@ -1180,9 +1182,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->logger->critical( "$transaction Communication failed (errcode $errCode), will reattempt!" );
 
 			// Set this by key so that the result object still has all the cURL data
-			$this->setTransactionResult( false, 'status' );
-			$this->setTransactionResult( $this->getErrorMapByCodeAndTranslate( $errCode ), 'message' );
-			$this->setTransactionResult( array( $errCode => $this->getErrorMapByCodeAndTranslate( $errCode ) ), 'errors' );
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( $errCode ) );
+			$this->transaction_response->setErrors( array(
+				$errCode => array(
+					'debugInfo' => "$transaction Communication failed (errcode $errCode), will reattempt!",
+					'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
+					'logLevel' => LogLevel::CRITICAL
+				)
+			) );
 		}
 
 		//if we have set errors by this point, the transaction is not okay
@@ -1201,15 +1209,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
 				$this->logger->info( "Failed post-process checks for transaction type $transaction." );
-				$this->setTransactionResult(
-					array(
-						'status' => false,
+				$this->transaction_response->setCommunicationStatus( false );
+				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+				$this->transaction_response->setErrors( array(
+					'internal-0000' => array(
+						'debugInfo' => "Failed post-process checks for transaction type $transaction.",
 						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'errors' => array(
-							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						),
+						'logLevel' => LogLevel::INFO
 					)
-				);
+				) );
 				return $this->getTransactionAllResults();
 			}
 		}
@@ -1356,7 +1364,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Sends a curl request to the gateway server, and gets a response.
-	 * Saves that response to the gateway object with setTransactionResult();
+	 * Saves that response to the transaction_response's rawResponse;
 	 * @param string $data the raw data we want to curl up to a server somewhere.
 	 * Should have been constructed with either buildRequestNameValueString, or
 	 * buildRequestXML.
@@ -2202,70 +2210,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			'redirect' => $this->transaction_response->getRedirect(),
 			'txn_message' => $this->transaction_response->getTxnMessage(),
 		);
-	}
-
-	/**
-	 * TODO: get rid of this shim, expose the setters we need to use externally
-	 * SetTransactionResult sets the gateway adapter object's
-	 * $transaction_response value.
-	 * If a $key is specified, it only sets the specified key's value. If no
-	 * $key is specified, it resets the value of the entire array.
-	 * @param mixed $value The value to set in $transaction_response
-	 * @param mixed $key Optional: A specific key to set, or false (default) to
-	 * reset the entire result array.
-	 * @deprecated
-	 */
-	public function setTransactionResult( $value = array(), $key = false ) {
-		if ( $key === false ) {
-			$this->transaction_response = new PaymentTransactionResponse();
-			foreach ( $value as $vKey => $vVal ) {
-				$this->setTransactionResult( $vVal, $vKey );
-			}
-			return;
-		}
-		if ( !$this->transaction_response ) {
-			$this->transaction_response = new PaymentTransactionResponse();
-		}
-		switch( $key ) {
-		case 'result':
-			$this->transaction_response->setRawResponse( $value );
-			break;
-		case 'errors':
-			// Transform from legacy code => message format
-			$enhance = function ( $message ) {
-				if ( is_array( $message ) ) {
-					return $message;
-				}
-				return array(
-					'debugInfo' => '',
-					'message' => $message,
-					'logLevel' => LogLevel::INFO,
-				);
-			};
-			$enhanced = array_map( $enhance, $value );
-			$this->transaction_response->setErrors( $enhanced );
-			break;
-		case 'message':
-			$this->transaction_response->setMessage( $value );
-			break;
-		case 'gateway_txn_id':
-			$this->transaction_response->setGatewayTransactionId( $value );
-			break;
-		case 'status':
-			$this->transaction_response->setCommunicationStatus( $value );
-			break;
-		case 'data':
-			$this->transaction_response->setData( $value );
-			break;
-		case 'txn_message':
-			$this->transaction_response->setTxnMessage( $value );
-			break;
-		case 'redirect':
-			$this->transaction_response->setRedirect( $value );
-			break;
-		default:
-			throw new UnexpectedValueException( "Bad transaction result key $key" );
-		}
 	}
 
 	/**
