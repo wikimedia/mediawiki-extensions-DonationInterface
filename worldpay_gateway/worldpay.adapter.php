@@ -764,7 +764,7 @@ class WorldPayAdapter extends GatewayAdapter {
 
 			case 'QueryAuthorizeDeposit':
 				$result = $this->do_transaction_QueryAuthorizeDeposit();
-				$this->setTransactionResult( $this->getData_Unstaged_Escaped( 'order_id' ), 'gateway_txn_id' );
+				$this->transaction_response->setGatewayTransactionId( $this->getData_Unstaged_Escaped( 'order_id' ) );
 				$this->runPostProcessHooks();
 				return $result;
 				break;

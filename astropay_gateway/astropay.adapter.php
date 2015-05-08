@@ -472,7 +472,7 @@ class AstropayAdapter extends GatewayAdapter {
 		case 'NewInvoice':
 			$this->processNewInvoiceResponse( $response );
 			if ( isset( $response['link'] ) ) {
-				$this->setTransactionResult( $response['link'], 'redirect' );
+				$this->transaction_response->setRedirect( $response['link'] );
 			}
 			break;
 		}

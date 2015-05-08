@@ -45,7 +45,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	public function loadDataAndReInit( $data, $useDB = true ) {
 		//re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
-		$this->setTransactionResult();
+		$this->transaction_response = new PaymentTransactionResponse();
 		$this->hard_data = array( );
 		$this->unstaged_data = array( );
 		$this->staged_data = array( );

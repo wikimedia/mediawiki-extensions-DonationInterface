@@ -215,6 +215,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->session_addDonorData();
 
 		$this->setCurrentTransaction( $transaction );
+		$this->transaction_response = new PaymentTransactionResponse();
 
 		$override_url = $this->transaction_option( 'url' );
 		if ( !empty( $override_url ) ) {
@@ -312,7 +313,7 @@ class AmazonAdapter extends GatewayAdapter {
 		if ( $this->getFinalStatus() === false ) {
 
 			$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
-			$this->setTransactionResult( $txnid, 'gateway_txn_id' );
+			$this->transaction_response->setGatewayTransactionId( $txnid );
 
 			// Second make sure that the inbound request had a matching outbound session. If it
 			// doesn't we drop it.
