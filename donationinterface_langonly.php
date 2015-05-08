@@ -28,19 +28,17 @@ $wgExtensionCredits['specialpage'][] = array(
 	'url' => 'https://www.mediawiki.org/wiki/Extension:DonationInterface',
 );
 
-$donationinterface_dir = dirname( __FILE__ ) . '/';
-
 // Load the interface messages that are shared across all gateways
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/interface';
-$wgExtensionMessagesFiles['DonateInterface'] = $donationinterface_dir . 'gateway_common/interface.i18n.php';
+$wgExtensionMessagesFiles['DonateInterface'] = __DIR__ . '/gateway_common/interface.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/countries';
-$wgExtensionMessagesFiles['GatewayCountries'] = $donationinterface_dir . 'gateway_common/countries.i18n.php';
+$wgExtensionMessagesFiles['GatewayCountries'] = __DIR__ . '/gateway_common/countries.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/us-states';
-$wgExtensionMessagesFiles['GatewayUSStates'] = $donationinterface_dir . 'gateway_common/us-states.i18n.php';
+$wgExtensionMessagesFiles['GatewayUSStates'] = __DIR__ . '/gateway_common/us-states.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/canada-provinces';
-$wgExtensionMessagesFiles['GatewayCAProvinces'] = $donationinterface_dir . 'gateway_common/canada-provinces.i18n.php';
+$wgExtensionMessagesFiles['GatewayCAProvinces'] = __DIR__ . '/gateway_common/canada-provinces.i18n.php';
 
 // GlobalCollect-specific messaging
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/globalcollect_gateway/i18n';
-$wgExtensionMessagesFiles['GlobalCollectGateway'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.i18n.php';
-$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = $donationinterface_dir . 'globalcollect_gateway/globalcollect_gateway.alias.php';
+$wgExtensionMessagesFiles['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.i18n.php';
+$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.alias.php';

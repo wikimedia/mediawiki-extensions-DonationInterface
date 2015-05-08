@@ -394,10 +394,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	function getAllLogFileNames(){
 		$files = array();
-		if ($handle = opendir(dirname(__FILE__) . '/orphanlogs/')){
+		if ($handle = opendir(__DIR__ . '/orphanlogs/')){
 			while ( ($file = readdir($handle)) !== false ){
 				if (trim($file, '.') != '' && $file != 'order_ids.txt' && $file != '.svn'){
-					$files[] = dirname(__FILE__) . '/orphanlogs/' . $file;
+					$files[] = __DIR__ . '/orphanlogs/' . $file;
 				}
 			}
 		}

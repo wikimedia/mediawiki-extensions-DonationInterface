@@ -19,20 +19,20 @@ $wgResourceModules[ 'di.form.rapidhtml.webitects' ] = array(
 	),
 	'scripts' => '',
 	'dependencies' => 'jquery.ui.accordion',
-	'localBasePath' => dirname( __FILE__ ),
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'di.form.rapidhtml.webitects.ie6' ] = array(
 	'styles' => 'css/webitects.ie6.css',
 	'scripts' => '',
 	'dependencies' => 'di.form.rapidhtml.webitects',
-	'localBasePath' => dirname( __FILE__ ),
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'di.form.rapidhtml.webitects.2nd' ] = array(
 	'styles' => 'css/webitects2nd.css',
 	'dependencies' => 'di.form.rapidhtml.webitects',
-	'localBasePath' => dirname( __FILE__ ),
+	'localBasePath' => __DIR__,
 	'remoteExtPath' => $wgDonationInterfaceRapidHtmlRemoteExtPath,
 );
 
@@ -45,7 +45,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
 		#'js/webitects.accordian.js',
 	),
 	'dependencies' => 'di.form.rapidhtml.webitects',
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.ie6' ] = array(
@@ -53,7 +53,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.ie6' ] = array(
 		'di.form.rapidhtml.webitects.ie6',
 		'gc.form.rapidhtml.webitects'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.1st' ] = array(
@@ -62,7 +62,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.1st' ] = array(
 	'dependencies' => array(
 		'gc.form.rapidhtml.webitects',
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd' ] = array(
@@ -72,7 +72,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd' ] = array(
 		'gc.form.rapidhtml.webitects',
 		'di.form.rapidhtml.webitects.2nd'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd.US' ] = array(
@@ -82,7 +82,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.2nd.US' ] = array(
 		'gc.form.rapidhtml.webitects',
 		'di.form.rapidhtml.webitects.2nd'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.bt' ] = array(
@@ -92,14 +92,14 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects.bt' ] = array(
 		'gc.form.rapidhtml.webitects.2nd',
 		#'gc.form.core.validate'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.webitects.dd' ] = array(
 	'styles' => '',
 	'scripts' => 'js/webitects.bt.js',
 	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 
@@ -107,7 +107,7 @@ $wgResourceModules[ 'gc.normalinterface' ] = array(
 	'scripts' => array(
 		'js/gc.interface.js'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
 
@@ -121,7 +121,7 @@ $wgResourceModules['donationInterface.test.rapidhtml'] = array(
 		'globalcollect_gateway-fakesucceed',
 		'globalcollect_gateway-fakefail'
 	),
-	'localBasePath' => dirname( __FILE__ ) . '/../../tests',
+	'localBasePath' => __DIR__ . '/../../tests',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 ) + $wgResourceTemplate;
 
@@ -135,7 +135,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
 		'di.form.core.validate',
 		'mediawiki.Uri'
 	),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath
 );
 
@@ -151,7 +151,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.dd' ] = array(
 		'js/gc.dd.js'
 	),
 	'dependencies' => array( 'di.form.core.validate' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.ew' ] = array(
@@ -160,7 +160,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.ew' ] = array(
         'js/gc.ew.js'
     ),
 	'dependencies' => array( 'di.form.core.validate' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
@@ -169,7 +169,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
         'js/gc.boletos.js'
     ),
 	'dependencies' => array( 'di.form.core.validate' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../globalcollect_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
 $wgResourceModules[ 'gc.iframe' ] = array(
@@ -185,13 +185,13 @@ $wgResourceModules[ 'gc.iframe' ] = array(
 $wgResourceModules[ 'adyen.js' ] = array(
 	'styles' => 'css/adyen.css',
 	'scripts' => 'js/adyen.js',
-	'localBasePath' => dirname( __FILE__ ).'/../../adyen_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../adyen_gateway/forms',
 	'remoteExtPath' => $wgAdyenRapidHtmlRemoteExtPath,
 );
 
 $wgResourceModules['ext.donationinterface.worldpay.styles'] = array (
 	'styles' => array('css/worldpay.css', 'css/bootstrap.css'),
-	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../worldpay_gateway/forms',
 	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
 	'position' => 'top',
 );
@@ -199,7 +199,7 @@ $wgResourceModules['ext.donationinterface.worldpay.styles'] = array (
 $wgResourceModules['ext.donationinterface.worldpay.code'] = array (
 	'scripts' => 'js/worldpay.js',
 	'dependencies' => array ( 'di.form.core.validate', 'jquery.payment' ),
-	'localBasePath' => dirname( __FILE__ ).'/../../worldpay_gateway/forms',
+	'localBasePath' => __DIR__ . '/../../worldpay_gateway/forms',
 	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
 );
 
