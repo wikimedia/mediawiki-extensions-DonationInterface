@@ -1,22 +1,5 @@
 <?php
 
-# Alert the user that this is not a valid entry point to MediaWiki if they try to access the special pages file directly.
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo <<<EOT
-To install my extension, put the following line in LocalSettings.php:
-require_once( "\$IP/extensions/DonationInterface/activemq_stomp/activemq_stomp.php" );
-EOT;
-	exit( 1 );
-}
-
-$wgExtensionCredits['other'][] = array(
-	'name' => 'ActiveMQ - PHP STOMP',
-	'author' => 'Four Kitchens; Wikimedia Foundation',
-	'url' => '',
-	'descriptionmsg' => 'activemq_stomp-desc',
-	'version' => '1.0.0',
-);
-
 /*
  * Create <donate /> tag to include landing page donation form
  */
