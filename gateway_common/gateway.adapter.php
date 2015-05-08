@@ -55,6 +55,10 @@ interface GatewayType {
 	function defineTransactions();
 
 	/**
+	 * Define the message keys used to display errors to the user.  Should set
+	 * @see $this->error_map to an array whose keys are error codes and whose
+	 * values are i18n keys.
+	 * Any unmapped error code will use 'donate_interface-processing-error'
 	 */
 	function defineErrorMap();
 
@@ -190,9 +194,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * $error_map maps gateway errors to client errors
 	 *
-	 * The index of each error should map to a translation:
-	 *
-	 * 0 => globalcollect_gateway-response-default
+	 * The key of each error should map to a i18n message key.
+	 * By convention, the following three keys have these meanings:
+	 *   'internal-0000' => 'message-key-1', // Failed failed pre-process checks.
+	 *   'internal-0001' => 'message-key-2', // Transaction could not be processed due to an internal error.
+	 *   'internal-0002' => 'message-key-3', // Communication failure
+	 * Any undefined key will map to 'donate_interface-processing-error'
 	 *
 	 * @var	array	$error_map
 	 */
@@ -692,13 +699,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$translatedMessage = '';
 		}
 
-		// If the $code does not exist, use the default code: 0
-		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
+		// If the $code does not exist, use the default message
+		if ( isset( $this->error_map[ $code ] ) ) {
+			$messageKey = $this->error_map[ $code ];
+		} else {
+			$messageKey = 'donate_interface-processing-error';
+		}
 
-		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $this->error_map[$code] ) : $translatedMessage;
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $messageKey ) : $translatedMessage;
 
 		// Check to see if we return the translated message.
-		$message = ( $options['translate'] ) ? $translatedMessage : $this->error_map[ $code ];
+		$message = ( $options['translate'] ) ? $translatedMessage : $messageKey;
 
 		return $message;
 	}
