@@ -9,7 +9,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $curled = array ( );
 
-	public $limbo_stomps = array ( );
+	public $limbo_stomps = array();
+	public $memcache_limbo_stomps = array();
 
 	/**
 	 * Also set a useful MerchantID.
@@ -89,6 +90,17 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	public function doLimboStompTransaction( $antiMessage = false ) {
 		$this->limbo_stomps[] = $antiMessage;
+	}
+
+	public function setLimboMessage( $queue = 'limbo' ) {
+		$this->memcache_limbo_stomps[] = false;
+	}
+
+	/**
+	 * Stub out the limboStomp fn and record the calls
+	 */
+	public function deleteLimboMessage( $queue = 'limbo' ) {
+		$this->memcache_limbo_stomps[] = true;
 	}
 
 	//@TODO: That minfraud jerk needs its own isolated tests.

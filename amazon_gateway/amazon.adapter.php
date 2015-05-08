@@ -276,6 +276,7 @@ class AmazonAdapter extends GatewayAdapter {
 					$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
 					$this->runPostProcessHooks();
 					$this->doLimboStompTransaction( true );
+					$this->deleteLimboMessage();
 				}
 				break;
 

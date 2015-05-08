@@ -37,24 +37,6 @@ class DonationQueue {
 		return $backend->pop();
 	}
 
-	public function popMultiple( $queue, $count ) {
-		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
-		}
-		$backend = $this->newBackend( $queue );
-
-		$messages = array();
-		for ( $i = 0; $i < $count; $i++ ) {
-			$msg = $backend->pop();
-			if ( !$msg ) {
-				// Stop when we're done.
-				break;
-			}
-			$messages[] = $msg;
-		}
-		return $messages;
-	}
-
 	public function set( $correlationId, $transaction, $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
 			return;
