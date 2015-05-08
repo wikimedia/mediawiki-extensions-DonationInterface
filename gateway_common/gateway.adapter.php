@@ -555,9 +555,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Stash and process response data.
+	 * Add data from the processor to staged_data and run any unstaging functions.
 	 *
-	 * @param array  $dataArray An associative array of data.
+	 * @param array $dataArray An associative array of data.
 	 */
 	public function addResponseData( $dataArray ) {
 		foreach ( $dataArray as $key => $value ) {
