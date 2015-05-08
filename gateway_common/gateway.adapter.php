@@ -1013,6 +1013,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		$retryCount = 0;
+		$loopCount = $this->getGlobal( 'RetryLoopCount' );
 
 		do {
 			$retryVars = null;
@@ -1033,9 +1034,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->stageData();
 			}
 
-		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < 3 ) );
+		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < $loopCount ) );
 
-		if ( $retryCount >= 3 ) {
+		if ( $retryCount >= $loopCount ) {
 			$this->logger->error( "Transaction canceled after $retryCount retries." );
 		}
 
