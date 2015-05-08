@@ -158,8 +158,8 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 
 		// from the test response
 		$expected = 'https://sandbox.astropaycard.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
-		$results = $gateway->getTransactionAllResults();
-		$this->assertEquals( $expected, $results['redirect'],
+		$response = $gateway->getTransactionResponse();
+		$this->assertEquals( $expected, $response->getRedirect(),
 			'do_transaction is not setting the right redirect' );
 	}
 

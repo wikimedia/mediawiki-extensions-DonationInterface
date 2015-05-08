@@ -17,7 +17,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		}
 
 		// make sure the response property has been set (signifying a transaction has been made)
-		if ( !$this->gateway_adapter->getTransactionAllResults() )
+		if ( !$this->gateway_adapter->getTransactionResponse() )
 			return FALSE;
 
 		$this->log(

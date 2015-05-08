@@ -1143,7 +1143,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { //We have something to slice and dice.
-			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->getTransactionAllResults(), true ) );
+			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
 
 			// Decode the response according to $this->getResponseType
 			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
@@ -1162,13 +1162,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
-			$this->logger->error( 'Transaction Communication failed' . print_r( $this->getTransactionAllResults(), true ) );
+			$logMessage = 'Transaction Communication failed' . print_r( $this->transaction_response, true );
+			$this->logger->error( $logMessage );
 
 			$this->transaction_response->setCommunicationStatus( false );
 			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0002' ) );
 			$this->transaction_response->setErrors( array(
 				'internal-0002' => array(
-					'debugInfo' => 'Transaction Communication failed' . print_r( $this->getTransactionAllResults(), true ),
+					'debugInfo' => $logMessage,
 					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
 					'logLevel' => LogLevel::ERROR
 				)
@@ -2168,6 +2169,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		return $queryparams;
+	}
+
+	/**
+	 * Public accessor to the $transaction_response variable
+	 * @return PaymentTransactionResponse
+	 */
+	public function getTransactionResponse() {
+		return $this->transaction_response;
 	}
 
 	/**
