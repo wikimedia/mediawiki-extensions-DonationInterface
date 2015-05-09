@@ -107,9 +107,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 							// TODO: Stop mirroring to STOMP.
 							$this->addStompCorrelationIDToAckBucket( $correlation_id );
 
-							DonationQueue::instance()->delete(
-								$correlation_id, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
-
 							$this->handled_ids[$correlation_id] = 'rectified';
 						} else {
 							$this->handled_ids[$correlation_id] = 'error';
@@ -189,6 +186,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		if ( $correlation_id ) {
 			$bucket[$correlation_id] = "'$correlation_id'"; //avoiding duplicates.
 			$this->handled_ids[$correlation_id] = 'antimessage';
+
+			// Delete from Memcache
+			DonationQueue::instance()->delete(
+				$correlation_id, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 		}
 		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
 			//ack now.
