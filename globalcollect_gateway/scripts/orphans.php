@@ -29,7 +29,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			return;
 		}
 		$wgDonationInterfaceEnableIPVelocityFilter = false;
-
+		
 		$func = 'parse_files';
 		if ( $this->getOrphanGlobal( 'override_command_line_params' ) ){
 			//do that
