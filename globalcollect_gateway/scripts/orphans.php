@@ -49,8 +49,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		
-
-		// FIXME: Is this just to trigger batch mode?
 		$data = array(
 			'wheeee' => 'yes'
 		);
@@ -104,19 +102,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					if ( $this->keepGoing() ){
 						echo "Attempting to rectify orphan $correlation_id\n";
 						if ( $this->rectifyOrphan( $orphan ) ){
-							// TODO: Stop mirroring to STOMP.
 							$this->addStompCorrelationIDToAckBucket( $correlation_id );
-
-							DonationQueue::instance()->delete(
-								$correlation_id, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
-
 							$this->handled_ids[$correlation_id] = 'rectified';
 						} else {
 							$this->handled_ids[$correlation_id] = 'error';
 						}
 					}
 				}
-				// TODO: Stop mirroring to STOMP.
 				$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
 				if ( $this->keepGoing() ){
 					$orphans = $this->getStompOrphans();
@@ -124,7 +116,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		
-		// TODO: Stop mirroring to STOMP.
 		$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
 
 		//TODO: Make stats squirt out all over the place.  
@@ -230,26 +221,16 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->logger->info( "Found $count antimessages." );
 		return $count;
 	}
-
+	
 	/**
 	 * Returns an array of **at most** 300 decoded orphans that we don't think we've rectified yet. 
 	 * @return array keys are the correlation_id, and the values are the decoded stomp message body. 
 	 */
-	protected function getStompOrphans(){
-		// TODO: Remove STOMP block.
-		// FIXME: Expiration should be set in configuration, and enforced by
-		// the queue's native expiry anyway.
+	function getStompOrphans(){
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
 		$selector = "payment_method = 'cc' AND gateway='globalcollect'";
 		echo "Fetching 300 Orphans\n";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
-
-		// TODO: Batch size from config.
-		$batch_size = 300;
-		echo "Fetching {$batch_size} Orphans\n";
-
-		// TODO: Write popMultiple for Memcache.
-
 		$orphans = array();
 		$false_orphans = array();
 		foreach ( $messages as $message ){
@@ -281,8 +262,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-
-		// TODO: Remove STOMP block.
+		
 		foreach ( $orphans as $cid => $data ){
 			if ( in_array( $cid, $false_orphans ) ){
 				unset( $orphans[$cid] );
@@ -290,7 +270,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$this->handled_ids[ $cid ] = 'false_orphan';
 			}
 		}
-
+		
 		return $orphans;
 	}
 	

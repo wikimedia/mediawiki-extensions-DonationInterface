@@ -2542,17 +2542,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
 	}
 
-	protected function setLimboMessage( $queue = 'limbo' ) {
-		// FIXME: log the key and raw queue name.
-		$this->logger->info( "Setting transaction in limbo store [$queue]" );
-		DonationQueue::instance()->set( $this->getCorrelationID(), $this->getStompTransaction(), $queue );
-	}
-
-	protected function deleteLimboMessage( $queue = 'limbo' ) {
-		$this->logger->info( "Clearing transaction from limbo store [$queue]" );
-		DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );
-	}
-
 	/**
 	 * If there are things about a transaction that we need to stash in the
 	 * transaction's definition (defined in a local defineTransactions() ), we
