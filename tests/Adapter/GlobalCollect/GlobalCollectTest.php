@@ -48,7 +48,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @covers GatewayAdapter::normalizeOrderID
 	 */
 	public function testNormalizeOrderID() {
-		$init = $this->initial_vars;
+		$init = self::$initial_vars;
 		unset( $init['order_id'] );
 
 		//no order_id from anywhere, explicit no generate
@@ -104,7 +104,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @covers GatewayAdapter::regenerateOrderID
 	 */
 	function testStickyGeneratedOrderID() {
-		$init = $this->initial_vars;
+		$init = self::$initial_vars;
 		unset( $init['order_id'] );
 
 		//no order_id from anywhere, explicit generate
@@ -274,7 +274,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 */
 	public function testDefineVarMap() {
 
-		$gateway = $this->getFreshGatewayObject( $this->initial_vars );
+		$gateway = $this->getFreshGatewayObject( self::$initial_vars );
 
 		$var_map = array(
 			'ORDERID' => 'order_id',

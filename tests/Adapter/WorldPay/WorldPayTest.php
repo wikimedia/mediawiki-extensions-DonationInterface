@@ -349,7 +349,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 	 * Check that whacky #.# format orderid is unmolested by order_id_meta validation.
 	 */
 	function testWackyOrderIdPassedValidation() {
-		$init = $this->initial_vars;
+		$init = self::$initial_vars;
 
         $init['order_id'] = '2143.0';
         unset( $_POST['order_id'] );
@@ -363,7 +363,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 	 * Check that order_id is built from contribution_tracking id.
 	 */
 	function testWackyOrderIdBasedOnContributionTracking() {
-		$init = $this->initial_vars;
+		$init = self::$initial_vars;
 
         $init['contribution_tracking_id'] = mt_rand();
         $_SESSION['numAttempt'] = 2;

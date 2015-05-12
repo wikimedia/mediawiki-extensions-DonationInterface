@@ -32,10 +32,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	);
 
 	/**
-	 * Returns an array of the vars we expect to be set before people hit payments.
+	 * An array of the vars we expect to be set before people hit payments.
 	 * @var array
 	 */
-	public $initial_vars = array (
+	public static $initial_vars = array (
 		'ffname' => 'testytest',
 		'referrer' => 'www.yourmom.com', //please don't go there.
 		'currency_code' => 'USD',
@@ -116,7 +116,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @return array Donor data to use
 	 * @throws OutOfBoundsException when there is no data available for the requested country
 	 */
-	public function getDonorTestData( $country = '' ) {
+	public static function getDonorTestData( $country = '' ) {
 		$donortestdata = array (
 			'US' => array ( //default
 				'city' => 'San Francisco',
@@ -250,7 +250,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 
 		if ( array_key_exists( $country, $donortestdata ) ) {
-			$donortestdata = array_merge( $this->initial_vars, $donortestdata[$country] );
+			$donortestdata = array_merge( self::$initial_vars, $donortestdata[$country] );
 			$donortestdata['country'] = $country;
 			return $donortestdata;
 		}
