@@ -473,6 +473,9 @@ class AstropayAdapter extends GatewayAdapter {
 			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
 			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 			$this->finalizeInternalStatus( $status );
+			$this->runPostProcessHooks();
+			$this->deleteLimboMessage();
+			$this->doLimboStompTransaction( TRUE ); // TODO: stop mirroring to STOMP
 			break;
 		case 'NewInvoice':
 			$this->processNewInvoiceResponse( $response );
