@@ -727,7 +727,6 @@ $wgExtensionFunctions[] = function() {
 		$wgAmazonGatewayHtmlFormDir,
 		$wgGlobalCollectGatewayHtmlFormDir,
 		$wgPaypalGatewayHtmlFormDir,
-		$wgPayflowProGatewayHtmlFormDir,
 		$wgWorldPayGatewayHtmlFormDir;
 
 	/**
@@ -879,7 +878,6 @@ $wgExtensionFunctions[] = function() {
 		'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 		'paypal' => $wgPaypalGatewayHtmlFormDir,
 		'amazon' => $wgAmazonGatewayHtmlFormDir,
-	//	'pfp' => $wgPayflowProGatewayHtmlFormDir,
 	);
 
 	if ( $wgDonationInterfaceEnableAdyen === true ) {
