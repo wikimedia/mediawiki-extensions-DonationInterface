@@ -990,6 +990,7 @@ $wgDonationInterfaceAllowedHtmlForms = array();
 $wgDonationInterfaceFormDirs = array(
 	'adyen' => $wgAdyenGatewayHtmlFormDir,
 	'amazon' => $wgAmazonGatewayHtmlFormDir,
+	'astropay' => $wgAstropayGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,
