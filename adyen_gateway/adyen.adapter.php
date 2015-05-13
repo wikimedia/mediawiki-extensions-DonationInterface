@@ -505,7 +505,8 @@ class AdyenAdapter extends GatewayAdapter {
 		// FIXME: Why put that two places in transaction_result?
 		$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
 		$this->runPostProcessHooks();
-		$this->doLimboStompTransaction( TRUE ); // add antimessage
+		$this->deleteLimboMessage();
+		$this->doLimboStompTransaction( TRUE ); // TODO: stop mirroring to stomp
 		return null;
 	}
 
