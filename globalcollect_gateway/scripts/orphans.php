@@ -13,22 +13,24 @@ if ( $IP === false ) {
 require_once( "$IP/maintenance/Maintenance.php" );
 
 class GlobalCollectOrphanRectifier extends Maintenance {
-	
+
 	protected $killfiles = array();
 	protected $order_ids = array();
 	protected $target_execute_time;
 	protected $max_per_execute; //only really used if you're going by-file.
 	protected $adapter;
-	
+
 	public function execute() {
-		//have to turn this off here, until we know it's using the user's ip, and 
-		//not 127.0.0.1 during the batch process.
+		// Have to turn this off here, until we know it's using the user's ip, and
+		// not 127.0.0.1 during the batch process.  Otherwise, we'll immediately
+		// lock ourselves out when processing multiple charges.
 		global $wgDonationInterfaceEnableIPVelocityFilter;
+		$wgDonationInterfaceEnableIPVelocityFilter = false;
+
 		if ( !$this->getOrphanGlobal( 'enable' ) ){
 			echo "\nOrphan cron disabled. Have a nice day.";
 			return;
 		}
-		$wgDonationInterfaceEnableIPVelocityFilter = false;
 
 		$this->target_execute_time = $this->getOrphanGlobal( 'target_execute_time' );
 		$this->max_per_execute = $this->getOrphanGlobal( 'max_per_execute' );
@@ -48,15 +50,17 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		echo "Orphan Stomp\n";
 		$this->removed_message_count = 0;
 		$this->start_time = time();
-		
-		//I want to be clear on the problem I hope to prevent with this. 
-		//Say, for instance, we pull a legit orphan, and for whatever reason, can't completely rectify it. 
-		//Then, we go back and pull more... and that same one is in the list again. We should stop after one try per message per execute.
-		//We should also be smart enough to not process things we believe we just deleted. 
+
+		//I want to be clear on the problem I hope to prevent with this.  Say,
+		//for instance, we pull a legit orphan, and for whatever reason, can't
+		//completely rectify it.  Then, we go back and pull more... and that
+		//same one is in the list again. We should stop after one try per
+		//message per execute.  We should also be smart enough to not process
+		//things we believe we just deleted.
 		$this->handled_ids = array();
-		
+
 		//first, we need to... clean up the limbo queue. 
-		
+
 		//building in some redundancy here.
 		$collider_keepGoing = true;
 		$am_called_count = 0;
@@ -70,7 +74,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
-		
+
 		if ( $this->keepGoing() ){
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
 			$orphans = $this->getStompOrphans();
@@ -99,7 +103,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-		
+
 		// TODO: Stop mirroring to STOMP.
 		$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
 
@@ -138,7 +142,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->logger->info( $final );
 		echo $final;
 	}
-	
+
 	protected function keepGoing(){
 		$elapsed = $this->getProcessElapsed();
 		if ( $elapsed < $this->target_execute_time ) {
@@ -147,7 +151,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * This will both return the elapsed process time, and echo something for 
 	 * the cronspammer.
@@ -158,7 +162,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		echo "Elapsed Time: $elapsed\n";
 		return $elapsed;
 	}
-	
+
 	function addStompCorrelationIDToAckBucket( $correlation_id, $ackNow = false ){
 		static $bucket = array();
 		$count = 50; //sure. Why not?
@@ -185,9 +189,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 			$bucket = array();
 		}
-		
+
 	}
-	
+
 	function handleStompAntiMessages(){
 		$selector = "antimessage = 'true' AND gateway='globalcollect'";
 		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
@@ -276,7 +280,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 		return $orphans;
 	}
-	
+
 	function parse_files(){
 		//all the old stuff goes here. 
 		$order_ids = file( 'orphanlogs/order_ids.txt', FILE_SKIP_EMPTY_LINES );
@@ -288,7 +292,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$outstanding_count = count( $this->order_ids );
 		echo "Order ID count: $outstanding_count \n";
-		
+
 		$files = $this->getAllLogFileNames();
 		$payments = array();
 		foreach ( $files as $file ){
@@ -301,10 +305,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-		
+
 		$this->adapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 		$xml = new DomDocument;
-		
+
 		//fields that have generated notices if they're not there. 
 		$additional_fields = array(
 			'card_num',
@@ -312,7 +316,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			'utm_campaign',
 			'referrer',
 		);
-		
+
 		foreach ($payments as $key => $payment_data){
 			$xml->loadXML($payment_data['xml']);
 			$parsed = $this->adapter->parseResponseData($xml);
@@ -325,7 +329,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-		
+
 		// ADDITIONAL: log out what you did here, to... somewhere. 
 		// Preferably *before* you rewrite the Order ID file. 
 
@@ -339,12 +343,12 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-		
+
 		if ($outstanding_count != count($this->order_ids)){
 			$this->rewriteOrderIds();
 		}
 	}
-	
+
 	/**
 	 * Uses the Orphan Adapter to rectify (complete the charge for) a single orphan. Returns a boolean letting the caller know if
 	 * the orphan has been fully rectified or not. 
@@ -355,7 +359,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	protected function rectifyOrphan( $data, $query_contribution_tracking = true ){
 		echo 'Rectifying Orphan ' . $data['order_id'] . "\n";
 		$rectified = false;
-		
+
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		$message = $results->getMessage();
@@ -373,7 +377,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			if ( !empty( $errors ) && array_key_exists( '1000001', $errors ) ){
 				$rectified = true;
 			}
-			
+
 			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
 			if ( strpos( $message, "No processors are available." ) === 0 ){
 				$rectified = true;
@@ -383,7 +387,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		return $rectified;
 	}
-	
+
 	/**
 	 * Gets the global setting for the key passed in.
 	 * @param type $key
@@ -398,7 +402,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			return NULL;
 		}
 	}
-	
+
 	function getAllLogFileNames(){
 		$files = array();
 		if ($handle = opendir(__DIR__ . '/orphanlogs/')){
@@ -411,7 +415,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		closedir($handle);
 		return $files;
 	}
-	
+
 	function findTransactionLines($file){
 		$lines = array();
 		$orders = array();
@@ -425,7 +429,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$contrib_id_finder[] = trim($line_data);
 			}
 		}
-		
+
 		$order_ids = $this->order_ids;
 		foreach ($lines as $line_no=>$line_data){
 			if (count($orders) < $this->max_per_execute){
@@ -440,12 +444,12 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 			}
 		}
-		
+
 		//reverse the array, so we find the last instance first.
 		$contrib_id_finder = array_reverse($contrib_id_finder);
 		foreach ($orders as $order_id => $xml){
 			$finder = array_search("<ORDERID>$order_id</ORDERID>", $contrib_id_finder);
-			
+
 			//now search forward (which is actually backward) to the "Raw XML" line, so we can get the contribution_tracking_id
 			//TODO: Some kind of (in)sanity check for this. Just because we've found it one step backward doesn't mean...
 			//...but it's kind of good. For now. 
@@ -465,17 +469,17 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				);
 			}
 		}
-		
+
 		return $orders;
 	}
-	
+
 	function rewriteOrderIds() {
 		$file = fopen('orphanlogs/order_ids.txt', 'w');
 		$outstanding_orders = implode("\n", $this->order_ids);		
 		fwrite($file, $outstanding_orders);
 		fclose($file);
 	}
-	
+
 	function getLogfileLines( $file ){
 		$array = file($file, FILE_SKIP_EMPTY_LINES);
 		//now, check about 50 lines to make sure we're not seeing any of that #012, #015 crap.
@@ -502,13 +506,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$array2[] = $line;
 			}
 			$newfile = implode("\n", $array2);
-			
+
 			$handle = fopen($file, 'w');
 			fwrite($handle, $newfile);
 			fclose($handle);
 			$array = file($file, FILE_SKIP_EMPTY_LINES);
 		}
-		
+
 		return $array;
 	}
 }
