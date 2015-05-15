@@ -806,7 +806,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 *
 	 * If the site has $wgDonationInterfaceDisplayDebug = true, then the real
 	 * messages will be sent to the client. Messages will not be translated or
-	 * obfuscated.
+	 * obfuscated.  TODO: check DisplayDebug at output, not here
 	 *
 	 * @param DOMDocument	$response	The XML response data all loaded into a DOMDocument
 	 * @return array
@@ -832,7 +832,11 @@ class WorldPayAdapter extends GatewayAdapter {
 			if ( $action === FinalStatus::FAILED ) {
 				//use generic internals, I think.
 				//I can't tell if I'm being lazy here, or if we genuinely don't need to get specific with this.
-				$errors[$code] = ( $this->getGlobal( 'DisplayDebug' ) ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( 'internal-0003' );
+				$errors[$code] = array(
+					'logLevel' => LogLevel::DEBUG,
+					'message' => $this->getGlobal( 'DisplayDebug' ) ? '*** ' . $message : $this->getErrorMapByCodeAndTranslate( 'internal-0003' ),
+					'debugInfo' => $message
+				);
 			}
 		}
 		return $errors;
