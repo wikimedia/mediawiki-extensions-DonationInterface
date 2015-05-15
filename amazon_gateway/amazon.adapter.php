@@ -293,7 +293,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 
-		return $this->getTransactionAllResults();
+		return $this->transaction_response;
 	}
 
 	static function getCurrencies() {

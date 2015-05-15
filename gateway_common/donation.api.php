@@ -45,37 +45,42 @@ class DonationApi extends ApiBase {
 
 		//$normalizedData = $gatewayObj->getData_Unstaged_Escaped();
 		$outputResult = array();
-		if ( isset( $result['message'] ) ) {
-			$outputResult['message'] = $result['message'];
+		if ( $result->getMessage() !== null ) {
+			$outputResult['message'] = $result->getMessage();
 		}
-		if ( isset( $result['status'] ) ) {
-			$outputResult['status'] = $result['status'];
+		if ( $result->getCommunicationStatus() !== null ) {
+			$outputResult['status'] = $result->getCommunicationStatus();
 		}
 
-		if ( isset( $result['data'] ) ) {
-			if ( array_key_exists( 'PAYMENT', $result['data'] )
-				&& array_key_exists( 'RETURNURL', $result['data']['PAYMENT'] ) )
+		$data = $result->getData();
+		if ( !empty( $data ) ) {
+			if ( array_key_exists( 'PAYMENT', $data )
+				&& array_key_exists( 'RETURNURL', $data['PAYMENT'] ) )
 			{
-				$outputResult['returnurl'] = $result['data']['PAYMENT']['RETURNURL'];
+				$outputResult['returnurl'] = $data['PAYMENT']['RETURNURL'];
 			}
-			if ( array_key_exists( 'FORMACTION', $result['data'] ) ) {
-				$outputResult['formaction'] = $result['data']['FORMACTION'];
+			if ( array_key_exists( 'FORMACTION', $data ) ) {
+				$outputResult['formaction'] = $data['FORMACTION'];
 			}
-			if ( array_key_exists( 'gateway_params', $result['data'] ) ) {
-				$outputResult['gateway_params'] = $result['data']['gateway_params'];
+			if ( array_key_exists( 'gateway_params', $data ) ) {
+				$outputResult['gateway_params'] = $data['gateway_params'];
 			}
 			if ( $gatewayObj->getMerchantID() === 'test' ) {
 				$outputResult['testform'] = true;
 			}
-			if ( array_key_exists( 'RESPMSG', $result['data'] ) ) {
-				$outputResult['responsemsg'] = $result['data']['RESPMSG'];
+			if ( array_key_exists( 'RESPMSG', $data ) ) {
+				$outputResult['responsemsg'] = $data['RESPMSG'];
 			}
-			if ( array_key_exists( 'ORDERID', $result['data'] ) ) {
-				$outputResult['orderid'] = $result['data']['ORDERID'];
+			if ( array_key_exists( 'ORDERID', $data ) ) {
+				$outputResult['orderid'] = $data['ORDERID'];
 			}
 		}
-		if ( !empty( $result['errors'] ) ) {
-			$outputResult['errors'] = $result['errors'];
+		$errors = $result->getErrors();
+		if ( !empty( $errors ) ) {
+			$simplify = function( $error ) {
+				return $error['message'];
+			};
+			$outputResult['errors'] = array_map( $simplify, $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 

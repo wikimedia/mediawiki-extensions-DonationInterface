@@ -140,9 +140,10 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$gateway->setDummyGatewayResponseCode( $code );
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
-		$this->assertEquals( false, $result['status'], "Error code $code should mean status of do_transaction is false" );
-		$this->assertTrue( array_key_exists( 'errors', $result ), 'Orphan adapter needs to see the errors to consider it rectified' );
-		$this->assertTrue( array_key_exists('1000001', $result['errors'] ), 'Orphan adapter needs error 1000001 to consider it rectified' );
+		$this->assertEquals( false, $result->getCommunicationStatus(), "Error code $code should mean status of do_transaction is false" );
+		$errors = $result->getErrors();
+		$this->assertFalse( empty( $errors ), 'Orphan adapter needs to see the errors to consider it rectified' );
+		$this->assertTrue( array_key_exists( '1000001', $errors ), 'Orphan adapter needs error 1000001 to consider it rectified' );
 		$loglines = $this->getLogMatches( LogLevel::INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
 		$this->assertNotEmpty( $loglines, "GC Error $code is not generating the expected payments log error" );
 	}

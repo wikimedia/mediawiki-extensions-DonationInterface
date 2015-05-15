@@ -985,29 +985,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string  | $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
 	 *  that maps to a first-level key in the $transactions array.
 	 *
-	 * @return array    | The results of the transaction attempt. Minimum keys include:
-	 *	'status' = The result of the pure communication attempt. If there was a
-	 *		server there, and it responded in a way that was parsable, this will be
-	 *		set to true, even if it gave us bad news. In all other cases, this will be false.
-	 *	'message' = An appropriate thing to say to... whatever called us, about
-	 *		the overall result that happened here. This should be an i18n message label.
-	 *	'errors' = sort of a misnomer, that should probably be renamed to
-	 *		result_codes or similar. This is always going to be an array of
-	 *		numeric codes (even if we have to make them up ourselves) and
-	 *		human-readable assessments of what happened, probably straight from
-	 *		the gateway.
-	 *	'data' = The data passed back to us from the transaction, in a nice
-	 *		key-value array.
+	 * @return PaymentTransactionResponse
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
-			$return = array(
-				'status' => false,
-				'message' => 'Failed data validation',
-				'errors' => $this->getAllErrors(),
-			);
+			$return = new PaymentTransactionResponse();
+			$return->setCommunicationStatus( false );
+			$return->setMessage( 'Failed data validation' );
+			foreach( $this->getAllErrors() as $code => $error ) {
+				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
+			}
+			// TODO: should we set $this->transaction_response ?
 			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->getValidationErrors(), true ) );
 			return $return;
 		}
@@ -1062,7 +1052,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param &string() $retryVars Reference to an array of variables that caused the
 	 *                  transaction to fail.
 	 *
-	 * @return bool
+	 * @return PaymentTransactionResponse
 	 * @throws UnexpectedValueException
 	 */
 	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
@@ -1090,7 +1080,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'logLevel' => LogLevel::INFO
 					)
 				) );
-				return $this->getTransactionAllResults();
+				return $this->transaction_response;
 			}
 
 			if ( !$this->isBatchProcessor() ) {
@@ -1108,7 +1098,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 				$this->transaction_response->setCommunicationStatus( true );
 				$this->transaction_response->setRedirect( $this->url );
-				return $this->getTransactionAllResults();
+				return $this->transaction_response;
 
 			} elseif ( $commType === 'xml' ) {
 				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
@@ -1136,7 +1126,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				)
 			) );
 
-			return $this->getTransactionAllResults();
+			return $this->transaction_response;
 		}
 
 		/* --- Do the cURL request --- */
@@ -1219,7 +1209,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'logLevel' => LogLevel::INFO
 					)
 				) );
-				return $this->getTransactionAllResults();
+				return $this->transaction_response;
 			}
 		}
 
@@ -1228,7 +1218,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
 
-		return $this->getTransactionAllResults();
+		return $this->transaction_response;
 	}
 
 	function getCurlBaseOpts() {

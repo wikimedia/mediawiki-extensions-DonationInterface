@@ -164,6 +164,47 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
+	 * do_transaction should set redirect key when we get a valid response.
+	 */
+	function testDoPaymentSuccess() {
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'cc';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$result = $gateway->doPayment();
+
+		// from the test response
+		$expected = 'https://sandbox.astropaycard.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
+		$this->assertEquals( $expected, $result->getRedirect(),
+			'doPayment is not setting the right redirect' );
+	}
+
+	/**
+	 * When Astropay sends back valid JSON with status "1", we should set
+	 * error array to generic error and log a warning.
+	 */
+	function testDoPaymentErrors() {
+		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '1' );
+
+		$result = $gateway->doPayment();
+
+		$expected = array(
+			'internal-0000' => array(
+				'message' => wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text(),
+				'debugInfo' => 'Astropay response has non-zero status 1.  Error description: This error message should appear in the log.',
+				'logLevel' => LogLevel::WARNING
+			)
+		);
+		$this->assertEquals( $expected, $result->getErrors(),
+			'Wrong error array in PaymentResult' );
+		// TODO: Should this really be a refresh, or should we finalize to failed here?
+		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
+	}
+
+	/**
 	 * PaymentStatus transaction should interpret the delimited response
 	 */
 	function testPaymentStatus() {

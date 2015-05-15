@@ -260,8 +260,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
-
-		$this->assertFalse( $result['status'], 'Credit card should fail if querystring and XML have different CVVRESULT' );
+		// FIXME: this is not a communication failure, it's a fraud failure
+		$this->assertFalse( $result->getCommunicationStatus(), 'Credit card should fail if querystring and XML have different CVVRESULT' );
 	}
 
 	/**
@@ -523,5 +523,23 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
 		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
 		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");
+	}
+
+	/**
+	 * doPayment should return an iframe result with normal data
+	 */
+	function testDoPaymentSuccess() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@clean.com';
+		$init['ffname'] = 'cc-vmad';
+		unset( $init['order_id'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
+		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+		$this->assertEquals( 'url_placeholder', $result->getIframe(), 'PaymentResult should have iframe set' );
 	}
 }

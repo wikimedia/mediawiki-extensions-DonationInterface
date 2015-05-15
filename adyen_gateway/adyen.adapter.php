@@ -235,7 +235,7 @@ class AdyenAdapter extends GatewayAdapter {
 					break;
 			}
 		}
-		return $this->getTransactionAllResults();
+		return $this->transaction_response;
 	}
 
 	static function getCurrencies() {

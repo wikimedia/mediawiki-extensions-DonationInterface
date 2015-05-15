@@ -106,25 +106,23 @@ class PaymentResult {
 	/**
 	 * Build a PaymentResult object from adapter results
 	 *
-	 * @param array $data getTransactionAllResults contents.
+	 * @param PaymentTransactionResponse $response processed response object
 	 * @param string $finalStatus final transaction status.
 	 */
-	static public function fromResults( $data, $finalStatus ) {
+	static public function fromResults( $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {
 			return PaymentResult::newFailure();
 		}
-		if ( $data === false ) {
+		if ( !( $response ) ) {
 			return PaymentResult::newEmpty();
 		}
-		if ( array_key_exists( 'errors', $data )
-			&& $data['errors']
-		) {
+		if ( $response->getErrors() ) {
 			// TODO: We will probably want the ability to refresh to a new form
 			// as well and display errors at the same time.
-			return PaymentResult::newRefresh( $data['errors'] );
+			return PaymentResult::newRefresh( $response->getErrors() );
 		}
-		if ( isset( $data['redirect'] ) ) {
-			return PaymentResult::newRedirect( $data['redirect'] );
+		if ( $response->getRedirect() ) {
+			return PaymentResult::newRedirect( $response->getRedirect() );
 		}
 		return PaymentResult::newSuccess();
 	}

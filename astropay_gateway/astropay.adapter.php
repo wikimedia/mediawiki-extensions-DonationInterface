@@ -501,7 +501,7 @@ class AstropayAdapter extends GatewayAdapter {
 				);
 			}
 		} else {
-			$logme = "Astropay response has non-zero status {$response['status']}";
+			$logme = "Astropay response has non-zero status {$response['status']}.";
 			if ( isset( $response['desc'] ) ) {
 				// They don't give us codes to distinguish failure modes, so we
 				// have to parse the description.
@@ -513,9 +513,9 @@ class AstropayAdapter extends GatewayAdapter {
 						array( 'order_id' )
 					);
 				}
-				$logme .= 'Error description: ' . $response['desc'];
+				$logme .= '  Error description: ' . $response['desc'];
 			} else {
-				$logme .= 'Full response: ' . $this->getTransactionRawResponse();
+				$logme .= '  Full response: ' . $this->getTransactionRawResponse();
 			}
 			$this->logger->warning( $logme );
 			$this->transaction_response->setErrors( array(

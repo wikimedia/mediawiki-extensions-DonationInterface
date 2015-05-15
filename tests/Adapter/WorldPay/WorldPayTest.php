@@ -386,7 +386,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$results = $gateway->do_transaction( 'AuthorizePaymentForFraud' );
 
 		// internal-0001 is the error code processRespose adds for missing nodes
-		$this->assertFalse( array_key_exists( 'internal-0001', $results['errors'] ),
+		$this->assertFalse( array_key_exists( 'internal-0001', $results->getErrors() ),
 			'processResponse is failing a special snowflake account with a response missing AVS nodes' );
 	}
 
@@ -417,5 +417,44 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
 		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
 		$this->assertEquals( "Wikimedia {$options['contribution_tracking_id']}", $xml->NarrativeStatement1 );
+	}
+
+	/**
+	 * doPayment should return an empty result with normal data
+	 */
+	function testDoPaymentSuccess() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@clean.com';
+		$init['ffname'] = 'worldpay';
+		$init['currency_code'] = 'EUR';
+		$init['OTT'] = 'SALT123456789';
+		unset( $init['order_id'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
+		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+	}
+
+	/**
+	 * doPayment should return a failed result with data that triggers the fraud
+	 * filter
+	 */
+	function testDoPaymentFailed() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'nefarious@wikimedia.org'; //configured as fraudy
+		$init['ffname'] = 'worldpay';
+		$init['currency_code'] = 'EUR';
+		$init['OTT'] = 'SALT123456789';
+		unset( $init['order_id'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		$this->assertTrue( $result->isFailed(), 'PaymentResult should be failed' );
+		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
 	}
 }

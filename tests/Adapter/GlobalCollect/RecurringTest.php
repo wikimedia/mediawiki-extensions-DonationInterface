@@ -59,7 +59,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
-		$this->assertTrue( isset( $result['status'] ) && $result['status'] === true );
-		$this->assertRegExp( '/SET_PAYMENT/', $result['result'] );
+		$this->assertTrue( $result->getCommunicationStatus() );
+		$this->assertRegExp( '/SET_PAYMENT/', $result->getRawResponse() );
 	}
 }

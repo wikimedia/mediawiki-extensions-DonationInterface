@@ -747,6 +747,10 @@ class WorldPayAdapter extends GatewayAdapter {
 		);
 	}
 
+	/**
+	 * @param string $transaction
+	 * @return PaymentTransactionResponse
+	 */
 	public function do_transaction( $transaction ) {
 		$this->url = $this->getGlobal( 'URL' );
 
@@ -755,7 +759,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		switch ( $transaction ) {
 			case 'GenerateToken':
 				$result = parent::do_transaction( $transaction );
-				if ( !$result['errors'] ) {
+				if ( !$result->getErrors() ) {
 					// Save the OTT to the session for later
 					$this->session_addDonorData();
 				}
@@ -1155,7 +1159,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * Will run the QueryTokenData, AuthorizePaymentForFraud, and
 	 * AuthorizeAndDepositPayment API calls.
 	 *
-	 * @return array Transaction status
+	 * @return PaymentTransactionResponse
 	 */
 	protected function do_transaction_QueryAuthorizeDeposit() {
 		// Obtain all the form data from tokenization server
@@ -1175,7 +1179,8 @@ class WorldPayAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
 				return $result;
 			}
-			$code = $result[ 'data' ][ 'MessageCode' ];
+			$data = $result->getData();
+			$code = $data[ 'MessageCode' ];
 			$result_status = $this->findCodeAction( 'AuthorizePaymentForFraud', 'MessageCode', $code );
 			if ( $result_status ) {
 				$this->logger->info(
@@ -1197,7 +1202,8 @@ class WorldPayAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return $result;
 		}
-		$code = $result[ 'data' ][ 'MessageCode' ];
+		$data = $result->getData();
+		$code = $data['MessageCode'];
 		$result_status = $this->findCodeAction( 'AuthorizeAndDepositPayment', 'MessageCode', $code );
 		if ( $result_status ) {
 			$this->logger->info(

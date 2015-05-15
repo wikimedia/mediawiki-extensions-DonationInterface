@@ -358,26 +358,28 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
-		if ($results['status']){
+		$message = $results->getMessage();
+		if ( $results->getCommunicationStatus() ){
 			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $this->adapter->getValidationAction() );
 			$rectified = true;
 		} else {
-			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
-			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
+			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $message );
+			if ( strpos( $message, "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
 
 			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too. 
-			if ( isset( $results['errors'] ) && array_key_exists('1000001', $results['errors']) ){
+			$errors = $results->getErrors();
+			if ( !empty( $errors ) && array_key_exists( '1000001', $errors ) ){
 				$rectified = true;
 			}
 			
 			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
-			if ( strpos( $results['message'], "No processors are available." ) === 0 ){
+			if ( strpos( $message, "No processors are available." ) === 0 ){
 				$rectified = true;
 			}
 		}
-		echo $results['message'] . "\n";
+		echo $message . "\n";
 		
 		return $rectified;
 	}
