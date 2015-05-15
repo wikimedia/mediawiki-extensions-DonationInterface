@@ -2170,48 +2170,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * TODO: get rid of this shim, expose the getters we need externally
-	 * The results of the most recent cURL transaction.
-	 *
-	 * Standard keys are:
-	 *   status  - Boolean value that indicates if the completed without errors
-	 *             @see getTransactionStatus()
-	 *   result  - HTTP body request string returned from cURL
-	 *   message - Debug string; used for describing extra data for logging
-	 *             @see getTransactionMessage()
-	 *   errors  - Array of <error code> => <i18n message for user display>
-	 *             @see getTransactionErrors
-	 *   data    - Processed data array
-	 *
-	 * @return bool|string[] False if there are no results
-	 */
-	public function getTransactionAllResults() {
-		if ( !$this->transaction_response ) {
-			return false;
-		}
-		$errors = array();
-		$complicated = $this->transaction_response->getErrors();
-		if ( $complicated ) {
-			// Transform errors to legacy format
-			$simplify = function( $error ) {
-				return $error['message'];
-			};
-			$errors = array_map( $simplify, $complicated );
-		}
-		return array(
-			'result' => $this->transaction_response->getRawResponse(),
-			'status' => $this->transaction_response->getCommunicationStatus(),
-			'errors' => $errors,
-			'message' => $this->transaction_response->getMessage(),
-			'gateway_txn_id' => $this->transaction_response->getGatewayTransactionId(),
-			'data' => $this->transaction_response->getData(),
-			'force_cancel' => $this->transaction_response->getForceCancel(),
-			'redirect' => $this->transaction_response->getRedirect(),
-			'txn_message' => $this->transaction_response->getTxnMessage(),
-		);
-	}
-
-	/**
 	 * Returns the transaction communication status, or false if not set
 	 * present.
 	 * @return mixed
