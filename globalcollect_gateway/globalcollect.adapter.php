@@ -1155,7 +1155,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Either confirm or reject the payment
-	 * @global WebRequst $wgRequest
+	 * @global WebRequest $wgRequest
 	 * @return PaymentTransactionResponse
 	 */
 	private function transactionConfirm_CreditCard(){

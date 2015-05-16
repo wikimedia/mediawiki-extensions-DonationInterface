@@ -55,8 +55,8 @@ class DonationApi extends ApiBase {
 		$data = $result->getData();
 		if ( !empty( $data ) ) {
 			if ( array_key_exists( 'PAYMENT', $data )
-				&& array_key_exists( 'RETURNURL', $data['PAYMENT'] ) )
-			{
+				&& array_key_exists( 'RETURNURL', $data['PAYMENT'] )
+			) {
 				$outputResult['returnurl'] = $data['PAYMENT']['RETURNURL'];
 			}
 			if ( array_key_exists( 'FORMACTION', $data ) ) {
@@ -80,6 +80,7 @@ class DonationApi extends ApiBase {
 			$simplify = function( $error ) {
 				return $error['message'];
 			};
+			// TODO:objectify errors, decide here whether to include debug info
 			$outputResult['errors'] = array_map( $simplify, $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
