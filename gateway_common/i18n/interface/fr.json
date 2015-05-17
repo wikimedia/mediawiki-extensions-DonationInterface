@@ -28,7 +28,8 @@
 			"Windes",
 			"Jrobell",
 			"Element303",
-			"Macofe"
+			"Macofe",
+			"Wladek92"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -46,8 +47,8 @@
 	"donate_interface-comment-title": "Commentaire public",
 	"donate_interface-donation-description": "Don à la Fondation Wikimédia",
 	"donate_interface-monthly-donation-description": "Don mensuel à la Fondation Wikimédia",
-	"donate_interface-amount-error": "Veuillez entrer un montant valide",
-	"donate_interface-smallamount-error": "Vous ne pouvez pas donner moins de $1",
+	"donate_interface-amount-error": "Veuillez sélectionner le montant du don",
+	"donate_interface-smallamount-error": "Veuillez sélectionner une somme (minimum de $1)",
 	"donate_interface-bigamount-error": "Nous ne pouvons pas accepter les dons supérieurs à 10&nbsp;000&nbsp;USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.",
 	"donate_interface-processing-error": "Une erreur est survenue lors du traitement de votre requête.\nAucun organisme de paiement n’est disponible.",
 	"donate_interface-fallback-currency-notice": "Votre monnaie n’étant pas prise en charge, le traitement s’effectuera en $1, si vous décidez de continuer.",
@@ -191,7 +192,7 @@
 	"donate_interface-error-msg-js": "Veuillez entrer votre",
 	"donate_interface-error-msg-validation": "Veuillez corriger les erreurs dans le formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Veuillez entrer un montant valide",
-	"donate_interface-error-msg-email": "Veuillez entrer une adresse de courriel valide",
+	"donate_interface-error-msg-email": "Veuillez entrer une adresse de courriel valide par exemple  nom@domaine.com",
 	"donate_interface-error-msg-card-num": "Veuillez entrer un numéro de carte bancaire ou de crédit valide pour l’un des types de cartes acceptées",
 	"donate_interface-error-msg-amex": "Veuillez entrer un numéro de carte American Express correct.",
 	"donate_interface-error-msg-mc": "Veuillez entrer un numéro de carte MasterCard correct.",
