@@ -17,6 +17,8 @@
  *
  */
 
+use Psr\Log\LogLevel;
+
 /**
  * GatewayType Interface
  *
@@ -25,32 +27,14 @@ interface GatewayType {
 	//all the particulars of the child classes. Aaaaall.
 
 	/**
-	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
+	 * Process the API response obtained from the payment processor and set
+	 * properties of transaction_response
+	 * @param array|DomDocument $response Cleaned-up response returned from
+	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @throws ResponseProcessingException with an actionable error code and any
+	 *         variables to retry
 	 */
-	function getResponseStatus( $response );
-
-	/**
-	 * Parse the response to get the errors in a format we can log and otherwise deal with.
-	 * return a key/value array of codes (if they exist) and messages.
-	 */
-	function getResponseErrors( $response );
-
-	/**
-	 * Harvest the data we need back from the gateway.
-	 * return a key/value array
-	 */
-	function getResponseData( $response );
-
-	/**
-	 * Perform any additional processing on the response obtained from the server.
-	 *
-	 * @param array $response   The internal response object array -> ie: data, errors, action...
-	 * @param       $retryVars  null|array If the transaction suffered a recoverable error, this
-	 *  will be an array of all variables that need to be recreated and restaged.
-	 *
-	 * @return An actionable error code if it happened.
-	 */
-	public function processResponse( $response, &$retryVars = null );
+	public function processResponse( $response );
 
 	/**
 	 * Should be a list of our variables that need special staging.
@@ -71,6 +55,10 @@ interface GatewayType {
 	function defineTransactions();
 
 	/**
+	 * Define the message keys used to display errors to the user.  Should set
+	 * @see $this->error_map to an array whose keys are error codes and whose
+	 * values are i18n keys.
+	 * Any unmapped error code will use 'donate_interface-processing-error'
 	 */
 	function defineErrorMap();
 
@@ -206,9 +194,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * $error_map maps gateway errors to client errors
 	 *
-	 * The index of each error should map to a translation:
-	 *
-	 * 0 => globalcollect_gateway-response-default
+	 * The key of each error should map to a i18n message key.
+	 * By convention, the following three keys have these meanings:
+	 *   'internal-0000' => 'message-key-1', // Failed failed pre-process checks.
+	 *   'internal-0001' => 'message-key-2', // Transaction could not be processed due to an internal error.
+	 *   'internal-0002' => 'message-key-3', // Communication failure
+	 * Any undefined key will map to 'donate_interface-processing-error'
 	 *
 	 * @var	array	$error_map
 	 */
@@ -279,29 +270,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $payment_init_logger;
 
 	/**
-	 * $transaction_results is the member var that keeps track of the results of
+	 * $transaction_response is the member var that keeps track of the results of
 	 * the latest discrete transaction with the gateway.
-	 * There could be multiple transaction with the gateway in any one donation.
-	 * Expected keys:
-	 * - 'status' => boolean, denoting if there were internal errors on our end,
-	 * or at the gateway.
-	 * - 'message' => Originally supposed to be an i18n label, but somewhere
-	 * along the line this just turned into a message that would be marginally
-	 * okay to display to a user.
-	 * - 'errors' => An array of error codes => error messages that are meant to
-	 * make it to the user. If there weren't any, this should be present and
-	 * empty after a transaction.
-	 * - 'action' => The validation action (anti-fraud results)
-	 * Keys that might also exist:
-	 * - 'FINAL_STATUS' => The final outcome of an entire donation workflow.
-	 * - 'result' => Raw return data from the cURL transaction
-	 * - 'txn_message' - Special case internal messages about the success or
-	 * failure of the transaction. Not widely used.
-	 * - 'gateway_txn_id' - the gateway transaction ID
-	 * - 'data' - All PARSED transaction data.
-	 * @var array
+	 * @var PaymentTransactionResponse
 	 */
-	protected $transaction_results;
+	protected $transaction_response;
 	/**
 	 * @var string When the smoke clears, this should be set to one of the
 	 * constants defined in @see FinalStatus
@@ -589,9 +562,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Stash and process response data.
+	 * Add data from the processor to staged_data and run any unstaging functions.
 	 *
-	 * @param array  $dataArray An associative array of data.
+	 * @param array $dataArray An associative array of data.
 	 */
 	public function addResponseData( $dataArray ) {
 		foreach ( $dataArray as $key => $value ) {
@@ -726,13 +699,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$translatedMessage = '';
 		}
 
-		// If the $code does not exist, use the default code: 0
-		$code = !isset( $this->error_map[ $code ] ) ? 0 : $code;
+		// If the $code does not exist, use the default message
+		if ( isset( $this->error_map[ $code ] ) ) {
+			$messageKey = $this->error_map[ $code ];
+		} else {
+			$messageKey = 'donate_interface-processing-error';
+		}
 
-		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $this->error_map[$code] ) : $translatedMessage;
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $messageKey ) : $translatedMessage;
 
 		// Check to see if we return the translated message.
-		$message = ( $options['translate'] ) ? $translatedMessage : $this->error_map[ $code ];
+		$message = ( $options['translate'] ) ? $translatedMessage : $messageKey;
 
 		return $message;
 	}
@@ -1008,36 +985,25 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string  | $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
 	 *  that maps to a first-level key in the $transactions array.
 	 *
-	 * @return array    | The results of the transaction attempt. Minimum keys include:
-	 *	'status' = The result of the pure communication attempt. If there was a
-	 *		server there, and it responded in a way that was parsable, this will be
-	 *		set to true, even if it gave us bad news. In all other cases, this will be false.
-	 *	'message' = An appropriate thing to say to... whatever called us, about
-	 *		the overall result that happened here. This should be an i18n message label.
-	 *	'errors' = sort of a misnomer, that should probably be renamed to
-	 *		result_codes or similar. This is always going to be an array of
-	 *		numeric codes (even if we have to make them up ourselves) and
-	 *		human-readable assessments of what happened, probably straight from
-	 *		the gateway.
-	 *	'action' = What the pre-commit hooks said we should go do with ourselves.
-	 *		If none were fired, this will be set to 'process'
-	 *	'data' = The data passed back to us from the transaction, in a nice
-	 *		key-value array.
+	 * @return PaymentTransactionResponse
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
-			$return = array(
-				'status' => false,
-				'message' => 'Failed data validation',
-				'errors' => $this->getAllErrors(),
-			);
+			$return = new PaymentTransactionResponse();
+			$return->setCommunicationStatus( false );
+			$return->setMessage( 'Failed data validation' );
+			foreach( $this->getAllErrors() as $code => $error ) {
+				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
+			}
+			// TODO: should we set $this->transaction_response ?
 			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->getValidationErrors(), true ) );
 			return $return;
 		}
 
 		$retryCount = 0;
+		$loopCount = $this->getGlobal( 'RetryLoopCount' );
 
 		do {
 			$retryVars = null;
@@ -1058,9 +1024,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->stageData();
 			}
 
-		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < 3 ) );
+		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < $loopCount ) );
 
-		if ( $retryCount >= 3 ) {
+		if ( $retryCount >= $loopCount ) {
 			$this->logger->error( "Transaction canceled after $retryCount retries." );
 		}
 
@@ -1086,16 +1052,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param &string() $retryVars Reference to an array of variables that caused the
 	 *                  transaction to fail.
 	 *
-	 * @return bool
+	 * @return PaymentTransactionResponse
 	 * @throws UnexpectedValueException
 	 */
 	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
 		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
 
 		//reset, in case this isn't our first time.
-		$this->setTransactionResult( array() );
+		$this->transaction_response = new PaymentTransactionResponse();
 		$this->final_status = false;
-		$this->setValidationAction('process', true);
+		$this->setValidationAction( 'process', true );
 		$errCode = null;
 
 		/* --- Build the transaction string for cURL --- */
@@ -1105,17 +1071,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-				$this->setTransactionResult(
-					array(
-						'status' => false,
+				$this->transaction_response->setCommunicationStatus( false );
+				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+				$this->transaction_response->setErrors( array(
+					'internal-0000' => array(
+						'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
 						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'errors' => array(
-							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						),
-						'action' => $this->getValidationAction(),
+						'logLevel' => LogLevel::INFO
 					)
-				);
-				return $this->getTransactionAllResults();
+				) );
+				return $this->transaction_response;
 			}
 
 			if ( !$this->isBatchProcessor() ) {
@@ -1131,12 +1096,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				//save this most recent one before we leave.
 				$this->session_pushRapidHTMLForm( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
-				$this->setTransactionResult( array(
-					'status' => TRUE,
-					'action' => $this->getValidationAction(),
-					'redirect' => $this->url,
-				));
-				return $this->getTransactionAllResults();
+				$this->transaction_response->setCommunicationStatus( true );
+				$this->transaction_response->setRedirect( $this->url );
+				return $this->transaction_response;
 
 			} elseif ( $commType === 'xml' ) {
 				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
@@ -1152,56 +1114,56 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				throw new UnexpectedValueException( "Communication type of '{$commType}' unknown" );
 			}
 		} catch ( Exception $e ) {
-			$this->logger->critical( "Malformed gateway definition. Cannot continue: Aborting.\n" . $e->getMessage() );
+			$this->logger->critical( 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage() );
 
-			$this->setTransactionResult( array(
-				'status' => false,
-				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-				'errors' => array(
-					'internal-0001' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-				),
-				'action' => $this->getValidationAction(),
-			));
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0001' ) );
+			$this->transaction_response->setErrors( array(
+				'internal-0001' => array(
+					'debugInfo' => 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage(),
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+					'logLevel' => LogLevel::CRITICAL
+				)
+			) );
 
-			return $this->getTransactionAllResults();
+			return $this->transaction_response;
 		}
 
 		/* --- Do the cURL request --- */
 		$this->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { //We have something to slice and dice.
-			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->getTransactionAllResults(), true ) );
+			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
 
-			//set the status of the response. This is the COMMUNICATION status, and has nothing
-			//to do with the result of the transaction.
-			$formatted = $this->getFormattedResponse( $this->getTransactionRawResponse() );
-			$this->setTransactionResult( $this->getResponseStatus( $formatted ), 'status' );
+			// Decode the response according to $this->getResponseType
+			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
 
-			//set errors
-			//TODO: This "errors" business is becoming a bit of a misnomer, as the result code and message
-			//are frequently packaged togther in the same place, whether the transaction passed or failed.
-			$this->setTransactionResult( $this->getResponseErrors( $formatted ), 'errors' );
-
-			//if we're still okay (hey, even if we're not), get relevant data.
-			$this->setTransactionResult( $this->getResponseData( $formatted ), 'data' );
-
-			// Process the formatted response data. This will then drive the result action
-			$errCode = $this->processResponse( $this->getTransactionAllResults(), $retryVars );
-
-			//well, almost all.
-			$this->setTransactionResult( $this->getValidationAction(), 'action' );
+			// Process the formatted response. This will then drive the result action
+			try{
+				$this->processResponse( $formatted );
+			} catch ( ResponseProcessingException $ex ) {
+				$errCode = $ex->getErrorCode();
+				$retryVars = $ex->getRetryVars();
+				$this->transaction_response->addError( $errCode, array(
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+					'debugInfo' => $ex->getMessage(),
+					'logLevel' => LogLevel::ERROR
+				) );
+			}
 
 		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
-			$this->logger->error( "Transaction Communication failed" . print_r( $this->getTransactionAllResults(), true ) );
+			$logMessage = 'Transaction Communication failed' . print_r( $this->transaction_response, true );
+			$this->logger->error( $logMessage );
 
-			$this->setTransactionResult( array(
-				'status' => false,
-				'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
-				'errors' => array(
-					'internal-0002' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
-				),
-				'action' => $this->getValidationAction(),
-			));
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0002' ) );
+			$this->transaction_response->setErrors( array(
+				'internal-0002' => array(
+					'debugInfo' => $logMessage,
+					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
+					'logLevel' => LogLevel::ERROR
+				)
+			) );
 		}
 
 		// Log out how much time it took for the cURL request
@@ -1211,10 +1173,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->logger->critical( "$transaction Communication failed (errcode $errCode), will reattempt!" );
 
 			// Set this by key so that the result object still has all the cURL data
-			$this->setTransactionResult( false, 'status' );
-			$this->setTransactionResult( $this->getErrorMapByCodeAndTranslate( $errCode ), 'message' );
-			$this->setTransactionResult( array( $errCode => $this->getErrorMapByCodeAndTranslate( $errCode ) ), 'errors' );
-			$this->setTransactionResult( $this->getValidationAction(), 'action' );
+			$this->transaction_response->setCommunicationStatus( false );
+			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( $errCode ) );
+			$this->transaction_response->setErrors( array(
+				$errCode => array(
+					'debugInfo' => "$transaction Communication failed (errcode $errCode), will reattempt!",
+					'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
+					'logLevel' => LogLevel::CRITICAL
+				)
+			) );
 		}
 
 		//if we have set errors by this point, the transaction is not okay
@@ -1233,17 +1200,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
 				$this->logger->info( "Failed post-process checks for transaction type $transaction." );
-				$this->setTransactionResult(
-					array(
-						'status' => false,
+				$this->transaction_response->setCommunicationStatus( false );
+				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+				$this->transaction_response->setErrors( array(
+					'internal-0000' => array(
+						'debugInfo' => "Failed post-process checks for transaction type $transaction.",
 						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'errors' => array(
-							'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						),
-						'action' => $this->getValidationAction(),
+						'logLevel' => LogLevel::INFO
 					)
-				);
-				return $this->getTransactionAllResults();
+				) );
+				return $this->transaction_response;
 			}
 		}
 
@@ -1252,7 +1218,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
 
-		return $this->getTransactionAllResults();
+		return $this->transaction_response;
 	}
 
 	function getCurlBaseOpts() {
@@ -1389,7 +1355,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Sends a curl request to the gateway server, and gets a response.
-	 * Saves that response to the gateway object with setTransactionResult();
+	 * Saves that response to the transaction_response's rawResponse;
 	 * @param string $data the raw data we want to curl up to a server somewhere.
 	 * Should have been constructed with either buildRequestNameValueString, or
 	 * buildRequestXML.
@@ -1439,27 +1405,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// response in case there is a general network issue
 		$continue = true;
 		$i = 1;
-		$results = array();
+		$curl_response = false;
 
 		while ( ( $i++ <= 3 ) && ( $continue === true )) {
 			$this->logger->info( "Preparing to send {$this->getCurrentTransaction()} transaction to $gatewayName" );
 
 			// Execute the cURL operation
-			$result = $this->curl_exec( $ch );
-			$results['result'] = $result;
+			$curl_response = $this->curl_exec( $ch );
 
-			if ( $results['result'] !== false ) {
+			if ( $curl_response !== false ) {
 				// The cURL operation was at least successful, what happened in it?
 
-				$results['headers'] = $this->curl_getinfo( $ch );
-				$httpCode = $results['headers']['http_code'];
+				$headers = $this->curl_getinfo( $ch );
+				$httpCode = $headers['http_code'];
 
 				switch ( $httpCode ) {
 					case 200:   // Everything is AWESOME
 						$continue = false;
 
 						$this->logger->debug( "Successful transaction to $gatewayName" );
-						$this->setTransactionResult( $results );
+						$this->transaction_response->setRawResponse( $curl_response );
 
 						$retval = true;
 						break;
@@ -1467,23 +1432,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					case 400:   // Oh noes! Bad request.. BAD CODE, BAD BAD CODE!
 						$continue = false;
 
-						$this->logger->error( "$gatewayName returned (400) BAD REQUEST: $result" );
+						$this->logger->error( "$gatewayName returned (400) BAD REQUEST: $curl_response" );
 
 						// Even though there was an error, set the results. Amazon at least gives
 						// us useful XML return
-						$this->setTransactionResult( $results );
+						$this->transaction_response->setRawResponse( $curl_response );
 
 						$retval = true;
 						break;
 
 					case 403:   // Hmm, forbidden? Maybe if we ask it nicely again...
 						$continue = true;
-						$this->logger->alert( "$gatewayName returned (403) FORBIDDEN: $result" );
+						$this->logger->alert( "$gatewayName returned (403) FORBIDDEN: $curl_response" );
 						break;
 
 					default:    // No clue what happened... break out and log it
 						$continue = false;
-						$this->logger->error( "$gatewayName failed remotely and returned ($httpCode): $result" );
+						$this->logger->error( "$gatewayName failed remotely and returned ($httpCode): $curl_response" );
 						break;
 				}
 			} else {
@@ -1499,7 +1464,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// Clean up and return
 		curl_close( $ch );
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response" . print_r( $results, true ) );
+		$log_results = array(
+			'result' => $curl_response,
+			'headers' => $headers,
+		);
+		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
 
 		return $retval;
 	}
@@ -1530,6 +1499,31 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function curl_errno( $ch ) {
 		return curl_errno( $ch );
+	}
+
+	/**
+	 * Check the response for general sanity - e.g. correct data format, keys exists
+	 * @return boolean true if response looks sane
+	 */
+	protected function parseResponseCommunicationStatus( $response ) {
+		return true;
+	}
+
+	/**
+	 * Parse the response to get the errors in a format we can log and otherwise deal with.
+	 * @return array a key/value array of codes (if they exist) and messages.
+	 */
+	protected function parseResponseErrors( $response ) {
+		return array();
+	}
+
+	/**
+	 * This is only public for the orphan script.
+	 * Harvest the data we need back from the gateway.
+	 * @return array a key/value array
+	 */
+	public function parseResponseData( $response ) {
+		return array();
 	}
 
 	/**
@@ -1588,7 +1582,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return false;
 		}
 		$justXML = substr( $rawResponse, $xmlStart );
-		$this->setTransactionResult( $justXML, 'unparsed_data' );
 		return $justXML;
 	}
 
@@ -2169,77 +2162,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * The results of the most recent cURL transaction.
-	 *
-	 * Standard keys are:
-	 *   status  - Boolean value that indicates if the completed without errors
-	 *             @see getTransactionStatus()
-	 *   headers - HTTP headers returned from cURL
-	 *   result  - HTTP body request string returned from cURL
-	 *             @see getTransactionRawResponse()
-	 *   message - Debug string; used for describing extra data for logging
-	 *             @see getTransactionMessage()
-	 *   errors  - Array of <error code> => <i18n message for user display>
-	 *             @see getTransactionErrors
-	 *   action  - The validation action at the end of the request
-	 *   data    - Processed data array
-	 *
-	 * @return bool|string[] False if there are no results
+	 * Public accessor to the $transaction_response variable
+	 * @return PaymentTransactionResponse
 	 */
-	public function getTransactionAllResults() {
-		if ( $this->transaction_results && is_array( $this->transaction_results ) ) {
-			return $this->transaction_results;
-		} else {
-			return false;
-		}
+	public function getTransactionResponse() {
+		return $this->transaction_response;
 	}
 
 	/**
-	 * SetTransactionResult sets the gateway adapter object's
-	 * $transaction_results value.
-	 * If a $key is specified, it only sets the specified key's value. If no
-	 * $key is specified, it resets the value of the entire array.
-	 * @param mixed $value The value to set in $transaction_results
-	 * @param mixed $key Optional: A specific key to set, or false (default) to
-	 * reset the entire result array.
-	 */
-	public function setTransactionResult( $value = array(), $key = false ) {
-		if ( $key === false ) {
-			$this->transaction_results = $value;
-		} else {
-			$this->transaction_results[$key] = $value;
-		}
-	}
-
-	/**
-	 * Returns the 'result' key of $transaction_results, or false if none is
-	 * present
-	 * @return mixed
-	 */
-	public function getTransactionRawResponse() {
-		if ( array_key_exists( 'result', $this->transaction_results ) ) {
-			return $this->transaction_results['result'];
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Returns the 'status' key of $transaction_results, or false if none is
+	 * Returns the transaction communication status, or false if not set
 	 * present.
 	 * @return mixed
 	 */
 	public function getTransactionStatus() {
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'status', $this->transaction_results ) ) {
-			return $this->transaction_results['status'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getCommunicationStatus() ) {
+			return $this->transaction_response->getCommunicationStatus();
 		}
+		return false;
 	}
 
 	/**
-	 * If it has been set: returns the final payment status in the
-	 * $transaction_results array. This is the one we care about for switching
+	 * If it has been set: returns the final payment status in the $final_status
+	 * member variable. This is the one we care about for switching
 	 * on overall behavior. Otherwise, returns false.
 	 * @return mixed Final Transaction results status, or false if not set.
 	 * Should be one of the constants defined in @see FinalStatus
@@ -2363,20 +2307,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @return string|boolean
+	 */
 	public function getTransactionMessage() {
-		if ( $this->transaction_results && array_key_exists( 'txn_message', $this->transaction_results ) ) {
-			return $this->transaction_results['txn_message'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getTxnMessage() ) {
+			return $this->transaction_response->getTxnMessage();
 		}
+		return false;
 	}
 
+	/**
+	 * @deprecated
+	 * @return string|boolean
+	 */
 	public function getTransactionGatewayTxnID() {
-		if ( $this->transaction_results && array_key_exists( 'gateway_txn_id', $this->transaction_results ) ) {
-			return $this->transaction_results['gateway_txn_id'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getGatewayTransactionId() ) {
+			return $this->transaction_response->getGatewayTransactionId();
 		}
+		return false;
 	}
 
 	/**
@@ -2384,11 +2334,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed An array of returned data, or false.
 	 */
 	public function getTransactionData() {
-		if ( array_key_exists( 'data', $this->transaction_results ) ) {
-			return $this->transaction_results['data'];
-		} else {
-			return false;
+		if ( $this->transaction_response && $this->transaction_response->getData() ) {
+			return $this->transaction_response->getData();
 		}
+		return false;
 	}
 
 	/**
@@ -2399,8 +2348,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getTransactionErrors() {
 
-		if ( is_array( $this->transaction_results ) && array_key_exists( 'errors', $this->transaction_results ) ) {
-			return $this->transaction_results['errors'];
+		if ( $this->transaction_response && $this->transaction_response->getErrors() ) {
+			$simplify = function( $error ) {
+				return $error['message'];
+			};
+			return array_map( $simplify, $this->transaction_response->getErrors() );
 		} else {
 			return array();
 		}

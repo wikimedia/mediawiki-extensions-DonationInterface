@@ -17,7 +17,8 @@
 			"WikiPhoenix",
 			"Jrobell",
 			"Jenniesarina",
-			"Pcoombe"
+			"Pcoombe",
+			"Jopparn"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -383,7 +384,7 @@
 	"donate_interface-monthlybox-yes": "Javisst, gör det månatligt",
 	"donate_interface-monthlybox-no": "NEJ, gör en engångsdonation",
 	"donate_interface-monthlybox-bottom": "Din gåva kommer att behandlas säkert.",
-	"donate_interface-monthly-cancel": "För återkommande bidragsgivare kommer the Wikimedia Foundation debitera fasta månatliga betalningar, på månadsdagen av ditt första bidrag, tills det att du meddelar oss om att avsluta dem. \nBidrag som börjat på dagarna 29, 30, eller 31 i månaden kommer dras den sista dagen av månaden, i kortare månader, och så nära inpå startdatumet som möjligt. För frågor, vänligen kontakta donate@wikimedia.org.",
+	"donate_interface-monthly-cancel": "För återkommande bidragsgivare kommer Wikimedia Foundation debitera fasta månatliga betalningar, på månadsdagen av ditt första bidrag, till dess att du meddelar oss att sluta med det. \nBidrag som påbörjats den 29, 30, eller 31 i månaden kommer dras den sista dagen av månaden, i kortare månader, och så nära inpå startdatumet som möjligt. För frågor, vänligen kontakta donate@wikimedia.org.",
 	"donate_interface-onetime": "Gör en engångsdonation",
 	"donate_interface-monthly-short": "Månatlig",
 	"donate_interface-onetime-short": "Engångs",

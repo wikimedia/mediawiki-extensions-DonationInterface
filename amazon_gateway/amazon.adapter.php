@@ -50,7 +50,7 @@ class AmazonAdapter extends GatewayAdapter {
 			"status" => "gateway_status",
 			"buyerEmail" => "email",
 			"transactionDate" => "date_collect",
-			"buyerName" => "fname", // This is dealt with in processResponse()
+			"buyerName" => "fname", // This is dealt with in addDataFromURI()
 			"errorMessage" => "error_message",
 			"paymentMethod" => "payment_submethod",
 			"referenceId" => "contribution_tracking_id",
@@ -215,6 +215,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->session_addDonorData();
 
 		$this->setCurrentTransaction( $transaction );
+		$this->transaction_response = new PaymentTransactionResponse();
 
 		$override_url = $this->transaction_option( 'url' );
 		if ( !empty( $override_url ) ) {
@@ -292,7 +293,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 
-		return $this->getTransactionAllResults();
+		return $this->transaction_response;
 	}
 
 	static function getCurrencies() {
@@ -312,7 +313,7 @@ class AmazonAdapter extends GatewayAdapter {
 		if ( $this->getFinalStatus() === false ) {
 
 			$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
-			$this->setTransactionResult( $txnid, 'gateway_txn_id' );
+			$this->transaction_response->setGatewayTransactionId( $txnid );
 
 			// Second make sure that the inbound request had a matching outbound session. If it
 			// doesn't we drop it.
@@ -425,8 +426,28 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Added data to session for txnid $txnid. Now serving email $email." );
 	}
 
-	function processResponse( $response, &$retryVars = null ) {
-		if ( ( $this->getCurrentTransaction() == 'VerifySignature' ) && ( $response['data'] == true ) ) {
+	/**
+	 * We would call this function for the VerifySignature transaction, if we
+	 * ever used that.
+	 * @param DomDocument $response
+	 * @throws ResponseProcessingException
+	 */
+	public function processResponse( $response ) {
+		$this->transaction_response->setErrors( $this->parseResponseErrors( $response ) );
+		if ( $this->getCurrentTransaction() !== 'VerifySignature' ) {
+			return;
+		}
+		$statuses = $response->getElementsByTagName( 'VerificationStatus' );
+		$verified = false;
+		$commStatus = false;
+		foreach ( $statuses as $node ) {
+			$commStatus = true;
+			if ( strtolower( $node->nodeValue ) == 'success' ) {
+				$verified = true;
+			}
+		}
+		$this->transaction_response->setCommunicationStatus( $commStatus );
+		if ( !$verified ) {
 			$this->logger->info( "Transaction failed in response data verification." );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
@@ -476,22 +497,7 @@ class AmazonAdapter extends GatewayAdapter {
 		return $opts;
 	}
 
-	function getResponseData( $response ) {
-		// The XML string isn't really all that useful, so just return TRUE if the signature
-		// was verified
-		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
-			$statuses = $response->getElementsByTagName( 'VerificationStatus' );
-			foreach ( $statuses as $node ) {
-				if ( strtolower( $node->nodeValue ) == 'success' ) {
-					return TRUE;
-				}
-			}
-		}
-
-		return FALSE;
-	}
-
-	public function getResponseStatus( $response ) {
+	function parseResponseCommunicationStatus( $response ) {
 		$aok = false;
 
 		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
@@ -506,7 +512,7 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	// @todo FIXME: This doesn't go anywhere.
-	function getResponseErrors( $response ) {
+	function parseResponseErrors( $response ) {
 		$errors = array( );
 		foreach ( $response->getElementsByTagName( 'Error' ) as $node ) {
 			$code = '';

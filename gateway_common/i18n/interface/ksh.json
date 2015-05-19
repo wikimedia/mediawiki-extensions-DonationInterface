@@ -139,6 +139,7 @@
 	"donate_interface-donor-county": "Landkrieß udder Amp",
 	"donate_interface-donor-island": "Ensel",
 	"donate_interface-donor-state": "Schtaat",
+	"donate_interface-donor-province": "Provėnz",
 	"donate_interface-donor-zip": "De Poßleizahl",
 	"donate_interface-donor-postal": "Poßleizahl",
 	"donate_interface-donor-postcode": "Poßleizahl",
@@ -182,7 +183,7 @@
 	"donate_interface-error-msg-country": "dä Schtaaad enn, woh De wonns.",
 	"donate_interface-error-msg-card_type": "de Zoot vun Dinge Kredditkaat enn.",
 	"donate_interface-error-msg-card_num": "Dinge Kredditkaat ier Nommer enn.",
-	"donate_interface-error-msg-expiration": "enn, wann Ding Kaad ußleuf.",
+	"donate_interface-error-msg-expiration": "Jif enn, wann di Kaad ußleuf.",
 	"donate_interface-error-msg-cvv": "dä <i lang=\"en\">CVV</i>, di Prööfnommer, vun dä hengere Sigg vun Dinge Kaad enn.",
 	"donate_interface-error-msg-account_name": "der Nahme för Ding Konto enn.",
 	"donate_interface-error-msg-account_number": "Ding Kontonommer enn.",
@@ -379,6 +380,9 @@
 	"donate_interface-securelogo-title": "Donn heh drop klecke, öm dat Zättifikaat ze övverproofe.\nHeh di Wäbsait hät <i lang=\"en\">VeriSign</i> för singe <i lang=\"en\">SSL</i> ze zättefezeere ußjesöhk un määt domet afjesescherte äläkroonesche Handel un der vertroulesche un jeheime Ußtuusch vun Daate.",
 	"donate_interface-secureLogo-text": "Övver de Zächtifikaate för dä <i lang=\"en\">SSL</i>",
 	"donate_interface-error-http-403": "Do häs nit dat Rääsch, op heh di Sigg zohzejriife",
+	"donate_interface-statement": "Wikkimehdija $1",
+	"apihelp-donate-param-amount": "Wi vill jeschpänd.",
+	"apihelp-donate-param-currency_code": "Köözel fö de Währong.",
 	"apihelp-donate-param-fname": "Vörnahme.",
 	"apihelp-donate-param-lname": "Nohnahme.",
 	"apihelp-donate-param-street": "Adräß eezde Reih.",
@@ -390,5 +394,8 @@
 	"apihelp-donate-param-country": "Köözel för der Schtaht.",
 	"apihelp-donate-param-card_num": "De Nommer vun de Kreditkaat.",
 	"apihelp-donate-param-card_type": "De Zoot vun de Kreditkaat.",
-	"apihelp-donate-param-expiration": "Affloufdattom."
+	"apihelp-donate-param-expiration": "Affloufdattom.",
+	"apihelp-donate-param-payment_method": "Der Wähsch för et Bezahle.",
+	"apihelp-donate-param-language": "Et Shprohcheköözel.",
+	"apihelp-donate-example-1": "Maar_en Schpänd"
 }

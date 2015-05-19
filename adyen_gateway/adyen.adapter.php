@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 
 /**
  * AdyenAdapter
@@ -193,6 +194,7 @@ class AdyenAdapter extends GatewayAdapter {
 	function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
+		$this->transaction_response = new PaymentTransactionResponse();
 
 		if ( $this->transaction_option( 'iframe' ) ) {
 			// slightly different than other gateways' iframe method,
@@ -207,26 +209,25 @@ class AdyenAdapter extends GatewayAdapter {
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-						$this->setTransactionResult( array(
-							'status' => false,
-							'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-							'errors' => array(
-								'internal-0000' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+						$message = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
+						$this->transaction_response->setCommunicationStatus( false );
+						$this->transaction_response->setMessage( $message );
+						$this->transaction_response->setErrors( array(
+							'internal-0000' => array(
+								'message' => $message,
+								'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
+								'logLevel' => LogLevel::INFO
 							),
-							'action' => $this->getValidationAction(),
-						));
+						) );
 						break;
 					}
 					$this->stageData();
 					$requestParams = $this->buildRequestParams();
 
-					$this->setTransactionResult(
-						array(
-							'FORMACTION' => $formaction,
-							'gateway_params' => $requestParams,
-						),
-						'data'
-					);
+					$this->transaction_response->setData( array(
+						'FORMACTION' => $formaction,
+						'gateway_params' => $requestParams,
+					) );
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
 					$this->doLimboStompTransaction();
@@ -234,16 +235,7 @@ class AdyenAdapter extends GatewayAdapter {
 					break;
 			}
 		}
-		return $this->getTransactionAllResults();
-	}
-
-	function getResponseStatus( $response ) {
-	}
-
-	function getResponseErrors( $response ) {
-	}
-
-	function getResponseData( $response ) {
+		return $this->transaction_response;
 	}
 
 	static function getCurrencies() {
@@ -472,24 +464,35 @@ class AdyenAdapter extends GatewayAdapter {
 		return $queryvals;
 	}
 
-	function processResponse( $response, &$retryVars = null ) {
-		if ( empty( $response ) || empty ( $response['data'] ) ) {
+	/**
+	 * For Adyen, we only call this on the donor's return to the ResultSwitcher
+	 * @param array $response GET/POST params from request
+	 * @throws ResponseProcessingException
+	 */
+	public function processResponse( $response ) {
+		// Always called outside do_transaction, so just make a new response object
+		$this->transaction_response = new PaymentTransactionResponse();
+		if ( empty( $response ) ) {
 			$this->logger->info( "No response from gateway" );
-			return ResponseCodes::NO_RESPONSE;
+			throw new ResponseProcessingException(
+				'No response from gateway',
+				ResponseCodes::NO_RESPONSE
+			);
 		}
-		$request_vars = $response['data'];
-		$this->logger->info( "Processing user return data: " . print_r( $request_vars, TRUE ) );
+		$this->logger->info( "Processing user return data: " . print_r( $response, TRUE ) );
 
-		if ( !$this->checkResponseSignature( $request_vars ) ) {
+		if ( !$this->checkResponseSignature( $response ) ) {
 			$this->logger->info( "Bad signature in response" );
-			return ResponseCodes::BAD_SIGNATURE;
-		} else {
-			$this->logger->debug( "Good signature" );
+			throw new ResponseProcessingException(
+				'Bad signature in response',
+				ResponseCodes::BAD_SIGNATURE
+			);
 		}
+		$this->logger->debug( 'Good signature' );
 
-		$gateway_txn_id = isset( $request_vars[ 'pspReference' ] ) ? $request_vars[ 'pspReference' ] : '';
+		$gateway_txn_id = isset( $response['pspReference'] ) ? $response['pspReference'] : '';
 
-		$result_code = isset( $request_vars[ 'authResult' ] ) ? $request_vars[ 'authResult' ] : '';
+		$result_code = isset( $response['authResult'] ) ? $response['authResult'] : '';
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
@@ -497,17 +500,19 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( FinalStatus::PENDING );
 		}
 		else {
-			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $request_vars, TRUE ) );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			return ResponseCodes::UNKNOWN;
+			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
+			throw new ResponseProcessingException(
+				"Negative response from gateway. Full response: " . print_r( $response, TRUE ),
+				ResponseCodes::UNKNOWN
+			);
 		}
-		$this->setTransactionResult( $gateway_txn_id, 'gateway_txn_id' );
-		// FIXME: Why put that two places in transaction_result?
-		$this->setTransactionResult( $this->getFinalStatus(), 'txn_message' );
+		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
+		// FIXME: Why put that two places in transaction_response?
+		$this->transaction_response->setTxnMessage( $this->getFinalStatus() );
 		$this->runPostProcessHooks();
 		$this->deleteLimboMessage();
 		$this->doLimboStompTransaction( TRUE ); // TODO: stop mirroring to stomp
-		return null;
 	}
 
 	/**

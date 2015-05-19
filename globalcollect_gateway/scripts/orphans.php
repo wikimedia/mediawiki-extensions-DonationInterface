@@ -315,7 +315,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		foreach ($payments as $key => $payment_data){
 			$xml->loadXML($payment_data['xml']);
-			$parsed = $this->adapter->getResponseData($xml);
+			$parsed = $this->adapter->parseResponseData($xml);
 			$payments[$key]['parsed'] = $parsed;
 			$payments[$key]['unstaged'] = $this->adapter->unstage_data($parsed);
 			$payments[$key]['unstaged']['contribution_tracking_id'] = $payments[$key]['contribution_tracking_id'];
@@ -358,26 +358,28 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
-		if ($results['status']){
-			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $results['action'] );
+		$message = $results->getMessage();
+		if ( $results->getCommunicationStatus() ){
+			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $this->adapter->getValidationAction() );
 			$rectified = true;
 		} else {
-			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $results['message'] );
-			if ( strpos( $results['message'], "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
+			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $message );
+			if ( strpos( $message, "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
-			
+
 			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too. 
-			if ( array_key_exists('errors', $results) && array_key_exists('1000001', $results['errors']) ){
+			$errors = $results->getErrors();
+			if ( !empty( $errors ) && array_key_exists( '1000001', $errors ) ){
 				$rectified = true;
 			}
 			
 			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
-			if ( strpos( $results['message'], "No processors are available." ) === 0 ){
+			if ( strpos( $message, "No processors are available." ) === 0 ){
 				$rectified = true;
 			}
 		}
-		echo $results['message'] . "\n";
+		echo $message . "\n";
 		
 		return $rectified;
 	}
@@ -399,10 +401,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	
 	function getAllLogFileNames(){
 		$files = array();
-		if ($handle = opendir(dirname(__FILE__) . '/orphanlogs/')){
+		if ($handle = opendir(__DIR__ . '/orphanlogs/')){
 			while ( ($file = readdir($handle)) !== false ){
 				if (trim($file, '.') != '' && $file != 'order_ids.txt' && $file != '.svn'){
-					$files[] = dirname(__FILE__) . '/orphanlogs/' . $file;
+					$files[] = __DIR__ . '/orphanlogs/' . $file;
 				}
 			}
 		}

@@ -172,30 +172,32 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 *
 	 * Displays useful information for debugging purposes.
 	 * Enable with $wgDonationInterfaceDisplayDebug, or the adapter equivalent.
-	 * @param array $results
+	 * @param PaymentTransactionResponse $results
 	 * @return null
 	 */
-	protected function displayResultsForDebug( $results = array() ) {
+	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
 		global $wgOut;
 		
-		$results = empty( $results ) ? $this->adapter->getTransactionAllResults() : $results;
+		$results = empty( $results ) ? $this->adapter->getTransactionResponse() : $results;
 		
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ){
 			return;
 		}
-		$wgOut->addHTML( HTML::element( 'span', null, $results['message'] ) );
+		$wgOut->addHTML( HTML::element( 'span', null, $results->getMessage() ) );
 
-		if ( !empty( $results['errors'] ) ) {
+		$errors = $results->getErrors();
+		if ( !empty( $errors ) ) {
 			$wgOut->addHTML( HTML::openElement( 'ul' ) );
-			foreach ( $results['errors'] as $code => $value ) {
-				$wgOut->addHTML( HTML::element('li', null, "Error $code: $value" ) );
+			foreach ( $errors as $code => $value ) {
+				$wgOut->addHTML( HTML::element('li', null, "Error $code: " . print_r( $value, true ) ) );
 			}
 			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
 		}
 
-		if ( !empty( $results['data'] ) ) {
+		$data = $results->getData();
+		if ( !empty( $data ) ) {
 			$wgOut->addHTML( HTML::openElement( 'ul' ) );
-			foreach ( $results['data'] as $key => $value ) {
+			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
 					$wgOut->addHTML( HTML::openElement('li', null, $key ) . HTML::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
@@ -468,22 +470,19 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getOutput()->allowClickjacking();
 			// FIXME: do we really need this again?
 			$this->getOutput()->addModules( 'iframe.liberator' );
-			// processResponse expects something with data, so let's feed it
-			// all the GET and POST vars
-			$response = array(
-				'data' => $this->getRequest()->getValues(),
-			);
+			// processResponse expects some data, so let's feed it all the
+			// GET and POST vars
+			$response = $this->getRequest()->getValues();
 			// TODO: run the whole set of getResponseStatus, getResponseErrors
 			// and getResponseData first.  Maybe do_transaction with a
 			// communication_type of 'incoming' and a way to provide the
 			// adapter the GET/POST params harvested here.
-			if ( NULL === $this->adapter->processResponse( $response ) ) {
-				switch ( $this->adapter->getFinalStatus() ) {
-				case FinalStatus::COMPLETE:
-				case FinalStatus::PENDING:
-					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
-					return;
-				}
+			$this->adapter->processResponse( $response );
+			switch ( $this->adapter->getFinalStatus() ) {
+			case FinalStatus::COMPLETE:
+			case FinalStatus::PENDING:
+				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				return;
 			}
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );

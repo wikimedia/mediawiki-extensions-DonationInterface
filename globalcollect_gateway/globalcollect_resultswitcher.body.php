@@ -101,15 +101,25 @@ class GlobalCollectGatewayResult extends GatewayPage {
 						$this->logger->alert( "Resultswitcher: Parallel Universe Unlocked. Start time: $started" );
 					}
 					
-					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky. 
-					$_SESSION['order_status'][$oid] = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky.
+					$result = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+					$session_info = array(
+						//Just the stuff we use in displayResultsForDebug
+						'data' => $result->getData(),
+						'message' => $result->getMessage(),
+						'errors' => $result->getErrors()
+					);
+					$_SESSION['order_status'][$oid] = $session_info;
 					unset( $_SESSION['pending'] );
 					$_SESSION['order_status'][$oid]['data']['count'] = 0;
 				} else {
 					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
 					$this->logger->error( "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'] );
+					$result = new PaymentTransactionResult();
+					$result->setData( $_SESSION['order_status'][$oid]['data'] );
+					$result->setMessage( $_SESSION['order_status'][$oid]['message'] );
+					$result->setErrors( $_SESSION['order_status'][$oid]['errors'] );
 				}
-				$result = $_SESSION['order_status'][$oid];
 				$this->displayResultsForDebug( $result );
 				//do the switching between the... stuff. 
 

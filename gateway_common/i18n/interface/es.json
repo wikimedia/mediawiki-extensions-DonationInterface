@@ -401,6 +401,7 @@
 	"donate_interface-secureLogo-text": "Acerca de los certificados SSL",
 	"donate_interface-error-http-403": "No tiene permiso para acceder a esta página",
 	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-param-amount": "La cantidad donada.",
 	"apihelp-donate-param-currency_code": "Código de la moneda.",
 	"apihelp-donate-param-fname": "Nombre(s).",
 	"apihelp-donate-param-lname": "Apellido(s).",
@@ -415,8 +416,13 @@
 	"apihelp-donate-param-card_type": "Tipo de tarjeta de crédito.",
 	"apihelp-donate-param-expiration": "Fecha de vencimiento.",
 	"apihelp-donate-param-cvv": "Código de seguridad CVV.",
+	"apihelp-donate-param-payment_method": "Método de pago que usar.",
+	"apihelp-donate-param-payment_submethod": "Submétodo de pago que usar.",
 	"apihelp-donate-param-language": "Código del idioma.",
 	"apihelp-donate-param-utm_source": "Variable de seguimiento.",
 	"apihelp-donate-param-utm_campaign": "Variable de seguimiento.",
-	"apihelp-donate-param-utm_medium": "Variable de seguimiento."
+	"apihelp-donate-param-utm_medium": "Variable de seguimiento.",
+	"apihelp-donate-param-referrer": "Referente original.",
+	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
+	"apihelp-donate-example-1": "Hacer una donación"
 }
