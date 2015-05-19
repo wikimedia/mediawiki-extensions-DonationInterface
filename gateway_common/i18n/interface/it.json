@@ -15,7 +15,8 @@
 			"Raoli",
 			"Ximo17",
 			"Toadino2",
-			"Jrobell"
+			"Jrobell",
+			"Ricordisamoa"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -33,8 +34,8 @@
 	"donate_interface-comment-title": "Commento pubblico",
 	"donate_interface-donation-description": "Donazione alla Wikimedia Foundation",
 	"donate_interface-monthly-donation-description": "Donazione mensile alla Wikimedia Foundation",
-	"donate_interface-amount-error": "Si prega di inserire un importo valido",
-	"donate_interface-smallamount-error": "È necessario un contributo di almeno $1",
+	"donate_interface-amount-error": "Si prega di selezionare un importo da donare",
+	"donate_interface-smallamount-error": "Si prega di selezionare un importo (minimo $1)",
 	"donate_interface-bigamount-error": "Non possiamo accettare donazioni superiori a 10000 USD ($1 $2) attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo $3.",
 	"donate_interface-processing-error": "C'è stato un errore di elaborazione della tua richiesta.\nNessuna persona addetta all'elaborazione della richiesta è disponibile.",
 	"donate_interface-fallback-currency-notice": "La tua valuta non è supportata. La procedura verrà eseguita in $1, se decidi di continuare.",
@@ -173,7 +174,7 @@
 	"donate_interface-error-msg-js": "Le seguenti informazioni sono richieste:",
 	"donate_interface-error-msg-validation": "Si prega di correggere gli errori nel modulo.",
 	"donate_interface-error-msg-invalid-amount": "Si prega di inserire un importo valido",
-	"donate_interface-error-msg-email": "Si prega di inserire un indirizzo e-mail valido",
+	"donate_interface-error-msg-email": "Si prega di inserire un indirizzo email valido, per esempio nome@dominio.com",
 	"donate_interface-error-msg-card-num": "Si prega di inserire un numero di carta di credito valido per uno dei tipi di carte di credito accettate",
 	"donate_interface-error-msg-amex": "Si prega di inserire un numero di carta corretto per American Express.",
 	"donate_interface-error-msg-mc": "Si prega di inserire un numero di carta corretto per MasterCard.",
@@ -383,5 +384,21 @@
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-securelogo-title": "Clicca per verificare - questo sito ha scelto VeriSign SSL per assicurare una transazione sicura e comunicazioni riservate",
 	"donate_interface-secureLogo-text": "Info sui certificati SSL",
-	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina."
+	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
+	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-description": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",
+	"apihelp-donate-param-amount": "L'importo donato.",
+	"apihelp-donate-param-currency_code": "Codice valuta.",
+	"apihelp-donate-param-fname": "Nome.",
+	"apihelp-donate-param-lname": "Cognome.",
+	"apihelp-donate-param-city": "Città.",
+	"apihelp-donate-param-zip": "CAP.",
+	"apihelp-donate-param-emailAdd": "Indirizzo email.",
+	"apihelp-donate-param-card_num": "Numero della carta di credito.",
+	"apihelp-donate-param-card_type": "Tipo di carta di credito.",
+	"apihelp-donate-param-expiration": "Data di scadenza.",
+	"apihelp-donate-param-cvv": "Codice di sicurezza CVV.",
+	"apihelp-donate-param-payment_method": "Metodo di pagamento da usare.",
+	"apihelp-donate-param-language": "Codice lingua.",
+	"apihelp-donate-example-1": "Fai una donazione"
 }
