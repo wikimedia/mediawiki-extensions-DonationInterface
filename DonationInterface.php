@@ -49,6 +49,7 @@ $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = __DIR__ . '/gateway_common/DataValidator.php';
 $wgAutoloadClasses['LogPrefixProvider'] = __DIR__ . '/gateway_common/gateway.adapter.php';
+$wgAutoloadClasses['MessageUtils'] = __DIR__ . '/gateway_common/MessageUtils.php';
 $wgAutoloadClasses['NationalCurrencies'] = __DIR__ . '/gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = __DIR__ . '/gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['PaymentResult'] = __DIR__ . '/gateway_common/PaymentResult.php';
