@@ -35,6 +35,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data = $this->gateway->getData_Unstaged_Escaped();
 		self::$country = $data['country'];
 
+		$config = RequestContext::getMain()->getConfig();
+
+		$data['script_path'] = $config->get( 'ScriptPath' );
+		$data['verisign_logo'] = $this->getSmallSecureLogo();
+		$data['no_script'] = $this->getNoScript();
+
 		$template = file_get_contents( $this->topLevelForm );
 		if ( $template === false ) {
 			throw new RuntimeException( "Template file unavailable: [{$this->topLevelForm}]" );
@@ -46,6 +52,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			array(
 				'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
 				'helpers' => array( 'l10n' => 'Gateway_Form_Mustache::l10n' ),
+				'basedir' => array( __DIR__ . '/mustache' ),
+				'fileext' => '.html.mustache',
 			)
 		);
 		if ( !$code ) {
