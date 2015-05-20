@@ -80,15 +80,15 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'x_bank' => 'TE',
 			'x_country' => 'BR',
 			'x_description' => wfMessage( 'donate_interface-donation-description' )->inLanguage( $init['language'] )->text(),
-			'x_iduser' => '08feb2d12771bbcfeb86',
+			'x_iduser' => '802004aeec17f9544784',
 			'x_cpf' => '00003456789',
 			'x_name' => 'Nome Apelido',
-			'x_email' => 'nobody@wikimedia.org',
+			'x_email' => 'nobody@example.org',
 			// 'x_address' => 'Rua Falso 123',
 			// 'x_zip' => '01110-111',
 			// 'x_city' => 'São Paulo',
 			// 'x_state' => 'SP',
-			'control' => 'AF895D1D5514842A0BC424FBC8EF9CB89E3DFBC6A4A1BA5BBC664020D6A0A476',
+			'control' => '22A9DE18CB924AED05C6D8194BB38F5300F9B77CB00DC5342FF754146FF13250',
 			'type' => 'json',
 		);
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
@@ -313,5 +313,27 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 
 		$submethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
 		$this->assertEquals( 'visa_debit', $submethod, 'Not setting payment submethod in doPayment' );
+	}
+
+	/**
+	 * Test that we run the AntiFraud hooks before redirecting
+	 */
+	function testAntiFraudHooks() {
+		DonationInterface_FraudFiltersTest::setupFraudMaps();
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'cc';
+		$init['bank_code'] = 'VD';
+		// following data should trip fraud alarms
+		$init['utm_medium'] = 'somethingmedia';
+		$init['utm_source'] = 'somethingmedia';
+		$init['email'] = 'somebody@wikipedia.org';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed(), 'Result should be failure if fraud filters say challenge' );
+		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( 60, $gateway->getRiskScore(), 'RiskScore is not as expected' );
 	}
 }

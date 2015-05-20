@@ -81,4 +81,8 @@ class TestingAstropayAdapter extends AstropayAdapter {
 			'http_code' => $code,
 		);
 	}
+
+	public function getRiskScore() {
+		return $this->risk_score;
+	}
 }

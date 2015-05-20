@@ -241,6 +241,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'lname' => 'Apelido',
 				'amount' => '100',
 				'language' => 'pt',
+				'email' => 'nobody@example.org'
 			),
 		);
 		//default to US

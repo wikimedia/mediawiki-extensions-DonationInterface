@@ -341,8 +341,13 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function doPayment() {
+		$transaction_result = $this->do_transaction( 'NewInvoice' );
+		$this->runAntifraudHooks();
+		if ( $this->getValidationAction() !== 'process' ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+		}
 		$result = PaymentResult::fromResults(
-			$this->do_transaction( 'NewInvoice' ),
+			$transaction_result,
 			$this->getFinalStatus()
 		);
 		if ( $result->getRedirect() ) {
