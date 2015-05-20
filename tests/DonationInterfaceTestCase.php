@@ -435,6 +435,22 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['SCRIPT_NAME'] = __FILE__;
+
+		// Wipe out the $instance of these classes to make sure they're
+		// re-created with fresh gateway instances for the next test
+		$singleton_classes = array(
+			'Gateway_Extras_ConversionLog',
+			'Gateway_Extras_CustomFilters',
+			'Gateway_Extras_CustomFilters_Functions',
+			'Gateway_Extras_CustomFilters_IP_Velocity',
+			'Gateway_Extras_CustomFilters_MinFraud',
+			'Gateway_Extras_CustomFilters_Referrer',
+			'Gateway_Extras_CustomFilters_Source',
+			'Gateway_Extras_SessionVelocityFilter',
+		);
+		foreach( $singleton_classes as $singleton_class ) {
+			$singleton_class::$instance = null;
+		}
 	}
 
 	/**
