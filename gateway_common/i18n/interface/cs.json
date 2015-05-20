@@ -378,7 +378,7 @@
 	"donate_interface-securelogo-title": "Klepněte pro ověření – Tento server si zvolil VeriSign SSL pro zabezpečené internetové obchodování a důvěrnou komunikaci.",
 	"donate_interface-secureLogo-text": "O certifikátech SSL",
 	"donate_interface-error-http-403": "Nemáte oprávnění k přístupu na tuto stránku.",
-	"apihelp-donate-param-fname": "Jméno.",
+	"apihelp-donate-param-fname": "Křestní jméno.",
 	"apihelp-donate-param-lname": "Příjmení.",
 	"apihelp-donate-param-street": "První řádek adresy.",
 	"apihelp-donate-param-street_supplemental": "Druhý řádek adresy.",
