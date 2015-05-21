@@ -135,6 +135,12 @@ $wgDonationInterfaceTest = false;
  */
 $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
 
+/**
+ * Title to transclude in form template as {{{ appeal_text }}}.
+ * $appeal and $language will be substituted before transclusion
+ */
+$wgDonationInterfaceAppealWikiTemplate = 'LanguageSwitch|2011FR/$appeal/text|$language';
+
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
 //for instance: To override $wgDonationInterfaceUseSyslog just for GlobalCollect, add

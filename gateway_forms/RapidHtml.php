@@ -531,25 +531,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	}
 
 	/**
-	 * This function limits the possible characters passed as template keys and
-	 * values to letters, numbers, hyphens and underscores. The function also
-	 * performs standard escaping of the passed values.
-	 *
-	 * @param string $string The unsafe string to escape and check for invalid characters
-	 * @param string $default
-	 * @return string $default A string matching the regex or an empty string
-	 */
-	function make_safe( $string, $default='' ) {
-		$num = preg_match( '([a-zA-Z0-9_-]+)', $string, $matches );
-
-		if ( $num == 1 ){
-			# theoretically this is overkill, but better safe than sorry
-			return wfEscapeWikiText( htmlspecialchars( $matches[0] ) );
-		}
-		return $default;
-	}
-
-	/**
 	 * Gets a list of the supported countries from the parent class
 	 * and returns an option list representing all of those countries
 	 * in a translatable fashion.
