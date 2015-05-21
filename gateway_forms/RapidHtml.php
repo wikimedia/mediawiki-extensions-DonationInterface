@@ -288,8 +288,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 				$html = str_replace( $matches[ 0 ][ $i ], wfMessage( $msg_key, $params )->text(), $html );
 			} else {
 				// look for a country variant of the message and use that if found
-				$msg_text = DataValidator::wfLangSpecificFallback( $this->getEscapedValue( 'language' ),
-					array( $msg_key . '-' . strtolower( $this->getEscapedValue( 'country' ) ), $msg_key ) );
+				$msg_text = MessageUtils::getCountrySpecificMessage(
+					$msg_key,
+					$this->getEscapedValue( 'country' ),
+					$this->getEscapedValue( 'language' )
+				);
 				$html = str_replace( '%' . $msg_key . '%', $msg_text, $html );
 			}
 		}
