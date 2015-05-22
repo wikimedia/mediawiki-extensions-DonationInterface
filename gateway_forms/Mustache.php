@@ -32,25 +32,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * @throw RuntimeException
 	 */
 	public function getForm() {
-		$data = $this->gateway->getData_Unstaged_Escaped();
+		$data = $this->getData();
 		self::$country = $data['country'];
-
-		$context = RequestContext::getMain();
-		$config = $context->getConfig();
-		$output = $context->getOutput();
-		$request = $context->getRequest();
-
-		$data['script_path'] = $config->get( 'ScriptPath' );
-		$data['verisign_logo'] = $this->getSmallSecureLogo();
-		$data['no_script'] = $this->getNoScript();
-		$relativePath = $this->sanitizePath( $this->topLevelForm );
-		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
-
-		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
-		$appeal = $this->make_safe( $request->getText( 'appeal', 'Appeal-default' ) );
-		$appealWikiTemplate = str_replace( '$appeal', $appeal, $appealWikiTemplate );
-		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
-		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
 
 		$template = file_get_contents( $this->topLevelForm );
 		if ( $template === false ) {
@@ -81,6 +64,40 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$html = call_user_func( $renderer, $data, array() );
 
 		return $html;
+	}
+
+	protected function getData() {
+		$data = $this->gateway->getData_Unstaged_Escaped();
+		$context = RequestContext::getMain();
+		$config = $context->getConfig();
+		$output = $context->getOutput();
+		$request = $context->getRequest();
+
+		$data['script_path'] = $config->get( 'ScriptPath' );
+		$data['verisign_logo'] = $this->getSmallSecureLogo();
+		$data['no_script'] = $this->getNoScript();
+		$relativePath = $this->sanitizePath( $this->topLevelForm );
+		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
+		$data['action'] = $this->getNoCacheAction();
+
+		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
+		$appeal = $this->make_safe( $request->getText( 'appeal', 'Appeal-default' ) );
+		$appealWikiTemplate = str_replace( '$appeal', $appeal, $appealWikiTemplate );
+		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
+		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
+
+		$availableSubmethods = $this->gateway->getAvailableSubmethods();
+		// Need to add submethod key to its array 'cause mustache doesn't get keys
+		$data['submethods'] = array();
+		foreach( $availableSubmethods as $key => $submethod ) {
+			$submethod['key'] = $key;
+			$data['submethods'][] = $submethod;
+		}
+		$required_fields = $this->gateway->getRequiredFields();
+		foreach( $required_fields as $field ) {
+			$data["{$field}_required"] = true;
+		}
+		return $data;
 	}
 
 	/**

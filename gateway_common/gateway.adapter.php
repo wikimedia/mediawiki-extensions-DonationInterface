@@ -2640,64 +2640,76 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Build list of required fields
-	 *
-	 * @return array of field names
+	 * TODO: Determine if this ever needs to be overridden per gateway, or if
+	 * all the per-country / per-gateway cases can be expressed declaratively
+	 * in payment method / submethod metadata.  If that's the case, move this
+	 * function (to DataValidator?)
+	 * @return array of field names (empty if no payment method set)
 	 */
-	protected function buildRequiredFields() {
+	public function getRequiredFields() {
 		$required_fields = array();
+		if ( !$this->getPaymentMethod() ) {
+			return $required_fields;
+		}
 
-		try {
-			// TODO: This should work for method-level validation, not just submethod.
+		$methodMeta = $this->getPaymentMethodMeta();
+		$validation = isset( $methodMeta['validation'] ) ? $methodMeta['validation'] : array();
+
+		if ( $this->getPaymentSubmethod() ) {
 			$submethodMeta = $this->getPaymentSubmethodMeta();
-
-			foreach ( $submethodMeta['validation'] as $type => $enabled ) {
-				if ( $enabled !== true ) {
-					continue;
-				}
-
-				switch ( $type ) {
-					case 'address' :
-						$check_not_empty = array(
-							'street',
-							'city',
-							'state',
-							'country',
-							'zip', //this should really be added or removed, depending on the country and/or gateway requirements. 
-							//however, that's not happening in this class in the code I'm replacing, so... 
-							//TODO: Something clever in the DataValidator with data groups like these. 
-						);
-						break;
-					case 'amount' :
-						$check_not_empty = array( 'amount' );
-						break;
-					case 'creditCard' :
-						$check_not_empty = array(
-							'card_num',
-							'cvv',
-							'expiration',
-							'card_type'
-						);
-						break;
-					case 'email' :
-						$check_not_empty = array( 'email' );
-						break;
-					case 'name' :
-						$check_not_empty = array(
-							'fname',
-							'lname'
-						);
-						break;
-					default:
-						$this->logger->error( "bad required group name: {$type}" );
-						continue;
-				}
-
-				if ( $check_not_empty ) {
-					$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
-				}
+			if ( isset( $submethodMeta['validation'] ) ) {
+				// submethod validation can override method validation
+				// TODO: child method anything should supercede parent method
+				// anything, and PaymentMethod should handle that.
+				$validation = $submethodMeta['validation'] + $validation;
 			}
-		} catch ( Exception $ex ) {
-			// pass.  There is no submethod defined and the programmer has been lazy.
+		}
+
+		foreach ( $validation as $type => $enabled ) {
+			if ( $enabled !== true ) {
+				continue;
+			}
+
+			switch ( $type ) {
+			case 'address' :
+				$check_not_empty = array(
+					'street',
+					'city',
+					'state',
+					'country',
+					'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
+					//however, that's not happening in this class in the code I'm replacing, so...
+					//TODO: Something clever in the DataValidator with data groups like these.
+					);
+					break;
+				case 'amount' :
+					$check_not_empty = array( 'amount' );
+					break;
+				case 'creditCard' :
+					$check_not_empty = array(
+						'card_num',
+						'cvv',
+						'expiration',
+						'card_type'
+					);
+					break;
+				case 'email' :
+					$check_not_empty = array( 'email' );
+					break;
+				case 'name' :
+					$check_not_empty = array(
+						'fname',
+						'lname'
+					);
+					break;
+				default:
+					$this->logger->error( "bad required group name: {$type}" );
+					continue;
+			}
+
+			if ( $check_not_empty ) {
+				$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
+			}
 		}
 
 		return $required_fields;
@@ -2711,7 +2723,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * TODO: Maybe validate on $unstaged_data directly? 
 	 */
 	public function revalidate() {
-		$check_not_empty = $this->buildRequiredFields();
+		$check_not_empty = $this->getRequiredFields();
 
 		$validation_errors = $this->dataObj->getValidationErrors( true, $check_not_empty );
 		$this->setValidationErrors( $validation_errors );
@@ -3772,6 +3784,39 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		else {
 			throw new OutOfBoundsException( "The payment submethod [{$payment_submethod}] was not found." );
 		}
+	}
+
+	/**
+	 * Get metadata for all available submethods, given current method / country
+	 * TODO: A PaymentMethod should be able to list its child options.  Probably
+	 * still need some gateway-specific logic to prune the list by country and
+	 * currency.
+	 * TODO: Make it possible to override availability by currency and currency
+	 * in LocalSettings.  Idea: same metadata array structure as used in
+	 * definePaymentMethods, overrides cascade from
+	 * methodMeta -> submethodMeta -> settingsMethodMeta -> settingsSubmethodMeta
+	 * @return array with available submethods
+	 *	'visa' => array( 'label' => 'Visa' )
+	 */
+	function getAvailableSubmethods() {
+		$method = $this->getPaymentMethod();
+
+		$submethods = array();
+		foreach( $this->payment_submethods as $key => $available_submethod ) {
+			if ( $available_submethod['group'] !== $method ) {
+				continue; // skip anything not part of the selected method
+			}
+			if (
+				$this->unstaged_data // need data for country filter
+				&& isset( $available_submethod['countries'] )
+				// if the list exists, the current country key needs to exist and have a true value
+				&& empty( $available_submethod['countries'][$this->getData_Unstaged_Escaped( 'country' )] )
+			) {
+				continue; // skip 'em if they're not allowed round here
+			}
+			$submethods[$key] = $available_submethod;
+		}
+		return $submethods;
 	}
 
 	/**

@@ -236,8 +236,13 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'cc' => array(),
+		$this->payment_methods = array();
+
+		$this->payment_methods['cc'] = array(
+			'validation' => array(
+				'name' => true,
+				'email' => true,
+			),
 		);
 
 		$this->payment_submethods = array();
@@ -253,8 +258,6 @@ class AstropayAdapter extends GatewayAdapter {
 				'bankcode' => 'TE',
 				'label' => 'GNB',
 				'group' => 'cc',
-				'validation' => array(),
-				'keys' => array(),
 			);
 		}
 
@@ -263,8 +266,10 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'VI',
 			'label' => 'Visa',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array(
+				'AR' => true,
+				'BR' => true,
+			),
 		);
 
 		// MasterCard
@@ -272,8 +277,10 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'MC',
 			'label' => 'MasterCard',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array(
+				'AR' => true,
+				'BR' => true,
+			),
 		);
 
 		// American Express
@@ -281,8 +288,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'AE',
 			'label' => 'American Express',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array( 'BR' => true, ),
 		);
 
 		// Visa Debit
@@ -290,8 +296,10 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'VD',
 			'label' => 'Visa Debit',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array(
+				'BR' => true,
+				'MX' => true,
+			),
 		);
 
 		// MasterCard debit
@@ -299,8 +307,10 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'MD',
 			'label' => 'Mastercard Debit',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array(
+				'BR' => true,
+				'MX' => true,
+			),
 		);
 
 		// Elo (Brazil-only)
@@ -308,8 +318,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'EL',
 			'label' => 'Elo',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array( 'BR' => true, ),
 		);
 
 		// Diners Club
@@ -317,8 +326,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'DC',
 			'label' => 'Diners Club',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array( 'BR' => true, ),
 		);
 
 		// Hipercard
@@ -326,8 +334,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'HI',
 			'label' => 'Hipercard',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array( 'BR' => true, ),
 		);
 
 		// Argencard
@@ -335,8 +342,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'bankcode' => 'AG',
 			'label' => 'Argencard',
 			'group' => 'cc',
-			'validation' => array(),
-			'keys' => array(),
+			'countries' => array( 'AR' => true, ),
 		);
 	}
 
@@ -358,6 +364,15 @@ class AstropayAdapter extends GatewayAdapter {
 		return $result;
 	}
 
+	/**
+	 * Overriding parent method to add fiscal number
+	 * @return array of required field names
+	 */
+	public function getRequiredFields() {
+		$fields = parent::getRequiredFields();
+		$fields[] = 'fiscal_number';
+		return $fields;
+	}
 	/**
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to add a
 	 * calculated signature.

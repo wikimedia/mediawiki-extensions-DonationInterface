@@ -1,10 +1,10 @@
 								<dl class="">
-                                    <dd class="field" style="margin-bottom: 0; margin-left: 0;">
-                                        <ul class="options-h enabled" id="cards" style="margin: 0;">
-                                            <li><input id="cc-visa" name="bank_code" type="radio" value="VI" class="cardradio" /> <label for="cc-visa"><img alt="Visa" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/card-visa.png" /></label></li>
-											<li><input id="cc-mc" name="bank_code" type="radio" value="MC" class="cardradio" /> <label for="cc-mc"><img alt="MasterCard" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/card-mastercard.png" /></label></li>
-											<li><input id="cc-amex" name="bank_code" type="radio" value="AE" class="cardradio" /> <label for="cc-amex"><img alt="American Express" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/card-amex.png" /></label></li>
+									<dd class="field" style="margin-bottom: 0; margin-left: 0;">
+										<ul class="options-h enabled" id="cards" style="margin: 0;">
+{{# submethods }}
+											<li title="{{ label }}"><input id="cc-{{ key }}" name="bank_code" type="radio" value="{{ bankcode }}" class="cardradio" /> <label for="cc-{{ key }}"><img alt="{{ label }}" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/card-{{ key }}.png" /></label></li>
+{{/ submethods }}
 										</ul>
-                                        <div id="paymentContinue" style="margin-top: 10px; display: none;"> <input class="btn" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
-                                    </dd>
-                                </dl>
+										<div id="paymentContinue" > <input class="btn" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
+									</dd>
+								</dl>
