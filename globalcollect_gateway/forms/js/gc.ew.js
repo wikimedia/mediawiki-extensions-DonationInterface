@@ -41,7 +41,7 @@ $( document ).ready( function () {
 		$( '#topError' ).html( paymentErrorString );
 	}
 
-	$( '#bt-continueBtn' ).live( 'click', function () {
+	$( '#bt-continueBtn' ).on( 'click', function () {
 		if ( validateAmount() ) { //&& validate_personal( document.paypalcontribution ) ) {
 			document.paypalcontribution.action = actionURL;
 			document.paypalcontribution.submit();

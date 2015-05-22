@@ -45,7 +45,7 @@ $( document ).ready( function () {
 		$( '#topError' ).html( paymentErrorString );
 	}
 
-	$( '#paymentContinueBtn' ).live( 'click', function () {
+	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '314px' }, 1000 );
 			displayCreditCardForm();
@@ -55,7 +55,7 @@ $( document ).ready( function () {
 	} );
 
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).live( 'change', function (event) {
+	$( '.cardradio' ).on( 'change', function (event) {
 
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '314px' }, 1000 );
