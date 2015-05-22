@@ -53,7 +53,7 @@ $( document ).ready( function () {
 		$( '#paymentErrorMessages' ).html( paymentErrorString );
 		showAmount( $( 'input[name="amount"]' ) ); // lets go ahead and assume there is something to show
 	}
-	$( '#bt-continueBtn' ).live( 'click', function () {
+	$( '#bt-continueBtn' ).on( 'click', function () {
 		if ( validateAmount() && validate_personal( document.paypalcontribution ) ) {
 			document.paypalcontribution.action = actionURL;
 			document.paypalcontribution.submit();
