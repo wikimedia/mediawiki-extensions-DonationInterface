@@ -30,18 +30,26 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
-			'wgDonationInterfaceEnabledGateways' => array( 'donation' ), // base class.  awkward.
+			// FIXME: base class sketchiness.
+			'wgDonationInterfaceGatewayAdapters' => array(
+				'GatewayAdapter',
+			),
 			'wgDonationInterfacePriceFloor' => 2.00,
 			'wgDonationInterfacePriceCeiling' => 100.00,
 		) );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
-		TestingGenericAdapter::$fakeIdentifier = null;
 
 		$this->page = new TestingGatewayPage();
 		$this->adapter = new TestingGenericAdapter();
 		$this->page->adapter = $this->adapter;
 		parent::setUp();
+	}
+
+	public function tearDown() {
+		TestingGenericAdapter::$fakeIdentifier = null;
+
+		parent::tearDown();
 	}
 
 	public function testPassesValidation() {

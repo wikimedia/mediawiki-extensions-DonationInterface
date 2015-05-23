@@ -43,8 +43,6 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			'wgWorldPayGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'testytest' => array(
-					// FIXME: camlcase is due to bad special page contstruction
-					// in GatewayFormChooser.
 					'gateway' => 'worldpay',
 				),
 				'worldpay' => array(

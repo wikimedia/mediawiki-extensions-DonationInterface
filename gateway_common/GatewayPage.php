@@ -69,6 +69,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = RequestContext::getMain()->getLanguage();
 		}
 
+		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
+			throw new BadTitleError();
+		}
+
 		if( $wgContributionTrackingFundraiserMaintenance
 			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
 			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );

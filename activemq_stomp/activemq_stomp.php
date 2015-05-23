@@ -5,6 +5,12 @@
  */
 
 function efStompSetup( &$parser ) {
+	global $wgDonationInterfaceEnableStomp;
+
+	if ( $wgDonationInterfaceEnableStomp !== true ) {
+		return true;
+	}
+
 	// redundant and causes Fatal Error
 	// $parser->disableCache();
 
@@ -38,7 +44,12 @@ function efStompTest( $input, $args, &$parser ) {
  * @throws RuntimeException
  */
 function sendSTOMP( $transaction, $queue = 'default' ) {
-	global $IP, $wgStompServer, $wgStompQueueNames;
+	global $IP, $wgStompServer, $wgStompQueueNames,
+		$wgDonationInterfaceEnableStomp;
+
+	if ( $wgDonationInterfaceEnableStomp !== true ) {
+		return true;
+	}
 
 	// Find the queue name
 	if ( array_key_exists( $transaction['payment_method'] . "-$queue", $wgStompQueueNames ) ) {
@@ -122,6 +133,12 @@ function sendSTOMP( $transaction, $queue = 'default' ) {
  * nothing exploded big enough to kill the whole thing.
  */
 function sendPendingSTOMP( $transaction ) {
+	global $wgDonationInterfaceEnableStomp;
+
+	if ( $wgDonationInterfaceEnableStomp !== true ) {
+		return true;
+	}
+
 	return sendSTOMP( $transaction, 'pending' );
 }
 
@@ -146,6 +163,12 @@ function sendLimboSTOMP( $transaction ) {
  * nothing exploded big enough to kill the whole thing.
  */
 function sendFreeformSTOMP( $transaction, $queue ) {
+	global $wgDonationInterfaceEnableStomp;
+
+	if ( $wgDonationInterfaceEnableStomp !== true ) {
+		return true;
+	}
+
 	$transaction['freeform'] = true;
 	return sendSTOMP( $transaction, $queue );
 }

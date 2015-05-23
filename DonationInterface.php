@@ -716,164 +716,80 @@ $wgDonationInterfaceUtmMediumMap = array();
  */
 $wgDonationInterfaceUtmSourceMap = array();
 
-// Perform initialization that depends on user configuration.
-$wgExtensionFunctions[] = function() {
-	global $wgDonationInterfaceEnabledGateways,
-		$wgDonationInterfaceEnableCustomFilters,
-		$wgSpecialPages,
-		$wgHooks;
+$wgDonationInterfaceEnableStomp = false;
+$wgDonationInterfaceEnableQueue = false;
+$wgDonationInterfaceEnableConversionLog = false; //this is definitely an Extra
+$wgDonationInterfaceEnableMinfraud = false; //this is definitely an Extra
 
-	/**
-	 * Figure out what we've got enabled.
-	 */
-	$optionalParts = array( //define as fail closed.
-		'CustomFilters' => false, //Gets set if at least one filter is enabled.
-		'Stomp' => false,
-		'Queue' => false,
-		'ConversionLog' => false, //this is definitely an Extra
-		'Minfraud' => true, //this is definitely an Extra
-		'GlobalCollect' => true,
-		'Amazon' => true,
-		'Adyen' => true,
-		'Astropay' => true,
-		'Paypal' => true,
-		'WorldPay' => true,
-		'FormChooser' => true,
-		'ReferrerFilter' => true, //extra
-		'SourceFilter' => true, //extra
-		'FunctionsFilter' => true, //extra
-		'IPVelocityFilter' => false, //extra
-		'SessionVelocityFilter' => false, //extra
-		'SystemStatus' => false, //extra
-	);
-
-	// FIXME: Crude plugin type mechanism.
-	$customFilters = array(
-		'ReferrerFilter',
-		'SourceFilter',
-		'Minfraud',
-		'IPVelocityFilter',
-		'SessionVelocityFilter',
-	);
-
-	foreach ($optionalParts as $subextension => $enabled){
-		$globalname = 'wgDonationInterfaceEnable' . $subextension;
-		global $$globalname;
-		if ( isset( $$globalname ) ) {
-			$optionalParts[$subextension] = $$globalname;
-		}
-
-		if ( $optionalParts[$subextension] === true ) {
-			//this is still annoying.
-			if ( in_array( $subextension, $customFilters ) ) {
-				$optionalParts['CustomFilters'] = true;
-				$wgDonationInterfaceEnableCustomFilters = true; //override this for specific gateways to disable
-			}
-		}
-	}
-
-	/**
-	 * SPECIAL PAGES
-	 */
-	if ( $optionalParts['FormChooser'] === true ){
-		$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
-	}
-	if ( $optionalParts['SystemStatus'] === true ){
-		$wgSpecialPages['SystemStatus'] = 'SystemStatus';
-	}
-
-	//GlobalCollect gateway special pages
-	if ( $optionalParts['GlobalCollect'] === true ){
-		$wgSpecialPages['GlobalCollectGateway'] = 'GlobalCollectGateway';
-		$wgSpecialPages['GlobalCollectGatewayResult'] = 'GlobalCollectGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'globalcollect';
-	}
-	//Amazon Simple Payment gateway special pages
-	if ( $optionalParts['Amazon'] === true ){
-		$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
-		$wgDonationInterfaceEnabledGateways[] = 'amazon';
-	}
-	//Adyen gateway special pages
-	if ( $optionalParts['Adyen'] === true ){
-		$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
-		$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'adyen';
-	}
-	//Astropay gateway special pages
-	if ( $optionalParts['Astropay'] === true ){
-		$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
-		$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'astropay';
-	}
-	//PayPal
-	if ( $optionalParts['Paypal'] === true ){
-		$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-		$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'paypal';
-	}
-	//WorldPay
-	if ( $optionalParts['WorldPay'] === true ){
-		$wgSpecialPages['WorldPayGateway'] = 'WorldPayGateway';
-		$wgDonationInterfaceEnabledGateways[] = 'worldpay';
-	}
-
-	//Stomp hooks
-	if ( $optionalParts['Stomp'] === true ) {
-		$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
-		$wgHooks['gwStomp'][] = 'sendSTOMP';
-		$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
-		$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
-	}
-
-	//Custom Filters hooks
-	if ( $optionalParts['CustomFilters'] === true ) {
-		$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
-	}
-
-	//Referrer Filter hooks
-	if ( $optionalParts['ReferrerFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
-	}
-
-	//Source Filter hooks
-	if ( $optionalParts['SourceFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
-	} 
-
-	//Functions Filter hooks
-	if ( $optionalParts['FunctionsFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
-	} 
-
-	//Minfraud as Filter globals
-	if ( $optionalParts['Minfraud'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
-	}
-
-	//Conversion Log hooks
-	if ($optionalParts['ConversionLog'] === true){
-		// Sets the 'conversion log' as logger for post-processing
-		$wgHooks["GatewayPostProcess"][] = array( "Gateway_Extras_ConversionLog::onPostProcess" );
-	}
-
-	//Functions Filter hooks
-	if ( $optionalParts['IPVelocityFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
-		$wgHooks["GatewayPostProcess"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
-	}
-
-	if ( $optionalParts['SessionVelocityFilter'] === true ) {
-		$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
-	}
-};
-
-// TODO: unused
 $wgGlobalCollectGatewayEnabled = false;
 $wgAmazonGatewayEnabled = false;
 $wgAdyenGatewayEnabled = false;
 $wgAstropayGatewayEnabled = false;
 $wgPaypalGatewayEnabled = false;
 $wgWorldPayGatewayEnabled = false;
+
+/**
+ * @global boolean Set to false to disable all filters, or set a gateway-
+ * specific value such as $wgPaypalGatewayEnableCustomFilters = false.
+ */
+$wgDonationInterfaceEnableCustomFilters = true;
+
+$wgDonationInterfaceEnableFormChooser = false;
+$wgDonationInterfaceEnableReferrerFilter = false; //extra
+$wgDonationInterfaceEnableSourceFilter = false; //extra
+$wgDonationInterfaceEnableFunctionsFilter = false; //extra
+$wgDonationInterfaceEnableIPVelocityFilter = false; //extra
+$wgDonationInterfaceEnableSessionVelocityFilter = false; //extra
+$wgDonationInterfaceEnableSystemStatus = false; //extra
+
+$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
+$wgSpecialPages['SystemStatus'] = 'SystemStatus';
+
+$wgSpecialPages['GlobalCollectGateway'] = 'GlobalCollectGateway';
+$wgSpecialPages['GlobalCollectGatewayResult'] = 'GlobalCollectGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'GlobalCollectAdapter';
+
+$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'AmazonAdapter';
+
+$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
+$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'AdyenAdapter';
+
+$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
+$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'AstropayAdapter';
+
+$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
+$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
+
+$wgSpecialPages['WorldPayGateway'] = 'WorldPayGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'WorldPayAdapter';
+
+//Stomp hooks
+// FIXME: There's no point in using hooks any more, since we're switching
+// behavior inside the callbacks and not via conditional hooking.
+$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
+$wgHooks['gwStomp'][] = 'sendSTOMP';
+$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
+$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
+
+//Custom Filters hooks
+$wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
+
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
+$wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
+
+$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
+
+//Conversion Log hooks
+// Sets the 'conversion log' as logger for post-processing
+$wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_ConversionLog::onPostProcess' );
 
 //Unit tests
 $wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';

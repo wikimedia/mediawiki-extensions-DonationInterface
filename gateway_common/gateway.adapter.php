@@ -3145,7 +3145,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * $wgDonationInterfaceAllowedHtmlForms
 	 */
 	public function session_pushRapidHTMLForm( $form_key ) {
-		if ( strlen( $form_key ) === 0 ) {
+		if ( !$form_key ) {
 			return;
 		}
 
