@@ -386,6 +386,8 @@
 	"apihelp-donate-param-emailAdd": "Adres e‐mail.",
 	"apihelp-donate-param-country": "Kod kraju.",
 	"apihelp-donate-param-card_type": "Rodzaj karty kredytowej.",
+	"apihelp-donate-param-expiration": "Data ważności.",
+	"apihelp-donate-param-cvv": "Kod zabezpieczający CVV.",
 	"apihelp-donate-param-language": "Kod języka.",
 	"apihelp-donate-example-1": "Przekaż darowiznę"
 }
