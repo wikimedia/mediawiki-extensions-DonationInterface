@@ -233,13 +233,13 @@ class DataValidator {
 			),
 			// Note that order matters for this group, dependencies must come first.
 			'calculated' => array(
+				'gateway' => 'validate_gateway',
 				'address' => 'validate_address',
 				'city' => 'validate_address',
 				'country' => 'validate_country_allowed',
 				'email' => 'validate_email',
 				'street' => 'validate_address',
 				'currency_code' => 'validate_currency_code',
-				'gateway' => 'validate_gateway',
 				'fname' => 'validate_name',
 				'lname' => 'validate_name',
 				'name' => 'validate_name',
