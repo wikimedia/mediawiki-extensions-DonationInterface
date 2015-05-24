@@ -478,9 +478,14 @@ class DataValidator {
 	 * @return boolean True if $value is a valid gateway, otherwise false
 	 */
 	protected static function validate_gateway( $value ){
-		global $wgDonationInterfaceEnabledGateways;
+		global $wgDonationInterfaceGatewayAdapters;
 
-		return in_array( $value, $wgDonationInterfaceEnabledGateways, true );
+		foreach ( $wgDonationInterfaceGatewayAdapters as $adapterClass ) {
+			if ( $adapterClass::getIdentifier() === $value ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

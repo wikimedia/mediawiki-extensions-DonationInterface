@@ -22,7 +22,14 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	function execute( $par ) {
-		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
+		global $wgContributionTrackingFundraiserMaintenance,
+			$wgContributionTrackingFundraiserMaintenanceUnsched,
+			$wgDonationInterfaceEnableFormChooser;
+
+		if ( !$wgDonationInterfaceEnableFormChooser ) {
+			throw new BadTitleError();
+		}
+
 
 		if( $wgContributionTrackingFundraiserMaintenance
 			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
@@ -127,6 +134,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$gateway = $form_info['gateway'];
 
 			if ( is_array( $gateway ) ) {
+				// Accept gateway hint if it's already specified for this form.
 				if ( array_key_exists( 'gateway', $params ) && in_array( $params['gateway'], $gateway ) ) {
 					$gateway = $params['gateway'];
 				} else {
@@ -155,6 +163,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	/**
 	 * Gets all the valid forms that match the provided paramters.
 	 * These parameters should exactly match the params in getOneValidForm.
+	 * TODO: Should be passed as a hash or object.
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
 	 * @param string $country Optional country code filter
 	 * @param string $currency Optional currency code filter
@@ -365,13 +374,19 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 	/**
 	 * Return an array of all the currently enabled gateways. 
-	 * I had hoped there would be more to this...
-	 * @global type $wgDonationInterfaceEnabledGateways
-	 * @return array
+	 *
+	 * @return array of gateway identifiers.
 	 */
 	static function getAllEnabledGateways(){
-		global $wgDonationInterfaceEnabledGateways;
-		return $wgDonationInterfaceEnabledGateways;
+		global $wgDonationInterfaceGatewayAdapters;
+
+		$enabledGateways = array();
+		foreach ( $wgDonationInterfaceGatewayAdapters as $gatewayClass ) {
+			if ( $gatewayClass::getGlobal( 'Enabled' ) ) {
+				$enabledGateways[] = $gatewayClass::getIdentifier();
+			}
+		}
+		return $enabledGateways;
 	}
 
 	/**
