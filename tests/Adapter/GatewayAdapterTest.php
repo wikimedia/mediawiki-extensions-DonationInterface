@@ -47,7 +47,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		parent::__construct( $name, $data, $dataName );
 
 		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (
-			'gateway' => 'GlobalCollect', //RAR.
+			'gateway' => 'globalcollect', //RAR.
 		);
 	}
 

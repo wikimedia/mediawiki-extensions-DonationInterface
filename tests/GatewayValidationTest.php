@@ -36,6 +36,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		) );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
+		TestingGenericAdapter::$fakeIdentifier = null;
 
 		$this->page = new TestingGatewayPage();
 		$this->adapter = new TestingGenericAdapter();
@@ -163,5 +164,27 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$errors = $this->adapter->getValidationErrors();
 		$this->assertArrayHasKey( 'currency_code', $errors );
+	}
+
+	/**
+	 * @covers DataValidator::validate_gateway
+	 */
+	public function testBadGatewayError() {
+		$badGateway = uniqid();
+
+		// The gateway is calculated from adapter class, so this validation
+		// doesn't happen in practice and we can't fake a bad gateway using
+		// GatewayAdapter::addRequestData().
+
+		TestingGenericAdapter::$fakeIdentifier = $badGateway;
+		$this->adapter = new TestingGenericAdapter();
+		$this->page->adapter = $this->adapter;
+
+		$this->page->validateForm();
+
+		$this->assertFalse( $this->adapter->validatedOK() );
+
+		$errors = $this->adapter->getValidationErrors();
+		$this->assertArrayHasKey( 'general', $errors );
 	}
 }

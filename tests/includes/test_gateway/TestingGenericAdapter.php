@@ -29,6 +29,8 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public $revalidateCount = 0;
 	public static $fakeGlobals = array();
 
+	public static $fakeIdentifier;
+
 	public static $acceptedCurrencies = array();
 
 	public function getCommunicationType() {
@@ -56,6 +58,13 @@ class TestingGenericAdapter extends GatewayAdapter {
 			return TestingGenericAdapter::$fakeGlobals[$name];
 		}
 		return parent::getGlobal( $name );
+	}
+
+	public static function getIdentifier() {
+		if ( self::$fakeIdentifier ) {
+			return self::$fakeIdentifier;
+		}
+		return GatewayAdapter::getIdentifier();
 	}
 
 	public function defineAccountInfo() {

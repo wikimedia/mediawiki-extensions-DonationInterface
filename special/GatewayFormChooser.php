@@ -135,7 +135,17 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				}
 			}
 
-			$specialpage = ucfirst( $gateway ) . "Gateway";
+			// FIXME: We aren't doing ucfirst, more like camlcase.  Kludge like hell:
+			switch ( $gateway ) {
+				case 'globalcollect':
+					$specialpage = 'GlobalCollectGateway';
+					break;
+				case 'worldpay':
+					$specialpage = 'WorldPayGateway';
+					break;
+				default:
+					$specialpage = ucfirst( $gateway ) . "Gateway";
+			}
 		}
 
 		// set the default redirect
