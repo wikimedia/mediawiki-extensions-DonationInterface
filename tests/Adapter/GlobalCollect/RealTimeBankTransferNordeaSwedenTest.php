@@ -26,6 +26,13 @@
  * @group RealTimeBankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferNordeaSwedenTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+		) );
+	}
 
 	/**
 	 * testBuildRequestXml

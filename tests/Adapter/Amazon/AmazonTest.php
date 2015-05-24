@@ -39,6 +39,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgAmazonGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'amazon' => array(
 					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon.html',

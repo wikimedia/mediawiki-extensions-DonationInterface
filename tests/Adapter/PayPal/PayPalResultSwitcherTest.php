@@ -21,6 +21,13 @@
  * @group PayPal
  */
 class PayPalResultSwitcherTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgPaypalGatewayEnabled' => true,
+		) );
+	}
 
 	function testSuccessfulRedirect() {
 		$init = $this->getDonorTestData( 'FR' );

@@ -34,6 +34,14 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
 	}
 
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+		) );
+	}
+
 	function tearDown() {
 		TestingGlobalCollectAdapter::clearGlobalsCache();
 		parent::tearDown();

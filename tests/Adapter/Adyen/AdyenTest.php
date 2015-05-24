@@ -33,6 +33,14 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$this->testAdapterClass = 'TestingAdyenAdapter';
 	}
 
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgAdyenGatewayEnabled' => true,
+		) );
+	}
+
 	/**
 	 * Integration test to verify that the donate transaction works as expected when all necessary data is present.
 	 */

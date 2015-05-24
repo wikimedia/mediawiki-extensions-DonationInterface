@@ -24,6 +24,13 @@
  * @group RealTimeBankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+		) );
+	}
 
 	/**
 	 * testBuildRequestXml

@@ -32,6 +32,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
