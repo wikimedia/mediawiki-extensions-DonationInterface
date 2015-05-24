@@ -438,6 +438,7 @@ $forms_whitelist['paypal'] = array(
 	'file' => $form_dirs['paypal'] . '/paypal.html',
 	'gateway' => 'paypal',
 	'payment_methods' => array('paypal' => 'ALL'),
+	// FIXME: 'redirect' is not necessary?
 );
 
 $forms_whitelist['paypal-recurring'] = array(

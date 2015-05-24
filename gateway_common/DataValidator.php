@@ -469,8 +469,7 @@ class DataValidator {
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * validate_gateway
 	 * Checks to make sure the gateway is populated with a valid and enabled 

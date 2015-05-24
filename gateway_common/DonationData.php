@@ -16,6 +16,7 @@
 class DonationData implements LogPrefixProvider {
 	protected $normalized = array( );
 	protected $gateway;
+	protected $gatewayID;
 	protected $validationErrors = null;
 	/**
 	 * @var \Psr\Log\LoggerInterface

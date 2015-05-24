@@ -62,6 +62,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function execute( $par ) {
 		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
 
+		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
 		if ( $language ) {
 			RequestContext::getMain()->setLanguage( $language );

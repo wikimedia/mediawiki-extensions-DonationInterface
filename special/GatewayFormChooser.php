@@ -38,7 +38,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
 		$gateway = $coerceNull( $this->getRequest()->getVal( 'gateway', null ) );
 
-		//This is clearly going to go away before we deploy this bizniss.
+		// FIXME: This is clearly going to go away before we deploy this bizniss.
 		$testNewGetAll = $this->getRequest()->getVal( 'testGetAll', false );
 		if ( $testNewGetAll ){
 			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
