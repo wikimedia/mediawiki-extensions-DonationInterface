@@ -135,7 +135,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$_SESSION['numAttempt'] = 2;
         unset( $_POST['order_id'] );
 
-		$worldpay_gateway = new TestingWorldPayAdapter( array (
+		$worldpay_gateway = new TestingWorldpayAdapter( array (
 				'external_data' => $init,
 		) );
 		$worldpay_gateway->batch_mode = TRUE;

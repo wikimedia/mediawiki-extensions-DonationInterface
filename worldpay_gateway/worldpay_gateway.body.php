@@ -17,16 +17,16 @@
  */
 
 /**
- * WorldPayGateway
+ * WorldpayGateway
  *
  */
-class WorldPayGateway extends GatewayPage {
+class WorldpayGateway extends GatewayPage {
 
 	/**
 	 * Constructor - set up the new special page
 	 */
 	public function __construct() {
-		$this->adapter = new WorldPayAdapter();
+		$this->adapter = new WorldpayAdapter();
 		parent::__construct();
 	}
 

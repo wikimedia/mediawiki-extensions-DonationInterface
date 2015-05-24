@@ -149,7 +149,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 					$specialpage = 'GlobalCollectGateway';
 					break;
 				case 'worldpay':
-					$specialpage = 'WorldPayGateway';
+					$specialpage = 'WorldpayGateway';
 					break;
 				default:
 					$specialpage = ucfirst( $gateway ) . "Gateway";

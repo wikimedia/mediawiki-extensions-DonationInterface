@@ -458,9 +458,9 @@ $forms_whitelist['adyen-cs'] = array(
 );
 
 /**********
- * WorldPay *
+ * Worldpay *
  **********/
-// This is at the bottom so that we prefer GC over WorldPay
+// This is at the bottom so that we prefer GC over Worldpay
 $forms_whitelist['worldpay'] = array(
 	'file' => $form_dirs['worldpay'] . '/worldpay.html',
 	'gateway' => 'worldpay',
@@ -471,7 +471,7 @@ $forms_whitelist['worldpay'] = array(
 );
 
 /*************************
- * WorldPay Form Tests *
+ * Worldpay Form Tests *
  *************************/
 
 $worldpay_test_spec = array(

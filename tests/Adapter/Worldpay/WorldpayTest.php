@@ -21,9 +21,9 @@ use Psr\Log\LogLevel;
  *
  * @group Fundraising
  * @group DonationInterface
- * @group WorldPay
+ * @group Worldpay
  */
-class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -32,21 +32,21 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingWorldPayAdapter';
+		$this->testAdapterClass = 'TestingWorldpayAdapter';
 	}
 
 	public function setUp() {
-		global $wgWorldPayGatewayHtmlFormDir;
+		global $wgWorldpayGatewayHtmlFormDir;
 		parent::setUp();
 
 		$this->setMwGlobals( array(
-			'wgWorldPayGatewayEnabled' => true,
+			'wgWorldpayGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'testytest' => array(
 					'gateway' => 'worldpay',
 				),
 				'worldpay' => array(
-					'file' => $wgWorldPayGatewayHtmlFormDir . '/worldpay.html',
+					'file' => $wgWorldpayGatewayHtmlFormDir . '/worldpay.html',
 					'gateway' => 'worldpay',
 					'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
 					'currencies' => array( '+' => 'ALL' ),
@@ -67,7 +67,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->assertInstanceOf( 'TestingWorldPayAdapter', $gateway );
+		$this->assertInstanceOf( 'TestingWorldpayAdapter', $gateway );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->assertInstanceOf( 'TestingWorldPayAdapter', $gateway );
+		$this->assertInstanceOf( 'TestingWorldpayAdapter', $gateway );
 		$gateway->do_transaction( 'AuthorizePaymentForFraud' );
 
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Request XML/' );
@@ -107,7 +107,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->assertEquals( 0, preg_match( '/CNV/', $loglines[0] ), 'The "Cleaned" logline contained CVN data!' );
 	}
 
-	function testWorldPayFormLoad() {
+	function testWorldpayFormLoad() {
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -162,7 +162,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'TestingWorldpayGateway', $init, $assertNodes, true );
 	}
 
 	function testPaymentFormSubmit() {
@@ -182,10 +182,10 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'TestingWorldpayGateway', $init, $assertNodes, true );
 	}
 
-	function testWorldPayFormLoad_FR() {
+	function testWorldpayFormLoad_FR() {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -211,14 +211,14 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'TestingWorldpayGateway', $init, $assertNodes, true );
 	}
 
 	/**
 	 * Make sure Belgian form loads in all of that country's supported languages
 	 * @dataProvider belgiumLanguageProvider
 	 */
-	public function testWorldPayFormLoad_BE( $language ) {
+	public function testWorldpayFormLoad_BE( $language ) {
 		$init = $this->getDonorTestData( 'BE' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -249,7 +249,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingWorldPayGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'TestingWorldpayGateway', $init, $assertNodes, true );
 	}
 
 	/**

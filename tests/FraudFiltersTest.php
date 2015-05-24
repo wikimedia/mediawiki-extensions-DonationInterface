@@ -39,7 +39,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	public static function setupFraudMaps() {
 		//yeesh.
 		global $wgDonationInterfaceCustomFiltersActionRanges, $wgDonationInterfaceCustomFiltersRefRules, $wgDonationInterfaceCustomFiltersSrcRules,
-		$wgDonationInterfaceCustomFiltersFunctions, $wgGlobalCollectGatewayCustomFiltersFunctions, $wgWorldPayGatewayCustomFiltersFunctions,
+		$wgDonationInterfaceCustomFiltersFunctions, $wgGlobalCollectGatewayCustomFiltersFunctions, $wgWorldpayGatewayCustomFiltersFunctions,
 		$wgDonationInterfaceCountryMap, $wgDonationInterfaceUtmCampaignMap, $wgDonationInterfaceUtmSourceMap, $wgDonationInterfaceUtmMediumMap,
 		$wgDonationInterfaceEmailDomainMap;
 
@@ -68,7 +68,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$wgGlobalCollectGatewayCustomFiltersFunctions['getCVVResult'] = 20;
 		$wgGlobalCollectGatewayCustomFiltersFunctions['getAVSResult'] = 25;
 
-		$wgWorldPayGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
+		$wgWorldpayGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
 		$wgDonationInterfaceCountryMap = array (
 			'US' => 40,

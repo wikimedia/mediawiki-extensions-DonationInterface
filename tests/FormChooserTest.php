@@ -42,7 +42,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceEnableFormChooser' => true,
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
-			'wgWorldPayGatewayEnabled' => true,
+			'wgWorldpayGatewayEnabled' => true,
 		) );
 
 		$this->setupMoreForms();

@@ -66,8 +66,8 @@ global $wgDonationInterfaceTestMode,
 	$wgAstropayGatewayURL,
 	$wgAstropayGatewayTestingURL,
 	$wgAstropayGatewayAccountInfo,
-	$wgWorldPayGatewayAccountInfo,
-	$wgWorldPayGatewayURL,
+	$wgWorldpayGatewayAccountInfo,
+	$wgWorldpayGatewayURL,
 	$wgMinFraudLicenseKey,
 	$wgMinFraudTimeout,
 	$wgDonationInterfaceMinFraudServers,
@@ -138,8 +138,8 @@ $wgAstropayGatewayAccountInfo['test'] = array (
 	'SecretKey' => 'NanananananananananananananananaBatman',
 );
 
-/** WorldPay **/
-$wgWorldPayGatewayAccountInfo['test'] = array (
+/** Worldpay **/
+$wgWorldpayGatewayAccountInfo['test'] = array (
 	'Username' => 'testname',
 	'Password' => 'testpass',
 	'MerchantId' => '123456',
@@ -161,7 +161,7 @@ $wgWorldPayGatewayAccountInfo['test'] = array (
 		'fj_store_id',
 	),
 );
-$wgWorldPayGatewayURL = 'https://test.worldpay.com';
+$wgWorldpayGatewayURL = 'https://test.worldpay.com';
 
 $wgMinFraudLicenseKey = 'testkey';
 $wgMinFraudTimeout = 1;

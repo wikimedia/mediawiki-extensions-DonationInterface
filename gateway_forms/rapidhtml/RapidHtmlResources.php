@@ -7,7 +7,7 @@ $wgDonationInterfaceRapidHtmlRemoteExtPath = 'DonationInterface/gateway_forms/ra
 $wgGlobalCollectRapidHtmlRemoteExtPath = 'DonationInterface/globalcollect_gateway/forms';
 $wgAdyenRapidHtmlRemoteExtPath = 'DonationInterface/adyen_gateway/forms';
 $wgPaypalRapidHtmlRemoteExtPath = 'DonationInterface/paypal_gateway/forms';
-$wgWorldPayRapidHtmlRemoteExtPath = 'DonationInterface/worldpay_gateway/forms';
+$wgWorldpayRapidHtmlRemoteExtPath = 'DonationInterface/worldpay_gateway/forms';
 
 /**
  * webitects
@@ -192,7 +192,7 @@ $wgResourceModules[ 'adyen.js' ] = array(
 $wgResourceModules['ext.donationinterface.worldpay.styles'] = array (
 	'styles' => array('css/worldpay.css', 'css/bootstrap.css'),
 	'localBasePath' => __DIR__ . '/../../worldpay_gateway/forms',
-	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
+	'remoteExtPath' => $wgWorldpayRapidHtmlRemoteExtPath,
 	'position' => 'top',
 );
 
@@ -200,7 +200,7 @@ $wgResourceModules['ext.donationinterface.worldpay.code'] = array (
 	'scripts' => 'js/worldpay.js',
 	'dependencies' => array ( 'di.form.core.validate', 'jquery.payment' ),
 	'localBasePath' => __DIR__ . '/../../worldpay_gateway/forms',
-	'remoteExtPath' => $wgWorldPayRapidHtmlRemoteExtPath,
+	'remoteExtPath' => $wgWorldpayRapidHtmlRemoteExtPath,
 );
 
 $wgResourceModules[ 'basicDonationForm' ] = array(

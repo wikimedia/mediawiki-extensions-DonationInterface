@@ -1,9 +1,9 @@
 <?php
 
-class TestingWorldPayGateway extends WorldPayGateway {
+class TestingWorldpayGateway extends WorldpayGateway {
 
 	public function __construct() {
-		$this->adapter = new TestingWorldPayAdapter();
+		$this->adapter = new TestingWorldpayAdapter();
 		GatewayPage::__construct(); //DANGER: See main class comments.
 	}
 

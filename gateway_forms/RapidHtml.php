@@ -84,7 +84,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// @noscript -> Some stuff in a noscript node
 		'@ffname_retry', //form name for retries (used by error pages)
 
-		// WorldPay Variables
+		// Worldpay Variables
 		'@wp_one_time_token',
 		'@wp_process_url',
 	);

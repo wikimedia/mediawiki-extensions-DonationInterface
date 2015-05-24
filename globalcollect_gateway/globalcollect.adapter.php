@@ -1813,7 +1813,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'UYU', // Uruguayan peso
 			'USD', // U.S. dollar
 // - Removed temporarily for WellsFargo (28/06/13)			'UZS', // Uzbekistani som
-// - removed temporarily (WorldPay)			'VND', // Vietnamese dong
+// - removed temporarily (Worldpay)			'VND', // Vietnamese dong
 			'VEF', // Venezuelan bolívar
 			'XAF', // Central African CFA franc
 			'XCD', // East Caribbean dollar

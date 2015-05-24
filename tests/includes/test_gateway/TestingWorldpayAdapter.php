@@ -1,9 +1,9 @@
 <?php
 
 /**
- * TestingWorldPayAdapter
+ * TestingWorldpayAdapter
  */
-class TestingWorldPayAdapter extends WorldPayAdapter {
+class TestingWorldpayAdapter extends WorldpayAdapter {
 
 	public $curled = '';
 

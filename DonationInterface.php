@@ -94,12 +94,12 @@ $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.
 $wgAutoloadClasses['PaypalGatewayResult'] = __DIR__ . '/paypal_gateway/paypal_resultswitcher.body.php';
 $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
 
-// WorldPay
-$wgAutoloadClasses['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
-$wgAutoloadClasses['WorldPayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
+// Worldpay
+$wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
+$wgAutoloadClasses['WorldpayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
 
-$wgAPIModules['di_wp_validate'] = 'WorldPayValidateApi';
-$wgAutoloadClasses['WorldPayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';
+$wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
+$wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';
 
 //Extras classes - required for ANY optional class that is considered an "extra".
 $wgAutoloadClasses['Gateway_Extras'] = __DIR__ . '/extras/extras.body.php';
@@ -346,17 +346,17 @@ $wgAstropayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
 #		'SecretKey' => '', // For signing requests and verifying responses
 #	);
 
-$wgWorldPayGatewayHtmlFormDir = __DIR__ . '/worldpay_gateway/forms/html';
+$wgWorldpayGatewayHtmlFormDir = __DIR__ . '/worldpay_gateway/forms/html';
 
-$wgWorldPayGatewayURL = 'https://some.url.here';
+$wgWorldpayGatewayURL = 'https://some.url.here';
 
 /**
  * Set this to true if fraud checks should be disabled for integration testing
  */
-$wgWorldPayGatewayNoFraudIntegrationTest = false;
+$wgWorldpayGatewayNoFraudIntegrationTest = false;
 
 /*
-$wgWorldPayGatewayAccountInfo['default'] = array(
+$wgWorldpayGatewayAccountInfo['default'] = array(
 	'Test' => 1,
 	'MerchantId' => 00000,
 	'Username' => 'suchuser',
@@ -370,7 +370,7 @@ $wgWorldPayGatewayAccountInfo['default'] = array(
 );
 */
 
-$wgWorldPayGatewayCvvMap = array (
+$wgWorldpayGatewayCvvMap = array (
 	'0' => false, //No Match
 	'1' => true, //Match
 	'2' => false, //Not Checked
@@ -386,7 +386,7 @@ $wgWorldPayGatewayCvvMap = array (
 	'' => false, //No code returned. All the points.
 );
 
-$wgWorldPayGatewayAvsAddressMap = array (
+$wgWorldpayGatewayAvsAddressMap = array (
 	'0' => 50, //No Match
 	'1' => 0, //Match
 	'2' => 12, //Not Checked/Not Available
@@ -396,7 +396,7 @@ $wgWorldPayGatewayAvsAddressMap = array (
 	'' => 50, //No code returned. All the points.
 );
 
-$wgWorldPayGatewayAvsZipMap = array (
+$wgWorldpayGatewayAvsZipMap = array (
 	'0' => 50, //No Match
 	'1' => 0, //Match
 	'2' => 12, //Not Checked/Not Available
@@ -726,7 +726,7 @@ $wgAmazonGatewayEnabled = false;
 $wgAdyenGatewayEnabled = false;
 $wgAstropayGatewayEnabled = false;
 $wgPaypalGatewayEnabled = false;
-$wgWorldPayGatewayEnabled = false;
+$wgWorldpayGatewayEnabled = false;
 
 /**
  * @global boolean Set to false to disable all filters, or set a gateway-
@@ -764,8 +764,8 @@ $wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
 $wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
-$wgSpecialPages['WorldPayGateway'] = 'WorldPayGateway';
-$wgDonationInterfaceGatewayAdapters[] = 'WorldPayAdapter';
+$wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
 //Stomp hooks
 // FIXME: There's no point in using hooks any more, since we're switching
@@ -951,8 +951,8 @@ $wgExtensionMessagesFiles['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_g
 $wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
-$wgExtensionMessagesFiles['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.i18n.php';
-$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
+$wgExtensionMessagesFiles['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.i18n.php';
+$wgExtensionMessagesFiles['WorldpayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
 
 /**
  * See default values in DonationInterfaceFormSettings.php.  Note that any values
@@ -971,7 +971,7 @@ $wgDonationInterfaceFormDirs = array(
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,
-	'worldpay' => $wgWorldPayGatewayHtmlFormDir,
+	'worldpay' => $wgWorldpayGatewayHtmlFormDir,
 );
 
 // Load the default form settings.
@@ -1006,8 +1006,8 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
 	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
 	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
-	$wgAutoloadClasses['TestingWorldPayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldPayAdapter.php';
-	$wgAutoloadClasses['TestingWorldPayGateway'] = $testDir . 'includes/test_page/TestingWorldPayGateway.php';
+	$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
+	$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
 
 	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
 	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
