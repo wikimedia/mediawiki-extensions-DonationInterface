@@ -40,6 +40,7 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgWorldPayGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'testytest' => array(
 					// FIXME: camlcase is due to bad special page contstruction

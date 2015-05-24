@@ -42,6 +42,8 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+			'wgPaypalGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',

@@ -867,6 +867,14 @@ $wgExtensionFunctions[] = function() {
 	}
 };
 
+// TODO: unused
+$wgGlobalCollectGatewayEnabled = false;
+$wgAmazonGatewayEnabled = false;
+$wgAdyenGatewayEnabled = false;
+$wgAstropayGatewayEnabled = false;
+$wgPaypalGatewayEnabled = false;
+$wgWorldPayGatewayEnabled = false;
+
 //Unit tests
 $wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';
 

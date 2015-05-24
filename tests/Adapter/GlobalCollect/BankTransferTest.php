@@ -26,6 +26,13 @@
  * @group BankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+		) );
+	}
 
 	/**
 	 * testBuildRequestXml

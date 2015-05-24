@@ -30,6 +30,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'rtbt-ideal' => array(
 					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/rtbt/rtbt-ideal.html',

@@ -24,6 +24,13 @@
  * @group Yandex
  */
 class DonationInterface_Adapter_GlobalCollect_YandexTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+		) );
+	}
 
 	/**
 	 * testBuildRequestXml

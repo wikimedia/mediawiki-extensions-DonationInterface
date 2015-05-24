@@ -39,6 +39,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgPaypalGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'paypal' => array(
 					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal.html',

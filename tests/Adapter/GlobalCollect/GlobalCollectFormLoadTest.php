@@ -41,6 +41,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			'RU', 'SA', 'SE', 'TN', 'TR', 'UA',
 		);
 		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
