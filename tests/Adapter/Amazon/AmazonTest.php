@@ -33,6 +33,30 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->testAdapterClass = 'TestingAmazonAdapter';
 	}
 
+	public function setUp() {
+		global $wgAmazonGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'amazon' => array(
+					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon.html',
+					'gateway' => 'amazon',
+					'payment_methods' => array('amazon' => 'ALL'),
+					'redirect',
+				),
+				'amazon-recurring' => array(
+					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon-recurring.html',
+					'gateway' => 'amazon',
+					'payment_methods' => array('amazon' => 'ALL'),
+					'redirect',
+					'recurring',
+				),
+			),
+		) );
+	}
+
 	public function tearDown() {
 		TestingAmazonAdapter::$fakeGlobals = array();
 		parent::tearDown();

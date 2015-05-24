@@ -33,6 +33,28 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$this->testAdapterClass = 'TestingPaypalAdapter';
 	}
 
+	public function setUp() {
+		global $wgPaypalGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'paypal' => array(
+					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal.html',
+					'gateway' => 'paypal',
+					'payment_methods' => array('paypal' => 'ALL'),
+				),
+				'paypal-recurring' => array(
+					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal-recurring.html',
+					'gateway' => 'paypal',
+					'payment_methods' => array('paypal' => 'ALL'),
+					'recurring',
+				),
+			),
+		) );
+	}
+
 	public function tearDown() {
 		TestingPaypalAdapter::$fakeGlobals = array();
 

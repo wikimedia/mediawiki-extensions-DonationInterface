@@ -45,10 +45,18 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		global $wgDonationInterfaceTest;
 		$wgDonationInterfaceTest = true;
 		parent::__construct( $name, $data, $dataName );
+	}
 
-		$wgDonationInterfaceAllowedHtmlForms['testytest'] = array (
-			'gateway' => 'globalcollect', //RAR.
-		);
+	public function setUp() {
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'testytest' => array(
+					'gateway' => 'globalcollect', //RAR.
+				),
+			),
+		) );
 	}
 
 	/**

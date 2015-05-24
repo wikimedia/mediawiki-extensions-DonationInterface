@@ -35,6 +35,29 @@ class DonationInterface_Adapter_WorldPay_WorldPayTest extends DonationInterfaceT
 		$this->testAdapterClass = 'TestingWorldPayAdapter';
 	}
 
+	public function setUp() {
+		global $wgWorldPayGatewayHtmlFormDir;
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'testytest' => array(
+					// FIXME: camlcase is due to bad special page contstruction
+					// in GatewayFormChooser.
+					'gateway' => 'worldpay',
+				),
+				'worldpay' => array(
+					'file' => $wgWorldPayGatewayHtmlFormDir . '/worldpay.html',
+					'gateway' => 'worldpay',
+					'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
+					'currencies' => array( '+' => 'ALL' ),
+					'payment_methods' => array( 'cc' => 'ALL' ),
+					'selection_weight' => 10
+				),
+			),
+		) );
+	}
+
 	/**
 	 * Just making sure we can instantiate the thing without blowing up completely
 	 */

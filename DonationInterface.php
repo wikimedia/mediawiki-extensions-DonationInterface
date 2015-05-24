@@ -721,14 +721,7 @@ $wgExtensionFunctions[] = function() {
 	global $wgDonationInterfaceEnabledGateways,
 		$wgDonationInterfaceEnableCustomFilters,
 		$wgSpecialPages,
-		$wgHooks,
-		$wgDonationInterfaceFormDirs,
-		$wgDonationInterfaceHtmlFormDir,
-		$wgAdyenGatewayHtmlFormDir,
-		$wgAmazonGatewayHtmlFormDir,
-		$wgGlobalCollectGatewayHtmlFormDir,
-		$wgPaypalGatewayHtmlFormDir,
-		$wgWorldPayGatewayHtmlFormDir;
+		$wgHooks;
 
 	/**
 	 * Figure out what we've got enabled.
@@ -872,28 +865,6 @@ $wgExtensionFunctions[] = function() {
 	if ( $optionalParts['SessionVelocityFilter'] === true ) {
 		$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
 	}
-
-	// Set up form template directories.
-	$form_dirs = array(
-		'default' => $wgDonationInterfaceHtmlFormDir,
-		'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-		'paypal' => $wgPaypalGatewayHtmlFormDir,
-		'amazon' => $wgAmazonGatewayHtmlFormDir,
-	);
-
-	if ( $wgDonationInterfaceEnableAdyen === true ) {
-		$form_dirs['adyen'] = $wgAdyenGatewayHtmlFormDir;
-	}
-	if ( $wgDonationInterfaceEnableWorldPay === true ) {
-		$form_dirs['worldpay'] = $wgWorldPayGatewayHtmlFormDir;
-	}
-	$wgDonationInterfaceFormDirs = array_merge(
-		$form_dirs,
-		$wgDonationInterfaceFormDirs
-	);
-
-	// Load the default form settings
-	require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 };
 
 //Unit tests
@@ -1070,7 +1041,17 @@ $wgDonationInterfaceAllowedHtmlForms = array();
 /**
  * Base directories for each gateway's form templates.
  */
-$wgDonationInterfaceFormDirs = array();
+$wgDonationInterfaceFormDirs = array(
+	'adyen' => $wgAdyenGatewayHtmlFormDir,
+	'amazon' => $wgAmazonGatewayHtmlFormDir,
+	'default' => $wgDonationInterfaceHtmlFormDir,
+	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
+	'paypal' => $wgPaypalGatewayHtmlFormDir,
+	'worldpay' => $wgWorldPayGatewayHtmlFormDir,
+);
+
+// Load the default form settings.
+require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 
 /**
  * FUNCTIONS

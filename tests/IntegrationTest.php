@@ -34,15 +34,38 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$this->testAdapterClass = $adapterclass;
 
 		parent::__construct( $name, $data, $dataName );
-//		self::setupMoreForms();
+	}
+
+	public function setUp() {
+		global $wgGlobalCollectGatewayHtmlFormDir, $wgPaypalGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'cc-vmad' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'discover' ) ),
+					'countries' => array (
+						'+' => array ( 'US', ),
+					),
+				),
+				'paypal' => array(
+					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal.html',
+					'gateway' => 'paypal',
+					'payment_methods' => array ( 'paypal' => 'ALL' ),
+				),
+			),
+		) );
 	}
 
 	//this is meant to simulate a user choosing paypal, then going back and choosing GC.
 	public function testBackClickPayPalToGC() {
-		$this->testAdapterClass = 'TestingPayPalAdapter';
+		$this->testAdapterClass = 'TestingPaypalAdapter';
 		$options = $this->getDonorTestData( 'US' );
-//		unset( $options['ffname'] );
 
+		$options['payment_method'] = 'paypal';
 		$gateway = $this->getFreshGatewayObject( $options );
 		$gateway->do_transaction( 'Donate' );
 

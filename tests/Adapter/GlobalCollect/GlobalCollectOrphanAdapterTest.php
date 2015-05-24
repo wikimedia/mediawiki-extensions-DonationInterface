@@ -26,6 +26,24 @@ use Psr\Log\LogLevel;
  * @group OrphanSlayer
  */
 class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		global $wgGlobalCollectGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'cc-vmad' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+					'countries' => array(
+						'+' => array( 'US', ),
+					),
+				),
+			),
+		) );
+	}
 
 	/**
 	 * @param $name string The name of the test case

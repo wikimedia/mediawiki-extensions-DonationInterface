@@ -23,6 +23,68 @@
  * @group GlobalCollect
  */
 class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		global $wgGlobalCollectGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$vmad_countries = array( 'US', );
+		$vmaj_countries = array(
+			'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
+			'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
+			'PT', 'SG', 'SI', 'SK', 'TH', 'TW',
+		);
+		$vma_countries = array(
+			'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
+			'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
+			'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
+			'RU', 'SA', 'SE', 'TN', 'TR', 'UA',
+		);
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'cc-vmad' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+					'countries' => array(
+						'+' => $vmad_countries,
+					),
+				),
+				'cc-vmaj' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmaj.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
+					'countries' => array(
+						'+' => $vmaj_countries,
+					),
+				),
+				'cc-vma' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vma.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
+					'countries' => array(
+						// Array merge with cc-vmaj as fallback in case 'j' goes down
+						// Array merge with cc-vmad as fallback in case 'd' goes down
+						'+' => array_merge(
+							$vmaj_countries,
+							$vmad_countries,
+							$vma_countries
+						),
+					),
+				),
+				'rtbt-sofo' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/rtbt/rtbt-sofo.html',
+					'gateway' => 'globalcollect',
+					'countries' => array(
+						'+' => array( 'AT', 'BE', 'CH', 'DE' ),
+						'-' => 'GB'
+					),
+					'currencies' => array( '+' => 'EUR' ),
+					'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
+				),
+			),
+		) );
+	}
 
 	public function testGCFormLoad() {
 		$init = $this->getDonorTestData( 'US' );
