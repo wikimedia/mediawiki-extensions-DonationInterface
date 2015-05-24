@@ -24,6 +24,23 @@
  * @group RealTimeBankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		global $wgGlobalCollectGatewayHtmlFormDir;
+
+		parent::setUp();
+
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'rtbt-ideal' => array(
+					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/rtbt/rtbt-ideal.html',
+					'gateway' => 'globalcollect',
+					'payment_methods' => array('rtbt' => 'rtbt_ideal'),
+					'countries' => array( '+' => 'NL' ),
+					'currencies' => array( '+' => 'EUR' ),
+				),
+			),
+		) );
+	}
 
 	/**
 	 * Test for ideal form loading

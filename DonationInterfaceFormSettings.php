@@ -1,17 +1,5 @@
 <?php
 
-// Explicitly declare globals so we can load this file from within a function.
-global $wgDonationInterfaceHtmlFormDir,
-	$wgAdyenGatewayHtmlFormDir,
-	$wgAmazonGatewayHtmlFormDir,
-	$wgGlobalCollectGatewayHtmlFormDir,
-	$wgPaypalGatewayHtmlFormDir,
-	$wgWorldPayGatewayHtmlFormDir,
-	$wgDonationInterfaceAllowedHtmlForms,
-	$wgDonationInterfaceEnableAdyen,
-	$wgDonationInterfaceEnableWorldPay,
-	$wgDonationInterfaceFormDirs;
-
 /**
  * Some setup vars to make our lives a little easier.
  * These are unset at the end of the file.
@@ -452,67 +440,63 @@ $forms_whitelist['paypal-recurring'] = array(
  * Adyen *
  **********/
 // This is at the bottom so that we prefer GC over adyen
-if ( $wgDonationInterfaceEnableAdyen === true ) {
-	$forms_whitelist['adyen'] = array(
-		'file' => $form_dirs['adyen'] . '/adyen.html',
-		'gateway' => 'adyen',
-		'countries' => array( '+' => 'US',),
-		'currencies' => array( '+' => 'USD',),
-		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
-		'selection_weight' => 0
-	);
-	$forms_whitelist['adyen-cs'] = array(
-		'file' => $form_dirs['adyen'] . '/adyen-cs.html',
-		'gateway' => 'adyen',
-		'countries' => array( '+' => 'US',),
-		'currencies' => array( '+' => 'USD',),
-		'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
-		'selection_weight' => 0
-	);
-}
+$forms_whitelist['adyen'] = array(
+	'file' => $form_dirs['adyen'] . '/adyen.html',
+	'gateway' => 'adyen',
+	'countries' => array( '+' => 'US',),
+	'currencies' => array( '+' => 'USD',),
+	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'selection_weight' => 0
+);
+$forms_whitelist['adyen-cs'] = array(
+	'file' => $form_dirs['adyen'] . '/adyen-cs.html',
+	'gateway' => 'adyen',
+	'countries' => array( '+' => 'US',),
+	'currencies' => array( '+' => 'USD',),
+	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'selection_weight' => 0
+);
 
 /**********
  * WorldPay *
  **********/
 // This is at the bottom so that we prefer GC over WorldPay
-if ( $wgDonationInterfaceEnableWorldPay === true ) {
-	$forms_whitelist['worldpay'] = array(
-		'file' => $form_dirs['worldpay'] . '/worldpay.html',
-		'gateway' => 'worldpay',
-		'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
-		'currencies' => array( '+' => 'ALL' ),
-		'payment_methods' => array( 'cc' => 'ALL' ),
-		'selection_weight' => 10
-	);
+$forms_whitelist['worldpay'] = array(
+	'file' => $form_dirs['worldpay'] . '/worldpay.html',
+	'gateway' => 'worldpay',
+	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
+	'currencies' => array( '+' => 'ALL' ),
+	'payment_methods' => array( 'cc' => 'ALL' ),
+	'selection_weight' => 10
+);
 
-	/*************************
-	 * WorldPay Form Tests *
-	 *************************/
+/*************************
+ * WorldPay Form Tests *
+ *************************/
 
-	$worldpay_test_spec = array(
-		'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
-		'selection_weight' => 0,
-	) + $forms_whitelist['worldpay'];
+$worldpay_test_spec = array(
+	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
+	'selection_weight' => 0,
+) + $forms_whitelist['worldpay'];
 
-	//until we are ready for US testing with the other test forms, we have to limit to the old list.
-	$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
+//until we are ready for US testing with the other test forms, we have to limit to the old list.
+$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
 
-	$forms_whitelist['wp-sn'] = $worldpay_test_spec;
-	$forms_whitelist['wp-sw'] = $worldpay_test_spec;
-	$forms_whitelist['wp-fud'] = $worldpay_test_spec;
-	$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
-	$forms_whitelist['wp-btng'] = $worldpay_test_spec;
+$forms_whitelist['wp-sn'] = $worldpay_test_spec;
+$forms_whitelist['wp-sw'] = $worldpay_test_spec;
+$forms_whitelist['wp-fud'] = $worldpay_test_spec;
+$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
+$forms_whitelist['wp-btng'] = $worldpay_test_spec;
 
 
-	$forms_whitelist['wp-ddcc'] = array(
-	       'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
-	       'gateway' => 'worldpay',
-	       'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
-	       'currencies' => array( '+' => 'ALL' ),
-	       'payment_methods' => array( 'cc' => 'ALL' ),
-	       'selection_weight' => 0
-	);
-}
+$forms_whitelist['wp-ddcc'] = array(
+	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
+	   'gateway' => 'worldpay',
+	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
+	   'currencies' => array( '+' => 'ALL' ),
+	   'payment_methods' => array( 'cc' => 'ALL' ),
+	   'selection_weight' => 0
+);
 
 /* * ***********
  * Error Pages *
@@ -537,11 +521,7 @@ $forms_whitelist['error-cc'] = array (
 	'special_type' => 'error',
 );
 
-// Merge with values set in LocalSettings.php taking precedence.
-$wgDonationInterfaceAllowedHtmlForms = array_merge(
-	$forms_whitelist,
-	$wgDonationInterfaceAllowedHtmlForms
-);
+$wgDonationInterfaceAllowedHtmlForms = $forms_whitelist;
 
 unset( $forms_whitelist );
 unset( $form_dirs );
