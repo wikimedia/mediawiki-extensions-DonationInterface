@@ -21,5 +21,6 @@
 	"globalcollect_gateway-response-21000150": "Неправильний номер банківського рахунку",
 	"globalcollect_gateway-response-21000155": "Неправильний код банку.",
 	"globalcollect_gateway-response-21000160": "Неправильний номер рахунку giro.",
-	"globalcollect_gateway-response-default": "Сталася помилка при обробці Вашої транзакції.\nБудь ласка, спробуйте знову пізніше."
+	"globalcollect_gateway-response-default": "Сталася помилка при обробці Вашої транзакції.\nБудь ласка, спробуйте знову пізніше.",
+	"testingglobalcollectgateway": "Тестування GlobalCollect"
 }
