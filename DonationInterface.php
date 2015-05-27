@@ -858,6 +858,7 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 
 $wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
 	'scripts' => 'forms.js',
+	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
 	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
 );

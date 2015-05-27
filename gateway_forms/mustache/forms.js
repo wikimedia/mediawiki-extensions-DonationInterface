@@ -1,5 +1,7 @@
 $( document ).ready( function() {
 	$( '#paymentContinueBtn' ).click( function() {
-		$( '#payment-form' ).submit();
+		if ( window.validateAmount() ) {
+			$( '#payment-form' ).submit();
+		}
 	});
 });

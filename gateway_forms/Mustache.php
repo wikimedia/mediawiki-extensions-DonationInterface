@@ -33,6 +33,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 */
 	public function getForm() {
 		$data = $this->getData();
+		$data = $data + $this->getErrors();
 		self::$country = $data['country'];
 
 		$template = file_get_contents( $this->topLevelForm );
@@ -101,7 +102,30 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 		}
+		foreach( $this->gateway->getCurrencies() as $currency ) {
+			$data['currencies'][] = array(
+				'code' => $currency,
+				'selected' => ( $currency === $data['currency_code'] ),
+			);
+		}
 		return $data;
+	}
+
+	protected function getErrors() {
+		$errors = $this->gateway->getAllErrors();
+		$return = array();
+		$return['errors'] = array();
+		foreach( $errors as $key => $error ) {
+			$return['errors'][] = array(
+				'key' => $key,
+				'message' => $error,
+			);
+			$return["{$key}_error"] = true;
+			if ( $key === 'currency_code' || $key === 'amount' ) {
+				$return['show_amount_input'] = true;
+			}
+		}
+		return $return;
 	}
 
 	/**
