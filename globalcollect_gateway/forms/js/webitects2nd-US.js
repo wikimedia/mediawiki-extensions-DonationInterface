@@ -48,13 +48,13 @@ $( document ).ready( function () {
 		$( '#paymentErrorMessages' ).html( paymentErrorString );
 	}
 
-	$( '#paymentContinueBtn' ).live( 'click', function () {
+	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm();
 		}
 	} );
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).live( 'click', function () {
+	$( '.cardradio' ).on( 'click', function () {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm();
 		} else {

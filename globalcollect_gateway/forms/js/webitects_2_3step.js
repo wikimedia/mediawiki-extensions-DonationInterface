@@ -107,13 +107,13 @@ $( document ).ready( function () {
 			document.paypalcontribution.submit();
 		}
 	} );
-	$( '#paymentContinueBtn' ).live( 'click', function () {
+	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm();
 		}
 	} );
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).live( 'click', function () {
+	$( '.cardradio' ).on( 'click', function () {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
 			displayCreditCardForm();
 		} else {
@@ -223,4 +223,4 @@ window.showStep3 = function () {
 };
 // Fix behavior of images in labels
 // TODO: check that disabling this is okay in things other than Chrome
-// $( 'label img' ).live( 'click', function () { $( '#' + $( this ).parents( 'label' ).attr( 'for' ) ).click(); } );
+// $( 'label img' ).on( 'click', function () { $( '#' + $( this ).parents( 'label' ).attr( 'for' ) ).click(); } );

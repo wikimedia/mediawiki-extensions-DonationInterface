@@ -1,6 +1,6 @@
 <?php
 
-class WorldPayValidateApi extends ApiBase {
+class WorldpayValidateApi extends ApiBase {
 	protected $allowedParams = array(
 		'fname', 'lname', 'emailAdd',
 		'email-opt',
@@ -16,7 +16,7 @@ class WorldPayValidateApi extends ApiBase {
 	);
 
 	public function execute() {
-		$adapter = new WorldPayAdapter( array( 'api_request' => true ) );
+		$adapter = new WorldpayAdapter( array( 'api_request' => true ) );
 
 		// FIXME: move this workflow into the adapter class.
 

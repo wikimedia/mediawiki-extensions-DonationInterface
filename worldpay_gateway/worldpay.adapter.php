@@ -18,14 +18,14 @@
 use Psr\Log\LogLevel;
 
 /**
- * WorldPayAdapter
+ * WorldpayAdapter
  *
  */
-class WorldPayAdapter extends GatewayAdapter {
+class WorldpayAdapter extends GatewayAdapter {
 
-	const GATEWAY_NAME = 'WorldPay Gateway';
+	const GATEWAY_NAME = 'Worldpay Gateway';
 	const IDENTIFIER = 'worldpay';
-	const GLOBAL_PREFIX = 'wgWorldPayGateway';
+	const GLOBAL_PREFIX = 'wgWorldpayGateway';
 
 	public $redirect = FALSE;
 	public $log_outbound = TRUE;
@@ -53,7 +53,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	/**
 	 * @var string[] ISO Currency code letters to numbers (from appendix B of the
 	 * integration manual). These are also apparently all the currencies that
-	 * WorldPay can support.
+	 * Worldpay can support.
 	 */
 	static $CURRENCY_CODES = array(
 		'AED' => 784,
@@ -938,7 +938,7 @@ class WorldPayAdapter extends GatewayAdapter {
 		return $data;
 	}
 
-	// WorldPay is apparently not very worldly in the ways of alphabets
+	// Worldpay is apparently not very worldly in the ways of alphabets
 	protected function buildRequestXML( $rootElement = 'TMSTN', $encoding = 'ISO-8859-1' ) {
 		$xml = parent::buildRequestXML( $rootElement, $encoding );
 		return 'StringIn=' . str_replace( "\n", '', $xml );
@@ -966,7 +966,7 @@ class WorldPayAdapter extends GatewayAdapter {
 
 		$this->staged_data['returnto'] = str_replace(
 			'$1',
-			'Special:WorldPayGateway?token=' . rawurlencode( $this->token_getSaltedSessionToken() ),
+			'Special:WorldpayGateway?token=' . rawurlencode( $this->token_getSaltedSessionToken() ),
 			$wgServer . $wgArticlePath
 		);
 	}
@@ -1126,7 +1126,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	 * getAVSResult is intended to be used by the functions filter, to
 	 * determine if we want to fail the transaction ourselves or not.
 	 *
-	 * In WorldPay, we get two values back that we get to synthesize
+	 * In Worldpay, we get two values back that we get to synthesize
 	 * together: One for address, and one for zip.
 	 */
 	public function getAVSResult() {
@@ -1225,7 +1225,7 @@ class WorldPayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * WorldPay doesn't check order numbers until settlement at
+	 * Worldpay doesn't check order numbers until settlement at
 	 * which point it's too late to do much about it. So; our order
 	 * numbers will by the contribution tracking ID with an attempt
 	 * number appended.

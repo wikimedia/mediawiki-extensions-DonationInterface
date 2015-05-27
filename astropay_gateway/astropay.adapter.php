@@ -341,8 +341,13 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function doPayment() {
+		$transaction_result = $this->do_transaction( 'NewInvoice' );
+		$this->runAntifraudHooks();
+		if ( $this->getValidationAction() !== 'process' ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+		}
 		$result = PaymentResult::fromResults(
-			$this->do_transaction( 'NewInvoice' ),
+			$transaction_result,
 			$this->getFinalStatus()
 		);
 		if ( $result->getRedirect() ) {
@@ -468,6 +473,9 @@ class AstropayAdapter extends GatewayAdapter {
 			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
 			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 			$this->finalizeInternalStatus( $status );
+			$this->runPostProcessHooks();
+			$this->deleteLimboMessage();
+			$this->doLimboStompTransaction( TRUE ); // TODO: stop mirroring to STOMP
 			break;
 		case 'NewInvoice':
 			$this->processNewInvoiceResponse( $response );

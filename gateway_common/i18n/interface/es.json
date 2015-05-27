@@ -31,7 +31,8 @@
 			"Jrobell",
 			"Pcoombe",
 			"JasterTDC",
-			"Tusca"
+			"Tusca",
+			"Ryo567"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -226,6 +227,7 @@
 	"donate_interface-donate-error-try-again-html": "Por favor <a href=\"$1\">intenta nuevamente</a>, pruebe una de nuestras <a href=\"$2\">maneras para dar</a>, o póngase en contacto con nosotros en <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Gracias por su apoyo!",
 	"donate_interface-error-no-form": "Nosotros fuimos incapaces de encontrar una forma de donación que coincida con sus parámetros. Póngase en contacto con [mailto:donate@wikimedia.org nuestro equipo de ayuda] para obtener más información.",
+	"donate_interface-error-no-form-html": "No pudimos encontrar un formulario de domación que coincida con tus parámetros. Intenta con <a href=\"$1\">otras formas de colaborar</a> o contáctanos a <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Su transacción no puede ser aceptada.",
 	"donate_interface-thankyou": "Gracias por tu donación!",
 	"donate_interface-post-transaction": "Detalles de la transacción",
@@ -401,6 +403,8 @@
 	"donate_interface-secureLogo-text": "Acerca de los certificados SSL",
 	"donate_interface-error-http-403": "No tiene permiso para acceder a esta página",
 	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-description": "Esta API te permite enviar una donación a la Fundación Wikimedia, usando una variedad de métodos de pago.",
+	"apihelp-donate-param-gateway": "Qué sistema de pago utilizar: adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "La cantidad donada.",
 	"apihelp-donate-param-currency_code": "Código de la moneda.",
 	"apihelp-donate-param-fname": "Nombre(s).",

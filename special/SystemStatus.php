@@ -12,6 +12,12 @@ class SystemStatus extends UnlistedSpecialPage {
 	}
 
 	function execute( $par ) {
+		global $wgDonationInterfaceEnableSystemStatus;
+
+		if ( !$wgDonationInterfaceEnableSystemStatus ) {
+			throw new BadTitleError();
+		}
+
 		// Right now we just need something that doesn't end up creating
 		// contribution_ids for testing.
 		echo "<pre>OK</pre>";

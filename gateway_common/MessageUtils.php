@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * Convenience methods for translating and localizing interface messages
+ */
+class MessageUtils {
+
+	/**
+	 * languageSpecificFallback - returns the text of the first existant message
+	 * in the requested language. If no messages are found in that language, the
+	 * function returns the first existant fallback message.
+	 *
+	 * @param string $language the code of the requested language
+	 * @param array $msg_keys
+	 * @throws InvalidArgumentException
+	 * @return String the text of the first existant message
+	 */
+	public static function languageSpecificFallback( $language='en', $msg_keys=array() ){
+
+		if ( count( $msg_keys ) < 1 ){
+			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
+		}
+
+		# look for the first message that exists
+		foreach ( $msg_keys as $m ){
+			if ( self::messageExists( $m, $language ) ){
+				return WmfFramework::formatMessage( $m, $language );
+			}
+		}
+
+		# we found nothing in the requested language, return the first fallback message that exists
+		foreach ( $msg_keys as $m ){
+			if ( WmfFramework::messageExists( $m, $language ) ){
+				return WmfFramework::formatMessage( $m, $language );
+			}
+		}
+
+		# somehow we still don't have a message, return a default error message
+		return WmfFramework::formatMessage( $msg_keys[0] );
+	}
+
+	/**
+	 * messageExists returns true if a translatable message has been defined
+	 * for the string and language that have been passed in, false if none is
+	 * present.
+	 * @param string $msg_key The message string to look up.
+	 * @param string $language A valid mediawiki language code.
+	 * @return boolean - true if message exists, otherwise false.
+	 */
+	public static function messageExists( $msg_key, $language ){
+		$language = strtolower( $language );
+		if ( WmfFramework::messageExists( $msg_key, $language ) ){
+			# if we are looking for English, we already know the answer
+			if ( $language == 'en' ){
+				return true;
+			}
+
+			# get the english version of the message
+			$msg_en = WmfFramework::formatMessage( $msg_key, 'en' );
+			# attempt to get the message in the specified language
+			$msg_lang = WmfFramework::formatMessage( $msg_key, $language );
+
+			# if the messages are the same, the message fellback to English, return false
+			return strcmp( $msg_en, $msg_lang ) != 0;
+		}
+		return false;
+	}
+
+	/**
+	 * Retrieves and translates a country-specific message, or the default if
+	 * no country-specific version exists.
+	 * @param string $key
+	 * @param string $country
+	 * @param string $language
+	 */
+	public static function getCountrySpecificMessage( $key, $country, $language ) {
+		return self::languageSpecificFallback( $language, array( $key . '-' . strtolower( $country ), $key ) );
+	}
+}

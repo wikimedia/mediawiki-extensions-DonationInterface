@@ -3145,7 +3145,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * $wgDonationInterfaceAllowedHtmlForms
 	 */
 	public function session_pushRapidHTMLForm( $form_key ) {
-		if ( strlen( $form_key ) === 0 ) {
+		if ( !$form_key ) {
 			return;
 		}
 
@@ -3276,7 +3276,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return bool
 	 */
 	protected function token_matchEditToken( $val ) {
-		// When fetching the token from the URL (like we do for WorldPay), the last
+		// When fetching the token from the URL (like we do for Worldpay), the last
 		// portion may be mangled by + being substituted for ' '. Normally this is
 		// valid URL unescaping, but not in this case.
 		$val = str_replace( ' ', '+', $val );

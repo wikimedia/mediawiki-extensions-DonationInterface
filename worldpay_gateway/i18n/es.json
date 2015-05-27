@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Edomato"
+			"Edomato",
+			"Ryo567"
 		]
 	},
-	"worldpaygateway": "Haz tu donación ahora"
+	"worldpaygateway": "Haz tu donación ahora",
+	"testingworldpaygateway": "Prueba de WorldPay"
 }

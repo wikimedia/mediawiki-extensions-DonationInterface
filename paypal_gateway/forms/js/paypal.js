@@ -40,7 +40,7 @@ $( document ).ready( function () {
 		$( '#topError' ).html( paymentErrorString );
 	}
 
-	$( '#paymentContinueBtn' ).live( 'click', function () {
+	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( document.validateAmount() ) {
 			document.payment.action = actionURL;
 			document.payment.submit();

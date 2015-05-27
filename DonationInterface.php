@@ -49,6 +49,7 @@ $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['DataValidator'] = __DIR__ . '/gateway_common/DataValidator.php';
 $wgAutoloadClasses['LogPrefixProvider'] = __DIR__ . '/gateway_common/gateway.adapter.php';
+$wgAutoloadClasses['MessageUtils'] = __DIR__ . '/gateway_common/MessageUtils.php';
 $wgAutoloadClasses['NationalCurrencies'] = __DIR__ . '/gateway_common/NationalCurrencies.php';
 $wgAutoloadClasses['PaymentMethod'] = __DIR__ . '/gateway_common/PaymentMethod.php';
 $wgAutoloadClasses['PaymentResult'] = __DIR__ . '/gateway_common/PaymentResult.php';
@@ -93,12 +94,12 @@ $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.
 $wgAutoloadClasses['PaypalGatewayResult'] = __DIR__ . '/paypal_gateway/paypal_resultswitcher.body.php';
 $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
 
-// WorldPay
-$wgAutoloadClasses['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
-$wgAutoloadClasses['WorldPayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
+// Worldpay
+$wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
+$wgAutoloadClasses['WorldpayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
 
-$wgAPIModules['di_wp_validate'] = 'WorldPayValidateApi';
-$wgAutoloadClasses['WorldPayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';
+$wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
+$wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';
 
 //Extras classes - required for ANY optional class that is considered an "extra".
 $wgAutoloadClasses['Gateway_Extras'] = __DIR__ . '/extras/extras.body.php';
@@ -345,17 +346,17 @@ $wgAstropayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
 #		'SecretKey' => '', // For signing requests and verifying responses
 #	);
 
-$wgWorldPayGatewayHtmlFormDir = __DIR__ . '/worldpay_gateway/forms/html';
+$wgWorldpayGatewayHtmlFormDir = __DIR__ . '/worldpay_gateway/forms/html';
 
-$wgWorldPayGatewayURL = 'https://some.url.here';
+$wgWorldpayGatewayURL = 'https://some.url.here';
 
 /**
  * Set this to true if fraud checks should be disabled for integration testing
  */
-$wgWorldPayGatewayNoFraudIntegrationTest = false;
+$wgWorldpayGatewayNoFraudIntegrationTest = false;
 
 /*
-$wgWorldPayGatewayAccountInfo['default'] = array(
+$wgWorldpayGatewayAccountInfo['default'] = array(
 	'Test' => 1,
 	'MerchantId' => 00000,
 	'Username' => 'suchuser',
@@ -369,7 +370,7 @@ $wgWorldPayGatewayAccountInfo['default'] = array(
 );
 */
 
-$wgWorldPayGatewayCvvMap = array (
+$wgWorldpayGatewayCvvMap = array (
 	'0' => false, //No Match
 	'1' => true, //Match
 	'2' => false, //Not Checked
@@ -385,7 +386,7 @@ $wgWorldPayGatewayCvvMap = array (
 	'' => false, //No code returned. All the points.
 );
 
-$wgWorldPayGatewayAvsAddressMap = array (
+$wgWorldpayGatewayAvsAddressMap = array (
 	'0' => 50, //No Match
 	'1' => 0, //Match
 	'2' => 12, //Not Checked/Not Available
@@ -395,7 +396,7 @@ $wgWorldPayGatewayAvsAddressMap = array (
 	'' => 50, //No code returned. All the points.
 );
 
-$wgWorldPayGatewayAvsZipMap = array (
+$wgWorldpayGatewayAvsZipMap = array (
 	'0' => 50, //No Match
 	'1' => 0, //Match
 	'2' => 12, //Not Checked/Not Available
@@ -715,185 +716,80 @@ $wgDonationInterfaceUtmMediumMap = array();
  */
 $wgDonationInterfaceUtmSourceMap = array();
 
-// Perform initialization that depends on user configuration.
-$wgExtensionFunctions[] = function() {
-	global $wgDonationInterfaceEnabledGateways,
-		$wgDonationInterfaceEnableCustomFilters,
-		$wgSpecialPages,
-		$wgHooks,
-		$wgDonationInterfaceFormDirs,
-		$wgDonationInterfaceHtmlFormDir,
-		$wgAdyenGatewayHtmlFormDir,
-		$wgAmazonGatewayHtmlFormDir,
-		$wgGlobalCollectGatewayHtmlFormDir,
-		$wgPaypalGatewayHtmlFormDir,
-		$wgWorldPayGatewayHtmlFormDir;
+$wgDonationInterfaceEnableStomp = false;
+$wgDonationInterfaceEnableQueue = false;
+$wgDonationInterfaceEnableConversionLog = false; //this is definitely an Extra
+$wgDonationInterfaceEnableMinfraud = false; //this is definitely an Extra
 
-	/**
-	 * Figure out what we've got enabled.
-	 */
-	$optionalParts = array( //define as fail closed.
-		'CustomFilters' => false, //Gets set if at least one filter is enabled.
-		'Stomp' => false,
-		'Queue' => false,
-		'ConversionLog' => false, //this is definitely an Extra
-		'Minfraud' => true, //this is definitely an Extra
-		'GlobalCollect' => true,
-		'Amazon' => true,
-		'Adyen' => true,
-		'Astropay' => true,
-		'Paypal' => true,
-		'WorldPay' => true,
-		'FormChooser' => true,
-		'ReferrerFilter' => true, //extra
-		'SourceFilter' => true, //extra
-		'FunctionsFilter' => true, //extra
-		'IPVelocityFilter' => false, //extra
-		'SessionVelocityFilter' => false, //extra
-		'SystemStatus' => false, //extra
-	);
+$wgGlobalCollectGatewayEnabled = false;
+$wgAmazonGatewayEnabled = false;
+$wgAdyenGatewayEnabled = false;
+$wgAstropayGatewayEnabled = false;
+$wgPaypalGatewayEnabled = false;
+$wgWorldpayGatewayEnabled = false;
 
-	// FIXME: Crude plugin type mechanism.
-	$customFilters = array(
-		'ReferrerFilter',
-		'SourceFilter',
-		'Minfraud',
-		'IPVelocityFilter',
-		'SessionVelocityFilter',
-	);
+/**
+ * @global boolean Set to false to disable all filters, or set a gateway-
+ * specific value such as $wgPaypalGatewayEnableCustomFilters = false.
+ */
+$wgDonationInterfaceEnableCustomFilters = true;
 
-	foreach ($optionalParts as $subextension => $enabled){
-		$globalname = 'wgDonationInterfaceEnable' . $subextension;
-		global $$globalname;
-		if ( isset( $$globalname ) ) {
-			$optionalParts[$subextension] = $$globalname;
-		}
+$wgDonationInterfaceEnableFormChooser = false;
+$wgDonationInterfaceEnableReferrerFilter = false; //extra
+$wgDonationInterfaceEnableSourceFilter = false; //extra
+$wgDonationInterfaceEnableFunctionsFilter = false; //extra
+$wgDonationInterfaceEnableIPVelocityFilter = false; //extra
+$wgDonationInterfaceEnableSessionVelocityFilter = false; //extra
+$wgDonationInterfaceEnableSystemStatus = false; //extra
 
-		if ( $optionalParts[$subextension] === true ) {
-			//this is still annoying.
-			if ( in_array( $subextension, $customFilters ) ) {
-				$optionalParts['CustomFilters'] = true;
-				$wgDonationInterfaceEnableCustomFilters = true; //override this for specific gateways to disable
-			}
-		}
-	}
+$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
+$wgSpecialPages['SystemStatus'] = 'SystemStatus';
 
-	/**
-	 * SPECIAL PAGES
-	 */
-	if ( $optionalParts['FormChooser'] === true ){
-		$wgSpecialPages['GatewayFormChooser'] = 'GatewayFormChooser';
-	}
-	if ( $optionalParts['SystemStatus'] === true ){
-		$wgSpecialPages['SystemStatus'] = 'SystemStatus';
-	}
+$wgSpecialPages['GlobalCollectGateway'] = 'GlobalCollectGateway';
+$wgSpecialPages['GlobalCollectGatewayResult'] = 'GlobalCollectGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'GlobalCollectAdapter';
 
-	//GlobalCollect gateway special pages
-	if ( $optionalParts['GlobalCollect'] === true ){
-		$wgSpecialPages['GlobalCollectGateway'] = 'GlobalCollectGateway';
-		$wgSpecialPages['GlobalCollectGatewayResult'] = 'GlobalCollectGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'globalcollect';
-	}
-	//Amazon Simple Payment gateway special pages
-	if ( $optionalParts['Amazon'] === true ){
-		$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
-		$wgDonationInterfaceEnabledGateways[] = 'amazon';
-	}
-	//Adyen gateway special pages
-	if ( $optionalParts['Adyen'] === true ){
-		$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
-		$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'adyen';
-	}
-	//Astropay gateway special pages
-	if ( $optionalParts['Astropay'] === true ){
-		$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
-		$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'astropay';
-	}
-	//PayPal
-	if ( $optionalParts['Paypal'] === true ){
-		$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-		$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
-		$wgDonationInterfaceEnabledGateways[] = 'paypal';
-	}
-	//WorldPay
-	if ( $optionalParts['WorldPay'] === true ){
-		$wgSpecialPages['WorldPayGateway'] = 'WorldPayGateway';
-		$wgDonationInterfaceEnabledGateways[] = 'worldpay';
-	}
+$wgSpecialPages['AmazonGateway'] = 'AmazonGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'AmazonAdapter';
 
-	//Stomp hooks
-	if ( $optionalParts['Stomp'] === true ) {
-		$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
-		$wgHooks['gwStomp'][] = 'sendSTOMP';
-		$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
-		$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
-	}
+$wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
+$wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'AdyenAdapter';
 
-	//Custom Filters hooks
-	if ( $optionalParts['CustomFilters'] === true ) {
-		$wgHooks["GatewayValidate"][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
-	}
+$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
+$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'AstropayAdapter';
 
-	//Referrer Filter hooks
-	if ( $optionalParts['ReferrerFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
-	}
+$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
+$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
-	//Source Filter hooks
-	if ( $optionalParts['SourceFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
-	} 
+$wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
-	//Functions Filter hooks
-	if ( $optionalParts['FunctionsFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
-	} 
+//Stomp hooks
+// FIXME: There's no point in using hooks any more, since we're switching
+// behavior inside the callbacks and not via conditional hooking.
+$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
+$wgHooks['gwStomp'][] = 'sendSTOMP';
+$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
+$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
 
-	//Minfraud as Filter globals
-	if ( $optionalParts['Minfraud'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
-	}
+//Custom Filters hooks
+$wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 
-	//Conversion Log hooks
-	if ($optionalParts['ConversionLog'] === true){
-		// Sets the 'conversion log' as logger for post-processing
-		$wgHooks["GatewayPostProcess"][] = array( "Gateway_Extras_ConversionLog::onPostProcess" );
-	}
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
+$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
+$wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
 
-	//Functions Filter hooks
-	if ( $optionalParts['IPVelocityFilter'] === true ){
-		$wgHooks["GatewayCustomFilter"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
-		$wgHooks["GatewayPostProcess"][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
-	}
+$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
 
-	if ( $optionalParts['SessionVelocityFilter'] === true ) {
-		$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
-	}
-
-	// Set up form template directories.
-	$form_dirs = array(
-		'default' => $wgDonationInterfaceHtmlFormDir,
-		'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-		'paypal' => $wgPaypalGatewayHtmlFormDir,
-		'amazon' => $wgAmazonGatewayHtmlFormDir,
-	);
-
-	if ( $wgDonationInterfaceEnableAdyen === true ) {
-		$form_dirs['adyen'] = $wgAdyenGatewayHtmlFormDir;
-	}
-	if ( $wgDonationInterfaceEnableWorldPay === true ) {
-		$form_dirs['worldpay'] = $wgWorldPayGatewayHtmlFormDir;
-	}
-	$wgDonationInterfaceFormDirs = array_merge(
-		$form_dirs,
-		$wgDonationInterfaceFormDirs
-	);
-
-	// Load the default form settings
-	require_once __DIR__ . '/DonationInterfaceFormSettings.php';
-};
+//Conversion Log hooks
+// Sets the 'conversion log' as logger for post-processing
+$wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_ConversionLog::onPostProcess' );
 
 //Unit tests
 $wgHooks['UnitTestsList'][] = 'efDonationInterfaceUnitTests';
@@ -1047,8 +943,8 @@ $wgExtensionMessagesFiles['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_g
 $wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
-$wgExtensionMessagesFiles['WorldPayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.i18n.php';
-$wgExtensionMessagesFiles['WorldPayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
+$wgExtensionMessagesFiles['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.i18n.php';
+$wgExtensionMessagesFiles['WorldpayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
 
 /**
  * See default values in DonationInterfaceFormSettings.php.  Note that any values
@@ -1061,7 +957,17 @@ $wgDonationInterfaceAllowedHtmlForms = array();
 /**
  * Base directories for each gateway's form templates.
  */
-$wgDonationInterfaceFormDirs = array();
+$wgDonationInterfaceFormDirs = array(
+	'adyen' => $wgAdyenGatewayHtmlFormDir,
+	'amazon' => $wgAmazonGatewayHtmlFormDir,
+	'default' => $wgDonationInterfaceHtmlFormDir,
+	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
+	'paypal' => $wgPaypalGatewayHtmlFormDir,
+	'worldpay' => $wgWorldpayGatewayHtmlFormDir,
+);
+
+// Load the default form settings.
+require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 
 /**
  * FUNCTIONS

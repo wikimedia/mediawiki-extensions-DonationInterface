@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ansumang",
-			"Siddhartha Ghai"
+			"Siddhartha Ghai",
+			"NehalDaveND"
 		]
 	},
 	"donate_interface": "विकीमीडिया को समर्थन करें",
@@ -178,7 +179,6 @@
 	"donate_interface-problemsdonating": "दान करने में कोई समस्या?",
 	"donate_interface-donate-click": "आपके क्रेडिट / डेबिट कार्ड सुरक्षित रूप से प्रोसेस होगा ।",
 	"donate_interface-otherways-short": "अन्य तरीकों देने के लिए",
-	"donate_interface-credit-storage-processing": "हम आपके क्रेडिट कार्ड की जानकारी संग्रहीत नहीं करते है, और आपकी व्यक्तिगत जानकारी हमारे <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">दाता गोपनीयता नीति</a>के अधीन है।",
 	"donate_interface-token-mismatch": "आपका सत्र समाप्त हो गया है।  कृपया फिरसे भरें और प्रपत्र पुन: सबमिट करनेकी प्रयास करें।",
 	"donate_interface-cc-form-header-personal": "बिल सम्बंधी जानकारी",
 	"donate_interface-cc-form-header-payment": "भुगतान जानकारी",
@@ -270,25 +270,9 @@
 	"donate_interface-email-receipt": "ई-मेल प्राप्त होने के लिए",
 	"donate_interface-monthly-donation": "एक मासिक दान करें",
 	"donate_interface-via-paypal": "(माध्यम पेपाल)",
-	"donate_interface-shirt-size": "टी शर्ट माप:",
-	"donate_interface-shirt-size-2": "टी शर्ट माप: $1",
-	"donate_interface-language": "भाषा:",
-	"donate_interface-front": "सामने",
-	"donate_interface-back": "पीछे",
-	"donate_interface-front-of-shirt": "शर्ट के सामने",
-	"donate_interface-back-of-shirt": "शर्ट के पीछे",
-	"donate_interface-select-a-size": "कृपया आकार का चयन करें।",
 	"donate_interface-select": "चयन करें",
-	"donate_interface-shipping-address": "वितरण पता",
-	"donate_interface-shipping-address-different": "मेरा वितरण पता मेरे बिलिंग पते से अलग है।",
-	"donate_interface-shipping-address-same": "बितरण पते और बिलिंग पते एक है ।",
-	"donate_interface-only-billing-address": "शर्ट केबल आपके बिलिंग पते पर भेजा जा सकता।",
 	"donate_interface-donation-must-equal": "दान  $1 बराबर या अधिक होना चाहिए ।",
 	"donate_interface-thank-you": "धन्यवाद! आपका दान प्राप्त किया गया है।",
-	"donate_interface-wikipedia-translation": "कृपया ध्यान दें: \"विकिपीडिया\" शर्ट आस्तीन पर \"विकिपीडिया 10\" ग्राफिक रहेगा, जो अनुवाद किया नहीं किया गया है।",
-	"donate_interface-on-the-back": "इस के साथ पीठ पर:",
-	"donate_interface-tshirt-confirmation": "नीचे दिये गए आकार और भाषा की मुताबिक आपके टी-शर्ट भेज दिया जाएगा:",
-	"donate_interface-donation-tshirt": "दान (टी-शर्ट प्रस्ताव)",
 	"donate_interface-change": "परिवर्तन",
 	"donate_interface-select-credit-card": "क्रेडिट कार्ड चुनें",
 	"donate_interface-optional": "वैकल्पिक",
@@ -340,5 +324,7 @@
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-बार",
 	"donate_interface-secureLogo-text": "SSL प्रमाणपत्र के बारे में",
-	"donate_interface-error-http-403": "आपको इस पृष्ठ का उपयोग करने की अनुमति नहीं है।"
+	"donate_interface-error-http-403": "आपको इस पृष्ठ का उपयोग करने की अनुमति नहीं है।",
+	"apihelp-donate-param-city": "शहर",
+	"apihelp-donate-param-language": "भाषा कोड"
 }

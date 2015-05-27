@@ -164,7 +164,7 @@ $( document ).ready( function () {
 		$( '#topError' ).html( paymentErrorString );
 	}
 
-	$( '#paymentContinueBtn' ).live( 'click', function () {
+	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '250px' }, 1000 );
 			displayCreditCardForm();
