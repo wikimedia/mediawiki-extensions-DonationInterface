@@ -21,6 +21,5 @@
 	"globalcollect_gateway-response-21000150": "Die Kontonummer ist ungültig.",
 	"globalcollect_gateway-response-21000155": "Die Bankleitzahl ist ungültig.",
 	"globalcollect_gateway-response-21000160": "Die Girokontonummer ist ungültig.",
-	"globalcollect_gateway-response-default": "Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.\nBitte versuchen Sie es später noch einmal.",
-	"testingglobalcollectgateway": "GlobalCollect-Test"
+	"globalcollect_gateway-response-default": "Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.\nBitte versuchen Sie es später noch einmal."
 }

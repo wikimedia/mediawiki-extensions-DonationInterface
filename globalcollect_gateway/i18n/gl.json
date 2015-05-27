@@ -21,6 +21,5 @@
 	"globalcollect_gateway-response-21000150": "O número da conta bancaria non é válido.",
 	"globalcollect_gateway-response-21000155": "O código bancario non é válido.",
 	"globalcollect_gateway-response-21000160": "O número de conta da transferencia non é válido.",
-	"globalcollect_gateway-response-default": "Houbo un erro ao procesar a túa transacción.\nPor favor, inténtao de novo máis tarde.",
-	"testingglobalcollectgateway": "Probas de GlobalCollect"
+	"globalcollect_gateway-response-default": "Houbo un erro ao procesar a túa transacción.\nPor favor, inténtao de novo máis tarde."
 }

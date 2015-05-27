@@ -21,6 +21,5 @@
 	"globalcollect_gateway-response-21000150": "无效的银行帐号。",
 	"globalcollect_gateway-response-21000155": "无效的银行代码。",
 	"globalcollect_gateway-response-21000160": "无效的转帐帐户号码。",
-	"globalcollect_gateway-response-default": "处理您的交易过程中出错。\n请稍后重试。",
-	"testingglobalcollectgateway": "GlobalCollect 测试"
+	"globalcollect_gateway-response-default": "处理您的交易过程中出错。\n请稍后重试。"
 }

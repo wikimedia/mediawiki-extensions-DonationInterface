@@ -20,6 +20,5 @@
 	"apihelp-di_wp_validate-param-zip": "{{doc-apihelp-param|di_wp_validate|zip}}",
 	"apihelp-di_wp_validate-param-country": "{{doc-apihelp-param|di_wp_validate|country}}",
 	"apihelp-di_wp_validate-param-city": "{{doc-apihelp-param|di_wp_validate|city}}",
-	"apihelp-di_wp_validate-param-cvc": "{{doc-apihelp-param|di_wp_validate|cvc}}",
-	"testingworldpaygateway": "Title for the WorldPay test adapter"
+	"apihelp-di_wp_validate-param-cvc": "{{doc-apihelp-param|di_wp_validate|cvc}}"
 }

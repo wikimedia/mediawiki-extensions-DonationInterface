@@ -21,6 +21,5 @@
 	"globalcollect_gateway-response-21000150": "D'Kontonummer ass net valabel.",
 	"globalcollect_gateway-response-21000155": "De Code fir d'Bank ass net valabel.",
 	"globalcollect_gateway-response-21000160": "D'Giro-Kontonummer ass net valabel.",
-	"globalcollect_gateway-response-default": "Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.\nProbéiert et w.e.g. spéider nach eng Kéier.",
-	"testingglobalcollectgateway": "GlobalCollect-Test"
+	"globalcollect_gateway-response-default": "Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.\nProbéiert et w.e.g. spéider nach eng Kéier."
 }
