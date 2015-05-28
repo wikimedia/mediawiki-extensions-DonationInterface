@@ -72,10 +72,19 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $html;
 	}
 
-	public static function l10n( $key ) {
+	/**
+	 * Get a message value specific to the donor's country and language
+	 * @param array $params first value is used as message key
+	 * TODO: use the rest as message parameters
+	 * @return string
+	 */
+	public static function l10n( $params ) {
+		if ( !$params ) {
+			throw new BadMethodCallException( 'Need at least one message key' );
+		}
 		$language = RequestContext::getMain()->getLanguage()->getCode();
 		return MessageUtils::getCountrySpecificMessage(
-			$key,
+			$params[0],
 			self::$country,
 			$language
 		);
