@@ -71,7 +71,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
-			throw new BadTitleError();
+			$this->displayFailPage();
+			return;
 		}
 
 		if( $wgContributionTrackingFundraiserMaintenance
