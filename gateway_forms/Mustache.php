@@ -94,6 +94,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['submethods'] = array();
 		foreach( $availableSubmethods as $key => $submethod ) {
 			$submethod['key'] = $key;
+			$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/card-$key.png";
 			$data['submethods'][] = $submethod;
 		}
 		$required_fields = $this->gateway->getRequiredFields();

@@ -80,6 +80,7 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->staged_vars = array(
 			'full_name',
 			'donor_id',
+			'bank_code',
 		);
 	}
 
@@ -254,8 +255,8 @@ class AstropayAdapter extends GatewayAdapter {
 			// Email: testing@astropaycard.com
 			// Name: ASTROPAY TESTING
 			// Birthdate: 04/03/1984
-			$this->payment_submethods['test'] = array(
-				'bankcode' => 'TE',
+			$this->payment_submethods['test_bank'] = array(
+				'bank_code' => 'TE',
 				'label' => 'GNB',
 				'group' => 'cc',
 			);
@@ -263,7 +264,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Visa
 		$this->payment_submethods['visa'] = array(
-			'bankcode' => 'VI',
+			'bank_code' => 'VI',
 			'label' => 'Visa',
 			'group' => 'cc',
 			'countries' => array(
@@ -274,7 +275,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// MasterCard
 		$this->payment_submethods['mc'] = array(
-			'bankcode' => 'MC',
+			'bank_code' => 'MC',
 			'label' => 'MasterCard',
 			'group' => 'cc',
 			'countries' => array(
@@ -285,7 +286,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// American Express
 		$this->payment_submethods['amex'] = array(
-			'bankcode' => 'AE',
+			'bank_code' => 'AE',
 			'label' => 'American Express',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
@@ -293,7 +294,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Visa Debit
 		$this->payment_submethods['visa_debit'] = array(
-			'bankcode' => 'VD',
+			'bank_code' => 'VD',
 			'label' => 'Visa Debit',
 			'group' => 'cc',
 			'countries' => array(
@@ -303,7 +304,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// MasterCard debit
 		$this->payment_submethods['mc_debit'] = array(
-			'bankcode' => 'MD',
+			'bank_code' => 'MD',
 			'label' => 'Mastercard Debit',
 			'group' => 'cc',
 			'countries' => array(
@@ -313,7 +314,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Elo (Brazil-only)
 		$this->payment_submethods['elo'] = array(
-			'bankcode' => 'EL',
+			'bank_code' => 'EL',
 			'label' => 'Elo',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
@@ -321,7 +322,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Diners Club
 		$this->payment_submethods['dc'] = array(
-			'bankcode' => 'DC',
+			'bank_code' => 'DC',
 			'label' => 'Diners Club',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
@@ -329,7 +330,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Hipercard
 		$this->payment_submethods['hiper'] = array(
-			'bankcode' => 'HI',
+			'bank_code' => 'HI',
 			'label' => 'Hipercard',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
@@ -337,7 +338,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		// Argencard
 		$this->payment_submethods['argen'] = array(
-			'bankcode' => 'AG',
+			'bank_code' => 'AG',
 			'label' => 'Argencard',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
@@ -355,7 +356,6 @@ class AstropayAdapter extends GatewayAdapter {
 			$this->getFinalStatus()
 		);
 		if ( $result->getRedirect() ) {
-			$this->unstage_payment_submethod();
 			$this->doLimboStompTransaction();
 			$this->setLimboMessage();
 		}
@@ -420,11 +420,21 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
 	}
 
+	protected function stage_bank_code() {
+		$submethod = $this->getPaymentSubmethod();
+		if ( $submethod ) {
+			$meta = $this->getPaymentSubmethodMeta( $submethod );
+			if ( isset( $meta['bank_code'] ) ) {
+				$this->staged_data['bank_code'] = $meta['bank_code'];
+			}
+		}
+	}
+
 	protected function unstage_payment_submethod() {
 		$method = $this->getData_Staged( 'payment_method' );
 		$bank = $this->getData_Staged( 'bank_code' );
 		$filter = function( $submethod ) use ( $method, $bank ) {
-			return $submethod['group'] === $method && $submethod['bankcode'] === $bank;
+			return $submethod['group'] === $method && $submethod['bank_code'] === $bank;
 		};
 		$candidates = array_filter( $this->payment_submethods, $filter );
 		if ( count( $candidates ) !== 1 ) {

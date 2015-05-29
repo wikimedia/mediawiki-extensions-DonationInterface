@@ -2,7 +2,7 @@
 									<dd class="field" style="margin-bottom: 0; margin-left: 0;">
 										<ul class="options-h enabled" id="cards" style="margin: 0;">
 {{# submethods }}
-											<li title="{{ label }}"><input id="cc-{{ key }}" name="bank_code" type="radio" value="{{ bankcode }}" class="cardradio" /> <label for="cc-{{ key }}"><img alt="{{ label }}" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/card-{{ key }}.png" /></label></li>
+											<li title="{{ label }}"><input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" /> <label for="submethod-{{ key }}"><img alt="{{ label }}" src="{{ logo }}" /></label></li>
 {{/ submethods }}
 										</ul>
 										<div id="paymentContinue" > <input class="btn" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>

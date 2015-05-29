@@ -310,16 +310,17 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$this->assertEquals( FinalStatus::FAILED, $status );
 	}
 
-	function testUnstagePaymentSubmethod() {
+	function testStageBankCode() {
 		$init = $this->getDonorTestData( 'BR' );
 		$init['payment_method'] = 'cc';
-		$init['bank_code'] = 'EL';
+		$init['payment_submethod'] = 'elo';
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->doPayment();
 
-		$submethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
-		$this->assertEquals( 'elo', $submethod, 'Not setting payment submethod in doPayment' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$bank_code = $exposed->getData_Staged( 'bank_code' );
+		$this->assertEquals( 'EL', $bank_code, 'Not setting bank_code in doPayment' );
 	}
 
 	/**
