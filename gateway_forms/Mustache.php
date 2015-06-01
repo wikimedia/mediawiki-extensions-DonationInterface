@@ -75,10 +75,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$data['script_path'] = $config->get( 'ScriptPath' );
 		$data['verisign_logo'] = $this->getSmallSecureLogo();
-		$data['no_script'] = $this->getNoScript();
 		$relativePath = $this->sanitizePath( $this->topLevelForm );
 		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
 		$data['action'] = $this->getNoCacheAction();
+
+		$redirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
+		$data['no_script_redirect'] = $redirect;
+		$data['has_no_script_redirect'] = isset( $redirect ); // grr
 
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appeal = $this->make_safe( $request->getText( 'appeal', 'Appeal-default' ) );
