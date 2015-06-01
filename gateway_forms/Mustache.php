@@ -32,14 +32,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * @throw RuntimeException
 	 */
 	public function getForm() {
-		$data = $this->gateway->getData_Unstaged_Escaped();
+		$data = $this->getData();
 		self::$country = $data['country'];
-
-		$config = RequestContext::getMain()->getConfig();
-
-		$data['script_path'] = $config->get( 'ScriptPath' );
-		$data['verisign_logo'] = $this->getSmallSecureLogo();
-		$data['no_script'] = $this->getNoScript();
 
 		$template = file_get_contents( $this->topLevelForm );
 		if ( $template === false ) {
@@ -52,7 +46,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			array(
 				'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
 				'helpers' => array( 'l10n' => 'Gateway_Form_Mustache::l10n' ),
-				'basedir' => array( __DIR__ . '/mustache' ),
+				'basedir' => array( dirname( $this->topLevelForm ) ),
 				'fileext' => '.html.mustache',
 			)
 		);
@@ -72,12 +66,65 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $html;
 	}
 
-	public static function l10n( $key ) {
+	protected function getData() {
+		$data = $this->gateway->getData_Unstaged_Escaped();
+		$context = RequestContext::getMain();
+		$config = $context->getConfig();
+		$output = $context->getOutput();
+		$request = $context->getRequest();
+
+		$data['script_path'] = $config->get( 'ScriptPath' );
+		$data['verisign_logo'] = $this->getSmallSecureLogo();
+		$relativePath = $this->sanitizePath( $this->topLevelForm );
+		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
+		$data['action'] = $this->getNoCacheAction();
+
+		$redirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
+		$data['no_script_redirect'] = $redirect;
+		$data['has_no_script_redirect'] = isset( $redirect ); // grr
+
+		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
+		$appeal = $this->make_safe( $request->getText( 'appeal', 'Appeal-default' ) );
+		$appealWikiTemplate = str_replace( '$appeal', $appeal, $appealWikiTemplate );
+		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
+		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
+
+		$availableSubmethods = $this->gateway->getAvailableSubmethods();
+		// Need to add submethod key to its array 'cause mustache doesn't get keys
+		$data['submethods'] = array();
+		foreach( $availableSubmethods as $key => $submethod ) {
+			$submethod['key'] = $key;
+			$data['submethods'][] = $submethod;
+		}
+		$required_fields = $this->gateway->getRequiredFields();
+		foreach( $required_fields as $field ) {
+			$data["{$field}_required"] = true;
+		}
+		return $data;
+	}
+
+	/**
+	 * Get a message value specific to the donor's country and language
+	 * @param array $params first value is used as message key
+	 * TODO: use the rest as message parameters
+	 * @return string
+	 */
+	public static function l10n( $params ) {
+		if ( !$params ) {
+			throw new BadMethodCallException( 'Need at least one message key' );
+		}
 		$language = RequestContext::getMain()->getLanguage()->getCode();
 		return MessageUtils::getCountrySpecificMessage(
-			$key,
+			$params[0],
 			self::$country,
 			$language
+		);
+	}
+
+	public function getResources() {
+		return array(
+			'ext.donationinterface.mustache.styles',
+			'ext.donationinterface.mustache.scripts'
 		);
 	}
 }

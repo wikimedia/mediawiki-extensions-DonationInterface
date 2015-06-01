@@ -1,3 +1,4 @@
+{{{ template_trail }}}
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 	<tbody>
 	<tr>
@@ -6,10 +7,10 @@
 		</td>
 		<td id="donate" valign="top">
 			<div id="greenBackground" class="">
-				{{{ no_script }}}
+				{{> no_script }}
 				<p id="topError" class="creditcard-error-msg"></p>
 
-			<form name="payment" method="post" action="{{ action }}">
+			<form name="payment" id="payment-form" method="post" action="{{ action }}">
 				<div id="payment_gateway-personal-info">
 					<table id="payment-table-donor">
 						<tbody>
@@ -25,38 +26,19 @@
 								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
 							</td>
 						</tr>
+						{{> personal_info }}
 						<tr>
 							<td>
-								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname"><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname">
+							{{> payment_method }}
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input class="fullwidth" name="emailAdd" value="{{ emailAdd }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="emailAdd">
+								<div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
+									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> {{ l10n "donate_interface-donate-click" }}
+								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number">
-							</td>
-						</tr>
-                        <tr>
-                            <td>
-								{{> payment_method }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-							    <div id="payment" class="gainlayout" style="height: 0;text-align: left;"></div>
-                            </td>
-                        </tr>
-						<tr>
-                            <td>
-                                <div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
-                                    <img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> {{ l10n "donate_interface-donate-click" }}
-                                </div>
-                            </td>
-                        </tr>
 						</tbody>
 					</table>
 				</div>
@@ -75,8 +57,6 @@
 				<input type="hidden" value="{{ order_id }}"  name="order_id"/>
 				<input type="hidden" value="{{ contribution_tracking_id }}" name="contribution_tracking_id"/>
 				<input type="hidden" value="{{ data_hash }}" name="data_hash"/>
-				<input type="hidden" value="{{ owa_session }}" name="owa_session"/>
-				<input type="hidden" value="{{ owa_ref }}" name="owa_ref"/>
 				<input type="hidden" value="{{ gateway }}" name="gateway"/>
 				<input type="hidden" value="{{ payment_method }}" name="payment_method"/>
 			</form>

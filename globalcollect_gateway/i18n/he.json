@@ -21,6 +21,5 @@
 	"globalcollect_gateway-response-21000150": "מספר חשבון בנק בלתי־תקין.",
 	"globalcollect_gateway-response-21000155": "קוד בנק בלתי־תקין.",
 	"globalcollect_gateway-response-21000160": "מספר חשבון giro בלתי־תקין.",
-	"globalcollect_gateway-response-default": "אירעה שגיאה בעיבוד העסקה שלך. נא לנסות שוב מאוחר יותר.",
-	"testingglobalcollectgateway": "בדיקות GlobalCollect"
+	"globalcollect_gateway-response-default": "אירעה שגיאה בעיבוד העסקה שלך. נא לנסות שוב מאוחר יותר."
 }

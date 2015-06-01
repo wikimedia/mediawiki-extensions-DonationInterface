@@ -142,4 +142,36 @@ abstract class Gateway_Form {
 	protected function getEscapedValue( $key ) {
 		return $this->gateway->getData_Unstaged_Escaped( $key );
 	}
+
+	/**
+	 * This function limits the possible characters passed as template keys and
+	 * values to letters, numbers, hyphens and underscores. The function also
+	 * performs standard escaping of the passed values.
+	 *
+	 * @param string $string The unsafe string to escape and check for invalid characters
+	 * @return string Sanitized version of input
+	 */
+	function make_safe( $string ) {
+		$stripped = preg_replace( '/[^-_\w]/', '', $string );
+
+		// theoretically this is overkill, but better safe than sorry
+		return wfEscapeWikiText( htmlspecialchars( $stripped ) );
+	}
+
+	public function getResources() {
+		return array();
+	}
+
+	/**
+	 * Given an absolute file path, returns path relative to extension base dir.
+	 * @param string $absolutePath
+	 * @return string path relative to DonationInterface/
+	 */
+	protected function sanitizePath( $absolutePath ) {
+		$base_pos = strpos( $absolutePath, 'DonationInterface' );
+		if ( $base_pos !== false ) {
+			return substr( $absolutePath, $base_pos );
+		}
+		return $absolutePath;
+	}
 }

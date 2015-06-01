@@ -22,6 +22,5 @@
 	"globalcollect_gateway-response-21000150": "Numéro de compte bancaire non valide.",
 	"globalcollect_gateway-response-21000155": "Code bancaire non valide.",
 	"globalcollect_gateway-response-21000160": "Numéro de compte du virement invalide.",
-	"globalcollect_gateway-response-default": "Une erreur est survenue lors du traitement de votre transaction.\nVeuillez réessayer plus tard.",
-	"testingglobalcollectgateway": "Test de GlobalCollect"
+	"globalcollect_gateway-response-default": "Une erreur est survenue lors du traitement de votre transaction.\nVeuillez réessayer plus tard."
 }

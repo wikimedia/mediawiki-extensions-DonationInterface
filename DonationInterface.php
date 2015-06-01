@@ -135,6 +135,12 @@ $wgDonationInterfaceTest = false;
  */
 $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
 
+/**
+ * Title to transclude in form template as {{{ appeal_text }}}.
+ * $appeal and $language will be substituted before transclusion
+ */
+$wgDonationInterfaceAppealWikiTemplate = 'LanguageSwitch|2011FR/$appeal/text|$language';
+
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
 //for instance: To override $wgDonationInterfaceUseSyslog just for GlobalCollect, add
@@ -827,7 +833,23 @@ $wgResourceModules['donationInterface.skinOverride'] = array(
 
 $wgResourceModules['jquery.payment'] = array(
 	'scripts' => 'jquery.payment/jquery.payment.js',
-) + $wgResourceTemplate;;
+) + $wgResourceTemplate;
+
+//Forms
+$wgResourceModules['ext.donationinterface.mustache.styles'] = array (
+	'styles' => array(
+		'forms.css'
+	),
+	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
+	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache',
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
+	'scripts' => 'forms.js',
+	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
+	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
+);
 
 // load any rapidhtml related resources
 require_once( __DIR__ . '/gateway_forms/rapidhtml/RapidHtmlResources.php' );
@@ -960,6 +982,7 @@ $wgDonationInterfaceAllowedHtmlForms = array();
 $wgDonationInterfaceFormDirs = array(
 	'adyen' => $wgAdyenGatewayHtmlFormDir,
 	'amazon' => $wgAmazonGatewayHtmlFormDir,
+	'astropay' => $wgAstropayGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,

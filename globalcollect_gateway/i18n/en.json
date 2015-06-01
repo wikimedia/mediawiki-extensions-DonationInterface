@@ -18,7 +18,5 @@
     "globalcollect_gateway-response-21000150": "Invalid bank account number.",
     "globalcollect_gateway-response-21000155": "Invalid bank code.",
     "globalcollect_gateway-response-21000160": "Invalid giro account number.",
-    "globalcollect_gateway-response-default": "There was an error processing your transaction.\nPlease try again later.",
-
-    "testingglobalcollectgateway": "GlobalCollect Testing"
+    "globalcollect_gateway-response-default": "There was an error processing your transaction.\nPlease try again later."
 }

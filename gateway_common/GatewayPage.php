@@ -138,6 +138,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $form_class && class_exists( $form_class ) ){
 			$form_obj = new $form_class( $this->adapter );
 			$form = $form_obj->getForm();
+			$wgOut->addModules( $form_obj->getResources() );
 			$wgOut->addHTML( $form );
 		} else {
 			$this->displayFailPage();

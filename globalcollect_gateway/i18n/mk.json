@@ -20,6 +20,5 @@
 	"globalcollect_gateway-response-21000150": "Неважечка сметка.",
 	"globalcollect_gateway-response-21000155": "Неважечки банковски код.",
 	"globalcollect_gateway-response-21000160": "Неважечка жиро сметка.",
-	"globalcollect_gateway-response-default": "Настана грешка при обработката на плаќањето.\nОбидете се повторно.",
-	"testingglobalcollectgateway": "Испробување на GlobalCollect"
+	"globalcollect_gateway-response-default": "Настана грешка при обработката на плаќањето.\nОбидете се повторно."
 }

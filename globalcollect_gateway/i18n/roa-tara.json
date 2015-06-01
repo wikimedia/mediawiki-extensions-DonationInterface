@@ -20,6 +20,5 @@
 	"globalcollect_gateway-response-21000150": "Numere d'u conde corrende bangarie invalide.",
 	"globalcollect_gateway-response-21000155": "Codece d'a banghe invalide.",
 	"globalcollect_gateway-response-21000160": "Numere d'u giro conde invalide.",
-	"globalcollect_gateway-response-default": "S'a verificate 'n'errore processanne 'a transaziona toje.\nPe piacere pruève arrete.",
-	"testingglobalcollectgateway": "Test d'u GlobalCollect"
+	"globalcollect_gateway-response-default": "S'a verificate 'n'errore processanne 'a transaziona toje.\nPe piacere pruève arrete."
 }

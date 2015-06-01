@@ -360,11 +360,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			if ( $found_file ){
 				$template = $this->replace_blocks( file_get_contents( $found_file ) );
 
-				$relative_path = $found_file;
-				$base_pos = strpos( $found_file, 'DonationInterface' );
-				if ( $base_pos !== false ) {
-					$relative_path = substr( $found_file, $base_pos );
-				}
+				$relative_path = $this->sanitizePath( $found_file );
 
 				$template = "<!-- Generated from: {$relative_path} -->{$template}<!-- end {$relative_path} -->";
 				$html = str_replace( $matches[0][$i], $template, $html );
@@ -528,25 +524,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
-	}
-
-	/**
-	 * This function limits the possible characters passed as template keys and
-	 * values to letters, numbers, hyphens and underscores. The function also
-	 * performs standard escaping of the passed values.
-	 *
-	 * @param string $string The unsafe string to escape and check for invalid characters
-	 * @param string $default
-	 * @return string $default A string matching the regex or an empty string
-	 */
-	function make_safe( $string, $default='' ) {
-		$num = preg_match( '([a-zA-Z0-9_-]+)', $string, $matches );
-
-		if ( $num == 1 ){
-			# theoretically this is overkill, but better safe than sorry
-			return wfEscapeWikiText( htmlspecialchars( $matches[0] ) );
-		}
-		return $default;
 	}
 
 	/**

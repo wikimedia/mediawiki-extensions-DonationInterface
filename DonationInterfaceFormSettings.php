@@ -436,6 +436,34 @@ $forms_whitelist['paypal-recurring'] = array(
 	'recurring',
 );
 
+// FIXME: This is a dummy entry to allow FormChooser to route to astropay
+// In the Mustache-ridden future, with a diminished form population,
+// the chooser will route to the correct gateway based on gateway settings,
+// and simply pass along any ffname from the banner to allow A/B testing
+/************
+ * Astropay *
+ ************/
+$forms_whitelist['astropay'] = array(
+	'file' => $form_dirs['astropay'] . '/astropay.html',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'BR', ),
+	'currencies' => array( '+' => array(
+		'BRL',
+		'USD',
+	) ),
+	'payment_methods' => array( 'cc' => array(
+					'visa',
+					'mc',
+					'amex',
+					'visa_debit',
+					'mc_debit',
+					'elo',
+					'dc',
+					'hiper',
+					'argen',
+	) ),
+);
+
 /**********
  * Adyen *
  **********/
