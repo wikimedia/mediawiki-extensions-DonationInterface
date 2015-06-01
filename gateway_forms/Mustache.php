@@ -56,7 +56,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( substr( $code, 0, 5 ) === '<?php' ) {
 			$code = substr( $code, 5 );
 		}
-		$this->logger->debug($code);
 		$renderer = eval( $code );
 		if ( !is_callable( $renderer ) ) {
 			throw new RuntimeException( 'Can\'t run compiled template!' );
