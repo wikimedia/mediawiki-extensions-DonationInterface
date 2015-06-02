@@ -297,7 +297,6 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Visa Debit',
 			'group' => 'cc',
 			'countries' => array(
-				'BR' => true,
 				'MX' => true,
 			),
 		);
@@ -308,7 +307,6 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Mastercard Debit',
 			'group' => 'cc',
 			'countries' => array(
-				'BR' => true,
 				'MX' => true,
 			),
 		);
