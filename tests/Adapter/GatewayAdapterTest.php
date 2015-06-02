@@ -97,8 +97,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		//please define this function only inside the TESTS_ADAPTER_DEFAULT, 
 		//which should be a test adapter object that descende from one of the 
-		//production adapters. 
-		$this->assertInstanceOf( 'DonationData', $gateway->getDonationData() );
+		//production adapters.
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertInstanceOf( 'DonationData', $exposed->dataObj );
 	}
 
 	public function testLanguageChange() {
@@ -107,13 +108,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'en', "'US' donor's language was inproperly set. Should be 'en'" );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'en', "'US' donor's language was inproperly set. Should be 'en'" );
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		//so we know it tried to screw with the session and such.
 
 		$options = $this->getDonorTestData( 'NO' );
 		$gateway = $this->getFreshGatewayObject( $options );
-		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
 	/**

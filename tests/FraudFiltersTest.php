@@ -105,7 +105,8 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$gateway->runAntifraudHooks();
 
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$this->assertEquals( 157.5, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 157.5, $exposed->risk_score, 'RiskScore is not as expected' );
 
 		unset( $wgGlobalCollectGatewayEnableMinfraud );
 	}

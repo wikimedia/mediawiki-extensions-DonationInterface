@@ -43,36 +43,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
-	 * Returns the variable $this->dataObj which should be an instance of
-	 * DonationData.
-	 *
-	 * @return DonationData
-	 */
-	public function getDonationData() {
-		return $this->dataObj;
-	}
-
-	public function _addCodeRange() {
-		return call_user_func_array(array($this, 'addCodeRange'), func_get_args());
-	}
-
-	public function _findCodeAction() {
-		return call_user_func_array(array($this, 'findCodeAction'), func_get_args());
-	}
-
-	public function _buildRequestXML() {
-		return call_user_func_array( array ( $this, 'buildRequestXML' ), func_get_args() );
-	}
-
-	public function _getData_Staged() {
-		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
-	}
-
-	public function _stageData() {
-		$this->stageData();
-	}
-
-	/**
 	 * @TODO: Get rid of this and the override mechanism as soon as you
 	 * refactor the constructor into something reasonable.
 	 * @return type
@@ -112,10 +82,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		parent::runAntifraudHooks();
 
 		$this->batch = $is_batch;
-	}
-
-	public function getRiskScore() {
-		return $this->risk_score;
 	}
 
 	/**

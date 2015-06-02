@@ -18,10 +18,6 @@ class TestingWorldpayAdapter extends WorldpayAdapter {
 		$this->batch = $is_batch;
 	}
 
-	public function getRiskScore() {
-		return $this->risk_score;
-	}
-
 	/**
 	 * Set the error code you want the dummy response to return
 	 */
@@ -78,13 +74,5 @@ class TestingWorldpayAdapter extends WorldpayAdapter {
 		return array (
 			'http_code' => $code,
 		);
-	}
-
-	public function _stageData() {
-		$this->stageData();
-	}
-
-	public function _getData_Staged( $val = '' ) {
-		return $this->getData_Staged( $val );
 	}
 }

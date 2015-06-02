@@ -14,9 +14,6 @@ class TestingAmazonAdapter extends AmazonAdapter {
 		return parent::getGlobal( $name );
 	}
 
-	public function _buildRequestParams() {
-		return $this->buildRequestParams();
-	}
 	/**
 	 * Set the error code you want the dummy response to return
 	 */

@@ -83,7 +83,8 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$gateway->runAntifraudHooks();
 
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$this->assertEquals( 113, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 113, $exposed->risk_score, 'RiskScore is not as expected' );
 	}
 
 	/**
@@ -309,7 +310,8 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Preparing to run custom filters/' );
 		$this->assertEmpty( $loglines, 'According to the logs, we ran antifraud filters and should not have' );
 		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 0, $exposed->risk_score, 'RiskScore is not as expected' );
 
 	}
 
@@ -333,7 +335,8 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/CustomFiltersScores/' );
 		$this->assertNotEmpty( $loglines, 'No antifraud filters were run, according to the logs' );
 		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$this->assertEquals( 0, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 0, $exposed->risk_score, 'RiskScore is not as expected' );
 	}
 
 	/**
@@ -343,8 +346,9 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$options = $this->getDonorTestData();
 		$options['email'] = 'little+teapot@short.stout.com';
 		$gateway = $this->getFreshGatewayObject( $options );
-		$gateway->_stageData();
-		$staged = $gateway->_getData_Staged( 'merchant_reference_2' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
+		$staged = $exposed->getData_Staged( 'merchant_reference_2' );
 		$this->assertEquals( 'little teapot short stout com', $staged );
 	}
 
@@ -359,7 +363,8 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL( 'testytest', array ( 'gateway' => $class::getIdentifier() ) );
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$gateway->_stageData();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
 		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
 		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
 		$this->assertEquals( 'Barnabás', $xml->FirstName );
@@ -436,7 +441,8 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$options['contribution_tracking_id'] = mt_rand();
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$gateway->_stageData();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
 		$gateway->do_transaction( 'AuthorizeAndDepositPayment' );
 		$xml = new SimpleXMLElement( preg_replace( '/StringIn=/', '', $gateway->curled ) );
 		$this->assertEquals( "Wikimedia {$options['contribution_tracking_id']}", $xml->NarrativeStatement1 );

@@ -103,7 +103,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
-		$request = trim( $this->gatewayAdapter->_buildRequestXML() );
+		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
+		$request = trim( $exposed->buildRequestXML() );
 
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 		
@@ -310,7 +311,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		global $wgRequest, $wgServer, $wgArticlePath, $wgDonationInterfaceThankYouPage;
 
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
-		$merchantref = $this->gatewayAdapter->_getData_Staged( 'contribution_tracking_id' );
+		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
+		$merchantref = $exposed->getData_Staged( 'contribution_tracking_id' );
 		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
 		$expected  = '<?xml version="1.0" encoding="UTF-8"?' . ">\n";
 		$expected .= '<XML>';

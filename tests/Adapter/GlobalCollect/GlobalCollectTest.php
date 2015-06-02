@@ -353,7 +353,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'FISCALNUMBER' => 'fiscal_number',
 		);
 
-		$this->assertEquals( $var_map, $gateway->getVarMap() );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( $var_map, $exposed->var_map );
 	}
 
 	public function testLanguageStaging() {
@@ -362,9 +363,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$options['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$gateway->_stageData();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
 
-		$this->assertEquals( $gateway->_getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
 	public function testLanguageFallbackStaging() {
@@ -373,10 +375,11 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$options['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$gateway->_stageData();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
 
 		// Requesting the fallback language from the gateway.
-		$this->assertEquals( 'en', $gateway->_getData_Staged( 'language' ) );
+		$this->assertEquals( 'en', $exposed->getData_Staged( 'language' ) );
 	}
 
 	/**
@@ -389,7 +392,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		// This will set staged_data['language'] = 'en'.
-		$gateway->_stageData();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
 
 		$ctid = mt_rand();
 
@@ -397,11 +401,12 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'contribution_tracking_id' => $ctid . '.1',
 		) );
 
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		// Desired vars were written into normalized data.
-		$this->assertEquals( $ctid, $gateway->getDonationData()->getVal_Escaped( 'contribution_tracking_id' ) );
+		$this->assertEquals( $ctid, $exposed->dataObj->getVal_Escaped( 'contribution_tracking_id' ) );
 
 		// Language was not overwritten.
-		$this->assertEquals( 'ca', $gateway->getDonationData()->getVal_Escaped( 'language' ) );
+		$this->assertEquals( 'ca', $exposed->dataObj->getVal_Escaped( 'language' ) );
 	}
 
 	/**
@@ -536,9 +541,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( $code );
-		$start_id = $gateway->_getData_Staged( 'order_id' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$start_id = $exposed->getData_Staged( 'order_id' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$finish_id = $gateway->_getData_Staged( 'order_id' );
+		$finish_id = $exposed->getData_Staged( 'order_id' );
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
 		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
 		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");

@@ -650,18 +650,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * getVarMap
-	 *
-	 * This method was added for unit testing.
-	 *
-	 * @return	array	Returns @see GatewayAdapter::$var_map
-	 */
-	public function getVarMap() {
-
-		return $this->var_map;
-	}
-
-	/**
 	 * getErrorMap
 	 *
 	 * This will also return an error message if a $code is passed.

@@ -5,10 +5,6 @@
  */
 class TestingAdyenAdapter extends AdyenAdapter {
 
-	public function _buildRequestParams() {
-		return $this->buildRequestParams();
-	}
-
 	//@TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudHooks() {
 		//now screw around with the batch settings to trick the fraud filters into triggering
@@ -18,10 +14,6 @@ class TestingAdyenAdapter extends AdyenAdapter {
 		parent::runAntifraudHooks();
 
 		$this->batch = $is_batch;
-	}
-
-	public function _getData_Staged() {
-		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
 	}
 
 	/**

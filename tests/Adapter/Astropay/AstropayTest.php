@@ -341,6 +341,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 
 		$this->assertTrue( $result->isFailed(), 'Result should be failure if fraud filters say challenge' );
 		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$this->assertEquals( 60, $gateway->getRiskScore(), 'RiskScore is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
 	}
 }

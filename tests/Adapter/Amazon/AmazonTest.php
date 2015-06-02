@@ -73,7 +73,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		//@TODO: Refactor the hell out of the Amazon adapter so it looks like... anything else we have, and it remotely testable.
 		//In the meantime, though...
 		$gateway->do_transaction( 'Donate' );
-		$ret = $gateway->_buildRequestParams();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
 
 		$expected = array (
 			'accessKey' => 'testkey',
@@ -106,7 +107,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		);
 
 		$gateway->do_transaction( 'Donate' );
-		$ret = $gateway->_buildRequestParams();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
 		$expected = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?platypus=awesome&ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' );
 		 
 		$this->assertEquals( $expected, $ret['returnUrl'], 'Amazon "Donate" transaction not building the expected returnUrl' );
@@ -128,7 +130,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'Donate' );
-		$ret = $gateway->_buildRequestParams();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
 
 		$expected = array (
 			'accessKey' => 'testkey',
@@ -201,7 +204,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		//@TODO: Refactor the hell out of the Amazon adapter so it looks like... anything else we have, and it remotely testable.
 		//In the meantime, though...
 		$gateway->do_transaction( 'DonateMonthly' );
-		$ret = $gateway->_buildRequestParams();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
 
 		$expected = array (
 			'accessKey' => 'testkey',

@@ -49,7 +49,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'donate' );
-		$ret = $gateway->_buildRequestParams();
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
 
 		$expected = array (
 			'allowedMethods' => 'card',
@@ -62,11 +63,11 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'billingAddressType' => 2,
 			'currencyCode' => $init['currency_code'],
 			'merchantAccount' => 'wikitest',
-			'merchantReference' => $gateway->_getData_Staged( 'order_id' ),
-			'merchantSig' => $gateway->_getData_Staged( 'hpp_signature' ),
+			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
+			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
 			'paymentAmount' => ($init['amount']) * 100,
 //			'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
-//			'shipBeforeDate' => $gateway->_getData_Staged( 'expiration' ),	//this too.
+//			'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'en',
 			'shopperEmail' => 'nobody@wikimedia.org',
