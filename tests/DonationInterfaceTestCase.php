@@ -128,6 +128,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'lname' => 'Surname',
 				'amount' => '1.55',
 				'language' => 'en',
+				'email' => 'nobody@wikimedia.org',
 			),
 			'ES' => array (
 				'city' => 'Barcelona',

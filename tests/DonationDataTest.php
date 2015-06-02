@@ -88,7 +88,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
 			'amount' => '0.00',
-			'email' => 'nobody@wikimedia.org',
 			'country' => 'XX',
 			'payment_method' => '',
 			'referrer' => '',
