@@ -154,4 +154,22 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->form = new Gateway_Form_Mustache( $this->adapter );
 		$html = $this->form->getForm();
 	}
+
+	/**
+	 * Test rendering l10n with parameters
+	 * @dataProvider belgiumLanguageProvider
+	 */
+	public function testL10nParams( $language ) {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/l10n.mustache",
+		) );
+		$this->setLanguage( $language );
+		$this->adapter->addRequestData( array( 'language' => $language ) );
+		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$html = $this->form->getForm();
+		$expected = htmlspecialchars(
+			wfMessage( 'donate_interface-bigamount-error', '12.00', 'EUR', 'donor-support@worthyfoundation.org' )->text()
+		);
+		$this->assertEquals( $expected, trim( $html ) );
+	}
 }

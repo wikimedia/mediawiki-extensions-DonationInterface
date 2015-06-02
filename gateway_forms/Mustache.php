@@ -114,10 +114,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			throw new BadMethodCallException( 'Need at least one message key' );
 		}
 		$language = RequestContext::getMain()->getLanguage()->getCode();
+		$key = array_shift( $params );
 		return MessageUtils::getCountrySpecificMessage(
-			$params[0],
+			$key,
 			Gateway_Form_Mustache::$country,
-			$language
+			$language,
+			$params
 		);
 	}
 

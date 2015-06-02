@@ -253,17 +253,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Supported languages for Belgium
-	 */
-	public function belgiumLanguageProvider() {
-		return array(
-			array( 'nl' ),
-			array( 'de' ),
-			array( 'fr' ),
-		);
-	}
-
-	/**
 	 * Make sure Canadian CC form loads in English and French
 	 * @dataProvider canadaLanguageProvider
 	 */

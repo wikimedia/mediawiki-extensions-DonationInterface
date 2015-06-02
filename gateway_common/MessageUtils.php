@@ -12,10 +12,11 @@ class MessageUtils {
 	 *
 	 * @param string $language the code of the requested language
 	 * @param array $msg_keys
+	 * @param array $params extra message parameters
 	 * @throws InvalidArgumentException
 	 * @return String the text of the first existant message
 	 */
-	public static function languageSpecificFallback( $language='en', $msg_keys=array() ){
+	public static function languageSpecificFallback( $language = 'en', $msg_keys = array(), $params = array() ){
 
 		if ( count( $msg_keys ) < 1 ){
 			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
@@ -24,19 +25,19 @@ class MessageUtils {
 		# look for the first message that exists
 		foreach ( $msg_keys as $m ){
 			if ( self::messageExists( $m, $language ) ){
-				return WmfFramework::formatMessage( $m, $language );
+				return WmfFramework::formatMessage( $m, $params );
 			}
 		}
 
 		# we found nothing in the requested language, return the first fallback message that exists
 		foreach ( $msg_keys as $m ){
 			if ( WmfFramework::messageExists( $m, $language ) ){
-				return WmfFramework::formatMessage( $m, $language );
+				return WmfFramework::formatMessage( $m, $params );
 			}
 		}
 
 		# somehow we still don't have a message, return a default error message
-		return WmfFramework::formatMessage( $msg_keys[0] );
+		return WmfFramework::formatMessage( $msg_keys[0], $params );
 	}
 
 	/**
@@ -72,8 +73,9 @@ class MessageUtils {
 	 * @param string $key
 	 * @param string $country
 	 * @param string $language
+	 * @param array $params extra message parameters
 	 */
-	public static function getCountrySpecificMessage( $key, $country, $language ) {
-		return self::languageSpecificFallback( $language, array( $key . '-' . strtolower( $country ), $key ) );
+	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
+		return self::languageSpecificFallback( $language, array( $key . '-' . strtolower( $country ), $key ), $params );
 	}
 }
