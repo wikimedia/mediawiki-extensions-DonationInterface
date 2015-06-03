@@ -87,7 +87,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'x_bank' => 'TE',
 			'x_country' => 'BR',
 			'x_description' => wfMessage( 'donate_interface-donation-description' )->inLanguage( $init['language'] )->text(),
-			'x_iduser' => '802004aeec17f9544784',
+			'x_iduser' => 'e08fa5e37586ae0fcef3',
 			'x_cpf' => '00003456789',
 			'x_name' => 'Nome Apelido',
 			'x_email' => 'nobody@example.org',
@@ -95,7 +95,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			// 'x_zip' => '01110-111',
 			// 'x_city' => 'São Paulo',
 			// 'x_state' => 'SP',
-			'control' => '22A9DE18CB924AED05C6D8194BB38F5300F9B77CB00DC5342FF754146FF13250',
+			'control' => '5F6DB223AFA42022BE8D955C7BAA7C63EF1D4386CABAC0CE665959AC59B9EDF6',
 			'type' => 'json',
 		);
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );

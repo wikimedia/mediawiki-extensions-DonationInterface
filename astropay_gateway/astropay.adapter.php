@@ -416,7 +416,7 @@ class AstropayAdapter extends GatewayAdapter {
 	 * the donor's email address.
 	 */
 	protected function stage_donor_id() {
-		$hashed = sha1( $this->unstaged_data['email'] );
+		$hashed = sha1( $this->getData_Staged( 'email' ) . $this->getData_Staged( 'order_id' ) );
 		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
 	}
 

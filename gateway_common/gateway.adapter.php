@@ -1992,8 +1992,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// This allows transactions to each stage different data.
 		$this->defineStagedVars();
 
-		// Always stage email address
-		$this->staged_vars[] = 'email';
+		// Always stage email address first, to set default if missing
+		array_unshift( $this->staged_vars, 'email' );
 
 		foreach ( $this->staged_vars as $field ) {
 			$function_name = 'stage_' . $field;
