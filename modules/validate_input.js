@@ -193,15 +193,15 @@ window.validate_form = function ( form ) {
 		fields = [
 			'fname', 'lname', 'street', 'city', 'zip', 'emailAdd', 'card_num', 'cvv',
 			'fiscal_number', 'account_name', 'account_number', 'authorization_id',
-			'bank_code', 'bank_check_digit', 'branch_code'
+			'bank_code', 'bank_check_digit', 'branch_code', 'email'
 		],
 		numFields = fields.length;
 
 	for ( i = 0; i < numFields; i++ ) {
 		element = document.getElementById( fields[i] );
-		value = element.value;
 
 		if ( element ) { // Make sure field exists
+			value = element.value;
 			// See if the field is empty or equal to the placeholder
 			if (
 				!$( '#' + fields[i] ).hasClass( 'optional' ) &&
@@ -236,7 +236,7 @@ window.validate_form = function ( form ) {
 	}
 
 	// validate email address
-	$emailAdd = document.getElementById( 'emailAdd' );
+	$emailAdd = document.getElementById( 'emailAdd' ) || document.getElementById( 'email' );
 	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mw.msg( 'donate_interface-donor-emailAdd' ) ) {
 		apos = $emailAdd.value.indexOf('@');
 		dotpos = $emailAdd.value.lastIndexOf('.');

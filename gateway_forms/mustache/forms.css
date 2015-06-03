@@ -320,6 +320,7 @@ div.donor { width: 100% !important; }
 #paymentContinue {
   margin-top: 1em !important;
   clear: both;
+  display: none;
 }
 .btn {
   background-color: #757575 !important;
@@ -334,6 +335,7 @@ div.donor { width: 100% !important; }
 }
 .btn.enabled {
   background-color: #367fb4 !important;
+  cursor: pointer;
 }
 .btn.enabled:hover { background-color: #1d5278 !important; }
 .btn:active {
