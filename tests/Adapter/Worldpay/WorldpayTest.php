@@ -111,6 +111,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
+		$init['email'] = 'somebody@wikipedia.org';
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'worldpay';
 		$init['currency_code'] = 'EUR';
@@ -146,7 +147,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 			),
 			'emailAdd' => array(
 				'nodename' => 'input',
-				'value' => '',
+				'value' => 'somebody@wikipedia.org',
 			),
 			'language' => array(
 				'nodename' => 'input',
