@@ -196,13 +196,12 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// replace data
 		foreach ( $this->data_tokens as $token ) {
 			$key = substr( $token, 1, strlen( $token )); //get the token string w/o the '@'
-			if ( $key == 'emailAdd' ) $key = 'email';
+			if ( $key === 'emailAdd' ) {
+				$key = 'email';
+			}
 			if ( $this->getEscapedValue( $key ) ) {
 				$replace = $this->getEscapedValue( $key );
 			} else {
-				$replace = '';
-			}
-			if ( $key === 'email' && $replace === 'nobody@wikimedia.org' ) {
 				$replace = '';
 			}
 			$form = str_replace( $token, $replace, $form );

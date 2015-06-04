@@ -996,7 +996,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	protected function stage_merchant_reference_2() {
-		$email = $this->getData_Unstaged_Escaped( 'email' );
+		$email = $this->getData_Staged( 'email' );
 		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
 		$this->staged_data['merchant_reference_2'] = $alphanumeric;
 	}

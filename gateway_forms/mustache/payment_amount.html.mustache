@@ -1,0 +1,13 @@
+<h3 class="amount_header">{{ l10n "donate_interface-amount-legend" }}:
+	<span id="amount_input" {{^ show_amount_input }}class="hidden"{{/ show_amount_input }} >
+		<input type="number" step="any" name="amount" value="{{ amount }}" />
+		<select name="currency_code" >
+		{{# currencies }}
+			<option value="{{ code }}" {{# selected }}selected{{/ selected }} >{{ code }}</option>
+		{{/ currencies }}
+		</select>
+	</span>
+	<span id="selected-amount" {{# show_amount_input }}class="hidden"{{/ show_amount_input }}>
+		{{ amount }} {{ currency_code }}
+	</span>
+</h3>

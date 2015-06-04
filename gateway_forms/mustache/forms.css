@@ -212,6 +212,7 @@ div.donor { width: auto !important; }
 div.donor { width: 100% !important; }
 
 #payment-table-donor input[type="text"],
+#payment-table-donor input[type="number"],
 #payment-table-donor input:not([type]),
 #payment-table-donor input[type="email"],
 #payment-table-donor select {
@@ -319,6 +320,7 @@ div.donor { width: 100% !important; }
 #paymentContinue {
   margin-top: 1em !important;
   clear: both;
+  display: none;
 }
 .btn {
   background-color: #757575 !important;
@@ -333,10 +335,14 @@ div.donor { width: 100% !important; }
 }
 .btn.enabled {
   background-color: #367fb4 !important;
+  cursor: pointer;
 }
 .btn.enabled:hover { background-color: #1d5278 !important; }
 .btn:active {
   -moz-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
+}
+.amount_header span.hidden {
+	display: none;
 }

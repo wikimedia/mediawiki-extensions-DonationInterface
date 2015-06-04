@@ -144,6 +144,9 @@ interface GatewayType {
 	 */
 	function setGatewayDefaults();
 
+	/**
+	 * @return array of ISO 4217 currency codes supported by this adapter
+	 */
 	static function getCurrencies();
 
 	/**
@@ -248,7 +251,18 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
+
+	/**
+	 * For gateways that speak XML, we use this variable to hold the document
+	 * while we build the outgoing request.  TODO: move XML functions out of the
+	 * main gateway classes.
+	 * @var DomDocument
+	 */
 	protected $xmlDoc;
+
+	/**
+	 * @var DonationData
+	 */
 	protected $dataObj;
 
 	/**
@@ -282,6 +296,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $final_status;
 	protected $validation_errors;
 	protected $manual_errors = array();
+
+	/**
+	 * Name of the current transaction.  Set via @see setCurrentTransaction
+	 * @var string
+	 */
 	protected $current_transaction;
 	protected $action;
 	protected $risk_score = 0;
@@ -647,18 +666,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			self::$globalsCache[self::getGlobalPrefix()][$varname] = $$globalname;
 		}
 		return self::$globalsCache[self::getGlobalPrefix()][$varname];
-	}
-
-	/**
-	 * getVarMap
-	 *
-	 * This method was added for unit testing.
-	 *
-	 * @return	array	Returns @see GatewayAdapter::$var_map
-	 */
-	public function getVarMap() {
-
-		return $this->var_map;
 	}
 
 	/**
@@ -1992,6 +1999,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// This allows transactions to each stage different data.
 		$this->defineStagedVars();
 
+		// Always stage email address first, to set default if missing
+		array_unshift( $this->staged_vars, 'email' );
+
 		foreach ( $this->staged_vars as $field ) {
 			$function_name = 'stage_' . $field;
 			$this->executeIfFunctionExists( $function_name );
@@ -2138,6 +2148,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
 				}
 				break;
+		}
+	}
+
+	protected function stage_email() {
+		if ( empty( $this->staged_data['email'] ) ) {
+			$this->staged_data['email'] = $this->getGlobal( 'DefaultEmail' );
 		}
 	}
 

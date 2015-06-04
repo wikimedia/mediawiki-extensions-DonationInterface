@@ -674,18 +674,12 @@ class DonationData implements LogPrefixProvider {
 	 * Normalize email
 	 * Check regular name, and horrible old name for values (preferring the
 	 * reasonable name over the legacy version)
-	 * Set the value to 'nobody@wikimedia.org' if nothing has been entered.
 	 */
 	protected function setEmail() {
 		// Look at the old style value (because that's canonical if populated first)
 		$email = $this->getVal( 'emailAdd' );
 		if ( is_null( $email ) ) {
 			$email = $this->getVal( 'email' );
-		}
-
-		if ( is_null( $email ) ) {
-			// We still have nothing, populate with default
-			$email = 'nobody@wikimedia.org';
 		}
 
 		$this->setVal( 'email', $email );

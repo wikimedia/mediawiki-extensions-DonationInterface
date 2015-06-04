@@ -141,6 +141,9 @@ $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mus
  */
 $wgDonationInterfaceAppealWikiTemplate = 'LanguageSwitch|2011FR/$appeal/text|$language';
 
+// Email address used when donor enters nothing
+$wgDonationInterfaceDefaultEmail = 'nobody@wikimedia.org';
+
 //all of the following variables make sense to override directly,
 //or change "DonationInterface" to the gateway's id to override just for that gateway.
 //for instance: To override $wgDonationInterfaceUseSyslog just for GlobalCollect, add
@@ -847,6 +850,7 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 
 $wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
 	'scripts' => 'forms.js',
+	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
 	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
 );

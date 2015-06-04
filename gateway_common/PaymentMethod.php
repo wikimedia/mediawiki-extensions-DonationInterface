@@ -53,12 +53,17 @@ class PaymentMethod {
 
 		try {
 			// FIXME: I don't like that we're couple to the gateway already.
-			$spec = null;
-			if ( $submethod_name ) {
-				$spec = $gateway->getPaymentSubmethodMeta( $submethod_name );
-			}
-			if ( $spec === null ) {
+			$spec = array();
+			if ( $method_name ) {
 				$spec = $gateway->getPaymentMethodMeta( $method_name );
+			}
+			// When we have a more specific method, child metadata supercedes
+			// parent metadata
+			if ( $submethod_name ) {
+				$spec = array_replace_recursive(
+					$spec,
+					$gateway->getPaymentSubmethodMeta( $submethod_name )
+				);
 			}
 			$method->spec = $spec;
 		} catch ( Exception $ex ) {
@@ -93,7 +98,6 @@ class PaymentMethod {
 
 		return implode( '_', $parts );
 	}
- 
 
 	/**
 	 * Get the gateway's specification for this payment method
