@@ -28,7 +28,7 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/adamwight/php-queue.git"
+			"url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git"
 		}
 	]
 }
