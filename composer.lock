@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "71939115f5853cac8ed171bb13bd8b59",
+    "hash": "2f350a68b09bdf7dee7b4c1a7b2d37bf",
     "packages": [
         {
             "name": "clio/clio",
@@ -52,14 +52,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/adamwight/php-queue.git",
-                "reference": "fc0dae393b967d79c17d89853e67e23f0c27e6e9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/adamwight/php-queue/zipball/fc0dae393b967d79c17d89853e67e23f0c27e6e9",
-                "reference": "fc0dae393b967d79c17d89853e67e23f0c27e6e9",
-                "shasum": ""
+                "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
+                "reference": "8cdc1faec72283f86178478d435698144fa7306e"
             },
             "require": {
                 "clio/clio": "@stable",
@@ -73,7 +67,7 @@
                 "iron-io/iron_mq": "dev-master",
                 "microsoft/windowsazure": "dev-master",
                 "mrpoundsign/pheanstalk-5.3": "dev-master",
-                "predis/predis": "v0.8.0"
+                "predis/predis": "1.*"
             },
             "suggest": {
                 "Respect/Rest": "For a REST server to post job data",
@@ -113,10 +107,7 @@
                 "queue",
                 "transaction"
             ],
-            "support": {
-                "source": "https://github.com/adamwight/php-queue/tree/master"
-            },
-            "time": "2015-05-07 09:18:14"
+            "time": "2015-06-04 21:04:04"
         },
         {
             "name": "fusesource/stomp-php",
