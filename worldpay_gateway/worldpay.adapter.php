@@ -294,9 +294,16 @@ class WorldpayAdapter extends GatewayAdapter {
 		}
 	}
 
+	/**
+	 * Worldpay doesn't check order numbers until settlement at
+	 * which point it's too late to do much about it. So; our order
+	 * numbers will by the contribution tracking ID with an attempt
+	 * number appended, indicated by the ct_id flag.
+	 */
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array (
 			'generate' => TRUE,
+			'ct_id' => TRUE,
 		);
 	}
 
@@ -1222,31 +1229,5 @@ class WorldpayAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 		return $result;
-	}
-
-	/**
-	 * Worldpay doesn't check order numbers until settlement at
-	 * which point it's too late to do much about it. So; our order
-	 * numbers will by the contribution tracking ID with an attempt
-	 * number appended.
-	 *
-	 * OrderNumber is limited to 17 characters (alpha numeric)
-	 *
-	 * We're going to produce them as [0-9]{4-10}\.[0-9]{2}
-	 *
-	 * @return int|string
-	 */
-	public function generateOrderID( $dataObj = null ) {
-		$dataObj = ( $dataObj ) ?: $this->dataObj;
-
-		$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
-		if ( !$ctid ) {
-			$ctid = $dataObj->saveContributionTrackingData( true );
-		}
-
-		$this->session_ensure();
-		$attemptNum = $this->session_getData( 'numAttempt' ) ?: 0;
-
-		return "{$ctid}.{$attemptNum}";
 	}
 }
