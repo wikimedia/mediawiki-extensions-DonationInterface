@@ -359,7 +359,9 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 		if ( $result->getRedirect() ) {
 			$this->doLimboStompTransaction();
-			$this->setLimboMessage();
+			// Feed the message into the pending queue, so the CRM queue consumer
+			// can read it to fill in donor details when it gets a partial message
+			$this->setLimboMessage( 'pending' );
 		}
 		return $result;
 	}
