@@ -125,6 +125,8 @@ interface GatewayType {
 	 * 'generate' => boolean value. True if we will be generating our own
 	 *	order IDs, false if we are deferring order_id generation to the
 	 *	gateway.
+	 * 'ct_id' => boolean value.  If True, when generating order ID use
+	 * the contribution tracking ID with the attempt number appended
 	 *
 	 * Will eventually contain the following keys/values:
 	 * 'final'=> The value that we have chosen as the valid order ID for
@@ -3697,6 +3699,21 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return int A freshly generated order ID
 	 */
 	public function generateOrderID( $dataObj = null ) {
+		if ( $this->getOrderIDMeta( 'ct_id' ) ) {
+			// This option means use the contribution tracking ID with the
+			// attempt number tacked on to the end for uniqueness
+			$dataObj = ( $dataObj ) ?: $this->dataObj;
+
+			$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
+			if ( !$ctid ) {
+				$ctid = $dataObj->saveContributionTrackingData( true );
+			}
+
+			$this->session_ensure();
+			$attemptNum = $this->session_getData( 'numAttempt' ) ?: 0;
+
+			return "{$ctid}.{$attemptNum}";
+		}
 		$order_id = ( string ) mt_rand( 1000, 9999999999 );
 		return $order_id;
 	}

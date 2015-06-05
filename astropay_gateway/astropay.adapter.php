@@ -126,16 +126,18 @@ class AstropayAdapter extends GatewayAdapter {
 
 	/**
 	 * Sets up the $order_id_meta array.
-	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
-	 * 'type' => numeric, or alphanumeric
-	 * 'length' => $max_charlen
+	 * For Astropay, we use the ct_id.numAttempt format because we don't get
+	 * a gateway transaction ID until the user has actually paid.  If the user
+	 * doesn't return to the result switcher, we will need to use the order_id
+	 * to find a pending queue message with donor details to flesh out the
+	 * audit entry or listener message that tells us the payment succeeded.
 	 */
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
 			'alt_locations' => array ( '_POST' => 'x_invoice' ),
 			'generate' => TRUE,
-			'length' => 20
+			'ct_id' => TRUE,
+			'length' => 20,
 		);
 	}
 
