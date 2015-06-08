@@ -116,9 +116,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$return = array();
 		$return['errors'] = array();
 		foreach( $errors as $key => $error ) {
+			if ( is_array( $error ) ) {
+				// TODO: set errors consistently
+				$message = implode( '<br/>', $error );
+			} else {
+				$message = $error;
+			}
 			$return['errors'][] = array(
 				'key' => $key,
-				'message' => $error,
+				'message' => $message,
 			);
 			$return["{$key}_error"] = true;
 			if ( $key === 'currency_code' || $key === 'amount' ) {
