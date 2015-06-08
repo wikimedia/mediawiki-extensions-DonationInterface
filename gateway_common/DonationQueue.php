@@ -176,7 +176,6 @@ class DonationQueue {
 		// specifically designed to match the CiviCRM API that will handle it
 		// edit this array to include/ignore transaction data sent to the server
 		$message = array(
-			'city' => $transaction['city'],
 			'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 			'country' => $transaction['country'],
 			'currency' => $transaction['currency_code'],
@@ -194,34 +193,29 @@ class DonationQueue {
 			'last_name' => $transaction['lname'],
 			'payment_method' => $transaction['payment_method'],
 			'payment_submethod' => $transaction['payment_submethod'],
-			'postal_code' => $transaction['zip'],
 			'referrer' => $transaction['referrer'],
 			'response' => $transaction['response'],
-			'state_province' => $transaction['state'],
-			'street_address' => $transaction['street'],
 			'user_ip' => $transaction['user_ip'],
 			'utm_source' => $transaction['utm_source'],
 		);
 
 		//optional keys
 		$optional_keys = array(
-			'anonymous',
-			'optout',
-			'recurring',
-			'street_supplemental',
-			'utm_campaign',
-			'utm_medium',
+			'anonymous' => 'anonymous',
+			'city' => 'city',
+			'optout' => 'optout',
+			'recurring' => 'recurring',
+			'state_province' => 'state',
+			'street_address' => 'street',
+			'supplemental_address_1' => 'street_supplemental',
+			'utm_campaign' => 'utm_campaign',
+			'utm_medium' => 'utm_medium',
+			'postal_code' => 'zip',
 		);
-		foreach ( $optional_keys as $key ) {
-			if ( isset( $transaction[$key] ) ) {
-				$message[$key] = $transaction[$key];
+		foreach ( $optional_keys as $mkey => $tkey ) {
+			if ( isset( $transaction[$tkey] ) ) {
+				$message[$mkey] = $transaction[$tkey];
 			}
-		}
-
-		// FIXME: as this is just the one thing, I can't think of a way to do this that isn't actually more annoying. :/
-		if ( isset( $message['street_supplemental'] ) ) {
-			$message['supplemental_address_1'] = $message['street_supplemental'];
-			unset( $message['street_supplemental'] );
 		}
 
 		return $message;
