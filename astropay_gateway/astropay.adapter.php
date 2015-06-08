@@ -540,6 +540,8 @@ class AstropayAdapter extends GatewayAdapter {
 				// have to parse the description.
 				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
+					// Increment numAttempt to get a new order ID
+					$this->incrementNumAttempt();
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
 						ResponseCodes::DUPLICATE_ORDER_ID,
