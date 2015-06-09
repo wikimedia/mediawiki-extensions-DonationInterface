@@ -91,19 +91,23 @@ window.validateAmount = function () {
  *
  * @input form The form containing the inputs to be checked
  *
- * @return boolean true if no errors, false otherwise (also uses an alert() to notify the user)
+ * @return boolean true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
 window.validate_personal = function ( form ) {
 	var value, stateField, selectedState, countryField, $emailAdd, invalid, apos, dotpos, domain,
-		output = '',
+		errorsPresent = false,
 		currField = '',
 		i = 0,
 		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'emailAdd' ],
+		msgFields = [ 'fnameMsg', 'lnameMsg', 'streetMsg', 'cityMsg', 'zipMsg', 'emailAddMsg' ],
 		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ];
 
 	for ( i = 0; i < numFields; i++ ) {
 		if ( $( '#' + fields[i] ).length > 0 ) { // Make sure field exists
+			$( '#' + msgFields[i] ).removeClass( 'errorMsg' );
+			$( '#' + msgFields[i] ).addClass( 'errorMsgHide' );
+			$( '#' + fields[i] ).removeClass( 'errorHighlight' );
 			// See if the field is empty or equal to the placeholder
 			value = document.getElementById( fields[i] ).value;
 			if (
@@ -114,7 +118,11 @@ window.validate_personal = function ( form ) {
 				)
 			) {
 				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-				output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+				errorsPresent = true;
+				$( '#' + fields[i] ).addClass( 'errorHighlight' );
+				$( '#' + msgFields[i] ).removeClass( 'errorMsgHide' );
+				$( '#' + msgFields[i] ).addClass( 'errorMsg' );
+				$( '#' + msgFields[i] ).text( mw.msg( 'donate_interface-error-msg' ).replace( '$1', currField ) );
 			}
 		}
 	}
@@ -123,20 +131,42 @@ window.validate_personal = function ( form ) {
 	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select
 		selectedState = stateField.options[stateField.selectedIndex].value;
 		if ( selectedState === 'YY' || !$.trim( selectedState ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
+			errorsPresent = true;
+			$( '#state' ).addClass( 'errorHighlight' );
+			$( '#stateMsg' ).removeClass( 'errorMsgHide' );
+			$( '#stateMsg' ).addClass( 'errorMsg' );
+			$( '#stateMsg' ).text( mw.msg( 'donate_interface-error-msg' ).replace( '$1', mw.msg('donate_interface-state-province'   ) ) );
+		} else {
+			$( '#state' ).removeClass( 'errorHighlight' );
+			$( '#stateMsg' ).removeClass( 'errorMsg' );
+			$( '#stateMsg' ).addClass( 'errorMsgHide' );
 		}
 	}
 
 	countryField = document.getElementById( 'country' );
 	if ( countryField && countryField.type === 'select-one' ) { // country is a dropdown select
 		if ( !$.trim( countryField.options[countryField.selectedIndex].value ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) +
-				' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
+			errorsPresent = true;
+			$( '#country' ).addClass( 'errorHighlight' );
+			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
+			$( '#countryMsg' ).addClass( 'errorMsg' );
+			$( '#countryMsg' ).text( mw.msg( 'donate_interface-error-msg-country' ) );
+		} else {
+			$( '#country' ).removeClass( 'errorHighlight' );
+			$( '#countryMsg' ).removeClass( 'errorMsg' );
+			$( '#countryMsg' ).addClass( 'errorMsgHide' );
 		}
 	} else { // country is a hidden or text input
 		if ( !$.trim( countryField.value ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) +
-				' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
+			errorsPresent = true;
+			$( '#country' ).addClass( 'errorHighlight' );
+			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
+			$( '#countryMsg' ).addClass( 'errorMsg' );
+			$( '#countryMsg' ).text( mw.msg( 'donate_interface-error-msg-country' ) );
+		} else {
+			$( '#country' ).removeClass( 'errorHighlight' );
+			$( '#countryMsg' ).removeClass( 'errorMsg' );
+			$( '#countryMsg' ).addClass( 'errorMsgHide' );
 		}
 	}
 
@@ -152,7 +182,11 @@ window.validate_personal = function ( form ) {
 		dotpos = $emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
-			output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+			errorsPresent = true;
+			$( '#emailAdd' ).addClass( 'errorHighlight' );
+			$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
+			$( '#emailAddMsg' ).addClass( 'errorMsg' );
+			$( '#emailAddMsg' ).text( mw.msg( 'donate_interface-error-msg-email' ) );
 			invalid = true;
 		}
 
@@ -160,7 +194,11 @@ window.validate_personal = function ( form ) {
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
 			if ( domain.indexOf( invalids[i] ) !== -1 ) {
-				output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+				errorsPresent = true;
+				$( '#emailAdd' ).addClass( 'errorHighlight' );
+				$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
+				$( '#emailAddMsg' ).addClass( 'errorMsg' );
+				$( '#emailAddMsg' ).text( mw.msg( 'donate_interface-error-msg-email' ) );
 				invalid = true;
 				break;
 			}
@@ -171,12 +209,14 @@ window.validate_personal = function ( form ) {
 	document.cookie = 'wmf_test=1;';
 	if ( document.cookie.indexOf( 'wmf_test=1' ) !== -1 ) {
 		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
+		$( '#cookieMsg' ).addClass( 'errorMsgHide' );
 	} else {
-		output += mw.msg( 'donate_interface-error-msg-cookies' ); // display error
+		errorsPresent = true; // display error
+		$( '#cookieMsg' ).addClass( 'errorMsg' );
+		$( '#cookieMsg' ).text( mw.msg( 'donate_interface-error-msg-cookies' ) );
 	}
 
-	if ( output ) {
-		alert( output );
+	if ( errorsPresent ) {
 		return false;
 	}
 

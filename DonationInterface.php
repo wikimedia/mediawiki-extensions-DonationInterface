@@ -880,6 +880,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-noscript-msg',
 		'donate_interface-noscript-redirect-msg',
 		'donate_interface-error-msg-general',
+		'donate_interface-error-msg',
 		'donate_interface-error-msg-js',
 		'donate_interface-error-msg-validation',
 		'donate_interface-error-msg-invalid-amount',

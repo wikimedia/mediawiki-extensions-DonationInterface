@@ -216,3 +216,13 @@ img#cvv-info {
   right: 3px;
   border-radius: 4px;
 }
+.errorHighlight {
+  border: 2px solid red !important;
+}
+.errorMsg {
+  color: red;
+  display: inherit;
+}
+.errorMsgHide {
+  display: none;
+}
