@@ -53,7 +53,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
-                "reference": "8cdc1faec72283f86178478d435698144fa7306e"
+                "reference": "3c062acba108291de7bb726b806313308cf6c809"
             },
             "require": {
                 "clio/clio": "@stable",
@@ -107,7 +107,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2015-06-04 21:04:04"
+            "time": "2015-06-05 23:45:14"
         },
         {
             "name": "fusesource/stomp-php",
