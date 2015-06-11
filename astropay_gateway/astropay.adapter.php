@@ -416,12 +416,11 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * They need a 20 char string for a customer ID, so let's generate one from
-	 * the donor's email address.
+	 * They need a 20 char string for a customer ID - give them the first 20
+	 * characters of the email address for easy lookup
 	 */
 	protected function stage_donor_id() {
-		$hashed = sha1( $this->getData_Staged( 'email' ) . $this->getData_Staged( 'order_id' ) );
-		$this->staged_data['donor_id'] = substr( $hashed, 0, 20 );
+		$this->staged_data['donor_id'] = substr( $this->getData_Staged( 'email' ), 0, 20 );
 	}
 
 	protected function stage_bank_code() {
