@@ -168,10 +168,6 @@ input#emailAdd {
 	direction: ltr;
 }
 
-#payment-table-donor {
-	white-space: nowrap;
-}
-
 .fullwidth { width: 100% }
 
 .halfwidth { width: 50%; }
