@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xqt"
+			"Xqt",
+			"Purodha"
 		]
 	},
 	"donate_interface-comment-label": "Aamaerricking:",
@@ -32,7 +33,6 @@
 	"donate_interface-telephone": "Foohn-Nummer",
 	"donate_interface-telephone-home": "Foohn (deheem)",
 	"donate_interface-next": "Neegschte",
-	"donate_interface-language": "Schprooch:",
 	"donate_interface-select": "Grees:",
 	"donate_interface-dd-iban": "IBAN"
 }

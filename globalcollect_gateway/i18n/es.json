@@ -4,10 +4,11 @@
 			"Armando-Martin",
 			"Bea.miau",
 			"Larjona",
-			"Ryo567"
+			"Ryo567",
+			"Macofe"
 		]
 	},
-	"globalcollectgateway": "Haga su donación ahora",
+	"globalcollectgateway": "Haz tu donación ahora",
 	"globalcollect_gateway-desc": "Procesamiento de pagos de GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simular un pago correcto",
 	"globalcollect_gateway-fakefail": "Simular un pago erróneo",

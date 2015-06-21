@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fitoschido"
+			"Fitoschido",
+			"Macofe"
 		]
 	},
-	"adyengateway": "Haga su donación ahora",
+	"adyengateway": "Haz tu donación ahora",
 	"adyen_gateway-desc": "Procesamiento de pagos de Adyen",
 	"adyen_gateway-response-default": "Hubo un error al procesar su transacción.\nInténtelo de nuevo más tarde."
 }
