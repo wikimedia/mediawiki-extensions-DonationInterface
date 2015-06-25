@@ -359,6 +359,8 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 		if ( $result->getRedirect() ) {
 			$this->doLimboStompTransaction();
+			// Write the donor's details to the log for the audit processor
+			$this->logPaymentDetails();
 			// Feed the message into the pending queue, so the CRM queue consumer
 			// can read it to fill in donor details when it gets a partial message
 			$this->setLimboMessage( 'pending' );
@@ -626,5 +628,10 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
+	}
+
+	protected function logPaymentDetails() {
+		$details = $this->getStompTransaction();
+		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
 	}
 }

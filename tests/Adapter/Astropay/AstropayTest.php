@@ -345,4 +345,49 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
 	}
+
+	/**
+	 * Before redirecting a user to the processor, we should log all of their
+	 * details at info level
+	 */
+	function testLogDetails() {
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'cc';
+		$_SESSION['Donor']['order_id'] = '123456789';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->doPayment();
+		$logged = $this->getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );
+		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
+		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
+		$detailString = $matches[1];
+		$expected = array(
+			'referrer' => 'www.yourmom.com',
+			'currency_code' => 'BRL',
+			'payment_submethod' => 'test_bank',
+			'fname' => 'Nome',
+			'lname' => 'Apelido',
+			'amount' => '100.00',
+			'language' => 'pt',
+			'email' => 'nobody@example.org',
+			'country' => 'BR',
+			'payment_method' => 'cc',
+			'user_ip' => '127.0.0.1',
+			'recurring' => '',
+			'utm_source' => '..cc',
+			'gateway' => 'astropay',
+			'gateway_account' => 'test',
+			'gateway_txn_id' => false,
+			'response' => false,
+			'correlation-id' => 'astropay-123456789',
+			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
+		);
+		$actual = json_decode( $detailString, true );
+		// TODO: when tests use PHPUnit 4.4
+		// $this->assertArraySubset( $expected, $actual, false, 'Logged the wrong stuff' );
+		unset( $actual['contribution_tracking_id'] );
+		unset( $actual['date'] );
+		$this->assertEquals( $expected, $actual, 'Logged the wrong stuff!' );
+	}
 }
