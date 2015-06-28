@@ -18,7 +18,8 @@
 			"Pcoombe",
 			"SkyDaisy9",
 			"Takot",
-			"아라"
+			"아라",
+			"Sujiniku"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -176,7 +177,7 @@
 	"donate_interface-error-msg-js": "以下の項目を入力してください",
 	"donate_interface-error-msg-validation": "フォーム内のエラーを修正してください。",
 	"donate_interface-error-msg-invalid-amount": "有効な金額を入力してください",
-	"donate_interface-error-msg-email": "正しいメール アドレスを入力してください",
+	"donate_interface-error-msg-email": "正しいeメール アドレス すなわち name@domain.com を入力してください",
 	"donate_interface-error-msg-card-num": "利用できるカードの種類のいずれかの、クレジットカードの有効な番号を入力してください",
 	"donate_interface-error-msg-amex": "アメリカン・エキスプレスのカード番号を正しく入力してください。",
 	"donate_interface-error-msg-mc": "マスターカードのカード番号を正しく入力してください。",
