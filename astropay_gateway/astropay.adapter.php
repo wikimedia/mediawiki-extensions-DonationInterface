@@ -248,6 +248,13 @@ class AstropayAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->payment_methods['bt'] = array(
+			'validation' => array(
+				'name' => true,
+				'email' => true,
+			),
+		);
+
 		$this->payment_submethods = array();
 
 		if ( self::getGlobal( 'Test' ) ) {
@@ -352,6 +359,61 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array( 'AR' => true, ),
 			'logo' => 'card-argencard.png',
 		);
+
+		// Banco do Brasil
+		$this->payment_submethods['banco_do_brasil'] = array(
+			'bank_code' => 'BB',
+			'label' => 'Banco do Brasil',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-banco_do_brasil.png',
+		);
+
+		// Itau
+		$this->payment_submethods['itau'] = array(
+			'bank_code' => 'I',
+			'label' => 'Itau',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-itau.png',
+		);
+
+		// Bradesco
+		$this->payment_submethods['bradesco'] = array(
+			'bank_code' => 'B',
+			'label' => 'Bradesco',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-bradesco.png',
+		);
+
+		// Caixa
+		$this->payment_submethods['caixa'] = array(
+			'bank_code' => 'CA',
+			'label' => 'Caixa',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-caixa.png',
+		);
+
+		// HSBC
+		$this->payment_submethods['hsbc'] = array(
+			'bank_code' => 'H',
+			'label' => 'HSBC',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-hsbc.png',
+		);
+
+		// Santander (Brazil)
+		$this->payment_submethods['santander'] = array(
+			'bank_code' => 'SB',
+			'label' => 'Santander',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-santander.png',
+		);
+
 	}
 
 	function doPayment() {
