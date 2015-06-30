@@ -100,6 +100,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 			$data['submethods'][] = $submethod;
 		}
+		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
+
 		$required_fields = $this->gateway->getRequiredFields();
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
