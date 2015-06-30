@@ -5,24 +5,25 @@
 			"Bea.miau",
 			"Larjona",
 			"Ryo567",
-			"Macofe"
+			"Macofe",
+			"Ncontinanza"
 		]
 	},
 	"globalcollectgateway": "Haz tu donación ahora",
 	"globalcollect_gateway-desc": "Procesamiento de pagos de GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simular un pago correcto",
 	"globalcollect_gateway-fakefail": "Simular un pago erróneo",
-	"globalcollect_gateway-response-9130": "País no válido",
-	"globalcollect_gateway-response-9140": "Moneda no válida",
+	"globalcollect_gateway-response-9130": "País inválido.",
+	"globalcollect_gateway-response-9140": "Moneda inválida.",
 	"globalcollect_gateway-response-9150": "Idioma no válido.",
-	"globalcollect_gateway-response-400530": "Método de pago no válido",
-	"globalcollect_gateway-response-430306": "Su tarjeta de crédito ha caducado. Porfavor, use otra tarjeta u otro de nuestros métodos de pago.",
-	"globalcollect_gateway-response-430330": "Número de tarjeta no válido",
-	"globalcollect_gateway-response-430421": "Su tarjeta de crédito no puede ser validada. Porfavor, verifique que toda la información concuerda con el perfil de su tarjeta de crédito, o pruebe otra tarjeta diferente.",
-	"globalcollect_gateway-response-430360": "La transacción no puede ser autorizada. Porfavor, pruebe otra tarjeta de crédito u otro de nuestros métodos de pago.",
-	"globalcollect_gateway-response-430285": "La transacción no puede ser autorizada. Porfavor, pruebe otra tarjeta de crédito u otro de nuestros métodos de pago.",
-	"globalcollect_gateway-response-21000150": "Cuenta bancaria no válida",
-	"globalcollect_gateway-response-21000155": "Codigo bancario no válido",
+	"globalcollect_gateway-response-400530": "Método de pago inválido.",
+	"globalcollect_gateway-response-430306": "Tu tarjeta de crédito ha caducado. Por favor intenta con otra tarjeta u otro de nuestros métodos de pago.",
+	"globalcollect_gateway-response-430330": "Número de tarjeta inválido.",
+	"globalcollect_gateway-response-430421": "Tu tarjeta de crédito no se pudo ser validada. Por favor verifica que toda la información concuerda con el perfil de tu tarjeta de crédito, o prueba con otra tarjeta.",
+	"globalcollect_gateway-response-430360": "La transacción no pudo autorizarse. Prueba con otra tarjeta u otro de nuestros métodos de pago.",
+	"globalcollect_gateway-response-430285": "La transacción no pudo ser autorizada. Por favor intenta con otra tarjeta u otro de nuestros métodos de pago.",
+	"globalcollect_gateway-response-21000150": "Número de cuenta bancaria inválida.",
+	"globalcollect_gateway-response-21000155": "Codigo bancario inválido.",
 	"globalcollect_gateway-response-21000160": "Número de cuenta de giro inválida.",
-	"globalcollect_gateway-response-default": "Hubo un error procesando su transacción.\nPor favor intentelo de nuevo mas tarde."
+	"globalcollect_gateway-response-default": "Hubo un error al procesar tu transacción.\nPor favor inténtalo de nuevo más tarde."
 }
