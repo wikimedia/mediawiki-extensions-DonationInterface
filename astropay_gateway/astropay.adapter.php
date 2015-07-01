@@ -273,6 +273,7 @@ class AstropayAdapter extends GatewayAdapter {
 				'AR' => true,
 				'BR' => true,
 			),
+			'logo' => 'card-visa-lg.png',
 		);
 
 		// MasterCard
@@ -284,6 +285,7 @@ class AstropayAdapter extends GatewayAdapter {
 				'AR' => true,
 				'BR' => true,
 			),
+			'logo' => 'card-mc-lg.png',
 		);
 
 		// American Express
@@ -292,6 +294,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'American Express',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-amex-lg.png',
 		);
 
 		// Visa Debit
@@ -320,6 +323,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Elo',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-elo.png',
 		);
 
 		// Diners Club
@@ -328,6 +332,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Diners Club',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-dinersclub-lg.png',
 		);
 
 		// Hipercard
@@ -336,6 +341,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Hipercard',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-hiper.png',
 		);
 
 		// Argencard
@@ -344,6 +350,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Argencard',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-argencard.png',
 		);
 	}
 
