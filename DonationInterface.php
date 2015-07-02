@@ -467,29 +467,26 @@ $wgDonationInterfaceDefaultQueueServer = array(
 $wgDonationInterfaceQueues = array(
 	// Incoming donations that we think have been paid for.
 	'completed' => array(),
-
 	// So-called limbo queue for GlobalCollect, where we store donor personal
 	// information while waiting for the donor to return from iframe or a
 	// redirect.  It's very important that this data is not stored anywhere
 	// permanent such as logs or the database, until we know this person
 	// finished making a donation.
 	// FIXME: Note that this must be an instance of KeyValueStore.
-	//
-	// Example of a PCI-compliant queue configuration:
-	//
-	// 'globalcollect-cc-limbo' => array(
-	// 	'type' => 'PHPQueue\Backend\Predis',
-	//  # Note that servers cannot be an array, due to some incompatibility
-	//  # with aggregate connections.
-	// 	'servers' => 'tcp://payments1003.eqiad.net',
-	// 	# 1 hour, in seconds
-	// 	'expiry' => 3600,
-	// 	'score_key' => 'date',
-	// ),
-	// 'limbo' => ...
-
-	// Transactions still needing action before they are settled.
-	// FIXME: who reads from this queue?
+	'globalcollect-cc-limbo' => array(
+		'type' => 'PHPQueue\Backend\Memcache',
+		'servers' => array( 'localhost' ),
+		# 30 days, in seconds
+		'expiry' => 2592000,
+	),
+	// The general limbo queue (see above). FIXME: deprecated?
+	'limbo' => array(
+		'type' => 'PHPQueue\Backend\Memcache',
+		'servers' => array( 'localhost' ),
+		'expiry' => 2592000,
+	),
+	// Where limbo messages go to die, if the orphan slayer decides they are
+	// still in one of the pending states.  FIXME: who reads from this queue?
 	'pending' => array(),
 
 	// Non-critical queues

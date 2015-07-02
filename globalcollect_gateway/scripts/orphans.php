@@ -28,7 +28,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$wgDonationInterfaceEnableIPVelocityFilter = false;
 
 		if ( !$this->getOrphanGlobal( 'enable' ) ){
-			$this->warning( 'Orphan cron disabled. Have a nice day.' );
+			echo "\nOrphan cron disabled. Have a nice day.";
 			return;
 		}
 
@@ -61,7 +61,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 		//first, we need to... clean up the limbo queue. 
 
-		// TODO: Remove STOMP code.
 		//building in some redundancy here.
 		$collider_keepGoing = true;
 		$am_called_count = 0;
@@ -76,24 +75,37 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 
-		do {
+		if ( $this->keepGoing() ){
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
-			$orphans = $this->getOrphans();
-			echo count( $orphans ) . " orphans left this batch\n";
-			//..do stuff.
-			foreach ( $orphans as $correlation_id => $orphan ) {
-				//process
-				if ( $this->keepGoing() ){
-					// TODO: Maybe we can simplify by checking that modified time < job start time.
-					$this->logger->info( "Attempting to rectify orphan $correlation_id" );
-					if ( $this->rectifyOrphan( $orphan ) ) {
-						$this->handled_ids[$correlation_id] = 'rectified';
-					} else {
-						$this->handled_ids[$correlation_id] = 'error';
+			$orphans = $this->getStompOrphans();
+			while ( count( $orphans ) && $this->keepGoing() ){
+				echo count( $orphans ) . " orphans left this batch\n";
+				//..do stuff. 
+				foreach ( $orphans as $correlation_id => $orphan ) {
+					//process
+					if ( $this->keepGoing() ){
+						// TODO: Maybe we can simplify by checking that modified time < job start time.
+						echo "Attempting to rectify orphan $correlation_id\n";
+						if ( $this->rectifyOrphan( $orphan ) ){
+							// TODO: Stop mirroring to STOMP.
+							$this->addStompCorrelationIDToAckBucket( $correlation_id );
+
+							$this->handled_ids[$correlation_id] = 'rectified';
+						} else {
+							$this->handled_ids[$correlation_id] = 'error';
+						}
 					}
 				}
+				// TODO: Stop mirroring to STOMP.
+				$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
+				if ( $this->keepGoing() ){
+					$orphans = $this->getStompOrphans();
+				}
 			}
-		} while ( count( $orphans ) && $this->keepGoing() );
+		}
+
+		// TODO: Stop mirroring to STOMP.
+		$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
 
 		//TODO: Make stats squirt out all over the place.  
 		$am = 0;
@@ -203,48 +215,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		return $count;
 	}
 
-	protected function getOrphans() {
-		// TODO: Make this configurable.
-		$time_buffer = 60*20; //20 minutes? Sure. Why not?
-
-		$orphans = array();
-		$false_orphans = array();
-		while ( $message = DonationQueue::instance()->pop( GlobalCollectAdapter::GC_CC_LIMBO_QUEUE ) ) {
-			$correlation_id = 'globalcollect-' . $message['gateway_txn_id'];
-			if ( array_key_exists( $correlation_id, $this->handled_ids ) ) {
-				continue;
-			}
-
-			// Check the timestamp to see if it's old enough, and stop when
-			// we're below the threshold.  Messages are guaranteed to pop in
-			// chronological order.
-			$elapsed = $this->start_time - $message['date'];
-			if ( $elapsed < $time_buffer ) {
-				// Put it back!
-				DonationQueue::instance()->set( $correlation_id, $message, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
-				break;
-			}
-
-			// We got ourselves an orphan!
-			$order_id = explode('-', $correlation_id);
-			$order_id = $order_id[1];
-			$message['order_id'] = $order_id;
-			$message = unCreateQueueMessage($message);
-			$orphans[$correlation_id] = $message;
-			$this->logger->info( "Found an orphan! $correlation_id" );
-
-			// TODO: stop stomping
-			$this->addStompCorrelationIDToAckBucket( $correlation_id );
-		}
-
-		// TODO: stop stomping
-		$this->addStompCorrelationIDToAckBucket( false, true );
-
-		return $orphans;
-	}
-
 	/**
-	 * TODO: Remove this along with other STOMP code.  Use getOrphans() instead.
 	 * Returns an array of at most $batch_size decoded orphans that we don't
 	 * think we've rectified yet. 
 	 *
@@ -252,13 +223,19 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 *     decoded stomp message body. 
 	 */
 	protected function getStompOrphans(){
+		// TODO: Remove STOMP block.
+		// FIXME: Expiration should be set in configuration, and enforced by
+		// the queue's native expiry anyway.
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
 		$selector = "payment_method = 'cc' AND gateway='globalcollect'";
 		echo "Fetching 300 Orphans\n";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 
+		// TODO: Batch size from config.
 		$batch_size = 300;
 		echo "Fetching {$batch_size} Orphans\n";
+
+		// TODO: Write popMultiple for Memcache.
 
 		$orphans = array();
 		$false_orphans = array();
