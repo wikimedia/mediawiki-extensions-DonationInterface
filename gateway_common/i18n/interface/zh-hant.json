@@ -128,7 +128,7 @@
 	"donate_interface-ZAR": "南非蘭特",
 	"donate_interface-currency-display": "$1（$2）",
 	"donate_interface-paypal-button": "經 PayPal 捐款",
-	"donate_interface-paypal-redirect": "重定向至PayPal...",
+	"donate_interface-paypal-redirect": "重新導向至 PayPal...",
 	"donate_interface-amazon-button": "透過亞馬遜捐款",
 	"donate_interface-cc-button": "以信用卡捐款",
 	"donate_interface-ccdc-button": "以信用卡或轉帳卡捐款",
