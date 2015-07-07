@@ -248,6 +248,13 @@ class AstropayAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->payment_methods['bt'] = array(
+			'validation' => array(
+				'name' => true,
+				'email' => true,
+			),
+		);
+
 		$this->payment_submethods = array();
 
 		if ( self::getGlobal( 'Test' ) ) {
@@ -273,6 +280,7 @@ class AstropayAdapter extends GatewayAdapter {
 				'AR' => true,
 				'BR' => true,
 			),
+			'logo' => 'card-visa-lg.png',
 		);
 
 		// MasterCard
@@ -284,6 +292,7 @@ class AstropayAdapter extends GatewayAdapter {
 				'AR' => true,
 				'BR' => true,
 			),
+			'logo' => 'card-mc-lg.png',
 		);
 
 		// American Express
@@ -292,6 +301,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'American Express',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-amex-lg.png',
 		);
 
 		// Visa Debit
@@ -320,6 +330,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Elo',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-elo.png',
 		);
 
 		// Diners Club
@@ -328,6 +339,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Diners Club',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-dinersclub-lg.png',
 		);
 
 		// Hipercard
@@ -336,6 +348,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Hipercard',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-hiper.png',
 		);
 
 		// Argencard
@@ -344,7 +357,63 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Argencard',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-argencard.png',
 		);
+
+		// Banco do Brasil
+		$this->payment_submethods['banco_do_brasil'] = array(
+			'bank_code' => 'BB',
+			'label' => 'Banco do Brasil',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-banco_do_brasil.png',
+		);
+
+		// Itau
+		$this->payment_submethods['itau'] = array(
+			'bank_code' => 'I',
+			'label' => 'Itau',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-itau.png',
+		);
+
+		// Bradesco
+		$this->payment_submethods['bradesco'] = array(
+			'bank_code' => 'B',
+			'label' => 'Bradesco',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-bradesco.png',
+		);
+
+		// Caixa
+		$this->payment_submethods['caixa'] = array(
+			'bank_code' => 'CA',
+			'label' => 'Caixa',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-caixa.png',
+		);
+
+		// HSBC
+		$this->payment_submethods['hsbc'] = array(
+			'bank_code' => 'H',
+			'label' => 'HSBC',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-hsbc.png',
+		);
+
+		// Santander (Brazil)
+		$this->payment_submethods['santander'] = array(
+			'bank_code' => 'SB',
+			'label' => 'Santander',
+			'group' => 'bt',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'bank-santander.png',
+		);
+
 	}
 
 	function doPayment() {
@@ -359,6 +428,8 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 		if ( $result->getRedirect() ) {
 			$this->doLimboStompTransaction();
+			// Write the donor's details to the log for the audit processor
+			$this->logPaymentDetails();
 			// Feed the message into the pending queue, so the CRM queue consumer
 			// can read it to fill in donor details when it gets a partial message
 			$this->setLimboMessage( 'pending' );
@@ -626,5 +697,10 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
+	}
+
+	protected function logPaymentDetails() {
+		$details = $this->getStompTransaction();
+		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
 	}
 }

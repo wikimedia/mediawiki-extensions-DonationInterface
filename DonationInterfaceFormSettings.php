@@ -451,17 +451,27 @@ $forms_whitelist['astropay'] = array(
 		'BRL',
 		'USD',
 	) ),
-	'payment_methods' => array( 'cc' => array(
-					'visa',
-					'mc',
-					'amex',
-					'visa_debit',
-					'mc_debit',
-					'elo',
-					'dc',
-					'hiper',
-					'argen',
-	) ),
+	'payment_methods' => array( 
+		'cc' => array(
+			'visa',
+			'mc',
+			'amex',
+			'visa_debit',
+			'mc_debit',
+			'elo',
+			'dc',
+			'hiper',
+			'argen',
+		),
+		'bt' => array(
+			'banco_do_brasil',
+			'itau',
+			'bradesco',
+			'caixa',
+			'hsbc',
+			'santander',
+		),
+	),
 );
 
 /**********

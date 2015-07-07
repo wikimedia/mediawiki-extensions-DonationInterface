@@ -188,7 +188,7 @@ div.donor { width: 100% !important; }
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  border: 0 !important;
+  border: 0;
   color: #006699;
   cursor: pointer;
   margin-bottom: .2em;
@@ -276,3 +276,12 @@ div.donor { width: 100% !important; }
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
 }
+.errorHighlight {
+  border: 2px solid red !important;
+}
+.errorMsg {
+  color: red;
+  display: inherit;
+}
+.errorMsgHide {
+  display: none;
