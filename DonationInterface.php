@@ -38,6 +38,7 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
  * CLASSES
  */
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
+$wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
 $wgAutoloadClasses['DonationData'] = __DIR__ . '/gateway_common/DonationData.php';
 $wgAutoloadClasses['DonationLoggerFactory'] = __DIR__ . '/gateway_common/DonationLoggerFactory.php';
 $wgAutoloadClasses['DonationLogProcessor'] = __DIR__ . '/gateway_common/DonationLogProcessor.php';
@@ -928,9 +929,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 
 // minimum amounts for all currencies
 $wgResourceModules[ 'di.form.core.minimums' ] = array(
-	'scripts' => 'validate.currencyMinimums.js',
-	'localBasePath' => __DIR__ . '/modules',
-	'remoteExtPath' => 'DonationInterface/modules'
+	'class' => 'CurrencyRatesModule',
 );
 
 // form validation resource
