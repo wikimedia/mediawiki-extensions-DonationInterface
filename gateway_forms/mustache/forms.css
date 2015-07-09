@@ -273,9 +273,7 @@ div.donor { width: 100% !important; }
 #cards:after { clear: both; }
 #cards li {
     background: #d1d1d1;
-    width: 32.63%;
     margin: 0 .7% .7% 0 !important;
-    padding: 1em;
     float: left;
     text-align: center;
     -moz-border-radius: 4px;
@@ -289,8 +287,19 @@ div.donor { width: 100% !important; }
     transition:         all .3s ease-in-out;
 }
 
-#cards > li:nth-child(3),
-#cards > li:nth-child(6) { margin-right: 0; }
+#cards.three-per-line li {
+    width: 32.63%;
+    padding: 1em;
+}
+#cards.three-per-line > li:nth-child(3),
+#cards.three-per-line > li:nth-child(6) { margin-right: 0; }
+
+#cards.four-per-line li {
+    width: 24.29%;
+    padding: 1em 0.5em;
+}
+#cards.four-per-line > li:nth-child(4),
+#cards.four-per-line > li:nth-child(8) { margin-right: 0; }
 
 #cards.enabled li:hover {
     background: #bcbcbc;
