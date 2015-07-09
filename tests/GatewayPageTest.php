@@ -30,8 +30,8 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->page = new TestingGatewayPage();
 		$this->adapter = new TestingGenericAdapter();
 		$this->adapter->addRequestData( array(
-			'amount' => '120',
-			'currency_code' => 'SGD' ) );
+			'amount' => '200',
+			'currency_code' => 'BBD' ) );
 		$this->adapter->errorsForRevalidate[0] = array( 'currency_code' => 'blah' );
 		$this->adapter->errorsForRevalidate[1] = array();
 		$this->page->adapter = $this->adapter;
@@ -54,16 +54,16 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	}
 
 	public function testFallbackIntermediateConversion() {
-		TestingGenericAdapter::$fakeGlobals['FallbackCurrency'] = 'NZD';
+		TestingGenericAdapter::$fakeGlobals['FallbackCurrency'] = 'OMR';
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
 
 		$this->page->validateForm();
 
 		$manualErrors = $this->adapter->getManualErrors();
-		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'NZD' )->text();
+		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'OMR' )->text();
 		$this->assertEquals( $msg, $manualErrors['general'] );
-		$this->assertEquals( 110, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
-		$this->assertEquals( 'NZD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
+		$this->assertEquals( 38, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
+		$this->assertEquals( 'OMR', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 
 	public function testFallbackWithoutNotification() {
@@ -99,7 +99,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 		$manualErrors = $this->adapter->getManualErrors();
 		$this->assertEquals( null, $manualErrors['general'] );
-		$this->assertEquals( 120, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
-		$this->assertEquals( 'SGD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
+		$this->assertEquals( 200, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
+		$this->assertEquals( 'BBD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 }
