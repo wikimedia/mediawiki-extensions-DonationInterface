@@ -387,23 +387,23 @@ class AstropayAdapter extends GatewayAdapter {
 			'logo' => 'bank-bradesco.png',
 		);
 
-		// Caixa
-		$this->payment_submethods['caixa'] = array(
+		// Caixa (disabled by AstroPay)
+		/*$this->payment_submethods['caixa'] = array(
 			'bank_code' => 'CA',
 			'label' => 'Caixa',
 			'group' => 'bt',
 			'countries' => array( 'BR' => true, ),
 			'logo' => 'bank-caixa.png',
-		);
+		);*/
 
-		// HSBC
-		$this->payment_submethods['hsbc'] = array(
+		// HSBC (disabled by AstroPay)
+		/*$this->payment_submethods['hsbc'] = array(
 			'bank_code' => 'H',
 			'label' => 'HSBC',
 			'group' => 'bt',
 			'countries' => array( 'BR' => true, ),
 			'logo' => 'bank-hsbc.png',
-		);
+		);*/
 
 		// Santander (Brazil)
 		$this->payment_submethods['santander'] = array(

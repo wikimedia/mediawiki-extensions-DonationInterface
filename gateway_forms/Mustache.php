@@ -100,6 +100,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 			$data['submethods'][] = $submethod;
 		}
+		$data['button_class'] = count( $data['submethods'] ) % 4 === 0
+			? 'four-per-line'
+			: 'three-per-line';
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
 		$required_fields = $this->gateway->getRequiredFields();

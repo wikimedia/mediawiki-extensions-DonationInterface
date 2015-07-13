@@ -6,6 +6,9 @@ class CurrencyRates {
 	 * Supplies rough (not up-to-date) conversion rates for currencies
 	 * Last updated June 26, 2014
 	 */
+
+	static public $lastUpdated = '2014-06-26';
+
 	static public function getCurrencyRates() {
 		// If you change these, make sure to also update any JS validation scripts
 		// For now I'm not rounding numbers under 1 because I don't think that's a big issue and could cause issues with the max check.
