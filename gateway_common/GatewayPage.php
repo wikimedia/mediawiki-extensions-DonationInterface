@@ -249,67 +249,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Handle the result from the gateway
-	 *
-	 * If there are errors, then this will return to the form.
-	 *
-	 * @todo
-	 * - This is being implemented in GlobalCollect
-	 * - Do we only want to skip the Thank you page on getFinalStatus() => failed?
-	 *
-	 * @return null
-	 */
-	protected function resultHandler() {
-		
-		global $wgOut;
-
-		// If transaction is anything, except failed, go to the thank you page.
-		
-		if ( in_array( $this->adapter->getFinalStatus(), $this->adapter->getGoToThankYouOn() ) ) {
-
-			$thankyoupage = $this->adapter->getThankYouPage();
-	
-			if ( $thankyoupage ) {
-				
-				$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
-				
-				return $wgOut->redirect( $thankyoupage . $queryString );
-			}
-		}
-		
-		// If we did not go to the Thank you page, there must be an error.
-		return $this->resultHandlerError();
-	}
-
-	/**
-	 * Handle the error result from the gateway
-	 *
-	 * @todo
-	 * - logging may need be added to this method
-	 *
-	 * @return null
-	 */
-	protected function resultHandlerError() {
-
-		// Display debugging results
-		$this->displayResultsForDebug();
-
-		foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
-			
-			$error = array();
-			if ( strpos( $code, 'internal' ) === 0 ) {
-				$error['retryMsg'][ $code ] = $message;
-			}
-			else {
-				$error['general'][ $code ] = $message;
-			}
-			$this->adapter->addManualError( $error );
-		}
-		
-		return $this->displayForm();
-	}
-
-	/**
 	 * If a currency code error exists and fallback currency conversion is 
 	 * enabled for this adapter, convert intended amount to default currency.
 	 *
@@ -533,6 +472,17 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} elseif ( $errors = $result->getErrors() ) {
 			// FIXME: Creepy.  Currently, the form inspects adapter errors.  Use
 			// the stuff encapsulated in PaymentResult instead.
+			foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
+
+				$error = array();
+				if ( strpos( $code, 'internal' ) === 0 ) {
+					$error['retryMsg'][ $code ] = $message;
+				}
+				else {
+					$error['general'][ $code ] = $message;
+				}
+				$this->adapter->addManualError( $error );
+			}
 			$this->displayForm();
 		} else {
 			// Success.
