@@ -632,28 +632,50 @@ class AstropayAdapter extends GatewayAdapter {
 				);
 			}
 		} else {
-			$logme = "Astropay response has non-zero status {$response['status']}.";
+			$logme = 'Astropay response has non-zero status.  Full response: '
+				. print_r( $response, true );
+			$this->logger->warning( $logme );
+
+			$code = 'internal-0000';
+			$message = $this->getErrorMapByCodeAndTranslate( $code );
+			$context = null;
+
 			if ( isset( $response['desc'] ) ) {
-				// They don't give us codes to distinguish failure modes, so we
-				// have to parse the description.
-				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
+				// error codes are unreliable, so we have to examine the description
+				if ( preg_match( '/^invoice already used/i', $response['desc'] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
 						ResponseCodes::DUPLICATE_ORDER_ID,
 						array( 'order_id' )
 					);
+				} else if ( preg_match( '/^could not register user/i', $response['desc'] ) ) {
+					// AstroPay is overwhelmed.  Tell the donor to try again soon.
+					$message = WmfFramework::formatMessage( 'donate_interface-try-again' );
+				} else if ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
+					// They are blacklisted by Astropay for shady doings,
+					// or listed delinquent by their government.
+					// Either way, we can't process 'em through AstroPay
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
+				} else if ( preg_match( '/^the user limit has been exceeded/i', $response['desc'] ) ) {
+					// They've spent too much via AstroPay today.
+					// Setting context to 'amount' will tell the form to treat
+					// this like a validation error and make amount editable.
+					$context = 'amount';
+					$message = WmfFramework::formatMessage( 'donate_interface-error-msg-limit' );
+				} else if ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
+					// Something wrong with the fiscal number
+					$context = 'fiscal_number';
+					$language = $this->dataObj->getVal_Escaped( 'language' );
+					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language );
 				}
-				$logme .= '  Error description: ' . $response['desc'];
-			} else {
-				$logme .= '  Full response: ' . $this->getTransactionRawResponse();
 			}
-			$this->logger->warning( $logme );
 			$this->transaction_response->setErrors( array(
-				'internal-0000' => array (
-					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
+				$code => array (
+					'message' => $message,
 					'debugInfo' => $logme,
-					'logLevel' => LogLevel::WARNING
+					'logLevel' => LogLevel::WARNING,
+					'context' => $context
 				)
 			) );
 		}
