@@ -944,41 +944,29 @@ $wgResourceModules[ 'di.form.core.validate' ] = array(
 
 // Load the interface messages that are shared across multiple gateways
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/interface';
-$wgExtensionMessagesFiles['DonateInterface'] = __DIR__ . '/gateway_common/interface.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/country-specific';
-$wgExtensionMessagesFiles['DonateInterfaceAlt'] = __DIR__ . '/gateway_common/country.specific.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/countries';
-$wgExtensionMessagesFiles['GatewayCountries'] = __DIR__ . '/gateway_common/countries.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/us-states';
-$wgExtensionMessagesFiles['GatewayUSStates'] = __DIR__ . '/gateway_common/us-states.i18n.php';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/canada-provinces';
-$wgExtensionMessagesFiles['GatewayCAProvinces'] = __DIR__ . '/gateway_common/canada-provinces.i18n.php';
-$wgExtensionMessagesFiles['GatewayAliases'] = __DIR__ . '/DonationInterface.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/amazon_gateway/i18n';
-$wgExtensionMessagesFiles['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.i18n.php';
 $wgExtensionMessagesFiles['AmazonGatewayAlias'] = __DIR__ . '/amazon_gateway/amazon_gateway.alias.php';
 
 //GlobalCollect gateway magical globals
 // @todo All the bits where we make the i18n make sense for multiple gateways. This is clearly less than ideal.
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/globalcollect_gateway/i18n';
-$wgExtensionMessagesFiles['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.i18n.php';
 $wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/adyen_gateway/i18n';
-$wgExtensionMessagesFiles['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.i18n.php';
 $wgExtensionMessagesFiles['AdyenGatewayAlias'] = __DIR__ . '/adyen_gateway/adyen_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/astropay_gateway/i18n';
-$wgExtensionMessagesFiles['AstropayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.i18n.php';
 $wgExtensionMessagesFiles['AstropayGatewayAlias'] = __DIR__ . '/astropay_gateway/astropay_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/paypal_gateway/i18n';
-$wgExtensionMessagesFiles['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.i18n.php';
 $wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
-$wgExtensionMessagesFiles['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.i18n.php';
 $wgExtensionMessagesFiles['WorldpayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
 
 /**
