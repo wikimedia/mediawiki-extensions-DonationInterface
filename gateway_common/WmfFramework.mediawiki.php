@@ -1,7 +1,8 @@
 <?php
 
 class WmfFramework_Mediawiki {
-	static function debugLog( $identifier, $msg ) {
+	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
+		// TODO: call different wf*Log functions depending on $level
 		wfDebugLog( $identifier, $msg );
 	}
 
