@@ -21,6 +21,7 @@
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
+ * @group Recurring
  */
 class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInterfaceTestCase {
 
@@ -69,5 +70,28 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 
 		$this->assertTrue( $result->getCommunicationStatus() );
 		$this->assertRegExp( '/SET_PAYMENT/', $result->getRawResponse() );
+	}
+
+	/**
+	 * Can make a recurring payment
+	 *
+	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
+	 */
+	public function testDeclinedRecurringCharge() {
+		$init = array(
+			'amount' => '2345',
+			'effort_id' => 2,
+			'order_id' => '9998890004',
+			'currency_code' => 'EUR',
+			'payment_product' => '',
+		);
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->setDummyGatewayResponseCode( 'recurring-NOK' );
+
+		$result = $gateway->do_transaction( 'Recurring_Charge' );
+
+		$this->assertEquals( 1, count( $gateway->curled ), 'Should not make another reqest after DO_PAYMENT fails' );
+		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
 	}
 }
