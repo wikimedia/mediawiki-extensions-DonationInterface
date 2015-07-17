@@ -2720,6 +2720,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'lname'
 					);
 					break;
+				case 'fiscal_number' :
+					$check_not_empty = array( 'fiscal_number' );
+					break;
 				default:
 					$this->logger->error( "bad required group name: {$type}" );
 					continue;

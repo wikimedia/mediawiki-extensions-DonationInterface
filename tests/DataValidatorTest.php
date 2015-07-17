@@ -18,7 +18,7 @@
 /**
  * @group	Fundraising
  * @group	DonationInterface
- * @group	GlobalCollect
+ * @group	Validation
  * @category	UnitTesting
  */
 class DataValidatorTest  extends PHPUnit_Framework_TestCase {
@@ -109,4 +109,30 @@ class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( DataValidator::getZeroPaddedValue( '123456', 5 ), "getZeroPaddedValue does not return false when the exact desired value is impossible" );
 	}
 
+	public function fiscalNumberProvider() {
+		return array(
+			array( 'BR', '', false ), // empty not OK for BR
+			array( 'US', '', true ), // empty OK for US
+			array( 'BR', '12345', false ), // too short for BR
+			array( 'BR', '00003456789', true ),
+			array( 'BR', '000.034.567-89', true ), // strip punctuation
+			array( 'BR', '00.000.000/0001-00', true ), // CPNJ should pass too
+			array( 'BR', '1111222233334444', false ),
+			array( 'BR', 'ABC11122233', false ),
+			array( 'CL', '12.123.123-K', true ),
+			array( 'CL', '12.12.12-4', false ),
+			array( 'AR', 'ABC12312', false ),
+			array( 'AR', '12341234', true ),
+			array( 'AR', '1112223', false ),
+			array( 'MX', 'ABC1234567', true ),
+			array( 'MX', 'ZYX12345', false ),
+		);
+	}
+
+	/**
+	 * @dataProvider fiscalNumberProvider
+	 */
+	public function testValidateFiscalNumber( $country, $value, $valid ) {
+		$this->assertEquals( $valid, DataValidator::validate_fiscal_number( $value, $country ) );
+	}
 }

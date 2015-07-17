@@ -390,4 +390,16 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		unset( $actual['date'] );
 		$this->assertEquals( $expected, $actual, 'Logged the wrong stuff!' );
 	}
+
+	function testStageFiscalNumber() {
+		$init = $this->getDonorTestData( 'BR' );
+		$init['fiscal_number'] = '000.034.567-89';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->doPayment();
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$staged = $exposed->getData_Staged( 'fiscal_number' );
+		$this->assertEquals( '00003456789', $staged, 'Not stripping fiscal_number punctuation in doPayment' );
+	}
 }

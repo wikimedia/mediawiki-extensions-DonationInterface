@@ -78,9 +78,10 @@ class AstropayAdapter extends GatewayAdapter {
 
 	function defineStagedVars() {
 		$this->staged_vars = array(
-			'full_name',
-			'donor_id',
 			'bank_code',
+			'donor_id',
+			'fiscal_number',
+			'full_name',
 		);
 	}
 
@@ -241,10 +242,13 @@ class AstropayAdapter extends GatewayAdapter {
 	public function definePaymentMethods() {
 		$this->payment_methods = array();
 
+		// TODO if we add countries where fiscal number is not required:
+		// make fiscal_number validation depend on country
 		$this->payment_methods['cc'] = array(
 			'validation' => array(
 				'name' => true,
 				'email' => true,
+				'fiscal_number' => true,
 			),
 		);
 
@@ -252,6 +256,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'validation' => array(
 				'name' => true,
 				'email' => true,
+				'fiscal_number' => true,
 			),
 		);
 
@@ -501,6 +506,16 @@ class AstropayAdapter extends GatewayAdapter {
 			if ( isset( $meta['bank_code'] ) ) {
 				$this->staged_data['bank_code'] = $meta['bank_code'];
 			}
+		}
+	}
+
+	/**
+	 * Strip any punctuation from fiscal number before submitting
+	 */
+	protected function stage_fiscal_number() {
+		$value = $this->getData_Unstaged_Escaped( 'fiscal_number' );
+		if ( $value ) {
+			$this->staged_data['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $value );
 		}
 	}
 
