@@ -28,6 +28,6 @@ class WmfFrameworkLogHandler extends AbstractProcessingHandler {
 	}
 
 	protected function write( array $record ) {
-		WmfFramework::debugLog( $this->identifier, $record['message'] );
+		WmfFramework::debugLog( $this->identifier, $record['message'], $record['level_name'] );
 	}
 }
