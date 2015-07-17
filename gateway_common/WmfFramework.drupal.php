@@ -25,11 +25,9 @@ class WmfFramework_Drupal {
 		return 'localhost';
 	}
 
-	/**
-	 * @throws BadMethodCallException
-	 */
 	static function formatMessage( $message_identifier ) {
-		throw new BadMethodCallException( "Not implemented" );
+		// TODO: Use the i18n logic in wmf_communication
+		return $message_identifier;
 	}
 
 	static function runHooks( $func, $args ) {
