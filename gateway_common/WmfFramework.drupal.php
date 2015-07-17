@@ -11,7 +11,10 @@
 class WmfFramework_Drupal {
 	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
 		$severity = constant( "WATCHDOG_$level" ); // Yep, they all match!
-		watchdog( 'DonationInterface', "{$identifier}: {$msg}", NULL, $severity );
+		// Janky XML sanitization so we can see the tags
+		// watchdog strips so aggressively that htmlspecialchars doesn't help
+		$escaped = str_replace( array( '<', '>' ), array( '{', '}' ), $msg );
+		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", NULL, $severity );
 	}
 
 	static function getIP() {
