@@ -1423,17 +1423,24 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Process a non-initial effort_id charge.
 	 */
 	protected function transactionRecurring_Charge() {
-		$result = $this->do_transaction('DO_PAYMENT');
-		if ( $result->getCommunicationStatus() ) {
-			$result = $this->do_transaction('GET_ORDERSTATUS');
+		$response = $this->do_transaction( 'DO_PAYMENT' );
+		$result = PaymentResult::fromResults(
+			$response,
+			$this->getFinalStatus()
+		);
+		if ( $response->getCommunicationStatus()
+			 && !$result->isFailed()
+			 && !$result->getErrors()
+		   ) {
+			$response = $this->do_transaction( 'GET_ORDERSTATUS' );
 			$data = $this->getTransactionData();
 			$orderStatus = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $this->getTransactionStatus() && $orderStatus === FinalStatus::PENDING_POKE ) {
 				$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
-				$result = $this->do_transaction('SET_PAYMENT');
+				$response = $this->do_transaction('SET_PAYMENT');
 			}
 		}
-		return $result;
+		return $response;
 	}
 
     protected function transactionDirect_Debit() {
@@ -1595,7 +1602,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				break;
 			case 'DO_PAYMENT':
-				$data = $this->xmlChildrenToArray( $response, 'STATUS' );
+				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				if ( isset( $data['STATUSID'] ) ) {
 					$this->finalizeInternalStatus( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) );
 				} else {

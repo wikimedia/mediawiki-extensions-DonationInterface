@@ -9,8 +9,12 @@
  * charges through GlobalCollect.
  */
 class WmfFramework_Drupal {
-	static function debugLog( $identifier, $msg ) {
-		watchdog( 'DonationInterface', "{$identifier}: {$msg}", NULL, WATCHDOG_DEBUG );
+	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
+		$severity = constant( "WATCHDOG_$level" ); // Yep, they all match!
+		// Janky XML sanitization so we can see the tags
+		// watchdog strips so aggressively that htmlspecialchars doesn't help
+		$escaped = str_replace( array( '<', '>' ), array( '{', '}' ), $msg );
+		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", NULL, $severity );
 	}
 
 	static function getIP() {
@@ -21,11 +25,9 @@ class WmfFramework_Drupal {
 		return 'localhost';
 	}
 
-	/**
-	 * @throws BadMethodCallException
-	 */
 	static function formatMessage( $message_identifier ) {
-		throw new BadMethodCallException( "Not implemented" );
+		// TODO: Use the i18n logic in wmf_communication
+		return $message_identifier;
 	}
 
 	static function runHooks( $func, $args ) {

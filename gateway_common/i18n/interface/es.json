@@ -193,7 +193,7 @@
 	"donate_interface-error-msg-validation": "Corrige los errores en el formulario.",
 	"donate_interface-error-msg-invalid-amount": "Escribe una cantidad válida",
 	"donate_interface-error-msg-email": "Escribe una dirección de correo electrónico válida. Por ejemplo, nombre@dominio.com",
-	"donate_interface-error-msg-card-num": "Introduce un número de tarjeta de crédito válido para uno de los tipos de tarjetas de crédito aceptadas",
+	"donate_interface-error-msg-card-num": "Escribe un número de tarjeta de crédito válido para uno de los tipos de tarjetas de crédito aceptadas",
 	"donate_interface-error-msg-amex": "Por favor, escribe un número de tarjeta American Express correcto",
 	"donate_interface-error-msg-mc": "Por favor, escribe un número de tarjeta MasterCard correcto",
 	"donate_interface-error-msg-visa": "Por favor, escribe un número de tarjeta Visa correcto",

@@ -214,6 +214,25 @@ $forms_whitelist['cc-vmad'] = array(
 	),
 );
 
+$forms_whitelist['cc-vjma'] = array(
+	'file' => $form_dirs['gc'] . '/cc/cc-vjma.html',
+	'gateway' => 'globalcollect',
+	'payment_methods' => array('cc' => array( 'visa', 'jcb', 'mc', 'amex' )),
+	'countries' => array(
+		'+' => array( 'JP', ),
+	),
+);
+
+$forms_whitelist['cc-jvma'] = array(
+	'file' => $form_dirs['gc'] . '/cc/cc-jvma.html',
+	'gateway' => 'globalcollect',
+	'payment_methods' => array('cc' => array( 'jcb', 'visa', 'mc', 'amex' )),
+	'countries' => array(
+		'+' => array( 'JP', ),
+	),
+);
+
+
 $forms_whitelist['cc-vmaj'] = array(
 	'file' => $form_dirs['gc'] . '/cc/cc-vmaj.html',
 	'gateway' => 'globalcollect',
