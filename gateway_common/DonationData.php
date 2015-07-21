@@ -331,7 +331,6 @@ class DonationData implements LogPrefixProvider {
 			$this->renameCardType();
 			$this->setEmail();
 			$this->setCardNum();
-			$this->setNormalizedFiscalNumber();
 
 			if ( $updateCtRequired ) {
 				$this->saveContributionTrackingData();
@@ -693,16 +692,6 @@ class DonationData implements LogPrefixProvider {
 	protected function setCardNum() {
 		if ( $this->isSomething( 'card_num' ) ) {
 			$this->setVal( 'card_num', str_replace( ' ', '', $this->getVal( 'card_num' ) ) );
-		}
-	}
-
-	/**
-	 * Tax ID numbers are often punctuated for readability.  Strip that stuff
-	 * for validation.
-	 */
-	protected function setNormalizedFiscalNumber() {
-		if ( $this->isSomething( 'fiscal_number' ) ) {
-			$this->setVal( 'fiscal_number', preg_replace( '[^a-zA-Z0-9]', '', $this->getVal( 'fiscal_number' ) ) );
 		}
 	}
 
