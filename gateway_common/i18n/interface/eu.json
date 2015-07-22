@@ -5,7 +5,8 @@
 			"Jsoby",
 			"Subi",
 			"පසිඳු කාවින්ද",
-			"Pcoombe"
+			"Pcoombe",
+			"Sator"
 		]
 	},
 	"donate_interface": "Lagundu Wikimedia",
@@ -143,12 +144,11 @@
 	"donate_interface-description": "Deskribapena",
 	"donate_interface-donation": "Dohaintza",
 	"donate_interface-via-paypal": "(PayPal bidez)",
-	"donate_interface-language": "Hizkuntza:",
-	"donate_interface-back": "Atzera",
 	"donate_interface-select": "Aukeratu",
 	"donate_interface-change": "Aldatu",
 	"donate_interface-optional": "Aukerazkoa",
 	"donate_interface-state-dropdown-XX": "AEBetatik kanpo",
+	"donate_interface-bt-country_description": "Herrialde deskribapena",
 	"donate_interface-dd-account_name": "Kontuaren izena",
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-redlink1": "Lagundu orrialde hau itzultzen.",
