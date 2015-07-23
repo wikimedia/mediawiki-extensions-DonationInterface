@@ -221,6 +221,7 @@ $forms_whitelist['cc-vjma'] = array(
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
+	'selection_weight' => 10,
 );
 
 $forms_whitelist['cc-jvma'] = array(
@@ -230,6 +231,7 @@ $forms_whitelist['cc-jvma'] = array(
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
+	'selection_weight' => 0,
 );
 
 
@@ -239,8 +241,8 @@ $forms_whitelist['cc-vmaj'] = array(
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 	'countries' => array(
 		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
-					  'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
-					  'PT', 'SG', 'SI', 'SK', 'TH', 'TW', ),
+					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
+					  'SG', 'SI', 'SK', 'TH', 'TW', ),
 	),
 );
 
