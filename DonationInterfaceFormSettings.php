@@ -563,19 +563,19 @@ $forms_whitelist['wp-ddcc'] = array(
 
 $forms_whitelist['error-default'] = array (
 	'file' => $form_dirs['default'] . '/error-cc.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
 	'special_type' => 'error', //buuuurble
 );
 
 $forms_whitelist['error-noform'] = array (
 	'file' => $form_dirs['default'] . '/error-noform.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-cc'] = array (
 	'file' => $form_dirs['default'] . '/error-cc.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'astropay', 'worldpay' ),
 	'payment_methods' => array ( 'cc' => 'ALL' ),
 	'special_type' => 'error',
 );
