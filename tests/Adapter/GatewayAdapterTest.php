@@ -135,7 +135,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( 'amazon', $_SESSION['Donor']['gateway'], 'Test setup failed.' );
 
 		//Then simpulate switching to Worldpay
-		$_SESSION['numAttempt'] = 2;
+		$_SESSION['sequence'] = 2;
         unset( $_POST['order_id'] );
 
 		$worldpay_gateway = new TestingWorldpayAdapter( array (
@@ -143,7 +143,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		) );
 		$worldpay_gateway->batch_mode = TRUE;
 
-		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['numAttempt']}";
+		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['sequence']}";
         $this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
 	}

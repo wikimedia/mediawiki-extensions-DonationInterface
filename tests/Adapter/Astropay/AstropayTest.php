@@ -402,4 +402,44 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$staged = $exposed->getData_Staged( 'fiscal_number' );
 		$this->assertEquals( '00003456789', $staged, 'Not stripping fiscal_number punctuation in doPayment' );
 	}
+
+	/**
+	 * We should increment the order ID with each NewInvoice call
+	 */
+	function testNewInvoiceOrderId() {
+		$init = $this->getDonorTestData( 'BR' );
+		$firstAttempt = $this->getFreshGatewayObject( $init );
+		$firstAttempt->setDummyGatewayResponseCode( '1' );
+ 
+		$firstAttempt->doPayment();
+
+		$secondAttempt = $this->getFreshGatewayObject( $init );
+		$secondAttempt->doPayment();
+
+		parse_str( $firstAttempt->curled[0], $firstParams );
+		parse_str( $secondAttempt->curled[0], $secondParams );
+
+		$this->assertNotEquals( $firstParams['x_invoice'], $secondParams['x_invoice'],
+			'Not generating new order id for NewInvoice call'
+		);
+	}
+
+	/**
+	 * We should increment the order ID with each NewInvoice call, even when
+	 * retrying inside a single doPayment call
+	 */
+	function testNewInvoiceOrderIdRetry() {
+		$init = $this->getDonorTestData( 'BR' );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( 'collision' );
+ 
+		$gateway->doPayment();
+
+		parse_str( $gateway->curled[0], $firstParams );
+		parse_str( $gateway->curled[1], $secondParams );
+
+		$this->assertNotEquals( $firstParams['x_invoice'], $secondParams['x_invoice'],
+			'Not generating new order id for retried NewInvoice call'
+		);
+	}
 }

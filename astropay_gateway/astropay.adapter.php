@@ -127,7 +127,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 	/**
 	 * Sets up the $order_id_meta array.
-	 * For Astropay, we use the ct_id.numAttempt format because we don't get
+	 * For Astropay, we use the ct_id.sequence format because we don't get
 	 * a gateway transaction ID until the user has actually paid.  If the user
 	 * doesn't return to the result switcher, we will need to use the order_id
 	 * to find a pending queue message with donor details to flesh out the
@@ -422,6 +422,11 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function doPayment() {
+		// If this is not our first NewInvoice call, get a fresh order ID
+		if ( $this->session_getData( 'sequence' ) ) {
+			$this->regenerateOrderID();
+		}
+
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
 		$this->runAntifraudHooks();
 		if ( $this->getValidationAction() !== 'process' ) {
@@ -603,6 +608,8 @@ class AstropayAdapter extends GatewayAdapter {
 	 * @param array $response
 	 */
 	protected function processNewInvoiceResponse( $response ) {
+		// Increment sequence number so next NewInvoice call gets a new order ID
+		$this->incrementSequenceNumber();
 		if ( !isset( $response['status'] ) ) {
 			$this->transaction_response->setCommunicationStatus( false );
 			$this->logger->error( 'Astropay response does not have a status code' );
@@ -627,8 +634,6 @@ class AstropayAdapter extends GatewayAdapter {
 				// have to parse the description.
 				if ( preg_match( '/invoice already used/i', $response['desc'] ) ) {
 					$this->logger->error( 'Order ID collision! Starting again.' );
-					// Increment numAttempt to get a new order ID
-					$this->incrementNumAttempt();
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
 						ResponseCodes::DUPLICATE_ORDER_ID,

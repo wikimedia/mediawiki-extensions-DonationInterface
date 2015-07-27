@@ -384,7 +384,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
         unset( $_SESSION['Donor']['order_id'] );
         $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
         $this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ),
-			'Decimal Order ID is allowed by orderIdMeta validation' );
+			'Decimal Order ID should be allowed by orderIdMeta validation' );
 	}
 
 	/**
@@ -394,12 +394,12 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$init = self::$initial_vars;
 
         $init['contribution_tracking_id'] = mt_rand();
-        $_SESSION['numAttempt'] = 2;
+        $_SESSION['sequence'] = 2;
         unset( $_POST['order_id'] );
         $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
-		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['numAttempt']}";
+		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['sequence']}";
         $this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
-			'Decimal Order ID is correctly built from Contribution Tracking ID.' );
+			'Decimal Order ID is not correctly built from Contribution Tracking ID.' );
 	}
 
 	/**
