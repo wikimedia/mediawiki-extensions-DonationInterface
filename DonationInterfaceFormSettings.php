@@ -465,7 +465,7 @@ $forms_whitelist['paypal-recurring'] = array(
  * Astropay *
  ************/
 $forms_whitelist['astropay'] = array(
-	'file' => $form_dirs['astropay'] . '/astropay.html',
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'BR', ),
 	'currencies' => array( '+' => array(
