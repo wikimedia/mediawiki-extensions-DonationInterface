@@ -3470,15 +3470,21 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname-$country' works. utm_source = '$utm', referrer = '$ref'";
 			$this->logger->warning( $message );
 		} else {
-			//Invalid form. Go get one that is valid, and squak in the error logs.
+			//Invalid form. Go get one that is valid, and squawk in the error logs.
 			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
 			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//now construct a useful error message
-			$this->logger->error(
-				"ffname '{$ffname}' is invalid. Assigning ffname '{$new_ff}'. " .
-				"I currently am choosing for: " . $this->getLogDebugJSON()
-			);
+			$message = "ffname '{$ffname}' is invalid. Assigning ffname '{$new_ff}'. " .
+				"I currently am choosing for: " . $this->getLogDebugJSON();
+
+			if ( empty( $ffname ) ) {
+				// Gateway-specific link didn't specify a form, but we have a
+				// default. Don't squawk too loud.
+				$this->logger->warning( $message );
+			} else {
+				$this->logger->error( $message );
+			}
 
 			//Turn these off by setting the LogDebug global to false.
 			$this->logger->debug( "GET: " . json_encode( $_GET ) );
