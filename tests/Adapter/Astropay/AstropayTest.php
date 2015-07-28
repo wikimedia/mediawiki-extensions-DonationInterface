@@ -240,7 +240,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
-		$expectedMessage = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $init['language'] );
+		$expectedMessage = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $init['language'], $init['country'] );
 		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
 		$this->assertEquals( 'fiscal_number', $errors['internal-0000']['context'] );
 	}
