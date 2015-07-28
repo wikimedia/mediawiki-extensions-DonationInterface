@@ -92,11 +92,9 @@ class DataValidator {
 	 *        'calculated' - fields that failed some kind of multiple-field data
 	 * integrity check.
 	 * @param string $language MediaWiki language code
-	 * @param string $value - The value of the field. So far, only used to say
-	 * more precise things about Credit Cards.
 	 * @return String
 	 */
-	public static function getErrorMessage( $field, $type, $language, $value = null ){
+	public static function getErrorMessage( $field, $type, $language ){
 		//this is gonna get ugly up in here. 
 		//error_log( __FUNCTION__ . " $field, $type, $value " );
 
@@ -134,12 +132,6 @@ class DataValidator {
 			switch ($token){
 				case 'amount': 
 					$suffix = 'invalid-amount';
-					break;
-				case 'card_num': //god damn it.
-					$suffix = 'card_num'; //more defaultness.
-					if (!is_null($value)){
-						$suffix = self::getCardType($value);
-					}
 					break;
 			}
 			
