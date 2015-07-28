@@ -17,7 +17,8 @@
 			"Toadino2",
 			"Jrobell",
 			"Ricordisamoa",
-			"Gianfranco"
+			"Gianfranco",
+			"Alexmar983"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -225,6 +226,7 @@
 	"donate_interface-otherways-alt": "Sono possibili <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">altri modi per donare</a>, anche con assegno.",
 	"donate_interface-otherways-short": "Altri modi per donare",
 	"donate_interface-token-mismatch": "La sessione è scaduta. Prova compilando e inviando nuovamente il modulo.",
+	"donate_interface-try-again": "Non siamo temporaneamente in grado di elaborare la vostra donazione. Si prega di provare di nuovo a breve.",
 	"donate_interface-cc-form-header-personal": "Dati di fatturazione",
 	"donate_interface-cc-form-header-payment": "Informazioni sul pagamento",
 	"donate_interface-make-your-donation": "Fai ora la tua donazione",
