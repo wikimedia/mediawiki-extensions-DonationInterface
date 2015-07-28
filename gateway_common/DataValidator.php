@@ -12,6 +12,14 @@
  * @author awight
  */
 class DataValidator {
+
+	// because of the hacky way we test for translation existence in getErrorMessage,
+	// we need to explicitly specify which fields we want to try to get country-
+	// specific names for.
+	protected static $countrySpecificFields = array(
+		'fiscal_number',
+	);
+
 	/**
 	 * getErrorToken, intended to be used by classes that exist relatively close 
 	 * to the form classes, returns the error token (defined on the forms) that 
@@ -92,9 +100,10 @@ class DataValidator {
 	 *        'calculated' - fields that failed some kind of multiple-field data
 	 * integrity check.
 	 * @param string $language MediaWiki language code
+	 * @param string $country ISO country code
 	 * @return String
 	 */
-	public static function getErrorMessage( $field, $type, $language ){
+	public static function getErrorMessage( $field, $type, $language, $country = null ){
 		//this is gonna get ugly up in here. 
 		//error_log( __FUNCTION__ . " $field, $type, $value " );
 
@@ -109,16 +118,24 @@ class DataValidator {
 		//postal code is a weird one. More L10n than I18n. 
 		//'donate_interface-error-msg-postal' => 'postal code',
 
-		$error_message_field_string = 'donate_interface-error-msg-' . $message_field;
+		$error_message_field_key = 'donate_interface-error-msg-' . $message_field;
+
+		if ( $country !== null && in_array( $message_field, self::$countrySpecificFields ) ) {
+			$translated_field_name = MessageUtils::getCountrySpecificMessage( $error_message_field_key, $country, $language );
+		} else if ( MessageUtils::messageExists( $error_message_field_key, $language ) ) {
+			$translated_field_name = WmfFramework::formatMessage( $error_message_field_key );
+		} else {
+			$translated_field_name = false;
+		}
 
 		//Empty messages should get: 
 		//'donate_interface-error-msg' => 'Please enter your $1';
 		//If they have no defined error message, give 'em the default. 
 		if ($type === 'not_empty'){
-			if ( $message_field != 'general' && MessageUtils::messageExists( $error_message_field_string, $language ) ) {
+			if ( $message_field != 'general' && $translated_field_name ) {
 				return WmfFramework::formatMessage(
 					'donate_interface-error-msg',
-					WmfFramework::formatMessage( $error_message_field_string )
+					$translated_field_name
 				);
 			} 
 		}
@@ -134,28 +151,24 @@ class DataValidator {
 					$suffix = 'invalid-amount';
 					break;
 			}
-			
-			$error_message_string = 'donate_interface-error-msg-' . $suffix;
-			
+
+			$error_key_calc = 'donate_interface-error-msg-' . $suffix . '-calc';
+
 			if ( $type === 'calculated'){
-				//try for the special "calculated" error message.
-				if ( MessageUtils::messageExists( $error_message_string . '-calc', $language ) ) {
-					return WmfFramework::formatMessage($error_message_string . '-calc');
+				// try for the special "calculated" error message.
+				// Note: currently only used for country
+				if ( MessageUtils::messageExists( $error_key_calc, $language ) ) {
+					return WmfFramework::formatMessage( $error_key_calc );
 				}
 			}
-			
-//			//try for the "invalid whatever" error message.
-//			if ( MessageUtils::messageExists( $error_message_string, $language ) ) {
-//				return WmfFramework::formatMessage( $error_message_string );
-//			}
-			
+
 			//try for new more specific default correction message
 			if ( $message_field != 'general' 
-				&& MessageUtils::messageExists( $error_message_field_string, $language )
+				&& $translated_field_name
 				&& MessageUtils::messageExists( 'donate_interface-error-msg-field-correction', $language ) ) {
 				return WmfFramework::formatMessage(
 					'donate_interface-error-msg-field-correction',
-					WmfFramework::formatMessage( $error_message_field_string )
+					$translated_field_name
 				);
 			}
 		}
@@ -256,6 +269,11 @@ class DataValidator {
 		$errors = array();
 
 		$language = DataValidator::guessLanguage( $data );
+		if ( empty( $data['country'] ) ) {
+			$country = null;
+		} else {
+			$country = $data['country'];
+		}
 
 		foreach ( $validations as $phase => $fields ) {
 			foreach ( $fields as $key => $custom ) {
@@ -314,7 +332,7 @@ class DataValidator {
 				$results[$phase][$field] = $result;
 				if ( $result === false ) {
 					// We did the check, and it failed.
-					$errors[$errorToken] = self::getErrorMessage( $field, $phase, $language );
+					$errors[$errorToken] = self::getErrorMessage( $field, $phase, $language, $country );
 				}
 			}
 		}
