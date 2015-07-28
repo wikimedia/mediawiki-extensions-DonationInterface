@@ -23,7 +23,7 @@
 	"globalcollect_gateway-response-430360": "La transacción no pudo autorizarse. Prueba con otra tarjeta u otro de nuestros métodos de pago.",
 	"globalcollect_gateway-response-430285": "La transacción no pudo autorizarse. Prueba con otra tarjeta u otro de nuestros métodos de pago.",
 	"globalcollect_gateway-response-21000150": "Número de cuenta bancaria inválida.",
-	"globalcollect_gateway-response-21000155": "Codigo bancario inválido.",
+	"globalcollect_gateway-response-21000155": "Código bancario inválido.",
 	"globalcollect_gateway-response-21000160": "Número de cuenta de giro inválida.",
 	"globalcollect_gateway-response-default": "Hubo un error al procesar tu transacción.\nInténtalo de nuevo más tarde."
 }

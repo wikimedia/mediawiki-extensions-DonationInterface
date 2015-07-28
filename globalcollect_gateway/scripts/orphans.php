@@ -163,16 +163,18 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		return $elapsed;
 	}
 
+	protected function deleteMessage( $correlation_id, $queue ) {
+	    $this->handled_ids[$correlation_id] = 'antimessage';
+
+	    DonationQueue::instance()->delete( $correlation_id, $queue );
+	}
+
 	function addStompCorrelationIDToAckBucket( $correlation_id, $ackNow = false ){
 		static $bucket = array();
 		$count = 50; //sure. Why not?
 		if ( $correlation_id ) {
 			$bucket[$correlation_id] = "'$correlation_id'"; //avoiding duplicates.
 			$this->handled_ids[$correlation_id] = 'antimessage';
-
-			// Delete from Memcache
-			DonationQueue::instance()->delete(
-				$correlation_id, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 		}
 		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
 			//ack now.
@@ -192,6 +194,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 	}
 
+	// TODO: remove STOMP function
 	function handleStompAntiMessages(){
 		$selector = "antimessage = 'true' AND gateway='globalcollect'";
 		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
@@ -203,6 +206,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				//add the correlation ID to the ack bucket. 
 				if (array_key_exists('correlation-id', $message->headers)) {
 					$this->addStompCorrelationIDToAckBucket( $message->headers['correlation-id'] );
+
+					// mirror to new thing
+					$this->deleteMessage( $message->headers['correlation-id'], GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 				} else {
 					echo 'The STOMP message ' . $message->headers['message-id'] . " has no correlation ID!\n";
 				}
@@ -275,6 +281,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				unset( $orphans[$cid] );
 				$this->addStompCorrelationIDToAckBucket( $cid );
 				$this->handled_ids[ $cid ] = 'false_orphan';
+
+				// mirror to new thing
+				$this->deleteMessage( $cid, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 			}
 		}
 

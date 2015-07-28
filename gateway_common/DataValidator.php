@@ -35,6 +35,7 @@ class DataValidator {
 			case 'card_num':
 			case 'card_type':
 			case 'cvv':
+			case 'fiscal_number':
 			case 'fname':
 			case 'lname':
 			case 'city':
@@ -66,6 +67,7 @@ class DataValidator {
 			'card_num' => '',
 			'card_type' => '',
 			'cvv' => '',
+			'fiscal_number' => '',
 			'fname' => '',
 			'lname' => '',
 			'city' => '',
@@ -246,6 +248,9 @@ class DataValidator {
 
 				// Depends on currency_code and gateway.
 				'amount' => 'validate_amount',
+
+				// Depends on country
+				'fiscal_number' => 'validate_fiscal_number',
 			),
 		);
 
@@ -304,6 +309,9 @@ class DataValidator {
 						break;
 					case 'validate_currency_code':
 						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies() );
+						break;
+					case 'validate_fiscal_number':
+						$result = call_user_func( $callable, $data[$field], $data['country'] );
 						break;
 					default:
 						$result = call_user_func( $callable, $data[$field] );
@@ -578,6 +586,70 @@ class DataValidator {
 		) {
 			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * Rudimentary tests of fiscal number format for different countries
+	 * @param string $value The alleged fiscal number
+	 * @param array $country The country whose format we care about
+	 * @return boolean True if the $value is a valid fiscal number, false otherwise
+	 */
+	public static function validate_fiscal_number( $value, $country ) {
+		$countryRules = array(
+			'AR' => array(
+				'numeric' => true,
+				'min' => 8,
+				'max' => 8,
+			),
+			'BR' => array(
+				'numeric' => true,
+				'min' => 11,
+				'max' => 14,
+			),
+			'CO' => array(
+				'numeric' => true,
+				'min' => 11,
+				'max' => 14,
+			),
+			'CL' => array(
+				'min' => 8,
+				'max' => 9,
+			),
+			'MX' => array(
+				'min' => 10,
+				'max' => 18,
+			),
+			'PE' => array(
+				'numeric' => true,
+				'min' => 8,
+				'max' => 9,
+			),
+			'UY' => array(
+				'numeric' => true,
+				'min' => 6,
+				'max' => 8,
+			),
+		);
+
+		if ( !isset( $countryRules[$country] ) ) {
+			return true;
+		}
+
+		$rules = $countryRules[$country];
+		$unpunctuated = preg_replace( '/[^A-Za-z0-9]/', '', $value );
+
+		if ( !empty( $rules['numeric'] ) ) {
+			if ( !is_numeric( $unpunctuated ) ) {
+				return false;
+			}
+		}
+
+		$length = strlen( $unpunctuated );
+		if ( $length < $rules['min'] || $length > $rules['max'] ) {
+			return false;
+		}
+
 		return true;
 	}
 

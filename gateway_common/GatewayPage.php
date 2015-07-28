@@ -472,10 +472,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} elseif ( $errors = $result->getErrors() ) {
 			// FIXME: Creepy.  Currently, the form inspects adapter errors.  Use
 			// the stuff encapsulated in PaymentResult instead.
-			foreach ( $this->adapter->getTransactionErrors() as $code => $message ) {
-
+			foreach ( $this->adapter->getTransactionResponse()->getErrors() as $code => $transactionError ) {
+				$message = $transactionError['message'];
 				$error = array();
-				if ( strpos( $code, 'internal' ) === 0 ) {
+				if ( !empty( $transactionError['context'] ) ) {
+					$error[$transactionError['context']] = $message;
+				} else if ( strpos( $code, 'internal' ) === 0 ) {
 					$error['retryMsg'][ $code ] = $message;
 				}
 				else {

@@ -221,6 +221,7 @@ $forms_whitelist['cc-vjma'] = array(
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
+	'selection_weight' => 10,
 );
 
 $forms_whitelist['cc-jvma'] = array(
@@ -230,6 +231,7 @@ $forms_whitelist['cc-jvma'] = array(
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
+	'selection_weight' => 0,
 );
 
 
@@ -239,8 +241,8 @@ $forms_whitelist['cc-vmaj'] = array(
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 	'countries' => array(
 		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
-					  'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
-					  'PT', 'SG', 'SI', 'SK', 'TH', 'TW', ),
+					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
+					  'SG', 'SI', 'SK', 'TH', 'TW', ),
 	),
 );
 
@@ -561,19 +563,19 @@ $forms_whitelist['wp-ddcc'] = array(
 
 $forms_whitelist['error-default'] = array (
 	'file' => $form_dirs['default'] . '/error-cc.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
 	'special_type' => 'error', //buuuurble
 );
 
 $forms_whitelist['error-noform'] = array (
 	'file' => $form_dirs['default'] . '/error-noform.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-cc'] = array (
 	'file' => $form_dirs['default'] . '/error-cc.html',
-	'gateway' => array ( 'globalcollect', 'adyen', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'astropay', 'worldpay' ),
 	'payment_methods' => array ( 'cc' => 'ALL' ),
 	'special_type' => 'error',
 );

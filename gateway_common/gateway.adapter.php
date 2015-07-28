@@ -126,7 +126,7 @@ interface GatewayType {
 	 *	order IDs, false if we are deferring order_id generation to the
 	 *	gateway.
 	 * 'ct_id' => boolean value.  If True, when generating order ID use
-	 * the contribution tracking ID with the attempt number appended
+	 * the contribution tracking ID with the sequence number appended
 	 *
 	 * Will eventually contain the following keys/values:
 	 * 'final'=> The value that we have chosen as the valid order ID for
@@ -2445,6 +2445,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$_SESSION['numAttempt'] = $attempts;
 	}
 
+	/**
+	 * Some payment gateways require a distinct identifier for each API call
+	 * or for each new payment attempt, even if retrying an attempt that failed
+	 * validation.  This is slightly different from numAttempt, which is only
+	 * incremented when setting a final status for a payment attempt.
+	 * It is the child class's responsibility to increment this at the
+	 * appropriate time.
+	 */
+	protected function incrementSequenceNumber() {
+		self::session_ensure();
+		$sequence = self::session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
+		if ( is_numeric( $sequence ) ) {
+			$sequence += 1;
+		} else {
+			$sequence = 1;
+		}
+
+		$_SESSION['sequence'] = $sequence;
+	}
+
 	public function setHash( $hashval ) {
 		$this->dataObj->setVal( 'data_hash', $hashval );
 	}
@@ -2719,6 +2739,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'fname',
 						'lname'
 					);
+					break;
+				case 'fiscal_number' :
+					$check_not_empty = array( 'fiscal_number' );
 					break;
 				default:
 					$this->logger->error( "bad required group name: {$type}" );
@@ -3129,6 +3152,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'PaymentForms',
 				'numAttempt',
 				'order_status', //for post-payment activities
+				'sequence',
 			);
 			$msg = '';
 			foreach ( $_SESSION as $key => $value ) {
@@ -3701,7 +3725,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function generateOrderID( $dataObj = null ) {
 		if ( $this->getOrderIDMeta( 'ct_id' ) ) {
 			// This option means use the contribution tracking ID with the
-			// attempt number tacked on to the end for uniqueness
+			// sequence number tacked on to the end for uniqueness
 			$dataObj = ( $dataObj ) ?: $this->dataObj;
 
 			$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
@@ -3710,9 +3734,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 			$this->session_ensure();
-			$attemptNum = $this->session_getData( 'numAttempt' ) ?: 0;
+			$sequence = $this->session_getData( 'sequence' ) ?: 0;
 
-			return "{$ctid}.{$attemptNum}";
+			return "{$ctid}.{$sequence}";
 		}
 		$order_id = ( string ) mt_rand( 1000, 9999999999 );
 		return $order_id;

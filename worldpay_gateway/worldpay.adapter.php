@@ -1230,4 +1230,14 @@ class WorldpayAdapter extends GatewayAdapter {
 		}
 		return $result;
 	}
+
+	/**
+	 * For now, keep API call sequence number in sync with numAttempt.
+	 * In the future, we may need to increment the sequence number with each API
+	 * call to facilitate automatic refunds.
+	 */
+	protected function incrementNumAttempt() {
+		$this->incrementSequenceNumber();
+		parent::incrementNumAttempt();
+	}
 }
