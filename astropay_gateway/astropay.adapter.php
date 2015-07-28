@@ -667,7 +667,11 @@ class AstropayAdapter extends GatewayAdapter {
 					// Something wrong with the fiscal number
 					$context = 'fiscal_number';
 					$language = $this->dataObj->getVal_Escaped( 'language' );
-					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language );
+					$country = $this->dataObj->getVal_Escaped( 'country' );
+					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language, $country );
+				} else {
+					// Some less common error.  Also log message at 'error' level
+					$this->logger->error( $logme );
 				}
 			}
 			$this->transaction_response->setErrors( array(
