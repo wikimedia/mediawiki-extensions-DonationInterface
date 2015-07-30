@@ -214,6 +214,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testDoPaymentLimitExceeded() {
 		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'limit_exceeded' );
@@ -232,6 +233,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testDoPaymentBadFiscalNumber() {
 		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'fiscal_number' );
@@ -250,6 +252,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testDoPaymentUserUnauthorized() {
 		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'user_unauthorized' );
@@ -263,6 +266,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testDoPaymentCouldNotRegister() {
 		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'could_not_register' );
