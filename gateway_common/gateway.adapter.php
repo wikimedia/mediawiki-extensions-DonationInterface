@@ -3897,7 +3897,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$logObj = array (
 			'ffname',
 			'country',
-			'currency',
+			'currency_code',
 			'payment_method',
 			'payment_submethod',
 			'recurring',
