@@ -8,7 +8,7 @@ $( document ).ready( function() {
 	// Submit on submethod selection if valid, otherwise show continute button.
 	$( 'input[name="payment_submethod"]' ).on( 'change', function() {
 		if ( window.validate_form( form ) ) {
-			form.submit();
+			submitForm();
 		} else {
 			$( '#paymentContinue' ).show();
 		}
@@ -16,7 +16,12 @@ $( document ).ready( function() {
 
 	$( '#paymentContinueBtn' ).click( function() {
 		if ( window.validate_form( form ) ) {
-			form.submit();
+			submitForm();
 		}
 	});
+
+	function submitForm() {
+		$( '#overlay' ).show();
+		form.submit();
+	}
 });
