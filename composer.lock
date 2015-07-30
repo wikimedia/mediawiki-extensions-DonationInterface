@@ -53,7 +53,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
-                "reference": "da00b03c229b4437b5cb69427b8e5b9adbffaa3f"
+                "reference": "0f0c0c82a77168b2c0c88fa58b9ce11f839cb58a"
             },
             "require": {
                 "clio/clio": "@stable",
