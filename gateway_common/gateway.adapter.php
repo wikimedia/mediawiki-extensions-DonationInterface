@@ -701,6 +701,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$translatedMessage = WmfFramework::formatMessage( $response_message );
 
+		// FIXME: don't do this.
 		// Check to see if an error message exists in translation
 		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
 
@@ -2362,6 +2363,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Returns an array of errors, in the format $error_code => $error_message.
 	 * This should be an empty array on transaction success.
 	 *
+	 * @deprecated
+	 *
 	 * @return array
 	 */
 	public function getTransactionErrors() {
@@ -3894,7 +3897,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$logObj = array (
 			'ffname',
 			'country',
-			'currency',
+			'currency_code',
 			'payment_method',
 			'payment_submethod',
 			'recurring',

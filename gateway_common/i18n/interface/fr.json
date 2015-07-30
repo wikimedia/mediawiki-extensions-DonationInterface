@@ -29,7 +29,8 @@
 			"Jrobell",
 			"Element303",
 			"Macofe",
-			"Wladek92"
+			"Wladek92",
+			"L"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -199,6 +200,7 @@
 	"donate_interface-error-msg-visa": "Veuillez entrer un numéro de carte Visa correct.",
 	"donate_interface-error-msg-discover": "Veuillez entrer un numéro de carte Discover correct.",
 	"donate_interface-error-msg-amount": "montant du don",
+	"donate_interface-error-msg-limit": "Votre don n’a pas pu être traité. Veuillez essayer une de nos <a href = \"//wikimediafoundation.org/wiki/Ways_to_Give/fr\">autres façons de donner</a>, essayez une plus petite quantité ou essayez de nouveau demain.",
 	"donate_interface-error-msg-emailAdd": "adresse de courriel",
 	"donate_interface-error-msg-fname": "prénom",
 	"donate_interface-error-msg-lname": "nom",
@@ -241,6 +243,7 @@
 	"donate_interface-otherways-alt": "Il y a <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/fr\">d’autres moyens de donner</a>, y compris par chèque.",
 	"donate_interface-otherways-short": "Autres moyens de donner",
 	"donate_interface-token-mismatch": "Votre session a expiré. Veuillez essayer à nouveau de remplir et d’envoyer le formulaire.",
+	"donate_interface-try-again": "Nous sommes temporairement incapables de traiter votre don. S’il vous plaît, essayez à nouveau dans un peu de temps.",
 	"donate_interface-cc-form-header-personal": "Informations de facturation",
 	"donate_interface-cc-form-header-payment": "Informations sur le paiement",
 	"donate_interface-make-your-donation": "Faites un don maintenant",

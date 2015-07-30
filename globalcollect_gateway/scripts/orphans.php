@@ -47,7 +47,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 
 	protected function orphan_stomp(){
-		echo "Orphan Stomp\n";
+		echo "Slaying orphans...\n";
 		$this->removed_message_count = 0;
 		$this->start_time = time();
 
@@ -61,6 +61,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 		//first, we need to... clean up the limbo queue. 
 
+		// TODO: Remove STOMP code.
 		//building in some redundancy here.
 		$collider_keepGoing = true;
 		$am_called_count = 0;
@@ -229,19 +230,13 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 *     decoded stomp message body. 
 	 */
 	protected function getStompOrphans(){
-		// TODO: Remove STOMP block.
-		// FIXME: Expiration should be set in configuration, and enforced by
-		// the queue's native expiry anyway.
 		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
 		$selector = "payment_method = 'cc' AND gateway='globalcollect'";
 		echo "Fetching 300 Orphans\n";
 		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
 
-		// TODO: Batch size from config.
 		$batch_size = 300;
 		echo "Fetching {$batch_size} Orphans\n";
-
-		// TODO: Write popMultiple for Memcache.
 
 		$orphans = array();
 		$false_orphans = array();

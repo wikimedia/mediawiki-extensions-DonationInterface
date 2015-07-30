@@ -235,6 +235,31 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			430452	=> 'globalcollect_gateway-response-default', // Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.
 			430900	=> 'globalcollect_gateway-response-default', // NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
 
+			// Errors where the suggested action is to try again
+			20205	=> 'donate_interface-try-again', // COULD NOT START TRANSACTION
+			103000	=> 'donate_interface-try-again', // ANOTHER_ACTION_IS_IN_PROCESS
+			400850	=> 'donate_interface-try-again', // IDEAL_SYSTEM_MAINTENANCE
+			430150	=> 'donate_interface-try-again', // READ_REQUEST_EXCEPTION
+			430160	=> 'donate_interface-try-again', // Unable to authorize  ALL_TERMINAL_IDS_FOR_MERCHANT_CURRENCY_IN_USE
+			430215	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_101
+			430220	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_103
+			430225	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_111
+			430230	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_113
+			430235	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_183
+			430240	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_601
+			430245	=> 'donate_interface-try-again', // Unable to authorize  COMMS_FAIL_605
+			430430	=> 'donate_interface-try-again', // Unable to authorize  TIMEOUT
+			430433	=> 'donate_interface-try-again', // Unable to authorize  TOO_MUCH_USAGE
+			430581	=> 'donate_interface-try-again', // Not authorized  SOFT_DECLINE_BUYER_HAS_ALTERNATE_FUNDING_SOURCE
+			485000	=> 'donate_interface-try-again', // Unable to authorize  NEW_ACCOUNT_INFO_AVAILABLE
+			485010	=> 'donate_interface-try-again', // Unable to authorize  TRY_AGAIN_LATER
+			4311130	=> 'donate_interface-try-again', // PBS_SERVICE_NOT_AVAILABLE
+			4360025	=> 'donate_interface-try-again', // ECARD SYSTEM ERROR
+			4500600	=> 'donate_interface-try-again', // BOKU ERROR
+			4500700	=> 'donate_interface-try-again', // SUB1 ERROR
+			22000045	=> 'donate_interface-try-again', // COMMUNICATION ERROR
+			9999999999	=> 'donate_interface-try-again', // ERROR_IN_PROCESSING_THE_REQUEST
+
 			// Internal messages
 			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
 			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
