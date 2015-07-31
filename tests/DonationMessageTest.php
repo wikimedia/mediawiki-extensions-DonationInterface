@@ -4,7 +4,7 @@
  * @group DonationInterface
  * @group Messages
  */
-class MessageTest extends MediaWikiTestCase {
+class DonationMessageTest extends MediaWikiTestCase {
 
 	public function testGetCountrySpecificMessage() {
 		$actual = MessageUtils::getCountrySpecificMessage(
