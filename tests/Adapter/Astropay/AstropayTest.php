@@ -280,6 +280,24 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
+	 * Should tell the user to try again
+	 */
+	function testDoPaymentCouldNotMakeDeposit() {
+		$init = $this->getDonorTestData( 'BR' );
+		$this->setLanguage( $init['language'] );
+		$init['payment_method'] = 'cc';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( 'could_not_make_deposit' );
+
+		$result = $gateway->doPayment();
+		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
+
+		$errors = $gateway->getTransactionResponse()->getErrors();
+		$expectedMessage = wfMessage( 'donate_interface-try-again')->inLanguage( $init['language'] )->text();
+		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
+	}
+
+	/**
 	 * PaymentStatus transaction should interpret the delimited response
 	 */
 	function testPaymentStatus() {

@@ -647,7 +647,7 @@ class AstropayAdapter extends GatewayAdapter {
 						ResponseCodes::DUPLICATE_ORDER_ID,
 						array( 'order_id' )
 					);
-				} else if ( preg_match( '/^could not register user/i', $response['desc'] ) ) {
+				} else if ( preg_match( '/^could not (register user|make the deposit)/i', $response['desc'] ) ) {
 					// AstroPay is overwhelmed.  Tell the donor to try again soon.
 					$message = WmfFramework::formatMessage( 'donate_interface-try-again' );
 				} else if ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
