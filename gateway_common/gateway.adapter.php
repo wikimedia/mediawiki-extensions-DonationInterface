@@ -1374,7 +1374,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * problem. (timeout, bad URL, etc.)
 	 */
 	protected function curl_transaction( $data ) {
-		// assign header data necessary for the curl_setopt() function
 		$this->getStopwatch( __FUNCTION__, true );
 
 		// Basic variable init
@@ -1402,6 +1401,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return false;
 		}
 
+		// assign header data necessary for the curl_setopt() function
 		$headers = $this->getCurlBaseHeaders();
 		$headers[] = 'Content-Length: ' . strlen( $data );
 
@@ -1414,10 +1414,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// As suggested in the PayPal developer forum sample code, try more than once to get a
 		// response in case there is a general network issue
 		$continue = true;
-		$i = 1;
+		$tries = 0;
 		$curl_response = false;
+		$loopCount = $this->getGlobal( 'RetryLoopCount' );
 
-		while ( ( $i++ <= 3 ) && ( $continue === true )) {
+		do {
 			$this->logger->info( "Preparing to send {$this->getCurrentTransaction()} transaction to $gatewayName" );
 
 			// Execute the cURL operation
@@ -1469,8 +1470,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$err = curl_error( $ch );
 				$this->logger->alert( "cURL transaction  to $gatewayName failed: ($errno) $err" );
 			}
-
-		} // End while cURL transaction hasn't returned something useful
+			$tries++;
+			if ( $tries >= $loopCount ) {
+				$continue = false;
+			}
+			if ( $continue ) {
+				// If we're going to try again, log timing for this particular curl attempt and reset
+				$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "cURL problems" );
+				$this->getStopwatch( __FUNCTION__, true );
+			}
+		} while ( $continue ); // End while cURL transaction hasn't returned something useful
 
 		// Clean up and return
 		curl_close( $ch );
