@@ -88,7 +88,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				if ( $this->keepGoing() ){
 					// TODO: Maybe we can simplify by checking that modified time < job start time.
 					$this->logger->info( "Attempting to rectify orphan $correlation_id" );
-$this->logger->info( "Orphan contents: " . json_encode( $orphan ) );
 					if ( $this->rectifyOrphan( $orphan ) ) {
 						$this->handled_ids[$correlation_id] = 'rectified';
 					} else {
@@ -249,7 +248,6 @@ $this->logger->info( "Orphan contents: " . json_encode( $orphan ) );
 				$elapsed = $this->start_time - $message['date'];
 				if ( $elapsed < $time_buffer ) {
 					// Put it back!
-$this->logger->info( "Newish message: " . json_encode( $message ) );
 					DonationQueue::instance()->set(
 					    $correlation_id, $message, $current_queue );
 
