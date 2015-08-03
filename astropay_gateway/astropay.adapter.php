@@ -441,7 +441,6 @@ class AstropayAdapter extends GatewayAdapter {
 			$this->getFinalStatus()
 		);
 		if ( $result->getRedirect() ) {
-			$this->doLimboStompTransaction();
 			// Write the donor's details to the log for the audit processor
 			$this->logPaymentDetails();
 			// Feed the message into the pending queue, so the CRM queue consumer
@@ -595,8 +594,7 @@ class AstropayAdapter extends GatewayAdapter {
 			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 			$this->finalizeInternalStatus( $status );
 			$this->runPostProcessHooks();
-			$this->deleteLimboMessage();
-			$this->doLimboStompTransaction( TRUE ); // TODO: stop mirroring to STOMP
+			$this->deleteLimboMessage( 'pending' );
 			break;
 		case 'NewInvoice':
 			$this->processNewInvoiceResponse( $response );
