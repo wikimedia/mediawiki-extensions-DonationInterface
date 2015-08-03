@@ -82,11 +82,9 @@ class DonationQueue {
 
 		// Create the message and associated properties
 		$properties = array(
-			'correlation-id' => $transaction['correlation-id'],
 			'gateway' => $transaction['gateway'],
 			// TODO: Move 'persistent' to PHPQueue backend default.
 			'persistent' => 'true',
-			'php-message-class' => $transaction['php-message-class'],
 			'source_enqueued_time' => time(),
 			'source_host' => WmfFramework::getHostname(),
 			'source_name' => 'DonationInterface',
@@ -94,6 +92,16 @@ class DonationQueue {
 			'source_type' => 'payments',
 			'source_version' => $sourceRevision,
 		);
+		if ( isset( $transaction['correlation-id'] ) ) {
+			$properties['correlation-id'] = $transaction['correlation-id'];
+		} else {
+			$properties['correlation-id'] = $transaction['gateway'] . '-' . $transaction['gateway_txn_id'];
+		}
+		// FIXME: In a better world, we'd actually be using this class to
+		// determine what kind of normalization is required.
+		if ( isset( $transaction['php-message-class'] ) ) {
+			$properties['php-message-class'] = $transaction['php-message-class'];
+		}
 
 		return $properties;
 	}
@@ -178,19 +186,15 @@ class DonationQueue {
 		$message = array(
 			'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 			'country' => $transaction['country'],
-			'currency' => $transaction['currency_code'],
 			//the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
 			//The code there should also be fixed.
 			'date' => (int)$transaction['date'],
 			'email' => $transaction['email'],
 			'fee' => '0',
-			'first_name' => $transaction['fname'],
 			'gateway_account' => $transaction['gateway_account'],
 			'gateway' => $transaction['gateway'],
 			'gateway_txn_id' => $transaction['gateway_txn_id'],
-			'gross' => $transaction['amount'],
 			'language' => $transaction['language'],
-			'last_name' => $transaction['lname'],
 			'payment_method' => $transaction['payment_method'],
 			'payment_submethod' => $transaction['payment_submethod'],
 			'referrer' => $transaction['referrer'],
@@ -199,10 +203,16 @@ class DonationQueue {
 			'utm_source' => $transaction['utm_source'],
 		);
 
-		//optional keys
+		// We're using this mapping for optional fields, and to cheat on not
+		// transforming messages a if they are processed through this function
+		// multiple times.
 		$optional_keys = array(
 			'anonymous' => 'anonymous',
 			'city' => 'city',
+			'currency' => 'currency_code',
+			'first_name' => 'fname',
+			'gross' => 'amount',
+			'last_name' => 'lname',
 			'optout' => 'optout',
 			'recurring' => 'recurring',
 			'state_province' => 'state',
@@ -215,6 +225,9 @@ class DonationQueue {
 		foreach ( $optional_keys as $mkey => $tkey ) {
 			if ( isset( $transaction[$tkey] ) ) {
 				$message[$mkey] = $transaction[$tkey];
+			} elseif ( isset( $transaction[$mkey] ) ) {
+				// Just copy if it's already using the correct key.
+				$message[$mkey] = $transaction[$mkey];
 			}
 		}
 
