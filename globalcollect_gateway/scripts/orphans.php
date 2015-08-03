@@ -78,7 +78,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 
-try {
 		do {
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
 			$orphans = $this->getOrphans();
@@ -97,11 +96,6 @@ try {
 				}
 			}
 		} while ( count( $orphans ) && $this->keepGoing() );
-} catch ( Exception $ex ) {
-	$this->logger->error( $ex->getMessage() );
-	$this->logger->error( $ex->getTraceAsString() );
-	throw $ex;
-}
 
 		//TODO: Make stats squirt out all over the place.  
 		$am = 0;
