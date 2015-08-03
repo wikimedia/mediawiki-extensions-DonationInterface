@@ -12,8 +12,6 @@ if ( $IP === false ) {
 //If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
 require_once( "$IP/maintenance/Maintenance.php" );
 
-use Predis\Connection\ConnectionException;
-
 class GlobalCollectOrphanRectifier extends Maintenance {
 
 	protected $killfiles = array();
@@ -78,24 +76,37 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		}
 		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
 
-		do {
+		if ( $this->keepGoing() ){
 			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
-			$orphans = $this->getOrphans();
-			echo count( $orphans ) . " orphans left this batch\n";
-			//..do stuff.
-			foreach ( $orphans as $correlation_id => $orphan ) {
-				//process
-				if ( $this->keepGoing() ){
-					// TODO: Maybe we can simplify by checking that modified time < job start time.
-					$this->logger->info( "Attempting to rectify orphan $correlation_id" );
-					if ( $this->rectifyOrphan( $orphan ) ) {
-						$this->handled_ids[$correlation_id] = 'rectified';
-					} else {
-						$this->handled_ids[$correlation_id] = 'error';
+			$orphans = $this->getStompOrphans();
+			while ( count( $orphans ) && $this->keepGoing() ){
+				echo count( $orphans ) . " orphans left this batch\n";
+				//..do stuff. 
+				foreach ( $orphans as $correlation_id => $orphan ) {
+					//process
+					if ( $this->keepGoing() ){
+						// TODO: Maybe we can simplify by checking that modified time < job start time.
+						echo "Attempting to rectify orphan $correlation_id\n";
+						if ( $this->rectifyOrphan( $orphan ) ){
+							// TODO: Stop mirroring to STOMP.
+							$this->addStompCorrelationIDToAckBucket( $correlation_id );
+
+							$this->handled_ids[$correlation_id] = 'rectified';
+						} else {
+							$this->handled_ids[$correlation_id] = 'error';
+						}
 					}
 				}
+				// TODO: Stop mirroring to STOMP.
+				$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding. 
+				if ( $this->keepGoing() ){
+					$orphans = $this->getStompOrphans();
+				}
 			}
-		} while ( count( $orphans ) && $this->keepGoing() );
+		}
+
+		// TODO: Stop mirroring to STOMP.
+		$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
 
 		//TODO: Make stats squirt out all over the place.  
 		$am = 0;
@@ -211,82 +222,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		return $count;
 	}
 
-	protected function getOrphans() {
-		// TODO: Make this configurable.
-		$time_buffer = 60*20; //20 minutes? Sure. Why not?
-
-		$orphans = array();
-		$false_orphans = array();
-
-		$queue_pool = new CyclicalArray( $this->getOrphanGlobal( 'gc_cc_limbo_queue_pool' ) );
-		if ( $queue_pool->isEmpty() ) {
-			// FIXME: cheesy inline default
-			$queue_pool = new CyclicalArray( GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
-		}
-
-		while ( !$queue_pool->isEmpty() ) {
-			$current_queue = $queue_pool->current();
-			try {
-				$message = DonationQueue::instance()->pop( $current_queue );
-
-				if ( !$message ) {
-					$this->logger->info( "Emptied queue [{$current_queue}], removing from pool." );
-					$queue_pool->dropCurrent();
-					continue;
-				}
-
-				$correlation_id = 'globalcollect-' . $message['gateway_txn_id'];
-				if ( array_key_exists( $correlation_id, $this->handled_ids ) ) {
-					// We already did this one, keep going.  It's fine to draw
-					// again from the same queue.
-					continue;
-				}
-
-				// Check the timestamp to see if it's old enough, and stop when
-				// we're below the threshold.  Messages are guaranteed to pop in
-				// chronological order.
-				$elapsed = $this->start_time - $message['date'];
-				if ( $elapsed < $time_buffer ) {
-					// Put it back!
-					DonationQueue::instance()->set(
-					    $correlation_id, $message, $current_queue );
-
-					$this->logger->info( "Exhausted new messages in [{$current_queue}], removing from pool..." );
-					$queue_pool->dropCurrent();
-
-					continue;
-				}
-
-				// We got ourselves an orphan!
-				$order_id = explode('-', $correlation_id);
-				$order_id = $order_id[1];
-				$message['order_id'] = $order_id;
-				$message = unCreateQueueMessage($message);
-				$orphans[$correlation_id] = $message;
-				$this->logger->info( "Found an orphan! $correlation_id" );
-
-				$this->deleteMessage( $correlation_id, $current_queue );
-
-				// Round-robin the pool before we complete the loop.
-				$queue_pool->rotate();
-
-				// TODO: stop stomping
-				$this->addStompCorrelationIDToAckBucket( $correlation_id );
-			} catch ( ConnectionException $ex ) {
-				// Drop this server, for the duration of this batch.
-				$this->logger->error( "Queue server for [$current_queue] is down! Ignoring for this run..." );
-				$queue_pool->dropCurrent();
-			}
-		}
-
-		// TODO: stop stomping
-		$this->addStompCorrelationIDToAckBucket( false, true );
-
-		return $orphans;
-	}
-
 	/**
-	 * TODO: Remove this along with other STOMP code.  Use getOrphans() instead.
 	 * Returns an array of at most $batch_size decoded orphans that we don't
 	 * think we've rectified yet. 
 	 *

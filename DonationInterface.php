@@ -39,7 +39,6 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
  */
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
-$wgAutoloadClasses['CyclicalArray'] = __DIR__ . '/globalcollect_gateway/CyclicalArray.php';
 $wgAutoloadClasses['DonationData'] = __DIR__ . '/gateway_common/DonationData.php';
 $wgAutoloadClasses['DonationLoggerFactory'] = __DIR__ . '/gateway_common/DonationLoggerFactory.php';
 $wgAutoloadClasses['DonationLogProcessor'] = __DIR__ . '/gateway_common/DonationLogProcessor.php';
