@@ -1210,8 +1210,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			//add an antimessage for everything but orphans
 			$this->logger->info( 'Adding Antimessage' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
-			// TODO: Stop mirroring to STOMP
-			$this->doLimboStompTransaction( true );
 		} else { //this is an orphan transaction.
 			$is_orphan = true;
 			//have to change this code range: All these are usually "pending" and
@@ -1485,8 +1483,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if ( $result->getCommunicationStatus() === true )
 					{
 						$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-						// TODO: Stop emitting antimessage.
-						$this->doLimboStompTransaction( true );
 					} else {
 						$this->finalizeInternalStatus( FinalStatus::FAILED );
 						//get the old status from the first txn, and add in the part where we set the payment.
@@ -2437,8 +2433,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $action != FinalStatus::FAILED ){
-				// TODO: Stop mirroring to STOMP.
-				$this->doLimboStompTransaction();
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
 					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
 				} else {

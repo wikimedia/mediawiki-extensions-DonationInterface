@@ -1866,44 +1866,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Function that adds a stomp message to a special 'limbo' queue, for data
-	 * that is either highly likely or completely guaranteed to be bifurcated by
-	 * handing the ball to a third-party process.
-	 *
-	 * @param bool $antiMessage If TRUE message will be formatted to destroy a message in the limbo
-	 *  queue when the orphan slayer is run.
-	 *
-	 * @return null
-	 */
-	protected function doLimboStompTransaction( $antiMessage = false ) {
-		if ( !$this->getGlobal( 'EnableStomp' ) ){
-			return;
-		}
-
-		$this->debugarray[] = "Attempting Limbo Stomp Transaction!";
-
-		$transaction = $this->getStompTransaction( $antiMessage );
-
-		try {
-			WmfFramework::runHooks( 'gwStomp', array( $transaction, 'limbo' ) );
-		} catch ( Exception $e ) {
-			$this->logger->critical( "STOMP ERROR. Could not add message to 'limbo' queue: {$e->getMessage()} " . json_encode( $transaction ) );
-		}
-	}
-
-	/**
 	 * Formats an array in preparation for dispatch to a STOMP queue
-	 *
-	 * @param bool $antiMessage If TRUE, message will be prepared to destroy
-	 * @param bool $recoverTimestamp If TRUE the timestamp will be set to any recoverable timestamp
-	 *  from the transaction. If it cannot be recovered or this argument is false, it will take the
-	 *  current time.
 	 *
 	 * @return array Pass this return array to STOMP :)
 	 *
 	 * TODO: Stop saying "STOMP".
 	 */
-	protected function getStompTransaction( $antiMessage = false, $recoverTimestamp = false ) {
+	protected function getStompTransaction() {
 		$transaction = array(
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
@@ -1914,33 +1883,18 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			'gateway' => $this->getData_Unstaged_Escaped( 'gateway' ),
 		);
 
-		if ( $antiMessage == true ) {
-			// As anti-messages only exist to destroy messages all we need is the identifier
-			$transaction['antimessage'] = 'true';
-		} else {
-			// Else we actually need the rest of the data
-			$stomp_data = array_intersect_key(
-				$this->getData_Unstaged_Escaped(),
-				array_flip( $this->dataObj->getStompMessageFields() )
-			);
+		// Else we actually need the rest of the data
+		$stomp_data = array_intersect_key(
+			$this->getData_Unstaged_Escaped(),
+			array_flip( $this->dataObj->getStompMessageFields() )
+		);
 
-			// The order here is important, values in $transaction are considered more definitive
-			// in case the transaction already had keys with those values
-			$transaction = array_merge( $stomp_data, $transaction );
+		// The order here is important, values in $transaction are considered more definitive
+		// in case the transaction already had keys with those values
+		$transaction = array_merge( $stomp_data, $transaction );
 
-			// And now determine the date; which is annoyingly not as easy as one would like it
-			// if we're attempting to recover some data: ie: we're an orphan
-			$timestamp = null;
-			if ( $recoverTimestamp === true ) {
-				if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
-					$timestamp = $this->getData_Unstaged_Escaped( 'date' );
-				} elseif ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
-					// That this works is mildly surprising
-					$timestamp = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) );
-				}
-			}
-			$transaction['date'] = ( $timestamp === null ) ? time() : $timestamp;
-		}
+		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
+		$transaction['date'] = time();
 
 		return $transaction;
 	}
@@ -2301,6 +2255,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->payment_init_logger->info( $msg );
 	}
 
+	/**
+	 * Build and send a message to the payments-init queue, once the initial workflow is complete.
+	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = array (
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceFinalStatus',
@@ -2325,7 +2282,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$transaction = $this->makeFreeformStompTransaction( $transaction );
 
 		try {
-			WmfFramework::runHooks( 'gwFreeformStomp', array ( $transaction, 'payments-init' ) );
+			// FIXME: Dispatch "freeform" messages transparently as well.
+			// TODO: write test
+			$this->logger->info( 'Pushing transaction to payments-init queue.' );
+			DonationQueue::instance()->push( $transaction, 'payments-init' );
 		} catch ( Exception $e ) {
 			$this->logger->error( 'Unable to send payments-init message' );
 		}

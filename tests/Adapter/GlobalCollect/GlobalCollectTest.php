@@ -465,12 +465,9 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
 
-		$this->assertEquals( 1, count( $gateway->limbo_stomps ), "Gateway sent no limbostomps for code $code!  Should have sent exactly one antimessage!" );
-		$this->assertEquals( true, $gateway->limbo_stomps[0], "Gateway sent wrong stomp message for code $code!  Should have sent an antimessage!" );
-
-		// Test Memcache mirror
-		$this->assertEquals( 1, count( $gateway->memcache_limbo_stomps ), "Gateway sent no (memcache) limbostomps for code $code!  Should have sent exactly one antimessage!" );
-		$this->assertEquals( true, $gateway->memcache_limbo_stomps[0], "Gateway sent wrong (memcache) stomp message for code $code!  Should have sent an antimessage!" );
+		// Test limbo queue contents.
+		$this->assertEquals( array( true ), $gateway->limbo_messages,
+			"Gateway did not delete limbo message for code $code!" );
 	}
 
 	/**
