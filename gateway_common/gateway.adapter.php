@@ -2554,7 +2554,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->logger->info( "Clearing transaction from limbo store [$queue]" );
 		try {
 			DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );
-		} catch( Exception $ex ) {
+		} catch( BadMethodCallException $ex ) {
 			$this->logger->warning( "Backend for queue [$queue] does not support deletion.  Hope your message had an expiration date!" );
 		}
 	}
