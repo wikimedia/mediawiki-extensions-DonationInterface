@@ -2552,7 +2552,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	protected function deleteLimboMessage( $queue = 'limbo' ) {
 		$this->logger->info( "Clearing transaction from limbo store [$queue]" );
-		DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );
+		try {
+			DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );
+		} catch( Exception $ex ) {
+			$this->logger->warning( "Backend for queue [$queue] does not support deletion.  Hope your message had an expiration date!" );
+		}
 	}
 
 	/**
