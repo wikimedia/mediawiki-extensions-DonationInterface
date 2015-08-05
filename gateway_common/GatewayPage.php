@@ -152,16 +152,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function displayFailPage() {
 		global $wgOut;
 
-		$page = $this->adapter->getGlobal( "FailPage" );
+		$page = $this->adapter->getFailPage();
 
 		$log_message = "Redirecting to [{$page}]";
 		$this->logger->info( $log_message );
-
-		// FIXME: And if !page, redirect does not work below.
-		if ( $page ) {
-			$language = $this->getRequest()->getVal( 'language' );
-			$page = wfAppendQuery( $page, array( 'uselang' => $language ) );
-		}
 
 		$wgOut->redirect( $page );
 	}
@@ -433,7 +427,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
-		$this->getOutput()->redirect( $this->adapter->getFailPage() );
+		$this->displayFailPage();
 	}
 
 	/**
@@ -450,7 +444,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	protected function renderResponse( PaymentResult $result ) {
 		if ( $result->isFailed() ) {
-			$this->getOutput()->redirect( $this->adapter->getFailPage() );
+			$this->displayFailPage();
 		} elseif ( $url = $result->getRedirect() ) {
 			$this->getOutput()->redirect( $url );
 		} elseif ( $url = $result->getIframe() ) {

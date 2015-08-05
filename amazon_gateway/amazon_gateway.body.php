@@ -65,7 +65,7 @@ class AmazonGateway extends GatewayPage {
 					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 				}
 				else {
-					$this->getOutput()->redirect( $this->adapter->getFailPage() );
+					$this->displayFailPage();
 				}
 			} else {
 				$specialform = $this->getRequest()->getText( 'ffname', null );

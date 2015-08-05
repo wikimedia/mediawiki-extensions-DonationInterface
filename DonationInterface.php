@@ -206,6 +206,12 @@ $wgDonationInterfacePriceFloor = 1.00;
 $wgDonationInterfacePriceCeiling = 10000.00;
 
 /**
+ * When true, error forms will be preferred over FailPage specified below
+ * @var bool
+ */
+$wgDonationInterfaceRapidFail = false;
+
+/**
  * Default Thank You and Fail pages for all of donationinterface - language will be calc'd and appended at runtime.
  */
 //$wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';

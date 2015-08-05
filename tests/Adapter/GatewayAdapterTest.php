@@ -55,6 +55,11 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 				'testytest' => array(
 					'gateway' => 'globalcollect', //RAR.
 				),
+				'rapidFailError' => array(
+					'file' => 'error-cc.html',
+					'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
+					'special_type' => 'error',
+				)
 			),
 		) );
 	}
@@ -228,6 +233,33 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$this->assertEquals( $exposed->getData_Staged( 'zip' ), '0',
 			'Postal code must be stuffed with fake data to prevent AVS scam.' );
+	}
+
+	public function testGetRapidFailPage() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceRapidFail' => true,
+		) );
+		$options = $this->getDonorTestData( 'US' );
+		$options['payment_method'] = 'cc';
+		$gateway = $this->getFreshGatewayObject( $options );
+		$pageUrlParts = explode( '?', $gateway->getFailPage() );
+		parse_str( $pageUrlParts[1], $params );
+		$this->assertEquals( 'rapidFailError', $params['ffname'] );
+		$this->assertEquals( 'cc', $params['payment_method'] );
+		$this->assertEquals( 'en', $params['language'] );
+	}
+
+	public function testGetFallbackFailPage() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceRapidFail' => false,
+			'wgDonationInterfaceFailPage' => 'Main_Page', //coz we know it exists
+		) );
+		$options = $this->getDonorTestData( 'US' );
+		$gateway = $this->getFreshGatewayObject( $options );
+		$page = $gateway->getFailPage();
+		$expectedTitle = Title::newFromText( 'Main_Page' );
+		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
+		$this->assertEquals( $expectedURL, $page );
 	}
 }
 
