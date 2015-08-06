@@ -943,6 +943,7 @@ $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/country
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/countries';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/us-states';
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/gateway_common/i18n/canada-provinces';
+$wgExtensionMessagesFiles['GatewayAliases'] = __DIR__ . '/DonationInterface.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/amazon_gateway/i18n';
 $wgExtensionMessagesFiles['AmazonGatewayAlias'] = __DIR__ . '/amazon_gateway/amazon_gateway.alias.php';
