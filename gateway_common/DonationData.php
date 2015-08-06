@@ -456,15 +456,17 @@ class DonationData implements LogPrefixProvider {
 			$currency = $this->getVal( 'currency_code' );
 			$this->logger->debug( "Got currency from 'currency_code', now: $currency" );
 		}
-		
-		//TODO: This is going to fail miserably if there's no country yet.
-		if ( !$currency ){
+
+		if ( $currency ) {
+			$currency = strtoupper( $currency );
+		} else {
+			//TODO: This is going to fail miserably if there's no country yet.
 			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->logger->debug( "Got currency from 'country', now: $currency" );
 		}
-		
+
 		$this->setVal( 'currency_code', $currency );
-		$this->expunge( 'currency', $currency );  //honestly, we don't want this.
+		$this->expunge( 'currency' );  //honestly, we don't want this.
 	}
 	
 	/**
