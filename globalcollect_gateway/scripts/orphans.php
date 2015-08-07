@@ -227,7 +227,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		while ( !$queue_pool->isEmpty() ) {
 			$current_queue = $queue_pool->current();
 			try {
-				$message = DonationQueue::instance()->pop( $current_queue );
+				$message = DonationQueue::instance()->peek( $current_queue );
 
 				if ( !$message ) {
 					$this->logger->info( "Emptied queue [{$current_queue}], removing from pool." );
@@ -239,6 +239,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				if ( array_key_exists( $correlation_id, $this->handled_ids ) ) {
 					// We already did this one, keep going.  It's fine to draw
 					// again from the same queue.
+					DonationQueue::instance()->delete( $correlation_id, $current_queue );
 					continue;
 				}
 
@@ -247,10 +248,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				// chronological order.
 				$elapsed = $this->start_time - $message['date'];
 				if ( $elapsed < $time_buffer ) {
-					// Put it back!
-					DonationQueue::instance()->set(
-					    $correlation_id, $message, $current_queue );
-
 					$this->logger->info( "Exhausted new messages in [{$current_queue}], removing from pool..." );
 					$queue_pool->dropCurrent();
 
