@@ -32,6 +32,7 @@ class AmazonAdapter extends GatewayAdapter {
 				array( 'payment_method' => 'amazon' )
 			);
 		}
+		$this->session_addDonorData();
 	}
 
 	public function getFormClass() {
@@ -209,5 +210,21 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	protected function unstage_amount() {
 		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' );
+	}
+
+	/**
+	 * MakeGlobalVariablesScript handler
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		$test = $this->getGlobal( 'TestMode' ) ? true : false;
+		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
+		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
+		$vars['wgAmazonGatewaySandbox'] = $test;
+		$vars['wgAmazonGatewayReturnURL'] = $this->getGlobal( 'ReturnURL' );
+		$vars['wgAmazonGatewayWidgetScript'] = $test
+			? $this->getGlobal( 'WidgetScript' )
+			: $this->getGlobal( 'TestingWidgetScript' );
+		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
 	}
 }

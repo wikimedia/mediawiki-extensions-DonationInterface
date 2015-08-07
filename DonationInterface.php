@@ -303,7 +303,14 @@ $wgGlobalCollectGatewayAvsMap = array(
 // Sorry, devs, this one HAS to be https. So make with the self-signing already!
 // Also, it has to be whitelisted for your application at sellercentral.amazon.com
 // e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
-$wgAmazonGatewayReturnURL = "";
+$wgAmazonGatewayReturnURL = '';
+
+// Adapt these for your region
+$wgAmazonGatewayWidgetScript = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js';
+$wgAmazonGatewayTestingWidgetScript = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/js/Widgets.js';
+
+// This one appears to be global and usable for both sandbox and non-sandbox
+$wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
