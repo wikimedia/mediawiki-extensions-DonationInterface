@@ -147,5 +147,33 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
         $this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
 	}
+
+	public function testStreetStaging() {
+		$options = $this->getDonorTestData( 'BR' );
+		unset( $options['street'] );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
+
+		$this->assertEquals( $exposed->getData_Staged( 'street' ), 'N0NE PROVIDED',
+			'Street must be stuffed with fake data to prevent AVS scam.' );
+	}
+
+	public function testZipStaging() {
+		$options = $this->getDonorTestData( 'BR' );
+		unset( $options['zip'] );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
+
+		$this->assertEquals( $exposed->getData_Staged( 'zip' ), '0',
+			'Postal code must be stuffed with fake data to prevent AVS scam.' );
+	}
 }
 

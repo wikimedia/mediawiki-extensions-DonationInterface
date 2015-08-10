@@ -2114,17 +2114,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * if the address line contains no numerical data.
 	 */
 	protected function stage_street() {
-		if ( !isset( $this->unstaged_data['street'] ) ) {
-			//nothing to do.
-			return;
+		$street = '';
+		if ( isset( $this->unstaged_data['street'] ) ) {
+			$street = trim( $this->unstaged_data['street'] );
 		}
 
-		$is_garbage = false;
-		$street = trim( $this->unstaged_data['street'] );
-		( strlen( $street ) === 0 ) ? $is_garbage = true : null;
-		( !DataValidator::validate_not_just_punctuation( $street ) ) ? $is_garbage = true : null;
-
-		if ( $is_garbage ){
+		if ( !$street
+			|| !DataValidator::validate_not_just_punctuation( $street )
+		) {
 			$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
 		}
 	}
@@ -2136,27 +2133,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * something along so that AVS checks get triggered at all.
 	 */
 	protected function stage_zip() {
-		if ( !isset( $this->unstaged_data['zip'] ) ) {
-			//nothing to do.
-			return;
+		$zip = '';
+		if ( isset( $this->unstaged_data['zip'] ) ) {
+			$zip = trim( $this->unstaged_data['zip'] );
 		}
-		if ( strlen( trim( $this->unstaged_data['zip'] ) ) === 0  ){
+		if ( strlen( $zip ) === 0 ) {
 			//it would be nice to check for more here, but the world has some
 			//straaaange postal codes...
-			$this->unstaged_data['zip'] = '0';
+			$this->staged_data['zip'] = '0';
 		}
 
 		//country-based zip grooming to make AVS (marginally) happy
-		switch ($this->getData_Unstaged_Escaped( 'country' ) ){
+		switch ( $this->getData_Unstaged_Escaped( 'country' ) ) {
 			case 'CA':
 				//Canada goes "A0A 0A0"
-				$this->staged_data['zip'] = strtoupper( $this->unstaged_data['zip'] );
+				$this->staged_data['zip'] = strtoupper( $zip );
 				//In the event that they only forgot the space, help 'em out.
-				$regex = '/[A-Z]{1}\d{1}[A-Z]{1}\d{1}[A-Z]{1}\d{1}/';
+				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
 				if ( strlen( $this->staged_data['zip'] ) === 6
-					&& preg_match( $regex, $this->unstaged_data['zip'] )
+					&& preg_match( $regex, $zip )
 				) {
-					$zip = $this->unstaged_data['zip'];
 					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
 				}
 				break;
