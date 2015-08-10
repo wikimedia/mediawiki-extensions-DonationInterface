@@ -20,7 +20,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function runHooks($func, $args) {
-		return wfRunHooks($func, $args);
+		return Hooks::run($func, $args);
 	}
 
 	static function getLanguageCode() {
