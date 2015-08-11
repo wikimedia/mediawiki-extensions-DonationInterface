@@ -34,10 +34,15 @@ class AmazonAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function getCommunicationType() {
-		if ( $this->transaction_option( 'redirect' ) ) {
-			return 'redirect';
+	public function getFormClass() {
+		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error') === 0 ) {
+			// TODO: make a mustache error form
+			return parent::getFormClass();
 		}
+		return 'Gateway_Form_Mustache';
+	}
+
+	public function getCommunicationType() {
 		return 'xml';
 	}
 
@@ -71,6 +76,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'generate' => TRUE,
 		);
 	}
+
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
@@ -89,7 +95,9 @@ class AmazonAdapter extends GatewayAdapter {
 
 	public function definePaymentMethods() {
 		$this->payment_methods = array(
-			'amazon' => array(),
+			'amazon' => array(
+				'profile_provided' => true, // Donor needn't enter name/email
+			),
 		);
 
 		$this->payment_submethods = array(

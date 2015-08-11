@@ -32,6 +32,8 @@ class AmazonGateway extends GatewayPage {
 		$this->getOutput()->allowClickjacking();
 
 		$this->setHeaders();
+		$this->getOutput()->addModules( 'ext.donationinterface.amazon.styles' );
+		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
 
 		$this->validateForm();
 		$this->displayForm();

@@ -305,8 +305,6 @@ $wgGlobalCollectGatewayAvsMap = array(
 // e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 $wgAmazonGatewayReturnURL = "";
 
-$wgAmazonGatewayHtmlFormDir = __DIR__ . '/amazon_gateway/forms/html';
-
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayReturnURL = ''; //'http://127.0.0.1/index.php/Special:PaypalGatewayResult';
@@ -858,6 +856,19 @@ $wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
 	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
 );
 
+$wgResourceModules['ext.donationinterface.amazon.styles'] = array(
+	'styles' => 'amazon.css',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
+	'scripts' => 'amazon.js',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+);
+
 // load any rapidhtml related resources
 require_once( __DIR__ . '/gateway_forms/rapidhtml/RapidHtmlResources.php' );
 
@@ -975,7 +986,6 @@ $wgDonationInterfaceAllowedHtmlForms = array();
  */
 $wgDonationInterfaceFormDirs = array(
 	'adyen' => $wgAdyenGatewayHtmlFormDir,
-	'amazon' => $wgAmazonGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,

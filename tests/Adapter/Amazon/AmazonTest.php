@@ -34,27 +34,31 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	}
 
 	public function setUp() {
-		global $wgAmazonGatewayHtmlFormDir;
-
 		parent::setUp();
 
 		$this->setMwGlobals( array(
 			'wgAmazonGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'amazon' => array(
-					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon.html',
 					'gateway' => 'amazon',
 					'payment_methods' => array('amazon' => 'ALL'),
 					'redirect',
 				),
 				'amazon-recurring' => array(
-					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon-recurring.html',
 					'gateway' => 'amazon',
 					'payment_methods' => array('amazon' => 'ALL'),
 					'redirect',
 					'recurring',
 				),
 			),
+			'wgAmazonGatewayAccountInfo' => array( 'test' => array(
+				'SellerID' => 'ABCDEFGHIJKL',
+				'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
+				'ClientSecret' => '12432g134e3421a41234b1341c324123d',
+				'MWSAccessKey' => 'N0NSENSEXYZ',
+				'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
+				'Region' => 'us',
+			) ),
 		) );
 	}
 
@@ -70,15 +74,11 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 * @dataProvider canadaLanguageProvider
 	 */
 	function testCanadianDollarConversion( $language ) {
-		$this->markTestSkipped( 'Logic temporarily missing' );
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'amazon';
 		$init['ffname'] = 'amazon';
 		$init['language'] = $language;
-		$init['redirect'] = 1;
-		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
-
 		$rates = CurrencyRates::getCurrencyRates();
 		$cadRate = $rates['CAD'];
 
@@ -86,21 +86,27 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 		TestingAmazonAdapter::$fakeGlobals = array(
 			'FallbackCurrency' => 'USD',
-			'NotifyOnConvert' => false,
+			'NotifyOnConvert' => true,
 		);
+
+		$expectedNotification = wfMessage(
+			'donate_interface-fallback-currency-notice',
+			'USD'
+		)->inLanguage( $language )->text();
+
 		$that = $this; //needed for PHP pre-5.4
-		$redirectTest = function( $location ) use ( $expectedAmount, $donateText, $that ) {
-			$actual = array();
-			parse_str( $location, $actual );
-			$that->assertTrue( is_numeric( $actual['amount'] ) );
-			$difference = abs( floatval( $actual['amount'] ) - $expectedAmount );
+		$convertTest = function( $amountString ) use ( $expectedAmount, $that ) {
+			$actual = explode( ' ', trim( $amountString ) );
+			$that->assertTrue( is_numeric( $actual[0] ) );
+			$difference = abs( floatval( $actual[0] ) - $expectedAmount );
 			$that->assertTrue( $difference <= 1 );
-			$that->assertEquals( $donateText, $actual['description'] );
+			$that->assertEquals( 'USD', $actual[1] );
 		};
 
 		$assertNodes = array(
-			'headers' => array(
-				'Location' => $redirectTest,
+			'selected-amount' => array( 'innerhtml' => $convertTest ),
+			'mw-content-text' => array(
+				'innerhtmlmatches' => "/.*$expectedNotification.*/"
 			)
 		);
 		$this->verifyFormOutput( 'TestingAmazonGateway', $init, $assertNodes, false );
