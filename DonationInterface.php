@@ -291,27 +291,18 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'' => 100, //No code returned. All the points.
 );	
 
-
-//n.b. "-Testing-" urls are not wired to anything, they're just here for
-// your copy n paste pleasure.
-
-$wgAmazonGatewayURL = "https://authorize.payments.amazon.com/pba/paypipeline";
-$wgAmazonGatewayTestingURL = "https://authorize.payments-sandbox.amazon.com/pba/paypipeline";
-
-$wgAmazonGatewayFpsURL = "https://fps.amazonaws.com/";
-$wgAmazonGatewayFpsTestingURL = "https://fps.sandbox.amazonaws.com/";
-
 #	$wgAmazonGatewayAccountInfo['example'] = array(
-#		'AccessKey' => "",
-#		'SecretKey' => "",
-#
-#		// the long one, not the AWS account ID
-#		'PaymentsAccountID' => "",
+#		'SellerID' => '',
+#		'ClientID' => '',
+#		'ClientSecret' => '',
+#		'MWSAccessKey' => '',
+#		'MWSSecretKey' => '',
+#		'Region' => '',
 #	);
 
-// e.g. http://payments.wikimedia.org/index.php/Special:AmazonGateway  --
-// does NOT accept unroutable development names, use the number instead
-// even if it's 127.0.0.1
+// Sorry, devs, this one HAS to be https. So make with the self-signing already!
+// Also, it has to be whitelisted for your application at sellercentral.amazon.com
+// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 $wgAmazonGatewayReturnURL = "";
 
 $wgAmazonGatewayHtmlFormDir = __DIR__ . '/amazon_gateway/forms/html';
