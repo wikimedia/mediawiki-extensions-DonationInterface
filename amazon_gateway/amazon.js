@@ -9,7 +9,8 @@
 		loggedIn = false,
 		loginError,
 		accessToken,
-		billingAgreementId;
+		billingAgreementId,
+		orderReferenceId;
 
 	// Cribbed from Amazon documentation
 	function getURLParameter( name, source ) {
@@ -92,12 +93,16 @@
 		new OffAmazonPayments.Widgets.Wallet( {
 			sellerId: sellerId,
 			onReady: function( billingAgreement ) {
+				// Will come in handy for recurring payments
 				billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+			},
+			agreementType: 'OrderReference',
+			onOrderReferenceCreate: function( orderReference ) {
+				orderReferenceId = orderReference.getAmazonOrderReferenceId();
 				$( '#paymentContinue' ).show();
 				$( '#paymentContinueBtn' ).off( 'click' );
 				$( '#paymentContinueBtn' ).click( submitPayment );
 			},
-			agreementType: 'OrderReference',
 			design: {
 				designMode: 'responsive'
 			},
@@ -110,7 +115,31 @@
 
 	function submitPayment() {
 		$( '#overlay' ).show();
-		// TODO: make an API call
-		$( '#overlay' ).hide();
+		var postdata = {
+			action: 'di_amazon_bill',
+			format: 'json',
+			orderReferenceId: orderReferenceId
+		};
+
+		$.ajax({
+			url: mw.util.wikiScript( 'api' ),
+			data: postdata,
+			dataType: 'json',
+			type: 'POST',
+			success: function ( data ) {
+				$( '#overlay' ).hide();
+				if ( data.errors ) {
+					// TODO: correctable error, let 'em correct it
+				} else if ( data.success ) {
+					// TODO: send donor to TY page, auth/capture money
+				} else {
+					// TODO: send donor to fail page
+				}
+			},
+			error: function () {
+				$( '#overlay' ).hide();
+				// TODO: handle when client can't talk to our own API!
+			}
+		});
 	}
 } )( jQuery, mediaWiki );

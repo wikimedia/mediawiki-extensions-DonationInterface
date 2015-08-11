@@ -79,6 +79,8 @@ $wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_g
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
 $wgAutoloadClasses['AmazonAdapter'] = __DIR__ . '/amazon_gateway/amazon.adapter.php';
+$wgAutoloadClasses['AmazonBillingApi'] = __DIR__ . '/amazon_gateway/amazon.api.php';
+$wgAPIModules['di_amazon_bill'] = 'AmazonBillingApi';
 
 //Adyen
 $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.body.php';

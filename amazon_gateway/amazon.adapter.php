@@ -1,4 +1,8 @@
 <?php
+
+use PayWithAmazon\Client as PwaClient;
+use PayWithAmazon\ClientInterface as PwaClientInterface;
+
 /**
  * Wikimedia Foundation
  *
@@ -115,16 +119,86 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	public function doPayment() {
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			$resultData = $this->do_transaction( 'DonateMonthly' );
-		} else {
-			$resultData = $this->do_transaction( 'Donate' );
+		$resultData = new PaymentTransactionResponse();
+
+		try {
+			$this->confirmOrderReference();
+		} catch ( ResponseProcessingException $ex ) {
+			$resultData->addError(
+				$ex->getErrorCode(),
+				$ex->getMessage()
+			);
 		}
 
 		return PaymentResult::fromResults(
 			$resultData,
 			$this->getFinalStatus()
 		);
+	}
+
+	/**
+	 * Gets a Pay with Amazon client or facsimile thereof
+	 * @return PwaClientInterface
+	 */
+	protected function getPwaClient() {
+		return new PwaClient( array(
+			'merchant_id' => $this->account_config['SellerID'],
+			'access_key' => $this->account_config['MWSAccessKey'],
+			'secret_key' => $this->account_config['MWSSecretKey'],
+			'client_id' => $this->account_config['ClientID'],
+			'region' => $this->account_config['Region'],
+			'sandbox' => $this->getGlobal( 'TestMode' ),
+		) );
+	}
+
+	protected function confirmOrderReference() {
+		$client = $this->getPwaClient();
+
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$setDetailsResult = $client->setOrderReferenceDetails( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
+		) )->toArray();
+		self::checkErrors( $setDetailsResult );
+
+		$confirmResult = $client->confirmOrderReference( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) )->toArray();
+		self::checkErrors( $confirmResult );
+
+		$getDetailsResult = $client->getOrderReferenceDetails( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) )->toArray();
+		self::checkErrors( $getDetailsResult );
+
+		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
+		$email = $buyerDetails['Email'];
+		$name = $buyerDetails['Name'];
+		$nameParts = split( '/\s+/', $name, 2 ); // janky_split_name
+		$fname = $nameParts[0];
+		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
+		$this->addRequestData( array(
+			'email' => $email,
+			'fname' => $fname,
+			'lname' => $lname,
+		) );
+	}
+
+	/**
+	 * @throws ResponseProcessingException if response contains an error
+	 * @param array $response
+	 */
+	static function checkErrors( $response ) {
+		if ( !empty( $response['Error'] ) ) {
+			throw new ResponseProcessingException(
+				$response['Error']['Message'],
+				$response['Error']['Code']
+			);
+		}
 	}
 
 	static function getCurrencies() {
