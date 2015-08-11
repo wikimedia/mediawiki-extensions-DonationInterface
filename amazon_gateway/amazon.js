@@ -8,7 +8,8 @@
 		loginScript = mw.config.get( 'wgAmazonGatewayLoginScript' ),
 		loggedIn = false,
 		loginError,
-		accessToken;
+		accessToken,
+		billingAgreementId;
 
 	// Cribbed from Amazon documentation
 	function getURLParameter( name, source ) {
@@ -59,7 +60,9 @@
 		amazon.Login.setClientId( clientId );
 		amazon.Login.setUseCookie( true );
 		amazon.Login.setSandboxMode( sandbox );
-		if ( !loggedIn ) {
+		if ( loggedIn ) {
+			createWalletWidget();
+		} else {
 			if ( loginError ) {
 				showErrorAndLoginButton(
 					getURLParameter( 'error_description', location.search )
@@ -83,5 +86,31 @@
 			// The first time around, only load the login script.
 			loadScript( loginScript );
 		}
+	}
+
+	function createWalletWidget() {
+		new OffAmazonPayments.Widgets.Wallet( {
+			sellerId: sellerId,
+			onReady: function( billingAgreement ) {
+				billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+				$( '#paymentContinue' ).show();
+				$( '#paymentContinueBtn' ).off( 'click' );
+				$( '#paymentContinueBtn' ).click( submitPayment );
+			},
+			agreementType: 'OrderReference',
+			design: {
+				designMode: 'responsive'
+			},
+			onError: function( error ) {
+				// Error message appears directly in widget
+				showErrorAndLoginButton( '' );
+			}
+		} ).bind( 'walletWidget' );
+	}
+
+	function submitPayment() {
+		$( '#overlay' ).show();
+		// TODO: make an API call
+		$( '#overlay' ).hide();
 	}
 } )( jQuery, mediaWiki );
