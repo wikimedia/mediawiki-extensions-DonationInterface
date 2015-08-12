@@ -1945,7 +1945,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					//say something painful here.
-					$errMsg = 'Blocking validation problems with this payment. Investigation required! ' . $this->getLogDebugJSON();
+					$errMsg = 'Blocking validation problems with this payment. Investigation required! '
+								. "Original error: '$errMsg'.  Our data: " . $this->getLogDebugJSON();
 				case 400120:
 					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					 * They already gave us money or failed...
