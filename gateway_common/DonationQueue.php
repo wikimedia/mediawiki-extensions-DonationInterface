@@ -37,6 +37,15 @@ class DonationQueue {
 		return $backend->pop();
 	}
 
+	public function peek( $queue ) {
+		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
+			return;
+		}
+		$backend = $this->newBackend( $queue );
+
+		return $backend->peek();
+	}
+
 	public function set( $correlationId, $transaction, $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
 			return;
