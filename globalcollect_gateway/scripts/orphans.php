@@ -75,6 +75,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 					} else {
 						$this->handled_ids[$correlation_id] = 'error';
 					}
+
+					// Throw out the message either way.
+					$this->deleteMessage( $correlation_id, $orphan['queue'] );
 				}
 			}
 		} while ( count( $orphans ) && $this->keepGoing() );
@@ -173,14 +176,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 
 				// We got ourselves an orphan!
-				$order_id = explode('-', $correlation_id);
-				$order_id = $order_id[1];
-				$message['order_id'] = $order_id;
-				$message = unCreateQueueMessage($message);
+				$message['queue'] = $current_queue;
 				$orphans[$correlation_id] = $message;
 				$this->logger->info( "Found an orphan! $correlation_id" );
-
-				$this->deleteMessage( $correlation_id, $current_queue );
 
 				// Round-robin the pool before we complete the loop.
 				$queue_pool->rotate();
@@ -228,6 +226,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$rectified = true;
 			}
 		}
+
 		echo $message . "\n";
 		
 		return $rectified;
