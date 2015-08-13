@@ -45,12 +45,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
 		//Now, actually do the processing. 
-		$this->orphan_stomp();
+		$this->process_orphans();
 	}
 
-	protected function orphan_stomp(){
+	protected function process_orphans(){
 		echo "Slaying orphans...\n";
-		$this->removed_message_count = 0;
 		$this->start_time = time();
 
 		//I want to be clear on the problem I hope to prevent with this.  Say,
@@ -61,27 +60,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//things we believe we just deleted.
 		$this->handled_ids = array();
 
-		//first, we need to... clean up the limbo queue. 
-
-		// TODO: Remove STOMP code.
-		//building in some redundancy here.
-		$collider_keepGoing = true;
-		$am_called_count = 0;
-		while ( $collider_keepGoing ){
-			$antimessageCount = $this->handleStompAntiMessages();
-			$am_called_count += 1;
-			if ( $antimessageCount < 10 ){
-				$collider_keepGoing = false;
-			} else {
-				sleep(2); //two seconds. 
-			}
-		}
-		$this->logger->info( 'Removed ' . $this->removed_message_count . ' messages and antimessages.' );
-
 		do {
-			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
+			//Pull a batch of CC orphans
 			$orphans = $this->getOrphans();
-			echo count( $orphans ) . " orphans left this batch\n";
+			echo count( $orphans ) . " orphans left in this batch\n";
 			//..do stuff.
 			foreach ( $orphans as $correlation_id => $orphan ) {
 				//process
@@ -98,31 +80,21 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		} while ( count( $orphans ) && $this->keepGoing() );
 
 		//TODO: Make stats squirt out all over the place.  
-		$am = 0;
 		$rec = 0;
 		$err = 0;
-		$fe = 0;
 		foreach( $this->handled_ids as $id=>$whathappened ){
 			switch ( $whathappened ){
-				case 'antimessage' : 
-					$am += 1;
-					break;
 				case 'rectified' : 
 					$rec += 1;
 					break;
 				case 'error' :
 					$err += 1;
 					break;
-				case 'false_orphan' :
-					$fe += 1;
-					break;
 			}
 		}
 		$final = "\nDone! Final results: \n";
-		$final .= " $am destroyed via antimessage (called $am_called_count times) \n";
 		$final .= " $rec rectified orphans \n";
 		$final .= " $err errored out \n";
-		$final .= " $fe false orphans caught \n";
 		if ( isset( $this->adapter->orphanstats ) ){
 			foreach ( $this->adapter->orphanstats as $status => $count ) {
 				$final .= "\n   Status $status = $count";
@@ -154,69 +126,15 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 
 	protected function deleteMessage( $correlation_id, $queue ) {
-	    $this->handled_ids[$correlation_id] = 'antimessage';
-
 	    DonationQueue::instance()->delete( $correlation_id, $queue );
-	}
-
-	function addStompCorrelationIDToAckBucket( $correlation_id, $ackNow = false ){
-		static $bucket = array();
-		$count = 50; //sure. Why not?
-		if ( $correlation_id ) {
-			$bucket[$correlation_id] = "'$correlation_id'"; //avoiding duplicates.
-			$this->handled_ids[$correlation_id] = 'antimessage';
-		}
-		if ( count( $bucket ) && ( count( $bucket ) >= $count || $ackNow ) ){
-			//ack now.
-			echo 'Acking ' . count( $bucket ) . " bucket messages.\n";
-			$selector = 'JMSCorrelationID IN (' . implode( ", ", $bucket ) . ')';
-			$ackMe = stompFetchMessages( 'cc-limbo', $selector, $count * 100 ); //This is outrageously high, but I just want to be reasonably sure we get all the matches. 
-			$retrieved_count = count( $ackMe );
-			if ( $retrieved_count ){
-				stompAckMessages( $ackMe );
-				$this->removed_message_count += $retrieved_count;
-				echo "Done acking $retrieved_count messages. \n";
-			} else {
-				echo "Oh noes! No messages retrieved for $selector...\n";
-			}
-			$bucket = array();
-		}
-
-	}
-
-	// TODO: remove STOMP function
-	function handleStompAntiMessages(){
-		$selector = "antimessage = 'true' AND gateway='globalcollect'";
-		$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
-		$count = 0;
-		while ( count( $antimessages ) > 10 && $this->keepGoing() ){ //if there's an antimessage, we can ack 'em all right now. 
-			echo "Colliding " . count( $antimessages ) . " antimessages\n";
-			$count += count( $antimessages );
-			foreach ( $antimessages as $message ){
-				//add the correlation ID to the ack bucket. 
-				if (array_key_exists('correlation-id', $message->headers)) {
-					$this->addStompCorrelationIDToAckBucket( $message->headers['correlation-id'] );
-
-					// mirror to new thing
-					$this->deleteMessage( $message->headers['correlation-id'], GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
-				} else {
-					echo 'The STOMP message ' . $message->headers['message-id'] . " has no correlation ID!\n";
-				}
-			}
-			$this->addStompCorrelationIDToAckBucket( false, true ); //ack all outstanding.
-			$antimessages = stompFetchMessages( 'cc-limbo', $selector, 1000 );
-		}
-		$this->addStompCorrelationIDToAckBucket( false, true ); //this just acks everything that's waiting for it.
-		$this->logger->info( "Found $count antimessages." );
-		return $count;
 	}
 
 	protected function getOrphans() {
 		// TODO: Make this configurable.
-		$time_buffer = 60*20; //20 minutes? Sure. Why not?
+		// 20 minutes: this is exactly equal to something on Globalcollect's side.
+		$time_buffer = 60*20;
 
 		$orphans = array();
-		$false_orphans = array();
 
 		$queue_pool = new CyclicalArray( $this->getOrphanGlobal( 'gc_cc_limbo_queue_pool' ) );
 		if ( $queue_pool->isEmpty() ) {
@@ -266,80 +184,10 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 				// Round-robin the pool before we complete the loop.
 				$queue_pool->rotate();
-
-				// TODO: stop stomping
-				$this->addStompCorrelationIDToAckBucket( $correlation_id );
 			} catch ( ConnectionException $ex ) {
 				// Drop this server, for the duration of this batch.
 				$this->logger->error( "Queue server for [$current_queue] is down! Ignoring for this run..." );
 				$queue_pool->dropCurrent();
-			}
-		}
-
-		// TODO: stop stomping
-		$this->addStompCorrelationIDToAckBucket( false, true );
-
-		return $orphans;
-	}
-
-	/**
-	 * TODO: Remove this along with other STOMP code.  Use getOrphans() instead.
-	 * Returns an array of at most $batch_size decoded orphans that we don't
-	 * think we've rectified yet. 
-	 *
-	 * @return array keys are the correlation_id, and the values are the
-	 *     decoded stomp message body. 
-	 */
-	protected function getStompOrphans(){
-		$time_buffer = 60*20; //20 minutes? Sure. Why not? 
-		$selector = "payment_method = 'cc' AND gateway='globalcollect'";
-		echo "Fetching 300 Orphans\n";
-		$messages = stompFetchMessages( 'cc-limbo', $selector, 300 );
-
-		$batch_size = 300;
-		echo "Fetching {$batch_size} Orphans\n";
-
-		$orphans = array();
-		$false_orphans = array();
-		foreach ( $messages as $message ){
-			//this next block will do quite a lot of antimessage collision 
-			//when the queue is not being railed. 
-			if ( array_key_exists('antimessage', $message->headers ) ){
-				$correlation_id = $message->headers['correlation-id'];
-				$false_orphans[] = $correlation_id;
-				echo "False Orphan! $correlation_id \n";
-			} else { 
-				//legit message
-				if ( !array_key_exists( $message->headers['correlation-id'], $this->handled_ids ) ) {
-					//check the timestamp to see if it's old enough. 
-					$decoded = json_decode($message->body, true);
-					if ( array_key_exists( 'date', $decoded ) ){
-						$elapsed = $this->start_time - $decoded['date'];
-						if ( $elapsed > $time_buffer ){
-							//we got ourselves an orphan! 
-							$correlation_id = $message->headers['correlation-id'];
-							$order_id = explode('-', $correlation_id);
-							$order_id = $order_id[1];
-							$decoded['order_id'] = $order_id;
-							$decoded = unCreateQueueMessage($decoded);
-							$decoded['card_num'] = '';
-							$orphans[$correlation_id] = $decoded;
-							echo "Found an orphan! $correlation_id \n";
-						}
-					}
-				}
-			}
-		}
-
-		// TODO: Remove STOMP block.
-		foreach ( $orphans as $cid => $data ){
-			if ( in_array( $cid, $false_orphans ) ){
-				unset( $orphans[$cid] );
-				$this->addStompCorrelationIDToAckBucket( $cid );
-				$this->handled_ids[ $cid ] = 'false_orphan';
-
-				// mirror to new thing
-				$this->deleteMessage( $cid, GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 			}
 		}
 

@@ -126,8 +126,6 @@ class DonationQueue {
 	protected function buildBody( $transaction ) {
 		if ( array_key_exists( 'freeform', $transaction ) && $transaction['freeform'] ) {
 			$data = $transaction;
-		} elseif ( array_key_exists( 'antimessage', $transaction ) && $transaction['antimessage'] ) {
-			$data = '';
 		} else {
 			// Assume anything else is a regular donation.
 			$data = $this->buildTransactionMessage( $transaction );

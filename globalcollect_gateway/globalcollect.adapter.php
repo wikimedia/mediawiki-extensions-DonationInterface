@@ -1207,11 +1207,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->logger->info( $logmsg );
-			//add an antimessage for everything but orphans
-			$this->logger->info( 'Adding Antimessage' );
+
+			// If we have a querystring, this means we're processing a live donor
+			// coming back from GlobalCollect, and the transaction is not orphaned
+			$this->logger->info( 'Donor returned, deleting limbo message' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
-			// TODO: Stop mirroring to STOMP
-			$this->doLimboStompTransaction( true );
 		} else { //this is an orphan transaction.
 			$is_orphan = true;
 			//have to change this code range: All these are usually "pending" and
@@ -1485,8 +1485,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					if ( $result->getCommunicationStatus() === true )
 					{
 						$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-						// TODO: Stop emitting antimessage.
-						$this->doLimboStompTransaction( true );
 					} else {
 						$this->finalizeInternalStatus( FinalStatus::FAILED );
 						//get the old status from the first txn, and add in the part where we set the payment.
@@ -1947,7 +1945,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					//say something painful here.
-					$errMsg = 'Blocking validation problems with this payment. Investigation required! ' . $this->getLogDebugJSON();
+					$errMsg = 'Blocking validation problems with this payment. Investigation required! '
+								. "Original error: '$errMsg'.  Our data: " . $this->getLogDebugJSON();
 				case 400120:
 					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					 * They already gave us money or failed...
@@ -2437,8 +2436,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $action != FinalStatus::FAILED ){
-				// TODO: Stop mirroring to STOMP.
-				$this->doLimboStompTransaction();
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
 					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
 				} else {

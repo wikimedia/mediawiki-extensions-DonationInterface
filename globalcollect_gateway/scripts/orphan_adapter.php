@@ -150,54 +150,21 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
-	 * Copying this here because it's the fastest way to bring in an actual timestamp. 
+	 * Copy the timestamp rather than using the current time.
+	 *
+	 * FIXME: Carefully move this to the base class and decide when appropriate.
 	 */
-	protected function doStompTransaction() {
-		if ( !$this->getGlobal( 'EnableStomp' ) ) {
-			return;
-		}
-		$this->debugarray[] = "Attempting Stomp Transaction!";
-		$hook = '';
+	protected function getStompTransaction() {
+		$transaction = parent::getStompTransaction();
 
-		$status = $this->getFinalStatus();
-		switch ( $status ) {
-			case FinalStatus::COMPLETE:
-				$hook = 'gwStomp';
-				break;
-			case FinalStatus::PENDING:
-			case FinalStatus::PENDING_POKE:
-				$hook = 'gwPendingStomp';
-				break;
-		}
-		if ( $hook === '' ) {
-			$this->debugarray[] = "No Stomp Hook Found for FINAL_STATUS $status";
-			return;
-		}
-
+		// Overwrite the time field, if historical date is available.
 		if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
-			$timestamp = $this->getData_Unstaged_Escaped( 'date' );
-		} else {
-			if ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
-				$timestamp = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); //I hate that this works.
-			} else {
-				$timestamp = time();
-			}
+			$transaction['date'] = $this->getData_Unstaged_Escaped( 'date' );
+		} elseif ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
+			$transaction['date'] = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); //I hate that this works. FIXME: wat.
 		}
 
-		// send the thing.
-		$transaction = array(
-			'response' => $this->getTransactionMessage(),
-			'date' => $timestamp,
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			//'language' => '',
-		);
-		$transaction += $this->getData_Unstaged_Escaped();
-
-		try {
-			WmfFramework::runHooks( $hook, array( $transaction ) );
-		} catch ( Exception $e ) {
-			$this->logger->critical( "STOMP ERROR. Could not add message. " . $e->getMessage() );
-		}
+		return $transaction;
 	}
 
 	/**

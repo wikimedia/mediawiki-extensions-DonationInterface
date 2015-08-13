@@ -418,21 +418,6 @@ $wgWorldpayGatewayAvsZipMap = array (
 	'' => 50, //No code returned. All the points.
 );
 
-$wgStompServer = "";
-
-// In this array, 'default', 'pending', and 'limbo' are required keys for those categories of
-// transactions. The value is the name of the queue. To single out a transaction type, ie:
-// credit cards, prepend 'cc-' to the base key name.
-//
-// If the resultant queue name evaluates to false, the message will not be queued on the server.
-$wgStompQueueNames = array(
-	'default' => 'test-default',    // Previously known as $wgStompQueueName
-	'pending' => 'test-pending',    // Previously known as $wgPendingStompQueueName
-	'limbo' => 'test-limbo', // Previously known as $wgLimboStompQueueName
-	'payments-antifraud' => 'payments-antifraud', //noncritical: Basically shoving the fraud log into a database.
-	'payments-init' => 'payments-init', //noncritical: same as above with the payments-initial log
-);
-
 /**
  * @global array $wgDonationInterfaceDefaultQueueServer
  *
@@ -488,7 +473,13 @@ $wgDonationInterfaceQueues = array(
 	// 	'expiry' => 3600,
 	// 	'score_key' => 'date',
 	// ),
-	// 'limbo' => ...
+	//
+	// Example of aliasing a queue
+	//
+	// 'globalcollect-cc-limbo' => array(
+	//     # Point at the main CC limbo queue.
+	//     'queue' => 'cc-limbo',
+	// ),
 
 	// Transactions still needing action before they are settled.
 	// FIXME: who reads from this queue?
@@ -730,7 +721,6 @@ $wgDonationInterfaceUtmMediumMap = array();
  */
 $wgDonationInterfaceUtmSourceMap = array();
 
-$wgDonationInterfaceEnableStomp = false;
 $wgDonationInterfaceEnableQueue = false;
 $wgDonationInterfaceEnableConversionLog = false; //this is definitely an Extra
 $wgDonationInterfaceEnableMinfraud = false; //this is definitely an Extra
@@ -780,14 +770,6 @@ $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
-
-//Stomp hooks
-// FIXME: There's no point in using hooks any more, since we're switching
-// behavior inside the callbacks and not via conditional hooking.
-$wgHooks['ParserFirstCallInit'][] = 'efStompSetup';
-$wgHooks['gwStomp'][] = 'sendSTOMP';
-$wgHooks['gwPendingStomp'][] = 'sendPendingSTOMP';
-$wgHooks['gwFreeformStomp'][] = 'sendFreeformSTOMP';
 
 //Custom Filters hooks
 $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
@@ -987,15 +969,6 @@ $wgDonationInterfaceFormDirs = array(
 
 // Load the default form settings.
 require_once __DIR__ . '/DonationInterfaceFormSettings.php';
-
-/**
- * FUNCTIONS
- */
-
-//---Stomp functions---
-// TODO: Encapsulate in a class, or deprecate.
-require_once( __DIR__ . '/activemq_stomp/activemq_stomp.php'  );
-$wgAutoloadClasses['Stomp'] = __DIR__ . '/activemq_stomp/Stomp.php';
 
 // Include composer's autoload if the vendor directory exists.  If we have been
 // included via Composer, our dependencies should already be autoloaded at the

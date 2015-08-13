@@ -1,5 +1,4 @@
 <?php
-use Psr\Log\LogLevel;
 
 class Gateway_Extras_CustomFilters extends Gateway_Extras {
 
@@ -142,12 +141,13 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		//Legal said ok... but this seems a bit excessive to me at the
 		//moment. 
 
-		$stomp_msg = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
+		$transaction = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
 
 		try {
-			WmfFramework::runHooks( 'gwFreeformStomp', array ( $stomp_msg, 'payments-antifraud' ) );
+			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
+			DonationQueue::instance()->push( $transaction, 'payments-antifraud' );
 		} catch ( Exception $e ) {
-			$this->log( 'Unable to send payments-antifraud message', LogLevel::ERROR );
+			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
 		}
 
 		return TRUE;
