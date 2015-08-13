@@ -45,47 +45,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
 		//Now, actually do the processing. 
-		$this->process_orphans();
-	}
-
-	protected function process_orphans(){
-		echo "Slaying orphans...\n";
-		$this->start_time = time();
-
-		//I want to be clear on the problem I hope to prevent with this.  Say,
-		//for instance, we pull a legit orphan, and for whatever reason, can't
-		//completely rectify it.  Then, we go back and pull more... and that
-		//same one is in the list again. We should stop after one try per
-		//message per execute.  We should also be smart enough to not process
-		//things we believe we just deleted.
-		$this->handled_ids = array();
-
 		$this->processOrphans();
-
-		//TODO: Make stats squirt out all over the place.  
-		$rec = 0;
-		$err = 0;
-		foreach( $this->handled_ids as $id=>$whathappened ){
-			switch ( $whathappened ){
-				case 'rectified' : 
-					$rec += 1;
-					break;
-				case 'error' :
-					$err += 1;
-					break;
-			}
-		}
-		$final = "\nDone! Final results: \n";
-		$final .= " $rec rectified orphans \n";
-		$final .= " $err errored out \n";
-		if ( isset( $this->adapter->orphanstats ) ){
-			foreach ( $this->adapter->orphanstats as $status => $count ) {
-				$final .= "\n   Status $status = $count";
-			}
-		}
-		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
-		$this->logger->info( $final );
-		echo $final;
 	}
 
 	protected function keepGoing(){
@@ -117,13 +77,22 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		// 20 minutes: this is exactly equal to something on Globalcollect's side.
 		$time_buffer = 60*20;
 
-		$orphans = array();
-
 		$queue_pool = new CyclicalArray( $this->getOrphanGlobal( 'gc_cc_limbo_queue_pool' ) );
 		if ( $queue_pool->isEmpty() ) {
 			// FIXME: cheesy inline default
 			$queue_pool = new CyclicalArray( GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 		}
+
+		echo "Slaying orphans...\n";
+		$this->start_time = time();
+
+		//I want to be clear on the problem I hope to prevent with this.  Say,
+		//for instance, we pull a legit orphan, and for whatever reason, can't
+		//completely rectify it.  Then, we go back and pull more... and that
+		//same one is in the list again. We should stop after one try per
+		//message per execute.  We should also be smart enough to not process
+		//things we believe we just deleted.
+		$this->handled_ids = array();
 
 		while ( $this->keepGoing() && !$queue_pool->isEmpty() ) {
 			$current_queue = $queue_pool->current();
@@ -174,7 +143,30 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 
-		return $orphans;
+		//TODO: Make stats squirt out all over the place.  
+		$rec = 0;
+		$err = 0;
+		foreach( $this->handled_ids as $id=>$whathappened ){
+			switch ( $whathappened ){
+				case 'rectified' : 
+					$rec += 1;
+					break;
+				case 'error' :
+					$err += 1;
+					break;
+			}
+		}
+		$final = "\nDone! Final results: \n";
+		$final .= " $rec rectified orphans \n";
+		$final .= " $err errored out \n";
+		if ( isset( $this->adapter->orphanstats ) ){
+			foreach ( $this->adapter->orphanstats as $status => $count ) {
+				$final .= "\n   Status $status = $count";
+			}
+		}
+		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
+		$this->logger->info( $final );
+		echo $final;
 	}
 
 	/**
