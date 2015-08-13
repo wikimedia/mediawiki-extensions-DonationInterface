@@ -60,27 +60,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//things we believe we just deleted.
 		$this->handled_ids = array();
 
-		do {
-			//Pull a batch of CC orphans
-			$orphans = $this->getOrphans();
-			echo count( $orphans ) . " orphans left in this batch\n";
-			//..do stuff.
-			foreach ( $orphans as $correlation_id => $orphan ) {
-				//process
-				if ( $this->keepGoing() ){
-					// TODO: Maybe we can simplify by checking that modified time < job start time.
-					$this->logger->info( "Attempting to rectify orphan $correlation_id" );
-					if ( $this->rectifyOrphan( $orphan ) ) {
-						$this->handled_ids[$correlation_id] = 'rectified';
-					} else {
-						$this->handled_ids[$correlation_id] = 'error';
-					}
-
-					// Throw out the message either way.
-					$this->deleteMessage( $correlation_id, $orphan['queue'] );
-				}
-			}
-		} while ( count( $orphans ) && $this->keepGoing() );
+		$this->processOrphans();
 
 		//TODO: Make stats squirt out all over the place.  
 		$rec = 0;
@@ -132,7 +112,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	    DonationQueue::instance()->delete( $correlation_id, $queue );
 	}
 
-	protected function getOrphans() {
+	protected function processOrphans() {
 		// TODO: Make this configurable.
 		// 20 minutes: this is exactly equal to something on Globalcollect's side.
 		$time_buffer = 60*20;
@@ -145,7 +125,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$queue_pool = new CyclicalArray( GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 		}
 
-		while ( !$queue_pool->isEmpty() ) {
+		while ( $this->keepGoing() && !$queue_pool->isEmpty() ) {
 			$current_queue = $queue_pool->current();
 			try {
 				$message = DonationQueue::instance()->peek( $current_queue );
@@ -176,9 +156,14 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				}
 
 				// We got ourselves an orphan!
-				$message['queue'] = $current_queue;
-				$orphans[$correlation_id] = $message;
-				$this->logger->info( "Found an orphan! $correlation_id" );
+				if ( $this->rectifyOrphan( $message ) ) {
+					$this->handled_ids[$correlation_id] = 'rectified';
+				} else {
+					$this->handled_ids[$correlation_id] = 'error';
+				}
+
+				// Throw out the message either way.
+				$this->deleteMessage( $correlation_id, $current_queue );
 
 				// Round-robin the pool before we complete the loop.
 				$queue_pool->rotate();
@@ -200,6 +185,9 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 * @return boolean True if the orphan has been rectified, false if not. 
 	 */
 	protected function rectifyOrphan( $data, $query_contribution_tracking = true ){
+		$data['order_id'] = $data['gateway_txn_id'];
+
+		$this->logger->info( "Rectifying orphan: {$data['order_id']}" );
 		echo 'Rectifying Orphan ' . $data['order_id'] . "\n";
 		$rectified = false;
 
