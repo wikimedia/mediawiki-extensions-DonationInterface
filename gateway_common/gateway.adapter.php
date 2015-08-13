@@ -1875,15 +1875,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function getStompTransaction() {
 		$transaction = array(
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
 			'response' => $this->getTransactionMessage(),
 			// Can this be deprecated?
 			'correlation-id' => $this->getCorrelationID(),
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
-			'gateway' => $this->getData_Unstaged_Escaped( 'gateway' ),
 		);
 
-		// Else we actually need the rest of the data
+		// Add the rest of the relevant data
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
 			array_flip( $this->dataObj->getStompMessageFields() )
