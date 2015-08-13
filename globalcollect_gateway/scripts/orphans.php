@@ -50,7 +50,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 
 	protected function process_orphans(){
 		echo "Slaying orphans...\n";
-		$this->removed_message_count = 0;
 		$this->start_time = time();
 
 		//I want to be clear on the problem I hope to prevent with this.  Say,
@@ -62,7 +61,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->handled_ids = array();
 
 		do {
-			//Pull a batch of CC orphans, keeping in mind that Things May Have Happened in the small slice of time since we handled the antimessages. 
+			//Pull a batch of CC orphans
 			$orphans = $this->getOrphans();
 			echo count( $orphans ) . " orphans left in this batch\n";
 			//..do stuff.
@@ -83,7 +82,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		//TODO: Make stats squirt out all over the place.  
 		$rec = 0;
 		$err = 0;
-		$fe = 0;
 		foreach( $this->handled_ids as $id=>$whathappened ){
 			switch ( $whathappened ){
 				case 'rectified' : 
@@ -92,15 +90,11 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				case 'error' :
 					$err += 1;
 					break;
-				case 'false_orphan' :
-					$fe += 1;
-					break;
 			}
 		}
 		$final = "\nDone! Final results: \n";
 		$final .= " $rec rectified orphans \n";
 		$final .= " $err errored out \n";
-		$final .= " $fe false orphans caught \n";
 		if ( isset( $this->adapter->orphanstats ) ){
 			foreach ( $this->adapter->orphanstats as $status => $count ) {
 				$final .= "\n   Status $status = $count";
@@ -132,8 +126,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	}
 
 	protected function deleteMessage( $correlation_id, $queue ) {
-	    $this->handled_ids[$correlation_id] = 'antimessage';
-
 	    DonationQueue::instance()->delete( $correlation_id, $queue );
 	}
 
@@ -143,7 +135,6 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$time_buffer = 60*20;
 
 		$orphans = array();
-		$false_orphans = array();
 
 		$queue_pool = new CyclicalArray( $this->getOrphanGlobal( 'gc_cc_limbo_queue_pool' ) );
 		if ( $queue_pool->isEmpty() ) {

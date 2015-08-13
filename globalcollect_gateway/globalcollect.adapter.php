@@ -1207,8 +1207,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->logger->info( $logmsg );
-			//add an antimessage for everything but orphans
-			$this->logger->info( 'Adding Antimessage' );
+
+			// If we have a querystring, this means we're processing a live donor
+			// coming back from GlobalCollect, and the transaction is not orphaned
+			$this->logger->info( 'Donor returned, deleting limbo message' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
 		} else { //this is an orphan transaction.
 			$is_orphan = true;
