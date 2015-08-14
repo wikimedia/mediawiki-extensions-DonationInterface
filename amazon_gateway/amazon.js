@@ -9,23 +9,25 @@
 		loggedIn = false,
 		loginError,
 		accessToken,
+		validTokenPattern = new RegExp( '^Atza' ),
 		billingAgreementId,
 		orderReferenceId;
 
-	// Cribbed from Amazon documentation
+	// Adapted from Amazon documentation
 	function getURLParameter( name, source ) {
-		return decodeURIComponent( (
-			new RegExp( '[?|&|#]' + name + '=' + '([^&;]+?)(&|#|;|$)' ).exec( source )
-			|| [,""]
-		)[1].replace( /\+/g, '%20' ) ) || null;
+		var pattern = '[?&#]' + name + '=' + '([^&;#]*)',
+			matches = new RegExp( pattern ).exec( source ) || ['', ''],
+			value = matches[1].replace( /\+/g, '%20' );
+
+		return decodeURIComponent( value ) || null;
 	}
 
 	function loadScript( url ) {
-		var a = document.createElement('script');
+		var a = document.createElement( 'script' );
 		a.type = 'text/javascript';
 		a.async = true;
 		a.src = url;
-		document.head.appendChild(a);
+		document.head.appendChild( a );
 	}
 
 	function redirectToLogin() {
@@ -75,7 +77,8 @@
 		}
 	};
 
-	if ( typeof accessToken === 'string' && accessToken.match( /^Atza/ ) ) {
+	if ( typeof accessToken === 'string' && accessToken.match( validTokenPattern ) ) {
+		// Payment widgets need this cookie
 		document.cookie = "amazon_Login_accessToken=" + accessToken + ";secure";
 		loggedIn = true;
 		loadScript( widgetScript ); // This will load the login script for you
