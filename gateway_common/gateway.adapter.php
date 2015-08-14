@@ -1912,6 +1912,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$transaction['php-message-class'] = 'undefined-loser-message';
 		}
 
+		// Mark as freeform so we avoid normalization.
+		$transaction['freeform'] = true;
+
 		//bascially, add all the stuff we have come to take for granted, because syslog.
 		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
 		$transaction['correlation-id'] = $this->getCorrelationID();
