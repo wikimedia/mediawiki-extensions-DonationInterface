@@ -295,24 +295,23 @@ $wgGlobalCollectGatewayAvsMap = array(
 );	
 
 #	$wgAmazonGatewayAccountInfo['example'] = array(
-#		'SellerID' => '',
-#		'ClientID' => '',
-#		'ClientSecret' => '',
-#		'MWSAccessKey' => '',
-#		'MWSSecretKey' => '',
-#		'Region' => '',
+#		'SellerID' => '', // 13 or so uppercase letters
+#		'ClientID' => '', // app or site-specific, starts with amznX.application
+#		'ClientSecret' => '', // 64 hex characters
+#		'MWSAccessKey' => '', // 20 alphanumeric characters
+#		'MWSSecretKey' => '', // 40 base-64 encoded chars
+#		'Region' => '', // 'de', 'jp', 'uk', or 'us'
+#		'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+#		// static-eu serves widgets for uk and de, but jp uses this awful URL:
+#		// https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js
+#		// remove 'sandbox/' from above URLs for production use
+#		'ReturnURL' => '';
+#		// Sorry, devs, ReturnURL HAS to be https.
+#		// Also, it has to be whitelisted for your application at sellercentral.amazon.com
+#		// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 #	);
 
-// Sorry, devs, this one HAS to be https. So make with the self-signing already!
-// Also, it has to be whitelisted for your application at sellercentral.amazon.com
-// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
-$wgAmazonGatewayReturnURL = '';
-
-// Adapt these for your region
-$wgAmazonGatewayWidgetScript = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js';
-$wgAmazonGatewayTestingWidgetScript = 'https://static-na.payments-amazon.com/OffAmazonPayments/us/js/Widgets.js';
-
-// This one appears to be global and usable for both sandbox and non-sandbox
+// This URL appears to be global and usable for both sandbox and non-sandbox
 $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';

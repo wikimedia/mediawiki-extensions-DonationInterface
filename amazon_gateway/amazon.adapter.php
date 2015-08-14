@@ -291,14 +291,11 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @param array $vars
 	 */
 	public function setClientVariables( &$vars ) {
-		$test = $this->getGlobal( 'TestMode' ) ? true : false;
 		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
 		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
-		$vars['wgAmazonGatewaySandbox'] = $test;
-		$vars['wgAmazonGatewayReturnURL'] = $this->getGlobal( 'ReturnURL' );
-		$vars['wgAmazonGatewayWidgetScript'] = $test
-			? $this->getGlobal( 'WidgetScript' )
-			: $this->getGlobal( 'TestingWidgetScript' );
+		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'TestMode' ) ? true : false;
+		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
+		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
 	}
 }

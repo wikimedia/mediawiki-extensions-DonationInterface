@@ -58,6 +58,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 				'MWSAccessKey' => 'N0NSENSEXYZ',
 				'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
 				'Region' => 'us',
+				'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+				'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
 			) ),
 		) );
 	}
