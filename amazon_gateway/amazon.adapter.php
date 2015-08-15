@@ -28,6 +28,13 @@ class AmazonAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'amazon';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
+	// FIXME: return_value_map should handle non-numeric return values
+	protected $capture_status_map = array(
+		'Completed' => FinalStatus::COMPLETE,
+		'Pending' => FinalStatus::PENDING,
+		'Declined' => FinalStatus::FAILED,
+	);
+
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
 
@@ -51,7 +58,12 @@ class AmazonAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	function defineStagedVars() {}
+	function defineStagedVars() {
+		$this->staged_vars = array(
+			'order_id',
+		);
+	}
+
 	function defineVarMap() {
 		$this->var_map = array(
 			"amount" => "amount",
@@ -79,6 +91,7 @@ class AmazonAdapter extends GatewayAdapter {
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array (
 			'generate' => TRUE,
+			'ct_id' => TRUE,
 		);
 	}
 
@@ -120,15 +133,21 @@ class AmazonAdapter extends GatewayAdapter {
 
 	public function doPayment() {
 		$resultData = new PaymentTransactionResponse();
+		if ( $this->session_getData( 'sequence' ) ) {
+			$this->regenerateOrderID();
+		}
 
 		try {
 			$this->confirmOrderReference();
+			$this->authorizeAndCapturePayment();
 		} catch ( ResponseProcessingException $ex ) {
 			$resultData->addError(
 				$ex->getErrorCode(),
 				$ex->getMessage()
 			);
 		}
+
+		$this->incrementSequenceNumber();
 
 		return PaymentResult::fromResults(
 			$resultData,
@@ -178,7 +197,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
 		$email = $buyerDetails['Email'];
 		$name = $buyerDetails['Name'];
-		$nameParts = split( '/\s+/', $name, 2 ); // janky_split_name
+		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
 		$fname = $nameParts[0];
 		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
 		$this->addRequestData( array(
@@ -186,6 +205,56 @@ class AmazonAdapter extends GatewayAdapter {
 			'fname' => $fname,
 			'lname' => $lname,
 		) );
+	}
+
+	protected function authorizeAndCapturePayment() {
+		$client = $this->getPwaClient();
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$authResponse = $client->authorize( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'authorization_amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'capture_now' => true,
+			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
+			'transaction_timeout' => 0, // authorize synchronously
+			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
+		) )->toArray();
+		$this->checkErrors( $authResponse );
+
+		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
+		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
+		if ( $authDetails['AuthorizationStatus']['State'] === 'Declined' ) {
+			throw new ResponseProcessingException(
+				WmfFramework::formatMessage( 'php-response-declined' ), // php- ??
+				$authDetails['AuthorizationStatus']['ReasonCode']
+			);
+		}
+		$captureId = $authDetails['IdList']['member']; // IdList generally contains the IDs for the next stages
+		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
+
+		$captureResponse = $client->getCaptureDetails( array(
+			'amazon_capture_id' => $captureId,
+		) )->toArray();
+		$this->checkErrors( $captureResponse );
+
+		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
+		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
+		$captureState = $captureDetails['CaptureStatus']['State'];
+
+		$client->closeOrderReference( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) );
+
+		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
+	}
+
+	/**
+	 * Replace decimal point with a dash to comply with Amazon's restrictions on
+	 * seller reference ID format.
+	 */
+	protected function stage_order_id() {
+		$this->staged_data['order_id'] = str_replace( '.', '-', $this->getData_Unstaged_Escaped( 'order_id' ) );
 	}
 
 	/**

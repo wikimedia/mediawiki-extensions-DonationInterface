@@ -1,0 +1,160 @@
+<?php
+
+/**
+ * FIXME: Jenkins still not installing DonationInterface composer deps
+ * use PayWithAmazon\ClientInterface as PwaClientInterface;
+ */
+
+/**
+ * Stubs out the functionality of the Client class from the Login and Pay with
+ * Amazon SDK.  TODO: replace with PHPUnit method return mocks when Jenkins
+ * is running new enough PHPUnit.  Only mocking the stuff we use.
+ */
+class MockAmazonClient { // FIXME: implements PwaClientInterface {
+
+	// Each key is a method name whose value is an array of times it's been
+	// called, recording all argument values.
+	public $calls = array();
+
+	// As above, but used to mock return values.  Values from array are wrapped
+	// in a MockAmazonResponse so we can call toArray() on them
+	public $returns = array();
+
+	public function __construct( $config = null ) {
+
+	}
+
+	public function __get( $name ) {
+
+	}
+
+	protected function fakeCall( $functionName, $arguments ) {
+		$this->calls[$functionName][] = $arguments;
+		$returnIndex = count( $this->calls[$functionName] ) - 1;
+		if ( isset( $this->returns[$functionName] ) && isset( $this->returns[$functionName][$returnIndex] ) ) {
+			return new MockAmazonResponse( $this->returns[$functionName][$returnIndex] );
+		}
+		return null;
+	}
+
+	public function authorize( $requestParameters = array() ) {
+		return $this->fakeCall( 'authorize', $requestParameters );
+	}
+
+	public function authorizeOnBillingAgreement( $requestParameters = array() ) {
+
+	}
+
+	public function cancelOrderReference( $requestParameters = array() ) {
+
+	}
+
+	public function capture( $requestParameters = array() ) {
+
+	}
+
+	public function charge( $requestParameters = array() ) {
+
+	}
+
+	public function closeAuthorization( $requestParameters = array() ) {
+
+	}
+
+	public function closeBillingAgreement( $requestParameters = array() ) {
+
+	}
+
+	public function closeOrderReference( $requestParameters = array() ) {
+		return $this->fakeCall( 'closeOrderReference', $requestParameters );
+	}
+
+	public function confirmBillingAgreement( $requestParameters = array() ) {
+
+	}
+
+	public function confirmOrderReference( $requestParameters = array() ) {
+		return $this->fakeCall( 'confirmOrderReference', $requestParameters );
+	}
+
+	public function createOrderReferenceForId( $requestParameters = array() ) {
+
+	}
+
+	public function getAuthorizationDetails( $requestParameters = array() ) {
+
+	}
+
+	public function getBillingAgreementDetails( $requestParameters = array() ) {
+		return $this->fakeCall( 'getBillingAgreementDetails', $requestParameters );
+	}
+
+	public function getCaptureDetails( $requestParameters = array() ) {
+		return $this->fakeCall( 'getCaptureDetails', $requestParameters );
+	}
+
+	public function getOrderReferenceDetails( $requestParameters = array() ) {
+		return $this->fakeCall( 'getOrderReferenceDetails', $requestParameters );
+	}
+
+	public function getParameters() {
+
+	}
+
+	public function getProviderCreditDetails( $requestParameters = array() ) {
+
+	}
+
+	public function getProviderCreditReversalDetails( $requestParameters = array() ) {
+
+	}
+
+	public function getRefundDetails( $requestParameters = array() ) {
+
+	}
+
+	public function getServiceStatus( $requestParameters = array() ) {
+
+	}
+
+	public function getUserInfo( $access_token ) {
+
+	}
+
+	public function refund( $requestParameters = array() ) {
+
+	}
+
+	public function reverseProviderCredit( $requestParameters = array() ) {
+
+	}
+
+	public function setBillingAgreementDetails( $requestParameters = array() ) {
+
+	}
+
+	public function setClientId( $value ) {
+
+	}
+
+	public function setMwsServiceUrl( $url ) {
+
+	}
+
+	public function setOrderReferenceDetails( $requestParameters = array() ) {
+		return $this->fakeCall( 'setOrderReferenceDetails', $requestParameters );
+	}
+
+	public function setProxy( $proxy ) {
+
+	}
+
+	public function setSandbox( $value ) {
+
+	}
+
+	public function validateBillingAgreement( $requestParameters = array() ) {
+
+	}
+
+}

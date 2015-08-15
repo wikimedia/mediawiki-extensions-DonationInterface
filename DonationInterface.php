@@ -999,6 +999,8 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$files[] = $testDir . 'AllTests.php';
 
 	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+	$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
+	$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
 	$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';

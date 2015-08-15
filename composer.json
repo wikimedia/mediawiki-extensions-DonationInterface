@@ -25,12 +25,16 @@
 		"predis/predis": "1.*",
 		"psr/log": "1.0.0",
 		"zordius/lightncandy": "0.18",
-		"amzn/login-and-pay-with-amazon-sdk-php": "^1.0"
+		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master"
 	},
 	"repositories": [
 		{
 			"type": "vcs",
 			"url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php"
 		}
 	]
 }
