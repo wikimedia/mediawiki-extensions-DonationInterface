@@ -90,6 +90,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
 		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
 
+		$method = $this->gateway->getPaymentMethod();
+		if ( $method ) {
+			$data["is_$method"] = true;
+			$data['method_metadata'] = $this->gateway->getPaymentMethodMeta();
+		}
+
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
 		// Need to add submethod key to its array 'cause mustache doesn't get keys
 		$data['submethods'] = array();
@@ -103,12 +109,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['button_class'] = count( $data['submethods'] ) % 4 === 0
 			? 'four-per-line'
 			: 'three-per-line';
-		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
-		$required_fields = $this->gateway->getRequiredFields();
-		foreach( $required_fields as $field ) {
-			$data["{$field}_required"] = true;
-		}
 		foreach( $this->gateway->getCurrencies() as $currency ) {
 			$data['currencies'][] = array(
 				'code' => $currency,

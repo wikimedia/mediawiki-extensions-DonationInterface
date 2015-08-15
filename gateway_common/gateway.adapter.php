@@ -91,6 +91,10 @@ interface GatewayType {
 	 * Sets up the $payment_methods array.
 	 * Keys = unique name for this method
 	 * Values = metadata about the method
+	 *   'validation' should be an array whose keys are field names and
+	 *                whose values indicate whether the field is required
+	 *   'profile_provided' means we don't need to collect donor name / email
+	 *   FIXME: 'label' is often set (untranslated) but never used
 	 */
 	function definePaymentMethods();
 

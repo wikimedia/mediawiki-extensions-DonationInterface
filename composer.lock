@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "548d536bcd2bbb4110e29b3d72294f1c",
+    "hash": "9b17b1e6b0d1a57b4a28268cf7548b6e",
     "packages": [
+        {
+            "name": "amzn/login-and-pay-with-amazon-sdk-php",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amzn/login-and-pay-with-amazon-sdk-php.git",
+                "reference": "3bf17e802dc6913aa97f1afdaf26a08480f670d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amzn/login-and-pay-with-amazon-sdk-php/zipball/3bf17e802dc6913aa97f1afdaf26a08480f670d0",
+                "reference": "3bf17e802dc6913aa97f1afdaf26a08480f670d0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayWithAmazon\\": "PayWithAmazon/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache OSL-2"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Payments",
+                    "email": "eps-dse@amazon.com"
+                }
+            ],
+            "description": "Pay with Amazon SDK",
+            "homepage": "https://github.com/amzn/login-and-pay-with-amazon-sdk-php",
+            "keywords": [
+                "amazon",
+                "amazon payments",
+                "pay",
+                "pay with amazon",
+                "payment",
+                "payments"
+            ],
+            "time": "2015-04-16 21:14:01"
+        },
         {
             "name": "clio/clio",
             "version": "0.1.8",
@@ -107,7 +153,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2015-06-11 20:26:19"
+            "time": "2015-07-30 22:45:24"
         },
         {
             "name": "fusesource/stomp-php",

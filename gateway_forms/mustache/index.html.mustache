@@ -26,7 +26,9 @@
 								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-left:8px;"></h3>
 							</td>
 						</tr>
+{{^ method_metadata.profile_provided }}
 {{> personal_info }}
+{{/ method_metadata.profile_provided }}
 {{> payment_method }}
 						</tbody>
 					</table>
@@ -48,7 +50,7 @@
 				<input type="hidden" value="{{ payment_method }}" name="payment_method"/>
 			</form>
 			</div>
-			<p id="informationsharing">{{{ l10n "donate_interface-informationsharing" "url" }}}<!-- TODO: use url param --></p>
+			<p id="informationsharing">{{{ l10n "donate_interface-informationsharing" "url" }}}</p>
 			<table>
 				<tr>
 					<td>
