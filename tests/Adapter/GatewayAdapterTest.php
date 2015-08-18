@@ -148,6 +148,60 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'Order ID was not regenerated on gateway switch!' );
 	}
 
+	public function testResetOnRecurringSwitch() {
+		// Donor initiates a non-recurring donation
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+
+		$gateway = new TestingGlobalCollectAdapter();
+		$gateway->do_transaction( 'Donate' );
+
+		$this->assertEquals( '', $_SESSION['Donor']['recurring'], 'Test setup failed.' );
+		$oneTimeOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		
+		// Then they go back and decide they want to make a recurring donation
+
+		$init['recurring'] = '1';
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+
+		$gateway = new TestingGlobalCollectAdapter();
+		$gateway->do_transaction( 'Donate' );
+		$this->assertEquals( '1', $_SESSION['Donor']['recurring'], 'Test setup failed.' );
+
+		$recurOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
+
+        $this->assertNotEquals( $oneTimeOrderId, $recurOrderId,
+			'Order ID was not regenerated on recurring switch!' );
+	}
+
+	public function testResetSubmethodOnMethodSwitch() {
+		// Donor thinks they want to make a bank transfer, submits form
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'bt';
+		$init['payment_submethod'] = 'itau';
+
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+
+		$gateway = new TestingAstropayAdapter();
+		$gateway->do_transaction( 'Donate' );
+
+		$this->assertEquals( 'itau', $_SESSION['Donor']['payment_submethod'], 'Test setup failed.' );
+
+		// Then they go back and decide they want to donate via credit card
+		$init['payment_method'] = 'cc';
+		unset( $init['payment_submethod'] );
+		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+
+		$gateway = new TestingAstropayAdapter();
+		$newMethod = $gateway->getData_Unstaged_Escaped( 'payment_method' );
+		$newSubmethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
+
+        $this->assertEquals( 'cc', $newMethod , 'Test setup failed' );
+		$this->assertEquals( '', $newSubmethod , 'Submethod was not blanked on method switch' );
+	}
+
 	public function testStreetStaging() {
 		$options = $this->getDonorTestData( 'BR' );
 		unset( $options['street'] );
