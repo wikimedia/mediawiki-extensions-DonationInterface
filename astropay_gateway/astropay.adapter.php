@@ -468,20 +468,24 @@ class AstropayAdapter extends GatewayAdapter {
 	 */
 	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		if ( $gateway_field_name === 'control' ) {
-			$message = $this->getData_Staged( 'order_id' ) . 'V'
-				. $this->getData_Staged( 'amount' ) . 'I'
-				. $this->getData_Staged( 'donor_id' ) . '2'
-				. $this->getData_Staged( 'bank_code' ) . '1'
-				. $this->getData_Staged( 'fiscal_number' ) . 'H'
-				. /* bdate omitted */ 'G'
-				. $this->getData_Staged( 'email' ) .'Y'
-				. /* zip omitted */ 'A'
-				. /* street omitted */ 'P'
-				. /* city omitted */ 'S'
-				. /* state omitted */ 'P';
+			$message = $this->getMessageToSign();
 			return $this->calculateSignature( $message );
 		}
 		return parent::getTransactionSpecificValue( $gateway_field_name, $token );
+	}
+
+	protected function getMessageToSign() {
+		return $this->getData_Staged( 'order_id' ) . 'V'
+			. $this->getData_Staged( 'amount' ) . 'I'
+			. $this->getData_Staged( 'donor_id' ) . '2'
+			. $this->getData_Staged( 'bank_code' ) . '1'
+			. $this->getData_Staged( 'fiscal_number' ) . 'H'
+			. /* bdate omitted */ 'G'
+			. $this->getData_Staged( 'email' ) .'Y'
+			. /* zip omitted */ 'A'
+			. /* street omitted */ 'P'
+			. /* city omitted */ 'S'
+			. /* state omitted */ 'P';
 	}
 
 	/*
@@ -667,6 +671,11 @@ class AstropayAdapter extends GatewayAdapter {
 					$language = $this->dataObj->getVal_Escaped( 'language' );
 					$country = $this->dataObj->getVal_Escaped( 'country' );
 					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language, $country );
+				} else if ( preg_match( '/invalid control/i', $response['desc'] ) ) {
+					// They think we screwed up the signature.  Log what we signed.
+					$message = $this->getMessageToSign();
+					$signature = $this->getTransactionSpecificValue( 'control' );
+					$this->logger->error( "$logme Signed message: '$message' Signature: '$signature'" );
 				} else {
 					// Some less common error.  Also log message at 'error' level
 					$this->logger->error( $logme );

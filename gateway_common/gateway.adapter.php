@@ -1875,15 +1875,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function getStompTransaction() {
 		$transaction = array(
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
-			'payment_method' => $this->getData_Unstaged_Escaped( 'payment_method' ),
 			'response' => $this->getTransactionMessage(),
 			// Can this be deprecated?
 			'correlation-id' => $this->getCorrelationID(),
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
-			'gateway' => $this->getData_Unstaged_Escaped( 'gateway' ),
 		);
 
-		// Else we actually need the rest of the data
+		// Add the rest of the relevant data
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
 			array_flip( $this->dataObj->getStompMessageFields() )
@@ -1911,6 +1909,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->logger->warning( "Trying to send a freeform STOMP message with no class defined. Bad programmer." );
 			$transaction['php-message-class'] = 'undefined-loser-message';
 		}
+
+		// Mark as freeform so we avoid normalization.
+		$transaction['freeform'] = true;
 
 		//bascially, add all the stuff we have come to take for granted, because syslog.
 		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
