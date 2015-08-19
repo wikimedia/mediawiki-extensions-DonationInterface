@@ -509,7 +509,10 @@ class AstropayAdapter extends GatewayAdapter {
 	 * characters of the email address for easy lookup
 	 */
 	protected function stage_donor_id() {
-		$this->staged_data['donor_id'] = substr( $this->getData_Staged( 'email' ), 0, 20 );
+		// We use these to look up donations by email, so strip out the trailing
+		// spam-tracking sub-address to get the email we'd see complaints from.
+		$email = preg_replace( '/\+[^@]*/', '', $this->getData_Staged( 'email' ) );
+		$this->staged_data['donor_id'] = substr( $email, 0, 20 );
 	}
 
 	protected function stage_bank_code() {
