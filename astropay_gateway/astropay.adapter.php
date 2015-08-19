@@ -475,7 +475,8 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	protected function getMessageToSign() {
-		return $this->getData_Staged( 'order_id' ) . 'V'
+		return str_replace( '+', ' ',
+			$this->getData_Staged( 'order_id' ) . 'V'
 			. $this->getData_Staged( 'amount' ) . 'I'
 			. $this->getData_Staged( 'donor_id' ) . '2'
 			. $this->getData_Staged( 'bank_code' ) . '1'
@@ -485,7 +486,7 @@ class AstropayAdapter extends GatewayAdapter {
 			. /* zip omitted */ 'A'
 			. /* street omitted */ 'P'
 			. /* city omitted */ 'S'
-			. /* state omitted */ 'P';
+			. /* state omitted */ 'P' );
 	}
 
 	/*
@@ -673,9 +674,9 @@ class AstropayAdapter extends GatewayAdapter {
 					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language, $country );
 				} else if ( preg_match( '/invalid control/i', $response['desc'] ) ) {
 					// They think we screwed up the signature.  Log what we signed.
-					$message = $this->getMessageToSign();
+					$signed = $this->getMessageToSign();
 					$signature = $this->getTransactionSpecificValue( 'control' );
-					$this->logger->error( "$logme Signed message: '$message' Signature: '$signature'" );
+					$this->logger->error( "$logme Signed message: '$signed' Signature: '$signature'" );
 				} else {
 					// Some less common error.  Also log message at 'error' level
 					$this->logger->error( $logme );
