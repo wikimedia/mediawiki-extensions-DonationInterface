@@ -388,9 +388,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
 
-		$this->session_resetOnGatewaySwitch(); //clear out the old stuff before DD snarfs it.
+		$this->session_resetOnSwitch(); // Need to do this before creating DonationData
 
+		// FIXME: this should not have side effects like setting order_id_meta['final']
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
+
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
@@ -3150,16 +3152,62 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Check to see if we've changed gateways, and throw out the garbage
-	 * from the old gateway if so.  Prevents order_id leakage!
+	 * Check to see if donor is making a repeated attempt that is incompatible
+	 * with the previous attempt, such as a gateway changes.  Reset certain
+	 * things if so.  Prevents order_id leakage, log spam, and recur problems.
+	 * FIXME: this all has to be special cases because we need to compare
+	 * session values with request values that are normalized by DonationData,
+	 * and DonationData's idea of normalization includes some stuff we don't
+	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
-	protected function session_resetOnGatewaySwitch() {
+	protected function session_resetOnSwitch() {
 		if ( !$this->session_exists() ) {
 			return;
 		}
-		$old_gateway = $this->session_getData( 'Donor', 'gateway' );
-		if ( $old_gateway !== null && $old_gateway !== $this::IDENTIFIER ) {
+		$oldData = $this->session_getData( 'Donor' );
+		if ( !$oldData ) {
+			return;
+		}
+
+		// If the gateway has changed, reset everything
+		if ( !empty( $oldData['gateway'] ) && $oldData['gateway'] !== $this->getIdentifier() ) {
 			$this->session_resetForNewAttempt( true );
+			return;
+		}
+
+		// Now compare session with current request parameters
+		$newRequest = RequestContext::getMain()->getRequest();
+		// Reset submethod when method changes to avoid form mismatch errors
+		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
+			// Cut down version of the normalization from DonationData
+			$newMethod = null;
+			foreach( array( 'payment_method', 'paymentmethod' ) as $key ) {
+				if ( $newRequest->getVal( $key ) ) {
+					$newMethod = $newRequest->getVal( $key );
+				}
+			}
+			if ( $newMethod ) {
+				$parts = explode( '.', $newMethod );
+				$newMethod = $parts[0];
+				if ( $newMethod !== $oldData['payment_method'] ) {
+					unset( $_SESSION['Donor']['payment_submethod'] );
+				}
+			}
+		}
+
+		// Don't reuse order IDs between recurring and non-recurring donations
+		// Recurring is stored in session as '1' for true and '' for false
+		if ( isset( $oldData['recurring'] ) && !empty( $oldData['order_id'] ) ) {
+			$newRecurring = '';
+			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
+				$newVal = $newRequest->getText( $key, '' );
+				if ( $newVal === '1' || $newVal === 'true' ) {
+					$newRecurring = '1';
+				}
+			}
+			if ( $newRecurring !== $oldData['recurring'] ) {
+				unset( $_SESSION['Donor']['order_id'] );
+			}
 		}
 	}
 
