@@ -1,8 +1,6 @@
 <?php
 //actually, as a maintenance script, this totally is a valid entry point. 
-
-//If you want to use this script, you will have to add the following line to LocalSettings.php:
-//$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = $IP . '/extensions/DonationInterface/globalcollect_gateway/scripts/orphan_adapter.php';
+// FIXME: Prevent web access even if the security is misconfigured so this is runnable.
 
 $IP = getenv( 'MW_INSTALL_PATH' );
 if ( $IP === false ) {
@@ -30,7 +28,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$wgDonationInterfaceEnableIPVelocityFilter = false;
 
 		if ( !$this->getOrphanGlobal( 'enable' ) ){
-			echo "\nOrphan cron disabled. Have a nice day.";
+			$this->info( 'Orphan cron disabled. Have a nice day!' );
 			return;
 		}
 
@@ -64,7 +62,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	 */
 	protected function getProcessElapsed(){
 		$elapsed = time() - $this->start_time;
-		echo "Elapsed Time: $elapsed\n";
+		$this->info( "Elapsed Time: {$elapsed}" );
 		return $elapsed;
 	}
 
@@ -83,7 +81,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			$queue_pool = new CyclicalArray( GlobalCollectAdapter::GC_CC_LIMBO_QUEUE );
 		}
 
-		echo "Slaying orphans...\n";
+		$this->info( "Slaying orphans..." );
 		$this->start_time = time();
 
 		//I want to be clear on the problem I hope to prevent with this.  Say,
@@ -100,7 +98,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$message = DonationQueue::instance()->peek( $current_queue );
 
 				if ( !$message ) {
-					$this->logger->info( "Emptied queue [{$current_queue}], removing from pool." );
+					$this->info( "Emptied queue [{$current_queue}], removing from pool." );
 					$queue_pool->dropCurrent();
 					continue;
 				}
@@ -118,7 +116,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				// chronological order.
 				$elapsed = $this->start_time - $message['date'];
 				if ( $elapsed < $time_buffer ) {
-					$this->logger->info( "Exhausted new messages in [{$current_queue}], removing from pool..." );
+					$this->info( "Exhausted new messages in [{$current_queue}], removing from pool..." );
 					$queue_pool->dropCurrent();
 
 					continue;
@@ -138,7 +136,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 				$queue_pool->rotate();
 			} catch ( ConnectionException $ex ) {
 				// Drop this server, for the duration of this batch.
-				$this->logger->error( "Queue server for [$current_queue] is down! Ignoring for this run..." );
+				$this->error( "Queue server for [$current_queue] is down! Ignoring for this run..." );
 				$queue_pool->dropCurrent();
 			}
 		}
@@ -165,8 +163,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 		$final .= "\n Approximately " . $this->getProcessElapsed() . " seconds to execute.\n";
-		$this->logger->info( $final );
-		echo $final;
+		$this->info( $final );
 	}
 
 	/**
@@ -179,18 +176,17 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 	protected function rectifyOrphan( $data, $query_contribution_tracking = true ){
 		$data['order_id'] = $data['gateway_txn_id'];
 
-		$this->logger->info( "Rectifying orphan: {$data['order_id']}" );
-		echo 'Rectifying Orphan ' . $data['order_id'] . "\n";
+		$this->info( "Rectifying orphan: {$data['order_id']}" );
 		$rectified = false;
 
 		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		$message = $results->getMessage();
 		if ( $results->getCommunicationStatus() ){
-			$this->logger->info( $data['contribution_tracking_id'] . ": FINAL: " . $this->adapter->getValidationAction() );
+			$this->info( $data['contribution_tracking_id'] . ": FINAL: " . $this->adapter->getValidationAction() );
 			$rectified = true;
 		} else {
-			$this->logger->info( $data['contribution_tracking_id'] . ": ERROR: " . $message );
+			$this->info( $data['contribution_tracking_id'] . ": ERROR: " . $message );
 			if ( strpos( $message, "GET_ORDERSTATUS reports that the payment is already complete." ) === 0  ){
 				$rectified = true;
 			}
@@ -207,7 +203,7 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 			}
 		}
 
-		echo $message . "\n";
+		$this->info( $message );
 		
 		return $rectified;
 	}
@@ -225,6 +221,16 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		} else {
 			return NULL;
 		}
+	}
+
+	protected function info( $msg ) {
+		$this->logger->info( $msg );
+		print( "{$msg}\n" );
+	}
+
+	protected function error( $msg ) {
+		$this->logger->error( $msg );
+		error_log( $msg );
 	}
 }
 

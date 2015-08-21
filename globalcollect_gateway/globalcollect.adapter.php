@@ -1180,6 +1180,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Either confirm or reject the payment
+	 *
+	 * FIXME: This function is way too complex.  Unroll into new functions.
+	 *
 	 * @global WebRequest $wgRequest
 	 * @return PaymentTransactionResponse
 	 */
@@ -1283,7 +1286,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} elseif ( $status_result->getCommunicationStatus() === false ) {
 			//can't communicate or internal error
 				$problemflag = true;
-				$problemmessage = "Can't communicate or internal error."; // /me shrugs - I think the orphan slayer is hitting this sometimes. Confusing.
+				$problemmessage = "Can't communicate or internal error: "
+					. $status_result->getMessage();
 			}
 
 			$order_status_results = false;
@@ -1880,6 +1884,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// We are also curious to know if there were any recoverable errors
 		foreach ( $errors as $errCode => $errObj ) {
 			$errMsg = $errObj['message'];
+			$messageFromProcessor = $errObj['debugInfo'];
 			switch ( $errCode ) {
 				case 300620:
 				// Oh no! We've already used this order # somewhere else! Restart!
@@ -1946,7 +1951,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					//say something painful here.
 					$errMsg = 'Blocking validation problems with this payment. Investigation required! '
-								. "Original error: '$errMsg'.  Our data: " . $this->getLogDebugJSON();
+								. "Original error: '$messageFromProcessor'.  Our data: " . $this->getLogDebugJSON();
 				case 400120:
 					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					 * They already gave us money or failed...

@@ -1539,11 +1539,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * This is only public for the orphan script.
 	 * Harvest the data we need back from the gateway.
 	 * @return array a key/value array
 	 */
-	public function parseResponseData( $response ) {
+	protected function parseResponseData( $response ) {
 		return array();
 	}
 
