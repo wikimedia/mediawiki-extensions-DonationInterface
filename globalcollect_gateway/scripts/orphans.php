@@ -179,7 +179,8 @@ class GlobalCollectOrphanRectifier extends Maintenance {
 		$this->info( "Rectifying orphan: {$data['order_id']}" );
 		$rectified = false;
 
-		$this->adapter->loadDataAndReInit( $data, $query_contribution_tracking );
+		$normalized = DonationQueue::queueMessageToNormalized( $data );
+		$this->adapter->loadDataAndReInit( $normalized, $query_contribution_tracking );
 		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 		$message = $results->getMessage();
 		if ( $results->getCommunicationStatus() ){
