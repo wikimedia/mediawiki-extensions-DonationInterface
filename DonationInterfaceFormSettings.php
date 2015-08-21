@@ -10,20 +10,24 @@ $form_dirs = $wgDonationInterfaceFormDirs;
 /**********
  * Amazon *
  **********/
-$forms_whitelist['amazon'] = array(
-	'file' => $form_dirs['amazon'] . '/amazon.html',
-	'gateway' => 'amazon',
-	'payment_methods' => array('amazon' => 'ALL'),
-	'redirect',
-);
-
-$forms_whitelist['amazon-recurring'] = array(
-	'file' => $form_dirs['amazon'] . '/amazon-recurring.html',
-	'gateway' => 'amazon',
-	'payment_methods' => array('amazon' => 'ALL'),
-	'redirect',
-	'recurring',
-);
+/**
+ * DISABLED 2015-08-21, the simplepay API is no longer supported.
+ *
+ * $forms_whitelist['amazon'] = array(
+ * 	'file' => $form_dirs['amazon'] . '/amazon.html',
+ * 	'gateway' => 'amazon',
+ * 	'payment_methods' => array('amazon' => 'ALL'),
+ * 	'redirect',
+ * );
+ * 
+ * $forms_whitelist['amazon-recurring'] = array(
+ * 	'file' => $form_dirs['amazon'] . '/amazon-recurring.html',
+ * 	'gateway' => 'amazon',
+ * 	'payment_methods' => array('amazon' => 'ALL'),
+ * 	'redirect',
+ * 	'recurring',
+ * );
+*/
 
 /****************************
  * Bank Transfer - Two-Step *
