@@ -1180,6 +1180,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Either confirm or reject the payment
+	 *
+	 * FIXME: This function is way too complex.  Unroll into new functions.
+	 *
 	 * @global WebRequest $wgRequest
 	 * @return PaymentTransactionResponse
 	 */
