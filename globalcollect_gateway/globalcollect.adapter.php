@@ -1286,7 +1286,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			} elseif ( $status_result->getCommunicationStatus() === false ) {
 			//can't communicate or internal error
 				$problemflag = true;
-				$problemmessage = "Can't communicate or internal error."; // /me shrugs - I think the orphan slayer is hitting this sometimes. Confusing.
+				$problemmessage = "Can't communicate or internal error: "
+					. $status_result->getMessage();
 			}
 
 			$order_status_results = false;
