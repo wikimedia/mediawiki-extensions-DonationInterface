@@ -1,8 +1,8 @@
 <?php
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
-	//Data we know to be good, that we always want to re-assert after a load or an addData. 
-	//so far: order_id and the utm data we pull from contribution tracking. 
+	//Data we know to be good, that we always want to re-assert after a load or an addData.
+	//so far: order_id and the utm data we pull from contribution tracking.
 	protected $hard_data = array ( );
 
 	public static function getLogIdentifier() {
@@ -22,9 +22,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 				$unstaged += $this->unstage_data( $val, false );
 			} else {
 				if ( array_key_exists( $key, $this->var_map ) ) {
-					//run the unstage data functions. 
+					//run the unstage data functions.
 					$unstaged[$this->var_map[$key]] = $val;
-					//this would be EXTREMELY bad to put in the regular adapter. 
+					//this would be EXTREMELY bad to put in the regular adapter.
 					$this->staged_data[$this->var_map[$key]] = $val;
 				} else {
 					//$unstaged[$key] = $val;
@@ -67,7 +67,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			);
 			foreach($utm_keys as $key){
 				$this->hard_data[$key] = $data[$key];
-			}			
+			}
 		}
 		$this->reAddHardData();
 
@@ -81,9 +81,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->stageData();
 
-		//have to do this again here. 
+		//have to do this again here.
 		$this->reAddHardData();
-		
+
 		$this->revalidate();
 	}
 
@@ -94,7 +94,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 	private function reAddHardData() {
 		//anywhere else, and this would constitute abuse of the system.
-		//so don't do it. 
+		//so don't do it.
 		$data = $this->hard_data;
 
 		if ( array_key_exists( 'order_id', $data ) ) {
@@ -117,16 +117,16 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$data = array( );
 
-		// if contrib tracking id is not already set, we need to insert the data, otherwise update			
+		// if contrib tracking id is not already set, we need to insert the data, otherwise update
 		if ( $ctid ) {
 			$res = $db->select(
-				'contribution_tracking', 
+				'contribution_tracking',
 				array(
 					'utm_source',
 					'utm_campaign',
 					'utm_medium',
 					'ts'
-				), 
+				),
 				array( 'id' => $ctid )
 			);
 			foreach ( $res as $thing ) {

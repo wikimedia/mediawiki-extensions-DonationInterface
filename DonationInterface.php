@@ -74,8 +74,8 @@ $wgAutoloadClasses['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/g
 $wgAutoloadClasses['GlobalCollectGatewayResult'] = __DIR__ . '/globalcollect_gateway/globalcollect_resultswitcher.body.php';
 
 $wgAutoloadClasses['GlobalCollectAdapter'] = __DIR__ . '/globalcollect_gateway/globalcollect.adapter.php';
-$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/scripts/orphan.adapter.php';
-$wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_gateway/scripts/orphans.php';
+$wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/orphan.adapter.php';
+$wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_gateway/GlobalCollectOrphanRectifier.php';
 
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
