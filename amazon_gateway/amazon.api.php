@@ -9,6 +9,7 @@ class AmazonBillingApi extends ApiBase {
 	);
 
 	public function execute() {
+		$output = $this->getResult();
 		$orderReferenceId = $this->getParameter( 'orderReferenceId' );
 		$adapterParams = array(
 			'api_request' => true,
@@ -25,22 +26,28 @@ class AmazonBillingApi extends ApiBase {
 				'order_reference_id' => $orderReferenceId,
 			) );
 			$result = $adapter->doPayment();
-			if ( $result->getRefresh() ) {
-				$this->getResult()->addValue(
+			if ( $result->isFailed() ) {
+				$output->addvalue(
+					null,
+					'redirect',
+					$adapter->getFailPage()
+				);
+			} else if ( $result->getRefresh() ) {
+				$output->addValue(
 					null,
 					'errors',
 					$result->getErrors()
 				);
 			} else {
-				$this->getResult()->addValue(
+				$output->addValue(
 					null,
-					'success',
-					!$result->isFailed()
+					'redirect',
+					$adapter->getThankYouPage()
 				);
 			}
 		} else {
 			// Don't let people continue if they failed a token check!
-			$this->getResult()->addValue(
+			$output->addValue(
 				null,
 				'errors',
 				array( 'token-mismatch' => $this->msg( 'donate_interface-token-mismatch' )->text() )

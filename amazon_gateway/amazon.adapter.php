@@ -26,6 +26,7 @@ use PayWithAmazon\ClientInterface as PwaClientInterface;
  * and https://github.com/amzn/login-and-pay-with-amazon-sdk-php
  */
 class AmazonAdapter extends GatewayAdapter {
+
 	const GATEWAY_NAME = 'Amazon';
 	const IDENTIFIER = 'amazon';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
@@ -37,10 +38,23 @@ class AmazonAdapter extends GatewayAdapter {
 		'Declined' => FinalStatus::FAILED,
 	);
 
+	// When an authorization or capture is declined, we examine the reason code
+	// to see if we should let the donor try again with a different card.  For
+	// these codes, we should tell the donor to try a different method entirely.
+	protected $fatal_errors = array(
+		// These two may show up if we start doing asynchronous authorization
+		'AmazonClosed',
+		'AmazonRejected',
+		// For synchronous authorization, timeouts usually indicate that the
+		// donor's account is under scrutiny, so letting them choose a different
+		// card would likely just time out again
+		'TransactionTimedOut',
+	);
+
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
 
-		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
 				array( 'payment_method' => 'amazon' )
 			);
@@ -49,7 +63,7 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	public function getFormClass() {
-		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error') === 0 ) {
+		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error' ) === 0 ) {
 			// TODO: make a mustache error form
 			return parent::getFormClass();
 		}
@@ -75,10 +89,13 @@ class AmazonAdapter extends GatewayAdapter {
 		// We use account_config instead
 		$this->accountInfo = array();
 	}
+
 	function defineReturnValueMap() {}
+
 	function defineDataConstraints() {}
+
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array (
+		$this->order_id_meta = array(
 			'generate' => TRUE,
 			'ct_id' => TRUE,
 		);
@@ -87,7 +104,24 @@ class AmazonAdapter extends GatewayAdapter {
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
-		$this->error_map = array();
+		$self = $this;
+		$differentCard = function() use ( $self ) {
+			$language = $self->getData_Unstaged_Escaped( 'language' );
+			$country = $self->getData_Unstaged_Escaped( 'country' );
+			return WmfFramework::formatMessage(
+				'donate_interface-donate-error-try-a-different-card-html', 'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give'
+				. "&amp;language=$language&amp;uselang=$language&amp;country=$country", 'problemsdonating@wikimedia.org'
+			);
+		};
+		$this->error_map = array(
+			// These might be transient - tell donor to try again soon
+			'InternalServerError' => 'donate_interface-try-again',
+			'RequestThrottled' => 'donate_interface-try-again',
+			'ServiceUnavailable' => 'donate_interface-try-again',
+			'ProcessingFailure' => 'donate_interface-try-again',
+			// Donor needs to select a different card
+			'InvalidPaymentMethod' => $differentCard,
+		);
 	}
 
 	function defineTransactions() {
@@ -123,10 +157,7 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->confirmOrderReference();
 			$this->authorizeAndCapturePayment();
 		} catch ( ResponseProcessingException $ex ) {
-			$resultData->addError(
-				$ex->getErrorCode(),
-				$ex->getMessage()
-			);
+			$this->handleErrors( $ex, $resultData );
 		}
 
 		$this->incrementSequenceNumber();
@@ -165,20 +196,15 @@ class AmazonAdapter extends GatewayAdapter {
 
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
-		$setDetailsResult = $client->setOrderReferenceDetails( array(
-			'amazon_order_reference_id' => $orderReferenceId,
-			'amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
-			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
-		) )->toArray();
-		self::checkErrors( $setDetailsResult );
+		$this->setOrderReferenceDetailsIfUnset( $client, $orderReferenceId );
 
 		$confirmResult = $client->confirmOrderReference( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) )->toArray();
 		self::checkErrors( $confirmResult );
 
+		// TODO: either check the status, or skip this call when we already have
+		// donor details
 		$getDetailsResult = $client->getOrderReferenceDetails( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) )->toArray();
@@ -195,6 +221,33 @@ class AmazonAdapter extends GatewayAdapter {
 			'fname' => $fname,
 			'lname' => $lname,
 		) );
+		// Stash their info in pending queue and logs to fill in data for
+		// audit and IPN messages
+		$details = $this->getStompTransaction();
+		$this->logger->info( 'Got info for Amazon donation: ' . json_encode( $details ) );
+		$this->setLimboMessage( 'pending' );
+	}
+
+	/**
+	 * Set the order reference details if they haven't been set yet.  Track
+	 * which ones have been set in session.
+	 * @param PwaClientInterface $client
+	 * @param string $orderReferenceId
+	 */
+	protected function setOrderReferenceDetailsIfUnset( $client, $orderReferenceId ) {
+		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
+			return;
+		}
+		$setDetailsResult = $client->setOrderReferenceDetails( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
+		) )->toArray();
+		self::checkErrors( $setDetailsResult );
+		// TODO: session_setData wrapper?
+		$_SESSION['order_refs'][$orderReferenceId] = true;
 	}
 
 	/**
@@ -217,6 +270,10 @@ class AmazonAdapter extends GatewayAdapter {
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'transaction_timeout' => 0, // authorize synchronously
 			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
+			// Use the seller_authorization_note to simulate an error in the sandbox
+			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
 		) )->toArray();
 		$this->checkErrors( $authResponse );
 
@@ -245,11 +302,21 @@ class AmazonAdapter extends GatewayAdapter {
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
 		$captureState = $captureDetails['CaptureStatus']['State'];
 
+		// TODO: verify that this does not prevent us from refunding.
+		$this->closeOrderReference();
+
+		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
+		$this->runPostProcessHooks();
+		$this->deleteLimboMessage( 'pending' );
+	}
+
+	protected function closeOrderReference() {
+		$client = $this->getPwaClient(); // maybe just make this a member variable
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
 		$client->closeOrderReference( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) );
-
-		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
 	}
 
 	/**
@@ -305,4 +372,25 @@ class AmazonAdapter extends GatewayAdapter {
 		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
 	}
+
+	/**
+	 * FIXME: this synthesized 'TransactionResponse' is increasingly silly
+	 * Maybe make this adapter more normal by adding an 'SDK' communication type
+	 * that just creates an array of $data, then overriding curl_transaction
+	 * to use the PwaClient.
+	 * @param ResponseProcessingException $exception
+	 * @param PaymentTransactionResponse $resultData
+	 */
+	public function handleErrors( $exception, $resultData ) {
+		$errorCode = $exception->getErrorCode();
+		$resultData->addError(
+			$errorCode, $this->getErrorMapByCodeAndTranslate( $errorCode )
+		);
+		if ( array_search( $errorCode, $this->fatal_errors ) !== false ) {
+			// These seem potentially fraudy - let's pay attention to them
+			$this->logger->error( 'Heinous status returned from Amazon: ' . $errorCode );
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+		}
+	}
+
 }

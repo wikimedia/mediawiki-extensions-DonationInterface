@@ -40,10 +40,16 @@
 		amazon.Login.authorize( loginOptions, returnUrl );
 	}
 
-	function showErrorAndLoginButton( message ) {
+	function addErrorMessage( message ) {
 		$( '#topError' ).append(
-			$( '<div class="error">' + message + '</div>' )
+			$( '<p class="error">' + message + '</p>' )
 		);
+	}
+
+	function showErrorAndLoginButton( message ) {
+		if ( message ) {
+			addErrorMessage( message );
+		}
 		OffAmazonPayments.Button(
 			'amazonLogin',
 			sellerId,
@@ -56,21 +62,29 @@
 		);
 	}
 
+	function tokenExpired() {
+		// Re-create widget so it displays timeout error message
+		createWalletWidget();
+		showErrorAndLoginButton();
+	}
+
 	accessToken = getURLParameter( 'access_token', location.hash );
 	loginError = getURLParameter( 'error', location.search );
 
 	// This will be called as soon as the login script is loaded
 	window.onAmazonLoginReady = function() {
+		var tokenLifetime;
 		amazon.Login.setClientId( clientId );
 		amazon.Login.setUseCookie( true );
 		amazon.Login.setSandboxMode( sandbox );
 		if ( loggedIn ) {
+			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
 			createWalletWidget();
+			setTimeout( tokenLifetime * 1000, tokenExpired );
 		} else {
 			if ( loginError ) {
 				showErrorAndLoginButton(
 					getURLParameter( 'error_description', location.search )
-					// TODO: better error message with links to alternative donation methods
 				);
 			} else {
 				redirectToLogin();
@@ -94,7 +108,7 @@
 	}
 
 	function createWalletWidget() {
-		new OffAmazonPayments.Widgets.Wallet( {
+		var params = {
 			sellerId: sellerId,
 			onReady: function( billingAgreement ) {
 				// Will come in handy for recurring payments
@@ -102,22 +116,63 @@
 			},
 			agreementType: 'OrderReference',
 			onOrderReferenceCreate: function( orderReference ) {
+				if ( orderReferenceId ) {
+					// Redisplaying for an existing order, no need to continue
+					return;
+				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
 				$( '#paymentContinue' ).show();
+				// FIXME: Unbind click handler from forms.js
 				$( '#paymentContinueBtn' ).off( 'click' );
 				$( '#paymentContinueBtn' ).click( submitPayment );
+			},
+			onPaymentSelect: function() {
+				// In case we hid the button because of an invalid payment error
+				$( '#paymentContinue' ).show();
 			},
 			design: {
 				designMode: 'responsive'
 			},
 			onError: function( error ) {
 				// Error message appears directly in widget
-				showErrorAndLoginButton( '' );
+				showErrorAndLoginButton();
 			}
-		} ).bind( 'walletWidget' );
+		};
+		// If we are refreshing the widget to display a correctable error,
+		// we need to set the Amazon order reference ID for continuity
+		if ( orderReferenceId ) {
+			params.amazonOrderReferenceId = orderReferenceId;
+		}
+		new OffAmazonPayments.Widgets.Wallet( params ).bind( 'walletWidget' );
 	}
 
+	function handleErrors( errors ) {
+		var code,
+			refreshWallet = false;
+
+		for ( code in errors ) {
+			if ( !errors.hasOwnProperty( code ) ) {
+				continue;
+			}
+			addErrorMessage( errors[code] );
+			if ( code === 'InvalidPaymentMethod' ) {
+				// Card declined, but they can try another
+				refreshWallet = true;
+			}
+		}
+
+		if ( refreshWallet ) {
+			// Redisplay the widget to show an error and let the donor pick a different card
+			$( '#paymentContinue' ).hide();
+			createWalletWidget();
+		}
+	}
+
+	// FIXME: if donation amount is edited after we call setOrderReferenceDetails
+	// once, we need to close the old order reference and get a new one on retry.
+	// Maybe just make it non-editable here?
 	function submitPayment() {
+		$( '#topError' ).html('');
 		$( '#overlay' ).show();
 		var postdata = {
 			action: 'di_amazon_bill',
@@ -135,9 +190,9 @@
 			success: function ( data ) {
 				$( '#overlay' ).hide();
 				if ( data.errors ) {
-					// TODO: correctable error, let 'em correct it
-				} else if ( data.success ) {
-					// TODO: send donor to TY page, auth/capture money
+					handleErrors( data.errors );
+				} else if ( data.redirect ) {
+					location.href = data.redirect;
 				} else {
 					// TODO: send donor to fail page
 				}

@@ -184,4 +184,50 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$errors = $result->getErrors();
 		$this->assertTrue( isset( $errors['InvalidPaymentMethod'] ), 'InvalidPaymentMethod error should be set' );
 	}
+
+	/**
+	 * This apparently indicates a shady enough txn that we should turn them away
+	 */
+	function testFailOnAmazonRejected() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient->returns['authorize'][] = 'AmazonRejected';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+		// Could assert something about errors after rebasing onto master
+		// $errors = $result->getErrors();
+		// $this->assertTrue( isset( $errors['AmazonRejected'] ), 'AmazonRejected error should be set' );
+	}
+
+	/**
+	 * When the transaction times out, just gotta fail it till we work out an
+	 * asynchronous authorization flow
+	 */
+	function testTransactionTimedOut() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient->returns['authorize'][] = 'TransactionTimedOut';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+	}
 }
