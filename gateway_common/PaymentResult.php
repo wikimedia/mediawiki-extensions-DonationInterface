@@ -108,6 +108,8 @@ class PaymentResult {
 	 *
 	 * @param PaymentTransactionResponse $response processed response object
 	 * @param string $finalStatus final transaction status.
+	 *
+	 * @return PaymentResult
 	 */
 	static public function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {

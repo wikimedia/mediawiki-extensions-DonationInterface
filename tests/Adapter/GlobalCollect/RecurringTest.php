@@ -63,8 +63,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		// FIXME: I don't understand whether the literal code should correspond to anything in GC
-		$gateway->setDummyGatewayResponseCode( 'recurring' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-OK' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
@@ -87,11 +86,62 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$gateway->setDummyGatewayResponseCode( 'recurring-NOK' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-declined' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
-		$this->assertEquals( 1, count( $gateway->curled ), 'Should not make another reqest after DO_PAYMENT fails' );
+		$this->assertRegExp( '/GET_ORDERSTATUS/', $result->getRawResponse(),
+			'Stopped after GET_ORDERSTATUS.' );
+		$this->assertEquals( 2, count( $gateway->curled ),
+			'Expected 2 API calls' );
 		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
+	}
+
+	/**
+	 * Throw errors if the payment is incomplete
+	 *
+	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
+	 */
+	public function testRecurringTimeout() {
+		$init = array(
+			'amount' => '2345',
+			'effort_id' => 2,
+			'order_id' => '9998890004',
+			'currency_code' => 'EUR',
+			'payment_product' => '',
+		);
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->setDummyGatewayResponseCode( 'recurring-timeout' );
+
+		$result = $gateway->do_transaction( 'Recurring_Charge' );
+
+		$this->assertFalse( $result->getCommunicationStatus() );
+		$this->assertRegExp( '/GET_ORDERSTATUS/', $result->getRawResponse() );
+		// FIXME: This is a little funky--the transaction is actually pending-poke.
+		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
+	}
+
+	/**
+	 * Can resume a recurring payment
+	 *
+	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
+	 */
+	public function testRecurringResume() {
+		$init = array(
+			'amount' => '2345',
+			'effort_id' => 2,
+			'order_id' => '9998890004',
+			'currency_code' => 'EUR',
+			'payment_product' => '',
+		);
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->setDummyGatewayResponseCode( 'recurring-resume' );
+
+		$result = $gateway->do_transaction( 'Recurring_Charge' );
+
+		$this->assertTrue( $result->getCommunicationStatus() );
+		$this->assertRegExp( '/SET_PAYMENT/', $result->getRawResponse() );
 	}
 }

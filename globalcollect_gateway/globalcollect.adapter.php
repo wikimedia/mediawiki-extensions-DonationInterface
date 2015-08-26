@@ -1450,26 +1450,50 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Process a non-initial effort_id charge.
+	 *
+	 * Finalizes the transaction according to the outcome.
+	 *
+	 * @return PaymentTransactionResponse Last API response we received, in
+	 * case the caller wants to try to extract information.
 	 */
 	protected function transactionRecurring_Charge() {
-		$response = $this->do_transaction( 'DO_PAYMENT' );
-		$result = PaymentResult::fromResults(
-			$response,
-			$this->getFinalStatus()
-		);
-		if ( $response->getCommunicationStatus()
-			 && !$result->isFailed()
-			 && !$result->getErrors()
-		   ) {
-			$response = $this->do_transaction( 'GET_ORDERSTATUS' );
-			$data = $this->getTransactionData();
-			$orderStatus = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
-			if ( $this->getTransactionStatus() && $orderStatus === FinalStatus::PENDING_POKE ) {
-				$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
-				$response = $this->do_transaction('SET_PAYMENT');
-			}
+		$do_payment_response = $this->do_transaction( 'DO_PAYMENT' );
+		// Ignore possible NOK, we might be resuming an incomplete charge in which
+		// case DO_PAYMENT is expected to fail.  There's no status code returned
+		// from this call, in that case.
+
+		// So get the status and see what we've accomplished so far.
+		$get_orderstatus_response = $this->do_transaction( 'GET_ORDERSTATUS' );
+		$data = $this->getTransactionData();
+
+		// If can't even get the status, fail.
+		if ( !$get_orderstatus_response->getCommunicationStatus() ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return $get_orderstatus_response;
 		}
-		return $response;
+
+		// Test that we're in status 600 now, and fail if not.
+		if ( !isset( $data['STATUSID'] )
+			|| $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) !== FinalStatus::PENDING_POKE
+		) {
+			// FIXME: It could actually be in a pending state at this point,
+			// I wish we could express that uncertainty.
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return $get_orderstatus_response;
+		}
+
+		// Settle.
+		$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
+		$set_payment_response = $this->do_transaction('SET_PAYMENT');
+
+		// Finalize the transaction as complete or failed.
+		if ( $set_payment_response->getCommunicationStatus() ) {
+			$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+		} else {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+		}
+
+		return $set_payment_response;
 	}
 
     protected function transactionDirect_Debit() {
@@ -1959,6 +1983,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					 * What should we actually do with these people, other than the default error log?
 					 * Special error page saying that they may already have donated?
 					 * @TODO: This absolutely happens IRL. Attempt to handle gracefully once we figure out what that means.
+					 *
+					 * I think we can just SET_PAYMENT at this point. -AW
 					 */
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );
