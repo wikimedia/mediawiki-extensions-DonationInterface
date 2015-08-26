@@ -3169,7 +3169,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// If the gateway has changed, reset everything
-		if ( !empty( $oldData['gateway'] ) && $oldData['gateway'] !== $this->getIdentifier() ) {
+		$newGateway = $this->getIdentifier();
+		if ( !empty( $oldData['gateway'] ) && $oldData['gateway'] !== $newGateway ) {
+			$this->logger->info(
+				"Gateway changed from {$oldData['gateway']} to $newGateway.  Resetting session."
+			);
 			$this->session_resetForNewAttempt( true );
 			return;
 		}
@@ -3189,6 +3193,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$parts = explode( '.', $newMethod );
 				$newMethod = $parts[0];
 				if ( $newMethod !== $oldData['payment_method'] ) {
+					$this->logger->info(
+						"Payment method changed from {$oldData['payment_method']} to $newMethod.  Unsetting submethod."
+					);
 					unset( $_SESSION['Donor']['payment_submethod'] );
 				}
 			}
@@ -3196,15 +3203,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// Don't reuse order IDs between recurring and non-recurring donations
 		// Recurring is stored in session as '1' for true and '' for false
+		// Only reset if there is an explicit querystring parameter.
 		if ( isset( $oldData['recurring'] ) && !empty( $oldData['order_id'] ) ) {
 			$newRecurring = '';
+			$hasRecurParam = false;
 			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
-				$newVal = $newRequest->getText( $key, '' );
+				$newVal = $newRequest->getVal( $key );
+				if ( $newVal !== null ) {
+					$hasRecurParam = true;
+				}
 				if ( $newVal === '1' || $newVal === 'true' ) {
 					$newRecurring = '1';
 				}
 			}
-			if ( $newRecurring !== $oldData['recurring'] ) {
+			if ( $hasRecurParam && ( $newRecurring !== $oldData['recurring'] ) ) {
+				$this->logger->info(
+					"Recurring changed from '{$oldData['recurring']}' to '$newRecurring'.  Unsetting order ID."
+				);
 				unset( $_SESSION['Donor']['order_id'] );
 			}
 		}
