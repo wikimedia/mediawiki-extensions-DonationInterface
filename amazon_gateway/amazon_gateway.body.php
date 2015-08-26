@@ -29,9 +29,7 @@ class AmazonGateway extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
-		global $wgHooks;
-
-		$wgHooks['MakeGlobalVariablesScript'][] = array( $this->adapter, 'setClientVariables' );
+		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
 		$this->getOutput()->allowClickjacking();
 
 		$this->setHeaders();
