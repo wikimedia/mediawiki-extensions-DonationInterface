@@ -13,9 +13,10 @@
 		billingAgreementId,
 		orderReferenceId;
 
-	// Adapted from Amazon documentation
+	// Adapted from Amazon documentation, will get parameters from fragment as
+	// well as querystring and accepts Amazon's custom delimiters
 	function getURLParameter( name, source ) {
-		var pattern = '[?&#]' + name + '=' + '([^&;#]*)',
+		var pattern = '[?&#]' + name + '=([^&;#]*)',
 			matches = new RegExp( pattern ).exec( source ) || ['', ''],
 			value = matches[1].replace( /\+/g, '%20' );
 

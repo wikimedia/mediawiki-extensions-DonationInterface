@@ -293,7 +293,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
 		$mockClient = TestingAmazonAdapter::$client;
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
-		$oid = str_replace( '.', '-', $gateway->getData_Unstaged_Escaped( 'order_id' ) );
+		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_reference_id'], 'Did not set order id on order reference' );
 		$this->assertEquals( $init['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 		$this->assertEquals( $init['currency_code'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );

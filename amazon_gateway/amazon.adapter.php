@@ -21,7 +21,9 @@ use PayWithAmazon\ClientInterface as PwaClientInterface;
  */
 
 /**
- * @see https://amazonpayments.s3.amazonaws.com/FPS_ASP_Guides/ASP_Advanced_Users_Guide.pdf
+ * Uses Login and Pay with Amazon widgets and the associated SDK to charge donors
+ * See https://payments.amazon.com/documentation
+ * and https://github.com/amzn/login-and-pay-with-amazon-sdk-php
  */
 class AmazonAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Amazon';
@@ -65,25 +67,12 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	function defineVarMap() {
-		$this->var_map = array(
-			"amount" => "amount",
-			"transactionAmount" => "amount",
-			"transactionId" => "gateway_txn_id",
-			"status" => "gateway_status",
-			"buyerEmail" => "email",
-			"transactionDate" => "date_collect",
-			"buyerName" => "fname", // This is dealt with in addDataFromURI()
-			"errorMessage" => "error_message",
-			"paymentMethod" => "payment_submethod",
-			"referenceId" => "contribution_tracking_id",
-		);
+		// TODO: maybe use this for mapping gatway data to API call parameters
+		$this->var_map = array();
 	}
 
 	function defineAccountInfo() {
-		//XXX since this class actually accesses two different endpoints,
-		// the usefulness of this function is uncertain.  In other words,
-		// account info is transaction-specific.  We use account_config
-		// instead
+		// We use account_config instead
 		$this->accountInfo = array();
 	}
 	function defineReturnValueMap() {}
@@ -98,13 +87,7 @@ class AmazonAdapter extends GatewayAdapter {
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
-
-		$this->error_map = array(
-			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
-		);
+		$this->error_map = array();
 	}
 
 	function defineTransactions() {
@@ -124,13 +107,12 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function buildRequestParams() {
-		$queryparams = parent::buildRequestParams();
-		ksort( $queryparams );
-
-		return $queryparams;
-	}
-
+	/**
+	 * Note that the Amazon adapter is somewhat unique in that it uses a third
+	 * party SDK to make all processor API calls.  Since we're never calling
+	 * do_transaction and friends, we synthesize a PaymentTransactionResponse
+	 * to hold any errors returned from the SDK.
+	 */
 	public function doPayment() {
 		$resultData = new PaymentTransactionResponse();
 		if ( $this->session_getData( 'sequence' ) ) {
@@ -170,6 +152,14 @@ class AmazonAdapter extends GatewayAdapter {
 		) );
 	}
 
+	/**
+	 * Amazon's widget has made calls to create an order reference object and
+	 * has provided us the ID.  We make one API call to set amount, currency,
+	 * and our note and local reference ID.  A second call confirms that the
+	 * details are valid and moves it out of draft state.  Once it is out of
+	 * draft state, we can retrieve the donor's name and email address with a
+	 * third API call.
+	 */
 	protected function confirmOrderReference() {
 		$client = $this->getPwaClient();
 
@@ -207,6 +197,14 @@ class AmazonAdapter extends GatewayAdapter {
 		) );
 	}
 
+	/**
+	 * Once the order reference is finalized, we can authorize a payment against
+	 * it and capture the funds.  We combine both steps in a single authorize
+	 * call.  If the authorization is successful, we can check on the capture
+	 * status and close the order reference.  TODO: determine if capture status
+	 * check is really needed.  According to our tech contact, Amazon guarantees
+	 * that the capture will eventually succeed if the authorization succeeds.
+	 */
 	protected function authorizeAndCapturePayment() {
 		$client = $this->getPwaClient();
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
@@ -215,7 +213,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'amazon_order_reference_id' => $orderReferenceId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency_code' ),
-			'capture_now' => true,
+			'capture_now' => true, // combine authorize and capture steps
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'transaction_timeout' => 0, // authorize synchronously
 			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
@@ -230,7 +228,12 @@ class AmazonAdapter extends GatewayAdapter {
 				$authDetails['AuthorizationStatus']['ReasonCode']
 			);
 		}
-		$captureId = $authDetails['IdList']['member']; // IdList generally contains the IDs for the next stages
+
+		// Our authorize call created both an authorization and a capture object
+		// The authorization's ID is in $authDetail['AmazonAuthorizationId']
+		// IdList has identifiers for related objects, in this case the capture
+		$captureId = $authDetails['IdList']['member'];
+		// Use capture ID as gateway_txn_id, since we need that for refunds
 		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
 
 		$captureResponse = $client->getCaptureDetails( array(
@@ -253,8 +256,9 @@ class AmazonAdapter extends GatewayAdapter {
 	 * Replace decimal point with a dash to comply with Amazon's restrictions on
 	 * seller reference ID format.
 	 */
-	protected function stage_order_id() {
-		$this->staged_data['order_id'] = str_replace( '.', '-', $this->getData_Unstaged_Escaped( 'order_id' ) );
+	public function generateOrderID( $dataObj = null ) {
+		$dotted = parent::generateOrderID( $dataObj );
+		return str_replace( '.', '-', $dotted );
 	}
 
 	/**
@@ -285,78 +289,12 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Don't need this if we use the SDK!
+	 * SDK takes care of most of the dirty work for us
 	 */
-	public function processResponse( $response ) {
-
-	}
-
-	function encodeQuery( $params ) {
-		ksort( $params );
-		$query = array();
-		foreach ( $params as $key => $value ) {
-			$encoded = str_replace( "%7E", "~", rawurlencode( $value ) );
-			$query[] = $key . "=" . $encoded;
-		}
-		return implode( "&", $query );
-	}
-
-	function signRequest( $host, $path, &$params ) {
-		unset( $params['signature'] );
-
-		$secret_key = $this->account_config[ "SecretKey" ];
-
-		$query_str = $this->encodeQuery( $params );
-		$path_encoded = str_replace( "%2F", "/", rawurlencode( $path ) );
-
-		$message = "GET\n{$host}\n{$path_encoded}\n{$query_str}";
-
-		return rawurlencode( base64_encode( hash_hmac( 'sha256', $message, $secret_key, TRUE ) ) );
-	}
+	public function processResponse( $response ) {}
 
 	/**
-	 * We're never POST'ing, just send a Content-type that won't confuse Amazon.
-	 */
-	function getCurlBaseHeaders() {
-		$headers = array(
-			'Content-Type: text/html; charset=utf-8',
-		);
-		return $headers;
-	}
-
-	function getCurlBaseOpts() {
-		$opts = parent::getCurlBaseOpts();
-
-        $opts[CURLOPT_SSL_VERIFYPEER] = true;
-        $opts[CURLOPT_SSL_VERIFYHOST] = 2;
-        $opts[CURLOPT_CAINFO] = __DIR__ . "/ca-bundle.crt";
-        $opts[CURLOPT_CAPATH] = __DIR__ . "/ca-bundle.crt";
-
-		return $opts;
-	}
-
-	/**
-	 * For the Amazon adapter this is a huge hack! Because we build the transaction differently.
-	 * Amazon expectings things to them in the query string, and back via XML. Go figure.
-	 *
-	 * In any case; do_transaction() does the heavy lifting. And this does nothing; which is
-	 * required because otherwise we throw a bunch of silly XML at Amazon that it just ignores.
-	 *
-	 * @return string|void Nothing :)
-	 */
-	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
-		return '';
-	}
-
-	/**
-	 * Amount is returned as a dollar amount, so override base class division by 100.
-	 */
-	protected function unstage_amount() {
-		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' );
-	}
-
-	/**
-	 * MakeGlobalVariablesScript handler
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
 	 * @param array $vars
 	 */
 	public function setClientVariables( &$vars ) {
