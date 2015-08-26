@@ -122,7 +122,9 @@
 		var postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',
-			orderReferenceId: orderReferenceId
+			orderReferenceId: orderReferenceId,
+			amount: $( '#amount' ).val(),
+			currency_code: $( '#currency_code' ).val()
 		};
 
 		$.ajax({

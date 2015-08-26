@@ -2,13 +2,23 @@
 
 class AmazonBillingApi extends ApiBase {
 	protected $allowedParams = array(
+		'amount',
+		'currency_code',
 		'orderReferenceId',
 		'token',
 	);
 
 	public function execute() {
 		$orderReferenceId = $this->getParameter( 'orderReferenceId' );
-		$adapter = new AmazonAdapter( array( 'api_request' => true ) );
+		$adapterParams = array(
+			'api_request' => true,
+			'external_data' => array(
+				'amount' => $this->getParameter( 'amount' ),
+				'currency_code' => $this->getParameter( 'currency_code' ),
+			),
+		);
+
+		$adapter = new AmazonAdapter( $adapterParams );
 
 		if ( $adapter->checkTokens() ) {
 			$adapter->addRequestData( array(
