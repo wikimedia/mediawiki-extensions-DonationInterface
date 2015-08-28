@@ -30,20 +30,22 @@ class GlobalCollectRefundMaintenance extends Maintenance {
             $this->error( 'Could not find refund file: ' . $filename, true );
         }
 		while ( $refund = fgetcsv( $file ) ) {
-			if ( count( $refund !== 7 ) ) {
+			if ( count( $refund ) !== 7 ) {
 				$this->error( 'Refund lines must have exactly 7 fields', true );
 			}
 			$oid = $refund[0];
 			$gateway_opts = array(
 				'batch_mode' => true,
-				'order_id' => $oid,
-				'merchant_reference' => $refund[1],
-				'effort_id' => $refund[2],
-				'payment_method' => 'cc',
-				'payment_submethod' => $refund[3],
-				'country' => $refund[4],
-				'currency_code' => $refund[5],
-				'amount' => $refund[6],
+				'external_data' => array(
+					'order_id' => $oid,
+					'merchant_reference' => $refund[1],
+					'effort_id' => $refund[2],
+					'payment_method' => 'cc',
+					'payment_submethod' => $refund[3],
+					'country' => $refund[4],
+					'currency_code' => $refund[5],
+					'amount' => $refund[6],
+				),
 			);
 
 			$this->output( "Refunding transaction $oid" );
