@@ -728,6 +728,52 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'AUTHENTICATIONINDICATOR' => '0',
 			),
 		);
+
+		// Cancel a recurring transaction if all payment attempts can be canceled
+		$this->transactions['CANCEL_ORDER'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'ORDER' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'CANCEL_ORDER',
+				'VERSION' => '1.0',
+			),
+		);
+
+		// End a recurring transaction, disallowing further payment attempts
+		$this->transactions['END_ORDER'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'ORDER' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'END_ORDER',
+				'VERSION' => '1.0',
+			),
+		);
 	}
 
 	/**
@@ -1639,6 +1685,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			return PaymentResult::fromResults( $set_refund_response, FinalStatus::COMPLETE );
 		}
+	}
+
+	/**
+	 * Cancel a subscription
+	 *
+	 * Uses the adapter's internal order ID.
+	 *
+	 * @return PaymentResult
+	 */
+	public function cancelSubscription() {
+		// Try to cancel, in case no payment attempts have been made or all
+		// payment attempts can be canceled
+		$response = $this->do_transaction( 'CANCEL_ORDER' );
+
+		if ( !$response->getCommunicationStatus() ) {
+			// If we can't cancel, end it to disallow future attempts
+			$response = $this->do_transaction( 'END_ORDER' );
+			if ( !$response->getCommunicationStatus() ) {
+				return PaymentResult::fromResults( $response, FinalStatus::FAILED );
+			}
+		}
+
+		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
 
 	/**

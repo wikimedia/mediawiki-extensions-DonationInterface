@@ -17,6 +17,8 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 
 		$this->addOption( 'file', 'Read refund detail in from a file',
 			true, true, 'f' );
+		$this->addOption( 'unsubscribe', 'Cancel the subscription this charge is a part of',
+			false, false );
 	}
 
 	public function execute() {
@@ -24,6 +26,8 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 
 		// don't run fraud checks for refunds
 		$wgGlobalCollectGatewayEnableCustomFilters = false;
+
+		$isUnsubscribing = $this->getOption( 'unsubscribe' );
 
 		$filename = $this->getOption( 'file' );
 		if( !( $file = fopen( $filename, 'r' ) ) ){
@@ -56,6 +60,16 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 				$this->error( "Failed refunding transaction $oid" );
 			} else {
 				$this->output( "Successfully refunded transaction $oid\n" );
+			}
+
+			if ( $isUnsubscribing ) {
+				$result = $adapter->cancelSubscription();
+
+				if ( $result->isFailed() ) {
+					$this->error( "Failed cancelling subscription $oid" );
+				} else {
+					$this->output( "Successfully cancelled subscription $oid\n" );
+				}
 			}
 		}
 		fclose( $file );
