@@ -182,6 +182,13 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 	}
 
+	public function getFormClass() {
+		if ( $this->dataObj->getVal_Escaped( 'ffname' ) === 'wp-if' ) {
+			return 'Gateway_Form_Mustache';
+		}
+		return parent::getFormClass();
+	}
+
 	public function getCommunicationType() {
 		return 'xml';
 	}
@@ -949,6 +956,14 @@ class WorldpayAdapter extends GatewayAdapter {
 	protected function buildRequestXML( $rootElement = 'TMSTN', $encoding = 'ISO-8859-1' ) {
 		$xml = parent::buildRequestXML( $rootElement, $encoding );
 		return 'StringIn=' . str_replace( "\n", '', $xml );
+	}
+
+	public function getRequiredFields() {
+		$fields = parent::getRequiredFields();
+		if ( $this->dataObj->getVal_Escaped( 'ffname' ) === 'wp-if' ) {
+			$fields[] = 'address';
+		}
+		return $fields;
 	}
 
 	// override the charset from the parent function
