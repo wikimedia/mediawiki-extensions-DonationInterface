@@ -367,7 +367,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'OK' => true,
 			'NOK' => false,
 		);
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 0, 70 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 0, 10 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 15 ); // Refund failed
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 20, 70 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 100, 180 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING_POKE, 200 ); //The cardholder was successfully authenticated... but we have to DO_FINISHPAYMENT
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 220, 280 );
@@ -380,8 +382,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 625, 650 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 1000, 1050 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1100, 99999 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 100000, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1100, 1520 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 1800 ); // Refunded
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1810, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
 
 
 		$this->defineGoToThankYouOn();
@@ -527,6 +530,57 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
 				'AUTHENTICATIONINDICATOR' => 0, //default to no 3DSecure ourselves
+			),
+		);
+
+		$this->transactions['DO_REFUND'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'PAYMENTPRODUCTID',
+							'ORDERID',
+							'MERCHANTREFERENCE',
+							'AMOUNT',
+							'CURRENCYCODE',
+							'COUNTRYCODE',
+						)
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_REFUND',
+				'VERSION' => '1.0',
+			),
+		);
+
+		$this->transactions['SET_REFUND'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'PAYMENTPRODUCTID',
+							'ORDERID',
+							'EFFORTID',
+						)
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'SET_REFUND',
+				'VERSION' => '1.0',
 			),
 		);
 
@@ -1526,6 +1580,44 @@ class GlobalCollectAdapter extends GatewayAdapter {
         }
         return $result;
     }
+
+	/**
+	 * Refunds a transaction.  Assumes that we're running in batch mode with
+	 * payment_method = cc, and that all of these have been set:
+	 * order_id, effort_id, country, currency_code, amount, and payment_submethod
+	 * Also requires merchant_reference to be set to the reference from the
+	 * original transaction.  FIXME: store that some place besides the logs
+	 * Very similar logic to transactionRecurring_Charge
+	 * @return PaymentResult
+	 */
+	public function doRefund() {
+		// don't want to use standard ct_id staging
+		$this->var_map['MERCHANTREFERENCE'] = 'merchant_reference';
+
+		$this->do_transaction( 'DO_REFUND' );
+
+		// So get the status and see what we've accomplished so far.
+		$get_orderstatus_response = $this->do_transaction( 'GET_ORDERSTATUS' );
+		$data = $this->getTransactionData();
+
+		// If can't even get the status, fail.
+		if ( !$get_orderstatus_response->getCommunicationStatus() ) {
+			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::FAILED );
+		}
+
+		// I think DO_REFUND should have moved the order back into status 600
+		if ( !isset( $data['STATUSID'] )
+			|| $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) !== FinalStatus::PENDING_POKE
+		) {
+			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::FAILED );
+		}
+
+		// Settle.
+		$this->transactions['SET_REFUND']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
+		$set_refund_response = $this->do_transaction('SET_REFUND');
+
+		return PaymentResult::fromResults( $set_refund_response, FinalStatus::COMPLETE );
+	}
 
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
