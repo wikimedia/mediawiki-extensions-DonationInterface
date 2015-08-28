@@ -850,11 +850,11 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
-	'scripts' => 'forms.js',
+$wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
+	'scripts' => 'astropay.js',
 	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
-	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
+	'localBasePath' => __DIR__ . '/astropay_gateway',
+	'remoteExtPath' => 'DonationInterface/astropay_gateway'
 );
 
 // load any rapidhtml related resources

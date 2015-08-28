@@ -164,7 +164,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getResources() {
 		return array(
 			'ext.donationinterface.mustache.styles',
-			'ext.donationinterface.mustache.scripts'
 		);
 	}
 }
