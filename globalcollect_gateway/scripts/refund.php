@@ -48,14 +48,14 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 				),
 			);
 
-			$this->output( "Refunding transaction $oid" );
+			$this->output( "Refunding transaction $oid\n" );
 			$adapter = new GlobalCollectAdapter( $gateway_opts );
 			$result = $adapter->doRefund();
 
 			if ( $result->isFailed() ) {
 				$this->error( "Failed refunding transaction $oid" );
 			} else {
-				$this->output( "Successfully refunded transaction $oid" );
+				$this->output( "Successfully refunded transaction $oid\n" );
 			}
 		}
 		fclose( $file );

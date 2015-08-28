@@ -9,4 +9,6 @@ class FinalStatus {
 	const PENDING = 'pending';
 	const PENDING_POKE = 'pending-poke';
 	const REVISED = 'revised';
+	const REFUNDED = 'refunded';
+	const CANCELLED = 'cancelled';
 }

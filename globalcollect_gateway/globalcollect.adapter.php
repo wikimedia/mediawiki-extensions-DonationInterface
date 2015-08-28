@@ -383,9 +383,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 1000, 1050 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1100, 1520 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 1800 ); // Refunded
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1810, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
-
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::REFUNDED, 1800 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1810, 2220 );
+		// FIXME: not sure what this comment is about:
+		// 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::CANCELLED, 99999 );
 
 		$this->defineGoToThankYouOn();
 	}
@@ -1594,29 +1596,49 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// don't want to use standard ct_id staging
 		$this->var_map['MERCHANTREFERENCE'] = 'merchant_reference';
 
+		// Try cancelling first, it's fast and cheap.
+		// TODO: Look into AUTHORIZATIONREVERSALINDICATOR
+		$cancel_payment_response = $this->do_transaction( 'CANCEL_PAYMENT' );
+
+		if ( $cancel_payment_response->getCommunicationStatus() ) {
+			// That's all we need!
+			return PaymentResult::fromResults( $cancel_payment_response, FinalStatus::COMPLETE );
+		}
+
 		$this->do_transaction( 'DO_REFUND' );
 
 		// So get the status and see what we've accomplished so far.
 		$get_orderstatus_response = $this->do_transaction( 'GET_ORDERSTATUS' );
 		$data = $this->getTransactionData();
 
-		// If can't even get the status, fail.
-		if ( !$get_orderstatus_response->getCommunicationStatus() ) {
-			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::FAILED );
-		}
-
-		// I think DO_REFUND should have moved the order back into status 600
-		if ( !isset( $data['STATUSID'] )
-			|| $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) !== FinalStatus::PENDING_POKE
+		// If we can't even get the status, fail.
+		if ( !$get_orderstatus_response->getCommunicationStatus()
+			|| !isset( $data['STATUSID'] )
 		) {
 			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::FAILED );
 		}
 
-		// Settle.
-		$this->transactions['SET_REFUND']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
-		$set_refund_response = $this->do_transaction('SET_REFUND');
+		$final_status = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 
-		return PaymentResult::fromResults( $set_refund_response, FinalStatus::COMPLETE );
+		// If it's already cancelled or refunded, pat own back.
+		if ( $final_status === FinalStatus::CANCELLED
+			|| $final_status === FinalStatus::REFUNDED
+		) {
+			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::COMPLETE );
+		}
+
+		// If DO_REFUND moved the order back into status 600, settle the refund.
+		if ( $final_status === FinalStatus::PENDING_POKE ) {
+			// Settle the refund.
+			$this->transactions['SET_REFUND']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
+			$set_refund_response = $this->do_transaction('SET_REFUND');
+
+			if ( !$set_refund_response->getCommunicationStatus() ) {
+				return PaymentResult::fromResults( $set_refund_response, FinalStatus::FAILED );
+			}
+
+			return PaymentResult::fromResults( $set_refund_response, FinalStatus::COMPLETE );
+		}
 	}
 
 	/**
