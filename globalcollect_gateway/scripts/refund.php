@@ -10,7 +10,7 @@ require_once( "$IP/maintenance/Maintenance.php" );
 
 // Refunds credit card transactions listed in a file.
 // Currently takes a CSV with no header and columns in this order:
-// order_id, marchant_reference, effort_id, payment_submethod, country, currency_code, amount
+// order_id, merchant_reference, effort_id, payment_submethod, country, currency_code, amount
 class GlobalCollectRefundMaintenance extends Maintenance {
 	public function __construct() {
 		parent::__construct();
@@ -31,19 +31,20 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 
 		$filename = $this->getOption( 'file' );
 		if( !( $file = fopen( $filename, 'r' ) ) ){
-            $this->error( 'Could not find refund file: ' . $filename, true );
+			$this->error( 'Could not find refund file: ' . $filename, true );
         }
 		while ( $refund = fgetcsv( $file ) ) {
 			if ( count( $refund ) !== 7 ) {
 				$this->error( 'Refund lines must have exactly 7 fields', true );
 			}
 			$oid = $refund[0];
+			$effort_id = $refund[2];
 			$gateway_opts = array(
 				'batch_mode' => true,
 				'external_data' => array(
 					'order_id' => $oid,
 					'merchant_reference' => $refund[1],
-					'effort_id' => $refund[2],
+					'effort_id' => $effort_id,
 					'payment_method' => 'cc',
 					'payment_submethod' => $refund[3],
 					'country' => $refund[4],
@@ -54,6 +55,8 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 
 			$this->output( "Refunding transaction $oid\n" );
 			$adapter = new GlobalCollectAdapter( $gateway_opts );
+			// FIXME: effort_id is clobbered in setGatewayDefaults
+			$adapter->addRequestData( array( 'effort_id' => $effort_id ) );
 			$result = $adapter->doRefund();
 
 			if ( $result->isFailed() ) {
