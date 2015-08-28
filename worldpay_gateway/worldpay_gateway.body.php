@@ -37,8 +37,17 @@ class WorldpayGateway extends GatewayPage {
 	 * - Finish error handling
 	 */
 	protected function handleRequest() {
-		$this->getOutput()->addModules( 'ext.donationinterface.worldpay.styles' ); //loads early
-		$this->getOutput()->addModules( 'ext.donationinterface.worldpay.code' ); //loads at normal time
+		if ( $this->adapter->isESOP() ) {
+			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.iframejs' );
+
+			// In the iframe workflow the OTT gets tacked on the the return URL.
+			$this->adapter->addRequestData(
+				array ( 'wp_one_time_token' => $this->getRequest()->getText( 'OTT' ) )
+			);
+		} else {
+			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.styles' ); //loads early
+			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.code' ); //loads at normal time
+		}
 
 		$this->handleDonationRequest();
 	}

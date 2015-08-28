@@ -533,6 +533,16 @@ $forms_whitelist['worldpay'] = array(
 	'selection_weight' => 10
 );
 
+// Worldpay ESOP feat iframe
+$forms_whitelist['wp-if'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'worldpay',
+	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
+	'currencies' => array( '+' => 'ALL' ),
+	'payment_methods' => array( 'cc' => 'ALL' ),
+	'selection_weight' => 10
+);
+
 /*************************
  * Worldpay Form Tests *
  *************************/

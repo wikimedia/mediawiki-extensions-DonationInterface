@@ -857,6 +857,13 @@ $wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
 	'remoteExtPath' => 'DonationInterface/astropay_gateway'
 );
 
+$wgResourceModules['ext.donationinterface.worldpay.iframejs'] = array (
+	'scripts' => 'iframe.js',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/js',
+	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js'
+);
+
 // load any rapidhtml related resources
 require_once( __DIR__ . '/gateway_forms/rapidhtml/RapidHtmlResources.php' );
 

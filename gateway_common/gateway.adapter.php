@@ -197,6 +197,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $dataConstraints = array();
 
 	/**
+	 * $cdata lists fields which require CDATA tags
+	 */
+	protected $cdata = array();
+
+	/**
 	 * $error_map maps gateway errors to client errors
 	 *
 	 * The key of each error should map to a i18n message key.
@@ -984,7 +989,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function appendNodeIfValue( $value, &$node, $js = false ) {
 		$nodevalue = $this->getTransactionSpecificValue( $value, $js );
 		if ( $nodevalue !== '' && $nodevalue !== false ) {
-			$temp = $this->xmlDoc->createElement( $value, $nodevalue );
+			$temp = $this->xmlDoc->createElement( $value );
+
+			$data = null;
+			if ( in_array( $value, $this->cdata ) ) {
+				$data = $this->xmlDoc->createCDATASection( $nodevalue );
+			} else {
+				$data = $this->xmlDoc->createTextNode( $nodevalue );
+			}
+
+			$temp->appendChild( $data );
 			$node->appendChild( $temp );
 		}
 	}

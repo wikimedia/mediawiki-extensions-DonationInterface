@@ -30,6 +30,10 @@ class WorldpayAdapter extends GatewayAdapter {
 	public $redirect = FALSE;
 	public $log_outbound = TRUE;
 
+	protected $cdata = array(
+		'OTTResultURL'
+	);
+
 	/**
 	 * @var string[] Card types (as returned by WP) mapped to what we call them
 	 */
@@ -182,8 +186,15 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 	}
 
+	/**
+	 * Enhanced Silent Order Post AKA iframe
+	 */
+	public function isESOP() {
+		return $this->dataObj->getVal_Escaped( 'ffname' ) === 'wp-if';
+	}
+
 	public function getFormClass() {
-		if ( $this->dataObj->getVal_Escaped( 'ffname' ) === 'wp-if' ) {
+		if ( $this->isESOP() ) {
 			return 'Gateway_Form_Mustache';
 		}
 		return parent::getFormClass();
@@ -281,8 +292,6 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	function definePaymentMethods() {
 		$this->payment_methods = array();
-		$this->payment_submethods = array();
-
 		$this->payment_methods['cc'] = array(
 			'label'	=> 'Credit Cards',
 		);
@@ -334,6 +343,7 @@ class WorldpayAdapter extends GatewayAdapter {
 				'Timeout',
 				'RequestType',
 				'Action',
+				'IsHosted',
 
 				'IsTest',
 				'MerchantId',
@@ -351,6 +361,7 @@ class WorldpayAdapter extends GatewayAdapter {
 				'Timeout' => 60000,         // 60 seconds
 				'RequestType' => 'G',       // Generate 1 time token
 				'Action' => 'A',            // Add a card to OTT
+				'IsHosted' => 1,
 			),
 		);
 
@@ -869,11 +880,20 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->transaction_response->setData( $data );
 		switch ( $this->getCurrentTransaction() ) {
 			case 'GenerateToken':
-				$this->addRequiredData( $data, array(
-					'OTT' => 'wp_one_time_token',
-					'OTTProcessURL' => 'wp_process_url',
-					'RDID' => 'wp_rdid',
-				) );
+				$required = null;
+				if ( $this->isESOP() ) {
+					$required = array(
+						'OTTRedirectURL' => 'wp_redirect_url',
+						'RDID' => 'wp_rdid',
+					);
+				} else {
+					$required = array(
+						'OTT' => 'wp_one_time_token',
+						'OTTProcessURL' => 'wp_process_url',
+						'RDID' => 'wp_rdid',
+					);
+				}
+				$this->addRequiredData( $data, $required );
 				break;
 
 			case 'QueryTokenData':
@@ -960,9 +980,6 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
-		if ( $this->dataObj->getVal_Escaped( 'ffname' ) === 'wp-if' ) {
-			$fields[] = 'address';
-		}
 		return $fields;
 	}
 
@@ -986,10 +1003,42 @@ class WorldpayAdapter extends GatewayAdapter {
 	protected function stage_returnto() {
 		global $wgServer, $wgArticlePath;
 
-		$this->staged_data['returnto'] = str_replace(
-			'$1',
-			'Special:WorldpayGateway?token=' . rawurlencode( $this->token_getSaltedSessionToken() ),
-			$wgServer . $wgArticlePath
+		// Rebuild the url with the token param.
+
+		$arr_url = parse_url(
+			$wgServer . str_replace(
+				'$1',
+				'Special:WorldpayGateway',
+				$wgArticlePath
+			)
+		);
+
+		$query = '';
+		$first = true;
+		if ( isset( $arr_url['query'] ) ) {
+			parse_str( $arr_url['query'], $arr_query );
+		}
+		// Worldpay decodes encoded URL unsafe characters in XML before storage,
+		// and sends them back that way in the return header.  So anything you
+		// want to be returned encoded must be double-encoded[1], for example
+		// %2526 will get returned as %26 and decoded to &, while %26 will get
+		// returned as & and treated as a query string separator.
+
+		// Additionally a properly encoded & will make their server respond
+		// MessageCode 302 (which means 'unavailable') unless it is wrapped in
+		// CDATA tags because godonlyknows
+		$arr_query['token'] = rawurlencode( $this->token_getSaltedSessionToken() );
+		$arr_query['ffname'] = rawurlencode( $this->getData_Unstaged_Escaped( 'ffname' ) );
+		foreach ( $arr_query as $key => $val ) {
+			$query .= ( $first ? '?' : '&' ) . $key . '=' . $val;
+			$first = false;
+		}
+
+		$this->staged_data['returnto'] = rawurlencode( // [1]
+			$arr_url['scheme'] .  '://' .
+			$arr_url['host'] .
+			$arr_url['path'] .
+			$query
 		);
 	}
 
@@ -1036,7 +1085,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	protected function loadRoutingInfo( $transaction ) {
 		switch ( $transaction ) {
 			case 'QueryAuthorizeDeposit':
-				break;
 			case 'GenerateToken':
 			case 'QueryTokenData':
 				$mid = $this->account_config['TokenizingMerchantID'];
