@@ -3163,7 +3163,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( !$this->session_exists() ) {
+		if ( $this->isBatchProcessor() || !$this->session_exists() ) {
 			return;
 		}
 		$oldData = $this->session_getData( 'Donor' );
