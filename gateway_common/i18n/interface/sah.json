@@ -3,7 +3,8 @@
 		"authors": [
 			"HalanTul",
 			"Jsoby",
-			"Pcoombe"
+			"Pcoombe",
+			"Исмаил Садуев"
 		]
 	},
 	"donate_interface": "Викимедианы өйүөххэйиҥ!",
@@ -165,7 +166,7 @@
 	"donate_interface-cvv2": "CVV2",
 	"donate_interface-cvv-number": "CVV нүөмэрэ",
 	"donate_interface-verification-number": "Бигэргэтэр нүөмэрэ",
-	"donate_interface-what-is-this": "Бу тугуй?",
+	"donate_interface-what-is-this": "ХӀара хӀун ду?",
 	"donate_interface-do-not-include-dashes": "Бука диэн, тирены туттума",
 	"donate_interface-please-donate-today": "Бука диэн билигин сиэртибэлээ",
 	"donate_interface-donate-now": "Билигин сиэртибэлииргэ",
@@ -187,24 +188,8 @@
 	"donate_interface-email-receipt": "Квитанцияны эл. почтаҕа ыытарга",
 	"donate_interface-monthly-donation": "Ый аайы ыытыы",
 	"donate_interface-via-paypal": "(PayPal нөҥүө)",
-	"donate_interface-shirt-size": "Футболка кээмэйэ:",
-	"donate_interface-shirt-size-2": "Футболка кээмэйэ: $1",
-	"donate_interface-language": "Тыла:",
-	"donate_interface-front": "Иннэ",
-	"donate_interface-back": "Кэннэ",
-	"donate_interface-front-of-shirt": "Футболка иннэ",
-	"donate_interface-back-of-shirt": "Футболка кэннэ",
-	"donate_interface-select-a-size": "Бука диэн, размергын тал",
 	"donate_interface-select": "Размер:",
-	"donate_interface-shipping-address": "Почта аадырыһа",
-	"donate_interface-shipping-address-different": "Почтам аадырыһа төлүүр аадырыспыттан ураты.",
-	"donate_interface-shipping-address-same": "Почтам аадырыһа төлүүр сирим аадырыһын кытта биир.",
-	"donate_interface-only-billing-address": "Төлүүр сир аадырыһыгар эрэ ыытыллыан сөп.",
 	"donate_interface-donation-must-equal": "Сиэртибэ кээмэйэ мантан $1 кыра буолуо суохтаах.",
 	"donate_interface-thank-you": "Махтанабыт! Сиэртибэҥ киирдэ.",
-	"donate_interface-wikipedia-translation": "Болҕойуҥ, ырбаахы сиэҕигэр суруллар «Wikipedia» диэн сурук тылбаастаныа суоҕа, ойуу быһыытынан маннык көстүө: «Wikipedia 10».",
-	"donate_interface-on-the-back": "Ону тэҥэ кэннигэр:",
-	"donate_interface-tshirt-confirmation": "Эйиэхэ бу тылынан суруктаах, маннык кээмэйдээх футболка ыытыллыа:",
-	"donate_interface-donation-tshirt": "Сиэртибэлээһин (футболка ыытабыт)",
 	"donate_interface-state-dropdown-XX": "АХШ таһыгар"
 }
