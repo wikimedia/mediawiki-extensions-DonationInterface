@@ -484,6 +484,12 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->isFailed(), 'PaymentResult should be failed' );
-		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+		$errors = $result->getErrors();
+
+		$this->assertEquals(
+			'Failed post-process checks for transaction type AuthorizePaymentForFraud.',
+			$errors['internal-0000']['debugInfo'],
+			'PaymentResult errors should include fraud check failure'
+		);
 	}
 }
