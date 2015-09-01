@@ -57,7 +57,7 @@ interface GatewayType {
 	/**
 	 * Define the message keys used to display errors to the user.  Should set
 	 * @see $this->error_map to an array whose keys are error codes and whose
-	 * values are i18n keys.
+	 * values are i18n keys or callables that return a translated error message.
 	 * Any unmapped error code will use 'donate_interface-processing-error'
 	 */
 	function defineErrorMap();
@@ -203,11 +203,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * $error_map maps gateway errors to client errors
 	 *
-	 * The key of each error should map to a i18n message key.
+	 * The key of each error should map to a i18n message key or a callable
 	 * By convention, the following three keys have these meanings:
 	 *   'internal-0000' => 'message-key-1', // Failed failed pre-process checks.
 	 *   'internal-0001' => 'message-key-2', // Transaction could not be processed due to an internal error.
 	 *   'internal-0002' => 'message-key-3', // Communication failure
+	 * A callable should return the translated error message.
 	 * Any undefined key will map to 'donate_interface-processing-error'
 	 *
 	 * @var	array	$error_map
@@ -713,10 +714,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$translatedMessage = '';
 		}
 
-		// If the $code does not exist, use the default message
 		if ( isset( $this->error_map[ $code ] ) ) {
-			$messageKey = $this->error_map[ $code ];
+			$mapped = $this->error_map[ $code ];
+			// Errors with complicated formatting can map to a function
+			if ( is_callable( $mapped ) ) {
+				return $mapped();
+			}
+			$messageKey = $mapped;
 		} else {
+			// If the $code does not exist, use the default message
 			$messageKey = 'donate_interface-processing-error';
 		}
 
