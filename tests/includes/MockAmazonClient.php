@@ -16,8 +16,8 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 	// called, recording all argument values.
 	public $calls = array();
 
-	// As above, but used to mock return values.  Values from array are wrapped
-	// in a MockAmazonResponse so we can call toArray() on them
+	// Keys are method names, values are arrays of error codes such as InvalidPaymentMethod
+	// When a code is not found, the operation will return a successful result
 	public $returns = array();
 
 	public function __construct( $config = null ) {
@@ -30,11 +30,12 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 
 	protected function fakeCall( $functionName, $arguments ) {
 		$this->calls[$functionName][] = $arguments;
+		$status = null;
 		$returnIndex = count( $this->calls[$functionName] ) - 1;
 		if ( isset( $this->returns[$functionName] ) && isset( $this->returns[$functionName][$returnIndex] ) ) {
-			return new MockAmazonResponse( $this->returns[$functionName][$returnIndex] );
+			$status = $this->returns[$functionName][$returnIndex];
 		}
-		return null;
+		return new MockAmazonResponse( $functionName, $status );
 	}
 
 	public function authorize( $requestParameters = array() ) {

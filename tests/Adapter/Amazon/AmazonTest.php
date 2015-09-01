@@ -33,140 +33,10 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->testAdapterClass = 'TestingAmazonAdapter';
 	}
 
-	private $normalResponses = array(
-		'setOrderReferenceDetails' => array (
-			'SetOrderReferenceDetailsResult' => array (
-				'OrderReferenceDetails' => array (
-					'OrderReferenceStatus' => array (
-						'State' => 'Draft',
-					),
-					'ExpirationTimestamp' => '2016-02-20T21:03:47.077Z',
-					'SellerOrderAttributes' => array (),
-					'OrderTotal' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '10.00',
-					),
-					'ReleaseEnvironment' => 'Sandbox',
-					'SellerNote' => 'Donation to the Wikimedia Foundation',
-					'AmazonOrderReferenceId' => 'S01-0391295-0674065',
-					'CreationTimestamp' => '2015-08-24T21:03:47.077Z',
-				),
-			),
-			'ResponseMetadata' => array (
-				'RequestId' => 'fce0cb84-1aa9-4f82-83a1-acf64ece1b56',
-			),
-			'ResponseStatus' => '200',
-		),
-		'confirmOrderReference' => array (
-			'ResponseMetadata' => array (
-				'RequestId' => 'bbda771d-1739-448e-bdff-d79881dea668',
-			),
-			'ResponseStatus' => '200',
-		),
-		'getOrderReferenceDetails' => array (
-			'GetOrderReferenceDetailsResult' => array (
-				'OrderReferenceDetails' => array (
-					'OrderReferenceStatus' => array (
-						'LastUpdateTimestamp' => '2015-08-24T21:50:01.773Z',
-						'State' => 'Open',
-					),
-					'ExpirationTimestamp' => '2016-02-20T21:03:47.077Z',
-					'IdList' => array (),
-					'SellerOrderAttributes' => array (),
-					'OrderTotal' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '10.00',
-					),
-					'Buyer' => array (
-						'Name' => 'Testy Test',
-						'Email' => 'nobody@wikimedia.org',
-					),
-					'ReleaseEnvironment' => 'Sandbox',
-					'SellerNote' => 'Donation to the Wikimedia Foundation',
-					'AmazonOrderReferenceId' => 'S01-0391295-0674065',
-					'CreationTimestamp' => '2015-08-24T21:03:47.077Z',
-				),
-			),
-			'ResponseMetadata' => array (
-				'RequestId' => 'd2759fcb-fdb0-4e93-8b9f-c3156d6bc5fd',
-			),
-			'ResponseStatus' => '200',
-		),
-		'authorize' => array (
-			'AuthorizeResult' => array (
-				'AuthorizationDetails' => array (
-					'AuthorizationAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '10.00',
-					),
-					'CapturedAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0',
-					),
-					'SoftDescriptor' => 'AMZ*Wikimedia Founda',
-					'ExpirationTimestamp' => '2015-09-23T21:50:58.221Z',
-					'IdList' => array (
-						'member' => 'S01-0391295-0674065-C095112',
-					),
-					'AuthorizationStatus' => array (
-						'LastUpdateTimestamp' => '2015-08-24T21:50:58.221Z',
-						'ReasonCode' => 'MaxCapturesProcessed',
-						'State' => 'Closed',
-					),
-					'AuthorizationFee' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0.00',
-					),
-					'CaptureNow' => 'true',
-					'SellerAuthorizationNote' => array (),
-					'CreationTimestamp' => '2015-08-24T21:50:58.221Z',
-					'AmazonAuthorizationId' => 'S01-0391295-0674065-A095112',
-					'AuthorizationReferenceId' => '31243-0',
-				),
-			),
-			'ResponseMetadata' => array (
-				'RequestId' => '785d061e-e152-4180-80d1-3a492d16e24e',
-			),
-			'ResponseStatus' => '200',
-		),
-		'getCaptureDetails' => array (
-			'GetCaptureDetailsResult' => array (
-				'CaptureDetails' => array (
-					'CaptureReferenceId' => '31243-0',
-					'CaptureFee' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0.00',
-					),
-					'AmazonCaptureId' => 'S01-0391295-0674065-C095112',
-					'CreationTimestamp' => '2015-08-24T21:50:58.321Z',
-					'SoftDescriptor' => 'AMZ*Wikimedia Founda',
-					'IdList' => array (),
-					'CaptureStatus' => array (
-						'LastUpdateTimestamp' => '2015-08-24T21:50:58.321Z',
-						'State' => 'Completed',
-					),
-					'SellerCaptureNote' => array (),
-					'RefundedAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0',
-					),
-					'CaptureAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '10.00',
-					),
-				),
-			),
-			'ResponseMetadata' => array (
-				'RequestId' => 'f863dd05-99f3-4e9c-b0b6-561d65281cd7',
-			),
-			'ResponseStatus' => '200',
-		),
-	);
-
 	public function setUp() {
 		parent::setUp();
 
-		$this->resetClient();
+		TestingAmazonAdapter::$client = new MockAmazonClient();
 
 		$this->setMwGlobals( array(
 			'wgAmazonGatewayEnabled' => true,
@@ -199,13 +69,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	public function tearDown() {
 		TestingAmazonAdapter::$fakeGlobals = array();
 		parent::tearDown();
-	}
-
-	protected function resetClient() {
-		TestingAmazonAdapter::$client = new MockAmazonClient();
-		foreach ( $this->normalResponses as $function => $response ) {
-			TestingAmazonAdapter::$client->returns[$function][] = $response;
-		}
 	}
 
 	/**
@@ -310,40 +173,9 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['email'] );
 		unset( $init['fname'] );
 		unset( $init['lname'] );
+
 		$mockClient = TestingAmazonAdapter::$client;
-		$mockClient->returns['authorize'][0] = array (
-			'AuthorizeResult' => array (
-				'AuthorizationDetails' => array (
-					'AuthorizationAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '10.00',
-					),
-					'CapturedAmount' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0',
-					),
-					'SoftDescriptor' => 'AMZ*Wikimedia Founda',
-					'ExpirationTimestamp' => '2015-09-24T18:24:37.748Z',
-					'AuthorizationStatus' => array (
-						'LastUpdateTimestamp' => '2015-08-25T18:24:37.748Z',
-						'State' => 'Declined',
-						'ReasonCode' => 'InvalidPaymentMethod',
-					),
-					'AuthorizationFee' => array (
-						'CurrencyCode' => 'USD',
-						'Amount' => '0.00',
-					),
-					'CaptureNow' => 'true',
-					'CreationTimestamp' => '2015-08-25T18:24:37.748Z',
-					'AmazonAuthorizationId' => 'S01-2525143-9142520-A075353',
-					'AuthorizationReferenceId' => '31243-0',
-				),
-			),
-			'ResponseMetadata' => array (
-				'RequestId' => '0122bebe-b8c3-4435-8169-8b3a92ba1800',
-			),
-			'ResponseStatus' => '200',
-		);
+		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
