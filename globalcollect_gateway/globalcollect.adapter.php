@@ -367,7 +367,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'OK' => true,
 			'NOK' => false,
 		);
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 0, 70 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 0, 10 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 15 ); // Refund failed
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 20, 70 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 100, 180 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING_POKE, 200 ); //The cardholder was successfully authenticated... but we have to DO_FINISHPAYMENT
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 220, 280 );
@@ -380,9 +382,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 625, 650 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 800, 975 ); //these are all post-authorized, but technically pre-settled...
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::COMPLETE, 1000, 1050 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1100, 99999 );
-		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 100000, 999999 ); // 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
-
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1100, 1520 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::REFUNDED, 1800 );
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 1810, 2220 );
+		// FIXME: not sure what this comment is about:
+		// 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
+		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::CANCELLED, 99999 );
 
 		$this->defineGoToThankYouOn();
 	}
@@ -530,6 +535,57 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->transactions['DO_REFUND'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'PAYMENTPRODUCTID',
+							'ORDERID',
+							'MERCHANTREFERENCE',
+							'AMOUNT',
+							'CURRENCYCODE',
+							'COUNTRYCODE',
+						)
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'DO_REFUND',
+				'VERSION' => '1.0',
+			),
+		);
+
+		$this->transactions['SET_REFUND'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION'
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'PAYMENTPRODUCTID',
+							'ORDERID',
+							'EFFORTID',
+						)
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'SET_REFUND',
+				'VERSION' => '1.0',
+			),
+		);
+
 		$this->transactions['TEST_CONNECTION'] = array(
 			'request' => array(
 				'REQUEST' => array(
@@ -670,6 +726,52 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '1.0',
 				'HOSTEDINDICATOR' => '0',
 				'AUTHENTICATIONINDICATOR' => '0',
+			),
+		);
+
+		// Cancel a recurring transaction if all payment attempts can be canceled
+		$this->transactions['CANCEL_ORDER'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'ORDER' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'CANCEL_ORDER',
+				'VERSION' => '1.0',
+			),
+		);
+
+		// End a recurring transaction, disallowing further payment attempts
+		$this->transactions['END_ORDER'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'ORDER' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'values' => array(
+				'ACTION' => 'END_ORDER',
+				'VERSION' => '1.0',
 			),
 		);
 	}
@@ -1450,26 +1552,50 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Process a non-initial effort_id charge.
+	 *
+	 * Finalizes the transaction according to the outcome.
+	 *
+	 * @return PaymentTransactionResponse Last API response we received, in
+	 * case the caller wants to try to extract information.
 	 */
 	protected function transactionRecurring_Charge() {
-		$response = $this->do_transaction( 'DO_PAYMENT' );
-		$result = PaymentResult::fromResults(
-			$response,
-			$this->getFinalStatus()
-		);
-		if ( $response->getCommunicationStatus()
-			 && !$result->isFailed()
-			 && !$result->getErrors()
-		   ) {
-			$response = $this->do_transaction( 'GET_ORDERSTATUS' );
-			$data = $this->getTransactionData();
-			$orderStatus = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
-			if ( $this->getTransactionStatus() && $orderStatus === FinalStatus::PENDING_POKE ) {
-				$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
-				$response = $this->do_transaction('SET_PAYMENT');
-			}
+		$do_payment_response = $this->do_transaction( 'DO_PAYMENT' );
+		// Ignore possible NOK, we might be resuming an incomplete charge in which
+		// case DO_PAYMENT is expected to fail.  There's no status code returned
+		// from this call, in that case.
+
+		// So get the status and see what we've accomplished so far.
+		$get_orderstatus_response = $this->do_transaction( 'GET_ORDERSTATUS' );
+		$data = $this->getTransactionData();
+
+		// If can't even get the status, fail.
+		if ( !$get_orderstatus_response->getCommunicationStatus() ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return $get_orderstatus_response;
 		}
-		return $response;
+
+		// Test that we're in status 600 now, and fail if not.
+		if ( !isset( $data['STATUSID'] )
+			|| $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] ) !== FinalStatus::PENDING_POKE
+		) {
+			// FIXME: It could actually be in a pending state at this point,
+			// I wish we could express that uncertainty.
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return $get_orderstatus_response;
+		}
+
+		// Settle.
+		$this->transactions['SET_PAYMENT']['values']['PAYMENTPRODUCTID'] = $data['PAYMENTPRODUCTID'];
+		$set_payment_response = $this->do_transaction('SET_PAYMENT');
+
+		// Finalize the transaction as complete or failed.
+		if ( $set_payment_response->getCommunicationStatus() ) {
+			$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+		} else {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+		}
+
+		return $set_payment_response;
 	}
 
     protected function transactionDirect_Debit() {
@@ -1502,6 +1628,132 @@ class GlobalCollectAdapter extends GatewayAdapter {
         }
         return $result;
     }
+
+	/**
+	 * Refunds a transaction.  Assumes that we're running in batch mode with
+	 * payment_method = cc, and that all of these have been set:
+	 * order_id, effort_id, country, currency_code, amount, and payment_submethod
+	 * Also requires merchant_reference to be set to the reference from the
+	 * original transaction.  FIXME: store that some place besides the logs
+	 * @return PaymentResult
+	 */
+	public function doRefund() {
+		$effortId = $this->getData_Unstaged_Escaped( 'effort_id' );
+
+		// Don't want to use standard ct_id staging
+		$this->var_map['MERCHANTREFERENCE'] = 'merchant_reference';
+
+		// Try cancelling first, it's fast and cheap.
+		// TODO: Look into AUTHORIZATIONREVERSALINDICATOR
+		$cancel_payment_response = $this->do_transaction( 'CANCEL_PAYMENT' );
+
+		if ( $cancel_payment_response->getCommunicationStatus() ) {
+			// That's all we need!
+			$this->logger->info( "Canceled payment attempt effort $effortId" );
+			return PaymentResult::fromResults( $cancel_payment_response, FinalStatus::COMPLETE );
+		}
+
+		// Get the status and see what we've accomplished so far.
+		$get_orderstatus_response = $this->do_transaction( 'GET_ORDERSTATUS' );
+		$get_orderstatus_data = $get_orderstatus_response->getData();
+
+		// If we can't even get the status, fail.
+		if ( !$get_orderstatus_response->getCommunicationStatus()
+			|| !isset( $get_orderstatus_data['STATUSID'] )
+		) {
+			$this->logger->warning( "Could not get status for payment attempt effort $effortId." );
+			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::FAILED );
+		}
+
+		$final_status = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $get_orderstatus_data['STATUSID'] );
+
+		// If it's already cancelled or refunded, pat own back.
+		// FIXME: I don't think the original txn goes into refunded status, just
+		// the refund txn with the same order id but negated efort ID
+		if ( $final_status === FinalStatus::CANCELLED
+			|| $final_status === FinalStatus::REFUNDED
+		) {
+			$this->logger->info( "Payment attempt effort $effortId already canceled or refunded." );
+			return PaymentResult::fromResults( $get_orderstatus_response, FinalStatus::COMPLETE );
+		}
+
+		// Refunding a transaction creates another "payment" against the same
+		// order id, but with a negated effort id.  Check to see if a refund has
+		// already been requested.
+		// TODO: is it always the negative of the original payment's effort id?
+		$this->transactions['GET_ORDERSTATUS']['values']['EFFORTID'] =
+			-1 * intval( $effortId );
+
+		$refund_response = $this->do_transaction( 'GET_ORDERSTATUS' );
+		$refund_data = $refund_response->getData();
+
+		// If there is no existing refund, request one
+		if ( !isset( $refund_data['STATUSID'] ) ) {
+			$refund_response = $this->do_transaction( 'DO_REFUND' );
+			$refund_data = $refund_response->getData();
+		}
+
+		if ( !$refund_response->getCommunicationStatus()
+			|| !isset( $refund_data['STATUSID'] )
+		) {
+			// No existing refund, and requesting a new one failed
+			$this->logger->warning( "Could not request refund for payment attempt effort $effortId." );
+			return PaymentResult::fromResults( $refund_response, FinalStatus::FAILED );
+		}
+
+		// We should have a refund with a status code by now.
+		// TODO: should refunds have their own set of code maps?  CC state diagram
+		// shows a parallel refund track where 800 means 'refund ready', 900
+		// means 'refund sent', and 1800 means 'refunded'
+		$refund_status = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $refund_data['STATUSID'] );
+
+		// Done? Good!
+		if ( $refund_status === FinalStatus::COMPLETE || $refund_status === FinalStatus::REFUNDED ) {
+			$this->logger->info( "Refund request for payment attempt effort $effortId is complete." );
+			return PaymentResult::fromResults( $refund_response, FinalStatus::COMPLETE );
+		}
+
+		// If the refund is pending, settle it
+		if ( $refund_status === FinalStatus::PENDING_POKE ) {
+			$this->transactions['SET_REFUND']['values']['PAYMENTPRODUCTID'] = $refund_data['PAYMENTPRODUCTID'];
+			$set_refund_response = $this->do_transaction('SET_REFUND');
+
+			if ( !$set_refund_response->getCommunicationStatus() ) {
+				$this->logger->warning( "Could not settle refund request for payment attempt effort $effortId." );
+				return PaymentResult::fromResults( $set_refund_response, FinalStatus::FAILED );
+			}
+
+			$this->logger->info( "Settled refund request for payment attempt effort $effortId." );
+			return PaymentResult::fromResults( $set_refund_response, FinalStatus::COMPLETE );
+		}
+
+		// What the heck happened?
+		$this->logger->warning( "Refund request for payment attempt effort $effortId has unknown status." );
+		return PaymentResult::fromResults( $refund_response, FinalStatus::FAILED );
+	}
+
+	/**
+	 * Cancel a subscription
+	 *
+	 * Uses the adapter's internal order ID.
+	 *
+	 * @return PaymentResult
+	 */
+	public function cancelSubscription() {
+		// Try to cancel, in case no payment attempts have been made or all
+		// payment attempts can be canceled
+		$response = $this->do_transaction( 'CANCEL_ORDER' );
+
+		if ( !$response->getCommunicationStatus() ) {
+			// If we can't cancel, end it to disallow future attempts
+			$response = $this->do_transaction( 'END_ORDER' );
+			if ( !$response->getCommunicationStatus() ) {
+				return PaymentResult::fromResults( $response, FinalStatus::FAILED );
+			}
+		}
+
+		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
+	}
 
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
@@ -1626,6 +1878,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$data['ORDER'] = $this->xmlChildrenToArray( $response, 'ORDER' );
 				break;
 			case 'DO_FINISHPAYMENT':
+			case 'DO_REFUND':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				break;
 			case 'DO_PAYMENT':
@@ -1959,6 +2212,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					 * What should we actually do with these people, other than the default error log?
 					 * Special error page saying that they may already have donated?
 					 * @TODO: This absolutely happens IRL. Attempt to handle gracefully once we figure out what that means.
+					 *
+					 * I think we can just SET_PAYMENT at this point. -AW
 					 */
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );

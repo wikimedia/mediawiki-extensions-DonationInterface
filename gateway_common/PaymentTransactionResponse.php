@@ -14,7 +14,7 @@ class PaymentTransactionResponse {
 	 * If there weren't any, this should be present and empty after a
 	 * transaction.
 	 */
-	protected $errors;
+	protected $errors = array();
 
 	/**
 	 * @var string Raw return data from the cURL transaction

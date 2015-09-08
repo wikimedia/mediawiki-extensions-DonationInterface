@@ -64,9 +64,10 @@ class PaymentResult {
 		return $response;
 	}
 
-	static public function newFailure() {
+	static public function newFailure( $errors = array() ) {
 		$response = new PaymentResult();
 		$response->failed = true;
+		$response->errors = $errors;
 		return $response;
 	}
 
@@ -108,10 +109,12 @@ class PaymentResult {
 	 *
 	 * @param PaymentTransactionResponse $response processed response object
 	 * @param string $finalStatus final transaction status.
+	 *
+	 * @return PaymentResult
 	 */
 	static public function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {
-			return PaymentResult::newFailure();
+			return PaymentResult::newFailure( $response->getErrors() );
 		}
 		if ( !$response ) {
 			return PaymentResult::newEmpty();

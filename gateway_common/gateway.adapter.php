@@ -448,7 +448,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function getLogMessagePrefix() {
 		if ( !is_object( $this->dataObj ) ) {
 			//please avoid exploding; It's just a log line.
-			return 'Constructing!';
+			return 'Constructing! ';
 		}
 		return $this->dataObj->getLogMessagePrefix();
 	}
@@ -466,31 +466,34 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * getFailPage should either return a full page url, or false.
-	 * @return mixed Page URL in string format, or false if none is set.
+	 * @return string full Page URL
 	 */
 	public function getFailPage() {
 		//Prefer RapidFail.
-		if ( self::getGlobal( "RapidFailPage" ) ) {
+		if ( self::getGlobal( 'RapidFail' ) ) {
 			$data = $this->getData_Unstaged_Escaped();
 
 			//choose which fail page to go for.
 			try {
 				$fail_ffname = GatewayFormChooser::getBestErrorForm( $data['gateway'], $data['payment_method'], $data['payment_submethod'] );
+				return GatewayFormChooser::buildPaymentsFormURL( $fail_ffname, $this->getRetryData() );
 			} catch ( Exception $e ) {
 				$this->logger->error( 'Cannot determine best error form. ' . $e->getMessage() );
 			}
-
-			return GatewayFormChooser::buildPaymentsFormURL( $fail_ffname, $this->getRetryData() );
 		}
-		$page = self::getGlobal( "FailPage" );
-		if ( $page ) {
-
-			$language = $this->getData_Unstaged_Escaped( 'language' );
-
-			$page .= '?uselang=' . $language;
+		$page = self::getGlobal( 'FailPage' );
+		if ( filter_var( $page, FILTER_VALIDATE_URL ) ) {
+			return $this->appendLanguageAndMakeURL( $page );
 		}
-		return $page;
+
+		// FIXME: either add Special:FailPage to avoid depending on wiki content,
+		// or update the content on payments to be consistent with the /lang
+		// format of ThankYou pages so we can use appendLanguageAndMakeURL here.
+		$failTitle = Title::newFromText( $page );
+		$language = $this->getData_Unstaged_Escaped( 'language' );
+		$url = wfAppendQuery( $failTitle->getFullURL(), array( 'uselang' => $language ) );
+
+		return $url;
 	}
 
 	/**
@@ -3160,7 +3163,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( !$this->session_exists() ) {
+		if ( $this->isBatchProcessor() || !$this->session_exists() ) {
 			return;
 		}
 		$oldData = $this->session_getData( 'Donor' );

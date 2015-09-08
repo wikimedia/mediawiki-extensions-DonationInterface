@@ -42,7 +42,8 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 		if ( $fake ) {
 			if ( $fail ) {
-				$go = $this->getDeclinedResultPage();
+				$this->displayFailPage();
+				return;
 			} else {
 				$go = $this->adapter->getThankYouPage();
 			}
@@ -131,8 +132,8 @@ class GlobalCollectGatewayResult extends GatewayPage {
 							$go = $this->adapter->getThankYouPage();
 							break;
 						case FinalStatus::FAILED:
-							$go = $this->getDeclinedResultPage();
-							break;
+							$this->displayFailPage();
+							return;
 					}
 
 					if ( $go ) {
@@ -150,20 +151,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		} else {
 			$this->logger->error("Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
-	}
-	
-	/**
-	 * Get the URL to redirect to when the transaction has been declined. This will be the form the
-	 * user came from with all the data and an error message.
-	 * @throws RuntimeException
-	 */
-	function getDeclinedResultPage() {
-		$failpage = $this->adapter->getFailPage();
-
-		if ( !$failpage ) {
-			throw new RuntimeException( __FUNCTION__ . ': No declined result page defined. Please define a FailPage global for ' . $this->adapter->getGatewayIdentifier() );
-		}
-		return $failpage;
 	}
 
 	function popout_if_iframe() {
