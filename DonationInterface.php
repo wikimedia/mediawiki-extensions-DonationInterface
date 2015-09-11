@@ -856,6 +856,7 @@ $wgResourceModules['ext.donationinterface.amazon.styles'] = array(
 
 $wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
 	'scripts' => 'amazon.js',
+	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/amazon_gateway',
 	'remoteExtPath' => 'DonationInterface/amazon_gateway',
 );

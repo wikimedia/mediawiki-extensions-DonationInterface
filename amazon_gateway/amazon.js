@@ -168,12 +168,22 @@
 		}
 	}
 
-	// FIXME: if donation amount is edited after we call setOrderReferenceDetails
-	// once, we need to close the old order reference and get a new one on retry.
-	// Maybe just make it non-editable here?
+	function lockDonationAmount() {
+		if ( $( '#amount_input' ).is( ':visible' ) ) {
+			$( '#amount_input' ).hide();
+			$( '#selected-amount' )
+				.html( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
+				.show();
+		}
+	}
+
 	function submitPayment() {
+		if ( !window.validateAmount() ) {
+			return;
+		}
 		$( '#topError' ).html('');
 		$( '#overlay' ).show();
+		lockDonationAmount();
 		var postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',

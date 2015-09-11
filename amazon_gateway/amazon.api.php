@@ -21,7 +21,13 @@ class AmazonBillingApi extends ApiBase {
 
 		$adapter = new AmazonAdapter( $adapterParams );
 
-		if ( $adapter->checkTokens() ) {
+		if ( !$adapter->validatedOK() ) {
+			$output->addValue(
+				null,
+				'errors',
+				$adapter->getValidationErrors()
+			);
+		} else if ( $adapter->checkTokens() ) {
 			$adapter->addRequestData( array(
 				'order_reference_id' => $orderReferenceId,
 			) );
