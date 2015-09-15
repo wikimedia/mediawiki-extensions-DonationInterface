@@ -343,7 +343,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'Timeout',
 				'RequestType',
 				'Action',
-				'IsHosted',
 
 				'IsTest',
 				'MerchantId',
@@ -361,7 +360,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'Timeout' => 60000,         // 60 seconds
 				'RequestType' => 'G',       // Generate 1 time token
 				'Action' => 'A',            // Add a card to OTT
-				'IsHosted' => 1,
 			),
 		);
 
@@ -783,6 +781,11 @@ class WorldpayAdapter extends GatewayAdapter {
 
 		switch ( $transaction ) {
 			case 'GenerateToken':
+				// This parameter will cause WP to use the iframe code path.
+				if ( $this->isESOP() ) {
+					$this->transactions['GenerateToken']['values']['IsHosted'] = 1;
+				}
+
 				$result = parent::do_transaction( $transaction );
 				if ( !$result->getErrors() ) {
 					// Save the OTT to the session for later
