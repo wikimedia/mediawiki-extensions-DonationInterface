@@ -109,8 +109,10 @@ class AmazonAdapter extends GatewayAdapter {
 			$language = $self->getData_Unstaged_Escaped( 'language' );
 			$country = $self->getData_Unstaged_Escaped( 'country' );
 			return WmfFramework::formatMessage(
-				'donate_interface-donate-error-try-a-different-card-html', 'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give'
-				. "&amp;language=$language&amp;uselang=$language&amp;country=$country", 'problemsdonating@wikimedia.org'
+				'donate_interface-donate-error-try-a-different-card-html',
+				'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give'
+					. "&amp;language={$language}&amp;uselang={$language}&amp;country={$country}",
+				'problemsdonating@wikimedia.org'
 			);
 		};
 		$this->error_map = array(
