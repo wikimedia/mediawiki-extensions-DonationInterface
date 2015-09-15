@@ -524,14 +524,14 @@ $forms_whitelist['adyen-cs'] = array(
  * Worldpay *
  **********/
 // This is at the bottom so that we prefer GC over Worldpay
-$forms_whitelist['worldpay'] = array(
-	'file' => $form_dirs['worldpay'] . '/worldpay.html',
-	'gateway' => 'worldpay',
-	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
-	'currencies' => array( '+' => 'ALL' ),
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 10
-);
+#$forms_whitelist['worldpay'] = array(
+#	'file' => $form_dirs['worldpay'] . '/worldpay.html',
+#	'gateway' => 'worldpay',
+#	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
+#	'currencies' => array( '+' => 'ALL' ),
+#	'payment_methods' => array( 'cc' => 'ALL' ),
+#	'selection_weight' => 10
+#);
 
 // Worldpay ESOP feat iframe
 $forms_whitelist['wp-if'] = array(
@@ -547,29 +547,29 @@ $forms_whitelist['wp-if'] = array(
  * Worldpay Form Tests *
  *************************/
 
-$worldpay_test_spec = array(
-	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
-	'selection_weight' => 0,
-) + $forms_whitelist['worldpay'];
-
-//until we are ready for US testing with the other test forms, we have to limit to the old list.
-$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
-
-$forms_whitelist['wp-sn'] = $worldpay_test_spec;
-$forms_whitelist['wp-sw'] = $worldpay_test_spec;
-$forms_whitelist['wp-fud'] = $worldpay_test_spec;
-$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
-$forms_whitelist['wp-btng'] = $worldpay_test_spec;
-
-
-$forms_whitelist['wp-ddcc'] = array(
-	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
-	   'gateway' => 'worldpay',
-	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
-	   'currencies' => array( '+' => 'ALL' ),
-	   'payment_methods' => array( 'cc' => 'ALL' ),
-	   'selection_weight' => 0
-);
+#$worldpay_test_spec = array(
+#	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
+#	'selection_weight' => 0,
+#) + $forms_whitelist['worldpay'];
+#
+#//until we are ready for US testing with the other test forms, we have to limit to the old list.
+#$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
+#
+#$forms_whitelist['wp-sn'] = $worldpay_test_spec;
+#$forms_whitelist['wp-sw'] = $worldpay_test_spec;
+#$forms_whitelist['wp-fud'] = $worldpay_test_spec;
+#$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
+#$forms_whitelist['wp-btng'] = $worldpay_test_spec;
+#
+#
+#$forms_whitelist['wp-ddcc'] = array(
+#	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
+#	   'gateway' => 'worldpay',
+#	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
+#	   'currencies' => array( '+' => 'ALL' ),
+#	   'payment_methods' => array( 'cc' => 'ALL' ),
+#	   'selection_weight' => 0
+#);
 
 /* * ***********
  * Error Pages *
