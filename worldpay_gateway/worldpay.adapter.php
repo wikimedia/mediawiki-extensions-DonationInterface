@@ -1008,7 +1008,7 @@ class WorldpayAdapter extends GatewayAdapter {
 		$arr_url = parse_url(
 			$wgServer . str_replace(
 				'$1',
-				'Special:WorldpayGateway',
+				'Special:WorldpayGatewayResult',
 				$wgArticlePath
 			)
 		);

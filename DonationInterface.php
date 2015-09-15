@@ -98,6 +98,7 @@ $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.
 
 // Worldpay
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
+$wgAutoloadClasses['WorldpayGatewayResult'] = __DIR__ . '/worldpay_gateway/worldpay_resultswitcher.body.php';
 $wgAutoloadClasses['WorldpayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
 
 $wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
@@ -776,6 +777,7 @@ $wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
+$wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
 //Custom Filters hooks
