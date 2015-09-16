@@ -223,6 +223,7 @@
 	"donate_interface-thank-you": "Ďakujeme! Váš dar bol prijatý.",
 	"donate_interface-state-dropdown-XX": "Mimo USA",
 	"donate_interface-rtbt-issuer_id": "Vybrať banku",
+	"donate_interface-email-subject": "Ďakuje vám Wikimedia Foundation",
 	"donate_interface-faqs": "Často kladené otázky",
 	"donate_interface-tax-info": "Informácie o možnosti odpočítania dane",
 	"donate_interface-informationsharing": "Svojim príspevkom súhlasíte so sprístupnením osobných informácií nadácii Wikimedia Foundation, neziskovej organizácii, ktorá spravuje Wikipediu a iné projekty Wikimedia, a jej poskytovateľom služieb v súlade s našimi <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravidlami darcovstva</a>. Nadácia Wikimedia Foundation a jej poskytovatelia služieb majú sídlo v USA a v iných krajinách, ktorých právne predpisy týkajúce sa ochrany súkromia nemusia byť rovnaké ako právne predpisy vo Vašej krajine. Vaše informácie nikomu nepredávame ani s nimi neobchodujeme. Ďalšie informácie nájdete v našich <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">pravidlách darcovstva</a>.",
