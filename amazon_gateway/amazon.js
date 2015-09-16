@@ -13,6 +13,13 @@
 		billingAgreementId,
 		orderReferenceId;
 
+	$( function() {
+		// Add a couple divs to hold the widgets
+		var container = $( '.submethods' ).parent();
+		container.prepend( '<div id="walletWidget" />' );
+		container.prepend( '<div id="amazonLogin" />' );
+	});
+
 	// Adapted from Amazon documentation, will get parameters from fragment as
 	// well as querystring and accepts Amazon's custom delimiters
 	function getURLParameter( name, source ) {

@@ -130,9 +130,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 	public function definePaymentMethods() {
 		$this->payment_methods = array(
-			'amazon' => array(
-				'profile_provided' => true, // Donor needn't enter name/email
-			),
+			'amazon' => array(),
 		);
 
 		$this->payment_submethods = array(

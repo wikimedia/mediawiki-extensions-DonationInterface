@@ -1,17 +1,21 @@
+{{# fname_required }}{{! if we don't need the fname, hide the whole name cell }}
 						<tr>
 							<td>
 								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required>
 							</td>
 						</tr>
+{{/ fname_required }}
+{{# email_required }}
 						<tr>
 							<td>
 								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required>
 							</td>
 						</tr>
-{{# method_metadata.validation.fiscal_number }}
+{{/ email_required }}
+{{# fiscal_number_required }}
 						<tr>
 							<td>
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number" required >
 							</td>
 						</tr>
-{{/ method_metadata.validation.fiscal_number }}
+{{/ fiscal_number_required }}
