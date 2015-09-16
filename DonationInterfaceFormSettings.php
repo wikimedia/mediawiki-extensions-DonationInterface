@@ -540,7 +540,7 @@ $forms_whitelist['wp-if'] = array(
 	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
 	'currencies' => array( '+' => 'ALL' ),
 	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 10
+	'selection_weight' => 0
 );
 
 /*************************
