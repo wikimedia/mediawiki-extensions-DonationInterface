@@ -294,6 +294,10 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->payment_methods = array();
 		$this->payment_methods['cc'] = array(
 			'label'	=> 'Credit Cards',
+			'validation' => array(
+				'name' => true,
+				'email' => true
+			),
 		);
 
 		$this->payment_submethods = array();
@@ -979,11 +983,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	protected function buildRequestXML( $rootElement = 'TMSTN', $encoding = 'ISO-8859-1' ) {
 		$xml = parent::buildRequestXML( $rootElement, $encoding );
 		return 'StringIn=' . str_replace( "\n", '', $xml );
-	}
-
-	public function getRequiredFields() {
-		$fields = parent::getRequiredFields();
-		return $fields;
 	}
 
 	// override the charset from the parent function
