@@ -34,122 +34,41 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	}
 
 	public function setUp() {
-		global $wgAmazonGatewayHtmlFormDir;
-
 		parent::setUp();
+
+		TestingAmazonAdapter::$client = new MockAmazonClient();
 
 		$this->setMwGlobals( array(
 			'wgAmazonGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'amazon' => array(
-					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon.html',
 					'gateway' => 'amazon',
 					'payment_methods' => array('amazon' => 'ALL'),
 					'redirect',
 				),
 				'amazon-recurring' => array(
-					'file' => $wgAmazonGatewayHtmlFormDir . '/amazon-recurring.html',
 					'gateway' => 'amazon',
 					'payment_methods' => array('amazon' => 'ALL'),
 					'redirect',
 					'recurring',
 				),
 			),
+			'wgAmazonGatewayAccountInfo' => array( 'test' => array(
+				'SellerID' => 'ABCDEFGHIJKL',
+				'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
+				'ClientSecret' => '12432g134e3421a41234b1341c324123d',
+				'MWSAccessKey' => 'N0NSENSEXYZ',
+				'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
+				'Region' => 'us',
+				'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+				'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
+			) ),
 		) );
 	}
 
 	public function tearDown() {
 		TestingAmazonAdapter::$fakeGlobals = array();
 		parent::tearDown();
-	}
-
-	/**
-	 * Integration test to verify that the Donate transaction works as expected when all necessary data is present.
-	 */
-	function testDoTransactionDonate() {
-		$init = $this->getDonorTestData();
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		//@TODO: Refactor the hell out of the Amazon adapter so it looks like... anything else we have, and it remotely testable.
-		//In the meantime, though...
-		$gateway->do_transaction( 'Donate' );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$ret = $exposed->buildRequestParams();
-
-		$expected = array (
-			'accessKey' => 'testkey',
-			'amount' => $init['amount'],
-			'collectShippingAddress' => '0',
-			'description' => 'Donation to the Wikimedia Foundation',
-			'immediateReturn' => '1',
-			'ipnUrl' => 'https://test.wikimedia.org/amazon',
-			'isDonationWidget' => '1',
-			'processImmediate' => '1',
-			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
-			'signatureMethod' => 'HmacSHA256',
-			'signatureVersion' => '2',
-		);
-
-		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
-		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
-	}
-
-	/**
-	 * Make sure the order ID is appended correctly if the ReturnURL already has
-	 * querystring parameters
-	 */
-	function testReturnURLAppendQuerystring() {
-		$init = $this->getDonorTestData();
-		$gateway = $this->getFreshGatewayObject( $init );
-		TestingAmazonAdapter::$fakeGlobals = array(
-			'ReturnURL' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?platypus=awesome'
-		);
-
-		$gateway->do_transaction( 'Donate' );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$ret = $exposed->buildRequestParams();
-		$expected = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?platypus=awesome&ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' );
-		 
-		$this->assertEquals( $expected, $ret['returnUrl'], 'Amazon "Donate" transaction not building the expected returnUrl' );
-	}
-
-	/**
-	 * Integration test to verify that the Donate transaction works as expected
-	 * in Canada (English and French) when all necessary data is present.
-	 *
-	 * @dataProvider canadaLanguageProvider
-	 */
-	function testDoTransactionDonate_CA( $language ) {
-		$init = $this->getDonorTestData( 'CA' );
-		$init['language'] = $language;
-		$init['currency_code'] = 'USD';
-		$this->setLanguage( $language );
-		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway->do_transaction( 'Donate' );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$ret = $exposed->buildRequestParams();
-
-		$expected = array (
-			'accessKey' => 'testkey',
-			'amount' => $init['amount'],
-			'collectShippingAddress' => '0',
-			'description' => $donateText,
-			'immediateReturn' => '1',
-			'ipnUrl' => 'https://test.wikimedia.org/amazon',
-			'isDonationWidget' => '1',
-			'processImmediate' => '1',
-			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
-			'signatureMethod' => 'HmacSHA256',
-			'signatureVersion' => '2',
-		);
-
-		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
-		$this->assertEquals( $expected, $ret, 'Amazon "Donate" transaction not building the expected request params' );
 	}
 
 	/**
@@ -164,9 +83,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['payment_method'] = 'amazon';
 		$init['ffname'] = 'amazon';
 		$init['language'] = $language;
-		$init['redirect'] = 1;
-		$donateText = wfMessage( 'donate_interface-donation-description' )->inLanguage( $language )->text();
-
 		$rates = CurrencyRates::getCurrencyRates();
 		$cadRate = $rates['CAD'];
 
@@ -174,93 +90,30 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 		TestingAmazonAdapter::$fakeGlobals = array(
 			'FallbackCurrency' => 'USD',
-			'NotifyOnConvert' => false,
+			'NotifyOnConvert' => true,
 		);
+
+		$expectedNotification = wfMessage(
+			'donate_interface-fallback-currency-notice',
+			'USD'
+		)->inLanguage( $language )->text();
+
 		$that = $this; //needed for PHP pre-5.4
-		$redirectTest = function( $location ) use ( $expectedAmount, $donateText, $that ) {
-			$actual = array();
-			parse_str( $location, $actual );
-			$that->assertTrue( is_numeric( $actual['amount'] ) );
-			$difference = abs( floatval( $actual['amount'] ) - $expectedAmount );
+		$convertTest = function( $amountString ) use ( $expectedAmount, $that ) {
+			$actual = explode( ' ', trim( $amountString ) );
+			$that->assertTrue( is_numeric( $actual[0] ) );
+			$difference = abs( floatval( $actual[0] ) - $expectedAmount );
 			$that->assertTrue( $difference <= 1 );
-			$that->assertEquals( $donateText, $actual['description'] );
+			$that->assertEquals( 'USD', $actual[1] );
 		};
 
 		$assertNodes = array(
-			'headers' => array(
-				'Location' => $redirectTest,
+			'selected-amount' => array( 'innerhtml' => $convertTest ),
+			'mw-content-text' => array(
+				'innerhtmlmatches' => "/.*$expectedNotification.*/"
 			)
 		);
 		$this->verifyFormOutput( 'TestingAmazonGateway', $init, $assertNodes, false );
-	}
-
-	/**
-	 * Integration test to verify that the DonateMonthly transaction works as expected when all necessary data is present.
-	 */
-	function testDoTransactionDonateMonthly() {
-		$init = $this->getDonorTestData();
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		//@TODO: Refactor the hell out of the Amazon adapter so it looks like... anything else we have, and it remotely testable.
-		//In the meantime, though...
-		$gateway->do_transaction( 'DonateMonthly' );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$ret = $exposed->buildRequestParams();
-
-		$expected = array (
-			'accessKey' => 'testkey',
-			'amount' => $init['amount'],
-			'collectShippingAddress' => '0',
-			'description' => 'Monthly donation to the Wikimedia Foundation',
-			'immediateReturn' => '1',
-			'ipnUrl' => 'https://test.wikimedia.org/amazon',
-			'processImmediate' => '1',
-			'referenceId' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'returnUrl' => 'https://payments.wikimedia.org/index.php/Special:AmazonGateway?ffname=amazon&order_id=' . $gateway->getData_Unstaged_Escaped( 'order_id' ),
-			'signatureMethod' => 'HmacSHA256',
-			'signatureVersion' => '2',
-			'recurringFrequency' => '1 month',
-		);
-
-		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Amazon order_id is null, and we actually need one for the return URL follow-through" );
-		$this->assertEquals( $expected, $ret, 'Amazon "DonateMonthly" transaction not building the expected request params' );
-	}
-
-	/**
-	 * Verify that the Amazon adapter populates return data from URI.
-	 */
-	function testAmazonGatewayReturn() {
-		$url_vars = array (
-			'transactionAmount' => 'USD 123',
-			'buyerEmail' => 'suzy@reba.net',
-			'transactionDate' => '2014-07-13',
-			'buyerName' => 'Suzy Greenberg',
-			'paymentMethod' => 'Credit Card',
-			'referenceId' => '12345',
-		);
-		$fake_request = new TestingRequest( $url_vars, false );
-		$this->setMwGlobals( array ( 'wgRequest' => $fake_request ) );
-
-		$init = $this->getDonorTestData();
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway->do_transaction( 'ProcessAmazonReturn' );
-		$ret = $gateway->getData_Unstaged_Escaped();
-
-		$expected = array (
-			'currency_code' => 'USD',
-			'amount' => '123.00',
-			'email' => 'suzy@reba.net',
-			'fname' => 'Suzy',
-			'lname' => 'Greenberg',
-			'payment_submethod' => 'amazon_cc',
-			'contribution_tracking_id' => '12345',
-			'date_collect' => '2014-07-13',
-		);
-
-		foreach ($expected as $key => $value) {
-			$this->assertEquals( $value, $ret[$key], 'Amazon "ProcessAmazonReturn" transaction not populating data from the URI as expected' );	
-		}
 	}
 
 	/**
@@ -282,4 +135,99 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false );
 	}
 
+	/**
+	 * Check that the adapter makes the correct calls for successful donations
+	 */
+	function testDoPaymentSuccess() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		// FIXME: PaymentResult->isFailed returns null for false
+		$this->assertTrue( !( $result->isFailed() ), 'Result should not be failed when responses are good' );
+		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
+		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
+		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
+		$mockClient = TestingAmazonAdapter::$client;
+		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
+		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_reference_id'], 'Did not set order id on order reference' );
+		$this->assertEquals( $init['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
+		$this->assertEquals( $init['currency_code'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );
+	}
+
+	/**
+	 * Check that declined authorization is reflected in the result's errors
+	 */
+	function testDoPaymentDeclined() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->getRefresh(), 'Result should be a refresh on error' );
+		$errors = $result->getErrors();
+		$this->assertTrue( isset( $errors['InvalidPaymentMethod'] ), 'InvalidPaymentMethod error should be set' );
+	}
+
+	/**
+	 * This apparently indicates a shady enough txn that we should turn them away
+	 */
+	function testFailOnAmazonRejected() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient->returns['authorize'][] = 'AmazonRejected';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+		// Could assert something about errors after rebasing onto master
+		// $errors = $result->getErrors();
+		// $this->assertTrue( isset( $errors['AmazonRejected'] ), 'AmazonRejected error should be set' );
+	}
+
+	/**
+	 * When the transaction times out, just gotta fail it till we work out an
+	 * asynchronous authorization flow
+	 */
+	function testTransactionTimedOut() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient->returns['authorize'][] = 'TransactionTimedOut';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+	}
 }

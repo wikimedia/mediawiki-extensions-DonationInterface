@@ -80,6 +80,8 @@ $wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_g
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
 $wgAutoloadClasses['AmazonAdapter'] = __DIR__ . '/amazon_gateway/amazon.adapter.php';
+$wgAutoloadClasses['AmazonBillingApi'] = __DIR__ . '/amazon_gateway/amazon.api.php';
+$wgAPIModules['di_amazon_bill'] = 'AmazonBillingApi';
 
 //Adyen
 $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.body.php';
@@ -300,30 +302,25 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'' => 100, //No code returned. All the points.
 );	
 
-
-//n.b. "-Testing-" urls are not wired to anything, they're just here for
-// your copy n paste pleasure.
-
-$wgAmazonGatewayURL = "https://authorize.payments.amazon.com/pba/paypipeline";
-$wgAmazonGatewayTestingURL = "https://authorize.payments-sandbox.amazon.com/pba/paypipeline";
-
-$wgAmazonGatewayFpsURL = "https://fps.amazonaws.com/";
-$wgAmazonGatewayFpsTestingURL = "https://fps.sandbox.amazonaws.com/";
-
 #	$wgAmazonGatewayAccountInfo['example'] = array(
-#		'AccessKey' => "",
-#		'SecretKey' => "",
-#
-#		// the long one, not the AWS account ID
-#		'PaymentsAccountID' => "",
+#		'SellerID' => '', // 13 or so uppercase letters
+#		'ClientID' => '', // app or site-specific, starts with amznX.application
+#		'ClientSecret' => '', // 64 hex characters
+#		'MWSAccessKey' => '', // 20 alphanumeric characters
+#		'MWSSecretKey' => '', // 40 base-64 encoded chars
+#		'Region' => '', // 'de', 'jp', 'uk', or 'us'
+#		'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+#		// static-eu serves widgets for uk and de, but jp uses this awful URL:
+#		// https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js
+#		// remove 'sandbox/' from above URLs for production use
+#		'ReturnURL' => '';
+#		// Sorry, devs, ReturnURL HAS to be https.
+#		// Also, it has to be whitelisted for your application at sellercentral.amazon.com
+#		// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 #	);
 
-// e.g. http://payments.wikimedia.org/index.php/Special:AmazonGateway  --
-// does NOT accept unroutable development names, use the number instead
-// even if it's 127.0.0.1
-$wgAmazonGatewayReturnURL = "";
-
-$wgAmazonGatewayHtmlFormDir = __DIR__ . '/amazon_gateway/forms/html';
+// This URL appears to be global and usable for both sandbox and non-sandbox
+$wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
@@ -873,6 +870,20 @@ $wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (
 	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/css'
 );
 
+$wgResourceModules['ext.donationinterface.amazon.styles'] = array(
+	'styles' => 'amazon.css',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
+	'scripts' => 'amazon.js',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+);
+
 // load any rapidhtml related resources
 require_once( __DIR__ . '/gateway_forms/rapidhtml/RapidHtmlResources.php' );
 
@@ -991,7 +1002,6 @@ $wgDonationInterfaceAllowedHtmlForms = array();
  */
 $wgDonationInterfaceFormDirs = array(
 	'adyen' => $wgAdyenGatewayHtmlFormDir,
-	'amazon' => $wgAmazonGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,
@@ -1013,6 +1023,8 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$files[] = $testDir . 'AllTests.php';
 
 	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+	$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
+	$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
 	$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
 	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';

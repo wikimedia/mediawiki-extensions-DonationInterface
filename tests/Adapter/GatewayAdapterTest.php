@@ -129,15 +129,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * In particular, ensure order IDs aren't leaking.
 	 */
 	public function testResetOnGatewaySwitch() {
-		//Fill the session with some Amazon stuff
+		//Fill the session with some GlobalCollect stuff
 		$init = $this->getDonorTestData( 'FR' );
 		$init['contribution_tracking_id'] = mt_rand();
-		$amazon_gateway = new TestingAmazonAdapter( array (
+		$globalcollect_gateway = new TestingGlobalCollectAdapter( array (
 				'external_data' => $init,
 		) );
-		$amazon_gateway->do_transaction( 'Donate' );
+		$globalcollect_gateway->do_transaction( 'Donate' );
 
-		$this->assertEquals( 'amazon', $_SESSION['Donor']['gateway'], 'Test setup failed.' );
+		$this->assertEquals( 'globalcollect', $_SESSION['Donor']['gateway'], 'Test setup failed.' );
 
 		//Then simpulate switching to Worldpay
 		$_SESSION['sequence'] = 2;

@@ -1,6 +1,6 @@
 						<tr>
 							<td>
-								<dl class="">
+								<dl class="submethods">
 									<dd class="field" style="margin-bottom: 0; margin-left: 0;">
 {{# payment_submethod_required }}
 										<ul class="options-h enabled {{ button_class }}" id="cards" style="margin: 0;">
@@ -9,9 +9,9 @@
 {{/ submethods }}
 										</ul>
 {{/ payment_submethod_required }}
-										<div id="paymentContinue" > <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
 									</dd>
 								</dl>
+								<div id="paymentContinue" > <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
 							</td>
 						</tr>
 {{# is_cc }}
