@@ -198,16 +198,22 @@ class AmazonAdapter extends GatewayAdapter {
 
 		$this->setOrderReferenceDetailsIfUnset( $client, $orderReferenceId );
 
+		$this->logger->info( "Confirming order $orderReferenceId" );
+		$this->getStopwatch( 'confirmOrderReference', true );
 		$confirmResult = $client->confirmOrderReference( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) )->toArray();
+		$this->saveCommunicationStats( 'confirmOrderReference', $confirmResult );
 		self::checkErrors( $confirmResult );
 
 		// TODO: either check the status, or skip this call when we already have
 		// donor details
+		$this->logger->info( "Getting details of order $orderReferenceId" );
+		$this->getStopwatch( 'getOrderReferenceDetails', true );
 		$getDetailsResult = $client->getOrderReferenceDetails( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) )->toArray();
+		$this->saveCommunicationStats( 'getOrderReferenceDetails', $getDetailsResult );
 		self::checkErrors( $getDetailsResult );
 
 		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
@@ -238,6 +244,8 @@ class AmazonAdapter extends GatewayAdapter {
 		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
 			return;
 		}
+		$this->logger->info( "Setting details for order $orderReferenceId" );
+		$this->getStopwatch( 'setOrderReferenceDetails', true );
 		$setDetailsResult = $client->setOrderReferenceDetails( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'amount' => $this->getData_Staged( 'amount' ),
@@ -245,6 +253,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
 		) )->toArray();
+		$this->saveCommunicationStats( 'setOrderReferenceDetails', $setDetailsResult );
 		self::checkErrors( $setDetailsResult );
 		// TODO: session_setData wrapper?
 		$_SESSION['order_refs'][$orderReferenceId] = true;
@@ -262,6 +271,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$client = $this->getPwaClient();
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
+		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
+		$this->getStopwatch( 'authorize', true );
 		$authResponse = $client->authorize( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
@@ -275,6 +286,7 @@ class AmazonAdapter extends GatewayAdapter {
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
 		) )->toArray();
+		$this->saveCommunicationStats( 'authorize', $authResponse );
 		$this->checkErrors( $authResponse );
 
 		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
@@ -293,9 +305,12 @@ class AmazonAdapter extends GatewayAdapter {
 		// Use capture ID as gateway_txn_id, since we need that for refunds
 		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
 
+		$this->logger->info( "Getting details of capture $captureId" );
+		$this->getStopwatch( 'getCaptureDetails', true );
 		$captureResponse = $client->getCaptureDetails( array(
 			'amazon_capture_id' => $captureId,
 		) )->toArray();
+		$this->saveCommunicationStats( 'getCaptureDetails', $captureResponse );
 		$this->checkErrors( $captureResponse );
 
 		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
@@ -314,9 +329,12 @@ class AmazonAdapter extends GatewayAdapter {
 		$client = $this->getPwaClient(); // maybe just make this a member variable
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
-		$client->closeOrderReference( array(
+		$this->logger->info( "Closing order $orderReferenceId" );
+		$this->getStopwatch( 'closeOrderReference', true );
+		$closeResponse = $client->closeOrderReference( array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) );
+		$this->saveCommunicationStats( 'closeOrderReference', $closeResponse );
 	}
 
 	/**
