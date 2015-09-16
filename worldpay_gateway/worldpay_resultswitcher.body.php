@@ -24,7 +24,16 @@ class WorldpayGatewayResult extends GatewayPage {
 		// And process the donation.
 		if ( $this->adapter->checkTokens() ) {
 			$result = $this->adapter->do_transaction( 'QueryAuthorizeDeposit' ); // TODO handle errors here
-			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+			switch ( $this->adapter->getFinalStatus() ) {
+				case FinalStatus::COMPLETE:
+				case FinalStatus::PENDING:
+				case FinalStatus::PENDING_POKE:
+					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+					break;
+				case FinalStatus::FAILED:
+					$this->displayFailPage();
+					return;
+			}
 		} else {
 			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' );
 			$this->adapter->addManualError( $error );
