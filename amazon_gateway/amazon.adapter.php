@@ -1,4 +1,8 @@
 <?php
+
+use PayWithAmazon\Client as PwaClient;
+use PayWithAmazon\ClientInterface as PwaClientInterface;
+
 /**
  * Wikimedia Foundation
  *
@@ -17,166 +21,113 @@
  */
 
 /**
- * @see https://amazonpayments.s3.amazonaws.com/FPS_ASP_Guides/ASP_Advanced_Users_Guide.pdf
+ * Uses Login and Pay with Amazon widgets and the associated SDK to charge donors
+ * See https://payments.amazon.com/documentation
+ * and https://github.com/amzn/login-and-pay-with-amazon-sdk-php
  */
 class AmazonAdapter extends GatewayAdapter {
+
 	const GATEWAY_NAME = 'Amazon';
 	const IDENTIFIER = 'amazon';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
+	// FIXME: return_value_map should handle non-numeric return values
+	protected $capture_status_map = array(
+		'Completed' => FinalStatus::COMPLETE,
+		'Pending' => FinalStatus::PENDING,
+		'Declined' => FinalStatus::FAILED,
+	);
+
+	// When an authorization or capture is declined, we examine the reason code
+	// to see if we should let the donor try again with a different card.  For
+	// these codes, we should tell the donor to try a different method entirely.
+	protected $fatal_errors = array(
+		// These two may show up if we start doing asynchronous authorization
+		'AmazonClosed',
+		'AmazonRejected',
+		// For synchronous authorization, timeouts usually indicate that the
+		// donor's account is under scrutiny, so letting them choose a different
+		// card would likely just time out again
+		'TransactionTimedOut',
+	);
+
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
 
-		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
 				array( 'payment_method' => 'amazon' )
 			);
 		}
+		$this->session_addDonorData();
+	}
+
+	public function getFormClass() {
+		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error' ) === 0 ) {
+			// TODO: make a mustache error form
+			return parent::getFormClass();
+		}
+		return 'Gateway_Form_Mustache';
 	}
 
 	public function getCommunicationType() {
-		if ( $this->transaction_option( 'redirect' ) ) {
-			return 'redirect';
-		}
 		return 'xml';
 	}
 
-	function defineStagedVars() {}
-	function defineVarMap() {
-		$this->var_map = array(
-			"amount" => "amount",
-			"transactionAmount" => "amount",
-			"transactionId" => "gateway_txn_id",
-			"status" => "gateway_status",
-			"buyerEmail" => "email",
-			"transactionDate" => "date_collect",
-			"buyerName" => "fname", // This is dealt with in addDataFromURI()
-			"errorMessage" => "error_message",
-			"paymentMethod" => "payment_submethod",
-			"referenceId" => "contribution_tracking_id",
+	function defineStagedVars() {
+		$this->staged_vars = array(
+			'order_id',
 		);
+	}
+
+	function defineVarMap() {
+		// TODO: maybe use this for mapping gatway data to API call parameters
+		$this->var_map = array();
 	}
 
 	function defineAccountInfo() {
-		//XXX since this class actually accesses two different endpoints,
-		// the usefulness of this function is uncertain.  In other words,
-		// account info is transaction-specific.  We use account_config
-		// instead
+		// We use account_config instead
 		$this->accountInfo = array();
 	}
+
 	function defineReturnValueMap() {}
+
 	function defineDataConstraints() {}
+
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array (
+		$this->order_id_meta = array(
 			'generate' => TRUE,
+			'ct_id' => TRUE,
 		);
 	}
+
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
-
+		$self = $this;
+		$differentCard = function() use ( $self ) {
+			$language = $self->getData_Unstaged_Escaped( 'language' );
+			$country = $self->getData_Unstaged_Escaped( 'country' );
+			return WmfFramework::formatMessage(
+				'donate_interface-donate-error-try-a-different-card-html',
+				'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give'
+					. "&amp;language={$language}&amp;uselang={$language}&amp;country={$country}",
+				'problemsdonating@wikimedia.org'
+			);
+		};
 		$this->error_map = array(
-			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+			// These might be transient - tell donor to try again soon
+			'InternalServerError' => 'donate_interface-try-again',
+			'RequestThrottled' => 'donate_interface-try-again',
+			'ServiceUnavailable' => 'donate_interface-try-again',
+			'ProcessingFailure' => 'donate_interface-try-again',
+			// Donor needs to select a different card
+			'InvalidPaymentMethod' => $differentCard,
 		);
 	}
 
 	function defineTransactions() {
 		$this->transactions = array();
-		$this->transactions[ 'Donate' ] = array(
-			'request' => array(
-				'accessKey',
-				'amount',
-				'collectShippingAddress',
-				'description',
-				'immediateReturn',
-				'ipnUrl',
-				'returnUrl',
-				'isDonationWidget',
-				'processImmediate',
-				'referenceId',
-				//'signature',
-				'signatureMethod',
-				'signatureVersion',
-			),
-			'values' => array(
-				'accessKey' => $this->account_config[ 'AccessKey' ],
-				'collectShippingAddress' => '0',
-				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'immediateReturn' => '1',
-				'ipnUrl' => $this->account_config['IpnOverride'],
-				'isDonationWidget' => '1',
-				'processImmediate' => '1',
-				'signatureMethod' => 'HmacSHA256',
-				'signatureVersion' => '2',
-			),
-			'redirect' => TRUE,
-		);
-
-		$this->transactions[ 'DonateMonthly' ] = array(
-			'request' => array(
-				'accessKey',
-				'amount',
-				'collectShippingAddress',
-				'description',
-				'immediateReturn',
-				'ipnUrl',
-				'processImmediate',
-				'recurringFrequency',
-				'referenceId',
-				'returnUrl',
-				//'signature',
-				'signatureMethod',
-				'signatureVersion',
-				//'subscriptionPeriod',
-			),
-			'values' => array(
-				// FIXME: There is magick available if the names match.
-				'accessKey' => $this->account_config[ 'AccessKey' ],
-				'collectShippingAddress' => '0',
-				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				'immediateReturn' => '1',
-				'ipnUrl' => $this->account_config['IpnOverride'],
-				'processImmediate' => '1',
-				'recurringFrequency' => "1 month",
-				'signatureMethod' => "HmacSHA256",
-				'signatureVersion' => "2",
-				// FIXME: this is the documented default, but passing it explicitly is buggy
-				//'subscriptionPeriod' => "forever",
-			),
-			'redirect' => TRUE,
-		);
-
-		$this->transactions[ 'VerifySignature' ] = array(
-			'request' => array(
-				'Action',
-				'HttpParameters',
-				'UrlEndPoint',
-				'Version',
-				//'Signature',
-				'SignatureMethod',
-				'SignatureVersion',
-				'AWSAccessKeyId',
-				'Timestamp',
-			),
-			'values' => array(
-				'Action' => "VerifySignature",
-				'AWSAccessKeyId' => $this->account_config[ 'AccessKey' ],
-				'UrlEndPoint' => $this->getGlobal( "ReturnURL" ),
-				'Version' => "2010-08-28",
-				'SignatureMethod' => "HmacSHA256",
-				'SignatureVersion' => "2",
-				'Timestamp' => date( 'c' ),
-			),
-			'url' => $this->getGlobal( "FpsURL" ),
-		);
-
-		$this->transactions[ 'ProcessAmazonReturn' ] = array(
-			'request' => array(),
-			'values' => array(),
-		);
 	}
 
 	public function definePaymentMethods() {
@@ -190,19 +141,26 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function buildRequestParams() {
-		$queryparams = parent::buildRequestParams();
-		ksort( $queryparams );
-
-		return $queryparams;
-	}
-
+	/**
+	 * Note that the Amazon adapter is somewhat unique in that it uses a third
+	 * party SDK to make all processor API calls.  Since we're never calling
+	 * do_transaction and friends, we synthesize a PaymentTransactionResponse
+	 * to hold any errors returned from the SDK.
+	 */
 	public function doPayment() {
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			$resultData = $this->do_transaction( 'DonateMonthly' );
-		} else {
-			$resultData = $this->do_transaction( 'Donate' );
+		$resultData = new PaymentTransactionResponse();
+		if ( $this->session_getData( 'sequence' ) ) {
+			$this->regenerateOrderID();
 		}
+
+		try {
+			$this->confirmOrderReference();
+			$this->authorizeAndCapturePayment();
+		} catch ( ResponseProcessingException $ex ) {
+			$this->handleErrors( $ex, $resultData );
+		}
+
+		$this->incrementSequenceNumber();
 
 		return PaymentResult::fromResults(
 			$resultData,
@@ -210,89 +168,177 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function do_transaction( $transaction ) {
-		global $wgRequest, $wgOut;
-		$this->session_addDonorData();
+	/**
+	 * Gets a Pay with Amazon client or facsimile thereof
+	 * @return PwaClientInterface
+	 */
+	protected function getPwaClient() {
+		return new PwaClient( array(
+			'merchant_id' => $this->account_config['SellerID'],
+			'access_key' => $this->account_config['MWSAccessKey'],
+			'secret_key' => $this->account_config['MWSSecretKey'],
+			'client_id' => $this->account_config['ClientID'],
+			'region' => $this->account_config['Region'],
+			'sandbox' => $this->getGlobal( 'TestMode' ),
+		) );
+	}
 
-		$this->setCurrentTransaction( $transaction );
-		$this->transaction_response = new PaymentTransactionResponse();
+	/**
+	 * Amazon's widget has made calls to create an order reference object and
+	 * has provided us the ID.  We make one API call to set amount, currency,
+	 * and our note and local reference ID.  A second call confirms that the
+	 * details are valid and moves it out of draft state.  Once it is out of
+	 * draft state, we can retrieve the donor's name and email address with a
+	 * third API call.
+	 */
+	protected function confirmOrderReference() {
+		$client = $this->getPwaClient();
 
-		$override_url = $this->transaction_option( 'url' );
-		if ( !empty( $override_url ) ) {
-			$this->url = $override_url;
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$this->setOrderReferenceDetailsIfUnset( $client, $orderReferenceId );
+
+		$confirmResult = $client->confirmOrderReference( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) )->toArray();
+		self::checkErrors( $confirmResult );
+
+		// TODO: either check the status, or skip this call when we already have
+		// donor details
+		$getDetailsResult = $client->getOrderReferenceDetails( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) )->toArray();
+		self::checkErrors( $getDetailsResult );
+
+		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
+		$email = $buyerDetails['Email'];
+		$name = $buyerDetails['Name'];
+		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
+		$fname = $nameParts[0];
+		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
+		$this->addRequestData( array(
+			'email' => $email,
+			'fname' => $fname,
+			'lname' => $lname,
+		) );
+		// Stash their info in pending queue and logs to fill in data for
+		// audit and IPN messages
+		$details = $this->getStompTransaction();
+		$this->logger->info( 'Got info for Amazon donation: ' . json_encode( $details ) );
+		$this->setLimboMessage( 'pending' );
+	}
+
+	/**
+	 * Set the order reference details if they haven't been set yet.  Track
+	 * which ones have been set in session.
+	 * @param PwaClientInterface $client
+	 * @param string $orderReferenceId
+	 */
+	protected function setOrderReferenceDetailsIfUnset( $client, $orderReferenceId ) {
+		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
+			return;
 		}
-		else {
-			$this->url = $this->getGlobal( "URL" );
+		$setDetailsResult = $client->setOrderReferenceDetails( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
+		) )->toArray();
+		self::checkErrors( $setDetailsResult );
+		// TODO: session_setData wrapper?
+		$_SESSION['order_refs'][$orderReferenceId] = true;
+	}
+
+	/**
+	 * Once the order reference is finalized, we can authorize a payment against
+	 * it and capture the funds.  We combine both steps in a single authorize
+	 * call.  If the authorization is successful, we can check on the capture
+	 * status and close the order reference.  TODO: determine if capture status
+	 * check is really needed.  According to our tech contact, Amazon guarantees
+	 * that the capture will eventually succeed if the authorization succeeds.
+	 */
+	protected function authorizeAndCapturePayment() {
+		$client = $this->getPwaClient();
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$authResponse = $client->authorize( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'authorization_amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'capture_now' => true, // combine authorize and capture steps
+			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
+			'transaction_timeout' => 0, // authorize synchronously
+			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
+			// Use the seller_authorization_note to simulate an error in the sandbox
+			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
+		) )->toArray();
+		$this->checkErrors( $authResponse );
+
+		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
+		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
+		if ( $authDetails['AuthorizationStatus']['State'] === 'Declined' ) {
+			throw new ResponseProcessingException(
+				WmfFramework::formatMessage( 'php-response-declined' ), // php- ??
+				$authDetails['AuthorizationStatus']['ReasonCode']
+			);
 		}
 
-		switch ( $transaction ) {
-		case 'Donate':
-		case 'DonateMonthly':
-			$return_url = $this->getGlobal( 'ReturnURL' );
-			//check if ReturnURL already has a query string			
-			$return_query = parse_url( $return_url, PHP_URL_QUERY );
-			$return_url .= ( $return_query ? '&' : '?' );
-			$return_url .= "ffname=amazon&order_id={$this->getData_Unstaged_Escaped( 'order_id' )}";
-			$this->transactions[ $transaction ][ 'values' ][ 'returnUrl' ] = $return_url;
-			break;
-		case 'VerifySignature':
-			$request_params = $wgRequest->getValues();
-			unset( $request_params[ 'title' ] );
-			$incoming = http_build_query( $request_params, '', '&' );
-			$this->transactions[ $transaction ][ 'values' ][ 'HttpParameters' ] = $incoming;
-			$this->logger->debug( "received callback from amazon with: $incoming" );
-			break;
+		// Our authorize call created both an authorization and a capture object
+		// The authorization's ID is in $authDetail['AmazonAuthorizationId']
+		// IdList has identifiers for related objects, in this case the capture
+		$captureId = $authDetails['IdList']['member'];
+		// Use capture ID as gateway_txn_id, since we need that for refunds
+		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
+
+		$captureResponse = $client->getCaptureDetails( array(
+			'amazon_capture_id' => $captureId,
+		) )->toArray();
+		$this->checkErrors( $captureResponse );
+
+		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
+		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
+		$captureState = $captureDetails['CaptureStatus']['State'];
+
+		// TODO: verify that this does not prevent us from refunding.
+		$this->closeOrderReference();
+
+		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
+		$this->runPostProcessHooks();
+		$this->deleteLimboMessage( 'pending' );
+	}
+
+	protected function closeOrderReference() {
+		$client = $this->getPwaClient(); // maybe just make this a member variable
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$client->closeOrderReference( array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) );
+	}
+
+	/**
+	 * Replace decimal point with a dash to comply with Amazon's restrictions on
+	 * seller reference ID format.
+	 */
+	public function generateOrderID( $dataObj = null ) {
+		$dotted = parent::generateOrderID( $dataObj );
+		return str_replace( '.', '-', $dotted );
+	}
+
+	/**
+	 * @throws ResponseProcessingException if response contains an error
+	 * @param array $response
+	 */
+	static function checkErrors( $response ) {
+		if ( !empty( $response['Error'] ) ) {
+			throw new ResponseProcessingException(
+				$response['Error']['Message'],
+				$response['Error']['Code']
+			);
 		}
-
-		// TODO this will move to a staging function once FR#507 is deployed
-		$query = $this->buildRequestParams();
-		$parsed_uri = parse_url( $this->url );
-		$signature = $this->signRequest( $parsed_uri[ 'host' ], $parsed_uri[ 'path' ], $query );
-
-		switch ( $transaction ) {
-			case 'Donate':
-			case 'DonateMonthly':
-				$query_str = $this->encodeQuery( $query );
-				$this->logger->debug( "At $transaction, redirecting with query string: $query_str" );
-				
-				//always have to do this before a redirect. 
-				$this->dataObj->saveContributionTrackingData();
-
-				//@TODO: This shouldn't be happening here. Oh Amazon... Why can't you be more like PayPalAdapter?
-				$wgOut->redirect("{$this->getGlobal( "URL" )}?{$query_str}&signature={$signature}");
-				break;
-
-			case 'VerifySignature':
-				// We don't currently use this. In fact we just ignore the return URL signature.
-				// However, it's perfectly good code and we may go back to using it at some point
-				// so I didn't want to remove it.
-				$query_str = $this->encodeQuery( $query );
-				$this->url .= "?{$query_str}&Signature={$signature}";
-
-				$this->logger->debug( "At $transaction, query string: $query_str" );
-
-				parent::do_transaction( $transaction );
-
-				if ( $this->getFinalStatus() === FinalStatus::COMPLETE ) {
-					$this->unstaged_data = $this->dataObj->getDataEscaped(); // XXX not cool.
-					$this->runPostProcessHooks();
-					$this->deleteLimboMessage();
-				}
-				break;
-
-			case 'ProcessAmazonReturn':
-				// What we need to do here is make sure THE WHAT
-				// FIXME: This is resultswitcher logic.
-				$this->addDataFromURI();
-				$this->analyzeReturnStatus();
-				break;
-
-			default:
-				$this->logger->critical( "At $transaction; THIS IS NOT DEFINED!" );
-				$this->finalizeInternalStatus( FinalStatus::FAILED );
-		}
-
-		return $this->transaction_response;
 	}
 
 	static function getCurrencies() {
@@ -303,250 +349,48 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Looks at the 'status' variable in the amazon return URL get string and places the data
-	 * in the appropriate Final Status and sends to STOMP.
+	 * Override default behavior
 	 */
-	protected function analyzeReturnStatus() {
-		// We only want to analyze this if we don't already have a Final Status... Therefore we
-		// won't overwrite things.
-		if ( $this->getFinalStatus() === false ) {
-
-			$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
-			$this->transaction_response->setGatewayTransactionId( $txnid );
-
-			// Second make sure that the inbound request had a matching outbound session. If it
-			// doesn't we drop it.
-			if ( !self::session_hasDonorData( 'order_id', $this->getData_Unstaged_Escaped( 'order_id' ) ) ) {
-
-				// We will however log it if we have a seemingly valid transaction id
-				if ( $txnid != null ) {
-					$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-					$this->logger->alert( "$ctid failed orderid verification but has txnid '$txnid'. Investigation required." );
-					if ( $this->getGlobal( 'UseOrderIdValidation' ) ) {
-						$this->finalizeInternalStatus( FinalStatus::FAILED );
-						return;
-					}
-				} else {
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					return;
-				}
-			}
-
-			// Third: we did have an outbound request; so let's look at what amazon is telling us
-			// about the transaction.
-			// todo: lots of other statuses we can interpret
-			// see: http://docs.amazonwebservices.com/AmazonSimplePay/latest/ASPAdvancedUserGuide/ReturnValueStatusCodes.html
-			$this->logger->info( "Transaction $txnid returned with status " . $this->dataObj->getVal_Escaped( 'gateway_status' ) );
-			switch ( $this->dataObj->getVal_Escaped( 'gateway_status' ) ) {
-				case 'PS':  // Payment success
-					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-					$this->doStompTransaction();
-					break;
-
-				case 'PI':  // Payment initiated, it will complete later
-					$this->finalizeInternalStatus( FinalStatus::PENDING );
-					$this->doStompTransaction();
-					break;
-
-				case 'SS':  // Subscription success -- processing handled by the IPN listener
-					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-					break;
-
-				case 'SI':  // Subscription initiated -- processing handled by the IPN listener
-					$this->finalizeInternalStatus( FinalStatus::PENDING );
-					break;
-
-				case 'PF':  // Payment failed
-				case 'SF':  // Subscription failed
-				case 'SE':  // This one is interesting; service failure... can we do something here?
-				default:	// All other errorz
-					$status = $this->dataObj->getVal_Escaped( 'gateway_status' );
-					$errString = $this->dataObj->getVal_Escaped( 'error_message' );
-					$this->logger->info( "Transaction $txnid failed with ($status) $errString" );
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					break;
-			}
-		} else {
-			$this->logger->error( 'Apparently we attempted to process a transaction that already had a final status... Odd' );
-		}
+	function getAvailableSubmethods() {
+		return array();
 	}
 
 	/**
-	 * Adds translated data from the URI string into donation data
-	 * FIXME: This should be done by unstaging functions.
+	 * SDK takes care of most of the dirty work for us
 	 */
-	function addDataFromURI() {
-		global $wgRequest;
+	public function processResponse( $response ) {}
 
-		// Obtain data parameters for STOMP message injection
-		//n.b. these request vars were from the _previous_ api call
-		$add_data = array();
-		foreach ( $this->var_map as $gateway_key => $normal_key ) {
-			$value = $wgRequest->getVal( $gateway_key, null );
-			if ( !empty( $value ) ) {
-				// Deal with some fun special cases
-				switch ( $gateway_key ) {
-					case 'transactionAmount':
-						list ($currency, $amount) = explode( ' ', $value );
-						$add_data['currency'] = $currency;
-						$add_data['amount'] = $amount;
-						break;
-
-					case 'buyerName':
-						list ($fname, $lname) = explode( ' ', $value, 2 );
-						$add_data['fname'] = $fname;
-						$add_data['lname'] = $lname;
-						break;
-					case 'paymentMethod':
-						$submethods = array (
-							'Credit Card' => 'amazon_cc',
-							'Amazon Payments Balance' => 'amazon_wallet',
-						);
-						if ( array_key_exists( $value, $submethods ) ) {
-							$add_data['payment_submethod'] = $submethods[$value];
-						} else {
-							//We don't rely on this anywhere serious, but I want to know about it anyway.
-							$this->logger->error( "Amazon just coughed up a surprise payment submethod of '$value'." );
-							$add_data['payment_submethod'] = 'unknown';
-						}
-						break;
-					default:
-						$add_data[ $normal_key ] = $value;
-						break;
-				}
-			}
-		}
-		//TODO: consider prioritizing the session vars
-		$this->addResponseData( $add_data ); //using the gateway's addData function restages everything
-
-		$txnid = $this->dataObj->getVal_Escaped( 'gateway_txn_id' );
-		$email = $this->dataObj->getVal_Escaped( 'email' );
-
-		$this->logger->info( "Added data to session for txnid $txnid. Now serving email $email." );
+	/**
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
+		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
+		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'TestMode' ) ? true : false;
+		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
+		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
+		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
 	}
 
 	/**
-	 * We would call this function for the VerifySignature transaction, if we
-	 * ever used that.
-	 * @param DomDocument $response
-	 * @throws ResponseProcessingException
+	 * FIXME: this synthesized 'TransactionResponse' is increasingly silly
+	 * Maybe make this adapter more normal by adding an 'SDK' communication type
+	 * that just creates an array of $data, then overriding curl_transaction
+	 * to use the PwaClient.
+	 * @param ResponseProcessingException $exception
+	 * @param PaymentTransactionResponse $resultData
 	 */
-	public function processResponse( $response ) {
-		$this->transaction_response->setErrors( $this->parseResponseErrors( $response ) );
-		if ( $this->getCurrentTransaction() !== 'VerifySignature' ) {
-			return;
-		}
-		$statuses = $response->getElementsByTagName( 'VerificationStatus' );
-		$verified = false;
-		$commStatus = false;
-		foreach ( $statuses as $node ) {
-			$commStatus = true;
-			if ( strtolower( $node->nodeValue ) == 'success' ) {
-				$verified = true;
-			}
-		}
-		$this->transaction_response->setCommunicationStatus( $commStatus );
-		if ( !$verified ) {
-			$this->logger->info( "Transaction failed in response data verification." );
+	public function handleErrors( $exception, $resultData ) {
+		$errorCode = $exception->getErrorCode();
+		$resultData->addError(
+			$errorCode, $this->getErrorMapByCodeAndTranslate( $errorCode )
+		);
+		if ( array_search( $errorCode, $this->fatal_errors ) !== false ) {
+			// These seem potentially fraudy - let's pay attention to them
+			$this->logger->error( 'Heinous status returned from Amazon: ' . $errorCode );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 	}
 
-	function encodeQuery( $params ) {
-		ksort( $params );
-		$query = array();
-		foreach ( $params as $key => $value ) {
-			$encoded = str_replace( "%7E", "~", rawurlencode( $value ) );
-			$query[] = $key . "=" . $encoded;
-		}
-		return implode( "&", $query );
-	}
-
-	function signRequest( $host, $path, &$params ) {
-		unset( $params['signature'] );
-
-		$secret_key = $this->account_config[ "SecretKey" ];
-
-		$query_str = $this->encodeQuery( $params );
-		$path_encoded = str_replace( "%2F", "/", rawurlencode( $path ) );
-
-		$message = "GET\n{$host}\n{$path_encoded}\n{$query_str}";
-
-		return rawurlencode( base64_encode( hash_hmac( 'sha256', $message, $secret_key, TRUE ) ) );
-	}
-
-	/**
-	 * We're never POST'ing, just send a Content-type that won't confuse Amazon.
-	 */
-	function getCurlBaseHeaders() {
-		$headers = array(
-			'Content-Type: text/html; charset=utf-8',
-		);
-		return $headers;
-	}
-
-	function getCurlBaseOpts() {
-		$opts = parent::getCurlBaseOpts();
-
-        $opts[CURLOPT_SSL_VERIFYPEER] = true;
-        $opts[CURLOPT_SSL_VERIFYHOST] = 2;
-        $opts[CURLOPT_CAINFO] = __DIR__ . "/ca-bundle.crt";
-        $opts[CURLOPT_CAPATH] = __DIR__ . "/ca-bundle.crt";
-
-		return $opts;
-	}
-
-	function parseResponseCommunicationStatus( $response ) {
-		$aok = false;
-
-		if ( $this->getCurrentTransaction() == 'VerifySignature' ) {
-
-			foreach ( $response->getElementsByTagName( 'VerifySignatureResult' ) as $node ) {
-				// All we care about is that the node exists
-				$aok = true;
-			}
-		}
-
-		return $aok;
-	}
-
-	// @todo FIXME: This doesn't go anywhere.
-	function parseResponseErrors( $response ) {
-		$errors = array( );
-		foreach ( $response->getElementsByTagName( 'Error' ) as $node ) {
-			$code = '';
-			$message = '';
-			foreach ( $node->childNodes as $childnode ) {
-				if ( $childnode->nodeName === "Code" ) {
-					$code = $childnode->nodeValue;
-				}
-				if ( $childnode->nodeName === "Message" ) {
-					$message = $childnode->nodeValue;
-				}
-				// TODO: Convert to internal codes and translate.
-				// $errors[$code] = $message;
-			}
-		}
-		return $errors;
-	}
-
-	/**
-	 * For the Amazon adapter this is a huge hack! Because we build the transaction differently.
-	 * Amazon expectings things to them in the query string, and back via XML. Go figure.
-	 *
-	 * In any case; do_transaction() does the heavy lifting. And this does nothing; which is
-	 * required because otherwise we throw a bunch of silly XML at Amazon that it just ignores.
-	 *
-	 * @return string|void Nothing :)
-	 */
-	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
-		return '';
-	}
-
-	/**
-	 * Amount is returned as a dollar amount, so override base class division by 100.
-	 */
-	protected function unstage_amount() {
-		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' );
-	}
 }

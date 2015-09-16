@@ -109,6 +109,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 		}
+
 		foreach( $this->gateway->getCurrencies() as $currency ) {
 			$data['currencies'][] = array(
 				'code' => $currency,
@@ -164,7 +165,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getResources() {
 		return array(
 			'ext.donationinterface.mustache.styles',
-			'ext.donationinterface.mustache.scripts'
 		);
 	}
 }

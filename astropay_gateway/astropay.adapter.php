@@ -457,6 +457,7 @@ class AstropayAdapter extends GatewayAdapter {
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
 		$fields[] = 'fiscal_number';
+		$fields[] = 'payment_submethod';
 		return $fields;
 	}
 	/**

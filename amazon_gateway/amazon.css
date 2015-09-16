@@ -1,0 +1,14 @@
+#walletWidget {
+	width: 400px;
+	height: 228px;
+}
+
+#consentWidget {
+	width: 400px;
+	height: 140px;
+	display: none;
+}
+
+dl.submethods {
+	display: none;
+}

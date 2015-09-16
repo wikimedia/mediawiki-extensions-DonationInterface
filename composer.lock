@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "548d536bcd2bbb4110e29b3d72294f1c",
+    "hash": "ca9fa11432550718ae253a997d7747ac",
     "packages": [
+        {
+            "name": "amzn/login-and-pay-with-amazon-sdk-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php",
+                "reference": "24b31581d85c232a3b0f5038c2894d565c831392"
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayWithAmazon\\": "PayWithAmazon/"
+                }
+            },
+            "license": [
+                "Apache OSL-2"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Payments",
+                    "email": "eps-dse@amazon.com"
+                }
+            ],
+            "description": "Pay with Amazon SDK",
+            "homepage": "https://github.com/amzn/login-and-pay-with-amazon-sdk-php",
+            "keywords": [
+                "amazon",
+                "amazon payments",
+                "pay",
+                "pay with amazon",
+                "payment",
+                "payments"
+            ],
+            "time": "2015-08-24 21:48:53"
+        },
         {
             "name": "clio/clio",
             "version": "0.1.8",
@@ -107,7 +146,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2015-06-11 20:26:19"
+            "time": "2015-08-12 17:55:38"
         },
         {
             "name": "fusesource/stomp-php",
@@ -370,7 +409,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "coderkungfu/php-queue": 20
+        "coderkungfu/php-queue": 20,
+        "amzn/login-and-pay-with-amazon-sdk-php": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

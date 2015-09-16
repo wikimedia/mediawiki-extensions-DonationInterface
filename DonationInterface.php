@@ -80,6 +80,8 @@ $wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_g
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
 $wgAutoloadClasses['AmazonAdapter'] = __DIR__ . '/amazon_gateway/amazon.adapter.php';
+$wgAutoloadClasses['AmazonBillingApi'] = __DIR__ . '/amazon_gateway/amazon.api.php';
+$wgAPIModules['di_amazon_bill'] = 'AmazonBillingApi';
 
 //Adyen
 $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.body.php';
@@ -98,6 +100,7 @@ $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.
 
 // Worldpay
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
+$wgAutoloadClasses['WorldpayGatewayResult'] = __DIR__ . '/worldpay_gateway/worldpay_resultswitcher.body.php';
 $wgAutoloadClasses['WorldpayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
 
 $wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
@@ -299,30 +302,25 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'' => 100, //No code returned. All the points.
 );	
 
-
-//n.b. "-Testing-" urls are not wired to anything, they're just here for
-// your copy n paste pleasure.
-
-$wgAmazonGatewayURL = "https://authorize.payments.amazon.com/pba/paypipeline";
-$wgAmazonGatewayTestingURL = "https://authorize.payments-sandbox.amazon.com/pba/paypipeline";
-
-$wgAmazonGatewayFpsURL = "https://fps.amazonaws.com/";
-$wgAmazonGatewayFpsTestingURL = "https://fps.sandbox.amazonaws.com/";
-
 #	$wgAmazonGatewayAccountInfo['example'] = array(
-#		'AccessKey' => "",
-#		'SecretKey' => "",
-#
-#		// the long one, not the AWS account ID
-#		'PaymentsAccountID' => "",
+#		'SellerID' => '', // 13 or so uppercase letters
+#		'ClientID' => '', // app or site-specific, starts with amznX.application
+#		'ClientSecret' => '', // 64 hex characters
+#		'MWSAccessKey' => '', // 20 alphanumeric characters
+#		'MWSSecretKey' => '', // 40 base-64 encoded chars
+#		'Region' => '', // 'de', 'jp', 'uk', or 'us'
+#		'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+#		// static-eu serves widgets for uk and de, but jp uses this awful URL:
+#		// https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js
+#		// remove 'sandbox/' from above URLs for production use
+#		'ReturnURL' => '';
+#		// Sorry, devs, ReturnURL HAS to be https.
+#		// Also, it has to be whitelisted for your application at sellercentral.amazon.com
+#		// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 #	);
 
-// e.g. http://payments.wikimedia.org/index.php/Special:AmazonGateway  --
-// does NOT accept unroutable development names, use the number instead
-// even if it's 127.0.0.1
-$wgAmazonGatewayReturnURL = "";
-
-$wgAmazonGatewayHtmlFormDir = __DIR__ . '/amazon_gateway/forms/html';
+// This URL appears to be global and usable for both sandbox and non-sandbox
+$wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
@@ -776,6 +774,7 @@ $wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
+$wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
 //Custom Filters hooks
@@ -839,11 +838,39 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 	'position' => 'top',
 );
 
-$wgResourceModules['ext.donationinterface.mustache.scripts'] = array (
-	'scripts' => 'forms.js',
+$wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
+	'scripts' => 'astropay.js',
 	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/gateway_forms/mustache',
-	'remoteExtPath' => 'DonationInterface/gateway_forms/mustache'
+	'localBasePath' => __DIR__ . '/astropay_gateway',
+	'remoteExtPath' => 'DonationInterface/astropay_gateway'
+);
+
+$wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
+	'scripts' => 'esop.js',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/js',
+	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js'
+);
+
+$wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (
+	'styles' => 'iframe.css',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/css',
+	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/css'
+);
+
+$wgResourceModules['ext.donationinterface.amazon.styles'] = array(
+	'styles' => 'amazon.css',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+	'position' => 'top',
+);
+
+$wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
+	'scripts' => 'amazon.js',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/amazon_gateway',
+	'remoteExtPath' => 'DonationInterface/amazon_gateway',
 );
 
 // load any rapidhtml related resources
@@ -964,7 +991,6 @@ $wgDonationInterfaceAllowedHtmlForms = array();
  */
 $wgDonationInterfaceFormDirs = array(
 	'adyen' => $wgAdyenGatewayHtmlFormDir,
-	'amazon' => $wgAmazonGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 	'paypal' => $wgPaypalGatewayHtmlFormDir,

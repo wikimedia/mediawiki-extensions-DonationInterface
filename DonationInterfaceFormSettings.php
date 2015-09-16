@@ -7,27 +7,19 @@
 $forms_whitelist = array();
 $form_dirs = $wgDonationInterfaceFormDirs;
 
-/**********
- * Amazon *
- **********/
-/**
- * DISABLED 2015-08-21, the simplepay API is no longer supported.
- *
- * $forms_whitelist['amazon'] = array(
- * 	'file' => $form_dirs['amazon'] . '/amazon.html',
- * 	'gateway' => 'amazon',
- * 	'payment_methods' => array('amazon' => 'ALL'),
- * 	'redirect',
- * );
- * 
- * $forms_whitelist['amazon-recurring'] = array(
- * 	'file' => $form_dirs['amazon'] . '/amazon-recurring.html',
- * 	'gateway' => 'amazon',
- * 	'payment_methods' => array('amazon' => 'ALL'),
- * 	'redirect',
- * 	'recurring',
- * );
-*/
+/*
+ * Amazon dummy config - see AstroPay
+ */
+$forms_whitelist['amazon'] = array(
+	'gateway' => 'amazon',
+	'payment_methods' => array('amazon' => 'ALL'),
+);
+
+$forms_whitelist['amazon-recurring'] = array(
+	'gateway' => 'amazon',
+	'payment_methods' => array('amazon' => 'ALL'),
+	'recurring',
+);
 
 /****************************
  * Bank Transfer - Two-Step *
@@ -524,42 +516,52 @@ $forms_whitelist['adyen-cs'] = array(
  * Worldpay *
  **********/
 // This is at the bottom so that we prefer GC over Worldpay
-$forms_whitelist['worldpay'] = array(
-	'file' => $form_dirs['worldpay'] . '/worldpay.html',
+#$forms_whitelist['worldpay'] = array(
+#	'file' => $form_dirs['worldpay'] . '/worldpay.html',
+#	'gateway' => 'worldpay',
+#	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
+#	'currencies' => array( '+' => 'ALL' ),
+#	'payment_methods' => array( 'cc' => 'ALL' ),
+#	'selection_weight' => 10
+#);
+
+// Worldpay ESOP feat iframe
+$forms_whitelist['wp-if'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'worldpay',
 	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
 	'currencies' => array( '+' => 'ALL' ),
 	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 10
+	'selection_weight' => 0
 );
 
 /*************************
  * Worldpay Form Tests *
  *************************/
 
-$worldpay_test_spec = array(
-	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
-	'selection_weight' => 0,
-) + $forms_whitelist['worldpay'];
-
-//until we are ready for US testing with the other test forms, we have to limit to the old list.
-$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
-
-$forms_whitelist['wp-sn'] = $worldpay_test_spec;
-$forms_whitelist['wp-sw'] = $worldpay_test_spec;
-$forms_whitelist['wp-fud'] = $worldpay_test_spec;
-$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
-$forms_whitelist['wp-btng'] = $worldpay_test_spec;
-
-
-$forms_whitelist['wp-ddcc'] = array(
-	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
-	   'gateway' => 'worldpay',
-	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
-	   'currencies' => array( '+' => 'ALL' ),
-	   'payment_methods' => array( 'cc' => 'ALL' ),
-	   'selection_weight' => 0
-);
+#$worldpay_test_spec = array(
+#	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
+#	'selection_weight' => 0,
+#) + $forms_whitelist['worldpay'];
+#
+#//until we are ready for US testing with the other test forms, we have to limit to the old list.
+#$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
+#
+#$forms_whitelist['wp-sn'] = $worldpay_test_spec;
+#$forms_whitelist['wp-sw'] = $worldpay_test_spec;
+#$forms_whitelist['wp-fud'] = $worldpay_test_spec;
+#$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
+#$forms_whitelist['wp-btng'] = $worldpay_test_spec;
+#
+#
+#$forms_whitelist['wp-ddcc'] = array(
+#	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
+#	   'gateway' => 'worldpay',
+#	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
+#	   'currencies' => array( '+' => 'ALL' ),
+#	   'payment_methods' => array( 'cc' => 'ALL' ),
+#	   'selection_weight' => 0
+#);
 
 /* * ***********
  * Error Pages *
