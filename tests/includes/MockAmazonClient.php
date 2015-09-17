@@ -20,6 +20,9 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 	// When a code is not found, the operation will return a successful result
 	public $returns = array();
 
+	// Similar to $returns, but any entries here are thrown as exceptions
+	public $exceptions = array();
+
 	public function __construct( $config = null ) {
 
 	}
@@ -34,6 +37,9 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 		$returnIndex = count( $this->calls[$functionName] ) - 1;
 		if ( isset( $this->returns[$functionName] ) && isset( $this->returns[$functionName][$returnIndex] ) ) {
 			$status = $this->returns[$functionName][$returnIndex];
+		}
+		if ( isset( $this->exceptions[$functionName] ) && isset( $this->exceptions[$functionName][$returnIndex] ) ) {
+			throw $this->exceptions[$functionName][$returnIndex];
 		}
 		return new MockAmazonResponse( $functionName, $status );
 	}

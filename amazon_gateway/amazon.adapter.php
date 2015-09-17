@@ -31,6 +31,11 @@ class AmazonAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'amazon';
 	const GLOBAL_PREFIX = 'wgAmazonGateway';
 
+	/**
+	 * @var PwaClientInterface
+	 */
+	protected $client;
+
 	// FIXME: return_value_map should handle non-numeric return values
 	protected $capture_status_map = array(
 		'Completed' => FinalStatus::COMPLETE,
@@ -148,6 +153,8 @@ class AmazonAdapter extends GatewayAdapter {
 	 * to hold any errors returned from the SDK.
 	 */
 	public function doPayment() {
+		$this->client = $this->getPwaClient();
+
 		$resultData = new PaymentTransactionResponse();
 		if ( $this->session_getData( 'sequence' ) ) {
 			$this->regenerateOrderID();
@@ -184,6 +191,28 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * Wraps calls to Amazon SDK client with timing and error handling.
+	 * Yes, dynamic calls are slower, but these are all web service calls in
+	 * the first place.
+	 * @param string $functionName
+	 * @param array $parameters
+	 */
+	protected function callPwaClient( $functionName, $parameters ) {
+		$callMe = array( $this->client, $functionName );
+		try {
+			$this->getStopwatch( $functionName, true );
+			$result = call_user_func( $callMe, $parameters )->toArray();
+			$this->saveCommunicationStats( $functionName, $result );
+		} catch( Exception $ex ) {
+			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
+			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
+			throw new ResponseProcessingException( $donorMessage, ResponseCodes::NO_RESPONSE );
+		}
+		$this->checkErrors( $result );
+		return $result;
+	}
+
+	/**
 	 * Amazon's widget has made calls to create an order reference object and
 	 * has provided us the ID.  We make one API call to set amount, currency,
 	 * and our note and local reference ID.  A second call confirms that the
@@ -192,29 +221,21 @@ class AmazonAdapter extends GatewayAdapter {
 	 * third API call.
 	 */
 	protected function confirmOrderReference() {
-		$client = $this->getPwaClient();
-
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
-		$this->setOrderReferenceDetailsIfUnset( $client, $orderReferenceId );
+		$this->setOrderReferenceDetailsIfUnset( $orderReferenceId );
 
 		$this->logger->info( "Confirming order $orderReferenceId" );
-		$this->getStopwatch( 'confirmOrderReference', true );
-		$confirmResult = $client->confirmOrderReference( array(
+		$this->callPwaClient( 'confirmOrderReference', array(
 			'amazon_order_reference_id' => $orderReferenceId,
-		) )->toArray();
-		$this->saveCommunicationStats( 'confirmOrderReference', $confirmResult );
-		self::checkErrors( $confirmResult );
+		) );
 
 		// TODO: either check the status, or skip this call when we already have
 		// donor details
 		$this->logger->info( "Getting details of order $orderReferenceId" );
-		$this->getStopwatch( 'getOrderReferenceDetails', true );
-		$getDetailsResult = $client->getOrderReferenceDetails( array(
+		$getDetailsResult = $this->callPwaClient( 'getOrderReferenceDetails', array(
 			'amazon_order_reference_id' => $orderReferenceId,
-		) )->toArray();
-		$this->saveCommunicationStats( 'getOrderReferenceDetails', $getDetailsResult );
-		self::checkErrors( $getDetailsResult );
+		) );
 
 		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
 		$email = $buyerDetails['Email'];
@@ -237,24 +258,20 @@ class AmazonAdapter extends GatewayAdapter {
 	/**
 	 * Set the order reference details if they haven't been set yet.  Track
 	 * which ones have been set in session.
-	 * @param PwaClientInterface $client
 	 * @param string $orderReferenceId
 	 */
-	protected function setOrderReferenceDetailsIfUnset( $client, $orderReferenceId ) {
+	protected function setOrderReferenceDetailsIfUnset( $orderReferenceId ) {
 		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
 			return;
 		}
 		$this->logger->info( "Setting details for order $orderReferenceId" );
-		$this->getStopwatch( 'setOrderReferenceDetails', true );
-		$setDetailsResult = $client->setOrderReferenceDetails( array(
+		$this->callPwaClient( 'setOrderReferenceDetails', array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency_code' ),
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
-		) )->toArray();
-		$this->saveCommunicationStats( 'setOrderReferenceDetails', $setDetailsResult );
-		self::checkErrors( $setDetailsResult );
+		) );
 		// TODO: session_setData wrapper?
 		$_SESSION['order_refs'][$orderReferenceId] = true;
 	}
@@ -268,12 +285,10 @@ class AmazonAdapter extends GatewayAdapter {
 	 * that the capture will eventually succeed if the authorization succeeds.
 	 */
 	protected function authorizeAndCapturePayment() {
-		$client = $this->getPwaClient();
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
 		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
-		$this->getStopwatch( 'authorize', true );
-		$authResponse = $client->authorize( array(
+		$authResponse = $this->callPwaClient( 'authorize', array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency_code' ),
@@ -285,9 +300,7 @@ class AmazonAdapter extends GatewayAdapter {
 			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
-		) )->toArray();
-		$this->saveCommunicationStats( 'authorize', $authResponse );
-		$this->checkErrors( $authResponse );
+		) );
 
 		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
 		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
@@ -306,12 +319,9 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
 
 		$this->logger->info( "Getting details of capture $captureId" );
-		$this->getStopwatch( 'getCaptureDetails', true );
-		$captureResponse = $client->getCaptureDetails( array(
+		$captureResponse = $this->callPwaClient( 'getCaptureDetails', array(
 			'amazon_capture_id' => $captureId,
-		) )->toArray();
-		$this->saveCommunicationStats( 'getCaptureDetails', $captureResponse );
-		$this->checkErrors( $captureResponse );
+		) );
 
 		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
@@ -326,15 +336,12 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	protected function closeOrderReference() {
-		$client = $this->getPwaClient(); // maybe just make this a member variable
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
 		$this->logger->info( "Closing order $orderReferenceId" );
-		$this->getStopwatch( 'closeOrderReference', true );
-		$closeResponse = $client->closeOrderReference( array(
+		$this->callPwaClient( 'closeOrderReference', array(
 			'amazon_order_reference_id' => $orderReferenceId,
 		) );
-		$this->saveCommunicationStats( 'closeOrderReference', $closeResponse );
 	}
 
 	/**

@@ -6,7 +6,7 @@
 class TestingAmazonAdapter extends AmazonAdapter {
 
 	public static $fakeGlobals = array();
-	public static $client;
+	public static $mockClient;
 
 	public static function getGlobal( $name ) {
 		if ( array_key_exists( $name, TestingAmazonAdapter::$fakeGlobals ) ) {
@@ -16,6 +16,6 @@ class TestingAmazonAdapter extends AmazonAdapter {
 	}
 
 	protected function getPwaClient() {
-		return self::$client;
+		return self::$mockClient;
 	}
 }

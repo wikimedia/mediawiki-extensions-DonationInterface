@@ -36,7 +36,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		TestingAmazonAdapter::$client = new MockAmazonClient();
+		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
 
 		$this->setMwGlobals( array(
 			'wgAmazonGatewayEnabled' => true,
@@ -154,7 +154,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
-		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient = TestingAmazonAdapter::$mockClient;
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_reference_id'], 'Did not set order id on order reference' );
@@ -174,7 +174,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['fname'] );
 		unset( $init['lname'] );
 
-		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient = TestingAmazonAdapter::$mockClient;
 		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -197,7 +197,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['fname'] );
 		unset( $init['lname'] );
 
-		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient = TestingAmazonAdapter::$mockClient;
 		$mockClient->returns['authorize'][] = 'AmazonRejected';
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -222,12 +222,34 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['fname'] );
 		unset( $init['lname'] );
 
-		$mockClient = TestingAmazonAdapter::$client;
+		$mockClient = TestingAmazonAdapter::$mockClient;
 		$mockClient->returns['authorize'][] = 'TransactionTimedOut';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
 
 		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+	}
+
+	/**
+	 * When the SDK throws an exceptions, we should handle it.
+	 */
+	function testClientException() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient->exceptions['authorize'][] = new Exception( 'Test' );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$errors = $result->getErrors();
+		$this->assertTrue( isset( $errors[ResponseCodes::NO_RESPONSE] ), 'NO_RESPONSE error should be set' );
 	}
 }
