@@ -44,7 +44,7 @@ $( document ).ready( function () {
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				} else if ( data.ottResult ) {
 					$( '#payment-form' ).append(
-						'<div style="display: none; padding: 10px; background-color: white;" id="payment-iframe">' +
+						'<div style="display: none" id="payment-iframe">' +
 						'<iframe src="' + data.ottResult.wp_redirect_url + '" height="550px" frameborder="0"></iframe>' +
 						'</div>'
 					);

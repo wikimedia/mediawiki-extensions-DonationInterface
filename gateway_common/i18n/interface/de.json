@@ -205,6 +205,7 @@
 	"donate_interface-error-msg-country-calc": "Fehler. Wir können derzeit Ihre Spende leider nicht akzeptieren.",
 	"donate_interface-error-msg-fiscal_number": "Steuernummer",
 	"donate_interface-donate-error-try-a-different-card": "Bitte [$1 versuchen Sie es mit einer anderen Kreditkarte] oder [$2 nutzen Sie eine der anderen Spendenmöglichkeiten], oder kontaktieren Sie uns unter der E-Mail-Adresse $3.",
+	"donate_interface-donate-error-try-a-different-card-html": "Bitte versuchen Sie eine andere Karte, eine unserer <a href=\"$1\">anderen Spendemöglichkeiten</a> oder kontaktieren Sie uns unter <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Bitte <a href=\"$1\">versuchen Sie es erneut</a>, benutzen Sie einen unserer <a href=\"$2\">anderen Wege zum Spenden</a> oder kontaktieren Sie uns unter <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Vielen Dank für Ihre Unterstützung.",
 	"donate_interface-error-no-form": "Wir konnten kein Spendenformular finden, das Ihren Parametern entspricht. Bitte kontaktieren Sie [mailto:donate@wikimedia.org unser Hilfeteam] für mehr Informationen.",
