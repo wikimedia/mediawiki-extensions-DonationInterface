@@ -227,6 +227,7 @@
 	"donate_interface-error-msg-country-calc": "错误 - 我们无法接受您在此时的捐款。",
 	"donate_interface-error-msg-fiscal_number": "财政编码",
 	"donate_interface-donate-error-try-a-different-card": "请试用[$1 另外一个信用卡]或[$2 其他捐赠方法]，或者发送至$3来联络我们",
+	"donate_interface-donate-error-try-a-different-card-html": "请尝试不同的信用卡，或使用我们的<a href=\"$1\">其他支付方式</a>，或与我们联系：<a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "请<a href=\"$1\">重试</a>，尝试我们的<a href=\"$2\">其他支付方式</a>，或与我们联系：<a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "感谢您的支持！",
 	"donate_interface-error-no-form": "我们无法找到与您的参数相匹配的捐款方式。请联系[mailto:donate@wikimedia.org 我们的帮助团队]获得更多信息。",

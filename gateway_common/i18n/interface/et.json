@@ -189,6 +189,7 @@
 	"donate_interface-error-msg-genaricrequired": "See väli on kohustuslik",
 	"donate_interface-error-msg-country-calc": "Tõrge. Praegu pole võimalik sinu annetust vastu võtta.",
 	"donate_interface-donate-error-try-a-different-card": "Palun proovi [$1 teistsugust kaarti], [$2 muud annetusviisi] või võta ühendust aadressil $3.",
+	"donate_interface-donate-error-try-a-different-card-html": "Palun proovi teistsugust kaarti või <a href=\"$1\">muud annetusviisi</a> või võta ühendust aadressil <a href=\"mailto:$2\">$2</a>.",
 	"donate_interface-donate-error-thank-you-for-your-support": "Suur tänu toetuse eest!",
 	"php-response-declined": "Sinu ülekannet ei saa vastu võtta.",
 	"donate_interface-thankyou": "Aitäh annetuse eest!",
