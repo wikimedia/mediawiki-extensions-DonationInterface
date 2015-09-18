@@ -179,7 +179,7 @@
 		if ( $( '#amount_input' ).is( ':visible' ) ) {
 			$( '#amount_input' ).hide();
 			$( '#selected-amount' )
-				.html( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
+				.text( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
 				.show();
 		}
 	}

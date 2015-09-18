@@ -93,7 +93,7 @@ $( document ).ready( function () {
 	if ( amount === null || isNaN( amount.val() ) || amount.val() <= 0 ) {
 		// the amount is not set
 		$( '#step1wrapper' ).slideDown();
-		$( '#selected-amount' ).html( '(' + $( 'input[name="currency_code"]' ).val() + ')' );
+		$( '#selected-amount' ).text( '(' + $( 'input[name="currency_code"]' ).val() + ')' );
 	} else {
 		showAmount( $( 'input[name="amount"]' ) );
 	}
