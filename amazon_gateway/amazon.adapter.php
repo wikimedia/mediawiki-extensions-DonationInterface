@@ -155,7 +155,7 @@ class AmazonAdapter extends GatewayAdapter {
 	public function doPayment() {
 		$this->client = $this->getPwaClient();
 
-		$resultData = new PaymentTransactionResponse();
+		$this->transaction_response = new PaymentTransactionResponse();
 		if ( $this->session_getData( 'sequence' ) ) {
 			$this->regenerateOrderID();
 		}
@@ -164,13 +164,13 @@ class AmazonAdapter extends GatewayAdapter {
 			$this->confirmOrderReference();
 			$this->authorizeAndCapturePayment();
 		} catch ( ResponseProcessingException $ex ) {
-			$this->handleErrors( $ex, $resultData );
+			$this->handleErrors( $ex, $this->transaction_response );
 		}
 
 		$this->incrementSequenceNumber();
 
 		return PaymentResult::fromResults(
-			$resultData,
+			$this->transaction_response,
 			$this->getFinalStatus()
 		);
 	}
@@ -206,8 +206,10 @@ class AmazonAdapter extends GatewayAdapter {
 		} catch( Exception $ex ) {
 			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
 			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
+			$this->transaction_response->setCommunicationStatus( false );
 			throw new ResponseProcessingException( $donorMessage, ResponseCodes::NO_RESPONSE );
 		}
+		$this->transaction_response->setCommunicationStatus( true );
 		$this->checkErrors( $result );
 		return $result;
 	}
@@ -317,6 +319,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$captureId = $authDetails['IdList']['member'];
 		// Use capture ID as gateway_txn_id, since we need that for refunds
 		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
+		// And add it to the ambient transaction_response for doStompTransaction
+		$this->transaction_response->setGatewayTransactionId( $captureId );
 
 		$this->logger->info( "Getting details of capture $captureId" );
 		$captureResponse = $this->callPwaClient( 'getCaptureDetails', array(
@@ -326,6 +330,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
 		$captureState = $captureDetails['CaptureStatus']['State'];
+		$this->transaction_response->setTxnMessage( $captureState );
 
 		// TODO: verify that this does not prevent us from refunding.
 		$this->closeOrderReference();

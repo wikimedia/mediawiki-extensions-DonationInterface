@@ -200,6 +200,7 @@
 	"donate_interface-error-msg-country-calc": "Errore - Non ge putime accettà 'a donaziona toje jndr'à stu mumende.",
 	"donate_interface-error-msg-fiscal_number": "numere fiscale",
 	"donate_interface-donate-error-try-a-different-card": "Pe piacere [$1 pruève 'n'otra carte] o une de le [$2 diverse mode nuèstre pe dà] o condattane sus a $3",
+	"donate_interface-donate-error-try-a-different-card-html": "Pe piacere pruève cu 'n'otra carte o une de le <a href=\"$1\">otre mode pe ddunà</a> nuèstre, o condattane sus a <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Pe piacere <a href=\"$1\">pruève arrete</a>, pruève une de le nostre <a href=\"$2\">otre mode pe ddà</a>, o condattane sus a <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Grazie pu supporte tune!",
 	"donate_interface-error-no-form": "Non ge riuscime a acchià 'u module de dunazione ca soddisfe le parametre tune. Pe paicere condatte [mailto:donate@wikimedia.org 'a nostra squadre de aijute] pe cchiù 'mbormaziune.",
