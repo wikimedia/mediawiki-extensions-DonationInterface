@@ -395,6 +395,9 @@ class WorldpayAdapter extends GatewayAdapter {
 		// AVS and CVV check details. If fraud checks pass we will simultaneously
 		// authorize and deposit the payment using the 'Sale' aka AuthorizeAndDepositPayment
 		// transaction.
+
+		// ADDITIONAL NOTE: ESOP needs this value unset, so I've removed it and
+		// added logic in do_transaction to set it if the transaction is not ESOP.
 		$this->transactions['AuthorizePaymentForFraud'] = array(
 			'request' => array(
 				'VersionUsed',
@@ -403,7 +406,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'RequestType',
 				'TRXSource',
 				'MOP',
-				'IsVerify',
 
 				'IsTest',
 				'MerchantId',
@@ -437,7 +439,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'RequestType' => 'A',       // Authorize a payment
 				'TRXSource' => 4,           // Card not present (web order) transaction
 				'MOP' => 'CC',              // Credit card transaction
-				'IsVerify' => 1,            // Perform CVV and AVS verification for account (deposit not allowed)
 				'Amount' => '0.10',			// Perform a small amount authorization (just enough to trigger it)
 			),
 			'never_log' => array (
@@ -785,8 +786,8 @@ class WorldpayAdapter extends GatewayAdapter {
 
 		switch ( $transaction ) {
 			case 'GenerateToken':
-				// This parameter will cause WP to use the iframe code path.
 				if ( $this->isESOP() ) {
+					// This parameter will cause WP to use the iframe code path.
 					$this->transactions['GenerateToken']['values']['IsHosted'] = 1;
 				}
 
@@ -806,6 +807,10 @@ class WorldpayAdapter extends GatewayAdapter {
 				break;
 
 			case 'AuthorizePaymentForFraud':
+				if ( ! $this->isESOP() ) {
+					// Perform CVV and AVS verification for account (deposit not allowed)
+					$this->transactions['AuthorizePaymentForFraud']['values']['IsVerify'] = 1;
+				}
 				$this->addRequestData( array( 'cvv' => $this->get_cvv() ) );
 				$this->store_cvv_in_session( null ); // Remove the CVV from the session
 				return parent::do_transaction( $transaction );
