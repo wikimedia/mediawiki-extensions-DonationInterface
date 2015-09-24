@@ -6,6 +6,7 @@
 		returnUrl = mw.config.get( 'wgAmazonGatewayReturnURL' ),
 		widgetScript = mw.config.get( 'wgAmazonGatewayWidgetScript' ),
 		loginScript = mw.config.get( 'wgAmazonGatewayLoginScript' ),
+		failPage = mw.config.get( 'wgAmazonGatewayFailPage' ),
 		loggedIn = false,
 		loginError,
 		accessToken,
@@ -211,12 +212,12 @@
 				} else if ( data.redirect ) {
 					location.href = data.redirect;
 				} else {
-					// TODO: send donor to fail page
+					location.href = failPage;
 				}
 			},
 			error: function () {
 				$( '#overlay' ).hide();
-				// TODO: handle when client can't talk to our own API!
+				location.href = failPage;
 			}
 		});
 	}

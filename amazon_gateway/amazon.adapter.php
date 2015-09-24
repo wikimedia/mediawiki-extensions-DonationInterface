@@ -43,17 +43,14 @@ class AmazonAdapter extends GatewayAdapter {
 		'Declined' => FinalStatus::FAILED,
 	);
 
-	// When an authorization or capture is declined, we examine the reason code
-	// to see if we should let the donor try again with a different card.  For
-	// these codes, we should tell the donor to try a different method entirely.
-	protected $fatal_errors = array(
-		// These two may show up if we start doing asynchronous authorization
-		'AmazonClosed',
-		'AmazonRejected',
-		// For synchronous authorization, timeouts usually indicate that the
-		// donor's account is under scrutiny, so letting them choose a different
-		// card would likely just time out again
-		'TransactionTimedOut',
+	// When an authorization or capture is declined, some reason codes indicate
+	// a situation where the donor can retry later or try a different card
+	protected $retry_errors = array(
+		'InternalServerError',
+		'RequestThrottled',
+		'ServiceUnavailable',
+		'ProcessingFailure',
+		'InvalidPaymentMethod',
 	);
 
 	function __construct( $options = array() ) {
@@ -403,6 +400,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
 		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
+		$vars['wgAmazonGatewayFailPage'] = $this->getGlobal( 'FailPage' );
 	}
 
 	/**
@@ -418,7 +416,15 @@ class AmazonAdapter extends GatewayAdapter {
 		$resultData->addError(
 			$errorCode, $this->getErrorMapByCodeAndTranslate( $errorCode )
 		);
-		if ( array_search( $errorCode, $this->fatal_errors ) !== false ) {
+		if ( array_search( $errorCode, $this->retry_errors ) === false ) {
+			// Fail on anything we don't recognize as retry-able.  For example:
+			// These two may show up if we start doing asynchronous authorization
+			// 'AmazonClosed',
+			// 'AmazonRejected',
+			// For synchronous authorization, timeouts usually indicate that the
+			// donor's account is under scrutiny, so letting them choose a different
+			// card would likely just time out again
+			// 'TransactionTimedOut',
 			// These seem potentially fraudy - let's pay attention to them
 			$this->logger->error( 'Heinous status returned from Amazon: ' . $errorCode );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
