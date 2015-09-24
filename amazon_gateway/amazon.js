@@ -129,14 +129,12 @@
 					return;
 				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
-				$( '#paymentContinue' ).show();
-				// FIXME: Unbind click handler from forms.js
-				$( '#paymentContinueBtn' ).off( 'click' );
-				$( '#paymentContinueBtn' ).click( submitPayment );
+				$( '#paymentSubmit' ).show();
+				$( '#paymentSubmitBtn' ).click( submitPayment );
 			},
 			onPaymentSelect: function() {
 				// In case we hid the button because of an invalid payment error
-				$( '#paymentContinue' ).show();
+				$( '#paymentSubmit' ).show();
 			},
 			design: {
 				designMode: 'responsive'
@@ -171,7 +169,7 @@
 
 		if ( refreshWallet ) {
 			// Redisplay the widget to show an error and let the donor pick a different card
-			$( '#paymentContinue' ).hide();
+			$( '#paymentSubmit' ).hide();
 			createWalletWidget();
 		}
 	}
