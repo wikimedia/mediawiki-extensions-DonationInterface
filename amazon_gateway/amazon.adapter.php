@@ -202,7 +202,11 @@ class AmazonAdapter extends GatewayAdapter {
 		try {
 			$this->getStopwatch( $functionName, true );
 			$result = call_user_func( $callMe, $parameters )->toArray();
-			$this->saveCommunicationStats( $functionName, $result );
+			$this->saveCommunicationStats(
+				'callPwaClient',
+				$functionName,
+				'Response: ' . print_r( $result, true )
+			);
 		} catch( Exception $ex ) {
 			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
 			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
@@ -304,7 +308,6 @@ class AmazonAdapter extends GatewayAdapter {
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
 		) );
 
-		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
 		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
 		if ( $authDetails['AuthorizationStatus']['State'] === 'Declined' ) {
 			throw new ResponseProcessingException(
@@ -327,7 +330,6 @@ class AmazonAdapter extends GatewayAdapter {
 			'amazon_capture_id' => $captureId,
 		) );
 
-		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
 		$captureState = $captureDetails['CaptureStatus']['State'];
 		$this->transaction_response->setTxnMessage( $captureState );
