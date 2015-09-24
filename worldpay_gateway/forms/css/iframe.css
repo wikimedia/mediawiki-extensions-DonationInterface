@@ -72,6 +72,16 @@ select:focus {
 
 select { padding: .9em 1em !important; line-height: 40px; }
 
+div.accepted-cards-label {
+  display: none;
+  visibility: none;
+}
+
+div.accepted-cards {
+  display: none;
+  visibility: none;
+}
+
 #pnldynamicdate div.payment-card-entry.evaluatedate ~ div.payment-card-entry.evaluatedate
 {
     display: none;

@@ -35,9 +35,19 @@ class WorldpayAdapter extends GatewayAdapter {
 	);
 
 	// TODO we should store these keys in a config file
+	// TODO the way the cards are ordered on the page is the order of this
+	// array. make that a "weight" that could be controlled by a url param
 	static $CARD_INFO = array(
+		'cb' => array( // Carte Bleu
+			'api_name' => 'CB',
+			'countries' => array( 'FR' => true ),
+		),
 		'visa' => array(
 			'api_name' => 'VI',
+			'countries' => array( 'FR' => true ),
+		),
+		'mc' => array(
+			'api_name' => 'MC',
 			'countries' => array( 'FR' => true ),
 		),
 		'amex' => array(
@@ -46,10 +56,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		),
 		'visa-beneficial' => array(
 			'api_name' => 'BE',
-		),
-		'cb' => array( // Carte Bleu
-			'api_name' => 'CB',
-			'countries' => array( 'FR' => true ),
 		),
 		'diners' => array(
 			'api_name' => 'DC',
@@ -62,10 +68,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		),
 		'maestro' => array(
 			'api_name' => 'MA',
-		),
-		'mc' => array(
-			'api_name' => 'MC',
-			'countries' => array( 'FR' => true ),
 		),
 		'mc-debit' => array(
 			'api_name' => 'MD',
