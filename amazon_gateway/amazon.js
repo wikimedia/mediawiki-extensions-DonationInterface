@@ -6,6 +6,7 @@
 		returnUrl = mw.config.get( 'wgAmazonGatewayReturnURL' ),
 		widgetScript = mw.config.get( 'wgAmazonGatewayWidgetScript' ),
 		loginScript = mw.config.get( 'wgAmazonGatewayLoginScript' ),
+		failPage = mw.config.get( 'wgAmazonGatewayFailPage' ),
 		loggedIn = false,
 		loginError,
 		accessToken,
@@ -128,14 +129,12 @@
 					return;
 				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
-				$( '#paymentContinue' ).show();
-				// FIXME: Unbind click handler from forms.js
-				$( '#paymentContinueBtn' ).off( 'click' );
-				$( '#paymentContinueBtn' ).click( submitPayment );
+				$( '#paymentSubmit' ).show();
+				$( '#paymentSubmitBtn' ).click( submitPayment );
 			},
 			onPaymentSelect: function() {
 				// In case we hid the button because of an invalid payment error
-				$( '#paymentContinue' ).show();
+				$( '#paymentSubmit' ).show();
 			},
 			design: {
 				designMode: 'responsive'
@@ -170,7 +169,7 @@
 
 		if ( refreshWallet ) {
 			// Redisplay the widget to show an error and let the donor pick a different card
-			$( '#paymentContinue' ).hide();
+			$( '#paymentSubmit' ).hide();
 			createWalletWidget();
 		}
 	}
@@ -179,7 +178,7 @@
 		if ( $( '#amount_input' ).is( ':visible' ) ) {
 			$( '#amount_input' ).hide();
 			$( '#selected-amount' )
-				.html( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
+				.text( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
 				.show();
 		}
 	}
@@ -211,12 +210,12 @@
 				} else if ( data.redirect ) {
 					location.href = data.redirect;
 				} else {
-					// TODO: send donor to fail page
+					location.href = failPage;
 				}
 			},
 			error: function () {
 				$( '#overlay' ).hide();
-				// TODO: handle when client can't talk to our own API!
+				location.href = failPage;
 			}
 		});
 	}

@@ -43,17 +43,14 @@ class AmazonAdapter extends GatewayAdapter {
 		'Declined' => FinalStatus::FAILED,
 	);
 
-	// When an authorization or capture is declined, we examine the reason code
-	// to see if we should let the donor try again with a different card.  For
-	// these codes, we should tell the donor to try a different method entirely.
-	protected $fatal_errors = array(
-		// These two may show up if we start doing asynchronous authorization
-		'AmazonClosed',
-		'AmazonRejected',
-		// For synchronous authorization, timeouts usually indicate that the
-		// donor's account is under scrutiny, so letting them choose a different
-		// card would likely just time out again
-		'TransactionTimedOut',
+	// When an authorization or capture is declined, some reason codes indicate
+	// a situation where the donor can retry later or try a different card
+	protected $retry_errors = array(
+		'InternalServerError',
+		'RequestThrottled',
+		'ServiceUnavailable',
+		'ProcessingFailure',
+		'InvalidPaymentMethod',
 	);
 
 	function __construct( $options = array() ) {
@@ -202,7 +199,11 @@ class AmazonAdapter extends GatewayAdapter {
 		try {
 			$this->getStopwatch( $functionName, true );
 			$result = call_user_func( $callMe, $parameters )->toArray();
-			$this->saveCommunicationStats( $functionName, $result );
+			$this->saveCommunicationStats(
+				'callPwaClient',
+				$functionName,
+				'Response: ' . print_r( $result, true )
+			);
 		} catch( Exception $ex ) {
 			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
 			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
@@ -304,7 +305,6 @@ class AmazonAdapter extends GatewayAdapter {
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
 		) );
 
-		$this->logger->info( 'Authorization response: ' . print_r( $authResponse, true ) );
 		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
 		if ( $authDetails['AuthorizationStatus']['State'] === 'Declined' ) {
 			throw new ResponseProcessingException(
@@ -327,7 +327,6 @@ class AmazonAdapter extends GatewayAdapter {
 			'amazon_capture_id' => $captureId,
 		) );
 
-		$this->logger->info( 'Capture details: ' . print_r( $captureResponse, true ) );
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
 		$captureState = $captureDetails['CaptureStatus']['State'];
 		$this->transaction_response->setTxnMessage( $captureState );
@@ -401,6 +400,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
 		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
+		$vars['wgAmazonGatewayFailPage'] = $this->getGlobal( 'FailPage' );
 	}
 
 	/**
@@ -416,7 +416,15 @@ class AmazonAdapter extends GatewayAdapter {
 		$resultData->addError(
 			$errorCode, $this->getErrorMapByCodeAndTranslate( $errorCode )
 		);
-		if ( array_search( $errorCode, $this->fatal_errors ) !== false ) {
+		if ( array_search( $errorCode, $this->retry_errors ) === false ) {
+			// Fail on anything we don't recognize as retry-able.  For example:
+			// These two may show up if we start doing asynchronous authorization
+			// 'AmazonClosed',
+			// 'AmazonRejected',
+			// For synchronous authorization, timeouts usually indicate that the
+			// donor's account is under scrutiny, so letting them choose a different
+			// card would likely just time out again
+			// 'TransactionTimedOut',
 			// These seem potentially fraudy - let's pay attention to them
 			$this->logger->error( 'Heinous status returned from Amazon: ' . $errorCode );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );

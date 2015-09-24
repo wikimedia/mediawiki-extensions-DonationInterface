@@ -1,7 +1,9 @@
 $( document ).ready( function () {
 	var form = $( '#payment-form' )[0];
 
-	$( '#paymentContinue' ).show();
+	if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
+		$( '#paymentContinue' ).show();
+	}
 
 	$( '#paymentContinueBtn' ).click( function () {
 		if ( !$( this ).hasClass( 'enabled' ) ) {
@@ -11,6 +13,15 @@ $( document ).ready( function () {
 			submitForm();
 		}
 	});
+
+	// Submit on submethod selection if valid, otherwise show continute button.
+	$( 'input[name="payment_submethod"]' ).on( 'change', function () {
+		if ( window.validate_form( form ) ) {
+			submitForm();
+		} else {
+			$( '#paymentContinue' ).show();
+		}
+	} );
 
 	function submitForm() {
 		$( '#overlay' ).show();
@@ -23,7 +34,8 @@ $( document ).ready( function () {
 			amount: $( '#amount' ).val(),
 			fname: $( '#fname' ).val(),
 			lname: $( '#lname' ).val(),
-			email: $( '#email' ).val()
+			email: $( '#email' ).val(),
+			payment_submethod: $( 'input[name=payment_submethod]:checked' ).val()
 		};
 
 		$.ajax({
@@ -41,6 +53,7 @@ $( document ).ready( function () {
 						errors.push( str );
 					});
 					window.alert( errors.join( '\n' ) );
+					$( '#paymentContinue' ).show();
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				} else if ( data.ottResult ) {
 					$( '#payment-form' ).append(
@@ -51,11 +64,13 @@ $( document ).ready( function () {
 					$( '#payment-iframe' ).show( 'blind' );
 				} else {
 					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+					$( '#paymentContinue' ).show();
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				}
 			},
 			error: function ( xhr ) {
 				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				$( '#paymentContinue' ).show();
 				$( '#paymentContinueBtn' ).addClass( 'enabled' );
 			},
 			complete: function () {

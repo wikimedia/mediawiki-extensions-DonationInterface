@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aushulz"
+			"Aushulz",
+			"Sarvaturi"
 		]
 	},
 	"donate_interface-currency": "Munita",
-	"donate_interface-cvv-link": "Dunni è?",
+	"donate_interface-cvv-link": "Unni l'attrovu?",
 	"donate_interface-donor-email": "Nnirizzu e-mail",
 	"donate_interface-donor-name": "Nomu",
 	"donate_interface-donor-street": "Strata",
@@ -13,6 +14,6 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "MasterCard",
 	"donate_interface-change": "Cancia",
-	"donate_interface-bt-finished": "Allistùtu",
+	"donate_interface-bt-finished": "Allistutu",
 	"donate_interface-dd-iban": "IBAN"
 }

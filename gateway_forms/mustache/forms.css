@@ -330,7 +330,7 @@ div.donor { width: 100% !important; }
     height: auto !important;
 }
 
-#paymentContinue {
+#paymentContinue, #paymentSubmit {
   margin-top: 1em !important;
   clear: both;
   display: none;
