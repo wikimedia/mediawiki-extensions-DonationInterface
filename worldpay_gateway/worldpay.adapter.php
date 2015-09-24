@@ -34,24 +34,54 @@ class WorldpayAdapter extends GatewayAdapter {
 		'OTTResultURL'
 	);
 
-	/**
-	 * @var string[] Card types (as returned by WP) mapped to what we call them
-	 */
-	static $CARD_TYPES = array(
-		'VI' => 'visa',
-		'AX' => 'amex',
-		'BE' => 'visa-beneficial',
-		'CB' => 'cb',
-		'DC' => 'diners',
-		'DI' => 'discover',
-		'JC' => 'jcb',
-		'MC' => 'mc',
-		'SW' => 'solo',
-		'VE' => 'visa-electron',
-		'VD' => 'visa-debit',
-		'MA' => 'maestro',
-		'MD' => 'mc-debit',
-		'XX' => '',
+	// TODO we should store these keys in a config file
+	static $CARD_INFO = array(
+		'visa' => array(
+			'api_name' => 'VI',
+			'countries' => array( 'FR' => true ),
+		),
+		'amex' => array(
+			'api_name' => 'AX',
+			'countries' => array( 'FR' => true ),
+		),
+		'visa-beneficial' => array(
+			'api_name' => 'BE',
+		),
+		'cb' => array( // Carte Bleu
+			'api_name' => 'CB',
+			'countries' => array( 'FR' => true ),
+		),
+		'diners' => array(
+			'api_name' => 'DC',
+		),
+		'discover' => array(
+			'api_name' => 'DI',
+		),
+		'jcb' => array(
+			'api_name' => 'JC',
+		),
+		'maestro' => array(
+			'api_name' => 'MA',
+		),
+		'mc' => array(
+			'api_name' => 'MC',
+			'countries' => array( 'FR' => true ),
+		),
+		'mc-debit' => array(
+			'api_name' => 'MD',
+		),
+		'solo' => array(
+			'api_name' => 'SW'
+		),
+		'visa-debit' => array(
+			'api_name' => 'VD',
+		),
+		'visa-electron' => array(
+			'api_name' => 'VE',
+		),
+		'' /* TODO wat */ => array(
+			'api_name' => 'XX',
+		),
 	);
 
 	/**
@@ -186,6 +216,12 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::__construct( $options );
 	}
 
+	public function getRequiredFields() {
+		$fields = parent::getRequiredFields();
+		$fields[] = 'payment_submethod';
+		return $fields;
+	}
+
 	/**
 	 * Enhanced Silent Order Post AKA iframe
 	 */
@@ -301,15 +337,23 @@ class WorldpayAdapter extends GatewayAdapter {
 		);
 
 		$this->payment_submethods = array();
-		foreach( self::$CARD_TYPES as $wpName => $ourName ) {
-			$this->payment_submethods[$ourName] = array(
-				'group'	=> 'cc',
+
+		foreach( self::$CARD_INFO as $name => $info ) {
+
+			$countries = array();
+			if ( isset( $info['countries'] ) ) {
+				$countries = $info['countries'];
+			}
+			$this->payment_submethods[$name] = array(
+				'countries' => $countries,
+				'group' => 'cc',
 				'validation' => array(
+					'name' => true,
+					'email' => true,
 					'address' => false,
 					'amount' => true,
-					'email' => true,
-					'name' => true,
 				),
+				'logo' => "card-{$name}.png",
 			);
 		}
 	}
@@ -755,6 +799,15 @@ class WorldpayAdapter extends GatewayAdapter {
 		);
 	}
 
+	private function get_payment_method_name_from_api_name ( $api_name ) {
+		foreach ( self::$CARD_INFO as $name => $info ) {
+			if ( $api_name === $info['api_name'] ) {
+				return $name;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Check if the currently-staged store ID is configured for special treatment.
 	 * Certain store IDs (just FR so far) do not get AVS results, and always get
@@ -1074,9 +1127,8 @@ class WorldpayAdapter extends GatewayAdapter {
 		$paymentMethod = $this->getData_Staged( 'payment_method' );
 		$paymentSubmethod = $this->getData_Staged( 'payment_submethod' );
 		if ( $paymentMethod == 'cc' ) {
-			if ( array_key_exists( $paymentSubmethod, self::$CARD_TYPES ) ) {
-				$this->unstaged_data['payment_submethod'] = self::$CARD_TYPES[$paymentSubmethod];
-			}
+			$this->unstaged_data['payment_submethod'] =
+				$this->get_payment_method_name_from_api_name( $paymentSubmethod );
 		}
 	}
 
