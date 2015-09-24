@@ -347,8 +347,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'Timeout',
 				'RequestType',
 				'Action',
-				'IsHosted',
-				'IsCVNMEM',
 
 				'IsTest',
 				'MerchantId',
@@ -741,6 +739,7 @@ class WorldpayAdapter extends GatewayAdapter {
 			'StateCode'         => 'state',
 			'ZipCode'           => 'zip',
 			'CountryCode'       => 'country',
+			'LAN'               => 'language',
 			'Email'             => 'email',
 			'REMOTE_ADDR'       => 'user_ip',
 			'StoreID'           => 'wp_storeid',
@@ -790,9 +789,13 @@ class WorldpayAdapter extends GatewayAdapter {
 			case 'GenerateToken':
 				if ( $this->isESOP() ) {
 					// This parameter will cause WP to use the iframe code path.
+					$this->transactions['GenerateToken']['request'][] = 'IsHosted';
 					$this->transactions['GenerateToken']['values']['IsHosted'] = 1;
 					// Tell WP we want that CVV field.
+					$this->transactions['GenerateToken']['request'][] = 'IsCVNMEM';
 					$this->transactions['GenerateToken']['values']['IsCVNMEM'] = 1;
+					// Translate the iframe to our language.
+					$this->transactions['GenerateToken']['request'][] = 'LAN';
 				}
 
 				$result = parent::do_transaction( $transaction );
