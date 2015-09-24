@@ -331,21 +331,9 @@ class AmazonAdapter extends GatewayAdapter {
 		$captureState = $captureDetails['CaptureStatus']['State'];
 		$this->transaction_response->setTxnMessage( $captureState );
 
-		// TODO: verify that this does not prevent us from refunding.
-		$this->closeOrderReference();
-
 		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
 		$this->runPostProcessHooks();
 		$this->deleteLimboMessage( 'pending' );
-	}
-
-	protected function closeOrderReference() {
-		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
-
-		$this->logger->info( "Closing order $orderReferenceId" );
-		$this->callPwaClient( 'closeOrderReference', array(
-			'amazon_order_reference_id' => $orderReferenceId,
-		) );
 	}
 
 	/**
