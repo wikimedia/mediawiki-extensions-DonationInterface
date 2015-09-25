@@ -204,8 +204,8 @@
 			dataType: 'json',
 			type: 'POST',
 			success: function ( data ) {
-				$( '#overlay' ).hide();
 				if ( data.errors ) {
+					$( '#overlay' ).hide();
 					handleErrors( data.errors );
 				} else if ( data.redirect ) {
 					location.href = data.redirect;
@@ -214,7 +214,6 @@
 				}
 			},
 			error: function () {
-				$( '#overlay' ).hide();
 				location.href = failPage;
 			}
 		});
