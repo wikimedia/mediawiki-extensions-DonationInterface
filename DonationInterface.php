@@ -145,6 +145,8 @@ $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mus
  * $appeal and $language will be substituted before transclusion
  */
 $wgDonationInterfaceAppealWikiTemplate = 'LanguageSwitch|2011FR/$appeal/text|$language';
+// Used as the value for $appeal when nothing is given in query string
+$wgDonationInterfaceDefaultAppeal = 'JimmyQuote';
 
 // Email address used when donor enters nothing
 $wgDonationInterfaceDefaultEmail = 'nobody@wikimedia.org';
