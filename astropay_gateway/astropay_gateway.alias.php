@@ -4,6 +4,12 @@ $specialPageAliases = array();
 
 /** English */
 $specialPageAliases['en'] = array(
-	'AstroPayGateway' => array( 'AstroPayGateway' ),
-	'AstroPayGatewayResult' => array( 'AstroPayGatewayResult' ),
+	'AstroPayGateway' => array(
+		'AstroPayGateway',
+		'AstropayGateway', // deprecated
+	),
+	'AstroPayGatewayResult' => array(
+		'AstroPayGatewayResult',
+		'AstropayGatewayResult', // deprecated
+	),
 );

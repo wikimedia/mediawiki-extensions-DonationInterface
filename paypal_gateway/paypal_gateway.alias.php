@@ -6,7 +6,9 @@ $specialPageAliases = array();
 
 /** English */
 $specialPageAliases['en'] = array(
-	'PaypalGateway' => array( 'PaypalGateway' ),
 	'PaypalExpressGateway' => array( 'PaypalExpressGateway' ),
-	'PaypalLegacyGateway' => array( 'PaypalLegacyGateway' ),
+	'PaypalLegacyGateway' => array(
+		'PaypalLegacyGateway',
+		'PaypalGateway', // deprecated
+	),
 );
