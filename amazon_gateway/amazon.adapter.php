@@ -387,6 +387,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
 		$vars['wgAmazonGatewayFailPage'] = $this->getGlobal( 'FailPage' );
+		$vars['wgAmazonGatewayOtherWaysURL'] = $this->localizeGlobal( 'OtherWaysURL' );
 	}
 
 	/**

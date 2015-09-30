@@ -897,6 +897,9 @@ $wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
 	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/amazon_gateway',
 	'remoteExtPath' => 'DonationInterface/amazon_gateway',
+	'messages' => array(
+		'donate_interface-otherways-short',
+	)
 );
 
 // load any rapidhtml related resources

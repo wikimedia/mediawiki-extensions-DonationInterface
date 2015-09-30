@@ -1,4 +1,4 @@
-/*global amazon:true*/
+/*global amazon:true, OffAmazonPayments:true*/
 ( function( $, mw ) {
 	var clientId = mw.config.get( 'wgAmazonGatewayClientID' ),
 		sellerId = mw.config.get( 'wgAmazonGatewaySellerID' ),
@@ -12,7 +12,12 @@
 		accessToken,
 		validTokenPattern = new RegExp( '^Atza' ),
 		billingAgreementId,
-		orderReferenceId;
+		orderReferenceId,
+		cardSelected = false,
+		cardSelectTimeout,
+		// If no card selected after this long, show link to other ways to give
+		// in case the donor has no cards registered with Amazon
+		CARD_SELECT_DELAY = 5000;
 
 	$( function() {
 		// Add a couple divs to hold the widgets
@@ -115,10 +120,19 @@
 		}
 	}
 
+	function showOtherWaysLink() {
+		var url = mw.config.get( 'wgAmazonGatewayOtherWaysURL' ),
+			text = mw.message( 'donate_interface-otherways-short' );
+		addErrorMessage( '<a href="' + url + '">' + text + '</a>' );
+	}
+
 	function createWalletWidget() {
 		var params = {
 			sellerId: sellerId,
 			onReady: function( billingAgreement ) {
+				if ( !cardSelected ) {
+					cardSelectTimeout = setTimeout( showOtherWaysLink, CARD_SELECT_DELAY );
+				}
 				// Will come in handy for recurring payments
 				billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
 			},
@@ -129,12 +143,17 @@
 					return;
 				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
-				$( '#paymentSubmit' ).show();
-				$( '#paymentSubmitBtn' ).click( submitPayment );
 			},
 			onPaymentSelect: function() {
-				// In case we hid the button because of an invalid payment error
-				$( '#paymentSubmit' ).show();
+				if ( !cardSelected ) {
+					cardSelected = true;
+					$( '#paymentSubmit' ).show();
+					$( '#paymentSubmitBtn' ).click( submitPayment );
+				}
+				if ( cardSelectTimeout ) {
+					clearTimeout( cardSelectTimeout );
+					delete cardSelectTimeout;
+				}
 			},
 			design: {
 				designMode: 'responsive'
@@ -169,7 +188,9 @@
 
 		if ( refreshWallet ) {
 			// Redisplay the widget to show an error and let the donor pick a different card
+			cardSelected = false;
 			$( '#paymentSubmit' ).hide();
+			$( '#paymentSubmitBtn' ).off( 'click' );
 			createWalletWidget();
 		}
 	}
@@ -185,6 +206,10 @@
 
 	function submitPayment() {
 		if ( !window.validateAmount() ) {
+			return;
+		}
+		if ( !cardSelected ) {
+			showOtherWays();
 			return;
 		}
 		$( '#topError' ).html('');
