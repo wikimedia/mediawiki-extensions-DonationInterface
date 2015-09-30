@@ -1069,6 +1069,41 @@ class WorldpayAdapter extends GatewayAdapter {
 		return $headers;
 	}
 
+	/**
+	 * WorldPay requires different OrderNumbers for each transaction within a donation.
+	 * This will add suffixes to order_id for token generation, token querying, and fraud test.
+	 * The real authorization and sale transaction keeps the old order ID format
+	 * @param string $order_id - the base order_id for this donation attempt
+	 */
+	protected function set_transaction_order_ids( $order_id ) {
+		if ( empty( $order_id ) ) {
+			return;
+		}
+		$this->transactions['GenerateToken']['values']['OrderNumber'] = $order_id . '.0';
+		$this->transactions['QueryTokenData']['values']['OrderNumber'] = $order_id . '.1';
+		$this->transactions['AuthorizePaymentForFraud']['values']['OrderNumber'] = $order_id . '.2';
+	}
+
+	/**
+	 * Can't add order_id to staged_vars without nasty side effects, so we have
+	 * to override this to catch changes
+	 */
+	public function normalizeOrderID( $override = null, $dataObj = null ) {
+		$value = parent::normalizeOrderID( $override, $dataObj );
+		$this->set_transaction_order_ids( $value );
+		return $value;
+	}
+
+	/**
+	 * Can't add order_id to staged_vars without nasty side effects, so we have
+	 * to override this to catch changes
+	 */
+	public function regenerateOrderID() {
+		parent::regenerateOrderID();
+		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
+		$this->set_transaction_order_ids( $order_id );
+	}
+
 	protected function stage_returnto() {
 		global $wgServer, $wgArticlePath;
 
