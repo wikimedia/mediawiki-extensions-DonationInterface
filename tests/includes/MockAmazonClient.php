@@ -49,7 +49,7 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 	}
 
 	public function authorizeOnBillingAgreement( $requestParameters = array() ) {
-
+		return $this->fakeCall( 'authorizeOnBillingAgreement', $requestParameters );
 	}
 
 	public function cancelOrderReference( $requestParameters = array() ) {
@@ -77,7 +77,7 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 	}
 
 	public function confirmBillingAgreement( $requestParameters = array() ) {
-
+		return $this->fakeCall( 'confirmBillingAgreement', $requestParameters );
 	}
 
 	public function confirmOrderReference( $requestParameters = array() ) {
@@ -137,6 +137,7 @@ class MockAmazonClient { // FIXME: implements PwaClientInterface {
 	}
 
 	public function setBillingAgreementDetails( $requestParameters = array() ) {
+		return $this->fakeCall( 'setBillingAgreementDetails', $requestParameters );
 
 	}
 

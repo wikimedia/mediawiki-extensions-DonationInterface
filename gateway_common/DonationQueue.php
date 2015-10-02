@@ -229,6 +229,7 @@ class DonationQueue {
 			'state_province' => 'state',
 			'street_address' => 'street',
 			'supplemental_address_1' => 'street_supplemental',
+			'subscr_id' => 'subscr_id',
 			'utm_campaign' => 'utm_campaign',
 			'utm_medium' => 'utm_medium',
 			'postal_code' => 'zip',

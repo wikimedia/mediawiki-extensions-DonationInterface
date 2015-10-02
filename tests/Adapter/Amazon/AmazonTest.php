@@ -256,4 +256,38 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$errors = $result->getErrors();
 		$this->assertTrue( isset( $errors[ResponseCodes::NO_RESPONSE] ), 'NO_RESPONSE error should be set' );
 	}
+
+	/**
+	 * Check the adapter makes the correct calls for successful monthly donations
+	 */
+	function testDoRecurringPaymentSuccess() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['amount'] = '10.00';
+		$init['recurring'] = '1';
+		$init['subscr_id'] = 'C01-9650293-7351908';
+		// We don't get any profile data up front
+		unset( $init['email'] );
+		unset( $init['fname'] );
+		unset( $init['lname'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		// FIXME: PaymentResult->isFailed returns null for false
+		$this->assertTrue( !( $result->isFailed() ), 'Result should not be failed when responses are good' );
+		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
+		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
+		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
+		$mockClient = TestingAmazonAdapter::$mockClient;
+		$setBillingAgreementDetailsArgs = $mockClient->calls['setBillingAgreementDetails'][0];
+		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$this->assertEquals( $oid, $setBillingAgreementDetailsArgs['seller_billing_agreement_id'], 'Did not set order id on billing agreement' );
+		$authorizeOnBillingAgreementDetailsArgs = $mockClient->calls['authorizeOnBillingAgreement'][0];
+		$this->assertEquals( $init['amount'], $authorizeOnBillingAgreementDetailsArgs['authorization_amount'], 'Did not authorize correct amount' );
+		$this->assertEquals( $init['currency_code'], $authorizeOnBillingAgreementDetailsArgs['currency_code'], 'Did not authorize correct currency code' );
+		$queued = $gateway->queue_messages;
+		$this->assertNotEmpty( $queued['complete'], 'Not sending a message to the complete queue' );
+		$message = $queued['complete'][0];
+		$this->assertEquals( 'S01-5318994-6362993-C004044', $message['gateway_txn_id'], 'Queue message has wrong txn ID' );
+		$this->assertEquals( $init['subscr_id'], $message['subscr_id'], 'Queue message has wrong subscription ID' );
+	}
 }

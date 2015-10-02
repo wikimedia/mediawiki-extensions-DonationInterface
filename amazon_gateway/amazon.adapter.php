@@ -156,8 +156,13 @@ class AmazonAdapter extends GatewayAdapter {
 		}
 
 		try {
-			$this->confirmOrderReference();
-			$this->authorizeAndCapturePayment();
+			if ( $this->getData_Unstaged_Escaped( 'recurring' ) === '1' ) {
+				$this->confirmBillingAgreement();
+				$this->authorizeAndCapturePayment( true );
+			} else {
+				$this->confirmOrderReference();
+				$this->authorizeAndCapturePayment( false );
+			}
 		} catch ( ResponseProcessingException $ex ) {
 			$this->handleErrors( $ex, $this->transaction_response );
 		}
@@ -213,34 +218,9 @@ class AmazonAdapter extends GatewayAdapter {
 		return $result;
 	}
 
-	/**
-	 * Amazon's widget has made calls to create an order reference object and
-	 * has provided us the ID.  We make one API call to set amount, currency,
-	 * and our note and local reference ID.  A second call confirms that the
-	 * details are valid and moves it out of draft state.  Once it is out of
-	 * draft state, we can retrieve the donor's name and email address with a
-	 * third API call.
-	 */
-	protected function confirmOrderReference() {
-		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
-
-		$this->setOrderReferenceDetailsIfUnset( $orderReferenceId );
-
-		$this->logger->info( "Confirming order $orderReferenceId" );
-		$this->callPwaClient( 'confirmOrderReference', array(
-			'amazon_order_reference_id' => $orderReferenceId,
-		) );
-
-		// TODO: either check the status, or skip this call when we already have
-		// donor details
-		$this->logger->info( "Getting details of order $orderReferenceId" );
-		$getDetailsResult = $this->callPwaClient( 'getOrderReferenceDetails', array(
-			'amazon_order_reference_id' => $orderReferenceId,
-		) );
-
-		$buyerDetails = $getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer'];
-		$email = $buyerDetails['Email'];
-		$name = $buyerDetails['Name'];
+	protected function addDonorDetails( $donorDetails ) {
+		$email = $donorDetails['Email'];
+		$name = $donorDetails['Name'];
 		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
 		$fname = $nameParts[0];
 		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
@@ -257,53 +237,20 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Set the order reference details if they haven't been set yet.  Track
-	 * which ones have been set in session.
-	 * @param string $orderReferenceId
-	 */
-	protected function setOrderReferenceDetailsIfUnset( $orderReferenceId ) {
-		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
-			return;
-		}
-		$this->logger->info( "Setting details for order $orderReferenceId" );
-		$this->callPwaClient( 'setOrderReferenceDetails', array(
-			'amazon_order_reference_id' => $orderReferenceId,
-			'amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
-			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
-		) );
-		// TODO: session_setData wrapper?
-		$_SESSION['order_refs'][$orderReferenceId] = true;
-	}
-
-	/**
-	 * Once the order reference is finalized, we can authorize a payment against
-	 * it and capture the funds.  We combine both steps in a single authorize
-	 * call.  If the authorization is successful, we can check on the capture
-	 * status and close the order reference.  TODO: determine if capture status
+	 * Once the order reference or billing agreement is finalized, we can
+	 * authorize a payment against it and capture the funds.  We combine both
+	 * steps in a single authorize call.  If the authorization is successful,
+	 * we can check on the capture status.  TODO: determine if capture status
 	 * check is really needed.  According to our tech contact, Amazon guarantees
 	 * that the capture will eventually succeed if the authorization succeeds.
 	 */
-	protected function authorizeAndCapturePayment() {
-		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+	protected function authorizeAndCapturePayment( $recurring = false ) {
+		if ( $recurring ) {
+			$authDetails = $this->authorizeOnBillingAgreement();
+		} else {
+			$authDetails = $this->authorizeOnOrderReference();
+		}
 
-		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
-		$authResponse = $this->callPwaClient( 'authorize', array(
-			'amazon_order_reference_id' => $orderReferenceId,
-			'authorization_amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
-			'capture_now' => true, // combine authorize and capture steps
-			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
-			'transaction_timeout' => 0, // authorize synchronously
-			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
-			// Use the seller_authorization_note to simulate an error in the sandbox
-			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
-			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
-			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
-		) );
-
-		$authDetails = $authResponse['AuthorizeResult']['AuthorizationDetails'];
 		if ( $authDetails['AuthorizationStatus']['State'] === 'Declined' ) {
 			throw new ResponseProcessingException(
 				WmfFramework::formatMessage( 'php-response-declined' ), // php- ??
@@ -332,6 +279,127 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
 		$this->runPostProcessHooks();
 		$this->deleteLimboMessage( 'pending' );
+	}
+
+	/**
+	 * Amazon's widget has made calls to create an order reference object and
+	 * has provided us the ID.  We make one API call to set amount, currency,
+	 * and our note and local reference ID.  A second call confirms that the
+	 * details are valid and moves it out of draft state.  Once it is out of
+	 * draft state, we can retrieve the donor's name and email address with a
+	 * third API call.
+	 */
+	protected function confirmOrderReference() {
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$this->setOrderReferenceDetailsIfUnset( $orderReferenceId );
+
+		$this->logger->info( "Confirming order $orderReferenceId" );
+		$this->callPwaClient( 'confirmOrderReference', array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) );
+
+		// TODO: either check the status, or skip this call when we already have
+		// donor details
+		$this->logger->info( "Getting details of order $orderReferenceId" );
+		$getDetailsResult = $this->callPwaClient( 'getOrderReferenceDetails', array(
+			'amazon_order_reference_id' => $orderReferenceId,
+		) );
+
+		$this->addDonorDetails(
+			$getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer']
+		);
+	}
+
+	/**
+	 * Set the order reference details if they haven't been set yet.  Track
+	 * which ones have been set in session.
+	 * @param string $orderReferenceId
+	 */
+	protected function setOrderReferenceDetailsIfUnset( $orderReferenceId ) {
+		if ( $this->session_getData( 'order_refs', $orderReferenceId ) ) {
+			return;
+		}
+		$this->logger->info( "Setting details for order $orderReferenceId" );
+		$this->callPwaClient( 'setOrderReferenceDetails', array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
+		) );
+		// TODO: session_setData wrapper?
+		$_SESSION['order_refs'][$orderReferenceId] = true;
+	}
+
+	protected function authorizeOnOrderReference() {
+		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
+
+		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
+		$authResponse = $this->callPwaClient( 'authorize', array(
+			'amazon_order_reference_id' => $orderReferenceId,
+			'authorization_amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'capture_now' => true, // combine authorize and capture steps
+			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
+			'transaction_timeout' => 0, // authorize synchronously
+			// Could set 'SoftDescriptor' to control what appears on CC statement (16 char max, prepended with AMZ*)
+			// Use the seller_authorization_note to simulate an error in the sandbox
+			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
+		) );
+		return $authResponse['AuthorizeResult']['AuthorizationDetails'];
+	}
+
+	protected function confirmBillingAgreement() {
+		$billingAgreementId = $this->getData_Staged( 'subscr_id' );
+		$this->setBillingAgreementDetailsIfUnset( $billingAgreementId );
+
+		$this->logger->info( "Confirming billing agreement $billingAgreementId" );
+		$this->callPwaClient( 'confirmBillingAgreement', array(
+			'amazon_billing_agreement_id' => $billingAgreementId,
+		) );
+
+		$this->logger->info( "Getting details of billing agreement $billingAgreementId" );
+		$getDetailsResult = $this->callPwaClient( 'getBillingAgreementDetails', array(
+			'amazon_billing_agreement_id' => $billingAgreementId,
+		) );
+
+		$this->addDonorDetails(
+			$getDetailsResult['GetBillingAgreementDetailsResult']['BillingAgreementDetails']['Buyer']
+		);
+	}
+
+	protected function setBillingAgreementDetailsIfUnset( $billingAgreementId ) {
+		if ( $this->session_getData( 'billing_agreements', $billingAgreementId ) ) {
+			return;
+		}
+		$this->logger->info( "Setting details for billing agreement $billingAgreementId" );
+		$this->callPwaClient( 'setBillingAgreementDetails', array(
+			'amazon_billing_agreement_id' => $billingAgreementId,
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+			'seller_billing_agreement_id' => $this->getData_Staged( 'order_id' ),
+		) );
+		$_SESSION['billing_agreements'][$billingAgreementId] = true;
+	}
+
+	protected function authorizeOnBillingAgreement() {
+		$billingAgreementId = $this->getData_Staged( 'subscr_id' );
+
+		$this->logger->info( "Authorizing and capturing payment on billing agreement $billingAgreementId" );
+		$authResponse = $this->callPwaClient( 'authorizeOnBillingAgreement', array(
+			'amazon_billing_agreement_id' => $billingAgreementId,
+			'authorization_amount' => $this->getData_Staged( 'amount' ),
+			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'capture_now' => true, // combine authorize and capture steps
+			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
+			'seller_order_id' => $this->getData_Staged( 'order_id' ),
+			'seller_note' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+			'transaction_timeout' => 0, // authorize synchronously
+			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
+		) );
+		return $authResponse['AuthorizeOnBillingAgreementResult']['AuthorizationDetails'];
 	}
 
 	/**
