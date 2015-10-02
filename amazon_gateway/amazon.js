@@ -7,12 +7,14 @@
 		widgetScript = mw.config.get( 'wgAmazonGatewayWidgetScript' ),
 		loginScript = mw.config.get( 'wgAmazonGatewayLoginScript' ),
 		failPage = mw.config.get( 'wgAmazonGatewayFailPage' ),
+		isRecurring = $( '#recurring' ).val(),
 		loggedIn = false,
 		loginError,
 		accessToken,
 		validTokenPattern = new RegExp( '^Atza' ),
 		billingAgreementId,
 		orderReferenceId,
+		recurConsentGranted = false,
 		cardSelected = false,
 		cardSelectTimeout,
 		// If no card selected after this long, show link to other ways to give
@@ -22,8 +24,11 @@
 	$( function() {
 		// Add a couple divs to hold the widgets
 		var container = $( '.submethods' ).parent();
+		container.prepend( '<div id="consentWidget" />' );
 		container.prepend( '<div id="walletWidget" />' );
 		container.prepend( '<div id="amazonLogin" />' );
+		// Set the click handler
+		$( '#paymentSubmitBtn' ).click( submitPayment );
 	});
 
 	// Adapted from Amazon documentation, will get parameters from fragment as
@@ -126,6 +131,21 @@
 		addErrorMessage( '<a href="' + url + '">' + text + '</a>' );
 	}
 
+	function setSubmitVisibility() {
+		var show = true;
+		if ( !cardSelected ) {
+			show = false;
+		}
+		if ( isRecurring && !recurConsentGranted ) {
+			show = false;
+		}
+		if ( show ) {
+			$( '#paymentSubmit' ).show();
+		} else {
+			$( '#paymentSubmit' ).hide();
+		}
+	}
+
 	function createWalletWidget() {
 		var params = {
 			sellerId: sellerId,
@@ -133,10 +153,14 @@
 				if ( !cardSelected ) {
 					cardSelectTimeout = setTimeout( showOtherWaysLink, CARD_SELECT_DELAY );
 				}
-				// Will come in handy for recurring payments
-				billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+				if ( !billingAgreementId ) {
+					billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+					if ( isRecurring ) {
+						createConsentWidget();
+					}
+				}
 			},
-			agreementType: 'OrderReference',
+			agreementType: isRecurring ? 'BillingAgreement' : 'OrderReference',
 			onOrderReferenceCreate: function( orderReference ) {
 				if ( orderReferenceId ) {
 					// Redisplaying for an existing order, no need to continue
@@ -147,8 +171,7 @@
 			onPaymentSelect: function() {
 				if ( !cardSelected ) {
 					cardSelected = true;
-					$( '#paymentSubmit' ).show();
-					$( '#paymentSubmitBtn' ).click( submitPayment );
+					setSubmitVisibility();
 				}
 				if ( cardSelectTimeout ) {
 					clearTimeout( cardSelectTimeout );
@@ -168,7 +191,34 @@
 		if ( orderReferenceId ) {
 			params.amazonOrderReferenceId = orderReferenceId;
 		}
+		if ( billingAgreementId ) {
+			params.amazonBillingAgreementId = billingAgreementId;
+		}
 		new OffAmazonPayments.Widgets.Wallet( params ).bind( 'walletWidget' );
+	}
+
+	function handleConsentStatus( billingAgreementConsentStatus ) {
+		// getConsentStatus returns a string for some reason
+		recurConsentGranted =
+			( billingAgreementConsentStatus.getConsentStatus() === 'true' );
+		setSubmitVisibility();
+	}
+
+	function createConsentWidget() {
+		var params = {
+			sellerId: sellerId,
+			amazonBillingAgreementId: billingAgreementId,
+			design: {
+				designMode: 'responsive'
+			},
+			onReady: handleConsentStatus,
+			onConsent: handleConsentStatus,
+			onError: function( error ) {
+				showErrorAndLoginButton();
+			}
+		};
+		$( '#consentWidget' ).show();
+		new OffAmazonPayments.Widgets.Consent( params ).bind( 'consentWidget' );
 	}
 
 	function handleErrors( errors ) {
@@ -189,8 +239,7 @@
 		if ( refreshWallet ) {
 			// Redisplay the widget to show an error and let the donor pick a different card
 			cardSelected = false;
-			$( '#paymentSubmit' ).hide();
-			$( '#paymentSubmitBtn' ).off( 'click' );
+			setSubmitVisibility();
 			createWalletWidget();
 		}
 	}
@@ -212,16 +261,26 @@
 			showOtherWays();
 			return;
 		}
+		if ( isRecurring && !recurConsentGranted ) {
+			//TODO: error message
+			return;
+		}
 		$( '#topError' ).html('');
 		$( '#overlay' ).show();
 		lockDonationAmount();
 		var postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',
-			orderReferenceId: orderReferenceId,
 			amount: $( '#amount' ).val(),
+			recurring: isRecurring,
 			currency_code: $( '#currency_code' ).val()
 		};
+
+		if ( isRecurring ) {
+			postdata.billingAgreementId = billingAgreementId;
+		} else {
+			postdata.orderReferenceId = orderReferenceId;
+		}
 
 		$.ajax({
 			url: mw.util.wikiScript( 'api' ),
