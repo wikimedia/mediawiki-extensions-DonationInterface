@@ -45,10 +45,14 @@
 				<input type="hidden" value="{{ contribution_tracking_id }}" name="contribution_tracking_id"/>
 				<input type="hidden" value="{{ data_hash }}" name="data_hash"/>
 				<input type="hidden" value="{{ gateway }}" name="gateway"/>
+				<input type="hidden" value="{{ recurring }}" name="recurring" id="recurring"/>
 				<input type="hidden" value="{{ payment_method }}" name="payment_method"/>
 			</form>
 			</div>
 			<p id="informationsharing">{{{ l10n "donate_interface-informationsharing" "url" }}}</p>
+{{# recurring }}
+			<p id="monthlycancel">{{{ l10n "donate_interface-monthly-cancel" }}}</p>
+{{/ recurring }}
 			<table>
 				<tr>
 					<td>

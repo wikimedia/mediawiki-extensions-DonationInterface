@@ -119,6 +119,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				'selected' => ( $currency === $data['currency_code'] ),
 			);
 		}
+		$data['recurring'] = (bool) $data['recurring'];
 		return $data;
 	}
 
