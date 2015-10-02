@@ -108,13 +108,11 @@ class AmazonAdapter extends GatewayAdapter {
 	public function defineErrorMap() {
 		$self = $this;
 		$differentCard = function() use ( $self ) {
-			$language = $self->getData_Unstaged_Escaped( 'language' );
-			$country = $self->getData_Unstaged_Escaped( 'country' );
+			$otherWays = $self->localizeGlobal( 'OtherWaysURL' );
 			return WmfFramework::formatMessage(
 				'donate_interface-donate-error-try-a-different-card-html',
-				'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give'
-					. "&amp;language={$language}&amp;uselang={$language}&amp;country={$country}",
-				'problemsdonating@wikimedia.org'
+				$otherWays,
+				$self->getGlobal( 'ProblemsEmail' )
 			);
 		};
 		$this->error_map = array(

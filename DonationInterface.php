@@ -148,7 +148,20 @@ $wgDonationInterfaceAppealWikiTemplate = 'LanguageSwitch|2011FR/$appeal/text|$la
 // Used as the value for $appeal when nothing is given in query string
 $wgDonationInterfaceDefaultAppeal = 'JimmyQuote';
 
-// Email address used when donor enters nothing
+// $language and $country will be substituted in the next four URLs
+// URL of a page for donors who encounter problems
+$wgDonationInterfaceProblemsURL = 'https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&language=$language&country=$country';
+// URL of a page listing alternate ways to give.
+$wgDonationInterfaceOtherWaysURL = 'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country';
+// URL of your organizations FAQ page for donors
+$wgDonationInterfaceFaqURL = 'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country';
+// URL of a page detailing tax deductability of donations to your organization
+$wgDonationInterfaceTaxURL = 'https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=$language&country=$country';
+
+// Email address donors should contact with any donation-related problems
+$wgDonationInterfaceProblemsEmail = 'problemsdonating@wikimedia.org';
+
+// Dummy email address associated with donation if donor does not provide one
 $wgDonationInterfaceDefaultEmail = 'nobody@wikimedia.org';
 
 //all of the following variables make sense to override directly,
