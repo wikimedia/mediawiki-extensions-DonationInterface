@@ -240,7 +240,7 @@
 	"donate_interface-or": "或者",
 	"donate_interface-your-information": "捐助者資料",
 	"donate_interface-mailing-address": "郵寄地址",
-	"donate_interface-billing-address": "郵件地址",
+	"donate_interface-billing-address": "帳單地址",
 	"donate_interface-billing-name": "計費名稱",
 	"donate_interface-title": "標題",
 	"donate_interface-company-name": "公司或組織名稱",
@@ -386,6 +386,6 @@
 	"donate_interface-error-http-403": "你沒有存取這個頁面的權限。",
 	"apihelp-donate-param-fname": "名。",
 	"apihelp-donate-param-city": "城市。",
-	"apihelp-donate-param-emailAdd": "電子郵件位址。",
+	"apihelp-donate-param-emailAdd": "電子郵件地址。",
 	"apihelp-donate-param-language": "語言代碼。"
 }
