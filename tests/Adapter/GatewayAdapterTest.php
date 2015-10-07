@@ -169,6 +169,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		// Then they go back and decide they want to make a recurring donation
 
 		$init['recurring'] = '1';
+		RequestContext::resetMain();
 		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
 
 		$gateway = new TestingGlobalCollectAdapter();
@@ -197,6 +198,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		// Then they go back and decide they want to donate via credit card
 		$init['payment_method'] = 'cc';
 		unset( $init['payment_submethod'] );
+		RequestContext::resetMain();
 		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
 
 		$gateway = new TestingAstropayAdapter();
