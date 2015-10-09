@@ -1363,6 +1363,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						$problemmessage = "$theirkey value '$qsResults[$ourkey]' from querystring does not match value '$xmlResults[$ourkey]' from GET_ORDERSTATUS XML";
 					}
 				}
+				// Make sure we're recording the right amounts, in case donor has
+				// opened another window and messed with their session values
+				// since our original INSERT_ORDERWITHPAYMENT. The donor is
+				// being charged the amount they intend to give, so this isn't
+				// a reason to fail the transaction.
+				// Since we're adding these via addResponseData, amount will be
+				// divided by 100 in unstaging.
+				// FIXME: need a general solution - anything with a resultswitcher
+				// is vulnerable to this kind of thing.
+				$xmlResults['amount'] = $data['AMOUNT'];
+				$xmlResults['currency_code'] = $data['CURRENCYCODE'];
 			}
 			$this->addResponseData( $xmlResults );
 			$logmsg = 'CVV Result from XML: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );

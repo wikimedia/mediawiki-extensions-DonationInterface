@@ -284,6 +284,35 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
+	 * Make sure we record the actual amount charged, even if the donor has
+	 * opened a new window and screwed up their session data.
+	 */
+	function testConfirmCreditCardUpdatesAmount() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+		// The values in session are not the values we originally used
+		// for INSERT_ORDERWITHPAYMENT
+		$init['amount'] = '12.50';
+		$init['currency_code'] = 'USD';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$currency = $gateway->getData_Unstaged_Escaped( 'currency_code' );
+		$this->assertEquals( '12.50', $amount );
+		$this->assertEquals( 'USD', $currency );
+
+		$gateway->do_transaction( 'Confirm_CreditCard' );
+
+		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$currency = $gateway->getData_Unstaged_Escaped( 'currency_code' );
+		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
+		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency'  );
+	}
+
+	/**
 	 * testDefineVarMap
 	 *
 	 * This is tested with a bank transfer from Spain.
