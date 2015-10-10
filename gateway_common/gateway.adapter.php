@@ -3967,6 +3967,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getLogDebugJSON() {
 		$logObj = array (
+			'amount',
 			'ffname',
 			'country',
 			'currency_code',
