@@ -233,6 +233,7 @@
 	"donate_interface-otherways-alt": "Существуют <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/ru\">другие способы сделать пожертвование</a>, в том числе чеком.",
 	"donate_interface-otherways-short": "Другие способы сделать пожертвование",
 	"donate_interface-token-mismatch": "Ваш сеанс истёк. Пожалуйста, заполните форму ещё раз.",
+	"donate_interface-try-again": "Мы временно не может обработать ваше пожертвование. Попробуйте еще раз чуть позже.",
 	"donate_interface-cc-form-header-personal": "Платёжные сведения",
 	"donate_interface-cc-form-header-payment": "Информация об оплате",
 	"donate_interface-make-your-donation": "Сделайте пожертвование сейчас",
