@@ -27,8 +27,6 @@
 	"donate_interface-cancel": "Hætta við",
 	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Lýsing",
-	"donate_interface-language": "Tungumál:",
-	"donate_interface-back": "Til baka",
 	"donate_interface-select": "Velja",
 	"donate_interface-change": "Breyting"
 }

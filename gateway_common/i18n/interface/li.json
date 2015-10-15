@@ -166,6 +166,7 @@
 	"donate_interface-post-transaction": "Transactiedetails",
 	"donate_interface-question-comment": "Vraoge of opmirkinge? Nöm den kóntak óp mit <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-problemsdonating": "Perbleme bie 't donere?",
+	"donate_interface-donate-click": "Dien creditkaartinformatie weurt verwirk naodesse óp \"{{int:payflowpro_gateway-donor-submit}}\" kliks.",
 	"donate_interface-cc-form-header-personal": "Betalingsinfermasie",
 	"donate_interface-cc-form-header-payment": "Betalingsinfermasie",
 	"donate_interface-make-your-donation": "Doneer noe",
