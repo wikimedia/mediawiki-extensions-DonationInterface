@@ -3,19 +3,22 @@
 class AmazonBillingApi extends ApiBase {
 	protected $allowedParams = array(
 		'amount',
+		'billingAgreementId',
 		'currency_code',
 		'orderReferenceId',
+		'recurring',
 		'token',
 	);
 
 	public function execute() {
 		$output = $this->getResult();
-		$orderReferenceId = $this->getParameter( 'orderReferenceId' );
+		$recurring = $this->getParameter( 'recurring');
 		$adapterParams = array(
 			'api_request' => true,
 			'external_data' => array(
 				'amount' => $this->getParameter( 'amount' ),
 				'currency_code' => $this->getParameter( 'currency_code' ),
+				'recurring' => $this->getParameter( 'recurring' ),
 			),
 		);
 
@@ -28,9 +31,15 @@ class AmazonBillingApi extends ApiBase {
 				$adapter->getValidationErrors()
 			);
 		} else if ( $adapter->checkTokens() ) {
-			$adapter->addRequestData( array(
-				'order_reference_id' => $orderReferenceId,
-			) );
+			if ( $recurring ) {
+				$adapter->addRequestData( array(
+					'subscr_id' => $this->getParameter( 'billingAgreementId' ),
+				) );
+			} else {
+				$adapter->addRequestData( array(
+					'order_reference_id' => $this->getParameter( 'orderReferenceId' ),
+				) );
+			}
 			$result = $adapter->doPayment();
 			if ( $result->isFailed() ) {
 				$output->addvalue(

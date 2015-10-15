@@ -181,12 +181,6 @@
 	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Təsvir",
 	"donate_interface-donation": "Bağışlama",
-	"donate_interface-language": "Dil:",
-	"donate_interface-front": "İrəli",
-	"donate_interface-back": "Geri",
-	"donate_interface-front-of-shirt": "Köynəyin qabağı",
-	"donate_interface-back-of-shirt": "Köynəyin arxası",
-	"donate_interface-select-a-size": "Xahiş olunur ölçünü seçin.",
 	"donate_interface-select": "Həcm:",
 	"donate_interface-dd-iban": "IBAN"
 }

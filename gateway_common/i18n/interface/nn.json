@@ -93,6 +93,7 @@
 	"donate_interface-error-msg-cvv": "CVV frå baksida av kortet ditt",
 	"donate_interface-easydonate": "Me freistar gjera det lett for folk i alle land å donera. Lat oss få vita korleis me kunne gjort det lettare for deg. Send innspelet ditt til: problemsdonating@wikimedia.org",
 	"donate_interface-problemsdonating": "Vanskar med å gje?",
+	"donate_interface-donate-click": "Etter å ha klikka  \"{{int:payflowpro_gateway-donor-submit}}\", vil kredittinformasjonen din verta gjennomgått.",
 	"donate_interface-otherways-short": "Andre måtar å gje på",
 	"donate_interface-cc-form-header-personal": "Betalingsinformasjon",
 	"donate_interface-make-your-donation": "Gje ei gåve no",

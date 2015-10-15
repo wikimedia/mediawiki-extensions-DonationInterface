@@ -34,6 +34,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getForm() {
 		$data = $this->getData();
 		$data = $data + $this->getErrors();
+		$data = $data + $this->getUrls();
+
 		self::$country = $data['country'];
 
 		$template = file_get_contents( $this->topLevelForm );
@@ -117,6 +119,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				'selected' => ( $currency === $data['currency_code'] ),
 			);
 		}
+		$data['recurring'] = (bool) $data['recurring'];
 		return $data;
 	}
 
@@ -141,6 +144,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 		}
 		return $return;
+	}
+
+	protected function getUrls() {
+		return array(
+			'problems_url' => $this->gateway->localizeGlobal( 'ProblemsURL' ),
+			'otherways_url' => $this->gateway->localizeGlobal( 'OtherWaysURL' ),
+			'faq_url' => $this->gateway->localizeGlobal( 'FaqURL' ),
+			'tax_url' => $this->gateway->localizeGlobal( 'TaxURL' ),
+		);
 	}
 
 	/**

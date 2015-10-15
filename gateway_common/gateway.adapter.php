@@ -685,6 +685,20 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * Gets a global variable according to @see getGlobal rules, then replaces
+	 * $country and $language with values from gateway instance data.
+	 * @param string $varname
+	 */
+	public function localizeGlobal( $varname ) {
+		$value = self::getGlobal( $varname );
+		$language = $this->getData_Unstaged_Escaped( 'language' );
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		$value = str_replace( '$language', $language, $value );
+		$value = str_replace( '$country', $country, $value );
+		return $value;
+	}
+
+	/**
 	 * getErrorMap
 	 *
 	 * This will also return an error message if a $code is passed.

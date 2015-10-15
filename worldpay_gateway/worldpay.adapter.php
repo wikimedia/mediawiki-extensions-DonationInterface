@@ -844,13 +844,13 @@ class WorldpayAdapter extends GatewayAdapter {
 			case 'GenerateToken':
 				if ( $this->isESOP() ) {
 					// This parameter will cause WP to use the iframe code path.
-					$this->transactions['GenerateToken']['request'][] = 'IsHosted';
-					$this->transactions['GenerateToken']['values']['IsHosted'] = 1;
+					$this->transactions[$transaction]['request'][] = 'IsHosted';
+					$this->transactions[$transaction]['values']['IsHosted'] = 1;
 					// Tell WP we want that CVV field.
-					$this->transactions['GenerateToken']['request'][] = 'IsCVNMEM';
-					$this->transactions['GenerateToken']['values']['IsCVNMEM'] = 1;
+					$this->transactions[$transaction]['request'][] = 'IsCVNMEM';
+					$this->transactions[$transaction]['values']['IsCVNMEM'] = 1;
 					// Translate the iframe to our language.
-					$this->transactions['GenerateToken']['request'][] = 'LAN';
+					$this->transactions[$transaction]['request'][] = 'LAN';
 				}
 
 				$result = parent::do_transaction( $transaction );
@@ -869,9 +869,14 @@ class WorldpayAdapter extends GatewayAdapter {
 				break;
 
 			case 'AuthorizePaymentForFraud':
-				if ( ! $this->isESOP() ) {
+				if ( $this->isESOP() ) {
+					// WP said we should send this here.
+					$this->transactions[$transaction]['request'][] = 'IsCVNMEM';
+					$this->transactions[$transaction]['values']['IsCVNMEM'] = 1;
+				} else {
 					// Perform CVV and AVS verification for account (deposit not allowed)
-					$this->transactions['AuthorizePaymentForFraud']['values']['IsVerify'] = 1;
+					$this->transactions[$transaction]['request'][] = 'IsVerify';
+					$this->transactions[$transaction]['values']['IsVerify'] = 1;
 				}
 				$this->addRequestData( array( 'cvv' => $this->get_cvv() ) );
 				$this->store_cvv_in_session( null ); // Remove the CVV from the session

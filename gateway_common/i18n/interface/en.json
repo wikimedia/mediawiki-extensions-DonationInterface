@@ -235,7 +235,7 @@
 	"donate_interface-otherways-alt": "There are <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">other ways to give</a>, including by check.",
 	"donate_interface-otherways-short": "Other ways to give",
 	"donate_interface-token-mismatch": "Your session has expired. Please try filling out and submitting the form again.",
-	"donate_interface-try-again": "We are temporarily unable to process your donation.  Please try again shortly.",
+	"donate_interface-try-again": "We are temporarily unable to process your donation. Please try again shortly.",
 	"donate_interface-cc-form-header-personal": "Billing information",
 	"donate_interface-cc-form-header-payment": "Payment information",
 	"donate_interface-make-your-donation": "Make your donation now",

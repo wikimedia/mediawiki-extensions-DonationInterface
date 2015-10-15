@@ -1,4 +1,4 @@
-/*global amazon:true*/
+/*global amazon:true, OffAmazonPayments:true*/
 ( function( $, mw ) {
 	var clientId = mw.config.get( 'wgAmazonGatewayClientID' ),
 		sellerId = mw.config.get( 'wgAmazonGatewaySellerID' ),
@@ -7,18 +7,28 @@
 		widgetScript = mw.config.get( 'wgAmazonGatewayWidgetScript' ),
 		loginScript = mw.config.get( 'wgAmazonGatewayLoginScript' ),
 		failPage = mw.config.get( 'wgAmazonGatewayFailPage' ),
+		isRecurring = $( '#recurring' ).val(),
 		loggedIn = false,
 		loginError,
 		accessToken,
 		validTokenPattern = new RegExp( '^Atza' ),
 		billingAgreementId,
-		orderReferenceId;
+		orderReferenceId,
+		recurConsentGranted = false,
+		cardSelected = false,
+		cardSelectTimeout,
+		// If no card selected after this long, show link to other ways to give
+		// in case the donor has no cards registered with Amazon
+		CARD_SELECT_DELAY = 5000;
 
 	$( function() {
 		// Add a couple divs to hold the widgets
 		var container = $( '.submethods' ).parent();
+		container.prepend( '<div id="consentWidget" />' );
 		container.prepend( '<div id="walletWidget" />' );
 		container.prepend( '<div id="amazonLogin" />' );
+		// Set the click handler
+		$( '#paymentSubmitBtn' ).click( submitPayment );
 	});
 
 	// Adapted from Amazon documentation, will get parameters from fragment as
@@ -115,26 +125,58 @@
 		}
 	}
 
+	function showOtherWaysLink() {
+		var url = mw.config.get( 'wgAmazonGatewayOtherWaysURL' ),
+			text = mw.message( 'donate_interface-otherways-short' );
+		addErrorMessage( '<a href="' + url + '">' + text + '</a>' );
+	}
+
+	function setSubmitVisibility() {
+		var show = true;
+		if ( !cardSelected ) {
+			show = false;
+		}
+		if ( isRecurring && !recurConsentGranted ) {
+			show = false;
+		}
+		if ( show ) {
+			$( '#paymentSubmit' ).show();
+		} else {
+			$( '#paymentSubmit' ).hide();
+		}
+	}
+
 	function createWalletWidget() {
 		var params = {
 			sellerId: sellerId,
 			onReady: function( billingAgreement ) {
-				// Will come in handy for recurring payments
-				billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+				if ( !cardSelected ) {
+					cardSelectTimeout = setTimeout( showOtherWaysLink, CARD_SELECT_DELAY );
+				}
+				if ( !billingAgreementId ) {
+					billingAgreementId = billingAgreement.getAmazonBillingAgreementId();
+					if ( isRecurring ) {
+						createConsentWidget();
+					}
+				}
 			},
-			agreementType: 'OrderReference',
+			agreementType: isRecurring ? 'BillingAgreement' : 'OrderReference',
 			onOrderReferenceCreate: function( orderReference ) {
 				if ( orderReferenceId ) {
 					// Redisplaying for an existing order, no need to continue
 					return;
 				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
-				$( '#paymentSubmit' ).show();
-				$( '#paymentSubmitBtn' ).click( submitPayment );
 			},
 			onPaymentSelect: function() {
-				// In case we hid the button because of an invalid payment error
-				$( '#paymentSubmit' ).show();
+				if ( !cardSelected ) {
+					cardSelected = true;
+					setSubmitVisibility();
+				}
+				if ( cardSelectTimeout ) {
+					clearTimeout( cardSelectTimeout );
+					delete cardSelectTimeout;
+				}
 			},
 			design: {
 				designMode: 'responsive'
@@ -149,7 +191,34 @@
 		if ( orderReferenceId ) {
 			params.amazonOrderReferenceId = orderReferenceId;
 		}
+		if ( billingAgreementId ) {
+			params.amazonBillingAgreementId = billingAgreementId;
+		}
 		new OffAmazonPayments.Widgets.Wallet( params ).bind( 'walletWidget' );
+	}
+
+	function handleConsentStatus( billingAgreementConsentStatus ) {
+		// getConsentStatus returns a string for some reason
+		recurConsentGranted =
+			( billingAgreementConsentStatus.getConsentStatus() === 'true' );
+		setSubmitVisibility();
+	}
+
+	function createConsentWidget() {
+		var params = {
+			sellerId: sellerId,
+			amazonBillingAgreementId: billingAgreementId,
+			design: {
+				designMode: 'responsive'
+			},
+			onReady: handleConsentStatus,
+			onConsent: handleConsentStatus,
+			onError: function( error ) {
+				showErrorAndLoginButton();
+			}
+		};
+		$( '#consentWidget' ).show();
+		new OffAmazonPayments.Widgets.Consent( params ).bind( 'consentWidget' );
 	}
 
 	function handleErrors( errors ) {
@@ -169,7 +238,8 @@
 
 		if ( refreshWallet ) {
 			// Redisplay the widget to show an error and let the donor pick a different card
-			$( '#paymentSubmit' ).hide();
+			cardSelected = false;
+			setSubmitVisibility();
 			createWalletWidget();
 		}
 	}
@@ -187,16 +257,30 @@
 		if ( !window.validateAmount() ) {
 			return;
 		}
+		if ( !cardSelected ) {
+			showOtherWays();
+			return;
+		}
+		if ( isRecurring && !recurConsentGranted ) {
+			//TODO: error message
+			return;
+		}
 		$( '#topError' ).html('');
 		$( '#overlay' ).show();
 		lockDonationAmount();
 		var postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',
-			orderReferenceId: orderReferenceId,
 			amount: $( '#amount' ).val(),
+			recurring: isRecurring,
 			currency_code: $( '#currency_code' ).val()
 		};
+
+		if ( isRecurring ) {
+			postdata.billingAgreementId = billingAgreementId;
+		} else {
+			postdata.orderReferenceId = orderReferenceId;
+		}
 
 		$.ajax({
 			url: mw.util.wikiScript( 'api' ),
