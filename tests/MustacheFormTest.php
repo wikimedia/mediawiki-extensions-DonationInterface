@@ -27,6 +27,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	protected $outputPage;
 
 	public function setUp() {
+		$this->resetAllEnv();
 		$this->adapter = new TestingGenericAdapter();
 		$this->adapter->addRequestData( array(
 			'amount' => '12',
@@ -125,14 +126,14 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		) );
 
-		RequestContext::getMain()->getRequest()->setVal( 'appeal', 'differentAppeal' );
+		$this->adapter->addRequestData( array( 'appeal' => 'differentAppeal' ) );
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parse' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/differentAppeal/en}}' ) );
 
 		$this->form = new Gateway_Form_Mustache( $this->adapter );
-		$html = $this->form->getForm();
+		$this->form->getForm();
 	}
 
 	/**
@@ -145,14 +146,16 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		) );
 
-		RequestContext::getMain()->getRequest()->setVal( 'appeal', '}}<script>alert("all your base are belong to us");</script>{{' );
+		$this->adapter->addRequestData( array(
+			'appeal' => '}}<script>alert("all your base are belong to us");</script>{{',
+		) );
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parse' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' ) );
 
 		$this->form = new Gateway_Form_Mustache( $this->adapter );
-		$html = $this->form->getForm();
+		$this->form->getForm();
 	}
 
 	/**
