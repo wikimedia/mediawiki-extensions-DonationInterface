@@ -220,6 +220,7 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
+		$fields[] = 'payment_method';
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}
