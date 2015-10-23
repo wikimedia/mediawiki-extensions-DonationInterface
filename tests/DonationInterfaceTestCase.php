@@ -314,7 +314,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= '<XML>';
 		$expected .= 	'<REQUEST>';
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= 		'<META><MERCHANTID>' . $this->gatewayAdapter->getGlobal( 'MerchantID' ) . '</MERCHANTID>';
+		$expected .= 		'<META><MERCHANTID>' . $exposed->account_config[ 'MerchantID' ] . '</MERCHANTID>';
 
 		if ( isset( $wgRequest ) ) {
 			$expected .=		'<IPADDRESS>' . $wgRequest->getIP() . '</IPADDRESS>';
