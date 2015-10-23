@@ -220,6 +220,7 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
+		$fields[] = 'payment_method';
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}
@@ -1133,6 +1134,7 @@ class WorldpayAdapter extends GatewayAdapter {
 		// CDATA tags because godonlyknows
 		$arr_query['token'] = rawurlencode( $this->token_getSaltedSessionToken() );
 		$arr_query['ffname'] = rawurlencode( $this->getData_Unstaged_Escaped( 'ffname' ) );
+		$arr_query['amount'] = rawurlencode( $this->getData_Unstaged_Escaped( 'amount' ) );
 		foreach ( $arr_query as $key => $val ) {
 			$query .= ( $first ? '?' : '&' ) . $key . '=' . $val;
 			$first = false;

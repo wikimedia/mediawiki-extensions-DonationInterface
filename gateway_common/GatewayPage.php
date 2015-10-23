@@ -373,8 +373,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$f_message = 'No active donation in the session';
 		}
 
-		if ( $forbidden ){
-			wfHttpError( 403, 'Forbidden', wfMsg( 'donate_interface-error-http-403' ) );
+		if ( $forbidden ) {
+			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 

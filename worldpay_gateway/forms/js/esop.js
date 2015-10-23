@@ -35,6 +35,7 @@ $( document ).ready( function () {
 			fname: $( '#fname' ).val(),
 			lname: $( '#lname' ).val(),
 			email: $( '#email' ).val(),
+			token: $( 'input[name=token]' ).val(),
 			payment_submethod: $( 'input[name=payment_submethod]:checked' ).val()
 		};
 
@@ -48,11 +49,19 @@ $( document ).ready( function () {
 					// TODO: This sucks; improve it
 					// Form fields have errors; each subkey in this array
 					// corresponds to a form field with an error
-					var errors = [];
+					var errors = [],
+					// Optionally refresh after displaying errors.
+						refresh = false;
 					$.each( data.errors, function ( idx, str ) {
+						if ( idx === 'token-mismatch' ) {
+							refresh = true;
+						}
 						errors.push( str );
 					});
 					window.alert( errors.join( '\n' ) );
+					if ( refresh ) {
+						window.location.reload();
+					}
 					$( '#paymentContinue' ).show();
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				} else if ( data.ottResult ) {
