@@ -71,7 +71,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'en',
 			'shopperEmail' => 'nobody@wikimedia.org',
-			'offset' => 51.5, //once we construct the FraudFiltersTestCase, it should land here.
+			'offset' => '52', //once we construct the FraudFiltersTestCase, it should land here.
 		);
 
 		//deal with problem keys.
