@@ -73,6 +73,7 @@ class DonationData implements LogPrefixProvider {
 				'amount',
 				'amountGiven',
 				'amountOther',
+				'appeal',
 				'email',
 				'emailAdd',
 				'fname',
@@ -332,6 +333,7 @@ class DonationData implements LogPrefixProvider {
 			$this->renameCardType();
 			$this->setEmail();
 			$this->setCardNum();
+			$this->setAppeal();
 
 			if ( $updateCtRequired ) {
 				$this->saveContributionTrackingData();
@@ -769,6 +771,18 @@ class DonationData implements LogPrefixProvider {
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );
 		$this->setVal( 'utm_source' , $utm_source );
+	}
+
+	/**
+	 * Set default appeal if unset, sanitize either way.
+	 */
+	protected function setAppeal() {
+		if ( $this->isSomething( 'appeal' ) ) {
+			$appeal = $this->getVal( 'appeal' );
+		} else {
+			$appeal = $this->gateway->getGlobal( 'DefaultAppeal' );
+		}
+		$this->setVal( 'appeal', MessageUtils::makeSafe( $appeal ) );
 	}
 
 	/**

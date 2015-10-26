@@ -78,4 +78,19 @@ class MessageUtils {
 	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
 		return self::languageSpecificFallback( $language, array( $key . '-' . strtolower( $country ), $key ), $params );
 	}
+
+	/**
+	 * This function limits the possible characters passed as template keys and
+	 * values to letters, numbers, hyphens and underscores. The function also
+	 * performs standard escaping of the passed values.
+	 *
+	 * @param string $string The unsafe string to escape and check for invalid characters
+	 * @return string Sanitized version of input
+	 */
+	public static function makeSafe( $string ) {
+		$stripped = preg_replace( '/[^-_\w]/', '', $string );
+
+		// theoretically this is overkill, but better safe than sorry
+		return wfEscapeWikiText( htmlspecialchars( $stripped ) );
+	}
 }

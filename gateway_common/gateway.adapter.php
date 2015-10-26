@@ -3106,6 +3106,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$_SESSION['Donor'] = array ( );
 		$donordata = DonationData::getStompMessageFields();
 		$donordata[] = 'order_id';
+		$donordata[] = 'appeal';
 
 		foreach ( $donordata as $item ) {
 			$_SESSION['Donor'][$item] = $this->getData_Unstaged_Escaped( $item );

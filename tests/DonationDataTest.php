@@ -40,6 +40,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$this->testData = array(
 			'amount' => '128.00',
+			'appeal' => 'JimmyQuote',
 			'email' => 'unittest@example.com',
 			'fname' => 'Testocres',
 			'lname' => 'McTestingyou',
@@ -88,6 +89,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$returned = $ddObj->getDataEscaped();
 		$expected = array(  'posted' => '',
 			'amount' => '0.00',
+			'appeal' => 'JimmyQuote',
 			'country' => 'XX',
 			'payment_method' => '',
 			'referrer' => '',
@@ -112,6 +114,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$expected = array (
 			'amount' => '35.00',
+			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
 			'fname' => 'Tester',
 			'lname' => 'Testington',
@@ -167,6 +170,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$expected = array (
 			'amount' => '35.00',
+			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
 			'fname' => 'Tester',
 			'lname' => 'Testington',
