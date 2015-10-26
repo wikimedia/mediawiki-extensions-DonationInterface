@@ -52,9 +52,9 @@ class AdyenAdapter extends GatewayAdapter {
 			'amount',
 			'street',
 			'zip',
+			'risk_score',
 			'billing_signature',
 			'hpp_signature',
-			'risk_score',
 		);
 	}
 	
