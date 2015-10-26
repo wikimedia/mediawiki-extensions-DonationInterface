@@ -33,6 +33,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	protected $data_tokens = array(
 		'@amount', // => $amount,
 		'@amountOther', // => $wgRequest->getText( 'amountOther' ),
+		'@appeal',
 		'@emailAdd', //'email' => $wgRequest->getText( 'emailAdd' ),
 		'@fname', // => $wgRequest->getText( 'fname' ),
 		'@lname', // => $wgRequest->getText( 'lname' ),
@@ -181,14 +182,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		 * This is a hack and should be replaced with something more performant.
 		 */
 		$form = $html;
-
-		// handle the appeal and appeal header
-		// TODO: determine and set variables for the default templates
-		$appeal_title_name = $this->make_safe( $wgRequest->getText( 'appeal-title', 'Appeal-title-default' ) );
-		$appeal_name = $this->make_safe( $wgRequest->getText( 'appeal', 'Appeal-default' ) );
-
-		$form = str_replace( "@appeal-title", $appeal_title_name, $form );
-		$form = str_replace( "@appeal", $appeal_name, $form );
 
 		// handle form action
 		$form = str_replace( "@action", $this->getNoCacheAction(), $form );
@@ -339,7 +332,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$param = $this->getEscapedValue( $matches[2][$i] );
 			if ( $param && !is_array( $param ) ) {
 				# get the value of the element and super-escape
-				$var = $this->make_safe( $param, 'default' );
+				$var = MessageUtils::makeSafe( $param, 'default' );
 			}
 
 			# oh, and we only allow with the extension .html
