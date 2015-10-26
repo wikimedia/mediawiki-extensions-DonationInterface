@@ -99,7 +99,7 @@ $wgGlobalCollectGatewayAccountInfo['test'] = array (
 
 
 /** Paypal **/
-$wgPaypalGatewayAccountInfo = array ( );
+$wgPaypalGatewayAccountInfo = array ();
 $wgPaypalGatewayAccountInfo['testing'] = array (
 	'AccountEmail' => 'phpunittesting@wikimedia.org',
 );
@@ -108,15 +108,21 @@ $wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; //whatever, doesn't m
 
 /** Amazon **/
 $wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
+$wgAmazonGatewayAccountInfo = array();
 $wgAmazonGatewayAccountInfo['test'] = array (
-	'AccessKey' => 'testkey',
-	'SecretKey' => 'testsecret',
-	'PaymentsAccountID' => 'testaccountid',
-	'IpnOverride' => 'https://test.wikimedia.org/amazon',
+	'SellerID' => 'ABCDEFGHIJKL',
+	'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
+	'ClientSecret' => '12432g134e3421a41234b1341c324123d',
+	'MWSAccessKey' => 'N0NSENSEXYZ',
+	'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
+	'Region' => 'us',
+	'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+	'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
 );
 
 /** Adyen **/
 $wgAdyenGatewayBaseURL = 'https://testorwhatever.adyen.com';
+$wgAdyenGatewayAccountInfo = array();
 $wgAdyenGatewayAccountInfo['test'] = array (
 	'AccountName' => 'wikitest',
 	'SharedSecret' => 'long-cat-is-long',
@@ -126,6 +132,7 @@ $wgAdyenGatewayAccountInfo['test'] = array (
 /** Astropay **/
 $wgAstropayGatewayURL = 'https://astropay.example.com/';
 $wgAstropayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
+$wgAstropayGatewayAccountInfo = array();
 $wgAstropayGatewayAccountInfo['test'] = array (
 	'Create' => array(
 		'Login' => 'createlogin',
@@ -138,6 +145,7 @@ $wgAstropayGatewayAccountInfo['test'] = array (
 	'SecretKey' => 'NanananananananananananananananaBatman',
 );
 
+$wgWorldpayGatewayAccountInfo = array();
 /** Worldpay **/
 $wgWorldpayGatewayAccountInfo['test'] = array (
 	'Username' => 'testname',

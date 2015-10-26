@@ -53,16 +53,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 					'recurring',
 				),
 			),
-			'wgAmazonGatewayAccountInfo' => array( 'test' => array(
-				'SellerID' => 'ABCDEFGHIJKL',
-				'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
-				'ClientSecret' => '12432g134e3421a41234b1341c324123d',
-				'MWSAccessKey' => 'N0NSENSEXYZ',
-				'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
-				'Region' => 'us',
-				'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
-				'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
-			) ),
 		) );
 	}
 
