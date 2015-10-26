@@ -54,7 +54,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'zip',
 			'billing_signature',
 			'hpp_signature',
-			'fraud_score',
+			'risk_score',
 		);
 	}
 	
@@ -521,9 +521,11 @@ class AdyenAdapter extends GatewayAdapter {
 	protected function stage_risk_score() {
 		//This isn't smart enough to grab a new value here;
 		//Late-arriving values have to trigger a restage via addData or
-		//this will always equil the risk_score at the time of object
+		//this will always equal the risk_score at the time of object
 		//construction. Still need the formatting, though.
-		$this->staged_data['risk_score'] = ( string ) round( $this->unstaged_data['risk_score'] );
+		if ( isset( $this->unstaged_data['risk_score'] ) ) {
+			$this->staged_data['risk_score'] = ( string ) round( $this->unstaged_data['risk_score'] );
+		}
 	}
 
 	protected function stage_hpp_signature() {
