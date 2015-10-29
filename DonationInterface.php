@@ -388,6 +388,8 @@ $wgWorldpayGatewayURL = 'https://some.url.here';
  */
 $wgWorldpayGatewayNoFraudIntegrationTest = false;
 
+$wgWorldpayGatewayTokenTimeout = '1800000';
+
 /*
 $wgWorldpayGatewayAccountInfo['default'] = array(
 	'Test' => 1,
@@ -885,7 +887,10 @@ $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'scripts' => 'esop.js',
 	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/js',
-	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js'
+	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js',
+	'messages' => array(
+		'donate_interface-cc-token-expired',
+	)
 );
 
 $wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (

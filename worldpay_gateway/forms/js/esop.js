@@ -71,6 +71,10 @@ $( document ).ready( function () {
 						'</div>'
 					);
 					$( '#payment-iframe' ).show( 'blind' );
+					setTimeout( function () {
+						window.alert( mw.msg( 'donate_interface-cc-token-expired' ) );
+						window.location.reload( true );
+					}, mw.config.get( 'wgWorldpayGatewayTokenTimeout' ) );
 				} else {
 					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 					$( '#paymentContinue' ).show();
