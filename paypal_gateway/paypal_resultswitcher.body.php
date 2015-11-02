@@ -61,6 +61,7 @@ class PaypalGatewayResult extends GatewayPage {
 			}
 			$this->getOutput()->redirect( $this->adapter->getFailPage() );
 */
+			$this->logger->info( "Displaying thank you page" );
 			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 		} else {
 			$this->logger->info( "Resultswitcher: Token Check Failed. Order ID: $oid" );
