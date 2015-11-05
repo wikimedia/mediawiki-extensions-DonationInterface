@@ -211,6 +211,7 @@
 	"donate_interface-otherways-alt": "Hai <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">otres maneres de contribuir</a>, incluyendo por cheque.",
 	"donate_interface-otherways-short": "Otres maneres de contribuir",
 	"donate_interface-token-mismatch": "La sesión caducó. Intenta rellenar y unviar el formulariu otra vegada.",
+	"donate_interface-cc-token-expired": "El token caducó, fai clic en OK p'actualizar.",
 	"donate_interface-try-again": "Temporalmente nun podemos procesar la to donación. Por favor, vuelve a intentalo pronto.",
 	"donate_interface-cc-form-header-personal": "Información de facturación",
 	"donate_interface-cc-form-header-payment": "Información del pagu",
