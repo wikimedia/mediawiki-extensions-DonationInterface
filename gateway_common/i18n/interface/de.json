@@ -222,6 +222,7 @@
 	"donate_interface-otherways-alt": "Es gibt auch <a href=\"//wikimediafoundation.org/wiki/Donate/WaysToGive/de\">andere Möglichkeiten zu spenden, auch per Scheck</a>.",
 	"donate_interface-otherways-short": "Andere Möglichkeiten zu spenden",
 	"donate_interface-token-mismatch": "Ihre Sitzung ist abgelaufen. Bitte füllen Sie das Formular erneut aus und senden es nochmals ab.",
+	"donate_interface-cc-token-expired": "Ihr Token ist abgelaufen. Klicken Sie Okay zum Aktualisieren.",
 	"donate_interface-try-again": "Wir können derzeit Ihre Spende nicht verarbeiten. Bitte später erneut versuchen.",
 	"donate_interface-cc-form-header-personal": "Persönliche Informationen",
 	"donate_interface-cc-form-header-payment": "Zahlungsinformationen",

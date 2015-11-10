@@ -260,6 +260,7 @@
 	"donate_interface-otherways-alt": "Message informing people about other ways to donate. Shown below donation form.",
 	"donate_interface-otherways-short": "Link to page informing about other ways to give. Shown below donate form.",
 	"donate_interface-token-mismatch": "Error message shown when the session has expired.",
+	"donate_interface-cc-token-expired": "Error message shown when the credit card token has expired.",
 	"donate_interface-try-again": "Error message shown when a transient problem occurs, such as the payment processor being overloaded.  Asks the donor to attempt their donation again in a short time.",
 	"donate_interface-cc-form-header-personal": "{{Identical|Billing information}}",
 	"donate_interface-cc-form-header-payment": "Header for part of form with information about payment (credit card).",

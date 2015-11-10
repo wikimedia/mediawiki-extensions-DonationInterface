@@ -28,6 +28,7 @@
 	"donate_interface-donor-postal": "पिनकोड",
 	"donate_interface-donor-country": "देश/विभाग",
 	"donate_interface-donor-address": "पत्ता",
+	"donate_interface-cc-token-expired": "आपले ओळखचिन्ह समाप्त झाले आहे.तरोताजे करण्यास OK टिचका.",
 	"donate_interface-anon-message": "कृपया माझे नाव सार्वजनिक देणगीदार यादीत दाखवा.",
 	"donate_interface-cardholders-name": "कार्डधारकाचे नाव",
 	"donate_interface-card-type": "कार्ड प्रकार",

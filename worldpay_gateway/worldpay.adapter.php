@@ -1004,6 +1004,10 @@ class WorldpayAdapter extends GatewayAdapter {
 		}
 	}
 
+	public function setClientVariables( &$vars ) {
+		$vars['wgWorldpayGatewayTokenTimeout'] = $this->getGlobal( 'TokenTimeout' );
+	}
+
 	/**
 	 * Adds required data from the response to our staged collection
 	 * @param array $data parsed out of payment processor API response

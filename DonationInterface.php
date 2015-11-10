@@ -121,6 +121,8 @@ $wgAutoloadClasses['Gateway_Extras_CustomFilters_Source'] = __DIR__ . '/extras/c
 $wgAutoloadClasses['Gateway_Extras_CustomFilters_Functions'] = __DIR__ . '/extras/custom_filters/filters/functions/functions.body.php';
 $wgAutoloadClasses['Gateway_Extras_CustomFilters_IP_Velocity'] = __DIR__ . '/extras/custom_filters/filters/ip_velocity/ip_velocity.body.php';
 
+$wgAutoloadClasses['BannerHistoryLogIdProcessor'] = __DIR__ . '/extras/banner_history/BannerHistoryLogIdProcessor.php';
+
 $wgAutoloadClasses['Gateway_Extras_SessionVelocityFilter'] = __DIR__ . '/extras/session_velocity/session_velocity.body.php';
 $wgAutoloadClasses['GatewayFormChooser'] = __DIR__ . '/special/GatewayFormChooser.php';
 $wgAutoloadClasses['SystemStatus'] = __DIR__ . '/special/SystemStatus.php';
@@ -386,6 +388,8 @@ $wgWorldpayGatewayURL = 'https://some.url.here';
  */
 $wgWorldpayGatewayNoFraudIntegrationTest = false;
 
+$wgWorldpayGatewayTokenTimeout = '1800000';
+
 /*
 $wgWorldpayGatewayAccountInfo['default'] = array(
 	'Test' => 1,
@@ -510,8 +514,14 @@ $wgDonationInterfaceQueues = array(
 	// These messages will be shoved into the fraud database (see
 	// crm/modules/fredge).
 	'payments-antifraud' => array(),
+
 	// These are shoved into the payments-initial database.
 	'payments-init' => array(),
+
+	// Banner history log ID-contribution tracking ID associations that go in
+	// Drupal in banner_history_contribution_associations. See
+	// crm/modules/queue2civicrm/banner_history
+	'banner-history' => array(),
 );
 
 //Custom Filters globals
@@ -793,6 +803,8 @@ $wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
 //Custom Filters hooks
+$wgHooks['GatewayReady'][] = array( 'BannerHistoryLogIdProcessor::onGatewayReady' );
+
 $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
@@ -864,7 +876,10 @@ $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'scripts' => 'esop.js',
 	'dependencies' => 'di.form.core.validate',
 	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/js',
-	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js'
+	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js',
+	'messages' => array(
+		'donate_interface-cc-token-expired',
+	)
 );
 
 $wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (

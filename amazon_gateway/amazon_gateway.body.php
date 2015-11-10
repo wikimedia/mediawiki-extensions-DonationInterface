@@ -30,13 +30,10 @@ class AmazonGateway extends GatewayPage {
 	 */
 	protected function handleRequest() {
 		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
-		$this->getOutput()->allowClickjacking();
-
-		$this->setHeaders();
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.styles' );
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
 
 		$this->validateForm();
-		$this->displayForm();
+		$this->handleDonationRequest();
 	}
 }
