@@ -57,39 +57,39 @@ class AdyenAdapter extends GatewayAdapter {
 			'hpp_signature',
 		);
 	}
-	
+
 	/**
 	 * Define var_map
 	 */
 	function defineVarMap() {
 		$this->var_map = array(
-			'allowedMethods'	=> 'allowed_methods',
+			'allowedMethods' => 'allowed_methods',
 			'billingAddress.city' => 'city',
 			'billingAddress.country' => 'country',
 			'billingAddress.postalCode' => 'zip',
-			'billingAddressSig'	=> 'billing_signature',
+			'billingAddressSig' => 'billing_signature',
 			'billingAddress.stateOrProvince' => 'state',
 			'billingAddress.street' => 'street',
 			'billingAddressType' => 'billing_address_type',
 			'blockedMethods' => 'blocked_methods',
-			'currencyCode'		=> 'currency_code',
+			'currencyCode' => 'currency_code',
 			'deliveryAddressType' => 'delivery_address_type',
-			'merchantAccount'	=> 'merchant_account',
-			'merchantReference'	=> 'order_id',
+			'merchantAccount' => 'merchant_account',
+			'merchantReference' => 'order_id',
 			'merchantReturnData' => 'return_data',
-			'merchantSig'		=> 'hpp_signature',
-			'offset'			=> 'risk_score',
-			'orderData'			=> 'order_data',
-			'paymentAmount'		=> 'amount',
-			'pspReference'		=> 'gateway_txn_id',
+			'merchantSig' => 'hpp_signature',
+			'offset' => 'risk_score',
+			'orderData' => 'order_data',
+			'paymentAmount' => 'amount',
+			'pspReference' => 'gateway_txn_id',
 			'recurringContract' => 'recurring_type',
-			'sessionValidity'	=> 'session_expiration',
-			'shipBeforeDate'	=> 'expiration',
-			'shopperEmail'		=> 'email',
-			'shopperLocale'		=> 'language',
+			'sessionValidity' => 'session_expiration',
+			'shipBeforeDate' => 'expiration',
+			'shopperEmail' => 'email',
+			'shopperLocale' => 'language',
 			'shopperReference' => 'customer_id',
 			'shopperStatement' => 'statement_template',
-			'skinCode'			=> 'skin_code',
+			'skinCode' => 'skin_code',
 		);
 	}
 
