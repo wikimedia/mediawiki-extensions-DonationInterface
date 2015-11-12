@@ -4,7 +4,8 @@
 			"Lloffiwr",
 			"Pwyll",
 			"Reedy",
-			"Xxglennxx"
+			"Xxglennxx",
+			"Robin Owain"
 		]
 	},
 	"donate_interface": "Cefnogwch Wikimedia",
@@ -193,6 +194,7 @@
 	"donate_interface-otherways-alt": "Mae <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">ffyrdd eraill o roi i gael</a>, megis â siec.",
 	"donate_interface-otherways-short": "Moddau eraill o roi",
 	"donate_interface-token-mismatch": "Daeth eich sesiwn i ben. Rhowch gynnig arall ar lenwi a chyflwyno'r ffurflen.",
+	"donate_interface-cc-token-expired": "Daeth eich tocyn i ben, cliciwch OK i adnewyddu'r dudalen.",
 	"donate_interface-cc-form-header-personal": "Manylion codi tâl",
 	"donate_interface-cc-form-header-payment": "Manylion talu",
 	"donate_interface-make-your-donation": "Rhoi nawr",
