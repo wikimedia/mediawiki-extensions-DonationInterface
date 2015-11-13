@@ -30,6 +30,10 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
+	public function getFormClass() {
+		return 'Gateway_Form_Mustache';
+	}
+
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
@@ -170,7 +174,12 @@ class AdyenAdapter extends GatewayAdapter {
 
 	public function definePaymentMethods() {
 		$this->payment_methods = array(
-			'cc' => array(),
+			'cc' => array(
+				'validation' => array(
+					'name' => true,
+					'email' => true,
+				),
+			),
 		);
 	}
 

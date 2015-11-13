@@ -1,10 +1,6 @@
-/*global amountErrors:true, billingErrors:true, paymentErrors:true, validate_personal:true, validateAmount:true, displayCreditCardForm:true*/
-
 window.displayCreditCardForm = function () {
-	$( '#payment' ).empty();
-	// Load wait spinner
-	$( '#payment' ).append( '<br/><br/><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
-		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
+	$( '#overlay' ).show();
+	$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
 	var currencyField, currency_code, stateField, state, countryField, country, sendData,
 		$payment, $pForm,
@@ -85,7 +81,7 @@ window.displayCreditCardForm = function () {
 					} );
 				} else {
 					if ( data.result.formaction && data.result.gateway_params ) {
-						$payment = $( '#payment' );
+						$payment = $( '#payment-form' );
 
 						// Empty the div; add the target iframe; then submit the request for the iframe contents
 						$payment.empty();
@@ -114,6 +110,9 @@ window.displayCreditCardForm = function () {
 		},
 		error: function ( xhr ) {
 			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+		},
+		complete: function () {
+			$('#overlay').hide();
 		}
 	} );
 };
@@ -124,52 +123,55 @@ window.displayCreditCardForm = function () {
  */
 $( document ).ready( function () {
 
-	// check for RapidHtml errors and display, if any
-	var temp, e, f, g,
-		amountErrorString = '',
-		billingErrorString = '',
-		paymentErrorString = '';
-
-	// generate formatted errors to display
-	temp = [];
-	for ( e in amountErrors ) {
-		if ( amountErrors[e] !== '' ) {
-			temp[temp.length] = amountErrors[e];
-		}
-	}
-	amountErrorString = temp.join( '<br />' );
-
-	temp = [];
-	for ( f in billingErrors ) {
-		if ( billingErrors[f] !== '' ) {
-			temp[temp.length] = billingErrors[f];
-		}
-	}
-	billingErrorString = temp.join( '<br />' );
-
-	temp = [];
-	for ( g in paymentErrors ) {
-		if ( paymentErrors[g] !== '' ) {
-			temp[temp.length] = paymentErrors[g];
-		}
-	}
-	paymentErrorString = temp.join( '<br />' );
-
-	// show the errors
-	if ( amountErrorString !== '' ) {
-		$( '#topError' ).html( amountErrorString );
-	} else if ( billingErrorString !== '' ) {
-		$( '#topError' ).html( billingErrorString );
-	} else if ( paymentErrorString !== '' ) {
-		$( '#topError' ).html( paymentErrorString );
-	}
+// TODO: mustache errors
+//	// check for RapidHtml errors and display, if any
+//	var temp, e, f, g,
+//		amountErrorString = '',
+//		billingErrorString = '',
+//		paymentErrorString = '';
+//
+//	// generate formatted errors to display
+//	temp = [];
+//	for ( e in amountErrors ) {
+//		if ( amountErrors[e] !== '' ) {
+//			temp[temp.length] = amountErrors[e];
+//		}
+//	}
+//	amountErrorString = temp.join( '<br />' );
+//
+//	temp = [];
+//	for ( f in billingErrors ) {
+//		if ( billingErrors[f] !== '' ) {
+//			temp[temp.length] = billingErrors[f];
+//		}
+//	}
+//	billingErrorString = temp.join( '<br />' );
+//
+//	temp = [];
+//	for ( g in paymentErrors ) {
+//		if ( paymentErrors[g] !== '' ) {
+//			temp[temp.length] = paymentErrors[g];
+//		}
+//	}
+//	paymentErrorString = temp.join( '<br />' );
+//
+//	// show the errors
+//	if ( amountErrorString !== '' ) {
+//		$( '#topError' ).html( amountErrorString );
+//	} else if ( billingErrorString !== '' ) {
+//		$( '#topError' ).html( billingErrorString );
+//	} else if ( paymentErrorString !== '' ) {
+//		$( '#topError' ).html( paymentErrorString );
+//	}
 
 	$( '#paymentContinueBtn' ).on( 'click', function () {
-		if ( validate_personal( document.payment ) && validateAmount() ) {
-			$( '#payment' ).animate( { height: '250px' }, 1000 );
-			displayCreditCardForm();
+		if ( window.validate_form( document.payment ) ) {
+			$( '#payment-form' ).animate( { height: '250px' }, 1000 );
+			window.displayCreditCardForm();
 			// hide the continue button so that people don't get confused with two of them
 			$( '#paymentContinue' ).hide();
 		}
 	} );
+
+	$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 } );

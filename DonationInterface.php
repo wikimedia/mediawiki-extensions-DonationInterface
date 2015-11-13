@@ -876,6 +876,13 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 	'position' => 'top',
 );
 
+$wgResourceModules['ext.donationinterface.adyen.scripts'] = array (
+	'scripts' => 'adyen.js',
+	'dependencies' => 'di.form.core.validate',
+	'localBasePath' => __DIR__ . '/adyen_gateway/forms/js',
+	'remoteExtPath' => 'DonationInterface/adyen_gateway/forms/js'
+);
+
 $wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
 	'scripts' => 'astropay.js',
 	'dependencies' => 'di.form.core.validate',

@@ -34,7 +34,7 @@ class AdyenGateway extends GatewayPage {
 	 * TODO: Finish Adyen error handling
 	 */
 	protected function handleRequest() {
-		$this->getOutput()->addModules( 'adyen.js' );
+		$this->getOutput()->addModules( 'ext.donationinterface.adyen.scripts' );
 
 		$this->handleDonationRequest();
 	}
