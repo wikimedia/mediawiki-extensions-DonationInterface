@@ -34,6 +34,13 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'Gateway_Form_Mustache';
 	}
 
+	public function getRequiredFields() {
+		$fields = parent::getRequiredFields();
+		$fields[] = 'address';
+		$fields[] = 'payment_submethod';
+		return $fields;
+	}
+
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
@@ -175,12 +182,30 @@ class AdyenAdapter extends GatewayAdapter {
 	public function definePaymentMethods() {
 		$this->payment_methods = array(
 			'cc' => array(
+				'label' => 'Credit Cards',
 				'validation' => array(
 					'name' => true,
 					'email' => true,
 				),
 			),
 		);
+
+		$card_types = array( 'visa', 'amex', 'mc', 'discover' );
+		$this->payment_submethods = array();
+		foreach( $card_types as $name ) {
+
+			$this->payment_submethods[$name] = array(
+				'countries' => array( 'US' => true ),
+				'group' => 'cc',
+				'validation' => array(
+					'name' => true,
+					'email' => true,
+					'address' => true,
+					'amount' => true,
+				),
+				'logo' => "card-{$name}.png",
+			);
+		}
 	}
 
 	protected function getAllowedPaymentMethods() {
