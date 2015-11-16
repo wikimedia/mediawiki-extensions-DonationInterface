@@ -5,13 +5,6 @@
 							</td>
 						</tr>
 {{/ fname_required }}
-{{# email_required }}
-						<tr>
-							<td>
-								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required>
-							</td>
-						</tr>
-{{/ email_required }}
 {{# address_required }}
 						<tr>
 							<td>
@@ -20,7 +13,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input class="halfwidth" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required><input class="halfwidth" name="state" value="{{ state }}" type="text" placeholder="{{ l10n "donate_interface-donor-state" }}" id="state" required>
+								<input class="thirdwidth" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required><input class="thirdwidth" name="state" value="{{ state }}" type="text" placeholder="{{ l10n "donate_interface-donor-state" }}" id="state" required><input class="thirdwidth" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-zip" }}" id="zip" required>
 							</td>
 						</tr>
 {{/ address_required }}
@@ -31,3 +24,10 @@
 							</td>
 						</tr>
 {{/ fiscal_number_required }}
+{{# email_required }}
+						<tr>
+							<td>
+								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required>
+							</td>
+						</tr>
+{{/ email_required }}
