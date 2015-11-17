@@ -69,8 +69,4 @@ class WmfFramework_Mediawiki {
 		global $wgRequest;
 		return $wgRequest->wasPosted();
 	}
-
-	static function sanitize( $text ) {
-		return wfEscapeWikiText( $text );
-	}
 }

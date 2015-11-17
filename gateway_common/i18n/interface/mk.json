@@ -218,7 +218,6 @@
 	"donate_interface-otherways-alt": "Постојат и <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">други начини на дарување</a>, вклучувајќи со чек.",
 	"donate_interface-otherways-short": "Други начини на дарување",
 	"donate_interface-token-mismatch": "Седницата ви истече.  Пополнете го образецот и поднесете го повторно.",
-	"donate_interface-cc-token-expired": "Шифрата ви истече. Стиснете на ОК за да превчитате.",
 	"donate_interface-try-again": "Привремено не сме во можност да ја обработиме вашата уплата. Обидете се повторно за кратко време.",
 	"donate_interface-cc-form-header-personal": "Наплатни податоци",
 	"donate_interface-cc-form-header-payment": "Лични податоци",

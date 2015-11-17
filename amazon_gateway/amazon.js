@@ -64,11 +64,6 @@
 		);
 	}
 
-	function reloadPage() {
-		var qsParams = $( '#payment-form' ).serializeArray();
-		document.location.replace( mw.util.getUrl( 'Special:AmazonGateway', qsParams ) );
-	}
-
 	function showErrorAndLoginButton( message ) {
 		if ( message ) {
 			addErrorMessage( message );
@@ -80,7 +75,7 @@
 				type: 'PwA',
 				color: 'Gold',
 				size: 'large',
-				authorization: reloadPage
+				authorization: redirectToLogin
 			}
 		);
 	}
@@ -234,12 +229,6 @@
 			if ( !errors.hasOwnProperty( code ) ) {
 				continue;
 			}
-			if ( code === 'token-mismatch' ) {
-				// Session has expired, we need to reload the whole page.
-				// FIXME: something nicer than an alert box
-				alert( errors[code] );
-				reloadPage();
-			}
 			addErrorMessage( errors[code] );
 			if ( code === 'InvalidPaymentMethod' ) {
 				// Card declined, but they can try another
@@ -282,10 +271,9 @@
 		var postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',
-			recurring: isRecurring,
 			amount: $( '#amount' ).val(),
-			currency_code: $( '#currency_code' ).val(),
-			token: $( '#token' ).val()
+			recurring: isRecurring,
+			currency_code: $( '#currency_code' ).val()
 		};
 
 		if ( isRecurring ) {

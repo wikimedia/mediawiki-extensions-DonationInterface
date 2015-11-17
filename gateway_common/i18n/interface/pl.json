@@ -10,8 +10,7 @@
 			"Sp5uhe",
 			"WTM",
 			"Darellur",
-			"Saper",
-			"The Polish"
+			"Saper"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -187,8 +186,8 @@
 	"donate_interface-error-msg-country": "państwo",
 	"donate_interface-error-msg-card_type": "typ karty kredytowej",
 	"donate_interface-error-msg-card_num": "numer karty kredytowej",
-	"donate_interface-error-msg-expiration": "Wprowadź proszę datę ważności karty",
-	"donate_interface-error-msg-cvv": "Wprowadź proszę kod CVV, wyświetlany zazwyczaj na tylnej części karty",
+	"donate_interface-error-msg-expiration": "datę ważności karty",
+	"donate_interface-error-msg-cvv": "kod CVV umieszczony z tyłu karty",
 	"donate_interface-error-msg-account_name": "Nazwa konta",
 	"donate_interface-error-msg-account_number": "Numer konta",
 	"donate_interface-error-msg-authorization_id": "Identyfikator autoryzacji",

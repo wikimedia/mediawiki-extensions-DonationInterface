@@ -71,7 +71,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
-			$this->logger->info( 'Displaying fail page for disabled gateway' );
 			$this->displayFailPage();
 			return;
 		}
@@ -85,7 +84,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		try {
 			$this->handleRequest();
 		} catch ( Exception $ex ) {
-			$this->logger->error( "Displaying fail page for exception: " . $ex->getMessage() );
+			$this->logger->error( "Gateway page errored out due to: " . $ex->getMessage() );
 			$this->displayFailPage();
 		}
 	}
@@ -143,7 +142,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgOut->addModules( $form_obj->getResources() );
 			$wgOut->addHTML( $form );
 		} else {
-			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
 			$this->displayFailPage();
 		}
 	}
@@ -420,15 +418,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// communication_type of 'incoming' and a way to provide the
 			// adapter the GET/POST params harvested here.
 			$this->adapter->processResponse( $response );
-			$status = $this->adapter->getFinalStatus();
-			switch ( $status ) {
+			switch ( $this->adapter->getFinalStatus() ) {
 			case FinalStatus::COMPLETE:
 			case FinalStatus::PENDING:
-				$this->logger->info( "Displaying thank you page for status $status." );
 				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 				return;
 			}
-			$this->logger->info( "Displaying fail page for final status $status" );
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
@@ -449,7 +444,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	protected function renderResponse( PaymentResult $result ) {
 		if ( $result->isFailed() ) {
-			$this->logger->info( 'Displaying fail page for failed PaymentResult' );
 			$this->displayFailPage();
 		} elseif ( $url = $result->getRedirect() ) {
 			$this->getOutput()->redirect( $url );
@@ -488,7 +482,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 		} else {
 			// Success.
-			$this->logger->info( 'Displaying thank you page for successful PaymentResult' );
 			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 		}
 	}

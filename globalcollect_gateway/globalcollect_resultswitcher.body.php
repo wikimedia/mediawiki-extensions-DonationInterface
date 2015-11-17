@@ -124,17 +124,14 @@ class GlobalCollectGatewayResult extends GatewayPage {
 				$this->displayResultsForDebug( $result );
 				//do the switching between the... stuff. 
 
-				$status = $this->adapter->getFinalStatus();
-				if ( $status ) {
-					switch ( $status ) {
+				if ( $this->adapter->getFinalStatus() ){
+					switch ( $this->adapter->getFinalStatus() ) {
 						case FinalStatus::COMPLETE:
 						case FinalStatus::PENDING:
 						case FinalStatus::PENDING_POKE:
-							$this->logger->info( "Displaying thank you page for final status $status" );
 							$go = $this->adapter->getThankYouPage();
 							break;
 						case FinalStatus::FAILED:
-							$this->logger->info( 'Displaying fail page for final status failed.' );
 							$this->displayFailPage();
 							return;
 					}
@@ -154,7 +151,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		} else {
 			$this->logger->error("Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
-		$this->displayFailPage();
 	}
 
 	function popout_if_iframe() {

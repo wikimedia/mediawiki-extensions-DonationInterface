@@ -13,14 +13,12 @@ class AmazonBillingApi extends ApiBase {
 	public function execute() {
 		$output = $this->getResult();
 		$recurring = $this->getParameter( 'recurring');
-		$token = $this->getParameter( 'token' );
 		$adapterParams = array(
 			'api_request' => true,
 			'external_data' => array(
 				'amount' => $this->getParameter( 'amount' ),
 				'currency_code' => $this->getParameter( 'currency_code' ),
-				'recurring' => $recurring,
-				'token' => $token,
+				'recurring' => $this->getParameter( 'recurring' ),
 			),
 		);
 
@@ -32,7 +30,7 @@ class AmazonBillingApi extends ApiBase {
 				'errors',
 				$adapter->getValidationErrors()
 			);
-		} else if ( $token && $adapter->checkTokens() ) {
+		} else if ( $adapter->checkTokens() ) {
 			if ( $recurring ) {
 				$adapter->addRequestData( array(
 					'subscr_id' => $this->getParameter( 'billingAgreementId' ),
@@ -67,7 +65,7 @@ class AmazonBillingApi extends ApiBase {
 			$output->addValue(
 				null,
 				'errors',
-				array( 'token-mismatch' => $this->msg( 'donate_interface-cc-token-expired' )->text() )
+				array( 'token-mismatch' => $this->msg( 'donate_interface-token-mismatch' )->text() )
 			);
 		}
 	}

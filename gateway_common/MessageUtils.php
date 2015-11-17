@@ -91,6 +91,6 @@ class MessageUtils {
 		$stripped = preg_replace( '/[^-_\w]/', '', $string );
 
 		// theoretically this is overkill, but better safe than sorry
-		return WmfFramework::sanitize( htmlspecialchars( $stripped ) );
+		return wfEscapeWikiText( htmlspecialchars( $stripped ) );
 	}
 }

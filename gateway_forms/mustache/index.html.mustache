@@ -31,20 +31,22 @@
 						</tbody>
 					</table>
 				</div>
+				<input type="hidden" name="gateway" value="{{ gateway }}" id="gateway" />
 				<input type="hidden" value="{{ country }}" name="country" id="country" />
+				<input type="hidden" value="0" name="PaypalRedirect" id="PaypalRedirect">
 				<input type="hidden" value="{{ expiration }}" name="expiration" id="expiration"/>
-				<input type="hidden" value="{{ utm_source }}" name="utm_source" id="utm_source"/>
-				<input type="hidden" value="{{ utm_medium }}" name="utm_medium" id="utm_medium"/>
-				<input type="hidden" value="{{ utm_campaign }}" name="utm_campaign" id="utm_campaign"/>
-				<input type="hidden" value="{{ language }}" name="language" id="language"/>
-				<input type="hidden" value="{{ referrer }}" name="referrer" id="referrer"/>
-				<input type="hidden" value="{{ token }}" name="token" id="token"/>
-				<input type="hidden" value="{{ order_id }}" name="order_id" id="order_id"/>
-				<input type="hidden" value="{{ contribution_tracking_id }}" name="contribution_tracking_id" id="contribution_tracking_id"/>
-				<input type="hidden" value="{{ data_hash }}" name="data_hash" id="data_hash"/>
-				<input type="hidden" value="{{ gateway }}" name="gateway" id="gateway"/>
+				<input type="hidden" value="{{ utm_source }}" name="utm_source"/>
+				<input type="hidden" value="{{ utm_medium }}" name="utm_medium"/>
+				<input type="hidden" value="{{ utm_campaign }}" name="utm_campaign"/>
+				<input type="hidden" value="{{ language }}" name="language"/>
+				<input type="hidden" value="{{ referrer }}" name="referrer"/>
+				<input type="hidden" value="{{ token }}" name="token"/>
+				<input type="hidden" value="{{ order_id }}"  name="order_id"/>
+				<input type="hidden" value="{{ contribution_tracking_id }}" name="contribution_tracking_id"/>
+				<input type="hidden" value="{{ data_hash }}" name="data_hash"/>
+				<input type="hidden" value="{{ gateway }}" name="gateway"/>
 				<input type="hidden" value="{{ recurring }}" name="recurring" id="recurring"/>
-				<input type="hidden" value="{{ payment_method }}" name="payment_method" id=payment_method"/>
+				<input type="hidden" value="{{ payment_method }}" name="payment_method"/>
 			</form>
 			</div>
 			<p id="informationsharing">{{{ l10n "donate_interface-informationsharing" "url" }}}</p>

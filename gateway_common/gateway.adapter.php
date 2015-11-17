@@ -420,8 +420,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->setGatewayDefaults( $options );
 		$this->stageData();
-
-		WmfFramework::runHooks( 'GatewayReady', array( $this ) );
 	}
 
 	/**
