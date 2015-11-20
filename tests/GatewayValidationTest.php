@@ -48,7 +48,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function tearDown() {
 		TestingGenericAdapter::$fakeIdentifier = null;
-
+		TestingGenericAdapter::$acceptedCurrencies = array();
 		parent::tearDown();
 	}
 

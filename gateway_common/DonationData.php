@@ -340,6 +340,11 @@ class DonationData implements LogPrefixProvider {
 			}
 
 			$this->getValidationErrors();
+
+			if ( isset( $this->validationErrors['currency_code'] ) ) {
+				// Try to fall back to a default currency
+				$this->fallbackToDefaultCurrency();
+			}
 		}
 	}
 	
@@ -1015,6 +1020,67 @@ class DonationData implements LogPrefixProvider {
 		}
 	}
 
-}
+	/**
+	 * Called when a currency code error exists. If a fallback currency
+	 * conversion is enabled for this adapter, convert intended amount to
+	 * default currency.
+	 *
+	 * @throws DomainException
+	 */
+	protected function fallbackToDefaultCurrency() {
+		$defaultCurrency = $this->gateway->getGlobal( 'FallbackCurrency' );
+		if ( !$defaultCurrency ) {
+			return;
+		}
+		// Our conversion rates are all relative to USD, so use that as an
+		// intermediate currency if converting between two others.
+		$oldCurrency = $this->normalized['currency_code'];
+		if ( $oldCurrency === $defaultCurrency ) {
+			$adapterClass = $this->gateway->getGatewayAdapterClass();
+			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
+		}
+		$oldAmount = $this->normalized['amount'];
+		$usdAmount = 0.0;
+		$newAmount = 0;
 
-?>
+		$conversionRates = CurrencyRates::getCurrencyRates();
+		if ( $oldCurrency === 'USD' ) {
+			$usdAmount = $oldAmount;
+		}
+		elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
+			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
+		}
+		else {
+			// We can't convert from this unknown currency.
+			return;
+		}
+
+		if ( $defaultCurrency === 'USD' ) {
+			$newAmount = floor( $usdAmount );
+		}
+		elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
+			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
+		}
+
+		$this->normalized['amount'] = $newAmount;
+		$this->normalized['currency_code'] = $defaultCurrency;
+
+		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
+
+		// We have a fallback, so let's revalidate.
+		$this->getValidationErrors( true );
+		$notify = $this->gateway->getGlobal( 'NotifyOnConvert' );
+
+		// If we're configured to notify, or if there are already other errors,
+		// add a notification message.
+		if ( $notify || !empty( $this->validationErrors ) ) {
+			$error['general'] = MessageUtils::getCountrySpecificMessage(
+					'donate_interface-fallback-currency-notice',
+					$this->normalized['country'],
+					$this->normalized['language'],
+					array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
+				);
+			$this->gateway->addManualError( $error );
+		}
+	}
+}

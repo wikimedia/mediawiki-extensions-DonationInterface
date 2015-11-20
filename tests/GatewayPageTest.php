@@ -28,19 +28,38 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 	public function setUp() {
 		$this->page = new TestingGatewayPage();
-		$this->adapter = new TestingGenericAdapter();
-		$this->adapter->addRequestData( array(
-			'amount' => '200',
-			'currency_code' => 'BBD' ) );
-		$this->adapter->errorsForRevalidate[0] = array( 'currency_code' => 'blah' );
-		$this->adapter->errorsForRevalidate[1] = array();
-		$this->page->adapter = $this->adapter;
+		// put these here so tests can override them
 		TestingGenericAdapter::$fakeGlobals = array ( 'FallbackCurrency' => 'USD' );
+		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
+		TestingGenericAdapter::$fakeIdentifier = 'globalcollect';
 		parent::setUp();
+	}
+
+	protected function setUpAdapter( $extra = array() ) {
+		$externalData = array_merge(
+			array(
+				'amount' => '200',
+				'currency_code' => 'BBD',
+				'contribution_tracking_id' => mt_rand( 10000, 10000000 ),
+			),
+			$extra
+		);
+		$this->adapter = new TestingGenericAdapter( array(
+			'external_data' => $externalData,
+		) );
+		$this->page->adapter = $this->adapter;
+	}
+
+	public function tearDown() {
+		TestingGenericAdapter::$acceptedCurrencies = array();
+		TestingGenericAdapter::$fakeGlobals = array();
+		TestingGenericAdapter::$fakeIdentifier = false;
+		parent::tearDown();
 	}
 
 	public function testFallbackWithNotification() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
+		$this->setUpAdapter();
 
 		$this->page->validateForm();
 
@@ -56,6 +75,8 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	public function testFallbackIntermediateConversion() {
 		TestingGenericAdapter::$fakeGlobals['FallbackCurrency'] = 'OMR';
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
+		TestingGenericAdapter::$acceptedCurrencies[] = 'OMR';
+		$this->setUpAdapter();
 
 		$this->page->validateForm();
 
@@ -68,6 +89,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 	public function testFallbackWithoutNotification() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
+		$this->setUpAdapter();
 
 		$this->page->validateForm();
 
@@ -81,7 +103,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 	public function testFallbackAlwaysNotifiesIfOtherErrors() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
-		$this->adapter->errorsForRevalidate[1] = array( 'amount' => 'bad amount' );
+		$this->setUpAdapter( array( 'email' => 'notanemail' ) );
 
 		$this->page->validateForm();
 
@@ -93,7 +115,8 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	}
 
 	public function testNoFallbackForSupportedCurrency() {
-		$this->adapter->errorsForRevalidate[0] = array( 'address' => 'blah' );
+		TestingGenericAdapter::$acceptedCurrencies[] = 'BBD';
+		$this->setUpAdapter();
 
 		$this->page->validateForm();
 

@@ -33,7 +33,6 @@ class AmazonGateway extends GatewayPage {
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.styles' );
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
 
-		$this->validateForm();
 		$this->handleDonationRequest();
 	}
 }

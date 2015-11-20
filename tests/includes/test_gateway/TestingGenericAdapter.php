@@ -38,7 +38,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public function revalidate($check_not_empty = array()) {
-		if ( $this->errorsForRevalidate ) {
+		if ( !empty( $this->errorsForRevalidate ) ) {
 			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
 			if ( $fakeErrors !== null ) {
 				$this->revalidateCount++;
