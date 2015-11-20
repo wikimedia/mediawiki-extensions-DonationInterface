@@ -59,12 +59,12 @@ window.displayCreditCardForm = function () {
 						$payment = $( '#payment-form' );
 
 						// Empty the div; add the target iframe; then submit the request for the iframe contents
-						$payment.empty();
 						$payment.append( $( '<iframe></iframe>', {
-							width: 400,
-							height: 225,
+							style: 'display: none; width: 100%;',
+							height: 400,
 							frameborder: 0,
-							name: 'adyen-iframe'
+							name: 'adyen-iframe',
+							id: 'adyen-iframe'
 						} ) );
 
 						$pForm = $( '<form></form>', {
@@ -79,6 +79,8 @@ window.displayCreditCardForm = function () {
 						$payment.append( $pForm );
 
 						$payment.find( '#fetch-iframe-form' ).submit();
+
+						$( '#adyen-iframe' ).show( 'blind' );
 					}
 				}
 			}
@@ -107,7 +109,6 @@ $( document ).ready( function () {
 
 	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( window.validate_form( document.payment ) ) {
-			$( '#payment-form' ).animate( { height: '250px' }, 1000 );
 			window.displayCreditCardForm();
 			// hide the continue button so that people don't get confused with two of them
 			$( '#paymentContinue' ).hide();
