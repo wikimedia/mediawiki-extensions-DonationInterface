@@ -337,6 +337,20 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * If the currency code is not three letters, we should try to guess it from
+	 * the country code.
+	 */
+	public function testSetNormalizedCurrencyCode_BadData() {
+		$data = $this->testData;
+		// When missing or not a recognized currency code, we'll guess from the
+		// country - in this test data, US.
+		$data['currency_code'] = 'splunge';
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
+		$returned = $ddObj->getDataEscaped();
+		$this->assertEquals( 'USD', $returned['currency_code'], 'Currency code was not properly reset');
+	}
+
+	/**
 	 *
 	 */
 	public function testSetNormalizedLanguage_uselang() {

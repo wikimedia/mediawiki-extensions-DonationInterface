@@ -467,7 +467,9 @@ class DonationData implements LogPrefixProvider {
 
 		if ( $currency ) {
 			$currency = strtoupper( $currency );
-		} else {
+		}
+		// If it's blank or not a currency code, guess it from the country.
+		if ( !$currency || !array_key_exists( $currency, CurrencyRates::getCurrencyRates() ) ) {
 			//TODO: This is going to fail miserably if there's no country yet.
 			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->logger->debug( "Got currency from 'country', now: $currency" );

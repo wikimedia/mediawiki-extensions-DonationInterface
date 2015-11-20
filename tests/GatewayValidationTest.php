@@ -98,8 +98,8 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	public function testCurrencyCodeError() {
 		$this->adapter->addRequestData( array(
 			'amount' => '2.99',
-			'country' => 'US',
-			'currency' => 'ZZZ',
+			'country' => 'BR',
+			'currency' => 'BRL',
 		) );
 
 		$this->page->validateForm();
