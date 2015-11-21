@@ -142,6 +142,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 					if ( $go ) {
 						$this->getOutput()->addHTML( "<br>Redirecting to page $go" );
 						$this->getOutput()->redirect( $go );
+						return;
 					} else {
 						$this->logger->error( "Resultswitcher: No redirect defined. Order ID: $oid" );
 					}
