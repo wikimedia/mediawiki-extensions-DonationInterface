@@ -219,6 +219,7 @@
 	"donate_interface-otherways-alt": "ישנן <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">דרכים נוספות לתרום</a>, לרבות המחאה.",
 	"donate_interface-otherways-short": "דרכים אחרות לתרום",
 	"donate_interface-token-mismatch": "פג תוקף השיחה. אנא נסו למלא את הטופס מחדש.",
+	"donate_interface-cc-token-expired": "האסימון שלך פג, נא ללחוץ אישור לרענון.",
 	"donate_interface-try-again": "זמנית לא יכולנו לעבד את התרומה שלך. נא לנסות שוב בקרוב.",
 	"donate_interface-cc-form-header-personal": "פרטי החיוב",
 	"donate_interface-cc-form-header-payment": "פרטי התשלום",

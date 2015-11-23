@@ -86,4 +86,8 @@ class WmfFramework_Drupal {
 	static function isPosted() {
 		return false;
 	}
+
+	static function sanitize( $text ) {
+		return filter_xss( $text );
+	}
 }
