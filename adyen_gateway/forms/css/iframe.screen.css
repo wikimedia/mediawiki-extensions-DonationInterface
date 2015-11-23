@@ -6,9 +6,24 @@
 }
 
 /* Match input styling */
-input[type="text"] {
-	border: 1px solid #C0C0C0;
-	padding: 3px;
+input[type="text"], select {
+	background-color: #f6f6f6;
+	padding: 1em !important;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 0 !important;
+	color: #006699;
+	cursor: pointer;
+	margin-bottom: .2em;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition:    all .3s ease-in-out;
+	-o-transition:      all .3s ease-in-out;
+	-ms-transition:     all .3s ease-in-out;
+	transition:         all .3s ease-in-out;
 }
 
 #card\.cardNumber, #card\.cardHolderName {
@@ -40,7 +55,6 @@ But, don't forget to take this out of .errorDiv, too. */
 	font-size: 80%;
 }
 
-
 html {
 	height: 100%;
 	max-height: 100%;
@@ -49,8 +63,8 @@ html {
 }
 
 body {
-	color: #000000;
-	background-color: #CCE7CD;
+	color: #7c7c7c;
+	padding: 2%;
 }
 
 /* Main Elements */
@@ -523,59 +537,59 @@ div.pmOcPay {
 /* ivr specific css */
 
 .ivricon {
-        display: block;
-        margin-right: 10px;
-        float: left;
+	display: block;
+	margin-right: 10px;
+	float: left;
 }
 .ivrmessage {
-        display: block;
-        font-weight: bold;
+	display: block;
+	font-weight: bold;
 }
 .ivrdetail {
-        display: block;
-        margin-top: 5px;
-        font-weight: bold;
-        font-family: arial, sans-serif;
+	display: block;
+	margin-top: 5px;
+	font-weight: bold;
+	font-family: arial, sans-serif;
 }
 
 
 #phoneNumber .ivrdetail {
-        color: #57A022;
-        font-size: 2.4em;
+	color: #57A022;
+	font-size: 2.4em;
 }
 
 #payCode .ivrdetail {
-        color: #1F5F98;
-        font-size: 2.4em;
+	color: #1F5F98;
+	font-size: 2.4em;
 }
 #timeToCall .ivrmessage {
-        font-weight: normal;
-        line-height: 1.1em;
+	font-weight: normal;
+	line-height: 1.1em;
 }
 
 #timeToCall .ivrmessage .phoneDetails, #timeLeft {
-        font-weight: bold;
-        color:  #57A022;
-        font-family: arial, sans-serif;
+	font-weight: bold;
+	color:  #57A022;
+	font-family: arial, sans-serif;
 }
 
 
 .progressW {
-        width: 400px; 
-        margin-left: 50px; 
-        padding: 1px;
-        border: 1px solid #666;
-        background-color: transparent
+	width: 400px; 
+	margin-left: 50px; 
+	padding: 1px;
+	border: 1px solid #666;
+	background-color: transparent
 }
 .progress {
-        width: 0px;
-        font-size: 1px;
-        height: 14px;
-        margin: 0px;
-        padding:0px;
-        background-color: #66C931;
-        background-image: url(/hpp/img/progress3.png);
-        background-repeat: repeat-x;
+	width: 0px;
+	font-size: 1px;
+	height: 14px;
+	margin: 0px;
+	padding:0px;
+	background-color: #66C931;
+	background-image: url(/hpp/img/progress3.png);
+	background-repeat: repeat-x;
 }
 
 .ebanking_FIFrame {
@@ -584,21 +598,21 @@ div.pmOcPay {
 }
 
 .ebanking_FIHeader {
-    font-weight:    bold;
-    margin-bottom:  5px;
-    margin-top:     5px;
-    color:          #1678A5;
+	font-weight:    bold;
+	margin-bottom:  5px;
+	margin-top:     5px;
+	color:          #1678A5;
 }
 
 .ebanking_FIText {
-    padding:        5px;
+	padding:        5px;
 }
 
 .invoicestat {
-    width: 55%;
-    border: 2px solid black;
-    font-family: courier, monospace;
-    padding: 17px 10px 17px 61px;
+	width: 55%;
+	border: 2px solid black;
+	font-family: courier, monospace;
+	padding: 17px 10px 17px 61px;
 }
 
 .invoicestatPaid      { border-color: green; background-color: #efe; }  
