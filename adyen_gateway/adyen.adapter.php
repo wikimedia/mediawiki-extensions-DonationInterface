@@ -64,7 +64,6 @@ class AdyenAdapter extends GatewayAdapter {
 			'street',
 			'zip',
 			'risk_score',
-			'billing_signature',
 			'hpp_signature',
 		);
 	}
@@ -78,7 +77,6 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.city' => 'city',
 			'billingAddress.country' => 'country',
 			'billingAddress.postalCode' => 'zip',
-			'billingAddressSig' => 'billing_signature',
 			'billingAddress.stateOrProvince' => 'state',
 			'billingAddress.street' => 'street',
 			'billingAddressType' => 'billing_address_type',
@@ -145,7 +143,6 @@ class AdyenAdapter extends GatewayAdapter {
 				'billingAddress.postalCode',
 				'billingAddress.stateOrProvince',
 				'billingAddress.country',
-				'billingAddressSig',
 				'billingAddressType',
 				'currencyCode',
 				'merchantAccount',
@@ -563,88 +560,55 @@ class AdyenAdapter extends GatewayAdapter {
 	}
 
 	protected function stage_hpp_signature() {
-		$keys = array(
-			'amount',
-			'currency_code',
-			'expiration',
-			'order_id',
-			'skin_code',
-			'merchant_account',
-			'session_expiration',
-			'email',
-			'customer_id',
-			'recurring_type',
-			'allowed_methods',
-			'blocked_methods',
-			'statement_template',
-			'return_data',
-			'billing_address_type',
-			'delivery_address_type',
-			'risk_score',
-		);
-		$sig_values = $this->getStagedValues( $this->getGatewayKeys( $keys ) );
-		$this->staged_data['hpp_signature'] = $this->calculateSignature( $sig_values );
+		$params = $this->buildRequestParams();
+		if ( $params ) {
+			$this->staged_data['hpp_signature'] = $this->calculateSignature( $params );
+		}
 	}
 
-	protected function stage_billing_signature() {
-		$keys = array(
-			'street',
-			'city',
-			'zip',
-			'state',
-			'country',
-		);
-		$sig_values = $this->getStagedValues( $this->getGatewayKeys( $keys ) );
-		$this->staged_data['billing_signature'] = $this->calculateSignature( $sig_values );
+	/**
+	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip
+	 * newlines.
+	 * @param string $gateway_field_name
+	 * @param boolean $token
+	 * @return mixed
+	 */
+	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
+		$value = parent::getTransactionSpecificValue( $gateway_field_name, $token );
+		return str_replace( '\n', '', $value );
 	}
 
-	// TODO: make the signature code more reusable.  Generalize the idea of
-	// mapping keys and fetching matching values.
-	protected function getGatewayKeys( $keys ) {
-		$staged = array();
-		$staging_map = array_flip( $this->var_map );
-		foreach ( $keys as $normal_form_key ) {
-			$staged[] = $staging_map[ $normal_form_key ];
+	function checkResponseSignature( $requestVars ) {
+		if ( !isset( $requestVars[ 'merchantSig' ] ) ) {
+			return false;
 		}
-		return $staged;
-	}
 
-	protected function getStagedValues( $keys ) {
-		$values = array();
-		foreach ( $keys as $key ) {
-			$s = $this->getTransactionSpecificValue( $key );
-			if ( $s !== NULL ) {
-				$values[] = $s;
-			}
-		}
-		return $values;
-	}
-
-	function checkResponseSignature( $request_vars ) {
-		$normal_form_keys = array(
-			'result',
-			'gateway_txn_id',
-			'order_id',
-			'skin_code',
-			'return_data'
-		);
-		$unstage_map = array_flip( $this->return_value_map );
-		$keys = array();
-		foreach ( $normal_form_keys as $normal_key ) {
-			$keys[] = $unstage_map[ $normal_key ];
-		}
-		$sig_values = array();
-		foreach ( $keys as $key ) {
-			$sig_values[] = ( array_key_exists( $key, $request_vars ) ? $request_vars[ $key ] : "" );
-		}
-		$calculated_sig = $this->calculateSignature( $sig_values );
-		return ( $calculated_sig === $request_vars[ 'merchantSig' ] );
+		$calculated_sig = $this->calculateSignature( $requestVars );
+		return ( $calculated_sig === $requestVars[ 'merchantSig' ] );
 	}
 
 	protected function calculateSignature( $values ) {
-		$joined = implode( '', $values );
+		$ignoredKeys = array(
+			'sig',
+			'merchantSig',
+			'title',
+			'liberated',
+		);
+
+		foreach ( array_keys( $values ) as $key ) {
+			if ( substr( $key, 0, 7 ) === 'ignore.' || in_array( $key, $ignoredKeys ) ) {
+				unset( $values[$key] );
+			} else {
+				// escape colons and backslashes
+				$values[$key] = str_replace( ':', '\\:', str_replace( '\\', '\\\\', $values[$key] ) );
+			}
+		}
+
+		ksort( $values, SORT_STRING );
+
+		$joined = implode( ':', array_merge( array_keys( $values ), array_values( $values ) ) );
 		return base64_encode(
-			hash_hmac( 'sha1', $joined, $this->accountInfo[ 'hashSecret' ], TRUE )
+			hash_hmac( 'sha256', $joined, pack( "H*", $this->accountInfo[ 'hashSecret' ] ), true )
 		);
 	}
 }
