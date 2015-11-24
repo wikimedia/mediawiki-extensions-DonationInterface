@@ -1,0 +1,627 @@
+@import url('logo-gloss.css');
+
+/* Hide Freaking Everything */
+#logoheader, #stageheader, #displayAmount, #paymentMethods li input.imgB, #foot {
+	display:none;
+}
+
+/* Match input styling */
+input[type="text"], select {
+	background-color: #f6f6f6;
+	padding: 1em !important;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 0 !important;
+	color: #006699;
+	cursor: pointer;
+	margin-bottom: .2em;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition:    all .3s ease-in-out;
+	-o-transition:      all .3s ease-in-out;
+	-ms-transition:     all .3s ease-in-out;
+	transition:         all .3s ease-in-out;
+}
+
+#card\.cardNumber, #card\.cardHolderName {
+	width: 190px;
+}
+
+#card\.cvcCode {
+	width:94px;
+}
+
+/* This should go away when we figure out how to put the labels inside the fields.
+But, don't forget to take this out of .errorDiv, too. */
+#card\.cclogo{
+	margin-left: 22px;
+}
+
+/* These two go together, or you get wiggle when an error happens. Dur. */
+.fieldDiv, .errorDiv {
+	padding-right: 20px;
+	margin-left: 20px;
+}
+
+/* And the $%@#$^ing button... */
+.r {
+	padding-right: 20px;
+}
+
+#card\.cvcWhatIs {
+	font-size: 80%;
+}
+
+html {
+	height: 100%;
+	max-height: 100%;
+	font-size: 0.8em;
+	font-family: 'sans-serif';
+}
+
+body {
+	color: #7c7c7c;
+	padding: 2%;
+}
+
+/* Main Elements */
+#container {
+	margin: 0 auto;
+}
+
+#logoheader {
+	height: 100px;
+	background: url("../img/Adyen_logo.png") left 20px no-repeat;
+}
+
+#content {
+}
+
+#pmcontent {
+	margin-top: 1px;
+}
+
+#foot {
+	background-color: white;
+	padding: 5px;
+	padding-top: 0px;
+}
+
+#footc {
+	margin-bottom: 0px;
+	padding: 0px 0px;
+	height: 68px;
+}
+
+.paddiv1, .paddiv2 {
+	height: 0px;
+}
+
+#nextstep {
+	font-weight: bold;
+	height: 22px;
+	color: #696969;
+	font-size: 1.1em;
+}
+
+#nextstepc {
+	text-align: center;
+	padding-top: 4px;
+	padding-bottom: 2px;
+}
+
+.popupMsg {
+	display: none;
+	border: 1px solid #666;
+	background-color: #eee;
+	margin-bottom: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 6px;
+}
+
+.popupMsgOPP {
+	position: relative; 
+	top: -155px; 
+	margin-left: 0px;
+	z-index: 10;
+}
+
+/* Common HTML Elements in #content */
+
+#content p,#content ul,#content pre {
+	padding: 0px;
+}
+
+#content h2 {
+	color: #696969;
+	padding-top: 16px;
+	font-size: 24px;
+	font-weight: normal;
+	margin-bottom: 36px;
+}
+
+#content h3 {
+	margin-left: 5px;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#content pre {
+	font-family: courier, monospace;
+	font-size: 1em;
+}
+
+.pmmdetails {
+	padding-left: 0px;
+}
+
+.fieldSubHeader {
+	font-weight:bold;
+	margin-bottom:0.5em;
+	margin-top:0.5em;
+}
+
+#displayAmount {
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+/* Table */
+table.basetable {
+	margin-left:0px;
+	/* whacked the margin here */
+}
+
+table.basetable td {
+	padding-bottom: 0.6em;
+	/* padding-right: 0.6em; */
+}
+
+/* Order Data Layout */
+table.od {
+	margin: 10px 0px 10px 0px;
+}
+
+table.od td, table.od th  {
+	padding: 5px;
+	border: 1px solid #999;
+}
+
+table.od th {
+	font-weight: bold;;
+}
+
+/* Image Buttons (Payment Methods) */
+
+.imgB {
+	width: 158px;
+	height: 32px;
+	padding: 0;
+	border: 0;
+	background: transparent url("../img/bg_buttons.png") no-repeat left 0px;
+	overflow: hidden;
+	color: #444;
+	cursor: pointer; /* hand-shaped cursor */
+	cursor: hand; /* for IE 5.x */
+	font-weight: bold;
+	font-size: 1.2em;
+	outline: none;
+}
+
+.pmB {
+	/* width: 400px; */
+	height: 42px;
+	padding-left: 85px;
+	text-align: left;
+	margin-bottom: 6px;
+	font-size: 1.1em;
+	background-color: transparent !important;
+}
+
+/* Image Buttons Footer (next/previous/pay) */
+
+#footerb1div {
+	float: left;
+	text-align: left;
+}
+
+#footerb2div {
+	float: right;
+	text-align: right;
+}
+
+.backB {
+	background: #696969 !important;
+}
+
+/* Links */
+
+a {
+	text-decoration: none;
+	color: #3d892e;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #3d892e;
+}
+
+/* Form elements */
+
+button:focus {
+	outline: none;
+}
+
+/* Validation */
+
+table.basetable .errorField {
+	border-color: #f33;
+	background-color: #fff3f3;
+}
+
+.fieldDiv {
+	background: transparent;
+}
+
+.errorDiv {
+	background: transparent url("/hpp/img/icons/error.png") no-repeat right 3px;
+}
+
+.errorFrame {
+	background-color: #fff3f3;
+}
+
+/********************************************/
+/*               oneclick                   */
+/********************************************/
+.pmOc {
+	margin-bottom: 10px;
+}
+
+.pmOc div.pmOcDetail {
+	background-color: #EEEEEE;
+	border: 1px solid #B4B4B4;
+	padding: 6px;
+	display: block;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	/* width: 400px;*/
+}
+
+.pmOc div.pmOcPad {
+	height: 1px;
+	display: block;
+	clear: both;
+}
+
+.pmOcRemove {
+	float: left;
+	margin-left: 10px;
+}
+
+.pmOcInput {
+	background-color: #fff;
+}
+
+.pmOcRadio {
+	float: left;
+}
+
+.pmOcDetailSummary {
+
+	height: 97px; /*101px;*/
+	/* width: 160px; */
+	color: white;
+	clear:both;
+	font-family:monospace;
+	font-size: 11px;
+	font-weight:bold;
+	line-height:1.3;
+	padding-top: 10px;
+	margin:4px 0 0 4px;
+}
+
+
+.pmOcDetailSummaryCard {
+	background-image: url(/hpp/img/card_generic.png);
+	background-repeat: no-repeat;
+}
+.pmOcDetailSummaryElv {
+	background-image: url(/hpp/img/elv_generic.png);
+	background-repeat: no-repeat;
+}
+
+.pmOcLogo {
+	height:22px;
+	width:40px;
+	background-color: white;
+	margin: 0px 0px 11px 110px;
+}
+.pmOcElv {
+	color: #888;
+	margin-bottom: 19px;
+	height:15px;
+	margin-left: 10px;
+	letter-spacing: 3px;
+}
+.pmOcPan {
+	height:15px;
+	padding-top: 9px;
+	margin-left: 14px;
+}
+.pmOcExp {
+	height:15px;
+	font-size: 10px;
+	margin-left: 105px;
+}
+.pmOcName {
+	height:15px;
+	margin-left: 14px;
+	text-transform: uppercase;
+}
+
+.pmOcArrow {
+	margin-left: 65px;
+	height: 20px;
+	background-repeat: no-repeat;
+	background-image: url(/hpp/img/arrow_down.png);
+}
+
+/* old oneclick - directdebit_NL */
+.pmOcDDNL, .pmOcDDNLHeader {
+	color: #888;
+}
+
+.pmOcDDNLHeader {
+	margin-bottom: 15px;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.pmOcDDNL {
+	margin-bottom: 5px;
+	letter-spacing: 2px;
+}
+
+div.pmOcDetail .fieldDiv, div.pmOcDetail .errorDiv {
+	display: inline;
+}
+
+div.pmOcDetail input {
+	background-color: white;
+}
+
+div.pmOcPay {
+	text-align: right;
+}
+
+/********************************************/
+/********************************************/
+
+
+/********************************************/
+/*            new oneclick                  */
+/********************************************/
+
+.pmOcOverview {
+	margin-bottom: 10px;
+	display: block;
+}
+
+.pmOcOverview div.pmOcDetail {
+	background-color: #EEEEEE;
+	border: 1px solid #B4B4B4;
+	padding: 6px;
+	display: block;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	float: left;
+	width: 278px;
+}
+
+.pmOcOverview div.pmOcDetailSummary {
+	margin: 0px;
+	padding: 0px;
+	height: 58px;
+	width: 272px;
+	clear:both;
+	font-size: 11px;
+	font-weight:normal;
+	line-height:1.3;
+	cursor: pointer;
+	color: black;
+	font-family: tahoma, verdana, arial, sans-serif;
+}
+
+.pmOcOverview div.pmOcPad {
+	height: 1px;
+	display: block;
+	clear: both;
+}
+
+.pmOcOverview div.pmOcLogo {
+	height:22px;
+	width:40px;
+	background-color: white;
+	margin: 0px;
+}
+
+.pmOcOverview div.pmOcField1 {
+	height:15px;
+	padding-top: 9px;
+	margin-left: 0px;
+}
+
+.pmOcOverview div.pmOcField2 {
+	padding-top: 0px;
+	height:15px;
+	margin-left: 0px;
+}
+
+.pmOcOverview span.pmOcFieldTitle {
+	float: left;	
+	width: 130px;
+}
+
+.ocRemoveDetail {
+	cursor: pointer;
+	position: relative;
+	top: 3px;
+	left: 2px;
+}
+
+.ocNewDetailsLink {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.ocStoredDetails {
+	font-size: 1.25em;
+}
+
+/* new oneclick - card */
+.ocCardLogo {
+	cursor: pointer;
+}
+.ocCardUpdateExpiryDate {
+
+}
+.ocCardUpdateExpiryDateLink {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.cardNumberTitle {
+	/*  Note: This is the bit that was holding the table open. */
+}
+
+
+/* new oneclick - directdebit - generic */
+
+.ocDDAccount {
+	float:	left;
+	padding: 4px;
+}
+
+.ocDDAccountLink {
+	cursor: pointer;
+	border: 1px solid #84e33c;
+	margin: 3px 9px 3px 1px;
+	color: #999999;
+}
+
+.ocDDAccountNoLink {
+	margin: 2px 8px 2px 0px;
+	border: 2px solid #84e33c;
+}
+/* new oneclick - directdebit_NL */
+.ocDDNLAccount {}
+.ocDDNLAccountLink {}
+.ocDDNLAccountNoLink {}
+
+/* new oneclick - directdebit_BR */
+.ocDDBRAccount {}
+.ocDDBRAccountLink {}
+.ocDDBRAccountNoLink {}
+
+/********************************************/
+/********************************************/
+
+
+/* ivr specific css */
+
+.ivricon {
+	display: block;
+	margin-right: 10px;
+	float: left;
+}
+.ivrmessage {
+	display: block;
+	font-weight: bold;
+}
+.ivrdetail {
+	display: block;
+	margin-top: 5px;
+	font-weight: bold;
+	font-family: arial, sans-serif;
+}
+
+
+#phoneNumber .ivrdetail {
+	color: #57A022;
+	font-size: 2.4em;
+}
+
+#payCode .ivrdetail {
+	color: #1F5F98;
+	font-size: 2.4em;
+}
+#timeToCall .ivrmessage {
+	font-weight: normal;
+	line-height: 1.1em;
+}
+
+#timeToCall .ivrmessage .phoneDetails, #timeLeft {
+	font-weight: bold;
+	color:  #57A022;
+	font-family: arial, sans-serif;
+}
+
+
+.progressW {
+	width: 400px; 
+	margin-left: 50px; 
+	padding: 1px;
+	border: 1px solid #666;
+	background-color: transparent
+}
+.progress {
+	width: 0px;
+	font-size: 1px;
+	height: 14px;
+	margin: 0px;
+	padding:0px;
+	background-color: #66C931;
+	background-image: url(/hpp/img/progress3.png);
+	background-repeat: repeat-x;
+}
+
+.ebanking_FIFrame {
+	width: 300px;
+	float: right;
+}
+
+.ebanking_FIHeader {
+	font-weight:    bold;
+	margin-bottom:  5px;
+	margin-top:     5px;
+	color:          #1678A5;
+}
+
+.ebanking_FIText {
+	padding:        5px;
+}
+
+.invoicestat {
+	width: 55%;
+	border: 2px solid black;
+	font-family: courier, monospace;
+	padding: 17px 10px 17px 61px;
+}
+
+.invoicestatPaid      { border-color: green; background-color: #efe; }  
+.invoicestatUnPaid    { border-color: orange; background-color: #fff5ee; } 
+.invoicestatCannotPay { border-color: red; background-color: #fee; } 
+
+.receiptNoPrint {
+	display: none;
+}
+.receiptPrint {
+	display: none;
+}

@@ -30,6 +30,17 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
+	public function getFormClass() {
+		return 'Gateway_Form_Mustache';
+	}
+
+	public function getRequiredFields() {
+		$fields = parent::getRequiredFields();
+		$fields[] = 'address';
+		$fields[] = 'payment_submethod';
+		return $fields;
+	}
+
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
@@ -57,39 +68,39 @@ class AdyenAdapter extends GatewayAdapter {
 			'hpp_signature',
 		);
 	}
-	
+
 	/**
 	 * Define var_map
 	 */
 	function defineVarMap() {
 		$this->var_map = array(
-			'allowedMethods'	=> 'allowed_methods',
+			'allowedMethods' => 'allowed_methods',
 			'billingAddress.city' => 'city',
 			'billingAddress.country' => 'country',
 			'billingAddress.postalCode' => 'zip',
-			'billingAddressSig'	=> 'billing_signature',
+			'billingAddressSig' => 'billing_signature',
 			'billingAddress.stateOrProvince' => 'state',
 			'billingAddress.street' => 'street',
 			'billingAddressType' => 'billing_address_type',
 			'blockedMethods' => 'blocked_methods',
-			'currencyCode'		=> 'currency_code',
+			'currencyCode' => 'currency_code',
 			'deliveryAddressType' => 'delivery_address_type',
-			'merchantAccount'	=> 'merchant_account',
-			'merchantReference'	=> 'order_id',
+			'merchantAccount' => 'merchant_account',
+			'merchantReference' => 'order_id',
 			'merchantReturnData' => 'return_data',
-			'merchantSig'		=> 'hpp_signature',
-			'offset'			=> 'risk_score',
-			'orderData'			=> 'order_data',
-			'paymentAmount'		=> 'amount',
-			'pspReference'		=> 'gateway_txn_id',
+			'merchantSig' => 'hpp_signature',
+			'offset' => 'risk_score',
+			'orderData' => 'order_data',
+			'paymentAmount' => 'amount',
+			'pspReference' => 'gateway_txn_id',
 			'recurringContract' => 'recurring_type',
-			'sessionValidity'	=> 'session_expiration',
-			'shipBeforeDate'	=> 'expiration',
-			'shopperEmail'		=> 'email',
-			'shopperLocale'		=> 'language',
+			'sessionValidity' => 'session_expiration',
+			'shipBeforeDate' => 'expiration',
+			'shopperEmail' => 'email',
+			'shopperLocale' => 'language',
 			'shopperReference' => 'customer_id',
 			'shopperStatement' => 'statement_template',
-			'skinCode'			=> 'skin_code',
+			'skinCode' => 'skin_code',
 		);
 	}
 
@@ -170,8 +181,31 @@ class AdyenAdapter extends GatewayAdapter {
 
 	public function definePaymentMethods() {
 		$this->payment_methods = array(
-			'cc' => array(),
+			'cc' => array(
+				'label' => 'Credit Cards',
+				'validation' => array(
+					'name' => true,
+					'email' => true,
+				),
+			),
 		);
+
+		$card_types = array( 'visa', 'amex', 'mc', 'discover' );
+		$this->payment_submethods = array();
+		foreach( $card_types as $name ) {
+
+			$this->payment_submethods[$name] = array(
+				'countries' => array( 'US' => true ),
+				'group' => 'cc',
+				'validation' => array(
+					'name' => true,
+					'email' => true,
+					'address' => true,
+					'amount' => true,
+				),
+				'logo' => "card-{$name}.png",
+			);
+		}
 	}
 
 	protected function getAllowedPaymentMethods() {
