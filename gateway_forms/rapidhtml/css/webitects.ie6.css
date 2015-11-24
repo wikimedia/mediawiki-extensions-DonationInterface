@@ -30,6 +30,6 @@ span.loc-postal input{
     width: 340px !important;
 }
 
-#where-content, #step1wrapper, #step2wrapper, #step3wrapper{
+#step1wrapper, #step2wrapper, #step3wrapper{
     width: 330px !important;
 }
