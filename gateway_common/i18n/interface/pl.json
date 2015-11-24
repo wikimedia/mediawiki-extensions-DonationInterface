@@ -11,7 +11,8 @@
 			"WTM",
 			"Darellur",
 			"Saper",
-			"The Polish"
+			"The Polish",
+			"Jrobell"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -375,7 +376,7 @@
 	"donate_interface-monthlybox-bottom": "Wpłata darowizny jest transakcją bezpieczną.",
 	"donate_interface-monthly-cancel": "Darowizna comiesięczna będzie pobierana przez Wikimedia Foundation dopóki nie powiadomisz nas o jej odwołaniu.",
 	"donate_interface-onetime": "Dokonaj jednorazowej wpłaty",
-	"donate_interface-monthly-short": "Miesięcznie",
+	"donate_interface-monthly-short": "Comiesięcznie",
 	"donate_interface-onetime-short": "Jednorazowo",
 	"donate_interface-securelogo-title": "Kliknij aby sprawdzić – ta strona używa VeriSign SSL dla zabezpieczenia wymiany poufnych danych.",
 	"donate_interface-secureLogo-text": "Informacje o certyfikatach SSL",
