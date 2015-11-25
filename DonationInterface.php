@@ -355,7 +355,7 @@ $wgPaypalGatewayXclickCountries = array();
 $wgAdyenGatewayHtmlFormDir = __DIR__ . '/adyen_gateway/forms/html';
 
 $wgAdyenGatewayBaseURL = 'https://live.adyen.com';
-$wgAdyenGatewayBaseTestingURL = 'https://test.adyen.com'; // unused
+$wgAdyenGatewayBaseTestingURL = 'https://test.adyen.com';
 
 #	$wgAdyenGatewayAccountInfo['example'] = array(
 #		'AccountName' => ''; // account identifier, not login name
