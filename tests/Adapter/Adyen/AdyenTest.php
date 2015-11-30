@@ -59,7 +59,6 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'billingAddress.postalCode' => $init['zip'],
 			'billingAddress.stateOrProvince' => $init['state'],
 			'billingAddress.country' => $init['country'],
-			'billingAddressSig' => 'OPd7taLd7uNWt9Izhq210n9/z2c=',
 			'billingAddressType' => 2,
 			'currencyCode' => $init['currency_code'],
 			'merchantAccount' => 'wikitest',
