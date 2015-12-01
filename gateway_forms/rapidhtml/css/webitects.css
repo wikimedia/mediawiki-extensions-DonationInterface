@@ -207,11 +207,6 @@ table#layouttable tr td {
 #step2wrapper, #step2header, #step3wrapper, #step3header {
     display: none;
 }
-#where-content {
-    font-size: 13px;
-    line-height: 19px;
-    width: 325px;
-}
 
 #amtErrorMessages, #billingErrorMessages, #paymentErrorMessages {
     color: #F00;
