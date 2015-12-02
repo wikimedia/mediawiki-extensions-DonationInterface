@@ -15,7 +15,8 @@
 			"Fitoschido",
 			"Toniher",
 			"Pcoombe",
-			"Macofe"
+			"Macofe",
+			"Jaumeortola"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -261,7 +262,7 @@
 	"donate_interface-verification-number": "Número de verificació",
 	"donate_interface-what-is-this": "Què és això?",
 	"donate_interface-do-not-include-dashes": "No hi inclogueu guions",
-	"donate_interface-please-donate-today": "Si us plau feu un donatiu avui",
+	"donate_interface-please-donate-today": "Si us plau, feu un donatiu avui.",
 	"donate_interface-donate-now": "Feu un donatiu ara",
 	"donate_interface-please-select-gift-amount": "Seleccioneu l'import del donatiu",
 	"donate_interface-select-gift-amount": "Seleccioneu l'import del donatiu",
@@ -272,7 +273,7 @@
 	"donate_interface-will-make-tax-deductible-gift": "Faré un donatiu deduïble d'impostos de:",
 	"donate_interface-next": "Següent",
 	"donate_interface-continue": "Continua",
-	"donate_interface-cancel": "Canceŀla",
+	"donate_interface-cancel": "Cancel·la",
 	"donate_interface-payment": "Pagament",
 	"donate_interface-payment-type": "Tipus de pagament",
 	"donate_interface-month": "$1 ($2)",
