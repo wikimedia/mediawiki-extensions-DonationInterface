@@ -61,7 +61,7 @@ global $wgDonationInterfaceTestMode,
 	$wgPaypalGatewayReturnURL,
 	$wgAmazonGatewayReturnURL,
 	$wgAmazonGatewayAccountInfo,
-	$wgAdyenGatewayBaseURL,
+	$wgAdyenGatewayURL,
 	$wgAdyenGatewayAccountInfo,
 	$wgAstropayGatewayURL,
 	$wgAstropayGatewayTestingURL,
@@ -121,7 +121,7 @@ $wgAmazonGatewayAccountInfo['test'] = array (
 );
 
 /** Adyen **/
-$wgAdyenGatewayBaseURL = 'https://testorwhatever.adyen.com';
+$wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';
 $wgAdyenGatewayAccountInfo = array();
 $wgAdyenGatewayAccountInfo['test'] = array (
 	'AccountName' => 'wikitest',
