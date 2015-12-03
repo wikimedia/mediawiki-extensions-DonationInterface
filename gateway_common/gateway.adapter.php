@@ -2536,7 +2536,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// expose a hook for any post processing
 		WmfFramework::runHooks( 'GatewayPostProcess', array( &$this ) );
 
-		$this->doStompTransaction();
+		try {
+			$this->doStompTransaction();
+		}
+		catch ( Exception $ex ) {
+			$this->logger->alert( "Failure queueing final status message: {$ex->getMessage()}" );
+		}
 	}
 
 	protected function pushMessage( $queue ) {
