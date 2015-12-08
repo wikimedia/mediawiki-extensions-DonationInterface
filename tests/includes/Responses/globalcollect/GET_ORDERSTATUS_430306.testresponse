@@ -30,7 +30,7 @@ there is a recoverable error. Tests the case with the recoverable error last. --
 				<AMOUNT>155</AMOUNT>
 				<AVSRESULT>0</AVSRESULT>
 				<EXPIRYDATE>0714</EXPIRYDATE>
-				<MERCHANTID>6570</MERCHANTID>
+				<MERCHANTID>1234</MERCHANTID>
 				<ORDERID>1234567890</ORDERID>
 				<STATUSID>100</STATUSID>
 				<CREDITCARDNUMBER>************2105</CREDITCARDNUMBER>
