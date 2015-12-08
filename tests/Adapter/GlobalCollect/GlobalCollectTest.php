@@ -593,4 +593,29 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
 		$this->assertEquals( 'url_placeholder', $result->getIframe(), 'PaymentResult should have iframe set' );
 	}
+
+	/**
+	 * doPayment should recover from an attempt to use a duplicate order ID.
+	 */
+	function testDuplicateOrderId() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['ffname'] = 'cc-vmad';
+		unset( $init['order_id'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$orig_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$gateway->setDummyGatewayResponseCode( function ( $gateway ) use ( $orig_id ) {
+			if ( $gateway->getData_Unstaged_Escaped( 'order_id' ) === $orig_id ) {
+				return 'duplicate';
+			} else {
+				return null;
+			}
+		} );
+		$result = $gateway->doPayment();
+		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
+		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+	}
 }

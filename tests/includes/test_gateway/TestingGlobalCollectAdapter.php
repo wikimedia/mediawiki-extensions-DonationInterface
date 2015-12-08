@@ -11,6 +11,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $limbo_messages = array();
 
+	public $dummyGatewayResponseCode;
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -101,11 +103,20 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
-			$code = '_' . $this->dummyGatewayResponseCode;
-			if ( $this->dummyGatewayResponseCode == 'Exception' ) {
+		if ( $this->dummyGatewayResponseCode ) {
+			if ( is_array( $this->dummyGatewayResponseCode ) ) {
+				$code = array_shift( $this->dummyGatewayResponseCode );
+			} elseif ( is_callable( $this->dummyGatewayResponseCode ) ) {
+				$code = call_user_func( $this->dummyGatewayResponseCode, $this );
+			} else {
+				$code = $this->dummyGatewayResponseCode;
+			}
+		}
+		if ( $code ) {
+			if ( $code === 'Exception' ) {
 				throw new RuntimeException('blah!');
 			}
+			$code = '_' . $code;
 		}
 
 		//could start stashing these in a further-down subdir if payment type starts getting in the way,
