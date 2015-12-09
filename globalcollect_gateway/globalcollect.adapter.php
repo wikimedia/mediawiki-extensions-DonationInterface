@@ -2150,9 +2150,20 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$errMsg = $errObj['message'];
 			$messageFromProcessor = $errObj['debugInfo'];
 			switch ( $errCode ) {
-				case 300620:
-				// Oh no! We've already used this order # somewhere else! Restart!
-					$this->logger->error( 'Order ID collission! Starting again.' );
+				case 400120: // INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
+					$transaction = $this->getCurrentTransaction();
+					if ( $transaction !== 'INSERT_ORDERWITHPAYMENT' ) {
+						// Don't regenerate order ID if it's too late, just steam
+						// right through and let regular error handling deal
+						// with it.
+						$this->logger->error( 'Order ID already processed, remain calm.' );
+						$retErrCode = $errCode;
+						$retErrMsg = $errMsg;
+						break;
+					}
+					// Fall through.
+				case 300620: // Oh no! We've already used this order # somewhere else! Restart!
+					$this->logger->error( 'Order ID collision! Starting again.' );
 					$retryVars[] = 'order_id';
 					$retErrCode = $errCode;
 					$retErrMsg = $errMsg;
@@ -2211,21 +2222,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						}
 					}
 
-
 				case 21000050 : //REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					//say something painful here.
 					$errMsg = 'Blocking validation problems with this payment. Investigation required! '
 								. "Original error: '$messageFromProcessor'.  Our data: " . $this->getLogDebugJSON();
-				case 400120:
-					/* INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
-					 * They already gave us money or failed...
-					 * but have probably been forbidden from resultswitcher due to session weirdness.
-					 * What should we actually do with these people, other than the default error log?
-					 * Special error page saying that they may already have donated?
-					 * @TODO: This absolutely happens IRL. Attempt to handle gracefully once we figure out what that means.
-					 *
-					 * I think we can just SET_PAYMENT at this point. -AW
-					 */
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );
 					break;
