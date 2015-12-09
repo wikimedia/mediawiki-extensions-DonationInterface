@@ -617,5 +617,9 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$result = $gateway->doPayment();
 		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
 		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+		$this->assertNotEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), $orig_id,
+			'Order ID regenerated in DonationData.' );
+		$this->assertNotEquals( $gateway->session_getData( 'order_id' ), $orig_id,
+			'Order ID regenerated in session.' );
 	}
 }
