@@ -3850,6 +3850,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		//tell DonationData about it
 		$this->addRequestData( array ( 'order_id' => $id ) );
+		// Add new Order ID to the session.
+		$this->session_addDonorData();
 		return $id;
 	}
 
