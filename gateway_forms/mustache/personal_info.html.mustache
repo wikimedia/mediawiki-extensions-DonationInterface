@@ -13,7 +13,19 @@
 						</tr>
 						<tr>
 							<td>
-								<input class="thirdwidth" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required>{{> state_dropdown }}<input class="thirdwidth" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-zip" }}" id="zip" required>
+{{# city_required }}
+								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required>
+{{/ city_required }}
+{{# state_required }}
+								<select class="{{ address_css_class }}" name="state" value="{{ state }}" placeholder="{{ l10n "donate_interface-donor-state" }}" id="state" required>
+	{{# state_options }}
+									<option value="{{ abbr }}">{{ name }}</option>
+	{{/ state_options }}
+								</select>
+{{/ state_required }}
+{{# postal_code_required }}
+								<input class="{{ address_css_class }}" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal" }}" id="zip" required>
+{{/ postal_code_required }}
 							</td>
 						</tr>
 {{/ address_required }}

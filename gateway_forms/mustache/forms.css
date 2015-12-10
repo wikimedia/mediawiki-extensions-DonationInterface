@@ -17,11 +17,6 @@ div#payment_gateway-donate-submessage {
     width: 94px;
 }
 
-/* <select> is annoyingly too wide at .thirdwidth */
-#state {
-	width: 30.25%;
-}
-
 .payment-cc-form-section {
     float: none;
     margin-right: 0;

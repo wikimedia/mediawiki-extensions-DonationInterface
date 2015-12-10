@@ -1,13 +1,52 @@
 <?php
 
-class StateAbbreviations {
-	/**
-	 * Supplies the drop down menu options of US states
-	 */
-	static function statesMenuXML() {
-		$states = array(
+class Subdivisions {
+
+	public static function getByCountry ( $country ) {
+		if ( isset( self::$list[$country] ) ) {
+			return self::$list[$country];
+		}
+		return false;
+	}
+
+	private static $list = array(
+		'AU' => array(
+			'YY' => 'Select a State/Territory',
+			'ACI' => 'Ashmore and Cartier Islands',
+			'AAT' => 'Australian Antarctic Territory',
+			'ACT' => 'Australian Capital Territory',
+			'CI' => 'Christmas Island',
+			'KI' => 'Cocos (Keeling) Islands',
+			'CSI' => 'Coral Sea Islands',
+			'HIMI' => 'Heard Island and McDonald Islands',
+			'JB' => 'Jervis Bay Territory',
+			'NSW' => 'New South Wales',
+			'NI' => 'Norfolk Island',
+			'NT' => 'Northern Territory',
+			'QLD' => 'Queensland',
+			'SA' => 'South Australia',
+			'TAS' => 'Tasmania',
+			'VIC' => 'Victoria',
+			'WA' => 'Western Australia',
+		),
+		'CA' => array(
+			'YY' => 'Select a Province',
+			'AB' => 'Alberta',
+			'BC' => 'British Columbia',
+			'MB' => 'Manitoba',
+			'NB' => 'New Brunswick',
+			'NL' => 'Newfoundland and Labrador',
+			'NT' => 'Northwest Territories',
+			'NS' => 'Nova Scotia',
+			'NU' => 'Nunavut',
+			'ON' => 'Ontario',
+			'PE' => 'Prince Edward Island',
+			'QC' => 'Quebec',
+			'SK' => 'Saskatchewan',
+			'YT' => 'Yukon',
+		),
+		'US' => array(
 			'YY' => 'Select a State',
-			'XX' => 'Outside the U.S.',
 			'AK' => 'Alaska',
 			'AL' => 'Alabama',
 			'AR' => 'Arkansas',
@@ -63,8 +102,6 @@ class StateAbbreviations {
 			'AA' => 'AA',
 			'AE' => 'AE',
 			'AP' => 'AP',
-		);
-		
-		return $states;
-	}
+		),
+	);
 }

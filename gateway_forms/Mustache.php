@@ -109,6 +109,28 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$required_fields = $this->gateway->getRequiredFields();
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
+
+			// If address is required, decide what to display based on country.
+			// FIXME this is conflating the meaning of 'address' with another
+			// definition in getRequiredFields.  These validation structures
+			// should be pulled out into config.
+			if ( $field === 'address' ) {
+				$data['city_required'] = true;
+				$data['postal_code_required'] = true;
+				$data['address_css_class'] = 'halfwidth';
+
+				// Does this country require a subdivision input?
+				$state_list = Subdivisions::getByCountry( $data['country'] );
+				if ( $state_list ) {
+					$data['address_css_class'] = 'thirdwidth';
+					$data['state_required'] = true;
+					$data['state_options'] = array();
+					foreach ( $state_list as $abbr => $name ) {
+						$data['state_options'][] = array( 'abbr' => $abbr, 'name' => $name );
+					}
+				}
+
+			}
 		}
 
 		foreach( $this->gateway->getCurrencies() as $currency ) {
