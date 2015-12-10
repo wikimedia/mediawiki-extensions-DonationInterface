@@ -13,7 +13,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input class="thirdwidth" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required><input class="thirdwidth" name="state" value="{{ state }}" type="text" placeholder="{{ l10n "donate_interface-donor-state" }}" id="state" required><input class="thirdwidth" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-zip" }}" id="zip" required>
+								<input class="thirdwidth" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required>{{> state_dropdown }}<input class="thirdwidth" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-zip" }}" id="zip" required>
 							</td>
 						</tr>
 {{/ address_required }}
