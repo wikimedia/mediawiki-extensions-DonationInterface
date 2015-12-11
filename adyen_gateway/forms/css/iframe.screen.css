@@ -20,7 +20,7 @@ body {
    script from 2007 will set a bad one that truncates content:
      https://test.adyen.com/hpp/js/animatedcollapse.js?v=7a9b */
 #pmmdetails-card {
-	height: 500px;
+	height: 400px;
 }
 
 /* Main Elements */

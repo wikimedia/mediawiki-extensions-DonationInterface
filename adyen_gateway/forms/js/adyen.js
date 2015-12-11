@@ -61,7 +61,7 @@ window.displayCreditCardForm = function () {
 						// Empty the div; add the target iframe; then submit the request for the iframe contents
 						$payment.append( $( '<iframe></iframe>', {
 							style: 'display: none; width: 100%;',
-							height: 400,
+							height: 500,
 							frameborder: 0,
 							name: 'adyen-iframe',
 							id: 'adyen-iframe'
