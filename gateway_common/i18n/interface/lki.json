@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Lakzon"
+			"Lakzon",
+			"Hosseinblue"
 		]
 	},
+	"donate_interface": "حمایت از ویکی‌مدیا",
 	"donate_interface-description": "توضیحةل",
-	"donate_interface-bt-country_description": "توصیف کِشؤةر"
+	"donate_interface-bt-country_description": "توصیف کِشؤةر",
+	"donate_interface-statement": "$1 ویکی‌مدیا"
 }
