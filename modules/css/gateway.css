@@ -182,6 +182,10 @@ input#emailAdd {
 	width: 31%;
 }
 
+.halfwidth, .thirdwidth {
+	float: left;
+}
+
 .collapsingCity {
 	display: none;
 }
