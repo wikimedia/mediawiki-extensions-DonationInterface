@@ -455,5 +455,6 @@
 	"apihelp-donate-param-utm_medium": "Tracking variable.",
 	"apihelp-donate-param-referrer": "Original referrer.",
 	"apihelp-donate-param-recurring": "Indicates that the transaction is meant to be recurring.",
-	"apihelp-donate-example-1": "Make a donation"
+	"apihelp-donate-example-1": "Make a donation",
+	"apihelp-logPaymentsFormError-description": "This API logs client-side donation form errors."
 }
