@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"KartikMistry",
-			"Rangilo Gujarati"
+			"Rangilo Gujarati",
+			"Bhatakati aatma"
 		]
 	},
-	"donate_interface": "વિકિમીડિયા ની મદદ કરો",
+	"donate_interface": "વિકિમીડિયાની મદદ કરો",
 	"donate_interface-intro": "કૃપા કરી ચૂકવણી પદ્ધતિ, રકમ, અને ચલણ પસંદ કરો",
 	"donate_interface-amount": "રકમ",
 	"donate_interface-other-amount": "અન્ય રકમ",
