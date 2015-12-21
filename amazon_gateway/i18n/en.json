@@ -3,5 +3,12 @@
 		"authors": []
 	},
 	"amazongateway": "Make your donation now",
-	"amazon_gateway-desc": "Amazon payment processing"
+	"amazon_gateway-desc": "Amazon payment processing",
+	"apihelp-di_amazon_bill-description": "",
+	"apihelp-di_amazon_bill-param-amount": "",
+	"apihelp-di_amazon_bill-param-billingAgreementId": "",
+	"apihelp-di_amazon_bill-param-currency_code": "",
+	"apihelp-di_amazon_bill-param-orderReferenceId": "",
+	"apihelp-di_amazon_bill-param-recurring": "",
+	"apihelp-di_amazon_bill-param-token": ""
 }
