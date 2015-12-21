@@ -21,9 +21,9 @@
 	"apihelp-di_wp_validate-param-country": "{{doc-apihelp-param|di_wp_validate|country}}",
 	"apihelp-di_wp_validate-param-city": "{{doc-apihelp-param|di_wp_validate|city}}",
 	"apihelp-di_wp_validate-param-cvc": "{{doc-apihelp-param|di_wp_validate|cvc}}",
-	"apihelp-di_wp_validate-param-amount": "{{doc-apihelp-param|di_wp_validate|amount}}",
 	"apihelp-di_wp_validate-param-email": "{{doc-apihelp-param|di_wp_validate|email}}",
-	"apihelp-di_wp_validate-param-ffname": "{{doc-apihelp-param|di_wp_validate|ffname}}",
 	"apihelp-di_wp_validate-param-payment_submethod": "{{doc-apihelp-param|di_wp_validate|payment_submethod}}",
-	"apihelp-di_wp_validate-param-token": "{{doc-apihelp-param|di_wp_validate|token}}"
+	"apihelp-di_wp_validate-param-token": "{{doc-apihelp-param|di_wp_validate|token}}",
+	"apihelp-di_wp_validate-param-amount": "{{doc-apihelp-param|di_wp_validate|amount}}",
+	"apihelp-di_wp_validate-param-ffname": "{{doc-apihelp-param|di_wp_validate|ffname}}"
 }
