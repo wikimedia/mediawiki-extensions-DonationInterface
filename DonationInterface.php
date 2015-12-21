@@ -66,8 +66,7 @@ $wgAutoloadClasses['Gateway_Form'] = __DIR__ . '/gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_Mustache'] = __DIR__ . '/gateway_forms/Mustache.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = __DIR__ . '/gateway_forms/RapidHtml.php';
 $wgAutoloadClasses['CountryCodes'] = __DIR__ . '/gateway_forms/includes/CountryCodes.php';
-$wgAutoloadClasses['ProvinceAbbreviations'] = __DIR__ . '/gateway_forms/includes/ProvinceAbbreviations.php';
-$wgAutoloadClasses['StateAbbreviations'] = __DIR__ . '/gateway_forms/includes/StateAbbreviations.php';
+$wgAutoloadClasses['Subdivisions'] = __DIR__ . '/gateway_forms/includes/Subdivisions.php';
 
 //GlobalCollect gateway classes
 $wgAutoloadClasses['GlobalCollectGateway'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.body.php';
