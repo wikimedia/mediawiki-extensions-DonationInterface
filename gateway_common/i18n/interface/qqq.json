@@ -374,6 +374,7 @@
 	"donate_interface-obt-generic-name": "Generic title for form or button that allows usage of the online bank transfer payment method.",
 	"donate_interface-obt-biller_id": "BPAY (Australian Online Bank Transfer) - The label for biller code",
 	"donate_interface-obt-customer_payment_reference": "BPAY (Australian Online Bank Transfer) - The customer reference number label.\n{{Identical|Reference}}",
+	"donate_interface-obt-customer_payment_reference_note": "Warning to donors using online bank transfer that reference numbers may not be reused",
 	"donate_interface-obt-information": "BPAY (Australian Online Bank Transfer) - The second level header on the web page",
 	"donate_interface-online_bank_transfer_message": "BPAY (Australian Online Bank Transfer)  - The message displayed about the BPAY transaction.",
 	"donate_interface-rtbt-issuer_id": "Real time bank transfer: Select a Bank used to pick which bank the donor wishes to use for their donation",

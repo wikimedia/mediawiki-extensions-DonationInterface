@@ -127,6 +127,7 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$return .= Xml::openElement( 'div', array( 'id' => $id ) ); // $id
 		$return .= Xml::tags( 'h2', array(), $this->msg( 'donate_interface-obt-information' )->escaped() );
+		$return .= Xml::tags( 'p', array(), $this->msg( 'donate_interface-obt-customer_payment_reference_note' )->escaped() );
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
 		foreach ( $fields as $field => $meta ) {
