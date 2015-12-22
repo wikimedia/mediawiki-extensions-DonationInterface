@@ -149,7 +149,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'recurring' => '',
 		);
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $expected ); //external data
+		$adapter = $this->getFreshGatewayObject( self::$initial_vars, array( 'batch_mode' => true ) );
+		$ddObj = new DonationData( $adapter, $expected ); //external data
 		$returned = $ddObj->getDataEscaped();
 
 

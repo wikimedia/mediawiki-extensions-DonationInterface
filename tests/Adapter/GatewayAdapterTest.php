@@ -263,5 +263,23 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
 		$this->assertEquals( $expectedURL, $page );
 	}
+
+	public function testCannotOverrideIp() {
+		$data = $this->getDonorTestData( 'FR' );
+		unset( $data['country'] );
+		$data['user_ip'] = '8.8.8.8';
+
+		$gateway = $this->getFreshGatewayObject( $data );
+		$this->assertEquals( '127.0.0.1', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
+	}
+
+	public function testCanOverrideIpInBatchMode() {
+		$data = $this->getDonorTestData( 'FR' );
+		unset( $data['country'] );
+		$data['user_ip'] = '8.8.8.8';
+
+		$gateway = $this->getFreshGatewayObject( $data, array( 'batch_mode' => true ) );
+		$this->assertEquals( '8.8.8.8', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
+	}
 }
 

@@ -353,24 +353,21 @@ class DonationData implements LogPrefixProvider {
 	 * Sets user_ip and server_ip. 
 	 */
 	protected function setIPAddresses(){
-		//if we are coming in from the orphan slayer, the client ip should 
-		//already be populated with something un-local, and we'd want to keep 
-		//that.
-		if ( !$this->isSomething( 'user_ip' ) || $this->getVal( 'user_ip' ) === '127.0.0.1' ){
+		if ( !$this->gateway->isBatchProcessor() ) {
+			// Refresh the IP from something authoritative, unless we're running
+			// a batch process.
 			$userIp = WmfFramework::getIP();
 			if ( $userIp ) {
 				$this->setVal( 'user_ip', $userIp );
 			}
 		}
-		
+
 		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ){
 			$this->setVal( 'server_ip', $_SERVER['SERVER_ADDR'] );
 		} else {
 			//command line? 
 			$this->setVal( 'server_ip', '127.0.0.1' );
 		}
-		
-		
 	}
 	
 	/**
