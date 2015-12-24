@@ -349,6 +349,7 @@
 	"donate_interface-obt-generic-name": "Online bank transfer",
 	"donate_interface-obt-biller_id": "Biller code",
 	"donate_interface-obt-customer_payment_reference": "Reference #",
+	"donate_interface-obt-customer_payment_reference_note": "Each Reference # is only valid once. Please do not reuse this reference number for future donations.",
 	"donate_interface-obt-information": "Online bank transfer information",
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Choose a Bank",
