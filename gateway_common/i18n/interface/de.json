@@ -336,6 +336,7 @@
 	"donate_interface-obt-generic-name": "Online-Überweisung",
 	"donate_interface-obt-biller_id": "Code des Rechnungsstellers",
 	"donate_interface-obt-customer_payment_reference": "Referenznummer",
+	"donate_interface-obt-customer_payment_reference_note": "Jede Referenznummer ist nur einmal gültig. Bitte verwenden Sie diese Referenznummer nicht für zukünftige Spenden.",
 	"donate_interface-obt-information": "Onlineüberweisungsinformationen",
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Bank",

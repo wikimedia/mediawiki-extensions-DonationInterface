@@ -332,6 +332,7 @@
 	"donate_interface-obt-generic-name": "Е-банкарска уплата",
 	"donate_interface-obt-biller_id": "Наплатен код",
 	"donate_interface-obt-customer_payment_reference": "Референтен бр.",
+	"donate_interface-obt-customer_payment_reference_note": "Секој упатен број важи само еднократно. Не го употребувајте повторно за идни дарувања.",
 	"donate_interface-obt-information": "Информации за трансакцијата",
 	"donate_interface-online_bank_transfer_message": "Телефонско и семрежно банкарство - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Банка",

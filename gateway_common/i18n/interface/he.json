@@ -333,6 +333,7 @@
 	"donate_interface-obt-generic-name": "העברת בנקאית מקוונת",
 	"donate_interface-obt-biller_id": "קוד מחייב (Biller code)",
 	"donate_interface-obt-customer_payment_reference": "מספר הפניה (<span dir=\"ltr\">Reference #</span>)",
+	"donate_interface-obt-customer_payment_reference_note": "כל מספר Reference תקף רק פעם אחת. אין לעשות שימוש חוזר במספר reference בתרומות עתידיות.",
 	"donate_interface-obt-information": "מידע על העברה בנקאית מקוונת",
 	"donate_interface-online_bank_transfer_message": "בנקאות בטלפון ובאינטרנט – BPAY®",
 	"donate_interface-rtbt-issuer_id": "בחירת בנק",

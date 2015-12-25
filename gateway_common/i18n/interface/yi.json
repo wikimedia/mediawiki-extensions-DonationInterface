@@ -249,6 +249,7 @@
 	"donate_interface-bt-finished": "פֿאַרטיק",
 	"donate_interface-obt-biller_id": "חשבון־שטעלער קאד",
 	"donate_interface-obt-customer_payment_reference": "רעפערענץ נומער",
+	"donate_interface-obt-customer_payment_reference_note": "יעדער רעפֿערענץ # איז גילטיק נאר איין מאל. ניצט נישט דעם רעפֿערענץ נומער נאכאמאל ביי צוקונפֿטדיקע נדבות.",
 	"donate_interface-obt-information": "אנליין באנק אריבערפירן אינפארמאציע",
 	"donate_interface-online_bank_transfer_message": "טעלעפאן און אינטערנעץ באנקירן - BPAY®",
 	"donate_interface-rtbt-issuer_id": "קלויבן א באנק",
