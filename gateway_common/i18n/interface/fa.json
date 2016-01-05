@@ -13,7 +13,8 @@
 			"ZxxZxxZ",
 			"Rtemis",
 			"Alirezaaa",
-			"MohandesWiki"
+			"MohandesWiki",
+			"Hosseinblue"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -318,7 +319,7 @@
 	"donate_interface-select": "اندازه:",
 	"donate_interface-donation-must-equal": "مبلغ اهدائی باید برابر $1 و یا بیشتر باشد.",
 	"donate_interface-thank-you": "از شما متشکرم! کمک مالی شما دریافت شد.",
-	"donate_interface-change": "تغییر",
+	"donate_interface-change": "گؤەڕانن/تغییر",
 	"donate_interface-select-credit-card": "کارت اعتباری را انتخاب کنید",
 	"donate_interface-optional": "اختیاری",
 	"donate_interface-state-dropdown-YY": "ایالت را انتخاب کنید",
@@ -364,7 +365,7 @@
 	"donate_interface-faqs": "پرسش‌های متداول",
 	"donate_interface-tax-info": "اطلاعات مالیات کسر پذیر",
 	"donate_interface-informationsharing": "مطابق سیاست‌های محرمانگی اهداکنندگان بنیاد ویکی‌مدیا، سازمان ناسودبری که متولی ویکی‌پدیا و دیگر پروژه‌های ویکی‌مدیاست، شما با اهدای کمک مالی، اطلاعاتتان را با بنیاد ویکی‌مدیا و تأمین‌کنندگان خدماتش در ایالات متحده و دیگر نقاط به اشتراک می‌گذارید. ما اطلاعاتتان را به هیچ کس نخواهیم فروخت. برای کسب اطلاعات بیشتر لطفاً <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">our donor policy</a> را بخوانید.",
-	"donate_interface-currency-change": "تغییر؟",
+	"donate_interface-currency-change": "گؤەڕانن/تغییر؟",
 	"donate_interface-bank_transfer_message": "لطفاً توجه کنید که اظهارات شما بیانگر آن است که «گلوبال کالکت» گیرندهٔ هدیهٔ شماست. گلوبال کالکت مجاز است که از طرف بنیاد ویکی‌مدیا نسبت به پذیرش و پردازش پرداخت‌ها اقدام کند. به یاد داشته باشید که انتقال وجه بانکی‌تان متضمن شمارهٔ مرجعی باشد که از اینجا دریافت می‌کنید و اگر نگرانی یا سؤالی در این مورد دارید به نشانی donations@wikimedia.org ایمیلی ارسال کنید.",
 	"donate_interface-globalcollect-proxy": "لطفاً توجه داشته باشید که اظهار شما \"گردآوری جهانی\" را به عنوان گیرندهٔ هدیه نمایش خواهد داده‌شد. گردآوری جهانی مجاز به قبول و روند پرداخت‌ها از جانب بنیاد ویکی‌مدیا است.",
 	"donate_interface-taxded-link-int": "مالیات و دیگر اطلاعات قانونی",
