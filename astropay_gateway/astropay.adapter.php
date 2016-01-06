@@ -26,14 +26,6 @@ class AstropayAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'astropay';
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
 
-	public function getFormClass() {
-		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error') === 0 ) {
-			// TODO: make a mustache error form
-			return parent::getFormClass();
-		}
-		return 'Gateway_Form_Mustache';
-	}
-
 	public function getCommunicationType() {
 		return 'namevalue';
 	}

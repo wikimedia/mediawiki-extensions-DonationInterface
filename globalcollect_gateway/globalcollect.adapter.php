@@ -31,6 +31,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
+	public function getFormClass() {
+		return 'Gateway_Form_RapidHtml';
+	}
+
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
 	 *

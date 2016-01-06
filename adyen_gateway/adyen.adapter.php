@@ -30,10 +30,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	public function getFormClass() {
-		return 'Gateway_Form_Mustache';
-	}
-
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
 		$fields[] = 'address';

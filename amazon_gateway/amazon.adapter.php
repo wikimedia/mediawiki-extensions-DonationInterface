@@ -64,14 +64,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->session_addDonorData();
 	}
 
-	public function getFormClass() {
-		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error' ) === 0 ) {
-			// TODO: make a mustache error form
-			return parent::getFormClass();
-		}
-		return 'Gateway_Form_Mustache';
-	}
-
 	public function getCommunicationType() {
 		return 'xml';
 	}

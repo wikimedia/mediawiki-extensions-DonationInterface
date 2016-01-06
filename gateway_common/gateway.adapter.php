@@ -2424,7 +2424,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	public function getFormClass() {
-		return 'Gateway_Form_RapidHtml';
+		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
+		if ( strpos( $ffname, 'error') === 0
+			|| strpos( $ffname, 'maintenance') === 0 ) {
+			// TODO: make a mustache error form
+			return 'Gateway_Form_RapidHtml';
+		}
+		return 'Gateway_Form_Mustache';
 	}
 
 	public function getGatewayAdapterClass() {

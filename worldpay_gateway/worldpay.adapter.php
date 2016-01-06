@@ -234,9 +234,9 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	public function getFormClass() {
 		if ( $this->isESOP() ) {
-			return 'Gateway_Form_Mustache';
+			return parent::getFormClass();
 		}
-		return parent::getFormClass();
+		return 'Gateway_Form_RapidHtml';
 	}
 
 	public function getCommunicationType() {
