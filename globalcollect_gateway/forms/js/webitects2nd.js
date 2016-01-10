@@ -14,24 +14,24 @@ $( document ).ready( function () {
 	// generate formatted errors to display
 	temp = [];
 	for ( e in amountErrors ) {
-		if ( amountErrors[e] !== '' ) {
-			temp[temp.length] = amountErrors[e];
+		if ( amountErrors[ e ] !== '' ) {
+			temp[ temp.length ] = amountErrors[ e ];
 		}
 	}
 	amountErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( f in billingErrors ) {
-		if ( billingErrors[f] !== '' ) {
-			temp[temp.length] = billingErrors[f];
+		if ( billingErrors[ f ] !== '' ) {
+			temp[ temp.length ] = billingErrors[ f ];
 		}
 	}
 	billingErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( g in paymentErrors ) {
-		if ( paymentErrors[g] !== '' ) {
-			temp[temp.length] = paymentErrors[g];
+		if ( paymentErrors[ g ] !== '' ) {
+			temp[ temp.length ] = paymentErrors[ g ];
 		}
 	}
 	paymentErrorString = temp.join( '<br />' );
@@ -164,7 +164,7 @@ window.showAmount = function ( e ) {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
-	$('#selected-amount').text(+e.val() + ' ' + currency_code);
+	$( '#selected-amount' ).text( +e.val() + ' ' + currency_code );
 	$( '#change-amount' ).show();
 };
 
@@ -180,7 +180,7 @@ window.showStep1 = function () {
 };
 
 window.showStep2 = function () {
-	if ( $( '#step3wrapper' ).is(':visible') ) {
+	if ( $( '#step3wrapper' ).is( ':visible' ) ) {
 		$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 	}
 	// show the correct sections

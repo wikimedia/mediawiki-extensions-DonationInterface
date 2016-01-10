@@ -7,10 +7,10 @@ window.displayCreditCardForm = function () {
 		$pForm,
 		currency_code = 'USD',
 		language = 'en', // default value is English
-		matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
+		matches = document.location.href.match( /uselang=(\w+)/i ); // fine the real language
 
-	if ( matches && matches[1] ) {
-		language = matches[1];
+	if ( matches && matches[ 1 ] ) {
+		language = matches[ 1 ];
 	}
 
 	sendData = {
@@ -40,13 +40,13 @@ window.displayCreditCardForm = function () {
 	};
 
 	$.ajax( {
-		url: mw.util.wikiScript( 'api' ),
+		url: mediaWiki.util.wikiScript( 'api' ),
 		data: sendData,
 		dataType: 'json',
 		type: 'GET',
 		success: function ( data ) {
 			if ( typeof data.error !== 'undefined' ) {
-				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 				$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 			} else if ( typeof data.result !== 'undefined' ) {
 				if ( data.result.errors ) {
@@ -86,10 +86,10 @@ window.displayCreditCardForm = function () {
 			}
 		},
 		error: function ( xhr ) {
-			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+			alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 		},
 		complete: function () {
-			$('#overlay').hide();
+			$( '#overlay' ).hide();
 		}
 	} );
 };

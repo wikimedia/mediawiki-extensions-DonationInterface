@@ -1,3 +1,3 @@
-jQuery(document).ready(function () {
-	jQuery('div#p-logo a').attr('href', '#');
-});
+jQuery( document ).ready( function () {
+	jQuery( 'div#p-logo a' ).attr( 'href', '#' );
+} );

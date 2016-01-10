@@ -59,20 +59,20 @@ window.displayCreditCardForm = function () {
 	};
 
 	// If the field, street_supplemental, exists add it to sendData
-	if ( $('input[name="street_supplemental"]').length ) {
+	if ( $( 'input[name="street_supplemental"]' ).length ) {
 		sendData.street_supplemental = $( 'input[name="street_supplemental"]' ).val();
 	}
 
 	mediaWiki.toggleCreditCardRadios( false );
 
 	$.ajax( {
-		url: mw.util.wikiScript( 'api' ),
+		url: mediaWiki.util.wikiScript( 'api' ),
 		data: sendData,
 		dataType: 'json',
 		type: 'GET',
 		success: function ( data ) {
 			if ( !data || data.error !== undefined ) {
-				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 				$( '#payment' ).empty(); // Hide spinner
 				$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 			} else if ( data.result !== undefined ) {
@@ -83,13 +83,13 @@ window.displayCreditCardForm = function () {
 						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 					} );
 				} else if ( data.result.formaction || data.result.testform ) {
-					mw.generatePaymentForm( data );
+					mediaWiki.generatePaymentForm( data );
 				}
 			}
 		},
 		error: function ( xhr ) {
 			$( '#payment' ).empty(); // Hide spinner
-			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+			alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 		},
 		complete: function ( xhr ) {
 			// Make sure our radio buttons are reenabled at some point.

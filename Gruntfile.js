@@ -10,7 +10,7 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
-	grunt.loadNpmTasks( 'grunt-jscs-checker' );
+	grunt.loadNpmTasks( 'grunt-jscs' );
 
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
@@ -19,6 +19,7 @@ module.exports = function ( grunt ) {
 				jshintrc: true
 			},
 			shared: [
+				'*.js',
 				'modules/*.js',
 				'modules/js/*.js',
 				'gateway_forms/rapidhtml/**/*.js'

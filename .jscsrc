@@ -2,5 +2,6 @@
 	"preset": "wikimedia",
 
 	"requireCamelCaseOrUpperCaseIdentifiers": null,
-	"requireDotNotation": null
+	"requireDotNotation": null,
+	"requireVarDeclFirst": null
 }

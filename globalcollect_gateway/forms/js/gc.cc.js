@@ -14,24 +14,24 @@ $( document ).ready( function () {
 	// generate formatted errors to display
 	temp = [];
 	for ( e in amountErrors ) {
-		if ( amountErrors[e] !== '' ) {
-			temp[temp.length] = amountErrors[e];
+		if ( amountErrors[ e ] !== '' ) {
+			temp[ temp.length ] = amountErrors[ e ];
 		}
 	}
 	amountErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( f in billingErrors ) {
-		if ( billingErrors[f] !== '' ) {
-			temp[temp.length] = billingErrors[f];
+		if ( billingErrors[ f ] !== '' ) {
+			temp[ temp.length ] = billingErrors[ f ];
 		}
 	}
 	billingErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( g in paymentErrors ) {
-		if ( paymentErrors[g] !== '' ) {
-			temp[temp.length] = paymentErrors[g];
+		if ( paymentErrors[ g ] !== '' ) {
+			temp[ temp.length ] = paymentErrors[ g ];
 		}
 	}
 	paymentErrorString = temp.join( '<br />' );
@@ -55,7 +55,7 @@ $( document ).ready( function () {
 	} );
 
 	// Set the cards to progress to step 3
-	$( '.cardradio' ).on( 'change', function (event) {
+	$( '.cardradio' ).on( 'change', function ( event ) {
 
 		if ( validate_personal( document.payment ) && validateAmount() ) {
 			$( '#payment' ).animate( { height: '314px' }, 1000 );
@@ -70,11 +70,11 @@ $( document ).ready( function () {
 		}
 	} );
 
-	$( '#cards li' ).click( function (event) {
+	$( '#cards li' ).click( function ( event ) {
 		$( this ).find( 'input' ).click();
 	} );
 
-	$( '#cards li input' ).click( function (event) {
+	$( '#cards li input' ).click( function ( event ) {
 		event.stopPropagation();
 	} );
 
@@ -85,7 +85,7 @@ $( document ).ready( function () {
 	$( '.cardradio' ).attr( 'checked', false );
 } );
 
-mediaWiki.toggleCreditCardRadios = function (enabled) {
+mediaWiki.toggleCreditCardRadios = function ( enabled ) {
 	$( '.cardradio, #paymentContinueBtn' ).prop( 'disabled', !enabled );
 
 	if ( enabled ) {

@@ -1,5 +1,5 @@
 $( document ).ready( function () {
-	var form = $( '#payment-form' )[0];
+	var form = $( '#payment-form' )[ 0 ];
 
 	if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
 		$( '#paymentContinue' ).show();
@@ -12,7 +12,7 @@ $( document ).ready( function () {
 		if ( window.validate_form( form ) ) {
 			submitForm();
 		}
-	});
+	} );
 
 	// Submit on submethod selection if valid, otherwise show continute button.
 	$( 'input[name="payment_submethod"]' ).on( 'change', function () {
@@ -39,8 +39,8 @@ $( document ).ready( function () {
 			payment_submethod: $( 'input[name=payment_submethod]:checked' ).val()
 		};
 
-		$.ajax({
-			url: mw.util.wikiScript( 'api' ),
+		$.ajax( {
+			url: mediaWiki.util.wikiScript( 'api' ),
 			data: postdata,
 			dataType: 'json',
 			type: 'POST',
@@ -57,7 +57,7 @@ $( document ).ready( function () {
 							refresh = true;
 						}
 						errors.push( str );
-					});
+					} );
 					window.alert( errors.join( '\n' ) );
 					if ( refresh ) {
 						window.location.reload();
@@ -72,23 +72,23 @@ $( document ).ready( function () {
 					);
 					$( '#payment-iframe' ).show( 'blind' );
 					setTimeout( function () {
-						window.alert( mw.msg( 'donate_interface-cc-token-expired' ) );
+						window.alert( mediaWiki.msg( 'donate_interface-cc-token-expired' ) );
 						window.location.reload( true );
-					}, mw.config.get( 'wgWorldpayGatewayTokenTimeout' ) );
+					}, mediaWiki.config.get( 'wgWorldpayGatewayTokenTimeout' ) );
 				} else {
-					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+					window.alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 					$( '#paymentContinue' ).show();
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				}
 			},
 			error: function ( xhr ) {
-				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				window.alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 				$( '#paymentContinue' ).show();
 				$( '#paymentContinueBtn' ).addClass( 'enabled' );
 			},
 			complete: function () {
-				$('#overlay').hide();
+				$( '#overlay' ).hide();
 			}
-		});
+		} );
 	}
-});
+} );
