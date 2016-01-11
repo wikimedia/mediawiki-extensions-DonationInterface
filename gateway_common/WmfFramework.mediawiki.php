@@ -7,8 +7,8 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function getIP() {
-		global $wgRequest;
-		return $wgRequest->getIP();
+		$request = RequestContext::getMain()->getRequest();
+		return $request->getIP();
 	}
 
 	static function getHostname() {
@@ -66,8 +66,8 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function isPosted() {
-		global $wgRequest;
-		return $wgRequest->wasPosted();
+		$request = RequestContext::getMain()->getRequest();
+		return $request->wasPosted();
 	}
 
 	static function sanitize( $text ) {

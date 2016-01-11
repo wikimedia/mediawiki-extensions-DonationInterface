@@ -158,7 +158,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
 
 		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'Donate' );
@@ -170,7 +170,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$init['recurring'] = '1';
 		RequestContext::resetMain();
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
 
 		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'Donate' );
@@ -188,7 +188,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['payment_method'] = 'bt';
 		$init['payment_submethod'] = 'itau';
 
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
 
 		$gateway = new TestingAstropayAdapter();
 		$gateway->do_transaction( 'Donate' );
@@ -199,7 +199,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['payment_method'] = 'cc';
 		unset( $init['payment_submethod'] );
 		RequestContext::resetMain();
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $init, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
 
 		$gateway = new TestingAstropayAdapter();
 		$newMethod = $gateway->getData_Unstaged_Escaped( 'payment_method' );

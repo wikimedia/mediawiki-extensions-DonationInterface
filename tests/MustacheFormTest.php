@@ -44,7 +44,6 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$req = new TestingRequest();
 		RequestContext::getMain()->setRequest( $req );
 		$this->setMwGlobals( array(
-			'wgRequest' => $req,
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' )
 		) );
 

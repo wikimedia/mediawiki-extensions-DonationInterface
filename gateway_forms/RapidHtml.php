@@ -32,38 +32,38 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	protected $data_tokens = array(
 		'@amount', // => $amount,
-		'@amountOther', // => $wgRequest->getText( 'amountOther' ),
+		'@amountOther', // => WebRequest->getText( 'amountOther' ),
 		'@appeal',
-		'@emailAdd', //'email' => $wgRequest->getText( 'emailAdd' ),
-		'@fname', // => $wgRequest->getText( 'fname' ),
-		'@lname', // => $wgRequest->getText( 'lname' ),
-		'@street_supplemental', // => $wgRequest->getText( 'street_supplemental' ), MUST BE BEFORE @street
-		'@street', // => $wgRequest->getText( 'street' ),
-		'@city', // => $wgRequest->getText( 'city' ),
-		'@state', // => $wgRequest->getText( 'state' ),
-		'@zip', // => $wgRequest->getText( 'zip' ),
-		'@country', // => $wgRequest->getText( 'country' ),
-		'@card_num', // => str_replace( ' ', '', $wgRequest->getText( 'card_num' ) ),
-		'@card_type', // => $wgRequest->getText( 'card_type' ),
-		'@expiration', // => $wgRequest->getText( 'mos' ) . substr( $wgRequest->getText( 'year' ), 2, 2 ),
-		'@cvv', // => $wgRequest->getText( 'cvv' ),
-		'@currency_code', //'currency_code' => $wgRequest->getText( 'currency_code' ),
-		'@payment_method', // => $wgRequest->getText( 'payment_method' ),
+		'@emailAdd', //'email' => WebRequest->getText( 'emailAdd' ),
+		'@fname', // => WebRequest->getText( 'fname' ),
+		'@lname', // => WebRequest->getText( 'lname' ),
+		'@street_supplemental', // => WebRequest->getText( 'street_supplemental' ), MUST BE BEFORE @street
+		'@street', // => WebRequest->getText( 'street' ),
+		'@city', // => WebRequest->getText( 'city' ),
+		'@state', // => WebRequest->getText( 'state' ),
+		'@zip', // => WebRequest->getText( 'zip' ),
+		'@country', // => WebRequest->getText( 'country' ),
+		'@card_num', // => str_replace( ' ', '', WebRequest->getText( 'card_num' ) ),
+		'@card_type', // => WebRequest->getText( 'card_type' ),
+		'@expiration', // => WebRequest->getText( 'mos' ) . substr( WebRequest->getText( 'year' ), 2, 2 ),
+		'@cvv', // => WebRequest->getText( 'cvv' ),
+		'@currency_code', //'currency_code' => WebRequest->getText( 'currency_code' ),
+		'@payment_method', // => WebRequest->getText( 'payment_method' ),
 		'@order_id', // => $order_id,
-		'@referrer', // => ( $wgRequest->getVal( 'referrer' ) ) ? $wgRequest->getVal( 'referrer' ) : $wgRequest->getHeader( 'referer' ),
+		'@referrer', // => ( WebRequest->getVal( 'referrer' ) ) ? WebRequest->getVal( 'referrer' ) : WebRequest->getHeader( 'referer' ),
 		'@utm_source', // => self::getUtmSource(),
-		'@utm_medium', // => $wgRequest->getText( 'utm_medium' ),
-		'@utm_campaign', // => $wgRequest->getText( 'utm_campaign' ),
+		'@utm_medium', // => WebRequest->getText( 'utm_medium' ),
+		'@utm_campaign', // => WebRequest->getText( 'utm_campaign' ),
 		// try to honor the user-set language (uselang), otherwise the language set in the URL (language)
-		'@language', // => $wgRequest->getText( 'uselang', $wgRequest->getText( 'language' ) ),
-		'@email-opt', // => $wgRequest->getText( 'email-opt' ),
-		'@test_string', // => $wgRequest->getText( 'process' ), // for showing payflow string during testing
+		'@language', // => WebRequest->getText( 'uselang', WebRequest->getText( 'language' ) ),
+		'@email-opt', // => WebRequest->getText( 'email-opt' ),
+		'@test_string', // => WebRequest->getText( 'process' ), // for showing payflow string during testing
 		'@token', // => $token,
-		'@contribution_tracking_id', // => $wgRequest->getText( 'contribution_tracking_id' ),
-		'@data_hash', // => $wgRequest->getText( 'data_hash' ),
-		'@action', // => $wgRequest->getText( 'action' ),
+		'@contribution_tracking_id', // => WebRequest->getText( 'contribution_tracking_id' ),
+		'@data_hash', // => WebRequest->getText( 'data_hash' ),
+		'@action', // => WebRequest->getText( 'action' ),
 		'@gateway', // => 'globalcollect', // this may need to become dynamic in the future
-		'@owa_session', // => $wgRequest->getText( 'owa_session', null ),
+		'@owa_session', // => WebRequest->getText( 'owa_session', null ),
 		'@owa_ref', // => $owa_ref,
         // Direct Debit Fields
 		'@account_number',
@@ -114,7 +114,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	);
 
 	public function __construct( &$gateway ) {
-		global $wgRequest, $wgDonationInterfaceHtmlFormDir;
+		global $wgDonationInterfaceHtmlFormDir;
+		$request = RequestContext::getMain()->getRequest();
 		parent::__construct( $gateway );
 		$form_errors = $this->form_errors;
 
@@ -122,7 +123,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$ffname = $this->gateway->getData_Unstaged_Escaped( 'ffname' );
 		// Get error passed via query string
-		$error = $wgRequest->getText( 'error' );
+		$error = $request->getText( 'error' );
 		if ( $error ) {
 			// We escape HTML here since only quotes are escaped later
 			$form_errors['general'][] = htmlspecialchars( $error );
@@ -176,7 +177,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form with real data in it
 	 */
 	public function add_data( $html ) {
-		global $wgRequest, $wgScriptPath;
+		global $wgScriptPath;
 
 		/**
 		 * This is a hack and should be replaced with something more performant.
@@ -249,8 +250,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function add_messages( $html ) {
-		global $wgRequest, $wgOut, $wgDonationInterfaceMessageLinks;
-		if( $wgRequest->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
+		global $wgOut, $wgDonationInterfaceMessageLinks;
+		$request = RequestContext::getMain()->getRequest();
+		if( $request->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}
@@ -307,8 +309,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function replace_blocks( $html ){
-		global $wgRequest;
-		if( $wgRequest->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
+		$request = RequestContext::getMain()->getRequest();
+		if( $request->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}

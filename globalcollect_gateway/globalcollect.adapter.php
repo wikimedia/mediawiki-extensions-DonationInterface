@@ -1285,11 +1285,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * FIXME: This function is way too complex.  Unroll into new functions.
 	 *
-	 * @global WebRequest $wgRequest
 	 * @return PaymentTransactionResponse
 	 */
 	private function transactionConfirm_CreditCard(){
-		global $wgRequest; //this is for pulling vars straight from the querystring
+		// this is for pulling vars straight from the querystring
+		$request = RequestContext::getMain()->getRequest();
 		$pull_vars = array(
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
@@ -1297,7 +1297,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// FIXME: Refactor as normal unstaging.
 		$qsResults = array();
 		foreach ( $pull_vars as $theirkey => $ourkey) {
-			$tmp = $wgRequest->getVal( $theirkey, null );
+			$tmp = $request->getVal( $theirkey, null );
 			if ( !is_null( $tmp ) ) {
 				$qsResults[$ourkey] = $tmp;
 			}

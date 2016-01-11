@@ -304,7 +304,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @return string    The expected XML request
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
-		global $wgRequest, $wgServer, $wgArticlePath, $wgDonationInterfaceThankYouPage;
+		global $wgDonationInterfaceThankYouPage;
+		$request = RequestContext::getMain()->getRequest();
 
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
@@ -316,8 +317,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
 		$expected .= 		'<META><MERCHANTID>' . $exposed->account_config[ 'MerchantID' ] . '</MERCHANTID>';
 
-		if ( isset( $wgRequest ) ) {
-			$expected .=		'<IPADDRESS>' . $wgRequest->getIP() . '</IPADDRESS>';
+		if ( isset( $request ) ) {
+			$expected .=		'<IPADDRESS>' . $request->getIP() . '</IPADDRESS>';
 		}
 		
 		$expected .=			'<VERSION>1.0</VERSION>';
@@ -331,8 +332,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
 		$expected .= '<MERCHANTREFERENCE>' . $merchantref . '</MERCHANTREFERENCE>';
 
-		if ( isset( $wgRequest ) ) {
-			$expected .=			'<IPADDRESSCUSTOMER>' . $wgRequest->getIP() . '</IPADDRESSCUSTOMER>';
+		if ( isset( $request ) ) {
+			$expected .=			'<IPADDRESSCUSTOMER>' . $request->getIP() . '</IPADDRESSCUSTOMER>';
 		}
 
 		$expected .=				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
@@ -465,7 +466,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 *
 	 * @param class $special_page_class A testing descendant of GatewayPage
 	 * @param array $initial_vars Array that will be loaded straight into a
-	 * test version of $wgRequest.
+	 * test version of the http request.
 	 * @param array $perform_these_checks Array of checks to perform in the
 	 * following format:
 	 * $perform_these_checks[$element_id][$check_to_perform][$expected_result]
@@ -482,12 +483,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$mainContext->setOutput( $newOutput );
 
 		$globals = array (
-			'wgRequest' => $newRequest,
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
 			'wgOut' => $newOutput,
 		);
 
 		$this->setMwGlobals( $globals );
+		RequestContext::getMain()->setRequest( $newRequest );
 
 		$this->setLanguage( $initial_vars['language'] );
 
@@ -571,9 +572,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		if ( preg_match_all( '/&lt;[^<]+(&gt;|>)/', $form_html, $matches ) ) {
 			$this->fail( 'Untranslated messages present: ' . implode( ', ', $matches[0] ) );
 		}
-
-		//because do_transaction is totally expected to leave session artifacts...
-//		$wgRequest = new FauxRequest();
 	}
 
 	/**

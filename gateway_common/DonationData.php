@@ -26,9 +26,9 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * DonationData constructor
 	 * @param GatewayAdapter $gateway
-	 * @param mixed $data An optional array of donation data that will, if 
-	 * present, circumvent the usual process of gathering the data from various 
-	 * places in $wgRequest, or 'false' to gather the data the usual way. 
+	 * @param mixed $data An optional array of donation data that will, if
+	 * present, circumvent the usual process of gathering the data from various
+	 * places in the request, or 'false' to gather the data the usual way.
 	 * Default is false.
 	 */
 	function __construct( $gateway, $data = false ) {
@@ -39,15 +39,14 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * populateData, called on construct, pulls donation data from various 
-	 * sources. Once the data has been pulled, it will handle any session data 
-	 * if present, normalize the data regardless of the source, and handle the 
-	 * caching variables.  
-	 * @global Webrequest $wgRequest 
-	 * @param mixed $external_data An optional array of donation data that will, 
-	 * if present, circumvent the usual process of gathering the data from 
-	 * various places in $wgRequest, or 'false' to gather the data the usual way. 
-	 * Default is false. 
+	 * populateData, called on construct, pulls donation data from various
+	 * sources. Once the data has been pulled, it will handle any session data
+	 * if present, normalize the data regardless of the source, and handle the
+	 * caching variables.
+	 * @param mixed $external_data An optional array of donation data that will,
+	 * if present, circumvent the usual process of gathering the data from
+	 * various places in the request, or 'false' to gather the data the usual way.
+	 * Default is false.
 	 */
 	protected function populateData( $external_data = false ) {
 		$this->normalized = array( );
@@ -157,13 +156,12 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * Harvest a varname from its source - post, get, maybe even session eventually.
 	 * @TODO: Provide a way that gateways can override default behavior here for individual keys.
-	 * @global Webrequest $wgRequest
 	 * @param string $var The incoming var name we need to get a value for
 	 * @return mixed The final value of the var, or null if we don't actually have it.
 	 */
 	protected function sourceHarvest( $var ) {
-		global $wgRequest;
-		$ret = $wgRequest->getText( $var, null ); //all strings is just fine.
+		$request = RequestContext::getMain()->getRequest();
+		$ret = $request->getText( $var, null ); //all strings is just fine.
 		//getText never returns null: It just casts do an empty string. Soooo...
 		if ( $ret === '' && !array_key_exists( $var, $_POST ) && !array_key_exists( $var, $_GET ) ) {
 			$ret = null; //not really there, so stop pretending.
@@ -708,9 +706,9 @@ class DonationData implements LogPrefixProvider {
 	 * Normalize referrer either by passing on the original, or grabbing it in the first place.
 	 */
 	protected function setReferrer() {
-		global $wgRequest;
+		$request = RequestContext::getMain()->getRequest();
 		if ( !$this->isSomething( 'referrer' ) ) {
-			$this->setVal( 'referrer', $wgRequest->getHeader( 'referer' ) ); //grumble grumble real header not a real word grumble.
+			$this->setVal( 'referrer', $request->getHeader( 'referer' ) ); //grumble grumble real header not a real word grumble.
 		}
 	}
 
@@ -967,10 +965,10 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Basically, this is a wrapper for the $wgRequest wasPosted function that 
-	 * won't give us notices if we weren't even a web request. 
-	 * I realize this is pretty lame. 
-	 * Notices, however, are more lame. 
+	 * Basically, this is a wrapper for the WebRequest wasPosted function that
+	 * won't give us notices if we weren't even a web request.
+	 * I realize this is pretty lame.
+	 * Notices, however, are more lame.
 	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 */
 	public function wasPosted(){
@@ -983,10 +981,10 @@ class DonationData implements LogPrefixProvider {
 	
 	/**
 	 * getValidationErrors
-	 * This function will go through all the data we have pulled from wherever 
-	 * we've pulled it, and make sure it's safe and expected and everything. 
+	 * This function will go through all the data we have pulled from wherever
+	 * we've pulled it, and make sure it's safe and expected and everything.
 	 * If it is not, it will return an array of errors ready for any 
-	 * DonationInterface form class derivitive to display. 
+	 * DonationInterface form class derivitive to display.
 	 */
 	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
@@ -997,8 +995,8 @@ class DonationData implements LogPrefixProvider {
 	
 	/**
 	 * validatedOK
-	 * Checks to see if the data validated ok (no errors). 
-	 * @return boolean True if no errors, false if errors exist. 
+	 * Checks to see if the data validated ok (no errors).
+	 * @return boolean True if no errors, false if errors exist.
 	 */
 	public function validatedOK() {
 		if ( is_null( $this->validationErrors ) ){

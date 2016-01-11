@@ -80,9 +80,10 @@ abstract class Gateway_Form {
 	 * @return string $url The full URL for the form to post to
 	 */
 	protected function getNoCacheAction() {
-		global $wgRequest, $wgTitle;
+		global $wgTitle;
+		$request = RequestContext::getMain()->getRequest();
 
-		$url = $wgRequest->getFullRequestURL();
+		$url = $request->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );

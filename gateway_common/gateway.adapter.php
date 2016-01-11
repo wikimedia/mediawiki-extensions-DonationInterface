@@ -318,7 +318,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public $debugarray;
 	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than
-	 * $wgRequest->wasPosted(), as something else could have posted to us.
+	 * WebRequest->wasPosted(), as something else could have posted to us.
 	 * @var boolean
 	 */
 	public $posted = false;
@@ -364,7 +364,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-		global $wgRequest;
+		$request = RequestContext::getMain()->getRequest();
 
 		$defaults = array(
 			'external_data' => null,
@@ -408,7 +408,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->staged_data = $this->unstaged_data;
 
 		//checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $wgRequest->getVal( 'token', null ) ) ) );
+		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $request->getVal( 'token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -3431,7 +3431,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * token_checkTokens
 	 * The main function to check the salted and MD5'd token we should have
-	 * saved and gathered from $wgRequest, against the clear-text token we
+	 * saved and gathered from the request, against the clear-text token we
 	 * should have saved to the user's session.
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.

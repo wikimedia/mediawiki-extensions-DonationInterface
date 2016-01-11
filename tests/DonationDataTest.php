@@ -31,7 +31,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * @param $dataName string|int The name or index of the data set
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
-		global $wgRequest;
+		$request = RequestContext::getMain()->getRequest();
 
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
@@ -70,8 +70,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'gateway' => 'DonationData',
 			'owa_session' => '',
 			'owa_ref' => 'http://localhost/importedTestData',
-			'user_ip' => $wgRequest->getIP(),
-			'server_ip' => $wgRequest->getIP(),
+			'user_ip' => $request->getIP(),
+			'server_ip' => $request->getIP(),
 		);
 
 	}
@@ -83,7 +83,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * @covers DonationData::populateData
 	 */
 	public function testConstruct(){
-		global $wgLanguageCode, $wgRequest;
+		global $wgLanguageCode;
+		$request = RequestContext::getMain()->getRequest();
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //as if we were posted.
 		$returned = $ddObj->getDataEscaped();
@@ -98,8 +99,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'gateway' => 'globalcollect',
 			'payment_submethod' => '',
 			'recurring' => '',
-			'user_ip' => $wgRequest->getIP(),
-			'server_ip' => $wgRequest->getIP(),
+			'user_ip' => $request->getIP(),
+			'server_ip' => $request->getIP(),
 		);
 		unset($returned['contribution_tracking_id']);
 		unset($returned['order_id']);
@@ -110,7 +111,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * Test construction with external data (for tests and possible batch operations)
 	 */
 	public function testConstructWithExternalData() {
-		global $wgRequest;
+		$request = RequestContext::getMain()->getRequest();
 
 		$expected = array (
 			'amount' => '35.00',
@@ -145,7 +146,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'issuer_id' => '',
 			'utm_source_id' => '',
 			'user_ip' => '12.12.12.12',
-			'server_ip' => $wgRequest->getIP(),
+			'server_ip' => $request->getIP(),
 			'recurring' => '',
 		);
 
@@ -167,7 +168,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * Test construction with data jammed in $_GET.
 	 */
 	public function testConstructWithFauxRequest() {
-		global $wgRequest;
+		$request = RequestContext::getMain()->getRequest();
 
 		$expected = array (
 			'amount' => '35.00',
@@ -195,13 +196,13 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'owa_ref' => 'http://localhost/getTestData',
 			'street_supplemental' => '3rd floor',
 			'payment_submethod' => 'amex',
-			'user_ip' => $wgRequest->getIP(),
-			'server_ip' => $wgRequest->getIP(),
+			'user_ip' => $request->getIP(),
+			'server_ip' => $request->getIP(),
 			'recurring' => '',
 			'posted' => '',
 		);
 
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $expected, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //Get all data from $_GET
 		$returned = $ddObj->getDataEscaped();
@@ -228,7 +229,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'currency_code' => 'USD',
 		);
 
-		$this->setMwGlobals( 'wgRequest', new FauxRequest( $expected, false ) );
+		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
 		$matches = $this->getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = false, utm_source = cc$/' );

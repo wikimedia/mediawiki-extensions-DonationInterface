@@ -190,7 +190,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -211,7 +211,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array( 'CVVRESULT' => ' ' ), false ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -254,7 +254,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -273,7 +273,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -482,7 +482,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		//Make it not look like an orphan
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array(
 				'CVVRESULT' => 'M',
 				'AVSRESULT' => '0'
@@ -508,7 +508,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * an exception during the 1st response.
 	 */
 	public function testNoDupeOrderId( ) {
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array(
 				'action'=>'donate',
 				'amount'=>'3.00',
@@ -559,7 +559,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		//Make it not look like an orphan
-		$this->setMwGlobals( 'wgRequest',
+		RequestContext::getMain()->setRequest(
 			new FauxRequest( array(
 				'CVVRESULT' => 'M',
 				'AVSRESULT' => '0'
