@@ -164,7 +164,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ) );
 
 		// user's user agent
-		$request = RequestContext::getMain()->getRequest();
+		$request = $this->gateway_adapter->getRequest();
 		$this->minfraudQuery["user_agent"] = $request->getHeader( 'user-agent' );
 
 		// user's language

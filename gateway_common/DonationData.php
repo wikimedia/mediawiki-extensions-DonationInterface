@@ -160,8 +160,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return mixed The final value of the var, or null if we don't actually have it.
 	 */
 	protected function sourceHarvest( $var ) {
-		$request = RequestContext::getMain()->getRequest();
-		$ret = $request->getText( $var, null ); //all strings is just fine.
+		$ret = $this->gateway->getRequest()->getText( $var, null ); //all strings is just fine.
 		//getText never returns null: It just casts do an empty string. Soooo...
 		if ( $ret === '' && !array_key_exists( $var, $_POST ) && !array_key_exists( $var, $_GET ) ) {
 			$ret = null; //not really there, so stop pretending.
@@ -706,9 +705,9 @@ class DonationData implements LogPrefixProvider {
 	 * Normalize referrer either by passing on the original, or grabbing it in the first place.
 	 */
 	protected function setReferrer() {
-		$request = RequestContext::getMain()->getRequest();
 		if ( !$this->isSomething( 'referrer' ) ) {
-			$this->setVal( 'referrer', $request->getHeader( 'referer' ) ); //grumble grumble real header not a real word grumble.
+			$this->setVal( 'referrer', $this->gateway->getRequest()->getHeader( 'referer' ) );
+			// grumble grumble real header not a real word grumble.
 		}
 	}
 

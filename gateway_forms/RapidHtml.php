@@ -115,7 +115,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 	public function __construct( &$gateway ) {
 		global $wgDonationInterfaceHtmlFormDir;
-		$request = RequestContext::getMain()->getRequest();
 		parent::__construct( $gateway );
 		$form_errors = $this->form_errors;
 
@@ -123,7 +122,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$ffname = $this->gateway->getData_Unstaged_Escaped( 'ffname' );
 		// Get error passed via query string
-		$error = $request->getText( 'error' );
+		$error = $this->gateway->getRequest()->getText( 'error' );
 		if ( $error ) {
 			// We escape HTML here since only quotes are escaped later
 			$form_errors['general'][] = htmlspecialchars( $error );
@@ -177,7 +176,6 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form with real data in it
 	 */
 	public function add_data( $html ) {
-		global $wgScriptPath;
 
 		/**
 		 * This is a hack and should be replaced with something more performant.
@@ -227,7 +225,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		$form = str_replace($this->error_tokens, $raw_errors, $form);
 		
 		// handle script path
-		$form = str_replace( "@script_path", $wgScriptPath, $form );
+		$form = str_replace( "@script_path", $this->scriptPath, $form );
 
 		// handle verisign logo
 		$form = str_replace( "@verisign_logo", $this->getSmallSecureLogo(), $form );
@@ -250,9 +248,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function add_messages( $html ) {
-		global $wgOut, $wgDonationInterfaceMessageLinks;
-		$request = RequestContext::getMain()->getRequest();
-		if( $request->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
+		global $wgDonationInterfaceMessageLinks;
+		if( $this->gateway->getRequest()->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}
@@ -297,7 +294,8 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		
 		foreach( $matches[ 0 ] as $template ){
 			# parse the template and replace in the html
-			$html = str_replace( $template, $wgOut->parse( $template ), $html );
+			$output = $this->gateway->getContext()->getOutput();
+			$html = str_replace( $template, $output->parse( $template ), $html );
 		}
 		return $html;
 	}
@@ -309,8 +307,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 * @return string The HTML form containing translated messages
 	 */
 	public function replace_blocks( $html ){
-		$request = RequestContext::getMain()->getRequest();
-		if( $request->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
+		if( $this->gateway->getRequest()->getText( 'rapidhtml_debug', 'false' ) == 'true' ){
 			# do not replace tokens
 			return $html;
 		}

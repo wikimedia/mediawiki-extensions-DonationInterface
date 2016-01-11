@@ -19,6 +19,11 @@ abstract class Gateway_Form {
 	protected $gateway;
 
 	/**
+	 * @var string
+	 */
+	protected $scriptPath;
+
+	/**
 	 * Required method for returning the full HTML for a form.
 	 *
 	 * Code invoking forms will expect this method to be set.  Requiring only
@@ -32,6 +37,7 @@ abstract class Gateway_Form {
 	public function __construct( $gateway ) {
 
 		$this->gateway = $gateway;
+		$this->scriptPath = $this->gateway->getContext()->getConfig()->get( 'ScriptPath' );
 		$this->logger = DonationLoggerFactory::getLogger( $gateway );
 		$gateway_errors = $this->gateway->getAllErrors();
 
@@ -48,8 +54,7 @@ abstract class Gateway_Form {
 	 * Uses resource loader to load the form validation javascript.
 	 */
 	protected function loadValidateJs() {
-		global $wgOut;
-		$wgOut->addModules( 'di.form.core.validate' );
+		$this->gateway->getContext()->getOutput()->addModules( 'di.form.core.validate' );
 	}
 
 	/**
@@ -80,10 +85,8 @@ abstract class Gateway_Form {
 	 * @return string $url The full URL for the form to post to
 	 */
 	protected function getNoCacheAction() {
-		global $wgTitle;
-		$request = RequestContext::getMain()->getRequest();
 
-		$url = $request->getFullRequestURL();
+		$url = $this->gateway->getRequest()->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );
@@ -117,7 +120,8 @@ abstract class Gateway_Form {
 		}
 
 		// construct the submission url
-		return wfAppendQuery( $wgTitle->getLocalURL(), $query_array );
+		$title = $this->gateway->getContext()->getTitle();
+		return wfAppendQuery( $title->getLocalURL(), $query_array );
 	}
 
 	/**

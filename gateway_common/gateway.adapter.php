@@ -324,6 +324,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public $posted = false;
 	protected $batch = false;
 	protected $api_request = false;
+
+	/**
+	 * The current HTTP request context
+	 * @var IContextSource
+	 */
+	protected $context;
+
+	/**
+	 * The current HTTP request
+	 * @var WebRequest
+	 */
+	protected $request;
+
 	/**
 	 * Holds the global values we've already looked up.  Used in getGlobal.
 	 * @staticvar array
@@ -364,7 +377,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-		$request = RequestContext::getMain()->getRequest();
+		$this->context = RequestContext::getMain();
+		$this->request = $this->context->getRequest();
 
 		$defaults = array(
 			'external_data' => null,
@@ -408,7 +422,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->staged_data = $this->unstaged_data;
 
 		//checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $request->getVal( 'token', null ) ) ) );
+		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $this->request->getVal( 'token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -422,6 +436,22 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->stageData();
 
 		WmfFramework::runHooks( 'GatewayReady', array( $this ) );
+	}
+
+	/**
+	 * Get the currency HTTP request context
+	 * @return IContextSource
+	 */
+	public function getContext() {
+		return $this->context;
+	}
+
+	/**
+	 * Get the current HTTP request
+	 * @return WebRequest
+	 */
+	public function getRequest() {
+		return $this->request;
 	}
 
 	/**
@@ -3227,14 +3257,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// Now compare session with current request parameters
-		$newRequest = RequestContext::getMain()->getRequest();
 		// Reset submethod when method changes to avoid form mismatch errors
 		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
 			// Cut down version of the normalization from DonationData
 			$newMethod = null;
 			foreach( array( 'payment_method', 'paymentmethod' ) as $key ) {
-				if ( $newRequest->getVal( $key ) ) {
-					$newMethod = $newRequest->getVal( $key );
+				if ( $this->request->getVal( $key ) ) {
+					$newMethod = $this->request->getVal( $key );
 				}
 			}
 			if ( $newMethod ) {
@@ -3256,7 +3285,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$newRecurring = '';
 			$hasRecurParam = false;
 			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
-				$newVal = $newRequest->getVal( $key );
+				$newVal = $this->request->getVal( $key );
 				if ( $newVal !== null ) {
 					$hasRecurParam = true;
 				}

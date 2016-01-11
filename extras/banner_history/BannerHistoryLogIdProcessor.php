@@ -48,7 +48,7 @@ class BannerHistoryLogIdProcessor {
 			'BannerHistoryLogIdProcessor::queueAssociationOfIds(): will ' .
 			'push to banner-history queue if required info is available.' );
 
-		$bannerHistoryId = RequestContext::getMain()->getRequest()
+		$bannerHistoryId = $this->gatewayAdapter->getRequest()
 			->getText( self::BANNER_HISTORY_LOG_ID_PARAM );
 
 		// Campaigns may not have banner history enabled. For now, at least,

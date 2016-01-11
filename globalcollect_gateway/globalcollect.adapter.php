@@ -1288,8 +1288,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return PaymentTransactionResponse
 	 */
 	private function transactionConfirm_CreditCard(){
-		// this is for pulling vars straight from the querystring
-		$request = RequestContext::getMain()->getRequest();
+		// Pulling vars straight from the querystring
 		$pull_vars = array(
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
@@ -1297,7 +1296,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// FIXME: Refactor as normal unstaging.
 		$qsResults = array();
 		foreach ( $pull_vars as $theirkey => $ourkey) {
-			$tmp = $request->getVal( $theirkey, null );
+			$tmp = $this->request->getVal( $theirkey, null );
 			if ( !is_null( $tmp ) ) {
 				$qsResults[$ourkey] = $tmp;
 			}

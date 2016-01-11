@@ -83,8 +83,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * @covers DonationData::populateData
 	 */
 	public function testConstruct(){
-		global $wgLanguageCode;
-		$request = RequestContext::getMain()->getRequest();
+		$context = RequestContext::getMain();
+		$request = $context->getRequest();
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //as if we were posted.
 		$returned = $ddObj->getDataEscaped();
@@ -95,7 +95,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'payment_method' => '',
 			'referrer' => '',
 			'utm_source' => '..',
-			'language' => $wgLanguageCode,
+			'language' => $context->getLanguage()->getCode(),
 			'gateway' => 'globalcollect',
 			'payment_submethod' => '',
 			'recurring' => '',
@@ -242,13 +242,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 *
 	 */
 	public function testRepopulate(){
-		global $wgLanguageCode;
-
 		$expected = $this->testData;
 
 		// Some changes from the default
 		$expected['recurring'] = '';
-		$expected['language'] = $wgLanguageCode;
+		$expected['language'] = RequestContext::getMain()->getLanguage()->getCode();
 		$expected['gateway'] = 'globalcollect';
 
 		// Just unset a handful... doesn't matter what, really.

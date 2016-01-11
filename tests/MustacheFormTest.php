@@ -28,11 +28,6 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 	public function setUp() {
 		$this->resetAllEnv();
-		$this->adapter = new TestingGenericAdapter();
-		$this->adapter->addRequestData( array(
-			'amount' => '12',
-			'currency_code' => 'EUR',
-		) );
 
 		$this->outputPage = $this->getMockBuilder( 'OutputPage' )
 			->disableOriginalConstructor()
@@ -43,6 +38,13 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 		$req = new TestingRequest();
 		RequestContext::getMain()->setRequest( $req );
+
+		$this->adapter = new TestingGenericAdapter();
+		$this->adapter->addRequestData( array(
+			'amount' => '12',
+			'currency_code' => 'EUR',
+		) );
+
 		$this->setMwGlobals( array(
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' )
 		) );

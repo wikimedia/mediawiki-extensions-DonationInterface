@@ -437,6 +437,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
 		$_SERVER['SCRIPT_NAME'] = __FILE__;
 
+		RequestContext::resetMain();
+
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
 		$singleton_classes = array(
