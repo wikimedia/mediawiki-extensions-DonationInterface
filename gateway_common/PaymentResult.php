@@ -34,44 +34,44 @@ class PaymentResult {
 	protected function __construct() {
 	}
 
-	static public function newIframe( $name ) {
+	public static function newIframe( $name ) {
 		$response = new PaymentResult();
 		$response->iframe = $name;
 		return $response;
 	}
 
-	static public function newForm( $name ) {
+	public static function newForm( $name ) {
 		$response = new PaymentResult();
 		$response->form = $name;
 		return $response;
 	}
 
-	static public function newRedirect( $url ) {
+	public static function newRedirect( $url ) {
 		$response = new PaymentResult();
 		$response->redirect = $url;
 		return $response;
 	}
 
-	static public function newRefresh( $errors = array() ) {
+	public static function newRefresh( $errors = array() ) {
 		$response = new PaymentResult();
 		$response->refresh = true;
 		$response->errors = $errors;
 		return $response;
 	}
 
-	static public function newSuccess() {
+	public static function newSuccess() {
 		$response = new PaymentResult();
 		return $response;
 	}
 
-	static public function newFailure( $errors = array() ) {
+	public static function newFailure( $errors = array() ) {
 		$response = new PaymentResult();
 		$response->failed = true;
 		$response->errors = $errors;
 		return $response;
 	}
 
-	static public function newEmpty() {
+	public static function newEmpty() {
 		$response = new PaymentResult();
 		$response->errors = array(
 			'internal-0000' => 'Internal error: no results yet.',
@@ -112,7 +112,7 @@ class PaymentResult {
 	 *
 	 * @return PaymentResult
 	 */
-	static public function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
+	public static function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {
 			return PaymentResult::newFailure( $response->getErrors() );
 		}

@@ -21,8 +21,7 @@
  *
  * @see DonationInterface_Adapter_AllTests
  */
-class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite
-{
+class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite {
 	function __construct() {
 		parent::__construct( 'DonationInterface test suite' );
 
@@ -37,7 +36,7 @@ class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite
 		$this->addTestFiles( $files );
 	}
 
-	static public function suite() {
+	public static function suite() {
 		return new self();
 	}
 }

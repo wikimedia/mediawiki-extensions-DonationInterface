@@ -15,12 +15,12 @@ class WmfFramework_Mediawiki {
 		return wfHostname();
 	}
 
-	static function formatMessage($message_identifier /*, ... */ ) {
+	static function formatMessage( $message_identifier /*, ... */ ) {
 		return call_user_func_array( 'wfMessage', func_get_args() )->text();
 	}
 
-	static function runHooks($func, $args) {
-		return Hooks::run($func, $args);
+	static function runHooks( $func, $args ) {
+		return Hooks::run( $func, $args );
 	}
 
 	static function getLanguageCode() {
@@ -33,11 +33,11 @@ class WmfFramework_Mediawiki {
 		return $wgUseSquid;
 	}
 
-	static function setupSession($sessionId=false) {
+	static function setupSession( $sessionId = false ) {
 		wfSetupSession();
 	}
 
-	static function validateIP($ip) {
+	static function validateIP( $ip ) {
 		return IP::isValid( $ip );
 	}
 

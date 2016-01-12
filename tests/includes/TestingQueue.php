@@ -29,20 +29,15 @@ use PHPQueue\Interfaces\IndexedFifoQueueStore;
  * and multiple queues, but (obviously) data is destroyed on application
  * shutdown.
  */
-class TestingQueue
-	/*
-	extends Base
-	implements IndexedFifoQueueStore, KeyValueStore
-	*/
-{
+class TestingQueue /* extends Base implements IndexedFifoQueueStore, KeyValueStore */ {
 	protected $queue_name;
 	protected $queue;
 
 	public static $queues = array();
 
-	public function __construct($options=array()) {
+	public function __construct( $options=array() ) {
 		//parent::__construct();
-		if (!empty($options['queue'])) {
+		if ( !empty($options['queue'] ) ) {
 			$this->queue_name = $options['queue'];
 		} else {
 			$this->queue_name = 'default';

@@ -92,38 +92,39 @@ $wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_Y
 
 
 /** GlobalCollect **/
-$wgGlobalCollectGatewayAccountInfo = array ( );
-$wgGlobalCollectGatewayAccountInfo['test'] = array (
+$wgGlobalCollectGatewayAccountInfo = array();
+$wgGlobalCollectGatewayAccountInfo['test'] = array(
 	'MerchantID' => 'test',
 );
 
 
 /** Paypal **/
-$wgPaypalGatewayAccountInfo = array ();
-$wgPaypalGatewayAccountInfo['testing'] = array (
+$wgPaypalGatewayAccountInfo = array();
+$wgPaypalGatewayAccountInfo['testing'] = array(
 	'AccountEmail' => 'phpunittesting@wikimedia.org',
 );
-$wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; //whatever, doesn't matter.
+$wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
 
 
 /** Amazon **/
 $wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
 $wgAmazonGatewayAccountInfo = array();
-$wgAmazonGatewayAccountInfo['test'] = array (
+$wgAmazonGatewayAccountInfo['test'] = array(
 	'SellerID' => 'ABCDEFGHIJKL',
 	'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
 	'ClientSecret' => '12432g134e3421a41234b1341c324123d',
 	'MWSAccessKey' => 'N0NSENSEXYZ',
 	'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
 	'Region' => 'us',
-	'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+	'WidgetScriptURL' =>
+		'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
 	'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
 );
 
 /** Adyen **/
 $wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';
 $wgAdyenGatewayAccountInfo = array();
-$wgAdyenGatewayAccountInfo['test'] = array (
+$wgAdyenGatewayAccountInfo['test'] = array(
 	'AccountName' => 'wikitest',
 	'SharedSecret' => 'C7F1D9E29479CF18131063A742CD2703FB9D48BAB0160693045E3FB7B8508E59',
 	'SkinCode' => 'testskin',
@@ -133,7 +134,7 @@ $wgAdyenGatewayAccountInfo['test'] = array (
 $wgAstropayGatewayURL = 'https://astropay.example.com/';
 $wgAstropayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
 $wgAstropayGatewayAccountInfo = array();
-$wgAstropayGatewayAccountInfo['test'] = array (
+$wgAstropayGatewayAccountInfo['test'] = array(
 	'Create' => array(
 		'Login' => 'createlogin',
 		'Password' => 'createpass',
@@ -147,13 +148,13 @@ $wgAstropayGatewayAccountInfo['test'] = array (
 
 $wgWorldpayGatewayAccountInfo = array();
 /** Worldpay **/
-$wgWorldpayGatewayAccountInfo['test'] = array (
+$wgWorldpayGatewayAccountInfo['test'] = array(
 	'Username' => 'testname',
 	'Password' => 'testpass',
 	'MerchantId' => '123456',
 	'Test' => true,
 	'TokenizingMerchantID' => '123456',
-	'StoreIDs' => array (
+	'StoreIDs' => array(
 		'*/FJ/EUR' => array( 123456, 'fj_store_id' ),
 		'*/*/EUR' => array( 123456, 'eur_store_id' ),
 		'*/*/USD' => array( 123456, 'usd_store_id' ),
@@ -173,17 +174,17 @@ $wgWorldpayGatewayURL = 'https://test.worldpay.com';
 
 $wgMinFraudLicenseKey = 'testkey';
 $wgMinFraudTimeout = 1;
-$wgDonationInterfaceMinFraudServers = array ( "minfraud.wikimedia.org" );
+$wgDonationInterfaceMinFraudServers = array( "minfraud.wikimedia.org" );
 
 // Don't connect to the queue.
 $wgDonationInterfaceEnableQueue = false;
 
-//still can't quite handle mindfraud by itself yet, so default like this. 
-//I will turn it on for individual tests in which I want to verify that it at
-//least fails closed when enabled.
+// still can't quite handle mindfraud by itself yet, so default like this. 
+// I will turn it on for individual tests in which I want to verify that it at
+// least fails closed when enabled.
 $wgDonationInterfaceEnableMinfraud = false;
 
-//...but we want these. 
+// ...but we want these. 
 $wgDonationInterfaceEnableFunctionsFilter = true;
 $wgDonationInterfaceEnableReferrerFilter = true;
 $wgDonationInterfaceEnableSourceFilter = true;

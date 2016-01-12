@@ -16,7 +16,9 @@ class MessageUtils {
 	 * @throws InvalidArgumentException
 	 * @return String the text of the first existant message
 	 */
-	public static function languageSpecificFallback( $language = 'en', $msg_keys = array(), $params = array() ){
+	public static function languageSpecificFallback(
+		$language = 'en', $msg_keys = array(), $params = array()
+	) {
 
 		if ( count( $msg_keys ) < 1 ){
 			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
@@ -48,7 +50,7 @@ class MessageUtils {
 	 * @param string $language A valid mediawiki language code.
 	 * @return boolean - true if message exists, otherwise false.
 	 */
-	public static function messageExists( $msg_key, $language ){
+	public static function messageExists( $msg_key, $language ) {
 		$language = strtolower( $language );
 		if ( WmfFramework::messageExists( $msg_key, $language ) ){
 			# if we are looking for English, we already know the answer
@@ -76,7 +78,9 @@ class MessageUtils {
 	 * @param array $params extra message parameters
 	 */
 	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
-		return self::languageSpecificFallback( $language, array( $key . '-' . strtolower( $country ), $key ), $params );
+		return self::languageSpecificFallback(
+			$language, array( $key . '-' . strtolower( $country ), $key ), $params
+		);
 	}
 
 	/**

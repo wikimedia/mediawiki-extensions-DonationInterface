@@ -23,7 +23,7 @@ class MockAmazonResponse { // FIXME: implements PwaResponseInterface {
 	public function __construct( $operation, $status = null ) {
 		$statusPart = $status ? '_' . $status : '';
 		$filePath = __DIR__ . "/Responses/amazon/{$operation}{$statusPart}.json";
-		$json = file_get_contents( $filePath );		
+		$json = file_get_contents( $filePath );
 		$this->response = json_decode( $json, true );
 	}
 

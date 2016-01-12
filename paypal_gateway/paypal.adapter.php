@@ -28,7 +28,7 @@ class PaypalAdapter extends GatewayAdapter {
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
 
-		if ($this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
 				array( 'payment_method' => 'paypal' )
 			);
@@ -59,14 +59,16 @@ class PaypalAdapter extends GatewayAdapter {
 	function defineAccountInfo() {
 		$this->accountInfo = array();
 	}
-	function defineReturnValueMap() {}
+	function defineReturnValueMap() {
+	}
 	function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );
 	}
-	function defineDataConstraints() {}
+	function defineDataConstraints() {
+	}
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array (
-			'generate' => FALSE,
+		$this->order_id_meta = array(
+			'generate' => false,
 		);
 	}
 	function setGatewayDefaults() {}
@@ -75,9 +77,12 @@ class PaypalAdapter extends GatewayAdapter {
 
 		$this->error_map = array(
 			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
+			// Failed failed pre-process checks.
+			'internal-0000' => 'donate_interface-processing-error',
+			// Transaction could not be processed due to an internal error.
+			'internal-0001' => 'donate_interface-processing-error',
+			// Communication failure
+			'internal-0002' => 'donate_interface-processing-error',
 		);
 	}
 
@@ -118,7 +123,7 @@ class PaypalAdapter extends GatewayAdapter {
 				'return',
 				'business',
 				'no_shipping',
-				//'lc', // Causes issues when lc=CN for some reason; filed bug report
+				// 'lc', // Causes issues when lc=CN for some reason; filed bug report
 				'amount',
 				'currency_code',
 				'country',
@@ -197,7 +202,8 @@ class PaypalAdapter extends GatewayAdapter {
 			case 'Donate':
 			case 'DonateXclick':
 			case 'DonateRecurring':
-				$this->transactions[ $transaction ][ 'url' ] = $this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
+				$this->transactions[ $transaction ][ 'url' ] =
+					$this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
 				$result = parent::do_transaction( $transaction );
 				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				return $result;
@@ -214,7 +220,7 @@ class PaypalAdapter extends GatewayAdapter {
 		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
 		return array(
 			'AUD',
-			//'BRL', // in-country only... it seems to work but I'm respecting the docs
+			// 'BRL', // in-country only... it seems to work but I'm respecting the docs
 			'CAD',
 			'CZK',
 			'DKK',
@@ -223,7 +229,7 @@ class PaypalAdapter extends GatewayAdapter {
 			'HUF',
 			'ILS',
 			'JPY', // no fractions
-			//'MYR', //in-country only
+			// 'MYR', // in-country only
 			'MXN',
 			'NOK',
 			'NZD',
@@ -235,13 +241,17 @@ class PaypalAdapter extends GatewayAdapter {
 			'CHF',
 			'TWD', // no fractions
 			'THB',
-//			'TRY', // in-country only
+			// 'TRY', // in-country only
 			'USD',
 		);
 	}
 
 	protected function stage_recurring_length() {
-		if ( array_key_exists( 'recurring_length', $this->staged_data ) && !$this->staged_data['recurring_length'] ) {
+		if (
+			array_key_exists(
+				'recurring_length', $this->staged_data
+			) && !$this->staged_data['recurring_length']
+		) {
 			unset( $this->staged_data['recurring_length'] );
 		}
 	}
