@@ -334,6 +334,7 @@
 	"donate_interface-obt-generic-name": "Transferencia bancaria en liña",
 	"donate_interface-obt-biller_id": "Código de facturación",
 	"donate_interface-obt-customer_payment_reference": "Referencia nº",
+	"donate_interface-obt-customer_payment_reference_note": "Cada número de referencia é válido só unha vez. Por favor, non reutilice este número de referencia en futuras donacións.",
 	"donate_interface-obt-information": "Información de transferencia bancaria en liña",
 	"donate_interface-online_bank_transfer_message": "Servizos bancarios por teléfono e internet - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Selecciona un banco",
