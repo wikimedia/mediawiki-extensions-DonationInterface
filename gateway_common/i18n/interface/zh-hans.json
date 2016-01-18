@@ -420,7 +420,7 @@
 	"apihelp-donate-param-street": "街道地址的第一行。",
 	"apihelp-donate-param-street_supplemental": "街道地址的第二行。",
 	"apihelp-donate-param-city": "城市。",
-	"apihelp-donate-param-state": "国家缩写。",
+	"apihelp-donate-param-state": "州缩写。",
 	"apihelp-donate-param-zip": "邮政编码。",
 	"apihelp-donate-param-emailAdd": "电子邮件地址。",
 	"apihelp-donate-param-country": "国家代码。",
