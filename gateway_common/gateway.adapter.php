@@ -1302,7 +1302,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// log that the transaction is essentially complete
 		$this->logger->info( 'Transaction complete.' );
 
-		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
+		$this->debugarray[] = 'numAttempt = ' . $this->session_getData( 'numAttempt' );
 
 		return $this->transaction_response;
 	}
@@ -2480,8 +2480,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * be set to '0'.
 	 */
 	protected function incrementNumAttempt() {
-		self::session_ensure();
-		$attempts = self::session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
+		$this->session_ensure();
+		$attempts = $this->session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
 			$attempts += 1;
 		} else {
@@ -2501,8 +2501,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * appropriate time.
 	 */
 	protected function incrementSequenceNumber() {
-		self::session_ensure();
-		$sequence = self::session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
+		$this->session_ensure();
+		$sequence = $this->session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
 		if ( is_numeric( $sequence ) ) {
 			$sequence += 1;
 		} else {
@@ -3057,11 +3057,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * Check to see if the session exists.
 	 */
-	public static function session_exists() {
-		if ( session_id() ) {
-			return true;
+	public function session_exists() {
+		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
+			$id = MediaWiki\Session\SessionManager::singleton()
+				->getPersistedSessionId( $this->request );
+			return !is_null( $id );
 		}
-		return false;
+		return $this->request->checkSessionCookie();
 	}
 
 	/**
@@ -3070,9 +3072,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * If we do not have a session set for the current user,
 	 * start the session.
 	 */
-	public static function session_ensure() {
+	public function session_ensure() {
 		// if the session is already started, do nothing
-		if ( self::session_exists() ) {
+		if ( $this->session_exists() ) {
 			return;
 		}
 
@@ -3087,9 +3089,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Only really makes sense if $key is an array.
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
-	public static function session_getData( $key, $subkey = null ) {
-		$request = RequestContext::getMain()->getRequest();
-		$data = $request->getSessionData( $key );
+	public function session_getData( $key, $subkey = null ) {
+		$data = $this->request->getSessionData( $key );
 		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
 				return $data;
@@ -3115,12 +3116,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * key matches, when key and value are set), and false if there is no donor
 	 * data (or if the key and value do not match)
 	 */
-	public static function session_hasDonorData( $key = false, $value = '' ) {
-		if ( !is_null( self::session_getData( 'Donor' ) ) ) {
+	public function session_hasDonorData( $key = false, $value = '' ) {
+		if ( !is_null( $this->session_getData( 'Donor' ) ) ) {
 			if ( $key === false ) {
 				return true;
 			}
-			if ( self::session_getData( 'Donor', $key ) === $value ) {
+			if ( $this->session_getData( 'Donor', $key ) === $value ) {
 				return true;
 			}
 		}
@@ -3132,9 +3133,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * like GlobalCollect that require it to persist over here through their
 	 * iframe experience.
 	 */
-	public static function session_unsetDonorData() {
-		if ( self::session_hasDonorData() ) {
-			unset( $_SESSION['Donor'] );
+	public function session_unsetDonorData() {
+		if ( $this->session_hasDonorData() ) {
+			$this->request->setSessionData( 'Donor', null );
 		}
 	}
 
@@ -3164,7 +3165,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function session_killAllEverything() {
 		//yes: We do need all of these things, to be sure we're killing the
 		//correct session data everywhere it could possibly be.
-		self::session_ensure(); //make sure we are killing the right thing.
+		$this->session_ensure(); //make sure we are killing the right thing.
 		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
 			MediaWiki\Session\SessionManager::getGlobalSession()->clear();
 		} else {
@@ -3210,9 +3211,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_resetForNewAttempt( $force = false ) {
 		$reset = $force;
-		if ( self::session_getData( 'numAttempt' ) > 3 ) {
+		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
-			$_SESSION['numAttempt'] = 0;
+			$this->request->setSessionData( 'numAttempt', 0 );
 		}
 
 		if ( $reset ) {
@@ -3349,9 +3350,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return;
 		}
 
-		self::session_ensure();
+		$this->session_ensure();
 
-		$paymentForms = self::session_getData( 'PaymentForms' );
+		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
 			$paymentForms = array();
 		}
@@ -3370,8 +3371,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * otherwise false.
 	 */
 	public function session_getLastRapidHTMLForm() {
-		self::session_ensure();
-		$paymentForms = self::session_getData( 'PaymentForms' );
+		$this->session_ensure();
+		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
 			return false;
 		}
@@ -3434,18 +3435,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * @return string
 	 */
-	public static function token_getSaltedSessionToken() {
+	public function token_getSaltedSessionToken() {
 		// make sure we have a session open for tracking a CSRF-prevention token
-		self::session_ensure();
+		$this->session_ensure();
 
-		$gateway_ident = self::getIdentifier();
+		$tokenKey = self::getIdentifier() . 'EditToken';
 
-		if ( !isset( $_SESSION[$gateway_ident . 'EditToken'] ) ) {
+		$token = $this->request->getSessionData( $tokenKey );
+		if ( is_null( $token ) ) {
 			// generate unsalted token to place in the session
 			$token = self::token_generateToken();
-			$_SESSION[$gateway_ident . 'EditToken'] = $token;
-		} else {
-			$token = $_SESSION[$gateway_ident . 'EditToken'];
+			$this->request->setSessionData( $tokenKey, $token );
 		}
 
 		return self::token_applyMD5AndSalt( $token );
@@ -3460,8 +3460,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function token_refreshAllTokenEverything() {
 		$unsalted = self::token_generateToken();
 		$gateway_ident = self::getIdentifier();
-		self::session_ensure();
-		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
+		$this->session_ensure();
+		$this->request->setSessionData( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
 		$this->addRequestData( array ( 'token' => $salted ) );
