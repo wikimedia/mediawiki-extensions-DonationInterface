@@ -202,9 +202,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$output->addHTML( "Empty Results" );
 		}
-		if ( array_key_exists( 'Donor', $_SESSION ) ) {
+		$donorData = $this->getRequest()->getSessionData( 'Donor' );
+		if ( is_array( $donorData ) ) {
 			$output->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
-			foreach ( $_SESSION['Donor'] as $key => $val ) {
+			foreach ( $donorData as $key => $val ) {
 				$output->addHTML( HTML::element('li', null, "$key: $val" ) );
 			}
 			$output->addHTML( HTML::closeElement( 'ul' ) );
@@ -311,7 +312,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
-		$referrer = $this->getRequest()->getHeader( 'referer' );
+		$request = $this->getRequest();
+		$referrer = $request->getHeader( 'referer' );
 		$liberated = false;
 		if ( $this->adapter->session_getData( 'order_status', $oid ) === 'liberated' ) {
 			$liberated = true;
@@ -320,7 +322,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// XXX need to know whether we were in an iframe or not.
 		global $wgServer;
 		if ( $this->isReturnFramed() && ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
-			$_SESSION[ 'order_status' ][ $oid ] = 'liberated';
+			$sessionOrderStatus = $request->getSessionData( 'order_status' );
+			$sessionOrderStatus[$oid] = 'liberated';
+			$request->setSessionData( 'order_status', $sessionOrderStatus );
 			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
 			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
 			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
