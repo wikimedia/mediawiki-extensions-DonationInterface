@@ -115,9 +115,8 @@ interface GatewayType {
 	 *	** alt_locations is intended to contain a list of arrays that
 	 *	are always available (or should be), from which we can pull the
 	 *	order_id.
-	 *	** Examples of valid things to throw in $dataset_name are $_GET,
-	 *	$_POST, $_SESSION (though they should be expressed in the arary
-	 *	without the dollar prefix)
+	 *	** Examples of valid things to throw in $dataset_name are 'request'
+	 *	and 'session'
 	 *	** $dataset_key : The key in the associated dataset that is
 	 *	expected to contain the order_id. Probably going to be order_id
 	 *	if we are generating the dataset internally. Probably something
@@ -2490,7 +2489,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$attempts = 1;
 		}
 
-		$_SESSION['numAttempt'] = $attempts;
+		$this->request->setSessionData( 'numAttempt', $attempts );
 	}
 
 	/**
@@ -2510,7 +2509,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$sequence = 1;
 		}
 
-		$_SESSION['sequence'] = $sequence;
+		$this->request->setSessionData( 'sequence', $sequence );
 	}
 
 	public function setHash( $hashval ) {
@@ -3089,13 +3088,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
 	public static function session_getData( $key, $subkey = null ) {
-		if ( is_array( $_SESSION ) && array_key_exists( $key, $_SESSION ) ) {
+		$request = RequestContext::getMain()->getRequest();
+		$data = $request->getSessionData( $key );
+		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
-				return $_SESSION[$key];
-			} else {
-				if ( is_array( $_SESSION[$key] ) && array_key_exists( $subkey, $_SESSION[$key] ) ) {
-					return $_SESSION[$key][$subkey];
-				}
+				return $data;
+			} else if ( is_array( $data ) && array_key_exists( $subkey, $data ) ) {
+				return $data[$subkey];
 			}
 		}
 		return null;
@@ -3117,7 +3116,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * data (or if the key and value do not match)
 	 */
 	public static function session_hasDonorData( $key = false, $value = '' ) {
-		if ( self::session_exists() && !is_null( self::session_getData( 'Donor' ) ) ) {
+		if ( !is_null( self::session_getData( 'Donor' ) ) ) {
 			if ( $key === false ) {
 				return true;
 			}
@@ -3145,15 +3144,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_addDonorData() {
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
-		self::session_ensure();
-		$_SESSION['Donor'] = array ( );
+		$this->session_ensure();
 		$donordata = DonationData::getStompMessageFields();
 		$donordata[] = 'order_id';
 		$donordata[] = 'appeal';
 
+		$data = array();
 		foreach ( $donordata as $item ) {
-			$_SESSION['Donor'][$item] = $this->getData_Unstaged_Escaped( $item );
+			$data[$item] = $this->getData_Unstaged_Escaped( $item );
 		}
+		$this->request->setSessionData( 'Donor', $data );
 	}
 
 	/**
@@ -3165,8 +3165,24 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//yes: We do need all of these things, to be sure we're killing the
 		//correct session data everywhere it could possibly be.
 		self::session_ensure(); //make sure we are killing the right thing.
-		session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
-		session_destroy(); //killed on the server.
+		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
+			MediaWiki\Session\SessionManager::getGlobalSession()->clear();
+		} else {
+			/**
+			 * FIXME: Remove this whole else clause when in 1.27, but especially
+			 * this FauxRequest hack. Until 1.27, WebRequest refers to the
+			 * $_SESSION superglobal to get values, but FauxRequest holds onto
+			 * an internal array which is not cleared by _unset or _destroy.
+			 * We clear that array to get the same behavior in test and prod.
+			 */
+			if ( $this->request instanceof FauxRequest ) {
+				foreach( $this->request->getSessionArray() as $key => $value ) {
+					$this->request->setSessionData( $key, null );
+				}
+			}
+			session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
+			session_destroy(); //killed on the server.
+		}
 	}
 
 	/**
@@ -3205,31 +3221,41 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			//leave the payment forms and antifraud data alone.
 			//but, under no circumstances should the gateway edit
 			//token appear in the preserve array...
-			$preserve_main = array (
+			$preserveKeys = array(
 				'DonationInterface_SessVelocity',
 				'PaymentForms',
 				'numAttempt',
 				'order_status', //for post-payment activities
 				'sequence',
 			);
+			$preservedData = array();
 			$msg = '';
-			foreach ( $_SESSION as $key => $value ) {
-				if ( !in_array( $key, $preserve_main ) ) {
-					$msg .= "$key, "; //always one extra comma; Don't care.
-					unset( $_SESSION[$key] );
+			foreach ( $preserveKeys as $keep ) {
+				$value = $this->request->getSessionData( $keep );
+				if ( !is_null( $value ) ) {
+					$preservedData[$keep] = $value;
+					$msg .= "$keep, "; //always one extra comma; Don't care.
 				}
 			}
-			if ( $msg != '' ) {
-				$this->logger->info( __FUNCTION__ . ": Unset the following session keys: $msg" );
+			$this->session_unsetAllData();
+			foreach( $preservedData as $keep => $value ) {
+				$this->request->setSessionData( $keep, $value );
+			}
+			if ( $msg === '' ) {
+				$this->logger->info( __FUNCTION__ . ": Reset session, nothing to preserve" );
+			} else {
+				$this->logger->info( __FUNCTION__ . ": Reset session, preserving the following keys: $msg" );
 			}
 		} else {
 			//I'm sure we could put more here...
 			$soft_reset = array (
 				'order_id',
 			);
+			$donorData = $this->session_getData( 'Donor' );
 			foreach ( $soft_reset as $reset_me ) {
-				unset( $_SESSION['Donor'][$reset_me] );
+				unset( $donorData[$reset_me] );
 			}
+			$this->request->setSessionData( 'Donor', $donorData );
 			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id only' );
 		}
 	}
@@ -3244,11 +3270,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( $this->isBatchProcessor() || !$this->session_exists() ) {
+		if ( $this->isBatchProcessor() ) {
 			return;
 		}
 		$oldData = $this->session_getData( 'Donor' );
-		if ( !$oldData ) {
+		if ( !is_array( $oldData ) ) {
 			return;
 		}
 
@@ -3279,7 +3305,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$this->logger->info(
 						"Payment method changed from {$oldData['payment_method']} to $newMethod.  Unsetting submethod."
 					);
-					unset( $_SESSION['Donor']['payment_submethod'] );
+					unset( $oldData['payment_submethod'] );
+					$this->request->setSessionData( 'Donor', $oldData );
 				}
 			}
 		}
@@ -3303,7 +3330,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->logger->info(
 					"Recurring changed from '{$oldData['recurring']}' to '$newRecurring'.  Unsetting order ID."
 				);
-				unset( $_SESSION['Donor']['order_id'] );
+				unset( $oldData['order_id'] );
+				$this->request->setSessionData( 'Donor', $oldData );
 			}
 		}
 	}
@@ -3323,13 +3351,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		self::session_ensure();
 
-		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
-			$_SESSION['PaymentForms'] = array ( );
+		$paymentForms = self::session_getData( 'PaymentForms' );
+		if ( !is_array( $paymentForms ) ) {
+			$paymentForms = array();
 		}
 
 		//don't want duplicates
 		if ( $this->session_getLastRapidHTMLForm() != $form_key ) {
-			$_SESSION['PaymentForms'][] = $form_key;
+			$paymentForms[] = $form_key;
+			$this->request->setSessionData( 'PaymentForms', $paymentForms );
 		}
 	}
 
@@ -3341,22 +3371,22 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_getLastRapidHTMLForm() {
 		self::session_ensure();
-		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
+		$paymentForms = self::session_getData( 'PaymentForms' );
+		if ( !is_array( $paymentForms ) ) {
 			return false;
+		}
+		$ffname = end( $paymentForms );
+		if ( !$ffname ) {
+			return false;
+		}
+		$data = $this->getData_Unstaged_Escaped();
+		//have to check to see if the last loaded form is *still* valid.
+		if ( GatewayFormChooser::isValidForm(
+			$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
+		) {
+			return $ffname;
 		} else {
-			$ffname = end( $_SESSION['PaymentForms'] );
-			if ( !$ffname ) {
-				return false;
-			}
-			$data = $this->getData_Unstaged_Escaped();
-			//have to check to see if the last loaded form is *still* valid.
-			if ( GatewayFormChooser::isValidForm(
-				$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
-			) {
-				return $ffname;
-			} else {
-				return false;
-			}
+			return false;
 		}
 	}
 
@@ -3657,9 +3687,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		//pull all order ids and variants from all their usual locations
 		$locations = array (
-			'_GET' => 'order_id',
-			'_POST' => 'order_id',
-			'_SESSION' => array ( 'Donor' => 'order_id' ),
+			'request' => 'order_id',
+			'session' => array ( 'Donor' => 'order_id' ),
 		);
 
 		$alt_locations = $this->getOrderIDMeta( 'alt_locations' );
@@ -3673,29 +3702,25 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$oid_candidates = array ( );
 
 		foreach ( $locations as $var => $key ) {
-			//using a horribly redundant switch here until php supports superglobals with $$. Arglebarglefargle!
 			switch ( $var ) {
-				case "_GET" :
-					if ( array_key_exists( $key, $_GET ) ) {
-						$oid_candidates[$var] = $_GET[$key];
+				case "request" :
+					$value = $this->request->getText( $key, '' );
+					if ( $value !== '' ) {
+						$oid_candidates[$var] = $value;
 					}
 					break;
-				case "_POST" :
-					if ( array_key_exists( $key, $_POST ) ) {
-						$oid_candidates[$var] = $_POST[$key];
-					}
-				case "_SESSION" :
-					if ( $this->session_exists() ) {
-						if ( is_array( $key ) ) {
-							foreach ( $key as $subkey => $subvalue ) {
-								if ( array_key_exists( $subkey, $_SESSION ) && array_key_exists( $subvalue, $_SESSION[$subkey] ) ) {
-									$oid_candidates['_SESSION' . $subkey . $subvalue] = $_SESSION[$subkey][$subvalue];
-								}
+				case "session" :
+					if ( is_array( $key ) ) {
+						foreach ( $key as $subkey => $subvalue ) {
+							$parentVal = $this->request->getSessionData( $subkey );
+							if ( is_array( $parentVal ) && array_key_exists( $subvalue, $parentVal ) ) {
+								$oid_candidates['session' . $subkey . $subvalue] = $parentVal[$subvalue];
 							}
-						} else {
-							if ( array_key_exists( $key, $_SESSION ) ) {
-								$oid_candidates[$var] = $_SESSION[$key];
-							}
+						}
+					} else {
+						$val = $this->request->getSessionData( $key );
+						if ( !is_null( $val ) ) {
+							$oid_candidates[$var] = $val;
 						}
 					}
 					break;

@@ -175,21 +175,25 @@ class DonationData implements LogPrefixProvider {
 	 * are populated, and merge that with the data set we already have. 
 	 */
 	protected function integrateDataFromSession() {
-		/** if the thing coming in from the session isn't already something,
+		/**
+		 * if the thing coming in from the session isn't already something,
 		 * replace it.
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
-		 * ...unless it's an explicit $overwrite * */
-		if ( $this->gateway->session_exists() && array_key_exists( 'Donor', $_SESSION ) ) {
-			//fields that should always overwrite with their original values
-			$overwrite = array ( 'referrer' );
-			foreach ( $_SESSION['Donor'] as $key => $val ) {
-				if ( !$this->isSomething( $key ) ){
+		 * ...unless it's an explicit $overwrite
+		 **/
+		$donorData = $this->gateway->getRequest()->getSessionData( 'Donor' );
+		if ( is_null( $donorData ) ) {
+			return;
+		}
+		//fields that should always overwrite with their original values
+		$overwrite = array ( 'referrer' );
+		foreach ( $donorData as $key => $val ) {
+			if ( !$this->isSomething( $key ) ){
+				$this->setVal( $key, $val );
+			} else {
+				if ( in_array( $key, $overwrite ) ) {
 					$this->setVal( $key, $val );
-				} else {
-					if ( in_array( $key, $overwrite ) ) {
-						$this->setVal( $key, $val );
-					}
 				}
 			}
 		}

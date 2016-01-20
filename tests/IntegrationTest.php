@@ -64,20 +64,21 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 
 	//this is meant to simulate a user choosing paypal, then going back and choosing GC.
 	public function testBackClickPayPalToGC() {
-		$this->testAdapterClass = 'TestingPaypalAdapter';
 		$options = $this->getDonorTestData( 'US' );
-
 		$options['payment_method'] = 'paypal';
-		$gateway = $this->getFreshGatewayObject( $options );
+		$paypalRequest = $this->setUpRequest( $options );
+
+		$gateway = new TestingPaypalAdapter();
 		$gateway->do_transaction( 'Donate' );
 
+		$paymentForms = $paypalRequest->getSessionData( 'PaymentForms' );
 		//check to see that we have a numAttempt and form set in the session
-		$this->assertEquals( 'paypal', $_SESSION['PaymentForms'][0], "Paypal didn't load its form." );
-		$this->assertEquals( '1', $_SESSION['numAttempt'], "We failed to record the initial paypal attempt in the session" );
+		$this->assertEquals( 'paypal', $paymentForms[0], "Paypal didn't load its form." );
+		$this->assertEquals( '1', $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
 		//now, get GC.
-		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
 		$options['payment_method'] = 'cc';
-		$gateway = $this->getFreshGatewayObject( $options );
+		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
+		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 		$ffname = $gateway->getData_Unstaged_Escaped( 'ffname' );

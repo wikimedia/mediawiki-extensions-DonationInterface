@@ -67,53 +67,54 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @covers GatewayAdapter::normalizeOrderID
 	 */
 	public function testNormalizeOrderID() {
-		$init = self::$initial_vars;
-		unset( $init['order_id'] );
+		$request = $this->getDonorTestData();
+		$externalData = $this->getDonorTestData();
+		$session = array( 'Donor' => $this->getDonorTestData() );
 
 		//no order_id from anywhere, explicit no generate
-		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
 		$this->assertFalse( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Deferred order_id generation may be broken.' );
 		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
 
 		//no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE ) ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, array ( 'order_id_meta' => array ( 'generate' => TRUE ) ) );
 		$this->assertTrue( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Self order_id generation may be broken.' );
 		$this->assertInternalType( 'numeric', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is not numeric, which it should be for GlobalCollect' );
 
-		$_GET['order_id'] = '55555';
-		$_SESSION['Donor']['order_id'] = '44444';
+		// conflicting order_id in request and session, default GC generation
+		$request['order_id'] = '55555';
+		$session['Donor']['order_id'] = '44444';
+		$this->setUpRequest( $request, $session );
+		$gateway = new TestingGlobalCollectAdapter();
+		$this->assertEquals( '55555', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is preferring session data over the request. Session should be secondary.' );
 
-		//conflicting order_id in $GET and $SESSION, default GC generation
-		$gateway = $this->getFreshGatewayObject( $init );
-		$this->assertEquals( '55555', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is preferring session data over the $_GET. Session should be secondary.' );
-
-		//conflicting order_id in $GET and $SESSION, garbage data in $_GET, default GC generation
-		$_GET['order_id'] = 'nonsense!';
-		$gateway = $this->getFreshGatewayObject( $init );
+		// conflicting order_id in request and session, garbage data in request, default GC generation
+		$request['order_id'] = 'nonsense!';
+		$this->setUpRequest( $request, $session );
+		$gateway = new TestingGlobalCollectAdapter();
 		$this->assertEquals( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not ignoring nonsensical order_id candidates' );
 
-		unset( $_GET['order_id'] );
-		//order_id in $SESSION, default GC generation
-		$gateway = $this->getFreshGatewayObject( $init );
+		// order_id in session, default GC generation
+		unset( $request['order_id'] );
+		$this->setUpRequest( $request, $session );
+		$gateway = new TestingGlobalCollectAdapter();
 		$this->assertEquals( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not recognizing the session order_id' );
 
-		$_POST['order_id'] = '33333';
-		//conflicting order_id in $_POST and $SESSION, default GC generation
-		$gateway = $this->getFreshGatewayObject( $init );
-		$this->assertEquals( '33333', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is preferring session data over the $_POST. Session should be secondary.' );
-
-		$init['order_id'] = '22222';
-		//conflicting order_id in init data, $_POST and $SESSION, explicit GC generation, batch mode
-		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE ), 'batch_mode' => TRUE, ) );
-		$this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
+		// conflicting order_id in external data, request and session, explicit GC generation, batch mode
+		$request['order_id'] = '33333';
+		$externalData['order_id'] = '22222';
+		$this->setUpRequest( $request, $session );
+		$gateway = $this->getFreshGatewayObject( $externalData, array ( 'order_id_meta' => array ( 'generate' => true ), 'batch_mode' => true ) );
+		$this->assertEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
 
 		//make sure that decimal numbers are rejected by GC. Should be a toss and regen
-		$init['order_id'] = '2143.0';
-		unset( $_POST['order_id'] );
-		unset( $_SESSION['Donor']['order_id'] );
-		//conflicting order_id in init data, $_POST and $SESSION, explicit GC generation, batch mode
-		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE, 'disallow_decimals' => TRUE ), 'batch_mode' => TRUE, ) );
-		$this->assertNotEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true' );
+		$externalData['order_id'] = '2143.0';
+		unset( $request['order_id'] );
+		unset( $session['Donor']['order_id'] );
+		$this->setUpRequest( $request, $session );
+		//conflicting order_id in external data, request and session, explicit GC generation, batch mode
+		$gateway = $this->getFreshGatewayObject( $externalData, array ( 'order_id_meta' => array ( 'generate' => true, 'disallow_decimals' => true ), 'batch_mode' => true ) );
+		$this->assertNotEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true' );
 	}
 
 	/**

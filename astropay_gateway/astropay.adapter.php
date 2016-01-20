@@ -139,7 +139,7 @@ class AstropayAdapter extends GatewayAdapter {
 	 */
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
-			'alt_locations' => array ( '_POST' => 'x_invoice' ),
+			'alt_locations' => array ( 'request' => 'x_invoice' ),
 			'generate' => TRUE,
 			'ct_id' => TRUE,
 			'length' => 20,

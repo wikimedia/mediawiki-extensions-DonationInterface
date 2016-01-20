@@ -134,23 +134,23 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		// Fill the session with some GlobalCollect stuff
 		$init = $this->getDonorTestData( 'FR' );
 		$init['contribution_tracking_id'] = mt_rand();
-		$globalcollect_gateway = new TestingGlobalCollectAdapter( array(
-				'external_data' => $init,
-		) );
+		$firstRequest = $this->setUpRequest( $init );
+		$globalcollect_gateway = new TestingGlobalCollectAdapter();
 		$globalcollect_gateway->do_transaction( 'Donate' );
 
-		$this->assertEquals( 'globalcollect', $_SESSION['Donor']['gateway'], 'Test setup failed.' );
+		$session = $firstRequest->getSessionArray();
+		$this->assertEquals( 'globalcollect', $session['Donor']['gateway'], 'Test setup failed.' );
 
 		//Then simpulate switching to Worldpay
-		$_SESSION['sequence'] = 2;
-		unset( $_POST['order_id'] );
+		$session['sequence'] = 2;
+		unset( $init['order_id'] );
 
-		$worldpay_gateway = new TestingWorldpayAdapter( array (
-				'external_data' => $init,
-		) );
+		$secondRequest = $this->setUpRequest( $init, $session );
+		$worldpay_gateway = new TestingWorldpayAdapter();
 		$worldpay_gateway->batch_mode = true;
 
-		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['sequence']}";
+		$session = $secondRequest->getSessionArray();
+		$expected_order_id = "{$init['contribution_tracking_id']}.{$session['sequence']}";
 		$this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
 	}
@@ -160,23 +160,24 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 
-		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
+		$firstRequest = $this->setUpRequest( $init );
 
 		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'Donate' );
 
-		$this->assertEquals( '', $_SESSION['Donor']['recurring'], 'Test setup failed.' );
+		$donorData = $firstRequest->getSessionData( 'Donor' );
+		$this->assertEquals( '', $donorData['recurring'], 'Test setup failed.' );
 		$oneTimeOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
 
 		// Then they go back and decide they want to make a recurring donation
 
 		$init['recurring'] = '1';
-		RequestContext::resetMain();
-		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
+		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
 		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'Donate' );
-		$this->assertEquals( '1', $_SESSION['Donor']['recurring'], 'Test setup failed.' );
+		$donorData = $secondRequest->getSessionData( 'Donor' );
+		$this->assertEquals( '1', $donorData['recurring'], 'Test setup failed.' );
 
 		$recurOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
 
@@ -190,18 +191,19 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['payment_method'] = 'bt';
 		$init['payment_submethod'] = 'itau';
 
-		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
+		$firstRequest = $this->setUpRequest( $init );
 
 		$gateway = new TestingAstropayAdapter();
 		$gateway->do_transaction( 'Donate' );
 
-		$this->assertEquals( 'itau', $_SESSION['Donor']['payment_submethod'], 'Test setup failed.' );
+		$donorData = $firstRequest->getSessionData( 'Donor' );
+		$this->assertEquals( 'itau', $donorData['payment_submethod'], 'Test setup failed.' );
 
 		// Then they go back and decide they want to donate via credit card
 		$init['payment_method'] = 'cc';
 		unset( $init['payment_submethod'] );
-		RequestContext::resetMain();
-		RequestContext::getMain()->setRequest( new FauxRequest( $init, false ) );
+
+		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
 		$gateway = new TestingAstropayAdapter();
 		$newMethod = $gateway->getData_Unstaged_Escaped( 'payment_method' );

@@ -401,7 +401,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
-			'alt_locations' => array ( '_GET' => 'order_id' ),
+			'alt_locations' => array ( 'request' => 'order_id' ),
 			'generate' => TRUE, //freaking FINALLY.
 			'disallow_decimals' => true, //hacky hack hack...
 		);

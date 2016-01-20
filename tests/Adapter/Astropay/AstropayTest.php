@@ -72,8 +72,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	function testNewInvoiceRequest() {
 		$init = $this->getDonorTestData( 'BR' );
 		$this->setLanguage( $init['language'] );
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$gateway->do_transaction( 'NewInvoice' );
 		parse_str( $gateway->curled[0], $actual );
@@ -470,9 +471,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	function testLogDetails() {
 		$init = $this->getDonorTestData( 'BR' );
 		$init['payment_method'] = 'cc';
-		$_SESSION['Donor']['order_id'] = '123456789';
-
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$gateway->doPayment();
 		$logged = $this->getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );

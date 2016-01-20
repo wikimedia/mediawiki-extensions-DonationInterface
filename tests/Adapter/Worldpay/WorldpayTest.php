@@ -377,13 +377,15 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	 * Check that whacky #.# format orderid is unmolested by order_id_meta validation.
 	 */
 	function testWackyOrderIdPassedValidation() {
-		$init = self::$initial_vars;
+		$externalData = self::$initial_vars;
+		$externalData['order_id'] = '2143.0';
+		$options = array(
+			'external_data' => $externalData,
+			'batch_mode' => true,
+		);
 
-        $init['order_id'] = '2143.0';
-        unset( $_POST['order_id'] );
-        unset( $_SESSION['Donor']['order_id'] );
-        $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
-        $this->assertEquals( $init['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ),
+		$gateway = new TestingWorldpayAdapter( $options );
+		$this->assertEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Decimal Order ID should be allowed by orderIdMeta validation' );
 	}
 
@@ -391,14 +393,14 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	 * Check that order_id is built from contribution_tracking id.
 	 */
 	function testWackyOrderIdBasedOnContributionTracking() {
-		$init = self::$initial_vars;
+		$externalData = self::$initial_vars;
+		$externalData['contribution_tracking_id'] = mt_rand();
+		$session = array( 'sequence' => 2 );
 
-        $init['contribution_tracking_id'] = mt_rand();
-        $_SESSION['sequence'] = 2;
-        unset( $_POST['order_id'] );
-        $gateway = $this->getFreshGatewayObject( $init, array( 'batch_mode' => TRUE, ) );
-		$expected_order_id = "{$init['contribution_tracking_id']}.{$_SESSION['sequence']}";
-        $this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
+		$this->setUpRequest( array(), $session );
+		$gateway = $this->getFreshGatewayObject( $externalData, array( 'batch_mode' => TRUE, ) );
+		$expected_order_id = "{$externalData['contribution_tracking_id']}.{$session['sequence']}";
+		$this->assertEquals( $expected_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Decimal Order ID is not correctly built from Contribution Tracking ID.' );
 	}
 

@@ -32,7 +32,7 @@ class PayPalResultSwitcherTest extends DonationInterfaceTestCase {
 	function testSuccessfulRedirect() {
 		$init = $this->getDonorTestData( 'FR' );
 		$init['OTT'] = 'SALT123456789';
-		$_SESSION['Donor'] = $init;
+		$session = array( 'Donor' => $init );
 
 		$assertNodes = array(
 			'headers' => array(
@@ -40,7 +40,7 @@ class PayPalResultSwitcherTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'PaypalGatewayResult', $init, $assertNodes, false );
+		$this->verifyFormOutput( 'PaypalGatewayResult', $init, $assertNodes, false, $session );
 	}
 
 }

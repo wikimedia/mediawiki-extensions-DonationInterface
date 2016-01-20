@@ -83,6 +83,19 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	/**
+	 * Set up a fake request with the given data. Returns the fake request.
+	 * @param array $data
+	 * @param array $session
+	 * @return FauxRequest
+	 */
+	protected function setUpRequest( $data, $session = null ) {
+		RequestContext::resetMain();
+		$request = new FauxRequest( $data, false, $session );
+		RequestContext::getMain()->setRequest( $request );
+		return $request;
+	}
+
+	/**
 	 * buildRequestXmlForGlobalCollect
 	 *
 	 * @todo
@@ -438,6 +451,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$_SERVER['SCRIPT_NAME'] = __FILE__;
 
 		RequestContext::resetMain();
+		// The following is only needed until 1.27, as the above reset only
+		// sets the request back to $wgRequest
+		$request = RequestContext::getMain()->getRequest();
+		if ( $request instanceof FauxRequest ) {
+			$session = $request->getSessionArray();
+			if ( is_array( $session ) ) {
+				foreach( $session as $key => $value ) {
+					$request->setSessionData( $key, null );
+				}
+			}
+		}
 
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
@@ -475,22 +499,24 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * So far, $check_to_perform can be either 'nodename' or 'innerhtml'
 	 * @param boolean $fail_on_log_errors When true, this will fail the
 	 * current test if there are entries in the gateway's error log.
+	 * @param array $session pre-existing session data.
 	 */
-	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false ) {
+	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false, $session = null ) {
 		// Nasty hack to clear output from any previous tests.
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
-		$newRequest = new TestingRequest( $initial_vars, false );
+		$newRequest = new TestingRequest( $initial_vars, false, $session );
+		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
 		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
+		$mainContext->setTitle( $newTitle );
 
 		$globals = array (
-			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' ),
+			'wgTitle' => $newTitle,
 			'wgOut' => $newOutput,
 		);
 
 		$this->setMwGlobals( $globals );
-		RequestContext::getMain()->setRequest( $newRequest );
 
 		$this->setLanguage( $initial_vars['language'] );
 

@@ -121,7 +121,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 */
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
-			'alt_locations' => array ( '_GET' => 'merchantReference' ),
+			'alt_locations' => array ( 'request' => 'merchantReference' ),
 			'generate' => TRUE,
 		);
 	}
