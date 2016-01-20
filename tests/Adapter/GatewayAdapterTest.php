@@ -218,12 +218,13 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $options['street'] );
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
-		$gateway = $this->getFreshGatewayObject( $options );
+		$this->setUpRequest( $options );
+		$gateway = new TestingGlobalCollectAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( $exposed->getData_Staged( 'street' ), 'N0NE PROVIDED',
+		$this->assertEquals( 'N0NE PROVIDED', $exposed->getData_Staged( 'street' ),
 			'Street must be stuffed with fake data to prevent AVS scam.' );
 	}
 
@@ -232,12 +233,13 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $options['zip'] );
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
-		$gateway = $this->getFreshGatewayObject( $options );
+		$this->setUpRequest( $options );
+		$gateway = new TestingGlobalCollectAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( $exposed->getData_Staged( 'zip' ), '0',
+		$this->assertEquals( '0', $exposed->getData_Staged( 'zip' ),
 			'Postal code must be stuffed with fake data to prevent AVS scam.' );
 	}
 

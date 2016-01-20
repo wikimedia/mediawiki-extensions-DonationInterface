@@ -165,7 +165,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Test construction with data jammed in $_GET.
+	 * Test construction with data jammed in request.
 	 */
 	public function testConstructWithFauxRequest() {
 		$request = RequestContext::getMain()->getRequest();
@@ -204,7 +204,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //Get all data from $_GET
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //Get all data from request
 		$returned = $ddObj->getDataEscaped();
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
@@ -229,7 +229,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'currency_code' => 'USD',
 		);
 
-		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
+		$this->setUpRequest( $expected );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
 		$matches = $this->getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = false, utm_source = cc$/' );
@@ -405,5 +405,3 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 	*/
 }
-
-

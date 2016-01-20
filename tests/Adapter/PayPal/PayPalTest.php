@@ -163,7 +163,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	 */
 	function testRedirectFormOnValid() {
 		$init = $this->getDonorTestData();
-		$_SESSION['Donor'] = $init;
+		$session = array( 'Donor' => $init );
 
 		$that = $this;
 		$redirectTest = function( $location ) use ( $that, $init ) {
@@ -176,7 +176,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			)
 		);
 
-		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false );
+		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false, $session );
 	}
 
 	/**
@@ -185,7 +185,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	function testShowFormOnError() {
 		$init = $this->getDonorTestData();
 		$init['amount'] = '-100.00';
-		$_SESSION['Donor'] = $init;
+		$session = array( 'Donor' => $init );
 		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
 		$assertNodes = array(
 			'mw-content-text' => array(
@@ -193,7 +193,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			)
 		);
 
-		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false );
+		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false, $session );
 	}
 
 	/**

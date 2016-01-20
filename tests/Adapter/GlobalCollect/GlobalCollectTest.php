@@ -191,8 +191,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '25' );
@@ -212,8 +211,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array( 'CVVRESULT' => ' ' ), false ) );
+		$this->setUpRequest( array( 'CVVRESULT' => ' ' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '800' );
@@ -255,8 +253,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
@@ -274,8 +271,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array( 'CVVRESULT' => 'M' ), false ) );
+		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
@@ -483,11 +479,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		//Make it not look like an orphan
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array(
-				'CVVRESULT' => 'M',
-				'AVSRESULT' => '0'
-			), false ) );
+		$this->setUpRequest( array(
+			'CVVRESULT' => 'M',
+			'AVSRESULT' => '0'
+		) );
 
 		//Toxic card should not retry, even if there's an order id collision
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -509,30 +504,29 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * an exception during the 1st response.
 	 */
 	public function testNoDupeOrderId( ) {
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array(
-				'action'=>'donate',
-				'amount'=>'3.00',
-				'card_type'=>'amex',
-				'city'=>'Hollywood',
-				'contribution_tracking_id'=>'22901382',
-				'country'=>'US',
-				'currency_code'=>'USD',
-				'emailAdd'=>'FaketyFake@gmail.com',
-				'fname'=>'Fakety',
-				'format'=>'json',
-				'gateway'=>'globalcollect',
-				'language'=>'en',
-				'lname'=>'Fake',
-				'payment_method'=>'cc',
-				'referrer'=>'http://en.wikipedia.org/wiki/Main_Page',
-				'state'=>'MA',
-				'street'=>'99 Fake St',
-				'utm_campaign'=>'C14_en5C_dec_dsk_FR',
-				'utm_medium'=>'sitenotice',
-				'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
-				'zip'=>'90210'
-			), false ) );
+		$this->setUpRequest( array(
+			'action'=>'donate',
+			'amount'=>'3.00',
+			'card_type'=>'amex',
+			'city'=>'Hollywood',
+			'contribution_tracking_id'=>'22901382',
+			'country'=>'US',
+			'currency_code'=>'USD',
+			'emailAdd'=>'FaketyFake@gmail.com',
+			'fname'=>'Fakety',
+			'format'=>'json',
+			'gateway'=>'globalcollect',
+			'language'=>'en',
+			'lname'=>'Fake',
+			'payment_method'=>'cc',
+			'referrer'=>'http://en.wikipedia.org/wiki/Main_Page',
+			'state'=>'MA',
+			'street'=>'99 Fake St',
+			'utm_campaign'=>'C14_en5C_dec_dsk_FR',
+			'utm_medium'=>'sitenotice',
+			'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
+			'zip'=>'90210'
+		) );
 
 		$gateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
 		$gateway->setDummyGatewayResponseCode( 'Exception' );
@@ -560,11 +554,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		//Make it not look like an orphan
-		RequestContext::getMain()->setRequest(
-			new FauxRequest( array(
-				'CVVRESULT' => 'M',
-				'AVSRESULT' => '0'
-			), false ) );
+		$this->setUpRequest( array(
+			'CVVRESULT' => 'M',
+			'AVSRESULT' => '0'
+		) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( $code );

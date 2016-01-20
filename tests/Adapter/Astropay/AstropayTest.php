@@ -303,8 +303,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testPaymentStatus() {
 		$init = $this->getDonorTestData( 'BR' );
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$gateway->do_transaction( 'PaymentStatus' );
 
@@ -334,8 +335,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testInvalidSignature() {
 		$init = $this->getDonorTestData( 'BR' );
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$gateway->setDummyGatewayResponseCode( 'badsig' );
 		$gateway->do_transaction( 'PaymentStatus' );
@@ -351,8 +353,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testSuccessfulReturn() {
 		$init = $this->getDonorTestData( 'BR' );
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		// Next lines mimic Astropay resultswitcher
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
@@ -379,8 +382,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	function testReturnUpdatesAmount() {
 		$init = $this->getDonorTestData( 'BR' );
 		$init['amount'] = '22.55'; // junk session data from another banner click
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '22.55', $amount );
@@ -408,8 +412,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testRejectedReturn() {
 		$init = $this->getDonorTestData( 'BR' );
-		$_SESSION['Donor']['order_id'] = '123456789';
-		$gateway = $this->getFreshGatewayObject( $init );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$gateway = new TestingAstropayAdapter();
 
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
@@ -526,12 +531,14 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testNewInvoiceOrderId() {
 		$init = $this->getDonorTestData( 'BR' );
-		$firstAttempt = $this->getFreshGatewayObject( $init );
+		$firstRequest = $this->setUpRequest( $init );
+		$firstAttempt = new TestingAstropayAdapter();
 		$firstAttempt->setDummyGatewayResponseCode( '1' );
  
 		$firstAttempt->doPayment();
 
-		$secondAttempt = $this->getFreshGatewayObject( $init );
+		$this->setUpRequest( $init, $firstRequest->getSessionArray() );
+		$secondAttempt = new TestingAstropayAdapter();
 		$secondAttempt->doPayment();
 
 		parse_str( $firstAttempt->curled[0], $firstParams );
