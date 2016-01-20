@@ -55,10 +55,6 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationIn
 		unset( $options['payment_product_id'] );
 		unset( $options['payment_submethod'] );
 
-		//stash base options for later builds
-		$generalOptions = $options;
-
-
 		$dd_info_supplied = array (
 			'branch_code' => '123',
 			'account_name' => 'Henry',

@@ -109,16 +109,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
 
 		global $wgDonationInterfaceTest;
-		
+
 		$wgDonationInterfaceTest = true;
 
-		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
+		$this->setUpRequest( $options );
+		$this->gatewayAdapter = new TestingGlobalCollectAdapter();
 
 		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
 
 		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
 		$request = trim( $exposed->buildRequestXML() );
 
+		$this->setUpRequest( $options );
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 		
 		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.' );

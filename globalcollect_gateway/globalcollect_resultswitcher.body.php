@@ -54,11 +54,12 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		}
 
 		$forbidden = false;
-		if ( !isset( $_GET['order_id'] ) && !isset( $_GET['REF'] ) ) {
+		$this->qs_oid = $req->getText( 'order_id', '' );
+		$this->qs_ref = $req->getText( 'REF', '' );
+		if ( $this->qs_oid === '' && $this->qs_ref === '' ) {
 			$forbidden = true;
 			$f_message = 'No order ID in the Querystring.';
 		} else {
-			isset( $_GET['order_id'] ) ? $this->qs_oid = $_GET['order_id'] : $this->qs_oid = null;
 			$result = $this->popout_if_iframe();
 			if ( $result ) {
 				return;
@@ -67,11 +68,11 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 		$session_oid = $this->adapter->session_getData( 'Donor', 'order_id' );
 
-		if ( is_null( $session_oid ) || ( ($this->qs_oid !== $session_oid) && strpos( $_GET['REF'], ( string ) $session_oid ) === false ) ) {
+		if ( is_null( $session_oid ) || ( ($this->qs_oid !== $session_oid) && strpos( $this->qs_ref, ( string ) $session_oid ) === false ) ) {
 			$forbidden = true;
 			$f_message = "Requested order id not present in the session. (session_oid = '$session_oid')";
 
-			if ( !$_SESSION ) {
+			if ( !$this->adapter->session_exists() ) {
 				$this->logger->error( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data." );
 			}
 		}
@@ -88,21 +89,13 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {
 			// Display form for the first time
-			$oid = $this->getRequest()->getText( 'order_id' );
-
 			//this next block is for credit card coming back from GC. Only that. Nothing else, ever. 
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
-				if ( !is_array( $this->adapter->session_getData( 'order_status', $oid ) ) ) {
+				$sessionOrders = $req->getSessionData( 'order_status' );
+				if ( !is_array( $sessionOrders )
+					|| !is_set( $sessionOrders[$this->qs_oid] )
+					|| !is_array( $sessionOrders[$this->qs_oid] ) ) {
 
-					//@TODO: If you never, ever, ever see this, rip it out. 
-					//In all other cases, write kind of a lot of code. 
-					if ( array_key_exists( 'pending', $_SESSION ) ){
-						$started = $_SESSION['pending'];
-						//not sure what to do with this yet, but I sure want to know if it's happening. 
-						$this->logger->alert( "Resultswitcher: Parallel Universe Unlocked. Start time: $started" );
-					}
-					
-					$_SESSION['pending'] = microtime( true ); //We couldn't have gotten this far if the server wasn't sticky.
 					$result = $this->adapter->do_transaction( 'Confirm_CreditCard' );
 					$session_info = array(
 						//Just the stuff we use in displayResultsForDebug
@@ -110,17 +103,18 @@ class GlobalCollectGatewayResult extends GatewayPage {
 						'message' => $result->getMessage(),
 						'errors' => $result->getErrors()
 					);
-					$_SESSION['order_status'][$oid] = $session_info;
-					unset( $_SESSION['pending'] );
-					$_SESSION['order_status'][$oid]['data']['count'] = 0;
+					$sessionOrders[$this->qs_oid] = $session_info;
+					$sessionOrders[$this->qs_oid]['data']['count'] = 0;
 				} else {
-					$_SESSION['order_status'][$oid]['data']['count'] = $_SESSION['order_status'][$oid]['data']['count'] + 1;
-					$this->logger->error( "Resultswitcher: Multiple attempts to process. " . $_SESSION['order_status'][$oid]['data']['count'] );
+					$sessionOrders = $req->getSessionData( 'order_status' );
+					$sessionOrders[$this->qs_oid]['data']['count'] = $sessionOrders[$this->qs_oid]['data']['count'] + 1;
+					$this->logger->error( "Resultswitcher: Multiple attempts to process. " . $sessionOrders[$this->qs_oid]['data']['count'] );
 					$result = new PaymentTransactionResult();
-					$result->setData( $_SESSION['order_status'][$oid]['data'] );
-					$result->setMessage( $_SESSION['order_status'][$oid]['message'] );
-					$result->setErrors( $_SESSION['order_status'][$oid]['errors'] );
+					$result->setData( $sessionOrders[$this->qs_oid]['data'] );
+					$result->setMessage( $sessionOrders[$this->qs_oid]['message'] );
+					$result->setErrors( $sessionOrders[$this->qs_oid]['errors'] );
 				}
+				$req->setSessionData( 'order_status', $sessionOrders );
 				$this->displayResultsForDebug( $result );
 				//do the switching between the... stuff. 
 
@@ -144,16 +138,16 @@ class GlobalCollectGatewayResult extends GatewayPage {
 						$this->getOutput()->redirect( $go );
 						return;
 					} else {
-						$this->logger->error( "Resultswitcher: No redirect defined. Order ID: $oid" );
+						$this->logger->error( "Resultswitcher: No redirect defined. Order ID: {$this->qs_oid}" );
 					}
 				} else {
-					$this->logger->error( "Resultswitcher: No FinalStatus. Order ID: $oid" );
+					$this->logger->error( "Resultswitcher: No FinalStatus. Order ID: {$this->qs_oid}" );
 				}
 			} else {
-				$this->logger->error( "Resultswitcher: Payment method is not cc. Order ID: $oid" );
+				$this->logger->error( "Resultswitcher: Payment method is not cc. Order ID: {$this->qs_oid}" );
 			}
 		} else {
-			$this->logger->error("Resultswitcher: Token Check Failed. Order ID: $oid" );
+			$this->logger->error("Resultswitcher: Token Check Failed. Order ID: {$this->qs_oid}" );
 		}
 		$this->displayFailPage();
 	}
@@ -161,7 +155,10 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	function popout_if_iframe() {
 		global $wgServer;
 
-		if ( ( $this->adapter->session_getData( 'order_status', $this->qs_oid ) === 'liberated' ) || isset( $_GET['liberated'] ) ) {
+		$request = $this->getRequest();
+		$qs_liberated = $request->getText( 'liberated', '' );
+		if ( $this->adapter->session_getData( 'order_status', $this->qs_oid ) === 'liberated'
+			|| $qs_liberated !== '' ) {
 			return;
 		}
 
@@ -169,13 +166,15 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		//I didn't do this already, because this may turn out to be backwards anyway. It might be good to do the work in the iframe, 
 		//and then pop out. Maybe. We're probably going to have to test it a couple different ways, for user experience. 
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
-		$referrer = $this->getRequest()->getHeader( 'referer' );
+		$referrer = $request->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
-			if ( !$_SESSION ) {
+			if ( !$this->adapter->session_exists() ) {
 				$this->logger->error( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie." );
 			}
 
-			$_SESSION['order_status'][$this->qs_oid] = 'liberated';
+			$sessionOrders = $request->getSessionData( 'order_status' );
+			$sessionOrders[$this->qs_oid] = 'liberated';
+			$request->setSessionData( 'order_status', $sessionOrders );
 			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $this->qs_oid );
 
 			$this->getOutput()->allowClickjacking();
