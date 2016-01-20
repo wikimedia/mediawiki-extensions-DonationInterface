@@ -259,7 +259,6 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	 */
 	function testAntifraudCVVMatch() {
 		$options = $this->getDonorTestData(); //don't really care: We'll be using the dummy response directly.
-		$class = $this->testAdapterClass;
 
 		$gateway = $this->getFreshGatewayObject( $options );
 		$gateway->do_transaction( 'AuthorizePaymentForFraud' );

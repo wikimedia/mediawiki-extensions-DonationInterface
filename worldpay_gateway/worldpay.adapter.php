@@ -1239,23 +1239,27 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::session_addDonorData();
 		// XXX: We might end up moving this into a STOMP required field,
 		// but I don't know yet so kludging it in here so we have it for later
-		$_SESSION['Donor']['wp_one_time_token'] = $this->getData_Unstaged_Escaped( 'wp_one_time_token' );
+		$donorData = $this->request->getSessionData( 'Donor' );
+		$donorData['wp_one_time_token'] = $this->getData_Unstaged_Escaped( 'wp_one_time_token' );
+		$this->request->setSessionData( 'Donor', $donorData );
 	}
 
 	public function store_cvv_in_session( $cvv ) {
+		$donorData = $this->request->getSessionData( 'Donor_protected' );
 		if ( !is_null( $cvv ) ) {
-			$_SESSION['Donor_protected']['cvv'] = $cvv;
-		} else {
-			unset( $_SESSION['Donor_protected']['cvv'] );
+			$donorData['cvv'] = $cvv;
+		} else if ( is_array( $donorData ) ) {
+			unset( $donorData['cvv'] );
 		}
+		$this->request->setSessionData( 'Donor_protected', $donorData );
 	}
 
 	protected function get_cvv() {
-		if ( isset( $_SESSION['Donor_protected']['cvv'] ) ) {
-			return $_SESSION['Donor_protected']['cvv'];
-		} else {
-			return null;
+		$donorData = $this->request->getSessionData( 'Donor_protected' );
+		if ( is_array( $donorData ) && isset( $donorData['cvv'] ) ) {
+			return $donorData['cvv'];
 		}
+		return null;
 	}
 
 	/**
