@@ -114,7 +114,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['OTT'] = 'SALT123456789';
 		$init['amount'] = '-100.00';
 		$init['ffname'] = 'amazon';
-		$_SESSION['Donor'] = $init;
+		$session = array( 'Donor' => $init );
 		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
 		$assertNodes = array(
 			'mw-content-text' => array(
@@ -122,7 +122,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 			)
 		);
 
-		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false );
+		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false, $session );
 	}
 
 	/**

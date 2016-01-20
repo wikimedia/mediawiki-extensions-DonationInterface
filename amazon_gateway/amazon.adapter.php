@@ -328,8 +328,9 @@ class AmazonAdapter extends GatewayAdapter {
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
 		) );
-		// TODO: session_setData wrapper?
-		$_SESSION['order_refs'][$orderReferenceId] = true;
+		$orderRefs = $this->request->getSessionData( 'order_refs' );
+		$orderRefs[$orderReferenceId] = true;
+		$this->request->setSessionData( 'order_refs', $orderRefs );
 	}
 
 	protected function authorizeOnOrderReference() {
@@ -381,7 +382,9 @@ class AmazonAdapter extends GatewayAdapter {
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			'seller_billing_agreement_id' => $this->getData_Staged( 'order_id' ),
 		) );
-		$_SESSION['billing_agreements'][$billingAgreementId] = true;
+		$billingAgreements = $this->request->getSessionData( 'billing_agreements' );
+		$billingAgreements[$billingAgreementId] = true;
+		$this->request->setSessionData( 'billing_agreements', $billingAgreements );
 	}
 
 	protected function authorizeOnBillingAgreement() {
