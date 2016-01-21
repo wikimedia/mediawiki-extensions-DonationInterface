@@ -3095,27 +3095,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Checks to see if we have donor data in our session.
 	 * This can be useful for determining if a user should be at a certain point
 	 * in the workflow for certain gateways. For example: This is used on the
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to
-	 * determine if the user is actually in the process of making a credit card
-	 * transaction.
-	 * @param bool|string $key Optional: A particular key to check against the
-	 * donor data in session.
-	 * @param string $value Optional (unless $key is set): A value that the $key
-	 * should contain, in the donor session.
-	 * @return boolean true if the session contains donor data (and if the data
-	 * key matches, when key and value are set), and false if there is no donor
-	 * data (or if the key and value do not match)
+	 * outside of the adapter in resultswitcher pages, to determine if the user
+	 * is actually in the process of making a credit card transaction.
+	 *
+	 * @return boolean true if the session contains donor data
 	 */
-	public function session_hasDonorData( $key = false, $value = '' ) {
-		if ( !is_null( $this->session_getData( 'Donor' ) ) ) {
-			if ( $key === false ) {
-				return true;
-			}
-			if ( $this->session_getData( 'Donor', $key ) === $value ) {
-				return true;
-			}
-		}
-		return false;
+	public function session_hasDonorData() {
+		return !is_null( $this->session_getData( 'Donor' ) );
 	}
 
 	/**
