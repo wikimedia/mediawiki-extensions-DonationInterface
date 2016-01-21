@@ -20,7 +20,7 @@ class PaypalGatewayResult extends GatewayPage {
 	 * An array of form errors
 	 * @var array
 	 */
-	public $errors = array( );
+	public $errors = array();
 
 	public function __construct() {
 		$this->adapter = new PaypalAdapter();
@@ -31,26 +31,27 @@ class PaypalGatewayResult extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
-		//no longer letting people in without these things. If this is 
-		//preventing you from doing something, you almost certainly want to be 
-		//somewhere else. 
+		// no longer letting people in without these things.
+		// If this is preventing you from doing something,
+		// you almost certainly want to be somewhere else.
 		$forbidden = false;
 		if ( !$this->adapter->session_hasDonorData() ) {
 			$forbidden = true;
 			$f_message = 'No active donation in the session';
 		}
-		
+
 		if ( $forbidden ){
 			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$this->setHeaders();
-		
+
 		if ( $this->adapter->checkTokens() ) {
 
-/*
-			// One day, we should have pass/fail detection.  I don't think PP returns enough information at the moment.
+		/*
+			// One day, we should have pass/fail detection.
+			// I don't think PP returns enough information at the moment.
 			if ( NULL === $this->adapter->processResponse( $ ) ) {
 				switch ( $this->adapter->getFinalStatus() ) {
 				case 'complete':
@@ -60,7 +61,7 @@ class PaypalGatewayResult extends GatewayPage {
 				}
 			}
 			$this->getOutput()->redirect( $this->adapter->getFailPage() );
-*/
+		*/
 			$this->logger->info( "Displaying thank you page" );
 			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
 		} else {

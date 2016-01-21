@@ -359,6 +359,7 @@
 	"donate_interface-obt-generic-name": "Virement bancaire en ligne",
 	"donate_interface-obt-biller_id": "Code facturier",
 	"donate_interface-obt-customer_payment_reference": "Référence nº",
+	"donate_interface-obt-customer_payment_reference_note": "Chaque numéro de référence n’est valide qu’une fois. Merci de ne pas réutiliser ce numéro de référence lors d’un prochain don.",
 	"donate_interface-obt-information": "Information de virement bancaire en ligne",
 	"donate_interface-online_bank_transfer_message": "Services bancaires par téléphone et Internet&nbsp;– ''BPAY®''",
 	"donate_interface-rtbt-issuer_id": "Sélectionnez une banque",

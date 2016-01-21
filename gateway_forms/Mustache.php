@@ -71,12 +71,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getData() {
 		$data = $this->gateway->getData_Unstaged_Escaped();
-		$context = RequestContext::getMain();
-		$config = $context->getConfig();
-		$output = $context->getOutput();
-		$request = $context->getRequest();
+		$output = $this->gateway->getContext()->getOutput();
 
-		$data['script_path'] = $config->get( 'ScriptPath' );
+		$data['script_path'] = $this->scriptPath;
 		$data['verisign_logo'] = $this->getSmallSecureLogo();
 		$relativePath = $this->sanitizePath( $this->topLevelForm );
 		$data['template_trail'] = "<!-- Generated from: $relativePath -->";

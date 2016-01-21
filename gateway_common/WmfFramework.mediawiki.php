@@ -7,20 +7,20 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function getIP() {
-		global $wgRequest;
-		return $wgRequest->getIP();
+		$request = RequestContext::getMain()->getRequest();
+		return $request->getIP();
 	}
 
 	static function getHostname() {
 		return wfHostname();
 	}
 
-	static function formatMessage($message_identifier /*, ... */ ) {
+	static function formatMessage( $message_identifier /*, ... */ ) {
 		return call_user_func_array( 'wfMessage', func_get_args() )->text();
 	}
 
-	static function runHooks($func, $args) {
-		return Hooks::run($func, $args);
+	static function runHooks( $func, $args ) {
+		return Hooks::run( $func, $args );
 	}
 
 	static function getLanguageCode() {
@@ -33,11 +33,15 @@ class WmfFramework_Mediawiki {
 		return $wgUseSquid;
 	}
 
-	static function setupSession($sessionId=false) {
-		wfSetupSession();
+	static function setupSession( $sessionId = false ) {
+		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
+			MediaWiki\Session\SessionManager::getGlobalSession()->persist();
+		} else {
+			wfSetupSession();
+		}
 	}
 
-	static function validateIP($ip) {
+	static function validateIP( $ip ) {
 		return IP::isValid( $ip );
 	}
 
@@ -66,8 +70,8 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function isPosted() {
-		global $wgRequest;
-		return $wgRequest->wasPosted();
+		$request = RequestContext::getMain()->getRequest();
+		return $request->wasPosted();
 	}
 
 	static function sanitize( $text ) {

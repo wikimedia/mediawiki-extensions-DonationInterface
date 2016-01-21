@@ -3,7 +3,6 @@
  * This file is part of the DonationInterface Extension to MediaWiki
  * https://www.mediawiki.org/wiki/Extension:DonationInterface
  *
- * @section LICENSE
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,8 +17,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
- *
- * @file
  */
 ( function ( $, mw ) {
 
@@ -30,7 +27,7 @@
 	/**
 	 * Attempt to validate, on the client side, the form data.
 	 *
-	 * @returns {boolean} True if all checked form data is valid
+	 * @return {boolean} True if all checked form data is valid
 	 */
 	function validateClientSide() {
 		var cardType = $.payment.cardType( $accountNumber.val() ),
@@ -60,11 +57,11 @@
 
 		types.forEach( function ( type ) {
 			var key;
-			for ( key in type) {
-				if ( $( type[key] ).hasClass('invalid') ) {
+			for ( key in type ) {
+				if ( $( type[ key ] ).hasClass( 'invalid' ) ) {
 					$( key ).addClass( 'show' );
-				} else if ( !$( type[key] ).hasClass( 'invalid' ) ) {
-					$( key ).removeClass( 'show' ).addClass('hide' );
+				} else if ( !$( type[ key ] ).hasClass( 'invalid' ) ) {
+					$( key ).removeClass( 'show' ).addClass( 'hide' );
 				}
 			}
 		} );
@@ -99,10 +96,10 @@
 			};
 
 		$.each( fields, function ( idx, val ) {
-			postdata[val] = $( '#' + val ).val();
-		});
+			postdata[ val ] = $( '#' + val ).val();
+		} );
 
-		$.ajax({
+		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
 			data: postdata,
 			dataType: 'json',
@@ -115,21 +112,21 @@
 					var errors = [];
 					$.each( data.errors, function ( idx, str ) {
 						errors.push( str );
-					});
+					} );
 					window.alert( errors.join( '\n' ) );
-					$( '#paymentSubmitBtn' ).removeClass('disabled');
+					$( '#paymentSubmitBtn' ).removeClass( 'disabled' );
 				} else if ( data.ottResult ) {
 					successCallback( data.ottResult );
 				} else {
 					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
-					$( '#paymentSubmitBtn' ).removeClass('disabled');
+					$( '#paymentSubmitBtn' ).removeClass( 'disabled' );
 				}
 			},
 			error: function ( xhr ) {
 				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
-				$( '#paymentSubmitBtn' ).removeClass('disabled');
+				$( '#paymentSubmitBtn' ).removeClass( 'disabled' );
 			}
-		});
+		} );
 	}
 
 	/**
@@ -152,13 +149,13 @@
 				type: 'hidden',
 				name: name,
 				value: value
-			}));
+			} ) );
 		}
 
 		// Add the required elements to the form
 		addHFtoF( 'Action', 'Add' );
 		addHFtoF( 'AcctName', [ $( '#fname' ).val(), $( '#lname' ).val() ].join( ' ' ).trim() );
-		addHFtoF( 'AcctNumber', $accountNumber.val().replace(/\s+/g, '') );
+		addHFtoF( 'AcctNumber', $accountNumber.val().replace( /\s+/g, '' ) );
 		addHFtoF( 'ExpMonth', ( '0' + expiry.month ).slice( -2 ) );
 		addHFtoF( 'ExpYear', ( '000' + expiry.year ).slice( -4 ) );
 
@@ -195,7 +192,7 @@
 		$accountExpiry.payment( 'formatCardExpiry' );
 		$accountCVC.payment( 'formatCardCVC' );
 
-		$( '.form-control' ).keypress( function (e) {
+		$( '.form-control' ).keypress( function ( e ) {
 			if ( e.which === 13 ) {
 				submitForm();
 			}
@@ -205,22 +202,22 @@
 			submitForm();
 		} );
 
-		$( '#ddTestOptions').click( function () {
-			$( '#ddTestCCArea' ).removeClass('hide').addClass('show');
-		});
+		$( '#ddTestOptions' ).click( function () {
+			$( '#ddTestCCArea' ).removeClass( 'hide' ).addClass( 'show' );
+		} );
 		$( '#cvv-info' ).hover( function () {
 			$( '#cvv-codes' ).show();
 		}, function () {
 			$( '#cvv-codes' ).hide();
-		});
+		} );
 		$( '#cvv-info' ).click( function () {
 			$( '#cvv-codes' ).addClass( 'popped' ).show();
 			$( 'body' ).addClass( 'pop-shown' );
 			return false;
-		});
+		} );
 		$( document ).on( 'click', 'body.pop-shown', function () {
 			$( '.popped' ).removeClass( 'popped' ).hide();
 			$( 'body' ).removeClass( 'pop-shown' );
-		});
-	});
-})( jQuery, mediaWiki );
+		} );
+	} );
+}( jQuery, mediaWiki ) );

@@ -5,19 +5,18 @@ class NationalCurrencies {
 	 * Retrieved from reference on Jul 6, 2012
 	 * http://fasteri.com/list/country-code-dialing-code-currency-timezone-of-countries.html
 	 */
-	static function getNationalCurrency($country)
-	{
-		$country = substr($country, 0, 2);
-		$country = strtoupper($country);
+	static function getNationalCurrency( $country ) {
+		$country = substr( $country, 0, 2 );
+		$country = strtoupper( $country );
 		$nationalCurrencies = NationalCurrencies::getNationalCurrencies();
-		if (isset($nationalCurrencies[$country]))
+		if ( isset( $nationalCurrencies[$country] ) ) {
 			return $nationalCurrencies[$country];
+		}
 		else
 			return NULL;
 	}
 
-	static function getNationalCurrencies()
-	{
+	static function getNationalCurrencies() {
 		$nationalCurrencies = array(
 			"AF" => "AFN",
 			"AX" => "EUR",

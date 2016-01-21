@@ -2,16 +2,16 @@
 window.displayCreditCardForm = function () {
 	$( '#payment' ).empty();
 	// Load wait spinner
-	$( '#payment' ).append( '<br/><br/><img alt="loading" src="' + mw.config.get( 'wgScriptPath' ) +
+	$( '#payment' ).append( '<br/><br/><img alt="loading" src="' + mediaWiki.config.get( 'wgScriptPath' ) +
 		'/extensions/DonationInterface/gateway_forms/includes/loading-white.gif" />' );
 
 	window.showStep3(); // Open the 3rd section
 	var currencyField, currency_code, stateField, state, countryField, country, sendData,
 		language = 'en', // default value is English
-		matches = document.location.href.match(/uselang=(\w+)/i); // fine the real language
+		matches = document.location.href.match( /uselang=(\w+)/i ); // fine the real language
 
-	if ( matches && matches[1] ) {
-		language = matches[1];
+	if ( matches && matches[ 1 ] ) {
+		language = matches[ 1 ];
 	}
 
 	currencyField = document.getElementById( 'input_currency_code' );
@@ -63,13 +63,13 @@ window.displayCreditCardForm = function () {
 		format: 'json'
 	};
 	$.ajax( {
-		url: mw.util.wikiScript( 'api' ),
+		url: mediaWiki.util.wikiScript( 'api' ),
 		data: sendData,
 		dataType: 'json',
 		type: 'GET',
 		success: function ( data ) {
 			if ( typeof data.error !== 'undefined' ) {
-				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 				$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 				window.showStep2();
 			} else if ( typeof data.result !== 'undefined' ) {
@@ -93,7 +93,7 @@ window.displayCreditCardForm = function () {
 			}
 		},
 		error: function ( xhr ) {
-			alert( mw.msg( 'donate_interface-error-msg-general' ) );
+			alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
 			window.showStep1();
 		}
 	} );
@@ -112,6 +112,6 @@ window.showAmount = function ( e ) {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
-	$('#selected-amount').text(+e.val() + ' ' + currency_code);
+	$( '#selected-amount' ).text( +e.val() + ' ' + currency_code );
 	$( '#change-amount' ).show();
 };

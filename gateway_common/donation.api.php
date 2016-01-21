@@ -17,7 +17,7 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
-		$gateway_opts = array (
+		$gateway_opts = array(
 			'api_request' => 'true'
 		);
 
@@ -43,7 +43,7 @@ class DonationApi extends ApiBase {
 			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );
 		}
 
-		//$normalizedData = $gatewayObj->getData_Unstaged_Escaped();
+		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();
 		$outputResult = array();
 		if ( $result->getMessage() !== null ) {
 			$outputResult['message'] = $result->getMessage();
@@ -109,18 +109,18 @@ class DonationApi extends ApiBase {
 			'zip' => $this->defineParam( false ),
 			'emailAdd' => $this->defineParam( false ),
 			'country' => $this->defineParam( false ),
-			'card_num' => $this->defineParam( false  ),
-			'card_type' => $this->defineParam( false  ),
-			'expiration' => $this->defineParam( false  ),
-			'cvv' => $this->defineParam( false  ),
-			'payment_method' => $this->defineParam( false  ),
-			'payment_submethod' => $this->defineParam( false  ),
-			'language' => $this->defineParam( false  ),
-			'order_id' => $this->defineParam( false  ),
-			'contribution_tracking_id' => $this->defineParam( false  ),
-			'utm_source' => $this->defineParam( false  ),
-			'utm_campaign' => $this->defineParam( false  ),
-			'utm_medium' => $this->defineParam( false  ),
+			'card_num' => $this->defineParam( false ),
+			'card_type' => $this->defineParam( false ),
+			'expiration' => $this->defineParam( false ),
+			'cvv' => $this->defineParam( false ),
+			'payment_method' => $this->defineParam( false ),
+			'payment_submethod' => $this->defineParam( false ),
+			'language' => $this->defineParam( false ),
+			'order_id' => $this->defineParam( false ),
+			'contribution_tracking_id' => $this->defineParam( false ),
+			'utm_source' => $this->defineParam( false ),
+			'utm_campaign' => $this->defineParam( false ),
+			'utm_medium' => $this->defineParam( false ),
 			'referrer' => $this->defineParam( false ),
 			'recurring' => $this->defineParam( false ),
 		);

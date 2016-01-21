@@ -401,7 +401,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
-			'alt_locations' => array ( '_GET' => 'order_id' ),
+			'alt_locations' => array ( 'request' => 'order_id' ),
 			'generate' => TRUE, //freaking FINALLY.
 			'disallow_decimals' => true, //hacky hack hack...
 		);
@@ -1285,11 +1285,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * FIXME: This function is way too complex.  Unroll into new functions.
 	 *
-	 * @global WebRequest $wgRequest
 	 * @return PaymentTransactionResponse
 	 */
 	private function transactionConfirm_CreditCard(){
-		global $wgRequest; //this is for pulling vars straight from the querystring
+		// Pulling vars straight from the querystring
 		$pull_vars = array(
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
@@ -1297,7 +1296,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// FIXME: Refactor as normal unstaging.
 		$qsResults = array();
 		foreach ( $pull_vars as $theirkey => $ourkey) {
-			$tmp = $wgRequest->getVal( $theirkey, null );
+			$tmp = $this->request->getVal( $theirkey, null );
 			if ( !is_null( $tmp ) ) {
 				$qsResults[$ourkey] = $tmp;
 			}

@@ -86,9 +86,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		}
 
 		// Open a session if it doesn't already exist
-		if ( session_id() == null ) {
-			wfSetupSession();
-		}
+		$this->gateway_adapter->session_ensure();
 
 		// Obtain some useful information
 		$gateway = $this->gateway_adapter->getIdentifier();

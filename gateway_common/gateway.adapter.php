@@ -24,7 +24,7 @@ use Psr\Log\LogLevel;
  *
  */
 interface GatewayType {
-	//all the particulars of the child classes. Aaaaall.
+	// all the particulars of the child classes. Aaaaall.
 
 	/**
 	 * Process the API response obtained from the payment processor and set
@@ -115,9 +115,8 @@ interface GatewayType {
 	 *	** alt_locations is intended to contain a list of arrays that
 	 *	are always available (or should be), from which we can pull the
 	 *	order_id.
-	 *	** Examples of valid things to throw in $dataset_name are $_GET,
-	 *	$_POST, $_SESSION (though they should be expressed in the arary
-	 *	without the dollar prefix)
+	 *	** Examples of valid things to throw in $dataset_name are 'request'
+	 *	and 'session'
 	 *	** $dataset_key : The key in the associated dataset that is
 	 *	expected to contain the order_id. Probably going to be order_id
 	 *	if we are generating the dataset internally. Probably something
@@ -318,24 +317,37 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public $debugarray;
 	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than
-	 * $wgRequest->wasPosted(), as something else could have posted to us.
+	 * WebRequest->wasPosted(), as something else could have posted to us.
 	 * @var boolean
 	 */
 	public $posted = false;
 	protected $batch = false;
 	protected $api_request = false;
+
+	/**
+	 * The current HTTP request context
+	 * @var IContextSource
+	 */
+	protected $context;
+
+	/**
+	 * The current HTTP request
+	 * @var WebRequest
+	 */
+	protected $request;
+
 	/**
 	 * Holds the global values we've already looked up.  Used in getGlobal.
 	 * @staticvar array
 	 */
-	protected static $globalsCache = array ( );
+	protected static $globalsCache = array();
 
-	//ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
+	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
-	const GLOBAL_PREFIX = 'wgDonationGateway'; //...for example.
+	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
 
-	public $log_outbound = FALSE; //This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	public $log_outbound = false; // This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
 
 	/**
 	 * Default response type to be the same as communication type.
@@ -364,7 +376,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-		global $wgRequest;
+		$this->context = RequestContext::getMain();
+		$this->request = $this->context->getRequest();
 
 		$defaults = array(
 			'external_data' => null,
@@ -386,7 +399,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->url = self::getGlobal( 'TestingURL' );
 		}
 
-		//so we know we can skip all the visual stuff.
+		// so we know we can skip all the visual stuff.
 		if ( $options['api_request'] ) {
 			$this->setApiRequest();
 		}
@@ -407,8 +420,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 		$this->staged_data = $this->unstaged_data;
 
-		//checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && (!is_null( $wgRequest->getVal( 'token', null ) ) ) );
+		// checking to see if we have an edit token in the request...
+		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $this->request->getVal( 'token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -425,12 +438,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * Get the currency HTTP request context
+	 * @return IContextSource
+	 */
+	public function getContext() {
+		return $this->context;
+	}
+
+	/**
+	 * Get the current HTTP request
+	 * @return WebRequest
+	 */
+	public function getRequest() {
+		return $this->request;
+	}
+
+	/**
 	 * Determine which account to use for this session
 	 */
 	protected function findAccount() {
 		$acctConfig = self::getGlobal( 'AccountInfo' );
 
-		//this is causing warns in Special:SpecialPages
+		// this is causing warns in Special:SpecialPages
 		if ( !$acctConfig ) {
 			return;
 		}
@@ -458,7 +487,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getLogMessagePrefix() {
 		if ( !is_object( $this->dataObj ) ) {
-			//please avoid exploding; It's just a log line.
+			// please avoid exploding; It's just a log line.
 			return 'Constructing! ';
 		}
 		return $this->dataObj->getLogMessagePrefix();
@@ -480,11 +509,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return string full Page URL
 	 */
 	public function getFailPage() {
-		//Prefer RapidFail.
+		// Prefer RapidFail.
 		if ( self::getGlobal( 'RapidFail' ) ) {
 			$data = $this->getData_Unstaged_Escaped();
 
-			//choose which fail page to go for.
+			// choose which fail page to go for.
 			try {
 				$fail_ffname = GatewayFormChooser::getBestErrorForm( $data['gateway'], $data['payment_method'], $data['payment_submethod'] );
 				return GatewayFormChooser::buildPaymentsFormURL( $fail_ffname, $this->getRetryData() );
@@ -515,17 +544,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * page title.
 	 * @return string A URL
 	 */
-	protected function appendLanguageAndMakeURL( $url ){
+	protected function appendLanguageAndMakeURL( $url ) {
 		$language = $this->getData_Unstaged_Escaped( 'language' );
-		//make sure we don't already have the language in there...
+		// make sure we don't already have the language in there...
 		$dirs = explode('/', $url);
-		if ( !is_array($dirs) || !in_array( $language, $dirs ) ){
+		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {
 			$url = $url . "/$language";
 		}
 
-		if ( strpos( $url, 'http' ) === 0) {
+		if ( strpos( $url, 'http' ) === 0 ) {
 			return $url;
-		} else { //this isn't a url yet.
+		} else { // this isn't a url yet.
 			$returnTitle = Title::newFromText( $url );
 			$url = $returnTitle->getFullURL();
 			return $url;
@@ -588,10 +617,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->refreshGatewayValueFromSource( $value );
 		}
 
-		//and now check to see if you have to re-stage.
-		//I'd fire off individual staging functions by value, but that's a
-		//really bad idea, as multiple staged vars could be used in any staging
-		//function, to calculate any other staged var.
+		// and now check to see if you have to re-stage.
+		// I'd fire off individual staging functions by value, but that's a
+		// really bad idea, as multiple staged vars could be used in any staging
+		// function, to calculate any other staged var.
 		$changed_staged_vars = array_intersect( $this->staged_vars, $data_fields );
 		if ( count( $changed_staged_vars ) ) {
 			$this->stageData();
@@ -669,19 +698,21 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * the configured value for Donation Interface if it exists or not.
 	 */
 	static function getGlobal( $varname ) {
-		//adding another layer of depth here, in case you're working with two gateways in the same request.
-		//That does, in fact, ruin everything. :/
+		// adding another layer of depth here, in case you're working with two gateways in the same request.
+		// That does, in fact, ruin everything. :/
 		if ( !array_key_exists( self::getGlobalPrefix(), self::$globalsCache ) ) {
-			self::$globalsCache[self::getGlobalPrefix()] = array ( );
+			self::$globalsCache[self::getGlobalPrefix()] = array();
 		}
 		if ( !array_key_exists( $varname, self::$globalsCache[self::getGlobalPrefix()] ) ) {
 			$globalname = self::getGlobalPrefix() . $varname;
+			// @codingStandardsIgnoreStart
 			global $$globalname;
 			if ( !isset( $$globalname ) ) {
 				$globalname = "wgDonationInterface" . $varname;
-				global $$globalname; //set or not. This is fine.
+				global $$globalname; // set or not. This is fine.
 			}
 			self::$globalsCache[self::getGlobalPrefix()][$varname] = $$globalname;
+			// @codingStandardsIgnoreEnd
 		}
 		return self::$globalsCache[self::getGlobalPrefix()][$varname];
 	}
@@ -804,14 +835,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->logger->critical( $msg );
 			throw new LogicException( $msg );
 		}
-		//Ensures we are using the correct transaction structure for our various lookups.
+		// Ensures we are using the correct transaction structure for our various lookups.
 		$transaction = $this->getCurrentTransaction();
 
 		if ( !$transaction ){
 			return null;
 		}
 
-		//If there's a hard-coded value in the transaction definition, use that.
+		// If there's a hard-coded value in the transaction definition, use that.
 		if ( !empty( $transaction ) ) {
 			if ( array_key_exists( $transaction, $this->transactions ) && is_array( $this->transactions[$transaction] ) &&
 				array_key_exists( 'values', $this->transactions[$transaction] ) &&
@@ -820,29 +851,29 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 		}
 
-		//if it's account info, use that.
-		//$this->accountInfo;
+		// if it's account info, use that.
+		// $this->accountInfo;
 		if ( array_key_exists( $gateway_field_name, $this->accountInfo ) ) {
 			return $this->accountInfo[$gateway_field_name];
 		}
 
-		//If there's a value in the post data (name-translated by the var_map), use that.
+		// If there's a value in the post data (name-translated by the var_map), use that.
 		if ( array_key_exists( $gateway_field_name, $this->var_map ) ) {
-			if ( $token === true ) { //we just want the field name to use, so short-circuit all that mess.
+			if ( $token === true ) { // we just want the field name to use, so short-circuit all that mess.
 				return '@' . $this->var_map[$gateway_field_name];
 			}
 			$staged = $this->getData_Staged( $this->var_map[$gateway_field_name] );
 			if ( !is_null( $staged ) ) {
-				//if it was sent, use that.
+				// if it was sent, use that.
 				return $staged;
 			} else {
-				//return blank string
+				// return blank string
 				return '';
 			}
 		}
 
-		//not in the map, or hard coded. What then?
-		//Complain furiously, for your code is faulty.
+		// not in the map, or hard coded. What then?
+		// Complain furiously, for your code is faulty.
 		$msg = self::getGatewayName() . ': Requested value ' . $gateway_field_name . ' cannot be found in the transactions structure.';
 		$this->logger->critical( $msg );
 		throw new LogicException( $msg );
@@ -855,15 +886,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @throws LogicException if the transaction is set, but no structure is defined.
 	 * @return mixed current transaction's structure as an array, or false
 	 */
-	protected function getTransactionRequestStructure(){
+	protected function getTransactionRequestStructure() {
 		$transaction = $this->getCurrentTransaction();
-		if ( !$transaction ){
+		if ( !$transaction ) {
 			return false;
 		}
 
 		if ( empty( $this->transactions ) ||
 			!array_key_exists( $transaction, $this->transactions ) ||
-			!array_key_exists( 'request', $this->transactions[$transaction] ) ) {
+			!array_key_exists( 'request', $this->transactions[$transaction] )
+		) {
 
 			$msg = self::getGatewayName() . ": $transaction request structure is empty! No transaction can be constructed.";
 			$this->logger->critical( $msg );
@@ -891,7 +923,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$queryvals = array();
 
-		//we are going to assume a flat array, because... namevalue.
+		// we are going to assume a flat array, because... namevalue.
 		foreach ( $structure as $fieldname ) {
 			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
@@ -928,19 +960,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		if ( $this->log_outbound ) {
 			$message = "Request XML: ";
-			$full_structure = $this->transactions[$this->getCurrentTransaction()]; //if we've gotten this far, this exists.
-			if ( array_key_exists( 'never_log', $full_structure ) ) { //Danger Zone!
+			$full_structure = $this->transactions[$this->getCurrentTransaction()]; // if we've gotten this far, this exists.
+			if ( array_key_exists( 'never_log', $full_structure ) ) { // Danger Zone!
 				$message = "Cleaned $message";
-				//keep these totally separate. Do not want to risk sensitive information (like cvv) making it anywhere near the log.
+				// keep these totally separate. Do not want to risk sensitive information (like cvv) making it anywhere near the log.
 				$this->xmlDoc = new DomDocument( '1.0' );
 				$log_node = $this->xmlDoc->createElement( $rootElement );
-				//remove all never_log nodes from the structure
+				// remove all never_log nodes from the structure
 				$log_structure = $this->cleanTransactionStructureForLogs( $structure, $full_structure['never_log'] );
 				$this->buildTransactionNodes( $log_structure, $log_node );
 				$this->xmlDoc->appendChild( $log_node );
 				$logme = $this->xmlDoc->saveXML();
 			} else {
-				//...safe zone.
+				// ...safe zone.
 				$logme = $return;
 			}
 			$this->logger->info( $message . $logme );
@@ -961,7 +993,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
 
-		if ( !is_array( $structure ) ) { //this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
+		if ( !is_array( $structure ) ) { // this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
 			$this->appendNodeIfValue( $structure, $node, $js );
 		} else {
 			foreach ( $structure as $key => $value ) {
@@ -1048,7 +1080,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$return = new PaymentTransactionResponse();
 			$return->setCommunicationStatus( false );
 			$return->setMessage( 'Failed data validation' );
-			foreach( $this->getAllErrors() as $code => $error ) {
+			foreach ( $this->getAllErrors() as $code => $error ) {
 				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
 			}
 			// TODO: should we set $this->transaction_response ?
@@ -1138,7 +1170,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 			if ( !$this->isBatchProcessor() ) {
-				//TODO: Maybe move this to the pre_process functions?
+				// TODO: Maybe move this to the pre_process functions?
 				$this->dataObj->saveContributionTrackingData();
 			}
 
@@ -1186,7 +1218,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		/* --- Do the cURL request --- */
 		$this->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
-		if ( $txn_ok === true ) { //We have something to slice and dice.
+		if ( $txn_ok === true ) { // We have something to slice and dice.
 			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
 
 			// Decode the response according to $this->getResponseType
@@ -1205,7 +1237,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				) );
 			}
 
-		} elseif ( $txn_ok === false ) { //nothing to process, so we have to build it manually
+		} elseif ( $txn_ok === false ) { // nothing to process, so we have to build it manually
 			$logMessage = 'Transaction Communication failed' . print_r( $this->transaction_response, true );
 			$this->logger->error( $logMessage );
 
@@ -1243,13 +1275,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( !empty( $errors ) ) {
 			$txn_ok = false;
 		}
-		//If we have any special post-process instructions for this
-		//transaction, do 'em.
-		//NOTE: If you want your transaction to fire off the post-process
-		//hooks, you need to run $this->runPostProcessHooks in a function
-		//called
+		// If we have any special post-process instructions for this
+		// transaction, do 'em.
+		// NOTE: If you want your transaction to fire off the post-process
+		// hooks, you need to run $this->runPostProcessHooks in a function
+		// called
 		//	'post_process' . strtolower($transaction)
-		//in the appropriate gateway object.
+		// in the appropriate gateway object.
 		if ( $txn_ok && empty( $retryVars ) ) {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
@@ -1321,8 +1353,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * first-level key in the $transactions array.
 	 * @throws UnexpectedValueException
 	 */
-	public function setCurrentTransaction( $transaction_name ){
-		if ( empty( $this->transactions ) || !is_array( $this->transactions ) || !array_key_exists( $transaction_name, $this->transactions ) ) {
+	public function setCurrentTransaction( $transaction_name ) {
+		if ( empty( $this->transactions ) ||
+			!is_array( $this->transactions ) ||
+			!array_key_exists( $transaction_name, $this->transactions )
+		) {
 			$msg = self::getGatewayName() . ': Transaction Name "' . $transaction_name . '" undefined for this gateway.';
 			$this->logger->alert( $msg );
 			throw new UnexpectedValueException( $msg );
@@ -1354,7 +1389,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed The name of the properly set transaction, or false if none
 	 * has been set.
 	 */
-	public function getCurrentTransaction(){
+	public function getCurrentTransaction() {
 		if ( is_null( $this->current_transaction ) ) {
 			return false;
 		} else {
@@ -1368,8 +1403,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return	string
 	 */
 	public function getPaymentMethod() {
-		//FIXME: this should return the final calculated method
-		return $this->getData_Unstaged_Escaped('payment_method');
+		// FIXME: this should return the final calculated method
+		return $this->getData_Unstaged_Escaped( 'payment_method' );
 	}
 
 	/**
@@ -1390,7 +1425,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getPaymentSubmethod() {
 
-		return $this->getData_Unstaged_Escaped('payment_submethod');
+		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 
 	/**
@@ -1441,7 +1476,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$hookResult = WmfFramework::runHooks( 'DonationInterfaceCurlInit', array( &$this ) );
 		if ( $hookResult == false ) {
 			$this->logger->info( 'cURL transaction aborted on hook DonationInterfaceCurlInit' );
-			$this->setValidationAction('reject');
+			$this->setValidationAction( 'reject' );
 			return false;
 		}
 
@@ -1624,7 +1659,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 			$values = explode( $delimiter, trim( $noHeaders ) );
 			$combined = array_combine( $keys, $values );
-			if ( $combined === FALSE ) {
+			if ( $combined === false ) {
 				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.');
 			}
 			return $combined;
@@ -1658,29 +1693,29 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$pad = 0; // initial indent
 		$matches = array(); // returns from preg_matches()
 		// scan each line and adjust indent based on opening/closing tags
-		while ( $token !== false ) :
+		while ( $token !== false ) {
 
 			// test for the various tag states
 			// 1. open and closing tags on same line - no change
-			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) :
+			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) {
 				$indent = 0;
-			// 2. closing tag - outdent now
-			elseif ( preg_match( '/^<\/\w/', $token, $matches ) ) :
+			} elseif ( preg_match( '/^<\/\w/', $token, $matches ) ) {
+				// 2. closing tag - outdent now
 				$pad--;
-			// 3. opening tag - don't pad this one, only subsequent tags
-			elseif ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $token, $matches ) ) :
+			} elseif ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $token, $matches ) ) {
+				// 3. opening tag - don't pad this one, only subsequent tags
 				$indent = 1;
-			// 4. no indentation needed
-			else :
+			} else {
+				// 4. no indentation needed
 				$indent = 0;
-			endif;
+			}
 
 			// pad the line with the required number of leading spaces
 			$line = str_pad( $token, strlen( $token ) + $pad, ' ', STR_PAD_LEFT );
 			$result .= $line . "\n"; // add to the cumulative result, with linefeed
 			$token = strtok( "\n" ); // get the next token
 			$pad += $indent; // update the pad size for subsequent lines
-		endwhile;
+		}
 
 		return $result;
 	}
@@ -1739,11 +1774,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		static $saveStats = null;
 		static $saveDB = null;
 
-		if ( $saveStats === null ){
+		if ( $saveStats === null ) {
 			$saveStats = self::getGlobal( 'SaveCommStats' );
 		}
 
-		if ( !$saveStats ){
+		if ( !$saveStats ) {
 			return;
 		}
 
@@ -1765,14 +1800,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			'additional' => $additional,
 		);
 
-		if ( $saveDB ){
+		if ( $saveDB ) {
 			$db = ContributionTrackingProcessor::contributionTrackingConnection();
 			$params['ts'] = $db->timestamp();
 			$db->insert( 'communication_stats', $params );
 		} else {
-			//save to syslog. But which syslog?
+			// save to syslog. But which syslog?
 			$msg = '';
-			foreach ($params as $key=>$val){
+			foreach ( $params as $key=>$val ) {
 				$msg .= "$key:$val - ";
 			}
 			$this->commstats_logger->info( $msg );
@@ -1852,11 +1887,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		ksort( $this->return_value_map[ $transaction ][ $key ], SORT_NUMERIC );
 
 		$ranges = $this->return_value_map[ $transaction ][ $key ];
-		//so, you have a code, which is a number. You also have a numerically sorted array.
-		//loop through until you find an upper >= your code.
-		//make sure it's in the range, and return the action.
+		// so, you have a code, which is a number. You also have a numerically sorted array.
+		// loop through until you find an upper >= your code.
+		// make sure it's in the range, and return the action.
 		foreach ( $ranges as $upper => $val ) {
-			if ( $upper >= $code ) { //you've arrived. It's either here or it's nowhere.
+			if ( $upper >= $code ) { // you've arrived. It's either here or it's nowhere.
 				if ( is_array( $val ) ) {
 					if ( $val['lower'] <= $code ) {
 						return $val['action'];
@@ -1872,7 +1907,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				}
 			}
 		}
-		//if we walk straight off the end...
+		// if we walk straight off the end...
 		return null;
 	}
 
@@ -2075,20 +2110,20 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
- 	/**
- 	 * Stage: amount
- 	 *
- 	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
- 	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
- 	 */
- 	protected function stage_amount() {
- 		if ( !$this->getData_Unstaged_Escaped( 'amount' )
+	/**
+	 * Stage: amount
+	 *
+	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
+	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
+	 */
+	protected function stage_amount() {
+		if ( !$this->getData_Unstaged_Escaped( 'amount' )
 			|| !$this->getData_Unstaged_Escaped( 'currency_code' )
 		) {
- 			//can't do anything with amounts at all. Just go home.
+			//can't do anything with amounts at all. Just go home.
 			unset( $this->staged_data['amount'] );
- 			return;
- 		}
+			return;
+		}
 
 		$amount = $this->getData_Unstaged_Escaped( 'amount' );
 		if ( !DataValidator::is_fractional_currency( $this->getData_Unstaged_Escaped( 'currency_code' ) ) ) {
@@ -2270,7 +2305,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * transaction workflow.
 	 * @param string $status one of the constants defined in @see FinalStatus
 	 */
-	public function logFinalStatus( $status ){
+	public function logFinalStatus( $status ) {
 		$action = $this->getValidationAction();
 
 		$msg = " FINAL STATUS: '$status:$action' - ";
@@ -2287,12 +2322,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			'currency_code',
 		);
 
-		foreach ($keys as $key){
+		foreach ( $keys as $key ) {
 			$msg .= $this->getData_Unstaged_Escaped( $key ) . ', ';
 		}
 
 		$txn_message = $this->getTransactionMessage();
-		if ( $txn_message ){
+		if ( $txn_message ) {
 			$msg .= " $txn_message";
 		}
 
@@ -2303,7 +2338,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Build and send a message to the payments-init queue, once the initial workflow is complete.
 	 */
 	public function sendFinalStatusMessage( $status ) {
-		$transaction = array (
+		$transaction = array(
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceFinalStatus',
 			'validation_action' => $this->getValidationAction(),
 			'payments_final_status' => $status,
@@ -2311,7 +2346,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		//add more keys here if you want it in the db equivalent of the payments-init queue.
 		//for now, though, just taking the ones that make it to the logs.
-		$keys = array (
+		$keys = array(
 			'payment_submethod',
 			'payment_method',
 			'country',
@@ -2454,7 +2489,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$attempts = 1;
 		}
 
-		$_SESSION['numAttempt'] = $attempts;
+		$this->request->setSessionData( 'numAttempt', $attempts );
 	}
 
 	/**
@@ -2474,7 +2509,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$sequence = 1;
 		}
 
-		$_SESSION['sequence'] = $sequence;
+		$this->request->setSessionData( 'sequence', $sequence );
 	}
 
 	public function setHash( $hashval ) {
@@ -2576,9 +2611,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed the transaction's value for that key if it exists, or NULL.
 	 */
 	protected function transaction_option( $option_value ) {
-		//ooo, ugly.
+		// ooo, ugly.
 		$transaction = $this->getCurrentTransaction();
-		if ( !$transaction ){
+		if ( !$transaction ) {
 			return NULL;
 		}
 		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
@@ -2668,7 +2703,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * know if we are a batch processor.
 	 * @return type
 	 */
-	public function isBatchProcessor(){
+	public function isBatchProcessor() {
 		return $this->batch;
 	}
 
@@ -2693,7 +2728,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	public function getOriginalValidationErrors( ){
+	public function getOriginalValidationErrors() {
 		return $this->dataObj->getValidationErrors();
 	}
 
@@ -2954,7 +2989,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $mediumMap ) && !empty( $mediumMap ) ){
+		if ( is_array( $mediumMap ) && !empty( $mediumMap ) ) {
 			foreach ( $mediumMap as $regex => $points ){
 				if ( preg_match( $regex, $medium ) ) {
 					$score = (integer) $points;
@@ -2998,7 +3033,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// If any of the defined regex patterns match, add the points.
 		if ( is_array( $sourceMap ) && !empty( $sourceMap ) ){
-			foreach ( $sourceMap as $regex => $points ){
+			foreach ( $sourceMap as $regex => $points ) {
 				if ( preg_match( $regex, $source ) ) {
 					$score = (integer) $points;
 				}
@@ -3053,13 +3088,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
 	public static function session_getData( $key, $subkey = null ) {
-		if ( is_array( $_SESSION ) && array_key_exists( $key, $_SESSION ) ) {
+		$request = RequestContext::getMain()->getRequest();
+		$data = $request->getSessionData( $key );
+		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
-				return $_SESSION[$key];
-			} else {
-				if ( is_array( $_SESSION[$key] ) && array_key_exists( $subkey, $_SESSION[$key] ) ) {
-					return $_SESSION[$key][$subkey];
-				}
+				return $data;
+			} else if ( is_array( $data ) && array_key_exists( $subkey, $data ) ) {
+				return $data[$subkey];
 			}
 		}
 		return null;
@@ -3081,7 +3116,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * data (or if the key and value do not match)
 	 */
 	public static function session_hasDonorData( $key = false, $value = '' ) {
-		if ( self::session_exists() && !is_null( self::session_getData( 'Donor' ) ) ) {
+		if ( !is_null( self::session_getData( 'Donor' ) ) ) {
 			if ( $key === false ) {
 				return true;
 			}
@@ -3109,15 +3144,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_addDonorData() {
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
-		self::session_ensure();
-		$_SESSION['Donor'] = array ( );
+		$this->session_ensure();
 		$donordata = DonationData::getStompMessageFields();
 		$donordata[] = 'order_id';
 		$donordata[] = 'appeal';
 
+		$data = array();
 		foreach ( $donordata as $item ) {
-			$_SESSION['Donor'][$item] = $this->getData_Unstaged_Escaped( $item );
+			$data[$item] = $this->getData_Unstaged_Escaped( $item );
 		}
+		$this->request->setSessionData( 'Donor', $data );
 	}
 
 	/**
@@ -3129,8 +3165,24 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//yes: We do need all of these things, to be sure we're killing the
 		//correct session data everywhere it could possibly be.
 		self::session_ensure(); //make sure we are killing the right thing.
-		session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
-		session_destroy(); //killed on the server.
+		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
+			MediaWiki\Session\SessionManager::getGlobalSession()->clear();
+		} else {
+			/**
+			 * FIXME: Remove this whole else clause when in 1.27, but especially
+			 * this FauxRequest hack. Until 1.27, WebRequest refers to the
+			 * $_SESSION superglobal to get values, but FauxRequest holds onto
+			 * an internal array which is not cleared by _unset or _destroy.
+			 * We clear that array to get the same behavior in test and prod.
+			 */
+			if ( $this->request instanceof FauxRequest ) {
+				foreach( $this->request->getSessionArray() as $key => $value ) {
+					$this->request->setSessionData( $key, null );
+				}
+			}
+			session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
+			session_destroy(); //killed on the server.
+		}
 	}
 
 	/**
@@ -3169,31 +3221,41 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			//leave the payment forms and antifraud data alone.
 			//but, under no circumstances should the gateway edit
 			//token appear in the preserve array...
-			$preserve_main = array (
+			$preserveKeys = array(
 				'DonationInterface_SessVelocity',
 				'PaymentForms',
 				'numAttempt',
 				'order_status', //for post-payment activities
 				'sequence',
 			);
+			$preservedData = array();
 			$msg = '';
-			foreach ( $_SESSION as $key => $value ) {
-				if ( !in_array( $key, $preserve_main ) ) {
-					$msg .= "$key, "; //always one extra comma; Don't care.
-					unset( $_SESSION[$key] );
+			foreach ( $preserveKeys as $keep ) {
+				$value = $this->request->getSessionData( $keep );
+				if ( !is_null( $value ) ) {
+					$preservedData[$keep] = $value;
+					$msg .= "$keep, "; //always one extra comma; Don't care.
 				}
 			}
-			if ( $msg != '' ) {
-				$this->logger->info( __FUNCTION__ . ": Unset the following session keys: $msg" );
+			$this->session_unsetAllData();
+			foreach( $preservedData as $keep => $value ) {
+				$this->request->setSessionData( $keep, $value );
+			}
+			if ( $msg === '' ) {
+				$this->logger->info( __FUNCTION__ . ": Reset session, nothing to preserve" );
+			} else {
+				$this->logger->info( __FUNCTION__ . ": Reset session, preserving the following keys: $msg" );
 			}
 		} else {
 			//I'm sure we could put more here...
 			$soft_reset = array (
 				'order_id',
 			);
+			$donorData = $this->session_getData( 'Donor' );
 			foreach ( $soft_reset as $reset_me ) {
-				unset( $_SESSION['Donor'][$reset_me] );
+				unset( $donorData[$reset_me] );
 			}
+			$this->request->setSessionData( 'Donor', $donorData );
 			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id only' );
 		}
 	}
@@ -3208,11 +3270,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( $this->isBatchProcessor() || !$this->session_exists() ) {
+		if ( $this->isBatchProcessor() ) {
 			return;
 		}
 		$oldData = $this->session_getData( 'Donor' );
-		if ( !$oldData ) {
+		if ( !is_array( $oldData ) ) {
 			return;
 		}
 
@@ -3227,14 +3289,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// Now compare session with current request parameters
-		$newRequest = RequestContext::getMain()->getRequest();
 		// Reset submethod when method changes to avoid form mismatch errors
 		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
 			// Cut down version of the normalization from DonationData
 			$newMethod = null;
 			foreach( array( 'payment_method', 'paymentmethod' ) as $key ) {
-				if ( $newRequest->getVal( $key ) ) {
-					$newMethod = $newRequest->getVal( $key );
+				if ( $this->request->getVal( $key ) ) {
+					$newMethod = $this->request->getVal( $key );
 				}
 			}
 			if ( $newMethod ) {
@@ -3244,7 +3305,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$this->logger->info(
 						"Payment method changed from {$oldData['payment_method']} to $newMethod.  Unsetting submethod."
 					);
-					unset( $_SESSION['Donor']['payment_submethod'] );
+					unset( $oldData['payment_submethod'] );
+					$this->request->setSessionData( 'Donor', $oldData );
 				}
 			}
 		}
@@ -3256,7 +3318,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$newRecurring = '';
 			$hasRecurParam = false;
 			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
-				$newVal = $newRequest->getVal( $key );
+				$newVal = $this->request->getVal( $key );
 				if ( $newVal !== null ) {
 					$hasRecurParam = true;
 				}
@@ -3268,7 +3330,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->logger->info(
 					"Recurring changed from '{$oldData['recurring']}' to '$newRecurring'.  Unsetting order ID."
 				);
-				unset( $_SESSION['Donor']['order_id'] );
+				unset( $oldData['order_id'] );
+				$this->request->setSessionData( 'Donor', $oldData );
 			}
 		}
 	}
@@ -3288,13 +3351,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		self::session_ensure();
 
-		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
-			$_SESSION['PaymentForms'] = array ( );
+		$paymentForms = self::session_getData( 'PaymentForms' );
+		if ( !is_array( $paymentForms ) ) {
+			$paymentForms = array();
 		}
 
 		//don't want duplicates
 		if ( $this->session_getLastRapidHTMLForm() != $form_key ) {
-			$_SESSION['PaymentForms'][] = $form_key;
+			$paymentForms[] = $form_key;
+			$this->request->setSessionData( 'PaymentForms', $paymentForms );
 		}
 	}
 
@@ -3306,22 +3371,22 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_getLastRapidHTMLForm() {
 		self::session_ensure();
-		if ( !is_array( self::session_getData( 'PaymentForms' ) ) ) {
+		$paymentForms = self::session_getData( 'PaymentForms' );
+		if ( !is_array( $paymentForms ) ) {
 			return false;
+		}
+		$ffname = end( $paymentForms );
+		if ( !$ffname ) {
+			return false;
+		}
+		$data = $this->getData_Unstaged_Escaped();
+		//have to check to see if the last loaded form is *still* valid.
+		if ( GatewayFormChooser::isValidForm(
+			$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
+		) {
+			return $ffname;
 		} else {
-			$ffname = end( $_SESSION['PaymentForms'] );
-			if ( !$ffname ) {
-				return false;
-			}
-			$data = $this->getData_Unstaged_Escaped();
-			//have to check to see if the last loaded form is *still* valid.
-			if ( GatewayFormChooser::isValidForm(
-				$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
-			) {
-				return $ffname;
-			} else {
-				return false;
-			}
+			return false;
 		}
 	}
 
@@ -3431,7 +3496,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * token_checkTokens
 	 * The main function to check the salted and MD5'd token we should have
-	 * saved and gathered from $wgRequest, against the clear-text token we
+	 * saved and gathered from the request, against the clear-text token we
 	 * should have saved to the user's session.
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.
@@ -3622,9 +3687,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		//pull all order ids and variants from all their usual locations
 		$locations = array (
-			'_GET' => 'order_id',
-			'_POST' => 'order_id',
-			'_SESSION' => array ( 'Donor' => 'order_id' ),
+			'request' => 'order_id',
+			'session' => array ( 'Donor' => 'order_id' ),
 		);
 
 		$alt_locations = $this->getOrderIDMeta( 'alt_locations' );
@@ -3638,29 +3702,25 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$oid_candidates = array ( );
 
 		foreach ( $locations as $var => $key ) {
-			//using a horribly redundant switch here until php supports superglobals with $$. Arglebarglefargle!
 			switch ( $var ) {
-				case "_GET" :
-					if ( array_key_exists( $key, $_GET ) ) {
-						$oid_candidates[$var] = $_GET[$key];
+				case "request" :
+					$value = $this->request->getText( $key, '' );
+					if ( $value !== '' ) {
+						$oid_candidates[$var] = $value;
 					}
 					break;
-				case "_POST" :
-					if ( array_key_exists( $key, $_POST ) ) {
-						$oid_candidates[$var] = $_POST[$key];
-					}
-				case "_SESSION" :
-					if ( $this->session_exists() ) {
-						if ( is_array( $key ) ) {
-							foreach ( $key as $subkey => $subvalue ) {
-								if ( array_key_exists( $subkey, $_SESSION ) && array_key_exists( $subvalue, $_SESSION[$subkey] ) ) {
-									$oid_candidates['_SESSION' . $subkey . $subvalue] = $_SESSION[$subkey][$subvalue];
-								}
+				case "session" :
+					if ( is_array( $key ) ) {
+						foreach ( $key as $subkey => $subvalue ) {
+							$parentVal = $this->request->getSessionData( $subkey );
+							if ( is_array( $parentVal ) && array_key_exists( $subvalue, $parentVal ) ) {
+								$oid_candidates['session' . $subkey . $subvalue] = $parentVal[$subvalue];
 							}
-						} else {
-							if ( array_key_exists( $key, $_SESSION ) ) {
-								$oid_candidates[$var] = $_SESSION[$key];
-							}
+						}
+					} else {
+						$val = $this->request->getSessionData( $key );
+						if ( !is_null( $val ) ) {
+							$oid_candidates[$var] = $val;
 						}
 					}
 					break;

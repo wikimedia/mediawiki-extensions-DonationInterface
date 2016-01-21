@@ -2,7 +2,7 @@
 
 class Gateway_Extras_ConversionLog extends Gateway_Extras {
 
-	static $instance;
+	public static $instance;
 
 	/**
 	 * Logs the response from a transaction
@@ -13,21 +13,27 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 			$this->log(
 				$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Rejected'
 			);
-			return TRUE;
+			return true;
 		}
 
 		// make sure the response property has been set (signifying a transaction has been made)
-		if ( !$this->gateway_adapter->getTransactionResponse() )
-			return FALSE;
+		if ( !$this->gateway_adapter->getTransactionResponse() ) {
+			return false;
+		}
 
 		$this->log(
-			$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), "Gateway response: " . addslashes( $this->gateway_adapter->getTransactionMessage() ), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
+			$this->gateway_adapter->getData_Unstaged_Escaped(
+				'contribution_tracking_id'
+			),
+			"Gateway response: " . addslashes(
+					$this->gateway_adapter->getTransactionMessage()
+			), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
 		);
-		return TRUE;
+		return true;
 	}
 
 	static function onPostProcess( &$gateway_adapter ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'conversion log onPostProcess hook!';

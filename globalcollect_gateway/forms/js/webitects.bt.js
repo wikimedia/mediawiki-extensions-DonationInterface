@@ -18,24 +18,24 @@ $( document ).ready( function () {
 	// generate formatted errors to display
 	temp = [];
 	for ( e in amountErrors ) {
-		if ( amountErrors[e] !== '' ) {
-			temp[temp.length] = amountErrors[e];
+		if ( amountErrors[ e ] !== '' ) {
+			temp[ temp.length ] = amountErrors[ e ];
 		}
 	}
 	amountErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( f in billingErrors ) {
-		if ( billingErrors[f] !== '' ) {
-			temp[temp.length] = billingErrors[f];
+		if ( billingErrors[ f ] !== '' ) {
+			temp[ temp.length ] = billingErrors[ f ];
 		}
 	}
 	billingErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( g in paymentErrors ) {
-		if ( paymentErrors[g] !== '' ) {
-			temp[temp.length] = paymentErrors[g];
+		if ( paymentErrors[ g ] !== '' ) {
+			temp[ temp.length ] = paymentErrors[ g ];
 		}
 	}
 	paymentErrorString = temp.join( '<br />' );
@@ -65,7 +65,7 @@ $( document ).ready( function () {
 	if ( amount === null || isNaN( amount.val() ) || amount.val() <= 0 ) {
 		// the amount is not set
 		$( '#step1wrapper' ).slideDown();
-//		showAmount( document.getElementByName( 'amount' ) );
+		// showAmount( document.getElementByName( 'amount' ) );
 	} else {
 		showAmount( $( 'input[name="amount"]' ) );
 	}

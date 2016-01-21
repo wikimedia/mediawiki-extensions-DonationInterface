@@ -161,15 +161,14 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$this->minfraudQuery["license_key"] = $this->minfraudLicenseKey;
 
 		// user's IP address
-		//TODO: GET THIS FROM THE ADAPTER. 
 		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ) );
 
 		// user's user agent
-		global $wgRequest;
-		$this->minfraudQuery["user_agent"] = $wgRequest->getHeader( 'user-agent' );
+		$request = $this->gateway_adapter->getRequest();
+		$this->minfraudQuery["user_agent"] = $request->getHeader( 'user-agent' );
 
 		// user's language
-		$this->minfraudQuery['accept_language'] = $wgRequest->getHeader( 'accept-language' );
+		$this->minfraudQuery['accept_language'] = $request->getHeader( 'accept-language' );
 
 		// fetch the array of country codes
 		$country_codes = GatewayPage::getCountries();

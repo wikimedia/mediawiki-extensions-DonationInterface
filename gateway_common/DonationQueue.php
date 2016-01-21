@@ -186,7 +186,8 @@ class DonationQueue {
 	 * Currency in receiving module has currency set to USD, should take passed variable for these
 	 * PAssed both ISO and country code, no need to look up
 	 * 'gateway' = globalcollect, e.g.
-	 * 'date' is sent as $date("r") so it can be translated with strtotime like Paypal transactions (correct?)
+	 * 'date' is sent as $date("r")
+	 *  so it can be translated with strtotime like Paypal transactions (correct?)
 	 * Processor txn ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
 	 * Order ID (generated with transaction) is assigned to 'contribution_tracking_id'?
 	 * Response from processor is assigned to 'response'
@@ -197,8 +198,8 @@ class DonationQueue {
 		$message = array(
 			'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 			'country' => $transaction['country'],
-			//the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
-			//The code there should also be fixed.
+			// the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
+			// The code there should also be fixed.
 			'date' => (int)$transaction['date'],
 			'email' => $transaction['email'],
 			'fee' => '0',
@@ -273,7 +274,7 @@ class DonationQueue {
 		foreach ( $rekey as $wire => $normal ){
 			if ( isset( $transaction[$wire] ) ){
 				$transaction[$normal] = $transaction[$wire];
-				unset($transaction[$wire]);
+				unset( $transaction[$wire] );
 			};
 		}
 

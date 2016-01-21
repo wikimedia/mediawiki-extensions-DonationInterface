@@ -23,7 +23,7 @@ class PaypalGateway extends GatewayPage {
 	 */
 	public function __construct() {
 		$this->adapter = new PaypalAdapter();
-		parent::__construct(); //the next layer up will know who we are.
+		parent::__construct(); // the next layer up will know who we are.
 	}
 
 	/**

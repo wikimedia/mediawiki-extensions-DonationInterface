@@ -13,27 +13,27 @@ window.addEvent = function ( obj, evType, fn ) {
 };
 
 window.clearField = function ( field, defaultValue ) {
-	if (field.value === defaultValue) {
+	if ( field.value === defaultValue ) {
 		field.value = '';
 		field.style.color = 'black';
 	}
 };
 window.clearField2 = function ( field, defaultValue ) {
-	if (field.value !== defaultValue) {
+	if ( field.value !== defaultValue ) {
 		field.value = '';
 		field.style.color = 'black';
 	}
 };
 
 window.switchToPayPal = function () {
-	document.getElementById('payment-table-cc').style.display = 'none';
-	document.getElementById('payment_gateway-form-submit').style.display = 'none';
-	document.getElementById('payment_gateway-form-submit-paypal').style.display = 'block';
+	document.getElementById( 'payment-table-cc' ).style.display = 'none';
+	document.getElementById( 'payment_gateway-form-submit' ).style.display = 'none';
+	document.getElementById( 'payment_gateway-form-submit-paypal' ).style.display = 'block';
 };
 window.switchToCreditCard = function () {
-	document.getElementById('payment-table-cc').style.display = 'table';
-	document.getElementById('payment_gateway-form-submit').style.display = 'block';
-	document.getElementById('payment_gateway-form-submit-paypal').style.display = 'none';
+	document.getElementById( 'payment-table-cc' ).style.display = 'table';
+	document.getElementById( 'payment_gateway-form-submit' ).style.display = 'block';
+	document.getElementById( 'payment_gateway-form-submit-paypal' ).style.display = 'none';
 };
 
 /**
@@ -64,11 +64,11 @@ window.validateAmount = function () {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
-	if ( ( typeof wgCurrencyMinimums[currency_code] ) === 'undefined' ) {
-		wgCurrencyMinimums[currency_code] = 1;
+	if ( ( typeof wgCurrencyMinimums[ currency_code ] ) === 'undefined' ) {
+		wgCurrencyMinimums[ currency_code ] = 1;
 	}
-	if ( amount < wgCurrencyMinimums[currency_code] || error ) {
-		alert( mw.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[currency_code] + ' ' + currency_code ) );
+	if ( amount < wgCurrencyMinimums[ currency_code ] || error ) {
+		alert( mediaWiki.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[ currency_code ] + ' ' + currency_code ) );
 		error = true;
 		// See if we're on a webitects accordian form
 		if ( $( '#step1wrapper' ).length ) {
@@ -89,11 +89,9 @@ window.validateAmount = function () {
 /**
  * Validates the personal information fields
  *
- * @input form The form containing the inputs to be checked
- *
- * @return boolean true if no errors, false otherwise (also uses in-page error messages to notify the user)
+ * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
-window.validate_personal = function ( form ) {
+window.validate_personal = function () {
 	var value, stateField, selectedState, countryField, $emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		currField = '',
@@ -104,38 +102,38 @@ window.validate_personal = function ( form ) {
 		invalids = [ '..', '/', '\\', ',', '<', '>' ];
 
 	for ( i = 0; i < numFields; i++ ) {
-		if ( $( '#' + fields[i] ).length > 0 ) { // Make sure field exists
-			$( '#' + msgFields[i] ).removeClass( 'errorMsg' );
-			$( '#' + msgFields[i] ).addClass( 'errorMsgHide' );
-			$( '#' + fields[i] ).removeClass( 'errorHighlight' );
+		if ( $( '#' + fields[ i ] ).length > 0 ) { // Make sure field exists
+			$( '#' + msgFields[ i ] ).removeClass( 'errorMsg' );
+			$( '#' + msgFields[ i ] ).addClass( 'errorMsgHide' );
+			$( '#' + fields[ i ] ).removeClass( 'errorHighlight' );
 			// See if the field is empty or equal to the placeholder
-			value = document.getElementById( fields[i] ).value;
+			value = document.getElementById( fields[ i ] ).value;
 			if (
-				!$( '#' + fields[i] ).hasClass( 'optional' ) &&
+				!$( '#' + fields[ i ] ).hasClass( 'optional' ) &&
 				(
 					!$.trim( value ) ||
-					value === mw.msg( 'donate_interface-donor-' + fields[i] )
+					value === mediaWiki.msg( 'donate_interface-donor-' + fields[ i ] )
 				)
 			) {
-				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
+				currField = mediaWiki.msg( 'donate_interface-error-msg-' + fields[ i ] );
 				errorsPresent = true;
-				$( '#' + fields[i] ).addClass( 'errorHighlight' );
-				$( '#' + msgFields[i] ).removeClass( 'errorMsgHide' );
-				$( '#' + msgFields[i] ).addClass( 'errorMsg' );
-				$( '#' + msgFields[i] ).text( mw.msg( 'donate_interface-error-msg' ).replace( '$1', currField ) );
+				$( '#' + fields[ i ] ).addClass( 'errorHighlight' );
+				$( '#' + msgFields[ i ] ).removeClass( 'errorMsgHide' );
+				$( '#' + msgFields[ i ] ).addClass( 'errorMsg' );
+				$( '#' + msgFields[ i ] ).text( mediaWiki.msg( 'donate_interface-error-msg' ).replace( '$1', currField ) );
 			}
 		}
 	}
 
 	stateField = document.getElementById( 'state' );
 	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select
-		selectedState = stateField.options[stateField.selectedIndex].value;
+		selectedState = stateField.options[ stateField.selectedIndex ].value;
 		if ( selectedState === 'YY' || !$.trim( selectedState ) ) {
 			errorsPresent = true;
 			$( '#state' ).addClass( 'errorHighlight' );
 			$( '#stateMsg' ).removeClass( 'errorMsgHide' );
 			$( '#stateMsg' ).addClass( 'errorMsg' );
-			$( '#stateMsg' ).text( mw.msg( 'donate_interface-error-msg' ).replace( '$1', mw.msg('donate_interface-state-province'   ) ) );
+			$( '#stateMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg' ).replace( '$1', mediaWiki.msg( 'donate_interface-state-province' ) ) );
 		} else {
 			$( '#state' ).removeClass( 'errorHighlight' );
 			$( '#stateMsg' ).removeClass( 'errorMsg' );
@@ -145,12 +143,12 @@ window.validate_personal = function ( form ) {
 
 	countryField = document.getElementById( 'country' );
 	if ( countryField && countryField.type === 'select-one' ) { // country is a dropdown select
-		if ( !$.trim( countryField.options[countryField.selectedIndex].value ) ) {
+		if ( !$.trim( countryField.options[ countryField.selectedIndex ].value ) ) {
 			errorsPresent = true;
 			$( '#country' ).addClass( 'errorHighlight' );
 			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
 			$( '#countryMsg' ).addClass( 'errorMsg' );
-			$( '#countryMsg' ).text( mw.msg( 'donate_interface-error-msg-country' ) );
+			$( '#countryMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-country' ) );
 		} else {
 			$( '#country' ).removeClass( 'errorHighlight' );
 			$( '#countryMsg' ).removeClass( 'errorMsg' );
@@ -162,7 +160,7 @@ window.validate_personal = function ( form ) {
 			$( '#country' ).addClass( 'errorHighlight' );
 			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
 			$( '#countryMsg' ).addClass( 'errorMsg' );
-			$( '#countryMsg' ).text( mw.msg( 'donate_interface-error-msg-country' ) );
+			$( '#countryMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-country' ) );
 		} else {
 			$( '#country' ).removeClass( 'errorHighlight' );
 			$( '#countryMsg' ).removeClass( 'errorMsg' );
@@ -174,7 +172,7 @@ window.validate_personal = function ( form ) {
 	$emailAdd = document.getElementById( 'emailAdd' );
 	if (
 		$.trim( $emailAdd.value ) &&
-		$emailAdd.value !== mw.msg( 'donate_interface-donor-emailAdd' )
+		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' )
 	) {
 		invalid = false;
 
@@ -186,19 +184,19 @@ window.validate_personal = function ( form ) {
 			$( '#emailAdd' ).addClass( 'errorHighlight' );
 			$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
 			$( '#emailAddMsg' ).addClass( 'errorMsg' );
-			$( '#emailAddMsg' ).text( mw.msg( 'donate_interface-error-msg-email' ) );
+			$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
 			invalid = true;
 		}
 
 		domain = $emailAdd.value.substring( apos + 1 );
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
-			if ( domain.indexOf( invalids[i] ) !== -1 ) {
+			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {
 				errorsPresent = true;
 				$( '#emailAdd' ).addClass( 'errorHighlight' );
 				$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
 				$( '#emailAddMsg' ).addClass( 'errorMsg' );
-				$( '#emailAddMsg' ).text( mw.msg( 'donate_interface-error-msg-email' ) );
+				$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
 				invalid = true;
 				break;
 			}
@@ -213,7 +211,7 @@ window.validate_personal = function ( form ) {
 	} else {
 		errorsPresent = true; // display error
 		$( '#cookieMsg' ).addClass( 'errorMsg' );
-		$( '#cookieMsg' ).text( mw.msg( 'donate_interface-error-msg-cookies' ) );
+		$( '#cookieMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-cookies' ) );
 	}
 
 	if ( errorsPresent ) {
@@ -238,51 +236,51 @@ window.validate_form = function ( form ) {
 		numFields = fields.length;
 
 	for ( i = 0; i < numFields; i++ ) {
-		element = document.getElementById( fields[i] );
+		element = document.getElementById( fields[ i ] );
 
 		if ( element ) { // Make sure field exists
 			value = element.value;
 			// See if the field is empty or equal to the placeholder
 			if (
-				!$( '#' + fields[i] ).hasClass( 'optional' ) &&
+				!$( '#' + fields[ i ] ).hasClass( 'optional' ) &&
 				(
 					!$.trim( value ) ||
-					value === mw.msg( 'donate_interface-donor-' + fields[i] )
+					value === mediaWiki.msg( 'donate_interface-donor-' + fields[ i ] )
 				)
 			) {
-				currField = mw.msg( 'donate_interface-error-msg-' + fields[i] );
-				output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
+				currField = mediaWiki.msg( 'donate_interface-error-msg-' + fields[ i ] );
+				output += mediaWiki.msg( 'donate_interface-error-msg-js' ) + ' ' + currField + '.\r\n';
 			}
 		}
 	}
 
 	stateField = document.getElementById( 'state' );
 	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select
-		selectedState = stateField.options[stateField.selectedIndex].value;
+		selectedState = stateField.options[ stateField.selectedIndex ].value;
 		if ( selectedState === 'YY' || !$.trim( selectedState ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-state-province' ) + '.\r\n';
+			output += mediaWiki.msg( 'donate_interface-error-msg-js' ) + ' ' + mediaWiki.msg( 'donate_interface-state-province' ) + '.\r\n';
 		}
 	}
 
 	countryField = document.getElementById( 'country' );
 	if ( countryField && countryField.type === 'select-one' ) { // country is a dropdown select
-		if ( !$.trim( countryField.options[countryField.selectedIndex].value ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
+		if ( !$.trim( countryField.options[ countryField.selectedIndex ].value ) ) {
+			output += mediaWiki.msg( 'donate_interface-error-msg-js' ) + ' ' + mediaWiki.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
 	} else { // country is a hidden or text input
 		if ( !$.trim( countryField.value ) ) {
-			output += mw.msg( 'donate_interface-error-msg-js' ) + ' ' + mw.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
+			output += mediaWiki.msg( 'donate_interface-error-msg-js' ) + ' ' + mediaWiki.msg( 'donate_interface-error-msg-country' ) + '.\r\n';
 		}
 	}
 
 	// validate email address
 	$emailAdd = document.getElementById( 'emailAdd' ) || document.getElementById( 'email' );
-	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mw.msg( 'donate_interface-donor-emailAdd' ) ) {
-		apos = $emailAdd.value.indexOf('@');
-		dotpos = $emailAdd.value.lastIndexOf('.');
+	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' ) ) {
+		apos = $emailAdd.value.indexOf( '@' );
+		dotpos = $emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
-			output += mw.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+			output += mediaWiki.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
 		}
 	}
 
@@ -291,7 +289,7 @@ window.validate_form = function ( form ) {
 	if ( document.cookie.indexOf( 'wmf_test=1' ) !== -1 ) {
 		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
 	} else {
-		output += mw.msg( 'donate_interface-error-msg-cookies' ); // display error
+		output += mediaWiki.msg( 'donate_interface-error-msg-cookies' ); // display error
 	}
 
 	if ( output ) {
@@ -312,24 +310,24 @@ window.displayErrors = function () {
 	// generate formatted errors to display
 	temp = [];
 	for ( e in amountErrors ) {
-		if ( amountErrors[e] !== '' ) {
-			temp[temp.length] = amountErrors[e];
+		if ( amountErrors[ e ] !== '' ) {
+			temp[ temp.length ] = amountErrors[ e ];
 		}
 	}
 	amountErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( f in billingErrors ) {
-		if ( billingErrors[f] !== '' ) {
-			temp[temp.length] = billingErrors[f];
+		if ( billingErrors[ f ] !== '' ) {
+			temp[ temp.length ] = billingErrors[ f ];
 		}
 	}
 	billingErrorString = temp.join( '<br />' );
 
 	temp = [];
 	for ( g in paymentErrors ) {
-		if ( paymentErrors[g] !== '' ) {
-			temp[temp.length] = paymentErrors[g];
+		if ( paymentErrors[ g ] !== '' ) {
+			temp[ temp.length ] = paymentErrors[ g ];
 		}
 	}
 	paymentErrorString = temp.join( '<br />' );
@@ -345,7 +343,7 @@ window.displayErrors = function () {
 };
 
 window.submit_form = function ( ccform ) {
-	if ( window.validate_form( ccform )) {
+	if ( window.validate_form( ccform ) ) {
 		// weird hack!!!!!! for some reason doing just ccform.submit() throws an error....
 		$( ccform ).submit();
 	}
@@ -366,7 +364,7 @@ window.showCards = function () {
 
 	if ( document.getElementById( 'four_cards' ) && document.getElementById( 'two_cards' ) ) {
 		index = document.getElementById( 'input_currency_code' ).selectedIndex;
-		if ( document.getElementById( 'input_currency_code' ).options[index].value === 'USD' ) {
+		if ( document.getElementById( 'input_currency_code' ).options[ index ].value === 'USD' ) {
 			document.getElementById( 'four_cards' ).style.display = 'table-row';
 			document.getElementById( 'two_cards' ).style.display = 'none';
 		} else {
@@ -382,7 +380,7 @@ window.PopupCVV = function () {
 	window.cvv = window.open(
 			'', 'cvvhelp', 'scrollbars=yes,resizable=yes,width=600,height=400,left=200,top=100'
 		);
-	window.cvv.document.write( mw.msg( 'donate_interface-cvv-explain' ) );
+	window.cvv.document.write( mediaWiki.msg( 'donate_interface-cvv-explain' ) );
 	window.cvv.focus();
 };
 

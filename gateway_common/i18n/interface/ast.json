@@ -325,6 +325,7 @@
 	"donate_interface-obt-generic-name": "Tresferencia bancaria per Internet",
 	"donate_interface-obt-biller_id": "Códigu de facturación",
 	"donate_interface-obt-customer_payment_reference": "Referencia núm.",
+	"donate_interface-obt-customer_payment_reference_note": "Cada númberu de referencia sólo ye válidu una vegada. Nun reutilices esti númberu de referencia pa donaciones futures.",
 	"donate_interface-obt-information": "Información de la tresferencia bancaria per Internet",
 	"donate_interface-online_bank_transfer_message": "Banca per teléfonu ya Internet - BPAY ®",
 	"donate_interface-rtbt-issuer_id": "Escueye un bancu",

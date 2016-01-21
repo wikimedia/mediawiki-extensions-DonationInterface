@@ -65,7 +65,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
 		if ( $language ) {
-			RequestContext::getMain()->setLanguage( $language );
+			$this->getContext()->setLanguage( $language );
 			global $wgLang;
 			$wgLang = RequestContext::getMain()->getLanguage();
 		}
@@ -118,15 +118,15 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Build and display form to user
 	 */
 	public function displayForm() {
-		global $wgOut;
+		$output = $this->getOutput();
 
 		$form_class = $this->getFormClass();
 		// TODO: use interface.  static ctor.
 		if ( $form_class && class_exists( $form_class ) ){
 			$form_obj = new $form_class( $this->adapter );
 			$form = $form_obj->getForm();
-			$wgOut->addModules( $form_obj->getResources() );
-			$wgOut->addHTML( $form );
+			$output->addModules( $form_obj->getResources() );
+			$output->addHTML( $form );
 		} else {
 			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
 			$this->displayFailPage();
@@ -137,14 +137,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Display a generic failure page
 	 */
 	public function displayFailPage() {
-		global $wgOut;
+		$output = $this->getOutput();
 
 		$page = $this->adapter->getFailPage();
 
 		$log_message = "Redirecting to [{$page}]";
 		$this->logger->info( $log_message );
 
-		$wgOut->redirect( $page );
+		$output->redirect( $page );
 	}
 
 	/**
@@ -164,60 +164,62 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return null
 	 */
 	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
-		global $wgOut;
-		
+
 		$results = empty( $results ) ? $this->adapter->getTransactionResponse() : $results;
 		
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ){
 			return;
 		}
-		$wgOut->addHTML( HTML::element( 'span', null, $results->getMessage() ) );
+
+		$output = $this->getOutput();
+
+		$output->addHTML( HTML::element( 'span', null, $results->getMessage() ) );
 
 		$errors = $results->getErrors();
 		if ( !empty( $errors ) ) {
-			$wgOut->addHTML( HTML::openElement( 'ul' ) );
+			$output->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $errors as $code => $value ) {
-				$wgOut->addHTML( HTML::element('li', null, "Error $code: " . print_r( $value, true ) ) );
+				$output->addHTML( HTML::element('li', null, "Error $code: " . print_r( $value, true ) ) );
 			}
-			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( HTML::closeElement( 'ul' ) );
 		}
 
 		$data = $results->getData();
 		if ( !empty( $data ) ) {
-			$wgOut->addHTML( HTML::openElement( 'ul' ) );
+			$output->addHTML( HTML::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$wgOut->addHTML( HTML::openElement('li', null, $key ) . HTML::openElement( 'ul' ) );
+					$output->addHTML( HTML::openElement('li', null, $key ) . HTML::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$wgOut->addHTML( HTML::element('li', null, "$key2: $val2" ) );
+						$output->addHTML( HTML::element('li', null, "$key2: $val2" ) );
 					}
-					$wgOut->addHTML( HTML::closeElement( 'ul' ) . HTML::closeElement( 'li' ) );
+					$output->addHTML( HTML::closeElement( 'ul' ) . HTML::closeElement( 'li' ) );
 				} else {
-					$wgOut->addHTML( HTML::element('li', null, "$key: $value" ) );
+					$output->addHTML( HTML::element('li', null, "$key: $value" ) );
 				}
 			}
-			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
-			$wgOut->addHTML( "Empty Results" );
+			$output->addHTML( "Empty Results" );
 		}
 		if ( array_key_exists( 'Donor', $_SESSION ) ) {
-			$wgOut->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
+			$output->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
 			foreach ( $_SESSION['Donor'] as $key => $val ) {
-				$wgOut->addHTML( HTML::element('li', null, "$key: $val" ) );
+				$output->addHTML( HTML::element('li', null, "$key: $val" ) );
 			}
-			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
-			$wgOut->addHTML( "No Session Donor Vars:" );
+			$output->addHTML( "No Session Donor Vars:" );
 		}
 
 		if ( is_array( $this->adapter->debugarray ) ) {
-			$wgOut->addHTML( "Debug Array:" . HTML::openElement( 'ul' ) );
+			$output->addHTML( "Debug Array:" . HTML::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$wgOut->addHTML( HTML::element('li', null, $val ) );
+				$output->addHTML( HTML::element('li', null, $val ) );
 			}
-			$wgOut->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( HTML::closeElement( 'ul' ) );
 		} else {
-			$wgOut->addHTML( "No Debug Array" );
+			$output->addHTML( "No Debug Array" );
 		}
 	}
 

@@ -113,8 +113,6 @@ class GlobalCollectGateway extends GatewayPage {
 	 * @deprecated
 	 */
 	protected function displayOnlineBankTransferInformation() {
-		global $wgScriptPath;
-		
 		$data = $this->adapter->getTransactionData();
 
 		$return = '';
@@ -149,7 +147,8 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement ( 'tr' );
 		$return .= Xml::openElement ( 'tr' );
 		$return .= Xml::openElement( 'td' );
-		$return .= Xml::element( 'img', array( 'src' => $wgScriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
+		$scriptPath = $this->context->getConfig()->get( 'ScriptPath' );
+		$return .= Xml::element( 'img', array( 'src' => $scriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::openElement ( 'td' );
 		$return .= Xml::tags( 'p',  array(), 'Contact your bank or financial institution <br /> to make this payment from your cheque, <br /> debit, or transaction account. <br /> More info: www.bpay.com.au ' );

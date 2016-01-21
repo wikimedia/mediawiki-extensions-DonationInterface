@@ -327,6 +327,7 @@
 	"donate_interface-obt-generic-name": "Online Iwwerweisung",
 	"donate_interface-obt-biller_id": "Code vun deem deen d'Rechnung ausstellt",
 	"donate_interface-obt-customer_payment_reference": "Referenznummer",
+	"donate_interface-obt-customer_payment_reference_note": "All Referenznummer ass just eemol gëlteg. Benotzt dës Referenznummer w.e.g. net nach eng Kéier fir weider Donen.",
 	"donate_interface-obt-information": "Informatiounen iwwer Online Bankiwwerweisungen",
 	"donate_interface-online_bank_transfer_message": "Telefon & Internet-Banking - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Bank",
