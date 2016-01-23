@@ -2185,6 +2185,21 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/*
+	 * Seems more sane to do it this way than provide a single input box
+	 * and try to parse out fname and lname.
+	 */
+	protected function stage_full_name() {
+		$name_parts = array();
+		if ( isset( $this->unstaged_data['fname'] ) ) {
+			$name_parts[] = $this->unstaged_data['fname'];
+		}
+		if ( isset( $this->unstaged_data['lname'] ) ) {
+			$name_parts[] = $this->unstaged_data['lname'];
+		}
+		$this->staged_data['full_name'] = implode( ' ', $name_parts );
+	}
+
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
