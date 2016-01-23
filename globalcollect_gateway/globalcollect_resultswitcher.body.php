@@ -71,10 +71,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		if ( is_null( $session_oid ) || ( ($this->qs_oid !== $session_oid) && strpos( $this->qs_ref, ( string ) $session_oid ) === false ) ) {
 			$forbidden = true;
 			$f_message = "Requested order id not present in the session. (session_oid = '$session_oid')";
-
-			if ( !$this->adapter->session_exists() ) {
-				$this->logger->error( "Resultswitcher: {$this->qs_oid} Is popped out, but still has no session data." );
-			}
 		}
 
 		if ( $forbidden ){
@@ -168,9 +164,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 		//However, we're _definitely_ going to need to pop out _before_ we redirect to the thank you or fail pages. 
 		$referrer = $request->getHeader( 'referer' );
 		if ( ( strpos( $referrer, $wgServer ) === false ) ) {
-			if ( !$this->adapter->session_exists() ) {
-				$this->logger->error( "Resultswitcher: {$this->qs_oid} warning: iframed script cannot see session cookie." );
-			}
 
 			$sessionOrders = $request->getSessionData( 'order_status' );
 			$sessionOrders[$this->qs_oid] = 'liberated';

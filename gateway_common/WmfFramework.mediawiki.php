@@ -36,7 +36,7 @@ class WmfFramework_Mediawiki {
 	static function setupSession( $sessionId = false ) {
 		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
 			MediaWiki\Session\SessionManager::getGlobalSession()->persist();
-		} else {
+		} else if ( !RequestContext::getMain()->getRequest()->checkSessionCookie() ){
 			wfSetupSession();
 		}
 	}

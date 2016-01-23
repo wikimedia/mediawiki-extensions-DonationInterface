@@ -3061,30 +3061,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Check to see if the session exists.
-	 */
-	public function session_exists() {
-		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
-			$id = MediaWiki\Session\SessionManager::singleton()
-				->getPersistedSessionId( $this->request );
-			return !is_null( $id );
-		}
-		return $this->request->checkSessionCookie();
-	}
-
-	/**
 	 * session_ensure
 	 * Ensure that we have a session set for the current user.
 	 * If we do not have a session set for the current user,
 	 * start the session.
 	 */
 	public function session_ensure() {
-		// if the session is already started, do nothing
-		if ( $this->session_exists() ) {
-			return;
-		}
-
-		// otherwise, fire it up using global mw function wfSetupSession
 		WmfFramework::setupSession();
 	}
 
