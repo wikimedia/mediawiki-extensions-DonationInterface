@@ -235,7 +235,10 @@ class AdyenAdapter extends GatewayAdapter {
 				case 'donate':
 					$formaction = $this->url . '/hpp/pay.shtml';
 					$this->runAntifraudHooks();
-					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
+					// Add the risk score to our data. This will also trigger
+					// staging, placing the risk score in the constructed URL
+					// as 'offset' for use in processor-side fraud filters.
+					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) );
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
@@ -251,7 +254,6 @@ class AdyenAdapter extends GatewayAdapter {
 						) );
 						break;
 					}
-					$this->stageData();
 					$requestParams = $this->buildRequestParams();
 
 					$this->transaction_response->setData( array(
