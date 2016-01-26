@@ -235,10 +235,10 @@ $wgDonationInterfaceRapidFail = false;
  */
 //$wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
 $wgDonationInterfaceThankYouPage = 'Donate-thanks';
-$wgDonationInterfaceFailPage = 'Donate-error'; 
+$wgDonationInterfaceFailPage = 'Donate-error';
 
 /**
- * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times. 
+ * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times.
  */
 $wgDonationInterfaceRetryLoopCount = 3;
 
@@ -252,22 +252,22 @@ $wgDonationInterfaceOrphanCron = array(
 );
 
 /**
- * Forbidden countries. No donations will be allowed to come in from countries 
+ * Forbidden countries. No donations will be allowed to come in from countries
  * in this list.
  * All should be represented as all-caps ISO 3166-1 alpha-2
- * This one global shouldn't ever be overridden per gateway. As it's probably 
+ * This one global shouldn't ever be overridden per gateway. As it's probably
  * going to only conatin countries forbidden by law, there's no reason
- * to override by gateway and as such it's always referenced directly. 
+ * to override by gateway and as such it's always referenced directly.
  */
 $wgDonationInterfaceForbiddenCountries = array();
 
 /**
  * 3D Secure enabled currencies (and countries) for Credit Card.
- * An array in the form of currency => array of countries 
+ * An array in the form of currency => array of countries
  * (all-caps ISO 3166-1 alpha-2), or an empty array for all transactions in that
  * currency regardless of country of origin.
  * As this is a mandatroy check for all INR transactions, that rule made it into
- * the default.  
+ * the default.
  */
 $wgDonationInterface3DSRules = array(
 	'INR' => array(), //all countries
@@ -288,7 +288,7 @@ $wgGlobalCollectGatewayCvvMap = array(
 	'M' => true, //CVV check performed and valid value.
 	'N' => false, //CVV checked and no match.
 	'P' => true, //CVV check not performed, not requested
-	'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card. 
+	'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card.
 	'U' => true, //? //Issuer not certified for CVV2.
 	'Y' => false, //Server provider did not respond.
 	'0' => true, //No service available.
@@ -302,7 +302,7 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'D' => 0, //Street address and postal codes match for international transaction.
 	'E' => 100, //AVS Error.
 	'F' => 0, //Address does match and five digit ZIP code does match (UK only).
-	'G' => 50, //Address information is unavailable; international transaction; non-AVS participant. 
+	'G' => 50, //Address information is unavailable; international transaction; non-AVS participant.
 	'I' => 50, //Address information not verified for international transaction.
 	'M' => 0, //Street address and postal codes match for international transaction.
 	'N' => 100, //No Match on Address (Street) or Zip.
@@ -316,7 +316,7 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'Z' => 50, //5 digit Zip matches, Address (Street) does not.
 	'0' => 25, //No service available.
 	'' => 100, //No code returned. All the points.
-);	
+);
 
 #	$wgAmazonGatewayAccountInfo['example'] = array(
 #		'SellerID' => '', // 13 or so uppercase letters
@@ -749,6 +749,40 @@ $wgDonationInterfaceUtmMediumMap = array();
  * @endcode
  */
 $wgDonationInterfaceUtmSourceMap = array();
+
+/**
+ * $wgDonationInterfaceKeyMapA
+ * $wgDonationInterfaceKeyMapB
+ * $wgDonationInterfaceNameGibberishWeight
+ * $wgDonationInterfaceNameScore
+ *
+ * Set KeyMapA and KeyMapB to mutually exclusive arrays of characters.
+ * Set NameGibberishWeight to reflect the ratio of characters from one group that will cause a fail.
+ * Set NameScore to the number of points to assign on fail.
+ *
+ * To enable this filter add this to your LocalSettings.php:
+ *
+ * @code
+ * <?php
+ *
+ * $wgCustomFiltersFunctions = array(
+ * 	'getScoreName' => 100,
+ * );
+ *
+ * $wgDonationInterfaceKeyMapA = array('a','s','d');
+ *
+ * $wgDonationInterfaceKeyMapB = array('h','j','k','l');
+ *
+ * $wgDonationInterfaceNameGibberishWeight = .9;
+ *
+ * $wgDonationInterfaceNameScore = 10;
+ *
+ */
+
+$wgDonationInterfaceKeyMapA = array();
+$wgDonationInterfaceKeyMapB = array();
+$wgDonationInterfaceNameGibberishWeight = 0;
+$wgDonationInterfaceNameScore = 0;
 
 $wgDonationInterfaceEnableQueue = false;
 $wgDonationInterfaceEnableConversionLog = false; //this is definitely an Extra

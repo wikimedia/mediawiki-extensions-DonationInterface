@@ -102,8 +102,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $gateway );
 
-		// please define this function only inside the TESTS_ADAPTER_DEFAULT, 
-		// which should be a test adapter object that descende from one of the 
+		// please define this function only inside the TESTS_ADAPTER_DEFAULT,
+		// which should be a test adapter object that descende from one of the
 		// production adapters.
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertInstanceOf( 'DonationData', $exposed->dataObj );
@@ -286,6 +286,20 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$gateway = $this->getFreshGatewayObject( $data, array( 'batch_mode' => true ) );
 		$this->assertEquals( '8.8.8.8', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
+	}
+
+	function testGetScoreName() {
+		$this->setMwGlobals( array( 'wgDonationInterfaceKeyMapA' => array('a','s','d','f','q','w','e','r','t'),
+									'wgDonationInterfaceKeyMapB' => array(),
+									'wgDonationInterfaceNameGibberishWeight' => .9,
+									'wgDonationInterfaceNameScore' => 10) );
+		$init = $this->getDonorTestData();
+		$init['fname'] = 'asdf';
+		$init['lname'] = 'qwert';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->getScoreName();
+		$this->assertNotEquals( 0, $result, 'Bad name not detected');
 	}
 }
 
