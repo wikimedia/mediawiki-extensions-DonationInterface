@@ -52,11 +52,6 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		parent::setUp();
 	}
 
-	public function tearDown() {
-		$this->adapter->clearGlobalsCache();
-		parent::tearDown();
-	}
-
 	public function formCases() {
 		return array(
 			array( 'empty', '/^$/' ),

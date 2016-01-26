@@ -54,11 +54,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
 	}
 
-	function tearDown() {
-		TestingGlobalCollectAdapter::clearGlobalsCache();
-		parent::tearDown();
-	}
-
 	/**
 	 * testnormalizeOrderID
 	 * Non-exhaustive integration tests to verify that order_id

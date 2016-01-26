@@ -43,11 +43,6 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 		) );
 	}
 
-	function tearDown() {
-		TestingGlobalCollectAdapter::clearGlobalsCache();
-		parent::tearDown();
-	}
-
 	/**
 	 * Can make a recurring payment
 	 *

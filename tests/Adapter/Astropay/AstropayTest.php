@@ -42,11 +42,6 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		) );
 	}
 
-	function tearDown() {
-		TestingAstropayAdapter::clearGlobalsCache();
-		parent::tearDown();
-	}
-
 	/**
 	 * Ensure we're setting the right url for each transaction
 	 * @covers AstropayAdapter::getCurlBaseOpts

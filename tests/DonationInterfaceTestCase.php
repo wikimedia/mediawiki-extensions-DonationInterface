@@ -480,9 +480,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		foreach( $singleton_classes as $singleton_class ) {
 			$singleton_class::$instance = null;
 		}
-
-		$baseGateway = TestingAccessWrapper::newFromObject( 'GatewayAdapter' );
-		$baseGateway->globalsCache = array();
 	}
 
 	/**

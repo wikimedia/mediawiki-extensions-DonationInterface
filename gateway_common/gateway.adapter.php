@@ -336,12 +336,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected $request;
 
-	/**
-	 * Holds the global values we've already looked up.  Used in getGlobal.
-	 * @staticvar array
-	 */
-	protected static $globalsCache = array();
-
 	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
@@ -687,7 +681,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * wish to override the default value for all gateways.
 	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
 	 * that value will override the default settings.
-	 * Caches found values in self::$globalsCache
 	 *
 	 * @param string $varname The global value we're looking for. It will first
 	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX,
@@ -700,21 +693,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	static function getGlobal( $varname ) {
 		// adding another layer of depth here, in case you're working with two gateways in the same request.
 		// That does, in fact, ruin everything. :/
-		if ( !array_key_exists( self::getGlobalPrefix(), self::$globalsCache ) ) {
-			self::$globalsCache[self::getGlobalPrefix()] = array();
+		$globalname = self::getGlobalPrefix() . $varname;
+		// @codingStandardsIgnoreStart
+		global $$globalname;
+		if ( !isset( $$globalname ) ) {
+			$globalname = "wgDonationInterface" . $varname;
+			global $$globalname; // set or not. This is fine.
 		}
-		if ( !array_key_exists( $varname, self::$globalsCache[self::getGlobalPrefix()] ) ) {
-			$globalname = self::getGlobalPrefix() . $varname;
-			// @codingStandardsIgnoreStart
-			global $$globalname;
-			if ( !isset( $$globalname ) ) {
-				$globalname = "wgDonationInterface" . $varname;
-				global $$globalname; // set or not. This is fine.
-			}
-			self::$globalsCache[self::getGlobalPrefix()][$varname] = $$globalname;
-			// @codingStandardsIgnoreEnd
-		}
-		return self::$globalsCache[self::getGlobalPrefix()][$varname];
+		return $$globalname;
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**

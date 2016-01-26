@@ -11,13 +11,6 @@ class TestingAstropayAdapter extends AstropayAdapter {
 	public $curled = array();
 
 	/**
-	 * Clear the static globals cache.
-	 */
-	public static function clearGlobalsCache() {
-		self::$globalsCache = array();
-	}
-
-	/**
 	 * Set the error code you want the dummy response to return
 	 */
 	public function setDummyGatewayResponseCode( $code ) {

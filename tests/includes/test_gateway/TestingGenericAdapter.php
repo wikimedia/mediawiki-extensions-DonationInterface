@@ -67,14 +67,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return GatewayAdapter::getIdentifier();
 	}
 
-	/**
-	 * Clear the static globals cache.
-	 * FIXME static cache can't possibly get us enough performance to make these hoops worthwhile
-	 */
-	public static function clearGlobalsCache() {
-		self::$globalsCache = array();
-	}
-
 	public function defineAccountInfo() {
 	}
 

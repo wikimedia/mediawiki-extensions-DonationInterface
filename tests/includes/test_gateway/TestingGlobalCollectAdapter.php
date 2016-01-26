@@ -37,13 +37,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
-	 * Clear the static globals cache.
-	 */
-	public static function clearGlobalsCache() {
-		self::$globalsCache = array ( );
-	}
-
-	/**
 	 * @TODO: Get rid of this and the override mechanism as soon as you
 	 * refactor the constructor into something reasonable.
 	 * @return type

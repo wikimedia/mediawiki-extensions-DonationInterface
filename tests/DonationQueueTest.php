@@ -33,9 +33,6 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 
 		$this->queue_name = 'test-' . mt_rand();
 
-		TestingGlobalcollectAdapter::clearGlobalsCache();
-		// FIXME: I hope that made your hair stand on end.
-
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableQueue' => true,
 			'wgDonationInterfaceDefaultQueueServer' => array(
