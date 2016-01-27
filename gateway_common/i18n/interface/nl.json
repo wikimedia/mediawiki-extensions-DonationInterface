@@ -16,7 +16,8 @@
 			"Sjoerddebruin",
 			"Jrobell",
 			"Mirolith",
-			"Esketti"
+			"Esketti",
+			"Edoderoo"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -387,8 +388,8 @@
 	"donate_interface-secureLogo-text": "Over SSL-certificaten",
 	"donate_interface-error-http-403": "U hebt geen rechten om deze pagina te bekijken.",
 	"donate_interface-statement": "Wikimedia $1",
-	"apihelp-donate-description": "Deze API kunt u een donatie aan de Wikimedia Foundation met behulp van een verscheidenheid van payment processors.",
-	"apihelp-donate-param-gateway": "De betaling gateway te gebruiken - adyen, globalcollect, enz.",
+	"apihelp-donate-description": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van een verscheidenheid van payment processors.",
+	"apihelp-donate-param-gateway": "Welke payment gateway te gebruiken - adyen, globalcollect, enz.",
 	"apihelp-donate-param-amount": "Het gedoneerde bedrag.",
 	"apihelp-donate-param-currency_code": "Valutacode.",
 	"apihelp-donate-param-fname": "Voornaam.",
