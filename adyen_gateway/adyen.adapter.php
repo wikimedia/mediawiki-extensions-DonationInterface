@@ -57,10 +57,11 @@ class AdyenAdapter extends GatewayAdapter {
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'amount',
+			'full_name',
 			'street',
 			'zip',
 			'risk_score',
-			'hpp_signature',
+			'hpp_signature' // Keep this at the end - it depends on the rest
 		);
 	}
 
@@ -77,6 +78,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.street' => 'street',
 			'billingAddressType' => 'billing_address_type',
 			'blockedMethods' => 'blocked_methods',
+			'card.cardHolderName' => 'full_name',
 			'currencyCode' => 'currency_code',
 			'deliveryAddressType' => 'delivery_address_type',
 			'merchantAccount' => 'merchant_account',
@@ -140,6 +142,7 @@ class AdyenAdapter extends GatewayAdapter {
 				'billingAddress.stateOrProvince',
 				'billingAddress.country',
 				'billingAddressType',
+				'card.cardHolderName',
 				'currencyCode',
 				'merchantAccount',
 				'merchantReference',
