@@ -89,7 +89,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 			if ( $this->adapter->getData_Unstaged_Escaped( 'payment_method') === 'cc' ) {
 				$sessionOrders = $req->getSessionData( 'order_status' );
 				if ( !is_array( $sessionOrders )
-					|| !is_set( $sessionOrders[$this->qs_oid] )
+					|| !isset( $sessionOrders[$this->qs_oid] )
 					|| !is_array( $sessionOrders[$this->qs_oid] ) ) {
 
 					$result = $this->adapter->do_transaction( 'Confirm_CreditCard' );
