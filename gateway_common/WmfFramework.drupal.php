@@ -46,8 +46,11 @@ class WmfFramework_Drupal {
 	}
 
 	static function setupSession( $sessionId=false ) {
+		if ( session_id() ) {
+			return;
+		}
 		if ( $sessionId ) {
-			session_id( $session_id );
+			session_id( $sessionId );
 		}
 		session_start();
 	}

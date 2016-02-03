@@ -26,14 +26,6 @@ class AstropayAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'astropay';
 	const GLOBAL_PREFIX = 'wgAstropayGateway';
 
-	public function getFormClass() {
-		if ( strpos( $this->dataObj->getVal_Escaped( 'ffname' ), 'error') === 0 ) {
-			// TODO: make a mustache error form
-			return parent::getFormClass();
-		}
-		return 'Gateway_Form_Mustache';
-	}
-
 	public function getCommunicationType() {
 		return 'namevalue';
 	}
@@ -488,21 +480,6 @@ class AstropayAdapter extends GatewayAdapter {
 			. /* street omitted */ 'P'
 			. /* city omitted */ 'S'
 			. /* state omitted */ 'P' );
-	}
-
-	/*
-	 * Seems more sane to do it this way than provide a single input box
-	 * and try to parse out fname and lname.
-	 */
-	protected function stage_full_name() {
-		$name_parts = array();
-		if ( isset( $this->unstaged_data['fname'] ) ) {
-			$name_parts[] = $this->unstaged_data['fname'];
-		}
-		if ( isset( $this->unstaged_data['lname'] ) ) {
-			$name_parts[] = $this->unstaged_data['lname'];
-		}
-		$this->staged_data['full_name'] = implode( ' ', $name_parts );
 	}
 
 	/**

@@ -30,10 +30,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	public function getFormClass() {
-		return 'Gateway_Form_Mustache';
-	}
-
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
 		$fields[] = 'address';
@@ -61,10 +57,11 @@ class AdyenAdapter extends GatewayAdapter {
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'amount',
+			'full_name',
 			'street',
 			'zip',
 			'risk_score',
-			'hpp_signature',
+			'hpp_signature' // Keep this at the end - it depends on the rest
 		);
 	}
 
@@ -81,6 +78,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.street' => 'street',
 			'billingAddressType' => 'billing_address_type',
 			'blockedMethods' => 'blocked_methods',
+			'card.cardHolderName' => 'full_name',
 			'currencyCode' => 'currency_code',
 			'deliveryAddressType' => 'delivery_address_type',
 			'merchantAccount' => 'merchant_account',
@@ -144,6 +142,7 @@ class AdyenAdapter extends GatewayAdapter {
 				'billingAddress.stateOrProvince',
 				'billingAddress.country',
 				'billingAddressType',
+				'card.cardHolderName',
 				'currencyCode',
 				'merchantAccount',
 				'merchantReference',
@@ -236,7 +235,10 @@ class AdyenAdapter extends GatewayAdapter {
 				case 'donate':
 					$formaction = $this->url . '/hpp/pay.shtml';
 					$this->runAntifraudHooks();
-					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) ); //this will also fire off staging again.
+					// Add the risk score to our data. This will also trigger
+					// staging, placing the risk score in the constructed URL
+					// as 'offset' for use in processor-side fraud filters.
+					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) );
 					if ( $this->getValidationAction() != 'process' ) {
 						// copied from base class.
 						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
@@ -252,7 +254,6 @@ class AdyenAdapter extends GatewayAdapter {
 						) );
 						break;
 					}
-					$this->stageData();
 					$requestParams = $this->buildRequestParams();
 
 					$this->transaction_response->setData( array(

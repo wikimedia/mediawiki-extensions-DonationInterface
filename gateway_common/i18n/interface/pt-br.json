@@ -167,7 +167,7 @@
 	"donate_interface-donor-submit": "Doar",
 	"donate_interface-donor-currency-msg": "Esta doação está se realizando em $1",
 	"donate_interface-donor-fiscal_number": "Número fiscal",
-	"donate_interface-donor-fiscal_number-br": "CPF",
+	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",

@@ -336,12 +336,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected $request;
 
-	/**
-	 * Holds the global values we've already looked up.  Used in getGlobal.
-	 * @staticvar array
-	 */
-	protected static $globalsCache = array();
-
 	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
@@ -687,7 +681,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * wish to override the default value for all gateways.
 	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
 	 * that value will override the default settings.
-	 * Caches found values in self::$globalsCache
 	 *
 	 * @param string $varname The global value we're looking for. It will first
 	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX,
@@ -700,21 +693,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	static function getGlobal( $varname ) {
 		// adding another layer of depth here, in case you're working with two gateways in the same request.
 		// That does, in fact, ruin everything. :/
-		if ( !array_key_exists( self::getGlobalPrefix(), self::$globalsCache ) ) {
-			self::$globalsCache[self::getGlobalPrefix()] = array();
+		$globalname = self::getGlobalPrefix() . $varname;
+		// @codingStandardsIgnoreStart
+		global $$globalname;
+		if ( !isset( $$globalname ) ) {
+			$globalname = "wgDonationInterface" . $varname;
+			global $$globalname; // set or not. This is fine.
 		}
-		if ( !array_key_exists( $varname, self::$globalsCache[self::getGlobalPrefix()] ) ) {
-			$globalname = self::getGlobalPrefix() . $varname;
-			// @codingStandardsIgnoreStart
-			global $$globalname;
-			if ( !isset( $$globalname ) ) {
-				$globalname = "wgDonationInterface" . $varname;
-				global $$globalname; // set or not. This is fine.
-			}
-			self::$globalsCache[self::getGlobalPrefix()][$varname] = $$globalname;
-			// @codingStandardsIgnoreEnd
-		}
-		return self::$globalsCache[self::getGlobalPrefix()][$varname];
+		return $$globalname;
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**
@@ -1302,7 +1289,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// log that the transaction is essentially complete
 		$this->logger->info( 'Transaction complete.' );
 
-		$this->debugarray[] = 'numAttempt = ' . self::session_getData( 'numAttempt' );
+		$this->debugarray[] = 'numAttempt = ' . $this->session_getData( 'numAttempt' );
 
 		return $this->transaction_response;
 	}
@@ -2198,6 +2185,21 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/*
+	 * Seems more sane to do it this way than provide a single input box
+	 * and try to parse out fname and lname.
+	 */
+	protected function stage_full_name() {
+		$name_parts = array();
+		if ( isset( $this->unstaged_data['fname'] ) ) {
+			$name_parts[] = $this->unstaged_data['fname'];
+		}
+		if ( isset( $this->unstaged_data['lname'] ) ) {
+			$name_parts[] = $this->unstaged_data['lname'];
+		}
+		$this->staged_data['full_name'] = implode( ' ', $name_parts );
+	}
+
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
@@ -2424,7 +2426,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	public function getFormClass() {
-		return 'Gateway_Form_RapidHtml';
+		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
+		if ( strpos( $ffname, 'error') === 0
+			|| strpos( $ffname, 'maintenance') === 0 ) {
+			// TODO: make a mustache error form
+			return 'Gateway_Form_RapidHtml';
+		}
+		return 'Gateway_Form_Mustache';
 	}
 
 	public function getGatewayAdapterClass() {
@@ -2480,8 +2488,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * be set to '0'.
 	 */
 	protected function incrementNumAttempt() {
-		self::session_ensure();
-		$attempts = self::session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
+		$this->session_ensure();
+		$attempts = $this->session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
 			$attempts += 1;
 		} else {
@@ -2501,8 +2509,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * appropriate time.
 	 */
 	protected function incrementSequenceNumber() {
-		self::session_ensure();
-		$sequence = self::session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
+		$this->session_ensure();
+		$sequence = $this->session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
 		if ( is_numeric( $sequence ) ) {
 			$sequence += 1;
 		} else {
@@ -3055,28 +3063,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Check to see if the session exists.
-	 */
-	public static function session_exists() {
-		if ( session_id() ) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * session_ensure
 	 * Ensure that we have a session set for the current user.
 	 * If we do not have a session set for the current user,
 	 * start the session.
 	 */
-	public static function session_ensure() {
-		// if the session is already started, do nothing
-		if ( self::session_exists() ) {
-			return;
-		}
-
-		// otherwise, fire it up using global mw function wfSetupSession
+	public function session_ensure() {
 		WmfFramework::setupSession();
 	}
 
@@ -3087,9 +3079,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Only really makes sense if $key is an array.
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
-	public static function session_getData( $key, $subkey = null ) {
-		$request = RequestContext::getMain()->getRequest();
-		$data = $request->getSessionData( $key );
+	public function session_getData( $key, $subkey = null ) {
+		$data = $this->request->getSessionData( $key );
 		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
 				return $data;
@@ -3104,27 +3095,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Checks to see if we have donor data in our session.
 	 * This can be useful for determining if a user should be at a certain point
 	 * in the workflow for certain gateways. For example: This is used on the
-	 * outside of the adapter in GlobalCollect's resultswitcher page, to
-	 * determine if the user is actually in the process of making a credit card
-	 * transaction.
-	 * @param bool|string $key Optional: A particular key to check against the
-	 * donor data in session.
-	 * @param string $value Optional (unless $key is set): A value that the $key
-	 * should contain, in the donor session.
-	 * @return boolean true if the session contains donor data (and if the data
-	 * key matches, when key and value are set), and false if there is no donor
-	 * data (or if the key and value do not match)
+	 * outside of the adapter in resultswitcher pages, to determine if the user
+	 * is actually in the process of making a credit card transaction.
+	 *
+	 * @return boolean true if the session contains donor data
 	 */
-	public static function session_hasDonorData( $key = false, $value = '' ) {
-		if ( !is_null( self::session_getData( 'Donor' ) ) ) {
-			if ( $key === false ) {
-				return true;
-			}
-			if ( self::session_getData( 'Donor', $key ) === $value ) {
-				return true;
-			}
-		}
-		return false;
+	public function session_hasDonorData() {
+		return !is_null( $this->session_getData( 'Donor' ) );
 	}
 
 	/**
@@ -3132,9 +3109,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * like GlobalCollect that require it to persist over here through their
 	 * iframe experience.
 	 */
-	public static function session_unsetDonorData() {
-		if ( self::session_hasDonorData() ) {
-			unset( $_SESSION['Donor'] );
+	public function session_unsetDonorData() {
+		if ( $this->session_hasDonorData() ) {
+			$this->request->setSessionData( 'Donor', null );
 		}
 	}
 
@@ -3164,7 +3141,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function session_killAllEverything() {
 		//yes: We do need all of these things, to be sure we're killing the
 		//correct session data everywhere it could possibly be.
-		self::session_ensure(); //make sure we are killing the right thing.
+		$this->session_ensure(); //make sure we are killing the right thing.
 		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
 			MediaWiki\Session\SessionManager::getGlobalSession()->clear();
 		} else {
@@ -3210,9 +3187,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function session_resetForNewAttempt( $force = false ) {
 		$reset = $force;
-		if ( self::session_getData( 'numAttempt' ) > 3 ) {
+		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
-			$_SESSION['numAttempt'] = 0;
+			$this->request->setSessionData( 'numAttempt', 0 );
 		}
 
 		if ( $reset ) {
@@ -3349,9 +3326,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return;
 		}
 
-		self::session_ensure();
+		$this->session_ensure();
 
-		$paymentForms = self::session_getData( 'PaymentForms' );
+		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
 			$paymentForms = array();
 		}
@@ -3370,8 +3347,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * otherwise false.
 	 */
 	public function session_getLastRapidHTMLForm() {
-		self::session_ensure();
-		$paymentForms = self::session_getData( 'PaymentForms' );
+		$this->session_ensure();
+		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
 			return false;
 		}
@@ -3434,18 +3411,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * @return string
 	 */
-	public static function token_getSaltedSessionToken() {
+	public function token_getSaltedSessionToken() {
 		// make sure we have a session open for tracking a CSRF-prevention token
-		self::session_ensure();
+		$this->session_ensure();
 
-		$gateway_ident = self::getIdentifier();
+		$tokenKey = self::getIdentifier() . 'EditToken';
 
-		if ( !isset( $_SESSION[$gateway_ident . 'EditToken'] ) ) {
+		$token = $this->request->getSessionData( $tokenKey );
+		if ( is_null( $token ) ) {
 			// generate unsalted token to place in the session
 			$token = self::token_generateToken();
-			$_SESSION[$gateway_ident . 'EditToken'] = $token;
-		} else {
-			$token = $_SESSION[$gateway_ident . 'EditToken'];
+			$this->request->setSessionData( $tokenKey, $token );
 		}
 
 		return self::token_applyMD5AndSalt( $token );
@@ -3460,8 +3436,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function token_refreshAllTokenEverything() {
 		$unsalted = self::token_generateToken();
 		$gateway_ident = self::getIdentifier();
-		self::session_ensure();
-		$_SESSION[$gateway_ident . 'EditToken'] = $unsalted;
+		$this->session_ensure();
+		$this->request->setSessionData( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
 		$this->addRequestData( array ( 'token' => $salted ) );

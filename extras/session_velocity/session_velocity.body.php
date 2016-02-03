@@ -97,31 +97,34 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		$threshold = $this->getVar( 'Threshold', $transaction );
 
 		// Initialize the filter
-		if ( !array_key_exists( self::SESS_ROOT, $_SESSION ) ) {
-			$_SESSION[self::SESS_ROOT] = array();
+		$sessionData = $this->gateway_adapter->getRequest()->getSessionData( self::SESS_ROOT );
+		if ( !is_array( $sessionData ) ) {
+			$sessionData = array();
 		}
-		if ( !array_key_exists( $gateway, $_SESSION[self::SESS_ROOT] ) ) {
-			$_SESSION[self::SESS_ROOT][$gateway] = array();
+		if ( !array_key_exists( $gateway, $sessionData ) ) {
+			$sessionData[$gateway] = array();
 		}
-		if ( !array_key_exists( $transaction, $_SESSION[self::SESS_ROOT][$gateway] ) ) {
-			$_SESSION[self::SESS_ROOT][$gateway][$transaction] = array(
+		if ( !array_key_exists( $transaction, $sessionData[$gateway] ) ) {
+			$sessionData[$gateway][$transaction] = array(
 				$this::SESS_SCORE => 0,
 				$this::SESS_TIME => $cRequestTime,
 			);
 		}
 
-		$lastTime = $_SESSION[self::SESS_ROOT][$gateway][$transaction][self::SESS_TIME];
-		$score = $_SESSION[self::SESS_ROOT][$gateway][$transaction][self::SESS_SCORE];
+		$lastTime = $sessionData[$gateway][$transaction][self::SESS_TIME];
+		$score = $sessionData[$gateway][$transaction][self::SESS_SCORE];
 
 		// Update the filter if it's stale
 		if ( $cRequestTime != $lastTime ) {
 			$score = max( 0, $score - ( ( $cRequestTime - $lastTime ) * $decayRate ) );
 			$score += $this->getVar( 'HitScore', $transaction );
 
-			// Store the results
-			$_SESSION[self::SESS_ROOT][$gateway][$transaction][$this::SESS_SCORE] = $score;
-			$_SESSION[self::SESS_ROOT][$gateway][$transaction][$this::SESS_TIME] = $cRequestTime;
+			$sessionData[$gateway][$transaction][$this::SESS_SCORE] = $score;
+			$sessionData[$gateway][$transaction][$this::SESS_TIME] = $cRequestTime;
 		}
+
+		// Store the results
+		$this->gateway_adapter->getRequest()->setSessionData( self::SESS_ROOT, $sessionData );
 
 		// Analyze the filter results
 		if ( $score >= $threshold ) {

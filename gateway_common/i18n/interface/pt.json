@@ -170,7 +170,7 @@
 	"donate_interface-donor-submit": "Fazer donativo",
 	"donate_interface-donor-currency-msg": "Este donativo está a ser feito na divisa $1",
 	"donate_interface-donor-fiscal_number": "Número fiscal",
-	"donate_interface-donor-fiscal_number-br": "CPF",
+	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
