@@ -534,6 +534,12 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 		$this->logger->debug( 'Good signature' );
 
+		// Overwrite the order ID we have with the return data, in case the
+		// donor opened a second window.
+		$orderId = $response['merchantReference'];
+		$this->addRequestData( array(
+			'order_id' => $orderId,
+		) );
 		$gateway_txn_id = isset( $response['pspReference'] ) ? $response['pspReference'] : '';
 		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
