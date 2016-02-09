@@ -91,4 +91,13 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Adyen order_id is null, and we need one for 'merchantReference'" );
 	}
 
+	function testRiskScoreAddedToQueueMessage() {
+		$init = $this->getDonorTestData();
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->risk_score = 57;
+		$message = $exposed->getStompTransaction();
+		$this->assertEquals( 57, $message['risk_score'], 'Risk score was not correctly added to queue message.' );
+	}
 }

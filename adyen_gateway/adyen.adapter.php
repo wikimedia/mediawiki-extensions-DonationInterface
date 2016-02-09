@@ -262,11 +262,24 @@ class AdyenAdapter extends GatewayAdapter {
 					) );
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
-					$this->setLimboMessage();
+					$this->setLimboMessage( 'pending' );
 					break;
 			}
 		}
 		return $this->transaction_response;
+	}
+
+	/**
+	 * Add risk score to the message we send to the pending queue.
+	 * The IPN listener will combine this with scores based on CVV and AVS
+	 * results returned with the authorization notification and determine
+	 * whether to capture the payment or leave it for manual review.
+	 * @return array
+	 */
+	protected function getStompTransaction() {
+		$transaction = parent::getStompTransaction();
+		$transaction['risk_score'] = $this->risk_score;
+		return $transaction;
 	}
 
 	static function getCurrencies() {
@@ -522,15 +535,17 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->logger->debug( 'Good signature' );
 
 		$gateway_txn_id = isset( $response['pspReference'] ) ? $response['pspReference'] : '';
+		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
 		$result_code = isset( $response['authResult'] ) ? $response['authResult'] : '';
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
-			$this->logger->info( "User came back as pending or authorised, placing in pending queue" );
+			$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
 			$this->finalizeInternalStatus( FinalStatus::PENDING );
 		}
 		else {
+			$this->deleteLimboMessage( 'pending' );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
 			throw new ResponseProcessingException(
@@ -538,12 +553,15 @@ class AdyenAdapter extends GatewayAdapter {
 				ResponseCodes::UNKNOWN
 			);
 		}
-		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
-		// FIXME: Why put that two places in transaction_response?
-		$this->transaction_response->setTxnMessage( $this->getFinalStatus() );
 		$this->runPostProcessHooks();
-		$this->deleteLimboMessage();
 	}
+
+	/**
+	 * Overriding this function because we're queueing our pending message
+	 * before we redirect the user, so we don't need to send another one
+	 * when doStompTransaction is called from runPostProcessHooks.
+	 */
+	protected function doStompTransaction() {}
 
 	/**
 	 * TODO do we want to stage the country code for language variants?
