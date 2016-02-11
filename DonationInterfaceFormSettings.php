@@ -236,7 +236,7 @@ $forms_whitelist['cc-vmaj'] = array(
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 	'countries' => array(
-		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
+		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
 					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
 					  'SG', 'SI', 'SK', 'TH', 'TW', ),
 	),
@@ -468,7 +468,7 @@ $forms_whitelist['astropay'] = array(
 		'BRL',
 		'USD',
 	) ),
-	'payment_methods' => array( 
+	'payment_methods' => array(
 		'cc' => array(
 			'visa',
 			'mc',
