@@ -227,6 +227,7 @@ class DonationQueue {
 			'last_name' => 'lname',
 			'optout' => 'optout',
 			'recurring' => 'recurring',
+			'risk_score' => 'risk_score',
 			'state_province' => 'state',
 			'street_address' => 'street',
 			'supplemental_address_1' => 'street_supplemental',

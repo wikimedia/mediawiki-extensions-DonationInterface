@@ -3,7 +3,8 @@
 		"authors": [
 			"OC Ripper",
 			"KWiki",
-			"Pcoombe"
+			"Pcoombe",
+			"Conquistador"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -268,7 +269,7 @@
 	"donate_interface-will-make-tax-deductible-gift": "Želim donirati iznos oslobođen poreza:",
 	"donate_interface-next": "Slijedeće",
 	"donate_interface-continue": "Nastavi",
-	"donate_interface-cancel": "Odustani",
+	"donate_interface-cancel": "Otkaži",
 	"donate_interface-payment": "Plaćanje",
 	"donate_interface-payment-type": "Vrsta plaćanja",
 	"donate_interface-month": "$1 ($2)",

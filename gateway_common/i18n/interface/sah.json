@@ -4,7 +4,8 @@
 			"HalanTul",
 			"Jsoby",
 			"Pcoombe",
-			"Исмаил Садуев"
+			"Исмаил Садуев",
+			"Умар"
 		]
 	},
 	"donate_interface": "Викимедианы өйүөххэйиҥ!",
@@ -166,7 +167,7 @@
 	"donate_interface-cvv2": "CVV2",
 	"donate_interface-cvv-number": "CVV нүөмэрэ",
 	"donate_interface-verification-number": "Бигэргэтэр нүөмэрэ",
-	"donate_interface-what-is-this": "ХӀара хӀун ду?",
+	"donate_interface-what-is-this": "Бу тугуй?",
 	"donate_interface-do-not-include-dashes": "Бука диэн, тирены туттума",
 	"donate_interface-please-donate-today": "Бука диэн билигин сиэртибэлээ",
 	"donate_interface-donate-now": "Билигин сиэртибэлииргэ",

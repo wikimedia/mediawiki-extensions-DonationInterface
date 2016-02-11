@@ -4,7 +4,8 @@
 			"Jsoby",
 			"Ильнар",
 			"Pcoombe",
-			"Исмаил Садуев"
+			"Исмаил Садуев",
+			"Умар"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярдәм итик!",
@@ -42,7 +43,7 @@
 	"donate_interface-cc-button": "кредит картагыз ярдәмендә иганә ясагыз",
 	"donate_interface-card-legend": "Крдеит картасы турында мәгълүмат",
 	"donate_interface-amount-legend": "Иганә күләме",
-	"donate_interface-cvv-link": "Стенгахь ю и?",
+	"donate_interface-cvv-link": "Кайда бу?",
 	"donate_interface-donor-legend": "Иганә турында мәгълүмат",
 	"donate_interface-donor-amount": "Сумма:",
 	"donate_interface-donor-currency-label": "Акча берәмлеге:",

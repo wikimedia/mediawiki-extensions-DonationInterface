@@ -2825,7 +2825,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * @return boolean true if validation passes
 	 *
-	 * TODO: Maybe validate on $unstaged_data directly? 
+	 * TODO: Maybe validate on $unstaged_data directly?
 	 */
 	public function revalidate() {
 		$check_not_empty = $this->getRequiredFields();
@@ -2842,6 +2842,59 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return false;
 	}
 
+     /**
+	 * This custom filter function checks the global variable:
+	 *
+	 * KeyMapA
+	 * KeyMapB
+	 *
+	 * How the score is tabulated:
+	 *  - If the configurable portion letters in a name come from the same zone points are added.
+	 *  - Returns an integer: 0 <= $score <= 100
+	 *
+	 * @see $wgDonationInterfaceCustomFiltersFunctions
+	 * @see $wgDonationInterfaceKeyMapA* @see $wgDonationInterfaceKeyMapB
+	 *
+	 * @return integer
+	 */
+        public function getScoreName(){
+
+			$fName = $this->getData_Unstaged_Escaped( 'fname' );
+			$lName = $this->getData_Unstaged_Escaped( 'lname' );
+
+			$nameArray = str_split( strtolower( $fName . $lName ) );
+
+			$keyMapA = $this->getGlobal( 'KeyMapA' );
+
+			$keyMapB = $this->getGlobal( 'KeyMapB' );
+
+			$gibberishWeight = $this->getGlobal( 'NameGibberishWeight' );
+
+			$failScore = $this->getGlobal( 'NameScore' );
+
+			$points = 0;
+
+			$score = 0;
+
+			if ( is_array( $nameArray ) && !empty( $nameArray ) ){
+				foreach($nameArray as $letter){
+					// For each char in zone A add a point, zone B subtract.
+					if( in_array( $letter, $keyMapA ) ){
+						$points++;
+					}
+					if( in_array( $letter, $keyMapB ) ){
+						$points--;
+					}
+				}
+
+				if( abs( $points ) / count( $nameArray ) >= $gibberishWeight ){
+					$score = $failScore;
+				}
+			}
+
+			return $score;
+
+		}
 	/**
 	 * This custom filter function checks the global variable:
 	 *
