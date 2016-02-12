@@ -99,8 +99,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		$this->cfo = &$custom_filter_object;
 
-		require_once( dirname( __FILE__ ) . "/ccfd/src/CreditCardFraudDetection.php" );
-
 		global $wgMinFraudLicenseKey;
 
 		// set the minfraud license key, go no further if we don't have it

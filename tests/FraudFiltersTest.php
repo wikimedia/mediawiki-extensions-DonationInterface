@@ -111,5 +111,18 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		unset( $wgGlobalCollectGatewayEnableMinfraud );
 	}
 }
-
+// Stub out Minfraud class for CI tests
+if ( !class_exists( 'CreditCardFraudDetection' ) ) {
+	class CreditCardFraudDetection{
+		public $server;
+		public function filter_field( $a, $b ) {
+			return 'blah';
+		}
+		public function query() {}
+		public function input( $a ) {}
+		public function output() {
+			return array();
+		}
+	}
+}
 
