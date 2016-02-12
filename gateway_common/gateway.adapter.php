@@ -4085,4 +4085,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		return json_encode( $logObj );
 	}
+
+	protected function logPaymentDetails() {
+		$details = $this->getStompTransaction();
+		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
+	}
 }

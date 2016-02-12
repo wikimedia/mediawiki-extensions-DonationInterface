@@ -262,6 +262,7 @@ class AdyenAdapter extends GatewayAdapter {
 					) );
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
+					$this->logPaymentDetails();
 					$this->setLimboMessage( 'pending' );
 					break;
 			}
