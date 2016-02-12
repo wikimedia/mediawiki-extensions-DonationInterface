@@ -180,7 +180,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => 'https://wikimediafoundation.org/wiki/Thank_You/fr',
+				'Location' => 'https://wikimediafoundation.org/wiki/Thank_You/fr?country=FR',
 			),
 		);
 

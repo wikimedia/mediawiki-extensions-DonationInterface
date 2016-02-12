@@ -360,7 +360,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
 		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
-		$expected .= 				'<RETURNURL>' . $wgDonationInterfaceThankYouPage . '/' . $options['language'] . '</RETURNURL>';
+		$expected .= 				"<RETURNURL>{$wgDonationInterfaceThankYouPage}/{$options['language']}?country={$options['country']}</RETURNURL>";
 		$expected .=				'<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
 		$expected .= 				'<FIRSTNAME>' . $options['fname'] . '</FIRSTNAME>';
 		$expected .= 				'<SURNAME>' . $options['lname'] . '</SURNAME>';
