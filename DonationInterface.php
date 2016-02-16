@@ -618,7 +618,8 @@ $wgDonationInterfaceIPVelocityThreshhold = 3;	//3 transactions per timeout
 //If you leave it blank, it will use the VelocityTimeout as a default.
 
 // Session velocity filter globals
-$wgDonationInterfaceSessionVelocity_HitScore = 10;  // How much to add to the score per API hit
+$wgDonationInterfaceSessionVelocity_HitScore = 10;  // How much to add to the score for an initial API hit
+$wgDonationInterfaceSessionVelocity_Multiplier = 1; // Hit score increases by this factor for each subsequent API call
 $wgDonationInterfaceSessionVelocity_DecayRate = 1;  // Linear decay rate; pts / sec
 $wgDonationInterfaceSessionVelocity_Threshold = 50; // Above this score, we deny users the page
 
