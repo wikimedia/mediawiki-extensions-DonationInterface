@@ -188,6 +188,13 @@ $wgDonationInterfaceDefaultForm = 'RapidHtml';
 $wgDonationInterfaceFallbackCurrency = false;
 
 /**
+ * For a gateway that has exactly one valid currency per supported country,
+ * you can instead set this variable to true to make gateway forms use an
+ * appropriate fallback currency for the selected country.
+ */
+$wgDonationInterfaceFallbackCurrencyByCountry = false;
+
+/**
  * When this is true and an unsupported currency has been converted to the
  * fallback (see above), we show an interstitial page notifying the user
  * of the conversion before sending the donation to the gateway.

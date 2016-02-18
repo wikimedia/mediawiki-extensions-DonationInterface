@@ -23,7 +23,13 @@
  */
 class GatewayPageTest extends DonationInterfaceTestCase {
 
+	/**
+	 * @var GatewayPage
+	 */
 	protected $page;
+	/**
+	 * @var GatewayAdapter
+	 */
 	protected $adapter;
 
 	public function setUp() {
@@ -124,5 +130,23 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->assertEquals( null, $manualErrors['general'] );
 		$this->assertEquals( 200, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'BBD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
+	}
+
+	public function testFallbackByCountry() {
+		// With 'FallbackCurrencyByCountry', we need to return a single supported currency
+		TestingGenericAdapter::$acceptedCurrencies = array( 'USD' );
+		TestingGenericAdapter::$fakeGlobals = array(
+			'FallbackCurrency' => false,
+			'FallbackCurrencyByCountry' => true,
+		);
+		$this->setUpAdapter();
+		$this->adapter->addRequestData( array(
+			'country' => 'US',
+		) );
+
+		$this->page->validateForm();
+
+		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
+		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 }
