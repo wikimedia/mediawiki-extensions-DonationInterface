@@ -173,52 +173,52 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$output = $this->getOutput();
 
-		$output->addHTML( HTML::element( 'span', null, $results->getMessage() ) );
+		$output->addHTML( Html::element( 'span', null, $results->getMessage() ) );
 
 		$errors = $results->getErrors();
 		if ( !empty( $errors ) ) {
-			$output->addHTML( HTML::openElement( 'ul' ) );
+			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $errors as $code => $value ) {
-				$output->addHTML( HTML::element('li', null, "Error $code: " . print_r( $value, true ) ) );
+				$output->addHTML( Html::element('li', null, "Error $code: " . print_r( $value, true ) ) );
 			}
-			$output->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( Html::closeElement( 'ul' ) );
 		}
 
 		$data = $results->getData();
 		if ( !empty( $data ) ) {
-			$output->addHTML( HTML::openElement( 'ul' ) );
+			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$output->addHTML( HTML::openElement('li', null, $key ) . HTML::openElement( 'ul' ) );
+					$output->addHTML( Html::openElement('li', null, $key ) . Html::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$output->addHTML( HTML::element('li', null, "$key2: $val2" ) );
+						$output->addHTML( Html::element('li', null, "$key2: $val2" ) );
 					}
-					$output->addHTML( HTML::closeElement( 'ul' ) . HTML::closeElement( 'li' ) );
+					$output->addHTML( Html::closeElement( 'ul' ) . Html::closeElement( 'li' ) );
 				} else {
-					$output->addHTML( HTML::element('li', null, "$key: $value" ) );
+					$output->addHTML( Html::element('li', null, "$key: $value" ) );
 				}
 			}
-			$output->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
 			$output->addHTML( "Empty Results" );
 		}
 		$donorData = $this->getRequest()->getSessionData( 'Donor' );
 		if ( is_array( $donorData ) ) {
-			$output->addHTML( "Session Donor Vars:" . HTML::openElement( 'ul' ));
+			$output->addHTML( "Session Donor Vars:" . Html::openElement( 'ul' ));
 			foreach ( $donorData as $key => $val ) {
-				$output->addHTML( HTML::element('li', null, "$key: $val" ) );
+				$output->addHTML( Html::element('li', null, "$key: $val" ) );
 			}
-			$output->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
 			$output->addHTML( "No Session Donor Vars:" );
 		}
 
 		if ( is_array( $this->adapter->debugarray ) ) {
-			$output->addHTML( "Debug Array:" . HTML::openElement( 'ul' ) );
+			$output->addHTML( "Debug Array:" . Html::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$output->addHTML( HTML::element('li', null, $val ) );
+				$output->addHTML( Html::element('li', null, $val ) );
 			}
-			$output->addHTML( HTML::closeElement( 'ul' ) );
+			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
 			$output->addHTML( "No Debug Array" );
 		}

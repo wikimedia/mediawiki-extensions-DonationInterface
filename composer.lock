@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca9fa11432550718ae253a997d7747ac",
+    "hash": "ff013da3789a0273f27c829cd90f8139",
+    "content-hash": "49fdfddba5b55ae89176be632d632ce7",
     "packages": [
         {
             "name": "amzn/login-and-pay-with-amazon-sdk-php",
@@ -146,7 +147,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2015-08-12 17:55:38"
+            "time": "2015-08-21 21:11:07"
         },
         {
             "name": "fusesource/stomp-php",
@@ -196,6 +197,47 @@
                 "stomp"
             ],
             "time": "2013-02-23 17:34:44"
+        },
+        {
+            "name": "minfraud/http",
+            "version": "v1.70",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/ccfd-api-php.git",
+                "reference": "941e9345f9c237a253be8b908ecef951698a1a99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/ccfd-api-php/zipball/941e9345f9c237a253be8b908ecef951698a1a99",
+                "reference": "941e9345f9c237a253be8b908ecef951698a1a99",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/HTTPBase.php",
+                    "src/CreditCardFraudDetection.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1+"
+            ],
+            "authors": [
+                {
+                    "name": "MaxMind, Inc.",
+                    "email": "support@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind minFraud HTTP API",
+            "homepage": "https://github.com/maxmind/ccfd-api-php",
+            "keywords": [
+                "fraud",
+                "maxmind",
+                "minfraud"
+            ],
+            "time": "2015-07-21 14:49:48"
         },
         {
             "name": "monolog/monolog",

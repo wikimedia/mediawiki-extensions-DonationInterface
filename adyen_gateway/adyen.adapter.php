@@ -120,6 +120,7 @@ class AdyenAdapter extends GatewayAdapter {
 	public function defineOrderIDMeta() {
 		$this->order_id_meta = array (
 			'alt_locations' => array ( 'request' => 'merchantReference' ),
+			'ct_id' => TRUE,
 			'generate' => TRUE,
 		);
 	}
@@ -222,6 +223,11 @@ class AdyenAdapter extends GatewayAdapter {
 	 * is never used at all.
 	 */
 	function do_transaction( $transaction ) {
+		// If this is not our first call, get a fresh order ID
+		// FIXME: This is repeated in three places. Maybe always regenerate in incrementSequenceNumber?
+		if ( $this->session_getData( 'sequence' ) ) {
+			$this->regenerateOrderID();
+		}
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 		$this->transaction_response = new PaymentTransactionResponse();
@@ -262,10 +268,13 @@ class AdyenAdapter extends GatewayAdapter {
 					) );
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
+					$this->logPaymentDetails();
 					$this->setLimboMessage( 'pending' );
 					break;
 			}
 		}
+		// Ensure next attempt gets a unique order ID
+		$this->incrementSequenceNumber();
 		return $this->transaction_response;
 	}
 

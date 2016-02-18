@@ -744,11 +744,6 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function logPaymentDetails() {
-		$details = $this->getStompTransaction();
-		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
-	}
-
 	protected function unstage_amount() {
 		// FIXME: if GlobalCollect is the only processor who needs amount in
 		// cents, move its stage and unstage functions out of base adapter

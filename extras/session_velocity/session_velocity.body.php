@@ -26,9 +26,12 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	// This then has the following keys:
 	//  SESS_SCORE  - The last known score for this gateway/transaction
 	//  SESS_TIME   - The last time the filter was run for this gateway/transaction
+	//  SESS_MULTIPLIER - The factor by which to multiply hit score for the next call
+	//                    This allows for a logarithmically increasing penalty
 	const SESS_ROOT = "DonationInterface_SessVelocity";
 	const SESS_SCORE = "score";
 	const SESS_TIME = "time";
+	const SESS_MULTIPLIER = "multiplier";
 
 	/**
 	 * @static Construct the singleton instance of this class.
@@ -95,6 +98,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 
 		$decayRate = $this->getVar( 'DecayRate', $transaction );
 		$threshold = $this->getVar( 'Threshold', $transaction );
+		$multiplier = $this->getVar( 'Multiplier', $transaction );
 
 		// Initialize the filter
 		$sessionData = $this->gateway_adapter->getRequest()->getSessionData( self::SESS_ROOT );
@@ -108,19 +112,22 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 			$sessionData[$gateway][$transaction] = array(
 				$this::SESS_SCORE => 0,
 				$this::SESS_TIME => $cRequestTime,
+				$this::SESS_MULTIPLIER => 1,
 			);
 		}
 
 		$lastTime = $sessionData[$gateway][$transaction][self::SESS_TIME];
 		$score = $sessionData[$gateway][$transaction][self::SESS_SCORE];
+		$lastMultiplier = $sessionData[$gateway][$transaction][self::SESS_MULTIPLIER];
 
 		// Update the filter if it's stale
 		if ( $cRequestTime != $lastTime ) {
 			$score = max( 0, $score - ( ( $cRequestTime - $lastTime ) * $decayRate ) );
-			$score += $this->getVar( 'HitScore', $transaction );
+			$score += $this->getVar( 'HitScore', $transaction ) * $lastMultiplier;
 
 			$sessionData[$gateway][$transaction][$this::SESS_SCORE] = $score;
 			$sessionData[$gateway][$transaction][$this::SESS_TIME] = $cRequestTime;
+			$sessionData[$gateway][$transaction][$this::SESS_MULTIPLIER] = $lastMultiplier * $multiplier;
 		}
 
 		// Store the results
