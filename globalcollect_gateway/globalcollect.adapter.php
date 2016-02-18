@@ -2171,17 +2171,26 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$retErrCode = $errCode;
 					$retErrMsg = $errMsg;
 					break;
-				case 430260: //wow: If we were a point of sale, we'd be calling security.
-				case 430357: //lost or stolen card
-					// These two get all the cancel treatment below, plus some extra
+				case 430260: // wow: If we were a point of sale, we'd be calling security.
+				case 430349: // TRANSACTION_CANNOT_BE_COMPLETED_VIOLATION_OF_LAW (EXTERMINATE!)
+				case 430357: // lost or stolen card
+				case 430410: // CHALLENGED (GC docs say fraud)
+				case 430415: // Security violation
+				case 430418: // Stolen card
+				case 430421: // Suspected fraud
+				case 430697: // Suspected fraud
+				case 485020: // DO_NOT_TRY_AGAIN (or else EXTERMINATE!)
+				case 4360022: // ECARD_FRAUD
+				case 4360023: // ECARD_ONLINE_FRAUD
+					// These naughty codes get all the cancel treatment below, plus some extra
 					// IP velocity spanking.
 					if ( $this->getGlobal( 'EnableIPVelocityFilter' ) ) {
 						Gateway_Extras_CustomFilters_IP_Velocity::penalize( $this );
 					}
-				case 430306: //Expired card.
-				case 430330: //invalid card number
-				case 430354: //issuer unknown
-					// All five these should stop us from retrying at all
+				case 430306: // Expired card.
+				case 430330: // invalid card number
+				case 430354: // issuer unknown
+					// All of these should stop us from retrying at all
 					// Null out the retry vars and throw error immediately
 					$retryVars = null;
 					$this->logger->info( "Got error code $errCode, not retrying to avoid MasterCard fines." );
@@ -2199,8 +2208,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					);
 				case 430285: //most common declined cc code.
 				case 430396: //not authorized to cardholder, whatever that means.
-				case 430409: //Declined, because "referred". wth does that even.
-				case 430415: //Declined for "security violation"
+				case 430409: //Declined, because "referred". We're not going to call the bank to push it through.
 				case 430424: //Declined, because "SYSTEM_MALFUNCTION". I have no words.
 				case 430692: //cvv2 declined
 					break; //don't need to hear about these at all.
