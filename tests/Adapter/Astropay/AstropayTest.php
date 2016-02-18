@@ -562,4 +562,21 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'Not generating new order id for retried NewInvoice call'
 		);
 	}
+
+	/**
+	 * We should show an error for incompatible country / currency combinations
+	 */
+	function testBadCurrencyForCountry() {
+		$init = $this->getDonorTestData( 'BR' );
+		$init['currency_code'] = 'CLP';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$errors = $gateway->getValidationErrors();
+
+		$this->assertNotEmpty( $errors );
+		$this->assertTrue(
+			isset( $errors['currency_code'] ),
+			'Should show a currency code error for trying to use CLP in BR'
+		);
+	}
 }

@@ -149,9 +149,15 @@ interface GatewayType {
 	function setGatewayDefaults();
 
 	/**
-	 * @return array of ISO 4217 currency codes supported by this adapter
+	 * @param array $options If given, try to filter supported currencies by:
+	 *                       'country' ISO 3166 2 letter country code
+	 *                       'payment_method'
+	 *                       'payment_submethod'
+	 * @return array of ISO 4217 currency codes supported by this adapter for
+	 * the given options. If options are not given, the adapter may return
+	 * all supported currencies of filter by the unstaged data.
 	 */
-	static function getCurrencies();
+	function getCurrencies( $options = array() );
 
 	/**
 	 * Attempt the default transaction for the current DonationData

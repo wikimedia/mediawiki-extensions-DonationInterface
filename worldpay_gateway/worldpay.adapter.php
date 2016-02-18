@@ -380,7 +380,7 @@ class WorldpayAdapter extends GatewayAdapter {
 		));
 	}
 
-	static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
 		return array_keys( self::$CURRENCY_CODES );
 	}
 

@@ -16,6 +16,10 @@
  *
  */
 
+/**
+ * Class PaypalAdapter
+ * TODO: Document exactly which PayPal product this integrates with and link to online docs
+ */
 class PaypalAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Paypal';
 	const IDENTIFIER = 'paypal';
@@ -220,8 +224,10 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
 		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
+		// TODO: Investigate per-country support at this URL
+		// https://developer.paypal.com/docs/classic/api/currency_codes/#creditcard
 		return array(
 			'AUD',
 			// 'BRL', // in-country only... it seems to work but I'm respecting the docs

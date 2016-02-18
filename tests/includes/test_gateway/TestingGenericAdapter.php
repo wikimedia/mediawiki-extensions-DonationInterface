@@ -100,7 +100,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function setGatewayDefaults() {
 	}
 
-	public static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
 		return TestingGenericAdapter::$acceptedCurrencies;
 	}
 

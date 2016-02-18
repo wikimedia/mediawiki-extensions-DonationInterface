@@ -317,7 +317,7 @@ class DataValidator {
 						} //otherwise, just don't do the validation. The other stuff will be complaining already. 
 						break;
 					case 'validate_currency_code':
-						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies() );
+						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies( $data ) );
 						break;
 					case 'validate_fiscal_number':
 						$result = call_user_func( $callable, $data[$field], $data['country'] );
