@@ -322,7 +322,7 @@
 	"donate_interface-email-unsub-success": "ଆପଣ ସଫଳ ଭାବେ ଆମ ମେଲ ତାଲିକାରୁ ବାହାରିଗଲେ",
 	"donate_interface-email-unsub-delay": "ବଦଳସବୁ କାମରେ ଲାଗିବା ପାଇଁ ଦୟାକରି ଅତି କମରେ ଚାରି (୪) ଦିନ ଅପେକ୍ଷା କରନ୍ତୁ । ଏହି ଭିତରେ ଆପଣ ଯଦି କିଛି ଇ-ମେଲ ଗ୍ରହଣ କରନ୍ତି ତାହାହେଲେ ଆମେ ସେଥି ଲାଗି କ୍ଷମା ମାଗିନେଉଛୁ । ଯଦି ଆପଣଙ୍କର କିଛି ପ୍ରଶ୍ନ ଅଛି ତେବେ <donations@wikimedia.org> ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ ।",
 	"donate_interface-email-unsub-fail": "ଆପଣଙ୍କ ଅନୁରୋଧ କାର୍ଯ୍ୟକାରୀ କଲାବେଳେ ଏକ ଅସୁବିଧା ହେଲା, ଦୟାକରି <donations@wikimedia.org> ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ ।",
-	"donate_interface-email-unsub-confirm": "ଆପଣ <b>$1</b>ରୁ ଯୋଗାଯୋଗ ବିଛିନ୍ନ କରିବାକୁ ଚାହାଁନ୍ତି ବୋଲି ପୁରା ନିଶ୍ଚିତ ତ?",
+	"donate_interface-email-unsub-confirm": "ଆପଣ <b>$1</b>ରୁ ଯୋଗାଯୋଗ ବିଛିନ୍ନ କରିବାକୁ ଚାହାଁନ୍ତି ବୋଲି ପୂରା ନିଶ୍ଚିତ ତ?",
 	"donate_interface-email-unsub-warning": "ଏହା ଆପଣଙ୍କୁ ଉଇକିମିଡ଼ିଆ ଫାଉଣ୍ଡେସନରୁ ଜଣେ ଦାତା ଭାବରେ ପାଉଥିବା ସବୁ ଇ-ମେଲକୁ ବନ୍ଦ କରିଦେବ । ଯଦି ଆମର ବାକି ପ୍ରକଳ୍ପ ସହ ଯୋଡ଼ିହୋଇଥିଲେ ଆପଣ ହୁଏତ ଆଗକୁ ଇ-ମେଲ ପାଇପାରନ୍ତି । କିଛି ପ୍ରଶ୍ନ ଥିଲେ ଦୟାକରି <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a> ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ ।",
 	"donate_interface-faqs": "ବାରମ୍ବାର ପଚରାଯାଉଥିବା ପ୍ରଶ୍ନସମୂହ",
 	"donate_interface-tax-info": "ଟିକସ କଟାଣ ସୂଚନା",
