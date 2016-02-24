@@ -16,7 +16,8 @@
 			"Sodmy",
 			"Ата",
 			"Тест",
-			"Jrobell"
+			"Jrobell",
+			"Piramidion"
 		]
 	},
 	"donate_interface": "Підтримайте Вікімедіа",
@@ -342,7 +343,8 @@
 	"donate_interface-bt-finished": "Виконано",
 	"donate_interface-obt-generic-name": "Банківський переказ онлайн",
 	"donate_interface-obt-biller_id": "Біллер (Biller) код",
-	"donate_interface-obt-customer_payment_reference": "Посилання #",
+	"donate_interface-obt-customer_payment_reference": "Референційний номер",
+	"donate_interface-obt-customer_payment_reference_note": "Кожен референційний номер можна використати лише раз. Будь ласка, не використовуйте цей номер повторно для майбутніх пожертвувань.",
 	"donate_interface-obt-information": "Інформація про поточний банківський переказ",
 	"donate_interface-online_bank_transfer_message": "Телефонний та інтернет-банкінг - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Оберіть банк",
