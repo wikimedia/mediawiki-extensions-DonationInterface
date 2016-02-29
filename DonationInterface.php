@@ -94,7 +94,6 @@ $wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.ad
 
 // Paypal
 $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
-$wgAutoloadClasses['PaypalGatewayResult'] = __DIR__ . '/paypal_gateway/paypal_resultswitcher.body.php';
 $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
 
 // Worldpay
@@ -347,7 +346,7 @@ $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$wgPaypalGatewayReturnURL = ''; //'http://127.0.0.1/index.php/Special:PaypalGatewayResult';
+$wgPaypalGatewayCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
 $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
 $wgPaypalGatewayHtmlFormDir = __DIR__ . '/paypal_gateway/forms/html';
@@ -836,7 +835,6 @@ $wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstropayAdapter';
 
 $wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';

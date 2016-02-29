@@ -113,12 +113,12 @@ class PaypalAdapter extends GatewayAdapter {
 			),
 			'values' => array(
 				'business' => $this->account_config[ 'AccountEmail' ],
-				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
+				'cancel_return' => $this->getCancelPage(),
 				'cmd' => '_donations',
 				'item_number' => 'DONATE',
 				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'no_note' => 0,
-				'return' => $this->getGlobal( 'ReturnURL' ),
+				'return' => $this->getThankYouPage(),
 			),
 		);
 		$this->transactions[ 'DonateXclick' ] = array(
@@ -140,9 +140,9 @@ class PaypalAdapter extends GatewayAdapter {
 			'values' => array(
 				'item_number' => 'DONATE',
 				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
+				'cancel_return' => $this->getCancelPage(),
 				'no_note' => '1',
-				'return' => $this->getGlobal( 'ReturnURL' ),
+				'return' => $this->getThankYouPage(),
 				'business' => $this->account_config[ 'AccountEmail' ],
 				'cmd' => '_xclick',
 				'no_shipping' => '1'
@@ -169,12 +169,12 @@ class PaypalAdapter extends GatewayAdapter {
 			),
 			'values' => array(
 				'business' => $this->account_config[ 'AccountEmail' ],
-				'cancel_return' => $this->getGlobal( 'ReturnURL' ),
+				'cancel_return' => $this->getCancelPage(),
 				'cmd' => '_xclick-subscriptions',
 				'item_number' => 'DONATE',
 				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'no_note' => 0,
-				'return' => $this->getGlobal( 'ReturnURL' ),
+				'return' => $this->getThankYouPage(),
 				// recurring fields
 				't3' => 'M',
 				'p3' => '1',
@@ -315,5 +315,13 @@ class PaypalAdapter extends GatewayAdapter {
 				return;
 			}
 		}
+	}
+
+	public function getCancelPage() {
+		$cancelPage = $this->getGlobal( 'CancelPage' );
+		if ( empty( $cancelPage ) ) {
+			return '';
+		}
+		return $this->appendLanguageAndMakeURL( $cancelPage );
 	}
 }

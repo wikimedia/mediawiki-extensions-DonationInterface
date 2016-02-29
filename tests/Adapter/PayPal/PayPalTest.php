@@ -39,6 +39,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
+			'wgPaypalGatewayCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'paypal' => array(
@@ -83,8 +84,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'lc' => $init['country'], //this works because it's a US donor...
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
@@ -117,8 +118,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'p3' => '1', //hard-coded in transaction definition
 			'src' => '1', //hard-coded in transaction definition
 			'srt' => $gateway->getGlobal( 'RecurringLength' ),
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "DonateRecurring" transaction not constructing the expected redirect URL' );
@@ -150,8 +151,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'no_note' => '1', //hard-coded in transaction definition
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 //			'lc' => $init['country'], //Apparently, this was removed from our implementation, because 'CN' is weird.
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 			'no_shipping' => '1', //hard-coded in transaction definition
 		);
 
@@ -221,8 +222,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'lc' => $init['country'], //this works because it's a US donor...
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
@@ -255,8 +256,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'lc' => 'CA',
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
@@ -285,8 +286,8 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'lc' => 'IT',
-			'cancel_return' => $gateway->getGlobal( 'ReturnURL' ),
-			'return' => $gateway->getGlobal( 'ReturnURL' ),
+			'cancel_return' => $gateway->getCancelPage(),
+			'return' => $gateway->getThankYouPage(),
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
