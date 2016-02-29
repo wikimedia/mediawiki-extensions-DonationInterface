@@ -95,9 +95,15 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
 
-		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
+		$queryParams = array(
+			'payment_method' => $this->adapter->getPaymentMethod(),
+			'payment_submethod' => $this->adapter->getPaymentSubmethod(),
+		);
 
-		$encUrl = Xml::encodeJsVar( $this->adapter->getThankYouPage() . $queryString );
+		$encUrl = Xml::encodeJsVar( wfAppendQuery(
+			$this->adapter->getThankYouPage(),
+			$queryParams
+		) );
 
 		$link = Html::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
@@ -161,9 +167,15 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement ( 'tr' );
 		$return .= Xml::closeElement ( 'table' ); //close info table
 
-		$queryString = '?payment_method=' . $this->adapter->getPaymentMethod() . '&payment_submethod=' . $this->adapter->getPaymentSubmethod();
+		$queryParams = array(
+			'payment_method' => $this->adapter->getPaymentMethod(),
+			'payment_submethod' => $this->adapter->getPaymentSubmethod(),
+		);
 
-		$encUrl = Xml::encodeJsVar( $this->adapter->getThankYouPage() . $queryString );
+		$encUrl = Xml::encodeJsVar( wfAppendQuery(
+			$this->adapter->getThankYouPage(),
+			$queryParams
+		) );
 
 		$link = Html::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = $encUrl" ) );
 

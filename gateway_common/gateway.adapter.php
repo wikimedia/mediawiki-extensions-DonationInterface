@@ -502,12 +502,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( $page ) {
 			$page = $this->appendLanguageAndMakeURL( $page );
 		}
-		$separator = '&';
-		if ( strstr( $page, '?' ) === false ) {
-			$separator = '?';
-		}
 		$country = $this->getData_Unstaged_Escaped( 'country' );
-		return $page . "{$separator}country={$country}";
+		return wfAppendQuery( $page, array( 'country' => $country ) );
 	}
 
 	/**
