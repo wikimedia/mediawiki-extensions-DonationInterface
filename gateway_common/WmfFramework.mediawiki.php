@@ -24,8 +24,8 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function getLanguageCode() {
-		global $wgLang;
-		return $wgLang->getCode();
+		$lang = RequestContext::getMain()->getLanguage();
+		return $lang->getCode();
 	}
 
 	static function isUseSquid() {

@@ -1119,7 +1119,6 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
 	$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
 
-	$wgAutoloadClasses['TestingLanguage'] = $testDir . 'includes/test_language/test.language.php';
 	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
 
 	return true;

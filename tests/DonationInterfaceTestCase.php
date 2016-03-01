@@ -96,6 +96,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	/**
+	 * Set global language for the duration of the test
+	 *
+	 * @param string $language language code to force
+	 */
+	protected function setLanguage( $language ) {
+		RequestContext::getMain()->setLanguage( $language );
+		// BackCompat
+		$this->setMwGlobals( 'wgLang', RequestContext::getMain()->getLanguage() );
+	}
+
+	/**
 	 * buildRequestXmlForGlobalCollect
 	 *
 	 * @todo
@@ -662,21 +673,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			}
 		}
 		return $return;
-	}
-
-	/**
-	 * Set global language for the duration of the test
-	 *
-	 * @param string $language language code to force
-	 */
-	protected function setLanguage( $language ) {
-		$newLang = new TestingLanguage();
-		//this should be more robust, but... might have to work for now.
-		$newLang->forceLang( $language );
-
-		$this->setMwGlobals( array (
-			'wgLang' => $newLang,
-		) );
 	}
 
 	static function getInnerHTML( $node ) {
