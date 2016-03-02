@@ -11,7 +11,8 @@
 			"Zanatos",
 			"ترجمان05",
 			"روخو",
-			"زكريا"
+			"زكريا",
+			"Maroen1990"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -268,7 +269,7 @@
 	"donate_interface-select-year-of-expiration": "اختر سنة انتهاء الصلاحية",
 	"donate_interface-expires-question": "تنتهي في؟",
 	"donate_interface-expires": "الانتهاء",
-	"donate_interface-card-security-code": "رمز تأمين البطاقة",
+	"donate_interface-card-security-code": "الرمز الأمني",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
