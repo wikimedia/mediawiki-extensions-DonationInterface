@@ -58,6 +58,7 @@ $wgAutoloadClasses['PaymentResult'] = __DIR__ . '/gateway_common/PaymentResult.p
 $wgAutoloadClasses['PaymentTransactionResponse'] = __DIR__ . '/gateway_common/PaymentTransactionResponse.php';
 $wgAutoloadClasses['ResponseCodes'] = __DIR__ . '/gateway_common/ResponseCodes.php';
 $wgAutoloadClasses['ResponseProcessingException'] = __DIR__ . '/gateway_common/ResponseProcessingException.php';
+$wgAutoloadClasses['ResultPages'] = __DIR__ . '/gateway_common/ResultPages.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
 
@@ -244,6 +245,12 @@ $wgDonationInterfaceThankYouPage = 'Donate-thanks';
 $wgDonationInterfaceFailPage = 'Donate-error';
 
 /**
+ * Where to send donors who click a 'cancel' button on a payment processor's web site.
+ * Currently only used with PayPal.
+ */
+$wgDonationInterfaceCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
+
+/**
  * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times.
  */
 $wgDonationInterfaceRetryLoopCount = 3;
@@ -346,7 +353,6 @@ $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$wgPaypalGatewayCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
 $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
 $wgPaypalGatewayHtmlFormDir = __DIR__ . '/paypal_gateway/forms/html';

@@ -250,7 +250,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $options );
-		$pageUrlParts = explode( '?', $gateway->getFailPage() );
+		$pageUrlParts = explode( '?', ResultPages::getFailPage( $gateway ) );
 		parse_str( $pageUrlParts[1], $params );
 		$this->assertEquals( 'rapidFailError', $params['ffname'] );
 		$this->assertEquals( 'cc', $params['payment_method'] );
@@ -264,7 +264,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		) );
 		$options = $this->getDonorTestData( 'US' );
 		$gateway = $this->getFreshGatewayObject( $options );
-		$page = $gateway->getFailPage();
+		$page = ResultPages::getFailPage( $gateway );
 		$expectedTitle = Title::newFromText( 'Main_Page' );
 		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
 		$this->assertEquals( $expectedURL, $page );

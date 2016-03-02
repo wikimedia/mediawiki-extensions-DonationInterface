@@ -29,7 +29,7 @@ class WorldpayGatewayResult extends GatewayPage {
 				case FinalStatus::PENDING:
 				case FinalStatus::PENDING_POKE:
 					$this->logger->info( "Displaying thank you page for status $status." );
-					$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+					$this->getOutput()->redirect( ResultPages::getThankYouPage( $this->adapter ) );
 					break;
 				case FinalStatus::FAILED:
 					$this->logger->info( 'Displaying fail page for final status failed.' );

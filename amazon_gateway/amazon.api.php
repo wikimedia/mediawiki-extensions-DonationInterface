@@ -47,7 +47,7 @@ class AmazonBillingApi extends ApiBase {
 				$output->addvalue(
 					null,
 					'redirect',
-					$adapter->getFailPage()
+					ResultPages::getFailPage( $adapter )
 				);
 			} else if ( $result->getRefresh() ) {
 				$output->addValue(
@@ -59,7 +59,7 @@ class AmazonBillingApi extends ApiBase {
 				$output->addValue(
 					null,
 					'redirect',
-					$adapter->getThankYouPage()
+					ResultPages::getThankYouPage( $adapter )
 				);
 			}
 		} else {

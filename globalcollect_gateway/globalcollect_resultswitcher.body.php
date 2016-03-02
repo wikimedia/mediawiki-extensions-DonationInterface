@@ -45,7 +45,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 				$this->displayFailPage();
 				return;
 			} else {
-				$go = $this->adapter->getThankYouPage();
+				$go = ResultPages::getThankYouPage( $this->adapter );
 			}
 
 			$this->getOutput()->addHTML( "<br>Redirecting to page $go" );
@@ -121,7 +121,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 						case FinalStatus::PENDING:
 						case FinalStatus::PENDING_POKE:
 							$this->logger->info( "Displaying thank you page for final status $status" );
-							$go = $this->adapter->getThankYouPage();
+							$go = ResultPages::getThankYouPage( $this->adapter );
 							break;
 						case FinalStatus::FAILED:
 							$this->logger->info( 'Displaying fail page for final status failed.' );

@@ -139,7 +139,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function displayFailPage() {
 		$output = $this->getOutput();
 
-		$page = $this->adapter->getFailPage();
+		$page = ResultPages::getFailPage( $this->adapter );
 
 		$log_message = "Redirecting to [{$page}]";
 		$this->logger->info( $log_message );
@@ -359,8 +359,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			switch ( $status ) {
 			case FinalStatus::COMPLETE:
 			case FinalStatus::PENDING:
-				$this->logger->info( "Displaying thank you page for status $status." );
-				$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+				$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
+				$this->logger->info( "Displaying thank you page $thankYouPage for status $status." );
+				$this->getOutput()->redirect( $thankYouPage );
 				return;
 			}
 			$this->logger->info( "Displaying fail page for final status $status" );
@@ -423,8 +424,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 		} else {
 			// Success.
-			$this->logger->info( 'Displaying thank you page for successful PaymentResult' );
-			$this->getOutput()->redirect( $this->adapter->getThankYouPage() );
+			$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
+			$this->logger->info( "Displaying thank you page $thankYouPage for successful PaymentResult." );
+			$this->getOutput()->redirect( $thankYouPage );
 		}
 	}
 

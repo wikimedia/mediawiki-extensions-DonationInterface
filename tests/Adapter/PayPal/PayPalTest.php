@@ -39,7 +39,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( array(
-			'wgPaypalGatewayCancelPage' => 'https://example.com/tryAgain.php',
+			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalGatewayEnabled' => true,
 			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
 			'wgDonationInterfaceAllowedHtmlForms' => array(
