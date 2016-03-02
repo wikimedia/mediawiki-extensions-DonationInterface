@@ -152,6 +152,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$supportedCurrencies = $this->gateway->getCurrencies();
 		if ( count( $supportedCurrencies ) === 1 ) {
 			$data['show_currency_selector'] = false;
+			// The select input will be hidden, but posting the form will use its only value
+			// Display the same currency code
+			$data['currency_code'] = $supportedCurrencies[0];
 		} else {
 			$data['show_currency_selector'] = true;
 			foreach( $this->gateway->getCurrencies() as $currency ) {
