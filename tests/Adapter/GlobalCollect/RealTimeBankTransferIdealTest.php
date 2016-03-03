@@ -131,7 +131,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 	/**
 	 * testBuildRequestXmlWithIssuerId91
 	 *
-	 * Friesland Bank: 91
+	 * Rabobank: 21
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
@@ -145,7 +145,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 			'payment_method' => 'rtbt',
 			'payment_submethod' => 'rtbt_ideal',
 			'payment_product_id' => 809,
-			'issuer_id' => 91,
+			'issuer_id' => 21,
 		);
 
 		//somewhere else?

@@ -1146,7 +1146,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				511	=> 'Triodos Bank',
 				721	=> 'ING',
 				751	=> 'SNS Bank',
-				91	=> 'Friesland Bank',
 				801 => 'Knab',
 			)
 		);
