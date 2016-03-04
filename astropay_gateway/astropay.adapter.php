@@ -329,10 +329,11 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'MX' => true,
 			),
+			'logo' => 'card-visa-debit.png',
 		);
 
 		// MasterCard debit
-		$this->payment_submethods['mc_debit'] = array(
+		$this->payment_submethods['mc-debit'] = array(
 			'bank_code' => 'MD',
 			'label' => 'Mastercard Debit',
 			'group' => 'cc',
@@ -351,7 +352,7 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 
 		// Diners Club
-		$this->payment_submethods['dc'] = array(
+		$this->payment_submethods['diners'] = array(
 			'bank_code' => 'DC',
 			'label' => 'Diners Club',
 			'group' => 'cc',
@@ -377,6 +378,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'MercadoLivre',
 			'group' => 'cc',
 			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-mercadolivre.png',
 		);
 
 		// Cabal
@@ -403,6 +405,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Tarjeta Shopping',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-shopping.png',
 		);
 
 		// Nativa
@@ -411,6 +414,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Nativa',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-nativa.png',
 		);
 
 		// Cencosud
@@ -419,6 +423,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'label' => 'Cencosud',
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-cencosud.png',
 		);
 
 		// Argencard
@@ -499,6 +504,14 @@ class AstropayAdapter extends GatewayAdapter {
 			'group' => 'bt',
 			'countries' => array( 'AR' => true, ),
 			'logo' => 'bank-santander.png',
+		);
+
+		// Boletos
+		$this->payment_submethods['cash_boleto'] = array(
+			'bank_code' => 'BL',
+			'label' => 'Boletos',
+			'group' => 'cash',
+			'countries' => array( 'BR' => true, ),
 		);
 
 		//OXXO
