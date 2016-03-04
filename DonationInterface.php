@@ -94,7 +94,6 @@ $wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.ad
 
 // Paypal
 $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
-$wgAutoloadClasses['PaypalGatewayResult'] = __DIR__ . '/paypal_gateway/paypal_resultswitcher.body.php';
 $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
 
 // Worldpay
@@ -186,6 +185,13 @@ $wgDonationInterfaceDefaultForm = 'RapidHtml';
  * an unsupported currency error.
  */
 $wgDonationInterfaceFallbackCurrency = false;
+
+/**
+ * For a gateway that has exactly one valid currency per supported country,
+ * you can instead set this variable to true to make gateway forms use an
+ * appropriate fallback currency for the selected country.
+ */
+$wgDonationInterfaceFallbackCurrencyByCountry = false;
 
 /**
  * When this is true and an unsupported currency has been converted to the
@@ -340,7 +346,7 @@ $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js';
 
 $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-$wgPaypalGatewayReturnURL = ''; //'http://127.0.0.1/index.php/Special:PaypalGatewayResult';
+$wgPaypalGatewayCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
 $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
 $wgPaypalGatewayHtmlFormDir = __DIR__ . '/paypal_gateway/forms/html';
@@ -829,7 +835,6 @@ $wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstropayAdapter';
 
 $wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-$wgSpecialPages['PaypalGatewayResult'] = 'PaypalGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
@@ -1074,6 +1079,43 @@ $wgDonationInterfaceFormDirs = array(
 // Load the default form settings.
 require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 
+<<<<<<< HEAD
+=======
+/**
+ * FUNCTIONS
+ */
+
+function efDonationInterfaceUnitTests( &$files ) {
+	global $wgAutoloadClasses;
+
+	$testDir = __DIR__ . '/tests/';
+
+	$files[] = $testDir . 'AllTests.php';
+
+	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+	$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
+	$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
+	$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
+	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
+	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
+	$wgAutoloadClasses['TestingAstropayAdapter'] = $testDir . 'includes/test_gateway/TestingAstropayAdapter.php';
+	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/TestingAmazonGateway.php';
+	$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
+	$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
+	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
+	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
+	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
+	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
+	$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
+	$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
+
+	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
+
+	return true;
+}
+
+>>>>>>> master
 // Include composer's autoload if the vendor directory exists.  If we have been
 // included via Composer, our dependencies should already be autoloaded at the
 // top level.

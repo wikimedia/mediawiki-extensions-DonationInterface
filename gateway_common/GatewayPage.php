@@ -67,7 +67,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $language ) {
 			$this->getContext()->setLanguage( $language );
 			global $wgLang;
-			$wgLang = $this->getContext()->getLanguage();
+			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {

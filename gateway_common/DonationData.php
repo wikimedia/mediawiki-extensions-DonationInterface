@@ -1028,7 +1028,15 @@ class DonationData implements LogPrefixProvider {
 	 * @throws DomainException
 	 */
 	protected function fallbackToDefaultCurrency() {
-		$defaultCurrency = $this->gateway->getGlobal( 'FallbackCurrency' );
+		$adapterClass = $this->gateway->getGatewayAdapterClass();
+		if ( $this->gateway->getGlobal( 'FallbackCurrencyByCountry' ) ) {
+			if ( isset( $this->normalized['country'] ) ) {
+				$country = $this->normalized['country'];
+				$defaultCurrency = NationalCurrencies::getNationalCurrency( $country );
+			}
+		} else {
+			$defaultCurrency = $this->gateway->getGlobal( 'FallbackCurrency' );
+		}
 		if ( !$defaultCurrency ) {
 			return;
 		}
@@ -1036,7 +1044,6 @@ class DonationData implements LogPrefixProvider {
 		// intermediate currency if converting between two others.
 		$oldCurrency = $this->normalized['currency_code'];
 		if ( $oldCurrency === $defaultCurrency ) {
-			$adapterClass = $this->gateway->getGatewayAdapterClass();
 			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
 		$oldAmount = $this->normalized['amount'];

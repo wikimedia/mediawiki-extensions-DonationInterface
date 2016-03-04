@@ -238,13 +238,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				continue;
 			}
 
-			// Filter on currency; and if it's too generic we add what the adapter thinks it can support
-			/*if ( $meta['currencies'] === 'ALL' ) {
-				$meta['currencies'] = array( '+' => $adapterName::getCurrencies() );
-			} elseif( array_key_exists( '-', $meta['currencies'] ) && !array_key_exists( '+', $meta['currencies'] ) ) {
-				$meta['currencies']['+'] = $adapterName::getCurrencies();
-			}*/
-
 			if ( !is_null( $currency ) && !DataValidator::value_appears_in( $currency, $meta['currencies'] )
 			) {
 				unset( $forms[$name] );

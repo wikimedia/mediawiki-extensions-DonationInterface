@@ -865,6 +865,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->payment_submethods['bt'] = array(
 			'paymentproductid'	=> 11,
 			'label'	=> 'Bank Transfer',
+			'group' => 'bt',
 			'validation' => array(),
 			'keys' => array(),
 		);
@@ -2030,9 +2031,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Gets all the currency codes appropriate for this gateway
+	 * @param array $options data to filter on
 	 * @return array of currency codes
+	 * TODO: filter on country/method using form settings
 	 */
-	static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
 		// If you update this list, also update the list in the exchange_rates drupal module.
 		$currencies = array(
 			'AED', // UAE dirham

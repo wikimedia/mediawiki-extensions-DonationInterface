@@ -103,6 +103,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			: 'three-per-line';
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
+		$this->addRequiredFields( $data );
+		$this->addCurrencyData( $data );
+		$data['recurring'] = (bool) $data['recurring'];
+		return $data;
+	}
+
+	protected function addRequiredFields( &$data ) {
 		$required_fields = $this->gateway->getRequiredFields();
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
@@ -129,15 +136,21 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 			}
 		}
+	}
 
-		foreach( $this->gateway->getCurrencies() as $currency ) {
-			$data['currencies'][] = array(
-				'code' => $currency,
-				'selected' => ( $currency === $data['currency_code'] ),
-			);
+	protected function addCurrencyData( &$data ) {
+		$supportedCurrencies = $this->gateway->getCurrencies();
+		if ( count( $supportedCurrencies ) === 1 ) {
+			$data['show_currency_selector'] = false;
+		} else {
+			$data['show_currency_selector'] = true;
+			foreach( $this->gateway->getCurrencies() as $currency ) {
+				$data['currencies'][] = array(
+					'code' => $currency,
+					'selected' => ( $currency === $data['currency_code'] ),
+				);
+			}
 		}
-		$data['recurring'] = (bool) $data['recurring'];
-		return $data;
 	}
 
 	protected function getErrors() {

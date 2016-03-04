@@ -527,19 +527,29 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->unstaged_data['payment_submethod'] = $keys[0];
 	}
 
-	static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
+		$country = isset( $options['country'] ) ?
+					$options['country'] :
+					$this->getData_Unstaged_Escaped( 'country' );
+
+		if ( !$country ) {
+			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
+		}
 		$currencies = array(
-			'ARS', // Argentinian peso
-			'BOB', // Bolivian Boliviano
-			'BRL', // Brazilian Real
-			'BZD', // Belize Dollar
-			'CLP', // Chilean Peso
-			'COP', // Colombian Peso
-			'MXN', // Mexican Peso
-			'PEN', // Peruvian Nuevo Sol
-			'USD', // U.S. dollar
+			'AR' => 'ARS', // Argentinian peso
+			'BO' => 'BOB', // Bolivian Boliviano
+			'BR' => 'BRL', // Brazilian Real
+			'BZ' => 'BZD', // Belize Dollar
+			'CL' => 'CLP', // Chilean Peso
+			'CO' => 'COP', // Colombian Peso
+			'MX' => 'MXN', // Mexican Peso
+			'PE' => 'PEN', // Peruvian Nuevo Sol
+			'US' => 'USD', // U.S. dollar
 		);
-		return $currencies;
+		if ( !isset( $currencies[$country] ) ) {
+			throw new OutOfBoundsException( "No supported currencies for $country" );
+		}
+		return (array)$currencies[$country];
 	}
 
 	/**

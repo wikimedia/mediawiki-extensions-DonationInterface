@@ -291,11 +291,12 @@ class AdyenAdapter extends GatewayAdapter {
 		return $transaction;
 	}
 
-	static function getCurrencies() {
+	public function getCurrencies( $options = array() ) {
 		// See http://www.adyen.com/platform/all-countries-all-currencies/
 		// This should be the list of all global "acceptance currencies".  Not
 		// finding that list, I've used everything for which we keep
 		// conversion rates.
+		// TODO: do we need to filter by country/method?
 		$currencies = array(
 			'ADF', // Andorran Franc
 			'ADP', // Andorran Peseta
