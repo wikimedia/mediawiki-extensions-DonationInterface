@@ -107,8 +107,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * When minFraud gets a blank answer, we should assign points according to
-	 * $wgDonationInterfaceMinFraudErrorScore.
+	 * Test we correctly add a real score from minFraud
 	 */
 	function testMinFraudRealScore() {
 		$options = $this->getDonorTestData();
@@ -126,24 +125,10 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'"event":{"transaction_id":"' .
 				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .'"}}'
 			)->willReturn( [
-			200, 'application/json', '{
-	"id": "5bc5d6c2-b2c8-40af-87f4-6d61af86b6ae",
-	"risk_score": 15.25,
-	"funds_remaining": 250.00,
-	"queries_remaining": 500000,
- 
-	"ip_address": {
-		"risk": 15.25
-	},
- 
-	"disposition": {
-		 "action": "accept",
-		 "reason": "default"
-	},
-
-	"warnings": []
-	 }'
-		] );
+				200, 'application/json', file_get_contents(
+					__DIR__ . '/includes/Responses/minFraud/15points.json'
+				)
+			] );
 
 		$gateway->runAntifraudFilters();
 
@@ -177,24 +162,73 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		);
 		$this->assertEquals( $expected, $message );
 	}
-}
-// Stub out Minfraud class for CI tests
-if ( !class_exists( 'CreditCardFraudDetection' ) ) {
-	class CreditCardFraudDetection {
-		public $server;
 
-		public function filter_field( $a, $b ) {
-			return 'blah';
-		}
+	/**
+	 * Make sure we send the right stuff when extra fields are enabled
+	 */
+	function testMinFraudExtras() {
+		$options = $this->getDonorTestData();
+		$options['email'] = 'somebody@wikipedia.org';
+		$options['payment_method'] = 'cc';
 
-		public function query() {
-		}
+		$gateway = $this->getFreshGatewayObject( $options );
 
-		public function input( $a ) {
-		}
+		$this->setMwGlobals( [
+			'wgDonationInterfaceMinFraudExtraFields' => [
+				'email',
+				'first_name',
+				'last_name',
+				'street_address',
+				'amount',
+				'currency'
+			]
+		] );
+		$this->request->expects( $this->once() )
+			->method( 'post' )
+			->with(
+				'{"billing":{"city":"San Francisco","region":"CA","postal":"94105","country":"US",' .
+				'"first_name":"Firstname","last_name":"Surname","address":"123 Fake Street"},' .
+				'"device":{"ip_address":"127.0.0.1"},' .
+				'"email":{"address":"somebody@wikipedia.org","domain":"wikipedia.org"},' .
+				'"event":{"transaction_id":"' .
+				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .
+				'"},"order":{"amount":"1.55","currency":"USD"}}'
+			)->willReturn( [
+				200, 'application/json', file_get_contents(
+					__DIR__ . '/includes/Responses/minFraud/15points.json'
+				)
+			] );
 
-		public function output() {
-			return array();
-		}
+		$gateway->runAntifraudFilters();
+
+		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 72.75, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+		$expected = array(
+			'validation_action' => 'challenge',
+			'risk_score' => 72.75,
+			'score_breakdown' => array(
+				'initial' => 0,
+				'getScoreUtmCampaignMap' => 0,
+				'getScoreCountryMap' => 20,
+				'getScoreUtmSourceMap' => 0,
+				'getScoreUtmMediumMap' => 0,
+				'getScoreEmailDomainMap' => 37.5,
+				'getCVVResult' => 0,
+				'getAVSResult' => 0,
+				'minfraud_filter' => 15.25,
+			),
+			'user_ip' => '127.0.0.1',
+			'gateway_txn_id' => false,
+			'date' => $message['date'],
+			'server' => gethostname(),
+			'gateway' => 'globalcollect',
+			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'payment_method' => 'cc',
+		);
+		$this->assertEquals( $expected, $message );
 	}
 }

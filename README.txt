@@ -414,6 +414,16 @@ $wgDonationInterfaceMinFraudErrorScore = 50
  */
 $wgDonationInterfaceMinFraudAlarmLimit = 25000
 
+/**
+ * Additional fields to send in each Minfraud request.
+ * Parameter documentation: http://dev.maxmind.com/minfraud/#Input
+ * We will always send city, region, postal, country, domain, email (MD5
+ * hashed), transaction_id, ip_address, user_agent, and accept_language.
+ * Things you can put here: email (send the real address instead of a hash),
+ * amount, currency, first_name, last_name, and street_address.
+ */
+$wgDonationInterfaceMinFraudExtraFields = array()
+
 //Referrer Filter globals
 $wgDonationInterfaceCustomFiltersRefRules = array()
 

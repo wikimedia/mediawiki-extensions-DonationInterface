@@ -1,0 +1,17 @@
+{
+  "id": "5bc5d6c2-b2c8-40af-87f4-6d61af86b6ae",
+  "risk_score": 15.25,
+  "funds_remaining": 250.00,
+  "queries_remaining": 500000,
+
+  "ip_address": {
+    "risk": 15.25
+  },
+
+  "disposition": {
+    "action": "accept",
+    "reason": "default"
+  },
+
+  "warnings": []
+}
