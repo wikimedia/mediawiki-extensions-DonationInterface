@@ -1079,43 +1079,6 @@ $wgDonationInterfaceFormDirs = array(
 // Load the default form settings.
 require_once __DIR__ . '/DonationInterfaceFormSettings.php';
 
-<<<<<<< HEAD
-=======
-/**
- * FUNCTIONS
- */
-
-function efDonationInterfaceUnitTests( &$files ) {
-	global $wgAutoloadClasses;
-
-	$testDir = __DIR__ . '/tests/';
-
-	$files[] = $testDir . 'AllTests.php';
-
-	$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
-	$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
-	$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
-	$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
-	$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
-	$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
-	$wgAutoloadClasses['TestingAstropayAdapter'] = $testDir . 'includes/test_gateway/TestingAstropayAdapter.php';
-	$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/TestingAmazonGateway.php';
-	$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
-	$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
-	$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
-	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
-	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
-	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
-	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
-	$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
-	$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
-
-	$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
-
-	return true;
-}
-
->>>>>>> master
 // Include composer's autoload if the vendor directory exists.  If we have been
 // included via Composer, our dependencies should already be autoloaded at the
 // top level.
