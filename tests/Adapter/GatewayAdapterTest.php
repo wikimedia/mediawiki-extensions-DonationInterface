@@ -289,10 +289,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	function testGetScoreName() {
-		$this->setMwGlobals( array( 'wgDonationInterfaceKeyMapA' => array('a','s','d','f','q','w','e','r','t'),
-									'wgDonationInterfaceKeyMapB' => array(),
-									'wgDonationInterfaceNameGibberishWeight' => .9,
-									'wgDonationInterfaceNameScore' => 10) );
+		$rule = array(
+			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
+			'KeyMapB' => array(),
+			'GibberishWeight' => .9,
+			'Score' => 10
+		);
+		$this->setMwGlobals(
+			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
+		);
 		$init = $this->getDonorTestData();
 		$init['fname'] = 'asdf';
 		$init['lname'] = 'qwert';

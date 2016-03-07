@@ -2849,59 +2849,60 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return false;
 	}
 
-     /**
+	/**
 	 * This custom filter function checks the global variable:
-	 *
-	 * KeyMapA
-	 * KeyMapB
+	 * wgDonationInterfaceNameFilterRules
+	 * Each entry in that array has keys
+	 *   KeyMapA, KeyMapB: define keyboard zones
+	 *   GibberishWeight: threshold fraction of name letters in a single zone
+	 *   Score: added to the total fraud score when this threshold is exceeded
 	 *
 	 * How the score is tabulated:
 	 *  - If the configurable portion letters in a name come from the same zone points are added.
 	 *  - Returns an integer: 0 <= $score <= 100
 	 *
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
-	 * @see $wgDonationInterfaceKeyMapA* @see $wgDonationInterfaceKeyMapB
+	 * @see $wgDonationInterfaceNameFilterRules
 	 *
 	 * @return integer
 	 */
-        public function getScoreName(){
+	public function getScoreName(){
+		$fName = $this->getData_Unstaged_Escaped( 'fname' );
+		$lName = $this->getData_Unstaged_Escaped( 'lname' );
 
-			$fName = $this->getData_Unstaged_Escaped( 'fname' );
-			$lName = $this->getData_Unstaged_Escaped( 'lname' );
+		$nameArray = str_split( strtolower( $fName . $lName ) );
+		$rules = $this->getGlobal( 'NameFilterRules' );
+		$score = 0;
 
-			$nameArray = str_split( strtolower( $fName . $lName ) );
+		foreach( $rules as $rule ) {
+			$keyMapA = $rule['KeyMapA'];
+			$keyMapB = $rule['KeyMapB'];
 
-			$keyMapA = $this->getGlobal( 'KeyMapA' );
+			$gibberishWeight = $rule['GibberishWeight'];
 
-			$keyMapB = $this->getGlobal( 'KeyMapB' );
-
-			$gibberishWeight = $this->getGlobal( 'NameGibberishWeight' );
-
-			$failScore = $this->getGlobal( 'NameScore' );
+			$failScore = $rule['Score'];
 
 			$points = 0;
 
-			$score = 0;
-
-			if ( is_array( $nameArray ) && !empty( $nameArray ) ){
-				foreach($nameArray as $letter){
+			if ( is_array( $nameArray ) && !empty( $nameArray ) ) {
+				foreach ( $nameArray as $letter ) {
 					// For each char in zone A add a point, zone B subtract.
-					if( in_array( $letter, $keyMapA ) ){
+					if ( in_array( $letter, $keyMapA ) ) {
 						$points++;
 					}
-					if( in_array( $letter, $keyMapB ) ){
+					if ( in_array( $letter, $keyMapB ) ) {
 						$points--;
 					}
 				}
 
-				if( abs( $points ) / count( $nameArray ) >= $gibberishWeight ){
-					$score = $failScore;
+				if ( abs( $points ) / count( $nameArray ) >= $gibberishWeight ) {
+					$score += $failScore;
 				}
 			}
-
-			return $score;
-
 		}
+		return $score;
+	}
+
 	/**
 	 * This custom filter function checks the global variable:
 	 *
