@@ -288,6 +288,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'AR' => true,
 				'BR' => true,
+				'CL' => true,
 				'MX' => true,
 				'CO' => true,
 			),
@@ -302,10 +303,22 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'AR' => true,
 				'BR' => true,
+				'CL' => true,
 				'MX' => true,
 				'CO' => true,
 			),
 			'logo' => 'card-mc-lg.png',
+		);
+
+		// Magna
+		$this->payment_submethods['magna'] = array(
+			'bank_code' => 'MG',
+			'label' => 'Magna',
+			'group' => 'cc',
+			'countries' => array(
+				'CL' => true,
+			),
+			'logo' => 'card-magna.png',
 		);
 
 		// American Express
@@ -316,6 +329,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'BR' => true,
 				'AR' => true,
+				'CL' => true,
 				'CO' => true,
 			),
 			'logo' => 'card-amex-lg.png',
@@ -358,6 +372,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'group' => 'cc',
 			'countries' => array(
 				'BR' => true,
+				'CL' => true,
 				'CO' => true,
 			),
 			'logo' => 'card-dinersclub-lg.png',
@@ -435,12 +450,40 @@ class AstropayAdapter extends GatewayAdapter {
 			'logo' => 'card-argencard.png',
 		);
 
+		// CMR Falabella
+		$this->payment_submethods['cmr'] = array(
+			'bank_code' => 'CM',
+			'label' => 'CMR',
+			'group' => 'cc',
+			'countries' => array( 'CL' => true, ),
+			'logo' => 'card-cmr.png',
+		);
+
+		// Presto
+		$this->payment_submethods['presto'] = array(
+			'bank_code' => 'PR',
+			'label' => 'Presto',
+			'group' => 'cc',
+			'countries' => array( 'CL' => true, ),
+			'logo' => 'card-presto.png',
+		);
+
 		// Webpay
 		$this->payment_submethods['webpay'] = array(
 			'bank_code' => 'WP',
 			'label' => 'Webpay',
-			'group' => 'cc',
+			'group' => array( 'cc', 'bt', ),
 			'countries' => array( 'CL' => true, ),
+			'logo' => 'bank-webpay.png',
+		);
+
+		// Banco de Chile
+		$this->payment_submethods['banco_de_chile'] = array(
+			'bank_code' => 'BX',
+			'label' => 'Banco de Chile',
+			'group' => 'bt',
+			'countries' => array( 'CL' => true, ),
+			'logo' => 'bank-banco_de_chile.png',
 		);
 
 		// Banco do Brasil
@@ -713,7 +756,8 @@ class AstropayAdapter extends GatewayAdapter {
 		$method = $this->getData_Staged( 'payment_method' );
 		$bank = $this->getData_Staged( 'bank_code' );
 		$filter = function( $submethod ) use ( $method, $bank ) {
-			return $submethod['group'] === $method && $submethod['bank_code'] === $bank;
+			$groups = (array) $submethod['group'];
+			return in_array( $groups, $method ) && $submethod['bank_code'] === $bank;
 		};
 		$candidates = array_filter( $this->payment_submethods, $filter );
 		if ( count( $candidates ) !== 1 ) {
