@@ -315,6 +315,7 @@
 	"donate_interface-cvv-number": "Número CVV",
 	"donate_interface-verification-number": "Número de verificación",
 	"donate_interface-what-is-this": "¿Qué es esto?",
+	"donate_interface-debit": "débito",
 	"donate_interface-do-not-include-dashes": "No incluyas guiones",
 	"donate_interface-please-donate-today": "Haz una donación hoy",
 	"donate_interface-donate-now": "Dona ahora",

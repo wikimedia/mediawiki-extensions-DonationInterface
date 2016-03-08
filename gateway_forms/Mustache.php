@@ -98,6 +98,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				if ( isset( $submethod['logo'] ) ) {
 					$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/{$submethod['logo']}";
 				}
+				if ( isset( $submethod['sub_text_key'] ) ) {
+					$submethod['has_sub_text'] = true;
+				}
 				$data['submethods'][] = $submethod;
 			}
 
