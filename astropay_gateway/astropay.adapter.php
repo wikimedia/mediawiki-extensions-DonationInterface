@@ -256,6 +256,14 @@ class AstropayAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->payment_methods['cash'] = array(
+			'validation' => array(
+				'name' => true,
+				'email' => true,
+				'fiscal_number' => true,
+			),
+		);
+
 		$this->payment_submethods = array();
 
 		if ( self::getGlobal( 'Test' ) ) {
@@ -280,6 +288,8 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'AR' => true,
 				'BR' => true,
+				'MX' => true,
+				'CO' => true,
 			),
 			'logo' => 'card-visa-lg.png',
 		);
@@ -292,6 +302,8 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'AR' => true,
 				'BR' => true,
+				'MX' => true,
+				'CO' => true,
 			),
 			'logo' => 'card-mc-lg.png',
 		);
@@ -301,22 +313,27 @@ class AstropayAdapter extends GatewayAdapter {
 			'bank_code' => 'AE',
 			'label' => 'American Express',
 			'group' => 'cc',
-			'countries' => array( 'BR' => true, ),
+			'countries' => array(
+				'BR' => true,
+				'AR' => true,
+				'CO' => true,
+			),
 			'logo' => 'card-amex-lg.png',
 		);
 
 		// Visa Debit
-		$this->payment_submethods['visa_debit'] = array(
+		$this->payment_submethods['visa-debit'] = array(
 			'bank_code' => 'VD',
 			'label' => 'Visa Debit',
 			'group' => 'cc',
 			'countries' => array(
 				'MX' => true,
 			),
+			'logo' => 'card-visa-debit.png',
 		);
 
 		// MasterCard debit
-		$this->payment_submethods['mc_debit'] = array(
+		$this->payment_submethods['mc-debit'] = array(
 			'bank_code' => 'MD',
 			'label' => 'Mastercard Debit',
 			'group' => 'cc',
@@ -335,11 +352,14 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 
 		// Diners Club
-		$this->payment_submethods['dc'] = array(
+		$this->payment_submethods['diners'] = array(
 			'bank_code' => 'DC',
 			'label' => 'Diners Club',
 			'group' => 'cc',
-			'countries' => array( 'BR' => true, ),
+			'countries' => array(
+				'BR' => true,
+				'CO' => true,
+			),
 			'logo' => 'card-dinersclub-lg.png',
 		);
 
@@ -352,6 +372,60 @@ class AstropayAdapter extends GatewayAdapter {
 			'logo' => 'card-hiper.png',
 		);
 
+		// MercadoLivre
+		$this->payment_submethods['mercadolivre'] = array(
+			'bank_code' => 'ML',
+			'label' => 'MercadoLivre',
+			'group' => 'cc',
+			'countries' => array( 'BR' => true, ),
+			'logo' => 'card-mercadolivre.png',
+		);
+
+		// Cabal
+		$this->payment_submethods['cabal'] = array(
+			'bank_code' => 'CL',
+			'label' => 'Cabal',
+			'group' => 'cc',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-cabal.png',
+		);
+
+		// Naranja
+		$this->payment_submethods['naranja'] = array(
+			'bank_code' => 'NJ',
+			'label' => 'Naranja',
+			'group' => 'cc',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-naranja.png',  //check logo
+		);
+
+		// Tarjeta Shopping
+		$this->payment_submethods['shopping'] = array(
+			'bank_code' => 'TS',
+			'label' => 'Tarjeta Shopping',
+			'group' => 'cc',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-shopping.png',
+		);
+
+		// Nativa
+		$this->payment_submethods['nativa'] = array(
+			'bank_code' => 'NT',
+			'label' => 'Nativa',
+			'group' => 'cc',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-nativa.png',
+		);
+
+		// Cencosud
+		$this->payment_submethods['cencosud'] = array(
+			'bank_code' => 'TS',
+			'label' => 'Cencosud',
+			'group' => 'cc',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'card-cencosud.png',
+		);
+
 		// Argencard
 		$this->payment_submethods['argen'] = array(
 			'bank_code' => 'AG',
@@ -359,6 +433,14 @@ class AstropayAdapter extends GatewayAdapter {
 			'group' => 'cc',
 			'countries' => array( 'AR' => true, ),
 			'logo' => 'card-argencard.png',
+		);
+
+		// Webpay
+		$this->payment_submethods['webpay'] = array(
+			'bank_code' => 'WP',
+			'label' => 'Webpay',
+			'group' => 'cc',
+			'countries' => array( 'CL' => true, ),
 		);
 
 		// Banco do Brasil
@@ -413,6 +495,120 @@ class AstropayAdapter extends GatewayAdapter {
 			'group' => 'bt',
 			'countries' => array( 'BR' => true, ),
 			'logo' => 'bank-santander.png',
+		);
+
+		// Santander (Argentina)
+		$this->payment_submethods['santander_rio'] = array(
+			'bank_code' => 'SI',
+			'label' => 'Santander',
+			'group' => 'bt',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'bank-santander.png',
+		);
+
+		// Boletos
+		$this->payment_submethods['cash_boleto'] = array(
+			'bank_code' => 'BL',
+			'label' => 'Boletos',
+			'group' => 'cash',
+			'countries' => array( 'BR' => true, ),
+		);
+
+		//OXXO
+		$this->payment_submethods['cash_oxxo'] = array(
+			'bank_code' => 'OX',
+			'label' => 'OXXO',
+			'group' => 'cash',
+			'countries' => array( 'MX' => true, ),
+			'logo' => 'cash-oxxo.png',
+		);
+		// Santander (Mexico)
+		$this->payment_submethods['cash_santander'] = array(
+			'bank_code' => 'SM',
+			'label' => 'Santander',
+			'group' => 'cash',
+			'countries' => array( 'MX' => true, ),
+			'logo' => 'bank-santander.png',
+		);
+
+		//Banamex
+		$this->payment_submethods['cash_banamex'] = array(
+			'bank_code' => 'BM',
+			'label' => 'Banamex',
+			'group' => 'cash',
+			'countries' => array( 'MX' => true, ),
+			'logo' => 'cash-banamex.png',
+		);
+
+		//Bancomer
+		$this->payment_submethods['cash_bancomer'] = array(
+			'bank_code' => 'BM',
+			'label' => 'Bancomer',
+			'group' => 'cash',
+			'countries' => array( 'MX' => true, ),
+			'logo' => 'cash-bancomer.png',
+		);
+
+		//Rapi Pago
+		$this->payment_submethods['cash_rapipago'] = array(
+			'bank_code' => 'RP',
+			'label' => 'Rapi Pago',
+			'group' => 'cash',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'cash-rapipago.png',
+		);
+
+		//Pago Facil
+		$this->payment_submethods['cash_pago_facil'] = array(
+			'bank_code' => 'PF',
+			'label' => 'Pago Facil',
+			'group' => 'cash',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'cash-pago-facil.png',
+		);
+
+		//Provencia Pagos
+		$this->payment_submethods['cash_provencia_pagos'] = array(
+			'bank_code' => 'BG',
+			'label' => 'Provencia Pagos',
+			'group' => 'cash',
+			'countries' => array( 'AR' => true, ),
+			'logo' => 'cash-provencia-pagos.png',
+		);
+
+		//Efecty
+		$this->payment_submethods['cash_efecty'] = array(
+			'bank_code' => 'EY',
+			'label' => 'Efecty',
+			'group' => 'cash',
+			'countries' => array( 'CO' => true, ),
+			'logo' => 'cash-efecty.png',
+		);
+		//Davivienda
+		$this->payment_submethods['cash_davivienda'] = array(
+			'bank_code' => 'DA',
+			'label' => 'Davivienda',
+			'group' => 'cash',
+			'countries' => array( 'CO' => true, ),
+			'logo' => 'cash-davivienda.png',
+		);
+
+		//Pago Efectivo
+		$this->payment_submethods['cash_pago_efectivo'] = array(
+			'bank_code' => 'EF',
+			'label' => 'Pago Efectivo',
+			'group' => 'cash',
+			'countries' => array( 'PE' => true, ),
+			'logo' => 'cash-pago-efectivo.png',
+		);
+
+		//Red Pagos
+		$this->payment_submethods['cash_red_pagos'] = array(
+			'bank_code' => 'RE',
+			'label' => 'Red Pagos',
+			'group' => 'cash',
+			'countries' => array( 'UY' => true, ),
+			'logo' => 'cash-red-pagos.png',
 		);
 
 	}

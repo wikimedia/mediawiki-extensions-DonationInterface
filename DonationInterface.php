@@ -758,14 +758,12 @@ $wgDonationInterfaceUtmMediumMap = array();
 $wgDonationInterfaceUtmSourceMap = array();
 
 /**
- * $wgDonationInterfaceKeyMapA
- * $wgDonationInterfaceKeyMapB
- * $wgDonationInterfaceNameGibberishWeight
- * $wgDonationInterfaceNameScore
+ * $wgDonationInterfaceNameFilterRules
  *
+ * For each entry in the rule array,
  * Set KeyMapA and KeyMapB to mutually exclusive arrays of characters.
- * Set NameGibberishWeight to reflect the ratio of characters from one group that will cause a fail.
- * Set NameScore to the number of points to assign on fail.
+ * Set GibberishWeight to reflect the ratio of characters from one group that will cause a fail.
+ * Set Score to the number of points to assign on fail.
  *
  * To enable this filter add this to your LocalSettings.php:
  *
@@ -776,20 +774,18 @@ $wgDonationInterfaceUtmSourceMap = array();
  * 	'getScoreName' => 100,
  * );
  *
- * $wgDonationInterfaceKeyMapA = array('a','s','d');
- *
- * $wgDonationInterfaceKeyMapB = array('h','j','k','l');
- *
- * $wgDonationInterfaceNameGibberishWeight = .9;
- *
- * $wgDonationInterfaceNameScore = 10;
+ * $wgDonationInterfaceNameFilterRules = array(
+ *     array(
+ *         'KeyMapA' => array('a','s','d'),
+ *         'KeyMapB' => array('h','j','k','l'),
+ *         'GibberishWeight' => .9,
+ *         'Score' => 10,
+ *     ),
+ * );
  *
  */
 
-$wgDonationInterfaceKeyMapA = array();
-$wgDonationInterfaceKeyMapB = array();
-$wgDonationInterfaceNameGibberishWeight = 0;
-$wgDonationInterfaceNameScore = 0;
+$wgDonationInterfaceNameFilterRules = array();
 
 $wgDonationInterfaceEnableQueue = false;
 $wgDonationInterfaceEnableConversionLog = false; //this is definitely an Extra

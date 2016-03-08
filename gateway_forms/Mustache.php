@@ -89,18 +89,25 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
 
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
-		// Need to add submethod key to its array 'cause mustache doesn't get keys
-		$data['submethods'] = array();
-		foreach( $availableSubmethods as $key => $submethod ) {
-			$submethod['key'] = $key;
-			if ( isset( $submethod['logo'] ) ) {
-				$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/{$submethod['logo']}";
+		$data['show_submethods'] = ( count( $availableSubmethods ) > 1 );
+		if ( $data['show_submethods'] ) {
+			// Need to add submethod key to its array 'cause mustache doesn't get keys
+			$data['submethods'] = array();
+			foreach ( $availableSubmethods as $key => $submethod ) {
+				$submethod['key'] = $key;
+				if ( isset( $submethod['logo'] ) ) {
+					$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/{$submethod['logo']}";
+				}
+				$data['submethods'][] = $submethod;
 			}
-			$data['submethods'][] = $submethod;
+
+			$data['button_class'] = count( $data['submethods'] ) % 4 === 0
+				? 'four-per-line'
+				: 'three-per-line';
+		} else if ( count( $availableSubmethods ) > 0 ) {
+			$submethodNames = array_keys( $availableSubmethods );
+			$data['submethod'] = $submethodNames[0];
 		}
-		$data['button_class'] = count( $data['submethods'] ) % 4 === 0
-			? 'four-per-line'
-			: 'three-per-line';
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
 		$this->addRequiredFields( $data );
