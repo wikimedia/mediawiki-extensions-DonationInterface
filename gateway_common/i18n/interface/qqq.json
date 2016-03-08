@@ -332,6 +332,7 @@
 	"donate_interface-cvv-number": "Abbreviation of 'Card Verification Value' + 'Number' (unabbreviated)",
 	"donate_interface-verification-number": "Prompt for the card's verification number",
 	"donate_interface-what-is-this": "{{Identical|What is this}}",
+	"donate_interface-debit": "Text to indicate that the choice is a debit card as distinct from a credit card. Maximum width is 8em.",
 	"donate_interface-do-not-include-dashes": "Reminder to exclude dashes from entries",
 	"donate_interface-please-donate-today": "Label for request urging donation",
 	"donate_interface-donate-now": "Label for button to donate",

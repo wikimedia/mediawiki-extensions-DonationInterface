@@ -305,7 +305,9 @@ div.donor { width: 100% !important; }
 }
 #cards.four-per-line > li:nth-child(4),
 #cards.four-per-line > li:nth-child(8) { margin-right: 0; }
-
+#cards li.has_sub_text {
+    padding-bottom: 0.1em;
+}
 #cards.enabled li:hover {
     background: #bcbcbc;
 }
@@ -330,7 +332,15 @@ div.donor { width: 100% !important; }
     margin: 0 auto !important;
     height: auto !important;
 }
-
+#cards li.has_sub_text label {
+    margin-top: 0;
+}
+#cards li.has_sub_text input {
+    margin-bottom: 0.1em !important;
+}
+#cards li label p.card_sub_text {
+    margin: -0.5em auto;
+}
 #paymentContinue, #paymentSubmit {
   margin-top: 1em !important;
   clear: both;

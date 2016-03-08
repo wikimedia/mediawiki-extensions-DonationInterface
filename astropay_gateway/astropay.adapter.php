@@ -343,7 +343,8 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'MX' => true,
 			),
-			'logo' => 'card-visa-debit.png',
+			'logo' => 'card-visa-lg.png',
+			'sub_text_key' => 'donate_interface-debit',
 		);
 
 		// MasterCard debit
@@ -354,6 +355,8 @@ class AstropayAdapter extends GatewayAdapter {
 			'countries' => array(
 				'MX' => true,
 			),
+			'logo' => 'card-mc-lg.png',
+			'sub_text_key' => 'donate_interface-debit',
 		);
 
 		// Elo (Brazil-only)

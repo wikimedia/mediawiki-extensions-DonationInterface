@@ -5,7 +5,15 @@
 {{# show_submethods }}
 										<ul class="options-h enabled {{ button_class }}" id="cards" style="margin: 0;">
 {{# submethods }}
-											<li title="{{ label }}"><input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" /> <label for="submethod-{{ key }}"><img alt="{{ label }}" src="{{ logo }}" /></label></li>
+                                                <li title="{{ label }}" {{# has_sub_text }}class="has_sub_text" {{/ has_sub_text}}>
+                                                <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
+                                                <label for="submethod-{{ key }}">
+                                                    <img alt="{{ label }}" src="{{ logo }}" />
+{{# has_sub_text }}
+                                                    <p class="card_sub_text">{{ l10n sub_text_key }}</p>
+{{/ has_sub_text }}
+                                                </label>
+                                            </li>
 {{/ submethods }}
 										</ul>
 {{/ show_submethods }}
