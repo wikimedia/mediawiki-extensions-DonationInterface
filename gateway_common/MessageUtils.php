@@ -45,7 +45,7 @@ class MessageUtils {
 	/**
 	 * messageExists returns true if a translatable message has been defined
 	 * for the string and language that have been passed in, false if none is
-	 * present.
+	 * present or if the translation is the same as the English.
 	 * @param string $msg_key The message string to look up.
 	 * @param string $language A valid mediawiki language code.
 	 * @return boolean - true if message exists, otherwise false.
@@ -59,11 +59,11 @@ class MessageUtils {
 			}
 
 			# get the english version of the message
-			$msg_en = WmfFramework::formatMessage( $msg_key, 'en' );
+			$msg_en = WmfFramework::formatMessage( $msg_key, array(), 'en' );
 			# attempt to get the message in the specified language
-			$msg_lang = WmfFramework::formatMessage( $msg_key, $language );
+			$msg_lang = WmfFramework::formatMessage( $msg_key, array(), $language );
 
-			# if the messages are the same, the message fellback to English, return false
+			# if the messages are the same, the message fell back to English, return false
 			return strcmp( $msg_en, $msg_lang ) != 0;
 		}
 		return false;
