@@ -188,7 +188,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData();
 		$init['amount'] = '-100.00';
 		$session = array( 'Donor' => $init );
-		$errorMessage = wfMessage('donate_interface-error-msg-field-correction', wfMessage('donate_interface-error-msg-amount')->text())->text();
+		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-amount' )->text();
 		$assertNodes = array(
 			'mw-content-text' => array(
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
