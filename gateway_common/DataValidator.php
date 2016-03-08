@@ -266,6 +266,7 @@ class DataValidator {
 		}
 
 		$errors = array();
+		$results = array();
 
 		$language = DataValidator::guessLanguage( $data );
 		if ( empty( $data['country'] ) ) {
