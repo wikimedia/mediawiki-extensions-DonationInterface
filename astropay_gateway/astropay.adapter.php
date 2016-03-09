@@ -788,6 +788,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'MX' => 'MXN', // Mexican Peso
 			'PE' => 'PEN', // Peruvian Nuevo Sol
 			'US' => 'USD', // U.S. dollar
+			'UY' => 'UYU', // Uruguayan Peso
 		);
 		if ( !isset( $currencies[$country] ) ) {
 			throw new OutOfBoundsException( "No supported currencies for $country" );
