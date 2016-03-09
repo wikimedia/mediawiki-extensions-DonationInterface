@@ -588,7 +588,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		//Bancomer
 		$this->payment_submethods['cash_bancomer'] = array(
-			'bank_code' => 'BM',
+			'bank_code' => 'BV',
 			'label' => 'Bancomer',
 			'group' => 'cash',
 			'countries' => array( 'MX' => true, ),
