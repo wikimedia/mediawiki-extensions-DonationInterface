@@ -27,8 +27,9 @@
  */
 class TestingGlobalCollectGateway extends GlobalCollectGateway {
 
+	protected $adapterClass = 'TestingGlobalCollectAdapter';
+
 	public function __construct() {
-		$this->adapter = new TestingGlobalCollectAdapter();
 		GatewayPage::__construct(); //DANGER: See main class comments.
 		// Don't want untranslated 'TestingGlobalCollectGateway' to foul our tests,
 		// don't want to waste translators' time

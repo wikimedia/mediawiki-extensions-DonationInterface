@@ -2,10 +2,7 @@
 
 class WorldpayGatewayResult extends GatewayPage {
 
-	public function __construct() {
-		$this->adapter = new WorldpayAdapter();
-		parent::__construct();
-	}
+	protected $adapterClass = 'WorldpayAdapter';
 
 	protected function handleRequest() {
 		// Break out of the iframe, signal to skip this next time, and reload.

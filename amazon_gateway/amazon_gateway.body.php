@@ -17,13 +17,8 @@
  */
 
 class AmazonGateway extends GatewayPage {
-	/**
-	 * Constructor - set up the new special page
-	 */
-	public function __construct() {
-		$this->adapter = new AmazonAdapter();
-		parent::__construct(); //the next layer up will know who we are.
-	}
+
+	protected $adapterClass = 'AmazonAdapter';
 
 	/**
 	 * Show the special page

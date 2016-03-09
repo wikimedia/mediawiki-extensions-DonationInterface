@@ -25,6 +25,14 @@
  *
  */
 abstract class GatewayPage extends UnlistedSpecialPage {
+
+	/**
+	 * Derived classes must override this with the name of the gateway
+	 * adapter class to use in this page.
+	 * @var string
+	 */
+	protected $adapterClass;
+
 	/**
 	 * An array of form errors
 	 * @var array $errors
@@ -44,12 +52,32 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected $logger;
 
 	/**
+	 * If set to true in constructor, execute() should immediately display fail page
+	 * @var bool
+	 */
+	private $isFailed = false;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
-		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
-		
+		try {
+			$this->adapter = new $this->adapterClass;
+			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
+			$this->getOutput()->addModules( 'donationInterface.skinOverride' );
+		} catch ( Exception $ex ) {
+			if ( !$this->logger ) {
+				$this->logger = DonationLoggerFactory::getLoggerForType(
+					$this->adapterClass,
+					$this->getLogPrefix()
+				);
+			}
+			$this->logger->error(
+				"Exception in GatewayPage constructor with adapter class {$this->adapterClass}: " .
+				    "{$ex->getMessage()}\n{$ex->getTraceAsString()}"
+			);
+			$this->isFailed = true;
+		}
 		$me = get_called_class();
 		parent::__construct( $me );
 	}
@@ -70,6 +98,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
+		if ( $this->isFailed ) {
+			// Constructor catastrophe, no point in continuing
+			$this->displayFailPage();
+			return;
+		}
+
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
 			$this->logger->info( 'Displaying fail page for disabled gateway' );
 			$this->displayFailPage();
@@ -87,6 +121,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} catch ( Exception $ex ) {
 			$this->logger->error( "Displaying fail page for exception: " . $ex->getMessage() );
 			$this->displayFailPage();
+			return;
 		}
 	}
 
@@ -139,8 +174,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function displayFailPage() {
 		$output = $this->getOutput();
 
-		$page = ResultPages::getFailPage( $this->adapter );
-
+		if ( $this->adapter ) {
+			$page = ResultPages::getFailPage( $this->adapter );
+		} else {
+			$page = ResultPages::getFailPageForType(
+				$this->adapterClass,
+				$this->getLogPrefix()
+			);
+		}
 		$log_message = "Redirecting to [{$page}]";
 		$this->logger->info( $log_message );
 
@@ -452,5 +493,23 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$paymentFrame .= Xml::closeElement( 'iframe' );
 
 		$this->getOutput()->addHTML( $paymentFrame );
+	}
+
+	/**
+	 * Try to get donor information to tag log entries in case we don't
+	 * have an adapter instance.
+	 */
+	protected function getLogPrefix() {
+		$info = array();
+		$donorData = $this->getRequest()->getSessionData( 'Donor' );
+		if ( is_array( $donorData ) ) {
+			if ( isset( $donorData['contribution_tracking_id'] ) ) {
+				$info[] = $donorData['contribution_tracking_id'];
+			}
+			if ( isset( $donorData['order_id'] ) ) {
+				$info[] = $donorData['order_id'];
+			}
+		}
+		return implode( ':', $info ) . ' ';
 	}
 }

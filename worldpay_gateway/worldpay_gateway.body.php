@@ -22,13 +22,7 @@
  */
 class WorldpayGateway extends GatewayPage {
 
-	/**
-	 * Constructor - set up the new special page
-	 */
-	public function __construct() {
-		$this->adapter = new WorldpayAdapter();
-		parent::__construct();
-	}
+	protected $adapterClass = 'WorldpayAdapter';
 
 	/**
 	 * Show the special page
