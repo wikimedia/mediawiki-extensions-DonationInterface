@@ -639,6 +639,14 @@ class AstropayAdapter extends GatewayAdapter {
 			'logo' => 'cash-davivienda.png',
 		);
 
+		// PSE
+		$this->payment_submethods['pse'] = array(
+			'bank_code' => 'PC',
+			'label' => 'PSE',
+			'group' => 'bt',
+			'countries' => array( 'CO' => true, ),
+		);
+
 		//Pago Efectivo
 		$this->payment_submethods['cash_pago_efectivo'] = array(
 			'bank_code' => 'EF',
