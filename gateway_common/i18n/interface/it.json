@@ -298,6 +298,7 @@
 	"donate_interface-cvv-number": "Numero CVV",
 	"donate_interface-verification-number": "Numero di verifica",
 	"donate_interface-what-is-this": "Che cos'è questo?",
+	"donate_interface-debit": "debito",
 	"donate_interface-do-not-include-dashes": "Si prega di non includere trattini",
 	"donate_interface-please-donate-today": "Si prega di donare oggi",
 	"donate_interface-donate-now": "Dona ora",

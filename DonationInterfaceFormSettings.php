@@ -463,30 +463,127 @@ $forms_whitelist['paypal-recurring'] = array(
 $forms_whitelist['astropay'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'BR', ),
-	'currencies' => array( '+' => array(
-		'BRL',
-		'USD',
-	) ),
+	'countries' => array( '+' => 'BR' ),
+	'currencies' => array( '+' => 'BRL' ),
 	'payment_methods' => array(
 		'cc' => array(
 			'visa',
 			'mc',
 			'amex',
-			'visa_debit',
-			'mc_debit',
 			'elo',
-			'dc',
+			'diners',
 			'hiper',
-			'argen',
+			'mercadolivre',
+		),
+		'cash' => array(
+			'cash_boleto',
 		),
 		'bt' => array(
 			'banco_do_brasil',
 			'itau',
 			'bradesco',
-			'caixa',
-			'hsbc',
 			'santander',
+		),
+	),
+);
+$forms_whitelist['astropay-ar'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'AR' ),
+	'currencies' => array( '+' => 'ARS' ),
+	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'amex',
+			'cabal',
+			'naranja',
+			'shopping',
+			'nativa',
+			'cencosud',
+			'argen',
+		),
+		'cash' => array(
+			'cash_rapipago',
+			'cash_pago_facil',
+			'cash_provencia_pagos',
+		),
+		'bt' => array(
+			'santander_rio',
+		),
+	),
+);
+$forms_whitelist['astropay-cl'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'CL' ),
+	'currencies' => array( '+' => 'CLP' ),
+	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'amex',
+			'magna',
+			'diners',
+			'cmr',
+			'presto',
+			'webpay',
+		),
+		'bt' => array(
+			'webpay',
+			'banco_de_chile',
+		),
+	),
+);
+$forms_whitelist['astropay-co'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'CO' ),
+	'currencies' => array( '+' => 'COP' ),
+	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'amex',
+			'diners',
+		),
+		'cash' => array(
+			'cash_efecty',
+			'cash_davivienda',
+		),
+		'bt' => array(
+			'pse',
+		),
+	),
+);
+$forms_whitelist['astropay-mx'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'MX' ),
+	'currencies' => array( '+' => 'MXN' ),
+	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'visa-debit',
+			'mc-debit',
+		),
+		'cash' => array(
+			'cash_oxxo',
+			'cash_santander',
+			'cash_banamex',
+			'cash_bancomer',
+		),
+	),
+);
+$forms_whitelist['astropay-uy'] = array(
+	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'UY' ),
+	'currencies' => array( '+' => 'UYU' ),
+	'payment_methods' => array(
+		'cash' => array(
+			'cash_red_pagos',
 		),
 	),
 );

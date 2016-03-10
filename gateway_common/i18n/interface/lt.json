@@ -267,6 +267,7 @@
 	"donate_interface-cvv-number": "CVV numeris",
 	"donate_interface-verification-number": "Patvirtinimo numeris",
 	"donate_interface-what-is-this": "Kas tai?",
+	"donate_interface-debit": "debetas",
 	"donate_interface-do-not-include-dashes": "Prašome nedėti brūkšnių",
 	"donate_interface-please-donate-today": "Prašome paaukoti šiandien",
 	"donate_interface-donate-now": "Paaukoti dabar",

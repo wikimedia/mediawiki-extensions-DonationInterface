@@ -238,13 +238,12 @@ class AstropayAdapter extends GatewayAdapter {
 	public function definePaymentMethods() {
 		$this->payment_methods = array();
 
-		// TODO if we add countries where fiscal number is not required:
-		// make fiscal_number validation depend on country
+		// fiscal_number is added for all methods (in certain countries)
+		// in this class's override of getRequiredFields
 		$this->payment_methods['cc'] = array(
 			'validation' => array(
 				'name' => true,
 				'email' => true,
-				'fiscal_number' => true,
 			),
 		);
 
@@ -252,7 +251,6 @@ class AstropayAdapter extends GatewayAdapter {
 			'validation' => array(
 				'name' => true,
 				'email' => true,
-				'fiscal_number' => true,
 			),
 		);
 
@@ -260,7 +258,6 @@ class AstropayAdapter extends GatewayAdapter {
 			'validation' => array(
 				'name' => true,
 				'email' => true,
-				'fiscal_number' => true,
 			),
 		);
 
@@ -588,7 +585,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 		//Bancomer
 		$this->payment_submethods['cash_bancomer'] = array(
-			'bank_code' => 'BM',
+			'bank_code' => 'BV',
 			'label' => 'Bancomer',
 			'group' => 'cash',
 			'countries' => array( 'MX' => true, ),
@@ -637,6 +634,14 @@ class AstropayAdapter extends GatewayAdapter {
 			'group' => 'cash',
 			'countries' => array( 'CO' => true, ),
 			'logo' => 'cash-davivienda.png',
+		);
+
+		// PSE
+		$this->payment_submethods['pse'] = array(
+			'bank_code' => 'PC',
+			'label' => 'PSE',
+			'group' => 'bt',
+			'countries' => array( 'CO' => true, ),
 		);
 
 		//Pago Efectivo
@@ -690,7 +695,11 @@ class AstropayAdapter extends GatewayAdapter {
 	 */
 	public function getRequiredFields() {
 		$fields = parent::getRequiredFields();
-		$fields[] = 'fiscal_number';
+		$noFiscalRequired = array( 'MX', 'PE' );
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		if ( !in_array( $country, $noFiscalRequired ) ) {
+			$fields[] = 'fiscal_number';
+		}
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}
@@ -788,6 +797,7 @@ class AstropayAdapter extends GatewayAdapter {
 			'MX' => 'MXN', // Mexican Peso
 			'PE' => 'PEN', // Peruvian Nuevo Sol
 			'US' => 'USD', // U.S. dollar
+			'UY' => 'UYU', // Uruguayan Peso
 		);
 		if ( !isset( $currencies[$country] ) ) {
 			throw new OutOfBoundsException( "No supported currencies for $country" );

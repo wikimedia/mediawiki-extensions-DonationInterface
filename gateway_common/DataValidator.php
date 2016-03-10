@@ -145,18 +145,17 @@ class DataValidator {
 			//getErrorToken is actually for something entirely different: 
 			//Figuring out where on the form the error should land.  
 			$token = self::getErrorToken( $field );
-			$suffix = $token; //defaultness
-			switch ($token){
-				case 'amount': 
-					$suffix = 'invalid-amount';
+			switch ( $token ) {
+				case 'amount':
+					$error_key_calc = 'donate_interface-error-msg-invalid-amount';
+					break;
+				default:
+					$error_key_calc = 'donate_interface-error-msg-' . $token . '-calc';
 					break;
 			}
 
-			$error_key_calc = 'donate_interface-error-msg-' . $suffix . '-calc';
-
-			if ( $type === 'calculated'){
+			if ( $type === 'calculated' ){
 				// try for the special "calculated" error message.
-				// Note: currently only used for country
 				if ( MessageUtils::messageExists( $error_key_calc, $language ) ) {
 					return WmfFramework::formatMessage( $error_key_calc );
 				}

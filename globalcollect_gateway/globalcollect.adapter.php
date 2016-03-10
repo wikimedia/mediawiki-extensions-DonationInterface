@@ -2706,7 +2706,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		} else {
 			// FIXME: Do we want to set this here?
-			$this->staged_data['returnto'] = $this->getThankYouPage();
+			$this->staged_data['returnto'] = ResultPages::getThankYouPage( $this );
 		}
 	}
 

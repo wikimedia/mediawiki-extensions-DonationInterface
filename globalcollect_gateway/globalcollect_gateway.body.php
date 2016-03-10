@@ -100,10 +100,9 @@ class GlobalCollectGateway extends GatewayPage {
 			'payment_submethod' => $this->adapter->getPaymentSubmethod(),
 		);
 
-		$encUrl = Xml::encodeJsVar( wfAppendQuery(
-			$this->adapter->getThankYouPage(),
-			$queryParams
-		) );
+		$encUrl = Xml::encodeJsVar(
+			ResultPages::getThankYouPage( $this->adapter, $queryParams )
+		);
 
 		$link = Html::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
@@ -172,10 +171,9 @@ class GlobalCollectGateway extends GatewayPage {
 			'payment_submethod' => $this->adapter->getPaymentSubmethod(),
 		);
 
-		$encUrl = Xml::encodeJsVar( wfAppendQuery(
-			$this->adapter->getThankYouPage(),
-			$queryParams
-		) );
+		$encUrl = Xml::encodeJsVar(
+			ResultPages::getThankYouPage( $this->adapter, $queryParams )
+		);
 
 		$link = Html::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = $encUrl" ) );
 

@@ -302,6 +302,7 @@
 	"donate_interface-cvv-number": "Номер CVV",
 	"donate_interface-verification-number": "Код перевірки",
 	"donate_interface-what-is-this": "Що це значить?",
+	"donate_interface-debit": "дебет",
 	"donate_interface-do-not-include-dashes": "Будь ласка, не вживайте тире",
 	"donate_interface-please-donate-today": "Будь ласка, зробіть пожертву вже сьогодні",
 	"donate_interface-donate-now": "Пожертвування зараз",

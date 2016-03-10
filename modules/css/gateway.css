@@ -273,6 +273,9 @@ div#content {
         margin:  5px 0;
         padding: 10px 3%;
     }
+    td#donate form input.hidden {
+        display: none;
+    }
 
     .options-h li {
         margin-right: 1em;
@@ -289,7 +292,15 @@ div#content {
 		display: inline-block;
 		width: 100%;
 		float: left;
-	} 
+	}
+
+    ul#cards li.has_sub_text {
+        padding-bottom: 0.6em;
+    }
+
+    ul#cards li.has_sub_text input {
+        margin-bottom: 0.3em !important;
+    }
 
     #cards img {
         height: 30px;
