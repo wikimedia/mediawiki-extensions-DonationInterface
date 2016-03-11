@@ -62,7 +62,7 @@ class WmfFramework_Mediawiki {
 	 * @return boolean - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language ) {
-		return wfMessage( $msg_key )->inLanguage( $language )->exists();
+		return Language::getMessageFor( $msg_key, $language ) !== null;
 	}
 
 	static function getUserAgent() {
