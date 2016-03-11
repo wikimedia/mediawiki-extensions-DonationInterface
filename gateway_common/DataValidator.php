@@ -122,7 +122,7 @@ class DataValidator {
 
 		if ( $country !== null && in_array( $message_field, self::$countrySpecificFields ) ) {
 			$translated_field_name = MessageUtils::getCountrySpecificMessage( $error_message_field_key, $country, $language );
-		} else if ( MessageUtils::messageExists( $error_message_field_key, $language ) ) {
+		} else if ( WmfFramework::messageExists( $error_message_field_key, $language ) ) {
 			$translated_field_name = WmfFramework::formatMessage( $error_message_field_key );
 		} else {
 			$translated_field_name = false;
@@ -156,7 +156,7 @@ class DataValidator {
 
 			if ( $type === 'calculated' ){
 				// try for the special "calculated" error message.
-				if ( MessageUtils::messageExists( $error_key_calc, $language ) ) {
+				if ( WmfFramework::messageExists( $error_key_calc, $language ) ) {
 					return WmfFramework::formatMessage( $error_key_calc );
 				}
 			}
@@ -164,7 +164,7 @@ class DataValidator {
 			//try for new more specific default correction message
 			if ( $message_field != 'general' 
 				&& $translated_field_name
-				&& MessageUtils::messageExists( 'donate_interface-error-msg-field-correction', $language ) ) {
+				&& WmfFramework::messageExists( 'donate_interface-error-msg-field-correction', $language ) ) {
 				return WmfFramework::formatMessage(
 					'donate_interface-error-msg-field-correction',
 					$translated_field_name
@@ -622,15 +622,6 @@ class DataValidator {
 				'max' => 14,
 			),
 			'CL' => array(
-				'min' => 8,
-				'max' => 9,
-			),
-			'MX' => array(
-				'min' => 10,
-				'max' => 18,
-			),
-			'PE' => array(
-				'numeric' => true,
 				'min' => 8,
 				'max' => 9,
 			),
