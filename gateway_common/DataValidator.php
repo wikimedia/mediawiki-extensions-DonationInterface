@@ -625,15 +625,6 @@ class DataValidator {
 				'min' => 8,
 				'max' => 9,
 			),
-			'MX' => array(
-				'min' => 10,
-				'max' => 18,
-			),
-			'PE' => array(
-				'numeric' => true,
-				'min' => 8,
-				'max' => 9,
-			),
 			'UY' => array(
 				'numeric' => true,
 				'min' => 6,
