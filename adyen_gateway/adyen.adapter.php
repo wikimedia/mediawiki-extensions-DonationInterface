@@ -564,10 +564,6 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->deleteLimboMessage( 'pending' );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
-			throw new ResponseProcessingException(
-				"Negative response from gateway. Full response: " . print_r( $response, TRUE ),
-				ResponseCodes::UNKNOWN
-			);
 		}
 		$this->runPostProcessHooks();
 	}
