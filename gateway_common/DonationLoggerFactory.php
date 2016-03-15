@@ -69,7 +69,7 @@ class DonationLoggerFactory {
 	 * @return DonationProfiler
 	 */
 	public static function getProfiler( GatewayType $adapter ) {
-		if ( $adapter::getGlobal( 'SaveCommStats' ) ) {
+		if ( $adapter->getGlobal( 'SaveCommStats' ) ) {
 			$commLogger = self::getLogger( $adapter, '_commstats' );
 		} else {
 			$commLogger = null;
@@ -77,7 +77,7 @@ class DonationLoggerFactory {
 		return new DonationProfiler(
 			self::getLogger( $adapter ),
 			$commLogger,
-			$adapter::getGatewayName()
+			$adapter->getGatewayName()
 		);
 	}
 }
