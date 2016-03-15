@@ -16,13 +16,13 @@ class DonationLoggerFactory {
 	public static $overrideLogger = null;
 
 	/**
-	 * @param GatewayAdapter $adapter Get settings from this instance
+	 * @param GatewayType $adapter Get settings from this instance
 	 * @param string $suffix Append this string to the adapter identifier
 	 * @param LogPrefixProvider $prefixer Optionally use this to override
 	 *        prefixing via the adapter.
 	 * @return \Psr\Log\LoggerInterface
 	 */
-	public static function getLogger( GatewayAdapter $adapter = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
+	public static function getLogger( GatewayType $adapter = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
 		}
@@ -65,10 +65,10 @@ class DonationLoggerFactory {
 	/**
 	 * Retrieve a profiler instance which saves communication statistics
 	 * if the adapter's SaveCommStats global is set to true.
-	 * @param GatewayAdapter $adapter
+	 * @param GatewayType $adapter
 	 * @return DonationProfiler
 	 */
-	public static function getProfiler( GatewayAdapter $adapter ) {
+	public static function getProfiler( GatewayType $adapter ) {
 		if ( $adapter::getGlobal( 'SaveCommStats' ) ) {
 			$commLogger = self::getLogger( $adapter, '_commstats' );
 		} else {

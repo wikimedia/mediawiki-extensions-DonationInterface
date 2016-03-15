@@ -8,6 +8,40 @@ interface GatewayType {
 	// all the particulars of the child classes. Aaaaall.
 
 	/**
+	 * Gets the name of the payment processor, e.g. Adyen
+	 * @return string
+	 */
+	public static function getGatewayName();
+
+	/**
+	 * Get a tag to use to identify this adapter in logs, e.g. amazon_gateway
+	 * @return string
+	 */
+	public static function getLogIdentifier();
+
+	/**
+	 * This function is important.
+	 * All the globals in Donation Interface should be accessed in this manner
+	 * if they are meant to have a default value, but can be overridden by any
+	 * of the gateways. It will check to see if a gateway-specific global
+	 * exists, and if one is not set, it will pull the default from the
+	 * wgDonationInterface definitions. Through this function, it is no longer
+	 * necessary to define gateway-specific globals in LocalSettings unless you
+	 * wish to override the default value for all gateways.
+	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
+	 * that value will override the default settings.
+	 *
+	 * @param string $varname The global value we're looking for. It will first
+	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX,
+	 * plus the $varname value. If that doesn't come up with anything that has
+	 * been set, it will use the default value for all of donation interface,
+	 * stored in $wgDonationInterface . $varname.
+	 * @return mixed The configured value for that gateway if it exists. If not,
+	 * the configured value for Donation Interface if it exists or not.
+	 */
+	public static function getGlobal( $varname );
+
+	/**
 	 * Process the API response obtained from the payment processor and set
 	 * properties of transaction_response
 	 * @param array|DomDocument $response Cleaned-up response returned from
@@ -158,9 +192,54 @@ interface GatewayType {
 
 	/**
 	 * Data format for responses coming back from the processor.
-	 * Should be 'xml' // TODO: json
+	 * Should be 'xml', 'json', or 'delimited'
 	 *
 	 * @return string
 	 */
 	function getResponseType();
+
+	/**
+	 * This is the ONLY getData type function anything should be using
+	 * outside the adapter.
+	 * Short explanation of the data population up to now:
+	 *	*) When the gateway adapter is constructed, it constructs a DonationData
+	 *		object.
+	 *	*) On construction, the DonationData object pulls donation data from an
+	 *		appropriate source, and normalizes the entire data set for storage.
+	 *	*) The gateway adapter pulls normalized, html escaped data out of the
+	 *		DonationData object, as the base of its own data set.
+	 * @param string $val The specific key you're looking for (if any)
+	 * @return mixed An array of all the raw, unstaged (but normalized and
+	 * sanitized) data sent to the adapter, or if $val was set, either the
+	 * specific value held for $val, or null if none exists.
+	 */
+	public function getData_Unstaged_Escaped( $val = '' );
+
+	/**
+	 * Retrieve the data we will need in order to retry a payment.
+	 * This is useful in the event that we have just killed a session before
+	 * the next retry.
+	 * @return array Data required for a payment retry.
+	 */
+	public function getRetryData();
+
+	/**
+	 * Get metadata for the specified payment method as set in
+	 * @see definePaymentMethods
+	 *
+	 * @param string|null $payment_method Defaults to the current method
+	 * @return array
+	 * @throws OutOfBoundsException
+	 */
+	public function getPaymentMethodMeta( $payment_method = null );
+
+	/**
+	 * Get metadata for the specified payment submethod
+	 *
+	 * @param string|null $payment_submethod Defaults to the current submethod
+	 * @return array
+	 * @throws OutOfBoundsException
+	 */
+	public function getPaymentSubmethodMeta( $payment_submethod = null );
+
 }

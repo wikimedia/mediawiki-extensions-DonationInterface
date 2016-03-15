@@ -417,21 +417,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->dataObj->addData( $newlyUnstagedData );
 	}
 
-	/**
-	 * This is the ONLY getData type function anything should be using
-	 * outside the adapter.
-	 * Short explanation of the data population up to now:
-	 *	*) When the gateway adapter is constructed, it constructs a DonationData
-	 *		object.
-	 *	*) On construction, the DonationData object pulls donation data from an
-	 *		appropriate source, and normalizes the entire data set for storage.
-	 *	*) The gateway adapter pulls normalized, html escaped data out of the
-	 *		DonationData object, as the base of its own data set.
-	 * @param string $val The specific key you're looking for (if any)
-	 * @return mixed An array of all the raw, unstaged (but normalized and
-	 * sanitized) data sent to the adapter, or if $val was set, either the
-	 * specific value held for $val, or null if none exists.
-	 */
 	public function getData_Unstaged_Escaped( $val = '' ) {
 		if ( $val === '' ) {
 			return $this->unstaged_data;
@@ -444,26 +429,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	/**
-	 * This function is important.
-	 * All the globals in Donation Interface should be accessed in this manner
-	 * if they are meant to have a default value, but can be overridden by any
-	 * of the gateways. It will check to see if a gateway-specific global
-	 * exists, and if one is not set, it will pull the default from the
-	 * wgDonationInterface definitions. Through this function, it is no longer
-	 * necessary to define gateway-specific globals in LocalSettings unless you
-	 * wish to override the default value for all gateways.
-	 * If the variable exists in {prefix}AccountInfo[currentAccountName],
-	 * that value will override the default settings.
-	 *
-	 * @param string $varname The global value we're looking for. It will first
-	 * look for a global named for the instantiated gateway's GLOBAL_PREFIX,
-	 * plus the $varname value. If that doesn't come up with anything that has
-	 * been set, it will use the default value for all of donation interface,
-	 * stored in $wgDonationInterface . $varname.
-	 * @return mixed The configured value for that gateway if it exists. If not,
-	 * the configured value for Donation Interface if it exists or not.
-	 */
 	static function getGlobal( $varname ) {
 		// adding another layer of depth here, in case you're working with two gateways in the same request.
 		// That does, in fact, ruin everything. :/
@@ -3257,12 +3222,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $match;
 	}
 
-	/**
-	 * Retrieve the data we will need in order to retry a payment.
-	 * This is useful in the event that we have just killed a session before
-	 * the next retry.
-	 * @return array Data required for a payment retry.
-	 */
 	public function getRetryData() {
 		$params = array ( );
 		foreach ( $this->dataObj->getRetryFields() as $field ) {
@@ -3675,13 +3634,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->order_id_meta[$key] = $value;
 	}
 
-	/**
-	 * Get payment method meta
-	 *
-	 * @param string|null $payment_method Defaults to the current payment method, if null.
-	 *
-	 * @throws OutOfBoundsException
-	 */
 	public function getPaymentMethodMeta( $payment_method = null ) {
 		if ( $payment_method === null ) {
 			$payment_method = $this->getPaymentMethod();
@@ -3697,12 +3649,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	/**
-	 * Get payment submethod meta
-	 *
-	 * @param    string|null    $payment_submethod    Payment submethods are mapped to paymentproductid
-	 * @throws OutOfBoundsException
-	 */
 	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
 		if ( is_null( $payment_submethod ) ) {
 			$payment_submethod = $this->getPaymentSubmethod();

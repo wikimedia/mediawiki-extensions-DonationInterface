@@ -180,7 +180,7 @@ class DataValidator {
 	 * validate
 	 * Run all the validation rules we have defined against a (hopefully
 	 * normalized) DonationInterface data set.
-	 * @param GatewayAdapter $gateway
+	 * @param GatewayType $gateway
 	 * @param array $data The DonationInterface data set, or a subset thereof.
 	 * @param array $check_not_empty An array of fields to do empty validation
 	 * on. If this is not populated, no fields will throw errors for being empty,
@@ -191,7 +191,7 @@ class DataValidator {
 	 * the main DonationInterface Form class to display. The array will be empty
 	 * if no errors were generated and everything passed OK.
 	 */
-	public static function validate( GatewayAdapter $gateway, $data, $check_not_empty = array()  ){
+	public static function validate( GatewayType $gateway, $data, $check_not_empty = array()  ){
 		//return the array of errors that should be generated on validate.
 		//just the same way you'd do it if you were a form passing the error array around. 
 		

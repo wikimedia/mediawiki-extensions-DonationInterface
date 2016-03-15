@@ -20,7 +20,7 @@
  */
 class PaymentMethod {
 	/**
-	 * @var GatewayAdapter $gateway
+	 * @var GatewayType $gateway
 	 */
 	protected $gateway;
 
@@ -36,7 +36,7 @@ class PaymentMethod {
 	/**
 	 * Build a new PaymentMethod object from an name pair
 	 *
-	 * @param GatewayAdapter $gateway
+	 * @param GatewayType $gateway
 	 * @param string $method_name
 	 * @param string $submethod_name
 	 * @param bool $is_recurring
@@ -44,7 +44,7 @@ class PaymentMethod {
 	 * @return PaymentMethod
 	 */
 	public static function newFromCompoundName(
-		GatewayAdapter $gateway, $method_name, $submethod_name, $is_recurring
+		GatewayType $gateway, $method_name, $submethod_name, $is_recurring
 	) {
 		$method = new PaymentMethod();
 		$method->gateway = $gateway;
