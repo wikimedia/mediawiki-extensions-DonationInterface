@@ -20,9 +20,13 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	protected $cache_obj;
 
-	public function __construct( GatewayType &$gateway_adapter, &$custom_filter_object = null ) {
+	public function __construct(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+
 		parent::__construct( $gateway_adapter );
-		$this->cfo = & $custom_filter_object;
+		$this->cfo = $custom_filter_object;
 	}
 
 	public function filter() {
@@ -152,7 +156,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	}
 	
 
-	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
+	static function onFilter( $gateway_adapter, $custom_filter_object ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
@@ -160,7 +164,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 	
-	static function onPostProcess( GatewayType &$gateway_adapter ) {
+	static function onPostProcess( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
@@ -169,7 +173,11 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $dummy )->postProcess();
 	}
 
-	static function singleton( GatewayType &$gateway_adapter, &$custom_filter_object ) {
+	static function singleton(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
@@ -180,8 +188,9 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * Add a hit to this IP's history for a toxic card.  This is designed to be
 	 * called outside of the usual filter callbacks so we record nasty attempts
 	 * even when the filters aren't called.
+	 * @param GatewayType $gateway adapter instance with user_ip set
 	 */
-	public static function penalize( GatewayType &$gateway ) {
+	public static function penalize( GatewayType $gateway ) {
 		$logger = DonationLoggerFactory::getLogger( $gateway );
 		$logger->info( 'IPVelocityFilter penalizing IP address '
 			. $gateway->getData_Unstaged_Escaped( 'user_ip' )

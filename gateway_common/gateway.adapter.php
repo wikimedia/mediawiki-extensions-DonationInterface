@@ -1187,7 +1187,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Initialize cURL and construct operation (also run hook)
 		$ch = curl_init();
 
-		$hookResult = WmfFramework::runHooks( 'DonationInterfaceCurlInit', array( &$this ) );
+		$hookResult = WmfFramework::runHooks( 'DonationInterfaceCurlInit', array( $this ) );
 		if ( $hookResult == false ) {
 			$this->logger->info( 'cURL transaction aborted on hook DonationInterfaceCurlInit' );
 			$this->setValidationAction( 'reject' );
@@ -2184,7 +2184,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 		// allow any external validators to have their way with the data
 		$this->logger->info( 'Preparing to run custom filters' );
-		WmfFramework::runHooks( 'GatewayValidate', array( &$this ) );
+		WmfFramework::runHooks( 'GatewayValidate', array( $this ) );
 		$this->logger->info( 'Finished running custom filters' );
 
 		//DO NOT set some variable as getValidationAction() here, and keep
@@ -2193,19 +2193,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// if the transaction was flagged for review
 		if ( $this->getValidationAction() == 'review' ) {
 			// expose a hook for external handling of trxns flagged for review
-			WmfFramework::runHooks( 'GatewayReview', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayReview', array( $this ) );
 		}
 
 		// if the transaction was flagged to be 'challenged'
 		if ( $this->getValidationAction() == 'challenge' ) {
 			// expose a hook for external handling of trxns flagged for challenge (eg captcha)
-			WmfFramework::runHooks( 'GatewayChallenge', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayChallenge', array( $this ) );
 		}
 
 		// if the transaction was flagged for rejection
 		if ( $this->getValidationAction() == 'reject' ) {
 			// expose a hook for external handling of trxns flagged for rejection
-			WmfFramework::runHooks( 'GatewayReject', array( &$this ) );
+			WmfFramework::runHooks( 'GatewayReject', array( $this ) );
 		}
 	}
 
@@ -2218,7 +2218,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function runPostProcessHooks() {
 		// expose a hook for any post processing
-		WmfFramework::runHooks( 'GatewayPostProcess', array( &$this ) );
+		WmfFramework::runHooks( 'GatewayPostProcess', array( $this ) );
 
 		try {
 			$this->doStompTransaction();

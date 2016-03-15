@@ -14,9 +14,13 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 	 */
 	public $cfo;
 
-	public function __construct( GatewayType &$gateway_adapter, &$custom_filter_object ) {
+	public function __construct(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+
 		parent::__construct( $gateway_adapter );
-		$this->cfo = & $custom_filter_object;
+		$this->cfo = $custom_filter_object;
 	}
 
 	public function filter() {
@@ -47,7 +51,11 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onFilter( GatewayType &$gateway_adapter, &$custom_filter_object ) {
+	static function onFilter(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+
 		if ( !$gateway_adapter->getGlobal( 'EnableReferrerFilter' ) ||
 			!count( $gateway_adapter->getGlobal( 'CustomFiltersRefRules' ) ) ){
 			return true;
@@ -56,7 +64,11 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
-	static function singleton( GatewayType &$gateway_adapter, &$custom_filter_object ) {
+	static function singleton(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

@@ -40,7 +40,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 *
 	 * @return Gateway_Extras_SessionVelocityFilter
 	 */
-	private static function singleton( GatewayType &$gateway_adapter ) {
+	private static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}
@@ -55,7 +55,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 * @return bool Filter chain termination on FALSE. Also indicates that the cURL transaction
 	 *  should not be performed.
 	 */
-	public static function onCurlInit( GatewayType &$gateway_adapter ) {
+	public static function onCurlInit( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ){
 			return true;
 		}

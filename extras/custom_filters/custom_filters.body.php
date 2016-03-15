@@ -33,7 +33,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 */
 	protected $fraud_logger;
 
-	public function __construct( GatewayType &$gateway_adapter ) {
+	public function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
@@ -110,7 +110,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 */
 	public function validate() {
 		// expose a hook for custom filters
-		WmfFramework::runHooks( 'GatewayCustomFilter', array( &$this->gateway_adapter, &$this ) );
+		WmfFramework::runHooks( 'GatewayCustomFilter', array( $this->gateway_adapter, $this ) );
 		$localAction = $this->determineAction();
 		$this->gateway_adapter->setValidationAction( $localAction );
 
@@ -153,7 +153,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onValidate( &$gateway_adapter ) {
+	static function onValidate( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
@@ -161,7 +161,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		return self::singleton( $gateway_adapter )->validate();
 	}
 
-	static function singleton( &$gateway_adapter ) {
+	static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}

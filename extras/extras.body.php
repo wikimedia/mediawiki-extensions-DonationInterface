@@ -23,8 +23,8 @@ abstract class Gateway_Extras {
 	 */
 	protected $gateway_logger;
 
-	public function __construct( GatewayType &$gateway_adapter ) {
-		$this->gateway_adapter = &$gateway_adapter;
+	public function __construct( GatewayType $gateway_adapter ) {
+		$this->gateway_adapter = $gateway_adapter;
 		$this->transaction_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_trxn' );
 		$this->gateway_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter );
 	}
