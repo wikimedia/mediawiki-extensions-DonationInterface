@@ -123,16 +123,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $logger;
 
 	/**
-	 * Logs to {type}_gateway_commstats
-	 * @var \Psr\Log\LoggerInterface
-	 */
-	protected $commstats_logger;
-
-	/**
 	 * Logs to {type}_gateway_payment_init
 	 * @var \Psr\Log\LoggerInterface
 	 */
 	protected $payment_init_logger;
+
+	/**
+	 * Times and logs various operations
+	 * @var DonationProfiler
+	 */
+	protected $profiler;
 
 	/**
 	 * $transaction_response is the member var that keeps track of the results of
@@ -225,8 +225,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		$this->logger = DonationLoggerFactory::getLogger( $this );
-		$this->commstats_logger = DonationLoggerFactory::getLogger( $this, '_commstats' );
 		$this->payment_init_logger = DonationLoggerFactory::getLogger( $this, '_payment_init' );
+
+		$this->profiler = DonationLoggerFactory::getProfiler( $this );
 
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
@@ -947,14 +948,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				return $this->transaction_response;
 
 			} elseif ( $commType === 'xml' ) {
-				$this->getStopwatch( "buildRequestXML", true ); // begin profiling
+				$this->profiler->getStopwatch( "buildRequestXML", true ); // begin profiling
 				$curlme = $this->buildRequestXML(); // build the XML
-				$this->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
+				$this->profiler->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
 
 			} elseif ( $commType === 'namevalue' ) {
-				$this->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
+				$this->profiler->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
 				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
-				$this->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
+				$this->profiler->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
 
 			} else {
 				throw new UnexpectedValueException( "Communication type of '{$commType}' unknown" );
@@ -976,7 +977,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		/* --- Do the cURL request --- */
-		$this->getStopwatch( __FUNCTION__, true );
+		$this->profiler->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { // We have something to slice and dice.
 			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
@@ -1013,7 +1014,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		// Log out how much time it took for the cURL request
-		$this->saveCommunicationStats( __FUNCTION__, $transaction );
+		$this->profiler->saveCommunicationStats( __FUNCTION__, $transaction );
 
 		if ( !empty( $retryVars ) ) {
 			$this->logger->critical( "$transaction Communication failed (errcode $errCode), will reattempt!" );
@@ -1213,7 +1214,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * problem. (timeout, bad URL, etc.)
 	 */
 	protected function curl_transaction( $data ) {
-		$this->getStopwatch( __FUNCTION__, true );
+		$this->profiler->getStopwatch( __FUNCTION__, true );
 
 		// Basic variable init
 		$retval = false;    // By default return that we failed
@@ -1315,8 +1316,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 			if ( $continue ) {
 				// If we're going to try again, log timing for this particular curl attempt and reset
-				$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "cURL problems" );
-				$this->getStopwatch( __FUNCTION__, true );
+				$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "cURL problems" );
+				$this->profiler->getStopwatch( __FUNCTION__, true );
 			}
 		} while ( $continue ); // End while cURL transaction hasn't returned something useful
 
@@ -1326,7 +1327,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			'result' => $curl_response,
 			'headers' => $headers,
 		);
-		$this->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
+		$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
 
 		return $retval;
 	}
@@ -1498,81 +1499,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	static function getLogIdentifier() {
 		return self::getIdentifier() . '_gateway';
 	}
-	/**
-	 * getStopwatch keeps track of how long things take, for logging,
-	 * output, determining if we should loop on some method again... whatever.
-	 * @staticvar array $start The microtime at which a stopwatch was started.
-	 * @param string $string Some identifier for each stopwatch value we want to
-	 * keep. Each unique $string passed in will get its own value in $start.
-	 * @param bool $reset If this is set to true, it will reset any $start value
-	 * recorded for the $string identifier.
-	 * @return numeric The difference in microtime (rounded to 4 decimal places)
-	 * between the $start value, and now.
-	 */
-	public function getStopwatch( $string, $reset = false ) {
-		static $start = array();
-		$now = microtime( true );
-
-		if ( empty( $start ) || !array_key_exists( $string, $start ) || $reset === true ) {
-			$start[$string] = $now;
-		}
-		$clock = round( $now - $start[$string], 4 );
-		$this->logger->info( "Clock at $string: $clock ($now)" );
-		return $clock;
-	}
-
-	/**
-	 * @param string $function This is the function name that identifies the
-	 * stopwatch that should have already been started with the getStopwatch
-	 * function.
-	 * @param string $additional Additional information about the thing we're
-	 * currently timing. Meant to be easily searchable.
-	 * @param string $vars Intended to be particular values of any variables
-	 * that might be of interest.
-	 */
-	public function saveCommunicationStats( $function = '', $additional = '', $vars = '' ) {
-		static $saveStats = null;
-		static $saveDB = null;
-
-		if ( $saveStats === null ) {
-			$saveStats = self::getGlobal( 'SaveCommStats' );
-		}
-
-		if ( !$saveStats ) {
-			return;
-		}
-
-		if ( $saveDB === null && !$this->isBatchProcessor() ) {
-			$db = ContributionTrackingProcessor::contributionTrackingConnection();
-			if ( $db->tableExists( 'communication_stats' ) ) {
-				$saveDB = true;
-			} else {
-				$saveDB = false;
-			}
-		}
-
-		$params = array(
-			'contribution_id' => $this->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'duration' => $this->getStopwatch( $function ),
-			'gateway' => self::getGatewayName(),
-			'function' => $function,
-			'vars' => $vars,
-			'additional' => $additional,
-		);
-
-		if ( $saveDB ) {
-			$db = ContributionTrackingProcessor::contributionTrackingConnection();
-			$params['ts'] = $db->timestamp();
-			$db->insert( 'communication_stats', $params );
-		} else {
-			// save to syslog. But which syslog?
-			$msg = '';
-			foreach ( $params as $key=>$val ) {
-				$msg .= "$key:$val - ";
-			}
-			$this->commstats_logger->info( $msg );
-		}
-	}
 
 	function xmlChildrenToArray( $xml, $nodename ) {
 		$data = array();
@@ -1623,7 +1549,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function findCodeAction( $transaction, $key, $code ) {
 
-		$this->getStopwatch( __FUNCTION__, true );
+		$this->profiler->getStopwatch( __FUNCTION__, true );
 
 		// Do not allow anything that is not numeric
 		if ( !is_numeric( $code ) ) {

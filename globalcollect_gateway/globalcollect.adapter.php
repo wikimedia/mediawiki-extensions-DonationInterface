@@ -1268,14 +1268,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->session_addDonorData();
 		switch ( $transaction ){
 			case 'Confirm_CreditCard' :
-				$this->getStopwatch( 'Confirm_CreditCard', true );
+				$this->profiler->getStopwatch( 'Confirm_CreditCard', true );
 				$result = $this->transactionConfirm_CreditCard();
-				$this->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
+				$this->profiler->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
 				return $result;
 			case 'Direct_Debit' :
-				$this->getStopwatch( 'Direct_Debit', true );
+				$this->profiler->getStopwatch( 'Direct_Debit', true );
 				$result = $this->transactionDirect_Debit();
-				$this->saveCommunicationStats( 'Direct_Debit', $transaction );
+				$this->profiler->saveCommunicationStats( 'Direct_Debit', $transaction );
 				return $result;
 			case 'Recurring_Charge' :
 				return $this->transactionRecurring_Charge();

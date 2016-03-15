@@ -4,7 +4,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\SyslogHandler;
 
 /**
- * Creates loggers for DonationInterface
+ * Creates loggers and profilers for DonationInterface
  *
  * @author Elliott Eggleston <eeggleston@wikimedia.org>
  */
@@ -16,24 +16,24 @@ class DonationLoggerFactory {
 	public static $overrideLogger = null;
 
 	/**
-	 * @param GatewayAdapter $gateway Get settings from this instance
-	 * @param string $suffix Append this string to the gateway identifier
+	 * @param GatewayAdapter $adapter Get settings from this instance
+	 * @param string $suffix Append this string to the adapter identifier
 	 * @param LogPrefixProvider $prefixer Optionally use this to override
-	 *        prefixing via the gateway.
+	 *        prefixing via the adapter.
 	 * @return \Psr\Log\LoggerInterface
 	 */
-	public static function getLogger( GatewayAdapter $gateway = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
+	public static function getLogger( GatewayAdapter $adapter = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
 		}
-		if ( $gateway === null ) {
+		if ( $adapter === null ) {
 			$identifier = GatewayAdapter::getLogIdentifier();
 			$useSyslog = GatewayAdapter::getGlobal( 'UseSyslog' );
 			$debug = GatewayAdapter::getGlobal( 'LogDebug' );
 		} else {
-			$identifier = $gateway::getLogIdentifier();
-			$useSyslog = $gateway::getGlobal( 'UseSyslog' );
-			$debug = $gateway::getGlobal( 'LogDebug' );
+			$identifier = $adapter::getLogIdentifier();
+			$useSyslog = $adapter::getGlobal( 'UseSyslog' );
+			$debug = $adapter::getGlobal( 'LogDebug' );
 		}
 		$identifier = $identifier . $suffix;
 
@@ -50,15 +50,34 @@ class DonationLoggerFactory {
 		$handler->setFormatter( $formatter );
 
 		if ( $prefixer === null ) {
-			$prefixer = $gateway;
+			$prefixer = $adapter;
 		}
 
-		// If either prefixer or gateway were non-null, add a processor
+		// If either prefixer or adapter were non-null, add a processor
 		if ( $prefixer !== null ) {
 			$processor = new DonationLogProcessor( $prefixer );
 			$handler->pushProcessor( $processor );
 		}
 		$logger->pushHandler( $handler );
 		return $logger;
+	}
+
+	/**
+	 * Retrieve a profiler instance which saves communication statistics
+	 * if the adapter's SaveCommStats global is set to true.
+	 * @param GatewayAdapter $adapter
+	 * @return DonationProfiler
+	 */
+	public static function getProfiler( GatewayAdapter $adapter ) {
+		if ( $adapter::getGlobal( 'SaveCommStats' ) ) {
+			$commLogger = self::getLogger( $adapter, '_commstats' );
+		} else {
+			$commLogger = null;
+		}
+		return new DonationProfiler(
+			self::getLogger( $adapter ),
+			$commLogger,
+			$adapter::getGatewayName()
+		);
 	}
 }

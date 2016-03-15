@@ -43,6 +43,7 @@ $wgAutoloadClasses['CyclicalArray'] = __DIR__ . '/globalcollect_gateway/Cyclical
 $wgAutoloadClasses['DonationData'] = __DIR__ . '/gateway_common/DonationData.php';
 $wgAutoloadClasses['DonationLoggerFactory'] = __DIR__ . '/gateway_common/DonationLoggerFactory.php';
 $wgAutoloadClasses['DonationLogProcessor'] = __DIR__ . '/gateway_common/DonationLogProcessor.php';
+$wgAutoloadClasses['DonationProfiler'] = __DIR__ . '/gateway_common/DonationProfiler.php';
 $wgAutoloadClasses['DonationQueue'] = __DIR__ . '/gateway_common/DonationQueue.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
