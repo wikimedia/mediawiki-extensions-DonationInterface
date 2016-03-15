@@ -326,4 +326,13 @@ interface GatewayType {
 	 */
 	public function getCurrentTransaction();
 
+	/**
+	 * For making freeform stomp messages.
+	 * As these are all non-critical, we don't need to be as strict as we have been with the other stuff.
+	 * But, we've got to have some standards.
+	 * @param array $transaction The fields that we are interested in sending.
+	 * @return array The fields that will actually be sent. So, $transaction ++ some other things we think we're likely to always need.
+	 */
+	public function makeFreeformStompTransaction( $transaction );
+
 }
