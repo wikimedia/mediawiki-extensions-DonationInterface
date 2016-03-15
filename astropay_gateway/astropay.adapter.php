@@ -664,6 +664,13 @@ class AstropayAdapter extends GatewayAdapter {
 
 	}
 
+	function defineStagingHelpers() {
+		// Skip AmountInCents.
+		$this->staging_helpers = array(
+			new StreetAddress(),
+		);
+	}
+
 	function doPayment() {
 		// If this is not our first NewInvoice call, get a fresh order ID
 		if ( $this->session_getData( 'sequence' ) ) {

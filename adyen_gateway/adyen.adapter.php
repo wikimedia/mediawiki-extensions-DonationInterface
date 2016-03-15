@@ -65,6 +65,10 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	function defineStagingHelpers() {
+		$this->staging_helpers = parent::getCoreStagingHelpers();
+	}
+
 	/**
 	 * Define var_map
 	 */

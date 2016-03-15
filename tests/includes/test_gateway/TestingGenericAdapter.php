@@ -91,6 +91,10 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineTransactions() {
 	}
 
+	public function defineStagingHelpers() {
+		$this->staging_helpers = parent::getCoreStagingHelpers();
+	}
+
 	public function defineVarMap() {
 	}
 

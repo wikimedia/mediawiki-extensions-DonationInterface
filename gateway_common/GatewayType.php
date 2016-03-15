@@ -119,6 +119,11 @@ interface GatewayType {
 	function definePaymentMethods();
 
 	/**
+	 * Sets up the $staging_helpers array.
+	 */
+	function defineStagingHelpers();
+
+	/**
 	 * Sets up the $order_id_meta array.
 	 * @TODO: Data Item Class. There should be a class that keeps track of
 	 * the metadata for every field we use (everything that currently comes

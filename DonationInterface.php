@@ -37,6 +37,7 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
 /**
  * CLASSES
  */
+$wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
 $wgAutoloadClasses['CyclicalArray'] = __DIR__ . '/globalcollect_gateway/CyclicalArray.php';
@@ -60,6 +61,8 @@ $wgAutoloadClasses['PaymentTransactionResponse'] = __DIR__ . '/gateway_common/Pa
 $wgAutoloadClasses['ResponseCodes'] = __DIR__ . '/gateway_common/ResponseCodes.php';
 $wgAutoloadClasses['ResponseProcessingException'] = __DIR__ . '/gateway_common/ResponseProcessingException.php';
 $wgAutoloadClasses['ResultPages'] = __DIR__ . '/gateway_common/ResultPages.php';
+$wgAutoloadClasses['StagingHelper'] = __DIR__ . '/gateway_common/StagingHelper.php';
+$wgAutoloadClasses['StreetAddress'] = __DIR__ . '/gateway_common/StreetAddress.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
 

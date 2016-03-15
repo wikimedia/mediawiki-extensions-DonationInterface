@@ -1258,6 +1258,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
+	function defineStagingHelpers() {
+		$this->staging_helpers = parent::getCoreStagingHelpers();
+	}
+
 	/**
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and

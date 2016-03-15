@@ -184,6 +184,10 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
+	function defineStagingHelpers() {
+		$this->staging_helpers = parent::getCoreStagingHelpers();
+	}
+
 	public function doPayment() {
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$resultData = $this->do_transaction( 'DonateRecurring' );

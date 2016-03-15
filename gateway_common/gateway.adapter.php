@@ -22,6 +22,7 @@ use Psr\Log\LogLevel;
 interface LogPrefixProvider {
 	function getLogMessagePrefix();
 }
+
 /**
  * GatewayAdapter
  *
@@ -102,6 +103,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
+
+	/**
+	 * Staging helper objects.  These implement the StagingHelper interface.
+	 */
+	protected $staging_helpers = array();
 
 	/**
 	 * For gateways that speak XML, we use this variable to hold the document
@@ -246,6 +252,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
 
+		$this->defineStagingHelpers();
+
 		$this->session_resetOnSwitch(); // Need to do this before creating DonationData
 
 		// FIXME: this should not have side effects like setting order_id_meta['final']
@@ -363,6 +371,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				return null;
 			}
 		}
+	}
+
+	/**
+	 * FIXME: sloppy.  Not sure what we want to do instead.
+	 */
+	public function getCoreStagingHelpers() {
+		return array(
+			new AmountInCents(),
+			new StreetAddress(),
+		);
 	}
 
 	/**
@@ -1674,10 +1692,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->staged_data = $this->unstaged_data;
 
 		// This allows transactions to each stage different data.
+		// FIXME: These are actually constant.  We should move this to
+		// object initialization.
 		$this->defineStagedVars();
 
 		// Always stage email address first, to set default if missing
 		array_unshift( $this->staged_vars, 'email' );
+
+		foreach ( $this->staging_helpers as $staging_helper ) {
+			$staging_helper->stage( $this, $this->unstaged_data, $this->staged_data );
+		}
 
 		foreach ( $this->staged_vars as $field ) {
 			$function_name = 'stage_' . $field;
@@ -1703,6 +1727,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			if ( !$isUnstaged ) {
 				$this->unstaged_data[$field] = $this->staged_data[$field];
 			}
+		}
+
+		foreach ( $this->staging_helpers as $staging_helper ) {
+			$staging_helper->unstage( $this, $this->staged_data, $this->unstaged_data );
 		}
 	}
 
@@ -1739,88 +1767,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 			$this->staged_data[ $field ] = $value;
-		}
-	}
-
-	/**
-	 * Stage: amount
-	 *
-	 * For example: JPY 1000.05 get changed to 100005. This need to be 100000.
-	 * For example: JPY 1000.95 get changed to 100095. This need to be 100000.
-	 */
-	protected function stage_amount() {
-		if ( !$this->getData_Unstaged_Escaped( 'amount' )
-			|| !$this->getData_Unstaged_Escaped( 'currency_code' )
-		) {
-			//can't do anything with amounts at all. Just go home.
-			unset( $this->staged_data['amount'] );
-			return;
-		}
-
-		$amount = $this->getData_Unstaged_Escaped( 'amount' );
-		if ( !DataValidator::is_fractional_currency( $this->getData_Unstaged_Escaped( 'currency_code' ) ) ) {
-			$amount = floor( $amount );
-		}
-
-		$this->staged_data['amount'] = $amount * 100;
-	}
-
-	protected function unstage_amount() {
-		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' ) / 100;
-	}
-
-	/**
-	 * Stage the street address
-	 *
-	 * In the event that there isn't anything in there, we need to send
-	 * something along so that AVS checks get triggered at all.
-	 *
-	 * The zero is intentional: Allegedly, Some banks won't perform the check
-	 * if the address line contains no numerical data.
-	 */
-	protected function stage_street() {
-		$street = '';
-		if ( isset( $this->unstaged_data['street'] ) ) {
-			$street = trim( $this->unstaged_data['street'] );
-		}
-
-		if ( !$street
-			|| !DataValidator::validate_not_just_punctuation( $street )
-		) {
-			$this->staged_data['street'] = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
-		}
-	}
-
-	/**
-	 * Stage the zip / postal code
-	 *
-	 * In the event that there isn't anything in there, we need to send
-	 * something along so that AVS checks get triggered at all.
-	 */
-	protected function stage_zip() {
-		$zip = '';
-		if ( isset( $this->unstaged_data['zip'] ) ) {
-			$zip = trim( $this->unstaged_data['zip'] );
-		}
-		if ( strlen( $zip ) === 0 ) {
-			//it would be nice to check for more here, but the world has some
-			//straaaange postal codes...
-			$this->staged_data['zip'] = '0';
-		}
-
-		//country-based zip grooming to make AVS (marginally) happy
-		switch ( $this->getData_Unstaged_Escaped( 'country' ) ) {
-			case 'CA':
-				//Canada goes "A0A 0A0"
-				$this->staged_data['zip'] = strtoupper( $zip );
-				//In the event that they only forgot the space, help 'em out.
-				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
-				if ( strlen( $this->staged_data['zip'] ) === 6
-					&& preg_match( $regex, $zip )
-				) {
-					$this->staged_data['zip'] = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
-				}
-				break;
 		}
 	}
 

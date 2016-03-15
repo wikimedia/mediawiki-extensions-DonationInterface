@@ -133,6 +133,13 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
+	function defineStagingHelpers() {
+		// Skip AmountInCents, we want to pass the real amount x1.
+		$this->staging_helpers = array(
+			new StreetAddress(),
+		);
+	}
+
 	/**
 	 * Note that the Amazon adapter is somewhat unique in that it uses a third
 	 * party SDK to make all processor API calls.  Since we're never calling
