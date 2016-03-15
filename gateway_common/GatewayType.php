@@ -14,6 +14,12 @@ interface GatewayType {
 	public static function getGatewayName();
 
 	/**
+	 * Get a general purpose identifier for this processor, e.g. paypal
+	 * @return string
+	 */
+	public static function getIdentifier();
+
+	/**
 	 * Get a tag to use to identify this adapter in logs, e.g. amazon_gateway
 	 * @return string
 	 */
@@ -241,5 +247,83 @@ interface GatewayType {
 	 * @throws OutOfBoundsException
 	 */
 	public function getPaymentSubmethodMeta( $payment_submethod = null );
+
+	/**
+	 * Add the given amount to our fraud score
+	 *
+	 * @param float $score
+	 */
+	public function addRiskScore( $score );
+
+	/**
+	 * Get the current HTTP request
+	 *
+	 * @return WebRequest
+	 */
+	public function getRequest();
+
+	/**
+	 * Returns the current validation action.
+	 * This will typically get set and altered by the various enabled process hooks.
+	 *
+	 * @return string the current process action.
+	 */
+	public function getValidationAction();
+
+	/**
+	 * Returns the response object with the details of the latest
+	 * transaction, or null if the adapter has not yet performed one.
+	 *
+	 * @return PaymentTransactionResponse|null
+	 */
+	public function getTransactionResponse();
+
+	/**
+	 * Sets the current validation action. This is meant to be used by the
+	 * process hooks, and as such, by default, only worse news than was already
+	 * being stored will be retained for the final result.
+	 * @param string $action the value you want to set as the action.
+	 * @param bool $reset set to true to do a hard set on the action value.
+	 * Otherwise, the status will only change if it fails harder than it already
+	 * was.
+	 * @throws UnexpectedValueException
+	 */
+	public function setValidationAction( $action, $reset = false );
+
+	/**
+	 * Lets the outside world (particularly hooks that accumulate points scores)
+	 * know if we are a batch processor.
+	 * @return bool
+	 */
+	public function isBatchProcessor();
+
+	/**
+	 * Set a value used to determine whether data has changed
+	 * @param string $hashval
+	 */
+	public function setHash( $hashval );
+
+	/**
+	 * Clear the data hash value
+	 */
+	public function unsetHash();
+
+	/**
+	 * session_ensure
+	 * Ensure that we have a session set for the current user.
+	 * If we do not have a session set for the current user,
+	 * start the session.
+	 */
+	public function session_ensure();
+
+	/**
+	 * Gets the currently set transaction name. This value should only ever be
+	 * set with setCurrentTransaction: A function that ensures the current
+	 * transaction maps to a first-level key that is known to exist in the
+	 * $transactions array, defined in the child gateway.
+	 * @return string|false The name of the properly set transaction, or false if none
+	 * has been set.
+	 */
+	public function getCurrentTransaction();
 
 }

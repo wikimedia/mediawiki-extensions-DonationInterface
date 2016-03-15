@@ -33,7 +33,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 */
 	protected $fraud_logger;
 
-	public function __construct( &$gateway_adapter ) {
+	public function __construct( GatewayType &$gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );

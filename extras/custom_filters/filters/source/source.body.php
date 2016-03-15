@@ -14,7 +14,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 	 */
 	public $cfo;
 
-	public function __construct( &$gateway_adapter, &$custom_filter_object ) {
+	public function __construct( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = & $custom_filter_object;
 	}
@@ -46,7 +46,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
+	static function onFilter( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableSourceFilter' ) ||
 			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ){
 			return true;
@@ -55,7 +55,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
-	static function singleton( &$gateway_adapter, &$custom_filter_object ) {
+	static function singleton( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

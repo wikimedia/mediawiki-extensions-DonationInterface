@@ -281,10 +281,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->context;
 	}
 
-	/**
-	 * Get the current HTTP request
-	 * @return WebRequest
-	 */
 	public function getRequest() {
 		return $this->request;
 	}
@@ -1107,14 +1103,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	}
 
-	/**
-	 * Gets the currently set transaction name. This value should only ever be
-	 * set with setCurrentTransaction: A function that ensures the current
-	 * transaction maps to a first-level key that is known to exist in the
-	 * $transactions array, defined in the child gateway.
-	 * @return mixed The name of the properly set transaction, or false if none
-	 * has been set.
-	 */
 	public function getCurrentTransaction() {
 		if ( is_null( $this->current_transaction ) ) {
 			return false;
@@ -1884,10 +1872,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $queryparams;
 	}
 
-	/**
-	 * Public accessor to the $transaction_response variable
-	 * @return PaymentTransactionResponse
-	 */
 	public function getTransactionResponse() {
 		return $this->transaction_response;
 	}
@@ -2319,23 +2303,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	/**
-	 * Allows us to send an initial fraud score offset with api calls
-	 */
 	public function addRiskScore( $score ) {
 		$this->risk_score += $score;
 	}
 
-	/**
-	 * Sets the current validation action. This is meant to be used by the
-	 * process hooks, and as such, by default, only worse news than was already
-	 * being stored will be retained for the final result.
-	 * @param string $action the value you want to set as the action.
-	 * @param bool $reset set to true to do a hard set on the action value.
-	 * Otherwise, the status will only change if it fails harder than it already
-	 * was.
-	 * @throws UnexpectedValueException
-	 */
 	public function setValidationAction( $action, $reset = false ) {
 		//our choices are:
 		$actions = array(
@@ -2358,11 +2329,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	/**
-	 * Returns the current validation action.
-	 * This will typically get set and altered by the various enabled process hooks.
-	 * @return string the current process action.
-	 */
 	public function getValidationAction() {
 		if ( !isset( $this->action ) ) {
 			$this->action = 'process';
@@ -2370,11 +2336,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->action;
 	}
 
-	/**
-	 * Lets the outside world (particularly hooks that accumulate points scores)
-	 * know if we are a batch processor.
-	 * @return type
-	 */
 	public function isBatchProcessor() {
 		return $this->batch;
 	}
@@ -2780,12 +2741,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->account_config[ 'MerchantID' ];
 	}
 
-	/**
-	 * session_ensure
-	 * Ensure that we have a session set for the current user.
-	 * If we do not have a session set for the current user,
-	 * start the session.
-	 */
 	public function session_ensure() {
 		WmfFramework::setupSession();
 	}

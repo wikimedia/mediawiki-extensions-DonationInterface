@@ -18,7 +18,7 @@ class BannerHistoryLogIdProcessor {
 	protected $logger;
 
 	/**
-	 * @var GatewayAdapter
+	 * @var GatewayType
 	 */
 	protected $gatewayAdapter;
 
@@ -79,7 +79,7 @@ class BannerHistoryLogIdProcessor {
 	/**
 	 * Handler for the GatewayReady hook. This is the class's entry point.
 	 *
-	 * @param GatewayAdapter $gatewayAdapter
+	 * @param GatewayType $gatewayAdapter
 	 * @param DonationData $donationData
 	 */
 	public static function onGatewayReady( $gatewayAdapter ) {

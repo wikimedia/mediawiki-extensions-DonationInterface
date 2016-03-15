@@ -85,14 +85,20 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected $fraud_logger;
 
 	/**
+	 * Determines which action to take for a given score
+	 * @var array @see $wgDonationInterfaceMinFraudActionRanges
+	 */
+	protected $action_ranges;
+
+	/**
 	 * Constructor
 	 *
-	 * @param GatewayAdapter    $gateway_adapter    Gateway adapter instance
+	 * @param GatewayType    $gateway_adapter    Gateway adapter instance
 	 * @param Gateway_Extras_CustomFilters    $custom_filter_object    Instance of Custom filter object
 	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
 	 * @throws RuntimeException
 	 */
-	public function __construct( &$gateway_adapter, &$custom_filter_object, $license_key = NULL ) {
+	public function __construct( GatewayType &$gateway_adapter, &$custom_filter_object, $license_key = NULL ) {
 
 		parent::__construct( $gateway_adapter );
 		$this->fraud_logger = DonationLoggerFactory::getLogger( $gateway_adapter, '_fraud' );
@@ -324,14 +330,14 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	}
 
 	/**
-	 * Get an instance of Gateway_Extras_CustomFilters_MinFraud
+	 * Run the Minfraud filter if it is enabled
 	 *
-	 * @param GlobalCollectAdapter $gateway_adapter
+	 * @param GatewayType $gateway_adapter
 	 * @param Gateway_Extras_CustomFilters $custom_filter_object
 	 *
 	 * @return true
 	 */
-	public static function onFilter( &$gateway_adapter, &$custom_filter_object ) {
+	public static function onFilter( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		
 		if ( !$gateway_adapter->getGlobal( 'EnableMinfraud' ) ){
 			return true;
@@ -364,12 +370,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	/**
 	 * Get an instance of Gateway_Extras_CustomFilters_MinFraud
 	 *
-	 * @param GlobalCollectAdapter $gateway_adapter
+	 * @param GatewayType $gateway_adapter
 	 * @param Gateway_Extras_CustomFilters $custom_filter_object
 	 *
 	 * @return Gateway_Extras_CustomFilters_MinFraud
 	 */
-	public static function singleton( &$gateway_adapter, &$custom_filter_object ) {
+	public static function singleton( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

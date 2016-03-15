@@ -14,7 +14,13 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	public $cfo;
 
-	public function __construct( &$gateway_adapter, &$custom_filter_object = null ) {
+	/**
+	 * Memcached instance we use to store and retrieve scores
+	 * @var Memcached
+	 */
+	protected $cache_obj;
+
+	public function __construct( GatewayType &$gateway_adapter, &$custom_filter_object = null ) {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = & $custom_filter_object;
 	}
@@ -154,7 +160,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 	
-	static function onPostProcess( &$gateway_adapter ) {
+	static function onPostProcess( GatewayType &$gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
@@ -163,7 +169,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $dummy )->postProcess();
 	}
 
-	static function singleton( &$gateway_adapter, &$custom_filter_object ) {
+	static function singleton( GatewayType &$gateway_adapter, &$custom_filter_object ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
@@ -175,7 +181,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * called outside of the usual filter callbacks so we record nasty attempts
 	 * even when the filters aren't called.
 	 */
-	public static function penalize( &$gateway ) {
+	public static function penalize( GatewayType &$gateway ) {
 		$logger = DonationLoggerFactory::getLogger( $gateway );
 		$logger->info( 'IPVelocityFilter penalizing IP address '
 			. $gateway->getData_Unstaged_Escaped( 'user_ip' )
