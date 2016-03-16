@@ -303,6 +303,7 @@ $wgDonationInterface3DSRules = array(
 );
 
 //GlobalCollect gateway globals
+
 $wgGlobalCollectGatewayTestingURL = 'https://ps.gcsip.nl/wdl/wdl';
 // Actually it's ps.gcsip.com, but trust me it's better this way.
 $wgGlobalCollectGatewayURL = 'https://ps.gcsip.nl/wdl/wdl';

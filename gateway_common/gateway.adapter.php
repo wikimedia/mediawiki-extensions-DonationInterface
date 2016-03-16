@@ -18,6 +18,7 @@
  */
 
 use Psr\Log\LogLevel;
+use Symfony\Component\Yaml\Parser;
 
 interface LogPrefixProvider {
 	function getLogMessagePrefix();
@@ -292,6 +293,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	public function getRequest() {
 		return $this->request;
+	}
+
+	public function definePaymentMethods() {
+		$yaml = new Parser();
+		foreach ( glob( $this->getBasedir() . "/config/*.yaml" ) as $path ) {
+			$pieces = explode( "/", $path );
+			$key = substr( array_pop( $pieces ), 0, -5 );
+			# TODO should put this in structured config rather than a member
+			# variable, but this plays along with the current code.
+			$this->$key = $yaml->parse( file_get_contents( $path ) );
+		}
 	}
 
 	/**
