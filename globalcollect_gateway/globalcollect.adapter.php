@@ -1258,10 +1258,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
-	}
-
 	/**
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and
@@ -2293,35 +2289,71 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function stage_language() {
-		$language = strtolower( $this->getData_Unstaged_Escaped( 'language' ) );
+	public function defineDataTransformers() {
+		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
+			new BrazilianFiscalNumber(),
+			new ContributionTrackingPlusUnique(),
+			new IngenicoFinancialNumber(),
+			new IngenicoLanguage(),
+			new IngenicoMethodCodec(),
+			new IngenicoReturntoHelper(),
+		) );
+	}
 
-		if ( !in_array( $language, $this->getAvailableLanguages() ) ) {
-			$fallbacks = Language::getFallbacksFor( $language );
-			foreach ( $fallbacks as $fallback ) {
-				if ( in_array( $fallback, $this->getAvailableLanguages() ) ) {
-					$language = $fallback;
-					break;
+	public function stageData() {
+		// Must run first because staging relies on constraints.
+		$this->tuneConstraints();
+
+		parent::stageData();
+
+		// FIXME: Move to a more specific point in the workflow, in the related do_transaction handler.
+		$this->set3dsFlag();
+
+		// FIXME: Move to a post-staging hook.
+		$this->tuneForMethod();
+		$this->tuneForRecurring();
+		$this->tuneForCountry();
+	}
+
+	protected function set3dsFlag() {
+		// This array contains all the card types that can use AUTHENTICATIONINDICATOR
+		$authenticationIndicatorTypes = array (
+			'1', // visa
+			'3', // mc
+		);
+
+		$enable3ds = false;
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
+		if ( isset( $this->staged_data['payment_product'] )
+		  && in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes )
+		) {
+			$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
+			if ( array_key_exists( $currency, $ThreeDSecureRules ) ) {
+				if ( !is_array( $ThreeDSecureRules[$currency] ) ) {
+					if ( $ThreeDSecureRules[$currency] === $country ) {
+						$enable3ds = true;
+					}
+				} else {
+					if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ) {
+						$enable3ds = true;
+					}
 				}
 			}
 		}
 
-		if ( !in_array( $language, $this->getAvailableLanguages() ) ){
-			$language = 'en';
+		if ( $enable3ds ) {
+			$this->logger->info( "3dSecure enabled for $currency in $country" );
+			// Do the business--set our flag.
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
 		}
-
-		if ( $language === 'zh' ) { //Handles GC's mutant Chinese code.
-			$language = 'sc';
-		}
-
-		$this->staged_data['language'] = $language;
 	}
 
 	/**
 	 * OUR language codes which are available to use in GlobalCollect.
 	 * @return string
 	 */
-	function getAvailableLanguages(){
+	public function getAvailableLanguages(){
 		$languages = array(
 			'ar', //Arabic
 			'cs', //Czech
@@ -2357,169 +2389,74 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Stage: card_num
+	 * Set up method-specific constraints
 	 */
-	protected function stage_card_num() {
-		if ( array_key_exists( 'card_num', $this->unstaged_data ) ) {
-			$this->staged_data['card_num'] = str_replace( ' ', '', $this->unstaged_data['card_num'] );
+	protected function tuneConstraints() {
+
+		// TODO: pull from declarative table
+
+		if ( empty( $this->unstaged_data['payment_method'] ) ) {
+			return;
+		}
+
+		switch ( $this->unstaged_data['payment_method'] ) {
+
+		/* Bank transfer */
+		case 'bt':
+
+			// Brazil
+			if ( $this->unstaged_data['country'] == 'BR' ) {
+				$this->dataConstraints['direct_debit_text']['city'] = 50;
+			}
+
+			// Korea - Manual does not specify North or South
+			if ( $this->unstaged_data['country'] == 'KR' ) {
+				$this->dataConstraints['direct_debit_text']['city'] = 50;
+			}
+			break;
+
+		/* Direct Debit */
+		case 'dd':
+			$this->dataConstraints['iban']['length'] = 21;
+
+			switch ( $this->unstaged_data['country'] ) {
+			case 'DE':
+				$this->dataConstraints['account_number']['length'] = 10;
+				$this->dataConstraints['bank_code']['length'] = 8;
+				break;
+			case 'NL':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 10;
+				$this->dataConstraints['direct_debit_text']['length'] = 32;
+				break;
+			case 'AT':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['bank_code']['length'] = 5;
+				$this->dataConstraints['direct_debit_text']['length'] = 28;
+				break;
+			case 'ES':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 10;
+				$this->dataConstraints['bank_code']['length'] = 4;
+				$this->dataConstraints['branch_code']['length'] = 4;
+				$this->dataConstraints['direct_debit_text']['length'] = 40;
+				break;
+			case 'FR':
+				$this->dataConstraints['direct_debit_text']['length'] = 18;
+				break;
+			case 'IT':
+				$this->dataConstraints['account_name']['length'] = 30;
+				$this->dataConstraints['account_number']['length'] = 12;
+				$this->dataConstraints['bank_check_digit']['length'] = 1;
+				$this->dataConstraints['bank_code']['length'] = 5;
+				$this->dataConstraints['direct_debit_text']['length'] = 32;
+				break;
+			}
+			break;
 		}
 	}
 
 	/**
-	 * Stage: payment_product
-	 * Stages the payment product ID for GC.
-	 * Not what I had in mind to begin with, but this *completely* blew up.
-	 */
-	public function stage_payment_product() {
-		//cc used to look in card_type, but that's been an alias for payment_submethod for a while. DonationData takes care of it.
-		$payment_method = array_key_exists( 'payment_method', $this->staged_data ) ? $this->staged_data['payment_method'] : false;
-		$payment_submethod = array_key_exists( 'payment_submethod', $this->staged_data ) ? $this->staged_data['payment_submethod'] : false;
-
-		if ( $payment_method === 'cc' ) {
-			//basically do what used to be stage_card_type.
-			$types = array (
-				'visa' => '1',
-				'amex' => '2',
-				'mc' => '3',
-				'maestro' => '117',
-				'solo' => '118',
-				'laser' => '124',
-				'jcb' => '125',
-				'discover' => '128',
-				'cb' => '130',
-			);
-
-			if ( (!is_null( $payment_submethod ) ) && array_key_exists( $payment_submethod, $types ) ) {
-				$this->staged_data['payment_product'] = $types[$payment_submethod];
-			} else {
-				if ( !empty( $payment_submethod ) ) {
-					$this->logger->error( "Could not find a cc payment product for '$payment_submethod'" );
-				}
-			}
-
-			// This array contains all the card types that can use AUTHENTICATIONINDICATOR
-			$authenticationIndicatorTypes = array (
-				'1', // visa
-				'3', // mc
-			);
-
-			$enable3ds = false;
-			$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-			$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
-			if ( isset( $this->staged_data['payment_product'] ) && in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes ) ) {
-				$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); //ha
-				if ( array_key_exists( $currency, $ThreeDSecureRules ) ) {
-					if ( !is_array( $ThreeDSecureRules[$currency] ) ) {
-						if ( $ThreeDSecureRules[$currency] === $country ) {
-							$enable3ds = true;
-						}
-					} else {
-						if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ) {
-							$enable3ds = true;
-						}
-					}
-				}
-			}
-
-			// FIXME: that's one hell of a staging function.  Move this to a do_transaction helper.
-			if ( $enable3ds ) {
-				$this->logger->info( "3dSecure enabled for $currency in $country" );
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
-			}
-		} else {
-			if ( !empty( $payment_submethod ) ) {
-				//everything that isn't cc.
-				if ( array_key_exists( $payment_submethod, $this->payment_submethods ) && isset( $this->payment_submethods[$payment_submethod]['paymentproductid'] ) ) {
-					$this->staged_data['payment_product'] = $this->payment_submethods[$payment_submethod]['paymentproductid'];
-				} else {
-					$this->logger->error( "Could not find a payment product for '$payment_submethod' in payment_submethods array" );
-				}
-			} else {
-				$this->logger->debug( "payment_submethod found to be empty. Probably okay though." );
-			}
-		}
-	}
-
-	/**
-	 * Stage branch_code for Direct Debit.
-	 * Check the data constraints, and zero-pad out to that number where possible.
-	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 */
-	protected function stage_branch_code() {
-		$this->stageAndZeroPad( 'branch_code' );
-	}
-
-	/**
-	 * Stage bank_code for Direct Debit.
-	 * Check the data constraints, and zero-pad out to that number where possible.
-	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 */
-	protected function stage_bank_code() {
-		$this->stageAndZeroPad( 'bank_code' );
-	}
-
-	/**
-	 * Stage account_number for Direct Debit.
-	 * Check the data constraints, and zero-pad out to that number where possible.
-	 * Exceptions for the defaults are set in stage_country so we can see them all in the same place
-	 */
-	protected function stage_account_number() {
-		$this->stageAndZeroPad( 'account_number' );
-	}
-
-	/**
-	 * Helper to stage a zero-padded number
-	 */
-	protected function stageAndZeroPad( $key ) {
-		if ( isset( $this->unstaged_data[$key] ) ) {
-			$newval = DataValidator::getZeroPaddedValue( $this->unstaged_data[$key], $this->dataConstraints[$key]['length'] );
-			if ( $newval ) {
-				$this->staged_data[$key] = $newval;
-			}
-		}
-	}
-
-	/**
-	 * Stage: setupStagePaymentMethodForDirectDebit
-	 *
-	 * @param string	$payment_submethod
-	 */
-	protected function setupStagePaymentMethodForDirectDebit( $payment_submethod ) {
-
-		// DATECOLLECT is required on all Direct Debit
-		$this->addKeyToTransaction('DATECOLLECT');
-
-		$this->staged_data['date_collect'] = gmdate('Ymd');
-		$this->staged_data['direct_debit_text'] = 'Wikimedia Foundation';
-
-		$this->var_map['COUNTRYCODEBANK'] = 'country';
-
-		$this->dataConstraints['iban']['length'] = 21;
-
-		// Direct debit has different required fields for each paymentproductid.
-		$this->addKeysToTransactionForSubmethod( $payment_submethod );
-	}
-
-	/**
-	 * Stage: setupStagePaymentMethodForEWallets
-	 *
-	 * @param string	$payment_submethod
-	 */
-	protected function setupStagePaymentMethodForEWallets( $payment_submethod ) {
-
-		// DESCRIPTOR is required on WebMoney, assuming it is required for all.
-		$this->addKeyToTransaction('DESCRIPTOR');
-
-		$this->staged_data['descriptor'] = 'Wikimedia Foundation/Wikipedia';
-
-		$this->var_map['COUNTRYCODEBANK'] = 'country';
-
-		// eWallets custom keys
-		$this->addKeysToTransactionForSubmethod( $payment_submethod );
-	}
-
-	/**
-	 * Stage: payment_method
 	 *
 	 * @todo
 	 * - Need to implement this for credit card if necessary
@@ -2528,101 +2465,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - DATECOLLECT is using gmdate('Ymd')
 	 * - DIRECTDEBITTEXT will need to be translated. This is what appears on the bank statement for donations for a client. This is hardcoded to: Wikimedia Foundation
 	 */
-	protected function stage_payment_method() {
-		$payment_method = array_key_exists( 'payment_method', $this->unstaged_data ) ? $this->unstaged_data['payment_method']: false;
-		$payment_submethod = array_key_exists( 'payment_submethod', $this->unstaged_data ) ? $this->unstaged_data['payment_submethod']: false;
+	protected function tuneForMethod() {
 
-		//Having to front-load the country in the payment submethod is pretty lame.
-		//If we don't have one deliberately set...
-		if (!$payment_submethod){
-			$trythis = $payment_method . '_' . strtolower( $this->getData_Unstaged_Escaped('country') );
-			if ( array_key_exists( $trythis, $this->payment_submethods ) ){
-				$payment_submethod = $trythis;
-				$this->staged_data['payment_submethod'] = $payment_submethod;
-			}
-		}
-
-		// These will be grouped and ordered by payment product id
-		switch ( $payment_submethod )  {
-
-			/* Bank transfer */
-			case 'bt':
-
-				// Brazil
-				if ( $this->unstaged_data['country'] == 'BR' ) {
-					$this->dataConstraints['direct_debit_text']['city'] = 50;
-				}
-
-				// Korea - Manual does not specify North or South
-				if ( $this->unstaged_data['country'] == 'KR' ) {
-					$this->dataConstraints['direct_debit_text']['city'] = 50;
-				}
-				break;
-
-			/* Direct Debit */
-			case 'dd_de':
-				$this->dataConstraints['account_number']['length'] = 10;
-				$this->dataConstraints['bank_code']['length'] = 8;
-				break;
-			case 'dd_nl':
-				$this->dataConstraints['account_name']['length'] = 30;
-				$this->dataConstraints['account_number']['length'] = 10;
-				$this->dataConstraints['direct_debit_text']['length'] = 32;
-				$this->staged_data['transaction_type'] = '01';
-				break;
-			case 'dd_gb':
-				$this->staged_data['transaction_type'] = '01';
-				break;
-			case 'dd_at':
-				$this->dataConstraints['account_name']['length'] = 30;
-				$this->dataConstraints['bank_code']['length'] = 5;
-				$this->dataConstraints['direct_debit_text']['length'] = 28;
-				break;
-			case 'dd_es':
-				$this->dataConstraints['account_name']['length'] = 30;
-				$this->dataConstraints['account_number']['length'] = 10;
-				$this->dataConstraints['bank_code']['length'] = 4;
-				$this->dataConstraints['branch_code']['length'] = 4;
-				$this->dataConstraints['direct_debit_text']['length'] = 40;
-				break;
-			case 'dd_fr':
-				$this->dataConstraints['direct_debit_text']['length'] = 18;
-				break;
-			case 'dd_it':
-				$this->dataConstraints['account_name']['length'] = 30;
-				$this->dataConstraints['account_number']['length'] = 12;
-				$this->dataConstraints['bank_check_digit']['length'] = 1;
-				$this->dataConstraints['bank_code']['length'] = 5;
-				$this->dataConstraints['direct_debit_text']['length'] = 32;
-				break;
-
-			/* Cash payments */
-			 case 'cash_boleto':
-				$this->addKeyToTransaction('FISCALNUMBER');
-				break;
-
-			case 'rtbt_eps':
-			case 'rtbt_ideal':
-
-				$this->addKeysToTransactionForSubmethod( $payment_submethod );
-
-				$this->addKeyToTransaction('ISSUERID');
-				break;
-
-			/* Default Case */
-			default:
-				// Nothing is done in the default case.
-				// It's worth noting that at this point, it might not be an error.
-				break;
-		}
-
-		switch ($payment_method) {
+		switch ( $this->getData_Unstaged_Escaped( 'payment_method' ) ) {
 		case 'dd':
-			$this->setupStagePaymentMethodForDirectDebit( $payment_submethod );
-			break;
 		case 'ew':
-			$this->setupStagePaymentMethodForEWallets( $payment_submethod );
+			$this->var_map['COUNTRYCODEBANK'] = 'country';
 			break;
+		}
+
+		// Use staged data so we pick up tricksy -_country variants
+		if ( !empty( $this->staged_data['payment_submethod'] ) ) {
+			$this->addKeysToTransactionForSubmethod( $this->staged_data['payment_submethod'] );
 		}
 	}
 
@@ -2631,7 +2485,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Adds the recurring payment pieces to the structure of
 	 * INSERT_ORDERWITHPAYMENT if the recurring field is populated.
 	 */
-	protected function stage_recurring(){
+	protected function tuneForRecurring(){
 		if ( !$this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			return;
 		} else {
@@ -2645,72 +2499,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * This should be a catch-all for establishing weird country-based rules.
 	 * Right now, we only have the one, but there could be more here later.
 	 */
-	protected function stage_country() {
+	protected function tuneForCountry() {
 		switch ( $this->getData_Unstaged_Escaped( 'country' ) ){
-			case 'AR' :
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'PURCHASETYPE';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['USAGETYPE'] = '0';
-				$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['PURCHASETYPE'] = '1';
-				break;
+		case 'AR' :
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'PURCHASETYPE';
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['USAGETYPE'] = '0';
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['PURCHASETYPE'] = '1';
+			break;
 		}
-	}
-
-	protected function stage_contribution_tracking_id() {
-		$ctid = $this->unstaged_data['contribution_tracking_id'];
-		//append timestamp to ctid
-		$ctid .= '.' . (( microtime( true ) * 1000 ) % 100000); //least significant five
-		$this->staged_data['contribution_tracking_id'] = $ctid;
-	}
-
-	protected function unstage_contribution_tracking_id() {
-		$ctid = $this->staged_data['contribution_tracking_id'];
-		$ctid = explode( '.', $ctid );
-		$ctid = $ctid[0];
-		$this->unstaged_data['contribution_tracking_id'] = $ctid;
-	}
-
-	protected function stage_fiscal_number() {
-		$this->staged_data['fiscal_number'] = preg_replace( "/[\.\/\-]/", "", $this->getData_Unstaged_Escaped( 'fiscal_number' ) );
 	}
 
 	/**
 	 * Add keys to transaction for submethod
-	 *
 	 */
 	protected function addKeysToTransactionForSubmethod( $payment_submethod ) {
 
 		// If there are no keys to add, do not proceed.
-		if ( !is_array( $this->payment_submethods[ $payment_submethod ]['keys'] ) ) {
-
+		if ( empty( $this->payment_submethods[$payment_submethod]['keys'] ) ) {
 			return;
 		}
 
-		foreach ( $this->payment_submethods[ $payment_submethod ]['keys'] as $key ) {
-
+		foreach ( $this->payment_submethods[$payment_submethod]['keys'] as $key ) {
 			$this->addKeyToTransaction( $key );
-		}
-	}
-
-	/**
-	 * Stage: returnto
-	 */
-	protected function stage_returnto() {
-		// Get the default returnto
-		$returnto = $this->getData_Unstaged_Escaped( 'returnto' );
-
-		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
-			// Add order ID to the returnto URL, only if it's not already there.
-			//TODO: This needs to be more robust (like actually pulling the
-			//qstring keys, resetting the values, and putting it all back)
-			//but for now it'll keep us alive.
-			if ( $this->getOrderIDMeta( 'generate' ) && !is_null( $returnto ) && !strpos( $returnto, 'order_id' ) ) {
-				$queryArray = array( 'order_id' => $this->unstaged_data['order_id'] );
-				$this->staged_data['returnto'] = wfAppendQuery( $returnto, $queryArray );
-			}
-		} else {
-			// FIXME: Do we want to set this here?
-			$this->staged_data['returnto'] = ResultPages::getThankYouPage( $this );
 		}
 	}
 

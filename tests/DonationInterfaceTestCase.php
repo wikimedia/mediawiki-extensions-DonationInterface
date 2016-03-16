@@ -133,7 +133,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		$this->setUpRequest( $options );
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
-		
+
 		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.' );
 	}
 
@@ -395,12 +395,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// If we're doing Direct Debit...
 		//@TODO: go ahead and split this out into a "Get the direct debit I_OWP XML block function" the second this gets even slightly annoying.
 		if ( $optionsForTestData['payment_method'] === 'dd' ) {
-			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; //is this cheating? Probably.
 			$expected .= '<ACCOUNTNAME>' . $optionsForTestData['account_name'] . '</ACCOUNTNAME>';
 			$expected .= '<ACCOUNTNUMBER>' . $optionsForTestData['account_number'] . '</ACCOUNTNUMBER>';
 			$expected .= '<BANKCODE>' . $optionsForTestData['bank_code'] . '</BANKCODE>';
 			$expected .= '<BRANCHCODE>' . $optionsForTestData['branch_code'] . '</BRANCHCODE>';
 			$expected .= '<BANKCHECKDIGIT>' . $optionsForTestData['bank_check_digit'] . '</BANKCHECKDIGIT>';
+			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; //is this cheating? Probably.
 			$expected .= '<DIRECTDEBITTEXT>' . $optionsForTestData['direct_debit_text'] . '</DIRECTDEBITTEXT>';
 		}
 

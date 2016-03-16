@@ -4,7 +4,6 @@ class AstroPayFinancialNumbers implements StagingHelper {
 	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
 		$this->stage_donor_id( $adapter, $unstagedData, $stagedData );
 		$this->stage_bank_code( $adapter, $unstagedData, $stagedData );
-		$this->stage_fiscal_number( $adapter, $unstagedData, $stagedData );
 	}
 
 	/**
@@ -25,15 +24,6 @@ class AstroPayFinancialNumbers implements StagingHelper {
 			if ( isset( $meta['bank_code'] ) ) {
 				$stagedData['bank_code'] = $meta['bank_code'];
 			}
-		}
-	}
-
-	/**
-	 * Strip any punctuation from fiscal number before submitting
-	 */
-	protected function stage_fiscal_number( GatewayType $adapter, $unstagedData, &$stagedData ) {
-		if ( !empty( $unstagedData['fiscal_number'] ) ) {
-			$stagedData['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $unstagedData['fiscal_number'] );
 		}
 	}
 }

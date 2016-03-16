@@ -38,6 +38,8 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
  * CLASSES
  */
 $wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
+$wgAutoloadClasses['BrazilianFiscalNumber'] = __DIR__ . '/gateway_common/BrazilianFiscalNumber.php';
+$wgAutoloadClasses['ContributionTrackingPlusUnique'] = __DIR__ . '/gateway_common/ContributionTrackingPlusUnique.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
 $wgAutoloadClasses['CyclicalArray'] = __DIR__ . '/globalcollect_gateway/CyclicalArray.php';
@@ -48,6 +50,7 @@ $wgAutoloadClasses['DonationProfiler'] = __DIR__ . '/gateway_common/DonationProf
 $wgAutoloadClasses['DonationQueue'] = __DIR__ . '/gateway_common/DonationQueue.php';
 $wgAutoloadClasses['DonorEmail'] = __DIR__ . '/gateway_common/DonorEmail.php';
 $wgAutoloadClasses['DonorFullName'] = __DIR__ . '/gateway_common/DonorFullName.php';
+$wgAutoloadClasses['DonorLanguage'] = __DIR__ . '/gateway_common/DonorLanguage.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
@@ -83,6 +86,10 @@ $wgAutoloadClasses['GlobalCollectGatewayResult'] = __DIR__ . '/globalcollect_gat
 $wgAutoloadClasses['GlobalCollectAdapter'] = __DIR__ . '/globalcollect_gateway/globalcollect.adapter.php';
 $wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/orphan.adapter.php';
 $wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_gateway/GlobalCollectOrphanRectifier.php';
+$wgAutoloadClasses['IngenicoFinancialNumber'] = __DIR__ . '/globalcollect_gateway/IngenicoFinancialNumber.php';
+$wgAutoloadClasses['IngenicoLanguage'] = __DIR__ . '/globalcollect_gateway/IngenicoLanguage.php';
+$wgAutoloadClasses['IngenicoMethodCodec'] = __DIR__ . '/globalcollect_gateway/IngenicoMethodCodec.php';
+$wgAutoloadClasses['IngenicoReturntoHelper'] = __DIR__ . '/globalcollect_gateway/IngenicoReturntoHelper.php';
 
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
