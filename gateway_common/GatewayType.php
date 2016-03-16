@@ -119,9 +119,9 @@ interface GatewayType {
 	function definePaymentMethods();
 
 	/**
-	 * Sets up the $staging_helpers array.
+	 * Sets up the $data_transformers array.
 	 */
-	function defineStagingHelpers();
+	function defineDataTransformers();
 
 	/**
 	 * Sets up the $order_id_meta array.

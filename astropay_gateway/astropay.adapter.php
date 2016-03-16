@@ -658,9 +658,9 @@ class AstropayAdapter extends GatewayAdapter {
 
 	}
 
-	function defineStagingHelpers() {
+	public function defineDataTransformers() {
 		// Skip AmountInCents.
-		$this->staging_helpers = array(
+		$this->data_transformers = array(
 			new AstroPayFinancialNumbers(),
 			new AstroPayMethodCodec(),
 			new DonorFullName(),

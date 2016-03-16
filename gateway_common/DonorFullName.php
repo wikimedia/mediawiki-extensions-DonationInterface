@@ -15,7 +15,4 @@ class DonorFullName implements StagingHelper {
 		}
 		$stagedData['full_name'] = implode( ' ', $name_parts );
 	}
-
-	// No-op.
-	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {}
 }

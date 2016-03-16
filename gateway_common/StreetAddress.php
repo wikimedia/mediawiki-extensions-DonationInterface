@@ -65,7 +65,4 @@ class StreetAddress implements StagingHelper {
 
 		return $zip;
 	}
-
-	// No-op
-	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {}
 }

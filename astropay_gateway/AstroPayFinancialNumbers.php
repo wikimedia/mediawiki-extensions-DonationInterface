@@ -36,7 +36,4 @@ class AstroPayFinancialNumbers implements StagingHelper {
 			$stagedData['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $unstagedData['fiscal_number'] );
 		}
 	}
-
-	// No-op
-	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {}
 }

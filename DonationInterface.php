@@ -65,6 +65,7 @@ $wgAutoloadClasses['ResponseProcessingException'] = __DIR__ . '/gateway_common/R
 $wgAutoloadClasses['ResultPages'] = __DIR__ . '/gateway_common/ResultPages.php';
 $wgAutoloadClasses['StagingHelper'] = __DIR__ . '/gateway_common/StagingHelper.php';
 $wgAutoloadClasses['StreetAddress'] = __DIR__ . '/gateway_common/StreetAddress.php';
+$wgAutoloadClasses['UnstagingHelper'] = __DIR__ . '/gateway_common/UnstagingHelper.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
 

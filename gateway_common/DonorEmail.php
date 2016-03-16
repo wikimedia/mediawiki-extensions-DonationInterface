@@ -6,7 +6,4 @@ class DonorEmail implements StagingHelper {
 			$stagedData['email'] = $adapter->getGlobal( 'DefaultEmail' );
 		}
 	}
-
-	// No-op
-	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {}
 }

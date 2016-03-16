@@ -1,9 +1,6 @@
 <?php
 
-class AstroPayMethodCodec implements StagingHelper {
-	// No-op
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {}
-
+class AstroPayMethodCodec implements UnstagingHelper {
 	/**
 	 * Transforms the astropay payment method into our method name
 	 */

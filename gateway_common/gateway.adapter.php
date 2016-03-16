@@ -105,9 +105,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $unstaged_data;
 
 	/**
-	 * Staging helper objects.  These implement the StagingHelper interface.
+	 * Data transformation helpers.  These implement the StagingHelper interface for now,
+	 * and are responsible for staging and unstaging data.
 	 */
-	protected $staging_helpers = array();
+	protected $data_transformers = array();
 
 	/**
 	 * For gateways that speak XML, we use this variable to hold the document
@@ -252,7 +253,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
 
-		$this->defineStagingHelpers();
+		$this->defineDataTransformers();
 
 		$this->session_resetOnSwitch(); // Need to do this before creating DonationData
 
@@ -373,7 +374,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	public function getCoreStagingHelpers() {
+	public function getCoreDataTransformers() {
 		return array(
 			// Always stage email address first, to set default if missing
 			new DonorEmail(),
@@ -1689,8 +1690,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// object initialization.
 		$this->defineStagedVars();
 
-		foreach ( $this->staging_helpers as $staging_helper ) {
-			$staging_helper->stage( $this, $this->unstaged_data, $this->staged_data );
+		foreach ( $this->data_transformers as $transformer ) {
+			if ( $transformer instanceof StagingHelper ) {
+				$transformer->stage( $this, $this->unstaged_data, $this->staged_data );
+			}
 		}
 
 		foreach ( $this->staged_vars as $field ) {
@@ -1719,8 +1722,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 		}
 
-		foreach ( $this->staging_helpers as $staging_helper ) {
-			$staging_helper->unstage( $this, $this->staged_data, $this->unstaged_data );
+		foreach ( $this->data_transformers as $transformer ) {
+			if ( $transformer instanceof UnstagingHelper ) {
+				$transformer->unstage( $this, $this->staged_data, $this->unstaged_data );
+			}
 		}
 	}
 

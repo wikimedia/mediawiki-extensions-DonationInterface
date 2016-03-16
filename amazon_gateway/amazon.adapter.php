@@ -133,9 +133,11 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineStagingHelpers() {
+	function defineDataTransformers() {
 		// Skip AmountInCents, we want to pass the real amount x1.
-		$this->staging_helpers = array(
+		$this->data_transformers = array(
+			new DonorEmail(),
+			new DonorFullName(),
 			new StreetAddress(),
 		);
 	}

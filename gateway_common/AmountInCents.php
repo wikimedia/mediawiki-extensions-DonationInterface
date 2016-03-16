@@ -9,7 +9,7 @@
  * avoid killing the payment processor.
  * For example: JPY 1000.05 would be changed to 100005, but should be 100000.
  */
-class AmountInCents implements StagingHelper {
+class AmountInCents implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
 		if ( empty( $unstagedData['amount'] ) || empty( $unstagedData['currency_code'] ) ) {
 			//can't do anything with amounts at all. Just go home.
