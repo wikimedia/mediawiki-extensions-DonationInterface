@@ -46,6 +46,8 @@ $wgAutoloadClasses['DonationLoggerFactory'] = __DIR__ . '/gateway_common/Donatio
 $wgAutoloadClasses['DonationLogProcessor'] = __DIR__ . '/gateway_common/DonationLogProcessor.php';
 $wgAutoloadClasses['DonationProfiler'] = __DIR__ . '/gateway_common/DonationProfiler.php';
 $wgAutoloadClasses['DonationQueue'] = __DIR__ . '/gateway_common/DonationQueue.php';
+$wgAutoloadClasses['DonorEmail'] = __DIR__ . '/gateway_common/DonorEmail.php';
+$wgAutoloadClasses['DonorFullName'] = __DIR__ . '/gateway_common/DonorFullName.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
@@ -96,6 +98,8 @@ $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php
 $wgAutoloadClasses['AstropayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
 $wgAutoloadClasses['AstropayGatewayResult'] = __DIR__ . '/astropay_gateway/astropay_resultswitcher.body.php';
 $wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.adapter.php';
+$wgAutoloadClasses['AstroPayFinancialNumbers'] = __DIR__ . '/astropay_gateway/AstroPayFinancialNumbers.php';
+$wgAutoloadClasses['AstroPayMethodCodec'] = __DIR__ . '/astropay_gateway/AstroPayMethodCodec.php';
 
 // Paypal
 $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';

@@ -20,6 +20,7 @@ use Psr\Log\LogLevel;
 /**
  * AstropayAdapter
  * Implementation of GatewayAdapter for processing payments via Astropay
+ * FIXME: camlcase "P"
  */
 class AstropayAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Astropay';
@@ -72,14 +73,7 @@ class AstropayAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineStagedVars() {
-		$this->staged_vars = array(
-			'bank_code',
-			'donor_id',
-			'fiscal_number',
-			'full_name',
-		);
-	}
+	function defineStagedVars() {}
 
 	/**
 	 * Define var_map
@@ -667,6 +661,9 @@ class AstropayAdapter extends GatewayAdapter {
 	function defineStagingHelpers() {
 		// Skip AmountInCents.
 		$this->staging_helpers = array(
+			new AstroPayFinancialNumbers(),
+			new AstroPayMethodCodec(),
+			new DonorFullName(),
 			new StreetAddress(),
 		);
 	}
@@ -738,52 +735,6 @@ class AstropayAdapter extends GatewayAdapter {
 			. /* street omitted */ 'P'
 			. /* city omitted */ 'S'
 			. /* state omitted */ 'P' );
-	}
-
-	/**
-	 * They need a 20 char string for a customer ID - give them the first 20
-	 * characters of the email address for easy lookup
-	 */
-	protected function stage_donor_id() {
-		// We use these to look up donations by email, so strip out the trailing
-		// spam-tracking sub-address to get the email we'd see complaints from.
-		$email = preg_replace( '/\+[^@]*/', '', $this->getData_Staged( 'email' ) );
-		$this->staged_data['donor_id'] = substr( $email, 0, 20 );
-	}
-
-	protected function stage_bank_code() {
-		$submethod = $this->getPaymentSubmethod();
-		if ( $submethod ) {
-			$meta = $this->getPaymentSubmethodMeta( $submethod );
-			if ( isset( $meta['bank_code'] ) ) {
-				$this->staged_data['bank_code'] = $meta['bank_code'];
-			}
-		}
-	}
-
-	/**
-	 * Strip any punctuation from fiscal number before submitting
-	 */
-	protected function stage_fiscal_number() {
-		$value = $this->getData_Unstaged_Escaped( 'fiscal_number' );
-		if ( $value ) {
-			$this->staged_data['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $value );
-		}
-	}
-
-	protected function unstage_payment_submethod() {
-		$method = $this->getData_Staged( 'payment_method' );
-		$bank = $this->getData_Staged( 'bank_code' );
-		$filter = function( $submethod ) use ( $method, $bank ) {
-			$groups = (array) $submethod['group'];
-			return in_array( $groups, $method ) && $submethod['bank_code'] === $bank;
-		};
-		$candidates = array_filter( $this->payment_submethods, $filter );
-		if ( count( $candidates ) !== 1 ) {
-			throw new UnexpectedValueException( "No unique payment submethod defined for payment method $method and bank code $bank." );
-		}
-		$keys = array_keys( $candidates );
-		$this->unstaged_data['payment_submethod'] = $keys[0];
 	}
 
 	public function getCurrencies( $options = array() ) {
@@ -1012,11 +963,5 @@ class AstropayAdapter extends GatewayAdapter {
 		return strtoupper(
 			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
 		);
-	}
-
-	protected function unstage_amount() {
-		// FIXME: if GlobalCollect is the only processor who needs amount in
-		// cents, move its stage and unstage functions out of base adapter
-		$this->unstaged_data['amount'] = $this->getData_Staged( 'amount' );
 	}
 }

@@ -373,11 +373,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	/**
-	 * FIXME: sloppy.  Not sure what we want to do instead.
-	 */
 	public function getCoreStagingHelpers() {
 		return array(
+			// Always stage email address first, to set default if missing
+			new DonorEmail(),
+			new DonorFullName(),
 			new AmountInCents(),
 			new StreetAddress(),
 		);
@@ -1163,16 +1163,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 
-	/**
-	 * Define payment methods
-	 *
-	 * @todo
-	 * - this is not implemented in all adapters yet
-	 *
-	 * Not all payment submethods are available within an adapter
-	 *
-	 * @return	array	Returns the available payment submethods for the specific adapter
-	 */
 	public function getPaymentSubmethods() {
 		return $this->payment_submethods;
 	}
@@ -1699,9 +1689,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// object initialization.
 		$this->defineStagedVars();
 
-		// Always stage email address first, to set default if missing
-		array_unshift( $this->staged_vars, 'email' );
-
 		foreach ( $this->staging_helpers as $staging_helper ) {
 			$staging_helper->stage( $this, $this->unstaged_data, $this->staged_data );
 		}
@@ -1771,27 +1758,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			$this->staged_data[ $field ] = $value;
 		}
-	}
-
-	protected function stage_email() {
-		if ( empty( $this->staged_data['email'] ) ) {
-			$this->staged_data['email'] = $this->getGlobal( 'DefaultEmail' );
-		}
-	}
-
-	/*
-	 * Seems more sane to do it this way than provide a single input box
-	 * and try to parse out fname and lname.
-	 */
-	protected function stage_full_name() {
-		$name_parts = array();
-		if ( isset( $this->unstaged_data['fname'] ) ) {
-			$name_parts[] = $this->unstaged_data['fname'];
-		}
-		if ( isset( $this->unstaged_data['lname'] ) ) {
-			$name_parts[] = $this->unstaged_data['lname'];
-		}
-		$this->staged_data['full_name'] = implode( ' ', $name_parts );
 	}
 
 	protected function buildRequestParams() {
