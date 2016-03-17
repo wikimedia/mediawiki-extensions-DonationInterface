@@ -733,14 +733,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
 
-		if ( !is_array( $structure ) ) { // this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
+		if ( !is_array( $structure ) ) {
+			// this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
 			$this->appendNodeIfValue( $structure, $node, $js );
 		} else {
 			foreach ( $structure as $key => $value ) {
 				if ( !is_array( $value ) ) {
-					//do not use $key. $key is meaningless in this case.
+					//do not use $key, it's the numeric index here and $value is the field name
+					// FIXME: make tree traversal more readable.
 					$this->appendNodeIfValue( $value, $node, $js );
 				} else {
+					// Recurse for child
 					$keynode = $this->xmlDoc->createElement( $key );
 					$this->buildTransactionNodes( $value, $keynode, $js );
 					$node->appendChild( $keynode );
@@ -3333,6 +3336,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$built = true;
 	}
 
+	public function getDataConstraints( $field ) {
+		if ( array_key_exists( $field, $this->dataConstraints ) ) {
+			return $this->dataConstraints[$field];
+		}
+		return array();
+	}
+
 	/**
 	 * Validates that the gateway-specific data constraints for this field
 	 * have been met.
@@ -3497,11 +3507,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $id;
 	}
 
-	/**
-	 * returns the orderID Meta
-	 * @param string $key The key to retrieve. Optional.
-	 * @return mixed|false Data requested, or false if it is not set.
-	 */
 	public function getOrderIDMeta( $key = false ) {
 		$data = $this->order_id_meta;
 		if ( !is_array( $data ) ) {
@@ -3559,7 +3564,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return $this->payment_submethods[ $payment_submethod ];
 		}
 		else {
-			throw new OutOfBoundsException( "The payment submethod [{$payment_submethod}] was not found." );
+			$msg = "The payment submethod [{$payment_submethod}] was not found.";
+			$this->logger->error( $msg );
+			throw new OutOfBoundsException( $msg );
 		}
 	}
 

@@ -254,6 +254,22 @@ interface GatewayType {
 	public function getPaymentSubmethodMeta( $payment_submethod = null );
 
 	/**
+	 * Define payment methods
+	 *
+	 * Not all payment submethods are available within an adapter
+	 *
+	 * @return	array	Returns the available payment submethods for the specific adapter
+	 */
+	public function getPaymentSubmethods();
+
+	/**
+	 * Get any known constraints on the field's value.
+	 * @param string $field
+	 * @return array The field's constraints, or an empty array if none are available.
+	 */
+	public function getDataConstraints( $field );
+
+	/**
 	 * Add the given amount to our fraud score
 	 *
 	 * @param float $score
@@ -340,4 +356,10 @@ interface GatewayType {
 	 */
 	public function makeFreeformStompTransaction( $transaction );
 
+	/**
+	 * returns information about how to manage the Order ID
+	 * @param string $key The key to retrieve. Optional.
+	 * @return mixed|false Data requested, or false if it is not set.
+	 */
+	function getOrderIDMeta( $key = false );
 }
