@@ -970,7 +970,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: AT',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', ),
 		);
 
 		// Direct debit: BE
@@ -979,7 +979,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: BE',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCHECKDIGIT', 'BANKCODE', 'BANKNAME', 'DATECOLLECT', 'DIRECTDEBITTEXT', ),
 			//'keys' => array( /*'ACCOUNTNAME',*/ 'ACCOUNTNUMBER', 'AUTHORISATIONID', /*'BANKCHECKDIGIT',*/ 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
 		);
 
@@ -989,7 +989,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: CH',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', /*'BANKNAME',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', 'IBAN', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'ADDRESSLINE1E', 'ADDRESSLINE2', 'ADDRESSLINE3', 'ADDRESSLINE4', 'BANKCODE', /*'BANKNAME',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', 'IBAN', ),
 		);
 
 		// Direct debit: DE
@@ -998,7 +998,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: DE',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', ),
 		);
 
 		// Direct debit: ES
@@ -1007,7 +1007,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: ES',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', /*'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', /*'DOMICILIO', 'PROVINCIA',*/ ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', /*'CUSTOMERBANKCITY', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', /*'DOMICILIO', 'PROVINCIA',*/ ),
 		);
 
 		// Direct debit: FR
@@ -1016,7 +1016,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: FR',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKCHECKDIGIT', 'DATECOLLECT', 'DIRECTDEBITTEXT', ),
 		);
 
 		// Direct debit: GB
@@ -1025,7 +1025,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: GB',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'AUTHORISATIONID', 'BANKCODE', /*'BANKNAME',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 
 		// Direct debit: IT
@@ -1034,7 +1034,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: IT',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', /*'BANKFILIALE',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DIRECTDEBITTEXT', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', 'BANKCODE', /*'BANKNAME',*/ 'BRANCHCODE', 'BANKAGENZIA', 'BANKCHECKDIGIT', /*'BANKFILIALE',*/ /*'CUSTOMERBANKCITY', 'CUSTOMERBANKNUMBER', 'CUSTOMERBANKSTREET', 'CUSTOMERBANKZIP',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', ),
 		);
 
 		// Direct debit: NL
@@ -1043,7 +1043,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Direct debit: NL',
 			'group'	=> 'dd',
 			'validation' => array(),
-			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', /*'BANKNAME',*/ 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
+			'keys' => array( 'ACCOUNTNAME', 'ACCOUNTNUMBER', /*'BANKNAME',*/ 'DATECOLLECT', 'DIRECTDEBITTEXT', 'TRANSACTIONTYPE', ),
 		);
 
 		/*
@@ -1056,7 +1056,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: PayPal',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		// eWallets WebMoney
@@ -1065,7 +1065,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: WebMoney',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		// eWallets Yandex
@@ -1074,7 +1074,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: Yandex',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		// eWallets Alipay
@@ -1083,7 +1083,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: Alipay',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		// eWallets Moneybookers
@@ -1092,7 +1092,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: Moneybookers',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		// eWallets cashU
@@ -1101,7 +1101,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eWallets: cashU',
 			'group'	=> 'ew',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'DESCRIPTOR' ),
 		);
 
 		/*
@@ -1136,7 +1136,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'Ideal',
 			'group'	=> 'rtbt',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'ISSUERID' ),
 			'issuerids' => array(
 				771	=> 'SNS Regio Bank',
 				161	=> 'Van Lanschot Bankiers',
@@ -1174,7 +1174,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'label'	=> 'eps Online-Überweisung',
 			'group'	=> 'rtbt',
 			'validation' => array(),
-			'keys' => array(),
+			'keys' => array( 'ISSUERID' ),
 			'issuerids' => array(
 				824	=> 'Bankhaus Spängler',
 				825	=> 'Hypo Tirol Bank',
@@ -1196,7 +1196,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'paymentproductid'	=> 1503,
 			'label' => 'Boleto Bancario Brazil',
 			'group' => 'cash',
-			'keys' => array(),
+			'keys' => array( 'FISCALNUMBER' ),
 		);
 	}
 
