@@ -111,8 +111,10 @@ $wgAutoloadClasses['AstroPayFinancialNumbers'] = __DIR__ . '/astropay_gateway/As
 $wgAutoloadClasses['AstroPayMethodCodec'] = __DIR__ . '/astropay_gateway/AstroPayMethodCodec.php';
 
 // Paypal
+$wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
 $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
 $wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
+$wgAutoloadClasses['PayPalLocale'] = __DIR__ . '/paypal_gateway/PayPalLocale.php';
 
 // Worldpay
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
