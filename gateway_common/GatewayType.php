@@ -362,4 +362,20 @@ interface GatewayType {
 	 * @return mixed|false Data requested, or false if it is not set.
 	 */
 	function getOrderIDMeta( $key = false );
+
+	/**
+	 * Establish an 'edit' token to help prevent CSRF, etc.
+	 *
+	 * We use this in place of $wgUser->editToken() b/c currently
+	 * $wgUser->editToken() is broken (apparently by design) for
+	 * anonymous users.  Using $wgUser->editToken() currently exposes
+	 * a security risk for non-authenticated users.  Until this is
+	 * resolved in $wgUser, we'll use our own methods for token
+	 * handling.
+	 *
+	 * Public so the api can get to it.
+	 *
+	 * @return string
+	 */
+	function token_getSaltedSessionToken();
 }

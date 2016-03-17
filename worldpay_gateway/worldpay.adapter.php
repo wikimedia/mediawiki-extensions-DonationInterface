@@ -34,12 +34,15 @@ class WorldpayAdapter extends GatewayAdapter {
 		'OTTResultURL'
 	);
 
+
 	/**
 	 * @var string[] ISO Currency code letters to numbers (from appendix B of the
 	 * integration manual). These are also apparently all the currencies that
 	 * Worldpay can support.
+	 *
+	 * TODO: move to reference data
 	 */
-	static $CURRENCY_CODES = array(
+	public static $CURRENCY_CODES = array(
 		'AED' => 784,
 		'ALL' => 8,
 		'ANG' => 532,
@@ -189,16 +192,6 @@ class WorldpayAdapter extends GatewayAdapter {
 
 	public function getCommunicationType() {
 		return 'xml';
-	}
-
-	public function definePaymentMethods() {
-		parent::definePaymentMethods();
-		# load up the short names
-		# TODO if other adapters start to use api_name, move this to base class
-		$this->payment_submethod_api_names = array();
-		foreach ( $this->payment_submethods as $name => $details ) {
-			$this->payment_submethod_api_names[$details['api_name']] = $name;
-		}
 	}
 
 	function defineStagedVars() {
@@ -729,7 +722,14 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
+		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
+			new WorldpayAccountName(),
+			new WorldpayCurrency(),
+			new WorldpayEmail(),
+			new WorldpayMethodCodec(),
+			new WorldpayNarrativeStatement(),
+			new WorldpayReturnto(),
+		) );
 	}
 
 	/**
@@ -749,7 +749,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	public function getBasedir() {
 		return __DIR__;
 	}
-
 	public function doPayment() {
 		return PaymentResult::fromResults(
 			$this->do_transaction( 'QueryAuthorizeDeposit' ),
@@ -1032,85 +1031,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::regenerateOrderID();
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->set_transaction_order_ids( $order_id );
-	}
-
-	protected function stage_returnto() {
-		global $wgServer, $wgArticlePath;
-
-		// Rebuild the url with the token param.
-
-		$arr_url = parse_url(
-			$wgServer . str_replace(
-				'$1',
-				'Special:WorldpayGatewayResult',
-				$wgArticlePath
-			)
-		);
-
-		$query = '';
-		$first = true;
-		if ( isset( $arr_url['query'] ) ) {
-			parse_str( $arr_url['query'], $arr_query );
-		}
-		// Worldpay decodes encoded URL unsafe characters in XML before storage,
-		// and sends them back that way in the return header.  So anything you
-		// want to be returned encoded must be double-encoded[1], for example
-		// %2526 will get returned as %26 and decoded to &, while %26 will get
-		// returned as & and treated as a query string separator.
-
-		// Additionally a properly encoded & will make their server respond
-		// MessageCode 302 (which means 'unavailable') unless it is wrapped in
-		// CDATA tags because godonlyknows
-		$arr_query['token'] = rawurlencode( $this->token_getSaltedSessionToken() );
-		$arr_query['ffname'] = rawurlencode( $this->getData_Unstaged_Escaped( 'ffname' ) );
-		$arr_query['amount'] = rawurlencode( $this->getData_Unstaged_Escaped( 'amount' ) );
-		foreach ( $arr_query as $key => $val ) {
-			$query .= ( $first ? '?' : '&' ) . $key . '=' . $val;
-			$first = false;
-		}
-
-		$this->staged_data['returnto'] = rawurlencode( // [1]
-			$arr_url['scheme'] .  '://' .
-			$arr_url['host'] .
-			$arr_url['path'] .
-			$query
-		);
-	}
-
-	protected function stage_wp_acctname() {
-		$this->staged_data['wp_acctname'] = implode( ' ', array(
-			$this->getData_Unstaged_Escaped( 'fname' ),
-			$this->getData_Unstaged_Escaped( 'lname' )
-		));
-	}
-
-	protected function stage_iso_currency_id() {
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
-			$this->staged_data['iso_currency_id'] = self::$CURRENCY_CODES[$currency];
-		}
-	}
-
-	protected function unstage_payment_submethod() {
-		$paymentMethod = $this->getData_Staged( 'payment_method' );
-		$paymentSubmethod = $this->getData_Staged( 'payment_submethod' );
-		if ( $paymentMethod == 'cc' ) {
-			$this->unstaged_data['payment_submethod'] =
-				$this->payment_submethod_api_names[ $paymentSubmethod ];
-		}
-	}
-
-	protected function stage_merchant_reference_2() {
-		$email = $this->getData_Staged( 'email' );
-		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
-		$this->staged_data['merchant_reference_2'] = $alphanumeric;
-	}
-
-	protected function stage_narrative_statement_1() {
-		$this->staged_data['narrative_statement_1'] = WmfFramework::formatMessage(
-			'donate_interface-statement',
-			$this->getData_Unstaged_Escaped( 'contribution_tracking_id' )
-		);
 	}
 
 	/**
