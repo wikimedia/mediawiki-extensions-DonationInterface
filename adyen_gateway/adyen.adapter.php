@@ -180,39 +180,14 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'cc' => array(
-				'label' => 'Credit Cards',
-				'validation' => array(
-					'name' => true,
-					'email' => true,
-				),
-			),
-		);
-
-		$card_types = array( 'visa', 'amex', 'mc', 'discover' );
-		$this->payment_submethods = array();
-		foreach( $card_types as $name ) {
-
-			$this->payment_submethods[$name] = array(
-				'countries' => array( 'US' => true ),
-				'group' => 'cc',
-				'validation' => array(
-					'name' => true,
-					'email' => true,
-					'address' => true,
-					'amount' => true,
-				),
-				'logo' => "card-{$name}.png",
-			);
-		}
-	}
-
 	protected function getAllowedPaymentMethods() {
 		return array(
 			'card',
 		);
+	}
+
+	function getBasedir() {
+		return __DIR__;
 	}
 
 	function doPayment() {
