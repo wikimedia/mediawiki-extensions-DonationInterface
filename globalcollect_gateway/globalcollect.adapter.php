@@ -1875,7 +1875,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	public function defineDataTransformers() {
 		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new BrazilianFiscalNumber(),
+			new FiscalNumber(),
 			new ContributionTrackingPlusUnique(),
 			new IngenicoFinancialNumber(),
 			new IngenicoLanguage(),

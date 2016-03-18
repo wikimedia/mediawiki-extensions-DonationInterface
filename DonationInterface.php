@@ -38,7 +38,7 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
  * CLASSES
  */
 $wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
-$wgAutoloadClasses['BrazilianFiscalNumber'] = __DIR__ . '/gateway_common/BrazilianFiscalNumber.php';
+$wgAutoloadClasses['FiscalNumber'] = __DIR__ . '/gateway_common/FiscalNumber.php';
 $wgAutoloadClasses['ContributionTrackingPlusUnique'] = __DIR__ . '/gateway_common/ContributionTrackingPlusUnique.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';

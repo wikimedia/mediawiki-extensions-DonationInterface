@@ -256,7 +256,7 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->data_transformers = array(
 			new AstroPayFinancialNumbers(),
 			new AstroPayMethodCodec(),
-			new BrazilianFiscalNumber(),
+			new FiscalNumber(),
 			new DonorFullName(),
 			new StreetAddress(),
 		);
