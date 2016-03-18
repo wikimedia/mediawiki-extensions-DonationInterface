@@ -34,58 +34,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		'OTTResultURL'
 	);
 
-	// TODO we should store these keys in a config file
-	// TODO the way the cards are ordered on the page is the order of this
-	// array. make that a "weight" that could be controlled by a url param
-	static $CARD_INFO = array(
-		'cb' => array( // Carte Bleu
-			'api_name' => 'CB',
-			'countries' => array( 'FR' => true ),
-		),
-		'visa' => array(
-			'api_name' => 'VI',
-			'countries' => array( 'FR' => true ),
-		),
-		'mc' => array(
-			'api_name' => 'MC',
-			'countries' => array( 'FR' => true ),
-		),
-		'amex' => array(
-			'api_name' => 'AX',
-			'countries' => array( 'FR' => true ),
-		),
-		'visa-beneficial' => array(
-			'api_name' => 'BE',
-		),
-		'diners' => array(
-			'api_name' => 'DC',
-		),
-		'discover' => array(
-			'api_name' => 'DI',
-		),
-		'jcb' => array(
-			'api_name' => 'JC',
-		),
-		'maestro' => array(
-			'api_name' => 'MA',
-		),
-		'mc-debit' => array(
-			'api_name' => 'MD',
-		),
-		'solo' => array(
-			'api_name' => 'SW'
-		),
-		'visa-debit' => array(
-			'api_name' => 'VD',
-		),
-		'visa-electron' => array(
-			'api_name' => 'VE',
-		),
-		'' /* TODO wat */ => array(
-			'api_name' => 'XX',
-		),
-	);
-
 	/**
 	 * @var string[] ISO Currency code letters to numbers (from appendix B of the
 	 * integration manual). These are also apparently all the currencies that
@@ -243,6 +191,16 @@ class WorldpayAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
+	public function definePaymentMethods() {
+		parent::definePaymentMethods();
+		# load up the short names
+		# TODO if other adapters start to use api_name, move this to base class
+		$this->payment_submethod_api_names = array();
+		foreach ( $this->payment_submethods as $name => $details ) {
+			$this->payment_submethod_api_names[$details['api_name']] = $name;
+		}
+	}
+
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'returnto',
@@ -327,38 +285,6 @@ class WorldpayAdapter extends GatewayAdapter {
 			// NarrativeStatement1
 			'narrative_statement_1' => array( 'type' => 'alphanumeric', 'length' => 50 ),
 		);
-	}
-
-	function definePaymentMethods() {
-		$this->payment_methods = array();
-		$this->payment_methods['cc'] = array(
-			'label'	=> 'Credit Cards',
-			'validation' => array(
-				'name' => true,
-				'email' => true
-			),
-		);
-
-		$this->payment_submethods = array();
-
-		foreach( self::$CARD_INFO as $name => $info ) {
-
-			$countries = array();
-			if ( isset( $info['countries'] ) ) {
-				$countries = $info['countries'];
-			}
-			$this->payment_submethods[$name] = array(
-				'countries' => $countries,
-				'group' => 'cc',
-				'validation' => array(
-					'name' => true,
-					'email' => true,
-					'address' => false,
-					'amount' => true,
-				),
-				'logo' => "card-{$name}.png",
-			);
-		}
 	}
 
 	/**
@@ -806,15 +732,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->data_transformers = parent::getCoreDataTransformers();
 	}
 
-	private function get_payment_method_name_from_api_name ( $api_name ) {
-		foreach ( self::$CARD_INFO as $name => $info ) {
-			if ( $api_name === $info['api_name'] ) {
-				return $name;
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * Check if the currently-staged store ID is configured for special treatment.
 	 * Certain store IDs (just FR so far) do not get AVS results, and always get
@@ -827,6 +744,10 @@ class WorldpayAdapter extends GatewayAdapter {
 		return array_key_exists( 'SpecialSnowflakeStoreIDs', $this->account_config )
 			&& array_key_exists( 'wp_storeid', $this->staged_data )
 			&& in_array( $this->staged_data['wp_storeid'], $this->account_config['SpecialSnowflakeStoreIDs'] );
+	}
+
+	public function getBasedir() {
+		return __DIR__;
 	}
 
 	public function doPayment() {
@@ -1175,7 +1096,7 @@ class WorldpayAdapter extends GatewayAdapter {
 		$paymentSubmethod = $this->getData_Staged( 'payment_submethod' );
 		if ( $paymentMethod == 'cc' ) {
 			$this->unstaged_data['payment_submethod'] =
-				$this->get_payment_method_name_from_api_name( $paymentSubmethod );
+				$this->payment_submethod_api_names[ $paymentSubmethod ];
 		}
 	}
 
