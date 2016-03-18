@@ -23,17 +23,42 @@ class DonationLoggerFactory {
 	 * @return \Psr\Log\LoggerInterface
 	 */
 	public static function getLogger( GatewayType $adapter = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
+		if ( $prefixer === null ) {
+			$prefixer = $adapter;
+		}
+		return self::getLoggerFromParams(
+			$adapter->getLogIdentifier(),
+			$adapter->getGlobal( 'UseSyslog' ),
+			$adapter->getGlobal( 'LogDebug' ),
+			$suffix,
+			$prefixer
+		);
+	}
+
+	/**
+	 * Get a logger without an adapter instance
+	 * @param string $adapterType
+	 * @param string $prefix
+	 * @return \Psr\Log\LoggerInterface
+	 */
+	public static function getLoggerForType( $adapterType, $prefix = '' ) {
+		if ( $prefix === '' ) {
+			$prefixer = null;
+		} else {
+			$prefixer = new FallbackLogPrefixer( $prefix );
+		}
+		return self::getLoggerFromParams(
+			$adapterType::getLogIdentifier(),
+			$adapterType::getGlobal( 'UseSyslog' ),
+			$adapterType::getGlobal( 'LogDebug' ),
+			'',
+			$prefixer
+		);
+	}
+
+	private static function getLoggerFromParams( $identifier, $useSyslog, $debug, $suffix, $prefixer ) {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
-		}
-		if ( $adapter === null ) {
-			$identifier = GatewayAdapter::getLogIdentifier();
-			$useSyslog = GatewayAdapter::getGlobal( 'UseSyslog' );
-			$debug = GatewayAdapter::getGlobal( 'LogDebug' );
-		} else {
-			$identifier = $adapter::getLogIdentifier();
-			$useSyslog = $adapter::getGlobal( 'UseSyslog' );
-			$debug = $adapter::getGlobal( 'LogDebug' );
 		}
 		$identifier = $identifier . $suffix;
 
@@ -49,11 +74,7 @@ class DonationLoggerFactory {
 		$formatter = new LineFormatter( '%message%' );
 		$handler->setFormatter( $formatter );
 
-		if ( $prefixer === null ) {
-			$prefixer = $adapter;
-		}
-
-		// If either prefixer or adapter were non-null, add a processor
+		// If we have a prefixer, add a processor
 		if ( $prefixer !== null ) {
 			$processor = new DonationLogProcessor( $prefixer );
 			$handler->pushProcessor( $processor );

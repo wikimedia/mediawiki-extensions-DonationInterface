@@ -53,6 +53,7 @@ $wgAutoloadClasses['DonorFullName'] = __DIR__ . '/gateway_common/DonorFullName.p
 $wgAutoloadClasses['DonorLanguage'] = __DIR__ . '/gateway_common/DonorLanguage.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
+$wgAutoloadClasses['FallbackLogPrefixer'] = __DIR__ . '/gateway_common/FallbackLogPrefixer.php';
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/GatewayType.php';
