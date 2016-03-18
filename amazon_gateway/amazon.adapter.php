@@ -122,17 +122,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transactions = array();
 	}
 
-	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'amazon' => array(),
-		);
-
-		$this->payment_submethods = array(
-			'amazon_cc' => array(),
-			'amazon_wallet' => array(),
-		);
-	}
-
 	function defineDataTransformers() {
 		// Skip AmountInCents, we want to pass the real amount x1.
 		$this->data_transformers = array(
@@ -140,6 +129,10 @@ class AmazonAdapter extends GatewayAdapter {
 			new DonorFullName(),
 			new StreetAddress(),
 		);
+	}
+
+	function getBasedir() {
+		return __DIR__;
 	}
 
 	/**
