@@ -31,6 +31,11 @@ interface LogPrefixProvider {
 abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
+	 * config tree
+	 */
+	protected $config = array();
+
+	/**
 	 * $dataConstraints provides information on how to handle variables.
 	 *
 	 * 	 <code>
@@ -250,6 +255,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// The following needs to be set up before we initialize DonationData.
 		// TODO: move the rest of the initialization here
+		$this->loadConfig();
 		$this->defineOrderIDMeta();
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
@@ -295,14 +301,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->request;
 	}
 
-	public function definePaymentMethods() {
+	public function loadConfig() {
 		$yaml = new Parser();
 		foreach ( glob( $this->getBasedir() . "/config/*.yaml" ) as $path ) {
 			$pieces = explode( "/", $path );
 			$key = substr( array_pop( $pieces ), 0, -5 );
-			# TODO should put this in structured config rather than a member
-			# variable, but this plays along with the current code.
-			$this->$key = $yaml->parse( file_get_contents( $path ) );
+			$this->config[$key] = $yaml->parse( file_get_contents( $path ) );
+		}
+	}
+
+	// For legacy support.
+	// TODO replace with access to config structure
+	public function definePaymentMethods() {
+		// All adapters have payment_method(s)
+		$this->payment_methods = $this->config['payment_methods'];
+		// Some (Pay Pal) do not have any submethods.
+		if ( isset( $this->config['payment_submethods'] ) ) {
+			$this->payment_submethods = $this->config['payment_submethods'];
 		}
 	}
 

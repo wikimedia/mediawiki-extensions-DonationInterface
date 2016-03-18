@@ -67,6 +67,9 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return GatewayAdapter::getIdentifier();
 	}
 
+	public function loadConfig() {
+	}
+
 	public function defineAccountInfo() {
 	}
 
