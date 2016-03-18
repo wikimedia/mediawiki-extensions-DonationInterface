@@ -188,6 +188,10 @@ class PaypalAdapter extends GatewayAdapter {
 		$this->data_transformers = parent::getCoreDataTransformers();
 	}
 
+	function getBasedir() {
+		return __DIR__;
+	}
+
 	public function doPayment() {
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$resultData = $this->do_transaction( 'DonateRecurring' );
@@ -220,12 +224,6 @@ class PaypalAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				return $result;
 		}
-	}
-
-	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'paypal' => array(),
-		);
 	}
 
 	public function getCurrencies( $options = array() ) {
