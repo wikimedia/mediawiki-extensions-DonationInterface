@@ -22,7 +22,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	public function __construct(
 		GatewayType $gateway_adapter,
-		Gateway_Extras_CustomFilters $custom_filter_object
+		Gateway_Extras_CustomFilters $custom_filter_object = null
 	) {
 
 		parent::__construct( $gateway_adapter );
@@ -169,13 +169,12 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'IP Velocity onPostProcess hook!';
-		$dummy = null; //have to do this or it fails hard on a pass-by-reference...
-		return self::singleton( $gateway_adapter, $dummy )->postProcess();
+		return self::singleton( $gateway_adapter )->postProcess();
 	}
 
 	static function singleton(
 		GatewayType $gateway_adapter,
-		Gateway_Extras_CustomFilters $custom_filter_object
+		Gateway_Extras_CustomFilters $custom_filter_object = null
 	) {
 
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
