@@ -1496,7 +1496,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// FIXME: Move to a more specific point in the workflow, in the related do_transaction handler.
 		$this->set3dsFlag();
 
-		// FIXME: Move to a post-staging hook.
+		// FIXME: Move to a post-staging hook, and push most of it into the declarative block.
 		$this->tuneForMethod();
 		$this->tuneForRecurring();
 		$this->tuneForCountry();
@@ -1674,9 +1674,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * INSERT_ORDERWITHPAYMENT if the recurring field is populated.
 	 */
 	protected function tuneForRecurring(){
-		if ( !$this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			return;
-		} else {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'ORDERTYPE';
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['ORDERTYPE'] = '4';
 		}
