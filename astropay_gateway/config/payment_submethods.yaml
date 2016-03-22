@@ -1,0 +1,281 @@
+visa:
+    bank_code: VI
+    label: Visa
+    group: cc
+    countries:
+        AR: true
+        BR: true
+        CL: true
+        MX: true
+        CO: true
+    logo: card-visa-lg.png
+mc:
+    bank_code: MC
+    label: MasterCard
+    group: cc
+    countries:
+        AR: true
+        BR: true
+        CL: true
+        MX: true
+        CO: true
+    logo: card-mc-lg.png
+magna:
+    bank_code: MG
+    label: Magna
+    group: cc
+    countries:
+        CL: true
+    logo: card-magna.png
+amex:
+    bank_code: AE
+    label: 'American Express'
+    group: cc
+    countries:
+        BR: true
+        AR: true
+        CL: true
+        CO: true
+    logo: card-amex-lg.png
+visa-debit:
+    bank_code: VD
+    label: 'Visa Debit'
+    group: cc
+    countries:
+        MX: true
+    logo: card-visa-lg.png
+    sub_text_key: donate_interface-debit
+mc-debit:
+    bank_code: MD
+    label: 'Mastercard Debit'
+    group: cc
+    countries:
+        MX: true
+    logo: card-mc-lg.png
+    sub_text_key: donate_interface-debit
+elo:
+    bank_code: EL
+    label: Elo
+    group: cc
+    countries:
+        BR: true
+    logo: card-elo.png
+diners:
+    bank_code: DC
+    label: 'Diners Club'
+    group: cc
+    countries:
+        BR: true
+        CL: true
+        CO: true
+    logo: card-dinersclub-lg.png
+hiper:
+    bank_code: HI
+    label: Hipercard
+    group: cc
+    countries:
+        BR: true
+    logo: card-hiper.png
+mercadolivre:
+    bank_code: ML
+    label: MercadoLivre
+    group: cc
+    countries:
+        BR: true
+    logo: card-mercadolivre.png
+cabal:
+    bank_code: CL
+    label: Cabal
+    group: cc
+    countries:
+        AR: true
+    logo: card-cabal.png
+naranja:
+    bank_code: NJ
+    label: Naranja
+    group: cc
+    countries:
+        AR: true
+    logo: card-naranja.png
+shopping:
+    bank_code: TS
+    label: 'Tarjeta Shopping'
+    group: cc
+    countries:
+        AR: true
+    logo: card-shopping.png
+nativa:
+    bank_code: NT
+    label: Nativa
+    group: cc
+    countries:
+        AR: true
+    logo: card-nativa.png
+cencosud:
+    bank_code: TS
+    label: Cencosud
+    group: cc
+    countries:
+        AR: true
+    logo: card-cencosud.png
+argen:
+    bank_code: AG
+    label: Argencard
+    group: cc
+    countries:
+        AR: true
+    logo: card-argencard.png
+cmr:
+    bank_code: CM
+    label: CMR
+    group: cc
+    countries:
+        CL: true
+    logo: card-cmr.png
+presto:
+    bank_code: PR
+    label: Presto
+    group: cc
+    countries:
+        CL: true
+    logo: card-presto.png
+webpay:
+    bank_code: WP
+    label: Webpay
+    group:
+        - cc
+        - bt
+    countries:
+        CL: true
+    logo: bank-webpay.png
+banco_de_chile:
+    bank_code: BX
+    label: 'Banco de Chile'
+    group: bt
+    countries:
+        CL: true
+    logo: bank-banco_de_chile.png
+banco_do_brasil:
+    bank_code: BB
+    label: 'Banco do Brasil'
+    group: bt
+    countries:
+        BR: true
+    logo: bank-banco_do_brasil.png
+itau:
+    bank_code: I
+    label: Itau
+    group: bt
+    countries:
+        BR: true
+    logo: bank-itau.png
+bradesco:
+    bank_code: B
+    label: Bradesco
+    group: bt
+    countries:
+        BR: true
+    logo: bank-bradesco.png
+santander:
+    bank_code: SB
+    label: Santander
+    group: bt
+    countries:
+        BR: true
+    logo: bank-santander.png
+santander_rio:
+    bank_code: SI
+    label: Santander
+    group: bt
+    countries:
+        AR: true
+    logo: bank-santander.png
+cash_boleto:
+    bank_code: BL
+    label: Boletos
+    group: cash
+    countries:
+        BR: true
+cash_oxxo:
+    bank_code: OX
+    label: OXXO
+    group: cash
+    countries:
+        MX: true
+    logo: cash-oxxo.png
+cash_santander:
+    bank_code: SM
+    label: Santander
+    group: cash
+    countries:
+        MX: true
+    logo: bank-santander.png
+cash_banamex:
+    bank_code: BM
+    label: Banamex
+    group: cash
+    countries:
+        MX: true
+    logo: cash-banamex.png
+cash_bancomer:
+    bank_code: BV
+    label: Bancomer
+    group: cash
+    countries:
+        MX: true
+    logo: cash-bancomer.png
+cash_rapipago:
+    bank_code: RP
+    label: 'Rapi Pago'
+    group: cash
+    countries:
+        AR: true
+    logo: cash-rapipago.png
+cash_pago_facil:
+    bank_code: PF
+    label: 'Pago Facil'
+    group: cash
+    countries:
+        AR: true
+    logo: cash-pago-facil.png
+cash_provencia_pagos:
+    bank_code: BG
+    label: 'Provencia Pagos'
+    group: cash
+    countries:
+        AR: true
+    logo: cash-provencia-pagos.png
+cash_efecty:
+    bank_code: EY
+    label: Efecty
+    group: cash
+    countries:
+        CO: true
+    logo: cash-efecty.png
+cash_davivienda:
+    bank_code: DA
+    label: Davivienda
+    group: cash
+    countries:
+        CO: true
+    logo: cash-davivienda.png
+pse:
+    bank_code: PC
+    label: PSE
+    group: bt
+    countries:
+        CO: true
+cash_pago_efectivo:
+    bank_code: EF
+    label: 'Pago Efectivo'
+    group: cash
+    countries:
+        PE: true
+    logo: cash-pago-efectivo.png
+cash_red_pagos:
+    bank_code: RE
+    label: 'Red Pagos'
+    group: cash
+    countries:
+        UY: true
+    logo: cash-red-pagos.png

@@ -26,7 +26,8 @@
 		"predis/predis": "1.*",
 		"psr/log": "1.0.0",
 		"zordius/lightncandy": "0.18",
-		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master"
+		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
+		"symfony/yaml": "2.8.3"
 	},
 	"repositories": [
 		{

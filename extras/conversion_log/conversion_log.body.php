@@ -16,8 +16,9 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 			return true;
 		}
 
+		$response = $this->gateway_adapter->getTransactionResponse();
 		// make sure the response property has been set (signifying a transaction has been made)
-		if ( !$this->gateway_adapter->getTransactionResponse() ) {
+		if ( !$response ) {
 			return false;
 		}
 
@@ -26,13 +27,13 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 				'contribution_tracking_id'
 			),
 			"Gateway response: " . addslashes(
-					$this->gateway_adapter->getTransactionMessage()
-			), '"' . addslashes( json_encode( $this->gateway_adapter->getTransactionData() ) ) . '"'
+				$response->getTxnMessage()
+			), '"' . addslashes( json_encode( $response->getData() ) ) . '"'
 		);
 		return true;
 	}
 
-	static function onPostProcess( &$gateway_adapter ) {
+	static function onPostProcess( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ) {
 			return true;
 		}
@@ -40,7 +41,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		return self::singleton( $gateway_adapter )->post_process();
 	}
 
-	static function singleton( &$gateway_adapter ) {
+	static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}

@@ -65,6 +65,10 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function defineDataTransformers() {
+		$this->data_transformers = parent::getCoreDataTransformers();
+	}
+
 	/**
 	 * Define var_map
 	 */
@@ -176,39 +180,14 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'cc' => array(
-				'label' => 'Credit Cards',
-				'validation' => array(
-					'name' => true,
-					'email' => true,
-				),
-			),
-		);
-
-		$card_types = array( 'visa', 'amex', 'mc', 'discover' );
-		$this->payment_submethods = array();
-		foreach( $card_types as $name ) {
-
-			$this->payment_submethods[$name] = array(
-				'countries' => array( 'US' => true ),
-				'group' => 'cc',
-				'validation' => array(
-					'name' => true,
-					'email' => true,
-					'address' => true,
-					'amount' => true,
-				),
-				'logo' => "card-{$name}.png",
-			);
-		}
-	}
-
 	protected function getAllowedPaymentMethods() {
 		return array(
 			'card',
 		);
+	}
+
+	function getBasedir() {
+		return __DIR__;
 	}
 
 	function doPayment() {
@@ -564,10 +543,6 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->deleteLimboMessage( 'pending' );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
-			throw new ResponseProcessingException(
-				"Negative response from gateway. Full response: " . print_r( $response, TRUE ),
-				ResponseCodes::UNKNOWN
-			);
 		}
 		$this->runPostProcessHooks();
 	}

@@ -17,7 +17,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	protected $logger;
 
 	function __construct() {
-		$this->logger = DonationLoggerFactory::getLogger();
+		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'FormChooser' );
 		parent::__construct( 'GatewayFormChooser' );
 	}
 

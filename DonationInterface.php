@@ -37,18 +37,26 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
 /**
  * CLASSES
  */
+$wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
+$wgAutoloadClasses['FiscalNumber'] = __DIR__ . '/gateway_common/FiscalNumber.php';
+$wgAutoloadClasses['ContributionTrackingPlusUnique'] = __DIR__ . '/gateway_common/ContributionTrackingPlusUnique.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
 $wgAutoloadClasses['CyclicalArray'] = __DIR__ . '/globalcollect_gateway/CyclicalArray.php';
 $wgAutoloadClasses['DonationData'] = __DIR__ . '/gateway_common/DonationData.php';
 $wgAutoloadClasses['DonationLoggerFactory'] = __DIR__ . '/gateway_common/DonationLoggerFactory.php';
 $wgAutoloadClasses['DonationLogProcessor'] = __DIR__ . '/gateway_common/DonationLogProcessor.php';
+$wgAutoloadClasses['DonationProfiler'] = __DIR__ . '/gateway_common/DonationProfiler.php';
 $wgAutoloadClasses['DonationQueue'] = __DIR__ . '/gateway_common/DonationQueue.php';
+$wgAutoloadClasses['DonorEmail'] = __DIR__ . '/gateway_common/DonorEmail.php';
+$wgAutoloadClasses['DonorFullName'] = __DIR__ . '/gateway_common/DonorFullName.php';
+$wgAutoloadClasses['DonorLanguage'] = __DIR__ . '/gateway_common/DonorLanguage.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
+$wgAutoloadClasses['FallbackLogPrefixer'] = __DIR__ . '/gateway_common/FallbackLogPrefixer.php';
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
-$wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/gateway.adapter.php';
+$wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/GatewayType.php';
 $wgAutoloadClasses['DataValidator'] = __DIR__ . '/gateway_common/DataValidator.php';
 $wgAutoloadClasses['LogPrefixProvider'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['MessageUtils'] = __DIR__ . '/gateway_common/MessageUtils.php';
@@ -59,6 +67,9 @@ $wgAutoloadClasses['PaymentTransactionResponse'] = __DIR__ . '/gateway_common/Pa
 $wgAutoloadClasses['ResponseCodes'] = __DIR__ . '/gateway_common/ResponseCodes.php';
 $wgAutoloadClasses['ResponseProcessingException'] = __DIR__ . '/gateway_common/ResponseProcessingException.php';
 $wgAutoloadClasses['ResultPages'] = __DIR__ . '/gateway_common/ResultPages.php';
+$wgAutoloadClasses['StagingHelper'] = __DIR__ . '/gateway_common/StagingHelper.php';
+$wgAutoloadClasses['StreetAddress'] = __DIR__ . '/gateway_common/StreetAddress.php';
+$wgAutoloadClasses['UnstagingHelper'] = __DIR__ . '/gateway_common/UnstagingHelper.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
 
@@ -76,6 +87,10 @@ $wgAutoloadClasses['GlobalCollectGatewayResult'] = __DIR__ . '/globalcollect_gat
 $wgAutoloadClasses['GlobalCollectAdapter'] = __DIR__ . '/globalcollect_gateway/globalcollect.adapter.php';
 $wgAutoloadClasses['GlobalCollectOrphanAdapter'] = __DIR__ . '/globalcollect_gateway/orphan.adapter.php';
 $wgAutoloadClasses['GlobalCollectOrphanRectifier'] = __DIR__ . '/globalcollect_gateway/GlobalCollectOrphanRectifier.php';
+$wgAutoloadClasses['IngenicoFinancialNumber'] = __DIR__ . '/globalcollect_gateway/IngenicoFinancialNumber.php';
+$wgAutoloadClasses['IngenicoLanguage'] = __DIR__ . '/globalcollect_gateway/IngenicoLanguage.php';
+$wgAutoloadClasses['IngenicoMethodCodec'] = __DIR__ . '/globalcollect_gateway/IngenicoMethodCodec.php';
+$wgAutoloadClasses['IngenicoReturntoHelper'] = __DIR__ . '/globalcollect_gateway/IngenicoReturntoHelper.php';
 
 // Amazon
 $wgAutoloadClasses['AmazonGateway'] = __DIR__ . '/amazon_gateway/amazon_gateway.body.php';
@@ -92,6 +107,8 @@ $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php
 $wgAutoloadClasses['AstropayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
 $wgAutoloadClasses['AstropayGatewayResult'] = __DIR__ . '/astropay_gateway/astropay_resultswitcher.body.php';
 $wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.adapter.php';
+$wgAutoloadClasses['AstroPayFinancialNumbers'] = __DIR__ . '/astropay_gateway/AstroPayFinancialNumbers.php';
+$wgAutoloadClasses['AstroPayMethodCodec'] = __DIR__ . '/astropay_gateway/AstroPayMethodCodec.php';
 
 // Paypal
 $wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
@@ -287,6 +304,7 @@ $wgDonationInterface3DSRules = array(
 );
 
 //GlobalCollect gateway globals
+
 $wgGlobalCollectGatewayTestingURL = 'https://ps.gcsip.nl/wdl/wdl';
 // Actually it's ps.gcsip.com, but trust me it's better this way.
 $wgGlobalCollectGatewayURL = 'https://ps.gcsip.nl/wdl/wdl';

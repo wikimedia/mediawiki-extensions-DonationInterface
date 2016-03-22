@@ -4,11 +4,11 @@ class ResultPages {
 	/**
 	 * Get the URL for a page to show donors after a successful donation,
 	 * with the country code appended as a query string variable
-	 * @param GatewayAdapter $adapter
+	 * @param GatewayType $adapter
 	 * @param array $extraParams any extra parameters to add to the URL
 	 * @return string
 	 */
-	public static function getThankYouPage( GatewayAdapter $adapter, $extraParams = array() ) {
+	public static function getThankYouPage( GatewayType $adapter, $extraParams = array() ) {
 		$page = $adapter::getGlobal( "ThankYouPage" );
 		if ( $page ) {
 			$page = self::appendLanguageAndMakeURL( $page, $adapter );
@@ -19,10 +19,10 @@ class ResultPages {
 
 	/**
 	 * Get the URL for a page to show donors after a failed donation
-	 * @param GatewayAdapter $adapter
+	 * @param GatewayType $adapter
 	 * @return string
 	 */
-	public static function getFailPage( GatewayAdapter $adapter ) {
+	public static function getFailPage( GatewayType $adapter ) {
 		// Prefer RapidFail.
 		if ( $adapter::getGlobal( 'RapidFail' ) ) {
 			$data = $adapter->getData_Unstaged_Escaped();
@@ -53,10 +53,10 @@ class ResultPages {
 
 	/**
 	 * Get the URL for a page to show donors who cancel their attempt
-	 * @param GatewayAdapter $adapter
+	 * @param GatewayType $adapter
 	 * @return string
 	 */
-	public static function getCancelPage( GatewayAdapter $adapter ) {
+	public static function getCancelPage( GatewayType $adapter ) {
 		$cancelPage = $adapter->getGlobal( 'CancelPage' );
 		if ( empty( $cancelPage ) ) {
 			return '';
@@ -70,10 +70,10 @@ class ResultPages {
 	 * appended onto the end.
 	 * @param string $url Either a wiki page title, or a URL to an external wiki
 	 * page title.
-	 * @param GatewayAdapter $adapter
+	 * @param GatewayType $adapter
 	 * @return string A URL
 	 */
-	protected static function appendLanguageAndMakeURL( $url, GatewayAdapter $adapter ) {
+	protected static function appendLanguageAndMakeURL( $url, GatewayType $adapter ) {
 		$language = $adapter->getData_Unstaged_Escaped( 'language' );
 		// make sure we don't already have the language in there...
 		$dirs = explode('/', $url);

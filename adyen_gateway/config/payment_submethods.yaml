@@ -1,0 +1,40 @@
+visa:
+    countries:
+        US: true
+    group: cc
+    validation:
+        name: true
+        email: true
+        address: true
+        amount: true
+    logo: card-visa.png
+amex:
+    countries:
+        US: true
+    group: cc
+    validation:
+        name: true
+        email: true
+        address: true
+        amount: true
+    logo: card-amex.png
+mc:
+    countries:
+        US: true
+    group: cc
+    validation:
+        name: true
+        email: true
+        address: true
+        amount: true
+    logo: card-mc.png
+discover:
+    countries:
+        US: true
+    group: cc
+    validation:
+        name: true
+        email: true
+        address: true
+        amount: true
+    logo: card-discover.png

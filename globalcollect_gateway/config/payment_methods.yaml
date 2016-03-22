@@ -1,0 +1,35 @@
+bt:
+    label: 'Bank transfer'
+    validation:
+        creditCard: false
+    short_circuit_at: first_iop
+cc:
+    label: 'Credit Cards'
+dd:
+    label: 'Direct Debit'
+    validation:
+        creditCard: false
+    short_circuit_at: first_iop
+ew:
+    label: eWallets
+    validation:
+        address: false
+        creditCard: false
+    short_circuit_at: first_iop
+    additional_success_status:
+        - 20
+obt:
+    label: 'Online bank transfer'
+    validation:
+        creditCard: false
+    short_circuit_at: first_iop
+rtbt:
+    label: 'Real time bank transfer'
+    short_circuit_at: first_iop
+    additional_success_status:
+        - 20
+cash:
+    label: 'Cash payments'
+    short_circuit_at: first_iop
+    additional_success_status:
+        - 55

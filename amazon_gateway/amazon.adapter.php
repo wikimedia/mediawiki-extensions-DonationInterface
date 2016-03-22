@@ -122,15 +122,17 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transactions = array();
 	}
 
-	public function definePaymentMethods() {
-		$this->payment_methods = array(
-			'amazon' => array(),
+	function defineDataTransformers() {
+		// Skip AmountInCents, we want to pass the real amount x1.
+		$this->data_transformers = array(
+			new DonorEmail(),
+			new DonorFullName(),
+			new StreetAddress(),
 		);
+	}
 
-		$this->payment_submethods = array(
-			'amazon_cc' => array(),
-			'amazon_wallet' => array(),
-		);
+	function getBasedir() {
+		return __DIR__;
 	}
 
 	/**
@@ -192,9 +194,9 @@ class AmazonAdapter extends GatewayAdapter {
 	protected function callPwaClient( $functionName, $parameters ) {
 		$callMe = array( $this->client, $functionName );
 		try {
-			$this->getStopwatch( $functionName, true );
+			$this->profiler->getStopwatch( $functionName, true );
 			$result = call_user_func( $callMe, $parameters )->toArray();
-			$this->saveCommunicationStats(
+			$this->profiler->saveCommunicationStats(
 				'callPwaClient',
 				$functionName,
 				'Response: ' . print_r( $result, true )

@@ -290,6 +290,7 @@
 	"donate_interface-cvv-number": "CVV-број",
 	"donate_interface-verification-number": "Потврден број",
 	"donate_interface-what-is-this": "Што е ова?",
+	"donate_interface-debit": "дебитна",
 	"donate_interface-do-not-include-dashes": "Не ставајте цртички",
 	"donate_interface-please-donate-today": "Дарувајте денес",
 	"donate_interface-donate-now": "Дарувајте сега",

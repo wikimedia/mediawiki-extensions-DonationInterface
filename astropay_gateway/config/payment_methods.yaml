@@ -1,0 +1,12 @@
+cc:
+    validation:
+        name: true
+        email: true
+bt:
+    validation:
+        name: true
+        email: true
+cash:
+    validation:
+        name: true
+        email: true

@@ -36,11 +36,11 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	/**
 	 * @static Construct the singleton instance of this class.
 	 *
-	 * @param $gateway_adapter
+	 * @param GatewayType $gateway_adapter
 	 *
 	 * @return Gateway_Extras_SessionVelocityFilter
 	 */
-	private static function singleton( &$gateway_adapter ) {
+	private static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}
@@ -50,12 +50,12 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	/**
 	 * @static Filter hook chain gateway function
 	 *
-	 * @param $gateway_adapter  The adapter context to log under
+	 * @param GatewayType $gateway_adapter The adapter context to log under
 	 *
 	 * @return bool Filter chain termination on FALSE. Also indicates that the cURL transaction
 	 *  should not be performed.
 	 */
-	public static function onCurlInit( &$gateway_adapter ) {
+	public static function onCurlInit( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ){
 			return true;
 		}
@@ -66,8 +66,6 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	/**
 	 * Although this function actually does the filtering, as this is a singleton pattern
 	 * we only want one instance actually using it.
-	 *
-	 * @param $gateway_adapter  A reference to the current gateway adapter
 	 *
 	 * @return bool Hook return, false stops processing of the hook chain
 	 */

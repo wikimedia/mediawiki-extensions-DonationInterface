@@ -1,0 +1,294 @@
+'':
+    paymentproductid: 0
+    label: Any
+    group: cc
+    validation:
+        address: true
+        amount: true
+        email: true
+        name: true
+    keys: {  }
+bt:
+    paymentproductid: 11
+    label: 'Bank Transfer'
+    group: bt
+    validation: {  }
+    keys: {  }
+visa:
+    paymentproductid: 1
+    label: Visa
+    group: cc
+    validation: {  }
+    keys: {  }
+mc:
+    paymentproductid: 3
+    label: MasterCard
+    group: cc
+    validation: {  }
+    keys: {  }
+amex:
+    paymentproductid: 2
+    label: 'American Express'
+    group: cc
+    validation: {  }
+    keys: {  }
+maestro:
+    paymentproductid: 117
+    label: Maestro
+    group: cc
+    validation: {  }
+    keys: {  }
+solo:
+    paymentproductid: 118
+    label: Solo
+    group: cc
+    validation: {  }
+    keys: {  }
+laser:
+    paymentproductid: 124
+    label: Laser
+    group: cc
+    validation: {  }
+    keys: {  }
+jcb:
+    paymentproductid: 125
+    label: JCB
+    group: cc
+    validation: {  }
+    keys: {  }
+discover:
+    paymentproductid: 128
+    label: Discover
+    group: cc
+    validation: {  }
+    keys: {  }
+cb:
+    paymentproductid: 130
+    label: CB
+    group: cc
+    validation: {  }
+    keys: {  }
+dd_at:
+    paymentproductid: 703
+    label: 'Direct debit: AT'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_be:
+    paymentproductid: 706
+    label: 'Direct debit: BE'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - AUTHORISATIONID
+        - BANKCHECKDIGIT
+        - BANKCODE
+        - BANKNAME
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_ch:
+    paymentproductid: 707
+    label: 'Direct debit: CH'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - ADDRESSLINE1E
+        - ADDRESSLINE2
+        - ADDRESSLINE3
+        - ADDRESSLINE4
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - IBAN
+dd_de:
+    paymentproductid: 702
+    label: 'Direct debit: DE'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_es:
+    paymentproductid: 709
+    label: 'Direct debit: ES'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_fr:
+    paymentproductid: 704
+    label: 'Direct debit: FR'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_gb:
+    paymentproductid: 705
+    label: 'Direct debit: GB'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - AUTHORISATIONID
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - TRANSACTIONTYPE
+dd_it:
+    paymentproductid: 708
+    label: 'Direct debit: IT'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKAGENZIA
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_nl:
+    paymentproductid: 701
+    label: 'Direct debit: NL'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - TRANSACTIONTYPE
+ew_paypal:
+    paymentproductid: 840
+    label: 'eWallets: PayPal'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_webmoney:
+    paymentproductid: 841
+    label: 'eWallets: WebMoney'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_yandex:
+    paymentproductid: 849
+    label: 'eWallets: Yandex'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_alipay:
+    paymentproductid: 861
+    label: 'eWallets: Alipay'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_moneybookers:
+    paymentproductid: 843
+    label: 'eWallets: Moneybookers'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_cashu:
+    paymentproductid: 845
+    label: 'eWallets: cashU'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+bpay:
+    paymentproductid: 500
+    label: 'Online Bank Transfer: Bpay'
+    group: obt
+    validation: {  }
+    keys: {  }
+rtbt_nordea_sweden:
+    paymentproductid: 805
+    label: 'Nordea (Sweden)'
+    group: rtbt
+    validation: {  }
+    keys: {  }
+rtbt_ideal:
+    paymentproductid: 809
+    label: Ideal
+    group: rtbt
+    validation: {  }
+    keys:
+        - ISSUERID
+    issuerids:
+        771: 'SNS Regio Bank'
+        161: 'Van Lanschot Bankiers'
+        31: 'ABN AMRO'
+        761: 'ASN Bank'
+        21: Rabobank
+        511: 'Triodos Bank'
+        721: ING
+        751: 'SNS Bank'
+        801: Knab
+rtbt_enets:
+    paymentproductid: 810
+    label: eNETS
+    group: rtbt
+    validation: {  }
+    keys: {  }
+rtbt_sofortuberweisung:
+    paymentproductid: 836
+    label: Sofortuberweisung/DIRECTebanking
+    group: rtbt
+    validation: {  }
+    keys: {  }
+rtbt_eps:
+    paymentproductid: 856
+    label: 'eps Online-Überweisung'
+    group: rtbt
+    validation: {  }
+    keys:
+        - ISSUERID
+    issuerids:
+        824: 'Bankhaus Spängler'
+        825: 'Hypo Tirol Bank'
+        822: 'NÖ HYPO'
+        823: 'Voralberger HYPO'
+        828: P.S.K.
+        829: Easy
+        826: 'Erste Bank und Sparkassen'
+        827: BAWAG
+        820: Raifeissen
+        821: 'Volksbanken Gruppe'
+        831: Sparda-Bank
+cash_boleto:
+    paymentproductid: 1503
+    label: 'Boleto Bancario Brazil'
+    group: cash
+    keys:
+        - FISCALNUMBER

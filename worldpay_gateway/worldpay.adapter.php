@@ -802,6 +802,10 @@ class WorldpayAdapter extends GatewayAdapter {
 		);
 	}
 
+	public function defineDataTransformers() {
+		$this->data_transformers = parent::getCoreDataTransformers();
+	}
+
 	private function get_payment_method_name_from_api_name ( $api_name ) {
 		foreach ( self::$CARD_INFO as $name => $info ) {
 			if ( $api_name === $info['api_name'] ) {

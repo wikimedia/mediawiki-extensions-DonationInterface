@@ -7,7 +7,7 @@ use Psr\Log\LogLevel;
 abstract class Gateway_Extras {
 
 	/**
-	 * @var GatewayAdapter
+	 * @var GatewayType
 	 */
 	public $gateway_adapter;
 
@@ -23,8 +23,8 @@ abstract class Gateway_Extras {
 	 */
 	protected $gateway_logger;
 
-	public function __construct( &$gateway_adapter ) {
-		$this->gateway_adapter = &$gateway_adapter;
+	public function __construct( GatewayType $gateway_adapter ) {
+		$this->gateway_adapter = $gateway_adapter;
 		$this->transaction_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_trxn' );
 		$this->gateway_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter );
 	}
@@ -54,7 +54,7 @@ abstract class Gateway_Extras {
 
 	/**
 	 * Generate a hash of some data
-	 * @param string the data to hash
+	 * @param string $data the data to hash
 	 * @return string The hash of the data
 	 */
 	public function generate_hash( $data ) {

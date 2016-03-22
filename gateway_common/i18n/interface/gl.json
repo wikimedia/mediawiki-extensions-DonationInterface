@@ -292,6 +292,7 @@
 	"donate_interface-cvv-number": "Número do código de seguridade",
 	"donate_interface-verification-number": "Número de verificación",
 	"donate_interface-what-is-this": "Que é isto?",
+	"donate_interface-debit": "débito",
 	"donate_interface-do-not-include-dashes": "Non inclúas os guións",
 	"donate_interface-please-donate-today": "Doa hoxe",
 	"donate_interface-donate-now": "Doa agora",

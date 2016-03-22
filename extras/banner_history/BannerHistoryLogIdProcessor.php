@@ -18,11 +18,11 @@ class BannerHistoryLogIdProcessor {
 	protected $logger;
 
 	/**
-	 * @var GatewayAdapter
+	 * @var GatewayType
 	 */
 	protected $gatewayAdapter;
 
-	protected static function singleton( $gatewayAdapter ) {
+	protected static function singleton( GatewayType $gatewayAdapter ) {
 		static $instance;
 
 		if ( !$instance ) {
@@ -31,7 +31,7 @@ class BannerHistoryLogIdProcessor {
 		return $instance;
 	}
 
-	protected function __construct( $gatewayAdapter ) {
+	protected function __construct( GatewayType $gatewayAdapter ) {
 		$this->gatewayAdapter = $gatewayAdapter;
 
 		$this->logger = DonationLoggerFactory::getLogger(
@@ -79,10 +79,10 @@ class BannerHistoryLogIdProcessor {
 	/**
 	 * Handler for the GatewayReady hook. This is the class's entry point.
 	 *
-	 * @param GatewayAdapter $gatewayAdapter
-	 * @param DonationData $donationData
+	 * @param GatewayType $gatewayAdapter
+	 * @return bool always true
 	 */
-	public static function onGatewayReady( $gatewayAdapter ) {
+	public static function onGatewayReady( GatewayType $gatewayAdapter ) {
 
 		self::singleton( $gatewayAdapter )
 			->queueAssociationOfIds();
