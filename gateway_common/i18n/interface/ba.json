@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Ләйсән",
 			"Рустам Нурыев",
-			"Pcoombe"
+			"Pcoombe",
+			"Айсар"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярҙам",
@@ -255,6 +256,7 @@
 	"donate_interface-cvv-number": "CVV номеры",
 	"donate_interface-verification-number": "Тикшереү коды",
 	"donate_interface-what-is-this": "Был нимә?",
+	"donate_interface-debit": "дебет",
 	"donate_interface-do-not-include-dashes": "Зинһар, тире ҡулланмағыҙ",
 	"donate_interface-please-donate-today": "Зинһар, бөгөн үҡ иғәнә итегеҙ",
 	"donate_interface-donate-now": "Хәҙер үк иғәнә итергә",
