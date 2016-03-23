@@ -270,6 +270,24 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( $expectedURL, $page );
 	}
 
+	// TODO: Move to ResultsPagesTest.php
+	public function testGetFailPageForType() {
+		$url = ResultPages::getFailPageForType( 'GlobalCollectAdapter' );
+		$expectedTitle = Title::newFromText( 'Donate-error' );
+		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
+		$this->assertEquals( $expectedURL, $url );
+	}
+
+	public function testCancelPage() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceCancelPage' => 'Ways to give'
+		) );
+		$gateway = $this->getFreshGatewayObject();
+		$url = ResultPages::getCancelPage( $gateway );
+		$expectedTitle = Title::newFromText( 'Ways to give/en' );
+		$this->assertEquals( $expectedTitle->getFullURL(), $url );
+	}
+
 	public function testCannotOverrideIp() {
 		$data = $this->getDonorTestData( 'FR' );
 		unset( $data['country'] );
