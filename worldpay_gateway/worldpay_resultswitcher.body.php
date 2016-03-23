@@ -24,7 +24,8 @@ class WorldpayGatewayResult extends GatewayPage {
 		// And process the donation.
 		if ( $this->adapter->checkTokens() ) {
 			$result = $this->adapter->do_transaction( 'QueryAuthorizeDeposit' ); // TODO handle errors here
-			switch ( $this->adapter->getFinalStatus() ) {
+			$status = $this->adapter->getFinalStatus();
+			switch ( $status ) {
 				case FinalStatus::COMPLETE:
 				case FinalStatus::PENDING:
 				case FinalStatus::PENDING_POKE:
