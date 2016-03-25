@@ -167,7 +167,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	function testMaintenanceMode_Redirect() {
-		global $wgContributionTrackingFundraiserMaintenance;
 
 		$this->setMwGlobals( array(
 			'wgContributionTrackingFundraiserMaintenance' => true,
@@ -181,6 +180,30 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 		$initial = array(
 			'language' => 'en'
+		);
+		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
+	}
+
+	/**
+	 * currency_code should take precedence over currency, payment_method
+	 * over paymentmethod, etc.
+	 */
+	function testPreferCanonicalParams() {
+		$self = $this; // someday, my upgrade will come
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => function( $val ) use ( $self ) {
+					$qs = array();
+					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
+					$self->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
+				}
+			),
+		);
+		$initial = array(
+			'language' => 'en',
+			'payment_method' => 'paypal',
+			'paymentmethod' => 'amazon',
+			'country' => 'US',
 		);
 		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
 	}

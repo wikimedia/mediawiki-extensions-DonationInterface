@@ -36,14 +36,30 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
 			return;
 		}
-		// Set the country parameter
-		$coerceNull = function( $val ) { return ( $val === '' ) ? null : $val; };
-		$country = $coerceNull( $this->getRequest()->getVal( 'country', null ) );
-		$currency = $coerceNull( $this->getRequest()->getVal( 'currency', null ) );
-		$paymentMethod = $coerceNull( $this->getRequest()->getVal( 'paymentmethod', null ) );
-		$paymentSubMethod = $coerceNull( $this->getRequest()->getVal( 'submethod', null ) );
+
+		$request = $this->getRequest();
+		// Check multiple query string parameters, return the value of the
+		// first we find, or null if none have a value.
+		$getValForParams = function( $params ) use ( $request ) {
+			$params = ( array ) $params;
+			$val = null;
+			do {
+				$val = $request->getVal( array_shift( $params ), null );
+				if ( $val === '' ) {
+					$val = null;
+				}
+			} while ( $val === null && !empty( $params ) );
+			return $val;
+		};
+
+		$country = $getValForParams( 'country' );
+		// Many banner links use non-standard names for the next three
+		// parameters. Prefer the standard names, but allow the old ones.
+		$currency = $getValForParams( array( 'currency_code', 'currency' ) );
+		$paymentMethod = $getValForParams( array( 'payment_method', 'paymentmethod' ) );
+		$paymentSubMethod = $getValForParams( array( 'payment_submethod', 'submethod' ) );
+		$gateway = $getValForParams( 'gateway' );
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
-		$gateway = $coerceNull( $this->getRequest()->getVal( 'gateway', null ) );
 
 		// FIXME: This is clearly going to go away before we deploy this bizniss.
 		$testNewGetAll = $this->getRequest()->getVal( 'testGetAll', false );
