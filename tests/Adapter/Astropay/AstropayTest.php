@@ -66,9 +66,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function testNewInvoiceRequest() {
 		$init = $this->getDonorTestData( 'BR' );
-		$this->setLanguage( $init['language'] );
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
+		$this->setLanguage( $init['language'] );
 		$gateway = new TestingAstropayAdapter();
 
 		$gateway->do_transaction( 'NewInvoice' );
