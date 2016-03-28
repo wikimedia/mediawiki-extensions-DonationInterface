@@ -18,13 +18,7 @@
 
 class PaypalGateway extends GatewayPage {
 
-	/**
-	 * Constructor - set up the new special page
-	 */
-	public function __construct() {
-		$this->adapter = new PaypalAdapter();
-		parent::__construct(); // the next layer up will know who we are.
-	}
+	protected $adapterClass = 'PaypalAdapter';
 
 	/**
 	 * Show the special page

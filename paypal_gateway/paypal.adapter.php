@@ -185,7 +185,10 @@ class PaypalAdapter extends GatewayAdapter {
 	}
 
 	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
+		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
+			new CleanupRecurringLength(),
+			new PayPalLocale(),
+		) );
 	}
 
 	function getBasedir() {
@@ -256,66 +259,5 @@ class PaypalAdapter extends GatewayAdapter {
 			// 'TRY', // in-country only
 			'USD',
 		);
-	}
-
-	protected function stage_recurring_length() {
-		if (
-			array_key_exists(
-				'recurring_length', $this->staged_data
-			) && !$this->staged_data['recurring_length']
-		) {
-			unset( $this->staged_data['recurring_length'] );
-		}
-	}
-
-	protected function stage_locale() {
-		$supported_countries = array(
-			'AU',
-			'AT',
-			'BE',
-			'BR',
-			'CA',
-			'CH',
-			'CN',
-			'DE',
-			'ES',
-			'GB',
-			'FR',
-			'IT',
-			'NL',
-			'PL',
-			'PT',
-			'RU',
-			'US',
-		);
-		$supported_full_locales = array(
-			'da_DK',
-			'he_IL',
-			'id_ID',
-			'jp_JP',
-			'no_NO',
-			'pt_BR',
-			'ru_RU',
-			'sv_SE',
-			'th_TH',
-			'tr_TR',
-			'zh_CN',
-			'zh_HK',
-			'zh_TW',
-		);
-
-		if ( in_array( $this->unstaged_data['country'], $supported_countries ) ) {
-			$this->staged_data['locale'] = $this->unstaged_data['country'];
-		}
-
-		$fallbacks = Language::getFallbacksFor( strtolower( $this->unstaged_data['language'] ) );
-		array_unshift( $fallbacks, strtolower( $this->unstaged_data['language'] ) );
-		foreach ( $fallbacks as $lang ) {
-			$locale = "{$lang}_{$this->unstaged_data['country']}";
-			if ( in_array( $locale, $supported_full_locales ) ) {
-				$this->staged_data['locale'] = $locale;
-				return;
-			}
-		}
 	}
 }

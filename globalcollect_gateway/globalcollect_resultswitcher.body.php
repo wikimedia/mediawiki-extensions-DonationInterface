@@ -23,13 +23,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 	protected $qs_oid = null;
 
-	/**
-	 * Constructor - set up the new special page
-	 */
-	public function __construct() {
-		$this->adapter = new GlobalCollectAdapter();
-		parent::__construct(); //the next layer up will know who we are. 
-	}
+	protected $adapterClass = 'GlobalCollectAdapter';
 
 	/**
 	 * Show the special page

@@ -2054,6 +2054,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $this->getData_Unstaged_Escaped( 'payment_method' ) ) {
 		case 'dd':
 		case 'ew':
+			// TODO: Review.  Why is this set to country_bank_code in other cases?
 			$this->var_map['COUNTRYCODEBANK'] = 'country';
 			break;
 		}

@@ -21,13 +21,8 @@
  *
  */
 class GlobalCollectGateway extends GatewayPage {
-	/**
-	 * Constructor - set up the new special page
-	 */
-	public function __construct() {
-		$this->adapter = new GlobalCollectAdapter();
-		parent::__construct(); //the next layer up will know who we are.
-	}
+
+	protected $adapterClass = 'GlobalCollectAdapter';
 
 	/**
 	 * Show the special page

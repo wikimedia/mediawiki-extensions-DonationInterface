@@ -2,10 +2,7 @@
 
 class WorldpayGatewayResult extends GatewayPage {
 
-	public function __construct() {
-		$this->adapter = new WorldpayAdapter();
-		parent::__construct();
-	}
+	protected $adapterClass = 'WorldpayAdapter';
 
 	protected function handleRequest() {
 		// Break out of the iframe, signal to skip this next time, and reload.
@@ -24,7 +21,8 @@ class WorldpayGatewayResult extends GatewayPage {
 		// And process the donation.
 		if ( $this->adapter->checkTokens() ) {
 			$result = $this->adapter->do_transaction( 'QueryAuthorizeDeposit' ); // TODO handle errors here
-			switch ( $this->adapter->getFinalStatus() ) {
+			$status = $this->adapter->getFinalStatus();
+			switch ( $status ) {
 				case FinalStatus::COMPLETE:
 				case FinalStatus::PENDING:
 				case FinalStatus::PENDING_POKE:

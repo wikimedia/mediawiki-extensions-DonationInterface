@@ -211,7 +211,7 @@
 	"donate_interface-error-msg-genaricrequired": "Este campo é obrigatório",
 	"donate_interface-error-msg-country-calc": "Erro- não foi possivel aceitar sua  doação neste momento",
 	"donate_interface-error-msg-fiscal_number": "Número fiscal",
-	"donate_interface-error-msg-fiscal_number-br": "CPF",
+	"donate_interface-error-msg-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-donate-error-try-a-different-card": "Por favor, [$1 teste com um cartão diferente] ou com uma das [$2 diferentes formas de doar] ou entre em contato conosco no endereço $3",
 	"donate_interface-donate-error-try-again-html": "Por favor, <a href=\"$1\">tente novamente</a>, tente outra de nossas <a href=\"$2\">maneiras para dar</a> ou contate-nos em <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Obrigado pelo seu apoio!",
