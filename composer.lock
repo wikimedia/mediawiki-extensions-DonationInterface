@@ -13,7 +13,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php",
-                "reference": "24b31581d85c232a3b0f5038c2894d565c831392"
+                "reference": "855d642f85f14c76ca810013b0323ae4ac37f1c6"
             },
             "require": {
                 "ext-curl": "*",
@@ -44,7 +44,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2015-08-24 21:48:53"
+            "time": "2016-02-17 00:53:20"
         },
         {
             "name": "clio/clio",
@@ -93,7 +93,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
-                "reference": "4e3e6ebd093e8528fbb73204acfda4d09aa0a494"
+                "reference": "c5a5200e3b5df3ec5f02ff27e8e6d9a07ce10b5e"
             },
             "require": {
                 "clio/clio": "@stable",
@@ -147,7 +147,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2015-08-21 21:11:07"
+            "time": "2015-08-25 20:02:50"
         },
         {
             "name": "fusesource/stomp-php",
@@ -313,16 +313,16 @@
         },
         {
             "name": "predis/predis",
-            "version": "v1.0.1",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "7a170b3d8123c556597b4fbdb88631f99de180c2"
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/7a170b3d8123c556597b4fbdb88631f99de180c2",
-                "reference": "7a170b3d8123c556597b4fbdb88631f99de180c2",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04",
                 "shasum": ""
             },
             "require": {
@@ -359,7 +359,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2015-01-02 12:51:34"
+            "time": "2015-07-30 18:34:15"
         },
         {
             "name": "psr/log",

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * FIXME: Jenkins still not installing DonationInterface composer deps
- * use PayWithAmazon\ClientInterface as PwaClientInterface;
+ * FIXME: Jenkins mwext-testextension-hhvm still not installing DonationInterface composer deps
+ * use PayWithAmazon\PaymentsClientInterface;
  */
 
 /**
@@ -10,7 +10,7 @@
  * Amazon SDK.  TODO: replace with PHPUnit method return mocks when Jenkins
  * is running new enough PHPUnit.  Only mocking the stuff we use.
  */
-class MockAmazonClient { // FIXME: implements PwaClientInterface {
+class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 
 	// Each key is a method name whose value is an array of times it's been
 	// called, recording all argument values.

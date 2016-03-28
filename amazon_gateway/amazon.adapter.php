@@ -1,7 +1,7 @@
 <?php
 
-use PayWithAmazon\Client as PwaClient;
-use PayWithAmazon\ClientInterface as PwaClientInterface;
+use PayWithAmazon\PaymentsClient as PwaClient;
+use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 
 /**
  * Wikimedia Foundation
@@ -21,9 +21,11 @@ use PayWithAmazon\ClientInterface as PwaClientInterface;
  */
 
 /**
- * Uses Login and Pay with Amazon widgets and the associated SDK to charge donors
+ * Uses Login and Pay with Amazon widgets and a fork of the associated
+ * SDK to charge donors.
+ *
  * See https://payments.amazon.com/documentation
- * and https://github.com/amzn/login-and-pay-with-amazon-sdk-php
+ * and https://github.com/ejegg/login-and-pay-with-amazon-sdk-php
  */
 class AmazonAdapter extends GatewayAdapter {
 
