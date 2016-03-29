@@ -157,12 +157,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['currency_code'] = $supportedCurrencies[0];
 		} else {
 			$data['show_currency_selector'] = true;
-			foreach( $this->gateway->getCurrencies() as $currency ) {
-				$data['currencies'][] = array(
-					'code' => $currency,
-					'selected' => ( $currency === $data['currency_code'] ),
-				);
-			}
+		}
+		foreach( $supportedCurrencies as $currency ) {
+			$data['currencies'][] = array(
+				'code' => $currency,
+				'selected' => ( $currency === $data['currency_code'] ),
+			);
 		}
 	}
 
