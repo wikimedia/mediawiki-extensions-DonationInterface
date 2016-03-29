@@ -11,7 +11,8 @@
 			"Аҡҡашҡа",
 			"Мухамадеева",
 			"Азат Хәлилов",
-			"З. ӘЙЛЕ"
+			"З. ӘЙЛЕ",
+			"Айбикә"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярҙам",
@@ -393,6 +394,14 @@
 	"apihelp-donate-param-street": "Адрестың беренсе юлы.",
 	"apihelp-donate-param-street_supplemental": "Адрестың икенсе юлы.",
 	"apihelp-donate-param-city": "Ҡала.",
+	"apihelp-donate-param-zip": "Почта индексы",
+	"apihelp-donate-param-emailAdd": "Электрон почта адресы",
+	"apihelp-donate-param-country": "Илдең коды",
+	"apihelp-donate-param-card_num": "Кредит картаһының номеры",
+	"apihelp-donate-param-card_type": "Кредит картаһының төрө",
+	"apihelp-donate-param-expiration": "Һуңғы ҡулланыу ваҡыты:",
+	"apihelp-donate-param-cvv": "CVV хәүефһеҙлеге коды",
+	"apihelp-donate-param-payment_method": "Ҡулланылған түләү ысулы",
 	"apihelp-donate-param-language": "Тел коды.",
 	"apihelp-donate-example-1": "Хәйриә ярҙамы индерергә"
 }
