@@ -1,13 +1,11 @@
 <h3 class="amount_header">{{# recurring }}{{ l10n "donate_interface-monthlybox-amount" }}{{/ recurring }}{{^ recurring }}{{ l10n "donate_interface-amount-legend" }}{{/ recurring }}:
 	<span id="amount_input" {{^ show_amount_input }}class="hidden"{{/ show_amount_input }} >
 		<input type="number" step="any" name="amount" id="amount" value="{{ amount }}" />
-		{{# show_currency_selector }}
-		<select name="currency_code" id="currency_code">
+		<select name="currency_code" id="currency_code" {{^ show_currency_selector }}class="hidden"{{/ show_currency_selector }} >
 		{{# currencies }}
 			<option value="{{ code }}" {{# selected }}selected{{/ selected }} >{{ code }}</option>
 		{{/ currencies }}
 		</select>
-		{{/ show_currency_selector }}
 		{{^ show_currency_selector }}
 		{{ currency_code }}
 		{{/ show_currency_selector }}
