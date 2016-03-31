@@ -58,8 +58,7 @@ class PaypalAdapter extends GatewayAdapter {
 	function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );
 	}
-	function defineDataConstraints() {
-	}
+
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(
 			'generate' => false,

@@ -43,29 +43,6 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->accountInfo = $this->account_config;
 	}
 
-	function defineDataConstraints() {
-		$this->dataConstraints = array(
-			'x_login'		=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_trans_key'	=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_invoice'		=> array( 'type' => 'alphanumeric',	'length' => 20, ),
-			'x_amount'		=> array( 'type' => 'numeric', ),
-			'x_currency'	=> array( 'type' => 'alphanumeric',	'length' => 3, ),
-			'x_bank'		=> array( 'type' => 'alphanumeric',	'length' => 3, ),
-			'x_country'		=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-			'x_description'	=> array( 'type' => 'alphanumeric',	'length' => 200, ),
-			'x_iduser'		=> array( 'type' => 'alphanumeric',	'length' => 20, ),
-			'x_cpf'			=> array( 'type' => 'alphanumeric',	'length' => 30, ),
-			'x_name'		=> array( 'type' => 'alphanumeric', ),
-			'x_email'		=> array( 'type' => 'alphanumeric', ),
-			'x_bdate'		=> array( 'type' => 'date',	'length' => 8, ),
-			'x_address'		=> array( 'type' => 'alphanumeric', ),
-			'x_zip'			=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_city'		=> array( 'type' => 'alphanumeric', ),
-			'x_state'		=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-			'country_code'	=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-		);
-	}
-
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.

@@ -338,6 +338,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// TODO: see comment on definePaymentMethods
+	public function defineDataConstraints() {
+		if ( isset( $this->config['data_constraints'] ) ) {
+			$this->dataConstraints = $this->config['data_constraints'];
+		}
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */

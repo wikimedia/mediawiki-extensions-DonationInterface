@@ -81,8 +81,6 @@ class AmazonAdapter extends GatewayAdapter {
 
 	function defineReturnValueMap() {}
 
-	function defineDataConstraints() {}
-
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(
 			'generate' => TRUE,

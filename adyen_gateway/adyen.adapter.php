@@ -45,9 +45,6 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineDataConstraints() {
-	}
-
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
