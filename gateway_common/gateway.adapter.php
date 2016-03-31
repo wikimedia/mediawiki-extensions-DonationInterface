@@ -1195,6 +1195,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->payment_submethods;
 	}
 
+	public function getCurrencies( $options = array() ) {
+		return $this->config['currencies'];
+	}
+
 	/**
 	 * Sends a curl request to the gateway server, and gets a response.
 	 * Saves that response to the transaction_response's rawResponse;

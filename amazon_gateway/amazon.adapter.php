@@ -421,13 +421,6 @@ class AmazonAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function getCurrencies( $options = array() ) {
-		// See https://payments.amazon.com/sdui/sdui/about?nodeId=73479#feat_countries
-		return array(
-			'USD',
-		);
-	}
-
 	/**
 	 * Override default behavior
 	 */

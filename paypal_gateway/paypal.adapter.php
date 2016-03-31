@@ -228,36 +228,4 @@ class PaypalAdapter extends GatewayAdapter {
 				return $result;
 		}
 	}
-
-	public function getCurrencies( $options = array() ) {
-		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
-		// TODO: Investigate per-country support at this URL
-		// https://developer.paypal.com/docs/classic/api/currency_codes/#creditcard
-		return array(
-			'AUD',
-			// 'BRL', // in-country only... it seems to work but I'm respecting the docs
-			'CAD',
-			'CZK',
-			'DKK',
-			'EUR',
-			'HKD',
-			'HUF',
-			'ILS',
-			'JPY', // no fractions
-			// 'MYR', // in-country only
-			'MXN',
-			'NOK',
-			'NZD',
-			'PHP',
-			'PLN',
-			'GBP',
-			/* 'SGD', // Only available for singaporian entities */
-			'SEK',
-			'CHF',
-			'TWD', // no fractions
-			'THB',
-			// 'TRY', // in-country only
-			'USD',
-		);
-	}
 }

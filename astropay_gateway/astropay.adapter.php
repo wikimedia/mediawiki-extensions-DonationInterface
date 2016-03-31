@@ -339,22 +339,10 @@ class AstropayAdapter extends GatewayAdapter {
 		if ( !$country ) {
 			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
 		}
-		$currencies = array(
-			'AR' => 'ARS', // Argentinian peso
-			'BO' => 'BOB', // Bolivian Boliviano
-			'BR' => 'BRL', // Brazilian Real
-			'BZ' => 'BZD', // Belize Dollar
-			'CL' => 'CLP', // Chilean Peso
-			'CO' => 'COP', // Colombian Peso
-			'MX' => 'MXN', // Mexican Peso
-			'PE' => 'PEN', // Peruvian Nuevo Sol
-			'US' => 'USD', // U.S. dollar
-			'UY' => 'UYU', // Uruguayan Peso
-		);
-		if ( !isset( $currencies[$country] ) ) {
+		if ( !isset( $this->config['currencies'][$country] ) ) {
 			throw new OutOfBoundsException( "No supported currencies for $country" );
 		}
-		return (array)$currencies[$country];
+		return (array)$this->config['currencies'][$country];
 	}
 
 	/**
