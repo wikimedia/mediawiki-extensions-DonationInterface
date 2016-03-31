@@ -2866,13 +2866,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Now compare session with current request parameters
 		// Reset submethod when method changes to avoid form mismatch errors
 		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
-			// Cut down version of the normalization from DonationData
-			$newMethod = null;
-			foreach( array( 'payment_method', 'paymentmethod' ) as $key ) {
-				if ( $this->request->getVal( $key ) ) {
-					$newMethod = $this->request->getVal( $key );
-				}
-			}
+			$newMethod = $this->request->getVal( 'payment_method' );
 			if ( $newMethod ) {
 				$parts = explode( '.', $newMethod );
 				$newMethod = $parts[0];
