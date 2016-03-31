@@ -74,11 +74,6 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineVarMap() {
-		// TODO: maybe use this for mapping gatway data to API call parameters
-		$this->var_map = array();
-	}
-
 	function defineAccountInfo() {
 		// We use account_config instead
 		$this->accountInfo = array();

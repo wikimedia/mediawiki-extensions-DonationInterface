@@ -331,6 +331,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// TODO: see comment on definePaymentMethods
+	public function defineVarMap() {
+		if ( isset( $this->config['var_map'] ) ) {
+			$this->var_map = $this->config['var_map'];
+		}
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */

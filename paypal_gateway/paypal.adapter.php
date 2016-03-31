@@ -50,20 +50,6 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineVarMap() {
-		$this->var_map = array(
-			'amount' => 'amount',
-			'country' => 'country',
-			'currency_code' => 'currency_code',
-			'item_name' => 'description',
-			'return' => 'return',
-			'custom' => 'contribution_tracking_id',
-			'a3' => 'amount',
-			'srt' => 'recurring_length',
-			'lc' => 'locale',
-		);
-	}
-
 	function defineAccountInfo() {
 		$this->accountInfo = array();
 	}

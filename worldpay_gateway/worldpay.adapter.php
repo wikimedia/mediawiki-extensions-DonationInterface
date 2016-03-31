@@ -558,38 +558,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 	}
 
-	function defineVarMap() {
-		$this->var_map = array(
-			'OrderNumber'       => 'order_id',
-			'CustomerId'        => 'contribution_tracking_id',
-			'OTTRegion'         => 'region_code',
-			'OTTResultURL'      => 'returnto',
-			'OTT'               => 'wp_one_time_token',
-			'CardId'            => 'wp_card_id',
-			'Amount'            => 'amount',
-			'FirstName'         => 'fname',
-			'LastName'          => 'lname',
-			'Address1'          => 'street',
-			'City'              => 'city',
-			'StateCode'         => 'state',
-			'ZipCode'           => 'zip',
-			'CountryCode'       => 'country',
-			'LAN'               => 'language',
-			'Email'             => 'email',
-			'REMOTE_ADDR'       => 'user_ip',
-			'StoreID'           => 'wp_storeid',
-			'CurrencyId'        => 'iso_currency_id',
-			'AcctName'          => 'wp_acctname',
-			'CVN'               => 'cvv',
-			'PTTID'             => 'wp_pttid',
-			'UserName'          => 'username',
-			'UserPassword'      => 'user_password',
-			'MerchantId'        => 'wp_merchant_id',
-			'MerchantReference2'=> 'merchant_reference_2',
-			'NarrativeStatement1'=> 'narrative_statement_1',
-		);
-	}
-
 	public function defineDataTransformers() {
 		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
 			new WorldpayAccountName(),
