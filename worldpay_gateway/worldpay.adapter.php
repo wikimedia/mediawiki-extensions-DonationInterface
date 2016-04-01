@@ -63,6 +63,15 @@ class WorldpayAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
+	public function definePaymentMethods() {
+		parent::definePaymentMethods();
+		$this->config['payment_submethod_api_names'] =
+			ArrayHelper::buildLookupTable(
+				$this->config['payment_submethods'],
+				'api_name'
+			);
+	}
+
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'returnto',
