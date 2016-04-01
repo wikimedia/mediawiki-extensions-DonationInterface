@@ -200,17 +200,6 @@ class AstropayAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function defineDataTransformers() {
-		// Skip AmountInCents.
-		$this->data_transformers = array(
-			new AstroPayFinancialNumbers(),
-			new AstroPayMethodCodec(),
-			new FiscalNumber(),
-			new DonorFullName(),
-			new StreetAddress(),
-		);
-	}
-
 	function doPayment() {
 		// If this is not our first NewInvoice call, get a fresh order ID
 		if ( $this->session_getData( 'sequence' ) ) {

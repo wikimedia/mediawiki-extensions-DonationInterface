@@ -1,0 +1,13 @@
+# Core
+- DonorEmail
+- DonorFullName
+- AmountInCents
+- StreetAddress
+
+# Ingenico
+- FiscalNumber
+- ContributionTrackingPlusUnique
+- IngenicoFinancialNumber
+- IngenicoLanguage
+- IngenicoMethodCodec
+- IngenicoReturntoHelper

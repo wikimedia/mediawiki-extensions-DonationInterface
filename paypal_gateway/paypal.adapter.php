@@ -169,13 +169,6 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new CleanupRecurringLength(),
-			new PayPalLocale(),
-		) );
-	}
-
 	function getBasedir() {
 		return __DIR__;
 	}

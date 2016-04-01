@@ -1541,17 +1541,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new FiscalNumber(),
-			new ContributionTrackingPlusUnique(),
-			new IngenicoFinancialNumber(),
-			new IngenicoLanguage(),
-			new IngenicoMethodCodec(),
-			new IngenicoReturntoHelper(),
-		) );
-	}
-
 	public function stageData() {
 		// Must run first because staging relies on constraints.
 		$this->tuneConstraints();

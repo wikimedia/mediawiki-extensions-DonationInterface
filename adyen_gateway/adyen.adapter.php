@@ -62,10 +62,6 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
-	}
-
 	function defineReturnValueMap() {
 		$this->return_value_map = array(
 			'authResult' => 'result',

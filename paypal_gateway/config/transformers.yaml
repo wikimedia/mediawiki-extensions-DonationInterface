@@ -1,0 +1,9 @@
+# Core
+- DonorEmail
+- DonorFullName
+- AmountInCents
+- StreetAddress
+
+# PayPal
+- CleanupRecurringLength
+- PayPalLocale

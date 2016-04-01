@@ -1,0 +1,13 @@
+# Core
+- DonorEmail
+- DonorFullName
+- AmountInCents
+- StreetAddress
+
+# WorldPay
+- WorldpayAccountName
+- WorldpayCurrency
+- WorldpayEmail
+- WorldpayMethodCodec
+- WorldpayNarrativeStatement
+- WorldpayReturnto

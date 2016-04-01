@@ -117,15 +117,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transactions = array();
 	}
 
-	function defineDataTransformers() {
-		// Skip AmountInCents, we want to pass the real amount x1.
-		$this->data_transformers = array(
-			new DonorEmail(),
-			new DonorFullName(),
-			new StreetAddress(),
-		);
-	}
-
 	function getBasedir() {
 		return __DIR__;
 	}

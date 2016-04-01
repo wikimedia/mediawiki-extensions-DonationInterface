@@ -494,17 +494,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new WorldpayAccountName(),
-			new WorldpayCurrency(),
-			new WorldpayEmail(),
-			new WorldpayMethodCodec(),
-			new WorldpayNarrativeStatement(),
-			new WorldpayReturnto(),
-		) );
-	}
-
 	/**
 	 * Check if the currently-staged store ID is configured for special treatment.
 	 * Certain store IDs (just FR so far) do not get AVS results, and always get
@@ -522,6 +511,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	public function getBasedir() {
 		return __DIR__;
 	}
+
 	public function doPayment() {
 		return PaymentResult::fromResults(
 			$this->do_transaction( 'QueryAuthorizeDeposit' ),

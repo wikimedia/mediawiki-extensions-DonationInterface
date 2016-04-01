@@ -1,0 +1,4 @@
+# Skip AmountInCents, we want to pass the real amount x1.
+- DonorEmail
+- DonorFullName
+- StreetAddress
