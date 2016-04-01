@@ -1129,7 +1129,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Sets the transaction you are about to send to the payment gateway. This
 	 * will throw an exception if you try to set it to something that has no
 	 * transaction definition.
-	 * @param type $transaction_name This is a specific transaction type like
+	 * @param string $transaction_name This is a specific transaction type like
 	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a
 	 * first-level key in the $transactions array.
 	 * @throws UnexpectedValueException
@@ -3084,7 +3084,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.
 	 * @staticvar string $match
-	 * @return type
+	 * @return bool
 	 */
 	protected function token_checkTokens() {
 		static $match = null; //because we only want to do this once per load.

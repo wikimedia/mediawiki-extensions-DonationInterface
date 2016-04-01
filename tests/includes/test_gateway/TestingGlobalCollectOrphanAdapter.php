@@ -38,7 +38,6 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	/**
 	 * @TODO: Get rid of this and the override mechanism as soon as you
 	 * refactor the constructor into something reasonable.
-	 * @return type
 	 */
 	public function defineOrderIDMeta() {
 		if ( isset( $this->order_id_meta ) ) {

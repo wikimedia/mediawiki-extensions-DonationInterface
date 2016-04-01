@@ -166,7 +166,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// set the default redirect
-		return self::getTitleFor( $specialpage )->getLocalUrl( $params );
+		return self::getTitleFor( $specialpage )->getLocalURL( $params );
 	}
 
 	/**
@@ -357,7 +357,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 	/**
 	 * Checks to see if the ffname supplied is a valid form for the rest of the supplied params.
-	 * @param type $ffname The form name to check.
+	 * @param string $ffname The form name to check.
 	 * @param string $country Optional country code filter
 	 * @param string $currency Optional currency code filter
 	 * @param string $payment_method Optional payment method filter
