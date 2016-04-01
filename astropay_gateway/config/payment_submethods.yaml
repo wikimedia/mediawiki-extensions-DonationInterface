@@ -148,13 +148,6 @@ webpay:
     countries:
         CL: true
     logo: bank-webpay.png
-banco_de_chile:
-    bank_code: BX
-    label: 'Banco de Chile'
-    group: bt
-    countries:
-        CL: true
-    logo: bank-banco_de_chile.png
 banco_do_brasil:
     bank_code: BB
     label: 'Banco do Brasil'
