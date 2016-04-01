@@ -378,4 +378,11 @@ interface GatewayType {
 	 * @return string
 	 */
 	function token_getSaltedSessionToken();
+
+	/**
+	 * Get settings loaded from adapter's config directory
+	 * @param string|null $key setting to retrieve, or null for all
+	 * @return mixed the setting requested, or the config array
+	 */
+	public function getConfig( $key = null );
 }

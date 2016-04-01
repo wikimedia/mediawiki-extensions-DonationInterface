@@ -310,6 +310,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	public function getConfig( $key = null ) {
+		if ( $key === null ) {
+			return $this->config;
+		}
+		if ( array_key_exists( $key, $this->config ) ) {
+			return $this->config[$key];
+		}
+		return null;
+	}
+
 	// For legacy support.
 	// TODO replace with access to config structure
 	public function definePaymentMethods() {
