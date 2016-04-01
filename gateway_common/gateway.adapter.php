@@ -345,6 +345,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	public function defineDataTransformers() {
+		if ( empty( $this->config['transformers'] ) ) {
+			return;
+		}
+
+		foreach ( $this->config['transformers'] as $className ) {
+			$this->data_transformers[] = new $className();
+		}
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */
