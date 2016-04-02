@@ -93,6 +93,8 @@ class AmazonAdapter extends GatewayAdapter {
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
+		parent::defineErrorMap();
+
 		$self = $this;
 		$differentCard = function() use ( $self ) {
 			$otherWays = $self->localizeGlobal( 'OtherWaysURL' );
@@ -102,15 +104,8 @@ class AmazonAdapter extends GatewayAdapter {
 				$self->getGlobal( 'ProblemsEmail' )
 			);
 		};
-		$this->error_map = array(
-			// These might be transient - tell donor to try again soon
-			'InternalServerError' => 'donate_interface-try-again',
-			'RequestThrottled' => 'donate_interface-try-again',
-			'ServiceUnavailable' => 'donate_interface-try-again',
-			'ProcessingFailure' => 'donate_interface-try-again',
-			// Donor needs to select a different card
-			'InvalidPaymentMethod' => $differentCard,
-		);
+		// Donor needs to select a different card.
+		$this->error_map['InvalidPaymentMethod'] = $differentCard;
 	}
 
 	function defineTransactions() {

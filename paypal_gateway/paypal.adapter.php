@@ -66,19 +66,6 @@ class PaypalAdapter extends GatewayAdapter {
 	}
 	function setGatewayDefaults() {}
 
-	public function defineErrorMap() {
-
-		$this->error_map = array(
-			// Internal messages
-			// Failed failed pre-process checks.
-			'internal-0000' => 'donate_interface-processing-error',
-			// Transaction could not be processed due to an internal error.
-			'internal-0001' => 'donate_interface-processing-error',
-			// Communication failure
-			'internal-0002' => 'donate_interface-processing-error',
-		);
-	}
-
 	function defineTransactions() {
 		$this->transactions = array();
 		$this->transactions[ 'Donate' ] = array(

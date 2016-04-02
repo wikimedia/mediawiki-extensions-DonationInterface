@@ -265,18 +265,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineErrorMap() {
-		//Well, this is probably going to get annoying as soon as we want to get specific here.
-		//We can't just use numbers here: We're going to have to break it out by request and number.
-		$this->error_map = array(
-			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
-			'internal-0003' => 'donate_interface-processing-error', // Some error code returned from one of the daisy-chained requests.
-		);
-	}
-
 	function defineReturnValueMap() {
 		/* From the integration manual; this is the list of all possible return codes
 		 * (excluding the 3000 series which are foreign exchange system errors which we don't use)

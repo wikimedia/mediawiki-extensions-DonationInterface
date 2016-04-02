@@ -345,6 +345,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// TODO: see comment on definePaymentMethods
+	public function defineErrorMap() {
+		if ( isset( $this->config['error_map'] ) ) {
+			$this->error_map = $this->config['error_map'];
+		}
+	}
+
 	public function defineDataTransformers() {
 		if ( empty( $this->config['transformers'] ) ) {
 			return;
