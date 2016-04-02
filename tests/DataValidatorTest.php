@@ -131,9 +131,16 @@ class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider fiscalNumberProvider
+	 * TODO: Test modular validator integration with DonationData
 	 */
 	public function testValidateFiscalNumber( $country, $value, $valid ) {
+		$validator = new FiscalNumber();
+		$errors = array();
+		$validator->validate(
+			array( 'country' => $country, 'fiscal_number' => $value, 'language' => 'en' ),
+			$errors
+		);
 		$expectation = $valid ? "should" : "should not";
-		$this->assertEquals( $valid, DataValidator::validate_fiscal_number( $value, $country ), "$value $expectation be a valid fiscal number for $country" );
+		$this->assertEquals( $valid, empty( $errors['fiscal_number'] ), "$value $expectation be a valid fiscal number for $country" );
 	}
 }

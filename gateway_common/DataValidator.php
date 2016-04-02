@@ -13,12 +13,6 @@
  */
 class DataValidator {
 
-	// because of the hacky way we test for translation existence in getErrorMessage,
-	// we need to explicitly specify which fields we want to try to get country-
-	// specific names for.
-	protected static $countrySpecificFields = array(
-		'fiscal_number',
-	);
 
 	/**
 	 * getErrorToken, intended to be used by classes that exist relatively close 
@@ -41,7 +35,6 @@ class DataValidator {
 			case 'card_num':
 			case 'card_type':
 			case 'cvv':
-			case 'fiscal_number':
 			case 'fname':
 			case 'lname':
 			case 'city':
@@ -60,6 +53,7 @@ class DataValidator {
 	
 	/**
 	 * getEmptyErrorArray
+	 * @deprecated
 	 * This only exists anymore, to make badly-coded forms happy when they start
 	 * pulling keys all over the place without checking to see if they're set or
 	 * not. 
@@ -118,7 +112,7 @@ class DataValidator {
 
 		$error_message_field_key = 'donate_interface-error-msg-' . $message_field;
 
-		if ( $country !== null && in_array( $message_field, self::$countrySpecificFields ) ) {
+		if ( $country !== null ) {
 			$translated_field_name = MessageUtils::getCountrySpecificMessage( $error_message_field_key, $country, $language );
 		} else if ( WmfFramework::messageExists( $error_message_field_key, $language ) ) {
 			$translated_field_name = WmfFramework::formatMessage( $error_message_field_key );
@@ -179,17 +173,13 @@ class DataValidator {
 	 * Run all the validation rules we have defined against a (hopefully
 	 * normalized) DonationInterface data set.
 	 * @param GatewayType $gateway
-	 * @param array $data The DonationInterface data set, or a subset thereof.
-	 * @param array $check_not_empty An array of fields to do empty validation
-	 * on. If this is not populated, no fields will throw errors for being empty,
-	 * UNLESS they are required for a field that uses them for more complex
-	 * validation (the 'calculated' phase).
+	 * @param array $data Normalized donation data.
 	 * @throws BadMethodCallException
 	 * @return array An array of errors in a format ready for any derivitive of
 	 * the main DonationInterface Form class to display. The array will be empty
 	 * if no errors were generated and everything passed OK.
 	 */
-	public static function validate( GatewayType $gateway, $data, $check_not_empty = array()  ){
+	public static function validate( GatewayType $gateway, $data ) {
 		//return the array of errors that should be generated on validate.
 		//just the same way you'd do it if you were a form passing the error array around. 
 		
@@ -199,12 +189,7 @@ class DataValidator {
 		 * First: If we need to validate that some things are not empty, do that. 
 		 * Second: Do regular data type validation on things that are not empty.
 		 * Third: Do validation that depends on multiple fields (making sure you 
-		 * validated that all the required fields exist on step 1, regardless of 
-		 * $check_not_empty)
-		 * 
-		 * $check_not_empty should contain an array of values that need to be populated. 
-		 * One likely candidate for a source there, is the required stomp fields as defined in DonationData. 
-		 * Although, a lot of those don't have to have any data in them either. Boo.
+		 * validated that all the required fields exist on step 1).
 		 * 
 		 * How about we build an array of shit to do, 
 		 * look at it to make sure it's complete, and in order...
@@ -250,17 +235,9 @@ class DataValidator {
 				// Depends on currency_code and gateway.
 				'amount' => 'validate_amount',
 
-				// Depends on country
-				'fiscal_number' => 'validate_fiscal_number',
 			),
 		);
 
-		// Additional fields we should check for emptiness.
-		if ( $check_not_empty ) {
-			$validations['not_empty'] = array_unique( array_merge(
-				$check_not_empty, $validations['not_empty']
-			) );
-		}
 
 		$errors = array();
 		$results = array();
@@ -316,9 +293,6 @@ class DataValidator {
 						break;
 					case 'validate_currency_code':
 						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies( $data ) );
-						break;
-					case 'validate_fiscal_number':
-						$result = call_user_func( $callable, $data[$field], $data['country'] );
 						break;
 					default:
 						$result = call_user_func( $callable, $data[$field] );
@@ -591,60 +565,6 @@ class DataValidator {
 		if ( $value === null || $value === ''
 			|| preg_match( '/^0+(\.0+)?$/', $value )
 		) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Rudimentary tests of fiscal number format for different countries
-	 * @param string $value The alleged fiscal number
-	 * @param array $country The country whose format we care about
-	 * @return boolean True if the $value is a valid fiscal number, false otherwise
-	 */
-	public static function validate_fiscal_number( $value, $country ) {
-		$countryRules = array(
-			'AR' => array(
-				'numeric' => true,
-				'min' => 7,
-				'max' => 10,
-			),
-			'BR' => array(
-				'numeric' => true,
-				'min' => 11,
-				'max' => 14,
-			),
-			'CO' => array(
-				'numeric' => true,
-				'min' => 6,
-				'max' => 10,
-			),
-			'CL' => array(
-				'min' => 8,
-				'max' => 9,
-			),
-			'UY' => array(
-				'numeric' => true,
-				'min' => 6,
-				'max' => 8,
-			),
-		);
-
-		if ( !isset( $countryRules[$country] ) ) {
-			return true;
-		}
-
-		$rules = $countryRules[$country];
-		$unpunctuated = preg_replace( '/[^A-Za-z0-9]/', '', $value );
-
-		if ( !empty( $rules['numeric'] ) ) {
-			if ( !is_numeric( $unpunctuated ) ) {
-				return false;
-			}
-		}
-
-		$length = strlen( $unpunctuated );
-		if ( $length < $rules['min'] || $length > $rules['max'] ) {
 			return false;
 		}
 

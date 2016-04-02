@@ -362,6 +362,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// FIXME: Not convinced we need this.
+	public function getDataTransformers() {
+		return $this->data_transformers;
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */

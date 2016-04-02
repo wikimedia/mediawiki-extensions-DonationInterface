@@ -73,6 +73,7 @@ $wgAutoloadClasses['StreetAddress'] = __DIR__ . '/gateway_common/StreetAddress.p
 $wgAutoloadClasses['UnstagingHelper'] = __DIR__ . '/gateway_common/UnstagingHelper.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
+$wgAutoloadClasses['ValidationHelper'] = __DIR__ . '/gateway_common/ValidationHelper.php';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = __DIR__ . '/gateway_forms/Form.php';

@@ -108,7 +108,7 @@ class DonationData implements LogPrefixProvider {
 	 * places in the request, or 'false' to gather the data the usual way.
 	 * Default is false.
 	 */
-	function __construct( $gateway, $data = false ) {
+	function __construct( GatewayType $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->logger = DonationLoggerFactory::getLogger( $gateway, '', $this );
@@ -972,9 +972,18 @@ class DonationData implements LogPrefixProvider {
 	 * If it is not, it will return an array of errors ready for any 
 	 * DonationInterface form class derivitive to display.
 	 */
-	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
+	public function getValidationErrors( $recalculate = false ) {
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
-			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
+			// Run legacy validations
+			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized );
+
+			// Run modular validations.  FIXME: Move this... somewhere.
+			$transformers = $this->gateway->getDataTransformers();
+			foreach ( $transformers as $transformer ) {
+				if ( $transformer instanceof ValidationHelper ) {
+					$transformer->validate( $this->normalized, $this->validationErrors );
+				}
+			}
 		}
 		return $this->validationErrors;
 	}
