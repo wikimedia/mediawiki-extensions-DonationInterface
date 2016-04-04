@@ -3587,8 +3587,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$submethods = array();
 		foreach( $this->payment_submethods as $key => $available_submethod ) {
-			$groups = (array) $available_submethod['group'];
-			if ( !in_array( $method, $groups ) ) {
+			$group = $available_submethod['group'];
+			if ( $method !== $group ) {
 				continue; // skip anything not part of the selected method
 			}
 			if (
