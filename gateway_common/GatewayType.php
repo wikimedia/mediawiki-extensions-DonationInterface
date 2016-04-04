@@ -245,13 +245,6 @@ interface GatewayType {
 	public function getPaymentMethodMeta( $payment_method = null );
 
 	/**
-	 * Get the name of the currently selected payment submethod
-	 *
-	 * @return string
-	 */
-	public function getPaymentSubmethod();
-
-	/**
 	 * Get metadata for the specified payment submethod
 	 *
 	 * @param string|null $payment_submethod Defaults to the current submethod
@@ -261,7 +254,7 @@ interface GatewayType {
 	public function getPaymentSubmethodMeta( $payment_submethod = null );
 
 	/**
-	 * Get the entire list of payment submethod definitions
+	 * Define payment methods
 	 *
 	 * Not all payment submethods are available within an adapter
 	 *
@@ -369,27 +362,4 @@ interface GatewayType {
 	 * @return mixed|false Data requested, or false if it is not set.
 	 */
 	function getOrderIDMeta( $key = false );
-
-	/**
-	 * Establish an 'edit' token to help prevent CSRF, etc.
-	 *
-	 * We use this in place of $wgUser->editToken() b/c currently
-	 * $wgUser->editToken() is broken (apparently by design) for
-	 * anonymous users.  Using $wgUser->editToken() currently exposes
-	 * a security risk for non-authenticated users.  Until this is
-	 * resolved in $wgUser, we'll use our own methods for token
-	 * handling.
-	 *
-	 * Public so the api can get to it.
-	 *
-	 * @return string
-	 */
-	function token_getSaltedSessionToken();
-
-	/**
-	 * Get settings loaded from adapter's config directory
-	 * @param string|null $key setting to retrieve, or null for all
-	 * @return mixed the setting requested, or the config array
-	 */
-	public function getConfig( $key = null );
 }

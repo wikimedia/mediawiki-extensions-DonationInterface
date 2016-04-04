@@ -34,6 +34,186 @@ class WorldpayAdapter extends GatewayAdapter {
 		'OTTResultURL'
 	);
 
+	// TODO we should store these keys in a config file
+	// TODO the way the cards are ordered on the page is the order of this
+	// array. make that a "weight" that could be controlled by a url param
+	static $CARD_INFO = array(
+		'cb' => array( // Carte Bleu
+			'api_name' => 'CB',
+			'countries' => array( 'FR' => true ),
+		),
+		'visa' => array(
+			'api_name' => 'VI',
+			'countries' => array( 'FR' => true ),
+		),
+		'mc' => array(
+			'api_name' => 'MC',
+			'countries' => array( 'FR' => true ),
+		),
+		'amex' => array(
+			'api_name' => 'AX',
+			'countries' => array( 'FR' => true ),
+		),
+		'visa-beneficial' => array(
+			'api_name' => 'BE',
+		),
+		'diners' => array(
+			'api_name' => 'DC',
+		),
+		'discover' => array(
+			'api_name' => 'DI',
+		),
+		'jcb' => array(
+			'api_name' => 'JC',
+		),
+		'maestro' => array(
+			'api_name' => 'MA',
+		),
+		'mc-debit' => array(
+			'api_name' => 'MD',
+		),
+		'solo' => array(
+			'api_name' => 'SW'
+		),
+		'visa-debit' => array(
+			'api_name' => 'VD',
+		),
+		'visa-electron' => array(
+			'api_name' => 'VE',
+		),
+		'' /* TODO wat */ => array(
+			'api_name' => 'XX',
+		),
+	);
+
+	/**
+	 * @var string[] ISO Currency code letters to numbers (from appendix B of the
+	 * integration manual). These are also apparently all the currencies that
+	 * Worldpay can support.
+	 */
+	static $CURRENCY_CODES = array(
+		'AED' => 784,
+		'ALL' => 8,
+		'ANG' => 532,
+		'ARS' => 32,
+		'AUD' => 36,
+		'AWG' => 533,
+		'AZN' => 944,
+		'BAM' => 977,
+		'BBD' => 52,
+		'BDT' => 50,
+		'BGN' => 975,
+		'BHD' => 48,
+		'BMD' => 60,
+		'BND' => 96,
+		'BOB' => 68,
+		'BRL' => 986,
+		'BSD' => 44,
+		'BWP' => 72,
+		'BZD' => 84,
+		'CAD' => 124,
+		'CHF' => 756,
+		'CLP' => 152,
+		'CNY' => 156,
+		'COP' => 170,
+		'CRC' => 188,
+		'CUP' => 192,
+		'CZK' => 203,
+		'DJF' => 262,
+		'DKK' => 208,
+		'DOP' => 214,
+		'DZD' => 12,
+		'EGP' => 818,
+		'ERN' => 232,
+		'ETB' => 230,
+		'EUR' => 978,
+		'FJD' => 242,
+		'GBP' => 826,
+		'GEL' => 981,
+		'GIP' => 292,
+		'GTQ' => 320,
+		'GYD' => 328,
+		'HKD' => 344,
+		'HNL' => 340,
+		'HRK' => 191,
+		'HTG' => 332,
+		'HUF' => 348,
+		'IDR' => 360,
+		'ILS' => 376,
+		'INR' => 356,
+		'IQD' => 368,
+		'JMD' => 388,
+		'JOD' => 400,
+		'JPY' => 392,
+		'KES' => 404,
+		'KHR' => 116,
+		'KRW' => 410,
+		'KWD' => 414,
+		'KYD' => 136,
+		'KZT' => 398,
+		'LBP' => 422,
+		'LKR' => 144,
+		'LSL' => 426,
+		'LTL' => 440,
+		'LVL' => 428,
+		'MAD' => 504,
+		'MKD' => 807,
+		'MNT' => 496,
+		'MOP' => 446,
+		'MRO' => 478,
+		'MUR' => 480,
+		'MVR' => 462,
+		'MWK' => 454,
+		'MXN' => 484,
+		'MYR' => 458,
+		'MZN' => 943,
+		'NAD' => 516,
+		'NGN' => 566,
+		'NIO' => 558,
+		'NOK' => 578,
+		'NPR' => 524,
+		'NZD' => 554,
+		'OMR' => 512,
+		'PAB' => 590,
+		'PEN' => 604,
+		'PGK' => 598,
+		'PHP' => 608,
+		'PKR' => 586,
+		'PLN' => 985,
+		'PYG' => 600,
+		'QAR' => 634,
+		'RON' => 946,
+		'RSD' => 941,
+		'RUB' => 643,
+		'RWF' => 646,
+		'SAR' => 682,
+		'SCR' => 690,
+		'SEK' => 752,
+		'SGD' => 702,
+		'SLL' => 694,
+		'SVC' => 222,
+		'SYP' => 760,
+		'SZL' => 748,
+		'THB' => 764,
+		'TND' => 788,
+		'TRY' => 949,
+		'TTD' => 780,
+		'TWD' => 901,
+		'TZS' => 834,
+		'UAH' => 980,
+		'USD' => 840,
+		'UYU' => 858,
+		'UZS' => 860,
+		'VEF' => 937,
+		'XAF' => 950,
+		'XCD' => 951,
+		'XOF' => 952,
+		'XPF' => 953,
+		'YER' => 886,
+		'ZAR' => 710,
+		'ZMK' => 894,
+	);
+
 	public function __construct( $options = array ( ) ) {
 		parent::__construct( $options );
 	}
@@ -85,6 +265,102 @@ class WorldpayAdapter extends GatewayAdapter {
 		);
 	}
 
+	function defineDataConstraints() {
+		$this->dataConstraints = array(
+			// AcctName
+			'wp_acctname' => array( 'type' => 'alphanumeric', 'length' => 30 ),
+
+			// Address1
+			'street' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// Amount
+			'amount' => array( 'type' => 'numeric' ),
+
+			// CardId
+			'wp_card_id' => array( 'type' => 'numeric' ),
+
+			// City
+			'city' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// CountryCode
+			'country' => array( 'type' => 'alphanumeric', 'length' => 2 ),
+
+			// CurrencyId
+			'iso_currency_id' => array( 'type' => 'numeric' ),
+
+			// CVN
+			'cvv' => array( 'type' => 'numeric' ),
+
+			// Email
+			'email' => array( 'type' => 'alphanumeric', 'length' => 50 ),
+
+			// FirstName
+			'fname' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// LastName
+			'lname' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// OrderNumber
+			'order_id' => array( 'type' => 'alphanumeric', 'length' => 35 ),
+
+			// OTTRegion
+			'region_code' => array( 'type' => 'numeric' ),
+
+			// OTTResultURL
+			'returnto' => array( 'type' => 'alphanumeric', 'length' => 255 ),
+
+			// PTTID
+			'wp_pttid' => array( 'type' => 'numeric' ),
+
+			// REMOTE_ADDR
+			'user_ip' => array( 'type' => 'alphanumeric', 'length' => 100 ),
+
+			// StateCode
+			'state' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// ZipCode
+			'zip' => array( 'type' => 'alphanumeric', 'length' => 30 ),
+
+			// MerchantReference2
+			'merchant_reference_2' => array( 'type' => 'alphanumeric', 'length' => 60 ),
+
+			// NarrativeStatement1
+			'narrative_statement_1' => array( 'type' => 'alphanumeric', 'length' => 50 ),
+		);
+	}
+
+	function definePaymentMethods() {
+		$this->payment_methods = array();
+		$this->payment_methods['cc'] = array(
+			'label'	=> 'Credit Cards',
+			'validation' => array(
+				'name' => true,
+				'email' => true
+			),
+		);
+
+		$this->payment_submethods = array();
+
+		foreach( self::$CARD_INFO as $name => $info ) {
+
+			$countries = array();
+			if ( isset( $info['countries'] ) ) {
+				$countries = $info['countries'];
+			}
+			$this->payment_submethods[$name] = array(
+				'countries' => $countries,
+				'group' => 'cc',
+				'validation' => array(
+					'name' => true,
+					'email' => true,
+					'address' => false,
+					'amount' => true,
+				),
+				'logo' => "card-{$name}.png",
+			);
+		}
+	}
+
 	/**
 	 * Worldpay doesn't check order numbers until settlement at
 	 * which point it's too late to do much about it. So; our order
@@ -105,7 +381,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	public function getCurrencies( $options = array() ) {
-		return array_keys( $this->config['currencies'] );
+		return array_keys( self::$CURRENCY_CODES );
 	}
 
 	function defineTransactions() {
@@ -494,15 +770,49 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 	}
 
+	function defineVarMap() {
+		$this->var_map = array(
+			'OrderNumber'       => 'order_id',
+			'CustomerId'        => 'contribution_tracking_id',
+			'OTTRegion'         => 'region_code',
+			'OTTResultURL'      => 'returnto',
+			'OTT'               => 'wp_one_time_token',
+			'CardId'            => 'wp_card_id',
+			'Amount'            => 'amount',
+			'FirstName'         => 'fname',
+			'LastName'          => 'lname',
+			'Address1'          => 'street',
+			'City'              => 'city',
+			'StateCode'         => 'state',
+			'ZipCode'           => 'zip',
+			'CountryCode'       => 'country',
+			'LAN'               => 'language',
+			'Email'             => 'email',
+			'REMOTE_ADDR'       => 'user_ip',
+			'StoreID'           => 'wp_storeid',
+			'CurrencyId'        => 'iso_currency_id',
+			'AcctName'          => 'wp_acctname',
+			'CVN'               => 'cvv',
+			'PTTID'             => 'wp_pttid',
+			'UserName'          => 'username',
+			'UserPassword'      => 'user_password',
+			'MerchantId'        => 'wp_merchant_id',
+			'MerchantReference2'=> 'merchant_reference_2',
+			'NarrativeStatement1'=> 'narrative_statement_1',
+		);
+	}
+
 	public function defineDataTransformers() {
-		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new WorldpayAccountName(),
-			new WorldpayCurrency(),
-			new WorldpayEmail(),
-			new WorldpayMethodCodec(),
-			new WorldpayNarrativeStatement(),
-			new WorldpayReturnto(),
-		) );
+		$this->data_transformers = parent::getCoreDataTransformers();
+	}
+
+	private function get_payment_method_name_from_api_name ( $api_name ) {
+		foreach ( self::$CARD_INFO as $name => $info ) {
+			if ( $api_name === $info['api_name'] ) {
+				return $name;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -519,9 +829,6 @@ class WorldpayAdapter extends GatewayAdapter {
 			&& in_array( $this->staged_data['wp_storeid'], $this->account_config['SpecialSnowflakeStoreIDs'] );
 	}
 
-	public function getBasedir() {
-		return __DIR__;
-	}
 	public function doPayment() {
 		return PaymentResult::fromResults(
 			$this->do_transaction( 'QueryAuthorizeDeposit' ),
@@ -804,6 +1111,85 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::regenerateOrderID();
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->set_transaction_order_ids( $order_id );
+	}
+
+	protected function stage_returnto() {
+		global $wgServer, $wgArticlePath;
+
+		// Rebuild the url with the token param.
+
+		$arr_url = parse_url(
+			$wgServer . str_replace(
+				'$1',
+				'Special:WorldpayGatewayResult',
+				$wgArticlePath
+			)
+		);
+
+		$query = '';
+		$first = true;
+		if ( isset( $arr_url['query'] ) ) {
+			parse_str( $arr_url['query'], $arr_query );
+		}
+		// Worldpay decodes encoded URL unsafe characters in XML before storage,
+		// and sends them back that way in the return header.  So anything you
+		// want to be returned encoded must be double-encoded[1], for example
+		// %2526 will get returned as %26 and decoded to &, while %26 will get
+		// returned as & and treated as a query string separator.
+
+		// Additionally a properly encoded & will make their server respond
+		// MessageCode 302 (which means 'unavailable') unless it is wrapped in
+		// CDATA tags because godonlyknows
+		$arr_query['token'] = rawurlencode( $this->token_getSaltedSessionToken() );
+		$arr_query['ffname'] = rawurlencode( $this->getData_Unstaged_Escaped( 'ffname' ) );
+		$arr_query['amount'] = rawurlencode( $this->getData_Unstaged_Escaped( 'amount' ) );
+		foreach ( $arr_query as $key => $val ) {
+			$query .= ( $first ? '?' : '&' ) . $key . '=' . $val;
+			$first = false;
+		}
+
+		$this->staged_data['returnto'] = rawurlencode( // [1]
+			$arr_url['scheme'] .  '://' .
+			$arr_url['host'] .
+			$arr_url['path'] .
+			$query
+		);
+	}
+
+	protected function stage_wp_acctname() {
+		$this->staged_data['wp_acctname'] = implode( ' ', array(
+			$this->getData_Unstaged_Escaped( 'fname' ),
+			$this->getData_Unstaged_Escaped( 'lname' )
+		));
+	}
+
+	protected function stage_iso_currency_id() {
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		if ( array_key_exists( $currency, self::$CURRENCY_CODES ) ) {
+			$this->staged_data['iso_currency_id'] = self::$CURRENCY_CODES[$currency];
+		}
+	}
+
+	protected function unstage_payment_submethod() {
+		$paymentMethod = $this->getData_Staged( 'payment_method' );
+		$paymentSubmethod = $this->getData_Staged( 'payment_submethod' );
+		if ( $paymentMethod == 'cc' ) {
+			$this->unstaged_data['payment_submethod'] =
+				$this->get_payment_method_name_from_api_name( $paymentSubmethod );
+		}
+	}
+
+	protected function stage_merchant_reference_2() {
+		$email = $this->getData_Staged( 'email' );
+		$alphanumeric = preg_replace('/[^0-9a-zA-Z]/', ' ', $email);
+		$this->staged_data['merchant_reference_2'] = $alphanumeric;
+	}
+
+	protected function stage_narrative_statement_1() {
+		$this->staged_data['narrative_statement_1'] = WmfFramework::formatMessage(
+			'donate_interface-statement',
+			$this->getData_Unstaged_Escaped( 'contribution_tracking_id' )
+		);
 	}
 
 	/**
