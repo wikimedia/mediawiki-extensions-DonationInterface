@@ -9,23 +9,23 @@ class IngenicoMethodCodec implements StagingHelper {
 	 * Stages the payment product ID for GC.
 	 * Not what I had in mind to begin with, but this *completely* blew up.
 	 */
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$logger = DonationLoggerFactory::getLogger( $adapter );
 
 		// FIXME: too much variable management
-		if ( empty( $unstagedData['payment_method'] ) ) {
+		if ( empty( $normalized['payment_method'] ) ) {
 			$stagedData['payment_method'] = '';
 			$stagedData['payment_submethod'] = '';
 			return;
 		}
-		$payment_method = $unstagedData['payment_method'];
-		$payment_submethod = $unstagedData['payment_submethod'];
+		$payment_method = $normalized['payment_method'];
+		$payment_submethod = $normalized['payment_submethod'];
 
 		// We might support a variation of the submethod for this country.
 		//TODO: Having to front-load the country in the payment submethod is pretty lame.
 		//If we don't have one deliberately set...
 		if ( !$payment_submethod ) {
-			$trythis = $payment_method . '_' . strtolower( $unstagedData['country'] );
+			$trythis = $payment_method . '_' . strtolower( $normalized['country'] );
 			if ( array_key_exists( $trythis, $adapter->getPaymentSubmethods() ) ){
 				$payment_submethod = $trythis;
 				$stagedData['payment_submethod'] = $payment_submethod;

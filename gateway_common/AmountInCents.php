@@ -10,15 +10,15 @@
  * For example: JPY 1000.05 would be changed to 100005, but should be 100000.
  */
 class AmountInCents implements StagingHelper, UnstagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
-		if ( empty( $unstagedData['amount'] ) || empty( $unstagedData['currency_code'] ) ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		if ( empty( $normalized['amount'] ) || empty( $normalized['currency_code'] ) ) {
 			//can't do anything with amounts at all. Just go home.
 			unset( $stagedData['amount'] );
 			return;
 		}
 
-		$amount = $unstagedData['amount'];
-		if ( !DataValidator::is_fractional_currency( $unstagedData['currency_code'] ) ) {
+		$amount = $normalized['amount'];
+		if ( !DataValidator::is_fractional_currency( $normalized['currency_code'] ) ) {
 			$amount = floor( $amount );
 		}
 
