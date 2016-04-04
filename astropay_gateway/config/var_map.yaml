@@ -1,0 +1,20 @@
+x_login: merchant_id
+x_trans_key: merchant_password
+x_invoice: order_id
+x_amount: amount
+x_currency: currency_code
+x_bank: bank_code
+x_country: country
+x_description: description
+x_iduser: donor_id
+x_cpf: fiscal_number
+x_name: full_name
+x_email: email
+# We've been told bdate is non-mandatory, despite the docs
+x_bdate: birth_date
+x_address: street
+x_zip: zip
+x_city: city
+x_state: state
+x_document: gateway_txn_id
+country_code: country

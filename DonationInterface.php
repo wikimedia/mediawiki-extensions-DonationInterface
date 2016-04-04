@@ -120,6 +120,12 @@ $wgAutoloadClasses['PayPalLocale'] = __DIR__ . '/paypal_gateway/PayPalLocale.php
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
 $wgAutoloadClasses['WorldpayGatewayResult'] = __DIR__ . '/worldpay_gateway/worldpay_resultswitcher.body.php';
 $wgAutoloadClasses['WorldpayAdapter'] = __DIR__ . '/worldpay_gateway/worldpay.adapter.php';
+$wgAutoloadClasses['WorldpayAccountName'] = __DIR__ . '/worldpay_gateway/WorldpayAccountName.php';
+$wgAutoloadClasses['WorldpayCurrency'] = __DIR__ . '/worldpay_gateway/WorldpayCurrency.php';
+$wgAutoloadClasses['WorldpayEmail'] = __DIR__ . '/worldpay_gateway/WorldpayEmail.php';
+$wgAutoloadClasses['WorldpayMethodCodec'] = __DIR__ . '/worldpay_gateway/WorldpayMethodCodec.php';
+$wgAutoloadClasses['WorldpayNarrativeStatement'] = __DIR__ . '/worldpay_gateway/WorldpayNarrativeStatement.php';
+$wgAutoloadClasses['WorldpayReturnto'] = __DIR__ . '/worldpay_gateway/WorldpayReturnto.php';
 
 $wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
 $wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';

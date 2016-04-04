@@ -367,8 +367,8 @@ div.donor { width: 100% !important; }
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
 }
-.amount_header span.hidden, input.hidden, .amount_header select.hidden {
-	display: none;
+.hidden {
+	display: none !important;
 }
 #overlay {
 	z-index: 999;

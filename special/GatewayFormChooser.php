@@ -38,27 +38,20 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		$request = $this->getRequest();
-		// Check multiple query string parameters, return the value of the
-		// first we find, or null if none have a value.
-		$getValForParams = function( $params ) use ( $request ) {
-			$params = ( array ) $params;
-			$val = null;
-			do {
-				$val = $request->getVal( array_shift( $params ), null );
-				if ( $val === '' ) {
-					$val = null;
-				}
-			} while ( $val === null && !empty( $params ) );
+		// Get a query string parameter or null if blank
+		$getValOrNull = function( $paramName ) use ( $request ) {
+			$val = $request->getVal( $paramName, null );
+			if ( $val === '' ) {
+				$val = null;
+			}
 			return $val;
 		};
 
-		$country = $getValForParams( 'country' );
-		// Many banner links use non-standard names for the next three
-		// parameters. Prefer the standard names, but allow the old ones.
-		$currency = $getValForParams( array( 'currency_code', 'currency' ) );
-		$paymentMethod = $getValForParams( array( 'payment_method', 'paymentmethod' ) );
-		$paymentSubMethod = $getValForParams( array( 'payment_submethod', 'submethod' ) );
-		$gateway = $getValForParams( 'gateway' );
+		$country = $getValOrNull( 'country' );
+		$currency = $getValOrNull( 'currency_code' );
+		$paymentMethod = $getValOrNull( 'payment_method' );
+		$paymentSubMethod = $getValOrNull( 'payment_submethod' );
+		$gateway = $getValOrNull( 'gateway' );
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
 
 		// FIXME: This is clearly going to go away before we deploy this bizniss.
@@ -90,7 +83,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		// Pass any other params that are set. We do not skip ffname or form_name because
 		// we wish to retain the query string override.
-		$excludeKeys = array( 'paymentmethod', 'submethod', 'title', 'recurring' );
+		$excludeKeys = array( 'title', 'recurring' );
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			// Skip the required variables
 			if ( !in_array( $key, $excludeKeys ) ) {
@@ -173,7 +166,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// set the default redirect
-		return self::getTitleFor( $specialpage )->getLocalUrl( $params );
+		return self::getTitleFor( $specialpage )->getLocalURL( $params );
 	}
 
 	/**
@@ -364,7 +357,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 	/**
 	 * Checks to see if the ffname supplied is a valid form for the rest of the supplied params.
-	 * @param type $ffname The form name to check.
+	 * @param string $ffname The form name to check.
 	 * @param string $country Optional country code filter
 	 * @param string $currency Optional currency code filter
 	 * @param string $payment_method Optional payment method filter

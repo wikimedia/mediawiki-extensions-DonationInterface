@@ -50,20 +50,6 @@ class PaypalAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineVarMap() {
-		$this->var_map = array(
-			'amount' => 'amount',
-			'country' => 'country',
-			'currency_code' => 'currency_code',
-			'item_name' => 'description',
-			'return' => 'return',
-			'custom' => 'contribution_tracking_id',
-			'a3' => 'amount',
-			'srt' => 'recurring_length',
-			'lc' => 'locale',
-		);
-	}
-
 	function defineAccountInfo() {
 		$this->accountInfo = array();
 	}
@@ -72,8 +58,7 @@ class PaypalAdapter extends GatewayAdapter {
 	function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );
 	}
-	function defineDataConstraints() {
-	}
+
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(
 			'generate' => false,
@@ -227,37 +212,5 @@ class PaypalAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				return $result;
 		}
-	}
-
-	public function getCurrencies( $options = array() ) {
-		// see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
-		// TODO: Investigate per-country support at this URL
-		// https://developer.paypal.com/docs/classic/api/currency_codes/#creditcard
-		return array(
-			'AUD',
-			// 'BRL', // in-country only... it seems to work but I'm respecting the docs
-			'CAD',
-			'CZK',
-			'DKK',
-			'EUR',
-			'HKD',
-			'HUF',
-			'ILS',
-			'JPY', // no fractions
-			// 'MYR', // in-country only
-			'MXN',
-			'NOK',
-			'NZD',
-			'PHP',
-			'PLN',
-			'GBP',
-			/* 'SGD', // Only available for singaporian entities */
-			'SEK',
-			'CHF',
-			'TWD', // no fractions
-			'THB',
-			// 'TRY', // in-country only
-			'USD',
-		);
 	}
 }

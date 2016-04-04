@@ -1,0 +1,7 @@
+cc:
+    label: 'Credit Cards'
+    validation:
+        name: true
+        email: true
+        address: false
+        amount: true

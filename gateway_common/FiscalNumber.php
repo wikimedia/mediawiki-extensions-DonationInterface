@@ -11,8 +11,9 @@ class FiscalNumber implements StagingHelper {
 				$adapter->getIdentifier() === 'astropay'
 			) {
 				// Not validated, but currently required by the AstroPay API
+				// Needs to be 13 digits
 				// TODO: Remove this when they fix it
-				$stagedData['fiscal_number'] = '111122223333444455';
+				$stagedData['fiscal_number'] = '1111222233334';
 			}
 		} else {
 			$stagedData['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $unstagedData['fiscal_number'] );

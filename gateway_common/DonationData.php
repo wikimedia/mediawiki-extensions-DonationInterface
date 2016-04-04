@@ -91,8 +91,6 @@ class DonationData implements LogPrefixProvider {
 				'currency_code',
 				'payment_method',
 				'payment_submethod',
-				'paymentmethod', //used by the FormChooser (and the newest banners) for some reason.
-				'submethod', //same as above. Ideally, the newer banners would stop using these vars and go back to the old ones...
 				'issuer_id',
 				'order_id',
 				'subscr_id',
@@ -596,39 +594,10 @@ class DonationData implements LogPrefixProvider {
 		// payment_method and payment_submethod are currently preferred within DonationInterface
 		if ( $this->isSomething( 'payment_method' ) ) {
 			$method = $this->getVal( 'payment_method' );
-
-			//but they can come in a little funny.
-			$exploded = explode( '.', $method );
-			if ( count( $exploded ) > 1 ) {
-				$method = $exploded[0];
-				$submethod = $exploded[1];
-			}
 		}
 
 		if ( $this->isSomething( 'payment_submethod' ) ) {
-			if ( $submethod != '' ) {
-				//squak a little if they don't match, and pick one.
-				if ( $submethod != $this->getVal( 'payment_submethod' ) ) {
-					$message = "Submethod normalization conflict!: ";
-					$message .= 'payment_submethod = ' . $this->getVal( 'payment_submethod' );
-					$message .= ", and exploded payment_method = '$submethod'. Going with the first option.";
-					$this->logger->debug( $message );
-				}
-			}
 			$submethod = $this->getVal( 'payment_submethod' );
-		}
-
-		if ( $this->isSomething( 'paymentmethod' ) ) { //gross. Why did we do this?
-			//...okay. So, if we have this value, we've likely just come in from the form chooser,
-			//which has just used *this* value to choose a form with.
-			//so, go ahead and prefer this version, and then immediately nuke it.
-			$method = $this->getVal( 'paymentmethod' );
-			$this->expunge( 'paymentmethod' );
-		}
-
-		if ( $this->isSomething( 'submethod' ) ) { //same deal
-			$submethod = $this->getVal( 'submethod' );
-			$this->expunge( 'submethod' );
 		}
 
 		$this->setVal( 'payment_method', $method );

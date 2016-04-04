@@ -201,9 +201,10 @@ class GlobalCollectOrphanRectifier {
 
 	/**
 	 * Gets the global setting for the key passed in.
-	 * @param type $key
+	 * @param string $key
 	 *
 	 * FIXME: Reuse GatewayAdapter::getGlobal.
+	 * @return mixed
 	 */
 	protected static function getOrphanGlobal( $key ){
 		global $wgDonationInterfaceOrphanCron;
