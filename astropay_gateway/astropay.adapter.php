@@ -43,29 +43,6 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->accountInfo = $this->account_config;
 	}
 
-	function defineDataConstraints() {
-		$this->dataConstraints = array(
-			'x_login'		=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_trans_key'	=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_invoice'		=> array( 'type' => 'alphanumeric',	'length' => 20, ),
-			'x_amount'		=> array( 'type' => 'numeric', ),
-			'x_currency'	=> array( 'type' => 'alphanumeric',	'length' => 3, ),
-			'x_bank'		=> array( 'type' => 'alphanumeric',	'length' => 3, ),
-			'x_country'		=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-			'x_description'	=> array( 'type' => 'alphanumeric',	'length' => 200, ),
-			'x_iduser'		=> array( 'type' => 'alphanumeric',	'length' => 20, ),
-			'x_cpf'			=> array( 'type' => 'alphanumeric',	'length' => 30, ),
-			'x_name'		=> array( 'type' => 'alphanumeric', ),
-			'x_email'		=> array( 'type' => 'alphanumeric', ),
-			'x_bdate'		=> array( 'type' => 'date',	'length' => 8, ),
-			'x_address'		=> array( 'type' => 'alphanumeric', ),
-			'x_zip'			=> array( 'type' => 'alphanumeric',	'length' => 10, ),
-			'x_city'		=> array( 'type' => 'alphanumeric', ),
-			'x_state'		=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-			'country_code'	=> array( 'type' => 'alphanumeric',	'length' => 2, ),
-		);
-	}
-
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
@@ -74,34 +51,6 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	function defineStagedVars() {}
-
-	/**
-	 * Define var_map
-	 */
-	function defineVarMap() {
-		$this->var_map = array(
-			'x_login'		=> 'merchant_id',
-			'x_trans_key'	=> 'merchant_password',
-			'x_invoice'		=> 'order_id',
-			'x_amount'		=> 'amount',
-			'x_currency'	=> 'currency_code',
-			'x_bank'		=> 'bank_code',
-			'x_country'		=> 'country',
-			'x_description'	=> 'description',
-			'x_iduser'		=> 'donor_id',
-			'x_cpf'			=> 'fiscal_number',
-			'x_name'		=> 'full_name',
-			'x_email'		=> 'email',
-			// We've been told bdate is non-mandatory, despite the docs
-			'x_bdate'		=> 'birth_date',
-			'x_address'		=> 'street',
-			'x_zip'			=> 'zip',
-			'x_city'		=> 'city',
-			'x_state'		=> 'state',
-			'x_document'	=> 'gateway_txn_id',
-			'country_code'	=> 'country',
-		);
-	}
 
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
@@ -339,22 +288,10 @@ class AstropayAdapter extends GatewayAdapter {
 		if ( !$country ) {
 			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
 		}
-		$currencies = array(
-			'AR' => 'ARS', // Argentinian peso
-			'BO' => 'BOB', // Bolivian Boliviano
-			'BR' => 'BRL', // Brazilian Real
-			'BZ' => 'BZD', // Belize Dollar
-			'CL' => 'CLP', // Chilean Peso
-			'CO' => 'COP', // Colombian Peso
-			'MX' => 'MXN', // Mexican Peso
-			'PE' => 'PEN', // Peruvian Nuevo Sol
-			'US' => 'USD', // U.S. dollar
-			'UY' => 'UYU', // Uruguayan Peso
-		);
-		if ( !isset( $currencies[$country] ) ) {
+		if ( !isset( $this->config['currencies'][$country] ) ) {
 			throw new OutOfBoundsException( "No supported currencies for $country" );
 		}
-		return (array)$currencies[$country];
+		return (array)$this->config['currencies'][$country];
 	}
 
 	/**

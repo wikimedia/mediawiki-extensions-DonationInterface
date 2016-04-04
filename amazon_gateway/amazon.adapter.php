@@ -74,19 +74,12 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineVarMap() {
-		// TODO: maybe use this for mapping gatway data to API call parameters
-		$this->var_map = array();
-	}
-
 	function defineAccountInfo() {
 		// We use account_config instead
 		$this->accountInfo = array();
 	}
 
 	function defineReturnValueMap() {}
-
-	function defineDataConstraints() {}
 
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(
@@ -419,13 +412,6 @@ class AmazonAdapter extends GatewayAdapter {
 				$response['Error']['Code']
 			);
 		}
-	}
-
-	public function getCurrencies( $options = array() ) {
-		// See https://payments.amazon.com/sdui/sdui/about?nodeId=73479#feat_countries
-		return array(
-			'USD',
-		);
 	}
 
 	/**

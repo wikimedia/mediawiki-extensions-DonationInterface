@@ -31,6 +31,11 @@ interface LogPrefixProvider {
 abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
+	 * config tree
+	 */
+	protected $config = array();
+
+	/**
 	 * $dataConstraints provides information on how to handle variables.
 	 *
 	 * 	 <code>
@@ -250,6 +255,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// The following needs to be set up before we initialize DonationData.
 		// TODO: move the rest of the initialization here
+		$this->loadConfig();
 		$this->defineOrderIDMeta();
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
@@ -295,14 +301,47 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->request;
 	}
 
-	public function definePaymentMethods() {
+	public function loadConfig() {
 		$yaml = new Parser();
 		foreach ( glob( $this->getBasedir() . "/config/*.yaml" ) as $path ) {
 			$pieces = explode( "/", $path );
 			$key = substr( array_pop( $pieces ), 0, -5 );
-			# TODO should put this in structured config rather than a member
-			# variable, but this plays along with the current code.
-			$this->$key = $yaml->parse( file_get_contents( $path ) );
+			$this->config[$key] = $yaml->parse( file_get_contents( $path ) );
+		}
+	}
+
+	public function getConfig( $key = null ) {
+		if ( $key === null ) {
+			return $this->config;
+		}
+		if ( array_key_exists( $key, $this->config ) ) {
+			return $this->config[$key];
+		}
+		return null;
+	}
+
+	// For legacy support.
+	// TODO replace with access to config structure
+	public function definePaymentMethods() {
+		// All adapters have payment_method(s)
+		$this->payment_methods = $this->config['payment_methods'];
+		// Some (Pay Pal) do not have any submethods.
+		if ( isset( $this->config['payment_submethods'] ) ) {
+			$this->payment_submethods = $this->config['payment_submethods'];
+		}
+	}
+
+	// TODO: see comment on definePaymentMethods
+	public function defineVarMap() {
+		if ( isset( $this->config['var_map'] ) ) {
+			$this->var_map = $this->config['var_map'];
+		}
+	}
+
+	// TODO: see comment on definePaymentMethods
+	public function defineDataConstraints() {
+		if ( isset( $this->config['data_constraints'] ) ) {
+			$this->dataConstraints = $this->config['data_constraints'];
 		}
 	}
 
@@ -1104,7 +1143,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Sets the transaction you are about to send to the payment gateway. This
 	 * will throw an exception if you try to set it to something that has no
 	 * transaction definition.
-	 * @param type $transaction_name This is a specific transaction type like
+	 * @param string $transaction_name This is a specific transaction type like
 	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a
 	 * first-level key in the $transactions array.
 	 * @throws UnexpectedValueException
@@ -1166,18 +1205,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->payment_methods;
 	}
 
-	/**
-	 * Get the payment submethod
-	 *
-	 * @return	string
-	 */
 	public function getPaymentSubmethod() {
-
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 
 	public function getPaymentSubmethods() {
 		return $this->payment_submethods;
+	}
+
+	public function getCurrencies( $options = array() ) {
+		return $this->config['currencies'];
 	}
 
 	/**
@@ -2866,13 +2903,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Now compare session with current request parameters
 		// Reset submethod when method changes to avoid form mismatch errors
 		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
-			// Cut down version of the normalization from DonationData
-			$newMethod = null;
-			foreach( array( 'payment_method', 'paymentmethod' ) as $key ) {
-				if ( $this->request->getVal( $key ) ) {
-					$newMethod = $this->request->getVal( $key );
-				}
-			}
+			$newMethod = $this->request->getVal( 'payment_method' );
 			if ( $newMethod ) {
 				$parts = explode( '.', $newMethod );
 				$newMethod = $parts[0];
@@ -2995,20 +3026,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return md5( $token . $padding );
 	}
 
-	/**
-	 * Establish an 'edit' token to help prevent CSRF, etc.
-	 *
-	 * We use this in place of $wgUser->editToken() b/c currently
-	 * $wgUser->editToken() is broken (apparently by design) for
-	 * anonymous users.  Using $wgUser->editToken() currently exposes
-	 * a security risk for non-authenticated users.  Until this is
-	 * resolved in $wgUser, we'll use our own methods for token
-	 * handling.
-	 *
-	 * Public so the api can get to it.
-	 *
-	 * @return string
-	 */
 	public function token_getSaltedSessionToken() {
 		// make sure we have a session open for tracking a CSRF-prevention token
 		$this->session_ensure();
@@ -3075,7 +3092,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.
 	 * @staticvar string $match
-	 * @return type
+	 * @return bool
 	 */
 	protected function token_checkTokens() {
 		static $match = null; //because we only want to do this once per load.
