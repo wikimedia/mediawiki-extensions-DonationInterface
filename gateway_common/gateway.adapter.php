@@ -1205,13 +1205,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->payment_methods;
 	}
 
-	/**
-	 * Get the payment submethod
-	 *
-	 * @return	string
-	 */
 	public function getPaymentSubmethod() {
-
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 

@@ -245,6 +245,13 @@ interface GatewayType {
 	public function getPaymentMethodMeta( $payment_method = null );
 
 	/**
+	 * Get the name of the currently selected payment submethod
+	 *
+	 * @return string
+	 */
+	public function getPaymentSubmethod();
+
+	/**
 	 * Get metadata for the specified payment submethod
 	 *
 	 * @param string|null $payment_submethod Defaults to the current submethod
@@ -254,7 +261,7 @@ interface GatewayType {
 	public function getPaymentSubmethodMeta( $payment_submethod = null );
 
 	/**
-	 * Define payment methods
+	 * Get the entire list of payment submethod definitions
 	 *
 	 * Not all payment submethods are available within an adapter
 	 *
