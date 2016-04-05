@@ -2,5 +2,6 @@
 - AstroPayFinancialNumbers
 - AstroPayMethodCodec
 - FiscalNumber
+- DummyFiscalNumber # see class comment
 - DonorFullName
 - StreetAddress
