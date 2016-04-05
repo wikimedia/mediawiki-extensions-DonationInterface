@@ -66,6 +66,7 @@ global $wgDonationInterfaceTestMode,
 	$wgAstropayGatewayURL,
 	$wgAstropayGatewayTestingURL,
 	$wgAstropayGatewayAccountInfo,
+	$wgAstropayGatewayFallbackCurrency,
 	$wgWorldpayGatewayAccountInfo,
 	$wgWorldpayGatewayURL,
 	$wgMinFraudLicenseKey,
@@ -145,6 +146,7 @@ $wgAstropayGatewayAccountInfo['test'] = array(
 	),
 	'SecretKey' => 'NanananananananananananananananaBatman',
 );
+$wgAstropayGatewayFallbackCurrency = false;
 
 $wgWorldpayGatewayAccountInfo = array();
 /** Worldpay **/
