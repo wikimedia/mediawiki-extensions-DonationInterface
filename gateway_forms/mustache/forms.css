@@ -346,6 +346,9 @@ div.donor { width: 100% !important; }
   clear: both;
   display: none;
 }
+#paymentContinue.force, #paymentSubmit.force {
+    display:block;
+}
 .btn {
   background-color: #757575 !important;
   color: #fff !important;
