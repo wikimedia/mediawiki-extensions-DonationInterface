@@ -661,6 +661,11 @@ class DonationData implements LogPrefixProvider {
 			$email = $this->getVal( 'email' );
 		}
 
+		// Also trim whitespace
+		if ( $email ) {
+			$email = trim( $email );
+		}
+
 		$this->setVal( 'email', $email );
 		$this->expunge( 'emailAdd' );
 	}
