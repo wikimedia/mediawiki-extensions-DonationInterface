@@ -684,7 +684,13 @@ class DonationData implements LogPrefixProvider {
 	 */
 	protected function setReferrer() {
 		if ( !$this->isSomething( 'referrer' ) ) {
-			$this->setVal( 'referrer', $this->gateway->getRequest()->getHeader( 'referer' ) );
+			// Remove the protocol string to avoid tripping modsecurity OWASP CRS #950120
+			$referrer = preg_replace(
+				"/^(?:ht|f)tps?:\\/\\//",
+				"",
+				$this->gateway->getRequest()->getHeader( 'referer' )
+			);
+			$this->setVal( 'referrer', $referrer );
 			// grumble grumble real header not a real word grumble.
 		}
 	}
