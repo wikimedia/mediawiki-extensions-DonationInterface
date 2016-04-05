@@ -63,6 +63,15 @@ class WorldpayAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
+	public function definePaymentMethods() {
+		parent::definePaymentMethods();
+		$this->config['payment_submethod_api_names'] =
+			ArrayHelper::buildLookupTable(
+				$this->config['payment_submethods'],
+				'api_name'
+			);
+	}
+
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'returnto',
@@ -262,18 +271,6 @@ class WorldpayAdapter extends GatewayAdapter {
 				'MOP' => 'CC',              // Credit card transaction
 				'TRXSource' => 4,           // Card not present (web order) transaction
 			)
-		);
-	}
-
-	function defineErrorMap() {
-		//Well, this is probably going to get annoying as soon as we want to get specific here.
-		//We can't just use numbers here: We're going to have to break it out by request and number.
-		$this->error_map = array(
-			// Internal messages
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-			'internal-0001' => 'donate_interface-processing-error', // Transaction could not be processed due to an internal error.
-			'internal-0002' => 'donate_interface-processing-error', // Communication failure
-			'internal-0003' => 'donate_interface-processing-error', // Some error code returned from one of the daisy-chained requests.
 		);
 	}
 
@@ -494,17 +491,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		$this->addCodeRange( 'AuthorizeAndDepositPayment', 'MessageCode', FinalStatus::FAILED, 2101, 2999 );
 	}
 
-	public function defineDataTransformers() {
-		$this->data_transformers = array_merge( parent::getCoreDataTransformers(), array(
-			new WorldpayAccountName(),
-			new WorldpayCurrency(),
-			new WorldpayEmail(),
-			new WorldpayMethodCodec(),
-			new WorldpayNarrativeStatement(),
-			new WorldpayReturnto(),
-		) );
-	}
-
 	/**
 	 * Check if the currently-staged store ID is configured for special treatment.
 	 * Certain store IDs (just FR so far) do not get AVS results, and always get
@@ -522,6 +508,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	public function getBasedir() {
 		return __DIR__;
 	}
+
 	public function doPayment() {
 		return PaymentResult::fromResults(
 			$this->do_transaction( 'QueryAuthorizeDeposit' ),

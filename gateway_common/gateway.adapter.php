@@ -345,6 +345,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// TODO: see comment on definePaymentMethods
+	public function defineErrorMap() {
+		if ( isset( $this->config['error_map'] ) ) {
+			$this->error_map = $this->config['error_map'];
+		}
+	}
+
+	public function defineDataTransformers() {
+		if ( empty( $this->config['transformers'] ) ) {
+			return;
+		}
+
+		foreach ( $this->config['transformers'] as $className ) {
+			$this->data_transformers[] = new $className();
+		}
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */
@@ -3587,8 +3604,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$submethods = array();
 		foreach( $this->payment_submethods as $key => $available_submethod ) {
-			$groups = (array) $available_submethod['group'];
-			if ( !in_array( $method, $groups ) ) {
+			$group = $available_submethod['group'];
+			if ( $method !== $group ) {
 				continue; // skip anything not part of the selected method
 			}
 			if (

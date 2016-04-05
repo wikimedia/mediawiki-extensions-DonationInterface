@@ -1,7 +1,7 @@
 <?php
 
-use PayWithAmazon\Client as PwaClient;
-use PayWithAmazon\ClientInterface as PwaClientInterface;
+use PayWithAmazon\PaymentsClient as PwaClient;
+use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 
 /**
  * Wikimedia Foundation
@@ -21,9 +21,11 @@ use PayWithAmazon\ClientInterface as PwaClientInterface;
  */
 
 /**
- * Uses Login and Pay with Amazon widgets and the associated SDK to charge donors
+ * Uses Login and Pay with Amazon widgets and a fork of the associated
+ * SDK to charge donors.
+ *
  * See https://payments.amazon.com/documentation
- * and https://github.com/amzn/login-and-pay-with-amazon-sdk-php
+ * and https://github.com/ejegg/login-and-pay-with-amazon-sdk-php
  */
 class AmazonAdapter extends GatewayAdapter {
 
@@ -91,6 +93,8 @@ class AmazonAdapter extends GatewayAdapter {
 	function setGatewayDefaults() {}
 
 	public function defineErrorMap() {
+		parent::defineErrorMap();
+
 		$self = $this;
 		$differentCard = function() use ( $self ) {
 			$otherWays = $self->localizeGlobal( 'OtherWaysURL' );
@@ -100,28 +104,12 @@ class AmazonAdapter extends GatewayAdapter {
 				$self->getGlobal( 'ProblemsEmail' )
 			);
 		};
-		$this->error_map = array(
-			// These might be transient - tell donor to try again soon
-			'InternalServerError' => 'donate_interface-try-again',
-			'RequestThrottled' => 'donate_interface-try-again',
-			'ServiceUnavailable' => 'donate_interface-try-again',
-			'ProcessingFailure' => 'donate_interface-try-again',
-			// Donor needs to select a different card
-			'InvalidPaymentMethod' => $differentCard,
-		);
+		// Donor needs to select a different card.
+		$this->error_map['InvalidPaymentMethod'] = $differentCard;
 	}
 
 	function defineTransactions() {
 		$this->transactions = array();
-	}
-
-	function defineDataTransformers() {
-		// Skip AmountInCents, we want to pass the real amount x1.
-		$this->data_transformers = array(
-			new DonorEmail(),
-			new DonorFullName(),
-			new StreetAddress(),
-		);
 	}
 
 	function getBasedir() {

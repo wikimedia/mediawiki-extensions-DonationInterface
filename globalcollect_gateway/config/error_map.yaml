@@ -1,0 +1,76 @@
+0: globalcollect_gateway-response-default
+# Order ID already used in a previous transaction
+300620: donate_interface-processing-error
+# Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.
+430452: globalcollect_gateway-response-default
+# NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
+430900: globalcollect_gateway-response-default
+
+# Errors where the suggested action is to try again
+# COULD NOT START TRANSACTION
+20205: donate_interface-try-again
+# ANOTHER_ACTION_IS_IN_PROCESS
+103000: donate_interface-try-again
+# IDEAL_SYSTEM_MAINTENANCE
+400850: donate_interface-try-again
+# READ_REQUEST_EXCEPTION
+430150: donate_interface-try-again
+# Unable to authorize  ALL_TERMINAL_IDS_FOR_MERCHANT_CURRENCY_IN_USE
+430160: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_101
+430215: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_103
+430220: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_111
+430225: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_113
+430230: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_183
+430235: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_601
+430240: donate_interface-try-again
+# Unable to authorize  COMMS_FAIL_605
+430245: donate_interface-try-again
+# Unable to authorize  TIMEOUT
+430430: donate_interface-try-again
+# Unable to authorize  TOO_MUCH_USAGE
+430433: donate_interface-try-again
+# Not authorized  SOFT_DECLINE_BUYER_HAS_ALTERNATE_FUNDING_SOURCE
+430581: donate_interface-try-again
+# Unable to authorize  NEW_ACCOUNT_INFO_AVAILABLE
+485000: donate_interface-try-again
+# Unable to authorize  TRY_AGAIN_LATER
+485010: donate_interface-try-again
+# PBS_SERVICE_NOT_AVAILABLE
+4311130: donate_interface-try-again
+# ECARD SYSTEM ERROR
+4360025: donate_interface-try-again
+# BOKU ERROR
+4500600: donate_interface-try-again
+# SUB1 ERROR
+4500700: donate_interface-try-again
+# COMMUNICATION ERROR
+22000045: donate_interface-try-again
+# ERROR_IN_PROCESSING_THE_REQUEST
+9999999999: donate_interface-try-again
+
+# Internal messages
+# Failed failed pre-process checks.
+internal-0000: donate_interface-processing-error
+# Transaction could not be processed due to an internal error.
+internal-0001: donate_interface-processing-error
+# Communication failure
+internal-0002: donate_interface-processing-error
+# Toxic card, don't retry on pain of $1000+ fine
+internal-0003: donate_interface-processing-error
+
+# Do bank validation messages
+# FIXME: Why are these commented out?  Complete.
+# Account number format incorrect
+#'dbv-50'	=> 'globalcollect_gateway-response-dbv-50'
+# Account details missing
+#'dbv-80'	=> 'globalcollect_gateway-response-dbv-80'
+# Check digit format is incorrect
+#'dbv-330'	=> 'globalcollect_gateway-response-dbv-330'
+# Branch code not submitted
+#'dbv-340'	=> 'globalcollect_gateway-response-dbv-340'

@@ -45,12 +45,6 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineErrorMap() {
-		$this->error_map = array(
-			'internal-0000' => 'donate_interface-processing-error', // Failed failed pre-process checks.
-		);
-	}
-
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'amount',
@@ -60,10 +54,6 @@ class AdyenAdapter extends GatewayAdapter {
 			'risk_score',
 			'hpp_signature' // Keep this at the end - it depends on the rest
 		);
-	}
-
-	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
 	}
 
 	function defineReturnValueMap() {

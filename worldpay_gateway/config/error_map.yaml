@@ -1,0 +1,12 @@
+# Well, this is probably going to get annoying as soon as we want to get specific here.
+# We can't just use numbers here: We're going to have to break it out by request and number.
+#
+# Internal messages
+# Failed failed pre-process checks.
+internal-0000: donate_interface-processing-error
+# Transaction could not be processed due to an internal error.
+internal-0001: donate_interface-processing-error
+# Communication failure
+internal-0002: donate_interface-processing-error
+# Some error code returned from one of the daisy-chained requests.
+internal-0003: donate_interface-processing-error

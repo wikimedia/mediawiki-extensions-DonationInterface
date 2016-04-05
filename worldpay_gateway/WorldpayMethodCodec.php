@@ -7,18 +7,10 @@ class WorldpayMethodCodec implements UnstagingHelper {
 		}
 		$paymentMethod = $stagedData['payment_method'];
 		$paymentSubmethod = $stagedData['payment_submethod'];
-		if ( $paymentMethod == 'cc' ) {
-			$unstagedData['payment_submethod'] =
-				$this->get_payment_method_name_from_api_name( $adapter, $paymentSubmethod );
-		}
-	}
 
-	protected function get_payment_method_name_from_api_name ( GatewayType $adapter, $api_name ) {
-		foreach ( $adapter->getPaymentSubmethods() as $name => $info ) {
-			if ( $api_name === $info['api_name'] ) {
-				return $name;
-			}
+		if ( $paymentMethod == 'cc' ) {
+			$byApiName = $adapter->getConfig('payment_submethod_api_names');
+			$unstagedData['payment_submethod'] = $byApiName[$paymentSubmethod];
 		}
-		return null;
 	}
 }

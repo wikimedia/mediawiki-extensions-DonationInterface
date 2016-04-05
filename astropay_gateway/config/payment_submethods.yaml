@@ -142,9 +142,14 @@ argen:
 webpay:
     bank_code: WP
     label: Webpay
-    group:
-        - cc
-        - bt
+    group: cc
+    countries:
+        CL: true
+    logo: bank-webpay.png
+webpay_bt:
+    bank_code: WP
+    label: Webpay
+    group: bt
     countries:
         CL: true
     logo: bank-webpay.png
