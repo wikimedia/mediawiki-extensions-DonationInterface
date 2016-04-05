@@ -267,6 +267,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'pt',
 				'email' => 'nobody@example.org'
 			),
+			'MX' => array (
+				'city' => 'Tuxtla Gutiérrez',
+				'state' => 'CHP',
+				'currency_code' => 'MXN',
+				'street' => 'Calle Falso 123',
+				'fname' => 'Nombre',
+				'lname' => 'Apellido',
+				'email' => 'pueblo@unido.coop',
+				'amount' => '155',
+				'language' => 'es',
+			),
 		);
 		//default to US
 		if ( $country === '' ) {

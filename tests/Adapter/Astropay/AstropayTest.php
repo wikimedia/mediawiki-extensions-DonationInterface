@@ -579,4 +579,17 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 			'Should show a currency code error for trying to use CLP in BR'
 		);
 	}
+
+	function testDummyFiscalNumber() {
+		$init = $this->getDonorTestData( 'MX' );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->doPayment();
+
+		parse_str( $gateway->curled[0], $firstParams );
+		$fiscalNumber = $firstParams['x_cpf'];
+		$this->assertEquals(
+			13, strlen( $fiscalNumber ),
+			'Fake fiscal number should be 13 digits'
+		);
+	}
 }

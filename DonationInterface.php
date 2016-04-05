@@ -110,6 +110,7 @@ $wgAutoloadClasses['AstropayGatewayResult'] = __DIR__ . '/astropay_gateway/astro
 $wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.adapter.php';
 $wgAutoloadClasses['AstroPayFinancialNumbers'] = __DIR__ . '/astropay_gateway/AstroPayFinancialNumbers.php';
 $wgAutoloadClasses['AstroPayMethodCodec'] = __DIR__ . '/astropay_gateway/AstroPayMethodCodec.php';
+$wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFiscalNumber.php';
 
 // Paypal
 $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
