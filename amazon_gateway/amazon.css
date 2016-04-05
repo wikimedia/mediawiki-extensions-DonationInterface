@@ -12,3 +12,7 @@
 dl.submethods {
 	display: none;
 }
+
+#paymentContinue {
+	display: none !important;
+}
