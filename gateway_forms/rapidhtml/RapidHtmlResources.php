@@ -172,6 +172,16 @@ $wgResourceModules[ 'gc.form.rapidhtml.boletos' ] = array(
 	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
+$wgResourceModules[ 'gc.form.rapidhtml.rtbt' ] = array(
+	'styles' => 'css/gc.css',
+	'dependencies' => array(
+		'di.form.core.validate',
+		'mediawiki.Uri',
+		'gc.form.rapidhtml.webitects.bt',
+	),
+	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
+	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
+);
 $wgResourceModules[ 'gc.iframe' ] = array(
 	'styles' => 'css/iframe.css',
 	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
