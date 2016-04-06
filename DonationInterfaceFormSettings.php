@@ -520,18 +520,17 @@ $forms_whitelist['astropay-cl'] = array(
 	'currencies' => array( '+' => 'CLP' ),
 	'payment_methods' => array(
 		'cc' => array(
-			'visa',
-			'mc',
-			'amex',
-			'magna',
-			'diners',
-			'cmr',
-			'presto',
+#			'visa',
+#			'mc',
+#			'amex',
+#			'magna',
+#			'diners',
+#			'cmr',
+#			'presto',
 			'webpay',
 		),
 		'bt' => array(
-			'webpay',
-			'banco_de_chile',
+			'webpay_bt',
 		),
 	),
 );
