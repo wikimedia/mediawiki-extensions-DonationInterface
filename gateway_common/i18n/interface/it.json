@@ -314,7 +314,7 @@
 	"donate_interface-cancel": "Annulla",
 	"donate_interface-payment": "Pagamento",
 	"donate_interface-payment-type": "Tipo di pagamento",
-	"donate_interface-month": "$1($2)",
+	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Si prega di completare la tua donazione qui sotto...",
 	"donate_interface-description": "Descrizione",
 	"donate_interface-donation": "Donazione",
