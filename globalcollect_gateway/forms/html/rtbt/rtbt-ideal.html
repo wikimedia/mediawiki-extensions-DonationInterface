@@ -40,6 +40,9 @@
 				<div id="donate">
 					<div id="donate-content">
 						<div id="donate-body" style="padding: 0 1em;">
+							@noscript
+							<p id="topError" class="errorMsg"></p>
+
 							<form method="post" name="paypalcontribution">
 								<div id="step1header"><h3>%donate_interface-amount-legend% <span id="selected-amount"></span> <span class="mute" id="change-amount" style="display: none;">(<a href="#">%donate_interface-change%</a>)</span></h3></div>
 								<div id="step1wrapper" style="display: none;">

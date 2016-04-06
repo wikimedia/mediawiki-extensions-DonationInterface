@@ -1,52 +1,16 @@
-/*global validateAmount:true, setAmount:true, showAmount:true, amountErrors:true, billingErrors:true, paymentErrors:true, actionURL:true, validate_personal: true, displayCreditCardForm:true*/
+/*global validateAmount:true, setAmount:true, showAmount:true, actionURL:true, validate_personal: true, displayCreditCardForm:true*/
 /*exported setAmount*/
 $( document ).ready( function () {
+
+	var amount,
+		matched,
+		otherAmount,
+		previousAmount;
 
 	$( '#step2header' ).show();
 	$( '#step2wrapper' ).show();
 
-	// check for RapidHtml errors and display, if any
-	var temp, e, f, g, prevError, previousAmount, matched, amount, otherAmount,
-		amountErrorString = '',
-		billingErrorString = '',
-		paymentErrorString = '';
-
-	// generate formatted errors to display
-	temp = [];
-	for ( e in amountErrors ) {
-		if ( amountErrors[ e ] !== '' ) {
-			temp[ temp.length ] = amountErrors[ e ];
-		}
-	}
-	amountErrorString = temp.join( '<br />' );
-
-	temp = [];
-	for ( f in billingErrors ) {
-		if ( billingErrors[ f ] !== '' ) {
-			temp[ temp.length ] = billingErrors[ f ];
-		}
-	}
-	billingErrorString = temp.join( '<br />' );
-
-	temp = [];
-	for ( g in paymentErrors ) {
-		if ( paymentErrors[ g ] !== '' ) {
-			temp[ temp.length ] = paymentErrors[ g ];
-		}
-	}
-	paymentErrorString = temp.join( '<br />' );
-
-	// show the errors
-	prevError = false;
-	if ( amountErrorString !== '' ) {
-		$( '#amtErrorMessages' ).html( amountErrorString );
-	}
-	if ( billingErrorString !== '' ) {
-		$( '#billingErrorMessages' ).html( billingErrorString );
-	}
-	if ( paymentErrorString !== '' ) {
-		$( '#paymentErrorMessages' ).html( paymentErrorString );
-	}
+	window.displayErrors();
 
 	$( '#paymentContinueBtn' ).on( 'click', function () {
 		if ( validate_personal( document.paypalcontribution ) && validateAmount() ) {
