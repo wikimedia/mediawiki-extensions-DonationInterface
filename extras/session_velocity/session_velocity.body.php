@@ -55,7 +55,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 * @return bool Filter chain termination on FALSE. Also indicates that the cURL transaction
 	 *  should not be performed.
 	 */
-	public static function onCurlInit( GatewayType $gateway_adapter ) {
+	public static function onProcessorApiCall( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ){
 			return true;
 		}
