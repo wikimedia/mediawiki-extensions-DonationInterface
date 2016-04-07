@@ -134,6 +134,7 @@ $wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpa
 
 //Extras classes - required for ANY optional class that is considered an "extra".
 $wgAutoloadClasses['Gateway_Extras'] = __DIR__ . '/extras/extras.body.php';
+$wgAutoloadClasses['FraudFilter'] = __DIR__ . '/extras/FraudFilter.php';
 
 //Custom Filters classes
 $wgAutoloadClasses['Gateway_Extras_CustomFilters'] = __DIR__ . '/extras/custom_filters/custom_filters.body.php';
