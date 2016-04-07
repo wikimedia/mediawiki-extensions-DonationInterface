@@ -1352,6 +1352,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		foreach ( $errors as $errCode => $errObj ) {
 			$errMsg = $errObj['message'];
 			$messageFromProcessor = $errObj['debugInfo'];
+			$retryOrderId = false;
 			switch ( $errCode ) {
 				case 400120: // INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					$transaction = $this->getCurrentTransaction();
@@ -1364,12 +1365,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						$retErrMsg = $errMsg;
 						break;
 					}
-					// Fall through.
+					$this->logger->error( 'InsertAttempt on a finalized order! Starting again.' );
+					$retryOrderId = true;
+					break;
+				case 400490: // INSERTATTEMPT_MAX_NR_OF_ATTEMPTS_REACHED
+					$this->logger->error( 'InsertAttempt - max attempts reached! Starting again.' );
+					$retryOrderId = true;
+					break;
 				case 300620: // Oh no! We've already used this order # somewhere else! Restart!
 					$this->logger->error( 'Order ID collision! Starting again.' );
-					$retryVars[] = 'order_id';
-					$retErrCode = $errCode;
-					$retErrMsg = $errMsg;
+					$retryOrderId = true;
 					break;
 				case 430260: // wow: If we were a point of sale, we'd be calling security.
 				case 430349: // TRANSACTION_CANNOT_BE_COMPLETED_VIOLATION_OF_LAW (EXTERMINATE!)
@@ -1440,6 +1445,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );
 					break;
+			}
+			if ( $retryOrderId ) {
+				$retryVars[] = 'order_id';
+				$retErrCode = $errCode;
+				$retErrMsg = $errMsg;
 			}
 		}
 		if ( $retErrCode ) {
