@@ -6,8 +6,9 @@ $( document ).ready( function() {
 		$( '#paymentContinue' ).show();
 	}
 
-	// Submit on submethod selection if valid, otherwise show continute button.
-	$( 'input[name="payment_submethod"]' ).on( 'change', function() {
+	// Submit on submethod click if valid,
+	// otherwise show continue button.
+	$( 'input[name="payment_submethod"]' ).on( 'click', function() {
 		if ( window.validate_form( form ) ) {
 			submitForm();
 		} else {
