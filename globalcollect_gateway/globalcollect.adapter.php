@@ -1068,7 +1068,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
-	 * @param DomDocument	$response	The response XML loaded into a DomDocument
+	 * @param DOMDocument	$response	The response XML loaded into a DOMDocument
 	 * @return bool
 	 */
 	public function parseResponseCommunicationStatus( $response ) {
@@ -1092,7 +1092,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * messages will be sent to the client. Messages will not be translated or
 	 * obfuscated.
 	 *
-	 * @param array	$response	The response array
+	 * @param DOMDocument	$response	The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseErrors( $response ) {
@@ -1132,7 +1132,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * When we set lookup error code ranges, we use GET_ORDERSTATUS as the key for search
 	 * because they are only defined for that transaction type.
 	 *
-	 * @param DOMDocument	$response	The response object
+	 * @param DOMDocument	$response	The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseData( $response ) {
@@ -1327,7 +1327,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Process the response and set transaction_response properties
 	 *
-	 * @param DomDocument $response Cleaned-up XML from the GlobalCollect API
+	 * @param DOMDocument $response Cleaned-up XML from the GlobalCollect API
 	 *
 	 * @throws ResponseProcessingException with code and potentially retry vars.
 	 */
