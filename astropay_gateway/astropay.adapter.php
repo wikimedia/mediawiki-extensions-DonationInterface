@@ -222,6 +222,8 @@ class AstropayAdapter extends GatewayAdapter {
 			// Feed the message into the pending queue, so the CRM queue consumer
 			// can read it to fill in donor details when it gets a partial message
 			$this->setLimboMessage( 'pending' );
+			// Avoid 'bad ffname' logspam on return and try again links.
+			$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 		}
 		return $result;
 	}

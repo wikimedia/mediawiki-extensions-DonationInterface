@@ -494,7 +494,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		if ( array_key_exists( 'special_type', $allowedForms[$form_key] ) ) {
 			if ( $allowedForms[$form_key]['special_type'] === 'error' ) {
 				//add data we're going to need for the error page!
-				$back_form = $this->gateway->session_getLastRapidHTMLForm();
+				$back_form = $this->gateway->session_getLastFormName();
 
 				//TODO: What to do if $back_form doesn't exist, because session expire
 				//TODO: Also, what to do if they just have... no required data.
@@ -511,7 +511,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			}
 		} else {
 			//No special type... let's add this to the form stack and call it good.
-			$this->gateway->session_pushRapidHTMLForm( $form_key );
+			$this->gateway->session_pushFormName( $form_key );
 		}
 
 		$this->html_file_path = $allowedForms[$form_key]['file'];
