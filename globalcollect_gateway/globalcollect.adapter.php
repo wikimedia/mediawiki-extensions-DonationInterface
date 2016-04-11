@@ -1068,7 +1068,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
-	 * @param DomDocument	$response	The response XML loaded into a DomDocument
+	 * @param DOMDocument	$response	The response XML loaded into a DOMDocument
 	 * @return bool
 	 */
 	public function parseResponseCommunicationStatus( $response ) {
@@ -1092,7 +1092,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * messages will be sent to the client. Messages will not be translated or
 	 * obfuscated.
 	 *
-	 * @param array	$response	The response array
+	 * @param DOMDocument	$response	The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseErrors( $response ) {
@@ -1132,7 +1132,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * When we set lookup error code ranges, we use GET_ORDERSTATUS as the key for search
 	 * because they are only defined for that transaction type.
 	 *
-	 * @param DOMDocument	$response	The response object
+	 * @param DOMDocument	$response	The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseData( $response ) {
@@ -1327,7 +1327,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Process the response and set transaction_response properties
 	 *
-	 * @param DomDocument $response Cleaned-up XML from the GlobalCollect API
+	 * @param DOMDocument $response Cleaned-up XML from the GlobalCollect API
 	 *
 	 * @throws ResponseProcessingException with code and potentially retry vars.
 	 */
@@ -1352,6 +1352,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		foreach ( $errors as $errCode => $errObj ) {
 			$errMsg = $errObj['message'];
 			$messageFromProcessor = $errObj['debugInfo'];
+			$retryOrderId = false;
 			switch ( $errCode ) {
 				case 400120: // INSERTATTEMPT PAYMENT FOR ORDER ALREADY FINAL FOR COMBINATION.
 					$transaction = $this->getCurrentTransaction();
@@ -1364,12 +1365,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						$retErrMsg = $errMsg;
 						break;
 					}
-					// Fall through.
+					$this->logger->error( 'InsertAttempt on a finalized order! Starting again.' );
+					$retryOrderId = true;
+					break;
+				case 400490: // INSERTATTEMPT_MAX_NR_OF_ATTEMPTS_REACHED
+					$this->logger->error( 'InsertAttempt - max attempts reached! Starting again.' );
+					$retryOrderId = true;
+					break;
 				case 300620: // Oh no! We've already used this order # somewhere else! Restart!
 					$this->logger->error( 'Order ID collision! Starting again.' );
-					$retryVars[] = 'order_id';
-					$retErrCode = $errCode;
-					$retErrMsg = $errMsg;
+					$retryOrderId = true;
 					break;
 				case 430260: // wow: If we were a point of sale, we'd be calling security.
 				case 430349: // TRANSACTION_CANNOT_BE_COMPLETED_VIOLATION_OF_LAW (EXTERMINATE!)
@@ -1440,6 +1445,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );
 					break;
+			}
+			if ( $retryOrderId ) {
+				$retryVars[] = 'order_id';
+				$retErrCode = $errCode;
+				$retErrMsg = $errMsg;
 			}
 		}
 		if ( $retErrCode ) {

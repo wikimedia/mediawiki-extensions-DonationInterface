@@ -992,7 +992,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 				//in the event that we have a redirect transaction that never displays the form,
 				//save this most recent one before we leave.
-				$this->session_pushRapidHTMLForm( $this->getData_Unstaged_Escaped( 'ffname' ) );
+				$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
 				$this->transaction_response->setCommunicationStatus( true );
 				$this->transaction_response->setRedirect( $this->url );
@@ -2960,14 +2960,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Add a RapidHTML Form (ffname) to this abridged history of where we've
+	 * Add a form name (ffname) to this abridged history of where we've
 	 * been in this session. This lets us do things like construct useful
 	 * "back" links that won't crush all session everything.
-	 * @param string $form_key The 'ffname' that RapidHTML uses to load a
+	 * @param string $form_key The 'ffname' that the form layer uses to load a
 	 * payments form. Additional: ffname maps to a first-level key in
 	 * $wgDonationInterfaceAllowedHtmlForms
 	 */
-	public function session_pushRapidHTMLForm( $form_key ) {
+	public function session_pushFormName( $form_key ) {
 		if ( !$form_key ) {
 			return;
 		}
@@ -2980,19 +2980,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 
 		//don't want duplicates
-		if ( $this->session_getLastRapidHTMLForm() != $form_key ) {
+		if ( $this->session_getLastFormName() != $form_key ) {
 			$paymentForms[] = $form_key;
 			$this->request->setSessionData( 'PaymentForms', $paymentForms );
 		}
 	}
 
 	/**
-	 * Get the 'ffname' of the last RapidHTML payment form that successfully
-	 * loaded for this session.
+	 * Get the 'ffname' of the last payment form that successfully loaded
+	 * for this session.
 	 * @return mixed ffname of the last valid payments form if there is one,
 	 * otherwise false.
 	 */
-	public function session_getLastRapidHTMLForm() {
+	public function session_getLastFormName() {
 		$this->session_ensure();
 		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
@@ -3206,8 +3206,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
 			return;
-		} else if ( $this->session_getLastRapidHTMLForm() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
-			$new_ff = $this->session_getLastRapidHTMLForm();
+		} else if ( $this->session_getLastFormName() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
+			$new_ff = $this->session_getLastFormName();
 			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//and debug log a little
