@@ -884,7 +884,7 @@ $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFrau
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
 $wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
 
-$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
+$wgHooks['DonationInterfaceProcessorApiCall'][] = array( 'Gateway_Extras_SessionVelocityFilter::onProcessorApiCall' );
 
 //Conversion Log hooks
 // Sets the 'conversion log' as logger for post-processing
