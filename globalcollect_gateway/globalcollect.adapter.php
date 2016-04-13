@@ -201,6 +201,29 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->transactions['GET_DIRECTORY'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'GENERAL' => array(
+							'PAYMENTPRODUCTID',
+							'COUNTRYCODE',
+							'CURRENCYCODE',
+						),
+					),
+				),
+			),
+			'values' => array(
+				'ACTION' => 'GET_DIRECTORY',
+			),
+		);
+
 		$this->transactions['INSERT_ORDERWITHPAYMENT'] = array(
 			'request' => array(
 				'REQUEST' => array(
