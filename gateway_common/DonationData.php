@@ -1021,9 +1021,10 @@ class DonationData implements LogPrefixProvider {
 	 */
 	protected function fallbackToDefaultCurrency() {
 		$adapterClass = $this->gateway->getGatewayAdapterClass();
+		$defaultCurrency = null;
 		if ( $this->gateway->getGlobal( 'FallbackCurrencyByCountry' ) ) {
-			if ( isset( $this->normalized['country'] ) ) {
-				$country = $this->normalized['country'];
+			$country = $this->getVal( 'country' );
+			if ( $country !== null ) {
 				$defaultCurrency = NationalCurrencies::getNationalCurrency( $country );
 			}
 		} else {
@@ -1034,11 +1035,11 @@ class DonationData implements LogPrefixProvider {
 		}
 		// Our conversion rates are all relative to USD, so use that as an
 		// intermediate currency if converting between two others.
-		$oldCurrency = $this->normalized['currency_code'];
+		$oldCurrency = $this->getVal( 'currency_code' );
 		if ( $oldCurrency === $defaultCurrency ) {
 			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
-		$oldAmount = $this->normalized['amount'];
+		$oldAmount = $this->getVal( 'amount' );
 		$usdAmount = 0.0;
 		$newAmount = 0;
 
@@ -1061,8 +1062,8 @@ class DonationData implements LogPrefixProvider {
 			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
 		}
 
-		$this->normalized['amount'] = $newAmount;
-		$this->normalized['currency_code'] = $defaultCurrency;
+		$this->setVal( 'amount', $newAmount );
+		$this->setVal( 'currency_code', $defaultCurrency );
 
 		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 
@@ -1075,8 +1076,8 @@ class DonationData implements LogPrefixProvider {
 		if ( $notify || !empty( $this->validationErrors ) ) {
 			$error['general'] = MessageUtils::getCountrySpecificMessage(
 					'donate_interface-fallback-currency-notice',
-					$this->normalized['country'],
-					$this->normalized['language'],
+					$this->getVal( 'country' ),
+					$this->getVal( 'language' ),
 					array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
 				);
 			$this->gateway->addManualError( $error );
