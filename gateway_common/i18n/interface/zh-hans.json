@@ -346,7 +346,7 @@
 	"donate_interface-select-credit-card": "选择信用卡类别",
 	"donate_interface-optional": "可选",
 	"donate_interface-state-dropdown-YY": "选择州别",
-	"donate_interface-state-dropdown-XX": "美国境外",
+	"donate_interface-state-dropdown-XX": "美国以外",
 	"donate_interface-cc-MX-instructions": "为了安全，一些墨西哥银行阻止在线交易。如果您的捐款不成功，我们建议您致电您的银行，授权网上捐款并再试一次。",
 	"donate_interface-bt-account_holder": "开户人",
 	"donate_interface-bt-bank_account_number": "银行账户号码",
