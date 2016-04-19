@@ -9,14 +9,14 @@ $( document ).ready( function () {
 		if ( !$( this ).hasClass( 'enabled' ) ) {
 			return false;
 		}
-		if ( window.validate_form( form ) ) {
+		if ( window.validateAmount() && window.validate_form( form ) ) {
 			submitForm();
 		}
 	} );
 
 	// Submit on submethod selection if valid, otherwise show continute button.
 	$( 'input[name="payment_submethod"]' ).on( 'change', function () {
-		if ( window.validate_form( form ) ) {
+		if ( window.validateAmount() && window.validate_form( form ) ) {
 			submitForm();
 		} else {
 			$( '#paymentContinue' ).show();
