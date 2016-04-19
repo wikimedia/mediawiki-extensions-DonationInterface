@@ -3662,4 +3662,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 		return $hookResult;
 	}
+
+	/**
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
+		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
+	}
 }

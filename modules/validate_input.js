@@ -38,11 +38,14 @@ window.switchToCreditCard = function () {
 
 /**
  * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
+ * TODO: also validate ceiling
  */
 window.validateAmount = function () {
 	var error = true,
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
-		currency_code = '';
+		currency_code = '',
+		rate,
+		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
 
 	// Normalize weird amount formats.
 	// Don't mess with these unless you know what you're doing.
@@ -64,11 +67,14 @@ window.validateAmount = function () {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
+	// FIXME: replace with mw.config.get( "wgDonationInterfaceCurrencyRates" )
 	if ( ( typeof wgCurrencyMinimums[ currency_code ] ) === 'undefined' ) {
-		wgCurrencyMinimums[ currency_code ] = 1;
+		rate = 1;
+	} else {
+		rate = wgCurrencyMinimums[ currency_code ];
 	}
-	if ( amount < wgCurrencyMinimums[ currency_code ] || error ) {
-		alert( mediaWiki.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[ currency_code ] + ' ' + currency_code ) );
+	if ( ( amount < minUsd * rate ) || error ) {
+		alert( mediaWiki.msg( 'donate_interface-smallamount-error' ).replace( '$1', minUsd * rate + ' ' + currency_code ) );
 		error = true;
 		// See if we're on a webitects accordian form
 		if ( $( '#step1wrapper' ).length ) {

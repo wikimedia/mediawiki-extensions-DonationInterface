@@ -689,7 +689,10 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	public function setClientVariables( &$vars ) {
-		$vars['wgWorldpayGatewayTokenTimeout'] = $this->getGlobal( 'TokenTimeout' );
+		parent::setClientVariables( $vars );
+		if ( $this->isESOP() ) {
+			$vars['wgWorldpayGatewayTokenTimeout'] = $this->getGlobal( 'TokenTimeout' );
+		}
 	}
 
 	/**

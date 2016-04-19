@@ -9,8 +9,10 @@ class CurrencyRatesModule extends ResourceLoaderModule {
 	 * @see ResourceLoaderModule::getScript()
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
+		// FIXME: get rid of global var
 		return 'window.wgCurrencyMinimums = ' .
-			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ';';
+			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ';' .
+			'mw.config.set( "wgDonationInterfaceCurrencyRates", window.wgCurrencyMinimums );';
 	}
 
 	/**
