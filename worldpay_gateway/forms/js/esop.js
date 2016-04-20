@@ -1,30 +1,11 @@
-$( document ).ready( function () {
-	var form = $( '#payment-form' )[ 0 ];
+( function ( $, mw ) {
+	var di = mw.donationInterface;
 
-	if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
-		$( '#paymentContinue' ).show();
-	}
-
-	$( '#paymentContinueBtn' ).click( function () {
-		if ( !$( this ).hasClass( 'enabled' ) ) {
-			return false;
+	di.forms.submit = function () {
+		if ( !( $( '#paymentContinueBtn' ).hasClass( 'enabled' ) ) ) {
+			return;
 		}
-		if ( window.validateAmount() && window.validate_personal( form ) ) {
-			submitForm();
-		}
-	} );
-
-	// Submit on submethod selection if valid, otherwise show continute button.
-	$( 'input[name="payment_submethod"]' ).on( 'change', function () {
-		if ( window.validateAmount() && window.validate_personal( form ) ) {
-			submitForm();
-		} else {
-			$( '#paymentContinue' ).show();
-		}
-	} );
-
-	function submitForm() {
-		$( '#overlay' ).show();
+		di.forms.disable();
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
 		var postdata = {
@@ -40,7 +21,7 @@ $( document ).ready( function () {
 		};
 
 		$.ajax( {
-			url: mediaWiki.util.wikiScript( 'api' ),
+			url: mw.util.wikiScript( 'api' ),
 			data: postdata,
 			dataType: 'json',
 			type: 'POST',
@@ -72,23 +53,23 @@ $( document ).ready( function () {
 					);
 					$( '#payment-iframe' ).show( 'blind' );
 					setTimeout( function () {
-						window.alert( mediaWiki.msg( 'donate_interface-cc-token-expired' ) );
+						window.alert( mw.msg( 'donate_interface-cc-token-expired' ) );
 						window.location.reload( true );
-					}, mediaWiki.config.get( 'wgWorldpayGatewayTokenTimeout' ) );
+					}, mw.config.get( 'wgWorldpayGatewayTokenTimeout' ) );
 				} else {
-					window.alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
+					window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 					$( '#paymentContinue' ).show();
 					$( '#paymentContinueBtn' ).addClass( 'enabled' );
 				}
 			},
 			error: function ( xhr ) {
-				window.alert( mediaWiki.msg( 'donate_interface-error-msg-general' ) );
+				window.alert( mw.msg( 'donate_interface-error-msg-general' ) );
 				$( '#paymentContinue' ).show();
 				$( '#paymentContinueBtn' ).addClass( 'enabled' );
 			},
 			complete: function () {
-				$( '#overlay' ).hide();
+				di.forms.enable();
 			}
 		} );
-	}
-} );
+	};
+} )( jQuery, mediaWiki );

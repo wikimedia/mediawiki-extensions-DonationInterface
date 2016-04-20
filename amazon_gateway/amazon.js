@@ -265,7 +265,7 @@
 	}
 
 	function submitPayment() {
-		if ( !window.validateAmount() ) {
+		if ( !mw.donationInterface.validation.validateAmount() ) {
 			return;
 		}
 		if ( !cardSelected ) {
