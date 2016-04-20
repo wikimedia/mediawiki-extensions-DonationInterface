@@ -465,28 +465,23 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			return key ( $valid_forms );
 		}
 		
-		//Hell: we're still here. Throw a freaking dart
-		$total_weight = 0;
-		foreach ( array_keys( $valid_forms ) as $form_name ) {
-			if ( !array_key_exists( 'selection_weight', $valid_forms[$form_name] ) ) {
-				$valid_forms[$form_name]['selection_weight'] = 100;
+		// Choose the form with the highest selection weight.
+		$greatest_weight = 0;
+		$heaviest_form = null;
+		foreach ( $valid_forms as $form_name => &$meta ) {
+			// Assume a default weight of 100.
+			if ( !array_key_exists( 'selection_weight', $meta ) ) {
+				$meta['selection_weight'] = 100;
 			}
-			$form_weight = $valid_forms[$form_name]['selection_weight'];
-			if ( $form_weight === 0 ) {
-				unset( $valid_forms[$form_name] );
-				continue;
-			}
-			$total_weight += $form_weight;
-		}
-		$count = 0;
-		$randN = rand( 1, $total_weight );
-		foreach ( $valid_forms as $form_name => $meta ) {
-			$count += $meta['selection_weight'];
-			if ( $randN <= $count ) {
-				return $form_name;
+
+			// Note that we'll never choose a weightless form.
+			if ( $meta['selection_weight'] > $greatest_weight ) {
+				$heaviest_form = $form_name;
+				$greatest_weight = $meta['selection_weight'];
 			}
 		}
-		return null;
+
+		return $heaviest_form;
 	}
 
 	/**

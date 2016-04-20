@@ -485,6 +485,7 @@ $forms_whitelist['astropay'] = array(
 			'santander',
 		),
 	),
+	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-ar'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -512,6 +513,7 @@ $forms_whitelist['astropay-ar'] = array(
 			'santander_rio',
 		),
 	),
+	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-cl'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -533,6 +535,7 @@ $forms_whitelist['astropay-cl'] = array(
 			'webpay_bt',
 		),
 	),
+	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-co'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -554,6 +557,7 @@ $forms_whitelist['astropay-co'] = array(
 			'pse',
 		),
 	),
+	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-mx'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -574,6 +578,7 @@ $forms_whitelist['astropay-mx'] = array(
 			'cash_bancomer',
 		),
 	),
+	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-uy'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -585,6 +590,7 @@ $forms_whitelist['astropay-uy'] = array(
 			'cash_red_pagos',
 		),
 	),
+	'selection_weight' => 110,
 );
 
 /**********
