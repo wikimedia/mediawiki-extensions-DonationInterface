@@ -4,16 +4,8 @@
 								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required>
 							</td>
 						</tr>
-                        <tr>
-                            <td>
-                                {{# errors/fname }}{{> error_message }}{{/ errors/fname }}{{^ errors/fname }}<span id="fnameMsg" class="errorMsgHide"></span>{{/ errors/fname }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{# errors/lname }}{{> error_message }}{{/ errors/lname }}{{^ errors/lname }}<span id="lnameMsg" class="errorMsgHide"></span>{{/ errors/lname }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "fname" }}}
+                        {{{ fieldError "lname" }}}
 {{/ fname_required }}
 {{# address_required }}
 						<tr>
@@ -40,25 +32,13 @@
 						</tr>
 
     {{# city_required }}
-                        <tr>
-                            <td>
-                                {{# errors/city }}{{> error_message }}{{/ errors/city }}{{^ errors/city }}<span id="cityMsg" class="errorMsgHide"></span>{{/ errors/city }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "city" }}}
     {{/ city_required }}
     {{# state_required }}
-                        <tr>
-                            <td>
-                                {{# errors/state }}{{> error_message }}{{/ errors/state }}{{^ errors/state }}<span id="stateMsg" class="errorMsgHide"></span>{{/ errors/state }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "state" }}}
     {{/ state_required }}
     {{# postal_code_required }}
-                        <tr>
-                            <td>
-                                {{# errors/postal_code }}{{> error_message }}{{/ errors/postal_code }}{{^ errors/postal_code }}<span id="postal_codeMsg" class="errorMsgHide"></span>{{/ errors/postal_code }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "postal_code" }}}
     {{/ postal_code_required }}
 {{/ address_required }}
 {{# fiscal_number_required }}
@@ -67,11 +47,7 @@
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number" required >
 							</td>
 						</tr>
-                        <tr>
-                            <td>
-                                {{# errors/fiscal_number }}{{> error_message }}{{/ errors/fiscal_number }}{{^ errors/fiscal_number }}<span id="fiscal_numberMsg" class="errorMsgHide"></span>{{/ errors/fiscal_number }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "fiscal_number" }}}
 {{/ fiscal_number_required }}
 {{# email_required }}
 						<tr>
@@ -79,9 +55,5 @@
 								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required>
 							</td>
 						</tr>
-                        <tr>
-                            <td>
-                                {{# errors/email }}{{> error_message }}{{/ errors/email }}{{^ errors/email }}<span id="emailMsg" class="errorMsgHide"></span>{{/ errors/email }}
-                            </td>
-                        </tr>
+                        {{{ fieldError "email" }}}
 {{/ email_required }}
