@@ -71,14 +71,13 @@ class WmfFramework_Drupal {
 	}
 
 	/**
-	 * wmfMessageExists returns true if a translatable message has been defined
-	 * for the string and language that have been passed in, false if none is
-	 * present.
+	 * Returns true if a translatable message has been defined for the string
+	 * that has been passed in, false if none is present.
 	 * @param string $msg_key The message string to look up.
-	 * @param string $language A valid mediawiki language code.
+	 * @param string $language unused
 	 * @return boolean - true if message exists, otherwise false.
 	 */
-	public static function messageExists( $msg_key, $language ) {
+	public static function messageExists( $msg_key, $language = null ) {
 		return strlen( self::formatMessage( $msg_key ) ) > 0;
 	}
 
