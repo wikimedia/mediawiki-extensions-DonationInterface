@@ -16,7 +16,7 @@
 	"donate_interface-rt-button": "ГӀоде банкехула «$1»",
 	"donate_interface-ewallet-button": "ГӀоде $1 чухула",
 	"donate_interface-amount-legend": "ГӀоьна ахча",
-	"donate_interface-donor-province": "Провинци",
+	"donate_interface-donor-state-ca": "Провинци",
 	"donate_interface-error-msg-amount": "гӀоьна ахча",
 	"donate_interface-error-msg-genaricrequired": "ХӀара юззар тӀехь ду.",
 	"donate_interface-error-msg-country-calc": "ГӀалат - тха хӀинца а йиш яц хьан гӀо тӀелаца.",
