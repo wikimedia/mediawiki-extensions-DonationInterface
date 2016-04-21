@@ -27,7 +27,6 @@ class Subdivisions {
 
 	private static $list = array(
 		'AU' => array(
-			'YY' => 'Select a State/Territory',
 			'ACI' => 'Ashmore and Cartier Islands',
 			'AAT' => 'Australian Antarctic Territory',
 			'ACT' => 'Australian Capital Territory',
@@ -46,7 +45,6 @@ class Subdivisions {
 			'WA' => 'Western Australia',
 		),
 		'CA' => array(
-			'YY' => 'Select a Province',
 			'AB' => 'Alberta',
 			'BC' => 'British Columbia',
 			'MB' => 'Manitoba',
@@ -62,7 +60,6 @@ class Subdivisions {
 			'YT' => 'Yukon',
 		),
 		'US' => array(
-			'YY' => 'Select a State',
 			'AK' => 'Alaska',
 			'AL' => 'Alabama',
 			'AR' => 'Arkansas',

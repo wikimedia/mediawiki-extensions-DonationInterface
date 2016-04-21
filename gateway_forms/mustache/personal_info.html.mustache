@@ -18,13 +18,7 @@
 {{# city_required }}
 								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required>
 {{/ city_required }}
-{{# state_required }}
-								<select class="{{ address_css_class }}" name="state" value="{{ state }}" placeholder="{{ l10n "donate_interface-donor-state" }}" id="state" required>
-	{{# state_options }}
-									<option value="{{ abbr }}">{{ name }}</option>
-	{{/ state_options }}
-								</select>
-{{/ state_required }}
+{{> state_dropdown }}{{! only renders if required }}
 {{# postal_code_required }}
 								<input class="{{ address_css_class }}" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal" }}" id="zip" required>
 {{/ postal_code_required }}
