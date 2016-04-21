@@ -1721,7 +1721,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Add the rest of the relevant data
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
-			array_flip( $this->dataObj->getStompMessageFields() )
+			array_flip( $this->dataObj->getMessageFields() )
 		);
 
 		// The order here is important, values in $transaction are considered more definitive
@@ -2816,7 +2816,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function session_addDonorData() {
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
 		$this->session_ensure();
-		$donordata = DonationData::getStompMessageFields();
+		$donordata = DonationData::getMessageFields();
 		$donordata[] = 'order_id';
 		$donordata[] = 'appeal';
 
