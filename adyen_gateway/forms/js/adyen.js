@@ -100,7 +100,7 @@ $( document ).ready( function () {
 	}
 
 	$( 'input[name="payment_submethod"]' ).on( 'change', function () {
-		if ( window.validateAmount() && window.validate_form( document.payment ) ) {
+		if ( window.validateAmount() && window.validate_personal( document.payment ) ) {
 			window.displayCreditCardForm();
 		} else {
 			$( '#paymentContinue' ).show();
@@ -108,7 +108,7 @@ $( document ).ready( function () {
 	} );
 
 	$( '#paymentContinueBtn' ).on( 'click', function () {
-		if ( window.validateAmount() && window.validate_form( document.payment ) ) {
+		if ( window.validateAmount() && window.validate_personal( document.payment ) ) {
 			window.displayCreditCardForm();
 			// hide the continue button so that people don't get confused with two of them
 			$( '#paymentContinue' ).hide();

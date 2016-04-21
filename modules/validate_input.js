@@ -45,7 +45,10 @@ window.validateAmount = function () {
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
 		currency_code = '',
 		rate,
-		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
+		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
+		minDisplay,
+		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
+		$amountMsg = $( '#amountMsg' );
 
 	// Normalize weird amount formats.
 	// Don't mess with these unless you know what you're doing.
@@ -73,8 +76,19 @@ window.validateAmount = function () {
 	} else {
 		rate = wgCurrencyMinimums[ currency_code ];
 	}
+	// if we're on a new form, clear existing amount error
+	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
 	if ( ( amount < minUsd * rate ) || error ) {
-		alert( mediaWiki.msg( 'donate_interface-smallamount-error' ).replace( '$1', minUsd * rate + ' ' + currency_code ) );
+		// Round to two decimal places (TODO: no decimals for some currencies)
+		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
+		message = message.replace( '$1', minDisplay + ' ' + currency_code );
+		if ( $amountMsg.length > 0 ) {
+			// newness
+			$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
+		} else {
+			// ugliness
+			alert( message );
+		}
 		error = true;
 		// See if we're on a webitects accordian form
 		if ( $( '#step1wrapper' ).length ) {
@@ -102,7 +116,7 @@ window.validate_personal = function () {
 		errorsPresent = false,
 		currField = '',
 		i,
-		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email' ],
+		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email', 'fiscal_number' ],
 		errorTemplate = mediaWiki.msg( 'donate_interface-error-msg' ),
 		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ];

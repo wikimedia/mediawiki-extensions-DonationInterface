@@ -9,7 +9,7 @@ $( document ).ready( function() {
 	// Submit on submethod click if valid,
 	// otherwise show continue button.
 	$( 'input[name="payment_submethod"]' ).on( 'click', function() {
-		if ( window.validateAmount() && window.validate_form( form ) ) {
+		if ( window.validateAmount() && window.validate_personal( form ) ) {
 			submitForm();
 		} else {
 			$( '#paymentContinue' ).show();
@@ -17,7 +17,7 @@ $( document ).ready( function() {
 	} );
 
 	$( '#paymentContinueBtn' ).click( function() {
-		if ( window.validateAmount() && window.validate_form( form ) ) {
+		if ( window.validateAmount() && window.validate_personal( form ) ) {
 			submitForm();
 		}
 	});

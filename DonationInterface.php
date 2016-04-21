@@ -1020,6 +1020,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-error-msg-discover',
 		'donate_interface-error-msg-amount',
 		'donate_interface-error-msg-email',
+		'donate_interface-error-msg-fiscal_number',
 		'donate_interface-error-msg-fname',
 		'donate_interface-error-msg-lname',
 		'donate_interface-error-msg-street',
@@ -1052,6 +1053,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-donor-postal',
 		'donate_interface-donor-country',
 		'donate_interface-donor-email',
+		'donate_interface-donor-fiscal_number',
 		'donate_interface-state-province',
 		'donate_interface-cvv-explain',
 	)

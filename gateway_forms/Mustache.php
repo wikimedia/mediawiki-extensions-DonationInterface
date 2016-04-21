@@ -166,10 +166,19 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
+	/**
+	 * Get errors, sorted into two buckets - 'general' errors to display at
+	 * the top of the form, and field errors to display inline.
+	 * Also get some error-related flags.
+	 * @return array with all general errors under the 'general' key, and
+	 *               field errors each keyed with their own field.
+	 */
 	protected function getErrors() {
 		$errors = $this->gateway->getAllErrors();
-		$return = array();
-		$return['errors'] = array();
+		$return = array( 'errors' => array(
+			'general' => array(),
+		) );
+		$fieldNames = DonationData::getFieldNames();
 		foreach( $errors as $key => $error ) {
 			if ( is_array( $error ) ) {
 				// TODO: set errors consistently
@@ -177,10 +186,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			} else {
 				$message = $error;
 			}
-			$return['errors'][] = array(
+			$errorContext = array(
 				'key' => $key,
 				'message' => $message,
 			);
+			if ( in_array( $key, $fieldNames ) ) {
+				$return['errors'][$key] = $errorContext;
+			} else {
+				$return['errors']['general'][] = $errorContext;
+			}
 			$return["{$key}_error"] = true;
 			if ( $key === 'currency_code' || $key === 'amount' ) {
 				$return['show_amount_input'] = true;
