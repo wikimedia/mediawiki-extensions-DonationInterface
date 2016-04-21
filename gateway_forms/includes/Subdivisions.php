@@ -4,10 +4,26 @@ class Subdivisions {
 
 	public static function getByCountry ( $country ) {
 		if ( isset( self::$list[$country] ) ) {
-			return self::$list[$country];
+			$divisions = self::$list[$country];
+
+			// Localize subdivisions where possible
+			if ( isset( self::$keyBase[$country] ) ) {
+				foreach ( $divisions as $abbr => $name ) {
+					$key = self::$keyBase[$country] . $abbr;
+					if ( WmfFramework::messageExists( $key ) ) {
+						$divisions[$abbr] = WmfFramework::formatMessage( $key );
+					}
+				}
+			}
+			return $divisions;
 		}
 		return false;
 	}
+
+	private static $keyBase = array(
+		'CA' => 'donate_interface-province-dropdown-',
+		'US' => 'donate_interface-state-dropdown-',
+	);
 
 	private static $list = array(
 		'AU' => array(
