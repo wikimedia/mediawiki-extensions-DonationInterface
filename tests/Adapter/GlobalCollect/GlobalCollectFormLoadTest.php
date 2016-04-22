@@ -235,7 +235,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
 			),
-			'emailAdd' => array (
+			'email' => array (
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-email')->inLanguage( $language )->text(),
 			),

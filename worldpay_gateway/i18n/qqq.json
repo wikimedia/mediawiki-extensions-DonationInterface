@@ -4,7 +4,6 @@
 	"apihelp-di_wp_validate-description": "{{doc-apihelp-description|di_wp_validate}}",
 	"apihelp-di_wp_validate-param-fname": "{{doc-apihelp-param|di_wp_validate|fname}}",
 	"apihelp-di_wp_validate-param-lname": "{{doc-apihelp-param|di_wp_validate|lname}}",
-	"apihelp-di_wp_validate-param-emailAdd": "{{doc-apihelp-param|di_wp_validate|emailAdd}}",
 	"apihelp-di_wp_validate-param-email-opt": "{{doc-apihelp-param|di_wp_validate|email-opt}}",
 	"apihelp-di_wp_validate-param-utm_source": "{{doc-apihelp-param|di_wp_validate|utm_source}}",
 	"apihelp-di_wp_validate-param-utm_medium": "{{doc-apihelp-param|di_wp_validate|utm_medium}}",

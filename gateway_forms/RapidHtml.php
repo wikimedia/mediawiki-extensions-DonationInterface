@@ -34,7 +34,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@amount', // => $amount,
 		'@amountOther', // => WebRequest->getText( 'amountOther' ),
 		'@appeal',
-		'@emailAdd', //'email' => WebRequest->getText( 'emailAdd' ),
+		'@email', // => WebRequest->getText( 'email' ),
 		'@fname', // => WebRequest->getText( 'fname' ),
 		'@lname', // => WebRequest->getText( 'lname' ),
 		'@street_supplemental', // => WebRequest->getText( 'street_supplemental' ), MUST BE BEFORE @street
@@ -109,7 +109,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'#street_supplemental',
 		'#state',
 		'#zip',
-		'#emailAdd',
+		'#email',
 		'#fiscal_number',
 	);
 
@@ -188,9 +188,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		// replace data
 		foreach ( $this->data_tokens as $token ) {
 			$key = substr( $token, 1, strlen( $token )); //get the token string w/o the '@'
-			if ( $key === 'emailAdd' ) {
-				$key = 'email';
-			}
+
 			if ( $this->getEscapedValue( $key ) ) {
 				$replace = $this->getEscapedValue( $key );
 			} else {

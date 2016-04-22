@@ -507,7 +507,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'contribution_tracking_id'=>'22901382',
 			'country'=>'US',
 			'currency_code'=>'USD',
-			'emailAdd'=>'FaketyFake@gmail.com',
+			'email'=>'FaketyFake@gmail.com',
 			'fname'=>'Fakety',
 			'format'=>'json',
 			'gateway'=>'globalcollect',

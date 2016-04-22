@@ -143,7 +143,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->assertFalse( $this->adapter->validatedOK() );
 
 		$errors = $this->adapter->getValidationErrors();
-		$this->assertArrayHasKey( 'emailAdd', $errors );
+		$this->assertArrayHasKey( 'email', $errors );
 	}
 
 	public function testSpuriousCcError() {

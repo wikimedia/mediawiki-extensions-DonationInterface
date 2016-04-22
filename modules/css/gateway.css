@@ -163,7 +163,7 @@ body.rtl input {
 	/* @noflip */
 	direction: rtl;
 }
-input#emailAdd {
+input#email {
 	/* @noflip */
 	direction: ltr;
 }

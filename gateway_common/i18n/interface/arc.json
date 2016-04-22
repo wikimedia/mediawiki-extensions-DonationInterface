@@ -11,7 +11,7 @@
 	"donate_interface-donor-lname": "ܫܡܐ ܐܚܪܝܐ",
 	"donate_interface-donor-city": "ܡܕܝܢܬܐ",
 	"donate_interface-donor-address": "ܡܘܢܥܐ",
-	"donate_interface-error-msg-emailAdd": "ܡܘܢܥܐ ܕܒܝܠܕܪܐ ܐܠܩܛܪܘܢܝܐ",
+	"donate_interface-error-msg-email": "ܡܘܢܥܐ ܕܒܝܠܕܪܐ ܐܠܩܛܪܘܢܝܐ",
 	"donate_interface-error-msg-fname": "ܫܡܐ ܩܕܡܝܐ",
 	"donate_interface-error-msg-lname": "ܫܡܐ ܐܚܪܝܐ",
 	"donate_interface-error-msg-city": "ܡܕܝܢܬܐ",

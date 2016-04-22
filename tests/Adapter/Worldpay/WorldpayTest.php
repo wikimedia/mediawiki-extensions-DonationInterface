@@ -146,7 +146,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 				'nodename' => 'input',
 				'value' => 'US',
 			),
-			'emailAdd' => array(
+			'email' => array(
 				'nodename' => 'input',
 				'value' => 'somebody@wikipedia.org',
 			),
@@ -241,7 +241,7 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 				'nodename' => 'label',
 				'innerhtml' => wfMessage( 'donate_interface-donor-lname' )->inLanguage( $language )->text(),
 			),
-			'emailAdd-label' => array (
+			'email-label' => array (
 				'nodename' => 'label',
 				'innerhtml' => wfMessage( 'donate_interface-donor-email' )->inLanguage( $language )->text(),
 			),

@@ -102,8 +102,8 @@ window.validate_personal = function () {
 		errorsPresent = false,
 		currField = '',
 		i = 0,
-		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'emailAdd' ],
-		msgFields = [ 'fnameMsg', 'lnameMsg', 'streetMsg', 'cityMsg', 'zipMsg', 'emailAddMsg' ],
+		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email' ],
+		msgFields = [ 'fnameMsg', 'lnameMsg', 'streetMsg', 'cityMsg', 'zipMsg', 'emailMsg' ],
 		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ];
 
@@ -175,10 +175,10 @@ window.validate_personal = function () {
 	}
 
 	// validate email address
-	$emailAdd = document.getElementById( 'emailAdd' );
+	$emailAdd = document.getElementById( 'email' );
 	if (
 		$.trim( $emailAdd.value ) &&
-		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' )
+		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' )
 	) {
 		invalid = false;
 
@@ -187,10 +187,10 @@ window.validate_personal = function () {
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
 			errorsPresent = true;
-			$( '#emailAdd' ).addClass( 'errorHighlight' );
-			$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
-			$( '#emailAddMsg' ).addClass( 'errorMsg' );
-			$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
+			$( '#email' ).addClass( 'errorHighlight' );
+			$( '#emailMsg' ).removeClass( 'errorMsgHide' );
+			$( '#emailMsg' ).addClass( 'errorMsg' );
+			$( '#emailMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-invalid-email' ) );
 			invalid = true;
 		}
 
@@ -199,10 +199,10 @@ window.validate_personal = function () {
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
 			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {
 				errorsPresent = true;
-				$( '#emailAdd' ).addClass( 'errorHighlight' );
-				$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
-				$( '#emailAddMsg' ).addClass( 'errorMsg' );
-				$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
+				$( '#email' ).addClass( 'errorHighlight' );
+				$( '#emailMsg' ).removeClass( 'errorMsgHide' );
+				$( '#emailMsg' ).addClass( 'errorMsg' );
+				$( '#emailMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-invalid-email' ) );
 				invalid = true;
 				break;
 			}
@@ -235,7 +235,7 @@ window.validate_form = function ( form ) {
 		currField = '',
 		i = 0,
 		fields = [
-			'fname', 'lname', 'street', 'city', 'zip', 'emailAdd', 'card_num', 'cvv',
+			'fname', 'lname', 'street', 'city', 'zip', 'card_num', 'cvv',
 			'fiscal_number', 'account_name', 'account_number', 'authorization_id',
 			'bank_code', 'bank_check_digit', 'branch_code', 'email'
 		],
@@ -280,13 +280,13 @@ window.validate_form = function ( form ) {
 	}
 
 	// validate email address
-	$emailAdd = document.getElementById( 'emailAdd' ) || document.getElementById( 'email' );
-	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' ) ) {
+	$emailAdd = document.getElementById( 'email' );
+	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' ) ) {
 		apos = $emailAdd.value.indexOf( '@' );
 		dotpos = $emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
-			output += mediaWiki.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+			output += mediaWiki.msg( 'donate_interface-error-msg-invalid-email' ) + '.\r\n';
 		}
 	}
 
