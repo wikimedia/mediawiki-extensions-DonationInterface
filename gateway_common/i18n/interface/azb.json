@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Alp Er Tunqa"
 		]
 	},
 	"donate_interface-comment-label": "آچیخلا:",
@@ -12,7 +13,7 @@
 	"donate_interface-country": "اؤلکه",
 	"donate_interface-next": "سونراکی",
 	"donate_interface-continue": "داوام ائت",
-	"donate_interface-cancel": "لغو ائت",
+	"donate_interface-cancel": "وازگئچ",
 	"donate_interface-description": "شرح",
 	"donate_interface-change": "دَییشدیر"
 }
