@@ -606,8 +606,8 @@ class DataValidator {
 		$countryRules = array(
 			'AR' => array(
 				'numeric' => true,
-				'min' => 8,
-				'max' => 8,
+				'min' => 7,
+				'max' => 10,
 			),
 			'BR' => array(
 				'numeric' => true,

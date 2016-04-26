@@ -123,7 +123,8 @@ class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 			array( 'CL', '12.12.12-4', false ),
 			array( 'AR', 'ABC12312', false ),
 			array( 'AR', '12341234', true ),
-			array( 'AR', '1112223', false ),
+			array( 'AR', '1112223', true ),
+			array( 'AR', '111222', false ),
 			array( 'MX', '', true ), // Not required for MX
 		);
 	}
@@ -132,6 +133,7 @@ class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 	 * @dataProvider fiscalNumberProvider
 	 */
 	public function testValidateFiscalNumber( $country, $value, $valid ) {
-		$this->assertEquals( $valid, DataValidator::validate_fiscal_number( $value, $country ) );
+		$expectation = $valid ? "should" : "should not";
+		$this->assertEquals( $valid, DataValidator::validate_fiscal_number( $value, $country ), "$value $expectation be a valid fiscal number for $country" );
 	}
 }
