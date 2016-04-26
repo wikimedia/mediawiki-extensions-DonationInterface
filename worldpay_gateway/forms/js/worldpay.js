@@ -78,7 +78,7 @@
 	function validateServerSide( successCallback ) {
 		var fields = [
 				// All forms
-				'fname', 'lname', 'emailAdd',
+				'fname', 'lname', 'email',
 				'email-opt',
 				'utm_source', 'utm_medium', 'utm_campaign', 'referrer',
 				'gateway', 'payment_method', 'language', 'token',
@@ -162,7 +162,7 @@
 		// Add some optional elements that are just nice to have
 		addHFtoF( 'FirstName', $( '#fname' ).val() );
 		addHFtoF( 'LastName', $( '#lname' ).val() );
-		addHFtoF( 'Email', $( '#emailAdd' ).val() );
+		addHFtoF( 'Email', $( '#email' ).val() );
 
 		$form.submit();
 	}

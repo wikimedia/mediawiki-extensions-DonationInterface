@@ -13,7 +13,7 @@
  * each new request.
  */
 
-class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
+class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 
 	/**
 	 * Container for an instance of self
@@ -55,7 +55,7 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 	 * @return bool Filter chain termination on FALSE. Also indicates that the cURL transaction
 	 *  should not be performed.
 	 */
-	public static function onCurlInit( GatewayType $gateway_adapter ) {
+	public static function onProcessorApiCall( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ){
 			return true;
 		}
@@ -134,13 +134,18 @@ class Gateway_Extras_SessionVelocityFilter extends Gateway_Extras {
 		// Analyze the filter results
 		if ( $score >= $threshold ) {
 			// Ahh!!! Failure!!! Sloooooooow doooowwwwnnnn
-			$this->gateway_logger->alert( "SessionVelocity: Rejecting request due to of " . $score );
+			$this->fraud_logger->alert( "SessionVelocity: Rejecting request due to score of $score" );
+			$this->sendAntifraudMessage( 'reject', $score, array( 'SessionVelocity' => $score ) );
 			$retval = false;
 		} else {
 			$retval = true;
 		}
 
-		$this->gateway_logger->debug( "SessionVelocity: ($gateway, $transaction) Score: $score, AllowAction: $retval, DecayRate: $decayRate, Threshold: $threshold" );
+		$this->fraud_logger->debug(
+			"SessionVelocity: ($gateway, $transaction) Score: $score, " .
+				"AllowAction: $retval, DecayRate: $decayRate, " .
+			    "Threshold: $threshold, Multiplier: $lastMultiplier"
+		);
 
 		return $retval;
 	}

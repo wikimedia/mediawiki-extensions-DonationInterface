@@ -1,7 +1,7 @@
 <?php
 
 class WorldpayReturnto implements StagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		global $wgServer, $wgArticlePath;
 
 		// Rebuild the url with the token param.
@@ -29,11 +29,11 @@ class WorldpayReturnto implements StagingHelper {
 		// MessageCode 302 (which means 'unavailable') unless it is wrapped in
 		// CDATA tags because godonlyknows
 		$arr_query['token'] = rawurlencode( $adapter->token_getSaltedSessionToken() );
-		if ( !empty( $unstagedData['ffname'] ) ) {
-			$arr_query['ffname'] = rawurlencode( $unstagedData['ffname'] );
+		if ( !empty( $normalized['ffname'] ) ) {
+			$arr_query['ffname'] = rawurlencode( $normalized['ffname'] );
 		}
-		if ( !empty( $unstagedData['amount'] ) ) {
-			$arr_query['amount'] = rawurlencode( $unstagedData['amount'] );
+		if ( !empty( $normalized['amount'] ) ) {
+			$arr_query['amount'] = rawurlencode( $normalized['amount'] );
 		}
 		foreach ( $arr_query as $key => $val ) {
 			$query .= ( $first ? '?' : '&' ) . $key . '=' . $val;

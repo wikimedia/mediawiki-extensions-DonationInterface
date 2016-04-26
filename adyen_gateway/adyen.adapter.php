@@ -171,6 +171,8 @@ class AdyenAdapter extends GatewayAdapter {
 			switch ( $transaction ) {
 				case 'donate':
 					$formaction = $this->url . '/hpp/pay.shtml';
+					// Run API call hooks here because we don't cURL anything
+					$this->runApiCallHooks();
 					$this->runAntifraudHooks();
 					// Add the risk score to our data. This will also trigger
 					// staging, placing the risk score in the constructed URL

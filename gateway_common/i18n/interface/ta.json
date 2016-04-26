@@ -118,7 +118,6 @@
 	"donate_interface-donor-amount": "தொகை:",
 	"donate_interface-donor-currency-label": "பணம்",
 	"donate_interface-donor-email": "மின்னஞ்சல் முகவரி:",
-	"donate_interface-donor-emailAdd": "மின்னஞ்சல் முகவரி",
 	"donate_interface-donor-name": "பெயர்:",
 	"donate_interface-donor-fname": "முதல் பெயர்:",
 	"donate_interface-donor-mname": "நடுப்பெயர்:",
@@ -151,14 +150,14 @@
 	"donate_interface-error-msg-js": "உள்ளிடுக",
 	"donate_interface-error-msg-validation": "படிவத்தில் உள்ள பிழைகளைச் சரிசெய்யவும்.",
 	"donate_interface-error-msg-invalid-amount": "ஒரு செல்லுபடியான தொகையை உள்ளிடுக",
-	"donate_interface-error-msg-email": "ஒரு செல்லுபடியான மின்னஞ்சல் முகவரியை உள்ளிடுக",
+	"donate_interface-error-msg-invalid-email": "ஒரு செல்லுபடியான மின்னஞ்சல் முகவரியை உள்ளிடுக",
 	"donate_interface-error-msg-card-num": "ஏற்றுக் கொள்ளப்பட்ட கடனட்டை வகைகளிலிருந்து ஏதேனும் ஒரு கடனட்டையின் எண்ணை உள்ளிடுக",
 	"donate_interface-error-msg-amex": "American Express-ற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக",
 	"donate_interface-error-msg-mc": "MasterCardற்கான சரியான ஒரு கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-visa": "Visa-விற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-discover": "Discover-ற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-amount": "நன்கொடை தொகை",
-	"donate_interface-error-msg-emailAdd": "மின்னஞ்சல் முகவரி",
+	"donate_interface-error-msg-email": "மின்னஞ்சல் முகவரி",
 	"donate_interface-error-msg-fname": "முதல் (தங்கள்) பெயர்",
 	"donate_interface-error-msg-lname": "அப்பா/குடும்பப் பெயர்",
 	"donate_interface-error-msg-street": "தெரு முகவரி",
@@ -322,5 +321,5 @@
 	"donate_interface-onetime-short": "ஒரு முறை",
 	"donate_interface-secureLogo-text": "SSL சான்றிதழ்கள் பற்றி",
 	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை.",
-	"apihelp-donate-param-emailAdd": "மின்னஞ்சல் முகவரி."
+	"apihelp-donate-param-email": "மின்னஞ்சல் முகவரி."
 }

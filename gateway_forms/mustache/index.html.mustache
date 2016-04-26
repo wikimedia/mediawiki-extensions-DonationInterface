@@ -8,12 +8,13 @@
 		<td id="donate" valign="top">
 			<div id="greenBackground" class="">
 				{{> no_script }}
-				<div id="topError" class="creditcard-error-msg">{{# errors }}<p class="error">{{{ message }}}</p>{{/ errors }}</div>
+				<div id="topError" class="creditcard-error-msg">{{# errors/general }}<p class="error">{{{ message }}}</p>{{/ errors/general }}</div>
 
 			<form name="payment" id="payment-form" method="post" action="{{ action }}">
 				<div id="payment_gateway-personal-info">
 					<table id="payment-table-donor">
 						<tbody>
+						{{{ fieldError "amount" }}}
 						<tr>
 							<td>
 								<div id="step1header">

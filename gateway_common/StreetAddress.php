@@ -1,9 +1,9 @@
 <?php
 
 class StreetAddress implements StagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
-		$stagedData['street'] = $this->stage_street( $unstagedData );
-		$stagedData['zip'] = $this->stage_zip( $unstagedData );
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		$stagedData['street'] = $this->stage_street( $normalized );
+		$stagedData['zip'] = $this->stage_zip( $normalized );
 	}
 
 	/**
@@ -15,10 +15,10 @@ class StreetAddress implements StagingHelper {
 	 * The zero is intentional: Allegedly, Some banks won't perform the check
 	 * if the address line contains no numerical data.
 	 */
-	protected function stage_street( $unstagedData ) {
+	protected function stage_street( $normalized ) {
 		$street = '';
-		if ( isset( $unstagedData['street'] ) ) {
-			$street = trim( $unstagedData['street'] );
+		if ( isset( $normalized['street'] ) ) {
+			$street = trim( $normalized['street'] );
 		}
 
 		if ( !$street
@@ -35,10 +35,10 @@ class StreetAddress implements StagingHelper {
 	 * In the event that there isn't anything in there, we need to send
 	 * something along so that AVS checks get triggered at all.
 	 */
-	protected function stage_zip( $unstagedData ) {
+	protected function stage_zip( $normalized ) {
 		$zip = '';
-		if ( isset( $unstagedData['zip'] ) ) {
-			$zip = trim( $unstagedData['zip'] );
+		if ( isset( $normalized['zip'] ) ) {
+			$zip = trim( $normalized['zip'] );
 		}
 		if ( strlen( $zip ) === 0 ) {
 			//it would be nice to check for more here, but the world has some
@@ -47,8 +47,8 @@ class StreetAddress implements StagingHelper {
 		}
 
 		//country-based zip grooming to make AVS (marginally) happy
-		if ( !empty( $unstagedData['country'] ) ) {
-			switch ( $unstagedData['country'] ) {
+		if ( !empty( $normalized['country'] ) ) {
+			switch ( $normalized['country'] ) {
 			case 'CA':
 				//Canada goes "A0A 0A0"
 				$this->staged_data['zip'] = strtoupper( $zip );

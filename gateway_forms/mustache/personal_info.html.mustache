@@ -4,6 +4,8 @@
 								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required>
 							</td>
 						</tr>
+                        {{{ fieldError "fname" }}}
+                        {{{ fieldError "lname" }}}
 {{/ fname_required }}
 {{# address_required }}
 						<tr>
@@ -28,6 +30,16 @@
 {{/ postal_code_required }}
 							</td>
 						</tr>
+
+    {{# city_required }}
+                        {{{ fieldError "city" }}}
+    {{/ city_required }}
+    {{# state_required }}
+                        {{{ fieldError "state" }}}
+    {{/ state_required }}
+    {{# postal_code_required }}
+                        {{{ fieldError "postal_code" }}}
+    {{/ postal_code_required }}
 {{/ address_required }}
 {{# fiscal_number_required }}
 						<tr>
@@ -35,6 +47,7 @@
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number" required >
 							</td>
 						</tr>
+                        {{{ fieldError "fiscal_number" }}}
 {{/ fiscal_number_required }}
 {{# email_required }}
 						<tr>
@@ -42,4 +55,5 @@
 								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required>
 							</td>
 						</tr>
+                        {{{ fieldError "email" }}}
 {{/ email_required }}

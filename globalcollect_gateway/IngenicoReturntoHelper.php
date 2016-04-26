@@ -1,15 +1,15 @@
 <?php
 
 class IngenicoReturntoHelper implements StagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
-		if ( !empty( $unstagedData['returnto'] ) ) {
-			$returnto = $unstagedData['returnto'];
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		if ( !empty( $normalized['returnto'] ) ) {
+			$returnto = $normalized['returnto'];
 		} else {
 			$returnto = '';
 		}
 
-		if ( isset( $unstagedData['payment_method'] )
-			&& $unstagedData['payment_method'] === 'cc'
+		if ( isset( $normalized['payment_method'] )
+			&& $normalized['payment_method'] === 'cc'
 		) {
 			// Add order ID to the returnto URL, only if it's not already there.
 			//TODO: This needs to be more robust (like actually pulling the
@@ -19,7 +19,7 @@ class IngenicoReturntoHelper implements StagingHelper {
 				&& !empty( $returnto )
 				&& !strpos( $returnto, 'order_id' )
 			) {
-				$queryArray = array( 'order_id' => $unstagedData['order_id'] );
+				$queryArray = array( 'order_id' => $normalized['order_id'] );
 				$stagedData['returnto'] = wfAppendQuery( $returnto, $queryArray );
 			}
 		} else {

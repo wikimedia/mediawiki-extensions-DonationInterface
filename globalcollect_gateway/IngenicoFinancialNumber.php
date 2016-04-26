@@ -1,7 +1,7 @@
 <?php
 
 class IngenicoFinancialNumber implements StagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// Pad some fields with zeros, to their maximum length.
 		$fields = array(
 			'account_number',
@@ -10,10 +10,10 @@ class IngenicoFinancialNumber implements StagingHelper {
 		);
 
 		foreach ( $fields as $field ) {
-			if ( isset( $unstagedData[$field] ) ) {
+			if ( isset( $normalized[$field] ) ) {
 				$constraints = $adapter->getDataConstraints( $field );
 				if ( isset( $constraints['length'] ) ) {
-					$newval = DataValidator::getZeroPaddedValue( $unstagedData[$field], $constraints['length'] );
+					$newval = DataValidator::getZeroPaddedValue( $normalized[$field], $constraints['length'] );
 					if ( $newval !== false ) {
 						$stagedData[$field] = $newval;
 					} else {

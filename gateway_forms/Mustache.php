@@ -10,8 +10,18 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 */
 	protected $topLevelForm;
 
-	// hack for l10n helper - it needs to be a static function
-	static $country;
+	const EXTENSION = '.html.mustache';
+
+	/**
+	 * We set the following public static variables for use in mustache helper
+	 * functions l10n and fieldError, which need to be static and are interpreted
+	 * without class scope under PHP 5.3's closure rules.
+	 */
+	public static $country;
+
+	public static $fieldErrors;
+
+	public static $baseDir;
 
 	/**
 	 * @param GatewayAdapter $gateway The live adapter object that is used as
@@ -23,6 +33,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		// TODO: Don't hardcode like this.
 		global $wgDonationInterfaceTemplate;
 		$this->topLevelForm = $wgDonationInterfaceTemplate;
+		self::$baseDir = dirname( $this->topLevelForm );
 	}
 
 	/**
@@ -37,22 +48,41 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data = $data + $this->getUrls();
 
 		self::$country = $data['country'];
+		self::$fieldErrors = $data['errors']['field'];
 
-		$template = file_get_contents( $this->topLevelForm );
+		$options = array(
+			'helpers' => array(
+				'l10n' => 'Gateway_Form_Mustache::l10n',
+				'fieldError' => 'Gateway_Form_Mustache::fieldError',
+			),
+			'basedir' => array( self::$baseDir ),
+			'fileext' => self::EXTENSION,
+		);
+		return self::render( $this->topLevelForm, $data, $options );
+	}
+
+	/**
+	 * Do the rendering. Can be made protected when we're off PHP 5.3.
+	 *
+	 * @param string $fileName full path to template file
+	 * @param array $data rendering context
+	 * @param array $options options for LightnCandy::compile function
+	 * @return string rendered template
+	 */
+	public static function render( $fileName, $data, $options = array() ) {
+		$defaultOptions = array(
+			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
+		);
+
+		$options = $options + $defaultOptions;
+
+		$template = file_get_contents( $fileName );
 		if ( $template === false ) {
-			throw new RuntimeException( "Template file unavailable: [{$this->topLevelForm}]" );
+			throw new RuntimeException( "Template file unavailable: [$fileName]" );
 		}
 
-		// TODO: Use MW-core implementation, once we're on REL1_25.
-		$code = LightnCandy::compile(
-			$template,
-			array(
-				'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
-				'helpers' => array( 'l10n' => 'Gateway_Form_Mustache::l10n' ),
-				'basedir' => array( dirname( $this->topLevelForm ) ),
-				'fileext' => '.html.mustache',
-			)
-		);
+		// TODO: Use MW-core implementation once it allows helper functions
+		$code = LightnCandy::compile( $template, $options );
 		if ( !$code ) {
 			throw new RuntimeException( 'Couldn\'t compile template!' );
 		}
@@ -166,10 +196,19 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
+	/**
+	 * Get errors, sorted into two buckets - 'general' errors to display at
+	 * the top of the form, and 'field' errors to display inline.
+	 * Also get some error-related flags.
+	 * @return array
+	 */
 	protected function getErrors() {
 		$errors = $this->gateway->getAllErrors();
-		$return = array();
-		$return['errors'] = array();
+		$return = array( 'errors' => array(
+			'general' => array(),
+			'field' => array(),
+		) );
+		$fieldNames = DonationData::getFieldNames();
 		foreach( $errors as $key => $error ) {
 			if ( is_array( $error ) ) {
 				// TODO: set errors consistently
@@ -177,10 +216,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			} else {
 				$message = $error;
 			}
-			$return['errors'][] = array(
+			$errorContext = array(
 				'key' => $key,
 				'message' => $message,
 			);
+			if ( in_array( $key, $fieldNames ) ) {
+				$return['errors']['field'][$key] = $errorContext;
+			} else {
+				$return['errors']['general'][] = $errorContext;
+			}
 			$return["{$key}_error"] = true;
 			if ( $key === 'currency_code' || $key === 'amount' ) {
 				$return['show_amount_input'] = true;
@@ -198,8 +242,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		);
 	}
 
+	// For the following helper functions, we can't use self:: to refer to
+	// static variables (under PHP 5.3), so we use Gateway_Form_Mustache::
+
 	/**
-	 * Get a message value specific to the donor's country and language
+	 * Get a message value specific to the donor's country and language.
+	 *
 	 * @param array $params first value is used as message key
 	 * TODO: use the rest as message parameters
 	 * @return string
@@ -216,6 +264,35 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$language,
 			$params
 		);
+	}
+
+	/**
+	 * Render a validation error message or blank error placeholder.
+	 *
+	 * @param array $params first should be the field name
+	 * @return string
+	 */
+	public static function fieldError( $params ) {
+		if ( !$params ) {
+			throw new BadMethodCallException( 'Need field key' );
+		}
+
+		$fieldName = array_shift( $params );
+
+		if ( isset( Gateway_Form_Mustache::$fieldErrors[$fieldName] ) ) {
+			$context = Gateway_Form_Mustache::$fieldErrors[$fieldName];
+			$context['cssClass'] = 'errorMsg';
+		} else {
+			$context = array(
+				'cssClass' => 'errorMsgHide',
+				'key' => $fieldName,
+			);
+		}
+
+		$path = Gateway_Form_Mustache::$baseDir . DIRECTORY_SEPARATOR
+			. 'error_message' . Gateway_Form_Mustache::EXTENSION;
+
+		return Gateway_Form_Mustache::render( $path, $context );
 	}
 
 	public function getResources() {

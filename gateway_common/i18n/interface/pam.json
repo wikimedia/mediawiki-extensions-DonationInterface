@@ -4,7 +4,7 @@
 			"Leeheonjin"
 		]
 	},
-	"donate_interface-error-msg-email": "Paki-enter ing ustung email address i.e. name@domain.com",
+	"donate_interface-error-msg-invalid-email": "Paki-enter ing ustung email address i.e. name@domain.com",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, globalcollect, etc."
 }

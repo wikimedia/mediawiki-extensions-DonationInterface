@@ -8,15 +8,14 @@
 	"donate_interface-currency": "Faluta:",
 	"donate_interface-donor-currency-label": "Faluta",
 	"donate_interface-donor-email": "E-mailadres:",
-	"donate_interface-donor-emailAdd": "E-mailadres",
 	"donate_interface-donor-province": "Provinsje",
-	"donate_interface-error-msg-emailAdd": "e-mailadres",
+	"donate_interface-error-msg-email": "e-mailadres",
 	"donate_interface-error-msg-country": "lân",
 	"donate_interface-country": "Lân",
 	"donate_interface-next": "Folgjende",
 	"donate_interface-cancel": "Annulearje",
 	"donate_interface-donation": "Donaasje",
 	"donate_interface-optional": "opsjoneel",
-	"apihelp-donate-param-emailAdd": "E-mailadres.",
+	"apihelp-donate-param-email": "E-mailadres.",
 	"apihelp-donate-param-language": "Taalkoade."
 }

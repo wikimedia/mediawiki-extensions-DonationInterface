@@ -44,7 +44,7 @@ window.displayCreditCardForm = function () {
 		city: $( 'input[name="city"]' ).val(),
 		state: state,
 		zip: $( 'input[name="zip"]' ).val(),
-		emailAdd: $( 'input[name="emailAdd"]' ).val(),
+		email: $( 'input[name="email"]' ).val(),
 		country: country,
 		payment_method: 'cc',
 		language: language,

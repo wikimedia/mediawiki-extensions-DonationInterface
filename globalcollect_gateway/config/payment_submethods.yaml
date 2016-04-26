@@ -246,15 +246,17 @@ rtbt_ideal:
     keys:
         - ISSUERID
     issuerids:
-        771: 'SNS Regio Bank'
-        161: 'Van Lanschot Bankiers'
-        31: 'ABN AMRO'
-        761: 'ASN Bank'
-        21: Rabobank
-        511: 'Triodos Bank'
-        721: ING
-        751: 'SNS Bank'
-        801: Knab
+        ABNANL2A: ABN Amro
+        ASNBNL21: ASN Bank
+        FRBKNL2L: Friesland Bank
+        INGBNL2A: ING
+        KNABNL2H: Knab
+        RABONL2U: Rabobank
+        RBRBNL21: RegioBank
+        SNSBNL2A: SNS Bank
+        TRIONL2U: Triodos Bank
+        FVLBNL22: Van Lanschot Bankiers
+        BUNQNL2A: bunq
 rtbt_enets:
     paymentproductid: 810
     label: eNETS

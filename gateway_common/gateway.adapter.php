@@ -1265,10 +1265,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Initialize cURL and construct operation (also run hook)
 		$ch = curl_init();
 
-		$hookResult = WmfFramework::runHooks( 'DonationInterfaceCurlInit', array( $this ) );
+		$hookResult = $this->runApiCallHooks();
 		if ( $hookResult == false ) {
-			$this->logger->info( 'cURL transaction aborted on hook DonationInterfaceCurlInit' );
-			$this->setValidationAction( 'reject' );
 			return false;
 		}
 
@@ -3654,5 +3652,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected function logPaymentDetails() {
 		$details = $this->getStompTransaction();
 		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
+	}
+
+	protected function runApiCallHooks() {
+		$hookResult = WmfFramework::runHooks( 'DonationInterfaceProcessorApiCall', array( $this ) );
+		if ( $hookResult == false ) {
+			$this->logger->info( 'Processor API call aborted on hook DonationInterfaceProcessorApiCall' );
+			$this->setValidationAction( 'reject' );
+		}
+		return $hookResult;
+	}
+
+	/**
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
+		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
 	}
 }

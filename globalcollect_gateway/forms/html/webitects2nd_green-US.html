@@ -2,7 +2,7 @@
 	mw.loader.load('gc.form.rapidhtml.webitects.2nd.US');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ['#general|escape','#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
+	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#email|escape'];
 	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
@@ -79,7 +79,7 @@
 											</span>
 											<span class="loc-postal"><input class="txt" id="zip" name="zip" title="%donate_interface-zip%" value="@zip" placeholder="%donate_interface-donor-zip%"/></span> <!-- TODO: use postal code on non-US -->
 										</div>
-										<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/></p>
+										<p><input class="txt" title="%donate_interface-donor-email%" id="email" name="email" value="@email" placeholder="%donate_interface-donor-email%"/></p>
 
 										<dl class="">
 											<dt><span id="select-credit-card" class="label">%donate_interface-select-credit-card%</span></dt>

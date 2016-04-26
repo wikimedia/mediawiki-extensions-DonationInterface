@@ -2,7 +2,7 @@
 	mw.loader.load('gc.form.rapidhtml.webitects.bt');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ["#general|escape",'#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
+	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#email|escape'];
 	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
@@ -67,7 +67,7 @@
 										<!--<span class="name-first"><input class="txt" id="fname" name="fname" title="%donate_interface-donor-fname%" value="@fname" placeholder="%donate_interface-donor-fname%"/></span>-->
 										<!--<span class="name-last"><input class="txt" id="lname" name="lname" title="%donate_interface-donor-lname%" value="@lname" placeholder="%donate_interface-donor-lname%"/></span>-->
 									</div>
-									<!--<p><input class="txt" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>-->
+									<!--<p><input class="txt" title="%donate_interface-donor-email%" id="email" name="email" value="@email" placeholder="%donate_interface-donor-email%"/> </p>-->
 									<table style="margin-top: 10px;" >
 										<tr><td>
 											<select style="margin-top: 15px;" id="issuer_id" name="issuer_id" value="@issuer_id">
@@ -122,7 +122,7 @@
 								<input type="hidden" class="optional" value="" name="state" id="state" />
 								<input type="hidden" class="optional" value="" name="country" id="country" />
 								<input type="hidden" class="optional" value="" name="zip" id="zip" />
-								<input type="hidden" class="optional" value="" name="emailAdd" id="emailAdd" />
+								<input type="hidden" class="optional" value="" name="email" id="email" />
 							</form>
 						</div>
 					</div>

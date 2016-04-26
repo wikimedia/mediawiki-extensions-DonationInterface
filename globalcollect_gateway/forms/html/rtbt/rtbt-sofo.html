@@ -2,7 +2,7 @@
 	mw.loader.load('gc.form.rapidhtml.webitects.bt');
 	// these must go through RapidHTML and thus are inline
 	var amountErrors = ["#general|escape",'#retryMsg|escape','#amount|escape'];
-	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#emailAdd|escape'];
+	var billingErrors = ['#fname|escape','#lname|escape','#city|escape','#country|escape','#street|escape','#state|escape','#zip|escape','#email|escape'];
 	var paymentErrors = ['#card_num|escape','#card_type|escape','#cvv|escape'];
 	var actionURL = "@action";
 	var scriptPath = "@script_path";
@@ -82,7 +82,7 @@
 											</select>
 										</span>
 									</div>
-									<p><input class="txt optional" title="%donate_interface-donor-email%" id="emailAdd" name="emailAdd" value="@emailAdd" placeholder="%donate_interface-donor-email%"/> </p>
+									<p><input class="txt optional" title="%donate_interface-donor-email%" id="email" name="email" value="@email" placeholder="%donate_interface-donor-email%"/> </p>
 									<table style="margin-top: 10px;" >
 										<tr><td>
 											<div id="bt-continue" style="margin-top: 7px;"> <input class="btn" id="bt-continueBtn" type="button" value="%donate_interface-continue%" /></div>

@@ -423,6 +423,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @param array $vars
 	 */
 	public function setClientVariables( &$vars ) {
+		parent::setClientVariables( $vars );
 		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
 		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
 		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'TestMode' ) ? true : false;

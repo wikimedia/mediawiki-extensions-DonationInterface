@@ -148,10 +148,10 @@ iban:
 user_ip:
     type: alphanumeric
     length: 32
-# ISSUERID: N4
+# ISSUERID: AN11
 issuer_id:
-    type: numeric
-    length: 4
+    type: alphanumeric
+    length: 11
 # LANGUAGECODE: AN2
 language:
     type: alphanumeric

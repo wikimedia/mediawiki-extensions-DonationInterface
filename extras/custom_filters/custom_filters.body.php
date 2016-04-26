@@ -1,6 +1,6 @@
 <?php
 
-class Gateway_Extras_CustomFilters extends Gateway_Extras {
+class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	/**
 	 * A value for tracking the 'riskiness' of a transaction
@@ -27,18 +27,11 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 	 */
 	static $instance;
 
-	/**
-	 * Sends messages to the blah_gateway_fraud log
-	 * @var \Psr\Log\LoggerInterface
-	 */
-	protected $fraud_logger;
-
 	public function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
-		$this->fraud_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_fraud' );
 	}
 
 	/**
@@ -103,7 +96,6 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 			throw new InvalidArgumentException( __FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
 		}
 	}
-	
 
 	/**
 	 * Run the transaction through the custom filters
@@ -127,28 +119,7 @@ class Gateway_Extras_CustomFilters extends Gateway_Extras {
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
-
-		//add a message to the fraud stats queue, so we can shovel it into the fredge.
-		$stomp_msg = array (
-			'validation_action' => $localAction,
-			'risk_score' => $this->getRiskScore(),
-			'score_breakdown' => $this->risk_score,
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceAntifraud',
-			'user_ip' => $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ),
-		);
-		//If we need much more here to help combat fraud, we could just
-		//start stuffing the whole maxmind query in the fredge, too.
-		//Legal said ok... but this seems a bit excessive to me at the
-		//moment. 
-
-		$transaction = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
-
-		try {
-			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
-			DonationQueue::instance()->push( $transaction, 'payments-antifraud' );
-		} catch ( Exception $e ) {
-			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
-		}
+		$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
 
 		return TRUE;
 	}

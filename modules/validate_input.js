@@ -38,11 +38,17 @@ window.switchToCreditCard = function () {
 
 /**
  * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
+ * TODO: also validate ceiling
  */
 window.validateAmount = function () {
 	var error = true,
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
-		currency_code = '';
+		currency_code = '',
+		rate,
+		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
+		minDisplay,
+		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
+		$amountMsg = $( '#amountMsg' );
 
 	// Normalize weird amount formats.
 	// Don't mess with these unless you know what you're doing.
@@ -64,11 +70,25 @@ window.validateAmount = function () {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
+	// FIXME: replace with mw.config.get( "wgDonationInterfaceCurrencyRates" )
 	if ( ( typeof wgCurrencyMinimums[ currency_code ] ) === 'undefined' ) {
-		wgCurrencyMinimums[ currency_code ] = 1;
+		rate = 1;
+	} else {
+		rate = wgCurrencyMinimums[ currency_code ];
 	}
-	if ( amount < wgCurrencyMinimums[ currency_code ] || error ) {
-		alert( mediaWiki.msg( 'donate_interface-smallamount-error' ).replace( '$1', wgCurrencyMinimums[ currency_code ] + ' ' + currency_code ) );
+	// if we're on a new form, clear existing amount error
+	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
+	if ( ( amount < minUsd * rate ) || error ) {
+		// Round to two decimal places (TODO: no decimals for some currencies)
+		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
+		message = message.replace( '$1', minDisplay + ' ' + currency_code );
+		if ( $amountMsg.length > 0 ) {
+			// newness
+			$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
+		} else {
+			// ugliness
+			alert( message );
+		}
 		error = true;
 		// See if we're on a webitects accordian form
 		if ( $( '#step1wrapper' ).length ) {
@@ -95,17 +115,31 @@ window.validate_personal = function () {
 	var value, stateField, selectedState, countryField, $emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		currField = '',
-		i = 0,
-		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'emailAdd' ],
-		msgFields = [ 'fnameMsg', 'lnameMsg', 'streetMsg', 'cityMsg', 'zipMsg', 'emailAddMsg' ],
+		i,
+		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email', 'fiscal_number' ],
+		errorTemplate = mediaWiki.msg( 'donate_interface-error-msg' ),
 		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ];
 
+	function clearError( field ) {
+		$( '#' + field ).removeClass( 'errorHighlight' );
+		$( '#' + field + 'Msg' )
+			.removeClass( 'errorMsg' )
+			.addClass( 'errorMsgHide' );
+	}
+
+	function setError( field, message ) {
+		errorsPresent = true;
+		$( '#' + field ).addClass( 'errorHighlight' );
+		$( '#' + field + 'Msg' )
+			.removeClass( 'errorMsgHide' )
+			.addClass( 'errorMsg' )
+			.text( message );
+	}
+
 	for ( i = 0; i < numFields; i++ ) {
 		if ( $( '#' + fields[ i ] ).length > 0 ) { // Make sure field exists
-			$( '#' + msgFields[ i ] ).removeClass( 'errorMsg' );
-			$( '#' + msgFields[ i ] ).addClass( 'errorMsgHide' );
-			$( '#' + fields[ i ] ).removeClass( 'errorHighlight' );
+			clearError( fields[ i ] );
 			// See if the field is empty or equal to the placeholder
 			value = document.getElementById( fields[ i ] ).value;
 			if (
@@ -116,11 +150,10 @@ window.validate_personal = function () {
 				)
 			) {
 				currField = mediaWiki.msg( 'donate_interface-error-msg-' + fields[ i ] );
-				errorsPresent = true;
-				$( '#' + fields[ i ] ).addClass( 'errorHighlight' );
-				$( '#' + msgFields[ i ] ).removeClass( 'errorMsgHide' );
-				$( '#' + msgFields[ i ] ).addClass( 'errorMsg' );
-				$( '#' + msgFields[ i ] ).text( mediaWiki.msg( 'donate_interface-error-msg' ).replace( '$1', currField ) );
+				setError(
+					fields[ i ],
+					errorTemplate.replace( '$1', currField )
+				);
 			}
 		}
 	}
@@ -129,50 +162,42 @@ window.validate_personal = function () {
 	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select
 		selectedState = stateField.options[ stateField.selectedIndex ].value;
 		if ( selectedState === 'YY' || !$.trim( selectedState ) ) {
-			errorsPresent = true;
-			$( '#state' ).addClass( 'errorHighlight' );
-			$( '#stateMsg' ).removeClass( 'errorMsgHide' );
-			$( '#stateMsg' ).addClass( 'errorMsg' );
-			$( '#stateMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg' ).replace( '$1', mediaWiki.msg( 'donate_interface-state-province' ) ) );
+			setError(
+				'state',
+				errorTemplate.replace( '$1', mediaWiki.msg( 'donate_interface-state-province' ) )
+			);
 		} else {
-			$( '#state' ).removeClass( 'errorHighlight' );
-			$( '#stateMsg' ).removeClass( 'errorMsg' );
-			$( '#stateMsg' ).addClass( 'errorMsgHide' );
+			clearError( 'state' );
 		}
 	}
 
+	// FIXME: wouldn't $( '#country' ).val() work for both types?
 	countryField = document.getElementById( 'country' );
 	if ( countryField && countryField.type === 'select-one' ) { // country is a dropdown select
 		if ( !$.trim( countryField.options[ countryField.selectedIndex ].value ) ) {
-			errorsPresent = true;
-			$( '#country' ).addClass( 'errorHighlight' );
-			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
-			$( '#countryMsg' ).addClass( 'errorMsg' );
-			$( '#countryMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-country' ) );
+			setError(
+				'country',
+				mediaWiki.msg( 'donate_interface-error-msg-country' )
+			);
 		} else {
-			$( '#country' ).removeClass( 'errorHighlight' );
-			$( '#countryMsg' ).removeClass( 'errorMsg' );
-			$( '#countryMsg' ).addClass( 'errorMsgHide' );
+			clearError( 'country' );
 		}
 	} else { // country is a hidden or text input
 		if ( !$.trim( countryField.value ) ) {
-			errorsPresent = true;
-			$( '#country' ).addClass( 'errorHighlight' );
-			$( '#countryMsg' ).removeClass( 'errorMsgHide' );
-			$( '#countryMsg' ).addClass( 'errorMsg' );
-			$( '#countryMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-country' ) );
+			setError(
+				'country',
+				mediaWiki.msg( 'donate_interface-error-msg-country' )
+			);
 		} else {
-			$( '#country' ).removeClass( 'errorHighlight' );
-			$( '#countryMsg' ).removeClass( 'errorMsg' );
-			$( '#countryMsg' ).addClass( 'errorMsgHide' );
+			clearError( 'country' );
 		}
 	}
 
 	// validate email address
-	$emailAdd = document.getElementById( 'emailAdd' );
+	$emailAdd = document.getElementById( 'email' );
 	if (
 		$.trim( $emailAdd.value ) &&
-		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' )
+		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' )
 	) {
 		invalid = false;
 
@@ -180,11 +205,10 @@ window.validate_personal = function () {
 		dotpos = $emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
-			errorsPresent = true;
-			$( '#emailAdd' ).addClass( 'errorHighlight' );
-			$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
-			$( '#emailAddMsg' ).addClass( 'errorMsg' );
-			$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
+			setError(
+				'email',
+				mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
+			);
 			invalid = true;
 		}
 
@@ -192,11 +216,10 @@ window.validate_personal = function () {
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
 			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {
-				errorsPresent = true;
-				$( '#emailAdd' ).addClass( 'errorHighlight' );
-				$( '#emailAddMsg' ).removeClass( 'errorMsgHide' );
-				$( '#emailAddMsg' ).addClass( 'errorMsg' );
-				$( '#emailAddMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-email' ) );
+				setError(
+					'email',
+					mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
+				);
 				invalid = true;
 				break;
 			}
@@ -214,11 +237,7 @@ window.validate_personal = function () {
 		$( '#cookieMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-cookies' ) );
 	}
 
-	if ( errorsPresent ) {
-		return false;
-	}
-
-	return true;
+	return !errorsPresent;
 };
 
 window.validate_form = function ( form ) {
@@ -229,7 +248,7 @@ window.validate_form = function ( form ) {
 		currField = '',
 		i = 0,
 		fields = [
-			'fname', 'lname', 'street', 'city', 'zip', 'emailAdd', 'card_num', 'cvv',
+			'fname', 'lname', 'street', 'city', 'zip', 'card_num', 'cvv',
 			'fiscal_number', 'account_name', 'account_number', 'authorization_id',
 			'bank_code', 'bank_check_digit', 'branch_code', 'email'
 		],
@@ -274,13 +293,13 @@ window.validate_form = function ( form ) {
 	}
 
 	// validate email address
-	$emailAdd = document.getElementById( 'emailAdd' ) || document.getElementById( 'email' );
-	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-emailAdd' ) ) {
+	$emailAdd = document.getElementById( 'email' );
+	if ( $.trim( $emailAdd.value ) && $emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' ) ) {
 		apos = $emailAdd.value.indexOf( '@' );
 		dotpos = $emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
-			output += mediaWiki.msg( 'donate_interface-error-msg-email' ) + '.\r\n';
+			output += mediaWiki.msg( 'donate_interface-error-msg-invalid-email' ) + '.\r\n';
 		}
 	}
 

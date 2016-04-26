@@ -24,7 +24,6 @@ class AmazonGateway extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
-		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.styles' );
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
 

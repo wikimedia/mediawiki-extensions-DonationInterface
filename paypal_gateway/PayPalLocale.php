@@ -1,7 +1,7 @@
 <?php
 
 class PayPalLocale implements StagingHelper {
-	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// FIXME: Document the upstream source for this reference data.
 		$supported_countries = array(
 			'AU',
@@ -38,14 +38,14 @@ class PayPalLocale implements StagingHelper {
 			'zh_TW',
 		);
 
-		if ( in_array( $unstagedData['country'], $supported_countries ) ) {
-			$stagedData['locale'] = $unstagedData['country'];
+		if ( in_array( $normalized['country'], $supported_countries ) ) {
+			$stagedData['locale'] = $normalized['country'];
 		}
 
-		$fallbacks = Language::getFallbacksFor( strtolower( $unstagedData['language'] ) );
-		array_unshift( $fallbacks, strtolower( $unstagedData['language'] ) );
+		$fallbacks = Language::getFallbacksFor( strtolower( $normalized['language'] ) );
+		array_unshift( $fallbacks, strtolower( $normalized['language'] ) );
 		foreach ( $fallbacks as $lang ) {
-			$locale = "{$lang}_{$unstagedData['country']}";
+			$locale = "{$lang}_{$normalized['country']}";
 			if ( in_array( $locale, $supported_full_locales ) ) {
 				$stagedData['locale'] = $locale;
 				return;

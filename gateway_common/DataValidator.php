@@ -36,8 +36,6 @@ class DataValidator {
 				$error_token = 'amount';
 				break;
 			case 'email' :
-				$error_token = 'emailAdd';
-				break;
 			case 'amount' :
 			case 'currency_code' :
 			case 'card_num':
@@ -83,7 +81,7 @@ class DataValidator {
 			'street' => '',
 			'state' => '',
 			'zip' => '',
-			'emailAdd' => '',
+			'email' => '',
 		);
 	}
 

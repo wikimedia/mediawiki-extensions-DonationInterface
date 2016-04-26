@@ -24,6 +24,83 @@ class DonationData implements LogPrefixProvider {
 	protected $logger;
 
 	/**
+	 * $fieldNames now just contains all the vars we want to
+	 * get poked through to gateways in some form or other,
+	 * from a get or post. We handle the actual
+	 * normalization in normalize() helpers, below.
+	 * @TODO: It would be really neat if the gateways kept
+	 * track of all the things that ***only they will ever
+	 * need***, and could interject those needs here...
+	 * Then we could really clean up.
+	 * @TODO also: Think about putting log alarms on the
+	 * keys we want to see disappear forever, complete with
+	 * ffname and referrer for easy total destruction.
+	 */
+	protected static $fieldNames = array(
+		'amount',
+		'amountGiven',
+		'amountOther',
+		'appeal',
+		'email',
+		'emailAdd',
+		'fname',
+		'lname',
+		'street',
+		'street_supplemental',
+		'city',
+		'state',
+		'zip',
+		'country',
+		'card_num',
+		'card_type',
+		'expiration',
+		'cvv',
+		'currency',
+		'currency_code',
+		'payment_method',
+		'payment_submethod',
+		'issuer_id',
+		'order_id',
+		'subscr_id',
+		'referrer',
+		'utm_source',
+		'utm_source_id',
+		'utm_medium',
+		'utm_campaign',
+		'utm_key',
+		'language',
+		'uselang',
+		'token',
+		'contribution_tracking_id',
+		'data_hash',
+		'action',
+		'gateway',
+		'owa_session',
+		'owa_ref',
+		'descriptor',
+		'account_name',
+		'account_number',
+		'authorization_id',
+		'bank_check_digit',
+		'bank_name',
+		'bank_code',
+		'branch_code',
+		'country_code_bank',
+		'date_collect',
+		'direct_debit_text',
+		'iban',
+		'fiscal_number',
+		'transaction_type',
+		'form_name',
+		'ffname',
+		'recurring',
+		'recurring_paypal',
+		'redirect',
+		'user_ip',
+		'server_ip',
+	);
+
+	/**
 	 * DonationData constructor
 	 * @param GatewayAdapter $gateway
 	 * @param mixed $data An optional array of donation data that will, if
@@ -54,85 +131,7 @@ class DonationData implements LogPrefixProvider {
 			//I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
 		} else {
-
-			/**
-			 * $varNames now just contains all the vars we want to
-			 * get poked through to gateways in some form or other,
-			 * from a get or post. We handle the actual
-			 * normalization in normalize() helpers, below.
-			 * @TODO: It would be really neat if the gateways kept
-			 * track of all the things that ***only they will ever
-			 * need***, and could interject those needs here...
-			 * Then we could really clean up.
-			 * @TODO also: Think about putting log alarms on the
-			 * keys we want to see disappear forever, complete with
-			 * ffname and referrer for easy total destruction.
-			 */
-			$varNames = array (
-				'amount',
-				'amountGiven',
-				'amountOther',
-				'appeal',
-				'email',
-				'emailAdd',
-				'fname',
-				'lname',
-				'street',
-				'street_supplemental',
-				'city',
-				'state',
-				'zip',
-				'country',
-				'card_num',
-				'card_type',
-				'expiration',
-				'cvv',
-				'currency',
-				'currency_code',
-				'payment_method',
-				'payment_submethod',
-				'issuer_id',
-				'order_id',
-				'subscr_id',
-				'referrer',
-				'utm_source',
-				'utm_source_id',
-				'utm_medium',
-				'utm_campaign',
-				'utm_key',
-				'language',
-				'uselang',
-				'token',
-				'contribution_tracking_id',
-				'data_hash',
-				'action',
-				'gateway',
-				'owa_session',
-				'owa_ref',
-				'descriptor',
-				'account_name',
-				'account_number',
-				'authorization_id',
-				'bank_check_digit',
-				'bank_name',
-				'bank_code',
-				'branch_code',
-				'country_code_bank',
-				'date_collect',
-				'direct_debit_text',
-				'iban',
-				'fiscal_number',
-				'transaction_type',
-				'form_name',
-				'ffname',
-				'recurring',
-				'recurring_paypal',
-				'redirect',
-				'user_ip',
-				'server_ip',
-			);
-
-			foreach ( $varNames as $var ) {
+			foreach ( self::$fieldNames as $var ) {
 				$this->normalized[$var] = $this->sourceHarvest( $var );
 			}
 
@@ -140,7 +139,7 @@ class DonationData implements LogPrefixProvider {
 				$this->setVal( 'posted', false );
 			}
 		}
-		
+
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
@@ -149,6 +148,10 @@ class DonationData implements LogPrefixProvider {
 
 			$this->expungeNulls();
 		}
+	}
+
+	public static function getFieldNames() {
+		return self::$fieldNames;
 	}
 
 	/**

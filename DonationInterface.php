@@ -134,6 +134,7 @@ $wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpa
 
 //Extras classes - required for ANY optional class that is considered an "extra".
 $wgAutoloadClasses['Gateway_Extras'] = __DIR__ . '/extras/extras.body.php';
+$wgAutoloadClasses['FraudFilter'] = __DIR__ . '/extras/FraudFilter.php';
 
 //Custom Filters classes
 $wgAutoloadClasses['Gateway_Extras_CustomFilters'] = __DIR__ . '/extras/custom_filters/custom_filters.body.php';
@@ -883,7 +884,7 @@ $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFrau
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
 $wgHooks['GatewayPostProcess'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess' );
 
-$wgHooks['DonationInterfaceCurlInit'][] = array( 'Gateway_Extras_SessionVelocityFilter::onCurlInit' );
+$wgHooks['DonationInterfaceProcessorApiCall'][] = array( 'Gateway_Extras_SessionVelocityFilter::onProcessorApiCall' );
 
 //Conversion Log hooks
 // Sets the 'conversion log' as logger for post-processing
@@ -1000,14 +1001,15 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-error-msg-js',
 		'donate_interface-error-msg-validation',
 		'donate_interface-error-msg-invalid-amount',
-		'donate_interface-error-msg-email',
+		'donate_interface-error-msg-invalid-email',
 		'donate_interface-error-msg-card-num',
 		'donate_interface-error-msg-amex',
 		'donate_interface-error-msg-mc',
 		'donate_interface-error-msg-visa',
 		'donate_interface-error-msg-discover',
 		'donate_interface-error-msg-amount',
-		'donate_interface-error-msg-emailAdd',
+		'donate_interface-error-msg-email',
+		'donate_interface-error-msg-fiscal_number',
 		'donate_interface-error-msg-fname',
 		'donate_interface-error-msg-lname',
 		'donate_interface-error-msg-street',
@@ -1039,7 +1041,8 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 		'donate_interface-donor-zip',
 		'donate_interface-donor-postal',
 		'donate_interface-donor-country',
-		'donate_interface-donor-emailAdd',
+		'donate_interface-donor-email',
+		'donate_interface-donor-fiscal_number',
 		'donate_interface-state-province',
 		'donate_interface-cvv-explain',
 	)

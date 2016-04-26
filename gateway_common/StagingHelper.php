@@ -5,5 +5,13 @@
  * data into the form expected by a payment processing gateway API endpoint.
  */
 interface StagingHelper {
-	function stage( GatewayType $adapter, $unstagedData, &$stagedData );
+	/**
+	 * Transform a subset of normalized data into the "staged" data expected by
+	 * a payment processor.
+	 *
+	 * @param GatewayType $adapter
+	 * @param array $normalized Donation data in normalized form.
+	 * @param array $stagedData Reference to output data.
+	 */
+	function stage( GatewayType $adapter, $normalized, &$stagedData );
 }

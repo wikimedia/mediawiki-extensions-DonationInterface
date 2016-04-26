@@ -163,7 +163,7 @@ body.rtl input {
 	/* @noflip */
 	direction: rtl;
 }
-input#emailAdd {
+input#email {
 	/* @noflip */
 	direction: ltr;
 }
@@ -217,6 +217,19 @@ a[href^="https://"], .link-https {
 
 div#content {
  border: none;
+}
+
+.errorHighlight {
+    border: 2px solid red !important;
+}
+
+.errorMsg {
+    color: red;
+    display: inherit;
+}
+
+.errorMsgHide {
+    display: none;
 }
 
 /* Respond to small viewport */
