@@ -177,7 +177,7 @@
 	"donate_interface-error-msg-visa": "Зинһар, дөрөҫ Visa картаһы номерын керетегеҙ",
 	"donate_interface-error-msg-discover": "Зинһар, дөрөҫ Discover картаһы номерын керетегеҙ",
 	"donate_interface-error-msg-amount": "иғәнә күләмен",
-	"donate_interface-error-msg-email": "Электрон почта адресы",
+	"donate_interface-error-msg-email": "электрон почта адресын",
 	"donate_interface-error-msg-fname": "исем",
 	"donate_interface-error-msg-lname": "фамилия",
 	"donate_interface-error-msg-street": "адресты",
