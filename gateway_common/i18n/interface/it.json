@@ -151,6 +151,7 @@
 	"donate_interface-donor-county": "Contea (in Italia NON usare)",
 	"donate_interface-donor-island": "Isola",
 	"donate_interface-donor-state": "Stato:",
+	"donate_interface-donor-state-au": "Stato/Territorio",
 	"donate_interface-donor-state-ca": "Provincia",
 	"donate_interface-donor-zip": "Zip (solo USA)",
 	"donate_interface-donor-postal": "Codice postale",
