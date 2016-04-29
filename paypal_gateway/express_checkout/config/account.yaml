@@ -1,0 +1,4 @@
+# TODO: Do all these constant URLs via config.  Currently, URLs are taken from
+# global variable configuration.
+url: https://api-3t.paypal.com/nvp
+sandbox_url: https://api-3t.sandbox.paypal.com/nvp

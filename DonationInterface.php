@@ -116,8 +116,12 @@ $wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFisc
 
 // Paypal
 $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
-$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
+$wgAutoloadClasses['PaypalExpressAdapter'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express.adapter.php';
+$wgAutoloadClasses['PaypalExpressGateway'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_gateway.body.php';
+$wgAutoloadClasses['PaypalExpressGatewayResult'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_resultswitcher.body.php';
+$wgAutoloadClasses['PaypalExpressReturnUrl'] = __DIR__ . '/paypal_gateway/express_checkout/PaypalExpressReturnUrl.php';
 $wgAutoloadClasses['PaypalLegacyAdapter'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy.adapter.php';
+$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
 $wgAutoloadClasses['PaypalLegacyLocale'] = __DIR__ . '/paypal_gateway/legacy/PaypalLegacyLocale.php';
 
 // Worldpay
@@ -403,6 +407,20 @@ $wgPaypalGatewayXclickCountries = array();
 #	$wgPaypalGatewayAccountInfo['example'] = array(
 #		'AccountEmail' => "",
 #	);
+
+$wgPaypalExpressGatewayAccountInfo['test'] = array(
+	//'User' => 'abc',
+	//'Password' => '12345',
+	//'Signature' => 'or 123123123',
+	//TODO: credential authentication is not supported, yet.
+	//XXX 'Credential' => '123123123123', #OR
+	// TODO: Use parameter substitution.
+	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=commit&token=',
+);
+# FIXME: These are only for signature authentication.
+# https://developer.paypal.com/docs/classic/api/endpoints/
+$wgPaypalExpressGatewayURL = 'https://api-3t.paypal.com/nvp';
+$wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 
 $wgAdyenGatewayHtmlFormDir = __DIR__ . '/adyen_gateway/forms/html';
 
@@ -842,6 +860,7 @@ $wgGlobalCollectGatewayEnabled = false;
 $wgAmazonGatewayEnabled = false;
 $wgAdyenGatewayEnabled = false;
 $wgAstroPayGatewayEnabled = false;
+$wgPaypalExpressGatewayEnabled = false;
 $wgPaypalGatewayEnabled = false;
 $wgWorldpayGatewayEnabled = false;
 
@@ -880,9 +899,12 @@ $wgSpecialPages['AstroPayGateway'] = 'AstroPayGateway';
 $wgSpecialPages['AstroPayGatewayResult'] = 'AstroPayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstroPayAdapter';
 
-# FIXME: deprecated
+$wgSpecialPages['PaypalExpressGateway'] = 'PaypalExpressGateway';
+$wgSpecialPages['PaypalExpressGatewayResult'] = 'PaypalExpressGatewayResult';
+# FIXME: This alias is deprecated.
 $wgSpecialPages['PaypalGateway'] = 'PaypalLegacyGateway';
 $wgSpecialPages['PaypalLegacyGateway'] = 'PaypalLegacyGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalExpressAdapter';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalLegacyAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';

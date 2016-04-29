@@ -1719,6 +1719,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		);
 
 		// Add the rest of the relevant data
+		// FIXME: This is "normalized" data.  We should refer to it as such,
+		// and rename the getData_Unstaged_Escaped function.
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
 			array_flip( $this->dataObj->getMessageFields() )
