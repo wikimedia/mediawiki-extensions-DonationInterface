@@ -576,7 +576,7 @@ EOT;
 	/**
 	 * Performs a Luhn algorithm check on a string.
 	 *
-	 * @param $str
+	 * @param string $str
 	 *
 	 * @return bool True if the number was valid according to the algorithm
 	 */
@@ -602,7 +602,7 @@ EOT;
 
 	/**
 	 * Calculates and returns the card type for a given credit card number.
-	 * @param numeric $card_num A credit card number.
+	 * @param int $card_num A credit card number.
 	 * @return string|bool 'amex', 'mc', 'visa', 'discover', or false.
 	 */
 	public static function getCardType( $card_num ) {
@@ -776,7 +776,7 @@ EOT;
 	 * component in there so I'm calling it close enough.
 	 * @param string $value the value that should be zero-padded out to $total_length
 	 * @param int $total_length The fixed number of characters that $value should be padded out to
-	 * @return The zero-padded value, or false if it was too long to work with.
+	 * @return string The zero-padded value, or false if it was too long to work with.
 	 */
 	static function getZeroPaddedValue( $value, $total_length ) {
 		//first, trim all leading zeroes off the value.
