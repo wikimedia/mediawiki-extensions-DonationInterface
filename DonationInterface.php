@@ -116,9 +116,9 @@ $wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFisc
 
 // Paypal
 $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
-$wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
-$wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
-$wgAutoloadClasses['PayPalLocale'] = __DIR__ . '/paypal_gateway/PayPalLocale.php';
+$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
+$wgAutoloadClasses['PaypalLegacyAdapter'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy.adapter.php';
+$wgAutoloadClasses['PaypalLegacyLocale'] = __DIR__ . '/paypal_gateway/legacy/PaypalLegacyLocale.php';
 
 // Worldpay
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
@@ -880,8 +880,10 @@ $wgSpecialPages['AstroPayGateway'] = 'AstroPayGateway';
 $wgSpecialPages['AstroPayGatewayResult'] = 'AstroPayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstroPayAdapter';
 
-$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-$wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
+# FIXME: deprecated
+$wgSpecialPages['PaypalGateway'] = 'PaypalLegacyGateway';
+$wgSpecialPages['PaypalLegacyGateway'] = 'PaypalLegacyGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalLegacyAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
 $wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
@@ -1181,7 +1183,7 @@ function efDonationInterfaceUnitTests( &$files ) {
 	$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
 	$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
 	$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
-	$wgAutoloadClasses['TestingPaypalAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalAdapter.php';
+	$wgAutoloadClasses['TestingPaypalLegacyAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalLegacyAdapter.php';
 	$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
 	$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
 

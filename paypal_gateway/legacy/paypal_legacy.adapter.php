@@ -17,12 +17,12 @@
  */
 
 /**
- * Class PaypalAdapter
  * TODO: Document exactly which PayPal product this integrates with and link to online docs
  */
-class PaypalAdapter extends GatewayAdapter {
-	const GATEWAY_NAME = 'Paypal';
+class PaypalLegacyAdapter extends GatewayAdapter {
+	const GATEWAY_NAME = 'PayPal Legacy';
 	const IDENTIFIER = 'paypal';
+	// TODO: rename or deprecate
 	const GLOBAL_PREFIX = 'wgPaypalGateway';
 
 	public function getCommunicationType() {
@@ -43,6 +43,7 @@ class PaypalAdapter extends GatewayAdapter {
 		}
 	}
 
+	// TODO: Can these be deprecated, or do we rely on a side effect?
 	function defineStagedVars() {
 		$this->staged_vars = array(
 			'recurring_length',

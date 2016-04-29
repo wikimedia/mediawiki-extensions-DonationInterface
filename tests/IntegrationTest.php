@@ -68,7 +68,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$options['payment_method'] = 'paypal';
 		$paypalRequest = $this->setUpRequest( $options );
 
-		$gateway = new TestingPaypalAdapter();
+		$gateway = new TestingPaypalLegacyAdapter();
 		$gateway->do_transaction( 'Donate' );
 
 		$paymentForms = $paypalRequest->getSessionData( 'PaymentForms' );

@@ -21,7 +21,7 @@
  * @group DonationInterface
  * @group PayPal
  */
-class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -30,7 +30,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingPaypalAdapter';
+		$this->testAdapterClass = 'TestingPaypalLegacyAdapter';
 	}
 
 	public function setUp() {
@@ -59,7 +59,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	}
 
 	public function tearDown() {
-		TestingPaypalAdapter::$fakeGlobals = array();
+		TestingPaypalLegacyAdapter::$fakeGlobals = array();
 
 		parent::tearDown();
 	}
@@ -132,7 +132,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 	function testDoTransactionDonateXclick() {
 		$init = $this->getDonorTestData();
 
-		TestingPaypalAdapter::$fakeGlobals = array(
+		TestingPaypalLegacyAdapter::$fakeGlobals = array(
 			'XclickCountries' => array( $init['country'] ),
 		);
 
@@ -178,7 +178,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			)
 		);
 
-		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false, $session );
+		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, $assertNodes, false, $session );
 	}
 
 	/**
@@ -195,7 +195,7 @@ class DonationInterface_Adapter_PayPal_Test extends DonationInterfaceTestCase {
 			)
 		);
 
-		$this->verifyFormOutput( 'PaypalGateway', $init, $assertNodes, false, $session );
+		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, $assertNodes, false, $session );
 	}
 
 	/**

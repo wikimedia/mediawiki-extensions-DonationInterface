@@ -1,10 +1,9 @@
 <?php
 
 /**
- * TestingPaypalAdapter
  * @TODO: Extend/damage things here. I'm sure we'll need it eventually...
  */
-class TestingPaypalAdapter extends PaypalAdapter {
+class TestingPaypalLegacyAdapter extends PaypalLegacyAdapter {
 	public static $fakeGlobals = array();
 
 	/**
@@ -61,8 +60,8 @@ class TestingPaypalAdapter extends PaypalAdapter {
 	}
 
 	public static function getGlobal( $name ) {
-		if ( array_key_exists( $name, TestingPaypalAdapter::$fakeGlobals ) ) {
-			return TestingPaypalAdapter::$fakeGlobals[$name];
+		if ( array_key_exists( $name, self::$fakeGlobals ) ) {
+			return self::$fakeGlobals[$name];
 		}
 		return parent::getGlobal( $name );
 	}
