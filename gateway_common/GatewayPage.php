@@ -514,4 +514,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 		return implode( ':', $info ) . ' ';
 	}
+
+	public function setHeaders() {
+		parent::setHeaders();
+
+		// TODO: Switch title according to failiness.
+		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
+	}
 }

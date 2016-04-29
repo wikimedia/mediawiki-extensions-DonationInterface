@@ -2,7 +2,6 @@
 	"@metadata": {
 		"authors": []
 	},
-	"adyengateway": "Make your donation now",
 	"adyen_gateway-desc": "Adyen payment processing",
 	"adyen_gateway-response-default": "There was an error processing your transaction.\nPlease try again later."
 }

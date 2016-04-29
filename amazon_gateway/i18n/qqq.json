@@ -4,7 +4,6 @@
 			"Shirayuki"
 		]
 	},
-	"amazongateway": "{{Identical|Make your donation now}}",
 	"amazon_gateway-desc": "{{desc}}",
 	"apihelp-di_amazon_bill-description": "{{doc-apihelp-description|di_amazon_bill}}",
 	"apihelp-di_amazon_bill-param-amount": "{{doc-apihelp-param|di_amazon_bill|amount}}",
