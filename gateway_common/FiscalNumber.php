@@ -54,18 +54,17 @@ class FiscalNumber implements StagingHelper, ValidationHelper {
 	 * @param array $errors Results of validation to this point
 	 */
 	public function validate( $normalized, &$errors ) {
-		if ( !isset( $normalized['country'] ) ) {
+		if (
+			!isset( $normalized['country'] ) ||
+			!isset( $normalized['fiscal_number'] )
+		) {
+			// Nothing to validate or no way to tell what rules to use
 			return;
 		}
 
-		if ( isset( $normalized['fiscal_number'] ) ) {
-			$value = $normalized['fiscal_number'];
-		} else {
-			$value = '';
-		}
-
+		$value = $normalized['fiscal_number'];
 		$country = $normalized['country'];
-		$has_error = false;
+		$hasError = false;
 
 		if ( !isset( self::$countryRules[$country] ) ) {
 			return;
@@ -76,20 +75,25 @@ class FiscalNumber implements StagingHelper, ValidationHelper {
 
 		if ( !empty( $rules['numeric'] ) ) {
 			if ( !is_numeric( $unpunctuated ) ) {
-				$has_error = true;
+				$hasError = true;
 			}
 		}
 
 		$length = strlen( $unpunctuated );
 		if ( $length < $rules['min'] || $length > $rules['max'] ) {
-			$has_error = true;
+			$hasError = true;
 		}
 
-		if ( $has_error ) {
+		if ( $hasError ) {
 			// This looks bad.
+			if ( $length === 0 ) {
+				$errorType = 'not_empty';
+			} else {
+				$errorType = 'calculated';
+			}
 			$errors['fiscal_number'] = DataValidator::getErrorMessage(
 				'fiscal_number',
-				'calculated',
+				$errorType,
 				$normalized['language'],
 				$country
 			);
