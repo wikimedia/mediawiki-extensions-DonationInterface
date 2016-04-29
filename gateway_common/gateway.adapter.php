@@ -3714,5 +3714,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function setClientVariables( &$vars ) {
 		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
+		$clientRules = $this->getClientSideValidationRules();
+		if ( !empty( $clientRules ) ) {
+			$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+		}
+	}
+
+	/**
+	 * Returns an array of rules used to validate data before submission.
+	 * Each entry's key should correspond to the id of the target field, and
+	 * the value should be a list of rules with keys as described in
+	 * @see ClientSideValidationHelper::getClientSideValidation
+	 */
+	protected function getClientSideValidationRules() {
+		$allRules = array();
+		foreach ( $this->data_transformers as $transformer ) {
+			if ( $transformer instanceof ClientSideValidationHelper ) {
+				$transformer->getClientSideValidation(
+					$this->unstaged_data,
+					$allRules
+				);
+			}
+		}
+		return $allRules;
 	}
 }

@@ -5,7 +5,9 @@
  * Some rules can be deduced from the documentation of this Django app:
  * http://django-localflavor.readthedocs.org/en/latest/
  */
-class FiscalNumber implements StagingHelper, ValidationHelper {
+class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidationHelper {
+
+	protected static $key = 'fiscal_number';
 
 	protected static $countryRules = array(
 		'AR' => array(
@@ -42,8 +44,12 @@ class FiscalNumber implements StagingHelper, ValidationHelper {
 	 * @param array $stagedData Data to send to payment processor
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		if ( !empty( $normalized['fiscal_number'] ) ) {
-			$stagedData['fiscal_number'] = preg_replace( '/[^a-zA-Z0-9]/', '', $normalized['fiscal_number'] );
+		if ( !empty( $normalized[self::$key] ) ) {
+			$stagedData[self::$key] = preg_replace(
+				'/[^a-zA-Z0-9]/',
+				'',
+				$normalized[self::$key]
+			);
 		}
 	}
 
@@ -56,13 +62,13 @@ class FiscalNumber implements StagingHelper, ValidationHelper {
 	public function validate( $normalized, &$errors ) {
 		if (
 			!isset( $normalized['country'] ) ||
-			!isset( $normalized['fiscal_number'] )
+			!isset( $normalized[self::$key] )
 		) {
 			// Nothing to validate or no way to tell what rules to use
 			return;
 		}
 
-		$value = $normalized['fiscal_number'];
+		$value = $normalized[self::$key];
 		$country = $normalized['country'];
 		$hasError = false;
 
@@ -91,12 +97,53 @@ class FiscalNumber implements StagingHelper, ValidationHelper {
 			} else {
 				$errorType = 'calculated';
 			}
-			$errors['fiscal_number'] = DataValidator::getErrorMessage(
-				'fiscal_number',
-				$errorType,
-				$normalized['language'],
-				$country
+			$errors[self::$key] = self::getErrorMessage(
+				$errorType, $normalized['language'], $country
 			);
 		}
+	}
+
+	protected static function getErrorMessage( $type, $language, $country ) {
+		return DataValidator::getErrorMessage(
+			self::$key,
+			$type,
+			$language,
+			$country
+		);
+	}
+
+	public function getClientSideValidation( $normalized, &$clientRules ) {
+		if (
+			!isset( $normalized['country'] ) ||
+			empty( self::$countryRules[$normalized['country']] )
+		) {
+			return null;
+		}
+
+		$fiscalRules = array(
+			array(
+				'required' => true,
+				'message' => self::getErrorMessage(
+					'not_empty', $normalized['language'], $normalized['country']
+				)
+			)
+		);
+
+		$rule = self::$countryRules[$normalized['country']];
+		if ( empty( $rule['numeric'] ) ) {
+			$pattern = '^[^0-9a-zA-Z]*([0-9a-zA-Z][^0-9a-zA-Z]*)';
+		} else {
+			$pattern = '^[^0-9]*([0-9][^0-9]*)';
+		}
+		$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
+
+		$fiscalRules[] = array(
+			'pattern' => $pattern,
+			'message' => self::getErrorMessage(
+				'calculated', $normalized['language'], $normalized['country']
+			)
+		);
+
+		$clientRules[self::$key] = $fiscalRules;
 	}
 }

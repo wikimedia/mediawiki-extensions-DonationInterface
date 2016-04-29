@@ -115,11 +115,13 @@ window.validate_personal = function () {
 	var value, stateField, selectedState, countryField, $emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		currField = '',
+		$formField,
 		i,
-		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email', 'fiscal_number' ],
+		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email' ],
 		errorTemplate = mediaWiki.msg( 'donate_interface-error-msg' ),
 		numFields = fields.length,
-		invalids = [ '..', '/', '\\', ',', '<', '>' ];
+		invalids = [ '..', '/', '\\', ',', '<', '>' ],
+		rules = mediaWiki.config.get( 'wgDonationInterfaceValidationRules' );
 
 	function clearError( field ) {
 		$( '#' + field ).removeClass( 'errorHighlight' );
@@ -137,6 +139,11 @@ window.validate_personal = function () {
 			.text( message );
 	}
 
+	function isEmpty( field, value ) {
+		return !$.trim( value ) ||
+			value === mediaWiki.msg( 'donate_interface-donor-' + field );
+	}
+
 	for ( i = 0; i < numFields; i++ ) {
 		if ( $( '#' + fields[ i ] ).length > 0 ) { // Make sure field exists
 			clearError( fields[ i ] );
@@ -144,10 +151,7 @@ window.validate_personal = function () {
 			value = document.getElementById( fields[ i ] ).value;
 			if (
 				!$( '#' + fields[ i ] ).hasClass( 'optional' ) &&
-				(
-					!$.trim( value ) ||
-					value === mediaWiki.msg( 'donate_interface-donor-' + fields[ i ] )
-				)
+				isEmpty( fields[ i ], value )
 			) {
 				currField = mediaWiki.msg( 'donate_interface-error-msg-' + fields[ i ] );
 				setError(
@@ -157,6 +161,32 @@ window.validate_personal = function () {
 			}
 		}
 	}
+
+	// Generically defined rules set by GatewayAdapter->getClientSideValidationRules
+	$.each( rules, function ( fieldKey, ruleList ) {
+		clearError( fieldKey );
+		$.each( ruleList, function ( i, rule ) {
+			var failed = false;
+			$formField = $( '#' + fieldKey );
+			if ( $formField.length === 0 ) {
+				return;
+			}
+			value = $formField.val();
+			if ( rule.required ) {
+				if ( isEmpty( fieldKey, value ) ) {
+					failed = true;
+				}
+			}
+			if ( rule.pattern && !isEmpty( fieldKey, value ) ) {
+				if ( !value.match( new RegExp( rule.pattern ) ) ) {
+					failed = true;
+				}
+			}
+			if ( failed ) {
+				setError( fieldKey, rule.message );
+			}
+		} );
+	} );
 
 	stateField = document.getElementById( 'state' );
 	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select

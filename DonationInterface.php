@@ -40,6 +40,7 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
 $wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
 $wgAutoloadClasses['ArrayHelper'] = __DIR__ . '/gateway_common/ArrayHelper.php';
 $wgAutoloadClasses['FiscalNumber'] = __DIR__ . '/gateway_common/FiscalNumber.php';
+$wgAutoloadClasses['ClientSideValidationHelper'] = __DIR__ . '/gateway_common/ClientSideValidationHelper.php';
 $wgAutoloadClasses['ContributionTrackingPlusUnique'] = __DIR__ . '/gateway_common/ContributionTrackingPlusUnique.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
