@@ -215,16 +215,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				'selected' => ( $currency === $data['currency_code'] ),
 			);
 		}
-		if ( class_exists( 'NumberFormatter' ) ) {
-			$locale = $data['language'] . '_' . $data['country'];
-			$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
-			$data['display_amount'] = $formatter->formatCurrency(
-				$data['amount'],
-				$data['currency_code']
-			);
-		} else {
-			$data['display_amount'] = "{$data['amount']} {$data['currency_code']}";
-		}
+
+		$data['display_amount'] = Amount::format(
+			$data['amount'],
+			$data['currency_code'],
+			$data['language'] . '_' . $data['country']
+		);
 	}
 
 	/**

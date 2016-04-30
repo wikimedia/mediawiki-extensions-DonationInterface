@@ -453,6 +453,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// Always stage email address first, to set default if missing
 			new DonorEmail(),
 			new DonorFullName(),
+			new Amount(),
 			new AmountInCents(),
 			new StreetAddress(),
 		);

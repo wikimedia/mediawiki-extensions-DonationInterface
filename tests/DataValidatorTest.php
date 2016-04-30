@@ -141,6 +141,7 @@ class DataValidatorTest  extends PHPUnit_Framework_TestCase {
 		$validator = new FiscalNumber();
 		$errors = array();
 		$validator->validate(
+			new TestingGenericAdapter(),
 			array( 'country' => $country, 'fiscal_number' => $value, 'language' => 'en' ),
 			$errors
 		);

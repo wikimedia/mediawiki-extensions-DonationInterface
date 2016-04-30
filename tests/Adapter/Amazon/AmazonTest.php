@@ -87,13 +87,9 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 			'donate_interface-fallback-currency-notice',
 			'USD'
 		)->inLanguage( $language )->text();
-		if ( class_exists( 'NumberFormatter' ) ) {
-			$locale = $init['language'] . '_' . $init['country'];
-			$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
-			$expectedDisplayAmount = $formatter->formatCurrency( $expectedAmount, 'USD' );
-		} else {
-			$expectedDisplayAmount = "$expectedAmount USD";
-		}
+
+		$locale = $init['language'] . '_' . $init['country'];
+		$expectedDisplayAmount = Amount::format( $expectedAmount, 'USD', $locale );
 
 		$that = $this; //needed for PHP pre-5.4
 		$convertTest = function( $amountString ) use ( $expectedDisplayAmount, $that ) {

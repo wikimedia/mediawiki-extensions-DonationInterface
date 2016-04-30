@@ -64,6 +64,7 @@
 		"WorldpayGatewayAlias": "worldpay_gateway/worldpay_gateway.alias.php"
 	},
 	"AutoloadClasses": {
+		"Amount": "gateway_common/Amount.php",
 		"AmountInCents": "gateway_common/AmountInCents.php",
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
@@ -445,6 +446,7 @@
 		"DonationInterfaceFaqURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country",
 		"DonationInterfaceTaxURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=$language&country=$country",
 		"DonationInterfaceProblemsEmail": "problemsdonating@wikimedia.org",
+		"DonationInterfaceMajorGiftsEmail": "benefactors@wikimedia.org",
 		"DonationInterfaceDefaultEmail": "nobody@wikimedia.org",
 		"DonationInterfaceDebugLog": false,
 		"DonationInterfaceDisplayDebug": false,

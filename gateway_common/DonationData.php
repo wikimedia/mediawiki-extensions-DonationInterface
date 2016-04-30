@@ -544,11 +544,10 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 
-		if ( DataValidator::is_fractional_currency( $this->getVal( 'currency_code' ) ) ) {
-			$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
-		} else {
-			$this->setVal( 'amount', floor( $this->getVal( 'amount' ) ) );
-		}
+		$this->setVal(
+			'amount',
+			Amount::round( $this->getVal( 'amount' ), $this->getVal( 'currency_code' ) )
+		);
 	}
 
 	/**
@@ -985,7 +984,11 @@ class DonationData implements LogPrefixProvider {
 			$transformers = $this->gateway->getDataTransformers();
 			foreach ( $transformers as $transformer ) {
 				if ( $transformer instanceof ValidationHelper ) {
-					$transformer->validate( $this->normalized, $this->validationErrors );
+					$transformer->validate(
+						$this->gateway,
+						$this->normalized,
+						$this->validationErrors
+					);
 				}
 			}
 		}
