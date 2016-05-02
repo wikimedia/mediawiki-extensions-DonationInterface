@@ -2419,15 +2419,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 			switch ( $type ) {
-			case 'address' :
-				$check_not_empty = array(
-					'street',
-					'city',
-					'state',
-					'country',
-					'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
-					//however, that's not happening in this class in the code I'm replacing, so...
-					//TODO: Something clever in the DataValidator with data groups like these.
+				case 'address' :
+					$check_not_empty = array(
+						'street',
+						'city',
+						'state',
+						'country',
+						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
+						//however, that's not happening in this class in the code I'm replacing, so...
+						//TODO: Something clever in the DataValidator with data groups like these.
 					);
 					break;
 				case 'amount' :
