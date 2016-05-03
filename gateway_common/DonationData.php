@@ -70,7 +70,7 @@ class DonationData implements LogPrefixProvider {
 		'utm_key',
 		'language',
 		'uselang',
-		'token',
+		'wmf_token',
 		'contribution_tracking_id',
 		'data_hash',
 		'action',

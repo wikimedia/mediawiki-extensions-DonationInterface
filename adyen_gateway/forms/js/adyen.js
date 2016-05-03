@@ -38,7 +38,7 @@
 			utm_medium: $( '#utm_medium' ).val(),
 			referrer: $( '#referrer' ).val(),
 			recurring: $( '#recurring' ).val(),
-			token: $( '#token' ).val(),
+			wmf_token: $( '#wmf_token' ).val(),
 			format: 'json'
 		};
 

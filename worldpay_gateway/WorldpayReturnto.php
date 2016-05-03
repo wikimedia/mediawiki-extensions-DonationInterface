@@ -28,7 +28,7 @@ class WorldpayReturnto implements StagingHelper {
 		// Additionally a properly encoded & will make their server respond
 		// MessageCode 302 (which means 'unavailable') unless it is wrapped in
 		// CDATA tags because godonlyknows
-		$arr_query['token'] = rawurlencode( $adapter->token_getSaltedSessionToken() );
+		$arr_query['wmf_token'] = rawurlencode( $adapter->token_getSaltedSessionToken() );
 		if ( !empty( $normalized['ffname'] ) ) {
 			$arr_query['ffname'] = rawurlencode( $normalized['ffname'] );
 		}

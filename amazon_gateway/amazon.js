@@ -285,7 +285,7 @@
 			recurring: isRecurring,
 			amount: $( '#amount' ).val(),
 			currency_code: $( '#currency_code' ).val(),
-			token: $( '#token' ).val()
+			wmf_token: $( '#wmf_token' ).val()
 		};
 
 		if ( isRecurring ) {

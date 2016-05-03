@@ -58,7 +58,7 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		'@language', // => WebRequest->getText( 'uselang', WebRequest->getText( 'language' ) ),
 		'@email-opt', // => WebRequest->getText( 'email-opt' ),
 		'@test_string', // => WebRequest->getText( 'process' ), // for showing payflow string during testing
-		'@token', // => $token,
+		'@wmf_token', // => $wmf_token,
 		'@contribution_tracking_id', // => WebRequest->getText( 'contribution_tracking_id' ),
 		'@data_hash', // => WebRequest->getText( 'data_hash' ),
 		'@action', // => WebRequest->getText( 'action' ),
