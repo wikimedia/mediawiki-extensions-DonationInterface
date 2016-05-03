@@ -163,6 +163,7 @@ $wgAutoloadClasses['SystemStatus'] = __DIR__ . '/special/SystemStatus.php';
  * Global form dir
  */
 $wgDonationInterfaceHtmlFormDir = __DIR__ . '/gateway_forms/rapidhtml/html';
+# FIXME: Consider defaulting to true.
 $wgDonationInterfaceTest = false;
 
 /**
@@ -277,7 +278,8 @@ $wgDonationInterfaceFailPage = 'Donate-error';
  * Where to send donors who click a 'cancel' button on a payment processor's web site.
  * Currently only used with PayPal.
  */
-$wgDonationInterfaceCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
+//$wgDonationInterfaceCancelPage = 'https://wikimediafoundation.org/wiki/Ways_to_Give';
+$wgDonationInterfaceCancelPage = 'Donate-error';
 
 /**
  * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times.

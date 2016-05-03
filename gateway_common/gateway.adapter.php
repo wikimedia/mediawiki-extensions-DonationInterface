@@ -1654,17 +1654,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case FinalStatus::COMPLETE:
+				// This transaction completed successfully.  Send to the CRM
+				// for filing.
 				$this->pushMessage( 'complete' );
 				break;
 
 			case FinalStatus::PENDING:
 			case FinalStatus::PENDING_POKE:
-				// FIXME: I don't understand what the pending queue does.
+				// Don't consider this a done deal.  Send to a database where
+				// various workers can clean up and correlate pending data as
+				// new information arrives from the processor.
 				$this->pushMessage( 'pending' );
 				break;
 
 			default:
-				// No action
+				// No action.  FIXME: But don't callers assume that we've done
+				// something responsible with this message?  Throw a not sent
+				// exception?
 				$this->logger->info( "Not sending queue message for status {$status}." );
 		}
 	}

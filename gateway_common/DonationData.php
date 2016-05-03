@@ -977,7 +977,8 @@ class DonationData implements LogPrefixProvider {
 			// Run legacy validations
 			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized );
 
-			// Run modular validations.  FIXME: Move this... somewhere.
+			// Run modular validations.
+			// TODO: Move this... somewhere.
 			$transformers = $this->gateway->getDataTransformers();
 			foreach ( $transformers as $transformer ) {
 				if ( $transformer instanceof ValidationHelper ) {
