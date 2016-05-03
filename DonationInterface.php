@@ -207,6 +207,13 @@ $wgDonationInterfaceDisplayDebug = false;
 $wgDonationInterfaceUseSyslog = false;
 $wgDonationInterfaceSaveCommStats = false;
 
+/**
+ * Set to true to allow debug level log messages.
+ * TODO: Deprecate and show how to accomplish the same thing using Monolog
+ * configuration.
+ */
+$wgDonationInterfaceDebugLog = false;
+
 $wgDonationInterfaceCSSVersion = 1;
 $wgDonationInterfaceTimeout = 5;
 $wgDonationInterfaceDefaultForm = 'RapidHtml';
