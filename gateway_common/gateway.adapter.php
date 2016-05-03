@@ -1443,10 +1443,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// For anything else, delete all the headers and the blank line after
 		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
-		if ( $type === 'json' ) {
+		switch ( $type ) {
+		case 'json':
 			return json_decode( $noHeaders, true );
-		}
-		if ( $type === 'delimited' ) {
+
+		case 'delimited':
 			$delimiter = $this->transaction_option( 'response_delimiter' );
 			$keys = $this->transaction_option( 'response_keys' );
 			if ( !$delimiter || !$keys ) {
@@ -1458,6 +1459,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.');
 			}
 			return $combined;
+
+		case 'query_string':
+			$parsed = array();
+			parse_str( $noHeaders, $parsed );
+			return $parsed;
 		}
 		return $noHeaders;
 	}

@@ -202,8 +202,13 @@ interface GatewayType {
 	function getCommunicationType();
 
 	/**
-	 * Data format for responses coming back from the processor.
-	 * Should be 'xml', 'json', or 'delimited'
+	 * Data format for responses coming back from the processor, from
+	 * getFormattedResponse.  Should be one of:
+	 *   'xml': Parse XML to a DomDocument.
+	 *   'json': Parse JSON into an array tree.
+	 *   'delimited': Parse a character-delimited list into an array.
+	 *   'query_string': Otherwise known as application/x-www-form-urlencoded.
+	 *       Parse a query string and urldecode into a map array.
 	 *
 	 * @return string
 	 */
