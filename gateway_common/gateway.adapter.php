@@ -502,7 +502,34 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
 			}
 		}
+		$this->logger->debug( "Adding response data: " . json_encode( $newlyUnstagedData ) );
 		$this->dataObj->addData( $newlyUnstagedData );
+	}
+
+	/**
+	 * Change the keys on this data from processor API names to normalized names.
+	 *
+	 * @param array $processor_data Response data with raw API keys
+	 * @return array data with normalized keys
+	 *
+	 * TODO: Figure out why this isn't the default behavior in addResponseData.
+	 * Once that's resolved, we might operate on member fields rather than do
+	 * this as a function.
+	 */
+	public function unstageKeys( $processor_data, $key_map = null ) {
+		if ( $key_map === null ) {
+			$key_map = $this->var_map;
+		}
+
+		$staged_data = array();
+		foreach ( $key_map as $their_key => $our_key ) {
+			if ( isset( $processor_data[$their_key] ) ) {
+				$staged_data[$our_key] = $processor_data[$their_key];
+			} else {
+				// TODO: do any callers care? $emptyVars[] = $their_key;
+			}
+		}
+		return $staged_data;
 	}
 
 	public function getData_Unstaged_Escaped( $val = '' ) {
