@@ -362,6 +362,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	// FIXME: Not convinced we need this.
+	public function getDataTransformers() {
+		return $this->data_transformers;
+	}
+
 	/**
 	 * Determine which account to use for this session
 	 */
@@ -497,7 +502,34 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
 			}
 		}
+		$this->logger->debug( "Adding response data: " . json_encode( $newlyUnstagedData ) );
 		$this->dataObj->addData( $newlyUnstagedData );
+	}
+
+	/**
+	 * Change the keys on this data from processor API names to normalized names.
+	 *
+	 * @param array $processor_data Response data with raw API keys
+	 * @return array data with normalized keys
+	 *
+	 * TODO: Figure out why this isn't the default behavior in addResponseData.
+	 * Once that's resolved, we might operate on member fields rather than do
+	 * this as a function.
+	 */
+	public function unstageKeys( $processor_data, $key_map = null ) {
+		if ( $key_map === null ) {
+			$key_map = $this->var_map;
+		}
+
+		$staged_data = array();
+		foreach ( $key_map as $their_key => $our_key ) {
+			if ( isset( $processor_data[$their_key] ) ) {
+				$staged_data[$our_key] = $processor_data[$their_key];
+			} else {
+				// TODO: do any callers care? $emptyVars[] = $their_key;
+			}
+		}
+		return $staged_data;
 	}
 
 	public function getData_Unstaged_Escaped( $val = '' ) {
@@ -1438,10 +1470,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// For anything else, delete all the headers and the blank line after
 		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
-		if ( $type === 'json' ) {
+		switch ( $type ) {
+		case 'json':
 			return json_decode( $noHeaders, true );
-		}
-		if ( $type === 'delimited' ) {
+
+		case 'delimited':
 			$delimiter = $this->transaction_option( 'response_delimiter' );
 			$keys = $this->transaction_option( 'response_keys' );
 			if ( !$delimiter || !$keys ) {
@@ -1453,6 +1486,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.');
 			}
 			return $combined;
+
+		case 'query_string':
+			$parsed = array();
+			parse_str( $noHeaders, $parsed );
+			return $parsed;
 		}
 		return $noHeaders;
 	}
@@ -1643,17 +1681,23 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case FinalStatus::COMPLETE:
+				// This transaction completed successfully.  Send to the CRM
+				// for filing.
 				$this->pushMessage( 'complete' );
 				break;
 
 			case FinalStatus::PENDING:
 			case FinalStatus::PENDING_POKE:
-				// FIXME: I don't understand what the pending queue does.
+				// Don't consider this a done deal.  Send to a database where
+				// various workers can clean up and correlate pending data as
+				// new information arrives from the processor.
 				$this->pushMessage( 'pending' );
 				break;
 
 			default:
-				// No action
+				// No action.  FIXME: But don't callers assume that we've done
+				// something responsible with this message?  Throw a not sent
+				// exception?
 				$this->logger->info( "Not sending queue message for status {$status}." );
 		}
 	}

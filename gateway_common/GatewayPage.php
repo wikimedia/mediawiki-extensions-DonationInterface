@@ -28,7 +28,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Derived classes must override this with the name of the gateway
-	 * adapter class to use in this page.
+	 * adapter class to use in this page, or override the getAdapterClass
+	 * function.
 	 * @var string
 	 */
 	protected $adapterClass;
@@ -62,22 +63,24 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	public function __construct() {
 		try {
-			$this->adapter = new $this->adapterClass;
+			$className = $this->getAdapterClass();
+			$this->adapter = new $className;
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 			$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		} catch ( Exception $ex ) {
 			if ( !$this->logger ) {
 				$this->logger = DonationLoggerFactory::getLoggerForType(
-					$this->adapterClass,
+					$this->getAdapterClass(),
 					$this->getLogPrefix()
 				);
 			}
 			$this->logger->error(
-				"Exception in GatewayPage constructor with adapter class {$this->adapterClass}: " .
+				"Exception in GatewayPage constructor with adapter class {$this->getAdapterClass()}: " .
 				    "{$ex->getMessage()}\n{$ex->getTraceAsString()}"
 			);
 			$this->isFailed = true;
 		}
+
 		$me = get_called_class();
 		parent::__construct( $me );
 	}
@@ -180,7 +183,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$page = ResultPages::getFailPage( $this->adapter );
 		} else {
 			$page = ResultPages::getFailPageForType(
-				$this->adapterClass,
+				$this->getAdapterClass(),
 				$this->getLogPrefix()
 			);
 		}
@@ -188,6 +191,17 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$this->logger->info( $log_message );
 
 		$output->redirect( $page );
+	}
+
+	/**
+	 * Get the current adapter class
+	 * @return string containing the chosen adapter class name
+	 *
+	 * Override if your gateway selects between multiple adapters based on
+	 * context.
+	 */
+	protected function getAdapterClass() {
+		return $this->adapterClass;
 	}
 
 	/**
@@ -513,5 +527,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			}
 		}
 		return implode( ':', $info ) . ' ';
+	}
+
+	public function setHeaders() {
+		parent::setHeaders();
+
+		// TODO: Switch title according to failiness.
+		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
 	}
 }

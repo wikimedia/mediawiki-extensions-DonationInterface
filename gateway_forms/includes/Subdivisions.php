@@ -4,14 +4,29 @@ class Subdivisions {
 
 	public static function getByCountry ( $country ) {
 		if ( isset( self::$list[$country] ) ) {
-			return self::$list[$country];
+			$divisions = self::$list[$country];
+
+			// Localize subdivisions where possible
+			if ( isset( self::$keyBase[$country] ) ) {
+				foreach ( $divisions as $abbr => $name ) {
+					$key = self::$keyBase[$country] . $abbr;
+					if ( WmfFramework::messageExists( $key ) ) {
+						$divisions[$abbr] = WmfFramework::formatMessage( $key );
+					}
+				}
+			}
+			return $divisions;
 		}
 		return false;
 	}
 
+	private static $keyBase = array(
+		'CA' => 'donate_interface-province-dropdown-',
+		'US' => 'donate_interface-state-dropdown-',
+	);
+
 	private static $list = array(
 		'AU' => array(
-			'YY' => 'Select a State/Territory',
 			'ACI' => 'Ashmore and Cartier Islands',
 			'AAT' => 'Australian Antarctic Territory',
 			'ACT' => 'Australian Capital Territory',
@@ -30,7 +45,6 @@ class Subdivisions {
 			'WA' => 'Western Australia',
 		),
 		'CA' => array(
-			'YY' => 'Select a Province',
 			'AB' => 'Alberta',
 			'BC' => 'British Columbia',
 			'MB' => 'Manitoba',
@@ -46,7 +60,6 @@ class Subdivisions {
 			'YT' => 'Yukon',
 		),
 		'US' => array(
-			'YY' => 'Select a State',
 			'AK' => 'Alaska',
 			'AL' => 'Alabama',
 			'AR' => 'Arkansas',

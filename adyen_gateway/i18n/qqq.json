@@ -4,7 +4,6 @@
 			"Shirayuki"
 		]
 	},
-	"adyengateway": "{{Identical|Make your donation now}}",
 	"adyen_gateway-desc": "{{desc}}",
 	"adyen_gateway-response-default": "Error message if something went wrong on our side."
 }

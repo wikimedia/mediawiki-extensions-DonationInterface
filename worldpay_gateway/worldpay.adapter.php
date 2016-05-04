@@ -702,6 +702,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	 * @throws ResponseProcessingException if any required variables are missing
 	 */
 	protected function addRequiredData( $data, $pull_vars ) {
+		// TODO: use unstageKeys
 		$emptyVars = array( );
 		$addme = array( );
 		foreach ( $pull_vars as $theirs => $ours ) {

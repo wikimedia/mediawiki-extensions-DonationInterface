@@ -194,9 +194,12 @@ textarea::-moz-placeholder {
 }
 
 .amount_header span {
-  font-size: 1.8em;
   display: block;
   color: #006699;
+}
+
+span#selected-amount {
+  font-size: 1.8em;
 }
 
 .cc_header {
@@ -254,6 +257,10 @@ div.donor { width: 100% !important; }
 }
 
 #payment-table-donor select { padding: .9em 1em !important; line-height: 40px; }
+
+#amount_input * {
+    vertical-align: top;
+}
 
 #topError {
 	max-width: 481px;

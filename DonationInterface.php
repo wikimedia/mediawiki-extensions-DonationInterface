@@ -73,6 +73,7 @@ $wgAutoloadClasses['StreetAddress'] = __DIR__ . '/gateway_common/StreetAddress.p
 $wgAutoloadClasses['UnstagingHelper'] = __DIR__ . '/gateway_common/UnstagingHelper.php';
 $wgAutoloadClasses['WmfFramework_Mediawiki'] = __DIR__ . '/gateway_common/WmfFramework.mediawiki.php';
 $wgAutoloadClasses['WmfFrameworkLogHandler'] = __DIR__ . '/gateway_common/WmfFrameworkLogHandler.php';
+$wgAutoloadClasses['ValidationHelper'] = __DIR__ . '/gateway_common/ValidationHelper.php';
 
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = __DIR__ . '/gateway_forms/Form.php';
@@ -162,6 +163,7 @@ $wgAutoloadClasses['SystemStatus'] = __DIR__ . '/special/SystemStatus.php';
  * Global form dir
  */
 $wgDonationInterfaceHtmlFormDir = __DIR__ . '/gateway_forms/rapidhtml/html';
+# FIXME: Consider defaulting to true.
 $wgDonationInterfaceTest = false;
 
 /**
@@ -276,7 +278,8 @@ $wgDonationInterfaceFailPage = 'Donate-error';
  * Where to send donors who click a 'cancel' button on a payment processor's web site.
  * Currently only used with PayPal.
  */
-$wgDonationInterfaceCancelPage = ''; //https://wikimediafoundation.org/wiki/Ways_to_Give
+//$wgDonationInterfaceCancelPage = 'https://wikimediafoundation.org/wiki/Ways_to_Give';
+$wgDonationInterfaceCancelPage = 'Donate-error';
 
 /**
  * Retry Loop Count - If there's a place where the API can choose to loop on some retry behavior, do it this number of times.
@@ -925,7 +928,35 @@ $wgResourceModules['jquery.payment'] = array(
 	'scripts' => 'jquery.payment/jquery.payment.js',
 ) + $wgResourceTemplate;
 
-//Forms
+// Forms
+// Exchange rates for all currencies
+$wgResourceModules[ 'ext.donationInterface.currencyRates' ] = array(
+	'class' => 'CurrencyRatesModule',
+);
+
+// Validation for modern forms
+// FIXME: just redirecting to crappy old functions for now.
+// Migrate everything using di.form.core.validate to mustache,
+// then completely rewrite those functions
+$wgResourceModules[ 'ext.donationInterface.validation' ] = array(
+	'scripts' => 'ext.donationInterface.validation.js',
+	'dependencies' => array(
+		'di.form.core.validate',
+		/*'ext.donationInterface.currencyRates',
+		'ext.donationInterface.errorMessages',*/
+	),
+	'localBasePath' => __DIR__ . '/modules/js',
+	'remoteExtPath' => 'DonationInterface/modules/js',
+);
+
+// Basic setup for modern forms
+$wgResourceModules[ 'ext.donationInterface.forms' ] = array(
+	'scripts' => 'ext.donationInterface.forms.js',
+	'dependencies' => 'ext.donationInterface.validation',
+	'localBasePath' => __DIR__ . '/modules/js',
+	'remoteExtPath' => 'DonationInterface/modules/js',
+);
+
 $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 	'styles' => array(
 		'forms.css'
@@ -937,11 +968,12 @@ $wgResourceModules['ext.donationinterface.mustache.styles'] = array (
 
 $wgResourceModules['ext.donationinterface.adyen.scripts'] = array (
 	'scripts' => 'adyen.js',
-	'dependencies' => 'di.form.core.validate',
+	'dependencies' => 'ext.donationInterface.forms',
 	'localBasePath' => __DIR__ . '/adyen_gateway/forms/js',
 	'remoteExtPath' => 'DonationInterface/adyen_gateway/forms/js'
 );
 
+// TODO: remove
 $wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
 	'scripts' => 'astropay.js',
 	'dependencies' => 'di.form.core.validate',
@@ -951,7 +983,7 @@ $wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
 
 $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'scripts' => 'esop.js',
-	'dependencies' => 'di.form.core.validate',
+	'dependencies' => 'ext.donationInterface.forms',
 	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/js',
 	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/js',
 	'messages' => array(
@@ -959,6 +991,7 @@ $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	)
 );
 
+// FIXME: remove if unused
 $wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (
 	'styles' => 'iframe.css',
 	'dependencies' => 'di.form.core.validate',
@@ -975,7 +1008,7 @@ $wgResourceModules['ext.donationinterface.amazon.styles'] = array(
 
 $wgResourceModules['ext.donationinterface.amazon.scripts'] = array(
 	'scripts' => 'amazon.js',
-	'dependencies' => 'di.form.core.validate',
+	'dependencies' => 'ext.donationInterface.validation',
 	'localBasePath' => __DIR__ . '/amazon_gateway',
 	'remoteExtPath' => 'DonationInterface/amazon_gateway',
 	'messages' => array(
@@ -1049,6 +1082,7 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 );
 
 // minimum amounts for all currencies
+// FIXME: this is actually rates, remove
 $wgResourceModules[ 'di.form.core.minimums' ] = array(
 	'class' => 'CurrencyRatesModule',
 );
@@ -1056,7 +1090,10 @@ $wgResourceModules[ 'di.form.core.minimums' ] = array(
 // form validation resource
 $wgResourceModules[ 'di.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
-	'dependencies' => array( 'di.form.core.minimums', 'ext.donationInterface.errorMessages' ),
+	'dependencies' => array(
+		'ext.donationInterface.currencyRates',
+		'ext.donationInterface.errorMessages'
+	),
 	'localBasePath' => __DIR__ . '/modules',
 	'remoteExtPath' => 'DonationInterface/modules'
 );

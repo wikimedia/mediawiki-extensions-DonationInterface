@@ -5,7 +5,6 @@
 			"Shirayuki"
 		]
 	},
-	"globalcollectgateway": "{{Identical|Make your donation now}}",
 	"globalcollect_gateway-desc": "{{desc}}",
 	"globalcollect_gateway-fakesucceed": "This message is shown in a test environment. It labels a button that will signal a successful payment to the software.",
 	"globalcollect_gateway-fakefail": "This message is shown in a test environment. It labels a button that will signal a failed payment to the software.",

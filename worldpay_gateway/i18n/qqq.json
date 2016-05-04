@@ -1,6 +1,5 @@
 {
 	"@metadata": [],
-	"worldpaygateway": "{{Identical|Make your donation now}}",
 	"apihelp-di_wp_validate-description": "{{doc-apihelp-description|di_wp_validate}}",
 	"apihelp-di_wp_validate-param-fname": "{{doc-apihelp-param|di_wp_validate|fname}}",
 	"apihelp-di_wp_validate-param-lname": "{{doc-apihelp-param|di_wp_validate|lname}}",

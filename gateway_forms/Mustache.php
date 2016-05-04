@@ -164,20 +164,30 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$data['address_css_class'] = 'halfwidth';
 
 				// Does this country require a subdivision input?
-				$state_list = Subdivisions::getByCountry( $data['country'] );
-				if ( $state_list ) {
-					$data['address_css_class'] = 'thirdwidth';
-					$data['state_required'] = true;
-					$data['state_options'] = array();
-					foreach ( $state_list as $abbr => $name ) {
-						$data['state_options'][] = array( 'abbr' => $abbr, 'name' => $name );
-					}
-				}
-
+				$this->setStateOptions( $data );
 			}
 		}
 	}
 
+	protected function setStateOptions( &$data ) {
+		$state_list = Subdivisions::getByCountry( $data['country'] );
+		if ( $state_list ) {
+			$data['address_css_class'] = 'thirdwidth';
+			$data['state_required'] = true;
+			$data['state_options'] = array();
+
+			foreach ( $state_list as $abbr => $name ) {
+				$selected = isset( $data['state'] )
+					&& $data['state'] === $abbr;
+
+				$data['state_options'][] = array(
+					'abbr' => $abbr,
+					'name' => $name,
+					'selected' => $selected,
+				);
+			}
+		}
+	}
 	protected function addCurrencyData( &$data ) {
 		$supportedCurrencies = $this->gateway->getCurrencies();
 		if ( count( $supportedCurrencies ) === 1 ) {

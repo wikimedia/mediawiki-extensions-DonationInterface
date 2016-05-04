@@ -186,6 +186,7 @@ class PaypalAdapter extends GatewayAdapter {
 			case 'Donate':
 			case 'DonateXclick':
 			case 'DonateRecurring':
+				// FIXME: Push into a standard namevalue+redirect handler.
 				$this->transactions[ $transaction ][ 'url' ] =
 					$this->getGlobal( 'URL' ) . '?' . http_build_query( $this->buildRequestParams() );
 				$result = parent::do_transaction( $transaction );

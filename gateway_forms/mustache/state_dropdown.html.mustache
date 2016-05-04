@@ -1,0 +1,8 @@
+{{# state_required }}
+								<select class="{{ address_css_class }}" name="state" id="state" title="{{ l10n "donate_interface-donor-state" }}" required>
+								    <option value="YY" {{^ state }}selected {{/ state }}>{{ l10n "donate_interface-donor-state" }}</option>
+    {{# state_options }}
+								    <option value="{{ abbr }}" {{# selected }}selected {{/ selected }}>{{ name }}</option>
+    {{/ state_options }}
+								</select>
+{{/ state_required }}

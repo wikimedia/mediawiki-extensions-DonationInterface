@@ -56,12 +56,15 @@ class WmfFramework_Mediawiki {
 	/**
 	 * wmfMessageExists returns true if a translatable message has been defined
 	 * for the string and language that have been passed in, false if none is
-	 * present.
+	 * present. If no language is passed in, defaults to self::getLanguageCode()
 	 * @param string $msg_key The message string to look up.
-	 * @param string $language A valid mediawiki language code.
+	 * @param string $language A valid mediawiki language code, or null.
 	 * @return boolean - true if message exists, otherwise false.
 	 */
-	public static function messageExists( $msg_key, $language ) {
+	public static function messageExists( $msg_key, $language = null ) {
+		if ( $language === null ) {
+			$language = self::getLanguageCode();
+		}
 		return Language::getMessageFor( $msg_key, $language ) !== null;
 	}
 

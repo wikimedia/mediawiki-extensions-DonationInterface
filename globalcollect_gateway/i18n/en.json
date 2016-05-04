@@ -2,7 +2,6 @@
 	"@metadata": {
 		"authors": []
 	},
-	"globalcollectgateway": "Make your donation now",
 	"globalcollect_gateway-desc": "GlobalCollect payment processing",
 	"globalcollect_gateway-fakesucceed": "Fake a successful payment",
 	"globalcollect_gateway-fakefail": "Fake a failed payment",
