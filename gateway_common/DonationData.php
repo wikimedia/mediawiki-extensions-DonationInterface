@@ -972,10 +972,10 @@ class DonationData implements LogPrefixProvider {
 	 * If it is not, it will return an array of errors ready for any 
 	 * DonationInterface form class derivitive to display.
 	 */
-	public function getValidationErrors( $recalculate = false ) {
+	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
 			// Run legacy validations
-			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized );
+			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
 
 			// Run modular validations.
 			// TODO: Move this... somewhere.
