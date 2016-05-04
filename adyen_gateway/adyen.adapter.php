@@ -30,9 +30,22 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
+	function getAddressRequired() {
+
+		$countries = $this->config[ 'address_required_countries' ];
+		if( in_array( $this->getData_Unstaged_Escaped( 'country' ), $countries )) {
+			return true;
+		}
+		return false;
+	}
+
 	public function getRequiredFields() {
+
+		if( $this->getAddressRequired() ) {
+			$this->payment_methods['cc']['validation']['address'] = true;
+		}
+
 		$fields = parent::getRequiredFields();
-		$fields[] = 'address';
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}
@@ -87,18 +100,11 @@ class AdyenAdapter extends GatewayAdapter {
 	 * Define transactions
 	 */
 	function defineTransactions() {
-		
+
 		$this->transactions = array( );
 
-		$this->transactions[ 'donate' ] = array(
-			'request' => array(
+		$requestFields = array(
 				'allowedMethods',
-				'billingAddress.street',
-				'billingAddress.city',
-				'billingAddress.postalCode',
-				'billingAddress.stateOrProvince',
-				'billingAddress.country',
-				'billingAddressType',
 				'card.cardHolderName',
 				'currencyCode',
 				'merchantAccount',
@@ -118,7 +124,24 @@ class AdyenAdapter extends GatewayAdapter {
 				//'shopperStatement',
 				//'merchantReturnData',
 				//'deliveryAddressType',
-			),
+		);
+
+		// Add address fields for countries that use them.
+		$addressFields = array (
+			'billingAddress.street',
+			'billingAddress.city',
+			'billingAddress.postalCode',
+			'billingAddress.stateOrProvince',
+			'billingAddress.country',
+			'billingAddressType',
+		);
+
+		if ( $this->getAddressRequired() )  {
+			$requestFields = array_merge( $requestFields, $addressFields );
+		}
+
+		$this->transactions[ 'donate' ] = array(
+			'request' => $requestFields,
 			'values' => array(
 				'allowedMethods' => implode( ',', $this->getAllowedPaymentMethods() ),
 				'billingAddressType' => 2, // hide billing UI fields
