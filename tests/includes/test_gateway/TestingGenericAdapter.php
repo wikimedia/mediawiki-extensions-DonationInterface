@@ -110,4 +110,8 @@ class TestingGenericAdapter extends GatewayAdapter {
 
 	public function doPayment() {
 	}
+
+	protected function getBasedir() {
+		return __DIR__;
+	}
 }

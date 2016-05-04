@@ -52,6 +52,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @var TestingDonationLogger
 	 */
 	protected $testLogger;
+	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
 
 	/**
 	 * @param $name string The name of the test case
@@ -63,9 +64,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		//Just in case you got here without running the configuration...
 		global $wgDonationInterfaceTestMode;
 		$wgDonationInterfaceTestMode = true;
-
-		$adapterclass = TESTS_ADAPTER_DEFAULT;
-		$this->testAdapterClass = $adapterclass;
 
 		parent::__construct( $name, $data, $dataName );
 	}
@@ -454,10 +452,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$class = $this->testAdapterClass;
 		$gateway = new $class( $p1 );
 
+		$classReflection = new ReflectionClass( $gateway );
+
 		// FIXME: Find a more elegant way to hackity hacken hack.
 		// We want to override any define- functions with hacky values.
 		foreach ( $setup_hacks as $field => $value ) {
-			$gateway->$field = $value;
+			if ( property_exists( $class, $field ) ) {
+				$propertyReflection = $classReflection->getProperty( $field );
+				$propertyReflection->setAccessible( true );
+				$propertyReflection->setValue( $gateway, $value );
+			}
 		}
 
 		return $gateway;
@@ -519,7 +523,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * supplied in $perform_these_checks.
 	 * Optional: Asserts that the gateway has logged nothing at ERROR level.
 	 *
-	 * @param class $special_page_class A testing descendant of GatewayPage
+	 * @param string $special_page_class A testing descendant of GatewayPage
 	 * @param array $initial_vars Array that will be loaded straight into a
 	 * test version of the http request.
 	 * @param array $perform_these_checks Array of checks to perform in the

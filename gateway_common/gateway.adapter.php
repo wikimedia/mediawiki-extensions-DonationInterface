@@ -195,7 +195,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	const IDENTIFIER = 'donation';
 	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
 
-	public $log_outbound = false; // This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	// This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	public $log_outbound = false;
+
+	protected $order_id_candidates;
+	protected $order_id_meta;
 
 	/**
 	 * Default response type to be the same as communication type.
@@ -296,6 +300,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function getRequest() {
 		return $this->request;
 	}
+
+	/**
+	 * Get the directory for processor-specific classes and configuration
+	 * @return string
+	 */
+	abstract protected function getBasedir();
 
 	public function loadConfig() {
 		$yaml = new Parser();
@@ -514,6 +524,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Change the keys on this data from processor API names to normalized names.
 	 *
 	 * @param array $processor_data Response data with raw API keys
+	 * @param array $key_map map processor keys to our keys, defaults to
+	 *                       $this->var_map
 	 * @return array data with normalized keys
 	 *
 	 * TODO: Figure out why this isn't the default behavior in addResponseData.
@@ -831,7 +843,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * structure and adding populated nodes by reference.
 	 * @param array $structure Current transaction's more leafward structure,
 	 * from the point of view of the current XML node.
-	 * @param xmlNode $node The current XML node.
+	 * @param DOMElement $node The current XML node.
 	 * @param bool $js More likely cruft relating back to buildTransactionFormat
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
@@ -884,7 +896,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * the passed-in parent node, only if the current node would have a
 	 * non-empty value.
 	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param string $node The parent node this node will be contained in, if it
+	 * @param DOMElement $node The parent node this node will be contained in, if it
 	 *  is determined to have a non-empty value.
 	 * @param bool $js Probably cruft at this point. This is connected to the
 	 * function buildTransactionFormat.
@@ -912,9 +924,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * This function provides all functionality to the external world to communicate with a
 	 * properly constructed gateway and handle all the return data in an appropriate manner.
-	 * -- Appropriateness is determined by the requested $transaction structure and definition/
+	 * -- Appropriateness is determined by the requested $transaction structure and definition.
 	 *
-	 * @param string  | $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
+	 * @param string $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
 	 *  that maps to a first-level key in the $transactions array.
 	 *
 	 * @return PaymentTransactionResponse
@@ -2873,7 +2885,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * For those times you want to have the user functionally start over
 	 * without, you know, cutting your entire head off like you do with
 	 * session_unsetAllData().
-	 * @param string $force Behavior Description:
+	 * @param bool $force Behavior Description:
 	 * $force = true: Reset for potential totally new payment, but keep
 	 * numAttempt and other antifraud things (velocity data) around.
 	 * $force = false: Keep all donor data around unless numAttempt has hit
@@ -3542,7 +3554,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
 			if ( !$ctid ) {
-				$ctid = $dataObj->saveContributionTrackingData( true );
+				$ctid = $dataObj->saveContributionTrackingData();
 			}
 
 			$this->session_ensure();
@@ -3589,6 +3601,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			if ( array_key_exists( $key, $data ) ) {
 				return $data[$key];
 			}
+			return false;
 		} else {
 			return $data;
 		}
