@@ -3174,11 +3174,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 			$token_check = $this->getData_Unstaged_Escaped( 'wmf_token' );
 
-			// @deprecated soft transition code:
-			if ( $this->dataObj->isSomething( 'token' ) ) {
-				$token_check = $this->getData_Unstaged_Escaped( 'token' );
-			}
-
 			$match = $this->token_matchEditToken( $token_check );
 			if ( $this->dataObj->wasPosted() ) {
 				$this->logger->debug( 'Submitted edit token: ' . $token_check );
