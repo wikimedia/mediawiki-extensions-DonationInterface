@@ -1068,7 +1068,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
 
 			// Process the formatted response. This will then drive the result action
-			try{
+			try {
 				$this->processResponse( $formatted );
 			} catch ( ResponseProcessingException $ex ) {
 				$errCode = $ex->getErrorCode();
