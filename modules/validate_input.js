@@ -121,7 +121,7 @@ window.validate_personal = function () {
 		errorTemplate = mediaWiki.msg( 'donate_interface-error-msg' ),
 		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ],
-		rules = mediaWiki.config.get( 'wgDonationInterfaceValidationRules' );
+		rules = mediaWiki.config.get( 'wgDonationInterfaceValidationRules' ) || [];
 
 	function clearError( field ) {
 		$( '#' + field ).removeClass( 'errorHighlight' );
