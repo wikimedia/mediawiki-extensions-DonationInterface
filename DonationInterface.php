@@ -995,14 +995,6 @@ $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	)
 );
 
-// FIXME: remove if unused
-$wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (
-	'styles' => 'iframe.css',
-	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/css',
-	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/css'
-);
-
 $wgResourceModules['ext.donationinterface.amazon.styles'] = array(
 	'styles' => 'amazon.css',
 	'localBasePath' => __DIR__ . '/amazon_gateway',
