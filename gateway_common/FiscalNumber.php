@@ -22,8 +22,8 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		),
 		'CO' => array(
 			'numeric' => true,
-			'min' => 11,
-			'max' => 14,
+			'min' => 6,
+			'max' => 10,
 		),
 		'CL' => array(
 			'min' => 8,
