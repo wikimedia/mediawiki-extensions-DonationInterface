@@ -985,14 +985,6 @@ $wgResourceModules['ext.donationinterface.adyen.scripts'] = array (
 	'remoteExtPath' => 'DonationInterface/adyen_gateway/forms/js'
 );
 
-// TODO: remove
-$wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
-	'scripts' => 'astropay.js',
-	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/astropay_gateway',
-	'remoteExtPath' => 'DonationInterface/astropay_gateway'
-);
-
 $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'scripts' => 'esop.js',
 	'dependencies' => 'ext.donationInterface.forms',
