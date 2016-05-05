@@ -6,7 +6,7 @@ bt:
     keys: {  }
 visa:
     paymentproductid: 1
-    label: Visa
+    label_key: donate_interface-card-name-visa
     group: cc
     keys: {  }
     logo: card-visa.png
@@ -49,19 +49,19 @@ jcb:
     logo: card-jcb.png
 mc:
     paymentproductid: 3
-    label: MasterCard
+    label_key: donate_interface-card-name-mc
     group: cc
     keys: {  }
     logo: card-mc.png
 amex:
     paymentproductid: 2
-    label: 'American Express'
+    label_key: donate_interface-card-name-amex
     group: cc
     keys: {  }
     logo: card-amex.png
 discover:
     paymentproductid: 128
-    label: Discover
+    label_key: donate_interface-card-name-discover
     group: cc
     keys: {  }
     countries:
