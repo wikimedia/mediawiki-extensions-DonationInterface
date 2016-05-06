@@ -121,6 +121,7 @@ $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/Cleanu
 $wgAutoloadClasses['PaypalExpressAdapter'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express.adapter.php';
 $wgAutoloadClasses['PaypalExpressGateway'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_gateway.body.php';
 $wgAutoloadClasses['PaypalExpressGatewayResult'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_resultswitcher.body.php';
+$wgAutoloadClasses['PaypalExpressLocale'] = __DIR__ . '/paypal_gateway/express_checkout/PaypalExpressLocale.php';
 $wgAutoloadClasses['PaypalExpressReturnUrl'] = __DIR__ . '/paypal_gateway/express_checkout/PaypalExpressReturnUrl.php';
 $wgAutoloadClasses['PaypalLegacyAdapter'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy.adapter.php';
 $wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
