@@ -762,17 +762,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return '';
 		}
 
-		$queryvals = array();
-
-		// we are going to assume a flat array, because... namevalue.
+		$data = array();
 		foreach ( $structure as $fieldname ) {
 			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryvals[] = $fieldname . '=' . $fieldvalue;
+				$data[$fieldname] = $fieldvalue;
 			}
 		}
 
-		$ret = implode( '&', $queryvals );
+		$ret = http_build_query( $data );
 		return $ret;
 	}
 
@@ -1468,7 +1466,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return $realXML;
 		}
 		// For anything else, delete all the headers and the blank line after
-		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
+		// Note: the negative lookahead is to ignore PayPal's HTTP continue header.
+		$noHeaders = preg_replace( '/^.*?(\r\n\r\n|\n\n)(?!HTTP\/)/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
 		switch ( $type ) {
 		case 'json':
