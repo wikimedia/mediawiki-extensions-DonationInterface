@@ -59,6 +59,7 @@ $wgAutoloadClasses['FallbackLogPrefixer'] = __DIR__ . '/gateway_common/FallbackL
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/GatewayType.php';
+$wgAutoloadClasses['IsoDate'] = __DIR__ . '/gateway_common/IsoDate.php';
 $wgAutoloadClasses['DataValidator'] = __DIR__ . '/gateway_common/DataValidator.php';
 $wgAutoloadClasses['LogPrefixProvider'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['MessageUtils'] = __DIR__ . '/gateway_common/MessageUtils.php';
