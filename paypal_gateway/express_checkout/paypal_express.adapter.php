@@ -80,7 +80,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'EMAIL',
 				'L_PAYMENTREQUEST_0_AMT0',
 				'L_PAYMENTREQUEST_0_DESC0',
-				// FIXME: Investigate rate discount for Digital
+				// TODO: Using item category = 'Digital' might save you on
+				// rates, this should be configurable.
 				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
 				'PAYMENTREQUEST_0_AMT',
 				'PAYMENTREQUEST_0_CURRENCYCODE',
@@ -105,7 +106,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'REQCONFIRMSHIPPING' => 0,
 				'NOSHIPPING' => 1,
 				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
+				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
@@ -137,7 +138,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// // Note that the DESC fields can be tweaked to get different
 				// // effects in the PayPal layout.
 				//'L_PAYMENTREQUEST_0_DESC0',
-				'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
 				'L_PAYMENTREQUEST_0_NAME0',
 				'L_PAYMENTREQUEST_0_QTY0',
 				'MAXAMT',
@@ -169,7 +169,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				//'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-donate-error-thank-you-for-your-support' ),
 				'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
+				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
 				'L_PAYMENTREQUEST_0_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'L_PAYMENTREQUEST_0_QTY0' => 1,
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
