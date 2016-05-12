@@ -889,13 +889,13 @@ class DonationData implements LogPrefixProvider {
 	}
 	
 	/**
-	 * Returns an array of field names we intend to send to activeMQ via a Stomp 
-	 * message. Note: These are field names from the FORM... not the field names 
-	 * that will appear in the stomp message. 
+	 * Returns an array of field names we typically send out in a queue
+	 * message. Note: These are field names from the FORM... not the field
+	 * names that will appear in the message.
 	 * TODO: Consider moving the mapping for donation data from DonationQueue
 	 * to somewhere in DonationData.
 	 */
-	public static function getStompMessageFields() {
+	public static function getMessageFields() {
 		$stomp_fields = array(
 			'contribution_tracking_id',
 			'optout',

@@ -7,8 +7,6 @@
 class DonationApi extends ApiBase {
 	public $donationData, $gateway;
 	public function execute() {
-		global $wgDonationInterfaceTestMode;
-
 		$this->donationData = $this->extractRequestParams();
 
 		$this->gateway = $this->donationData['gateway'];
@@ -17,17 +15,21 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
-		$gateway_opts = array(
-			'api_request' => 'true'
-		);
+		$gatewayObj = $this->getGatewayObject();
+
+		if ( !$gatewayObj ) {
+			return; // already failed with a dieUsage call
+		}
+
+		$gatewayObj->revalidate();
+		if ( !$gatewayObj->validatedOK() ) {
+			$outputResult['errors'] = $gatewayObj->getAllErrors();
+			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
+			$this->getResult()->addValue( null, 'result', $outputResult );
+			return;
+		}
 
 		if ( $this->gateway == 'globalcollect' ) {
-			// FIXME: no test code path in prod
-			if ( $wgDonationInterfaceTestMode === true ) {
-				$gatewayObj = new TestingGlobalCollectAdapter( $gateway_opts );
-			} else {
-				$gatewayObj = new GlobalCollectAdapter( $gateway_opts );
-			}
 			switch ( $method ) {
 				// TODO: add other payment methods
 				case 'cc':
@@ -37,10 +39,7 @@ class DonationApi extends ApiBase {
 					$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
 			}
 		} elseif ( $this->gateway == 'adyen' ) {
-			$gatewayObj = new AdyenAdapter( $gateway_opts );
 			$result = $gatewayObj->do_transaction( 'donate' );
-		} else {
-			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );
 		}
 
 		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();
@@ -196,5 +195,27 @@ class DonationApi extends ApiBase {
 			'action=donate&gateway=globalcollect&amount=2.00&currency_code=USD'
 				=> 'apihelp-donate-example-1',
 		);
+	}
+
+	private function getGatewayObject() {
+		global $wgDonationInterfaceTestMode;
+
+		$gateway_opts = array(
+			'api_request' => 'true'
+		);
+
+		if ( $this->gateway == 'globalcollect' ) {
+			// FIXME: no test code path in prod
+			if ( $wgDonationInterfaceTestMode === true ) {
+				return new TestingGlobalCollectAdapter( $gateway_opts );
+			} else {
+				return new GlobalCollectAdapter( $gateway_opts );
+			}
+		} elseif ( $this->gateway == 'adyen' ) {
+			return new AdyenAdapter( $gateway_opts );
+		} else {
+			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );
+		}
+		return null;
 	}
 }

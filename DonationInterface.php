@@ -40,6 +40,7 @@ if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== t
 $wgAutoloadClasses['AmountInCents'] = __DIR__ . '/gateway_common/AmountInCents.php';
 $wgAutoloadClasses['ArrayHelper'] = __DIR__ . '/gateway_common/ArrayHelper.php';
 $wgAutoloadClasses['FiscalNumber'] = __DIR__ . '/gateway_common/FiscalNumber.php';
+$wgAutoloadClasses['ClientSideValidationHelper'] = __DIR__ . '/gateway_common/ClientSideValidationHelper.php';
 $wgAutoloadClasses['ContributionTrackingPlusUnique'] = __DIR__ . '/gateway_common/ContributionTrackingPlusUnique.php';
 $wgAutoloadClasses['CurrencyRates'] = __DIR__ . '/gateway_common/CurrencyRates.php';
 $wgAutoloadClasses['CurrencyRatesModule'] = __DIR__ . '/modules/CurrencyRatesModule.php';
@@ -973,14 +974,6 @@ $wgResourceModules['ext.donationinterface.adyen.scripts'] = array (
 	'remoteExtPath' => 'DonationInterface/adyen_gateway/forms/js'
 );
 
-// TODO: remove
-$wgResourceModules['ext.donationinterface.astropay.scripts'] = array (
-	'scripts' => 'astropay.js',
-	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/astropay_gateway',
-	'remoteExtPath' => 'DonationInterface/astropay_gateway'
-);
-
 $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'scripts' => 'esop.js',
 	'dependencies' => 'ext.donationInterface.forms',
@@ -989,14 +982,6 @@ $wgResourceModules['ext.donationinterface.worldpay.esopjs'] = array (
 	'messages' => array(
 		'donate_interface-cc-token-expired',
 	)
-);
-
-// FIXME: remove if unused
-$wgResourceModules['ext.donationinterface.worldpay.iframecss'] = array (
-	'styles' => 'iframe.css',
-	'dependencies' => 'di.form.core.validate',
-	'localBasePath' => __DIR__ . '/worldpay_gateway/forms/css',
-	'remoteExtPath' => 'DonationInterface/worldpay_gateway/forms/css'
 );
 
 $wgResourceModules['ext.donationinterface.amazon.styles'] = array(

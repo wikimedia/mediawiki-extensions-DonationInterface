@@ -37,7 +37,7 @@
 {{/ address_required }}
 {{# fiscal_number_required }}
 						<tr>
-							<td>
+							<td>{{! TODO: Explore the new pattern attribute for browser validation while allowing the donor to enter whatever punctuated format they're used to }}
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number" required >
 							</td>
 						</tr>

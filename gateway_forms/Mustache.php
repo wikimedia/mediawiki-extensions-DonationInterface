@@ -150,6 +150,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 
 	protected function addRequiredFields( &$data ) {
+
 		$required_fields = $this->gateway->getRequiredFields();
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
@@ -158,7 +159,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			// FIXME this is conflating the meaning of 'address' with another
 			// definition in getRequiredFields.  These validation structures
 			// should be pulled out into config.
-			if ( $field === 'address' ) {
+			if ( $field === 'street' ) {
+				$data['address_required'] = true;
 				$data['city_required'] = true;
 				$data['postal_code_required'] = true;
 				$data['address_css_class'] = 'halfwidth';

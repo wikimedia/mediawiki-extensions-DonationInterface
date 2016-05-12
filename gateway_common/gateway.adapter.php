@@ -1721,7 +1721,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		// Add the rest of the relevant data
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
-			array_flip( $this->dataObj->getStompMessageFields() )
+			array_flip( $this->dataObj->getMessageFields() )
 		);
 
 		// The order here is important, values in $transaction are considered more definitive
@@ -2419,15 +2419,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 
 			switch ( $type ) {
-			case 'address' :
-				$check_not_empty = array(
-					'street',
-					'city',
-					'state',
-					'country',
-					'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
-					//however, that's not happening in this class in the code I'm replacing, so...
-					//TODO: Something clever in the DataValidator with data groups like these.
+				case 'address' :
+					$check_not_empty = array(
+						'street',
+						'city',
+						'state',
+						'country',
+						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
+						//however, that's not happening in this class in the code I'm replacing, so...
+						//TODO: Something clever in the DataValidator with data groups like these.
 					);
 					break;
 				case 'amount' :
@@ -2816,7 +2816,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function session_addDonorData() {
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
 		$this->session_ensure();
-		$donordata = DonationData::getStompMessageFields();
+		$donordata = DonationData::getMessageFields();
 		$donordata[] = 'order_id';
 		$donordata[] = 'appeal';
 
@@ -3714,5 +3714,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function setClientVariables( &$vars ) {
 		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
+		$clientRules = $this->getClientSideValidationRules();
+		if ( !empty( $clientRules ) ) {
+			$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+		}
+	}
+
+	/**
+	 * Returns an array of rules used to validate data before submission.
+	 * Each entry's key should correspond to the id of the target field, and
+	 * the value should be a list of rules with keys as described in
+	 * @see ClientSideValidationHelper::getClientSideValidation
+	 */
+	protected function getClientSideValidationRules() {
+		$allRules = array();
+		foreach ( $this->data_transformers as $transformer ) {
+			if ( $transformer instanceof ClientSideValidationHelper ) {
+				$transformer->getClientSideValidation(
+					$this->unstaged_data,
+					$allRules
+				);
+			}
+		}
+		return $allRules;
 	}
 }

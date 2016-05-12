@@ -600,8 +600,8 @@ $forms_whitelist['astropay-uy'] = array(
 $forms_whitelist['adyen'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'adyen',
-	'countries' => array( '+' => 'US',),
-	'currencies' => array( '+' => 'USD',),
+	'countries' => array( '+' => 'US', 'IL' ),
+	'currencies' => array( '+' => 'USD', 'ILS' ),
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
 	'selection_weight' => 0
 );
