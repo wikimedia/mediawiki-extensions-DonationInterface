@@ -150,22 +150,25 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 
 	protected function addRequiredFields( &$data ) {
-
+		// If any of these are required, show the address block
+		$address_fields = array(
+			'city',
+			'state',
+			'zip',
+			'street',
+		);
 		$required_fields = $this->gateway->getRequiredFields();
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 
-			// If address is required, decide what to display based on country.
-			// FIXME this is conflating the meaning of 'address' with another
-			// definition in getRequiredFields.  These validation structures
-			// should be pulled out into config.
-			if ( $field === 'street' ) {
+			if ( in_array( $field, $address_fields ) ) {
 				$data['address_required'] = true;
-				$data['city_required'] = true;
-				$data['postal_code_required'] = true;
-				$data['address_css_class'] = 'halfwidth';
+			}
+		}
 
-				// Does this country require a subdivision input?
+		if ( !empty( $data['address_required'] ) ) {
+			$data['address_css_class'] = 'halfwidth';
+			if ( !empty( $data['street_required'] ) ) {
 				$this->setStateOptions( $data );
 			}
 		}
@@ -173,23 +176,21 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setStateOptions( &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
-		if ( $state_list ) {
-			$data['address_css_class'] = 'thirdwidth';
-			$data['state_required'] = true;
-			$data['state_options'] = array();
+		$data['address_css_class'] = 'thirdwidth';
+		$data['state_options'] = array();
 
-			foreach ( $state_list as $abbr => $name ) {
-				$selected = isset( $data['state'] )
-					&& $data['state'] === $abbr;
+		foreach ( $state_list as $abbr => $name ) {
+			$selected = isset( $data['state'] )
+				&& $data['state'] === $abbr;
 
-				$data['state_options'][] = array(
-					'abbr' => $abbr,
-					'name' => $name,
-					'selected' => $selected,
-				);
-			}
+			$data['state_options'][] = array(
+				'abbr' => $abbr,
+				'name' => $name,
+				'selected' => $selected,
+			);
 		}
 	}
+
 	protected function addCurrencyData( &$data ) {
 		$supportedCurrencies = $this->gateway->getCurrencies();
 		if ( count( $supportedCurrencies ) === 1 ) {

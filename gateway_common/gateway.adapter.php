@@ -2422,12 +2422,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$check_not_empty = array(
 						'street',
 						'city',
-						'state',
 						'country',
 						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
 						//however, that's not happening in this class in the code I'm replacing, so...
 						//TODO: Something clever in the DataValidator with data groups like these.
 					);
+					$country = $this->getData_Unstaged_Escaped( 'country' );
+					if ( $country && Subdivisions::getByCountry( $country ) ) {
+						$check_not_empty[] = 'state';
+					}
 					break;
 				case 'amount' :
 					$check_not_empty = array( 'amount' );
