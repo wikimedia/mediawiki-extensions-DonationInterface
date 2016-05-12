@@ -901,7 +901,7 @@ class DonationData implements LogPrefixProvider {
 	 * to somewhere in DonationData.
 	 */
 	public static function getMessageFields() {
-		$stomp_fields = array(
+		return array(
 			'contribution_tracking_id',
 			'optout',
 			'anonymous',
@@ -923,6 +923,7 @@ class DonationData implements LogPrefixProvider {
 			'gateway',
 			'gateway_account',
 			'gateway_txn_id',
+			'order_id',
 			'subscr_id',
 			'recurring',
 			'payment_method',
@@ -933,7 +934,6 @@ class DonationData implements LogPrefixProvider {
 			'user_ip',
 			'date',
 		);
-		return $stomp_fields;
 	}
 
 	/**

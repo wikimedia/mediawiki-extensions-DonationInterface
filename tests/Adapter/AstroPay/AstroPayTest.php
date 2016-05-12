@@ -499,6 +499,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'gateway_txn_id' => false,
 			'response' => false,
 			'correlation-id' => 'astropay-123456789',
+			'order_id' => '123456789',
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 		);
 		$actual = json_decode( $detailString, true );
