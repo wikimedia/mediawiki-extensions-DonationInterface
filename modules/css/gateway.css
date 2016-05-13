@@ -219,7 +219,8 @@ div#content {
  border: none;
 }
 
-.errorHighlight {
+/* extra-specific to take precedence */
+html body #donate .errorHighlight {
     border: 2px solid red !important;
 }
 

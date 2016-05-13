@@ -13,6 +13,7 @@
 								<input class="fullwidth" name="street" value="{{ street }}" type="text" title="{{ l10n "donate_interface-donor-street" }}" placeholder="{{ l10n "donate_interface-donor-street" }}" id="street" required>
 							</td>
 						</tr>
+                        {{{ fieldError "street" }}}
 						<tr>
 							<td>
 {{# city_required }}

@@ -53,10 +53,8 @@
 					$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 				} else if ( typeof data.result !== 'undefined' ) {
 					if ( data.result.errors ) {
-						$.each( data.result.errors, function ( index, value ) {
-							alert( value ); // Show them the error
-							$( '#paymentContinue' ).show(); // Show continue button in 2nd section
-						} );
+						mw.donationInterface.validation.showErrors( data.result.errors );
+						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
 					} else if ( data.result.formaction && data.result.gateway_params ) {
 						$payment = $( '#payment-form' );
 
