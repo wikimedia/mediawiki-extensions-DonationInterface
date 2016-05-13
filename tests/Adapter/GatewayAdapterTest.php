@@ -193,7 +193,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$firstRequest = $this->setUpRequest( $init );
 
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 		$gateway->do_transaction( 'Donate' );
 
 		$donorData = $firstRequest->getSessionData( 'Donor' );
@@ -205,7 +205,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 		$newMethod = $gateway->getData_Unstaged_Escaped( 'payment_method' );
 		$newSubmethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
 
