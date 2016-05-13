@@ -100,4 +100,53 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$message = $exposed->getStompTransaction();
 		$this->assertEquals( 57, $message['risk_score'], 'Risk score was not correctly added to queue message.' );
 	}
+
+	/**
+	 * Make sure language is staged correctly when qs param is uppercase
+	 */
+	function testLanguageCaseSensitivity() {
+		$init = $this->getDonorTestData();
+		$init['language'] = 'FR';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$gateway->do_transaction( 'donate' );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$ret = $exposed->buildRequestParams();
+
+		$expected = array (
+			'allowedMethods' => 'card',
+			'billingAddress.street' => $init['street'],
+			'billingAddress.city' => $init['city'],
+			'billingAddress.postalCode' => $init['zip'],
+			'billingAddress.stateOrProvince' => $init['state'],
+			'billingAddress.country' => $init['country'],
+			'billingAddressType' => 2,
+			'card.cardHolderName' => $init['fname'] . ' ' . $init['lname'],
+			'currencyCode' => $init['currency_code'],
+			'merchantAccount' => 'wikitest',
+			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
+			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
+			'paymentAmount' => ($init['amount']) * 100,
+			'skinCode' => 'testskin',
+			'shopperLocale' => 'fr',
+			'shopperEmail' => 'nobody@wikimedia.org',
+			'offset' => '52',
+		);
+
+		//deal with problem keys.
+		//@TODO: Refactor gateway so these are more testable
+		$problems = array (
+			'sessionValidity',
+			'shipBeforeDate',
+		);
+
+		foreach ( $problems as $oneproblem ) {
+			if ( isset( $ret[$oneproblem] ) ) {
+				unset( $ret[$oneproblem] );
+			}
+		}
+
+		$this->assertEquals( $expected, $ret, 'Adyen "donate" transaction not constructing the expected redirect URL' );
+		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Adyen order_id is null, and we need one for 'merchantReference'" );
+	}
 }
