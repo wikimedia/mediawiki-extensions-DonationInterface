@@ -602,7 +602,7 @@ $forms_whitelist['adyen'] = array(
 	'gateway' => 'adyen',
 	'countries' => array( '+' => 'US', 'IL', 'FR' ),
 	'currencies' => array( '+' => 'USD', 'ILS', 'EUR' ),
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb' )),
 	'selection_weight' => 0
 );
 
