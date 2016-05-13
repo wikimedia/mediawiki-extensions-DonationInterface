@@ -384,6 +384,7 @@
 	"donate_interface-secureLogo-text": "關於 SSL 憑證",
 	"donate_interface-error-http-403": "你沒有存取這個頁面的權限。",
 	"apihelp-donate-param-fname": "名。",
+	"apihelp-donate-param-lname": "姓。",
 	"apihelp-donate-param-city": "城市。",
 	"apihelp-donate-param-email": "電子郵件地址。",
 	"apihelp-donate-param-language": "語言代碼。"
