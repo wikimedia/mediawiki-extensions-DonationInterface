@@ -642,6 +642,10 @@ class DonationData implements LogPrefixProvider {
 			$language = $this->getVal( 'language' );
 		}
 
+		if ( $language ) {
+			$language = strtolower( $language );
+		}
+
 		if ( $language == false || !WmfFramework::isValidBuiltInLanguageCode( $language ) ) {
 			$language = WmfFramework::getLanguageCode();
 		}

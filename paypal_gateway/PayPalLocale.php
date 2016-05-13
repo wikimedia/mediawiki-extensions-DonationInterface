@@ -42,8 +42,8 @@ class PayPalLocale implements StagingHelper {
 			$stagedData['locale'] = $normalized['country'];
 		}
 
-		$fallbacks = Language::getFallbacksFor( strtolower( $normalized['language'] ) );
-		array_unshift( $fallbacks, strtolower( $normalized['language'] ) );
+		$fallbacks = Language::getFallbacksFor( $normalized['language'] );
+		array_unshift( $fallbacks, $normalized['language'] );
 		foreach ( $fallbacks as $lang ) {
 			$locale = "{$lang}_{$normalized['country']}";
 			if ( in_array( $locale, $supported_full_locales ) ) {
