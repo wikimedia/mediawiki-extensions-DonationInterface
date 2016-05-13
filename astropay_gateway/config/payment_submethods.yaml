@@ -5,7 +5,7 @@ visa:
     countries:
         AR: true
         BR: true
-#       CL: true  #waiting on Astropay
+#       CL: true  #waiting on AstroPay
         MX: true
         CO: true
     logo: card-visa-lg.png
@@ -16,11 +16,11 @@ mc:
     countries:
         AR: true
         BR: true
-#       CL: true  #waiting on Astropay
+#       CL: true  #waiting on AstroPay
         MX: true
         CO: true
     logo: card-mc-lg.png
-#magna:  #waiting on Astropay
+#magna:  #waiting on AstroPay
 #    bank_code: MG
 #    label: Magna
 #    group: cc
@@ -34,7 +34,7 @@ amex:
     countries:
         BR: true
         AR: true
-#       CL: true  #waiting on Astropay
+#       CL: true  #waiting on AstroPay
         CO: true
     logo: card-amex-lg.png
 visa-debit:
@@ -66,7 +66,7 @@ diners:
     group: cc
     countries:
         BR: true
-#       CL: true  #waiting on Astropay
+#       CL: true  #waiting on AstroPay
         CO: true
     logo: card-dinersclub-lg.png
 hiper:
@@ -125,19 +125,19 @@ argen:
     countries:
         AR: true
     logo: card-argencard.png
-#cmr:  #waiting on Astropay
+#cmr:  #waiting on AstroPay
 #    bank_code: CM
 #    label: CMR
 #    group: cc
 #    countries:
 #       CL: true
 #    logo: card-cmr.png
-#presto:  #waiting on Astropay
+#presto:  #waiting on AstroPay
 #    bank_code: PR
 #    label: Presto
 #    group: cc
 #    countries:
-#       CL: true  #waiting on Astropay
+#       CL: true  #waiting on AstroPay
 #    logo: card-presto.png
 webpay:
     bank_code: WP

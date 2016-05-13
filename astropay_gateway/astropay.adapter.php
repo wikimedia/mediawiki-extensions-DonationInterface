@@ -18,14 +18,13 @@
 use Psr\Log\LogLevel;
 
 /**
- * AstropayAdapter
- * Implementation of GatewayAdapter for processing payments via Astropay
- * FIXME: camlcase "P"
+ * AstroPayAdapter
+ * Implementation of GatewayAdapter for processing payments via AstroPay
  */
-class AstropayAdapter extends GatewayAdapter {
-	const GATEWAY_NAME = 'Astropay';
+class AstroPayAdapter extends GatewayAdapter {
+	const GATEWAY_NAME = 'AstroPay';
 	const IDENTIFIER = 'astropay';
-	const GLOBAL_PREFIX = 'wgAstropayGateway';
+	const GLOBAL_PREFIX = 'wgAstroPayGateway';
 
 	public function getCommunicationType() {
 		return 'namevalue';
@@ -67,7 +66,7 @@ class AstropayAdapter extends GatewayAdapter {
 
 	/**
 	 * Sets up the $order_id_meta array.
-	 * For Astropay, we use the ct_id.sequence format because we don't get
+	 * For AstroPay, we use the ct_id.sequence format because we don't get
 	 * a gateway transaction ID until the user has actually paid.  If the user
 	 * doesn't return to the result switcher, we will need to use the order_id
 	 * to find a pending queue message with donor details to flesh out the
@@ -156,7 +155,7 @@ class AstropayAdapter extends GatewayAdapter {
 				'x_control', // signature, calculated like control string
 							// called 'Sign' in docs, but renamed here for consistency
 							// with parameter POSTed to resultswitcher.
-				'x_document', // unique id at Astropay
+				'x_document', // unique id at AstroPay
 				'x_bank',
 				'x_payment_type',
 				'x_bank_name',
@@ -287,7 +286,7 @@ class AstropayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Processes JSON data from Astropay API, and also processes GET/POST params
+	 * Processes JSON data from AstroPay API, and also processes GET/POST params
 	 * on donor's return to ResultSwitcher
 	 * @param array $response JSON response decoded to array, or GET/POST
 	 *        params from request
@@ -313,9 +312,9 @@ class AstropayAdapter extends GatewayAdapter {
 		case 'ProcessReturn':
 			$this->processStatusResponse( $response );
 			if ( !isset( $response['x_document'] ) ) {
-				$this->logger->error( 'Astropay did not post back their transaction ID in x_document' );
+				$this->logger->error( 'AstroPay did not post back their transaction ID in x_document' );
 				throw new ResponseProcessingException(
-					'Astropay did not post back their transaction ID in x_document',
+					'AstroPay did not post back their transaction ID in x_document',
 					ResponseCodes::MISSING_TRANSACTION_ID
 				);
 			}
@@ -350,23 +349,23 @@ class AstropayAdapter extends GatewayAdapter {
 		$this->incrementSequenceNumber();
 		if ( !isset( $response['status'] ) ) {
 			$this->transaction_response->setCommunicationStatus( false );
-			$this->logger->error( 'Astropay response does not have a status code' );
+			$this->logger->error( 'AstroPay response does not have a status code' );
 			throw new ResponseProcessingException(
-				'Astropay response does not have a status code',
+				'AstroPay response does not have a status code',
 				ResponseCodes::MISSING_REQUIRED_DATA
 			);
 		}
 		$this->transaction_response->setCommunicationStatus( true );
 		if ( $response['status'] === '0' ) {
 			if ( !isset( $response['link'] ) ) {
-				$this->logger->error( 'Astropay NewInvoice success has no link' );
+				$this->logger->error( 'AstroPay NewInvoice success has no link' );
 				throw new ResponseProcessingException(
-					'Astropay NewInvoice success has no link',
+					'AstroPay NewInvoice success has no link',
 					ResponseCodes::MISSING_REQUIRED_DATA
 				);
 			}
 		} else {
-			$logme = 'Astropay response has non-zero status.  Full response: '
+			$logme = 'AstroPay response has non-zero status.  Full response: '
 				. print_r( $response, true );
 			$this->logger->warning( $logme );
 
@@ -387,7 +386,7 @@ class AstropayAdapter extends GatewayAdapter {
 					// AstroPay is overwhelmed.  Tell the donor to try again soon.
 					$message = WmfFramework::formatMessage( 'donate_interface-try-again' );
 				} else if ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
-					// They are blacklisted by Astropay for shady doings,
+					// They are blacklisted by AstroPay for shady doings,
 					// or listed delinquent by their government.
 					// Either way, we can't process 'em through AstroPay
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
@@ -435,14 +434,14 @@ class AstropayAdapter extends GatewayAdapter {
 			 !isset( $response['x_invoice'] ) ||
 			 !isset( $response['x_control'] ) ) {
 			$this->transaction_response->setCommunicationStatus( false );
-			$message = 'Astropay response missing one or more required keys.  Full response: '
+			$message = 'AstroPay response missing one or more required keys.  Full response: '
 				. print_r( $response, true );
 			$this->logger->error( $message );
 			throw new ResponseProcessingException( $message, ResponseCodes::MISSING_REQUIRED_DATA );
 		}
 		$this->verifyStatusSignature( $response );
 		if ( $response['result'] === '6' ) {
-			$logme = 'Astropay reports they cannot find the transaction for order ID ' .
+			$logme = 'AstroPay reports they cannot find the transaction for order ID ' .
 				$this->getData_Unstaged_Escaped( 'order_id' );
 			$this->logger->error( $logme );
 			$this->transaction_response->setErrors( array(

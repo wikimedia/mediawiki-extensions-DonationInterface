@@ -21,9 +21,9 @@ use \Psr\Log\LogLevel;
  *
  * @group Fundraising
  * @group DonationInterface
- * @group Astropay
+ * @group AstroPay
  */
-class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceTestCase {
+class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param $name string The name of the test case
@@ -32,19 +32,19 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingAstropayAdapter';
+		$this->testAdapterClass = 'TestingAstroPayAdapter';
 	}
 
 	function setUp() {
 		parent::setUp();
 		$this->setMwGlobals( array(
-			'wgAstropayGatewayEnabled' => true,
+			'wgAstroPayGatewayEnabled' => true,
 		) );
 	}
 
 	/**
 	 * Ensure we're setting the right url for each transaction
-	 * @covers AstropayAdapter::getCurlBaseOpts
+	 * @covers AstroPayAdapter::getCurlBaseOpts
 	 */
 	function testCurlUrl() {
 		$init = $this->getDonorTestData( 'BR' );
@@ -69,7 +69,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
 		$this->setLanguage( $init['language'] );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$gateway->do_transaction( 'NewInvoice' );
 		parse_str( $gateway->curled[0], $actual );
@@ -98,7 +98,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * When Astropay sends back valid JSON with status "0", we should set txn
+	 * When AstroPay sends back valid JSON with status "0", we should set txn
 	 * status to true and errors should be empty.
 	 */
 	function testStatusNoErrors() {
@@ -130,7 +130,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * When Astropay sends back valid JSON with status "1", we should set
+	 * When AstroPay sends back valid JSON with status "1", we should set
 	 * error array to generic error and log a warning.
 	 */
 	function testStatusErrors() {
@@ -183,7 +183,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * When Astropay sends back valid JSON with status "1", we should set
+	 * When AstroPay sends back valid JSON with status "1", we should set
 	 * error array to generic error and log a warning.
 	 */
 	function testDoPaymentErrors() {
@@ -300,7 +300,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$gateway->do_transaction( 'PaymentStatus' );
 
@@ -332,7 +332,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$gateway->setDummyGatewayResponseCode( 'badsig' );
 		$gateway->do_transaction( 'PaymentStatus' );
@@ -350,9 +350,9 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
-		// Next lines mimic Astropay resultswitcher
+		// Next lines mimic AstroPay resultswitcher
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
 			'result' => '9',
@@ -379,12 +379,12 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init['amount'] = '22.55'; // junk session data from another banner click
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '22.55', $amount );
 
-		// Next lines mimic Astropay resultswitcher
+		// Next lines mimic AstroPay resultswitcher
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
 			'result' => '9',
@@ -409,7 +409,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$gateway->setCurrentTransaction( 'ProcessReturn' );
 		$response = array(
@@ -473,7 +473,7 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 		$init['payment_method'] = 'cc';
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
-		$gateway = new TestingAstropayAdapter();
+		$gateway = new TestingAstroPayAdapter();
 
 		$gateway->doPayment();
 		$logged = $this->getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );
@@ -527,13 +527,13 @@ class DonationInterface_Adapter_Astropay_AstropayTest extends DonationInterfaceT
 	function testNewInvoiceOrderId() {
 		$init = $this->getDonorTestData( 'BR' );
 		$firstRequest = $this->setUpRequest( $init );
-		$firstAttempt = new TestingAstropayAdapter();
+		$firstAttempt = new TestingAstroPayAdapter();
 		$firstAttempt->setDummyGatewayResponseCode( '1' );
  
 		$firstAttempt->doPayment();
 
 		$this->setUpRequest( $init, $firstRequest->getSessionArray() );
-		$secondAttempt = new TestingAstropayAdapter();
+		$secondAttempt = new TestingAstroPayAdapter();
 		$secondAttempt->doPayment();
 
 		parse_str( $firstAttempt->curled[0], $firstParams );

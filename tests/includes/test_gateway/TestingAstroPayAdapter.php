@@ -1,12 +1,12 @@
 <?php
 
 /**
- * TestingAstropayAdapter
+ * TestingAstroPayAdapter
  *
  * TODO: Add dependency injection to the base class so we don't have to repeat
  * code (or this comment) here.
  */
-class TestingAstropayAdapter extends AstropayAdapter {
+class TestingAstroPayAdapter extends AstroPayAdapter {
 
 	public $curled = array();
 

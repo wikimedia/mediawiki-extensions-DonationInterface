@@ -63,10 +63,10 @@ global $wgDonationInterfaceTestMode,
 	$wgAmazonGatewayAccountInfo,
 	$wgAdyenGatewayURL,
 	$wgAdyenGatewayAccountInfo,
-	$wgAstropayGatewayURL,
-	$wgAstropayGatewayTestingURL,
-	$wgAstropayGatewayAccountInfo,
-	$wgAstropayGatewayFallbackCurrency,
+	$wgAstroPayGatewayURL,
+	$wgAstroPayGatewayTestingURL,
+	$wgAstroPayGatewayAccountInfo,
+	$wgAstroPayGatewayFallbackCurrency,
 	$wgWorldpayGatewayAccountInfo,
 	$wgWorldpayGatewayURL,
 	$wgMinFraudLicenseKey,
@@ -131,11 +131,11 @@ $wgAdyenGatewayAccountInfo['test'] = array(
 	'SkinCode' => 'testskin',
 );
 
-/** Astropay **/
-$wgAstropayGatewayURL = 'https://astropay.example.com/';
-$wgAstropayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
-$wgAstropayGatewayAccountInfo = array();
-$wgAstropayGatewayAccountInfo['test'] = array(
+/** AstroPay **/
+$wgAstroPayGatewayURL = 'https://astropay.example.com/';
+$wgAstroPayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
+$wgAstroPayGatewayAccountInfo = array();
+$wgAstroPayGatewayAccountInfo['test'] = array(
 	'Create' => array(
 		'Login' => 'createlogin',
 		'Password' => 'createpass',
@@ -146,7 +146,7 @@ $wgAstropayGatewayAccountInfo['test'] = array(
 	),
 	'SecretKey' => 'NanananananananananananananananaBatman',
 );
-$wgAstropayGatewayFallbackCurrency = false;
+$wgAstroPayGatewayFallbackCurrency = false;
 
 $wgWorldpayGatewayAccountInfo = array();
 /** Worldpay **/
