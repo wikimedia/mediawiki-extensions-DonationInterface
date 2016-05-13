@@ -130,6 +130,7 @@ $wgAutoloadClasses['WorldpayEmail'] = __DIR__ . '/worldpay_gateway/WorldpayEmail
 $wgAutoloadClasses['WorldpayMethodCodec'] = __DIR__ . '/worldpay_gateway/WorldpayMethodCodec.php';
 $wgAutoloadClasses['WorldpayNarrativeStatement'] = __DIR__ . '/worldpay_gateway/WorldpayNarrativeStatement.php';
 $wgAutoloadClasses['WorldpayReturnto'] = __DIR__ . '/worldpay_gateway/WorldpayReturnto.php';
+$wgAutoloadClasses['WorldpayRoutingInfo'] = __DIR__ . '/worldpay_gateway/WorldpayRoutingInfo.php';
 
 $wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
 $wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';

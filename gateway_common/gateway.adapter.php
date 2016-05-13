@@ -2754,8 +2754,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $score;
 	}
 
+	public function getAccountConfig( $key ) {
+		return $this->account_config[$key];
+	}
+
 	/**
 	 * For places that might need the merchant ID outside of the adapter
+	 * @deprecated
 	 */
 	public function getMerchantID() {
 		return $this->account_config[ 'MerchantID' ];

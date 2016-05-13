@@ -397,4 +397,12 @@ interface GatewayType {
 	 * @return mixed the setting requested, or the config array
 	 */
 	public function getConfig( $key = null );
+
+	/**
+	 * Get globals-based configuration setting
+	 *
+	 * @param string $key setting to retrieve
+	 * @return mixed the setting requested
+	 */
+	public function getAccountConfig( $key );
 }
