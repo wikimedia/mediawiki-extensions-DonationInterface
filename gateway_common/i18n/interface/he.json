@@ -408,6 +408,8 @@
 	"apihelp-donate-param-language": "קוד שפה.",
 	"apihelp-donate-param-order_id": "מזהה הזמנה (אם התרומה כבר התחילה).",
 	"apihelp-donate-param-contribution_tracking_id": "מזהה לטבלת מעקב תרומות.",
+	"apihelp-donate-param-token": "מיושן, יש להשתמש ב־wmf_token במקום זה.",
+	"apihelp-donate-param-wmf_token": "עריכת אסימון.",
 	"apihelp-donate-param-utm_source": "משנתה מעקב.",
 	"apihelp-donate-param-utm_campaign": "משנתה מעקב.",
 	"apihelp-donate-param-utm_medium": "משנתה מעקב.",
