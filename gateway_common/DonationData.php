@@ -2,19 +2,19 @@
 
 /**
  * DonationData
- * This class is responsible for pulling all the data used by DonationInterface 
- * from various sources. Once pulled, DonationData will then normalize and 
- * sanitize the data for use by the various gateway adapters which connect to 
- * the payment gateways, and through those gateway adapters, the forms that 
+ * This class is responsible for pulling all the data used by DonationInterface
+ * from various sources. Once pulled, DonationData will then normalize and
+ * sanitize the data for use by the various gateway adapters which connect to
+ * the payment gateways, and through those gateway adapters, the forms that
  * provide the user interface.
- * 
- * DonationData was not written to be instantiated by anything other than a 
- * gateway adapter (or class descended from GatewayAdapter). 
- * 
+ *
+ * DonationData was not written to be instantiated by anything other than a
+ * gateway adapter (or class descended from GatewayAdapter).
+ *
  * @author khorn
  */
 class DonationData implements LogPrefixProvider {
-	protected $normalized = array( );
+	protected $normalized = array();
 	protected $gateway;
 	protected $gatewayID;
 	protected $validationErrors = null;
@@ -70,7 +70,7 @@ class DonationData implements LogPrefixProvider {
 		'utm_key',
 		'language',
 		'uselang',
-		'token',
+		'wmf_token',
 		'contribution_tracking_id',
 		'data_hash',
 		'action',
@@ -126,7 +126,7 @@ class DonationData implements LogPrefixProvider {
 	 * Default is false.
 	 */
 	protected function populateData( $external_data = false ) {
-		$this->normalized = array( );
+		$this->normalized = array();
 		if ( is_array( $external_data ) ) {
 			//I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
@@ -171,9 +171,9 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * populateData helper function 
-	 * If donor session data has been set, pull the fields in the session that 
-	 * are populated, and merge that with the data set we already have. 
+	 * populateData helper function
+	 * If donor session data has been set, pull the fields in the session that
+	 * are populated, and merge that with the data set we already have.
 	 */
 	protected function integrateDataFromSession() {
 		/**
@@ -188,9 +188,9 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 		//fields that should always overwrite with their original values
-		$overwrite = array ( 'referrer' );
+		$overwrite = array( 'referrer' );
 		foreach ( $donorData as $key => $val ) {
-			if ( !$this->isSomething( $key ) ){
+			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );
 			} else {
 				if ( in_array( $key, $overwrite ) ) {
@@ -211,15 +211,15 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Tells you if a value in $this->normalized is something or not. 
-	 * @param string $key The field you would like to determine if it exists in 
-	 * a usable way or not. 
-	 * @return boolean true if the field is something. False if it is null, or 
-	 * an empty string. 
+	 * Tells you if a value in $this->normalized is something or not.
+	 * @param string $key The field you would like to determine if it exists in
+	 * a usable way or not.
+	 * @return boolean true if the field is something. False if it is null, or
+	 * an empty string.
 	 */
 	public function isSomething( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
-			if ( is_null($this->normalized[$key]) || $this->normalized[$key] === '' ) {
+			if ( is_null( $this->normalized[$key] ) || $this->normalized[$key] === '' ) {
 				return false;
 			}
 			return true;
@@ -230,9 +230,9 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * getVal_Escaped
-	 * @param string $key The data field you would like to retrieve. Pulls the 
-	 * data from $this->normalized if it is found to be something. 
-	 * @return mixed The normalized and escaped value of that $key. 
+	 * @param string $key The data field you would like to retrieve. Pulls the
+	 * data from $this->normalized if it is found to be something.
+	 * @return mixed The normalized and escaped value of that $key.
 	 */
 	public function getVal_Escaped( $key ) {
 		if ( $this->isSomething( $key ) ) {
@@ -243,12 +243,12 @@ class DonationData implements LogPrefixProvider {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * getVal
 	 * For Internal Use Only! External objects should use getVal_Escaped.
-	 * @param string $key The data field you would like to retrieve directly 
-	 * from $this->normalized. 
+	 * @param string $key The data field you would like to retrieve directly
+	 * from $this->normalized.
 	 * @return mixed The normalized value of that $key, or null if it isn't
 	 * something.
 	 */
@@ -262,20 +262,20 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * Sets a key in the normalized data array, to a new value.
-	 * This function should only ever be used for keys that are not listed in 
+	 * This function should only ever be used for keys that are not listed in
 	 * DonationData::getCalculatedFields().
-	 * TODO: If the $key is listed in DonationData::getCalculatedFields(), use 
-	 * DonationData::addData() instead. Or be a jerk about it and throw an 
+	 * TODO: If the $key is listed in DonationData::getCalculatedFields(), use
+	 * DonationData::addData() instead. Or be a jerk about it and throw an
 	 * exception. (Personally I like the second one)
 	 * @param string $key The key you want to set.
-	 * @param string $val The value you'd like to assign to the key. 
+	 * @param string $val The value you'd like to assign to the key.
 	 */
 	public function setVal( $key, $val ) {
 		$this->normalized[$key] = $val;
 	}
 
 	/**
-	 * Removes a value from $this->normalized. 
+	 * Removes a value from $this->normalized.
 	 * @param string $key type
 	 */
 	public function expunge( $key ) {
@@ -283,14 +283,14 @@ class DonationData implements LogPrefixProvider {
 			unset( $this->normalized[$key] );
 		}
 	}
-	
+
 	/**
-	 * Returns an array of all the fields that get re-calculated during a 
-	 * normalize. 
-	 * This can be used on the outside when in the process of changing data, 
-	 * particularly if any of the recalculted fields need to be restaged by the 
-	 * gateway adapter. 
-	 * @return array An array of values matching all recauculated fields.  
+	 * Returns an array of all the fields that get re-calculated during a
+	 * normalize.
+	 * This can be used on the outside when in the process of changing data,
+	 * particularly if any of the recalculted fields need to be restaged by the
+	 * gateway adapter.
+	 * @return array An array of values matching all recauculated fields.
 	 */
 	public function getCalculatedFields() {
 		$fields = array(
@@ -309,11 +309,11 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Normalizes the current set of data, just after it's been 
-	 * pulled (or re-pulled) from a data source. 
-	 * Care should be taken in the normalize helper functions to write code in 
-	 * such a way that running them multiple times on the same array won't cause 
-	 * the data to stroll off into the sunset: Normalize will definitely need to 
+	 * Normalizes the current set of data, just after it's been
+	 * pulled (or re-pulled) from a data source.
+	 * Care should be taken in the normalize helper functions to write code in
+	 * such a way that running them multiple times on the same array won't cause
+	 * the data to stroll off into the sunset: Normalize will definitely need to
 	 * be called multiple times against the same array.
 	 */
 	protected function normalize() {
@@ -349,12 +349,12 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 	}
-	
+
 	/**
 	 * normalize helper function
-	 * Sets user_ip and server_ip. 
+	 * Sets user_ip and server_ip.
 	 */
-	protected function setIPAddresses(){
+	protected function setIPAddresses() {
 		if ( !$this->gateway->isBatchProcessor() ) {
 			// Refresh the IP from something authoritative, unless we're running
 			// a batch process.
@@ -364,28 +364,25 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
-		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ){
+		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ) {
 			$this->setVal( 'server_ip', $_SERVER['SERVER_ADDR'] );
 		} else {
 			//command line? 
 			$this->setVal( 'server_ip', '127.0.0.1' );
 		}
 	}
-	
+
 	/**
 	 * munge the legacy card_type field into payment_submethod
 	 */
-	protected function renameCardType()
-	{
-		if ($this->getVal('payment_method') == 'cc')
-		{
-			if ($this->isSomething('card_type'))
-			{
-				$this->setVal('payment_submethod', $this->getVal('card_type'));
+	protected function renameCardType() {
+		if ( $this->getVal( 'payment_method' ) == 'cc' ) {
+			if ( $this->isSomething( 'card_type' ) ) {
+				$this->setVal( 'payment_submethod', $this->getVal( 'card_type' ) );
 			}
 		}
 	}
-	
+
 	/**
 	 * normalize helper function
 	 * Setting the country correctly. Country is... kinda important.
@@ -404,7 +401,7 @@ class DonationData implements LogPrefixProvider {
 				//check to see if it's one of those other codes that comes out of CN, for the logs
 				//If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
 				//we're still going to try to regen.
-				$near_countries = array ( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
+				$near_countries = array( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
 				if ( !in_array( $country, $near_countries ) ) {
 					$this->logger->warning( __FUNCTION__ . ": $country is not a country, or a recognized placeholder." );
 				}
@@ -443,12 +440,12 @@ class DonationData implements LogPrefixProvider {
 			$this->setVal( 'country', $country );
 		}
 	}
-	
+
 	/**
 	 * normalize helper function
-	 * Setting the currency code correctly. 
-	 * Historically, this value could come in through 'currency' or 
-	 * 'currency_code'. After this fires, we will only have 'currency_code'. 
+	 * Setting the currency code correctly.
+	 * Historically, this value could come in through 'currency' or
+	 * 'currency_code'. After this fires, we will only have 'currency_code'.
 	 */
 	protected function setCurrencyCode() {
 		//at this point, we can have either currency, or currency_code.
@@ -477,13 +474,13 @@ class DonationData implements LogPrefixProvider {
 		$this->setVal( 'currency_code', $currency );
 		$this->expunge( 'currency' );  //honestly, we don't want this.
 	}
-	
+
 	/**
 	 * normalize helper function.
-	 * Assures that if no contribution_tracking_id is present, a row is created 
-	 * in the Contribution tracking table, and that row is assigned to the 
-	 * current contribution we're tracking. 
-	 * If a contribution tracking id is already present, no new rows will be 
+	 * Assures that if no contribution_tracking_id is present, a row is created
+	 * in the Contribution tracking table, and that row is assigned to the
+	 * current contribution we're tracking.
+	 * If a contribution tracking id is already present, no new rows will be
 	 * assigned.
 	 *
 	 * @return bool True if a new record was created
@@ -498,37 +495,39 @@ class DonationData implements LogPrefixProvider {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * normalize helper function.
-	 * Takes all possible sources for the intended donation amount, and 
-	 * normalizes them into the 'amount' field.  
+	 * Takes all possible sources for the intended donation amount, and
+	 * normalizes them into the 'amount' field.
 	 */
 	protected function setNormalizedAmount() {
-		if ( $this->getVal( 'amount' ) === 'Other' ){
+		if ( $this->getVal( 'amount' ) === 'Other' ) {
 			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
 		}
 
-		$amountIsNotValidSomehow = ( !( $this->isSomething( 'amount' )) ||
+		$amountIsNotValidSomehow = ( !( $this->isSomething( 'amount' ) ) ||
 			!is_numeric( $this->getVal( 'amount' ) ) ||
 			$this->getVal( 'amount' ) <= 0 );
 
 		if ( $amountIsNotValidSomehow &&
-			( $this->isSomething( 'amountGiven' ) && is_numeric( $this->getVal( 'amountGiven' ) ) ) ) {
+			( $this->isSomething( 'amountGiven' ) && is_numeric( $this->getVal( 'amountGiven' ) ) )
+		) {
 			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
 		} else if ( $amountIsNotValidSomehow &&
-			( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) ) ) {
+			( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) )
+		) {
 			$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
 		}
-		
-		if ( !($this->isSomething( 'amount' )) ){
+
+		if ( !( $this->isSomething( 'amount' ) ) ) {
 			$this->setVal( 'amount', '0.00' );
 		}
-		
+
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
 
-		if ( !is_numeric( $this->getVal( 'amount' ) ) ){
+		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
 			//fail validation later, log some things.
 			$mess = 'Non-numeric Amount.';
 			$keys = array(
@@ -538,15 +537,15 @@ class DonationData implements LogPrefixProvider {
 				'email',
 				'user_ip', //to help deal with fraudulent traffic.
 			);
-			foreach ( $keys as $key ){
+			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
 			$this->logger->debug( $mess );
-			$this->setVal('amount', 'invalid');
+			$this->setVal( 'amount', 'invalid' );
 			return;
 		}
-		
-		if ( DataValidator::is_fractional_currency( $this->getVal( 'currency_code' ) ) ){
+
+		if ( DataValidator::is_fractional_currency( $this->getVal( 'currency_code' ) ) ) {
 			$this->setVal( 'amount', number_format( $this->getVal( 'amount' ), 2, '.', '' ) );
 		} else {
 			$this->setVal( 'amount', floor( $this->getVal( 'amount' ) ) );
@@ -560,13 +559,12 @@ class DonationData implements LogPrefixProvider {
 	protected function setNormalizedRecurring() {
 		if ( $this->isSomething( 'recurring_paypal' ) && ( $this->getVal( 'recurring_paypal' ) === '1' || $this->getVal( 'recurring_paypal' ) === 'true' ) ) {
 			$this->setVal( 'recurring', true );
-			$this->expunge('recurring_paypal');
+			$this->expunge( 'recurring_paypal' );
 		}
 		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' || $this->getVal( 'recurring' ) === true )
 		) {
 			$this->setVal( 'recurring', true );
-		}
-		else{
+		} else {
 			$this->setVal( 'recurring', false );
 		}
 	}
@@ -621,7 +619,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * normalize helper function.
-	 * Sets the gateway to be the gateway that called this class in the first 
+	 * Sets the gateway to be the gateway that called this class in the first
 	 * place.
 	 */
 	protected function setGateway() {
@@ -629,11 +627,11 @@ class DonationData implements LogPrefixProvider {
 		$gateway = $this->gatewayID;
 		$this->setVal( 'gateway', $gateway );
 	}
-	
+
 	/**
 	 * normalize helper function.
-	 * If the language has not yet been set or is not valid, pulls the language code 
-	 * from the current global language object. 
+	 * If the language has not yet been set or is not valid, pulls the language code
+	 * from the current global language object.
 	 */
 	protected function setLanguage() {
 		$language = false;
@@ -643,11 +641,15 @@ class DonationData implements LogPrefixProvider {
 		} elseif ( $this->isSomething( 'language' ) ) {
 			$language = $this->getVal( 'language' );
 		}
-		
+
+		if ( $language ) {
+			$language = strtolower( $language );
+		}
+
 		if ( $language == false || !WmfFramework::isValidBuiltInLanguageCode( $language ) ) {
 			$language = WmfFramework::getLanguageCode();
 		}
-		
+
 		$this->setVal( 'language', $language );
 		$this->expunge( 'uselang' );
 	}
@@ -703,7 +705,7 @@ class DonationData implements LogPrefixProvider {
 	 * Constructs and returns the standard ctid:order_id log line prefix.
 	 * The gateway function of identical name now calls this one, because
 	 * DonationData always has fresher data.
-	 * @return string "ctid:order_id " 
+	 * @return string "ctid:order_id "
 	 */
 	public function getLogMessagePrefix() {
 		return $this->getVal( 'contribution_tracking_id' ) . ':' . $this->getVal( 'order_id' ) . ' ';
@@ -711,7 +713,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * normalize helper function.
-	 * 
+	 *
 	 * the utm_source is structured as: banner.landing_page.payment_method_family
 	 */
 	protected function setUtmSource() {
@@ -758,7 +760,7 @@ class DonationData implements LogPrefixProvider {
 
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );
-		$this->setVal( 'utm_source' , $utm_source );
+		$this->setVal( 'utm_source', $utm_source );
 	}
 
 	/**
@@ -779,9 +781,9 @@ class DonationData implements LogPrefixProvider {
 	 * Compares tracking data array to list of valid tracking fields and
 	 * removes any extra tracking fields/data.  Also sets empty values to
 	 * 'null' values.
-	 * @param bool $unset If set to true, empty values will be unset from the 
+	 * @param bool $unset If set to true, empty values will be unset from the
 	 * return array, rather than set to null. (default: false)
-	 * @return array Clean tracking data 
+	 * @return array Clean tracking data
 	 */
 	public function getCleanTrackingData( $unset = false ) {
 
@@ -806,18 +808,18 @@ class DonationData implements LogPrefixProvider {
 			if ( $this->isSomething( $value ) ) {
 				$tracking_data[$value] = $this->getVal( $value );
 			} else {
-				if ( !$unset ){
+				if ( !$unset ) {
 					$tracking_data[$value] = null;
 				}
 			}
 		}
 
-		if( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ){
+		if ( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ) {
 			$tracking_data['form_amount'] = $this->getVal( 'currency_code' ) . " " . $this->getVal( 'amount' );
 		}
-		if( $this->isSomething( 'form_name' ) ){
+		if ( $this->isSomething( 'form_name' ) ) {
 			$tracking_data['payments_form'] = $this->getVal( 'form_name' );
-			if( $this->isSomething( 'ffname' ) ){
+			if ( $this->isSomething( 'ffname' ) ) {
 				$tracking_data['payments_form'] .= '.' . $this->getVal( 'ffname' );
 			}
 		}
@@ -859,7 +861,7 @@ class DonationData implements LogPrefixProvider {
 
 			// Store the contribution data
 			if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
-				$ctid =  $db->insertId();
+				$ctid = $db->insertId();
 			} else {
 				$this->logger->error( 'Failed to create a new contribution_tracking record' );
 				return false;
@@ -869,12 +871,12 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Adds an array of data to the normalized array, and then re-normalizes it. 
-	 * NOTE: If any gateway is using this function, it should then immediately 
-	 * repopulate its own data set with the DonationData source, and then 
+	 * Adds an array of data to the normalized array, and then re-normalizes it.
+	 * NOTE: If any gateway is using this function, it should then immediately
+	 * repopulate its own data set with the DonationData source, and then
 	 * re-stage values as necessary.
 	 *
-	 * @param array $newdata An array of data to integrate with the existing 
+	 * @param array $newdata An array of data to integrate with the existing
 	 * data held by the DonationData object.
 	 */
 	public function addData( $newdata ) {
@@ -887,7 +889,7 @@ class DonationData implements LogPrefixProvider {
 		}
 		$this->normalize();
 	}
-	
+
 	/**
 	 * Returns an array of field names we typically send out in a queue
 	 * message. Note: These are field names from the FORM... not the field
@@ -936,7 +938,7 @@ class DonationData implements LogPrefixProvider {
 	 * after the session has been destroyed by... overzealousness.
 	 */
 	public static function getRetryFields() {
-		$fields = array (
+		$fields = array(
 			'gateway',
 			'country',
 			'currency_code',
@@ -957,22 +959,22 @@ class DonationData implements LogPrefixProvider {
 	 * Notices, however, are more lame.
 	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 */
-	public function wasPosted(){
+	public function wasPosted() {
 		static $posted = null;
-		if ($posted === null){
-			$posted = (array_key_exists('REQUEST_METHOD', $_SERVER) && WmfFramework::isPosted());
+		if ( $posted === null ) {
+			$posted = ( array_key_exists( 'REQUEST_METHOD', $_SERVER ) && WmfFramework::isPosted() );
 		}
-		return $posted; 
+		return $posted;
 	}
-	
+
 	/**
 	 * getValidationErrors
 	 * This function will go through all the data we have pulled from wherever
 	 * we've pulled it, and make sure it's safe and expected and everything.
-	 * If it is not, it will return an array of errors ready for any 
+	 * If it is not, it will return an array of errors ready for any
 	 * DonationInterface form class derivitive to display.
 	 */
-	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ){
+	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ) {
 		if ( is_null( $this->validationErrors ) || $recalculate ) {
 			// Run legacy validations
 			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
@@ -988,18 +990,18 @@ class DonationData implements LogPrefixProvider {
 		}
 		return $this->validationErrors;
 	}
-	
+
 	/**
 	 * validatedOK
 	 * Checks to see if the data validated ok (no errors).
 	 * @return boolean True if no errors, false if errors exist.
 	 */
 	public function validatedOK() {
-		if ( is_null( $this->validationErrors ) ){
+		if ( is_null( $this->validationErrors ) ) {
 			$this->getValidationErrors();
 		}
-		
-		if ( count( $this->validationErrors ) === 0 ){
+
+		if ( count( $this->validationErrors ) === 0 ) {
 			return true;
 		}
 		return false;
@@ -1047,19 +1049,16 @@ class DonationData implements LogPrefixProvider {
 		$conversionRates = CurrencyRates::getCurrencyRates();
 		if ( $oldCurrency === 'USD' ) {
 			$usdAmount = $oldAmount;
-		}
-		elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
+		} elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
 			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
-		}
-		else {
+		} else {
 			// We can't convert from this unknown currency.
 			return;
 		}
 
 		if ( $defaultCurrency === 'USD' ) {
 			$newAmount = floor( $usdAmount );
-		}
-		elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
+		} elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
 			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
 		}
 
@@ -1076,11 +1075,11 @@ class DonationData implements LogPrefixProvider {
 		// add a notification message.
 		if ( $notify || !empty( $this->validationErrors ) ) {
 			$error['general'] = MessageUtils::getCountrySpecificMessage(
-					'donate_interface-fallback-currency-notice',
-					$this->getVal( 'country' ),
-					$this->getVal( 'language' ),
-					array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
-				);
+				'donate_interface-fallback-currency-notice',
+				$this->getVal( 'country' ),
+				$this->getVal( 'language' ),
+				array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
+			);
 			$this->gateway->addManualError( $error );
 		}
 	}

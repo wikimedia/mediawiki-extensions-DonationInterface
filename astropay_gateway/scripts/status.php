@@ -33,7 +33,7 @@ class AstroPayStatusQuery extends Maintenance {
 			),
 		);
 		$this->output( "Checking order $oid\n" );
-		$adapter = new AstropayAdapter( $gateway_opts );
+		$adapter = new AstroPayAdapter( $gateway_opts );
 		$result = $adapter->do_transaction( 'PaymentStatus' );
 		$this->output( print_r( $result->getData(), true ) );
 	}

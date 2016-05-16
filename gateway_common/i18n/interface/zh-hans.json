@@ -434,6 +434,8 @@
 	"apihelp-donate-param-language": "语言代码。",
 	"apihelp-donate-param-order_id": "订单号（如果捐款已经开始）。",
 	"apihelp-donate-param-contribution_tracking_id": "捐献追踪表格的ID。",
+	"apihelp-donate-param-token": "已弃用，请改用wmf_token。",
+	"apihelp-donate-param-wmf_token": "编辑令牌。",
 	"apihelp-donate-param-utm_source": "追踪变量。",
 	"apihelp-donate-param-utm_campaign": "追踪变量。",
 	"apihelp-donate-param-utm_medium": "追踪变量。",

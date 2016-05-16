@@ -523,8 +523,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	public function do_transaction( $transaction ) {
 		$this->url = $this->getGlobal( 'URL' );
 
-		$this->loadRoutingInfo( $transaction );
-
 		if ( $this->isESOP() ) {
 			// This needs to go in every ESOP request because otherwise
 			// they return "Transaction NOT Authorized"
@@ -795,53 +793,6 @@ class WorldpayAdapter extends GatewayAdapter {
 		parent::regenerateOrderID();
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->set_transaction_order_ids( $order_id );
-	}
-
-	/**
-	 * @throws RuntimeException
-	 */
-	protected function loadRoutingInfo( $transaction ) {
-		switch ( $transaction ) {
-			case 'QueryAuthorizeDeposit':
-			case 'GenerateToken':
-			case 'QueryTokenData':
-				$mid = $this->account_config['TokenizingMerchantID'];
-				$this->staged_data['wp_merchant_id'] = $mid;
-				$this->staged_data['username'] = $this->account_config['MerchantIDs'][$mid]['Username'];
-				$this->staged_data['user_password'] = $this->account_config['MerchantIDs'][$mid]['Password'];
-				break;
-			default:
-				$submethod = $this->getData_Unstaged_Escaped( 'payment_submethod' );
-				$country = $this->getData_Unstaged_Escaped( 'country' );
-				$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
-
-				$merchantId = null;
-				$storeId = null;
-				foreach( $this->account_config['StoreIDs'] as $storeConfig => $info ) {
-					list( $storeSubmethod, $storeCountry, $storeCurrency ) = explode( '/', $storeConfig );
-					if ( ( $submethod === $storeSubmethod || $storeSubmethod === '*' ) &&
-						( $country === $storeCountry || $storeCountry === '*' ) &&
-						$currency === $storeCurrency
-					) {
-						list( $merchantId, $storeId ) = $info;
-						$this->logger->info( "Using MID: {$merchantId}, SID: {$storeId} for " .
-							"submethod: {$submethod}, country: {$country}, currency: {$currency}."
-						);
-						break;
-					}
-				}
-
-				if ( !$merchantId ) {
-					throw new RuntimeException( 'Could not find account information for ' .
-						"submethod: {$submethod}, country: {$country}, currency: {$currency}." );
-				} else {
-					$this->staged_data['wp_merchant_id'] = $merchantId;
-					$this->staged_data['username'] = $this->account_config['MerchantIDs'][$merchantId]['Username'];
-					$this->staged_data['user_password'] = $this->account_config['MerchantIDs'][$merchantId]['Password'];
-					$this->staged_data['wp_storeid'] = $storeId;
-				}
-				break;
-		}
 	}
 
 	public function session_addDonorData() {

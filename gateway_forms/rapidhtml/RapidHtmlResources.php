@@ -118,7 +118,7 @@ $wgResourceModules[ 'gc.form.rapidhtml.cc' ] = array(
         'js/gc.cc.js'
     ),
 	'dependencies' => array(
-		'di.form.core.validate',
+		'ext.donationInterface.validation',
 		'mediawiki.Uri'
 	),
 	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',

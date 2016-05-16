@@ -16,7 +16,7 @@
 			fname: $( '#fname' ).val(),
 			lname: $( '#lname' ).val(),
 			email: $( '#email' ).val(),
-			token: $( 'input[name=token]' ).val(),
+			wmf_token: $( 'input[name=wmf_token]' ).val(),
 			payment_submethod: $( 'input[name=payment_submethod]:checked' ).val()
 		};
 

@@ -106,10 +106,10 @@ $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.bod
 $wgAutoloadClasses['AdyenGatewayResult'] = __DIR__ . '/adyen_gateway/adyen_resultswitcher.body.php';
 $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php';
 
-// Astropay
-$wgAutoloadClasses['AstropayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
-$wgAutoloadClasses['AstropayGatewayResult'] = __DIR__ . '/astropay_gateway/astropay_resultswitcher.body.php';
-$wgAutoloadClasses['AstropayAdapter'] = __DIR__ . '/astropay_gateway/astropay.adapter.php';
+// AstroPay
+$wgAutoloadClasses['AstroPayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
+$wgAutoloadClasses['AstroPayGatewayResult'] = __DIR__ . '/astropay_gateway/astropay_resultswitcher.body.php';
+$wgAutoloadClasses['AstroPayAdapter'] = __DIR__ . '/astropay_gateway/astropay.adapter.php';
 $wgAutoloadClasses['AstroPayFinancialNumbers'] = __DIR__ . '/astropay_gateway/AstroPayFinancialNumbers.php';
 $wgAutoloadClasses['AstroPayMethodCodec'] = __DIR__ . '/astropay_gateway/AstroPayMethodCodec.php';
 $wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFiscalNumber.php';
@@ -130,6 +130,7 @@ $wgAutoloadClasses['WorldpayEmail'] = __DIR__ . '/worldpay_gateway/WorldpayEmail
 $wgAutoloadClasses['WorldpayMethodCodec'] = __DIR__ . '/worldpay_gateway/WorldpayMethodCodec.php';
 $wgAutoloadClasses['WorldpayNarrativeStatement'] = __DIR__ . '/worldpay_gateway/WorldpayNarrativeStatement.php';
 $wgAutoloadClasses['WorldpayReturnto'] = __DIR__ . '/worldpay_gateway/WorldpayReturnto.php';
+$wgAutoloadClasses['WorldpayRoutingInfo'] = __DIR__ . '/worldpay_gateway/WorldpayRoutingInfo.php';
 
 $wgAPIModules['di_wp_validate'] = 'WorldpayValidateApi';
 $wgAutoloadClasses['WorldpayValidateApi'] = __DIR__ . '/worldpay_gateway/worldpay.api.php';
@@ -206,6 +207,13 @@ $wgDonationInterfaceDefaultEmail = 'nobody@wikimedia.org';
 $wgDonationInterfaceDisplayDebug = false;
 $wgDonationInterfaceUseSyslog = false;
 $wgDonationInterfaceSaveCommStats = false;
+
+/**
+ * Set to true to allow debug level log messages.
+ * TODO: Deprecate and show how to accomplish the same thing using Monolog
+ * configuration.
+ */
+$wgDonationInterfaceDebugLog = false;
 
 $wgDonationInterfaceCSSVersion = 1;
 $wgDonationInterfaceTimeout = 5;
@@ -407,11 +415,11 @@ $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
 #		'SkinCode' => '';
 #	);
 
-$wgAstropayGatewayHtmlFormDir = __DIR__ . '/astropay_gateway/forms/html';
+$wgAstroPayGatewayHtmlFormDir = __DIR__ . '/astropay_gateway/forms/html';
 // Set base URLs here.  Individual transactions have their own paths
-$wgAstropayGatewayURL = 'https://astropaycard.com/';
-$wgAstropayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
-#	$wgAstropayGatewayAccountInfo['example'] = array(
+$wgAstroPayGatewayURL = 'https://astropaycard.com/';
+$wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
+#	$wgAstroPayGatewayAccountInfo['example'] = array(
 #		'Create' => array( // For creating invoices
 #			'Login' => '',
 #			'Password' => '',
@@ -833,7 +841,7 @@ $wgDonationInterfaceEnableMinfraud = false; //this is definitely an Extra
 $wgGlobalCollectGatewayEnabled = false;
 $wgAmazonGatewayEnabled = false;
 $wgAdyenGatewayEnabled = false;
-$wgAstropayGatewayEnabled = false;
+$wgAstroPayGatewayEnabled = false;
 $wgPaypalGatewayEnabled = false;
 $wgWorldpayGatewayEnabled = false;
 
@@ -865,9 +873,12 @@ $wgSpecialPages['AdyenGateway'] = 'AdyenGateway';
 $wgSpecialPages['AdyenGatewayResult'] = 'AdyenGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AdyenAdapter';
 
-$wgSpecialPages['AstropayGateway'] = 'AstropayGateway';
-$wgSpecialPages['AstropayGatewayResult'] = 'AstropayGatewayResult';
-$wgDonationInterfaceGatewayAdapters[] = 'AstropayAdapter';
+
+$wgSpecialPages['AstropayGateway'] = 'AstroPayGateway'; // legacy transition alias
+$wgSpecialPages['AstropayGatewayResult'] = 'AstroPayGatewayResult'; // legacy transition alias
+$wgSpecialPages['AstroPayGateway'] = 'AstroPayGateway';
+$wgSpecialPages['AstroPayGatewayResult'] = 'AstroPayGatewayResult';
+$wgDonationInterfaceGatewayAdapters[] = 'AstroPayAdapter';
 
 $wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
@@ -1104,7 +1115,7 @@ $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/adyen_gateway/i18n';
 $wgExtensionMessagesFiles['AdyenGatewayAlias'] = __DIR__ . '/adyen_gateway/adyen_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/astropay_gateway/i18n';
-$wgExtensionMessagesFiles['AstropayGatewayAlias'] = __DIR__ . '/astropay_gateway/astropay_gateway.alias.php';
+$wgExtensionMessagesFiles['AstroPayGatewayAlias'] = __DIR__ . '/astropay_gateway/astropay_gateway.alias.php';
 
 $wgMessagesDirs['DonationInterface'][] = __DIR__ . '/paypal_gateway/i18n';
 $wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';

@@ -81,7 +81,7 @@
 				'fname', 'lname', 'email',
 				'email-opt',
 				'utm_source', 'utm_medium', 'utm_campaign', 'referrer',
-				'gateway', 'payment_method', 'language', 'token',
+				'gateway', 'payment_method', 'language', 'wmf_token',
 				'order_id', 'contribution_tracking_id',
 
 				// AVS Countries

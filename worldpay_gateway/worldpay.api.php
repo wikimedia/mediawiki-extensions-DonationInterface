@@ -5,7 +5,7 @@ class WorldpayValidateApi extends ApiBase {
 		'fname', 'lname', 'email',
 		'email-opt',
 		'utm_source','utm_medium','utm_campaign','referrer',
-		'gateway','payment_method', 'payment_submethod', 'language','token',
+		'gateway','payment_method', 'payment_submethod', 'language','wmf_token',
 		'order_id','contribution_tracking_id', 'amount', 'ffname',
 
 		// AVS Countries

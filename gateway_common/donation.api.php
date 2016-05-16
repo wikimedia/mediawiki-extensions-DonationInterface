@@ -117,6 +117,8 @@ class DonationApi extends ApiBase {
 			'language' => $this->defineParam( false ),
 			'order_id' => $this->defineParam( false ),
 			'contribution_tracking_id' => $this->defineParam( false ),
+			'token' => $this->defineParam( false ), // TODO: transitional, remove
+			'wmf_token' => $this->defineParam( false ),
 			'utm_source' => $this->defineParam( false ),
 			'utm_campaign' => $this->defineParam( false ),
 			'utm_medium' => $this->defineParam( false ),
@@ -160,6 +162,8 @@ class DonationApi extends ApiBase {
 			'language' => 'Language code',
 			'order_id' => 'Order ID (if a donation has already been started)',
 			'contribution_tracking_id' => 'ID for contribution tracking table',
+			'token' => 'Mediawiki edit token', // TODO: transitional, remove
+			'wmf_token' => 'Mediawiki edit token',
 			'utm_source' => 'Tracking variable',
 			'utm_campaign' => 'Tracking variable',
 			'utm_medium' => 'Tracking variable',

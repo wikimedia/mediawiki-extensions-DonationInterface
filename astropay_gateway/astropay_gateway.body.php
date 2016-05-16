@@ -17,12 +17,12 @@
  */
 
 /**
- * AstropayGateway
+ * AstroPayGateway
  *
  */
-class AstropayGateway extends GatewayPage {
+class AstroPayGateway extends GatewayPage {
 
-	protected $adapterClass = 'AstropayAdapter';
+	protected $adapterClass = 'AstroPayAdapter';
 
 	protected function handleRequest() {
 		$this->getOutput()->addModules( 'ext.donationInterface.forms' );

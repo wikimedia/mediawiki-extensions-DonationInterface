@@ -1,3 +1,12 @@
+cb:
+    countries:
+        FR: true
+    group: cc
+    validation:
+        name: true
+        email: true
+        amount: true
+    logo: card-cb.png
 visa:
     countries:
         US: true
@@ -41,4 +50,5 @@ discover:
         email: true
         amount: true
     logo: card-discover.png
+
 

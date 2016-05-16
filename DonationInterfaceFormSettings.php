@@ -458,7 +458,7 @@ $forms_whitelist['paypal-recurring'] = array(
 // the chooser will route to the correct gateway based on gateway settings,
 // and simply pass along any ffname from the banner to allow A/B testing
 /************
- * Astropay *
+ * AstroPay *
  ************/
 $forms_whitelist['astropay'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
@@ -602,7 +602,7 @@ $forms_whitelist['adyen'] = array(
 	'gateway' => 'adyen',
 	'countries' => array( '+' => 'US', 'IL', 'FR' ),
 	'currencies' => array( '+' => 'USD', 'ILS', 'EUR' ),
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb' )),
 	'selection_weight' => 0
 );
 

@@ -273,7 +273,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->staged_data = $this->unstaged_data;
 
 		// checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $this->request->getVal( 'token', null ) ) ) );
+		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $this->request->getVal( 'wmf_token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -424,7 +424,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->debugarray[] = 'Token MISMATCH';
 		}
 
-		$this->refreshGatewayValueFromSource( 'token' );
+		$this->refreshGatewayValueFromSource( 'wmf_token' );
 		return $checkResult;
 	}
 
@@ -762,17 +762,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return '';
 		}
 
-		$queryvals = array();
-
-		// we are going to assume a flat array, because... namevalue.
+		$data = array();
 		foreach ( $structure as $fieldname ) {
 			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryvals[] = $fieldname . '=' . $fieldvalue;
+				$data[$fieldname] = $fieldvalue;
 			}
 		}
 
-		$ret = implode( '&', $queryvals );
+		$ret = http_build_query( $data );
 		return $ret;
 	}
 
@@ -1468,7 +1466,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return $realXML;
 		}
 		// For anything else, delete all the headers and the blank line after
-		$noHeaders = preg_replace( '/^.*?\n\r?\n/ms', '', $rawResponse, 1 );
+		// Note: the negative lookahead is to ignore PayPal's HTTP continue header.
+		$noHeaders = preg_replace( '/^.*?(\r\n\r\n|\n\n)(?!HTTP\/)/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
 		switch ( $type ) {
 		case 'json':
@@ -2755,8 +2754,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $score;
 	}
 
+	public function getAccountConfig( $key ) {
+		return $this->account_config[$key];
+	}
+
 	/**
 	 * For places that might need the merchant ID outside of the adapter
+	 * @deprecated
 	 */
 	public function getMerchantID() {
 		return $this->account_config[ 'MerchantID' ];
@@ -3114,7 +3118,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->request->setSessionData( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
-		$this->addRequestData( array ( 'token' => $salted ) );
+		$this->addRequestData( array ( 'wmf_token' => $salted ) );
 	}
 
 	/**
@@ -3163,14 +3167,19 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->logger->debug( 'editToken: ' . $token );
 
 			// match token
-			if ( !$this->dataObj->isSomething( 'token' ) ) {
-				$this->addRequestData( array ( 'token' => $token ) );
+			if ( !$this->dataObj->isSomething( 'wmf_token' ) ) {
+				$this->addRequestData( array ( 'wmf_token' => $token ) );
 			}
-			$token_check = $this->getData_Unstaged_Escaped( 'token' );
+			$token_check = $this->getData_Unstaged_Escaped( 'wmf_token' );
+
+			// @deprecated soft transition code:
+			if ( $this->dataObj->isSomething( 'token' ) ) {
+				$token_check = $this->getData_Unstaged_Escaped( 'token' );
+			}
 
 			$match = $this->token_matchEditToken( $token_check );
 			if ( $this->dataObj->wasPosted() ) {
-				$this->logger->debug( 'Submitted edit token: ' . $this->getData_Unstaged_Escaped( 'token' ) );
+				$this->logger->debug( 'Submitted edit token: ' . $token_check );
 				$this->logger->debug( 'Token match: ' . ($match ? 'true' : 'false' ) );
 			}
 		}

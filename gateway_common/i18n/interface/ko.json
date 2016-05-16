@@ -386,5 +386,6 @@
 	"donate_interface-securelogo-title": "확인하려면 클릭 - 이 사이트는 안전한 전자 상거래 및 기밀 통신을 위해 VeriSign SSL을 사용합니다.",
 	"donate_interface-secureLogo-text": "SSL 인증서에 대하여",
 	"donate_interface-error-http-403": "이 문서에 접근할 권한이 없습니다.",
-	"donate_interface-statement": "위키미디어 $1"
+	"donate_interface-statement": "위키미디어 $1",
+	"apihelp-donate-param-wmf_token": "편집 토큰."
 }

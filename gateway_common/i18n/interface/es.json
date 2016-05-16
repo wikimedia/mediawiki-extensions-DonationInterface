@@ -33,7 +33,8 @@
 			"JasterTDC",
 			"Tusca",
 			"Ryo567",
-			"Ncontinanza"
+			"Ncontinanza",
+			"Indiralena"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -431,6 +432,7 @@
 	"apihelp-donate-param-language": "Código del idioma.",
 	"apihelp-donate-param-order_id": "Identificador de la orden (si una donación ya se ha iniciado).",
 	"apihelp-donate-param-contribution_tracking_id": "Identificador para la tabla de seguimiento de contribuciones.",
+	"apihelp-donate-param-token": "En desuso, usa wmf_token en su lugar.",
 	"apihelp-donate-param-utm_source": "Variable de seguimiento.",
 	"apihelp-donate-param-utm_campaign": "Variable de seguimiento.",
 	"apihelp-donate-param-utm_medium": "Variable de seguimiento.",
