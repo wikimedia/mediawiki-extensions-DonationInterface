@@ -463,7 +463,6 @@
 	"apihelp-donate-param-language": "{{doc-apihelp-param|donate|language}}\n{{Identical|Language code}}",
 	"apihelp-donate-param-order_id": "{{doc-apihelp-param|donate|order_id}}",
 	"apihelp-donate-param-contribution_tracking_id": "{{doc-apihelp-param|donate|contribution_tracking_id}}",
-	"apihelp-donate-param-token": "{{doc-apihelp-param|donate|token}}",
 	"apihelp-donate-param-wmf_token": "{{doc-apihelp-param|donate|wmf_token}}",
 	"apihelp-donate-param-utm_source": "{{doc-apihelp-param|donate|utm_source}}",
 	"apihelp-donate-param-utm_campaign": "{{doc-apihelp-param|donate|utm_campaign}}",
