@@ -87,14 +87,13 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 			'donate_interface-fallback-currency-notice',
 			'USD'
 		)->inLanguage( $language )->text();
+		$locale = $init['language'] . '_' . $init['country'];
+		$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
+		$expectedDisplayAmount = $formatter->formatCurrency( $expectedAmount, 'USD' );
 
 		$that = $this; //needed for PHP pre-5.4
-		$convertTest = function( $amountString ) use ( $expectedAmount, $that ) {
-			$actual = explode( ' ', trim( $amountString ) );
-			$that->assertTrue( is_numeric( $actual[0] ) );
-			$difference = abs( floatval( $actual[0] ) - $expectedAmount );
-			$that->assertTrue( $difference <= 1 );
-			$that->assertEquals( 'USD', $actual[1] );
+		$convertTest = function( $amountString ) use ( $expectedDisplayAmount, $that ) {
+			$that->assertEquals( $expectedDisplayAmount, trim( $amountString ), 'Displaying wrong amount' );
 		};
 
 		$assertNodes = array(
