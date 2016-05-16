@@ -6,6 +6,6 @@ class PaypalExpressReturnUrl implements StagingHelper {
 		$staged['returnto'] = $returnTitle->getFullURL( array(
 			'order_id' => $normalized['order_id'],
 			'wmf_token' => $adapter->token_getSaltedSessionToken(),
-		) );
+		), false, PROTO_CURRENT );
 	}
 }
