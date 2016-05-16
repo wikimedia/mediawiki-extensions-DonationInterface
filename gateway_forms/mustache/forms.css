@@ -7,6 +7,10 @@ div#payment_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
 }
+div#payment_gateway-donate-submessage img {
+    vertical-align:baseline;
+    margin-right:4px;
+}
 #payment-table-donor td.label,
 #payment-table-comment td.label,
 #payment-table-cc td.label {
@@ -211,6 +215,10 @@ span#selected-amount {
   padding-bottom: 0;
   font-weight: normal;
 }
+.cc_header img {
+    vertical-align: baseline;
+    margin-left: 8px;
+}
 
 div.donor { width: auto !important; }
 div.donor { width: 100% !important; }
@@ -395,4 +403,9 @@ div.donor { width: 100% !important; }
 	top: 50%;
 	left: 50%;
 	margin: -26px 0 0 -28px;
+}
+
+dd.field {
+    margin-bottom: 0;
+    margin-left: 0;
 }
