@@ -964,11 +964,17 @@ $wgResourceModules[ 'ext.donationInterface.currencyRates' ] = array(
 // Migrate everything using di.form.core.validate to mustache,
 // then completely rewrite those functions
 $wgResourceModules[ 'ext.donationInterface.validation' ] = array(
-	'scripts' => 'ext.donationInterface.validation.js',
+	'scripts' => array(
+		'mailcheck.js',
+		'ext.donationInterface.validation.js',
+	),
 	'dependencies' => array(
 		'di.form.core.validate',
 		/*'ext.donationInterface.currencyRates',
 		'ext.donationInterface.errorMessages',*/
+	),
+	'messages' => array(
+		'donate_interface-did-you-mean',
 	),
 	'localBasePath' => __DIR__ . '/modules/js',
 	'remoteExtPath' => 'DonationInterface/modules/js',

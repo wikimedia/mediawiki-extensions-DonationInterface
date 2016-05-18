@@ -307,6 +307,7 @@
 	"donate_interface-cvv-number": "CVV number",
 	"donate_interface-verification-number": "Verification number",
 	"donate_interface-what-is-this": "What is this?",
+	"donate_interface-did-you-mean": "Did you mean <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "debit",
 	"donate_interface-do-not-include-dashes": "Please do not include dashes",
 	"donate_interface-please-donate-today": "Please donate today",

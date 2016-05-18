@@ -34,4 +34,30 @@
 		validatePersonal: window.validate_personal,
 		showErrors: showErrors
 	};
+	// Set up email error detection and correction
+	$( document ).on( 'blur', '#email', function () {
+		$( this ).mailcheck( {
+			suggested: function ( element, suggestion ) {
+				var message = mw.msg(
+					'donate_interface-did-you-mean',
+					suggestion.full
+				);
+				$( '#emailMsg' )
+					.removeClass( 'errorMsgHide' )
+					.addClass( 'errorMsg' )
+					.html( message );
+			},
+			empty: function ( element ) {
+				$( '#emailMsg' )
+					.removeClass( 'errorMsg' )
+					.addClass( 'errorMsgHide' );
+			}
+		} );
+	} );
+	$( document ).on( 'click', '#emailMsg .correction', function () {
+		$( '#email' ).val( $( this ).text() );
+		$( '#emailMsg' )
+			.removeClass( 'errorMsg' )
+			.addClass( 'errorMsgHide' );
+	} );
 } )( jQuery, mediaWiki );
