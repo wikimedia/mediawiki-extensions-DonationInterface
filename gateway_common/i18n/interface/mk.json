@@ -408,6 +408,7 @@
 	"apihelp-donate-param-language": "Јазичен код.",
 	"apihelp-donate-param-order_id": "Незнака на нарачката (ако имате веќе започнато со дарување).",
 	"apihelp-donate-param-contribution_tracking_id": "Назнака на табелата за следење придонеси.",
+	"apihelp-donate-param-wmf_token": "Уреди шифра.",
 	"apihelp-donate-param-utm_source": "Променлива за следење.",
 	"apihelp-donate-param-utm_campaign": "Променлива за следење.",
 	"apihelp-donate-param-utm_medium": "Променлива за следење.",
