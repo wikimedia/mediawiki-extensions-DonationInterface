@@ -65,6 +65,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			die();
 		}
 
+		// FIXME: here we should check for ffname, and if that's a valid form skip the choosing
 		$form = self::getOneValidForm( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 
 		if ( $form === null ) {
@@ -356,6 +357,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * FIXME: this function should contain the logic to compare form specs
+	 * with requested params, and 'getAllValidForms' should just loop over
+	 * the forms and call this function.
 	 * Checks to see if the ffname supplied is a valid form for the rest of the supplied params.
 	 * @param string $ffname The form name to check.
 	 * @param string $country Optional country code filter
@@ -410,7 +414,25 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			reset( $valid_forms );
 			return key ( $valid_forms );
 		}
-		
+
+		// We know there are multiple options for the donor at this point.
+		// selection_weight = 0 is interpreted as meaning "don't pick this
+		// form unless we asked for it by name", so remove those forms before
+		// we apply any other criteria.
+		// FIXME: once other FIXMEs are complete, use a more explicit settings
+		// key like 'onlyOnRequest' => true and filter in getAllValidForms
+		$failforms = array();
+		foreach ( $valid_forms as $form_name => $meta ) {
+			if (
+				isset( $meta['selection_weight'] ) &&
+				$meta['selection_weight'] === 0
+			) {
+				$failforms[] = $form_name;
+			}
+		}
+		foreach ( $failforms as $failform ) {
+			unset( $valid_forms[$failform] );
+		}
 		//general idea: If one form has constraints for the following ordered
 		//keys, and some forms do not have that constraint, prefer the one with 
 		//the explicit constraints. 
