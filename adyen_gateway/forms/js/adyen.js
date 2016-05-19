@@ -25,7 +25,6 @@
 			payment_method: 'cc',
 			language: $( '#language' ).val(),
 			payment_submethod: $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase(),
-			contribution_tracking_id: $( '#contribution_tracking_id' ).val(),
 			utm_source: $( '#utm_source' ).val(),
 			utm_campaign: $( '#utm_campaign' ).val(),
 			utm_medium: $( '#utm_medium' ).val(),

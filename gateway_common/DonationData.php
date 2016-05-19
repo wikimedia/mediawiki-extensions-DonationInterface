@@ -71,7 +71,6 @@ class DonationData implements LogPrefixProvider {
 		'language',
 		'uselang',
 		'wmf_token',
-		'contribution_tracking_id',
 		'data_hash',
 		'action',
 		'gateway',
@@ -188,7 +187,7 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 		//fields that should always overwrite with their original values
-		$overwrite = array( 'referrer' );
+		$overwrite = array( 'referrer', 'contribution_tracking_id' );
 		foreach ( $donorData as $key => $val ) {
 			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );

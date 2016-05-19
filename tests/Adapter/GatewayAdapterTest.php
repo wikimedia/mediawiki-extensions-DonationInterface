@@ -133,7 +133,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	public function testResetOnGatewaySwitch() {
 		// Fill the session with some GlobalCollect stuff
 		$init = $this->getDonorTestData( 'FR' );
-		$init['contribution_tracking_id'] = mt_rand();
 		$firstRequest = $this->setUpRequest( $init );
 		$globalcollect_gateway = new TestingGlobalCollectAdapter();
 		$globalcollect_gateway->do_transaction( 'Donate' );
@@ -141,7 +140,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$session = $firstRequest->getSessionArray();
 		$this->assertEquals( 'globalcollect', $session['Donor']['gateway'], 'Test setup failed.' );
 
-		//Then simpulate switching to Worldpay
+		//Then simulate switching to Worldpay
 		$session['sequence'] = 2;
 		unset( $init['order_id'] );
 
@@ -150,7 +149,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$worldpay_gateway->batch_mode = true;
 
 		$session = $secondRequest->getSessionArray();
-		$expected_order_id = "{$init['contribution_tracking_id']}.{$session['sequence']}";
+		$ctId = $worldpay_gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$expected_order_id = "$ctId.{$session['sequence']}";
 		$this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
 	}
