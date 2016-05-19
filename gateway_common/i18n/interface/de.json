@@ -294,6 +294,7 @@
 	"donate_interface-cvv-number": "CVV-Nummer",
 	"donate_interface-verification-number": "Verifizierungsnummer",
 	"donate_interface-what-is-this": "Was bedeutet dies?",
+	"donate_interface-did-you-mean": "Meinten Sie <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "Lastschrift",
 	"donate_interface-do-not-include-dashes": "Bitte keine Bindestriche verwenden",
 	"donate_interface-please-donate-today": "Bitte spenden Sie noch heute",

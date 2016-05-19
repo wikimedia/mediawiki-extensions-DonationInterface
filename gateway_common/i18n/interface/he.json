@@ -291,6 +291,7 @@
 	"donate_interface-cvv-number": "מספר CVV",
 	"donate_interface-verification-number": "מספר אימות",
 	"donate_interface-what-is-this": "מה זה?",
+	"donate_interface-did-you-mean": "האם התכוונת ל: <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "חיוב",
 	"donate_interface-do-not-include-dashes": "נא לא לרשום מקפים",
 	"donate_interface-please-donate-today": "אנא תִרמו היום",
