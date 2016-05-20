@@ -209,7 +209,6 @@ class DonationQueue {
 			'language' => $transaction['language'],
 			'payment_method' => $transaction['payment_method'],
 			'payment_submethod' => $transaction['payment_submethod'],
-			'referrer' => $transaction['referrer'],
 			'response' => $transaction['response'],
 			'user_ip' => $transaction['user_ip'],
 			'utm_source' => $transaction['utm_source'],

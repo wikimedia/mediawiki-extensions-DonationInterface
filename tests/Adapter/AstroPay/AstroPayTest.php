@@ -481,7 +481,6 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$expected = array(
-			'referrer' => 'www.yourmom.com',
 			'currency_code' => 'BRL',
 			'payment_submethod' => 'test_bank',
 			'fname' => 'Nome',

@@ -910,7 +910,6 @@ class DonationData implements LogPrefixProvider {
 			'utm_medium',
 			'utm_campaign',
 			'language',
-			'referrer',
 			'email',
 			'fname',
 			'lname',
