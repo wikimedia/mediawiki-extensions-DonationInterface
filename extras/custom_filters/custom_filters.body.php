@@ -31,6 +31,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
+		$this->risk_score = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		if ( !$this->risk_score ) {
+			$this->risk_score = array();
+		}
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
 	}
 
@@ -120,7 +124,12 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
-		$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
+
+		$storedScores = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		if ( $storedScores != $this->risk_score ) {
+			$this->gateway_adapter->getRequest()->setSessionData( 'risk_scores', $this->risk_score );
+			$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
+		}
 
 		return TRUE;
 	}

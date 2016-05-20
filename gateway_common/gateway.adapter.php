@@ -2904,6 +2904,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'numAttempt',
 				'order_status', //for post-payment activities
 				'sequence',
+				'risk_scores',
 			);
 			$preservedData = array();
 			$msg = '';
