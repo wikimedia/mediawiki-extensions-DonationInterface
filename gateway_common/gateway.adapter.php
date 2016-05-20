@@ -2325,8 +2325,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	public function addRiskScore( $score ) {
-		$this->risk_score += $score;
+	public function setRiskScore( $score ) {
+		$this->risk_score = $score;
 	}
 
 	public function setValidationAction( $action, $reset = false ) {

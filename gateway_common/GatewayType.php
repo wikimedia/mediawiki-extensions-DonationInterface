@@ -282,11 +282,11 @@ interface GatewayType {
 	public function getDataConstraints( $field );
 
 	/**
-	 * Add the given amount to our fraud score
+	 * Set the adapter's fraud score
 	 *
 	 * @param float $score
 	 */
-	public function addRiskScore( $score );
+	public function setRiskScore( $score );
 
 	/**
 	 * Get the current HTTP request

@@ -24,11 +24,17 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	}
 
 	/**
-	 * @throws UnexpectedValueException
+	 * @param $filterListGlobal
+	 * @return bool
 	 */
-	public function filter() {
+	public function filter( $filterListGlobal ) {
 
-		$functions = $this->gateway_adapter->getGlobal( 'CustomFiltersFunctions' );
+		if ( !$this->gateway_adapter->getGlobal( 'EnableFunctionsFilter' ) ||
+			!count( $this->gateway_adapter->getGlobal( $filterListGlobal ) ) ){
+			return true;
+		}
+
+		$functions = $this->gateway_adapter->getGlobal( $filterListGlobal );
 		foreach ( $functions as $function_name => $risk_score_modifier ) {
 			//run the function specified, if it exists. 
 			if ( method_exists( $this->gateway_adapter, $function_name ) ) {
@@ -55,13 +61,20 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
-		if ( !$gateway_adapter->getGlobal( 'EnableFunctionsFilter' ) ||
-			!count( $gateway_adapter->getGlobal( 'CustomFiltersFunctions' ) ) ){
-			return true;
-		}
 		$gateway_adapter->debugarray[] = 'functions onFilter hook!';
-		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
+		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
+			'CustomFiltersFunctions'
+		);
+	}
+
+	static function onInitialFilter(
+		GatewayType $gateway_adapter,
+		Gateway_Extras_CustomFilters $custom_filter_object
+	) {
+		$gateway_adapter->debugarray[] = 'functions onInitialFilter hook!';
+		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
+			'CustomFiltersInitialFunctions'
+		);
 	}
 
 	static function singleton(

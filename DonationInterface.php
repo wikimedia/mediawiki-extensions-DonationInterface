@@ -657,7 +657,14 @@ $wgDonationInterfaceCustomFiltersRefRules = array();
 $wgDonationInterfaceCustomFiltersSrcRules = array();
 
 //Functions Filter globals
+//These functions fire when we trigger the antifraud hook.
+//Anything that needs access to API call results goes here.
+//FIXME: you need to copy all the initial functions here because
+//individual function scores don't persist like filter scores.
 $wgDonationInterfaceCustomFiltersFunctions = array();
+//These functions fire on GatewayReady, so all they can see is the
+//request and the session.
+$wgDonationInterfaceCustomFiltersInitialFunctions = array();
 
 //IP velocity filter globals
 $wgDonationInterfaceMemcacheHost = 'localhost';
@@ -889,13 +896,21 @@ $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
 $wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
-//Custom Filters hooks
 $wgHooks['GatewayReady'][] = array( 'BannerHistoryLogIdProcessor::onGatewayReady' );
 
+// Custom Filters hooks
+$wgHooks['GatewayReady'][] = array( 'Gateway_Extras_CustomFilters::onGatewayReady' );
 $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 
-$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
-$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+// These filters are run on each request after collecting the data
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onInitialFilter' );
+
+// And these are run when we're about ready to charge the credit card.
+// Any test that costs us money should go here. It's ok to run simple
+// filters in both places - their score in the later run will replace
+// the first score.
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );
