@@ -930,6 +930,7 @@ $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate
 $wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
 $wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
 $wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onInitialFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter' );
 
 // And these are run when we're about ready to charge the credit card.
 // Any test that costs us money should go here. It's ok to run simple

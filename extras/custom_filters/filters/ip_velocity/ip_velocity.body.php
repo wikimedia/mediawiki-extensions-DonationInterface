@@ -38,6 +38,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$this->cfo->addRiskScore( 0, 'IPWhitelist' );
 			return true;
 		}
+		// TODO: this blacklist business should happen elsewhere, and on every hit.
 		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPBlacklist' ) ) ) {
 			$this->gateway_adapter->debugarray[] = "IP present in blacklist.";
 			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
@@ -154,16 +155,50 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		$new_velocity_records[] = $nowstamp;
 		return $new_velocity_records;
 	}
-	
 
+
+	/**
+	 * This is called when we're actually talking to the processor.
+	 * We don't call on the first attempt in this session, since
+	 * onInitialFilter already struck once.
+	 * @param GatewayType $gateway_adapter
+	 * @param Gateway_Extras_CustomFilters $custom_filter_object
+	 * @return bool
+	 */
 	static function onFilter( $gateway_adapter, $custom_filter_object ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
+			return true;
+		}
+		if (
+			$gateway_adapter->getRequest()->getSessionData( 'initialIPVelocity' ) &&
+			!$gateway_adapter->getRequest()->getSessionData( 'numAttempt' )
+		) {
+			// We're on the first attempt, already counted in onInitialFilter
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
-	
+
+	/**
+	 * Run the filter if we haven't for this session, and set a flag
+	 * @param GatewayType $gateway_adapter
+	 * @param Gateway_Extras_CustomFilters $custom_filter_object
+	 * @return bool
+	 */
+	static function onInitialFilter( $gateway_adapter, $custom_filter_object ) {
+		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
+			return true;
+		}
+		if ( $gateway_adapter->getRequest()->getSessionData( 'initialIPVelocity' ) ) {
+			return true;
+		}
+
+		$gateway_adapter->getRequest()->setSessionData( 'initialIPVelocity', true );
+		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
+		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
+	}
+
 	static function onPostProcess( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
