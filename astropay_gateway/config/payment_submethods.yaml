@@ -112,7 +112,7 @@ nativa:
         AR: true
     logo: card-nativa.png
 cencosud:
-    bank_code: TS
+    bank_code: CS
     label: Cencosud
     group: cc
     countries:
