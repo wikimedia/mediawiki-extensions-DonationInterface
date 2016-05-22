@@ -299,6 +299,7 @@
 	"donate_interface-cvv-number": "CVV-nummer",
 	"donate_interface-verification-number": "Verifieringsnummer",
 	"donate_interface-what-is-this": "Vad är detta?",
+	"donate_interface-did-you-mean": "Menade du <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-do-not-include-dashes": "Vänligen skriv inte bindestreck",
 	"donate_interface-please-donate-today": "Vänligen donera idag",
 	"donate_interface-donate-now": "Donera nu",
