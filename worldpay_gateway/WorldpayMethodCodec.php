@@ -10,7 +10,12 @@ class WorldpayMethodCodec implements UnstagingHelper {
 
 		if ( $paymentMethod == 'cc' ) {
 			$byApiName = $adapter->getConfig('payment_submethod_api_names');
-			$unstagedData['payment_submethod'] = $byApiName[$paymentSubmethod];
+			// FIXME: It's not fair that we have to step around incorrectly
+			// staged normalized submethod.  Need to be much more careful about
+			// blindly copying fields when they are not staged.
+			if ( isset( $byApiName[$paymentSubmethod] ) ) {
+				$unstagedData['payment_submethod'] = $byApiName[$paymentSubmethod];
+			}
 		}
 	}
 }

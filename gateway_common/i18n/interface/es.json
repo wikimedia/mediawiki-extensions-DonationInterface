@@ -34,7 +34,8 @@
 			"Tusca",
 			"Ryo567",
 			"Ncontinanza",
-			"Indiralena"
+			"Indiralena",
+			"2axterix2"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -316,6 +317,7 @@
 	"donate_interface-cvv-number": "Número CVV",
 	"donate_interface-verification-number": "Número de verificación",
 	"donate_interface-what-is-this": "¿Qué es esto?",
+	"donate_interface-did-you-mean": "¿Quisiste decir <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "débito",
 	"donate_interface-do-not-include-dashes": "No incluyas guiones",
 	"donate_interface-please-donate-today": "Haz una donación hoy",
@@ -432,7 +434,6 @@
 	"apihelp-donate-param-language": "Código del idioma.",
 	"apihelp-donate-param-order_id": "Identificador de la orden (si una donación ya se ha iniciado).",
 	"apihelp-donate-param-contribution_tracking_id": "Identificador para la tabla de seguimiento de contribuciones.",
-	"apihelp-donate-param-token": "En desuso, usa wmf_token en su lugar.",
 	"apihelp-donate-param-utm_source": "Variable de seguimiento.",
 	"apihelp-donate-param-utm_campaign": "Variable de seguimiento.",
 	"apihelp-donate-param-utm_medium": "Variable de seguimiento.",

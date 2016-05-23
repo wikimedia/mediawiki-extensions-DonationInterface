@@ -288,6 +288,7 @@
 	"donate_interface-cvv-number": "Numer CVV",
 	"donate_interface-verification-number": "Numer weryfikacyjny",
 	"donate_interface-what-is-this": "Co to jest?",
+	"donate_interface-did-you-mean": "Czy chodziło ci o <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-do-not-include-dashes": "Nie umieszczaj myślników",
 	"donate_interface-please-donate-today": "Pomóż właśnie dziś",
 	"donate_interface-donate-now": "Przekaż teraz",

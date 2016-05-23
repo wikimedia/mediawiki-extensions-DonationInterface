@@ -12,6 +12,38 @@ html {
 	font-family: 'PT Sans',Helvetica,Arial,sans-serif;
 }
 
+html[data-shopperlocale|="he"] *, html[data-shopperlocale|="ar"] *,
+html[data-shopperlocale|="fa"] *, html[data-shopperlocale|="ur"] * {
+	direction: rtl;
+	text-align: right;
+}
+
+html[data-shopperlocale|="he"] .fieldDiv,
+html[data-shopperlocale|="ar"] .fieldDiv,
+html[data-shopperlocale|="fa"] .fieldDiv,
+html[data-shopperlocale|="ur"] .fieldDiv {
+	padding-right: 0;
+	padding-left: 20px;
+}
+
+html[data-shopperlocale|="he"] .paySubmit,
+html[data-shopperlocale|="ar"] .paySubmit,
+html[data-shopperlocale|="fa"] .paySubmit,
+html[data-shopperlocale|="ur"] .paySubmit {
+	float:right !important;
+}
+
+/* some inputs must always be ltr */
+input[name="card.cardNumber"], input[name="card.cvcCode"] {
+	direction: ltr;
+	text-align: left;
+}
+
+/* ensure the cvc hint doesn't wrap under the input box */
+input[name="card.cvcCode"] ~ a {
+	display: inline-block;
+}
+
 body {
 	color: #333;
 }

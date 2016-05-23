@@ -38,12 +38,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
 	 *
-	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $key ][] = $value
+	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][$section][] = $value
 	 */
-	protected function addKeyToTransaction( $value, $type = 'PAYMENT' ) {
+	protected function addKeyToTransaction( $value, $section = 'PAYMENT' ) {
 
-		if ( !in_array( $value, $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $type ] ) ) {
-			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][ $type ][] = $value;
+		if ( !in_array( $value, $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][$section] ) ) {
+			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][$section][] = $value;
 		}
 	}
 
@@ -1731,6 +1731,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * Add keys to transaction for submethod
+	 * TODO: Candidate for pushing to the base class.
 	 */
 	protected function addKeysToTransactionForSubmethod( $payment_submethod ) {
 

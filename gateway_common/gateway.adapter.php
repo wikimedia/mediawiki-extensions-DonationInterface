@@ -486,7 +486,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * Add data from the processor to staged_data and run any unstaging functions.
 	 *
-	 * @param array $dataArray An associative array of data.
+	 * @param array $dataArray An associative array of data, with normalized
+	 * keys and raw processor values.
 	 */
 	public function addResponseData( $dataArray ) {
 		foreach ( $dataArray as $key => $value ) {
@@ -1815,7 +1816,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * Run any unstaging functions to decode processor responses
 	 *
-	 * @param array $data response data
+	 * @param array $data response data--Parameter is deprecated once
+	 *     unstage_ functions are gone.
 	 */
 	protected function unstageData( $data ) {
 		foreach ( $data as $field => $value ) {
@@ -3171,11 +3173,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->addRequestData( array ( 'wmf_token' => $token ) );
 			}
 			$token_check = $this->getData_Unstaged_Escaped( 'wmf_token' );
-
-			// @deprecated soft transition code:
-			if ( $this->dataObj->isSomething( 'token' ) ) {
-				$token_check = $this->getData_Unstaged_Escaped( 'token' );
-			}
 
 			$match = $this->token_matchEditToken( $token_check );
 			if ( $this->dataObj->wasPosted() ) {

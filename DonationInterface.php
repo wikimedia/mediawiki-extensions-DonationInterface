@@ -116,9 +116,9 @@ $wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFisc
 
 // Paypal
 $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
-$wgAutoloadClasses['PaypalGateway'] = __DIR__ . '/paypal_gateway/paypal_gateway.body.php';
-$wgAutoloadClasses['PaypalAdapter'] = __DIR__ . '/paypal_gateway/paypal.adapter.php';
-$wgAutoloadClasses['PayPalLocale'] = __DIR__ . '/paypal_gateway/PayPalLocale.php';
+$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
+$wgAutoloadClasses['PaypalLegacyAdapter'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy.adapter.php';
+$wgAutoloadClasses['PaypalLegacyLocale'] = __DIR__ . '/paypal_gateway/legacy/PaypalLegacyLocale.php';
 
 // Worldpay
 $wgAutoloadClasses['WorldpayGateway'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.body.php';
@@ -880,8 +880,10 @@ $wgSpecialPages['AstroPayGateway'] = 'AstroPayGateway';
 $wgSpecialPages['AstroPayGatewayResult'] = 'AstroPayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstroPayAdapter';
 
-$wgSpecialPages['PaypalGateway'] = 'PaypalGateway';
-$wgDonationInterfaceGatewayAdapters[] = 'PaypalAdapter';
+# FIXME: deprecated
+$wgSpecialPages['PaypalGateway'] = 'PaypalLegacyGateway';
+$wgSpecialPages['PaypalLegacyGateway'] = 'PaypalLegacyGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalLegacyAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
 $wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
@@ -951,11 +953,17 @@ $wgResourceModules[ 'ext.donationInterface.currencyRates' ] = array(
 // Migrate everything using di.form.core.validate to mustache,
 // then completely rewrite those functions
 $wgResourceModules[ 'ext.donationInterface.validation' ] = array(
-	'scripts' => 'ext.donationInterface.validation.js',
+	'scripts' => array(
+		'mailcheck.js',
+		'ext.donationInterface.validation.js',
+	),
 	'dependencies' => array(
 		'di.form.core.validate',
 		/*'ext.donationInterface.currencyRates',
 		'ext.donationInterface.errorMessages',*/
+	),
+	'messages' => array(
+		'donate_interface-did-you-mean',
 	),
 	'localBasePath' => __DIR__ . '/modules/js',
 	'remoteExtPath' => 'DonationInterface/modules/js',

@@ -414,6 +414,7 @@
 	"apihelp-donate-param-language": "Codice lingua.",
 	"apihelp-donate-param-order_id": "ID ordine (se è già stata avviata una donazione).",
 	"apihelp-donate-param-contribution_tracking_id": "ID per la tabella di tracciamento dei contributi.",
+	"apihelp-donate-param-wmf_token": "Token di modifica.",
 	"apihelp-donate-param-utm_source": "Variabile di tracciamento.",
 	"apihelp-donate-param-utm_campaign": "Variabile di tracciamento.",
 	"apihelp-donate-param-utm_medium": "Variabile di tracciamento.",

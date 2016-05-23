@@ -2,53 +2,44 @@ cb:
     countries:
         FR: true
     group: cc
-    validation:
-        name: true
-        email: true
-        amount: true
     logo: card-cb.png
 visa:
     countries:
-        US: true
-        IL: true
         FR: true
+        IL: true
+        JP: true
+        UA: true
+        US: true
     group: cc
-    validation:
-        name: true
-        email: true
-        amount: true
     logo: card-visa.png
-amex:
+jcb:
     countries:
-        US: true
-        IL: true
-        FR: true
+        JP: true
     group: cc
-    validation:
-        name: true
-        email: true
-        amount: true
-    logo: card-amex.png
+    logo: card-jcb.png
 mc:
     countries:
-        US: true
-        IL: true
         FR: true
+        IL: true
+        JP: true
+        UA: true
+        US: true
     group: cc
-    validation:
-        name: true
-        email: true
-        amount: true
     logo: card-mc.png
+amex:
+    countries:
+        FR: true
+        IL: true
+        JP: true
+        UA: true
+        US: true
+    group: cc
+    logo: card-amex.png
 discover:
     countries:
-        US: true
         IL: true
+        US: true
     group: cc
-    validation:
-        name: true
-        email: true
-        amount: true
     logo: card-discover.png
 
 

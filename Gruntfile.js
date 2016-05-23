@@ -22,6 +22,7 @@ module.exports = function ( grunt ) {
 				'*.js',
 				'modules/*.js',
 				'modules/js/*.js',
+				'!modules/js/mailcheck.js',
 				'gateway_forms/rapidhtml/**/*.js'
 			],
 			tests: 'tests/*/*.js',

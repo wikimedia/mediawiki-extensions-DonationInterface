@@ -1,6 +1,6 @@
 <?php
 
-class PayPalLocale implements StagingHelper {
+class PaypalLegacyLocale implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// FIXME: Document the upstream source for this reference data.
 		$supported_countries = array(

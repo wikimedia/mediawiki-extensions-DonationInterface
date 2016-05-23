@@ -1,9 +1,9 @@
 						<tr>
 							<td>
 								<dl class="submethods">
-									<dd class="field" style="margin-bottom: 0; margin-left: 0;">
+									<dd class="field">
 {{# show_submethods }}
-										<ul class="options-h enabled {{ button_class }}" id="cards" style="margin: 0;">
+										<ul class="options-h enabled {{ button_class }}" id="cards">
 {{# submethods }}
                                                 <li title="{{ label }}" {{# has_sub_text }}class="has_sub_text" {{/ has_sub_text}}>
                                                 <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
@@ -30,7 +30,7 @@
 						<tr>
 							<td>
 								<div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
-									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" style="vertical-align:baseline;margin-right:4px;"> {{ l10n "donate_interface-donate-click" }}
+									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif"> {{ l10n "donate_interface-donate-click" }}
 								</div>
 							</td>
 						</tr>

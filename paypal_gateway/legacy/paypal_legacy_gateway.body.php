@@ -16,9 +16,8 @@
  *
  */
 
-class PaypalGateway extends GatewayPage {
-
-	protected $adapterClass = 'PaypalAdapter';
+class PaypalLegacyGateway extends GatewayPage {
+	protected $adapterClass = 'PaypalLegacyAdapter';
 
 	/**
 	 * Show the special page

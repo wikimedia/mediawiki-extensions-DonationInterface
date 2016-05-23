@@ -190,6 +190,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 		}
 	}
+
 	protected function addCurrencyData( &$data ) {
 		$supportedCurrencies = $this->gateway->getCurrencies();
 		if ( count( $supportedCurrencies ) === 1 ) {
@@ -206,6 +207,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				'selected' => ( $currency === $data['currency_code'] ),
 			);
 		}
+		$locale = $data['language'] . '_' . $data['country'];
+		$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
+		$data['display_amount'] = $formatter->formatCurrency(
+			$data['amount'], $data['currency_code']
+		);
 	}
 
 	/**

@@ -596,14 +596,16 @@ $forms_whitelist['astropay-uy'] = array(
 /**********
  * Adyen *
  **********/
-// This is at the bottom so that we prefer GC over adyen
 $forms_whitelist['adyen'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'adyen',
-	'countries' => array( '+' => 'US', 'IL', 'FR' ),
-	'currencies' => array( '+' => 'USD', 'ILS', 'EUR' ),
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb' )),
-	'selection_weight' => 0
+	'countries' => array( '+' => 'FR', 'IL', 'JP', 'UA', 'US', ),
+	'currencies' => array( '+' => 'EUR', 'ILS', 'JPY', 'UAH', 'USD', ),
+	'payment_methods' => array(
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb', ),
+	),
+	// Setting form chooser weight to zero till we officially decide to use it
+	'selection_weight' => 0,
 );
 
 /**********
