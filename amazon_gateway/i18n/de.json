@@ -1,10 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kghbln",
-			"Metalhead64"
+			"Kghbln"
 		]
 	},
-	"amazon_gateway-desc": "Ermöglicht die Verarbeitung von Zahlungen über Amazon",
-	"apihelp-di_amazon_bill-param-wmf_token": ""
+	"amazon_gateway-desc": "Ermöglicht die Verarbeitung von Zahlungen über Amazon"
 }
