@@ -1,5 +1,6 @@
 # Core
 - DonorEmail
-- DonorFullName
 - AmountInCents
 - StreetAddress
+# Adyen-specific
+- FullNameWithExceptions
