@@ -5,6 +5,6 @@
 			"Metalhead64"
 		]
 	},
-	"amazongateway": "Spende jetzt",
-	"amazon_gateway-desc": "Ermöglicht die Verarbeitung von Zahlungen über Amazon"
+	"amazon_gateway-desc": "Ermöglicht die Verarbeitung von Zahlungen über Amazon",
+	"apihelp-di_amazon_bill-param-wmf_token": ""
 }

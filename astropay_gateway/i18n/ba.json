@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sagan"
+			"Sagan",
+			"Ләйсән"
 		]
 	},
-	"astropay_gateway-desc": "AstroPay аҡса күсереү процессы"
+	"astropay_gateway-desc": "AstroPay түләүҙәрен эшкәртеү"
 }
