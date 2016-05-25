@@ -50,7 +50,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onFilter(
+	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
