@@ -20,14 +20,14 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 * Define the action to take for a given $risk_score
 	 * @var array
 	 */
-	public $action_ranges;
+	protected $action_ranges;
 
 	/**
 	 * A container for an instance of self
 	 */
-	static $instance;
+	protected static $instance;
 
-	public function __construct( GatewayType $gateway_adapter ) {
+	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
@@ -43,7 +43,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 *
 	 * @return string The action to take
 	 */
-	public function determineAction() {
+	protected function determineAction() {
 		$risk_score = $this->getRiskScore();
 		// possible risk scores are between 0 and 100
 		if ( $risk_score < 0 )
@@ -76,7 +76,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$this->fraud_logger->info( '"addRiskScore" ' . $log_message );
 		$this->risk_score[$source] = $score;
 	}
-
+	
 
 	/**
 	 * Add up the risk scores in an array, by default $this->risk_score
@@ -108,8 +108,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	/**
 	 * Run the transaction through the custom filters
+	 * @param string $hook Run custom filters attached to a hook with this name
+	 * @return bool
 	 */
-	public function validate( $hook ) {
+	protected function validate( $hook ) {
 		// expose a hook for custom filters
 		WmfFramework::runHooks( $hook, array( $this->gateway_adapter, $this ) );
 		$score = $this->getRiskScore();
@@ -172,7 +174,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return false;
 	}
 
-	static function onValidate( GatewayType $gateway_adapter ) {
+	public static function onValidate( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
@@ -180,7 +182,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->validate( 'GatewayCustomFilter' );
 	}
 
-	static function onGatewayReady( GatewayType $gateway_adapter ) {
+	public static function onGatewayReady( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
@@ -188,7 +190,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->validate( 'GatewayInitialFilter' );
 	}
 
-	static function singleton( GatewayType $gateway_adapter ) {
+	protected static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}

@@ -2,12 +2,12 @@
 
 class Gateway_Extras_ConversionLog extends Gateway_Extras {
 
-	public static $instance;
+	protected static $instance;
 
 	/**
 	 * Logs the response from a transaction
 	 */
-	public function post_process() {
+	protected function post_process() {
 		// if the trxn has been outright rejected, log it
 		if ( $this->gateway_adapter->getValidationAction() == 'reject' ) {
 			$this->log(
@@ -33,7 +33,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		return true;
 	}
 
-	static function onPostProcess( GatewayType $gateway_adapter ) {
+	public static function onPostProcess( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ) {
 			return true;
 		}
@@ -41,7 +41,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		return self::singleton( $gateway_adapter )->post_process();
 	}
 
-	static function singleton( GatewayType $gateway_adapter ) {
+	protected static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}

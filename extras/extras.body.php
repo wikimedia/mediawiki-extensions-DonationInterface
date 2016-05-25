@@ -9,7 +9,7 @@ abstract class Gateway_Extras {
 	/**
 	 * @var GatewayType
 	 */
-	public $gateway_adapter;
+	protected $gateway_adapter;
 
 	/**
 	 * Sends messages to the blah_gateway_trxn log
@@ -23,7 +23,7 @@ abstract class Gateway_Extras {
 	 */
 	protected $gateway_logger;
 
-	public function __construct( GatewayType $gateway_adapter ) {
+	protected function __construct( GatewayType $gateway_adapter ) {
 		$this->gateway_adapter = $gateway_adapter;
 		$this->transaction_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_trxn' );
 		$this->gateway_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter );
@@ -38,7 +38,7 @@ abstract class Gateway_Extras {
 	 * @param string $data
 	 * @param string $log_level One of the constants defined in @see \Psr\Log\LogLevel
 	 */
-	public function log( $id = '', $status = '', $data = '', $log_level = LogLevel::INFO ) {
+	protected function log( $id = '', $status = '', $data = '', $log_level = LogLevel::INFO ) {
 
 		// format the message
 		$msg = '"' . date( 'c' ) . '"';
@@ -57,7 +57,7 @@ abstract class Gateway_Extras {
 	 * @param string $data the data to hash
 	 * @return string The hash of the data
 	 */
-	public function generate_hash( $data ) {
+	protected function generate_hash( $data ) {
 		$salt = $this->gateway_adapter->getGlobal( 'Salt' );
 		return hash( "sha512", $salt . $data );
 	}
@@ -68,7 +68,7 @@ abstract class Gateway_Extras {
 	 * @param string $data The data to hash and compare to $hash
 	 * @return bool
 	 */
-	public function compare_hash( $hash, $data ) {
+	protected function compare_hash( $hash, $data ) {
 		if ( $hash === $this->generate_hash( $data ) ) {
 			return TRUE;
 		}

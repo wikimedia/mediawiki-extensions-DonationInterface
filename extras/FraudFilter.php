@@ -10,7 +10,7 @@ abstract class FraudFilter extends Gateway_Extras {
 	 */
 	protected $fraud_logger;
 
-	public function __construct( GatewayType $gateway_adapter ) {
+	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter );
 		$this->fraud_logger = DonationLoggerFactory::getLogger( $this->gateway_adapter, '_fraud' );
 	}

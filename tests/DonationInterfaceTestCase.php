@@ -500,7 +500,15 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'Gateway_Extras_SessionVelocityFilter',
 		);
 		foreach( $singleton_classes as $singleton_class ) {
-			$singleton_class::$instance = null;
+			if ( method_exists( 'TestingAccessWrapper', 'newFromClass' ) ) {
+				// In 1.27, we have official static support
+				$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
+			} else {
+				// This static-as-instance voodoo shouldn't work, but the
+				// ReflectionClass used in TestingAccessWrapper is very obliging
+				$unwrapped = TestingAccessWrapper::newFromObject( $singleton_class );
+			}
+			$unwrapped->instance = null; // more cheating
 		}
 	}
 

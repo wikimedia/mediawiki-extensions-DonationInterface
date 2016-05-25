@@ -6,15 +6,15 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	 * Container for an instance of self
 	 * @var Gateway_Extras_CustomFilters_Functions
 	 */
-	static $instance;
+	protected static $instance;
 
 	/**
 	 * Custom filter object holder
 	 * @var Gateway_Extras_CustomFilters
 	 */
-	public $cfo;
+	protected $cfo;
 
-	public function __construct(
+	protected function __construct(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
@@ -28,7 +28,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	 *                                 global variable with name
 	 * @return bool
 	 */
-	public function filter( $filterListGlobal ) {
+	protected function filter( $filterListGlobal ) {
 		$functions = $this->gateway_adapter->getGlobal( $filterListGlobal );
 
 		if (
@@ -60,7 +60,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		return TRUE;
 	}
 
-	static function onFilter(
+	public static function onFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
@@ -70,7 +70,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		);
 	}
 
-	static function onInitialFilter(
+	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
@@ -80,7 +80,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		);
 	}
 
-	static function singleton(
+	protected static function singleton(
 		GatewayType $gateway_adapter,
 		$custom_filter_object
 	) {
