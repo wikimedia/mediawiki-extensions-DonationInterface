@@ -290,6 +290,10 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	 * Check to make sure we don't run antifraud filters (and burn a minfraud query) when we know the transaction has already failed
 	 */
 	function testAntifraudNotPerformedOnGatewayError() {
+		global $wgHooks;
+		$hooksCopy = $wgHooks;
+		$hooksCopy['GatewayInitialFilter'] = array();
+		$this->setMwGlobals( array( 'wgHooks' => $hooksCopy ) );
 		$options = $this->getDonorTestData( 'FR' ); //don't really care: We'll be using the dummy response directly.
 
 		$gateway = $this->getFreshGatewayObject( $options );
