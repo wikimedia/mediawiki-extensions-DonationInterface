@@ -2,6 +2,8 @@
 
 class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
+	const RAN_INITIAL = 'initial_ip_velocity_has_run';
+
 	/**
 	 * Container for an instance of self
 	 * @var Gateway_Extras_CustomFilters_IP_Velocity
@@ -170,7 +172,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			return true;
 		}
 		if (
-			$gateway_adapter->getRequest()->getSessionData( 'initialIPVelocity' ) &&
+			$gateway_adapter->getRequest()->getSessionData( self::RAN_INITIAL ) &&
 			!$gateway_adapter->getRequest()->getSessionData( 'numAttempt' )
 		) {
 			// We're on the first attempt, already counted in onInitialFilter
@@ -190,11 +192,11 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
-		if ( $gateway_adapter->getRequest()->getSessionData( 'initialIPVelocity' ) ) {
+		if ( $gateway_adapter->getRequest()->getSessionData( self::RAN_INITIAL ) ) {
 			return true;
 		}
 
-		$gateway_adapter->getRequest()->setSessionData( 'initialIPVelocity', true );
+		$gateway_adapter->getRequest()->setSessionData( self::RAN_INITIAL, true );
 		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
