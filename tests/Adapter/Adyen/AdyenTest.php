@@ -69,7 +69,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 //			'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
 //			'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
 			'skinCode' => 'testskin',
-			'shopperLocale' => 'en',
+			'shopperLocale' => 'en_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52', //once we construct the FraudFiltersTestCase, it should land here.
 		);
@@ -128,7 +128,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
 			'paymentAmount' => ($init['amount']) * 100,
 			'skinCode' => 'testskin',
-			'shopperLocale' => 'fr',
+			'shopperLocale' => 'fr_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52',
 		);

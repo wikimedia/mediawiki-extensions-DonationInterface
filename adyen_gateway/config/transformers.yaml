@@ -4,3 +4,4 @@
 - StreetAddress
 # Adyen-specific
 - FullNameWithExceptions
+- DonorLocale
