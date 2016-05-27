@@ -1,0 +1,22 @@
+COUNTRYCODE: country
+EMAIL: email
+FIRSTNAME: fname
+L_PAYMENTREQUEST_0_AMT0: amount
+LASTNAME: lname
+LOCALECODE: language
+PAYERID: donor_id
+# Example: 2016%2d05%2d03T21%3a25%3a22Z&
+PAYMENTINFO_0_ORDERTIME: date
+PAYMENTINFO_0_PAYMENTSTATUS: gateway_status
+PAYMENTINFO_0_TRANSACTIONID: gateway_txn_id
+PAYMENTREQUEST_0_AMT: amount
+PAYMENTREQUEST_0_CURRENCYCODE: currency_code
+# TODO: deprecated
+PAYMENTREQUEST_0_CUSTOM: contribution_tracking_id
+# FIXME: Update the audit and IPN listener to read from this field.
+PAYMENTREQUEST_0_INVNUM: order_id
+PAYMENTREQUEST_0_ITEMAMT: amount
+# TODO: discuss whether to capture
+#PHONENUM: phone
+RETURNURL: returnto
+TOKEN: ec_token

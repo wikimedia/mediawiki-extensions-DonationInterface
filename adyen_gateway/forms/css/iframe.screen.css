@@ -1,7 +1,7 @@
 @import url('logo-gloss.css');
 
 /* Everything what needs hidin' */
-#logoheader, .imgB, #displayAmount, #stageheader, #foot, #card\.cclogo {
+#logoheader, .imgB, #displayAmount, #stageheader, #foot, #card\.cclogo, #card\.cardNumberTr + tr {
 	display: none;
 }
 
@@ -42,6 +42,11 @@ input[name="card.cardNumber"], input[name="card.cvcCode"] {
 /* ensure the cvc hint doesn't wrap under the input box */
 input[name="card.cvcCode"] ~ a {
 	display: inline-block;
+}
+
+/* We hide the cardholder name for all but Hebrew speakers */
+html[data-shopperlocale|="he"] #card\.cardNumberTr + tr {
+	display: table-row;
 }
 
 body {

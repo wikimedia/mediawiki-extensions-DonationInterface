@@ -17,7 +17,8 @@
 			"Ата",
 			"Тест",
 			"Jrobell",
-			"Piramidion"
+			"Piramidion",
+			"Максим Підліснюк"
 		]
 	},
 	"donate_interface": "Підтримайте Вікімедіа",
@@ -152,6 +153,7 @@
 	"donate_interface-donor-county": "Країна",
 	"donate_interface-donor-island": "Острів",
 	"donate_interface-donor-state": "Штат",
+	"donate_interface-donor-state-au": "Країна/територія",
 	"donate_interface-donor-state-ca": "Провінція",
 	"donate_interface-donor-zip": "Індекс",
 	"donate_interface-donor-postal": "Поштовий індекс",
@@ -301,6 +303,7 @@
 	"donate_interface-cvv-number": "Номер CVV",
 	"donate_interface-verification-number": "Код перевірки",
 	"donate_interface-what-is-this": "Що це значить?",
+	"donate_interface-did-you-mean": "Можливо Ви мали на увазі <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "дебет",
 	"donate_interface-do-not-include-dashes": "Будь ласка, не вживайте тире",
 	"donate_interface-please-donate-today": "Будь ласка, зробіть пожертву вже сьогодні",
@@ -418,6 +421,7 @@
 	"apihelp-donate-param-language": "Код мови.",
 	"apihelp-donate-param-order_id": "ID замовлення (якщо пожертву вже почато).",
 	"apihelp-donate-param-contribution_tracking_id": "ID для таблиці відслідковування внеску.",
+	"apihelp-donate-param-wmf_token": "Редагувати токен.",
 	"apihelp-donate-param-utm_source": "Відстежувана змінна.",
 	"apihelp-donate-param-utm_campaign": "Відстежувана змінна.",
 	"apihelp-donate-param-utm_medium": "Відстежувана змінна.",

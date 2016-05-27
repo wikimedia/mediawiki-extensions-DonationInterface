@@ -1719,6 +1719,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		);
 
 		// Add the rest of the relevant data
+		// FIXME: This is "normalized" data.  We should refer to it as such,
+		// and rename the getData_Unstaged_Escaped function.
 		$stomp_data = array_intersect_key(
 			$this->getData_Unstaged_Escaped(),
 			array_flip( $this->dataObj->getMessageFields() )
@@ -2325,8 +2327,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
-	public function addRiskScore( $score ) {
-		$this->risk_score += $score;
+	public function setRiskScore( $score ) {
+		$this->risk_score = $score;
 	}
 
 	public function setValidationAction( $action, $reset = false ) {
@@ -2424,12 +2426,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$check_not_empty = array(
 						'street',
 						'city',
-						'state',
 						'country',
 						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
 						//however, that's not happening in this class in the code I'm replacing, so...
 						//TODO: Something clever in the DataValidator with data groups like these.
 					);
+					$country = $this->getData_Unstaged_Escaped( 'country' );
+					if ( $country && Subdivisions::getByCountry( $country ) ) {
+						$check_not_empty[] = 'state';
+					}
 					break;
 				case 'amount' :
 					$check_not_empty = array( 'amount' );
@@ -2904,6 +2909,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'numAttempt',
 				'order_status', //for post-payment activities
 				'sequence',
+				'risk_scores',
 			);
 			$preservedData = array();
 			$msg = '';

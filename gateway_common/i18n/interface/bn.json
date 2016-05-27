@@ -257,6 +257,7 @@
 	"donate_interface-cvv-number": "সিভিভি নম্বর",
 	"donate_interface-verification-number": "নিশ্চিতকরণ নম্বর",
 	"donate_interface-what-is-this": "এটি কী?",
+	"donate_interface-did-you-mean": "আপনি কি বলতে চাইছেন <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-do-not-include-dashes": "অনুগ্রহপূর্বক ড্যাশ যোগ করবেন না",
 	"donate_interface-please-donate-today": "অনুগ্রহপূর্বক আজই দান করুন",
 	"donate_interface-donate-now": "এখনই দান করুন",

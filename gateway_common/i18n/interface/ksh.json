@@ -303,6 +303,7 @@
 	"donate_interface-cvv-number": "De CVV-Nommer",
 	"donate_interface-verification-number": "De Prööfnommer",
 	"donate_interface-what-is-this": "Wat sul dat heh bedügge?",
+	"donate_interface-did-you-mean": "Häs De <a href=\"#\" class=\"correction\">$1</a> jemeint?",
 	"donate_interface-debit": "Laßschreff",
 	"donate_interface-do-not-include-dashes": "Donn kein Schtresche met_enjävve!",
 	"donate_interface-please-donate-today": "Bes esu jood un donn noch hügg jät jävve",

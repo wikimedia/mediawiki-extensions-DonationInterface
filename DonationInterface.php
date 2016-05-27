@@ -53,12 +53,14 @@ $wgAutoloadClasses['DonationQueue'] = __DIR__ . '/gateway_common/DonationQueue.p
 $wgAutoloadClasses['DonorEmail'] = __DIR__ . '/gateway_common/DonorEmail.php';
 $wgAutoloadClasses['DonorFullName'] = __DIR__ . '/gateway_common/DonorFullName.php';
 $wgAutoloadClasses['DonorLanguage'] = __DIR__ . '/gateway_common/DonorLanguage.php';
+$wgAutoloadClasses['DonorLocale'] = __DIR__ . '/gateway_common/DonorLocale.php';
 $wgAutoloadClasses['EncodingMangler'] = __DIR__ . '/gateway_common/EncodingMangler.php';
 $wgAutoloadClasses['FinalStatus'] = __DIR__ . '/gateway_common/FinalStatus.php';
 $wgAutoloadClasses['FallbackLogPrefixer'] = __DIR__ . '/gateway_common/FallbackLogPrefixer.php';
 $wgAutoloadClasses['GatewayAdapter'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['GatewayPage'] = __DIR__ . '/gateway_common/GatewayPage.php';
 $wgAutoloadClasses['GatewayType'] = __DIR__ . '/gateway_common/GatewayType.php';
+$wgAutoloadClasses['IsoDate'] = __DIR__ . '/gateway_common/IsoDate.php';
 $wgAutoloadClasses['DataValidator'] = __DIR__ . '/gateway_common/DataValidator.php';
 $wgAutoloadClasses['LogPrefixProvider'] = __DIR__ . '/gateway_common/gateway.adapter.php';
 $wgAutoloadClasses['MessageUtils'] = __DIR__ . '/gateway_common/MessageUtils.php';
@@ -105,6 +107,7 @@ $wgAPIModules['di_amazon_bill'] = 'AmazonBillingApi';
 $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.body.php';
 $wgAutoloadClasses['AdyenGatewayResult'] = __DIR__ . '/adyen_gateway/adyen_resultswitcher.body.php';
 $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php';
+$wgAutoloadClasses['FullNameWithExceptions'] = __DIR__ . '/adyen_gateway/FullNameWithExceptions.php';
 
 // AstroPay
 $wgAutoloadClasses['AstroPayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
@@ -116,8 +119,12 @@ $wgAutoloadClasses['DummyFiscalNumber'] = __DIR__ . '/astropay_gateway/DummyFisc
 
 // Paypal
 $wgAutoloadClasses['CleanupRecurringLength'] = __DIR__ . '/paypal_gateway/CleanupRecurringLength.php';
-$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
+$wgAutoloadClasses['PaypalExpressAdapter'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express.adapter.php';
+$wgAutoloadClasses['PaypalExpressGateway'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_gateway.body.php';
+$wgAutoloadClasses['PaypalExpressGatewayResult'] = __DIR__ . '/paypal_gateway/express_checkout/paypal_express_resultswitcher.body.php';
+$wgAutoloadClasses['PaypalExpressReturnUrl'] = __DIR__ . '/paypal_gateway/express_checkout/PaypalExpressReturnUrl.php';
 $wgAutoloadClasses['PaypalLegacyAdapter'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy.adapter.php';
+$wgAutoloadClasses['PaypalLegacyGateway'] = __DIR__ . '/paypal_gateway/legacy/paypal_legacy_gateway.body.php';
 $wgAutoloadClasses['PaypalLegacyLocale'] = __DIR__ . '/paypal_gateway/legacy/PaypalLegacyLocale.php';
 
 // Worldpay
@@ -404,6 +411,20 @@ $wgPaypalGatewayXclickCountries = array();
 #		'AccountEmail' => "",
 #	);
 
+$wgPaypalExpressGatewayAccountInfo['test'] = array(
+	//'User' => 'abc',
+	//'Password' => '12345',
+	//'Signature' => 'or 123123123',
+	//TODO: credential authentication is not supported, yet.
+	//XXX 'Credential' => '123123123123', #OR
+	// TODO: Use parameter substitution.
+	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=commit&token=',
+);
+# FIXME: These are only for signature authentication.
+# https://developer.paypal.com/docs/classic/api/endpoints/
+$wgPaypalExpressGatewayURL = 'https://api-3t.paypal.com/nvp';
+$wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
+
 $wgAdyenGatewayHtmlFormDir = __DIR__ . '/adyen_gateway/forms/html';
 
 $wgAdyenGatewayURL = 'https://live.adyen.com';
@@ -657,7 +678,14 @@ $wgDonationInterfaceCustomFiltersRefRules = array();
 $wgDonationInterfaceCustomFiltersSrcRules = array();
 
 //Functions Filter globals
+//These functions fire when we trigger the antifraud hook.
+//Anything that needs access to API call results goes here.
+//FIXME: you need to copy all the initial functions here because
+//individual function scores don't persist like filter scores.
 $wgDonationInterfaceCustomFiltersFunctions = array();
+//These functions fire on GatewayReady, so all they can see is the
+//request and the session.
+$wgDonationInterfaceCustomFiltersInitialFunctions = array();
 
 //IP velocity filter globals
 $wgDonationInterfaceMemcacheHost = 'localhost';
@@ -842,6 +870,7 @@ $wgGlobalCollectGatewayEnabled = false;
 $wgAmazonGatewayEnabled = false;
 $wgAdyenGatewayEnabled = false;
 $wgAstroPayGatewayEnabled = false;
+$wgPaypalExpressGatewayEnabled = false;
 $wgPaypalGatewayEnabled = false;
 $wgWorldpayGatewayEnabled = false;
 
@@ -880,22 +909,34 @@ $wgSpecialPages['AstroPayGateway'] = 'AstroPayGateway';
 $wgSpecialPages['AstroPayGatewayResult'] = 'AstroPayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'AstroPayAdapter';
 
-# FIXME: deprecated
+$wgSpecialPages['PaypalExpressGateway'] = 'PaypalExpressGateway';
+$wgSpecialPages['PaypalExpressGatewayResult'] = 'PaypalExpressGatewayResult';
+# FIXME: This alias is deprecated.
 $wgSpecialPages['PaypalGateway'] = 'PaypalLegacyGateway';
 $wgSpecialPages['PaypalLegacyGateway'] = 'PaypalLegacyGateway';
+$wgDonationInterfaceGatewayAdapters[] = 'PaypalExpressAdapter';
 $wgDonationInterfaceGatewayAdapters[] = 'PaypalLegacyAdapter';
 
 $wgSpecialPages['WorldpayGateway'] = 'WorldpayGateway';
 $wgSpecialPages['WorldpayGatewayResult'] = 'WorldpayGatewayResult';
 $wgDonationInterfaceGatewayAdapters[] = 'WorldpayAdapter';
 
-//Custom Filters hooks
 $wgHooks['GatewayReady'][] = array( 'BannerHistoryLogIdProcessor::onGatewayReady' );
 
+// Custom Filters hooks
+$wgHooks['GatewayReady'][] = array( 'Gateway_Extras_CustomFilters::onGatewayReady' );
 $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 
-$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
-$wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+// These filters are run on each request after collecting the data
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onInitialFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter' );
+
+// And these are run when we're about ready to charge the credit card.
+// Any test that costs us money should go here. It's ok to run simple
+// filters in both places - their score in the later run will replace
+// the first score.
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onFilter' );
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_MinFraud::onFilter' );
 $wgHooks['GatewayCustomFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onFilter' );

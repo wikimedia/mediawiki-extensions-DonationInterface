@@ -31,6 +31,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
+		$this->risk_score = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		if ( !$this->risk_score ) {
+			$this->risk_score = array();
+		}
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
 	}
 
@@ -71,8 +75,6 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$log_message = "\"$source added a score of $score\"";
 		$this->fraud_logger->info( '"addRiskScore" ' . $log_message );
 		$this->risk_score[$source] = $score;
-
-		$this->gateway_adapter->addRiskScore( $score );
 	}
 	
 
@@ -100,13 +102,16 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	/**
 	 * Run the transaction through the custom filters
 	 */
-	public function validate() {
+	public function validate( $hook ) {
 		// expose a hook for custom filters
-		WmfFramework::runHooks( 'GatewayCustomFilter', array( $this->gateway_adapter, $this ) );
+		WmfFramework::runHooks( $hook, array( $this->gateway_adapter, $this ) );
+		$score = $this->getRiskScore();
+		$this->gateway_adapter->setRiskScore( $score );
 		$localAction = $this->determineAction();
 		$this->gateway_adapter->setValidationAction( $localAction );
 
-		$log_message = '"' . $localAction . "\"\t\"" . $this->getRiskScore() . "\"";
+		$log_message = '"' . $localAction . "\"\t\"" . $score . "\"";
+
 		$this->fraud_logger->info( '"Filtered" ' . $log_message );
 
 		$log_message = '"' . addslashes( json_encode( $this->risk_score ) ) . '"';
@@ -119,7 +124,12 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		);
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
-		$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
+
+		$storedScores = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		if ( $storedScores != $this->risk_score ) {
+			$this->gateway_adapter->getRequest()->setSessionData( 'risk_scores', $this->risk_score );
+			$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
+		}
 
 		return TRUE;
 	}
@@ -129,7 +139,15 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'custom filters onValidate hook!';
-		return self::singleton( $gateway_adapter )->validate();
+		return self::singleton( $gateway_adapter )->validate( 'GatewayCustomFilter' );
+	}
+
+	static function onGatewayReady( GatewayType $gateway_adapter ) {
+		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
+			return true;
+		}
+		$gateway_adapter->debugarray[] = 'custom filters onGatewayReady hook!';
+		return self::singleton( $gateway_adapter )->validate( 'GatewayInitialFilter' );
 	}
 
 	static function singleton( GatewayType $gateway_adapter ) {
