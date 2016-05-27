@@ -6,6 +6,7 @@
 			return;
 		}
 		di.forms.disable();
+		di.forms.clean();
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
 		var postdata = {
