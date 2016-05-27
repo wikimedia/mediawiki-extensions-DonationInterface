@@ -38,11 +38,15 @@ abstract class FraudFilter extends Gateway_Extras {
 
 		$transaction = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
 
-		try {
-			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
-			DonationQueue::instance()->push( $transaction, 'payments-antifraud' );
-		} catch ( Exception $e ) {
-			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
+		// FIXME: figure out why we don't have an order_id for paypal
+		// for now, just don't send messages that'll raise the alarm
+		if ( isset( $msg['contribution_tracking_id'] ) && isset( $msg['order_id'] ) ) {
+			try {
+				$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
+				DonationQueue::instance()->push( $transaction, 'payments-antifraud' );
+			} catch ( Exception $e ) {
+				$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
+			}
 		}
 	}
 }

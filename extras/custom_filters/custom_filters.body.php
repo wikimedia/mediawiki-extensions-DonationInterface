@@ -76,26 +76,33 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$this->fraud_logger->info( '"addRiskScore" ' . $log_message );
 		$this->risk_score[$source] = $score;
 	}
-	
+
 
 	/**
-	 * @throws InvalidArgumentException
+	 * Add up the risk scores in an array, by default $this->risk_score
+	 * @param array|null $scoreArray
+	 * @return float total risk score
 	 */
-	public function getRiskScore() {
+	public function getRiskScore( $scoreArray = null ) {
+		if ( is_null( $scoreArray ) ) {
+			$scoreArray = $this->risk_score;
+		}
 
-		if ( is_numeric( $this->risk_score ) ) {
-			return $this->risk_score;
-
-		} elseif ( is_array( $this->risk_score) ) {
+		if ( is_numeric( $scoreArray ) ) {
+			return $scoreArray;
+		} elseif ( is_array( $scoreArray ) ) {
 			$total = 0;
-			foreach ( $this->risk_score as $score ){
+			foreach ( $scoreArray as $score ){
 				$total += $score;
 			}
 			return $total;
 
 		} else {
 			// TODO: We should catch this during setRiskScore.
-			throw new InvalidArgumentException( __FUNCTION__ . " risk_score is neither numeric, nor an array." . print_r( $this->risk_score, true ) );
+			throw new InvalidArgumentException(
+				__FUNCTION__ . " risk_score is neither numeric, nor an array."
+				. print_r( $scoreArray, true )
+			);
 		}
 	}
 
@@ -125,13 +132,44 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
 
-		$storedScores = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
-		if ( $storedScores != $this->risk_score ) {
-			$this->gateway_adapter->getRequest()->setSessionData( 'risk_scores', $this->risk_score );
+		if ( $this->shouldSendMessage( $score ) ) {
 			$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
 		}
 
+		// Always keep the stored scores up to date
+		$this->gateway_adapter->getRequest()->setSessionData( 'risk_scores', $this->risk_score );
+
 		return TRUE;
+	}
+
+	/**
+	 * Determine if we should send an antifraud message
+	 * @param float $score total risk score for this run
+	 * @return bool true if a queue message is warranted
+	 */
+	protected function shouldSendMessage( $score ) {
+		// We only send a message when the total changes
+		$storedScores = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		if ( is_array( $storedScores ) ) {
+			$storedTotal = $this->getRiskScore( $storedScores );
+		} else {
+			// Nothing stored? Set this to an impossible value so we
+			// send a message even if our new total is zero.
+			$storedTotal = -1;
+		}
+
+		// We don't want to send a message if we didn't run anything,
+		// i.e., if $this->risk_score looks like this:
+		$shirked = array(
+			'initial' => $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' )
+		);
+
+		if ( $this->risk_score != $shirked && $storedTotal !== $score ) {
+			// We ran something, and the total changed
+			return true;
+		}
+
+		return false;
 	}
 
 	static function onValidate( GatewayType $gateway_adapter ) {
