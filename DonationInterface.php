@@ -928,8 +928,8 @@ $wgHooks['GatewayReady'][] = array( 'Gateway_Extras_CustomFilters::onGatewayRead
 $wgHooks['GatewayValidate'][] = array( 'Gateway_Extras_CustomFilters::onValidate' );
 
 // These filters are run on each request after collecting the data
-$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onFilter' );
-$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Referrer::onInitialFilter' );
+$wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Source::onInitialFilter' );
 $wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_Functions::onInitialFilter' );
 $wgHooks['GatewayInitialFilter'][] = array( 'Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter' );
 

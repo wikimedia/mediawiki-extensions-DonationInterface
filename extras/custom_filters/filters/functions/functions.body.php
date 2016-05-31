@@ -24,17 +24,20 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	}
 
 	/**
-	 * @param $filterListGlobal
+	 * @param string $filterListGlobal Run filters listed in a DonationInterface
+	 *                                 global variable with name
 	 * @return bool
 	 */
 	public function filter( $filterListGlobal ) {
+		$functions = $this->gateway_adapter->getGlobal( $filterListGlobal );
 
-		if ( !$this->gateway_adapter->getGlobal( 'EnableFunctionsFilter' ) ||
-			!count( $this->gateway_adapter->getGlobal( $filterListGlobal ) ) ){
+		if (
+			!$this->gateway_adapter->getGlobal( 'EnableFunctionsFilter' ) ||
+			!count( $functions )
+		) {
 			return true;
 		}
 
-		$functions = $this->gateway_adapter->getGlobal( $filterListGlobal );
 		foreach ( $functions as $function_name => $risk_score_modifier ) {
 			//run the function specified, if it exists. 
 			if ( method_exists( $this->gateway_adapter, $function_name ) ) {
