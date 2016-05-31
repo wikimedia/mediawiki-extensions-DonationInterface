@@ -3237,6 +3237,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			}
 		}
 
+		// Mustache forms don't need the ffname. They only need form
+		// settings for the chooser to select the right special page.
+		if ( $this->getFormClass() === 'Gateway_Form_Mustache' ) {
+			return;
+		}
+
 //		'country' might = 'XX' - CN does this when it's deeply confused.
 		if ( !isset( $data['country'] ) || $data['country'] === 'XX' ) {
 			$country = null;
