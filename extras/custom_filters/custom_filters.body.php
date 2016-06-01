@@ -167,7 +167,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->validate( self::HOOK_INITIAL );
 	}
 
-	protected static function singleton( GatewayType $gateway_adapter ) {
+	public static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}
