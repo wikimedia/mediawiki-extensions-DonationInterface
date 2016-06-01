@@ -2,6 +2,12 @@
 
 class Gateway_Extras_CustomFilters extends FraudFilter {
 
+	// filter list hook to run on GatewayReady
+	const HOOK_INITIAL = 'GatewayInitialFilter';
+
+	// filter list hook to run on GatewayValidate
+	const HOOK_VALIDATE = 'GatewayCustomFilter';
+
 	/**
 	 * A value for tracking the 'riskiness' of a transaction
 	 *
@@ -20,14 +26,14 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 * Define the action to take for a given $risk_score
 	 * @var array
 	 */
-	public $action_ranges;
+	protected $action_ranges;
 
 	/**
 	 * A container for an instance of self
 	 */
-	static $instance;
+	protected static $instance;
 
-	public function __construct( GatewayType $gateway_adapter ) {
+	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
@@ -43,7 +49,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 *
 	 * @return string The action to take
 	 */
-	public function determineAction() {
+	protected function determineAction() {
 		$risk_score = $this->getRiskScore();
 		// possible risk scores are between 0 and 100
 		if ( $risk_score < 0 )
@@ -77,7 +83,6 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$this->risk_score[$source] = $score;
 	}
 
-
 	/**
 	 * Add up the risk scores in an array, by default $this->risk_score
 	 * @param array|null $scoreArray
@@ -108,8 +113,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	/**
 	 * Run the transaction through the custom filters
+	 * @param string $hook Run custom filters attached to a hook with this name
+	 * @return bool
 	 */
-	public function validate( $hook ) {
+	protected function validate( $hook ) {
 		// expose a hook for custom filters
 		WmfFramework::runHooks( $hook, array( $this->gateway_adapter, $this ) );
 		$score = $this->getRiskScore();
@@ -132,8 +139,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
 
-		if ( $this->shouldSendMessage( $score ) ) {
-			$this->sendAntifraudMessage( $localAction, $this->getRiskScore(), $this->risk_score );
+		// Always send a message if we're about to charge or redirect the donor
+		// Only send a message on initial validation if things look fishy
+		if ( $hook === self::HOOK_VALIDATE || $localAction !== 'process' ) {
+			$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
 		}
 
 		// Always keep the stored scores up to date
@@ -142,53 +151,23 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return TRUE;
 	}
 
-	/**
-	 * Determine if we should send an antifraud message
-	 * @param float $score total risk score for this run
-	 * @return bool true if a queue message is warranted
-	 */
-	protected function shouldSendMessage( $score ) {
-		// We only send a message when the total changes
-		$storedScores = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
-		if ( is_array( $storedScores ) ) {
-			$storedTotal = $this->getRiskScore( $storedScores );
-		} else {
-			// Nothing stored? Set this to an impossible value so we
-			// send a message even if our new total is zero.
-			$storedTotal = -1;
-		}
-
-		// We don't want to send a message if we didn't run anything,
-		// i.e., if $this->risk_score looks like this:
-		$shirked = array(
-			'initial' => $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' )
-		);
-
-		if ( $this->risk_score != $shirked && $storedTotal !== $score ) {
-			// We ran something, and the total changed
-			return true;
-		}
-
-		return false;
-	}
-
-	static function onValidate( GatewayType $gateway_adapter ) {
+	public static function onValidate( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'custom filters onValidate hook!';
-		return self::singleton( $gateway_adapter )->validate( 'GatewayCustomFilter' );
+		return self::singleton( $gateway_adapter )->validate( self::HOOK_VALIDATE );
 	}
 
-	static function onGatewayReady( GatewayType $gateway_adapter ) {
+	public static function onGatewayReady( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'custom filters onGatewayReady hook!';
-		return self::singleton( $gateway_adapter )->validate( 'GatewayInitialFilter' );
+		return self::singleton( $gateway_adapter )->validate( self::HOOK_INITIAL );
 	}
 
-	static function singleton( GatewayType $gateway_adapter ) {
+	protected static function singleton( GatewayType $gateway_adapter ) {
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter );
 		}

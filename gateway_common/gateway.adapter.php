@@ -1068,7 +1068,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
 
 			// Process the formatted response. This will then drive the result action
-			try{
+			try {
 				$this->processResponse( $formatted );
 			} catch ( ResponseProcessingException $ex ) {
 				$errCode = $ex->getErrorCode();
@@ -3235,6 +3235,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			if ( $this->isValidSpecialForm( $ffname ) ) {
 				return;
 			}
+		}
+
+		// Mustache forms don't need the ffname. They only need form
+		// settings for the chooser to select the right special page.
+		if ( $this->getFormClass() === 'Gateway_Form_Mustache' ) {
+			return;
 		}
 
 //		'country' might = 'XX' - CN does this when it's deeply confused.

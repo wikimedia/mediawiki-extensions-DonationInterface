@@ -6,15 +6,15 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 	 * Container for an instance of self
 	 * @var Gateway_Extras_CustomFilters_Referrer
 	 */
-	static $instance;
+	protected static $instance;
 
 	/**
 	 * Custom filter object holder
 	 * @var Gateway_Extras_CustomFilters
 	 */
-	public $cfo;
+	protected $cfo;
 
-	public function __construct(
+	protected function __construct(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
@@ -23,7 +23,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		$this->cfo = $custom_filter_object;
 	}
 
-	public function filter() {
+	protected function filter() {
 		// pull out the referrer from the gateway_adapter
 		$referrer = $this->gateway_adapter->getData_Unstaged_Escaped( 'referrer' );
 
@@ -64,7 +64,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
-	static function singleton(
+	protected static function singleton(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {

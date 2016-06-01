@@ -8,13 +8,7 @@
 		var sendData,
 			$payment,
 			$pForm,
-			currency_code = 'USD',
-			language = 'en', // default value is English
-			matches = document.location.href.match( /uselang=(\w+)/i ); // fine the real language
-
-		if ( matches && matches[ 1 ] ) {
-			language = matches[ 1 ];
-		}
+			currency_code = 'USD';
 
 		sendData = {
 			action: 'donate',
@@ -30,7 +24,7 @@
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),
 			payment_method: 'cc',
-			language: language,
+			language: $( '#language' ).val(),
 			payment_submethod: $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase(),
 			contribution_tracking_id: $( '#contribution_tracking_id' ).val(),
 			utm_source: $( '#utm_source' ).val(),

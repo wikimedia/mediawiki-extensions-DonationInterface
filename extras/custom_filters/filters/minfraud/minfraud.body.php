@@ -40,43 +40,43 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * Instance of minFraud CreditCardFraudDetection
 	 * @var CreditCardFraudDetection $ccfd
 	 */
-	public $ccfd;
+	protected $ccfd;
 
 	/**
 	 * Instance of Custom filter object
 	 * @var Gateway_Extras_CustomFilters $cfo
 	 */
-	public $cfo;
+	protected $cfo;
 
 	/**
 	 * The query to send to minFraud
 	 * @var array $minfraudQuery
 	 */
-	public $minfraudQuery = array();
+	protected $minfraudQuery = array();
 
 	/**
 	 * Full response from minFraud
 	 * @var array $minfraudResponse
 	 */
-	public $minfraudResponse = array();
+	protected $minfraudResponse = array();
 
 	/**
 	 * An array of minFraud API servers
 	 * @var array $minFraudServers
 	 */
-	public $minFraudServers = array();
+	protected $minFraudServers = array();
 
 	/**
 	 * License key for minfraud
 	 * @var string $minfraudLicenseKey
 	 */
-	public $minfraudLicenseKey = '';
+	protected $minfraudLicenseKey = '';
 	
 	/**
 	 * Instance of Gateway_Extras_CustomFilters_MinFraud
 	 * @var Gateway_Extras_CustomFilters_MinFraud $instance
 	 */
-	public static $instance;
+	protected static $instance;
 
 	/**
 	 * Sends messages to the blah_gateway_fraud log
@@ -98,7 +98,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
 	 * @throws RuntimeException
 	 */
-	public function __construct(
+	protected function __construct(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object,
 		$license_key = NULL
@@ -150,7 +150,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @param array $data
 	 * @return array containing hash for minfraud query
 	 */
-	public function build_query( array $data ) {
+	protected function build_query( array $data ) {
 		// mapping of data keys -> minfraud array keys
 		$map = array(
 			"city" => "city",
@@ -223,7 +223,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 *
 	 * @return boolean
 	 */
-	public function can_bypass_minfraud() {
+	protected function can_bypass_minfraud() {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
 		$localdata = $this->gateway_adapter->getData_Unstaged_Escaped();
 		if ( !isset($localdata['data_hash']) || !strlen( $localdata['data_hash'] ) || !isset($localdata['action']) || !strlen( $localdata['action'] ) ) {
@@ -261,7 +261,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 *
 	 * @return bool true
 	 */
-	public function filter() {
+	protected function filter() {
 		// see if we can bypass minfraud
 		if ( $this->can_bypass_minfraud() ){
 			return TRUE;
@@ -295,7 +295,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * Get instance of CreditCardFraudDetection
 	 * @return CreditCardFraudDetection
 	 */
-	public function get_ccfd() {
+	protected function get_ccfd() {
 		if ( !$this->ccfd ) {
 			$this->ccfd = new CreditCardFraudDetection();
 			
@@ -316,7 +316,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 *
 	 * @see http://svn.wikimedia.org/viewvc/wikimedia/trunk/fundraising-misc/minfraud_log_mailer/
 	 */
-	public function log_query() {
+	protected function log_query() {
 
 		$encoded_response = array();
 		foreach ($this->minfraudResponse as $key => $value) {
@@ -358,7 +358,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 *
 	 * @param array $minfraud_query The array you would pass to minfraud in a query
 	 */
-	public function query_minfraud( array $minfraud_query ) {
+	protected function query_minfraud( array $minfraud_query ) {
 		global $wgMinFraudTimeout;
 		$ccfd = $this->get_ccfd();
 		$ccfd->timeout = $wgMinFraudTimeout;
@@ -382,7 +382,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 *
 	 * @return Gateway_Extras_CustomFilters_MinFraud
 	 */
-	public static function singleton(
+	protected static function singleton(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
