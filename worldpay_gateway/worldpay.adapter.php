@@ -521,8 +521,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	 * @return PaymentTransactionResponse
 	 */
 	public function do_transaction( $transaction ) {
-		$this->url = $this->getGlobal( 'URL' );
-
 		if ( $this->isESOP() ) {
 			// This needs to go in every ESOP request because otherwise
 			// they return "Transaction NOT Authorized"

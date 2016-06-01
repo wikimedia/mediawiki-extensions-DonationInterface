@@ -193,7 +193,7 @@ class AdyenAdapter extends GatewayAdapter {
 
 			switch ( $transaction ) {
 				case 'donate':
-					$formaction = $this->url . '/hpp/pay.shtml';
+					$formaction = $this->getProcessorUrl() . '/hpp/pay.shtml';
 					// Run API call hooks here because we don't cURL anything
 					$this->runApiCallHooks();
 					$this->runAntifraudHooks();
