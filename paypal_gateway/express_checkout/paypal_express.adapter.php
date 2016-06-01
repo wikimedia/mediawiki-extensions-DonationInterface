@@ -19,10 +19,36 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'paypal_ec';
 	const GLOBAL_PREFIX = 'wgPaypalExpressGateway';
 
-	const API_VERSION = 124;
+	// https://developer.paypal.com/docs/classic/release-notes/#ec
+	const API_VERSION = 204;
 
 	public function getCommunicationType() {
 		return 'namevalue';
+	}
+
+	/**
+	 * @return true if the adapter is configured for SSL client certificate
+	 * authentication.
+	 */
+	protected function isCertificateAuthentication() {
+		return isset( $this->account_config['CertificatePath'] );
+	}
+
+	protected function getCommunicationUrl() {
+		if ( !self::getGlobal( 'Test' ) ) {
+			if ( $this->isCertificateAuthentication() ) {
+				$url = self::getGlobal( 'CertificateURL' );
+			} else {
+				$url = self::getGlobal( 'SignatureURL' );
+			}
+		} else {
+			if ( $this->isCertificateAuthentication() ) {
+				$url = self::getGlobal( 'TestingCertificateURL' );
+			} else {
+				$url = self::getGlobal( 'TestingSignatureURL' );
+			}
+		}
+		return $url;
 	}
 
 	public function getResponseType() {
@@ -55,6 +81,17 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 	function setGatewayDefaults() {}
 
+	public function getCurlBaseOpts() {
+		$opts = parent::getCurlBaseOpts();
+
+		if ( $this->isCertificateAuthentication() ) {
+			$opts[CURLOPT_SSLCERT] = $this->account_config['CertificatePath'];
+			$opts[CURLOPT_SSLCERTTYPE] = 'PEM';
+		}
+
+		return $opts;
+	}
+
 	// TODO: Support "response" specification.
 	function defineTransactions() {
 		$this->transactions = array();
@@ -64,7 +101,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				'SIGNATURE',
+				//'SIGNATURE', // See below.
 				'VERSION',
 				'METHOD',
 				'RETURNURL',
@@ -95,7 +132,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'values' => array(
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
-				'SIGNATURE' => $this->account_config['Signature'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'SetExpressCheckout',
 				'CANCELURL' => ResultPages::getCancelPage( $this ),
@@ -117,7 +153,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				'SIGNATURE',
 				'VERSION',
 				'METHOD',
 				'RETURNURL',
@@ -152,7 +187,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'values' => array(
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
-				'SIGNATURE' => $this->account_config['Signature'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'SetExpressCheckout',
 				'CANCELURL' => ResultPages::getCancelPage( $this ),
@@ -190,7 +224,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				'SIGNATURE',
 				'VERSION',
 				'METHOD',
 				'TOKEN',
@@ -198,7 +231,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'values' => array(
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
-				'SIGNATURE' => $this->account_config['Signature'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'GetExpressCheckoutDetails',
 			),
@@ -235,7 +267,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				'SIGNATURE',
 				'VERSION',
 				'METHOD',
 				'TOKEN',
@@ -255,7 +286,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'values' => array(
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
-				'SIGNATURE' => $this->account_config['Signature'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'DoExpressCheckoutPayment',
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
@@ -269,7 +299,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				'SIGNATURE',
 				'VERSION',
 				'METHOD',
 				'TOKEN',
@@ -292,7 +321,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'values' => array(
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
-				'SIGNATURE' => $this->account_config['Signature'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'CreateRecurringPaymentsProfile',
 				'DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
@@ -313,6 +341,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'TRANSACTIONID',
 			),
 		);
+
+		// Add the Signature field to all API calls, if necessary.
+		// Note that this gives crappy security, vulnerable to replay attacks.
+		// The signature is static, not a checksum of the request.
+		if ( !$this->isCertificateAuthentication() ) {
+			foreach ( $this->transactions as $_name => &$info ) {
+				if ( isset( $info['request'] ) ) {
+					$info['request'][] = 'SIGNATURE';
+					$info['values']['SIGNATURE'] = $this->account_config['Signature'];
+				}
+			}
+		}
 	}
 
 	function getBasedir() {

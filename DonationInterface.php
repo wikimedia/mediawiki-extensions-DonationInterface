@@ -411,23 +411,32 @@ $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
 $wgPaypalGatewayXclickCountries = array();
 
+# Example PayPal Express Checkout account:
+#
+# $wgPaypalExpressGatewayAccountInfo['test'] = array(
+#     'User' => 'abc',
+#     'Password' => '12345',
+#
+#     // Use either certificate (preferred) OR signature authentication:
+#     // 'Signature' => 'or 123123123',
+#     'CertificatePath' => '/absolute path to cert_key_pem.txt',
+#
+#     // TODO: Use parameter substitution.
+#     'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=commit&token=',
+# );
+
+# Example legacy PayPal
 #	$wgPaypalGatewayAccountInfo['example'] = array(
 #		'AccountEmail' => "",
 #	);
 
-$wgPaypalExpressGatewayAccountInfo['test'] = array(
-	//'User' => 'abc',
-	//'Password' => '12345',
-	//'Signature' => 'or 123123123',
-	//TODO: credential authentication is not supported, yet.
-	//XXX 'Credential' => '123123123123', #OR
-	// TODO: Use parameter substitution.
-	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=commit&token=',
-);
-# FIXME: These are only for signature authentication.
 # https://developer.paypal.com/docs/classic/api/endpoints/
-$wgPaypalExpressGatewayURL = 'https://api-3t.paypal.com/nvp';
-$wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
+# TODO: Move to configuration.
+# We use different URLs depending on: authentication method and testingness.
+$wgPaypalExpressGatewayCertificateURL = 'https://api.paypal.com/nvp';
+$wgPaypalExpressGatewaySignatureURL = 'https://api-3t.paypal.com/nvp';
+$wgPaypalExpressGatewayTestingCertificateURL = 'https://api.sandbox.paypal.com/nvp';
+$wgPaypalExpressGatewayTestingSignatureURL = 'https://api-3t.sandbox.paypal.com/nvp';
 
 $wgAdyenGatewayURL = 'https://live.adyen.com';
 $wgAdyenGatewayTestingURL = 'https://test.adyen.com';

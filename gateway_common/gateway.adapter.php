@@ -1882,6 +1882,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/**
+	 * Build the parameters sent with the next request.
+	 *
+	 * @return array Parameters as a map.
+	 */
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
