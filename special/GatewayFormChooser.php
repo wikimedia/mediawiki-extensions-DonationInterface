@@ -365,25 +365,92 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * FIXME: this function should contain the logic to compare form specs
-	 * with requested params, and 'getAllValidForms' should just loop over
-	 * the forms and call this function.
-	 * Checks to see if the ffname supplied is a valid form for the rest of the supplied params.
-	 * @param string $ffname The form name to check.
-	 * @param string $country Optional country code filter
-	 * @param string $currency Optional currency code filter
-	 * @param string $payment_method Optional payment method filter
-	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
-	 * @param boolean $recurring Whether or not we should return recurring forms. Default = false.
-	 * @param string $gateway Optional gateway to force.
-	 * @return bool True if the supplied form matches the requirements, otherwise false
+	 * Checks to see if the ffname supplied is a valid form matching
+	 * the donor's country and payment preferences.
+	 *
+	 * @param string $ffname The form name to check
+	 * @param array $prefs country and payment preferences, including:
+	 *  country Optional country code filter
+	 *  currency Optional currency code filter
+	 *  payment_method Optional payment method filter
+	 *  payment_submethod Optional payment submethod filter
+	 *   THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD
+	 *  recurring Whether we should return recurring forms (default false)
+	 *  gateway Optional gateway to force
+	 * @return bool True if the named form matches the requirements
 	 */
-	static function isValidForm( $ffname, $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false, $gateway = null ) {
-		$forms = self::getAllValidForms( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
-		if ( is_array( $forms ) && array_key_exists( $ffname, $forms ) ) {
+	public static function isValidForm( $ffname, $prefs = array() ) {
+		$form = self::getFormDefinition( $ffname );
+		if ( !$form ) {
+			return false;
+		}
+
+		// First make sure these match if present
+		$keyMap = array(
+			'country' => 'countries',
+			'gateway' => 'gateway',
+			'currency' => 'currencies',
+		);
+		foreach ( $keyMap as $prefKey => $formKey ) {
+			if (
+				!self::prefAllowedBySpec( $prefs, $prefKey, $form, $formKey )
+			) {
+				return false;
+			}
+		}
+
+		// Filter by method if supplied
+		if (
+			!empty( $prefs['payment_method'] ) &&
+			!empty( $form['payment_methods'] )
+		) {
+			$requestedMethod = $prefs['payment_method'];
+			$formMethods = $form['payment_methods'];
+			if ( !array_key_exists( $requestedMethod, $formMethods ) ) {
+				return false;
+			}
+			// Filter by submethod if we have enough info
+			if ( !empty( $prefs['payment_submethod'] ) ) {
+				$formSubmethods = $formMethods[$requestedMethod];
+				$submethod = $prefs['payment_submethod'];
+				if (
+				!DataValidator::value_appears_in( $submethod, $formSubmethods )
+				) {
+					return false;
+				}
+			}
+		}
+
+		// Any special form is valid if it got past those checks
+		if ( array_key_exists( 'special_type', $form ) ) {
 			return true;
 		}
-		return false;
+
+		// Make sure the form supports recurring if requested
+		$formIsRecurring = in_array( 'recurring', $form );
+		$wantRecurring = (
+			!empty( $prefs['recurring'] ) &&
+			$prefs['recurring'] !== '0' &&
+			$prefs['recurring'] !== 'false'
+		);
+		if ( $wantRecurring != $formIsRecurring ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	protected static function prefAllowedBySpec(
+		$prefs, $prefKey, $form, $formKey
+	) {
+		// we only filter on keys that exist
+		if ( empty( $prefs[$prefKey] ) || empty( $form[$formKey] ) ) {
+			return true;
+		}
+		$prefValue = $prefs[$prefKey];
+		$formSetting = $form[$formKey];
+
+		return DataValidator::value_appears_in( $prefValue, $formSetting );
 	}
 
 	/**

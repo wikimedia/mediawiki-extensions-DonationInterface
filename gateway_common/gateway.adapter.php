@@ -3060,9 +3060,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 		$data = $this->getData_Unstaged_Escaped();
 		//have to check to see if the last loaded form is *still* valid.
-		if ( GatewayFormChooser::isValidForm(
-			$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
-		) {
+		if ( GatewayFormChooser::isValidForm( $ffname, $data ) ) {
 			return $ffname;
 		} else {
 			return false;
@@ -3266,7 +3264,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->logger->info( "Attempting to set a valid form for the combination: " . $this->getLogDebugJSON() );
 
-		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $data ) ) {
 			return;
 		} else if ( $this->session_getLastFormName() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
 			$new_ff = $this->session_getLastFormName();
@@ -3274,7 +3272,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			//and debug log a little
 			$this->logger->debug( "Setting form to last successful ('$new_ff')" );
-		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $data ) ) {
 			//if the country-specific version exists, use that.
 			$this->addRequestData( array ( 'ffname' => $ffname . "-$country" ) );
 
