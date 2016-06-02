@@ -599,8 +599,8 @@ $forms_whitelist['astropay-uy'] = array(
 $forms_whitelist['adyen'] = array(
 	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'adyen',
-	'countries' => array( '+' => 'FR', 'IL', 'JP', 'UA', 'US', ),
-	'currencies' => array( '+' => 'EUR', 'ILS', 'JPY', 'UAH', 'USD', ),
+	'countries' => array( '+' => array( 'FR', 'IL', 'JP', 'UA', 'US', ), ),
+	'currencies' => array( '+' => array( 'EUR', 'ILS', 'JPY', 'UAH', 'USD', ), ),
 	'payment_methods' => array(
 		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb', ),
 	),
