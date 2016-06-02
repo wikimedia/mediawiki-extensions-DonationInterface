@@ -48,6 +48,10 @@ $wgResourceModules[ 'gc.form.rapidhtml.webitects' ] = array(
 	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
 	'remoteExtPath' => $wgGlobalCollectRapidHtmlRemoteExtPath,
 );
+/**
+ * This is sourced from inside the Ingenico-hosted iframe rather
+ * than referenced from our site. Please do not remove.
+ */
 $wgResourceModules[ 'gc.iframe' ] = array(
 	'styles' => 'css/iframe.css',
 	'localBasePath' => __DIR__ . '/../../globalcollect_gateway/forms',
