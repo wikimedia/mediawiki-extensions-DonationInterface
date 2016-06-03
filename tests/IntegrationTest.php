@@ -66,6 +66,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	public function testBackClickPayPalToGC() {
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'paypal';
+		$options['ffname'] = 'paypal';
 		$paypalRequest = $this->setUpRequest( $options );
 
 		$gateway = new TestingPaypalLegacyAdapter();
@@ -77,6 +78,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$this->assertEquals( '1', $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
 		//now, get GC.
 		$options['payment_method'] = 'cc';
+		unset( $options['ffname'] );
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
 		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
@@ -87,7 +89,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$errors = '';
 		if ( array_key_exists( LogLevel::ERROR, $this->testLogger->messages ) ) {
 			foreach ( $this->testLogger->messages[LogLevel::ERROR] as $msg ) {
-				$errors += "$msg\n";
+				$errors .= "$msg\n";
 			}
 		}
 		$this->assertEmpty( $errors, "The gateway error log had the following message(s):\n" . $errors );

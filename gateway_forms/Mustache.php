@@ -155,6 +155,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'street',
 		);
 		$required_fields = $this->gateway->getRequiredFields();
+		$data['show_personal_fields'] = !empty( $required_fields );
 		foreach( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 

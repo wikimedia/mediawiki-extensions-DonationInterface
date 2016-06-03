@@ -22,12 +22,14 @@
 								</div>
 							</td>
 						</tr>
+{{# show_personal_fields }}
 						<tr>
 							<td>
 								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif"></h3>
 							</td>
 						</tr>
 {{> personal_info }}
+{{/ show_personal_fields }}
 {{> payment_method }}
 						</tbody>
 					</table>
