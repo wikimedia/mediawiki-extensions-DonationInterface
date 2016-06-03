@@ -324,5 +324,16 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$result = $gateway->getScoreName();
 		$this->assertNotEquals( 0, $result, 'Bad name not detected');
 	}
+
+	public function TestSetValidationAction() {
+		$data = $this->getDonorTestData( 'FR' );
+		$gateway = $this->getFreshGatewayObject( $data );
+		$gateway->setValidationAction( 'process' );
+		$this->assertEquals( 'process', $gateway->getValidationAction(), 'Setup failed' );
+		$gateway->setValidationAction( 'reject' );
+		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Unable to escalate action' );
+		$gateway->setValidationAction( 'process' );
+		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'De-escalating action without reset!' );
+	}
 }
 
