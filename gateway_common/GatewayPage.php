@@ -53,12 +53,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected $logger;
 
 	/**
-	 * If set to true in constructor, execute() should immediately display fail page
-	 * @var bool
-	 */
-	private $isFailed = false;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -74,6 +68,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function execute( $par ) {
 		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
 
+		// FIXME: Deprecate "language" param.
+		$language = $this->getRequest()->getVal( 'language' );
+		if ( $language ) {
+			$this->getContext()->setLanguage( $language );
+			global $wgLang;
+			$wgLang = $this->getContext()->getLanguage(); // BackCompat
+		}
+
 		try {
 			$className = $this->getAdapterClass();
 			$this->adapter = new $className;
@@ -87,24 +89,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				);
 			}
 			$this->logger->error(
-				"Exception in GatewayPage constructor with adapter class {$this->getAdapterClass()}: " .
+				"Exception setting up GatewayPage with adapter class {$this->getAdapterClass()}: " .
 				    "{$ex->getMessage()}\n{$ex->getTraceAsString()}"
 			);
-			$this->isFailed = true;
-		}
-
-		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
-
-		// FIXME: Deprecate "language" param.
-		$language = $this->getRequest()->getVal( 'language' );
-		if ( $language ) {
-			$this->getContext()->setLanguage( $language );
-			global $wgLang;
-			$wgLang = $this->getContext()->getLanguage(); // BackCompat
-		}
-
-		if ( $this->isFailed ) {
-			// Constructor catastrophe, no point in continuing
+			// Setup scrambled, no point in continuing
 			$this->displayFailPage();
 			return;
 		}
@@ -120,6 +108,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getOutput()->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
 			return;
 		}
+
+		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
 
 		try {
 			$this->handleRequest();
