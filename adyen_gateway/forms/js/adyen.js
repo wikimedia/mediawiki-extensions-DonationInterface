@@ -7,13 +7,12 @@
 
 		var sendData,
 			$payment,
-			$pForm,
-			currency_code = 'USD';
+			$pForm;
 
 		sendData = {
 			action: 'donate',
 			gateway: 'adyen',
-			currency_code: currency_code,
+			currency_code: $( '#currency_code' ).val(),
 			amount: $( '#amount' ).val(),
 			fname: $( '#fname' ).val(),
 			lname: $( '#lname' ).val(),
