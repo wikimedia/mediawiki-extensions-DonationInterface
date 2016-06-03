@@ -62,6 +62,18 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Constructor
 	 */
 	public function __construct() {
+		$me = get_called_class();
+		parent::__construct( $me );
+	}
+
+	/**
+	 * Show the special page
+	 *
+	 * @param $par Mixed: parameter passed to the page or null
+	 */
+	public function execute( $par ) {
+		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
+
 		try {
 			$className = $this->getAdapterClass();
 			$this->adapter = new $className;
@@ -80,18 +92,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			);
 			$this->isFailed = true;
 		}
-
-		$me = get_called_class();
-		parent::__construct( $me );
-	}
-
-	/**
-	 * Show the special page
-	 *
-	 * @param $par Mixed: parameter passed to the page or null
-	 */
-	public function execute( $par ) {
-		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
 
 		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
 
