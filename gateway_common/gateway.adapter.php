@@ -242,6 +242,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->profiler = DonationLoggerFactory::getProfiler( $this );
 
+		$this->logger->info( "Creating a new adapter of type: [{$this->getGatewayName()}]" );
+
 		if ( !self::getGlobal( 'Test' ) ) {
 			$this->url = self::getGlobal( 'URL' );
 		} else {
