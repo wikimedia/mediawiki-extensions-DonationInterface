@@ -1143,12 +1143,6 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 	)
 );
 
-// minimum amounts for all currencies
-// FIXME: this is actually rates, remove
-$wgResourceModules[ 'di.form.core.minimums' ] = array(
-	'class' => 'CurrencyRatesModule',
-);
-
 // form validation resource
 $wgResourceModules[ 'di.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
