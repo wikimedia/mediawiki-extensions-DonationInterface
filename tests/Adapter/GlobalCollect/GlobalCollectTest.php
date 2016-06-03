@@ -235,7 +235,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$data = $gateway->getTransactionData();
 
-		$this->assertEquals( null, $data['CVVRESULT'], 'preprocess should stop API call if fraud detected' );
+		$this->assertFalse( $data, 'preprocess should stop API call if fraud detected' );
+		$this->assertEmpty( $gateway->curled, 'preprocess should stop API call if fraud detected' );
 	}
 
 	/**
