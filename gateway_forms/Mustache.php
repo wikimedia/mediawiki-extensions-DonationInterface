@@ -4,11 +4,6 @@
  * Gateway form rendering using Mustache
  */
 class Gateway_Form_Mustache extends Gateway_Form {
-	/**
-	 * @var string Janky way to keep track of the template file path that will
-	 * be used as the main entry point for rendering.
-	 */
-	protected $topLevelForm;
 
 	const EXTENSION = '.html.mustache';
 
@@ -30,10 +25,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function __construct( GatewayAdapter $gateway ) {
 		parent::__construct( $gateway );
 
-		// TODO: Don't hardcode like this.
-		global $wgDonationInterfaceTemplate;
-		$this->topLevelForm = $wgDonationInterfaceTemplate;
-		self::$baseDir = dirname( $this->topLevelForm );
+		self::$baseDir = dirname( $this->getTopLevelTemplate() );
 	}
 
 	/**
@@ -50,6 +42,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		self::$country = $data['country'];
 		self::$fieldErrors = $data['errors']['field'];
 
+		// FIXME: is this really necessary for rendering retry links?
+		if ( isset( $data['ffname'] ) ) {
+			$this->gateway->session_pushFormName( $data['ffname'] );
+		}
+
 		$options = array(
 			'helpers' => array(
 				'l10n' => 'Gateway_Form_Mustache::l10n',
@@ -58,7 +55,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'basedir' => array( self::$baseDir ),
 			'fileext' => self::EXTENSION,
 		);
-		return self::render( $this->topLevelForm, $data, $options );
+		return self::render( $this->getTopLevelTemplate(), $data, $options );
 	}
 
 	/**
@@ -105,7 +102,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$data['script_path'] = $this->scriptPath;
 		$data['verisign_logo'] = $this->getSmallSecureLogo();
-		$relativePath = $this->sanitizePath( $this->topLevelForm );
+		$relativePath = $this->sanitizePath( $this->getTopLevelTemplate() );
 		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
 		$data['action'] = $this->getNoCacheAction();
 
@@ -317,5 +314,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return array(
 			'ext.donationinterface.mustache.styles',
 		);
+	}
+
+	protected function getTopLevelTemplate() {
+		return $this->gateway->getGlobal( 'Template' );
 	}
 }

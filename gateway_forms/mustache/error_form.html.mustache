@@ -1,0 +1,19 @@
+<div class="error-box">
+		<h2>
+            {{{ l10n header_key }}}
+		</h2>
+        <p>
+            {{# error-cc }}
+                {{{ l10n "donate_interface-donate-error-try-again-html" ffname_retry ways_to_give problems_email }}}
+            {{/ error-cc }}
+            {{# error-noform }}
+                {{{ l10n "donate_interface-error-no-form-html" ways_to_give problems_email }}}
+            {{/ error-noform }}
+            {{# maintenance }}
+                {{{ l10n "donate_interface-otherways" }}}
+            {{/ maintenance }}
+        </p>
+        <p>
+            {{ l10n "donate_interface-donate-error-thank-you-for-your-support" }}
+        </p>
+</div>

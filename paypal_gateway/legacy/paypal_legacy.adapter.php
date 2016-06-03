@@ -30,6 +30,11 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 	}
 
 	public function getFormClass() {
+		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
+		if ( strpos( $ffname, 'error') === 0
+			|| strpos( $ffname, 'maintenance') === 0 ) {
+			return 'MustacheErrorForm';
+		}
 		return 'Gateway_Form_RapidHtml';
 	}
 

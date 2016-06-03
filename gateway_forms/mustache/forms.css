@@ -409,3 +409,14 @@ dd.field {
     margin-bottom: 0;
     margin-left: 0;
 }
+div.error-box {
+    margin: auto;
+    width: 70%;
+    border: solid black 2px;
+    padding: 20px;
+    text-align:center;
+    font-size: 1.5em;
+}
+div.error-box h2 {
+    color: red;
+}

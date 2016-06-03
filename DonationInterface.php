@@ -81,6 +81,7 @@ $wgAutoloadClasses['ValidationHelper'] = __DIR__ . '/gateway_common/ValidationHe
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = __DIR__ . '/gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_Mustache'] = __DIR__ . '/gateway_forms/Mustache.php';
+$wgAutoloadClasses['MustacheErrorForm'] = __DIR__ . '/gateway_forms/MustacheErrorForm.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = __DIR__ . '/gateway_forms/RapidHtml.php';
 $wgAutoloadClasses['CountryCodes'] = __DIR__ . '/gateway_forms/includes/CountryCodes.php';
 $wgAutoloadClasses['Subdivisions'] = __DIR__ . '/gateway_forms/includes/Subdivisions.php';
@@ -179,6 +180,11 @@ $wgDonationInterfaceTest = false;
  * Default top-level template file.
  */
 $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
+
+/**
+ * Top-level template file for error forms.
+ */
+$wgDonationInterfaceErrorTemplate = __DIR__ . '/gateway_forms/mustache/error_form.html.mustache';
 
 /**
  * Title to transclude in form template as {{{ appeal_text }}}.
