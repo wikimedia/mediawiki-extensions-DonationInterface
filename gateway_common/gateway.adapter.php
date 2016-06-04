@@ -3283,6 +3283,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		} else {
 			//Invalid form. Go get one that is valid, and squawk in the error logs.
 			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
+			if ( empty( $new_ff ) && $this->getGlobal( 'RapidFail' ) ) {
+				// No valid form exists and we want to display an error without a redirect
+				$new_ff = 'error-noform';
+			}
 			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//now construct a useful error message
