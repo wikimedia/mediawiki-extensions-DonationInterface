@@ -409,8 +409,6 @@ $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
-$wgPaypalGatewayHtmlFormDir = __DIR__ . '/paypal_gateway/forms/html';
-
 $wgPaypalGatewayXclickCountries = array();
 
 #	$wgPaypalGatewayAccountInfo['example'] = array(
@@ -431,8 +429,6 @@ $wgPaypalExpressGatewayAccountInfo['test'] = array(
 $wgPaypalExpressGatewayURL = 'https://api-3t.paypal.com/nvp';
 $wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 
-$wgAdyenGatewayHtmlFormDir = __DIR__ . '/adyen_gateway/forms/html';
-
 $wgAdyenGatewayURL = 'https://live.adyen.com';
 $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
 
@@ -442,7 +438,6 @@ $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
 #		'SkinCode' => '';
 #	);
 
-$wgAstroPayGatewayHtmlFormDir = __DIR__ . '/astropay_gateway/forms/html';
 // Set base URLs here.  Individual transactions have their own paths
 $wgAstroPayGatewayURL = 'https://astropaycard.com/';
 $wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
@@ -1195,10 +1190,8 @@ $wgDonationInterfaceAllowedHtmlForms = array();
  * Base directories for each gateway's form templates.
  */
 $wgDonationInterfaceFormDirs = array(
-	'adyen' => $wgAdyenGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-	'paypal' => $wgPaypalGatewayHtmlFormDir,
 	'worldpay' => $wgWorldpayGatewayHtmlFormDir,
 );
 

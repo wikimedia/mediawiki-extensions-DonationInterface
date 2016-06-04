@@ -125,7 +125,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['paypal'] = array (
-			'file' => $form_dirs['paypal'] . '/paypal.html',
 			'gateway' => 'paypal',
 			'payment_methods' => array ( 'paypal' => 'ALL' ),
 		);
