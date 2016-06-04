@@ -328,6 +328,7 @@ $forms_whitelist['cc'] = array(
 	'countries' => array('-' => 'VN')
 );
 
+// FIXME: is this still needed?
 /* Special case for Vietnam while GC is still having problems.
  * In the meantime: Visa & Mastercard, USD-only.
  */
@@ -442,7 +443,6 @@ $forms_whitelist['boletos'] = array(
 $forms_whitelist['paypal'] = array(
 	'gateway' => 'paypal',
 	'payment_methods' => array('paypal' => 'ALL'),
-	// FIXME: 'redirect' is not necessary?
 );
 
 $forms_whitelist['paypal-recurring'] = array(
