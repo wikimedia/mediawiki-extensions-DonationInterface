@@ -22,7 +22,7 @@ class DonationApi extends ApiBase {
 		}
 
 		$gatewayObj->revalidate();
-		if ( !$gatewayObj->validatedOK() ) {
+		if ( $gatewayObj->getAllErrors() ) {
 			$outputResult['errors'] = $gatewayObj->getAllErrors();
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );

@@ -23,7 +23,7 @@ class WorldpayValidateApi extends ApiBase {
 		// Do some validity checking and what not
 		if ( $adapter->checkTokens() ) {
 			$adapter->revalidate();
-			if ( !$adapter->validatedOK() ) {
+			if ( $adapter->getAllErrors() ) {
 				$this->getResult()->addValue( null, 'errors', $adapter->getAllErrors() );
 				return;
 			}

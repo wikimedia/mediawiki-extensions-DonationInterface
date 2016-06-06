@@ -110,6 +110,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
+		if ( $this->adapter->getFinalStatus() === FinalStatus::FAILED ) {
+			$this->logger->info( 'Displaying fail page for failed GatewayReady checks' );
+			$this->displayFailPage();
+			return;
+		}
+
 		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
 
 		try {
