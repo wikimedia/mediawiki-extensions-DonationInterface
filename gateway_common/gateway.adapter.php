@@ -83,7 +83,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	protected $account_name;
 	protected $account_config;
 	protected $accountInfo;
-	protected $url;
 	protected $transactions;
 
 	/**
@@ -244,12 +243,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->logger->info( "Creating a new adapter of type: [{$this->getGatewayName()}]" );
 
-		if ( !self::getGlobal( 'Test' ) ) {
-			$this->url = self::getGlobal( 'URL' );
-		} else {
-			$this->url = self::getGlobal( 'TestingURL' );
-		}
-
 		// so we know we can skip all the visual stuff.
 		if ( $options['api_request'] ) {
 			$this->setApiRequest();
@@ -320,6 +313,22 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			return $this->config[$key];
 		}
 		return null;
+	}
+
+	/**
+	 * Return the base URL to use for the current transaction.
+	 *
+	 * Some adapters will append a path component and query parameters.
+	 * That variation should be handled by the request controller.  Customize
+	 * things like varying server endpoints by overriding this function.
+	 */
+	protected function getProcessorUrl() {
+		if ( !self::getGlobal( 'Test' ) ) {
+			$url = self::getGlobal( 'URL' );
+		} else {
+			$url = self::getGlobal( 'TestingURL' );
+		}
+		return $url;
 	}
 
 	// For legacy support.
@@ -1028,7 +1037,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
 				$this->transaction_response->setCommunicationStatus( true );
-				$this->transaction_response->setRedirect( $this->url );
+
+				// Build the redirect URL.
+				$redirectUrl = $this->getProcessorUrl();
+				$redirectParams = $this->buildRequestParams();
+				if ( $redirectParams ) {
+					// Add GET parameters, if provided.
+					$redirectUrl .= '?' . http_build_query( $redirectParams );
+				}
+
+				$this->transaction_response->setRedirect( $redirectUrl );
+
 				return $this->transaction_response;
 
 			} elseif ( $commType === 'xml' ) {
@@ -1161,7 +1180,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$path = '';
 		}
 		$opts = array(
-			CURLOPT_URL => $this->url . $path,
+			CURLOPT_URL => $this->getProcessorUrl() . $path,
 			CURLOPT_USERAGENT => WmfFramework::getUserAgent(),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1,
@@ -1209,21 +1228,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		} else {
 			$this->current_transaction = $transaction_name;
 		}
-
-		// XXX WIP
-		$override_options = array(
-			'url',
-		);
-		foreach ( $override_options as $key ) {
-			$override_val = $this->transaction_option( $key );
-			// XXX this hack should probably be pushed down to something
-			// like "setTransactionOptions" so that we can override with
-			// a NULL value when we need to
-			if ( $override_val !== NULL ) {
-				$this->$key = $override_val;
-			}
-		}
-
 	}
 
 	public function getCurrentTransaction() {
@@ -1878,6 +1882,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 	}
 
+	/**
+	 * Build the parameters sent with the next request.
+	 *
+	 * @return array Parameters as a map.
+	 */
 	protected function buildRequestParams() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
