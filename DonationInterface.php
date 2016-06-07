@@ -81,6 +81,7 @@ $wgAutoloadClasses['ValidationHelper'] = __DIR__ . '/gateway_common/ValidationHe
 //load all possible form classes
 $wgAutoloadClasses['Gateway_Form'] = __DIR__ . '/gateway_forms/Form.php';
 $wgAutoloadClasses['Gateway_Form_Mustache'] = __DIR__ . '/gateway_forms/Mustache.php';
+$wgAutoloadClasses['MustacheErrorForm'] = __DIR__ . '/gateway_forms/MustacheErrorForm.php';
 $wgAutoloadClasses['Gateway_Form_RapidHtml'] = __DIR__ . '/gateway_forms/RapidHtml.php';
 $wgAutoloadClasses['CountryCodes'] = __DIR__ . '/gateway_forms/includes/CountryCodes.php';
 $wgAutoloadClasses['Subdivisions'] = __DIR__ . '/gateway_forms/includes/Subdivisions.php';
@@ -179,6 +180,11 @@ $wgDonationInterfaceTest = false;
  * Default top-level template file.
  */
 $wgDonationInterfaceTemplate = __DIR__ . '/gateway_forms/mustache/index.html.mustache';
+
+/**
+ * Top-level template file for error forms.
+ */
+$wgDonationInterfaceErrorTemplate = __DIR__ . '/gateway_forms/mustache/error_form.html.mustache';
 
 /**
  * Title to transclude in form template as {{{ appeal_text }}}.
@@ -403,8 +409,6 @@ $wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 $wgPaypalGatewayRecurringLength = '0'; // 0 should mean forever
 
-$wgPaypalGatewayHtmlFormDir = __DIR__ . '/paypal_gateway/forms/html';
-
 $wgPaypalGatewayXclickCountries = array();
 
 #	$wgPaypalGatewayAccountInfo['example'] = array(
@@ -425,8 +429,6 @@ $wgPaypalExpressGatewayAccountInfo['test'] = array(
 $wgPaypalExpressGatewayURL = 'https://api-3t.paypal.com/nvp';
 $wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 
-$wgAdyenGatewayHtmlFormDir = __DIR__ . '/adyen_gateway/forms/html';
-
 $wgAdyenGatewayURL = 'https://live.adyen.com';
 $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
 
@@ -436,7 +438,6 @@ $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
 #		'SkinCode' => '';
 #	);
 
-$wgAstroPayGatewayHtmlFormDir = __DIR__ . '/astropay_gateway/forms/html';
 // Set base URLs here.  Individual transactions have their own paths
 $wgAstroPayGatewayURL = 'https://astropaycard.com/';
 $wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/';
@@ -1126,12 +1127,6 @@ $wgResourceModules[ 'ext.donationInterface.errorMessages' ] = array(
 	)
 );
 
-// minimum amounts for all currencies
-// FIXME: this is actually rates, remove
-$wgResourceModules[ 'di.form.core.minimums' ] = array(
-	'class' => 'CurrencyRatesModule',
-);
-
 // form validation resource
 $wgResourceModules[ 'di.form.core.validate' ] = array(
 	'scripts' => 'validate_input.js',
@@ -1184,10 +1179,8 @@ $wgDonationInterfaceAllowedHtmlForms = array();
  * Base directories for each gateway's form templates.
  */
 $wgDonationInterfaceFormDirs = array(
-	'adyen' => $wgAdyenGatewayHtmlFormDir,
 	'default' => $wgDonationInterfaceHtmlFormDir,
 	'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-	'paypal' => $wgPaypalGatewayHtmlFormDir,
 	'worldpay' => $wgWorldpayGatewayHtmlFormDir,
 );
 

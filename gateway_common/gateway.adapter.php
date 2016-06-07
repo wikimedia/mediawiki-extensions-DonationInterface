@@ -2103,8 +2103,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
 		if ( strpos( $ffname, 'error') === 0
 			|| strpos( $ffname, 'maintenance') === 0 ) {
-			// TODO: make a mustache error form
-			return 'Gateway_Form_RapidHtml';
+			return 'MustacheErrorForm';
 		}
 		return 'Gateway_Form_Mustache';
 	}
@@ -3241,7 +3240,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// Mustache forms don't need the ffname. They only need form
 		// settings for the chooser to select the right special page.
-		if ( $this->getFormClass() === 'Gateway_Form_Mustache' ) {
+		if ( preg_match( '/Mustache/', $this->getFormClass() ) ) {
 			return;
 		}
 
@@ -3284,6 +3283,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		} else {
 			//Invalid form. Go get one that is valid, and squawk in the error logs.
 			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
+			if ( empty( $new_ff ) && $this->getGlobal( 'RapidFail' ) ) {
+				// No valid form exists and we want to display an error without a redirect
+				$new_ff = 'error-noform';
+			}
 			$this->addRequestData( array ( 'ffname' => $new_ff ) );
 
 			//now construct a useful error message

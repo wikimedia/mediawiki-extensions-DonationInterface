@@ -328,6 +328,7 @@ $forms_whitelist['cc'] = array(
 	'countries' => array('-' => 'VN')
 );
 
+// FIXME: is this still needed?
 /* Special case for Vietnam while GC is still having problems.
  * In the meantime: Visa & Mastercard, USD-only.
  */
@@ -440,14 +441,11 @@ $forms_whitelist['boletos'] = array(
  *************************/
 
 $forms_whitelist['paypal'] = array(
-	'file' => $form_dirs['paypal'] . '/paypal.html',
 	'gateway' => 'paypal',
 	'payment_methods' => array('paypal' => 'ALL'),
-	// FIXME: 'redirect' is not necessary?
 );
 
 $forms_whitelist['paypal-recurring'] = array(
-	'file' => $form_dirs['paypal'] . '/paypal-recurring.html',
 	'gateway' => 'paypal',
 	'payment_methods' => array('paypal' => 'ALL'),
 	'recurring',
@@ -461,7 +459,6 @@ $forms_whitelist['paypal-recurring'] = array(
  * AstroPay *
  ************/
 $forms_whitelist['astropay'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'BR' ),
 	'currencies' => array( '+' => 'BRL' ),
@@ -488,7 +485,6 @@ $forms_whitelist['astropay'] = array(
 	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-ar'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'AR' ),
 	'currencies' => array( '+' => 'ARS' ),
@@ -516,7 +512,6 @@ $forms_whitelist['astropay-ar'] = array(
 	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-cl'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'CL' ),
 	'currencies' => array( '+' => 'CLP' ),
@@ -538,7 +533,6 @@ $forms_whitelist['astropay-cl'] = array(
 	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-co'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'CO' ),
 	'currencies' => array( '+' => 'COP' ),
@@ -560,7 +554,6 @@ $forms_whitelist['astropay-co'] = array(
 	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-mx'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'MX' ),
 	'currencies' => array( '+' => 'MXN' ),
@@ -581,7 +574,6 @@ $forms_whitelist['astropay-mx'] = array(
 	'selection_weight' => 110,
 );
 $forms_whitelist['astropay-uy'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'UY' ),
 	'currencies' => array( '+' => 'UYU' ),
@@ -597,7 +589,6 @@ $forms_whitelist['astropay-uy'] = array(
  * Adyen *
  **********/
 $forms_whitelist['adyen'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'adyen',
 	'countries' => array( '+' => array( 'FR', 'IL', 'JP', 'UA', 'US', ), ),
 	'currencies' => array( '+' => array( 'EUR', 'ILS', 'JPY', 'UAH', 'USD', ), ),
@@ -623,7 +614,6 @@ $forms_whitelist['adyen'] = array(
 
 // Worldpay ESOP feat iframe
 $forms_whitelist['wp-if'] = array(
-	'file' => __DIR__ . '/gateway_forms/mustache/index.html.mustache',
 	'gateway' => 'worldpay',
 	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
 	'currencies' => array( '+' => 'ALL' ),
@@ -664,19 +654,16 @@ $forms_whitelist['wp-if'] = array(
  * *********** */
 
 $forms_whitelist['error-default'] = array (
-	'file' => $form_dirs['default'] . '/error-cc.html',
 	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
-	'special_type' => 'error', //buuuurble
+	'special_type' => 'error',
 );
 
 $forms_whitelist['error-noform'] = array (
-	'file' => $form_dirs['default'] . '/error-noform.html',
 	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-cc'] = array (
-	'file' => $form_dirs['default'] . '/error-cc.html',
 	'gateway' => array ( 'globalcollect', 'adyen', 'astropay', 'worldpay' ),
 	'payment_methods' => array ( 'cc' => 'ALL' ),
 	'special_type' => 'error',

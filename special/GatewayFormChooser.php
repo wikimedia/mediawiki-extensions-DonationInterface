@@ -112,9 +112,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @throw UnexpectedValueException
 	 */
 	static function buildPaymentsFormURL( $form_key, $other_params = array ( ) ) {
+		global $wgDonationInterfaceDefaultAppeal;
+
 		// And... construct the URL
 		$params = array (
-			'appeal' => "JimmyQuote",
+			'appeal' => $wgDonationInterfaceDefaultAppeal,
 			'ffname' => $form_key,
 		);
 

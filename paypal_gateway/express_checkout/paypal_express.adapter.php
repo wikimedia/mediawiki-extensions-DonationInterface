@@ -29,10 +29,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return 'query_string';
 	}
 
-	public function getFormClass() {
-		return 'Gateway_Form_Mustache';
-	}
-
 	function defineStagedVars() { }
 
 	function defineAccountInfo() {

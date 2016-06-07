@@ -1,4 +1,8 @@
 {
-	"@metadata": [],
-	"astropay_gateway-desc": "{{desc}}"
+	"@metadata": {
+		"authors": [
+			"Tusca"
+		]
+	},
+	"astropay_gateway-desc": "Pago AstroPay procesado."
 }

@@ -226,6 +226,7 @@ window.validate_personal = function () {
 	// validate email address
 	$emailAdd = document.getElementById( 'email' );
 	if (
+		$emailAdd &&
 		$.trim( $emailAdd.value ) &&
 		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' )
 	) {

@@ -29,10 +29,6 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		return 'redirect';
 	}
 
-	public function getFormClass() {
-		return 'Gateway_Form_RapidHtml';
-	}
-
 	function __construct( $options = array() ) {
 		parent::__construct( $options );
 
