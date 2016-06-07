@@ -178,4 +178,20 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::$instance;
 	}
 
+	/**
+	 * Gets the action calculated on the last filter run. If there are no
+	 * risk scores stored in session, throws a RuntimeException. Even if
+	 * all filters are disabled, we should have stored 'initial' => 0.
+	 *
+	 * @param GatewayType $gateway_adapter
+	 * @return string
+	 */
+	public static function determineStoredAction( GatewayType $gateway_adapter ) {
+		if (
+			!$gateway_adapter->getRequest()->getSessionData( 'risk_scores' )
+		) {
+			throw new RuntimeException( 'No stored risk scores' );
+		}
+		return self::singleton( $gateway_adapter )->determineAction();
+	}
 }

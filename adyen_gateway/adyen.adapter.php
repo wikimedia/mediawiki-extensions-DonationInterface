@@ -200,22 +200,12 @@ class AdyenAdapter extends GatewayAdapter {
 					// Add the risk score to our data. This will also trigger
 					// staging, placing the risk score in the constructed URL
 					// as 'offset' for use in processor-side fraud filters.
+					// Whatever the risk score, we're going to show them the
+					// card entry iframe. If it's sorta-fraudy, the listener
+					// will leave it for manual review. If it's hella fraudy
+					// the listener will cancel it.
 					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) );
-					if ( $this->getValidationAction() != 'process' ) {
-						// copied from base class.
-						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-						$message = $this->getErrorMapByCodeAndTranslate( 'internal-0000' );
-						$this->transaction_response->setCommunicationStatus( false );
-						$this->transaction_response->setMessage( $message );
-						$this->transaction_response->setErrors( array(
-							'internal-0000' => array(
-								'message' => $message,
-								'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
-								'logLevel' => LogLevel::INFO
-							),
-						) );
-						break;
-					}
+
 					$requestParams = $this->buildRequestParams();
 
 					$this->transaction_response->setData( array(
@@ -305,8 +295,22 @@ class AdyenAdapter extends GatewayAdapter {
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
-			$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
-			$this->finalizeInternalStatus( FinalStatus::PENDING );
+			// We should still have risk scores in the session from before we
+			// showed the iframe. What did we decide then? Show a fail page if
+			// the donation was fishy enough that our listener isn't going to
+			// auto-capture it, so as not to tell carders the auth worked.
+			// FIXME: need to keep action ranges in sync between DI and listener.
+			$action = Gateway_Extras_CustomFilters::determineStoredAction( $this );
+			if ( $action === 'process' ) {
+				$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
+				$this->finalizeInternalStatus( FinalStatus::PENDING );
+			} else {
+				$this->logger->info(
+					"User came back authorized but with action $action. " .
+					"Showing a fail page, but leaving details in case of manual capture."
+				);
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
+			}
 		}
 		else {
 			$this->deleteLimboMessage( 'pending' );
