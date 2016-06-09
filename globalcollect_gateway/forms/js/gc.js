@@ -80,7 +80,7 @@ window.displayCreditCardForm = function () {
 					$( '#payment' ).empty(); // Hide spinner
 					mediaWiki.donationInterface.validation.showErrors( data.result.errors );
 					$( '#paymentContinue' ).show(); // Show continue button in 2nd section
-				} else if ( data.result.formaction || data.result.testform ) {
+				} else if ( data.result.formaction ) {
 					mediaWiki.generatePaymentForm( data );
 				}
 			}

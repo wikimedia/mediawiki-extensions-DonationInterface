@@ -64,9 +64,6 @@ class DonationApi extends ApiBase {
 			if ( array_key_exists( 'gateway_params', $data ) ) {
 				$outputResult['gateway_params'] = $data['gateway_params'];
 			}
-			if ( $gatewayObj->getMerchantID() === 'test' ) {
-				$outputResult['testform'] = true;
-			}
 			if ( array_key_exists( 'RESPMSG', $data ) ) {
 				$outputResult['responsemsg'] = $data['RESPMSG'];
 			}
